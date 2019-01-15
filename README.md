@@ -1,3 +1,5 @@
+![SunEngine Logo](https://raw.githubusercontent.com/Dmitrij-Polyanin/SunEngine/master/Client/src/statics/SunEngine.svg)
+
 # SunEngine
 
 Движок сайта - форум, статьи, блог.
