@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using LinqToDB;
@@ -32,12 +33,32 @@ namespace SunEngine.Seeder
 
         public DataContainer Seed()
         {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Data seed in memory:");
+            Console.ResetColor();
+            
+            Console.WriteLine("OperationKeys");
+            
             SeedOperationKeys();
+            
+            Console.WriteLine("Users");
+            
             SeedUsers();
+            
+            Console.WriteLine("Categories");
+            
             SeedCategories();
+            
+            Console.WriteLine("UserGroups");
+            
             SeedUserGroups();
+            
+            Console.WriteLine("AssignUsersToRoles");
+            
             RegisterUsers();
+            
             AssignUsersToRoles();
+            
             return dataContainer;
         }
 

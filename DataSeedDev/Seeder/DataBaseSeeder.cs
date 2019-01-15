@@ -1,3 +1,4 @@
+using System;
 using System.Data.Odbc;
 using System.Data.SqlClient;
 using System.Linq;
@@ -29,14 +30,36 @@ namespace SunEngine.Seeder
                 KeepIdentity = true
             };
             
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Data seed in DataBase:");
+            Console.ResetColor();
+
+            
+            Console.WriteLine("Categories");
             db.BulkCopy(options,dataContainer.Categories);
+            
+            Console.WriteLine("Users");
             db.BulkCopy(options,dataContainer.Users);
+            
+            Console.WriteLine("Materials");
             db.BulkCopy(options,dataContainer.Materials);
+            
+            Console.WriteLine("Messages");
             db.BulkCopy(options,dataContainer.Messages);
+            
+            Console.WriteLine("UserGroups");
             db.BulkCopy(options,dataContainer.UserGroups);
+            
+            Console.WriteLine("IdentityUserRoles");
             db.BulkCopy(options,dataContainer.IdentityUserRoles);
+            
+            Console.WriteLine("OperationKeys");
             db.BulkCopy(options,dataContainer.OperationKeys);
+            
+            Console.WriteLine("CategoryAccesses");
             db.BulkCopy(options,dataContainer.CategoryAccesses);
+            
+            Console.WriteLine("CategoryOperationAccesses");
             db.BulkCopy(options,dataContainer.CategoryOperationAccesses);
             
             /*db.BulkCopy(options,dataContainer.Categories);
