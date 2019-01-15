@@ -61,7 +61,7 @@
 #### Установка и запуск SunEngine
 - Клонировать репозиторий SunEngine с GitHub.
 - Создать на MySql пустую базу c названием `<DataBaseName>`.
-- Переименовать `SunEngine/DataBaseConnectionExample.json` в `SunEngine/DataBaseConnection.json`.
+- Переименовать `SunEngine/_DataBaseConnection.json` в `SunEngine/DataBaseConnection.json`.
 - Указать название базы и `ConnectionString` в файле `SunEngine/DataBaseConnection.json`.
 - Запустить проект Migrations. Произойдёт создание таблиц.
 - Запустить проект DataSeedDev. Заполнение таблиц тестовыми данными.

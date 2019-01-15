@@ -173,7 +173,7 @@ namespace SunEngine
                             "https://sunengine.mi:5005",
                             "http://sunengine.local:5005",
                             "https://sunengine.local:5005")
-                        .AllowCredentials().AllowAnyHeader().AllowAnyMethod());
+                        .AllowAnyOrigin().AllowCredentials().AllowAnyHeader().AllowAnyMethod());
             }
 
             app.UseAuthentication();
