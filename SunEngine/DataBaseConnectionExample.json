@@ -1,0 +1,6 @@
+{
+  "DataBaseConnection": {
+    "Provider": "MySql",
+    "ConnectionString": "server=localhost;database=SunEngineDb;user=username;password=password"
+  }
+}

@@ -1,0 +1,10 @@
+[
+  {
+    "Name": "Blog",
+    "Title": "Блог",
+    "AreaRoot": true,
+    "ChildrenType": "Materials",
+    "MaterialsCount": 15,
+    "MaterialLinesCount": "3-30"
+  }
+]

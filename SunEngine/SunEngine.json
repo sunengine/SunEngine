@@ -1,0 +1,53 @@
+{
+  "SiteUrl": "http://localhost:5005/",
+  
+  "Images": {
+    "UploadDir": "UploadImages",
+    "MaxWidthPixels": 1200,
+    "MaxHeightPixels": 800,
+    "PhotoMaxWidthPixels": 500,
+    "PhotoMaxHeightPixels": 500,
+    "AvatarSizePixels": 300,
+    "DoResize": true
+  },
+  
+  "Messages": {
+    "MessagesTimeToOwnEditInMinutes": 15,
+    "MessagesTimeToOwnDeleteInMinutes": 15
+  },
+
+  "Material" : {
+    "MaterialMessagesPageSize": 5,
+    "MaterialsTimeToOwnEditInMinutes": 15,
+    "MaterialsTimeToOwnDeleteInMinutes": 15,
+    "MaterialsTimeToOwnMoveInMinutes": 15,
+    "MaterialDescriptionLength" : 80,
+    "MaterialPreviewLength" : 850
+  },
+  
+  "Forum": {
+    "ThreadMaterialsPageSize": 5,
+    "NewTopicsPageSize": 5,
+    "NewTopicsMaxPages": 8
+  },
+  
+  "Articles": {
+    "ArticlesCategoryPageSize": 8
+  },
+  
+  "Blog": {
+    "PostsPageSize": 8
+  },
+  
+  "Jwt": {
+    "SecurityKey": "15810a26-ee1c-4ced-9078-f2d92f23ee0f",
+    "Issuer": "SunEngine Asp.net Core",
+    "SecurityKeyEmailChange": "A62C348C-A183-4615-A067-BC920BF91969"
+  },
+  
+  "Email": {
+    "smtpConfig": "username:password@127.0.0.1:1025",
+    "emailFromName": "SunEngine",
+    "emailFromAddress": "system@sunengine.site"
+  }
+}

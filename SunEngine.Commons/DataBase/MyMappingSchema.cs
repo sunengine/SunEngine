@@ -1,0 +1,70 @@
+using LinqToDB.Identity;
+using LinqToDB.Mapping;
+using SunEngine.Commons.Models;
+using SunEngine.Commons.Models.UserGroups;
+
+namespace SunEngine.Commons.DataBase
+{
+    public class MyMappingSchema : MappingSchema
+    {
+        public MyMappingSchema()
+        {
+            var mp = GetFluentMappingBuilder();
+            mp.Entity<User>()
+                .HasTableName("AspNetUsers")
+                .HasIdentity(x => x.Id).HasPrimaryKey(x=>x.Id);
+            
+            mp.Entity<UserGroupDB>()
+                .HasTableName("AspNetRoles")
+                .HasIdentity(x => x.Id).HasPrimaryKey(x=>x.Id);
+
+            mp.Entity<Category>()
+                .HasTableName("Categories")
+                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
+                .Association(x => x.Materials, x => x.Id,x=>x.CategoryId);
+            
+            mp.Entity<OperationKeyDB>()
+                .HasTableName("OperationKeys")
+                .HasIdentity(x => x.OperationKeyId).HasPrimaryKey(x=>x.OperationKeyId);
+
+            mp.Entity<CategoryAccessDB>()
+                .HasTableName("CategoryAccesses")
+                .HasIdentity(x => x.Id).HasPrimaryKey(x=>x.Id);
+
+            mp.Entity<CategoryOperationAccessDB>()
+                .HasTableName("CategoryOperationAccesses")
+                .HasPrimaryKey(x => new {x.CategoryAccessId, x.OperationKeyId});
+
+            mp.Entity<Material>()
+                .HasTableName("Materials")
+                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
+                .Association(x => x.Messages, (x, y) => x.Id == y.MaterialId)
+                .Association(x => x.TagMaterials, (x, y) => x.Id == y.MaterialId)
+                .Association(x => x.Author, x => x.AuthorId, x => x.Id)
+                .Association(x => x.LastMessage, x => x.LastMessageId, x => x.Id)
+                .Association(x => x.Category, x => x.CategoryId, x => x.Id);
+
+            mp.Entity<Message>()
+                .HasTableName("Messages")
+                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
+                .Association(x => x.Author, x => x.AuthorId, x => x.Id)
+                .Association(x => x.Material, x => x.MaterialId, x => x.Id);
+
+            mp.Entity<Tag>()
+                .HasTableName("Tags")
+                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id);
+
+            mp.Entity<TagMaterial>()
+                .HasTableName("TagMaterials")
+                .HasPrimaryKey(x => new {x.TagId, x.MaterialId})
+                .Association(x => x.Tag, x => x.TagId, x => x.Id)
+                .Association(x => x.Material, x => x.MaterialId, x => x.Id);
+
+            mp.Entity<IdentityUserRole<int>>()
+                .HasTableName("AspNetUserRoles")
+                .HasPrimaryKey(x => new {x.UserId, x.RoleId});
+
+
+        }
+    }
+}

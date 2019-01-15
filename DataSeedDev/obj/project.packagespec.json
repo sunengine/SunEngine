@@ -1,0 +1,63 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "/home/okeanij/Projects/SunEngine/DataSeedDev/DataSeedDev.csproj",
+    "projectName": "DataSeedDev",
+    "projectPath": "/home/okeanij/Projects/SunEngine/DataSeedDev/DataSeedDev.csproj",
+    "outputPath": "/home/okeanij/Projects/SunEngine/DataSeedDev/obj/",
+    "projectStyle": "PackageReference",
+    "fallbackFolders": [
+      "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+    ],
+    "originalTargetFrameworks": [
+      "netcoreapp2.2"
+    ],
+    "frameworks": {
+      "netcoreapp2.2": {
+        "projectReferences": {
+          "/home/okeanij/Projects/SunEngine/SunEngine.Commons/SunEngine.Commons.csproj": {
+            "projectPath": "/home/okeanij/Projects/SunEngine/SunEngine.Commons/SunEngine.Commons.csproj"
+          }
+        }
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp2.2": {
+      "dependencies": {
+        "Microsoft.Extensions.Configuration.Json": {
+          "target": "Package",
+          "version": "[2.2.0, )"
+        },
+        "Microsoft.NETCore.App": {
+          "suppressParent": "All",
+          "target": "Package",
+          "version": "[2.2.0, )",
+          "autoReferenced": true
+        },
+        "MySql.Data": {
+          "target": "Package",
+          "version": "[8.0.13, )"
+        },
+        "linq2db": {
+          "target": "Package",
+          "version": "[2.6.2, )"
+        },
+        "linq2db.Identity": {
+          "target": "Package",
+          "version": "[2.0.1, )"
+        }
+      },
+      "imports": [
+        "net461"
+      ],
+      "assetTargetFallback": true,
+      "warn": true
+    }
+  }
+}

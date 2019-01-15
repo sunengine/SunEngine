@@ -1,0 +1,114 @@
+﻿[
+  {
+    "Name": "Registered",
+    "Title": "Пользователь",
+    "Categories": [
+      {
+        "Category": "Forum",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true,
+          "MaterialWrite": true,
+          "MessageWrite": true,
+          "MaterialEditOwn": true,
+          "MessageEditOwn": true,
+          "MaterialDeleteOwn": true,
+          "MessageDeleteOwn": true,
+        }
+      },
+      {
+        "Category": "NoAddMaterials",
+        "OperationKeys": {
+          "MaterialWrite": false,
+          "MessageWrite": true
+        }
+      },
+      {
+        "Category": "NoAddMaterialsAndMessages",
+        "OperationKeys": {
+          "MaterialWrite": false,
+          "MessageWrite": false
+        }
+      },
+      {
+        "Category": "NoEditOwnThread",
+        "OperationKeys": {
+          "MaterialEditOwn": false,
+          "MessageEditOwn": false,
+          "MaterialDeleteOwn": false,
+          "MessageDeleteOwn": false
+        }
+      },
+      {
+        "Category": "Forum2L",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true,
+          "MaterialWrite": true,
+          "MessageWrite": true
+        }
+      },
+      {
+        "Category": "Articles",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true,
+          "MessageWrite": true
+        }
+      },
+      {
+        "Category": "Blog",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true,
+          "MaterialWrite": true,
+          "MessageWrite": true
+        }
+      }
+    ]
+  },
+  {
+    "Name": "Unregistered",
+    "Title" : "Гость",
+    "Categories": [
+      {
+        "Category": "Forum",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true
+        }
+      },
+      {
+        "Category": "Forum2L",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true
+        }
+      },
+      {
+        "Category": "OnlyForRegistredThread",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": false
+        }
+      },
+      {
+        "Category": "Blog",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true
+        }
+      },
+      {
+        "Category": "Articles",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true
+        }
+      }
+    ]
+  },
+  {
+    "Name": "TestGroup1",
+    "Title": "Тестовая группа 1"
+  },
+  {
+    "Name": "TestGroup2",
+    "Title": "Тестовая группа 2"
+  },
+  {
+    "Name": "Admin",
+    "Title": "Администратор"
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "Name": "Test[n]",
+    "Title": "Тест[n]",
+    "AreaRoot": true,
+    "ChildrenType": "Materials",
+    "Repeat": 4,
+    "SubCategories": [
+      {
+        "Name": "Test-D-[nn]-[n]-Start",
+        "Title": "Тест-Г-[nn]-[n]-Старт",
+        "ChildrenType": "Materials"
+      },
+      {
+        "Name": "Test-D-[nn]-[n]",
+        "Title": "Тест-Г-[nn]-[n]",
+        "ChildrenType": "Materials",
+        "Repeat": 3
+      },
+      {
+        "Name": "Test-D-[nn]-[n]-End",
+        "Title": "Тест-Г-[nn]-[n]-Конец",
+        "ChildrenType": "Materials"
+      }
+    ]
+  }
+]

@@ -1,0 +1,42 @@
+﻿[
+  {
+    "Name": "Forum",
+    "Title": "Форум",
+    "AreaRoot": true,
+    "ChildrenType": "Categories",
+    "SubCategories": [
+      {
+        "Name": "Thread[n]",
+        "Title": "Раздел [n]",
+        "ChildrenType": "Materials",
+        "Repeat": 2
+      },
+      {
+        "Name": "ThreadWithHeader",
+        "Title": "Раздел с шапкой",
+        "ChildrenType": "Materials",
+        "Header": "<div style=\"background-color:#FFEBE3; padding:10px\">Шапка категории<br/>текст шапки, текст шапки<br/>текст шапки, текст шапки</div>"
+      },
+      {
+        "Name": "NoAddMaterials",
+        "Title": "Без добавления материалов",
+        "ChildrenType": "Materials",
+      },
+      {
+        "Name": "NoAddMaterialsAndMessages",
+        "Title": "Без добавления полное",
+        "ChildrenType": "Materials",
+      },
+      {
+        "Name": "OnlyForRegistredThread",
+        "Title": "Только для зарегистрированных",
+        "ChildrenType": "Materials",
+      },
+      {
+        "Name": "NoEditOwnThread",
+        "Title": "Без редактирования своих",
+        "ChildrenType": "Materials",
+      }
+    ]
+  }
+]

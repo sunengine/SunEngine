@@ -1,0 +1,130 @@
+@import '~variables';
+@import 'fonts/BoomBoomRegular.css';
+
+body {
+  color: #06000d;
+}
+
+.center {
+  text-align: center;
+}
+
+.text-img {
+  max-width: 100%;
+}
+
+.full-center {
+  align-content: center;
+  justify-content: center;
+  align-items: center
+}
+
+.avatar {
+  width: 38px;
+  border-radius: 15px;
+}
+
+
+a {
+  text-decoration: none;
+  color: #3a67d3;
+}
+
+.clear {
+  clear: both;
+}
+
+.header-with-button {
+  display: flex;
+  align-items: center;
+  align-content: center
+
+  h2 {
+    flex-grow: 1;
+  }
+
+  button {
+    margin-right: 16px;
+  }
+}
+
+// Colors
+
+.bg-post {
+  background-color: #66f532 !important;
+}
+
+.bg-send {
+  background-color: #66f532 !important;
+}
+
+.text-send {
+  color: #66f532 !important;
+}
+
+
+.bg-pagination {
+  background-color: #66f532 !important;
+}
+
+.text-pagination {
+  color: $primary !important;
+}
+
+
+.q-pagination {
+  button {
+    color: $secondary !important;
+  }
+}
+
+.desktop { // Editor multiline toolbar for desktop
+
+  .q-editor-toolbar-padding {
+    flex-wrap: wrap !important;
+  }
+
+  .q-editor-toolbar .q-btn-group + .q-btn-group {
+    margin-left: unset !important;
+    margin-right: 5px !important;
+  }
+
+  .q-editor-toolbar-separator .q-btn-group + .q-btn-group {
+    padding-left: unset !important;
+    padding-right: 5px !important;
+  }
+
+  .q-editor-toolbar-separator .q-btn-group + .q-btn-group:before {
+    content: unset !important;
+    position: unset !important;
+    right: unset !important;
+    top: unset !important;
+    bottom: unset !important;
+    height: unset !important;
+    width: unset !important;
+    background: unset !important;
+  }
+
+
+  .q-editor-toolbar-separator .q-btn-group + .q-btn-group:after {
+    content: ' ';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 1px;
+    background: #ccc !important;
+  }
+
+  .q-editor-toolbar-separator .q-btn-group:last-child:after {
+    content: unset !important;
+    position: unset !important;
+    right: unset !important;
+    top: unset !important;
+    bottom: unset !important;
+    height: unset !important;
+    width: unset !important;
+    background: unset !important;
+  }
+}

@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="HtmlSanitizer" Version="4.0.199" />
+      <PackageReference Include="linq2db" Version="2.6.2" />
+      <PackageReference Include="linq2db.Identity" Version="2.0.1" />
+      <PackageReference Include="MySql.Data" Version="8.0.13" />
+    </ItemGroup>
+
+</Project>

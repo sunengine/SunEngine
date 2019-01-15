@@ -1,0 +1,59 @@
+﻿[
+  {
+    "Name": "ForumML",
+    "Title": "Многоуровневый форум",
+    "AreaRoot": true,
+    "ChildrenType": "Categories",
+    "SubCategories": [
+      {
+        "Name": "ThreadML-[n]",
+        "Title": "Раздел [n]",
+        "ChildrenType": "Materials",
+        "MaterialsCount": 1,
+        "Repeat": 2
+      },
+      {
+        "Name": "ThreadML-[n]",
+        "Title": "Раздел [n]",
+        "ChildrenType": "Categories",
+        "SubCategories": [
+          {
+            "Name": "ThreadML-[nn]-[n]",
+            "Title": "Раздел [nn]-[n]",
+            "ChildrenType": "Categories",
+            "Repeat": 2,
+            "SubCategories": [
+              {
+                "Name": "ThreadML-[nnn]-[nn]-[n]",
+                "Title": "Раздел [nnn]-[nn]-[n]",
+                "ChildrenType": "Materials",
+                "MaterialsCount": 1,
+                "Repeat": 3
+              }
+            ]
+          },
+          {
+            "Name": "ThreadML-[nn]-[n]",
+            "Title": "Раздел [nn]-[n]",
+            "ChildrenType": "Materials",
+            "MaterialsCount": 1
+          }
+        ]
+      },
+      {
+        "Name": "ThreadML-[n]",
+        "Title": "Раздел [n]",
+        "ChildrenType": "Categories",
+        "SubCategories": [
+          {
+            "Name": "ThreadML-[n]-[nn]",
+            "Title": "Раздел [n]-[nn]",
+            "ChildrenType": "Materials",
+            "MaterialsCount": 1,
+            "Repeat": 2
+          }
+        ]
+      }
+    ]
+  }
+]

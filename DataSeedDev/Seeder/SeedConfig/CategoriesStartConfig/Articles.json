@@ -1,0 +1,9 @@
+﻿[
+  {
+    "Name": "Articles",
+    "Title": "Статьи",
+    "AreaRoot": true,
+    "ChildrenType": "Materials",
+    "MaterialsCount": 35
+  }
+]
