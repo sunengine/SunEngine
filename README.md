@@ -1,4 +1,4 @@
-![SunEngine Logo](https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg =200x)
+![SunEngine Logo](https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg =200px)
 
 # SunEngine
 
