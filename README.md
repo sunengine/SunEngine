@@ -1,4 +1,4 @@
-![SunEngine Logo](https://raw.githubusercontent.com/Dmitrij-Polyanin/SunEngine/master/Client/src/statics/SunEngine.svg)
+![SunEngine Logo](https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg)
 
 # SunEngine
 
