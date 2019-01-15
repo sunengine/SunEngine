@@ -83,3 +83,8 @@
 FluentMigrator.Runner.SqlServer](https://www.nuget.org/packages/FluentMigrator.Runner.SqlServer/)
 в проект `Migrations`.
  - Заменяем в `Migrations/Main.cs`  `.AddMySql5()` -> `.AddSqlServer()`.
+
+### Лицензия
+- В процессе разработки
+- Все права принадлежат создателю Дмитрий Полянин
+- Free для некомерческого использования. Платно для коммерческого.
