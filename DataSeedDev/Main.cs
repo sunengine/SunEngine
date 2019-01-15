@@ -17,18 +17,29 @@ namespace Migrations
 
         static void SeedDataBase()
         {
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile(Path.GetFullPath("../SunEngine/DataBaseConnection.json"))
-                .Build();
+            var configurationBuilder = new ConfigurationBuilder();
+                
+            if (File.Exists(Path.GetFullPath("../SunEngine/MyDataBaseConnection.json")))
+            {
+                configurationBuilder.AddJsonFile(Path.GetFullPath("../SunEngine/MyDataBaseConnection.json"), optional: false, reloadOnChange: true);
+            }
+            else
+            {
+                configurationBuilder.AddJsonFile(Path.GetFullPath("../SunEngine/DataBaseConnection.json"), optional: false, reloadOnChange: true);
+            }
+
+            var configuration = configurationBuilder.Build();
+
+
             var dataBaseConfiguration = configuration.GetSection("DataBaseConnection");
             var providerName = dataBaseConfiguration["Provider"];
-            var connectionString = dataBaseConfiguration["ConnectionString"]; 
-            
-            using (DataBaseConnection db = new DataBaseConnection(providerName,connectionString))
+            var connectionString = dataBaseConfiguration["ConnectionString"];
+
+            using (DataBaseConnection db = new DataBaseConnection(providerName, connectionString))
             {
                 var dc = new LocalSeeder().Seed();
-                new DataBaseSeeder(db,dc).Seed().PostSeed();
+                new DataBaseSeeder(db, dc).Seed().PostSeed();
             }
-        } 
+        }
     }
 }

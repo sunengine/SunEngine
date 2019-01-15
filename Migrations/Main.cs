@@ -23,9 +23,20 @@ namespace Migrations
         /// </sumamry>
         private static IServiceProvider CreateServices()
         {
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile(Path.GetFullPath("../SunEngine/DataBaseConnection.json"))
-                .Build();
+            var configurationBuilder = new ConfigurationBuilder();
+                
+            if (File.Exists(Path.GetFullPath("../SunEngine/MyDataBaseConnection.json")))
+            {
+                configurationBuilder.AddJsonFile(Path.GetFullPath("../SunEngine/MyDataBaseConnection.json"), optional: false, reloadOnChange: true);
+            }
+            else
+            {
+                configurationBuilder.AddJsonFile(Path.GetFullPath("../SunEngine/DataBaseConnection.json"), optional: false, reloadOnChange: true);
+            }
+
+            var configuration = configurationBuilder.Build();
+            
+            
             var dataBaseConfiguration = configuration.GetSection("DataBaseConnection");
             var providerName = dataBaseConfiguration["Provider"];
             var connectionString = dataBaseConfiguration["ConnectionString"]; 
