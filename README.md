@@ -2,9 +2,9 @@
 
 Движок сайта - форум, статьи, блог.
 
-Текущая версия: 0.4.6
-
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
+
+<span style="color:grey">Текущая версия: 0.4.9</span>
 
 #### Технологии:
 - Asp.Net Core 2.2
