@@ -1,12 +1,12 @@
-<p align="center">
-    <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
-</p>
-
 # SunEngine
 
 Движок сайта - форум, статьи, блог.
 
 Текущая версия: 0.4.6
+
+<p align="center">
+    <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
+</p>
 
 #### Технологии:
 - Asp.Net Core 2.2
