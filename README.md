@@ -4,7 +4,7 @@
 
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
-Текущая версия: 0.4.9
+Версия: 0.4.9
 
 #### Технологии:
 - Asp.Net Core 2.2
