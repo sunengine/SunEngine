@@ -282,8 +282,8 @@ namespace SunEngine.Controllers
                 new {token = emailToken}, this.Request.Scheme);
             try
             {
-                await emailSender.SendEmailAsync(user.Email, "Подтвердите email",
-                    $"Подтвердите новый email пройдя по <a href=\"{updateEmailUrl}\">ссылке</a>."
+                await emailSender.SendEmailAsync(user.Email, "Confirm your email",
+                    $"Confirm your email by clicking this <a href=\"{updateEmailUrl}\">link</a>."
                 );
             }
             catch (Exception e)

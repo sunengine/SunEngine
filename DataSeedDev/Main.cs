@@ -17,18 +17,10 @@ namespace Migrations
 
         static void SeedDataBase()
         {
-            var configurationBuilder = new ConfigurationBuilder();
-                
-            if (File.Exists(Path.GetFullPath("../SunEngine/MyDataBaseConnection.json")))
-            {
-                configurationBuilder.AddJsonFile(Path.GetFullPath("../SunEngine/MyDataBaseConnection.json"), optional: false, reloadOnChange: true);
-            }
-            else
-            {
-                configurationBuilder.AddJsonFile(Path.GetFullPath("../SunEngine/DataBaseConnection.json"), optional: false, reloadOnChange: true);
-            }
-
-            var configuration = configurationBuilder.Build();
+            string dbSettingsFile = GetDataBaseConnectionFile();
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile(dbSettingsFile, optional: false, reloadOnChange: true)
+                .Build();
 
 
             var dataBaseConfiguration = configuration.GetSection("DataBaseConnection");
@@ -40,6 +32,29 @@ namespace Migrations
                 var dc = new LocalSeeder().Seed();
                 new DataBaseSeeder(db, dc).Seed().PostSeed();
             }
+        }
+
+        static string GetDataBaseConnectionFile()
+        {
+            string fileName = "MyDataBaseConnection.json";
+            string[] dirs =  {"","../","../SunEngine/"};
+
+            foreach (var dir in dirs)
+            {
+                string path = Path.GetFullPath(dir + fileName);
+                if (File.Exists(path))
+                    return path;
+            }
+            
+            fileName = "DataBaseConnection.json";
+            foreach (var dir in dirs)
+            {
+                string path = Path.GetFullPath(dir + fileName);
+                if (File.Exists(path))
+                    return path;
+            }
+            
+            throw new Exception("Can not locate MyDataBaseConnection.json or DataBaseConnection.json");
         }
     }
 }

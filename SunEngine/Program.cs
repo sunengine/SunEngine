@@ -20,25 +20,32 @@ namespace SunEngine
             WebHost.CreateDefaultBuilder(args)
                 .UseKestrel(options =>
                 {
-                    options.Listen(IPAddress.Loopback, 5000);
+                    options.Listen(IPAddress.Loopback, 5001);
                 })
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
                     IHostingEnvironment env = builderContext.HostingEnvironment;
-                    
+                    string dbSettingsFile = GetDataBaseConnectionFile(env);
                     config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                         .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
-                        .AddJsonFile("SunEngine.json", optional: false, reloadOnChange: true);
-                    
-                    if (File.Exists(Path.Combine(env.ContentRootPath,"MyDataBaseConnection.json")))
-                    {
-                        config.AddJsonFile($"MyDataBaseConnection.json", optional: false, reloadOnChange: true);
-                    }
-                    else
-                    {
-                        config.AddJsonFile($"DataBaseConnection.json", optional: false, reloadOnChange: true);
-                    }
+                        .AddJsonFile("SunEngine.json", optional: false, reloadOnChange: true)
+                        .AddJsonFile(dbSettingsFile, optional: false, reloadOnChange: true);
                 });
+        
+        static string GetDataBaseConnectionFile(IHostingEnvironment env)
+        {
+            string path = Path.Combine(env.ContentRootPath, "MyDataBaseConnection.json");
+            if(File.Exists(path))
+            {
+                return path;
+            }
+            path = Path.Combine(env.ContentRootPath, "DataBaseConnection.json");
+            if(File.Exists(path))
+            {
+                return path;
+            }
+            throw new Exception("Can not locate MyDataBaseConnection.json or DataBaseConnection.json");
+        }
     }
 }

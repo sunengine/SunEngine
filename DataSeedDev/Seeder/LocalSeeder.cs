@@ -80,7 +80,7 @@ namespace SunEngine.Seeder
 
         private void SeedUserGroups()
         {
-            string pathToUserGroupsConfig = Path.GetFullPath("Seeder/SeedConfig/UserGroupsConfig.json");
+            string pathToUserGroupsConfig = Path.GetFullPath("SeedConfig/UserGroupsConfig.json");
             seederUserGroupsFromJson.Seed(pathToUserGroupsConfig);
         }
 
@@ -256,7 +256,7 @@ namespace SunEngine.Seeder
         {
             //string pathToCategoriesStartConfigFolder = Path.GetFullPath("CategoriesStartConfig");//Path.Combine(hostingEnvironment.ContentRootPath, "CategoriesStartConfig");
 
-            var fileNames = Directory.GetFiles(Path.GetFullPath("Seeder/SeedConfig/CategoriesStartConfig"));
+            var fileNames = Directory.GetFiles(Path.GetFullPath("SeedConfig/CategoriesStartConfig"));
 
             SeederCategoriesFromJson seederCategoriesFromJson =
                 new SeederCategoriesFromJson(dataContainer, materialsSeeder);

@@ -55,8 +55,7 @@
 - [.Net Core 2.2 SDK](https://dotnet.microsoft.com/download)
 - [NodeJs](https://nodejs.org/en/download/)
 - [Npm](https://www.npmjs.com)
-- [Quasar-CLI](https://quasar-framework.org/guide/quasar-cli.html)  
-`npm install -g quasar-cli`
+- [Quasar-CLI](https://quasar-framework.org/guide/quasar-cli.html)  `npm install -g quasar-cli`
 
 #### Установка и запуск SunEngine
 - Клонировать репозиторий SunEngine с GitHub.
@@ -86,6 +85,6 @@ FluentMigrator.Runner.SqlServer](https://www.nuget.org/packages/FluentMigrator.R
  - Заменяем в `Migrations/Main.cs`  `.AddMySql5()` -> `.AddSqlServer()`.
 
 #### Лицензия
-- В процессе разработки
-- Все права принадлежат создателю Дмитрий Полянин
-- Free для некомерческого использования. Платно для коммерческого.
+- Все права принадлежат создателю Дмитрию Полянину
+- Без оплаты для некомерческого использования. Платно для коммерческого.
+- Текст лицензии в процессе разработки.
