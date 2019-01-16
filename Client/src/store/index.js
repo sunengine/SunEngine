@@ -25,7 +25,8 @@ export var store;
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     state: {
-      isInitialized: false
+      isInitialized: false,
+      initializeError: false
     },
     actions: {
       async request(context, data) {
@@ -33,12 +34,19 @@ export default function (/* { ssrContext } */) {
       },
       async init() {
         console.log("StartInit");
-        initStore(this);
-        await getAllCategories(this);
-        await getMyUserInfo(this);
-        initExtensions(this);
 
-        this.state.isInitialized = true;
+        try {
+          initStore(this);
+          await getAllCategories(this);
+          await getMyUserInfo(this);
+          initExtensions(this);
+
+          this.state.isInitialized = true;
+        }
+        catch
+        {
+          this.state.initializeError = true;
+        }
       }
     },
     modules: {

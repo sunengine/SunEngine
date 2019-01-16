@@ -5,7 +5,7 @@
         <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
           <q-icon name="menu"/>
         </q-btn>
-        <!--    <img src="/statics/Sun.svg" class="logo">    -->
+
         <q-toolbar-title class="ttl">
           <span>SunEngine</span>
           <div slot="subtitle">Hello Home!</div>
@@ -34,13 +34,11 @@
       <main-menu/>
     </q-layout-drawer>
 
-
     <q-layout-drawer v-if="rightDrawerIs" side="right" v-model="rightDrawerOpen"
                      :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null">
       <router-view name="navigation">
       </router-view>
     </q-layout-drawer>
-
 
     <q-page-container >
       <router-view class="q-pa-lg"/>
