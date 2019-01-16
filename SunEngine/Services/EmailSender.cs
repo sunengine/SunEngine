@@ -20,7 +20,7 @@ namespace SunEngine.Services
         public async Task SendEmailAsync(string toEmail, string subject, string htmlMessage, string textMessage = null)
         {
             MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress(this.Options.emailFromAddress, this.Options.emailFromName);
+            mailMessage.From = new MailAddress(this.Options.EmailFromAddress, this.Options.EmailFromName);
             mailMessage.To.Add(toEmail);
             mailMessage.Body = textMessage;
             mailMessage.BodyEncoding = Encoding.UTF8;
@@ -35,11 +35,11 @@ namespace SunEngine.Services
             }
 
 
-            using (SmtpClient client = new SmtpClient(this.Options.host, this.Options.port))
+            using (SmtpClient client = new SmtpClient(this.Options.Host, this.Options.Port))
             {
                 client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential(this.Options.username, this.Options.password);
-                client.EnableSsl = this.Options.useSSL;
+                client.Credentials = new NetworkCredential(this.Options.Username, this.Options.Password);
+                client.EnableSsl = this.Options.UseSSL;
                 
                 try
                 {

@@ -5,32 +5,32 @@ namespace SunEngine.Options
 {
     public class EmailSenderOptions
     {
-        private string _smtpConfig { get; set; }
-        public string smtpConfig
+        private string _smtpConfig;
+        public string SmtpConfig
         {
-            get { return this._smtpConfig; }
+            get => _smtpConfig;
             set
             {
-                this._smtpConfig = value;
+                _smtpConfig = value;
 
-                // smtpConfig is in username:password@localhost:1025 format; extract the part
+                // SmtpConfig is in username:password@localhost:1025 format; extract the part
                 var smtpConfigPartsRegEx = new Regex(@"(.*)\:(.*)@(.+)\:(.+)");
                 var smtpConfigPartsMatch = smtpConfigPartsRegEx.Match(value);
 
-                this.username = smtpConfigPartsMatch.Groups[1].Value;
-                this.password = smtpConfigPartsMatch.Groups[2].Value;
-                this.host = smtpConfigPartsMatch.Groups[3].Value;
-                this.port = Convert.ToInt32(smtpConfigPartsMatch.Groups[4].Value);
+                Username = smtpConfigPartsMatch.Groups[1].Value;
+                Password = smtpConfigPartsMatch.Groups[2].Value;
+                Host = smtpConfigPartsMatch.Groups[3].Value;
+                Port = Convert.ToInt32(smtpConfigPartsMatch.Groups[4].Value);
             }
         }
 
-        public string emailFromName { get; set; }
-        public string emailFromAddress { get; set; }
-        public bool useSSL { get; set; }
+        public string EmailFromName { get; set; }
+        public string EmailFromAddress { get; set; }
+        public bool UseSSL { get; set; }
 
-        public string username { get; protected set; }
-        public string password { get; protected set; }
-        public string host { get; protected set; }
-        public int port { get; protected set; }
+        public string Username { get; protected set; }
+        public string Password { get; protected set; }
+        public string Host { get; protected set; }
+        public int Port { get; protected set; }
     }
 }

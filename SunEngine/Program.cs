@@ -18,10 +18,7 @@ namespace SunEngine
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseKestrel(options =>
-                {
-                    options.Listen(IPAddress.Loopback, 5001);
-                })
+                .UseKestrel()
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
