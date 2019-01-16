@@ -42,10 +42,6 @@ namespace SunEngine
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            if (CurrentEnvironment.IsDevelopment())
-            {
-                services.AddCors();
-            }
 
             services.AddOptions();
             services.AddSunEngineOptions(Configuration);
@@ -75,9 +71,9 @@ namespace SunEngine
             services.AddSingleton<ICategoriesStore, CategoriesStore>();
 
             services.AddSingleton<IImagesNamesService, ImagesNamesService>();
-            
+
             services.AddSingleton<ImagesService>();
-            
+
             services.AddSingleton<SpamProtectionStore>();
 
 
@@ -134,7 +130,7 @@ namespace SunEngine
             services.AddSingleton<Sanitizer>();
 
             services.AddMemoryCache();
-            
+
             //services.AddMyInMemoryCacheOutput();
             //services.AddSingleton<GroupCacheKeyGenerator>();
 
@@ -142,7 +138,6 @@ namespace SunEngine
                 .AddApiExplorer()
                 .AddAuthorization()
                 .AddJsonFormatters()
-                .AddCors()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -160,26 +155,16 @@ namespace SunEngine
 
 
             //app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            //app.UseFileServer();
+
+            //app.UseStaticFiles();
             //app.UseCookiePolicy();
 
-            if (CurrentEnvironment.IsDevelopment())
-            {
-                app.UseCors(builder =>
-                    builder.WithOrigins(
-                            "http://localhost:5005",
-                            "https://localhost:5005",
-                            "http://sunengine.mi:5005",
-                            "https://sunengine.mi:5005",
-                            "http://sunengine.local:5005",
-                            "https://sunengine.local:5005")
-                        .AllowAnyOrigin().AllowCredentials().AllowAnyHeader().AllowAnyMethod());
-            }
-
+           
             app.UseAuthentication();
 
 
-            app.UseCacheOutput();
+            //app.UseCacheOutput();
 
             app.UseMvc(routes =>
             {

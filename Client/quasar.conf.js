@@ -39,8 +39,8 @@ module.exports = function (ctx) {
           SiteName: JSON.stringify('SunEngine')
         }
         : { // and on build (production):
-          API: JSON.stringify(''),
-          UploadedImages: JSON.stringify(''),
+          API: JSON.stringify('http://localhost:8000/api'),
+          UploadedImages: JSON.stringify('http://localhost:8000/UploadImages'),
           SiteName: JSON.stringify('SunEngine')
 
         }
