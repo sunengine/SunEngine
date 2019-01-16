@@ -47,7 +47,7 @@
     </q-page-container>
 
     <q-layout-footer class="footer q-py-lg bg-yellow-1">
-      Сделано с Любовью <span>❤</span> Sun Engine <span>❤</span> GitHub <span>❤</span> Telegram
+      Сделано с Любовью <span>❤</span> Sun Engine <span>❤</span> <a href="https://github.com/Dmitrij-Polyanin/SunEngine">GitHub</a> <span>❤</span> <a href="https://t-do.ru/joinchat/DzoV0hUucjrm-9X0UUlATQ">Telegram</a>
     </q-layout-footer>
   </q-layout>
 </template>

@@ -29,8 +29,8 @@ namespace SunEngine
                         .AddJsonFile("SunEngine.json", optional: false, reloadOnChange: true)
                         .AddJsonFile(dbSettingsFile, optional: false, reloadOnChange: true);
                 });
-        
-        static string GetDataBaseConnectionFile(IHostingEnvironment env)
+
+        private static string GetDataBaseConnectionFile(IHostingEnvironment env)
         {
             string path = Path.Combine(env.ContentRootPath, "MyDataBaseConnection.json");
             if(File.Exists(path))

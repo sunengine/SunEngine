@@ -41,6 +41,11 @@ namespace SunEngine
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            
+            if (CurrentEnvironment.IsDevelopment())
+            {
+                services.AddCors();
+            }
 
             services.AddOptions();
             services.AddSunEngineOptions(Configuration);
@@ -156,8 +161,16 @@ namespace SunEngine
             //app.UseHttpsRedirection();
             //app.UseFileServer();
 
-            //app.UseStaticFiles();
+            //
             //app.UseCookiePolicy();
+
+            if (CurrentEnvironment.IsDevelopment())
+            {
+                app.UseStaticFiles();
+                
+                app.UseCors(builder =>
+                    builder.AllowAnyOrigin().AllowCredentials().AllowAnyHeader().AllowAnyMethod());
+            }
 
            
             app.UseAuthentication();
