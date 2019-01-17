@@ -1,6 +1,7 @@
 // Configuration for your app
 
 var path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 
 module.exports = function (ctx) {
@@ -29,18 +30,12 @@ module.exports = function (ctx) {
         cfg.resolve.modules.push(path.resolve('./src/modules'));
         cfg.resolve.modules.push(path.resolve('./src/components'));
         cfg.resolve.modules.push(path.resolve('./src/classes'));
+        if(ctx.dev) {
+          cfg.plugins.push( new CopyWebpackPlugin([{from: 'configDev.js', to:'config.js'}]));
+        } else {
+          cfg.plugins.push( new CopyWebpackPlugin([{from: 'configProd.js',to:'config.js'}]));
+        }
       },
-      env: ctx.dev
-        ? { // on dev
-          API: JSON.stringify('http://localhost:5000'),
-          UploadedImages: JSON.stringify('http://localhost:5000/UploadImages'),
-          SiteName: JSON.stringify('SunEngine')
-        }
-        : { // and on build (production):
-          API: JSON.stringify('http://localhost:8000/api'),
-          UploadedImages: JSON.stringify('http://localhost:8000/UploadImages'),
-          SiteName: JSON.stringify('SunEngine')
-        }
     },
     devServer: {
       https: false,

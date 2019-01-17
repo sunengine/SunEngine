@@ -6,7 +6,7 @@
 
     <div v-else class="api-error">
       <q-alert type="negative" icon="fas fa-exclamation-triangle">
-        Невозможно соединиться с API сайта.
+        Невозможно соединиться с API.
       </q-alert>
     </div>
   </div>

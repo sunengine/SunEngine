@@ -1,4 +1,5 @@
 import axios from 'axios'
+import config from './config'
 
 export default async function request(url, data, sendAsJson = false, token = null /* or it will be send as FormData */) {
 
@@ -33,7 +34,7 @@ export default async function request(url, data, sendAsJson = false, token = nul
   return await axios({
     method: 'post',
     url: url,
-    baseURL: process.env.API,
+    baseURL: config.API,
     data: body,
     headers: headers
   });
