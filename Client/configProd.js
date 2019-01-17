@@ -1,6 +1,6 @@
 
 window.config = {
-  API: 'http://prod:5000',
-  UploadedImages: 'http://prod:5000/UploadImages',
+  API: 'http://localhost:5000',
+  UploadedImages: 'http://localhost:5000/UploadImages',
   SiteName: 'SunEngine'
 }

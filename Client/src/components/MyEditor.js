@@ -37,13 +37,15 @@ export default {
     },
 
     handleFiles() {
+      debugger;
+
       const filesSelected = this.$refs.file.files;
 
       if (!filesSelected.length)
         return;
 
       function isImage(name) {
-        return /(.gif|.jpg|.jpeg|.png|.svg)$/.test(name);
+        return /(.gif|.jpg|.jpeg|.png|.svg)$/i.test(name);
       }
 
       const files = Array.from(filesSelected).filter(x => isImage(x.name));
@@ -57,6 +59,8 @@ export default {
 
         let formData = new FormData();
         formData.append('file', files[i]);
+
+
 
         this.$store.dispatch("request",
           {

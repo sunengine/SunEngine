@@ -7,17 +7,17 @@ cd "$parent_path"
 
 
 echo -e "$GREEN Clearing Build $NC"
-cd Build
-rm -rf "*" 
+rm -rf "$parent_path/Build"
+mkdir "$parent_path/Build"
+ 
 
-cd "$parent_path"
-#echo -e "$GREEN Publishing SunEngine $NC"
-#dotnet publish SunEngine -o "$parent_path/Build"
+echo -e "\n$GREEN Publishing SunEngine $NC"
+dotnet publish SunEngine -o "$parent_path/Build"
 
 
-#echo -e "$GREEN Building Client $NC"
-#cd Client
-#quasar build
+echo -e "$GREEN Building Client $NC"
+cd Client
+quasar build
 
-#echo  -e "$GREEN Copying Client $NC"
-#cp -rf "$parent_path/Client/dist/spa-mat/." "$parent_path/Build/wwwroot"
+echo  -e "$GREEN Copying Client $NC"
+cp -rf "$parent_path/Client/dist/spa-mat/." "$parent_path/Build/wwwroot"

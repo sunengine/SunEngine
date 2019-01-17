@@ -34,7 +34,7 @@ namespace SunEngine.Services
 
         public string GetAllowedExtension(string fileName)
         {
-            string ext = Path.GetExtension(fileName);
+            string ext = Path.GetExtension(fileName).ToLower();
             if (ext == ".jpeg")
                 return ".jpg";
             if (ext == ".jpg" || ext == ".png" || ext == ".gif" || ext == ".svg")
