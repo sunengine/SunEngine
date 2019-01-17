@@ -1,3 +1,5 @@
+// This file for Rider IDE to understand js pathes.
+
 'use strict'
 
 const path = require('path')

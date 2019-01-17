@@ -1,14 +1,15 @@
 <template>
   <q-page class="flex column full-center">
-    <h1>Sun Engine</h1>
+    <h1>Demo</h1>
 
-    <h5>
-      Движок для сайтов с функциональностью форума, статей, блога.
-
-    </h5>
+    <div class="p1">
+      <p>Каждый чаc данные сбрасываются.</p>
+      <p>Пользователи: User1, User2, User3, User4, User5, Moderator, Admin</p>
+      <p>Пароль: password</p>
+      <p>Все функции зависящие от email не подключены.</p>
+    </div>
   </q-page>
 </template>
-
 
 
 <script>
@@ -21,8 +22,8 @@
       this.title = "SunEngine";
     }
   }
-
 </script>
+
 
 <style csoped lang="stylus">
   @import '~variables';
@@ -30,13 +31,15 @@
 
   h1 {
     color: $primary;
-    margin : 0 0 20px 0;
+    margin: 0 0 30px 0;
     font-family: "BoomBoomRegular";
   }
 
-  h5 {
-    color: $secondary;
-    font-family: "BoomBoomRegular";
+
+  .p1 p {
+    margin: 4px 0;
+    text-align: center;
+    color: #616161;
   }
 
 </style>

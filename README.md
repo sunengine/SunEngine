@@ -6,6 +6,8 @@
 
 Версия: 0.4.9
 
+Демо: [demo.sunengine.site](http://demo.sunengine.site)
+
 #### Технологии:
 - Asp.Net Core 2.2
 - Linq2db - доступ к базе данных
