@@ -36,16 +36,17 @@
 
     <q-layout-drawer v-if="rightDrawerIs" side="right" v-model="rightDrawerOpen"
                      :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null">
-      <router-view name="navigation">
-      </router-view>
+      <router-view name="navigation"/>
     </q-layout-drawer>
 
-    <q-page-container >
+    <q-page-container>
       <router-view class="q-pa-lg"/>
     </q-page-container>
 
     <q-layout-footer class="footer q-py-lg bg-yellow-1">
-      Сделано с Любовью <span>❤</span> Sun Engine <span>❤</span> <a href="https://github.com/Dmitrij-Polyanin/SunEngine">GitHub</a> <span>❤</span> <a href="https://t-do.ru/SunEngine">Telegram</a>
+      Сделано с Любовью <span>❤</span> <a href="http://sunengine.site">Sun Engine</a> <span>❤</span> <a
+      href="https://github.com/Dmitrij-Polyanin/SunEngine">GitHub</a> <span>❤</span> <a
+      href="https://t-do.ru/SunEngine">Telegram</a>
     </q-layout-footer>
   </q-layout>
 </template>
@@ -112,7 +113,7 @@
 
     span {
       color: $primary;
-      margin : 0 10px;
+      margin: 0 10px;
     }
   }
 </style>

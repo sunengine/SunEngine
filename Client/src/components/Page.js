@@ -1,3 +1,5 @@
+import config from "services/config";
+
 const homeRoute = {name: "home"};
 
 export default {
@@ -13,7 +15,7 @@ export default {
   },
   methods: {
     setTitle(text) {
-      this.title = text + " - " + process.env.SiteName;
+      this.title = text + " - " + config.SiteName;
     }
   }
 }
