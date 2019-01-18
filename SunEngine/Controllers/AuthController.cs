@@ -101,44 +101,47 @@ namespace SunEngine.Controllers
                 Photo = SunEngine.Commons.Models.User.DefaultAvatar
             };
 
-            //using (var transaction = new TransactionScope())
-            //{
-            IdentityResult result = await userManager.CreateAsync(user, model.Password);
-            await db.Users.Where(x => x.Id == user.Id).Set(x => x.Link, x => x.Id.ToString()).UpdateAsync();
-
-            if (result.Succeeded)
+            using (var transaction = new TransactionScope())
             {
-                logger.LogInformation($"New user registered (id: {user.Id})");
+                IdentityResult result = await userManager.CreateAsync(user, model.Password);
+                await db.Users.Where(x => x.Id == user.Id).Set(x => x.Link, x => x.Id.ToString()).UpdateAsync();
 
-                if (!user.EmailConfirmed)
+                if (result.Succeeded)
                 {
-                    // Send email confirmation email
-                    var confirmToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                    logger.LogInformation($"New user registered (id: {user.Id})");
 
-                    var emailConfirmUrl = Url.Action("Confirm", "Auth",
-                        new {uid = user.Id, token = confirmToken},
-                        this.Request.Scheme);
+                    if (!user.EmailConfirmed)
+                    {
+                        // Send email confirmation email
+                        var confirmToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                    await emailSender.SendEmailAsync(model.Email, "Please confirm your account",
-                        $"Please confirm your account by clicking this <a href=\"{emailConfirmUrl}\">link</a>."
-                    );
+                        var emailConfirmUrl = Url.Action("Confirm", "Auth",
+                            new {uid = user.Id, token = confirmToken},
+                            this.Request.Scheme);
+
+                        await emailSender.SendEmailAsync(model.Email, "Please confirm your account",
+                            $"Please confirm your account by clicking this <a href=\"{emailConfirmUrl}\">link</a>."
+                        );
 
 
-                    logger.LogInformation($"Sent email confirmation email (id: {user.Id})");
+                        logger.LogInformation($"Sent email confirmation email (id: {user.Id})");
+                    }
+
+                    logger.LogInformation($"User logged in (id: {user.Id})");
+
+                    //transaction.Complete();
+
+                    return Ok();
                 }
-
-                logger.LogInformation($"User logged in (id: {user.Id})");
-
-                //transaction.Complete();
-
-                return Ok();
-            }
-
-            return BadRequest(new ErrorsViewModel
-            {
-                ErrorsNames = result.Errors.Select(x => x.Code).ToArray(),
-                ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()
-            });
+                
+                transaction.Complete();
+                
+                return BadRequest(new ErrorsViewModel
+                {
+                    ErrorsNames = result.Errors.Select(x => x.Code).ToArray(),
+                    ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()
+                });
+            }            
         }
 
         [HttpPost]

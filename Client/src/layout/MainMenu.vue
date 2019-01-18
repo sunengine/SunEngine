@@ -2,7 +2,7 @@
   <q-list no-border link inset-delimiter>
     <div class="center q-mb-md">
       <router-link to='/'>
-        <img src="/statics/SunEngine.svg" class="logo">
+        <img src="/statics/SunEngine6.svg" class="logo">
       </router-link>
     </div>
     <q-item to='/' exact>
@@ -43,6 +43,6 @@
     width: 220px;
     height: 220px;
     border-radius: 110px;
-    box-shadow: 2px 2px 4px #3392ff;
+    box-shadow: 0px 0px 8px 1px grey;
   }
 </style>

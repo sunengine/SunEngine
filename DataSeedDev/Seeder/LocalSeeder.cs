@@ -113,6 +113,17 @@ namespace SunEngine.Seeder
             };
 
             dataContainer.IdentityUserRoles.Add(ur);
+            
+            var userModerator = dataContainer.Users.FirstOrDefault(x => x.UserName == "Moderator");
+            var roleModerator = dataContainer.UserGroups.FirstOrDefault(x => x.Name == "Moderator");
+
+            ur = new LinqToDB.Identity.IdentityUserRole<int>
+            {
+                UserId = userModerator.Id,
+                RoleId = roleModerator.Id
+            };
+
+            dataContainer.IdentityUserRoles.Add(ur);
 
             var testUser1 = dataContainer.Users.FirstOrDefault(x => x.UserName == "TestUser1");
             var testGroup1 = dataContainer.UserGroups.FirstOrDefault(x => x.Name == "TestGroup1");

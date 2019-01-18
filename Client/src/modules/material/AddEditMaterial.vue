@@ -126,7 +126,8 @@
           return GetWhereToMove(this.$store);
       },
       category() {
-        if (this.categoryName)
+        debugger;
+        if (!this.material && this.categoryName)
           return this.$store.getters.getCategory(this.categoryName);
         else
           return this.$store.getters.getCategory(this.material.categoryName);

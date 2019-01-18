@@ -212,4 +212,8 @@
       <Folder Include="wwwroot" />
     </ItemGroup>
 
+  <PropertyGroup>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+  </PropertyGroup>
+
 </Project>
