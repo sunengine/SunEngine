@@ -15,18 +15,20 @@
           <q-icon name="menu"/>
         </q-btn>
 
-        <q-btn flat dense round>
-          <img v-if="userName" class="avatar" :src="userAvatar"/>
-          <q-icon v-else name="fas fa-user"/>
+        <q-btn v-if="userName" style="margin-left: 6px;" flat dense round>
+          <img class="avatar" :src="userAvatar"/>
           <q-popover>
-            <template v-if="userName">
-              <user-menu/>
-            </template>
-            <template v-else>
-              <LoginOrRegisterMenu/>
-            </template>
+            <user-menu/>
           </q-popover>
         </q-btn>
+
+        <q-btn v-else flat dense round>
+          <q-icon name="fas fa-user"/>
+          <q-popover>
+            <LoginOrRegisterMenu/>
+          </q-popover>
+        </q-btn>
+
       </q-toolbar>
     </q-layout-header>
 
