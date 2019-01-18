@@ -47,10 +47,10 @@ namespace SunEngine
                 services.AddCors();
             }
 
-            services.AddOptions();
-            services.AddSunEngineOptions(Configuration);
+            services.AddAllOptions(Configuration);
 
 
+            // Add DataBase
             LinqToDB.Common.Configuration.Linq.AllowMultipleQuery = true;
 
             var dataBaseConfiguration = Configuration.GetSection("DataBaseConnection");
@@ -59,12 +59,19 @@ namespace SunEngine
             var dataProvider = DataBaseConnection.GetDataProvider(providerName, connectionString);
             MyMappingSchema mappingSchema = new MyMappingSchema();
 
-
             services.AddScoped(x => new DataBaseConnection(dataProvider, connectionString, mappingSchema));
-
+            
             var dataBaseFactory = new DataBaseFactory(dataProvider, connectionString, mappingSchema);
 
+            
             services.AddSingleton<IDataBaseFactory>(dataBaseFactory);
+            
+            // Add Singleton Services
+            services.AddSingleton<OperationKeysContainer>();
+            
+            services.AddSingleton<IAuthorizationService, AuthorizationService>();
+            
+            services.AddSingleton<Sanitizer>();
 
 
             // Add Singleton Stores
@@ -74,13 +81,11 @@ namespace SunEngine
 
             services.AddSingleton<ICategoriesStore, CategoriesStore>();
 
-            services.AddSingleton<IImagesNamesService, ImagesNamesService>();
-
-            services.AddSingleton<ImagesService>();
-
             services.AddSingleton<SpamProtectionStore>();
 
+            services.AddSingletonImages();
 
+            
             services.AddIdentity<User, UserGroupDB>(
                     options =>
                     {
@@ -90,6 +95,14 @@ namespace SunEngine
                         options.Password.RequireUppercase = false;
                         options.Password.RequiredUniqueChars = 2;
                         options.Password.RequiredLength = 6;
+                        options.User.RequireUniqueEmail = true;
+                        
+                        string engChars = "abcdefghijklmnopqrstuvwxyz";
+                        string rusChars = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+                        string numbers = "0123456789";
+                        string other = "-";
+                        
+                        options.User.AllowedUserNameCharacters = engChars + engChars.ToUpper() + rusChars + rusChars.ToUpper() + numbers+other;
                     })
                 .AddLinqToDBStores<int>(dataBaseFactory)
                 .AddUserManager<UserManager<User>>()
@@ -111,7 +124,7 @@ namespace SunEngine
                         ValidateIssuer = true,
                         ValidateAudience = true,
                         ValidateLifetime = true,
-                        //ValidateIssuerSigningKey = true,
+                        ValidateIssuerSigningKey = true,
                         ValidIssuer = Configuration["Jwt:Issuer"],
                         ValidAudience = Configuration["Jwt:Issuer"],
                         IssuerSigningKey =
@@ -121,17 +134,9 @@ namespace SunEngine
 
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddSingleton<OperationKeysContainer>();
-
-
             services.AddScopedEntityServices();
 
-
-            services.AddSingleton<IAuthorizationService, AuthorizationService>();
-
             services.AddScopedControllersAuthorizationServices();
-
-            services.AddSingleton<Sanitizer>();
 
             services.AddMemoryCache();
 
@@ -161,8 +166,7 @@ namespace SunEngine
             //app.UseHttpsRedirection();
             //app.UseFileServer();
 
-            //
-            //app.UseCookiePolicy();
+            app.UseCookiePolicy();
 
             if (CurrentEnvironment.IsDevelopment())
             {

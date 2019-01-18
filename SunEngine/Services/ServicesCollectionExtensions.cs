@@ -41,9 +41,9 @@ namespace SunEngine.Services
             
         }
 
-        public static void AddSunEngineOptions(this IServiceCollection services, IConfiguration configuration)
+        public static void AddAllOptions(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.AddOptions();
+            services.AddOptions();
             services.Configure<GlobalOptions>(configuration);
             services.Configure<EmailSenderOptions>(configuration.GetSection("email"));
             services.Configure<JwtOptions>(configuration.GetSection("Jwt"));
@@ -55,6 +55,12 @@ namespace SunEngine.Services
             services.Configure<ImagesOptions>(configuration.GetSection("Images"));
             services.Configure<DataBaseConnectionOptions>(configuration.GetSection("DataBaseConnection"));
 
+        }
+
+        public static void AddSingletonImages(this IServiceCollection services)
+        {
+            services.AddSingleton<IImagesNamesService, ImagesNamesService>();
+            services.AddSingleton<ImagesService>();
         }
     }  
 }

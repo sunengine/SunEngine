@@ -38,7 +38,11 @@ export default function (/* { ssrContext } */) {
         try {
           initStore(this);
           await getAllCategories(this);
-          await getMyUserInfo(this);
+
+
+            await getMyUserInfo(this);
+
+
           initExtensions(this);
 
           this.state.isInitialized = true;
@@ -75,6 +79,9 @@ async function getAllCategories(store) {
 }
 
 async function getMyUserInfo(store) {
+  if(!store.state.auth.user)
+    return;
+
   await store.dispatch('getMyUserInfo');
 }
 

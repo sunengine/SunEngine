@@ -13,7 +13,7 @@
 
       <q-field :error="$v.password2.$invalid && !start"
                :error-label="password2ErrorLabel">
-        <q-input v-model="password2" type="password" float-label="Подвердите пароль"/>
+        <q-input v-model="password2" type="password" float-label="Подтвердите пароль"/>
       </q-field>
       <q-btn class="q-mt-lg" icon="far fa-save" color="send" label="Изменить пароль" @click="changePassword"
              :loading="submitting">

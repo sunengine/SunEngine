@@ -19,15 +19,15 @@
     </q-item>
     <q-item to='/forum'>
       <q-item-side icon="far fa-comments"/>
-      <q-item-main label="Форум" sublabel="Форум одноуровневый"/>
+      <q-item-main label="Форум" sublabel="Одноуровневый форум"/>
     </q-item>
     <q-item to='/forum2l'>
       <q-item-side icon="far fa-comments"/>
-      <q-item-main label="Форум 2" sublabel="Форум двухуровневый"/>
+      <q-item-main label="Форум 2" sublabel="Двухуровневый форум"/>
     </q-item>
     <q-item to='/articles'>
       <q-item-side icon="far fa-file-alt"/>
-      <q-item-main label="Статьи" sublabel="Читаем здесь"/>
+      <q-item-main label="Статьи" sublabel="Раздел статей"/>
     </q-item>
     <q-item to='/testext'>
       <q-item-side icon="fas fa-flask"/>

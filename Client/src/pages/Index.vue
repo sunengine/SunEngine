@@ -33,6 +33,7 @@
     color: $primary;
     margin: 0 0 30px 0;
     font-family: "BoomBoomRegular";
+    letter-spacing: 2px;
   }
 
 

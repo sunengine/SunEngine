@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using Microsoft.AspNetCore.Mvc;
 using Flurl;
 using LinqToDB;
@@ -96,16 +97,14 @@ namespace SunEngine.Controllers
             {
                 UserName = model.UserName,
                 Email = model.Email,
-                Avatar =  SunEngine.Commons.Models.User.DefaultAvatar,
+                Avatar = SunEngine.Commons.Models.User.DefaultAvatar,
                 Photo = SunEngine.Commons.Models.User.DefaultAvatar
             };
 
-            // using (var transaction = new TransactionScope())
-            //  {
+            //using (var transaction = new TransactionScope())
+            //{
             IdentityResult result = await userManager.CreateAsync(user, model.Password);
             await db.Users.Where(x => x.Id == user.Id).Set(x => x.Link, x => x.Id.ToString()).UpdateAsync();
-            // transaction.Complete();
-
 
             if (result.Succeeded)
             {
@@ -118,35 +117,28 @@ namespace SunEngine.Controllers
 
                     var emailConfirmUrl = Url.Action("Confirm", "Auth",
                         new {uid = user.Id, token = confirmToken},
-                        this.Request
-                            .Scheme);
-                    try
-                    {
-                        await emailSender.SendEmailAsync(model.Email, "Please confirm your account",
-                            $"Please confirm your account by clicking this <a href=\"{emailConfirmUrl}\">link</a>."
-                        );
-                    }
-                    catch (Exception e)
-                    {
-                    }
+                        this.Request.Scheme);
+
+                    await emailSender.SendEmailAsync(model.Email, "Please confirm your account",
+                        $"Please confirm your account by clicking this <a href=\"{emailConfirmUrl}\">link</a>."
+                    );
+
 
                     logger.LogInformation($"Sent email confirmation email (id: {user.Id})");
                 }
 
                 logger.LogInformation($"User logged in (id: {user.Id})");
 
+                //transaction.Complete();
+
                 return Ok();
             }
-            else
-            {
-                return BadRequest(new ErrorsViewModel
-                {
-                    ErrorsNames = result.Errors.Select(x => x.Code).ToArray(),
-                    ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()
-                });
-            }
 
-            //  }
+            return BadRequest(new ErrorsViewModel
+            {
+                ErrorsNames = result.Errors.Select(x => x.Code).ToArray(),
+                ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()
+            });
         }
 
         [HttpPost]
@@ -324,19 +316,14 @@ namespace SunEngine.Controllers
 
     public class NewUserViewModel
     {
-        [Required]
-        public string UserName { get; set; }
+        [Required] public string UserName { get; set; }
 
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Required] [EmailAddress] public string Email { get; set; }
 
 
-        [Required]
-        [MinLength(6)]
-        public string Password { get; set; }
+        [Required] [MinLength(6)] public string Password { get; set; }
     }
-    
+
     public class TokenViewModel
     {
         public string Token { get; set; }

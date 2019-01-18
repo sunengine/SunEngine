@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
 using SunEngine.Stores;
+using IAuthorizationService = SunEngine.Commons.Services.IAuthorizationService;
 
 namespace SunEngine.Controllers
 {
@@ -30,7 +34,7 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        [HttpGet]
+        [HttpGet]  // For pulse and testing 
         public CategoryInfoWithAccesses GetAllCategoriesAndAccesses()
         {
             var rez = CategoryInfoWithAccessesFromCategory(categoriesStore.RootCategory);
@@ -94,58 +98,8 @@ namespace SunEngine.Controllers
 
             return dict;
         }
-
-        [HttpPost]
-        [HttpGet]
-        public ActionResult<CategoryInList[]> GetSubCategories(string name)
-        {
-            Category categoryParent = categoriesStore.GetCategory(name);
-            if (categoryParent == null)
-            {
-                return BadRequest();
-            }
-
-            if (!authorizationService.HasAccess(User.UserGroups, categoryParent,
-                OperationKeys.MaterialAndMessagesRead))
-            {
-                return Unauthorized();
-            }
-
-            return GetSubCategories(categoryParent);
-        }
-
-        private CategoryInList[] GetSubCategories(Category category)
-        {
-            CategoryInList[] subCategoriesViewModel = category?.SubCategories
-                .Where(
-                    x => authorizationService.HasAccess(User.UserGroups, x, OperationKeys.MaterialAndMessagesRead))
-                .Select(x => new CategoryInList
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Name = x.Name.ToLower(),
-                    ChildrenType = x.ChildrenType,
-                    SubCategories = GetSubCategories(x)
-                }).ToArray();
-
-            if (subCategoriesViewModel == null || subCategoriesViewModel.Length == 0)
-            {
-                return null;
-            }
-
-            return subCategoriesViewModel;
-        }
-
     }
     
-    public class CategoryInList
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Title { get; set; }
-        public ChildrenType ChildrenType { get; set; }
-        public CategoryInList[] SubCategories { get; set; }
-    }
     
     public class CategoryInfoWithAccesses
     {

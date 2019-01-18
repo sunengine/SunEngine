@@ -27,7 +27,7 @@
     </q-item>
     <q-item to="/personal/edituserprofileinformation" :multiline="false" link>
       <q-icon name="far fa-edit" size="16px" class="on-left"/>
-      Редактировать информацию
+      Изменить информацию о вас
     </q-item>
     <q-item to="/personal/loadphoto" :multiline="false" link>
       <q-icon name="far fa-user-circle" size="16px" class="on-left"/>

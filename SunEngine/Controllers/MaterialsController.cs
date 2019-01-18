@@ -28,7 +28,6 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        [HttpGet]
         public async Task<IActionResult> Get(int id) // TODO Pages
         {
             int? categoryId = await materialsService.GetCategoryIdIfHasMaterialAsync(id);

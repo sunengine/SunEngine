@@ -6,7 +6,7 @@
         содержать хотя бы одну букву.
       </div>
       <q-field :error="$v.link.$invalid" :error-label="errorMessage">
-        <q-input color="positive"  v-model="link" float-label="Link" @keyup="checkLinkInDb"
+        <q-input v-model="link" float-label="Link" @keyup="checkLinkInDb"
                  :after="[{
         icon: 'far fa-check-circle',
         color: 'green',

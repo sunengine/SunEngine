@@ -1,7 +1,7 @@
 <template>
   <QPage class="flex column full-center">
     <template v-if="userInfo">
-      <div class="q-mb-lg text-grey-8">Информация, которая будет видна всем пользователям на вешем профиле.</div>
+      <div class="q-mb-lg text-grey-8">Информация о вас на странице вашего профиля.</div>
 
       <MyEditor class="q-mb-sm" style="max-width: 100%;"
         :toolbar="[

@@ -58,7 +58,7 @@ var exttest22 = Vue.extend({
   render: function (createElement) {
     return createElement(
       'span',
-      [`[Hасширение получает данные из store: ${this.userName}]`]
+      [`[Расширение получает данные из store: ${this.userName}]`]
     )
   }
 });

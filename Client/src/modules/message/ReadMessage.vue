@@ -3,8 +3,8 @@
     <img class="avatar msg-avatar" :src="$imagePath(message.authorAvatar)"/>
 
     <div class="q-ma-md">
-      <div class="q-mb-xs text-grey-6" style="display: flex;">
-        <span style="flex-grow:1">
+      <div class="q-mb-xs" style="display: flex;">
+        <span  style="flex-grow:1">
            <router-link :to="'/user/'+message.authorLink">
              {{message.authorName}}
            </router-link>
@@ -15,7 +15,7 @@
         <span v-if="canMoveToTrash" class=" q-px-sm">
                     <a href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash"/></a>
         </span>
-        <span>
+        <span class="mat-date-color">
                     <q-icon name="far fa-clock"/> {{ $formatDate(message.publishDate) }}
         </span>
       </div>

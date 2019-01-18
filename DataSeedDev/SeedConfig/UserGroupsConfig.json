@@ -12,7 +12,7 @@
           "MaterialEditOwn": true,
           "MessageEditOwn": true,
           "MaterialDeleteOwn": true,
-          "MessageDeleteOwn": true,
+          "MessageDeleteOwn": true
         }
       },
       {
@@ -65,7 +65,7 @@
   },
   {
     "Name": "Unregistered",
-    "Title" : "Гость",
+    "Title": "Гость",
     "Categories": [
       {
         "Category": "Forum",
@@ -106,6 +106,44 @@
   {
     "Name": "TestGroup2",
     "Title": "Тестовая группа 2"
+  },
+  {
+    "Name": "Moderator",
+    "Title": "Модератор",
+    "Categories": [
+      {
+        "Category": "Forum",
+        "OperationKeys": {
+          "MaterialEditAny": true,
+          "MessageEditAny": true,
+          "MaterialDeleteAny": true,
+          "MessageDeleteAny": true
+        }
+      },
+      {
+        "Category": "Forum2L",
+        "OperationKeys": {
+          "MaterialEditAny": true,
+          "MessageEditAny": true,
+          "MaterialDeleteAny": true,
+          "MessageDeleteAny": true
+        }
+      },
+      {
+        "Category": "Articles",
+        "OperationKeys": {
+          "MessageEditAny": true,
+          "MessageDeleteAny": true
+        }
+      },
+      {
+        "Category": "Blog",
+        "OperationKeys": {
+          "MessageEditAny": true,
+          "MessageDeleteAny": true
+        }
+      }
+    ]
   },
   {
     "Name": "Admin",

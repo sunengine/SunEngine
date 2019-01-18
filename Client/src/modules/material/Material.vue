@@ -17,7 +17,7 @@
               <img class="avatar mat-avatar" :src="$imagePath(material.authorAvatar)"/>{{material.authorName}}
             </router-link>
           </div>
-          <div class="float-right q-ma-sm">
+          <div class="float-right q-ma-sm mat-date-color">
             <q-icon name="far fa-clock"/>
             {{$formatDate(material.publishDate)}}
           </div>
@@ -291,5 +291,13 @@
 
   .mat-avatar {
     margin-right: 12px;
+  }
+</style>
+
+<style lang="stylus">
+  @import '~variables';
+
+  .mat-date-color {
+    color: $grey-7;
   }
 </style>

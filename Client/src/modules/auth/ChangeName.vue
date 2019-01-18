@@ -10,7 +10,7 @@
       </q-field>
 
       <q-field :error="$v.name.$invalid" :error-label="errorMessage">
-        <q-input v-model="name" float-label="Имя" @keyup="checkNameInDb" :after="[{
+        <q-input color="positive" v-model="name" float-label="Имя" @keyup="checkNameInDb" :after="[{
         icon: 'far fa-check-circle',
         condition: !$v.name.$invalid},
         ]"/>
