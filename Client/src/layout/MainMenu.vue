@@ -1,9 +1,5 @@
 <template>
-  <q-list
-    no-border
-    link
-    inset-delimiter
-  >
+  <q-list no-border link inset-delimiter>
     <div class="center q-mb-md">
       <router-link to='/'>
         <img src="/statics/SunEngine.svg" class="logo">
@@ -43,10 +39,6 @@
 </script>
 
 <style scoped>
-  .q-item-side {
-    text-align: center;
-  }
-
   .logo {
     width: 220px;
     height: 220px;

@@ -1,11 +1,11 @@
 <template>
-  <q-list highlight >
+  <q-list class="menu-list" highlight >
     <q-item :multiline="false" :to="{name:'Login'}">
-      <q-icon name="fas fa-sign-in-alt" size="16px" style="width:16px" class="on-left"/>
+      <q-icon name="fas fa-sign-in-alt" />
       Войти
     </q-item >
     <q-item  :multiline="false" :to="{name:'Register'}" >
-      <q-icon name="fas fa-user-plus" size="16px" style="width:16px" class="on-left"/>
+      <q-icon name="fas fa-user-plus" />
       Зарегистрироваться
     </q-item>
   </q-list>

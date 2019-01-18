@@ -54,6 +54,7 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
+        [RequestSizeLimit(1024*1024*8)]
         public async Task<IActionResult> UploadImage(IFormFile file)
         {
             if (file.Length == 0)
@@ -77,6 +78,7 @@ namespace SunEngine.Controllers
 
 
         [HttpPost]
+        [RequestSizeLimit(1024*1024*8)]
         public async Task<IActionResult> UploadUserPhoto(IFormFile file)
         {
             if (file.Length == 0)
