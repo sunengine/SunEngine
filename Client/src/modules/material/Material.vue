@@ -11,35 +11,38 @@
         </div>
         <div v-html="material.text">
         </div>
-        <div class="q-py-md text-grey-8">
-          <div class="float-left q-mr-sm">
+        <div class="q-mt-lg" style="text-align: center" >
+          <q-chip class="q-mx-xs" small tag color="info" v-for="tag in material.tags" :key="tag">
+            {{tag}}
+          </q-chip>
+        </div>
+        <div class="q-py-sm text-grey-8 flex" style="align-items: center">
+          <div class="q-mr-md">
             <router-link :to="'/user/'+material.authorLink">
               <img class="avatar mat-avatar" :src="$imagePath(material.authorAvatar)"/>{{material.authorName}}
             </router-link>
           </div>
-          <div class="float-right q-ma-sm mat-date-color">
-            <q-icon name="far fa-clock"/>
-            {{$formatDate(material.publishDate)}}
+          <div style="flex-grow: 1">
+
           </div>
-          <div class="float-right q-ma-sm" v-if="canDelete">
-            <a href="#" style="display: inline-flex; align-items: center;"
-               @click.prevent="deleteMaterial">
-              <q-icon name="fas fa-trash" class="q-mr-xs"/>
-            </a>
-          </div>
-          <div class="float-right q-ma-sm" v-if="canEdit">
+          <div class="q-mr-md" v-if="canEdit">
             <a href="#" style="display: inline-flex; align-items: center;"
                @click.prevent="$router.push(`/AddEditMaterial?id=`+material.id)">
               <q-icon name="fas fa-edit" class="q-mr-xs"/>
               Редактировать</a>
           </div>
-          <div class="float-left q-ma-sm">
-            <q-chip class="q-ml-sm" small tag color="primary" v-for="tag in material.tags" :key="tag">
-              {{tag}}
-            </q-chip>
+          <div class="q-mr-md" v-if="canDelete">
+            <a href="#" style="display: inline-flex; align-items: center;"
+               @click.prevent="deleteMaterial">
+              <q-icon name="fas fa-trash" />
+            </a>
           </div>
-
+          <div class="mat-date-color">
+            <q-icon name="far fa-clock"/>
+            {{$formatDate(material.publishDate)}}
+          </div>
         </div>
+
       </div>
       <div style="clear: both"></div>
     </template>

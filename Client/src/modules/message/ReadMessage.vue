@@ -9,10 +9,10 @@
              {{message.authorName}}
            </router-link>
         </span> &nbsp;
-        <span v-if="canEdit" class=" q-px-sm">
-                    <a href="#" @click.prevent="$emit('goEdit')">редактировать</a>
+        <span v-if="canEdit" class=" q-mr-md">
+                    <a href="#" @click.prevent="$emit('goEdit')"><q-icon name="fas fa-edit"/> редактировать</a>
         </span>
-        <span v-if="canMoveToTrash" class=" q-px-sm">
+        <span v-if="canMoveToTrash" class=" q-mr-md">
                     <a href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash"/></a>
         </span>
         <span class="mat-date-color">
@@ -20,10 +20,6 @@
         </span>
       </div>
       <div v-html="message.text">
-
-      </div>
-      <div class="q-py-xs text-grey-8">
-
 
       </div>
     </div>

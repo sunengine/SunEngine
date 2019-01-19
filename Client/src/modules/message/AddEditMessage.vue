@@ -27,10 +27,11 @@
 
       class="editor" ref="htmlEditor" v-model="message.text"/>
     <div>
-      <q-btn icon-right="fas fa-arrow-circle-right" no-caps @click="send" :loading="loading"
+      <q-btn icon="fas fa-arrow-circle-right" no-caps @click="send" :loading="loading"
              :label="isNew ? 'Отправить' : 'Сохранить'" color="send">
         <LoaderSent slot="loading"/>
       </q-btn>
+      <q-btn v-if="!isNew" no-caps icon="fas fa-times" class="q-ml-sm" @click="$emit('cancel')" label="Отмена" color="warning"/>
       <span :class="['error', {'invis' : !($v.message.text.$invalid && !start) } ]">
         {{!$v.message.text.required ? 'Введите текст' : 'Минимальная длинна текста - 5'}}
       </span>

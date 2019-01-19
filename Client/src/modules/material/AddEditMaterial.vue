@@ -47,7 +47,7 @@
 
       </q-field>
       <q-field icon="fas fa-tags">
-        <my-chips-input v-model="material.tags" float-label="Метки"/>
+        <my-chips-input color="info" v-model="material.tags" float-label="Метки"/>
       </q-field>
       <q-field icon="fas fa-folder" :error="$v.material.categoryName.$invalid && !start"
                error-label="Выберите раздел">
@@ -73,9 +73,13 @@
           </q-popover>
         </q-btn>
       </q-field>
-      <q-btn icon-right="fas fa-arrow-circle-right" class="btn-send" no-caps :loading="loading" label="Отправить" @click="send" color="send">
-        <LoaderSent slot="loading"/>
-      </q-btn>
+      <div class="btn-block">
+        <q-btn icon="fas fa-arrow-circle-right" class="btn-send" no-caps :loading="loading" label="Отправить"
+               @click="send" color="send">
+          <LoaderSent slot="loading"/>
+        </q-btn>
+        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack()" label="Отмена" color="warning"/>
+      </div>
     </template>
     <LoaderWait v-else/>
   </q-page>
@@ -191,8 +195,7 @@
               type: 'warning',
               position: 'top'
             });
-          }
-          else {
+          } else {
             this.$q.notify({
               message: error.response.data.errorText,
               timeout: 2000,
@@ -261,8 +264,9 @@
     margin-left: 44px;
   }
 
-  .btn-send {
-    margin-top : 8px;
-    margin-left :28px + 16px;
+  .btn-block {
+    margin-top: 8px;
+    margin-left: 28px + 16px;
   }
+
 </style>
