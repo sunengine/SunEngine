@@ -20,7 +20,7 @@ export function makeUserDataFromToken(token) {
 
   let roles = tokenParsed[RolesKey];
   let userGroups;
-  let  userGroup;
+  let userGroup;
 
   if(Array.isArray(roles))
   {
