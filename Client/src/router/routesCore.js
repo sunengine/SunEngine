@@ -15,7 +15,7 @@ const routes = [
     path: '/auth/login',
     component: Login,
     meta: {
-      notReturnable: true
+      roles: ["Unregistered"]
     }
   },
   {
@@ -23,7 +23,7 @@ const routes = [
     path: '/auth/register',
     component: Register,
     meta: {
-      notReturnable: true
+      roles: ["Unregistered"]
     }
   },
   {

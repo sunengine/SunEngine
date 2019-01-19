@@ -33,7 +33,7 @@
     name: "UserMenu",
     computed: {
       isAdmin() {
-        return this.$store.state.auth.user.userGroups.some(x => x == 'Admin')
+        return this.$store.state.auth.userGroups.some(x => x == 'Admin')
       },
       ...mapState({
         user: state => state.auth.user

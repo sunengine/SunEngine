@@ -5,12 +5,8 @@ import {store} from "store";
 import config from "services/config"
 
 export function makeLogin (state,data) {
-  state.token = data.token;
 
-  if(state.user==null)
-    state.user = data.user;
-  else
-    Object.assign(state.user,data.user);
+  Object.assign(state,data);
 
   if(data.permanent) {
     setToken(data.token);
@@ -21,6 +17,8 @@ export function makeLogin (state,data) {
 export function makeLogout (state) {
   state.token = null;
   state.user = null;
+  state.userGroup = 'Unregistered';
+  state.userGroups= ['Unregistered'];
   store.state.categories.root = null;
   store.state.categories.all = null;
 }

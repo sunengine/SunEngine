@@ -39,9 +39,9 @@ export function makeUserDataFromToken(token) {
     user: {
       id: tokenParsed[IdKey],
       name: tokenParsed[NameKey],
-      userGroups: userGroups,
-      userGroup: userGroup
-    }
+    },
+    userGroups: userGroups,
+    userGroup: userGroup
   };
 
   return data;
