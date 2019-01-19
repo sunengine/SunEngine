@@ -13,6 +13,7 @@ using SunEngine.Commons.Models;
 using SunEngine.Options;
 using Microsoft.AspNetCore.Identity;
 using SunEngine.Commons.DataBase;
+using SunEngine.Commons.StoreModels;
 using SunEngine.EntityServices;
 using SunEngine.Infrastructure;
 using SunEngine.Services;
@@ -101,7 +102,7 @@ namespace SunEngine.Controllers
                 Photo = SunEngine.Commons.Models.User.DefaultAvatar
             };
 
-            using (var transaction = new TransactionScope())
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 IdentityResult result = await userManager.CreateAsync(user, model.Password);
                 await db.Users.Where(x => x.Id == user.Id).Set(x => x.Link, x => x.Id.ToString()).UpdateAsync();
@@ -129,19 +130,17 @@ namespace SunEngine.Controllers
 
                     logger.LogInformation($"User logged in (id: {user.Id})");
 
-                    //transaction.Complete();
+                    transaction.Complete();
 
                     return Ok();
                 }
-                
-                transaction.Complete();
-                
+
                 return BadRequest(new ErrorsViewModel
                 {
                     ErrorsNames = result.Errors.Select(x => x.Code).ToArray(),
                     ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()
                 });
-            }            
+            }
         }
 
         [HttpPost]
@@ -236,15 +235,27 @@ namespace SunEngine.Controllers
         public async Task<IActionResult> Confirm(string uid, string token)
         {
             var user = await userManager.FindByIdAsync(uid);
-            var confirmResult = await userManager.ConfirmEmailAsync(user, token);
-            if (confirmResult.Succeeded)
+
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/emailconfirmed?result=ok"));
+                try
+                {
+                    var confirmResult = await userManager.ConfirmEmailAsync(user, token);
+                    if (confirmResult.Succeeded)
+                    {
+                        await userManager.AddToRoleAsync(user, UserGroup.UserGroupRegistered);
+
+                        transaction.Complete();
+                        return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/emailconfirmed?result=ok"));
+                    }
+                }
+                catch
+                {
+                    
+                }
             }
-            else
-            {
-                return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/emailconfirmed?result=error"));
-            }
+
+            return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/emailconfirmed?result=error"));
         }
 
         [Authorize]

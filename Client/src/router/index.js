@@ -45,8 +45,11 @@ export default function (/* { store, ssrContext } */) {
   });
 
   router.$goBack = function () {
-    if (router.$prevRoute) {
+    if (router.$prevRoute && !router.$prevRoute?.meta?.notReturnable) {
       router.push(router.$prevRoute.fullPath);
+    }
+    else {
+      router.push({name: 'Home'});
     }
   };
 

@@ -21,6 +21,9 @@ shopt -s extglob
 rm -rf !(_)
 shopt -u extglob
 
+echo -e "\n$GREEN Remove MyDataBaseConnection.json $NC"
+rm -f  "$parent_path/Build/MyDataBaseConnection.json"
+
 
 echo -e "$GREEN Building Client $NC"
 cd "$parent_path/Client"

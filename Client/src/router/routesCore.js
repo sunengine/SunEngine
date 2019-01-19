@@ -13,17 +13,26 @@ const routes = [
   {
     name: 'Login',
     path: '/auth/login',
-    component: Login
+    component: Login,
+    meta: {
+      notReturnable: true
+    }
   },
   {
     name: 'Register',
     path: '/auth/register',
-    component: Register
+    component: Register,
+    meta: {
+      notReturnable: true
+    }
   },
   {
     name: 'EmailConfirmed',
     path: '/auth/EmailConfirmed'.toLowerCase(),
-    component: EmailConfirmed
+    component: EmailConfirmed,
+    meta: {
+      notReturnable: true
+    }
   },
   {
     name: 'ResetPassword',
@@ -38,7 +47,10 @@ const routes = [
   {
     name: 'ResetPasswordFailed',
     path: '/auth/ResetPasswordFailed'.toLowerCase(),
-    component: ResetPasswordFailed
+    component: ResetPasswordFailed,
+    meta: {
+      notReturnable: true
+    }
   },
   {
     name: 'User',
