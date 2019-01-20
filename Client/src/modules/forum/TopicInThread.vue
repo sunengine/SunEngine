@@ -6,18 +6,22 @@
           <img class="avatar" :src="$imagePath(topic.authorAvatar)"/>
         </q-item-side>
         <q-item-main :label="topic.title">
-          <q-item-tile sublabel>
-            {{topic.authorName}} &nbsp;
-            <template v-if="topic.categoryTitle">
+          <q-item-tile class="info-block" sublabel>
+            <span>
+            {{topic.authorName}}
+            </span>
+            <span v-if="topic.categoryTitle">
               <q-icon name="far fa-folder"/>
-              {{topic.categoryTitle}} &nbsp;
-            </template>
+              {{topic.categoryTitle}}
+            </span>
+            <span>
             <q-icon name="far fa-clock"/>
-            {{$formatDate(this.topic.publishDate)}} &nbsp;
-            <template v-if="topic.messagesCount > 0">
+            {{$formatDate(this.topic.publishDate)}}
+              </span>
+            <span v-if="topic.messagesCount > 0">
               <q-icon name="far fa-comment"/>
               {{topic.messagesCount}}
-            </template>
+            </span>
           </q-item-tile>
         </q-item-main>
       </q-item>
@@ -33,9 +37,11 @@
             <span class="xs">Последнее от </span>
             {{topic.lastMessageAuthorName}}
           </q-item-tile>
-          <q-item-tile sublabel>
-            <q-icon name="far fa-clock"/>
-            {{$formatDate(topic.lastMessagePublishDate)}}
+          <q-item-tile class="info-block" sublabel>
+            <span>
+              <q-icon name="far fa-clock"/>
+              {{$formatDate(topic.lastMessagePublishDate)}}
+            </span>
           </q-item-tile>
         </q-item-main>
 
@@ -65,7 +71,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   .avatar {
     width: 42px;
     height: 42px;
@@ -79,4 +85,5 @@
     border-top: solid rgba(42, 171, 210, 0.07) 1px;
     border-left: none;
   }
+
 </style>

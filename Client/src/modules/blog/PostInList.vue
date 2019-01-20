@@ -6,12 +6,14 @@
         <div class="q-mb-xs ttl" style="font-weight: 600">
           <router-link :to="path">{{post.title}}</router-link>
         </div>
-        <div class="q-my-xs">
+        <div class="q-my-xs info-block">
           <router-link :to="`/user/${post.authorLink}`" class="text-grey-6 q-mr-xl">
             {{post.authorName}}
           </router-link>
-          <span class="text-grey-6"><q-icon name="far fa-clock"/>
-      {{$formatDate(this.post.publishDate)}} &nbsp;</span>
+          <span class="text-grey-6">
+            <q-icon name="far fa-clock"/>
+            {{$formatDate(this.post.publishDate)}} &nbsp;
+          </span>
         </div>
       </div>
     </div>
