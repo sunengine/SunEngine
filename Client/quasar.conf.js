@@ -1,6 +1,6 @@
 // Configuration for your app
 
-var path = require('path');
+const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 
@@ -13,7 +13,6 @@ module.exports = function (ctx) {
       'app.styl'
     ],
     extras: [
-      ctx.theme.mat ? 'roboto-font' : null,
       'material-icons',
       'fontawesome'
     ],
@@ -64,6 +63,7 @@ module.exports = function (ctx) {
         'QEditor',
         'QInput',
         'QField',
+        'QChipsInput',
         'QAlert',
         'QPagination',
         'QCheckbox',
