@@ -3,14 +3,14 @@
     <div class="header">
       <img class="avatar" :src="$imagePath(post.authorAvatar)"/>
       <div>
-        <div class="q-mb-xs ttl" >
+        <div class="q-mb-xs ttl" style="font-weight: 600">
           <router-link :to="path">{{post.title}}</router-link>
         </div>
         <div class="q-my-xs">
-          <router-link :to="`/user/${post.authorLink}`" class="q-mr-xl">
+          <router-link :to="`/user/${post.authorLink}`" class="text-grey-6 q-mr-xl">
             {{post.authorName}}
           </router-link>
-          <span class="text-grey-7"><q-icon name="far fa-clock"/>
+          <span class="text-grey-6"><q-icon name="far fa-clock"/>
       {{$formatDate(this.post.publishDate)}} &nbsp;</span>
         </div>
       </div>
@@ -18,16 +18,15 @@
     <div class="q-my-xs" v-html="post.preview">
 
     </div>
-    <div class="q-my-xs">
-      <router-link :to="path" class="q-mr-lg q-ml-sm">
-        <q-icon name="far fa-comment"/>
-        {{post.messagesCount}}
+    <div class="q-mb-xs footer">
+      <router-link :to="path" :class="['q-mr-xl','q-ml-sm', {'text-grey-6': !post.messagesCount}]">
+        <q-icon name="far fa-comment" class="q-mr-sm"/>
+        {{post.messagesCount}} сообщений
       </router-link>
 
       <router-link :to="path" v-if="post.hasMoreText">Читать дальше
         <q-icon name="fas fa-arrow-right"/>
       </router-link>
-
     </div>
     <hr/>
   </div>
@@ -71,6 +70,10 @@
   .header {
     display: flex;
     margin-bottom: 12px;
+  }
+
+  .footer {
+    margin-top: 12px;
   }
 
   hr {
