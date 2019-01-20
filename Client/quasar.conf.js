@@ -70,6 +70,7 @@ module.exports = function (ctx) {
         'QTree',
         'QSpinner',
         'QSpinnerMat',
+        'QSpinnerGears',
         'QPopover',
         'QChip',
       ],

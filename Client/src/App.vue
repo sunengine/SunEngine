@@ -2,7 +2,12 @@
   <div id="q-app">
     <Layout v-if="isInitialized"/>
 
-    <LoaderWait v-else-if="!initializeError"/>
+    <div v-else-if="!initializeError" class="loader">
+      <div>
+        <q-spinner-gears size="40px" class="q-mr-sm"/>
+        Загрузка...
+      </div>
+    </div>
 
     <div v-else class="api-error">
       <q-alert type="negative" icon="fas fa-exclamation-triangle">
@@ -31,12 +36,24 @@
   }
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
+  @import '~variables';
+
   .api-error {
     display: flex;
     height: 100vh;
     align-items: center;
     align-content: center;
     justify-content: center;
+  }
+
+  .loader {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    font-size: 1.4em;
+    color: #005d00;
   }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <q-list no-border dense v-if="subCategories" highlight>
-    <q-item :to='$buildPath(path,category.name)' link multiline v-for="(category,index) in subCategories"
+  <q-list no-border dense v-if="subCategories">
+    <q-item :to='$buildPath(path,category.name)'  v-for="(category,index) in subCategories"
             :key="category.id">
       <q-item-main :label="category.title">
 

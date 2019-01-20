@@ -6,19 +6,19 @@
         <!--<q-icon name="fas fa-user" />-->
         {{user.name}}
       </q-item>
-      <q-item :to="$buildPath(`/user/${user.link}`)" :multiline="false" link>
+      <q-item :to="$buildPath(`/user/${user.link}`)" >
         <q-icon name="fas fa-user-circle" />
         Профиль
       </q-item>
-      <q-item to="/personal" :multiline="false" link>
+      <q-item to="/personal" >
         <q-icon name="fas fa-sliders-h" />
         Личный кабинет
       </q-item>
-      <q-item v-if="isAdmin" :to="{name: 'AdminPanel'}" :multiline="false" link>
+      <q-item v-if="isAdmin" :to="{name: 'AdminPanel'}">
         <q-icon name="fas fa-cog" />
         Админка
       </q-item>
-      <q-item v-close-overlay @click.native="logout()" :multiline="false" link>
+      <q-item v-close-overlay @click.native="logout()">
         <q-icon name="fas fa-sign-out-alt" />
         Выйти
       </q-item>
