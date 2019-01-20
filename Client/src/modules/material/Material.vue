@@ -47,7 +47,7 @@
       <div style="clear: both"></div>
     </template>
 
-    <div v-if="messages" class="msgs">
+    <div id="messages" v-if="messages" class="msgs">
       <hr/>
       <MessageContainer :message="message" :checkLastOwn="checkLastOwn" :categoryPersonalAccess="categoryPersonalAccess"
                         :isLast="index == maxMessageNumber" v-for="(message,index) in messages" :key="message.id"/>

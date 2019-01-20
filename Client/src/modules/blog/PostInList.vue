@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="header">
+    <q-item :to="path" class="header">
       <img class="avatar" :src="$imagePath(post.authorAvatar)"/>
       <div>
-        <div class="q-mb-xs ttl" style="font-weight: 600">
-          <router-link :to="path">{{post.title}}</router-link>
+        <div style="font-weight: 600">
+          {{post.title}}
         </div>
         <div class="q-my-xs info-block">
-          <router-link :to="`/user/${post.authorLink}`" class="text-grey-6 q-mr-xl">
+          <router-link :to="`/user/${post.authorLink}`" class="user-link q-mr-xl">
             {{post.authorName}}
           </router-link>
           <span class="text-grey-6">
@@ -16,19 +16,23 @@
           </span>
         </div>
       </div>
-    </div>
-    <div class="q-my-xs" v-html="post.preview">
+    </q-item>
+    <div class="q-my-xs post-preview" v-html="post.preview">
 
     </div>
-    <div class="q-mb-xs footer">
-      <router-link :to="path" :class="['q-mr-xl','q-ml-sm', {'text-grey-6': !post.messagesCount}]">
+    <div class="flex footer">
+      <q-item :to="path+'#messages'" class="q-mr-md">
+        <span :class="[{'text-grey-6': !post.messagesCount}]">
         <q-icon name="far fa-comment" class="q-mr-sm"/>
         {{post.messagesCount}} сообщений
-      </router-link>
-
-      <router-link :to="path" v-if="post.hasMoreText">Читать дальше
-        <q-icon name="fas fa-arrow-right"/>
-      </router-link>
+        </span>
+      </q-item>
+      <q-item :to="path" v-if="post.hasMoreText">
+        <span>
+          Читать дальше
+          <q-icon name="fas fa-arrow-right"/>
+        </span>
+      </q-item>
     </div>
     <hr/>
   </div>
@@ -65,17 +69,21 @@
     border-radius: 22px;
   }
 
-  .ttl {
-    //font-weight: 600;
-  }
-
   .header {
     display: flex;
     margin-bottom: 12px;
+    margin-left: -16px;
+    padding-left: 16px !important;
+    color: #3a67d3 !important;
   }
 
   .footer {
-    margin-top: 12px;
+    margin-left: -16px;
+
+    .q-item {
+      color: #3a67d3 !important;
+      margin-left: 2px;
+    }
   }
 
   hr {
@@ -83,5 +91,24 @@
     margin: 18px 0 - $flex-gutter-sm;
     border-top: solid rgba(42, 171, 210, 0.07) 1px;
     border-left: none;
+  }
+
+  .post-preview {
+    >>> *:first-child {
+      margin-top: 0 !important;
+    }
+
+    >>> *:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .user-link {
+    color: $grey-6;
+
+    &:hover {
+      color: #3a67d3 !important;
+      text-decoration: underline;
+    }
   }
 </style>

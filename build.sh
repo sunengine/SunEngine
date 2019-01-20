@@ -12,7 +12,7 @@ mkdir "$parent_path/Build"
  
 
 echo -e "\n$GREEN Publishing SunEngine $NC"
-dotnet publish -c Release SunEngine -o "$parent_path/Build"
+dotnet publish -c Release SunEngine -o "$parent_path/Build" -v m
 
 
 echo -e "\n$GREEN Clearing Images $NC"
