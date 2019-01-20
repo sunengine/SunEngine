@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using SunEngine.Authorization;
 using SunEngine.Commons.DataBase;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
@@ -146,7 +147,10 @@ namespace SunEngine
             services.AddMvcCore(options => { options.Filters.Add(new MyAuthUserFilter(userGroupStore)); })
                 .AddApiExplorer()
                 .AddAuthorization()
-                .AddJsonFormatters()
+                .AddJsonFormatters(options =>
+                {
+                    options.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

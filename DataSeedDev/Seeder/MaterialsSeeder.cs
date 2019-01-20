@@ -29,7 +29,7 @@ namespace SunEngine.Seeder
         private const int MaterialPreviewLength = 800;
 
 
-        private readonly LinesCount defaultLinesCount = new LinesCount() {Min = 4, Max = 30};
+        private readonly LinesCount defaultLinesCount = new LinesCount {Min = 4, Max = 30};
 
 
         public MaterialsSeeder(DataContainer dataContainer)

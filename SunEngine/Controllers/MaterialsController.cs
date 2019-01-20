@@ -67,7 +67,7 @@ namespace SunEngine.Controllers
                 return Unauthorized();
             }
 
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow;
 
             Material material = new Material
             {
@@ -108,7 +108,7 @@ namespace SunEngine.Controllers
 
             material.Title = title;
             material.Text = text;
-            material.EditDate = DateTime.Now;
+            material.EditDate = DateTime.UtcNow;
 
             // Если категория новая, то обновляем
             if (material.CategoryId != newCategory.Id)

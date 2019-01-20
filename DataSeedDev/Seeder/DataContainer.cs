@@ -22,7 +22,7 @@ namespace SunEngine.Seeder
 
         private int operationKeyId = 1;
         
-        private DateTime messagePublishDate = DateTime.Now.AddMinutes(-3);
+        private DateTime messagePublishDate = DateTime.UtcNow.AddMinutes(-3);
 
         public Category RootCategory;
         public List<Category> Categories = new List<Category>();

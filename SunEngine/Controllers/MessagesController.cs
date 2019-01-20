@@ -68,12 +68,13 @@ namespace SunEngine.Controllers
                 return Unauthorized();
             }
 
+            var now = DateTime.UtcNow;
             Message message = new Message
             {
                 Material = material,
                 MaterialId = materialId,
-                PublishDate = DateTime.Now,
-                EditDate = DateTime.Now,
+                PublishDate = now,
+                EditDate = now,
                 Text = text,
                 AuthorId = User.UserId
             };
@@ -116,7 +117,7 @@ namespace SunEngine.Controllers
             }
 
             message.Text = newMessage.Text;
-            message.EditDate = DateTime.Now;
+            message.EditDate = DateTime.UtcNow;
 
             await messagesService.UpdateAsync(message);
 
