@@ -2,7 +2,7 @@
   <q-list no-border link inset-delimiter>
     <div class="center q-mb-md">
       <router-link to='/'>
-        <img src="/statics/SunEngine6.svg" class="logo">
+        <img src="/statics/SunEngine.svg" class="logo">
       </router-link>
     </div>
     <q-item to='/' exact>
