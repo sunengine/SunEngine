@@ -46,7 +46,7 @@
         },
         "linq2db": {
           "target": "Package",
-          "version": "[2.6.2, )"
+          "version": "[2.6.3, )"
         },
         "linq2db.Identity": {
           "target": "Package",
