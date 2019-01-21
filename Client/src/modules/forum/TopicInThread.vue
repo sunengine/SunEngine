@@ -26,8 +26,8 @@
         </q-item-main>
       </q-item>
     </div>
-    <div class="xs col-xs-2"></div>
-    <div class="col-xs-10 col-sm-4" v-if="topic.lastMessageId">
+
+    <div class="last-reply col-sm-4" v-if="topic.lastMessageId">
       <q-item :to='path+"#message-last"'>
         <q-item-side>
           <img class="avatar" :src="$imagePath(topic.lastMessageAuthorAvatar)"/>
@@ -44,7 +44,6 @@
             </span>
           </q-item-tile>
         </q-item-main>
-
       </q-item>
     </div>
     <hr class="hr-topic-in-thread"/>
@@ -71,11 +70,11 @@
   }
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
   .avatar {
     width: 42px;
     height: 42px;
-    border-radius: 21px;
+    border-radius: 50%;
   }
 
   hr {
@@ -89,4 +88,12 @@
   .q-item {
     padding: 3px 0;
   }
+
+  @media (max-width: 576px) {
+    .last-reply {
+      transform: scale(0.88);
+      padding-left: 44px;
+    }
+  }
+
 </style>

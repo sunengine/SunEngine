@@ -7,6 +7,7 @@
       <q-btn no-caps @click="$router.push({path:'/AddEditMaterial',query:{categoryName:category.name}})"
              label="Новый пост"
              v-if="canAddArticle" icon="fas fa-plus" color="post"/>
+      <div class="clear"></div>
     </div>
     <div v-html="category.header" v-if="category.header" class="q-mb-sm"></div>
 

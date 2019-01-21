@@ -37,17 +37,16 @@ a {
 }
 
 .header-with-button {
-  display: flex;
-  align-items: center;
-  align-content: center
 
   h2 {
-    flex-grow: 1;
+    float: left;
   }
 
   button {
-    margin-right: 16px;
+    //margin-right: 16px;
+    float: right;
   }
+
 }
 
 // Colors
@@ -97,11 +96,11 @@ a {
     display: inline-flex;
     margin-right: 10px;
     white-space: nowrap;
-    align-items : center;
+    align-items: center;
 
 
     .q-icon {
-      margin-right : 5px;
+      margin-right: 5px;
     }
   }
 }
@@ -190,12 +189,16 @@ a {
 
 @media (max-width: 400px) {
   .q-layout-page {
-    padding : 8px !important;
+    padding: 12px !important;
   }
 }
 
 @media ( min-width: 401px ) and ( max-width: 701px ) {
   .q-layout-page {
-    padding : 16px !important;
+    padding: 18px !important;
   }
+}
+
+.q-title {
+  margin-top: 6px;
 }

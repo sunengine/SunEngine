@@ -6,13 +6,14 @@
       </h2>
       <q-btn no-caps @click="$router.push({path:'/AddEditMaterial',query:{categoryName:thread.name}})"
              label="Новая тема" v-if="canAddTopic" icon="fas fa-plus" color="post" />
+      <div class="clear"></div>
     </div>
     <div v-if="thread.header" class="q-mb-sm" v-html="thread.header"></div>
 
     <LoaderWait v-if="!topics.items"/>
 
     <template v-else>
-      <div class="bg-grey-2 gt-sm">
+      <div class="bg-grey-2 gt-sm text-grey-6">
         <div class="row">
           <div class="col-xs-12 col-sm-8" style="padding: 2px 0px 2px 60px; ">
             Тема
