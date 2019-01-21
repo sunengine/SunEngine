@@ -16,9 +16,10 @@
     <LoaderWait v-if="!topics.items"/>
 
     <template v-else>
-      <div class="bg-grey-2 gt-sm text-grey-6">
+      <div class="margin-back bg-grey-2 gt-xs text-grey-6">
+        <hr class="hr-sep" />
         <div class="row">
-          <div class="col-xs-12 col-sm-8" style="padding: 2px 0px 2px 60px; ">
+          <div class="col-xs-12 col-sm-8" style="padding: 2px 0px 2px 76px; ">
             Тема
           </div>
           <div class="col-xs-12 col-sm-2" style="padding: 2px 0px 2px 60px;">
@@ -26,10 +27,13 @@
           </div>
         </div>
       </div>
+
       <q-list no-border>
-        <TopicInThread :rootCategoryPath="rootCategoryPath" :topic="topic" v-for="topic in topics.items"
-                       :key="topic.id">
-        </TopicInThread>
+        <hr class="hr-sep margin-back"/>
+        <div class="margin-back" v-for="topic in topics.items" :key="topic.id">
+          <TopicInThread :topic="topic" :rootCategoryPath="rootCategoryPath"/>
+          <hr class="hr-sep"/>
+        </div>
       </q-list>
 
       <q-pagination v-if="topics.totalPages > 1"
@@ -132,6 +136,17 @@
   }
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
+  .hr-sep {
+    height: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-top: solid #d3eecc 1px !important;
+    border-left: none;
+  }
 
+  .q-list {
+    padding: 0;
+    margin-bottom: 12px;
+  }
 </style>

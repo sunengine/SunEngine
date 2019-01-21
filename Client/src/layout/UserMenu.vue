@@ -8,7 +8,7 @@
       </q-item>
       <q-item :to="$buildPath(`/user/${user.link}`)" >
         <q-icon name="fas fa-user-circle" />
-        Профиль
+        Просмотреть профиль
       </q-item>
       <q-item to="/personal" >
         <q-icon name="fas fa-sliders-h" />

@@ -6,7 +6,6 @@
       <AddEditMessage @done="saved" @cancel="isReadMode=true" :messageId="message.id" class="q-mx-md" v-else/>
     </template>
     <DeletedMessage v-else/>
-    <hr/>
   </div>
 </template>
 

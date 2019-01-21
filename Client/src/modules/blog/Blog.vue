@@ -116,7 +116,7 @@
 
   .hr-sep {
     height: 0;
-    border-top: solid rgba(42, 171, 210, 0.07) 1px!important;
+    border-top: solid #d3eecc 1px !important;
     border-left: none;
   }
 </style>

@@ -47,11 +47,15 @@
     </template>
 
     <div id="messages" v-if="messages" class="msgs">
-      <hr/>
-      <MessageContainer :message="message" :checkLastOwn="checkLastOwn" :categoryPersonalAccess="categoryPersonalAccess"
-                        :isLast="index == maxMessageNumber" v-for="(message,index) in messages" :key="message.id"/>
+      <hr class="hr-sep margin-back"/>
+      <div v-for="(message,index) in messages" :key="message.id">
+        <MessageContainer :message="message" :checkLastOwn="checkLastOwn"
+                          :categoryPersonalAccess="categoryPersonalAccess"
+                          :isLast="index == maxMessageNumber" />
+        <hr class="hr-sep margin-back"/>
+      </div>
       <div v-if="canMessageWrite">
-        <AddEditMessage @done="messageAdded" :materialId="id" />
+        <AddEditMessage @done="messageAdded" :materialId="id"/>
       </div>
     </div>
 
@@ -300,5 +304,11 @@
 
   .mat-date-color {
     color: $grey-7;
+  }
+
+  .hr-sep {
+    height: 0;
+    border-top: solid #d3eecc 1px !important;
+    border-left: none;
   }
 </style>
