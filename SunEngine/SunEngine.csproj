@@ -10,7 +10,7 @@
         <PackageReference Include="AspNetCore.CacheOutput.InMemory" Version="1.0.4.1" />
         <PackageReference Include="FluentMigrator" Version="3.1.3" />
         <PackageReference Include="Flurl" Version="2.8.0" />
-        <PackageReference Include="HtmlSanitizer" Version="4.0.199" />
+        <PackageReference Include="HtmlSanitizer" Version="4.0.204" />
         <PackageReference Include="linq2db" Version="2.6.3" />
         <PackageReference Include="linq2db.Identity" Version="2.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.App" />

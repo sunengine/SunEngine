@@ -1,49 +1,48 @@
 <template>
   <q-page>
     <template v-if="material">
-      <div class="q-px-md">
-        <h2 class="q-title">
-          {{material.title}}
-        </h2>
-        <div v-if="category" style="margin-top: -10px;" class="q-mb-md">
-          <span class="text-grey-7">раздел: </span>
-          <router-link :to="categoryPath">{{category.title}}</router-link>
-        </div>
-        <div v-html="material.text">
-        </div>
-        <div class="q-mt-lg" style="text-align: center" >
-          <q-chip class="q-mx-xs" small tag color="info" v-for="tag in material.tags" :key="tag">
-            {{tag}}
-          </q-chip>
-        </div>
-        <div class="q-py-sm text-grey-8 flex" style="align-items: center">
-          <div class="q-mr-md">
-            <router-link :to="'/user/'+material.authorLink">
-              <img class="avatar mat-avatar" :src="$imagePath(material.authorAvatar)"/>{{material.authorName}}
-            </router-link>
-          </div>
-          <div style="flex-grow: 1">
-
-          </div>
-          <div class="q-mr-md" v-if="canEdit">
-            <a href="#" style="display: inline-flex; align-items: center;"
-               @click.prevent="$router.push(`/AddEditMaterial?id=`+material.id)">
-              <q-icon name="fas fa-edit" class="q-mr-xs"/>
-              Редактировать</a>
-          </div>
-          <div class="q-mr-md" v-if="canDelete">
-            <a href="#" style="display: inline-flex; align-items: center;"
-               @click.prevent="deleteMaterial">
-              <q-icon name="fas fa-trash" />
-            </a>
-          </div>
-          <div class="mat-date-color">
-            <q-icon name="far fa-clock"/>
-            {{$formatDate(material.publishDate)}}
-          </div>
-        </div>
-
+      <h2 class="q-title">
+        {{material.title}}
+      </h2>
+      <div v-if="category" style="margin-top: -10px;" class="q-mb-md">
+        <span class="text-grey-7">раздел: </span>
+        <router-link :to="categoryPath">{{category.title}}</router-link>
       </div>
+      <div v-html="material.text">
+      </div>
+      <div class="q-mt-lg" style="text-align: center">
+        <q-chip class="q-mx-xs" small tag color="info" v-for="tag in material.tags" :key="tag">
+          {{tag}}
+        </q-chip>
+      </div>
+      <div class="q-py-sm text-grey-8 flex" style="align-items: center">
+        <div class="q-mr-md">
+          <router-link :to="'/user/'+material.authorLink">
+            <img class="avatar mat-avatar" :src="$imagePath(material.authorAvatar)"/>{{material.authorName}}
+          </router-link>
+        </div>
+        <div style="flex-grow: 1">
+
+        </div>
+        <div class="q-mr-md" v-if="canEdit">
+          <a href="#" style="display: inline-flex; align-items: center;"
+             @click.prevent="$router.push(`/AddEditMaterial?id=`+material.id)">
+            <q-icon name="fas fa-edit" class="q-mr-xs"/>
+            Редактировать</a>
+        </div>
+        <div class="q-mr-md" v-if="canDelete">
+          <a href="#" style="display: inline-flex; align-items: center;"
+             @click.prevent="deleteMaterial">
+            <q-icon name="fas fa-trash"/>
+          </a>
+        </div>
+        <div class="mat-date-color">
+          <q-icon name="far fa-clock"/>
+          {{$formatDate(material.publishDate)}}
+        </div>
+      </div>
+
+
       <div style="clear: both"></div>
     </template>
 
@@ -52,7 +51,7 @@
       <MessageContainer :message="message" :checkLastOwn="checkLastOwn" :categoryPersonalAccess="categoryPersonalAccess"
                         :isLast="index == maxMessageNumber" v-for="(message,index) in messages" :key="message.id"/>
       <div v-if="canMessageWrite">
-        <AddEditMessage  @done="messageAdded" :materialId="id" class="q-mx-md"/>
+        <AddEditMessage @done="messageAdded" :materialId="id" />
       </div>
     </div>
 
@@ -66,9 +65,10 @@
   import AddEditMessage from "message/AddEditMessage";
   import {date} from 'quasar';
   import LoaderWait from "LoaderWait";
-  import { scroll } from 'quasar';
+  import {scroll} from 'quasar';
   import Page from "../../components/Page";
-  const { getScrollTarget, setScrollPosition } = scroll;
+
+  const {getScrollTarget, setScrollPosition} = scroll;
 
   export default {
     name: "Material",
@@ -267,7 +267,7 @@
       async messageAdded() {
         let currentPath = this.$route.fullPath;
         let ind = currentPath.lastIndexOf("#");
-        let path = currentPath.substring(0,ind);
+        let path = currentPath.substring(0, ind);
         window.history.pushState("", document.title, path);
         await this.loadData();
       },
@@ -285,8 +285,6 @@
 </script>
 
 <style scoped>
-
-
   .msgs {
     margin-top: 18px;
     margin-bottom: 25px;

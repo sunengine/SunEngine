@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <div class="header-with-button">
-      <h2 class="q-title q-px-md">
+      <h2 class="q-title">
         {{category.title}}
       </h2>
       <q-btn no-caps @click="$router.push({path:'/AddEditMaterial',query:{categoryName:category.name}})"
@@ -12,7 +12,7 @@
 
     <LoaderWait v-if="!posts.items"/>
 
-    <div class="q-mx-md q-mb-md">
+    <div class="q-mb-md">
       <PostInList :startPath="startPathForPosts" :post="post" v-for="post in posts.items" :key="post.id"/>
     </div>
 

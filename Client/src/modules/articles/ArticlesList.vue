@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <div class="header-with-button">
-      <h2 class="q-title q-px-md">
+      <h2 class="q-title">
         {{category.title}}
       </h2>
       <q-btn no-caps @click="$router.push({path:'/AddEditMaterial',query:{categoryName:category.name}})"

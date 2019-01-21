@@ -1,8 +1,7 @@
 <template>
   <q-page>
-
     <div class="header-with-button">
-      <h2 class="q-title q-px-md">
+      <h2 class="q-title">
         {{localTitle}}
       </h2>
       <q-btn no-caps @click="$router.push({name:'AddEditMaterial',query:{categoryName:thread.name}})" label="Новая тема"

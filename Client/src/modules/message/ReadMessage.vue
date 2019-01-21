@@ -2,7 +2,7 @@
   <div>
     <img class="avatar msg-avatar" :src="$imagePath(message.authorAvatar)"/>
 
-    <div class="q-ma-md">
+    <div class="q-my-md">
       <div class="q-mb-xs" style="display: flex;">
         <span  style="flex-grow:1">
            <router-link :to="'/user/'+message.authorLink">
@@ -73,7 +73,7 @@
 <style lang="stylus" scoped>
   .msg-avatar {
     float: left;
-    margin: 2px 12px 12px 17px
+    margin: 2px 12px 12px 0;
   }
 
 </style>

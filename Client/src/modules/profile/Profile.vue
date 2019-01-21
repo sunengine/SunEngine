@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md">
+  <q-page>
     <div class="f1" v-if="user">
       <div class="img">
         <img style="" width="300" height="300" :src="$imagePath(user.photo)"/>
@@ -11,7 +11,7 @@
       </div>
     </div>
     <loader-wait v-else/>
-  </div>
+  </q-page>
 </template>
 
 <script>

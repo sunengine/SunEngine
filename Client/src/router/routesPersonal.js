@@ -49,7 +49,7 @@ const routes = [
     path: '/personal',
     components: {
       default: PersonalInfo,
-      navigation: SettingsMenu
+      navigation: null
     }
   },
   {

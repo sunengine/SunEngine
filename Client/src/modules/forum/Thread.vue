@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <q-page>
     <div class="header-with-button">
-      <h2 class="q-title q-px-md">
+      <h2 class="q-title">
         {{thread.title}}
       </h2>
       <q-btn no-caps @click="$router.push({path:'/AddEditMaterial',query:{categoryName:thread.name}})"
@@ -38,7 +38,7 @@
                     @input="pageChanges"
       />
     </template>
-  </div>
+  </q-page>
 
 </template>
 

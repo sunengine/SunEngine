@@ -39,6 +39,9 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="stylus" scoped>
+  .q-item {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
 </style>

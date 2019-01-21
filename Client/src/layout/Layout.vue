@@ -15,7 +15,7 @@
           <q-icon name="menu"/>
         </q-btn>
 
-        <q-btn v-if="userName" style="margin-left: 6px;" flat dense round>
+        <q-btn class="user-menu-button" v-if="userName" flat dense round>
           <img class="avatar" :src="userAvatar"/>
           <q-popover>
             <user-menu/>
@@ -117,5 +117,9 @@
       color: $primary;
       margin: 0 10px;
     }
+  }
+
+  .user-menu-button {
+    margin: 0 9px 0 12px;
   }
 </style>

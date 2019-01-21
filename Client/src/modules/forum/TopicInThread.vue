@@ -71,7 +71,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .avatar {
     width: 42px;
     height: 42px;
@@ -86,4 +86,7 @@
     border-left: none;
   }
 
+  .q-item {
+    padding: 3px 0;
+  }
 </style>
