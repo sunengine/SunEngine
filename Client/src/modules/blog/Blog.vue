@@ -14,7 +14,11 @@
     <LoaderWait v-if="!posts.items"/>
 
     <div class="q-mb-md">
-      <PostInList :startPath="startPathForPosts" :post="post" v-for="post in posts.items" :key="post.id"/>
+      <hr class="hr-sep margin-back"/>
+      <div v-for="post in posts.items" :key="post.id">
+        <PostInList :startPath="startPathForPosts" :post="post" />
+        <hr class="hr-sep margin-back"/>
+      </div>
     </div>
 
     <q-pagination v-if="posts.totalPages > 1"
@@ -107,6 +111,12 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="stylus">
+  @import '~variables'
 
+  .hr-sep {
+    height: 0;
+    border-top: solid rgba(42, 171, 210, 0.07) 1px!important;
+    border-left: none;
+  }
 </style>

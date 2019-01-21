@@ -1,6 +1,6 @@
 <template>
-  <q-list no-border link inset-delimiter>
-    <div class="center q-mb-md">
+  <q-list class="main-list" no-border link inset-delimiter>
+    <div class="logo-div center">
       <router-link to='/'>
         <img src="/statics/SunEngine.svg" class="logo">
       </router-link>
@@ -34,15 +34,23 @@
 
 <script>
   export default {
-    categoryName: "MainMenu"
+    name: "MainMenu"
   }
 </script>
 
 <style scoped>
+  .logo-div {
+    margin: 20px 0;
+  }
+
   .logo {
     width: 220px;
     height: 220px;
     border-radius: 110px;
-    box-shadow: 0px 0px 8px 1px grey;
+    box-shadow: 0 0 8px 1px grey;
+  }
+
+  .main-list {
+    padding: 0 !important;
   }
 </style>

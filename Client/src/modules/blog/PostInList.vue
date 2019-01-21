@@ -17,7 +17,7 @@
         </div>
       </div>
     </q-item>
-    <div class="q-my-xs post-preview" v-html="post.preview">
+    <div class="post-preview" v-html="post.preview">
 
     </div>
     <div class="flex footer">
@@ -34,7 +34,7 @@
         </span>
       </q-item>
     </div>
-    <hr/>
+
   </div>
 </template>
 
@@ -59,7 +59,7 @@
 </script>
 
 
-<style scoped lang="stylus">
+<style lang="stylus" scoped>
   @import '~variables'
 
   .avatar {
@@ -71,7 +71,7 @@
 
   .header {
     display: flex;
-    margin-bottom: 12px;
+    padding: 2px 0;
     margin-left: -16px;
     padding-left: 16px !important;
     color: #3a67d3 !important;
@@ -83,17 +83,16 @@
     .q-item {
       color: #3a67d3 !important;
       margin-left: 2px;
+      padding-top: 6px !important;
+      padding-bottom: 6px !important;
+      min-height: 30px;
     }
   }
 
-  hr {
-    height: 0px;
-    margin: 18px 0 - $flex-gutter-sm;
-    border-top: solid rgba(42, 171, 210, 0.07) 1px;
-    border-left: none;
-  }
-
   .post-preview {
+
+    margin: 3px 0;
+
     >>> *:first-child {
       margin-top: 0 !important;
     }
@@ -111,4 +110,9 @@
       text-decoration: underline;
     }
   }
+
+  .info-block span .q-icon {
+    margin-right: 7px;
+  }
+
 </style>
