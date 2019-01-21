@@ -34,5 +34,7 @@
 </script>
 
 <style scoped>
-
+ .q-list {
+   padding: 0 !important;
+ }
 </style>

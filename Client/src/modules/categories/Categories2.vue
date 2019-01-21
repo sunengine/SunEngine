@@ -47,4 +47,8 @@
     background-color: #e7ffc1;
   }
 
+  .q-list {
+    padding: 0 !important;
+  }
+
 </style>
