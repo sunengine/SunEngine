@@ -1,8 +1,5 @@
-import buildPath from "services/buildPath"
-import config from "services/config"
+import imagePath from "services/imagePath"
 
 export default ({ Vue }) => {
-  Vue.prototype.$imagePath = function(image) {
-    return buildPath(config.UploadedImages,image);
-  };
+  Vue.prototype.$imagePath = imagePath;
 }

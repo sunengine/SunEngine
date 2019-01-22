@@ -37,8 +37,6 @@ export default {
     },
 
     handleFiles() {
-      debugger;
-
       const filesSelected = this.$refs.file.files;
 
       if (!filesSelected.length)

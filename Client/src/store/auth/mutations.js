@@ -1,8 +1,7 @@
-import buildPath from "services/buildPath.js";
+import imagePath from "services/imagePath.js";
 import Vue from "vue";
 import {setToken} from "services/token";
 import {store} from "store";
-import config from "services/config"
 
 export function makeLogin (state,data) {
 
@@ -24,7 +23,7 @@ export function makeLogout (state) {
 }
 
 export function setUserInfo (state,data) {
-  Vue.set(state.user,'photo',buildPath(config.UploadedImages,data.photo));
-  Vue.set(state.user,'avatar',buildPath(config.UploadedImages,data.avatar));
+  Vue.set(state.user,'photo',imagePath(data.photo));
+  Vue.set(state.user,'avatar',imagePath(data.avatar));
   Vue.set(state.user,'link',data.link);
 }

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import config from './config'
+//import config from './config'
 
 export default async function request(url, data, sendAsJson = false, token = null /* or it will be send as FormData */) {
 

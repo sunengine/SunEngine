@@ -66,7 +66,6 @@ export default ({ app, router, Vue }) => {
     //
     //         //console.log("inserted",el,binding,vnode)
     //         var val = binding.value;
-    //         debugger;
     //         var val1 = binding.value.myName;
     //         console.log("binding.value",binding.value)
     //

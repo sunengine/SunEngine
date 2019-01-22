@@ -12,7 +12,6 @@ import {getToken} from "services/token";
 import request from "services/request";
 
 
-
 Vue.use(Vuex)
 
 /*
@@ -40,15 +39,13 @@ export default function (/* { ssrContext } */) {
           await getAllCategories(this);
 
 
-            await getMyUserInfo(this);
-
+          await getMyUserInfo(this);
 
           initExtensions(this);
 
           this.state.isInitialized = true;
-        }
-        catch
-        {
+        } catch(x) {
+          console.error("error",x);
           this.state.initializeError = true;
         }
       }
@@ -79,7 +76,7 @@ async function getAllCategories(store) {
 }
 
 async function getMyUserInfo(store) {
-  if(!store.state.auth.user)
+  if (!store.state.auth.user)
     return;
 
   await store.dispatch('getMyUserInfo');

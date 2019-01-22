@@ -1,6 +1,3 @@
-import config from "services/config";
-
-const homeRoute = {name: "home"};
 
 export default {
   data () {

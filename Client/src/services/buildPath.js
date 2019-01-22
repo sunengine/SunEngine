@@ -15,3 +15,4 @@ export default function buildPath(...args) {
 
   return ret;
 }
+

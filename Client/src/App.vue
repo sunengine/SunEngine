@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <div v-else class="api-error">
+    <div v-else-if="initializeError" class="api-error">
       <q-alert type="negative" icon="fas fa-exclamation-triangle">
         Невозможно соединиться с API.
       </q-alert>
@@ -30,8 +30,7 @@
     },
     async created() {
       await this.$store.dispatch('init');
-      window.App = this;
-
+      if(window) window.App = this;
     }
   }
 </script>

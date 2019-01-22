@@ -11,7 +11,7 @@
     </q-item>
     <q-item to="/personal/profile">
       <q-icon name="fas fa-user-circle"/>
-      Профиль
+      Просмотреть профиль
     </q-item>
     <q-item :to="{name:'ChangePassword'}">
       <q-icon name="fas fa-key"/>
