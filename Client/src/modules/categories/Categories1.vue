@@ -1,6 +1,6 @@
 <template>
   <q-list no-border dense v-if="subCategories">
-    <q-item :to='$buildPath(path,category.name)'  v-for="(category,index) in subCategories"
+    <q-item :to='$buildPath(path,category.name)' v-for="(category,index) in subCategories"
             :key="category.id">
       <q-item-main :label="category.title">
 
@@ -22,6 +22,11 @@
     computed: {
       subCategories() {
         return this.category?.subCategories;
+        /*if (cats) {
+          return cats.sort(function (a, b) {
+            return a.sortNumber - b.sortNumber;
+          });
+        }*/
       },
       category() {
         return this.$store.getters.getCategory(this.categoryName);
@@ -34,7 +39,7 @@
 </script>
 
 <style scoped>
- .q-list {
-   padding: 0 !important;
- }
+  .q-list {
+    padding: 0 !important;
+  }
 </style>

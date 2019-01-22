@@ -60,6 +60,8 @@ namespace SunEngine.Controllers
                 Header = category.Header,
                 ChildrenType = category.ChildrenType,
                 AreaRoot = category.AreaRoot,
+                SortNumber = category.SortNumber,
+                
                 CategoryPersonalAccess = DetectPersonalAccesses(category)
             };
 
@@ -67,7 +69,7 @@ namespace SunEngine.Controllers
             {
                 categoryInfo.SubCategories = new List<CategoryInfoWithAccesses>(category.SubCategories.Count);
 
-                foreach (var child in category.SubCategories)
+                foreach (var child in category.SubCategories.OrderBy(x=>x.SortNumber))
                 {
                     var childInfo = CategoryInfoWithAccessesFromCategory(child);
                     if (childInfo == null)
@@ -108,6 +110,7 @@ namespace SunEngine.Controllers
         public string Title { get; set; }
         public string Header { get; set; }
         public bool AreaRoot { get; set; }
+        public int SortNumber { get; set; }
         public ChildrenType ChildrenType { get; set; }
         
         public Dictionary<string, bool> CategoryPersonalAccess { get; set; }

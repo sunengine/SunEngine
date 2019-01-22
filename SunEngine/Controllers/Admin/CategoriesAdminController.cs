@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using LinqToDB;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
+using SunEngine.Stores;
 
 namespace SunEngine.Controllers.Admin
 {
@@ -14,10 +16,15 @@ namespace SunEngine.Controllers.Admin
     public class CategoriesAdminController : BaseController
     {
         private readonly DataBaseConnection db;
+        private readonly ICategoriesStore categoriesStore;
 
-        public CategoriesAdminController(DataBaseConnection db, UserManager<User> userManager) : base(userManager)
+        public CategoriesAdminController(
+            DataBaseConnection db,
+            ICategoriesStore categoriesStore,
+            UserManager<User> userManager) : base(userManager)
         {
             this.db = db;
+            this.categoriesStore = categoriesStore;
         }
 
         [HttpPost]
@@ -56,6 +63,67 @@ namespace SunEngine.Controllers.Admin
             }
 
             return Json(root);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CategoryUp(string name)
+        {
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var category = await db.Categories.FirstOrDefaultAsync(x => x.Name == name);
+                if (category == null)
+                    return BadRequest();
+
+                var category2 = await db.Categories
+                    .Where(x => x.ParentId == category.ParentId && x.SortNumber < category.SortNumber)
+                    .OrderByDescending(x => x.SortNumber)
+                    .FirstOrDefaultAsync();
+
+                if (category2 == null)
+                    return BadRequest();
+
+                await db.Categories.Where(x => x.Id == category.Id).Set(x => x.SortNumber, category2.SortNumber)
+                    .UpdateAsync();
+                await db.Categories.Where(x => x.Id == category2.Id).Set(x => x.SortNumber, category.SortNumber)
+                    .UpdateAsync();
+
+                transaction.Complete();
+                return Ok();
+            }            
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> CategoryDown(string name)
+        {
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var category = await db.Categories.FirstOrDefaultAsync(x => x.Name == name);
+                if (category == null)
+                    return BadRequest();
+
+                var category2 = await db.Categories
+                    .Where(x => x.ParentId == category.ParentId && x.SortNumber > category.SortNumber)
+                    .OrderBy(x => x.SortNumber)
+                    .FirstOrDefaultAsync();
+
+                if (category2 == null)
+                    return BadRequest();
+
+                await db.Categories.Where(x => x.Id == category.Id).Set(x => x.SortNumber, category2.SortNumber)
+                    .UpdateAsync();
+                await db.Categories.Where(x => x.Id == category2.Id).Set(x => x.SortNumber, category.SortNumber)
+                    .UpdateAsync();
+
+                transaction.Complete();
+                return Ok();
+            }            
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ReinitializeCache()
+        {
+            await categoriesStore.InitializeOrResetAsync();
+            return Ok();
         }
     }
 
