@@ -20,6 +20,7 @@ namespace SunEngine.Controllers.Admin
             this.db = db;
         }
 
+        [HttpPost]
         public async Task<IActionResult> GetAllCategories()
         {
             var categories = await db.Categories.OrderBy(x=>x.SortNumber).Select(x => new CategoryAdminViewModel
@@ -54,7 +55,7 @@ namespace SunEngine.Controllers.Admin
                 parent.SubCategories.Add(category);
             }
 
-            return Ok(root);
+            return Json(root);
         }
     }
 
