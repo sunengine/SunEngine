@@ -1,13 +1,15 @@
 <template>
   <q-page>
-    <CategoryForm :category="category" />
-sdsdasadsad
-    <div class="btn-block">
-      <q-btn icon="fas fa-arrow-circle-right" class="btn-send" no-caps :loading="loading" label="Создать"
-             @click="send" color="send">
-        <LoaderSent slot="loading"/>
-      </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack()" label="Отмена" color="warning"/>
+    <div>
+      <CategoryForm :category="category"/>
+
+      <div class="btn-block">
+        <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" label="Создать" @click="save"
+               color="send">
+          <LoaderSent slot="loading"/>
+        </q-btn>
+        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack()" label="Отмена" color="warning"/>
+      </div>
     </div>
   </q-page>
 </template>
@@ -20,14 +22,22 @@ sdsdasadsad
     components: {CategoryForm},
     data: function () {
       return {
+        root: null,
+        all: null,
         category: {
           name: "",
           title: "",
           description: "",
           header: "",
-          isMaterialsContainer: true
+          isMaterialsContainer: true,
+          areaRoot: false
         },
         loading: false
+      }
+    },
+    methods: {
+      async save() {
+
       }
     }
 
@@ -38,6 +48,6 @@ sdsdasadsad
   @import '~variables';
 
   .btn-block {
-      margin-top: $flex-gutter-md;
+    margin-top: $flex-gutter-md;
   }
 </style>

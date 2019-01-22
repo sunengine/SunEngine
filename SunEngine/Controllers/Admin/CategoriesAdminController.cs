@@ -43,7 +43,8 @@ namespace SunEngine.Controllers.Admin
                 SortNumber = x.SortNumber,
                 MaterialsCount = x.Materials.Count,
                 IsHidden = x.IsHidden,
-                IsDeleted = x.IsDeleted
+                IsDeleted = x.IsDeleted,
+                
             }).ToDictionaryAsync(x => x.Id);
 
             CategoryAdminViewModel root = null;
