@@ -17,7 +17,7 @@ namespace Migrations
                 .WithColumn("Description").AsMaxString().Nullable()
                 .WithColumn("Header").AsMaxString().Nullable()
                 .WithColumn("AreaRoot").AsBoolean().NotNullable()
-                .WithColumn("ChildrenType").AsByte().NotNullable()
+                .WithColumn("IsMaterialsContainer").AsBoolean().NotNullable()
                 .WithColumn("ParentId").AsInt32().Nullable().ForeignKey("FK_Categories_Categories_ParentId", "Categories", "Id")
                 .WithColumn("SortNumber").AsInt32().NotNullable()
                 .WithColumn("IsHidden").AsBoolean().NotNullable()

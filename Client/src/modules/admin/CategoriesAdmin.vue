@@ -1,7 +1,10 @@
 <template>
   <q-page>
     <template v-if="root">
+
       <category-item @up="up" @down="down" @edit="edit"  :category="root" class="q-mb-xl" />
+
+      <q-btn icon="fas fa-plus" color="send" class="q-mr-lg" @click="add" label="Добавить категорию" />
 
       <q-btn icon="fas fa-sync-alt" color="info" @click="reinitializeCache" label="Обновить кэш на сервере" />
     </template>
@@ -24,8 +27,11 @@
       }
     },
     methods: {
+      add() {
+        this.$router.push({name: 'AddCategory'});
+      },
       edit() {
-        this.$router.push({name: 'CategoryEdit'});
+        this.$router.push({name: 'EditCategory'});
       },
       async up(category) {
         await this.$store.dispatch("request",

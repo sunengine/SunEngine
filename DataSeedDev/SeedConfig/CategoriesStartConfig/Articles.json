@@ -3,7 +3,7 @@
     "Name": "Articles",
     "Title": "Статьи",
     "AreaRoot": true,
-    "ChildrenType": "Materials",
+    "IsMaterialsContainer": true,
     "MaterialsCount": 35
   }
 ]

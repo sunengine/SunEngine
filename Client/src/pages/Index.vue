@@ -1,7 +1,6 @@
 <template>
   <q-page class="flex column full-center">
     <h1>Demo</h1>
-
     <div class="p1">
       <p>Каждый чаc данные сбрасываются.</p>
       <p>Пользователи: User1, User2, User3, User4, User5, Moderator, Admin</p>

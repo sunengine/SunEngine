@@ -249,12 +249,12 @@ namespace SunEngine.Seeder
         private void SeedRootCategory()
         {
             int id = dataContainer.NextCategoryId();
-            Category rootCategory = new Category()
+            Category rootCategory = new Category
             {
                 Id = id,
                 Name = "Root",
                 Title = "Корень",
-                ChildrenType = ChildrenType.Categories,
+                IsFolder = true,
                 SortNumber = id
             };
             dataContainer.RootCategory = rootCategory;

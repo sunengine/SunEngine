@@ -28,7 +28,7 @@ function GoDeep(category) {
   let ret;
 
   if (category?.categoryPersonalAccess?.MaterialWrite) {
-    if (category.childrenType >= 2) { // writable
+    if (category.isMaterialsContainer) { // writable
       ret = {
         label: category.title,
         value: category.name,

@@ -58,7 +58,7 @@ namespace SunEngine.Controllers
                 Name = category.Name.ToLower(),
                 Title = category.Title,
                 Header = category.Header,
-                ChildrenType = category.ChildrenType,
+                IsMaterialsContainer = category.IsMaterialsContainer,
                 AreaRoot = category.AreaRoot,
                 SortNumber = category.SortNumber,
                 
@@ -111,7 +111,7 @@ namespace SunEngine.Controllers
         public string Header { get; set; }
         public bool AreaRoot { get; set; }
         public int SortNumber { get; set; }
-        public ChildrenType ChildrenType { get; set; }
+        public bool IsMaterialsContainer { get; set; }
         
         public Dictionary<string, bool> CategoryPersonalAccess { get; set; }
         

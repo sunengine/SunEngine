@@ -71,15 +71,19 @@ namespace SunEngine.Seeder
                     SortNumber = id
                 };
 
-                if (categoryToken["ChildrenType"] != null)
+                if (categoryToken["IsFolder"] != null)
                 {
-                    category.ChildrenType =
-                        Enum.Parse<ChildrenType>((string) categoryToken["ChildrenType"]);
+                    category.IsFolder = (bool)categoryToken["IsFolder"];
+                } 
+                else if (categoryToken["IsMaterialsContainer"] != null)
+                {
+                    category.IsMaterialsContainer = (bool)categoryToken["IsMaterialsContainer"];
                 }
                 else
                 {
-                    category.ChildrenType = ChildrenType.Categories;
+                    category.IsMaterialsContainer = true;
                 }
+
 
                 if (categoryToken["AreaRoot"] != null)
                 {
@@ -114,8 +118,7 @@ namespace SunEngine.Seeder
                     maxLinesCount =  int.Parse(lineCountArr[1]);
                 }
                 
-                if (category.ChildrenType == ChildrenType.Materials ||
-                    category.ChildrenType == ChildrenType.Mixed)
+                if (category.IsMaterialsContainer)
                 {
                     if (categoryToken["MaterialsCount"] != null)
                     {

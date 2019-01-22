@@ -5,9 +5,6 @@
   "productName": "SunEngine",
   "author": "Dmitrii Polianin",
   "private": true,
-  "scripts": {
-    "test": "echo \"No test specified\" && exit 0"
-  },
   "dependencies": {
     "axios": "^0.18.0",
     "vuelidate": "^0.7.4"

@@ -35,7 +35,7 @@ namespace SunEngine.Controllers.Admin
                 Id = x.Id,
                 Name = x.Name,
                 Title = x.Title,
-                ChildrenType = x.ChildrenType,
+                IsFolder = x.IsFolder,
                 Description = x.Description,
                 Header = x.Header,
                 AreaRoot = x.AreaRoot,
@@ -135,7 +135,7 @@ namespace SunEngine.Controllers.Admin
 
         public string Title { get; set; }
 
-        public ChildrenType ChildrenType { get; set; }
+        public bool IsFolder { get; set; }
 
         public string Description { get; set; }
 

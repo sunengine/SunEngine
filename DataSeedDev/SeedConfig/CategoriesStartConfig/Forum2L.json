@@ -3,18 +3,17 @@
     "Name": "Forum2L",
     "Title": "Форум 2 уровня",
     "AreaRoot": true,
-    "ChildrenType": "Categories",
+    "IsFolder": true,
     "SubCategories": [
       {
         "Name": "ThreadF2L-[n]",
         "Title": "Раздел [n]",
-        "ChildrenType": "Categories",
+        "IsFolder": true,
         "Repeat": 3,
         "SubCategories": [
           {
             "Name": "ThreadF2L-[nn]-[n]",
             "Title": "Раздел [nn] [n]",
-            "ChildrenType": "Materials",
             "Repeat": 4
           }
         ]

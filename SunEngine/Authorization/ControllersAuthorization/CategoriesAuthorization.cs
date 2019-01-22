@@ -22,17 +22,17 @@ namespace SunEngine.Authorization.ControllersAuthorization
            
             foreach (var category in categoryParent.SubCategories)
             {
-                if (category.ChildrenType != ChildrenType.Categories)
+                if (category.IsFolder)
+                {
+                    var subAdd = GetSubCategoriesIdsCanRead(userGroups,category);
+                    categories.AddRange(subAdd);
+                }
+                else
                 {
                     if (authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialAndMessagesRead))
                     {
                         categories.Add(category.Id);
                     }
-                }
-                else
-                {
-                    var subAdd = GetSubCategoriesIdsCanRead(userGroups,category);
-                    categories.AddRange(subAdd);
                 }
             }
 

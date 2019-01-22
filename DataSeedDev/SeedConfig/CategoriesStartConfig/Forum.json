@@ -4,6 +4,7 @@
     "Title": "Форум",
     "AreaRoot": true,
     "ChildrenType": "Categories",
+    "IsFolder": true,
     "SubCategories": [
       {
         "Name": "Thread[n]",

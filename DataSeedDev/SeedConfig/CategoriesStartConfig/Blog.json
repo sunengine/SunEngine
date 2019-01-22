@@ -3,7 +3,7 @@
     "Name": "Blog",
     "Title": "Блог",
     "AreaRoot": true,
-    "ChildrenType": "Materials",
+    "IsMaterialsContainer": true,
     "MaterialsCount": 15,
     "MaterialLinesCount": "3-30"
   }
