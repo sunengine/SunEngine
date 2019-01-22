@@ -32,12 +32,10 @@ export default function (/* { ssrContext } */) {
         return await request(data.url, data.data, data.sendAsJson, context.state.auth.token);
       },
       async init() {
-        console.log("StartInit");
-
         try {
-          initStore(this);
-          await getAllCategories(this);
+          console.log("StartInit");
 
+          await getAllCategories(this);
 
           await getMyUserInfo(this);
 
@@ -60,10 +58,12 @@ export default function (/* { ssrContext } */) {
 
   store = Store;
 
+  initUser(store);
+
   return Store
 }
 
-function initStore(store) {
+function initUser(store) {
   var token = getToken();
   if (token) {
     var userData = makeUserDataFromToken(token);
