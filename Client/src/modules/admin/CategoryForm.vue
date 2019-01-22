@@ -21,10 +21,11 @@
       <q-checkbox v-model="category.isMaterialsContainer" label="Содержит материалы"/>
     </div>
 
-    <q-checkbox v-model="category.areaRoot" label="Вершина компонента"/>
+    <q-checkbox v-model="category.areaRoot" label="Корневая категория"/>
 
     <div class="q-mt-lg text-grey-6">Шапка категории</div>
-    <MyEditor v-model="category.header"/>
+
+    <MyEditor class="q-mb-lg" v-model="category.header"/>
 
     <q-btn v-if="root" :label="parentCategoryTitle" no-caps icon-right="fas fa-caret-down">
       <q-popover>
@@ -48,7 +49,7 @@
 <script>
   import {required, minLength, helpers} from 'vuelidate/lib/validators'
   import MyEditor from "MyEditor";
-  import MyTree from "MyTree";
+  import MyTree from 'MyTree';
   import adminGetAllCategories from "services/adminGetAllCategories";
 
 
@@ -115,7 +116,7 @@
       parentCategoryTitle() {
         if(!this.category.parentId)
           return "Выберите родительскую категорию";
-        return this?.all?.[this.category.parentId]?.title;
+        return "Родитель: " + this?.all?.[this.category.parentId]?.title;
       },
       where() {
         return [GoDeep(this.root)];

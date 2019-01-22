@@ -30,7 +30,8 @@
           description: "",
           header: "",
           isMaterialsContainer: true,
-          areaRoot: false
+          areaRoot: false,
+          parentId: 0
         },
         loading: false
       }
