@@ -18,7 +18,7 @@
         <q-icon name="fas fa-cog" />
         Админка
       </q-item>
-      <q-item v-close-overlay @click.native="logout()">
+      <q-item v-close-overlay @click.native="logout()" link>
         <q-icon name="fas fa-sign-out-alt" />
         Выйти
       </q-item>
