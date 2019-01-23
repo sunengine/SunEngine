@@ -7,7 +7,6 @@ import routesPersonal from './routesPersonal'
 import routesAdmin from './routesAdmin'
 
 
-
 import {store} from 'store'
 import {routeHasAccess} from "plugins/routeAccess"
 
@@ -23,7 +22,7 @@ export var router;
 export default function (/* { store, ssrContext } */) {
   const Router = new VueRouter({
     scrollBehavior: () => ({y: 0}),
-    routes: [...routesCore,...routesPersonal,...routesAdmin, ...routesSite],
+    routes: [...routesCore, ...routesPersonal, ...routesAdmin, ...routesSite],
 
     // Leave these as is and change from quasar.conf.js instead!
     // quasar.conf.js -> build -> vueRouterMode
@@ -35,22 +34,30 @@ export default function (/* { store, ssrContext } */) {
 
   router = Router;
 
+  let firstLoad = true; // need not to set  prev on first load TODO may be to find more good decision
+
   router.beforeEach((to, from, next) => {
-    if(!routeHasAccess(to)) {
+    if (!routeHasAccess(to)) {
       router.push({name: 'Home'});
       return;
     }
-    router.$prevRoute = from;
+
+    if(firstLoad)
+      firstLoad = false;
+    else
+      router.$prevRoute = from;
+
     next();
   });
 
-  router.$goBack = function () {
-    if (router.$prevRoute && !router.$prevRoute?.meta?.notReturnable) {
+  router.$goBack = function (onRejectRouteName) {
+    if (router.$prevRoute && !router.$prevRoute?.meta?.notReturnable)
       router.push(router.$prevRoute.fullPath);
-    }
-    else {
+    else if (onRejectRouteName)
+      router.push({name: onRejectRouteName});
+    else
       router.push({name: 'Home'});
-    }
+
   };
 
   return Router;

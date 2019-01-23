@@ -138,6 +138,8 @@ namespace SunEngine
             services.AddScopedEntityServices();
 
             services.AddScopedControllersAuthorizationServices();
+            
+            services.AddAdminServices();
 
             services.AddMemoryCache();
 

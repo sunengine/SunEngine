@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using LinqToDB.Mapping;
 
 namespace SunEngine.Commons.Models
@@ -7,7 +8,9 @@ namespace SunEngine.Commons.Models
     {
         public int Id { get; set; }
 
+        [Required, MinLength(2),RegularExpression("^[a-zA-Z-]*$")]
         public string Name { get; set; }
+        [Required, MinLength(3)]
         public string Title { get; set; }
 
         public bool IsMaterialsContainer { get; set; }
@@ -31,7 +34,7 @@ namespace SunEngine.Commons.Models
         public int? ParentId { get; set; }
         public Category Parent { get; set; }
 
-        [Association(ThisKey = "Id", OtherKey = "ParentId")]
+        [LinqToDB.Mapping.Association(ThisKey = "Id", OtherKey = "ParentId")]
         public ICollection<Category> SubCategories { get; set; } = new List<Category>();
 
         public int SortNumber { get; set; }

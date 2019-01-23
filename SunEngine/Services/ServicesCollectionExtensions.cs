@@ -6,6 +6,7 @@ using SunEngine.Authorization.ControllersAuthorization;
 using SunEngine.EntityServices;
 using SunEngine.Infrastructure;
 using SunEngine.Options;
+using SunEngine.Services.Admin;
 
 namespace SunEngine.Services
 {
@@ -31,6 +32,8 @@ namespace SunEngine.Services
             services.AddScoped<UserProfileService>();
             services.AddScoped<PersonalService>();
             services.AddScoped<AuthService>();
+            
+            
         }
 
         public static void AddMyInMemoryCacheOutput(this IServiceCollection services)
@@ -62,5 +65,11 @@ namespace SunEngine.Services
             services.AddSingleton<IImagesNamesService, ImagesNamesService>();
             services.AddSingleton<ImagesService>();
         }
+        
+        public static void AddAdminServices(this IServiceCollection services)
+        {
+            services.AddScoped<CategoriesAdminService>();
+        }
+        
     }  
 }

@@ -72,6 +72,8 @@ namespace SunEngine.Commons.TextProcess
 
         public string Sanitize(string text)
         {
+            if(string.IsNullOrEmpty(text))
+                return null;
             return htmlSanitizer.Sanitize(text);
         }
     }

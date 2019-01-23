@@ -2,11 +2,13 @@
   <q-page>
     <template v-if="root">
 
-      <category-item @up="up" @down="down" @edit="edit"  :category="root" class="q-mb-xl" />
-
       <q-btn icon="fas fa-plus" color="send" class="q-mr-lg" @click="add" label="Добавить категорию" />
 
-      <q-btn icon="fas fa-sync-alt" color="info" @click="reinitializeCache" label="Обновить кэш на сервере" />
+      <q-btn icon="fas fa-sync-alt" color="info" @click="reinitializeCache" label="Обновить кэш категорий на сервере" />
+
+      <category-item @up="up" @down="down" @edit="edit"  :category="root" class="q-mt-lg" />
+
+
     </template>
     <LoaderWait v-else />
   </q-page>

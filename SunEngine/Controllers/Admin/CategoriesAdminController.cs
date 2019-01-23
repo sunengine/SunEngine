@@ -6,8 +6,10 @@ using LinqToDB;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
+using SunEngine.Services.Admin;
 using SunEngine.Stores;
 
 namespace SunEngine.Controllers.Admin
@@ -17,20 +19,24 @@ namespace SunEngine.Controllers.Admin
     {
         private readonly DataBaseConnection db;
         private readonly ICategoriesStore categoriesStore;
+        private readonly CategoriesAdminService categoriesAdminService;
+
 
         public CategoriesAdminController(
             DataBaseConnection db,
+            CategoriesAdminService categoriesAdminService,
             ICategoriesStore categoriesStore,
             UserManager<User> userManager) : base(userManager)
         {
             this.db = db;
             this.categoriesStore = categoriesStore;
+            this.categoriesAdminService = categoriesAdminService;
         }
 
         [HttpPost]
         public async Task<IActionResult> GetAllCategories()
         {
-            var categories = await db.Categories.OrderBy(x=>x.SortNumber).Select(x => new CategoryAdminViewModel
+            var categories = await AsyncExtensions.ToDictionaryAsync(db.Categories.OrderBy(x=>x.SortNumber).Select(x => new CategoryAdminViewModel
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -45,7 +51,7 @@ namespace SunEngine.Controllers.Admin
                 IsHidden = x.IsHidden,
                 IsDeleted = x.IsDeleted,
                 
-            }).ToDictionaryAsync(x => x.Id);
+            }), x => x.Id);
 
             CategoryAdminViewModel root = null;
 
@@ -67,18 +73,30 @@ namespace SunEngine.Controllers.Admin
         }
 
         [HttpPost]
+        public async Task<IActionResult> AddCategory(Category category)
+        {
+            if (!ModelState.IsValid)
+            {
+                return ValidationProblem();
+            }
+
+            categoriesAdminService.AddCategory(category);
+
+            return Ok();
+        }
+
+        [HttpPost]
         public async Task<IActionResult> CategoryUp(string name)
         {
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                var category = await db.Categories.FirstOrDefaultAsync(x => x.Name == name);
+                var category = await AsyncExtensions.FirstOrDefaultAsync(db.Categories, x => x.Name == name);
                 if (category == null)
                     return BadRequest();
 
-                var category2 = await db.Categories
-                    .Where(x => x.ParentId == category.ParentId && x.SortNumber < category.SortNumber)
-                    .OrderByDescending(x => x.SortNumber)
-                    .FirstOrDefaultAsync();
+                var category2 = await AsyncExtensions.FirstOrDefaultAsync(db.Categories
+                        .Where(x => x.ParentId == category.ParentId && x.SortNumber < category.SortNumber)
+                        .OrderByDescending(x => x.SortNumber));
 
                 if (category2 == null)
                     return BadRequest();
@@ -98,14 +116,13 @@ namespace SunEngine.Controllers.Admin
         {
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                var category = await db.Categories.FirstOrDefaultAsync(x => x.Name == name);
+                var category = await AsyncExtensions.FirstOrDefaultAsync(db.Categories, x => x.Name == name);
                 if (category == null)
                     return BadRequest();
 
-                var category2 = await db.Categories
-                    .Where(x => x.ParentId == category.ParentId && x.SortNumber > category.SortNumber)
-                    .OrderBy(x => x.SortNumber)
-                    .FirstOrDefaultAsync();
+                var category2 = await AsyncExtensions.FirstOrDefaultAsync(db.Categories
+                        .Where(x => x.ParentId == category.ParentId && x.SortNumber > category.SortNumber)
+                        .OrderBy(x => x.SortNumber));
 
                 if (category2 == null)
                     return BadRequest();

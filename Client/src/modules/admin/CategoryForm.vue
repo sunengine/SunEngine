@@ -25,8 +25,9 @@
 
     <div class="q-mt-lg text-grey-6">Шапка категории</div>
 
-    <MyEditor class="q-mb-lg" v-model="category.header"/>
+    <MyEditor style="margin-bottom: 12px;" v-model="category.header"/>
 
+    <div :class="[{invisible: !($v.category.parentId.$invalid && !start)},'error']">Выберите родительскую категорию</div>
     <q-btn v-if="root" :label="parentCategoryTitle" no-caps icon-right="fas fa-caret-down">
       <q-popover>
         <MyTree v-close-overlay
@@ -95,7 +96,6 @@
       return {
         root: null,
         all: null,
-        submitting: false,
         start: true,
       }
     },
@@ -109,18 +109,23 @@
         title: {
           required,
           minLength: minLength(3)
+        },
+        parentId: {
+          not0: x => x != 0
         }
       }
     },
     computed: {
       parentCategoryTitle() {
-        if(!this.category.parentId)
+        if (!this.category.parentId)
           return "Выберите родительскую категорию";
         return "Родитель: " + this?.all?.[this.category.parentId]?.title;
-      },
+      }
+      ,
       where() {
         return [GoDeep(this.root)];
-      },
+      }
+      ,
       nameErrorLabel() {
         if (!this.$v.category.name.required)
           return "Введите имя (eng) категории";
@@ -128,15 +133,18 @@
           return "Имя (eng) должно быть не менее чем из 2 букв";
         if (!this.$v.category.name.allowedChars)
           return "Имя (eng) должно состоять из символов `a-z`, `A-Z`, `0-9`, `-`";
-      },
+      }
+      ,
       titleErrorLabel() {
         if (!this.$v.category.title.required)
           return "Введите заголовок категории";
         if (!this.$v.category.title.minLength)
           return "Заголовок должен состоять не менее чем из 3 букв";
       }
-    },
-    methods: {},
+    }
+    ,
+    methods: {}
+    ,
     async created() {
       await adminGetAllCategories().then(
         data => {
@@ -149,7 +157,14 @@
 </script>
 
 <style lang="stylus" scoped>
+  @import '~variables';
+
   .q-field {
     height: 78px;
+  }
+
+  .error {
+    font-size: 0.9em;
+    color: $red-5;
   }
 </style>
