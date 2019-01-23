@@ -1,6 +1,7 @@
 import AdminMenu from 'admin/AdminMenu.vue';
 import CategoriesAdmin from 'admin/CategoriesAdmin.vue';
-import AddCategory from 'admin/AddCategory.vue';
+import AddCategory from 'admin/AddEditCategory/AddCategory.vue';
+import EditCategory from 'admin/AddEditCategory/EditCategory.vue';
 
 import {store} from 'store';
 
@@ -26,6 +27,14 @@ const routes = [
     path: '/admin/AddCategory'.toLowerCase(),
     components: {
       default: AddCategory,
+      navigation: AdminMenu
+    }
+  },
+  {
+    name: 'EditCategory',
+    path: '/admin/EditCategory'.toLowerCase(),
+    components: {
+      default: EditCategory,
       navigation: AdminMenu
     }
   }

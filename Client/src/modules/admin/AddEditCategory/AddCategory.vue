@@ -22,8 +22,6 @@
     components: {CategoryForm},
     data: function () {
       return {
-        root: null,
-        all: null,
         category: {
           name: "",
           title: "",

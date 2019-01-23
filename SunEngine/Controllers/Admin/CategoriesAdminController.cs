@@ -34,6 +34,20 @@ namespace SunEngine.Controllers.Admin
         }
 
         [HttpPost]
+        public async Task<IActionResult> GetCategory(int id)
+        {
+            var category = await categoriesAdminService.GetCategoryAsync(id);
+            return Json(category);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> GetCategory(string name)
+        {
+            var category = await categoriesAdminService.GetCategoryAsync(name);
+            return Json(category);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> GetAllCategories()
         {
             var categories = await AsyncExtensions.ToDictionaryAsync(db.Categories.OrderBy(x=>x.SortNumber).Select(x => new CategoryAdminViewModel
@@ -80,7 +94,20 @@ namespace SunEngine.Controllers.Admin
                 return ValidationProblem();
             }
 
-            categoriesAdminService.AddCategory(category);
+            await categoriesAdminService.AddCategoryAsync(category);
+
+            return Ok();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> EditCategory(Category category)
+        {
+            if (!ModelState.IsValid)
+            {
+                return ValidationProblem();
+            }
+
+            await categoriesAdminService.EditCategoryAsync(category);
 
             return Ok();
         }
