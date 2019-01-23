@@ -34,19 +34,26 @@ namespace SunEngine.Controllers.Admin
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetCategory(int id)
+        public async Task<IActionResult> GetCategory(int? id = null,string name = null)
         {
-            var category = await categoriesAdminService.GetCategoryAsync(id);
+            CategoryAdminViewModel category;
+            
+            if(id.HasValue)
+            {
+                category = await categoriesAdminService.GetCategoryAsync(id.Value);
+            }
+            else if (name != null)
+            {
+                category = await categoriesAdminService.GetCategoryAsync(name);
+            }
+            else
+            {
+                return BadRequest();
+            }
+            
             return Json(category);
         }
         
-        [HttpPost]
-        public async Task<IActionResult> GetCategory(string name)
-        {
-            var category = await categoriesAdminService.GetCategoryAsync(name);
-            return Json(category);
-        }
-
         [HttpPost]
         public async Task<IActionResult> GetAllCategories()
         {
@@ -87,7 +94,7 @@ namespace SunEngine.Controllers.Admin
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCategory(Category category)
+        public async Task<IActionResult> AddCategory([FromBody]Category category)
         {
             if (!ModelState.IsValid)
             {
@@ -100,7 +107,7 @@ namespace SunEngine.Controllers.Admin
         }
         
         [HttpPost]
-        public async Task<IActionResult> EditCategory(Category category)
+        public async Task<IActionResult> EditCategory([FromBody]Category category)
         {
             if (!ModelState.IsValid)
             {

@@ -4,7 +4,7 @@
       <CategoryForm ref="form" :category="category"/>
 
       <div class="btn-block">
-        <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" label="Создать" @click="save"
+        <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" label="Сохранить" @click="save"
                color="send">
           <LoaderSent slot="loading"/>
         </q-btn>
@@ -17,7 +17,7 @@
 
 <script>
   import CategoryForm from "./CategoryForm";
-  import LoaderWait from "components/LoaderWait";
+  import LoaderWait from "LoaderWait";
 
   export default {
     name: "EditCategory",
@@ -46,6 +46,7 @@
           .then(
             response => {
               this.category = response.data;
+              this.loading = false;
             }).catch(x => {
             console.log("error", x);
           });
@@ -60,10 +61,14 @@
 
         this.loading = true;
 
+        let x = this.category;
+        debugger;
+
         await this.$store.dispatch("request",
           {
             url: "/CategoriesAdmin/EditCategory",
-            data: {...this.category}
+            data: this.category,
+            sendAsJson: true
           })
           .then(
             response => {
@@ -79,6 +84,9 @@
             this.loading = false;
           });
       }
+    },
+    async created() {
+      await this.loadData();
     }
 
   }

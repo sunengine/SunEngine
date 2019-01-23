@@ -6,7 +6,7 @@
 
       <q-btn icon="fas fa-sync-alt" color="info" @click="reinitializeCache" label="Обновить кэш категорий на сервере" />
 
-      <category-item @up="up" @down="down" @edit="edit"  :category="root" class="q-mt-lg" />
+      <category-item @up="up" @down="down" @edit="edit" @go="go" :category="root" class="q-mt-lg" />
 
 
     </template>
@@ -29,11 +29,14 @@
       }
     },
     methods: {
+      go(name) {
+        this.$router.push(this.$store.getters.getCategory(name).getPath());
+      },
       add() {
         this.$router.push({name: 'AddCategory'});
       },
-      edit() {
-        this.$router.push({name: 'EditCategory'});
+      edit(id) {
+        this.$router.push({name: 'EditCategory', params: {id}});
       },
       async up(category) {
         await this.$store.dispatch("request",

@@ -32,17 +32,23 @@ const routes = [
   },
   {
     name: 'EditCategory',
-    path: '/admin/EditCategory'.toLowerCase(),
+    path: '/admin/EditCategory/:id'.toLowerCase(),
     components: {
       default: EditCategory,
       navigation: AdminMenu
+    },
+    props: {
+      default: (route) => {
+        return {categoryId: +route.params.id};
+      },
+      navigation: null
     }
   }
 ]
 
 
-for(let rote of routes) {
-  if(!rote.meta) {
+for (let rote of routes) {
+  if (!rote.meta) {
     rote.meta = {
       roles: ["Admin"]
     };
