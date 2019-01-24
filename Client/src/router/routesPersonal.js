@@ -1,5 +1,5 @@
-import PersonalInfo from 'personal/PersonalInfo';
-import SettingsMenu from 'layout/SettingsMenu';
+import SettingsPanel from 'personal/SettingsPanel';
+import Settings from 'personal/Settings';
 import LoadPhoto from 'personal/LoadPhoto';
 import EditUserProfileInformation from 'personal/EditUserProfileInformation';
 import ChangePassword from 'auth/Password/ChangePassword.vue';
@@ -17,7 +17,7 @@ const routes = [
     path: '/auth/ChangePassword'.toLowerCase(),
     components: {
       default: ChangePassword,
-      navigation: SettingsMenu
+      navigation: SettingsPanel
     }
   },
   {
@@ -25,7 +25,7 @@ const routes = [
     path: '/auth/ChangeEmail'.toLowerCase(),
     components: {
       default: ChangeEmail,
-      navigation: SettingsMenu
+      navigation: SettingsPanel
     }
   },
   {
@@ -33,7 +33,7 @@ const routes = [
     path: '/auth/ChangeLink'.toLowerCase(),
     components: {
       default: ChangeLink,
-      navigation: SettingsMenu
+      navigation: SettingsPanel
     }
   },
   {
@@ -41,14 +41,14 @@ const routes = [
     path: '/auth/ChangeName'.toLowerCase(),
     components: {
       default: ChangeName,
-      navigation: SettingsMenu
+      navigation: SettingsPanel
     }
   },
   {
     name: 'Personal',
     path: '/personal',
     components: {
-      default: PersonalInfo,
+      default: Settings,
       navigation: null
     }
   },
@@ -57,7 +57,7 @@ const routes = [
     path: '/personal/LoadPhoto'.toLowerCase(),
     components: {
       default: LoadPhoto,
-      navigation: SettingsMenu
+      navigation: SettingsPanel
     }
   },
   {
@@ -65,14 +65,14 @@ const routes = [
     path: '/personal/EditUserProfileInformation'.toLowerCase(),
     components: {
       default: EditUserProfileInformation,
-      navigation: SettingsMenu
+      navigation: SettingsPanel
     }
   },
   {
     path: '/personal/profile',
     components: {
       default: UserProfile,
-      navigation: SettingsMenu
+      navigation: SettingsPanel
     },
     props: {
       default: () => {return { link: store.state.auth.user?.link }}

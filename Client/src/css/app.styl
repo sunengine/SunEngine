@@ -1,6 +1,7 @@
 @import '~variables';
 @import 'fonts/BoomBoomRegular.css';
 
+// ——— Main ————————————————————————————————————
 
 body {
   color: #06000d;
@@ -54,7 +55,23 @@ a {
 
 
 
-// Colors
+// ——— Elements ————————————————————————————————————
+
+.menu-panel-title {
+  text-align: center;
+  margin: 0;
+  padding: 7px 0 4px 0;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  font-weight: bolder;
+  background-color: #f3ffdd;
+  border-bottom: 1px solid #cacaca;
+  color: $grey-8;
+}
+
+
+
+// ——— Colors ————————————————————————————————————
 
 .bg-post {
   background-color: #66f532 !important;
@@ -111,7 +128,9 @@ a {
 }
 
 
-.desktop { // Editor multiline toolbar for desktop
+
+
+.desktop { // ——— Editor multiline toolbar for desktop ————————————————————————————————————
 
   .q-editor-toolbar-padding {
     flex-wrap: wrap !important;
@@ -161,6 +180,8 @@ a {
   }
 }
 
+
+
 .menu-list {
   .q-item-side {
     min-width: 18px !important;
@@ -191,6 +212,10 @@ a {
     }
   }
 }
+
+
+
+// ——— Margins ————————————————————————————————————
 
 .q-layout-page {
   padding: 24px !important;

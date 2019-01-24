@@ -11,10 +11,10 @@
         Профиль
       </q-item>
       <q-item to="/personal" >
-        <q-icon name="fas fa-sliders-h" />
+        <q-icon name="fas fa-address-card" />
         Личный кабинет
       </q-item>
-      <q-item v-if="isAdmin" :to="{name: 'AdminPanel'}">
+      <q-item v-if="isAdmin" :to="{name: 'Admin'}">
         <q-icon name="fas fa-cog" />
         Админка
       </q-item>

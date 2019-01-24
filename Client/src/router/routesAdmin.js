@@ -1,4 +1,5 @@
-import AdminMenu from 'admin/AdminMenu.vue';
+import Admin from 'admin/Admin.vue';
+import AdminPanel from 'admin/AdminPanel.vue';
 import CategoriesAdmin from 'admin/CategoriesAdmin.vue';
 import AddCategory from 'admin/AddEditCategory/AddCategory.vue';
 import EditCategory from 'admin/AddEditCategory/EditCategory.vue';
@@ -7,11 +8,11 @@ import {store} from 'store';
 
 const routes = [
   {
-    name: 'AdminPanel',
+    name: 'Admin',
     path: '/admin',
     components: {
-      default: null,
-      navigation: AdminMenu
+      default: Admin,
+      navigation: null,
     }
   },
   {
@@ -19,7 +20,7 @@ const routes = [
     path: '/admin/CategoriesAdmin'.toLowerCase(),
     components: {
       default: CategoriesAdmin,
-      navigation: AdminMenu
+      navigation: AdminPanel
     }
   },
   {
@@ -27,7 +28,7 @@ const routes = [
     path: '/admin/AddCategory'.toLowerCase(),
     components: {
       default: AddCategory,
-      navigation: AdminMenu
+      navigation: AdminPanel
     }
   },
   {
@@ -35,7 +36,7 @@ const routes = [
     path: '/admin/EditCategory/:id'.toLowerCase(),
     components: {
       default: EditCategory,
-      navigation: AdminMenu
+      navigation: AdminPanel
     },
     props: {
       default: (route) => {

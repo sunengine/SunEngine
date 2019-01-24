@@ -5,10 +5,6 @@
       <!--<q-icon name="far fa-user" size="16px" class="on-left"/>-->
       {{user.name}}
     </q-item>
-    <q-item to="/personal" exact>
-      <q-icon name="fas fa-sliders-h"/>
-      Личный кабинет
-    </q-item>
     <q-item to="/personal/profile">
       <q-icon name="fas fa-user-circle"/>
       Просмотреть профиль
