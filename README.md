@@ -47,7 +47,7 @@
 ## Контакты  
 - Дмитрий Полянин  
 - Telegram: [@okeanij](https://t.me/Okeanij)    
-- Группа SunEngine в Telegram: [https://t.me/SunEngine](https://t.me/SunEngine) 
+- Группа проекта в Telegram: [https://t.me/SunEngine](https://t.me/SunEngine) 
 
 ## Проект находится в стадии разработки
 Желающие 
