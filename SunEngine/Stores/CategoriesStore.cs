@@ -23,7 +23,7 @@ namespace SunEngine.Stores
             {
                 if (_allCategories == null)
                 {
-                    InitializeOrReset();
+                    Initialize();
                 }
 
                 return _allCategories;
@@ -37,7 +37,7 @@ namespace SunEngine.Stores
             {
                 if (_rootCategory == null)
                 {
-                    InitializeOrReset();
+                    Initialize();
                 }
 
                 return _rootCategory;
@@ -64,8 +64,14 @@ namespace SunEngine.Stores
 
             return current;
         }
+
+        public void Reset()
+        {
+            _allCategories = null;
+            _rootCategory = null;
+        }
         
-        public void InitializeOrReset()
+        public void Initialize()
         {
             using (var db = dataBaseFactory.CreateDb())
             {
@@ -85,7 +91,7 @@ namespace SunEngine.Stores
             }
         }
 
-        public async Task InitializeOrResetAsync()
+        public async Task InitializeAsync()
         {
             using (var db = dataBaseFactory.CreateDb())
             {

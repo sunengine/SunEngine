@@ -53,7 +53,7 @@
           .then(
             response => {
               this.$q.notify({
-                message: 'Категория добавлена\nНезабудьте перезагрузить кэш сервера',
+                message: 'Категория добавлена. \nНе забудьте перегрузить сайт для обновления.',
                 timeout: 5000,
                 type: 'positive',
                 position: 'top'

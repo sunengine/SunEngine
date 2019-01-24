@@ -14,13 +14,12 @@ using SunEngine.Stores;
 
 namespace SunEngine.Controllers.Admin
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class CategoriesAdminController : BaseController
     {
         private readonly DataBaseConnection db;
         private readonly ICategoriesStore categoriesStore;
         private readonly CategoriesAdminService categoriesAdminService;
-
 
         public CategoriesAdminController(
             DataBaseConnection db,
@@ -102,7 +101,9 @@ namespace SunEngine.Controllers.Admin
             }
 
             await categoriesAdminService.AddCategoryAsync(category);
-
+            
+            categoriesStore.Reset();
+            
             return Ok();
         }
         
@@ -115,6 +116,8 @@ namespace SunEngine.Controllers.Admin
             }
 
             await categoriesAdminService.EditCategoryAsync(category);
+
+            categoriesStore.Reset();
 
             return Ok();
         }
@@ -141,6 +144,9 @@ namespace SunEngine.Controllers.Admin
                     .UpdateAsync();
 
                 transaction.Complete();
+                
+                categoriesStore.Reset();
+                
                 return Ok();
             }            
         }
@@ -167,14 +173,17 @@ namespace SunEngine.Controllers.Admin
                     .UpdateAsync();
 
                 transaction.Complete();
+                
+                categoriesStore.Reset();
+
                 return Ok();
             }            
         }
 
         [HttpPost]
-        public async Task<IActionResult> ReinitializeCache()
+        public IActionResult ResetCache()
         {
-            await categoriesStore.InitializeOrResetAsync();
+            categoriesStore.Reset();
             return Ok();
         }
     }

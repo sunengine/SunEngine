@@ -4,10 +4,7 @@
 
       <q-btn icon="fas fa-plus" color="send" class="q-mr-lg" @click="add" label="Добавить категорию" />
 
-      <q-btn icon="fas fa-sync-alt" color="info" @click="reinitializeCache" label="Обновить кэш категорий на сервере" />
-
       <category-item @up="up" @down="down" @edit="edit" @go="go" :category="root" class="q-mt-lg" />
-
 
     </template>
     <LoaderWait v-else />
@@ -60,25 +57,6 @@
           })
           .then(
             async response => {
-              await this.loadData();
-            }
-          ).catch(x => {
-            console.log("error", x);
-          });
-      },
-      async reinitializeCache() {
-        await this.$store.dispatch("request",
-          {
-            url: "/CategoriesAdmin/ReinitializeCache"
-          })
-          .then(
-            async response => {
-              this.$q.notify({
-                message: 'Кэш категорий успешно обновлён на сервере',
-                timeout: 5000,
-                type: 'positive',
-                position: 'top'
-              });
               await this.loadData();
             }
           ).catch(x => {

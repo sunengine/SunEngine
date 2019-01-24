@@ -3,7 +3,7 @@ using SunEngine.Commons.Models;
 
 namespace SunEngine.Stores
 {
-    public interface ICategoriesStore : IMemoryStore<Category>
+    public interface ICategoriesStore : IMemoryStore
     {
         Category GetCategory(int id);
         Category GetCategory(string name);

@@ -58,7 +58,7 @@ namespace SunEngine.Commons.Services
         
 
         // global TODO вынести в отдельный класс глобальных ключей
-
+ 
 //        public int UseFileManager {get; private set;}  
 //        public int BanUsers {get; private set;}
 //        public int RestoreMaterials {get; private set;} // TODO add restore own messages and materials rights

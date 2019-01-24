@@ -53,23 +53,25 @@
                error-label="Выберите раздел">
         <q-btn :label="categoryTitle" no-caps icon-right="fas fa-caret-down">
           <q-popover>
-            <MyTree v-close-overlay
-                    default-expand-all
-                    :selected.sync="material.categoryName"
-                    :nodes="where"
-                    node-key="value">
-              <div slot="header-root" slot-scope="prop" class="row items-center">
-                <div class="text-grey-7">
-                  {{ prop.node.label }}
+            <div style="background-color: white;" class="q-pa-sm">
+              <MyTree v-close-overlay
+                      default-expand-all
+                      :selected.sync="material.categoryName"
+                      :nodes="where"
+                      node-key="value">
+                <div slot="header-root" slot-scope="prop" class="row items-center">
+                  <div class="text-grey-7">
+                    {{ prop.node.label }}
+                  </div>
                 </div>
-              </div>
-              <div slot="header-normal" slot-scope="prop" class="row items-center">
-                <div style="display: flex; align-items: center; align-content: center;">
-                  <!--<Q-Icon name="fas fa-folder" size="16" color="primary" class="q-mr-sm"/>-->
-                  <span>{{ prop.node.label }}</span>
+                <div slot="header-normal" slot-scope="prop" class="row items-center">
+                  <div style="display: flex; align-items: center; align-content: center;">
+                    <!--<Q-Icon name="fas fa-folder" size="16" color="primary" class="q-mr-sm"/>-->
+                    <span>{{ prop.node.label }}</span>
+                  </div>
                 </div>
-              </div>
-            </MyTree>
+              </MyTree>
+            </div>
           </q-popover>
         </q-btn>
       </q-field>

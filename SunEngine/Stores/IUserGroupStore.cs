@@ -4,7 +4,7 @@ using SunEngine.Commons.StoreModels;
 
 namespace SunEngine.Stores
 {
-    public interface IUserGroupStore : IMemoryStore<UserGroupDB>, IMemoryStore
+    public interface IUserGroupStore : IMemoryStore
     {
         IImmutableList<OperationKey> AllOperationKeys { get; }
         UserGroup GetUserGroup(string name);

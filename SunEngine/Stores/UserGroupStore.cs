@@ -25,7 +25,7 @@ namespace SunEngine.Stores
             {
                 if (_allOperationKeys == null)
                 {
-                    InitializeOrReset();
+                    Initialize();
                 }
 
                 return _allOperationKeys;
@@ -41,7 +41,7 @@ namespace SunEngine.Stores
             {
                 if (_allGroups == null)
                 {
-                    InitializeOrReset();
+                    Initialize();
                 }
 
                 return _allGroups;
@@ -52,13 +52,20 @@ namespace SunEngine.Stores
         {
             if (_allGroups == null)
             {
-                InitializeOrReset();
+                Initialize();
             }
 
             return AllGroups.ContainsKey(name) ? AllGroups[name] : null;
         }
 
-        public void InitializeOrReset()
+        public void Reset()
+        {
+            _allOperationKeys = null;
+            _allGroups = null;
+        }
+        
+
+        public void Initialize()
         {
             using (var db = dataBaseFactory.CreateDb())
             {
@@ -86,7 +93,7 @@ namespace SunEngine.Stores
             }
         }
 
-        public async Task InitializeOrResetAsync()
+        public async Task InitializeAsync()
         {
             throw new NotImplementedException();
         }

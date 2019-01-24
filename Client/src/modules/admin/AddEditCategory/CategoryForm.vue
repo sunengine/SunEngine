@@ -27,21 +27,24 @@
 
     <MyEditor style="margin-bottom: 12px;" v-model="category.header"/>
 
-    <div :class="[{invisible: !($v.category.parentId.$invalid && !start)},'error']">Выберите родительскую категорию</div>
+    <div :class="[{invisible: !($v.category.parentId.$invalid && !start)},'error']">Выберите родительскую категорию
+    </div>
     <q-btn v-if="root" :label="parentCategoryTitle" no-caps icon-right="fas fa-caret-down">
       <q-popover>
-        <MyTree v-close-overlay
-                default-expand-all
-                :selected.sync="category.parentId"
-                :nodes="where"
-                node-key="value">
-          <div slot="header-normal" slot-scope="prop" class="row items-center">
-            <div style="display: flex; align-items: center; align-content: center;">
-              <Q-Icon name="fas fa-folder" size="16" color="green-5" class="q-mr-sm"/>
-              <span>{{ prop.node.label }}</span>
+        <div style="background-color: white;" class="q-pa-sm">
+          <MyTree v-close-overlay
+                  default-expand-all
+                  :selected.sync="category.parentId"
+                  :nodes="where"
+                  node-key="value">
+            <div slot="header-normal" slot-scope="prop" class="row items-center">
+              <div style="display: flex; align-items: center; align-content: center;">
+                <Q-Icon name="fas fa-folder" size="16" color="green-5" class="q-mr-sm"/>
+                <span>{{ prop.node.label }}</span>
+              </div>
             </div>
-          </div>
-        </MyTree>
+          </MyTree>
+        </div>
       </q-popover>
     </q-btn>
   </div>
