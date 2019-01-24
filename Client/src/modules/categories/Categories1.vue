@@ -22,7 +22,7 @@
     computed: {
       subCategories() {
         return this.category?.subCategories?.filter(x=>!x.isHidden);
-        /*if (cats) {
+        /*if (cats) { // Now sorting on server
           return cats.sort(function (a, b) {
             return a.sortNumber - b.sortNumber;
           });
