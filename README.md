@@ -45,15 +45,16 @@
 - Улучшение кэширования
 
 ## Контакты  
-- Группа Telegram: [https://t.me/SunEngine](https://t.me/SunEngine) 
-- Мой Telegram: [@okeanij](https://t.me/Okeanij)    
+- Дмитрий Полянин  
+- Telegram: [@okeanij](https://t.me/Okeanij)    
+- Группа SunEngine в Telegram: [https://t.me/SunEngine](https://t.me/SunEngine) 
 
 ## Проект находится в стадии разработки
 Желающие 
 - Потестировать
 - Предложить идеи по коду  
 
-Пишите в Telegram в группу или мне, либо сюда на github.
+Пишите в группу Telegram или мне, либо сюда на github.
 
 ## Инсталляция
 #### Перед инсталяцией должны быть установлены
