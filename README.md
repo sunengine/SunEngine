@@ -63,7 +63,7 @@
 - [Npm](https://www.npmjs.com)
 - [Quasar-CLI](https://quasar-framework.org/guide/quasar-cli.html)  `npm install -g quasar-cli`
 
-#### Установка и запуск SunEngine
+#### Установка и запуск
 - Клонировать репозиторий SunEngine с GitHub.
 - Создать на MySql пустую базу c названием `<DataBaseName>`.
 - Указать название базы и `ConnectionString` в файле `SunEngine/DataBaseConnection.json`.
