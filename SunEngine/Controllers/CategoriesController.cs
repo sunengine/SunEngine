@@ -22,19 +22,19 @@ namespace SunEngine.Controllers
 
         public CategoriesController(IUserGroupStore userGroupStore,
             ICategoriesStore categoriesStore,
-            IAuthorizationService authorizationService, 
+            IAuthorizationService authorizationService,
             OperationKeysContainer operationKeysContainer,
             UserManager<User> userManager) : base(userManager)
         {
             OperationKeys = operationKeysContainer;
-            
+
             this.authorizationService = authorizationService;
             this.categoriesStore = categoriesStore;
             this.userGroupStore = userGroupStore;
         }
 
         [HttpPost]
-        [HttpGet]  // For pulse and testing 
+        [HttpGet] // For pulse and testing 
         public CategoryInfoWithAccesses GetAllCategoriesAndAccesses()
         {
             var rez = CategoryInfoWithAccessesFromCategory(categoriesStore.RootCategory);
@@ -47,11 +47,11 @@ namespace SunEngine.Controllers
             // TODO идя сначала по ближайшим к корню нодам и потом ниже
 
             if (!authorizationService.HasAccess(User.UserGroups, category,
-                OperationKeys.MaterialAndMessagesRead) && category.Id != categoriesStore.RootCategory.Id)
+                    OperationKeys.MaterialAndMessagesRead) && category.Id != categoriesStore.RootCategory.Id)
             {
                 return null;
             }
-            
+
             CategoryInfoWithAccesses categoryInfo = new CategoryInfoWithAccesses
             {
                 Id = category.Id,
@@ -61,22 +61,35 @@ namespace SunEngine.Controllers
                 IsMaterialsContainer = category.IsMaterialsContainer,
                 AreaRoot = category.AreaRoot,
                 SortNumber = category.SortNumber,
-                
+                IsHidden = category.IsHidden,
+
                 CategoryPersonalAccess = DetectPersonalAccesses(category)
             };
 
-            if (category.SubCategories != null && category.SubCategories.Count > 0)
-            {
-                categoryInfo.SubCategories = new List<CategoryInfoWithAccesses>(category.SubCategories.Count);
 
-                foreach (var child in category.SubCategories.OrderBy(x=>x.SortNumber))
+            if (category.SubCategories != null)
+            {
+                IEnumerable<Category> where;
+                if (User.IsInRole("Admin")) // админ может видеть все категории в том числе и скрытые
+                    where = category.SubCategories;
+                else
+                    where = category.SubCategories.Where(x => !x.IsHidden);
+
+
+                if (where.Any())
                 {
-                    var childInfo = CategoryInfoWithAccessesFromCategory(child);
-                    if (childInfo == null)
+                    categoryInfo.SubCategories = new List<CategoryInfoWithAccesses>(category.SubCategories.Count);
+
+                    foreach (var child in where.OrderBy(x => x.SortNumber))
                     {
-                        continue;
+                        var childInfo = CategoryInfoWithAccessesFromCategory(child);
+                        if (childInfo == null)
+                        {
+                            continue;
+                        }
+
+                        categoryInfo.SubCategories.Add(childInfo);
                     }
-                    categoryInfo.SubCategories.Add(childInfo);
                 }
             }
 
@@ -91,7 +104,7 @@ namespace SunEngine.Controllers
             {
                 bool allow = authorizationService.HasAccess(User.UserGroups, category,
                     operationKey.OperationKeyId);
-                
+
                 if (allow)
                 {
                     dict[operationKey.Name] = true;
@@ -101,8 +114,8 @@ namespace SunEngine.Controllers
             return dict;
         }
     }
-    
-    
+
+
     public class CategoryInfoWithAccesses
     {
         public int Id { get; set; }
@@ -112,9 +125,10 @@ namespace SunEngine.Controllers
         public bool AreaRoot { get; set; }
         public int SortNumber { get; set; }
         public bool IsMaterialsContainer { get; set; }
-        
+        public bool IsHidden { get; set; }
+
         public Dictionary<string, bool> CategoryPersonalAccess { get; set; }
-        
+
         public List<CategoryInfoWithAccesses> SubCategories { get; set; }
     }
 }

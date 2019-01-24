@@ -16,10 +16,12 @@
 
 <script>
   import CategoryForm from "./CategoryForm";
+  import Page from "Page";
 
   export default {
     name: "AddCategory",
     components: {CategoryForm},
+    mixins: [Page],
     data: function () {
       return {
         category: {
@@ -64,6 +66,9 @@
             this.loading = false;
           });
       }
+    },
+    async created() {
+      this.setTitle("Добавить категорию");
     }
 
   }

@@ -21,7 +21,7 @@
     },
     computed: {
       subCategories() {
-        return this.category?.subCategories;
+        return this.category?.subCategories?.filter(x=>!x.isHidden);
         /*if (cats) {
           return cats.sort(function (a, b) {
             return a.sortNumber - b.sortNumber;

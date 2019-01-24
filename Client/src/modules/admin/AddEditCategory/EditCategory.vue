@@ -8,20 +8,23 @@
                color="send">
           <LoaderSent slot="loading"/>
         </q-btn>
-        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack('CategoriesAdmin')" label="Отмена" color="warning"/>
+        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack('CategoriesAdmin')" label="Отмена"
+               color="warning"/>
       </div>
     </div>
-    <LoaderWait v-else />
+    <LoaderWait v-else/>
   </q-page>
 </template>
 
 <script>
   import CategoryForm from "./CategoryForm";
   import LoaderWait from "LoaderWait";
+  import Page from "Page";
 
   export default {
     name: "EditCategory",
     components: {LoaderWait, CategoryForm},
+    mixins: [Page],
     props: {
       categoryId: {
         type: Number,
@@ -87,6 +90,7 @@
     },
     async created() {
       await this.loadData();
+      this.setTitle("Редактировать категорию");
     }
 
   }

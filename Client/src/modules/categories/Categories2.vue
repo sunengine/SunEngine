@@ -25,7 +25,7 @@
     },
     computed: {
       subCategories() {
-        return this.category?.subCategories;
+        return this.category?.subCategories?.filter(x=>!x.isHidden);
       },
       category() {
         return this.$store.getters.getCategory(this.categoryName);

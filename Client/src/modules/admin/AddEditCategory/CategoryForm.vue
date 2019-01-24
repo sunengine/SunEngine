@@ -12,18 +12,8 @@
       <q-input v-model="category.description" type="textarea" float-label="Короткое описание"/>
     </q-field>
 
-    <div class="q-my-sm">
-      <div class="float-right text-green-9">
-        <div v-if="category.isMaterialsContainer">[Содержит материалы]</div>
-        <div v-else>[Содержит папки]</div>
-      </div>
 
-      <q-checkbox v-model="category.isMaterialsContainer" label="Содержит материалы"/>
-    </div>
-
-    <q-checkbox v-model="category.areaRoot" label="Корневая категория"/>
-
-    <div class="q-mt-lg text-grey-6">Шапка категории</div>
+    <div class="q-mt-sm text-grey-6">Шапка категории</div>
 
     <MyEditor style="margin-bottom: 12px;" v-model="category.header"/>
 
@@ -47,6 +37,22 @@
         </div>
       </q-popover>
     </q-btn>
+
+    <div class="q-mt-lg">
+      <div class="float-right text-green-9">
+        <div v-if="category.isMaterialsContainer">[Содержит материалы]</div>
+        <div v-else>[Содержит папки]</div>
+      </div>
+
+      <q-checkbox :toggle-indeterminate="false" v-model="category.isMaterialsContainer" label="Содержит материалы"/>
+    </div>
+
+    <div class="q-my-sm">
+      <q-checkbox :toggle-indeterminate="false" v-model="category.areaRoot" label="Корневая категория"/>
+    </div>
+    <div>
+      <q-checkbox :toggle-indeterminate="false" v-model="category.isHidden" label="Спрятать"/>
+    </div>
   </div>
 </template>
 

@@ -9,9 +9,13 @@
 
 <script>
   import AdminMenu from "./AdminMenu";
+  import Page from "Page";
+
   export default {
     name: "Admin",
-    components: {AdminMenu}
+    components: {AdminMenu},
+    mixins: [Page],
+
   }
 </script>
 

@@ -50,6 +50,7 @@ namespace SunEngine.Services.Admin
                 Name = x.Name,
                 Title = x.Title,
                 IsFolder = x.IsFolder,
+                IsMaterialsContainer = x.IsMaterialsContainer,
                 Description = x.Description,
                 Header = x.Header,
                 AreaRoot = x.AreaRoot,

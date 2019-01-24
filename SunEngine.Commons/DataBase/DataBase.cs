@@ -43,7 +43,11 @@ namespace SunEngine.Commons.DataBase
         public ITable<Tag> Tags => GetTable<Tag>();
         public ITable<TagSynonymGroup> TagSynonyms => GetTable<TagSynonymGroup>();
         public ITable<TagMaterial> TagMaterials => GetTable<TagMaterial>();
+        
         public ITable<Category> Categories => GetTable<Category>();
+        public IQueryable<Category> CategoriesVisible => GetTable<Category>().Where(x => !x.IsHidden && !x.IsDeleted);
+
+        
         public ITable<OperationKeyDB> OperationKeys => GetTable<OperationKeyDB>();
         public ITable<CategoryAccessDB> CategoryAccess => GetTable<CategoryAccessDB>();
         public ITable<CategoryOperationAccessDB> CategoryOperationAccess => GetTable<CategoryOperationAccessDB>();

@@ -62,6 +62,7 @@ namespace SunEngine.Controllers.Admin
                 Name = x.Name,
                 Title = x.Title,
                 IsFolder = x.IsFolder,
+                IsMaterialsContainer = x.IsMaterialsContainer,
                 Description = x.Description,
                 Header = x.Header,
                 AreaRoot = x.AreaRoot,
@@ -69,7 +70,7 @@ namespace SunEngine.Controllers.Admin
                 SortNumber = x.SortNumber,
                 MaterialsCount = x.Materials.Count,
                 IsHidden = x.IsHidden,
-                IsDeleted = x.IsDeleted,
+                IsDeleted = x.IsDeleted
                 
             }), x => x.Id);
 
@@ -198,6 +199,8 @@ namespace SunEngine.Controllers.Admin
 
         public bool IsFolder { get; set; }
 
+        public bool IsMaterialsContainer { get; set; }
+        
         public string Description { get; set; }
 
         public string Header { get; set; }
