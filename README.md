@@ -8,8 +8,6 @@
 
 Демо: [demo.sunengine.site](http://demo.sunengine.site)  
 
-Группа Telegram: [https://t.me/SunEngine](https://t.me/SunEngine) 
-
 #### Технологии:
 - Asp.Net Core 2.2
 - Linq2db - доступ к базе данных
@@ -46,13 +44,16 @@
 - Админка
 - Улучшение кэширования
 
+## Контакты  
+- Группа Telegram: [https://t.me/SunEngine](https://t.me/SunEngine) 
+- Мой Telegram: [@okeanij](https://t.me/Okeanij)    
+
 ## Проект находится в стадии разработки
 Желающие 
 - Потестировать
 - Предложить идеи по коду  
 
-Пишите на Telegram: @okeanij  
-Или сюда на github.
+Пишите в Telegram в группу или мне, либо сюда на github.
 
 ## Инсталляция
 #### Перед инсталяцией должны быть установлены
