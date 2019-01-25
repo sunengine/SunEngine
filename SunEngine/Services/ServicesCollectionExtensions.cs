@@ -29,7 +29,7 @@ namespace SunEngine.Services
             services.AddScoped<MaterialsService>();  
             services.AddScoped<MessagesService>();
             services.AddScoped<TagsService>();
-            services.AddScoped<UserProfileService>();
+            services.AddScoped<ProfileService>();
             services.AddScoped<PersonalService>();
             services.AddScoped<AuthService>();
             

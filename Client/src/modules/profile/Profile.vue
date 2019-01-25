@@ -1,9 +1,9 @@
 <template>
   <q-page>
     <div class="f1" v-if="user">
-      <div class="img">
-        <img style="" width="300" height="300" :src="$imagePath(user.photo)"/>
-
+      <div class="img flex column">
+        <img width="300" height="300" :src="$imagePath(user.photo)"/>
+        <q-btn v-if="canPrivateMessage" :to="{path: '/WritePrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}" dense icon="far fa-envelope" class="q-mt-sm"  label="Написать пользователю"/>
       </div>
       <div>
         <h4>{{user.name}}</h4>
@@ -31,6 +31,13 @@
     data: function () {
       return {
         user: null
+      }
+    },
+    computed: {
+      canPrivateMessage() {
+        const from = this.$store?.state?.auth?.user;
+        if(!from) return false;
+        return from.id != this.user?.id;
       }
     },
     watch: {
@@ -61,18 +68,19 @@
 <style lang="stylus" scoped>
   @import '~variables';
 
+
   .f1 {
     display: flex;
     flex-wrap: wrap;
 
-    .img img {
+    .img {
       margin-right: 15px;
     }
   }
 
   @media (max-width: 600px) {
     .f1 .img {
-      width: 100%;
+      //width: 100%;
       text-align: center;
     }
   }

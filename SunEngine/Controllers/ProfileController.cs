@@ -1,8 +1,11 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.Models;
+using SunEngine.Commons.StoreModels;
 using SunEngine.EntityServices;
+using SunEngine.Infrastructure;
 
 namespace SunEngine.Controllers
 {
@@ -12,25 +15,41 @@ namespace SunEngine.Controllers
     /// </summary>
     public class ProfileController : BaseController
     {
-        private readonly UserProfileService userProfileService;
+        private readonly ProfileService profileService;
         
         public ProfileController(
-            UserProfileService userProfileService,
+            ProfileService profileService,
             UserManager<User> userManager) : base(userManager)
         {
-            this.userProfileService = userProfileService;
+            this.profileService = profileService;
         }
         
         [HttpPost]
         public async Task<IActionResult> GetProfile(string link)
         {
-            var rez = await userProfileService.GetProfileAsync(link);
+            var rez = await profileService.GetProfileAsync(link);
             if (rez == null)
             {
                 return NotFound();
             }
 
             return Json(rez);
+        }
+
+        [HttpPost]
+        [SpamProtectionFilter(TimeoutSeconds = 60)]
+        [Authorize(Roles = UserGroup.UserGroupRegistered)]
+        public async Task<IActionResult> SendPrivateMessage(string userId,string text)
+        {
+            var userTo = await userManager.FindByIdAsync(userId);
+            if (userTo == null)
+                return BadRequest();
+
+            var userFrom =  await GetUserAsync();
+            
+            await profileService.SendPrivateMessageAsync(userFrom, userTo ,text);
+
+            return Ok();
         }
     }
 }

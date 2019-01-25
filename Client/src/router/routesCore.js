@@ -7,6 +7,7 @@ import SetNewPasswordFromReset from 'auth/Password/SetNewPasswordFromReset.vue';
 import ResetPasswordFailed from 'auth/Password/ResetPasswordFailed.vue';
 
 import UserProfile from 'profile/Profile';
+import WritePrivateMessage from 'profile/WritePrivateMessage';
 
 
 const routes = [
@@ -61,6 +62,25 @@ const routes = [
     },
     props: {
       default: true
+    }
+  },
+  {
+    name: 'WritePrivateMessage',
+    path: '/WritePrivateMessage'.toLowerCase(),
+    components: {
+      default: WritePrivateMessage,
+      navigation: null
+    },
+    props: {
+      default: (route) => {
+        return {
+          userId: route.query.userId,
+          userName: route.query.userName
+        }
+      }
+    },
+    meta: {
+      roles: ["Registered"]
     }
   },
   {

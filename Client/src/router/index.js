@@ -53,11 +53,10 @@ export default function (/* { store, ssrContext } */) {
   router.$goBack = function (onRejectRouteName) {
     if (router.$prevRoute && !router.$prevRoute?.meta?.notReturnable)
       router.push(router.$prevRoute.fullPath);
-    else if (onRejectRouteName)
+    else if (typeof onRejectRouteName === "string")
       router.push({name: onRejectRouteName});
-    else
-      router.push({name: 'Home'});
-
+    else if (typeof onRejectRouteName === "object")
+      router.push(onRejectRouteName);
   };
 
   return Router;

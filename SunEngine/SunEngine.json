@@ -1,5 +1,6 @@
 {
   "SiteUrl": "http://localhost:5005/",
+  "SiteName": "SunEngine",
   "Images": {
     "UploadDir": "UploadImages",
     "MaxWidthPixels": 1200,

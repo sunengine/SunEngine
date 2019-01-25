@@ -19,5 +19,6 @@ namespace SunEngine.Options
             throw new Exception("SiteUrl must starts with 'http://' or 'https://'");
         }
         
+        public string SiteName { get; set; }
     }
 }

@@ -6,7 +6,7 @@ import ChangePassword from 'auth/Password/ChangePassword.vue';
 import ChangeEmail from 'auth/ChangeEmail.vue';
 import ChangeLink from 'auth/ChangeLink.vue';
 import ChangeName from 'auth/ChangeName.vue';
-import UserProfile from 'profile/Profile.vue';
+import Profile from 'profile/Profile.vue';
 
 import {store} from 'store';
 
@@ -69,9 +69,10 @@ const routes = [
     }
   },
   {
-    path: '/personal/profile',
+    name: 'ProfileInSettings',
+    path: '/personal/Profile'.toLowerCase(),
     components: {
-      default: UserProfile,
+      default: Profile,
       navigation: SettingsPanel
     },
     props: {
