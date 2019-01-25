@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using Flurl.Util;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +14,9 @@ using SunEngine.Stores;
 
 namespace SunEngine.Infrastructure
 {
-    public class SpamProtectionFilter : ActionFilterAttribute
+    public class SpamProtectionFilterIp : ActionFilterAttribute
     {
-        private const string CacheKeyStart = "RF";
-
+        private const string CacheKeyStart = "RFIP";
         
         public int TimeoutSeconds
         {
@@ -34,21 +34,14 @@ namespace SunEngine.Infrastructure
 
             BaseController controller = (BaseController) context.Controller;
 
-            var user = controller.User;
-
-            if (!user.Identity.IsAuthenticated)
-            {
-                throw new Exception("This user can not make post requests");
-            }
-
             var actionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
             string controllerName = actionDescriptor?.ControllerTypeInfo.FullName;
             string actionName = actionDescriptor?.ActionName;
 
-            string key = MakeKey(user.UserId, controllerName, actionName);
+            var ip = controller.Request.HttpContext.Connection.RemoteIpAddress;
+            
+            string key = MakeKey(ip, controllerName, actionName);
             RequestFree requestFree = spamProtectionStore.Find(key);
-            
-            
             
             if (requestFree != null && requestFree.Working())
             {
@@ -69,9 +62,9 @@ namespace SunEngine.Infrastructure
             controller.ViewData[SpamProtectionFilterTransfer.ViewDataKey] = temp;
         }
 
-        private static string MakeKey(int userId, string controllerName, string actionName)
+        private static string MakeKey(IPAddress ip, string controllerName, string actionName)
         {
-            return CacheKeyStart + "-" + userId + "-" + controllerName + "-" + actionName;
+            return CacheKeyStart + "-" + ip + "-" + controllerName + "-" + actionName;
         }
 
         public override void OnResultExecuted(ResultExecutedContext context)
@@ -94,37 +87,7 @@ namespace SunEngine.Infrastructure
             }
         }
     }
+    
 
-    /// <summary>
-    /// Object to transfer data between OnActionExecuting and OnResultExecuted
-    /// </summary>
-    public class SpamProtectionFilterTransfer
-    {
-        public const string ViewDataKey = "SpamProtectionFilterTransfer";
-        
-        public string Key;
-        public RequestFree RequestFree;
-        public SpamProtectionStore SpamProtectionStore;
-    }
-
-    public class RequestFree
-    {
-
-        private DateTime dateTimeTil;
-
-        public RequestFree(TimeSpan timeout)
-        {
-            dateTimeTil = DateTime.Now.Add(timeout);
-        }
-
-        public void UpdateDateTime(TimeSpan timeout)
-        {
-            dateTimeTil = DateTime.Now.Add(timeout);
-        }
-
-        public bool Working()
-        {
-            return dateTimeTil >= DateTime.Now;
-        }
-    }
+  
 }

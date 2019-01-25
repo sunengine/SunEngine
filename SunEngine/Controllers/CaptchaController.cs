@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.Models;
+using SunEngine.Infrastructure;
 using SunEngine.Services;
 
 namespace SunEngine.Controllers
@@ -20,6 +21,7 @@ namespace SunEngine.Controllers
         }
 
         [AllowAnonymous]
+        [SpamProtectionFilterIp(TimeoutSeconds=20)]
         public IActionResult GetCaptchaKey()
         {
             var token = captchaService.MakeCryptedCaptchaToken();

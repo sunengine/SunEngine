@@ -18,20 +18,23 @@
 
       <q-field icon="fas fa-key" class="q-mb-md" :error="$v.password2.$invalid && !start"
                :error-label="password2ErrorLabel">
-        <q-input v-model="password2" type="password" float-label="Подвердите пароль"/>
+        <q-input v-model="password2" type="password" float-label="Подтвердите пароль"/>
       </q-field>
 
       <div>
-        <img v-if="token" :src="$apiPath('/Captcha/CaptchaImage?token='+token)" />
+        <span class="wait-msg" v-if="waitToken">Что бы сгенерировать новый токен, нужно немного подождать, попробуйте через некоторое время</span>
+        <img class="block" v-else-if="token" :src="$apiPath('/Captcha/CaptchaImage?token='+token)" />
+
+        <q-btn class="q-mt-sm block" @click="GetToken" size="sm" no-caps icon="fas fa-sync"  label="Выдать новое изображение" />
       </div>
 
-      <q-field icon="fas fa-key" class="q-mb-md" :error="$v.captchaText.$invalid && !start"
+      <q-field icon="fas fa-hand-point-right" class="q-mb-md" :error="$v.captchaText.$invalid && !start"
                error-label="Необходимо ввести текст">
         <q-input v-model="captchaText" float-label="Введите текст с картинки"/>
       </q-field>
 
       <q-field>
-        <q-btn style="width:100%;" color="lime" label="Зарегистироваться" @click="register" :loading="submitting">
+        <q-btn style="width:100%;" color="post" label="Зарегистироваться" @click="register" :loading="submitting">
           <span slot="loading">
             <q-spinner-mat class="on-left"/>  Регистрируемся...
           </span>
@@ -39,7 +42,7 @@
       </q-field>
     </template>
     <q-alert v-else type="positive" icon="email">
-      Сообщение с ссылой для регистрации отправленно на Email
+      Сообщение с ссылкой для регистрации отправленно на Email
     </q-alert>
   </q-page>
 </template>
@@ -62,6 +65,7 @@
         captchaText: "",
         submitting: false,
         token: null,
+        waitToken: false,
         start: true,
         done: false
       }
@@ -146,21 +150,36 @@
           });
           this.submitting = false;
         });
+      },
+      async GetToken() {
+        await this.$store.dispatch('request', {
+          url: '/Captcha/GetCaptchaKey'
+        }).then(response => {
+          this.token = response.data;
+          this.waitToken = false;
+        }).catch( x => {
+          if(x.response.data.errorName == "SpamProtection") {
+            this.waitToken = true;
+          }
+        });
       }
     },
     async created() {
       this.setTitle("Зарегистрироваться");
-      await this.$store.dispatch('request', {
-        url: '/Captcha/GetCaptchaKey'
-      }).then(response => {
-        this.token = response.data;
-      });
+      await this.GetToken();
     }
   }
 </script>
 
 <style lang="stylus" scoped>
+  @import '~variables';
+
   .q-field {
     height: 78px;
+  }
+
+  .wait-msg {
+    font-size : 0.8em;
+    color: $negative;
   }
 </style>
