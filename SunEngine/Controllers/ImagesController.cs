@@ -39,13 +39,13 @@ namespace SunEngine.Controllers
     {
         private readonly ImagesOptions imagesOptions;
         private readonly PersonalService personalService;
-        public readonly ImagesService imagesService;
-
+        private readonly ImagesService imagesService;
 
         public ImagesController(
             IOptions<ImagesOptions> imagesOptions,
             PersonalService personalService,
             ImagesService imagesService,
+            CaptchaService captchaService,
             UserManager<User> userManager) : base(userManager)
         {
             this.imagesOptions = imagesOptions.Value;
@@ -116,57 +116,6 @@ namespace SunEngine.Controllers
             return Ok();
         }
 
-        /*[AllowAnonymous]
-        [Produces("image/jpeg")]
-        public FileStreamResult CreateCaptchaImage(string guid)
-        {
-            MemoryStream ms;
-            using (Image<Rgba32> img = new Image<Rgba32>(400, 100))
-            {
-                PathBuilder pathBuilder = new PathBuilder();
-                pathBuilder.SetOrigin(new PointF(500, 0));
-                pathBuilder.AddBezier(new PointF(50, 450), new PointF(200, 50), new PointF(300, 50), new PointF(450, 450));
-                // add more complex paths and shapes here.
-
-                IPath path = pathBuilder.Build();
-
-                // For production application we would recomend you create a FontCollection
-                // singleton and manually install the ttf fonts yourself as using SystemFonts
-                // can be expensive and you risk font existing or not existing on a deployment
-                // by deployment basis.
-
-                var font = SystemFonts.Families.First().CreateFont(39); //.CreateFont("Arial", 39, FontStyle.Regular);
-
-                //var font = SystemFonts.CreateFont("Arial", 39, FontStyle.Regular);
-
-                Random ran = new Random();
-                string text = ran.Next(999999).ToString();
-                var textGraphicsOptions =
-                    new TextGraphicsOptions(true) // draw the text along the path wrapping at the end of the line
-                    {
-                         WrapTextWidth = path.Length
-                    };
-                img.Mutate(ctx => ctx
-                    .Fill(Rgba32.White) // white background image
-                    .Draw(Rgba32.Gray, 3, path) // draw the path so we can see what the text is supposed to be following
-                    .DrawText(textGraphicsOptions, text, font, Rgba32.Black, new PointF(0,0)));
-
-                ms = new MemoryStream();
-                
-                img.Save(ms, new JpegEncoder());
-                
-                var dirPath = Path.GetFullPath("wwwroot/test");
-            
-                var path1 = Path.Combine(dirPath, Guid.NewGuid().ToString()+".jpg");
-                
-                img.Save(path1);
-            }
-
-            MemoryCache ms;
-            ms.CreateEntry("",)
-            
-            ms.Seek(0, SeekOrigin.Begin);
-            return File(ms, "image/jpeg");
-        }*/
+        
     }
 }

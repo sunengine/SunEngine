@@ -28,6 +28,7 @@ namespace SunEngine.Controllers
         private readonly AuthService authService;
         private readonly DataBaseConnection db;
         private readonly GlobalOptions globalOptions;
+        private readonly CaptchaService captchaService;
 
         public AuthController(
             UserManager<User> userManager,
@@ -35,6 +36,7 @@ namespace SunEngine.Controllers
             DataBaseConnection db,
             ILoggerFactory loggerFactory,
             AuthService authService,
+            CaptchaService captchaService,
             IOptions<GlobalOptions> globalOptions) : base(userManager)
         {
             this.globalOptions = globalOptions.Value;
@@ -42,6 +44,7 @@ namespace SunEngine.Controllers
             logger = loggerFactory.CreateLogger<AuthController>();
             this.db = db;
             this.authService = authService;
+            this.captchaService = captchaService;
         }
 
         [AllowAnonymous]
@@ -94,6 +97,11 @@ namespace SunEngine.Controllers
                 return BadRequest(ModelState);
             }
 
+            if (!captchaService.VerifyToken(model.CaptchaToken,model.CaptchaText))
+            {
+                return BadRequest("TokenError");
+            }
+            
             var user = new User
             {
                 UserName = model.UserName,
@@ -336,6 +344,11 @@ namespace SunEngine.Controllers
 
 
         [Required] [MinLength(6)] public string Password { get; set; }
+        
+        [Required] public string CaptchaToken { get; set; }
+        
+        [Required] public string CaptchaText { get; set; }
+
     }
 
     public class TokenViewModel

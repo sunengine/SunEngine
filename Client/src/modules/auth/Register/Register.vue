@@ -21,6 +21,15 @@
         <q-input v-model="password2" type="password" float-label="Подвердите пароль"/>
       </q-field>
 
+      <div>
+        <img v-if="token" :src="$apiPath('/Captcha/CaptchaImage?token='+token)" />
+      </div>
+
+      <q-field icon="fas fa-key" class="q-mb-md" :error="$v.captchaText.$invalid && !start"
+               error-label="Необходимо ввести текст">
+        <q-input v-model="captchaText" float-label="Введите текст с картинки"/>
+      </q-field>
+
       <q-field>
         <q-btn style="width:100%;" color="lime" label="Зарегистироваться" @click="register" :loading="submitting">
           <span slot="loading">
@@ -50,7 +59,9 @@
         email: "",
         password: "",
         password2: "",
+        captchaText: "",
         submitting: false,
+        token: null,
         start: true,
         done: false
       }
@@ -72,6 +83,9 @@
       password2: {
         required,
         sameAs: sameAs('password')
+      },
+      captchaText: {
+        required
       }
     },
     computed: {
@@ -132,8 +146,13 @@
         });
       }
     },
-    created() {
+    async created() {
       this.setTitle("Зарегистрироваться");
+      await this.$store.dispatch('request', {
+        url: '/Captcha/GetCaptchaKey'
+      }).then(response => {
+        this.token = response.data;
+      });
     }
   }
 </script>

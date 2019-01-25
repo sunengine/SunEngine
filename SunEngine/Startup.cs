@@ -83,6 +83,7 @@ namespace SunEngine
             services.AddSingleton<ICategoriesStore, CategoriesStore>();
 
             services.AddSingleton<SpamProtectionStore>();
+            
 
             services.AddSingletonImages();
 
@@ -141,7 +142,12 @@ namespace SunEngine
             
             services.AddAdminServices();
 
-            services.AddMemoryCache();
+            //services.AddMemoryCache();
+            
+            services.AddSingleton<CryptService>();
+            
+            services.AddSingleton<CaptchaService>();
+
 
             //services.AddMyInMemoryCacheOutput();
             //services.AddSingleton<GroupCacheKeyGenerator>();

@@ -57,7 +57,7 @@ namespace SunEngine.Services
             services.Configure<MessagesOptions>(configuration.GetSection("Messages"));
             services.Configure<ImagesOptions>(configuration.GetSection("Images"));
             services.Configure<DataBaseConnectionOptions>(configuration.GetSection("DataBaseConnection"));
-
+            services.Configure<CaptchaOptions>(configuration.GetSection("Captcha"));
         }
 
         public static void AddSingletonImages(this IServiceCollection services)

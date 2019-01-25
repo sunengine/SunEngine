@@ -7,7 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 module.exports = function (ctx) {
   return {
     plugins: [
-      "buildPath", "formatDate", "vuelidate", "ext", "imagePath"
+      "buildPath", "formatDate", "vuelidate", "ext", "imagePath", "apiPath"
     ],
     css: [
       'app.styl'

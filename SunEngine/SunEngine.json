@@ -38,6 +38,9 @@
     "Issuer": "SunEngine Asp.net Core",
     "SecurityKeyEmailChange": "A62C348C-A183-4615-A067-BC920BF91969"
   },
+  "Captcha": {
+    "SecurityKey": "CE836163-0E9A-4823-AEC9-2B43E6BF7B09"
+  },
   "Email": {
     "SmtpConfig": "username:password@127.0.0.1:1025",
     "EmailFromName": "SunEngine",
