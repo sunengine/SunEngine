@@ -92,6 +92,7 @@ namespace SunEngine.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(NewUserViewModel model)
         {
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
