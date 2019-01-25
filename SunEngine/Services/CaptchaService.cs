@@ -18,42 +18,38 @@ using Path = System.IO.Path;
 
 namespace SunEngine.Services
 {
-
     public class CaptchaToken
     {
         public string Text { get; set; }
         public DateTime Expire { get; set; }
         public Guid Guid { get; set; }
     }
-    
+
     public class CaptchaService
     {
         private readonly TimeSpan cacheTimeout = new TimeSpan(0, 3, 0);
-        
+
         public readonly byte[] SecurityKey;
         public readonly byte[] IV;
 
-        
-        //private CaptchaOptions captchaOptions;
+
         private CryptService cryptService;
 
         public CaptchaService(IOptions<CaptchaOptions> captchaOptions, CryptService cryptService)
         {
-            var numberOfBits = 256; 
+            var numberOfBits = 256;
 
             SecurityKey = new byte[numberOfBits / 8]; // 8 bits per byte
 
             new RNGCryptoServiceProvider().GetBytes(SecurityKey);
-            
-            //this.captchaOptions = captchaOptions.Value;
-            
-            numberOfBits = 128; 
+
+            numberOfBits = 128;
 
             IV = new byte[numberOfBits / 8]; // 8 bits per byte
 
             new RNGCryptoServiceProvider().GetBytes(IV);
-            
-            
+
+
             this.cryptService = cryptService;
         }
 
@@ -65,11 +61,11 @@ namespace SunEngine.Services
                 Expire = DateTime.UtcNow.Add(cacheTimeout),
                 Guid = Guid.NewGuid()
             };
-            
+
             var tokenJson = JsonConvert.SerializeObject(token);
-            return cryptService.Crypt(tokenJson,SecurityKey,IV);
+            return cryptService.Crypt(tokenJson, SecurityKey, IV);
         }
-        
+
 
         string GenerateCaptchaText()
         {
@@ -80,17 +76,20 @@ namespace SunEngine.Services
 
         public string GetTextFromToken(string token)
         {
-            string json = cryptService.Decrypt(token,SecurityKey,IV);
+            string json = cryptService.Decrypt(token, SecurityKey, IV);
             return JsonConvert.DeserializeObject<CaptchaToken>(json).Text;
         }
 
-        public bool VerifyToken(string token,string text)
+        public bool VerifyToken(string token, string text)
         {
-            string json = cryptService.Decrypt(token,SecurityKey,IV);
-            CaptchaToken captchaToken = (CaptchaToken) JsonConvert.DeserializeObject(json);
+            string json = cryptService.Decrypt(token, SecurityKey, IV);
+            CaptchaToken captchaToken = JsonConvert.DeserializeObject<CaptchaToken>(json);
+            if (captchaToken.Expire < DateTime.UtcNow)
+                return false;
+
             return string.Equals(captchaToken.Text, text);
         }
-        
+
         public MemoryStream MakeCaptchaImage(string text)
         {
             MemoryStream ms;

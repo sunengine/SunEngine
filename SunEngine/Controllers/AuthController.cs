@@ -99,7 +99,7 @@ namespace SunEngine.Controllers
 
             if (!captchaService.VerifyToken(model.CaptchaToken,model.CaptchaText))
             {
-                return BadRequest("TokenError");
+                return BadRequest(new ErrorsViewModel { ErrorsTexts = new[] {"Ошибка проверки капчи"}});
             }
             
             var user = new User

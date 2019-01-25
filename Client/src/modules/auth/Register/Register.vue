@@ -132,6 +132,8 @@
             UserName: this.userName,
             Email: this.email,
             Password: this.password,
+            CaptchaToken: this.token,
+            CaptchaText: this.captchaText
           }
         }).then(response => {
           this.done = true;
