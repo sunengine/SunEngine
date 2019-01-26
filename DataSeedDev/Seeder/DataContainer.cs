@@ -30,7 +30,7 @@ namespace SunEngine.Seeder
         public List<Material> Materials = new List<Material>();
         public List<User> Users = new List<User>();
         public List<UserGroupDB> UserGroups = new List<UserGroupDB>();
-        public List<IdentityUserRole<int>> IdentityUserRoles = new List<IdentityUserRole<int>>();
+        public List<UserToGroup> UserToGroups = new List<UserToGroup>();
         public List<CategoryAccessDB> CategoryAccesses = new List<CategoryAccessDB>(); 
         public List<CategoryOperationAccessDB> CategoryOperationAccesses = new List<CategoryOperationAccessDB>();
         public List<OperationKeyDB> OperationKeys = new List<OperationKeyDB>(); 

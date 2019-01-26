@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Xml.Linq;
 using FluentMigrator;
 using FluentMigrator.Builders.Create.Table;
@@ -19,8 +20,8 @@ namespace Migrations
                 .WithColumn("Header").AsMaxString().Nullable()
                 .WithColumn("AreaRoot").AsBoolean().NotNullable()
                 .WithColumn("IsMaterialsContainer").AsBoolean().NotNullable()
-                .WithColumn("ParentId").AsInt32().Nullable().ForeignKey("FK_Categories_Categories_ParentId", "Categories", "Id")
-                .WithColumn("SortNumber").AsInt32().NotNullable()
+                .WithColumn("ParentId").AsInt32().Indexed().Nullable().ForeignKey("FK_Categories_Categories_ParentId", "Categories", "Id")
+                .WithColumn("SortNumber").AsInt32().NotNullable().Indexed()
                 .WithColumn("IsHidden").AsBoolean().NotNullable()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable();
             
@@ -47,16 +48,16 @@ namespace Migrations
                 .WithColumn("Avatar").AsMaxString().Nullable();
 
             Create.Table("UserBanedUnit")
-                .WithColumn("UserId").AsInt32().PrimaryKey().Indexed().NotNullable()
+                .WithColumn("UserId").AsInt32().PrimaryKey().NotNullable().Indexed()
                 .ForeignKey("FK_UserBanedUnit_AspNetUsers","AspNetUsers","Id")
-                .WithColumn("UserBanedId").AsInt32().PrimaryKey().Indexed().NotNullable()
+                .WithColumn("UserBanedId").AsInt32().PrimaryKey().NotNullable().Indexed()
                 .ForeignKey("FK_UserBanedUnit_AspNetUsersBaned","AspNetUsers","Id");
                
             
 
             Create.Table("Materials")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("Name").AsString(16).Indexed().Nullable()
+                .WithColumn("Name").AsString(16).Nullable().Indexed()
                 .WithColumn("Title").AsMaxString().NotNullable()
                 .WithColumn("Description").AsMaxString().Nullable()
                 .WithColumn("Preview").AsMaxString().Nullable()
@@ -65,13 +66,13 @@ namespace Migrations
                 .ForeignKey("FK_Materials_Categories_CategoryId", "Categories", "Id")
                 .WithColumn("AuthorId").AsInt32().NotNullable().Indexed()
                 .ForeignKey("FK_Materials_AspNetUsers_AuthorId", "AspNetUsers", "Id")
-                .WithColumn("PublishDate").AsDateTime().Indexed().NotNullable()
+                .WithColumn("PublishDate").AsDateTime().NotNullable().Indexed()
                 .WithColumn("EditDate").AsDateTime().Nullable()
                 .WithColumn("LastMessageId").AsInt32().Nullable()
-                .WithColumn("LastActivity").AsDateTime().Indexed().NotNullable()
+                .WithColumn("LastActivity").AsDateTime().NotNullable().Indexed()
                 .WithColumn("MessagesCount").AsInt32().NotNullable()
-                .WithColumn("SortNumber").AsInt32().Indexed().NotNullable()
-                .WithColumn("IsDeleted").AsBoolean().Indexed().NotNullable();
+                .WithColumn("SortNumber").AsInt32().NotNullable().Indexed()
+                .WithColumn("IsDeleted").AsBoolean().NotNullable().Indexed();
 
 
             Create.Table("Messages")
@@ -81,9 +82,9 @@ namespace Migrations
                 .ForeignKey("FK_Messages_Materials_MaterialId", "Materials", "Id")
                 .WithColumn("AuthorId").AsInt32().Indexed().Nullable()
                 .ForeignKey("FK_Messages_AspNetUsers_AuthorId", "AspNetUsers", "Id")
-                .WithColumn("PublishDate").AsDateTime().Indexed().NotNullable()
+                .WithColumn("PublishDate").AsDateTime().NotNullable().Indexed()
                 .WithColumn("EditDate").AsDateTime().Nullable()
-                .WithColumn("IsDeleted").AsBoolean().Indexed().Nullable();
+                .WithColumn("IsDeleted").AsBoolean().Nullable().Indexed();
 
 
             Create.ForeignKey("FK_Materials_Messages_LastMessageId").FromTable("Materials")
@@ -93,13 +94,13 @@ namespace Migrations
             Create.Table("Tags")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(256).Unique().NotNullable()
-                .WithColumn("GroupId").AsInt32().Nullable();
+                .WithColumn("GroupId").AsInt32().Nullable().Indexed();
 
 
             Create.Table("TagMaterials")
-                .WithColumn("TagId").AsInt32().PrimaryKey().NotNullable()
+                .WithColumn("TagId").AsInt32().PrimaryKey().NotNullable().Indexed()
                 .ForeignKey("FK_TagMaterials_Materials_MaterialId", "Tags", "Id")
-                .WithColumn("MaterialId").AsInt32().PrimaryKey().NotNullable()
+                .WithColumn("MaterialId").AsInt32().PrimaryKey().NotNullable().Indexed()
                 .ForeignKey("FK_TagMaterials_Tags_TagId", "Materials", "Id");
 
 
@@ -108,11 +109,13 @@ namespace Migrations
                 .WithColumn("Name").AsString(256).Nullable()
                 .WithColumn("NormalizedName").AsString(256).Unique().Nullable()
                 .WithColumn("ConcurrencyStamp").AsMaxString().Nullable()
-                .WithColumn("Title").AsMaxString().Nullable();
+                .WithColumn("Title").AsMaxString().Nullable()
+                .WithColumn("SortNumber").AsInt32().NotNullable()
+                .WithColumn("IsSuper").AsBoolean().NotNullable();
 
 
             Create.Table("AspNetUserRoles")
-                .WithColumn("UserId").AsInt32().PrimaryKey().NotNullable().ForeignKey()
+                .WithColumn("UserId").AsInt32().PrimaryKey().NotNullable().Indexed()
                 .ForeignKey("FK_AspNetUserRoles_AspNetUsers_UserId", "AspNetUsers", "Id")
                 .WithColumn("RoleId").AsInt32().PrimaryKey().NotNullable().Indexed()
                 .ForeignKey("FK_AspNetUserRoles_AspNetRoles_RoleId", "AspNetRoles", "Id");

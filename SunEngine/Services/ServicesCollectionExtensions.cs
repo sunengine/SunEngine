@@ -69,6 +69,7 @@ namespace SunEngine.Services
         public static void AddAdminServices(this IServiceCollection services)
         {
             services.AddScoped<CategoriesAdminService>();
+            services.AddScoped<GroupsAdminService>();
         }
         
     }  

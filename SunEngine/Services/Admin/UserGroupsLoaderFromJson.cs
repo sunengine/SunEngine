@@ -1,35 +1,42 @@
-﻿using System;
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using LinqToDB;
 using Newtonsoft.Json.Linq;
-using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.UserGroups;
 using SunEngine.Commons.Services;
 
-namespace SunEngine.Seeder
+namespace SunEngine.Services.Admin
 {
-    public class SeederUserGroupsFromJson
+    public class UserGroupsLoaderFromJson
     {
-        private readonly DataContainer dataContainer;
+        public List<UserGroupDB> userGroups = new List<UserGroupDB>();
+        public List<CategoryAccessDB> categoryAccesses = new List<CategoryAccessDB>(); 
+        public List<CategoryOperationAccessDB> categoryOperationAccesses = new List<CategoryOperationAccessDB>();
 
-        public SeederUserGroupsFromJson(DataContainer dataContainer)
+        private readonly IDictionary<string, Category> categories;
+        private readonly IDictionary<string, OperationKeyDB> operationKeys;
+
+        public UserGroupsLoaderFromJson(
+            IDictionary<string, Category> categories,
+            IDictionary<string,OperationKeyDB> operationKeys)
         {
-            this.dataContainer = dataContainer;
+            this.categories = categories;
+            this.operationKeys = operationKeys;
         }
-
-        public void Seed(string fileName)
+            
+        public void Seed(string jsonText)
         {
             IList<string> allSuperKeys = OperationKeysContainer.GetAllSuperKeys();
             
-            string jsonText = File.ReadAllText(fileName);
             JArray groupsJson = JArray.Parse(jsonText);
+
+            int id = 0;
+            int categoryAccessId = 0;
+            
             foreach (JObject userGroupJson in groupsJson)
             {
-                int id = dataContainer.NextUserGroupId();
+                id++;
+                
                 UserGroupDB userGroupDb = new UserGroupDB
                 {
                     Id = id,
@@ -40,7 +47,7 @@ namespace SunEngine.Seeder
                 };
                 userGroupDb.NormalizedName = userGroupDb.Name.ToUpper();
 
-                dataContainer.UserGroups.Add(userGroupDb);
+                userGroups.Add(userGroupDb);
 
                 var categoriesAccessJsonList = (JArray) userGroupJson["Categories"];
                 if (categoriesAccessJsonList != null)
@@ -48,20 +55,24 @@ namespace SunEngine.Seeder
                     foreach (var categoriesAccessJson in categoriesAccessJsonList)
                     {
                         string name = (string) categoriesAccessJson["Category"];
-                        Category category = dataContainer.Categories.FirstOrDefault(x => x.Name == name);
-                        if (category == null)
+                        
+                        if (!categories.ContainsKey(name))
                         {
                             throw new Exception("No such category: " + name);
                         }
+                        
+                        Category category = categories[name];
 
+                        categoryAccessId++;
+                        
                         CategoryAccessDB categoryAccessDb = new CategoryAccessDB
                         {
-                            Id = dataContainer.NextCategoryAccessId(),
+                            Id = categoryAccessId,
                             CategoryId = category.Id,
                             UserGroupId = userGroupDb.Id
                         };
 
-                        dataContainer.CategoryAccesses.Add(categoryAccessDb);
+                        categoryAccesses.Add(categoryAccessDb);
 
                         var operationKeysJsonObject = (JObject) categoriesAccessJson["OperationKeys"];
 
@@ -74,11 +85,12 @@ namespace SunEngine.Seeder
                                 throw new Exception($"Ordinary UserGroup '{userGroupDb.Name}' can not contain IsSuper key '{keyName}'");
                             }
                             
-                            var operationKey = dataContainer.OperationKeys.FirstOrDefault(x => x.Name == keyName);
-                            if (operationKey == null)
+                            if (!operationKeys.ContainsKey(keyName))
                             {
-                                throw new Exception("No such key in registered keys: " + keyName);
+                                throw new Exception($"No such key in registered keys '{keyName}'");
                             }
+
+                            var operationKey = operationKeys[keyName];
                             
                             CategoryOperationAccessDB categoryOperationAccessDb = new CategoryOperationAccessDB
                             {
@@ -87,7 +99,7 @@ namespace SunEngine.Seeder
                                 Access = (bool) operationKeyJson.Value
                             };
 
-                            dataContainer.CategoryOperationAccesses.Add(categoryOperationAccessDb);
+                            categoryOperationAccesses.Add(categoryOperationAccessDb);
                         }
                     }
                 }
@@ -95,3 +107,4 @@ namespace SunEngine.Seeder
         }
     }
 }
+

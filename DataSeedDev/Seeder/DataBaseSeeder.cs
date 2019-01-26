@@ -51,7 +51,7 @@ namespace SunEngine.Seeder
             db.BulkCopy(options,dataContainer.UserGroups);
             
             Console.WriteLine("IdentityUserRoles");
-            db.BulkCopy(options,dataContainer.IdentityUserRoles);
+            db.BulkCopy(options,dataContainer.UserToGroups);
             
             Console.WriteLine("OperationKeys");
             db.BulkCopy(options,dataContainer.OperationKeys);

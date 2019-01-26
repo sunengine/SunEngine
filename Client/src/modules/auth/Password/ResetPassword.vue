@@ -78,9 +78,7 @@
         }).then(response => {
           this.done = true;
         }).catch(error => {
-          debugger;
           this.$q.notify({
-
             message: error.response.data.errorText,
             timeout: 5000,
             type: 'negative',

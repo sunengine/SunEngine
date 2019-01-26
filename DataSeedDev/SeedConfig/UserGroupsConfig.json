@@ -110,6 +110,7 @@
   {
     "Name": "Moderator",
     "Title": "Модератор",
+    "IsSuper": true,
     "Categories": [
       {
         "Category": "Forum",
@@ -147,6 +148,7 @@
   },
   {
     "Name": "Admin",
-    "Title": "Администратор"
+    "Title": "Администратор",
+    "IsSuper": true
   }
 ]

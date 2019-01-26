@@ -14,29 +14,29 @@ namespace SunEngine.Commons.DataBase
                 .HasTableName("AspNetUsers")
                 .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
                 .Association(x => x.BanList, (x, y) => x.Id == y.UserId);
-            
+
             mp.Entity<UserBanedUnit>()
                 .HasTableName("UserBanedUnit")
-                .HasIdentity(x => new {x.UserId,x.UserBanedId}).HasPrimaryKey(x=> new {x.UserId,x.UserBanedId})
-                .Association(x=>x.User,x=>x.UserId,x=>x.Id)
-                .Association(x=>x.UserBaned,x=>x.UserBanedId,x=>x.Id);
-            
+                .HasIdentity(x => new {x.UserId, x.UserBanedId}).HasPrimaryKey(x => new {x.UserId, x.UserBanedId})
+                .Association(x => x.User, x => x.UserId, x => x.Id)
+                .Association(x => x.UserBaned, x => x.UserBanedId, x => x.Id);
+
             mp.Entity<UserGroupDB>()
                 .HasTableName("AspNetRoles")
-                .HasIdentity(x => x.Id).HasPrimaryKey(x=>x.Id);
+                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id);
 
             mp.Entity<Category>()
                 .HasTableName("Categories")
                 .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
-                .Association(x => x.Materials, x => x.Id,x=>x.CategoryId);
-            
+                .Association(x => x.Materials, x => x.Id, x => x.CategoryId);
+
             mp.Entity<OperationKeyDB>()
                 .HasTableName("OperationKeys")
-                .HasIdentity(x => x.OperationKeyId).HasPrimaryKey(x=>x.OperationKeyId);
+                .HasIdentity(x => x.OperationKeyId).HasPrimaryKey(x => x.OperationKeyId);
 
             mp.Entity<CategoryAccessDB>()
                 .HasTableName("CategoryAccesses")
-                .HasIdentity(x => x.Id).HasPrimaryKey(x=>x.Id);
+                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id);
 
             mp.Entity<CategoryOperationAccessDB>()
                 .HasTableName("CategoryOperationAccesses")
@@ -70,8 +70,12 @@ namespace SunEngine.Commons.DataBase
             mp.Entity<IdentityUserRole<int>>()
                 .HasTableName("AspNetUserRoles")
                 .HasPrimaryKey(x => new {x.UserId, x.RoleId});
-
-
+            
+            mp.Entity<UserToGroup>()
+                .HasTableName("AspNetUserRoles")
+                .HasPrimaryKey(x => new {x.UserId, x.RoleId})
+                .Association(x => x.User, x => x.UserId, x => x.Id)
+                .Association(x => x.UserGroup, x => x.RoleId, x => x.Id);
         }
     }
 }

@@ -2,7 +2,7 @@
   <q-page>
     <h2 class="q-title">Забаненые пользователи</h2>
     <div v-if="users">
-      <router-link class="block q-mb-xs" style="font-weight: 600" :to="{name:'User', params: {link: user.link}}" v-for="user in users" >{{user.name}}</router-link>
+      <router-link :key="user.id" class="block q-mb-xs" style="font-weight: 600" :to="{name:'User', params: {link: user.link}}" v-for="user in users" >{{user.name}}</router-link>
     </div>
     <LoaderWait v-else />
   </q-page>

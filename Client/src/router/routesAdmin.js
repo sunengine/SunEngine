@@ -3,6 +3,9 @@ import AdminPanel from 'admin/AdminPanel.vue';
 import CategoriesAdmin from 'admin/CategoriesAdmin.vue';
 import AddCategory from 'admin/AddEditCategory/AddCategory.vue';
 import EditCategory from 'admin/AddEditCategory/EditCategory.vue';
+import UserGroupsAdmin from 'admin/UserGroupsAdmin.vue';
+
+
 
 import {store} from 'store';
 
@@ -43,6 +46,14 @@ const routes = [
         return {categoryId: +route.params.id};
       },
       navigation: null
+    }
+  },
+  {
+    name: 'UserGroupsAdmin',
+    path: '/admin/UserGroupsAdmin'.toLowerCase(),
+    components: {
+      default: UserGroupsAdmin,
+      navigation: AdminPanel
     }
   }
 ]

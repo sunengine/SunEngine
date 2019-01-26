@@ -9,11 +9,11 @@ namespace SunEngine.Authorization
 {
     public class AuthorizationService : IAuthorizationService
     {
-        private readonly ICategoriesStore _categoriesStore;
+        private readonly ICategoriesStore categoriesStore;
         
         public AuthorizationService(ICategoriesStore categoriesStore)
         {
-            this._categoriesStore = categoriesStore;
+            this.categoriesStore = categoriesStore;
         }
         
         public bool HasAccess(IReadOnlyDictionary<string,UserGroup> userGroups, Category category, int operationKey)
@@ -82,13 +82,13 @@ namespace SunEngine.Authorization
         #region With CategoryId
         public bool HasAccess(IReadOnlyDictionary<string,UserGroup> userGroups, int categoryId, int operationKey)
         {
-            return HasAccess(userGroups, _categoriesStore.GetCategory(categoryId), operationKey);
+            return HasAccess(userGroups, categoriesStore.GetCategory(categoryId), operationKey);
         }
 
         public HashSet<int> HasAccess(IReadOnlyDictionary<string,UserGroup> userGroups, int categoryId,
             IEnumerable<int> operationKeys)
         {
-            return HasAccess(userGroups, _categoriesStore.GetCategory(categoryId), operationKeys);
+            return HasAccess(userGroups, categoriesStore.GetCategory(categoryId), operationKeys);
         }
         #endregion
     }
