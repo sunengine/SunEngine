@@ -120,9 +120,11 @@ namespace SunEngine.Controllers
                         // Send email confirmation email
                         var confirmToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
+                        var schemaAndHost = globalOptions.GetSchemaAndHostApi();
+
                         var emailConfirmUrl = Url.Action("Confirm", "Auth",
                             new {uid = user.Id, token = confirmToken},
-                            this.Request.Scheme);
+                            schemaAndHost.schema, schemaAndHost.host);
 
                         await emailSender.SendEmailAsync(model.Email, "Please confirm your account",
                             $"Please confirm your account by clicking this <a href=\"{emailConfirmUrl}\">link</a>."
@@ -178,8 +180,10 @@ namespace SunEngine.Controllers
 
             var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
 
+            var schemaAndHost = globalOptions.GetSchemaAndHostApi();
+
             var resetPasswordUrl = Url.Action("ChangePasswordFromResetDialog", "Auth",
-                new {uid = user.Id, token = resetToken}, this.Request.Scheme);
+                new {uid = user.Id, token = resetToken}, schemaAndHost.schema, schemaAndHost.host);
             try
             {
                 await emailSender.SendEmailAsync(user.Email, "You can reset your password",
@@ -288,8 +292,10 @@ namespace SunEngine.Controllers
 
             var emailToken = await authService.GenerateChangeEmailTokenAsync(user, email);
 
+            var schemaAndHost = globalOptions.GetSchemaAndHostApi();
+
             var updateEmailUrl = Url.Action("ConfirmEmail", "Auth",
-                new {token = emailToken}, this.Request.Scheme);
+                new {token = emailToken}, schemaAndHost.schema, schemaAndHost.host);
             try
             {
                 await emailSender.SendEmailAsync(user.Email, "Confirm your email",

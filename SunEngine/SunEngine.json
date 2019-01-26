@@ -1,5 +1,6 @@
 {
-  "SiteUrl": "http://localhost:5005/",
+  "SiteUrl": "http://localhost:5005",
+  "SiteApi": "http://localhost:5000",
   "SiteName": "SunEngine",
   "Images": {
     "UploadDir": "UploadImages",

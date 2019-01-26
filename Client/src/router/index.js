@@ -37,6 +37,7 @@ export default function (/* { store, ssrContext } */) {
   let firstLoad = true; // need not to set  prev on first load TODO may be to find more good decision
 
   router.beforeEach((to, from, next) => {
+    debugger;
     if (!routeHasAccess(to)) {
       router.push({name: 'Home'});
       return;
@@ -53,6 +54,8 @@ export default function (/* { store, ssrContext } */) {
   router.$goBack = function (onRejectRouteName) {
     if (router.$prevRoute && !router.$prevRoute?.meta?.notReturnable)
       router.push(router.$prevRoute.fullPath);
+    else if (!onRejectRouteName)
+      router.push({name: 'Home'});
     else if (typeof onRejectRouteName === "string")
       router.push({name: onRejectRouteName});
     else if (typeof onRejectRouteName === "object")

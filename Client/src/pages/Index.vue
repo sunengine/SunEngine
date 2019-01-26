@@ -5,7 +5,7 @@
       <p>Каждый день данные сбрасываются.</p>
       <p>Пользователи: User1, User2, User3, User4, User5, Moderator, Admin</p>
       <p>Пароль: password</p>
-      <p>Все функции зависящие от email не подключены.</p>
+      <p>При регистрации и других операциях с почтой можете указывать любой почтовый ящик, например `o1111@ooo.ru`, почта будет отправляться на mailcatcher <a target="_blank" href="http://demo.sunengine.site:1444">сюда</a>.</p>
     </div>
   </q-page>
 </template>

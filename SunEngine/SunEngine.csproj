@@ -211,6 +211,14 @@
     <ItemGroup>
       <Folder Include="wwwroot" />
     </ItemGroup>
+    
+
+    <ItemGroup>
+      <None Remove="gunnyrewritten.ttf" />
+      <Content Include="gunnyrewritten.ttf">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
 
   <PropertyGroup>
     <ServerGarbageCollection>false</ServerGarbageCollection>
