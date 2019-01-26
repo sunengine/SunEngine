@@ -27,7 +27,10 @@ namespace SunEngine.Controllers
         [HttpPost]
         public async Task<IActionResult> GetProfile(string link)
         {
-            var rez = await profileService.GetProfileAsync(link);
+            int? userId = User?.UserId;
+            
+            
+            var rez = await profileService.GetProfileAsync(link, userId);
             if (rez == null)
             {
                 return NotFound();

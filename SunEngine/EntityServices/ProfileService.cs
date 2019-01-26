@@ -10,6 +10,7 @@ using SunEngine.Commons.TextProcess;
 using SunEngine.Options;
 using SunEngine.Services;
 using Flurl;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace SunEngine.EntityServices
 {
@@ -32,7 +33,7 @@ namespace SunEngine.EntityServices
         }
 
 
-        public Task<ProfileViewModel> GetProfileAsync(string link)
+        public Task<ProfileViewModel> GetProfileAsync(string link, int? viewerUserId)
         {
             IQueryable<User> query;
             if (int.TryParse(link, out int id))
@@ -44,15 +45,36 @@ namespace SunEngine.EntityServices
                 query = db.Users.Where(x => x.Link == link);
             }
 
-            return query.Select(x =>
-                new ProfileViewModel
-                {
-                    Id = x.Id,
-                    Name = x.UserName,
-                    Information = x.Information,
-                    Link = x.Link,
-                    Photo = x.Photo
-                }).FirstOrDefaultAsync();
+            if (viewerUserId.HasValue)
+            {
+                return query.Select(x =>
+                    new ProfileViewModel
+                    {
+                        Id = x.Id,
+                        Name = x.UserName,
+                        Information = x.Information,
+                        Link = x.Link,
+                        Photo = x.Photo,
+                        NoBunnable = x.Roles.Any(y=>y.RoleId == db.UserGroups.FirstOrDefault(z=>z.Name == "Admin").Id),
+                        HeBannedMe = x.BanList.Any(y=>y.UserBanedId == viewerUserId.Value),
+                        IBannedHim = db.Users.FirstOrDefault(y=>y.Id == viewerUserId.Value).BanList.Any(y=>y.UserId == x.Id)
+                    }).FirstOrDefaultAsync();
+            }
+            else
+            {
+                return query.Select(x =>
+                    new ProfileViewModel
+                    {
+                        Id = x.Id,
+                        Name = x.UserName,
+                        Information = x.Information,
+                        Link = x.Link,
+                        Photo = x.Photo,
+                        NoBunnable = true,
+                        HeBannedMe = false,
+                        IBannedHim = false
+                    }).FirstOrDefaultAsync();
+            }
         }
 
         public Task SendPrivateMessageAsync(User from, User to, string text)
@@ -95,6 +117,11 @@ namespace SunEngine.EntityServices
         public string Link { get; set; }
 
         public string Photo { get; set; }
+        
+        public bool NoBunnable { get; set; }
+        public bool HeBannedMe { get; set; }
+        public bool IBannedHim { get; set; }
+        
         //public string Avatar { get; set; }
     }
 }
