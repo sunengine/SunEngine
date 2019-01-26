@@ -6,6 +6,18 @@
         <q-input v-model="email" type="email" float-label="Введите email"/>
       </q-field>
 
+      <div style="padding: 10px 10px 10px 44px; border-radius: 5px; background-color: #f0f4c3; margin-bottom: 16px;">
+        <span class="wait-msg" v-if="waitToken">Что бы сгенерировать новый токен, нужно немного подождать, попробуйте через некоторое время</span>
+        <img class="block" v-else-if="token" :src="$apiPath('/Captcha/CaptchaImage?token='+token)" />
+
+        <q-btn class="shadow-1 q-mt-sm block" color="lime-6" @click="GetToken" size="sm" no-caps icon="fas fa-sync"  label="Выдать новое изображение" />
+      </div>
+
+      <q-field icon="fas fa-hand-point-right" class="q-mb-md" :error="$v.captchaText.$invalid && !start"
+               error-label="Необходимо ввести текст">
+        <q-input v-model="captchaText" float-label="Введите текст с картинки"/>
+      </q-field>
+
       <q-field>
         <q-btn style="width:100%;" color="send" label="Сбросить пароль" @click="send" :loading="submitting">
           <span slot="loading">
@@ -32,7 +44,10 @@
         email: "",
         submitting: false,
         start: true,
-        done: false
+        done: false,
+        captchaText: "",
+        waitToken: false,
+        token: null
       }
     },
     validations: {
@@ -40,6 +55,9 @@
         required,
         email
       },
+      captchaText: {
+        required
+      }
     },
     methods: {
       async send() {
@@ -53,12 +71,16 @@
         this.$store.dispatch('request', {
           url: '/Auth/ResetPassword',
           data: {
-            email: this.email
+            Email: this.email,
+            CaptchaToken: this.token,
+            CaptchaText: this.captchaText
           }
         }).then(response => {
           this.done = true;
         }).catch(error => {
+          debugger;
           this.$q.notify({
+
             message: error.response.data.errorText,
             timeout: 5000,
             type: 'negative',
@@ -66,14 +88,32 @@
           });
           this.loading = false;
         });
+      },
+      async GetToken() {
+        await this.$store.dispatch('request', {
+          url: '/Captcha/GetCaptchaKey'
+        }).then(response => {
+          this.token = response.data;
+          this.waitToken = false;
+        }).catch( x => {
+          if(x.response.data.errorName == "SpamProtection") {
+            this.waitToken = true;
+          }
+        });
       }
     },
-    created() {
+    async created() {
       this.setTitle("Сброс пароля");
+      await this.GetToken();
     }
   }
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
+  @import '~variables';
 
+  .wait-msg {
+    font-size : 0.8em;
+    color: $negative;
+  }
 </style>

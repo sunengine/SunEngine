@@ -90,19 +90,14 @@ namespace SunEngine.Controllers
         }
 
         [AllowAnonymous]
+        [CaptchaValidationFilter]
         public async Task<IActionResult> Register(NewUserViewModel model)
         {
-            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (!captchaService.VerifyToken(model.CaptchaToken,model.CaptchaText))
-            {
-                return BadRequest(new ErrorsViewModel { ErrorsTexts = new[] {"Ошибка проверки капчи"}});
-            }
-            
             var user = new User
             {
                 UserName = model.UserName,
@@ -172,9 +167,10 @@ namespace SunEngine.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> ResetPassword(string email)
+        [CaptchaValidationFilter]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            User user = await userManager.FindByEmailAsync(email);
+            User user = await userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 return BadRequest(new ErrorViewModel {ErrorText = "User with this email not found."});
@@ -260,7 +256,6 @@ namespace SunEngine.Controllers
                 }
                 catch
                 {
-                    
                 }
             }
 
@@ -337,19 +332,25 @@ namespace SunEngine.Controllers
         }
     }
 
-    public class NewUserViewModel
+    public class NewUserViewModel : CaptchaViewModel
     {
         [Required] public string UserName { get; set; }
 
         [Required] [EmailAddress] public string Email { get; set; }
 
-
         [Required] [MinLength(6)] public string Password { get; set; }
-        
-        [Required] public string CaptchaToken { get; set; }
-        
-        [Required] public string CaptchaText { get; set; }
+    }
 
+    public class CaptchaViewModel
+    {
+        [Required] public string CaptchaToken { get; set; }
+
+        [Required] public string CaptchaText { get; set; }
+    }
+
+    public class ResetPasswordViewModel : CaptchaViewModel
+    {
+        [Required] [EmailAddress] public string Email { get; set; }
     }
 
     public class TokenViewModel

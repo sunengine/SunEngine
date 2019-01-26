@@ -37,7 +37,7 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        [SpamProtectionFilter(TimeoutSeconds = 60)]
+        [SpamProtectionFilterUser(TimeoutSeconds = 60)]
         [Authorize(Roles = UserGroup.UserGroupRegistered)]
         public async Task<IActionResult> SendPrivateMessage(string userId,string text)
         {

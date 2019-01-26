@@ -13,9 +13,9 @@ using SunEngine.Stores;
 
 namespace SunEngine.Infrastructure
 {
-    public class SpamProtectionFilter : ActionFilterAttribute
+    public class SpamProtectionFilterUser : ActionFilterAttribute
     {
-        private const string CacheKeyStart = "RF";
+        private const string CacheKeyStart = "RFUSER";
 
         
         public int TimeoutSeconds

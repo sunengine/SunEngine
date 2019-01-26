@@ -29,10 +29,12 @@ namespace SunEngine.Infrastructure
         
         public override void OnActionExecuting(ActionExecutingContext context)
         {
+            
             SpamProtectionStore spamProtectionStore =
                 context.HttpContext.RequestServices.GetRequiredService<SpamProtectionStore>();
 
             BaseController controller = (BaseController) context.Controller;
+            
 
             var actionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
             string controllerName = actionDescriptor?.ControllerTypeInfo.FullName;

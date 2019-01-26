@@ -54,7 +54,7 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        [SpamProtectionFilter(TimeoutSeconds = 10)]
+        [SpamProtectionFilterUser(TimeoutSeconds = 10)]
         public async Task<IActionResult> Add(int materialId, string text)
         {
             Material material = await materialsService.GetAsync(materialId);

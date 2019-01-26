@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -10,47 +11,42 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using SixLabors.Primitives;
 using SixLabors.Shapes;
 using SunEngine.Commons.Models;
 using SunEngine.Options;
 using Path = System.IO.Path;
+using PointF = SixLabors.Primitives.PointF;
 
 namespace SunEngine.Services
 {
-    public class CaptchaToken
-    {
-        public string Text { get; set; }
-        public DateTime Expire { get; set; }
-        public Guid Guid { get; set; }
-    }
-
     public class CaptchaService
     {
         private readonly TimeSpan cacheTimeout = new TimeSpan(0, 3, 0);
 
-        public readonly byte[] SecurityKey;
-        public readonly byte[] IV;
+        private readonly Font font;
 
+        private readonly byte[] SecurityKey;
+        private readonly byte[] IV;
 
-        private CryptService cryptService;
+        private readonly CryptService cryptService;
 
+        
         public CaptchaService(IOptions<CaptchaOptions> captchaOptions, CryptService cryptService)
         {
+            // Init Cryptor
             var numberOfBits = 256;
-
             SecurityKey = new byte[numberOfBits / 8]; // 8 bits per byte
-
-            new RNGCryptoServiceProvider().GetBytes(SecurityKey);
-
+            CryptService.CryptoProvider.GetBytes(SecurityKey);
             numberOfBits = 128;
-
-            IV = new byte[numberOfBits / 8]; // 8 bits per byte
-
-            new RNGCryptoServiceProvider().GetBytes(IV);
-
+            IV = new byte[numberOfBits / 8];
+            CryptService.CryptoProvider.GetBytes(IV);
 
             this.cryptService = cryptService;
+
+            // Init Font (font name: Gunny Rewritten)
+            FontCollection fontCollection = new FontCollection();
+            fontCollection.Install(Path.GetFullPath("gunnyrewritten.ttf"));
+            font = fontCollection.Families.First().CreateFont(46);
         }
 
         public string MakeCryptedCaptchaToken()
@@ -70,7 +66,7 @@ namespace SunEngine.Services
         string GenerateCaptchaText()
         {
             Random ran = new Random();
-            string text = ran.Next(999999).ToString();
+            string text = ran.Next(10000, 999999).ToString();
             return text;
         }
 
@@ -92,52 +88,45 @@ namespace SunEngine.Services
 
         public MemoryStream MakeCaptchaImage(string text)
         {
-            MemoryStream ms;
-            using (Image<Rgba32> img = new Image<Rgba32>(400, 100))
+            RendererOptions ro = new RendererOptions(font)
             {
-                PathBuilder pathBuilder = new PathBuilder();
-                pathBuilder.SetOrigin(new PointF(500, 0));
-                pathBuilder.AddBezier(new PointF(50, 450), new PointF(200, 50), new PointF(300, 50),
-                    new PointF(450, 450));
-                // add more complex paths and shapes here.
+                VerticalAlignment = VerticalAlignment.Center,
+                TabWidth = 10
+            };
 
-                IPath path = pathBuilder.Build();
+            var rect = TextMeasurer.MeasureBounds(text, ro);
 
-                // For production application we would recomend you create a FontCollection
-                // singleton and manually install the ttf fonts yourself as using SystemFonts
-                // can be expensive and you risk font existing or not existing on a deployment
-                // by deployment basis.
-
-                var font = SystemFonts.Families.First()
-                    .CreateFont(39); //.CreateFont("Arial", 39, FontStyle.Regular);
-
-                //var font = SystemFonts.CreateFont("Arial", 39, FontStyle.Regular);
-
+            MemoryStream ms;
+            using (Image<Rgba32> img = new Image<Rgba32>((int) rect.Width + 10, (int) rect.Height + 6))
+            {
                 var textGraphicsOptions =
-                    new TextGraphicsOptions(true) // draw the text along the path wrapping at the end of the line
+                    new TextGraphicsOptions(true)
                     {
-                        WrapTextWidth = path.Length
+                        VerticalAlignment = VerticalAlignment.Center,
+                        TabWidth = 10
                     };
+
+                PointF[] points = {new PointF(2, img.Height / 2), new PointF(img.Width - 2, img.Height / 2)};
+                
                 img.Mutate(ctx => ctx
-                    .Fill(Rgba32.White) // white background image
-                    .Draw(Rgba32.Gray, 3,
-                        path) // draw the path so we can see what the text is supposed to be following
-                    .DrawText(textGraphicsOptions, text, font, Rgba32.Black, new PointF(0, 0)));
+                    .Fill(Rgba32.FromHex("f0f4c3")) // white background image
+                    .DrawLines(Rgba32.Black, 3, points)
+                    .DrawText(textGraphicsOptions, text, font, Rgba32.Black, new PointF(0, img.Height / 2)));
 
                 ms = new MemoryStream();
 
                 img.Save(ms, new JpegEncoder());
-
-                //var dirPath = Path.GetFullPath("wwwroot/test");
-
-                //var path1 = Path.Combine(dirPath, Guid.NewGuid().ToString() + ".jpg");
-
-                //img.Save(path1);
             }
-
 
             ms.Seek(0, SeekOrigin.Begin);
             return ms;
+        }
+
+        public class CaptchaToken
+        {
+            public string Text { get; set; }
+            public DateTime Expire { get; set; }
+            public Guid Guid { get; set; }
         }
     }
 }

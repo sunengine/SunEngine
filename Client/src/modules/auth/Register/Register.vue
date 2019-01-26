@@ -21,11 +21,11 @@
         <q-input v-model="password2" type="password" float-label="Подтвердите пароль"/>
       </q-field>
 
-      <div>
+      <div style="padding: 10px 10px 10px 44px; border-radius: 5px; background-color: #f0f4c3">
         <span class="wait-msg" v-if="waitToken">Что бы сгенерировать новый токен, нужно немного подождать, попробуйте через некоторое время</span>
         <img class="block" v-else-if="token" :src="$apiPath('/Captcha/CaptchaImage?token='+token)" />
 
-        <q-btn class="q-mt-sm block" @click="GetToken" size="sm" no-caps icon="fas fa-sync"  label="Выдать новое изображение" />
+        <q-btn class="shadow-1 q-mt-sm block" color="lime-6" @click="GetToken" size="sm" no-caps icon="fas fa-sync"  label="Выдать новое изображение" />
       </div>
 
       <q-field icon="fas fa-hand-point-right" class="q-mb-md" :error="$v.captchaText.$invalid && !start"
@@ -143,7 +143,7 @@
           this.done = true;
         }).catch(error => {
           this.$q.notify({
-            message: error.response.data.errorsTexts,
+            message: error.response.data?.errorsText ?? error.response.data.errorText,
             timeout: 5000,
             type: 'negative',
             position: 'top'

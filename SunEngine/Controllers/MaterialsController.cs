@@ -51,7 +51,7 @@ namespace SunEngine.Controllers
 
 
         [HttpPost]
-        [SpamProtectionFilter(TimeoutSeconds = 60)]
+        [SpamProtectionFilterUser(TimeoutSeconds = 60)]
         public async Task<IActionResult> Add(string categoryName,
             string title,
             string text, string tags = "")
