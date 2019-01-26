@@ -12,7 +12,8 @@ namespace SunEngine.Commons.DataBase
             var mp = GetFluentMappingBuilder();
             mp.Entity<User>()
                 .HasTableName("AspNetUsers")
-                .HasIdentity(x => x.Id).HasPrimaryKey(x=>x.Id);
+                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
+                .Association(x => x.BanList, (x, y) => x.Id == y.UserId);
             
             mp.Entity<UserBanedUnit>()
                 .HasTableName("UserBanedUnit")

@@ -66,7 +66,7 @@ namespace SunEngine.Controllers
             if (roles.Contains(UserGroup.UserGroupAdmin))
                 return BadRequest();
 
-            var user = await this.GetUserAsync();
+            var user = await GetUserAsync();
             
             await profileService.BunUserAsync(user,userBan);
 
@@ -87,6 +87,8 @@ namespace SunEngine.Controllers
 
             return Ok();
         }
+        
+        
     }
 }
 

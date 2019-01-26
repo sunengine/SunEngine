@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using LinqToDB.Identity;
+using LinqToDB.Mapping;
 
 namespace SunEngine.Commons.Models
 {
@@ -25,7 +26,8 @@ namespace SunEngine.Commons.Models
         
         public string Avatar { get; set; }
         
-        public virtual ICollection<UserBanedUnit> BanList { get; set; }
+        [Association(ThisKey = "Id", OtherKey = "UserId")]
+        public ICollection<UserBanedUnit> BanList { get; set; }
     }
 
     public class UserBanedUnit

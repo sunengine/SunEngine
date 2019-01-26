@@ -98,6 +98,14 @@ namespace SunEngine.Controllers
             await personalService.RemoveAvatarAsync(User.UserId);
             return Ok();
         }
+        
+        [HttpPost]
+        public async Task<IActionResult> GetMyBanList()
+        {
+            var usersList = await personalService.GetBanListAsync(User.UserId);
+
+            return Ok(usersList);
+        }
     }
 
     public class MyProfileInformationViewModel

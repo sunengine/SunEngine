@@ -8,7 +8,7 @@
       <PackageReference Include="HtmlSanitizer" Version="4.0.204" />
       <PackageReference Include="linq2db" Version="2.6.3" />
       <PackageReference Include="linq2db.Identity" Version="2.0.1" />
-      <PackageReference Include="MySql.Data" Version="8.0.13" />
+      <PackageReference Include="MySql.Data" Version="8.0.14" />
     </ItemGroup>
 
 </Project>

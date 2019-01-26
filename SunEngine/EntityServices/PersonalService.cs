@@ -126,5 +126,16 @@ namespace SunEngine.EntityServices
                 .Set(x => x.Photo, User.DefaultAvatar)
                 .Set(x => x.Avatar, User.DefaultAvatar).UpdateAsync();
         }
+        
+        public Task<UserInfoViewModel[]> GetBanListAsync(int userId)
+        {
+            return db.UserBanedUnits.Where(x => x.UserId == userId).OrderBy(x=>x.UserBaned.UserName).Select(x => 
+                new UserInfoViewModel
+                {
+                    Id = x.UserBaned.Id,
+                    Name = x.UserBaned.UserName,
+                    Link = x.UserBaned.Link
+                }).ToArrayAsync();
+        }
     }
 }

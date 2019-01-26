@@ -6,6 +6,7 @@ import ChangePassword from 'auth/Password/ChangePassword.vue';
 import ChangeEmail from 'auth/ChangeEmail.vue';
 import ChangeLink from 'auth/ChangeLink.vue';
 import ChangeName from 'auth/ChangeName.vue';
+import MyBanList from 'personal/MyBanList.vue';
 import Profile from 'profile/Profile.vue';
 
 import {store} from 'store';
@@ -65,6 +66,14 @@ const routes = [
     path: '/personal/EditUserProfileInformation'.toLowerCase(),
     components: {
       default: EditUserProfileInformation,
+      navigation: SettingsPanel
+    }
+  },
+  {
+    name: 'MyBanList',
+    path: '/personal/MyBanList'.toLowerCase(),
+    components: {
+      default: MyBanList,
       navigation: SettingsPanel
     }
   },

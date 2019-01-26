@@ -33,6 +33,10 @@
       <q-icon name="far fa-user-circle"/>
       Изменить фотографию
     </q-item>
+    <q-item :to="{name:'MyBanList'}">
+      <q-icon name="fas fa-ban"/>
+      Забаненые пользователи
+    </q-item>
   </QList>
 </template>
 

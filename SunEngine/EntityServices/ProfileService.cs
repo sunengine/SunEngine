@@ -10,7 +10,7 @@ using SunEngine.Commons.TextProcess;
 using SunEngine.Options;
 using SunEngine.Services;
 using Flurl;
-using Microsoft.EntityFrameworkCore.Internal;
+using SunEngine.Stores;
 
 namespace SunEngine.EntityServices
 {
@@ -19,21 +19,24 @@ namespace SunEngine.EntityServices
         private readonly IEmailSender emailSender;
         private readonly Sanitizer sanitizer;
         private readonly GlobalOptions globalOptions;
-        
+        private readonly IUserGroupStore userGroupStore;
+
         public ProfileService(
-            DataBaseConnection db, 
+            DataBaseConnection db,
             IEmailSender emailSender,
             IOptions<GlobalOptions> globalOptions,
-            Sanitizer sanitizer
-      ) : base(db)
+            Sanitizer sanitizer,
+            IUserGroupStore userGroupStore
+        ) : base(db)
         {
             this.emailSender = emailSender;
             this.sanitizer = sanitizer;
             this.globalOptions = globalOptions.Value;
+            this.userGroupStore = userGroupStore;
         }
 
 
-        public Task<ProfileViewModel> GetProfileAsync(string link, int? viewerUserId)
+        public async Task<ProfileViewModel> GetProfileAsync(string link, int? viewerUserId)
         {
             IQueryable<User> query;
             if (int.TryParse(link, out int id))
@@ -47,7 +50,9 @@ namespace SunEngine.EntityServices
 
             if (viewerUserId.HasValue)
             {
-                return query.Select(x =>
+                int adminGroupId = userGroupStore.AllGroups["Admin"].Id;
+
+                var user = await query.Select(x =>
                     new ProfileViewModel
                     {
                         Id = x.Id,
@@ -55,14 +60,18 @@ namespace SunEngine.EntityServices
                         Information = x.Information,
                         Link = x.Link,
                         Photo = x.Photo,
-                        NoBunnable = x.Roles.Any(y=>y.RoleId == db.UserGroups.FirstOrDefault(z=>z.Name == "Admin").Id),
-                        HeBannedMe = x.BanList.Any(y=>y.UserBanedId == viewerUserId.Value),
-                        IBannedHim = db.Users.FirstOrDefault(y=>y.Id == viewerUserId.Value).BanList.Any(y=>y.UserId == x.Id)
+                        NoBunable = x.Roles.Any(y => y.RoleId == adminGroupId),
+                        HeBannedMe = x.BanList.Any(y => y.UserBanedId == viewerUserId.Value),
                     }).FirstOrDefaultAsync();
+
+                user.IBannedHim = await db.Users.Where(y => y.Id == viewerUserId.Value)
+                    .AnyAsync(x => x.BanList.Any(y => y.UserBanedId == user.Id));
+
+                return user;
             }
             else
             {
-                return query.Select(x =>
+                return await query.Select(x =>
                     new ProfileViewModel
                     {
                         Id = x.Id,
@@ -70,7 +79,7 @@ namespace SunEngine.EntityServices
                         Information = x.Information,
                         Link = x.Link,
                         Photo = x.Photo,
-                        NoBunnable = true,
+                        NoBunable = true,
                         HeBannedMe = false,
                         IBannedHim = false
                     }).FirstOrDefaultAsync();
@@ -79,10 +88,11 @@ namespace SunEngine.EntityServices
 
         public Task SendPrivateMessageAsync(User from, User to, string text)
         {
-            var header = $"<div>Вам написал: <a href='{globalOptions.SiteUrl.AppendPathSegment("user/"+from.Link)}'>{from.UserName}</a></div><br/>"; 
+            var header =
+                $"<div>Вам написал: <a href='{globalOptions.SiteUrl.AppendPathSegment("user/" + from.Link)}'>{from.UserName}</a></div><br/>";
             text = sanitizer.Sanitize(header + text);
             string subject = $"Сообщение от {to.UserName} с сайта {globalOptions.SiteName}";
-            
+
             return emailSender.SendEmailAsync(to.Email, subject, text);
         }
 
@@ -93,10 +103,10 @@ namespace SunEngine.EntityServices
                 UserId = who.Id,
                 UserBanedId = banned.Id
             };
-                
-            return db.InsertOrReplaceAsync(ban);
+
+            return db.InsertAsync(ban);
         }
-        
+
         public Task UnBunUserAsync(User who, User banned)
         {
             UserBanedUnit ban = new UserBanedUnit
@@ -104,9 +114,18 @@ namespace SunEngine.EntityServices
                 UserId = who.Id,
                 UserBanedId = banned.Id
             };
-                
-            return db.UserBanedUnits.Where(x=>x.UserId == who.Id && x.UserBanedId == banned.Id).DeleteAsync();
+
+            return db.UserBanedUnits.Where(x => x.UserId == who.Id && x.UserBanedId == banned.Id).DeleteAsync();
         }
+
+        
+    }
+
+    public class UserInfoViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Link { get; set; }
     }
 
     public class ProfileViewModel
@@ -117,11 +136,11 @@ namespace SunEngine.EntityServices
         public string Link { get; set; }
 
         public string Photo { get; set; }
-        
-        public bool NoBunnable { get; set; }
+
+        public bool NoBunable { get; set; }
         public bool HeBannedMe { get; set; }
         public bool IBannedHim { get; set; }
-        
+
         //public string Avatar { get; set; }
     }
 }

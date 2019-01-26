@@ -42,7 +42,7 @@
         },
         "MySql.Data": {
           "target": "Package",
-          "version": "[8.0.13, )"
+          "version": "[8.0.14, )"
         },
         "linq2db": {
           "target": "Package",

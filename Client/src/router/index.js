@@ -37,7 +37,6 @@ export default function (/* { store, ssrContext } */) {
   let firstLoad = true; // need not to set  prev on first load TODO may be to find more good decision
 
   router.beforeEach((to, from, next) => {
-    debugger;
     if (!routeHasAccess(to)) {
       router.push({name: 'Home'});
       return;

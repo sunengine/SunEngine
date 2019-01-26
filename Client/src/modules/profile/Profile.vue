@@ -2,8 +2,20 @@
   <q-page>
     <div class="f1" v-if="user">
       <div class="img flex column">
-        <img width="300" height="300" :src="$imagePath(user.photo)"/>
-        <q-btn v-if="canPrivateMessage" :to="{path: '/WritePrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}" dense icon="far fa-envelope" class="q-mt-sm"  label="Написать пользователю"/>
+        <img width="300" height="300"  :src="$imagePath(user.photo)"/>
+        <div v-if="messageButtons" class="private-messages-block flex q-mt-sm" style="padding-right: 2px; padding-left: 2px; align-items: center; width: 100%">
+          <q-btn class="shadow-1" color="lime-4" style="flex-grow: 1" :disable="!canPrivateMessage"
+                 :to="{path: '/WritePrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}"
+                 dense icon="far fa-envelope"  label="Написать пользователю"/>
+          <q-btn :color="!user.iBannedHim ? 'lime-4' : 'negative'" class="shadow-1 q-ml-sm" dense style="padding-left:10px !important; padding-right: 10px; !important"  v-if="!user.noBunable" icon="fas fa-ellipsis-v">
+            <q-popover>
+              <div v-close-overlay>
+                <q-btn color="negative" dense v-close-overlay v-if="!user.iBannedHim" @click="ban"  icon="fas fa-ban" label="Забанить"/>
+                <q-btn color="positive" dense v-close-overlay v-else @click="unBan"  icon="fas fa-smile" label="Разбанить"/>
+              </div>
+            </q-popover>
+          </q-btn>
+        </div>
       </div>
       <div>
         <h4>{{user.name}}</h4>
@@ -36,7 +48,13 @@
     computed: {
       canPrivateMessage() {
         const from = this.$store?.state?.auth?.user;
-        if(!from) return false;
+        if (!from) return false;
+        if (this.user.heBannedMe || this.user.iBannedHim) return false;
+        return from.id != this.user?.id;
+      },
+      messageButtons() {
+        const from = this.$store?.state?.auth?.user;
+        if (!from) return false;
         return from.id != this.user?.id;
       }
     },
@@ -44,6 +62,44 @@
       'link': 'loadData'
     },
     methods: {
+      async ban() {
+        await this.$store.dispatch("request",
+          {
+            url: "/Profile/BanUser",
+            data: {
+              userId: this.user.id
+            }
+          }).then(async response => {
+          await this.loadData();
+          this.$q.notify({
+            message: `Пользователь ${this.user.name} теперь не может вам писать`,
+            timeout: 5000,
+            type: 'positive',
+            position: 'top'
+          });
+        }).catch(error => {
+          console.log("error", error);
+        });
+      },
+      async unBan() {
+        await this.$store.dispatch("request",
+          {
+            url: "/Profile/UnBanUser",
+            data: {
+              userId: this.user.id
+            }
+          }).then(async response => {
+          await this.loadData();
+          this.$q.notify({
+            message: `Пользователь ${this.user.name} теперь может вам писать`,
+            timeout: 5000,
+            type: 'positive',
+            position: 'top'
+          });
+        }).catch(error => {
+          console.log("error", error);
+        });
+      },
       async loadData() {
         await this.$store.dispatch("request",
           {
