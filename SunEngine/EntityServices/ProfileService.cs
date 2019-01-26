@@ -63,6 +63,28 @@ namespace SunEngine.EntityServices
             
             return emailSender.SendEmailAsync(to.Email, subject, text);
         }
+
+        public Task BunUserAsync(User who, User banned)
+        {
+            UserBanedUnit ban = new UserBanedUnit
+            {
+                UserId = who.Id,
+                UserBanedId = banned.Id
+            };
+                
+            return db.InsertOrReplaceAsync(ban);
+        }
+        
+        public Task UnBunUserAsync(User who, User banned)
+        {
+            UserBanedUnit ban = new UserBanedUnit
+            {
+                UserId = who.Id,
+                UserBanedId = banned.Id
+            };
+                
+            return db.UserBanedUnits.Where(x=>x.UserId == who.Id && x.UserBanedId == banned.Id).DeleteAsync();
+        }
     }
 
     public class ProfileViewModel

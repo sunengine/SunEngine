@@ -1,4 +1,5 @@
-﻿using LinqToDB.Identity;
+﻿using System.Collections.Generic;
+using LinqToDB.Identity;
 
 namespace SunEngine.Commons.Models
 {
@@ -23,5 +24,16 @@ namespace SunEngine.Commons.Models
         public string Photo { get; set; }
         
         public string Avatar { get; set; }
+        
+        public virtual ICollection<UserBanedUnit> BanList { get; set; }
+    }
+
+    public class UserBanedUnit
+    {
+        public int UserId { get; set; }
+        public User User { get; set; }
+        
+        public int UserBanedId { get; set; }
+        public User UserBaned { get; set; }
     }
 }

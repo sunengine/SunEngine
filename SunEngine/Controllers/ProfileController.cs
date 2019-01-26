@@ -51,6 +51,39 @@ namespace SunEngine.Controllers
 
             return Ok();
         }
+
+        [HttpPost]
+        [Authorize(Roles = UserGroup.UserGroupRegistered)]
+        public async Task<IActionResult> BanUser(string userId)
+        {
+            User userBan = await userManager.FindByIdAsync(userId);
+            if (userBan == null)
+                return BadRequest();
+            var roles = await userManager.GetRolesAsync(userBan);
+            if (roles.Contains(UserGroup.UserGroupAdmin))
+                return BadRequest();
+
+            var user = await this.GetUserAsync();
+            
+            await profileService.BunUserAsync(user,userBan);
+
+            return Ok();
+        }
+        
+        [HttpPost]
+        [Authorize(Roles = UserGroup.UserGroupRegistered)]
+        public async Task<IActionResult> UnBanUser(string userId)
+        {
+            User userUnBan = await userManager.FindByIdAsync(userId);
+            if (userUnBan == null)
+                return BadRequest();
+           
+            var user = await this.GetUserAsync();
+            
+            await profileService.UnBunUserAsync(user,userUnBan);
+
+            return Ok();
+        }
     }
 }
 

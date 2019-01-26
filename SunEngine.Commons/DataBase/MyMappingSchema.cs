@@ -14,6 +14,12 @@ namespace SunEngine.Commons.DataBase
                 .HasTableName("AspNetUsers")
                 .HasIdentity(x => x.Id).HasPrimaryKey(x=>x.Id);
             
+            mp.Entity<UserBanedUnit>()
+                .HasTableName("UserBanedUnit")
+                .HasIdentity(x => new {x.UserId,x.UserBanedId}).HasPrimaryKey(x=> new {x.UserId,x.UserBanedId})
+                .Association(x=>x.User,x=>x.UserId,x=>x.Id)
+                .Association(x=>x.UserBaned,x=>x.UserBanedId,x=>x.Id);
+            
             mp.Entity<UserGroupDB>()
                 .HasTableName("AspNetRoles")
                 .HasIdentity(x => x.Id).HasPrimaryKey(x=>x.Id);

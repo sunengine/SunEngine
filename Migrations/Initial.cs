@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Linq;
 using FluentMigrator;
 using FluentMigrator.Builders.Create.Table;
 
@@ -45,6 +46,13 @@ namespace Migrations
                 .WithColumn("Photo").AsMaxString().Nullable()
                 .WithColumn("Avatar").AsMaxString().Nullable();
 
+            Create.Table("UserBanedUnit")
+                .WithColumn("UserId").AsInt32().PrimaryKey().Indexed().NotNullable()
+                .ForeignKey("FK_UserBanedUnit_AspNetUsers","AspNetUsers","Id")
+                .WithColumn("UserBanedId").AsInt32().PrimaryKey().Indexed().NotNullable()
+                .ForeignKey("FK_UserBanedUnit_AspNetUsersBaned","AspNetUsers","Id");
+               
+            
 
             Create.Table("Materials")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()

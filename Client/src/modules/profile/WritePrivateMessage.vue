@@ -5,23 +5,24 @@
       {{userName}}
     </h2>
 
-    <q-editor :toolbar="[
+    <q-editor class="q-mb-md"
+              :toolbar="[
           ['bold', 'italic', 'strike', 'underline'],
-        ['token', 'hr' ],
-
-
-         ['quote', 'unordered', 'ordered' ],
-        ['undo', 'redo','fullscreen'],
+          ['token', 'hr' ],
+          ['quote', 'unordered', 'ordered' ],
+          ['undo', 'redo','fullscreen'],
              ]"
 
               ref="htmlEditor" v-model="text"/>
 
-    <q-btn @click="send" :loading="loading" label="Отправить">
+    <q-btn icon="fas fa-arrow-circle-right" class="q-mr-sm" @click="send" color="send" :loading="loading"
+           label="Отправить">
       <loader-sent slot="loading"/>
     </q-btn>
-    <q-btn @click="$router.$goBack()" label="Отмена"/>
+    <q-btn icon="fas fa-times" @click="$router.$goBack()" color="warning" label="Отмена"/>
   </div>
 </template>
+
 
 <script>
   import Page from "Page";

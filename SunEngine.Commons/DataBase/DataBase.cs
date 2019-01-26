@@ -54,5 +54,8 @@ namespace SunEngine.Commons.DataBase
         public ITable<User> Users => GetTable<User>();
         public ITable<UserGroupDB> UserGroups => GetTable<UserGroupDB>();
         public ITable<IdentityUserRole<int>> UserToGroups => GetTable<IdentityUserRole<int>>();
+        
+        public ITable<UserBanedUnit> UserBanedUnits => GetTable<UserBanedUnit>();
+
     }
 }
