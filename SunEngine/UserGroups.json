@@ -1,6 +1,5 @@
-[
-  {
-    "Name": "Registered",
+{
+  "Registered": {
     "Title": "Пользователь",
     "Categories": [
       {
@@ -63,8 +62,7 @@
       }
     ]
   },
-  {
-    "Name": "Unregistered",
+  "Unregistered": {
     "Title": "Гость",
     "Categories": [
       {
@@ -85,7 +83,6 @@
           "MaterialAndMessagesRead": false
         }
       },
-     
       {
         "Category": "Articles",
         "OperationKeys": {
@@ -94,16 +91,14 @@
       }
     ]
   },
-  {
-    "Name": "TestGroup1",
+  "TestGroup1": {
     "Title": "Тестовая группа 1"
   },
-  {
+  "TestGroup2": {
     "Name": "TestGroup2",
     "Title": "Тестовая группа 2"
   },
-  {
-    "Name": "Moderator",
+  "Moderator": {
     "Title": "Модератор",
     "IsSuper": true,
     "Categories": [
@@ -131,13 +126,11 @@
           "MessageEditAny": true,
           "MessageDeleteAny": true
         }
-      
       }
     ]
   },
-  {
-    "Name": "Admin",
+  "Admin": {
     "Title": "Администратор",
     "IsSuper": true
   }
-]
+}

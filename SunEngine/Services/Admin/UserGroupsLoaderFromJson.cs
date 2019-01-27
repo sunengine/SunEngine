@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.UserGroups;
 using SunEngine.Commons.Services;
@@ -15,38 +16,46 @@ namespace SunEngine.Services.Admin
 
         private readonly IDictionary<string, Category> categories;
         private readonly IDictionary<string, OperationKeyDB> operationKeys;
-
+        private readonly JSchema schema;
+        
         public UserGroupsLoaderFromJson(
             IDictionary<string, Category> categories,
-            IDictionary<string,OperationKeyDB> operationKeys)
+            IDictionary<string,OperationKeyDB> operationKeys,
+            JSchema schema)
         {
             this.categories = categories;
             this.operationKeys = operationKeys;
+            this.schema = schema;
         }
             
         public void Seed(string jsonText)
         {
             IList<string> allSuperKeys = OperationKeysContainer.GetAllSuperKeys();
             
-            JArray groupsJson = JArray.Parse(jsonText);
+            JObject groupsJson = JObject.Parse(jsonText);
 
+            
             int id = 0;
             int categoryAccessId = 0;
             
-            foreach (JObject userGroupJson in groupsJson)
+            foreach (JProperty jProp in groupsJson.Properties())
             {
+                JObject userGroupJson = (JObject)jProp.Value;
+
+                if(!userGroupJson.IsValid(schema, out IList<string> errors))
+                {
+                    throw new Exception(string.Join(@"\n\n\n",errors));
+                }
+                
                 id++;
 
-                if (!userGroupJson.ContainsKey("Name"))
-                    throw new Exception("Can not find category name"); 
-                
                 if (!userGroupJson.ContainsKey("Title"))
                     throw new Exception("Can not find category title"); 
                     
                 UserGroupDB userGroupDb = new UserGroupDB
                 {
                     Id = id,
-                    Name = (string) userGroupJson["Name"],
+                    Name = jProp.Name,
                     Title = (string) userGroupJson["Title"],
                     IsSuper = userGroupJson.ContainsKey("IsSuper") && (bool) userGroupJson["IsSuper"],
                     SortNumber = id

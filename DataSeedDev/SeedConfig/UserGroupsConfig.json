@@ -1,6 +1,5 @@
-﻿[
-  {
-    "Name": "Registered",
+﻿{
+  "Registered": {
     "Title": "Пользователь",
     "Categories": [
       {
@@ -63,8 +62,7 @@
       }
     ]
   },
-  {
-    "Name": "Unregistered",
+  "Unregistered": {
     "Title": "Гость",
     "Categories": [
       {
@@ -86,12 +84,6 @@
         }
       },
       {
-        "Category": "Blog",
-        "OperationKeys": {
-          "MaterialAndMessagesRead": true
-        }
-      },
-      {
         "Category": "Articles",
         "OperationKeys": {
           "MaterialAndMessagesRead": true
@@ -99,16 +91,14 @@
       }
     ]
   },
-  {
-    "Name": "TestGroup1",
+  "TestGroup1": {
     "Title": "Тестовая группа 1"
   },
-  {
+  "TestGroup2": {
     "Name": "TestGroup2",
     "Title": "Тестовая группа 2"
   },
-  {
-    "Name": "Moderator",
+  "Moderator": {
     "Title": "Модератор",
     "IsSuper": true,
     "Categories": [
@@ -136,19 +126,11 @@
           "MessageEditAny": true,
           "MessageDeleteAny": true
         }
-      },
-      {
-        "Category": "Blog",
-        "OperationKeys": {
-          "MessageEditAny": true,
-          "MessageDeleteAny": true
-        }
       }
     ]
   },
-  {
-    "Name": "Admin",
+  "Admin": {
     "Title": "Администратор",
     "IsSuper": true
   }
-]
+}

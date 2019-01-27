@@ -7,6 +7,8 @@ using LinqToDB;
 using LinqToDB.Data;
 using LinqToDB.Identity;
 using Microsoft.AspNetCore.Hosting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Schema;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.UserGroups;
@@ -16,15 +18,20 @@ namespace SunEngine.Services.Admin
 {
     public class GroupsAdminService : DbService
     {
-        const string UserGroupsConfigFileName = "UserGroupsConfig.json";
-        
+        const string UserGroupsFileName = "UserGroups.json";
+        const string UserGroupSchemaFileName = "UserGroup.schema.json";
+
+
         readonly string UserGroupsConfigPath;
-        
+        readonly string UserGroupSchemaPath;
+
+
         public GroupsAdminService(
             DataBaseConnection db,
             IHostingEnvironment env) : base(db)
         {
-            UserGroupsConfigPath = Path.Combine(env.ContentRootPath,UserGroupsConfigFileName);
+            UserGroupsConfigPath = Path.Combine(env.ContentRootPath, UserGroupsFileName);
+            UserGroupSchemaPath = Path.Combine(env.ContentRootPath, UserGroupSchemaFileName);
         }
 
         public string GetGroupsJson()
@@ -39,16 +46,28 @@ namespace SunEngine.Services.Admin
             IDictionary<string, OperationKeyDB> operationKeys =
                 await db.OperationKeys.ToDictionaryAsync(x => x.Name);
 
-            UserGroupsLoaderFromJson loader = new UserGroupsLoaderFromJson(categories, operationKeys);
+            var schema = GetJsonSchema();
+            
+            UserGroupsLoaderFromJson loader = new UserGroupsLoaderFromJson(categories, operationKeys, schema);
+
+            
             loader.Seed(json);
 
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 List<UserToGroupTmp> userToGroups = await SaveUserToGroupsAsync();
                 await ClearGroupsAsync();
-                await CopyToDb(loader,userToGroups);
+                await CopyToDb(loader, userToGroups);
                 SaveToFile(json);
                 transaction.Complete();
+            }
+        }
+
+        JSchema GetJsonSchema()
+        {
+            using (var jReader = new JsonTextReader(new StreamReader(File.OpenRead(UserGroupSchemaPath))))
+            {
+                return JSchema.Load(jReader);
             }
         }
 
@@ -67,7 +86,8 @@ namespace SunEngine.Services.Admin
 
         Task<List<UserToGroupTmp>> SaveUserToGroupsAsync()
         {
-            return db.UserToGroups.Select(x=>new UserToGroupTmp {userId = x.UserId,roleName = x.UserGroup.Name}).ToListAsync();
+            return db.UserToGroups.Select(x => new UserToGroupTmp {userId = x.UserId, roleName = x.UserGroup.Name})
+                .ToListAsync();
         }
 
         async Task CopyToDb(UserGroupsLoaderFromJson loader, List<UserToGroupTmp> userToGroups)
@@ -88,7 +108,7 @@ namespace SunEngine.Services.Admin
                 UserId = x.userId,
                 RoleId = loader.userGroups.FirstOrDefault(y => y.Name == x.roleName).Id
             }).ToList();
-            
+
             db.BulkCopy(options, userToGroupsNew);
         }
 

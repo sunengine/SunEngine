@@ -1,0 +1,377 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "properties": {
+    "Registered": {
+      "$id": "#/properties/Registered",
+      "type": "object",
+      "title": "The Registered Schema",
+      "required": [
+        "Title",
+        "Categories"
+      ],
+      "properties": {
+        "Title": {
+          "$id": "#/properties/Registered/properties/Title",
+          "type": "string",
+          "title": "The Title Schema",
+          "default": "",
+          "examples": [
+            "Пользователь"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "Categories": {
+          "$id": "#/properties/Registered/properties/Categories",
+          "type": "array",
+          "title": "The Categories Schema",
+          "items": {
+            "$id": "#/properties/Registered/properties/Categories/items",
+            "type": "object",
+            "title": "The Items Schema",
+            "required": [
+              "Category",
+              "OperationKeys"
+            ],
+            "properties": {
+              "Category": {
+                "$id": "#/properties/Registered/properties/Categories/items/properties/Category",
+                "type": "string",
+                "title": "The Category Schema",
+                "default": "",
+                "examples": [
+                  "Forum"
+                ],
+                "pattern": "^(.*)$"
+              },
+              "OperationKeys": {
+                "$id": "#/properties/Registered/properties/Categories/items/properties/OperationKeys",
+                "type": "object",
+                "title": "The Operationkeys Schema",
+                "required": [
+                  "MaterialAndMessagesRead",
+                  "MaterialWrite",
+                  "MessageWrite",
+                  "MaterialEditOwn",
+                  "MessageEditOwn",
+                  "MaterialDeleteOwn",
+                  "MessageDeleteOwn"
+                ],
+                "properties": {
+                  "MaterialAndMessagesRead": {
+                    "$id": "#/properties/Registered/properties/Categories/items/properties/OperationKeys/properties/MaterialAndMessagesRead",
+                    "type": "boolean",
+                    "title": "The Materialandmessagesread Schema",
+                    "default": false,
+                    "examples": [
+                      true
+                    ]
+                  },
+                  "MaterialWrite": {
+                    "$id": "#/properties/Registered/properties/Categories/items/properties/OperationKeys/properties/MaterialWrite",
+                    "type": "boolean",
+                    "title": "The Materialwrite Schema",
+                    "default": false,
+                    "examples": [
+                      true
+                    ]
+                  },
+                  "MessageWrite": {
+                    "$id": "#/properties/Registered/properties/Categories/items/properties/OperationKeys/properties/MessageWrite",
+                    "type": "boolean",
+                    "title": "The Messagewrite Schema",
+                    "default": false,
+                    "examples": [
+                      true
+                    ]
+                  },
+                  "MaterialEditOwn": {
+                    "$id": "#/properties/Registered/properties/Categories/items/properties/OperationKeys/properties/MaterialEditOwn",
+                    "type": "boolean",
+                    "title": "The Materialeditown Schema",
+                    "default": false,
+                    "examples": [
+                      true
+                    ]
+                  },
+                  "MessageEditOwn": {
+                    "$id": "#/properties/Registered/properties/Categories/items/properties/OperationKeys/properties/MessageEditOwn",
+                    "type": "boolean",
+                    "title": "The Messageeditown Schema",
+                    "default": false,
+                    "examples": [
+                      true
+                    ]
+                  },
+                  "MaterialDeleteOwn": {
+                    "$id": "#/properties/Registered/properties/Categories/items/properties/OperationKeys/properties/MaterialDeleteOwn",
+                    "type": "boolean",
+                    "title": "The Materialdeleteown Schema",
+                    "default": false,
+                    "examples": [
+                      true
+                    ]
+                  },
+                  "MessageDeleteOwn": {
+                    "$id": "#/properties/Registered/properties/Categories/items/properties/OperationKeys/properties/MessageDeleteOwn",
+                    "type": "boolean",
+                    "title": "The Messagedeleteown Schema",
+                    "default": false,
+                    "examples": [
+                      true
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Unregistered": {
+      "$id": "#/properties/Unregistered",
+      "type": "object",
+      "title": "The Unregistered Schema",
+      "required": [
+        "Title",
+        "Categories"
+      ],
+      "properties": {
+        "Title": {
+          "$id": "#/properties/Unregistered/properties/Title",
+          "type": "string",
+          "title": "The Title Schema",
+          "default": "",
+          "examples": [
+            "Гость"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "Categories": {
+          "$id": "#/properties/Unregistered/properties/Categories",
+          "type": "array",
+          "title": "The Categories Schema",
+          "items": {
+            "$id": "#/properties/Unregistered/properties/Categories/items",
+            "type": "object",
+            "title": "The Items Schema",
+            "required": [
+              "Category",
+              "OperationKeys"
+            ],
+            "properties": {
+              "Category": {
+                "$id": "#/properties/Unregistered/properties/Categories/items/properties/Category",
+                "type": "string",
+                "title": "The Category Schema",
+                "default": "",
+                "examples": [
+                  "Forum"
+                ],
+                "pattern": "^(.*)$"
+              },
+              "OperationKeys": {
+                "$id": "#/properties/Unregistered/properties/Categories/items/properties/OperationKeys",
+                "type": "object",
+                "title": "The Operationkeys Schema",
+                "required": [
+                  "MaterialAndMessagesRead"
+                ],
+                "properties": {
+                  "MaterialAndMessagesRead": {
+                    "$id": "#/properties/Unregistered/properties/Categories/items/properties/OperationKeys/properties/MaterialAndMessagesRead",
+                    "type": "boolean",
+                    "title": "The Materialandmessagesread Schema",
+                    "default": false,
+                    "examples": [
+                      true
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "TestGroup1": {
+      "$id": "#/properties/TestGroup1",
+      "type": "object",
+      "title": "The Testgroup1 Schema",
+      "required": [
+        "Title"
+      ],
+      "properties": {
+        "Title": {
+          "$id": "#/properties/TestGroup1/properties/Title",
+          "type": "string",
+          "title": "The Title Schema",
+          "default": "",
+          "examples": [
+            "Тестовая группа 1"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "TestGroup2": {
+      "$id": "#/properties/TestGroup2",
+      "type": "object",
+      "title": "The Testgroup2 Schema",
+      "required": [
+        "Title"
+      ],
+      "properties": {
+        "Title": {
+          "$id": "#/properties/TestGroup2/properties/Title",
+          "type": "string",
+          "title": "The Title Schema",
+          "default": "",
+          "examples": [
+            "Тестовая группа 2"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "Moderator": {
+      "$id": "#/properties/Moderator",
+      "type": "object",
+      "title": "The Moderator Schema",
+      "required": [
+        "Title",
+        "IsSuper",
+        "Categories"
+      ],
+      "properties": {
+        "Title": {
+          "$id": "#/properties/Moderator/properties/Title",
+          "type": "string",
+          "title": "The Title Schema",
+          "default": "",
+          "examples": [
+            "Модератор"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "IsSuper": {
+          "$id": "#/properties/Moderator/properties/IsSuper",
+          "type": "boolean",
+          "title": "The Issuper Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "Categories": {
+          "$id": "#/properties/Moderator/properties/Categories",
+          "type": "array",
+          "title": "The Categories Schema",
+          "items": {
+            "$id": "#/properties/Moderator/properties/Categories/items",
+            "type": "object",
+            "title": "The Items Schema",
+            "required": [
+              "Category",
+              "OperationKeys"
+            ],
+            "properties": {
+              "Category": {
+                "$id": "#/properties/Moderator/properties/Categories/items/properties/Category",
+                "type": "string",
+                "title": "The Category Schema",
+                "default": "",
+                "examples": [
+                  "Forum"
+                ],
+                "pattern": "^(.*)$"
+              },
+              "OperationKeys": {
+                "$id": "#/properties/Moderator/properties/Categories/items/properties/OperationKeys",
+                "type": "object",
+                "title": "The Operationkeys Schema",
+                "required": [
+                  "MaterialEditAny",
+                  "MessageEditAny",
+                  "MaterialDeleteAny",
+                  "MessageDeleteAny"
+                ],
+                "properties": {
+                  "MaterialEditAny": {
+                    "$id": "#/properties/Moderator/properties/Categories/items/properties/OperationKeys/properties/MaterialEditAny",
+                    "type": "boolean",
+                    "title": "The Materialeditany Schema",
+                    "default": false,
+                    "examples": [
+                      true
+                    ]
+                  },
+                  "MessageEditAny": {
+                    "$id": "#/properties/Moderator/properties/Categories/items/properties/OperationKeys/properties/MessageEditAny",
+                    "type": "boolean",
+                    "title": "The Messageeditany Schema",
+                    "default": false,
+                    "examples": [
+                      true
+                    ]
+                  },
+                  "MaterialDeleteAny": {
+                    "$id": "#/properties/Moderator/properties/Categories/items/properties/OperationKeys/properties/MaterialDeleteAny",
+                    "type": "boolean",
+                    "title": "The Materialdeleteany Schema",
+                    "default": false,
+                    "examples": [
+                      true
+                    ]
+                  },
+                  "MessageDeleteAny": {
+                    "$id": "#/properties/Moderator/properties/Categories/items/properties/OperationKeys/properties/MessageDeleteAny",
+                    "type": "boolean",
+                    "title": "The Messagedeleteany Schema",
+                    "default": false,
+                    "examples": [
+                      true
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Admin": {
+      "$id": "#/properties/Admin",
+      "type": "object",
+      "title": "The Admin Schema",
+      "required": [
+        "Title",
+        "IsSuper"
+      ],
+      "properties": {
+        "Title": {
+          "$id": "#/properties/Admin/properties/Title",
+          "type": "string",
+          "title": "The Title Schema",
+          "default": "",
+          "examples": [
+            "Администратор"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "IsSuper": {
+          "$id": "#/properties/Admin/properties/IsSuper",
+          "type": "boolean",
+          "title": "The Issuper Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        }
+      }
+    }
+  }
+}
