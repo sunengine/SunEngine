@@ -9,6 +9,7 @@ using LinqToDB.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Schema;
+using NJsonSchema;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.UserGroups;
@@ -46,7 +47,7 @@ namespace SunEngine.Services.Admin
             IDictionary<string, OperationKeyDB> operationKeys =
                 await db.OperationKeys.ToDictionaryAsync(x => x.Name);
 
-            var schema = GetJsonSchema();
+            JsonSchema4 schema = await JsonSchema4.FromFileAsync(UserGroupSchemaPath);
             
             UserGroupsLoaderFromJson loader = new UserGroupsLoaderFromJson(categories, operationKeys, schema);
 
@@ -60,14 +61,6 @@ namespace SunEngine.Services.Admin
                 await CopyToDb(loader, userToGroups);
                 SaveToFile(json);
                 transaction.Complete();
-            }
-        }
-
-        JSchema GetJsonSchema()
-        {
-            using (var jReader = new JsonTextReader(new StreamReader(File.OpenRead(UserGroupSchemaPath))))
-            {
-                return JSchema.Load(jReader);
             }
         }
 

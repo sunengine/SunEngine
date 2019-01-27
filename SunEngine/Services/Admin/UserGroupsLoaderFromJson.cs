@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
+using NJsonSchema;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.UserGroups;
 using SunEngine.Commons.Services;
@@ -16,12 +17,12 @@ namespace SunEngine.Services.Admin
 
         private readonly IDictionary<string, Category> categories;
         private readonly IDictionary<string, OperationKeyDB> operationKeys;
-        private readonly JSchema schema;
+        private readonly JsonSchema4 schema;
         
         public UserGroupsLoaderFromJson(
             IDictionary<string, Category> categories,
             IDictionary<string,OperationKeyDB> operationKeys,
-            JSchema schema)
+            JsonSchema4 schema)
         {
             this.categories = categories;
             this.operationKeys = operationKeys;
@@ -42,7 +43,9 @@ namespace SunEngine.Services.Admin
             {
                 JObject userGroupJson = (JObject)jProp.Value;
 
-                if(!userGroupJson.IsValid(schema, out IList<string> errors))
+                var errors = schema.Validate(userGroupJson);
+                
+                if(errors!=null && errors.Count > 0)
                 {
                     throw new Exception($"Error in parsing '{jProp.Name}' UserGroup\n\n"+string.Join(@"\n\n\n",errors));
                 }

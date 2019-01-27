@@ -7,6 +7,7 @@
   "required": [
     "Title"
   ],
+  "additionalProperties": false,
   "properties": {
     "Title": {
       "$id": "#/items/properties/Title",
@@ -14,6 +15,15 @@
       "title": "Title of the group",
       "examples": [
         "Пользователь"
+      ],
+      "pattern": "^([a-zA-Zа-яА-ЯёЁ0-9 -]{3,})$"
+    },
+    "IsSuper": {
+      "$id": "#/items/properties/IsSuper",
+      "type": "boolean",
+      "title": "Is Super Group",
+      "examples": [
+        true
       ],
       "pattern": "^([a-zA-Zа-яА-ЯёЁ0-9 -]{3,})$"
     },
