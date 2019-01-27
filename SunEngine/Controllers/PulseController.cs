@@ -5,14 +5,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
+using SunEngine.Commons.Services;
 
 namespace SunEngine.Controllers
 {
     public class PulseController : BaseController
     {
-        private DataBaseConnection db;
+        private readonly DataBaseConnection db;
         
-        public PulseController(UserManager<User> userManager,DataBaseConnection db) : base(userManager)
+        public PulseController(
+            MyUserManager userManager,
+            DataBaseConnection db) : base(userManager)
         {
             this.db = db;
         }

@@ -2,15 +2,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.Models;
+using SunEngine.Commons.Services;
 using SunEngine.Infrastructure;
 
 namespace SunEngine.Controllers
 {
     public abstract class BaseController : Controller 
     {
-        protected readonly UserManager<User> userManager;
+        protected readonly MyUserManager userManager;
         
-        protected BaseController(UserManager<User> userManager)
+        protected BaseController(MyUserManager userManager)
         {
             this.userManager = userManager;
         }

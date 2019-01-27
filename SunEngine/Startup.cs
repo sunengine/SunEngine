@@ -106,8 +106,8 @@ namespace SunEngine
                         options.User.AllowedUserNameCharacters = engChars + engChars.ToUpper() + rusChars + rusChars.ToUpper() + numbers+other;
                     })
                 .AddLinqToDBStores<int>(dataBaseFactory)
-                .AddUserManager<UserManager<User>>()
-                .AddRoleManager<RoleManager<UserGroupDB>>()
+                .AddUserManager<MyUserManager>()
+                .AddRoleManager<MyRoleManager>()
                 .AddDefaultTokenProviders();
 
             services.AddAuthentication(options =>

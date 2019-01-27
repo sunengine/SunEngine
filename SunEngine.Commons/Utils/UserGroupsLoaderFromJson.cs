@@ -63,7 +63,7 @@ namespace SunEngine.Commons.Utils
                     IsSuper = ((IDictionary<string, JToken>) userGroupJson).ContainsKey("IsSuper") && (bool) userGroupJson["IsSuper"],
                     SortNumber = id
                 };
-                userGroupDb.NormalizedName = userGroupDb.Name.ToUpper();
+                userGroupDb.NormalizedName = Normalizer.Singleton.Normalize(userGroupDb.Name);
 
                 userGroups.Add(userGroupDb);
 

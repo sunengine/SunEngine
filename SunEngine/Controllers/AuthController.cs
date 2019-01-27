@@ -13,6 +13,7 @@ using SunEngine.Commons.Models;
 using SunEngine.Options;
 using Microsoft.AspNetCore.Identity;
 using SunEngine.Commons.DataBase;
+using SunEngine.Commons.Services;
 using SunEngine.Commons.StoreModels;
 using SunEngine.EntityServices;
 using SunEngine.Infrastructure;
@@ -31,7 +32,7 @@ namespace SunEngine.Controllers
         private readonly CaptchaService captchaService;
 
         public AuthController(
-            UserManager<User> userManager,
+            MyUserManager userManager,
             IEmailSender emailSender,
             DataBaseConnection db,
             ILoggerFactory loggerFactory,

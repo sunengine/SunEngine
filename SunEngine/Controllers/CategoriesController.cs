@@ -21,7 +21,7 @@ namespace SunEngine.Controllers
             ICategoriesStore categoriesStore,
             IAuthorizationService authorizationService,
             OperationKeysContainer operationKeysContainer,
-            UserManager<User> userManager) : base(userManager)
+            MyUserManager userManager) : base(userManager)
         {
             OperationKeys = operationKeysContainer;
 

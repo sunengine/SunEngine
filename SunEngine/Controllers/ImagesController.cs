@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 using SunEngine.Commons.Models;
+using SunEngine.Commons.Services;
 using SunEngine.EntityServices;
 using SunEngine.Options;
 using SunEngine.Services;
@@ -25,7 +26,7 @@ namespace SunEngine.Controllers
             PersonalService personalService,
             ImagesService imagesService,
             CaptchaService captchaService,
-            UserManager<User> userManager) : base(userManager)
+            MyUserManager userManager) : base(userManager)
         {
             this.imagesOptions = imagesOptions.Value;
             this.personalService = personalService;

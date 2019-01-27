@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Authorization.ControllersAuthorization;
 using SunEngine.Commons.Models;
+using SunEngine.Commons.Services;
 using SunEngine.EntityServices;
 using SunEngine.Infrastructure;
 using SunEngine.Stores;
@@ -20,7 +21,7 @@ namespace SunEngine.Controllers
             MaterialsAuthorization materialsAuthorization,
             ICategoriesStore categoriesStore, 
             MaterialsService materialsService,
-            UserManager<User> userManager) : base(userManager)
+            MyUserManager userManager) : base(userManager)
         {
             this.materialsAuthorization = materialsAuthorization;
             this.categoriesStore = categoriesStore;

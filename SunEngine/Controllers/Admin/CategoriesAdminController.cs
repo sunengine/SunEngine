@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
+using SunEngine.Commons.Services;
 using SunEngine.Services.Admin;
 using SunEngine.Stores;
 
@@ -24,7 +25,7 @@ namespace SunEngine.Controllers.Admin
             DataBaseConnection db,
             CategoriesAdminService categoriesAdminService,
             ICategoriesStore categoriesStore,
-            UserManager<User> userManager) : base(userManager)
+            MyUserManager userManager) : base(userManager)
         {
             this.db = db;
             this.categoriesStore = categoriesStore;

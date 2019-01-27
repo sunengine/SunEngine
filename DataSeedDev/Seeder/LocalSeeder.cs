@@ -162,8 +162,8 @@ namespace SunEngine.Seeder
 
         private void NormalizeUserFields(User user)
         {
-            user.NormalizedUserName = user.UserName.ToUpper();
-            user.NormalizedEmail = user.Email.ToUpper();
+            user.NormalizedUserName = Normalizer.Singleton.Normalize(user.UserName);
+            user.NormalizedEmail = Normalizer.Singleton.Normalize(user.Email);
         }
 
         private void SeedUsers()

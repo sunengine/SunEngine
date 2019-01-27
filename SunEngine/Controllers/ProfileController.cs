@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.Models;
+using SunEngine.Commons.Services;
 using SunEngine.Commons.StoreModels;
 using SunEngine.EntityServices;
 using SunEngine.Infrastructure;
@@ -19,7 +20,7 @@ namespace SunEngine.Controllers
         
         public ProfileController(
             ProfileService profileService,
-            UserManager<User> userManager) : base(userManager)
+            MyUserManager userManager) : base(userManager)
         {
             this.profileService = profileService;
         }

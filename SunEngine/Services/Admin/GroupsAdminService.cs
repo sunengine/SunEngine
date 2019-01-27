@@ -93,14 +93,15 @@ namespace SunEngine.Services.Admin
             BulkCopyOptions options = new BulkCopyOptions
             {
                 CheckConstraints = false,
-                //BulkCopyType = BulkCopyType.Default,
+                BulkCopyType = BulkCopyType.Default,
                 KeepIdentity = true
             };
 
-            db.BulkCopy(options, loader.userGroups);
-
-            throw new Exception("test");
-
+            // TODO Copy only New Groups, если так сделать не понадобится стирать и сохранять таблицу ПользователиГруппы
+            
+            db.BulkCopy(options, loader.userGroups); 
+            
+            
             db.BulkCopy(options, loader.categoryAccesses);
             db.BulkCopy(options, loader.categoryOperationAccesses);
 

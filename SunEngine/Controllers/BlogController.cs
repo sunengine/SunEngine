@@ -26,7 +26,7 @@ namespace SunEngine.Controllers
             ICategoriesStore categoriesStore,
             OperationKeysContainer operationKeysContainer,
             BlogService blogService,
-            UserManager<User> userManager) : base(userManager)
+            MyUserManager userManager) : base(userManager)
         {
             this.OperationKeys = operationKeysContainer;
 

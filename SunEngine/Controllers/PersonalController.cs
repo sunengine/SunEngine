@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.Models;
+using SunEngine.Commons.Services;
 using SunEngine.EntityServices;
 
 namespace SunEngine.Controllers
@@ -20,7 +21,7 @@ namespace SunEngine.Controllers
         public PersonalController(
             PersonalService personalService, 
             AuthService authService, 
-            UserManager<User> userManager)
+            MyUserManager userManager)
             : base(userManager)
         {
             this.personalService = personalService;

@@ -30,7 +30,7 @@ namespace SunEngine.Controllers
             OperationKeysContainer operationKeysContainer, 
             MessagesService messagesService,
             IAuthorizationService authorizationService,
-            UserManager<User> userManager) : base(userManager)
+            MyUserManager userManager) : base(userManager)
         {
             this.operationKeysContainer = operationKeysContainer;
             this.messageAuthorization = messageAuthorization;

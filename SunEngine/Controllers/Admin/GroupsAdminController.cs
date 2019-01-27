@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.Models;
+using SunEngine.Commons.Services;
 using SunEngine.Services.Admin;
 using SunEngine.Stores;
 
@@ -18,7 +19,7 @@ namespace SunEngine.Controllers.Admin
         private readonly IUserGroupStore userGroupStore;
 
         public GroupsAdminController(
-            UserManager<User> userManager,
+            MyUserManager userManager,
             GroupsAdminService groupsAdminService,
             //ICategoriesStore categoriesStore,
             IUserGroupStore userGroupStore) : base(userManager)
