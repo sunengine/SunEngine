@@ -14,18 +14,20 @@ using NJsonSchema;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.UserGroups;
+using SunEngine.Commons.Services;
+using SunEngine.Commons.Utils;
 using SunEngine.EntityServices;
 
 namespace SunEngine.Services.Admin
 {
     public class GroupsAdminService : DbService
     {
-        const string UserGroupsFileName = "UserGroups.json";
-        const string UserGroupsSchemaFileName = "UserGroups.schema.json";
+        private const string UserGroupsFileName = "UserGroups.json";
+        private const string UserGroupsSchemaFileName = "UserGroups.schema.json";
 
 
-        readonly string UserGroupsConfigPath;
-        readonly string UserGroupSchemaPath;
+        private readonly string UserGroupsConfigPath;
+        private readonly string UserGroupSchemaPath;
 
 
         public GroupsAdminService(
@@ -48,31 +50,36 @@ namespace SunEngine.Services.Admin
             IDictionary<string, OperationKeyDB> operationKeys =
                 await db.OperationKeys.ToDictionaryAsync(x => x.Name);
 
-          
-            
+
             JsonSchema4 schema = await JsonSchema4.FromFileAsync(UserGroupSchemaPath);
-            
+
             UserGroupsLoaderFromJson loader = new UserGroupsLoaderFromJson(categories, operationKeys, schema);
 
-            
+
             loader.Seed(json);
 
-            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            try
             {
+                db.BeginTransaction();
                 List<UserToGroupTmp> userToGroups = await SaveUserToGroupsAsync();
                 await ClearGroupsAsync();
                 await CopyToDb(loader, userToGroups);
                 SaveToFile(json);
-                transaction.Complete();
+                db.CommitTransaction();
+            }
+            catch(Exception e)
+            {
+                db.RollbackTransaction();
+                throw e;
             }
         }
 
-        void SaveToFile(string json)
+        private void SaveToFile(string json)
         {
             File.WriteAllText(UserGroupsConfigPath, json);
         }
 
-        async Task ClearGroupsAsync()
+        private async Task ClearGroupsAsync()
         {
             await db.UserToGroups.DeleteAsync();
             await db.CategoryOperationAccess.DeleteAsync();
@@ -80,13 +87,13 @@ namespace SunEngine.Services.Admin
             await db.UserGroups.DeleteAsync();
         }
 
-        Task<List<UserToGroupTmp>> SaveUserToGroupsAsync()
+        private Task<List<UserToGroupTmp>> SaveUserToGroupsAsync()
         {
             return db.UserToGroups.Select(x => new UserToGroupTmp {userId = x.UserId, roleName = x.UserGroup.Name})
                 .ToListAsync();
         }
 
-        async Task CopyToDb(UserGroupsLoaderFromJson loader, List<UserToGroupTmp> userToGroups)
+        private async Task CopyToDb(UserGroupsLoaderFromJson loader, List<UserToGroupTmp> userToGroups)
         {
             BulkCopyOptions options = new BulkCopyOptions
             {
@@ -96,6 +103,9 @@ namespace SunEngine.Services.Admin
             };
 
             db.BulkCopy(options, loader.userGroups);
+
+            throw new Exception("test");
+
             db.BulkCopy(options, loader.categoryAccesses);
             db.BulkCopy(options, loader.categoryOperationAccesses);
 

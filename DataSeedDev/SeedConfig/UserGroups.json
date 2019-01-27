@@ -1,5 +1,42 @@
-﻿{
+{
+  "Unregistered": {
+    "Id": 1,
+    "Title": "Гость",
+    "Categories": [
+      {
+        "Category": "Forum",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true
+        }
+      },
+      {
+        "Category": "Forum2L",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true
+        }
+      },
+      {
+        "Category": "OnlyForRegisteredThread",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": false
+        }
+      },
+      {
+        "Category": "Articles",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true
+        }
+      },
+      {
+        "Category": "Blog",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true
+        }
+      }
+    ]
+  },
   "Registered": {
+    "Id": 2,
     "Title": "Пользователь",
     "Categories": [
       {
@@ -62,43 +99,16 @@
       }
     ]
   },
-  "Unregistered": {
-    "Title": "Гость",
-    "Categories": [
-      {
-        "Category": "Forum",
-        "OperationKeys": {
-          "MaterialAndMessagesRead": true
-        }
-      },
-      {
-        "Category": "Forum2L",
-        "OperationKeys": {
-          "MaterialAndMessagesRead": true
-        }
-      },
-      {
-        "Category": "OnlyForRegistredThread",
-        "OperationKeys": {
-          "MaterialAndMessagesRead": false
-        }
-      },
-      {
-        "Category": "Articles",
-        "OperationKeys": {
-          "MaterialAndMessagesRead": true
-        }
-      }
-    ]
-  },
   "TestGroup1": {
+    "Id": 3,
     "Title": "Тестовая группа 1"
   },
   "TestGroup2": {
-    "Name": "TestGroup2",
+    "Id": 4,
     "Title": "Тестовая группа 2"
   },
   "Moderator": {
+    "Id": 5,
     "Title": "Модератор",
     "IsSuper": true,
     "Categories": [
@@ -130,6 +140,7 @@
     ]
   },
   "Admin": {
+    "Id": 6,
     "Title": "Администратор",
     "IsSuper": true
   }

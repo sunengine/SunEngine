@@ -4,11 +4,13 @@ using System.Linq;
 using LinqToDB;
 using LinqToDB.Data;
 using Microsoft.AspNetCore.Identity;
+using NJsonSchema;
 using SunEngine.Commons;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.UserGroups;
 using SunEngine.Commons.Services;
+using SunEngine.Commons.Utils;
 
 namespace SunEngine.Seeder
 {
@@ -20,7 +22,6 @@ namespace SunEngine.Seeder
 
         private readonly MaterialsSeeder materialsSeeder;
 
-        private readonly SeederUserGroupsFromJson seederUserGroupsFromJson;
 
 
         public LocalSeeder()
@@ -28,7 +29,6 @@ namespace SunEngine.Seeder
 
             dataContainer = new DataContainer();
             materialsSeeder = new MaterialsSeeder(dataContainer);
-            seederUserGroupsFromJson = new SeederUserGroupsFromJson(dataContainer);
         }
 
         public DataContainer Seed()
@@ -80,8 +80,22 @@ namespace SunEngine.Seeder
 
         private void SeedUserGroups()
         {
-            string pathToUserGroupsConfig = Path.GetFullPath("../SunEngine/UserGroupsConfig.json");
-            seederUserGroupsFromJson.Seed(pathToUserGroupsConfig);
+            string pathToUserGroupsConfig = Path.GetFullPath("SeedConfig/UserGroups.json");
+            string pathToUserGroupsSchema = Path.GetFullPath("SeedConfig/UserGroups.schema.json");
+            JsonSchema4 schema = JsonSchema4.FromFileAsync(pathToUserGroupsSchema).GetAwaiter().GetResult();
+
+            
+            UserGroupsLoaderFromJson loader = 
+                new UserGroupsLoaderFromJson(dataContainer.Categories.ToDictionary(x=>x.Name),
+                    dataContainer.OperationKeys.ToDictionary(x=>x.Name), schema);
+
+            var json = File.ReadAllText(pathToUserGroupsConfig);
+            
+            loader.Seed(json);
+
+            dataContainer.UserGroups = loader.userGroups;
+            dataContainer.CategoryAccesses = loader.categoryAccesses;
+            dataContainer.CategoryOperationAccesses = loader.categoryOperationAccesses;
         }
 
         private void SeedOperationKeys()

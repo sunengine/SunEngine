@@ -29,7 +29,7 @@
         "ChildrenType": "Materials",
       },
       {
-        "Name": "OnlyForRegistredThread",
+        "Name": "OnlyForRegisteredThread",
         "Title": "Только для зарегистрированных",
         "ChildrenType": "Materials",
       },

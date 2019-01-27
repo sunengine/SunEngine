@@ -24,12 +24,37 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="SeedConfig\CategoriesStartConfig\Articles.json" />
-      <Content Include="SeedConfig\CategoriesStartConfig\Blog.json" />
-      <Content Include="SeedConfig\CategoriesStartConfig\Forum.json" />
-      <Content Include="SeedConfig\CategoriesStartConfig\Forum2L.json" />
-      <Content Include="SeedConfig\Disabled\ForumML.json" />
-      <Content Include="SeedConfig\UserGroupsConfig.json" />
+      <Content Include="SeedConfig\CategoriesStartConfig\Articles.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="SeedConfig\CategoriesStartConfig\Blog.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="SeedConfig\CategoriesStartConfig\Forum.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="SeedConfig\CategoriesStartConfig\Forum2L.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="SeedConfig\Disabled\ForumML.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="SeedConfig\UserGroups.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="SeedConfig\UserGroups.schema.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="SeedConfig\Disabled\Articles1lvl.json" />
+      <Content Include="SeedConfig\Disabled\Articles1lvl.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="SeedConfig\Disabled\Test.json" />
+      <Content Include="SeedConfig\Disabled\Test.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>

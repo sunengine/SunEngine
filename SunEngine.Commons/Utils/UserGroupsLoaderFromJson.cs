@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
 using NJsonSchema;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.UserGroups;
 using SunEngine.Commons.Services;
 
-namespace SunEngine.Services.Admin
+namespace SunEngine.Commons.Utils
 {
     public class UserGroupsLoaderFromJson
     {
@@ -53,7 +52,7 @@ namespace SunEngine.Services.Admin
                 
                 id++;
 
-                if (!userGroupJson.ContainsKey("Title"))
+                if (!((IDictionary<string, JToken>) userGroupJson).ContainsKey("Title"))
                     throw new Exception("Can not find category title"); 
                     
                 UserGroupDB userGroupDb = new UserGroupDB
@@ -61,7 +60,7 @@ namespace SunEngine.Services.Admin
                     Id = id,
                     Name = jProp.Name,
                     Title = (string) userGroupJson["Title"],
-                    IsSuper = userGroupJson.ContainsKey("IsSuper") && (bool) userGroupJson["IsSuper"],
+                    IsSuper = ((IDictionary<string, JToken>) userGroupJson).ContainsKey("IsSuper") && (bool) userGroupJson["IsSuper"],
                     SortNumber = id
                 };
                 userGroupDb.NormalizedName = userGroupDb.Name.ToUpper();
