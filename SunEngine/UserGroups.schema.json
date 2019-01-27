@@ -4,8 +4,9 @@
   "$id": "http://sunengine.site/UserGroups.schema.json/UserGroup",
   "type": "object",
   "title": "User Groups Schema",
+  "additionalProperties": false,
   "patternProperties": {
-    "^.+$": {
+    "^.{3,}$": {
       "$id": "#/items",
       "type": "object",
       "title": "The User Group",
