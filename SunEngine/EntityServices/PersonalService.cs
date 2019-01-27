@@ -2,12 +2,10 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using LinqToDB;
-using Microsoft.Extensions.Options;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.TextProcess;
 using SunEngine.Controllers;
-using SunEngine.Options;
 
 namespace SunEngine.EntityServices
 {

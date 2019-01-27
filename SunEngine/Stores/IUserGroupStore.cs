@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-using SunEngine.Commons.Models.UserGroups;
 using SunEngine.Commons.StoreModels;
 
 namespace SunEngine.Stores

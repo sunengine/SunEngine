@@ -1,36 +1,15 @@
-using System;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 using SunEngine.Commons.Models;
 using SunEngine.EntityServices;
 using SunEngine.Options;
 using SunEngine.Services;
-using SixLabors.Fonts;
-using SixLabors.ImageSharp.Formats;
-using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.Shapes;
-using FontStyle = SixLabors.Fonts.FontStyle;
-using Path = System.IO.Path;
-using System;
-using System.Numerics;
-using Microsoft.Extensions.Caching.Memory;
-using SixLabors.Fonts;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing.Processors.Drawing;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
-using SixLabors.Primitives;
-using SixLabors.Shapes;
 
 namespace SunEngine.Controllers
 {

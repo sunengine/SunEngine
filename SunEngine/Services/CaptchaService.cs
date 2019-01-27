@@ -1,9 +1,6 @@
 using System;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SixLabors.Fonts;
@@ -11,8 +8,6 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using SixLabors.Shapes;
-using SunEngine.Commons.Models;
 using SunEngine.Options;
 using Path = System.IO.Path;
 using PointF = SixLabors.Primitives.PointF;

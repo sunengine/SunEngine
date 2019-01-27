@@ -2,7 +2,7 @@
   <q-page class="flex column full-center">
     <h1>Demo</h1>
     <div class="p1">
-      <p>Каждый день данные сбрасываются.</p>
+      <p>Каждые два часа данные сбрасываются.</p>
       <p>Пользователи: User1, User2, User3, User4, User5, Moderator, Admin</p>
       <p>Пароль: password</p>
       <p>При регистрации и других операциях с почтой можете указывать любой почтовый ящик, например `o1111@ooo.ru`, почта будет отправляться на mailcatcher <a target="_blank" href="http://demo.sunengine.site:1444">сюда</a>.</p>

@@ -1,10 +1,7 @@
-using AspNetCore.CacheOutput;
-using AspNetCore.CacheOutput.InMemory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Authorization.ControllersAuthorization;
 using SunEngine.EntityServices;
-using SunEngine.Infrastructure;
 using SunEngine.Options;
 using SunEngine.Services.Admin;
 
@@ -36,13 +33,6 @@ namespace SunEngine.Services
             
         }
 
-        public static void AddMyInMemoryCacheOutput(this IServiceCollection services)
-        {
-            services.AddSingleton<ICacheKeyGenerator, GroupCacheKeyGenerator>();
-
-            services.AddSingleton<IApiCacheOutput, InMemoryCacheOutputProvider>();
-            
-        }
 
         public static void AddAllOptions(this IServiceCollection services, IConfiguration configuration)
         {

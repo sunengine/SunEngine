@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using AspNetCore.CacheOutput.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -149,8 +148,6 @@ namespace SunEngine
             services.AddSingleton<CaptchaService>();
 
 
-            //services.AddMyInMemoryCacheOutput();
-            //services.AddSingleton<GroupCacheKeyGenerator>();
 
             services.AddMvcCore(options => { options.Filters.Add(new MyAuthUserFilter(userGroupStore)); })
                 .AddApiExplorer()
@@ -192,7 +189,6 @@ namespace SunEngine
             app.UseAuthentication();
 
 
-            //app.UseCacheOutput();
 
             app.UseMvc(routes =>
             {
