@@ -35,6 +35,13 @@ namespace SunEngine.Services.Admin
             
             JObject groupsJson = JObject.Parse(jsonText);
 
+            var errors = schema.Validate(groupsJson);
+                
+            if(errors!=null && errors.Count > 0)
+            {
+                throw new Exception(string.Join(@"\n\n\n",errors));
+            }
+            
             
             int id = 0;
             int categoryAccessId = 0;
@@ -43,12 +50,6 @@ namespace SunEngine.Services.Admin
             {
                 JObject userGroupJson = (JObject)jProp.Value;
 
-                var errors = schema.Validate(userGroupJson);
-                
-                if(errors!=null && errors.Count > 0)
-                {
-                    throw new Exception($"Error in parsing '{jProp.Name}' UserGroup\n\n"+string.Join(@"\n\n\n",errors));
-                }
                 
                 id++;
 

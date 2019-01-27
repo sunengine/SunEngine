@@ -1,0 +1,184 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://sunengine.site/UserGroups.schema.json/UserGroup",
+  "type": "object",
+  "title": "User Groups Schema",
+  "patternProperties": {
+    "^.+$": {
+      "$id": "#/items",
+      "type": "object",
+      "title": "The User Group",
+      "additionalProperties": false,
+      "required": [
+        "Title"
+      ],
+      "properties": {
+        "Title": {
+          "$id": "#/items/properties/Title",
+          "type": "string",
+          "title": "Title of the group",
+          "examples": [
+            "Пользователь"
+          ],
+          "pattern": "^([a-zA-Zа-яА-ЯёЁ0-9 -]{3,})$"
+        },
+        "IsSuper": {
+          "$id": "#/items/properties/IsSuper",
+          "type": "boolean",
+          "title": "Is Super Group",
+          "examples": [
+            true
+          ]
+        },
+        "Categories": {
+          "$id": "#/items/properties/Categories",
+          "type": "array",
+          "title": "Categories rights of the group",
+          "default": null,
+          "items": {
+            "$id": "#/items/properties/Categories/items",
+            "type": "object",
+            "title": "The Items Schema",
+            "required": [
+              "Category",
+              "OperationKeys"
+            ],
+            "properties": {
+              "Category": {
+                "$id": "#/items/properties/Categories/items/properties/Category",
+                "type": "string",
+                "title": "Category name",
+                "examples": [
+                  "Forum"
+                ],
+                "pattern": "^([a-zA-Z0-9-]{3,})$"
+              },
+              "OperationKeys": {
+                "$id": "#/items/properties/Categories/items/properties/OperationKeys",
+                "type": "object",
+                "title": "Operationkeys",
+                "properties": {
+                  "MaterialAndMessagesRead": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MaterialAndMessagesRead",
+                    "type": "boolean",
+                    "title": "Читать материалы и сообщения",
+                    "default": false
+                  },
+                  "MaterialWrite": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MaterialWrite",
+                    "type": "boolean",
+                    "title": "Создавать материалы",
+                    "default": false
+                  },
+                  "MaterialEditOwn": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MaterialEditOwn",
+                    "type": "boolean",
+                    "title": "Редактировать свои материалы",
+                    "default": false
+                  },
+                  "MessageEditOwnIfTimeNotExceeded": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MessageEditOwnIfTimeNotExceeded",
+                    "type": "boolean",
+                    "title": "Редактировать свои материалы если не истекло время",
+                    "default": false
+                  },
+                  "MaterialEditOwnIfHasReplies": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MaterialEditOwnIfHasReplies",
+                    "type": "boolean",
+                    "title": "Редактировать свои материалы если есть ответы от других пользователей",
+                    "default": false
+                  },
+                  "MaterialDeleteOwn": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MaterialDeleteOwn",
+                    "type": "boolean",
+                    "title": "Удалять свои материалы",
+                    "default": false
+                  },
+                  "MessageDeleteOwnIfTimeNotExceeded": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MessageDeleteOwnIfTimeNotExceeded",
+                    "type": "boolean",
+                    "title": "Удалять свои материалы если не истекло время",
+                    "default": false
+                  },
+                  "MaterialDeleteOwnIfHasReplies": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MaterialDeleteOwnIfHasReplies",
+                    "type": "boolean",
+                    "title": "Удалять свои материалы если есть ответы от других пользователей",
+                    "default": false
+                  },
+                  "MessageWrite": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MessageWrite",
+                    "type": "boolean",
+                    "title": "Создавать сообщения",
+                    "default": false
+                  },
+                  "MessageEditOwn": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MessageEditOwn",
+                    "type": "boolean",
+                    "title": "Редактировать свои сообщения",
+                    "default": false
+                  },
+                  "MessageEditOwnIfTimeNotExceeded": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MessageEditOwnIfTimeNotExceeded",
+                    "type": "boolean",
+                    "title": "Редактировать свои сообщения если не истекло время",
+                    "default": false
+                  },
+                  "MessageEditOwnIfHasReplies": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MessageEditOwnIfHasReplies",
+                    "type": "boolean",
+                    "title": "Редактировать свои сообщения если есть ответы других пользователей",
+                    "default": false
+                  },
+                  "MessageDeleteOwn": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MessageDeleteOwn",
+                    "type": "boolean",
+                    "title": "Удалять свои сообщения",
+                    "default": false
+                  },
+                  "MessageDeleteOwnIfTimeNotExceeded": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MessageDeleteOwnIfTimeNotExceeded",
+                    "type": "boolean",
+                    "title": "Удалять свои сообщения если не истекло время",
+                    "default": false
+                  },
+                  "MessageDeleteOwnIfHasReplies": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MessageDeleteOwnIfHasReplies",
+                    "type": "boolean",
+                    "title": "Удалять свои сообщения если есть ответы других пользователей",
+                    "default": false
+                  },
+                  "MaterialEditAny": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MaterialEditAny",
+                    "type": "boolean",
+                    "title": "Редактировать материалы других пользователей",
+                    "default": false
+                  },
+                  "MaterialDeleteAny": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MaterialDeleteAny",
+                    "type": "boolean",
+                    "title": "Удалять материалы других пользователей",
+                    "default": false
+                  },
+                  "MessageEditAny": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MessageEditAny",
+                    "type": "boolean",
+                    "title": "Редактировать сообщения других пользователей",
+                    "default": false
+                  },
+                  "MessageDeleteAny": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/MessageDeleteAny",
+                    "type": "boolean",
+                    "title": "Удалять сообщения других пользователей",
+                    "default": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

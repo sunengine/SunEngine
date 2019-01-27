@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace SunEngine.Services.Admin
     public class GroupsAdminService : DbService
     {
         const string UserGroupsFileName = "UserGroups.json";
-        const string UserGroupSchemaFileName = "UserGroup.schema.json";
+        const string UserGroupsSchemaFileName = "UserGroups.schema.json";
 
 
         readonly string UserGroupsConfigPath;
@@ -32,7 +33,7 @@ namespace SunEngine.Services.Admin
             IHostingEnvironment env) : base(db)
         {
             UserGroupsConfigPath = Path.Combine(env.ContentRootPath, UserGroupsFileName);
-            UserGroupSchemaPath = Path.Combine(env.ContentRootPath, UserGroupSchemaFileName);
+            UserGroupSchemaPath = Path.Combine(env.ContentRootPath, UserGroupsSchemaFileName);
         }
 
         public string GetGroupsJson()
@@ -47,6 +48,8 @@ namespace SunEngine.Services.Admin
             IDictionary<string, OperationKeyDB> operationKeys =
                 await db.OperationKeys.ToDictionaryAsync(x => x.Name);
 
+          
+            
             JsonSchema4 schema = await JsonSchema4.FromFileAsync(UserGroupSchemaPath);
             
             UserGroupsLoaderFromJson loader = new UserGroupsLoaderFromJson(categories, operationKeys, schema);

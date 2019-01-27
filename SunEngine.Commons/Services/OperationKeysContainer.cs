@@ -54,6 +54,15 @@ namespace SunEngine.Commons.Services
         [IsSuper] public int MessageEditAny { get; private set; }
         [IsSuper] public int MessageDeleteAny { get; private set; }
 
+        /*
+         
+MaterialAndMessagesRead|MaterialWrite|MaterialEditOwn|MaterialEditOwnIfTimeNotExceeded|MaterialEditOwnIfHasReplies|MaterialDeleteOwn|MaterialDeleteOwnIfTimeNotExceeded|MaterialDeleteOwnIfHasReplies|MessageWrite|MessageEditOwn|MessageEditOwnIfTimeNotExceeded|MessageEditOwnIfHasReplies|MessageDeleteOwn|MessageDeleteOwnIfTimeNotExceeded|MessageDeleteOwnIfHasReplies|MaterialEditAny|MaterialDeleteAny|MessageEditAny|MessageDeleteAny
+
+
+
+         */
+        
+        
 
         public static IList<string> GetAllOperationKeys()
         {
