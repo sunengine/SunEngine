@@ -6,6 +6,7 @@ using System.Transactions;
 using LinqToDB;
 using LinqToDB.Data;
 using LinqToDB.Identity;
+using Microsoft.AspNetCore.Hosting;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.UserGroups;
@@ -15,13 +16,20 @@ namespace SunEngine.Services.Admin
 {
     public class GroupsAdminService : DbService
     {
-        public GroupsAdminService(DataBaseConnection db) : base(db)
+        const string UserGroupsConfigFileName = "UserGroupsConfig.json";
+        
+        readonly string UserGroupsConfigPath;
+        
+        public GroupsAdminService(
+            DataBaseConnection db,
+            IHostingEnvironment env) : base(db)
         {
+            UserGroupsConfigPath = Path.Combine(env.ContentRootPath,UserGroupsConfigFileName);
         }
 
-        public async Task<string> GetGroupsJson()
+        public string GetGroupsJson()
         {
-            return "";
+            return File.ReadAllText(UserGroupsConfigPath);
         }
 
         public async Task LoadUserGroupsFromJsonAsync(string json)
@@ -46,7 +54,7 @@ namespace SunEngine.Services.Admin
 
         void SaveToFile(string json)
         {
-            File.WriteAllText(Path.GetFullPath("userGroups.json"), json);
+            File.WriteAllText(UserGroupsConfigPath, json);
         }
 
         async Task ClearGroupsAsync()
@@ -84,7 +92,7 @@ namespace SunEngine.Services.Admin
             db.BulkCopy(options, userToGroupsNew);
         }
 
-        public class UserToGroupTmp
+        private class UserToGroupTmp
         {
             public int userId;
             public string roleName;

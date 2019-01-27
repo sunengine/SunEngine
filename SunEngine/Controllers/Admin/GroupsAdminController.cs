@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -29,7 +30,18 @@ namespace SunEngine.Controllers.Admin
 
         public async Task<IActionResult> LoadJson(string json)
         {
-            await groupsAdminService.LoadUserGroupsFromJsonAsync(json);
+            try
+            {
+                await groupsAdminService.LoadUserGroupsFromJsonAsync(json);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ErrorViewModel
+                {
+                  ErrorName  = e.Message,
+                  ErrorText = e.StackTrace
+                });
+            }
 
             //categoriesStore.Reset();
             userGroupStore.Reset();

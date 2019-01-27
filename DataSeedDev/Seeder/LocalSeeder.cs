@@ -80,7 +80,7 @@ namespace SunEngine.Seeder
 
         private void SeedUserGroups()
         {
-            string pathToUserGroupsConfig = Path.GetFullPath("SeedConfig/UserGroupsConfig.json");
+            string pathToUserGroupsConfig = Path.GetFullPath("../SunEngine/UserGroupsConfig.json");
             seederUserGroupsFromJson.Seed(pathToUserGroupsConfig);
         }
 
