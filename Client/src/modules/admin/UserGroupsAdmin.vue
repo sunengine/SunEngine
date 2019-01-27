@@ -15,7 +15,7 @@
       </div>
       <div class="json-error" v-if="error">
         <q-icon name="fas "/>
-        <div class="msg">{{error.message}}</div>
+        <div class="msg" v-html="error.message"></div>
         <div class="stack" style="max-height: 600px; overflow-y: scroll;" v-html="error.text"></div>
       </div>
     </template>
@@ -83,7 +83,7 @@
             }
           ).catch(x => {
             this.error = {
-              message: x.response.data.errorName,
+              message: x.response.data.errorName.replace(/\n/g, '<br/>'),
               text: x.response.data.errorText.replace(/\n/g, '<br/>')
             };
             console.log("error", x);

@@ -15,7 +15,7 @@
       "examples": [
         "Пользователь"
       ],
-      "pattern": "^([a-zA-Zа-яА-ЯёЁ0-9-]{3,})$"
+      "pattern": "^([a-zA-Zа-яА-ЯёЁ0-9 -]{3,})$"
     },
     "Categories": {
       "$id": "#/items/properties/Categories",

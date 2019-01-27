@@ -44,7 +44,7 @@ namespace SunEngine.Services.Admin
 
                 if(!userGroupJson.IsValid(schema, out IList<string> errors))
                 {
-                    throw new Exception(string.Join(@"\n\n\n",errors));
+                    throw new Exception($"Error in parsing '{jProp.Name}' UserGroup\n\n"+string.Join(@"\n\n\n",errors));
                 }
                 
                 id++;
