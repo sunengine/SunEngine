@@ -14,9 +14,10 @@ namespace SunEngine.Controllers.Admin
     public class GroupsAdminController : BaseController
     {
         private readonly GroupsAdminService groupsAdminService;
+
         //private readonly ICategoriesStore categoriesStore;
         private readonly IUserGroupStore userGroupStore;
-        
+
         public GroupsAdminController(
             UserManager<User> userManager,
             GroupsAdminService groupsAdminService,
@@ -28,7 +29,14 @@ namespace SunEngine.Controllers.Admin
             this.userGroupStore = userGroupStore;
         }
 
-        public async Task<IActionResult> LoadJson(string json)
+        public async Task<IActionResult> GetJson()
+        {
+            var json = groupsAdminService.GetGroupsJson();
+
+            return Ok(new {Json = json});
+        }
+
+        public async Task<IActionResult> UploadJson(string json)
         {
             try
             {
@@ -38,14 +46,13 @@ namespace SunEngine.Controllers.Admin
             {
                 return BadRequest(new ErrorViewModel
                 {
-                  ErrorName  = e.Message,
-                  ErrorText = e.StackTrace
+                    ErrorName = e.Message,
+                    ErrorText = e.StackTrace
                 });
             }
 
-            //categoriesStore.Reset();
             userGroupStore.Reset();
-            
+
             return Ok();
         }
     }

@@ -36,7 +36,13 @@ namespace SunEngine.Services.Admin
             foreach (JObject userGroupJson in groupsJson)
             {
                 id++;
+
+                if (!userGroupJson.ContainsKey("Name"))
+                    throw new Exception("Can not find category name"); 
                 
+                if (!userGroupJson.ContainsKey("Title"))
+                    throw new Exception("Can not find category title"); 
+                    
                 UserGroupDB userGroupDb = new UserGroupDB
                 {
                     Id = id,
@@ -49,8 +55,7 @@ namespace SunEngine.Services.Admin
 
                 userGroups.Add(userGroupDb);
 
-                var categoriesAccessJsonList = (JArray) userGroupJson["Categories"];
-                if (categoriesAccessJsonList != null)
+                if (userGroupJson.TryGetValue("Categories",out var categoriesAccessJsonList))
                 {
                     foreach (var categoriesAccessJson in categoriesAccessJsonList)
                     {

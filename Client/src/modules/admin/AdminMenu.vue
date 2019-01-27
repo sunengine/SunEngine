@@ -5,7 +5,7 @@
       Категории
     </q-item>
     <q-item :to="{name: 'UserGroupsAdmin'}" :multiline="false" link>
-      <q-icon name="fas fa-users" size="16px" class="on-left"/>
+      <q-icon name="fas fa-users-cog" size="16px" class="on-left"/>
       Права групп пользователей
     </q-item>
   </QList>
