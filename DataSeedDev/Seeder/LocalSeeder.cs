@@ -104,7 +104,7 @@ namespace SunEngine.Seeder
 
             foreach (var key in keys)
             {
-                var operationKey = new OperationKeyDB()
+                var operationKey = new OperationKeyDB
                 {
                     OperationKeyId = dataContainer.NextOperationKeyId(),
                     Name = key
@@ -171,7 +171,7 @@ namespace SunEngine.Seeder
             var hasher = new PasswordHasher<User>();
             var passwordHash = hasher.HashPassword(null, AllUsersPassword);
 
-            User admin = new User()
+            User admin = new User
             {
                 Id = dataContainer.NextUserId(),
                 Email = $"admin@email.ru",
@@ -189,7 +189,7 @@ namespace SunEngine.Seeder
 
             dataContainer.Users.Add(admin);
 
-            User moderator = new User()
+            User moderator = new User
             {
                 Id = dataContainer.NextUserId(),
                 Email = $"moderator@email.ru",
@@ -206,7 +206,7 @@ namespace SunEngine.Seeder
 
             dataContainer.Users.Add(moderator);
 
-            User testUser1 = new User()
+            User testUser1 = new User
             {
                 Id = dataContainer.NextUserId(),
                 Email = $"testUser1@email.ru",
@@ -226,7 +226,7 @@ namespace SunEngine.Seeder
 
             for (int i = 1; i <= 5; i++)
             {
-                User user = new User()
+                User user = new User
                 {
                     Id = dataContainer.NextUserId(),
                     Email = $"user{i}@email.ru",
