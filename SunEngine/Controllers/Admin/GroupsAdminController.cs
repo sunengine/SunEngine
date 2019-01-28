@@ -31,7 +31,7 @@ namespace SunEngine.Controllers.Admin
 
         public async Task<IActionResult> GetJson()
         {
-            var json = groupsAdminService.GetGroupsJson();
+            var json = await groupsAdminService.GetGroupsJsonAsync();
 
             return Ok(new {Json = json});
         }

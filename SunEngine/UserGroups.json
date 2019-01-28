@@ -2,6 +2,7 @@
   "Unregistered": {
     "Id": 1,
     "Title": "Гость",
+    "IsSuper": false,
     "Categories": [
       {
         "Category": "Forum",
@@ -16,7 +17,7 @@
         }
       },
       {
-        "Category": "OnlyForRegistredThread",
+        "Category": "OnlyForRegisteredThread",
         "OperationKeys": {
           "MaterialAndMessagesRead": false
         }
@@ -38,16 +39,17 @@
   "Registered": {
     "Id": 2,
     "Title": "Пользователь",
+    "IsSuper": false,
     "Categories": [
       {
         "Category": "Forum",
         "OperationKeys": {
           "MaterialAndMessagesRead": true,
           "MaterialWrite": true,
-          "MessageWrite": true,
           "MaterialEditOwn": true,
-          "MessageEditOwn": true,
           "MaterialDeleteOwn": true,
+          "MessageWrite": true,
+          "MessageEditOwn": true,
           "MessageDeleteOwn": true
         }
       },
@@ -69,8 +71,8 @@
         "Category": "NoEditOwnThread",
         "OperationKeys": {
           "MaterialEditOwn": false,
-          "MessageEditOwn": false,
           "MaterialDeleteOwn": false,
+          "MessageEditOwn": false,
           "MessageDeleteOwn": false
         }
       },
@@ -101,11 +103,15 @@
   },
   "TestGroup1": {
     "Id": 3,
-    "Title": "Тестовая группа 1"
+    "Title": "Тестовая группа 1",
+    "IsSuper": false,
+    "Categories": []
   },
   "TestGroup2": {
     "Id": 4,
-    "Title": "Тестовая группа 2"
+    "Title": "Тестовая группа 2",
+    "IsSuper": false,
+    "Categories": []
   },
   "Moderator": {
     "Id": 5,
@@ -116,8 +122,8 @@
         "Category": "Forum",
         "OperationKeys": {
           "MaterialEditAny": true,
-          "MessageEditAny": true,
           "MaterialDeleteAny": true,
+          "MessageEditAny": true,
           "MessageDeleteAny": true
         }
       },
@@ -125,8 +131,8 @@
         "Category": "Forum2L",
         "OperationKeys": {
           "MaterialEditAny": true,
-          "MessageEditAny": true,
           "MaterialDeleteAny": true,
+          "MessageEditAny": true,
           "MessageDeleteAny": true
         }
       },
@@ -142,6 +148,7 @@
   "Admin": {
     "Id": 6,
     "Title": "Администратор",
-    "IsSuper": true
+    "IsSuper": true,
+    "Categories": []
   }
 }

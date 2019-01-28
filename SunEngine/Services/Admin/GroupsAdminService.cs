@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LinqToDB;
 using LinqToDB.Data;
 using Microsoft.AspNetCore.Hosting;
+using Newtonsoft.Json;
 using NJsonSchema;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
@@ -33,9 +34,37 @@ namespace SunEngine.Services.Admin
             UserGroupSchemaPath = Path.Combine(env.ContentRootPath, UserGroupsSchemaFileName);
         }
 
-        public string GetGroupsJson()
+        public async Task<string> GetGroupsJsonAsync()
         {
-            return File.ReadAllText(UserGroupsConfigPath);
+            var groups = await db.UserGroups.LoadWith(x => x.CategoryAccesses.First().CategoryOperationAccesses.First().OperationKeyDb)
+                .ToListAsync();
+
+            var categories = await db.Categories.ToDictionaryAsync(x => x.Id, x => x);
+            
+            var jobject = groups.Select(x =>
+                    new
+                    {
+                        Name = x.Name,
+                        Group = new
+                        {
+                            Id = x.Id,
+                            Title = x.Title,
+                            IsSuper = x.IsSuper ? (object)true : null,
+                            Categories = x.CategoryAccesses.Count > 0 ? x.CategoryAccesses.Select(y =>
+                                new
+                                {
+                                    Category = categories[y.CategoryId].Name, 
+                                    OperationKeys =
+                                        y.CategoryOperationAccesses?.ToDictionary(z => z.OperationKeyDb.Name,
+                                            z => z.Access)
+                                }).ToArray() : null
+                        }
+                    })
+                .ToDictionary(x => x.Name, x => x.Group);
+
+            JsonSerializerSettings jo = new JsonSerializerSettings();
+            jo.NullValueHandling = NullValueHandling.Ignore;
+            return JsonConvert.SerializeObject(jobject,Formatting.Indented,jo);
         }
 
         public async Task LoadUserGroupsFromJsonAsync(string json)
@@ -62,7 +91,7 @@ namespace SunEngine.Services.Admin
                 SaveToFile(json);
                 db.CommitTransaction();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 db.RollbackTransaction();
                 throw e;
@@ -98,10 +127,10 @@ namespace SunEngine.Services.Admin
             };
 
             // TODO Copy only New Groups, если так сделать не понадобится стирать и сохранять таблицу ПользователиГруппы
-            
-            db.BulkCopy(options, loader.userGroups); 
-            
-            
+
+            db.BulkCopy(options, loader.userGroups);
+
+
             db.BulkCopy(options, loader.categoryAccesses);
             db.BulkCopy(options, loader.categoryOperationAccesses);
 

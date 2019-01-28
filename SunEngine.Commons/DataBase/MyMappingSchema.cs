@@ -23,7 +23,8 @@ namespace SunEngine.Commons.DataBase
 
             mp.Entity<UserGroupDB>()
                 .HasTableName("AspNetRoles")
-                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id);
+                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
+                .Association(x=>x.CategoryAccesses,x=>x.Id,x=>x.UserGroupId);
 
             mp.Entity<Category>()
                 .HasTableName("Categories")
@@ -36,11 +37,14 @@ namespace SunEngine.Commons.DataBase
 
             mp.Entity<CategoryAccessDB>()
                 .HasTableName("CategoryAccesses")
-                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id);
+                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
+                .Association(x=>x.Category,x=>x.CategoryId,x=>x.Id)
+                .Association(x=>x.CategoryOperationAccesses,x=>x.Id,x=>x.CategoryAccessId);
 
             mp.Entity<CategoryOperationAccessDB>()
                 .HasTableName("CategoryOperationAccesses")
-                .HasPrimaryKey(x => new {x.CategoryAccessId, x.OperationKeyId});
+                .HasPrimaryKey(x => new {x.CategoryAccessId, x.OperationKeyId})
+                .Association(x=>x.OperationKeyDb,x=>x.OperationKeyId,x=>x.OperationKeyId);
 
             mp.Entity<Material>()
                 .HasTableName("Materials")
