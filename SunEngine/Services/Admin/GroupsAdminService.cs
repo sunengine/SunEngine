@@ -18,11 +18,7 @@ namespace SunEngine.Services.Admin
 {
     public class GroupsAdminService : DbService
     {
-        private const string UserGroupsFileName = "UserGroups.json";
         private const string UserGroupsSchemaFileName = "UserGroups.schema.json";
-
-
-        private readonly string UserGroupsConfigPath;
         private readonly string UserGroupSchemaPath;
 
 
@@ -30,41 +26,42 @@ namespace SunEngine.Services.Admin
             DataBaseConnection db,
             IHostingEnvironment env) : base(db)
         {
-            UserGroupsConfigPath = Path.Combine(env.ContentRootPath, UserGroupsFileName);
             UserGroupSchemaPath = Path.Combine(env.ContentRootPath, UserGroupsSchemaFileName);
         }
 
         public async Task<string> GetGroupsJsonAsync()
         {
-            var groups = await db.UserGroups.LoadWith(x => x.CategoryAccesses.First().CategoryOperationAccesses.First().OperationKeyDb)
+            var groups = await db.UserGroups
+                .LoadWith(x => x.CategoryAccesses.First().CategoryOperationAccesses.First().OperationKeyDb)
                 .ToListAsync();
 
             var categories = await db.Categories.ToDictionaryAsync(x => x.Id, x => x);
-            
+
             var jobject = groups.Select(x =>
                     new
                     {
                         Name = x.Name,
                         Group = new
                         {
-                            Id = x.Id,
                             Title = x.Title,
-                            IsSuper = x.IsSuper ? (object)true : null,
-                            Categories = x.CategoryAccesses.Count > 0 ? x.CategoryAccesses.Select(y =>
-                                new
-                                {
-                                    Category = categories[y.CategoryId].Name, 
-                                    OperationKeys =
-                                        y.CategoryOperationAccesses?.ToDictionary(z => z.OperationKeyDb.Name,
-                                            z => z.Access)
-                                }).ToArray() : null
+                            IsSuper = x.IsSuper ? (object) true : null,
+                            Categories = x.CategoryAccesses.Count > 0
+                                ? x.CategoryAccesses.Select(y =>
+                                    new
+                                    {
+                                        Category = categories[y.CategoryId].Name,
+                                        OperationKeys =
+                                            y.CategoryOperationAccesses?.ToDictionary(z => z.OperationKeyDb.Name,
+                                                z => z.Access)
+                                    }).ToArray()
+                                : null
                         }
                     })
                 .ToDictionary(x => x.Name, x => x.Group);
 
             JsonSerializerSettings jo = new JsonSerializerSettings();
             jo.NullValueHandling = NullValueHandling.Ignore;
-            return JsonConvert.SerializeObject(jobject,Formatting.Indented,jo);
+            return JsonConvert.SerializeObject(jobject, Formatting.Indented, jo);
         }
 
         public async Task LoadUserGroupsFromJsonAsync(string json)
@@ -86,9 +83,9 @@ namespace SunEngine.Services.Admin
             {
                 db.BeginTransaction();
                 List<UserToGroupTmp> userToGroups = await SaveUserToGroupsAsync();
-                await ClearGroupsAsync();
+                await UpdateUserGroups(loader.userGroups);
+                await ClearAccessesAsync();
                 await CopyToDb(loader, userToGroups);
-                SaveToFile(json);
                 db.CommitTransaction();
             }
             catch (Exception e)
@@ -98,17 +95,49 @@ namespace SunEngine.Services.Admin
             }
         }
 
-        private void SaveToFile(string json)
+        private async Task UpdateUserGroups(List<UserGroupDB> groupsNew)
         {
-            File.WriteAllText(UserGroupsConfigPath, json);
+            var groups = await db.UserGroups.ToListAsync();
+
+            var toDelete = groups
+                .Where(x =>
+                    !groupsNew.Any(y => string.Equals(x.NormalizedName, y.NormalizedName))
+                )
+                .ToList();
+
+            var toInsert = groupsNew
+                .Where(x =>
+                    !groups.Any(y => string.Equals(x.NormalizedName, y.NormalizedName))
+                )
+                .ToList();
+
+            var toUpdate = groupsNew.Where(x => groups.Any(y => string.Equals(x.NormalizedName, y.NormalizedName)))
+                .ToList();
+
+            List<UserGroupDB> errorGroups = new List<UserGroupDB>();
+
+            foreach (var group in toDelete)
+            {
+                db.UserToGroups.AnyAsync(x => x.RoleId == group.Id);
+                errorGroups.Add(group);
+            }
+
+            if (errorGroups.Count > 0)
+            {
+                var errorNames = string.Join(", ", errorGroups.Select(y => "'" + y.Name + "'"));
+                throw new Exception(
+                    "В этих группах есть пользователи, очистите их перед удалением: " + errorNames);
+            }
+
+            toDelete.ForEach(async x => await db.DeleteAsync(x));
+            toInsert.ForEach(async x => await db.InsertAsync(x));
+            toUpdate.ForEach(async x => await db.UpdateAsync(x));
         }
 
-        private async Task ClearGroupsAsync()
+        private async Task ClearAccessesAsync()
         {
-            await db.UserToGroups.DeleteAsync();
             await db.CategoryOperationAccess.DeleteAsync();
             await db.CategoryAccess.DeleteAsync();
-            await db.UserGroups.DeleteAsync();
         }
 
         private Task<List<UserToGroupTmp>> SaveUserToGroupsAsync()
@@ -126,21 +155,8 @@ namespace SunEngine.Services.Admin
                 KeepIdentity = true
             };
 
-            // TODO Copy only New Groups, если так сделать не понадобится стирать и сохранять таблицу ПользователиГруппы
-
-            db.BulkCopy(options, loader.userGroups);
-
-
             db.BulkCopy(options, loader.categoryAccesses);
             db.BulkCopy(options, loader.categoryOperationAccesses);
-
-            List<UserToGroup> userToGroupsNew = userToGroups.Select(x => new UserToGroup
-            {
-                UserId = x.userId,
-                RoleId = loader.userGroups.FirstOrDefault(y => y.Name == x.roleName).Id
-            }).ToList();
-
-            db.BulkCopy(options, userToGroupsNew);
         }
 
         private class UserToGroupTmp

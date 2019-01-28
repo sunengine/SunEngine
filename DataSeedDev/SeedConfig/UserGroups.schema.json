@@ -12,19 +12,9 @@
       "title": "The User Group",
       "additionalProperties": false,
       "required": [
-        "Title",
-        "Id"
+        "Title"
       ],
       "properties": {
-        "Id": {
-          "$id": "#/items/properties/Id",
-          "type": "integer",
-          "title": "Title of the group",
-          "examples": [
-            "1"
-          ],
-          "pattern": "^([a-zA-Zа-яА-ЯёЁ0-9 -]{3,})$"
-        },
         "Title": {
           "$id": "#/items/properties/Title",
           "type": "string",
