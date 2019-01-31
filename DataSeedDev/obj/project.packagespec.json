@@ -44,6 +44,10 @@
           "target": "Package",
           "version": "[8.0.14, )"
         },
+        "Npgsql": {
+          "target": "Package",
+          "version": "[4.0.4, )"
+        },
         "linq2db": {
           "target": "Package",
           "version": "[2.6.3, )"

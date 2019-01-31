@@ -1,6 +1,5 @@
 {
   "Unregistered": {
-    "Id": 1,
     "Title": "Гость",
     "Categories": [
       {
@@ -36,7 +35,6 @@
     ]
   },
   "Registered": {
-    "Id": 2,
     "Title": "Пользователь",
     "Categories": [
       {
@@ -100,15 +98,12 @@
     ]
   },
   "TestGroup1": {
-    "Id": 3,
     "Title": "Тестовая группа 1"
   },
   "TestGroup2": {
-    "Id": 4,
     "Title": "Тестовая группа 2"
   },
   "Moderator": {
-    "Id": 5,
     "Title": "Модератор",
     "IsSuper": true,
     "Categories": [
@@ -140,7 +135,6 @@
     ]
   },
   "Admin": {
-    "Id": 6,
     "Title": "Администратор",
     "IsSuper": true
   }

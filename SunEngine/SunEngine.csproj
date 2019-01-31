@@ -12,6 +12,7 @@
         <PackageReference Include="linq2db" Version="2.6.3" />
         <PackageReference Include="linq2db.Identity" Version="2.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.App" />
+        <PackageReference Include="Npgsql" Version="4.0.4" />
         <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta0007" />
         <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0005" />
         <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0005" />
