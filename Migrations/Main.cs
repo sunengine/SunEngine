@@ -36,8 +36,9 @@ namespace Migrations
             return new ServiceCollection()
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
-                    .AddMySql5()
-                    //.AddPostgres() // Select DataBaseSupport
+                    // Select DataBaseSupport
+                    //.AddMySql5() 
+                    .AddPostgres()
                     .WithGlobalConnectionString(connectionString)
                     // Define the assembly containing the migrations
                     .ScanIn(typeof(Initial).Assembly).For.Migrations())
