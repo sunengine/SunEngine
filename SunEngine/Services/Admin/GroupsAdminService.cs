@@ -50,9 +50,9 @@ namespace SunEngine.Services.Admin
                                     new
                                     {
                                         Category = categories[y.CategoryId].Name,
-                                        OperationKeys =
-                                            y.CategoryOperationAccesses?.ToDictionary(z => z.OperationKeyDb.Name,
-                                                z => z.Access)
+                                        OperationKeys = y.CategoryOperationAccesses.Count > 0 ?
+                                            y.CategoryOperationAccesses.ToDictionary(z => z.OperationKeyDb.Name,
+                                                z => z.Access) : null
                                     }).ToArray()
                                 : null
                         }
