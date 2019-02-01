@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using System.Transactions;
 using Microsoft.AspNetCore.Mvc;
 using Flurl;
+using Jwt;
 using LinqToDB;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using SunEngine.Commons.Models;
 using SunEngine.Options;
@@ -15,6 +17,7 @@ using Microsoft.AspNetCore.Identity;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.StoreModels;
+using SunEngine.Commons.Utils;
 using SunEngine.EntityServices;
 using SunEngine.Infrastructure;
 using SunEngine.Services;
@@ -83,11 +86,33 @@ namespace SunEngine.Controllers
                 });
             }
 
+            if (!user.CheckTokens())
+            {
+                user.RenewTokens();
+            }
+
             logger.LogInformation($"User logged in (id: {user.Id})");
 
             string token = await authService.GenerateTokenAsync(user);
 
-            return Ok(new TokenViewModel {Token = token});
+            Response.Cookies.Append(
+                "si",
+                token,
+                new CookieOptions
+                {
+                    Path = "/", 
+                    HttpOnly = true, 
+                    IsEssential = true,
+                    Expires = DateTime.UtcNow.AddMonths(3)
+                }
+            );
+            
+            
+            
+            var rez =  StatusCode(200, new TokenViewModel {Token = token});
+            return rez;
+            //return Ok();
+            //return Ok(new TokenViewModel {Token = token});
         }
 
         [AllowAnonymous]
@@ -104,7 +129,7 @@ namespace SunEngine.Controllers
                 UserName = model.UserName,
                 Email = model.Email,
                 Avatar = SunEngine.Commons.Models.User.DefaultAvatar,
-                Photo = SunEngine.Commons.Models.User.DefaultAvatar
+                Photo = SunEngine.Commons.Models.User.DefaultAvatar,
             };
 
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))

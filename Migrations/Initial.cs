@@ -24,7 +24,7 @@ namespace Migrations
                 .WithColumn("SortNumber").AsInt32().NotNullable().Indexed()
                 .WithColumn("IsHidden").AsBoolean().NotNullable()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable();
-            
+
 
             Create.Table("AspNetUsers")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
@@ -45,7 +45,10 @@ namespace Migrations
                 .WithColumn("Link").AsMaxString().Nullable()
                 .WithColumn("Information").AsMaxString().Nullable()
                 .WithColumn("Photo").AsMaxString().Nullable()
-                .WithColumn("Avatar").AsMaxString().Nullable();
+                .WithColumn("Avatar").AsMaxString().Nullable()
+                .WithColumn("AuthLongToken1").AsString(10).Nullable()
+                .WithColumn("AuthLongToken2").AsString(10).Nullable()
+                .WithColumn("AuthLongTokenExpiration").AsDateTime().Nullable();
 
             Create.Table("UserBanedUnit")
                 .WithColumn("UserId").AsInt32().PrimaryKey().NotNullable().Indexed()

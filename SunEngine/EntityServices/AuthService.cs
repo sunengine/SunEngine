@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
+using SunEngine.Commons.Utils;
 using SunEngine.Controllers;
 using SunEngine.Options;
 using SunEngine.Services;
@@ -53,7 +54,7 @@ namespace SunEngine.EntityServices
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName),
                 //new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, CryptService.CryptoProvider.GetRandomString(16))
+                new Claim(JwtRegisteredClaimNames.Jti, CryptoRandomizer.GetRandomString(16))
             };
 
             var roleNames = await userManager.GetRolesAsync(user);
@@ -89,7 +90,7 @@ namespace SunEngine.EntityServices
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, email),
-                new Claim(JwtRegisteredClaimNames.Jti, CryptService.CryptoProvider.GetRandomString(16))
+                new Claim(JwtRegisteredClaimNames.Jti, CryptoRandomizer.GetRandomString(16))
             };
 
             var token = new JwtSecurityToken(

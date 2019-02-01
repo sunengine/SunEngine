@@ -62,5 +62,11 @@ namespace SunEngine.Services
             services.AddScoped<GroupsAdminService>();
         }
         
+        public static void AddCryptServices(this IServiceCollection services)
+        {
+            CryptService cryptService = new CryptService();
+            cryptService.AddCryptorKey(CaptchaService.CryptserviceName);
+            services.AddSingleton(cryptService);
+        }
     }  
 }

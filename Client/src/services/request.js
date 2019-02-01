@@ -1,13 +1,16 @@
 import axios from 'axios'
+import buildPath from 'services/buildPath';
 //import config from './config'
+
+const apiAxios = axios.create({ baseURL: config.API });
 
 export default async function request(url, data, sendAsJson = false, token = null /* or it will be send as FormData */) {
 
   var headers = {};
 
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
+  //if (token) {
+  //  headers['Authorization'] = `Bearer ${token}`;
+  //}
   headers['Accept'] = 'application/json';
 
   var body;
@@ -16,28 +19,35 @@ export default async function request(url, data, sendAsJson = false, token = nul
     if ((typeof data === 'object')) {
       if (data instanceof FormData) {
         body = data;
-      }
-      else if (sendAsJson === false) {
+      } else if (sendAsJson === false) {
         body = ConvertObjectToFormData(data);
-      }
-      else {
+      } else {
         headers['Content-Type'] = 'application/json';
         body = JSON.stringify(data);
       }
-    }
-    else {
+    } else {
       headers['Content-Type'] = 'application/x-www-form-urlencoded';
       body = data;
     }
   }
 
-  return await axios({
+
+  const rez =  await apiAxios.post(url,body,
+    {
+      headers: headers,
+      //withCredentials: true
+    });
+
+
+  return rez;
+
+  /*return await axios({
     method: 'post',
     url: url,
     baseURL: config.API,
     data: body,
     headers: headers
-  });
+  });*/
 }
 
 function ConvertObjectToFormData(obj) {

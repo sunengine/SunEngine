@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
+using System.Xml.Linq;
+using Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -98,10 +101,10 @@ namespace SunEngine
                         options.Password.RequiredLength = 6;
                         options.User.RequireUniqueEmail = true;
                         
-                        string engChars = "abcdefghijklmnopqrstuvwxyz";
-                        string rusChars = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
-                        string numbers = "0123456789";
-                        string other = "-";
+                        const string engChars = "abcdefghijklmnopqrstuvwxyz";
+                        const string rusChars = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+                        const string numbers = "0123456789";
+                        const string other = "-";
                         
                         options.User.AllowedUserNameCharacters = engChars + engChars.ToUpper() + rusChars + rusChars.ToUpper() + numbers+other;
                     })
@@ -141,9 +144,11 @@ namespace SunEngine
             
             services.AddAdminServices();
 
+            
+            
             //services.AddMemoryCache();
             
-            services.AddSingleton<CryptService>();
+            services.AddCryptServices();
             
             services.AddSingleton<CaptchaService>();
 
@@ -179,15 +184,18 @@ namespace SunEngine
 
             if (CurrentEnvironment.IsDevelopment())
             {
+                Console.WriteLine("IsDevelopment test!!!");
+                
                 app.UseStaticFiles();
                 
                 app.UseCors(builder =>
-                    builder.AllowAnyOrigin().AllowCredentials().AllowAnyHeader().AllowAnyMethod());
+                    builder.AllowAnyOrigin()
+                        .AllowCredentials().AllowAnyHeader().AllowAnyMethod());
             }
 
-           
-            app.UseAuthentication();
 
+            app.UseMiddleware<JwtMiddleware>();
+            app.UseAuthentication();
 
 
             app.UseMvc(routes =>

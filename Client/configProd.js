@@ -1,6 +1,6 @@
 
 var config = {
-  API: 'http://localhost:5000',
-  UploadedImages: 'http://localhost:5000/UploadImages',
+  API: 'http://localhost:8000/api',
+  UploadedImages: 'http://localhost:8000/UploadImages',
   SiteName: 'SunEngine'
 }
