@@ -26,31 +26,13 @@ namespace SunEngine.Services
         
         public void AddCryptorKey(string key)
         {
-            cryptorsKeys.Add(key, GenerateSequrityKey());
+            cryptorsKeys.Add(key, GenerateSecurityKey());
         }
 
-        public void AddCryptorKey(string key, byte[] sequrityKey)
+        public void AddCryptorKey(string key, byte[] securityKey)
         {
-            cryptorsKeys.Add(key, sequrityKey);
+            cryptorsKeys.Add(key, securityKey);
         }
-
-        /*public void AddCryptor(string key, string seurityKey, string vector)
-        {
-            var numberOfBits = 256;
-            byte[] SecurityKey = new byte[numberOfBits / 8]; 
-            
-            
-            CryptoRandomizer.CryptoProvider.GetBytes(SecurityKey);
-            
-            numberOfBits = 128;
-            byte[] IV = new byte[numberOfBits / 8];
-            CryptoRandomizer.CryptoProvider.GetBytes(IV);
-            
-            
-            Cryptors.Add(key,
-                new Cryptor(cipher.CreateEncryptor(SecurityKey,IV),
-                    cipher.CreateDecryptor(SecurityKey,IV)));
-        }*/
 
 
         private static string ToUrlSafeBase64(byte[] input)
@@ -95,14 +77,14 @@ namespace SunEngine.Services
             return z;
         }
 
-        private byte[] GenerateIV()
+        private static byte[] GenerateIV()
         {
             var IV = new byte[16];
             CryptoRandomizer.CryptoProvider.GetBytes(IV);
             return IV;
         }
         
-        private byte[] GenerateSequrityKey()
+        private static byte[] GenerateSecurityKey()
         {
             var SequrityKey = new byte[32];
             CryptoRandomizer.CryptoProvider.GetBytes(SequrityKey);
