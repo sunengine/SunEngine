@@ -5,11 +5,11 @@ export function hasToken() {
 }
 
 export function getToken() {
-  return localStorage.getItem(TOKENS_KEY);
+  return JSON.parse(localStorage.getItem(TOKENS_KEY));
 }
 
 export function setToken(tokens) {
-  localStorage.setItem(TOKENS_KEY, tokens);
+  localStorage.setItem(TOKENS_KEY, JSON.stringify(tokens));
 }
 
 export function removeToken() {

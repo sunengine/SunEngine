@@ -71,7 +71,7 @@ namespace SunEngine.EntityServices
                 issuer: jwtOptions.Issuer,
                 audience: jwtOptions.Issuer,
                 claims: claims.ToArray(),
-                expires: DateTime.Now.AddDays(1),
+                expires: DateTime.UtcNow.AddMinutes(1), //DateTime.Now.AddDays(1),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
@@ -140,6 +140,23 @@ namespace SunEngine.EntityServices
             return db.Users.AnyAsync(x => x.NormalizedEmail == email.ToUpper() && x.Id != userId);
         }
 
+        public LongSession FindLongSession(LongSession longSession)
+        {
+            return db.LongSessions.FirstOrDefault(x => x.UserId == longSession.UserId &&
+                                                       x.LongToken1 == longSession.LongToken1 &&
+                                                       x.LongToken2 == longSession.LongToken2);
+        }
+
+        private JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
+        {
+            ContractResolver = new CamelCasePropertyNamesContractResolver()
+        };
+
+        public async Task RenewSecurityTokensAsync(HttpResponse response, int userId, LongSession longSession = null)
+        {
+            var user = await db.Users.FirstOrDefaultAsync(x => x.Id == userId);
+            await RenewSecurityTokensAsync(response, user, longSession);
+        }
 
         public async Task RenewSecurityTokensAsync(HttpResponse response, User user, LongSession longSession = null)
         {
@@ -189,9 +206,6 @@ namespace SunEngine.EntityServices
 
             var shortToken = await GenerateShortAuthTokenAsync(user);
 
-            
-            var ss = new JsonSerializerSettings();
-            ss.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             string json = JsonConvert.SerializeObject(new
             {
@@ -201,12 +215,9 @@ namespace SunEngine.EntityServices
                     Expiration = longSession.ExpirationDate.ToInvariantString()
                 },
                 ShortToken = shortToken
-            }, ss);
-            
-            response.Headers.Add("TOKENS", json );
+            }, jsonSerializerSettings);
 
-            
-
+            response.Headers.Add("TOKENS", json);
         }
 
         public string CreateLong2AuthToken(string lat2, DateTime expireDate, int userId)

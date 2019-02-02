@@ -1,17 +1,22 @@
 import axios from 'axios'
-import buildPath from 'services/buildPath';
-//import config from './config'
 
-const apiAxios = axios.create({baseURL: config.API, withCredentials: true});
+const apiAxios = axios.create({baseURL: config.API, withCredentials: process.env.DEV });
 
-export default async function request(url, data, sendAsJson = false, token = null /* or it will be send as FormData */) {
+
+export default async function request(url, data, sendAsJson = false, tokens = null) {
 
   const headers = {};
 
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
+  if (tokens) {
+
+    if(tokens.shortTokenExpiration < new Date())
+    {
+      headers['LongToken1'] = tokens.longToken.token;
+    }
+    else {
+      headers['Authorization'] = `Bearer ${tokens.shortToken}`;
+    }
   }
-  headers['Accept'] = 'application/json';
 
   let body;
 
@@ -35,25 +40,20 @@ export default async function request(url, data, sendAsJson = false, token = nul
   const rez = await apiAxios.post(url, body,
     {
       headers: headers,
-      //withCredentials: true
     });
 
+/*  if(rez.headers.TOKENS) {
+
+  }*/
 
   return rez;
 
-  /*return await axios({
-    method: 'post',
-    url: url,
-    baseURL: config.API,
-    data: body,
-    headers: headers
-  });*/
 }
 
 function ConvertObjectToFormData(obj) {
-  var formData = new FormData();
+  const formData = new FormData();
 
-  for (var key in obj) {
+  for (const key in obj) {
     formData.append(key, obj[key]);
   }
 
