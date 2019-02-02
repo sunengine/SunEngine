@@ -8,13 +8,13 @@ export function makeLogin (state,data) {
   Object.assign(state,data);
 
   if(data.permanent) {
-    setToken(data.token);
+    setToken(data.tokens);
   }
 
 }
 
 export function makeLogout (state) {
-  state.token = null;
+  state.tokens = null;
   state.user = null;
   state.userGroup = 'Unregistered';
   state.userGroups= ['Unregistered'];

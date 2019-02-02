@@ -120,10 +120,14 @@ namespace SunEngine
                 })
                 .AddJwtBearer(config =>
                 {
-                    config.RequireHttpsMetadata = false;
-                    config.SaveToken = true;
+                    if (CurrentEnvironment.IsDevelopment())
+                    {
+                        config.RequireHttpsMetadata = false;
+                    }
+                    
+                    //config.SaveToken = true;
 
-                    config.TokenValidationParameters = new TokenValidationParameters()
+                    config.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
                         ValidateAudience = true,
@@ -132,7 +136,7 @@ namespace SunEngine
                         ValidIssuer = Configuration["Jwt:Issuer"],
                         ValidAudience = Configuration["Jwt:Issuer"],
                         IssuerSigningKey =
-                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecurityKey"]))
+                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:ShortJwtSecurityKey"]))
                     };
                 });
 
@@ -184,13 +188,11 @@ namespace SunEngine
 
             if (CurrentEnvironment.IsDevelopment())
             {
-                Console.WriteLine("IsDevelopment test!!!");
-                
                 app.UseStaticFiles();
                 
                 app.UseCors(builder =>
-                    builder.AllowAnyOrigin()
-                        .AllowCredentials().AllowAnyHeader().AllowAnyMethod());
+                    builder.WithOrigins("http://localhost:5005")
+                        .AllowCredentials().AllowAnyHeader().AllowAnyMethod().WithExposedHeaders("TOKENS"));
             }
 
 

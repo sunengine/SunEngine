@@ -1,7 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Utils;
+using SunEngine.Options;
 using SunEngine.Services;
 
 namespace Jwt
@@ -9,48 +15,49 @@ namespace Jwt
     public class JwtMiddleware
     {
         private readonly RequestDelegate next;
-
-        public JwtMiddleware(RequestDelegate next)
+        private readonly JwtOptions jwtOptions;
+        
+        public JwtMiddleware(RequestDelegate next, IOptions<JwtOptions> jwtOptions)
         {
             this.next = next;
+            this.jwtOptions = jwtOptions.Value;
         }
  
         public async Task Invoke(HttpContext context)
         {
             var name = "si";
-            var cookie = context.Request.Cookies[name];
+            var cookie = context.Request.Cookies["LAT2"];
 
-            if (cookie != null)
-                if (!context.Request.Headers.ContainsKey("Authorization"))
-                    context.Request.Headers.Append("Authorization", "Bearer " + cookie);
+            if (cookie == null || !Validate(cookie))
+                if (context.Request.Headers.ContainsKey("Authorization"))
+                    context.Request.Headers.Remove("Authorization");
 
             await next.Invoke(context);
         }
-    }
 
-    public static class ResponseExtensions
-    {
-        public static void AddSequrityTokens(this HttpResponse response, User user)
+        bool Validate(string token)
         {
-            if(!user.CheckTokens())
-                user.RenewTokens();
-            
-            response.Headers.Add("LAT1",user.AuthLongToken1);
-            
-           CryptService cryptService = new CryptService();
-               
-            
-            /*response.Cookies.Append(
-                "LAT2",
-                token,
-                new CookieOptions
-                {
-                    Path = "/", 
-                    HttpOnly = true, 
-                    IsEssential = true,
-                    Expires = user.AuthLongTokenExpiration.Value
-                }
-            );*/
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.LongJwtSecurityKey));
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidateLifetime = true,
+                ValidateAudience = true,
+                ValidateIssuer = true,
+                ValidIssuer = jwtOptions.Issuer,
+                ValidAudience = jwtOptions.Issuer,
+                IssuerSigningKey = key
+            };
+
+            try
+            {
+                return tokenHandler.ValidateToken(token, validationParameters, out _) != null;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

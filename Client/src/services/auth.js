@@ -10,14 +10,19 @@ export async function loginRequest(nameOrEmail, password) {
   return await request("/Auth/Login", {nameOrEmail:nameOrEmail, password:password})
     .then(
       response => {
-        console.log("response",response);
-        return response.data.token;
+        return JSON.parse(response.headers.tokens);
       }
     );
 }
 
+export function getTokensFromResponse(response) {
+
+}
+
 export function makeUserDataFromToken(token) {
-  const tokenParsed = parseJwt(token);
+
+  debugger;
+  const tokenParsed = parseJwt(token.shortToken);
 
   let roles = tokenParsed[RolesKey];
   let userGroups;
@@ -36,7 +41,7 @@ export function makeUserDataFromToken(token) {
   }
 
   let data = {
-    token: token,
+    tokens: token,
     user: {
       id: tokenParsed[IdKey],
       name: tokenParsed[NameKey],

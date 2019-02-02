@@ -58,6 +58,8 @@ namespace SunEngine.Commons.DataBase
         public ITable<UserToGroup> UserToGroups => GetTable<UserToGroup>();
         
         public ITable<UserBanedUnit> UserBanedUnits => GetTable<UserBanedUnit>();
+        
+        public ITable<LongSession> LongSessions => GetTable<LongSession>();
 
     }
 }

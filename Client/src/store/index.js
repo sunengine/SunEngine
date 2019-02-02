@@ -29,7 +29,7 @@ export default function (/* { ssrContext } */) {
     },
     actions: {
       async request(context, data) {
-        return await request(data.url, data.data, data.sendAsJson, context.state.auth.token);
+        return await request(data.url, data.data, data.sendAsJson, context.state.auth.tokens?.shortToken);
       },
       async init() {
         try {

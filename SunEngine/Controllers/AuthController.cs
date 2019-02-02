@@ -86,33 +86,9 @@ namespace SunEngine.Controllers
                 });
             }
 
-            if (!user.CheckTokens())
-            {
-                user.RenewTokens();
-            }
-
-            logger.LogInformation($"User logged in (id: {user.Id})");
-
-            string token = await authService.GenerateTokenAsync(user);
-
-            Response.Cookies.Append(
-                "si",
-                token,
-                new CookieOptions
-                {
-                    Path = "/", 
-                    HttpOnly = true, 
-                    IsEssential = true,
-                    Expires = DateTime.UtcNow.AddMonths(3)
-                }
-            );
+            await authService.RenewSecurityTokensAsync(Response, user);
             
-            
-            
-            var rez =  StatusCode(200, new TokenViewModel {Token = token});
-            return rez;
-            //return Ok();
-            //return Ok(new TokenViewModel {Token = token});
+            return Ok();
         }
 
         [AllowAnonymous]

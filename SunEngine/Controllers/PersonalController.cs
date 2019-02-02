@@ -73,8 +73,9 @@ namespace SunEngine.Controllers
             }
 
             await personalService.SetMyNameAsync(user, name);
-            var token = await authService.GenerateTokenAsync(user);
-            return Ok(new TokenViewModel {Token = token});
+            //var token = await authService.GenerateTokenAsync(user);
+            //return Ok(new TokenViewModel {Token = token});
+            return Ok();
         }
 
         [HttpPost]

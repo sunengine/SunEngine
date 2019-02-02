@@ -2,18 +2,18 @@ import axios from 'axios'
 import buildPath from 'services/buildPath';
 //import config from './config'
 
-const apiAxios = axios.create({ baseURL: config.API });
+const apiAxios = axios.create({baseURL: config.API, withCredentials: true});
 
 export default async function request(url, data, sendAsJson = false, token = null /* or it will be send as FormData */) {
 
-  var headers = {};
+  const headers = {};
 
-  //if (token) {
-  //  headers['Authorization'] = `Bearer ${token}`;
-  //}
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
   headers['Accept'] = 'application/json';
 
-  var body;
+  let body;
 
   if (data) {
     if ((typeof data === 'object')) {
@@ -32,7 +32,7 @@ export default async function request(url, data, sendAsJson = false, token = nul
   }
 
 
-  const rez =  await apiAxios.post(url,body,
+  const rez = await apiAxios.post(url, body,
     {
       headers: headers,
       //withCredentials: true

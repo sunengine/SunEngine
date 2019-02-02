@@ -1,19 +1,19 @@
-const TOKEN_KEY = "token";
+const TOKENS_KEY = "tokens";
 
 export function hasToken() {
-  return localStorage.getItem(TOKEN_KEY) != null;
+  return localStorage.getItem(TOKENS_KEY) != null;
 }
 
 export function getToken() {
-  return localStorage.getItem(TOKEN_KEY);
+  return localStorage.getItem(TOKENS_KEY);
 }
 
-export function setToken(token) {
-  localStorage.setItem(TOKEN_KEY, token);
+export function setToken(tokens) {
+  localStorage.setItem(TOKENS_KEY, tokens);
 }
 
 export function removeToken() {
-  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(TOKENS_KEY);
 }
 
 export function parseJwt(token) {

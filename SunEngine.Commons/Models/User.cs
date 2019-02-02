@@ -29,11 +29,7 @@ namespace SunEngine.Commons.Models
         
         [Association(ThisKey = "Id", OtherKey = "UserId")]
         public ICollection<UserBanedUnit> BanList { get; set; }
-        
-        
-        public string AuthLongToken1 { get; set; }
-        public string AuthLongToken2 { get; set; }
-        public DateTime? AuthLongTokenExpiration { get; set; }
+
     }
 
     public class UserBanedUnit

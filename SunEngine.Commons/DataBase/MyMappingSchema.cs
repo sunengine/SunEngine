@@ -80,6 +80,13 @@ namespace SunEngine.Commons.DataBase
                 .HasPrimaryKey(x => new {x.UserId, x.RoleId})
                 .Association(x => x.User, x => x.UserId, x => x.Id)
                 .Association(x => x.UserGroup, x => x.RoleId, x => x.Id);
+
+            mp.Entity<LongSession>()
+                .HasTableName("LongSessions")
+                .HasIdentity(x => x.Id)
+                .HasPrimaryKey(x => x.Id)
+                .Association(x => x.User, x => x.UserId, x => x.Id);
+
         }
     }
 }

@@ -1,5 +1,5 @@
 export default {
-  token: null,
+  tokens: null,
   user: null,
   userGroup: 'Unregistered',
   userGroups: ['Unregistered']

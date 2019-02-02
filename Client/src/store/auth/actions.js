@@ -8,8 +8,9 @@ export async function doLogin(context, userData) {
   return await loginRequest(userData.nameOrEmail, userData.password)
     .then(async tokenData => {
 
-      var data = makeUserDataFromToken(tokenData);
-      data.permanent = !userData.notMyComputer
+      const data = makeUserDataFromToken(tokenData);
+
+      data.permanent = !userData.notMyComputer;
 
       context.commit('makeLogin', data);
 

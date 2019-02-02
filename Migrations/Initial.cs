@@ -45,10 +45,8 @@ namespace Migrations
                 .WithColumn("Link").AsMaxString().Nullable()
                 .WithColumn("Information").AsMaxString().Nullable()
                 .WithColumn("Photo").AsMaxString().Nullable()
-                .WithColumn("Avatar").AsMaxString().Nullable()
-                .WithColumn("AuthLongToken1").AsString(10).Nullable()
-                .WithColumn("AuthLongToken2").AsString(10).Nullable()
-                .WithColumn("AuthLongTokenExpiration").AsDateTime().Nullable();
+                .WithColumn("Avatar").AsMaxString().Nullable();
+               
 
             Create.Table("UserBanedUnit")
                 .WithColumn("UserId").AsInt32().PrimaryKey().NotNullable().Indexed()
@@ -143,6 +141,20 @@ namespace Migrations
                 .WithColumn("OperationKeyId").AsInt32().PrimaryKey().NotNullable().Indexed().ForeignKey(
                     "FK_CategoryOperationAccesses_OperationKeys_OperationKeyId", "OperationKeys", "OperationKeyId")
                 .WithColumn("Access").AsBoolean().NotNullable();
+
+            Create.Table("LongSessions")
+                .WithColumn("Id").AsInt64().PrimaryKey().Identity().NotNullable()
+                .WithColumn("UserId").AsInt32().NotNullable().Indexed()
+                .ForeignKey("FK_LongSession_AspNetUsers_Id", "AspNetUsers", "Id")
+                .WithColumn("LongToken1").AsString(16).NotNullable()
+                .WithColumn("LongToken2").AsString(16).NotNullable()
+                .WithColumn("DeviceInfo").AsMaxString().NotNullable()
+                .WithColumn("ExpirationDate").AsDateTime().NotNullable().Indexed();
+
+            Create.Index("IX_LongSessions_Main").OnTable("LongSessions")
+                .OnColumn("UserId").Ascending()
+                .OnColumn("LongToken1").Ascending()
+                .OnColumn("LongToken2").Ascending();
         }
 
         public override void Down()

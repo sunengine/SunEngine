@@ -3,6 +3,9 @@
 	
 	
 	
+	
+	
+	
 	<s:Boolean x:Key="/Default/CodeStyle/Naming/CSharpAutoNaming/IsNamingAutoDetectionCompleted/@EntryValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeStyle/Naming/CSharpAutoNaming/IsNotificationDisabled/@EntryValue">True</s:Boolean>
 	
@@ -21,4 +24,5 @@
   &lt;Assembly Path="/usr/share/dotnet/sdk/NuGetFallbackFolder/microsoft.aspnetcore.identity/2.2.0/lib/netstandard2.0/Microsoft.AspNetCore.Identity.dll" /&gt;
   &lt;Assembly Path="/home/okeanij/.nuget/packages/linq2db/2.6.1/lib/netcoreapp2.0/linq2db.dll" /&gt;
   &lt;Assembly Path="/home/okeanij/.nuget/packages/linq2db.identity/2.0.1/lib/netcoreapp2.0/LinqToDB.Identity.dll" /&gt;
+  &lt;Assembly Path="/usr/share/dotnet/sdk/NuGetFallbackFolder/newtonsoft.json/11.0.2/lib/netstandard2.0/Newtonsoft.Json.dll" /&gt;
 &lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>

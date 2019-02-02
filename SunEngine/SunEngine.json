@@ -35,9 +35,10 @@
     "PostsPageSize": 8
   },
   "Jwt": {
-    "SecurityKey": "15810a26-ee1c-4ced-9078-f2d92f23ee0f",
+    "ShortJwtSecurityKey": "15810a26-ee1c-4ced-9078-f2d92f23ee0f",
+    "LongJwtSecurityKey": "1c52893e-00b8-485a-b655-5ea01131816c",
     "Issuer": "SunEngine Asp.net Core",
-    "SecurityKeyEmailChange": "A62C348C-A183-4615-A067-BC920BF91969"
+    "SecurityKeyEmailChange": "f29aa7cf-229d-4187-9244-e700e8e8d207"
   },
   "Captcha": {
   },
