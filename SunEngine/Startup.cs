@@ -1,14 +1,18 @@
 ﻿using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using System.Xml.Linq;
 using Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SunEngine.Authorization;
@@ -21,9 +25,15 @@ using SunEngine.Commons.TextProcess;
 using SunEngine.Infrastructure;
 using SunEngine.Services;
 using SunEngine.Stores;
+using IAuthorizationService = SunEngine.Commons.Services.IAuthorizationService;
 
 namespace SunEngine
 {
+
+   
+    
+    
+    
     public class Startup
     {
         public Startup(IConfiguration configuration, IHostingEnvironment env)
@@ -36,6 +46,9 @@ namespace SunEngine
 
         private IHostingEnvironment CurrentEnvironment { get; }
 
+        
+        
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
@@ -126,7 +139,7 @@ namespace SunEngine
                     }
                     
                     //config.SaveToken = true;
-
+                   
                     config.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,

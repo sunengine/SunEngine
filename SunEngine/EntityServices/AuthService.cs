@@ -47,35 +47,7 @@ namespace SunEngine.EntityServices
             return await GenerateTokenAsync(user);
         }*/
 
-        public async Task<string> GenerateShortAuthTokenAsync(User user)
-        {
-            // Generate and issue a JWT token
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.ShortJwtSecurityKey));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Jti, CryptoRandomizer.GetRandomString(16))
-            };
-
-            var roleNames = await userManager.GetRolesAsync(user);
-
-            foreach (var role in roleNames)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
-
-            var token = new JwtSecurityToken(
-                issuer: jwtOptions.Issuer,
-                audience: jwtOptions.Issuer,
-                claims: claims.ToArray(),
-                expires: DateTime.UtcNow.AddMinutes(1), //DateTime.Now.AddDays(1),
-                signingCredentials: credentials);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+        
 
         public Task ChangeEmailAsync(int userId, string email)
         {
@@ -190,7 +162,7 @@ namespace SunEngine.EntityServices
             //response.Headers.Add("LAT1", longSession.LongToken1);
             //response.Headers.Add("LATEXP", longSession.ExpirationDate.ToInvariantString());
 
-            var lat2Token = CreateLong2AuthToken(longSession.LongToken2, longSession.ExpirationDate, user.Id);
+            var lat2Token = CreateLong2AuthToken(longSession.LongToken2, longSession.ExpirationDate, user.Id, out string lat2r);
 
             response.Cookies.Append(
                 "LAT2",
@@ -204,7 +176,7 @@ namespace SunEngine.EntityServices
                 }
             );
 
-            var shortToken = await GenerateShortAuthTokenAsync(user);
+            var shortToken = await GenerateShortAuthTokenAsync(user,lat2r);
 
 
             string json = JsonConvert.SerializeObject(new
@@ -220,16 +192,18 @@ namespace SunEngine.EntityServices
             response.Headers.Add("TOKENS", json);
         }
 
-        public string CreateLong2AuthToken(string lat2, DateTime expireDate, int userId)
+        public string CreateLong2AuthToken(string lat2, DateTime expireDate, int userId, out string lat2r)
         {
             var key = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(jwtOptions.LongJwtSecurityKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
+            lat2r = CryptoRandomizer.GetRandomString(10);
+            
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-
+                new Claim("LAT2R", lat2r),
                 new Claim("LAT2", lat2)
             };
 
@@ -238,6 +212,37 @@ namespace SunEngine.EntityServices
                 audience: jwtOptions.Issuer,
                 claims: claims.ToArray(),
                 expires: expireDate,
+                signingCredentials: credentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+        
+        public async Task<string> GenerateShortAuthTokenAsync(User user, string lat2r)
+        {
+            // Generate and issue a JWT token
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.ShortJwtSecurityKey));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
+
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim("LAT2R", lat2r),
+                new Claim(JwtRegisteredClaimNames.Jti, CryptoRandomizer.GetRandomString(16))
+            };
+
+            var roleNames = await userManager.GetRolesAsync(user);
+
+            foreach (var role in roleNames)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
+            var token = new JwtSecurityToken(
+                issuer: jwtOptions.Issuer,
+                audience: jwtOptions.Issuer,
+                claims: claims.ToArray(),
+                expires: DateTime.UtcNow.AddMinutes(1), //DateTime.Now.AddDays(1),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

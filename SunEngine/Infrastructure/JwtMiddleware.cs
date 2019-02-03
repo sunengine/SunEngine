@@ -28,13 +28,29 @@ namespace Jwt
 
         public async Task InvokeAsync(HttpContext context, AuthService authService)
         {
-            var cookie = context.Request.Cookies["LAT2"];
-
-            if (cookie == null)
+            void ErrorAuthorization()
+            {
                 if (context.Request.Headers.ContainsKey("Authorization"))
                     context.Request.Headers.Remove("Authorization");
+                
+                context.Response.Cookies.Append("LAT2","", 
+                    new CookieOptions
+                    {
+                        Expires = DateTimeOffset.UtcNow.AddMonths(-1)
+                    });
+                
+                context.Response.Headers.Add("TOKENSEXPIRE","");
+            }
+
+            
+            var cookie = context.Request.Cookies["LAT2"];
+
+            if (cookie == null) ErrorAuthorization();
+               
 
             var jwtLongToken2 = ReadLongToken2(cookie);
+            if(jwtLongToken2 == null) ErrorAuthorization();
+            
 
             if (context.Request.Headers.ContainsKey("LongToken1"))
             {
