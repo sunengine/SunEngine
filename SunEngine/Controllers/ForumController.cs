@@ -30,7 +30,8 @@ namespace SunEngine.Controllers
             CategoriesAuthorization categoriesAuthorization,
             OperationKeysContainer operationKeysContainer,
             ForumService forumService,
-            MyUserManager userManager) : base(userManager)
+            MyUserManager userManager,
+            IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
             this.OperationKeys = operationKeysContainer;
 

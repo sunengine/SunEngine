@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
+using SunEngine.Stores;
 
 namespace SunEngine.Controllers
 {
@@ -15,7 +16,8 @@ namespace SunEngine.Controllers
         
         public PulseController(
             MyUserManager userManager,
-            DataBaseConnection db) : base(userManager)
+            DataBaseConnection db,
+            IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
             this.db = db;
         }

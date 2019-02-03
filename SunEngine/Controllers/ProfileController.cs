@@ -7,6 +7,7 @@ using SunEngine.Commons.Services;
 using SunEngine.Commons.StoreModels;
 using SunEngine.EntityServices;
 using SunEngine.Infrastructure;
+using SunEngine.Stores;
 
 namespace SunEngine.Controllers
 {
@@ -20,7 +21,8 @@ namespace SunEngine.Controllers
         
         public ProfileController(
             ProfileService profileService,
-            MyUserManager userManager) : base(userManager)
+            MyUserManager userManager,
+            IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
             this.profileService = profileService;
         }

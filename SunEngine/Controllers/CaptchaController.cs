@@ -5,6 +5,7 @@ using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
 using SunEngine.Infrastructure;
 using SunEngine.Services;
+using SunEngine.Stores;
 
 namespace SunEngine.Controllers
 {
@@ -15,7 +16,8 @@ namespace SunEngine.Controllers
 
         public CaptchaController(
             MyUserManager userManager, 
-            CaptchaService captchaService) : base(userManager)
+            IUserGroupStore userGroupStore,
+            CaptchaService captchaService) : base(userGroupStore, userManager)
         {
             this.captchaService = captchaService;
         }

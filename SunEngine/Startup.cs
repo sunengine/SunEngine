@@ -30,10 +30,6 @@ using IAuthorizationService = SunEngine.Commons.Services.IAuthorizationService;
 namespace SunEngine
 {
 
-   
-    
-    
-    
     public class Startup
     {
         public Startup(IConfiguration configuration, IHostingEnvironment env)
@@ -46,7 +42,6 @@ namespace SunEngine
 
         private IHostingEnvironment CurrentEnvironment { get; }
 
-        
         
         
         public void ConfigureServices(IServiceCollection services)
@@ -152,6 +147,14 @@ namespace SunEngine
                             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:ShortJwtSecurityKey"]))
                     };
                 });
+            
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = MyJwt.Scheme;
+                    //options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = MyJwt.Scheme;
+                })
+                .AddScheme<MyJwtOptions, MyJwtHandler>(MyJwt.Scheme, MyJwt.Scheme, options => { });
 
             services.AddTransient<IEmailSender, EmailSender>();
 
@@ -171,7 +174,7 @@ namespace SunEngine
 
 
 
-            services.AddMvcCore(options => { options.Filters.Add(new MyAuthUserFilter(userGroupStore)); })
+            services.AddMvcCore(options => { /*options.Filters.Add(new MyAuthUserFilter(userGroupStore));*/ })
                 .AddApiExplorer()
                 .AddAuthorization()
                 .AddJsonFormatters(options =>
@@ -209,7 +212,7 @@ namespace SunEngine
             }
 
 
-            app.UseMiddleware<JwtMiddleware>();
+            //app.UseMiddleware<JwtMiddleware>();
             app.UseAuthentication();
 
 

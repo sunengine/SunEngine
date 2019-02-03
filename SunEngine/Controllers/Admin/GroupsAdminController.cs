@@ -15,18 +15,12 @@ namespace SunEngine.Controllers.Admin
     {
         private readonly GroupsAdminService groupsAdminService;
 
-        //private readonly ICategoriesStore categoriesStore;
-        private readonly IUserGroupStore userGroupStore;
-
         public GroupsAdminController(
             MyUserManager userManager,
             GroupsAdminService groupsAdminService,
-            //ICategoriesStore categoriesStore,
-            IUserGroupStore userGroupStore) : base(userManager)
+            IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
             this.groupsAdminService = groupsAdminService;
-            //this.categoriesStore = categoriesStore;
-            this.userGroupStore = userGroupStore;
         }
 
         public async Task<IActionResult> GetJson()

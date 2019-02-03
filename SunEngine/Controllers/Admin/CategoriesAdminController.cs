@@ -25,7 +25,7 @@ namespace SunEngine.Controllers.Admin
             DataBaseConnection db,
             CategoriesAdminService categoriesAdminService,
             ICategoriesStore categoriesStore,
-            MyUserManager userManager) : base(userManager)
+            MyUserManager userManager, IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
             this.db = db;
             this.categoriesStore = categoriesStore;

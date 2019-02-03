@@ -21,7 +21,8 @@ namespace SunEngine.Controllers
             MaterialsAuthorization materialsAuthorization,
             ICategoriesStore categoriesStore, 
             MaterialsService materialsService,
-            MyUserManager userManager) : base(userManager)
+            MyUserManager userManager,
+            IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
             this.materialsAuthorization = materialsAuthorization;
             this.categoriesStore = categoriesStore;

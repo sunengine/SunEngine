@@ -15,19 +15,17 @@ namespace SunEngine.Controllers
 
         private readonly IAuthorizationService authorizationService;
         private readonly ICategoriesStore categoriesStore;
-        private readonly IUserGroupStore userGroupStore;
 
         public CategoriesController(IUserGroupStore userGroupStore,
             ICategoriesStore categoriesStore,
             IAuthorizationService authorizationService,
             OperationKeysContainer operationKeysContainer,
-            MyUserManager userManager) : base(userManager)
+            MyUserManager userManager) : base(userGroupStore, userManager)
         {
             OperationKeys = operationKeysContainer;
 
             this.authorizationService = authorizationService;
             this.categoriesStore = categoriesStore;
-            this.userGroupStore = userGroupStore;
         }
 
         [HttpPost]

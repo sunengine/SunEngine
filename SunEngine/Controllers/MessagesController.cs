@@ -7,6 +7,7 @@ using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
 using SunEngine.EntityServices;
 using SunEngine.Infrastructure;
+using SunEngine.Stores;
 using IAuthorizationService = SunEngine.Commons.Services.IAuthorizationService;
 
 namespace SunEngine.Controllers
@@ -30,7 +31,8 @@ namespace SunEngine.Controllers
             OperationKeysContainer operationKeysContainer, 
             MessagesService messagesService,
             IAuthorizationService authorizationService,
-            MyUserManager userManager) : base(userManager)
+            MyUserManager userManager,
+            IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
             this.operationKeysContainer = operationKeysContainer;
             this.messageAuthorization = messageAuthorization;

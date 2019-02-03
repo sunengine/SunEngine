@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
 using SunEngine.EntityServices;
+using SunEngine.Stores;
 
 namespace SunEngine.Controllers
 {
@@ -21,8 +22,9 @@ namespace SunEngine.Controllers
         public PersonalController(
             PersonalService personalService, 
             AuthService authService, 
-            MyUserManager userManager)
-            : base(userManager)
+            MyUserManager userManager,
+            IUserGroupStore userGroupStore)
+            : base(userGroupStore, userManager)
         {
             this.personalService = personalService;
             this.authService = authService;

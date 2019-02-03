@@ -11,6 +11,7 @@ using SunEngine.Commons.Services;
 using SunEngine.EntityServices;
 using SunEngine.Options;
 using SunEngine.Services;
+using SunEngine.Stores;
 
 namespace SunEngine.Controllers
 {
@@ -26,7 +27,8 @@ namespace SunEngine.Controllers
             PersonalService personalService,
             ImagesService imagesService,
             CaptchaService captchaService,
-            MyUserManager userManager) : base(userManager)
+            MyUserManager userManager,
+            IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
             this.imagesOptions = imagesOptions.Value;
             this.personalService = personalService;

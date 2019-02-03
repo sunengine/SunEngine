@@ -21,6 +21,7 @@ using SunEngine.Commons.Utils;
 using SunEngine.EntityServices;
 using SunEngine.Infrastructure;
 using SunEngine.Services;
+using SunEngine.Stores;
 
 namespace SunEngine.Controllers
 {
@@ -41,7 +42,8 @@ namespace SunEngine.Controllers
             ILoggerFactory loggerFactory,
             AuthService authService,
             CaptchaService captchaService,
-            IOptions<GlobalOptions> globalOptions) : base(userManager)
+            IOptions<GlobalOptions> globalOptions,
+            IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
             this.globalOptions = globalOptions.Value;
             this.emailSender = emailSender;
