@@ -2,11 +2,11 @@
   <div>
     <q-list class="menu-list">
       <q-item :multiline="false">
-        <img class="avatar" :src="user.avatar"/>
+        <img class="avatar" :src="userInfo.avatar"/>
         <!--<q-icon name="fas fa-user" />-->
         {{user.name}}
       </q-item>
-      <q-item :to="$buildPath(`/user/${user.link}`)" >
+      <q-item :to="$buildPath(`/user/${userInfo.link}`)" >
         <q-icon name="fas fa-user-circle" />
         Профиль
       </q-item>
@@ -36,7 +36,8 @@
         return this.$store.state.auth.userGroups.some(x => x == 'Admin')
       },
       ...mapState({
-        user: state => state.auth.user
+        user: state => state.auth.user,
+        userInfo: state => state.auth.userInfo
       })
 
     },

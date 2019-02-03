@@ -50,7 +50,7 @@
         },
         "linq2db": {
           "target": "Package",
-          "version": "[2.6.3, )"
+          "version": "[2.6.4, )"
         },
         "linq2db.Identity": {
           "target": "Package",

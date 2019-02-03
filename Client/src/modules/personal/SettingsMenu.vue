@@ -1,7 +1,7 @@
 <template>
   <QList class="menu-list" no-border>
     <q-item>
-      <img class="on-left avatar" :src="user.avatar"/>
+      <img class="on-left avatar" :src="userInfo.avatar"/>
       <!--<q-icon name="far fa-user" size="16px" class="on-left"/>-->
       {{user.name}}
     </q-item>
@@ -47,9 +47,9 @@
     name: "SettingsMenu",
     computed: {
       ...mapState({
-        user: state => state.auth.user
+        user: state => state.auth.user,
+        userInfo: state => state.auth.userInfo
       })
-
     },
   }
 </script>

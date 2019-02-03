@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Transactions;
 using Microsoft.AspNetCore.Mvc;
 using Flurl;
-using Jwt;
 using LinqToDB;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authorization;
@@ -17,7 +17,6 @@ using Microsoft.AspNetCore.Identity;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.StoreModels;
-using SunEngine.Commons.Utils;
 using SunEngine.EntityServices;
 using SunEngine.Infrastructure;
 using SunEngine.Services;
@@ -33,7 +32,6 @@ namespace SunEngine.Controllers
         private readonly AuthService authService;
         private readonly DataBaseConnection db;
         private readonly GlobalOptions globalOptions;
-        private readonly CaptchaService captchaService;
 
         public AuthController(
             MyUserManager userManager,
@@ -41,7 +39,6 @@ namespace SunEngine.Controllers
             DataBaseConnection db,
             ILoggerFactory loggerFactory,
             AuthService authService,
-            CaptchaService captchaService,
             IOptions<GlobalOptions> globalOptions,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
@@ -50,7 +47,6 @@ namespace SunEngine.Controllers
             logger = loggerFactory.CreateLogger<AuthController>();
             this.db = db;
             this.authService = authService;
-            this.captchaService = captchaService;
         }
 
         [AllowAnonymous]
@@ -89,6 +85,36 @@ namespace SunEngine.Controllers
             }
 
             await authService.RenewSecurityTokensAsync(Response, user);
+            
+            return Ok();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            int userId = User.UserId;
+            long sessionId = User.SessionId;
+            await db.LongSessions.Where(x => x.UserId == userId && x.Id == sessionId).DeleteAsync();
+            
+            Response.Headers.Clear();
+            foreach (var key in Request.Cookies.Keys)
+            {
+                Response.Cookies.Delete(key);
+            }
+            
+            Response.Cookies.Append("LAT2", "",
+                new CookieOptions
+                {
+                    Expires = DateTimeOffset.UtcNow.AddMonths(-1)
+                });
+
+            Response.Cookies.Append("Authorization", "",
+                new CookieOptions
+                {
+                    Expires = DateTimeOffset.UtcNow.AddMonths(-1)
+                });
+
+            Response.Headers.Add("TOKENSEXPIRE", "");
+            
             
             return Ok();
         }

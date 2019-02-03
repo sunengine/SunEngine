@@ -81,7 +81,7 @@
 
       ...mapState({
         userName: state => state.auth.user?.name,
-        userAvatar: state => state.auth.user?.avatar,
+        userAvatar: state => state.auth.userInfo?.avatar,
       })
     }
   }

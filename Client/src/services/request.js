@@ -1,6 +1,8 @@
 import axios from 'axios'
+import {removeToken} from './token';
 
-const apiAxios = axios.create({baseURL: config.API, withCredentials: process.env.DEV });
+
+const apiAxios = axios.create({baseURL: config.API, withCredentials: process.env.DEV});
 
 
 export default async function request(url, data, sendAsJson = false, tokens = null) {
@@ -9,11 +11,9 @@ export default async function request(url, data, sendAsJson = false, tokens = nu
 
   if (tokens) {
 
-    if(tokens.shortTokenExpiration < new Date())
-    {
+    if (tokens.shortTokenExpiration < new Date()) {
       headers['LongToken1'] = tokens.longToken.token;
-    }
-    else {
+    } else {
       headers['Authorization'] = `Bearer ${tokens.shortToken}`;
     }
   }
@@ -42,9 +42,9 @@ export default async function request(url, data, sendAsJson = false, tokens = nu
       headers: headers,
     });
 
-/*  if(rez.headers.TOKENS) {
-
-  }*/
+  if (rez.headers.tokensexpire) {
+    removeToken();
+  }
 
   return rez;
 

@@ -7,7 +7,7 @@ import options from './options'
 import extensions from './extensions'
 
 import {makeUserDataFromToken} from "services/auth";
-import {getToken} from "services/token";
+import {getToken, setToken} from "services/token";
 
 import request from "services/request";
 
@@ -32,11 +32,16 @@ export default function (/* { ssrContext } */) {
 
         return await request(data.url, data.data, data.sendAsJson, context.state.auth.tokens)
           .then(data => {
-            if(data.headers.tokens) {
+            if(data.headers.tokensexpire) {
+              store.commit('makeLogout');
+            }
+            else if (data.headers.tokens) {
               const tokensJson = JSON.parse(data.headers.tokens);
+              setToken(tokensJson);
               const userData = makeUserDataFromToken(tokensJson);
-              Object.assign(context.state.auth,userData);
-            };
+              Object.assign(context.state.auth, userData);
+            }
+
             return data;
           });
 
@@ -49,11 +54,12 @@ export default function (/* { ssrContext } */) {
 
           await getMyUserInfo(this);
 
-          initExtensions(this);
+          await initExtensions(this);
 
           this.state.isInitialized = true;
-        } catch(x) {
-          console.error("error",x);
+
+        } catch (x) {
+          console.error("error", x);
           this.state.initializeError = true;
         }
       }
@@ -74,10 +80,11 @@ export default function (/* { ssrContext } */) {
 }
 
 function initUser(store) {
-  var token = getToken();
-  if (token) {
-    var userData = makeUserDataFromToken(token);
+  const tokens = getToken();
+  if (tokens) {
+    const userData = makeUserDataFromToken(tokens);
     store.commit('makeLogin', userData);
+    console.log('UserRestored');
   }
 }
 
@@ -92,6 +99,6 @@ async function getMyUserInfo(store) {
   await store.dispatch('getMyUserInfo');
 }
 
-function initExtensions(store) {
-  store.dispatch('getAndSetAllExtensions');
+async function initExtensions(store) {
+  await store.dispatch('getAndSetAllExtensions');
 }

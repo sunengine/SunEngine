@@ -22,46 +22,55 @@ namespace SunEngine.Infrastructure
         private readonly IUserGroupStore userGroupStore;
         private readonly JwtOptions jwtOptions;
         private readonly AuthService authService;
-        
-        public MyJwtHandler(IOptionsMonitor<MyJwtOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock, IUserGroupStore userGroupStore, IOptions<JwtOptions> jwtOptions, AuthService authService) : base(options, logger, encoder, clock)
+
+        public MyJwtHandler(IOptionsMonitor<MyJwtOptions> options, ILoggerFactory logger, UrlEncoder encoder,
+            ISystemClock clock, IUserGroupStore userGroupStore, IOptions<JwtOptions> jwtOptions,
+            AuthService authService) : base(options, logger, encoder, clock)
         {
             this.userGroupStore = userGroupStore;
             this.jwtOptions = jwtOptions.Value;
+            this.authService = authService;
         }
 
-        
+
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
             AuthenticateResult ErrorAuthorization()
             {
-                Response.Cookies.Append("LAT2","", 
+                Response.Cookies.Append("LAT2", "",
                     new CookieOptions
                     {
                         Expires = DateTimeOffset.UtcNow.AddMonths(-1)
                     });
-                
-                Response.Headers.Add("TOKENSEXPIRE","");
-                
+
+                Response.Cookies.Append("Authorization", "",
+                    new CookieOptions
+                    {
+                        Expires = DateTimeOffset.UtcNow.AddMonths(-1)
+                    });
+
+                Response.Headers.Add("TOKENSEXPIRE", "");
+
                 return AuthenticateResult.NoResult();
             }
 
-            
+
             var cookie = Request.Cookies["LAT2"];
 
-            if (cookie == null) 
+            if (cookie == null)
                 return ErrorAuthorization();
-               
 
-            JwtSecurityToken jwtLongToken2 = ReadLongToken2(cookie);
-            if(jwtLongToken2 == null) 
+
+            JwtSecurityToken jwtLongToken2 = authService.ReadLongToken2(cookie);
+            if (jwtLongToken2 == null)
                 return ErrorAuthorization();
-            
+
+            var longToken2 = jwtLongToken2.Claims.First(x => x.Type == "LAT2").Value;
 
             if (Request.Headers.ContainsKey("LongToken1"))
             {
                 var longToken1 = Request.Headers["LongToken1"];
                 int userId = int.Parse(jwtLongToken2.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-                var longToken2 = jwtLongToken2.Claims.First(x => x.Type == "LAT2").Value;
 
                 var longSession = new LongSession
                 {
@@ -69,12 +78,17 @@ namespace SunEngine.Infrastructure
                     LongToken1 = longToken1,
                     LongToken2 = longToken2
                 };
-                
+
                 longSession = authService.FindLongSession(longSession);
-                
-                await authService.RenewSecurityTokensAsync(Response,userId ,longSession);
+
+                if (longSession == null)
+                    return ErrorAuthorization();
+
+                await authService.RenewSecurityTokensAsync(Response, userId, longSession);
+
+                Console.WriteLine("Token Renews");
             }
-            
+
             string authorization = Request.Headers["Authorization"];
 
             if (string.IsNullOrEmpty(authorization))
@@ -93,85 +107,27 @@ namespace SunEngine.Infrastructure
                 return AuthenticateResult.NoResult();
             }
 
-            ClaimsPrincipal claimsPrincipal = ReadShortToken(jwtShortToken, out SecurityToken shortToken);
-            
+
+            ClaimsPrincipal claimsPrincipal = authService.ReadShortToken(jwtShortToken, out SecurityToken shortToken);
+
             var LAT2R_1 = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == "LAT2R").Value;
             var LAT2R_2 = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == "LAT2R").Value;
-            
-            if(!string.Equals(LAT2R_1,LAT2R_2)) 
+
+            if (!string.Equals(LAT2R_1, LAT2R_2))
             {
                 return AuthenticateResult.NoResult();
             }
-            
-            var myClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal,userGroupStore);
+
+            long sessionId = long.Parse(jwtLongToken2.Claims.FirstOrDefault(x => x.Type == "ID").Value);
+
+            var myClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, userGroupStore, sessionId);
             var authenticationTicket = new AuthenticationTicket(myClaimsPrincipal, MyJwt.Scheme);
             return AuthenticateResult.Success(authenticationTicket);
-            
-            /*var mcp = new MyClaimsPrincipal(1,userGroupStore);
-            var at = new AuthenticationTicket(mcp, MyJwt.Scheme);
-            return AuthenticateResult.Success(at);*/
-        }
-        
-        protected JwtSecurityToken ReadLongToken2(string token)
-        {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.LongJwtSecurityKey));
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var validationParameters = new TokenValidationParameters
-            {
-                ValidateLifetime = true,
-                ValidateAudience = true,
-                ValidateIssuer = true,
-                ValidIssuer = jwtOptions.Issuer,
-                ValidAudience = jwtOptions.Issuer,
-                IssuerSigningKey = key
-            };
-
-            try
-            {
-                var principal =
-                    tokenHandler.ValidateToken(token, validationParameters, out SecurityToken securityToken);
-                if (principal != null)
-                    return (JwtSecurityToken) securityToken;
-                else
-                    return null;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-        
-        protected ClaimsPrincipal ReadShortToken(string token, out SecurityToken securityToken)
-        {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.ShortJwtSecurityKey));
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var validationParameters = new TokenValidationParameters
-            {
-                ValidateLifetime = true,
-                ValidateAudience = true,
-                ValidateIssuer = true,
-                ValidIssuer = jwtOptions.Issuer,
-                ValidAudience = jwtOptions.Issuer,
-                IssuerSigningKey = key
-            };
-
-            try
-            {
-                return tokenHandler.ValidateToken(token, validationParameters, out securityToken);
-            }
-            catch
-            {
-                securityToken = null;
-                return null;
-            }
         }
     }
-    
+
     public class MyJwtOptions : AuthenticationSchemeOptions
     {
-        
     }
 
     public static class MyJwt

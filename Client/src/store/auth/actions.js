@@ -23,6 +23,11 @@ export async function doLogin(context, userData) {
 
 
 export async function doLogout(context) {
+
+  await context.dispatch('request', {
+    url: '/Auth/Logout'
+  });
+
   await context.commit('makeLogout');
 
   removeToken();

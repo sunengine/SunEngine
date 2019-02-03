@@ -11,6 +11,7 @@ namespace SunEngine.Infrastructure
     public class MyClaimsPrincipal : ClaimsPrincipal
     {
         public int UserId { get; } = 0;
+        public long SessionId { get; }
 
         public IReadOnlyDictionary<string, UserGroup> UserGroups { get; }
         
@@ -19,8 +20,10 @@ namespace SunEngine.Infrastructure
         /// </summary>
         public UserGroup UserGroup { get; }
 
-        public MyClaimsPrincipal(ClaimsPrincipal user, IUserGroupStore userGroupStore) : base(user)
+        public MyClaimsPrincipal(ClaimsPrincipal user, IUserGroupStore userGroupStore, long sessionId = 0) : base(user)
         {
+            this.SessionId = sessionId;
+            
             if (this.Identity.IsAuthenticated)
             {
                 UserId = int.Parse(this.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -66,21 +69,6 @@ namespace SunEngine.Infrastructure
         public IReadOnlyList<string> GetRolesNames()
         {
             return Claims.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value).ToImmutableList();
-        }
-    }
-
-    public class MyAuthUserFilter : IAuthorizationFilter
-    {
-        private readonly IUserGroupStore _userGroupStore;
-
-        public MyAuthUserFilter(IUserGroupStore userGroupStore)
-        {
-            _userGroupStore = userGroupStore;
-        }
-
-        public void OnAuthorization(AuthorizationFilterContext context)
-        {
-            context.HttpContext.User = new MyClaimsPrincipal(context.HttpContext.User, _userGroupStore);
         }
     }
 }

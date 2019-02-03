@@ -47,7 +47,6 @@ namespace SunEngine.EntityServices
             return await GenerateTokenAsync(user);
         }*/
 
-        
 
         public Task ChangeEmailAsync(int userId, string email)
         {
@@ -150,7 +149,7 @@ namespace SunEngine.EntityServices
 
                 GenerateTokens(longSession);
 
-                await db.InsertAsync(longSession);
+                longSession.Id = await db.InsertWithInt64IdentityAsync(longSession);
             }
             else
             {
@@ -162,7 +161,7 @@ namespace SunEngine.EntityServices
             //response.Headers.Add("LAT1", longSession.LongToken1);
             //response.Headers.Add("LATEXP", longSession.ExpirationDate.ToInvariantString());
 
-            var lat2Token = CreateLong2AuthToken(longSession.LongToken2, longSession.ExpirationDate, user.Id, out string lat2r);
+            var lat2Token = CreateLong2AuthToken(longSession, out string lat2r);
 
             response.Cookies.Append(
                 "LAT2",
@@ -176,7 +175,7 @@ namespace SunEngine.EntityServices
                 }
             );
 
-            var shortToken = await GenerateShortAuthTokenAsync(user,lat2r);
+            var shortToken = await GenerateShortAuthTokenAsync(user, lat2r);
 
 
             string json = JsonConvert.SerializeObject(new
@@ -192,31 +191,32 @@ namespace SunEngine.EntityServices
             response.Headers.Add("TOKENS", json);
         }
 
-        public string CreateLong2AuthToken(string lat2, DateTime expireDate, int userId, out string lat2r)
+        public string CreateLong2AuthToken(LongSession longSession, out string lat2r)
         {
             var key = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(jwtOptions.LongJwtSecurityKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
             lat2r = CryptoRandomizer.GetRandomString(10);
-            
+
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, longSession.UserId.ToString()),
                 new Claim("LAT2R", lat2r),
-                new Claim("LAT2", lat2)
+                new Claim("LAT2", longSession.LongToken2),
+                new Claim("ID", longSession.Id.ToString())
             };
 
             var token = new JwtSecurityToken(
                 issuer: jwtOptions.Issuer,
                 audience: jwtOptions.Issuer,
                 claims: claims.ToArray(),
-                expires: expireDate,
+                expires: longSession.ExpirationDate,
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-        
+
         public async Task<string> GenerateShortAuthTokenAsync(User user, string lat2r)
         {
             // Generate and issue a JWT token
@@ -246,6 +246,62 @@ namespace SunEngine.EntityServices
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public JwtSecurityToken ReadLongToken2(string token)
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.LongJwtSecurityKey));
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidateLifetime = true,
+                ValidateAudience = true,
+                ValidateIssuer = true,
+                ValidIssuer = jwtOptions.Issuer,
+                ValidAudience = jwtOptions.Issuer,
+                IssuerSigningKey = key
+            };
+
+            try
+            {
+                var principal =
+                    tokenHandler.ValidateToken(token, validationParameters, out SecurityToken securityToken);
+                if (principal != null)
+                    return (JwtSecurityToken) securityToken;
+                else
+                    return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public ClaimsPrincipal ReadShortToken(string token, out SecurityToken securityToken)
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.ShortJwtSecurityKey));
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidateLifetime = true,
+                ValidateAudience = true,
+                ValidateIssuer = true,
+                ValidIssuer = jwtOptions.Issuer,
+                ValidAudience = jwtOptions.Issuer,
+                IssuerSigningKey = key
+            };
+
+            try
+            {
+                return tokenHandler.ValidateToken(token, validationParameters, out securityToken);
+            }
+            catch
+            {
+                securityToken = null;
+                return null;
+            }
         }
     }
 }

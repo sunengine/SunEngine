@@ -4,5 +4,5 @@ export default {
   "materialsTimeToOwnEditInMinutes": 15,
   "materialsTimeToOwnDeleteInMinutes": 15,
   "materialsTimeToOwnMoveInMinutes": 15,
-  "siteURL": "http://sunengine.mi:5005/",
+  "siteURL":  "http://localhost:5005/",
 }

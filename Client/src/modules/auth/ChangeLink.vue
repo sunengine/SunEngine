@@ -40,7 +40,7 @@
     components: {LoaderSent},
     data: function () {
       return {
-        link: this.$store.state.auth.user.link,
+        link: this.$store.state.auth.userInfo.link,
         linkInDb: true,
         submitting: false
       }
@@ -82,7 +82,6 @@
               link: this.link
             }
           }).then(response => {
-          console.log("xxx");
           this.linkInDb = !response.data.yes;
         })
       },

@@ -2,6 +2,7 @@ import imagePath from "services/imagePath.js";
 import Vue from "vue";
 import {setToken} from "services/token";
 import {store} from "store";
+import {removeToken} from "services/token";
 
 export function makeLogin (state,data) {
 
@@ -16,14 +17,21 @@ export function makeLogin (state,data) {
 export function makeLogout (state) {
   state.tokens = null;
   state.user = null;
+  state.userInfo = null;
   state.userGroup = 'Unregistered';
   state.userGroups= ['Unregistered'];
   store.state.categories.root = null;
   store.state.categories.all = null;
+
+  //removeToken();
 }
 
 export function setUserInfo (state,data) {
-  Vue.set(state.user,'photo',imagePath(data.photo));
-  Vue.set(state.user,'avatar',imagePath(data.avatar));
-  Vue.set(state.user,'link',data.link);
+  const userInfo = {
+    photo: imagePath(data.photo),
+    avatar: imagePath(data.avatar),
+    link: data.link
+  };
+
+  state.userInfo = userInfo;
 }
