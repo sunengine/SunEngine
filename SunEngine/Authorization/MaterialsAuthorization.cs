@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using LinqToDB;
 using Microsoft.Extensions.Options;
+using SunEngine.Authentication;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.StoreModels;
-using SunEngine.Infrastructure;
 using SunEngine.Options;
 using SunEngine.Stores;
 
-namespace SunEngine.Authorization.ControllersAuthorization
+namespace SunEngine.Authorization
 {
     public class MaterialsAuthorization
     {

@@ -2,11 +2,10 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Mvc.Filters;
 using SunEngine.Commons.StoreModels;
 using SunEngine.Stores;
 
-namespace SunEngine.Infrastructure
+namespace SunEngine.Authentication
 {
     public class MyClaimsPrincipal : ClaimsPrincipal
     {

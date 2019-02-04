@@ -50,30 +50,31 @@ export default function (/* { ssrContext } */) {
 
       },
       async init() {
-        try {
-          console.log("StartInit");
 
-          const p1 = getAllCategories(this);
+        console.log("StartInit");
 
-          const p2 = getMyUserInfo(this);
+        const p1 = getAllCategories(this);
 
-          const p3 = initExtensions(this);
+        const p2 = getMyUserInfo(this);
 
-          Promise.all([p1, p2, p3]).then(x => {
-            this.state.isInitialized = true;
-          }).catch(x => {
-            console.error("error", x);
-            this.state.initializeError = true;
-          })
-        }
+        const p3 = initExtensions(this);
+
+        Promise.all([p1, p2, p3]).then(x => {
+          this.state.isInitialized = true;
+        }).catch(x => {
+          console.error("error", x);
+          this.state.initializeError = true;
+        })
+
       },
-      modules: {
-        auth,
-        categories,
-        options,
-        extensions
-      }
-    });
+    },
+    modules: {
+      auth,
+      categories,
+      options,
+      extensions
+    }
+  });
 
   store = Store;
 

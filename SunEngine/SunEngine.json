@@ -1,7 +1,9 @@
 {
-  "SiteUrl": "http://localhost:5005",
-  "SiteApi": "http://localhost:5000",
-  "SiteName": "SunEngine",
+  "Global": {
+    "SiteUrl": "http://localhost:5005",
+    "SiteApi": "http://localhost:5000",
+    "SiteName": "SunEngine"
+  },
   "Images": {
     "UploadDir": "UploadImages",
     "MaxWidthPixels": 1200,

@@ -1,12 +1,10 @@
 using System;
 using System.IO;
-using System.Linq;
-using SunEngine.Commons.DataBase;
-using SunEngine.Seeder;
+using DataSeedDev.Seeder;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
+using SunEngine.Commons.DataBase;
 
-namespace Migrations
+namespace DataSeedDev
 {
     class Program
     {

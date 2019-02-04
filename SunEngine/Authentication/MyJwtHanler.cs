@@ -2,11 +2,9 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -15,7 +13,7 @@ using SunEngine.EntityServices;
 using SunEngine.Options;
 using SunEngine.Stores;
 
-namespace SunEngine.Infrastructure
+namespace SunEngine.Authentication
 {
     public class MyJwtHandler : AuthenticationHandler<MyJwtOptions>
     {

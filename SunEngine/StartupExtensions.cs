@@ -1,9 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SunEngine.Authorization.ControllersAuthorization;
+using SunEngine.Admin.Services;
+using SunEngine.Authorization;
 using SunEngine.EntityServices;
 using SunEngine.Options;
-using SunEngine.Services.Admin;
 
 namespace SunEngine.Services
 {
@@ -29,16 +29,15 @@ namespace SunEngine.Services
             services.AddScoped<ProfileService>();
             services.AddScoped<PersonalService>();
             services.AddScoped<AuthService>();
-            
-            
+
         }
 
 
         public static void AddAllOptions(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddOptions();
-            services.Configure<GlobalOptions>(configuration);
-            services.Configure<EmailSenderOptions>(configuration.GetSection("email"));
+            services.Configure<GlobalOptions>(configuration.GetSection("Global"));
+            services.Configure<EmailSenderOptions>(configuration.GetSection("Email"));
             services.Configure<JwtOptions>(configuration.GetSection("Jwt"));
             services.Configure<BlogOptions>(configuration.GetSection("Blog"));
             services.Configure<ArticlesOptions>(configuration.GetSection("Articles"));

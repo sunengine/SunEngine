@@ -3,13 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
 using LinqToDB;
+using SunEngine.Admin.Controllers;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.TextProcess;
-using SunEngine.Controllers.Admin;
 using SunEngine.EntityServices;
 
-namespace SunEngine.Services.Admin
+namespace SunEngine.Admin.Services
 {
     public class CategoriesAdminService : DbService
     {

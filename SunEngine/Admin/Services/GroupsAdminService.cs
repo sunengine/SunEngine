@@ -14,7 +14,7 @@ using SunEngine.Commons.Models.UserGroups;
 using SunEngine.Commons.Utils;
 using SunEngine.EntityServices;
 
-namespace SunEngine.Services.Admin
+namespace SunEngine.Admin.Services
 {
     public class GroupsAdminService : DbService
     {

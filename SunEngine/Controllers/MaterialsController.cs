@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SunEngine.Authorization.ControllersAuthorization;
+using SunEngine.Authorization;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
 using SunEngine.EntityServices;
-using SunEngine.Infrastructure;
+using SunEngine.Filters;
 using SunEngine.Stores;
 
 namespace SunEngine.Controllers
@@ -53,7 +53,7 @@ namespace SunEngine.Controllers
 
 
         [HttpPost]
-        [SpamProtectionFilterUser(TimeoutSeconds = 60)]
+        [UserSpamProtectionFilter(TimeoutSeconds = 60)]
         public async Task<IActionResult> Add(string categoryName,
             string title,
             string text, string tags = "")

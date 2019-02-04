@@ -6,7 +6,7 @@ using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.StoreModels;
 using SunEngine.EntityServices;
-using SunEngine.Infrastructure;
+using SunEngine.Filters;
 using SunEngine.Stores;
 
 namespace SunEngine.Controllers
@@ -43,7 +43,7 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        [SpamProtectionFilterUser(TimeoutSeconds = 60)]
+        [UserSpamProtectionFilter(TimeoutSeconds = 60)]
         [Authorize(Roles = UserGroup.UserGroupRegistered)]
         public async Task<IActionResult> SendPrivateMessage(string userId,string text)
         {

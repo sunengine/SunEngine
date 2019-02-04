@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using SunEngine.Authorization.ControllersAuthorization;
+using SunEngine.Authorization;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.PagedList;
 using SunEngine.Commons.Services;

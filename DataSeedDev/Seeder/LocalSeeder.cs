@@ -1,18 +1,14 @@
 using System;
 using System.IO;
 using System.Linq;
-using LinqToDB;
-using LinqToDB.Data;
 using Microsoft.AspNetCore.Identity;
 using NJsonSchema;
-using SunEngine.Commons;
-using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.UserGroups;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.Utils;
 
-namespace SunEngine.Seeder
+namespace DataSeedDev.Seeder
 {
     public class LocalSeeder
     {

@@ -45,8 +45,8 @@ namespace SunEngine.Controllers
             if (category == null)
             {
                 return BadRequest();
-            }
-
+            }            
+            
             if (!authorizationService.HasAccess(User.UserGroups, category, OperationKeys.MaterialAndMessagesRead))
             {
                 return Unauthorized();

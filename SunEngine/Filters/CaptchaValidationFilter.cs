@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Controllers;
 using SunEngine.Services;
 
-namespace SunEngine.Infrastructure
+namespace SunEngine.Filters
 {
     public class CaptchaValidationFilter : ActionFilterAttribute
     {        

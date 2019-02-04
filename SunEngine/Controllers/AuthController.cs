@@ -18,7 +18,7 @@ using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.StoreModels;
 using SunEngine.EntityServices;
-using SunEngine.Infrastructure;
+using SunEngine.Filters;
 using SunEngine.Services;
 using SunEngine.Stores;
 

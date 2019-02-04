@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
-using LinqToDB;
 using Newtonsoft.Json.Linq;
-using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 
-namespace SunEngine.Seeder
+namespace DataSeedDev.Seeder
 {
     public class SeederCategoriesFromJson
     {

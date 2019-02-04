@@ -1,14 +1,10 @@
 using System;
-using System.Data.Odbc;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Xml.XPath;
 using LinqToDB;
 using LinqToDB.Data;
 using SunEngine.Commons.DataBase;
 
-namespace SunEngine.Seeder
+namespace DataSeedDev.Seeder
 {
     public class DataBaseSeeder
     {

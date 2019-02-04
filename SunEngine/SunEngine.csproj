@@ -214,14 +214,10 @@
     
 
     <ItemGroup>
+      <Content Include="Resources\gunnyrewritten.ttf">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
       <None Remove="gunnyrewritten.ttf" />
-      <Content Include="gunnyrewritten.ttf">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <Content Update="UserGroups.schema.json">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
     </ItemGroup>
     
 

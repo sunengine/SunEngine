@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using LinqToDB.Identity;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.UserGroups;
 
-namespace SunEngine.Seeder
+namespace DataSeedDev.Seeder
 {
     public class DataContainer
     {

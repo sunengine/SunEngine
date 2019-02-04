@@ -1,14 +1,13 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SunEngine.Commons.Models;
+using SunEngine.Admin.Services;
 using SunEngine.Commons.Services;
-using SunEngine.Services.Admin;
+using SunEngine.Controllers;
 using SunEngine.Stores;
 
-namespace SunEngine.Controllers.Admin
+namespace SunEngine.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class GroupsAdminController : BaseController
