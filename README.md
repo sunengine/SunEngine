@@ -79,8 +79,8 @@
 
 #### Использование других баз данных
 
- - Для MySql дополнительные пакеты подключать не надо, так как они уже подключены 
- - Для других баз подключиь NuGet пакеты поддержки базы данных для 
+ - Для MySql дополнительные пакеты подключать не надо, они уже подключены. 
+ - Для других DB подключить NuGet пакеты поддержки этой DB для
    - [FluentMigrator](https://fluentmigrator.github.io) в проекте `Migrations`.
    - [Linq2db](https://github.com/linq2db/linq2db) в проектах `SunEngine`,`SunEngine.Commons`,`DataSeedDev`.
  - Прописать поддержку в файле `Migrations/Main.cs`.  
