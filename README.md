@@ -65,7 +65,7 @@
 
 #### Установка и запуск
 - Клонировать репозиторий SunEngine с GitHub.
-- Создать на MySql пустую базу c названием `<DataBaseName>`.
+- Создать на PostgreSQL пустую базу c названием `<DataBaseName>`.
 - Указать название базы и `ConnectionString` в файле `SunEngine/DataBaseConnection.json`.
 - Запустить проект Migrations. Произойдёт создание таблиц.
 - Запустить проект DataSeedDev. Заполнение таблиц тестовыми данными.
@@ -79,16 +79,13 @@
 
 #### Использование других баз данных
 
- - Подключиь NuGet пакет поддержки базы данных для [FluentMigrator](https://fluentmigrator.github.io) в проекте `Migrations`.
+ - Для MySql дополнительные пакеты подключать не надо, так как они уже подключены 
+ - Для других баз подключиь NuGet пакеты поддержки базы данных для 
+   - [FluentMigrator](https://fluentmigrator.github.io) в проекте `Migrations`.
+   - [Linq2db](https://github.com/linq2db/linq2db) в проектах `SunEngine`,`SunEngine.Commons`,`DataSeedDev`.
  - Прописать поддержку в файле `Migrations/Main.cs`.  
-   Строку `.AddMySql5()` заменяем на нужное.
- - На данный момент тестировалось только с MySql.
-  
-##### Пример с подключением MS SqlServer
- - Устанавливаем NuGet пакет [
-FluentMigrator.Runner.SqlServer](https://www.nuget.org/packages/FluentMigrator.Runner.SqlServer/)
-в проект `Migrations`.
- - Заменяем в `Migrations/Main.cs`  `.AddMySql5()` -> `.AddSqlServer()`.
+   Строку `.AddPostgres()` заменяем на нужное.
+ - На данный момент тестировалось с Postgres и MySql.
 
 #### Лицензия
 - Все права принадлежат создателю Дмитрию Полянину
