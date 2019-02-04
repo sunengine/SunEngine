@@ -34,8 +34,9 @@ export default function (/* { ssrContext } */) {
           .then(async data => {
             if(data.headers.tokensexpire) {
               store.commit('makeLogout');
-              setTimeout(context.dispatch('getAllCategories'),0);
-              //await context.dispatch('getAllCategories');
+
+              if(data.url !== "/Categories/GetAllCategoriesAndAccesses" )
+                context.dispatch('getAllCategories');
             }
             else if (data.headers.tokens) {
               const tokensJson = JSON.parse(data.headers.tokens);
