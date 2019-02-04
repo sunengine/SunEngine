@@ -31,15 +31,18 @@ export default function (/* { ssrContext } */) {
       async request(context, data) {
 
         return await request(data.url, data.data, data.sendAsJson, context.state.auth.tokens)
-          .then(data => {
+          .then(async data => {
             if(data.headers.tokensexpire) {
               store.commit('makeLogout');
+              setTimeout(context.dispatch('getAllCategories'),0);
+              //await context.dispatch('getAllCategories');
             }
             else if (data.headers.tokens) {
               const tokensJson = JSON.parse(data.headers.tokens);
               setToken(tokensJson);
               const userData = makeUserDataFromToken(tokensJson);
               Object.assign(context.state.auth, userData);
+
             }
 
             return data;

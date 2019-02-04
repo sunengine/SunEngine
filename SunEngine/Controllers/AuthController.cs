@@ -85,7 +85,7 @@ namespace SunEngine.Controllers
             }
 
             await authService.RenewSecurityTokensAsync(Response, user);
-            
+
             return Ok();
         }
 
@@ -94,28 +94,15 @@ namespace SunEngine.Controllers
             int userId = User.UserId;
             long sessionId = User.SessionId;
             await db.LongSessions.Where(x => x.UserId == userId && x.Id == sessionId).DeleteAsync();
-            
+
             Response.Headers.Clear();
             foreach (var key in Request.Cookies.Keys)
             {
                 Response.Cookies.Delete(key);
             }
-            
-            Response.Cookies.Append("LAT2", "",
-                new CookieOptions
-                {
-                    Expires = DateTimeOffset.UtcNow.AddMonths(-1)
-                });
 
-            Response.Cookies.Append("Authorization", "",
-                new CookieOptions
-                {
-                    Expires = DateTimeOffset.UtcNow.AddMonths(-1)
-                });
+            authService.MakeLogoutCookiesAndHeaders(Response);
 
-            Response.Headers.Add("TOKENSEXPIRE", "");
-            
-            
             return Ok();
         }
 

@@ -169,7 +169,7 @@ namespace SunEngine.EntityServices
                 new CookieOptions
                 {
                     Path = "/",
-                    HttpOnly = false,
+                    HttpOnly = true,
                     IsEssential = true,
                     Expires = longSession.ExpirationDate
                 }
@@ -246,6 +246,20 @@ namespace SunEngine.EntityServices
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public void MakeLogoutCookiesAndHeaders(HttpResponse response)
+        {
+            response.Cookies.Append("LAT2", "",
+                    new CookieOptions
+                    {
+                        Path = "/",
+                        HttpOnly = true,
+                        IsEssential = true,
+                        Expires = DateTimeOffset.UtcNow.AddMonths(-1)
+                    });
+
+            response.Headers.Add("TOKENSEXPIRE", "TRUE");
         }
 
         public JwtSecurityToken ReadLongToken2(string token)

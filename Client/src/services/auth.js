@@ -10,6 +10,7 @@ export async function loginRequest(nameOrEmail, password) {
   return await request("/Auth/Login", {nameOrEmail: nameOrEmail, password: password})
     .then(
       response => {
+        debugger;
         return JSON.parse(response.headers.tokens);
       }
     );

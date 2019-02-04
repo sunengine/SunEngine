@@ -26,6 +26,7 @@ namespace Migrations
                 .WithColumn("IsDeleted").AsBoolean().NotNullable();
 
 
+
             Create.Table("AspNetUsers")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("UserName").AsString(256).Nullable()
@@ -47,6 +48,7 @@ namespace Migrations
                 .WithColumn("Photo").AsMaxString().Nullable()
                 .WithColumn("Avatar").AsMaxString().Nullable();
                
+
 
             Create.Table("UserBanedUnit")
                 .WithColumn("UserId").AsInt32().PrimaryKey().NotNullable().Indexed()
@@ -75,7 +77,8 @@ namespace Migrations
                 .WithColumn("SortNumber").AsInt32().NotNullable().Indexed()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable().Indexed();
 
-
+            
+            
             Create.Table("Messages")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Text").AsMaxString().NotNullable()
@@ -87,9 +90,9 @@ namespace Migrations
                 .WithColumn("EditDate").AsDateTime().Nullable()
                 .WithColumn("IsDeleted").AsBoolean().Nullable().Indexed();
 
-
             Create.ForeignKey("FK_Materials_Messages_LastMessageId").FromTable("Materials")
                 .ForeignColumn("LastMessageId").ToTable("Messages").PrimaryColumn("Id");
+
 
 
             Create.Table("Tags")
@@ -98,6 +101,8 @@ namespace Migrations
                 .WithColumn("GroupId").AsInt32().Nullable().Indexed();
 
 
+            
+            
             Create.Table("TagMaterials")
                 .WithColumn("TagId").AsInt32().PrimaryKey().NotNullable().Indexed()
                 .ForeignKey("FK_TagMaterials_Materials_MaterialId", "Tags", "Id")
@@ -125,6 +130,7 @@ namespace Migrations
             Create.Table("OperationKeys")
                 .WithColumn("OperationKeyId").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(256).NotNullable().Indexed();
+
 
 
             Create.Table("CategoryAccesses")

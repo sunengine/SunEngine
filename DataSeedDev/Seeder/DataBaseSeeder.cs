@@ -37,12 +37,13 @@ namespace SunEngine.Seeder
             
             Console.WriteLine("Categories");
             db.BulkCopy(options,dataContainer.Categories);
-            
+
             Console.WriteLine("Users");
             db.BulkCopy(options,dataContainer.Users);
             
             Console.WriteLine("Materials");
             db.BulkCopy(options,dataContainer.Materials);
+            
             
             Console.WriteLine("Messages");
             db.BulkCopy(options,dataContainer.Messages);
@@ -61,6 +62,8 @@ namespace SunEngine.Seeder
             
             Console.WriteLine("CategoryOperationAccesses");
             db.BulkCopy(options,dataContainer.CategoryOperationAccesses);
+
+            RunDbCpecificCode();
             
             /*db.BulkCopy(options,dataContainer.Categories);
             db.BulkCopy(dataContainer.Users);
@@ -88,6 +91,27 @@ namespace SunEngine.Seeder
             db.BulkCopy(options,dataContainer.CategoryOperationAccesses);*/
 
             return this;
+        }
+
+        public void RunDbCpecificCode()
+        {
+            if (db.DataProvider.Name.StartsWith("PostgreSQL"))
+            {
+                Console.WriteLine("Update sequences for PostgreSQL");
+
+                string[] tablesWithSequenceIds =
+                    {"Categories", "AspNetUsers", "Materials", "Messages", "AspNetRoles", "CategoryAccesses", "Tags"};
+
+                foreach (string tableName in tablesWithSequenceIds)
+                {
+                    //Console.WriteLine($"Renew sequence of table: '{tableName}'");
+                    db.Execute($"SELECT setval(pg_get_serial_sequence('\"{tableName}\"', 'Id'), coalesce(max(tbl.\"Id\"),0) + 1, false) FROM \"{tableName}\" as tbl;");
+                }
+                
+                db.Execute("SELECT setval(pg_get_serial_sequence('\"OperationKeys\"', 'OperationKeyId'), coalesce(max(tbl.\"OperationKeyId\"),0) + 1, false) FROM \"OperationKeys\" as tbl;");
+            }
+            
+
         }
 
         public DataBaseSeeder PostSeed()

@@ -22,7 +22,6 @@ using IAuthorizationService = SunEngine.Commons.Services.IAuthorizationService;
 
 namespace SunEngine
 {
-
     public class Startup
     {
         public Startup(IConfiguration configuration, IHostingEnvironment env)
@@ -35,8 +34,7 @@ namespace SunEngine
 
         private IHostingEnvironment CurrentEnvironment { get; }
 
-        
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
@@ -45,7 +43,7 @@ namespace SunEngine
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            
+
             if (CurrentEnvironment.IsDevelopment())
             {
                 services.AddCors();
@@ -64,17 +62,17 @@ namespace SunEngine
             MyMappingSchema mappingSchema = new MyMappingSchema();
 
             services.AddScoped(x => new DataBaseConnection(dataProvider, connectionString, mappingSchema));
-            
+
             var dataBaseFactory = new DataBaseFactory(dataProvider, connectionString, mappingSchema);
 
-            
+
             services.AddSingleton<IDataBaseFactory>(dataBaseFactory);
-            
+
             // Add Singleton Services
             services.AddSingleton<OperationKeysContainer>();
-            
+
             services.AddSingleton<IAuthorizationService, AuthorizationService>();
-            
+
             services.AddSingleton<Sanitizer>();
 
 
@@ -86,11 +84,11 @@ namespace SunEngine
             services.AddSingleton<ICategoriesStore, CategoriesStore>();
 
             services.AddSingleton<SpamProtectionStore>();
-            
+
 
             services.AddSingletonImages();
 
-            
+
             services.AddIdentity<User, UserGroupDB>(
                     options =>
                     {
@@ -101,13 +99,14 @@ namespace SunEngine
                         options.Password.RequiredUniqueChars = 2;
                         options.Password.RequiredLength = 6;
                         options.User.RequireUniqueEmail = true;
-                        
+
                         const string engChars = "abcdefghijklmnopqrstuvwxyz";
                         const string rusChars = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
                         const string numbers = "0123456789";
                         const string other = "-";
-                        
-                        options.User.AllowedUserNameCharacters = engChars + engChars.ToUpper() + rusChars + rusChars.ToUpper() + numbers+other;
+
+                        options.User.AllowedUserNameCharacters =
+                            engChars + engChars.ToUpper() + rusChars + rusChars.ToUpper() + numbers + other;
                     })
                 .AddLinqToDBStores<int>(dataBaseFactory)
                 .AddUserManager<MyUserManager>()
@@ -125,9 +124,9 @@ namespace SunEngine
                     {
                         config.RequireHttpsMetadata = false;
                     }
-                    
+
                     //config.SaveToken = true;
-                   
+
                     config.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
@@ -140,7 +139,7 @@ namespace SunEngine
                             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:ShortJwtSecurityKey"]))
                     };
                 });
-            
+
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = MyJwt.Scheme;
@@ -154,26 +153,24 @@ namespace SunEngine
             services.AddScopedEntityServices();
 
             services.AddScopedControllersAuthorizationServices();
-            
+
             services.AddAdminServices();
 
-            
-            
+
             //services.AddMemoryCache();
-            
+
             services.AddCryptServices();
-            
+
             services.AddSingleton<CaptchaService>();
 
 
-
-            services.AddMvcCore(options => { /*options.Filters.Add(new MyAuthUserFilter(userGroupStore));*/ })
+            services.AddMvcCore(options =>
+                {
+                    /*options.Filters.Add(new MyAuthUserFilter(userGroupStore));*/
+                })
                 .AddApiExplorer()
                 .AddAuthorization()
-                .AddJsonFormatters(options =>
-                {
-                    options.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                })
+                .AddJsonFormatters(options => { options.DateTimeZoneHandling = DateTimeZoneHandling.Utc; })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -198,10 +195,11 @@ namespace SunEngine
             if (CurrentEnvironment.IsDevelopment())
             {
                 app.UseStaticFiles();
-                
+
                 app.UseCors(builder =>
                     builder.WithOrigins("http://localhost:5005")
-                        .AllowCredentials().AllowAnyHeader().AllowAnyMethod().WithExposedHeaders("TOKENS"));
+                        .AllowCredentials().AllowAnyHeader().AllowAnyMethod()
+                        .WithExposedHeaders("TOKENS", "TOKENSEXPIRE"));
             }
 
 

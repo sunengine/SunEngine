@@ -10,7 +10,6 @@ export default async function request(url, data, sendAsJson = false, tokens = nu
   const headers = {};
 
   if (tokens) {
-
     if (tokens.shortTokenExpiration < new Date()) {
       headers['LongToken1'] = tokens.longToken.token;
     } else {

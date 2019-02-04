@@ -24,12 +24,12 @@ namespace SunEngine.Infrastructure
         {
             this.SessionId = sessionId;
             
-            if (this.Identity.IsAuthenticated)
+            if (Identity.IsAuthenticated)
             {
                 UserId = int.Parse(this.FindFirstValue(ClaimTypes.NameIdentifier));
             }
             
-            UserGroups = (IReadOnlyDictionary<string, UserGroup>) GetUserGroups(userGroupStore);
+            UserGroups = GetUserGroups(userGroupStore);
             if (UserGroups.Count == 1)
             {
                 UserGroup = UserGroups.Values.ElementAt(0);
@@ -40,7 +40,7 @@ namespace SunEngine.Infrastructure
         {
             if (!Identity.IsAuthenticated)
             {
-                return new Dictionary<string, UserGroup>()
+                return new Dictionary<string, UserGroup>
                 {
                     [UserGroup.UserGroupUnregistered] = userGroupStore.GetUserGroup(UserGroup.UserGroupUnregistered)
                 };
@@ -49,7 +49,6 @@ namespace SunEngine.Infrastructure
             var roles = GetRolesNames();
             var allGroups = userGroupStore.AllGroups;
 
-            //Dictionary<string, UserGroup> userGroups = new Dictionary<string, UserGroup>(roles.Count + 1);
 
             var dictionaryBuilder = ImmutableDictionary.CreateBuilder<string,UserGroup>();
 
@@ -66,7 +65,7 @@ namespace SunEngine.Infrastructure
             return dictionaryBuilder.ToImmutable();
         }
 
-        public IReadOnlyList<string> GetRolesNames()
+        private IEnumerable<string> GetRolesNames()
         {
             return Claims.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value).ToImmutableList();
         }

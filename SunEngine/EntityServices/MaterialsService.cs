@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using Microsoft.Extensions.Options;
+using Npgsql;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.TextProcess;
@@ -15,10 +16,10 @@ namespace SunEngine.EntityServices
         private readonly TagsService tagsService;
         private readonly Sanitizer _sanitizer;
         private readonly MaterialOptions materialOptions;
-        
 
-        public MaterialsService(DataBaseConnection db, 
-            Sanitizer sanitizer, 
+
+        public MaterialsService(DataBaseConnection db,
+            Sanitizer sanitizer,
             TagsService tagsService,
             IOptions<MaterialOptions> materialOptions) : base(db)
         {
@@ -45,7 +46,7 @@ namespace SunEngine.EntityServices
                     Text = x.Text,
                     CategoryName = x.Category.Name.ToLower(),
                     IsDeleted = x.IsDeleted,
-                    Tags = x.TagMaterials.OrderBy(y=>y.Tag.Name).Select(y => y.Tag.Name).ToArray()
+                    Tags = x.TagMaterials.OrderBy(y => y.Tag.Name).Select(y => y.Tag.Name).ToArray()
                 }
             ).FirstOrDefaultAsync();
         }
@@ -63,50 +64,54 @@ namespace SunEngine.EntityServices
         public async Task InsertAsync(Material material, string tags)
         {
             material.Text = _sanitizer.Sanitize(material.Text);
-            
-            material.MakePreviewAndDescription(materialOptions.MaterialDescriptionLength,materialOptions.MaterialPreviewLength);
-            
+
+            material.MakePreviewAndDescription(materialOptions.MaterialDescriptionLength,
+                materialOptions.MaterialPreviewLength);
+
+
             material.Id = await db.InsertWithInt32IdentityAsync(material);
-            
+
             await tagsService.MaterialCreateAndSetTagsAsync(material, tags);
-            
         }
 
         public async Task UpdateAsync(Material material, string tags)
         {
-            material.Text = _sanitizer.Sanitize(material.Text);  // TODO сделать совместную валидацию, санитайзин и превью на основе одного DOM
-            
-            material.MakePreviewAndDescription(materialOptions.MaterialDescriptionLength,materialOptions.MaterialPreviewLength);
+            material.Text =
+                _sanitizer.Sanitize(material
+                    .Text); // TODO сделать совместную валидацию, санитайзин и превью на основе одного DOM
+
+            material.MakePreviewAndDescription(materialOptions.MaterialDescriptionLength,
+                materialOptions.MaterialPreviewLength);
 
             await db.UpdateAsync(material);
-            
-            await tagsService.MaterialCreateAndSetTagsAsync(material, tags);            
+
+            await tagsService.MaterialCreateAndSetTagsAsync(material, tags);
         }
 
         public async Task MoveToTrashAsync(Material material)
         {
-            await db.Materials.Where(x=>x.Id == material.Id).Set(x => x.IsDeleted, true).UpdateAsync();
+            await db.Materials.Where(x => x.Id == material.Id).Set(x => x.IsDeleted, true).UpdateAsync();
         }
-        
+
         public async Task DetectAndSetLastMessageAndCountAsync(Material material)
         {
             var messagesQuery = db.Messages.Where(x => x.MaterialId == material.Id);
 
-            var lastMessage = await messagesQuery.OrderByDescending(x=>x.PublishDate).FirstOrDefaultAsync();
+            var lastMessage = await messagesQuery.OrderByDescending(x => x.PublishDate).FirstOrDefaultAsync();
             var lastMessageId = lastMessage?.Id;
             var lastActivity = lastMessage?.PublishDate;
             if (lastActivity == null)
                 lastActivity = material.PublishDate;
 
             var messagesCount = await messagesQuery.CountAsync();
-            
+
             await db.Materials.Where(x => x.Id == material.Id)
                 .Set(x => x.MessagesCount, x => messagesCount)
                 .Set(x => x.LastMessageId, x => lastMessageId)
                 .Set(x => x.LastActivity, x => lastActivity)
                 .UpdateAsync();
         }
-        
+
         public Task DetectAndSetLastMessageAndCountAsync(int materialId)
         {
             return DetectAndSetLastMessageAndCountAsync(db.Materials.FirstOrDefault(x => x.Id == materialId));
