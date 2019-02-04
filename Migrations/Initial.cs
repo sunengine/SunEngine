@@ -163,6 +163,7 @@ namespace Migrations
                 .OnColumn("LongToken2").Ascending();
         }
 
+        
         public override void Down()
         {
             throw new NotImplementedException();
