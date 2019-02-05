@@ -8,9 +8,9 @@ using SunEngine.Commons.Models;
 
 namespace SunEngine.EntityServices
 {
-    public class TagsService : DbService
+    public class TagsManager : DbService
     {
-        public TagsService(DataBaseConnection db) : base(db)
+        public TagsManager(DataBaseConnection db) : base(db)
         {
             
         }

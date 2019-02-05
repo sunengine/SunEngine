@@ -9,31 +9,36 @@ namespace SunEngine.Services
 {
     internal static class ServiceCollectionExtensions
     {
-        public static void AddScopedControllersAuthorizationServices(this IServiceCollection services)
+        public static void AddAuthorization(this IServiceCollection services)
         {
             services.AddScoped<CategoriesAuthorization>();
-            
             services.AddScoped<MaterialsAuthorization>();
-
             services.AddScoped<MessageAuthorization>();
-        }
-
-        public static void AddScopedEntityServices(this IServiceCollection services)
-        {
-            services.AddScoped<ArticlesService>();
-            services.AddScoped<BlogService>();
-            services.AddScoped<ForumService>();  
-            services.AddScoped<MaterialsService>();  
-            services.AddScoped<MessagesService>();
-            services.AddScoped<TagsService>();
-            services.AddScoped<ProfileService>();
-            services.AddScoped<PersonalService>();
             services.AddScoped<AuthService>();
+        }
 
+        public static void AddManagers(this IServiceCollection services)
+        {
+            services.AddScoped<MaterialsManager>();  
+            services.AddScoped<MessagesManager>();  
+            services.AddScoped<PersonalManager>();
+            services.AddScoped<ProfileManager>();
+            services.AddScoped<TagsManager>();
+        }
+        
+        public static void AddPresenters(this IServiceCollection services)
+        {
+            services.AddScoped<ArticlesPresenter>();
+            services.AddScoped<BlogPresenter>();
+            services.AddScoped<ForumPresenter>(); 
+            services.AddScoped<MaterialsPresenter>();
+            services.AddScoped<MessagesPresenter>();
+            services.AddScoped<PersonalPresenter>(); 
+            services.AddScoped<ProfilePresenter>();
         }
 
 
-        public static void AddAllOptions(this IServiceCollection services, IConfiguration configuration)
+        public static void AddMyOptions(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddOptions();
             services.Configure<GlobalOptions>(configuration.GetSection("Global"));
@@ -49,7 +54,7 @@ namespace SunEngine.Services
             services.Configure<CaptchaOptions>(configuration.GetSection("Captcha"));
         }
 
-        public static void AddSingletonImages(this IServiceCollection services)
+        public static void AddImagesServices(this IServiceCollection services)
         {
             services.AddSingleton<IImagesNamesService, ImagesNamesService>();
             services.AddSingleton<ImagesService>();

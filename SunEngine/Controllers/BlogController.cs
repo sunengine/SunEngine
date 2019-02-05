@@ -18,14 +18,14 @@ namespace SunEngine.Controllers
         private readonly ICategoriesStore categoriesStore;
         private readonly OperationKeysContainer OperationKeys;
         private readonly IAuthorizationService authorizationService;
-        private readonly BlogService blogService;
+        private readonly BlogPresenter blogPresenter;
 
 
         public BlogController(IOptions<BlogOptions> blogOptions,
             IAuthorizationService authorizationService,
             ICategoriesStore categoriesStore,
             OperationKeysContainer operationKeysContainer,
-            BlogService blogService,
+            BlogPresenter blogPresenter,
             MyUserManager userManager,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
@@ -34,7 +34,7 @@ namespace SunEngine.Controllers
             this.blogOptions = blogOptions.Value;
             this.authorizationService = authorizationService;
             this.categoriesStore = categoriesStore;
-            this.blogService = blogService;
+            this.blogPresenter = blogPresenter;
         }
 
         [HttpPost]
@@ -53,7 +53,7 @@ namespace SunEngine.Controllers
             }
 
             IPagedList<PostViewModel> posts =
-                await blogService.GetPostsAsync(category.Id, page,blogOptions.PostsPageSize);
+                await blogPresenter.GetPostsAsync(category.Id, page,blogOptions.PostsPageSize);
 
             return Json(posts);
         }

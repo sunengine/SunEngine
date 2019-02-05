@@ -302,12 +302,12 @@ namespace SunEngine.Controllers
                 return BadRequest(new ErrorViewModel {ErrorText = "Password not valid"});
             }
 
-            if (await authService.CheckEmailInDbAsync(email, user.Id))
+            if (await userManager.CheckEmailInDbAsync(email, user.Id))
             {
                 return BadRequest(new ErrorViewModel {ErrorText = "Email already registered"});
             }
 
-            var emailToken = await authService.GenerateChangeEmailTokenAsync(user, email);
+            var emailToken = await userManager.GenerateChangeEmailTokenAsync(user, email);
 
             var schemaAndHost = globalOptions.GetSchemaAndHostApi();
 
@@ -334,12 +334,12 @@ namespace SunEngine.Controllers
             try
             {
                 if (!authService.ValidateChangeEmailToken(token, out int userId, out string email)
-                    || await authService.CheckEmailInDbAsync(email, User.UserId))
+                    || await userManager.CheckEmailInDbAsync(email, User.UserId))
                 {
                     return Error();
                 }
 
-                await authService.ChangeEmailAsync(userId, email);
+                await userManager.ChangeEmailAsync(userId, email);
             }
             catch
             {

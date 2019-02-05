@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
+using SunEngine.Commons.Services;
 using SunEngine.Commons.Utils;
 using SunEngine.Controllers;
 using SunEngine.Options;
@@ -25,97 +26,20 @@ namespace SunEngine.EntityServices
 {
     public class AuthService : DbService
     {
-        private readonly UserManager<User> userManager;
+        private readonly MyUserManager userManager;
         private readonly JwtOptions jwtOptions;
         private readonly ILogger logger;
 
 
         public AuthService(
             DataBaseConnection db,
-            UserManager<User> userManager,
+            MyUserManager userManager,
             IOptions<JwtOptions> jwtOptions,
             ILoggerFactory loggerFactory) : base(db)
         {
             this.userManager = userManager;
             this.jwtOptions = jwtOptions.Value;
             logger = loggerFactory.CreateLogger<AuthController>();
-        }
-
-        /*public async Task<string> GenerateTokenAsync(int userId)
-        {
-            var user = await userManager.FindByIdAsync(userId.ToString());
-            return await GenerateTokenAsync(user);
-        }*/
-
-
-        public Task ChangeEmailAsync(int userId, string email)
-        {
-            return db.Users.Where(x => x.Id == userId).Set(x => x.Email, email)
-                .Set(x => x.NormalizedEmail, email.ToUpper())
-                .UpdateAsync();
-        }
-
-        public async Task<string> GenerateChangeEmailTokenAsync(User user, string email)
-        {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKeyEmailChange));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, email),
-                new Claim(JwtRegisteredClaimNames.Jti, CryptoRandomizer.GetRandomString(16))
-            };
-
-            var token = new JwtSecurityToken(
-                issuer: jwtOptions.Issuer,
-                audience: jwtOptions.Issuer,
-                claims: claims.ToArray(),
-                expires: DateTime.Now.AddDays(3),
-                signingCredentials: credentials);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        public bool ValidateChangeEmailToken(string token, out int userId, out string email)
-        {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKeyEmailChange));
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var validationParameters = new TokenValidationParameters()
-            {
-                ValidateLifetime = true,
-                ValidateAudience = true,
-                ValidateIssuer = true,
-                ValidIssuer = jwtOptions.Issuer,
-                ValidAudience = jwtOptions.Issuer,
-                IssuerSigningKey = key // The same key as the one that generate the token
-            };
-
-            var securityToken = tokenHandler.ValidateToken(token, validationParameters, out _);
-            if (securityToken == null)
-            {
-                userId = 0;
-                email = null;
-                return false;
-            }
-
-            var jwt = tokenHandler.ReadJwtToken(token);
-            email = jwt.Claims.First(x => x.Type == JwtRegisteredClaimNames.Email).Value;
-            userId = int.Parse(jwt.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-            return true;
-        }
-
-        public Task<bool> CheckEmailInDbAsync(string email, int userId)
-        {
-            return db.Users.AnyAsync(x => x.NormalizedEmail == email.ToUpper() && x.Id != userId);
-        }
-
-        public LongSession FindLongSession(LongSession longSession)
-        {
-            return db.LongSessions.FirstOrDefault(x => x.UserId == longSession.UserId &&
-                                                       x.LongToken1 == longSession.LongToken1 &&
-                                                       x.LongToken2 == longSession.LongToken2);
         }
 
         private JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
@@ -158,8 +82,6 @@ namespace SunEngine.EntityServices
             }
 
 
-            //response.Headers.Add("LAT1", longSession.LongToken1);
-            //response.Headers.Add("LATEXP", longSession.ExpirationDate.ToInvariantString());
 
             var lat2Token = CreateLong2AuthToken(longSession, out string lat2r);
 
@@ -191,33 +113,58 @@ namespace SunEngine.EntityServices
             response.Headers.Add("TOKENS", json);
         }
 
-        public string CreateLong2AuthToken(LongSession longSession, out string lat2r)
+        public string GenerateChangeEmailToken(User user, string email)
         {
-            var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtOptions.LongJwtSecurityKey));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKeyEmailChange));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-
-            lat2r = CryptoRandomizer.GetRandomString(10);
 
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, longSession.UserId.ToString()),
-                new Claim("LAT2R", lat2r),
-                new Claim("LAT2", longSession.LongToken2),
-                new Claim("ID", longSession.Id.ToString())
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, email),
+                new Claim(JwtRegisteredClaimNames.Jti, CryptoRandomizer.GetRandomString(16))
             };
 
             var token = new JwtSecurityToken(
                 issuer: jwtOptions.Issuer,
                 audience: jwtOptions.Issuer,
                 claims: claims.ToArray(),
-                expires: longSession.ExpirationDate,
+                expires: DateTime.Now.AddDays(3),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+        
+        public bool ValidateChangeEmailToken(string token, out int userId, out string email)
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKeyEmailChange));
 
-        public async Task<string> GenerateShortAuthTokenAsync(User user, string lat2r)
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var validationParameters = new TokenValidationParameters()
+            {
+                ValidateLifetime = true,
+                ValidateAudience = true,
+                ValidateIssuer = true,
+                ValidIssuer = jwtOptions.Issuer,
+                ValidAudience = jwtOptions.Issuer,
+                IssuerSigningKey = key // The same key as the one that generate the token
+            };
+
+            var securityToken = tokenHandler.ValidateToken(token, validationParameters, out _);
+            if (securityToken == null)
+            {
+                userId = 0;
+                email = null;
+                return false;
+            }
+
+            var jwt = tokenHandler.ReadJwtToken(token);
+            email = jwt.Claims.First(x => x.Type == JwtRegisteredClaimNames.Email).Value;
+            userId = int.Parse(jwt.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            return true;
+        }
+
+        private async Task<string> GenerateShortAuthTokenAsync(User user, string lat2r)
         {
             // Generate and issue a JWT token
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.ShortJwtSecurityKey));
@@ -247,21 +194,7 @@ namespace SunEngine.EntityServices
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
-        public void MakeLogoutCookiesAndHeaders(HttpResponse response)
-        {
-            response.Cookies.Append("LAT2", "",
-                    new CookieOptions
-                    {
-                        Path = "/",
-                        HttpOnly = true,
-                        IsEssential = true,
-                        Expires = DateTimeOffset.UtcNow.AddMonths(-1)
-                    });
-
-            response.Headers.Add("TOKENSEXPIRE", "TRUE");
-        }
-
+        
         public JwtSecurityToken ReadLongToken2(string token)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.LongJwtSecurityKey));
@@ -291,7 +224,7 @@ namespace SunEngine.EntityServices
                 return null;
             }
         }
-
+        
         public ClaimsPrincipal ReadShortToken(string token, out SecurityToken securityToken)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.ShortJwtSecurityKey));
@@ -317,5 +250,48 @@ namespace SunEngine.EntityServices
                 return null;
             }
         }
+
+        private string CreateLong2AuthToken(LongSession longSession, out string lat2r)
+        {
+            var key = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(jwtOptions.LongJwtSecurityKey));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
+
+            lat2r = CryptoRandomizer.GetRandomString(10);
+
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, longSession.UserId.ToString()),
+                new Claim("LAT2R", lat2r),
+                new Claim("LAT2", longSession.LongToken2),
+                new Claim("ID", longSession.Id.ToString())
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: jwtOptions.Issuer,
+                audience: jwtOptions.Issuer,
+                claims: claims.ToArray(),
+                expires: longSession.ExpirationDate,
+                signingCredentials: credentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        
+
+        public void MakeLogoutCookiesAndHeaders(HttpResponse response)
+        {
+            response.Cookies.Append("LAT2", "",
+                    new CookieOptions
+                    {
+                        Path = "/",
+                        HttpOnly = true,
+                        IsEssential = true,
+                        Expires = DateTimeOffset.UtcNow.AddMonths(-1)
+                    });
+
+            response.Headers.Add("TOKENSEXPIRE", "TRUE");
+        }
+        
     }
 }

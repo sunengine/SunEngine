@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SunEngine.Commons.Models;
+using SunEngine.Commons.Services;
 using SunEngine.EntityServices;
 using SunEngine.Options;
 using SunEngine.Stores;
@@ -20,14 +21,17 @@ namespace SunEngine.Authentication
         private readonly IUserGroupStore userGroupStore;
         private readonly JwtOptions jwtOptions;
         private readonly AuthService authService;
+        private readonly MyUserManager userManager;
 
         public MyJwtHandler(IOptionsMonitor<MyJwtOptions> options, ILoggerFactory logger, UrlEncoder encoder,
             ISystemClock clock, IUserGroupStore userGroupStore, IOptions<JwtOptions> jwtOptions,
-            AuthService authService) : base(options, logger, encoder, clock)
+            AuthService authService,
+            MyUserManager userManager) : base(options, logger, encoder, clock)
         {
             this.userGroupStore = userGroupStore;
             this.jwtOptions = jwtOptions.Value;
             this.authService = authService;
+            this.userManager = userManager;
         }
 
 
@@ -66,7 +70,7 @@ namespace SunEngine.Authentication
                         LongToken2 = longToken2
                     };
 
-                    longSession = authService.FindLongSession(longSession);
+                    longSession = userManager.FindLongSession(longSession);
 
                     if (longSession == null)
                         return ErrorAuthorization();

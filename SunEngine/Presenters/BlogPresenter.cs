@@ -6,9 +6,9 @@ using SunEngine.Controllers;
 
 namespace SunEngine.EntityServices
 {
-    public class BlogService : DbService
+    public class BlogPresenter : DbService
     {
-        public BlogService(DataBaseConnection db) : base(db)
+        public BlogPresenter(DataBaseConnection db) : base(db)
         {
         }
 

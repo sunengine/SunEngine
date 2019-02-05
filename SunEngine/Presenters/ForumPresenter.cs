@@ -7,9 +7,9 @@ using SunEngine.Commons.PagedList;
 
 namespace SunEngine.EntityServices
 {
-    public class ForumService : DbService
+    public class ForumPresenter : DbService
     {
-        public ForumService(DataBaseConnection db) : base(db)
+        public ForumPresenter(DataBaseConnection db) : base(db)
         {
         }
 

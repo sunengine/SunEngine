@@ -6,9 +6,9 @@ using SunEngine.Controllers;
 
 namespace SunEngine.EntityServices
 {
-    public class ArticlesService : DbService
+    public class ArticlesPresenter : DbService
     {
-        public ArticlesService(DataBaseConnection db) : base(db)
+        public ArticlesPresenter(DataBaseConnection db) : base(db)
         {
         }
 

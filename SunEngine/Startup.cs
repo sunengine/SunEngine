@@ -52,7 +52,7 @@ namespace SunEngine
                 services.AddCors();
             }
 
-            services.AddAllOptions(Configuration);
+            services.AddMyOptions(Configuration);
 
 
             // Add DataBase
@@ -89,7 +89,7 @@ namespace SunEngine
             services.AddSingleton<SpamProtectionStore>();
 
 
-            services.AddSingletonImages();
+            services.AddImagesServices();
 
 
             services.AddIdentity<User, UserGroupDB>(
@@ -116,46 +116,22 @@ namespace SunEngine
                 .AddRoleManager<MyRoleManager>()
                 .AddDefaultTokenProviders();
 
-            services.AddAuthentication(options =>
-                {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(config =>
-                {
-                    if (CurrentEnvironment.IsDevelopment())
-                    {
-                        config.RequireHttpsMetadata = false;
-                    }
-
-                    //config.SaveToken = true;
-
-                    config.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = Configuration["Jwt:Issuer"],
-                        ValidAudience = Configuration["Jwt:Issuer"],
-                        IssuerSigningKey =
-                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:ShortJwtSecurityKey"]))
-                    };
-                });
-
+            
+            
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = MyJwt.Scheme;
-                    //options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = MyJwt.Scheme;
                 })
                 .AddScheme<MyJwtOptions, MyJwtHandler>(MyJwt.Scheme, MyJwt.Scheme, options => { });
 
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddScopedEntityServices();
+            services.AddManagers();
+            
+            services.AddPresenters();
 
-            services.AddScopedControllersAuthorizationServices();
+            ServiceCollectionExtensions.AddAuthorization(services);
 
             services.AddAdminServices();
 
@@ -169,7 +145,7 @@ namespace SunEngine
 
             services.AddMvcCore(options =>
                 {
-                    /*options.Filters.Add(new MyAuthUserFilter(userGroupStore));*/
+                    // Add filters here
                 })
                 .AddApiExplorer()
                 .AddAuthorization()
@@ -206,9 +182,7 @@ namespace SunEngine
             }
 
 
-            //app.UseMiddleware<JwtMiddleware>();
             app.UseAuthentication();
-
 
             app.UseMvc(routes =>
             {

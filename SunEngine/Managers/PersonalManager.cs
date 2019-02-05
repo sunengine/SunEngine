@@ -9,11 +9,11 @@ using SunEngine.Controllers;
 
 namespace SunEngine.EntityServices
 {
-    public class PersonalService : DbService
+    public class PersonalManager : DbService
     {
         private readonly Sanitizer sanitizer;
         
-        public PersonalService(
+        public PersonalManager(
             DataBaseConnection db, 
             Sanitizer sanitizer) : base(db)
         {
@@ -38,25 +38,7 @@ namespace SunEngine.EntityServices
                 .UpdateAsync();
         }
 
-        public Task<MyUserInfoViewModel> GetMyUserInfoAsync(int id)
-        {
-            return db.Users.Where(x => x.Id == id).Select(x =>
-                new MyUserInfoViewModel
-                {
-                    Photo = x.Photo,
-                    Avatar = x.Avatar,
-                    Link = x.Link
-                }).FirstOrDefaultAsync();
-        }
-
-        public Task<MyProfileInformationViewModel> GetMyProfileInformationAsync(int id)
-        {
-            return db.Users.Where(x => x.Id == id).Select(x =>
-                new MyProfileInformationViewModel
-                {
-                    Information = x.Information
-                }).FirstOrDefaultAsync();
-        }
+        
 
         public Task SetMyProfileInformationAsync(int id, string html)
         {
@@ -125,15 +107,6 @@ namespace SunEngine.EntityServices
                 .Set(x => x.Avatar, User.DefaultAvatar).UpdateAsync();
         }
         
-        public Task<UserInfoViewModel[]> GetBanListAsync(int userId)
-        {
-            return db.UserBanedUnits.Where(x => x.UserId == userId).OrderBy(x=>x.UserBaned.UserName).Select(x => 
-                new UserInfoViewModel
-                {
-                    Id = x.UserBaned.Id,
-                    Name = x.UserBaned.UserName,
-                    Link = x.UserBaned.Link
-                }).ToArrayAsync();
-        }
+        
     }
 }

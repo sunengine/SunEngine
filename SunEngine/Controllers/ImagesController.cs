@@ -19,19 +19,19 @@ namespace SunEngine.Controllers
     public class ImagesController : BaseController
     {
         private readonly ImagesOptions imagesOptions;
-        private readonly PersonalService personalService;
+        private readonly PersonalManager personalManager;
         private readonly ImagesService imagesService;
 
         public ImagesController(
             IOptions<ImagesOptions> imagesOptions,
-            PersonalService personalService,
+            PersonalManager personalManager,
             ImagesService imagesService,
             CaptchaService captchaService,
             MyUserManager userManager,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
             this.imagesOptions = imagesOptions.Value;
-            this.personalService = personalService;
+            this.personalManager = personalManager;
             this.imagesService = imagesService;
         }
 
@@ -93,7 +93,7 @@ namespace SunEngine.Controllers
                 return BadRequest();
             }
 
-            await personalService.SetPhotoAndAvatarAsync(User.UserId, fileAndDirPhoto.Path, fileAndDirAvatar.Path);
+            await personalManager.SetPhotoAndAvatarAsync(User.UserId, fileAndDirPhoto.Path, fileAndDirAvatar.Path);
 
             return Ok();
         }

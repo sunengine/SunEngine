@@ -22,7 +22,7 @@ namespace SunEngine.Controllers
         private readonly IAuthorizationService authorizationService;
         private readonly CategoriesAuthorization categoriesAuthorization;
         
-        private readonly ArticlesService articlesService;
+        private readonly ArticlesPresenter articlesPresenter;
 
 
         public ArticlesController(
@@ -30,7 +30,7 @@ namespace SunEngine.Controllers
             IAuthorizationService authorizationService,
             ICategoriesStore categoriesStore,
             OperationKeysContainer operationKeysContainer,
-            ArticlesService articlesService, 
+            ArticlesPresenter articlesPresenter, 
             MyUserManager userManager,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
@@ -39,7 +39,7 @@ namespace SunEngine.Controllers
             this.articlesOptions = articlesOptions.Value;
             this.authorizationService = authorizationService;
             this.categoriesStore = categoriesStore;
-            this.articlesService = articlesService;
+            this.articlesPresenter = articlesPresenter;
         }
 
         [HttpPost]
@@ -57,7 +57,7 @@ namespace SunEngine.Controllers
                 return Unauthorized();
             }
 
-            IPagedList<ArticleInfoViewModel> articles = await articlesService.GetArticlesAsync(category.Id,page,articlesOptions.ArticlesCategoryPageSize);
+            IPagedList<ArticleInfoViewModel> articles = await articlesPresenter.GetArticlesAsync(category.Id,page,articlesOptions.ArticlesCategoryPageSize);
 
             return Json(articles);
         }

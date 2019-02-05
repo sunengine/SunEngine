@@ -15,24 +15,27 @@ namespace SunEngine.Controllers
     {
         private readonly MaterialsAuthorization materialsAuthorization;
         private readonly ICategoriesStore categoriesStore;
-        private readonly MaterialsService materialsService;
+        private readonly MaterialsManager materialsManager;
+        private readonly MaterialsPresenter materialsPresenter;
 
         public MaterialsController(
             MaterialsAuthorization materialsAuthorization,
             ICategoriesStore categoriesStore, 
-            MaterialsService materialsService,
+            MaterialsManager materialsManager,
             MyUserManager userManager,
+            MaterialsPresenter materialsPresenter,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
             this.materialsAuthorization = materialsAuthorization;
             this.categoriesStore = categoriesStore;
-            this.materialsService = materialsService;
+            this.materialsManager = materialsManager;
+            this.materialsPresenter = materialsPresenter;
         }
 
         [HttpPost]
         public async Task<IActionResult> Get(int id) // TODO Pages
         {
-            int? categoryId = await materialsService.GetCategoryIdIfHasMaterialAsync(id);
+            int? categoryId = await materialsManager.GetCategoryIdIfHasMaterialAsync(id);
             if (categoryId == null)
             {
                 return BadRequest();
@@ -46,7 +49,7 @@ namespace SunEngine.Controllers
             }
 
 
-            MaterialViewModel materialViewModel = await materialsService.GetViewModelAsync(id);
+            MaterialViewModel materialViewModel = await materialsPresenter.GetViewModelAsync(id);
 
             return Json(materialViewModel);
         }
@@ -81,7 +84,7 @@ namespace SunEngine.Controllers
                 AuthorId = User.UserId
             };
 
-            await materialsService.InsertAsync(material, tags);
+            await materialsManager.InsertAsync(material, tags);
 
             return Ok();
         }
@@ -91,7 +94,7 @@ namespace SunEngine.Controllers
         public async Task<IActionResult> Edit(int id, string categoryName, string title, string text,
             string tags = "", DateTime? publishDate = null, int? authorId = null)
         {
-            Material material = await materialsService.GetAsync(id);
+            Material material = await materialsManager.GetAsync(id);
             if (material == null)
             {
                 return BadRequest();
@@ -123,7 +126,7 @@ namespace SunEngine.Controllers
                 }
             }
 
-            materialsService.UpdateAsync(material, tags);
+            materialsManager.UpdateAsync(material, tags);
 
             return Ok();
         }
@@ -131,7 +134,7 @@ namespace SunEngine.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            Material material = await materialsService.GetAsync(id);
+            Material material = await materialsManager.GetAsync(id);
             if (material == null)
             {
                 return BadRequest();
@@ -142,7 +145,7 @@ namespace SunEngine.Controllers
                 return Unauthorized();
             }
 
-            await materialsService.MoveToTrashAsync(material);
+            await materialsManager.MoveToTrashAsync(material);
 
             return Ok();
         }

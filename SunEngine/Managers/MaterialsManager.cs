@@ -11,45 +11,23 @@ using SunEngine.Options;
 
 namespace SunEngine.EntityServices
 {
-    public class MaterialsService : DbService
+    public class MaterialsManager : DbService
     {
-        private readonly TagsService tagsService;
+        private readonly TagsManager tagsManager;
         private readonly Sanitizer _sanitizer;
         private readonly MaterialOptions materialOptions;
 
 
-        public MaterialsService(DataBaseConnection db,
+        public MaterialsManager(DataBaseConnection db,
             Sanitizer sanitizer,
-            TagsService tagsService,
+            TagsManager tagsManager,
             IOptions<MaterialOptions> materialOptions) : base(db)
         {
-            this.tagsService = tagsService;
+            this.tagsManager = tagsManager;
             this._sanitizer = sanitizer;
             this.materialOptions = materialOptions.Value;
         }
 
-
-        public Task<MaterialViewModel> GetViewModelAsync(int id)
-        {
-            return db.Materials.Where(x => x.Id == id).Select(x =>
-                new MaterialViewModel
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    AuthorLink = x.Author.Link,
-                    AuthorName = x.Author.UserName,
-                    AuthorAvatar = x.Author.Avatar,
-                    AuthorId = x.Author.Id,
-                    PublishDate = x.PublishDate,
-                    EditDate = x.EditDate,
-                    MessagesCount = x.MessagesCount,
-                    Text = x.Text,
-                    CategoryName = x.Category.Name.ToLower(),
-                    IsDeleted = x.IsDeleted,
-                    Tags = x.TagMaterials.OrderBy(y => y.Tag.Name).Select(y => y.Tag.Name).ToArray()
-                }
-            ).FirstOrDefaultAsync();
-        }
 
         public async Task<int?> GetCategoryIdIfHasMaterialAsync(int id)
         {
@@ -71,7 +49,7 @@ namespace SunEngine.EntityServices
 
             material.Id = await db.InsertWithInt32IdentityAsync(material);
 
-            await tagsService.MaterialCreateAndSetTagsAsync(material, tags);
+            await tagsManager.MaterialCreateAndSetTagsAsync(material, tags);
         }
 
         public async Task UpdateAsync(Material material, string tags)
@@ -85,7 +63,7 @@ namespace SunEngine.EntityServices
 
             await db.UpdateAsync(material);
 
-            await tagsService.MaterialCreateAndSetTagsAsync(material, tags);
+            await tagsManager.MaterialCreateAndSetTagsAsync(material, tags);
         }
 
         public async Task MoveToTrashAsync(Material material)
@@ -116,22 +94,5 @@ namespace SunEngine.EntityServices
         {
             return DetectAndSetLastMessageAndCountAsync(db.Materials.FirstOrDefault(x => x.Id == materialId));
         }
-    }
-
-    public class MaterialViewModel
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Text { get; set; }
-        public string AuthorName { get; set; }
-        public int AuthorId { get; set; }
-        public string AuthorLink { get; set; }
-        public string AuthorAvatar { get; set; }
-        public int MessagesCount { get; set; }
-        public DateTime PublishDate { get; set; }
-        public DateTime? EditDate { get; set; }
-        public string CategoryName { get; set; }
-        public bool IsDeleted { get; set; }
-        public string[] Tags { get; set; }
     }
 }
