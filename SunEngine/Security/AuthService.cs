@@ -21,6 +21,7 @@ using SunEngine.Configuration.Options;
 using SunEngine.Controllers;
 using SunEngine.Security.Authentication;
 using SunEngine.Services;
+using SunEngine.Stores;
 
 namespace SunEngine.Security
 {
@@ -29,17 +30,19 @@ namespace SunEngine.Security
         private readonly MyUserManager userManager;
         private readonly JwtOptions jwtOptions;
         private readonly ILogger logger;
-
+        private readonly IUserGroupStore userGroupStore;
 
         public AuthService(
             DataBaseConnection db,
             MyUserManager userManager,
+            IUserGroupStore userGroupStore,
             IOptions<JwtOptions> jwtOptions,
             ILoggerFactory loggerFactory) : base(db)
         {
             this.userManager = userManager;
             this.jwtOptions = jwtOptions.Value;
             logger = loggerFactory.CreateLogger<AuthController>();
+            this.userGroupStore = userGroupStore;
         }
 
         private JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
@@ -47,13 +50,15 @@ namespace SunEngine.Security
             ContractResolver = new CamelCasePropertyNamesContractResolver()
         };
 
-        public async Task<ClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, int userId, LongSession longSession = null)
+        public async Task<MyClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, int userId,
+            LongSession longSession = null)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Id == userId);
             return await RenewSecurityTokensAsync(response, user, longSession);
         }
 
-        public async Task<ClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, User user, LongSession longSession = null)
+        public async Task<MyClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, User user,
+            LongSession longSession = null)
         {
             void GenerateTokens(LongSession longSession1)
             {
@@ -96,7 +101,8 @@ namespace SunEngine.Security
                 }
             );
 
-            TokenAndClaimsPrincipal tokenAndClaimsPrincipal = await GenerateShortAuthTokenAsync(user, lat2r);
+            TokenAndClaimsPrincipal tokenAndClaimsPrincipal =
+                await GenerateShortAuthTokenAsync(user, lat2r, longSession.Id);
 
             string json = JsonConvert.SerializeObject(new
             {
@@ -167,10 +173,10 @@ namespace SunEngine.Security
         internal class TokenAndClaimsPrincipal
         {
             public string Token;
-            public ClaimsPrincipal ClaimsPrincipal;
+            public MyClaimsPrincipal ClaimsPrincipal;
         }
 
-        private async Task<TokenAndClaimsPrincipal> GenerateShortAuthTokenAsync(User user, string lat2r)
+        private async Task<TokenAndClaimsPrincipal> GenerateShortAuthTokenAsync(User user, string lat2r, long sessionId)
         {
             // Generate and issue a JWT token
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.ShortJwtSecurityKey));
@@ -195,12 +201,12 @@ namespace SunEngine.Security
                 issuer: jwtOptions.Issuer,
                 audience: jwtOptions.Issuer,
                 claims: claims.ToArray(),
-                expires: DateTime.UtcNow.AddMinutes(1), //DateTime.Now.AddDays(1),
+                expires: DateTime.UtcNow.AddSeconds(45), // DateTime.UtcNow.AddMinutes(1), //DateTime.Now.AddDays(1),
                 signingCredentials: credentials);
 
             return new TokenAndClaimsPrincipal
             {
-                ClaimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(claims)),
+                ClaimsPrincipal = new MyClaimsPrincipal(roleNames, userGroupStore, sessionId),
                 Token = new JwtSecurityTokenHandler().WriteToken(token)
             };
         }

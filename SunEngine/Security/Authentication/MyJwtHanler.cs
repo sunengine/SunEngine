@@ -57,14 +57,15 @@ namespace SunEngine.Security.Authentication
 
                 var longToken2 = jwtLongToken2.Claims.First(x => x.Type == "LAT2").Value;
 
-                ClaimsPrincipal claimsPrincipal;
-                
+                MyClaimsPrincipal myClaimsPrincipal;
+
+                LongSession longSession;
                 if (Request.Headers.ContainsKey("LongToken1"))
                 {
                     var longToken1 = Request.Headers["LongToken1"];
                     int userId = int.Parse(jwtLongToken2.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
 
-                    var longSession = new LongSession
+                    longSession = new LongSession
                     {
                         UserId = userId,
                         LongToken1 = longToken1,
@@ -76,13 +77,12 @@ namespace SunEngine.Security.Authentication
                     if (longSession == null)
                         return ErrorAuthorization();
 
-                    claimsPrincipal = await authService.RenewSecurityTokensAsync(Response, userId, longSession);
+                    myClaimsPrincipal = await authService.RenewSecurityTokensAsync(Response, userId, longSession);
 
                     Console.WriteLine("Token Renews");
                 }
                 else
                 {
-
                     string authorization = Request.Headers["Authorization"];
 
                     if (string.IsNullOrEmpty(authorization))
@@ -102,7 +102,7 @@ namespace SunEngine.Security.Authentication
                     }
 
 
-                    claimsPrincipal =
+                    var claimsPrincipal =
                         authService.ReadShortToken(jwtShortToken, out SecurityToken shortToken);
 
                     var LAT2R_1 = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == "LAT2R").Value;
@@ -112,11 +112,12 @@ namespace SunEngine.Security.Authentication
                     {
                         return ErrorAuthorization();
                     }
+
+                    long sessionId = long.Parse(jwtLongToken2.Claims.FirstOrDefault(x => x.Type == "ID").Value);
+
+                    myClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, userGroupStore, sessionId);
                 }
 
-                long sessionId = long.Parse(jwtLongToken2.Claims.FirstOrDefault(x => x.Type == "ID").Value);
-
-                var myClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, userGroupStore, sessionId);
                 var authenticationTicket = new AuthenticationTicket(myClaimsPrincipal, MyJwt.Scheme);
                 return AuthenticateResult.Success(authenticationTicket);
             }

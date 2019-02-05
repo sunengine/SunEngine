@@ -1,6 +1,0 @@
-{
-  "DataBaseConnection": {
-    "Provider": "PostgreSQL.9.5",
-    "ConnectionString": "Host=localhost;Database=SunEngineDb;Username=postgres;Password=password"
-  }
-}
