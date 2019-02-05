@@ -26,7 +26,7 @@ namespace SunEngine.Admin.Services
             DataBaseConnection db,
             IHostingEnvironment env) : base(db)
         {
-            UserGroupSchemaPath = Path.Combine(env.ContentRootPath, UserGroupsSchemaFileName);
+            UserGroupSchemaPath = Path.Combine(env.ContentRootPath,"Resources", UserGroupsSchemaFileName);
         }
 
         public async Task<string> GetGroupsJsonAsync()

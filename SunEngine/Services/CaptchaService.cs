@@ -33,7 +33,7 @@ namespace SunEngine.Services
 
             // Init Font (font name: Gunny Rewritten)
             FontCollection fontCollection = new FontCollection();
-            fontCollection.Install(Path.GetFullPath("gunnyrewritten.ttf"));
+            fontCollection.Install(Path.GetFullPath("Resources/gunnyrewritten.ttf"));
             font = fontCollection.Families.First().CreateFont(46);
         }
 
