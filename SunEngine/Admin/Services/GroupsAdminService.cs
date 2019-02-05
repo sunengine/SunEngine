@@ -26,7 +26,7 @@ namespace SunEngine.Admin.Services
             DataBaseConnection db,
             IHostingEnvironment env) : base(db)
         {
-            UserGroupSchemaPath = Path.Combine(env.ContentRootPath,"Resources", UserGroupsSchemaFileName);
+            UserGroupSchemaPath = Path.Combine(env.ContentRootPath, "Resources", UserGroupsSchemaFileName);
         }
 
         public async Task<string> GetGroupsJsonAsync()
@@ -37,7 +37,7 @@ namespace SunEngine.Admin.Services
 
             var categories = await db.Categories.ToDictionaryAsync(x => x.Id, x => x);
 
-            var jobject = groups.Select(x =>
+            var jObject = groups.Select(x =>
                     new
                     {
                         Name = x.Name,
@@ -50,18 +50,21 @@ namespace SunEngine.Admin.Services
                                     new
                                     {
                                         Category = categories[y.CategoryId].Name,
-                                        OperationKeys = y.CategoryOperationAccesses.Count > 0 ?
-                                            y.CategoryOperationAccesses.ToDictionary(z => z.OperationKeyDb.Name,
-                                                z => z.Access) : null
+                                        OperationKeys = y.CategoryOperationAccesses.Count > 0
+                                            ? y.CategoryOperationAccesses.ToDictionary(z => z.OperationKeyDb.Name,
+                                                z => z.Access)
+                                            : null
                                     }).ToArray()
                                 : null
                         }
                     })
                 .ToDictionary(x => x.Name, x => x.Group);
 
-            JsonSerializerSettings jo = new JsonSerializerSettings();
-            jo.NullValueHandling = NullValueHandling.Ignore;
-            return JsonConvert.SerializeObject(jobject, Formatting.Indented, jo);
+            JsonSerializerSettings serializerSettings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            return JsonConvert.SerializeObject(jObject, Formatting.Indented, serializerSettings);
         }
 
         public async Task LoadUserGroupsFromJsonAsync(string json)
@@ -142,7 +145,7 @@ namespace SunEngine.Admin.Services
 
         private Task<List<UserToGroupTmp>> SaveUserToGroupsAsync()
         {
-            return db.UserToGroups.Select(x => new UserToGroupTmp {userId = x.UserId, roleName = x.UserGroup.Name})
+            return db.UserToGroups.Select(x => new UserToGroupTmp {UserId = x.UserId, RoleName = x.UserGroup.Name})
                 .ToListAsync();
         }
 
@@ -161,8 +164,8 @@ namespace SunEngine.Admin.Services
 
         private class UserToGroupTmp
         {
-            public int userId;
-            public string roleName;
+            public int UserId;
+            public string RoleName;
         }
     }
 }
