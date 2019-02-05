@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Commons.DataBase;
 using SunEngine.Stores;
 
-namespace SunEngine.Configuration
+namespace SunEngine.Configuration.AddServices
 {
     public static class AddStoresExtensions
     {

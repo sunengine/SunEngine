@@ -1,9 +1,9 @@
 using LinqToDB.Data;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Commons.DataBase;
-using Microsoft.Extensions.Configuration;
 
-namespace SunEngine.Configuration
+namespace SunEngine.Configuration.AddServices
 {
     public static class AddDatabaseExtensions
     {

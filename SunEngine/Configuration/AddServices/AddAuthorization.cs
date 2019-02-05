@@ -3,17 +3,20 @@ using SunEngine.Commons.Services;
 using SunEngine.Security;
 using SunEngine.Security.Authorization;
 
-static internal class AddAuthorizationExtensions
+namespace SunEngine.Configuration.AddServices
 {
-    public static void AddAuthorization(this IServiceCollection services)
+    static internal class AddAuthorizationExtensions
     {
-        services.AddSingleton<OperationKeysContainer>();
-        services.AddSingleton<IAuthorizationService, AuthorizationService>();
+        public static void AddAuthorization(this IServiceCollection services)
+        {
+            services.AddSingleton<OperationKeysContainer>();
+            services.AddSingleton<IAuthorizationService, AuthorizationService>();
         
-        services.AddScoped<CategoriesAuthorization>();
-        services.AddScoped<MaterialsAuthorization>();
-        services.AddScoped<MessageAuthorization>();
+            services.AddScoped<CategoriesAuthorization>();
+            services.AddScoped<MaterialsAuthorization>();
+            services.AddScoped<MessageAuthorization>();
         
-        services.AddScoped<AuthService>();
+            services.AddScoped<AuthService>();
+        }
     }
 }

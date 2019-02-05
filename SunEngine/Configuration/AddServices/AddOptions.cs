@@ -2,7 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Configuration.Options;
 
-namespace SunEngine.Configuration
+namespace SunEngine.Configuration.AddServices
 {
     public static class AddOptionsExtensions
     {

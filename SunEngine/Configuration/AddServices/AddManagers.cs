@@ -1,14 +1,17 @@
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Managers;
 
-static internal class AddManagersExtensions
+namespace SunEngine.Configuration.AddServices
 {
-    public static void AddManagers(this IServiceCollection services)
+    static internal class AddManagersExtensions
     {
-        services.AddScoped<MaterialsManager>();  
-        services.AddScoped<MessagesManager>();  
-        services.AddScoped<PersonalManager>();
-        services.AddScoped<ProfileManager>();
-        services.AddScoped<TagsManager>();
+        public static void AddManagers(this IServiceCollection services)
+        {
+            services.AddScoped<MaterialsManager>();  
+            services.AddScoped<MessagesManager>();  
+            services.AddScoped<PersonalManager>();
+            services.AddScoped<ProfileManager>();
+            services.AddScoped<TagsManager>();
+        }
     }
 }

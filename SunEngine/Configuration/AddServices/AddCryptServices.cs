@@ -1,13 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
-using SunEngine.Admin.Services;
-using SunEngine.Commons.Services;
-using SunEngine.Managers;
-using SunEngine.Presenters;
-using SunEngine.Security;
-using SunEngine.Security.Authorization;
 using SunEngine.Services;
 
-namespace SunEngine.Configuration
+namespace SunEngine.Configuration.AddServices
 {
     internal static class AddCryptServicesExtensions
     {

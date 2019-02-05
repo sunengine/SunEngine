@@ -1,11 +1,14 @@
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Admin.Services;
 
-static internal class AddAdminServicesExtensions
+namespace SunEngine.Configuration.AddServices
 {
-    public static void AddAdminServices(this IServiceCollection services)
+    static internal class AddAdminServicesExtensions
     {
-        services.AddScoped<CategoriesAdminService>();
-        services.AddScoped<GroupsAdminService>();
+        public static void AddAdminServices(this IServiceCollection services)
+        {
+            services.AddScoped<CategoriesAdminService>();
+            services.AddScoped<GroupsAdminService>();
+        }
     }
 }

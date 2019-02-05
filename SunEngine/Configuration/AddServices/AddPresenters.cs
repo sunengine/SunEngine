@@ -1,16 +1,19 @@
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Presenters;
 
-static internal class AddPresentersExtensions
+namespace SunEngine.Configuration.AddServices
 {
-    public static void AddPresenters(this IServiceCollection services)
+    static internal class AddPresentersExtensions
     {
-        services.AddScoped<ArticlesPresenter>();
-        services.AddScoped<BlogPresenter>();
-        services.AddScoped<ForumPresenter>(); 
-        services.AddScoped<MaterialsPresenter>();
-        services.AddScoped<MessagesPresenter>();
-        services.AddScoped<PersonalPresenter>(); 
-        services.AddScoped<ProfilePresenter>();
+        public static void AddPresenters(this IServiceCollection services)
+        {
+            services.AddScoped<ArticlesPresenter>();
+            services.AddScoped<BlogPresenter>();
+            services.AddScoped<ForumPresenter>(); 
+            services.AddScoped<MaterialsPresenter>();
+            services.AddScoped<MessagesPresenter>();
+            services.AddScoped<PersonalPresenter>(); 
+            services.AddScoped<ProfilePresenter>();
+        }
     }
 }

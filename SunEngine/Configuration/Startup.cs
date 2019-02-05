@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.TextProcess;
+using SunEngine.Configuration.AddServices;
 using SunEngine.Security.Authentication;
 using SunEngine.Services;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
@@ -47,9 +48,9 @@ namespace SunEngine.Configuration
 
             services.AddIdentity(dataBaseFactory);
 
-            services.AddAuthentication();
+            AddAuthenticationExtensions.AddAuthentication(services);
             
-            services.AddAuthorization();
+            AddAuthorizationExtensions.AddAuthorization(services);
             
             services.AddManagers();
             

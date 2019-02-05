@@ -5,7 +5,7 @@ using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.UserGroups;
 using SunEngine.Commons.Services;
 
-namespace SunEngine.Configuration
+namespace SunEngine.Configuration.AddServices
 {
     public static class AddIdentityExtensions
     {

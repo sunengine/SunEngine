@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Security.Authentication;
 
-namespace SunEngine.Configuration
+namespace SunEngine.Configuration.AddServices
 {
     public static class AddAuthenticationExtensions
     {
