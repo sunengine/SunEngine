@@ -13,8 +13,6 @@ namespace SunEngine.Configuration.AddServices
                     options.DefaultChallengeScheme = MyJwt.Scheme;
                 })
                 .AddScheme<MyJwtOptions, MyJwtHandler>(MyJwt.Scheme, MyJwt.Scheme, options => { });
-
         }
-
     }
 }
