@@ -1,11 +1,11 @@
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
-using SunEngine.EntityServices;
+using SunEngine.Managers;
+using SunEngine.Presenters;
+using SunEngine.Security;
 using SunEngine.Stores;
 
 namespace SunEngine.Controllers

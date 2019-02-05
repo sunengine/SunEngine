@@ -1,4 +1,5 @@
 using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,8 +32,8 @@ namespace SunEngine.Filters
             var user = controller.User;
 
             if (!user.Identity.IsAuthenticated)
-            {
-                throw new Exception("This user can not make post requests");
+            {             
+                context.Result = controller.BadRequest("This user can not make post requests");
             }
 
             var actionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;

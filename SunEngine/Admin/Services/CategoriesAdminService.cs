@@ -7,7 +7,7 @@ using SunEngine.Admin.Controllers;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.TextProcess;
-using SunEngine.EntityServices;
+using SunEngine.Services;
 
 namespace SunEngine.Admin.Services
 {

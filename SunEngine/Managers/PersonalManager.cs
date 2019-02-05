@@ -5,9 +5,9 @@ using LinqToDB;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.TextProcess;
-using SunEngine.Controllers;
+using SunEngine.Services;
 
-namespace SunEngine.EntityServices
+namespace SunEngine.Managers
 {
     public class PersonalManager : DbService
     {

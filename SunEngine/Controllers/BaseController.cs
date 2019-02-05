@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SunEngine.Authentication;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
+using SunEngine.Security.Authentication;
 using SunEngine.Stores;
 
 namespace SunEngine.Controllers

@@ -2,8 +2,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Commons.DataBase;
+using SunEngine.Services;
 
-namespace SunEngine.EntityServices
+namespace SunEngine.Presenters
 {
     public class PersonalPresenter : DbService
     {

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.PagedList;
+using SunEngine.Services;
 
-namespace SunEngine.EntityServices
+namespace SunEngine.Presenters
 {
     public class ForumPresenter : DbService
     {

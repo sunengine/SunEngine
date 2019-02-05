@@ -1,6 +1,6 @@
 using System;
 
-namespace SunEngine.Options
+namespace SunEngine.Configuration.Options
 {
     public class GlobalOptions
     {

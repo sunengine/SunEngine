@@ -1,15 +1,14 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using Microsoft.Extensions.Options;
-using Npgsql;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.TextProcess;
-using SunEngine.Options;
+using SunEngine.Configuration.Options;
+using SunEngine.Services;
 
-namespace SunEngine.EntityServices
+namespace SunEngine.Managers
 {
     public class MaterialsManager : DbService
     {

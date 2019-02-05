@@ -3,7 +3,7 @@ using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.StoreModels;
 
-namespace SunEngine.Authorization
+namespace SunEngine.Security.Authorization
 {
     public class CategoriesAuthorization
     {

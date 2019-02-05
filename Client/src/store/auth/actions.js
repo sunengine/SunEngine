@@ -28,13 +28,9 @@ export async function doLogout(context) {
     url: '/Auth/Logout'
   });
 
-  await context.commit('makeLogout');
 
-  removeToken();
 
-  await context.dispatch('getAllCategories');
 
-  routeCheckAccess(router.currentRoute);
 }
 
 

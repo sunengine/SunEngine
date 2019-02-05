@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.TextProcess;
+using SunEngine.Services;
 
-namespace SunEngine.EntityServices
+namespace SunEngine.Managers
 {
     public class MessagesManager : DbService
     {

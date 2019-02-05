@@ -5,8 +5,9 @@ using LinqToDB;
 using LinqToDB.Data;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
+using SunEngine.Services;
 
-namespace SunEngine.EntityServices
+namespace SunEngine.Managers
 {
     public class TagsManager : DbService
     {

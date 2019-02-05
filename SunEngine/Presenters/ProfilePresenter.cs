@@ -3,9 +3,10 @@ using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
+using SunEngine.Services;
 using SunEngine.Stores;
 
-namespace SunEngine.EntityServices
+namespace SunEngine.Presenters
 {
     public class ProfilePresenter : DbService
     {

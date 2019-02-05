@@ -5,7 +5,7 @@ using System.Security.Claims;
 using SunEngine.Commons.StoreModels;
 using SunEngine.Stores;
 
-namespace SunEngine.Authentication
+namespace SunEngine.Security.Authentication
 {
     public class MyClaimsPrincipal : ClaimsPrincipal
     {

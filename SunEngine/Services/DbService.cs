@@ -1,6 +1,6 @@
 using SunEngine.Commons.DataBase;
 
-namespace SunEngine.EntityServices
+namespace SunEngine.Services
 {
     public class DbService
     {

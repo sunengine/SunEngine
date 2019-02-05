@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Flurl.Util;
 using LinqToDB;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -18,11 +17,12 @@ using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.Utils;
+using SunEngine.Configuration.Options;
 using SunEngine.Controllers;
-using SunEngine.Options;
+using SunEngine.Security.Authentication;
 using SunEngine.Services;
 
-namespace SunEngine.EntityServices
+namespace SunEngine.Security
 {
     public class AuthService : DbService
     {
@@ -47,13 +47,13 @@ namespace SunEngine.EntityServices
             ContractResolver = new CamelCasePropertyNamesContractResolver()
         };
 
-        public async Task RenewSecurityTokensAsync(HttpResponse response, int userId, LongSession longSession = null)
+        public async Task<ClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, int userId, LongSession longSession = null)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Id == userId);
-            await RenewSecurityTokensAsync(response, user, longSession);
+            return await RenewSecurityTokensAsync(response, user, longSession);
         }
 
-        public async Task RenewSecurityTokensAsync(HttpResponse response, User user, LongSession longSession = null)
+        public async Task<ClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, User user, LongSession longSession = null)
         {
             void GenerateTokens(LongSession longSession1)
             {
@@ -82,7 +82,6 @@ namespace SunEngine.EntityServices
             }
 
 
-
             var lat2Token = CreateLong2AuthToken(longSession, out string lat2r);
 
             response.Cookies.Append(
@@ -97,8 +96,7 @@ namespace SunEngine.EntityServices
                 }
             );
 
-            var shortToken = await GenerateShortAuthTokenAsync(user, lat2r);
-
+            TokenAndClaimsPrincipal tokenAndClaimsPrincipal = await GenerateShortAuthTokenAsync(user, lat2r);
 
             string json = JsonConvert.SerializeObject(new
             {
@@ -107,10 +105,12 @@ namespace SunEngine.EntityServices
                     Token = longSession.LongToken1,
                     Expiration = longSession.ExpirationDate.ToInvariantString()
                 },
-                ShortToken = shortToken
+                ShortToken = tokenAndClaimsPrincipal.Token
             }, jsonSerializerSettings);
 
             response.Headers.Add("TOKENS", json);
+
+            return tokenAndClaimsPrincipal.ClaimsPrincipal;
         }
 
         public string GenerateChangeEmailToken(User user, string email)
@@ -134,7 +134,7 @@ namespace SunEngine.EntityServices
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-        
+
         public bool ValidateChangeEmailToken(string token, out int userId, out string email)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKeyEmailChange));
@@ -164,7 +164,13 @@ namespace SunEngine.EntityServices
             return true;
         }
 
-        private async Task<string> GenerateShortAuthTokenAsync(User user, string lat2r)
+        internal class TokenAndClaimsPrincipal
+        {
+            public string Token;
+            public ClaimsPrincipal ClaimsPrincipal;
+        }
+
+        private async Task<TokenAndClaimsPrincipal> GenerateShortAuthTokenAsync(User user, string lat2r)
         {
             // Generate and issue a JWT token
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.ShortJwtSecurityKey));
@@ -192,9 +198,13 @@ namespace SunEngine.EntityServices
                 expires: DateTime.UtcNow.AddMinutes(1), //DateTime.Now.AddDays(1),
                 signingCredentials: credentials);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return new TokenAndClaimsPrincipal
+            {
+                ClaimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(claims)),
+                Token = new JwtSecurityTokenHandler().WriteToken(token)
+            };
         }
-        
+
         public JwtSecurityToken ReadLongToken2(string token)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.LongJwtSecurityKey));
@@ -224,7 +234,7 @@ namespace SunEngine.EntityServices
                 return null;
             }
         }
-        
+
         public ClaimsPrincipal ReadShortToken(string token, out SecurityToken securityToken)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.ShortJwtSecurityKey));
@@ -277,21 +287,19 @@ namespace SunEngine.EntityServices
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        
 
         public void MakeLogoutCookiesAndHeaders(HttpResponse response)
         {
             response.Cookies.Append("LAT2", "",
-                    new CookieOptions
-                    {
-                        Path = "/",
-                        HttpOnly = true,
-                        IsEssential = true,
-                        Expires = DateTimeOffset.UtcNow.AddMonths(-1)
-                    });
+                new CookieOptions
+                {
+                    Path = "/",
+                    HttpOnly = true,
+                    IsEssential = true,
+                    Expires = DateTimeOffset.UtcNow.AddMonths(-1)
+                });
 
             response.Headers.Add("TOKENSEXPIRE", "TRUE");
         }
-        
     }
 }

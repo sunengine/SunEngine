@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace SunEngine.Options
+namespace SunEngine.Configuration.Options
 {
     public class EmailSenderOptions
     {

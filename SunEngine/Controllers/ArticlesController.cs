@@ -2,13 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using SunEngine.Authorization;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.PagedList;
 using SunEngine.Commons.Services;
-using SunEngine.EntityServices;
-using SunEngine.Options;
+using SunEngine.Configuration.Options;
+using SunEngine.Presenters;
+using SunEngine.Security.Authorization;
 using SunEngine.Stores;
 
 namespace SunEngine.Controllers

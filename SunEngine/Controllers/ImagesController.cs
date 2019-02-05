@@ -1,15 +1,13 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
-using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
-using SunEngine.EntityServices;
-using SunEngine.Options;
+using SunEngine.Configuration.Options;
+using SunEngine.Managers;
 using SunEngine.Services;
 using SunEngine.Stores;
 

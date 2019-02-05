@@ -12,7 +12,7 @@ using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.UserGroups;
 using SunEngine.Commons.Utils;
-using SunEngine.EntityServices;
+using SunEngine.Services;
 
 namespace SunEngine.Admin.Services
 {

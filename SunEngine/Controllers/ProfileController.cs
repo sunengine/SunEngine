@@ -1,12 +1,12 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.StoreModels;
-using SunEngine.EntityServices;
 using SunEngine.Filters;
+using SunEngine.Managers;
+using SunEngine.Presenters;
 using SunEngine.Stores;
 
 namespace SunEngine.Controllers

@@ -10,6 +10,10 @@ import {makeUserDataFromToken} from "services/auth";
 import {getToken, setToken} from "services/token";
 
 import request from "services/request";
+import {routeCheckAccess} from "../plugins/routeAccess";
+import {router} from "../router";
+
+
 
 
 Vue.use(Vuex)
@@ -30,21 +34,29 @@ export default function (/* { ssrContext } */) {
     actions: {
       async request(context, data) {
 
+        function logout(data) {
+          store.commit('makeLogout');
+
+          if (data.url !== "/Categories/GetAllCategoriesAndAccesses")
+            context.dispatch('getAllCategories');
+
+          routeCheckAccess(router.currentRoute);
+        }
+
         return await request(data.url, data.data, data.sendAsJson, context.state.auth.tokens)
           .then(async data => {
             if (data.headers.tokensexpire) {
-              store.commit('makeLogout');
-
-              if (data.url !== "/Categories/GetAllCategoriesAndAccesses")
-                context.dispatch('getAllCategories');
+              logout(data);
             } else if (data.headers.tokens) {
               const tokensJson = JSON.parse(data.headers.tokens);
               setToken(tokensJson);
               const userData = makeUserDataFromToken(tokensJson);
               Object.assign(context.state.auth, userData);
-
             }
 
+            return data;
+          }).catch(async data => {
+            logout(data);
             return data;
           });
 

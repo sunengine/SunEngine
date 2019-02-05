@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.PagedList;
 using SunEngine.Controllers;
+using SunEngine.Services;
 
-namespace SunEngine.EntityServices
+namespace SunEngine.Presenters
 {
     public class BlogPresenter : DbService
     {

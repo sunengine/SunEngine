@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Transactions;
 using Microsoft.AspNetCore.Mvc;
@@ -9,16 +8,15 @@ using Flurl;
 using LinqToDB;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using SunEngine.Commons.Models;
-using SunEngine.Options;
 using Microsoft.AspNetCore.Identity;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.StoreModels;
-using SunEngine.EntityServices;
+using SunEngine.Configuration.Options;
 using SunEngine.Filters;
+using SunEngine.Security;
 using SunEngine.Services;
 using SunEngine.Stores;
 
@@ -105,6 +103,7 @@ namespace SunEngine.Controllers
 
             return Ok();
         }
+        
 
         [AllowAnonymous]
         [CaptchaValidationFilter]

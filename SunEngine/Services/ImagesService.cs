@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using SunEngine.Options;
+using SunEngine.Configuration.Options;
 
 namespace SunEngine.Services
 {

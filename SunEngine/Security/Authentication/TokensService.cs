@@ -1,16 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Utils;
-using SunEngine.Options;
+using SunEngine.Configuration.Options;
 
-namespace SunEngine.Authentication
+namespace SunEngine.Security.Authentication
 {
     public class TokensService
     {

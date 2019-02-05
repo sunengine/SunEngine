@@ -5,7 +5,7 @@ using SunEngine.Commons.Services;
 using SunEngine.Commons.StoreModels;
 using SunEngine.Stores;
 
-namespace SunEngine.Authorization
+namespace SunEngine.Security.Authorization
 {
     public class AuthorizationService : IAuthorizationService
     {
