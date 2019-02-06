@@ -22,14 +22,8 @@ export default async function request(url, data, sendAsJson = false) {
 
   const headers = {};
 
-  debugger;
-
   if (tokens && tokens.shortTokenExpiration < new Date()) {
     headers['LongToken1'] = tokens.longToken.token;
-
-    /*await apiAxios.post("Auth/Refresh").then(data => {
-      tokens = data.tokens;
-    });*/
 
     awaiter = makeRequest();
     await awaiter;
