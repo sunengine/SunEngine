@@ -38,7 +38,6 @@
       <None Remove="gunnyrewritten.ttf" />
       <Content Update="Settings\Local.SunEngine.json">
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
       <Content Update="Settings\SunEngine.json">
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

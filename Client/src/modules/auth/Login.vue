@@ -66,9 +66,9 @@
 
         this.submitting = true;
 
-        var data = {nameOrEmail: this.nameOrEmail, password: this.password, notMyComputer: this.notMyComputer};
+        const data = {nameOrEmail: this.nameOrEmail, password: this.password, notMyComputer: this.notMyComputer};
         await this.$store.dispatch('doLogin', data).then(data => {
-          if (this.$router.$prevRoute.name == "Login")
+          if (this.$router.$prevRoute.name === "Login")
             this.$router.push({name: "Home"});
           else
             this.$router.$goBack();

@@ -27,7 +27,7 @@
 
 
   import {makeUserDataFromToken} from "services/auth";
-  import {hasToken} from "services/token"
+  import {getToken} from "services/token"
   import LoaderSent from "LoaderSent";
   import {required, helpers} from 'vuelidate/lib/validators'
 
@@ -107,6 +107,9 @@
               name: this.name,
             }
           }).then(response => {
+
+          const data = makeUserDataFromToken(getToken());
+          this.$store.commit('makeLogin', data);
 
           this.$q.notify({
             message: `Имя изменено`,
