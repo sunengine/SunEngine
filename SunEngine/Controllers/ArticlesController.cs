@@ -2,13 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using SunEngine.Authorization.ControllersAuthorization;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.PagedList;
 using SunEngine.Commons.Services;
-using SunEngine.EntityServices;
-using SunEngine.Options;
+using SunEngine.Configuration.Options;
+using SunEngine.Presenters;
+using SunEngine.Security.Authorization;
 using SunEngine.Stores;
 
 namespace SunEngine.Controllers
@@ -22,7 +21,7 @@ namespace SunEngine.Controllers
         private readonly IAuthorizationService authorizationService;
         private readonly CategoriesAuthorization categoriesAuthorization;
         
-        private readonly ArticlesService articlesService;
+        private readonly ArticlesPresenter articlesPresenter;
 
 
         public ArticlesController(
@@ -30,7 +29,7 @@ namespace SunEngine.Controllers
             IAuthorizationService authorizationService,
             ICategoriesStore categoriesStore,
             OperationKeysContainer operationKeysContainer,
-            ArticlesService articlesService, 
+            ArticlesPresenter articlesPresenter, 
             MyUserManager userManager,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
@@ -39,7 +38,7 @@ namespace SunEngine.Controllers
             this.articlesOptions = articlesOptions.Value;
             this.authorizationService = authorizationService;
             this.categoriesStore = categoriesStore;
-            this.articlesService = articlesService;
+            this.articlesPresenter = articlesPresenter;
         }
 
         [HttpPost]
@@ -57,7 +56,7 @@ namespace SunEngine.Controllers
                 return Unauthorized();
             }
 
-            IPagedList<ArticleInfoViewModel> articles = await articlesService.GetArticlesAsync(category.Id,page,articlesOptions.ArticlesCategoryPageSize);
+            IPagedList<ArticleInfoViewModel> articles = await articlesPresenter.GetArticlesAsync(category.Id,page,articlesOptions.ArticlesCategoryPageSize);
 
             return Json(articles);
         }

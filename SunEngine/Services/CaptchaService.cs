@@ -8,8 +8,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using SunEngine.Commons.Utils;
-using SunEngine.Options;
+using SunEngine.Configuration.Options;
 using Path = System.IO.Path;
 using PointF = SixLabors.Primitives.PointF;
 
@@ -33,7 +32,7 @@ namespace SunEngine.Services
 
             // Init Font (font name: Gunny Rewritten)
             FontCollection fontCollection = new FontCollection();
-            fontCollection.Install(Path.GetFullPath("gunnyrewritten.ttf"));
+            fontCollection.Install(Path.GetFullPath("Resources/gunnyrewritten.ttf"));
             font = fontCollection.Families.First().CreateFont(46);
         }
 

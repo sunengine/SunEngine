@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Transactions;
 using Microsoft.AspNetCore.Mvc;
@@ -12,13 +11,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using SunEngine.Commons.Models;
-using SunEngine.Options;
 using Microsoft.AspNetCore.Identity;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.StoreModels;
-using SunEngine.EntityServices;
-using SunEngine.Infrastructure;
+using SunEngine.Configuration.Options;
+using SunEngine.Filters;
+using SunEngine.Security;
 using SunEngine.Services;
 using SunEngine.Stores;
 
@@ -48,6 +47,15 @@ namespace SunEngine.Controllers
             this.db = db;
             this.authService = authService;
         }
+
+
+/*        [Authorize()]
+        public async Task<IActionResult> Refresh()
+        {
+            await authService.RenewSecurityTokensAsync(Response);
+
+        }*/
+
 
         [AllowAnonymous]
         [Produces("application/json")]
@@ -95,16 +103,11 @@ namespace SunEngine.Controllers
             long sessionId = User.SessionId;
             await db.LongSessions.Where(x => x.UserId == userId && x.Id == sessionId).DeleteAsync();
 
-            Response.Headers.Clear();
-            foreach (var key in Request.Cookies.Keys)
-            {
-                Response.Cookies.Delete(key);
-            }
-
             authService.MakeLogoutCookiesAndHeaders(Response);
 
             return Ok();
         }
+
 
         [AllowAnonymous]
         [CaptchaValidationFilter]
@@ -302,12 +305,12 @@ namespace SunEngine.Controllers
                 return BadRequest(new ErrorViewModel {ErrorText = "Password not valid"});
             }
 
-            if (await authService.CheckEmailInDbAsync(email, user.Id))
+            if (await userManager.CheckEmailInDbAsync(email, user.Id))
             {
                 return BadRequest(new ErrorViewModel {ErrorText = "Email already registered"});
             }
 
-            var emailToken = await authService.GenerateChangeEmailTokenAsync(user, email);
+            var emailToken = await userManager.GenerateChangeEmailTokenAsync(user, email);
 
             var schemaAndHost = globalOptions.GetSchemaAndHostApi();
 
@@ -334,12 +337,12 @@ namespace SunEngine.Controllers
             try
             {
                 if (!authService.ValidateChangeEmailToken(token, out int userId, out string email)
-                    || await authService.CheckEmailInDbAsync(email, User.UserId))
+                    || await userManager.CheckEmailInDbAsync(email, User.UserId))
                 {
                     return Error();
                 }
 
-                await authService.ChangeEmailAsync(userId, email);
+                await userManager.ChangeEmailAsync(userId, email);
             }
             catch
             {

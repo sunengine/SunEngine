@@ -26,8 +26,8 @@
     },
     computed: {
       photo() {
-        if (this.$store && this.$store.state && this.$store.state.auth && this.$store.state.auth.user.photo)
-          return this.$store.state.auth.user.photo;
+        if (this.$store && this.$store.state && this.$store.state.auth && this.$store.state.auth.userInfo.photo)
+          return this.$store.state.auth.userInfo.photo;
         return null;
       },
       isDefault() {

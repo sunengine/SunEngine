@@ -1,12 +1,10 @@
 using System;
 using System.IO;
-using System.Linq;
-using SunEngine.Commons.DataBase;
-using SunEngine.Seeder;
+using DataSeedDev.Seeder;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
+using SunEngine.Commons.DataBase;
 
-namespace Migrations
+namespace DataSeedDev
 {
     class Program
     {
@@ -36,8 +34,8 @@ namespace Migrations
 
         static string GetDataBaseConnectionFile()
         {
-            string fileName = "MyDataBaseConnection.json";
-            string[] dirs =  {"","../","../SunEngine/"};
+            string fileName = "Local.SunEngine.json";
+            string[] dirs =  {"","../","../SunEngine/","../SunEngine/Settings"};
 
             foreach (var dir in dirs)
             {
@@ -46,7 +44,7 @@ namespace Migrations
                     return path;
             }
             
-            fileName = "DataBaseConnection.json";
+            fileName = "SunEngine.json";
             foreach (var dir in dirs)
             {
                 string path = Path.GetFullPath(dir + fileName);
@@ -54,7 +52,7 @@ namespace Migrations
                     return path;
             }
             
-            throw new Exception("Can not locate MyDataBaseConnection.json or DataBaseConnection.json");
+            throw new Exception("Can not locate Local.SunEngine.json or SunEngine.json");
         }
     }
 }

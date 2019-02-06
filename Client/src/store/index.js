@@ -10,6 +10,10 @@ import {makeUserDataFromToken} from "services/auth";
 import {getToken, setToken} from "services/token";
 
 import request from "services/request";
+import {routeCheckAccess} from "../plugins/routeAccess";
+import {router} from "../router";
+
+import {setSessionTokens} from "services/request"
 
 
 Vue.use(Vuex)
@@ -29,43 +33,36 @@ export default function (/* { ssrContext } */) {
     },
     actions: {
       async request(context, data) {
-
-        return await request(data.url, data.data, data.sendAsJson, context.state.auth.tokens)
-          .then(async data => {
-            if (data.headers.tokensexpire) {
+        return request(data.url, data.data, data.sendAsJson)
+          .then(rez => {
+            if (rez.headers.tokensexpire) {
               store.commit('makeLogout');
-
-              if (data.url !== "/Categories/GetAllCategoriesAndAccesses")
-                context.dispatch('getAllCategories');
-            } else if (data.headers.tokens) {
-              const tokensJson = JSON.parse(data.headers.tokens);
-              setToken(tokensJson);
-              const userData = makeUserDataFromToken(tokensJson);
-              Object.assign(context.state.auth, userData);
-
             }
+            return rez;
+          }).catch(rez => {
 
-            return data;
-          });
-
+            if (rez.response.headers.tokensexpire) {
+              store.commit('makeLogout');
+            }
+            throw rez;
+          })
       },
       async init() {
 
         console.log("StartInit");
 
-        const p1 = getAllCategories(this);
+        try {
+          await getAllCategories(this);
 
-        const p2 = getMyUserInfo(this);
+          await getMyUserInfo(this);
 
-        const p3 = initExtensions(this);
+          await initExtensions(this);
 
-        Promise.all([p1, p2, p3]).then(x => {
           this.state.isInitialized = true;
-        }).catch(x => {
+        } catch (x) {
           console.error("error", x);
           this.state.initializeError = true;
-        })
-
+        }
       },
     },
     modules: {
@@ -85,6 +82,8 @@ export default function (/* { ssrContext } */) {
 
 function initUser(store) {
   const tokens = getToken();
+  setSessionTokens(tokens);
+
   if (tokens) {
     const userData = makeUserDataFromToken(tokens);
     store.commit('makeLogin', userData);

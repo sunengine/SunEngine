@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using SunEngine.Configuration;
 
 namespace SunEngine
 {
@@ -22,26 +23,34 @@ namespace SunEngine
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
                     IHostingEnvironment env = builderContext.HostingEnvironment;
-                    string dbSettingsFile = GetDataBaseConnectionFile(env);
-                    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
-                        .AddJsonFile("SunEngine.json", optional: false, reloadOnChange: true)
-                        .AddJsonFile(dbSettingsFile, optional: false, reloadOnChange: true);
+                    string settingsFile = GetSettingFilePath(env);
+                    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
+                        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: false)
+                        .AddJsonFile(settingsFile, optional: false, reloadOnChange: false);
                 });
 
-        private static string GetDataBaseConnectionFile(IHostingEnvironment env)
+        // ProjectFolder Local, SettingsFolder Local,  ProjectFolder, SettingsFolder
+        private static string GetSettingFilePath(IHostingEnvironment env)
         {
-            string path = Path.Combine(env.ContentRootPath, "MyDataBaseConnection.json");
-            if(File.Exists(path))
+            string fileName = "Local.SunEngine.json";
+            string[] dirs =  {"","../","Settings"};
+
+            foreach (var dir in dirs)
             {
-                return path;
+                string path = Path.Combine(env.ContentRootPath,dir,fileName);
+                if (File.Exists(path))
+                    return path;
             }
-            path = Path.Combine(env.ContentRootPath, "DataBaseConnection.json");
-            if(File.Exists(path))
+            
+            fileName = "SunEngine.json";
+            foreach (var dir in dirs)
             {
-                return path;
+                string path = Path.Combine(env.ContentRootPath,dir,fileName);
+                if (File.Exists(path))
+                    return path;
             }
-            throw new Exception("Can not locate MyDataBaseConnection.json or DataBaseConnection.json");
+            
+            throw new Exception("Can not locate Local.SunEngine.json or SunEngine.json");
         }
     }
 }

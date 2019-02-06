@@ -8,200 +8,18 @@
     <ItemGroup>
         <PackageReference Include="FluentMigrator" Version="3.1.3" />
         <PackageReference Include="Flurl" Version="2.8.0" />
-        <PackageReference Include="HtmlSanitizer" Version="4.0.204" />
+        <PackageReference Include="HtmlSanitizer" Version="4.0.205" />
         <PackageReference Include="linq2db" Version="2.6.4" />
         <PackageReference Include="linq2db.Identity" Version="2.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.App" />
-        <PackageReference Include="MySql.Data" Version="8.0.14" />
+        <PackageReference Include="MySql.Data" Version="8.0.15" />
         <PackageReference Include="Npgsql" Version="4.0.4" />
-        <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta0007" />
-        <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0005" />
-        <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0005" />
-        <PackageReference Include="SixLabors.Shapes" Version="1.0.0-beta0007" />
+        <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta0008" />
+        <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
+        <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0006" />
+        <PackageReference Include="SixLabors.Shapes" Version="1.0.0-beta0008" />
     </ItemGroup>
-
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="Views\Home\About.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\Home\Contact.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\Home\Privacy.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\Shared\Error.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\Shared\_CookieConsentPartial.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\Shared\_Layout.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\Shared\_ValidationScriptsPartial.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\_ViewImports.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\_ViewStart.cshtml" />
-      <_ContentIncludedByDefault Remove="wwwroot\css\site.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\css\site.min.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\js\site.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\js\site.min.js" />
-      <_ContentIncludedByDefault Remove="Seeder\SeedConfig\CategoriesStartConfig\Articles.json" />
-      <_ContentIncludedByDefault Remove="Seeder\SeedConfig\CategoriesStartConfig\Blog.json" />
-      <_ContentIncludedByDefault Remove="Seeder\SeedConfig\CategoriesStartConfig\Forum.json" />
-      <_ContentIncludedByDefault Remove="Seeder\SeedConfig\CategoriesStartConfig\Forum2L.json" />
-      <_ContentIncludedByDefault Remove="Seeder\SeedConfig\CategoriesStartConfig\ForumML.json" />
-      <_ContentIncludedByDefault Remove="Seeder\SeedConfig\Disabled\Test.json" />
-      <_ContentIncludedByDefault Remove="Seeder\SeedConfig\UserGroupsConfig.json" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\101\e88aaa65-680a-4c4b-94c0-875c57f99fda.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\108\e966f46c-d0cd-498f-8ba8-307a8b9073c4.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\115\5692a573-8189-4adb-862d-1f7540adb016.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\115\cdd5f673-dcb8-4cdc-b5bb-b4bba0eab4dc.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\125\ad96bf7d-ec7c-4b96-9878-e06f381d25ca.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\132\5c39c384-062a-4b1d-b807-e97bda884720.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\137\ce460189-b5bc-4433-a744-775bdc57bc27.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\149\926f0a95-6d7c-4cbb-a25a-a92cc5c03d87.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\158\c8e2bb9e-c548-4e2d-b540-ce439bd0bf18.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\167\09f41ca7-7ac8-4fcf-a326-21cedc616c5e.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\167\775a28a7-aa44-4208-9928-a740be2eee31.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\173\1b4dbfad-4aec-45d3-952b-bf666b807c23.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\173\b89f8dad-b8f4-4556-9772-c87072e3f903.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\177\a96102b1-88c2-436b-b8cf-3fbbf311dfb4.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\184\b04731b8-eb5a-4114-b585-2c772fdd5071.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\189\bb8650bd-59dc-4976-ae41-020ddbdbeda1.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\192\f28bebc0-e5bd-4439-85d8-8a096eafd789.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\194\3e3a62c2-0bae-47d4-be7b-ed8edfbd5864.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\194\6942a6c2-9a1c-46e1-9a42-7337401e054b.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\194\a98e58c2-4d38-4c41-ad66-0c47e475e4ed.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\199\94aa41c7-c185-43ae-85e6-5bfd7996c4ba.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\214\5e7b05d6-4799-49fd-b7c1-de981cb72ead.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\218\2c1289da-4724-4ea9-b16f-133df932792f.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\226\02be0be2-f23f-4ff3-bbbc-45b791722cc5.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\226\832b8be2-be1b-46c2-aac4-71709388728e.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\226\ecee99e2-72d0-40c2-b3ed-88545412b94e.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\229\c41f03e5-4a9e-4c1d-b500-76f74d02cc9f.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\231\7805d3e7-672a-4ec4-b94a-187bd09d8e8c.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\237\520aa6ed-21b6-48ae-a37e-5a0da5c71d81.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\24\70b6ed18-213c-4cb7-aec3-de24fb4addd7.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\242\be8dbaf2-4e9c-4221-86b6-dd1459aa19cc.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\249\69831bf9-aa69-4f77-a4f8-5dfc33e686c5.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\249\73a223f9-e361-403d-b15c-231099abb609.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\26\c3c2f11a-92ce-45ad-a719-0aebe64f49e8.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\3\8700d303-be2d-4e04-a076-06191f26f3e8.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\39\a9d34127-27be-40eb-9ea8-5a5e733cf042.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\43\11a84a2b-a1f7-42bd-8d49-95d1a9754ef1.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\51\ce324933-736d-44f4-b552-ce8a0a936d76.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\58\c37fd63a-1aec-48b2-9c82-55b1a1ba8378.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\58\f2e76e3a-ee45-41c7-8757-21a85f3aeb6c.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\70\74cbc646-5135-409a-b490-b5421505b0d6.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\76\44b8054c-9561-4b0a-ba63-62a30ceb5e8f.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\81\388afb51-6aef-468b-817f-f1d270cc1507.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\81\6e174b51-fc89-4c70-a5df-48c4b3e58c99.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\88\b5eda858-4d0f-4d03-abdd-7c574441d1e8.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\90\0aa1d15a-22b8-44cf-abfc-d09e3fe6e567.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\93\bcbc495d-c8a3-4b34-aa1b-8a33ac5a4df7.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\93\f736ce5d-f324-4ebf-9185-7620a8cfb178.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\1\372b2e01-c437-43de-8a76-86ac887c6b6c.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\101\0bb5b065-e286-45ed-b157-ac1d6d9c801b.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\103\7ba54d67-aab6-47f5-8293-1a692aa10500.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\105\3f785769-c984-482c-b42c-98d9baecd77a.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\105\8d6ebd69-cc6d-470c-88f3-c8a84ac57bb7.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\107\4bd9626b-f06e-4298-8a84-6304334add21.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\112\76c14270-1885-462a-8808-435f56499444.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\113\35dc2471-71e1-4d9a-a1ee-47e615ba9aa6.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\114\193be872-adeb-4fe3-bf2c-d60a581ae988.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\114\633a8672-e103-419e-9b1c-ab6a3e2e34d1.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\120\f132bb78-4685-4bcd-9f57-64fb87b6e920.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\120\f4a01578-91e6-489e-bd8c-04596e94c6a3.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\124\ce47007c-3844-494e-ad1f-d0bbde4630d3.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\127\39f1ce7f-a249-4a84-b4e9-f7534014f22e.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\127\ff507c7f-c68a-46fe-bb29-b85fbaab2259.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\133\178d3d85-5f12-4694-acbe-59187ef0cd38.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\138\86ed048a-be82-496f-82fc-0df1834ee307.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\139\6f27158b-5431-43c2-b4e8-2e7d86e3102c.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\14\050f8c0e-2d5a-4f80-89f8-7252365b7726.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\142\3daacb8e-eadb-4f92-b44a-eaa32aeff512.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\142\62144a8e-8cb4-4ccf-a85f-9c99ebe4c8a0.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\144\9cbb6290-886f-4ebc-81cf-86dfa6b19013.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\149\17373d95-04c1-4e03-aaed-4e79770ccf63.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\15\a60fee0f-54e3-4843-8132-121b0d67867b.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\152\0c86e398-da03-43f1-8edd-84d60efcbff0.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\156\9985979c-de27-4732-8b9d-a3a66ab48e8b.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\159\5632ec9f-6cad-4f8c-9840-b90aec11d744.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\163\0fb430a3-494b-4832-aa03-de296aa9c2b8.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\164\fc70cba4-2fce-469f-b368-66a4f5cd505a.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\166\4a8682a6-b23f-44f1-a818-4a45d5e27e89.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\173\f2b3b7ad-e716-4712-9cf5-3637bc5411f1.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\175\c59b01af-1770-4067-8f55-9bcc7d6c0118.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\18\0b5c8012-cecd-46e7-b571-21ef55507b64.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\188\b1c336bc-3755-4472-ba6b-5ec89788ad48.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\19\76003613-3f7d-45f7-9897-d3ee28f8b155.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\190\361b89be-f518-49f4-a4b8-72f31e174732.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\190\cf7f15be-47ad-4779-9f7f-969e61bb91e5.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\191\ce067cbf-d1ac-4f57-9e6d-b7c2df21e69e.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\192\1ff23cc0-f121-4037-86e3-803a0177c580.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\192\8fb10ec0-1de3-49b1-ae70-161777ffd827.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\193\5ca4c4c1-21db-411f-8be8-fc5af5e45254.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\194\c9c06ec2-7e33-4929-8ab0-a21a41a94fae.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\196\f66553c4-f0e2-450e-b34a-cedb6f0bf9a2.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\197\a9e2eec5-5ca8-47da-a7b6-fa4c7e8f1dae.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\198\77dbc3c6-099a-4829-95f8-2836e31746e1.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\199\adc519c7-3be8-4705-94a0-c97de0db0006.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\2\3765ef02-6599-4fd9-8ed9-6c9a9e370ccd.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\206\6916edce-47bf-49fb-b6f0-55b770d09f3c.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\207\3b1f9acf-84ef-4b42-a779-9910fc0a952d.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\209\97c00ed1-d585-48c8-83ce-f16f89242369.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\211\1a5eefd3-7487-44f1-bdea-4d3b94ac59cc.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\212\9024d5d4-a0b2-4886-a726-94e0285e4b82.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\212\e8b020d4-063a-4fc3-8eff-c4a114c0f3c1.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\212\f2128dd4-8117-4c18-9c5a-73084d89c58c.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\214\1e618ad6-c7b6-48e0-a3ad-5b159ca4b86d.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\218\291c62da-5527-4f80-8fd9-8b92a35b965e.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\22\bba59a16-1d5d-4c30-811c-28385370b935.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\220\47c331dc-5f96-43f9-bd98-2af19c3fadaa.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\224\14cee7e0-99db-499e-8812-a7e3b54f70de.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\225\58fa30e1-03e0-4408-b5ef-39a1682b188f.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\227\5a238de3-23d0-4fbc-8d1c-33ce9750b4d7.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\228\51cc9ce4-f00d-4fd8-859f-c2ea9eb46769.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\229\4afa47e5-88c9-495d-aa2c-ffde9c8f416e.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\229\75187ae5-3493-4f2e-86ad-c5c54d36c660.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\235\042e8beb-dcf0-41f8-9552-88b2a3d16d62.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\237\1a37b2ed-2c93-4a6e-9903-59a9c66288c9.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\238\ac3b19ee-c63f-4d55-b65e-4505efdc758f.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\24\4546c518-0f73-4f6d-a08d-be85188a8857.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\248\4c60e1f8-1c56-474a-bdb3-ffe398417fff.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\248\65c315f8-3fd6-40c2-8f32-2eee647caeec.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\253\8b7bedfd-65e5-4a17-9616-f207c79d2c1a.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\26\48d7201a-0ad0-460c-800e-351da5ce3fd9.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\30\3d83dc1e-4af3-446a-8a81-f3b3df8f3bd2.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\30\f1a4a01e-2658-4c6b-89df-0c445f07bcfe.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\32\e0ff2920-3070-4170-b1b4-e391f032e556.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\36\26d48b24-5c51-463d-a139-a969f7d64131.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\36\af251b24-530c-4062-9fea-a4b97ca2df97.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\37\40aeb225-91ed-426c-82c7-cf549d5f162a.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\38\2f2ac926-7595-45e5-9e2c-4b03ff0bcf45.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\43\b886ad2b-2dc1-46ad-b86b-855d4f98d09e.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\45\06a21f2d-52a8-4cf7-b34c-da9389960d67.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\5\ce5c4205-1664-420a-ad35-a7b189c94ce1.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\6\00de8f06-0116-47f6-a8c7-7facd18586ff.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\60\6bf1753c-1abc-48ce-af54-8cf7ed5a9ff7.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\61\bb4d1b3d-c7f9-4962-923f-e27973985572.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\64\45512040-f0fe-4823-8ed6-ede97a6dd715.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\68\0f48e844-39b8-4e79-ac2c-0ef5d383feb6.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\68\da07b044-d59f-4063-82b9-bf15d5436370.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\7\29942107-29ed-4c73-aeae-8e48f2fdb12f.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\7\6fdd4807-a3b4-407e-82ab-efeb33d11399.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\70\f9eac546-1f05-4318-a134-97494acba20d.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\74\c793444a-2a30-48c1-8d40-4bfa83dc3c25.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\80\dec50f50-ede4-477d-9fea-c1e52831ab35.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\83\adc28e53-3455-4b01-a51e-0f99106a7823.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\87\4472ab57-e006-4c64-8069-c3786317550b.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\89\84ec9359-901b-43d4-af1c-124beb9992b5.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\90\53485f5a-1709-43b4-add5-b0a9723fb37e.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\91\d41f8c5b-4e14-472b-a995-fd780c3d4dc6.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\94\23559a5e-54b6-4178-b926-7e331bff0fd0.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\94\d6f5f55e-cde9-40b2-b2dc-945b806147d2.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\94\dcd4d85e-c48e-4b37-9db3-3f0c3a907f1f.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\94\fb12215e-15df-4f1a-9889-0b8907038a1a.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\99\33fda563-d938-4a02-9b70-5048f2b99e40.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\_\.directory" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\_\default-avatar-aqua.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\_\default-avatar-green.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\_\default-avatar-grey.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\_\default-avatar-orange.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\_\default-avatar-pink.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\_\default-avatar.svg" />
-    </ItemGroup>
-    
+  
 
     <ItemGroup>
       <ProjectReference Include="..\SunEngine.Commons\SunEngine.Commons.csproj" />
@@ -214,11 +32,14 @@
     
 
     <ItemGroup>
-      <None Remove="gunnyrewritten.ttf" />
-      <Content Include="gunnyrewritten.ttf">
+      <Content Include="Resources\gunnyrewritten.ttf">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
-      <Content Update="UserGroups.schema.json">
+      <None Remove="gunnyrewritten.ttf" />
+      <Content Update="Settings\Local.SunEngine.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+      <Content Update="Settings\SunEngine.json">
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>

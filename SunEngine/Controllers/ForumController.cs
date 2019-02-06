@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using SunEngine.Authorization.ControllersAuthorization;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.PagedList;
 using SunEngine.Commons.Services;
-using SunEngine.EntityServices;
-using SunEngine.Options;
+using SunEngine.Configuration.Options;
+using SunEngine.Presenters;
+using SunEngine.Security.Authorization;
 using SunEngine.Stores;
 
 namespace SunEngine.Controllers
@@ -21,7 +20,7 @@ namespace SunEngine.Controllers
         private readonly ICategoriesStore categoriesStore;
         private readonly CategoriesAuthorization categoriesAuthorization;
         private readonly IAuthorizationService authorizationService;
-        private readonly ForumService forumService;
+        private readonly ForumPresenter forumPresenter;
 
 
         public ForumController(IOptions<ForumOptions> forumOptions,
@@ -29,13 +28,13 @@ namespace SunEngine.Controllers
             ICategoriesStore categoriesStore,
             CategoriesAuthorization categoriesAuthorization,
             OperationKeysContainer operationKeysContainer,
-            ForumService forumService,
+            ForumPresenter forumPresenter,
             MyUserManager userManager,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
             this.OperationKeys = operationKeysContainer;
 
-            this.forumService = forumService;
+            this.forumPresenter = forumPresenter;
             this.forumOptions = forumOptions.Value;
             this.categoriesAuthorization = categoriesAuthorization;
             this.authorizationService = authorizationService;
@@ -55,7 +54,7 @@ namespace SunEngine.Controllers
             List<int> categoriesIds =
                 categoriesAuthorization.GetSubCategoriesIdsCanRead(User.UserGroups, categoryParent);
 
-            IPagedList<TopicInfoViewModel> topics = await forumService.GetNewTopics(categoriesIds,
+            IPagedList<TopicInfoViewModel> topics = await forumPresenter.GetNewTopics(categoriesIds,
                 page, forumOptions.NewTopicsPageSize, forumOptions.NewTopicsMaxPages);
 
             return Json(topics);
@@ -77,7 +76,7 @@ namespace SunEngine.Controllers
             }
 
             IPagedList<TopicInfoViewModel> topics =
-                await forumService.GetThread(category.Id, page, forumOptions.ThreadMaterialsPageSize);
+                await forumPresenter.GetThread(category.Id, page, forumOptions.ThreadMaterialsPageSize);
 
             return Json(topics);
         }

@@ -7,7 +7,7 @@
           <q-btn class="shadow-1" color="lime-4" style="flex-grow: 1" :disable="!canPrivateMessage"
                  :to="{path: '/WritePrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}"
                  dense icon="far fa-envelope"  label="Написать пользователю"/>
-          <q-btn :color="!user.iBannedHim ? 'lime-4' : 'negative'" class="shadow-1 q-ml-sm" dense style="padding-left:10px !important; padding-right: 10px; !important"  v-if="!user.noBunable" icon="fas fa-ellipsis-v">
+          <q-btn :color="!user.iBannedHim ? 'lime-4' : 'negative'" class="shadow-1 q-ml-sm" dense style="padding-left:10px !important; padding-right: 10px; !important"  v-if="!user.noBannable" icon="fas fa-ellipsis-v">
             <q-popover>
               <div v-close-overlay>
                 <q-btn color="negative" dense v-close-overlay v-if="!user.iBannedHim" @click="ban"  icon="fas fa-ban" label="Забанить"/>

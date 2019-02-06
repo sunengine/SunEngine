@@ -1,15 +1,13 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
-using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
-using SunEngine.EntityServices;
-using SunEngine.Options;
+using SunEngine.Configuration.Options;
+using SunEngine.Managers;
 using SunEngine.Services;
 using SunEngine.Stores;
 
@@ -19,19 +17,19 @@ namespace SunEngine.Controllers
     public class ImagesController : BaseController
     {
         private readonly ImagesOptions imagesOptions;
-        private readonly PersonalService personalService;
+        private readonly PersonalManager personalManager;
         private readonly ImagesService imagesService;
 
         public ImagesController(
             IOptions<ImagesOptions> imagesOptions,
-            PersonalService personalService,
+            PersonalManager personalManager,
             ImagesService imagesService,
             CaptchaService captchaService,
             MyUserManager userManager,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
             this.imagesOptions = imagesOptions.Value;
-            this.personalService = personalService;
+            this.personalManager = personalManager;
             this.imagesService = imagesService;
         }
 
@@ -93,7 +91,7 @@ namespace SunEngine.Controllers
                 return BadRequest();
             }
 
-            await personalService.SetPhotoAndAvatarAsync(User.UserId, fileAndDirPhoto.Path, fileAndDirAvatar.Path);
+            await personalManager.SetPhotoAndAvatarAsync(User.UserId, fileAndDirPhoto.Path, fileAndDirAvatar.Path);
 
             return Ok();
         }
