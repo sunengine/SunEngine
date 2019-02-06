@@ -13,7 +13,7 @@ import request from "services/request";
 import {routeCheckAccess} from "../plugins/routeAccess";
 import {router} from "../router";
 
-
+import {setSessionTokens} from "services/request"
 
 
 Vue.use(Vuex)
@@ -65,19 +65,19 @@ export default function (/* { ssrContext } */) {
 
         console.log("StartInit");
 
-        const p1 = getAllCategories(this);
+        try {
+          await getAllCategories(this);
 
-        const p2 = getMyUserInfo(this);
+          await getMyUserInfo(this);
 
-        const p3 = initExtensions(this);
+          await initExtensions(this);
 
-        Promise.all([p1, p2, p3]).then(x => {
           this.state.isInitialized = true;
-        }).catch(x => {
+        }
+        catch(x) {
           console.error("error", x);
           this.state.initializeError = true;
-        })
-
+        }
       },
     },
     modules: {
@@ -97,6 +97,8 @@ export default function (/* { ssrContext } */) {
 
 function initUser(store) {
   const tokens = getToken();
+  setSessionTokens(tokens);
+
   if (tokens) {
     const userData = makeUserDataFromToken(tokens);
     store.commit('makeLogin', userData);

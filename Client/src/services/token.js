@@ -1,5 +1,7 @@
 const TOKENS_KEY = "tokens";
 
+
+
 export function hasToken() {
   return localStorage.getItem(TOKENS_KEY) != null;
 }
@@ -10,6 +12,10 @@ export function getToken() {
 
 export function setToken(tokens) {
   localStorage.setItem(TOKENS_KEY, JSON.stringify(tokens));
+}
+
+export function setTokenString(tokens) {
+  localStorage.setItem(TOKENS_KEY, tokens);
 }
 
 export function removeToken() {

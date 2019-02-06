@@ -105,6 +105,8 @@ namespace SunEngine.Security.Authentication
                     var claimsPrincipal =
                         authService.ReadShortToken(jwtShortToken, out SecurityToken shortToken);
 
+                    var ValidTo = shortToken.ValidTo;
+                    
                     var LAT2R_1 = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == "LAT2R").Value;
                     var LAT2R_2 = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == "LAT2R").Value;
 

@@ -47,6 +47,15 @@ namespace SunEngine.Controllers
             this.authService = authService;
         }
 
+
+/*        [Authorize()]
+        public async Task<IActionResult> Refresh()
+        {
+            await authService.RenewSecurityTokensAsync(Response);
+
+        }*/
+        
+
         [AllowAnonymous]
         [Produces("application/json")]
         public async Task<IActionResult> Login(string nameOrEmail, string password)
