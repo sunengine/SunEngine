@@ -33,33 +33,19 @@ export default function (/* { ssrContext } */) {
     },
     actions: {
       async request(context, data) {
-
-        function logout(data) {
-          store.commit('makeLogout');
-
-          if (data.url !== "/Categories/GetAllCategoriesAndAccesses")
-            context.dispatch('getAllCategories');
-
-          routeCheckAccess(router.currentRoute);
-        }
-
-        return await request(data.url, data.data, data.sendAsJson, context.state.auth.tokens)
-          .then(async data => {
-            if (data.headers.tokensexpire) {
-              logout(data);
-            } else if (data.headers.tokens) {
-              const tokensJson = JSON.parse(data.headers.tokens);
-              setToken(tokensJson);
-              const userData = makeUserDataFromToken(tokensJson);
-              Object.assign(context.state.auth, userData);
+        return request(data.url, data.data, data.sendAsJson)
+          .then(rez => {
+            if (rez.headers.tokensexpire) {
+              store.commit('makeLogout');
             }
+            return rez;
+          }).catch(rez => {
 
-            return data;
-          }).catch(async data => {
-            logout(data);
-            return data;
-          });
-
+            if (rez.response.headers.tokensexpire) {
+              store.commit('makeLogout');
+            }
+            throw rez;
+          })
       },
       async init() {
 
@@ -73,8 +59,7 @@ export default function (/* { ssrContext } */) {
           await initExtensions(this);
 
           this.state.isInitialized = true;
-        }
-        catch(x) {
+        } catch (x) {
           console.error("error", x);
           this.state.initializeError = true;
         }

@@ -24,7 +24,7 @@ namespace SunEngine.Commons.Services
         public Task ChangeEmailAsync(int userId, string email)
         {
             return db.Users.Where(x => x.Id == userId).Set(x => x.Email, email)
-                .Set(x => x.NormalizedEmail, email.ToUpper())
+                .Set(x => x.NormalizedEmail, Normalizer.Singleton.Normalize(email))
                 .UpdateAsync();
         }
 

@@ -79,7 +79,9 @@ namespace SunEngine.Security.Authentication
 
                     myClaimsPrincipal = await authService.RenewSecurityTokensAsync(Response, userId, longSession);
 
-                    Console.WriteLine("Token Renews");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("\nToken renews\n");
+                    Console.ResetColor();
                 }
                 else
                 {

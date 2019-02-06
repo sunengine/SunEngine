@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
+using SunEngine.Commons.Services;
 using SunEngine.Commons.TextProcess;
 using SunEngine.Services;
 
@@ -65,7 +66,7 @@ namespace SunEngine.Managers
         {
             user.UserName = name;
             return db.Users.Where(x => x.Id == user.Id)
-                .Set(x => x.UserName, name).Set(x => x.NormalizedUserName, name.ToUpper()).UpdateAsync();
+                .Set(x => x.UserName, name).Set(x => x.NormalizedUserName, Normalizer.Singleton.Normalize(name)).UpdateAsync();
         }
 
         public Task<bool> CheckLinkInDbAsync(string link, int userId)

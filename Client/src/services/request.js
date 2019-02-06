@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {removeToken, setToken, setTokenString} from './token';
-
+import Mutex from 'mutex-js';
+import Lock from 'js-lock';
 
 const apiAxios = axios.create({baseURL: config.API, withCredentials: process.env.DEV});
 
@@ -10,36 +11,50 @@ export function setSessionTokens(tok) {
   tokens = tok;
 }
 
-/*apiAxios.interceptors.request.use(x=>{
-  console.log("interceptor",x);
+/*apiAxios.interceptors.request.use(x => {
+  //console.log("interceptor",x);
+  x.headers
   return x;
 });*/
 
-var awaiter = null;
-
+//const mutex = new Mutex();
+const lock = new Lock("request-lock");
 
 export default async function request(url, data, sendAsJson = false) {
 
   const headers = {};
 
-  if (tokens && tokens.shortTokenExpiration < new Date()) {
-    headers['LongToken1'] = tokens.longToken.token;
+  return lock.lock(
+    (() => {
+      if (tokens && tokens.shortTokenExpiration < new Date()) {
+        headers['LongToken1'] = tokens.longToken.token;
+        return makeRequest();
+      }
+    })
+  ).then(x => {
+    if (x)
+      return x;
+    else
+      return makeRequest();
+  });
 
-    awaiter = makeRequest();
-    await awaiter;
-    let rez = awaiter;
-    awaiter = null;
-    return rez;
-  }
 
-  if (awaiter)
-    await awaiter;
+  /*return mutex.lock(
+    (() => {
+      if (tokens && tokens.shortTokenExpiration < new Date()) {
+        headers['LongToken1'] = tokens.longToken.token;
+        return makeRequest();
+      }
+    })
+  ).then(x => {
+    if(x)
+      return x;
+    else
+      return makeRequest()
+  });*/
 
-  return makeRequest();
 
-  async function makeRequest() {
-
-    debugger;
+  function makeRequest() {
 
     if (tokens)
       headers['Authorization'] = `Bearer ${tokens.shortToken}`;

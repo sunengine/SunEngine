@@ -57,6 +57,13 @@ namespace SunEngine.Security
             return await RenewSecurityTokensAsync(response, user, longSession);
         }
 
+        public Task<MyClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, User user,
+            long sessionId)
+        {
+            var longSession = db.LongSessions.FirstOrDefault(x=>x.Id == sessionId);
+            return RenewSecurityTokensAsync(response, user, longSession);
+        }
+
         public async Task<MyClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, User user,
             LongSession longSession = null)
         {
@@ -201,7 +208,7 @@ namespace SunEngine.Security
                 issuer: jwtOptions.Issuer,
                 audience: jwtOptions.Issuer,
                 claims: claims.ToArray(),
-                expires: DateTime.UtcNow.AddSeconds(45), // DateTime.UtcNow.AddMinutes(1), //DateTime.Now.AddDays(1),
+                expires: DateTime.UtcNow.AddSeconds(30), //DateTime.Now.AddDays(1),
                 signingCredentials: credentials);
 
             return new TokenAndClaimsPrincipal

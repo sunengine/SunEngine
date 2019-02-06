@@ -107,10 +107,6 @@
               name: this.name,
             }
           }).then(response => {
-          let data = makeUserDataFromToken(response.data.token);
-          data.permanent = hasToken();
-
-          this.$store.commit('makeLogin', data);
 
           this.$q.notify({
             message: `Имя изменено`,
@@ -121,6 +117,9 @@
           this.$router.push({name: 'Personal'});
 
         }).catch(error => {
+
+          debugger;
+
           this.$q.notify({
             message: error.response.data.errorText,
             timeout: 5000,
