@@ -108,6 +108,7 @@
             }
           }).then(response => {
 
+            debugger;
           const data = makeUserDataFromToken(getToken());
           this.$store.commit('makeLogin', data);
 

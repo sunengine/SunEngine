@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using Flurl.Util;
@@ -208,12 +209,15 @@ namespace SunEngine.Security
                 issuer: jwtOptions.Issuer,
                 audience: jwtOptions.Issuer,
                 claims: claims.ToArray(),
-                expires: DateTime.UtcNow.AddSeconds(30), //DateTime.Now.AddDays(1),
+                expires: DateTime.UtcNow.AddMinutes(30),
                 signingCredentials: credentials);
+
+            var claimsIdentity =  new ClaimsIdentity(claims,"JwtShortToken");
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
             return new TokenAndClaimsPrincipal
             {
-                ClaimsPrincipal = new MyClaimsPrincipal(roleNames, userGroupStore, sessionId),
+                ClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, userGroupStore, sessionId),
                 Token = new JwtSecurityTokenHandler().WriteToken(token)
             };
         }
@@ -303,13 +307,14 @@ namespace SunEngine.Security
 
         public void MakeLogoutCookiesAndHeaders(HttpResponse response)
         {
-            response.Cookies.Append("LAT2", "",
+            response.Headers.Clear();
+            
+            response.Cookies.Delete("LAT2",
                 new CookieOptions
                 {
                     Path = "/",
                     HttpOnly = true,
-                    IsEssential = true,
-                    Expires = DateTimeOffset.UtcNow.AddMonths(-1)
+                    IsEssential = true
                 });
 
             response.Headers.Add("TOKENSEXPIRE", "TRUE");

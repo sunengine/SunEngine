@@ -8,6 +8,7 @@ using Flurl;
 using LinqToDB;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using SunEngine.Commons.Models;
 using Microsoft.AspNetCore.Identity;
@@ -54,7 +55,7 @@ namespace SunEngine.Controllers
             await authService.RenewSecurityTokensAsync(Response);
 
         }*/
-        
+
 
         [AllowAnonymous]
         [Produces("application/json")]
@@ -102,17 +103,11 @@ namespace SunEngine.Controllers
             long sessionId = User.SessionId;
             await db.LongSessions.Where(x => x.UserId == userId && x.Id == sessionId).DeleteAsync();
 
-            Response.Headers.Clear();
-            foreach (var key in Request.Cookies.Keys)
-            {
-                Response.Cookies.Delete(key);
-            }
-
             authService.MakeLogoutCookiesAndHeaders(Response);
 
             return Ok();
         }
-        
+
 
         [AllowAnonymous]
         [CaptchaValidationFilter]

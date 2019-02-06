@@ -79,9 +79,10 @@ namespace SunEngine.Controllers
 
             await personalManager.SetMyNameAsync(user, name);
 
-            authService.RenewSecurityTokensAsync(Response, user, User.SessionId);
-            //var token = await authService.GenerateTokenAsync(user);
-            //return Ok(new TokenViewModel {Token = token});  TODO
+            Response.Headers.Clear(); 
+            
+            await authService.RenewSecurityTokensAsync(Response, user, User.SessionId);
+
             return Ok();
         }
 

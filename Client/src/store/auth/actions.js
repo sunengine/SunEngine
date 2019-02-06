@@ -28,9 +28,7 @@ export async function doLogout(context) {
     url: '/Auth/Logout'
   });
 
-
-
-
+  context.dispatch('getAllCategories');
 }
 
 

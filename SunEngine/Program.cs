@@ -30,7 +30,7 @@ namespace SunEngine
                 });
 
         // ProjectFolder Local, SettingsFolder Local,  ProjectFolder, SettingsFolder
-        static string GetSettingFilePath(IHostingEnvironment env)
+        private static string GetSettingFilePath(IHostingEnvironment env)
         {
             string fileName = "Local.SunEngine.json";
             string[] dirs =  {"","../","Settings"};
