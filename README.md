@@ -4,7 +4,7 @@
 
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
-Версия: 0.8.2
+Версия: 0.8.5
 
 Демо: [demo.sunengine.site](http://demo.sunengine.site)  
 
