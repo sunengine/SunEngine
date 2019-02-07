@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.Models;
@@ -8,22 +7,36 @@ using SunEngine.Stores;
 
 namespace SunEngine.Controllers
 {
-    public abstract class BaseController : Controller
+    public abstract class BaseController : Controller 
     {
         protected readonly MyUserManager userManager;
         protected readonly IUserGroupStore userGroupStore;
-
+        
         protected BaseController(IUserGroupStore userGroupStore, MyUserManager userManager)
         {
             this.userGroupStore = userGroupStore;
             this.userManager = userManager;
         }
 
-        public new MyClaimsPrincipal User => (MyClaimsPrincipal) base.User;
+        private MyClaimsPrincipal _user;
+        
+        public new MyClaimsPrincipal User
+        {
+            get
+            {
+                if (_user == null)
+                {
+                    MyClaimsPrincipal myClaimsPrincipal = base.User as MyClaimsPrincipal;
+                    _user = myClaimsPrincipal ?? new MyClaimsPrincipal(base.User,userGroupStore);
+                }
+
+                return _user;
+            }
+        }
 
         public Task<User> GetUserAsync()
         {
-            return userManager.FindByIdAsync(User.UserId);
+            return userManager.FindByIdAsync(User.UserId.ToString());
         }
     }
 
