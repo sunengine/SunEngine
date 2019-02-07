@@ -30,8 +30,6 @@ namespace SunEngine.Managers
         }
 
 
-        
-
         public Task SendPrivateMessageAsync(User from, User to, string text)
         {
             var header =
@@ -55,17 +53,7 @@ namespace SunEngine.Managers
 
         public Task UnBanUserAsync(User who, User banned)
         {
-            UserBanedUnit ban = new UserBanedUnit
-            {
-                UserId = who.Id,
-                UserBanedId = banned.Id
-            };
-
             return db.UserBanedUnits.Where(x => x.UserId == who.Id && x.UserBanedId == banned.Id).DeleteAsync();
         }
-
-        
     }
-
-    
 }

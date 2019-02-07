@@ -6,7 +6,6 @@ using FluentMigrator.Builders.Create.Table;
 
 namespace Migrations
 {
-
     [Migration(20190104130000)]
     public class Initial : Migration
     {
@@ -20,11 +19,11 @@ namespace Migrations
                 .WithColumn("Header").AsMaxString().Nullable()
                 .WithColumn("AreaRoot").AsBoolean().NotNullable()
                 .WithColumn("IsMaterialsContainer").AsBoolean().NotNullable()
-                .WithColumn("ParentId").AsInt32().Indexed().Nullable().ForeignKey("FK_Categories_Categories_ParentId", "Categories", "Id")
+                .WithColumn("ParentId").AsInt32().Indexed().Nullable()
+                .ForeignKey("FK_Categories_Categories_ParentId", "Categories", "Id")
                 .WithColumn("SortNumber").AsInt32().NotNullable().Indexed()
                 .WithColumn("IsHidden").AsBoolean().NotNullable()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable();
-
 
 
             Create.Table("AspNetUsers")
@@ -47,16 +46,14 @@ namespace Migrations
                 .WithColumn("Information").AsMaxString().Nullable()
                 .WithColumn("Photo").AsMaxString().Nullable()
                 .WithColumn("Avatar").AsMaxString().Nullable();
-               
 
 
             Create.Table("UserBanedUnit")
                 .WithColumn("UserId").AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("FK_UserBanedUnit_AspNetUsers","AspNetUsers","Id")
+                .ForeignKey("FK_UserBanedUnit_AspNetUsers", "AspNetUsers", "Id")
                 .WithColumn("UserBanedId").AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("FK_UserBanedUnit_AspNetUsersBaned","AspNetUsers","Id");
-               
-            
+                .ForeignKey("FK_UserBanedUnit_AspNetUsersBaned", "AspNetUsers", "Id");
+
 
             Create.Table("Materials")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
@@ -77,8 +74,7 @@ namespace Migrations
                 .WithColumn("SortNumber").AsInt32().NotNullable().Indexed()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable().Indexed();
 
-            
-            
+
             Create.Table("Messages")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Text").AsMaxString().NotNullable()
@@ -94,15 +90,12 @@ namespace Migrations
                 .ForeignColumn("LastMessageId").ToTable("Messages").PrimaryColumn("Id");
 
 
-
             Create.Table("Tags")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(256).Unique().NotNullable()
                 .WithColumn("GroupId").AsInt32().Nullable().Indexed();
 
 
-            
-            
             Create.Table("TagMaterials")
                 .WithColumn("TagId").AsInt32().PrimaryKey().NotNullable().Indexed()
                 .ForeignKey("FK_TagMaterials_Materials_MaterialId", "Tags", "Id")
@@ -130,7 +123,6 @@ namespace Migrations
             Create.Table("OperationKeys")
                 .WithColumn("OperationKeyId").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(256).NotNullable().Indexed();
-
 
 
             Create.Table("CategoryAccesses")
@@ -163,7 +155,7 @@ namespace Migrations
                 .OnColumn("LongToken2").Ascending();
         }
 
-        
+
         public override void Down()
         {
             throw new NotImplementedException();
@@ -172,17 +164,19 @@ namespace Migrations
 
     internal static class MigratorExtensions
     {
-        public static ICreateTableColumnOptionOrWithColumnSyntax AsMaxString(this ICreateTableColumnAsTypeSyntax createTableColumnAsTypeSyntax)
+        public static ICreateTableColumnOptionOrWithColumnSyntax AsMaxString(
+            this ICreateTableColumnAsTypeSyntax createTableColumnAsTypeSyntax)
         {
             return createTableColumnAsTypeSyntax.AsString(Int32.MaxValue);
         }
-        
-        public static ICreateTableColumnOptionOrWithColumnSyntax AsMyDateTime(this ICreateTableColumnAsTypeSyntax createTableColumnAsTypeSyntax)
+
+        public static ICreateTableColumnOptionOrWithColumnSyntax AsMyDateTime(
+            this ICreateTableColumnAsTypeSyntax createTableColumnAsTypeSyntax)
         {
-            if (DBProvider.Name.StartsWith("Postgre"))
-                return createTableColumnAsTypeSyntax.AsCustom("TimestampTz");
-            else
+            if (!DBProvider.IsPostgre)
                 return createTableColumnAsTypeSyntax.AsDateTime();
+            else
+                return createTableColumnAsTypeSyntax.AsCustom("TimestampTz");
         }
     }
 }

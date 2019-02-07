@@ -70,15 +70,13 @@ namespace SunEngine.Managers
             await db.Materials.Where(x => x.Id == material.Id).Set(x => x.IsDeleted, true).UpdateAsync();
         }
 
-        public async Task DetectAndSetLastMessageAndCountAsync(Material material)
+        private async Task DetectAndSetLastMessageAndCountAsync(Material material)
         {
             var messagesQuery = db.Messages.Where(x => x.MaterialId == material.Id);
 
             var lastMessage = await messagesQuery.OrderByDescending(x => x.PublishDate).FirstOrDefaultAsync();
             var lastMessageId = lastMessage?.Id;
-            var lastActivity = lastMessage?.PublishDate;
-            if (lastActivity == null)
-                lastActivity = material.PublishDate;
+            var lastActivity = lastMessage?.PublishDate ?? material.PublishDate;
 
             var messagesCount = await messagesQuery.CountAsync();
 

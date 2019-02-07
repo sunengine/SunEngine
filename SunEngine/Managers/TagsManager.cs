@@ -23,23 +23,24 @@ namespace SunEngine.Managers
                 tags = "";
             }
             
-            var tagsList = tags.Split(',').Select(x => x.Trim().TrimStart('#').ToLower()).ToList();
-            tagsList = tagsList.Distinct().ToList();
-            tagsList.Remove("");
+            var tagsList = tags.Split(',');
 
             return await InsertTags(tagsList);
         }
 
-        public async Task<IList<Tag>> InsertTags(IList<string> preparedTags)
+        private async Task<IList<Tag>> InsertTags(IList<string> tags)
         {
-            if(preparedTags == null)
+            if(tags == null)
             {
                 return new List<Tag>();
             }
 
-            List<string> tagsToInsert = preparedTags.ToList();
-            var tags = await db.Tags.Where(x => preparedTags.Contains(x.Name)).ToListAsync();
-            tags.ForEach(x=>tagsToInsert.Remove(x.Name));
+            tags = tags.Select(x=>x.Trim().TrimStart('#').ToLower()).Distinct().ToList();
+            tags.Remove("");
+
+            List<string> tagsToInsert = tags.ToList();
+            var tagsResult = await db.Tags.Where(x => tags.Contains(x.Name)).ToListAsync();
+            tagsResult.ForEach(x=>tagsToInsert.Remove(x.Name));
 
             foreach (var tagName in tagsToInsert)
             {
@@ -47,11 +48,11 @@ namespace SunEngine.Managers
                 {
                     Name = tagName
                 };
-                tag.Id = (int) await db.InsertWithInt32IdentityAsync(tag);
-                tags.Add(tag);
+                tag.Id = await db.InsertWithInt32IdentityAsync(tag);
+                tagsResult.Add(tag);
             }
 
-            return tags;
+            return tagsResult;
         }
         
         public async Task MaterialCreateAndSetTagsAsync(Material material, string tags)
@@ -60,7 +61,7 @@ namespace SunEngine.Managers
             await MaterialSetTags(material,tagsList);
         }
 
-        public async Task MaterialSetTags(Material material, IList<Tag> tags)
+        private async Task MaterialSetTags(Material material, IEnumerable<Tag> tags)
         {
             // TODO make auto delete unused tags
             db.TagMaterials.Where(x => x.MaterialId == material.Id).Delete();

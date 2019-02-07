@@ -21,19 +21,19 @@ namespace SunEngine.Managers
             this.sanitizer = sanitizer;
         }
 
-        public Task SetPhotoAsync(int id, string photo)
+        public Task SetPhotoAsync(int userId, string photo)
         {
-            return db.Users.Where(x => x.Id == id).Set(x => x.Photo, x => photo).UpdateAsync();
+            return db.Users.Where(x => x.Id == userId).Set(x => x.Photo, x => photo).UpdateAsync();
         }
 
-        public Task SetAvatarAsync(int id, string avatar)
+        public Task SetAvatarAsync(int userId, string avatar)
         {
-            return db.Users.Where(x => x.Id == id).Set(x => x.Avatar, x => avatar).UpdateAsync();
+            return db.Users.Where(x => x.Id == userId).Set(x => x.Avatar, x => avatar).UpdateAsync();
         }
 
-        public Task SetPhotoAndAvatarAsync(int id, string photo, string avatar)
+        public Task SetPhotoAndAvatarAsync(int userId, string photo, string avatar)
         {
-            return db.Users.Where(x => x.Id == id)
+            return db.Users.Where(x => x.Id == userId)
                 .Set(x => x.Photo, x => photo)
                 .Set(x => x.Avatar, x => avatar)
                 .UpdateAsync();
@@ -41,25 +41,23 @@ namespace SunEngine.Managers
 
         
 
-        public Task SetMyProfileInformationAsync(int id, string html)
+        public Task SetMyProfileInformationAsync(int userId, string html)
         {
             var htmlSanitized = sanitizer.Sanitize(html);
-            return db.Users.Where(x => x.Id == id)
+            return db.Users.Where(x => x.Id == userId)
                 .Set(x => x.Information, htmlSanitized).UpdateAsync();
         }
 
-        public Task SetMyLinkAsync(int id, string link)
+        public Task SetMyLinkAsync(int userId, string link)
         {
             if (string.IsNullOrEmpty(link))
             {
-                return db.Users.Where(x => x.Id == id)
+                return db.Users.Where(x => x.Id == userId)
                     .Set(x => x.Link, x => x.Id.ToString()).UpdateAsync();
             }
-            else
-            {
-                return db.Users.Where(x => x.Id == id)
-                    .Set(x => x.Link, link).UpdateAsync();
-            }
+
+            return db.Users.Where(x => x.Id == userId)
+                .Set(x => x.Link, link).UpdateAsync();
         }
 
         public Task SetMyNameAsync(User user, string name)

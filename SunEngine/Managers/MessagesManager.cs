@@ -11,18 +11,18 @@ namespace SunEngine.Managers
     public class MessagesManager : DbService
     {
         private readonly MaterialsManager materialsManager;
-        private readonly Sanitizer _sanitizer;
+        private readonly Sanitizer sanitizer;
 
         public MessagesManager(DataBaseConnection db, MaterialsManager materialsManager,
             Sanitizer sanitizer) : base(db)
         {
             this.materialsManager = materialsManager;
-            this._sanitizer = sanitizer;
+            this.sanitizer = sanitizer;
         }
 
         public async Task InsertAsync(Message message)
         {
-            message.Text = _sanitizer.Sanitize(message.Text);
+            message.Text = sanitizer.Sanitize(message.Text);
             message.Id = await db.InsertWithInt32IdentityAsync(message);
             await materialsManager.DetectAndSetLastMessageAndCountAsync(message.MaterialId);
         }
@@ -44,7 +44,7 @@ namespace SunEngine.Managers
 
         public async Task UpdateAsync(Message message)
         {
-            message.Text = _sanitizer.Sanitize(message.Text);
+            message.Text = sanitizer.Sanitize(message.Text);
             await db.UpdateAsync(message);
             await materialsManager.DetectAndSetLastMessageAndCountAsync(message.MaterialId);
         }

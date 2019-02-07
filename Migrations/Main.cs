@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +32,7 @@ namespace Migrations
             
             var dataBaseConfiguration = configuration.GetSection("DataBaseConnection");
             var providerName = dataBaseConfiguration["Provider"];
-            DBProvider.Name = providerName;
+            DBProvider.Initialize(providerName);
             var connectionString = dataBaseConfiguration["ConnectionString"]; 
             
             return new ServiceCollection()
@@ -83,7 +84,19 @@ namespace Migrations
 
     public static class DBProvider
     {
-        public static string Name { get; set; }
+        public static string Name { get; private set; }
+        
+        public static bool IsPostgre { get; private set; }
+
+        public static void Initialize(string name)
+        {
+            Name = name;
+            
+            if (name.StartsWith("Postgre"))
+            {
+                IsPostgre = true;
+            }
+        }
     }
 
     /*public static class IMigrationRunnerBuilderExtensions
