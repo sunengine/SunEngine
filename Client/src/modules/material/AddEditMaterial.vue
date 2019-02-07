@@ -248,8 +248,7 @@
           title: "",
           text: "",
           tags: [],
-          categoryName: this.category.childrenType == 1
-            ? "" : this.categoryName
+          categoryName: this.category.isMaterialsContainer ? this.categoryName : ""
         }
       }
     }
