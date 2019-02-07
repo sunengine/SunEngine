@@ -40,7 +40,7 @@ namespace Migrations
                 .WithColumn("PhoneNumber").AsMaxString().Nullable()
                 .WithColumn("PhoneNumberConfirmed").AsBoolean().NotNullable()
                 .WithColumn("TwoFactorEnabled").AsBoolean().NotNullable()
-                .WithColumn("LockoutEnd").AsDateTime().Nullable()
+                .WithColumn("LockoutEnd").AsMyDateTime().Nullable()
                 .WithColumn("LockoutEnabled").AsBoolean().NotNullable()
                 .WithColumn("AccessFailedCount").AsInt16().NotNullable()
                 .WithColumn("Link").AsMaxString().Nullable()
@@ -69,10 +69,10 @@ namespace Migrations
                 .ForeignKey("FK_Materials_Categories_CategoryId", "Categories", "Id")
                 .WithColumn("AuthorId").AsInt32().NotNullable().Indexed()
                 .ForeignKey("FK_Materials_AspNetUsers_AuthorId", "AspNetUsers", "Id")
-                .WithColumn("PublishDate").AsDateTime().NotNullable().Indexed()
-                .WithColumn("EditDate").AsDateTime().Nullable()
+                .WithColumn("PublishDate").AsMyDateTime().NotNullable().Indexed()
+                .WithColumn("EditDate").AsMyDateTime().Nullable()
                 .WithColumn("LastMessageId").AsInt32().Nullable()
-                .WithColumn("LastActivity").AsDateTime().NotNullable().Indexed()
+                .WithColumn("LastActivity").AsMyDateTime().NotNullable().Indexed()
                 .WithColumn("MessagesCount").AsInt32().NotNullable()
                 .WithColumn("SortNumber").AsInt32().NotNullable().Indexed()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable().Indexed();
@@ -86,8 +86,8 @@ namespace Migrations
                 .ForeignKey("FK_Messages_Materials_MaterialId", "Materials", "Id")
                 .WithColumn("AuthorId").AsInt32().Indexed().Nullable()
                 .ForeignKey("FK_Messages_AspNetUsers_AuthorId", "AspNetUsers", "Id")
-                .WithColumn("PublishDate").AsDateTime().NotNullable().Indexed()
-                .WithColumn("EditDate").AsDateTime().Nullable()
+                .WithColumn("PublishDate").AsMyDateTime().NotNullable().Indexed()
+                .WithColumn("EditDate").AsMyDateTime().Nullable()
                 .WithColumn("IsDeleted").AsBoolean().Nullable().Indexed();
 
             Create.ForeignKey("FK_Materials_Messages_LastMessageId").FromTable("Materials")
@@ -155,7 +155,7 @@ namespace Migrations
                 .WithColumn("LongToken1").AsString(16).NotNullable()
                 .WithColumn("LongToken2").AsString(16).NotNullable()
                 .WithColumn("DeviceInfo").AsMaxString().NotNullable()
-                .WithColumn("ExpirationDate").AsDateTime().NotNullable().Indexed();
+                .WithColumn("ExpirationDate").AsMyDateTime().NotNullable().Indexed();
 
             Create.Index("IX_LongSessions_Main").OnTable("LongSessions")
                 .OnColumn("UserId").Ascending()
@@ -175,6 +175,14 @@ namespace Migrations
         public static ICreateTableColumnOptionOrWithColumnSyntax AsMaxString(this ICreateTableColumnAsTypeSyntax createTableColumnAsTypeSyntax)
         {
             return createTableColumnAsTypeSyntax.AsString(Int32.MaxValue);
+        }
+        
+        public static ICreateTableColumnOptionOrWithColumnSyntax AsMyDateTime(this ICreateTableColumnAsTypeSyntax createTableColumnAsTypeSyntax)
+        {
+            if (DBProvider.Name.StartsWith("Postgre"))
+                return createTableColumnAsTypeSyntax.AsCustom("TimestampTz");
+            else
+                return createTableColumnAsTypeSyntax.AsDateTime();
         }
     }
 }

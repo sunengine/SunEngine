@@ -35,7 +35,7 @@ namespace DataSeedDev
         static string GetDataBaseConnectionFile()
         {
             string fileName = "Local.SunEngine.json";
-            string[] dirs =  {"","../","../SunEngine/","../SunEngine/Settings"};
+            string[] dirs =  {"","../","../SunEngine/","../SunEngine/Settings/"};
 
             foreach (var dir in dirs)
             {

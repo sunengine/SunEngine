@@ -172,11 +172,9 @@ namespace SunEngine.Controllers
             {
                 return Ok();
             }
-            else
-            {
-                return BadRequest(
-                    new ErrorViewModel {ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()});
-            }
+
+            return BadRequest(
+                new ErrorViewModel {ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()});
         }
 
         [HttpPost]

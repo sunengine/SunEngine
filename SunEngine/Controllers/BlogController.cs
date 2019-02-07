@@ -58,18 +58,5 @@ namespace SunEngine.Controllers
         }
     }
 
-    public class PostViewModel
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string AuthorName { get; set; }
-        public string AuthorLink { get; set; }
-        public string AuthorAvatar { get; set; }
-        public string Preview { get; set; }
-        public int MessagesCount { get; set; }
-        public DateTime PublishDate { get; set; }
-        public string CategoryTitle { get; set; }
-        public string CategoryName { get; set; }
-        public bool HasMoreText { get; set; }
-    }
+    
 }

@@ -31,6 +31,7 @@ namespace Migrations
             
             var dataBaseConfiguration = configuration.GetSection("DataBaseConnection");
             var providerName = dataBaseConfiguration["Provider"];
+            DBProvider.Name = providerName;
             var connectionString = dataBaseConfiguration["ConnectionString"]; 
             
             return new ServiceCollection()
@@ -59,7 +60,7 @@ namespace Migrations
         static string GetDataBaseConnectionFile()
         {
             string fileName = "Local.SunEngine.json";
-            string[] dirs =  {"","../","../SunEngine/","../SunEngine/Settings"};
+            string[] dirs =  {"","../","../SunEngine/","../SunEngine/Settings/"};
 
             foreach (var dir in dirs)
             {
@@ -78,6 +79,11 @@ namespace Migrations
             
             throw new Exception("Can not locate Local.SunEngine.json or SunEngine.json");
         }
+    }
+
+    public static class DBProvider
+    {
+        public static string Name { get; set; }
     }
 
     /*public static class IMigrationRunnerBuilderExtensions
