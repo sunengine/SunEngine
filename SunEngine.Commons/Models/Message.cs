@@ -13,7 +13,7 @@ namespace SunEngine.Commons.Models
         public User Author { get; set; }
 
         public DateTime PublishDate { get; set; }
-        public DateTime EditDate { get; set; }
+        public DateTime? EditDate { get; set; }
 
         public int MaterialId { get; set; }
         public Material Material { get; set; }
