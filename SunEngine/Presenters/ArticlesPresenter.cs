@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using SunEngine.Commons.DataBase;
@@ -30,6 +31,16 @@ namespace SunEngine.Presenters
                 page,
                 pageSize);
         }
-        
+    }
+
+    public class ArticleInfoViewModel
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string AuthorName { get; set; }
+        public int MessagesCount { get; set; }
+        public DateTime PublishDate { get; set; }
+        public string CategoryTitle { get; set; }
+        public string CategoryName { get; set; }
     }
 }

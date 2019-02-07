@@ -49,14 +49,6 @@ namespace SunEngine.Controllers
         }
 
 
-/*        [Authorize()]
-        public async Task<IActionResult> Refresh()
-        {
-            await authService.RenewSecurityTokensAsync(Response);
-
-        }*/
-
-
         [AllowAnonymous]
         [Produces("application/json")]
         public async Task<IActionResult> Login(string nameOrEmail, string password)
@@ -161,7 +153,7 @@ namespace SunEngine.Controllers
                     return Ok();
                 }
 
-                return BadRequest(new ErrorsViewModel
+                return BadRequest(new ErrorViewModel
                 {
                     ErrorsNames = result.Errors.Select(x => x.Code).ToArray(),
                     ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()
@@ -183,7 +175,7 @@ namespace SunEngine.Controllers
             else
             {
                 return BadRequest(
-                    new ErrorsViewModel {ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()});
+                    new ErrorViewModel {ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()});
             }
         }
 

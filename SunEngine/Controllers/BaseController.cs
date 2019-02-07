@@ -44,11 +44,7 @@ namespace SunEngine.Controllers
     {
         public string ErrorName { get; set; }
         public string ErrorText { get; set; }
-    }
-    
-    public class ErrorsViewModel
-    {
         public string[] ErrorsNames { get; set; }
         public string[] ErrorsTexts { get; set; }
-    }
+    }    
 }
