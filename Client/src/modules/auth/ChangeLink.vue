@@ -1,6 +1,6 @@
 <template>
-  <QPage class="flex full-center">
-    <div class="container">
+  <QPage padding class="flex middle">
+    <div class="center-form">
       <div class="text-grey-7 q-mb-lg" style="text-align: justify">
         Link должен состоять не менее чем из 3 символов <span class="text-grey-7">'a-z', 'A-Z', '-', '0-9'</span>. И
         содержать хотя бы одну букву.
@@ -93,7 +93,7 @@
           return;
         }
 
-        this.submitting =  true;
+        this.submitting = true;
 
         await this.$store.dispatch("request",
           {
@@ -136,11 +136,5 @@
     height: 78px;
   }
 
-  .container {
-    display flex;
-    flex-direction: column;
-    width: 270px;
-    justify-content: stretch;
-  }
 
 </style>

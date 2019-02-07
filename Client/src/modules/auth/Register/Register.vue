@@ -1,6 +1,6 @@
 <template>
-  <q-page padding class="column justify-center" style="width:500px">
-    <template v-if="!done">
+  <q-page padding class="flex middle">
+    <div class="center-form" v-if="!done">
       <q-field icon="fas fa-user" :error="$v.userName.$invalid && !start"
                :error-label="userNameErrorLabel">
         <q-input v-model="userName" float-label="Имя пользователя"/>
@@ -40,7 +40,7 @@
           </span>
         </q-btn>
       </q-field>
-    </template>
+    </div>
     <q-alert v-else type="positive" icon="email">
       Сообщение с ссылкой для регистрации отправленно на Email
     </q-alert>
@@ -175,7 +175,7 @@
   @import '~variables';
 
   .q-field {
-    height: 78px;
+    height: 70px;
   }
 
   .wait-msg {

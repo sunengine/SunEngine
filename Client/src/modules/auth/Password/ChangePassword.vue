@@ -1,6 +1,6 @@
 <template>
-  <QPage class="flex full-center">
-    <div class="container" v-if="!done">
+  <QPage padding class="flex middle">
+    <div class="center-form" v-if="!done">
       <q-field :error="$v.passwordOld.$invalid && !start"
                error-label="Введите пароль">
         <q-input v-model="passwordOld" type="password" float-label="Старый пароль"/>
@@ -22,8 +22,6 @@
     </div>
     <q-alert v-else type="positive" icon="fas fa-key">
       Пароль изменён.
-      <router-link :to="{name: 'Login'}">Войти</router-link>
-      .
     </q-alert>
   </QPage>
 </template>
@@ -118,11 +116,6 @@
     height: 78px;
   }
 
-  .container {
-    display flex;
-    flex-direction: column;
-    width: 270px;
-    justify-content: stretch;
-  }
+
 
 </style>

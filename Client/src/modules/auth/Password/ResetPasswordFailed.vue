@@ -1,5 +1,5 @@
 <template>
-  <QPage class="flex full-center">
+  <QPage class="flex middle">
     <q-alert type="negative" icon="fas fa-exclamation-circle">
       Что-то пошло не так. Возможно истекло время сброса.
     </q-alert>

@@ -1,32 +1,34 @@
 <template>
-  <q-page padding class="column justify-center" style="width:500px">
+  <q-page padding class="flex middle">
 
-    <q-field icon="fas fa-user" :error="$v.nameOrEmail.$invalid && !start"
-             error-label="Введите имя или Email">
-      <q-input v-model="nameOrEmail" float-label="Имя или email"/>
-    </q-field>
+    <div class="center-form">
+      <q-field icon="fas fa-user" :error="$v.nameOrEmail.$invalid && !start"
+               error-label="Введите имя или Email">
+        <q-input v-model="nameOrEmail" float-label="Имя или email"/>
+      </q-field>
 
-    <q-field class="q-mb-md" icon="fas fa-key" :error="$v.password.$invalid && !start"
-             error-label="Введите пароль">
-      <q-input v-model="password" type="password" float-label="Пароль"/>
-    </q-field>
+      <q-field class="q-mb-md" icon="fas fa-key" :error="$v.password.$invalid && !start"
+               error-label="Введите пароль">
+        <q-input v-model="password" type="password" float-label="Пароль"/>
+      </q-field>
 
-    <div class="q-mb-lg" style="text-align: right;">
-      <q-checkbox style="color:gray;" left-label v-model="notMyComputer" label="Чужой компьютер"/>
-    </div>
+      <div class="q-mb-lg" style="text-align: right;">
+        <q-checkbox style="color:gray;" left-label v-model="notMyComputer" label="Чужой компьютер"/>
+      </div>
 
-    <q-field class="q-mb-lg">
-      <q-btn style="width:100%;" color="send" label="Войти" @click="login" :loading="submitting">
+      <q-field class="q-mb-lg">
+        <q-btn style="width:100%;" color="send" label="Войти" @click="login" :loading="submitting">
           <span slot="loading">
             <q-spinner-mat class="on-left"/>  Заходим...
           </span>
-      </q-btn>
-    </q-field>
+        </q-btn>
+      </q-field>
 
-    <router-link class="flex full-center" :to="{name:'ResetPassword'}">
-      <QIcon class="q-mr-sm" name="far fa-question-circle"/>
-      <span>Забыли пароль?</span>
-    </router-link>
+      <router-link class="flex middle" :to="{name:'ResetPassword'}">
+        <QIcon class="q-mr-sm" name="far fa-question-circle"/>
+        <span>Забыли пароль?</span>
+      </router-link>
+    </div>
 
   </q-page>
 </template>

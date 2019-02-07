@@ -8,7 +8,6 @@
   "dependencies": {
     "axios": "^0.18.0",
     "vuelidate": "^0.7.4",
-    "mutex-js": "^1.1.5",
     "js-lock": "^0.1.1"
   },
   "devDependencies": {
