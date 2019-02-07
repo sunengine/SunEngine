@@ -35,17 +35,6 @@ namespace SunEngine.Security.Authentication
             }
         }
         
-        public MyClaimsPrincipal(IEnumerable<string> roleNames, IUserGroupStore userGroupStore, long sessionId = 0)
-        {
-            this.SessionId = sessionId;
-
-            UserGroups = roleNames.ToImmutableDictionary(x => x, x => userGroupStore.GetUserGroup(x));
-            if (UserGroups.Count == 1)
-            {
-                UserGroup = UserGroups.Values.ElementAt(0);
-            }
-        }
-
         private IReadOnlyDictionary<string, UserGroup> GetUserGroups(IUserGroupStore userGroupStore)
         {
             if (!Identity.IsAuthenticated)

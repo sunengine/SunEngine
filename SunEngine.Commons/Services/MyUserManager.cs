@@ -39,5 +39,10 @@ namespace SunEngine.Commons.Services
                                                        x.LongToken1 == longSession.LongToken1 &&
                                                        x.LongToken2 == longSession.LongToken2);
         }
+
+        public Task<User> FindByIdAsync(int id)
+        {
+            return db.Users.FirstOrDefaultAsync(x => x.Id == id);
+        }
     }
 }

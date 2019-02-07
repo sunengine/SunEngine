@@ -5,7 +5,7 @@
     <input ref="file" type="file" accept="image/*" style="display:none" @change="handleFile"/>
     <QBtn color="send" class="q-mb-xl" :loading="loading" icon="far fa-user-circle" label="Выбрать фотографию"
           @click="upload"/>
-    <QBtn v-if="!isDefault" color="negative" :loading="loading" icon="fas fa-trash-alt" label="Сбросить фотографию"
+    <QBtn v-if="!isDefault && !loading" color="negative" icon="fas fa-trash-alt" label="Сбросить фотографию"
           @click="resetAvatar"/>
   </q-page>
 </template>

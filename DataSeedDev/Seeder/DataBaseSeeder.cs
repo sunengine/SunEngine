@@ -106,8 +106,6 @@ namespace DataSeedDev.Seeder
                 
                 db.Execute("SELECT setval(pg_get_serial_sequence('\"OperationKeys\"', 'OperationKeyId'), coalesce(max(tbl.\"OperationKeyId\"),0) + 1, false) FROM \"OperationKeys\" as tbl;");
             }
-            
-
         }
 
         public DataBaseSeeder PostSeed()

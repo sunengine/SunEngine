@@ -121,8 +121,8 @@ namespace SunEngine.Admin.Services
 
             foreach (var group in toDelete)
             {
-                db.UserToGroups.AnyAsync(x => x.RoleId == group.Id);
-                errorGroups.Add(group);
+                if(!await db.UserToGroups.AnyAsync(x => x.RoleId == group.Id))
+                    errorGroups.Add(group);
             }
 
             if (errorGroups.Count > 0)
@@ -158,7 +158,18 @@ namespace SunEngine.Admin.Services
                 KeepIdentity = true
             };
 
+            /*foreach (var categoryAccess in loader.categoryAccesses)
+            {
+                db.InsertWithInt32Identity(categoryAccess);
+            }
+            
+            foreach (var categoryOperationAccess in loader.categoryOperationAccesses)
+            {
+                db.Insert(categoryOperationAccess);
+            }*/
+            
             db.BulkCopy(options, loader.categoryAccesses);
+            db.UpdateSequence("CategoryAccesses","Id");
             db.BulkCopy(options, loader.categoryOperationAccesses);
         }
 
