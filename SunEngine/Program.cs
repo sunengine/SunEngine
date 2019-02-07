@@ -24,8 +24,8 @@ namespace SunEngine
                 {
                     IHostingEnvironment env = builderContext.HostingEnvironment;
                     string settingsFile = GetSettingFilePath(env);
-                    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
-                        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: false)
+                    config.AddJsonFile("Settings/appsettings.json", optional: false, reloadOnChange: false)
+                        .AddJsonFile($"Settings/appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: false)
                         .AddJsonFile(settingsFile, optional: false, reloadOnChange: false);
                 });
 

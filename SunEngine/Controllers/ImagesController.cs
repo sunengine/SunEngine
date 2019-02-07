@@ -16,31 +16,32 @@ namespace SunEngine.Controllers
     [Authorize]
     public class ImagesController : BaseController
     {
+        private readonly ImagesService imagesService;
         private readonly ImagesOptions imagesOptions;
         private readonly PersonalManager personalManager;
-        private readonly ImagesService imagesService;
 
         public ImagesController(
+            ImagesService imagesService,
             IOptions<ImagesOptions> imagesOptions,
             PersonalManager personalManager,
-            ImagesService imagesService,
-            CaptchaService captchaService,
             MyUserManager userManager,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
+            this.imagesService = imagesService;
             this.imagesOptions = imagesOptions.Value;
             this.personalManager = personalManager;
-            this.imagesService = imagesService;
         }
 
+
         [HttpPost]
-        [RequestSizeLimit(1024*1024*8)]
         public async Task<IActionResult> UploadImage(IFormFile file)
         {
             if (file.Length == 0)
-            {
                 return BadRequest();
-            }
+
+            if (!CheckAllowedMaxImageSize(file.Length))
+                return MaxImageSizeFailResult();
+
 
             ResizeOptions ro = new ResizeOptions
             {
@@ -58,13 +59,13 @@ namespace SunEngine.Controllers
 
 
         [HttpPost]
-        [RequestSizeLimit(1024*1024*8)]
         public async Task<IActionResult> UploadUserPhoto(IFormFile file)
         {
             if (file.Length == 0)
-            {
                 return BadRequest();
-            }
+
+            if (!CheckAllowedMaxImageSize(file.Length))
+                return MaxImageSizeFailResult();
 
             ResizeOptions roPhoto = new ResizeOptions
             {
@@ -96,6 +97,15 @@ namespace SunEngine.Controllers
             return Ok();
         }
 
-        
+        private bool CheckAllowedMaxImageSize(long fileSize)
+        {
+            return fileSize <= imagesOptions.ImageRequestSizeLimitBytes;
+        }
+
+        private IActionResult MaxImageSizeFailResult()
+        {
+            double sizeInMb = imagesOptions.ImageRequestSizeLimitBytes / (1024d * 1024d);
+            return BadRequest($"Image size is too large. Allowed max size is: {sizeInMb:F2} MB");
+        }
     }
 }

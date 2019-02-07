@@ -43,6 +43,14 @@
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+      <Content Update="Settings\appsettings.Development.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Update="Settings\appsettings.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
     
 
@@ -53,6 +61,13 @@
       <Reference Include="System.Security.Cryptography.Primitives, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
         <HintPath>..\..\..\..\..\usr\share\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.2.0\ref\netcoreapp2.2\System.Security.Cryptography.Primitives.dll</HintPath>
       </Reference>
+    </ItemGroup>
+    
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\143\db9e748f-7101-44af-8b7a-2b42af572a54.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\228\e00080e4-1268-492e-8a1b-46a0f0b25c3f.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\37\39250725-a66c-40a9-a906-bfaf9c3fbaa3.jpg" />
     </ItemGroup>
 
   <PropertyGroup>
