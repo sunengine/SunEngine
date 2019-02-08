@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Models;
+using SunEngine.DataBase;
+using SunEngine.Models;
 
 namespace SunEngine.Stores
 {

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.TextProcess;
+using SunEngine.Models;
+using SunEngine.Models.Materials;
+using SunEngine.Utils.TextProcess;
 
 namespace DataSeedDev.Seeder
 {

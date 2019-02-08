@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Services;
-using SunEngine.Commons.StoreModels;
+using SunEngine.Models;
 using SunEngine.Stores;
+using SunEngine.Stores.Models;
 
 namespace SunEngine.Security.Authorization
 {
@@ -16,14 +15,14 @@ namespace SunEngine.Security.Authorization
             this.categoriesStore = categoriesStore;
         }
         
-        public bool HasAccess(IReadOnlyDictionary<string,UserGroup> userGroups, Category category, int operationKey)
+        public bool HasAccess(IReadOnlyDictionary<string,UserGroupStored> userGroups, Category category, int operationKey)
         {
-            if (userGroups.ContainsKey(UserGroup.UserGroupAdmin))
+            if (userGroups.ContainsKey(UserGroupStored.UserGroupAdmin))
             {
                 return true;
             }
 
-            foreach (UserGroup userGroup in userGroups.Values)
+            foreach (UserGroupStored userGroup in userGroups.Values)
             {
                 if (GetAccessForCategory(userGroup, category, operationKey))
                 {
@@ -34,9 +33,9 @@ namespace SunEngine.Security.Authorization
         }
        
         
-        public HashSet<int> HasAccess(IReadOnlyDictionary<string,UserGroup> userGroups, Category category, IEnumerable<int> operationKeys)
+        public HashSet<int> HasAccess(IReadOnlyDictionary<string,UserGroupStored> userGroups, Category category, IEnumerable<int> operationKeys)
         {
-            if (userGroups.ContainsKey(UserGroup.UserGroupAdmin))
+            if (userGroups.ContainsKey(UserGroupStored.UserGroupAdmin))
             {
                 operationKeys.ToHashSet();
             }
@@ -53,7 +52,7 @@ namespace SunEngine.Security.Authorization
         }
 
 
-        private bool GetAccessForCategory(UserGroup userGroup, Category category, int operationKey)
+        private bool GetAccessForCategory(UserGroupStored userGroup, Category category, int operationKey)
         {
             while (category != null)
             {
@@ -80,12 +79,12 @@ namespace SunEngine.Security.Authorization
         
         
         #region With CategoryId
-        public bool HasAccess(IReadOnlyDictionary<string,UserGroup> userGroups, int categoryId, int operationKey)
+        public bool HasAccess(IReadOnlyDictionary<string,UserGroupStored> userGroups, int categoryId, int operationKey)
         {
             return HasAccess(userGroups, categoriesStore.GetCategory(categoryId), operationKey);
         }
 
-        public HashSet<int> HasAccess(IReadOnlyDictionary<string,UserGroup> userGroups, int categoryId,
+        public HashSet<int> HasAccess(IReadOnlyDictionary<string,UserGroupStored> userGroups, int categoryId,
             IEnumerable<int> operationKeys)
         {
             return HasAccess(userGroups, categoriesStore.GetCategory(categoryId), operationKeys);

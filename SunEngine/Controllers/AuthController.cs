@@ -10,16 +10,16 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using SunEngine.Commons.Models;
 using Microsoft.AspNetCore.Identity;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Services;
-using SunEngine.Commons.StoreModels;
 using SunEngine.Configuration.Options;
+using SunEngine.DataBase;
 using SunEngine.Filters;
+using SunEngine.Managers;
+using SunEngine.Models;
 using SunEngine.Security;
 using SunEngine.Services;
 using SunEngine.Stores;
+using SunEngine.Stores.Models;
 
 namespace SunEngine.Controllers
 {
@@ -114,8 +114,8 @@ namespace SunEngine.Controllers
             {
                 UserName = model.UserName,
                 Email = model.Email,
-                Avatar = SunEngine.Commons.Models.User.DefaultAvatar,
-                Photo = SunEngine.Commons.Models.User.DefaultAvatar,
+                Avatar = Models.User.DefaultAvatar,
+                Photo = Models.User.DefaultAvatar,
             };
 
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
@@ -262,7 +262,7 @@ namespace SunEngine.Controllers
                     var confirmResult = await userManager.ConfirmEmailAsync(user, token);
                     if (confirmResult.Succeeded)
                     {
-                        await userManager.AddToRoleAsync(user, UserGroup.UserGroupRegistered);
+                        await userManager.AddToRoleAsync(user, UserGroupStored.UserGroupRegistered);
 
                         transaction.Complete();
                         return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/emailconfirmed?result=ok"));

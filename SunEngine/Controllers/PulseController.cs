@@ -2,8 +2,8 @@ using System.Threading.Tasks;
 using LinqToDB;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Services;
+using SunEngine.DataBase;
+using SunEngine.Managers;
 using SunEngine.Stores;
 
 namespace SunEngine.Controllers

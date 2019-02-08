@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using DataSeedDev.Seeder;
 using Microsoft.Extensions.Configuration;
-using SunEngine.Commons.DataBase;
+using SunEngine.DataBase;
 
 namespace DataSeedDev
 {

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Services;
+using SunEngine.Managers;
+using SunEngine.Models;
+using SunEngine.Security.Authorization;
 using SunEngine.Stores;
-using IAuthorizationService = SunEngine.Commons.Services.IAuthorizationService;
+using IAuthorizationService = SunEngine.Security.Authorization.IAuthorizationService;
 
 namespace SunEngine.Controllers
 {

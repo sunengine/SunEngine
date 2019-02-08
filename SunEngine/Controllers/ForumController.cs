@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.PagedList;
-using SunEngine.Commons.Services;
 using SunEngine.Configuration.Options;
+using SunEngine.Managers;
+using SunEngine.Models;
 using SunEngine.Presenters;
+using SunEngine.Presenters.PagedList;
 using SunEngine.Security.Authorization;
 using SunEngine.Stores;
 
@@ -34,6 +35,8 @@ namespace SunEngine.Controllers
         {
             this.OperationKeys = operationKeysContainer;
 
+            Lazy<object> z;
+            
             this.forumPresenter = forumPresenter;
             this.forumOptions = forumOptions.Value;
             this.categoriesAuthorization = categoriesAuthorization;

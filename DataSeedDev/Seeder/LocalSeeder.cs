@@ -3,10 +3,10 @@ using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using NJsonSchema;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Models.UserGroups;
-using SunEngine.Commons.Services;
-using SunEngine.Commons.Utils;
+using SunEngine.Models;
+using SunEngine.Models.Authorization;
+using SunEngine.Security.Authorization;
+using SunEngine.Utils;
 
 namespace DataSeedDev.Seeder
 {
@@ -60,7 +60,7 @@ namespace DataSeedDev.Seeder
 
         private void RegisterUsers()
         {
-            UserGroupDB registered = dataContainer.UserGroups.FirstOrDefault(x => x.Name == "Registered");
+            UserGroup registered = dataContainer.UserGroups.FirstOrDefault(x => x.Name == "Registered");
 
             foreach (var user in dataContainer.Users)
             {
@@ -100,7 +100,7 @@ namespace DataSeedDev.Seeder
 
             foreach (var key in keys)
             {
-                var operationKey = new OperationKeyDB
+                var operationKey = new OperationKey
                 {
                     OperationKeyId = dataContainer.NextOperationKeyId(),
                     Name = key
