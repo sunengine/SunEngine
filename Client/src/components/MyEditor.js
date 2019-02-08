@@ -25,6 +25,7 @@ export default {
       this.filesNames = [];
       this.filesNumber = 0;
       this.filesLoading = false;
+      this.$refs.file.value = "";
     },
 
     getImagesHtml() {

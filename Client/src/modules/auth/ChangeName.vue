@@ -27,7 +27,7 @@
 
 
   import {makeUserDataFromToken} from "services/auth";
-  import {hasToken} from "services/token"
+  import {getToken} from "services/token"
   import LoaderSent from "LoaderSent";
   import {required, helpers} from 'vuelidate/lib/validators'
 
@@ -107,9 +107,9 @@
               name: this.name,
             }
           }).then(response => {
-          let data = makeUserDataFromToken(response.data.token);
-          data.permanent = hasToken();
 
+            debugger;
+          const data = makeUserDataFromToken(getToken());
           this.$store.commit('makeLogin', data);
 
           this.$q.notify({
@@ -121,6 +121,9 @@
           this.$router.push({name: 'Personal'});
 
         }).catch(error => {
+
+          debugger;
+
           this.$q.notify({
             message: error.response.data.errorText,
             timeout: 5000,

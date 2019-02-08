@@ -1,13 +1,15 @@
 {
   "name": "SunEngine",
-  "version": "0.8.2",
+  "version": "0.8.6",
   "description": "SunEngine",
   "productName": "SunEngine",
   "author": "Dmitrii Polianin",
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
-    "vuelidate": "^0.7.4"
+    "vuelidate": "^0.7.4",
+    "mutex-js": "^1.1.5",
+    "js-lock": "^0.1.1"
   },
   "devDependencies": {
     "quasar-cli": "^0.17.23",

@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using LinqToDB;
-using LinqToDB.Data;
-using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.TextProcess;
 
-namespace SunEngine.Seeder
+namespace DataSeedDev.Seeder
 {
     public class MaterialsSeeder
     {

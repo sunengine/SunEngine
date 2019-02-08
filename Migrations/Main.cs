@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +32,7 @@ namespace Migrations
             
             var dataBaseConfiguration = configuration.GetSection("DataBaseConnection");
             var providerName = dataBaseConfiguration["Provider"];
+            DBProvider.Initialize(providerName);
             var connectionString = dataBaseConfiguration["ConnectionString"]; 
             
             return new ServiceCollection()
@@ -58,8 +60,8 @@ namespace Migrations
         
         static string GetDataBaseConnectionFile()
         {
-            string fileName = "MyDataBaseConnection.json";
-            string[] dirs =  {"","../","../SunEngine/"};
+            string fileName = "Local.SunEngine.json";
+            string[] dirs =  {"","../","../SunEngine/","../SunEngine/Settings/"};
 
             foreach (var dir in dirs)
             {
@@ -68,7 +70,7 @@ namespace Migrations
                     return path;
             }
             
-            fileName = "DataBaseConnection.json";
+            fileName = "SunEngine.json";
             foreach (var dir in dirs)
             {
                 string path = Path.GetFullPath(dir + fileName);
@@ -76,7 +78,24 @@ namespace Migrations
                     return path;
             }
             
-            throw new Exception("Can not locate MyDataBaseConnection.json or DataBaseConnection.json");
+            throw new Exception("Can not locate Local.SunEngine.json or SunEngine.json");
+        }
+    }
+
+    public static class DBProvider
+    {
+        public static string Name { get; private set; }
+        
+        public static bool IsPostgre { get; private set; }
+
+        public static void Initialize(string name)
+        {
+            Name = name;
+            
+            if (name.StartsWith("Postgre"))
+            {
+                IsPostgre = true;
+            }
         }
     }
 

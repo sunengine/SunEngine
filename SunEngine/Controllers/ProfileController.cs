@@ -1,12 +1,12 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.StoreModels;
-using SunEngine.EntityServices;
-using SunEngine.Infrastructure;
+using SunEngine.Filters;
+using SunEngine.Managers;
+using SunEngine.Presenters;
 using SunEngine.Stores;
 
 namespace SunEngine.Controllers
@@ -17,14 +17,17 @@ namespace SunEngine.Controllers
     /// </summary>
     public class ProfileController : BaseController
     {
-        private readonly ProfileService profileService;
+        private readonly ProfileManager profileManager;
+        private readonly ProfilePresenter profilePresenter;
         
         public ProfileController(
-            ProfileService profileService,
+            ProfileManager profileManager,
+            ProfilePresenter profilePresenter,
             MyUserManager userManager,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
-            this.profileService = profileService;
+            this.profileManager = profileManager;
+            this.profilePresenter = profilePresenter;
         }
         
         [HttpPost]
@@ -33,7 +36,7 @@ namespace SunEngine.Controllers
             int? userId = User?.UserId;
             
             
-            var rez = await profileService.GetProfileAsync(link, userId);
+            var rez = await profilePresenter.GetProfileAsync(link, userId);
             if (rez == null)
             {
                 return NotFound();
@@ -43,7 +46,7 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        [SpamProtectionFilterUser(TimeoutSeconds = 60)]
+        [UserSpamProtectionFilter(TimeoutSeconds = 60)]
         [Authorize(Roles = UserGroup.UserGroupRegistered)]
         public async Task<IActionResult> SendPrivateMessage(string userId,string text)
         {
@@ -53,7 +56,7 @@ namespace SunEngine.Controllers
 
             var userFrom =  await GetUserAsync();
             
-            await profileService.SendPrivateMessageAsync(userFrom, userTo ,text);
+            await profileManager.SendPrivateMessageAsync(userFrom, userTo ,text);
 
             return Ok();
         }
@@ -71,7 +74,7 @@ namespace SunEngine.Controllers
 
             var user = await GetUserAsync();
             
-            await profileService.BunUserAsync(user,userBan);
+            await profileManager.BanUserAsync(user,userBan);
 
             return Ok();
         }
@@ -86,7 +89,7 @@ namespace SunEngine.Controllers
            
             var user = await this.GetUserAsync();
             
-            await profileService.UnBunUserAsync(user,userUnBan);
+            await profileManager.UnBanUserAsync(user,userUnBan);
 
             return Ok();
         }

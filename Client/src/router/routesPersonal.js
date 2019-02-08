@@ -85,7 +85,7 @@ const routes = [
       navigation: SettingsPanel
     },
     props: {
-      default: () => {return { link: store.state.auth.user?.link }}
+      default: () => {return { link: store.state.auth.userInfo?.link }}
     }
   },
 ]

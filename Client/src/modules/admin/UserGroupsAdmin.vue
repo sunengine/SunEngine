@@ -5,7 +5,7 @@
       <q-icon name="fas fa-exclamation-circle" size="24px" class="q-mr-sm"/>
       Перед загрузкой необходимо сделать backup базы.
     </div>
-    <template v-if="json">
+    <template v-if="json !== null">
       <q-input class="json-input" v-model="json" type="textarea" float-label="UsersGroups Config Json"
                max-height="600"/>
       <div class="q-my-md">

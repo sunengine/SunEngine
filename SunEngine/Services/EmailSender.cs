@@ -4,7 +4,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using SunEngine.Options;
+using SunEngine.Configuration.Options;
 
 namespace SunEngine.Services
 {

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using SunEngine.Options;
+using SunEngine.Configuration.Options;
 
 namespace SunEngine.Services
 {
@@ -37,7 +37,9 @@ namespace SunEngine.Services
             string ext = Path.GetExtension(fileName).ToLower();
             if (ext == ".jpeg")
                 return ".jpg";
-            if (ext == ".jpg" || ext == ".png" || ext == ".gif" || ext == ".svg")
+            if (ext == ".jpg" || ext == ".png" || ext == ".gif")
+                return ext;
+            if (imagesOptions.AllowSVGUpload && ext == ".svg")
                 return ext;
 
             return null;

@@ -1,6 +1,6 @@
 using SunEngine.Commons.Models;
 
-namespace SunEngine.Seeder
+namespace DataSeedDev.Seeder
 {
     public static class MaterialExtension
     {

@@ -6,7 +6,6 @@ using FluentMigrator.Builders.Create.Table;
 
 namespace Migrations
 {
-
     [Migration(20190104130000)]
     public class Initial : Migration
     {
@@ -20,11 +19,11 @@ namespace Migrations
                 .WithColumn("Header").AsMaxString().Nullable()
                 .WithColumn("AreaRoot").AsBoolean().NotNullable()
                 .WithColumn("IsMaterialsContainer").AsBoolean().NotNullable()
-                .WithColumn("ParentId").AsInt32().Indexed().Nullable().ForeignKey("FK_Categories_Categories_ParentId", "Categories", "Id")
+                .WithColumn("ParentId").AsInt32().Indexed().Nullable()
+                .ForeignKey("FK_Categories_Categories_ParentId", "Categories", "Id")
                 .WithColumn("SortNumber").AsInt32().NotNullable().Indexed()
                 .WithColumn("IsHidden").AsBoolean().NotNullable()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable();
-
 
 
             Create.Table("AspNetUsers")
@@ -40,23 +39,21 @@ namespace Migrations
                 .WithColumn("PhoneNumber").AsMaxString().Nullable()
                 .WithColumn("PhoneNumberConfirmed").AsBoolean().NotNullable()
                 .WithColumn("TwoFactorEnabled").AsBoolean().NotNullable()
-                .WithColumn("LockoutEnd").AsDateTime().Nullable()
+                .WithColumn("LockoutEnd").AsMyDateTime().Nullable()
                 .WithColumn("LockoutEnabled").AsBoolean().NotNullable()
                 .WithColumn("AccessFailedCount").AsInt16().NotNullable()
                 .WithColumn("Link").AsMaxString().Nullable()
                 .WithColumn("Information").AsMaxString().Nullable()
                 .WithColumn("Photo").AsMaxString().Nullable()
                 .WithColumn("Avatar").AsMaxString().Nullable();
-               
 
 
             Create.Table("UserBanedUnit")
                 .WithColumn("UserId").AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("FK_UserBanedUnit_AspNetUsers","AspNetUsers","Id")
+                .ForeignKey("FK_UserBanedUnit_AspNetUsers", "AspNetUsers", "Id")
                 .WithColumn("UserBanedId").AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("FK_UserBanedUnit_AspNetUsersBaned","AspNetUsers","Id");
-               
-            
+                .ForeignKey("FK_UserBanedUnit_AspNetUsersBaned", "AspNetUsers", "Id");
+
 
             Create.Table("Materials")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
@@ -69,16 +66,15 @@ namespace Migrations
                 .ForeignKey("FK_Materials_Categories_CategoryId", "Categories", "Id")
                 .WithColumn("AuthorId").AsInt32().NotNullable().Indexed()
                 .ForeignKey("FK_Materials_AspNetUsers_AuthorId", "AspNetUsers", "Id")
-                .WithColumn("PublishDate").AsDateTime().NotNullable().Indexed()
-                .WithColumn("EditDate").AsDateTime().Nullable()
+                .WithColumn("PublishDate").AsMyDateTime().NotNullable().Indexed()
+                .WithColumn("EditDate").AsMyDateTime().Nullable()
                 .WithColumn("LastMessageId").AsInt32().Nullable()
-                .WithColumn("LastActivity").AsDateTime().NotNullable().Indexed()
+                .WithColumn("LastActivity").AsMyDateTime().NotNullable().Indexed()
                 .WithColumn("MessagesCount").AsInt32().NotNullable()
                 .WithColumn("SortNumber").AsInt32().NotNullable().Indexed()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable().Indexed();
 
-            
-            
+
             Create.Table("Messages")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Text").AsMaxString().NotNullable()
@@ -86,13 +82,12 @@ namespace Migrations
                 .ForeignKey("FK_Messages_Materials_MaterialId", "Materials", "Id")
                 .WithColumn("AuthorId").AsInt32().Indexed().Nullable()
                 .ForeignKey("FK_Messages_AspNetUsers_AuthorId", "AspNetUsers", "Id")
-                .WithColumn("PublishDate").AsDateTime().NotNullable().Indexed()
-                .WithColumn("EditDate").AsDateTime().Nullable()
+                .WithColumn("PublishDate").AsMyDateTime().NotNullable().Indexed()
+                .WithColumn("EditDate").AsMyDateTime().Nullable()
                 .WithColumn("IsDeleted").AsBoolean().Nullable().Indexed();
 
             Create.ForeignKey("FK_Materials_Messages_LastMessageId").FromTable("Materials")
                 .ForeignColumn("LastMessageId").ToTable("Messages").PrimaryColumn("Id");
-
 
 
             Create.Table("Tags")
@@ -101,8 +96,6 @@ namespace Migrations
                 .WithColumn("GroupId").AsInt32().Nullable().Indexed();
 
 
-            
-            
             Create.Table("TagMaterials")
                 .WithColumn("TagId").AsInt32().PrimaryKey().NotNullable().Indexed()
                 .ForeignKey("FK_TagMaterials_Materials_MaterialId", "Tags", "Id")
@@ -132,7 +125,6 @@ namespace Migrations
                 .WithColumn("Name").AsString(256).NotNullable().Indexed();
 
 
-
             Create.Table("CategoryAccesses")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("UserGroupId").AsInt32().NotNullable().Indexed()
@@ -155,13 +147,14 @@ namespace Migrations
                 .WithColumn("LongToken1").AsString(16).NotNullable()
                 .WithColumn("LongToken2").AsString(16).NotNullable()
                 .WithColumn("DeviceInfo").AsMaxString().NotNullable()
-                .WithColumn("ExpirationDate").AsDateTime().NotNullable().Indexed();
+                .WithColumn("ExpirationDate").AsMyDateTime().NotNullable().Indexed();
 
             Create.Index("IX_LongSessions_Main").OnTable("LongSessions")
                 .OnColumn("UserId").Ascending()
                 .OnColumn("LongToken1").Ascending()
                 .OnColumn("LongToken2").Ascending();
         }
+
 
         public override void Down()
         {
@@ -171,9 +164,19 @@ namespace Migrations
 
     internal static class MigratorExtensions
     {
-        public static ICreateTableColumnOptionOrWithColumnSyntax AsMaxString(this ICreateTableColumnAsTypeSyntax createTableColumnAsTypeSyntax)
+        public static ICreateTableColumnOptionOrWithColumnSyntax AsMaxString(
+            this ICreateTableColumnAsTypeSyntax createTableColumnAsTypeSyntax)
         {
             return createTableColumnAsTypeSyntax.AsString(Int32.MaxValue);
+        }
+
+        public static ICreateTableColumnOptionOrWithColumnSyntax AsMyDateTime(
+            this ICreateTableColumnAsTypeSyntax createTableColumnAsTypeSyntax)
+        {
+            if (!DBProvider.IsPostgre)
+                return createTableColumnAsTypeSyntax.AsDateTime();
+            else
+                return createTableColumnAsTypeSyntax.AsCustom("TimestampTz");
         }
     }
 }

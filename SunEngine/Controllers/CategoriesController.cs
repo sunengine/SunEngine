@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
@@ -38,9 +37,6 @@ namespace SunEngine.Controllers
 
         private CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(Category category)
         {
-            // TODO сделать самостоятельную функцию которая проходит от корня 
-            // TODO идя сначала по ближайшим к корню нодам и потом ниже
-
             if (!authorizationService.HasAccess(User.UserGroups, category,
                     OperationKeys.MaterialAndMessagesRead) && category.Id != categoriesStore.RootCategory.Id)
             {

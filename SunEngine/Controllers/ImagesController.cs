@@ -1,15 +1,13 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
-using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
-using SunEngine.EntityServices;
-using SunEngine.Options;
+using SunEngine.Configuration.Options;
+using SunEngine.Managers;
 using SunEngine.Services;
 using SunEngine.Stores;
 
@@ -18,31 +16,32 @@ namespace SunEngine.Controllers
     [Authorize]
     public class ImagesController : BaseController
     {
-        private readonly ImagesOptions imagesOptions;
-        private readonly PersonalService personalService;
         private readonly ImagesService imagesService;
+        private readonly ImagesOptions imagesOptions;
+        private readonly PersonalManager personalManager;
 
         public ImagesController(
-            IOptions<ImagesOptions> imagesOptions,
-            PersonalService personalService,
             ImagesService imagesService,
-            CaptchaService captchaService,
+            IOptions<ImagesOptions> imagesOptions,
+            PersonalManager personalManager,
             MyUserManager userManager,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
-            this.imagesOptions = imagesOptions.Value;
-            this.personalService = personalService;
             this.imagesService = imagesService;
+            this.imagesOptions = imagesOptions.Value;
+            this.personalManager = personalManager;
         }
 
+
         [HttpPost]
-        [RequestSizeLimit(1024*1024*8)]
         public async Task<IActionResult> UploadImage(IFormFile file)
         {
             if (file.Length == 0)
-            {
                 return BadRequest();
-            }
+
+            if (!CheckAllowedMaxImageSize(file.Length))
+                return MaxImageSizeFailResult();
+
 
             ResizeOptions ro = new ResizeOptions
             {
@@ -60,13 +59,13 @@ namespace SunEngine.Controllers
 
 
         [HttpPost]
-        [RequestSizeLimit(1024*1024*8)]
         public async Task<IActionResult> UploadUserPhoto(IFormFile file)
         {
             if (file.Length == 0)
-            {
                 return BadRequest();
-            }
+
+            if (!CheckAllowedMaxImageSize(file.Length))
+                return MaxImageSizeFailResult();
 
             ResizeOptions roPhoto = new ResizeOptions
             {
@@ -93,11 +92,20 @@ namespace SunEngine.Controllers
                 return BadRequest();
             }
 
-            await personalService.SetPhotoAndAvatarAsync(User.UserId, fileAndDirPhoto.Path, fileAndDirAvatar.Path);
+            await personalManager.SetPhotoAndAvatarAsync(User.UserId, fileAndDirPhoto.Path, fileAndDirAvatar.Path);
 
             return Ok();
         }
 
-        
+        private bool CheckAllowedMaxImageSize(long fileSize)
+        {
+            return fileSize <= imagesOptions.ImageRequestSizeLimitBytes;
+        }
+
+        private IActionResult MaxImageSizeFailResult()
+        {
+            double sizeInMb = imagesOptions.ImageRequestSizeLimitBytes / (1024d * 1024d);
+            return BadRequest($"Image size is too large. Allowed max size is: {sizeInMb:F2} MB");
+        }
     }
 }

@@ -1,4 +1,4 @@
-// This file for Rider IDE to understand js pathes.
+// This file for Rider IDE to understand js paths.
 
 'use strict'
 
