@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Services;
-using SunEngine.Commons.StoreModels;
+using SunEngine.Models;
+using SunEngine.Stores.Models;
 
 namespace SunEngine.Security.Authorization
 {
@@ -16,7 +15,7 @@ namespace SunEngine.Security.Authorization
             OperationKeys = operationKeysContainer;
         }
         
-        public List<int> GetSubCategoriesIdsCanRead(IReadOnlyDictionary<string,UserGroup> userGroups,Category categoryParent)
+        public List<int> GetSubCategoriesIdsCanRead(IReadOnlyDictionary<string,UserGroupStored> userGroups,Category categoryParent)
         {
             List<int> categories = new List<int>();
            

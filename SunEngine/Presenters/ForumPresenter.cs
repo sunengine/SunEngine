@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.PagedList;
+using SunEngine.DataBase;
+using SunEngine.Presenters.PagedList;
 using SunEngine.Services;
 
 namespace SunEngine.Presenters
@@ -33,7 +33,6 @@ namespace SunEngine.Presenters
                     CategoryTitle = x.Category.Title,
                     LastMessageAuthorName = x.LastMessage.Author.UserName,
                     LastMessageAuthorAvatar = x.LastMessage.Author.Avatar
-
                 },
                 x => categoryIds.Contains(x.CategoryId),
                 x => x.OrderByDescending(y => y.LastActivity),

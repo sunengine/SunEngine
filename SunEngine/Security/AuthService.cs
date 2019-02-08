@@ -14,15 +14,15 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Services;
-using SunEngine.Commons.Utils;
 using SunEngine.Configuration.Options;
 using SunEngine.Controllers;
+using SunEngine.DataBase;
+using SunEngine.Managers;
+using SunEngine.Models;
 using SunEngine.Security.Authentication;
 using SunEngine.Services;
 using SunEngine.Stores;
+using SunEngine.Utils;
 
 namespace SunEngine.Security
 {

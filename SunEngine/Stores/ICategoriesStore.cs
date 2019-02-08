@@ -1,5 +1,5 @@
 ﻿using System.Collections.Immutable;
-using SunEngine.Commons.Models;
+using SunEngine.Models;
 
 namespace SunEngine.Stores
 {

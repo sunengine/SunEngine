@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using LinqToDB;
 using Microsoft.Extensions.Options;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Services;
-using SunEngine.Commons.StoreModels;
 using SunEngine.Configuration.Options;
+using SunEngine.DataBase;
+using SunEngine.Models;
+using SunEngine.Models.Materials;
 using SunEngine.Security.Authentication;
 using SunEngine.Stores;
+using SunEngine.Stores.Models;
 
 namespace SunEngine.Security.Authorization
 {
@@ -35,13 +35,13 @@ namespace SunEngine.Security.Authorization
             OperationKeys = operationKeysContainer;
         }
 
-        public bool CanAdd(IReadOnlyDictionary<string, UserGroup> userGroups,
+        public bool CanAdd(IReadOnlyDictionary<string, UserGroupStored> userGroups,
             Category category)
         {
             return !category.IsFolder && authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialWrite);
         }
 
-        public bool CanGet(IReadOnlyDictionary<string, UserGroup> userGroups, Category category)
+        public bool CanGet(IReadOnlyDictionary<string, UserGroupStored> userGroups, Category category)
         {
             return authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialAndMessagesRead);
         }

@@ -1,10 +1,10 @@
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.TextProcess;
+using SunEngine.DataBase;
+using SunEngine.Models.Materials;
 using SunEngine.Services;
+using SunEngine.Utils.TextProcess;
 
 namespace SunEngine.Managers
 {

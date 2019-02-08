@@ -15,8 +15,8 @@
     "frameworks": {
       "netcoreapp2.2": {
         "projectReferences": {
-          "/home/okeanij/Projects/SunEngine/SunEngine.Commons/SunEngine.Commons.csproj": {
-            "projectPath": "/home/okeanij/Projects/SunEngine/SunEngine.Commons/SunEngine.Commons.csproj"
+          "/home/okeanij/Projects/SunEngine/SunEngine/SunEngine.csproj": {
+            "projectPath": "/home/okeanij/Projects/SunEngine/SunEngine/SunEngine.csproj"
           }
         }
       }
