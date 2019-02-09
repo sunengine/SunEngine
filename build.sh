@@ -16,13 +16,12 @@ dotnet publish -c Release SunEngine -o "$parent_path/Build" -v m
 
 
 echo -e "\n$GREEN Clearing Images $NC"
-cd "$parent_path/Build/wwwroot/UploadImages/"
 shopt -s extglob
-rm -rf !(_)
+rm -rf "$parent_path/Build/wwwroot/UploadImages/!(_)"
 shopt -u extglob
 
-echo -e "\n$GREEN Remove MyDataBaseConnection.json $NC"
-rm -f  "$parent_path/Build/MyDataBaseConnection.json"
+echo -e "\n$GREEN Remove local.app.settings.json $NC"
+rm -f  "$parent_path/Build/local.app.settings.json"
 
 
 echo -e "$GREEN Building Client $NC"

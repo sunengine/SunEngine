@@ -11,7 +11,7 @@ namespace SunEngine
     public class Program
     {
         public static void Main(string[] args)
-        {            
+        {
             var webHost = CreateWebHostBuilder(args).Build();
 
             webHost.Run();
@@ -25,15 +25,16 @@ namespace SunEngine
                 {
                     IHostingEnvironment env = builderContext.HostingEnvironment;
                     string mainSettingsFile = SettingsFileLocator.GetSettingFilePath("app.settings.json");
-                    string logSettingsFile = SettingsFileLocator.GetSettingFilePath( "log.settings.json");
+                    string logSettingsFile = SettingsFileLocator.GetSettingFilePath("log.settings.json");
                     string logSettingsFileEnv =
-                        SettingsFileLocator.GetSettingFilePath( $"log.settings.{env.EnvironmentName.ToLower()}.json", true);
+                        SettingsFileLocator.GetSettingFilePath($"log.settings.{env.EnvironmentName.ToLower()}.json",
+                            true);
 
-                    config.AddJsonFile(logSettingsFile, optional: false, reloadOnChange: false)
-                        .AddJsonFile(logSettingsFileEnv, optional: true, reloadOnChange: false)
-                        .AddJsonFile(mainSettingsFile, optional: false, reloadOnChange: false);
+                    config.AddJsonFile(logSettingsFile, optional: false, reloadOnChange: false);
+                    if (logSettingsFileEnv != null)
+                        config.AddJsonFile(logSettingsFileEnv, optional: true, reloadOnChange: false);
+                    
+                    config.AddJsonFile(mainSettingsFile, optional: false, reloadOnChange: false);
                 });
-
-      
     }
 }
