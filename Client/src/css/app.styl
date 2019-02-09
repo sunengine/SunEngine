@@ -38,10 +38,10 @@ a {
   max-width: 100%;
 }
 
-.full-center {
+.middle {
   align-content: center;
   justify-content: center;
-  align-items: center
+  align-items: center;
 }
 
 .avatar {
@@ -49,10 +49,16 @@ a {
   border-radius: 15px;
 }
 
+.center-form {
+  width: 400px;
+  display flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
 .clear {
   clear: both;
 }
-
 
 
 // ——— Elements ————————————————————————————————————
@@ -68,7 +74,6 @@ a {
   border-bottom: 1px solid #cacaca;
   color: $grey-8;
 }
-
 
 
 // ——— Colors ————————————————————————————————————
@@ -128,8 +133,6 @@ a {
 }
 
 
-
-
 .desktop { // ——— Editor multiline toolbar for desktop ————————————————————————————————————
 
   .q-editor-toolbar-padding {
@@ -181,7 +184,6 @@ a {
 }
 
 
-
 .menu-list {
   .q-item-side {
     min-width: 18px !important;
@@ -204,15 +206,11 @@ a {
       &:before {
         width: 18px;
         display: flex;
-        //align-items: center;
-        //justify-items: center;
-        //justify-content: center;
         margin-right: 8px !important;
       }
     }
   }
 }
-
 
 
 // ——— Margins ————————————————————————————————————
@@ -233,7 +231,6 @@ a {
 .pp-left {
   padding-left: 24px !important;
 }
-
 
 
 @media (max-width: 400px) {

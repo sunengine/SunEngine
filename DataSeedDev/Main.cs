@@ -2,7 +2,8 @@ using System;
 using System.IO;
 using DataSeedDev.Seeder;
 using Microsoft.Extensions.Configuration;
-using SunEngine.Commons.DataBase;
+using SunEngine.DataBase;
+using SunEngine.Utils;
 
 namespace DataSeedDev
 {
@@ -15,7 +16,7 @@ namespace DataSeedDev
 
         static void SeedDataBase()
         {
-            string dbSettingsFile = GetDataBaseConnectionFile();
+            string dbSettingsFile = SettingsFileLocator.GetSettingFilePath("db.settings.json");
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(dbSettingsFile, optional: false, reloadOnChange: true)
                 .Build();
@@ -32,27 +33,6 @@ namespace DataSeedDev
             }
         }
 
-        static string GetDataBaseConnectionFile()
-        {
-            string fileName = "Local.SunEngine.json";
-            string[] dirs =  {"","../","../SunEngine/","../SunEngine/Settings/"};
-
-            foreach (var dir in dirs)
-            {
-                string path = Path.GetFullPath(dir + fileName);
-                if (File.Exists(path))
-                    return path;
-            }
-            
-            fileName = "SunEngine.json";
-            foreach (var dir in dirs)
-            {
-                string path = Path.GetFullPath(dir + fileName);
-                if (File.Exists(path))
-                    return path;
-            }
-            
-            throw new Exception("Can not locate Local.SunEngine.json or SunEngine.json");
-        }
+        
     }
 }

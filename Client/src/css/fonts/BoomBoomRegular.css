@@ -1,9 +1,4 @@
 @font-face {
-    font-family: 'BoomBoomRegular';
-    src: url('BoomBoomRegular.eot');
-    src: url('BoomBoomRegular.eot') format('embedded-opentype'),
-         url('BoomBoomRegular.woff2') format('woff2'),
-         url('BoomBoomRegular.woff') format('woff'),
-         url('BoomBoomRegular.ttf') format('truetype'),
-         url('BoomBoomRegular.svg#BoomBoomRegular') format('svg');
+  font-family: 'BoomBoomRegular';
+  src:   url('BoomBoomRegular.woff') format('woff');
 }

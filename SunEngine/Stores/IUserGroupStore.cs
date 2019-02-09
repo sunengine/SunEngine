@@ -1,12 +1,12 @@
 ﻿using System.Collections.Immutable;
-using SunEngine.Commons.StoreModels;
+using SunEngine.Stores.Models;
 
 namespace SunEngine.Stores
 {
     public interface IUserGroupStore : IMemoryStore
     {
-        IImmutableList<OperationKey> AllOperationKeys { get; }
-        UserGroup GetUserGroup(string name);
-        IImmutableDictionary<string, UserGroup> AllGroups { get; }
+        IImmutableList<OperationKeyStored> AllOperationKeys { get; }
+        UserGroupStored GetUserGroup(string name);
+        IImmutableDictionary<string, UserGroupStored> AllGroups { get; }
     }
 }

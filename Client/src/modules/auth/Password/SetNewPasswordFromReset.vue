@@ -1,6 +1,6 @@
 <template>
-  <q-page padding class="column justify-center" style="width:500px">
-    <template v-if="!done">
+  <q-page padding class="flex middle">
+    <div class="center-form" v-if="!done">
       <q-field icon="fas fa-key" :error="$v.password.$invalid && !start"
                :error-label="passwordErrorLabel">
         <q-input v-model="password" type="password" float-label="Пароль"/>
@@ -16,7 +16,7 @@
           <LoaderSent slot="loading"/>
         </q-btn>
       </q-field>
-    </template>
+    </div>
     <q-alert v-else type="positive" icon="fas fa-key">
       Пароль изменён.
       <router-link :to="{name: 'Login'}">Войти</router-link>

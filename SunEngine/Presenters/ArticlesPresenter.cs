@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.PagedList;
 using SunEngine.Controllers;
+using SunEngine.DataBase;
+using SunEngine.Presenters.PagedList;
 using SunEngine.Services;
 
 namespace SunEngine.Presenters

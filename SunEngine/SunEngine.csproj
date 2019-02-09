@@ -11,18 +11,14 @@
         <PackageReference Include="HtmlSanitizer" Version="4.0.205" />
         <PackageReference Include="linq2db" Version="2.6.4" />
         <PackageReference Include="linq2db.Identity" Version="2.0.1" />
-        <PackageReference Include="Microsoft.AspNetCore.App" />
+        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.1" />
         <PackageReference Include="MySql.Data" Version="8.0.15" />
+        <PackageReference Include="NJsonSchema" Version="9.13.17" />
         <PackageReference Include="Npgsql" Version="4.0.4" />
         <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta0008" />
         <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
         <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0006" />
         <PackageReference Include="SixLabors.Shapes" Version="1.0.0-beta0008" />
-    </ItemGroup>
-  
-
-    <ItemGroup>
-      <ProjectReference Include="..\SunEngine.Commons\SunEngine.Commons.csproj" />
     </ItemGroup>
     
 
@@ -31,27 +27,7 @@
     </ItemGroup>
     
 
-    <ItemGroup>
-      <Content Include="Resources\gunnyrewritten.ttf">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <None Remove="gunnyrewritten.ttf" />
-      <Content Update="Settings\Local.SunEngine.json">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </Content>
-      <Content Update="Settings\SunEngine.json">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <Content Update="Settings\appsettings.Development.json">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <Content Update="Settings\appsettings.json">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-    </ItemGroup>
+   
     
 
     <ItemGroup>
@@ -64,11 +40,28 @@
     </ItemGroup>
     
 
+   
+    
+
     <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\143\db9e748f-7101-44af-8b7a-2b42af572a54.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\228\e00080e4-1268-492e-8a1b-46a0f0b25c3f.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\37\39250725-a66c-40a9-a906-bfaf9c3fbaa3.jpg" />
+      <Content Update="app.settings.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Update="local.app.settings.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Update="log.settings.development.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Update="log.settings.json">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
+
 
   <PropertyGroup>
     <ServerGarbageCollection>false</ServerGarbageCollection>

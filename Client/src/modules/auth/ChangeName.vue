@@ -1,6 +1,6 @@
 <template>
-  <QPage class="flex full-center">
-    <div class="container">
+  <QPage padding class="flex middle">
+    <div class="center-form">
       <div class="text-grey-7 q-mb-lg">
         Имя может состоять из букв, цифр, пробела и символа '-', длинны не менее 3.
       </div>
@@ -146,10 +146,5 @@
     height: 78px;
   }
 
-  .container {
-    display flex;
-    flex-direction: column;
-    width: 270px;
-    justify-content: stretch;
-  }
+
 </style>

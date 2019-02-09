@@ -3,8 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using LinqToDB.Data;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Models;
+using SunEngine.DataBase;
+using SunEngine.Models.Materials;
 using SunEngine.Services;
 
 namespace SunEngine.Managers
@@ -64,7 +64,7 @@ namespace SunEngine.Managers
         private async Task MaterialSetTags(Material material, IEnumerable<Tag> tags)
         {
             // TODO make auto delete unused tags
-            db.TagMaterials.Where(x => x.MaterialId == material.Id).Delete();
+            await db.TagMaterials.Where(x => x.MaterialId == material.Id).DeleteAsync();
 
             var materialTags = tags.Select(x => new TagMaterial {TagId = x.Id, MaterialId = material.Id}).ToList();
 

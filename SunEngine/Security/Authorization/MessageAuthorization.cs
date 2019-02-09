@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Services;
-using SunEngine.Commons.StoreModels;
 using SunEngine.Configuration.Options;
+using SunEngine.DataBase;
+using SunEngine.Models.Materials;
 using SunEngine.Security.Authentication;
+using SunEngine.Stores.Models;
 
 namespace SunEngine.Security.Authorization
 {
@@ -33,7 +32,7 @@ namespace SunEngine.Security.Authorization
             this.db = db;
         }
 
-        public bool HasAccessForGetMessages(IReadOnlyDictionary<string,UserGroup> userGroups, int categoryId)
+        public bool HasAccessForGetMessages(IReadOnlyDictionary<string,UserGroupStored> userGroups, int categoryId)
         {
             return authorizationService.HasAccess(userGroups, categoryId, OperationKeys.MaterialAndMessagesRead);
         }
@@ -144,7 +143,7 @@ namespace SunEngine.Security.Authorization
                                                       x.PublishDate > message.PublishDate);
         }
         
-        public bool CanAdd(IReadOnlyDictionary<string,UserGroup> userGroups,int categoryId)
+        public bool CanAdd(IReadOnlyDictionary<string,UserGroupStored> userGroups,int categoryId)
         {
             return authorizationService.HasAccess(userGroups, categoryId,  OperationKeys.MessageWrite);
         } 

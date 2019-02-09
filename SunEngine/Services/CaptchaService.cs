@@ -9,6 +9,7 @@ using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SunEngine.Configuration.Options;
+using SunEngine.Utils;
 using Path = System.IO.Path;
 using PointF = SixLabors.Primitives.PointF;
 
@@ -50,11 +51,9 @@ namespace SunEngine.Services
         }
 
 
-        string GenerateCaptchaText()
+        private string GenerateCaptchaText()
         {
-            Random ran = new Random();
-            string text = ran.Next(10000, 999999).ToString();
-            return text;
+            return CryptoRandomizer.GetRandomInt(10000, 999999).ToString();
         }
 
         public string GetTextFromToken(string token)

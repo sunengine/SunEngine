@@ -1,6 +1,6 @@
 <template>
-  <QPage class="flex full-center">
-    <div class="container" v-if="!done">
+  <QPage class="flex middle">
+    <div class="center-form" v-if="!done">
       <q-field icon="fas fa-key" :error="$v.password.$error"
                error-label="Введите пароль">
         <q-input v-model="password" type="password" float-label="Ваш пароль"/>
@@ -90,12 +90,5 @@
 <style lang="stylus" scoped>
   .q-field {
     height: 78px;
-  }
-
-  .container {
-    display flex;
-    flex-direction: column;
-    width: 270px;
-    justify-content: stretch;
   }
 </style>

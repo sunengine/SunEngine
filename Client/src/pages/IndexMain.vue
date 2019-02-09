@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex column full-center">
+  <q-page class="flex column middle">
     <h1>Sun Engine</h1>
 
     <h5>
