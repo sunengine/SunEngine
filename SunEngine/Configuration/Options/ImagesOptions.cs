@@ -9,7 +9,7 @@ namespace SunEngine.Configuration.Options
         public int PhotoMaxWidthPixels { get; set; }
         public int PhotoMaxHeightPixels { get; set; }
         public int AvatarSizePixels { get; set; }
-        public bool AllowSVGUpload { get; set; }
+        public bool AllowSvgUpload { get; set; }
         public int ImageRequestSizeLimitBytes { get; set; }
     }
 }

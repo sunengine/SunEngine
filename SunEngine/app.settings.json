@@ -15,7 +15,7 @@
     "PhotoMaxWidthPixels": 500,
     "PhotoMaxHeightPixels": 500,
     "AvatarSizePixels": 300,
-    "AllowSVGUpload":true,
+    "AllowSvgUpload":true,
     "ImageRequestSizeLimitBytes": 10485760,
     "DoResize": true
   },

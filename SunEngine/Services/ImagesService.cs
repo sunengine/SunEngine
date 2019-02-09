@@ -39,7 +39,7 @@ namespace SunEngine.Services
                 return ".jpg";
             if (ext == ".jpg" || ext == ".png" || ext == ".gif")
                 return ext;
-            if (imagesOptions.AllowSVGUpload && ext == ".svg")
+            if (imagesOptions.AllowSvgUpload && ext == ".svg")
                 return ext;
 
             return null;
