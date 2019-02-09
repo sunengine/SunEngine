@@ -15,7 +15,7 @@ namespace SunEngine.Configuration.AddServices
             var providerName = dataBaseConfiguration["Provider"];
             var connectionString = dataBaseConfiguration["ConnectionString"];
             var dataProvider = DataConnection.GetDataProvider(providerName, connectionString);
-            SunEngineMappingSchema mappingSchema = new SunEngineMappingSchema();
+            DbMappingSchema mappingSchema = new DbMappingSchema();
 
             services.AddScoped(x => new DataBaseConnection(dataProvider, connectionString, mappingSchema));
 

@@ -5,36 +5,45 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using System.Transactions;
+using LinqToDB;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SunEngine.Configuration.Options;
 using SunEngine.Controllers;
+using SunEngine.DataBase;
 using SunEngine.Managers;
 using SunEngine.Models;
+using SunEngine.Services;
 using SunEngine.Utils;
 
 namespace SunEngine.Security
 {
-    public class AuthService
+    public class AuthService : DbService
     {
         private readonly JwtOptions jwtOptions;
         private readonly MyUserManager userManager;
         private readonly GlobalOptions globalOptions;
         private readonly IEmailSender emailSender;
-        private readonly  IUrlHelperFactory urlHelperFactory;
+        private readonly IUrlHelperFactory urlHelperFactory;
         private readonly IActionContextAccessor accessor;
-        
+        private readonly ILogger logger;
+
+
         public AuthService(
-            MyUserManager userManager, 
+            MyUserManager userManager,
             IEmailSender emailSender,
+            DataBaseConnection db,
             IOptions<GlobalOptions> globalOptions,
             IUrlHelperFactory urlHelperFactory,
             IActionContextAccessor accessor,
-            IOptions<JwtOptions> jwtOptions)
+            IOptions<JwtOptions> jwtOptions,
+            ILoggerFactory loggerFactory) : base(db)
         {
             this.jwtOptions = jwtOptions.Value;
             this.userManager = userManager;
@@ -42,9 +51,10 @@ namespace SunEngine.Security
             this.emailSender = emailSender;
             this.urlHelperFactory = urlHelperFactory;
             this.accessor = accessor;
+            logger = loggerFactory.CreateLogger<AuthController>();
         }
-        
-        
+
+
         public string GenerateChangeEmailToken(User user, string email)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKeyEmailChange));
@@ -66,21 +76,21 @@ namespace SunEngine.Security
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-        
-        
+
+
         public async Task SendChangeEmailConfirmationMessageByEmailAsync(User user, string email)
         {
             var urlHelper = GetUrlHelper();
-            
+
             var emailToken = await userManager.GenerateChangeEmailTokenAsync(user, email);
 
             var (schema, host) = globalOptions.GetSchemaAndHostApi();
 
             var updateEmailUrl = urlHelper.Action("ConfirmEmail", "Auth",
                 new {token = emailToken}, schema, host);
-           
+
             await emailSender.SendEmailAsync(user.Email, "Confirm your email",
-                    $"Confirm your email by clicking this <a href=\"{updateEmailUrl}\">link</a>.");          
+                $"Confirm your email by clicking this <a href=\"{updateEmailUrl}\">link</a>.");
         }
 
         public bool ValidateChangeEmailToken(string token, out int userId, out string email)
@@ -111,7 +121,88 @@ namespace SunEngine.Security
             userId = int.Parse(jwt.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
             return true;
         }
-        
+
+        public class RegisterResult
+        {
+            public bool Succeeded;
+            public ErrorViewModel Error;
+        }
+
+        public async Task<RegisterResult> RegisterAsync(NewUserViewModel model)
+        {
+            var user = new User
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                Avatar = User.DefaultAvatar,
+                Photo = User.DefaultAvatar
+            };
+
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                IdentityResult result = await userManager.CreateAsync(user, model.Password);
+                await db.Users.Where(x => x.Id == user.Id).Set(x => x.Link, x => x.Id.ToString()).UpdateAsync();
+
+                if (!result.Succeeded)
+                    return new RegisterResult
+                    {
+                        Succeeded = false,
+                        Error = new ErrorViewModel
+                        {
+                            ErrorsNames = result.Errors.Select(x => x.Code).ToArray(),
+                            ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()
+                        }
+                    };
+
+                logger.LogInformation($"New user registered (id: {user.Id})");
+
+                if (!user.EmailConfirmed)
+                {
+                    // Send email confirmation email
+                    var confirmToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
+
+                    var (schema, host) = globalOptions.GetSchemaAndHostApi();
+
+                    var Url = GetUrlHelper();
+
+                    var emailConfirmUrl = Url.Action("Confirm", "Auth",
+                        new {uid = user.Id, token = confirmToken},
+                        schema, host);
+
+                    try
+                    {
+                        await emailSender.SendEmailAsync(model.Email, "Please confirm your account",
+                            $"Please confirm your account by clicking this <a href=\"{emailConfirmUrl}\">link</a>."
+                        );
+                    }
+                    catch (Exception e)
+                    {
+                        return new RegisterResult
+                        {
+                            Succeeded = false,
+                            Error = new ErrorViewModel
+                            {
+                                ErrorName = "Can not send email",
+                                ErrorText = "Ошибка отправки email"
+                            }
+                        };
+                    }
+
+
+                    logger.LogInformation($"Sent email confirmation email (id: {user.Id})");
+                }
+
+                logger.LogInformation($"User logged in (id: {user.Id})");
+
+                transaction.Complete();
+
+                return new RegisterResult
+                {
+                    Succeeded = true
+                };
+            }
+        }
+
         private IUrlHelper GetUrlHelper()
         {
             ActionContext context = accessor.ActionContext;

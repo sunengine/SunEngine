@@ -49,7 +49,7 @@
 
 <script>
   import LoaderSent from "LoaderSent";
-  import {required, minLength, sameAs, email} from 'vuelidate/lib/validators'
+  import {required, minLength, maxLength, sameAs, email} from 'vuelidate/lib/validators'
   import Page from "Page";
 
   export default {
@@ -73,11 +73,13 @@
     validations: {
       userName: {
         required,
-        minLength: minLength(3)
+        minLength: minLength(3),
+        maxLength: maxLength(config.DbColumnSizes.Users_UserName)
       },
       email: {
         required,
-        email
+        email,
+        maxLength: maxLength(config.DbColumnSizes.Users_Email)
       },
       password: {
         required,
@@ -98,12 +100,16 @@
           return "Введите имя пользователя";
         if (!this.$v.userName.minLength)
           return "Имя пользователя должно быть не менее чем из 3 букв";
+        if (!this.$v.userName.maxLength)
+          return `Имя пользователя должно состоять не более чем из ${config.DbColumnSizes.Users_UserName} символов`;
       },
       emailErrorLabel() {
         if (!this.$v.email.required)
           return "Введите Email";
         if (!this.$v.email.email)
           return "Неправильная сигнатура Email";
+        if (!this.$v.email.maxLength)
+          return `Email должен состоять не более чем из ${config.DbColumnSizes.Users_Email} символов`;
       },
       passwordErrorLabel() {
         if (!this.$v.password.required)

@@ -14,16 +14,16 @@ namespace SunEngine.DataBase
     {
         private readonly string connectionString;
         private readonly IDataProvider dataProvider;
-        private readonly SunEngineMappingSchema mappingSchema;
+        private readonly DbMappingSchema mappingSchema;
 
-        public DataBaseFactory(string providerName, string connectionString, SunEngineMappingSchema mappingSchema)
+        public DataBaseFactory(string providerName, string connectionString, DbMappingSchema mappingSchema)
         {
             DataConnection.GetDataProvider(providerName, connectionString);
             this.connectionString = connectionString;
             this.mappingSchema = mappingSchema;
         }
         
-        public DataBaseFactory(IDataProvider dataProvider, string connectionString, SunEngineMappingSchema mappingSchema)
+        public DataBaseFactory(IDataProvider dataProvider, string connectionString, DbMappingSchema mappingSchema)
         {
             this.dataProvider = dataProvider;
             this.connectionString = connectionString;

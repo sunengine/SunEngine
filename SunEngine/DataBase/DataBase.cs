@@ -11,13 +11,13 @@ namespace SunEngine.DataBase
 {
     public class DataBaseConnection : IdentityDataConnection<User, UserGroup, int>
     {
-        public DataBaseConnection(string providerName, string connectionString, SunEngineMappingSchema mappingSchema) : base(
+        public DataBaseConnection(string providerName, string connectionString, DbMappingSchema mappingSchema) : base(
             providerName, connectionString)
         {
             AddMappingSchema(mappingSchema);
         }
         
-        public DataBaseConnection(IDataProvider dataProvider, string connectionString, SunEngineMappingSchema mappingSchema) : base(
+        public DataBaseConnection(IDataProvider dataProvider, string connectionString, DbMappingSchema mappingSchema) : base(
             dataProvider, connectionString)
         {
             AddMappingSchema(mappingSchema);
@@ -26,13 +26,13 @@ namespace SunEngine.DataBase
         public DataBaseConnection(IDataProvider dataProvider, string connectionString) : base(
             dataProvider, connectionString)
         {
-            AddMappingSchema(new SunEngineMappingSchema());
+            AddMappingSchema(new DbMappingSchema());
         }
         
         public DataBaseConnection(string providerName, string connectionString) : base(
             providerName, connectionString)
         {
-            AddMappingSchema(new SunEngineMappingSchema());
+            AddMappingSchema(new DbMappingSchema());
         }
 
         public ITable<Material> Materials => GetTable<Material>();

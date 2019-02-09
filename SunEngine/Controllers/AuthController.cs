@@ -112,52 +112,11 @@ namespace SunEngine.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new User
-            {
-                UserName = model.UserName,
-                Email = model.Email,
-                Avatar = Models.User.DefaultAvatar,
-                Photo = Models.User.DefaultAvatar
-            };
-
-            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            {
-                IdentityResult result = await userManager.CreateAsync(user, model.Password);
-                await db.Users.Where(x => x.Id == user.Id).Set(x => x.Link, x => x.Id.ToString()).UpdateAsync();
-
-                if (!result.Succeeded)
-                    return BadRequest(new ErrorViewModel
-                    {
-                        ErrorsNames = result.Errors.Select(x => x.Code).ToArray(),
-                        ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()
-                    });
-                logger.LogInformation($"New user registered (id: {user.Id})");
-
-                if (!user.EmailConfirmed)
-                {
-                    // Send email confirmation email
-                    var confirmToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
-
-                    var (schema, host) = globalOptions.GetSchemaAndHostApi();
-
-                    var emailConfirmUrl = Url.Action("Confirm", "Auth",
-                        new {uid = user.Id, token = confirmToken},
-                        schema, host);
-
-                    await emailSender.SendEmailAsync(model.Email, "Please confirm your account",
-                        $"Please confirm your account by clicking this <a href=\"{emailConfirmUrl}\">link</a>."
-                    );
-
-
-                    logger.LogInformation($"Sent email confirmation email (id: {user.Id})");
-                }
-
-                logger.LogInformation($"User logged in (id: {user.Id})");
-
-                transaction.Complete();
-
-                return Ok();
-            }
+            var result = await authService.RegisterAsync(model);
+            if (!result.Succeeded)
+                return BadRequest(result.Error);
+            
+            return Ok();
         }
 
         [HttpPost]
@@ -337,11 +296,19 @@ namespace SunEngine.Controllers
 
     public class NewUserViewModel : CaptchaViewModel
     {
-        [Required] public string UserName { get; set; }
+        [Required]
+        [MinLength(3)]
+        [MaxLength(DbMappingSchema.DbColumnSizes.Users_UserName)]
+        public string UserName { get; set; }
 
-        [Required] [EmailAddress] public string Email { get; set; }
+        [Required] 
+        [EmailAddress] 
+        [MaxLength(DbMappingSchema.DbColumnSizes.Users_Email)]
+        public string Email { get; set; }
 
-        [Required] [MinLength(6)] public string Password { get; set; }
+        [Required] 
+        [MinLength(6)] 
+        public string Password { get; set; }
     }
 
     public class CaptchaViewModel

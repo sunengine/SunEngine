@@ -71,7 +71,6 @@ namespace SunEngine.Admin.Controllers
                 MaterialsCount = x.Materials.Count,
                 IsHidden = x.IsHidden,
                 IsDeleted = x.IsDeleted
-                
             }).ToDictionaryAsync(x => x.Id);
 
             CategoryAdminViewModel root = null;

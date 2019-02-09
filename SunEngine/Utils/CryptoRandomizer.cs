@@ -28,6 +28,7 @@ namespace SunEngine.Utils
         public static uint GetRandomUint()
         {
             byte[] uintBuffer = new byte[sizeof(uint)];
+            CryptoProvider.GetBytes(uintBuffer);
             return BitConverter.ToUInt32(uintBuffer, 0);
         }
         
