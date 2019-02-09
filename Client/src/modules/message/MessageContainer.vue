@@ -72,7 +72,7 @@
         if (!this.categoryPersonalAccess.MessageEditOwnIfTimeNotExceeded) {
           const now = new Date();
           const publish = this.message.publishDate;
-          const til = date.addToDate(publish, {minutes: this.$store.state.options.materialsTimeToOwnEditInMinutes});
+          const til = date.addToDate(publish, {minutes: config.Materials.MaterialsTimeToOwnEditInMinutes});
           if (til < now) {
             return false;
           }
@@ -98,7 +98,7 @@
         if (!this.categoryPersonalAccess.MessageDeleteOwnIfTimeNotExceeded) {
           const now = new Date();
           const publish = this.message.publishDate;
-          const til = date.addToDate(publish, {minutes: this.$store.state.options.materialsTimeToOwnDeleteInMinutes});
+          const til = date.addToDate(publish, {minutes: config.Materials.MaterialsTimeToOwnDeleteInMinutes});
           if (til < now) {
             return false;
           }

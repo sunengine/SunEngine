@@ -6,7 +6,7 @@ const config = {
     "MessagesTimeToOwnEditInMinutes": 15,
     "MessagesTimeToOwnDeleteInMinutes": 15
   },
-  Material: {
+  Materials: {
     "MaterialsTimeToOwnEditInMinutes": 15,
     "MaterialsTimeToOwnDeleteInMinutes": 15,
     "MaterialsTimeToOwnMoveInMinutes": 15,
@@ -24,4 +24,4 @@ const config = {
     Roles_Title: 64,
     OperationKey_Name: 100
   }
-};
+}

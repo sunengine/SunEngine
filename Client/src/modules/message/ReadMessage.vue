@@ -1,4 +1,4 @@
-<template>
+cd <template>
   <div>
     <img class="avatar msg-avatar" :src="$imagePath(message.authorAvatar)"/>
 

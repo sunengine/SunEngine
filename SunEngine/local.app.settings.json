@@ -23,7 +23,7 @@
     "MessagesTimeToOwnEditInMinutes": 15,
     "MessagesTimeToOwnDeleteInMinutes": 15
   },
-  "Material": {
+  "Materials": {
     "MaterialMessagesPageSize": 5,
     "MaterialsTimeToOwnEditInMinutes": 15,
     "MaterialsTimeToOwnDeleteInMinutes": 15,

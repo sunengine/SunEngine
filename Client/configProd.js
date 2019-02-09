@@ -7,7 +7,7 @@ const config = {
     "MessagesTimeToOwnEditInMinutes": 15,
     "MessagesTimeToOwnDeleteInMinutes": 15
   },
-  Material: {
+  Materials: {
     "MaterialsTimeToOwnEditInMinutes": 15,
     "MaterialsTimeToOwnDeleteInMinutes": 15,
     "MaterialsTimeToOwnMoveInMinutes": 15,

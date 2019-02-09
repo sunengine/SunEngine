@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 
 import auth from './auth'
 import categories from './categories'
-import options from './options'
 import extensions from './extensions'
 
 import {makeUserDataFromToken} from "services/auth";
@@ -68,7 +67,6 @@ export default function (/* { ssrContext } */) {
     modules: {
       auth,
       categories,
-      options,
       extensions
     }
   });
