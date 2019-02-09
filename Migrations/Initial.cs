@@ -193,8 +193,8 @@ namespace Migrations
         {
             if (!DBProvider.IsPostgre)
                 return createTableColumnAsTypeSyntax.AsDateTime();
-            else
-                return createTableColumnAsTypeSyntax.AsCustom("TimestampTz");
+            
+            return createTableColumnAsTypeSyntax.AsCustom("TimestampTz");
         }
     }
 }
