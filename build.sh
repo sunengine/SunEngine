@@ -20,8 +20,8 @@ shopt -s extglob
 rm -rf "$parent_path/Build/wwwroot/UploadImages/!(_)"
 shopt -u extglob
 
-echo -e "\n$GREEN Remove local.app.settings.json $NC"
-rm -f  "$parent_path/Build/local.app.settings.json"
+#echo -e "\n$GREEN Remove local.app.settings.json $NC"
+#rm -f  "$parent_path/Build/local.app.settings.json"
 
 
 echo -e "$GREEN Building Client $NC"
