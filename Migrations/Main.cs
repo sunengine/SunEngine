@@ -24,17 +24,17 @@ namespace Migrations
         /// </sumamry>
         private static IServiceProvider CreateServices()
         {
-            string dbSettingsFile = GetDataBaseConnectionFile();
+            string dbSettingsFile = GetSettingFilePath("db.settings.json");
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(dbSettingsFile, optional: false, reloadOnChange: true)
                 .Build();
-            
-            
+
+
             var dataBaseConfiguration = configuration.GetSection("DataBaseConnection");
             var providerName = dataBaseConfiguration["Provider"];
             DBProvider.Initialize(providerName);
-            var connectionString = dataBaseConfiguration["ConnectionString"]; 
-            
+            var connectionString = dataBaseConfiguration["ConnectionString"];
+
             return new ServiceCollection()
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
@@ -57,52 +57,37 @@ namespace Migrations
 
             runner.MigrateUp();
         }
-        
-        static string GetDataBaseConnectionFile()
-        {
-            string fileName = "Local.SunEngine.json";
-            string[] dirs =  {"","../","../SunEngine/","../SunEngine/Settings/"};
 
-            foreach (var dir in dirs)
-            {
-                string path = Path.GetFullPath(dir + fileName);
-                if (File.Exists(path))
-                    return path;
-            }
-            
-            fileName = "SunEngine.json";
-            foreach (var dir in dirs)
-            {
-                string path = Path.GetFullPath(dir + fileName);
-                if (File.Exists(path))
-                    return path;
-            }
-            
-            throw new Exception("Can not locate Local.SunEngine.json or SunEngine.json");
+        private static string GetSettingFilePath(string fileName)
+        {
+            string fileLocal = "local." + fileName;
+            string pathLocal = Path.GetFullPath(fileLocal);
+            if (File.Exists(pathLocal))
+                return pathLocal;
+
+            string fileCommon = fileName;
+            string pathCommon = Path.GetFullPath(fileCommon);
+            if (File.Exists(pathCommon))
+                return pathCommon;
+
+            throw new Exception($"Can not locate local.{fileName} or {fileName}");
         }
     }
 
     public static class DBProvider
     {
         public static string Name { get; private set; }
-        
+
         public static bool IsPostgre { get; private set; }
 
         public static void Initialize(string name)
         {
             Name = name;
-            
+
             if (name.StartsWith("Postgre"))
             {
                 IsPostgre = true;
             }
         }
     }
-
-    /*public static class IMigrationRunnerBuilderExtensions
-    {
-        public static IMigrationRunnerBuilder Add(this IMigrationRunnerBuilder mb,string providerName)
-        {
-        }
-    }*/
 }
