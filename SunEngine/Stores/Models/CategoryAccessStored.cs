@@ -5,6 +5,33 @@ using SunEngine.Models.Authorization;
 
 namespace SunEngine.Stores.Models
 {
+    public class CategoryAccessStored
+    {
+        public int Id { get; }
+
+        public int UserGroupId { get; }
+        public UserGroup Group { get; }
+
+        public int CategoryId { get; }
+        public Category Category { get; }
+
+        public ImmutableDictionary<int, bool> CategoryOperationAccesses { get; }
+
+        public CategoryAccessStored(CategoryAccessTmp ca)
+        {
+            Id = ca.Id;
+            UserGroupId = ca.UserGroupId;
+            Group = ca.Group;
+            CategoryId = ca.CategoryId;
+            Category = ca.Category;
+            CategoryOperationAccesses = ca.CategoryOperationAccesses.ToImmutableDictionary();
+        }
+    }
+
+
+    /// <summary>
+    /// This class is only need to build UserGroupStored
+    /// </summary>
     public class CategoryAccessTmp
     {
         public int Id;
@@ -24,29 +51,6 @@ namespace SunEngine.Stores.Models
             Group = categoryAccess.Group;
             CategoryId = categoryAccess.CategoryId;
             Category = categoryAccess.Category;
-        }
-    }
-    
-    public class CategoryAccessStored
-    {
-        public int Id { get; }
-        
-        public int UserGroupId { get; }
-        public UserGroup Group { get; }
-        
-        public int CategoryId { get; }
-        public Category Category { get;}
-
-        public ImmutableDictionary<int, bool> CategoryOperationAccesses { get; }
-
-        public CategoryAccessStored(CategoryAccessTmp ca)
-        {
-            Id = ca.Id;
-            UserGroupId = ca.UserGroupId;
-            Group = ca.Group;
-            CategoryId = ca.CategoryId;
-            Category = ca.Category;
-            CategoryOperationAccesses = ca.CategoryOperationAccesses.ToImmutableDictionary();
         }
     }
 }

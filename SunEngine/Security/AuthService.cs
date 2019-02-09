@@ -178,7 +178,7 @@ namespace SunEngine.Security
             return true;
         }
 
-        internal class TokenAndClaimsPrincipal
+        private class TokenAndClaimsPrincipal
         {
             public string Token;
             public MyClaimsPrincipal ClaimsPrincipal;

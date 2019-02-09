@@ -115,7 +115,7 @@ namespace SunEngine.Controllers
                 UserName = model.UserName,
                 Email = model.Email,
                 Avatar = Models.User.DefaultAvatar,
-                Photo = Models.User.DefaultAvatar,
+                Photo = Models.User.DefaultAvatar
             };
 
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
@@ -123,41 +123,39 @@ namespace SunEngine.Controllers
                 IdentityResult result = await userManager.CreateAsync(user, model.Password);
                 await db.Users.Where(x => x.Id == user.Id).Set(x => x.Link, x => x.Id.ToString()).UpdateAsync();
 
-                if (result.Succeeded)
-                {
-                    logger.LogInformation($"New user registered (id: {user.Id})");
-
-                    if (!user.EmailConfirmed)
+                if (!result.Succeeded)
+                    return BadRequest(new ErrorViewModel
                     {
-                        // Send email confirmation email
-                        var confirmToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                        ErrorsNames = result.Errors.Select(x => x.Code).ToArray(),
+                        ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()
+                    });
+                logger.LogInformation($"New user registered (id: {user.Id})");
 
-                        var schemaAndHost = globalOptions.GetSchemaAndHostApi();
+                if (!user.EmailConfirmed)
+                {
+                    // Send email confirmation email
+                    var confirmToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                        var emailConfirmUrl = Url.Action("Confirm", "Auth",
-                            new {uid = user.Id, token = confirmToken},
-                            schemaAndHost.schema, schemaAndHost.host);
+                    var (schema, host) = globalOptions.GetSchemaAndHostApi();
 
-                        await emailSender.SendEmailAsync(model.Email, "Please confirm your account",
-                            $"Please confirm your account by clicking this <a href=\"{emailConfirmUrl}\">link</a>."
-                        );
+                    var emailConfirmUrl = Url.Action("Confirm", "Auth",
+                        new {uid = user.Id, token = confirmToken},
+                        schema, host);
+
+                    await emailSender.SendEmailAsync(model.Email, "Please confirm your account",
+                        $"Please confirm your account by clicking this <a href=\"{emailConfirmUrl}\">link</a>."
+                    );
 
 
-                        logger.LogInformation($"Sent email confirmation email (id: {user.Id})");
-                    }
-
-                    logger.LogInformation($"User logged in (id: {user.Id})");
-
-                    transaction.Complete();
-
-                    return Ok();
+                    logger.LogInformation($"Sent email confirmation email (id: {user.Id})");
                 }
 
-                return BadRequest(new ErrorViewModel
-                {
-                    ErrorsNames = result.Errors.Select(x => x.Code).ToArray(),
-                    ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()
-                });
+                logger.LogInformation($"User logged in (id: {user.Id})");
+
+                transaction.Complete();
+
+                return Ok();
+
             }
         }
 

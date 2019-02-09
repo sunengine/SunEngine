@@ -10,9 +10,9 @@ namespace SunEngine.Utils
 {
     public class UserGroupsLoaderFromJson
     {
-        public List<UserGroup> userGroups = new List<UserGroup>();
-        public List<CategoryAccess> categoryAccesses = new List<CategoryAccess>(); 
-        public List<CategoryOperationAccess> categoryOperationAccesses = new List<CategoryOperationAccess>();
+        public readonly List<UserGroup> userGroups = new List<UserGroup>();
+        public readonly List<CategoryAccess> categoryAccesses = new List<CategoryAccess>(); 
+        public readonly List<CategoryOperationAccess> categoryOperationAccesses = new List<CategoryOperationAccess>();
 
         private readonly IDictionary<string, Category> categories;
         private readonly IDictionary<string, OperationKey> operationKeys;
@@ -67,57 +67,55 @@ namespace SunEngine.Utils
 
                 userGroups.Add(userGroup);
 
-                if (userGroupJson.TryGetValue("Categories",out var categoriesAccessJsonList))
+                if (!userGroupJson.TryGetValue("Categories", out var categoriesAccessJsonList)) continue;
+                foreach (var categoriesAccessJson in categoriesAccessJsonList)
                 {
-                    foreach (var categoriesAccessJson in categoriesAccessJsonList)
+                    string name = (string) categoriesAccessJson["Category"];
+                        
+                    if (!categories.ContainsKey(name))
                     {
-                        string name = (string) categoriesAccessJson["Category"];
+                        throw new Exception("No such category: " + name);
+                    }
                         
-                        if (!categories.ContainsKey(name))
-                        {
-                            throw new Exception("No such category: " + name);
-                        }
-                        
-                        Category category = categories[name];
+                    Category category = categories[name];
 
-                        categoryAccessId++;
+                    categoryAccessId++;
                         
-                        CategoryAccess categoryAccess = new CategoryAccess
+                    CategoryAccess categoryAccess = new CategoryAccess
+                    {
+                        Id = categoryAccessId,
+                        CategoryId = category.Id,
+                        UserGroupId = userGroup.Id
+                    };
+
+                    categoryAccesses.Add(categoryAccess);
+
+                    var operationKeysJsonObject = (JObject) categoriesAccessJson["OperationKeys"];
+
+                    foreach (var operationKeyJson in operationKeysJsonObject.Properties())
+                    {                            
+                        string keyName = operationKeyJson.Name;
+
+                        if (!userGroup.IsSuper && allSuperKeys.Contains(keyName))
                         {
-                            Id = categoryAccessId,
-                            CategoryId = category.Id,
-                            UserGroupId = userGroup.Id
+                            throw new Exception($"Ordinary UserGroup '{userGroup.Name}' can not contain IsSuper key '{keyName}'");
+                        }
+                            
+                        if (!operationKeys.ContainsKey(keyName))
+                        {
+                            throw new Exception($"No such key in registered keys '{keyName}'");
+                        }
+
+                        var operationKey = operationKeys[keyName];
+                            
+                        CategoryOperationAccess categoryOperationAccess = new CategoryOperationAccess
+                        {
+                            CategoryAccessId = categoryAccess.Id,
+                            OperationKeyId = operationKey.OperationKeyId,
+                            Access = (bool) operationKeyJson.Value
                         };
 
-                        categoryAccesses.Add(categoryAccess);
-
-                        var operationKeysJsonObject = (JObject) categoriesAccessJson["OperationKeys"];
-
-                        foreach (var operationKeyJson in operationKeysJsonObject.Properties())
-                        {                            
-                            string keyName = operationKeyJson.Name;
-
-                            if (!userGroup.IsSuper && allSuperKeys.Contains(keyName))
-                            {
-                                throw new Exception($"Ordinary UserGroup '{userGroup.Name}' can not contain IsSuper key '{keyName}'");
-                            }
-                            
-                            if (!operationKeys.ContainsKey(keyName))
-                            {
-                                throw new Exception($"No such key in registered keys '{keyName}'");
-                            }
-
-                            var operationKey = operationKeys[keyName];
-                            
-                            CategoryOperationAccess categoryOperationAccess = new CategoryOperationAccess
-                            {
-                                CategoryAccessId = categoryAccess.Id,
-                                OperationKeyId = operationKey.OperationKeyId,
-                                Access = (bool) operationKeyJson.Value
-                            };
-
-                            categoryOperationAccesses.Add(categoryOperationAccess);
-                        }
+                        categoryOperationAccesses.Add(categoryOperationAccess);
                     }
                 }
             }
