@@ -6,9 +6,9 @@ using SunEngine.Models.Materials;
 
 namespace SunEngine.DataBase
 {
-    public class MyMappingSchema : MappingSchema
+    public class SunEngineMappingSchema : MappingSchema
     {
-        public MyMappingSchema()
+        public SunEngineMappingSchema()
         {
             var mp = GetFluentMappingBuilder();
             mp.Entity<User>()

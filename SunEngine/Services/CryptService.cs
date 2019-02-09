@@ -56,9 +56,7 @@ namespace SunEngine.Services
             result.CopyTo(resultPlusIV, 0);
             IV.CopyTo(resultPlusIV, result.Length);
 
-            var z = ToUrlSafeBase64(resultPlusIV);
-
-            return z;
+            return ToUrlSafeBase64(resultPlusIV);
         }
 
         public string Decrypt(string cryptorName, string text)
@@ -72,8 +70,7 @@ namespace SunEngine.Services
             
             byte[] result = t.TransformFinalBlock(textInBytes, 0, textInBytes.Length - 16);
 
-            var z = Encoding.UTF8.GetString(result);
-            return z;
+            return Encoding.UTF8.GetString(result);
         }
 
         private static byte[] GenerateIV()

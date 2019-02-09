@@ -4,7 +4,7 @@ using SunEngine.Configuration.Options;
 
 namespace SunEngine.Configuration.AddServices
 {
-    public static class AddOptionsExtensions
+    internal static class AddOptionsExtensions
     {
         public static void AddOptions(this IServiceCollection services, IConfiguration configuration)
         {

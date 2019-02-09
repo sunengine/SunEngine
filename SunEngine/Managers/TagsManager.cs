@@ -64,7 +64,7 @@ namespace SunEngine.Managers
         private async Task MaterialSetTags(Material material, IEnumerable<Tag> tags)
         {
             // TODO make auto delete unused tags
-            db.TagMaterials.Where(x => x.MaterialId == material.Id).Delete();
+            await db.TagMaterials.Where(x => x.MaterialId == material.Id).DeleteAsync();
 
             var materialTags = tags.Select(x => new TagMaterial {TagId = x.Id, MaterialId = material.Id}).ToList();
 

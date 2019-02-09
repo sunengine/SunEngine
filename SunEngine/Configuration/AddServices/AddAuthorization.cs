@@ -4,7 +4,7 @@ using SunEngine.Security.Authorization;
 
 namespace SunEngine.Configuration.AddServices
 {
-    static internal class AddAuthorizationExtensions
+    internal static class AddAuthorizationExtensions
     {
         public static void AddAuthorization(this IServiceCollection services)
         {
@@ -15,7 +15,7 @@ namespace SunEngine.Configuration.AddServices
             services.AddScoped<MaterialsAuthorization>();
             services.AddScoped<MessageAuthorization>();
         
-            services.AddScoped<AuthService>();
+            services.AddScoped<JwtService>();
         }
     }
 }

@@ -5,7 +5,7 @@ using SunEngine.DataBase;
 
 namespace SunEngine.Configuration.AddServices
 {
-    public static class AddDatabaseExtensions
+    internal static class AddDatabaseExtensions
     {
         public static DataBaseFactory AddDatabase(this IServiceCollection services, IConfiguration configuration)
         {
@@ -15,7 +15,7 @@ namespace SunEngine.Configuration.AddServices
             var providerName = dataBaseConfiguration["Provider"];
             var connectionString = dataBaseConfiguration["ConnectionString"];
             var dataProvider = DataConnection.GetDataProvider(providerName, connectionString);
-            MyMappingSchema mappingSchema = new MyMappingSchema();
+            SunEngineMappingSchema mappingSchema = new SunEngineMappingSchema();
 
             services.AddScoped(x => new DataBaseConnection(dataProvider, connectionString, mappingSchema));
 

@@ -56,7 +56,7 @@ namespace SunEngine.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> GetAllCategories()
         {
-            var categories = await AsyncExtensions.ToDictionaryAsync(db.Categories.OrderBy(x=>x.SortNumber).Select(x => new CategoryAdminViewModel
+            var categories = await db.Categories.OrderBy(x=>x.SortNumber).Select(x => new CategoryAdminViewModel
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -72,7 +72,7 @@ namespace SunEngine.Admin.Controllers
                 IsHidden = x.IsHidden,
                 IsDeleted = x.IsDeleted
                 
-            }), x => x.Id);
+            }).ToDictionaryAsync(x => x.Id);
 
             CategoryAdminViewModel root = null;
 
@@ -128,13 +128,13 @@ namespace SunEngine.Admin.Controllers
         {
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                var category = await AsyncExtensions.FirstOrDefaultAsync(db.Categories, x => x.Name == name);
+                var category = await db.Categories.FirstOrDefaultAsync(x => x.Name == name);
                 if (category == null)
                     return BadRequest();
 
-                var category2 = await AsyncExtensions.FirstOrDefaultAsync(db.Categories
-                        .Where(x => x.ParentId == category.ParentId && x.SortNumber < category.SortNumber)
-                        .OrderByDescending(x => x.SortNumber));
+                var category2 = await db.Categories
+                    .Where(x => x.ParentId == category.ParentId && x.SortNumber < category.SortNumber)
+                    .OrderByDescending(x => x.SortNumber).FirstOrDefaultAsync();
 
                 if (category2 == null)
                     return BadRequest();
@@ -157,13 +157,13 @@ namespace SunEngine.Admin.Controllers
         {
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                var category = await AsyncExtensions.FirstOrDefaultAsync(db.Categories, x => x.Name == name);
+                var category = await db.Categories.FirstOrDefaultAsync(x => x.Name == name);
                 if (category == null)
                     return BadRequest();
 
-                var category2 = await AsyncExtensions.FirstOrDefaultAsync(db.Categories
-                        .Where(x => x.ParentId == category.ParentId && x.SortNumber > category.SortNumber)
-                        .OrderBy(x => x.SortNumber));
+                var category2 = await db.Categories
+                    .Where(x => x.ParentId == category.ParentId && x.SortNumber > category.SortNumber)
+                    .OrderBy(x => x.SortNumber).FirstOrDefaultAsync();
 
                 if (category2 == null)
                     return BadRequest();

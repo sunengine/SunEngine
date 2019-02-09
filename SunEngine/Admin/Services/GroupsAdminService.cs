@@ -85,10 +85,9 @@ namespace SunEngine.Admin.Services
             try
             {
                 db.BeginTransaction();
-                List<UserToGroupTmp> userToGroups = await SaveUserToGroupsAsync();
                 await UpdateUserGroups(loader.userGroups);
                 await ClearAccessesAsync();
-                await CopyToDb(loader, userToGroups);
+                await CopyToDb(loader);
                 db.CommitTransaction();
             }
             catch (Exception e)
@@ -143,13 +142,7 @@ namespace SunEngine.Admin.Services
             await db.CategoryAccess.DeleteAsync();
         }
 
-        private Task<List<UserToGroupTmp>> SaveUserToGroupsAsync()
-        {
-            return db.UserToGroups.Select(x => new UserToGroupTmp {UserId = x.UserId, RoleName = x.UserGroup.Name})
-                .ToListAsync();
-        }
-
-        private async Task CopyToDb(UserGroupsLoaderFromJson loader, List<UserToGroupTmp> userToGroups)
+        private async Task CopyToDb(UserGroupsLoaderFromJson loader)
         {
             BulkCopyOptions options = new BulkCopyOptions
             {
@@ -158,16 +151,6 @@ namespace SunEngine.Admin.Services
                 KeepIdentity = true
             };
 
-            /*foreach (var categoryAccess in loader.categoryAccesses)
-            {
-                db.InsertWithInt32Identity(categoryAccess);
-            }
-            
-            foreach (var categoryOperationAccess in loader.categoryOperationAccesses)
-            {
-                db.Insert(categoryOperationAccess);
-            }*/
-            
             db.BulkCopy(options, loader.categoryAccesses);
             db.UpdateSequence("CategoryAccesses","Id");
             db.BulkCopy(options, loader.categoryOperationAccesses);

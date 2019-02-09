@@ -24,5 +24,17 @@ namespace SunEngine.Utils
 
             return res.ToString();
         }
+        
+        public static uint GetRandomUint()
+        {
+            byte[] uintBuffer = new byte[sizeof(uint)];
+            return BitConverter.ToUInt32(uintBuffer, 0);
+        }
+        
+        public static int GetRandomInt(int min, int max)
+        {
+            uint r = GetRandomUint();
+            return (int)(r % (max - min + 1)) + min;
+        }
     }
 }

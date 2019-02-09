@@ -28,15 +28,17 @@ namespace SunEngine.Controllers
     {
         private readonly IEmailSender emailSender;
         private readonly ILogger logger;
-        private readonly AuthService authService;
+        private readonly JwtService jwtService;
         private readonly DataBaseConnection db;
         private readonly GlobalOptions globalOptions;
+        private readonly AuthService authService;
 
         public AuthController(
             MyUserManager userManager,
             IEmailSender emailSender,
             DataBaseConnection db,
             ILoggerFactory loggerFactory,
+            JwtService jwtService,
             AuthService authService,
             IOptions<GlobalOptions> globalOptions,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
@@ -45,6 +47,7 @@ namespace SunEngine.Controllers
             this.emailSender = emailSender;
             logger = loggerFactory.CreateLogger<AuthController>();
             this.db = db;
+            this.jwtService = jwtService;
             this.authService = authService;
         }
 
@@ -55,10 +58,10 @@ namespace SunEngine.Controllers
         {
             User user = null;
 
-            // Ensure there is such user
-            if (nameOrEmail.Contains('@')) // TODO check user names to block names with @
+            if (IsValidEmail(nameOrEmail))
             {
-                user = await userManager.FindByEmailAsync(nameOrEmail);
+                user = await userManager.FindByEmailAsync(nameOrEmail)
+                       ?? await userManager.FindByNameAsync(nameOrEmail); // if name is email like
             }
             else
             {
@@ -74,7 +77,6 @@ namespace SunEngine.Controllers
                 });
             }
 
-            // Ensure the email is confirmed.
             if (!await userManager.IsEmailConfirmedAsync(user))
             {
                 return BadRequest(new ErrorViewModel
@@ -84,7 +86,7 @@ namespace SunEngine.Controllers
                 });
             }
 
-            await authService.RenewSecurityTokensAsync(Response, user);
+            await jwtService.RenewSecurityTokensAsync(Response, user);
 
             return Ok();
         }
@@ -95,7 +97,7 @@ namespace SunEngine.Controllers
             long sessionId = User.SessionId;
             await db.LongSessions.Where(x => x.UserId == userId && x.Id == sessionId).DeleteAsync();
 
-            authService.MakeLogoutCookiesAndHeaders(Response);
+            jwtService.MakeLogoutCookiesAndHeaders(Response);
 
             return Ok();
         }
@@ -155,7 +157,6 @@ namespace SunEngine.Controllers
                 transaction.Complete();
 
                 return Ok();
-
             }
         }
 
@@ -242,10 +243,8 @@ namespace SunEngine.Controllers
                 return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/SetNewPasswordFromReset".ToLower())
                     .SetQueryParams(new {uid = uid, token = token}));
             }
-            else
-            {
-                return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/ResetPasswordFailed".ToLower()));
-            }
+
+            return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/ResetPasswordFailed".ToLower()));
         }
 
         [AllowAnonymous]
@@ -268,6 +267,7 @@ namespace SunEngine.Controllers
                 }
                 catch
                 {
+                    // ignored
                 }
             }
 
@@ -280,8 +280,7 @@ namespace SunEngine.Controllers
         {
             email = email.Trim();
 
-            EmailAddressAttribute emailValidator = new EmailAddressAttribute();
-            if (!emailValidator.IsValid(email))
+            if (!IsValidEmail(email))
             {
                 return BadRequest(new ErrorViewModel {ErrorText = "Email not valid"});
             }
@@ -298,23 +297,7 @@ namespace SunEngine.Controllers
                 return BadRequest(new ErrorViewModel {ErrorText = "Email already registered"});
             }
 
-            var emailToken = await userManager.GenerateChangeEmailTokenAsync(user, email);
-
-            var schemaAndHost = globalOptions.GetSchemaAndHostApi();
-
-            var updateEmailUrl = Url.Action("ConfirmEmail", "Auth",
-                new {token = emailToken}, schemaAndHost.schema, schemaAndHost.host);
-            try
-            {
-                await emailSender.SendEmailAsync(user.Email, "Confirm your email",
-                    $"Confirm your email by clicking this <a href=\"{updateEmailUrl}\">link</a>."
-                );
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorViewModel {ErrorText = "Server error. Can not send email."});
-            }
-
+            await authService.SendChangeEmailConfirmationMessageByEmailAsync(user, email);
 
             return Ok();
         }
@@ -344,6 +327,12 @@ namespace SunEngine.Controllers
                 return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/emailconfirmed?result=error"));
             }
         }
+
+        private bool IsValidEmail(string email)
+        {
+            EmailAddressAttribute emailValidator = new EmailAddressAttribute();
+            return emailValidator.IsValid(email);
+        }
     }
 
     public class NewUserViewModel : CaptchaViewModel
@@ -365,10 +354,5 @@ namespace SunEngine.Controllers
     public class ResetPasswordViewModel : CaptchaViewModel
     {
         [Required] [EmailAddress] public string Email { get; set; }
-    }
-
-    public class TokenViewModel
-    {
-        public string Token { get; set; }
     }
 }

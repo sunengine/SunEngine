@@ -13,7 +13,7 @@ namespace SunEngine.Managers
     public class MaterialsManager : DbService
     {
         private readonly TagsManager tagsManager;
-        private readonly Sanitizer _sanitizer;
+        private readonly Sanitizer sanitizer;
         private readonly MaterialOptions materialOptions;
 
 
@@ -23,7 +23,7 @@ namespace SunEngine.Managers
             IOptions<MaterialOptions> materialOptions) : base(db)
         {
             this.tagsManager = tagsManager;
-            this._sanitizer = sanitizer;
+            this.sanitizer = sanitizer;
             this.materialOptions = materialOptions.Value;
         }
 
@@ -40,7 +40,7 @@ namespace SunEngine.Managers
 
         public async Task InsertAsync(Material material, string tags)
         {
-            material.Text = _sanitizer.Sanitize(material.Text);
+            material.Text = sanitizer.Sanitize(material.Text);
 
             material.MakePreviewAndDescription(materialOptions.MaterialDescriptionLength,
                 materialOptions.MaterialPreviewLength);
@@ -54,7 +54,7 @@ namespace SunEngine.Managers
         public async Task UpdateAsync(Material material, string tags)
         {
             material.Text =
-                _sanitizer.Sanitize(material
+                sanitizer.Sanitize(material
                     .Text); // TODO сделать совместную валидацию, санитайзин и превью на основе одного DOM
 
             material.MakePreviewAndDescription(materialOptions.MaterialDescriptionLength,

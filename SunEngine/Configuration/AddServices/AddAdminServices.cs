@@ -3,7 +3,7 @@ using SunEngine.Admin.Services;
 
 namespace SunEngine.Configuration.AddServices
 {
-    static internal class AddAdminServicesExtensions
+    internal static class AddAdminServicesExtensions
     {
         public static void AddAdminServices(this IServiceCollection services)
         {
