@@ -35,12 +35,14 @@ namespace Migrations
             DBProvider.Initialize(providerName);
             var connectionString = dataBaseConfiguration["ConnectionString"];
 
+            
             return new ServiceCollection()
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
                     // Select DataBaseSupport
                     //.AddMySql5() 
                     .AddPostgres()
+                    //.AddSQLite()
                     .WithGlobalConnectionString(connectionString)
                     // Define the assembly containing the migrations
                     .ScanIn(typeof(Initial).Assembly).For.Migrations())

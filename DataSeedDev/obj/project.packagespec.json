@@ -30,6 +30,10 @@
   "frameworks": {
     "netcoreapp2.2": {
       "dependencies": {
+        "Microsoft.Data.Sqlite": {
+          "target": "Package",
+          "version": "[2.2.1, )"
+        },
         "Microsoft.Extensions.Configuration.Json": {
           "target": "Package",
           "version": "[2.2.0, )"
