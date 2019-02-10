@@ -24,7 +24,7 @@ namespace Migrations
         /// </sumamry>
         private static IServiceProvider CreateServices()
         {
-            string dbSettingsFile = GetSettingFilePath("db.settings.json");
+            string dbSettingsFile = GetSettingFilePath("DataBaseConnection.json");
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(dbSettingsFile, optional: false, reloadOnChange: true)
                 .Build();
