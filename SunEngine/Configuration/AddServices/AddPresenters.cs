@@ -14,6 +14,7 @@ namespace SunEngine.Configuration.AddServices
             services.AddScoped<MessagesPresenter>();
             services.AddScoped<PersonalPresenter>(); 
             services.AddScoped<ProfilePresenter>();
+            services.AddScoped<CategoriesPresenter>();           
         }
     }
 }

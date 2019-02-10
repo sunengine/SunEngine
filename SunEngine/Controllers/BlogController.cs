@@ -29,7 +29,7 @@ namespace SunEngine.Controllers
             MyUserManager userManager,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
-            this.OperationKeys = operationKeysContainer;
+            OperationKeys = operationKeysContainer;
 
             this.blogOptions = blogOptions.Value;
             this.authorizationService = authorizationService;

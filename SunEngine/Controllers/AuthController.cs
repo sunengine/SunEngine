@@ -115,7 +115,7 @@ namespace SunEngine.Controllers
             var result = await authService.RegisterAsync(model);
             if (!result.Succeeded)
                 return BadRequest(result.Error);
-            
+
             return Ok();
         }
 
@@ -148,10 +148,10 @@ namespace SunEngine.Controllers
 
             var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
 
-            var schemaAndHost = globalOptions.GetSchemaAndHostApi();
+            var (schema, host) = globalOptions.GetSchemaAndHostApi();
 
             var resetPasswordUrl = Url.Action("ChangePasswordFromResetDialog", "Auth",
-                new {uid = user.Id, token = resetToken}, schemaAndHost.schema, schemaAndHost.host);
+                new {uid = user.Id, token = resetToken}, schema, host);
             try
             {
                 await emailSender.SendEmailAsync(user.Email, "You can reset your password",
@@ -176,18 +176,13 @@ namespace SunEngine.Controllers
             {
                 return Ok();
             }
-            else
-            {
-                return BadRequest(new ErrorViewModel {ErrorText = "Server error. Something goes wrong."});
-            }
+
+            return BadRequest(new ErrorViewModel {ErrorText = "Server error. Something goes wrong."});
         }
 
         /// <summary>
         /// Show Interface to change password
         /// </summary>
-        /// <param name="uid"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
         [AllowAnonymous]
         public async Task<IActionResult> ChangePasswordFromResetDialog(string uid, string token)
         {
@@ -301,14 +296,12 @@ namespace SunEngine.Controllers
         [MaxLength(DbMappingSchema.DbColumnSizes.Users_UserName)]
         public string UserName { get; set; }
 
-        [Required] 
-        [EmailAddress] 
+        [Required]
+        [EmailAddress]
         [MaxLength(DbMappingSchema.DbColumnSizes.Users_Email)]
         public string Email { get; set; }
 
-        [Required] 
-        [MinLength(6)] 
-        public string Password { get; set; }
+        [Required] [MinLength(6)] public string Password { get; set; }
     }
 
     public class CaptchaViewModel
