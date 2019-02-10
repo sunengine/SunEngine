@@ -1,8 +1,11 @@
 
 const config = {
+
   API: 'http://localhost:8000/api',
+  SiteUrl: "http://localhost:5005",
   UploadedImages: 'http://localhost:8000/UploadImages',
   SiteName: 'SunEngine',
+
   Messages: {
     "MessagesTimeToOwnEditInMinutes": 15,
     "MessagesTimeToOwnDeleteInMinutes": 15
@@ -25,4 +28,4 @@ const config = {
     Roles_Title: 64,
     OperationKey_Name: 100
   }
-}
+};

@@ -16,7 +16,7 @@ namespace DataSeedDev
 
         static void SeedDataBase()
         {
-            string dbSettingsFile = SettingsFileLocator.GetSettingFilePath("db.settings.json");
+            string dbSettingsFile = SettingsFileLocator.GetSettingFilePath("DataBaseConnection.json");
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(dbSettingsFile, optional: false, reloadOnChange: true)
                 .Build();
