@@ -44,7 +44,8 @@
     },
     methods: {
       logout() {
-        this.$store.dispatch('goLogout').then(x => {
+        this.$store.dispatch('request', {url: '/Auth/Logout'})
+          .then(x => {
           this.$q.notify({
             message: `Вы вышли`,
             timeout: 2000,

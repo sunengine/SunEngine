@@ -21,14 +21,6 @@ export async function doLogin(context, userData) {
     });
 }
 
-export async function goLogout(context) {
-
-  await context.dispatch('request', {
-    url: '/Auth/Logout'
-  });
-  
-}
-
 
 export async function doLogout(context) {
 
