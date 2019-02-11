@@ -113,7 +113,7 @@ namespace SunEngine.Security
             );
 
             TokenAndClaimsPrincipal tokenAndClaimsPrincipal =
-                await GenerateShortAuthTokenAsync(user, lat2r, longSession.Id);
+                await GenerateShortAuthTokenAsync(user, lat2r, longSession.LongToken2,longSession.Id);
 
             string json = JsonConvert.SerializeObject(new
             {
@@ -138,7 +138,7 @@ namespace SunEngine.Security
             public MyClaimsPrincipal ClaimsPrincipal;
         }
 
-        private async Task<TokenAndClaimsPrincipal> GenerateShortAuthTokenAsync(User user, string lat2r, long sessionId)
+        private async Task<TokenAndClaimsPrincipal> GenerateShortAuthTokenAsync(User user, string lat2r, string lat2, long sessionId)
         {
             // Generate and issue a JWT token
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.ShortJwtSecurityKey));
@@ -171,7 +171,7 @@ namespace SunEngine.Security
 
             return new TokenAndClaimsPrincipal
             {
-                ClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, userGroupStore, sessionId, lat2r),
+                ClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, userGroupStore, sessionId, lat2),
                 Token = new JwtSecurityTokenHandler().WriteToken(token)
             };
         }
@@ -239,7 +239,7 @@ namespace SunEngine.Security
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
             lat2r = CryptoRandomizer.GetRandomString(10);
-
+            
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, longSession.UserId.ToString()),

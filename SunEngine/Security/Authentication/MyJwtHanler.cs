@@ -39,6 +39,7 @@ namespace SunEngine.Security.Authentication
             this.jwtOptions = jwtOptions.Value;
             this.jwtService = jwtService;
             this.userManager = userManager;
+            this.jwtBlackListService = jwtBlackListService;
         }
 
 
@@ -114,7 +115,7 @@ namespace SunEngine.Security.Authentication
                     var claimsPrincipal =
                         jwtService.ReadShortToken(jwtShortToken, out SecurityToken shortToken);
 
-                    var validTo = shortToken.ValidTo; // for debug
+                    //var validTo = shortToken.ValidTo; // for debug
 
                     var LAT2R_1 = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == "LAT2R").Value;
                     var LAT2R_2 = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == "LAT2R").Value;
@@ -126,7 +127,9 @@ namespace SunEngine.Security.Authentication
 
                     long sessionId = long.Parse(jwtLongToken2.Claims.FirstOrDefault(x => x.Type == "ID").Value);
 
-                    myClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, userGroupStore, sessionId, LAT2R_1);
+                    var LAT2 = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == "LAT2").Value;
+
+                    myClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, userGroupStore, sessionId, LAT2);
                 }
 
                 if (jwtBlackListService.IsTokenNotInBlackList(myClaimsPrincipal.LongToken2))

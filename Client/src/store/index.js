@@ -33,9 +33,10 @@ export default function (/* { ssrContext } */) {
     actions: {
       async request(context, data) {
         return request(data.url, data.data, data.sendAsJson)
-          .then(rez => {
+          .then(async rez => {
             if (rez.headers.tokensexpire) {
               store.commit('makeLogout');
+              await getAllCategories(this);
             }
             return rez;
           }).catch(rez => {
