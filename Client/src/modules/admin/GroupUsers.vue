@@ -1,17 +1,21 @@
 <template>
+  <div>
+    <div class="xs-col-12 col-8">
+      <div class="local-header">Пользователи</div>
+      <q-input v-model="filter" float-label="Фильтр" @input="filterValueChanged" />
 
-  <div v-if="currentGroup" class="xs-col-12 col-8">
-    <div class="local-header">Пользователи</div>
-    <div class="local-content">
-      <div :key="user.id" v-for="user in users">
-        <router-link :to="`/user/${user.link}`">{{user.name}}</router-link>
+      <div v-if="users" class="local-content">
+        <div :key="user.id" v-for="user in users">
+          <router-link :to="`/user/${user.link}`">{{user.name}}</router-link>
+        </div>
+        <div v-if="users.length == 0" style="color: gray;">Нет результатов</div>
+        <div v-if="users.length == 40" style="color: gray;">Выведены первые 40 результатов</div>
+      </div>
+      <div v-else class="xs-col-12 col-8">
+        <loader-wait/>
       </div>
     </div>
   </div>
-  <div v-if="startedLoadGroupUsers && !currentGroup" class="xs-col-12 col-8">
-    <loader-wait/>
-  </div>
-
 </template>
 
 <script>
@@ -21,45 +25,44 @@
   export default {
     name: "GroupUsers",
     components: {LoaderWait},
-    data: function () {
-      return {
-        groups: null,
-        users: null,
-        currentGroup: null,
-        startedLoadGroupUsers: false
+    props: {
+      groupName: {
+        type: String,
+        required: true
       }
     },
+    data: function () {
+      return {
+        users: null,
+        filter: ""
+      }
+    },
+    watch: {
+      'groupName': 'loadGroupUsers'
+    },
     methods: {
-      async loadGroupUsers(groupName) {
-        this.startedLoadGroupUsers = true;
-        this.currentGroup = null;
+      filterValueChanged() {
+        this.timeout && clearTimeout(this.timeout);
+        this.timeout = setTimeout(this.loadGroupUsers, 600);
+      },
+      async loadGroupUsers() {
+        this.users = null;
         await this.$store.dispatch("request",
           {
             url: "/GroupsUsers/GetGroupUsers",
             data: {
-              groupName: groupName
+              groupName: this.groupName,
+              userNameStart: this.filter
             }
           })
           .then(response => {
-              this.currentGroup = this.groups.find(x => x.name === groupName);
               this.users = response.data;
-              this.startedLoadGroupUsers = false;
             }
           );
       },
-      async loadAllGroups() {
-        await this.$store.dispatch("request",
-          {
-            url: "/GroupsUsers/GetAllUserGroups"
-          })
-          .then(response => {
-              this.groups = response.data;
-            }
-          );
-      }
     },
     async created() {
-      await this.loadAllGroups();
+      await this.loadGroupUsers();
     }
   }
 
@@ -79,7 +82,7 @@
     padding: 10px;
 
     div {
-      margin: 2px 0;
+      margin: 3px 0;
     }
   }
 </style>

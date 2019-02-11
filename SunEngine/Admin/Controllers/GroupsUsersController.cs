@@ -37,9 +37,9 @@ namespace SunEngine.Admin.Controllers
             return Ok(groups);
         }
 
-        public async Task<IActionResult> GetGroupUsers(string groupName)
+        public async Task<IActionResult> GetGroupUsers(string groupName, string userNameStart)
         {
-            var users = await groupsUsersService.GetGroupUsers(groupName);
+            var users = await groupsUsersService.GetGroupUsers(groupName, userNameStart);
             return Ok(users);
         }
 
