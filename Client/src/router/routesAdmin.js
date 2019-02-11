@@ -4,7 +4,7 @@ import CategoriesAdmin from 'admin/CategoriesAdmin.vue';
 import AddCategory from 'admin/AddEditCategory/AddCategory.vue';
 import EditCategory from 'admin/AddEditCategory/EditCategory.vue';
 import UserGroupsAdmin from 'admin/UserGroupsAdmin.vue';
-
+import GroupsUsers from 'admin/GroupsUsers.vue';
 
 
 import {store} from 'store';
@@ -55,8 +55,16 @@ const routes = [
       default: UserGroupsAdmin,
       navigation: AdminPanel
     }
+  },
+  {
+    name: 'GroupsUsers',
+    path: '/admin/GroupsUsers'.toLowerCase(),
+    components: {
+      default: GroupsUsers,
+      navigation: AdminPanel
+    }
   }
-]
+];
 
 
 for (let rote of routes) {

@@ -150,9 +150,11 @@
       await this.loadUserRoles();
     }
   }
+
 </script>
 
 <style lang="stylus" scoped>
+
   .user-groups .one-group:not(:last-child):after {
     content: ", ";
     color: initial;
