@@ -21,12 +21,18 @@ export async function doLogin(context, userData) {
     });
 }
 
-
-export async function doLogout(context) {
+export async function goLogout(context) {
 
   await context.dispatch('request', {
     url: '/Auth/Logout'
   });
+  
+}
+
+
+export async function doLogout(context) {
+
+  context.commit('makeLogout');
 
   await context.dispatch('getAllCategories');
 }
