@@ -35,14 +35,12 @@ export default function (/* { ssrContext } */) {
         return request(data.url, data.data, data.sendAsJson)
           .then(async rez => {
             if (rez.headers.tokensexpire) {
-              store.commit('makeLogout');
-              await getAllCategories(this);
+              await store.dispatch('doLogout');
             }
             return rez;
-          }).catch(rez => {
-
+          }).catch(async rez => {
             if (rez.response.headers.tokensexpire) {
-              store.commit('makeLogout');
+              await store.dispatch('doLogout');
             }
             throw rez;
           })
