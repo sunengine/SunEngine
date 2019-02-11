@@ -9,7 +9,7 @@
 
       <q-field class="q-mb-md" icon="fas fa-key" :error="$v.password.$invalid && !start"
                error-label="Введите пароль">
-        <q-input v-model="password" type="password" float-label="Пароль"/>
+        <q-input v-model="password" type="password" @keyup.enter="login" float-label="Пароль"/>
       </q-field>
 
       <div class="q-mb-lg" style="text-align: right;">

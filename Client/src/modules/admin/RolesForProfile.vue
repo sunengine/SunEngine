@@ -65,7 +65,7 @@
     },
     methods: {
       async addToRoleConfirm(roleName) {
-        let role = this.allRoles.find(x=>x.name === roleName);
+        let role = this.allRoles.find(x => x.name === roleName);
 
         this.$q.dialog({
           //title: 'Confirm',
@@ -74,12 +74,13 @@
           cancel: 'Отмена'
         }).then(async () => {
           await this.addToRole(roleName);
+          this.roleToAdd = null;
         }).catch(() => {
           this.roleToAdd = null;
         })
       },
       async removeFromRoleConfirm(roleName) {
-        let role = this.allRoles.find(x=>x.name === roleName);
+        let role = this.allRoles.find(x => x.name === roleName);
 
         this.$q.dialog({
           //title: 'Confirm',
@@ -88,6 +89,7 @@
           cancel: 'Отмена'
         }).then(async () => {
           await this.removeFromRole(roleName);
+          this.roleToRemove = null;
         }).catch(() => {
           this.roleToRemove = null;
         })
