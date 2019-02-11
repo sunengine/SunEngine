@@ -1,4 +1,7 @@
 {
+  "Banned" : {
+    "Title": "Бан"
+  },
   "Unregistered": {
     "Title": "Гость",
     "Categories": [

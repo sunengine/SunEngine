@@ -31,7 +31,7 @@ namespace SunEngine.Managers
 
         public Task<bool> CheckEmailInDbAsync(string email, int userId)
         {
-            return db.Users.AnyAsync(x => x.NormalizedEmail == email.ToUpper() && x.Id != userId);
+            return db.Users.AnyAsync(x => x.NormalizedEmail == Normalizer.Singleton.Normalize(email) && x.Id != userId);
         }
 
         public LongSession FindLongSession(LongSession longSession)
@@ -45,6 +45,11 @@ namespace SunEngine.Managers
         {
             return db.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
-        
+
+        public Task<bool> IsUserInRoleAsync(int userId, string roleName)
+        {
+            var normalizedRoleName = Normalizer.Singleton.Normalize(roleName);
+            return db.UserToGroups.AnyAsync(x => x.UserId == userId && x.UserGroup.NormalizedName == normalizedRoleName);
+        }
     }
 }

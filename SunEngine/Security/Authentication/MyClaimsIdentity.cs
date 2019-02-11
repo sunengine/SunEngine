@@ -11,6 +11,7 @@ namespace SunEngine.Security.Authentication
     {
         public int UserId { get; } = 0;
         public long SessionId { get; }
+        public string LongToken2 { get; }
 
         public IReadOnlyDictionary<string, UserGroupStored> UserGroups { get; }
         
@@ -19,9 +20,10 @@ namespace SunEngine.Security.Authentication
         /// </summary>
         public UserGroupStored UserGroup { get; }
 
-        public MyClaimsPrincipal(ClaimsPrincipal user, IUserGroupStore userGroupStore, long sessionId = 0) : base(user)
+        public MyClaimsPrincipal(ClaimsPrincipal user, IUserGroupStore userGroupStore, long sessionId = 0, string longToken2 = null) : base(user)
         {
             this.SessionId = sessionId;
+            this.LongToken2 = longToken2;
             
             if (Identity.IsAuthenticated)
             {

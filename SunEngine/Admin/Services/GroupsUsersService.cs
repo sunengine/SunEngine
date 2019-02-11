@@ -11,8 +11,7 @@ namespace SunEngine.Admin.Services
     public class GroupsUsersService : DbService
     {
         
-        public GroupsUsersService(
-            DataBaseConnection db) : base(db)
+        public GroupsUsersService(DataBaseConnection db) : base(db)
         {
           
         }

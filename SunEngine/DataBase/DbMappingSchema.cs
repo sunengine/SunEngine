@@ -25,7 +25,7 @@ namespace SunEngine.DataBase
             mp.Entity<UserGroup>()
                 .HasTableName("AspNetRoles")
                 .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
-                .Association(x=>x.CategoryAccesses,x=>x.Id,x=>x.UserGroupId);
+                .Association(x => x.CategoryAccesses, x => x.Id, x => x.UserGroupId);
 
             mp.Entity<Category>()
                 .HasTableName("Categories")
@@ -39,13 +39,13 @@ namespace SunEngine.DataBase
             mp.Entity<CategoryAccess>()
                 .HasTableName("CategoryAccesses")
                 .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
-                .Association(x=>x.Category,x=>x.CategoryId,x=>x.Id)
-                .Association(x=>x.CategoryOperationAccesses,x=>x.Id,x=>x.CategoryAccessId);
+                .Association(x => x.Category, x => x.CategoryId, x => x.Id)
+                .Association(x => x.CategoryOperationAccesses, x => x.Id, x => x.CategoryAccessId);
 
             mp.Entity<CategoryOperationAccess>()
                 .HasTableName("CategoryOperationAccesses")
                 .HasPrimaryKey(x => new {x.CategoryAccessId, x.OperationKeyId})
-                .Association(x=>x.OperationKey,x=>x.OperationKeyId,x=>x.OperationKeyId);
+                .Association(x => x.OperationKey, x => x.OperationKeyId, x => x.OperationKeyId);
 
             mp.Entity<Material>()
                 .HasTableName("Materials")
@@ -75,7 +75,7 @@ namespace SunEngine.DataBase
             mp.Entity<IdentityUserRole<int>>()
                 .HasTableName("AspNetUserRoles")
                 .HasPrimaryKey(x => new {x.UserId, x.RoleId});
-            
+
             mp.Entity<UserToGroup>()
                 .HasTableName("AspNetUserRoles")
                 .HasPrimaryKey(x => new {x.UserId, x.RoleId})
@@ -88,24 +88,28 @@ namespace SunEngine.DataBase
                 .HasPrimaryKey(x => x.Id)
                 .Association(x => x.User, x => x.UserId, x => x.Id);
 
+            mp.Entity<BlackListShortToken>()
+                .HasTableName("BlackListShortTokens")
+                .HasPrimaryKey(x => x.TokenId);
         }
-        
-        public static class DbColumnSizes
-        {
-            public const int Categories_Name = 64;
-            public const int Categories_Title = 256;
-            public const int Users_UserName = 64;
-            public const int Users_Email = 64;
-            public const int Users_Link = 32;
-            public const int FileNameWithDirSize = 40;
-            public const int Materials_Name = 32;
-            public const int Materials_Title = 256;
-            public const int Tags_Name = 64;
-            public const int Roles_Name = 64;
-            public const int Roles_Title = 64;
-            public const int OperationKey_Name = 100;
-            public const int LongSessions_LongToken1 = 16;
-            public const int LongSessions_LongToken2 = 16;
-        }
+    }
+
+    public static class DbColumnSizes
+    {
+        public const int Categories_Name = 64;
+        public const int Categories_Title = 256;
+        public const int Users_UserName = 64;
+        public const int Users_Email = 64;
+        public const int Users_Link = 32;
+        public const int FileNameWithDirSize = 40;
+        public const int Materials_Name = 32;
+        public const int Materials_Title = 256;
+        public const int Tags_Name = 64;
+        public const int Roles_Name = 64;
+        public const int Roles_Title = 64;
+        public const int OperationKey_Name = 100;
+        public const int LongSessions_LongToken1 = 16;
+        public const int LongSessions_LongToken2 = 16;
+        public const int BlackListShortToken_TokenId = 16;
     }
 }

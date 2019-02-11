@@ -6,9 +6,11 @@ namespace SunEngine.Stores.Models
 {
     public class UserGroupStored
     {
+        public const string UserGroupAdmin = "Admin";
         public const string UserGroupRegistered = "Registered";
         public const string UserGroupUnregistered = "Unregistered";
-        public const string UserGroupAdmin = "Admin";
+        public const string UserGroupBanned = "Banned";
+
 
         public int Id { get; }
         public string Name { get; }

@@ -86,6 +86,15 @@ namespace SunEngine.Controllers
                 });
             }
 
+            if (await userManager.IsUserInRoleAsync(user.Id, UserGroupStored.UserGroupBanned))
+            {
+                return BadRequest(new ErrorViewModel
+                {
+                    ErrorName = "user_banned",
+                    ErrorText = "Error" // Что бы не провоцировать пользователя словами что он забанен
+                });
+            }
+            
             await jwtService.RenewSecurityTokensAsync(Response, user);
 
             return Ok();
@@ -293,12 +302,12 @@ namespace SunEngine.Controllers
     {
         [Required]
         [MinLength(3)]
-        [MaxLength(DbMappingSchema.DbColumnSizes.Users_UserName)]
+        [MaxLength(DbColumnSizes.Users_UserName)]
         public string UserName { get; set; }
 
         [Required]
         [EmailAddress]
-        [MaxLength(DbMappingSchema.DbColumnSizes.Users_Email)]
+        [MaxLength(DbColumnSizes.Users_Email)]
         public string Email { get; set; }
 
         [Required] [MinLength(6)] public string Password { get; set; }

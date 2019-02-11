@@ -153,6 +153,11 @@ namespace Migrations
                 .OnColumn("UserId").Ascending()
                 .OnColumn("LongToken1").Ascending()
                 .OnColumn("LongToken2").Ascending();
+
+            Create.Table("BlackListShortTokens")
+                .WithColumn("TokenId").AsString(DbColumnSizes.BlackListShortToken_TokenId).PrimaryKey().NotNullable()
+                .WithColumn("Expire").AsMyDateTime().Indexed().NotNullable();
+
         }
 
 
@@ -178,6 +183,8 @@ namespace Migrations
         public const int OperationKey_Name = 100;
         public const int LongSessions_LongToken1 = 16;
         public const int LongSessions_LongToken2 = 16;
+        public const int BlackListShortToken_TokenId = 16;
+
     }
 
     internal static class MigratorExtensions

@@ -3,6 +3,7 @@ using LinqToDB;
 using LinqToDB.Data;
 using LinqToDB.DataProvider;
 using LinqToDB.Identity;
+using LinqToDB.Mapping;
 using SunEngine.Models;
 using SunEngine.Models.Authorization;
 using SunEngine.Models.Materials;
@@ -18,7 +19,7 @@ namespace SunEngine.DataBase
         }
 
         public DataBaseConnection(IDataProvider dataProvider, string connectionString,
-            DbMappingSchema mappingSchema) : base(
+            MappingSchema mappingSchema) : base(
             dataProvider, connectionString)
         {
             AddMappingSchema(mappingSchema);
@@ -61,6 +62,9 @@ namespace SunEngine.DataBase
         public ITable<UserBanedUnit> UserBanedUnits => GetTable<UserBanedUnit>();
 
         public ITable<LongSession> LongSessions => GetTable<LongSession>();
+        
+        public ITable<BlackListShortToken> BlackListShortTokens => GetTable<BlackListShortToken>();
+
 
 
         public void UpdateSequence(string tableName, string keyName)

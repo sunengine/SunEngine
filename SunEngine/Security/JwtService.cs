@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using Flurl.Util;
@@ -28,6 +27,10 @@ namespace SunEngine.Security
 {
     public class JwtService : DbService
     {
+        public const int LongTokenLiveTimeDays = 90;
+        public const int ShortTokenLiveTimeMinutes = 35;
+
+        
         private readonly MyUserManager userManager;
         private readonly JwtOptions jwtOptions;
         private readonly ILogger logger;
@@ -72,7 +75,7 @@ namespace SunEngine.Security
             {
                 longSession1.LongToken1 = CryptoRandomizer.GetRandomString(LongSession.LongToken1Length);
                 longSession1.LongToken2 = CryptoRandomizer.GetRandomString(LongSession.LongToken2Length);
-                longSession1.ExpirationDate = DateTime.UtcNow.AddDays(90);
+                longSession1.ExpirationDate = DateTime.UtcNow.AddDays(LongTokenLiveTimeDays);
             }
 
 
@@ -146,7 +149,7 @@ namespace SunEngine.Security
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim("LAT2R", lat2r),
-                new Claim(JwtRegisteredClaimNames.Jti, CryptoRandomizer.GetRandomString(16))
+                new Claim(JwtRegisteredClaimNames.Jti, CryptoRandomizer.GetRandomString(DbColumnSizes.BlackListShortToken_TokenId))
             };
 
             var roleNames = await userManager.GetRolesAsync(user);
@@ -160,7 +163,7 @@ namespace SunEngine.Security
                 issuer: jwtOptions.Issuer,
                 audience: jwtOptions.Issuer,
                 claims: claims.ToArray(),
-                expires: DateTime.UtcNow.AddMinutes(30),
+                expires: DateTime.UtcNow.AddMinutes(ShortTokenLiveTimeMinutes),
                 signingCredentials: credentials);
 
             var claimsIdentity =  new ClaimsIdentity(claims,"JwtShortToken");
@@ -168,7 +171,7 @@ namespace SunEngine.Security
 
             return new TokenAndClaimsPrincipal
             {
-                ClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, userGroupStore, sessionId),
+                ClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, userGroupStore, sessionId, lat2r),
                 Token = new JwtSecurityTokenHandler().WriteToken(token)
             };
         }
