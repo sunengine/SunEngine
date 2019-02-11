@@ -52,7 +52,7 @@
             url: "/GroupsUsers/GetGroupUsers",
             data: {
               groupName: this.groupName,
-              userNameStart: this.filter
+              userNamePart: this.filter
             }
           })
           .then(response => {

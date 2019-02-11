@@ -27,17 +27,17 @@ namespace SunEngine.Admin.Services
             }).ToArrayAsync();
         }
 
-        public Task<UserInfoViewModel[]> GetGroupUsers(string groupName, string userNameStart)
+        public Task<UserInfoViewModel[]> GetGroupUsers(string groupName, string userNamePart)
         {
             var normalizedGroupName = Normalizer.Singleton.Normalize(groupName);
             var query = db.UserToGroups.Where(x => x.UserGroup.NormalizedName == normalizedGroupName);
 
-            if (userNameStart != null)
+            if (userNamePart != null)
             {
-                userNameStart = userNameStart.Trim().ToLower();
-                if (!string.IsNullOrEmpty(userNameStart))
+                userNamePart = userNamePart.Trim().ToLower();
+                if (!string.IsNullOrEmpty(userNamePart))
                 {
-                    query = query.Where(x => x.User.UserName.ToLower().StartsWith(userNameStart));
+                    query = query.Where(x => x.User.UserName.ToLower().Contains(userNamePart));
                 }
             }
 
