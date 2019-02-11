@@ -4,7 +4,8 @@ import CategoriesAdmin from 'admin/CategoriesAdmin.vue';
 import AddCategory from 'admin/AddEditCategory/AddCategory.vue';
 import EditCategory from 'admin/AddEditCategory/EditCategory.vue';
 import UserGroupsAdmin from 'admin/UserGroupsAdmin.vue';
-import GroupsUsers from 'admin/GroupsUsers.vue';
+import GroupUsers from 'admin/GroupUsers.vue';
+import Groups from 'admin/Groups.vue';
 
 
 import {store} from 'store';
@@ -57,12 +58,20 @@ const routes = [
     }
   },
   {
-    name: 'GroupsUsers',
-    path: '/admin/GroupsUsers'.toLowerCase(),
+    name: 'Groups',
+    path: '/admin/Groups'.toLowerCase(),
     components: {
-      default: GroupsUsers,
+      default: Groups,
       navigation: AdminPanel
-    }
+    },
+    children: [
+      {
+        name: 'GroupUsers',
+        path: ':groupName',
+        component: GroupUsers,
+        props: true
+      }
+    ]
   }
 ];
 

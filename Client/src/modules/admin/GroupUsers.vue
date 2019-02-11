@@ -1,28 +1,17 @@
 <template>
-  <div class="row">
-    <div v-if="groups" class="xs-col-12 col-4">
-      <div class="local-header">Группы</div>
-      <div class="local-content">
-        <div :key="group.id" v-for="group in groups">
-          <a href="#" @click.stop.prevent="loadGroupUsers(group.name)">{{group.title}}</a>
-        </div>
+
+  <div v-if="currentGroup" class="xs-col-12 col-8">
+    <div class="local-header">Пользователи</div>
+    <div class="local-content">
+      <div :key="user.id" v-for="user in users">
+        <router-link :to="`/user/${user.link}`">{{user.name}}</router-link>
       </div>
-    </div>
-    <div v-else class="xs-col-12 col-4">
-      <loader-wait/>
-    </div>
-    <div v-if="currentGroup" class="xs-col-12 col-8">
-      <div class="local-header">Пользователи</div>
-      <div class="local-content">
-        <div :key="user.id" v-for="user in users">
-          <router-link :to="`/user/${user.link}`">{{user.name}}</router-link>
-        </div>
-      </div>
-    </div>
-    <div v-if="startedLoadGroupUsers && !currentGroup" class="xs-col-12 col-8">
-      <loader-wait/>
     </div>
   </div>
+  <div v-if="startedLoadGroupUsers && !currentGroup" class="xs-col-12 col-8">
+    <loader-wait/>
+  </div>
+
 </template>
 
 <script>
@@ -30,7 +19,7 @@
   import LoaderWait from "LoaderWait";
 
   export default {
-    name: "GroupsUsers",
+    name: "GroupUsers",
     components: {LoaderWait},
     data: function () {
       return {
