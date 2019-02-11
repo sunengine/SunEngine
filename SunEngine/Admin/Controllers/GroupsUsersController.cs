@@ -23,7 +23,35 @@ namespace SunEngine.Admin.Controllers
 
         public async Task<IActionResult> GetAllUserGroupsAsync()
         {
-            return Ok(groupsUsersService.GetAllUserGroupsAsync());
+            var groups = await groupsUsersService.GetAllUserGroupsAsync();
+            return Ok(groups);
         }
+        
+        public async Task<IActionResult> GetUserGroupsAsync(int userId)
+        {
+            var groups = await groupsUsersService.GetUserGroupsAsync(userId);
+            return Ok(groups);
+        }
+        
+        public async Task<IActionResult> AddUserToRoleAsync(int userId, string roleName)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            var rez = await userManager.AddToRoleAsync(user, roleName);
+            if(rez.Succeeded)
+                return Ok();
+
+            return BadRequest();
+        }
+        
+        public async Task<IActionResult> RemoveUserFromRoleAsync(int userId, string roleName)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            var rez = await userManager.RemoveFromRoleAsync(user, roleName);
+            if(rez.Succeeded)
+                return Ok();
+
+            return BadRequest();
+        }
+        
     }
 }

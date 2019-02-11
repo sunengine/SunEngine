@@ -20,6 +20,10 @@
       <div>
         <h4>{{user.name}}</h4>
         <div v-html="user.information"></div>
+        <QCollapsible @show="showRolesAdmin" icon="fas fa-cog" label="Группы" style="margin-top: 30px; border: 1px solid silver" header-style="background-color: #e4e4e4">
+          <RolesForProfile  :userId="user.id" v-if="canEditRoles && isShowRolesAdmin" />
+
+        </QCollapsible>
       </div>
     </div>
     <loader-wait v-else/>
@@ -29,11 +33,12 @@
 <script>
   import LoaderWait from "LoaderWait";
   import Page from "Page";
+  import RolesForProfile from "../admin/RolesForProfile";
 
   export default {
     name: "Profile",
     mixins: [Page],
-    components: {LoaderWait},
+    components: {RolesForProfile, LoaderWait},
     props: {
       link: {
         type: String,
@@ -42,7 +47,8 @@
     },
     data: function () {
       return {
-        user: null
+        user: null,
+        isShowRolesAdmin: false
       }
     },
     computed: {
@@ -56,12 +62,18 @@
         const from = this.$store?.state?.auth?.user;
         if (!from) return false;
         return from.id != this.user?.id;
+      },
+      canEditRoles() {
+        return this.$store?.state?.auth?.userGroups?.some(x=>x === "Admin");
       }
     },
     watch: {
       'link': 'loadData'
     },
     methods: {
+      showRolesAdmin() {
+        this.isShowRolesAdmin = true;
+      },
       async ban() {
         await this.$store.dispatch("request",
           {

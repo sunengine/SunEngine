@@ -73,6 +73,8 @@ module.exports = function (ctx) {
         'QSpinnerGears',
         'QPopover',
         'QChip',
+        'QCollapsible',
+        'QSelect'
       ],
       directives: [
         'Ripple',

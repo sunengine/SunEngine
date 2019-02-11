@@ -1,15 +1,20 @@
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.DataBase;
+using SunEngine.Managers;
 using SunEngine.Services;
 
 namespace SunEngine.Admin.Services
 {
     public class GroupsUsersService : DbService
     {
-        public GroupsUsersService(DataBaseConnection db) : base(db)
+        
+        public GroupsUsersService(
+            DataBaseConnection db) : base(db)
         {
+          
         }
 
         public Task<UserGroupViewModel[]> GetAllUserGroupsAsync()
@@ -22,6 +27,17 @@ namespace SunEngine.Admin.Services
                 IsSuper = x.IsSuper
             }).ToArrayAsync();
         }
+        
+        public Task<UserGroupViewModel[]> GetUserGroupsAsync(int userId)
+        {
+            return db.UserGroups.Where(x=>x.Users.Any(y=>y.UserId == userId)).Select(x => new UserGroupViewModel
+            {
+                Name = x.Name,
+                Title = x.Title,
+                UsersCount = x.Users.Count,
+                IsSuper = x.IsSuper
+            }).ToArrayAsync();
+        }        
     }
 
     public class UserGroupViewModel

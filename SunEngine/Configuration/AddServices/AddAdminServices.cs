@@ -9,6 +9,7 @@ namespace SunEngine.Configuration.AddServices
         {
             services.AddScoped<CategoriesAdminService>();
             services.AddScoped<GroupsAdminService>();
+            services.AddScoped<GroupsUsersService>();
         }
     }
 }

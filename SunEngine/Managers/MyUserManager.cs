@@ -45,5 +45,6 @@ namespace SunEngine.Managers
         {
             return db.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
+        
     }
 }
