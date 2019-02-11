@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.DataBase;
 using SunEngine.Managers;
+using SunEngine.Presenters;
 using SunEngine.Services;
+using SunEngine.Utils;
 
 namespace SunEngine.Admin.Services
 {
@@ -25,6 +27,19 @@ namespace SunEngine.Admin.Services
                 UsersCount = x.Users.Count,
                 IsSuper = x.IsSuper
             }).ToArrayAsync();
+        }
+
+        public Task<UserInfoViewModel[]> GetGroupUsers(string groupName)
+        {
+            var normalizedGroupName = Normalizer.Singleton.Normalize(groupName);
+            return db.UserToGroups.Where(x => x.UserGroup.NormalizedName == normalizedGroupName)
+                .Select(x => new UserInfoViewModel
+                {
+                     Id = x.UserId,
+                     Name = x.User.UserName,
+                     Link = x.User.Link,
+                     Avatar = x.User.Avatar
+                }).ToArrayAsync();
         }
         
         public Task<UserGroupViewModel[]> GetUserGroupsAsync(int userId)

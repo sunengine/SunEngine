@@ -25,38 +25,43 @@ namespace SunEngine.Admin.Controllers
             this.jwtBlackListService = jwtBlackListService;
         }
 
-        public async Task<IActionResult> GetAllUserGroupsAsync()
+        public async Task<IActionResult> GetAllUserGroups()
         {
             var groups = await groupsUsersService.GetAllUserGroupsAsync();
             return Ok(groups);
         }
 
-        public async Task<IActionResult> GetUserGroupsAsync(int userId)
+        public async Task<IActionResult> GetUserGroups(int userId)
         {
             var groups = await groupsUsersService.GetUserGroupsAsync(userId);
             return Ok(groups);
         }
 
-        public async Task<IActionResult> AddUserToRoleAsync(int userId, string roleName)
+        public async Task<IActionResult> GetGroupUsers(string groupName)
+        {
+            var users = await groupsUsersService.GetGroupUsers(groupName);
+            return Ok(users);
+        }
+
+
+        public async Task<IActionResult> AddUserToRole(int userId, string roleName)
         {
             var user = await userManager.FindByIdAsync(userId);
             var rez = await userManager.AddToRoleAsync(user, roleName);
             if (!rez.Succeeded) return BadRequest();
-            
-            await  jwtBlackListService.AddUserTokensAsync(userId);
-            return Ok();
 
+            await jwtBlackListService.AddUserTokensAsync(userId);
+            return Ok();
         }
 
-        public async Task<IActionResult> RemoveUserFromRoleAsync(int userId, string roleName)
+        public async Task<IActionResult> RemoveUserFromRole(int userId, string roleName)
         {
             var user = await userManager.FindByIdAsync(userId);
             var rez = await userManager.RemoveFromRoleAsync(user, roleName);
             if (!rez.Succeeded) return BadRequest();
-            
+
             await jwtBlackListService.AddUserTokensAsync(userId);
             return Ok();
-
         }
     }
 }
