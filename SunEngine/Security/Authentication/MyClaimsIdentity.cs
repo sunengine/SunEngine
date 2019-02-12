@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Security.Claims;
-using SunEngine.Commons.StoreModels;
 using SunEngine.Stores;
+using SunEngine.Stores.Models;
 
 namespace SunEngine.Security.Authentication
 {
@@ -11,17 +11,19 @@ namespace SunEngine.Security.Authentication
     {
         public int UserId { get; } = 0;
         public long SessionId { get; }
+        public string LongToken2 { get; }
 
-        public IReadOnlyDictionary<string, UserGroup> UserGroups { get; }
+        public IReadOnlyDictionary<string, UserGroupStored> UserGroups { get; }
         
         /// <summary>
         /// If only one group
         /// </summary>
-        public UserGroup UserGroup { get; }
+        public UserGroupStored UserGroup { get; }
 
-        public MyClaimsPrincipal(ClaimsPrincipal user, IUserGroupStore userGroupStore, long sessionId = 0) : base(user)
+        public MyClaimsPrincipal(ClaimsPrincipal user, IUserGroupStore userGroupStore, long sessionId = 0, string longToken2 = null) : base(user)
         {
             this.SessionId = sessionId;
+            this.LongToken2 = longToken2;
             
             if (Identity.IsAuthenticated)
             {
@@ -35,13 +37,13 @@ namespace SunEngine.Security.Authentication
             }
         }
         
-        private IReadOnlyDictionary<string, UserGroup> GetUserGroups(IUserGroupStore userGroupStore)
+        private IReadOnlyDictionary<string, UserGroupStored> GetUserGroups(IUserGroupStore userGroupStore)
         {
             if (!Identity.IsAuthenticated)
             {
-                return new Dictionary<string, UserGroup>
+                return new Dictionary<string, UserGroupStored>
                 {
-                    [UserGroup.UserGroupUnregistered] = userGroupStore.GetUserGroup(UserGroup.UserGroupUnregistered)
+                    [UserGroupStored.UserGroupUnregistered] = userGroupStore.GetUserGroup(UserGroupStored.UserGroupUnregistered)
                 }.ToImmutableDictionary();
             }
 
@@ -49,9 +51,9 @@ namespace SunEngine.Security.Authentication
             var allGroups = userGroupStore.AllGroups;
 
 
-            var dictionaryBuilder = ImmutableDictionary.CreateBuilder<string,UserGroup>();
+            var dictionaryBuilder = ImmutableDictionary.CreateBuilder<string,UserGroupStored>();
 
-            var registeredGroup = userGroupStore.GetUserGroup(UserGroup.UserGroupRegistered);
+            var registeredGroup = userGroupStore.GetUserGroup(UserGroupStored.UserGroupRegistered);
             dictionaryBuilder.Add(registeredGroup.Name, registeredGroup);
             foreach (var role in roles)
             {

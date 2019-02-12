@@ -4,11 +4,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.TextProcess;
 using SunEngine.Configuration.AddServices;
+using SunEngine.DataBase;
+using SunEngine.Security;
 using SunEngine.Security.Authentication;
 using SunEngine.Services;
+using SunEngine.Utils.TextProcess;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace SunEngine.Configuration
@@ -63,7 +64,10 @@ namespace SunEngine.Configuration
             services.AddCryptServices();
 
             services.AddImagesServices();
-            
+
+            services.AddUrlHelper();
+
+            services.AddScoped<AuthService>();
             services.AddSingleton<CaptchaService>();
             services.AddSingleton<Sanitizer>();
             services.AddTransient<IEmailSender, EmailSender>();

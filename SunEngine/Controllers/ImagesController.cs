@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
-using SunEngine.Commons.Services;
 using SunEngine.Configuration.Options;
 using SunEngine.Managers;
 using SunEngine.Services;

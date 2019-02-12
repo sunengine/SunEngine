@@ -8,11 +8,11 @@ using LinqToDB.Data;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using NJsonSchema;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Models.UserGroups;
-using SunEngine.Commons.Utils;
+using SunEngine.DataBase;
+using SunEngine.Models;
+using SunEngine.Models.Authorization;
 using SunEngine.Services;
+using SunEngine.Utils;
 
 namespace SunEngine.Admin.Services
 {
@@ -32,7 +32,7 @@ namespace SunEngine.Admin.Services
         public async Task<string> GetGroupsJsonAsync()
         {
             var groups = await db.UserGroups
-                .LoadWith(x => x.CategoryAccesses.First().CategoryOperationAccesses.First().OperationKeyDb)
+                .LoadWith(x => x.CategoryAccesses.First().CategoryOperationAccesses.First().OperationKey)
                 .ToListAsync();
 
             var categories = await db.Categories.ToDictionaryAsync(x => x.Id, x => x);
@@ -51,7 +51,7 @@ namespace SunEngine.Admin.Services
                                     {
                                         Category = categories[y.CategoryId].Name,
                                         OperationKeys = y.CategoryOperationAccesses.Count > 0
-                                            ? y.CategoryOperationAccesses.ToDictionary(z => z.OperationKeyDb.Name,
+                                            ? y.CategoryOperationAccesses.ToDictionary(z => z.OperationKey.Name,
                                                 z => z.Access)
                                             : null
                                     }).ToArray()
@@ -71,7 +71,7 @@ namespace SunEngine.Admin.Services
         {
             IDictionary<string, Category> categories =
                 await db.Categories.ToDictionaryAsync(x => x.Name);
-            IDictionary<string, OperationKeyDB> operationKeys =
+            IDictionary<string, OperationKey> operationKeys =
                 await db.OperationKeys.ToDictionaryAsync(x => x.Name);
 
 
@@ -85,10 +85,9 @@ namespace SunEngine.Admin.Services
             try
             {
                 db.BeginTransaction();
-                List<UserToGroupTmp> userToGroups = await SaveUserToGroupsAsync();
                 await UpdateUserGroups(loader.userGroups);
                 await ClearAccessesAsync();
-                await CopyToDb(loader, userToGroups);
+                await CopyToDb(loader);
                 db.CommitTransaction();
             }
             catch (Exception e)
@@ -98,7 +97,7 @@ namespace SunEngine.Admin.Services
             }
         }
 
-        private async Task UpdateUserGroups(List<UserGroupDB> groupsNew)
+        private async Task UpdateUserGroups(List<UserGroup> groupsNew)
         {
             var groups = await db.UserGroups.ToListAsync();
 
@@ -117,7 +116,7 @@ namespace SunEngine.Admin.Services
             var toUpdate = groupsNew.Where(x => groups.Any(y => string.Equals(x.NormalizedName, y.NormalizedName)))
                 .ToList();
 
-            List<UserGroupDB> errorGroups = new List<UserGroupDB>();
+            List<UserGroup> errorGroups = new List<UserGroup>();
 
             foreach (var group in toDelete)
             {
@@ -143,13 +142,7 @@ namespace SunEngine.Admin.Services
             await db.CategoryAccess.DeleteAsync();
         }
 
-        private Task<List<UserToGroupTmp>> SaveUserToGroupsAsync()
-        {
-            return db.UserToGroups.Select(x => new UserToGroupTmp {UserId = x.UserId, RoleName = x.UserGroup.Name})
-                .ToListAsync();
-        }
-
-        private async Task CopyToDb(UserGroupsLoaderFromJson loader, List<UserToGroupTmp> userToGroups)
+        private async Task CopyToDb(UserGroupsLoaderFromJson loader)
         {
             BulkCopyOptions options = new BulkCopyOptions
             {
@@ -158,16 +151,6 @@ namespace SunEngine.Admin.Services
                 KeepIdentity = true
             };
 
-            /*foreach (var categoryAccess in loader.categoryAccesses)
-            {
-                db.InsertWithInt32Identity(categoryAccess);
-            }
-            
-            foreach (var categoryOperationAccess in loader.categoryOperationAccesses)
-            {
-                db.Insert(categoryOperationAccess);
-            }*/
-            
             db.BulkCopy(options, loader.categoryAccesses);
             db.UpdateSequence("CategoryAccesses","Id");
             db.BulkCopy(options, loader.categoryOperationAccesses);

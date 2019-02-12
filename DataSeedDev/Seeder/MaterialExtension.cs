@@ -1,4 +1,4 @@
-using SunEngine.Commons.Models;
+using SunEngine.Models.Materials;
 
 namespace DataSeedDev.Seeder
 {

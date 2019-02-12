@@ -1,8 +1,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Models;
+using SunEngine.DataBase;
+using SunEngine.Models;
 using SunEngine.Services;
 using SunEngine.Stores;
 
@@ -73,6 +73,7 @@ namespace SunEngine.Presenters
         public int Id { get; set; }
         public string Name { get; set; }
         public string Link { get; set; }
+        public string Avatar { get; set; }
     }
 
     public class ProfileViewModel

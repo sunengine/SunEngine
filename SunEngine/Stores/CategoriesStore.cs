@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Models;
+using SunEngine.DataBase;
+using SunEngine.Models;
 
 namespace SunEngine.Stores
 {
@@ -17,8 +17,9 @@ namespace SunEngine.Stores
         }
 
         private ImmutableDictionary<string, Category> _allCategories;
-        
-        public ImmutableDictionary<string,Category> AllCategories {
+
+        public ImmutableDictionary<string, Category> AllCategories
+        {
             get
             {
                 if (_allCategories == null)
@@ -31,8 +32,9 @@ namespace SunEngine.Stores
         }
 
         private Category _rootCategory;
-        
-        public Category RootCategory {
+
+        public Category RootCategory
+        {
             get
             {
                 if (_rootCategory == null)
@@ -43,10 +45,10 @@ namespace SunEngine.Stores
                 return _rootCategory;
             }
         }
-        
+
         public Category GetCategory(int id)
         {
-            return AllCategories.FirstOrDefault(x=>x.Value.Id == id).Value;
+            return AllCategories.FirstOrDefault(x => x.Value.Id == id).Value;
         }
 
         public Category GetCategory(string name)
@@ -70,13 +72,12 @@ namespace SunEngine.Stores
             _allCategories = null;
             _rootCategory = null;
         }
-        
+
         public void Initialize()
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-
-                var categories = db.Categories.ToDictionary(x=>x.Id);
+                var categories = db.Categories.ToDictionary(x => x.Id);
                 foreach (var category in categories.Values)
                 {
                     if (category.ParentId.HasValue)
@@ -95,8 +96,7 @@ namespace SunEngine.Stores
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-
-                var categories = await db.Categories.ToDictionaryAsync(x=>x.Id);
+                var categories = await db.Categories.ToDictionaryAsync(x => x.Id);
                 foreach (var category in categories.Values)
                 {
                     if (category.ParentId.HasValue)
@@ -104,8 +104,8 @@ namespace SunEngine.Stores
                         category.Parent = categories[category.ParentId.Value];
                         category.Parent.SubCategories.Add(category);
                     }
-                }    
-                
+                }
+
                 _allCategories = categories.Values.ToImmutableDictionary(x => x.Name.ToLower());
                 _rootCategory = _allCategories["root"];
             }

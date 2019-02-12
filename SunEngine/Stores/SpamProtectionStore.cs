@@ -13,7 +13,7 @@ namespace SunEngine.Stores
 
         private void NextTick()
         {
-            if (++cycle > 50)
+            if (++cycle > 100)
             {
                 RemoveExpired();
                 cycle = 0;

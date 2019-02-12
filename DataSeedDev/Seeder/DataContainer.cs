@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Models.UserGroups;
+using SunEngine.Models;
+using SunEngine.Models.Authorization;
+using SunEngine.Models.Materials;
 
 namespace DataSeedDev.Seeder
 {
@@ -28,11 +29,11 @@ namespace DataSeedDev.Seeder
         public List<Message> Messages = new List<Message>();
         public List<Material> Materials = new List<Material>();
         public List<User> Users = new List<User>();
-        public List<UserGroupDB> UserGroups = new List<UserGroupDB>();
+        public List<UserGroup> UserGroups = new List<UserGroup>();
         public List<UserToGroup> UserToGroups = new List<UserToGroup>();
-        public List<CategoryAccessDB> CategoryAccesses = new List<CategoryAccessDB>(); 
-        public List<CategoryOperationAccessDB> CategoryOperationAccesses = new List<CategoryOperationAccessDB>();
-        public List<OperationKeyDB> OperationKeys = new List<OperationKeyDB>(); 
+        public List<CategoryAccess> CategoryAccesses = new List<CategoryAccess>(); 
+        public List<CategoryOperationAccess> CategoryOperationAccesses = new List<CategoryOperationAccess>();
+        public List<OperationKey> OperationKeys = new List<OperationKey>(); 
 
         public Random _ran = new Random();
         

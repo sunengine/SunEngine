@@ -15,5 +15,6 @@ mkdir "$parent_path/BuildDbReset/DataSeedDev"
 echo -e "\n$GREEN Publishing Migrations $NC"
 dotnet publish -c Release Migrations -o "$parent_path/BuildDbReset/Migrations" -v m
 
+
 echo -e "\n$GREEN Publishing DataSeedDev $NC"
 dotnet publish -c Release DataSeedDev -o "$parent_path/BuildDbReset/DataSeedDev" -v m

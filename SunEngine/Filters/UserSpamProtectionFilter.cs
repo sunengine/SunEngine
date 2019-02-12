@@ -44,7 +44,6 @@ namespace SunEngine.Filters
             RequestFree requestFree = spamProtectionStore.Find(key);
             
             
-            
             if (requestFree != null && requestFree.Working())
             {
                 context.Result = controller.BadRequest(new ErrorViewModel
@@ -109,17 +108,17 @@ namespace SunEngine.Filters
 
         public RequestFree(TimeSpan timeout)
         {
-            dateTimeTil = DateTime.Now.Add(timeout);
+            dateTimeTil = DateTime.UtcNow.Add(timeout);
         }
 
         public void UpdateDateTime(TimeSpan timeout)
         {
-            dateTimeTil = DateTime.Now.Add(timeout);
+            dateTimeTil = DateTime.UtcNow.Add(timeout);
         }
 
         public bool Working()
         {
-            return dateTimeTil >= DateTime.Now;
+            return dateTimeTil >= DateTime.UtcNow;
         }
     }
 }

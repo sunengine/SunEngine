@@ -24,11 +24,9 @@ export async function doLogin(context, userData) {
 
 export async function doLogout(context) {
 
-  await context.dispatch('request', {
-    url: '/Auth/Logout'
-  });
+  context.commit('makeLogout');
 
-  context.dispatch('getAllCategories');
+  await context.dispatch('getAllCategories');
 }
 
 

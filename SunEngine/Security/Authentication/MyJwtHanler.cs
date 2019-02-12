@@ -8,10 +8,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Services;
 using SunEngine.Configuration.Options;
+using SunEngine.Managers;
+using SunEngine.Models;
 using SunEngine.Stores;
+using SunEngine.Stores.Models;
 
 namespace SunEngine.Security.Authentication
 {
@@ -19,18 +20,26 @@ namespace SunEngine.Security.Authentication
     {
         private readonly IUserGroupStore userGroupStore;
         private readonly JwtOptions jwtOptions;
-        private readonly AuthService authService;
+        private readonly JwtService jwtService;
         private readonly MyUserManager userManager;
+        private readonly JwtBlackListService jwtBlackListService;
 
-        public MyJwtHandler(IOptionsMonitor<MyJwtOptions> options, ILoggerFactory logger, UrlEncoder encoder,
-            ISystemClock clock, IUserGroupStore userGroupStore, IOptions<JwtOptions> jwtOptions,
-            AuthService authService,
+        public MyJwtHandler(
+            IOptionsMonitor<MyJwtOptions> options,
+            ILoggerFactory logger,
+            UrlEncoder encoder,
+            ISystemClock clock,
+            IUserGroupStore userGroupStore,
+            IOptions<JwtOptions> jwtOptions,
+            JwtService jwtService,
+            JwtBlackListService jwtBlackListService,
             MyUserManager userManager) : base(options, logger, encoder, clock)
         {
             this.userGroupStore = userGroupStore;
             this.jwtOptions = jwtOptions.Value;
-            this.authService = authService;
+            this.jwtService = jwtService;
             this.userManager = userManager;
+            this.jwtBlackListService = jwtBlackListService;
         }
 
 
@@ -38,7 +47,7 @@ namespace SunEngine.Security.Authentication
         {
             AuthenticateResult ErrorAuthorization()
             {
-                authService.MakeLogoutCookiesAndHeaders(Response);
+                jwtService.MakeLogoutCookiesAndHeaders(Response);
 
                 return AuthenticateResult.NoResult();
             }
@@ -51,7 +60,7 @@ namespace SunEngine.Security.Authentication
                     return AuthenticateResult.NoResult();
 
 
-                JwtSecurityToken jwtLongToken2 = authService.ReadLongToken2(cookie);
+                JwtSecurityToken jwtLongToken2 = jwtService.ReadLongToken2(cookie);
                 if (jwtLongToken2 == null)
                     return ErrorAuthorization();
 
@@ -59,13 +68,12 @@ namespace SunEngine.Security.Authentication
 
                 MyClaimsPrincipal myClaimsPrincipal;
 
-                LongSession longSession;
                 if (Request.Headers.ContainsKey("LongToken1"))
                 {
                     var longToken1 = Request.Headers["LongToken1"];
                     int userId = int.Parse(jwtLongToken2.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
 
-                    longSession = new LongSession
+                    var longSession = new LongSession
                     {
                         UserId = userId,
                         LongToken1 = longToken1,
@@ -77,7 +85,7 @@ namespace SunEngine.Security.Authentication
                     if (longSession == null)
                         return ErrorAuthorization();
 
-                    myClaimsPrincipal = await authService.RenewSecurityTokensAsync(Response, userId, longSession);
+                    myClaimsPrincipal = await jwtService.RenewSecurityTokensAsync(Response, userId, longSession);
 
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("\nToken renews\n");
@@ -105,10 +113,10 @@ namespace SunEngine.Security.Authentication
 
 
                     var claimsPrincipal =
-                        authService.ReadShortToken(jwtShortToken, out SecurityToken shortToken);
+                        jwtService.ReadShortToken(jwtShortToken, out SecurityToken shortToken);
 
-                    var ValidTo = shortToken.ValidTo;
-                    
+                    //var validTo = shortToken.ValidTo; // for debug
+
                     var LAT2R_1 = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == "LAT2R").Value;
                     var LAT2R_2 = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == "LAT2R").Value;
 
@@ -119,7 +127,19 @@ namespace SunEngine.Security.Authentication
 
                     long sessionId = long.Parse(jwtLongToken2.Claims.FirstOrDefault(x => x.Type == "ID").Value);
 
-                    myClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, userGroupStore, sessionId);
+                    var LAT2 = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == "LAT2").Value;
+
+                    myClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, userGroupStore, sessionId, LAT2);
+                }
+
+                if (jwtBlackListService.IsTokenNotInBlackList(myClaimsPrincipal.LongToken2))
+                {
+                    return ErrorAuthorization();
+                }
+
+                if (myClaimsPrincipal.UserGroups.ContainsKey(UserGroupStored.UserGroupBanned))
+                {
+                    return ErrorAuthorization();
                 }
 
                 var authenticationTicket = new AuthenticationTicket(myClaimsPrincipal, MyJwt.Scheme);

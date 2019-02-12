@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Models.UserGroups;
-using SunEngine.Commons.Services;
+using SunEngine.DataBase;
+using SunEngine.Managers;
+using SunEngine.Models;
+using SunEngine.Models.Authorization;
 
 namespace SunEngine.Configuration.AddServices
 {
-    public static class AddIdentityExtensions
+    internal static class AddIdentityExtensions
     {
         public static void AddIdentity(this IServiceCollection services, DataBaseFactory dataBaseFactory)
         {
-            services.AddIdentity<User, UserGroupDB>(
+            services.AddIdentity<User, UserGroup>(
                     options =>
                     {
                         options.Password.RequireDigit = false;

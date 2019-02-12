@@ -3,129 +3,57 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
-using Flurl.Util;
+using System.Transactions;
 using LinqToDB;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Services;
-using SunEngine.Commons.Utils;
 using SunEngine.Configuration.Options;
 using SunEngine.Controllers;
-using SunEngine.Security.Authentication;
+using SunEngine.DataBase;
+using SunEngine.Managers;
+using SunEngine.Models;
 using SunEngine.Services;
-using SunEngine.Stores;
+using SunEngine.Utils;
 
 namespace SunEngine.Security
 {
     public class AuthService : DbService
     {
-        private readonly MyUserManager userManager;
         private readonly JwtOptions jwtOptions;
+        private readonly MyUserManager userManager;
+        private readonly GlobalOptions globalOptions;
+        private readonly IEmailSender emailSender;
+        private readonly IUrlHelperFactory urlHelperFactory;
+        private readonly IActionContextAccessor accessor;
         private readonly ILogger logger;
-        private readonly IUserGroupStore userGroupStore;
+
 
         public AuthService(
-            DataBaseConnection db,
             MyUserManager userManager,
-            IUserGroupStore userGroupStore,
+            IEmailSender emailSender,
+            DataBaseConnection db,
+            IOptions<GlobalOptions> globalOptions,
+            IUrlHelperFactory urlHelperFactory,
+            IActionContextAccessor accessor,
             IOptions<JwtOptions> jwtOptions,
             ILoggerFactory loggerFactory) : base(db)
         {
-            this.userManager = userManager;
             this.jwtOptions = jwtOptions.Value;
+            this.userManager = userManager;
+            this.globalOptions = globalOptions.Value;
+            this.emailSender = emailSender;
+            this.urlHelperFactory = urlHelperFactory;
+            this.accessor = accessor;
             logger = loggerFactory.CreateLogger<AuthController>();
-            this.userGroupStore = userGroupStore;
         }
 
-        private JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
-        {
-            ContractResolver = new CamelCasePropertyNamesContractResolver()
-        };
-
-        public async Task<MyClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, int userId,
-            LongSession longSession = null)
-        {
-            var user = await db.Users.FirstOrDefaultAsync(x => x.Id == userId);
-            return await RenewSecurityTokensAsync(response, user, longSession);
-        }
-
-        public Task<MyClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, User user,
-            long sessionId)
-        {
-            var longSession = db.LongSessions.FirstOrDefault(x=>x.Id == sessionId);
-            return RenewSecurityTokensAsync(response, user, longSession);
-        }
-
-        public async Task<MyClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, User user,
-            LongSession longSession = null)
-        {
-            void GenerateTokens(LongSession longSession1)
-            {
-                longSession1.LongToken1 = CryptoRandomizer.GetRandomString(LongSession.LongToken1Length);
-                longSession1.LongToken2 = CryptoRandomizer.GetRandomString(LongSession.LongToken2Length);
-                longSession1.ExpirationDate = DateTime.UtcNow.AddDays(90);
-            }
-
-
-            if (longSession == null)
-            {
-                longSession = new LongSession
-                {
-                    UserId = user.Id,
-                    DeviceInfo = ""
-                };
-
-                GenerateTokens(longSession);
-
-                longSession.Id = await db.InsertWithInt64IdentityAsync(longSession);
-            }
-            else
-            {
-                GenerateTokens(longSession);
-                await db.UpdateAsync(longSession);
-            }
-
-
-            var lat2Token = CreateLong2AuthToken(longSession, out string lat2r);
-
-            response.Cookies.Append(
-                "LAT2",
-                lat2Token,
-                new CookieOptions
-                {
-                    Path = "/",
-                    HttpOnly = true,
-                    IsEssential = true,
-                    Expires = longSession.ExpirationDate
-                }
-            );
-
-            TokenAndClaimsPrincipal tokenAndClaimsPrincipal =
-                await GenerateShortAuthTokenAsync(user, lat2r, longSession.Id);
-
-            string json = JsonConvert.SerializeObject(new
-            {
-                LongToken = new
-                {
-                    Token = longSession.LongToken1,
-                    Expiration = longSession.ExpirationDate.ToInvariantString()
-                },
-                ShortToken = tokenAndClaimsPrincipal.Token
-            }, jsonSerializerSettings);
-
-            response.Headers.Add("TOKENS", json);
-
-            return tokenAndClaimsPrincipal.ClaimsPrincipal;
-        }
 
         public string GenerateChangeEmailToken(User user, string email)
         {
@@ -147,6 +75,22 @@ namespace SunEngine.Security
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+
+        public async Task SendChangeEmailConfirmationMessageByEmailAsync(User user, string email)
+        {
+            var urlHelper = GetUrlHelper();
+
+            var emailToken = await userManager.GenerateChangeEmailTokenAsync(user, email);
+
+            var (schema, host) = globalOptions.GetSchemaAndHostApi();
+
+            var updateEmailUrl = urlHelper.Action("ConfirmEmail", "Auth",
+                new {token = emailToken}, schema, host);
+
+            await emailSender.SendEmailAsync(user.Email, "Confirm your email",
+                $"Confirm your email by clicking this <a href=\"{updateEmailUrl}\">link</a>.");
         }
 
         public bool ValidateChangeEmailToken(string token, out int userId, out string email)
@@ -178,146 +122,91 @@ namespace SunEngine.Security
             return true;
         }
 
-        internal class TokenAndClaimsPrincipal
+        public class RegisterResult
         {
-            public string Token;
-            public MyClaimsPrincipal ClaimsPrincipal;
+            public bool Succeeded;
+            public ErrorViewModel Error;
         }
 
-        private async Task<TokenAndClaimsPrincipal> GenerateShortAuthTokenAsync(User user, string lat2r, long sessionId)
+        public async Task<RegisterResult> RegisterAsync(NewUserViewModel model)
         {
-            // Generate and issue a JWT token
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.ShortJwtSecurityKey));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-
-            List<Claim> claims = new List<Claim>
+            var user = new User
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim("LAT2R", lat2r),
-                new Claim(JwtRegisteredClaimNames.Jti, CryptoRandomizer.GetRandomString(16))
+                UserName = model.UserName,
+                Email = model.Email,
+                Avatar = User.DefaultAvatar,
+                Photo = User.DefaultAvatar
             };
 
-            var roleNames = await userManager.GetRolesAsync(user);
-
-            foreach (var role in roleNames)
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
+                IdentityResult result = await userManager.CreateAsync(user, model.Password);
+                await db.Users.Where(x => x.Id == user.Id).Set(x => x.Link, x => x.Id.ToString()).UpdateAsync();
 
-            var token = new JwtSecurityToken(
-                issuer: jwtOptions.Issuer,
-                audience: jwtOptions.Issuer,
-                claims: claims.ToArray(),
-                expires: DateTime.UtcNow.AddMinutes(30),
-                signingCredentials: credentials);
+                if (!result.Succeeded)
+                    return new RegisterResult
+                    {
+                        Succeeded = false,
+                        Error = new ErrorViewModel
+                        {
+                            ErrorsNames = result.Errors.Select(x => x.Code).ToArray(),
+                            ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()
+                        }
+                    };
 
-            var claimsIdentity =  new ClaimsIdentity(claims,"JwtShortToken");
-            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                logger.LogInformation($"New user registered (id: {user.Id})");
 
-            return new TokenAndClaimsPrincipal
-            {
-                ClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, userGroupStore, sessionId),
-                Token = new JwtSecurityTokenHandler().WriteToken(token)
-            };
-        }
-
-        public JwtSecurityToken ReadLongToken2(string token)
-        {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.LongJwtSecurityKey));
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var validationParameters = new TokenValidationParameters
-            {
-                ValidateLifetime = true,
-                ValidateAudience = true,
-                ValidateIssuer = true,
-                ValidIssuer = jwtOptions.Issuer,
-                ValidAudience = jwtOptions.Issuer,
-                IssuerSigningKey = key
-            };
-
-            try
-            {
-                var principal =
-                    tokenHandler.ValidateToken(token, validationParameters, out SecurityToken securityToken);
-                if (principal != null)
-                    return (JwtSecurityToken) securityToken;
-                else
-                    return null;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        public ClaimsPrincipal ReadShortToken(string token, out SecurityToken securityToken)
-        {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.ShortJwtSecurityKey));
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var validationParameters = new TokenValidationParameters
-            {
-                ValidateLifetime = true,
-                ValidateAudience = true,
-                ValidateIssuer = true,
-                ValidIssuer = jwtOptions.Issuer,
-                ValidAudience = jwtOptions.Issuer,
-                IssuerSigningKey = key
-            };
-
-            try
-            {
-                return tokenHandler.ValidateToken(token, validationParameters, out securityToken);
-            }
-            catch
-            {
-                securityToken = null;
-                return null;
-            }
-        }
-
-        private string CreateLong2AuthToken(LongSession longSession, out string lat2r)
-        {
-            var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtOptions.LongJwtSecurityKey));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-
-            lat2r = CryptoRandomizer.GetRandomString(10);
-
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, longSession.UserId.ToString()),
-                new Claim("LAT2R", lat2r),
-                new Claim("LAT2", longSession.LongToken2),
-                new Claim("ID", longSession.Id.ToString())
-            };
-
-            var token = new JwtSecurityToken(
-                issuer: jwtOptions.Issuer,
-                audience: jwtOptions.Issuer,
-                claims: claims.ToArray(),
-                expires: longSession.ExpirationDate,
-                signingCredentials: credentials);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-
-        public void MakeLogoutCookiesAndHeaders(HttpResponse response)
-        {
-            response.Headers.Clear();
-            
-            response.Cookies.Delete("LAT2",
-                new CookieOptions
+                if (!user.EmailConfirmed)
                 {
-                    Path = "/",
-                    HttpOnly = true,
-                    IsEssential = true
-                });
+                    // Send email confirmation email
+                    var confirmToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
-            response.Headers.Add("TOKENSEXPIRE", "TRUE");
+                    var (schema, host) = globalOptions.GetSchemaAndHostApi();
+
+                    var Url = GetUrlHelper();
+
+                    var emailConfirmUrl = Url.Action("Confirm", "Auth",
+                        new {uid = user.Id, token = confirmToken},
+                        schema, host);
+
+                    try
+                    {
+                        await emailSender.SendEmailAsync(model.Email, "Please confirm your account",
+                            $"Please confirm your account by clicking this <a href=\"{emailConfirmUrl}\">link</a>."
+                        );
+                    }
+                    catch (Exception e)
+                    {
+                        return new RegisterResult
+                        {
+                            Succeeded = false,
+                            Error = new ErrorViewModel
+                            {
+                                ErrorName = "Can not send email",
+                                ErrorText = "Ошибка отправки email"
+                            }
+                        };
+                    }
+
+
+                    logger.LogInformation($"Sent email confirmation email (id: {user.Id})");
+                }
+
+                logger.LogInformation($"User logged in (id: {user.Id})");
+
+                transaction.Complete();
+
+                return new RegisterResult
+                {
+                    Succeeded = true
+                };
+            }
+        }
+
+        private IUrlHelper GetUrlHelper()
+        {
+            ActionContext context = accessor.ActionContext;
+            return urlHelperFactory.GetUrlHelper(context);
         }
     }
 }

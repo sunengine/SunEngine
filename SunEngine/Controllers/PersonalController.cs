@@ -2,7 +2,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SunEngine.Commons.Services;
 using SunEngine.Managers;
 using SunEngine.Presenters;
 using SunEngine.Security;
@@ -17,19 +16,19 @@ namespace SunEngine.Controllers
     public class PersonalController : BaseController
     {
         private readonly PersonalManager personalManager;
-        private readonly AuthService authService;
+        private readonly JwtService jwtService;
         private readonly PersonalPresenter personalPresenter;
 
         public PersonalController(
             PersonalManager personalManager, 
-            AuthService authService, 
+            JwtService jwtService, 
             PersonalPresenter personalPresenter,
             MyUserManager userManager,
             IUserGroupStore userGroupStore)
             : base(userGroupStore, userManager)
         {
             this.personalManager = personalManager;
-            this.authService = authService;
+            this.jwtService = jwtService;
             this.personalPresenter = personalPresenter;
         }
 
@@ -81,7 +80,7 @@ namespace SunEngine.Controllers
 
             Response.Headers.Clear(); 
             
-            await authService.RenewSecurityTokensAsync(Response, user, User.SessionId);
+            await jwtService.RenewSecurityTokensAsync(Response, user, User.SessionId);
 
             return Ok();
         }

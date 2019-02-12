@@ -39,13 +39,13 @@ namespace SunEngine.Services
                 return ".jpg";
             if (ext == ".jpg" || ext == ".png" || ext == ".gif")
                 return ext;
-            if (imagesOptions.AllowSVGUpload && ext == ".svg")
+            if (imagesOptions.AllowSvgUpload && ext == ".svg")
                 return ext;
 
             return null;
         }
 
-        public async Task<FileAndDir> SaveImageAsync(IFormFile file, ResizeOptions ro)
+        public async Task<FileAndDir> SaveImageAsync(IFormFile file, ResizeOptions resizeOptions)
         {
             var ext = GetAllowedExtension(file.FileName);
             if (ext == null)
@@ -82,7 +82,7 @@ namespace SunEngine.Services
                 using (var stream = file.OpenReadStream())
                 using (Image<Rgba32> image = Image.Load(stream))
                 {
-                    image.Mutate(x => x.Resize(ro));
+                    image.Mutate(x => x.Resize(resizeOptions));
                     image.Save(fullFileName);
                 }
             }

@@ -4,7 +4,7 @@
 
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
-Версия: 0.8.6
+Версия: 0.8.10
 
 Демо: [demo.sunengine.site](http://demo.sunengine.site)  
 
@@ -85,7 +85,7 @@
    - [Linq2db](https://github.com/linq2db/linq2db) в проектах `SunEngine`,`SunEngine.Commons`,`DataSeedDev`.
  - Прописать поддержку в файле `Migrations/Main.cs`.  
    Строку `.AddPostgres()` заменяем на нужное.
- - На данный момент тестировалось с Postgres и MySql.
+ - На данный момент тестировалось с Postgres, MySql, SQLite.
 
 
 #### Лицензия

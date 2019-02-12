@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <q-list class="menu-list">
@@ -43,7 +44,8 @@
     },
     methods: {
       logout() {
-        this.$store.dispatch('doLogout').then(x => {
+        this.$store.dispatch('request', {url: '/Auth/Logout'})
+          .then(x => {
           this.$q.notify({
             message: `Вы вышли`,
             timeout: 2000,

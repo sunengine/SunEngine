@@ -1,5 +1,5 @@
 <template>
-  <QPage class="flex full-center">
+  <QPage class="flex middle">
     <q-alert v-if="success" type="positive" icon="fas fa-check-circle">
       Ваша почта успешно подтверждена.
       <router-link :to="{name: 'Login'}">Войти</router-link>

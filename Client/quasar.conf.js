@@ -30,9 +30,9 @@ module.exports = function (ctx) {
         cfg.resolve.modules.push(path.resolve('./src/components'));
         cfg.resolve.modules.push(path.resolve('./src/classes'));
         if(ctx.dev) {
-          cfg.plugins.push( new CopyWebpackPlugin([{from: 'configDev.js', to:'config.js'}]));
+          cfg.plugins.push( new CopyWebpackPlugin([{from: 'config.dev.js', to:'config.js'}]));
         } else {
-          cfg.plugins.push( new CopyWebpackPlugin([{from: 'configProd.js',to:'config.js'}]));
+          cfg.plugins.push( new CopyWebpackPlugin([{from: 'config.prod.js',to:'config.js'}]));
         }
       }
     },
@@ -73,6 +73,8 @@ module.exports = function (ctx) {
         'QSpinnerGears',
         'QPopover',
         'QChip',
+        'QCollapsible',
+        'QSelect'
       ],
       directives: [
         'Ripple',

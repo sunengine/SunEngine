@@ -4,29 +4,27 @@ import {setToken} from "services/token";
 import {store} from "store";
 import {removeToken} from "services/token";
 
-export function makeLogin (state,data) {
+export function makeLogin(state, data) {
 
-  Object.assign(state,data);
+  Object.assign(state, data);
 
-  if(data.permanent) {
+  if (data.permanent) {
     setToken(data.tokens);
   }
 
 }
 
-export function makeLogout (state) {
+export function makeLogout(state) {
   state.tokens = null;
   state.user = null;
   state.userInfo = null;
   state.userGroup = 'Unregistered';
-  state.userGroups= ['Unregistered'];
+  state.userGroups = ['Unregistered'];
   store.state.categories.root = null;
   store.state.categories.all = null;
-
-  //removeToken();
 }
 
-export function setUserInfo (state,data) {
+export function setUserInfo(state, data) {
   const userInfo = {
     photo: imagePath(data.photo),
     avatar: imagePath(data.avatar),

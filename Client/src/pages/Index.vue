@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex column full-center">
+  <q-page class="flex column middle">
     <h1>Demo</h1>
     <div class="p1">
       <p>Каждые несколько часов данные сбрасываются.</p>

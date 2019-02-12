@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 
 import auth from './auth'
 import categories from './categories'
-import options from './options'
 import extensions from './extensions'
 
 import {makeUserDataFromToken} from "services/auth";
@@ -34,15 +33,14 @@ export default function (/* { ssrContext } */) {
     actions: {
       async request(context, data) {
         return request(data.url, data.data, data.sendAsJson)
-          .then(rez => {
+          .then(async rez => {
             if (rez.headers.tokensexpire) {
-              store.commit('makeLogout');
+              await store.dispatch('doLogout');
             }
             return rez;
-          }).catch(rez => {
-
+          }).catch(async rez => {
             if (rez.response.headers.tokensexpire) {
-              store.commit('makeLogout');
+              await store.dispatch('doLogout');
             }
             throw rez;
           })
@@ -68,7 +66,6 @@ export default function (/* { ssrContext } */) {
     modules: {
       auth,
       categories,
-      options,
       extensions
     }
   });

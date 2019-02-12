@@ -10,22 +10,26 @@ namespace SunEngine.Services
 {
     public class EmailSender : IEmailSender
     {
+        private readonly EmailSenderOptions options;
+
         public EmailSender(IOptions<EmailSenderOptions> optionsAccessor)
         {
-            Options = optionsAccessor.Value;
+            options = optionsAccessor.Value;
         }
 
-        public EmailSenderOptions Options { get; }
 
         public async Task SendEmailAsync(string toEmail, string subject, string htmlMessage, string textMessage = null)
         {
-            MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress(this.Options.EmailFromAddress, this.Options.EmailFromName);
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress(options.EmailFromAddress, options.EmailFromName),
+                Body = textMessage,
+                BodyEncoding = Encoding.UTF8,
+                Subject = subject,
+                SubjectEncoding = Encoding.UTF8
+            };
             mailMessage.To.Add(toEmail);
-            mailMessage.Body = textMessage;
-            mailMessage.BodyEncoding = Encoding.UTF8;
-            mailMessage.Subject = subject;
-            mailMessage.SubjectEncoding = Encoding.UTF8;
+
 
             if (!string.IsNullOrEmpty(htmlMessage))
             {
@@ -35,22 +39,14 @@ namespace SunEngine.Services
             }
 
 
-            using (SmtpClient client = new SmtpClient(this.Options.Host, this.Options.Port))
+            using (SmtpClient client = new SmtpClient(options.Host, options.Port)
             {
-                client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential(this.Options.Username, this.Options.Password);
-                client.EnableSsl = this.Options.UseSSL;
-                
-                try
-                {
-                    await client.SendMailAsync(mailMessage);
-                    //client.Send(mailMessage);
-                }
-                catch (Exception e)
-                {
-
-                }
-
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(options.Username, options.Password),
+                EnableSsl = options.UseSSL
+            })
+            {
+                await client.SendMailAsync(mailMessage);
             }
         }
     }

@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using SunEngine.Commons.DataBase;
+using SunEngine.DataBase;
 using SunEngine.Stores;
 
 namespace SunEngine.Configuration.AddServices

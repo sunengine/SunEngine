@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex column full-center center">
+  <q-page class="flex column middle center">
     <img v-if="photo" width="300" :src="photo"/>
     <br/>
     <input ref="file" type="file" accept="image/*" style="display:none" @change="handleFile"/>

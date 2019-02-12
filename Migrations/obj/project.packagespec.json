@@ -46,6 +46,14 @@
           "target": "Package",
           "version": "[3.1.3, )"
         },
+        "FluentMigrator.Runner.SQLite": {
+          "target": "Package",
+          "version": "[3.1.3, )"
+        },
+        "Microsoft.Data.Sqlite": {
+          "target": "Package",
+          "version": "[2.2.1, )"
+        },
         "Microsoft.Extensions.Configuration.Json": {
           "target": "Package",
           "version": "[2.2.0, )"
@@ -63,6 +71,10 @@
         "Npgsql": {
           "target": "Package",
           "version": "[4.0.4, )"
+        },
+        "SQLitePCLRaw.bundle_green": {
+          "target": "Package",
+          "version": "[1.1.13, )"
         }
       },
       "imports": [

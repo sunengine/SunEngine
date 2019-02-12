@@ -1,6 +1,6 @@
 <template>
-  <q-page padding class="column justify-center" style="width:500px">
-    <template v-if="!done">
+  <q-page padding class="flex middle">
+    <div class="center-form" v-if="!done">
       <q-field icon="fas fa-user" :error="$v.userName.$invalid && !start"
                :error-label="userNameErrorLabel">
         <q-input v-model="userName" float-label="Имя пользователя"/>
@@ -40,7 +40,7 @@
           </span>
         </q-btn>
       </q-field>
-    </template>
+    </div>
     <q-alert v-else type="positive" icon="email">
       Сообщение с ссылкой для регистрации отправленно на Email
     </q-alert>
@@ -49,7 +49,7 @@
 
 <script>
   import LoaderSent from "LoaderSent";
-  import {required, minLength, sameAs, email} from 'vuelidate/lib/validators'
+  import {required, minLength, maxLength, sameAs, email} from 'vuelidate/lib/validators'
   import Page from "Page";
 
   export default {
@@ -73,11 +73,13 @@
     validations: {
       userName: {
         required,
-        minLength: minLength(3)
+        minLength: minLength(3),
+        maxLength: maxLength(config.DbColumnSizes.Users_UserName)
       },
       email: {
         required,
-        email
+        email,
+        maxLength: maxLength(config.DbColumnSizes.Users_Email)
       },
       password: {
         required,
@@ -98,12 +100,16 @@
           return "Введите имя пользователя";
         if (!this.$v.userName.minLength)
           return "Имя пользователя должно быть не менее чем из 3 букв";
+        if (!this.$v.userName.maxLength)
+          return `Имя пользователя должно состоять не более чем из ${config.DbColumnSizes.Users_UserName} символов`;
       },
       emailErrorLabel() {
         if (!this.$v.email.required)
           return "Введите Email";
         if (!this.$v.email.email)
           return "Неправильная сигнатура Email";
+        if (!this.$v.email.maxLength)
+          return `Email должен состоять не более чем из ${config.DbColumnSizes.Users_Email} символов`;
       },
       passwordErrorLabel() {
         if (!this.$v.password.required)
@@ -175,7 +181,7 @@
   @import '~variables';
 
   .q-field {
-    height: 78px;
+    height: 70px;
   }
 
   .wait-msg {

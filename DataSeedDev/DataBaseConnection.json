@@ -1,0 +1,10 @@
+{
+  "DataBaseConnection": {
+    "Provider": "PostgreSQL.9.5",
+    "ConnectionString": "Host=localhost;Database=SunEngineDb;Username=postgres;Password=password"
+  },
+  "DataBaseConnectionSQLiteExample": {
+    "Provider": "SQLite",
+    "ConnectionString": "Data Source=../SunEngine/mydb.db"
+  }
+}

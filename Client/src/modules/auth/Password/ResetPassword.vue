@@ -1,6 +1,6 @@
 <template>
-  <q-page padding class="column justify-center" style="width:500px">
-    <template v-if="!done">
+  <q-page padding class="flex middle">
+    <div class="center-form" v-if="!done">
       <q-field icon="fas fa-envelope" :error="$v.email.$invalid && !start"
                :error-label="!$v.email.required ? 'Необходимо ввести email' : 'Неправильный формат email'">
         <q-input v-model="email" type="email" float-label="Введите email"/>
@@ -25,7 +25,7 @@
           </span>
         </q-btn>
       </q-field>
-    </template>
+    </div>
     <q-alert v-else type="positive" icon="email">
       Сообщение с ссылой для сброса пароля отправленно на email
     </q-alert>

@@ -3,7 +3,7 @@ using SunEngine.Services;
 
 namespace SunEngine.Configuration.AddServices
 {
-    public static class AddImagesServicesExtensions
+    internal static class AddImagesServicesExtensions
     {
         public static void AddImagesServices(this IServiceCollection services)
         {

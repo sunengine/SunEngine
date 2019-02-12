@@ -1,5 +1,5 @@
 <template>
-  <QPage class="flex column full-center">
+  <QPage class="flex column middle">
     <template v-if="userInfo">
       <div class="q-mb-lg text-grey-8">Информация о вас на странице вашего профиля.</div>
 

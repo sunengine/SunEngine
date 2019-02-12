@@ -4,7 +4,7 @@ using SunEngine.Configuration.Options;
 
 namespace SunEngine.Configuration.AddServices
 {
-    public static class AddOptionsExtensions
+    internal static class AddOptionsExtensions
     {
         public static void AddOptions(this IServiceCollection services, IConfiguration configuration)
         {
@@ -15,7 +15,7 @@ namespace SunEngine.Configuration.AddServices
             services.Configure<BlogOptions>(configuration.GetSection("Blog"));
             services.Configure<ArticlesOptions>(configuration.GetSection("Articles"));
             services.Configure<ForumOptions>(configuration.GetSection("Forum"));
-            services.Configure<MaterialOptions>(configuration.GetSection("Material"));
+            services.Configure<MaterialOptions>(configuration.GetSection("Materials"));
             services.Configure<MessagesOptions>(configuration.GetSection("Messages"));
             services.Configure<ImagesOptions>(configuration.GetSection("Images"));
             services.Configure<DataBaseConnectionOptions>(configuration.GetSection("DataBaseConnection"));

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
-using SunEngine.Commons.Models;
+using SunEngine.Models;
 
 namespace DataSeedDev.Seeder
 {

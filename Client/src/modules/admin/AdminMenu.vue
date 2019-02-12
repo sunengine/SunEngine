@@ -8,13 +8,17 @@
       <q-icon name="fas fa-users-cog" size="16px" class="on-left"/>
       Права групп пользователей
     </q-item>
+    <q-item :to="{name: 'Groups'}" :multiline="false" link>
+      <q-icon name="fas fa-users" size="16px" class="on-left"/>
+      Группы пользователей
+    </q-item>
   </QList>
 </template>
 
 <script>
-    export default {
-        name: "AdminMenu"
-    }
+  export default {
+    name: "AdminMenu"
+  }
 </script>
 
 <style scoped>

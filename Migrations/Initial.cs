@@ -13,8 +13,8 @@ namespace Migrations
         {
             Create.Table("Categories")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("Name").AsString(256).NotNullable().Indexed()
-                .WithColumn("Title").AsMaxString().NotNullable()
+                .WithColumn("Name").AsString(DbColumnSizes.Categories_Name).NotNullable().Indexed()
+                .WithColumn("Title").AsString(DbColumnSizes.Categories_Title).NotNullable()
                 .WithColumn("Description").AsMaxString().Nullable()
                 .WithColumn("Header").AsMaxString().Nullable()
                 .WithColumn("AreaRoot").AsBoolean().NotNullable()
@@ -28,10 +28,10 @@ namespace Migrations
 
             Create.Table("AspNetUsers")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("UserName").AsString(256).Nullable()
-                .WithColumn("NormalizedUserName").AsString(256).Unique().Nullable()
-                .WithColumn("Email").AsString(256).Nullable()
-                .WithColumn("NormalizedEmail").AsString(256).Unique().Nullable()
+                .WithColumn("UserName").AsString(DbColumnSizes.Users_UserName).NotNullable()
+                .WithColumn("NormalizedUserName").AsString(DbColumnSizes.Users_UserName).Unique().Nullable()
+                .WithColumn("Email").AsString(DbColumnSizes.Users_Email).Nullable()
+                .WithColumn("NormalizedEmail").AsString(DbColumnSizes.Users_Email).Unique().Nullable()
                 .WithColumn("EmailConfirmed").AsBoolean().NotNullable()
                 .WithColumn("PasswordHash").AsMaxString().Nullable()
                 .WithColumn("SecurityStamp").AsMaxString().Nullable()
@@ -42,10 +42,10 @@ namespace Migrations
                 .WithColumn("LockoutEnd").AsMyDateTime().Nullable()
                 .WithColumn("LockoutEnabled").AsBoolean().NotNullable()
                 .WithColumn("AccessFailedCount").AsInt16().NotNullable()
-                .WithColumn("Link").AsMaxString().Nullable()
+                .WithColumn("Link").AsString(DbColumnSizes.Users_Link).Nullable()
                 .WithColumn("Information").AsMaxString().Nullable()
-                .WithColumn("Photo").AsMaxString().Nullable()
-                .WithColumn("Avatar").AsMaxString().Nullable();
+                .WithColumn("Photo").AsString(DbColumnSizes.FileNameWithDirSize).Nullable()
+                .WithColumn("Avatar").AsString(DbColumnSizes.FileNameWithDirSize).Nullable();
 
 
             Create.Table("UserBanedUnit")
@@ -57,8 +57,8 @@ namespace Migrations
 
             Create.Table("Materials")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("Name").AsString(16).Nullable().Indexed()
-                .WithColumn("Title").AsMaxString().NotNullable()
+                .WithColumn("Name").AsString(DbColumnSizes.Materials_Name).Nullable().Indexed()
+                .WithColumn("Title").AsString(DbColumnSizes.Materials_Title).NotNullable()
                 .WithColumn("Description").AsMaxString().Nullable()
                 .WithColumn("Preview").AsMaxString().Nullable()
                 .WithColumn("Text").AsMaxString().NotNullable()
@@ -92,7 +92,7 @@ namespace Migrations
 
             Create.Table("Tags")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("Name").AsString(256).Unique().NotNullable()
+                .WithColumn("Name").AsString(DbColumnSizes.Tags_Name).Unique().NotNullable()
                 .WithColumn("GroupId").AsInt32().Nullable().Indexed();
 
 
@@ -105,10 +105,10 @@ namespace Migrations
 
             Create.Table("AspNetRoles")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("Name").AsString(256).Nullable()
-                .WithColumn("NormalizedName").AsString(256).Unique().Nullable()
+                .WithColumn("Name").AsString(DbColumnSizes.Roles_Name).Nullable()
+                .WithColumn("NormalizedName").AsString(DbColumnSizes.Roles_Name).Unique().Nullable()
                 .WithColumn("ConcurrencyStamp").AsMaxString().Nullable()
-                .WithColumn("Title").AsMaxString().Nullable()
+                .WithColumn("Title").AsString(DbColumnSizes.Roles_Title).Nullable()
                 .WithColumn("SortNumber").AsInt32().NotNullable()
                 .WithColumn("IsSuper").AsBoolean().NotNullable();
 
@@ -122,7 +122,7 @@ namespace Migrations
 
             Create.Table("OperationKeys")
                 .WithColumn("OperationKeyId").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("Name").AsString(256).NotNullable().Indexed();
+                .WithColumn("Name").AsString(DbColumnSizes.OperationKey_Name).NotNullable().Indexed();
 
 
             Create.Table("CategoryAccesses")
@@ -144,8 +144,8 @@ namespace Migrations
                 .WithColumn("Id").AsInt64().PrimaryKey().Identity().NotNullable()
                 .WithColumn("UserId").AsInt32().NotNullable().Indexed()
                 .ForeignKey("FK_LongSession_AspNetUsers_Id", "AspNetUsers", "Id")
-                .WithColumn("LongToken1").AsString(16).NotNullable()
-                .WithColumn("LongToken2").AsString(16).NotNullable()
+                .WithColumn("LongToken1").AsString(DbColumnSizes.LongSessions_LongToken1).NotNullable()
+                .WithColumn("LongToken2").AsString(DbColumnSizes.LongSessions_LongToken2).NotNullable()
                 .WithColumn("DeviceInfo").AsMaxString().NotNullable()
                 .WithColumn("ExpirationDate").AsMyDateTime().NotNullable().Indexed();
 
@@ -153,6 +153,11 @@ namespace Migrations
                 .OnColumn("UserId").Ascending()
                 .OnColumn("LongToken1").Ascending()
                 .OnColumn("LongToken2").Ascending();
+
+            Create.Table("BlackListShortTokens")
+                .WithColumn("TokenId").AsString(DbColumnSizes.BlackListShortToken_TokenId).PrimaryKey().NotNullable()
+                .WithColumn("Expire").AsMyDateTime().Indexed().NotNullable();
+
         }
 
 
@@ -160,6 +165,26 @@ namespace Migrations
         {
             throw new NotImplementedException();
         }
+    }
+    
+    internal static class DbColumnSizes
+    {
+        public const int Categories_Name = 64;
+        public const int Categories_Title = 256;
+        public const int Users_UserName = 64;
+        public const int Users_Email = 64;
+        public const int Users_Link = 32;
+        public const int FileNameWithDirSize = 40;
+        public const int Materials_Name = 32;
+        public const int Materials_Title = 256;
+        public const int Tags_Name = 64;
+        public const int Roles_Name = 64;
+        public const int Roles_Title = 64;
+        public const int OperationKey_Name = 100;
+        public const int LongSessions_LongToken1 = 16;
+        public const int LongSessions_LongToken2 = 16;
+        public const int BlackListShortToken_TokenId = 16;
+
     }
 
     internal static class MigratorExtensions
@@ -175,8 +200,8 @@ namespace Migrations
         {
             if (!DBProvider.IsPostgre)
                 return createTableColumnAsTypeSyntax.AsDateTime();
-            else
-                return createTableColumnAsTypeSyntax.AsCustom("TimestampTz");
+            
+            return createTableColumnAsTypeSyntax.AsCustom("TimestampTz");
         }
     }
 }

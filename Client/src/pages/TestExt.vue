@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex full-center">
+  <q-page class="flex middle">
     <div>
       <h4 class="text-lime-8">Расширения</h4>
       <div class="q-mb-lg text-orange-8">Тестируем тут.</div>
