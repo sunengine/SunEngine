@@ -3,7 +3,7 @@ using SunEngine.Security.Authentication;
 
 namespace SunEngine.Configuration.AddServices
 {
-    internal static class AddAuthenticationExtensions
+    public static class AddAuthenticationExtensions
     {
         public static void AddAuthentication(this IServiceCollection services)
         {

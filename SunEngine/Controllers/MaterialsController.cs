@@ -49,7 +49,7 @@ namespace SunEngine.Controllers
             }
 
 
-            MaterialViewModel materialViewModel = await materialsPresenter.GetViewModelAsync(id);
+            var materialViewModel = await materialsPresenter.GetViewModelAsync(id);
 
             return Json(materialViewModel);
         }

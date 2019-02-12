@@ -91,7 +91,7 @@ namespace SunEngine.Controllers
         [HttpPost]
         public async Task<IActionResult> Get(int id)
         {
-            (MessageViewModel messageViewModel,int categoryId)  = await messagesPresenter.GetViewModelAsync(id);
+            (MessageViewModel messageViewModel,int categoryId)  = await messagesPresenter.GetMessageAsync(id);
             if (messageViewModel == null)
             {
                 return BadRequest();

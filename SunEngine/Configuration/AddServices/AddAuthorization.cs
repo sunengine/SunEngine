@@ -5,7 +5,7 @@ using SunEngine.Security.Authorization;
 
 namespace SunEngine.Configuration.AddServices
 {
-    internal static class AddAuthorizationExtensions
+    public static class AddAuthorizationExtensions
     {
         public static void AddAuthorization(this IServiceCollection services)
         {

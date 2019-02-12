@@ -3,7 +3,7 @@ using SunEngine.Services;
 
 namespace SunEngine.Configuration.AddServices
 {
-    internal static class AddCryptServicesExtensions
+    public static class AddCryptServicesExtensions
     {
         public static void AddCryptServices(this IServiceCollection services)
         {

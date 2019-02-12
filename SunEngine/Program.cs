@@ -37,7 +37,7 @@ namespace SunEngine
                     config.AddJsonFile(mainSettingsFile, optional: false, reloadOnChange: false);
                 });
 
-        private static string GetEnvSuffix(IHostingEnvironment env)
+        public static string GetEnvSuffix(IHostingEnvironment env)
         {
             if (env.IsDevelopment()) return "dev";
             if (env.IsProduction()) return "prod";

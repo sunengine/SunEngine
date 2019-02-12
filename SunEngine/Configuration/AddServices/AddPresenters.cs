@@ -3,7 +3,7 @@ using SunEngine.Presenters;
 
 namespace SunEngine.Configuration.AddServices
 {
-    internal static class AddPresentersExtensions
+    public static class AddPresentersExtensions
     {
         public static void AddPresenters(this IServiceCollection services)
         {

@@ -66,26 +66,26 @@ namespace SunEngine.Controllers
             if (!CheckAllowedMaxImageSize(file.Length))
                 return MaxImageSizeFailResult();
 
-            ResizeOptions roPhoto = new ResizeOptions
+            ResizeOptions resizeOptionsPhoto = new ResizeOptions
             {
                 Position = AnchorPositionMode.Center,
                 Mode = ResizeMode.Crop,
                 Size = new Size(imagesOptions.PhotoMaxWidthPixels, imagesOptions.PhotoMaxWidthPixels),
             };
-            FileAndDir fileAndDirPhoto = await imagesService.SaveImageAsync(file, roPhoto);
+            FileAndDir fileAndDirPhoto = await imagesService.SaveImageAsync(file, resizeOptionsPhoto);
             if (fileAndDirPhoto == null)
             {
                 return BadRequest();
             }
 
 
-            ResizeOptions roAvatar = new ResizeOptions
+            ResizeOptions resizeOptionsAvatar = new ResizeOptions
             {
                 Position = AnchorPositionMode.Center,
                 Mode = ResizeMode.Crop,
-                Size = new Size(imagesOptions.PhotoMaxWidthPixels, imagesOptions.PhotoMaxWidthPixels),
+                Size = new Size(imagesOptions.AvatarSizePixels, imagesOptions.AvatarSizePixels),
             };
-            FileAndDir fileAndDirAvatar = await imagesService.SaveImageAsync(file, roAvatar);
+            FileAndDir fileAndDirAvatar = await imagesService.SaveImageAsync(file, resizeOptionsAvatar);
             if (fileAndDirAvatar == null)
             {
                 return BadRequest();

@@ -15,7 +15,7 @@ namespace SunEngine.Presenters
         }
         
         public async Task<(MessageViewModel messageViewModel, int categoryId)>
-            GetViewModelAsync(int messageId)
+            GetMessageAsync(int messageId)
         {
             var rez = await db.Messages.Where(x => x.Id == messageId).Select(x =>
                 new
