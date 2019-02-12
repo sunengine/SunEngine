@@ -62,6 +62,16 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
     </ItemGroup>
+    
+
+   
+    
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Settings\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="Settings\appsettings.json" />
+      <_ContentIncludedByDefault Remove="Settings\SunEngine.json" />
+    </ItemGroup>
 
 
   <PropertyGroup>
