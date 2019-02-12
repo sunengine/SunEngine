@@ -9,11 +9,11 @@ namespace SunEngine.Presenters
 {
     public class CategoriesPresenter
     {
-        private readonly OperationKeysContainer OperationKeys;
+        protected readonly OperationKeysContainer OperationKeys;
 
-        private readonly IAuthorizationService authorizationService;
-        private readonly ICategoriesStore categoriesStore;
-        private readonly IUserGroupStore userGroupStore;
+        protected readonly IAuthorizationService authorizationService;
+        protected readonly ICategoriesStore categoriesStore;
+        protected readonly IUserGroupStore userGroupStore;
 
         public CategoriesPresenter(IUserGroupStore userGroupStore,
             ICategoriesStore categoriesStore,
@@ -27,13 +27,13 @@ namespace SunEngine.Presenters
             this.userGroupStore = userGroupStore;
         }
 
-        public CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(
+        public virtual CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(
             IReadOnlyDictionary<string, UserGroupStored> userGroups)
         {
             return CategoryInfoWithAccessesFromCategory(categoriesStore.RootCategory, userGroups);
         }
 
-        public CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(Category category,
+        public virtual CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(Category category,
             IReadOnlyDictionary<string, UserGroupStored> userGroups)
         {
             if (!authorizationService.HasAccess(userGroups, category,
@@ -84,7 +84,7 @@ namespace SunEngine.Presenters
             return categoryInfo;
         }
 
-        public Dictionary<string, bool> DetectPersonalAccesses(Category category,
+        public virtual Dictionary<string, bool> DetectPersonalAccesses(Category category,
             IReadOnlyDictionary<string, UserGroupStored> userGroups)
         {
             Dictionary<string, bool> dict = new Dictionary<string, bool>(userGroupStore.AllOperationKeys.Count);

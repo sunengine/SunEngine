@@ -13,7 +13,7 @@ namespace SunEngine.Presenters
         {
         }
 
-        public Task<MaterialViewModel> GetViewModelAsync(int id)
+        public virtual Task<MaterialViewModel> GetViewModelAsync(int id)
         {
             return db.Materials.Where(x => x.Id == id).Select(x =>
                 new MaterialViewModel

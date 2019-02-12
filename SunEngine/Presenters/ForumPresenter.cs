@@ -14,7 +14,7 @@ namespace SunEngine.Presenters
         {
         }
 
-        public Task<IPagedList<TopicInfoViewModel>> GetNewTopics(IList<int> categoryIds, int page,int pageSize,int maxPages)
+        public virtual Task<IPagedList<TopicInfoViewModel>> GetNewTopics(IList<int> categoryIds, int page,int pageSize,int maxPages)
         {
             
             return db.MaterialsNotDeleted.GetPagedListMaxAsync(
@@ -41,7 +41,7 @@ namespace SunEngine.Presenters
                 maxPages);
         }
         
-        public Task<IPagedList<TopicInfoViewModel>> GetThread(int categoryId, int page,int pageSize)
+        public virtual Task<IPagedList<TopicInfoViewModel>> GetThread(int categoryId, int page,int pageSize)
         {
             return db.MaterialsNotDeleted.GetPagedListAsync(
                 x => new TopicInfoViewModel

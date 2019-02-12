@@ -10,24 +10,20 @@ namespace SunEngine.Presenters
 {
     public class ProfilePresenter : DbService
     {
-        private readonly IUserGroupStore userGroupStore;
+        protected readonly IUserGroupStore userGroupStore;
         
         public ProfilePresenter(DataBaseConnection db, IUserGroupStore userGroupStore) : base(db)
         {
             this.userGroupStore = userGroupStore;
         }
         
-        public async Task<ProfileViewModel> GetProfileAsync(string link, int? viewerUserId)
+        public virtual async Task<ProfileViewModel> GetProfileAsync(string link, int? viewerUserId)
         {
             IQueryable<User> query;
             if (int.TryParse(link, out int id))
-            {
                 query = db.Users.Where(x => x.Id == id);
-            }
             else
-            {
                 query = db.Users.Where(x => x.Link == link);
-            }
 
             if (viewerUserId.HasValue)
             {
@@ -50,21 +46,19 @@ namespace SunEngine.Presenters
 
                 return user;
             }
-            else
-            {
-                return await query.Select(x =>
-                    new ProfileViewModel
-                    {
-                        Id = x.Id,
-                        Name = x.UserName,
-                        Information = x.Information,
-                        Link = x.Link,
-                        Photo = x.Photo,
-                        NoBannable = true,
-                        HeBannedMe = false,
-                        IBannedHim = false
-                    }).FirstOrDefaultAsync();
-            }
+
+            return await query.Select(x =>
+                new ProfileViewModel
+                {
+                    Id = x.Id,
+                    Name = x.UserName,
+                    Information = x.Information,
+                    Link = x.Link,
+                    Photo = x.Photo,
+                    NoBannable = true,
+                    HeBannedMe = false,
+                    IBannedHim = false
+                }).FirstOrDefaultAsync();
         }
     }
     

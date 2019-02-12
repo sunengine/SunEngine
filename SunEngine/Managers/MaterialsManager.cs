@@ -12,9 +12,9 @@ namespace SunEngine.Managers
 {
     public class MaterialsManager : DbService
     {
-        private readonly TagsManager tagsManager;
-        private readonly Sanitizer sanitizer;
-        private readonly MaterialOptions materialOptions;
+        protected readonly TagsManager tagsManager;
+        protected readonly Sanitizer sanitizer;
+        protected readonly MaterialOptions materialOptions;
 
 
         public MaterialsManager(DataBaseConnection db,
@@ -28,17 +28,17 @@ namespace SunEngine.Managers
         }
 
 
-        public async Task<int?> GetCategoryIdIfHasMaterialAsync(int id)
+        public virtual async Task<int?> GetCategoryIdIfHasMaterialAsync(int id)
         {
             return await db.Materials.Where(x => x.Id == id).Select(x => x.Category.Id).FirstOrDefaultAsync();
         }
 
-        public Task<Material> GetAsync(int id)
+        public virtual Task<Material> GetAsync(int id)
         {
             return db.Materials.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task InsertAsync(Material material, string tags)
+        public virtual async Task InsertAsync(Material material, string tags)
         {
             material.Text = sanitizer.Sanitize(material.Text);
 
@@ -51,7 +51,7 @@ namespace SunEngine.Managers
             await tagsManager.MaterialCreateAndSetTagsAsync(material, tags);
         }
 
-        public async Task UpdateAsync(Material material, string tags)
+        public virtual async Task UpdateAsync(Material material, string tags)
         {
             material.Text =
                 sanitizer.Sanitize(material
@@ -65,12 +65,12 @@ namespace SunEngine.Managers
             await tagsManager.MaterialCreateAndSetTagsAsync(material, tags);
         }
 
-        public async Task MoveToTrashAsync(Material material)
+        public virtual async Task MoveToTrashAsync(Material material)
         {
             await db.Materials.Where(x => x.Id == material.Id).Set(x => x.IsDeleted, true).UpdateAsync();
         }
 
-        private async Task DetectAndSetLastMessageAndCountAsync(Material material)
+        protected virtual async Task DetectAndSetLastMessageAndCountAsync(Material material)
         {
             var messagesQuery = db.Messages.Where(x => x.MaterialId == material.Id);
 
@@ -87,7 +87,7 @@ namespace SunEngine.Managers
                 .UpdateAsync();
         }
 
-        public Task DetectAndSetLastMessageAndCountAsync(int materialId)
+        public virtual Task DetectAndSetLastMessageAndCountAsync(int materialId)
         {
             return DetectAndSetLastMessageAndCountAsync(db.Materials.FirstOrDefault(x => x.Id == materialId));
         }

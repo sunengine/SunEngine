@@ -14,7 +14,7 @@ namespace SunEngine.Presenters
         {
         }
         
-        public async Task<(MessageViewModel messageViewModel, int categoryId)>
+        public virtual async Task<(MessageViewModel messageViewModel, int categoryId)>
             GetMessageAsync(int messageId)
         {
             var rez = await db.Messages.Where(x => x.Id == messageId).Select(x =>
@@ -39,7 +39,7 @@ namespace SunEngine.Presenters
             return (rez.messageViewModel, rez.categoryId);
         }
 
-        public Task<List<MessageViewModel>> GetMaterialMessagesAsync(int materialId)
+        public virtual Task<List<MessageViewModel>> GetMaterialMessagesAsync(int materialId)
         {
             return db.MessagesNotDeleted.Where(x => x.MaterialId == materialId)
                 .OrderBy(x => x.PublishDate)

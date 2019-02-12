@@ -14,7 +14,7 @@ namespace SunEngine.Presenters
         {
         }
 
-        public Task<IPagedList<PostViewModel>> GetPostsAsync(int categoryId, int page, int pageSize)
+        public virtual Task<IPagedList<PostViewModel>> GetPostsAsync(int categoryId, int page, int pageSize)
         {
             return db.MaterialsNotDeleted.GetPagedListAsync(
                 x => new PostViewModel

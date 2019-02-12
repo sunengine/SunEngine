@@ -14,7 +14,7 @@ namespace SunEngine.Managers
 {
     public class MyUserManager : UserManager<User>
     {
-        private readonly DataBaseConnection db;
+        protected readonly DataBaseConnection db;
         
         public MyUserManager(DataBaseConnection db, IUserStore<User> store, IOptions<IdentityOptions> optionsAccessor, IPasswordHasher<User> passwordHasher, IEnumerable<IUserValidator<User>> userValidators, IEnumerable<IPasswordValidator<User>> passwordValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<User>> logger) : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
         {
@@ -22,31 +22,31 @@ namespace SunEngine.Managers
             KeyNormalizer = Normalizer.Singleton;
         }    
         
-        public Task ChangeEmailAsync(int userId, string email)
+        public virtual Task ChangeEmailAsync(int userId, string email)
         {
             return db.Users.Where(x => x.Id == userId).Set(x => x.Email, email)
                 .Set(x => x.NormalizedEmail, Normalizer.Singleton.Normalize(email))
                 .UpdateAsync();
         }
 
-        public Task<bool> CheckEmailInDbAsync(string email, int userId)
+        public virtual Task<bool> CheckEmailInDbAsync(string email, int userId)
         {
             return db.Users.AnyAsync(x => x.NormalizedEmail == Normalizer.Singleton.Normalize(email) && x.Id != userId);
         }
 
-        public LongSession FindLongSession(LongSession longSession)
+        public virtual LongSession FindLongSession(LongSession longSession)
         {
             return db.LongSessions.FirstOrDefault(x => x.UserId == longSession.UserId &&
                                                        x.LongToken1 == longSession.LongToken1 &&
                                                        x.LongToken2 == longSession.LongToken2);
         }
 
-        public Task<User> FindByIdAsync(int id)
+        public virtual Task<User> FindByIdAsync(int id)
         {
             return db.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<bool> IsUserInRoleAsync(int userId, string roleName)
+        public virtual Task<bool> IsUserInRoleAsync(int userId, string roleName)
         {
             var normalizedRoleName = Normalizer.Singleton.Normalize(roleName);
             return db.UserToGroups.AnyAsync(x => x.UserId == userId && x.UserGroup.NormalizedName == normalizedRoleName);
