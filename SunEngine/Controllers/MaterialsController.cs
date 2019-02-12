@@ -13,14 +13,14 @@ namespace SunEngine.Controllers
 {
     public class MaterialsController : BaseController
     {
-        private readonly MaterialsAuthorization materialsAuthorization;
-        private readonly ICategoriesStore categoriesStore;
-        private readonly MaterialsManager materialsManager;
-        private readonly MaterialsPresenter materialsPresenter;
+        protected readonly MaterialsAuthorization materialsAuthorization;
+        protected readonly ICategoriesStore categoriesStore;
+        protected readonly MaterialsManager materialsManager;
+        protected readonly MaterialsPresenter materialsPresenter;
 
         public MaterialsController(
             MaterialsAuthorization materialsAuthorization,
-            ICategoriesStore categoriesStore, 
+            ICategoriesStore categoriesStore,
             MaterialsManager materialsManager,
             MyUserManager userManager,
             MaterialsPresenter materialsPresenter,
@@ -33,7 +33,7 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Get(int id) // TODO Pages
+        public virtual async Task<IActionResult> Get(int id) // TODO Pages
         {
             int? categoryId = await materialsManager.GetCategoryIdIfHasMaterialAsync(id);
             if (categoryId == null)
@@ -57,9 +57,7 @@ namespace SunEngine.Controllers
 
         [HttpPost]
         [UserSpamProtectionFilter(TimeoutSeconds = 60)]
-        public async Task<IActionResult> Add(string categoryName,
-            string title,
-            string text, string tags = "")
+        public virtual async Task<IActionResult> Add(string categoryName, string title, string text, string tags = "")
         {
             Category category = categoriesStore.GetCategory(categoryName);
             if (category == null)
@@ -91,7 +89,7 @@ namespace SunEngine.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, string categoryName, string title, string text,
+        public virtual async Task<IActionResult> Edit(int id, string categoryName, string title, string text,
             string tags = "", DateTime? publishDate = null, int? authorId = null)
         {
             Material material = await materialsManager.GetAsync(id);
@@ -126,13 +124,13 @@ namespace SunEngine.Controllers
                 }
             }
 
-            materialsManager.UpdateAsync(material, tags);
+            await materialsManager.UpdateAsync(material, tags);
 
             return Ok();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        public virtual async Task<IActionResult> Delete(int id)
         {
             Material material = await materialsManager.GetAsync(id);
             if (material == null)

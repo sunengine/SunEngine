@@ -15,9 +15,9 @@ namespace SunEngine.Controllers
     [Authorize]
     public class ImagesController : BaseController
     {
-        private readonly ImagesService imagesService;
-        private readonly ImagesOptions imagesOptions;
-        private readonly PersonalManager personalManager;
+        protected readonly ImagesService imagesService;
+        protected readonly ImagesOptions imagesOptions;
+        protected readonly PersonalManager personalManager;
 
         public ImagesController(
             ImagesService imagesService,
@@ -33,7 +33,7 @@ namespace SunEngine.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> UploadImage(IFormFile file)
+        public virtual async Task<IActionResult> UploadImage(IFormFile file)
         {
             if (file.Length == 0)
                 return BadRequest();
@@ -58,7 +58,7 @@ namespace SunEngine.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> UploadUserPhoto(IFormFile file)
+        public virtual async Task<IActionResult> UploadUserPhoto(IFormFile file)
         {
             if (file.Length == 0)
                 return BadRequest();
@@ -96,12 +96,12 @@ namespace SunEngine.Controllers
             return Ok();
         }
 
-        private bool CheckAllowedMaxImageSize(long fileSize)
+        protected bool CheckAllowedMaxImageSize(long fileSize)
         {
             return fileSize <= imagesOptions.ImageRequestSizeLimitBytes;
         }
 
-        private IActionResult MaxImageSizeFailResult()
+        protected IActionResult MaxImageSizeFailResult()
         {
             double sizeInMb = imagesOptions.ImageRequestSizeLimitBytes / (1024d * 1024d);
             return BadRequest($"Image size is too large. Allowed max size is: {sizeInMb:F2} MB");

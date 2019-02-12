@@ -14,14 +14,13 @@ namespace SunEngine.Controllers
 {
     public class ArticlesController : BaseController
     {
-        private readonly OperationKeysContainer OperationKeys;
+        protected readonly OperationKeysContainer OperationKeys;
 
-        private readonly ArticlesOptions articlesOptions;
-        private readonly ICategoriesStore categoriesStore;
-        private readonly IAuthorizationService authorizationService;
-        private readonly CategoriesAuthorization categoriesAuthorization;
+        protected readonly ArticlesOptions articlesOptions;
+        protected readonly ICategoriesStore categoriesStore;
+        protected readonly IAuthorizationService authorizationService;
 
-        private readonly ArticlesPresenter articlesPresenter;
+        protected readonly ArticlesPresenter articlesPresenter;
 
 
         public ArticlesController(
@@ -33,7 +32,7 @@ namespace SunEngine.Controllers
             MyUserManager userManager,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
-            this.OperationKeys = operationKeysContainer;
+            OperationKeys = operationKeysContainer;
 
             this.articlesOptions = articlesOptions.Value;
             this.authorizationService = authorizationService;
@@ -42,7 +41,7 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetArticles(string categoryName, int page = 1)
+        public virtual async Task<IActionResult> GetArticles(string categoryName, int page = 1)
         {
             Category category = categoriesStore.GetCategory(categoryName);
 

@@ -15,13 +15,13 @@ namespace SunEngine.Controllers
 {
     public class ForumController : BaseController
     {
-        private readonly OperationKeysContainer OperationKeys;
+        protected readonly OperationKeysContainer OperationKeys;
 
-        private readonly ForumOptions forumOptions;
-        private readonly ICategoriesStore categoriesStore;
-        private readonly CategoriesAuthorization categoriesAuthorization;
-        private readonly IAuthorizationService authorizationService;
-        private readonly ForumPresenter forumPresenter;
+        protected readonly ForumOptions forumOptions;
+        protected readonly ICategoriesStore categoriesStore;
+        protected readonly CategoriesAuthorization categoriesAuthorization;
+        protected readonly IAuthorizationService authorizationService;
+        protected readonly ForumPresenter forumPresenter;
 
 
         public ForumController(IOptions<ForumOptions> forumOptions,
@@ -34,8 +34,6 @@ namespace SunEngine.Controllers
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
             this.OperationKeys = operationKeysContainer;
-
-            Lazy<object> z;
             
             this.forumPresenter = forumPresenter;
             this.forumOptions = forumOptions.Value;
@@ -45,7 +43,7 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetNewTopics(string categoryName, int page = 1)
+        public virtual async Task<IActionResult> GetNewTopics(string categoryName, int page = 1)
         {
             Category categoryParent = categoriesStore.GetCategory(categoryName);
 
@@ -64,7 +62,7 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetThread(string categoryName, int page = 1)
+        public virtual async Task<IActionResult> GetThread(string categoryName, int page = 1)
         {
             Category category = categoriesStore.GetCategory(categoryName);
 

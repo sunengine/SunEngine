@@ -14,11 +14,11 @@ namespace SunEngine.Controllers
 {
     public class BlogController : BaseController
     {
-        private readonly BlogOptions blogOptions;
-        private readonly ICategoriesStore categoriesStore;
-        private readonly OperationKeysContainer OperationKeys;
-        private readonly IAuthorizationService authorizationService;
-        private readonly BlogPresenter blogPresenter;
+        protected readonly BlogOptions blogOptions;
+        protected readonly ICategoriesStore categoriesStore;
+        protected readonly OperationKeysContainer OperationKeys;
+        protected readonly IAuthorizationService authorizationService;
+        protected readonly BlogPresenter blogPresenter;
 
 
         public BlogController(IOptions<BlogOptions> blogOptions,
@@ -38,7 +38,7 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetPosts(string categoryName, int page = 1)
+        public virtual async Task<IActionResult> GetPosts(string categoryName, int page = 1)
         {
             Category category = categoriesStore.GetCategory(categoryName);
 
