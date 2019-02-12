@@ -15,12 +15,12 @@ namespace SunEngine.Controllers
     [Authorize]
     public class ImagesController : BaseController
     {
-        protected readonly ImagesService imagesService;
+        protected readonly IImagesService imagesService;
         protected readonly ImagesOptions imagesOptions;
         protected readonly PersonalManager personalManager;
 
         public ImagesController(
-            ImagesService imagesService,
+            IImagesService imagesService,
             IOptions<ImagesOptions> imagesOptions,
             PersonalManager personalManager,
             MyUserManager userManager,

@@ -50,11 +50,11 @@ namespace SunEngine.Configuration
             services.AddIdentity(dataBaseFactory);
 
             AddAuthenticationExtensions.AddAuthentication(services);
-            
+
             AddAuthorizationExtensions.AddAuthorization(services);
-            
+
             services.AddManagers();
-            
+
             services.AddPresenters();
 
             services.AddAdminServices();
@@ -67,7 +67,7 @@ namespace SunEngine.Configuration
 
             services.AddUrlHelper();
 
-            services.AddScoped<AuthService>();
+            services.AddScoped<IAuthService, AuthService>();
             services.AddSingleton<CaptchaService>();
             services.AddSingleton<Sanitizer>();
             services.AddTransient<IEmailSender, EmailSender>();
@@ -122,5 +122,4 @@ namespace SunEngine.Configuration
             });
         }
     }
-    
 }

@@ -24,15 +24,23 @@ using SunEngine.Utils;
 
 namespace SunEngine.Security
 {
-    public class AuthService : DbService
+    public interface IAuthService
     {
-        private readonly JwtOptions jwtOptions;
-        private readonly MyUserManager userManager;
-        private readonly GlobalOptions globalOptions;
-        private readonly IEmailSender emailSender;
-        private readonly IUrlHelperFactory urlHelperFactory;
-        private readonly IActionContextAccessor accessor;
-        private readonly ILogger logger;
+        string GenerateChangeEmailToken(User user, string email);
+        Task SendChangeEmailConfirmationMessageByEmailAsync(User user, string email);
+        bool ValidateChangeEmailToken(string token, out int userId, out string email);
+        Task<RegisterResult> RegisterAsync(NewUserViewModel model);
+    }
+
+    public class AuthService : DbService, IAuthService
+    {
+        protected readonly JwtOptions jwtOptions;
+        protected readonly MyUserManager userManager;
+        protected readonly GlobalOptions globalOptions;
+        protected readonly IEmailSender emailSender;
+        protected readonly IUrlHelperFactory urlHelperFactory;
+        protected readonly IActionContextAccessor accessor;
+        protected readonly ILogger logger;
 
 
         public AuthService(
@@ -55,7 +63,7 @@ namespace SunEngine.Security
         }
 
 
-        public string GenerateChangeEmailToken(User user, string email)
+        public virtual string GenerateChangeEmailToken(User user, string email)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKeyEmailChange));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
@@ -78,7 +86,7 @@ namespace SunEngine.Security
         }
 
 
-        public async Task SendChangeEmailConfirmationMessageByEmailAsync(User user, string email)
+        public virtual async Task SendChangeEmailConfirmationMessageByEmailAsync(User user, string email)
         {
             var urlHelper = GetUrlHelper();
 
@@ -93,7 +101,7 @@ namespace SunEngine.Security
                 $"Confirm your email by clicking this <a href=\"{updateEmailUrl}\">link</a>.");
         }
 
-        public bool ValidateChangeEmailToken(string token, out int userId, out string email)
+        public virtual bool ValidateChangeEmailToken(string token, out int userId, out string email)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKeyEmailChange));
 
@@ -122,13 +130,8 @@ namespace SunEngine.Security
             return true;
         }
 
-        public class RegisterResult
-        {
-            public bool Succeeded;
-            public ErrorViewModel Error;
-        }
 
-        public async Task<RegisterResult> RegisterAsync(NewUserViewModel model)
+        public virtual async Task<RegisterResult> RegisterAsync(NewUserViewModel model)
         {
             var user = new User
             {
@@ -203,10 +206,17 @@ namespace SunEngine.Security
             }
         }
 
-        private IUrlHelper GetUrlHelper()
+
+        protected IUrlHelper GetUrlHelper()
         {
             ActionContext context = accessor.ActionContext;
             return urlHelperFactory.GetUrlHelper(context);
         }
+    }
+
+    public class RegisterResult
+    {
+        public bool Succeeded;
+        public ErrorViewModel Error;
     }
 }

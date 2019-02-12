@@ -31,7 +31,7 @@ namespace SunEngine.Controllers
         private readonly JwtService jwtService;
         private readonly DataBaseConnection db;
         private readonly GlobalOptions globalOptions;
-        private readonly AuthService authService;
+        private readonly IAuthService authService;
 
         public AuthController(
             MyUserManager userManager,
@@ -39,7 +39,7 @@ namespace SunEngine.Controllers
             DataBaseConnection db,
             ILoggerFactory loggerFactory,
             JwtService jwtService,
-            AuthService authService,
+            IAuthService authService,
             IOptions<GlobalOptions> globalOptions,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {

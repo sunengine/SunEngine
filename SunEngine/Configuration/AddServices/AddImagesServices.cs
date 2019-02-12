@@ -8,7 +8,7 @@ namespace SunEngine.Configuration.AddServices
         public static void AddImagesServices(this IServiceCollection services)
         {
             services.AddSingleton<IImagesNamesService, ImagesNamesService>();
-            services.AddSingleton<ImagesService>();
+            services.AddSingleton<IImagesService, ImagesService>();
         }
     }
 }
