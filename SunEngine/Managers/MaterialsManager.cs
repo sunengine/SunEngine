@@ -45,7 +45,6 @@ namespace SunEngine.Managers
             material.MakePreviewAndDescription(materialOptions.MaterialDescriptionLength,
                 materialOptions.MaterialPreviewLength);
 
-
             material.Id = await db.InsertWithInt32IdentityAsync(material);
 
             await tagsManager.MaterialCreateAndSetTagsAsync(material, tags);

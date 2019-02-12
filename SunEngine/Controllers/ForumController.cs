@@ -33,7 +33,7 @@ namespace SunEngine.Controllers
             MyUserManager userManager,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
-            this.OperationKeys = operationKeysContainer;
+            OperationKeys = operationKeysContainer;
             
             this.forumPresenter = forumPresenter;
             this.forumOptions = forumOptions.Value;

@@ -39,8 +39,6 @@ namespace SunEngine.Managers
                 .UpdateAsync();
         }
 
-        
-
         public virtual Task SetMyProfileInformationAsync(int userId, string html)
         {
             var htmlSanitized = sanitizer.Sanitize(html);
@@ -92,7 +90,6 @@ namespace SunEngine.Managers
             return db.Users.AnyAsync(x => x.NormalizedUserName == name.ToUpper() && x.Id != userId );
         }
         
-        
         public virtual async Task<bool> ValidateNameAsync(string name, int userId)
         {
             var regexAllowedChars = new Regex("^[ а-яА-ЯёЁa-zA-Z0-9-]+$");
@@ -105,7 +102,6 @@ namespace SunEngine.Managers
                 .Set(x => x.Photo, User.DefaultAvatar)
                 .Set(x => x.Avatar, User.DefaultAvatar).UpdateAsync();
         }
-        
-        
+
     }
 }

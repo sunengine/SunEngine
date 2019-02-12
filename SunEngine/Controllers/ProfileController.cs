@@ -34,7 +34,6 @@ namespace SunEngine.Controllers
         {
             int? userId = User?.UserId;
             
-            
             var rez = await profilePresenter.GetProfileAsync(link, userId);
             if (rez == null)
             {
@@ -86,7 +85,7 @@ namespace SunEngine.Controllers
             if (userUnBan == null)
                 return BadRequest();
            
-            var user = await this.GetUserAsync();
+            var user = await GetUserAsync();
             
             await profileManager.UnBanUserAsync(user,userUnBan);
 
