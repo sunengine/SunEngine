@@ -8,7 +8,15 @@ using SunEngine.Services;
 
 namespace SunEngine.Presenters
 {
-    public class MessagesPresenter : DbService
+    public interface IMessagesPresenter
+    {
+        Task<(MessageViewModel messageViewModel, int categoryId)>
+            GetMessageAsync(int messageId);
+
+        Task<List<MessageViewModel>> GetMaterialMessagesAsync(int materialId);
+    }
+
+    public class MessagesPresenter : DbService, IMessagesPresenter
     {
         public MessagesPresenter(DataBaseConnection db) : base(db)
         {

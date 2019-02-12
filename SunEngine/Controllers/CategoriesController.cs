@@ -7,11 +7,11 @@ namespace SunEngine.Controllers
 {
     public class CategoriesController : BaseController
     {
-        protected readonly CategoriesPresenter categoriesPresenter;
+        protected readonly ICategoriesPresenter categoriesPresenter;
 
         public CategoriesController(
             IUserGroupStore userGroupStore,
-            CategoriesPresenter categoriesPresenter,
+            ICategoriesPresenter categoriesPresenter,
             MyUserManager userManager) : base(userGroupStore, userManager)
         {
             this.categoriesPresenter = categoriesPresenter;

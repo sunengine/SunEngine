@@ -6,7 +6,14 @@ using SunEngine.Services;
 
 namespace SunEngine.Presenters
 {
-    public class PersonalPresenter : DbService
+    public interface IPersonalPresenter
+    {
+        Task<MyUserInfoViewModel> GetMyUserInfoAsync(int id);
+        Task<MyProfileInformationViewModel> GetMyProfileInformationAsync(int id);
+        Task<UserInfoViewModel[]> GetBanListAsync(int userId);
+    }
+
+    public class PersonalPresenter : DbService, IPersonalPresenter
     {
         public PersonalPresenter(DataBaseConnection db) : base(db)
         {

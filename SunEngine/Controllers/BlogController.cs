@@ -18,14 +18,14 @@ namespace SunEngine.Controllers
         protected readonly ICategoriesStore categoriesStore;
         protected readonly OperationKeysContainer OperationKeys;
         protected readonly IAuthorizationService authorizationService;
-        protected readonly BlogPresenter blogPresenter;
+        protected readonly IBlogPresenter blogPresenter;
 
 
         public BlogController(IOptions<BlogOptions> blogOptions,
             IAuthorizationService authorizationService,
             ICategoriesStore categoriesStore,
             OperationKeysContainer operationKeysContainer,
-            BlogPresenter blogPresenter,
+            IBlogPresenter blogPresenter,
             MyUserManager userManager,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {

@@ -17,12 +17,12 @@ namespace SunEngine.Controllers
     {
         protected readonly PersonalManager personalManager;
         protected readonly JwtService jwtService;
-        protected readonly PersonalPresenter personalPresenter;
+        protected readonly IPersonalPresenter personalPresenter;
 
         public PersonalController(
             PersonalManager personalManager, 
             JwtService jwtService, 
-            PersonalPresenter personalPresenter,
+            IPersonalPresenter personalPresenter,
             MyUserManager userManager,
             IUserGroupStore userGroupStore)
             : base(userGroupStore, userManager)

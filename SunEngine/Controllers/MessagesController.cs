@@ -18,7 +18,7 @@ namespace SunEngine.Controllers
         protected readonly MaterialsManager materialsManager;
         protected readonly MessagesManager messagesManager;
         protected readonly IAuthorizationService authorizationService;
-        protected readonly MessagesPresenter messagesPresenter;
+        protected readonly IMessagesPresenter messagesPresenter;
         
         public MessagesController(
             MaterialsManager materialsManager, 
@@ -27,7 +27,7 @@ namespace SunEngine.Controllers
             MessagesManager messagesManager,
             IAuthorizationService authorizationService,
             MyUserManager userManager,
-            MessagesPresenter messagesPresenter,
+            IMessagesPresenter messagesPresenter,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
             OperationKeys = operationKeys;

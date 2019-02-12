@@ -21,7 +21,7 @@ namespace SunEngine.Controllers
         protected readonly ICategoriesStore categoriesStore;
         protected readonly CategoriesAuthorization categoriesAuthorization;
         protected readonly IAuthorizationService authorizationService;
-        protected readonly ForumPresenter forumPresenter;
+        protected readonly IForumPresenter forumPresenter;
 
 
         public ForumController(IOptions<ForumOptions> forumOptions,
@@ -29,7 +29,7 @@ namespace SunEngine.Controllers
             ICategoriesStore categoriesStore,
             CategoriesAuthorization categoriesAuthorization,
             OperationKeysContainer operationKeysContainer,
-            ForumPresenter forumPresenter,
+            IForumPresenter forumPresenter,
             MyUserManager userManager,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {

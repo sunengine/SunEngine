@@ -7,14 +7,14 @@ namespace SunEngine.Configuration.AddServices
     {
         public static void AddPresenters(this IServiceCollection services)
         {
-            services.AddScoped<ArticlesPresenter>();
-            services.AddScoped<BlogPresenter>();
-            services.AddScoped<ForumPresenter>(); 
-            services.AddScoped<MaterialsPresenter>();
-            services.AddScoped<MessagesPresenter>();
-            services.AddScoped<PersonalPresenter>(); 
-            services.AddScoped<ProfilePresenter>();
-            services.AddScoped<CategoriesPresenter>();           
+            services.AddScoped<IArticlesPresenter, ArticlesPresenter>();
+            services.AddScoped<IBlogPresenter, BlogPresenter>();
+            services.AddScoped<IForumPresenter, ForumPresenter>();
+            services.AddScoped<IMaterialsPresenter, MaterialsPresenter>();
+            services.AddScoped<IMessagesPresenter, MessagesPresenter>();
+            services.AddScoped<IPersonalPresenter, PersonalPresenter>();
+            services.AddScoped<IProfilePresenter, ProfilePresenter>();
+            services.AddScoped<ICategoriesPresenter, CategoriesPresenter>();
         }
     }
 }

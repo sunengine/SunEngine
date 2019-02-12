@@ -16,14 +16,14 @@ namespace SunEngine.Controllers
         protected readonly MaterialsAuthorization materialsAuthorization;
         protected readonly ICategoriesStore categoriesStore;
         protected readonly MaterialsManager materialsManager;
-        protected readonly MaterialsPresenter materialsPresenter;
+        protected readonly IMaterialsPresenter materialsPresenter;
 
         public MaterialsController(
             MaterialsAuthorization materialsAuthorization,
             ICategoriesStore categoriesStore,
             MaterialsManager materialsManager,
             MyUserManager userManager,
-            MaterialsPresenter materialsPresenter,
+            IMaterialsPresenter materialsPresenter,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
             this.materialsAuthorization = materialsAuthorization;

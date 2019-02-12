@@ -8,7 +8,12 @@ using SunEngine.Stores;
 
 namespace SunEngine.Presenters
 {
-    public class ProfilePresenter : DbService
+    public interface IProfilePresenter
+    {
+        Task<ProfileViewModel> GetProfileAsync(string link, int? viewerUserId);
+    }
+
+    public class ProfilePresenter : DbService, IProfilePresenter
     {
         protected readonly IUserGroupStore userGroupStore;
         

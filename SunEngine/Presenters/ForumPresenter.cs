@@ -8,7 +8,13 @@ using SunEngine.Services;
 
 namespace SunEngine.Presenters
 {
-    public class ForumPresenter : DbService
+    public interface IForumPresenter
+    {
+        Task<IPagedList<TopicInfoViewModel>> GetNewTopics(IList<int> categoryIds, int page,int pageSize,int maxPages);
+        Task<IPagedList<TopicInfoViewModel>> GetThread(int categoryId, int page,int pageSize);
+    }
+
+    public class ForumPresenter : DbService, IForumPresenter
     {
         public ForumPresenter(DataBaseConnection db) : base(db)
         {

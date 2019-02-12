@@ -7,7 +7,16 @@ using SunEngine.Stores.Models;
 
 namespace SunEngine.Presenters
 {
-    public class CategoriesPresenter
+    public interface ICategoriesPresenter
+    {
+        CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(
+            IReadOnlyDictionary<string, UserGroupStored> userGroups);
+
+        CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(Category category,
+            IReadOnlyDictionary<string, UserGroupStored> userGroups);
+    }
+
+    public class CategoriesPresenter : ICategoriesPresenter
     {
         protected readonly OperationKeysContainer OperationKeys;
 
@@ -84,7 +93,7 @@ namespace SunEngine.Presenters
             return categoryInfo;
         }
 
-        public virtual Dictionary<string, bool> DetectPersonalAccesses(Category category,
+        protected Dictionary<string, bool> DetectPersonalAccesses(Category category,
             IReadOnlyDictionary<string, UserGroupStored> userGroups)
         {
             Dictionary<string, bool> dict = new Dictionary<string, bool>(userGroupStore.AllOperationKeys.Count);

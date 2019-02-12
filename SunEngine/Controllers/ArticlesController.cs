@@ -20,7 +20,7 @@ namespace SunEngine.Controllers
         protected readonly ICategoriesStore categoriesStore;
         protected readonly IAuthorizationService authorizationService;
 
-        protected readonly ArticlesPresenter articlesPresenter;
+        protected readonly IArticlesPresenter articlesPresenter;
 
 
         public ArticlesController(
@@ -28,7 +28,7 @@ namespace SunEngine.Controllers
             IAuthorizationService authorizationService,
             ICategoriesStore categoriesStore,
             OperationKeysContainer operationKeysContainer,
-            ArticlesPresenter articlesPresenter,
+            IArticlesPresenter articlesPresenter,
             MyUserManager userManager,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
