@@ -8,13 +8,18 @@ using SunEngine.Services;
 
 namespace SunEngine.Presenters
 {
-    public class ArticlesPresenter : DbService
+    public interface IArticlesPresenter
+    {
+        Task<IPagedList<ArticleInfoViewModel>> GetArticlesAsync(int categoryId, int page, int pageSize);
+    }
+
+    public class ArticlesPresenter : DbService, IArticlesPresenter
     {
         public ArticlesPresenter(DataBaseConnection db) : base(db)
         {
         }
 
-        public Task<IPagedList<ArticleInfoViewModel>> GetArticlesAsync(int categoryId, int page, int pageSize)
+        public virtual Task<IPagedList<ArticleInfoViewModel>> GetArticlesAsync(int categoryId, int page, int pageSize)
         {
             return db.MaterialsNotDeleted.GetPagedListAsync(
                 x => new ArticleInfoViewModel

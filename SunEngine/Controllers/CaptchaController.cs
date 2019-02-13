@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SunEngine.Filters;
 using SunEngine.Managers;
+using SunEngine.Security;
+using SunEngine.Security.Captcha;
+using SunEngine.Security.Filters;
 using SunEngine.Services;
 using SunEngine.Stores;
 
@@ -9,8 +11,7 @@ namespace SunEngine.Controllers
 {
     public class CaptchaController : BaseController
     {
-
-        private readonly CaptchaService captchaService;
+        protected readonly CaptchaService captchaService;
 
         public CaptchaController(
             MyUserManager userManager, 
@@ -22,7 +23,7 @@ namespace SunEngine.Controllers
 
         [AllowAnonymous]
         [IpSpamProtectionFilter(TimeoutSeconds=20)]
-        public IActionResult GetCaptchaKey()
+        public virtual IActionResult GetCaptchaKey()
         {
             var token = captchaService.MakeCryptedCaptchaToken();
             return Content(token);
@@ -30,7 +31,7 @@ namespace SunEngine.Controllers
 
         [AllowAnonymous]
         [Produces("image/jpeg")]
-        public FileStreamResult CaptchaImage(string token)
+        public virtual FileStreamResult CaptchaImage(string token)
         {
             var text = captchaService.GetTextFromToken(token);
             var captcha = captchaService.MakeCaptchaImage(text);

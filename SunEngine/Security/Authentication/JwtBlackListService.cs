@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.DataBase;
 using SunEngine.Models.Authorization;
+using SunEngine.Security.Authorization;
 using SunEngine.Services;
 using SunEngine.Stores;
 

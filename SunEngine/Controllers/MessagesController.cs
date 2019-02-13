@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SunEngine.Filters;
 using SunEngine.Managers;
 using SunEngine.Models.Materials;
 using SunEngine.Presenters;
 using SunEngine.Security.Authorization;
+using SunEngine.Security.Filters;
 using SunEngine.Stores;
 using IAuthorizationService = SunEngine.Security.Authorization.IAuthorizationService;
 
@@ -13,29 +13,24 @@ namespace SunEngine.Controllers
 {
     public class MessagesController : BaseController
     {
-        private readonly OperationKeysContainer operationKeysContainer;
-        
-        private readonly MessageAuthorization messageAuthorization;
-
-        private readonly MaterialsManager materialsManager;
-
-        private readonly MessagesManager messagesManager;
-
-        private readonly IAuthorizationService authorizationService;
-
-        private readonly MessagesPresenter messagesPresenter;
+        protected readonly OperationKeysContainer OperationKeys;
+        protected readonly MessageAuthorization messageAuthorization;
+        protected readonly MaterialsManager materialsManager;
+        protected readonly MessagesManager messagesManager;
+        protected readonly IAuthorizationService authorizationService;
+        protected readonly IMessagesPresenter messagesPresenter;
         
         public MessagesController(
             MaterialsManager materialsManager, 
             MessageAuthorization messageAuthorization,
-            OperationKeysContainer operationKeysContainer, 
+            OperationKeysContainer operationKeys, 
             MessagesManager messagesManager,
             IAuthorizationService authorizationService,
             MyUserManager userManager,
-            MessagesPresenter messagesPresenter,
+            IMessagesPresenter messagesPresenter,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
-            this.operationKeysContainer = operationKeysContainer;
+            OperationKeys = operationKeys;
             this.messageAuthorization = messageAuthorization;
             this.materialsManager = materialsManager;
             this.messagesManager = messagesManager;
@@ -44,7 +39,7 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetMaterialMessages(int materialId)
+        public virtual async Task<IActionResult> GetMaterialMessages(int materialId)
         {
             int? categoryId = await materialsManager.GetCategoryIdIfHasMaterialAsync(materialId);
             if (!messageAuthorization.HasAccessForGetMessages(User.UserGroups, categoryId.Value))
@@ -59,7 +54,7 @@ namespace SunEngine.Controllers
 
         [HttpPost]
         [UserSpamProtectionFilter(TimeoutSeconds = 10)]
-        public async Task<IActionResult> Add(int materialId, string text)
+        public virtual async Task<IActionResult> Add(int materialId, string text)
         {
             Material material = await materialsManager.GetAsync(materialId);
             if (material == null)
@@ -89,16 +84,16 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Get(int id)
+        public virtual async Task<IActionResult> Get(int id)
         {
-            (MessageViewModel messageViewModel,int categoryId)  = await messagesPresenter.GetViewModelAsync(id);
+            (MessageViewModel messageViewModel,int categoryId)  = await messagesPresenter.GetMessageAsync(id);
             if (messageViewModel == null)
             {
                 return BadRequest();
             }
 
             if (!authorizationService.HasAccess(User.UserGroups, categoryId,
-                operationKeysContainer.MaterialAndMessagesRead))
+                OperationKeys.MaterialAndMessagesRead))
             {
                 return Unauthorized();
             }
@@ -107,7 +102,7 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Message newMessage)
+        public virtual async Task<IActionResult> Edit(Message newMessage)
         {
             (Message message,int categoryId) = await messagesManager.GetAsync(newMessage.Id);
             if (message == null)
@@ -129,7 +124,7 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> MoveToTrash(int id)
+        public virtual async Task<IActionResult> MoveToTrash(int id)
         {
             (Message message,int categoryId) = await messagesManager.GetAsync(id);
             if (message == null)
@@ -142,7 +137,7 @@ namespace SunEngine.Controllers
                 return Unauthorized();
             }
             
-            messagesManager.MoveToTrashAsync(message);
+            await messagesManager.MoveToTrashAsync(message);
             
             return Ok();
         }

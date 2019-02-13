@@ -15,12 +15,12 @@ namespace SunEngine.Controllers
     [Authorize]
     public class ImagesController : BaseController
     {
-        private readonly ImagesService imagesService;
-        private readonly ImagesOptions imagesOptions;
-        private readonly PersonalManager personalManager;
+        protected readonly IImagesService imagesService;
+        protected readonly ImagesOptions imagesOptions;
+        protected readonly PersonalManager personalManager;
 
         public ImagesController(
-            ImagesService imagesService,
+            IImagesService imagesService,
             IOptions<ImagesOptions> imagesOptions,
             PersonalManager personalManager,
             MyUserManager userManager,
@@ -33,7 +33,7 @@ namespace SunEngine.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> UploadImage(IFormFile file)
+        public virtual async Task<IActionResult> UploadImage(IFormFile file)
         {
             if (file.Length == 0)
                 return BadRequest();
@@ -58,7 +58,7 @@ namespace SunEngine.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> UploadUserPhoto(IFormFile file)
+        public virtual async Task<IActionResult> UploadUserPhoto(IFormFile file)
         {
             if (file.Length == 0)
                 return BadRequest();
@@ -66,26 +66,26 @@ namespace SunEngine.Controllers
             if (!CheckAllowedMaxImageSize(file.Length))
                 return MaxImageSizeFailResult();
 
-            ResizeOptions roPhoto = new ResizeOptions
+            ResizeOptions resizeOptionsPhoto = new ResizeOptions
             {
                 Position = AnchorPositionMode.Center,
                 Mode = ResizeMode.Crop,
                 Size = new Size(imagesOptions.PhotoMaxWidthPixels, imagesOptions.PhotoMaxWidthPixels),
             };
-            FileAndDir fileAndDirPhoto = await imagesService.SaveImageAsync(file, roPhoto);
+            FileAndDir fileAndDirPhoto = await imagesService.SaveImageAsync(file, resizeOptionsPhoto);
             if (fileAndDirPhoto == null)
             {
                 return BadRequest();
             }
 
 
-            ResizeOptions roAvatar = new ResizeOptions
+            ResizeOptions resizeOptionsAvatar = new ResizeOptions
             {
                 Position = AnchorPositionMode.Center,
                 Mode = ResizeMode.Crop,
-                Size = new Size(imagesOptions.PhotoMaxWidthPixels, imagesOptions.PhotoMaxWidthPixels),
+                Size = new Size(imagesOptions.AvatarSizePixels, imagesOptions.AvatarSizePixels),
             };
-            FileAndDir fileAndDirAvatar = await imagesService.SaveImageAsync(file, roAvatar);
+            FileAndDir fileAndDirAvatar = await imagesService.SaveImageAsync(file, resizeOptionsAvatar);
             if (fileAndDirAvatar == null)
             {
                 return BadRequest();
@@ -96,12 +96,12 @@ namespace SunEngine.Controllers
             return Ok();
         }
 
-        private bool CheckAllowedMaxImageSize(long fileSize)
+        protected bool CheckAllowedMaxImageSize(long fileSize)
         {
             return fileSize <= imagesOptions.ImageRequestSizeLimitBytes;
         }
 
-        private IActionResult MaxImageSizeFailResult()
+        protected IActionResult MaxImageSizeFailResult()
         {
             double sizeInMb = imagesOptions.ImageRequestSizeLimitBytes / (1024d * 1024d);
             return BadRequest($"Image size is too large. Allowed max size is: {sizeInMb:F2} MB");

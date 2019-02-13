@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace SunEngine.Configuration.AddServices
 {
-    internal static class AddIUrlHelperExtensions
+    public static class AddIUrlHelperExtensions
     {
         public static void AddUrlHelper(this IServiceCollection services)
         {

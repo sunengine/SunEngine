@@ -11,15 +11,22 @@ using SunEngine.Configuration.Options;
 
 namespace SunEngine.Services
 {
-    public class ImagesService
+    public interface IImagesService
     {
-        private static readonly int MaxSvgSizeBytes = 40 * 1024;
+        string GetAllowedExtension(string fileName);
+        Task<FileAndDir> SaveImageAsync(IFormFile file, ResizeOptions resizeOptions);
+        FileAndDir SaveBitmapImage(Stream stream, ResizeOptions ro, string ext);
+    }
 
-        private static readonly object lockObject = new object();
+    public class ImagesService : IImagesService
+    {
+        protected static readonly int MaxSvgSizeBytes = 40 * 1024;
 
-        private readonly IImagesNamesService imagesNamesService;
-        private readonly ImagesOptions imagesOptions;
-        private readonly IHostingEnvironment env;
+        protected static readonly object lockObject = new object();
+
+        protected readonly IImagesNamesService imagesNamesService;
+        protected readonly ImagesOptions imagesOptions;
+        protected readonly IHostingEnvironment env;
 
 
         public ImagesService(
@@ -32,7 +39,7 @@ namespace SunEngine.Services
             this.imagesNamesService = imagesNamesService;
         }
 
-        public string GetAllowedExtension(string fileName)
+        public virtual string GetAllowedExtension(string fileName)
         {
             string ext = Path.GetExtension(fileName).ToLower();
             if (ext == ".jpeg")
@@ -45,7 +52,7 @@ namespace SunEngine.Services
             return null;
         }
 
-        public async Task<FileAndDir> SaveImageAsync(IFormFile file, ResizeOptions resizeOptions)
+        public virtual async Task<FileAndDir> SaveImageAsync(IFormFile file, ResizeOptions resizeOptions)
         {
             var ext = GetAllowedExtension(file.FileName);
             if (ext == null)
@@ -90,7 +97,7 @@ namespace SunEngine.Services
             return fileAndDir;
         }
 
-        public FileAndDir SaveBitmapImage(Stream stream, ResizeOptions ro, string ext)
+        public virtual FileAndDir SaveBitmapImage(Stream stream, ResizeOptions ro, string ext)
         {
             using (Image<Rgba32> image = Image.Load(stream))
             {

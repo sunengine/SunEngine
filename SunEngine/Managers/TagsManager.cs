@@ -16,7 +16,7 @@ namespace SunEngine.Managers
             
         }
         
-        public async Task<IList<Tag>> InsertTags(string tags)
+        public virtual async Task<IList<Tag>> InsertTags(string tags)
         {
             if (tags == null)
             {
@@ -28,7 +28,7 @@ namespace SunEngine.Managers
             return await InsertTags(tagsList);
         }
 
-        private async Task<IList<Tag>> InsertTags(IList<string> tags)
+        protected virtual async Task<IList<Tag>> InsertTags(IList<string> tags)
         {
             if(tags == null)
             {
@@ -55,13 +55,13 @@ namespace SunEngine.Managers
             return tagsResult;
         }
         
-        public async Task MaterialCreateAndSetTagsAsync(Material material, string tags)
+        public virtual async Task MaterialCreateAndSetTagsAsync(Material material, string tags)
         {
             var tagsList = await InsertTags(tags);
             await MaterialSetTags(material,tagsList);
         }
 
-        private async Task MaterialSetTags(Material material, IEnumerable<Tag> tags)
+        protected virtual async Task MaterialSetTags(Material material, IEnumerable<Tag> tags)
         {
             // TODO make auto delete unused tags
             await db.TagMaterials.Where(x => x.MaterialId == material.Id).DeleteAsync();

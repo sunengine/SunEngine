@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SunEngine.Managers;
 using SunEngine.Presenters;
 using SunEngine.Security;
+using SunEngine.Security.Authorization;
 using SunEngine.Stores;
 
 namespace SunEngine.Controllers
@@ -15,14 +16,14 @@ namespace SunEngine.Controllers
     [Authorize]
     public class PersonalController : BaseController
     {
-        private readonly PersonalManager personalManager;
-        private readonly JwtService jwtService;
-        private readonly PersonalPresenter personalPresenter;
+        protected readonly PersonalManager personalManager;
+        protected readonly JwtService jwtService;
+        protected readonly IPersonalPresenter personalPresenter;
 
         public PersonalController(
             PersonalManager personalManager, 
             JwtService jwtService, 
-            PersonalPresenter personalPresenter,
+            IPersonalPresenter personalPresenter,
             MyUserManager userManager,
             IUserGroupStore userGroupStore)
             : base(userGroupStore, userManager)
@@ -32,22 +33,22 @@ namespace SunEngine.Controllers
             this.personalPresenter = personalPresenter;
         }
 
-        public async Task<MyUserInfoViewModel> GetMyUserInfo()
+        public virtual async Task<IActionResult> GetMyUserInfo()
         {
-            return await personalPresenter.GetMyUserInfoAsync(User.UserId);
+            return Ok(await personalPresenter.GetMyUserInfoAsync(User.UserId));
         }
 
-        public async Task<MyProfileInformationViewModel> GetMyProfileInformation()
+        public virtual async Task<IActionResult> GetMyProfileInformation()
         {
-            return await personalPresenter.GetMyProfileInformationAsync(User.UserId);
+            return Ok(await personalPresenter.GetMyProfileInformationAsync(User.UserId));
         }
 
-        public async Task SetMyProfileInformation(string html)
+        public virtual async Task SetMyProfileInformation(string html)
         {
             await personalManager.SetMyProfileInformationAsync(User.UserId, html);
         }
 
-        public async Task<IActionResult> SetMyLink(string link)
+        public virtual async Task<IActionResult> SetMyLink(string link)
         {
             link = (link+"").Trim();
             
@@ -61,7 +62,7 @@ namespace SunEngine.Controllers
             return Ok(await personalPresenter.GetMyUserInfoAsync(User.UserId));
         }
 
-        public async Task<IActionResult> SetMyName(string password, string name)
+        public virtual async Task<IActionResult> SetMyName(string password, string name)
         {
             var user = await GetUserAsync();
             if (!await userManager.CheckPasswordAsync(user, password))
@@ -86,7 +87,7 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CheckNameInDb(string name)
+        public virtual async Task<IActionResult> CheckNameInDb(string name)
         {
             return Ok(new {
                 yes = await personalManager.CheckNameInDbAsync(name,User.UserId)
@@ -94,7 +95,7 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CheckLinkInDb(string link)
+        public virtual async Task<IActionResult> CheckLinkInDb(string link)
         {
             return Ok(new {
                 yes = await personalManager.CheckLinkInDbAsync(link,User.UserId)
@@ -102,14 +103,14 @@ namespace SunEngine.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> RemoveMyAvatar()
+        public virtual async Task<IActionResult> RemoveMyAvatar()
         {
             await personalManager.RemoveAvatarAsync(User.UserId);
             return Ok();
         }
         
         [HttpPost]
-        public async Task<IActionResult> GetMyBanList()
+        public virtual async Task<IActionResult> GetMyBanList()
         {
             var usersList = await personalPresenter.GetBanListAsync(User.UserId);
 

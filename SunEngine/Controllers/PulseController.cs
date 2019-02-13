@@ -10,7 +10,7 @@ namespace SunEngine.Controllers
 {
     public class PulseController : BaseController
     {
-        private readonly DataBaseConnection db;
+        protected readonly DataBaseConnection db;
         
         public PulseController(
             MyUserManager userManager,
@@ -23,7 +23,7 @@ namespace SunEngine.Controllers
         [HttpGet]
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Pulse()
+        public virtual IActionResult Pulse()
         {
             return Ok(new {SomeDataTest = "SomeData Test!"});
         }
@@ -31,7 +31,7 @@ namespace SunEngine.Controllers
         [HttpGet]
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> PulseDb()
+        public virtual async Task<IActionResult> PulseDb()
         {
             bool anyUserGroup = await  db.UserGroups.AnyAsync();
             return Ok(new {db_UserGroups_AnyAsync = anyUserGroup});

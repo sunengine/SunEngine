@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SunEngine.Filters;
 using SunEngine.Managers;
 using SunEngine.Models;
 using SunEngine.Presenters;
+using SunEngine.Security.Filters;
 using SunEngine.Stores;
 using SunEngine.Stores.Models;
 
@@ -16,12 +16,12 @@ namespace SunEngine.Controllers
     /// </summary>
     public class ProfileController : BaseController
     {
-        private readonly ProfileManager profileManager;
-        private readonly ProfilePresenter profilePresenter;
+        protected readonly ProfileManager profileManager;
+        protected readonly IProfilePresenter profilePresenter;
         
         public ProfileController(
             ProfileManager profileManager,
-            ProfilePresenter profilePresenter,
+            IProfilePresenter profilePresenter,
             MyUserManager userManager,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
@@ -30,10 +30,9 @@ namespace SunEngine.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> GetProfile(string link)
+        public virtual async Task<IActionResult> GetProfile(string link)
         {
             int? userId = User?.UserId;
-            
             
             var rez = await profilePresenter.GetProfileAsync(link, userId);
             if (rez == null)
@@ -47,7 +46,7 @@ namespace SunEngine.Controllers
         [HttpPost]
         [UserSpamProtectionFilter(TimeoutSeconds = 60)]
         [Authorize(Roles = UserGroupStored.UserGroupRegistered)]
-        public async Task<IActionResult> SendPrivateMessage(string userId,string text)
+        public virtual async Task<IActionResult> SendPrivateMessage(string userId,string text)
         {
             var userTo = await userManager.FindByIdAsync(userId);
             if (userTo == null)
@@ -62,7 +61,7 @@ namespace SunEngine.Controllers
 
         [HttpPost]
         [Authorize(Roles = UserGroupStored.UserGroupRegistered)]
-        public async Task<IActionResult> BanUser(string userId)
+        public virtual async Task<IActionResult> BanUser(string userId)
         {
             User userBan = await userManager.FindByIdAsync(userId);
             if (userBan == null)
@@ -80,13 +79,13 @@ namespace SunEngine.Controllers
         
         [HttpPost]
         [Authorize(Roles = UserGroupStored.UserGroupRegistered)]
-        public async Task<IActionResult> UnBanUser(string userId)
+        public virtual async Task<IActionResult> UnBanUser(string userId)
         {
             User userUnBan = await userManager.FindByIdAsync(userId);
             if (userUnBan == null)
                 return BadRequest();
            
-            var user = await this.GetUserAsync();
+            var user = await GetUserAsync();
             
             await profileManager.UnBanUserAsync(user,userUnBan);
 

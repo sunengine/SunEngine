@@ -5,7 +5,7 @@ using SunEngine.DataBase;
 
 namespace SunEngine.Configuration.AddServices
 {
-    internal static class AddDatabaseExtensions
+    public static class AddDatabaseExtensions
     {
         public static DataBaseFactory AddDatabase(this IServiceCollection services, IConfiguration configuration)
         {

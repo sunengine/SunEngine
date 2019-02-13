@@ -19,11 +19,11 @@ using SunEngine.DataBase;
 using SunEngine.Managers;
 using SunEngine.Models;
 using SunEngine.Security.Authentication;
+using SunEngine.Security.Cryptography;
 using SunEngine.Services;
 using SunEngine.Stores;
-using SunEngine.Utils;
 
-namespace SunEngine.Security
+namespace SunEngine.Security.Authorization
 {
     public class JwtService : DbService
     {
@@ -45,7 +45,7 @@ namespace SunEngine.Security
         {
             this.userManager = userManager;
             this.jwtOptions = jwtOptions.Value;
-            logger = loggerFactory.CreateLogger<AuthController>();
+            logger = loggerFactory.CreateLogger<AccountController>();
             this.userGroupStore = userGroupStore;
         }
 

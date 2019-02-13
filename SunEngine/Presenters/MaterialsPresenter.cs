@@ -7,13 +7,18 @@ using SunEngine.Services;
 
 namespace SunEngine.Presenters
 {
-    public class MaterialsPresenter : DbService
+    public interface IMaterialsPresenter
+    {
+        Task<MaterialViewModel> GetViewModelAsync(int id);
+    }
+
+    public class MaterialsPresenter : DbService, IMaterialsPresenter
     {
         public MaterialsPresenter(DataBaseConnection db) : base(db)
         {
         }
 
-        public Task<MaterialViewModel> GetViewModelAsync(int id)
+        public virtual Task<MaterialViewModel> GetViewModelAsync(int id)
         {
             return db.Materials.Where(x => x.Id == id).Select(x =>
                 new MaterialViewModel

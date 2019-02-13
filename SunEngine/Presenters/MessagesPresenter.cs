@@ -8,14 +8,22 @@ using SunEngine.Services;
 
 namespace SunEngine.Presenters
 {
-    public class MessagesPresenter : DbService
+    public interface IMessagesPresenter
+    {
+        Task<(MessageViewModel messageViewModel, int categoryId)>
+            GetMessageAsync(int messageId);
+
+        Task<List<MessageViewModel>> GetMaterialMessagesAsync(int materialId);
+    }
+
+    public class MessagesPresenter : DbService, IMessagesPresenter
     {
         public MessagesPresenter(DataBaseConnection db) : base(db)
         {
         }
         
-        public async Task<(MessageViewModel messageViewModel, int categoryId)>
-            GetViewModelAsync(int messageId)
+        public virtual async Task<(MessageViewModel messageViewModel, int categoryId)>
+            GetMessageAsync(int messageId)
         {
             var rez = await db.Messages.Where(x => x.Id == messageId).Select(x =>
                 new
@@ -39,7 +47,7 @@ namespace SunEngine.Presenters
             return (rez.messageViewModel, rez.categoryId);
         }
 
-        public Task<List<MessageViewModel>> GetMaterialMessagesAsync(int materialId)
+        public virtual Task<List<MessageViewModel>> GetMaterialMessagesAsync(int materialId)
         {
             return db.MessagesNotDeleted.Where(x => x.MaterialId == materialId)
                 .OrderBy(x => x.PublishDate)

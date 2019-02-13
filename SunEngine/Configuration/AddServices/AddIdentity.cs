@@ -7,7 +7,7 @@ using SunEngine.Models.Authorization;
 
 namespace SunEngine.Configuration.AddServices
 {
-    internal static class AddIdentityExtensions
+    public static class AddIdentityExtensions
     {
         public static void AddIdentity(this IServiceCollection services, DataBaseFactory dataBaseFactory)
         {

@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using AngleSharp.Network.Default;
 using LinqToDB;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,23 +20,34 @@ using SunEngine.Controllers;
 using SunEngine.DataBase;
 using SunEngine.Managers;
 using SunEngine.Models;
+using SunEngine.Security.Cryptography;
 using SunEngine.Services;
+using SunEngine.Stores.Models;
 using SunEngine.Utils;
 
 namespace SunEngine.Security
 {
-    public class AuthService : DbService
+    public interface IAccountService
     {
-        private readonly JwtOptions jwtOptions;
-        private readonly MyUserManager userManager;
-        private readonly GlobalOptions globalOptions;
-        private readonly IEmailSender emailSender;
-        private readonly IUrlHelperFactory urlHelperFactory;
-        private readonly IActionContextAccessor accessor;
-        private readonly ILogger logger;
+        Task<UserServiceResult> LoginAsync(string nameOrEmail, string password);
+        string GenerateChangeEmailToken(User user, string email);
+        Task SendChangeEmailConfirmationMessageByEmailAsync(User user, string email);
+        bool ValidateChangeEmailToken(string token, out int userId, out string email);
+        Task<ServiceResult> RegisterAsync(NewUserViewModel model);
+    }
+
+    public class AccountService : DbService, IAccountService
+    {
+        protected readonly JwtOptions jwtOptions;
+        protected readonly MyUserManager userManager;
+        protected readonly GlobalOptions globalOptions;
+        protected readonly IEmailSender emailSender;
+        protected readonly IUrlHelperFactory urlHelperFactory;
+        protected readonly IActionContextAccessor accessor;
+        protected readonly ILogger logger;
 
 
-        public AuthService(
+        public AccountService(
             MyUserManager userManager,
             IEmailSender emailSender,
             DataBaseConnection db,
@@ -51,11 +63,61 @@ namespace SunEngine.Security
             this.emailSender = emailSender;
             this.urlHelperFactory = urlHelperFactory;
             this.accessor = accessor;
-            logger = loggerFactory.CreateLogger<AuthController>();
+            logger = loggerFactory.CreateLogger<AccountController>();
+        }
+
+        public async Task<User> FindUserByNameOrEmailAsync(string nameOrEmail)
+        {
+            User user;
+            if (EmailValidator.IsValidEmail(nameOrEmail))
+            {
+                user = await userManager.FindByEmailAsync(nameOrEmail)
+                       ?? await userManager.FindByNameAsync(nameOrEmail); // if name is email like
+            }
+            else
+            {
+                user = await userManager.FindByNameAsync(nameOrEmail);
+            }
+
+            return user;
+        }
+
+        public async Task<UserServiceResult> LoginAsync(string nameOrEmail, string password)
+        {
+            User user = await FindUserByNameOrEmailAsync(nameOrEmail);
+
+            if (user == null || !await userManager.CheckPasswordAsync(user, password))
+            {
+                return UserServiceResult.BadResult(new ErrorViewModel
+                {
+                    ErrorName = "username_password_invalid",
+                    ErrorText = "The username or password is invalid."
+                });
+            }
+
+            if (!await userManager.IsEmailConfirmedAsync(user))
+            {
+                return UserServiceResult.BadResult(new ErrorViewModel
+                {
+                    ErrorName = "email_not_confirmed",
+                    ErrorText = "You must have a confirmed email to log in."
+                });
+            }
+
+            if (await userManager.IsUserInRoleAsync(user.Id, UserGroupStored.UserGroupBanned))
+            {
+                return UserServiceResult.BadResult(new ErrorViewModel
+                {
+                    ErrorName = "user_banned",
+                    ErrorText = "Error" // Что бы не провоцировать пользователя словами что он забанен
+                });
+            }
+
+            return UserServiceResult.OkResult(user);
         }
 
 
-        public string GenerateChangeEmailToken(User user, string email)
+        public virtual string GenerateChangeEmailToken(User user, string email)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKeyEmailChange));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
@@ -78,7 +140,7 @@ namespace SunEngine.Security
         }
 
 
-        public async Task SendChangeEmailConfirmationMessageByEmailAsync(User user, string email)
+        public virtual async Task SendChangeEmailConfirmationMessageByEmailAsync(User user, string email)
         {
             var urlHelper = GetUrlHelper();
 
@@ -86,14 +148,14 @@ namespace SunEngine.Security
 
             var (schema, host) = globalOptions.GetSchemaAndHostApi();
 
-            var updateEmailUrl = urlHelper.Action("ConfirmEmail", "Auth",
+            var updateEmailUrl = urlHelper.Action("ConfirmEmail", "Account",
                 new {token = emailToken}, schema, host);
 
             await emailSender.SendEmailAsync(user.Email, "Confirm your email",
                 $"Confirm your email by clicking this <a href=\"{updateEmailUrl}\">link</a>.");
         }
 
-        public bool ValidateChangeEmailToken(string token, out int userId, out string email)
+        public virtual bool ValidateChangeEmailToken(string token, out int userId, out string email)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKeyEmailChange));
 
@@ -122,13 +184,8 @@ namespace SunEngine.Security
             return true;
         }
 
-        public class RegisterResult
-        {
-            public bool Succeeded;
-            public ErrorViewModel Error;
-        }
 
-        public async Task<RegisterResult> RegisterAsync(NewUserViewModel model)
+        public virtual async Task<ServiceResult> RegisterAsync(NewUserViewModel model)
         {
             var user = new User
             {
@@ -144,7 +201,7 @@ namespace SunEngine.Security
                 await db.Users.Where(x => x.Id == user.Id).Set(x => x.Link, x => x.Id.ToString()).UpdateAsync();
 
                 if (!result.Succeeded)
-                    return new RegisterResult
+                    return new ServiceResult
                     {
                         Succeeded = false,
                         Error = new ErrorViewModel
@@ -165,7 +222,7 @@ namespace SunEngine.Security
 
                     var Url = GetUrlHelper();
 
-                    var emailConfirmUrl = Url.Action("Confirm", "Auth",
+                    var emailConfirmUrl = Url.Action("Confirm", "Account",
                         new {uid = user.Id, token = confirmToken},
                         schema, host);
 
@@ -177,7 +234,7 @@ namespace SunEngine.Security
                     }
                     catch (Exception e)
                     {
-                        return new RegisterResult
+                        return new ServiceResult
                         {
                             Succeeded = false,
                             Error = new ErrorViewModel
@@ -196,14 +253,14 @@ namespace SunEngine.Security
 
                 transaction.Complete();
 
-                return new RegisterResult
+                return new ServiceResult
                 {
                     Succeeded = true
                 };
             }
         }
 
-        private IUrlHelper GetUrlHelper()
+        protected IUrlHelper GetUrlHelper()
         {
             ActionContext context = accessor.ActionContext;
             return urlHelperFactory.GetUrlHelper(context);

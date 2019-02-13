@@ -8,6 +8,7 @@ using SunEngine.Configuration.AddServices;
 using SunEngine.DataBase;
 using SunEngine.Security;
 using SunEngine.Security.Authentication;
+using SunEngine.Security.Captcha;
 using SunEngine.Services;
 using SunEngine.Utils.TextProcess;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
@@ -50,11 +51,11 @@ namespace SunEngine.Configuration
             services.AddIdentity(dataBaseFactory);
 
             AddAuthenticationExtensions.AddAuthentication(services);
-            
+
             AddAuthorizationExtensions.AddAuthorization(services);
-            
+
             services.AddManagers();
-            
+
             services.AddPresenters();
 
             services.AddAdminServices();
@@ -67,7 +68,7 @@ namespace SunEngine.Configuration
 
             services.AddUrlHelper();
 
-            services.AddScoped<AuthService>();
+            services.AddScoped<IAccountService, AccountService>();
             services.AddSingleton<CaptchaService>();
             services.AddSingleton<Sanitizer>();
             services.AddTransient<IEmailSender, EmailSender>();
@@ -122,5 +123,4 @@ namespace SunEngine.Configuration
             });
         }
     }
-    
 }

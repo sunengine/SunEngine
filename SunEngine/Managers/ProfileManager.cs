@@ -13,9 +13,9 @@ namespace SunEngine.Managers
 {
     public class ProfileManager : DbService
     {
-        private readonly IEmailSender emailSender;
-        private readonly Sanitizer sanitizer;
-        private readonly GlobalOptions globalOptions;
+        protected readonly IEmailSender emailSender;
+        protected readonly Sanitizer sanitizer;
+        protected readonly GlobalOptions globalOptions;
 
         public ProfileManager(
             DataBaseConnection db,
@@ -30,7 +30,7 @@ namespace SunEngine.Managers
         }
 
 
-        public Task SendPrivateMessageAsync(User from, User to, string text)
+        public virtual Task SendPrivateMessageAsync(User from, User to, string text)
         {
             var header =
                 $"<div>Вам написал: <a href='{globalOptions.SiteUrl.AppendPathSegment("user/" + from.Link)}'>{from.UserName}</a></div><br/>";
@@ -40,7 +40,7 @@ namespace SunEngine.Managers
             return emailSender.SendEmailAsync(to.Email, subject, text);
         }
 
-        public Task BanUserAsync(User who, User banned)
+        public virtual Task BanUserAsync(User who, User banned)
         {
             UserBanedUnit ban = new UserBanedUnit
             {
@@ -51,7 +51,7 @@ namespace SunEngine.Managers
             return db.InsertAsync(ban);
         }
 
-        public Task UnBanUserAsync(User who, User banned)
+        public virtual Task UnBanUserAsync(User who, User banned)
         {
             return db.UserBanedUnits.Where(x => x.UserId == who.Id && x.UserBanedId == banned.Id).DeleteAsync();
         }

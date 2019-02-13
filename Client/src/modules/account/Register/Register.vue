@@ -137,7 +137,7 @@
         this.submitting = true;
 
         await this.$store.dispatch('request', {
-          url: '/Auth/Register',
+          url: '/Account/Register',
           data: {
             UserName: this.userName,
             Email: this.email,

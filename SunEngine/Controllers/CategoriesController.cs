@@ -7,11 +7,11 @@ namespace SunEngine.Controllers
 {
     public class CategoriesController : BaseController
     {
-        private readonly CategoriesPresenter categoriesPresenter;
+        protected readonly ICategoriesPresenter categoriesPresenter;
 
         public CategoriesController(
             IUserGroupStore userGroupStore,
-            CategoriesPresenter categoriesPresenter,
+            ICategoriesPresenter categoriesPresenter,
             MyUserManager userManager) : base(userGroupStore, userManager)
         {
             this.categoriesPresenter = categoriesPresenter;
@@ -19,7 +19,7 @@ namespace SunEngine.Controllers
 
         [HttpPost]
         [HttpGet] // HttpGet - For pulse and testing 
-        public CategoryInfoWithAccesses GetAllCategoriesAndAccesses()
+        public virtual CategoryInfoWithAccesses GetAllCategoriesAndAccesses()
         {
             var rez = categoriesPresenter.CategoryInfoWithAccessesFromCategory(User.UserGroups);
             return rez;

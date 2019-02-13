@@ -6,13 +6,20 @@ using SunEngine.Services;
 
 namespace SunEngine.Presenters
 {
-    public class PersonalPresenter : DbService
+    public interface IPersonalPresenter
+    {
+        Task<MyUserInfoViewModel> GetMyUserInfoAsync(int id);
+        Task<MyProfileInformationViewModel> GetMyProfileInformationAsync(int id);
+        Task<UserInfoViewModel[]> GetBanListAsync(int userId);
+    }
+
+    public class PersonalPresenter : DbService, IPersonalPresenter
     {
         public PersonalPresenter(DataBaseConnection db) : base(db)
         {
         }
 
-        public Task<MyUserInfoViewModel> GetMyUserInfoAsync(int id)
+        public virtual Task<MyUserInfoViewModel> GetMyUserInfoAsync(int id)
         {
             return db.Users.Where(x => x.Id == id).Select(x =>
                 new MyUserInfoViewModel
@@ -23,7 +30,7 @@ namespace SunEngine.Presenters
                 }).FirstOrDefaultAsync();
         }
 
-        public Task<MyProfileInformationViewModel> GetMyProfileInformationAsync(int id)
+        public virtual Task<MyProfileInformationViewModel> GetMyProfileInformationAsync(int id)
         {
             return db.Users.Where(x => x.Id == id).Select(x =>
                 new MyProfileInformationViewModel
@@ -32,7 +39,7 @@ namespace SunEngine.Presenters
                 }).FirstOrDefaultAsync();
         }
         
-        public Task<UserInfoViewModel[]> GetBanListAsync(int userId)
+        public virtual Task<UserInfoViewModel[]> GetBanListAsync(int userId)
         {
             return db.UserBanedUnits.Where(x => x.UserId == userId).OrderBy(x=>x.UserBaned.UserName).Select(x => 
                 new UserInfoViewModel

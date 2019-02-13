@@ -12,7 +12,7 @@ namespace SunEngine.Managers
 {
     public class PersonalManager : DbService
     {
-        private readonly Sanitizer sanitizer;
+        protected readonly Sanitizer sanitizer;
         
         public PersonalManager(
             DataBaseConnection db, 
@@ -21,17 +21,17 @@ namespace SunEngine.Managers
             this.sanitizer = sanitizer;
         }
 
-        public Task SetPhotoAsync(int userId, string photo)
+        public virtual Task SetPhotoAsync(int userId, string photo)
         {
             return db.Users.Where(x => x.Id == userId).Set(x => x.Photo, x => photo).UpdateAsync();
         }
 
-        public Task SetAvatarAsync(int userId, string avatar)
+        public virtual Task SetAvatarAsync(int userId, string avatar)
         {
             return db.Users.Where(x => x.Id == userId).Set(x => x.Avatar, x => avatar).UpdateAsync();
         }
 
-        public Task SetPhotoAndAvatarAsync(int userId, string photo, string avatar)
+        public virtual Task SetPhotoAndAvatarAsync(int userId, string photo, string avatar)
         {
             return db.Users.Where(x => x.Id == userId)
                 .Set(x => x.Photo, x => photo)
@@ -39,16 +39,14 @@ namespace SunEngine.Managers
                 .UpdateAsync();
         }
 
-        
-
-        public Task SetMyProfileInformationAsync(int userId, string html)
+        public virtual Task SetMyProfileInformationAsync(int userId, string html)
         {
             var htmlSanitized = sanitizer.Sanitize(html);
             return db.Users.Where(x => x.Id == userId)
                 .Set(x => x.Information, htmlSanitized).UpdateAsync();
         }
 
-        public Task SetMyLinkAsync(int userId, string link)
+        public virtual Task SetMyLinkAsync(int userId, string link)
         {
             if (string.IsNullOrEmpty(link))
             {
@@ -60,19 +58,19 @@ namespace SunEngine.Managers
                 .Set(x => x.Link, link).UpdateAsync();
         }
 
-        public Task SetMyNameAsync(User user, string name)
+        public virtual Task SetMyNameAsync(User user, string name)
         {
             user.UserName = name;
             return db.Users.Where(x => x.Id == user.Id)
-                .Set(x => x.UserName, name).Set(x => x.NormalizedUserName, Normalizer.Singleton.Normalize(name)).UpdateAsync();
+                .Set(x => x.UserName, name).Set(x => x.NormalizedUserName, FieldNormalizer.Singleton.Normalize(name)).UpdateAsync();
         }
 
-        public Task<bool> CheckLinkInDbAsync(string link, int userId)
+        public virtual Task<bool> CheckLinkInDbAsync(string link, int userId)
         {
             return db.Users.AnyAsync(x => x.Link.ToLower() == link.ToLower() && x.Id != userId);
         }
 
-        public async Task<bool> ValidateLinkAsync(int userId, string link)
+        public virtual async Task<bool> ValidateLinkAsync(int userId, string link)
         {
             if (string.IsNullOrEmpty(link))
                 return true;
@@ -87,25 +85,23 @@ namespace SunEngine.Managers
             return allowedChars && needChar && allowedLength && !alreadyInDb;
         }
 
-        public Task<bool> CheckNameInDbAsync(string name, int userId)
+        public virtual Task<bool> CheckNameInDbAsync(string name, int userId)
         {
             return db.Users.AnyAsync(x => x.NormalizedUserName == name.ToUpper() && x.Id != userId );
         }
         
-        
-        public async Task<bool> ValidateNameAsync(string name, int userId)
+        public virtual async Task<bool> ValidateNameAsync(string name, int userId)
         {
             var regexAllowedChars = new Regex("^[ а-яА-ЯёЁa-zA-Z0-9-]+$");
             return regexAllowedChars.IsMatch(name) && name.Length >= 3 && !await CheckNameInDbAsync(name,userId);
         }
 
-        public Task RemoveAvatarAsync(int userId)
+        public virtual Task RemoveAvatarAsync(int userId)
         {
             return db.Users.Where(x => x.Id == userId)
                 .Set(x => x.Photo, User.DefaultAvatar)
                 .Set(x => x.Avatar, User.DefaultAvatar).UpdateAsync();
         }
-        
-        
+
     }
 }

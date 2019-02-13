@@ -27,7 +27,7 @@ namespace SunEngine
                     string mainSettingsFile = SettingsFileLocator.GetSettingFilePath("SunEngine.json");
                     string logSettingsFile = SettingsFileLocator.GetSettingFilePath("LogConfig.json");
                     string logSettingsFileEnv =
-                        SettingsFileLocator.GetSettingFilePath($"LogConfig.{GetEnvSuffix(env)}.json",
+                        SettingsFileLocator.GetSettingFilePath($"LogConfig.{SettingsFileLocator.GetEnvSuffix(env)}.json",
                             true);
 
                     config.AddJsonFile(logSettingsFile, optional: false, reloadOnChange: false);
@@ -37,11 +37,6 @@ namespace SunEngine
                     config.AddJsonFile(mainSettingsFile, optional: false, reloadOnChange: false);
                 });
 
-        private static string GetEnvSuffix(IHostingEnvironment env)
-        {
-            if (env.IsDevelopment()) return "dev";
-            if (env.IsProduction()) return "prod";
-            return env.EnvironmentName.ToLower();
-        }
+        
     }
 } 

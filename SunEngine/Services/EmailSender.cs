@@ -8,6 +8,11 @@ using SunEngine.Configuration.Options;
 
 namespace SunEngine.Services
 {
+    public interface IEmailSender
+    {
+        Task SendEmailAsync(string toEmail, string subject, string htmlMessage, string textMessage = null);
+    }
+    
     public class EmailSender : IEmailSender
     {
         private readonly EmailSenderOptions options;

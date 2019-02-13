@@ -1,17 +1,16 @@
 using System;
-using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Controllers;
 using SunEngine.Stores;
 
-namespace SunEngine.Filters
+namespace SunEngine.Security.Filters
 {
-    public class UserSpamProtectionFilter : ActionFilterAttribute
+    public class IpSpamProtectionFilter : ActionFilterAttribute
     {
-        private const string CacheKeyStart = "RFUSER";
-
+        private const string CacheKeyStart = "RFIP";
         
         public int TimeoutSeconds
         {
@@ -24,25 +23,21 @@ namespace SunEngine.Filters
         
         public override void OnActionExecuting(ActionExecutingContext context)
         {
+            
             SpamProtectionStore spamProtectionStore =
                 context.HttpContext.RequestServices.GetRequiredService<SpamProtectionStore>();
 
             BaseController controller = (BaseController) context.Controller;
-
-            var user = controller.User;
-
-            if (!user.Identity.IsAuthenticated)
-            {             
-                context.Result = controller.BadRequest("This user can not make post requests");
-            }
+            
 
             var actionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
             string controllerName = actionDescriptor?.ControllerTypeInfo.FullName;
             string actionName = actionDescriptor?.ActionName;
 
-            string key = MakeKey(user.UserId, controllerName, actionName);
-            RequestFree requestFree = spamProtectionStore.Find(key);
+            var ip = controller.Request.HttpContext.Connection.RemoteIpAddress;
             
+            string key = MakeKey(ip, controllerName, actionName);
+            RequestFree requestFree = spamProtectionStore.Find(key);
             
             if (requestFree != null && requestFree.Working())
             {
@@ -63,9 +58,9 @@ namespace SunEngine.Filters
             controller.ViewData[SpamProtectionFilterTransfer.ViewDataKey] = temp;
         }
 
-        private static string MakeKey(int userId, string controllerName, string actionName)
+        private static string MakeKey(IPAddress ip, string controllerName, string actionName)
         {
-            return CacheKeyStart + "-" + userId + "-" + controllerName + "-" + actionName;
+            return CacheKeyStart + "-" + ip + "-" + controllerName + "-" + actionName;
         }
 
         public override void OnResultExecuted(ResultExecutedContext context)
@@ -88,37 +83,7 @@ namespace SunEngine.Filters
             }
         }
     }
+    
 
-    /// <summary>
-    /// Object to transfer data between OnActionExecuting and OnResultExecuted
-    /// </summary>
-    public class SpamProtectionFilterTransfer
-    {
-        public const string ViewDataKey = "SpamProtectionFilterTransfer";
-        
-        public string Key;
-        public RequestFree RequestFree;
-        public SpamProtectionStore SpamProtectionStore;
-    }
-
-    public class RequestFree
-    {
-
-        private DateTime dateTimeTil;
-
-        public RequestFree(TimeSpan timeout)
-        {
-            dateTimeTil = DateTime.UtcNow.Add(timeout);
-        }
-
-        public void UpdateDateTime(TimeSpan timeout)
-        {
-            dateTimeTil = DateTime.UtcNow.Add(timeout);
-        }
-
-        public bool Working()
-        {
-            return dateTimeTil >= DateTime.UtcNow;
-        }
-    }
+  
 }

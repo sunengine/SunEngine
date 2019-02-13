@@ -29,7 +29,7 @@ namespace SunEngine.Admin.Services
 
         public Task<UserInfoViewModel[]> GetGroupUsers(string groupName, string userNamePart)
         {
-            var normalizedGroupName = Normalizer.Singleton.Normalize(groupName);
+            var normalizedGroupName = FieldNormalizer.Singleton.Normalize(groupName);
             var query = db.UserToGroups.Where(x => x.UserGroup.NormalizedName == normalizedGroupName);
 
             if (userNamePart != null)

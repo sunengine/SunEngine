@@ -6,16 +6,36 @@ using SunEngine.Stores.Models;
 
 namespace SunEngine.Security.Authorization
 {
+    public interface IAuthorizationService
+    {
+        bool HasAccess(IReadOnlyDictionary<string, UserGroupStored> userGroups, Category category, int operationKey);
+
+        HashSet<int> HasAccess(IReadOnlyDictionary<string, UserGroupStored> userGroups, Category category,
+            IEnumerable<int> operationKeys);
+
+
+        #region With CategoryId
+
+        bool HasAccess(IReadOnlyDictionary<string, UserGroupStored> userGroups, int categoryId, int operationKey);
+
+        HashSet<int> HasAccess(IReadOnlyDictionary<string, UserGroupStored> userGroups, int categoryId,
+            IEnumerable<int> operationKeys);
+
+        #endregion
+    }
+
+
     public class AuthorizationService : IAuthorizationService
     {
         private readonly ICategoriesStore categoriesStore;
-        
+
         public AuthorizationService(ICategoriesStore categoriesStore)
         {
             this.categoriesStore = categoriesStore;
         }
-        
-        public bool HasAccess(IReadOnlyDictionary<string,UserGroupStored> userGroups, Category category, int operationKey)
+
+        public bool HasAccess(IReadOnlyDictionary<string, UserGroupStored> userGroups, Category category,
+            int operationKey)
         {
             if (userGroups.ContainsKey(UserGroupStored.UserGroupAdmin))
             {
@@ -29,11 +49,13 @@ namespace SunEngine.Security.Authorization
                     return true;
                 }
             }
+
             return false;
         }
-       
-        
-        public HashSet<int> HasAccess(IReadOnlyDictionary<string,UserGroupStored> userGroups, Category category, IEnumerable<int> operationKeys)
+
+
+        public HashSet<int> HasAccess(IReadOnlyDictionary<string, UserGroupStored> userGroups, Category category,
+            IEnumerable<int> operationKeys)
         {
             if (userGroups.ContainsKey(UserGroupStored.UserGroupAdmin))
             {
@@ -48,6 +70,7 @@ namespace SunEngine.Security.Authorization
                     operationKeysReturn.Add(operationKey);
                 }
             }
+
             return operationKeysReturn;
         }
 
@@ -73,22 +96,24 @@ namespace SunEngine.Security.Authorization
                     category = category.Parent;
                 }
             }
+
             return false;
         }
 
-        
-        
+
         #region With CategoryId
-        public bool HasAccess(IReadOnlyDictionary<string,UserGroupStored> userGroups, int categoryId, int operationKey)
+
+        public bool HasAccess(IReadOnlyDictionary<string, UserGroupStored> userGroups, int categoryId, int operationKey)
         {
             return HasAccess(userGroups, categoriesStore.GetCategory(categoryId), operationKey);
         }
 
-        public HashSet<int> HasAccess(IReadOnlyDictionary<string,UserGroupStored> userGroups, int categoryId,
+        public HashSet<int> HasAccess(IReadOnlyDictionary<string, UserGroupStored> userGroups, int categoryId,
             IEnumerable<int> operationKeys)
         {
             return HasAccess(userGroups, categoriesStore.GetCategory(categoryId), operationKeys);
         }
+
         #endregion
     }
 }
