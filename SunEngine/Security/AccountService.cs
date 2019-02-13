@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using AngleSharp.Network.Default;
 using LinqToDB;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,19 +21,21 @@ using SunEngine.DataBase;
 using SunEngine.Managers;
 using SunEngine.Models;
 using SunEngine.Services;
+using SunEngine.Stores.Models;
 using SunEngine.Utils;
 
 namespace SunEngine.Security
 {
-    public interface IAuthService
+    public interface IAccountService
     {
+        Task<UserServiceResult> LoginAsync(string nameOrEmail, string password);
         string GenerateChangeEmailToken(User user, string email);
         Task SendChangeEmailConfirmationMessageByEmailAsync(User user, string email);
         bool ValidateChangeEmailToken(string token, out int userId, out string email);
-        Task<RegisterResult> RegisterAsync(NewUserViewModel model);
+        Task<ServiceResult> RegisterAsync(NewUserViewModel model);
     }
 
-    public class AuthService : DbService, IAuthService
+    public class AccountService : DbService, IAccountService
     {
         protected readonly JwtOptions jwtOptions;
         protected readonly MyUserManager userManager;
@@ -43,7 +46,7 @@ namespace SunEngine.Security
         protected readonly ILogger logger;
 
 
-        public AuthService(
+        public AccountService(
             MyUserManager userManager,
             IEmailSender emailSender,
             DataBaseConnection db,
@@ -60,6 +63,56 @@ namespace SunEngine.Security
             this.urlHelperFactory = urlHelperFactory;
             this.accessor = accessor;
             logger = loggerFactory.CreateLogger<AccountController>();
+        }
+
+        public async Task<User> FindUserByNameOrEmailAsync(string nameOrEmail)
+        {
+            User user;
+            if (EmailValidator.IsValidEmail(nameOrEmail))
+            {
+                user = await userManager.FindByEmailAsync(nameOrEmail)
+                       ?? await userManager.FindByNameAsync(nameOrEmail); // if name is email like
+            }
+            else
+            {
+                user = await userManager.FindByNameAsync(nameOrEmail);
+            }
+
+            return user;
+        }
+
+        public async Task<UserServiceResult> LoginAsync(string nameOrEmail, string password)
+        {
+            User user = await FindUserByNameOrEmailAsync(nameOrEmail);
+
+            if (user == null || !await userManager.CheckPasswordAsync(user, password))
+            {
+                return UserServiceResult.BadResult(new ErrorViewModel
+                {
+                    ErrorName = "username_password_invalid",
+                    ErrorText = "The username or password is invalid."
+                });
+            }
+
+            if (!await userManager.IsEmailConfirmedAsync(user))
+            {
+                return UserServiceResult.BadResult(new ErrorViewModel
+                {
+                    ErrorName = "email_not_confirmed",
+                    ErrorText = "You must have a confirmed email to log in."
+                });
+            }
+
+            if (await userManager.IsUserInRoleAsync(user.Id, UserGroupStored.UserGroupBanned))
+            {
+                return UserServiceResult.BadResult(new ErrorViewModel
+                {
+                    ErrorName = "user_banned",
+                    ErrorText = "Error" // Что бы не провоцировать пользователя словами что он забанен
+                });
+            }
+
+            return UserServiceResult.OkResult(user);
         }
 
 
@@ -131,7 +184,7 @@ namespace SunEngine.Security
         }
 
 
-        public virtual async Task<RegisterResult> RegisterAsync(NewUserViewModel model)
+        public virtual async Task<ServiceResult> RegisterAsync(NewUserViewModel model)
         {
             var user = new User
             {
@@ -147,7 +200,7 @@ namespace SunEngine.Security
                 await db.Users.Where(x => x.Id == user.Id).Set(x => x.Link, x => x.Id.ToString()).UpdateAsync();
 
                 if (!result.Succeeded)
-                    return new RegisterResult
+                    return new ServiceResult
                     {
                         Succeeded = false,
                         Error = new ErrorViewModel
@@ -180,7 +233,7 @@ namespace SunEngine.Security
                     }
                     catch (Exception e)
                     {
-                        return new RegisterResult
+                        return new ServiceResult
                         {
                             Succeeded = false,
                             Error = new ErrorViewModel
@@ -199,24 +252,17 @@ namespace SunEngine.Security
 
                 transaction.Complete();
 
-                return new RegisterResult
+                return new ServiceResult
                 {
                     Succeeded = true
                 };
             }
         }
 
-
         protected IUrlHelper GetUrlHelper()
         {
             ActionContext context = accessor.ActionContext;
             return urlHelperFactory.GetUrlHelper(context);
         }
-    }
-
-    public class RegisterResult
-    {
-        public bool Succeeded;
-        public ErrorViewModel Error;
     }
 }

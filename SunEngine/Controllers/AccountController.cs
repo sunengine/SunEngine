@@ -20,6 +20,7 @@ using SunEngine.Security;
 using SunEngine.Services;
 using SunEngine.Stores;
 using SunEngine.Stores.Models;
+using SunEngine.Utils;
 
 namespace SunEngine.Controllers
 {
@@ -31,7 +32,7 @@ namespace SunEngine.Controllers
         private readonly JwtService jwtService;
         private readonly DataBaseConnection db;
         private readonly GlobalOptions globalOptions;
-        private readonly IAuthService authService;
+        private readonly IAccountService accountService;
 
         public AccountController(
             MyUserManager userManager,
@@ -39,7 +40,7 @@ namespace SunEngine.Controllers
             DataBaseConnection db,
             ILoggerFactory loggerFactory,
             JwtService jwtService,
-            IAuthService authService,
+            IAccountService accountService,
             IOptions<GlobalOptions> globalOptions,
             IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
@@ -48,7 +49,7 @@ namespace SunEngine.Controllers
             logger = loggerFactory.CreateLogger<AccountController>();
             this.db = db;
             this.jwtService = jwtService;
-            this.authService = authService;
+            this.accountService = accountService;
         }
 
 
@@ -56,46 +57,14 @@ namespace SunEngine.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> Login(string nameOrEmail, string password)
         {
-            User user = null;
+            var result = await accountService.LoginAsync(nameOrEmail,password);
 
-            if (IsValidEmail(nameOrEmail))
+            if (result.Failed)
             {
-                user = await userManager.FindByEmailAsync(nameOrEmail)
-                       ?? await userManager.FindByNameAsync(nameOrEmail); // if name is email like
-            }
-            else
-            {
-                user = await userManager.FindByNameAsync(nameOrEmail);
-            }
-
-            if (user == null || !await userManager.CheckPasswordAsync(user, password))
-            {
-                return BadRequest(new ErrorViewModel
-                {
-                    ErrorName = "username_password_invalid",
-                    ErrorText = "The username or password is invalid."
-                });
-            }
-
-            if (!await userManager.IsEmailConfirmedAsync(user))
-            {
-                return BadRequest(new ErrorViewModel
-                {
-                    ErrorName = "email_not_confirmed",
-                    ErrorText = "You must have a confirmed email to log in."
-                });
-            }
-
-            if (await userManager.IsUserInRoleAsync(user.Id, UserGroupStored.UserGroupBanned))
-            {
-                return BadRequest(new ErrorViewModel
-                {
-                    ErrorName = "user_banned",
-                    ErrorText = "Error" // Что бы не провоцировать пользователя словами что он забанен
-                });
+                return BadRequest(result.Error);
             }
             
-            await jwtService.RenewSecurityTokensAsync(Response, user);
+            await jwtService.RenewSecurityTokensAsync(Response, result.user);
 
             return Ok();
         }
@@ -121,7 +90,7 @@ namespace SunEngine.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = await authService.RegisterAsync(model);
+            var result = await accountService.RegisterAsync(model);
             if (!result.Succeeded)
                 return BadRequest(result.Error);
 
@@ -243,7 +212,7 @@ namespace SunEngine.Controllers
         {
             email = email.Trim();
 
-            if (!IsValidEmail(email))
+            if (!EmailValidator.IsValidEmail(email))
             {
                 return BadRequest(new ErrorViewModel {ErrorText = "Email not valid"});
             }
@@ -260,7 +229,7 @@ namespace SunEngine.Controllers
                 return BadRequest(new ErrorViewModel {ErrorText = "Email already registered"});
             }
 
-            await authService.SendChangeEmailConfirmationMessageByEmailAsync(user, email);
+            await accountService.SendChangeEmailConfirmationMessageByEmailAsync(user, email);
 
             return Ok();
         }
@@ -270,7 +239,7 @@ namespace SunEngine.Controllers
         {
             try
             {
-                if (!authService.ValidateChangeEmailToken(token, out int userId, out string email)
+                if (!accountService.ValidateChangeEmailToken(token, out int userId, out string email)
                     || await userManager.CheckEmailInDbAsync(email, User.UserId))
                 {
                     return Error();
@@ -291,11 +260,7 @@ namespace SunEngine.Controllers
             }
         }
 
-        protected bool IsValidEmail(string email)
-        {
-            EmailAddressAttribute emailValidator = new EmailAddressAttribute();
-            return emailValidator.IsValid(email);
-        }
+        
     }
 
     public class NewUserViewModel : CaptchaViewModel

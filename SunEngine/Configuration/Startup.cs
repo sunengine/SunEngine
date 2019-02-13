@@ -67,7 +67,7 @@ namespace SunEngine.Configuration
 
             services.AddUrlHelper();
 
-            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IAccountService, AccountService>();
             services.AddSingleton<CaptchaService>();
             services.AddSingleton<Sanitizer>();
             services.AddTransient<IEmailSender, EmailSender>();
