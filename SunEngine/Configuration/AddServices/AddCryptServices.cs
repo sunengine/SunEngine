@@ -1,4 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
+using SunEngine.Security;
+using SunEngine.Security.Captcha;
+using SunEngine.Security.Cryptography;
 using SunEngine.Services;
 
 namespace SunEngine.Configuration.AddServices

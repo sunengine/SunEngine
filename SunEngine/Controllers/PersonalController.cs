@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SunEngine.Managers;
 using SunEngine.Presenters;
 using SunEngine.Security;
+using SunEngine.Security.Authorization;
 using SunEngine.Stores;
 
 namespace SunEngine.Controllers

@@ -10,7 +10,7 @@ namespace SunEngine.Managers
     {
         public MyRoleManager(IRoleStore<UserGroup> store, IEnumerable<IRoleValidator<UserGroup>> roleValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, ILogger<RoleManager<UserGroup>> logger) : base(store, roleValidators, keyNormalizer, errors, logger)
         {
-            KeyNormalizer = Normalizer.Singleton;
+            KeyNormalizer = FieldNormalizer.Singleton;
         }
     }
 }

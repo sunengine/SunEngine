@@ -20,6 +20,7 @@ using SunEngine.Controllers;
 using SunEngine.DataBase;
 using SunEngine.Managers;
 using SunEngine.Models;
+using SunEngine.Security.Cryptography;
 using SunEngine.Services;
 using SunEngine.Stores.Models;
 using SunEngine.Utils;

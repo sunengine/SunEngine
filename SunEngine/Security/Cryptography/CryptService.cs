@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
-using SunEngine.Utils;
 
-namespace SunEngine.Services
+namespace SunEngine.Security.Cryptography
 {
     public class CryptService
     {

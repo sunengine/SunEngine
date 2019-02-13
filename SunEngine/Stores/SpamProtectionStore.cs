@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 using System.Linq;
-using SunEngine.Filters;
+using SunEngine.Security.Filters;
 
 namespace SunEngine.Stores
 {

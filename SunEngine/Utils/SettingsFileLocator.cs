@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace SunEngine.Utils
 {
@@ -21,6 +22,13 @@ namespace SunEngine.Utils
                 throw new Exception($"Can not locate local.{fileName} or {fileName}");
 
             return null;
+        }
+        
+        public static string GetEnvSuffix(IHostingEnvironment env)
+        {
+            if (env.IsDevelopment()) return "dev";
+            if (env.IsProduction()) return "prod";
+            return env.EnvironmentName.ToLower();
         }
     }
 }

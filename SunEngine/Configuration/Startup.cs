@@ -8,6 +8,7 @@ using SunEngine.Configuration.AddServices;
 using SunEngine.DataBase;
 using SunEngine.Security;
 using SunEngine.Security.Authentication;
+using SunEngine.Security.Captcha;
 using SunEngine.Services;
 using SunEngine.Utils.TextProcess;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;

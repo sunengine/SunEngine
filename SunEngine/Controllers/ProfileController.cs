@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SunEngine.Filters;
 using SunEngine.Managers;
 using SunEngine.Models;
 using SunEngine.Presenters;
+using SunEngine.Security.Filters;
 using SunEngine.Stores;
 using SunEngine.Stores.Models;
 

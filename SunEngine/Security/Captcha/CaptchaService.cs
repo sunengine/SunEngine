@@ -9,11 +9,11 @@ using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SunEngine.Configuration.Options;
-using SunEngine.Utils;
+using SunEngine.Security.Cryptography;
 using Path = System.IO.Path;
 using PointF = SixLabors.Primitives.PointF;
 
-namespace SunEngine.Services
+namespace SunEngine.Security.Captcha
 {
     public class CaptchaService
     {

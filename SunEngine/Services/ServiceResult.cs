@@ -1,7 +1,7 @@
 using SunEngine.Controllers;
 using SunEngine.Models;
 
-namespace SunEngine.Security
+namespace SunEngine.Services
 {
     public class ServiceResult
     {

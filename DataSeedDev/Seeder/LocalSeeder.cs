@@ -158,8 +158,8 @@ namespace DataSeedDev.Seeder
 
         private void NormalizeUserFields(User user)
         {
-            user.NormalizedUserName = Normalizer.Singleton.Normalize(user.UserName);
-            user.NormalizedEmail = Normalizer.Singleton.Normalize(user.Email);
+            user.NormalizedUserName = FieldNormalizer.Singleton.Normalize(user.UserName);
+            user.NormalizedEmail = FieldNormalizer.Singleton.Normalize(user.Email);
         }
 
         private void SeedUsers()
