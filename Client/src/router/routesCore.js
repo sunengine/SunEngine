@@ -100,8 +100,7 @@ const routes = [
       navigation: null
     }
   },
-
-]
+];
 
 
 // Always leave this as last one
