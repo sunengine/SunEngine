@@ -70,7 +70,7 @@
     methods: {
       checkLinkInDb() {
         clearTimeout(this.timeout);
-        if (this.link.toLowerCase() == this.$store.state.auth.user.link.toLowerCase())
+        if (this.link.toLowerCase() == this.$store.state.auth.userInfo.link.toLowerCase())
           return;
         this.timeout = setTimeout(this.checkLinkInDbDo, 1000);
       },

@@ -1,10 +1,10 @@
 import AddEditMaterial from 'material/AddEditMaterial.vue';
-import Login from 'auth/Login.vue';
-import Register from 'auth/Register/Register.vue';
-import EmailConfirmed from 'auth/Register/EmailConfirmed.vue';
-import ResetPassword from 'auth/Password/ResetPassword.vue';
-import SetNewPasswordFromReset from 'auth/Password/SetNewPasswordFromReset.vue';
-import ResetPasswordFailed from 'auth/Password/ResetPasswordFailed.vue';
+import Login from 'account/Login.vue';
+import Register from 'account/Register/Register.vue';
+import EmailConfirmed from 'account/Register/EmailConfirmed.vue';
+import ResetPassword from 'account/Password/ResetPassword.vue';
+import SetNewPasswordFromReset from 'account/Password/SetNewPasswordFromReset.vue';
+import ResetPasswordFailed from 'account/Password/ResetPasswordFailed.vue';
 
 import UserProfile from 'profile/Profile';
 import WritePrivateMessage from 'profile/WritePrivateMessage';
