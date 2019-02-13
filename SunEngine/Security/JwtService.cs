@@ -45,7 +45,7 @@ namespace SunEngine.Security
         {
             this.userManager = userManager;
             this.jwtOptions = jwtOptions.Value;
-            logger = loggerFactory.CreateLogger<AuthController>();
+            logger = loggerFactory.CreateLogger<AccountController>();
             this.userGroupStore = userGroupStore;
         }
 

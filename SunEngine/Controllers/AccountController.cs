@@ -24,7 +24,7 @@ using SunEngine.Stores.Models;
 namespace SunEngine.Controllers
 {
     [Authorize]
-    public class AuthController : BaseController
+    public class AccountController : BaseController
     {
         private readonly IEmailSender emailSender;
         private readonly ILogger logger;
@@ -33,7 +33,7 @@ namespace SunEngine.Controllers
         private readonly GlobalOptions globalOptions;
         private readonly IAuthService authService;
 
-        public AuthController(
+        public AccountController(
             MyUserManager userManager,
             IEmailSender emailSender,
             DataBaseConnection db,
@@ -45,7 +45,7 @@ namespace SunEngine.Controllers
         {
             this.globalOptions = globalOptions.Value;
             this.emailSender = emailSender;
-            logger = loggerFactory.CreateLogger<AuthController>();
+            logger = loggerFactory.CreateLogger<AccountController>();
             this.db = db;
             this.jwtService = jwtService;
             this.authService = authService;
@@ -159,7 +159,7 @@ namespace SunEngine.Controllers
 
             var (schema, host) = globalOptions.GetSchemaAndHostApi();
 
-            var resetPasswordUrl = Url.Action("ChangePasswordFromResetDialog", "Auth",
+            var resetPasswordUrl = Url.Action("ChangePasswordFromResetDialog", "Account",
                 new {uid = user.Id, token = resetToken}, schema, host);
             try
             {
@@ -291,7 +291,7 @@ namespace SunEngine.Controllers
             }
         }
 
-        private bool IsValidEmail(string email)
+        protected bool IsValidEmail(string email)
         {
             EmailAddressAttribute emailValidator = new EmailAddressAttribute();
             return emailValidator.IsValid(email);

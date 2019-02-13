@@ -2,10 +2,10 @@ import SettingsPanel from 'personal/SettingsPanel';
 import Settings from 'personal/Settings';
 import LoadPhoto from 'personal/LoadPhoto';
 import EditUserProfileInformation from 'personal/EditUserProfileInformation';
-import ChangePassword from 'auth/Password/ChangePassword.vue';
-import ChangeEmail from 'auth/ChangeEmail.vue';
-import ChangeLink from 'auth/ChangeLink.vue';
-import ChangeName from 'auth/ChangeName.vue';
+import ChangePassword from 'account/Password/ChangePassword.vue';
+import ChangeEmail from 'account/ChangeEmail.vue';
+import ChangeLink from 'personal/ChangeLink.vue';
+import ChangeName from 'personal/ChangeName.vue';
 import MyBanList from 'personal/MyBanList.vue';
 import Profile from 'profile/Profile.vue';
 
@@ -15,7 +15,7 @@ import {store} from 'store';
 const routes = [
   {
     name: 'ChangePassword',
-    path: '/auth/ChangePassword'.toLowerCase(),
+    path: '/account/ChangePassword'.toLowerCase(),
     components: {
       default: ChangePassword,
       navigation: SettingsPanel
@@ -23,7 +23,7 @@ const routes = [
   },
   {
     name: 'ChangeEmail',
-    path: '/auth/ChangeEmail'.toLowerCase(),
+    path: '/account/ChangeEmail'.toLowerCase(),
     components: {
       default: ChangeEmail,
       navigation: SettingsPanel
@@ -31,7 +31,7 @@ const routes = [
   },
   {
     name: 'ChangeLink',
-    path: '/auth/ChangeLink'.toLowerCase(),
+    path: '/personal/ChangeLink'.toLowerCase(),
     components: {
       default: ChangeLink,
       navigation: SettingsPanel
@@ -39,7 +39,7 @@ const routes = [
   },
   {
     name: 'ChangeName',
-    path: '/auth/ChangeName'.toLowerCase(),
+    path: '/personal/ChangeName'.toLowerCase(),
     components: {
       default: ChangeName,
       navigation: SettingsPanel

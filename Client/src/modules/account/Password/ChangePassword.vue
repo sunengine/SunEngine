@@ -1,28 +1,29 @@
 <template>
-  <q-page padding class="flex middle">
+  <QPage padding class="flex middle">
     <div class="center-form" v-if="!done">
-      <q-field icon="fas fa-key" :error="$v.password.$invalid && !start"
+      <q-field :error="$v.passwordOld.$invalid && !start"
+               error-label="Введите пароль">
+        <q-input v-model="passwordOld" type="password" float-label="Старый пароль"/>
+      </q-field>
+
+      <q-field :error="$v.password.$invalid && !start"
                :error-label="passwordErrorLabel">
-        <q-input v-model="password" type="password" float-label="Пароль"/>
+        <q-input v-model="password" type="password" float-label="Новый пароль"/>
       </q-field>
 
-      <q-field icon="fas fa-key" class="q-mb-md" :error="$v.password2.$invalid && !start"
+      <q-field :error="$v.password2.$invalid && !start"
                :error-label="password2ErrorLabel">
-        <q-input v-model="password2" type="password" float-label="Подвердите пароль"/>
+        <q-input v-model="password2" type="password" float-label="Подтвердите пароль"/>
       </q-field>
-
-      <q-field>
-        <q-btn style="width:100%;" color="send" label="Изменить пароль" @click="changePassword" :loading="submitting">
-          <LoaderSent slot="loading"/>
-        </q-btn>
-      </q-field>
+      <q-btn class="q-mt-lg" icon="far fa-save" color="send" label="Изменить пароль" @click="changePassword"
+             :loading="submitting">
+        <LoaderSent slot="loading"/>
+      </q-btn>
     </div>
     <q-alert v-else type="positive" icon="fas fa-key">
       Пароль изменён.
-      <router-link :to="{name: 'Login'}">Войти</router-link>
-      .
     </q-alert>
-  </q-page>
+  </QPage>
 </template>
 
 <script>
@@ -31,11 +32,12 @@
   import {required, minLength, sameAs} from 'vuelidate/lib/validators'
 
   export default {
-    name: "SetNewPasswordFromReset",
+    name: "ChangePassword",
     components: {LoaderSent},
     mixins: [Page],
     data: function () {
       return {
+        passwordOld: "",
         password: "",
         password2: "",
         submitting: false,
@@ -44,6 +46,9 @@
       }
     },
     validations: {
+      passwordOld: {
+        required
+      },
       password: {
         required,
         minLength: minLength(6),
@@ -81,17 +86,16 @@
         this.submitting = true;
 
         await this.$store.dispatch('request', {
-          url: '/Auth/ChangePasswordFromReset',
+          url: '/Account/ChangePassword',
           data: {
-            uid: this.$route.query.uid,
-            token: this.$route.query.token,
-            newPassword: this.password
+            passwordOld: this.passwordOld,
+            passwordNew: this.password
           }
         }).then(response => {
           this.done = true;
         }).catch(error => {
           this.$q.notify({
-            message: error.response.data.errorText,
+            message: error.response.data.errorsTexts,
             timeout: 5000,
             type: 'negative',
             position: 'top'
@@ -101,12 +105,17 @@
       }
     },
     created() {
-      this.setTitle("Установить пароль");
+      this.setTitle("Изменить пароль");
     },
 
   }
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
+  .q-field {
+    height: 78px;
+  }
+
+
 
 </style>

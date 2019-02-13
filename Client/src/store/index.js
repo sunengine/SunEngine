@@ -6,11 +6,10 @@ import categories from './categories'
 import extensions from './extensions'
 
 import {makeUserDataFromToken} from "services/auth";
-import {getToken, setToken} from "services/token";
+import {getToken} from "services/token";
 
 import request from "services/request";
-import {routeCheckAccess} from "../plugins/routeAccess";
-import {router} from "../router";
+
 
 import {setSessionTokens} from "services/request"
 

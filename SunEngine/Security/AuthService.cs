@@ -59,7 +59,7 @@ namespace SunEngine.Security
             this.emailSender = emailSender;
             this.urlHelperFactory = urlHelperFactory;
             this.accessor = accessor;
-            logger = loggerFactory.CreateLogger<AuthController>();
+            logger = loggerFactory.CreateLogger<AccountController>();
         }
 
 
@@ -94,7 +94,7 @@ namespace SunEngine.Security
 
             var (schema, host) = globalOptions.GetSchemaAndHostApi();
 
-            var updateEmailUrl = urlHelper.Action("ConfirmEmail", "Auth",
+            var updateEmailUrl = urlHelper.Action("ConfirmEmail", "Account",
                 new {token = emailToken}, schema, host);
 
             await emailSender.SendEmailAsync(user.Email, "Confirm your email",
@@ -168,7 +168,7 @@ namespace SunEngine.Security
 
                     var Url = GetUrlHelper();
 
-                    var emailConfirmUrl = Url.Action("Confirm", "Auth",
+                    var emailConfirmUrl = Url.Action("Confirm", "Account",
                         new {uid = user.Id, token = confirmToken},
                         schema, host);
 
