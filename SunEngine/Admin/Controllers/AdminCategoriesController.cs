@@ -17,14 +17,14 @@ using SunEngine.Stores;
 
 namespace SunEngine.Admin.Controllers
 {
-    public class CategoriesAdminController : AdminBaseController
+    public class AdminCategoriesController : AdminBaseController
     {
         private readonly DataBaseConnection db;
         private readonly ICategoriesCache categoriesCache;
         private readonly CategoriesManager categoriesManager;
         private readonly ICategoriesAdminPresenter categoriesAdminPresenter;
 
-        public CategoriesAdminController(
+        public AdminCategoriesController(
             DataBaseConnection db,
             CategoriesManager categoriesManager,
             ICategoriesAdminPresenter categoriesAdminPresenter,

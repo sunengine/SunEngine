@@ -41,7 +41,7 @@
       async loadData() {
         await this.$store.dispatch("request",
           {
-            url: "/CategoriesAdmin/GetCategory",
+            url: "/Admin/AdminCategories/GetCategory",
             data: {
               id: this.categoryId
             }
@@ -69,7 +69,7 @@
 
         await this.$store.dispatch("request",
           {
-            url: "/CategoriesAdmin/EditCategory",
+            url: "/Admin/AdminCategories/EditCategory",
             data: this.category,
             sendAsJson: true
           })

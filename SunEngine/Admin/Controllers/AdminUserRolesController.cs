@@ -12,12 +12,12 @@ using SunEngine.Stores;
 namespace SunEngine.Admin.Controllers
 {
 
-    public class UserRolesController : AdminBaseController
+    public class AdminUserRolesController : AdminBaseController
     {
         private readonly IUserRolesPresenter userRolesPresenter;
         private readonly JwtBlackListService jwtBlackListService;
 
-        public UserRolesController(
+        public AdminUserRolesController(
             IUserRolesPresenter userRolesPresenter,
             JwtBlackListService jwtBlackListService,
             IRolesCache rolesCache,

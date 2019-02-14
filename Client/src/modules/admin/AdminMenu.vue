@@ -4,7 +4,7 @@
       <q-icon name="far fa-folder-open" size="16px" class="on-left"/>
       Категории
     </q-item>
-    <q-item :to="{name: 'RolesAdmin'}" :multiline="false" link>
+    <q-item :to="{name: 'RolesPermissions'}" :multiline="false" link>
       <q-icon name="fas fa-users-cog" size="16px" class="on-left"/>
       Права групп пользователей
     </q-item>

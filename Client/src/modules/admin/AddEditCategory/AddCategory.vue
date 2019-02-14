@@ -49,7 +49,7 @@
 
         await this.$store.dispatch("request",
           {
-            url: "/CategoriesAdmin/AddCategory",
+            url: "/Admin/AdminCategories/AddCategory",
             data: {...this.category}
           })
           .then(

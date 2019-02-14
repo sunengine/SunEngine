@@ -10,21 +10,24 @@ using SunEngine.Stores;
 
 namespace SunEngine.Admin.Controllers
 {
-    public class RolesController : AdminBaseController
+    /// <summary>
+    /// Settings roles permissions
+    /// </summary>
+    public class AdminRolesPermissionsController : AdminBaseController
     {
-        private readonly RolesAdminService rolesAdminService;
+        private readonly RolesPermissionsAdminService rolesPermissionsAdminService;
 
-        public RolesController(
+        public AdminRolesPermissionsController(
             MyUserManager userManager,
-            RolesAdminService rolesAdminService,
+            RolesPermissionsAdminService rolesPermissionsAdminService,
             IRolesCache rolesCache) : base(rolesCache, userManager)
         {
-            this.rolesAdminService = rolesAdminService;
+            this.rolesPermissionsAdminService = rolesPermissionsAdminService;
         }
 
         public async Task<IActionResult> GetJson()
         {
-            var json = await rolesAdminService.GetGroupsJsonAsync();
+            var json = await rolesPermissionsAdminService.GetGroupsJsonAsync();
 
             return Ok(new {Json = json});
         }
@@ -33,7 +36,7 @@ namespace SunEngine.Admin.Controllers
         {
             try
             {
-                await rolesAdminService.LoadUserGroupsFromJsonAsync(json);
+                await rolesPermissionsAdminService.LoadUserGroupsFromJsonAsync(json);
             }
             catch (Exception e)
             {

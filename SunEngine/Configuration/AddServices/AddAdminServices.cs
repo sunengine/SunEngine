@@ -10,7 +10,7 @@ namespace SunEngine.Configuration.AddServices
         public static void AddAdminServices(this IServiceCollection services)
         {
             services.AddScoped<CategoriesManager>();
-            services.AddScoped<RolesAdminService>();
+            services.AddScoped<RolesPermissionsAdminService>();
             services.AddScoped<IUserRolesPresenter, UserRolesPresenter>();
             services.AddScoped<ICategoriesAdminPresenter, CategoriesAdminPresenter>();
             services.AddScoped<IUserRolesPresenter, UserRolesPresenter>();

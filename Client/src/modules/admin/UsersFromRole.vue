@@ -49,7 +49,7 @@
         this.users = null;
         await this.$store.dispatch("request",
           {
-            url: "/UserRoles/GetRoleUsers",
+            url: "/Admin/AdminUserRoles/GetRoleUsers",
             data: {
               roleName: this.roleName,
               userNamePart: this.filter

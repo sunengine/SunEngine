@@ -29,10 +29,10 @@
       }
     },
     methods: {
-      async loadAllGroups() {
+      async loadAllRoles() {
         await this.$store.dispatch("request",
           {
-            url: "/UserRoles/GetAllUserRoles"
+            url: "/Admin/AdminUserRoles/GetAllUserRoles"
           })
           .then(response => {
               this.roles = response.data;
@@ -41,7 +41,7 @@
       }
     },
     async created() {
-      await this.loadAllGroups();
+      await this.loadAllRoles();
     }
   }
 

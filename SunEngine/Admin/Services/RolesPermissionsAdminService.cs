@@ -16,13 +16,13 @@ using SunEngine.Utils;
 
 namespace SunEngine.Admin.Services
 {
-    public class RolesAdminService : DbService
+    public class RolesPermissionsAdminService : DbService
     {
         private const string UserGroupsSchemaFileName = "UserGroups.schema.json";
         private readonly string UserGroupSchemaPath;
 
 
-        public RolesAdminService(
+        public RolesPermissionsAdminService(
             DataBaseConnection db,
             IHostingEnvironment env) : base(db)
         {

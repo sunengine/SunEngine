@@ -3,7 +3,7 @@ import AdminPanel from 'admin/AdminPanel.vue';
 import CategoriesAdmin from 'admin/CategoriesAdmin.vue';
 import AddCategory from 'admin/AddEditCategory/AddCategory.vue';
 import EditCategory from 'admin/AddEditCategory/EditCategory.vue';
-import RolesAdmin from 'admin/RolesAdmin.vue';
+import RolesPermissions from 'admin/RolesPermissions.vue';
 import UsersFromRole from 'admin/UsersFromRole.vue';
 import RolesUsers from 'admin/RolesUsers.vue';
 
@@ -50,10 +50,10 @@ const routes = [
     }
   },
   {
-    name: 'RolesAdmin',
-    path: '/admin/RolesAdmin'.toLowerCase(),
+    name: 'RolesPermissions',
+    path: '/admin/RolesPermissions'.toLowerCase(),
     components: {
-      default: RolesAdmin,
+      default: RolesPermissions,
       navigation: AdminPanel
     }
   },

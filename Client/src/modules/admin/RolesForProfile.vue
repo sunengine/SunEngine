@@ -97,7 +97,7 @@
       async addToRole(roleName) {
         await this.$store.dispatch("request",
           {
-            url: "/UserRoles/AddUserToRole",
+            url: "/Admin/AdminUserRoles/AddUserToRole",
             data: {
               userId: this.userId,
               roleName: roleName
@@ -111,7 +111,7 @@
       async removeFromRole(roleName) {
         await this.$store.dispatch("request",
           {
-            url: "/UserRoles/RemoveUserFromRole",
+            url: "/Admin/AdminUserRoles/RemoveUserFromRole",
             data: {
               userId: this.userId,
               roleName: roleName
@@ -125,7 +125,7 @@
       async loadUserRoles() {
         await this.$store.dispatch("request",
           {
-            url: "/UserRoles/GetUserRoles",
+            url: "/Admin/AdminUserRoles/GetUserRoles",
             data: {
               userId: this.userId
             }
@@ -139,7 +139,7 @@
       async loadAllRoles() {
         await this.$store.dispatch("request",
           {
-            url: "/UserRoles/GetAllUserRoles"
+            url: "/Admin/AdminUserRoles/GetAllUserRoles"
           })
           .then(response => {
               this.allRoles = response.data;
