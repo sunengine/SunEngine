@@ -38,7 +38,7 @@
       async up(category) {
         await this.$store.dispatch("request",
           {
-            url: "/CategoriesAdmin/CategoryUp",
+            url: "/Admin/CategoriesAdmin/CategoryUp",
             data: {name: category.name}
           })
           .then(
@@ -52,7 +52,7 @@
       async down(category) {
         await this.$store.dispatch("request",
           {
-            url: "/CategoriesAdmin/CategoryDown",
+            url: "/Admin/CategoriesAdmin/CategoryDown",
             data: {name: category.name}
           })
           .then(
@@ -66,7 +66,7 @@
       async loadData() {
         await this.$store.dispatch("request",
           {
-            url: "/CategoriesAdmin/GetAllCategories",
+            url: "/Admin/CategoriesAdmin/GetAllCategories",
             data: {}
           })
           .then(

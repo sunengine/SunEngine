@@ -12,12 +12,12 @@ using SunEngine.Controllers;
 using SunEngine.DataBase;
 using SunEngine.Managers;
 using SunEngine.Models;
+using SunEngine.Security;
 using SunEngine.Stores;
 
 namespace SunEngine.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    public class CategoriesAdminController : BaseController
+    public class CategoriesAdminController : AdminBaseController
     {
         private readonly DataBaseConnection db;
         private readonly ICategoriesCache categoriesCache;

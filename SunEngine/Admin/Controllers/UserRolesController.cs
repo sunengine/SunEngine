@@ -5,13 +5,14 @@ using SunEngine.Admin.Presenters;
 using SunEngine.Admin.Services;
 using SunEngine.Controllers;
 using SunEngine.Managers;
+using SunEngine.Security;
 using SunEngine.Security.Authentication;
 using SunEngine.Stores;
 
 namespace SunEngine.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    public class UserRolesController : BaseController
+
+    public class UserRolesController : AdminBaseController
     {
         private readonly IUserRolesPresenter userRolesPresenter;
         private readonly JwtBlackListService jwtBlackListService;

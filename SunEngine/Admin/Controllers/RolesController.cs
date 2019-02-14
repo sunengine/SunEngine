@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Services;
 using SunEngine.Controllers;
 using SunEngine.Managers;
+using SunEngine.Security;
 using SunEngine.Stores;
 
 namespace SunEngine.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    public class RolesController : BaseController
+    public class RolesController : AdminBaseController
     {
         private readonly RolesAdminService rolesAdminService;
 
