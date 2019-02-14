@@ -29,13 +29,13 @@ namespace DataSeedDev.Seeder
         public List<Message> Messages = new List<Message>();
         public List<Material> Materials = new List<Material>();
         public List<User> Users = new List<User>();
-        public List<Role> UserGroups = new List<Role>();
-        public List<UserRole> UserToGroups = new List<UserRole>();
+        public List<Role> Roles = new List<Role>();
+        public List<UserRole> UserRoles = new List<UserRole>();
         public List<CategoryAccess> CategoryAccesses = new List<CategoryAccess>(); 
         public List<CategoryOperationAccess> CategoryOperationAccesses = new List<CategoryOperationAccess>();
         public List<OperationKey> OperationKeys = new List<OperationKey>(); 
 
-        public Random _ran = new Random();
+        public Random ran = new Random();
         
         public int NextCategoryId()
         {
@@ -76,7 +76,7 @@ namespace DataSeedDev.Seeder
 
         public int GetRandomUserId()
         {
-            return Users[_ran.Next(Users.Count)].Id;
+            return Users[ran.Next(Users.Count)].Id;
         }
         
         public DateTime IterateMessagePublishDate()

@@ -6,10 +6,7 @@ namespace SunEngine.Stores.Models
 {
     public class RoleStored
     {
-        public const string UserGroupAdmin = "Admin";
-        public const string UserGroupRegistered = "Registered";
-        public const string UserGroupUnregistered = "Unregistered";
-        public const string UserGroupBanned = "Banned";
+       
 
 
         public int Id { get; }

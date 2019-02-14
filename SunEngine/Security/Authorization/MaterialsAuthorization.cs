@@ -17,18 +17,18 @@ namespace SunEngine.Security.Authorization
     {
         private readonly OperationKeysContainer OperationKeys;
         private readonly IAuthorizationService authorizationService;
-        private readonly MaterialOptions materialOptions;
+        private readonly MaterialsOptions materialsOptions;
         private readonly ICategoriesCache categoriesCache;
         private readonly DataBaseConnection db;
 
         public MaterialsAuthorization(IAuthorizationService authorizationService,
-            IOptions<MaterialOptions> materialOptions, 
+            IOptions<MaterialsOptions> materialOptions, 
             OperationKeysContainer operationKeysContainer,
             ICategoriesCache categoriesCache,
             DataBaseConnection db)
         {
             this.authorizationService = authorizationService;
-            this.materialOptions = materialOptions.Value;
+            this.materialsOptions = materialOptions.Value;
             this.categoriesCache = categoriesCache;
             this.db = db;
 
@@ -50,19 +50,19 @@ namespace SunEngine.Security.Authorization
         private bool EditOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
             return DateTime.Now - publishDate <
-                   new TimeSpan(0, 0, materialOptions.MaterialsTimeToOwnEditInMinutes, 0, 0);
+                   new TimeSpan(0, 0, materialsOptions.TimeToOwnEditInMinutes, 0, 0);
         }
 
         private bool DeleteOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
             return DateTime.Now - publishDate <
-                   new TimeSpan(0, 0, materialOptions.MaterialsTimeToOwnDeleteInMinutes, 0, 0);
+                   new TimeSpan(0, 0, materialsOptions.TimeToOwnDeleteInMinutes, 0, 0);
         }
 
         private bool MoveOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
             return DateTime.Now - publishDate <
-                   new TimeSpan(0, 0, materialOptions.MaterialsTimeToOwnDeleteInMinutes, 0, 0);
+                   new TimeSpan(0, 0, materialsOptions.TimeToOwnDeleteInMinutes, 0, 0);
         }
 
         public bool CanEdit(MyClaimsPrincipal user, Material material)

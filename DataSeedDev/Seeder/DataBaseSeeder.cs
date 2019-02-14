@@ -44,11 +44,11 @@ namespace DataSeedDev.Seeder
             Console.WriteLine("Messages");
             db.BulkCopy(options,dataContainer.Messages);
             
-            Console.WriteLine("UserGroups");
-            db.BulkCopy(options,dataContainer.UserGroups);
+            Console.WriteLine("Roles");
+            db.BulkCopy(options,dataContainer.Roles);
             
-            Console.WriteLine("IdentityUserRoles");
-            db.BulkCopy(options,dataContainer.UserToGroups);
+            Console.WriteLine("UserRoles");
+            db.BulkCopy(options,dataContainer.UserRoles);
             
             Console.WriteLine("OperationKeys");
             db.BulkCopy(options,dataContainer.OperationKeys);

@@ -101,7 +101,7 @@ namespace SunEngine.Security.Authorization
             var lat2Token = CreateLong2AuthToken(longSession, out string lat2r);
 
             response.Cookies.Append(
-                "LAT2",
+                TokenClaimNames.LongToken2CoockiName,
                 lat2Token,
                 new CookieOptions
                 {
@@ -125,7 +125,7 @@ namespace SunEngine.Security.Authorization
                 ShortToken = tokenAndClaimsPrincipal.Token
             }, jsonSerializerSettings);
 
-            response.Headers.Add("TOKENS", json);
+            response.Headers.Add(Headers.TokensHeaderName, json);
 
             return tokenAndClaimsPrincipal.ClaimsPrincipal;
         }
@@ -148,7 +148,7 @@ namespace SunEngine.Security.Authorization
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim("LAT2R", lat2r),
+                new Claim(TokenClaimNames.LongToken2Ran, lat2r),
                 new Claim(JwtRegisteredClaimNames.Jti, CryptoRandomizer.GetRandomString(DbColumnSizes.BlackListShortToken_TokenId))
             };
 
@@ -197,8 +197,8 @@ namespace SunEngine.Security.Authorization
                     tokenHandler.ValidateToken(token, validationParameters, out SecurityToken securityToken);
                 if (principal != null)
                     return (JwtSecurityToken) securityToken;
-                else
-                    return null;
+                
+                return null;
             }
             catch
             {
@@ -243,9 +243,9 @@ namespace SunEngine.Security.Authorization
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, longSession.UserId.ToString()),
-                new Claim("LAT2R", lat2r),
-                new Claim("LAT2", longSession.LongToken2),
-                new Claim("ID", longSession.Id.ToString())
+                new Claim(TokenClaimNames.LongToken2Ran, lat2r),
+                new Claim(TokenClaimNames.LongToken2Db, longSession.LongToken2),
+                new Claim(TokenClaimNames.SessionId, longSession.Id.ToString())
             };
 
             var token = new JwtSecurityToken(
@@ -263,7 +263,7 @@ namespace SunEngine.Security.Authorization
         {
             response.Headers.Clear();
             
-            response.Cookies.Delete("LAT2",
+            response.Cookies.Delete(TokenClaimNames.LongToken2CoockiName,
                 new CookieOptions
                 {
                     Path = "/",
@@ -271,7 +271,7 @@ namespace SunEngine.Security.Authorization
                     IsEssential = true
                 });
 
-            response.Headers.Add("TOKENSEXPIRE", "TRUE");
+            response.Headers.Add(Headers.TokensExpireHeaderName, Headers.TokensExpireHeaderValue); 
         }
     }
 }

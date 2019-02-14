@@ -37,7 +37,7 @@ namespace SunEngine.Security.Authorization
         public bool HasAccess(IReadOnlyDictionary<string, RoleStored> userGroups, Category category,
             int operationKey)
         {
-            if (userGroups.ContainsKey(RoleStored.UserGroupAdmin))
+            if (userGroups.ContainsKey(RoleNames.Admin))
             {
                 return true;
             }
@@ -57,7 +57,7 @@ namespace SunEngine.Security.Authorization
         public HashSet<int> HasAccess(IReadOnlyDictionary<string, RoleStored> userGroups, Category category,
             IEnumerable<int> operationKeys)
         {
-            if (userGroups.ContainsKey(RoleStored.UserGroupAdmin))
+            if (userGroups.ContainsKey(RoleNames.Admin))
             {
                 operationKeys.ToHashSet();
             }

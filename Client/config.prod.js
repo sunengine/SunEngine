@@ -7,13 +7,13 @@ const config = {
   SiteName: 'SunEngine',
 
   Messages: {
-    "MessagesTimeToOwnEditInMinutes": 15,
-    "MessagesTimeToOwnDeleteInMinutes": 15
+    "TimeToOwnEditInMinutes": 15,
+    "TimeToOwnDeleteInMinutes": 15
   },
   Materials: {
-    "MaterialsTimeToOwnEditInMinutes": 15,
-    "MaterialsTimeToOwnDeleteInMinutes": 15,
-    "MaterialsTimeToOwnMoveInMinutes": 15,
+    "TimeToOwnEditInMinutes": 15,
+    "TimeToOwnDeleteInMinutes": 15,
+    "TimeToOwnMoveInMinutes": 15,
   },
   DbColumnSizes: {
     Categories_Name: 64,

@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Identity;
 using NJsonSchema;
 using SunEngine.Models;
 using SunEngine.Models.Authorization;
+using SunEngine.Security;
 using SunEngine.Security.Authorization;
+using SunEngine.Stores.Models;
 using SunEngine.Utils;
 
 namespace DataSeedDev.Seeder
@@ -45,7 +47,7 @@ namespace DataSeedDev.Seeder
             
             SeedCategories();
             
-            Console.WriteLine("UserGroups");
+            Console.WriteLine("Roles");
             
             SeedUserGroups();
             
@@ -60,7 +62,7 @@ namespace DataSeedDev.Seeder
 
         private void RegisterUsers()
         {
-            Role registered = dataContainer.UserGroups.FirstOrDefault(x => x.Name == "Registered");
+            Role registered = dataContainer.Roles.FirstOrDefault(x => x.Name == RoleNames.Registered);
 
             foreach (var user in dataContainer.Users)
             {
@@ -70,7 +72,7 @@ namespace DataSeedDev.Seeder
                     RoleId = registered.Id
                 };
 
-                dataContainer.UserToGroups.Add(ur);
+                dataContainer.UserRoles.Add(ur);
             }
         }
 
@@ -89,7 +91,7 @@ namespace DataSeedDev.Seeder
             
             loader.Seed(json);
 
-            dataContainer.UserGroups = loader.userGroups;
+            dataContainer.Roles = loader.userGroups;
             dataContainer.CategoryAccesses = loader.categoryAccesses;
             dataContainer.CategoryOperationAccesses = loader.categoryOperationAccesses;
         }
@@ -114,7 +116,7 @@ namespace DataSeedDev.Seeder
         private void AssignUsersToRoles()
         {
             var userAdmin = dataContainer.Users.FirstOrDefault(x => x.UserName == "Admin");
-            var roleAdmin = dataContainer.UserGroups.FirstOrDefault(x => x.Name == "Admin");
+            var roleAdmin = dataContainer.Roles.FirstOrDefault(x => x.Name == RoleNames.Admin);
 
             UserRole ur = new UserRole
             {
@@ -122,10 +124,10 @@ namespace DataSeedDev.Seeder
                 RoleId = roleAdmin.Id
             };
 
-            dataContainer.UserToGroups.Add(ur);
+            dataContainer.UserRoles.Add(ur);
             
             var userModerator = dataContainer.Users.FirstOrDefault(x => x.UserName == "Moderator");
-            var roleModerator = dataContainer.UserGroups.FirstOrDefault(x => x.Name == "Moderator");
+            var roleModerator = dataContainer.Roles.FirstOrDefault(x => x.Name == "Moderator");
 
             ur = new UserRole
             {
@@ -133,11 +135,11 @@ namespace DataSeedDev.Seeder
                 RoleId = roleModerator.Id
             };
 
-            dataContainer.UserToGroups.Add(ur);
+            dataContainer.UserRoles.Add(ur);
 
             var testUser1 = dataContainer.Users.FirstOrDefault(x => x.UserName == "TestUser1");
-            var testGroup1 = dataContainer.UserGroups.FirstOrDefault(x => x.Name == "TestGroup1");
-            var testGroup2 = dataContainer.UserGroups.FirstOrDefault(x => x.Name == "TestGroup2");
+            var testGroup1 = dataContainer.Roles.FirstOrDefault(x => x.Name == "TestGroup1");
+            var testGroup2 = dataContainer.Roles.FirstOrDefault(x => x.Name == "TestGroup2");
 
             ur = new UserRole
             {
@@ -145,7 +147,7 @@ namespace DataSeedDev.Seeder
                 RoleId = testGroup1.Id
             };
 
-            dataContainer.UserToGroups.Add(ur);
+            dataContainer.UserRoles.Add(ur);
 
             ur = new UserRole
             {
@@ -153,7 +155,7 @@ namespace DataSeedDev.Seeder
                 RoleId = testGroup2.Id
             };
 
-            dataContainer.UserToGroups.Add(ur);
+            dataContainer.UserRoles.Add(ur);
         }
 
         private void NormalizeUserFields(User user)

@@ -8,6 +8,9 @@ using SunEngine.Stores;
 
 namespace SunEngine.Controllers
 {
+    /// <summary>
+    /// For API testing only
+    /// </summary>
     public class PulseController : BaseController
     {
         protected readonly DataBaseConnection db;

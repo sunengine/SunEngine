@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SunEngine.Managers;
 using SunEngine.Models;
 using SunEngine.Presenters;
+using SunEngine.Security;
 using SunEngine.Security.Filters;
 using SunEngine.Stores;
 using SunEngine.Stores.Models;
@@ -45,7 +46,7 @@ namespace SunEngine.Controllers
 
         [HttpPost]
         [UserSpamProtectionFilter(TimeoutSeconds = 60)]
-        [Authorize(Roles = RoleStored.UserGroupRegistered)]
+        [Authorize(Roles = RoleNames.Registered)]
         public virtual async Task<IActionResult> SendPrivateMessage(string userId,string text)
         {
             var userTo = await userManager.FindByIdAsync(userId);
@@ -60,14 +61,14 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleStored.UserGroupRegistered)]
+        [Authorize(Roles = RoleNames.Registered)]
         public virtual async Task<IActionResult> BanUser(string userId)
         {
             User userBan = await userManager.FindByIdAsync(userId);
             if (userBan == null)
                 return BadRequest();
             var roles = await userManager.GetRolesAsync(userBan);
-            if (roles.Contains(RoleStored.UserGroupAdmin))
+            if (roles.Contains(RoleNames.Admin))
                 return BadRequest();
 
             var user = await GetUserAsync();
@@ -78,7 +79,7 @@ namespace SunEngine.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = RoleStored.UserGroupRegistered)]
+        [Authorize(Roles = RoleNames.Registered)]
         public virtual async Task<IActionResult> UnBanUser(string userId)
         {
             User userUnBan = await userManager.FindByIdAsync(userId);

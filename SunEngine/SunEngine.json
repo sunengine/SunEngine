@@ -28,16 +28,16 @@
     "DoResize": true
   },
   "Messages": {
-    "MessagesTimeToOwnEditInMinutes": 15,
-    "MessagesTimeToOwnDeleteInMinutes": 15
+    "TimeToOwnEditInMinutes": 15,
+    "TimeToOwnDeleteInMinutes": 15
   },
-  "Material": {
-    "MaterialMessagesPageSize": 5,
-    "MaterialsTimeToOwnEditInMinutes": 15,
-    "MaterialsTimeToOwnDeleteInMinutes": 15,
-    "MaterialsTimeToOwnMoveInMinutes": 15,
-    "MaterialDescriptionLength": 80,
-    "MaterialPreviewLength": 850
+  "Materials": {
+    "MessagesPageSize": 5,
+    "TimeToOwnEditInMinutes": 15,
+    "TimeToOwnDeleteInMinutes": 15,
+    "TimeToOwnMoveInMinutes": 15,
+    "DescriptionLength": 80,
+    "PreviewLength": 850
   },
   "Forum": {
     "ThreadMaterialsPageSize": 5,
@@ -45,7 +45,7 @@
     "NewTopicsMaxPages": 8
   },
   "Articles": {
-    "ArticlesCategoryPageSize": 8
+    "CategoryPageSize": 8
   },
   "Blog": {
     "PostsPageSize": 8

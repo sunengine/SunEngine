@@ -55,7 +55,7 @@ namespace SunEngine.Security.Authentication
 
             try
             {
-                var cookie = Request.Cookies["LAT2"];
+                var cookie = Request.Cookies[TokenClaimNames.LongToken2CoockiName];
 
                 if (cookie == null)
                     return AuthenticateResult.NoResult();
@@ -65,20 +65,20 @@ namespace SunEngine.Security.Authentication
                 if (jwtLongToken2 == null)
                     return ErrorAuthorization();
 
-                var longToken2 = jwtLongToken2.Claims.First(x => x.Type == "LAT2").Value;
+                var longToken2db = jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.LongToken2Db).Value;
 
                 MyClaimsPrincipal myClaimsPrincipal;
 
-                if (Request.Headers.ContainsKey("LongToken1"))
+                if (Request.Headers.ContainsKey(Headers.LongToken1HeaderName))
                 {
-                    var longToken1 = Request.Headers["LongToken1"];
+                    var longToken1db = Request.Headers[Headers.LongToken1HeaderName];
                     int userId = int.Parse(jwtLongToken2.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
 
                     var longSession = new LongSession
                     {
                         UserId = userId,
-                        LongToken1 = longToken1,
-                        LongToken2 = longToken2
+                        LongToken1 = longToken1db,
+                        LongToken2 = longToken2db
                     };
 
                     longSession = userManager.FindLongSession(longSession);
@@ -116,29 +116,27 @@ namespace SunEngine.Security.Authentication
                     var claimsPrincipal =
                         jwtService.ReadShortToken(jwtShortToken, out SecurityToken shortToken);
 
-                    //var validTo = shortToken.ValidTo; // for debug
+                    var lat2ran_1 = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
+                    var lat2ran_2 = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
 
-                    var LAT2R_1 = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == "LAT2R").Value;
-                    var LAT2R_2 = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == "LAT2R").Value;
-
-                    if (!string.Equals(LAT2R_1, LAT2R_2))
+                    if (!string.Equals(lat2ran_1, lat2ran_2))
                     {
                         return ErrorAuthorization();
                     }
 
-                    long sessionId = long.Parse(jwtLongToken2.Claims.FirstOrDefault(x => x.Type == "ID").Value);
+                    long sessionId = long.Parse(jwtLongToken2.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.SessionId).Value);
 
-                    var LAT2 = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == "LAT2").Value;
+                    var lat2db = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.LongToken2Db).Value;
 
-                    myClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, rolesCache, sessionId, LAT2);
+                    myClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, rolesCache, sessionId, lat2db);
                 }
 
-                if (jwtBlackListService.IsTokenNotInBlackList(myClaimsPrincipal.LongToken2))
+                if (jwtBlackListService.IsTokenNotInBlackList(myClaimsPrincipal.LongToken2Db))
                 {
                     return ErrorAuthorization();
                 }
 
-                if (myClaimsPrincipal.Roles.ContainsKey(RoleStored.UserGroupBanned))
+                if (myClaimsPrincipal.Roles.ContainsKey(RoleNames.Banned))
                 {
                     return ErrorAuthorization();
                 }

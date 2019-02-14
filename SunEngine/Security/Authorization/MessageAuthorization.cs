@@ -39,12 +39,12 @@ namespace SunEngine.Security.Authorization
 
         private bool EditOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
-            return DateTime.Now - publishDate < new TimeSpan(0, 0, messagesOptions.MessagesTimeToOwnEditInMinutes, 0, 0);
+            return DateTime.Now - publishDate < new TimeSpan(0, 0, messagesOptions.TimeToOwnEditInMinutes, 0, 0);
         }
 
         private bool DeleteOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
-            return DateTime.Now - publishDate < new TimeSpan(0, 0, messagesOptions.MessagesTimeToOwnDeleteInMinutes, 0, 0);
+            return DateTime.Now - publishDate < new TimeSpan(0, 0, messagesOptions.TimeToOwnDeleteInMinutes, 0, 0);
         }
 
         public async Task<bool> CanEditAsync(MyClaimsPrincipal user, Message message, int categoryId)

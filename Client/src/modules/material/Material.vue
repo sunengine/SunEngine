@@ -139,7 +139,7 @@
         if (!category.categoryPersonalAccess.MaterialEditOwnIfTimeNotExceeded) {
           const now = new Date();
           const publish = this.material.publishDate;
-          const til = date.addToDate(publish, {minutes: config.Materials.MaterialsTimeToOwnEditInMinutes});
+          const til = date.addToDate(publish, {minutes: config.Materials.TimeToOwnEditInMinutes});
           if (til < now) {
             return false;
           }
@@ -172,7 +172,7 @@
         if (!category.categoryPersonalAccess.MaterialDeleteOwnIfTimeNotExceeded) {
           const now = new Date();
           const publish = this.material.publishDate;
-          const til = date.addToDate(publish, {minutes:  config.Materials.MaterialsTimeToOwnDeleteInMinutes});
+          const til = date.addToDate(publish, {minutes:  config.Materials.TimeToOwnDeleteInMinutes});
           if (til < now) {
             return false;
           }

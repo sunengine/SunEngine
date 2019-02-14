@@ -56,7 +56,7 @@ namespace SunEngine.Controllers
             }
 
             IPagedList<ArticleInfoViewModel> articles =
-                await articlesPresenter.GetArticlesAsync(category.Id, page, articlesOptions.ArticlesCategoryPageSize);
+                await articlesPresenter.GetArticlesAsync(category.Id, page, articlesOptions.CategoryPageSize);
 
             return Json(articles);
         }

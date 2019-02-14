@@ -15,7 +15,7 @@ namespace SunEngine.Configuration.AddServices
             services.Configure<BlogOptions>(configuration.GetSection("Blog"));
             services.Configure<ArticlesOptions>(configuration.GetSection("Articles"));
             services.Configure<ForumOptions>(configuration.GetSection("Forum"));
-            services.Configure<MaterialOptions>(configuration.GetSection("Materials"));
+            services.Configure<MaterialsOptions>(configuration.GetSection("Materials"));
             services.Configure<MessagesOptions>(configuration.GetSection("Messages"));
             services.Configure<ImagesOptions>(configuration.GetSection("Images"));
             services.Configure<DataBaseConnectionOptions>(configuration.GetSection("DataBaseConnection"));
