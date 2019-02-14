@@ -3,6 +3,14 @@
     "Provider": "PostgreSQL.9.5",
     "ConnectionString": "Host=localhost;Database=SunEngineDb;Username=postgres;Password=password"
   },
+  "DataBaseConnectionSQLiteExample": {
+    "Provider": "SQLite",
+    "ConnectionString": "Data Source=../SunEngine/mydb.db"
+  },
+  "DataBaseConnectionMySqlExample": {
+    "Provider": "MySql",
+    "ConnectionString": "server=localhost;database=SunEngineDb;user=username;password=password"
+  },
   "Global": {
     "SiteUrl": "http://localhost:5005",
     "SiteApi": "http://localhost:5000",

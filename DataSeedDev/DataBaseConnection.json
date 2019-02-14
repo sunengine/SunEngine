@@ -6,5 +6,9 @@
   "DataBaseConnectionSQLiteExample": {
     "Provider": "SQLite",
     "ConnectionString": "Data Source=../SunEngine/mydb.db"
+  },
+  "DataBaseConnectionMySqlExample": {
+    "Provider": "MySql",
+    "ConnectionString": "server=localhost;database=SunEngineDb;user=username;password=password"
   }
 }
