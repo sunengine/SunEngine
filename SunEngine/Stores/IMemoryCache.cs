@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace SunEngine.Stores
 {   
-    public interface IMemoryStore
+    public interface IMemoryCache
     {
         void Initialize();
         Task InitializeAsync();

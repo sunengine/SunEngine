@@ -50,7 +50,7 @@ namespace SunEngine.Security.Authorization
         public async Task<bool> CanEditAsync(MyClaimsPrincipal user, Message message, int categoryId)
         {
             
-            var operationKeys = authorizationService.HasAccess(user.UserGroups, categoryId, new[]
+            var operationKeys = authorizationService.HasAccess(user.Roles, categoryId, new[]
             {
                 OperationKeys.MessageEditOwn, 
                 OperationKeys.MessageEditAny,
@@ -94,7 +94,7 @@ namespace SunEngine.Security.Authorization
         
         public async Task<bool> CanMoveToTrashAsync(MyClaimsPrincipal user, Message message, int categoryId)
         {
-            var operationKeys = authorizationService.HasAccess(user.UserGroups, categoryId, new[]
+            var operationKeys = authorizationService.HasAccess(user.Roles, categoryId, new[]
             {
                 OperationKeys.MessageDeleteOwn, 
                 OperationKeys.MessageDeleteAny,

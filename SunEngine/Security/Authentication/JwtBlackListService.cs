@@ -12,7 +12,7 @@ using SunEngine.Stores;
 
 namespace SunEngine.Security.Authentication
 {
-    public class JwtBlackListService : IMemoryStore
+    public class JwtBlackListService : IMemoryCache
     {
         private readonly IDataBaseFactory dataBaseFactory;
 

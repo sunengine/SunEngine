@@ -10,9 +10,9 @@ namespace SunEngine.Controllers
         protected readonly ICategoriesPresenter categoriesPresenter;
 
         public CategoriesController(
-            IUserGroupStore userGroupStore,
+            IRolesCache rolesCache,
             ICategoriesPresenter categoriesPresenter,
-            MyUserManager userManager) : base(userGroupStore, userManager)
+            MyUserManager userManager) : base(rolesCache, userManager)
         {
             this.categoriesPresenter = categoriesPresenter;
         }
@@ -21,7 +21,7 @@ namespace SunEngine.Controllers
         [HttpGet] // HttpGet - For pulse and testing 
         public virtual CategoryInfoWithAccesses GetAllCategoriesAndAccesses()
         {
-            var rez = categoriesPresenter.CategoryInfoWithAccessesFromCategory(User.UserGroups);
+            var rez = categoriesPresenter.CategoryInfoWithAccessesFromCategory(User.Roles);
             return rez;
         }
     }

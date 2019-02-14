@@ -34,19 +34,19 @@ namespace SunEngine.Security.Authorization
         private readonly MyUserManager userManager;
         private readonly JwtOptions jwtOptions;
         private readonly ILogger logger;
-        private readonly IUserGroupStore userGroupStore;
+        private readonly IRolesCache rolesCache;
 
         public JwtService(
             DataBaseConnection db,
             MyUserManager userManager,
-            IUserGroupStore userGroupStore,
+            IRolesCache rolesCache,
             IOptions<JwtOptions> jwtOptions,
             ILoggerFactory loggerFactory) : base(db)
         {
             this.userManager = userManager;
             this.jwtOptions = jwtOptions.Value;
             logger = loggerFactory.CreateLogger<AccountController>();
-            this.userGroupStore = userGroupStore;
+            this.rolesCache = rolesCache;
         }
 
         private JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
@@ -171,7 +171,7 @@ namespace SunEngine.Security.Authorization
 
             return new TokenAndClaimsPrincipal
             {
-                ClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, userGroupStore, sessionId, lat2),
+                ClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, rolesCache, sessionId, lat2),
                 Token = new JwtSecurityTokenHandler().WriteToken(token)
             };
         }

@@ -24,7 +24,7 @@ namespace SunEngine.Controllers
             IOptions<ImagesOptions> imagesOptions,
             PersonalManager personalManager,
             MyUserManager userManager,
-            IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
+            IRolesCache rolesCache) : base(rolesCache, userManager)
         {
             this.imagesService = imagesService;
             this.imagesOptions = imagesOptions.Value;

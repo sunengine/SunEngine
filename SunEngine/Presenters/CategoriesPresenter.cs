@@ -21,32 +21,32 @@ namespace SunEngine.Presenters
         protected readonly OperationKeysContainer OperationKeys;
 
         protected readonly IAuthorizationService authorizationService;
-        protected readonly ICategoriesStore categoriesStore;
-        protected readonly IUserGroupStore userGroupStore;
+        protected readonly ICategoriesCache CategoriesCache;
+        protected readonly IRolesCache RolesCache;
 
-        public CategoriesPresenter(IUserGroupStore userGroupStore,
-            ICategoriesStore categoriesStore,
+        public CategoriesPresenter(IRolesCache rolesCache,
+            ICategoriesCache categoriesCache,
             IAuthorizationService authorizationService,
             OperationKeysContainer operationKeysContainer)
         {
             OperationKeys = operationKeysContainer;
 
             this.authorizationService = authorizationService;
-            this.categoriesStore = categoriesStore;
-            this.userGroupStore = userGroupStore;
+            this.CategoriesCache = categoriesCache;
+            this.RolesCache = rolesCache;
         }
 
         public virtual CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(
             IReadOnlyDictionary<string, RoleStored> userGroups)
         {
-            return CategoryInfoWithAccessesFromCategory(categoriesStore.RootCategory, userGroups);
+            return CategoryInfoWithAccessesFromCategory(CategoriesCache.RootCategory, userGroups);
         }
 
         public virtual CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(Category category,
             IReadOnlyDictionary<string, RoleStored> userGroups)
         {
             if (!authorizationService.HasAccess(userGroups, category,
-                    OperationKeys.MaterialAndMessagesRead) && category.Id != categoriesStore.RootCategory.Id)
+                    OperationKeys.MaterialAndMessagesRead) && category.Id != CategoriesCache.RootCategory.Id)
             {
                 return null;
             }
@@ -96,9 +96,9 @@ namespace SunEngine.Presenters
         protected Dictionary<string, bool> DetectPersonalAccesses(Category category,
             IReadOnlyDictionary<string, RoleStored> userGroups)
         {
-            Dictionary<string, bool> dict = new Dictionary<string, bool>(userGroupStore.AllOperationKeys.Count);
+            Dictionary<string, bool> dict = new Dictionary<string, bool>(RolesCache.AllOperationKeys.Count);
 
-            foreach (var operationKey in userGroupStore.AllOperationKeys)
+            foreach (var operationKey in RolesCache.AllOperationKeys)
             {
                 bool allow = authorizationService.HasAccess(userGroups, category,
                     operationKey.OperationKeyId);

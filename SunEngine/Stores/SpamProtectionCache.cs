@@ -4,7 +4,7 @@ using SunEngine.Security.Filters;
 
 namespace SunEngine.Stores
 {
-    public class SpamProtectionStore
+    public class SpamProtectionCache
     {
         protected ConcurrentDictionary<string, RequestFree> Requests { get; } =
             new ConcurrentDictionary<string, RequestFree>();

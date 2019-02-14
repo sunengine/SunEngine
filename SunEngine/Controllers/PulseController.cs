@@ -15,7 +15,7 @@ namespace SunEngine.Controllers
         public PulseController(
             MyUserManager userManager,
             DataBaseConnection db,
-            IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
+            IRolesCache rolesCache) : base(rolesCache, userManager)
         {
             this.db = db;
         }

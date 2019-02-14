@@ -20,7 +20,7 @@ namespace SunEngine.Admin.Controllers
     public class CategoriesAdminController : BaseController
     {
         private readonly DataBaseConnection db;
-        private readonly ICategoriesStore categoriesStore;
+        private readonly ICategoriesCache categoriesCache;
         private readonly CategoriesManager categoriesManager;
         private readonly ICategoriesAdminPresenter categoriesAdminPresenter;
 
@@ -28,11 +28,11 @@ namespace SunEngine.Admin.Controllers
             DataBaseConnection db,
             CategoriesManager categoriesManager,
             ICategoriesAdminPresenter categoriesAdminPresenter,
-            ICategoriesStore categoriesStore,
-            MyUserManager userManager, IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
+            ICategoriesCache categoriesCache,
+            MyUserManager userManager, IRolesCache rolesCache) : base(rolesCache, userManager)
         {
             this.db = db;
-            this.categoriesStore = categoriesStore;
+            this.categoriesCache = categoriesCache;
             this.categoriesManager = categoriesManager;
             this.categoriesAdminPresenter = categoriesAdminPresenter;
         }
@@ -107,7 +107,7 @@ namespace SunEngine.Admin.Controllers
 
             await categoriesManager.AddCategoryAsync(category);
 
-            categoriesStore.Reset();
+            categoriesCache.Reset();
 
             return Ok();
         }
@@ -122,7 +122,7 @@ namespace SunEngine.Admin.Controllers
 
             await categoriesManager.EditCategoryAsync(category);
 
-            categoriesStore.Reset();
+            categoriesCache.Reset();
 
             return Ok();
         }
@@ -150,7 +150,7 @@ namespace SunEngine.Admin.Controllers
 
                 transaction.Complete();
 
-                categoriesStore.Reset();
+                categoriesCache.Reset();
 
                 return Ok();
             }
@@ -179,7 +179,7 @@ namespace SunEngine.Admin.Controllers
 
                 transaction.Complete();
 
-                categoriesStore.Reset();
+                categoriesCache.Reset();
 
                 return Ok();
             }
@@ -188,7 +188,7 @@ namespace SunEngine.Admin.Controllers
         [HttpPost]
         public IActionResult ResetCache()
         {
-            categoriesStore.Reset();
+            categoriesCache.Reset();
             return Ok();
         }
     }

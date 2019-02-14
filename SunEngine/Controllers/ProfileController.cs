@@ -23,7 +23,7 @@ namespace SunEngine.Controllers
             ProfileManager profileManager,
             IProfilePresenter profilePresenter,
             MyUserManager userManager,
-            IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
+            IRolesCache rolesCache) : base(rolesCache, userManager)
         {
             this.profileManager = profileManager;
             this.profilePresenter = profilePresenter;

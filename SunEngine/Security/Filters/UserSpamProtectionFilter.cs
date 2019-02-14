@@ -23,8 +23,8 @@ namespace SunEngine.Security.Filters
         
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            SpamProtectionStore spamProtectionStore =
-                context.HttpContext.RequestServices.GetRequiredService<SpamProtectionStore>();
+            SpamProtectionCache spamProtectionCache =
+                context.HttpContext.RequestServices.GetRequiredService<SpamProtectionCache>();
 
             BaseController controller = (BaseController) context.Controller;
 
@@ -40,7 +40,7 @@ namespace SunEngine.Security.Filters
             string actionName = actionDescriptor?.ActionName;
 
             string key = MakeKey(user.UserId, controllerName, actionName);
-            RequestFree requestFree = spamProtectionStore.Find(key);
+            RequestFree requestFree = spamProtectionCache.Find(key);
             
             
             if (requestFree != null && requestFree.Working())
@@ -56,7 +56,7 @@ namespace SunEngine.Security.Filters
             {
                 Key = key,
                 RequestFree = requestFree,
-                SpamProtectionStore = spamProtectionStore
+                SpamProtectionCache = spamProtectionCache
             };
             
             controller.ViewData[SpamProtectionFilterTransfer.ViewDataKey] = temp;
@@ -83,7 +83,7 @@ namespace SunEngine.Security.Filters
             else
             {
                 var requestFree = new RequestFree(timeout);
-                temp.SpamProtectionStore.Add(temp.Key, requestFree);
+                temp.SpamProtectionCache.Add(temp.Key, requestFree);
             }
         }
     }
@@ -97,7 +97,7 @@ namespace SunEngine.Security.Filters
         
         public string Key;
         public RequestFree RequestFree;
-        public SpamProtectionStore SpamProtectionStore;
+        public SpamProtectionCache SpamProtectionCache;
     }
 
     public class RequestFree

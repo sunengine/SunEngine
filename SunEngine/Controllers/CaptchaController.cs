@@ -15,8 +15,8 @@ namespace SunEngine.Controllers
 
         public CaptchaController(
             MyUserManager userManager, 
-            IUserGroupStore userGroupStore,
-            CaptchaService captchaService) : base(userGroupStore, userManager)
+            IRolesCache rolesCache,
+            CaptchaService captchaService) : base(rolesCache, userManager)
         {
             this.captchaService = captchaService;
         }

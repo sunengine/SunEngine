@@ -7,7 +7,7 @@ using SunEngine.Models;
 
 namespace SunEngine.Stores
 {
-    public interface ICategoriesStore : IMemoryStore
+    public interface ICategoriesCache : IMemoryCache
     {
         Category GetCategory(int id);
         Category GetCategory(string name);
@@ -16,11 +16,11 @@ namespace SunEngine.Stores
         Category RootCategory { get; }
     }
     
-    public class CategoriesStore : ICategoriesStore
+    public class CategoriesCache : ICategoriesCache
     {
         private readonly IDataBaseFactory dataBaseFactory;
 
-        public CategoriesStore(IDataBaseFactory dataBaseFactory)
+        public CategoriesCache(IDataBaseFactory dataBaseFactory)
         {
             this.dataBaseFactory = dataBaseFactory;
         }

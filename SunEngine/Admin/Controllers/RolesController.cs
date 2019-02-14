@@ -17,7 +17,7 @@ namespace SunEngine.Admin.Controllers
         public RolesController(
             MyUserManager userManager,
             RolesAdminService rolesAdminService,
-            IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
+            IRolesCache rolesCache) : base(rolesCache, userManager)
         {
             this.rolesAdminService = rolesAdminService;
         }
@@ -44,7 +44,7 @@ namespace SunEngine.Admin.Controllers
                 });
             }
 
-            userGroupStore.Reset();
+            RolesCache.Reset();
 
             return Ok();
         }

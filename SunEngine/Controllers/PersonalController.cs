@@ -25,8 +25,8 @@ namespace SunEngine.Controllers
             JwtService jwtService, 
             IPersonalPresenter personalPresenter,
             MyUserManager userManager,
-            IUserGroupStore userGroupStore)
-            : base(userGroupStore, userManager)
+            IRolesCache rolesCache)
+            : base(rolesCache, userManager)
         {
             this.personalManager = personalManager;
             this.jwtService = jwtService;

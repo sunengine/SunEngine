@@ -24,8 +24,8 @@ namespace SunEngine.Security.Filters
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             
-            SpamProtectionStore spamProtectionStore =
-                context.HttpContext.RequestServices.GetRequiredService<SpamProtectionStore>();
+            SpamProtectionCache spamProtectionCache =
+                context.HttpContext.RequestServices.GetRequiredService<SpamProtectionCache>();
 
             BaseController controller = (BaseController) context.Controller;
             
@@ -37,7 +37,7 @@ namespace SunEngine.Security.Filters
             var ip = controller.Request.HttpContext.Connection.RemoteIpAddress;
             
             string key = MakeKey(ip, controllerName, actionName);
-            RequestFree requestFree = spamProtectionStore.Find(key);
+            RequestFree requestFree = spamProtectionCache.Find(key);
             
             if (requestFree != null && requestFree.Working())
             {
@@ -52,7 +52,7 @@ namespace SunEngine.Security.Filters
             {
                 Key = key,
                 RequestFree = requestFree,
-                SpamProtectionStore = spamProtectionStore
+                SpamProtectionCache = spamProtectionCache
             };
             
             controller.ViewData[SpamProtectionFilterTransfer.ViewDataKey] = temp;
@@ -79,7 +79,7 @@ namespace SunEngine.Security.Filters
             else
             {
                 var requestFree = new RequestFree(timeout);
-                temp.SpamProtectionStore.Add(temp.Key, requestFree);
+                temp.SpamProtectionCache.Add(temp.Key, requestFree);
             }
         }
     }

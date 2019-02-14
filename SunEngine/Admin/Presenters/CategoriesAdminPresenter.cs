@@ -18,6 +18,7 @@ namespace SunEngine.Admin.Presenters
     {
         public CategoriesAdminPresenter(DataBaseConnection db) : base(db)
         {
+            
         }
         
         public Task<CategoryAdminViewModel> GetCategoryAsync(int id)
@@ -51,7 +52,7 @@ namespace SunEngine.Admin.Presenters
 
             }).FirstOrDefaultAsync();
         }
-
+        
         
     }
 }

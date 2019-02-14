@@ -14,20 +14,20 @@ namespace SunEngine.Controllers
     public class MaterialsController : BaseController
     {
         protected readonly MaterialsAuthorization materialsAuthorization;
-        protected readonly ICategoriesStore categoriesStore;
+        protected readonly ICategoriesCache categoriesCache;
         protected readonly MaterialsManager materialsManager;
         protected readonly IMaterialsPresenter materialsPresenter;
 
         public MaterialsController(
             MaterialsAuthorization materialsAuthorization,
-            ICategoriesStore categoriesStore,
+            ICategoriesCache categoriesCache,
             MaterialsManager materialsManager,
             MyUserManager userManager,
             IMaterialsPresenter materialsPresenter,
-            IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
+            IRolesCache rolesCache) : base(rolesCache, userManager)
         {
             this.materialsAuthorization = materialsAuthorization;
-            this.categoriesStore = categoriesStore;
+            this.categoriesCache = categoriesCache;
             this.materialsManager = materialsManager;
             this.materialsPresenter = materialsPresenter;
         }
@@ -35,15 +35,15 @@ namespace SunEngine.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> Get(int id) // TODO Pages
         {
-            int? categoryId = await materialsManager.GetCategoryIdIfHasMaterialAsync(id);
+            int? categoryId = await materialsManager.GetMaterialCategoryIdAsync(id);
             if (categoryId == null)
             {
                 return BadRequest();
             }
 
-            Category category = categoriesStore.GetCategory(categoryId.Value);
+            Category category = categoriesCache.GetCategory(categoryId.Value);
 
-            if (!materialsAuthorization.CanGet(User.UserGroups, category))
+            if (!materialsAuthorization.CanGet(User.Roles, category))
             {
                 return Unauthorized();
             }
@@ -59,13 +59,13 @@ namespace SunEngine.Controllers
         [UserSpamProtectionFilter(TimeoutSeconds = 60)]
         public virtual async Task<IActionResult> Add(string categoryName, string title, string text, string tags = "")
         {
-            Category category = categoriesStore.GetCategory(categoryName);
+            Category category = categoriesCache.GetCategory(categoryName);
             if (category == null)
             {
                 return BadRequest();
             }
 
-            if (!materialsAuthorization.CanAdd(User.UserGroups, category))
+            if (!materialsAuthorization.CanAdd(User.Roles, category))
             {
                 return Unauthorized();
             }
@@ -103,7 +103,7 @@ namespace SunEngine.Controllers
                 return Unauthorized();
             }
 
-            Category newCategory = categoriesStore.GetCategory(categoryName);
+            Category newCategory = categoriesCache.GetCategory(categoryName);
             if (newCategory == null)
             {
                 return BadRequest();
@@ -117,7 +117,7 @@ namespace SunEngine.Controllers
             if (material.CategoryId != newCategory.Id)
             {
                 if (materialsAuthorization.CanMove(User,
-                    categoriesStore.GetCategory(material.CategoryId),
+                    categoriesCache.GetCategory(material.CategoryId),
                     newCategory))
                 {
                     material.CategoryId = newCategory.Id;

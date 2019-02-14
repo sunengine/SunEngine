@@ -9,13 +9,13 @@ namespace SunEngine.Configuration.AddServices
         public static void AddStores(this IServiceCollection services, DataBaseFactory dataBaseFactory)
         {
             // Add Singleton Stores
-            var userGroupStore = new UserGroupStore(dataBaseFactory);
+            var userGroupStore = new RolesCache(dataBaseFactory);
 
-            services.AddSingleton<IUserGroupStore>(userGroupStore);
+            services.AddSingleton<IRolesCache>(userGroupStore);
 
-            services.AddSingleton<ICategoriesStore, CategoriesStore>();
+            services.AddSingleton<ICategoriesCache, CategoriesCache>();
 
-            services.AddSingleton<SpamProtectionStore>();
+            services.AddSingleton<SpamProtectionCache>();
         }
     }
 }

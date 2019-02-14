@@ -15,11 +15,11 @@ namespace SunEngine.Presenters
 
     public class ProfilePresenter : DbService, IProfilePresenter
     {
-        protected readonly IUserGroupStore userGroupStore;
+        protected readonly IRolesCache RolesCache;
         
-        public ProfilePresenter(DataBaseConnection db, IUserGroupStore userGroupStore) : base(db)
+        public ProfilePresenter(DataBaseConnection db, IRolesCache rolesCache) : base(db)
         {
-            this.userGroupStore = userGroupStore;
+            this.RolesCache = rolesCache;
         }
         
         public virtual async Task<ProfileViewModel> GetProfileAsync(string link, int? viewerUserId)
@@ -32,7 +32,7 @@ namespace SunEngine.Presenters
 
             if (viewerUserId.HasValue)
             {
-                int adminGroupId = userGroupStore.AllGroups["Admin"].Id;
+                int adminGroupId = RolesCache.AllRoles["Admin"].Id;
 
                 var user = await query.Select(x =>
                     new ProfileViewModel

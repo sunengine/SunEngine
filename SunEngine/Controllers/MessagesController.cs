@@ -28,7 +28,7 @@ namespace SunEngine.Controllers
             IAuthorizationService authorizationService,
             MyUserManager userManager,
             IMessagesPresenter messagesPresenter,
-            IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
+            IRolesCache rolesCache) : base(rolesCache, userManager)
         {
             OperationKeys = operationKeys;
             this.messageAuthorization = messageAuthorization;
@@ -41,8 +41,13 @@ namespace SunEngine.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> GetMaterialMessages(int materialId)
         {
-            int? categoryId = await materialsManager.GetCategoryIdIfHasMaterialAsync(materialId);
-            if (!messageAuthorization.HasAccessForGetMessages(User.UserGroups, categoryId.Value))
+            int? categoryId = await materialsManager.GetMaterialCategoryIdAsync(materialId);
+            if (!categoryId.HasValue)
+            {
+                return BadRequest();
+            }
+            
+            if (!messageAuthorization.HasAccessForGetMessages(User.Roles, categoryId.Value))
             {
                 return Unauthorized();
             }
@@ -62,7 +67,7 @@ namespace SunEngine.Controllers
                 return BadRequest();
             }
 
-            if (!messageAuthorization.CanAdd(User.UserGroups,material.CategoryId))
+            if (!messageAuthorization.CanAdd(User.Roles,material.CategoryId))
             {
                 return Unauthorized();
             }
@@ -92,7 +97,7 @@ namespace SunEngine.Controllers
                 return BadRequest();
             }
 
-            if (!authorizationService.HasAccess(User.UserGroups, categoryId,
+            if (!authorizationService.HasAccess(User.Roles, categoryId,
                 OperationKeys.MaterialAndMessagesRead))
             {
                 return Unauthorized();

@@ -28,9 +28,9 @@ namespace SunEngine.Managers
         }
 
 
-        public virtual async Task<int?> GetCategoryIdIfHasMaterialAsync(int id)
+        public virtual async Task<int?> GetMaterialCategoryIdAsync(int materialId)
         {
-            return await db.Materials.Where(x => x.Id == id).Select(x => x.Category.Id).FirstOrDefaultAsync();
+            return await db.Materials.Where(x => x.Id == materialId).Select(x => x.Category.Id).FirstOrDefaultAsync();
         }
 
         public virtual Task<Material> GetAsync(int id)

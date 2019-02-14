@@ -19,7 +19,7 @@ namespace SunEngine.Security.Authentication
 {
     public class MyJwtHandler : AuthenticationHandler<MyJwtOptions>
     {
-        private readonly IUserGroupStore userGroupStore;
+        private readonly IRolesCache rolesCache;
         private readonly JwtOptions jwtOptions;
         private readonly JwtService jwtService;
         private readonly MyUserManager userManager;
@@ -30,13 +30,13 @@ namespace SunEngine.Security.Authentication
             ILoggerFactory logger,
             UrlEncoder encoder,
             ISystemClock clock,
-            IUserGroupStore userGroupStore,
+            IRolesCache rolesCache,
             IOptions<JwtOptions> jwtOptions,
             JwtService jwtService,
             JwtBlackListService jwtBlackListService,
             MyUserManager userManager) : base(options, logger, encoder, clock)
         {
-            this.userGroupStore = userGroupStore;
+            this.rolesCache = rolesCache;
             this.jwtOptions = jwtOptions.Value;
             this.jwtService = jwtService;
             this.userManager = userManager;
@@ -130,7 +130,7 @@ namespace SunEngine.Security.Authentication
 
                     var LAT2 = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == "LAT2").Value;
 
-                    myClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, userGroupStore, sessionId, LAT2);
+                    myClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, rolesCache, sessionId, LAT2);
                 }
 
                 if (jwtBlackListService.IsTokenNotInBlackList(myClaimsPrincipal.LongToken2))
@@ -138,7 +138,7 @@ namespace SunEngine.Security.Authentication
                     return ErrorAuthorization();
                 }
 
-                if (myClaimsPrincipal.UserGroups.ContainsKey(RoleStored.UserGroupBanned))
+                if (myClaimsPrincipal.Roles.ContainsKey(RoleStored.UserGroupBanned))
                 {
                     return ErrorAuthorization();
                 }

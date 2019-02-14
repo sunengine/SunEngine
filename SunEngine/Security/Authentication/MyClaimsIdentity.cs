@@ -9,18 +9,18 @@ namespace SunEngine.Security.Authentication
 {
     public class MyClaimsPrincipal : ClaimsPrincipal
     {
-        public int UserId { get; } = 0;
+        public int UserId { get; }
         public long SessionId { get; }
         public string LongToken2 { get; }
 
-        public IReadOnlyDictionary<string, RoleStored> UserGroups { get; }
+        public IReadOnlyDictionary<string, RoleStored> Roles { get; }
         
         /// <summary>
         /// If only one group
         /// </summary>
         public RoleStored Role { get; }
 
-        public MyClaimsPrincipal(ClaimsPrincipal user, IUserGroupStore userGroupStore, long sessionId = 0, string longToken2 = null) : base(user)
+        public MyClaimsPrincipal(ClaimsPrincipal user, IRolesCache rolesCache, long sessionId = 0, string longToken2 = null) : base(user)
         {
             this.SessionId = sessionId;
             this.LongToken2 = longToken2;
@@ -30,30 +30,30 @@ namespace SunEngine.Security.Authentication
                 UserId = int.Parse(this.FindFirstValue(ClaimTypes.NameIdentifier));
             }
             
-            UserGroups = GetUserGroups(userGroupStore);
-            if (UserGroups.Count == 1)
+            Roles = GetUserRoles(rolesCache);
+            if (Roles.Count == 1)
             {
-                Role = UserGroups.Values.ElementAt(0);
+                Role = Roles.Values.ElementAt(0);
             }
         }
         
-        private IReadOnlyDictionary<string, RoleStored> GetUserGroups(IUserGroupStore userGroupStore)
+        private IReadOnlyDictionary<string, RoleStored> GetUserRoles(IRolesCache rolesCache)
         {
             if (!Identity.IsAuthenticated)
             {
                 return new Dictionary<string, RoleStored>
                 {
-                    [RoleStored.UserGroupUnregistered] = userGroupStore.GetUserGroup(RoleStored.UserGroupUnregistered)
+                    [RoleStored.UserGroupUnregistered] = rolesCache.GetRole(RoleStored.UserGroupUnregistered)
                 }.ToImmutableDictionary();
             }
 
             var roles = GetRolesNames();
-            var allGroups = userGroupStore.AllGroups;
+            var allGroups = rolesCache.AllRoles;
 
 
             var dictionaryBuilder = ImmutableDictionary.CreateBuilder<string,RoleStored>();
 
-            var registeredGroup = userGroupStore.GetUserGroup(RoleStored.UserGroupRegistered);
+            var registeredGroup = rolesCache.GetRole(RoleStored.UserGroupRegistered);
             dictionaryBuilder.Add(registeredGroup.Name, registeredGroup);
             foreach (var role in roles)
             {

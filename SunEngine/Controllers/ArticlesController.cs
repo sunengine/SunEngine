@@ -17,7 +17,7 @@ namespace SunEngine.Controllers
         protected readonly OperationKeysContainer OperationKeys;
 
         protected readonly ArticlesOptions articlesOptions;
-        protected readonly ICategoriesStore categoriesStore;
+        protected readonly ICategoriesCache CategoriesCache;
         protected readonly IAuthorizationService authorizationService;
 
         protected readonly IArticlesPresenter articlesPresenter;
@@ -26,31 +26,31 @@ namespace SunEngine.Controllers
         public ArticlesController(
             IOptions<ArticlesOptions> articlesOptions,
             IAuthorizationService authorizationService,
-            ICategoriesStore categoriesStore,
+            ICategoriesCache categoriesCache,
             OperationKeysContainer operationKeysContainer,
             IArticlesPresenter articlesPresenter,
             MyUserManager userManager,
-            IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
+            IRolesCache rolesCache) : base(rolesCache, userManager)
         {
             OperationKeys = operationKeysContainer;
 
             this.articlesOptions = articlesOptions.Value;
             this.authorizationService = authorizationService;
-            this.categoriesStore = categoriesStore;
+            this.CategoriesCache = categoriesCache;
             this.articlesPresenter = articlesPresenter;
         }
 
         [HttpPost]
         public virtual async Task<IActionResult> GetArticles(string categoryName, int page = 1)
         {
-            Category category = categoriesStore.GetCategory(categoryName);
+            Category category = CategoriesCache.GetCategory(categoryName);
 
             if (category == null)
             {
                 return BadRequest();
             }
 
-            if (!authorizationService.HasAccess(User.UserGroups, category, OperationKeys.MaterialAndMessagesRead))
+            if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndMessagesRead))
             {
                 return Unauthorized();
             }

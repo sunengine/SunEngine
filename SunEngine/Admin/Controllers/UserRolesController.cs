@@ -19,8 +19,8 @@ namespace SunEngine.Admin.Controllers
         public UserRolesController(
             IUserRolesPresenter userRolesPresenter,
             JwtBlackListService jwtBlackListService,
-            IUserGroupStore userGroupStore,
-            MyUserManager userManager) : base(userGroupStore, userManager)
+            IRolesCache rolesCache,
+            MyUserManager userManager) : base(rolesCache, userManager)
         {
             this.userRolesPresenter = userRolesPresenter;
             this.jwtBlackListService = jwtBlackListService;

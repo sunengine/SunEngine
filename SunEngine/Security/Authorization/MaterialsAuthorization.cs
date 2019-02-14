@@ -18,18 +18,18 @@ namespace SunEngine.Security.Authorization
         private readonly OperationKeysContainer OperationKeys;
         private readonly IAuthorizationService authorizationService;
         private readonly MaterialOptions materialOptions;
-        private readonly ICategoriesStore categoriesStore;
+        private readonly ICategoriesCache categoriesCache;
         private readonly DataBaseConnection db;
 
         public MaterialsAuthorization(IAuthorizationService authorizationService,
             IOptions<MaterialOptions> materialOptions, 
             OperationKeysContainer operationKeysContainer,
-            ICategoriesStore categoriesStore,
+            ICategoriesCache categoriesCache,
             DataBaseConnection db)
         {
             this.authorizationService = authorizationService;
             this.materialOptions = materialOptions.Value;
-            this.categoriesStore = categoriesStore;
+            this.categoriesCache = categoriesCache;
             this.db = db;
 
             OperationKeys = operationKeysContainer;
@@ -73,7 +73,7 @@ namespace SunEngine.Security.Authorization
         public async Task<bool> CanEditAsync(MyClaimsPrincipal user, Material material)
         {
             var operationKeys =
-                authorizationService.HasAccess(user.UserGroups, material.CategoryId, new[]
+                authorizationService.HasAccess(user.Roles, material.CategoryId, new[]
                 {
                     OperationKeys.MaterialEditOwn,
                     OperationKeys.MaterialEditOwnIfHasReplies,
@@ -118,7 +118,7 @@ namespace SunEngine.Security.Authorization
         public async Task<bool> CanMoveToTrashAsync(MyClaimsPrincipal user, Material material)
         {
             var operationKeys =
-                authorizationService.HasAccess(user.UserGroups, material.CategoryId, new[]
+                authorizationService.HasAccess(user.Roles, material.CategoryId, new[]
                 {
                     OperationKeys.MaterialDeleteAny,
                     OperationKeys.MaterialDeleteOwn,
@@ -165,14 +165,14 @@ namespace SunEngine.Security.Authorization
         {
             // Если модератор с правом перемещения материалов на обе категории то разрешаем
             return !categoryTo.IsFolder
-                   && authorizationService.HasAccess(user.UserGroups, categoryFrom, OperationKeys.MaterialWrite)
-                   && authorizationService.HasAccess(user.UserGroups, categoryTo, OperationKeys.MaterialWrite);
+                   && authorizationService.HasAccess(user.Roles, categoryFrom, OperationKeys.MaterialWrite)
+                   && authorizationService.HasAccess(user.Roles, categoryTo, OperationKeys.MaterialWrite);
         }
 
         private bool IsCategoriesFromOneRoot(Category categoryFrom, Category categoryTo)
         {
-            return categoriesStore.GetCategoryAreaRoot(categoryFrom).Id ==
-                   categoriesStore.GetCategoryAreaRoot(categoryTo).Id;
+            return categoriesCache.GetCategoryAreaRoot(categoryFrom).Id ==
+                   categoriesCache.GetCategoryAreaRoot(categoryTo).Id;
         }
 
         private async Task<bool> CheckHasNotOwnRepliesAsync(Material material, int userId)

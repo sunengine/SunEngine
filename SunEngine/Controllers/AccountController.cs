@@ -44,7 +44,7 @@ namespace SunEngine.Controllers
             JwtService jwtService,
             IAccountService accountService,
             IOptions<GlobalOptions> globalOptions,
-            IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
+            IRolesCache rolesCache) : base(rolesCache, userManager)
         {
             this.globalOptions = globalOptions.Value;
             this.emailSender = emailSender;

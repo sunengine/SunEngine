@@ -8,18 +8,18 @@ using SunEngine.Stores.Models;
 
 namespace SunEngine.Stores
 {
-    public interface IUserGroupStore : IMemoryStore
+    public interface IRolesCache : IMemoryCache
     {
         IImmutableList<OperationKeyStored> AllOperationKeys { get; }
-        RoleStored GetUserGroup(string name);
-        IImmutableDictionary<string, RoleStored> AllGroups { get; }
+        RoleStored GetRole(string name);
+        IImmutableDictionary<string, RoleStored> AllRoles { get; }
     }
     
-    public class UserGroupStore : IUserGroupStore
+    public class RolesCache : IRolesCache
     {
         private readonly IDataBaseFactory dataBaseFactory;
 
-        public UserGroupStore(IDataBaseFactory dataBaseFactory)
+        public RolesCache(IDataBaseFactory dataBaseFactory)
         {
             this.dataBaseFactory = dataBaseFactory;
         }
@@ -40,35 +40,35 @@ namespace SunEngine.Stores
         }
 
 
-        protected ImmutableDictionary<string, RoleStored> _allGroups;
+        protected ImmutableDictionary<string, RoleStored> _allRoles;
 
-        public IImmutableDictionary<string, RoleStored> AllGroups
+        public IImmutableDictionary<string, RoleStored> AllRoles
         {
             get
             {
-                if (_allGroups == null)
+                if (_allRoles == null)
                 {
                     Initialize();
                 }
 
-                return _allGroups;
+                return _allRoles;
             }
         }
 
-        public RoleStored GetUserGroup(string name)
+        public RoleStored GetRole(string name)
         {
-            if (_allGroups == null)
+            if (_allRoles == null)
             {
                 Initialize();
             }
 
-            return AllGroups.ContainsKey(name) ? AllGroups[name] : null;
+            return AllRoles.ContainsKey(name) ? AllRoles[name] : null;
         }
 
         public void Reset()
         {
             _allOperationKeys = null;
-            _allGroups = null;
+            _allRoles = null;
         }
         
 
@@ -76,7 +76,7 @@ namespace SunEngine.Stores
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-                var userGroups = db.Roles.Select(x => new RoleTmp(x)).ToDictionary(x => x.Id);
+                var roles = db.Roles.Select(x => new RoleTmp(x)).ToDictionary(x => x.Id);
 
                 _allOperationKeys = db.OperationKeys.Select(x => new OperationKeyStored(x)).ToImmutableList();
 
@@ -92,11 +92,11 @@ namespace SunEngine.Stores
 
                 foreach (var categoryAccess in categoryAccesses.Values)
                 {
-                    userGroups[categoryAccess.UserGroupId].CategoryAccesses
+                    roles[categoryAccess.UserGroupId].CategoryAccesses
                         .Add(categoryAccess);
                 }
 
-                _allGroups = userGroups.Values.ToImmutableDictionary(x => x.Name, x => new RoleStored(x));
+                _allRoles = roles.Values.ToImmutableDictionary(x => x.Name, x => new RoleStored(x));
             }
         }
 
