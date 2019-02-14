@@ -28,7 +28,7 @@
   import LoaderWait from "LoaderWait";
 
   export default {
-    name: "RolesAdmin",
+    name: "RolesPermissions",
     components: {LoaderWait},
     mixins: [Page],
     computed: {},

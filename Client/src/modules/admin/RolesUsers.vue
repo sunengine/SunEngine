@@ -17,10 +17,12 @@
 
 <script>
 
+  import Page from "Page";
   import LoaderWait from "LoaderWait";
 
   export default {
     name: "RolesUsers",
+    mixins: [Page],
     components: {LoaderWait},
     data: function () {
       return {
@@ -41,6 +43,7 @@
       }
     },
     async created() {
+      this.setTitle("Админка категорий");
       await this.loadAllRoles();
     }
   }
