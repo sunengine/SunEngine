@@ -3,9 +3,9 @@
     <h1>Demo</h1>
     <div class="p1">
       <p>Каждые несколько часов данные сбрасываются.</p>
-      <p>Пользователи: User1, User2, User3, User4, User5, Moderator, Admin</p>
-      <p>Пароль: password</p>
-      <p>При регистрации и других операциях с почтой можете указывать любой почтовый ящик, например `o1111@ooo.ru`, почта будет отправляться на mailcatcher <a target="_blank" href="http://demo.sunengine.site:1444">сюда</a>.</p>
+      <p>Пользователи: <span class="hl">User1</span>, <span class="hl">User2</span>, <span class="hl">User3</span>, <span class="hl">User4</span>, <span class="hl">User5</span>, <span class="hl">Moderator</span>, <span class="hl">Admin</span></p>
+      <p>Пароль: <span class="hl">password</span></p>
+      <p>При регистрации и других операциях с почтой можете указывать любой почтовый ящик, например '<span class="hl">ooo@ooo.ru</span>', почта будет отправляться на mailcatcher <a target="_blank" href="http://demo.sunengine.site:1444">сюда</a>.</p>
     </div>
   </q-page>
 </template>
@@ -18,7 +18,7 @@
     name: 'PageIndex',
     mixins: [Page],
     async created() {
-      this.title = "SunEngine";
+      this.title = config.SiteName;
     }
   }
 </script>
@@ -41,5 +41,11 @@
     text-align: center;
     color: #616161;
   }
+
+  .hl {
+    color: #a38167;
+    font-weight : 600;
+  }
+
 
 </style>

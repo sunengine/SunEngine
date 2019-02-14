@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SunEngine.Admin.Presenters;
 using SunEngine.Admin.Services;
 using SunEngine.Controllers;
 using SunEngine.Managers;
@@ -10,36 +11,36 @@ using SunEngine.Stores;
 namespace SunEngine.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class GroupsUsersController : BaseController
+    public class UserRolesController : BaseController
     {
-        private readonly GroupsUsersService groupsUsersService;
+        private readonly IUserRolesPresenter userRolesPresenter;
         private readonly JwtBlackListService jwtBlackListService;
 
-        public GroupsUsersController(
-            GroupsUsersService groupsUsersService,
+        public UserRolesController(
+            IUserRolesPresenter userRolesPresenter,
             JwtBlackListService jwtBlackListService,
             IUserGroupStore userGroupStore,
             MyUserManager userManager) : base(userGroupStore, userManager)
         {
-            this.groupsUsersService = groupsUsersService;
+            this.userRolesPresenter = userRolesPresenter;
             this.jwtBlackListService = jwtBlackListService;
         }
 
-        public async Task<IActionResult> GetAllUserGroups()
+        public async Task<IActionResult> GetAllUserRoles()
         {
-            var groups = await groupsUsersService.GetAllUserGroupsAsync();
+            var groups = await userRolesPresenter.GetAllRolesAsync();
             return Ok(groups);
         }
 
-        public async Task<IActionResult> GetUserGroups(int userId)
+        public async Task<IActionResult> GetUserRoles(int userId)
         {
-            var groups = await groupsUsersService.GetUserGroupsAsync(userId);
+            var groups = await userRolesPresenter.GetUserRolesAsync(userId);
             return Ok(groups);
         }
 
-        public async Task<IActionResult> GetGroupUsers(string groupName, string userNamePart)
+        public async Task<IActionResult> GetRoleUsers(string roleName, string userNamePart)
         {
-            var users = await groupsUsersService.GetGroupUsers(groupName, userNamePart);
+            var users = await userRolesPresenter.GetRoleUsers(roleName, userNamePart);
             return Ok(users);
         }
 

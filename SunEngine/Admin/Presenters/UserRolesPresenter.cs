@@ -1,24 +1,29 @@
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.DataBase;
-using SunEngine.Managers;
 using SunEngine.Presenters;
 using SunEngine.Services;
 using SunEngine.Utils;
 
-namespace SunEngine.Admin.Services
+namespace SunEngine.Admin.Presenters
 {
-    public class GroupsUsersService : DbService
+    public interface IUserRolesPresenter
     {
-        public GroupsUsersService(DataBaseConnection db) : base(db)
+        Task<UserGroupViewModel[]> GetAllRolesAsync();
+        Task<UserInfoViewModel[]> GetRoleUsers(string groupName, string userNamePart);
+        Task<UserGroupViewModel[]> GetUserRolesAsync(int userId);
+    }
+
+    public class UserRolesPresenter : DbService, IUserRolesPresenter
+    {
+        public UserRolesPresenter(DataBaseConnection db) : base(db)
         {
         }
 
-        public Task<UserGroupViewModel[]> GetAllUserGroupsAsync()
+        public Task<UserGroupViewModel[]> GetAllRolesAsync()
         {
-            return db.UserGroups.Select(x => new UserGroupViewModel
+            return db.Roles.Select(x => new UserGroupViewModel
             {
                 Name = x.Name,
                 Title = x.Title,
@@ -27,10 +32,10 @@ namespace SunEngine.Admin.Services
             }).ToArrayAsync();
         }
 
-        public Task<UserInfoViewModel[]> GetGroupUsers(string groupName, string userNamePart)
+        public Task<UserInfoViewModel[]> GetRoleUsers(string roleName, string userNamePart)
         {
-            var normalizedGroupName = FieldNormalizer.Singleton.Normalize(groupName);
-            var query = db.UserToGroups.Where(x => x.UserGroup.NormalizedName == normalizedGroupName);
+            var normalizedGroupName = FieldNormalizer.Singleton.Normalize(roleName);
+            var query = db.UserRoles.Where(x => x.Role.NormalizedName == normalizedGroupName);
 
             if (userNamePart != null)
             {
@@ -52,9 +57,9 @@ namespace SunEngine.Admin.Services
                 }).ToArrayAsync();
         }
 
-        public Task<UserGroupViewModel[]> GetUserGroupsAsync(int userId)
+        public Task<UserGroupViewModel[]> GetUserRolesAsync(int userId)
         {
-            return db.UserGroups.Where(x => x.Users.Any(y => y.UserId == userId)).Select(x => new UserGroupViewModel
+            return db.Roles.Where(x => x.Users.Any(y => y.UserId == userId)).Select(x => new UserGroupViewModel
             {
                 Name = x.Name,
                 Title = x.Title,

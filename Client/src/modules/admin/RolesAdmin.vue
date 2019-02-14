@@ -28,7 +28,7 @@
   import LoaderWait from "LoaderWait";
 
   export default {
-    name: "UserGroupsAdmin",
+    name: "RolesAdmin",
     components: {LoaderWait},
     mixins: [Page],
     computed: {},
@@ -53,7 +53,7 @@
         this.json = null;
         await this.$store.dispatch("request",
           {
-            url: "/GroupsAdmin/GetJson"
+            url: "/Roles/GetJson"
           })
           .then(response => {
               this.error = null;
@@ -66,7 +66,7 @@
       async send() {
         await this.$store.dispatch("request",
           {
-            url: "/GroupsAdmin/UploadJson",
+            url: "/Roles/UploadJson",
             data: {
               json: this.json
             }

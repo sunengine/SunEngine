@@ -60,11 +60,11 @@ namespace DataSeedDev.Seeder
 
         private void RegisterUsers()
         {
-            UserGroup registered = dataContainer.UserGroups.FirstOrDefault(x => x.Name == "Registered");
+            Role registered = dataContainer.UserGroups.FirstOrDefault(x => x.Name == "Registered");
 
             foreach (var user in dataContainer.Users)
             {
-                UserToGroup ur = new UserToGroup
+                UserRole ur = new UserRole
                 {
                     UserId = user.Id,
                     RoleId = registered.Id
@@ -116,7 +116,7 @@ namespace DataSeedDev.Seeder
             var userAdmin = dataContainer.Users.FirstOrDefault(x => x.UserName == "Admin");
             var roleAdmin = dataContainer.UserGroups.FirstOrDefault(x => x.Name == "Admin");
 
-            UserToGroup ur = new UserToGroup
+            UserRole ur = new UserRole
             {
                 UserId = userAdmin.Id,
                 RoleId = roleAdmin.Id
@@ -127,7 +127,7 @@ namespace DataSeedDev.Seeder
             var userModerator = dataContainer.Users.FirstOrDefault(x => x.UserName == "Moderator");
             var roleModerator = dataContainer.UserGroups.FirstOrDefault(x => x.Name == "Moderator");
 
-            ur = new UserToGroup
+            ur = new UserRole
             {
                 UserId = userModerator.Id,
                 RoleId = roleModerator.Id
@@ -139,7 +139,7 @@ namespace DataSeedDev.Seeder
             var testGroup1 = dataContainer.UserGroups.FirstOrDefault(x => x.Name == "TestGroup1");
             var testGroup2 = dataContainer.UserGroups.FirstOrDefault(x => x.Name == "TestGroup2");
 
-            ur = new UserToGroup
+            ur = new UserRole
             {
                 UserId = testUser1.Id,
                 RoleId = testGroup1.Id
@@ -147,7 +147,7 @@ namespace DataSeedDev.Seeder
 
             dataContainer.UserToGroups.Add(ur);
 
-            ur = new UserToGroup
+            ur = new UserRole
             {
                 UserId = testUser1.Id,
                 RoleId = testGroup2.Id

@@ -3,9 +3,9 @@ import AdminPanel from 'admin/AdminPanel.vue';
 import CategoriesAdmin from 'admin/CategoriesAdmin.vue';
 import AddCategory from 'admin/AddEditCategory/AddCategory.vue';
 import EditCategory from 'admin/AddEditCategory/EditCategory.vue';
-import UserGroupsAdmin from 'admin/UserGroupsAdmin.vue';
-import GroupUsers from 'admin/GroupUsers.vue';
-import Groups from 'admin/Groups.vue';
+import RolesAdmin from 'admin/RolesAdmin.vue';
+import UsersFromRole from 'admin/UsersFromRole.vue';
+import RolesUsers from 'admin/RolesUsers.vue';
 
 
 import {store} from 'store';
@@ -50,25 +50,25 @@ const routes = [
     }
   },
   {
-    name: 'UserGroupsAdmin',
-    path: '/admin/UserGroupsAdmin'.toLowerCase(),
+    name: 'RolesAdmin',
+    path: '/admin/RolesAdmin'.toLowerCase(),
     components: {
-      default: UserGroupsAdmin,
+      default: RolesAdmin,
       navigation: AdminPanel
     }
   },
   {
-    name: 'Groups',
-    path: '/admin/Groups'.toLowerCase(),
+    name: 'RolesUsers',
+    path: '/admin/RolesUsers'.toLowerCase(),
     components: {
-      default: Groups,
+      default: RolesUsers,
       navigation: AdminPanel
     },
     children: [
       {
-        name: 'GroupUsers',
-        path: ':groupName',
-        component: GroupUsers,
+        name: 'UsersFromRole',
+        path: ':roleName',
+        component: UsersFromRole,
         props: true
       }
     ]

@@ -1,10 +1,10 @@
 <template>
   <div class="row">
-    <div v-if="groups" class="xs-col-12 col-4">
+    <div v-if="roles" class="xs-col-12 col-4">
       <div class="local-header">Группы</div>
       <div class="local-content">
-        <div :key="group.id" v-for="group in groups">
-          <router-link :to="{name: 'GroupUsers', params: {groupName: group.name}}">{{group.title}}</router-link>
+        <div :key="role.id" v-for="role in roles">
+          <router-link :to="{name: 'UsersFromRole', params: {roleName: role.name}}">{{role.title}}</router-link>
         </div>
       </div>
     </div>
@@ -20,22 +20,22 @@
   import LoaderWait from "LoaderWait";
 
   export default {
-    name: "Groups",
+    name: "RolesUsers",
     components: {LoaderWait},
     data: function () {
       return {
-        groups: null,
-        currentGroup: null,
+        roles: null,
+        currentRole: null,
       }
     },
     methods: {
       async loadAllGroups() {
         await this.$store.dispatch("request",
           {
-            url: "/GroupsUsers/GetAllUserGroups"
+            url: "/UserRoles/GetAllUserRoles"
           })
           .then(response => {
-              this.groups = response.data;
+              this.roles = response.data;
             }
           );
       }

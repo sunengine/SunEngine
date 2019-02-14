@@ -11,7 +11,7 @@ namespace SunEngine.Configuration.AddServices
     {
         public static void AddIdentity(this IServiceCollection services, DataBaseFactory dataBaseFactory)
         {
-            services.AddIdentity<User, UserGroup>(
+            services.AddIdentity<User, Role>(
                     options =>
                     {
                         options.Password.RequireDigit = false;

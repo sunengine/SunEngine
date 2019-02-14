@@ -4,7 +4,7 @@ using SunEngine.Models.Authorization;
 
 namespace SunEngine.Stores.Models
 {
-    public class UserGroupStored
+    public class RoleStored
     {
         public const string UserGroupAdmin = "Admin";
         public const string UserGroupRegistered = "Registered";
@@ -18,7 +18,7 @@ namespace SunEngine.Stores.Models
         public ImmutableDictionary<int, CategoryAccessStored> CategoryAccesses { get; }
 
 
-        public UserGroupStored(UserGroupTmp ug)
+        public RoleStored(RoleTmp ug)
         {
             Id = ug.Id;
             Name = ug.Name;
@@ -32,7 +32,7 @@ namespace SunEngine.Stores.Models
     /// <summary>
     /// This class is only need to build UserGroupStored
     /// </summary>
-    public class UserGroupTmp
+    public class RoleTmp
     {
         public int Id;
         public string Name;
@@ -40,11 +40,11 @@ namespace SunEngine.Stores.Models
         public List<CategoryAccessTmp> CategoryAccesses = new List<CategoryAccessTmp>();
 
 
-        public UserGroupTmp(UserGroup userGroup)
+        public RoleTmp(Role role)
         {
-            Id = userGroup.Id;
-            Name = userGroup.Name;
-            Title = userGroup.Title;
+            Id = role.Id;
+            Name = role.Name;
+            Title = role.Title;
         }
     }
 }

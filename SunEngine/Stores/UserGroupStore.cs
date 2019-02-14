@@ -11,8 +11,8 @@ namespace SunEngine.Stores
     public interface IUserGroupStore : IMemoryStore
     {
         IImmutableList<OperationKeyStored> AllOperationKeys { get; }
-        UserGroupStored GetUserGroup(string name);
-        IImmutableDictionary<string, UserGroupStored> AllGroups { get; }
+        RoleStored GetUserGroup(string name);
+        IImmutableDictionary<string, RoleStored> AllGroups { get; }
     }
     
     public class UserGroupStore : IUserGroupStore
@@ -40,9 +40,9 @@ namespace SunEngine.Stores
         }
 
 
-        protected ImmutableDictionary<string, UserGroupStored> _allGroups;
+        protected ImmutableDictionary<string, RoleStored> _allGroups;
 
-        public IImmutableDictionary<string, UserGroupStored> AllGroups
+        public IImmutableDictionary<string, RoleStored> AllGroups
         {
             get
             {
@@ -55,7 +55,7 @@ namespace SunEngine.Stores
             }
         }
 
-        public UserGroupStored GetUserGroup(string name)
+        public RoleStored GetUserGroup(string name)
         {
             if (_allGroups == null)
             {
@@ -76,7 +76,7 @@ namespace SunEngine.Stores
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-                var userGroups = db.UserGroups.Select(x => new UserGroupTmp(x)).ToDictionary(x => x.Id);
+                var userGroups = db.Roles.Select(x => new RoleTmp(x)).ToDictionary(x => x.Id);
 
                 _allOperationKeys = db.OperationKeys.Select(x => new OperationKeyStored(x)).ToImmutableList();
 
@@ -96,7 +96,7 @@ namespace SunEngine.Stores
                         .Add(categoryAccess);
                 }
 
-                _allGroups = userGroups.Values.ToImmutableDictionary(x => x.Name, x => new UserGroupStored(x));
+                _allGroups = userGroups.Values.ToImmutableDictionary(x => x.Name, x => new RoleStored(x));
             }
         }
 

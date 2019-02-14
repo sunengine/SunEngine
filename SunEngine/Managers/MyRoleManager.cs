@@ -6,9 +6,9 @@ using SunEngine.Utils;
 
 namespace SunEngine.Managers
 {
-    public class MyRoleManager : RoleManager<UserGroup>
+    public class MyRoleManager : RoleManager<Role>
     {
-        public MyRoleManager(IRoleStore<UserGroup> store, IEnumerable<IRoleValidator<UserGroup>> roleValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, ILogger<RoleManager<UserGroup>> logger) : base(store, roleValidators, keyNormalizer, errors, logger)
+        public MyRoleManager(IRoleStore<Role> store, IEnumerable<IRoleValidator<Role>> roleValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, ILogger<RoleManager<Role>> logger) : base(store, roleValidators, keyNormalizer, errors, logger)
         {
             KeyNormalizer = FieldNormalizer.Singleton;
         }

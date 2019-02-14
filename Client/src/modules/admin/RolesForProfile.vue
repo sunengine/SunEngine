@@ -97,7 +97,7 @@
       async addToRole(roleName) {
         await this.$store.dispatch("request",
           {
-            url: "/GroupsUsers/AddUserToRole",
+            url: "/UserRoles/AddUserToRole",
             data: {
               userId: this.userId,
               roleName: roleName
@@ -111,7 +111,7 @@
       async removeFromRole(roleName) {
         await this.$store.dispatch("request",
           {
-            url: "/GroupsUsers/RemoveUserFromRole",
+            url: "/UserRoles/RemoveUserFromRole",
             data: {
               userId: this.userId,
               roleName: roleName
@@ -125,7 +125,7 @@
       async loadUserRoles() {
         await this.$store.dispatch("request",
           {
-            url: "/GroupsUsers/GetUserGroups",
+            url: "/UserRoles/GetUserRoles",
             data: {
               userId: this.userId
             }
@@ -139,7 +139,7 @@
       async loadAllRoles() {
         await this.$store.dispatch("request",
           {
-            url: "/GroupsUsers/GetAllUserGroups"
+            url: "/UserRoles/GetAllUserRoles"
           })
           .then(response => {
               this.allRoles = response.data;

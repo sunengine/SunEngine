@@ -32,7 +32,7 @@ namespace SunEngine.Security.Authorization
             this.db = db;
         }
 
-        public bool HasAccessForGetMessages(IReadOnlyDictionary<string,UserGroupStored> userGroups, int categoryId)
+        public bool HasAccessForGetMessages(IReadOnlyDictionary<string,RoleStored> userGroups, int categoryId)
         {
             return authorizationService.HasAccess(userGroups, categoryId, OperationKeys.MaterialAndMessagesRead);
         }
@@ -143,7 +143,7 @@ namespace SunEngine.Security.Authorization
                                                       x.PublishDate > message.PublishDate);
         }
         
-        public bool CanAdd(IReadOnlyDictionary<string,UserGroupStored> userGroups,int categoryId)
+        public bool CanAdd(IReadOnlyDictionary<string,RoleStored> userGroups,int categoryId)
         {
             return authorizationService.HasAccess(userGroups, categoryId,  OperationKeys.MessageWrite);
         } 

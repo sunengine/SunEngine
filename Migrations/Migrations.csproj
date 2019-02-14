@@ -20,4 +20,13 @@
       <PackageReference Include="SQLitePCLRaw.bundle_green" Version="1.1.13" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="DataBaseConnection.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="local.DataBaseConnection.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

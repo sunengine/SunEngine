@@ -8,17 +8,17 @@ namespace SunEngine.Security.Authorization
 {
     public interface IAuthorizationService
     {
-        bool HasAccess(IReadOnlyDictionary<string, UserGroupStored> userGroups, Category category, int operationKey);
+        bool HasAccess(IReadOnlyDictionary<string, RoleStored> userGroups, Category category, int operationKey);
 
-        HashSet<int> HasAccess(IReadOnlyDictionary<string, UserGroupStored> userGroups, Category category,
+        HashSet<int> HasAccess(IReadOnlyDictionary<string, RoleStored> userGroups, Category category,
             IEnumerable<int> operationKeys);
 
 
         #region With CategoryId
 
-        bool HasAccess(IReadOnlyDictionary<string, UserGroupStored> userGroups, int categoryId, int operationKey);
+        bool HasAccess(IReadOnlyDictionary<string, RoleStored> userGroups, int categoryId, int operationKey);
 
-        HashSet<int> HasAccess(IReadOnlyDictionary<string, UserGroupStored> userGroups, int categoryId,
+        HashSet<int> HasAccess(IReadOnlyDictionary<string, RoleStored> userGroups, int categoryId,
             IEnumerable<int> operationKeys);
 
         #endregion
@@ -34,15 +34,15 @@ namespace SunEngine.Security.Authorization
             this.categoriesStore = categoriesStore;
         }
 
-        public bool HasAccess(IReadOnlyDictionary<string, UserGroupStored> userGroups, Category category,
+        public bool HasAccess(IReadOnlyDictionary<string, RoleStored> userGroups, Category category,
             int operationKey)
         {
-            if (userGroups.ContainsKey(UserGroupStored.UserGroupAdmin))
+            if (userGroups.ContainsKey(RoleStored.UserGroupAdmin))
             {
                 return true;
             }
 
-            foreach (UserGroupStored userGroup in userGroups.Values)
+            foreach (RoleStored userGroup in userGroups.Values)
             {
                 if (GetAccessForCategory(userGroup, category, operationKey))
                 {
@@ -54,10 +54,10 @@ namespace SunEngine.Security.Authorization
         }
 
 
-        public HashSet<int> HasAccess(IReadOnlyDictionary<string, UserGroupStored> userGroups, Category category,
+        public HashSet<int> HasAccess(IReadOnlyDictionary<string, RoleStored> userGroups, Category category,
             IEnumerable<int> operationKeys)
         {
-            if (userGroups.ContainsKey(UserGroupStored.UserGroupAdmin))
+            if (userGroups.ContainsKey(RoleStored.UserGroupAdmin))
             {
                 operationKeys.ToHashSet();
             }
@@ -75,13 +75,13 @@ namespace SunEngine.Security.Authorization
         }
 
 
-        private bool GetAccessForCategory(UserGroupStored userGroup, Category category, int operationKey)
+        private bool GetAccessForCategory(RoleStored role, Category category, int operationKey)
         {
             while (category != null)
             {
-                if (userGroup.CategoryAccesses.ContainsKey(category.Id))
+                if (role.CategoryAccesses.ContainsKey(category.Id))
                 {
-                    var categoryAccess = userGroup.CategoryAccesses[category.Id];
+                    var categoryAccess = role.CategoryAccesses[category.Id];
                     if (categoryAccess.CategoryOperationAccesses.ContainsKey(operationKey))
                     {
                         return categoryAccess.CategoryOperationAccesses[operationKey];
@@ -103,12 +103,12 @@ namespace SunEngine.Security.Authorization
 
         #region With CategoryId
 
-        public bool HasAccess(IReadOnlyDictionary<string, UserGroupStored> userGroups, int categoryId, int operationKey)
+        public bool HasAccess(IReadOnlyDictionary<string, RoleStored> userGroups, int categoryId, int operationKey)
         {
             return HasAccess(userGroups, categoriesStore.GetCategory(categoryId), operationKey);
         }
 
-        public HashSet<int> HasAccess(IReadOnlyDictionary<string, UserGroupStored> userGroups, int categoryId,
+        public HashSet<int> HasAccess(IReadOnlyDictionary<string, RoleStored> userGroups, int categoryId,
             IEnumerable<int> operationKeys)
         {
             return HasAccess(userGroups, categoriesStore.GetCategory(categoryId), operationKeys);
