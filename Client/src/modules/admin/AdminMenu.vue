@@ -6,7 +6,7 @@
     </q-item>
     <q-item :to="{name: 'RolesPermissions'}" :multiline="false" link>
       <q-icon name="fas fa-users-cog" size="16px" class="on-left"/>
-      Права групп пользователей
+      Настройка прав
     </q-item>
     <q-item :to="{name: 'RolesUsers'}" :multiline="false" link>
       <q-icon name="fas fa-users" size="16px" class="on-left"/>

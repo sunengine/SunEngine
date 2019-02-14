@@ -10,7 +10,7 @@ namespace SunEngine.Services
 
         public bool Failed => !Succeeded;
 
-        public static ServiceResult BadResult(ErrorViewModel error)
+        public static ServiceResult BadResult(ErrorViewModel error = null)
         {
             return new ServiceResult
             {
@@ -41,7 +41,7 @@ namespace SunEngine.Services
             };
         }
         
-        public static UserServiceResult BadResult(ErrorViewModel error)
+        public static UserServiceResult BadResult(ErrorViewModel error = null)
         {
             return new UserServiceResult
             {
