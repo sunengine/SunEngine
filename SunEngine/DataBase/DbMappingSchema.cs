@@ -25,7 +25,7 @@ namespace SunEngine.DataBase
             mp.Entity<Role>()
                 .HasTableName("AspNetRoles")
                 .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
-                .Association(x => x.CategoryAccesses, x => x.Id, x => x.UserGroupId);
+                .Association(x => x.CategoryAccesses, x => x.Id, x => x.RoleId);
 
             mp.Entity<Category>()
                 .HasTableName("Categories")

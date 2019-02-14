@@ -47,8 +47,8 @@ namespace SunEngine.Stores.Models
         public CategoryAccessTmp(CategoryAccess categoryAccess)
         {
             Id = categoryAccess.Id;
-            UserGroupId = categoryAccess.UserGroupId;
-            Group = categoryAccess.Group;
+            UserGroupId = categoryAccess.RoleId;
+            Group = categoryAccess.Role;
             CategoryId = categoryAccess.CategoryId;
             Category = categoryAccess.Category;
         }

@@ -127,8 +127,8 @@ namespace Migrations
 
             Create.Table("CategoryAccesses")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("UserGroupId").AsInt32().NotNullable().Indexed()
-                .ForeignKey("FK_CategoryAccesses_AspNetRoles_UserGroupId", "AspNetRoles", "Id")
+                .WithColumn("RoleId").AsInt32().NotNullable().Indexed()
+                .ForeignKey("FK_CategoryAccesses_AspNetRoles_RoleId", "AspNetRoles", "Id")
                 .WithColumn("CategoryId").AsInt32().NotNullable().Indexed()
                 .ForeignKey("FK_CategoryAccesses_Categories_CategoryId", "Categories", "Id");
 

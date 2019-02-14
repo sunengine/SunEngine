@@ -85,7 +85,7 @@ namespace SunEngine.Utils
                     {
                         Id = categoryAccessId,
                         CategoryId = category.Id,
-                        UserGroupId = role.Id
+                        RoleId = role.Id
                     };
 
                     categoryAccesses.Add(categoryAccess);
