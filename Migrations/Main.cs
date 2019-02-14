@@ -30,7 +30,7 @@ namespace Migrations
                 .Build();
 
 
-            var dataBaseConfiguration = configuration.GetSection("DataBaseConnection");
+            var dataBaseConfiguration = configuration.GetSection("DataBaseConnectionSQLiteExample");
             var providerName = dataBaseConfiguration["Provider"];
             DBProvider.Initialize(providerName);
             var connectionString = dataBaseConfiguration["ConnectionString"];
@@ -41,8 +41,8 @@ namespace Migrations
                 .ConfigureRunner(rb => rb
                     // Select DataBaseSupport
                     //.AddMySql5() 
-                    .AddPostgres()
-                    //.AddSQLite()
+                    //.AddPostgres()
+                    .AddSQLite()
                     .WithGlobalConnectionString(connectionString)
                     // Define the assembly containing the migrations
                     .ScanIn(typeof(Initial).Assembly).For.Migrations())

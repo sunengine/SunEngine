@@ -59,4 +59,10 @@
       <ProjectReference Include="..\SunEngine\SunEngine.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="DataBaseConnection.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

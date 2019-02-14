@@ -1,0 +1,9 @@
+﻿[
+  {
+    "Name": "Articles",
+    "Title": "Статьи",
+    "AreaRoot": true,
+    "IsMaterialsContainer": true,
+    "MaterialsCount": 35
+  }
+]

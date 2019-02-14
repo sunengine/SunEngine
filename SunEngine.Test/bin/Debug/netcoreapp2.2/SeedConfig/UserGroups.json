@@ -1,0 +1,144 @@
+{
+  "Banned" : {
+    "Title": "Бан"
+  },
+  "Unregistered": {
+    "Title": "Гость",
+    "Categories": [
+      {
+        "Category": "Forum",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true
+        }
+      },
+      {
+        "Category": "Forum2L",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true
+        }
+      },
+      {
+        "Category": "OnlyForRegisteredThread",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": false
+        }
+      },
+      {
+        "Category": "Articles",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true
+        }
+      },
+      {
+        "Category": "Blog",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true
+        }
+      }
+    ]
+  },
+  "Registered": {
+    "Title": "Пользователь",
+    "Categories": [
+      {
+        "Category": "Forum",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true,
+          "MaterialWrite": true,
+          "MessageWrite": true,
+          "MaterialEditOwn": true,
+          "MessageEditOwn": true,
+          "MaterialDeleteOwn": true,
+          "MessageDeleteOwn": true
+        }
+      },
+      {
+        "Category": "NoAddMaterials",
+        "OperationKeys": {
+          "MaterialWrite": false,
+          "MessageWrite": true
+        }
+      },
+      {
+        "Category": "NoAddMaterialsAndMessages",
+        "OperationKeys": {
+          "MaterialWrite": false,
+          "MessageWrite": false
+        }
+      },
+      {
+        "Category": "NoEditOwnThread",
+        "OperationKeys": {
+          "MaterialEditOwn": false,
+          "MessageEditOwn": false,
+          "MaterialDeleteOwn": false,
+          "MessageDeleteOwn": false
+        }
+      },
+      {
+        "Category": "Forum2L",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true,
+          "MaterialWrite": true,
+          "MessageWrite": true
+        }
+      },
+      {
+        "Category": "Articles",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true,
+          "MessageWrite": true
+        }
+      },
+      {
+        "Category": "Blog",
+        "OperationKeys": {
+          "MaterialAndMessagesRead": true,
+          "MaterialWrite": true,
+          "MessageWrite": true
+        }
+      }
+    ]
+  },
+  "TestGroup1": {
+    "Title": "Тестовая группа 1"
+  },
+  "TestGroup2": {
+    "Title": "Тестовая группа 2"
+  },
+  "Moderator": {
+    "Title": "Модератор",
+    "IsSuper": true,
+    "Categories": [
+      {
+        "Category": "Forum",
+        "OperationKeys": {
+          "MaterialEditAny": true,
+          "MessageEditAny": true,
+          "MaterialDeleteAny": true,
+          "MessageDeleteAny": true
+        }
+      },
+      {
+        "Category": "Forum2L",
+        "OperationKeys": {
+          "MaterialEditAny": true,
+          "MessageEditAny": true,
+          "MaterialDeleteAny": true,
+          "MessageDeleteAny": true
+        }
+      },
+      {
+        "Category": "Articles",
+        "OperationKeys": {
+          "MessageEditAny": true,
+          "MessageDeleteAny": true
+        }
+      }
+    ]
+  },
+  "Admin": {
+    "Title": "Администратор",
+    "IsSuper": true
+  }
+}

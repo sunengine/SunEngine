@@ -5,6 +5,6 @@
   },
   "DataBaseConnectionSQLiteExample": {
     "Provider": "Sqlite",
-    "ConnectionString": "Data Source=../SunEngine/mydb.db"
+    "ConnectionString": "Data Source=C:\\SunEngine\\mydb.db"
   }
 }

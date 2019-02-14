@@ -124,7 +124,7 @@ namespace SunEngine.Admin.Services
                     errorGroups.Add(group);
             }
 
-            if (errorGroups.Count > 0)
+            if (errorGroups.Count() > 0)
             {
                 var errorNames = string.Join(", ", errorGroups.Select(y => "'" + y.Name + "'"));
                 throw new Exception(

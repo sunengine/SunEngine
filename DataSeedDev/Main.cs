@@ -11,7 +11,8 @@ namespace DataSeedDev
     {
         static void Main(string[] args)
         {
-            SeedDataBase();
+            SeedSqlLiteDataBase();
+            //SeedDataBase();
         }
 
         static void SeedDataBase()
@@ -23,6 +24,24 @@ namespace DataSeedDev
 
 
             var dataBaseConfiguration = configuration.GetSection("DataBaseConnection");
+            var providerName = dataBaseConfiguration["Provider"];
+            var connectionString = dataBaseConfiguration["ConnectionString"];
+
+            using (DataBaseConnection db = new DataBaseConnection(providerName, connectionString))
+            {
+                var dc = new LocalSeeder().Seed();
+                new DataBaseSeeder(db, dc).Seed().PostSeed();
+            }
+        }
+
+        static void SeedSqlLiteDataBase()
+        {
+            string dbSettingsFile = SettingsFileLocator.GetSettingFilePath("DataBaseConnection.json");
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile(dbSettingsFile, optional: false, reloadOnChange: true)
+                .Build();
+
+            var dataBaseConfiguration = configuration.GetSection("DataBaseConnectionSQLiteExample");
             var providerName = dataBaseConfiguration["Provider"];
             var connectionString = dataBaseConfiguration["ConnectionString"];
 
