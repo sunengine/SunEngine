@@ -10,10 +10,10 @@ namespace SunEngine.Presenters
     public interface ICategoriesPresenter
     {
         CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(
-            IReadOnlyDictionary<string, UserGroupStored> userGroups);
+            IReadOnlyDictionary<string, RoleStored> userGroups);
 
         CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(Category category,
-            IReadOnlyDictionary<string, UserGroupStored> userGroups);
+            IReadOnlyDictionary<string, RoleStored> userGroups);
     }
 
     public class CategoriesPresenter : ICategoriesPresenter
@@ -37,13 +37,13 @@ namespace SunEngine.Presenters
         }
 
         public virtual CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(
-            IReadOnlyDictionary<string, UserGroupStored> userGroups)
+            IReadOnlyDictionary<string, RoleStored> userGroups)
         {
             return CategoryInfoWithAccessesFromCategory(categoriesStore.RootCategory, userGroups);
         }
 
         public virtual CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(Category category,
-            IReadOnlyDictionary<string, UserGroupStored> userGroups)
+            IReadOnlyDictionary<string, RoleStored> userGroups)
         {
             if (!authorizationService.HasAccess(userGroups, category,
                     OperationKeys.MaterialAndMessagesRead) && category.Id != categoriesStore.RootCategory.Id)
@@ -94,7 +94,7 @@ namespace SunEngine.Presenters
         }
 
         protected Dictionary<string, bool> DetectPersonalAccesses(Category category,
-            IReadOnlyDictionary<string, UserGroupStored> userGroups)
+            IReadOnlyDictionary<string, RoleStored> userGroups)
         {
             Dictionary<string, bool> dict = new Dictionary<string, bool>(userGroupStore.AllOperationKeys.Count);
 

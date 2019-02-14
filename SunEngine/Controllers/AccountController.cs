@@ -193,7 +193,7 @@ namespace SunEngine.Controllers
                     var confirmResult = await userManager.ConfirmEmailAsync(user, token);
                     if (confirmResult.Succeeded)
                     {
-                        await userManager.AddToRoleAsync(user, UserGroupStored.UserGroupRegistered);
+                        await userManager.AddToRoleAsync(user, RoleStored.UserGroupRegistered);
 
                         transaction.Complete();
                         return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/emailconfirmed?result=ok"));

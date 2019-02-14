@@ -138,7 +138,7 @@ namespace SunEngine.Security.Authentication
                     return ErrorAuthorization();
                 }
 
-                if (myClaimsPrincipal.UserGroups.ContainsKey(UserGroupStored.UserGroupBanned))
+                if (myClaimsPrincipal.UserGroups.ContainsKey(RoleStored.UserGroupBanned))
                 {
                     return ErrorAuthorization();
                 }

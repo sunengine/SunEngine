@@ -1,4 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
+using SunEngine.Admin.Managers;
+using SunEngine.Admin.Presenters;
 using SunEngine.Admin.Services;
 
 namespace SunEngine.Configuration.AddServices
@@ -7,9 +9,12 @@ namespace SunEngine.Configuration.AddServices
     {
         public static void AddAdminServices(this IServiceCollection services)
         {
-            services.AddScoped<CategoriesAdminService>();
-            services.AddScoped<GroupsAdminService>();
-            services.AddScoped<GroupsUsersService>();
+            services.AddScoped<CategoriesManager>();
+            services.AddScoped<RolesAdminService>();
+            services.AddScoped<IUserRolesPresenter, UserRolesPresenter>();
+            services.AddScoped<ICategoriesAdminPresenter, CategoriesAdminPresenter>();
+            services.AddScoped<IUserRolesPresenter, UserRolesPresenter>();
+
         }
     }
 }

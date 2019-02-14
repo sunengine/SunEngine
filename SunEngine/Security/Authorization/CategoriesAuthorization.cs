@@ -15,7 +15,7 @@ namespace SunEngine.Security.Authorization
             OperationKeys = operationKeysContainer;
         }
         
-        public List<int> GetSubCategoriesIdsCanRead(IReadOnlyDictionary<string,UserGroupStored> userGroups,Category categoryParent)
+        public List<int> GetSubCategoriesIdsCanRead(IReadOnlyDictionary<string,RoleStored> userGroups,Category categoryParent)
         {
             List<int> categories = new List<int>();
            

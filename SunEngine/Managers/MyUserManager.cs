@@ -49,7 +49,7 @@ namespace SunEngine.Managers
         public virtual Task<bool> IsUserInRoleAsync(int userId, string roleName)
         {
             var normalizedRoleName = FieldNormalizer.Singleton.Normalize(roleName);
-            return db.UserToGroups.AnyAsync(x => x.UserId == userId && x.UserGroup.NormalizedName == normalizedRoleName);
+            return db.UserRoles.AnyAsync(x => x.UserId == userId && x.Role.NormalizedName == normalizedRoleName);
         }
     }
 }

@@ -4,11 +4,11 @@
       <q-icon name="far fa-folder-open" size="16px" class="on-left"/>
       Категории
     </q-item>
-    <q-item :to="{name: 'UserGroupsAdmin'}" :multiline="false" link>
+    <q-item :to="{name: 'RolesAdmin'}" :multiline="false" link>
       <q-icon name="fas fa-users-cog" size="16px" class="on-left"/>
       Права групп пользователей
     </q-item>
-    <q-item :to="{name: 'Groups'}" :multiline="false" link>
+    <q-item :to="{name: 'RolesUsers'}" :multiline="false" link>
       <q-icon name="fas fa-users" size="16px" class="on-left"/>
       Группы пользователей
     </q-item>

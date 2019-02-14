@@ -104,7 +104,7 @@ namespace SunEngine.Security
                 });
             }
 
-            if (await userManager.IsUserInRoleAsync(user.Id, UserGroupStored.UserGroupBanned))
+            if (await userManager.IsUserInRoleAsync(user.Id, RoleStored.UserGroupBanned))
             {
                 return UserServiceResult.BadResult(new ErrorViewModel
                 {

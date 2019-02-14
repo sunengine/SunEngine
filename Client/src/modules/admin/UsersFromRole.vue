@@ -23,10 +23,10 @@
   import LoaderWait from "LoaderWait";
 
   export default {
-    name: "GroupUsers",
+    name: "UsersFromRole",
     components: {LoaderWait},
     props: {
-      groupName: {
+      roleName: {
         type: String,
         required: true
       }
@@ -38,20 +38,20 @@
       }
     },
     watch: {
-      'groupName': 'loadGroupUsers'
+      'roleName': 'loadRoleUsers'
     },
     methods: {
       filterValueChanged() {
         this.timeout && clearTimeout(this.timeout);
-        this.timeout = setTimeout(this.loadGroupUsers, 600);
+        this.timeout = setTimeout(this.loadRoleUsers, 600);
       },
-      async loadGroupUsers() {
+      async loadRoleUsers() {
         this.users = null;
         await this.$store.dispatch("request",
           {
-            url: "/GroupsUsers/GetGroupUsers",
+            url: "/UserRoles/GetRoleUsers",
             data: {
-              groupName: this.groupName,
+              roleName: this.roleName,
               userNamePart: this.filter
             }
           })
@@ -62,7 +62,7 @@
       },
     },
     async created() {
-      await this.loadGroupUsers();
+      await this.loadRoleUsers();
     }
   }
 

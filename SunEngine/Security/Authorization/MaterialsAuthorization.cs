@@ -35,13 +35,13 @@ namespace SunEngine.Security.Authorization
             OperationKeys = operationKeysContainer;
         }
 
-        public bool CanAdd(IReadOnlyDictionary<string, UserGroupStored> userGroups,
+        public bool CanAdd(IReadOnlyDictionary<string, RoleStored> userGroups,
             Category category)
         {
             return !category.IsFolder && authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialWrite);
         }
 
-        public bool CanGet(IReadOnlyDictionary<string, UserGroupStored> userGroups, Category category)
+        public bool CanGet(IReadOnlyDictionary<string, RoleStored> userGroups, Category category)
         {
             return authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialAndMessagesRead);
         }

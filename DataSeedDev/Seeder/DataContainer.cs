@@ -29,8 +29,8 @@ namespace DataSeedDev.Seeder
         public List<Message> Messages = new List<Message>();
         public List<Material> Materials = new List<Material>();
         public List<User> Users = new List<User>();
-        public List<UserGroup> UserGroups = new List<UserGroup>();
-        public List<UserToGroup> UserToGroups = new List<UserToGroup>();
+        public List<Role> UserGroups = new List<Role>();
+        public List<UserRole> UserToGroups = new List<UserRole>();
         public List<CategoryAccess> CategoryAccesses = new List<CategoryAccess>(); 
         public List<CategoryOperationAccess> CategoryOperationAccesses = new List<CategoryOperationAccess>();
         public List<OperationKey> OperationKeys = new List<OperationKey>(); 

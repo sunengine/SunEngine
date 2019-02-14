@@ -13,12 +13,12 @@ namespace SunEngine.Security.Authentication
         public long SessionId { get; }
         public string LongToken2 { get; }
 
-        public IReadOnlyDictionary<string, UserGroupStored> UserGroups { get; }
+        public IReadOnlyDictionary<string, RoleStored> UserGroups { get; }
         
         /// <summary>
         /// If only one group
         /// </summary>
-        public UserGroupStored UserGroup { get; }
+        public RoleStored Role { get; }
 
         public MyClaimsPrincipal(ClaimsPrincipal user, IUserGroupStore userGroupStore, long sessionId = 0, string longToken2 = null) : base(user)
         {
@@ -33,17 +33,17 @@ namespace SunEngine.Security.Authentication
             UserGroups = GetUserGroups(userGroupStore);
             if (UserGroups.Count == 1)
             {
-                UserGroup = UserGroups.Values.ElementAt(0);
+                Role = UserGroups.Values.ElementAt(0);
             }
         }
         
-        private IReadOnlyDictionary<string, UserGroupStored> GetUserGroups(IUserGroupStore userGroupStore)
+        private IReadOnlyDictionary<string, RoleStored> GetUserGroups(IUserGroupStore userGroupStore)
         {
             if (!Identity.IsAuthenticated)
             {
-                return new Dictionary<string, UserGroupStored>
+                return new Dictionary<string, RoleStored>
                 {
-                    [UserGroupStored.UserGroupUnregistered] = userGroupStore.GetUserGroup(UserGroupStored.UserGroupUnregistered)
+                    [RoleStored.UserGroupUnregistered] = userGroupStore.GetUserGroup(RoleStored.UserGroupUnregistered)
                 }.ToImmutableDictionary();
             }
 
@@ -51,9 +51,9 @@ namespace SunEngine.Security.Authentication
             var allGroups = userGroupStore.AllGroups;
 
 
-            var dictionaryBuilder = ImmutableDictionary.CreateBuilder<string,UserGroupStored>();
+            var dictionaryBuilder = ImmutableDictionary.CreateBuilder<string,RoleStored>();
 
-            var registeredGroup = userGroupStore.GetUserGroup(UserGroupStored.UserGroupRegistered);
+            var registeredGroup = userGroupStore.GetUserGroup(RoleStored.UserGroupRegistered);
             dictionaryBuilder.Add(registeredGroup.Name, registeredGroup);
             foreach (var role in roles)
             {

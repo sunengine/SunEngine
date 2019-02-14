@@ -16,13 +16,13 @@ using SunEngine.Utils;
 
 namespace SunEngine.Admin.Services
 {
-    public class GroupsAdminService : DbService
+    public class RolesAdminService : DbService
     {
         private const string UserGroupsSchemaFileName = "UserGroups.schema.json";
         private readonly string UserGroupSchemaPath;
 
 
-        public GroupsAdminService(
+        public RolesAdminService(
             DataBaseConnection db,
             IHostingEnvironment env) : base(db)
         {
@@ -31,7 +31,7 @@ namespace SunEngine.Admin.Services
 
         public async Task<string> GetGroupsJsonAsync()
         {
-            var groups = await db.UserGroups
+            var groups = await db.Roles
                 .LoadWith(x => x.CategoryAccesses.First().CategoryOperationAccesses.First().OperationKey)
                 .ToListAsync();
 
@@ -97,9 +97,9 @@ namespace SunEngine.Admin.Services
             }
         }
 
-        private async Task UpdateUserGroups(List<UserGroup> groupsNew)
+        private async Task UpdateUserGroups(List<Role> groupsNew)
         {
-            var groups = await db.UserGroups.ToListAsync();
+            var groups = await db.Roles.ToListAsync();
 
             var toDelete = groups
                 .Where(x =>
@@ -116,11 +116,11 @@ namespace SunEngine.Admin.Services
             var toUpdate = groupsNew.Where(x => groups.Any(y => string.Equals(x.NormalizedName, y.NormalizedName)))
                 .ToList();
 
-            List<UserGroup> errorGroups = new List<UserGroup>();
+            List<Role> errorGroups = new List<Role>();
 
             foreach (var group in toDelete)
             {
-                if(!await db.UserToGroups.AnyAsync(x => x.RoleId == group.Id))
+                if(!await db.UserRoles.AnyAsync(x => x.RoleId == group.Id))
                     errorGroups.Add(group);
             }
 

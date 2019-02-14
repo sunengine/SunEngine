@@ -10,7 +10,7 @@ namespace SunEngine.Utils
 {
     public class UserGroupsLoaderFromJson
     {
-        public readonly List<UserGroup> userGroups = new List<UserGroup>();
+        public readonly List<Role> userGroups = new List<Role>();
         public readonly List<CategoryAccess> categoryAccesses = new List<CategoryAccess>(); 
         public readonly List<CategoryOperationAccess> categoryOperationAccesses = new List<CategoryOperationAccess>();
 
@@ -55,7 +55,7 @@ namespace SunEngine.Utils
                 if (!((IDictionary<string, JToken>) userGroupJson).ContainsKey("Title"))
                     throw new Exception("Can not find category title"); 
                     
-                UserGroup userGroup = new UserGroup
+                Role role = new Role
                 {
                     Id = id,
                     Name = jProp.Name,
@@ -63,9 +63,9 @@ namespace SunEngine.Utils
                     IsSuper = ((IDictionary<string, JToken>) userGroupJson).ContainsKey("IsSuper") && (bool) userGroupJson["IsSuper"],
                     SortNumber = id
                 };
-                userGroup.NormalizedName = FieldNormalizer.Singleton.Normalize(userGroup.Name);
+                role.NormalizedName = FieldNormalizer.Singleton.Normalize(role.Name);
 
-                userGroups.Add(userGroup);
+                userGroups.Add(role);
 
                 if (!userGroupJson.TryGetValue("Categories", out var categoriesAccessJsonList)) continue;
                 foreach (var categoriesAccessJson in categoriesAccessJsonList)
@@ -85,7 +85,7 @@ namespace SunEngine.Utils
                     {
                         Id = categoryAccessId,
                         CategoryId = category.Id,
-                        UserGroupId = userGroup.Id
+                        UserGroupId = role.Id
                     };
 
                     categoryAccesses.Add(categoryAccess);
@@ -96,9 +96,9 @@ namespace SunEngine.Utils
                     {                            
                         string keyName = operationKeyJson.Name;
 
-                        if (!userGroup.IsSuper && allSuperKeys.Contains(keyName))
+                        if (!role.IsSuper && allSuperKeys.Contains(keyName))
                         {
-                            throw new Exception($"Ordinary UserGroup '{userGroup.Name}' can not contain IsSuper key '{keyName}'");
+                            throw new Exception($"Ordinary UserGroup '{role.Name}' can not contain IsSuper key '{keyName}'");
                         }
                             
                         if (!operationKeys.ContainsKey(keyName))

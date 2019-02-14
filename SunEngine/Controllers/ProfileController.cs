@@ -45,7 +45,7 @@ namespace SunEngine.Controllers
 
         [HttpPost]
         [UserSpamProtectionFilter(TimeoutSeconds = 60)]
-        [Authorize(Roles = UserGroupStored.UserGroupRegistered)]
+        [Authorize(Roles = RoleStored.UserGroupRegistered)]
         public virtual async Task<IActionResult> SendPrivateMessage(string userId,string text)
         {
             var userTo = await userManager.FindByIdAsync(userId);
@@ -60,14 +60,14 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = UserGroupStored.UserGroupRegistered)]
+        [Authorize(Roles = RoleStored.UserGroupRegistered)]
         public virtual async Task<IActionResult> BanUser(string userId)
         {
             User userBan = await userManager.FindByIdAsync(userId);
             if (userBan == null)
                 return BadRequest();
             var roles = await userManager.GetRolesAsync(userBan);
-            if (roles.Contains(UserGroupStored.UserGroupAdmin))
+            if (roles.Contains(RoleStored.UserGroupAdmin))
                 return BadRequest();
 
             var user = await GetUserAsync();
@@ -78,7 +78,7 @@ namespace SunEngine.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = UserGroupStored.UserGroupRegistered)]
+        [Authorize(Roles = RoleStored.UserGroupRegistered)]
         public virtual async Task<IActionResult> UnBanUser(string userId)
         {
             User userUnBan = await userManager.FindByIdAsync(userId);

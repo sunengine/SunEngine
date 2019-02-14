@@ -7,7 +7,7 @@ namespace SunEngine.Models.Authorization
         public int Id { get; set; }
         
         public int UserGroupId { get; set; }
-        public UserGroup Group { get; set; }
+        public Role Group { get; set; }
         
         public int CategoryId { get; set; }
         public Category Category { get; set; }

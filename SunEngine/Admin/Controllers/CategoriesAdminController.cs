@@ -5,6 +5,8 @@ using System.Transactions;
 using LinqToDB;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SunEngine.Admin.Managers;
+using SunEngine.Admin.Presenters;
 using SunEngine.Admin.Services;
 using SunEngine.Controllers;
 using SunEngine.DataBase;
@@ -19,44 +21,47 @@ namespace SunEngine.Admin.Controllers
     {
         private readonly DataBaseConnection db;
         private readonly ICategoriesStore categoriesStore;
-        private readonly CategoriesAdminService categoriesAdminService;
+        private readonly CategoriesManager categoriesManager;
+        private readonly ICategoriesAdminPresenter categoriesAdminPresenter;
 
         public CategoriesAdminController(
             DataBaseConnection db,
-            CategoriesAdminService categoriesAdminService,
+            CategoriesManager categoriesManager,
+            ICategoriesAdminPresenter categoriesAdminPresenter,
             ICategoriesStore categoriesStore,
             MyUserManager userManager, IUserGroupStore userGroupStore) : base(userGroupStore, userManager)
         {
             this.db = db;
             this.categoriesStore = categoriesStore;
-            this.categoriesAdminService = categoriesAdminService;
+            this.categoriesManager = categoriesManager;
+            this.categoriesAdminPresenter = categoriesAdminPresenter;
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetCategory(int? id = null,string name = null)
+        public async Task<IActionResult> GetCategory(int? id = null, string name = null)
         {
             CategoryAdminViewModel category;
-            
-            if(id.HasValue)
+
+            if (id.HasValue)
             {
-                category = await categoriesAdminService.GetCategoryAsync(id.Value);
+                category = await categoriesAdminPresenter.GetCategoryAsync(id.Value);
             }
             else if (name != null)
             {
-                category = await categoriesAdminService.GetCategoryAsync(name);
+                category = await categoriesAdminPresenter.GetCategoryAsync(name);
             }
             else
             {
                 return BadRequest();
             }
-            
+
             return Json(category);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> GetAllCategories()
         {
-            var categories = await db.Categories.OrderBy(x=>x.SortNumber).Select(x => new CategoryAdminViewModel
+            var categories = await db.Categories.OrderBy(x => x.SortNumber).Select(x => new CategoryAdminViewModel
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -80,7 +85,7 @@ namespace SunEngine.Admin.Controllers
                 if (!category.ParentId.HasValue)
                 {
                     root = category;
-                    continue; 
+                    continue;
                 }
 
                 var parent = categories[category.ParentId.Value];
@@ -93,29 +98,29 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCategory([FromBody]Category category)
+        public async Task<IActionResult> AddCategory([FromBody] Category category)
         {
             if (!ModelState.IsValid)
             {
                 return ValidationProblem();
             }
 
-            await categoriesAdminService.AddCategoryAsync(category);
-            
+            await categoriesManager.AddCategoryAsync(category);
+
             categoriesStore.Reset();
-            
+
             return Ok();
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> EditCategory([FromBody]Category category)
+        public async Task<IActionResult> EditCategory([FromBody] Category category)
         {
             if (!ModelState.IsValid)
             {
                 return ValidationProblem();
             }
 
-            await categoriesAdminService.EditCategoryAsync(category);
+            await categoriesManager.EditCategoryAsync(category);
 
             categoriesStore.Reset();
 
@@ -144,13 +149,13 @@ namespace SunEngine.Admin.Controllers
                     .UpdateAsync();
 
                 transaction.Complete();
-                
+
                 categoriesStore.Reset();
-                
+
                 return Ok();
-            }            
+            }
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> CategoryDown(string name)
         {
@@ -173,11 +178,11 @@ namespace SunEngine.Admin.Controllers
                     .UpdateAsync();
 
                 transaction.Complete();
-                
+
                 categoriesStore.Reset();
 
                 return Ok();
-            }            
+            }
         }
 
         [HttpPost]
@@ -199,7 +204,7 @@ namespace SunEngine.Admin.Controllers
         public bool IsFolder { get; set; }
 
         public bool IsMaterialsContainer { get; set; }
-        
+
         public string Description { get; set; }
 
         public string Header { get; set; }

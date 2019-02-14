@@ -10,7 +10,7 @@ namespace SunEngine.Stores.Models
         public int Id { get; }
 
         public int UserGroupId { get; }
-        public UserGroup Group { get; }
+        public Role Group { get; }
 
         public int CategoryId { get; }
         public Category Category { get; }
@@ -37,7 +37,7 @@ namespace SunEngine.Stores.Models
         public int Id;
 
         public int UserGroupId;
-        public UserGroup Group;
+        public Role Group;
 
         public int CategoryId;
         public Category Category;

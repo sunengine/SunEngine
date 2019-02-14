@@ -10,7 +10,7 @@ using SunEngine.Models.Materials;
 
 namespace SunEngine.DataBase
 {
-    public class DataBaseConnection : IdentityDataConnection<User, UserGroup, int>
+    public class DataBaseConnection : IdentityDataConnection<User, Role, int>
     {
         public DataBaseConnection(string providerName, string connectionString, DbMappingSchema mappingSchema) : base(
             providerName, connectionString)
@@ -55,9 +55,9 @@ namespace SunEngine.DataBase
         public ITable<CategoryAccess> CategoryAccess => GetTable<CategoryAccess>();
         public ITable<CategoryOperationAccess> CategoryOperationAccess => GetTable<CategoryOperationAccess>();
         public ITable<User> Users => GetTable<User>();
-        public ITable<UserGroup> UserGroups => GetTable<UserGroup>();
+        public ITable<Role> Roles => GetTable<Role>();
 
-        public ITable<UserToGroup> UserToGroups => GetTable<UserToGroup>();
+        public ITable<UserRole> UserRoles => GetTable<UserRole>();
 
         public ITable<UserBanedUnit> UserBanedUnits => GetTable<UserBanedUnit>();
 

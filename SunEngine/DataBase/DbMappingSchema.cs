@@ -22,7 +22,7 @@ namespace SunEngine.DataBase
                 .Association(x => x.User, x => x.UserId, x => x.Id)
                 .Association(x => x.UserBaned, x => x.UserBanedId, x => x.Id);
 
-            mp.Entity<UserGroup>()
+            mp.Entity<Role>()
                 .HasTableName("AspNetRoles")
                 .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
                 .Association(x => x.CategoryAccesses, x => x.Id, x => x.UserGroupId);
@@ -76,11 +76,11 @@ namespace SunEngine.DataBase
                 .HasTableName("AspNetUserRoles")
                 .HasPrimaryKey(x => new {x.UserId, x.RoleId});
 
-            mp.Entity<UserToGroup>()
+            mp.Entity<UserRole>()
                 .HasTableName("AspNetUserRoles")
                 .HasPrimaryKey(x => new {x.UserId, x.RoleId})
                 .Association(x => x.User, x => x.UserId, x => x.Id)
-                .Association(x => x.UserGroup, x => x.RoleId, x => x.Id);
+                .Association(x => x.Role, x => x.RoleId, x => x.Id);
 
             mp.Entity<LongSession>()
                 .HasTableName("LongSessions")

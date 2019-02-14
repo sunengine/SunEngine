@@ -3,7 +3,7 @@ using LinqToDB.Identity;
 
 namespace SunEngine.Models.Authorization
 {
-    public class UserGroup : IdentityRole<int>
+    public class Role : IdentityRole<int>
     {
         public string Title { get; set; }
         
