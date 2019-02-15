@@ -36,7 +36,7 @@ namespace SunEngine.Presenters
                     LastMessagePublishDate =
                         x.LastMessageId.HasValue ? (DateTime?) x.LastMessage.PublishDate : null,
                     CategoryName = x.Category.Name.ToLower(),
-                    CategoryTitle = x.Category.Title,
+                    CategoryTitle =  x.Category.Title,
                     LastMessageAuthorName = x.LastMessage.Author.UserName,
                     LastMessageAuthorAvatar = x.LastMessage.Author.Avatar
                 },

@@ -16,7 +16,7 @@ namespace SunEngine.Controllers
         protected readonly OperationKeysContainer OperationKeys;
 
         protected readonly ArticlesOptions articlesOptions;
-        protected readonly ICategoriesCache CategoriesCache;
+        protected readonly ICategoriesCache categoriesCache;
         protected readonly IAuthorizationService authorizationService;
 
         protected readonly IArticlesPresenter articlesPresenter;
@@ -35,14 +35,14 @@ namespace SunEngine.Controllers
 
             this.articlesOptions = articlesOptions.Value;
             this.authorizationService = authorizationService;
-            this.CategoriesCache = categoriesCache;
+            this.categoriesCache = categoriesCache;
             this.articlesPresenter = articlesPresenter;
         }
 
         [HttpPost]
         public virtual async Task<IActionResult> GetArticles(string categoryName, int page = 1)
         {
-            Category category = CategoriesCache.GetCategory(categoryName);
+            Category category = categoriesCache.GetCategory(categoryName);
 
             if (category == null)
             {
