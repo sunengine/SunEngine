@@ -31,7 +31,7 @@ namespace SunEngine.Presenters
                     CategoryName = x.Category.Name.ToLower()
                 },
                 x => x.CategoryId == categoryId,
-                x => x.OrderByDescending(y => y.LastActivity),
+                x => x.OrderByDescending(y => y.PublishDate),
                 page,
                 pageSize);
         }
