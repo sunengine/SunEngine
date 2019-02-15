@@ -13,6 +13,9 @@ namespace SunEngine.Security.Authorization
         HashSet<int> HasAccess(IReadOnlyDictionary<string, RoleStored> userGroups, Category category,
             IEnumerable<int> operationKeys);
 
+        
+        IList<Category> GetAllowedCategories(IReadOnlyDictionary<string, RoleStored> userGroups, IEnumerable<Category> categories, int operationKey);
+        
 
         #region With CategoryId
 
@@ -96,6 +99,12 @@ namespace SunEngine.Security.Authorization
             }
 
             return false;
+        }
+
+        public IList<Category> GetAllowedCategories(IReadOnlyDictionary<string, RoleStored> userGroups,
+            IEnumerable<Category> categories, int operationKey)
+        {
+            return categories.Where(category => HasAccess(userGroups, category, operationKey)).ToList();
         }
 
 

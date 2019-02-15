@@ -36,29 +36,16 @@ namespace SunEngine.Controllers
         public async Task<IActionResult> GetActivities(string materialsCategories, string messagesCategories,
             int number)
         {
-            IList<Category> materialsCategoriesList = new List<Category>();
-
             var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(materialsCategories);
 
-            foreach (var cat in materialsCategoriesDic.Values) // TODO move to AuthorizationService
-            {
-                if (authorizationService.HasAccess(User.Roles, cat, OperationKeys.MaterialAndMessagesRead))
-                {
-                    materialsCategoriesList.Add(cat);
-                }
-            }
+            IList<Category> materialsCategoriesList = authorizationService.GetAllowedCategories(User.Roles, materialsCategoriesDic.Values,
+                OperationKeys.MaterialAndMessagesRead);
             
-            IList<Category> messagesCategoriesList = new List<Category>();
             
             var messagesCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(messagesCategories);
 
-            foreach (var cat in messagesCategoriesDic.Values)
-            {
-                if (authorizationService.HasAccess(User.Roles, cat, OperationKeys.MaterialAndMessagesRead))
-                {
-                    messagesCategoriesList.Add(cat);
-                }
-            }
+            IList<Category> messagesCategoriesList = authorizationService.GetAllowedCategories(User.Roles, messagesCategoriesDic.Values,
+                OperationKeys.MaterialAndMessagesRead);
 
 
             int[] materialsCategoriesIds = materialsCategoriesList.Select(x => x.Id).ToArray();

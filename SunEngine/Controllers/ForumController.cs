@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -17,8 +18,7 @@ namespace SunEngine.Controllers
         protected readonly OperationKeysContainer OperationKeys;
 
         protected readonly ForumOptions forumOptions;
-        protected readonly ICategoriesCache CategoriesCache;
-        protected readonly CategoriesAuthorization categoriesAuthorization;
+        protected readonly ICategoriesCache categoriesCache;
         protected readonly IAuthorizationService authorizationService;
         protected readonly IForumPresenter forumPresenter;
 
@@ -26,33 +26,36 @@ namespace SunEngine.Controllers
         public ForumController(IOptions<ForumOptions> forumOptions,
             IAuthorizationService authorizationService,
             ICategoriesCache categoriesCache,
-            CategoriesAuthorization categoriesAuthorization,
             OperationKeysContainer operationKeysContainer,
             IForumPresenter forumPresenter,
             MyUserManager userManager,
             IRolesCache rolesCache) : base(rolesCache, userManager)
         {
             OperationKeys = operationKeysContainer;
-            
+
             this.forumPresenter = forumPresenter;
             this.forumOptions = forumOptions.Value;
-            this.categoriesAuthorization = categoriesAuthorization;
             this.authorizationService = authorizationService;
-            this.CategoriesCache = categoriesCache;
+            this.categoriesCache = categoriesCache;
         }
 
         [HttpPost]
         public virtual async Task<IActionResult> GetNewTopics(string categoryName, int page = 1)
         {
-            Category categoryParent = CategoriesCache.GetCategory(categoryName);
+            Category categoryParent = categoriesCache.GetCategory(categoryName);
 
             if (categoryParent == null)
             {
                 return BadRequest();
             }
 
-            List<int> categoriesIds =
-                categoriesAuthorization.GetSubCategoriesIdsCanRead(User.Roles, categoryParent);
+            var allSub = categoryParent.GetAllSubcategories().Values.Where(x=>!x.IsFolder);
+
+            var categories =
+                authorizationService.GetAllowedCategories(User.Roles, allSub,
+                    OperationKeys.MaterialAndMessagesRead);
+
+            var categoriesIds = categories.Select(x => x.Id).ToArray();
 
             IPagedList<TopicInfoViewModel> topics = await forumPresenter.GetNewTopics(categoriesIds,
                 page, forumOptions.NewTopicsPageSize, forumOptions.NewTopicsMaxPages);
@@ -63,7 +66,7 @@ namespace SunEngine.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> GetThread(string categoryName, int page = 1)
         {
-            Category category = CategoriesCache.GetCategory(categoryName);
+            Category category = categoriesCache.GetCategory(categoryName);
 
             if (category == null)
             {

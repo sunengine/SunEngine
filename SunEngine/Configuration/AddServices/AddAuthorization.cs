@@ -11,7 +11,6 @@ namespace SunEngine.Configuration.AddServices
             services.AddSingleton<OperationKeysContainer>();
             services.AddSingleton<IAuthorizationService, AuthorizationService>();
         
-            services.AddScoped<CategoriesAuthorization>();
             services.AddScoped<MaterialsAuthorization>();
             services.AddScoped<MessageAuthorization>();
         

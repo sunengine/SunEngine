@@ -20,7 +20,5 @@ namespace SunEngine.Stores
 
             return rez;
         }
-
-        
     }
 }
