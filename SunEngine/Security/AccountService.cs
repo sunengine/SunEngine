@@ -6,7 +6,6 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
-using AngleSharp.Network.Default;
 using LinqToDB;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +21,6 @@ using SunEngine.Managers;
 using SunEngine.Models;
 using SunEngine.Security.Cryptography;
 using SunEngine.Services;
-using SunEngine.Stores.Models;
 using SunEngine.Utils;
 
 namespace SunEngine.Security

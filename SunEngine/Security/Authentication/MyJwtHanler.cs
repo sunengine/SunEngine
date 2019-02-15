@@ -13,7 +13,6 @@ using SunEngine.Managers;
 using SunEngine.Models;
 using SunEngine.Security.Authorization;
 using SunEngine.Stores;
-using SunEngine.Stores.Models;
 
 namespace SunEngine.Security.Authentication
 {

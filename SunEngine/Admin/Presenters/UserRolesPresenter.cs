@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.DataBase;
 using SunEngine.Presenters;
+using SunEngine.Security;
 using SunEngine.Services;
 using SunEngine.Utils;
 
@@ -23,7 +24,7 @@ namespace SunEngine.Admin.Presenters
 
         public Task<UserGroupViewModel[]> GetAllRolesAsync()
         {
-            return db.Roles.Select(x => new UserGroupViewModel
+            return db.Roles.Where(x=>x.NormalizedName !=  RoleNames.UnregisteredNormalized).Select(x => new UserGroupViewModel
             {
                 Name = x.Name,
                 Title = x.Title,
@@ -34,7 +35,7 @@ namespace SunEngine.Admin.Presenters
 
         public Task<UserInfoViewModel[]> GetRoleUsers(string roleName, string userNamePart)
         {
-            var normalizedGroupName = FieldNormalizer.Singleton.Normalize(roleName);
+            var normalizedGroupName = FieldNormalizer.Normalize(roleName);
             var query = db.UserRoles.Where(x => x.Role.NormalizedName == normalizedGroupName);
 
             if (userNamePart != null)

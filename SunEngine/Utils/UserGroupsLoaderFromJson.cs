@@ -49,7 +49,6 @@ namespace SunEngine.Utils
             {
                 JObject userGroupJson = (JObject)jProp.Value;
 
-                
                 id++;
 
                 if (!((IDictionary<string, JToken>) userGroupJson).ContainsKey("Title"))
@@ -63,7 +62,7 @@ namespace SunEngine.Utils
                     IsSuper = ((IDictionary<string, JToken>) userGroupJson).ContainsKey("IsSuper") && (bool) userGroupJson["IsSuper"],
                     SortNumber = id
                 };
-                role.NormalizedName = FieldNormalizer.Singleton.Normalize(role.Name);
+                role.NormalizedName = FieldNormalizer.Normalize(role.Name);
 
                 userGroups.Add(role);
 

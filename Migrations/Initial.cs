@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Data;
-using System.Xml.Linq;
 using FluentMigrator;
 using FluentMigrator.Builders.Create.Table;
 

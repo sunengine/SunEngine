@@ -7,7 +7,6 @@ using SunEngine.Models;
 using SunEngine.Models.Authorization;
 using SunEngine.Security;
 using SunEngine.Security.Authorization;
-using SunEngine.Stores.Models;
 using SunEngine.Utils;
 
 namespace DataSeedDev.Seeder
@@ -160,8 +159,8 @@ namespace DataSeedDev.Seeder
 
         private void NormalizeUserFields(User user)
         {
-            user.NormalizedUserName = FieldNormalizer.Singleton.Normalize(user.UserName);
-            user.NormalizedEmail = FieldNormalizer.Singleton.Normalize(user.Email);
+            user.NormalizedUserName = FieldNormalizer.Normalize(user.UserName);
+            user.NormalizedEmail = FieldNormalizer.Normalize(user.Email);
         }
 
         private void SeedUsers()

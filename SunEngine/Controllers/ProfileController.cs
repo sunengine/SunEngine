@@ -7,7 +7,6 @@ using SunEngine.Presenters;
 using SunEngine.Security;
 using SunEngine.Security.Filters;
 using SunEngine.Stores;
-using SunEngine.Stores.Models;
 
 namespace SunEngine.Controllers
 {

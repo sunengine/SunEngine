@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using SunEngine.Configuration;
@@ -13,7 +11,7 @@ namespace SunEngine
         public static void Main(string[] args)
         {
             var webHost = CreateWebHostBuilder(args).Build();
-
+            
             webHost.Run();
         }
 
