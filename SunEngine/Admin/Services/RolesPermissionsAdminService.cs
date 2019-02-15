@@ -77,17 +77,17 @@ namespace SunEngine.Admin.Services
 
             JsonSchema4 schema = await JsonSchema4.FromFileAsync(UserGroupSchemaPath);
 
-            RolesLoaderFromJson loader = new RolesLoaderFromJson(categories, operationKeys, schema);
+            RolesFromJsonLoader fromJsonLoader = new RolesFromJsonLoader(categories, operationKeys, schema);
 
 
-            loader.Seed(json);
+            fromJsonLoader.Seed(json);
 
             try
             {
                 db.BeginTransaction();
-                await UpdateUserGroups(loader.roles);
+                await UpdateUserGroups(fromJsonLoader.roles);
                 await ClearAccessesAsync();
-                await CopyToDb(loader);
+                await CopyToDb(fromJsonLoader);
                 db.CommitTransaction();
             }
             catch (Exception e)
@@ -142,7 +142,7 @@ namespace SunEngine.Admin.Services
             await db.CategoryAccess.DeleteAsync();
         }
 
-        private async Task CopyToDb(RolesLoaderFromJson loader)
+        private async Task CopyToDb(RolesFromJsonLoader fromJsonLoader)
         {
             BulkCopyOptions options = new BulkCopyOptions
             {
@@ -151,9 +151,9 @@ namespace SunEngine.Admin.Services
                 KeepIdentity = true
             };
 
-            db.BulkCopy(options, loader.categoryAccesses);
+            db.BulkCopy(options, fromJsonLoader.categoryAccesses);
             db.UpdateSequence("CategoryAccesses","Id");
-            db.BulkCopy(options, loader.categoryOperationAccesses);
+            db.BulkCopy(options, fromJsonLoader.categoryOperationAccesses);
         }
 
         private class UserToGroupTmp

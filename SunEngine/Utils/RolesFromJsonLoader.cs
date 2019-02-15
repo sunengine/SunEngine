@@ -8,7 +8,7 @@ using SunEngine.Security.Authorization;
 
 namespace SunEngine.Utils
 {
-    public class RolesLoaderFromJson
+    public class RolesFromJsonLoader
     {
         public readonly List<Role> roles = new List<Role>();
         public readonly List<CategoryAccess> categoryAccesses = new List<CategoryAccess>(); 
@@ -18,7 +18,7 @@ namespace SunEngine.Utils
         private readonly IDictionary<string, OperationKey> operationKeys;
         private readonly JsonSchema4 schema;
         
-        public RolesLoaderFromJson(
+        public RolesFromJsonLoader(
             IDictionary<string, Category> categories,
             IDictionary<string,OperationKey> operationKeys,
             JsonSchema4 schema)
