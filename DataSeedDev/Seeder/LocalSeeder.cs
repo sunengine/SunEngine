@@ -82,15 +82,15 @@ namespace DataSeedDev.Seeder
             JsonSchema4 schema = JsonSchema4.FromFileAsync(pathToUserGroupsSchema).GetAwaiter().GetResult();
 
             
-            UserGroupsLoaderFromJson loader = 
-                new UserGroupsLoaderFromJson(dataContainer.Categories.ToDictionary(x=>x.Name),
+            RolesLoaderFromJson loader = 
+                new RolesLoaderFromJson(dataContainer.Categories.ToDictionary(x=>x.Name),
                     dataContainer.OperationKeys.ToDictionary(x=>x.Name), schema);
 
             var json = File.ReadAllText(pathToUserGroupsConfig);
             
             loader.Seed(json);
 
-            dataContainer.Roles = loader.userGroups;
+            dataContainer.Roles = loader.roles;
             dataContainer.CategoryAccesses = loader.categoryAccesses;
             dataContainer.CategoryOperationAccesses = loader.categoryOperationAccesses;
         }

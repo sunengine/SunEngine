@@ -77,7 +77,7 @@ namespace SunEngine.Admin.Services
 
             JsonSchema4 schema = await JsonSchema4.FromFileAsync(UserGroupSchemaPath);
 
-            UserGroupsLoaderFromJson loader = new UserGroupsLoaderFromJson(categories, operationKeys, schema);
+            RolesLoaderFromJson loader = new RolesLoaderFromJson(categories, operationKeys, schema);
 
 
             loader.Seed(json);
@@ -85,7 +85,7 @@ namespace SunEngine.Admin.Services
             try
             {
                 db.BeginTransaction();
-                await UpdateUserGroups(loader.userGroups);
+                await UpdateUserGroups(loader.roles);
                 await ClearAccessesAsync();
                 await CopyToDb(loader);
                 db.CommitTransaction();
@@ -142,7 +142,7 @@ namespace SunEngine.Admin.Services
             await db.CategoryAccess.DeleteAsync();
         }
 
-        private async Task CopyToDb(UserGroupsLoaderFromJson loader)
+        private async Task CopyToDb(RolesLoaderFromJson loader)
         {
             BulkCopyOptions options = new BulkCopyOptions
             {

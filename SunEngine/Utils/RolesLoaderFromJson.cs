@@ -8,9 +8,9 @@ using SunEngine.Security.Authorization;
 
 namespace SunEngine.Utils
 {
-    public class UserGroupsLoaderFromJson
+    public class RolesLoaderFromJson
     {
-        public readonly List<Role> userGroups = new List<Role>();
+        public readonly List<Role> roles = new List<Role>();
         public readonly List<CategoryAccess> categoryAccesses = new List<CategoryAccess>(); 
         public readonly List<CategoryOperationAccess> categoryOperationAccesses = new List<CategoryOperationAccess>();
 
@@ -18,7 +18,7 @@ namespace SunEngine.Utils
         private readonly IDictionary<string, OperationKey> operationKeys;
         private readonly JsonSchema4 schema;
         
-        public UserGroupsLoaderFromJson(
+        public RolesLoaderFromJson(
             IDictionary<string, Category> categories,
             IDictionary<string,OperationKey> operationKeys,
             JsonSchema4 schema)
@@ -32,9 +32,9 @@ namespace SunEngine.Utils
         {
             IList<string> allSuperKeys = OperationKeysContainer.GetAllSuperKeys();
             
-            JObject groupsJson = JObject.Parse(jsonText);
+            JObject rolesJson = JObject.Parse(jsonText);
 
-            var errors = schema.Validate(groupsJson);
+            var errors = schema.Validate(rolesJson);
                 
             if(errors!=null && errors.Count > 0)
             {
@@ -45,7 +45,7 @@ namespace SunEngine.Utils
             int id = 0;
             int categoryAccessId = 0;
             
-            foreach (JProperty jProp in groupsJson.Properties())
+            foreach (JProperty jProp in rolesJson.Properties())
             {
                 JObject userGroupJson = (JObject)jProp.Value;
 
@@ -64,7 +64,7 @@ namespace SunEngine.Utils
                 };
                 role.NormalizedName = FieldNormalizer.Normalize(role.Name);
 
-                userGroups.Add(role);
+                roles.Add(role);
 
                 if (!userGroupJson.TryGetValue("Categories", out var categoriesAccessJsonList)) continue;
                 foreach (var categoriesAccessJson in categoriesAccessJsonList)
