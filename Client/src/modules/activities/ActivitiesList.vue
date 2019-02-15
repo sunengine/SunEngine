@@ -1,12 +1,20 @@
 <template>
-
+  <QPage>
+    <template v-if="activities">
+      <activity :activity="activity" v-for="activity in activities" />
+    </template>
+    <loader-wait v-else />
+  </QPage>
 </template>
 
 <script>
   import Page from "Page";
+  import Activity from "./Activity";
+  import LoaderWait from "LoaderWait";
 
   export default {
     name: "ActivitiesList",
+    components: {LoaderWait, Activity},
     mixins: [Page],
     props: {
       materialsCategories: {
@@ -26,6 +34,11 @@
         required: true
       }
     },
+    data: function() {
+      return {
+        activities: null
+      }
+    },
     methods: {
       async loadData() {
 
@@ -40,7 +53,7 @@
           })
           .then(
             response => {
-              this.posts = response.data;
+              this.activities = response.data;
             }
           ).catch(x => {
             console.log("error", x);

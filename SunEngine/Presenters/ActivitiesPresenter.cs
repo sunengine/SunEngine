@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LinqToDB;
 using SunEngine.DataBase;
 using SunEngine.Services;
 
@@ -21,8 +22,8 @@ namespace SunEngine.Presenters
         public async Task<ActivityViewModel[]> GetActivitiesAsync(int[] materialsCategoriesIds,
             int[] messagesCategoriesIds, int number)
         {
-            var materialsActivities = db.Materials
-                .Where(x => materialsCategoriesIds.Contains(x.Id))
+            var  materialsActivities = await db.Materials
+                .Where(x => materialsCategoriesIds.Contains(x.CategoryId))
                 .OrderByDescending(x => x.PublishDate)
                 .Take(number)
                 .Select(x => new ActivityViewModel
@@ -33,10 +34,10 @@ namespace SunEngine.Presenters
                     Description = x.Description,
                     CategoryName = x.Category.Name,
                     PublishDate = x.PublishDate
-                });
+                }).ToListAsync();
 
-            var messagesActivities = db.Messages
-                .Where(x => messagesCategoriesIds.Contains(x.Id))
+            var messagesActivities = await db.Messages
+                .Where(x => messagesCategoriesIds.Contains(x.Material.CategoryId))
                 .OrderByDescending(x => x.PublishDate)
                 .Take(number)
                 .Select(x => new ActivityViewModel
@@ -47,7 +48,7 @@ namespace SunEngine.Presenters
                     Description = x.Text,
                     CategoryName = x.Material.Category.Name,
                     PublishDate = x.PublishDate
-                });
+                }).ToListAsync();
 
             List<ActivityViewModel> allActivities = new List<ActivityViewModel>();
             allActivities.AddRange(materialsActivities);

@@ -116,11 +116,10 @@ namespace SunEngine.Stores
                 var categories = db.Categories.ToDictionary(x => x.Id);
                 foreach (var category in categories.Values)
                 {
-                    if (category.ParentId.HasValue)
-                    {
-                        category.Parent = categories[category.ParentId.Value];
-                        category.Parent.SubCategories.Add(category);
-                    }
+                    if (!category.ParentId.HasValue) continue;
+                    
+                    category.Parent = categories[category.ParentId.Value];
+                    category.Parent.SubCategories.Add(category);
                 }
 
                 _allCategories = categories.Values.ToImmutableDictionary(x => x.Name.ToLower());
@@ -135,11 +134,10 @@ namespace SunEngine.Stores
                 var categories = await db.Categories.ToDictionaryAsync(x => x.Id);
                 foreach (var category in categories.Values)
                 {
-                    if (category.ParentId.HasValue)
-                    {
-                        category.Parent = categories[category.ParentId.Value];
-                        category.Parent.SubCategories.Add(category);
-                    }
+                    if (!category.ParentId.HasValue) continue;
+                    
+                    category.Parent = categories[category.ParentId.Value];
+                    category.Parent.SubCategories.Add(category);
                 }
 
                 _allCategories = categories.Values.ToImmutableDictionary(x => x.Name.ToLower());
