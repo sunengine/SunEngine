@@ -9,9 +9,13 @@
       <q-item-side icon="fas fa-home"/>
       <q-item-main label="Домой" sublabel="Главная страница"/>
     </q-item>
+    <q-item to='/activities'>
+      <q-item-side icon="far fa-newspaper"/>
+      <q-item-main label="Новости" sublabel="Новости сайта"/>
+    </q-item>
     <q-item to='/blog'>
       <q-item-side icon="far fa-newspaper"/>
-      <q-item-main label="Блог" sublabel="Новости сайта"/>
+      <q-item-main label="Блог" sublabel="Блог сайта"/>
     </q-item>
     <q-item to='/forum'>
       <q-item-side icon="far fa-comments"/>

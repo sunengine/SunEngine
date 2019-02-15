@@ -8,12 +8,30 @@ import TestExt from 'pages/TestExt.vue';
 import ForumNavPanel from 'forum/ForumNavPanel';
 import Blog from 'blog/Blog';
 import Index from 'pages/Index.vue';
+import ActivitiesList from 'activities/ActivitiesList.vue';
+
 
 const routes = [
   {
     name: "Home",
     path: '/',
     component: Index
+  },
+  {
+    name: "Activities",
+    path: '/activities',
+    components: {
+      default: ActivitiesList,
+      navigation: null
+    },
+    props: {
+      default: {
+        materialsCategories: "blog,articles",
+        messagesCategories: "forum",
+        number: 30,
+        title: "Новости сайта"
+      }
+    },
   },
   {
     path: '/TestExt'.toLowerCase(),
