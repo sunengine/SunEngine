@@ -86,10 +86,8 @@ namespace SunEngine.Security.Authorization
                     {
                         return categoryAccess.CategoryOperationAccesses[operationKey];
                     }
-                    else
-                    {
-                        category = category.Parent;
-                    }
+
+                    category = category.Parent;
                 }
                 else
                 {

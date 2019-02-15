@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
@@ -12,10 +13,11 @@ namespace SunEngine.Stores
         Category GetCategory(int id);
         Category GetCategory(string name);
         Category GetCategoryAreaRoot(Category category);
-        ImmutableDictionary<string,Category> AllCategories { get; }
+        ImmutableDictionary<string, Category> AllCategories { get; }
         Category RootCategory { get; }
+        Dictionary<string, Category> GetAllCategoriesIncludeSub(string categoriesList);
     }
-    
+
     public class CategoriesCache : ICategoriesCache
     {
         private readonly IDataBaseFactory dataBaseFactory;
@@ -74,6 +76,31 @@ namespace SunEngine.Stores
             }
 
             return current;
+        }
+
+        public Dictionary<string, Category> GetAllCategoriesIncludeSub(string categoriesList)
+        {
+            Dictionary<string, Category> materialsCategoriesDic = new Dictionary<string, Category>();
+
+            if (categoriesList == null) return materialsCategoriesDic;
+            
+            var categoriesNames = categoriesList.Split(',').Select(x => x.Trim());
+            foreach (var name in categoriesNames)
+            {
+                Category category = GetCategory(name);
+                var tree = category.GetAllSubcategories();
+                tree.Add(category.Name, category);
+
+                foreach (var (key, value) in tree)
+                {
+                    if (!materialsCategoriesDic.ContainsKey(key))
+                    {
+                        materialsCategoriesDic.Add(key, value);
+                    }
+                }
+            }
+
+            return materialsCategoriesDic;
         }
 
         public void Reset()

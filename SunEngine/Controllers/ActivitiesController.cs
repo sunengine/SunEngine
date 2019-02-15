@@ -13,7 +13,7 @@ namespace SunEngine.Controllers
     public class ActivitiesController : BaseController
     {
         protected const int MaxActivitiesInQuery = 50;
-        
+
         protected readonly OperationKeysContainer OperationKeys;
         protected readonly IAuthorizationService authorizationService;
         protected readonly ICategoriesCache categoriesCache;
@@ -33,45 +33,42 @@ namespace SunEngine.Controllers
             this.activitiesPresenter = activitiesPresenter;
         }
 
-        public async Task<IActionResult> GetActivities(string materialsCategories, string messagesCategories, int number)
+        public async Task<IActionResult> GetActivities(string materialsCategories, string messagesCategories,
+            int number)
         {
-            List<Category> materialsCategoriesList = new List<Category>();
-            if (materialsCategories != null)
+            IList<Category> materialsCategoriesList = new List<Category>();
+
+            var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(materialsCategories);
+
+            foreach (var cat in materialsCategoriesDic.Values) // TODO move to AuthorizationService
             {
-                var categoriesNames = materialsCategories.Split(',').Select(x => x.Trim());
-                foreach (var name in categoriesNames)
+                if (authorizationService.HasAccess(User.Roles, cat, OperationKeys.MaterialAndMessagesRead))
                 {
-                    Category category = categoriesCache.GetCategory(name);
-                    if (category != null &&
-                        authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndMessagesRead))
-                    {
-                        materialsCategoriesList.Add(category);
-                    }
+                    materialsCategoriesList.Add(cat);
                 }
             }
             
-            List<Category> messagesCategoriesList = new List<Category>();
-            if (materialsCategories != null)
+            IList<Category> messagesCategoriesList = new List<Category>();
+            
+            var messagesCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(messagesCategories);
+
+            foreach (var cat in messagesCategoriesDic.Values)
             {
-                var categoriesNames = messagesCategories.Split(',').Select(x => x.Trim());
-                foreach (var name in categoriesNames)
+                if (authorizationService.HasAccess(User.Roles, cat, OperationKeys.MaterialAndMessagesRead))
                 {
-                    Category category = categoriesCache.GetCategory(name);
-                    if (category != null &&
-                        authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndMessagesRead))
-                    {
-                        messagesCategoriesList.Add(category);
-                    }
+                    messagesCategoriesList.Add(cat);
                 }
             }
+
 
             int[] materialsCategoriesIds = materialsCategoriesList.Select(x => x.Id).ToArray();
             int[] messagesCategoriesIds = messagesCategoriesList.Select(x => x.Id).ToArray();
 
             if (number > MaxActivitiesInQuery)
                 number = MaxActivitiesInQuery;
-            
-            var rez = await activitiesPresenter.GetActivitiesAsync(materialsCategoriesIds, messagesCategoriesIds, number);
+
+            var rez = await activitiesPresenter.GetActivitiesAsync(materialsCategoriesIds, messagesCategoriesIds,
+                number);
             return Ok(rez);
         }
     }
