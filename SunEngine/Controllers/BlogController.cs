@@ -62,7 +62,7 @@ namespace SunEngine.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> GetCategoriesPosts(string categoriesNames, int page = 1)
         {
-            var names = categoriesNames.Split(',').Select(x => x.Trim()).ToList();
+            var names = categoriesNames.Split(',').Select(x => x.Trim());
 
             List<Category> categories = new List<Category>();
             foreach (var categoryName in names)
