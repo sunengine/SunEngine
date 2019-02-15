@@ -49,10 +49,10 @@ namespace SunEngine.Controllers
                 return BadRequest();
             }
 
-            var allSub = categoryParent.GetAllSubcategories().Values.Where(x=>!x.IsFolder);
+            var allCategories = categoryParent.GetAllSubcategories().Values.Where(x=>!x.IsFolder);
 
             var categories =
-                authorizationService.GetAllowedCategories(User.Roles, allSub,
+                authorizationService.GetAllowedCategories(User.Roles, allCategories,
                     OperationKeys.MaterialAndMessagesRead);
 
             var categoriesIds = categories.Select(x => x.Id).ToArray();

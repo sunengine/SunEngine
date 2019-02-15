@@ -88,10 +88,10 @@ namespace SunEngine.Stores
             foreach (var name in categoriesNames)
             {
                 Category category = GetCategory(name);
-                var tree = category.GetAllSubcategories();
-                tree.Add(category.Name, category);
+                var allSub = category.GetAllSubcategories();
+                allSub.Add(category.Name, category);
 
-                foreach (var (key, value) in tree)
+                foreach (var (key, value) in allSub)
                 {
                     if (!materialsCategoriesDic.ContainsKey(key))
                     {
