@@ -1,21 +1,19 @@
 <template>
-  <QPage>
+  <div>
     <template v-if="activities">
-      <activity :activity="activity" v-for="activity in activities" />
+      <activity :key="activity.materialId + '-' + activity.messageId" :activity="activity" v-for="activity in activities" />
     </template>
     <loader-wait v-else />
-  </QPage>
+  </div>
 </template>
 
 <script>
-  import Page from "Page";
   import Activity from "./Activity";
   import LoaderWait from "LoaderWait";
 
   export default {
     name: "ActivitiesList",
     components: {LoaderWait, Activity},
-    mixins: [Page],
     props: {
       materialsCategories: {
         type: String,
@@ -27,10 +25,6 @@
       },
       number: {
         type: Number,
-        required: true
-      },
-      title: {
-        type: String,
         required: true
       }
     },
@@ -61,7 +55,6 @@
       }
     },
     async created() {
-      this.setTitle(this.title);
       await this.loadData()
     }
   }

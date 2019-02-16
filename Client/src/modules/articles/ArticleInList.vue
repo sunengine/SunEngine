@@ -1,5 +1,5 @@
 <template>
-  <q-item :to='path'>
+  <q-item class="margin-back pp-right pp-left" :to='path'>
     <q-item-main :label="article.title">
       <q-item-tile class="info-block" sublabel>
         <span>
@@ -40,8 +40,7 @@
 </script>
 
 <style lang="stylus" scoped>
-  .q-item {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
+
+
+
 </style>

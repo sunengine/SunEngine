@@ -9,7 +9,7 @@
       <q-item-side icon="fas fa-home"/>
       <q-item-main label="Домой" sublabel="Главная страница"/>
     </q-item>
-    <q-item to='/activities'>
+    <q-item to='/news'>
       <q-item-side icon="far fa-newspaper"/>
       <q-item-main label="Новости" sublabel="Новости сайта"/>
     </q-item>
@@ -42,9 +42,9 @@
   }
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
   .logo-div {
-    margin: 20px 0;
+    margin: 20px 0 12px;
   }
 
   .logo {
@@ -52,6 +52,15 @@
     height: 220px;
     border-radius: 110px;
     box-shadow: 0 0 8px 1px grey;
+  }
+
+  .q-item {
+    //height: 54px;
+    padding : 6px 16px !important;
+
+    >>> .q-item-sublabel {
+      margin-top : 0.1rem !important;
+    }
   }
 
   .main-list {
