@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -92,6 +93,12 @@ namespace SunEngine.Configuration
             }
             else
             {
+                if (string.Equals(Configuration["showexceptionpages"],"true", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine("ShowExceptionPages");
+                    app.UseDeveloperExceptionPage();
+                }
+                
                 app.UseHsts();
             }
 

@@ -33,6 +33,7 @@ namespace SunEngine
                         config.AddJsonFile(logSettingsFileEnv, optional: true, reloadOnChange: false);
                     
                     config.AddJsonFile(mainSettingsFile, optional: false, reloadOnChange: false);
+                    config.AddCommandLine(args);
                 });
 
         
