@@ -90,6 +90,7 @@ namespace SunEngine.Configuration
             if (CurrentEnvironment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                Console.WriteLine("ShowExceptionPages");
             }
             else
             {
