@@ -71,8 +71,6 @@ namespace SunEngine.Stores.Models
                 Parent = allCategories[ParentId.Value];
                 Parent._subCategories.Add(this);
             }
-
-            initialized = true;
         }
 
         public void Init2AllSub()

@@ -2,9 +2,9 @@
   {
     "Name": "Forum",
     "Title": "Форум",
-    "AreaRoot": true,
+    "IsMain": true,
     "ChildrenType": "Categories",
-    "IsFolder": true,
+    "IsCategoriesContainer": true,
     "SubCategories": [
       {
         "Name": "Thread[n]",

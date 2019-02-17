@@ -68,9 +68,9 @@ namespace DataSeedDev.Seeder
                     SortNumber = id
                 };
 
-                if (categoryToken["IsFolder"] != null)
+                if (categoryToken["IsCategoriesContainer"] != null)
                 {
-                    category.IsCategoriesContainer = (bool)categoryToken["IsFolder"];
+                    category.IsCategoriesContainer = (bool)categoryToken["IsCategoriesContainer"];
                 } 
                 else if (categoryToken["IsMaterialsContainer"] != null)
                 {
@@ -82,9 +82,9 @@ namespace DataSeedDev.Seeder
                 }
 
 
-                if (categoryToken["AreaRoot"] != null)
+                if (categoryToken["IsMain"] != null)
                 {
-                    category.IsMain = (bool) categoryToken["AreaRoot"];
+                    category.IsMain = (bool) categoryToken["IsMain"];
                 }
                 else
                 {

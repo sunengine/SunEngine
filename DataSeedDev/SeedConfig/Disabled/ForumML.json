@@ -2,7 +2,7 @@
   {
     "Name": "ForumML",
     "Title": "Многоуровневый форум",
-    "AreaRoot": true,
+    "IsMain": true,
     "IsFolder": true,
     "SubCategories": [
       {

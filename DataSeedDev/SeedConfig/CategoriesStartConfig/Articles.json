@@ -2,7 +2,7 @@
   {
     "Name": "Articles",
     "Title": "Статьи",
-    "AreaRoot": true,
+    "IsMain": true,
     "IsMaterialsContainer": true,
     "MaterialsCount": 35
   }

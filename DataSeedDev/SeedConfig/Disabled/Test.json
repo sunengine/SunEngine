@@ -2,7 +2,7 @@
   {
     "Name": "Test[n]",
     "Title": "Тест[n]",
-    "AreaRoot": true,
+    "IsMain": true,
     "IsFolder": true,
     "Repeat": 4,
     "SubCategories": [

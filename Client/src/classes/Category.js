@@ -6,7 +6,7 @@ export default class Category {
     let tokens = [];
     let current = this.parent;
     while(current) {
-      if(current.areaRoot) {
+      if(current.isMain) {
         tokens.push(current.name);
       }
 

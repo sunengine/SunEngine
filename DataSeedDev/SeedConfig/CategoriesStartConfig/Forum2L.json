@@ -2,13 +2,13 @@
   {
     "Name": "Forum2L",
     "Title": "Форум 2 уровня",
-    "AreaRoot": true,
-    "IsFolder": true,
+    "IsMain": true,
+    "IsCategoriesContainer": true,
     "SubCategories": [
       {
         "Name": "ThreadF2L-[n]",
         "Title": "Раздел [n]",
-        "IsFolder": true,
+        "IsCategoriesContainer": true,
         "Repeat": 3,
         "SubCategories": [
           {
