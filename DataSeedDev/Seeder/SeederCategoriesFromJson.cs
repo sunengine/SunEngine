@@ -70,7 +70,7 @@ namespace DataSeedDev.Seeder
 
                 if (categoryToken["IsFolder"] != null)
                 {
-                    category.IsFolder = (bool)categoryToken["IsFolder"];
+                    category.IsCategoriesContainer = (bool)categoryToken["IsFolder"];
                 } 
                 else if (categoryToken["IsMaterialsContainer"] != null)
                 {
@@ -84,11 +84,11 @@ namespace DataSeedDev.Seeder
 
                 if (categoryToken["AreaRoot"] != null)
                 {
-                    category.AreaRoot = (bool) categoryToken["AreaRoot"];
+                    category.IsHead = (bool) categoryToken["AreaRoot"];
                 }
                 else
                 {
-                    category.AreaRoot = false;
+                    category.IsHead = false;
                 }
 
                 dataContainer.Categories.Add(category);

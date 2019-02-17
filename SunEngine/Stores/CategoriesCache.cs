@@ -4,18 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.DataBase;
-using SunEngine.Models;
+using SunEngine.Stores.Models;
 
 namespace SunEngine.Stores
 {
     public interface ICategoriesCache : IMemoryCache
     {
-        Category GetCategory(int id);
-        Category GetCategory(string name);
-        Category GetCategoryAreaRoot(Category category);
-        ImmutableDictionary<string, Category> AllCategories { get; }
-        Category RootCategory { get; }
-        Dictionary<string, Category> GetAllCategoriesIncludeSub(string categoriesList);
+        CategoryStored GetCategory(int id);
+        CategoryStored GetCategory(string name);
+        CategoryStored GetCategoryAreaRoot(CategoryStored category);
+        ImmutableDictionary<string, CategoryStored> AllCategories { get; }
+        CategoryStored RootCategory { get; }
+        Dictionary<string, CategoryStored> GetAllCategoriesIncludeSub(string categoriesList);
     }
 
     public class CategoriesCache : ICategoriesCache
@@ -27,9 +27,9 @@ namespace SunEngine.Stores
             this.dataBaseFactory = dataBaseFactory;
         }
 
-        private ImmutableDictionary<string, Category> _allCategories;
+        private ImmutableDictionary<string, CategoryStored> _allCategories;
 
-        public ImmutableDictionary<string, Category> AllCategories
+        public ImmutableDictionary<string, CategoryStored> AllCategories
         {
             get
             {
@@ -42,9 +42,9 @@ namespace SunEngine.Stores
             }
         }
 
-        private Category _rootCategory;
+        private CategoryStored _rootCategory;
 
-        public Category RootCategory
+        public CategoryStored RootCategory
         {
             get
             {
@@ -57,20 +57,20 @@ namespace SunEngine.Stores
             }
         }
 
-        public Category GetCategory(int id)
+        public CategoryStored GetCategory(int id)
         {
             return AllCategories.FirstOrDefault(x => x.Value.Id == id).Value;
         }
 
-        public Category GetCategory(string name)
+        public CategoryStored GetCategory(string name)
         {
             return AllCategories[name.ToLower()];
         }
 
-        public Category GetCategoryAreaRoot(Category category)
+        public CategoryStored GetCategoryAreaRoot(CategoryStored category)
         {
-            Category current = category;
-            while (!current.AreaRoot)
+            CategoryStored current = category;
+            while (!current.IsHead)
             {
                 current = category.Parent;
             }
@@ -78,17 +78,17 @@ namespace SunEngine.Stores
             return current;
         }
 
-        public Dictionary<string, Category> GetAllCategoriesIncludeSub(string categoriesList)
+        public Dictionary<string, CategoryStored> GetAllCategoriesIncludeSub(string categoriesList)
         {
-            Dictionary<string, Category> materialsCategoriesDic = new Dictionary<string, Category>();
+            Dictionary<string, CategoryStored> materialsCategoriesDic = new Dictionary<string, CategoryStored>();
 
             if (categoriesList == null) return materialsCategoriesDic;
-            
+
             var categoriesNames = categoriesList.Split(',').Select(x => x.Trim());
             foreach (var name in categoriesNames)
             {
-                Category category = GetCategory(name);
-                var allSub = category.GetAllSubcategories();
+                CategoryStored category = GetCategory(name);
+                var allSub = category.AllSubCategories.ToDictionary(x=>x.Name,x=>x);
                 allSub.Add(category.Name, category);
 
                 foreach (var (key, value) in allSub)
@@ -113,13 +113,21 @@ namespace SunEngine.Stores
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-                var categories = db.Categories.ToDictionary(x => x.Id);
+                var categories = db.Categories.Select(x => new CategoryStored(x)).ToDictionary(x => x.Id);
+
                 foreach (var category in categories.Values)
                 {
-                    if (!category.ParentId.HasValue) continue;
-                    
-                    category.Parent = categories[category.ParentId.Value];
-                    category.Parent.SubCategories.Add(category);
+                    category.Init1ParentAndSub(categories);
+                }
+                
+                foreach (var category in categories.Values)
+                {
+                    category.Init2AllSub();
+                }
+                
+                foreach (var category in categories.Values)
+                {
+                    category.Init3SetListsAndBlockEditable();
                 }
 
                 _allCategories = categories.Values.ToImmutableDictionary(x => x.Name.ToLower());
@@ -131,13 +139,21 @@ namespace SunEngine.Stores
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-                var categories = await db.Categories.ToDictionaryAsync(x => x.Id);
+                var categories = await db.Categories.Select(x => new CategoryStored(x)).ToDictionaryAsync(x => x.Id);
+
                 foreach (var category in categories.Values)
                 {
-                    if (!category.ParentId.HasValue) continue;
-                    
-                    category.Parent = categories[category.ParentId.Value];
-                    category.Parent.SubCategories.Add(category);
+                    category.Init1ParentAndSub(categories);
+                }
+                
+                foreach (var category in categories.Values)
+                {
+                    category.Init2AllSub();
+                }
+                
+                foreach (var category in categories.Values)
+                {
+                    category.Init3SetListsAndBlockEditable();
                 }
 
                 _allCategories = categories.Values.ToImmutableDictionary(x => x.Name.ToLower());

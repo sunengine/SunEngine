@@ -10,11 +10,11 @@
       <q-item-main label="Домой" sublabel="Главная страница"/>
     </q-item>
     <q-item to='/news'>
-      <q-item-side icon="far fa-newspaper"/>
-      <q-item-main label="Новости" sublabel="Новости сайта"/>
+      <q-item-side icon="fas fa-newspaper"/>
+      <q-item-main label="Новости" sublabel="Новое на сайте"/>
     </q-item>
     <q-item to='/blog'>
-      <q-item-side icon="far fa-newspaper"/>
+      <q-item-side icon="far fa-newspaper"/><!--fas fa-blog-->
       <q-item-main label="Блог" sublabel="Блог сайта"/>
     </q-item>
     <q-item to='/forum'>

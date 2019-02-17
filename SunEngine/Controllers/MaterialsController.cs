@@ -41,7 +41,7 @@ namespace SunEngine.Controllers
                 return BadRequest();
             }
 
-            Category category = categoriesCache.GetCategory(categoryId.Value);
+            var category = categoriesCache.GetCategory(categoryId.Value);
 
             if (!materialsAuthorization.CanGet(User.Roles, category))
             {
@@ -59,7 +59,7 @@ namespace SunEngine.Controllers
         [UserSpamProtectionFilter(TimeoutSeconds = 60)]
         public virtual async Task<IActionResult> Add(string categoryName, string title, string text, string tags = "")
         {
-            Category category = categoriesCache.GetCategory(categoryName);
+            var category = categoriesCache.GetCategory(categoryName);
             if (category == null)
             {
                 return BadRequest();
@@ -103,7 +103,7 @@ namespace SunEngine.Controllers
                 return Unauthorized();
             }
 
-            Category newCategory = categoriesCache.GetCategory(categoryName);
+            var newCategory = categoriesCache.GetCategory(categoryName);
             if (newCategory == null)
             {
                 return BadRequest();

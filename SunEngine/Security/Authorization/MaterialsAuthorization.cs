@@ -36,14 +36,14 @@ namespace SunEngine.Security.Authorization
         }
 
         public bool CanAdd(IReadOnlyDictionary<string, RoleStored> userGroups,
-            Category category)
+            CategoryStored category)
         {
-            return !category.IsFolder && authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialWrite);
+            return !category.IsCategoriesContainer && authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialWrite);
         }
 
-        public bool CanGet(IReadOnlyDictionary<string, RoleStored> userGroups, Category category)
+        public bool CanGet(IReadOnlyDictionary<string, RoleStored> roles, CategoryStored category)
         {
-            return authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialAndMessagesRead);
+            return authorizationService.HasAccess(roles, category, OperationKeys.MaterialAndMessagesRead);
         }
 
 
@@ -161,15 +161,15 @@ namespace SunEngine.Security.Authorization
         }
 
         // В случае уже имеющегося разрешения на редактирование
-        public bool CanMove(MyClaimsPrincipal user, Category categoryFrom, Category categoryTo)
+        public bool CanMove(MyClaimsPrincipal user, CategoryStored categoryFrom, CategoryStored categoryTo)
         {
             // Если модератор с правом перемещения материалов на обе категории то разрешаем
-            return !categoryTo.IsFolder
+            return !categoryTo.IsCategoriesContainer
                    && authorizationService.HasAccess(user.Roles, categoryFrom, OperationKeys.MaterialWrite)
                    && authorizationService.HasAccess(user.Roles, categoryTo, OperationKeys.MaterialWrite);
         }
 
-        private bool IsCategoriesFromOneRoot(Category categoryFrom, Category categoryTo)
+        private bool IsCategoriesFromOneRoot(CategoryStored categoryFrom, CategoryStored categoryTo)
         {
             return categoriesCache.GetCategoryAreaRoot(categoryFrom).Id ==
                    categoriesCache.GetCategoryAreaRoot(categoryTo).Id;

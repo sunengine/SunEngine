@@ -265,7 +265,7 @@ namespace DataSeedDev.Seeder
                 Id = id,
                 Name = "Root",
                 Title = "Корень",
-                IsFolder = true,
+                IsCategoriesContainer = true,
                 SortNumber = id
             };
             dataContainer.RootCategory = rootCategory;

@@ -8,6 +8,7 @@ using SunEngine.Presenters;
 using SunEngine.Presenters.PagedList;
 using SunEngine.Security.Authorization;
 using SunEngine.Stores;
+using SunEngine.Stores.Models;
 
 namespace SunEngine.Controllers
 {
@@ -42,7 +43,7 @@ namespace SunEngine.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> GetArticles(string categoryName, int page = 1)
         {
-            Category category = categoriesCache.GetCategory(categoryName);
+            CategoryStored category = categoriesCache.GetCategory(categoryName);
 
             if (category == null)
             {

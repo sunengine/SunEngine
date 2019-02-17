@@ -32,7 +32,7 @@ namespace SunEngine.Admin.Managers
 
             var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.ParentId);
             
-            if (!parent.IsFolder)
+            if (!parent.IsCategoriesContainer)
                 throw new Exception("Can not add in MaterialContainer category type");
 
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
@@ -50,7 +50,7 @@ namespace SunEngine.Admin.Managers
 
             var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.ParentId);
             
-            if (!parent.IsFolder)
+            if (!parent.IsCategoriesContainer)
                 throw new Exception("Can not place category in MaterialContainer category type");  
             
             сategoryExisted.Name = category.Name;
@@ -58,8 +58,8 @@ namespace SunEngine.Admin.Managers
             сategoryExisted.Header = sanitizer.Sanitize(category.Header);
             сategoryExisted.ParentId = parent.Id;
             сategoryExisted.IsHidden = category.IsHidden;
-            сategoryExisted.IsFolder = category.IsFolder;
-            сategoryExisted.AreaRoot = category.AreaRoot;
+            сategoryExisted.IsCategoriesContainer = category.IsCategoriesContainer;
+            сategoryExisted.IsHead = category.IsHead;
             
             await db.UpdateAsync(сategoryExisted);
         }

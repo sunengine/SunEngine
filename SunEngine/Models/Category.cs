@@ -9,15 +9,16 @@ namespace SunEngine.Models
     {
         public int Id { get; set; }
 
-        [Required, MinLength(2),RegularExpression("^[a-zA-Z-]*$")]
+        [Required, MinLength(2), RegularExpression("^[a-zA-Z-]*$")]
         public string Name { get; set; }
-        [Required, MinLength(3)]
+
+        [Required, MinLength(3)] 
         public string Title { get; set; }
 
         public bool IsMaterialsContainer { get; set; }
 
         [NotColumn]
-        public bool IsFolder 
+        public bool IsCategoriesContainer 
         {
             get => !IsMaterialsContainer;
             set => IsMaterialsContainer = !value;
@@ -30,7 +31,7 @@ namespace SunEngine.Models
         /// </summary>
         public string Header { get; set; }
 
-        public bool AreaRoot { get; set; }
+        public bool IsHead { get; set; }
 
         public int? ParentId { get; set; }
         public Category Parent { get; set; }

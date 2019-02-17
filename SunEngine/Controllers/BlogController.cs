@@ -10,6 +10,7 @@ using SunEngine.Presenters;
 using SunEngine.Presenters.PagedList;
 using SunEngine.Security.Authorization;
 using SunEngine.Stores;
+using SunEngine.Stores.Models;
 
 namespace SunEngine.Controllers
 {
@@ -41,7 +42,7 @@ namespace SunEngine.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> GetPosts(string categoryName, int page = 1)
         {
-            Category category = categoriesCache.GetCategory(categoryName);
+            var category = categoriesCache.GetCategory(categoryName);
 
             if (category == null)
             {
@@ -64,7 +65,7 @@ namespace SunEngine.Controllers
         {
             var names = categoriesNames.Split(',').Select(x => x.Trim());
 
-            List<Category> categories = new List<Category>();
+            List<CategoryStored> categories = new List<CategoryStored>();
             foreach (var categoryName in names)
             {
                 var category = categoriesCache.GetCategory(categoryName);

@@ -42,14 +42,14 @@ namespace SunEngine.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> GetNewTopics(string categoryName, int page = 1)
         {
-            Category categoryParent = categoriesCache.GetCategory(categoryName);
+            var categoryParent = categoriesCache.GetCategory(categoryName);
 
             if (categoryParent == null)
             {
                 return BadRequest();
             }
 
-            var allCategories = categoryParent.GetAllSubcategories().Values.Where(x=>!x.IsFolder);
+            var allCategories = categoryParent.AllSubCategories.Where(x=>!x.IsCategoriesContainer);
 
             var categories =
                 authorizationService.GetAllowedCategories(User.Roles, allCategories,
@@ -66,7 +66,7 @@ namespace SunEngine.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> GetThread(string categoryName, int page = 1)
         {
-            Category category = categoriesCache.GetCategory(categoryName);
+            var category = categoriesCache.GetCategory(categoryName);
 
             if (category == null)
             {

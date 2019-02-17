@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <q-item class="margin-back pp-right pp-left" :to='path'>
+  <div class="activity">
+    <q-item :to='path'>
       <q-item-main :label="activity.title">
         <q-item-tile class="desc" sublabel>
           {{activity.description}}
