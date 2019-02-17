@@ -21,7 +21,7 @@ namespace SunEngine.Stores.Models
 
         public string Header { get; }
 
-        public bool IsHead { get; }
+        public bool IsMain { get; }
 
         public int? ParentId { get; }
         public CategoryStored Parent { get; private set; }
@@ -51,7 +51,7 @@ namespace SunEngine.Stores.Models
             IsMaterialsContainer = category.IsMaterialsContainer;
             Description = category.Description;
             Header = category.Header;
-            IsHead = category.IsHead;
+            IsMain = category.IsHead;
             ParentId = category.ParentId;
             SortNumber = category.SortNumber;
             IsHidden = category.IsHidden;

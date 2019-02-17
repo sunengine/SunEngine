@@ -58,7 +58,7 @@ namespace SunEngine.Presenters
                 Title = category.Title,
                 Header = category.Header,
                 IsMaterialsContainer = category.IsMaterialsContainer,
-                AreaRoot = category.IsHead,
+                IsMain = category.IsMain,
                 SortNumber = category.SortNumber,
                 IsHidden = category.IsHidden,
 
@@ -119,7 +119,7 @@ namespace SunEngine.Presenters
         public string Name { get; set; }
         public string Title { get; set; }
         public string Header { get; set; }
-        public bool AreaRoot { get; set; }
+        public bool IsMain { get; set; }
         public int SortNumber { get; set; }
         public bool IsMaterialsContainer { get; set; }
         public bool IsHidden { get; set; }

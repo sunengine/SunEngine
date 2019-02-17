@@ -32,6 +32,9 @@ namespace SunEngine.Admin.Managers
 
             var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.ParentId);
             
+            if (parent == null)
+                throw new Exception($"Parent category (id:{category.ParentId}) not found. Can not add category without parent");
+            
             if (!parent.IsCategoriesContainer)
                 throw new Exception("Can not add in MaterialContainer category type");
 

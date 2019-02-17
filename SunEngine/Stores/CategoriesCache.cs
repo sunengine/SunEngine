@@ -70,7 +70,7 @@ namespace SunEngine.Stores
         public CategoryStored GetCategoryAreaRoot(CategoryStored category)
         {
             CategoryStored current = category;
-            while (!current.IsHead)
+            while (!current.IsMain)
             {
                 current = category.Parent;
             }
