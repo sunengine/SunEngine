@@ -16,7 +16,6 @@ namespace SunEngine.Controllers
     public class ForumController : BaseController
     {
         protected readonly OperationKeysContainer OperationKeys;
-
         protected readonly ForumOptions forumOptions;
         protected readonly ICategoriesCache categoriesCache;
         protected readonly IAuthorizationService authorizationService;

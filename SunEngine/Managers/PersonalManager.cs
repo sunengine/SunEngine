@@ -10,7 +10,22 @@ using SunEngine.Utils.TextProcess;
 
 namespace SunEngine.Managers
 {
-    public class PersonalManager : DbService
+    public interface IPersonalManager
+    {
+        Task SetPhotoAsync(int userId, string photo);
+        Task SetAvatarAsync(int userId, string avatar);
+        Task SetPhotoAndAvatarAsync(int userId, string photo, string avatar);
+        Task SetMyProfileInformationAsync(int userId, string html);
+        Task SetMyLinkAsync(int userId, string link);
+        Task SetMyNameAsync(User user, string name);
+        Task<bool> CheckLinkInDbAsync(string link, int userId);
+        Task<bool> ValidateLinkAsync(int userId, string link);
+        Task<bool> CheckNameInDbAsync(string name, int userId);
+        Task<bool> ValidateNameAsync(string name, int userId);
+        Task RemoveAvatarAsync(int userId);
+    }
+
+    public class PersonalManager : DbService, IPersonalManager
     {
         protected readonly Sanitizer sanitizer;
         

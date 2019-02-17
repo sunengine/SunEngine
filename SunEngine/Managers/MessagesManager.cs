@@ -8,12 +8,24 @@ using SunEngine.Utils.TextProcess;
 
 namespace SunEngine.Managers
 {
-    public class MessagesManager : DbService
+    public interface IMessagesManager
     {
-        protected readonly MaterialsManager materialsManager;
+        Task InsertAsync(Message message);
+        Task<(Message message, int categoryId)> GetAsync(int messageId);
+        Task DeleteAsync(Message message);
+        Task UpdateAsync(Message message);
+        Task MoveToTrashAsync(Message message);
+        Task RestoreFromTrash(Message message);
+    }
+
+    public class MessagesManager : DbService, IMessagesManager
+    {
+        protected readonly IMaterialsManager materialsManager;
         protected readonly Sanitizer sanitizer;
 
-        public MessagesManager(DataBaseConnection db, MaterialsManager materialsManager,
+        public MessagesManager(
+            DataBaseConnection db, 
+            IMaterialsManager materialsManager,
             Sanitizer sanitizer) : base(db)
         {
             this.materialsManager = materialsManager;

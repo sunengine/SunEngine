@@ -10,21 +10,32 @@ using SunEngine.Utils.TextProcess;
 
 namespace SunEngine.Managers
 {
-    public class MaterialsManager : DbService
+    public interface IMaterialsManager
     {
-        protected readonly TagsManager tagsManager;
+        Task<int?> GetMaterialCategoryIdAsync(int materialId);
+        Task<Material> GetAsync(int id);
+        Task InsertAsync(Material material, string tags);
+        Task UpdateAsync(Material material, string tags);
+        Task MoveToTrashAsync(Material material);
+        Task DetectAndSetLastMessageAndCountAsync(Material material);
+        Task DetectAndSetLastMessageAndCountAsync(int materialId);
+    }
+
+    public class MaterialsManager : DbService, IMaterialsManager
+    {
+        protected readonly ITagsManager tagsManager;
         protected readonly Sanitizer sanitizer;
-        protected readonly MaterialsOptions MaterialsOptions;
+        protected readonly MaterialsOptions materialsOptions;
 
 
         public MaterialsManager(DataBaseConnection db,
             Sanitizer sanitizer,
-            TagsManager tagsManager,
-            IOptions<MaterialsOptions> materialOptions) : base(db)
+            ITagsManager tagsManager,
+            IOptions<MaterialsOptions> materialsOptions) : base(db)
         {
             this.tagsManager = tagsManager;
             this.sanitizer = sanitizer;
-            this.MaterialsOptions = materialOptions.Value;
+            this.materialsOptions = materialsOptions.Value;
         }
 
 
@@ -42,8 +53,8 @@ namespace SunEngine.Managers
         {
             material.Text = sanitizer.Sanitize(material.Text);
 
-            material.MakePreviewAndDescription(MaterialsOptions.DescriptionLength,
-                MaterialsOptions.PreviewLength);
+            material.MakePreviewAndDescription(materialsOptions.DescriptionLength,
+                materialsOptions.PreviewLength);
 
             material.Id = await db.InsertWithInt32IdentityAsync(material);
 
@@ -56,8 +67,8 @@ namespace SunEngine.Managers
                 sanitizer.Sanitize(material
                     .Text); // TODO сделать совместную валидацию, санитайзин и превью на основе одного DOM
 
-            material.MakePreviewAndDescription(MaterialsOptions.DescriptionLength,
-                MaterialsOptions.PreviewLength);
+            material.MakePreviewAndDescription(materialsOptions.DescriptionLength,
+                materialsOptions.PreviewLength);
 
             await db.UpdateAsync(material);
 
@@ -69,7 +80,7 @@ namespace SunEngine.Managers
             await db.Materials.Where(x => x.Id == material.Id).Set(x => x.IsDeleted, true).UpdateAsync();
         }
 
-        protected virtual async Task DetectAndSetLastMessageAndCountAsync(Material material)
+        public virtual async Task DetectAndSetLastMessageAndCountAsync(Material material)
         {
             var messagesQuery = db.Messages.Where(x => x.MaterialId == material.Id);
 

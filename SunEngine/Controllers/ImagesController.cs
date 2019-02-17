@@ -17,12 +17,12 @@ namespace SunEngine.Controllers
     {
         protected readonly IImagesService imagesService;
         protected readonly ImagesOptions imagesOptions;
-        protected readonly PersonalManager personalManager;
+        protected readonly IPersonalManager personalManager;
 
         public ImagesController(
             IImagesService imagesService,
             IOptions<ImagesOptions> imagesOptions,
-            PersonalManager personalManager,
+            IPersonalManager personalManager,
             MyUserManager userManager,
             IRolesCache rolesCache) : base(rolesCache, userManager)
         {

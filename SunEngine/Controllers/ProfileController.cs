@@ -16,11 +16,11 @@ namespace SunEngine.Controllers
     /// </summary>
     public class ProfileController : BaseController
     {
-        protected readonly ProfileManager profileManager;
+        protected readonly IProfileManager profileManager;
         protected readonly IProfilePresenter profilePresenter;
         
         public ProfileController(
-            ProfileManager profileManager,
+            IProfileManager profileManager,
             IProfilePresenter profilePresenter,
             MyUserManager userManager,
             IRolesCache rolesCache) : base(rolesCache, userManager)

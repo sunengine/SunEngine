@@ -45,7 +45,7 @@ namespace SunEngine.Admin.Controllers
                 });
             }
 
-            RolesCache.Reset();
+            rolesCache.Reset();
 
             return Ok();
         }

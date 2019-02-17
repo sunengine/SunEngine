@@ -10,11 +10,11 @@ namespace SunEngine.Controllers
     public abstract class BaseController : Controller 
     {
         protected readonly MyUserManager userManager;
-        protected readonly IRolesCache RolesCache;
+        protected readonly IRolesCache rolesCache;
         
         protected BaseController(IRolesCache rolesCache, MyUserManager userManager)
         {
-            this.RolesCache = rolesCache;
+            this.rolesCache = rolesCache;
             this.userManager = userManager;
         }
 
@@ -27,7 +27,7 @@ namespace SunEngine.Controllers
                 if (_user == null)
                 {
                     MyClaimsPrincipal myClaimsPrincipal = base.User as MyClaimsPrincipal;
-                    _user = myClaimsPrincipal ?? new MyClaimsPrincipal(base.User,RolesCache);
+                    _user = myClaimsPrincipal ?? new MyClaimsPrincipal(base.User,rolesCache);
                 }
 
                 return _user;

@@ -15,13 +15,13 @@ namespace SunEngine.Controllers
     {
         protected readonly MaterialsAuthorization materialsAuthorization;
         protected readonly ICategoriesCache categoriesCache;
-        protected readonly MaterialsManager materialsManager;
+        protected readonly IMaterialsManager materialsManager;
         protected readonly IMaterialsPresenter materialsPresenter;
 
         public MaterialsController(
             MaterialsAuthorization materialsAuthorization,
             ICategoriesCache categoriesCache,
-            MaterialsManager materialsManager,
+            IMaterialsManager materialsManager,
             MyUserManager userManager,
             IMaterialsPresenter materialsPresenter,
             IRolesCache rolesCache) : base(rolesCache, userManager)

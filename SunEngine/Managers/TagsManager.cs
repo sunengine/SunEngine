@@ -9,7 +9,15 @@ using SunEngine.Services;
 
 namespace SunEngine.Managers
 {
-    public class TagsManager : DbService
+    public interface ITagsManager
+    {
+        Task<IList<Tag>> InsertTags(string tags);
+        Task<IList<Tag>> InsertTags(IList<string> tags);
+        Task MaterialCreateAndSetTagsAsync(Material material, string tags);
+        Task MaterialSetTags(Material material, IEnumerable<Tag> tags);
+    }
+
+    public class TagsManager : DbService, ITagsManager
     {
         public TagsManager(DataBaseConnection db) : base(db)
         {
@@ -28,7 +36,7 @@ namespace SunEngine.Managers
             return await InsertTags(tagsList);
         }
 
-        protected virtual async Task<IList<Tag>> InsertTags(IList<string> tags)
+        public virtual async Task<IList<Tag>> InsertTags(IList<string> tags)
         {
             if(tags == null)
             {
@@ -61,7 +69,7 @@ namespace SunEngine.Managers
             await MaterialSetTags(material,tagsList);
         }
 
-        protected virtual async Task MaterialSetTags(Material material, IEnumerable<Tag> tags)
+        public virtual async Task MaterialSetTags(Material material, IEnumerable<Tag> tags)
         {
             // TODO make auto delete unused tags
             await db.TagMaterials.Where(x => x.MaterialId == material.Id).DeleteAsync();

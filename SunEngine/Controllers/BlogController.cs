@@ -16,9 +16,10 @@ namespace SunEngine.Controllers
 {
     public class BlogController : BaseController
     {
+        protected readonly OperationKeysContainer OperationKeys;
+
         protected readonly BlogOptions blogOptions;
         protected readonly ICategoriesCache categoriesCache;
-        protected readonly OperationKeysContainer OperationKeys;
         protected readonly IAuthorizationService authorizationService;
         protected readonly IBlogPresenter blogPresenter;
 

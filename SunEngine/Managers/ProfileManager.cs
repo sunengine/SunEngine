@@ -11,7 +11,14 @@ using SunEngine.Utils.TextProcess;
 
 namespace SunEngine.Managers
 {
-    public class ProfileManager : DbService
+    public interface IProfileManager
+    {
+        Task SendPrivateMessageAsync(User from, User to, string text);
+        Task BanUserAsync(User who, User banned);
+        Task UnBanUserAsync(User who, User banned);
+    }
+
+    public class ProfileManager : DbService, IProfileManager
     {
         protected readonly IEmailSender emailSender;
         protected readonly Sanitizer sanitizer;

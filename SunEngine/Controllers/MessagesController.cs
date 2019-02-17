@@ -15,16 +15,16 @@ namespace SunEngine.Controllers
     {
         protected readonly OperationKeysContainer OperationKeys;
         protected readonly MessageAuthorization messageAuthorization;
-        protected readonly MaterialsManager materialsManager;
-        protected readonly MessagesManager messagesManager;
+        protected readonly IMaterialsManager materialsManager;
+        protected readonly IMessagesManager messagesManager;
         protected readonly IAuthorizationService authorizationService;
         protected readonly IMessagesPresenter messagesPresenter;
         
         public MessagesController(
-            MaterialsManager materialsManager, 
+            IMaterialsManager materialsManager, 
             MessageAuthorization messageAuthorization,
             OperationKeysContainer operationKeys, 
-            MessagesManager messagesManager,
+            IMessagesManager messagesManager,
             IAuthorizationService authorizationService,
             MyUserManager userManager,
             IMessagesPresenter messagesPresenter,
