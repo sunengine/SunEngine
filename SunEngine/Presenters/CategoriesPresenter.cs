@@ -58,7 +58,7 @@ namespace SunEngine.Presenters
                 Title = category.Title,
                 Header = category.Header,
                 IsMaterialsContainer = category.IsMaterialsContainer,
-                IsMain = category.IsMain,
+                IsMain = category.IsSectionRoot,
                 SortNumber = category.SortNumber,
                 IsHidden = category.IsHidden,
 

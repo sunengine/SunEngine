@@ -62,7 +62,7 @@ namespace SunEngine.Admin.Managers
             сategoryExisted.ParentId = parent.Id;
             сategoryExisted.IsHidden = category.IsHidden;
             сategoryExisted.IsCategoriesContainer = category.IsCategoriesContainer;
-            сategoryExisted.IsMain = category.IsMain;
+            сategoryExisted.IsSectionRoot = category.IsSectionRoot;
             
             await db.UpdateAsync(сategoryExisted);
         }

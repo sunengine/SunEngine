@@ -9,6 +9,10 @@ namespace Migrations
     {
         public override void Up()
         {
+            Create.Table("CategorySectionType")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name").AsString(DbColumnSizes.CategoryType_Name).NotNullable().Indexed();
+            
             Create.Table("Categories")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(DbColumnSizes.Categories_Name).NotNullable().Indexed()
@@ -167,6 +171,7 @@ namespace Migrations
     
     internal static class DbColumnSizes
     {
+        public const int CategoryType_Name = 32;
         public const int Categories_Name = 64;
         public const int Categories_Title = 256;
         public const int Users_UserName = 64;

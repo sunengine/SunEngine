@@ -20,7 +20,9 @@ namespace SunEngine.Stores.CacheModels
 
         public string Header { get; }
 
-        public bool IsMain { get; }
+        public bool IsSectionRoot { get; }
+        
+        public string SectionType { get; }
 
         public int? ParentId { get; }
         public CategoryCached Parent { get; private set; }
@@ -50,10 +52,11 @@ namespace SunEngine.Stores.CacheModels
             IsMaterialsContainer = category.IsMaterialsContainer;
             Description = category.Description;
             Header = category.Header;
-            IsMain = category.IsMain;
+            IsSectionRoot = category.IsSectionRoot;
             ParentId = category.ParentId;
             SortNumber = category.SortNumber;
             IsHidden = category.IsHidden;
+            SectionType = category.SectionType.Name;
             _subCategories = new List<CategoryCached>();
             _allSubCategories = new List<CategoryCached>();
         }
