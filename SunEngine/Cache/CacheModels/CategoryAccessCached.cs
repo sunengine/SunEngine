@@ -3,9 +3,9 @@ using System.Collections.Immutable;
 using SunEngine.Models;
 using SunEngine.Models.Authorization;
 
-namespace SunEngine.Stores.Models
+namespace SunEngine.Stores.CacheModels
 {
-    public class CategoryAccessStored
+    public class CategoryAccessCached
     {
         public int Id { get; }
 
@@ -17,7 +17,7 @@ namespace SunEngine.Stores.Models
 
         public ImmutableDictionary<int, bool> CategoryOperationAccesses { get; }
 
-        public CategoryAccessStored(CategoryAccessTmp ca)
+        public CategoryAccessCached(CategoryAccessTmp ca)
         {
             Id = ca.Id;
             RoleId = ca.RoleId;

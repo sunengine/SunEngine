@@ -3,17 +3,17 @@ using System.Linq;
 using SunEngine.Models;
 using SunEngine.Security.Authorization;
 using SunEngine.Stores;
-using SunEngine.Stores.Models;
+using SunEngine.Stores.CacheModels;
 
 namespace SunEngine.Presenters
 {
     public interface ICategoriesPresenter
     {
         CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(
-            IReadOnlyDictionary<string, RoleStored> roles);
+            IReadOnlyDictionary<string, RoleCached> roles);
 
-        CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(CategoryStored category,
-            IReadOnlyDictionary<string, RoleStored> roles);
+        CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(CategoryCached category,
+            IReadOnlyDictionary<string, RoleCached> roles);
     }
 
     public class CategoriesPresenter : ICategoriesPresenter
@@ -37,13 +37,13 @@ namespace SunEngine.Presenters
         }
 
         public virtual CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(
-            IReadOnlyDictionary<string, RoleStored> roles)
+            IReadOnlyDictionary<string, RoleCached> roles)
         {
             return CategoryInfoWithAccessesFromCategory(CategoriesCache.RootCategory, roles);
         }
 
-        public virtual CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(CategoryStored category,
-            IReadOnlyDictionary<string, RoleStored> roles)
+        public virtual CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(CategoryCached category,
+            IReadOnlyDictionary<string, RoleCached> roles)
         {
             if (!authorizationService.HasAccess(roles, category,
                     OperationKeys.MaterialAndMessagesRead) && category.Id != CategoriesCache.RootCategory.Id)
@@ -68,7 +68,7 @@ namespace SunEngine.Presenters
 
             if (category.SubCategories == null) return categoryInfo;
 
-            IEnumerable<CategoryStored> where;
+            IEnumerable<CategoryCached> where;
             if (roles.Any(x => x.Value.Name == "Admin")) // админ может видеть все категории, в том числе и скрытые
                 where = category.SubCategories;
             else
@@ -93,8 +93,8 @@ namespace SunEngine.Presenters
             return categoryInfo;
         }
 
-        protected Dictionary<string, bool> DetectPersonalAccesses(CategoryStored category,
-            IReadOnlyDictionary<string, RoleStored> roles)
+        protected Dictionary<string, bool> DetectPersonalAccesses(CategoryCached category,
+            IReadOnlyDictionary<string, RoleCached> roles)
         {
             Dictionary<string, bool> dict = new Dictionary<string, bool>(RolesCache.AllOperationKeys.Count);
 

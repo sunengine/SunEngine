@@ -7,7 +7,7 @@ using SunEngine.Models;
 using SunEngine.Presenters;
 using SunEngine.Security.Authorization;
 using SunEngine.Stores;
-using SunEngine.Stores.Models;
+using SunEngine.Stores.CacheModels;
 
 namespace SunEngine.Controllers
 {
@@ -39,13 +39,13 @@ namespace SunEngine.Controllers
         {
             var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(materialsCategories);
 
-            IList<CategoryStored> materialsCategoriesList = authorizationService.GetAllowedCategories(User.Roles, materialsCategoriesDic.Values,
+            IList<CategoryCached> materialsCategoriesList = authorizationService.GetAllowedCategories(User.Roles, materialsCategoriesDic.Values,
                 OperationKeys.MaterialAndMessagesRead);
             
             
             var messagesCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(messagesCategories);
 
-            IList<CategoryStored> messagesCategoriesList = authorizationService.GetAllowedCategories(User.Roles, messagesCategoriesDic.Values,
+            IList<CategoryCached> messagesCategoriesList = authorizationService.GetAllowedCategories(User.Roles, messagesCategoriesDic.Values,
                 OperationKeys.MaterialAndMessagesRead);
 
 

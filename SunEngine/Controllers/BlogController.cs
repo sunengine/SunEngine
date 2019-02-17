@@ -10,7 +10,7 @@ using SunEngine.Presenters;
 using SunEngine.Presenters.PagedList;
 using SunEngine.Security.Authorization;
 using SunEngine.Stores;
-using SunEngine.Stores.Models;
+using SunEngine.Stores.CacheModels;
 
 namespace SunEngine.Controllers
 {
@@ -65,7 +65,7 @@ namespace SunEngine.Controllers
         {
             var names = categoriesNames.Split(',').Select(x => x.Trim());
 
-            List<CategoryStored> categories = new List<CategoryStored>();
+            List<CategoryCached> categories = new List<CategoryCached>();
             foreach (var categoryName in names)
             {
                 var category = categoriesCache.GetCategory(categoryName);

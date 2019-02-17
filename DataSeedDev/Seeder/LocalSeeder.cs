@@ -272,8 +272,6 @@ namespace DataSeedDev.Seeder
             dataContainer.Categories.Add(rootCategory);
         }
 
-
-
         private void SeedCategoriesFromDirectory()
         {
             //string pathToCategoriesStartConfigFolder = Path.GetFullPath("CategoriesStartConfig");//Path.Combine(hostingEnvironment.ContentRootPath, "CategoriesStartConfig");

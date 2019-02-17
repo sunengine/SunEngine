@@ -4,15 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using SunEngine.DataBase;
 using SunEngine.Models.Authorization;
-using SunEngine.Stores.Models;
+using SunEngine.Stores.CacheModels;
 
 namespace SunEngine.Stores
 {
     public interface IRolesCache : IMemoryCache
     {
-        IImmutableList<OperationKeyStored> AllOperationKeys { get; }
-        RoleStored GetRole(string name);
-        IImmutableDictionary<string, RoleStored> AllRoles { get; }
+        IImmutableList<OperationKeyCached> AllOperationKeys { get; }
+        RoleCached GetRole(string name);
+        IImmutableDictionary<string, RoleCached> AllRoles { get; }
     }
     
     public class RolesCache : IRolesCache
@@ -24,9 +24,9 @@ namespace SunEngine.Stores
             this.dataBaseFactory = dataBaseFactory;
         }
 
-        protected IImmutableList<OperationKeyStored> _allOperationKeys;
+        protected IImmutableList<OperationKeyCached> _allOperationKeys;
 
-        public IImmutableList<OperationKeyStored> AllOperationKeys
+        public IImmutableList<OperationKeyCached> AllOperationKeys
         {
             get
             {
@@ -40,9 +40,9 @@ namespace SunEngine.Stores
         }
 
 
-        protected ImmutableDictionary<string, RoleStored> _allRoles;
+        protected ImmutableDictionary<string, RoleCached> _allRoles;
 
-        public IImmutableDictionary<string, RoleStored> AllRoles
+        public IImmutableDictionary<string, RoleCached> AllRoles
         {
             get
             {
@@ -55,7 +55,7 @@ namespace SunEngine.Stores
             }
         }
 
-        public RoleStored GetRole(string name)
+        public RoleCached GetRole(string name)
         {
             if (_allRoles == null)
             {
@@ -78,7 +78,7 @@ namespace SunEngine.Stores
             {
                 var roles = db.Roles.Select(x => new RoleTmp(x)).ToDictionary(x => x.Id);
 
-                _allOperationKeys = db.OperationKeys.Select(x => new OperationKeyStored(x)).ToImmutableList();
+                _allOperationKeys = db.OperationKeys.Select(x => new OperationKeyCached(x)).ToImmutableList();
 
                 
                 var categoryAccesses = db.CategoryAccess.Select(x => new CategoryAccessTmp(x))
@@ -96,7 +96,7 @@ namespace SunEngine.Stores
                         .Add(categoryAccess);
                 }
 
-                _allRoles = roles.Values.ToImmutableDictionary(x => x.Name, x => new RoleStored(x));
+                _allRoles = roles.Values.ToImmutableDictionary(x => x.Name, x => new RoleCached(x));
             }
         }
 

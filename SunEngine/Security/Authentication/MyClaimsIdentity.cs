@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Security.Claims;
 using SunEngine.Stores;
-using SunEngine.Stores.Models;
+using SunEngine.Stores.CacheModels;
 
 namespace SunEngine.Security.Authentication
 {
@@ -13,12 +13,12 @@ namespace SunEngine.Security.Authentication
         public long SessionId { get; }
         public string LongToken2Db { get; }
 
-        public IReadOnlyDictionary<string, RoleStored> Roles { get; }
+        public IReadOnlyDictionary<string, RoleCached> Roles { get; }
         
         /// <summary>
         /// If only one group
         /// </summary>
-        public RoleStored Role { get; }
+        public RoleCached Role { get; }
 
         public MyClaimsPrincipal(ClaimsPrincipal user, IRolesCache rolesCache, long sessionId = 0, string longToken2Db = null) : base(user)
         {
@@ -37,11 +37,11 @@ namespace SunEngine.Security.Authentication
             }
         }
         
-        private IReadOnlyDictionary<string, RoleStored> GetUserRoles(IRolesCache rolesCache)
+        private IReadOnlyDictionary<string, RoleCached> GetUserRoles(IRolesCache rolesCache)
         {
             if (!Identity.IsAuthenticated)
             {
-                return new Dictionary<string, RoleStored>
+                return new Dictionary<string, RoleCached>
                 {
                     [RoleNames.Unregistered] = rolesCache.GetRole(RoleNames.Unregistered)
                 }.ToImmutableDictionary();
@@ -51,7 +51,7 @@ namespace SunEngine.Security.Authentication
             var allGroups = rolesCache.AllRoles;
 
 
-            var dictionaryBuilder = ImmutableDictionary.CreateBuilder<string,RoleStored>();
+            var dictionaryBuilder = ImmutableDictionary.CreateBuilder<string,RoleCached>();
 
             var registeredGroup = rolesCache.GetRole(RoleNames.Registered);
             dictionaryBuilder.Add(registeredGroup.Name, registeredGroup);

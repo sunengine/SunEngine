@@ -9,7 +9,7 @@ using SunEngine.Models;
 using SunEngine.Models.Materials;
 using SunEngine.Security.Authentication;
 using SunEngine.Stores;
-using SunEngine.Stores.Models;
+using SunEngine.Stores.CacheModels;
 
 namespace SunEngine.Security.Authorization
 {
@@ -35,13 +35,13 @@ namespace SunEngine.Security.Authorization
             OperationKeys = operationKeysContainer;
         }
 
-        public bool CanAdd(IReadOnlyDictionary<string, RoleStored> userGroups,
-            CategoryStored category)
+        public bool CanAdd(IReadOnlyDictionary<string, RoleCached> userGroups,
+            CategoryCached category)
         {
             return !category.IsCategoriesContainer && authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialWrite);
         }
 
-        public bool CanGet(IReadOnlyDictionary<string, RoleStored> roles, CategoryStored category)
+        public bool CanGet(IReadOnlyDictionary<string, RoleCached> roles, CategoryCached category)
         {
             return authorizationService.HasAccess(roles, category, OperationKeys.MaterialAndMessagesRead);
         }
@@ -161,7 +161,7 @@ namespace SunEngine.Security.Authorization
         }
 
         // В случае уже имеющегося разрешения на редактирование
-        public bool CanMove(MyClaimsPrincipal user, CategoryStored categoryFrom, CategoryStored categoryTo)
+        public bool CanMove(MyClaimsPrincipal user, CategoryCached categoryFrom, CategoryCached categoryTo)
         {
             // Если модератор с правом перемещения материалов на обе категории то разрешаем
             return !categoryTo.IsCategoriesContainer
@@ -169,7 +169,7 @@ namespace SunEngine.Security.Authorization
                    && authorizationService.HasAccess(user.Roles, categoryTo, OperationKeys.MaterialWrite);
         }
 
-        private bool IsCategoriesFromOneRoot(CategoryStored categoryFrom, CategoryStored categoryTo)
+        private bool IsCategoriesFromOneRoot(CategoryCached categoryFrom, CategoryCached categoryTo)
         {
             return categoriesCache.GetCategoryAreaRoot(categoryFrom).Id ==
                    categoriesCache.GetCategoryAreaRoot(categoryTo).Id;

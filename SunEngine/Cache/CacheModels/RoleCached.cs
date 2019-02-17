@@ -2,26 +2,22 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using SunEngine.Models.Authorization;
 
-namespace SunEngine.Stores.Models
+namespace SunEngine.Stores.CacheModels
 {
-    public class RoleStored
+    public class RoleCached
     {
-       
-
-
         public int Id { get; }
         public string Name { get; }
         public string Title { get; }
-        public ImmutableDictionary<int, CategoryAccessStored> CategoryAccesses { get; }
+        public ImmutableDictionary<int, CategoryAccessCached> CategoryAccesses { get; }
 
-
-        public RoleStored(RoleTmp ug)
+        public RoleCached(RoleTmp ug)
         {
             Id = ug.Id;
             Name = ug.Name;
             Title = ug.Title;
             CategoryAccesses = ug.CategoryAccesses
-                .ToImmutableDictionary(x => x.CategoryId, x => new CategoryAccessStored(x));
+                .ToImmutableDictionary(x => x.CategoryId, x => new CategoryAccessCached(x));
         }
     }
 
@@ -35,7 +31,6 @@ namespace SunEngine.Stores.Models
         public string Name;
         public string Title;
         public List<CategoryAccessTmp> CategoryAccesses = new List<CategoryAccessTmp>();
-
 
         public RoleTmp(Role role)
         {

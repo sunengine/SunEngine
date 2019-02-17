@@ -7,7 +7,7 @@ using SunEngine.Configuration.Options;
 using SunEngine.DataBase;
 using SunEngine.Models.Materials;
 using SunEngine.Security.Authentication;
-using SunEngine.Stores.Models;
+using SunEngine.Stores.CacheModels;
 
 namespace SunEngine.Security.Authorization
 {
@@ -32,7 +32,7 @@ namespace SunEngine.Security.Authorization
             this.db = db;
         }
 
-        public bool HasAccessForGetMessages(IReadOnlyDictionary<string,RoleStored> userGroups, int categoryId)
+        public bool HasAccessForGetMessages(IReadOnlyDictionary<string,RoleCached> userGroups, int categoryId)
         {
             return authorizationService.HasAccess(userGroups, categoryId, OperationKeys.MaterialAndMessagesRead);
         }
@@ -143,7 +143,7 @@ namespace SunEngine.Security.Authorization
                                                       x.PublishDate > message.PublishDate);
         }
         
-        public bool CanAdd(IReadOnlyDictionary<string,RoleStored> userGroups,int categoryId)
+        public bool CanAdd(IReadOnlyDictionary<string,RoleCached> userGroups,int categoryId)
         {
             return authorizationService.HasAccess(userGroups, categoryId,  OperationKeys.MessageWrite);
         } 

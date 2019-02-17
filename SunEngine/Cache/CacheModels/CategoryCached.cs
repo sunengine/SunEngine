@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using SunEngine.Models;
-using SunEngine.Models.Materials;
 
-namespace SunEngine.Stores.Models
+namespace SunEngine.Stores.CacheModels
 {
-    public class CategoryStored
+    public class CategoryCached
     {
         public int Id { get; }
 
@@ -24,17 +23,17 @@ namespace SunEngine.Stores.Models
         public bool IsMain { get; }
 
         public int? ParentId { get; }
-        public CategoryStored Parent { get; private set; }
+        public CategoryCached Parent { get; private set; }
 
-        public IImmutableList<CategoryStored> SubCategories { get; private set; }
+        public IImmutableList<CategoryCached> SubCategories { get; private set; }
 
-        public IImmutableList<CategoryStored> AllSubCategories { get; private set; }
+        public IImmutableList<CategoryCached> AllSubCategories { get; private set; }
 
         //public IReadOnlyDictionary<string, CategoryStored> AllSubCategoriesDic { get; private set; }
 
-        protected List<CategoryStored> _subCategories { get; private set; } 
+        protected List<CategoryCached> _subCategories { get; private set; } 
 
-        protected List<CategoryStored> _allSubCategories { get; private set; }
+        protected List<CategoryCached> _allSubCategories { get; private set; }
 
         public int SortNumber { get; }
 
@@ -43,7 +42,7 @@ namespace SunEngine.Stores.Models
 
         protected bool initialized = false;
 
-        public CategoryStored(Category category)
+        public CategoryCached(Category category)
         {
             Id = category.Id;
             Name = category.Name;
@@ -55,13 +54,13 @@ namespace SunEngine.Stores.Models
             ParentId = category.ParentId;
             SortNumber = category.SortNumber;
             IsHidden = category.IsHidden;
-            _subCategories = new List<CategoryStored>();
-            _allSubCategories = new List<CategoryStored>();
+            _subCategories = new List<CategoryCached>();
+            _allSubCategories = new List<CategoryCached>();
         }
 
         
 
-        public void Init1ParentAndSub(Dictionary<int, CategoryStored> allCategories)
+        public void Init1ParentAndSub(Dictionary<int, CategoryCached> allCategories)
         {
             if (initialized)
                 return;

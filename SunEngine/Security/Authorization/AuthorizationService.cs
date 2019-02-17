@@ -2,26 +2,26 @@
 using System.Linq;
 using SunEngine.Models;
 using SunEngine.Stores;
-using SunEngine.Stores.Models;
+using SunEngine.Stores.CacheModels;
 
 namespace SunEngine.Security.Authorization
 {
     public interface IAuthorizationService
     {
-        bool HasAccess(IReadOnlyDictionary<string, RoleStored> roles, CategoryStored category, int operationKey);
+        bool HasAccess(IReadOnlyDictionary<string, RoleCached> roles, CategoryCached category, int operationKey);
 
-        HashSet<int> HasAccess(IReadOnlyDictionary<string, RoleStored> roles, CategoryStored category,
+        HashSet<int> HasAccess(IReadOnlyDictionary<string, RoleCached> roles, CategoryCached category,
             IEnumerable<int> operationKeys);
 
         
-        IList<CategoryStored> GetAllowedCategories(IReadOnlyDictionary<string, RoleStored> userGroups, IEnumerable<CategoryStored> categories, int operationKey);
+        IList<CategoryCached> GetAllowedCategories(IReadOnlyDictionary<string, RoleCached> userGroups, IEnumerable<CategoryCached> categories, int operationKey);
         
 
         #region With CategoryId
 
-        bool HasAccess(IReadOnlyDictionary<string, RoleStored> roles, int categoryId, int operationKey);
+        bool HasAccess(IReadOnlyDictionary<string, RoleCached> roles, int categoryId, int operationKey);
 
-        HashSet<int> HasAccess(IReadOnlyDictionary<string, RoleStored> roles, int categoryId,
+        HashSet<int> HasAccess(IReadOnlyDictionary<string, RoleCached> roles, int categoryId,
             IEnumerable<int> operationKeys);
 
         #endregion
@@ -37,7 +37,7 @@ namespace SunEngine.Security.Authorization
             this.categoriesCache = categoriesCache;
         }
 
-        public bool HasAccess(IReadOnlyDictionary<string, RoleStored> roles, CategoryStored category,
+        public bool HasAccess(IReadOnlyDictionary<string, RoleCached> roles, CategoryCached category,
             int operationKey)
         {
             if (roles.ContainsKey(RoleNames.Admin))
@@ -47,7 +47,7 @@ namespace SunEngine.Security.Authorization
         }
 
 
-        public HashSet<int> HasAccess(IReadOnlyDictionary<string, RoleStored> roles, CategoryStored category,
+        public HashSet<int> HasAccess(IReadOnlyDictionary<string, RoleCached> roles, CategoryCached category,
             IEnumerable<int> operationKeys)
         {
             if (roles.ContainsKey(RoleNames.Admin))
@@ -68,7 +68,7 @@ namespace SunEngine.Security.Authorization
         }
 
 
-        private bool GetAccessForCategory(RoleStored role, CategoryStored category, int operationKey)
+        private bool GetAccessForCategory(RoleCached role, CategoryCached category, int operationKey)
         {
             while (category != null)
             {
@@ -91,8 +91,8 @@ namespace SunEngine.Security.Authorization
             return false;
         }
 
-        public IList<CategoryStored> GetAllowedCategories(IReadOnlyDictionary<string, RoleStored> roles,
-            IEnumerable<CategoryStored> categories, int operationKey)
+        public IList<CategoryCached> GetAllowedCategories(IReadOnlyDictionary<string, RoleCached> roles,
+            IEnumerable<CategoryCached> categories, int operationKey)
         {
             return categories.Where(category => HasAccess(roles, category, operationKey)).ToList();
         }
@@ -100,12 +100,12 @@ namespace SunEngine.Security.Authorization
 
         #region With CategoryId
 
-        public bool HasAccess(IReadOnlyDictionary<string, RoleStored> roles, int categoryId, int operationKey)
+        public bool HasAccess(IReadOnlyDictionary<string, RoleCached> roles, int categoryId, int operationKey)
         {
             return HasAccess(roles, categoriesCache.GetCategory(categoryId), operationKey);
         }
 
-        public HashSet<int> HasAccess(IReadOnlyDictionary<string, RoleStored> roles, int categoryId,
+        public HashSet<int> HasAccess(IReadOnlyDictionary<string, RoleCached> roles, int categoryId,
             IEnumerable<int> operationKeys)
         {
             return HasAccess(roles, categoriesCache.GetCategory(categoryId), operationKeys);
