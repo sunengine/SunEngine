@@ -31,7 +31,7 @@ namespace SunEngine.Models
         /// </summary>
         public string Header { get; set; }
 
-        public bool IsHead { get; set; }
+        public bool IsMain { get; set; }
 
         public int? ParentId { get; set; }
         public Category Parent { get; set; }

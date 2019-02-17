@@ -92,7 +92,7 @@ namespace SunEngine.Stores
 
                 foreach (var categoryAccess in categoryAccesses.Values)
                 {
-                    roles[categoryAccess.UserGroupId].CategoryAccesses
+                    roles[categoryAccess.RoleId].CategoryAccesses
                         .Add(categoryAccess);
                 }
 

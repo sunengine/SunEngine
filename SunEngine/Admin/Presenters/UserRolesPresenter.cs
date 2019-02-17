@@ -11,9 +11,9 @@ namespace SunEngine.Admin.Presenters
 {
     public interface IUserRolesPresenter
     {
-        Task<UserGroupViewModel[]> GetAllRolesAsync();
+        Task<RoleViewModel[]> GetAllRolesAsync();
         Task<UserInfoViewModel[]> GetRoleUsers(string groupName, string userNamePart);
-        Task<UserGroupViewModel[]> GetUserRolesAsync(int userId);
+        Task<RoleViewModel[]> GetUserRolesAsync(int userId);
     }
 
     public class UserRolesPresenter : DbService, IUserRolesPresenter
@@ -22,9 +22,9 @@ namespace SunEngine.Admin.Presenters
         {
         }
 
-        public Task<UserGroupViewModel[]> GetAllRolesAsync()
+        public Task<RoleViewModel[]> GetAllRolesAsync()
         {
-            return db.Roles.Where(x=>x.NormalizedName !=  RoleNames.UnregisteredNormalized).Select(x => new UserGroupViewModel
+            return db.Roles.Where(x=>x.NormalizedName !=  RoleNames.UnregisteredNormalized).Select(x => new RoleViewModel
             {
                 Name = x.Name,
                 Title = x.Title,
@@ -58,9 +58,9 @@ namespace SunEngine.Admin.Presenters
                 }).ToArrayAsync();
         }
 
-        public Task<UserGroupViewModel[]> GetUserRolesAsync(int userId)
+        public Task<RoleViewModel[]> GetUserRolesAsync(int userId)
         {
-            return db.Roles.Where(x => x.Users.Any(y => y.UserId == userId)).Select(x => new UserGroupViewModel
+            return db.Roles.Where(x => x.Users.Any(y => y.UserId == userId)).Select(x => new RoleViewModel
             {
                 Name = x.Name,
                 Title = x.Title,
@@ -70,7 +70,7 @@ namespace SunEngine.Admin.Presenters
         }
     }
 
-    public class UserGroupViewModel
+    public class RoleViewModel
     {
         public string Name { get; set; }
         public string Title { get; set; }

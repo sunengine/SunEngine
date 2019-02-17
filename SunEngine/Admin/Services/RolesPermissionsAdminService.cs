@@ -156,7 +156,7 @@ namespace SunEngine.Admin.Services
             db.BulkCopy(options, fromJsonLoader.categoryOperationAccesses);
         }
 
-        private class UserToGroupTmp
+        private class UserToRoleTmp
         {
             public int UserId;
             public string RoleName;

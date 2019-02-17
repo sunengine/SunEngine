@@ -13,7 +13,7 @@ namespace SunEngine.Presenters
             IReadOnlyDictionary<string, RoleStored> roles);
 
         CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(CategoryStored category,
-            IReadOnlyDictionary<string, RoleStored> userGroups);
+            IReadOnlyDictionary<string, RoleStored> roles);
     }
 
     public class CategoriesPresenter : ICategoriesPresenter
@@ -94,13 +94,13 @@ namespace SunEngine.Presenters
         }
 
         protected Dictionary<string, bool> DetectPersonalAccesses(CategoryStored category,
-            IReadOnlyDictionary<string, RoleStored> userGroups)
+            IReadOnlyDictionary<string, RoleStored> roles)
         {
             Dictionary<string, bool> dict = new Dictionary<string, bool>(RolesCache.AllOperationKeys.Count);
 
             foreach (var operationKey in RolesCache.AllOperationKeys)
             {
-                bool allow = authorizationService.HasAccess(userGroups, category,
+                bool allow = authorizationService.HasAccess(roles, category,
                     operationKey.OperationKeyId);
 
                 if (allow)

@@ -9,8 +9,8 @@ namespace SunEngine.Stores.Models
     {
         public int Id { get; }
 
-        public int UserGroupId { get; }
-        public Role Group { get; }
+        public int RoleId { get; }
+        public Role Role { get; }
 
         public int CategoryId { get; }
         public Category Category { get; }
@@ -20,8 +20,8 @@ namespace SunEngine.Stores.Models
         public CategoryAccessStored(CategoryAccessTmp ca)
         {
             Id = ca.Id;
-            UserGroupId = ca.UserGroupId;
-            Group = ca.Group;
+            RoleId = ca.RoleId;
+            Role = ca.Role;
             CategoryId = ca.CategoryId;
             Category = ca.Category;
             CategoryOperationAccesses = ca.CategoryOperationAccesses.ToImmutableDictionary();
@@ -36,8 +36,8 @@ namespace SunEngine.Stores.Models
     {
         public int Id;
 
-        public int UserGroupId;
-        public Role Group;
+        public int RoleId;
+        public Role Role;
 
         public int CategoryId;
         public Category Category;
@@ -47,8 +47,8 @@ namespace SunEngine.Stores.Models
         public CategoryAccessTmp(CategoryAccess categoryAccess)
         {
             Id = categoryAccess.Id;
-            UserGroupId = categoryAccess.RoleId;
-            Group = categoryAccess.Role;
+            RoleId = categoryAccess.RoleId;
+            Role = categoryAccess.Role;
             CategoryId = categoryAccess.CategoryId;
             Category = categoryAccess.Category;
         }

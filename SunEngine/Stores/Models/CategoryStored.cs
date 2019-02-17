@@ -51,7 +51,7 @@ namespace SunEngine.Stores.Models
             IsMaterialsContainer = category.IsMaterialsContainer;
             Description = category.Description;
             Header = category.Header;
-            IsMain = category.IsHead;
+            IsMain = category.IsMain;
             ParentId = category.ParentId;
             SortNumber = category.SortNumber;
             IsHidden = category.IsHidden;
