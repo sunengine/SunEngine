@@ -7,6 +7,9 @@ namespace SunEngine.Models
 {
     public class Category
     {
+        public const string RootName = "Root";
+        
+        
         public int Id { get; set; }
 
         [Required, MinLength(2), RegularExpression("^[a-zA-Z-]*$")]

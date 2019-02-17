@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.DataBase;
+using SunEngine.Models;
 using SunEngine.Stores.Models;
+using SunEngine.Utils;
 
 namespace SunEngine.Stores
 {
@@ -20,6 +22,7 @@ namespace SunEngine.Stores
 
     public class CategoriesCache : ICategoriesCache
     {
+        
         private readonly IDataBaseFactory dataBaseFactory;
 
         public CategoriesCache(IDataBaseFactory dataBaseFactory)
@@ -64,7 +67,7 @@ namespace SunEngine.Stores
 
         public CategoryStored GetCategory(string name)
         {
-            return AllCategories[name.ToLower()];
+            return AllCategories[FieldNormalizer.Normalize(name)];
         }
 
         public CategoryStored GetCategoryAreaRoot(CategoryStored category)
@@ -130,8 +133,8 @@ namespace SunEngine.Stores
                     category.Init3SetListsAndBlockEditable();
                 }
 
-                _allCategories = categories.Values.ToImmutableDictionary(x => x.Name.ToLower());
-                _rootCategory = _allCategories["root"];
+                _allCategories = categories.Values.ToImmutableDictionary(x => FieldNormalizer.Normalize(x.Name));
+                _rootCategory = _allCategories[FieldNormalizer.Normalize(Category.RootName)];
             }
         }
 
@@ -156,8 +159,8 @@ namespace SunEngine.Stores
                     category.Init3SetListsAndBlockEditable();
                 }
 
-                _allCategories = categories.Values.ToImmutableDictionary(x => x.Name.ToLower());
-                _rootCategory = _allCategories["root"];
+                _allCategories = categories.Values.ToImmutableDictionary(x => FieldNormalizer.Normalize(x.Name));
+                _rootCategory = _allCategories[FieldNormalizer.Normalize(Category.RootName)];
             }
         }
     }

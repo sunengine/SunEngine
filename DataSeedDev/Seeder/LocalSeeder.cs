@@ -263,7 +263,7 @@ namespace DataSeedDev.Seeder
             Category rootCategory = new Category
             {
                 Id = id,
-                Name = "Root",
+                Name = Category.RootName,
                 Title = "Корень",
                 IsCategoriesContainer = true,
                 SortNumber = id
