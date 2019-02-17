@@ -15,7 +15,7 @@ namespace Migrations
                 .WithColumn("Title").AsString(DbColumnSizes.Categories_Title).NotNullable()
                 .WithColumn("Description").AsMaxString().Nullable()
                 .WithColumn("Header").AsMaxString().Nullable()
-                .WithColumn("AreaRoot").AsBoolean().NotNullable()
+                .WithColumn("IsMain").AsBoolean().NotNullable()
                 .WithColumn("IsMaterialsContainer").AsBoolean().NotNullable()
                 .WithColumn("ParentId").AsInt32().Indexed().Nullable()
                 .ForeignKey("FK_Categories_Categories_ParentId", "Categories", "Id")

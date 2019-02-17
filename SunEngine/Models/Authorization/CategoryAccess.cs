@@ -13,7 +13,5 @@ namespace SunEngine.Models.Authorization
         public Category Category { get; set; }
 
         public ICollection<CategoryOperationAccess> CategoryOperationAccesses { get; set; }
-
-       
     }
 }
