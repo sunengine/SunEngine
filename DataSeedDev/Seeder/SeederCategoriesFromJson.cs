@@ -84,11 +84,11 @@ namespace DataSeedDev.Seeder
 
                 if (categoryToken["IsMain"] != null)
                 {
-                    category.IsSectionRoot = (bool) categoryToken["IsMain"];
+                    category.IsMain = (bool) categoryToken["IsMain"];
                 }
                 else
                 {
-                    category.IsSectionRoot = false;
+                    category.IsMain = false;
                 }
 
                 dataContainer.Categories.Add(category);

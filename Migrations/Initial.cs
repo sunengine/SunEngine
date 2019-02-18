@@ -9,9 +9,9 @@ namespace Migrations
     {
         public override void Up()
         {
-            Create.Table("CategorySectionType")
-                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("Name").AsString(DbColumnSizes.CategoryType_Name).NotNullable().Indexed();
+            //Create.Table("CategorySectionType")
+            //    .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+            //    .WithColumn("Name").AsString(DbColumnSizes.CategoryType_Name).NotNullable().Indexed();
             
             Create.Table("Categories")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()

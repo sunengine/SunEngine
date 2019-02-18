@@ -28,15 +28,15 @@ namespace SunEngine.Models
 
         public string Description { get; set; }
         
-        public int? SectionTypeId { get; set; }
-        public SectionType SectionType { get; set; }
+        //public int? SectionTypeId { get; set; }
+        //public SectionType SectionType { get; set; }
 
         /// <summary>
         /// Описание HTML сверху категории
         /// </summary>
         public string Header { get; set; }
 
-        public bool IsSectionRoot { get; set; }
+        public bool IsMain { get; set; }
 
         public int? ParentId { get; set; }
         public Category Parent { get; set; }

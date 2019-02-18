@@ -52,11 +52,11 @@ namespace SunEngine.Stores.CacheModels
             IsMaterialsContainer = category.IsMaterialsContainer;
             Description = category.Description;
             Header = category.Header;
-            IsSectionRoot = category.IsSectionRoot;
+            IsSectionRoot = category.IsMain;
             ParentId = category.ParentId;
             SortNumber = category.SortNumber;
             IsHidden = category.IsHidden;
-            SectionType = category.SectionType.Name;
+            //SectionType = category.SectionType.Name;
             _subCategories = new List<CategoryCached>();
             _allSubCategories = new List<CategoryCached>();
         }

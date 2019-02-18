@@ -23,7 +23,7 @@
 
 
 <style lang="stylus">
-  @import '~src/css/app';
+  @import '~css/app';
 
   .activity {
     @extend .margin-back;
