@@ -28,6 +28,9 @@ namespace SunEngine.Admin.Managers
 
         public async Task AddCategoryAsync(Category category)
         {
+            if(category == null)
+                throw new ArgumentNullException("Category can not be null");
+            
             category.Header = sanitizer.Sanitize(category.Header);
 
             var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.ParentId);
@@ -47,6 +50,9 @@ namespace SunEngine.Admin.Managers
         
         public async Task EditCategoryAsync(Category category)
         {
+            if(category == null)
+                throw new ArgumentNullException("Category can not be null");
+            
             Category сategoryExisted = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.Id);
             if(сategoryExisted == null)
                 throw new Exception("No category with " + category.Id + " id");  
