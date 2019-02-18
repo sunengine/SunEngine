@@ -52,7 +52,7 @@
         },
         "Microsoft.Data.Sqlite": {
           "target": "Package",
-          "version": "[2.2.1, )"
+          "version": "[2.2.2, )"
         },
         "Microsoft.Extensions.Configuration.Json": {
           "target": "Package",
