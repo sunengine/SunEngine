@@ -1,17 +1,20 @@
 
 export function setCategories(state, root) {
+
   state.root = root;
+  state.all = {};
+  buildStructureRecursive(root);
 
-  let all = {};
-
-  function deep(category, sectionType = null) {
+  function buildStructureRecursive(category, sectionType = null) {
 
     if (!category) {
       return;
     }
 
-    all[category.name] = category;
+    // Add to all
+    state.all[category.name] = category;
 
+    // Make section types
     if(category.sectionType) {
       sectionType = category.sectionType;
     }
@@ -22,15 +25,15 @@ export function setCategories(state, root) {
     if (!category.subCategories) {
       return;
     }
+
     for (let subCategory of category.subCategories) {
+
+      // Make parents
       subCategory.parent = category;
 
-      deep(subCategory, sectionType);
+      buildStructureRecursive(subCategory, sectionType);
     }
   }
-
-  deep(root);
-  state.all = all;
 }
 
 
