@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using SunEngine.Managers;
 using SunEngine.Presenters;
 using SunEngine.Stores;
@@ -8,6 +11,13 @@ namespace SunEngine.Controllers
     public class CategoriesController : BaseController
     {
         protected readonly ICategoriesPresenter categoriesPresenter;
+
+        private readonly JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            ContractResolver =  new CamelCasePropertyNamesContractResolver()
+        };
+
 
         public CategoriesController(
             IRolesCache rolesCache,
@@ -19,10 +29,10 @@ namespace SunEngine.Controllers
 
         [HttpPost]
         [HttpGet] // HttpGet - For pulse and testing 
-        public virtual CategoryInfoWithAccesses GetAllCategoriesAndAccesses()
+        public virtual IActionResult GetAllCategoriesAndAccesses()
         {
             var rez = categoriesPresenter.CategoryInfoWithAccessesFromCategory(User.Roles);
-            return rez;
+            return Json(rez, jsonSerializerSettings);
         }
     }
 }

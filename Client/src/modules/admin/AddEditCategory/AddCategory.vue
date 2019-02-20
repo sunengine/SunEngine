@@ -6,7 +6,7 @@
       <div class="btn-block">
         <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" label="Создать" @click="save"
                color="send">
-          <LoaderSent slot="loading"/>
+          <loader-sent slot="loading" />
         </q-btn>
         <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack('CategoriesAdmin')" label="Отмена" color="warning"/>
       </div>
@@ -17,10 +17,11 @@
 <script>
   import CategoryForm from "./CategoryForm";
   import Page from "Page";
+  import LoaderSent from "components/LoaderSent";
 
   export default {
     name: "AddCategory",
-    components: {CategoryForm},
+    components: {LoaderSent, CategoryForm},
     mixins: [Page],
     data: function () {
       return {
@@ -29,9 +30,11 @@
           title: "",
           description: "",
           header: "",
+          sectionTypeName: "unset",
           isMaterialsContainer: true,
           areaRoot: false,
-          parentId: 0
+          parentId: 0,
+          isHidden: false
         },
         loading: false
       }
@@ -50,7 +53,8 @@
         await this.$store.dispatch("request",
           {
             url: "/Admin/AdminCategories/AddCategory",
-            data: {...this.category}
+            data: this.category,
+            sendAsJson: true
           })
           .then(
             response => {

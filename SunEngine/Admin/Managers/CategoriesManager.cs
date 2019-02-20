@@ -26,6 +26,11 @@ namespace SunEngine.Admin.Managers
             this.categoriesCache = categoriesCache;
         }
 
+        public Task<SectionType> GetSectionTypeByNameAsync(string name)
+        {
+            return db.SectionTypes.FirstOrDefaultAsync(x => x.Name == name);
+        }
+        
         public async Task AddCategoryAsync(Category category)
         {
             if(category == null)
@@ -36,11 +41,8 @@ namespace SunEngine.Admin.Managers
             var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.ParentId);
             
             if (parent == null)
-                throw new Exception($"Parent category (id:{category.ParentId}) not found. Can not add category without parent");
+                throw new ParentCategoryNotFoundByIdException(category.ParentId);
             
-            if (!parent.IsCategoriesContainer)
-                throw new Exception("Can not add in MaterialContainer category type");
-
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 int id = await db.InsertWithInt32IdentityAsync(category);
@@ -58,17 +60,18 @@ namespace SunEngine.Admin.Managers
                 throw new Exception("No category with " + category.Id + " id");  
 
             var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.ParentId);
-            
-            if (!parent.IsCategoriesContainer)
-                throw new Exception("Can not place category in MaterialContainer category type");  
-            
+
+            if (parent == null)
+                throw new ParentCategoryNotFoundByIdException(category.ParentId);
+
             сategoryExisted.Name = category.Name;
             сategoryExisted.Title = category.Title;
             сategoryExisted.Header = sanitizer.Sanitize(category.Header);
             сategoryExisted.ParentId = parent.Id;
             сategoryExisted.IsHidden = category.IsHidden;
-            сategoryExisted.IsCategoriesContainer = category.IsCategoriesContainer;
+            сategoryExisted.IsMaterialsContainer = category.IsMaterialsContainer;
             сategoryExisted.AppendUrlToken = category.AppendUrlToken;
+            сategoryExisted.SectionTypeId = category.SectionTypeId;
             
             await db.UpdateAsync(сategoryExisted);
         }
@@ -123,6 +126,13 @@ namespace SunEngine.Admin.Managers
             }
             
             return ServiceResult.OkResult();
+        }
+    }
+
+    public class ParentCategoryNotFoundByIdException : Exception
+    {
+        public ParentCategoryNotFoundByIdException(int? parentId) : base($"Parent category (id:{parentId}) not found. Can not add category without parent")
+        {               
         }
     }
 }

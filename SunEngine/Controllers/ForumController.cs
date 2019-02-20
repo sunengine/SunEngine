@@ -48,7 +48,7 @@ namespace SunEngine.Controllers
                 return BadRequest();
             }
 
-            var allCategories = categoryParent.AllSubCategories.Where(x=>!x.IsCategoriesContainer);
+            var allCategories = categoryParent.AllSubCategories.Where(x=>x.IsMaterialsContainer);
 
             var categories =
                 authorizationService.GetAllowedCategories(User.Roles, allCategories,

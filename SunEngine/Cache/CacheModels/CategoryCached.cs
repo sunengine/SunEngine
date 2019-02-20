@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using SunEngine.Models;
 
 namespace SunEngine.Stores.CacheModels
@@ -15,8 +16,6 @@ namespace SunEngine.Stores.CacheModels
 
         public bool IsMaterialsContainer { get; }
 
-        public bool IsCategoriesContainer { get; }
-
         public string Description { get; }
 
         public string Header { get; }
@@ -25,9 +24,11 @@ namespace SunEngine.Stores.CacheModels
 
         public string Path { get; private set; }
 
-        public CategoryCached SectionRoot { get; private set; } 
-        
-        public SectionType SectionType { get; }
+        public CategoryCached SectionRoot { get; private set; }
+
+        public int? SectionTypeId { get; private set; }
+
+        public SectionTypeCached SectionType { get; private set; }
 
         public int? ParentId { get; }
         public CategoryCached Parent { get; private set; }
@@ -55,14 +56,13 @@ namespace SunEngine.Stores.CacheModels
             Name = category.Name;
             Title = category.Title;
             IsMaterialsContainer = category.IsMaterialsContainer;
-            IsCategoriesContainer = category.IsCategoriesContainer;
             Description = category.Description;
             Header = category.Header;
+            SectionTypeId = category.SectionTypeId;
             AppendUrlToken = category.AppendUrlToken;
             ParentId = category.ParentId;
             SortNumber = category.SortNumber;
             IsHidden = category.IsHidden;
-            SectionType = category.SectionType;
             _subCategories = new List<CategoryCached>();
             _allSubCategories = new List<CategoryCached>();
         }
@@ -96,8 +96,15 @@ namespace SunEngine.Stores.CacheModels
                 current = current.Parent;
             }
         }
-        
-        public void Init3InitSectionsRoots(CategoryCached sectionRoot = null)
+
+        public void Init3ISectionType(IReadOnlyDictionary<string, SectionTypeCached> sectionTypes)
+        {
+            if (SectionTypeId.HasValue)
+                SectionType = sectionTypes.Values.FirstOrDefault(x => x.Id == SectionTypeId.Value);
+        }
+
+
+        public void Init4InitSectionsRoots(CategoryCached sectionRoot = null)
         {
             if (initialized)
                 return;
@@ -106,17 +113,17 @@ namespace SunEngine.Stores.CacheModels
                 sectionRoot = this;
 
             SectionRoot = sectionRoot;
-            
+
             foreach (var category in _subCategories)
             {
-                category.Init3InitSectionsRoots(sectionRoot);
+                category.Init4InitSectionsRoots(sectionRoot);
             }
         }
 
         /// <summary>
         /// Должна запускаться только на Root, так как до других категорий доберётся через реккурсию
         /// </summary>
-        public void Init4PreparePaths()
+        public void Init5PreparePaths()
         {
             if (initialized)
                 return;
@@ -133,16 +140,16 @@ namespace SunEngine.Stores.CacheModels
 
             foreach (var category in _subCategories)
             {
-                category.Init4PreparePaths();
+                category.Init5PreparePaths();
             }
 
-            if (!AppendUrlToken  && Name != Category.RootName)
+            if (!AppendUrlToken && Name != Category.RootName)
             {
                 Path += "/" + Name.ToLower();
             }
         }
 
-        public void Init5SetListsAndBlockEditable()
+        public void Init6SetListsAndBlockEditable()
         {
             if (initialized)
                 return;
@@ -180,5 +187,19 @@ namespace SunEngine.Stores.CacheModels
 
             initialized = true;
         }*/
+    }
+
+    public class SectionTypeCached
+    {
+        public int Id { get; }
+        public string Name { get; }
+        public string Title { get; }
+
+        public SectionTypeCached(SectionType sectionType)
+        {
+            Id = sectionType.Id;
+            Name = sectionType.Name;
+            Title = sectionType.Title;
+        }
     }
 }

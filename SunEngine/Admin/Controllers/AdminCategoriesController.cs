@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Managers;
@@ -24,6 +26,15 @@ namespace SunEngine.Admin.Controllers
             this.categoriesManager = categoriesManager;
             this.categoriesAdminPresenter = categoriesAdminPresenter;
         }
+
+        [HttpPost]
+        public async Task<IActionResult> GetAllSectionTypes()
+        {
+            var sectionTypes = await categoriesAdminPresenter.GetAllSectionTypesAsync();
+
+            return Json(sectionTypes);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> GetCategory(int? id = null, string name = null)
@@ -55,11 +66,28 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCategory([FromBody] Category category)
+        public async Task<IActionResult> AddCategory([FromBody] CategoryRequestModel categoryData)
         {
             if (!ModelState.IsValid)
             {
                 return ValidationProblem();
+            }
+
+            var sectionType = categoriesCache.AllSectionTypes.ContainsKey(categoryData.SectionTypeName)
+                ? categoriesCache.AllSectionTypes[categoryData.SectionTypeName]
+                : null;
+
+            var category = categoryData.ToCategory();
+            category.SectionTypeId = sectionType?.Id;
+
+            if (!categoryData.AppendUrlToken.HasValue)
+            {
+                if (sectionType != null)
+                    category.AppendUrlToken = true;                
+            }
+            else
+            {
+                category.AppendUrlToken = categoryData.AppendUrlToken.Value;
             }
 
             await categoriesManager.AddCategoryAsync(category);
@@ -70,11 +98,28 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditCategory([FromBody] Category category)
+        public async Task<IActionResult> EditCategory([FromBody] CategoryRequestModel categoryData)
         {
             if (!ModelState.IsValid)
             {
                 return ValidationProblem();
+            }
+
+            var sectionType = categoriesCache.AllSectionTypes.ContainsKey(categoryData.SectionTypeName)
+                ? categoriesCache.AllSectionTypes[categoryData.SectionTypeName]
+                : null;
+
+            var category = categoryData.ToCategory();
+            category.SectionTypeId = sectionType?.Id;
+
+            if (!categoryData.AppendUrlToken.HasValue)
+            {
+                if (sectionType != null)
+                    category.AppendUrlToken = true;
+            }
+            else
+            {
+                category.AppendUrlToken = categoryData.AppendUrlToken.Value;
             }
 
             await categoriesManager.EditCategoryAsync(category);
@@ -113,6 +158,51 @@ namespace SunEngine.Admin.Controllers
         {
             categoriesCache.Reset();
             return Ok();
+        }
+    }
+
+    public class CategoryRequestModel
+    {
+        public int Id { get; set; }
+
+        [Required, MinLength(2), RegularExpression("^[a-zA-Z-]*$")]
+        public string Name { get; set; }
+
+        [Required, MinLength(3)] public string Title { get; set; }
+        public bool IsMaterialsContainer { get; set; }
+
+        public string Description { get; set; }
+
+        public string Header { get; set; }
+
+        public bool? AppendUrlToken { get; set; }
+
+        public string SectionTypeName { get; set; }
+
+        public int ParentId { get; set; }
+
+        public int SortNumber { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public bool IsHidden { get; set; }
+
+        public Category ToCategory()
+        {
+            return new Category
+            {
+                Id = Id,
+                Name = Name,
+                Title = Title,
+                IsMaterialsContainer = IsMaterialsContainer,
+                Description = Description,
+                Header = Header,
+                //AppendUrlToken = AppendUrlToken,
+                ParentId = ParentId,
+                SortNumber = SortNumber,
+                IsDeleted = IsDeleted,
+                IsHidden = IsHidden
+            };
         }
     }
 }

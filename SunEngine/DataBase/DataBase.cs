@@ -47,6 +47,7 @@ namespace SunEngine.DataBase
         public ITable<TagSynonymGroup> TagSynonyms => GetTable<TagSynonymGroup>();
         public ITable<TagMaterial> TagMaterials => GetTable<TagMaterial>();
 
+        public ITable<SectionType> SectionTypes => GetTable<SectionType>();
         public ITable<Category> Categories => GetTable<Category>();
         public IQueryable<Category> CategoriesVisible => GetTable<Category>().Where(x => !x.IsHidden && !x.IsDeleted);
 

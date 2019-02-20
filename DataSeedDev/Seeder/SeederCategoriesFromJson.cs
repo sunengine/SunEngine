@@ -70,11 +70,6 @@ namespace DataSeedDev.Seeder
                     SortNumber = id
                 };
 
-                if (categoryToken["IsCategoriesContainer"] != null)
-                {
-                    category.IsCategoriesContainer = (bool) categoryToken["IsCategoriesContainer"];
-                }
-
                 if (categoryToken["IsMaterialsContainer"] != null)
                 {
                     category.IsMaterialsContainer = (bool) categoryToken["IsMaterialsContainer"];

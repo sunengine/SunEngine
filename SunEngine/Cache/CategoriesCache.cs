@@ -12,12 +12,13 @@ namespace SunEngine.Stores
 {
     public interface ICategoriesCache : IMemoryCache
     {
+        IReadOnlyDictionary<string, SectionTypeCached> AllSectionTypes { get; }
         CategoryCached GetCategory(int id);
         CategoryCached GetCategory(string name);
         CategoryCached GetCategoryAreaRoot(CategoryCached category);
-        ImmutableDictionary<string, CategoryCached> AllCategories { get; }
+        IReadOnlyDictionary<string, CategoryCached> AllCategories { get; }
         CategoryCached RootCategory { get; }
-        Dictionary<string, CategoryCached> GetAllCategoriesIncludeSub(string categoriesList);
+        IDictionary<string, CategoryCached> GetAllCategoriesIncludeSub(string categoriesList);
     }
 
     public class CategoriesCache : ICategoriesCache
@@ -29,9 +30,24 @@ namespace SunEngine.Stores
             this.dataBaseFactory = dataBaseFactory;
         }
 
-        private ImmutableDictionary<string, CategoryCached> _allCategories;
+        private IReadOnlyDictionary<string, SectionTypeCached> _allSectionTypes;
 
-        public ImmutableDictionary<string, CategoryCached> AllCategories
+        public IReadOnlyDictionary<string, SectionTypeCached> AllSectionTypes
+        {
+            get
+            {
+                if (_allSectionTypes == null)
+                {
+                    Initialize();
+                }
+
+                return _allSectionTypes;
+            }
+        }
+
+        private IReadOnlyDictionary<string, CategoryCached> _allCategories;
+
+        public IReadOnlyDictionary<string, CategoryCached> AllCategories
         {
             get
             {
@@ -80,7 +96,7 @@ namespace SunEngine.Stores
             return current;
         }
 
-        public Dictionary<string, CategoryCached> GetAllCategoriesIncludeSub(string categoriesList)
+        public IDictionary<string, CategoryCached> GetAllCategoriesIncludeSub(string categoriesList)
         {
             Dictionary<string, CategoryCached> materialsCategoriesDic = new Dictionary<string, CategoryCached>();
 
@@ -115,8 +131,11 @@ namespace SunEngine.Stores
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-                var categories = db.Categories.LoadWith(x => x.SectionType).Select(x => new CategoryCached(x))
+                var categories = db.Categories.Select(x => new CategoryCached(x))
                     .ToDictionary(x => x.Id);
+
+                _allSectionTypes = db.SectionTypes
+                    .ToImmutableDictionary(x => x.Name, x => new SectionTypeCached(x));
 
                 foreach (var category in categories.Values)
                 {
@@ -127,14 +146,14 @@ namespace SunEngine.Stores
                 {
                     category.Init2AllSub();
                 }
-                
-                categories[1].Init3InitSectionsRoots();
-                categories[1].Init4PreparePaths();
+
+                categories[1].Init4InitSectionsRoots();
+                categories[1].Init5PreparePaths();
 
 
                 foreach (var category in categories.Values)
                 {
-                    category.Init5SetListsAndBlockEditable();
+                    category.Init6SetListsAndBlockEditable();
                 }
 
                 _allCategories = categories.Values.ToImmutableDictionary(x => FieldNormalizer.Normalize(x.Name));
@@ -146,9 +165,14 @@ namespace SunEngine.Stores
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-                var categories = await db.Categories.LoadWith(x => x.SectionType).Select(x => new CategoryCached(x))
+                var categories = await db.Categories.Select(x => new CategoryCached(x))
                     .ToDictionaryAsync(x => x.Id);
+                
+                _allSectionTypes = (await db.SectionTypes
+                    .ToDictionaryAsync(x => x.Name, x => new SectionTypeCached(x)))
+                    .ToImmutableDictionary();
 
+                
                 foreach (var category in categories.Values)
                 {
                     category.Init1ParentAndSub(categories);
@@ -159,12 +183,12 @@ namespace SunEngine.Stores
                     category.Init2AllSub();
                 }
 
-                categories[1].Init3InitSectionsRoots();
-                categories[1].Init4PreparePaths();
+                categories[1].Init4InitSectionsRoots();
+                categories[1].Init5PreparePaths();
 
                 foreach (var category in categories.Values)
                 {
-                    category.Init5SetListsAndBlockEditable();
+                    category.Init6SetListsAndBlockEditable();
                 }
 
                 _allCategories = categories.Values.ToImmutableDictionary(x => FieldNormalizer.Normalize(x.Name));

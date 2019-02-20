@@ -39,16 +39,19 @@
     </q-btn>
 
     <div class="q-mt-lg">
-      <div class="float-right text-green-9">
-        <div v-if="category.isMaterialsContainer">[Содержит материалы]</div>
-        <div v-else>[Содержит папки]</div>
-      </div>
+      <q-select v-if="sectionTypes" float-label="Тип категории" v-model="category.sectionTypeName" :options="sectionTypeOptions"/>
+      <LoaderWait v-else/>
+    </div>
 
-      <q-checkbox :toggle-indeterminate="false" v-model="category.isMaterialsContainer" label="Содержит материалы"/>
+    <div class="q-mt-lg">
+      <q-checkbox  :toggle-indeterminate="false" v-model="category.isMaterialsContainer" label="Содержит материалы"/>
     </div>
 
     <div class="q-my-sm">
-      <q-checkbox :toggle-indeterminate="false" v-model="category.areaRoot" label="Корневая категория"/>
+      <div class="float-right text-amber-8">
+        [использовать только если вы понимаете что это]
+      </div>
+      <q-checkbox toggle-indeterminate v-model="category.appendUrlToken" label="Добавлять в URL"/>
     </div>
     <div>
       <q-checkbox :toggle-indeterminate="false" v-model="category.isHidden" label="Спрятать"/>
@@ -61,8 +64,9 @@
   import MyEditor from "MyEditor";
   import MyTree from 'MyTree';
   import adminGetAllCategories from "services/adminGetAllCategories";
+  import LoaderWait from "components/LoaderWait";
 
-
+  const unset = "unset";
   const allowedChars = helpers.regex('allowedChars', /^[a-zA-Z0-9-]*$/)
 
   function GoDeep(category) {
@@ -79,22 +83,20 @@
       }
     }
 
-    if (category.isFolder) { // writable
-      return {
-        label: category.title,
-        value: category.id,
-        category: category,
-        children: children,
-        selectable: true,
-        header: 'normal'
-      };
-    }
+    return {
+      label: category.title,
+      value: category.id,
+      category: category,
+      children: children,
+      selectable: true,
+      header: 'normal'
+    };
   }
 
 
   export default {
     name: "CategoryForm",
-    components: {MyEditor, MyTree},
+    components: {LoaderWait, MyEditor, MyTree},
     props: {
       category: {
         type: Object,
@@ -106,6 +108,7 @@
         root: null,
         all: null,
         start: true,
+        sectionTypes: null
       }
     },
     validations: {
@@ -120,11 +123,19 @@
           minLength: minLength(3)
         },
         parentId: {
-          not0: x => x != 0
+          not0: x => x !== 0
         }
       }
     },
     computed: {
+      sectionTypeOptions() {
+        return [{label: "Без типа", value: unset}, ...this.sectionTypes?.map(x => {
+          return {
+            label: x.title,
+            value: x.name
+          }
+        })];
+      },
       parentCategoryTitle() {
         if (!this.category.parentId)
           return "Выберите родительскую категорию";
@@ -150,17 +161,27 @@
         if (!this.$v.category.title.minLength)
           return "Заголовок должен состоять не менее чем из 3 букв";
       }
-    }
-    ,
-    methods: {}
-    ,
+    },
+    methods: {},
     async created() {
+      if(!this.category.sectionTypeName)
+        this.category.sectionTypeName = unset;
+
       await adminGetAllCategories().then(
         data => {
           this.root = data.root;
           this.all = data.all;
         }
       );
+
+      await this.$store.dispatch("request",
+        {
+          url: "/Admin/AdminCategories/GetAllSectionTypes"
+        })
+        .then(response => {
+            this.sectionTypes = response.data;
+          }
+        );
     }
   }
 </script>

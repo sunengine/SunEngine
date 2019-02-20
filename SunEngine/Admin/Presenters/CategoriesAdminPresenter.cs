@@ -10,6 +10,7 @@ namespace SunEngine.Admin.Presenters
 {
     public interface ICategoriesAdminPresenter
     {
+        Task<SectionType[]> GetAllSectionTypesAsync();
         Task<CategoryAdminViewModel> GetCategoryAsync(int id);
         Task<CategoryAdminViewModel> GetCategoryAsync(string name);
         Task<CategoryAdminViewModel> GetAllCategoriesAsync();
@@ -21,15 +22,20 @@ namespace SunEngine.Admin.Presenters
         {
         }
 
+        public Task<SectionType[]> GetAllSectionTypesAsync()
+        {
+            return db.SectionTypes.OrderBy(x => x.Id).ToArrayAsync();
+        }
+
         public Task<CategoryAdminViewModel> GetCategoryAsync(int id)
         {
-            var query = db.Categories.Where(x => x.Id == id);
+            var query = db.Categories.LoadWith(x => x.SectionType).Where(x => x.Id == id);
             return GetCategoryByQueryAsync(query);
         }
 
         public Task<CategoryAdminViewModel> GetCategoryAsync(string name)
         {
-            var query = db.Categories.Where(x => x.Name == name);
+            var query = db.Categories.LoadWith(x => x.SectionType).Where(x => x.Name == name);
             return GetCategoryByQueryAsync(query);
         }
 
@@ -40,36 +46,40 @@ namespace SunEngine.Admin.Presenters
                 Id = x.Id,
                 Name = x.Name,
                 Title = x.Title,
-                IsFolder = x.IsCategoriesContainer,
-                Description = x.Description,
-                Header = x.Header,
-                AreaRoot = x.AppendUrlToken,
-                ParentId = x.ParentId,
-                SortNumber = x.SortNumber,
-                MaterialsCount = x.Materials.Count,
-                IsHidden = x.IsHidden,
-                IsDeleted = x.IsDeleted,
-            }).FirstOrDefaultAsync();
-        }
-
-        public async Task<CategoryAdminViewModel> GetAllCategoriesAsync()
-        {
-            var categories = await db.Categories.OrderBy(x => x.SortNumber).Select(x => new CategoryAdminViewModel
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Title = x.Title,
-                IsFolder = x.IsCategoriesContainer,
                 IsMaterialsContainer = x.IsMaterialsContainer,
                 Description = x.Description,
                 Header = x.Header,
-                AreaRoot = x.AppendUrlToken,
+                SectionTypeName = x.SectionType != null ? x.SectionType.Name : null,
+                SectionType = x.SectionType,
+                AppendUrlToken = x.AppendUrlToken,
                 ParentId = x.ParentId,
                 SortNumber = x.SortNumber,
                 MaterialsCount = x.Materials.Count,
                 IsHidden = x.IsHidden,
                 IsDeleted = x.IsDeleted
-            }).ToDictionaryAsync(x => x.Id);
+            }).FirstOrDefaultAsync();
+        }
+
+        public async Task<CategoryAdminViewModel> GetAllCategoriesAsync()
+        {
+            var categories = await db.Categories.LoadWith(x => x.SectionType)
+                .OrderBy(x => x.SortNumber).Select(x => new CategoryAdminViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Title = x.Title,
+                    IsMaterialsContainer = x.IsMaterialsContainer,
+                    Description = x.Description,
+                    Header = x.Header,
+                    SectionTypeName = x.SectionType != null ? x.SectionType.Name : null,
+                    SectionType = x.SectionType,
+                    AppendUrlToken = x.AppendUrlToken,
+                    ParentId = x.ParentId,
+                    SortNumber = x.SortNumber,
+                    MaterialsCount = x.Materials.Count,
+                    IsHidden = x.IsHidden,
+                    IsDeleted = x.IsDeleted
+                }).ToDictionaryAsync(x => x.Id);
 
             CategoryAdminViewModel root = null;
 
@@ -99,15 +109,17 @@ namespace SunEngine.Admin.Presenters
 
         public string Title { get; set; }
 
-        public bool IsFolder { get; set; }
-
         public bool IsMaterialsContainer { get; set; }
 
         public string Description { get; set; }
 
         public string Header { get; set; }
 
-        public bool AreaRoot { get; set; }
+        public string SectionTypeName { get; set; }
+
+        public SectionType SectionType { get; set; }
+
+        public bool AppendUrlToken { get; set; }
 
         public int? ParentId { get; set; }
 

@@ -12,14 +12,13 @@ namespace SunEngine.Models
 
         public int Id { get; set; }
 
-        [Required, MinLength(2), RegularExpression("^[a-zA-Z-]*$")]
+        //[Required, MinLength(2), RegularExpression("^[a-zA-Z-]*$")]
         public string Name { get; set; }
 
-        [Required, MinLength(3)] public string Title { get; set; }
+        //[Required, MinLength(3)] 
+        public string Title { get; set; }
 
         public bool IsMaterialsContainer { get; set; }
-
-        public bool IsCategoriesContainer { get; set; }
 
         public string Description { get; set; }
         

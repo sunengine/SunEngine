@@ -23,7 +23,6 @@ namespace Migrations
                 .WithColumn("AppendUrlToken").AsBoolean().NotNullable()
                 .WithColumn("SectionTypeId").AsInt32().Nullable()
                 .WithColumn("IsMaterialsContainer").AsBoolean().NotNullable()
-                .WithColumn("IsCategoriesContainer").AsBoolean().NotNullable()
                 .WithColumn("ParentId").AsInt32().Indexed().Nullable()
                 .ForeignKey("FK_Categories_Categories_ParentId", "Categories", "Id")
                 .WithColumn("SortNumber").AsInt32().NotNullable()

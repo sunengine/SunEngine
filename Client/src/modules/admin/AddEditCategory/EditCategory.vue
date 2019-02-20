@@ -19,11 +19,12 @@
 <script>
   import CategoryForm from "./CategoryForm";
   import LoaderWait from "LoaderWait";
+  import LoaderSent from "LoaderSent";
   import Page from "Page";
 
   export default {
     name: "EditCategory",
-    components: {LoaderWait, CategoryForm},
+    components: {LoaderWait, LoaderSent, CategoryForm},
     mixins: [Page],
     props: {
       categoryId: {
@@ -49,6 +50,10 @@
           .then(
             response => {
               this.category = response.data;
+                /*if(!this.category.sectionTypeName)
+                this.category.sectionTypeName = "unset";*/
+              if(!this.category.header)
+                this.category.header = "";
               this.loading = false;
             }).catch(x => {
             console.log("error", x);
@@ -63,9 +68,6 @@
         }
 
         this.loading = true;
-
-        let x = this.category;
-        debugger;
 
         await this.$store.dispatch("request",
           {

@@ -83,7 +83,7 @@ namespace SunEngine.Configuration
                 .AddJsonFormatters(options =>
                 {
                     options.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                    options.NullValueHandling = NullValueHandling.Ignore;
+                   // options.NullValueHandling = NullValueHandling.Ignore;
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

@@ -3,12 +3,10 @@
     "Name": "Forum2L",
     "Title": "Форум 2 уровня",
     "SectionType": "Forum",
-    "IsCategoriesContainer": true,
     "SubCategories": [
       {
         "Name": "ThreadF2L-[n]",
         "Title": "Раздел [n]",
-        "IsCategoriesContainer": true,
         "Repeat": 3,
         "SubCategories": [
           {

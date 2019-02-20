@@ -38,7 +38,7 @@ namespace SunEngine.Security.Authorization
         public bool CanAdd(IReadOnlyDictionary<string, RoleCached> userGroups,
             CategoryCached category)
         {
-            return !category.IsCategoriesContainer && authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialWrite);
+            return category.IsMaterialsContainer && authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialWrite);
         }
 
         public bool CanGet(IReadOnlyDictionary<string, RoleCached> roles, CategoryCached category)
@@ -164,7 +164,7 @@ namespace SunEngine.Security.Authorization
         public bool CanMove(MyClaimsPrincipal user, CategoryCached categoryFrom, CategoryCached categoryTo)
         {
             // Если модератор с правом перемещения материалов на обе категории то разрешаем
-            return !categoryTo.IsCategoriesContainer
+            return categoryTo.IsMaterialsContainer
                    && authorizationService.HasAccess(user.Roles, categoryFrom, OperationKeys.MaterialWrite)
                    && authorizationService.HasAccess(user.Roles, categoryTo, OperationKeys.MaterialWrite);
         }
