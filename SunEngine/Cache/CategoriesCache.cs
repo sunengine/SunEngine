@@ -73,7 +73,7 @@ namespace SunEngine.Stores
         public CategoryCached GetCategoryAreaRoot(CategoryCached category)
         {
             CategoryCached current = category;
-            while (!current.IsSectionRoot)
+            while (!current.AppendUrlToken)
             {
                 current = category.Parent;
             }
@@ -123,6 +123,8 @@ namespace SunEngine.Stores
                     category.Init1ParentAndSub(categories);
                 }
                 
+                categories[0].Init3PrepairPaths();
+                
                 foreach (var category in categories.Values)
                 {
                     category.Init2AllSub();
@@ -130,7 +132,7 @@ namespace SunEngine.Stores
                 
                 foreach (var category in categories.Values)
                 {
-                    category.Init3SetListsAndBlockEditable();
+                    category.Init4SetListsAndBlockEditable();
                 }
 
                 _allCategories = categories.Values.ToImmutableDictionary(x => FieldNormalizer.Normalize(x.Name));
@@ -154,9 +156,11 @@ namespace SunEngine.Stores
                     category.Init2AllSub();
                 }
                 
+                categories[0].Init3PrepairPaths();
+                
                 foreach (var category in categories.Values)
                 {
-                    category.Init3SetListsAndBlockEditable();
+                    category.Init4SetListsAndBlockEditable();
                 }
 
                 _allCategories = categories.Values.ToImmutableDictionary(x => FieldNormalizer.Normalize(x.Name));

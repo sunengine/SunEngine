@@ -14,15 +14,17 @@ namespace SunEngine.Stores.CacheModels
 
         public bool IsMaterialsContainer { get; }
 
-        public bool IsCategoriesContainer => !IsMaterialsContainer;
+        public bool IsCategoriesContainer { get; }
 
         public string Description { get; }
 
         public string Header { get; }
 
-        public bool IsSectionRoot { get; }
-        
-        public string SectionType { get; }
+        public bool AppendUrlToken { get; }
+
+        public string Path { get; private set; }
+
+        public SectionType SectionType { get; }
 
         public int? ParentId { get; }
         public CategoryCached Parent { get; private set; }
@@ -33,7 +35,7 @@ namespace SunEngine.Stores.CacheModels
 
         //public IReadOnlyDictionary<string, CategoryStored> AllSubCategoriesDic { get; private set; }
 
-        protected List<CategoryCached> _subCategories { get; private set; } 
+        protected List<CategoryCached> _subCategories { get; private set; }
 
         protected List<CategoryCached> _allSubCategories { get; private set; }
 
@@ -50,18 +52,18 @@ namespace SunEngine.Stores.CacheModels
             Name = category.Name;
             Title = category.Title;
             IsMaterialsContainer = category.IsMaterialsContainer;
+            IsCategoriesContainer = category.IsCategoriesContainer;
             Description = category.Description;
             Header = category.Header;
-            IsSectionRoot = category.AppendUrlToken;
+            AppendUrlToken = category.AppendUrlToken;
             ParentId = category.ParentId;
             SortNumber = category.SortNumber;
             IsHidden = category.IsHidden;
-            //SectionType = category.SectionType.Name;
+            SectionType = category.SectionType;
             _subCategories = new List<CategoryCached>();
             _allSubCategories = new List<CategoryCached>();
         }
 
-        
 
         public void Init1ParentAndSub(Dictionary<int, CategoryCached> allCategories)
         {
@@ -92,7 +94,28 @@ namespace SunEngine.Stores.CacheModels
             }
         }
 
-        public void Init3SetListsAndBlockEditable()
+        public void Init3PrepairPaths()
+        {
+            if (initialized)
+                return;
+
+            Path += "/" + Name;
+
+            if (AppendUrlToken)
+            {
+                foreach (var category in _subCategories)
+                {
+                    category.Path = Path;
+                }
+            }
+
+            foreach (var category in _subCategories)
+            {
+                category.Init3PrepairPaths();
+            }
+        }
+
+        public void Init4SetListsAndBlockEditable()
         {
             if (initialized)
                 return;
@@ -106,7 +129,7 @@ namespace SunEngine.Stores.CacheModels
 
             initialized = true;
         }
-        
+
         /*public void Init(CategoryStored parent, IReadOnlyList<CategoryStored> subCategories,
             IReadOnlyList<CategoryStored> allSubCategories)
         {

@@ -21,8 +21,8 @@ namespace SunEngine.Presenters
         protected readonly OperationKeysContainer OperationKeys;
 
         protected readonly IAuthorizationService authorizationService;
-        protected readonly ICategoriesCache CategoriesCache;
-        protected readonly IRolesCache RolesCache;
+        protected readonly ICategoriesCache categoriesCache;
+        protected readonly IRolesCache rolesCache;
 
         public CategoriesPresenter(IRolesCache rolesCache,
             ICategoriesCache categoriesCache,
@@ -32,21 +32,21 @@ namespace SunEngine.Presenters
             OperationKeys = operationKeysContainer;
 
             this.authorizationService = authorizationService;
-            this.CategoriesCache = categoriesCache;
-            this.RolesCache = rolesCache;
+            this.categoriesCache = categoriesCache;
+            this.rolesCache = rolesCache;
         }
 
         public virtual CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(
             IReadOnlyDictionary<string, RoleCached> roles)
         {
-            return CategoryInfoWithAccessesFromCategory(CategoriesCache.RootCategory, roles);
+            return CategoryInfoWithAccessesFromCategory(categoriesCache.RootCategory, roles);
         }
 
         public virtual CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(CategoryCached category,
             IReadOnlyDictionary<string, RoleCached> roles)
         {
             if (!authorizationService.HasAccess(roles, category,
-                    OperationKeys.MaterialAndMessagesRead) && category.Id != CategoriesCache.RootCategory.Id)
+                    OperationKeys.MaterialAndMessagesRead) && category.Id != categoriesCache.RootCategory.Id)
             {
                 return null;
             }
@@ -58,7 +58,8 @@ namespace SunEngine.Presenters
                 Title = category.Title,
                 Header = category.Header,
                 IsMaterialsContainer = category.IsMaterialsContainer,
-                IsMain = category.IsSectionRoot,
+                IsCategoriesContainer = category.IsCategoriesContainer,
+                AppendUrlToken = category.AppendUrlToken,
                 SortNumber = category.SortNumber,
                 IsHidden = category.IsHidden,
 
@@ -96,9 +97,9 @@ namespace SunEngine.Presenters
         protected Dictionary<string, bool> DetectPersonalAccesses(CategoryCached category,
             IReadOnlyDictionary<string, RoleCached> roles)
         {
-            Dictionary<string, bool> dict = new Dictionary<string, bool>(RolesCache.AllOperationKeys.Count);
+            Dictionary<string, bool> dict = new Dictionary<string, bool>(rolesCache.AllOperationKeys.Count);
 
-            foreach (var operationKey in RolesCache.AllOperationKeys)
+            foreach (var operationKey in rolesCache.AllOperationKeys)
             {
                 bool allow = authorizationService.HasAccess(roles, category,
                     operationKey.OperationKeyId);
@@ -119,13 +120,16 @@ namespace SunEngine.Presenters
         public string Name { get; set; }
         public string Title { get; set; }
         public string Header { get; set; }
-        public bool IsMain { get; set; }
+        public bool AppendUrlToken { get; set; }
         public int SortNumber { get; set; }
+        public SectionType SectionType { get; set; }
         public bool IsMaterialsContainer { get; set; }
+        public bool IsCategoriesContainer { get; set; }
         public bool IsHidden { get; set; }
 
         public Dictionary<string, bool> CategoryPersonalAccess { get; set; }
 
         public List<CategoryInfoWithAccesses> SubCategories { get; set; }
     }
+    
 }
