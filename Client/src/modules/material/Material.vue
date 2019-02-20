@@ -111,7 +111,7 @@
         return this.category.path;
       },
       canMessageWrite() {
-        return this.category.categoryPersonalAccess.MessageWrite;
+        return this.category.categoryPersonalAccess.messageWrite;
       },
       categoryPersonalAccess() {
         return this.category.categoryPersonalAccess;
@@ -125,18 +125,18 @@
         }
         const category = this.$store.getters.getCategory(this.material.categoryName);
 
-        if (category.categoryPersonalAccess.MaterialEditAny) {
+        if (category.categoryPersonalAccess.materialEditAny) {
           return true;
         }
         if (this.material.authorId != this.$store.state.auth.user.id) {
           return false;
         }
-        if (!category.categoryPersonalAccess.MaterialEditOwnIfHasReplies &&
+        if (!category.categoryPersonalAccess.materialEditOwnIfHasReplies &&
           this.messages.length >= 1 && !this.checkLastOwn(this.messages[0])
         ) {
           return false;
         }
-        if (!category.categoryPersonalAccess.MaterialEditOwnIfTimeNotExceeded) {
+        if (!category.categoryPersonalAccess.materialEditOwnIfTimeNotExceeded) {
           const now = new Date();
           const publish = this.material.publishDate;
           const til = date.addToDate(publish, {minutes: config.Materials.TimeToOwnEditInMinutes});
@@ -144,7 +144,7 @@
             return false;
           }
         }
-        if (category.categoryPersonalAccess.MaterialEditOwn) {
+        if (category.categoryPersonalAccess.materialEditOwn) {
           return true;
         }
         return false;
@@ -158,18 +158,18 @@
         }
         const category = this.$store.getters.getCategory(this.material.categoryName);
 
-        if (category.categoryPersonalAccess.MaterialDeleteAny) {
+        if (category.categoryPersonalAccess.materialDeleteAny) {
           return true;
         }
         if (this.material.authorId != this.$store.state.auth.user.id) {
           return false;
         }
-        if (!category.categoryPersonalAccess.MaterialDeleteOwnIfHasReplies &&
+        if (!category.categoryPersonalAccess.materialDeleteOwnIfHasReplies &&
           this.messages.length >= 1 && !this.checkLastOwn(this.messages[0])
         ) {
           return false;
         }
-        if (!category.categoryPersonalAccess.MaterialDeleteOwnIfTimeNotExceeded) {
+        if (!category.categoryPersonalAccess.materialDeleteOwnIfTimeNotExceeded) {
           const now = new Date();
           const publish = this.material.publishDate;
           const til = date.addToDate(publish, {minutes:  config.Materials.TimeToOwnDeleteInMinutes});
@@ -177,7 +177,7 @@
             return false;
           }
         }
-        if (category.categoryPersonalAccess.MaterialDeleteOwn) {
+        if (category.categoryPersonalAccess.materialDeleteOwn) {
           return true;
         }
         return false;

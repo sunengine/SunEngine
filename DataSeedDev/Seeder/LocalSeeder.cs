@@ -286,8 +286,18 @@ namespace DataSeedDev.Seeder
         {
             SeedRootCategory();
             SeedCategoriesFromDirectory();
+            DetectCategoriesParents();
         }
 
+        private void DetectCategoriesParents()
+        {
+            foreach (var category in dataContainer.Categories)
+            {
+                if (category.ParentId.HasValue)
+                    category.Parent = dataContainer.Categories.FirstOrDefault(x=>x.Id == category.ParentId.Value);
+            }
+        }
+        
         private void SeedRootCategory()
         {
             int id = dataContainer.NextCategoryId();

@@ -74,7 +74,7 @@
       }
       ,
       canAddArticle() {
-        return this.category?.categoryPersonalAccess?.MaterialWrite;
+        return this.category?.categoryPersonalAccess?.materialWrite;
       }
     }
     ,

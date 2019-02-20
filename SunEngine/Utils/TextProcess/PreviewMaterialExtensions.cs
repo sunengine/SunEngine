@@ -10,9 +10,9 @@ namespace SunEngine.Utils.TextProcess
     {
         public static void MakePreviewAndDescription(this Material material, int descriptionLength, int previewLength)
         {
-            var rez = MakePreviewAndDescription(material.Text, descriptionLength, previewLength);
-            material.Description = rez.description;
-            material.Preview = rez.preview;
+            var (preview, description) = MakePreviewAndDescription(material.Text, descriptionLength, previewLength);
+            material.Description = description;
+            material.Preview = preview;
         }
 
 

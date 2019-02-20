@@ -22,7 +22,7 @@ namespace DataSeedDev.Seeder
 
         private const int MinMaterialCount = 5;
         private const int MaxMaterialCount = 20;
-        
+
         private const int MaterialDescriptionLength = 80;
         private const int MaterialPreviewLength = 800;
 
@@ -72,8 +72,20 @@ namespace DataSeedDev.Seeder
                 LastActivity = publishDate
             };
 
-            material.MakePreviewAndDescription(MaterialDescriptionLength,MaterialPreviewLength);
-            
+            var (preview, description) = MaterialExtensions.MakePreviewAndDescription(material.Text,
+                MaterialDescriptionLength,
+                MaterialPreviewLength);
+
+            material.Preview = preview;
+
+            SectionType sectionType = category.GetSectionType();
+
+            if (sectionType != null && sectionType.Name == SectionTypeNames.Articles)
+                material.Description = "Описание материала: " + material.Title;
+            else
+                material.Description = description;
+
+
             if (messagesCount > 0)
             {
                 IList<Message> messages = MakeMessages(material, messagesCount);
@@ -83,7 +95,7 @@ namespace DataSeedDev.Seeder
 
                 material.LastActivity = messages.OrderByDescending(x => x.PublishDate).First().PublishDate;
                 material.MessagesCount = messages.Count;
-                
+
                 dataContainer.Messages.AddRange(messages);
             }
 
@@ -143,6 +155,23 @@ namespace DataSeedDev.Seeder
             }
 
             return sb.ToString();
+        }
+    }
+
+    public static class CategoryExtensions
+    {
+        public static SectionType GetSectionType(this Category category)
+        {
+            Category current = category;
+            while (current != null)
+            {
+                if (current.SectionType != null)
+                    return current.SectionType;
+
+                current = current.Parent;
+            }
+
+            return null;
         }
     }
 }

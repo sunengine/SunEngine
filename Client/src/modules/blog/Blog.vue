@@ -63,7 +63,7 @@
         return this.category.path;
       },
       canAddArticle() {
-        return this.category?.categoryPersonalAccess?.MaterialWrite;
+        return this.category?.categoryPersonalAccess?.materialWrite;
       },
       currentPage() {
         let page1 = this.$route.query?.["page"];

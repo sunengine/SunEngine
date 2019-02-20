@@ -147,6 +147,11 @@ namespace SunEngine.Stores
                     category.Init2AllSub();
                 }
 
+                foreach (var category in categories.Values)
+                {
+                    category.Init3ISectionType(_allSectionTypes);
+                }
+                
                 categories[1].Init4InitSectionsRoots();
                 categories[1].Init5PreparePaths();
 
@@ -181,6 +186,11 @@ namespace SunEngine.Stores
                 foreach (var category in categories.Values)
                 {
                     category.Init2AllSub();
+                }
+                
+                foreach (var category in categories.Values)
+                {
+                    category.Init3ISectionType(_allSectionTypes);
                 }
 
                 categories[1].Init4InitSectionsRoots();

@@ -28,13 +28,13 @@ namespace DataSeedDev.Seeder
             int i = 1;
             foreach (var categoryJson in categoriesJson)
             {
-                SeedCategory(dataContainer.RootCategory, categoryJson, new List<int>() {i++});
+                SeedCategory(dataContainer.RootCategory, categoryJson, new List<int> {i++});
             }
         }
 
         private readonly Regex regex = new Regex(@"\[n+\]");
 
-        private string PrepairText(string text, IList<int> numbers)
+        private string PrepareText(string text, IList<int> numbers)
         {
             if (text == null)
             {
@@ -64,9 +64,9 @@ namespace DataSeedDev.Seeder
                 {
                     Id = id,
                     ParentId = parent?.Id,
-                    Name = PrepairText((string) categoryToken["Name"], numbers),
-                    Title = PrepairText((string) categoryToken["Title"], numbers),
-                    Header = PrepairText((string) categoryToken["Header"], numbers),
+                    Name = PrepareText((string) categoryToken["Name"], numbers),
+                    Title = PrepareText((string) categoryToken["Title"], numbers),
+                    Header = PrepareText((string) categoryToken["Header"], numbers),
                     SortNumber = id
                 };
 
@@ -81,6 +81,7 @@ namespace DataSeedDev.Seeder
                     var sectionType =
                         dataContainer.SectionTypes.FirstOrDefault(x => x.Name == (string) sectionTypeName);
                     category.SectionTypeId = sectionType.Id;
+                    category.SectionType = sectionType;
                     category.AppendUrlToken = true;
                 }
 

@@ -89,7 +89,7 @@
         return this.category.path;
       },
       canAddTopic() {
-        return this.thread?.categoryPersonalAccess?.MaterialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;
+        return this.thread?.categoryPersonalAccess?.materialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;
       },
       currentPage() {
         let page1 = this.$route.query?.["page"];

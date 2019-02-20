@@ -60,16 +60,16 @@
         if (!this.$store.state.auth.user || !this.categoryPersonalAccess) {
           return false;
         }
-        if (this.categoryPersonalAccess.MessageEditAny) {
+        if (this.categoryPersonalAccess.messageEditAny) {
           return true;
         }
         if (this.message.authorId != this.$store.state.auth.user.id) {
           return false;
         }
-        if (!this.categoryPersonalAccess.MessageEditOwnIfHasReplies && !this.checkLastOwn(this.message)) {
+        if (!this.categoryPersonalAccess.messageEditOwnIfHasReplies && !this.checkLastOwn(this.message)) {
           return false;
         }
-        if (!this.categoryPersonalAccess.MessageEditOwnIfTimeNotExceeded) {
+        if (!this.categoryPersonalAccess.messageEditOwnIfTimeNotExceeded) {
           const now = new Date();
           const publish = this.message.publishDate;
           const til = date.addToDate(publish, {minutes: config.Materials.TimeToOwnEditInMinutes});
@@ -77,7 +77,7 @@
             return false;
           }
         }
-        if (this.categoryPersonalAccess.MessageEditOwn) {
+        if (this.categoryPersonalAccess.messageEditOwn) {
           return true;
         }
         return false;
@@ -86,16 +86,16 @@
         if (!this.$store.state.auth.user || !this.categoryPersonalAccess) {
           return false;
         }
-        if (this.categoryPersonalAccess.MessageDeleteAny) {
+        if (this.categoryPersonalAccess.messageDeleteAny) {
           return true;
         }
         if (this.message.authorId != this.$store.state.auth.user.id) {
           return false;
         }
-        if (!this.categoryPersonalAccess.MessageDeleteOwnIfHasReplies && !this.checkLastOwn(this.message)) {
+        if (!this.categoryPersonalAccess.messageDeleteOwnIfHasReplies && !this.checkLastOwn(this.message)) {
           return false;
         }
-        if (!this.categoryPersonalAccess.MessageDeleteOwnIfTimeNotExceeded) {
+        if (!this.categoryPersonalAccess.messageDeleteOwnIfTimeNotExceeded) {
           const now = new Date();
           const publish = this.message.publishDate;
           const til = date.addToDate(publish, {minutes: config.Materials.TimeToOwnDeleteInMinutes});
@@ -103,7 +103,7 @@
             return false;
           }
         }
-        if (this.categoryPersonalAccess.MessageDeleteOwn) {
+        if (this.categoryPersonalAccess.messageDeleteOwn) {
           return true;
         }
         return false;
