@@ -58,16 +58,16 @@
   export default {
     name: "TopicInThread",
     props: {
-      topic: Object,
-      rootCategoryPath: {
-        type: String,
-        required: true
-      }
+      topic: Object
     },
     computed: {
       path() {
-        return this.$buildPath(this.rootCategoryPath, this.topic.categoryName, this.topic.id);
+        return this.$buildPath(this.category.path, this.topic.id);
+      },
+      category() {
+        return this.$store.getters.getCategory(this.topic.categoryName);
       }
+
     }
   }
 </script>

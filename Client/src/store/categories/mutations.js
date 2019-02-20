@@ -1,5 +1,3 @@
-import Category from "Category";
-
 
 export function setCategories(state, root) {
   state.root = root;
@@ -16,9 +14,6 @@ function deep(all, category) {
   if (!category) {
     return;
   }
-
-  Object.setPrototypeOf(category,Category.prototype);
-
 
   all[category.name] = category;
   if (!category.subCategories) {

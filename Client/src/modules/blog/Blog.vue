@@ -16,7 +16,7 @@
     <div class="q-mb-md">
       <hr class="hr-sep margin-back"/>
       <div v-for="post in posts.items" :key="post.id">
-        <PostInList :startPath="startPathForPosts" :post="post" />
+        <PostInList :post="post" />
         <hr class="hr-sep margin-back"/>
       </div>
     </div>
@@ -60,7 +60,7 @@
     },
     computed: {
       startPathForPosts() {
-        return this.category.getPath(false);
+        return this.category.path;
       },
       canAddArticle() {
         return this.category?.categoryPersonalAccess?.MaterialWrite;

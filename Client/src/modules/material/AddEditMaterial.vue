@@ -187,7 +187,7 @@
             tags: this.material.tags.join(',')
           }
         }).then(response => {
-          this.$router.push(this.category.getPath());
+          this.$router.push(this.category.path);
         }).catch(error => {
           if (error.response.data.errorName == "SpamProtection") {
             this.$q.notify({
@@ -219,7 +219,7 @@
             tags: this.material.tags.join(',')
           }
         }).then(response => {
-          this.$router.push(this.category.getPath());
+          this.$router.push(this.category.path);
         }).catch(error => {
           this.loading = false;
         });

@@ -108,7 +108,7 @@
         return this.$store.getters.getCategory(this.categoryName);
       },
       categoryPath() {
-        return this.category.getPath();
+        return this.category.path;
       },
       canMessageWrite() {
         return this.category.categoryPersonalAccess.MessageWrite;
@@ -260,7 +260,7 @@
                 type: 'info',
                 position: 'top'
               });
-              this.$router.push(this.category.getPath(true));
+              this.$router.push(this.category.path);
             }).catch((x) => {
             console.log("error", x)
           });

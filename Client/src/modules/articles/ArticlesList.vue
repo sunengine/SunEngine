@@ -70,7 +70,7 @@
     ,
     computed: {
       articlesStartPath() {
-        return this.category?.getPath(true);
+        return this.category?.path;
       }
       ,
       canAddArticle() {

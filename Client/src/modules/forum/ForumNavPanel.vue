@@ -30,7 +30,7 @@
         return this.$store.getters.getCategory(this.categoryName);
       },
       newTopicsPath() {
-        return this.category.getPath(true);
+        return this.category.path;
       }
     }
   }

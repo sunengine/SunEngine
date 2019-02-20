@@ -2,7 +2,7 @@
   <q-list no-border dense v-if="subCategories" highlight>
     <template v-for="folder in subCategories">
       <q-list-header class="header" :key="folder.id">{{folder.title}}</q-list-header>
-      <q-item :to='$buildPath(path,category.name)' link multiline
+      <q-item :to='category.path' link multiline
               v-for="category in folder.subCategories"
               :key="category.id">
         <q-item-main :label="category.title">
@@ -29,9 +29,6 @@
       },
       category() {
         return this.$store.getters.getCategory(this.categoryName);
-      },
-      path() {
-        return this.category.getPath();
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <q-list no-border dense v-if="subCategories">
-    <q-item :to='$buildPath(path,category.name)' v-for="(category,index) in subCategories"
+    <q-item :to='category.path' v-for="(category,index) in subCategories"
             :key="category.id">
       <q-item-main :label="category.title">
 
@@ -30,9 +30,6 @@
       },
       category() {
         return this.$store.getters.getCategory(this.categoryName);
-      },
-      path() {
-        return this.category.getPath();
       }
     }
   }

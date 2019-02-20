@@ -61,7 +61,7 @@ const routes = [
       default: (route) => {
         return {categoryName: route.params.categoryName, id: +route.params.id}
       },
-      navigation: {categories: Categories1, categoryName: "Forum"}
+      navigation: {categories: Categories1, categoryName: "forum"}
     }
   },
   {

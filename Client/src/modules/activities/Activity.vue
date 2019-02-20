@@ -47,7 +47,7 @@
     computed: {
       path() {
         let category = this.$store.getters.getCategory(this.activity.categoryName);
-        let path = category.getPath() + "/" + this.activity.materialId;
+        let path = category.path + "/" + this.activity.materialId;
         if (this.activity.messageId)
           path += "#message-" + this.activity.messageId;
         return path;

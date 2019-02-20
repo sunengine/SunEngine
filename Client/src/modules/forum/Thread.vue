@@ -28,7 +28,7 @@
       <q-list no-border>
         <hr class="hr-sep margin-back"/>
         <div class="margin-back" v-for="topic in topics.items" :key="topic.id">
-          <TopicInThread :topic="topic" :rootCategoryPath="rootCategoryPath"/>
+          <TopicInThread :topic="topic" />
           <hr class="hr-sep"/>
         </div>
       </q-list>
@@ -74,7 +74,7 @@
     },
     computed: {
       rootCategoryPath() {
-        return this.thread.getPath(false);
+        return this.thread.path;
       },
       canAddTopic() {
         return this.thread?.categoryPersonalAccess?.MaterialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;

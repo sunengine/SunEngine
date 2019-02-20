@@ -46,17 +46,17 @@
   export default {
     name: "PostInList",
     props: {
-      post: Object,
-      startPath: {
-        type: String,
-        required: true
-      }
+      post: Object
     },
     computed: {
       path() {
-        return this.$buildPath(this.startPath, this.post.categoryName, this.post.id);
+        return this.$buildPath(this.category.path, this.post.id);
+      },
+      category() {
+        return this.$store.getters.getCategory(this.post.categoryName);
       }
     }
+
   }
 </script>
 
