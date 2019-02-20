@@ -4,11 +4,22 @@ namespace SunEngine.Utils.TextProcess
 {
     public static class SimpleHtmlToText
     {
-        static readonly Regex regex = new Regex("<.+?>|<.+?/>|\n|\t|<.*?$");
+        static readonly Regex regexTagsAndBreaks = new Regex("<.+?>|<.+?/>|\n|\t");
+        static readonly Regex regexTags = new Regex("<.+?>|<.+?/>");
+
         
-        public static string Convert(string htmlPart)
+        public static string ClearTagsAndBreaks(string htmlPart)
         {
-            return regex.Replace(htmlPart, " ").Trim();
+            if (string.IsNullOrWhiteSpace(htmlPart))
+                return null;
+            return regexTagsAndBreaks.Replace(htmlPart, " ").Trim();
+        }
+        
+        public static string ClearTags(string htmlPart)
+        {
+            if (string.IsNullOrWhiteSpace(htmlPart))
+                return null;
+            return regexTags.Replace(htmlPart, " ").Trim();
         }
     }
 }

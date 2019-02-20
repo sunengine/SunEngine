@@ -25,6 +25,7 @@ namespace SunEngine.Presenters
                 {
                     Id = x.Id,
                     Title = x.Title,
+                    Description = x.Description,
                     MessagesCount = x.MessagesCount,
                     AuthorName = x.Author.UserName,
                     PublishDate = x.PublishDate,
@@ -41,6 +42,7 @@ namespace SunEngine.Presenters
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string Description { get; set; }
         public string AuthorName { get; set; }
         public int MessagesCount { get; set; }
         public DateTime PublishDate { get; set; }

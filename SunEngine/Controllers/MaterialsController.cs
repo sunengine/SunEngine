@@ -1,6 +1,9 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SunEngine.DataBase;
 using SunEngine.Managers;
 using SunEngine.Models;
 using SunEngine.Models.Materials;
@@ -57,9 +60,9 @@ namespace SunEngine.Controllers
 
         [HttpPost]
         [UserSpamProtectionFilter(TimeoutSeconds = 60)]
-        public virtual async Task<IActionResult> Add(string categoryName, string title, string text, string tags = "")
+        public virtual async Task<IActionResult> Add(MaterialRequestModel materialData)
         {
-            var category = categoriesCache.GetCategory(categoryName);
+            var category = categoriesCache.GetCategory(materialData.CategoryName);
             if (category == null)
             {
                 return BadRequest();
@@ -74,57 +77,72 @@ namespace SunEngine.Controllers
 
             Material material = new Material
             {
-                Title = title,
-                Text = text,
+                Title = materialData.Title,
+                Text = materialData.text,
                 PublishDate = now,
                 LastActivity = now,
                 CategoryId = category.Id,
                 AuthorId = User.UserId
             };
 
-            await materialsManager.InsertAsync(material, tags);
+            bool isDescriptionEditable = category.IsDescriptionEditable();
+            if (isDescriptionEditable)
+            {
+                material.Description = materialData.Description;
+            }
+
+            await materialsManager.InsertAsync(material, materialData.Tags, isDescriptionEditable);
 
             return Ok();
         }
 
 
         [HttpPost]
-        public virtual async Task<IActionResult> Edit(int id, string categoryName, string title, string text,
-            string tags = "", DateTime? publishDate = null, int? authorId = null)
+        public virtual async Task<IActionResult> Edit(MaterialRequestModel materialEdited)
         {
-            Material material = await materialsManager.GetAsync(id);
-            if (material == null)
+            if (!ModelState.IsValid)
+            {
+                var ers = ModelState.Values.SelectMany(v => v.Errors);
+                return BadRequest(string.Join(",\n ",ers.Select(x=>x.ErrorMessage)));
+            }
+            
+            Material materialExisted = await materialsManager.GetAsync(materialEdited.Id);
+            if (materialExisted == null)
             {
                 return BadRequest();
             }
 
-            if (!await materialsAuthorization.CanEditAsync(User, material))
+            if (!await materialsAuthorization.CanEditAsync(User, materialExisted))
             {
                 return Unauthorized();
             }
 
-            var newCategory = categoriesCache.GetCategory(categoryName);
+            var newCategory = categoriesCache.GetCategory(materialEdited.CategoryName);
             if (newCategory == null)
             {
                 return BadRequest();
             }
 
-            material.Title = title;
-            material.Text = text;
-            material.EditDate = DateTime.UtcNow;
+            materialExisted.Title = materialEdited.Title;
+            materialExisted.Text = materialEdited.text;
+            materialExisted.EditDate = DateTime.UtcNow;
+            
+            bool isDescriptionEditable = newCategory.IsDescriptionEditable();
+            materialExisted.Description = isDescriptionEditable ? materialEdited.Description : null;
+            
 
             // Если категория новая, то обновляем
-            if (material.CategoryId != newCategory.Id)
+            if (materialExisted.CategoryId != newCategory.Id)
             {
                 if (materialsAuthorization.CanMove(User,
-                    categoriesCache.GetCategory(material.CategoryId),
+                    categoriesCache.GetCategory(materialExisted.CategoryId),
                     newCategory))
                 {
-                    material.CategoryId = newCategory.Id;
+                    materialExisted.CategoryId = newCategory.Id;
                 }
             }
 
-            await materialsManager.UpdateAsync(material, tags);
+            await materialsManager.UpdateAsync(materialExisted, materialEdited.Tags, isDescriptionEditable);
 
             return Ok();
         }
@@ -167,5 +185,23 @@ namespace SunEngine.Controllers
 
             return Ok();
         }*/
+    }
+
+    public class MaterialRequestModel
+    {
+        public int Id { get; set; }
+        public string CategoryName { get; set; }
+        [Required]
+        [MinLength(3)]
+        [MaxLength(DbColumnSizes.Materials_Title)]
+        public string Title { get; set; }
+        [MaxLength(DbColumnSizes.Materials_Description)]
+        public string Description { get; set; }
+        [Required]
+        public string text { get; set; }
+
+        public string Tags { get; set; } = "";
+        public DateTime? PublishDate { get; set; } = null;
+        public int? AuthorId { get; set; } = null;
     }
 }

@@ -1,13 +1,17 @@
 <template>
   <q-page class="q-pa-md">
     <template v-if="material">
-      <div>
-        <q-field :error="$v.material.title.$invalid && !start"
+        <q-field class="field" :error="$v.material.title.$invalid && !start"
                  :error-label="!$v.material.title.required ? 'Введите заголовок' : 'Минимальная длинна заголовка - 3'"
                  icon="fas fa-info-circle">
           <q-input v-model="$v.material.title.$model" float-label="Заголовок"/>
         </q-field>
-      </div>
+        <q-field class="q-mb-md" v-if="canEditDescription"
+                 icon="fas fa-info">
+          <q-input v-model="$v.material.description.$model" type="textarea"
+                   :error="$v.material.description.$invalid && !start"
+                   :error-label="descriptionErrorMessage" float-label="Короткое описание"/>
+        </q-field>
       <q-field :error="$v.material.text.$invalid && !start"
                :error-label="!$v.material.text.required ? 'Введите текст' : 'Минимальная длинна текста - 5'"
                icon="fas fa-edit">
@@ -46,7 +50,7 @@
           ref="htmlEditor" v-model="$v.material.text.$model"/>
 
       </q-field>
-      <q-field icon="fas fa-tags">
+      <q-field class="field" icon="fas fa-tags">
         <my-chips-input color="info" v-model="material.tags" float-label="Метки"/>
       </q-field>
       <q-field icon="fas fa-folder" :error="$v.material.categoryName.$invalid && !start"
@@ -91,7 +95,7 @@
   import MyChipsInput from "MyChipsInput";
   import LoaderSent from "LoaderSent";
   import LoaderWait from "LoaderWait";
-  import {required, minLength} from 'vuelidate/lib/validators'
+  import {required, minLength, maxLength} from 'vuelidate/lib/validators'
   import {GetWhereToMove, GetWhereToAdd} from './GetWhereToAddMove';
   import MyTree from 'MyTree';
   import htmlTextSizeOrHasImage from "HtmlTextSizeOrHasImage.js";
@@ -125,6 +129,12 @@
       }
     },
     computed: {
+      descriptionErrorMessage() {
+        return "Максимально допустимая длинна " + config.DbColumnSizes.Materials_Description;
+      },
+      canEditDescription() {
+        return this.category?.sectionType?.name  == 'Articles'
+      },
       where() {
         if (this.mode == ADD)
           return GetWhereToAdd(this.$store, this.categoryName);
@@ -158,6 +168,9 @@
         },
         categoryName: {
           required
+        },
+        description: {
+          maxLength: maxLength(config.DbColumnSizes.Materials_Description)
         }
       }
     },
@@ -170,7 +183,7 @@
           return;
         }
 
-        if (this.mode == ADD) {
+        if (this.mode === ADD) {
           await this.add();
         } else {
           await this.edit();
@@ -183,13 +196,14 @@
           data: {
             categoryName: this.material.categoryName,
             title: this.material.title,
+            description: this.material.description,
             text: this.material.text,
             tags: this.material.tags.join(',')
           }
         }).then(response => {
           this.$router.push(this.category.path);
         }).catch(error => {
-          if (error.response.data.errorName == "SpamProtection") {
+          if (error.response.data.errorName === "SpamProtection") {
             this.$q.notify({
               message: 'Нельзя так часто создавать материалы. Необходимо подождать.',
               timeout: 5000,
@@ -215,6 +229,7 @@
             id: this.id,
             categoryName: this.material.categoryName,
             title: this.material.title,
+            description: this.material.description,
             text: this.material.text,
             tags: this.material.tags.join(',')
           }
@@ -247,6 +262,7 @@
         this.material = {
           title: "",
           text: "",
+          description: "",
           tags: [],
           categoryName: this.category.isMaterialsContainer ? this.categoryName : ""
         }
@@ -267,6 +283,10 @@
   .btn-block {
     margin-top: 8px;
     margin-left: 28px + 16px;
+  }
+
+  .field {
+    height: 78px;
   }
 
 </style>

@@ -14,8 +14,8 @@ namespace SunEngine.Managers
     {
         Task<int?> GetMaterialCategoryIdAsync(int materialId);
         Task<Material> GetAsync(int id);
-        Task InsertAsync(Material material, string tags);
-        Task UpdateAsync(Material material, string tags);
+        Task InsertAsync(Material material, string tags, bool isDescriptionEditable);
+        Task UpdateAsync(Material material, string tags, bool isDescriptionEditable);
         Task MoveToTrashAsync(Material material);
         Task DetectAndSetLastMessageAndCountAsync(Material material);
         Task DetectAndSetLastMessageAndCountAsync(int materialId);
@@ -49,26 +49,47 @@ namespace SunEngine.Managers
             return db.Materials.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public virtual async Task InsertAsync(Material material, string tags)
+        public virtual async Task InsertAsync(Material material, string tags, bool isDescriptionEditable = false)
         {
             material.Text = sanitizer.Sanitize(material.Text);
 
-            material.MakePreviewAndDescription(materialsOptions.DescriptionLength,
+            var (preview, description) = MaterialExtensions.MakePreviewAndDescription(material.Text, materialsOptions.DescriptionLength,
                 materialsOptions.PreviewLength);
-
+            
+            material.Preview = preview;
+            
+            if (isDescriptionEditable)
+                material.Description = SimpleHtmlToText.ClearTags(sanitizer.Sanitize(material.Description));
+            else
+                material.Description = description; 
+                
+            
+            /*material.MakePreviewAndDescription(materialsOptions.DescriptionLength,
+                materialsOptions.PreviewLength);*/
+            
             material.Id = await db.InsertWithInt32IdentityAsync(material);
 
             await tagsManager.MaterialCreateAndSetTagsAsync(material, tags);
         }
 
-        public virtual async Task UpdateAsync(Material material, string tags)
+        public virtual async Task UpdateAsync(Material material, string tags, bool isDescriptionEditable = false)
         {
             material.Text =
                 sanitizer.Sanitize(material
                     .Text); // TODO сделать совместную валидацию, санитайзин и превью на основе одного DOM
 
-            material.MakePreviewAndDescription(materialsOptions.DescriptionLength,
+            var (preview, description) = MaterialExtensions.MakePreviewAndDescription(material.Text, materialsOptions.DescriptionLength,
                 materialsOptions.PreviewLength);
+
+            material.Preview = preview;
+            
+            if (isDescriptionEditable)
+                material.Description = SimpleHtmlToText.ClearTags(sanitizer.Sanitize(material.Description));
+            else
+                material.Description = description; 
+            
+            /*material.MakePreviewAndDescription(materialsOptions.DescriptionLength,
+                materialsOptions.PreviewLength);*/
 
             await db.UpdateAsync(material);
 

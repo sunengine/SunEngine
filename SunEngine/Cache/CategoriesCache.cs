@@ -22,7 +22,6 @@ namespace SunEngine.Stores
 
     public class CategoriesCache : ICategoriesCache
     {
-        
         private readonly IDataBaseFactory dataBaseFactory;
 
         public CategoriesCache(IDataBaseFactory dataBaseFactory)
@@ -91,7 +90,7 @@ namespace SunEngine.Stores
             foreach (var name in categoriesNames)
             {
                 CategoryCached category = GetCategory(name);
-                var allSub = category.AllSubCategories.ToDictionary(x=>x.Name,x=>x);
+                var allSub = category.AllSubCategories.ToDictionary(x => x.Name, x => x);
                 allSub.Add(category.Name, category);
 
                 foreach (var (key, value) in allSub)
@@ -116,23 +115,26 @@ namespace SunEngine.Stores
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-                var categories = db.Categories.Select(x => new CategoryCached(x)).ToDictionary(x => x.Id);
+                var categories = db.Categories.LoadWith(x => x.SectionType).Select(x => new CategoryCached(x))
+                    .ToDictionary(x => x.Id);
 
                 foreach (var category in categories.Values)
                 {
                     category.Init1ParentAndSub(categories);
                 }
-                
-                categories[1].Init3PreparePaths();
-                
+
                 foreach (var category in categories.Values)
                 {
                     category.Init2AllSub();
                 }
                 
+                categories[1].Init3InitSectionsRoots();
+                categories[1].Init4PreparePaths();
+
+
                 foreach (var category in categories.Values)
                 {
-                    category.Init4SetListsAndBlockEditable();
+                    category.Init5SetListsAndBlockEditable();
                 }
 
                 _allCategories = categories.Values.ToImmutableDictionary(x => FieldNormalizer.Normalize(x.Name));
@@ -144,23 +146,25 @@ namespace SunEngine.Stores
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-                var categories = await db.Categories.Select(x => new CategoryCached(x)).ToDictionaryAsync(x => x.Id);
+                var categories = await db.Categories.LoadWith(x => x.SectionType).Select(x => new CategoryCached(x))
+                    .ToDictionaryAsync(x => x.Id);
 
                 foreach (var category in categories.Values)
                 {
                     category.Init1ParentAndSub(categories);
                 }
-                
+
                 foreach (var category in categories.Values)
                 {
                     category.Init2AllSub();
                 }
-                
-                categories[1].Init3PreparePaths();
-                
+
+                categories[1].Init3InitSectionsRoots();
+                categories[1].Init4PreparePaths();
+
                 foreach (var category in categories.Values)
                 {
-                    category.Init4SetListsAndBlockEditable();
+                    category.Init5SetListsAndBlockEditable();
                 }
 
                 _allCategories = categories.Values.ToImmutableDictionary(x => FieldNormalizer.Normalize(x.Name));

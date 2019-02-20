@@ -68,7 +68,7 @@ namespace SunEngine.Presenters
                 }).ToListAsync();
 
             messagesActivities.ForEach(x =>
-                x.Description = SimpleHtmlToText.Convert(x.Description)
+                x.Description = SimpleHtmlToText.ClearTagsAndBreaks(x.Description)
                     .Substring(0, Math.Min(x.Description.Length, descriptionSize)));
 
             List<ActivityViewModel> allActivities = new List<ActivityViewModel>();

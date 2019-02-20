@@ -1,4 +1,3 @@
-
 const config = {
 
   API: 'http://localhost:5000',
@@ -23,6 +22,7 @@ const config = {
     Users_Link: 32,
     Materials_Name: 32,
     Materials_Title: 256,
+    Materials_Description: 256,
     Tags_Name: 64,
     Roles_Name: 64,
     Roles_Title: 64,

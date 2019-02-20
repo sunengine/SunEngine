@@ -25,6 +25,8 @@ namespace SunEngine.Stores.CacheModels
 
         public string Path { get; private set; }
 
+        public CategoryCached SectionRoot { get; private set; } 
+        
         public SectionType SectionType { get; }
 
         public int? ParentId { get; }
@@ -94,11 +96,27 @@ namespace SunEngine.Stores.CacheModels
                 current = current.Parent;
             }
         }
+        
+        public void Init3InitSectionsRoots(CategoryCached sectionRoot = null)
+        {
+            if (initialized)
+                return;
+
+            if (SectionType != null)
+                sectionRoot = this;
+
+            SectionRoot = sectionRoot;
+            
+            foreach (var category in _subCategories)
+            {
+                category.Init3InitSectionsRoots(sectionRoot);
+            }
+        }
 
         /// <summary>
         /// Должна запускаться только на Root, так как до других категорий доберётся через реккурсию
         /// </summary>
-        public void Init3PreparePaths()
+        public void Init4PreparePaths()
         {
             if (initialized)
                 return;
@@ -115,7 +133,7 @@ namespace SunEngine.Stores.CacheModels
 
             foreach (var category in _subCategories)
             {
-                category.Init3PreparePaths();
+                category.Init4PreparePaths();
             }
 
             if (!AppendUrlToken  && Name != Category.RootName)
@@ -124,7 +142,7 @@ namespace SunEngine.Stores.CacheModels
             }
         }
 
-        public void Init4SetListsAndBlockEditable()
+        public void Init5SetListsAndBlockEditable()
         {
             if (initialized)
                 return;
@@ -137,6 +155,17 @@ namespace SunEngine.Stores.CacheModels
             _subCategories = null;
 
             initialized = true;
+        }
+
+        public bool IsDescriptionEditable()
+        {
+            if (SectionRoot == null)
+                return false;
+
+            if (SectionRoot.SectionType == null)
+                throw new Exception("Impossible");
+
+            return SectionRoot.SectionType.Name == SectionTypeNames.Articles;
         }
 
         /*public void Init(CategoryStored parent, IReadOnlyList<CategoryStored> subCategories,

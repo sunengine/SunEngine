@@ -184,6 +184,7 @@ namespace Migrations
         public const int FileNameWithDirSize = 40;
         public const int Materials_Name = 32;
         public const int Materials_Title = 256;
+        public const int Materials_Description = 256;
         public const int Tags_Name = 64;
         public const int Roles_Name = 64;
         public const int Roles_Title = 64;

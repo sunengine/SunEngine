@@ -101,6 +101,8 @@ namespace SunEngine.DataBase
 
     public static class DbColumnSizes
     {
+        public const int SectionType_Name = 32;
+        public const int SectionType_Title = 64;
         public const int Categories_Name = 64;
         public const int Categories_Title = 256;
         public const int Users_UserName = 64;
@@ -109,6 +111,7 @@ namespace SunEngine.DataBase
         public const int FileNameWithDirSize = 40;
         public const int Materials_Name = 32;
         public const int Materials_Title = 256;
+        public const int Materials_Description = 256;
         public const int Tags_Name = 64;
         public const int Roles_Name = 64;
         public const int Roles_Title = 64;

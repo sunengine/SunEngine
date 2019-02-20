@@ -16,7 +16,7 @@ namespace SunEngine.Utils.TextProcess
         }
 
 
-        private static (string preview, string description) MakePreviewAndDescription(string html, int descriptionLength,
+        public static (string preview, string description) MakePreviewAndDescription(string html, int descriptionLength,
             int previewLength)
         {
             if (html == null)
