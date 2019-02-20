@@ -19,12 +19,7 @@ namespace SunEngine.Models
 
         public bool IsMaterialsContainer { get; set; }
 
-        [NotColumn]
-        public bool IsCategoriesContainer
-        {
-            get => !IsMaterialsContainer;
-            set => IsMaterialsContainer = !value;
-        }
+        public bool IsCategoriesContainer { get; set; }
 
         public string Description { get; set; }
         

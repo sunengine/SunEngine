@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using SunEngine.Models;
@@ -94,24 +95,32 @@ namespace SunEngine.Stores.CacheModels
             }
         }
 
-        public void Init3PrepairPaths()
+        /// <summary>
+        /// Должна запускаться только на Root, так как до других категорий доберётся через реккурсию
+        /// </summary>
+        public void Init3PreparePaths()
         {
             if (initialized)
                 return;
 
-            Path += "/" + Name;
-
-            if (AppendUrlToken)
+            if (AppendUrlToken && Name != Category.RootName)
             {
-                foreach (var category in _subCategories)
-                {
-                    category.Path = Path;
-                }
+                Path += "/" + Name.ToLower();
             }
 
             foreach (var category in _subCategories)
             {
-                category.Init3PrepairPaths();
+                category.Path = Path;
+            }
+
+            foreach (var category in _subCategories)
+            {
+                category.Init3PreparePaths();
+            }
+
+            if (!AppendUrlToken  && Name != Category.RootName)
+            {
+                Path += "/" + Name.ToLower();
             }
         }
 

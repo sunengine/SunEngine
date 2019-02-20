@@ -2,7 +2,7 @@
   {
     "Name": "Forum2L",
     "Title": "Форум 2 уровня",
-    "IsMain": true,
+    "SectionType": "Forum",
     "IsCategoriesContainer": true,
     "SubCategories": [
       {
@@ -14,7 +14,8 @@
           {
             "Name": "ThreadF2L-[nn]-[n]",
             "Title": "Раздел [nn] [n]",
-            "Repeat": 4
+            "Repeat": 4,
+            "IsMaterialsContainer": true
           }
         ]
       }     

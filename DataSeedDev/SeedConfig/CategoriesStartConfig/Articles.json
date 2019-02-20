@@ -2,7 +2,7 @@
   {
     "Name": "Articles",
     "Title": "Статьи",
-    "IsMain": true,
+    "SectionType": "Articles",
     "IsMaterialsContainer": true,
     "MaterialsCount": 35
   }

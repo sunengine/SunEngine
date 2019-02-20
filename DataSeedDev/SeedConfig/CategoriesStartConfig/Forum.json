@@ -2,41 +2,40 @@
   {
     "Name": "Forum",
     "Title": "Форум",
-    "IsMain": true,
-    "ChildrenType": "Categories",
+    "SectionType": "Forum",
     "IsCategoriesContainer": true,
     "SubCategories": [
       {
         "Name": "Thread[n]",
         "Title": "Раздел [n]",
-        "ChildrenType": "Materials",
+        "IsMaterialsContainer": true,
         "Repeat": 2
       },
       {
         "Name": "ThreadWithHeader",
         "Title": "Раздел с шапкой",
-        "ChildrenType": "Materials",
+        "IsMaterialsContainer": true,
         "Header": "<div style=\"background-color:#FFEBE3; padding:10px\">Шапка категории<br/>текст шапки, текст шапки<br/>текст шапки, текст шапки</div>"
       },
       {
         "Name": "NoAddMaterials",
         "Title": "Без добавления материалов",
-        "ChildrenType": "Materials",
+        "IsMaterialsContainer": true
       },
       {
         "Name": "NoAddMaterialsAndMessages",
         "Title": "Без добавления полное",
-        "ChildrenType": "Materials",
+        "IsMaterialsContainer": true
       },
       {
         "Name": "OnlyForRegisteredThread",
         "Title": "Только для зарегистрированных",
-        "ChildrenType": "Materials",
+        "IsMaterialsContainer": true
       },
       {
         "Name": "NoEditOwnThread",
         "Title": "Без редактирования своих",
-        "ChildrenType": "Materials",
+        "IsMaterialsContainer": true
       }
     ]
   }

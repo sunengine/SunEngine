@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
+using NJsonSchema.Infrastructure;
 using SunEngine.Models;
 
 namespace DataSeedDev.Seeder
@@ -70,32 +72,33 @@ namespace DataSeedDev.Seeder
 
                 if (categoryToken["IsCategoriesContainer"] != null)
                 {
-                    category.IsCategoriesContainer = (bool)categoryToken["IsCategoriesContainer"];
-                } 
-                else if (categoryToken["IsMaterialsContainer"] != null)
-                {
-                    category.IsMaterialsContainer = (bool)categoryToken["IsMaterialsContainer"];
-                }
-                else
-                {
-                    category.IsMaterialsContainer = true;
+                    category.IsCategoriesContainer = (bool) categoryToken["IsCategoriesContainer"];
                 }
 
-
-                if (categoryToken["IsMain"] != null)
+                if (categoryToken["IsMaterialsContainer"] != null)
                 {
-                    category.AppendUrlToken = (bool) categoryToken["IsMain"];
+                    category.IsMaterialsContainer = (bool) categoryToken["IsMaterialsContainer"];
                 }
-                else
+
+                var sectionTypeName = categoryToken["SectionType"];
+                if (sectionTypeName != null)
                 {
-                    category.AppendUrlToken = false;
+                    var sectionType =
+                        dataContainer.SectionTypes.FirstOrDefault(x => x.Name == (string) sectionTypeName);
+                    category.SectionTypeId = sectionType.Id;
+                    category.AppendUrlToken = true;
+                }
+
+                if (categoryToken["AppendUrlToken"] != null)
+                {
+                    category.AppendUrlToken = (bool) categoryToken["AppendUrlToken"];
                 }
 
                 dataContainer.Categories.Add(category);
 
                 if (categoryToken["SubCategories"] != null)
                 {
-                    var numbers1 = new List<int>() {1};
+                    var numbers1 = new List<int> {1};
                     numbers1.AddRange(numbers);
 
                     foreach (JToken subCategoryToken in (JArray) categoryToken["SubCategories"])
@@ -107,14 +110,14 @@ namespace DataSeedDev.Seeder
                 string linesCount = (string) categoryToken["MaterialLinesCount"];
                 int minLinesCount;
                 int maxLinesCount;
-                
+
                 if (linesCount != null)
                 {
                     string[] lineCountArr = linesCount.Split("-");
                     minLinesCount = int.Parse(lineCountArr[0]);
-                    maxLinesCount =  int.Parse(lineCountArr[1]);
+                    maxLinesCount = int.Parse(lineCountArr[1]);
                 }
-                
+
                 if (category.IsMaterialsContainer)
                 {
                     if (categoryToken["MaterialsCount"] != null)

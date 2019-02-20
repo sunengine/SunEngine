@@ -59,6 +59,8 @@ namespace SunEngine.Presenters
                 Header = category.Header,
                 IsMaterialsContainer = category.IsMaterialsContainer,
                 IsCategoriesContainer = category.IsCategoriesContainer,
+                SectionType = category.SectionType,
+                Path = category.Path,
                 AppendUrlToken = category.AppendUrlToken,
                 SortNumber = category.SortNumber,
                 IsHidden = category.IsHidden,
@@ -123,6 +125,7 @@ namespace SunEngine.Presenters
         public bool AppendUrlToken { get; set; }
         public int SortNumber { get; set; }
         public SectionType SectionType { get; set; }
+        public string Path { get; set; }
         public bool IsMaterialsContainer { get; set; }
         public bool IsCategoriesContainer { get; set; }
         public bool IsHidden { get; set; }

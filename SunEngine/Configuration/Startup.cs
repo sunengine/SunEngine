@@ -80,7 +80,11 @@ namespace SunEngine.Configuration
                 })
                 .AddApiExplorer()
                 .AddAuthorization()
-                .AddJsonFormatters(options => { options.DateTimeZoneHandling = DateTimeZoneHandling.Utc; })
+                .AddJsonFormatters(options =>
+                {
+                    options.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                    options.NullValueHandling = NullValueHandling.Ignore;
+                })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -94,12 +98,12 @@ namespace SunEngine.Configuration
             }
             else
             {
-                if (string.Equals(Configuration["showexceptionpages"],"true", StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(Configuration["showexceptionpages"], "true", StringComparison.OrdinalIgnoreCase))
                 {
                     Console.WriteLine("ShowExceptionPages");
                     app.UseDeveloperExceptionPage();
                 }
-                
+
                 app.UseHsts();
             }
 
@@ -127,7 +131,7 @@ namespace SunEngine.Configuration
                 routes.MapRoute(
                     name: "areaRoute",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}");

@@ -123,7 +123,7 @@ namespace SunEngine.Stores
                     category.Init1ParentAndSub(categories);
                 }
                 
-                categories[0].Init3PrepairPaths();
+                categories[1].Init3PreparePaths();
                 
                 foreach (var category in categories.Values)
                 {
@@ -156,7 +156,7 @@ namespace SunEngine.Stores
                     category.Init2AllSub();
                 }
                 
-                categories[0].Init3PrepairPaths();
+                categories[1].Init3PreparePaths();
                 
                 foreach (var category in categories.Values)
                 {
