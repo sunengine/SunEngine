@@ -133,7 +133,7 @@
         return "Максимально допустимая длинна " + config.DbColumnSizes.Materials_Description;
       },
       canEditDescription() {
-        return this.category?.sectionType?.name  == 'Articles'
+        return this.category?.sectionRoot?.sectionType?.name  == 'Articles';
       },
       where() {
         if (this.mode == ADD)
