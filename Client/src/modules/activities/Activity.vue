@@ -23,6 +23,10 @@
             {{activity.authorName}}
           </span>
           <span>
+            <q-icon name="far fa-folder"/>
+            {{category.title}}
+          </span>
+          <span>
             <q-icon name="far fa-clock"/>
             {{$formatDate(activity.publishDate)}}
           </span>
@@ -46,11 +50,13 @@
     },
     computed: {
       path() {
-        let category = this.$store.getters.getCategory(this.activity.categoryName);
-        let path = category.path + "/" + this.activity.materialId;
+        let path = this.category.path + "/" + this.activity.materialId;
         if (this.activity.messageId)
           path += "#message-" + this.activity.messageId;
         return path;
+      },
+      category() {
+        return this.$store.getters.getCategory(this.activity.categoryName);
       }
     }
   }
