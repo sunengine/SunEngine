@@ -52,7 +52,7 @@ namespace SunEngine.Stores.CacheModels
             IsMaterialsContainer = category.IsMaterialsContainer;
             Description = category.Description;
             Header = category.Header;
-            IsSectionRoot = category.IsMain;
+            IsSectionRoot = category.AppendUrlToken;
             ParentId = category.ParentId;
             SortNumber = category.SortNumber;
             IsHidden = category.IsHidden;

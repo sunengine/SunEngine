@@ -42,6 +42,10 @@ namespace DataSeedDev.Seeder
             
             SeedUsers();
             
+            Console.WriteLine("SectionTypes");
+
+            SeedSectionTypes();
+            
             Console.WriteLine("Categories");
             
             SeedCategories();
@@ -59,6 +63,33 @@ namespace DataSeedDev.Seeder
             return dataContainer;
         }
 
+        private void SeedSectionTypes()
+        {
+            SectionType sectionTypeArticles = new SectionType
+            {
+                Id = dataContainer.NextSectionTypeId(),
+                Name = "Articles",
+                Title = "Статьи"
+            };
+            dataContainer.SectionTypes.Add(sectionTypeArticles);
+            
+            SectionType sectionTypeForum = new SectionType
+            {
+                Id = dataContainer.NextSectionTypeId(),
+                Name = "Forum",
+                Title = "Форум"
+            };
+            dataContainer.SectionTypes.Add(sectionTypeForum);
+            
+            SectionType sectionTypeBlog = new SectionType
+            {
+                Id = dataContainer.NextSectionTypeId(),
+                Name = "Blog",
+                Title = "Блог"
+            };
+            dataContainer.SectionTypes.Add(sectionTypeBlog);
+        }
+        
         private void RegisterUsers()
         {
             Role registered = dataContainer.Roles.FirstOrDefault(x => x.Name == RoleNames.Registered);

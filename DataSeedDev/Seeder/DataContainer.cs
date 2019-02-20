@@ -9,6 +9,8 @@ namespace DataSeedDev.Seeder
     public class DataContainer
     {
         private int currentUserId = 1;
+        
+        private int currentSectionTypeId = 1;
 
         private int currentCategoryId = 1;
 
@@ -25,6 +27,7 @@ namespace DataSeedDev.Seeder
         private DateTime messagePublishDate = DateTime.UtcNow.AddMinutes(-3);
 
         public Category RootCategory;
+        public List<SectionType> SectionTypes = new List<SectionType>(); 
         public List<Category> Categories = new List<Category>();
         public List<Message> Messages = new List<Message>();
         public List<Material> Materials = new List<Material>();
@@ -35,7 +38,13 @@ namespace DataSeedDev.Seeder
         public List<CategoryOperationAccess> CategoryOperationAccesses = new List<CategoryOperationAccess>();
         public List<OperationKey> OperationKeys = new List<OperationKey>(); 
 
+
         public Random ran = new Random();
+        
+        public int NextSectionTypeId()
+        {
+            return currentSectionTypeId++;
+        }
         
         public int NextCategoryId()
         {

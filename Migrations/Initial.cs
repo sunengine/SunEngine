@@ -9,21 +9,24 @@ namespace Migrations
     {
         public override void Up()
         {
-            //Create.Table("CategorySectionType")
-            //    .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-            //    .WithColumn("Name").AsString(DbColumnSizes.CategoryType_Name).NotNullable().Indexed();
+            Create.Table("SectionTypes")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name").AsString(DbColumnSizes.SectionType_Name).NotNullable()
+                .WithColumn("Title").AsString(DbColumnSizes.SectionType_Title).NotNullable();
             
             Create.Table("Categories")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("Name").AsString(DbColumnSizes.Categories_Name).NotNullable().Indexed()
+                .WithColumn("Name").AsString(DbColumnSizes.Categories_Name).NotNullable()
                 .WithColumn("Title").AsString(DbColumnSizes.Categories_Title).NotNullable()
                 .WithColumn("Description").AsMaxString().Nullable()
                 .WithColumn("Header").AsMaxString().Nullable()
-                .WithColumn("IsMain").AsBoolean().NotNullable()
+                .WithColumn("AppendUrlToken").AsBoolean().NotNullable()
+                .WithColumn("SectionTypeId").AsInt32().Nullable()
                 .WithColumn("IsMaterialsContainer").AsBoolean().NotNullable()
+                .WithColumn("IsCategoriesContainer").AsBoolean().NotNullable()
                 .WithColumn("ParentId").AsInt32().Indexed().Nullable()
                 .ForeignKey("FK_Categories_Categories_ParentId", "Categories", "Id")
-                .WithColumn("SortNumber").AsInt32().NotNullable().Indexed()
+                .WithColumn("SortNumber").AsInt32().NotNullable()
                 .WithColumn("IsHidden").AsBoolean().NotNullable()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable();
 
@@ -171,7 +174,8 @@ namespace Migrations
     
     internal static class DbColumnSizes
     {
-        public const int CategoryType_Name = 32;
+        public const int SectionType_Name = 32;
+        public const int SectionType_Title = 64;
         public const int Categories_Name = 64;
         public const int Categories_Title = 256;
         public const int Users_UserName = 64;

@@ -36,7 +36,10 @@ namespace SunEngine.Models
         /// </summary>
         public string Header { get; set; }
 
-        public bool IsMain { get; set; }
+        public bool AppendUrlToken { get; set; }
+        
+        public int? SectionTypeId { get; set; }
+        public SectionType SectionType { get; set; }
 
         public int? ParentId { get; set; }
         public Category Parent { get; set; }
@@ -57,6 +60,7 @@ namespace SunEngine.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Title { get; set; }
     }
 
     public static class SectionTypeNames
