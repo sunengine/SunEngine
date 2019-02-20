@@ -133,10 +133,10 @@
         return "Максимально допустимая длинна " + config.DbColumnSizes.Materials_Description;
       },
       canEditDescription() {
-        return this.category?.sectionRoot?.sectionType?.name  == 'Articles';
+        return this.category?.sectionType?.name  === 'Articles';
       },
       where() {
-        if (this.mode == ADD)
+        if (this.mode === ADD)
           return GetWhereToAdd(this.$store, this.categoryName);
         else
           return GetWhereToMove(this.$store);
@@ -148,7 +148,7 @@
           return this.$store.getters.getCategory(this.material.categoryName);
       },
       categoryTitle() {
-        if (this.material.categoryName == "") {
+        if (!this.material.categoryName) {
           return "Выберите раздел";
         }
         return "Раздел: " + this.category.title;

@@ -4,7 +4,7 @@ export function setCategories(state, root) {
 
   let all = {};
 
-  function deep(category, sectionRoot = null) {
+  function deep(category, sectionType = null) {
 
     if (!category) {
       return;
@@ -13,9 +13,11 @@ export function setCategories(state, root) {
     all[category.name] = category;
 
     if(category.sectionType) {
-      sectionRoot = category;
+      sectionType = category.sectionType;
     }
-    category.sectionRoot = sectionRoot;
+    else {
+      category.sectionType = sectionType;
+    }
 
     if (!category.subCategories) {
       return;
@@ -23,7 +25,7 @@ export function setCategories(state, root) {
     for (let subCategory of category.subCategories) {
       subCategory.parent = category;
 
-      deep(subCategory, sectionRoot);
+      deep(subCategory, sectionType);
     }
   }
 
