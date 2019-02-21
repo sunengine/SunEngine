@@ -131,7 +131,7 @@ namespace SunEngine.Stores
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-                var categories = db.Categories.Select(x => new CategoryCached(x))
+                var categories = db.CategoriesNotDeleted.Select(x => new CategoryCached(x))
                     .ToDictionary(x => x.Id);
 
                 _allSectionTypes = db.SectionTypes
@@ -170,7 +170,7 @@ namespace SunEngine.Stores
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-                var categories = await db.Categories.Select(x => new CategoryCached(x))
+                var categories = await db.CategoriesNotDeleted.Select(x => new CategoryCached(x))
                     .ToDictionaryAsync(x => x.Id);
                 
                 _allSectionTypes = (await db.SectionTypes

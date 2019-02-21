@@ -2,31 +2,37 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using SunEngine.Configuration.Options;
 using SunEngine.DataBase;
 using SunEngine.Security.Authentication;
 using SunEngine.Stores;
 
 namespace SunEngine.Scheduler
 {
-    public class CleanCacheJob : IHostedService
+    public class CleanCacheJobs : IHostedService
     {
         private readonly SpamProtectionCache spamProtectionCache;
         private readonly JwtBlackListService jwtBlackListService;
         private readonly IDataBaseFactory dbFactory;
+        private readonly SchedulerOptions schedulerOptions;
+        
 
         private Timer timerSpamProtectionCache;
         private Timer timerJwtBlackListService;
         private Timer timerLongSessionsClearer;
 
 
-        public CleanCacheJob(
+        public CleanCacheJobs(
             IDataBaseFactory dbFactory,
             SpamProtectionCache spamProtectionCache,
+            IOptions<SchedulerOptions> schedulerOptions,
             JwtBlackListService jwtBlackListService)
         {
             this.dbFactory = dbFactory;
             this.spamProtectionCache = spamProtectionCache;
             this.jwtBlackListService = jwtBlackListService;
+            this.schedulerOptions = schedulerOptions.Value;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -36,13 +42,13 @@ namespace SunEngine.Scheduler
             {
                 Console.WriteLine("SpamProtectionCache.RemoveExpired");
                 spamProtectionCache.RemoveExpired();
-            }, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
+            }, null, TimeSpan.Zero, TimeSpan.FromMinutes(schedulerOptions.SpamProtectionCacheClearMinutes));
 
             timerJwtBlackListService = new Timer(_ =>
             {
                 Console.WriteLine("JwtBlackListService.RemoveExpired");
                 jwtBlackListService.RemoveExpired();
-            }, null, TimeSpan.Zero, TimeSpan.FromSeconds(12));
+            }, null, TimeSpan.Zero, TimeSpan.FromMinutes(schedulerOptions.JwtBlackListServiceClearMinutes));
 
             timerLongSessionsClearer = new Timer(_ =>
             {
@@ -51,7 +57,7 @@ namespace SunEngine.Scheduler
                 {
                     LongSessionsClearer.ClearExpiredLongSessions(db);
                 }
-            }, null, TimeSpan.Zero, TimeSpan.FromSeconds(14));
+            }, null, TimeSpan.Zero, TimeSpan.FromDays(schedulerOptions.LongSessionsClearDays));
 
             return Task.CompletedTask;
         }

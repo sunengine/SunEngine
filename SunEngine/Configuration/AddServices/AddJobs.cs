@@ -8,7 +8,7 @@ namespace SunEngine.Configuration.AddServices
     {
         public static void AddJobs(this IServiceCollection services)
         {
-            services.AddHostedService<CleanCacheJob>();
+            services.AddHostedService<CleanCacheJobs>();
         }
     }
 }

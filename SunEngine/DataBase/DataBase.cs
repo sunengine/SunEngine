@@ -38,10 +38,14 @@ namespace SunEngine.DataBase
         }
 
         public ITable<Material> Materials => GetTable<Material>();
-        public IQueryable<Material> MaterialsNotDeleted => GetTable<Material>().Where(x => !x.IsDeleted);
+
+        public IQueryable<Material> MaterialsNotDeleted =>
+            GetTable<Material>().Where(x => !x.IsDeleted && !x.Category.IsDeleted);
 
         public ITable<Message> Messages => GetTable<Message>();
-        public IQueryable<Message> MessagesNotDeleted => GetTable<Message>().Where(x => !x.IsDeleted);
+
+        public IQueryable<Message> MessagesNotDeleted =>
+            GetTable<Message>().Where(x => !x.IsDeleted && !x.Material.Category.IsDeleted);
 
         public ITable<Tag> Tags => GetTable<Tag>();
         public ITable<TagSynonymGroup> TagSynonyms => GetTable<TagSynonymGroup>();
@@ -49,6 +53,7 @@ namespace SunEngine.DataBase
 
         public ITable<SectionType> SectionTypes => GetTable<SectionType>();
         public ITable<Category> Categories => GetTable<Category>();
+        public IQueryable<Category> CategoriesNotDeleted => GetTable<Category>().Where(x => !x.IsDeleted);
         public IQueryable<Category> CategoriesVisible => GetTable<Category>().Where(x => !x.IsHidden && !x.IsDeleted);
 
 
@@ -63,9 +68,8 @@ namespace SunEngine.DataBase
         public ITable<UserBanedUnit> UserBanedUnits => GetTable<UserBanedUnit>();
 
         public ITable<LongSession> LongSessions => GetTable<LongSession>();
-        
-        public ITable<BlackListShortToken> BlackListShortTokens => GetTable<BlackListShortToken>();
 
+        public ITable<BlackListShortToken> BlackListShortTokens => GetTable<BlackListShortToken>();
 
 
         public void UpdateSequence(string tableName, string keyName)

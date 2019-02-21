@@ -20,6 +20,7 @@ namespace SunEngine.Configuration.AddServices
             services.Configure<ImagesOptions>(configuration.GetSection("Images"));
             services.Configure<DataBaseConnectionOptions>(configuration.GetSection("DataBaseConnection"));
             services.Configure<CaptchaOptions>(configuration.GetSection("Captcha"));
+            services.Configure<SchedulerOptions>(configuration.GetSection("Scheduler"));
         }
     }
 }
