@@ -67,6 +67,8 @@ namespace SunEngine.Configuration
             services.AddImagesServices();
 
             services.AddUrlHelper();
+            
+            services.AddJobs();
 
             services.AddScoped<IAccountService, AccountService>();
             services.AddSingleton<CaptchaService>();

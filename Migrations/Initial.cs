@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using FluentMigrator;
 using FluentMigrator.Builders.Create.Table;
 
@@ -13,7 +14,7 @@ namespace Migrations
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(DbColumnSizes.SectionType_Name).NotNullable()
                 .WithColumn("Title").AsString(DbColumnSizes.SectionType_Title).NotNullable();
-            
+
             Create.Table("Categories")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(DbColumnSizes.Categories_Name).NotNullable()
@@ -83,7 +84,7 @@ namespace Migrations
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Text").AsMaxString().NotNullable()
                 .WithColumn("MaterialId").AsInt32().NotNullable().Indexed()
-                .ForeignKey("FK_Messages_Materials_MaterialId", "Materials", "Id")
+                .ForeignKey("FK_Messages_Materials_MaterialId", "Materials", "Id").OnDelete(Rule.Cascade)
                 .WithColumn("AuthorId").AsInt32().Indexed().Nullable()
                 .ForeignKey("FK_Messages_AspNetUsers_AuthorId", "AspNetUsers", "Id")
                 .WithColumn("PublishDate").AsMyDateTime().NotNullable().Indexed()
@@ -161,7 +162,6 @@ namespace Migrations
             Create.Table("BlackListShortTokens")
                 .WithColumn("TokenId").AsString(DbColumnSizes.BlackListShortToken_TokenId).PrimaryKey().NotNullable()
                 .WithColumn("Expire").AsMyDateTime().Indexed().NotNullable();
-
         }
 
 
@@ -170,7 +170,7 @@ namespace Migrations
             throw new NotImplementedException();
         }
     }
-    
+
     internal static class DbColumnSizes
     {
         public const int SectionType_Name = 32;
@@ -191,7 +191,6 @@ namespace Migrations
         public const int LongSessions_LongToken1 = 16;
         public const int LongSessions_LongToken2 = 16;
         public const int BlackListShortToken_TokenId = 16;
-
     }
 
     internal static class MigratorExtensions
@@ -207,7 +206,7 @@ namespace Migrations
         {
             if (!DBProvider.IsPostgre)
                 return createTableColumnAsTypeSyntax.AsDateTime();
-            
+
             return createTableColumnAsTypeSyntax.AsCustom("TimestampTz");
         }
     }

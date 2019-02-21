@@ -99,8 +99,11 @@ namespace SunEngine.Security.Authentication
             tokens = null;
         }
 
-        private void RemoveExpired()
+        public void RemoveExpired()
         {
+            if (tokens == null)
+                return;
+            
             DateTime now = DateTime.UtcNow;
             int deletedNumber = 0;
             foreach (var (key, value) in tokens.ToArray())

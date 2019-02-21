@@ -11,18 +11,8 @@ namespace SunEngine.Stores
 
         protected int cycle = 0;
 
-        private void NextTick()
-        {
-            if (++cycle > 100)
-            {
-                RemoveExpired();
-                cycle = 0;
-            }
-        }
-
         public RequestFree Find(string key)
         {
-            NextTick();
             Requests.TryGetValue(key, out var requestFree);
             return requestFree;
         }

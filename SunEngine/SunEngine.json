@@ -58,6 +58,11 @@
     "Issuer": "SunEngine Asp.net Core",
     "SecurityKeyEmailChange": "f29aa7cf-229d-4187-9244-e700e8e8d207"
   },
+  "Scheduler": {
+    "SpamProtectionCacheClearMinutes": 8,
+    "JwtBlackListServiceClearMinutes": 60,
+    "LongSessionsClearDays": 1
+  },
   "Email": {
     "SmtpConfig": "username:password@127.0.0.1:1025",
     "EmailFromName": "SunEngine",

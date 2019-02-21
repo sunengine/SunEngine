@@ -4,7 +4,7 @@
   "description": "SunEngine",
   "productName": "SunEngine",
   "author": "Dmitrii Polianin",
-  "private": true,
+  "private": false,
   "dependencies": {
     "axios": "^0.18.0",
     "vuelidate": "^0.7.4",

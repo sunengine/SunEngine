@@ -55,11 +55,7 @@ namespace SunEngine.Security.Authorization
         };
 
 
-        public Task ClearExpiredLongSeesionsAsync()
-        {
-            var now = DateTime.UtcNow;
-            return db.LongSessions.Where(x => x.ExpirationDate <= now).DeleteAsync();
-        }
+        
         
         public async Task<MyClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, int userId,
             LongSession longSession = null)
