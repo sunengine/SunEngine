@@ -9,6 +9,8 @@
       <p>Пароль: <span class="hl">password</span></p>
       <p>При регистрации и других операциях с почтой можете указывать любой почтовый ящик, например '<span class="hl">ooo@ooo.ru</span>',
         почта будет отправляться на mailcatcher <a target="_blank" href="http://demo.sunengine.site:1444">сюда</a>.</p>
+      <p class="ver q-mb-xl">Версия: 0.8.17</p>
+
     </div>
   </q-page>
 </template>
@@ -33,11 +35,16 @@
 
   h1 {
     color: $primary;
-    margin: 0 0 30px 0;
+    margin: 0 0 40px;
     font-family: "BoomBoomRegular";
     letter-spacing: 2px;
   }
 
+  .ver {
+   // font-weight: bold;
+    color: $primary;
+   // color: $tertiary !important;
+  }
 
   .p1 p {
     margin: 4px 0;
