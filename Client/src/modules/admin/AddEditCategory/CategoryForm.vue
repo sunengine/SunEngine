@@ -48,10 +48,11 @@
     </div>
 
     <div class="q-my-sm">
-      <div class="float-right text-amber-8">
-        [использовать только если вы понимаете что это]
-      </div>
+
       <q-checkbox toggle-indeterminate v-model="category.appendUrlToken" label="Добавлять в URL"/>
+      <span class="text-amber-8 q-ml-md">
+        (использовать только если вы понимаете что это)
+      </span>
     </div>
     <div>
       <q-checkbox :toggle-indeterminate="false" v-model="category.isHidden" label="Спрятать"/>

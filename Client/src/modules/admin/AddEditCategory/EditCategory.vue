@@ -4,6 +4,10 @@
       <CategoryForm ref="form" :category="category"/>
 
       <div class="btn-block">
+        <q-btn no-caps icon="fas fa-trash-alt" class="float-right" @click="tryDelete"
+               label="Удалить категорию"
+               color="negative"/>
+
         <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" label="Сохранить" @click="save"
                color="send">
           <LoaderSent slot="loading"/>
@@ -39,6 +43,38 @@
       }
     },
     methods: {
+      async tryDelete() {
+        this.$q.dialog({
+          //title: 'Confirm',
+          message: 'Вы уверены что хотите удалить категорию? Все материалы категории также будут удалены.',
+          ok: 'Удалить',
+          cancel: 'Отмена'
+        }).then(() => {
+           this.delete();
+        });
+      },
+      delete() {
+        this.$store.dispatch("request",
+          {
+            url: "/Admin/AdminCategories/CategoryMoveToTrash",
+            data: {
+              name: this.category.name
+            }
+          })
+          .then(
+            response => {
+              this.$q.notify({
+                message: 'Категория успешно удалена.',
+                timeout: 5000,
+                type: 'warning',
+                position: 'top'
+              });
+              this.$router.push({name: 'CategoriesAdmin'});
+              this.loading = false;
+            }).catch(x => {
+            console.log("error", x);
+          });
+      },
       async loadData() {
         await this.$store.dispatch("request",
           {

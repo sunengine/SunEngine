@@ -127,42 +127,18 @@ namespace SunEngine.Stores
             _rootCategory = null;
         }
 
+
         public void Initialize()
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-                var categories = db.CategoriesNotDeleted.Select(x => new CategoryCached(x))
-                    .ToDictionary(x => x.Id);
-
                 _allSectionTypes = db.SectionTypes
                     .ToImmutableDictionary(x => x.Name, x => new SectionTypeCached(x));
 
-                foreach (var category in categories.Values)
-                {
-                    category.Init1ParentAndSub(categories);
-                }
+                var categories = db.Categories.Where(x => !x.IsDeleted).Select(x => new CategoryCached(x))
+                    .ToDictionary(x => x.Id);
 
-                foreach (var category in categories.Values)
-                {
-                    category.Init2AllSub();
-                }
-
-                foreach (var category in categories.Values)
-                {
-                    category.Init3ISectionType(_allSectionTypes);
-                }
-                
-                categories[1].Init4InitSectionsRoots();
-                categories[1].Init5PreparePaths();
-
-
-                foreach (var category in categories.Values)
-                {
-                    category.Init6SetListsAndBlockEditable();
-                }
-
-                _allCategories = categories.Values.ToImmutableDictionary(x => FieldNormalizer.Normalize(x.Name));
-                _rootCategory = _allCategories[FieldNormalizer.Normalize(Category.RootName)];
+                PrepareCategories(categories);
             }
         }
 
@@ -170,40 +146,43 @@ namespace SunEngine.Stores
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-                var categories = await db.CategoriesNotDeleted.Select(x => new CategoryCached(x))
-                    .ToDictionaryAsync(x => x.Id);
-                
                 _allSectionTypes = (await db.SectionTypes
-                    .ToDictionaryAsync(x => x.Name, x => new SectionTypeCached(x)))
+                        .ToDictionaryAsync(x => x.Name, x => new SectionTypeCached(x)))
                     .ToImmutableDictionary();
 
-                
-                foreach (var category in categories.Values)
-                {
-                    category.Init1ParentAndSub(categories);
-                }
+                var categories = await db.Categories.Where(x => !x.IsDeleted).Select(x => new CategoryCached(x))
+                    .ToDictionaryAsync(x => x.Id);
 
-                foreach (var category in categories.Values)
-                {
-                    category.Init2AllSub();
-                }
-                
-                foreach (var category in categories.Values)
-                {
-                    category.Init3ISectionType(_allSectionTypes);
-                }
-
-                categories[1].Init4InitSectionsRoots();
-                categories[1].Init5PreparePaths();
-
-                foreach (var category in categories.Values)
-                {
-                    category.Init6SetListsAndBlockEditable();
-                }
-
-                _allCategories = categories.Values.ToImmutableDictionary(x => FieldNormalizer.Normalize(x.Name));
-                _rootCategory = _allCategories[FieldNormalizer.Normalize(Category.RootName)];
+                PrepareCategories(categories);
             }
+        }
+
+        protected void PrepareCategories(Dictionary<int, CategoryCached> categories)
+        {
+            foreach (var category in categories.Values)
+            {
+                category.Init1ParentAndSub(categories);
+            }
+
+            _rootCategory = categories[1];
+
+            var categoriesList = _rootCategory.Init2AllSub();
+            categoriesList.Insert(0, _rootCategory);
+
+            foreach (var category in categoriesList)
+            {
+                category.Init3ISectionType(_allSectionTypes);
+            }
+
+            _rootCategory.Init4InitSectionsRoots();
+            _rootCategory.Init5PreparePaths();
+
+            foreach (var category in categoriesList)
+            {
+                category.Init6SetListsAndBlockEditable();
+            }
+
+            _allCategories = categoriesList.ToImmutableDictionary(x => FieldNormalizer.Normalize(x.Name));
         }
     }
 }

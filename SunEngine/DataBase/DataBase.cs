@@ -53,9 +53,6 @@ namespace SunEngine.DataBase
 
         public ITable<SectionType> SectionTypes => GetTable<SectionType>();
         public ITable<Category> Categories => GetTable<Category>();
-        public IQueryable<Category> CategoriesNotDeleted => GetTable<Category>().Where(x => !x.IsDeleted);
-        public IQueryable<Category> CategoriesVisible => GetTable<Category>().Where(x => !x.IsHidden && !x.IsDeleted);
-
 
         public ITable<OperationKey> OperationKeys => GetTable<OperationKey>();
         public ITable<CategoryAccess> CategoryAccess => GetTable<CategoryAccess>();

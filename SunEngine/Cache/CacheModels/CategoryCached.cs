@@ -67,34 +67,36 @@ namespace SunEngine.Stores.CacheModels
             _allSubCategories = new List<CategoryCached>();
         }
 
-
         public void Init1ParentAndSub(Dictionary<int, CategoryCached> allCategories)
         {
             if (initialized)
                 return;
-
-            if (ParentId.HasValue)
+            
+            if (ParentId.HasValue && allCategories.ContainsKey(ParentId.Value))
             {
                 Parent = allCategories[ParentId.Value];
                 Parent._subCategories.Add(this);
             }
         }
-
-        public void Init2AllSub()
+        
+        public List<CategoryCached> Init2AllSub()
         {
             if (initialized)
-                return;
+                return null;
 
-            if (!ParentId.HasValue)
-                return;
-
-            var current = Parent;
-            while (current != null)
+            foreach (var category in _subCategories)
             {
-                current._allSubCategories.Add(this);
-
-                current = current.Parent;
+                var list = category.Init2AllSub();
+                foreach (var sub in list)
+                {
+                    _allSubCategories.Add(sub);
+                }
             }
+
+            var rez = _allSubCategories.ToList();
+            rez.Add(this);
+            
+            return rez;
         }
 
         public void Init3ISectionType(IReadOnlyDictionary<string, SectionTypeCached> sectionTypes)

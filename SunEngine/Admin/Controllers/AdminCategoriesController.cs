@@ -152,6 +152,16 @@ namespace SunEngine.Admin.Controllers
 
             return Ok();
         }
+        
+        [HttpPost]
+        public async Task<IActionResult> CategoryMoveToTrash(string name)
+        {
+            await categoriesManager.CategoryMoveToTrashAsync(name);
+
+            categoriesCache.Reset();
+
+            return Ok();
+        }
 
         [HttpPost]
         public IActionResult ResetCache()

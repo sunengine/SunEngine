@@ -62,7 +62,7 @@ namespace SunEngine.Admin.Presenters
 
         public async Task<CategoryAdminViewModel> GetAllCategoriesAsync()
         {
-            var categories = await db.Categories.LoadWith(x => x.SectionType)
+            var categories = await db.Categories.LoadWith(x => x.SectionType).Where(x=>!x.IsDeleted)
                 .OrderBy(x => x.SortNumber).Select(x => new CategoryAdminViewModel
                 {
                     Id = x.Id,

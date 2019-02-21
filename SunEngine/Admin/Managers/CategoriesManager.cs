@@ -127,6 +127,11 @@ namespace SunEngine.Admin.Managers
             
             return ServiceResult.OkResult();
         }
+
+        public Task CategoryMoveToTrashAsync(string name)
+        {
+            return db.Categories.Where(x => x.Name == name).Set(x => x.IsDeleted, x => true).UpdateAsync();
+        }
     }
 
     public class ParentCategoryNotFoundByIdException : Exception
