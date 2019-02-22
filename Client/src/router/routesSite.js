@@ -8,7 +8,7 @@ import TestExt from 'pages/TestExt.vue';
 import ForumNavPanel from 'forum/ForumNavPanel';
 import Blog from 'blog/Blog';
 import Index from 'pages/Index.vue';
-import News from 'pages/News.vue';
+import ActivitiesPage from 'activities/ActivitiesPage.vue';
 
 
 const routes = [
@@ -19,9 +19,9 @@ const routes = [
   },
   {
     name: "News",
-    path: '/news',
+    path: '/News'.toLowerCase(),
     components: {
-      default: News,
+      default: ActivitiesPage,
       navigation: null
     }
   },

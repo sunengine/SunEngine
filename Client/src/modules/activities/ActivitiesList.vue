@@ -17,11 +17,11 @@
     props: {
       materialsCategories: {
         type: String,
-        required: false
+        required: false,
       },
       messagesCategories: {
         type: String,
-        required: false
+        required: false,
       },
       activitiesNumber: {
         type: Number,

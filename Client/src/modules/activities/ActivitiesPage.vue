@@ -19,12 +19,12 @@
       materialsCategories: {
         type: String,
         required: false,
-        default: ""
+        default: "root"
       },
       messagesCategories: {
         type: String,
         required: false,
-        default: ""
+        default: "root"
       },
       activitiesNumber: {
         type: Number,
