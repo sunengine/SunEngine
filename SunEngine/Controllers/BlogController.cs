@@ -64,24 +64,17 @@ namespace SunEngine.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> GetCategoriesPosts(string categoriesNames, int page = 1)
         {
-            var names = categoriesNames.Split(',').Select(x => x.Trim());
+            var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(categoriesNames);
 
-            List<CategoryCached> categories = new List<CategoryCached>();
-            foreach (var categoryName in names)
-            {
-                var category = categoriesCache.GetCategory(categoryName);
-                if (category != null && authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndMessagesRead))
-                {
-                    categories.Add(category);
-                }
-            }
+            IList<CategoryCached> categoriesList = authorizationService.GetAllowedCategories(User.Roles, materialsCategoriesDic.Values,
+                OperationKeys.MaterialAndMessagesRead);
 
-            if (categories.Count == 0)
+            if (categoriesList.Count == 0)
             {
                 return BadRequest("No categories to show");
             }
 
-            var categoriesIds = categories.Select(x => x.Id).ToArray();
+            var categoriesIds = categoriesList.Select(x => x.Id).ToArray();
 
             IPagedList<PostViewModel> posts =
                 await blogPresenter.GetCategoriesPostsAsync(categoriesIds, page, blogOptions.PostsPageSize);
