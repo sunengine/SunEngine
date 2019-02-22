@@ -23,7 +23,7 @@
         type: String,
         required: false
       },
-      number: {
+      activitiesNumber: {
         type: Number,
         required: true
       }
@@ -42,7 +42,7 @@
             data: {
               materialsCategories: this.materialsCategories,
               messagesCategories: this.messagesCategories,
-              number: this.number
+              number: this.activitiesNumber
             }
           })
           .then(
