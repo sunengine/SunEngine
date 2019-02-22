@@ -4,6 +4,7 @@
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <OutputType>Exe</OutputType>
         <LangVersion>latest</LangVersion>
+        <RootNamespace>DataSeedDev</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -22,6 +23,20 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Content Include="local.OkeanLubvi\CategoriesStartConfig\Main.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="local.OkeanLubvi\CategoriesStartConfig\Forum.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="local.OkeanLubvi\UserGroups.json">
+          <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="local.OkeanLubvi\UserGroups.schema.json">
+          <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
         <Content Include="SeedConfig\CategoriesStartConfig\Articles.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
@@ -53,12 +68,6 @@
         <Content Include="SeedConfig\Disabled\Test.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Update="DataBaseConnection.json">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="local.DataBaseConnection.json">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
     </ItemGroup>
 
     <ItemGroup>

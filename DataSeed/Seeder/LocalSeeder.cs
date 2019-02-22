@@ -9,7 +9,7 @@ using SunEngine.Security;
 using SunEngine.Security.Authorization;
 using SunEngine.Utils;
 
-namespace DataSeedDev.Seeder
+namespace DataSeed.Seeder
 {
     public class LocalSeeder
     {
@@ -19,11 +19,11 @@ namespace DataSeedDev.Seeder
 
         private readonly MaterialsSeeder materialsSeeder;
 
+        private readonly string configDir;
 
-
-        public LocalSeeder()
+        public LocalSeeder(string configDir)
         {
-
+            this.configDir = configDir;
             dataContainer = new DataContainer();
             materialsSeeder = new MaterialsSeeder(dataContainer);
         }
@@ -33,33 +33,33 @@ namespace DataSeedDev.Seeder
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Data seed in memory:");
             Console.ResetColor();
-            
+
             Console.WriteLine("OperationKeys");
-            
+
             SeedOperationKeys();
-            
+
             Console.WriteLine("Users");
-            
+
             SeedUsers();
-            
+
             Console.WriteLine("SectionTypes");
 
             SeedSectionTypes();
-            
+
             Console.WriteLine("Categories");
-            
+
             SeedCategories();
-            
+
             Console.WriteLine("Roles");
-            
+
             SeedUserGroups();
-            
+
             Console.WriteLine("AssignUsersToRoles");
-            
+
             RegisterUsers();
-            
+
             AssignUsersToRoles();
-            
+
             return dataContainer;
         }
 
@@ -72,7 +72,7 @@ namespace DataSeedDev.Seeder
                 Title = "Статьи"
             };
             dataContainer.SectionTypes.Add(sectionTypeArticles);
-            
+
             SectionType sectionTypeForum = new SectionType
             {
                 Id = dataContainer.NextSectionTypeId(),
@@ -80,7 +80,7 @@ namespace DataSeedDev.Seeder
                 Title = "Форум"
             };
             dataContainer.SectionTypes.Add(sectionTypeForum);
-            
+
             SectionType sectionTypeBlog = new SectionType
             {
                 Id = dataContainer.NextSectionTypeId(),
@@ -89,7 +89,7 @@ namespace DataSeedDev.Seeder
             };
             dataContainer.SectionTypes.Add(sectionTypeBlog);
         }
-        
+
         private void RegisterUsers()
         {
             Role registered = dataContainer.Roles.FirstOrDefault(x => x.Name == RoleNames.Registered);
@@ -108,17 +108,17 @@ namespace DataSeedDev.Seeder
 
         private void SeedUserGroups()
         {
-            string pathToUserGroupsConfig = Path.GetFullPath("SeedConfig/UserGroups.json");
-            string pathToUserGroupsSchema = Path.GetFullPath("SeedConfig/UserGroups.schema.json");
+            string pathToUserGroupsConfig = Path.GetFullPath(configDir + "/UserGroups.json");
+            string pathToUserGroupsSchema = Path.GetFullPath(configDir + "/UserGroups.schema.json");
             JsonSchema4 schema = JsonSchema4.FromFileAsync(pathToUserGroupsSchema).GetAwaiter().GetResult();
 
-            
-            RolesFromJsonLoader fromJsonLoader = 
-                new RolesFromJsonLoader(dataContainer.Categories.ToDictionary(x=>x.Name),
-                    dataContainer.OperationKeys.ToDictionary(x=>x.Name), schema);
+
+            RolesFromJsonLoader fromJsonLoader =
+                new RolesFromJsonLoader(dataContainer.Categories.ToDictionary(x => x.Name),
+                    dataContainer.OperationKeys.ToDictionary(x => x.Name), schema);
 
             var json = File.ReadAllText(pathToUserGroupsConfig);
-            
+
             fromJsonLoader.Seed(json);
 
             dataContainer.Roles = fromJsonLoader.roles;
@@ -140,7 +140,6 @@ namespace DataSeedDev.Seeder
 
                 dataContainer.OperationKeys.Add(operationKey);
             }
-
         }
 
         private void AssignUsersToRoles()
@@ -155,7 +154,7 @@ namespace DataSeedDev.Seeder
             };
 
             dataContainer.UserRoles.Add(ur);
-            
+
             var userModerator = dataContainer.Users.FirstOrDefault(x => x.UserName == "Moderator");
             var roleModerator = dataContainer.Roles.FirstOrDefault(x => x.Name == "Moderator");
 
@@ -167,25 +166,6 @@ namespace DataSeedDev.Seeder
 
             dataContainer.UserRoles.Add(ur);
 
-            var testUser1 = dataContainer.Users.FirstOrDefault(x => x.UserName == "TestUser1");
-            var testGroup1 = dataContainer.Roles.FirstOrDefault(x => x.Name == "TestGroup1");
-            var testGroup2 = dataContainer.Roles.FirstOrDefault(x => x.Name == "TestGroup2");
-
-            ur = new UserRole
-            {
-                UserId = testUser1.Id,
-                RoleId = testGroup1.Id
-            };
-
-            dataContainer.UserRoles.Add(ur);
-
-            ur = new UserRole
-            {
-                UserId = testUser1.Id,
-                RoleId = testGroup2.Id
-            };
-
-            dataContainer.UserRoles.Add(ur);
         }
 
         private void NormalizeUserFields(User user)
@@ -294,10 +274,10 @@ namespace DataSeedDev.Seeder
             foreach (var category in dataContainer.Categories)
             {
                 if (category.ParentId.HasValue)
-                    category.Parent = dataContainer.Categories.FirstOrDefault(x=>x.Id == category.ParentId.Value);
+                    category.Parent = dataContainer.Categories.FirstOrDefault(x => x.Id == category.ParentId.Value);
             }
         }
-        
+
         private void SeedRootCategory()
         {
             int id = dataContainer.NextCategoryId();
@@ -316,7 +296,7 @@ namespace DataSeedDev.Seeder
         {
             //string pathToCategoriesStartConfigFolder = Path.GetFullPath("CategoriesStartConfig");//Path.Combine(hostingEnvironment.ContentRootPath, "CategoriesStartConfig");
 
-            var fileNames = Directory.GetFiles(Path.GetFullPath("SeedConfig/CategoriesStartConfig"));
+            var fileNames = Directory.GetFiles(Path.GetFullPath(configDir + "/CategoriesStartConfig"));
 
             SeederCategoriesFromJson seederCategoriesFromJson =
                 new SeederCategoriesFromJson(dataContainer, materialsSeeder);

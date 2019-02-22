@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 using NJsonSchema.Infrastructure;
 using SunEngine.Models;
 
-namespace DataSeedDev.Seeder
+namespace DataSeed.Seeder
 {
     public class SeederCategoriesFromJson
     {

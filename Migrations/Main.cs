@@ -1,15 +1,18 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Migrations
-{
+{   
     class Program
     {
         static void Main(string[] args)
         {
+            //var argDic = GetArgsDic(args);
+            //argDic[]
             var serviceProvider = CreateServices();
 
             using (var scope = serviceProvider.CreateScope())
@@ -18,12 +21,41 @@ namespace Migrations
             }
         }
 
+        
+        
+        /*private static Dictionary<string, string> GetArgsDic(string[] args)
+        {
+            Dictionary<string, string> rez = new Dictionary<string, string>();
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (args[i].StartsWith("-"))
+                {
+                    if (i + 1 < args.Length)
+                    {
+                        if (args[i + 1].StartsWith("-"))
+                        {
+                            rez.Add(args[i].Substring(1), "");
+                        }
+                        else
+                        {
+                            rez.Add(args[i].Substring(1), args[i + 1]);
+                        }
+                    }
+                }
+            }
+        }*/
+
         /// <summary>
         /// Configure the dependency injection services
         /// </sumamry>
-        private static IServiceProvider CreateServices()
+        private static IServiceProvider CreateServices(string configFile = null)
         {
-            string dbSettingsFile = GetSettingFilePath("DataBaseConnection.json");
+            if (string.IsNullOrWhiteSpace(configFile))
+                configFile = "DataBaseConnection.json";
+            else
+                configFile = configFile.Trim();
+
+            string dbSettingsFile = GetSettingFilePath(configFile);
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(dbSettingsFile, optional: false, reloadOnChange: true)
                 .Build();
@@ -34,7 +66,7 @@ namespace Migrations
             DBProvider.Initialize(providerName);
             var connectionString = dataBaseConfiguration["ConnectionString"];
 
-            
+
             return new ServiceCollection()
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb

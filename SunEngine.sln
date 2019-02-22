@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunEngine", "SunEngine\SunE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrations", "Migrations\Migrations.csproj", "{AB2AB63D-9F01-4F17-AF2D-A522395C5BC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSeedDev", "DataSeedDev\DataSeedDev.csproj", "{C582B493-B26F-485C-866B-48276566D35B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSeed", "DataSeed\DataSeed.csproj", "{C582B493-B26F-485C-866B-48276566D35B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

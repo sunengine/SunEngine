@@ -6,7 +6,7 @@ using SunEngine.Models;
 using SunEngine.Models.Materials;
 using SunEngine.Utils.TextProcess;
 
-namespace DataSeedDev.Seeder
+namespace DataSeed.Seeder
 {
     public class MaterialsSeeder
     {

@@ -1,20 +1,23 @@
-using DataSeedDev.Seeder;
+using System.IO;
+using DataSeed.Seeder;
 using Microsoft.Extensions.Configuration;
 using SunEngine.DataBase;
 using SunEngine.Utils;
 
-namespace DataSeedDev
+namespace DataSeed
 {
     class Program
     {
         static void Main(string[] args)
         {
-            SeedDataBase();
+            SeedDataBase(args?[0] ?? "SeedConfig");
         }
 
-        static void SeedDataBase()
+        static void SeedDataBase(string configDir)
         {
-            string dbSettingsFile = SettingsFileLocator.GetSettingFilePath("DataBaseConnection.json");
+            string settingsFilePath = Path.Combine(configDir, "DataBaseConnection.json");
+            
+            string dbSettingsFile = SettingsFileLocator.GetSettingFilePath(settingsFilePath);
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(dbSettingsFile, optional: false, reloadOnChange: true)
                 .Build();
@@ -26,7 +29,7 @@ namespace DataSeedDev
 
             using (DataBaseConnection db = new DataBaseConnection(providerName, connectionString))
             {
-                var dc = new LocalSeeder().Seed();
+                var dc = new LocalSeeder(configDir).Seed();
                 new DataBaseSeeder(db, dc).Seed().PostSeed();
             }
         }
