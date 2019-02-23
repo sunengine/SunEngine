@@ -11,23 +11,23 @@ using SunEngine.Utils;
 
 namespace DataSeed.Seeder
 {
-    public class LocalSeeder
+    public class InMemorySeeder
     {
         private readonly DataContainer dataContainer;
 
         private readonly MaterialsSeeder materialsSeeder;
 
-        private readonly UsersSeeder usersSeeder;
+        private readonly UsersSeederJson usersSeederJson;
 
 
         private readonly string configDir;
 
-        public LocalSeeder(string configDir)
+        public InMemorySeeder(string configDir)
         {
             this.configDir = configDir;
             dataContainer = new DataContainer();
             materialsSeeder = new MaterialsSeeder(dataContainer);
-            usersSeeder = new UsersSeeder(dataContainer, configDir);
+            usersSeederJson = new UsersSeederJson(dataContainer, configDir);
         }
 
         public DataContainer Seed()
@@ -61,14 +61,14 @@ namespace DataSeed.Seeder
         {
             Console.WriteLine("Users");
 
-            usersSeeder.SeedUsers();
+            usersSeederJson.SeedUsers();
         }
 
         private void SeedUserRoles()
         {
             Console.WriteLine("UsersRoles");
 
-            usersSeeder.SeedUserRoles();
+            usersSeederJson.SeedUserRoles();
         }
 
         private void SeedSectionTypes()
@@ -176,15 +176,13 @@ namespace DataSeed.Seeder
 
         private void SeedCategoriesFromDirectory()
         {
-            //string pathToCategoriesStartConfigFolder = Path.GetFullPath("CategoriesStartConfig");//Path.Combine(hostingEnvironment.ContentRootPath, "CategoriesStartConfig");
-
             var fileNames = Directory.GetFiles(Path.GetFullPath(configDir + "/CategoriesStartConfig"));
 
-            SeederCategoriesFromJson seederCategoriesFromJson =
-                new SeederCategoriesFromJson(dataContainer, materialsSeeder);
+            CategoriesSeederJson categoriesSeederJson =
+                new CategoriesSeederJson(dataContainer, materialsSeeder);
             foreach (var fileName in fileNames)
             {
-                seederCategoriesFromJson.Seed(fileName);
+                categoriesSeederJson.Seed(fileName);
             }
         }
     }

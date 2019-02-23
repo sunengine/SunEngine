@@ -27,8 +27,8 @@ namespace DataSeed
 
             using (DataBaseConnection db = new DataBaseConnection(providerName, connectionString))
             {
-                var dc = new LocalSeeder(configDir).Seed();
-                new DataBaseSeeder(db, dc).Seed().PostSeed();
+                DataContainer dataContainer = new InMemorySeeder(configDir).Seed();
+                new DataBaseSeeder(db, dataContainer).Seed().PostSeed();
             }
         }
 

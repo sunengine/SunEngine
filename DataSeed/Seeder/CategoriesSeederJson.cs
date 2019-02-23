@@ -8,12 +8,12 @@ using SunEngine.Models;
 
 namespace DataSeed.Seeder
 {
-    public class SeederCategoriesFromJson
+    public class CategoriesSeederJson
     {
         private readonly DataContainer dataContainer;
         private readonly MaterialsSeeder materialsSeeder;
 
-        public SeederCategoriesFromJson(DataContainer dataContainer,
+        public CategoriesSeederJson(DataContainer dataContainer,
             MaterialsSeeder materialsSeeder)
         {
             this.dataContainer = dataContainer;

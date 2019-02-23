@@ -10,7 +10,7 @@ using SunEngine.Utils;
 
 namespace DataSeed.Seeder
 {
-    public class UsersSeeder
+    public class UsersSeederJson
     {
         private const string AllUsersDefaultPassword = "password";
 
@@ -20,7 +20,7 @@ namespace DataSeed.Seeder
 
         private JArray usersJArray;
 
-        public UsersSeeder(DataContainer dataContainer, string configDir)
+        public UsersSeederJson(DataContainer dataContainer, string configDir)
         {
             this.dataContainer = dataContainer;
             this.configDir = configDir;
