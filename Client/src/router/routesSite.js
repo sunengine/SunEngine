@@ -3,6 +3,7 @@ import Categories2 from 'categories/Categories2.vue';
 import TestExt from 'pages/TestExt.vue';
 import Blog from 'blog/Blog';
 import Index from 'pages/Index.vue';
+import News from 'pages/News'
 import ActivitiesPage from 'activities/ActivitiesPage.vue';
 import {makeArticlesSection, makeForumSection, makeBlogSection} from "./makeSections";
 
@@ -18,6 +19,14 @@ const routes = [
     path: '/News'.toLowerCase(),
     components: {
       default: ActivitiesPage,
+      navigation: null
+    }
+  },
+  {
+    name: "News2",
+    path: '/News2'.toLowerCase(),
+    components: {
+      default: News,
       navigation: null
     }
   },

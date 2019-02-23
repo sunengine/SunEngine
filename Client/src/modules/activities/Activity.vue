@@ -62,8 +62,26 @@
   }
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
+  @import '~variables'
+  @import '~src/css/app'
+
   .desc {
     word-break: break-all;
+  }
+
+
+  .pull-right {
+    .q-item {
+      @extend .margin-back-right;
+      @extend .pp-right;
+    }
+  }
+
+  .pull-left {
+    .q-item {
+      @extend .margin-back-left;
+      @extend .pp-left;
+    }
   }
 </style>

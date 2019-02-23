@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="pull-left pull-right">
     <h2 class="q-title">
       {{pageTitle}}
     </h2>
@@ -47,13 +47,6 @@
 <style lang="stylus">
   @import '~css/app';
 
-  .activity {
-    @extend .margin-back;
 
-    .q-item {
-      @extend .pp-left;
-      @extend .pp-right;
-    }
-  }
 
 </style>

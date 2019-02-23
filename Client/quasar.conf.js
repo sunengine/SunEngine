@@ -83,7 +83,8 @@ module.exports = function (ctx) {
       plugins: [
         'Notify',
         'Dialog',
-        'Meta'
+        'Meta',
+        'Screen'
       ],
       i18n: 'ru',
     },

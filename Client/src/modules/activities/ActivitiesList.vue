@@ -1,9 +1,10 @@
 <template>
   <div>
     <template v-if="activities">
-      <activity :key="activity.materialId + '-' + activity.messageId" :activity="activity" v-for="activity in activities" />
+      <activity :key="activity.materialId + '-' + activity.messageId" :activity="activity"
+                v-for="activity in activities"/>
     </template>
-    <loader-wait v-else />
+    <loader-wait v-else/>
   </div>
 </template>
 
@@ -17,18 +18,18 @@
     props: {
       materialsCategories: {
         type: String,
-        required: false,
+        required: false
       },
       messagesCategories: {
         type: String,
-        required: false,
+        required: false
       },
       activitiesNumber: {
         type: Number,
         required: true
       }
     },
-    data: function() {
+    data: function () {
       return {
         activities: null
       }
@@ -60,6 +61,6 @@
   }
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
 
 </style>
