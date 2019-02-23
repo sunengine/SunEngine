@@ -35,7 +35,7 @@ namespace DataSeed.Seeder
             this.dataContainer = dataContainer;
         }
 
-        public void SeedMaterials(Category category, int? materialsCount = null, LinesCount? linesCount = null)
+        public void SeedMaterials(Category category, string titleStart = null, int? materialsCount = null, LinesCount? linesCount = null)
         {
             if (materialsCount == null)
             {
@@ -49,9 +49,10 @@ namespace DataSeed.Seeder
 
             for (int i = 1; i <= materialsCount; i++)
             {
-                SeedMaterial(category, $"Материал {i} ({category.Name})",
+                var title = titleStart != null ? titleStart + " " + i : $"Материал {i} ({category.Name})";
+                SeedMaterial(category, title,
                     (i >= 2 && i <= 3) ? 0 : 12,
-                    $"Материал {i}, категория {category.Name}", "материал " + i, linesCount.Value);
+                    $"{titleStart ?? "Материал"} {i}, категория {category.Name}", "материал " + i, linesCount.Value);
             }
         }
 
@@ -172,6 +173,18 @@ namespace DataSeed.Seeder
             }
 
             return null;
+        }
+    }
+
+    public static class MaterialExtension
+    {
+        public static void SetLastMessage(this Material material, Message message)
+        {
+            if (message != null)
+            {
+                material.LastMessageId = message.Id;
+                material.LastActivity = message.PublishDate;
+            }
         }
     }
 }

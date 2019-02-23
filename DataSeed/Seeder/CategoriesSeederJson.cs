@@ -48,7 +48,8 @@ namespace DataSeed.Seeder
             });
         }
 
-        private void SeedCategory(Category parent, JToken categoryToken, IList<int> numbers)
+        private void SeedCategory(Category parent, JToken categoryToken, IList<int> numbers,
+            string materialTitleStart = null)
         {
             int repeatCount = 1;
             var repeat = categoryToken["Repeat"];
@@ -92,6 +93,11 @@ namespace DataSeed.Seeder
 
                 dataContainer.Categories.Add(category);
 
+                if (categoryToken["MaterialTitleStart"] != null)
+                {
+                    materialTitleStart = (string) categoryToken["MaterialTitleStart"];
+                }
+
                 if (categoryToken["SubCategories"] != null)
                 {
                     var numbers1 = new List<int> {1};
@@ -99,7 +105,7 @@ namespace DataSeed.Seeder
 
                     foreach (JToken subCategoryToken in (JArray) categoryToken["SubCategories"])
                     {
-                        SeedCategory(category, subCategoryToken, numbers1);
+                        SeedCategory(category, subCategoryToken, numbers1, materialTitleStart);
                     }
                 }
 
@@ -119,11 +125,11 @@ namespace DataSeed.Seeder
                     if (categoryToken["MaterialsCount"] != null)
                     {
                         int materialsCount = (int) categoryToken["MaterialsCount"];
-                        materialsSeeder.SeedMaterials(category, materialsCount);
+                        materialsSeeder.SeedMaterials(category, materialTitleStart, materialsCount);
                     }
                     else
                     {
-                        materialsSeeder.SeedMaterials(category);
+                        materialsSeeder.SeedMaterials(category, materialTitleStart);
                     }
                 }
 

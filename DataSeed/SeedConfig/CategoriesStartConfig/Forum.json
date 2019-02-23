@@ -3,6 +3,7 @@
     "Name": "Forum",
     "Title": "Форум",
     "SectionType": "Forum",
+    "MaterialTitleStart" : "Топик",
     "SubCategories": [
       {
         "Name": "Thread[n]",

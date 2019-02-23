@@ -4,6 +4,7 @@
     "Title": "Статьи",
     "SectionType": "Articles",
     "IsMaterialsContainer": true,
-    "MaterialsCount": 35
+    "MaterialsCount": 35,
+    "MaterialTitleStart" : "Статья"
   }
 ]

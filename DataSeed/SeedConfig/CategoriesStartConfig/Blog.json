@@ -5,6 +5,7 @@
     "SectionType": "Blog",
     "IsMaterialsContainer": true,
     "MaterialsCount": 15,
-    "MaterialLinesCount": "3-30"
+    "MaterialLinesCount": "3-30",
+    "MaterialTitleStart" : "Пост"
   }
 ]
