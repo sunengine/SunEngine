@@ -11,9 +11,7 @@ namespace Migrations
     {
         static void Main(string[] args)
         {
-            //var argDic = GetArgsDic(args);
-            //argDic[]
-            var serviceProvider = CreateServices();
+            var serviceProvider = CreateServices(args?[0]);
 
             using (var scope = serviceProvider.CreateScope())
             {
@@ -22,29 +20,6 @@ namespace Migrations
         }
 
         
-        
-        /*private static Dictionary<string, string> GetArgsDic(string[] args)
-        {
-            Dictionary<string, string> rez = new Dictionary<string, string>();
-            for (int i = 0; i < args.Length; i++)
-            {
-                if (args[i].StartsWith("-"))
-                {
-                    if (i + 1 < args.Length)
-                    {
-                        if (args[i + 1].StartsWith("-"))
-                        {
-                            rez.Add(args[i].Substring(1), "");
-                        }
-                        else
-                        {
-                            rez.Add(args[i].Substring(1), args[i + 1]);
-                        }
-                    }
-                }
-            }
-        }*/
-
         /// <summary>
         /// Configure the dependency injection services
         /// </sumamry>
