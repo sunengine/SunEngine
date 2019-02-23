@@ -31,7 +31,5 @@ namespace DataSeed
                 new DataBaseSeeder(db, dataContainer).Seed().PostSeed();
             }
         }
-
-        
     }
 }
