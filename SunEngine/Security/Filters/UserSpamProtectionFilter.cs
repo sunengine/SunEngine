@@ -11,16 +11,16 @@ namespace SunEngine.Security.Filters
     {
         private const string CacheKeyStart = "RFUSER";
 
-        
+
         public int TimeoutSeconds
         {
             set => timeout = TimeSpan.FromSeconds(value);
-            get => (int)timeout.TotalSeconds;
+            get => (int) timeout.TotalSeconds;
         }
 
-        protected TimeSpan timeout; 
+        protected TimeSpan timeout;
 
-        
+
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             SpamProtectionCache spamProtectionCache =
@@ -31,7 +31,7 @@ namespace SunEngine.Security.Filters
             var user = controller.User;
 
             if (!user.Identity.IsAuthenticated)
-            {             
+            {
                 context.Result = controller.BadRequest("This user can not make post requests");
             }
 
@@ -41,8 +41,8 @@ namespace SunEngine.Security.Filters
 
             string key = MakeKey(user.UserId, controllerName, actionName);
             RequestFree requestFree = spamProtectionCache.Find(key);
-            
-            
+
+
             if (requestFree != null && requestFree.Working())
             {
                 context.Result = controller.BadRequest(new ErrorViewModel
@@ -58,13 +58,13 @@ namespace SunEngine.Security.Filters
                 RequestFree = requestFree,
                 SpamProtectionCache = spamProtectionCache
             };
-            
+
             controller.ViewData[SpamProtectionFilterTransfer.ViewDataKey] = temp;
         }
 
         private static string MakeKey(int userId, string controllerName, string actionName)
         {
-            return CacheKeyStart + "-" + userId + "-" + controllerName + "-" + actionName;
+            return string.Join("-", CacheKeyStart, userId, controllerName, actionName);
         }
 
         public override void OnResultExecuted(ResultExecutedContext context)
@@ -74,8 +74,8 @@ namespace SunEngine.Security.Filters
 
             BaseController controller = (BaseController) context.Controller;
 
-            var temp = (SpamProtectionFilterTransfer)controller.ViewData[SpamProtectionFilterTransfer.ViewDataKey];
-            
+            var temp = (SpamProtectionFilterTransfer) controller.ViewData[SpamProtectionFilterTransfer.ViewDataKey];
+
             if (temp.RequestFree != null)
             {
                 temp.RequestFree.UpdateDateTime(timeout);
@@ -94,7 +94,7 @@ namespace SunEngine.Security.Filters
     public class SpamProtectionFilterTransfer
     {
         public const string ViewDataKey = "SpamProtectionFilterTransfer";
-        
+
         public string Key;
         public RequestFree RequestFree;
         public SpamProtectionCache SpamProtectionCache;
@@ -102,7 +102,6 @@ namespace SunEngine.Security.Filters
 
     public class RequestFree
     {
-
         private DateTime dateTimeTil;
 
         public RequestFree(TimeSpan timeout)

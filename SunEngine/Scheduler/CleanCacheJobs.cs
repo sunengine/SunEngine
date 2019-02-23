@@ -37,7 +37,6 @@ namespace SunEngine.Scheduler
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-
             timerSpamProtectionCache = new Timer(_ =>
             {
                 Console.WriteLine("SpamProtectionCache.RemoveExpired");

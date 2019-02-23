@@ -8,8 +8,7 @@
 
         <q-toolbar-title class="ttl">
           <span>SunEngine</span>
-          <div slot="subtitle">Hello Home!</div>
-        </q-toolbar-title>
+          </q-toolbar-title>
 
         <q-btn flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu" v-if="rightDrawerIs">
           <q-icon name="menu"/>
@@ -104,6 +103,7 @@
     font-family: "BoomBoomRegular";
     //color: $tertiary;
     text-shadow: 2px 2px 2px 2px black !important;
+    font-size : 1.5em;
   }
 
   .logo {
