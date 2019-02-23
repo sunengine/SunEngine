@@ -10,14 +10,12 @@ namespace DataSeed
     {
         static void Main(string[] args)
         {
-            SeedDataBase(args?[0] ?? "SeedConfig");
+            SeedDataBase(args.Length == 0 ? "SeedConfig" : args[0]);
         }
 
         static void SeedDataBase(string configDir)
         {
-            string settingsFilePath = Path.Combine(configDir, "DataBaseConnection.json");
-            
-            string dbSettingsFile = SettingsFileLocator.GetSettingFilePath(settingsFilePath);
+            string dbSettingsFile = SettingsFileLocator.GetSettingFilePath(configDir,"DataBaseConnection.json");
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(dbSettingsFile, optional: false, reloadOnChange: true)
                 .Build();

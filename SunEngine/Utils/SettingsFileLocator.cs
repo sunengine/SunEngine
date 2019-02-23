@@ -8,13 +8,23 @@ namespace SunEngine.Utils
     {
         public static string GetSettingFilePath(string fileName, bool optional = false)
         {
+            return GetSettingFilePath(null, fileName, optional);
+        }
+        
+        public static string GetSettingFilePath(string dirName, string fileName, bool optional = false)
+        {
             string fileLocal = "local." + fileName;
-            string pathLocal =  Path.GetFullPath(fileLocal);
+            string fileLocalWithDir = dirName != null ? Path.Combine(dirName, fileLocal) : fileLocal;
+            
+            string pathLocal = Path.GetFullPath(fileLocalWithDir);
+            
             if (File.Exists(pathLocal))
                 return pathLocal;
 
             string fileCommon = fileName;
-            string pathCommon = Path.GetFullPath(fileCommon);
+            string fileCommonWithDir = dirName != null ? Path.Combine(dirName, fileCommon) : fileCommon;
+
+            string pathCommon = Path.GetFullPath(fileCommonWithDir);
             if (File.Exists(pathCommon))
                 return pathCommon;
 

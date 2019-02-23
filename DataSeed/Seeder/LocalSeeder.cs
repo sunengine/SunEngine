@@ -13,11 +13,12 @@ namespace DataSeed.Seeder
 {
     public class LocalSeeder
     {
-        private const string AllUsersPassword = "password";
-
         private readonly DataContainer dataContainer;
 
         private readonly MaterialsSeeder materialsSeeder;
+
+        private readonly UsersSeeder usersSeeder;
+
 
         private readonly string configDir;
 
@@ -26,45 +27,54 @@ namespace DataSeed.Seeder
             this.configDir = configDir;
             dataContainer = new DataContainer();
             materialsSeeder = new MaterialsSeeder(dataContainer);
+            usersSeeder = new UsersSeeder(dataContainer, configDir);
         }
 
         public DataContainer Seed()
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Data seed in memory:");
-            Console.ResetColor();
-
-            Console.WriteLine("OperationKeys");
+            StartConsoleLog();
 
             SeedOperationKeys();
 
-            Console.WriteLine("Users");
+            SeedSectionTypes();
 
             SeedUsers();
 
-            Console.WriteLine("SectionTypes");
-
-            SeedSectionTypes();
-
-            Console.WriteLine("Categories");
-
             SeedCategories();
 
-            Console.WriteLine("Roles");
+            SeedRoles();
 
-            SeedUserGroups();
+            SeedUserRoles();
 
-            Console.WriteLine("AssignUsersToRoles");
-
-            RegisterUsers();
-
-            AssignUsersToRoles();
 
             return dataContainer;
         }
 
+        private void StartConsoleLog()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Data seed in memory:");
+            Console.ResetColor();
+        }
+
+        private void SeedUsers()
+        {
+            Console.WriteLine("Users");
+
+            usersSeeder.SeedUsers();
+        }
+
+        private void SeedUserRoles()
+        {
+            Console.WriteLine("UsersRoles");
+
+            usersSeeder.SeedUserRoles();
+        }
+
         private void SeedSectionTypes()
         {
+            Console.WriteLine("SectionTypes");
+
             SectionType sectionTypeArticles = new SectionType
             {
                 Id = dataContainer.NextSectionTypeId(),
@@ -90,24 +100,11 @@ namespace DataSeed.Seeder
             dataContainer.SectionTypes.Add(sectionTypeBlog);
         }
 
-        private void RegisterUsers()
+
+        private void SeedRoles()
         {
-            Role registered = dataContainer.Roles.FirstOrDefault(x => x.Name == RoleNames.Registered);
+            Console.WriteLine("Roles");
 
-            foreach (var user in dataContainer.Users)
-            {
-                UserRole ur = new UserRole
-                {
-                    UserId = user.Id,
-                    RoleId = registered.Id
-                };
-
-                dataContainer.UserRoles.Add(ur);
-            }
-        }
-
-        private void SeedUserGroups()
-        {
             string pathToUserGroupsConfig = Path.GetFullPath(configDir + "/UserGroups.json");
             string pathToUserGroupsSchema = Path.GetFullPath(configDir + "/UserGroups.schema.json");
             JsonSchema4 schema = JsonSchema4.FromFileAsync(pathToUserGroupsSchema).GetAwaiter().GetResult();
@@ -128,6 +125,8 @@ namespace DataSeed.Seeder
 
         private void SeedOperationKeys()
         {
+            Console.WriteLine("OperationKeys");
+
             var keys = OperationKeysContainer.GetAllOperationKeys();
 
             foreach (var key in keys)
@@ -142,128 +141,11 @@ namespace DataSeed.Seeder
             }
         }
 
-        private void AssignUsersToRoles()
-        {
-            var userAdmin = dataContainer.Users.FirstOrDefault(x => x.UserName == "Admin");
-            var roleAdmin = dataContainer.Roles.FirstOrDefault(x => x.Name == RoleNames.Admin);
-
-            UserRole ur = new UserRole
-            {
-                UserId = userAdmin.Id,
-                RoleId = roleAdmin.Id
-            };
-
-            dataContainer.UserRoles.Add(ur);
-
-            var userModerator = dataContainer.Users.FirstOrDefault(x => x.UserName == "Moderator");
-            var roleModerator = dataContainer.Roles.FirstOrDefault(x => x.Name == "Moderator");
-
-            ur = new UserRole
-            {
-                UserId = userModerator.Id,
-                RoleId = roleModerator.Id
-            };
-
-            dataContainer.UserRoles.Add(ur);
-
-        }
-
-        private void NormalizeUserFields(User user)
-        {
-            user.NormalizedUserName = FieldNormalizer.Normalize(user.UserName);
-            user.NormalizedEmail = FieldNormalizer.Normalize(user.Email);
-        }
-
-        private void SeedUsers()
-        {
-            var hasher = new PasswordHasher<User>();
-            var passwordHash = hasher.HashPassword(null, AllUsersPassword);
-
-            User admin = new User
-            {
-                Id = dataContainer.NextUserId(),
-                Email = $"admin@email.ru",
-                UserName = "Admin",
-                EmailConfirmed = true,
-                PasswordHash = passwordHash,
-                SecurityStamp = string.Empty,
-                Information = "Администратор, информация о пользователе",
-                Photo = User.DefaultAvatar,
-                Avatar = User.DefaultAvatar
-            };
-            admin.SetDefaultLink();
-            NormalizeUserFields(admin);
-
-
-            dataContainer.Users.Add(admin);
-
-            User moderator = new User
-            {
-                Id = dataContainer.NextUserId(),
-                Email = $"moderator@email.ru",
-                UserName = "Moderator",
-                EmailConfirmed = true,
-                PasswordHash = passwordHash,
-                SecurityStamp = string.Empty,
-                Information = "Модератор, информация о пользователе",
-                Photo = User.DefaultAvatar,
-                Avatar = User.DefaultAvatar
-            };
-            NormalizeUserFields(moderator);
-            moderator.SetDefaultLink();
-
-            dataContainer.Users.Add(moderator);
-
-            User testUser1 = new User
-            {
-                Id = dataContainer.NextUserId(),
-                Email = $"testUser1@email.ru",
-                UserName = "TestUser1",
-                EmailConfirmed = true,
-                PasswordHash = passwordHash,
-                SecurityStamp = string.Empty,
-                Information = "Тестовый пользователь, информация о пользователе",
-                Photo = User.DefaultAvatar,
-                Avatar = User.DefaultAvatar
-            };
-            testUser1.SetDefaultLink();
-            NormalizeUserFields(testUser1);
-
-            dataContainer.Users.Add(testUser1);
-
-
-            for (int i = 1; i <= 5; i++)
-            {
-                User user = new User
-                {
-                    Id = dataContainer.NextUserId(),
-                    Email = $"user{i}@email.ru",
-                    UserName = $"User" + i,
-                    EmailConfirmed = true,
-                    PasswordHash = passwordHash,
-                    SecurityStamp = string.Empty,
-                    Information = "Информация о пользователе",
-                    Photo = User.DefaultAvatar,
-                    Avatar = User.DefaultAvatar
-                };
-                user.SetDefaultLink();
-                NormalizeUserFields(user);
-
-                if (i <= 2)
-                {
-                    user.SetDefaultLink();
-                }
-                else
-                {
-                    user.Link = "User" + i;
-                }
-
-                dataContainer.Users.Add(user);
-            }
-        }
 
         private void SeedCategories()
         {
+            Console.WriteLine("Categories");
+
             SeedRootCategory();
             SeedCategoriesFromDirectory();
             DetectCategoriesParents();

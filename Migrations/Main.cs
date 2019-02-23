@@ -6,12 +6,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Migrations
-{   
+{
     class Program
     {
         static void Main(string[] args)
         {
-            var serviceProvider = CreateServices(args?[0]);
+            var serviceProvider = CreateServices(args.Length == 0 ? "DataBaseConnection.json" : args[0]);
 
             using (var scope = serviceProvider.CreateScope())
             {
@@ -19,16 +19,13 @@ namespace Migrations
             }
         }
 
-        
+
         /// <summary>
         /// Configure the dependency injection services
         /// </sumamry>
         private static IServiceProvider CreateServices(string configFile = null)
         {
-            if (string.IsNullOrWhiteSpace(configFile))
-                configFile = "DataBaseConnection.json";
-            else
-                configFile = configFile.Trim();
+            configFile = configFile.Trim();
 
             string dbSettingsFile = GetSettingFilePath(configFile);
             var configuration = new ConfigurationBuilder()
