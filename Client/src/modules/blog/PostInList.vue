@@ -6,23 +6,23 @@
         <div style="font-weight: 600">
           {{post.title}}
         </div>
-        <div class="q-my-xs">
-          <router-link :to="`/user/${post.authorLink}`" class="user-link q-mr-xl">
+        <div>
+          <router-link :to="`/user/${post.authorLink}`" class="user-link">
             {{post.authorName}}
           </router-link>
-
         </div>
       </div>
     </q-item>
-    <div class="post-preview" v-html="post.preview">
 
-    </div>
+    <div class="post-preview" v-html="post.preview"></div>
+
     <div class="date text-grey-6">
       <q-icon name="far fa-clock"/>
       <span>{{$formatDate(this.post.publishDate)}} &nbsp;</span>
     </div>
+
     <div class="flex footer float-left">
-      <q-item :to="path+'#messages'" class="q-mr-md">
+      <q-item :to="path+'#messages'">
         <span :class="[{'text-grey-6': !post.messagesCount}]">
         <q-icon name="far fa-comment" class="q-mr-sm"/>
         {{post.messagesCount}} сообщений
@@ -46,7 +46,10 @@
   export default {
     name: "PostInList",
     props: {
-      post: Object
+      post: {
+        type: Object,
+        required: true
+      }
     },
     computed: {
       path() {
@@ -56,13 +59,13 @@
         return this.$store.getters.getCategory(this.post.categoryName);
       }
     }
-
   }
 </script>
 
 
 <style lang="stylus" scoped>
   @import '~variables'
+  @import '~src/css/app'
 
   .avatar {
     margin-right: 12px;
@@ -74,20 +77,23 @@
   .header {
     display: flex;
     padding: 2px 0;
-    margin-left: -16px;
-    padding-left: 16px !important;
+    //margin-left: -16px;
+    //padding-left: 16px !important;
     color: #3a67d3 !important;
   }
 
   $footer-line-height = 38px;
 
   .footer {
-    margin-left: -16px;
     align-items: center;
 
     .q-item {
       color: #3a67d3 !important;
       min-height: unset !important;
+    }
+
+    .q-item:first-child {
+      padding-left: 0;
     }
 
     .q-item, div {
@@ -128,6 +134,29 @@
 
     .q-icon {
       margin-right: 7px;
+    }
+  }
+
+  .pull-right {
+    .header {
+      @extend .margin-back-right;
+      @extend .pp-right;
+    }
+  }
+
+  .pull-left {
+    .header {
+      @extend .margin-back-left;
+      @extend .pp-left;
+    }
+
+    .footer {
+      .q-item:first-child {
+        margin-left: -12px;
+        padding-left: 12px;
+        //@extend .margin-back-left;
+        //@extend .pp-left;
+      }
     }
   }
 

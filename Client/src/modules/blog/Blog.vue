@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="pull-left pull-right">
     <div class="header-with-button">
       <h2 class="q-title">
         {{category.title}}
@@ -59,11 +59,8 @@
       '$store.state.auth.user': 'loadData'
     },
     computed: {
-      startPathForPosts() {
-        return this.category.path;
-      },
       canAddArticle() {
-        return this.category?.categoryPersonalAccess?.materialWrite;
+        return this.category?.categoryPersonalAccess?.MaterialWrite;
       },
       currentPage() {
         let page1 = this.$route.query?.["page"];
@@ -111,12 +108,6 @@
   }
 </script>
 
-<style scoped lang="stylus">
-  @import '~variables'
+<style lang="stylus" scoped>
 
-  .hr-sep {
-    height: 0;
-    border-top: solid #d3eecc 1px !important;
-    border-left: none;
-  }
 </style>
