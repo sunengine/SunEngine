@@ -9,7 +9,7 @@
       <p>Пароль: <span class="hl">password</span></p>
       <p>При регистрации и других операциях с почтой можете указывать любой почтовый ящик, например '<span class="hl">ooo@ooo.ru</span>',
         почта будет отправляться на mailcatcher <a target="_blank" href="http://demo.sunengine.site:1444">сюда</a>.</p>
-      <p class="ver q-mb-xl">Версия: 0.8.17</p>
+      <p class="ver q-mb-xl">Версия: 0.9.0</p>
 
     </div>
   </q-page>

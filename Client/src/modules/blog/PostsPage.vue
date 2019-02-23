@@ -4,9 +4,9 @@
       <h2 class="q-title">
         {{pageTitle}}
       </h2>
-      <q-btn v-if="addButtonCategoryName" no-caps
-             @click="$router.push({path:'/AddEditMaterial',query:{categoryName:this.addButtonCategoryName}})"
-             label="addButtonLabel" icon="fas fa-plus" color="post"/>
+      <q-btn v-if="addButtonCategoryName && canPost" no-caps
+             @click="$router.push({path:'/AddEditMaterial',query:{categoryName:addButtonCategoryName}})"
+             :label="addButtonLabel" icon="fas fa-plus" color="post"/>
       <div class="clear"></div>
     </div>
     <PostsList :categoriesNames="categoriesNames"/>
@@ -38,6 +38,18 @@
       pageTitle: {
         type: String,
         required: true
+      }
+    },
+    computed: {
+      canPost() {
+        let categories = this.categoriesNames.split(",").map(x => x.trim());
+        for (let catName of categories) {
+          let cat = this.$store.getters.getCategory(catName);
+          if (cat?.categoryPersonalAccess?.materialWrite) {
+            return true;
+          }
+        }
+        return false;
       }
     },
     created() {
