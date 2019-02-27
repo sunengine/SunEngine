@@ -9,7 +9,8 @@ module.exports = function (ctx) {
     // --> boot files are part of "main.js"
     boot: [
       'i18n',
-      'axios'
+      'axios',
+      'globalApp'
     ],
 
     css: [
@@ -55,10 +56,10 @@ module.exports = function (ctx) {
       plugins: [
         'Notify',
         'Meta'
-      ]
+      ],
 
       // iconSet: 'ionicons-v4'
-      // lang: 'de' // Quasar language
+      lang: 'ru' // Quasar language
     },
 
     preFetch: true,

@@ -5,10 +5,7 @@ export default {
   failed: 'Action failed',
   success: 'Action was successful',
   loginOrRegisterMenu: {
-    enter: "Enter",
-    register: "Register"
-  },
-  login: {
-
+    enter: "Войти",
+    register: "Зарегистрироваться"
   }
 }
