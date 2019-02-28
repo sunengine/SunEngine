@@ -2,13 +2,14 @@
 // so you can safely delete all default props below
 
 export default {
-  failed: 'Action failed',
-  success: 'Action was successful',
   loginOrRegisterMenu: {
     enter: "Enter",
     register: "Register"
   },
-  login: {
-
+  register: {
+    userName: "User name",
+    email: "Email",
+    password: "Password",
+    password2: "Confirm password"
   }
 }

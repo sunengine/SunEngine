@@ -10,13 +10,14 @@ module.exports = function (ctx) {
     boot: [
       'i18n',
       'axios',
-      'globalApp'
+      'globalApp',
+      'apiPath',
+      'buildPath',
+      'imagePath'
     ],
-
     css: [
       'app.styl'
     ],
-
     extras: [
       'roboto-font',
       'material-icons', // optional, you are not bound to it
@@ -44,7 +45,9 @@ module.exports = function (ctx) {
         'QItemLabel',
         'QMenu',
         'QInput',
-        'QCheckbox'
+        'QCheckbox',
+        'QSpinner',
+        'QBanner'
       ],
 
       directives: [

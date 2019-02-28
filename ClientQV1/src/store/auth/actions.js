@@ -1,6 +1,6 @@
 import {loginRequest,makeUserDataFromToken} from "services/auth";
 import {removeToken} from "services/token"
-import {routeCheckAccess} from "plugins/routeAccess"
+import {routeCheckAccess} from "services/routeAccess"
 import {router} from 'router'
 
 export async function doLogin(context, userData) {

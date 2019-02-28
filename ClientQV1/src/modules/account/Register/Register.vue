@@ -1,64 +1,69 @@
 <template>
   <q-page class="flex flex-center">
 
-    <div class="center-form">
+    <div v-if="!done" class="center-form">
 
-      <q-input ref="userName" v-model="userName" label="Имя пользователя" :rules="userNameRules">
+      <q-input ref="userName" v-model="userName" :label="$i18n.t('register.userName')" :rules="userNameRules">
         <template v-slot:prepend>
           <q-icon name="fas fa-user"/>
         </template>
       </q-input>
 
-      <q-input ref="email" v-model="email" type="email" label="Email" :rules="emailRules">
+      <q-input ref="email" v-model="email" type="email" :label="$i18n.t('register.email')" :rules="emailRules">
         <template v-slot:prepend>
           <q-icon name="fas fa-envelope"/>
         </template>
       </q-input>
 
-      <q-input ref="password" v-model="password" type="password" label="Пароль" :rules="passwordRules">
+      <q-input ref="password" v-model="password" type="password" :label="$i18n.t('register.password')"
+               :rules="passwordRules">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
       </q-input>
 
-      <q-input ref="password2" v-model="password2" type="password" label="Подтвердите пароль" :rules="password2Rules">
+      <q-input ref="password2" v-model="password2" type="password" :label="$i18n.t('register.password2')"
+               :rules="password2Rules">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
       </q-input>
 
       <div style="padding: 10px 10px 10px 44px; border-radius: 5px; background-color: #f0f4c3">
-        <span class="wait-msg" v-if="waitToken">Что бы сгенерировать новый токен, нужно немного подождать, попробуйте через некоторое время</span>
+        <span class="wait-msg" v-if="waitToken">{{$t("captcha.waitMessage")}}</span>
         <img class="block" v-else-if="token" :src="$apiPath('/Captcha/CaptchaImage?token='+token)"/>
 
         <q-btn class="shadow-1 q-mt-sm block" color="lime-6" @click="GetToken" size="sm" no-caps icon="fas fa-sync"
-               label="Выдать новое изображение"/>
+               :label="$t('captcha.newMessageBtn')"/>
       </div>
 
 
-      <q-input ref="captcha" v-model="captchaText" label="Введите текст с картинки" :rules="captchaRules">
+      <q-input ref="captcha" v-model="captchaText" :label="$t('captcha.enterToken')" :rules="captchaRules">
         <template v-slot:prepend>
           <q-icon name="fas fa-hand-point-right"/>
         </template>
       </q-input>
 
 
-      <q-btn style="width:100%;" color="send" label="Зарегистироваться" @click="register" :loading="submitting">
-        <!--<span slot="loading">
-          <q-spinner-mat class="on-left"/>  Регистрируемся...
-        </span>-->
+      <q-btn style="width:100%;" color="send" :label="$t('register.registerBtn')" @click="register"
+             :loading="submitting">
+        <span slot="loading">
+          <q-spinner class="on-left"/>  {{$t('register.registering')}}
+        </span>
       </q-btn>
 
     </div>
-    <!-- <q-alert v-else type="positive" icon="email">
-       Сообщение с ссылкой для регистрации отправленно на Email
-     </q-alert>-->
+    <q-banner v-else class="bg-positive">
+      <template v-slot:avatar>
+        <q-icon name="far fa-envelope" size="2em"/>
+      </template>
+      {{$t('register.emailSent')}}
+    </q-banner>
   </q-page>
 </template>
 
 <script>
   import LoaderSent from "LoaderSent";
-  import {required, minLength, maxLength, sameAs, email} from 'vuelidate/lib/validators'
   import Page from "Page";
 
   export default {
@@ -75,36 +80,37 @@
         submitting: false,
         token: null,
         waitToken: false,
+        done: false
       }
     },
     computed: {
       userNameRules() {
         return [
-          (value) => !!value || "Введите имя пользователя",
-          (value) => value.length >= 3 || "Имя пользователя должно быть не менее чем из 3 букв",
-          (value) => value.length <= config.DbColumnSizes.Users_UserName || `Имя пользователя должно состоять не более чем из ${config.DbColumnSizes.Users_UserName} символов`,
+          (value) => !!value || this.$t("register.validation.userName.required"),
+          (value) => value.length >= 3 || this.$t("register.validation.userName.minLength"),
+          (value) => value.length <= config.DbColumnSizes.Users_UserName || this.$t("register.validation.userName.maxLength")
         ];
       },
       emailRules() {
         return [
-          (value) => !!value || "Введите email",
-          (value) => /.+@.+\..+/.test(value) || "Неправильная сигнатура email",
-          (value) => value.length <= config.DbColumnSizes.Users_Email || `Email должен состоять не более чем из ${config.DbColumnSizes.Users_Email} символов`,
+          (value) => !!value || this.$t("register.validation.email.required"),
+          (value) => /.+@.+/.test(value) || this.$t("register.validation.email.emailSig"),
+          (value) => value.length <= config.DbColumnSizes.Users_Email || this.$t("register.validation.email.maxLength"),
         ];
       },
       passwordRules() {
         return [
-          (value) => !!value || "Введите пароль",
-          (value) => value.length >= config.PasswordValidation.MinLength || `Пароль должен состоять не менее чем из ${config.PasswordValidation.MinLength} символов`,
-          (value) => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || `В пароле должно быть не менее ${config.PasswordValidation.MinDifferentChars} разных символов`,
+          (value) => !!value || this.$t("register.validation.password.required"),
+          (value) => value.length >= config.PasswordValidation.MinLength || this.$t("register.validation.password.minLength"),
+          (value) => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$t("register.validation.password.minDifferentChars"),
         ];
       },
       password2Rules() {
         return [...this.passwordRules,
-          (value) => this.password === this.password2 || "Пароли должны совпадать"];
+          (value) => this.password === this.password2 ||  this.$t("register.validation.password2.equals")];
       },
       captchaRules() {
-        return [(value) => !!value || "Введите текст с картинки",
+        return [(value) => !!value || this.$t("captcha.required"),
         ]
       }
     },
@@ -134,10 +140,11 @@
         }).then(response => {
           this.done = true;
         }).catch(error => {
+          debugger;
           this.$q.notify({
-            message: error.response.data?.errorsText ?? error.response.data.errorText,
+            message: error.response.data?.errorText ?? error.response.data?.errorsTexts?.join(", "),
             timeout: 5000,
-            type: 'negative',
+            color: 'negative',
             position: 'top'
           });
           this.submitting = false;
@@ -157,17 +164,18 @@
       }
     },
     async created() {
-      this.title = "Зарегистрироваться";
+      this.title = this.$t("register.title");
       await this.GetToken();
+      console.log(this.t);
     }
   }
 </script>
 
 <style lang="stylus" scoped>
-  /*  @import '~variables';
+  @import '~quasar-variables'
 
-    .wait-msg {
-      font-size : 0.8em;
-      color: $negative;
-    }*/
+  .wait-msg {
+    font-size: 0.8em;
+    color: $negative;
+  }
 </style>
