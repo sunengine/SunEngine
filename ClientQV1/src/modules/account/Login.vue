@@ -88,6 +88,7 @@
             position: 'top'
           });
         }).catch(data => {
+          debugger;
           this.submitting = false;
           this.$q.notify({
             message: data.response.data.errorText,

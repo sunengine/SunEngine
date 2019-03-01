@@ -4,8 +4,7 @@ import Vuex from 'vuex'
 import auth from './auth'
 import request from "./request";
 import categories from "store/categories";
-import {getTokens} from "services/tokens";
-import {makeUserDataFromToken} from "services/auth";
+import {getTokens, makeUserDataFromToken} from "services/tokens";
 //import extensions from './extensions'
 
 Vue.use(Vuex);

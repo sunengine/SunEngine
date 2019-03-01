@@ -1,15 +1,15 @@
 import imagePath from "services/imagePath.js";
 import Vue from "vue";
-import {setToken} from "services/token";
+import {setTokens} from "services/tokens";
 import {store} from "store";
-import {removeToken} from "services/token";
+
 
 export function makeLogin(state, data) {
 
   Object.assign(state, data);
 
   if (data.isPermanentLogin) {
-    setToken(data.tokens);
+    setTokens(data.tokens);
   }
 
 }

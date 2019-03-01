@@ -42,24 +42,25 @@ export default async function request(context, data) {
 
   function makeRequest() {
 
+    const tokens = store.state.auth.tokens;
+
     if (tokens)
       headers['Authorization'] = `Bearer ${tokens.shortToken}`;
 
-    let body;
+    let body = data.data;
 
-    if (data) {
-      if ((typeof data === 'object')) {
+    if (body) {
+      if ((typeof body === 'object')) {
         if (data instanceof FormData) {
-          body = data;
+
         } else if (sendAsJson === false) {
-          body = ConvertObjectToFormData(data);
+          body = ConvertObjectToFormData(body);
         } else {
           headers['Content-Type'] = 'application/json';
-          body = JSON.stringify(data);
+          body = JSON.stringify(body);
         }
       } else {
         headers['Content-Type'] = 'application/x-www-form-urlencoded';
-        body = data;
       }
     }
 

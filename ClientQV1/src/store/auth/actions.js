@@ -14,7 +14,9 @@ export async function doLogin(context, userData) {
       }
     }).then(async () => {
 
-    const data = makeUserDataFromTokens(context.tokens);
+      debugger;
+
+    const data = makeUserDataFromTokens(context.state.tokens);
 
     data.isPermanentLogin = !userData.notMyComputer;
 
