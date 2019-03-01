@@ -48,6 +48,7 @@ module.exports = function (ctx) {
         'QInput',
         'QCheckbox',
         'QSpinner',
+        'QSpinnerGears',
         'QBanner'
       ],
 

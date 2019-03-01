@@ -1,21 +1,59 @@
 <template>
   <div id="q-app">
-    <MyLayout/>
-    <!--<router-view />-->
+    <MyLayout v-if="isInitialized"/>
+
+    <div v-else-if="!initializeError" class="loader">
+      <div>
+        <q-spinner-gears size="40px" class="q-mr-sm"/>
+        {{$t('app.loading')}}
+      </div>
+    </div>
+
+    <div v-else-if="initializeError" class="api-error">
+      <q-banner rounded class="bg-negative text-white shadow-3">
+        <template v-slot:avatar>
+          <q-icon name="fas fa-exclamation-triangle" size="2em"/>
+        </template>
+       {{$t('app.canNotConnectApi')}}
+      </q-banner>
+    </div>
   </div>
 </template>
 
 <script>
   import MyLayout from "./layouts/MyLayout";
+  import {mapState} from 'vuex';
 
   export default {
     name: 'App',
     components: {MyLayout},
+    computed: {
+      ...mapState(['isInitialized', 'initializeError'])
+    },
     created() {
       this.$store.dispatch('init');
     }
   }
 </script>
 
-<style>
+<style lang="stylus" scoped>
+  @import '~quasar-variables';
+
+  .api-error {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+  }
+
+  .loader {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    font-size: 1.4em;
+    color: #005d00;
+  }
 </style>
