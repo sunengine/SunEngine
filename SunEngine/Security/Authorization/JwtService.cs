@@ -28,7 +28,7 @@ namespace SunEngine.Security.Authorization
     public class JwtService : DbService
     {
         public const int LongTokenLiveTimeDays = 90;
-        public const int ShortTokenLiveTimeMinutes = 1;
+        public const int ShortTokenLiveTimeMinutes = 20;
 
         
         private readonly MyUserManager userManager;

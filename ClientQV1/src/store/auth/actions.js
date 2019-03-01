@@ -14,17 +14,20 @@ export async function doLogin(context, userData) {
       }
     }).then(async () => {
 
-      debugger;
+
 
     const data = makeUserDataFromTokens(context.state.tokens);
+
+    debugger;
 
     data.isPermanentLogin = !userData.notMyComputer;
 
     context.commit('makeLogin', data);
-
-    const x1 = context.dispatch('getAllCategories');
-    const x2 = context.dispatch('getMyUserInfo');
-    await Promise.all([x1, x2]);
+    debugger;
+    await context.dispatch('getAllCategories');
+    debugger;
+    await context.dispatch('getMyUserInfo');
+    //await Promise.all([x1, x2]);
 
   });
 }

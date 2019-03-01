@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import auth from './auth'
 import request from "./request";
 import categories from "store/categories";
-import {getTokens, makeUserDataFromToken} from "services/tokens";
+import {getTokens, makeUserDataFromTokens} from "services/tokens";
 //import extensions from './extensions'
 
 Vue.use(Vuex);
@@ -60,7 +60,7 @@ function initUser(store) {
   store.state.auth.tokens = tokens;
 
   if (tokens) {
-    const userData = makeUserDataFromToken(tokens);
+    const userData = makeUserDataFromTokens(tokens);
     store.commit('makeLogin', userData);
 
     console.log('UserRestored');

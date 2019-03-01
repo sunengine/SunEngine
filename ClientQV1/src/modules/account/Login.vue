@@ -80,7 +80,7 @@
           if (this.$router.$prevRoute.name === "Login")
             this.$router.push({name: "Home"});
           else
-            this.$router.$goBack();
+            this.$router.back();
           this.$q.notify({
             message: this.$t('login.enterSuccess'),
             timeout: 2000,
@@ -88,7 +88,7 @@
             position: 'top'
           });
         }).catch(data => {
-          debugger;
+          throw data;
           this.submitting = false;
           this.$q.notify({
             message: data.response.data.errorText,

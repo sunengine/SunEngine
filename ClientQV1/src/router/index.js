@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import routes from './routes'
 
 import routesCore from './routesCore'
+import {routeHasAccess} from "services/routeAccess";
 /*import routesSite from './routesSite'
 import routesPersonal from './routesPersonal'
 import routesAdmin from './routesAdmin'*/
@@ -29,6 +30,8 @@ export default function (/* { store, ssrContext } */) {
     mode: process.env.VUE_ROUTER_MODE,
     base: process.env.VUE_ROUTER_BASE
   });
+
+
 
   return router;
 }

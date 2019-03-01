@@ -1,6 +1,6 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated class="glossy">
+  <q-layout view="lHh LpR lfr">
+    <q-header  class="glossy">
       <q-toolbar>
         <q-btn
           flat
@@ -22,6 +22,11 @@
             <LoginOrRegisterMenu v-close-menu/>
           </q-menu>
         </q-btn>
+
+        <q-btn flat dense round @click="$router.back()">
+          <q-icon name="fas fa-arrow-left"/>
+
+        </q-btn>
       </q-toolbar>
     </q-header>
 
@@ -30,13 +35,24 @@
       bordered
       content-class="bg-grey-2"
     >
-      <MainMenu />
+      <MainMenu/>
 
     </q-drawer>
 
     <q-page-container>
       <router-view/>
     </q-page-container>
+
+    <q-footer class="footer q-py-lg bg-yellow-1">
+      Сделано с Любовью
+      <QIcon name="fas fa-heart" size="10px" color="primary"/>
+      <a href="http://sunengine.site">Sun Engine</a>
+      <QIcon class="gt-xs" name="fas fa-heart" size="10px" color="primary"/>
+      <br class="xs"/>
+      <a href="https://github.com/Dmitrij-Polyanin/SunEngine">GitHub</a>
+      <QIcon name="fas fa-heart" size="10px" color="primary"/>
+      <a href="https://t-do.ru/SunEngine">Telegram</a>
+    </q-footer>
   </q-layout>
 </template>
 
@@ -62,5 +78,21 @@
   }
 </script>
 
-<style>
+<style lang="stylus" scoped>
+  @import '~quasar-variables'
+
+  .footer {
+    text-align: center;
+    color: $primary;
+    font-family: "BoomBoomRegular";
+
+    span {
+      color: $primary;
+      margin: 0 10px;
+    }
+
+    .q-icon {
+      margin: 0 16px;
+    }
+  }
 </style>

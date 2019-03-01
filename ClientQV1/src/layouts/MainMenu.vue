@@ -68,6 +68,7 @@
         <q-item-label caption>Тестируем расширения</q-item-label>
       </q-item-section>
     </q-item>
+
   </q-list>
 </template>
 

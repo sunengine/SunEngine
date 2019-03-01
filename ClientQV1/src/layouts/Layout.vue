@@ -21,13 +21,6 @@
           </q-popover>
         </q-btn>
 
-        <q-btn v-else flat dense round>
-          <q-icon name="fas fa-user"/>
-          <q-popover>
-            <LoginOrRegisterMenu/>
-          </q-popover>
-        </q-btn>
-
       </q-toolbar>
     </q-layout-header>
 
