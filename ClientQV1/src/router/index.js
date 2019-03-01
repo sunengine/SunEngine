@@ -15,8 +15,10 @@ Vue.use(VueRouter);
  * directly export the Router instantiation
  */
 
+export var router;
+
 export default function (/* { store, ssrContext } */) {
-  const Router = new VueRouter({
+  router = new VueRouter({
     scrollBehavior: () => ({ y: 0 }),
     routes: [...routes],
 
@@ -28,6 +30,5 @@ export default function (/* { store, ssrContext } */) {
     base: process.env.VUE_ROUTER_BASE
   });
 
-  var x = "xx";
-  return Router
+  return router;
 }

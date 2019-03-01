@@ -140,7 +140,6 @@
         }).then(response => {
           this.done = true;
         }).catch(error => {
-          debugger;
           this.$q.notify({
             message: error.response.data?.errorText ?? error.response.data?.errorsTexts?.join(", "),
             timeout: 5000,

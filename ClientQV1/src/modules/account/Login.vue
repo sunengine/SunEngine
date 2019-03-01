@@ -3,15 +3,15 @@
 
     <div class="center-form">
 
-      <q-input ref="nameOrEmail" v-model="nameOrEmail" label="Имя или email"
-               :rules="[(value) => !!value || 'Введите имя или email']">
+      <q-input ref="nameOrEmail" v-model="nameOrEmail" :label="$t('login.nameOrEmail')"
+               :rules="[(value) => !!value || $t('login.nameOrEmail.validation.nameOrEmail.required')]">
         <template v-slot:prepend>
           <q-icon name="fas fa-user"/>
         </template>
       </q-input>
 
-      <q-input ref="password" v-model="password" type="password" @keyup.enter="login" label="Пароль"
-               :rules="[(value) => !!value || 'Введите пароль']">
+      <q-input ref="password" v-model="password" type="password" @keyup.enter="login" :label="$t('login.password')"
+               :rules="[(value) => !!value || $t('login.nameOrEmail.validation.password.required')]">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
@@ -29,20 +29,20 @@
       </q-field>-->
 
       <div class="q-my-md" style="text-align: right;">
-        <q-checkbox style="color:gray;" left-label v-model="notMyComputer" label="Чужой компьютер"/>
+        <q-checkbox style="color:gray;" left-label v-model="notMyComputer" :label="$t('login.notMyComputer')"/>
       </div>
 
       <!--<q-field class="q-mb-lg">--><!---->
       <q-btn style="width:100%;" color="send" label="Войти" @click="login" :loading="submitting">
-        <!--<span slot="loading">
-          <q-spinner-mat class="on-left"/>  Заходим...
-        </span>-->
+        <span slot="loading">
+          <q-spinner class="on-left"/>  {{$t('login.entering')}}
+        </span>
       </q-btn>
       <!--</q-field>-->
 
       <router-link class="text-center q-mt-lg" :to="{name:'ResetPassword'}">
         <QIcon class="q-mr-sm" name="far fa-question-circle"/>
-        <span>Забыли пароль?</span>
+        <span>{{$t('login.forgotPassword')}}</span>
       </router-link>
     </div>
 
@@ -82,7 +82,7 @@
           else
             this.$router.$goBack();
           this.$q.notify({
-            message: `Вы зашли`,
+            message: this.$t('login.enterSuccess'),
             timeout: 2000,
             type: 'info',
             position: 'top'

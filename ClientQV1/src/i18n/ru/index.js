@@ -12,6 +12,23 @@ export default {
     enterToken: "Введите текст с картинки",
     required: "@:captcha.enterToken",
   },
+  login: {
+    nameOrEmail: "Имя или email",
+    password: "Пароль",
+    entering: "Заходим...",
+    enterBtn: "Войти",
+    forgotPassword: "Забыли пароль?",
+    notMyComputer: "Чужой компьютер",
+    enterSuccess: "Вы зашли",
+    validation: {
+      nameOrEmail: {
+        required: "Введите имя или email"
+      },
+      password: {
+        required: "Введите пароль"
+      },
+    }
+  },
   register: {
     title: "Зарегистрироваться",
     userName: "Имя пользователя",

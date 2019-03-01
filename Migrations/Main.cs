@@ -23,7 +23,7 @@ namespace Migrations
         /// <summary>
         /// Configure the dependency injection services
         /// </sumamry>
-        private static IServiceProvider CreateServices(string configFile = null)
+        private static IServiceProvider CreateServices(string configFile)
         {
             configFile = configFile.Trim();
 
@@ -35,7 +35,7 @@ namespace Migrations
 
             var dataBaseConfiguration = configuration.GetSection("DataBaseConnection");
             var providerName = dataBaseConfiguration["Provider"];
-            DBProvider.Initialize(providerName);
+            DbProvider.Initialize(providerName);
             var connectionString = dataBaseConfiguration["ConnectionString"];
 
 
@@ -79,8 +79,9 @@ namespace Migrations
         }
     }
 
-    public static class DBProvider
-    {
+    
+    public static class DbProvider
+    {       
         public static string Name { get; private set; }
 
         public static bool IsPostgre { get; private set; }

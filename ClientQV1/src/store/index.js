@@ -2,13 +2,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import auth from './auth'
-import request, {setSessionTokens} from "../../../Client/src/services/request";
+import request, {setSessionTokens} from "services/request";
 import categories from "store/categories";
 import {getToken} from "services/token";
 import {makeUserDataFromToken} from "services/auth";
 //import extensions from './extensions'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 /*
  * If not building with SSR mode, you can
@@ -18,7 +18,7 @@ Vue.use(Vuex)
 export var store;
 
 export default function (/* { ssrContext } */) {
-  const Store = new Vuex.Store({
+  store = new Vuex.Store({
     state: {
       isInitialized: false,
       initializeError: false
@@ -63,11 +63,9 @@ export default function (/* { ssrContext } */) {
     }
   });
 
-  store = Store;
-
   initUser(store);
 
-  return Store
+  return store;
 }
 
 function initUser(store) {

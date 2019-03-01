@@ -204,7 +204,7 @@ namespace Migrations
         public static ICreateTableColumnOptionOrWithColumnSyntax AsMyDateTime(
             this ICreateTableColumnAsTypeSyntax createTableColumnAsTypeSyntax)
         {
-            if (!DBProvider.IsPostgre)
+            if (!DbProvider.IsPostgre)
                 return createTableColumnAsTypeSyntax.AsDateTime();
 
             return createTableColumnAsTypeSyntax.AsCustom("TimestampTz");
