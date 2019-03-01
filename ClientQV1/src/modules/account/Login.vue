@@ -65,14 +65,10 @@
 
         const data = {nameOrEmail: this.nameOrEmail, password: this.password, notMyComputer: this.notMyComputer};
         await this.$store.dispatch('doLogin', data).then(data => {
-          if (this.$router.$prevRoute.name === "Login")
-            this.$router.push({name: "Home"});
-          else
-            this.$router.back();
           this.$q.notify({
             message: this.$t('login.enterSuccess'),
             timeout: 2000,
-            type: 'info',
+            color: 'positive',
             position: 'top'
           });
         }).catch(data => {
@@ -80,7 +76,7 @@
           this.$q.notify({
             message: data.response.data.errorText,
             timeout: 5000,
-            type: 'negative',
+            color: 'negative',
             position: 'top'
           });
         });

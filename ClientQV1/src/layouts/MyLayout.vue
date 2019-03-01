@@ -1,14 +1,8 @@
 <template>
   <q-layout view="lHh LpR lfr">
-    <q-header  class="glossy">
+    <q-header class="glossy">
       <q-toolbar class="toolbar">
-        <q-btn
-          flat
-          dense
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          aria-label="Menu"
-        >
+        <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
           <q-icon name="menu"/>
         </q-btn>
 
@@ -16,27 +10,25 @@
           SunEngine
         </q-toolbar-title>
 
-        <q-btn icon="fas fa-user" flat dense round>
-          <!--<q-icon name="fas fa-user"/>-->
+        <q-btn class="user-menu-button" v-if="userName" flat dense round>
+          <img class="avatar" :src="userAvatar"/>
+          <q-menu>
+            <UserMenu />
+          </q-menu>
+        </q-btn>
+
+        <q-btn v-else flat dense round>
+          <q-icon name="fas fa-user"/>
           <q-menu>
             <LoginOrRegisterMenu v-close-menu/>
           </q-menu>
         </q-btn>
 
-        <q-btn flat dense round @click="$router.back()">
-          <q-icon name="fas fa-arrow-left"/>
-
-        </q-btn>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      bordered
-      content-class="bg-grey-2"
-    >
+    <q-drawer v-model="leftDrawerOpen" bordered content-class="bg-grey-2">
       <MainMenu/>
-
     </q-drawer>
 
     <q-page-container>
@@ -57,29 +49,45 @@
 </template>
 
 <script>
-  import {openURL} from 'quasar'
   import MainMenu from "./MainMenu";
   import LoginOrRegisterMenu from "./LoginOrRegisterMenu";
+  import {mapState} from "vuex";
+  import UserMenu from "./UserMenu";
 
 
   export default {
 
 
     name: 'MyLayout',
-    components: {LoginOrRegisterMenu, MainMenu},
+    components: {UserMenu, LoginOrRegisterMenu, MainMenu},
     data() {
       return {
-        leftDrawerOpen: this.$q.platform.is.desktop
+        leftDrawerOpen: this.$q.platform.is.desktop,
+        rightDrawerOpen: this.$q.platform.is.desktop,
       }
     },
-    methods: {
-      openURL
+    computed: {
+      rightDrawerIs: function () {
+        return !!this.$route?.matched?.[0]?.components?.navigation;
+      },
+
+      ...mapState({
+        userName: state => state.auth.user?.name,
+        userAvatar: state => state.auth.userInfo?.avatar,
+      })
     }
   }
 </script>
 
 <style lang="stylus" scoped>
   @import '~quasar-variables'
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    box-shadow: 0px 0px 4px 1.5px white;
+  }
+
 
   .toolbar {
     background-color: #3392FF;

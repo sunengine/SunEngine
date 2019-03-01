@@ -4,6 +4,7 @@
 
 // ——— Colors ————————————————————————————————————
 
+
 a {
   text-decoration: none;
   color: #3a67d3;
@@ -38,4 +39,25 @@ $q-field-color = #00c63b;
   display flex;
   flex-direction: column;
   justify-content: stretch;
+}
+
+
+// ——— Menus ————————————————————————————————————
+
+
+.my-menu {
+  .q-item {
+    min-height: 40px;
+  }
+
+  .q-item__section--avatar {
+    width: 28px !important;
+    min-width : unset !important;
+    padding: 0 !important;
+    margin: 0 !important;
+
+    .q-icon {
+      font-size : 16px !important;
+    }
+  }
 }

@@ -16,6 +16,13 @@ export default {
     enterToken: "Введите текст с картинки",
     required: "@:captcha.enterToken",
   },
+  userMenu: {
+    profile: "Профиль",
+    yourAccount: "Личный кабинет",
+    adminPanel: "Админка",
+    exit: "Выйти",
+    logoutNotifyMessage: "Вы вышли",
+  },
   login: {
     nameOrEmail: "Имя или email",
     password: "Пароль",
