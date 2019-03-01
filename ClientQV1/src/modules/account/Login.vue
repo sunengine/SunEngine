@@ -4,41 +4,29 @@
     <div class="center-form">
 
       <q-input ref="nameOrEmail" v-model="nameOrEmail" :label="$t('login.nameOrEmail')"
-               :rules="[(value) => !!value || $t('login.nameOrEmail.validation.nameOrEmail.required')]">
+               :rules="[(value) => !!value || $t('login.validation.nameOrEmail.required')]">
         <template v-slot:prepend>
           <q-icon name="fas fa-user"/>
         </template>
       </q-input>
 
       <q-input ref="password" v-model="password" type="password" @keyup.enter="login" :label="$t('login.password')"
-               :rules="[(value) => !!value || $t('login.nameOrEmail.validation.password.required')]">
+               :rules="[(value) => !!value || $t('login.validation.password.required')]">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
       </q-input>
 
 
-      <!--<q-field icon="fas fa-user" :error="$v.nameOrEmail.$invalid && !start"
-               error-label="Введите имя или Email">
-        <q-input v-model="nameOrEmail" float-label="Имя или email"/>
-      </q-field>
-
-      <q-field class="q-mb-md" icon="fas fa-key" :error="$v.password.$invalid && !start"
-               error-label="Введите пароль">
-        <q-input v-model="password" type="password" @keyup.enter="login" float-label="Пароль"/>
-      </q-field>-->
-
       <div class="q-my-md" style="text-align: right;">
-        <q-checkbox style="color:gray;" left-label v-model="notMyComputer" :label="$t('login.notMyComputer')"/>
+        <q-checkbox class="text-grey-9" left-label v-model="notMyComputer" :label="$t('login.notMyComputer')"/>
       </div>
 
-      <!--<q-field class="q-mb-lg">--><!---->
       <q-btn style="width:100%;" color="send" label="Войти" @click="login" :loading="submitting">
         <span slot="loading">
           <q-spinner class="on-left"/>  {{$t('login.entering')}}
         </span>
       </q-btn>
-      <!--</q-field>-->
 
       <router-link class="text-center q-mt-lg" :to="{name:'ResetPassword'}">
         <QIcon class="q-mr-sm" name="far fa-question-circle"/>
@@ -88,7 +76,6 @@
             position: 'top'
           });
         }).catch(data => {
-          throw data;
           this.submitting = false;
           this.$q.notify({
             message: data.response.data.errorText,

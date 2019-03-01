@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh LpR lfr">
     <q-header  class="glossy">
-      <q-toolbar>
+      <q-toolbar class="toolbar">
         <q-btn
           flat
           dense
@@ -13,7 +13,7 @@
         </q-btn>
 
         <q-toolbar-title>
-          Quasar App
+          SunEngine
         </q-toolbar-title>
 
         <q-btn icon="fas fa-user" flat dense round>
@@ -80,6 +80,11 @@
 
 <style lang="stylus" scoped>
   @import '~quasar-variables'
+
+  .toolbar {
+    background-color: #3392FF;
+    font-family: "BoomBoomRegular";
+  }
 
   .footer {
     text-align: center;

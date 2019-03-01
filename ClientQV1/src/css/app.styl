@@ -1,21 +1,41 @@
 // app global css
 
+@import '/css/fonts/BoomBoomRegular.css';
+
+// ——— Colors ————————————————————————————————————
+
 a {
   text-decoration: none;
   color: #3a67d3;
 }
+
+.bg-send {
+  background-color: #5ee22f !important;
+}
+
+.text-send {
+  color: #5ee22f !important;
+}
+
+$q-field-color = #00c63b;
+
+.q-field--focused {
+  .q-field__label {
+    color: $q-field-color !important;
+  }
+
+  .q-field__control {
+    color: $q-field-color !important;
+  }
+}
+
+
+// ——— Forms ————————————————————————————————————
+
 
 .center-form {
   width: 400px;
   display flex;
   flex-direction: column;
   justify-content: stretch;
-}
-
-.bg-send {
-  background-color: #66f532 !important;
-}
-
-.text-send {
-  color: #66f532 !important;
 }
