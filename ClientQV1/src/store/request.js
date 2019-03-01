@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {removeTokens, setTokens, setTokensString, parseJwt} from './token';
+import {removeTokens, setTokens, setTokensString, parseJwt} from 'services/tokens';
 import Lock from 'js-lock';
 import {store} from 'store';
 
@@ -85,12 +85,17 @@ function ConvertObjectToFormData(obj) {
 
 async function checkTokens(rez) {
   if (rez.headers.tokens) {
-    tokens = JSON.parse(rez.headers.tokens);
+    const tokens = JSON.parse(rez.headers.tokens);
     const exps = parseJwt(tokens.shortToken)
+
     tokens.shortTokenExpiration = new Date(exps.exp * 1000);
-    setTokens(tokens);
+
+    if(store.state.auth.isPermanentLogin)
+      setTokens(tokens);
+
+    store.state.auth.tokens = tokens;
   } else if (rez.headers.tokensexpire) {
-    tokens = null;
+    store.state.auth.tokens = null;
     removeTokens();
     await store.dispatch('doLogout');
   }

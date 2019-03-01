@@ -1,6 +1,5 @@
-import request from './request'
 import {parseJwt} from './token'
-import {tokens} from './request'
+import {store} from 'store'
 
 const IdKey = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
 const NameKey = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name";
@@ -13,44 +12,9 @@ export async function loginRequest(nameOrEmail, password) {
   return await request("/Account/Login", {nameOrEmail: nameOrEmail, password: password})
     .then(
       response => {
-        return tokens;
+        return store.state.auth.tokens;
       }
     );
 }
 
-export function getTokensFromResponse(response) {
 
-}
-
-export function makeUserDataFromToken(token) {
-
-  const tokenParsed = parseJwt(token.shortToken);
-
-  let roles = tokenParsed[RolesKey];
-  let userGroups;
-  let userGroup;
-
-  if (Array.isArray(roles)) {
-    userGroups = roles;
-    if (roles.length == 1) {
-      userGroup = roles[0];
-    }
-  } else if (roles) {
-    userGroups = [roles];
-    userGroup = roles;
-  }
-
-  token.shortTokenExpiration = new Date(tokenParsed.exp * 1000);
-
-  let data = {
-    tokens: token,
-    user: {
-      id: tokenParsed[IdKey],
-      name: tokenParsed[NameKey],
-    },
-    userGroups: userGroups,
-    userGroup: userGroup
-  };
-
-  return data;
-}

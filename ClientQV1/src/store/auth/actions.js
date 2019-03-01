@@ -1,24 +1,30 @@
-import {loginRequest,makeUserDataFromToken} from "services/auth";
-import {removeToken} from "services/token"
 import {routeCheckAccess} from "services/routeAccess"
 import {router} from 'router'
+import {parseJwt, makeUserDataFromTokens} from 'services/tokens'
+
 
 export async function doLogin(context, userData) {
 
-  return await loginRequest(userData.nameOrEmail, userData.password)
-    .then(async tokenData => {
+  await context.dispatch('request',
+    {
+      url: "/Account/Login",
+      data: {
+        nameOrEmail: userData.nameOrEmail,
+        password: userData.password
+      }
+    }).then(async () => {
 
-      const data = makeUserDataFromToken(tokenData);
+    const data = makeUserDataFromTokens(context.tokens);
 
-      data.permanent = !userData.notMyComputer;
+    data.isPermanentLogin = !userData.notMyComputer;
 
-      context.commit('makeLogin', data);
+    context.commit('makeLogin', data);
 
-      let x1 = context.dispatch('getAllCategories');
-      let x2 = context.dispatch('getMyUserInfo');
-      await Promise.all( [x1,x2]);
+    const x1 = context.dispatch('getAllCategories');
+    const x2 = context.dispatch('getMyUserInfo');
+    await Promise.all([x1, x2]);
 
-    });
+  });
 }
 
 
@@ -34,9 +40,9 @@ export async function getMyUserInfo(context) {
   await context.dispatch('request', {
     url: '/Personal/GetMyUserInfo',
   }).then(response => {
-    context.commit('setUserInfo',response.data);
+    context.commit('setUserInfo', response.data);
   }).catch(error => {
-   console.log("error",error);
+    console.log("error", error);
   });
 
 }

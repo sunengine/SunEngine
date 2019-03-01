@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import auth from './auth'
 import request from "./request";
 import categories from "store/categories";
-import {getToken} from "services/token";
+import {getTokens} from "services/tokens";
 import {makeUserDataFromToken} from "services/auth";
 //import extensions from './extensions'
 
@@ -56,8 +56,9 @@ export default function (/* { ssrContext } */) {
 }
 
 function initUser(store) {
-  const tokens = getToken();
-  setSessionTokens(tokens);
+  const tokens = getTokens();
+
+  store.state.auth.tokens = tokens;
 
   if (tokens) {
     const userData = makeUserDataFromToken(tokens);

@@ -8,7 +8,7 @@ export function makeLogin(state, data) {
 
   Object.assign(state, data);
 
-  if (data.permanent) {
+  if (data.isPermanentLogin) {
     setToken(data.tokens);
   }
 
@@ -16,6 +16,7 @@ export function makeLogin(state, data) {
 
 export function makeLogout(state) {
   state.tokens = null;
+  state.isPermanentLogin = null;
   state.user = null;
   state.userInfo = null;
   state.userGroup = 'Unregistered';
