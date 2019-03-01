@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import auth from './auth'
-import request, {setSessionTokens} from "services/request";
+import request from "./request";
 import categories from "store/categories";
 import {getToken} from "services/token";
 import {makeUserDataFromToken} from "services/auth";
@@ -24,20 +24,7 @@ export default function (/* { ssrContext } */) {
       initializeError: false
     },
     actions: {
-      async request(context, data) {
-        return request(data.url, data.data, data.sendAsJson)
-          .then(async rez => {
-            if (rez.headers.tokensexpire) {
-              await store.dispatch('doLogout');
-            }
-            return rez;
-          }).catch(async rez => {
-            if (rez.response.headers.tokensexpire) {
-              await store.dispatch('doLogout');
-            }
-            throw rez;
-          })
-      },
+      request,
       async init() {
 
         console.log("StartInit");
