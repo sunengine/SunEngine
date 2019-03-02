@@ -1,6 +1,7 @@
 import Login from 'account/Login.vue';
 import Index from 'pages/Index.vue';
 import Register from 'account/Register/Register.vue';
+import {makeArticlesSection} from "./makeSections";
 
 
 const routes = [
@@ -25,6 +26,7 @@ const routes = [
       roles: ["Unregistered"]
     }
   },
+  ...makeArticlesSection("Articles"),
 ];
 
 // Always leave this as last one

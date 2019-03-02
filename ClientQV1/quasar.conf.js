@@ -13,7 +13,8 @@ module.exports = function (ctx) {
       'globalApp',
       'apiPath',
       'buildPath',
-      'imagePath'
+      'imagePath',
+      'formatDate'
     ],
     css: [
       'app.styl'
@@ -49,7 +50,8 @@ module.exports = function (ctx) {
         'QCheckbox',
         'QSpinner',
         'QSpinnerGears',
-        'QBanner'
+        'QBanner',
+        'QPagination'
       ],
 
       directives: [

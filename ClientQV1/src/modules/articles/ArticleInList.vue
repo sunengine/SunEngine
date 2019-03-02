@@ -1,0 +1,54 @@
+<template>
+  <q-item class="page-padding" :to='path'>
+    <q-item-section>
+      <q-item-label>{{article.title}}</q-item-label>
+
+    <q-item-label v-if="description"  class="info-block" caption="">
+      <div v-html="description">
+      </div>
+    </q-item-label>
+    <q-item-label class="info-block" caption="">
+       <span>
+        <q-icon name="far fa-user"/>
+        {{article.authorName}} &nbsp;
+          </span>
+      <span>
+        <q-icon name="far fa-clock"/>
+          {{$formatDate(this.article.publishDate)}}
+        </span>
+      <span v-if="article.messagesCount > 0">
+          <q-icon name="far fa-comment"/>
+          {{article.messagesCount}}
+        </span>
+    </q-item-label>
+    </q-item-section>
+  </q-item>
+</template>
+
+<script>
+  import {date} from 'quasar'
+
+  export default {
+    name: "ArticleInList",
+    props: {
+      article: Object,
+      startPath: {
+        type: String,
+        required: true
+      }
+    },
+    computed: {
+      description() {
+        return this.article.description?.replace(/\n/g, "<br/>");
+      },
+      path() {
+        return this.$buildPath(this.startPath, this.article.id);
+      },
+    }
+  }
+</script>
+
+<style lang="stylus" scoped>
+
+
+</style>

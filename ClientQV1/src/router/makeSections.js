@@ -1,11 +1,11 @@
 import Material from 'material/Material.vue';
-import Thread from 'forum/Thread.vue';
-import NewTopics from 'forum/NewTopics.vue';
+//import Thread from 'forum/Thread.vue';
+//import NewTopics from 'forum/NewTopics.vue';
 import ArticlesList from 'articles/ArticlesList.vue';
-import ForumNavPanel from 'forum/ForumNavPanel';
-import Blog from "blog/Blog";
+//import ForumNavPanel from 'forum/ForumNavPanel';
+//import Blog from "blog/Blog";
 
-export function makeForumSection(name, categoriesPanel) {
+/*export function makeForumSection(name, categoriesPanel) {
   let nameLover = name.toLowerCase();
   return [
     {
@@ -45,7 +45,7 @@ export function makeForumSection(name, categoriesPanel) {
       }
     }
   ]
-}
+}*/
 
 
 export function makeArticlesSection(name) {
@@ -82,6 +82,7 @@ export function makeArticlesSection(name) {
   ];
 }
 
+/*
 export function makeBlogSection(name) {
   let nameLover = name.toLowerCase();
   return [
@@ -115,3 +116,4 @@ export function makeBlogSection(name) {
     }
   ];
 }
+*/

@@ -1,14 +1,20 @@
 // app global css
-
+@import '~quasar-variables'
 @import '/css/fonts/BoomBoomRegular.css';
 
 // ——— Colors ————————————————————————————————————
 
+body {
+  color: #06000d;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+}
 
 a {
   text-decoration: none;
   color: #3a67d3;
 }
+
 
 .bg-send {
   background-color: #5ee22f !important;
@@ -28,6 +34,11 @@ $q-field-color = #00c63b;
   .q-field__control {
     color: $q-field-color !important;
   }
+}
+
+
+.clear {
+  clear: both;
 }
 
 
@@ -52,12 +63,79 @@ $q-field-color = #00c63b;
 
   .q-item__section--avatar {
     width: 28px !important;
-    min-width : unset !important;
+    min-width: unset !important;
     padding: 0 !important;
     margin: 0 !important;
 
     .q-icon {
-      font-size : 16px !important;
+      font-size: 16px !important;
     }
   }
+}
+
+// ——— Title ————————————————————————————————————
+
+
+.q-title {
+  margin-top: $flex-gutter-sm !important;
+  margin-bottom: $flex-gutter-sm !important;
+  font-size: 1.6rem;
+  line-height: unset;
+  padding: 0;
+}
+
+.header-with-button {
+  //margin-top: $flex-gutter-sm !important;
+  margin-bottom: $flex-gutter-sm !important;
+
+  .q-title {
+    float: left;
+    margin-bottom: 6px !important;
+  }
+
+  button {
+    float: right;
+  }
+}
+
+
+// ——— Page paddings ————————————————————————————————————
+
+.page-margin-bottom {
+  margin-bottom: $flex-gutter-lg !important;
+}
+
+
+$paddings = (12px 18px 24px)
+
+page-paddings-block(size) {
+  .page-padding {
+    padding-right: size !important;
+    padding-left: size !important;
+  }
+
+  .page-margin {
+    margin-right: size !important;
+    margin-left: size !important;
+  }
+
+  /*  .page-margin-top {
+      margin-top:  size !important;
+    }
+
+    .page-margin-bottom {
+      margin-bottom:  size !important;
+    }*/
+}
+
+@media (max-width: 599px) {
+  page-paddings-block($paddings[0])
+}
+
+@media ( min-width: 600px ) and ( max-width: 1023px ) {
+  page-paddings-block($paddings[1])
+}
+
+@media ( min-width: 1024px ) {
+  page-paddings-block($paddings[2])
 }
