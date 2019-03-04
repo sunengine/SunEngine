@@ -55,7 +55,7 @@
         <hr class="hr-sep"/>
       </div>
       <div v-if="canMessageWrite">
-        <AddEditMessage @done="messageAdded" :materialId="id"/>
+        <AddEditMessage class="page-padding" @done="messageAdded" :materialId="id"/>
       </div>
     </div>
 

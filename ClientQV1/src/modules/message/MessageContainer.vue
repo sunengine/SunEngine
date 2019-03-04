@@ -4,7 +4,7 @@
     <template v-if="!message.isDeleted">
       <ReadMessage @goEdit="goEdit" v-if="isReadMode" :message="message" :canEdit="canEdit()" :canMoveToTrash="canMoveToTrash()" />
 
-      <AddEditMessage @done="saved" @cancel="isReadMode=true" :messageId="message.id" class="q-mx-md" v-else/>
+      <AddEditMessage @done="saved" @cancel="isReadMode=true" :messageId="message.id" v-else/>
 
     </template>
     <DeletedMessage v-else/>
