@@ -4,7 +4,23 @@
       :toolbar="[
           ['bold', 'italic', 'strike', 'underline'],
           ['token', 'hr', 'link', 'addImages'],
-
+ [
+            {
+              label: $q.lang.editor.formatting,
+              icon: $q.iconSet.editor.formatting,
+              list: 'no-icons',
+              options: ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'code']
+            },
+            {
+              label: $q.lang.editor.fontSize,
+              icon: $q.iconSet.editor.fontSize,
+              fixedLabel: true,
+              fixedIcon: true,
+              list: 'no-icons',
+              options: ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6', 'size-7']
+            },
+            'removeFormat'
+        ],
         ['quote', 'unordered', 'ordered'],
         ['undo', 'redo','fullscreen'],
                     ]"
@@ -56,8 +72,7 @@
       messageRules() {
         return [
           (value) => !!value || this.$t('addEditMessage.required'),
-          (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$t('addEditMessage.required')
-            || this.$t('addEditMessage.htmlTextSizeOrHasImage'),
+          (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$t('addEditMessage.htmlTextSizeOrHasImage'),
         ];
       },
       isNew: function () {
@@ -123,7 +138,6 @@
         if (this.$refs.htmlEditor.hasError) {
           return;
         }
-
 
         if (this.isNew) {
           await this.addMessage();

@@ -66,6 +66,11 @@ module.exports = function (ctx) {
         'Meta'
       ],
 
+      animations: [
+        'bounceInDown',
+        'bounceOutUp'
+      ],
+
       // iconSet: 'ionicons-v4'
       lang: 'ru' // Quasar language
     },

@@ -1,17 +1,20 @@
 import {QEditor, QInnerLoading, QSpinnerGears} from "quasar";
+import ValidateMixin from "quasar/src/mixins/validate";
 
 
 export default {
   name: "MyEditor",
   extends: QEditor,
+  mixins: [ValidateMixin],
   data: function () {
     return {
       filesNumber: 0,
       filesNames: [],
-      filesLoading: false
+      filesLoading: false,
     }
   },
   methods: {
+
     oneFileDone() {
       this.filesNumber--;
       if (this.filesNumber <= 0) {
@@ -81,7 +84,6 @@ export default {
   },
 
   computed: {
-
     buttonDef() {
       return {
         ...QEditor.options.computed.buttonDef.call(this),
@@ -91,17 +93,32 @@ export default {
   },
 
   render(h) {
-    let fileInput = h("input", {
+    const fileInput = h("input", {
       ref: "file",
       attrs: {type: "file", accept: "image/*", multiple: true},
       style: {display: "none"},
       on: {change: this.handleFiles}
     });
-    let editor = QEditor.options.render.call(this, h);
-    let loading = h(QInnerLoading, {props: {visible: this.filesLoading}},
+    const editor = QEditor.options.render.call(this, h);
+    const loading = h(QInnerLoading, {props: {visible: this.filesLoading}},
       [h(QSpinnerGears, {props: {size: "60px"}, class: "text-grey-8"})]
     );
-    return h('div', {class: "relative-position"}, [editor, fileInput, loading]);
+
+    const error = h('div', {
+      staticClass: 'q-field__messages col text-negative q-my-xs',
+      key: 'q--slot-error'
+    }, this.computedErrorMessage);
+
+    const transition = h('transition', {
+      staticClass: '',
+      props: {
+        name: 'q-transition--field-message',
+      }
+    }, [error]);
+
+    const errorMessage = this.hasError && transition;
+
+    return h('div', {class: "relative-position"}, [editor, errorMessage, fileInput, loading]);
   }
 }
 
