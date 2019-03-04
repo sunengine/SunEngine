@@ -49,9 +49,11 @@ export default async function request(context, data) {
 
     let body = data.data;
 
+    debugger;
+
     if (body) {
       if ((typeof body === 'object')) {
-        if (data instanceof FormData) {
+        if (body instanceof FormData) {
 
         } else if (sendAsJson === false) {
           body = ConvertObjectToFormData(body);

@@ -1,6 +1,6 @@
 <template>
-  <q-page >
-    <div  v-if="material" class="page-padding">
+  <q-page>
+    <div v-if="material" class="page-padding">
       <h2 class="q-title">
         {{material.title}}
       </h2>
@@ -51,13 +51,11 @@
       <div v-for="(message,index) in messages" :key="message.id">
         <MessageContainer class="page-padding" :message="message" :checkLastOwn="checkLastOwn"
                           :categoryPersonalAccess="categoryPersonalAccess"
-                          :isLast="index == maxMessageNumber" />
+                          :isLast="index == maxMessageNumber"/>
         <hr class="hr-sep"/>
       </div>
       <div v-if="canMessageWrite">
-<!--
         <AddEditMessage @done="messageAdded" :materialId="id"/>
--->
       </div>
     </div>
 
@@ -68,7 +66,7 @@
 
 <script>
   import MessageContainer from "message/MessageContainer";
-  //import AddEditMessage from "message/AddEditMessage";
+  import AddEditMessage from "message/AddEditMessage";
   import {date} from 'quasar';
   import LoaderWait from "LoaderWait";
   import {scroll} from 'quasar';
@@ -78,7 +76,7 @@
 
   export default {
     name: "Material",
-    components: {MessageContainer, /*AddEditMessage, */LoaderWait},
+    components: {MessageContainer, AddEditMessage, LoaderWait},
     mixins: [Page],
     props: {
       id: {
@@ -174,7 +172,7 @@
         if (!category.categoryPersonalAccess.materialDeleteOwnIfTimeNotExceeded) {
           const now = new Date();
           const publish = this.material.publishDate;
-          const til = date.addToDate(publish, {minutes:  config.Materials.TimeToOwnDeleteInMinutes});
+          const til = date.addToDate(publish, {minutes: config.Materials.TimeToOwnDeleteInMinutes});
           if (til < now) {
             return false;
           }
@@ -196,7 +194,7 @@
           }).then(
           response => {
             this.material = response.data;
-            this.setTitle(this.material.title);
+            this.title = this.material.title;
           }
         ).catch(x => {
           console.log("error", x);

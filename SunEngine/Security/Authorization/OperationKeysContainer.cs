@@ -28,6 +28,7 @@ namespace SunEngine.Security.Authorization
 
 
         public int MaterialAndMessagesRead { get; private set; }
+        
         public int MaterialWrite { get; private set; }
         public int MaterialEditOwn { get; private set; }
         public int MaterialEditOwnIfTimeNotExceeded { get; private set; }

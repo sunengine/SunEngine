@@ -48,6 +48,10 @@ namespace SunEngine.Models
         public bool IsDeleted { get; set; }
 
         public bool IsHidden { get; set; }
+        
+        //public ICollection<Category> CategoriesList { get; set; } = new List<Category>();
+        
+        //public bool IsCached { get; set; }
     }
 
     public class SectionType

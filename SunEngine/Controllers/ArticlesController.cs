@@ -54,7 +54,7 @@ namespace SunEngine.Controllers
             {
                 return Unauthorized();
             }
-
+            
             IPagedList<ArticleInfoViewModel> articles =
                 await articlesPresenter.GetArticlesAsync(category.Id, page, articlesOptions.CategoryPageSize);
 

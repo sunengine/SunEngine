@@ -69,5 +69,9 @@ export default {
         equals: "Пароли должны совпадать"
       }
     }
+  },
+  addEditMessage: {
+    required: "Введите сообщение",
+    htmlTextSizeOrHasImage: "Минимальная длинна текста - 5"
   }
 }

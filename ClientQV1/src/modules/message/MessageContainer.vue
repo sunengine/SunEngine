@@ -3,9 +3,9 @@
     <span v-if="isLast" id="message-last"></span>
     <template v-if="!message.isDeleted">
       <ReadMessage @goEdit="goEdit" v-if="isReadMode" :message="message" :canEdit="canEdit()" :canMoveToTrash="canMoveToTrash()" />
-<!--
+
       <AddEditMessage @done="saved" @cancel="isReadMode=true" :messageId="message.id" class="q-mx-md" v-else/>
--->
+
     </template>
     <DeletedMessage v-else/>
   </div>
@@ -13,13 +13,13 @@
 
 <script>
   import ReadMessage from "./ReadMessage";
-  //import AddEditMessage from "./AddEditMessage";
+  import AddEditMessage from "./AddEditMessage";
   import {date} from 'quasar';
   import DeletedMessage from "./DeletedMessage";
 
   export default {
     name: "MessageContainer",
-    components: {DeletedMessage, ReadMessage, /*AddEditMessage*/},
+    components: {DeletedMessage, ReadMessage, AddEditMessage},
     props: {
       message: Object,
       categoryPersonalAccess: Object,

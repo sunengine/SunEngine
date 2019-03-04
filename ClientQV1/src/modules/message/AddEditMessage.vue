@@ -4,46 +4,28 @@
       :toolbar="[
           ['bold', 'italic', 'strike', 'underline'],
           ['token', 'hr', 'link', 'addImages'],
-          [
-            {
-              label: $q.i18n.editor.formatting,
-              icon: $q.icon.editor.formatting,
-              list: 'no-icons',
-              options: ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'code']
-            },
-            {
-              label: $q.i18n.editor.fontSize,
-              icon: $q.icon.editor.fontSize,
-              fixedLabel: true,
-              fixedIcon: true,
-              list: 'no-icons',
-              options: ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6', 'size-7']
-            },
-            'removeFormat'
-        ],
+
         ['quote', 'unordered', 'ordered'],
         ['undo', 'redo','fullscreen'],
                     ]"
-
+      :rules="messageRules"
       class="editor" ref="htmlEditor" v-model="message.text"/>
     <div>
       <q-btn icon="fas fa-arrow-circle-right" no-caps @click="send" :loading="loading"
              :label="isNew ? 'Отправить' : 'Сохранить'" color="send">
         <LoaderSent slot="loading"/>
       </q-btn>
-      <q-btn v-if="!isNew" no-caps icon="fas fa-times" class="q-ml-sm" @click="$emit('cancel')" label="Отмена" color="warning"/>
-      <span :class="['error', {'invis' : !($v.message.text.$invalid && !start) } ]">
-        {{!$v.message.text.required ? 'Введите текст' : 'Минимальная длинна текста - 5'}}
-      </span>
+      <q-btn v-if="!isNew" no-caps icon="fas fa-times" class="q-ml-sm" @click="$emit('cancel')" label="Отмена"
+             color="warning"/>
+
     </div>
   </div>
 </template>
 
 <script>
   import LoaderSent from "LoaderSent";
-  import {required} from 'vuelidate/lib/validators'
   import htmlTextSizeOrHasImage from "HtmlTextSizeOrHasImage.js";
-  import MyEditor from "../../components/MyEditor";
+  import MyEditor from "MyEditor";
 
   export default {
     name: "AddEditMessage",
@@ -55,7 +37,6 @@
           text: ""
         },
         loading: false,
-        start: true
       }
     },
     props: {
@@ -69,18 +50,16 @@
       },
       done: Function
     },
-    validations: {
-      message: {
-        text: {
-          required,
-          htmlTextSizeOrHasImage() {
-            return htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5)
-          }
-        }
-      }
-    },
+
 
     computed: {
+      messageRules() {
+        return [
+          (value) => !!value || this.$t('addEditMessage.required'),
+          (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$t('addEditMessage.required')
+            || this.$t('addEditMessage.htmlTextSizeOrHasImage'),
+        ];
+      },
       isNew: function () {
         return this.messageId == null;
       }
@@ -101,15 +80,14 @@
           this.$emit('done');
           this.loading = false;
         }).catch(error => {
-          if (error.response.data.errorName == "SpamProtection") {
+          if (error.response.data.errorName === "SpamProtection") {
             this.$q.notify({
               message: 'Нельзя так часто отправлять сообщения. Подождите немного.',
               timeout: 5000,
               type: 'warning',
               position: 'top'
             });
-          }
-          else {
+          } else {
             this.$q.notify({
               message: error.response.data.errorText,
               timeout: 2000,
@@ -140,12 +118,12 @@
         });
       },
       async send() {
-        this.start = false;
-        this.$v.$touch();
+        this.$refs.htmlEditor.validate();
 
-        if (this.$v.$invalid) {
+        if (this.$refs.htmlEditor.hasError) {
           return;
         }
+
 
         if (this.isNew) {
           await this.addMessage();
@@ -153,8 +131,7 @@
           await this.editMessage();
         }
 
-        this.start = true;
-        this.$v.$reset();
+        this.$refs.htmlEditor.resetValidation()
       }
     },
 
@@ -171,12 +148,12 @@
           }
         )
       }
-    },
+    }
   }
 </script>
 
 <style lang="stylus" scoped>
-  @import '~variables';
+  @import '~quasar-variables'
 
   .editor {
     margin-bottom: 7px;
