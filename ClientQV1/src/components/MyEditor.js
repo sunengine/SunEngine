@@ -109,14 +109,14 @@ export default {
       key: 'q--slot-error'
     }, this.computedErrorMessage);
 
-    const transition = h('transition', {
+    const errorTransition = h('transition', {
       staticClass: '',
       props: {
         name: 'q-transition--field-message',
       }
     }, [error]);
 
-    const errorMessage = this.hasError && transition;
+    const errorMessage = this.hasError && errorTransition;
 
     return h('div', {class: "relative-position"}, [editor, errorMessage, fileInput, loading]);
   }
