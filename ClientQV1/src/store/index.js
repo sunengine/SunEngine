@@ -5,6 +5,7 @@ import auth from './auth'
 import request from "./request";
 import categories from "store/categories";
 import {getTokens, makeUserDataFromTokens} from "services/tokens";
+import {consoleInitStyle} from "services/consoleStyles";
 //import extensions from './extensions'
 
 Vue.use(Vuex);
@@ -26,7 +27,7 @@ export default function (/* { ssrContext } */) {
       request,
       async init() {
 
-        console.info("StartInit");
+        console.info("%cStartInit", consoleInitStyle);
 
         try {
           initUser(this);
@@ -63,7 +64,7 @@ function initUser(store) {
     const userData = makeUserDataFromTokens(tokens);
     store.commit('setUserData', userData);
 
-    console.info('User restored from localStorage',userData);
+    console.info('User restored from localStorage', userData);
   }
 
 }

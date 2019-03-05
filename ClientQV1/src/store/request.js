@@ -2,6 +2,7 @@ import axios from 'axios'
 import {removeTokens, setTokens, parseJwt} from 'services/tokens';
 import Lock from 'js-lock';
 import {store} from 'store';
+import {consoleInitStyle, consoleUserLogoutStyle,consoleRequestStart} from "services/consoleStyles";
 
 
 const lock = new Lock("request-lock");
@@ -19,13 +20,11 @@ apiAxios.interceptors.response.use(async rez => {
 });
 
 
-
-
 export default async function request(context, data) {
 
   const url = data.url;
 
-  console.log("Request", url, data);
+  console.log(`%cRequest %c${url}`, consoleRequestStart, consoleRequestUrl, data);
 
   const sendAsJson = data.sendAsJson ?? false;
 
@@ -55,8 +54,8 @@ export default async function request(context, data) {
 
   function checkLocalTokensExpire() {
     const tokens = store.state.auth.tokens;
-    const rez =  tokens && tokens.shortTokenExpiration < new Date(new Date().toUTCString());
-    if(rez)
+    const rez = tokens && tokens.shortTokenExpiration < new Date(new Date().toUTCString());
+    if (rez)
       console.log("Tokens expire");
 
     return rez;
@@ -117,11 +116,15 @@ async function checkTokens(rez) {
       setTokens(tokens);
 
     store.state.auth.tokens = tokens;
+
+    console.info("%cTokens refreshed", consoleInitStyle);
   } else if (rez.headers.tokensexpire) {
     store.state.auth.tokens = null;
     removeTokens();
     store.commit('clearAllUserRelatedData');
     await store.dispatch('getAllCategories', {skipLock: true});
+
+    console.info("%cTokens logout", consoleUserLogoutStyle);
   }
   return rez;
 }
