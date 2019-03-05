@@ -19,9 +19,9 @@ export async function doLogin(context, userData) {
     data.isPermanentLogin = !userData.notMyComputer;
 
     context.commit('setUserData', data);
-    await context.dispatch('getAllCategories');
-    await context.dispatch('getMyUserInfo');
-    //await Promise.all([x1, x2]); TODO revive
+    let request1 = context.dispatch('getAllCategories');
+    let request2 = context.dispatch('getMyUserInfo');
+    await Promise.all([request1, request2]);
   });
 }
 

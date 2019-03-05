@@ -19,8 +19,7 @@ export function clearAllUserRelatedData(state) {
   state.isPermanentLogin = null;
   state.user = null;
   state.userInfo = null;
-  state.userGroup = 'Unregistered';
-  state.userGroups = ['Unregistered'];
+  state.roles = ['Unregistered'];
   store.state.categories.root = null;
   store.state.categories.all = null;
 }

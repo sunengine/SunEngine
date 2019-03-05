@@ -70,17 +70,17 @@ namespace SunEngine.Security.Authentication
 
                 if (Request.Headers.ContainsKey(Headers.LongToken1HeaderName))
                 {
-                    var longToken1db = Request.Headers[Headers.LongToken1HeaderName];
+                    string longToken1db = Request.Headers[Headers.LongToken1HeaderName];
                     int userId = int.Parse(jwtLongToken2.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
 
-                    var longSession = new LongSession
+                    var longSessionToFind = new LongSession
                     {
                         UserId = userId,
                         LongToken1 = longToken1db,
                         LongToken2 = longToken2db
                     };
 
-                    longSession = userManager.FindLongSession(longSession);
+                    var longSession = userManager.FindLongSession(longSessionToFind);
 
                     if (longSession == null)
                         return ErrorAuthorization();
@@ -115,8 +115,8 @@ namespace SunEngine.Security.Authentication
                     var claimsPrincipal =
                         jwtService.ReadShortToken(jwtShortToken, out SecurityToken shortToken);
 
-                    var lat2ran_1 = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
-                    var lat2ran_2 = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
+                    string lat2ran_1 = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
+                    string lat2ran_2 = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
 
                     if (!string.Equals(lat2ran_1, lat2ran_2))
                     {
@@ -125,7 +125,7 @@ namespace SunEngine.Security.Authentication
 
                     long sessionId = long.Parse(jwtLongToken2.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.SessionId).Value);
 
-                    var lat2db = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.LongToken2Db).Value;
+                    string lat2db = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.LongToken2Db).Value;
 
                     myClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, rolesCache, sessionId, lat2db);
                 }

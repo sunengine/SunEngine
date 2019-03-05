@@ -3,6 +3,5 @@ export default {
   user: null,
   isPermanentLogin: null,
   userInfo: null,
-  userGroup: 'Unregistered',
-  userGroups: ['Unregistered']
+  roles: ['Unregistered']
 }

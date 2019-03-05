@@ -2,7 +2,7 @@ import axios from 'axios'
 import {removeTokens, setTokens, parseJwt} from 'services/tokens';
 import Lock from 'js-lock';
 import {store} from 'store';
-import {consoleInitStyle, consoleUserLogoutStyle,consoleRequestStart} from "services/consoleStyles";
+import {consoleTokens, consoleUserLogout, consoleRequestStart, consoleRequestUrl} from "services/consoleStyles";
 
 
 const lock = new Lock("request-lock");
@@ -56,7 +56,7 @@ export default async function request(context, data) {
     const tokens = store.state.auth.tokens;
     const rez = tokens && tokens.shortTokenExpiration < new Date(new Date().toUTCString());
     if (rez)
-      console.log("Tokens expire");
+      console.log("%cTokens expire", consoleTokens);
 
     return rez;
   }
@@ -117,14 +117,14 @@ async function checkTokens(rez) {
 
     store.state.auth.tokens = tokens;
 
-    console.info("%cTokens refreshed", consoleInitStyle);
+    console.info("%cTokens refreshed", consoleTokens);
   } else if (rez.headers.tokensexpire) {
     store.state.auth.tokens = null;
     removeTokens();
     store.commit('clearAllUserRelatedData');
     await store.dispatch('getAllCategories', {skipLock: true});
 
-    console.info("%cTokens logout", consoleUserLogoutStyle);
+    console.info("%cTokens logout", consoleUserLogout);
   }
   return rez;
 }

@@ -1,4 +1,4 @@
-import {consoleInitStyle} from "services/consoleStyles";
+import {consoleInit} from "services/consoleStyles";
 
 export async function getAllCategories(context, data) {
   //console.log("GetAllCategories 0");
@@ -12,7 +12,7 @@ export async function getAllCategories(context, data) {
 
   await context.dispatch("request", requestData)
     .then(response => {
-      console.info("%cGetAllCategories", consoleInitStyle);
+      console.info("%cGetAllCategories", consoleInit);
       context.commit('setCategories', response.data);
     }).catch(error => {
       console.log("error", error);

@@ -38,17 +38,9 @@ export function makeUserDataFromTokens(tokens) {
   const tokenParsed = parseJwt(tokens.shortToken);
 
   let roles = tokenParsed[RolesKey];
-  let userGroups;
-  let userGroup;
 
-  if (Array.isArray(roles)) {
-    userGroups = roles;
-    if (roles.length === 1) {
-      userGroup = roles[0];
-    }
-  } else if (roles) {
-    userGroups = [roles];
-    userGroup = roles;
+  if (!Array.isArray(roles)) {
+    roles = [roles];
   }
 
   tokens.shortTokenExpiration = new Date(tokenParsed.exp * 1000);
@@ -59,8 +51,7 @@ export function makeUserDataFromTokens(tokens) {
       id: tokenParsed[IdKey],
       name: tokenParsed[NameKey],
     },
-    userGroups: userGroups,
-    userGroup: userGroup
+    roles: roles,
   };
 
   return data;

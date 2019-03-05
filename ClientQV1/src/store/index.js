@@ -5,7 +5,7 @@ import auth from './auth'
 import request from "./request";
 import categories from "store/categories";
 import {getTokens, makeUserDataFromTokens} from "services/tokens";
-import {consoleInitStyle} from "services/consoleStyles";
+import {consoleInit} from "services/consoleStyles";
 //import extensions from './extensions'
 
 Vue.use(Vuex);
@@ -27,7 +27,7 @@ export default function (/* { ssrContext } */) {
       request,
       async init() {
 
-        console.info("%cStartInit", consoleInitStyle);
+        console.info("%cStartInit", consoleInit);
 
         try {
           initUser(this);
@@ -62,9 +62,11 @@ function initUser(store) {
 
   if (tokens) {
     const userData = makeUserDataFromTokens(tokens);
+    userData.isPermanentLogin = true;
+
     store.commit('setUserData', userData);
 
-    console.info('User restored from localStorage', userData);
+    console.info('%cUser restored from localStorage', consoleInit, userData);
   }
 
 }
