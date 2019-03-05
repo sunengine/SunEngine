@@ -63,7 +63,8 @@ module.exports = function (ctx) {
       // Quasar plugins
       plugins: [
         'Notify',
-        'Meta'
+        'Meta',
+        'Dialog'
       ],
 
       animations: [

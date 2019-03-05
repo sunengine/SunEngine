@@ -1,6 +1,7 @@
 <template>
   <div>
     <MyEditor
+
       :toolbar="[
           ['bold', 'italic', 'strike', 'underline'],
           ['token', 'hr', 'link', 'addImages'],

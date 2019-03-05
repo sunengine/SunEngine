@@ -2,6 +2,13 @@
 // so you can safely delete all default props below
 
 export default {
+  global: {
+    dialog: {
+      cancel: "Отмена",
+      yes: "Да",
+      ok: "Да"
+    }
+  },
   loginOrRegisterMenu: {
     enter: "Войти",
     register: "Зарегистрироваться"
@@ -77,5 +84,14 @@ export default {
   },
   myEditor: {
     uploadImages: "Добавить изображения"
+  },
+  material: {
+    category: "раздел:",
+    edit: "Редактировать"
+  },
+  readMessage: {
+    edit: "редактировать",
+    deleteDialogMessage: "Удалить сообщение?"
   }
+
 }

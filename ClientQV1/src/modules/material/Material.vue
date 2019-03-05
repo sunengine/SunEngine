@@ -5,7 +5,7 @@
         {{material.title}}
       </h2>
       <div v-if="category" style="margin-top: -10px;" class="q-mb-md">
-        <span class="text-grey-7">раздел: </span>
+        <span class="text-grey-7">{{$t("material.category")}} </span>
         <router-link :to="categoryPath">{{category.title}}</router-link>
       </div>
       <div v-html="material.text">
@@ -28,7 +28,7 @@
           <a href="#" style="display: inline-flex; align-items: center;"
              @click.prevent="$router.push(`/AddEditMaterial?id=`+material.id)">
             <q-icon name="fas fa-edit" class="q-mr-xs"/>
-            Редактировать</a>
+            {{$t("material.edit")}}</a>
         </div>
         <div class="q-mr-md" v-if="canDelete">
           <a href="#" style="display: inline-flex; align-items: center;"
@@ -43,7 +43,7 @@
       </div>
 
 
-      <div style="clear: both"></div>
+      <div class="clear"></div>
     </div>
 
     <div id="messages" v-if="messages" class="msgs page-margin-bottom">

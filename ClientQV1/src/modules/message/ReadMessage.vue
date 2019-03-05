@@ -10,7 +10,7 @@ cd <template>
            </router-link>
         </span> &nbsp;
         <span v-if="canEdit" class=" q-mr-md">
-                    <a href="#" @click.prevent="$emit('goEdit')"><q-icon name="fas fa-edit"/> редактировать</a>
+                    <a href="#" @click.prevent="$emit('goEdit')"><q-icon name="fas fa-edit"/> {{$t("readMessage.edit")}}</a>
         </span>
         <span v-if="canMoveToTrash" class=" q-mr-md">
                     <a href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash"/></a>
@@ -44,12 +44,16 @@ cd <template>
     },
     methods: {
       async moveToTrash() {
+        const deleteDialogMessage = this.$t("readMessage.deleteDialogMessage");
+        const okButtonLabel = this.$t("global.dialog.ok");
+        const cancelButtonLabel = this.$t("global.dialog.cancel");
+
         this.$q.dialog({
-          title: 'Удалить сообщение?',
-          //message: '',
-          ok: 'Да',
-          cancel: 'Отмeна'
-        }).then(async () => {
+          title: deleteDialogMessage,
+          //message: deleteDialogMessage,
+          ok: okButtonLabel,
+          cancel: cancelButtonLabel
+        }).onOk(async () => {
           await this.$store.dispatch("request",
             {
               url: "/Messages/MoveToTrash",
@@ -63,7 +67,7 @@ cd <template>
             }).catch((x) => {
             console.log("error", x)
           });
-        }).catch(() => {
+        }).onCancel(() => {
         });
       },
     }

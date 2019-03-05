@@ -27,6 +27,14 @@ a {
   color: #5ee22f !important;
 }
 
+.bg-post {
+  background-color: #5ee22f !important;
+}
+
+.text-post {
+  color: #5ee22f !important;
+}
+
 $q-field-color = #00c63b;
 
 .q-field--focused {
@@ -47,6 +55,22 @@ $q-field-color = #00c63b;
   clear: both;
 }
 
+
+.info-block {
+  display: flex;
+
+  span {
+    display: inline-flex;
+    margin-right: 10px;
+    white-space: nowrap;
+    align-items: center;
+
+
+    .q-icon {
+      margin-right: 5px;
+    }
+  }
+}
 
 // ——— Forms ————————————————————————————————————
 
@@ -85,22 +109,26 @@ $q-field-color = #00c63b;
 .q-title {
   margin-top: $flex-gutter-sm !important;
   margin-bottom: $flex-gutter-sm !important;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   line-height: unset;
   padding: 0;
 }
 
 .header-with-button {
-  //margin-top: $flex-gutter-sm !important;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: $flex-gutter-sm !important;
   margin-bottom: $flex-gutter-sm !important;
 
+
   .q-title {
-    float: left;
-    margin-bottom: 6px !important;
+    flex-grow: 1;
+    margin: 0 $flex-gutter-sm 0 0 !important;
   }
 
   button {
-    float: right;
+    flex-grow: 0;
   }
 }
 
@@ -144,4 +172,14 @@ page-paddings-block(size) {
 
 @media ( min-width: 1024px ) {
   page-paddings-block($paddings[2])
+}
+
+
+// ——— QEditor ————————————————————————————————————
+
+
+.q-editor-toolbar {
+  .q-btn {
+    font-size: 0.6rem !important;
+  }
 }
