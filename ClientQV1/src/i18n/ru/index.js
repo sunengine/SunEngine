@@ -72,6 +72,10 @@ export default {
   },
   addEditMessage: {
     required: "Введите сообщение",
-    htmlTextSizeOrHasImage: "Минимальная длинна текста - 5"
+    htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
+    spamProtectionMessage: "Нельзя так часто отправлять сообщения. Подождите немного."
+  },
+  myEditor: {
+    uploadImages: "Добавить изображения"
   }
 }

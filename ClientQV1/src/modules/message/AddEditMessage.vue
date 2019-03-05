@@ -83,6 +83,8 @@
     methods: {
       async addMessage() {
         this.loading = true;
+        const messageSpamProtection = this.$t("addEditMessage.spamProtectionMessage");
+
         await this.$store.dispatch("request",
           {
             url: "/Messages/Add",
@@ -97,7 +99,7 @@
         }).catch(error => {
           if (error.response.data.errorName === "SpamProtection") {
             this.$q.notify({
-              message: 'Нельзя так часто отправлять сообщения. Подождите немного.',
+              message: messageSpamProtection,
               timeout: 5000,
               type: 'warning',
               position: 'top'
@@ -173,13 +175,4 @@
     margin-bottom: 7px;
   }
 
-  .error {
-    font-size: 0.9em;
-    color: $red-5;
-    margin-left: 10px;
-  }
-
-  .invis {
-    visibility: hidden;
-  }
 </style>
