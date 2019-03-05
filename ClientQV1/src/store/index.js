@@ -26,14 +26,16 @@ export default function (/* { ssrContext } */) {
       request,
       async init() {
 
-        console.log("StartInit");
+        console.info("StartInit");
 
         try {
-          await getAllCategories(this);
+          initUser(this);
 
-          await getMyUserInfo(this);
+          await this.dispatch('getAllCategories');
 
-          //await initExtensions(this);
+          this.state.auth.user && await this.dispatch('getMyUserInfo');
+
+          //await this.dispatch('getAndSetAllExtensions');
 
           this.state.isInitialized = true;
         } catch (x) {
@@ -49,8 +51,6 @@ export default function (/* { ssrContext } */) {
     }
   });
 
-  initUser(store);
-
   return store;
 }
 
@@ -63,21 +63,8 @@ function initUser(store) {
     const userData = makeUserDataFromTokens(tokens);
     store.commit('makeLogin', userData);
 
-    console.log('UserRestored');
+    console.info('User restored from localStorage',userData);
   }
+
 }
 
-async function getAllCategories(store) {
-  await store.dispatch('getAllCategories');
-}
-
-async function getMyUserInfo(store) {
-  if (!store.state.auth.user)
-    return;
-
-  await store.dispatch('getMyUserInfo');
-}
-
-async function initExtensions(store) {
-  await store.dispatch('getAndSetAllExtensions');
-}

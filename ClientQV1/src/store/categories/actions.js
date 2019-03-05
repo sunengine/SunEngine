@@ -1,7 +1,10 @@
 export async function getAllCategories(context) {
-  await context.dispatch("request", {url: "/Categories/GetAllCategoriesAndAccesses"}).then(response => {
-    console.log("GetAllCategories");
-    context.commit('setCategories', response.data);
-  })
-
+  console.log("GetAllCategories 0");
+  await context.dispatch("request", {url: "/Categories/GetAllCategoriesAndAccesses"})
+    .then(response => {
+      console.info("GetAllCategories");
+      context.commit('setCategories', response.data);
+    }).catch(error => {
+      console.log("error", error);
+    });
 }
