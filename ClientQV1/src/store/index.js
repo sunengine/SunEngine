@@ -31,9 +31,9 @@ export default function (/* { ssrContext } */) {
         try {
           initUser(this);
 
-          await this.dispatch('getAllCategories');
-
           this.state.auth.user && await this.dispatch('getMyUserInfo');
+
+          !this.state.categories.all && await this.dispatch('getAllCategories');
 
           //await this.dispatch('getAndSetAllExtensions');
 
@@ -61,7 +61,7 @@ function initUser(store) {
 
   if (tokens) {
     const userData = makeUserDataFromTokens(tokens);
-    store.commit('makeLogin', userData);
+    store.commit('setUserData', userData);
 
     console.info('User restored from localStorage',userData);
   }

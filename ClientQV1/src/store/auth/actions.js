@@ -14,31 +14,27 @@ export async function doLogin(context, userData) {
       }
     }).then(async () => {
 
-
-
     const data = makeUserDataFromTokens(context.state.tokens);
-
-    debugger;
 
     data.isPermanentLogin = !userData.notMyComputer;
 
-    context.commit('makeLogin', data);
-    debugger;
+    context.commit('setUserData', data);
     await context.dispatch('getAllCategories');
-    debugger;
     await context.dispatch('getMyUserInfo');
-    //await Promise.all([x1, x2]);
-
+    //await Promise.all([x1, x2]); TODO revive
   });
 }
 
 
-export async function doLogout(context) {
-
-  context.commit('makeLogout');
-
-  await context.dispatch('getAllCategories');
+export async function logout(context) {
+  return await context.dispatch('request', {url: '/Account/Logout'});
 }
+
+
+/*export async function resetToUnregistered(context) {
+  context.commit('clearAllUserRelatedData');
+  await context.dispatch('getAllCategories');
+}*/
 
 
 export async function getMyUserInfo(context) {

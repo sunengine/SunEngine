@@ -15,11 +15,12 @@ export function getTokens() {
 }
 
 export function setTokens(tokens) {
-  localStorage.setItem(TOKENS_KEY, JSON.stringify(tokens));
-}
-
-export function setTokensString(tokens) {
-  localStorage.setItem(TOKENS_KEY, tokens);
+  if(typeof tokens === 'object')
+    localStorage.setItem(TOKENS_KEY, JSON.stringify(tokens));
+  else if(typeof tokens === 'string')
+    localStorage.setItem(TOKENS_KEY, tokens);
+  else
+    throw "Error saving tokens";
 }
 
 export function removeTokens() {

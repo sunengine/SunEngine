@@ -70,7 +70,7 @@
     methods: {
       logout() {
         const logoutNotifyMessage = this.$t('userMenu.logoutNotifyMessage');
-        this.$store.dispatch('request', {url: '/Account/Logout'})
+        this.$store.dispatch('logout')
           .then(() => {
             this.$q.notify({
               message: logoutNotifyMessage,

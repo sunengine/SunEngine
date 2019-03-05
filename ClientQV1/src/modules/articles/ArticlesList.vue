@@ -40,23 +40,22 @@
     name: "ArticlesList",
     mixins: [Page],
     props: {
-      categoryName: String
-    }
-    ,
+      categoryName: {
+        type: String,
+        required: true
+      }
+    },
     components: {
       ArticleInList, LoaderWait
-    }
-    ,
+    },
     data: function () {
       return {
-        category: null,
         articles: {
           pagesCount: null,
           items: null
-        },
+        }
       }
-    }
-    ,
+    },
     watch: {
       'categoryName':
         'loadData',
@@ -66,9 +65,11 @@
         "loadData",
       '$store.state.auth.user':
         'loadData'
-    }
-    ,
+    },
     computed: {
+      category() {
+        return this.$store.getters.getCategory(this.categoryName);
+      },
       articlesStartPath() {
         return this.category?.path;
       },
@@ -91,8 +92,7 @@
       },
       async loadData() {
         let currentPage = this.getCurrentPage();
-        this.category = this.$store.getters.getCategory(this.categoryName);
-        this.title = this.category.title;
+        this.title = this.category?.title;
 
         await this.$store.dispatch("request",
           {

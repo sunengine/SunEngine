@@ -1,12 +1,18 @@
 import axios from 'axios'
-import {removeTokens, setTokens, setTokensString, parseJwt} from 'services/tokens';
+import {removeTokens, setTokens, parseJwt} from 'services/tokens';
 import Lock from 'js-lock';
 import {store} from 'store';
 
+
+const lock = new Lock("request-lock");
+
+
 const apiAxios = axios.create({baseURL: config.API, withCredentials: process.env.DEV});
 
+
 apiAxios.interceptors.response.use(async rez => {
-  return await checkTokens(rez)
+  await checkTokens(rez);
+  return rez;
 }, async rez => {
   await checkTokens(rez.response);
   throw rez;
@@ -15,30 +21,46 @@ apiAxios.interceptors.response.use(async rez => {
 
 
 
-const lock = new Lock("request-lock");
-
 export default async function request(context, data) {
 
   const url = data.url;
+
+  console.log("Request", url, data);
+
   const sendAsJson = data.sendAsJson ?? false;
 
   const headers = {};
 
-  return lock.lock(
-    () => {
+  if (data.skipLock) {
+    if (checkLocalTokensExpire()) {
+      headers['LongToken1'] = tokens.longToken.token;
+    }
+    return makeRequest();
+  }
+
+  return lock.lock(() => {
       const tokens = store.state.auth.tokens;
 
-      if (tokens && tokens.shortTokenExpiration < new Date(new Date().toUTCString())) {
+      if (checkLocalTokensExpire()) {
         headers['LongToken1'] = tokens.longToken.token;
         return makeRequest();
       }
-    }).then(x => {
+    }
+  ).then(x => {
     if (x)
       return x;
     else
       return makeRequest();
   });
 
+  function checkLocalTokensExpire() {
+    const tokens = store.state.auth.tokens;
+    const rez =  tokens && tokens.shortTokenExpiration < new Date(new Date().toUTCString());
+    if(rez)
+      console.log("Tokens expire");
+
+    return rez;
+  }
 
   function makeRequest() {
 
@@ -48,8 +70,6 @@ export default async function request(context, data) {
       headers['Authorization'] = `Bearer ${tokens.shortToken}`;
 
     let body = data.data;
-
-    debugger;
 
     if (body) {
       if ((typeof body === 'object')) {
@@ -89,18 +109,19 @@ function ConvertObjectToFormData(obj) {
 async function checkTokens(rez) {
   if (rez.headers.tokens) {
     const tokens = JSON.parse(rez.headers.tokens);
-    const exps = parseJwt(tokens.shortToken)
+    const exps = parseJwt(tokens.shortToken);
 
     tokens.shortTokenExpiration = new Date(exps.exp * 1000);
 
-    if(store.state.auth.isPermanentLogin)
+    if (store.state.auth.isPermanentLogin)
       setTokens(tokens);
 
     store.state.auth.tokens = tokens;
   } else if (rez.headers.tokensexpire) {
     store.state.auth.tokens = null;
     removeTokens();
-    await store.dispatch('doLogout');
+    store.commit('clearAllUserRelatedData');
+    await store.dispatch('getAllCategories', {skipLock: true});
   }
   return rez;
 }

@@ -1,6 +1,14 @@
-export async function getAllCategories(context) {
-  console.log("GetAllCategories 0");
-  await context.dispatch("request", {url: "/Categories/GetAllCategoriesAndAccesses"})
+export async function getAllCategories(context, data) {
+  //console.log("GetAllCategories 0");
+
+  let requestData = {
+    url: "/Categories/GetAllCategoriesAndAccesses"
+  };
+
+  if (data?.skipLock)
+    requestData.skipLock = true;
+
+  await context.dispatch("request", requestData)
     .then(response => {
       console.info("GetAllCategories");
       context.commit('setCategories', response.data);

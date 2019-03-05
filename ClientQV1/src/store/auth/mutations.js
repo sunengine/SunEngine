@@ -4,7 +4,7 @@ import {setTokens} from "services/tokens";
 import {store} from "store";
 
 
-export function makeLogin(state, data) {
+export function setUserData(state, data) {
 
   Object.assign(state, data);
 
@@ -14,7 +14,7 @@ export function makeLogin(state, data) {
 
 }
 
-export function makeLogout(state) {
+export function clearAllUserRelatedData(state) {
   state.tokens = null;
   state.isPermanentLogin = null;
   state.user = null;
