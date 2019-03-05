@@ -24,7 +24,7 @@ export default async function request(context, data) {
 
   const url = data.url;
 
-  console.log(`%cRequest %c${url}`, consoleRequestStart, consoleRequestUrl, data);
+  console.log(`%cRequest%c${url}`, consoleRequestStart, consoleRequestUrl, data);
 
   const sendAsJson = data.sendAsJson ?? false;
 
