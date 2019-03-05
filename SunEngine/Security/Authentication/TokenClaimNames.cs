@@ -23,11 +23,8 @@ namespace SunEngine.Security
         /// <summary>
         /// Header name to send tokens, LongToken1 and ShortAccessToken
         /// </summary>
-        public const string TokensHeaderName = "TOKENS";
+        public const string TokensHeaderName = "Tokens";
 
-        public const string TokensExpireHeaderName = "TOKENSEXPIRE";
-        
-        public const string TokensExpireHeaderValue = "TRUE";
-
+        public const string TokensExpireValue = "expire";
     }
 }

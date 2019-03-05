@@ -270,7 +270,7 @@ namespace SunEngine.Security.Authorization
                     IsEssential = true
                 });
 
-            response.Headers.Add(Headers.TokensExpireHeaderName, Headers.TokensExpireHeaderValue); 
+            response.Headers.Add(Headers.TokensHeaderName, Headers.TokensExpireValue); 
         }
     }
 }

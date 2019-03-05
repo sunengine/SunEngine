@@ -106,25 +106,30 @@ function ConvertObjectToFormData(obj) {
 }
 
 async function checkTokens(rez) {
-  if (rez.headers.tokens) {
-    const tokens = JSON.parse(rez.headers.tokens);
-    const exps = parseJwt(tokens.shortToken);
+  const tokensHeader = rez.headers.tokens;
+  if (tokensHeader) {
+    if(tokensHeader === "expire") {
+      store.state.auth.tokens = null;
+      removeTokens();
+      store.commit('clearAllUserRelatedData');
+      await store.dispatch('getAllCategories', {skipLock: true});
 
-    tokens.shortTokenExpiration = new Date(exps.exp * 1000);
+      console.info("%cTokens logout", consoleUserLogout);
+    }
+    else {
+      const tokens = JSON.parse(tokensHeader);
+      const exps = parseJwt(tokens.shortToken);
 
-    if (store.state.auth.isPermanentLogin)
-      setTokens(tokens);
+      tokens.shortTokenExpiration = new Date(exps.exp * 1000);
 
-    store.state.auth.tokens = tokens;
+      if (store.state.auth.isPermanentLogin)
+        setTokens(tokens);
 
-    console.info("%cTokens refreshed", consoleTokens);
-  } else if (rez.headers.tokensexpire) {
-    store.state.auth.tokens = null;
-    removeTokens();
-    store.commit('clearAllUserRelatedData');
-    await store.dispatch('getAllCategories', {skipLock: true});
+      store.state.auth.tokens = tokens;
 
-    console.info("%cTokens logout", consoleUserLogout);
+      console.info("%cTokens refreshed", consoleTokens);
+    }
   }
+
   return rez;
 }

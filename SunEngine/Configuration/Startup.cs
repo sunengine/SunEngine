@@ -122,7 +122,7 @@ namespace SunEngine.Configuration
                 app.UseCors(builder =>
                     builder.WithOrigins("http://localhost:5005")
                         .AllowCredentials().AllowAnyHeader().AllowAnyMethod()
-                        .WithExposedHeaders("TOKENS", "TOKENSEXPIRE"));
+                        .WithExposedHeaders(Headers.TokensHeaderName));
             }
 
 
