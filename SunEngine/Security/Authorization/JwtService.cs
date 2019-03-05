@@ -26,11 +26,7 @@ using SunEngine.Stores;
 namespace SunEngine.Security.Authorization
 {
     public class JwtService : DbService
-    {
-        public const int LongTokenLiveTimeDays = 90;
-        public const int ShortTokenLiveTimeMinutes = 20;
-
-        
+    {       
         private readonly MyUserManager userManager;
         private readonly JwtOptions jwtOptions;
         private readonly ILogger logger;
@@ -78,7 +74,7 @@ namespace SunEngine.Security.Authorization
             {
                 longSession1.LongToken1 = CryptoRandomizer.GetRandomString(LongSession.LongToken1Length);
                 longSession1.LongToken2 = CryptoRandomizer.GetRandomString(LongSession.LongToken2Length);
-                longSession1.ExpirationDate = DateTime.UtcNow.AddDays(LongTokenLiveTimeDays);
+                longSession1.ExpirationDate = DateTime.UtcNow.AddDays(jwtOptions.LongTokenLiveTimeDays);
             }
 
 
@@ -166,7 +162,7 @@ namespace SunEngine.Security.Authorization
                 issuer: jwtOptions.Issuer,
                 audience: jwtOptions.Issuer,
                 claims: claims.ToArray(),
-                expires: DateTime.UtcNow.AddMinutes(ShortTokenLiveTimeMinutes),
+                expires: DateTime.UtcNow.AddMinutes(jwtOptions.ShortTokenLiveTimeMinutes),
                 signingCredentials: credentials);
 
             var claimsIdentity =  new ClaimsIdentity(claims,"JwtShortToken");

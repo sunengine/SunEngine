@@ -3,6 +3,8 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
+using Microsoft.Extensions.Options;
+using SunEngine.Configuration.Options;
 using SunEngine.DataBase;
 using SunEngine.Models.Authorization;
 using SunEngine.Security.Authorization;
@@ -13,12 +15,16 @@ namespace SunEngine.Security.Authentication
     public class JwtBlackListService : IMemoryCache
     {
         private readonly IDataBaseFactory dataBaseFactory;
+        private readonly JwtOptions jwtOptions;
 
         private ConcurrentDictionary<string, DateTime> tokens;
 
-        public JwtBlackListService(IDataBaseFactory dataBaseFactory)
+        public JwtBlackListService(
+            IDataBaseFactory dataBaseFactory, 
+            IOptions<JwtOptions> jwtOptions)
         {
             this.dataBaseFactory = dataBaseFactory;
+            this.jwtOptions = jwtOptions.Value;
         }
 
         private int cycle = 0;
@@ -45,7 +51,7 @@ namespace SunEngine.Security.Authentication
             using (var db = dataBaseFactory.CreateDb())
             {
                 var sessions = await db.LongSessions.Where(x => x.UserId == userId).ToListAsync();
-                DateTime exp = DateTime.UtcNow.AddMinutes(JwtService.ShortTokenLiveTimeMinutes + 5);
+                DateTime exp = DateTime.UtcNow.AddMinutes(jwtOptions.ShortTokenLiveTimeMinutes + 5);
 
                 foreach (var session in sessions)
                 {

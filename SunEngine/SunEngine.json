@@ -53,6 +53,8 @@
   "Captcha": {
   },
   "Jwt": {
+    "LongTokenLiveTimeDays": 90,
+    "ShortTokenLiveTimeMinutes": 30,
     "ShortJwtSecurityKey": "15810a26-ee1c-4ced-9078-f2d92f23ee0f",
     "LongJwtSecurityKey": "1c52893e-00b8-485a-b655-5ea01131816c",
     "Issuer": "SunEngine Asp.net Core",
