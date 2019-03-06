@@ -1,4 +1,4 @@
-import {QTree} from "quasar-framework/src/components/tree";
+import {QTree} from "quasar";
 
 export default {
   name: "MyTree",

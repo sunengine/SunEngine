@@ -84,6 +84,7 @@ export default {
   },
   addEditMaterial: {
     title: "Заголовок",
+    description: "Короткое описание",
     validation: {
       title: {
         required: "Введите заголовок",

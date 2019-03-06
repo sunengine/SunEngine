@@ -8,17 +8,14 @@
             </template>
           </q-input>
 
-          <q-input  v-if="canEditDescription" v-model="$v.material.description.$model" type="textarea"
-                   :error="$v.material.description.$invalid && !start"
-                   :error-label="descriptionErrorMessage" float-label="Короткое описание">
+          <q-input  v-if="canEditDescription" v-model="material.description" type="textarea" autogrow
+                    :label="$t('addEditMaterial.description')" :rules="descriptionRules">
             <template v-slot:prepend>
               <q-icon name="fas fa-info"/>
             </template>
           </q-input>
 
-      <q-field :error="$v.material.text.$invalid && !start"
-               :error-label="!$v.material.text.required ? 'Введите текст' : 'Минимальная длинна текста - 5'"
-               icon="fas fa-edit">
+
         <MyEditor
           :toolbar="[
           ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
@@ -51,18 +48,16 @@
           ['undo', 'redo', 'fullscreen'],
              ]"
 
-          ref="htmlEditor" v-model="$v.material.text.$model"/>
+          ref="htmlEditor" v-model="material.text"/>
 
-      </q-field>
-      <q-field class="field" icon="fas fa-tags">
+      <!--<q-field class="field" icon="fas fa-tags">
         <my-chips-input color="info" v-model="material.tags" float-label="Метки"/>
-      </q-field>
-      <q-field icon="fas fa-folder" :error="$v.material.categoryName.$invalid && !start"
-               error-label="Выберите раздел">
-        <q-btn :label="categoryTitle" no-caps icon-right="fas fa-caret-down">
-          <q-popover>
+      </q-field>-->
+
+        <q-btn class="q-my-md" :label="categoryTitle" no-caps :ripple="true" outline icon="fas fa-folder" >
+          <q-menu><!--icon-right="fas fa-caret-down"-->
             <div style="background-color: white;" class="q-pa-sm">
-              <MyTree v-close-overlay
+              <MyTree v-close-menu
                       default-expand-all
                       :selected.sync="material.categoryName"
                       :nodes="where"
@@ -80,10 +75,10 @@
                 </div>
               </MyTree>
             </div>
-          </q-popover>
+          </q-menu>
         </q-btn>
-      </q-field>
-      <div class="btn-block">
+
+      <div class="q-mt-md">
         <q-btn icon="fas fa-arrow-circle-right" class="btn-send" no-caps :loading="loading" label="Отправить"
                @click="send" color="send">
           <LoaderSent slot="loading"/>
@@ -96,7 +91,7 @@
 </template>
 
 <script>
-  import MyChipsInput from "MyChipsInput";
+  //import MyChipsInput from "MyChipsInput";
   import LoaderSent from "LoaderSent";
   import LoaderWait from "LoaderWait";
   import {GetWhereToMove, GetWhereToAdd} from './GetWhereToAddMove';
@@ -111,7 +106,7 @@
   export default {
     name: "AddEditMaterial",
     mixins: [Page],
-    components: {MyEditor, LoaderWait, LoaderSent, MyChipsInput, MyTree},
+    components: {MyEditor, LoaderWait, LoaderSent, /*MyChipsInput,*/ MyTree},
     props: {
       categoryName: {
         type: String,
@@ -144,9 +139,9 @@
           (value) => value.length <= config.DbColumnSizes.Materials_Description || this.$t('addEditMaterial.validation.description.maxLength'),
         ];
       },
-
-
-
+      categoryRules() {
+        (value) => !!value || this.$t('addEditMaterial.validation.category.required')
+      },
       canEditDescription() {
         return this.category?.sectionType?.name  === 'Articles';
       },
@@ -169,7 +164,7 @@
         return "Раздел: " + this.category.title;
       }
     },
-    validations: {
+   /* validations: {
       material: {
         text: {
           required,
@@ -181,7 +176,7 @@
           required
         }
       }
-    },
+    },*/
     methods: {
       async send() {
 
@@ -260,7 +255,7 @@
         await this.loadData();
       } else {
         this.mode = ADD;
-        this.setTitle("Создание записи");
+        this.title = "Создание записи";
         this.material = {
           title: "",
           text: "",
@@ -274,21 +269,12 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import '~variables';
+  @import '~quasar-variables';
 
   .error {
     font-size: 0.9em;
     color: $red-5;
     margin-left: 44px;
-  }
-
-  .btn-block {
-    margin-top: 8px;
-    margin-left: 28px + 16px;
-  }
-
-  .field {
-    height: 78px;
   }
 
 </style>
