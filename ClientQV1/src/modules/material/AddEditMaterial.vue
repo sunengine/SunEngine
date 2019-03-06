@@ -1,17 +1,21 @@
 <template>
   <q-page class="q-pa-md">
     <template v-if="material">
-        <q-field class="field" :error="$v.material.title.$invalid && !start"
-                 :error-label="!$v.material.title.required ? 'Введите заголовок' : 'Минимальная длинна заголовка - 3'"
-                 icon="fas fa-info-circle">
-          <q-input v-model="$v.material.title.$model" float-label="Заголовок"/>
-        </q-field>
-        <q-field class="q-mb-md" v-if="canEditDescription"
-                 icon="fas fa-info">
-          <q-input v-model="$v.material.description.$model" type="textarea"
+
+          <q-input v-model="material.title" :label="$t('addEditMaterial.title')" :rules="titleRules">
+            <template v-slot:prepend>
+              <q-icon name="fas fa-info-circle"/>
+            </template>
+          </q-input>
+
+          <q-input  v-if="canEditDescription" v-model="$v.material.description.$model" type="textarea"
                    :error="$v.material.description.$invalid && !start"
-                   :error-label="descriptionErrorMessage" float-label="Короткое описание"/>
-        </q-field>
+                   :error-label="descriptionErrorMessage" float-label="Короткое описание">
+            <template v-slot:prepend>
+              <q-icon name="fas fa-info"/>
+            </template>
+          </q-input>
+
       <q-field :error="$v.material.text.$invalid && !start"
                :error-label="!$v.material.text.required ? 'Введите текст' : 'Минимальная длинна текста - 5'"
                icon="fas fa-edit">
@@ -21,14 +25,14 @@
           ['token', 'hr', 'link', 'addImages'],
           [
           {
-            label: $q.i18n.editor.formatting,
-            icon: $q.icon.editor.formatting,
+            label: $q.lang.editor.formatting,
+            icon: $q.iconSet.editor.formatting,
             list: 'no-icons',
             options: ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'code']
           },
           {
-            label: $q.i18n.editor.fontSize,
-            icon: $q.icon.editor.fontSize,
+            label: $q.lang.editor.fontSize,
+            icon: $q.iconSet.editor.fontSize,
             fixedLabel: true,
             fixedIcon: true,
             list: 'no-icons',
@@ -39,7 +43,7 @@
           ['quote', 'unordered', 'ordered', 'outdent', 'indent',
           {
             //label: $q.i18n.editor.align,
-            icon: $q.icon.editor.align,
+            icon: $q.iconSet.editor.align,
             fixedLabel: true,
             options: ['left', 'center', 'right', 'justify']
           }
@@ -95,7 +99,6 @@
   import MyChipsInput from "MyChipsInput";
   import LoaderSent from "LoaderSent";
   import LoaderWait from "LoaderWait";
-  import {required, minLength, maxLength} from 'vuelidate/lib/validators'
   import {GetWhereToMove, GetWhereToAdd} from './GetWhereToAddMove';
   import MyTree from 'MyTree';
   import htmlTextSizeOrHasImage from "HtmlTextSizeOrHasImage.js";
@@ -129,9 +132,21 @@
       }
     },
     computed: {
-      descriptionErrorMessage() {
-        return "Максимально допустимая длинна " + config.DbColumnSizes.Materials_Description;
+      titleRules() {
+        return [
+          (value) => !!value || this.$t('addEditMaterial.validation.title.required'),
+          (value) => value.length >= 3 || this.$t('addEditMaterial.validation.title.minLength'),
+          (value) => value.length <= config.DbColumnSizes.Categories_Title || this.$t('addEditMaterial.validation.title.maxLength'),
+        ];
       },
+      descriptionRules() {
+        return [
+          (value) => value.length <= config.DbColumnSizes.Materials_Description || this.$t('addEditMaterial.validation.description.maxLength'),
+        ];
+      },
+
+
+
       canEditDescription() {
         return this.category?.sectionType?.name  === 'Articles';
       },
@@ -156,10 +171,6 @@
     },
     validations: {
       material: {
-        title: {
-          required,
-          minLength: minLength(3)
-        },
         text: {
           required,
           htmlTextSizeOrHasImage() {
@@ -168,20 +179,11 @@
         },
         categoryName: {
           required
-        },
-        description: {
-          maxLength: maxLength(config.DbColumnSizes.Materials_Description)
         }
       }
     },
     methods: {
       async send() {
-        this.start = false;
-        this.$v.$touch();
-
-        if (this.$v.$invalid) {
-          return;
-        }
 
         if (this.mode === ADD) {
           await this.add();
@@ -247,7 +249,7 @@
           }
         }).then(response => {
           this.material = response.data;
-          this.setTitle(`Редактировать текст: ${this.material.title}`);
+          this.title = "Редактировать текст:" + this.material.title;
         })
       },
     },

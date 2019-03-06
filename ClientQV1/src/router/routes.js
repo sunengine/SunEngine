@@ -2,6 +2,7 @@ import Login from 'account/Login.vue';
 import Index from 'pages/Index.vue';
 import Register from 'account/Register/Register.vue';
 import {makeArticlesSection} from "./makeSections";
+import AddEditMaterial from "material/AddEditMaterial";
 
 
 const routes = [
@@ -24,6 +25,23 @@ const routes = [
     component: Register,
     meta: {
       roles: ["Unregistered"]
+    }
+  },
+  {
+    name: "AddEditMaterial",
+    path: '/AddEditMaterial'.toLowerCase(),
+    components: {
+      default: AddEditMaterial,
+      navigation: null
+    },
+    props: {
+      default: (route) => {
+        return {
+          categoryName: route.query.categoryName,
+          id: +route.query.id
+        }
+      },
+      navigation: null
     }
   },
   ...makeArticlesSection("Articles"),

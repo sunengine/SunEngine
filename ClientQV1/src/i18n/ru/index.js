@@ -82,6 +82,19 @@ export default {
     htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
     spamProtectionMessage: "Нельзя так часто отправлять сообщения. Подождите немного."
   },
+  addEditMaterial: {
+    title: "Заголовок",
+    validation: {
+      title: {
+        required: "Введите заголовок",
+        minLength: "Минимальная длинна заголовка - 3",
+        maxLength: `Максимальная длинна заголовка - ${config.DbColumnSizes.Materials_Title}`,
+      },
+      description: {
+        maxLength: "Максимально допустимая длинна " + config.DbColumnSizes.Materials_Description
+      }
+    }
+  },
   myEditor: {
     uploadImages: "Добавить изображения"
   },

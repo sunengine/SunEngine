@@ -90,7 +90,7 @@ module.exports = function (ctx) {
         cfg.resolve.modules.push(path.resolve('./src'));
         cfg.resolve.modules.push(path.resolve('./src/modules'));
         cfg.resolve.modules.push(path.resolve('./src/components'));
-        cfg.resolve.modules.push(path.resolve('./src/classes'));
+        cfg.resolve.modules.push(path.resolve('./src/services'));
         if(ctx.dev) {
           cfg.plugins.push( new CopyWebpackPlugin([{from: 'config.dev.js', to:'config.js'}]));
         } else {
