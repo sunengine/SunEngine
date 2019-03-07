@@ -128,6 +128,7 @@ namespace SunEngine.Configuration
 
             app.UseAuthentication();
 
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

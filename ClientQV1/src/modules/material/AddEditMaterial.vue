@@ -11,7 +11,7 @@
       <q-input v-if="canEditDescription" v-model="material.description" type="textarea" autogrow
                :label="$t('addEditMaterial.description')" :rules="descriptionRules">
         <template v-slot:prepend>
-          <q-icon name="fas fa-info"/>
+          <q-icon name="fas fa-info-circle"/>
         </template>
       </q-input>
 
@@ -65,7 +65,7 @@
         </template>
       </q-select>
 
-      <q-btn class="q-my-md" :label="categoryTitle" no-caps :ripple="true" outline icon="fas fa-folder">
+      <q-btn class="q-my-md select-category" :label="categoryTitle" no-caps :ripple="true" outline icon="fas fa-folder">
         <q-menu>
           <div style="background-color: white;" class="q-pa-sm">
             <MyTree v-close-menu
@@ -292,5 +292,15 @@
     color: $red-5;
     margin-left: 44px;
   }
+
+  .select-category {
+    border: 1px solid rgba(0, 0, 0, 0.54) !important;
+
+    >>> .q-icon {
+      color: rgba(0, 0, 0, 0.54) !important;
+    }
+  }
+
+
 
 </style>

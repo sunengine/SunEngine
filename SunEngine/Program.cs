@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SunEngine.Configuration;
 using SunEngine.Utils;
+
+//[assembly:ApiController]
 
 namespace SunEngine
 {
