@@ -52,7 +52,9 @@ module.exports = function (ctx) {
         'QSpinnerGears',
         'QBanner',
         'QPagination',
-        'QEditor'
+        'QEditor',
+        'QSelect',
+        'QChip'
       ],
 
       directives: [

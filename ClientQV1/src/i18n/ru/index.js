@@ -85,11 +85,16 @@ export default {
   addEditMaterial: {
     title: "Заголовок",
     description: "Короткое описание",
+    tags: "Метки",
     validation: {
       title: {
         required: "Введите заголовок",
         minLength: "Минимальная длинна заголовка - 3",
         maxLength: `Максимальная длинна заголовка - ${config.DbColumnSizes.Materials_Title}`,
+      },
+      text: {
+        required: "Введите текст",
+        htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
       },
       description: {
         maxLength: "Максимально допустимая длинна " + config.DbColumnSizes.Materials_Description
@@ -101,7 +106,8 @@ export default {
   },
   material: {
     category: "раздел:",
-    edit: "Редактировать"
+    edit: "Редактировать",
+    tags: "Метки:"
   },
   readMessage: {
     edit: "редактировать",

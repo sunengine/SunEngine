@@ -11,7 +11,8 @@
       <div v-html="material.text">
       </div>
       <div class="q-mt-lg" style="text-align: center">
-        <q-chip class="q-mx-xs" small tag color="info" v-for="tag in material.tags" :key="tag">
+        {{$t("material.tags")}}
+        <q-chip class="q-mx-xs" dense color="info" v-for="tag in material.tags" :key="tag">
           {{tag}}
         </q-chip>
       </div>
@@ -128,7 +129,7 @@
         if (category.categoryPersonalAccess.materialEditAny) {
           return true;
         }
-        if (this.material.authorId != this.$store.state.auth.user.id) {
+        if (this.material.authorId !== this.$store.state.auth.user.id) {
           return false;
         }
         if (!category.categoryPersonalAccess.materialEditOwnIfHasReplies &&
@@ -161,7 +162,7 @@
         if (category.categoryPersonalAccess.materialDeleteAny) {
           return true;
         }
-        if (this.material.authorId != this.$store.state.auth.user.id) {
+        if (this.material.authorId !== this.$store.state.auth.user.id) {
           return false;
         }
         if (!category.categoryPersonalAccess.materialDeleteOwnIfHasReplies &&
@@ -231,7 +232,7 @@
         let userId = this.$store.state.auth.user.id;
         let ind = this.messages.indexOf(message);
         for (let i = ind; i < this.messages.length; i++) {
-          if (this.messages[i].authorId != userId) {
+          if (this.messages[i].authorId !== userId) {
             return false;
           }
         }
