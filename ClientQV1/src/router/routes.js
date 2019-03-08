@@ -3,7 +3,7 @@ import Index from 'pages/Index.vue';
 import Register from 'account/Register/Register.vue';
 import {makeArticlesSection, makeBlogSection} from "./makeSections";
 import AddEditMaterial from "material/AddEditMaterial";
-
+import SettingsPage from "personal/SettingsPage";
 
 const routes = [
   {
@@ -41,6 +41,14 @@ const routes = [
           id: +route.query.id
         }
       },
+      navigation: null
+    }
+  },
+  {
+    name: 'Personal',
+    path: '/personal',
+    components: {
+      default: SettingsPage,
       navigation: null
     }
   },

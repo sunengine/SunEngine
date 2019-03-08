@@ -5,7 +5,7 @@ using FluentMigrator.Builders.Create.Table;
 
 namespace Migrations
 {
-    [Migration(20190104130000)]
+    [Migration(20190208000000)]
     public class Initial : Migration
     {
         public override void Up()

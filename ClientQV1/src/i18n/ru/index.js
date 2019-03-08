@@ -122,6 +122,18 @@ export default {
   },
   blog: {
     newPost: "Новый пост"
+  },
+  settingsMenu: {
+    goToProfile: "Просмотреть профиль",
+    changeEmail: "Изменить email",
+    changePassword: "Изменить пароль",
+    changeLink: "Изменить link",
+    changeName: "Изменить имя",
+    changeYourInformation: "Изменить информацию о вас",
+    changePhoto: "Изменить фотографию",
+    banedUsersList: "Забаненые пользователи"
+  },
+  settingsPage: {
+    name: "Личный кабинет"
   }
-
 }

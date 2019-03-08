@@ -1,6 +1,6 @@
 <template>
     <q-list class="my-menu q-py-sm">
-      <q-item class="avatar-item">
+      <q-item class="avatar-menu-item">
         <q-item-section  avatar>
           <img class="avatar" :src="userInfo.avatar"/>
         </q-item-section>
@@ -85,17 +85,7 @@
 </script>
 
 <style lang="stylus" scoped>
-  .avatar {
-    margin-left: -6px;
-    margin-right: 11px;
-    border-radius: 16px
-    width: 32px;
-    height: 32px;
-  }
 
-  .avatar-item {
-    .q-item__section--avatar {
-      width: 40px !important;
-    }
-  }
+
+
 </style>
