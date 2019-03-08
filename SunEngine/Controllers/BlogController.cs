@@ -62,7 +62,7 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> GetCategoriesPosts(string categoriesNames, int page = 1)
+        public virtual async Task<IActionResult> GetPostsFromMultiCategories(string categoriesNames, int page = 1)
         {
             var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(categoriesNames);
 
@@ -77,7 +77,7 @@ namespace SunEngine.Controllers
             var categoriesIds = categoriesList.Select(x => x.Id).ToArray();
 
             IPagedList<PostViewModel> posts =
-                await blogPresenter.GetCategoriesPostsAsync(categoriesIds, page, blogOptions.PostsPageSize);
+                await blogPresenter.GetPostsFromMultiCategoriesAsync(categoriesIds, page, blogOptions.PostsPageSize);
 
             return Json(posts);
         }

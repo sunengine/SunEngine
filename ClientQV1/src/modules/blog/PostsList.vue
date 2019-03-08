@@ -26,7 +26,7 @@
     components: {PostInList, LoaderWait},
     data: function () {
       return {
-        posts: Object
+        posts: {}
       }
     },
     computed: {

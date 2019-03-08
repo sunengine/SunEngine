@@ -1,7 +1,7 @@
 import Material from 'material/Material.vue';
 //import Thread from 'forum/Thread.vue';
 //import NewTopics from 'forum/NewTopics.vue';
-import ArticlesList from 'articles/ArticlesList.vue';
+import ArticlesPage from 'articles/ArticlesPage.vue';
 //import ForumNavPanel from 'forum/ForumNavPanel';
 import BlogPage from "blog/BlogPage";
 
@@ -55,7 +55,7 @@ export function makeArticlesSection(name) {
       name: name,
       path: '/' + nameLover,
       components: {
-        default: ArticlesList,
+        default: ArticlesPage,
         navigation: null
       },
       props: {

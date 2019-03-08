@@ -26,24 +26,23 @@
 </template>
 
 <script>
-  import {date} from 'quasar'
 
   export default {
     name: "ArticleInList",
     props: {
       article: Object,
-      startPath: {
-        type: String,
-        required: true
-      }
+      required: true
     },
     computed: {
       description() {
         return this.article.description?.replace(/\n/g, "<br/>");
       },
       path() {
-        return this.$buildPath(this.startPath, this.article.id);
+        return this.$buildPath(this.category.path, this.article.id);
       },
+      category() {
+        return this.$store.getters.getCategory(this.article.categoryName);
+      }
     }
   }
 </script>

@@ -108,7 +108,7 @@ namespace SunEngine.DataBase
         public const int Users_UserName = 64;
         public const int Users_Email = 64;
         public const int Users_Link = 32;
-        public const int FileNameWithDirSize = 40;
+        public const int FileNameWithDirSize = 28;
         public const int Materials_Name = 32;
         public const int Materials_Title = 256;
         public const int Materials_Description = 256;

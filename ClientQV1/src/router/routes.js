@@ -44,7 +44,7 @@ const routes = [
       navigation: null
     }
   },
-  //...makeArticlesSection("Articles"),
+  ...makeArticlesSection("Articles"),
   ...makeBlogSection("Blog"),
 ];
 

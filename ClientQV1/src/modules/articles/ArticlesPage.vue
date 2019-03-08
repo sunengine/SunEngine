@@ -11,29 +11,15 @@
     </div>
     <div v-if="category.header" class="q-mb-sm page-padding" v-html="category.header"></div>
 
-    <LoaderWait v-if="!articles.items"/>
+    <ArticlesList ref="articlesList" />
 
-    <q-list no-border>
-      <ArticleInList :startPath="articlesStartPath" :article="article" v-for="article in articles.items"
-                     :key="article.id"/>
-    </q-list>
-
-    <q-pagination class="page-padding" v-if="articles.totalPages > 1"
-                  v-model="articles.pageIndex"
-                  color="pagination"
-                  :max-pages="12"
-                  :max="articles.totalPages"
-                  ellipses
-                  direction-links
-                  @input="pageChanges"
-    />
   </q-page>
 </template>
 
 <script>
   import LoaderWait from "LoaderWait";
-  import ArticleInList from "./ArticleInList";
-  import Page from "components/Page";
+  import Page from "Page";
+  import ArticlesList from "./ArticlesList";
 
   export default {
     name: "ArticlesPage",
@@ -45,7 +31,7 @@
       }
     },
     components: {
-      ArticleInList, LoaderWait
+      ArticlesList, LoaderWait
     },
     data: function () {
       return {
@@ -69,9 +55,6 @@
       category() {
         return this.$store.getters.getCategory(this.categoryName);
       },
-      articlesStartPath() {
-        return this.category?.path;
-      },
       canAddArticle() {
         return this.category?.categoryPersonalAccess?.materialWrite;
       }
@@ -91,6 +74,7 @@
       },
       async loadData() {
         let currentPage = this.getCurrentPage();
+
         this.title = this.category?.title;
 
         await this.$store.dispatch("request",
@@ -103,7 +87,7 @@
           })
           .then(
             response => {
-              this.articles = response.data;
+              this.$refs.articlesList.articles = response.data;
             }
           ).catch(x => {
             console.log("error", x);

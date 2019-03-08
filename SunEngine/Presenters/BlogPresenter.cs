@@ -14,7 +14,7 @@ namespace SunEngine.Presenters
         Task<IPagedList<PostViewModel>> GetPostsAsync(int categoryId, int page, int pageSize);
 
         Task<IPagedList<PostViewModel>>
-            GetCategoriesPostsAsync(int[] categoriesIds, int page, int pageSize);
+            GetPostsFromMultiCategoriesAsync(int[] categoriesIds, int page, int pageSize);
     }
 
     public class BlogPresenter : DbService, IBlogPresenter
@@ -45,7 +45,7 @@ namespace SunEngine.Presenters
                 pageSize);
         }
         
-        public virtual Task<IPagedList<PostViewModel>> GetCategoriesPostsAsync(int[] categoriesIds, int page, int pageSize)
+        public virtual Task<IPagedList<PostViewModel>> GetPostsFromMultiCategoriesAsync(int[] categoriesIds, int page, int pageSize)
         {
             return db.MaterialsNotDeleted.GetPagedListAsync(
                 x => new PostViewModel

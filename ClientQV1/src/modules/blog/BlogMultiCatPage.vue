@@ -57,7 +57,7 @@
 
         await this.$store.dispatch("request",
           {
-            url: "/Blog/GetCategoriesPosts",
+            url: "/Blog/GetPostsFromMultiCategories",
             data: {
               categoriesNames: this.categoriesNames,
               //page: this.currentPage

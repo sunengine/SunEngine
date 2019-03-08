@@ -10,6 +10,10 @@ namespace SunEngine.Presenters
     public interface IArticlesPresenter
     {
         Task<IPagedList<ArticleInfoViewModel>> GetArticlesAsync(int categoryId, int page, int pageSize);
+
+        Task<IPagedList<ArticleInfoViewModel>> GetArticlesFromMultiCategoriesAsync(int[] categoriesIds, int page,
+            int pageSize);
+
     }
 
     public class ArticlesPresenter : DbService, IArticlesPresenter
@@ -32,6 +36,26 @@ namespace SunEngine.Presenters
                     CategoryName = x.Category.Name.ToLower()
                 },
                 x => x.CategoryId == categoryId,
+                x => x.OrderByDescending(y => y.PublishDate),
+                page,
+                pageSize);
+        }
+        
+        public virtual Task<IPagedList<ArticleInfoViewModel>> GetArticlesFromMultiCategoriesAsync(int[] categoriesIds, int page, int pageSize)
+        {
+            return db.MaterialsNotDeleted.GetPagedListAsync(
+                x => new ArticleInfoViewModel
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Description = x.Description,
+                    MessagesCount = x.MessagesCount,
+                    AuthorName = x.Author.UserName,
+                    PublishDate = x.PublishDate,
+                    CategoryName = x.Category.Name.ToLower(),
+                    CategoryTitle = x.Category.Title
+                },
+                x => categoriesIds.Contains(x.CategoryId),
                 x => x.OrderByDescending(y => y.PublishDate),
                 page,
                 pageSize);

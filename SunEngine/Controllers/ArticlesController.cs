@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 using SunEngine.Configuration.Options;
@@ -57,6 +59,27 @@ namespace SunEngine.Controllers
             
             IPagedList<ArticleInfoViewModel> articles =
                 await articlesPresenter.GetArticlesAsync(category.Id, page, articlesOptions.CategoryPageSize);
+
+            return Json(articles);
+        }
+        
+        [HttpPost]
+        public virtual async Task<IActionResult> GetArticlesFromMultiCategories(string categoriesNames, int page = 1)
+        {
+            var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(categoriesNames);
+
+            IList<CategoryCached> categoriesList = authorizationService.GetAllowedCategories(User.Roles, materialsCategoriesDic.Values,
+                OperationKeys.MaterialAndMessagesRead);
+
+            if (categoriesList.Count == 0)
+            {
+                return BadRequest("No categories to show");
+            }
+
+            var categoriesIds = categoriesList.Select(x => x.Id).ToArray();
+            
+            IPagedList<ArticleInfoViewModel> articles =
+                await articlesPresenter.GetArticlesFromMultiCategoriesAsync(categoriesIds, page, articlesOptions.CategoryPageSize);
 
             return Json(articles);
         }
