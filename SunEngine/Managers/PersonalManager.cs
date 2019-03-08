@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -82,7 +83,7 @@ namespace SunEngine.Managers
 
         public virtual Task<bool> CheckLinkInDbAsync(string link, int userId)
         {
-            return db.Users.AnyAsync(x => x.Link.ToLower() == link.ToLower() && x.Id != userId);
+            return db.Users.AnyAsync(x => string.Equals(x.Link,link, StringComparison.OrdinalIgnoreCase) && x.Id != userId);
         }
 
         public virtual async Task<bool> ValidateLinkAsync(int userId, string link)
@@ -102,7 +103,8 @@ namespace SunEngine.Managers
 
         public virtual Task<bool> CheckNameInDbAsync(string name, int userId)
         {
-            return db.Users.AnyAsync(x => x.NormalizedUserName == name.ToUpper() && x.Id != userId );
+            var nameNormalized = Normalizer.Normalize(name);
+            return db.Users.AnyAsync(x => x.NormalizedUserName == nameNormalized && x.Id != userId );
         }
         
         public virtual async Task<bool> ValidateNameAsync(string name, int userId)

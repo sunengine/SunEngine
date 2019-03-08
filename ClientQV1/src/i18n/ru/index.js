@@ -134,6 +134,25 @@ export default {
     banedUsersList: "Забаненые пользователи"
   },
   settingsPage: {
-    name: "Личный кабинет"
+    title: "Личный кабинет"
+  },
+  changeName: {
+    title: "Изменить имя пользователя",
+    nameChangedSuccess: "Имя изменено",
+    nameRulesInfo: "Имя может состоять из букв, цифр, пробела и символа '-', длинны не менее 3.",
+    save: "Сохранить",
+    name: "Имя",
+    password: "Пароль",
+    validation: {
+      password: {
+        required: "Введите пароль"
+      },
+      name: {
+        required: "Введите имя",
+        minLength: "Длинна имени должна быть не меньше 3",
+        allowedChars: "Возможно использование только допустимых символов",
+        nameInDb: "Это имя уже занято"
+      }
+    }
   }
 }

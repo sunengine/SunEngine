@@ -4,6 +4,8 @@ import Register from 'account/Register/Register.vue';
 import {makeArticlesSection, makeBlogSection} from "./makeSections";
 import AddEditMaterial from "material/AddEditMaterial";
 import SettingsPage from "personal/SettingsPage";
+import ChangeName from "personal/ChangeName";
+import SettingsPanel from "personal/SettingsPanel";
 
 const routes = [
   {
@@ -50,6 +52,14 @@ const routes = [
     components: {
       default: SettingsPage,
       navigation: null
+    }
+  },
+  {
+    name: 'ChangeName',
+    path: '/personal/ChangeName'.toLowerCase(),
+    components: {
+      default: ChangeName,
+      navigation: SettingsPanel
     }
   },
   ...makeArticlesSection("Articles"),
