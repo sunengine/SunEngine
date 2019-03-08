@@ -2,13 +2,13 @@
   <q-page class="q-pa-md">
     <template v-if="material">
 
-      <q-input v-model="material.title" :label="$t('addEditMaterial.title')" :rules="titleRules">
+      <q-input ref="title" v-model="material.title" :label="$t('addEditMaterial.title')" :rules="titleRules">
         <template v-slot:prepend>
           <q-icon name="fas fa-info-circle"/>
         </template>
       </q-input>
 
-      <q-input v-if="canEditDescription" v-model="material.description" type="textarea" autogrow
+      <q-input ref="description" v-if="canEditDescription" v-model="material.description" type="textarea" autogrow
                :label="$t('addEditMaterial.description')" :rules="descriptionRules">
         <template v-slot:prepend>
           <q-icon name="fas fa-info-circle"/>
@@ -50,44 +50,30 @@
         :rules="textRules"
         ref="htmlEditor" v-model="material.text"/>
 
-      <q-select
-        v-model="material.tags"
-        use-input
-        use-chips
-        multiple
-        :label="$t('addEditMaterial.tags')"
-        hide-dropdown-icon
-        input-debounce="0"
-        @new-value="arguments[0].length > 0 && arguments[1](arguments[0])"
-      >
+      <q-select v-model="material.tags" use-input use-chips multiple :label="$t('addEditMaterial.tags')"
+                hide-dropdown-icon input-debounce="0"
+                @new-value="arguments[0].length > 0 && arguments[1](arguments[0])">
         <template v-slot:prepend>
           <q-icon name="fas fa-tags"/>
         </template>
       </q-select>
 
-      <q-btn class="q-my-md select-category" :label="categoryTitle" no-caps :ripple="true" outline icon="fas fa-folder">
+      <q-btn class="q-mt-md select-category" :label="categoryTitle" no-caps outline icon="fas fa-folder">
         <q-menu>
-          <div style="background-color: white;" class="q-pa-sm">
-            <MyTree v-close-menu
-                    default-expand-all
-                    :selected.sync="material.categoryName"
-                    :nodes="where"
-                    node-key="value">
-              <div slot="header-root" slot-scope="prop" class="row items-center">
-                <div class="text-grey-7">
-                  {{ prop.node.label }}
-                </div>
-              </div>
-              <div slot="header-normal" slot-scope="prop" class="row items-center">
-                <div style="display: flex; align-items: center; align-content: center;">
-                  <!--<Q-Icon name="fas fa-folder" size="16" color="primary" class="q-mr-sm"/>-->
-                  <span>{{ prop.node.label }}</span>
-                </div>
-              </div>
-            </MyTree>
-          </div>
+          <MyTree v-close-menu class="q-ma-sm" default-expand-all :selected.sync="material.categoryName"
+                  :nodes="where" node-key="value">
+            <div slot="header-root" slot-scope="prop" class="row items-center text-grey-7">
+              {{ prop.node.label }}
+            </div>
+            <div slot="header-normal" slot-scope="prop" class="row items-center"
+                 style="display: flex; align-items: center; align-content: center;">
+              <QIcon name="fas fa-folder" size="16" color="green" class="q-mr-sm"/>
+              <span>{{ prop.node.label }}</span>
+            </div>
+          </MyTree>
         </q-menu>
       </q-btn>
+      <div class="error" v-if="!material.categoryName && !start">{{$t('addEditMaterial.validation.category.required')}}</div>
 
       <div class="q-mt-md">
         <q-btn icon="fas fa-arrow-circle-right" class="btn-send" no-caps :loading="loading" label="Отправить"
@@ -147,16 +133,13 @@
       textRules() {
         return [
           (value) => !!value || this.$t('addEditMaterial.validation.text.required'),
-          (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$t('addEditMaterial.validation.text.required'),
+          (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$t('addEditMaterial.validation.text.htmlTextSizeOrHasImage'),
         ];
       },
       descriptionRules() {
         return [
           (value) => value.length <= config.DbColumnSizes.Materials_Description || this.$t('addEditMaterial.validation.description.maxLength'),
         ];
-      },
-      categoryRules() {
-        (value) => !!value || this.$t('addEditMaterial.validation.category.required')
       },
       canEditDescription() {
         return this.category?.sectionType?.name === 'Articles';
@@ -180,21 +163,18 @@
         return "Раздел: " + this.category.title;
       }
     },
-    /* validations: {
-       material: {
-         text: {
-           required,
-           htmlTextSizeOrHasImage() {
-             return htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5);
-           }
-         },
-         categoryName: {
-           required
-         }
-       }
-     },*/
     methods: {
       async send() {
+        this.start = false;
+        this.$refs.title.validate();
+        this.$refs.description.validate();
+        this.$refs.htmlEditor.validate();
+
+
+        if (this.$refs.title.hasError || this.$refs.description.hasError || this.$refs.htmlEditor.hasError || !this.material.categoryName) {
+          return;
+        }
+
 
         if (this.mode === ADD) {
           await this.add();
@@ -287,12 +267,6 @@
 <style lang="stylus" scoped>
   @import '~quasar-variables';
 
-  .error {
-    font-size: 0.9em;
-    color: $red-5;
-    margin-left: 44px;
-  }
-
   .select-category {
     border: 1px solid rgba(0, 0, 0, 0.54) !important;
 
@@ -302,5 +276,10 @@
   }
 
 
+  /* >>> .q-tree__node--child {
+     > .q-tree__node-header {
+       padding-left: 0px !important;
+     }
+   }*/
 
 </style>

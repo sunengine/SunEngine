@@ -105,7 +105,7 @@ export default {
     );
 
     const error = h('div', {
-      staticClass: 'q-field__bottom absolute-bottom row items-start relative-position text-negative',
+      staticClass: 'error',
       key: 'q--slot-error'
     }, this.computedErrorMessage);
 
@@ -118,7 +118,7 @@ export default {
 
     const errorMessage = this.hasError && errorTransition;
 
-    return h('div', {staticClass: "relative-position q-field--with-bottom"}, [editor, errorMessage, fileInput, loading]);
+    return h('div', {staticClass: "relative-position"}, [editor, errorMessage, fileInput, loading]);
   }
 }
 

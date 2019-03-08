@@ -98,6 +98,9 @@ export default {
       },
       description: {
         maxLength: "Максимально допустимая длинна " + config.DbColumnSizes.Materials_Description
+      },
+      category: {
+        required: "Выберите раздел"
       }
     }
   },
