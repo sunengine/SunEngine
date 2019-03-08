@@ -5,8 +5,6 @@ using Microsoft.Extensions.Configuration;
 using SunEngine.Configuration;
 using SunEngine.Utils;
 
-//[assembly:ApiController]
-
 namespace SunEngine
 {
     public class Program
