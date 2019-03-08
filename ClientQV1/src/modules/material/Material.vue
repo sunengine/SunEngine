@@ -10,7 +10,7 @@
       </div>
       <div v-html="material.text">
       </div>
-      <div class="q-mt-lg" style="text-align: center">
+      <div v-if="material.tags && material.tags.length > 0" class="q-mt-lg" style="text-align: center">
         {{$t("material.tags")}}
         <q-chip class="q-mx-xs" dense color="info" v-for="tag in material.tags" :key="tag">
           {{tag}}

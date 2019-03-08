@@ -62,7 +62,7 @@ namespace SunEngine.Utils
                     IsSuper = ((IDictionary<string, JToken>) userGroupJson).ContainsKey("IsSuper") && (bool) userGroupJson["IsSuper"],
                     SortNumber = id
                 };
-                role.NormalizedName = FieldNormalizer.Normalize(role.Name);
+                role.NormalizedName = Normalizer.Normalize(role.Name);
 
                 roles.Add(role);
 

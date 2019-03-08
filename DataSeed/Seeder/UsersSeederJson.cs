@@ -107,8 +107,8 @@ namespace DataSeed.Seeder
 
         private void NormalizeUserFields(User user)
         {
-            user.NormalizedUserName = FieldNormalizer.Normalize(user.UserName);
-            user.NormalizedEmail = FieldNormalizer.Normalize(user.Email);
+            user.NormalizedUserName = Normalizer.Normalize(user.UserName);
+            user.NormalizedEmail = Normalizer.Normalize(user.Email);
         }
     }
 }

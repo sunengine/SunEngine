@@ -33,7 +33,7 @@ namespace SunEngine.Presenters
                     MessagesCount = x.MessagesCount,
                     AuthorName = x.Author.UserName,
                     PublishDate = x.PublishDate,
-                    CategoryName = x.Category.Name.ToLower()
+                    CategoryName = x.Category.NameNormalized
                 },
                 x => x.CategoryId == categoryId,
                 x => x.OrderByDescending(y => y.PublishDate),
@@ -52,7 +52,7 @@ namespace SunEngine.Presenters
                     MessagesCount = x.MessagesCount,
                     AuthorName = x.Author.UserName,
                     PublishDate = x.PublishDate,
-                    CategoryName = x.Category.Name.ToLower(),
+                    CategoryName = x.Category.NameNormalized,
                     CategoryTitle = x.Category.Title
                 },
                 x => categoriesIds.Contains(x.CategoryId),

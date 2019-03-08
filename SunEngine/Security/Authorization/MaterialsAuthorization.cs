@@ -169,12 +169,6 @@ namespace SunEngine.Security.Authorization
                    && authorizationService.HasAccess(user.Roles, categoryTo, OperationKeys.MaterialWrite);
         }
 
-        private bool IsCategoriesFromOneRoot(CategoryCached categoryFrom, CategoryCached categoryTo)
-        {
-            return categoriesCache.GetCategoryAreaRoot(categoryFrom).Id ==
-                   categoriesCache.GetCategoryAreaRoot(categoryTo).Id;
-        }
-
         private async Task<bool> CheckHasNotOwnRepliesAsync(Material material, int userId)
         {
             return await db.Messages.AnyAsync(x => x.MaterialId == material.Id && x.AuthorId != userId);

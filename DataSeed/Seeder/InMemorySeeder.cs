@@ -167,6 +167,7 @@ namespace DataSeed.Seeder
             {
                 Id = id,
                 Name = Category.RootName,
+                NameNormalized = Normalizer.Normalize(Category.RootName),
                 Title = "Корень",
                 SortNumber = id
             };

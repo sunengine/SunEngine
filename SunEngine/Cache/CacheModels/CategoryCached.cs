@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using SunEngine.Models;
+using SunEngine.Utils;
 
 namespace SunEngine.Stores.CacheModels
 {
@@ -11,6 +12,8 @@ namespace SunEngine.Stores.CacheModels
         public int Id { get; }
 
         public string Name { get; }
+        
+        public string NameNormalized { get; }
 
         public string Title { get; }
 
@@ -54,6 +57,7 @@ namespace SunEngine.Stores.CacheModels
         {
             Id = category.Id;
             Name = category.Name;
+            NameNormalized = Normalizer.Normalize(category.Name);
             Title = category.Title;
             IsMaterialsContainer = category.IsMaterialsContainer;
             Description = category.Description;

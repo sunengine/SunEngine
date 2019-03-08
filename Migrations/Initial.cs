@@ -18,6 +18,7 @@ namespace Migrations
             Create.Table("Categories")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(DbColumnSizes.Categories_Name).NotNullable()
+                .WithColumn("NameNormalized").AsString(DbColumnSizes.Categories_Name).NotNullable()
                 .WithColumn("Title").AsString(DbColumnSizes.Categories_Title).NotNullable()
                 .WithColumn("Description").AsMaxString().Nullable()
                 .WithColumn("Header").AsMaxString().Nullable()

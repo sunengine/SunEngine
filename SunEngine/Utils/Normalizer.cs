@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace SunEngine.Utils
 {
-    public static class FieldNormalizer
+    public static class Normalizer
     {
-        public static readonly FieldNormalizerLowercase Singleton = new FieldNormalizerLowercase();
+        public static readonly NormalizerLowercase Singleton = new NormalizerLowercase();
 
         public static string Normalize(string key)
         {
@@ -12,7 +12,7 @@ namespace SunEngine.Utils
         }
     }
 
-    public class FieldNormalizerLowercase : ILookupNormalizer
+    public class NormalizerLowercase : ILookupNormalizer
     {
         public string Normalize(string key)
         {

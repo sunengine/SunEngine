@@ -15,6 +15,8 @@ namespace SunEngine.Models
         //[Required, MinLength(2), RegularExpression("^[a-zA-Z-]*$")]
         public string Name { get; set; }
 
+        public string NameNormalized { get; set; }
+        
         //[Required, MinLength(3)] 
         public string Title { get; set; }
 

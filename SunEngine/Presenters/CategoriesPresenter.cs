@@ -54,7 +54,7 @@ namespace SunEngine.Presenters
             CategoryInfoWithAccesses categoryInfo = new CategoryInfoWithAccesses
             {
                 Id = category.Id,
-                Name = category.Name.ToLower(),
+                Name = category.NameNormalized,
                 Title = category.Title,
                 Header = category.Header,
                 IsMaterialsContainer = category.IsMaterialsContainer,

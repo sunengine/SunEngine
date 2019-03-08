@@ -15,7 +15,6 @@ namespace SunEngine.Stores
         IReadOnlyDictionary<string, SectionTypeCached> AllSectionTypes { get; }
         CategoryCached GetCategory(int id);
         CategoryCached GetCategory(string name);
-        CategoryCached GetCategoryAreaRoot(CategoryCached category);
         IReadOnlyDictionary<string, CategoryCached> AllCategories { get; }
         CategoryCached RootCategory { get; }
         IDictionary<string, CategoryCached> GetAllCategoriesIncludeSub(string categoriesList);
@@ -82,19 +81,9 @@ namespace SunEngine.Stores
 
         public CategoryCached GetCategory(string name)
         {
-            return AllCategories[FieldNormalizer.Normalize(name)];
+            return AllCategories[Normalizer.Normalize(name)];
         }
 
-        public CategoryCached GetCategoryAreaRoot(CategoryCached category)
-        {
-            CategoryCached current = category;
-            while (!current.AppendUrlToken)
-            {
-                current = category.Parent;
-            }
-
-            return current;
-        }
 
         public IDictionary<string, CategoryCached> GetAllCategoriesIncludeSub(string categoriesList)
         {
@@ -182,7 +171,7 @@ namespace SunEngine.Stores
                 category.Init6SetListsAndBlockEditable();
             }
 
-            _allCategories = categoriesList.ToImmutableDictionary(x => FieldNormalizer.Normalize(x.Name));
+            _allCategories = categoriesList.ToImmutableDictionary(x => x.NameNormalized);
         }
     }
 }

@@ -77,7 +77,7 @@ namespace SunEngine.Managers
         {
             user.UserName = name;
             return db.Users.Where(x => x.Id == user.Id)
-                .Set(x => x.UserName, name).Set(x => x.NormalizedUserName, FieldNormalizer.Singleton.Normalize(name)).UpdateAsync();
+                .Set(x => x.UserName, name).Set(x => x.NormalizedUserName, Normalizer.Singleton.Normalize(name)).UpdateAsync();
         }
 
         public virtual Task<bool> CheckLinkInDbAsync(string link, int userId)

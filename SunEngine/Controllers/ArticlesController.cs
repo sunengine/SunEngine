@@ -5,7 +5,6 @@ using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 using SunEngine.Configuration.Options;
 using SunEngine.Managers;
-using SunEngine.Models;
 using SunEngine.Presenters;
 using SunEngine.Presenters.PagedList;
 using SunEngine.Security.Authorization;

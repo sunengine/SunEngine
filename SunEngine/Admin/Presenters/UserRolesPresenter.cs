@@ -35,7 +35,7 @@ namespace SunEngine.Admin.Presenters
 
         public Task<UserInfoViewModel[]> GetRoleUsers(string roleName, string userNamePart)
         {
-            var normalizedGroupName = FieldNormalizer.Normalize(roleName);
+            var normalizedGroupName = Normalizer.Normalize(roleName);
             var query = db.UserRoles.Where(x => x.Role.NormalizedName == normalizedGroupName);
 
             if (userNamePart != null)

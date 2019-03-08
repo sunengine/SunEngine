@@ -34,7 +34,7 @@ namespace SunEngine.Presenters
                     EditDate = x.EditDate,
                     MessagesCount = x.MessagesCount,
                     Text = x.Text,
-                    CategoryName = x.Category.Name.ToLower(),
+                    CategoryName = x.Category.NameNormalized,
                     IsDeleted = x.IsDeleted,
                     Tags = x.TagMaterials.OrderBy(y => y.Tag.Name).Select(y => y.Tag.Name).ToArray()
                 }

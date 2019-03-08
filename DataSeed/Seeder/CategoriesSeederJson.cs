@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
 using NJsonSchema.Infrastructure;
 using SunEngine.Models;
+using SunEngine.Utils;
 
 namespace DataSeed.Seeder
 {
@@ -61,11 +62,13 @@ namespace DataSeed.Seeder
             for (int j = 0; j < repeatCount; j++)
             {
                 int id = dataContainer.NextCategoryId();
+                string name = PrepareText((string) categoryToken["Name"], numbers);
                 Category category = new Category
                 {
                     Id = id,
                     ParentId = parent?.Id,
-                    Name = PrepareText((string) categoryToken["Name"], numbers),
+                    Name = name,
+                    NameNormalized = Normalizer.Normalize(name),
                     Title = PrepareText((string) categoryToken["Title"], numbers),
                     Header = PrepareText((string) categoryToken["Header"], numbers),
                     SortNumber = id
