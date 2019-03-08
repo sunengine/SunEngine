@@ -71,6 +71,7 @@
             color: 'positive',
             position: 'top'
           });
+          this.$router.back();
         }).catch(data => {
           this.submitting = false;
           this.$q.notify({
@@ -80,7 +81,6 @@
             position: 'top'
           });
         });
-
       }
     },
     created() {

@@ -3,7 +3,7 @@ import Material from 'material/Material.vue';
 //import NewTopics from 'forum/NewTopics.vue';
 import ArticlesList from 'articles/ArticlesList.vue';
 //import ForumNavPanel from 'forum/ForumNavPanel';
-//import Blog from "blog/Blog";
+import BlogPage from "blog/BlogPage";
 
 /*export function makeForumSection(name, categoriesPanel) {
   let nameLover = name.toLowerCase();
@@ -82,7 +82,7 @@ export function makeArticlesSection(name) {
   ];
 }
 
-/*
+
 export function makeBlogSection(name) {
   let nameLover = name.toLowerCase();
   return [
@@ -90,7 +90,7 @@ export function makeBlogSection(name) {
       name: name,
       path: '/' + nameLover,
       components: {
-        default: Blog,
+        default: BlogPage,
         navigation: null
       },
       props: {
@@ -116,4 +116,4 @@ export function makeBlogSection(name) {
     }
   ];
 }
-*/
+

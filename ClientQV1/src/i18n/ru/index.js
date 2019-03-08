@@ -115,6 +115,13 @@ export default {
   readMessage: {
     edit: "редактировать",
     deleteDialogMessage: "Удалить сообщение?"
+  },
+  postInList: {
+    messagesCount: "сообщений",
+    readMore: "Читать дальше"
+  },
+  blog: {
+    newPost: "Новый пост"
   }
 
 }

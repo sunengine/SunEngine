@@ -47,7 +47,7 @@
       <div class="clear"></div>
     </div>
 
-    <div id="messages" v-if="messages" class="msgs page-margin-bottom">
+    <div id="messages" v-if="messages" class="msgs">
       <hr class="hr-sep"/>
       <div v-for="(message,index) in messages" :key="message.id">
         <MessageContainer class="page-padding" :message="message" :checkLastOwn="checkLastOwn"
@@ -292,7 +292,6 @@
 <style scoped>
   .msgs {
     margin-top: 18px;
-    margin-bottom: 25px;
   }
 
   .mat-avatar {

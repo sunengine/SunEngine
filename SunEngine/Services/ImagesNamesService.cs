@@ -1,4 +1,10 @@
 using System;
+using System.IO;
+using System.Text;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Options;
+using SunEngine.Configuration.Options;
+using SunEngine.Security.Cryptography;
 
 namespace SunEngine.Services
 {
@@ -28,14 +34,36 @@ namespace SunEngine.Services
     
     public class ImagesNamesService : IImagesNamesService
     {
-
+        private readonly string basePath;
+        
+        public ImagesNamesService(IHostingEnvironment env, IOptions<ImagesOptions> imagesOptions)
+        {
+            basePath = Path.Combine(env.WebRootPath, imagesOptions.Value.UploadDir);
+        }
+        
         public FileAndDir GetNewImageNameAndDir(string ext)
         {
-            var guid = Guid.NewGuid();
-            var bites = guid.ToByteArray();
-            return new FileAndDir(guid + ext, bites[0].ToString());
+            while (true)
+            {
+                //var guid = Guid.NewGuid();
+                //var bites = guid.ToByteArray();
+                //return new FileAndDir(guid.ToString("N") + ext, bites[0].ToString());
+                
+                
+                var cid = CryptoRandomizer.GetRandomString(12);
+                byte[] bites = Encoding.UTF8.GetBytes(cid);   
+                
+                FileAndDir rez = new FileAndDir(cid + ext, bites[0].ToString());
+                if (!CheckFileOnDisk(rez.Path))
+                    return rez;
+            }           
         }
 
+        private bool CheckFileOnDisk(string path)
+        {
+            var fullPath = Path.Combine(basePath, path);
+            return File.Exists(fullPath);
+        }
     }
     
 }

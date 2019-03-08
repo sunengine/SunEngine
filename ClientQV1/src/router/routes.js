@@ -1,7 +1,7 @@
 import Login from 'account/Login.vue';
 import Index from 'pages/Index.vue';
 import Register from 'account/Register/Register.vue';
-import {makeArticlesSection} from "./makeSections";
+import {makeArticlesSection, makeBlogSection} from "./makeSections";
 import AddEditMaterial from "material/AddEditMaterial";
 
 
@@ -44,7 +44,8 @@ const routes = [
       navigation: null
     }
   },
-  ...makeArticlesSection("Articles"),
+  //...makeArticlesSection("Articles"),
+  ...makeBlogSection("Blog"),
 ];
 
 // Always leave this as last one
