@@ -84,7 +84,7 @@ namespace DataSeed.Seeder
                 if(string.IsNullOrEmpty(user.Link))
                     user.SetDefaultLink();
                 
-                NormalizeUserFields(user);
+                MakeNormalizedUserFields(user);
                 dataContainer.Users.Add(user);
             }
         }
@@ -124,7 +124,7 @@ namespace DataSeed.Seeder
             }
         }
 
-        private void NormalizeUserFields(User user)
+        private void MakeNormalizedUserFields(User user)
         {
             user.NormalizedUserName = Normalizer.Normalize(user.UserName);
             user.NormalizedEmail = Normalizer.Normalize(user.Email);
