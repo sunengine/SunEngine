@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;

@@ -1,17 +1,15 @@
 using System;
 using System.IO;
 using System.Linq;
-using Microsoft.AspNetCore.Identity;
 using NJsonSchema;
 using SunEngine.Models;
 using SunEngine.Models.Authorization;
-using SunEngine.Security;
 using SunEngine.Security.Authorization;
 using SunEngine.Utils;
 
 namespace DataSeed.Seeder
 {
-    public class InMemorySeeder
+    public class MemorySeeder
     {
         private readonly DataContainer dataContainer;
 
@@ -22,7 +20,7 @@ namespace DataSeed.Seeder
 
         private readonly string configDir;
 
-        public InMemorySeeder(string configDir)
+        public MemorySeeder(string configDir)
         {
             this.configDir = configDir;
             dataContainer = new DataContainer();

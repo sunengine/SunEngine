@@ -27,7 +27,19 @@
     "Roles": [
       "Registered"
     ],
-    "Repeat": 7
+    "Repeat": 3
+  },
+  {
+    "Email": "user[n]@email.me",
+    "UserName": "User[n]",
+    "Password": "password",
+    "Information": "Пользователь [n], информация о пользователе",
+    "Link": "User[n]",
+    "Roles": [
+      "Registered"
+    ],
+    "StartNumber": 4,
+    "Repeat": 3
   },
   {
     "Email": "testuser1@email.me",

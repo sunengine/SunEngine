@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SunEngine.Configuration.Options;
 using SunEngine.Managers;
-using SunEngine.Models;
 using SunEngine.Presenters;
 using SunEngine.Presenters.PagedList;
 using SunEngine.Security.Authorization;

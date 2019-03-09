@@ -5,7 +5,6 @@ using LinqToDB;
 using Microsoft.Extensions.Options;
 using SunEngine.Configuration.Options;
 using SunEngine.DataBase;
-using SunEngine.Models;
 using SunEngine.Models.Materials;
 using SunEngine.Security.Authentication;
 using SunEngine.Stores;

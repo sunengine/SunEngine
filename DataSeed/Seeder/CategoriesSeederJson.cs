@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
-using NJsonSchema.Infrastructure;
 using SunEngine.Models;
 using SunEngine.Utils;
 

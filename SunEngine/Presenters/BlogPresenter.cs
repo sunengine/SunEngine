@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SunEngine.DataBase;
-using SunEngine.Models;
 using SunEngine.Presenters.PagedList;
 using SunEngine.Services;
 

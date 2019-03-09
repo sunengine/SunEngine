@@ -1,4 +1,3 @@
-using System.IO;
 using DataSeed.Seeder;
 using Microsoft.Extensions.Configuration;
 using SunEngine.DataBase;
@@ -27,7 +26,7 @@ namespace DataSeed
 
             using (DataBaseConnection db = new DataBaseConnection(providerName, connectionString))
             {
-                DataContainer dataContainer = new InMemorySeeder(configDir).Seed();
+                DataContainer dataContainer = new MemorySeeder(configDir).Seed();
                 new DataBaseSeeder(db, dataContainer).Seed().PostSeed();
             }
         }

@@ -1,11 +1,9 @@
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json.Linq;
 using SunEngine.Models;
 using SunEngine.Models.Authorization;
-using SunEngine.Security;
 using SunEngine.Utils;
 
 namespace DataSeed.Seeder
@@ -49,29 +47,43 @@ namespace DataSeed.Seeder
 
         private void SeedUser(JToken usersJ)
         {
-            int repeatCount = 1;
+            int maxNumber = 1;
             var repeat = usersJ["Repeat"];
             if (repeat != null)
             {
-                repeatCount = (int) repeat;
+                maxNumber = (int) repeat;
             }
 
-            for (int j = 1; j <= repeatCount; j++)
+            int startNumber = 1;
+            if (usersJ["StartNumber"] != null)
             {
+                startNumber = int.Parse((string)usersJ["StartNumber"]);
+                maxNumber += startNumber - 1;
+            }
+            
+            for (int j = startNumber; j <= maxNumber; j++)
+            {
+                string name = ((string) usersJ["UserName"]).Replace("[n]", j.ToString());
+                
                 User user = new User
                 {
                     Id = dataContainer.NextUserId(),
-                    Email = ((string) usersJ["Email"]).Replace("[n]", j.ToString()),
-                    UserName = ((string) usersJ["UserName"]).Replace("[n]", j.ToString()),
+                    Email =  usersJ["Email"] != null 
+                        ? ((string) usersJ["Email"]).Replace("[n]", j.ToString()) 
+                        : name + "@email.email",
+                    UserName = name,
                     EmailConfirmed = true,
                     PasswordHash = passwordHasher.HashPassword(null,
                         (string) (usersJ["Password"] ?? AllUsersDefaultPassword)),
                     SecurityStamp = string.Empty,
-                    Information = ((string) usersJ["Information"]).Replace("[n]", j.ToString()),
+                    Information = ((string) usersJ["Information"])?.Replace("[n]", j.ToString()),
+                    Link = ((string) usersJ["Link"])?.Replace("[n]", j.ToString()),
                     Photo = User.DefaultAvatar,
                     Avatar = User.DefaultAvatar
                 };
-                user.SetDefaultLink();
+                if(string.IsNullOrEmpty(user.Link))
+                    user.SetDefaultLink();
+                
                 NormalizeUserFields(user);
                 dataContainer.Users.Add(user);
             }
@@ -80,14 +92,21 @@ namespace DataSeed.Seeder
 
         private void SeedUserRole(JToken userJ)
         {
-            int repeatCount = 1;
+            int maxNumber = 1;
             var repeat = userJ["Repeat"];
             if (repeat != null)
             {
-                repeatCount = (int) repeat;
+                maxNumber = (int) repeat;
             }
 
-            for (int j = 1; j <= repeatCount; j++)
+            int startNumber = 1;
+            if (userJ["StartNumber"] != null)
+            {
+                startNumber = int.Parse((string)userJ["StartNumber"]);
+                maxNumber += startNumber - 1;
+            }
+
+            for (int j = startNumber; j <= maxNumber; j++)
             {
                 string userName = ((string) userJ["UserName"]).Replace("[n]", j.ToString());
 

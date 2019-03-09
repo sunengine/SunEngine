@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using LinqToDB.Mapping;
 using SunEngine.Models.Materials;
 
 namespace SunEngine.Models

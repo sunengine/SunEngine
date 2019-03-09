@@ -7,7 +7,6 @@ using Microsoft.Extensions.Options;
 using SunEngine.Configuration.Options;
 using SunEngine.DataBase;
 using SunEngine.Models.Authorization;
-using SunEngine.Security.Authorization;
 using SunEngine.Stores;
 
 namespace SunEngine.Security.Authentication
