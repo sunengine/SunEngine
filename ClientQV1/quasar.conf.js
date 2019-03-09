@@ -54,7 +54,8 @@ module.exports = function (ctx) {
         'QPagination',
         'QEditor',
         'QSelect',
-        'QChip'
+        'QChip',
+        'QAvatar'
       ],
 
       directives: [

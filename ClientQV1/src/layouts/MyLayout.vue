@@ -31,6 +31,11 @@
       <MainMenu/>
     </q-drawer>
 
+    <q-drawer v-if="rightDrawerIs" side="right" v-model="rightDrawerOpen" >
+
+      <router-view name="navigation"/>
+    </q-drawer>
+
     <q-page-container>
       <router-view/>
     </q-page-container>

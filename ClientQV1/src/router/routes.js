@@ -1,11 +1,13 @@
 import Login from 'account/Login.vue';
 import Index from 'pages/Index.vue';
 import Register from 'account/Register/Register.vue';
-import {makeArticlesSection, makeBlogSection} from "./makeSections";
+import {makeArticlesSection, makeBlogSection, makeForumSection} from "./makeSections";
 import AddEditMaterial from "material/AddEditMaterial";
 import SettingsPage from "personal/SettingsPage";
 import ChangeName from "personal/ChangeName";
 import SettingsPanel from "personal/SettingsPanel";
+import Categories1 from 'categories/Categories1.vue';
+import Categories2 from 'categories/Categories2.vue';
 
 const routes = [
   {
@@ -62,6 +64,8 @@ const routes = [
       navigation: SettingsPanel
     }
   },
+  ...makeForumSection("Forum", Categories1),
+  ...makeForumSection("Forum2L", Categories2),
   ...makeArticlesSection("Articles"),
   ...makeBlogSection("Blog"),
 ];

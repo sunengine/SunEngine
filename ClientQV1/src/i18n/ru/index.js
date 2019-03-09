@@ -154,5 +154,9 @@ export default {
         nameInDb: "Это имя уже занято"
       }
     }
+  },
+  forumPanel: {
+    newTopics: "Новые сообщения",
+    sections: "Разделы"
   }
 }

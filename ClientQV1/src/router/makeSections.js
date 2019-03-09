@@ -1,11 +1,11 @@
 import Material from 'material/Material.vue';
 //import Thread from 'forum/Thread.vue';
-//import NewTopics from 'forum/NewTopics.vue';
+import NewTopics from 'forum/NewTopics.vue';
 import ArticlesPage from 'articles/ArticlesPage.vue';
-//import ForumNavPanel from 'forum/ForumNavPanel';
+import ForumPanel from 'forum/ForumPanel';
 import BlogPage from "blog/BlogPage";
 
-/*export function makeForumSection(name, categoriesPanel) {
+export function makeForumSection(name, categoriesPanel) {
   let nameLover = name.toLowerCase();
   return [
     {
@@ -13,29 +13,29 @@ import BlogPage from "blog/BlogPage";
       path: '/' + nameLover,
       components: {
         default: NewTopics,
-        navigation: ForumNavPanel
+        navigation: ForumPanel
       },
       props: {
         default: {categoryName: nameLover},
         navigation: {categories: categoriesPanel, categoryName: nameLover}
       },
     },
-    {
+    /*{
       path: `/${nameLover}/:categoryName`,
       components: {
         default: Thread,
-        navigation: ForumNavPanel
+        navigation: ForumPanel
       },
       props: {
         default: true,
         navigation: {categories: categoriesPanel, categoryName: nameLover}
       }
-    },
+    },*/
     {
       path: `/${nameLover}/:categoryName/:id`,
       components: {
         default: Material,
-        navigation: ForumNavPanel
+        navigation: ForumPanel
       },
       props: {
         default: (route) => {
@@ -45,7 +45,7 @@ import BlogPage from "blog/BlogPage";
       }
     }
   ]
-}*/
+}
 
 
 export function makeArticlesSection(name) {
