@@ -47,27 +47,27 @@
       <div class="clear"></div>
     </div>
 
-    <div id="messages" v-if="messages" class="msgs">
+    <div id="comments" v-if="comments" class="msgs">
       <hr class="hr-sep"/>
-      <div v-for="(message,index) in messages" :key="message.id">
-        <MessageContainer class="page-padding" :message="message" :checkLastOwn="checkLastOwn"
+      <div v-for="(comment,index) in comments" :key="comment.id">
+        <CommentContainer class="page-padding" :comment="comment" :checkLastOwn="checkLastOwn"
                           :categoryPersonalAccess="categoryPersonalAccess"
-                          :isLast="index == maxMessageNumber"/>
+                          :isLast="index === maxCommentNumber"/>
         <hr class="hr-sep"/>
       </div>
-      <div v-if="canMessageWrite">
-        <AddEditMessage class="page-padding" @done="messageAdded" :materialId="id"/>
+      <div v-if="canCommentWrite">
+        <AddEditComment class="page-padding" @done="commentAdded" :materialId="id"/>
       </div>
     </div>
 
-    <LoaderWait v-if="!material || !messages"/>
+    <LoaderWait v-if="!material || !comments"/>
   </q-page>
 
 </template>
 
 <script>
-  import MessageContainer from "message/MessageContainer";
-  import AddEditMessage from "message/AddEditMessage";
+  import CommentContainer from "comments/CommentContainer";
+  import AddEditComment from "comments/AddEditComment";
   import {date} from 'quasar';
   import LoaderWait from "LoaderWait";
   import {scroll} from 'quasar';
@@ -77,7 +77,7 @@
 
   export default {
     name: "Material",
-    components: {MessageContainer, AddEditMessage, LoaderWait},
+    components: {CommentContainer, AddEditComment, LoaderWait},
     mixins: [Page],
     props: {
       id: {
@@ -92,7 +92,7 @@
     data: function () {
       return {
         material: null,
-        messages: null,
+        comments: null,
         page: null,
       }
     },
@@ -102,8 +102,8 @@
       '$store.state.auth.user': 'loadData'
     },
     computed: {
-      maxMessageNumber() {
-        return this.messages.length - 1;
+      maxCommentNumber() {
+        return this.comments.length - 1;
       },
       category() {
         return this.$store.getters.getCategory(this.categoryName);
@@ -111,8 +111,8 @@
       categoryPath() {
         return this.category.path;
       },
-      canMessageWrite() {
-        return this.category.categoryPersonalAccess.messageWrite;
+      canCommentWrite() {
+        return this.category.categoryPersonalAccess.commentWrite;
       },
       categoryPersonalAccess() {
         return this.category.categoryPersonalAccess;
@@ -151,7 +151,7 @@
         return false;
       },
       canDelete() {
-        if (!this.material || !this.messages) {
+        if (!this.material || !this.comments) {
           return false;
         }
         if (!this.$store.state.auth.user) {
@@ -166,7 +166,7 @@
           return false;
         }
         if (!category.categoryPersonalAccess.materialDeleteOwnIfHasReplies &&
-          this.messages.length >= 1 && !this.checkLastOwn(this.messages[0])
+          this.comments.length >= 1 && !this.checkLastOwn(this.comments[0])
         ) {
           return false;
         }
@@ -202,17 +202,17 @@
         });
       },
 
-      async loadDataMessages() {
+      async loadDataComments() {
         await this.$store.dispatch("request",
           {
-            url: "/Messages/GetMaterialMessages",
+            url: "/Comments/GetMaterialComments",
             data:
               {
                 materialId: this.id
               }
           }).then(
           response => {
-            this.messages = response.data;
+            this.comments = response.data;
             this.$nextTick(function () {
               if (this.$route.hash) {
                 let el = document.getElementById(this.$route.hash.substring(1))
@@ -225,14 +225,14 @@
         });
       },
 
-      checkLastOwn(message) {
-        if (!this.messages) {
+      checkLastOwn(comment) {
+        if (!this.comments) {
           return false;
         }
         let userId = this.$store.state.auth.user.id;
-        let ind = this.messages.indexOf(message);
-        for (let i = ind; i < this.messages.length; i++) {
-          if (this.messages[i].authorId !== userId) {
+        let ind = this.comments.indexOf(comment);
+        for (let i = ind; i < this.comments.length; i++) {
+          if (this.comments[i].authorId !== userId) {
             return false;
           }
         }
@@ -269,7 +269,7 @@
         });
       },
 
-      async messageAdded() {
+      async commentAdded() {
         let currentPath = this.$route.fullPath;
         let ind = currentPath.lastIndexOf("#");
         let path = currentPath.substring(0, ind);
@@ -279,7 +279,7 @@
 
       async loadData() {
         await this.loadDataMaterial();
-        await this.loadDataMessages();
+        await this.loadDataComments();
       }
     },
 

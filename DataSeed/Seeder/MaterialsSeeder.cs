@@ -122,7 +122,7 @@ namespace DataSeed.Seeder
 
                 dataContainer.IterateCommentPublishDate();
 
-                comment.Text = MakeSeedText("сообщение " + i, 8, 4, $"Сообщение: {comment.Id}, материал {material.Id}");
+                comment.Text = MakeSeedText("комментарий " + i, 8, 4, $"Комментарий: {comment.Id}, материал {material.Id}");
 
                 addedComments.Add(comment);
             }

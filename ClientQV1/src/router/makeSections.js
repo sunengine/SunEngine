@@ -1,7 +1,7 @@
-import Material from 'material/Material.vue';
-//import Thread from 'forum/Thread.vue';
-import NewTopics from 'forum/NewTopics.vue';
-import ArticlesPage from 'articles/ArticlesPage.vue';
+import Material from 'material/Material';
+import Thread from 'forum/Thread';
+import NewTopics from 'forum/NewTopics';
+import ArticlesPage from 'articles/ArticlesPage';
 import ForumPanel from 'forum/ForumPanel';
 import BlogPage from "blog/BlogPage";
 
@@ -20,7 +20,7 @@ export function makeForumSection(name, categoriesPanel) {
         navigation: {categories: categoriesPanel, categoryName: nameLover}
       },
     },
-    /*{
+    {
       path: `/${nameLover}/:categoryName`,
       components: {
         default: Thread,
@@ -30,7 +30,7 @@ export function makeForumSection(name, categoriesPanel) {
         default: true,
         navigation: {categories: categoriesPanel, categoryName: nameLover}
       }
-    },*/
+    },
     {
       path: `/${nameLover}/:categoryName/:id`,
       components: {

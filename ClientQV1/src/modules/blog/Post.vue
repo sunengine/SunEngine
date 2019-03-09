@@ -22,10 +22,10 @@
     </div>
 
     <div class="flex footer float-left ">
-      <q-item class="page-padding-left" :to="path+'#messages'">
-        <span :class="[{'text-grey-6': !post.messagesCount}]">
+      <q-item class="page-padding-left" :to="path+'#comments'">
+        <span :class="[{'text-grey-6': !post.commentsCount}]">
         <q-icon name="far fa-comment" class="q-mr-sm"/>
-        {{post.messagesCount}} {{$t('postInList.messagesCount')}}
+        {{post.commentsCount}} {{$t('postInList.commentsCount')}}
         </span>
       </q-item>
       <q-item :to="path" v-if="post.hasMoreText">

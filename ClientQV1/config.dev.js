@@ -33,5 +33,4 @@ const config = {
     MinLength: 6,
     MinDifferentChars: 2
   }
-
 };

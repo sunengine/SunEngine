@@ -6,8 +6,7 @@
         {{localTitle}}
       </h2>
       <q-btn no-caps @click="$router.push({name:'AddEditMaterial',query:{categoryName:thread.name}})"
-             label="Новая тема"
-             v-if="canAddTopic" icon="fas fa-plus" color="post"/>
+             :label="$t('thread.newTopic')" v-if="canAddTopic" icon="fas fa-plus" color="post"/>
       <div class="clear"></div>
     </div>
 
@@ -17,13 +16,13 @@
 
     <template v-else>
       <div class="margin-back bg-grey-2 gt-xs text-grey-6">
-        <hr class="hr-sep" />
+        <hr class="hr-sep"/>
         <div class="row">
           <div class="col-xs-12 col-sm-8" style="padding: 2px 0px 2px 76px; ">
-            Тема
+            {{$t("thread.topic")}}
           </div>
           <div class="col-xs-12 col-sm-2" style="padding: 2px 0px 2px 60px;">
-            Последнее
+            {{$t("thread.last")}}
           </div>
         </div>
       </div>
@@ -31,20 +30,13 @@
       <q-list no-border>
         <hr class="hr-sep margin-back"/>
         <div class="margin-back" v-for="topic in topics.items" :key="topic.id">
-          <Topic :topic="topic" />
+          <Topic :topic="topic"/>
           <hr class="hr-sep"/>
         </div>
       </q-list>
 
-      <q-pagination class="page-padding" v-if="topics.totalPages > 1"
-                    v-model="topics.pageIndex"
-                    color="pagination"
-                    :max-pages="12"
-                    :max="topics.totalPages"
-                    ellipses
-                    direction-links
-                    @input="pageChanges"
-      />
+      <q-pagination class="page-padding" v-if="topics.totalPages > 1" v-model="topics.pageIndex" color="pagination"
+                    :max-pages="12" :max="topics.totalPages" ellipses direction-links @input="pageChanges"/>
     </template>
   </q-page>
 
@@ -53,10 +45,7 @@
 <script>
   import Topic from './Topic'
   import LoaderWait from "LoaderWait";
-  import {scroll} from 'quasar'
   import Page from "Page";
-
-  const {getScrollTarget} = scroll
 
   export default {
     name: "NewTopics",
@@ -70,15 +59,15 @@
         topics: {},
       }
     },
-   watch: {
+    watch: {
       'categoryName': 'loadData',
-      '$route.query["page"]': 'loadData',
+      '$route.query.page': 'loadData',
       '$store.state.categories.all': "loadData",
       '$store.state.auth.user': 'loadData'
     },
     computed: {
       localTitle() {
-        return `Новые темы - ${this.thread?.title}`;
+        return `${this.$t("newTopics.newTopics")} - ${this.thread?.title}`;
       },
       thread() {
         return this.$store.getters.getCategory(this.categoryName);
@@ -90,7 +79,7 @@
         return this.thread?.categoryPersonalAccess?.materialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;
       },
       currentPage() {
-        let page1 = this.$route.query?.["page"];
+        let page1 = this.$route.query?.page;
         return page1 ?? 1;
       }
     },

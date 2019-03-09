@@ -9,7 +9,7 @@
           {{activity.description}}
         </q-item-label>
         <q-item-label class="info-block" caption>
-          <template v-if="!activity.messageId">
+          <template v-if="!activity.commentId">
             <span>
               <q-icon name="far fa-file-alt"/>
               {{$t("activity.text")}}
@@ -52,8 +52,8 @@
     computed: {
       path() {
         let path = this.category.path + "/" + this.activity.materialId;
-        if (this.activity.messageId)
-          path += "#message-" + this.activity.messageId;
+        if (this.activity.commentId)
+          path += "#comment-" + this.activity.commentId;
         return path;
       },
       category() {

@@ -1,27 +1,27 @@
 <template>
-  <div :id="'message-'+message.id">
+  <div :id="'comment-'+comment.id">
     <span v-if="isLast" id="message-last"></span>
-    <template v-if="!message.isDeleted">
-      <ReadMessage @goEdit="goEdit" v-if="isReadMode" :message="message" :canEdit="canEdit()" :canMoveToTrash="canMoveToTrash()" />
+    <template v-if="!comment.isDeleted">
+      <ReadComment @goEdit="goEdit" v-if="isReadMode" :comment="comment" :canEdit="canEdit()" :canMoveToTrash="canMoveToTrash()" />
 
-      <AddEditMessage @done="saved" @cancel="isReadMode=true" :messageId="message.id" v-else/>
+      <AddEditComment @done="saved" @cancel="isReadMode=true" :messageId="comment.id" v-else/>
 
     </template>
-    <DeletedMessage v-else/>
+    <DeletedComment v-else/>
   </div>
 </template>
 
 <script>
-  import ReadMessage from "./ReadMessage";
-  import AddEditMessage from "./AddEditMessage";
+  import ReadComment from "./ReadComment";
+  import AddEditComment from "./AddEditComment";
   import {date} from 'quasar';
-  import DeletedMessage from "./DeletedMessage";
+  import DeletedComment from "./DeletedComment";
 
   export default {
-    name: "MessageContainer",
-    components: {DeletedMessage, ReadMessage, AddEditMessage},
+    name: "CommentContainer",
+    components: {DeletedComment, ReadComment, AddEditComment},
     props: {
-      message: Object,
+      comment: Object,
       categoryPersonalAccess: Object,
       isLast: {
         type: Boolean,
@@ -42,13 +42,13 @@
       async saved() {
         await this.$store.dispatch("request",
           {
-            url: "/Messages/Get",
+            url: "/Comments/Get",
             data: {
               id: this.message.id,
             }
           }).then(response => {
           for (const key in response.data) {
-            this.message[key] = response.data[key];
+            this.comment[key] = response.data[key];
           }
           this.isReadMode = true;
         });
@@ -62,24 +62,24 @@
         if (!this.$store.state.auth.user || !this.categoryPersonalAccess) {
           return false;
         }
-        if (this.categoryPersonalAccess.messageEditAny) {
+        if (this.categoryPersonalAccess.commentEditAny) {
           return true;
         }
-        if (this.message.authorId != this.$store.state.auth.user.id) {
+        if (this.comment.authorId !== this.$store.state.auth.user.id) {
           return false;
         }
-        if (!this.categoryPersonalAccess.messageEditOwnIfHasReplies && !this.checkLastOwn(this.message)) {
+        if (!this.categoryPersonalAccess.commentEditOwnIfHasReplies && !this.checkLastOwn(this.comment)) {
           return false;
         }
-        if (!this.categoryPersonalAccess.messageEditOwnIfTimeNotExceeded) {
+        if (!this.categoryPersonalAccess.commentEditOwnIfTimeNotExceeded) {
           const now = new Date();
-          const publish = this.message.publishDate;
+          const publish = this.comment.publishDate;
           const til = date.addToDate(publish, {minutes: config.Materials.TimeToOwnEditInMinutes});
           if (til < now) {
             return false;
           }
         }
-        if (this.categoryPersonalAccess.messageEditOwn) {
+        if (this.categoryPersonalAccess.commentEditOwn) {
           return true;
         }
         return false;
@@ -88,24 +88,24 @@
         if (!this.$store.state.auth.user || !this.categoryPersonalAccess) {
           return false;
         }
-        if (this.categoryPersonalAccess.messageDeleteAny) {
+        if (this.categoryPersonalAccess.commentDeleteAny) {
           return true;
         }
-        if (this.message.authorId != this.$store.state.auth.user.id) {
+        if (this.comment.authorId !== this.$store.state.auth.user.id) {
           return false;
         }
-        if (!this.categoryPersonalAccess.messageDeleteOwnIfHasReplies && !this.checkLastOwn(this.message)) {
+        if (!this.categoryPersonalAccess.commentDeleteOwnIfHasReplies && !this.checkLastOwn(this.comment)) {
           return false;
         }
-        if (!this.categoryPersonalAccess.messageDeleteOwnIfTimeNotExceeded) {
+        if (!this.categoryPersonalAccess.commentDeleteOwnIfTimeNotExceeded) {
           const now = new Date();
-          const publish = this.message.publishDate;
+          const publish = this.comment.publishDate;
           const til = date.addToDate(publish, {minutes: config.Materials.TimeToOwnDeleteInMinutes});
           if (til < now) {
             return false;
           }
         }
-        if (this.categoryPersonalAccess.messageDeleteOwn) {
+        if (this.categoryPersonalAccess.commentDeleteOwn) {
           return true;
         }
         return false;

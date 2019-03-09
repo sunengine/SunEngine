@@ -10,7 +10,7 @@
 
       </div>
       <div :class="['col-xs-12','col-md-6', 'col2', 'pull-right', {'pull-left': !$q.screen.gt.sm}]">
-        <activities-list materialsCategories="root" messagesCategories="root"
+        <activities-list materialsCategories="root" commentsCategories="root"
                          :activitiesNumber="30"/>
 
       </div>

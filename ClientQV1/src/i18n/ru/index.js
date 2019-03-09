@@ -18,7 +18,7 @@ export default {
     canNotConnectApi: "Невозможно соединиться с API."
   },
   captcha: {
-    newMessageBtn: "Выдать новое изображение",
+    newCommentBtn: "Выдать новое изображение",
     waitMessage: "Что бы сгенерировать новый токен, нужно немного подождать, попробуйте через некоторое время",
     enterToken: "Введите текст с картинки",
     required: "@:captcha.enterToken",
@@ -77,7 +77,7 @@ export default {
       }
     }
   },
-  addEditMessage: {
+  addEditComment: {
     required: "Введите сообщение",
     htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
     spamProtectionMessage: "Нельзя так часто отправлять сообщения. Подождите немного."
@@ -112,12 +112,12 @@ export default {
     edit: "Редактировать",
     tags: "Метки:"
   },
-  readMessage: {
+  readComment: {
     edit: "редактировать",
-    deleteDialogMessage: "Удалить сообщение?"
+    deleteDialogComment: "Удалить сообщение?"
   },
   postInList: {
-    messagesCount: "сообщений",
+    commentsCount: "сообщений",
     readMore: "Читать дальше"
   },
   blog: {
@@ -164,6 +164,12 @@ export default {
   },
   activity: {
     material: "Текст",
-    message: "Комментарий"
+    comment: "Комментарий"
+  },
+  thread: {
+    newTopic: "Новая тема",
+    newTopics: "Новые темы",
+    topic: "Тема",
+    last: "Последнее"
   }
 }

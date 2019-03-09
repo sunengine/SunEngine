@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: "DeletedMessage"
+    name: "DeletedComment"
   }
 </script>
 

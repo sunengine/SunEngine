@@ -25,8 +25,8 @@
         ['quote', 'unordered', 'ordered'],
         ['undo', 'redo','fullscreen'],
                     ]"
-      :rules="messageRules"
-      class="editor" ref="htmlEditor" v-model="message.text"/>
+      :rules="commentRules"
+      class="editor" ref="htmlEditor" v-model="comment.text"/>
     <div>
       <q-btn icon="fas fa-arrow-circle-right" no-caps @click="send" :loading="loading"
              :label="isNew ? 'Отправить' : 'Сохранить'" color="send">
@@ -45,11 +45,11 @@
   import MyEditor from "MyEditor";
 
   export default {
-    name: "AddEditMessage",
+    name: "AddEditComment",
     components: {MyEditor, LoaderSent},
     data: function () {
       return {
-        message: {
+        comment: {
           materialId: this.materialId,
           text: ""
         },
@@ -57,7 +57,7 @@
       }
     },
     props: {
-      messageId: {
+      commentId: {
         type: Number,
         required: false
       },
@@ -70,31 +70,31 @@
 
 
     computed: {
-      messageRules() {
+      commentRules() {
         return [
-          (value) => !!value || this.$t('addEditMessage.required'),
-          (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$t('addEditMessage.htmlTextSizeOrHasImage'),
+          (value) => !!value || this.$t('addEditComment.required'),
+          (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$t('addEditComment.htmlTextSizeOrHasImage'),
         ];
       },
       isNew: function () {
-        return this.messageId == null;
+        return this.commentId == null;
       }
     },
 
     methods: {
-      async addMessage() {
+      async addComment() {
         this.loading = true;
-        const messageSpamProtection = this.$t("addEditMessage.spamProtectionMessage");
+        const messageSpamProtection = this.$t("addEditComment.spamProtectionComment");
 
         await this.$store.dispatch("request",
           {
-            url: "/Messages/Add",
+            url: "/Comments/Add",
             data: {
               materialId: this.materialId,
-              text: this.message.text
+              text: this.comment.text
             }
           }).then(response => {
-          this.message.text = "";
+          this.comment.text = "";
           this.$emit('done');
           this.loading = false;
         }).catch(error => {
@@ -116,15 +116,15 @@
           this.loading = false;
         });
       },
-      async editMessage() {
+      async editComment() {
         this.loading = true;
         await this.$store.dispatch("request",
           {
-            url: "/Messages/Edit",
+            url: "/Comments/Edit",
             data: {
-              Id: this.messageId,
+              Id: this.commentId,
               MaterialId: this.materialId,
-              Text: this.message.text
+              Text: this.comment.text
             }
           }).then(response => {
             this.$emit('done');
@@ -143,9 +143,9 @@
         }
 
         if (this.isNew) {
-          await this.addMessage();
+          await this.addComment();
         } else {
-          await this.editMessage();
+          await this.editComment();
         }
 
         this.$refs.htmlEditor.resetValidation()
@@ -156,12 +156,12 @@
       if (!this.isNew) {
         await this.$store.dispatch("request",
           {
-            url: "/Messages/Get",
+            url: "/Comments/Get",
             data: {
-              id: this.messageId
+              id: this.commentId
             }
           }).then(response => {
-            this.message = response.data;
+            this.comment = response.data;
           }
         )
       }
