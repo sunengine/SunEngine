@@ -28,17 +28,17 @@ namespace SunEngine.Presenters
                 {
                     Id = x.Id,
                     Title = x.Title,
-                    MessagesCount = x.MessagesCount,
+                    CommentsCount = x.CommentsCount,
                     AuthorName = x.Author.UserName,
                     AuthorAvatar = x.Author.Avatar,
                     PublishDate = x.PublishDate,
-                    LastMessageId = x.LastMessageId,
-                    LastMessagePublishDate =
-                        x.LastMessageId.HasValue ? (DateTime?) x.LastMessage.PublishDate : null,
+                    LastCommentId = x.LastCommentId,
+                    LastCommentPublishDate =
+                        x.LastCommentId.HasValue ? (DateTime?) x.LastComment.PublishDate : null,
                     CategoryName = x.Category.NameNormalized,
                     CategoryTitle =  x.Category.Title,
-                    LastMessageAuthorName = x.LastMessage.Author.UserName,
-                    LastMessageAuthorAvatar = x.LastMessage.Author.Avatar
+                    LastCommentAuthorName = x.LastComment.Author.UserName,
+                    LastCommentAuthorAvatar = x.LastComment.Author.Avatar
                 },
                 x => categoryIds.Contains(x.CategoryId),
                 x => x.OrderByDescending(y => y.LastActivity),
@@ -54,16 +54,16 @@ namespace SunEngine.Presenters
                 {
                     Id = x.Id,
                     Title = x.Title,
-                    MessagesCount = x.MessagesCount,
+                    CommentsCount = x.CommentsCount,
                     AuthorName = x.Author.UserName,
                     AuthorAvatar = x.Author.Avatar,
                     PublishDate = x.PublishDate,
-                    LastMessageId = x.LastMessageId,
-                    LastMessagePublishDate =
-                        x.LastMessageId.HasValue ? (DateTime?) x.LastMessage.PublishDate : null,
+                    LastCommentId = x.LastCommentId,
+                    LastCommentPublishDate =
+                        x.LastCommentId.HasValue ? (DateTime?) x.LastComment.PublishDate : null,
                     CategoryName = x.Category.Name.ToLower(),
-                    LastMessageAuthorName = x.LastMessage.Author.UserName,
-                    LastMessageAuthorAvatar = x.LastMessage.Author.Avatar
+                    LastCommentAuthorName = x.LastComment.Author.UserName,
+                    LastCommentAuthorAvatar = x.LastComment.Author.Avatar
                 },
                 x => x.CategoryId == categoryId,
                 x => x.OrderByDescending(y => y.LastActivity),
@@ -81,12 +81,12 @@ namespace SunEngine.Presenters
         public string Title { get; set; }
         public string AuthorName { get; set; }
         public string AuthorAvatar { get; set; }
-        public int MessagesCount { get; set; }
+        public int CommentsCount { get; set; }
         public DateTime PublishDate { get; set; }
-        public int? LastMessageId { get; set; }
-        public string LastMessageAuthorName { get; set; }
-        public string LastMessageAuthorAvatar { get; set; }
-        public DateTime? LastMessagePublishDate { get; set; }
+        public int? LastCommentId { get; set; }
+        public string LastCommentAuthorName { get; set; }
+        public string LastCommentAuthorAvatar { get; set; }
+        public DateTime? LastCommentPublishDate { get; set; }
         public string CategoryTitle { get; set; }
         public string CategoryName { get; set; }
     }

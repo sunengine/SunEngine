@@ -11,31 +11,31 @@ using IAuthorizationService = SunEngine.Security.Authorization.IAuthorizationSer
 
 namespace SunEngine.Controllers
 {
-    public class MessagesController : BaseController
+    public class CommentsController : BaseController
     {
         protected readonly OperationKeysContainer OperationKeys;
-        protected readonly MessageAuthorization messageAuthorization;
+        protected readonly CommentsAuthorization commentsAuthorization;
         protected readonly IMaterialsManager materialsManager;
-        protected readonly IMessagesManager messagesManager;
+        protected readonly ICommentsManager commentsManager;
         protected readonly IAuthorizationService authorizationService;
-        protected readonly IMessagesPresenter messagesPresenter;
-        
-        public MessagesController(
-            IMaterialsManager materialsManager, 
-            MessageAuthorization messageAuthorization,
-            OperationKeysContainer operationKeys, 
-            IMessagesManager messagesManager,
+        protected readonly ICommentsPresenter commentsPresenter;
+
+        public CommentsController(
+            IMaterialsManager materialsManager,
+            CommentsAuthorization commentsAuthorization,
+            OperationKeysContainer operationKeys,
+            ICommentsManager commentsManager,
             IAuthorizationService authorizationService,
             MyUserManager userManager,
-            IMessagesPresenter messagesPresenter,
+            ICommentsPresenter commentsPresenter,
             IRolesCache rolesCache) : base(rolesCache, userManager)
         {
             OperationKeys = operationKeys;
-            this.messageAuthorization = messageAuthorization;
+            this.commentsAuthorization = commentsAuthorization;
             this.materialsManager = materialsManager;
-            this.messagesManager = messagesManager;
+            this.commentsManager = commentsManager;
             this.authorizationService = authorizationService;
-            this.messagesPresenter = messagesPresenter;
+            this.commentsPresenter = commentsPresenter;
         }
 
         [HttpPost]
@@ -46,15 +46,15 @@ namespace SunEngine.Controllers
             {
                 return BadRequest();
             }
-            
-            if (!messageAuthorization.HasAccessForGetMessages(User.Roles, categoryId.Value))
+
+            if (!commentsAuthorization.HasAccessForGetComments(User.Roles, categoryId.Value))
             {
                 return Unauthorized();
             }
 
-            var messages = await messagesPresenter.GetMaterialMessagesAsync(materialId);
+            var comments = await commentsPresenter.GetMaterialCommentsAsync(materialId);
 
-            return Json(messages);
+            return Json(comments);
         }
 
         [HttpPost]
@@ -67,13 +67,13 @@ namespace SunEngine.Controllers
                 return BadRequest();
             }
 
-            if (!messageAuthorization.CanAdd(User.Roles,material.CategoryId))
+            if (!commentsAuthorization.CanAdd(User.Roles, material.CategoryId))
             {
                 return Unauthorized();
             }
 
             var now = DateTime.UtcNow;
-            Message message = new Message
+            Comment comment = new Comment
             {
                 Material = material,
                 MaterialId = materialId,
@@ -83,7 +83,7 @@ namespace SunEngine.Controllers
                 AuthorId = User.UserId
             };
 
-            await messagesManager.InsertAsync(message);
+            await commentsManager.InsertAsync(comment);
 
             return Ok();
         }
@@ -91,39 +91,39 @@ namespace SunEngine.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> Get(int id)
         {
-            (MessageViewModel messageViewModel,int categoryId)  = await messagesPresenter.GetMessageAsync(id);
-            if (messageViewModel == null)
+            (CommentViewModel commentViewModel, int categoryId) = await commentsPresenter.GetCommentAsync(id);
+            if (commentViewModel == null)
             {
                 return BadRequest();
             }
 
             if (!authorizationService.HasAccess(User.Roles, categoryId,
-                OperationKeys.MaterialAndMessagesRead))
+                OperationKeys.MaterialAndCommentsRead))
             {
                 return Unauthorized();
             }
 
-            return Json(messageViewModel);
+            return Json(commentViewModel);
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> Edit(Message newMessage)
+        public virtual async Task<IActionResult> Edit(Comment newComment)
         {
-            (Message message,int categoryId) = await messagesManager.GetAsync(newMessage.Id);
-            if (message == null)
+            (Comment comment, int categoryId) = await commentsManager.GetAsync(newComment.Id);
+            if (comment == null)
             {
                 return BadRequest();
             }
 
-            if (! await messageAuthorization.CanEditAsync(User, message,categoryId))
+            if (!await commentsAuthorization.CanEditAsync(User, comment, categoryId))
             {
                 return Unauthorized();
             }
 
-            message.Text = newMessage.Text;
-            message.EditDate = DateTime.UtcNow;
+            comment.Text = newComment.Text;
+            comment.EditDate = DateTime.UtcNow;
 
-            await messagesManager.UpdateAsync(message);
+            await commentsManager.UpdateAsync(comment);
 
             return Ok();
         }
@@ -131,41 +131,22 @@ namespace SunEngine.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> MoveToTrash(int id)
         {
-            (Message message,int categoryId) = await messagesManager.GetAsync(id);
-            if (message == null)
+            (Comment comment, int categoryId) = await commentsManager.GetAsync(id);
+            if (comment == null)
             {
                 return BadRequest();
             }
 
-            if (! await messageAuthorization.CanMoveToTrashAsync(User, message, categoryId))
+            if (!await commentsAuthorization.CanMoveToTrashAsync(User, comment, categoryId))
             {
                 return Unauthorized();
             }
-            
-            await messagesManager.MoveToTrashAsync(message);
-            
+
+            await commentsManager.MoveToTrashAsync(comment);
+
             return Ok();
         }
 
-        /*[HttpPost]
-        public async Task<IActionResult> Restore(int id)
-        {
-            Message message = await _messagesRepository.Query.Include(x => x.Material).FirstOrDefaultAsync(x => x.Id == id);
-            if (message == null)
-            {
-                return BadRequest();
-            }
-
-            if (!_messageAuthorization.CanDelete(User, message, message.Material.CategoryId))
-            {
-                return Unauthorized();
-            }
-
-            _messagesRepository.RestoreFromTrash(message);
-
-            await _messagesRepository.SaveChangesAsync();
-
-            return Ok();
-        }*/
+     
     }
 }

@@ -11,7 +11,7 @@ namespace SunEngine.Configuration.AddServices
             services.AddScoped<IBlogPresenter, BlogPresenter>();
             services.AddScoped<IForumPresenter, ForumPresenter>();
             services.AddScoped<IMaterialsPresenter, MaterialsPresenter>();
-            services.AddScoped<IMessagesPresenter, MessagesPresenter>();
+            services.AddScoped<ICommentsPresenter, CommentsPresenter>();
             services.AddScoped<IPersonalPresenter, PersonalPresenter>();
             services.AddScoped<IProfilePresenter, ProfilePresenter>();
             services.AddScoped<ICategoriesPresenter, CategoriesPresenter>();

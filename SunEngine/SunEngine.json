@@ -27,12 +27,12 @@
     "ImageRequestSizeLimitBytes": 10485760,
     "DoResize": true
   },
-  "Messages": {
+  "Comments": {
     "TimeToOwnEditInMinutes": 15,
     "TimeToOwnDeleteInMinutes": 15
   },
   "Materials": {
-    "MessagesPageSize": 5,
+    "CommentsPageSize": 5,
     "TimeToOwnEditInMinutes": 15,
     "TimeToOwnDeleteInMinutes": 15,
     "TimeToOwnMoveInMinutes": 15,

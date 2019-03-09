@@ -12,7 +12,7 @@ namespace SunEngine.Configuration.AddServices
             services.AddSingleton<IAuthorizationService, AuthorizationService>();
         
             services.AddScoped<MaterialsAuthorization>();
-            services.AddScoped<MessageAuthorization>();
+            services.AddScoped<CommentsAuthorization>();
         
             services.AddScoped<JwtService>();
             

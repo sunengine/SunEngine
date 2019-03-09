@@ -2,7 +2,7 @@
 
 namespace SunEngine.Models.Materials
 {
-    public class Message
+    public class Comment
     {
         public int Id { get; set; }
 
@@ -17,11 +17,6 @@ namespace SunEngine.Models.Materials
         public int MaterialId { get; set; }
         public Material Material { get; set; }
 
-        //public int? ParentId { get; set; }
-        //public Message Parent { get; set; }
-        
         public bool IsDeleted { get; set; }
-
-        //public virtual ICollection<Message> Children { get; set; }
     }
 }

@@ -42,10 +42,10 @@ namespace SunEngine.DataBase
         public IQueryable<Material> MaterialsNotDeleted =>
             GetTable<Material>().Where(x => !x.IsDeleted && !x.Category.IsDeleted);
 
-        public ITable<Message> Messages => GetTable<Message>();
+        public ITable<Comment> Comments => GetTable<Comment>();
 
-        public IQueryable<Message> MessagesNotDeleted =>
-            GetTable<Message>().Where(x => !x.IsDeleted && !x.Material.Category.IsDeleted);
+        public IQueryable<Comment> CommentsNotDeleted =>
+            GetTable<Comment>().Where(x => !x.IsDeleted && !x.Material.Category.IsDeleted);
 
         public ITable<Tag> Tags => GetTable<Tag>();
         public ITable<TagSynonymGroup> TagSynonyms => GetTable<TagSynonymGroup>();

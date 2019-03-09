@@ -56,10 +56,10 @@ namespace DataSeed.Seeder
             }
         }
 
-        public Material SeedMaterial(Category category, string title, int messagesCount, string firstLine,
+        public Material SeedMaterial(Category category, string title, int commentsCount, string firstLine,
             string lineElement, LinesCount linesCount)
         {
-            var publishDate = dataContainer.IterateMessagePublishDate();
+            var publishDate = dataContainer.IterateCommentPublishDate();
             int linesCountCurrent = _ran.Next(linesCount.Min, linesCount.Max);
 
             Material material = new Material
@@ -87,17 +87,17 @@ namespace DataSeed.Seeder
                 material.Description = description;
 
 
-            if (messagesCount > 0)
+            if (commentsCount > 0)
             {
-                IList<Message> messages = MakeMessages(material, messagesCount);
+                IList<Comment> comments = MakeComments(material, commentsCount);
 
-                //Message last = messages.OrderByDescending(x=>x.PublishDate).First();
-                //material.SetLastMessage(last);
+                //Comment last = comments.OrderByDescending(x=>x.PublishDate).First();
+                //material.SetLastComment(last);
 
-                material.LastActivity = messages.OrderByDescending(x => x.PublishDate).First().PublishDate;
-                material.MessagesCount = messages.Count;
+                material.LastActivity = comments.OrderByDescending(x => x.PublishDate).First().PublishDate;
+                material.CommentsCount = comments.Count;
 
-                dataContainer.Messages.AddRange(messages);
+                dataContainer.Comments.AddRange(comments);
             }
 
             dataContainer.Materials.Add(material);
@@ -105,29 +105,29 @@ namespace DataSeed.Seeder
             return material;
         }
 
-        public IList<Message> MakeMessages(Material material, int messagesCount)
+        public IList<Comment> MakeComments(Material material, int commentsCount)
         {
-            List<Message> addedMessages = new List<Message>();
+            List<Comment> addedComments = new List<Comment>();
 
             for (int i = 1; i < 12; i++)
             {
-                Message message = new Message
+                Comment comment = new Comment
                 {
-                    Id = dataContainer.NextMessageId(),
+                    Id = dataContainer.NextCommentId(),
                     Text = "",
-                    PublishDate = dataContainer.IterateMessagePublishDate(),
+                    PublishDate = dataContainer.IterateCommentPublishDate(),
                     MaterialId = material.Id,
                     AuthorId = dataContainer.GetRandomUserId()
                 };
 
-                dataContainer.IterateMessagePublishDate();
+                dataContainer.IterateCommentPublishDate();
 
-                message.Text = MakeSeedText("сообщение " + i, 8, 4, $"Сообщение: {message.Id}, материал {material.Id}");
+                comment.Text = MakeSeedText("сообщение " + i, 8, 4, $"Сообщение: {comment.Id}, материал {material.Id}");
 
-                addedMessages.Add(message);
+                addedComments.Add(comment);
             }
 
-            return addedMessages;
+            return addedComments;
         }
 
 
@@ -178,12 +178,12 @@ namespace DataSeed.Seeder
 
     public static class MaterialExtension
     {
-        public static void SetLastMessage(this Material material, Message message)
+        public static void SetLastComment(this Material material, Comment comment)
         {
-            if (message != null)
+            if (comment != null)
             {
-                material.LastMessageId = message.Id;
-                material.LastActivity = message.PublishDate;
+                material.LastCommentId = comment.Id;
+                material.LastActivity = comment.PublishDate;
             }
         }
     }

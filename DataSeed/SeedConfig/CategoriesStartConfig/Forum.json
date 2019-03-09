@@ -23,7 +23,7 @@
         "IsMaterialsContainer": true
       },
       {
-        "Name": "NoAddMaterialsAndMessages",
+        "Name": "NoAddMaterialsAndComments",
         "Title": "Без добавления полное",
         "IsMaterialsContainer": true
       },

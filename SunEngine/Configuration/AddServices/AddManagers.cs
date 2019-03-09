@@ -8,7 +8,7 @@ namespace SunEngine.Configuration.AddServices
         public static void AddManagers(this IServiceCollection services)
         {
             services.AddScoped<IMaterialsManager, MaterialsManager>();
-            services.AddScoped<IMessagesManager, MessagesManager>();
+            services.AddScoped<ICommentsManager, CommentsManager>();
             services.AddScoped<IPersonalManager, PersonalManager>();
             services.AddScoped<IProfileManager, ProfileManager>();
             services.AddScoped<ITagsManager, TagsManager>();

@@ -8,27 +8,27 @@ using SunEngine.Services;
 
 namespace SunEngine.Presenters
 {
-    public interface IMessagesPresenter
+    public interface ICommentsPresenter
     {
-        Task<(MessageViewModel messageViewModel, int categoryId)>
-            GetMessageAsync(int messageId);
+        Task<(CommentViewModel commentViewModel, int categoryId)>
+            GetCommentAsync(int commentId);
 
-        Task<List<MessageViewModel>> GetMaterialMessagesAsync(int materialId);
+        Task<List<CommentViewModel>> GetMaterialCommentsAsync(int materialId);
     }
 
-    public class MessagesPresenter : DbService, IMessagesPresenter
+    public class CommentsPresenter : DbService, ICommentsPresenter
     {
-        public MessagesPresenter(DataBaseConnection db) : base(db)
+        public CommentsPresenter(DataBaseConnection db) : base(db)
         {
         }
         
-        public virtual async Task<(MessageViewModel messageViewModel, int categoryId)>
-            GetMessageAsync(int messageId)
+        public virtual async Task<(CommentViewModel commentViewModel, int categoryId)>
+            GetCommentAsync(int commentId)
         {
-            var rez = await db.Messages.Where(x => x.Id == messageId).Select(x =>
+            var rez = await db.Comments.Where(x => x.Id == commentId).Select(x =>
                 new
                 {
-                    messageViewModel = new MessageViewModel
+                    commentViewModel = new CommentViewModel
                     {
                         Id = x.Id,
                         AuthorId = x.AuthorId,
@@ -44,15 +44,15 @@ namespace SunEngine.Presenters
                 }
             ).FirstOrDefaultAsync();
 
-            return (rez.messageViewModel, rez.categoryId);
+            return (rez.commentViewModel, rez.categoryId);
         }
 
-        public virtual Task<List<MessageViewModel>> GetMaterialMessagesAsync(int materialId)
+        public virtual Task<List<CommentViewModel>> GetMaterialCommentsAsync(int materialId)
         {
-            return db.MessagesNotDeleted.Where(x => x.MaterialId == materialId)
+            return db.CommentsNotDeleted.Where(x => x.MaterialId == materialId)
                 .OrderBy(x => x.PublishDate)
                 .Select(
-                    x => new MessageViewModel
+                    x => new CommentViewModel
                     {
                         Id = x.Id,
                         PublishDate = x.PublishDate,
@@ -69,7 +69,7 @@ namespace SunEngine.Presenters
         
     }
     
-    public class MessageViewModel
+    public class CommentViewModel
     {
         public int Id { get; set; }
         public int AuthorId { get; set; }

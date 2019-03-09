@@ -30,7 +30,7 @@ namespace SunEngine.Presenters
                     Id = x.Id,
                     Title = x.Title,
                     Description = x.Description,
-                    MessagesCount = x.MessagesCount,
+                    CommentsCount = x.CommentsCount,
                     AuthorName = x.Author.UserName,
                     PublishDate = x.PublishDate,
                     CategoryName = x.Category.NameNormalized
@@ -49,7 +49,7 @@ namespace SunEngine.Presenters
                     Id = x.Id,
                     Title = x.Title,
                     Description = x.Description,
-                    MessagesCount = x.MessagesCount,
+                    CommentsCount = x.CommentsCount,
                     AuthorName = x.Author.UserName,
                     PublishDate = x.PublishDate,
                     CategoryName = x.Category.NameNormalized,
@@ -68,7 +68,7 @@ namespace SunEngine.Presenters
         public string Title { get; set; }
         public string Description { get; set; }
         public string AuthorName { get; set; }
-        public int MessagesCount { get; set; }
+        public int CommentsCount { get; set; }
         public DateTime PublishDate { get; set; }
         public string CategoryTitle { get; set; }
         public string CategoryName { get; set; }

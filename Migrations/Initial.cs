@@ -74,26 +74,26 @@ namespace Migrations
                 .ForeignKey("FK_Materials_AspNetUsers_AuthorId", "AspNetUsers", "Id")
                 .WithColumn("PublishDate").AsMyDateTime().NotNullable().Indexed()
                 .WithColumn("EditDate").AsMyDateTime().Nullable()
-                .WithColumn("LastMessageId").AsInt32().Nullable()
+                .WithColumn("LastCommentId").AsInt32().Nullable()
                 .WithColumn("LastActivity").AsMyDateTime().NotNullable().Indexed()
-                .WithColumn("MessagesCount").AsInt32().NotNullable()
+                .WithColumn("CommentsCount").AsInt32().NotNullable()
                 .WithColumn("SortNumber").AsInt32().NotNullable().Indexed()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable().Indexed();
 
 
-            Create.Table("Messages")
+            Create.Table("Comments")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Text").AsMaxString().NotNullable()
                 .WithColumn("MaterialId").AsInt32().NotNullable().Indexed()
-                .ForeignKey("FK_Messages_Materials_MaterialId", "Materials", "Id").OnDelete(Rule.Cascade)
+                .ForeignKey("FK_Comments_Materials_MaterialId", "Materials", "Id").OnDelete(Rule.Cascade)
                 .WithColumn("AuthorId").AsInt32().Indexed().Nullable()
-                .ForeignKey("FK_Messages_AspNetUsers_AuthorId", "AspNetUsers", "Id")
+                .ForeignKey("FK_Comments_AspNetUsers_AuthorId", "AspNetUsers", "Id")
                 .WithColumn("PublishDate").AsMyDateTime().NotNullable().Indexed()
                 .WithColumn("EditDate").AsMyDateTime().Nullable()
                 .WithColumn("IsDeleted").AsBoolean().Nullable().Indexed();
 
-            Create.ForeignKey("FK_Materials_Messages_LastMessageId").FromTable("Materials")
-                .ForeignColumn("LastMessageId").ToTable("Messages").PrimaryColumn("Id");
+            Create.ForeignKey("FK_Materials_Comments_LastCommentId").FromTable("Materials")
+                .ForeignColumn("LastCommentId").ToTable("Comments").PrimaryColumn("Id");
 
 
             Create.Table("Tags")

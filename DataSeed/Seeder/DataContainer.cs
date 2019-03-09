@@ -14,7 +14,7 @@ namespace DataSeed.Seeder
 
         private int currentCategoryId = 1;
 
-        private int currentMessageId = 1;
+        private int currentCommentId = 1;
 
         private int currentMaterialId = 1;
 
@@ -24,12 +24,12 @@ namespace DataSeed.Seeder
 
         private int operationKeyId = 1;
         
-        private DateTime messagePublishDate = DateTime.UtcNow.AddMinutes(-3);
+        private DateTime commentPublishDate = DateTime.UtcNow.AddMinutes(-3);
 
         public Category RootCategory;
         public List<SectionType> SectionTypes = new List<SectionType>(); 
         public List<Category> Categories = new List<Category>();
-        public List<Message> Messages = new List<Message>();
+        public List<Comment> Comments = new List<Comment>();
         public List<Material> Materials = new List<Material>();
         public List<User> Users = new List<User>();
         public List<Role> Roles = new List<Role>();
@@ -58,9 +58,9 @@ namespace DataSeed.Seeder
             return currentUserId++;
         }
 
-        public int NextMessageId()
+        public int NextCommentId()
         {
-            return currentMessageId++;
+            return currentCommentId++;
         }
 
         public int NextMaterialId()
@@ -88,10 +88,10 @@ namespace DataSeed.Seeder
             return Users[ran.Next(Users.Count)].Id;
         }
         
-        public DateTime IterateMessagePublishDate()
+        public DateTime IterateCommentPublishDate()
         {
-            messagePublishDate = messagePublishDate.AddMinutes(-5);
-            return messagePublishDate;
+            commentPublishDate = commentPublishDate.AddMinutes(-5);
+            return commentPublishDate;
         }
     }
 }

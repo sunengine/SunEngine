@@ -46,7 +46,7 @@ namespace SunEngine.Presenters
             IReadOnlyDictionary<string, RoleCached> roles)
         {
             if (!authorizationService.HasAccess(roles, category,
-                    OperationKeys.MaterialAndMessagesRead) && category.Id != categoriesCache.RootCategory.Id)
+                    OperationKeys.MaterialAndCommentsRead) && category.Id != categoriesCache.RootCategory.Id)
             {
                 return null;
             }

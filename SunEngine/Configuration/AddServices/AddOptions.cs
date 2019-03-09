@@ -16,7 +16,7 @@ namespace SunEngine.Configuration.AddServices
             services.Configure<ArticlesOptions>(configuration.GetSection("Articles"));
             services.Configure<ForumOptions>(configuration.GetSection("Forum"));
             services.Configure<MaterialsOptions>(configuration.GetSection("Materials"));
-            services.Configure<MessagesOptions>(configuration.GetSection("Messages"));
+            services.Configure<CommentsOptions>(configuration.GetSection("Comments"));
             services.Configure<ImagesOptions>(configuration.GetSection("Images"));
             services.Configure<DataBaseConnectionOptions>(configuration.GetSection("DataBaseConnection"));
             services.Configure<CaptchaOptions>(configuration.GetSection("Captcha"));

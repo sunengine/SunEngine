@@ -43,7 +43,7 @@ namespace SunEngine.Security.Authorization
 
         public bool CanGet(IReadOnlyDictionary<string, RoleCached> roles, CategoryCached category)
         {
-            return authorizationService.HasAccess(roles, category, OperationKeys.MaterialAndMessagesRead);
+            return authorizationService.HasAccess(roles, category, OperationKeys.MaterialAndCommentsRead);
         }
 
 
@@ -171,7 +171,7 @@ namespace SunEngine.Security.Authorization
 
         private async Task<bool> CheckHasNotOwnRepliesAsync(Material material, int userId)
         {
-            return await db.Messages.AnyAsync(x => x.MaterialId == material.Id && x.AuthorId != userId);
+            return await db.Comments.AnyAsync(x => x.MaterialId == material.Id && x.AuthorId != userId);
         }
     }
 }

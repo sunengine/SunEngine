@@ -8,31 +8,31 @@
       {
         "Category": "Forum",
         "OperationKeys": {
-          "MaterialAndMessagesRead": true
+          "MaterialAndCommentsRead": true
         }
       },
       {
         "Category": "Forum2L",
         "OperationKeys": {
-          "MaterialAndMessagesRead": true
+          "MaterialAndCommentsRead": true
         }
       },
       {
         "Category": "OnlyForRegisteredThread",
         "OperationKeys": {
-          "MaterialAndMessagesRead": false
+          "MaterialAndCommentsRead": false
         }
       },
       {
         "Category": "Articles",
         "OperationKeys": {
-          "MaterialAndMessagesRead": true
+          "MaterialAndCommentsRead": true
         }
       },
       {
         "Category": "Blog",
         "OperationKeys": {
-          "MaterialAndMessagesRead": true
+          "MaterialAndCommentsRead": true
         }
       }
     ]
@@ -43,59 +43,59 @@
       {
         "Category": "Forum",
         "OperationKeys": {
-          "MaterialAndMessagesRead": true,
+          "MaterialAndCommentsRead": true,
           "MaterialWrite": true,
-          "MessageWrite": true,
+          "CommentWrite": true,
           "MaterialEditOwn": true,
-          "MessageEditOwn": true,
+          "CommentEditOwn": true,
           "MaterialDeleteOwn": true,
-          "MessageDeleteOwn": true
+          "CommentDeleteOwn": true
         }
       },
       {
         "Category": "NoAddMaterials",
         "OperationKeys": {
           "MaterialWrite": false,
-          "MessageWrite": true
+          "CommentWrite": true
         }
       },
       {
-        "Category": "NoAddMaterialsAndMessages",
+        "Category": "NoAddMaterialsAndComments",
         "OperationKeys": {
           "MaterialWrite": false,
-          "MessageWrite": false
+          "CommentWrite": false
         }
       },
       {
         "Category": "NoEditOwnThread",
         "OperationKeys": {
           "MaterialEditOwn": false,
-          "MessageEditOwn": false,
+          "CommentEditOwn": false,
           "MaterialDeleteOwn": false,
-          "MessageDeleteOwn": false
+          "CommentDeleteOwn": false
         }
       },
       {
         "Category": "Forum2L",
         "OperationKeys": {
-          "MaterialAndMessagesRead": true,
+          "MaterialAndCommentsRead": true,
           "MaterialWrite": true,
-          "MessageWrite": true
+          "CommentWrite": true
         }
       },
       {
         "Category": "Articles",
         "OperationKeys": {
-          "MaterialAndMessagesRead": true,
-          "MessageWrite": true
+          "MaterialAndCommentsRead": true,
+          "CommentWrite": true
         }
       },
       {
         "Category": "Blog",
         "OperationKeys": {
-          "MaterialAndMessagesRead": true,
+          "MaterialAndCommentsRead": true,
           "MaterialWrite": true,
-          "MessageWrite": true
+          "CommentWrite": true
         }
       }
     ]
@@ -114,25 +114,25 @@
         "Category": "Forum",
         "OperationKeys": {
           "MaterialEditAny": true,
-          "MessageEditAny": true,
+          "CommentEditAny": true,
           "MaterialDeleteAny": true,
-          "MessageDeleteAny": true
+          "CommentDeleteAny": true
         }
       },
       {
         "Category": "Forum2L",
         "OperationKeys": {
           "MaterialEditAny": true,
-          "MessageEditAny": true,
+          "CommentEditAny": true,
           "MaterialDeleteAny": true,
-          "MessageDeleteAny": true
+          "CommentDeleteAny": true
         }
       },
       {
         "Category": "Articles",
         "OperationKeys": {
-          "MessageEditAny": true,
-          "MessageDeleteAny": true
+          "CommentEditAny": true,
+          "CommentDeleteAny": true
         }
       }
     ]

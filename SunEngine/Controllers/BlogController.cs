@@ -50,7 +50,7 @@ namespace SunEngine.Controllers
                 return BadRequest();
             }
 
-            if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndMessagesRead))
+            if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
             {
                 return Unauthorized();
             }
@@ -67,7 +67,7 @@ namespace SunEngine.Controllers
             var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(categoriesNames);
 
             IList<CategoryCached> categoriesList = authorizationService.GetAllowedCategories(User.Roles, materialsCategoriesDic.Values,
-                OperationKeys.MaterialAndMessagesRead);
+                OperationKeys.MaterialAndCommentsRead);
 
             if (categoriesList.Count == 0)
             {

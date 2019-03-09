@@ -13,7 +13,7 @@ namespace SunEngine.Presenters
 {
     public interface IActivitiesPresenter
     {
-        Task<ActivityViewModel[]> GetActivitiesAsync(int[] materialsCategoriesIds, int[] messagesCategoriesIds,
+        Task<ActivityViewModel[]> GetActivitiesAsync(int[] materialsCategoriesIds, int[] commentsCategoriesIds,
             int number);
     }
 
@@ -29,7 +29,7 @@ namespace SunEngine.Presenters
         }
 
         public async Task<ActivityViewModel[]> GetActivitiesAsync(int[] materialsCategoriesIds,
-            int[] messagesCategoriesIds, int number)
+            int[] commentsCategoriesIds, int number)
         {
             var materialsActivities = await db.Materials
                 .Where(x => materialsCategoriesIds.Contains(x.CategoryId))
@@ -50,14 +50,14 @@ namespace SunEngine.Presenters
             int descriptionSize = materialsOptions.DescriptionLength;
             int descriptionSizeBig = descriptionSize * 2;
 
-            var messagesActivities = await db.Messages
-                .Where(x => messagesCategoriesIds.Contains(x.Material.CategoryId))
+            var commentsActivities = await db.Comments
+                .Where(x => commentsCategoriesIds.Contains(x.Material.CategoryId))
                 .OrderByDescending(x => x.PublishDate)
                 .Take(number)
                 .Select(x => new ActivityViewModel
                 {
                     MaterialId = x.MaterialId,
-                    MessageId = x.Id,
+                    CommentId = x.Id,
                     Title = x.Material.Title,
                     Description = x.Text.Substring(0, descriptionSizeBig),
                     CategoryName = x.Material.Category.NameNormalized,
@@ -67,13 +67,13 @@ namespace SunEngine.Presenters
                     AuthorAvatar = x.Author.Avatar
                 }).ToListAsync();
 
-            messagesActivities.ForEach(x =>
+            commentsActivities.ForEach(x =>
                 x.Description = SimpleHtmlToText.ClearTagsAndBreaks(x.Description)
                     .Substring(0, Math.Min(x.Description.Length, descriptionSize)));
 
             List<ActivityViewModel> allActivities = new List<ActivityViewModel>();
             allActivities.AddRange(materialsActivities);
-            allActivities.AddRange(messagesActivities);
+            allActivities.AddRange(commentsActivities);
 
             return allActivities.OrderByDescending(x => x.PublishDate).Take(number).ToArray();
         }
@@ -82,7 +82,7 @@ namespace SunEngine.Presenters
     public class ActivityViewModel
     {
         public int MaterialId { get; set; }
-        public int MessageId { get; set; }
+        public int CommentId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string CategoryName { get; set; }

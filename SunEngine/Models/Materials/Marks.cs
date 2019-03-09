@@ -15,10 +15,10 @@ namespace SunEngine.Models.Materials
         public string Text { get; set; }
     }
 
-    public class MessageMark
+    public class CommentMark
     {
-        public int MessagelId { get; set; }
-        public int Message { get; set; }
+        public int CommentlId { get; set; }
+        public int Comment { get; set; }
         public int MarkTypeId { get; set; }
         public int MarkType { get; set; }
         public string Text { get; set; }

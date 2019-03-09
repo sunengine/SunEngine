@@ -29,10 +29,10 @@ namespace SunEngine.Models.Materials
         public Category Category { get; set; }
 
         [Association(ThisKey = "Id", OtherKey = "MaterialId")]
-        public virtual ICollection<Message> Messages { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
-        public int? LastMessageId { get; set; }
-        public Message LastMessage { get; set; }
+        public int? LastCommentId { get; set; }
+        public Comment LastComment { get; set; }
 
         /// <summary>
         /// наибольшая из дат последнего сообщения и самого материала
@@ -47,9 +47,9 @@ namespace SunEngine.Models.Materials
         public bool IsDeleted { get; set; }
         
         /// <summary>
-        /// Количество не удалённых сообщений
+        /// Количество не удалённых комментариев
         /// </summary>
-        public int MessagesCount { get; set; }
+        public int CommentsCount { get; set; }
 
         [Association(ThisKey = "Id", OtherKey = "MaterialId")]
         public virtual ICollection<TagMaterial> TagMaterials { get; set; }

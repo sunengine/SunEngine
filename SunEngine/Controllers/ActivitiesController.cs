@@ -35,28 +35,28 @@ namespace SunEngine.Controllers
             this.activitiesPresenter = activitiesPresenter;
         }
 
-        public async Task<IActionResult> GetActivities(string materialsCategories, string messagesCategories,
+        public async Task<IActionResult> GetActivities(string materialsCategories, string commentsCategories,
             int number)
         {
             var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(materialsCategories);
 
             IList<CategoryCached> materialsCategoriesList = authorizationService.GetAllowedCategories(User.Roles, materialsCategoriesDic.Values,
-                OperationKeys.MaterialAndMessagesRead);
+                OperationKeys.MaterialAndCommentsRead);
             
             
-            var messagesCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(messagesCategories);
+            var commentsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(commentsCategories);
 
-            IList<CategoryCached> messagesCategoriesList = authorizationService.GetAllowedCategories(User.Roles, messagesCategoriesDic.Values,
-                OperationKeys.MaterialAndMessagesRead);
+            IList<CategoryCached> commentsCategoriesList = authorizationService.GetAllowedCategories(User.Roles, commentsCategoriesDic.Values,
+                OperationKeys.MaterialAndCommentsRead);
 
 
             int[] materialsCategoriesIds = materialsCategoriesList.Select(x => x.Id).ToArray();
-            int[] messagesCategoriesIds = messagesCategoriesList.Select(x => x.Id).ToArray();
+            int[] commentsCategoriesIds = commentsCategoriesList.Select(x => x.Id).ToArray();
 
             if (number > MaxActivitiesInQuery)
                 number = MaxActivitiesInQuery;
 
-            var rez = await activitiesPresenter.GetActivitiesAsync(materialsCategoriesIds, messagesCategoriesIds,
+            var rez = await activitiesPresenter.GetActivitiesAsync(materialsCategoriesIds, commentsCategoriesIds,
                 number);
             return Ok(rez);
         }

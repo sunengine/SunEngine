@@ -27,7 +27,7 @@ namespace SunEngine.Security.Authorization
         }
 
 
-        public int MaterialAndMessagesRead { get; private set; }
+        public int MaterialAndCommentsRead { get; private set; }
         
         public int MaterialWrite { get; private set; }
         public int MaterialEditOwn { get; private set; }
@@ -38,13 +38,13 @@ namespace SunEngine.Security.Authorization
         public int MaterialDeleteOwnIfHasReplies { get; private set; }
 
 
-        public int MessageWrite { get; private set; }
-        public int MessageEditOwn { get; private set; }
-        public int MessageEditOwnIfTimeNotExceeded { get; private set; }
-        public int MessageEditOwnIfHasReplies { get; private set; }
-        public int MessageDeleteOwn { get; private set; }
-        public int MessageDeleteOwnIfTimeNotExceeded { get; private set; }
-        public int MessageDeleteOwnIfHasReplies { get; private set; }
+        public int CommentWrite { get; private set; }
+        public int CommentEditOwn { get; private set; }
+        public int CommentEditOwnIfTimeNotExceeded { get; private set; }
+        public int CommentEditOwnIfHasReplies { get; private set; }
+        public int CommentDeleteOwn { get; private set; }
+        public int CommentDeleteOwnIfTimeNotExceeded { get; private set; }
+        public int CommentDeleteOwnIfHasReplies { get; private set; }
 
 
         // moderator
@@ -52,16 +52,8 @@ namespace SunEngine.Security.Authorization
         [IsSuper] public int MaterialEditAny { get; private set; }
         [IsSuper] public int MaterialDeleteAny { get; private set; }
 
-        [IsSuper] public int MessageEditAny { get; private set; }
-        [IsSuper] public int MessageDeleteAny { get; private set; }
-
-        /*
-         
-MaterialAndMessagesRead|MaterialWrite|MaterialEditOwn|MaterialEditOwnIfTimeNotExceeded|MaterialEditOwnIfHasReplies|MaterialDeleteOwn|MaterialDeleteOwnIfTimeNotExceeded|MaterialDeleteOwnIfHasReplies|MessageWrite|MessageEditOwn|MessageEditOwnIfTimeNotExceeded|MessageEditOwnIfHasReplies|MessageDeleteOwn|MessageDeleteOwnIfTimeNotExceeded|MessageDeleteOwnIfHasReplies|MaterialEditAny|MaterialDeleteAny|MessageEditAny|MessageDeleteAny
-
-
-
-         */
+        [IsSuper] public int CommentEditAny { get; private set; }
+        [IsSuper] public int CommentDeleteAny { get; private set; }
         
         
 

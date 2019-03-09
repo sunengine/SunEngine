@@ -17,8 +17,8 @@ namespace SunEngine.Managers
         Task InsertAsync(Material material, string tags, bool isDescriptionEditable);
         Task UpdateAsync(Material material, string tags, bool isDescriptionEditable);
         Task MoveToTrashAsync(Material material);
-        Task DetectAndSetLastMessageAndCountAsync(Material material);
-        Task DetectAndSetLastMessageAndCountAsync(int materialId);
+        Task DetectAndSetLastCommentAndCountAsync(Material material);
+        Task DetectAndSetLastCommentAndCountAsync(int materialId);
     }
 
     public class MaterialsManager : DbService, IMaterialsManager
@@ -101,26 +101,26 @@ namespace SunEngine.Managers
             await db.Materials.Where(x => x.Id == material.Id).Set(x => x.IsDeleted, true).UpdateAsync();
         }
 
-        public virtual async Task DetectAndSetLastMessageAndCountAsync(Material material)
+        public virtual async Task DetectAndSetLastCommentAndCountAsync(Material material)
         {
-            var messagesQuery = db.Messages.Where(x => x.MaterialId == material.Id);
+            var commentsQuery = db.Comments.Where(x => x.MaterialId == material.Id);
 
-            var lastMessage = await messagesQuery.OrderByDescending(x => x.PublishDate).FirstOrDefaultAsync();
-            var lastMessageId = lastMessage?.Id;
-            var lastActivity = lastMessage?.PublishDate ?? material.PublishDate;
+            var lastComment = await commentsQuery.OrderByDescending(x => x.PublishDate).FirstOrDefaultAsync();
+            var lastCommentId = lastComment?.Id;
+            var lastActivity = lastComment?.PublishDate ?? material.PublishDate;
 
-            var messagesCount = await messagesQuery.CountAsync();
+            var commentsCount = await commentsQuery.CountAsync();
 
             await db.Materials.Where(x => x.Id == material.Id)
-                .Set(x => x.MessagesCount, x => messagesCount)
-                .Set(x => x.LastMessageId, x => lastMessageId)
+                .Set(x => x.CommentsCount, x => commentsCount)
+                .Set(x => x.LastCommentId, x => lastCommentId)
                 .Set(x => x.LastActivity, x => lastActivity)
                 .UpdateAsync();
         }
 
-        public virtual Task DetectAndSetLastMessageAndCountAsync(int materialId)
+        public virtual Task DetectAndSetLastCommentAndCountAsync(int materialId)
         {
-            return DetectAndSetLastMessageAndCountAsync(db.Materials.FirstOrDefault(x => x.Id == materialId));
+            return DetectAndSetLastCommentAndCountAsync(db.Materials.FirstOrDefault(x => x.Id == materialId));
         }
     }
 }

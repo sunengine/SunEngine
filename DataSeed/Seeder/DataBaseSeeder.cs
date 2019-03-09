@@ -42,8 +42,8 @@ namespace DataSeed.Seeder
             Console.WriteLine("Materials");
             db.BulkCopy(options, dataContainer.Materials);
 
-            Console.WriteLine("Messages");
-            db.BulkCopy(options, dataContainer.Messages);
+            Console.WriteLine("Comments");
+            db.BulkCopy(options, dataContainer.Comments);
 
             Console.WriteLine("Roles");
             db.BulkCopy(options, dataContainer.Roles);
@@ -62,31 +62,6 @@ namespace DataSeed.Seeder
 
             RunDbCpecificCode();
 
-            /*db.BulkCopy(options,dataContainer.Categories);
-            db.BulkCopy(dataContainer.Users);
-            db.BulkCopy(dataContainer.Materials);
-            db.BulkCopy(dataContainer.Messages);
-            db.BulkCopy(dataContainer.UserGroups);
-            db.BulkCopy(dataContainer.IdentityUserRoles);
-            db.BulkCopy(dataContainer.OperationKeys);
-            db.BulkCopy(dataContainer.CategoryAccesses);
-            db.BulkCopy(dataContainer.CategoryOperationAccesses);*/
-
-            /*BulkCopyOptions options = new BulkCopyOptions
-            {
-                CheckConstraints = false,
-                 
-            };
-            db.BulkCopy(options,dataContainer.Categories);
-            db.BulkCopy(options,dataContainer.Users);
-            db.BulkCopy(options,dataContainer.Materials);
-            db.BulkCopy(options,dataContainer.Messages);
-            db.BulkCopy(options,dataContainer.UserGroups);
-            db.BulkCopy(options,dataContainer.IdentityUserRoles);
-            db.BulkCopy(options,dataContainer.OperationKeys);
-            db.BulkCopy(options,dataContainer.CategoryAccesses);
-            db.BulkCopy(options,dataContainer.CategoryOperationAccesses);*/
-
             return this;
         }
 
@@ -98,7 +73,7 @@ namespace DataSeed.Seeder
 
                 string[] tablesWithSequenceIds =
                 {
-                    "SectionTypes", "Categories", "AspNetUsers", "Materials", "Messages", "AspNetRoles",
+                    "SectionTypes", "Categories", "AspNetUsers", "Materials", "Comments", "AspNetRoles",
                     "CategoryAccesses", "Tags"
                 };
 
@@ -116,9 +91,9 @@ namespace DataSeed.Seeder
 
         public DataBaseSeeder PostSeed()
         {
-            db.Materials.Where(x => x.Messages.Count > 0)
-                .Set(x => x.LastMessageId,
-                    x => x.Messages.OrderByDescending(y => y.PublishDate).First().Id)
+            db.Materials.Where(x => x.Comments.Count > 0)
+                .Set(x => x.LastCommentId,
+                    x => x.Comments.OrderByDescending(y => y.PublishDate).First().Id)
                 .Update();
 
             return this;

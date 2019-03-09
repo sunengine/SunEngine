@@ -32,7 +32,7 @@ namespace SunEngine.Presenters
                     AuthorId = x.Author.Id,
                     PublishDate = x.PublishDate,
                     EditDate = x.EditDate,
-                    MessagesCount = x.MessagesCount,
+                    CommentsCount = x.CommentsCount,
                     Text = x.Text,
                     CategoryName = x.Category.NameNormalized,
                     IsDeleted = x.IsDeleted,
@@ -52,7 +52,7 @@ namespace SunEngine.Presenters
         public int AuthorId { get; set; }
         public string AuthorLink { get; set; }
         public string AuthorAvatar { get; set; }
-        public int MessagesCount { get; set; }
+        public int CommentsCount { get; set; }
         public DateTime PublishDate { get; set; }
         public DateTime? EditDate { get; set; }
         public string CategoryName { get; set; }

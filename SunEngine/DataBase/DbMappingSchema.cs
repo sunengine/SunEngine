@@ -55,14 +55,14 @@ namespace SunEngine.DataBase
             mp.Entity<Material>()
                 .HasTableName("Materials")
                 .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
-                .Association(x => x.Messages, (x, y) => x.Id == y.MaterialId)
+                .Association(x => x.Comments, (x, y) => x.Id == y.MaterialId)
                 .Association(x => x.TagMaterials, (x, y) => x.Id == y.MaterialId)
                 .Association(x => x.Author, x => x.AuthorId, x => x.Id)
-                .Association(x => x.LastMessage, x => x.LastMessageId, x => x.Id)
+                .Association(x => x.LastComment, x => x.LastCommentId, x => x.Id)
                 .Association(x => x.Category, x => x.CategoryId, x => x.Id);
 
-            mp.Entity<Message>()
-                .HasTableName("Messages")
+            mp.Entity<Comment>()
+                .HasTableName("Comments")
                 .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
                 .Association(x => x.Author, x => x.AuthorId, x => x.Id)
                 .Association(x => x.Material, x => x.MaterialId, x => x.Id);

@@ -52,7 +52,7 @@ namespace SunEngine.Controllers
 
             var categories =
                 authorizationService.GetAllowedCategories(User.Roles, allCategories,
-                    OperationKeys.MaterialAndMessagesRead);
+                    OperationKeys.MaterialAndCommentsRead);
 
             var categoriesIds = categories.Select(x => x.Id).ToArray();
 
@@ -72,7 +72,7 @@ namespace SunEngine.Controllers
                 return BadRequest();
             }
 
-            if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndMessagesRead))
+            if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
             {
                 return Unauthorized();
             }
