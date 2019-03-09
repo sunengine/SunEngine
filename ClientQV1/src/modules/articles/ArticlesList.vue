@@ -4,8 +4,7 @@
 
     <template v-else>
       <q-list no-border>
-        <ArticleInList :startPath="articlesStartPath" :article="article" v-for="article in articles.items"
-                       :key="article.id"/>
+        <ArticleInList :article="article" v-for="article in articles.items" :key="article.id"/>
       </q-list>
 
       <q-pagination class="page-padding q-mt-md" v-if="articles.totalPages > 1"
@@ -27,10 +26,22 @@
 
   export default {
     name: "ArticlesList",
-    components: {LoaderWait,ArticleInList},
+    components: {LoaderWait, ArticleInList},
     data: function () {
       return {
         articles: {}
+      }
+    },
+
+    methods: {
+      pageChanges(newPage) {
+        if (this.currentPage !== newPage) {
+          let req = {path: this.$route.path};
+          if (newPage !== 1) {
+            req.query = {page: newPage};
+          }
+          this.$router.push(req);
+        }
       }
     }
   }

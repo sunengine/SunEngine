@@ -2,6 +2,7 @@
   <q-layout view="lHh LpR lfr">
     <q-header class="glossy">
       <q-toolbar class="toolbar">
+
         <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
           <q-icon name="menu"/>
         </q-btn>
@@ -32,7 +33,6 @@
     </q-drawer>
 
     <q-drawer v-if="rightDrawerIs" bordered side="right" v-model="rightDrawerOpen" >
-
       <router-view name="navigation"/>
     </q-drawer>
 

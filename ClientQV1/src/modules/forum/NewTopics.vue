@@ -67,22 +67,20 @@
     components: {LoaderWait, TopicInThread},
     data: function () {
       return {
-        thread: null,
         topics: {},
       }
     },
-    watch: {
+   watch: {
       'categoryName': 'loadData',
-      '$route': 'loadData',
+      '$route.query["page"]': 'loadData',
       '$store.state.categories.all': "loadData",
       '$store.state.auth.user': 'loadData'
     },
     computed: {
       localTitle() {
-        return `Новые темы - ${this.thread.title}`;
+        return `Новые темы - ${this.thread?.title}`;
       },
-
-      category() {
+      thread() {
         return this.$store.getters.getCategory(this.categoryName);
       },
       rootCategoryPath() {
@@ -109,7 +107,6 @@
       },
 
       async loadData() {
-        this.thread = this.$store.getters.getCategory(this.categoryName);
         this.title = this.localTitle;
 
         await this.$store.dispatch("request",
