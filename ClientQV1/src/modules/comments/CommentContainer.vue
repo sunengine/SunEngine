@@ -59,6 +59,7 @@
         this.isReadMode = false;
       },
       canEdit() {
+
         if (!this.$store.state.auth.user || !this.categoryPersonalAccess) {
           return false;
         }

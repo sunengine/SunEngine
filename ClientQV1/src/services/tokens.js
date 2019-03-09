@@ -48,7 +48,7 @@ export function makeUserDataFromTokens(tokens) {
   const data = {
     tokens: tokens,
     user: {
-      id: tokenParsed[IdKey],
+      id: +tokenParsed[IdKey],
       name: tokenParsed[NameKey],
     },
     roles: roles,

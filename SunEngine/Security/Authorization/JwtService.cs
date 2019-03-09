@@ -52,7 +52,6 @@ namespace SunEngine.Security.Authorization
 
 
         
-        
         public async Task<MyClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, int userId,
             LongSession longSession = null)
         {
