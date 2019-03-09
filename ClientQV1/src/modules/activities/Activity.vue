@@ -12,7 +12,7 @@
           <template v-if="!activity.commentId">
             <span>
               <q-icon name="far fa-file-alt"/>
-              {{$t("activity.text")}}
+              {{$t("activity.material")}}
               </span>
           </template>
           <template v-else>

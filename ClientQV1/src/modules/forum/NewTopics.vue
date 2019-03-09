@@ -67,7 +67,7 @@
     },
     computed: {
       localTitle() {
-        return `${this.$t("newTopics.newTopics")} - ${this.thread?.title}`;
+        return `${this.$t("thread.newTopics")} - ${this.thread?.title}`;
       },
       thread() {
         return this.$store.getters.getCategory(this.categoryName);

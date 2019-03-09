@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh LpR lfr">
-    <q-header class="glossy">
-      <q-toolbar class="toolbar">
+    <q-header class="glossy" >
+      <q-toolbar  class="toolbar">
 
         <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
           <q-icon name="menu"/>
@@ -40,7 +40,7 @@
       <router-view/>
     </q-page-container>
 
-    <q-footer class="footer q-py-lg bg-yellow-1">
+    <q-footer bordered class="footer q-py-lg bg-yellow-1">
       Сделано с Любовью
       <QIcon name="fas fa-heart" size="10px" color="primary"/>
       <a href="http://sunengine.site">Sun Engine</a>
