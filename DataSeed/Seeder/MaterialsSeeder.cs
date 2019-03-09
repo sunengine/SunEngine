@@ -35,7 +35,8 @@ namespace DataSeed.Seeder
             this.dataContainer = dataContainer;
         }
 
-        public void SeedMaterials(Category category, string titleStart = null, int? materialsCount = null, LinesCount? linesCount = null)
+        public void SeedMaterials(Category category, string titleStart = null, bool titleAppendCategoryName = true,
+            int? materialsCount = null, LinesCount? linesCount = null)
         {
             if (materialsCount == null)
             {
@@ -49,7 +50,10 @@ namespace DataSeed.Seeder
 
             for (int i = 1; i <= materialsCount; i++)
             {
-                var title = titleStart != null ? titleStart + " " + i : $"Материал {i} ({category.Name})";
+                var title = titleStart != null ? titleStart + " " + i : $"Материал {i}";
+                if (titleAppendCategoryName)
+                    title += " (" + category.Name + ")";
+
                 SeedMaterial(category, title,
                     (i >= 2 && i <= 3) ? 0 : 12,
                     $"{titleStart ?? "Материал"} {i}, категория {category.Name}", "материал " + i, linesCount.Value);
@@ -122,7 +126,8 @@ namespace DataSeed.Seeder
 
                 dataContainer.IterateCommentPublishDate();
 
-                comment.Text = MakeSeedText("комментарий " + i, 8, 4, $"Комментарий: {comment.Id}, материал {material.Id}");
+                comment.Text = MakeSeedText("комментарий " + i, 8, 4,
+                    $"Комментарий: {comment.Id}, материал {material.Id}");
 
                 addedComments.Add(comment);
             }

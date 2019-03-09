@@ -124,14 +124,20 @@ namespace DataSeed.Seeder
 
                 if (category.IsMaterialsContainer)
                 {
+
+                    bool materialTitleAppendCategoryName = true;
+                    if (categoryToken["MaterialTitleAppendCategoryName"] != null)
+                        materialTitleAppendCategoryName = (bool)categoryToken["MaterialTitleAppendCategoryName"];
+                    
+                    
                     if (categoryToken["MaterialsCount"] != null)
                     {
                         int materialsCount = (int) categoryToken["MaterialsCount"];
-                        materialsSeeder.SeedMaterials(category, materialTitleStart, materialsCount);
+                        materialsSeeder.SeedMaterials(category, materialTitleStart, materialTitleAppendCategoryName, materialsCount);
                     }
                     else
                     {
-                        materialsSeeder.SeedMaterials(category, materialTitleStart);
+                        materialsSeeder.SeedMaterials(category, materialTitleStart, materialTitleAppendCategoryName);
                     }
                 }
 

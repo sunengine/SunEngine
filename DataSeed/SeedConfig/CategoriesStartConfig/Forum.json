@@ -12,6 +12,14 @@
         "Repeat": 2
       },
       {
+        "Name": "Thread[n]",
+        "Title": "Раздел [n]",
+        "IsMaterialsContainer": true,
+        "Repeat": 2,
+        "StartNumber": 6
+        
+      },
+      {
         "Name": "ThreadWithHeader",
         "Title": "Раздел с шапкой",
         "IsMaterialsContainer": true,

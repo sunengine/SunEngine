@@ -6,6 +6,7 @@
     "IsMaterialsContainer": true,
     "MaterialsCount": 15,
     "MaterialLinesCount": "3-30",
-    "MaterialTitleStart" : "Пост"
+    "MaterialTitleStart" : "Пост",
+    "MaterialTitleAppendCategoryName": true
   }
 ]
