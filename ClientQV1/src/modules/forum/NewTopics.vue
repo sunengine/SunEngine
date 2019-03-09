@@ -31,7 +31,7 @@
       <q-list no-border>
         <hr class="hr-sep margin-back"/>
         <div class="margin-back" v-for="topic in topics.items" :key="topic.id">
-          <TopicInThread :topic="topic" />
+          <Topic :topic="topic" />
           <hr class="hr-sep"/>
         </div>
       </q-list>
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-  import TopicInThread from './TopicInThread'
+  import Topic from './Topic'
   import LoaderWait from "LoaderWait";
   import {scroll} from 'quasar'
   import Page from "Page";
@@ -64,7 +64,7 @@
     props: {
       categoryName: String
     },
-    components: {LoaderWait, TopicInThread},
+    components: {LoaderWait, Topic},
     data: function () {
       return {
         topics: {},

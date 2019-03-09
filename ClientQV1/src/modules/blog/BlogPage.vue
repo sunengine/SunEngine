@@ -18,7 +18,6 @@
 
 <script>
   import LoaderWait from "LoaderWait";
-  import PostInList from "./PostInList";
   import Page from "components/Page";
   import PostsList from "./PostsList";
 
@@ -28,7 +27,7 @@
     props: {
       categoryName: String
     },
-    components: {PostsList, PostInList, LoaderWait},
+    components: {PostsList, LoaderWait},
     data: function () {
       return {
         posts: Object

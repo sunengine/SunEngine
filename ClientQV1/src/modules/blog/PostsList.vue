@@ -5,7 +5,7 @@
     <template v-else>
       <div>
         <div v-for="post in posts.items" :key="post.id">
-          <PostInList :post="post"/>
+          <Post :post="post"/>
           <hr class="hr-sep"/>
         </div>
       </div>
@@ -19,11 +19,11 @@
 
 <script>
   import LoaderWait from "LoaderWait";
-  import PostInList from "./PostInList";
+  import Post from "./Post";
 
   export default {
     name: "PostsList",
-    components: {PostInList, LoaderWait},
+    components: {Post, LoaderWait},
     data: function () {
       return {
         posts: {}

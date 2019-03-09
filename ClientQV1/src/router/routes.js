@@ -6,14 +6,30 @@ import AddEditMaterial from "material/AddEditMaterial";
 import SettingsPage from "personal/SettingsPage";
 import ChangeName from "personal/ChangeName";
 import SettingsPanel from "personal/SettingsPanel";
-import Categories1 from 'categories/Categories1.vue';
-import Categories2 from 'categories/Categories2.vue';
+import Categories1 from 'categories/Categories1';
+import Categories2 from 'categories/Categories2';
+import ActivitiesPage from 'activities/ActivitiesPage';
+import New2Col from 'pages/News2Col';
 
 const routes = [
   {
     name: "Home",
     path: '/',
     component: Index
+  },
+  {
+    name: "News",
+    path: '/News'.toLowerCase(),
+    components: {
+      default: ActivitiesPage
+    }
+  },
+  {
+    name: "News2Col",
+    path: '/News2Col'.toLowerCase(),
+    components: {
+      default: New2Col
+    }
   },
   {
     name: 'Login',

@@ -159,7 +159,11 @@ export default {
     newTopics: "Новые сообщения",
     sections: "Разделы"
   },
-  topicInThread: {
+  topic: {
     lastFrom: "Последнее от"
+  },
+  activity: {
+    material: "Текст",
+    message: "Комментарий"
   }
 }

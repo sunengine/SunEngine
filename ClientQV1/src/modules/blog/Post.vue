@@ -43,7 +43,7 @@
 <script>
 
   export default {
-    name: "BlogMultiCatPage",
+    name: "Post",
     props: {
       post: {
         type: Object,

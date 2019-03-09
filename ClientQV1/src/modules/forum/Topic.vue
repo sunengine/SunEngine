@@ -59,7 +59,7 @@
 <script>
 
   export default {
-    name: "TopicInThread",
+    name: "Topic",
     props: {
       topic: Object
     },
