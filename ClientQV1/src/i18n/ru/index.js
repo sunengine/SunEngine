@@ -158,5 +158,8 @@ export default {
   forumPanel: {
     newTopics: "Новые сообщения",
     sections: "Разделы"
+  },
+  topicInThread: {
+    lastFrom: "Последнее от"
   }
 }

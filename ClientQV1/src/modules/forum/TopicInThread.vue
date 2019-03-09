@@ -43,7 +43,7 @@
         </q-item-section>
         <q-item-section class="info-block">
           <q-item-label caption>
-            <span class="xs">Последнее от </span>
+            <span class="xs">{{$t("topicInThread.lastFrom")}} </span>
             {{topic.lastMessageAuthorName}}
           </q-item-label>
           <q-item-label  caption>
@@ -53,7 +53,6 @@
         </q-item-section>
       </q-item>
     </div>
-
   </div>
 </template>
 

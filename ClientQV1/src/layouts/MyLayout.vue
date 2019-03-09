@@ -27,11 +27,11 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" bordered content-class="bg-grey-2">
+    <q-drawer v-model="leftDrawerOpen" bordered content-class="bg-grey-1">
       <MainMenu/>
     </q-drawer>
 
-    <q-drawer v-if="rightDrawerIs" side="right" v-model="rightDrawerOpen" >
+    <q-drawer v-if="rightDrawerIs" bordered side="right" v-model="rightDrawerOpen" >
 
       <router-view name="navigation"/>
     </q-drawer>
