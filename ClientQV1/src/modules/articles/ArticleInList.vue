@@ -1,13 +1,12 @@
 <template>
   <q-item class="page-padding" :to='path'>
     <q-item-section>
-      <q-item-label>{{article.title}}</q-item-label>
-
-    <q-item-label v-if="description"  class="info-block" caption="">
+      <q-item-label class="my-header">{{article.title}}</q-item-label>
+    <q-item-label v-if="description"  class="info-block" caption>
       <div v-html="description">
       </div>
     </q-item-label>
-    <q-item-label class="info-block" caption="">
+    <q-item-label class="info-block" caption>
        <span>
         <q-icon name="far fa-user"/>
         {{article.authorName}} &nbsp;

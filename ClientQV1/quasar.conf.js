@@ -20,7 +20,7 @@ module.exports = function (ctx) {
       'app.styl'
     ],
     extras: [
-      'roboto-font',
+      //'roboto-font',
       'material-icons', // optional, you are not bound to it
       // 'ionicons-v4',
       // 'mdi-v3',

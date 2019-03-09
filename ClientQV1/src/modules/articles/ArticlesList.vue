@@ -8,7 +8,7 @@
                        :key="article.id"/>
       </q-list>
 
-      <q-pagination class="page-padding" v-if="articles.totalPages > 1"
+      <q-pagination class="page-padding q-mt-md" v-if="articles.totalPages > 1"
                     v-model="articles.pageIndex"
                     color="pagination"
                     :max-pages="12"

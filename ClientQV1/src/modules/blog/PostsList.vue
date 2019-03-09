@@ -10,7 +10,7 @@
         </div>
       </div>
 
-      <q-pagination class="page-padding" v-if="posts.totalPages > 1" v-model="posts.pageIndex" color="pagination"
+      <q-pagination class="page-padding q-mt-md" v-if="posts.totalPages > 1" v-model="posts.pageIndex" color="pagination"
                     :max-pages="12" :max="posts.totalPages" ellipses direction-links @input="pageChanges"/>
 
     </template>
