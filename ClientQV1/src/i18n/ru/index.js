@@ -191,6 +191,13 @@ export default {
       title: "Добавить категорию",
       btnCreateLabel: "Создать",
       cancel: "Отмена"
+    },
+    categoryForm: {
+      name: "Имя категории (eng)",
+      title: "Заголовок",
+      shortDescription: "Короткое описание",
+      header: "Шапка категории",
+      selectParent: "Выберите родительскую категорию"
     }
   },
 }

@@ -1,23 +1,19 @@
 <template>
   <div>
-    <q-field :error="$v.category.name.$invalid && !start" :error-label="nameErrorLabel">
-      <q-input v-model="category.name" float-label="Имя категории (eng)"/>
-    </q-field>
 
-    <q-field :error="$v.category.title.$invalid && !start" :error-label="titleErrorLabel">
-      <q-input v-model="category.title" float-label="Заголовок"/>
-    </q-field>
+    <q-input v-model="category.name" label="$t('admin.categoryForm.name')"/>
 
-    <q-field>
-      <q-input v-model="category.description" type="textarea" float-label="Короткое описание"/>
-    </q-field>
+    <q-input v-model="category.title" label="$t('admin.categoryForm.title')"/>
+
+    <q-input v-model="category.description" type="textarea" label="$t('admin.categoryForm.shortDescription')"/>
 
 
-    <div class="q-mt-sm text-grey-6">Шапка категории</div>
+    <div class="q-mt-sm text-grey-6">{{$t('admin.categoryForm.header')}}</div>
 
     <MyEditor style="margin-bottom: 12px;" v-model="category.header"/>
 
-    <div :class="[{invisible: !($v.category.parentId.$invalid && !start)},'error']">Выберите родительскую категорию
+    <div :class="[{invisible: !($v.category.parentId.$invalid && !start)},'error']">
+      {{$t('admin.categoryForm.selectParent')}}
     </div>
     <q-btn v-if="root" :label="parentCategoryTitle" no-caps icon-right="fas fa-caret-down">
       <q-menu>
@@ -39,16 +35,17 @@
     </q-btn>
 
     <div class="q-mt-lg">
-      <q-select v-if="sectionTypes" float-label="Тип категории" v-model="category.sectionTypeName" :options="sectionTypeOptions"/>
+      <q-select v-if="sectionTypes" float-label="Тип категории" v-model="category.sectionTypeName"
+                :options="sectionTypeOptions"/>
       <LoaderWait v-else/>
     </div>
 
     <div class="q-mt-lg">
-      <q-checkbox  :toggle-indeterminate="false" v-model="category.isMaterialsContainer" label="Содержит материалы"/>
+      <q-checkbox :toggle-indeterminate="false" v-model="category.isMaterialsContainer" label="Содержит материалы"/>
     </div>
 
     <div class="q-my-sm">
-      <q-checkbox  :toggle-indeterminate="false" v-model="category.isCacheContent" label="Кэшировать содержимое"/>
+      <q-checkbox :toggle-indeterminate="false" v-model="category.isCacheContent" label="Кэшировать содержимое"/>
     </div>
 
     <div class="q-my-sm">
@@ -168,7 +165,7 @@
     },
     methods: {},
     async created() {
-      if(!this.category.sectionTypeName)
+      if (!this.category.sectionTypeName)
         this.category.sectionTypeName = unset;
 
       await adminGetAllCategories().then(
@@ -192,10 +189,6 @@
 
 <style lang="stylus" scoped>
   @import '~quasar-variables';
-
-  .q-field {
-    height: 78px;
-  }
 
   .error {
     font-size: 0.9em;
