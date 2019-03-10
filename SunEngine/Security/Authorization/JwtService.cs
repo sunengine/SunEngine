@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using SunEngine.Cache;
 using SunEngine.Configuration.Options;
 using SunEngine.Controllers;
 using SunEngine.DataBase;
@@ -21,7 +22,6 @@ using SunEngine.Models;
 using SunEngine.Security.Authentication;
 using SunEngine.Security.Cryptography;
 using SunEngine.Services;
-using SunEngine.Stores;
 
 namespace SunEngine.Security.Authorization
 {

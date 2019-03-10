@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using SunEngine.Models.Authorization;
 
-namespace SunEngine.Stores.CacheModels
+namespace SunEngine.Cache.CacheModels
 {
     public class RoleCached
     {

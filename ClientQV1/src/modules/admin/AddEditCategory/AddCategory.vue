@@ -1,6 +1,5 @@
 <template>
   <q-page class="page-padding">
-    <div>
       <CategoryForm ref="form" :category="category"/>
 
       <div class="btn-block">
@@ -8,10 +7,9 @@
                color="send">
           <LoaderSent slot="loading"/>
         </q-btn>
-        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack('CategoriesAdmin')" label="$t('admin.addCategory.cancel')"
+        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack('CategoriesAdmin')" :label="$t('admin.addCategory.cancel')"
                color="warning"/>
       </div>
-    </div>
   </q-page>
 </template>
 

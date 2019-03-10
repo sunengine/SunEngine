@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Managers;
 using SunEngine.Admin.Presenters;
+using SunEngine.Cache;
 using SunEngine.Models;
-using SunEngine.Stores;
 
 namespace SunEngine.Admin.Controllers
 {

@@ -4,11 +4,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using SunEngine.Cache;
+using SunEngine.Cache.CacheModels;
 using SunEngine.Managers;
 using SunEngine.Models;
 using SunEngine.Security.Authentication;
-using SunEngine.Stores;
-using SunEngine.Stores.CacheModels;
 using SunEngine.Utils;
 
 namespace SunEngine.Controllers
@@ -64,17 +64,17 @@ namespace SunEngine.Controllers
             return Content(json, "application/json", Encoding.UTF8);
         }
 
-        public async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, IEnumerable<int> categoryIdxes,
+        public async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, IEnumerable<int> categoryIds,
             Func<Task<T>> dataLoader,  int page = 0)
         {
-            var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, categoryIdxes, page);
+            var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryIds);
             return await CacheContentAsync(category, key, dataLoader);
         }
 
-        public async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, int categoryIdx,
+        public async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, int categoryId,
             Func<Task<T>> dataLoader, int page = 0)
         {
-            var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, categoryIdx, page);
+            var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryId);
             return await CacheContentAsync(category, key, dataLoader);
         }
 

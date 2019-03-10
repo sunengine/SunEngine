@@ -1,19 +1,19 @@
 using System.Collections.Generic;
+using System.Linq;
 
-namespace SunEngine.Stores
+namespace SunEngine.Cache
 {
     public class CacheKeyGenerator
     {
-        public string ContentGenerateKey(string controllerName, string actionName, IEnumerable<int> indexes, int page) 
+        public string ContentGenerateKey(string controllerName, string actionName, int page, IEnumerable<int> ids)
         {
-            return indexes == null 
-                ? string.Empty 
-                : $"{controllerName}-{actionName}-{page}:,{string.Join(',', indexes)},";
+            return ids == null || !ids.Any()
+                ? null : $"{controllerName}-{actionName}-{page}:,{string.Join(',', ids)},";
         }
 
-        public string ContentGenerateKey(string controllerName, string actionName, int index, int page)
+        public string ContentGenerateKey(string controllerName, string actionName, int page, int id)
         {
-            return $"{controllerName}-{actionName}-{page}:,{index},";
+            return $"{controllerName}-{actionName}-{page}:,{id},";
         }
     }
 }

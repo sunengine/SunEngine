@@ -3,10 +3,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using SunEngine.Cache;
 using SunEngine.Configuration.Options;
 using SunEngine.DataBase;
 using SunEngine.Security.Authentication;
-using SunEngine.Stores;
 
 namespace SunEngine.Scheduler
 {

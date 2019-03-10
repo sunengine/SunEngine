@@ -6,7 +6,7 @@ using SunEngine.Models;
 using SunEngine.Models.Authorization;
 using SunEngine.Utils;
 
-namespace DataSeed.Seeder
+namespace DataSeedDev.Seeder
 {
     public class UsersSeederJson
     {

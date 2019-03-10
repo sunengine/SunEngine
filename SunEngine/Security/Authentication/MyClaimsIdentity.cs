@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Security.Claims;
-using SunEngine.Stores;
-using SunEngine.Stores.CacheModels;
+using SunEngine.Cache;
+using SunEngine.Cache.CacheModels;
 
 namespace SunEngine.Security.Authentication
 {

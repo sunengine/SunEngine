@@ -5,7 +5,7 @@ using System.Linq;
 using SunEngine.Models;
 using SunEngine.Utils;
 
-namespace SunEngine.Stores.CacheModels
+namespace SunEngine.Cache.CacheModels
 {
     public class CategoryCached
     {

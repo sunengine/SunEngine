@@ -1,24 +1,24 @@
 <template>
   <div>
 
-    <q-input v-model="category.name" label="$t('admin.categoryForm.name')"/>
+    <q-input v-model="category.name" :label="$t('admin.categoryForm.name')"/>
 
-    <q-input v-model="category.title" label="$t('admin.categoryForm.title')"/>
+    <q-input v-model="category.title" :label="$t('admin.categoryForm.title')"/>
 
-    <q-input v-model="category.description" type="textarea" label="$t('admin.categoryForm.shortDescription')"/>
+    <q-input v-model="category.description" autogrow type="textarea" :label="$t('admin.categoryForm.shortDescription')"/>
 
 
     <div class="q-mt-sm text-grey-6">{{$t('admin.categoryForm.header')}}</div>
 
     <MyEditor style="margin-bottom: 12px;" v-model="category.header"/>
 
-    <div :class="[{invisible: !($v.category.parentId.$invalid && !start)},'error']">
+<!--    <div :class="[{invisible: !(category.parentId.$invalid && !start)},'error']">
       {{$t('admin.categoryForm.selectParent')}}
-    </div>
-    <q-btn v-if="root" :label="parentCategoryTitle" no-caps icon-right="fas fa-caret-down">
+    </div>-->
+    <q-btn v-if="root" class="q-mt-md select-category" :label="parentCategoryTitle" no-caps outline icon="fas fa-folder">
       <q-menu>
         <div style="background-color: white;" class="q-pa-sm">
-          <MyTree v-close-overlay
+          <MyTree v-close-menu
                   default-expand-all
                   :selected.sync="category.parentId"
                   :nodes="where"
@@ -35,7 +35,7 @@
     </q-btn>
 
     <div class="q-mt-lg">
-      <q-select v-if="sectionTypes" float-label="Тип категории" v-model="category.sectionTypeName"
+      <q-select v-if="sectionTypes" :label="$t('admin.categoryForm.sectionType')" v-model="category.sectionTypeName"
                 :options="sectionTypeOptions"/>
       <LoaderWait v-else/>
     </div>
@@ -68,7 +68,7 @@
   import LoaderWait from "components/LoaderWait";
 
   const unset = "unset";
-  const allowedChars = helpers.regex('allowedChars', /^[a-zA-Z0-9-]*$/)
+  //const allowedChars = helpers.regex('allowedChars', /^[a-zA-Z0-9-]*$/)
 
   function GoDeep(category) {
 
@@ -112,7 +112,7 @@
         sectionTypes: null
       }
     },
-    validations: {
+   /* validations: {
       category: {
         name: {
           required,
@@ -127,7 +127,7 @@
           not0: x => x !== 0
         }
       }
-    },
+    },*/
     computed: {
       sectionTypeOptions() {
         return [{label: "Без типа", value: unset}, ...this.sectionTypes?.map(x => {
@@ -139,15 +139,15 @@
       },
       parentCategoryTitle() {
         if (!this.category.parentId)
-          return "Выберите родительскую категорию";
-        return "Родитель: " + this?.all?.[this.category.parentId]?.title;
+          return this.$t("admin.categoryForm.selectParent");
+        return this.$t("admin.categoryForm.parent")  + this?.all?.[this.category.parentId]?.title;
       }
       ,
       where() {
         return [GoDeep(this.root)];
       }
       ,
-      nameErrorLabel() {
+    /*  nameErrorLabel() {
         if (!this.$v.category.name.required)
           return "Введите имя (eng) категории";
         if (!this.$v.category.name.minLength)
@@ -161,7 +161,7 @@
           return "Введите заголовок категории";
         if (!this.$v.category.title.minLength)
           return "Заголовок должен состоять не менее чем из 3 букв";
-      }
+      }*/
     },
     methods: {},
     async created() {
@@ -188,10 +188,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import '~quasar-variables';
 
-  .error {
-    font-size: 0.9em;
-    color: $red-5;
-  }
+
 </style>

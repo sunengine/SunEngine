@@ -3,8 +3,8 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
+using SunEngine.Cache;
 using SunEngine.Controllers;
-using SunEngine.Stores;
 
 namespace SunEngine.Security.Filters
 {

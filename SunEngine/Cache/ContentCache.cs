@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SunEngine.Utils;
 
-namespace SunEngine.Stores
+namespace SunEngine.Cache
 {
     public interface IContentCache 
     {

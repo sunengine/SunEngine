@@ -2,8 +2,8 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Presenters;
+using SunEngine.Cache;
 using SunEngine.Security.Authentication;
-using SunEngine.Stores;
 
 namespace SunEngine.Admin.Controllers
 {

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using SunEngine.Cache;
+using SunEngine.Cache.CacheModels;
 using SunEngine.Security.Authorization;
-using SunEngine.Stores;
-using SunEngine.Stores.CacheModels;
 
 namespace SunEngine.Presenters
 {

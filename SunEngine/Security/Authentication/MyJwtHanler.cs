@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using SunEngine.Cache;
 using SunEngine.Configuration.Options;
 using SunEngine.Managers;
 using SunEngine.Models;
 using SunEngine.Security.Authorization;
-using SunEngine.Stores;
 
 namespace SunEngine.Security.Authentication
 {

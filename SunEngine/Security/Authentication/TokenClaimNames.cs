@@ -1,4 +1,4 @@
-namespace SunEngine.Security
+namespace SunEngine.Security.Authentication
 {
     public static class TokenClaimNames
     {

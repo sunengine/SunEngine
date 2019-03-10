@@ -3,11 +3,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using SunEngine.Cache;
 using SunEngine.Configuration.Options;
 using SunEngine.Presenters;
 using SunEngine.Presenters.PagedList;
 using SunEngine.Security.Authorization;
-using SunEngine.Stores;
 
 namespace SunEngine.Controllers
 {

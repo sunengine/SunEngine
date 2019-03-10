@@ -7,7 +7,7 @@ using SunEngine.Models.Authorization;
 using SunEngine.Security.Authorization;
 using SunEngine.Utils;
 
-namespace DataSeed.Seeder
+namespace DataSeedDev.Seeder
 {
     public class MemorySeeder
     {

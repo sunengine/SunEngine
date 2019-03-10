@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 using SunEngine.Models;
 using SunEngine.Models.Authorization;
 
-namespace SunEngine.Stores.CacheModels
+namespace SunEngine.Cache.CacheModels
 {
     public class CategoryAccessCached
     {

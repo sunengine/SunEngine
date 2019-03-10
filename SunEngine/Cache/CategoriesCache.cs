@@ -3,11 +3,11 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
+using SunEngine.Cache.CacheModels;
 using SunEngine.DataBase;
-using SunEngine.Stores.CacheModels;
 using SunEngine.Utils;
 
-namespace SunEngine.Stores
+namespace SunEngine.Cache
 {
     public interface ICategoriesCache : IMemoryCache
     {

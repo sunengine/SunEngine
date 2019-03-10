@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace SunEngine.Stores
+namespace SunEngine.Cache
 {   
     public interface IMemoryCache
     {

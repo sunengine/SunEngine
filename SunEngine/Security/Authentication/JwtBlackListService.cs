@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using Microsoft.Extensions.Options;
+using SunEngine.Cache;
 using SunEngine.Configuration.Options;
 using SunEngine.DataBase;
 using SunEngine.Models.Authorization;
-using SunEngine.Stores;
 
 namespace SunEngine.Security.Authentication
 {

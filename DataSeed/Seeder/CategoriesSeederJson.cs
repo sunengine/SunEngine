@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 using SunEngine.Models;
 using SunEngine.Utils;
 
-namespace DataSeed.Seeder
+namespace DataSeedDev.Seeder
 {
     public class CategoriesSeederJson
     {

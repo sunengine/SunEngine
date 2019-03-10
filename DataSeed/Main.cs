@@ -1,9 +1,9 @@
-using DataSeed.Seeder;
+using DataSeedDev.Seeder;
 using Microsoft.Extensions.Configuration;
 using SunEngine.DataBase;
 using SunEngine.Utils;
 
-namespace DataSeed
+namespace DataSeedDev
 {
     class Program
     {

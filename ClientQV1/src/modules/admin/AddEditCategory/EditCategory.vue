@@ -11,6 +11,7 @@
                @click="save" color="send">
           <LoaderSent slot="loading"/>
         </q-btn>
+
         <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack('CategoriesAdmin')"
                :label="$t('admin.editCategory.cancel')" color="warning"/>
       </div>
@@ -43,9 +44,9 @@
     },
     methods: {
       async tryDelete() {
+        const msg = this.$t("admin.categoryForm.deleteConfirm");
         this.$q.dialog({
-          //title: 'Confirm',
-          message: 'Вы уверены что хотите удалить категорию?\nВсе материалы категории также будут удалены.',
+          message: msg,
           ok: 'Удалить',
           cancel: 'Отмена'
         }).then(() => {
@@ -127,7 +128,7 @@
     },
     async created() {
       await this.loadData();
-      this.title = this.$t("editCategory.title")
+      this.title = this.$t("admin.editCategory.title") + ": " + this.category.title
     }
 
   }

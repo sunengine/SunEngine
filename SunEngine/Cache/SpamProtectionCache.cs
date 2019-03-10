@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 using System.Linq;
 using SunEngine.Security.Filters;
 
-namespace SunEngine.Stores
+namespace SunEngine.Cache
 {
     public class SpamProtectionCache
     {

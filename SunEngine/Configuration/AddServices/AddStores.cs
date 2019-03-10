@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
+using SunEngine.Cache;
 using SunEngine.DataBase;
-using SunEngine.Stores;
 
 namespace SunEngine.Configuration.AddServices
 {

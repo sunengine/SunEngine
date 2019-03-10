@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using LinqToDB;
 using Microsoft.Extensions.Options;
+using SunEngine.Cache;
+using SunEngine.Cache.CacheModels;
 using SunEngine.Configuration.Options;
 using SunEngine.DataBase;
 using SunEngine.Models.Materials;
 using SunEngine.Security.Authentication;
-using SunEngine.Stores;
-using SunEngine.Stores.CacheModels;
 
 namespace SunEngine.Security.Authorization
 {

@@ -265,21 +265,7 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import '~quasar-variables';
-
-  .select-category {
-    border: 1px solid rgba(0, 0, 0, 0.54) !important;
-
-    >>> .q-icon {
-      color: rgba(0, 0, 0, 0.54) !important;
-    }
-  }
 
 
-  /* >>> .q-tree__node--child {
-     > .q-tree__node-header {
-       padding-left: 0px !important;
-     }
-   }*/
 
 </style>

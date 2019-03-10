@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SunEngine.Stores;
-using SunEngine.Stores.CacheModels;
+using SunEngine.Cache;
+using SunEngine.Cache.CacheModels;
 
 namespace SunEngine.Security.Authorization
 {

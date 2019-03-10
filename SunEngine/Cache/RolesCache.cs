@@ -2,11 +2,11 @@
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
+using SunEngine.Cache.CacheModels;
 using SunEngine.DataBase;
 using SunEngine.Models.Authorization;
-using SunEngine.Stores.CacheModels;
 
-namespace SunEngine.Stores
+namespace SunEngine.Cache
 {
     public interface IRolesCache : IMemoryCache
     {
