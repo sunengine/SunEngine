@@ -60,7 +60,7 @@ namespace SunEngine.Controllers
                 return await articlesPresenter.GetArticlesAsync(category.Id, page, articlesOptions.CategoryPageSize);   
             }
 
-            return await CacheContentAsync(category, category.Id, LoadDataAsync);
+            return await CacheContentAsync(category, category.Id, LoadDataAsync, page);
         }
         
         [HttpPost]

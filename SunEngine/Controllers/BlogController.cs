@@ -58,7 +58,7 @@ namespace SunEngine.Controllers
                 return await blogPresenter.GetPostsAsync(category.Id, page, blogOptions.PostsPageSize);
             }
 
-            return await CacheContentAsync(category, category.Id, LoadDataAsync);
+            return await CacheContentAsync(category, category.Id, LoadDataAsync, page);
         }
 
         [HttpPost]

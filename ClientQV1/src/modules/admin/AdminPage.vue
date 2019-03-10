@@ -2,7 +2,7 @@
   <q-page class="page-padding">
     <h2 class="q-title">
       <QIcon name="fas fa-cog" class="q-mr-sm"/>
-      {{$t("admin.adminPage.title")}}
+      {{$t("admin.adminPanel.title")}}
     </h2>
     <AdminMenu/>
   </q-page>

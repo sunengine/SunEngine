@@ -59,22 +59,22 @@ namespace SunEngine.Controllers
             return userManager.FindByIdAsync(User.UserId.ToString());
         }
 
-        protected IActionResult JsonString(string json)
+        public IActionResult JsonString(string json)
         {
             return Content(json, "application/json", Encoding.UTF8);
         }
 
-        protected async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, IEnumerable<int> categoryIdxes,
-            Func<Task<T>> dataLoader)
+        public async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, IEnumerable<int> categoryIdxes,
+            Func<Task<T>> dataLoader,  int page = 0)
         {
-            var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, categoryIdxes);
+            var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, categoryIdxes, page);
             return await CacheContentAsync(category, key, dataLoader);
         }
 
-        protected async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, int categoryIdx,
-            Func<Task<T>> dataLoader)
+        public async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, int categoryIdx,
+            Func<Task<T>> dataLoader, int page = 0)
         {
-            var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, categoryIdx);
+            var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, categoryIdx, page);
             return await CacheContentAsync(category, key, dataLoader);
         }
 
@@ -82,17 +82,16 @@ namespace SunEngine.Controllers
             Func<Task<T>> dataLoader)
         {
             string json;
-            var normalizeKey = Normalizer.Normalize(key);
             if (category != null
                 && category.IsCacheContent
-                && !string.IsNullOrEmpty(json = contentCache.GetContent(normalizeKey)))
+                && !string.IsNullOrEmpty(json = contentCache.GetContent(key)))
             {
                 return JsonString(json);
             }
 
             var content = await dataLoader();
             json = WebJson.Serialize(content);
-            contentCache.CacheContent(normalizeKey, json);
+            contentCache.CacheContent(key, json);
             return JsonString(json);
         }
     }

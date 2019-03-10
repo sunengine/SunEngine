@@ -7,40 +7,18 @@ namespace SunEngine.Utils
 {
     public static class WebJson
     {
-        private static JsonSerializerSettings jsonSettings { get; }
-
-        static WebJson()
+        public static JsonSerializerSettings jsonSettings { get; } = new JsonSerializerSettings()
         {
-            jsonSettings = new JsonSerializerSettings()
-            {
-                ContractResolver = new DefaultContractResolver()
-                {
-                    NamingStrategy = new CamelCaseNamingStrategy()
-                },
-                MissingMemberHandling = MissingMemberHandling.Ignore,
-                MaxDepth = 32,
-                TypeNameHandling = TypeNameHandling.None
-            };
-        }
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            MissingMemberHandling = MissingMemberHandling.Ignore,
+            MaxDepth = 32,
+            TypeNameHandling = TypeNameHandling.None,
+            NullValueHandling = NullValueHandling.Ignore
+        };
 
-        public static string Serialize<T>(T obj)
+        public static string Serialize(object obj)
         {
-            using (var stream = new MemoryStream())
-            {
-                using (TextWriter writer = new StreamWriter(stream, Encoding.UTF8))
-                {
-                    using (JsonTextWriter jsonTextWriter = new JsonTextWriter(writer))
-                    {
-                        jsonTextWriter.CloseOutput = false;
-                        jsonTextWriter.AutoCompleteOnClose = false;
-                        JsonSerializer.Create(jsonSettings).Serialize(jsonTextWriter, obj);
-                    }
-
-                    writer.Flush();
-                }
-
-                return Encoding.UTF8.GetString(stream.ToArray());
-            }
+           return JsonConvert.SerializeObject(obj, jsonSettings);
         }
     }
 }

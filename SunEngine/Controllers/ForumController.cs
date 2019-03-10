@@ -60,7 +60,7 @@ namespace SunEngine.Controllers
                     page, forumOptions.NewTopicsPageSize, forumOptions.NewTopicsMaxPages);
             }
 
-            return await CacheContentAsync(categoryParent, categoriesIds, LoadDataAsync);
+            return await CacheContentAsync(categoryParent, categoriesIds, LoadDataAsync, page);
         }
 
         [HttpPost]
@@ -83,7 +83,7 @@ namespace SunEngine.Controllers
                 return await forumPresenter.GetThread(category.Id, page, forumOptions.ThreadMaterialsPageSize);
             }
 
-            return await CacheContentAsync(category, category.Id, LoadDataAsync);
+            return await CacheContentAsync(category, category.Id, LoadDataAsync, page);
         }
     }
 }

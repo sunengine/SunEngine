@@ -173,7 +173,7 @@ export default {
     last: "Последнее"
   },
   admin: {
-    adminPage: {
+    adminPanel: {
       title: "Админка"
     },
     adminMenu: {

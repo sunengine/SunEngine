@@ -28,6 +28,7 @@ namespace Migrations
                 .WithColumn("ParentId").AsInt32().Indexed().Nullable()
                 .ForeignKey("FK_Categories_Categories_ParentId", "Categories", "Id")
                 .WithColumn("SortNumber").AsInt32().NotNullable()
+                .WithColumn("IsCacheContent").AsBoolean().NotNullable()
                 .WithColumn("IsHidden").AsBoolean().NotNullable()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable();
 

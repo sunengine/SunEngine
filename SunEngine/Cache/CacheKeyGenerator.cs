@@ -4,14 +4,16 @@ namespace SunEngine.Stores
 {
     public class CacheKeyGenerator
     {
-        public string ContentGenerateKey(string controllerName, string actionName, IEnumerable<int> indexes) 
+        public string ContentGenerateKey(string controllerName, string actionName, IEnumerable<int> indexes, int page) 
         {
-            return indexes == null ? string.Empty : $"{controllerName}_{actionName}:,{string.Join(',', indexes)},";
+            return indexes == null 
+                ? string.Empty 
+                : $"{controllerName}-{actionName}-{page}:,{string.Join(',', indexes)},";
         }
 
-        public string ContentGenerateKey(string controllerName, string actionName, int index)
+        public string ContentGenerateKey(string controllerName, string actionName, int index, int page)
         {
-            return string.Format("{0}_{1}:,{2},", controllerName, actionName, index);
+            return $"{controllerName}-{actionName}-{page}:,{index},";
         }
     }
 }
