@@ -7,7 +7,6 @@
       <q-item-section>
         <q-item-label>{{ $i18n.t("loginOrRegisterMenu.enter") }}</q-item-label>
       </q-item-section>
-
     </q-item>
     <q-item :to="{name:'Register'}">
       <q-item-section avatar>

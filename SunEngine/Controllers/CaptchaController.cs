@@ -1,10 +1,8 @@
 using System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SunEngine.Managers;
 using SunEngine.Security.Captcha;
 using SunEngine.Security.Filters;
-using SunEngine.Stores;
 
 namespace SunEngine.Controllers
 {

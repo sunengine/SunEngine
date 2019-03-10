@@ -1,5 +1,5 @@
 <template>
-  <QList class="my-menu" no-border>
+  <q-list class="my-menu" no-border>
     <q-item class="avatar-menu-item">
       <q-item-section avatar>
         <img class="on-left avatar" :src="userInfo.avatar"/>
@@ -73,7 +73,7 @@
         {{$t("settingsMenu.banedUsersList")}}
       </q-item-section>
     </q-item>
-  </QList>
+  </q-list>
 </template>
 
 <script>

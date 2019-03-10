@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Managers;
 using SunEngine.Admin.Presenters;
-using SunEngine.Managers;
 using SunEngine.Models;
 using SunEngine.Stores;
 

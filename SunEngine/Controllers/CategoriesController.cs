@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using SunEngine.Managers;
 using SunEngine.Presenters;
-using SunEngine.Stores;
 
 namespace SunEngine.Controllers
 {

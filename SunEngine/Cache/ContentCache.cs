@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using SunEngine.Utils;
 
 namespace SunEngine.Stores
 {
-    public interface IContentCache : IMemoryCache
+    public interface IContentCache 
     {
         string GetContent(string key);
         bool IsCached(int categoryId);
@@ -14,6 +13,8 @@ namespace SunEngine.Stores
         bool CacheContent(string key, object content, out string convertedContent);
         void InvalidateCache(int categoryId);
         void InvalidateCache(string categoryName);
+
+        void Reset();
     }
 
     public class CategoryContentCache : IContentCache
@@ -26,16 +27,6 @@ namespace SunEngine.Stores
         public CategoryContentCache(ICategoriesCache categoriesCache)
         {
             this.categoriesCache = categoriesCache;
-        }
-
-        public void Initialize()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task InitializeAsync()
-        {
-            throw new System.NotImplementedException();
         }
 
         public void Reset()
@@ -99,7 +90,7 @@ namespace SunEngine.Stores
 
         private int? GetCategoryId(string categoryName)
         {
-            return categoriesCache.GetCategory(FieldNormalizer.Normalize(categoryName))?.Id;
+            return categoriesCache.GetCategory(Normalizer.Normalize(categoryName))?.Id;
         }
     }
 }

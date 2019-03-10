@@ -2,9 +2,7 @@ using System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Controllers;
-using SunEngine.Managers;
 using SunEngine.Security;
-using SunEngine.Stores;
 
 namespace SunEngine.Admin.Controllers
 {

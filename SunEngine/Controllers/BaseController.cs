@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Managers;
 using SunEngine.Models;
-using SunEngine.Presenters.PagedList;
 using SunEngine.Security.Authentication;
 using SunEngine.Stores;
 using SunEngine.Stores.CacheModels;
@@ -83,7 +82,7 @@ namespace SunEngine.Controllers
             Func<Task<T>> dataLoader)
         {
             string json;
-            var normalizeKey = FieldNormalizer.Normalize(key);
+            var normalizeKey = Normalizer.Normalize(key);
             if (category != null
                 && category.IsCacheContent
                 && !string.IsNullOrEmpty(json = contentCache.GetContent(normalizeKey)))

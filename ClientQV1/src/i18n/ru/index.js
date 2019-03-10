@@ -171,5 +171,15 @@ export default {
     newTopics: "Новые темы",
     topic: "Тема",
     last: "Последнее"
+  },
+  admin: {
+    adminPage: {
+      title: "Админка"
+    },
+    adminMenu: {
+      categoriesAdminLabel: "Категории",
+      rolesPermissionsLabel: "Настройка прав",
+      rolesUsersLabel: "Группы пользователей"
+    }
   }
 }

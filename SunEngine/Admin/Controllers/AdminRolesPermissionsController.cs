@@ -3,8 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Services;
 using SunEngine.Controllers;
-using SunEngine.Managers;
-using SunEngine.Stores;
 
 namespace SunEngine.Admin.Controllers
 {

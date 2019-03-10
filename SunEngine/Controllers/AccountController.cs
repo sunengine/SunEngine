@@ -12,13 +12,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using SunEngine.Configuration.Options;
 using SunEngine.DataBase;
-using SunEngine.Managers;
 using SunEngine.Models;
 using SunEngine.Security;
 using SunEngine.Security.Authorization;
 using SunEngine.Security.Captcha;
 using SunEngine.Services;
-using SunEngine.Stores;
 using SunEngine.Utils;
 
 namespace SunEngine.Controllers

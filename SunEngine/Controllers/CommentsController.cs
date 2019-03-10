@@ -6,7 +6,6 @@ using SunEngine.Models.Materials;
 using SunEngine.Presenters;
 using SunEngine.Security.Authorization;
 using SunEngine.Security.Filters;
-using SunEngine.Stores;
 using IAuthorizationService = SunEngine.Security.Authorization.IAuthorizationService;
 
 namespace SunEngine.Controllers
@@ -26,9 +25,8 @@ namespace SunEngine.Controllers
             OperationKeysContainer operationKeys,
             ICommentsManager commentsManager,
             IAuthorizationService authorizationService,
-            MyUserManager userManager,
             ICommentsPresenter commentsPresenter,
-            IRolesCache rolesCache) : base(rolesCache, userManager)
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             OperationKeys = operationKeys;
             this.commentsAuthorization = commentsAuthorization;
@@ -84,6 +82,9 @@ namespace SunEngine.Controllers
             };
 
             await commentsManager.InsertAsync(comment);
+            
+            contentCache.InvalidateCache(material.CategoryId);
+
 
             return Ok();
         }
@@ -144,6 +145,8 @@ namespace SunEngine.Controllers
 
             await commentsManager.MoveToTrashAsync(comment);
 
+            contentCache.InvalidateCache(categoryId);
+            
             return Ok();
         }
 
