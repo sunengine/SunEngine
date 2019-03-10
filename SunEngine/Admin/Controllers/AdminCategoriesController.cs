@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ namespace SunEngine.Admin.Controllers
             CategoriesManager categoriesManager,
             ICategoriesAdminPresenter categoriesAdminPresenter,
             ICategoriesCache categoriesCache,
-            MyUserManager userManager, IRolesCache rolesCache) : base(rolesCache, userManager)
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.categoriesCache = categoriesCache;
             this.categoriesManager = categoriesManager;
@@ -92,6 +93,7 @@ namespace SunEngine.Admin.Controllers
             await categoriesManager.AddCategoryAsync(category);
 
             categoriesCache.Reset();
+            contentCache.Reset();
 
             return Ok();
         }
@@ -124,6 +126,7 @@ namespace SunEngine.Admin.Controllers
             await categoriesManager.EditCategoryAsync(category);
 
             categoriesCache.Reset();
+            contentCache.Reset();
 
             return Ok();
         }
@@ -136,6 +139,7 @@ namespace SunEngine.Admin.Controllers
                 return BadRequest();
 
             categoriesCache.Reset();
+            contentCache.Reset();
 
             return Ok();
         }
@@ -148,6 +152,7 @@ namespace SunEngine.Admin.Controllers
                 return BadRequest();
 
             categoriesCache.Reset();
+            contentCache.Reset();
 
             return Ok();
         }
@@ -158,6 +163,7 @@ namespace SunEngine.Admin.Controllers
             await categoriesManager.CategoryMoveToTrashAsync(name);
 
             categoriesCache.Reset();
+            contentCache.Reset();
 
             return Ok();
         }
@@ -166,6 +172,7 @@ namespace SunEngine.Admin.Controllers
         public IActionResult ResetCache()
         {
             categoriesCache.Reset();
+            contentCache.Reset();
             return Ok();
         }
     }
@@ -195,6 +202,8 @@ namespace SunEngine.Admin.Controllers
         public bool IsDeleted { get; set; }
 
         public bool IsHidden { get; set; }
+        
+        public bool IsCacheContent { get; set; }
 
         public Category ToCategory()
         {
@@ -210,7 +219,8 @@ namespace SunEngine.Admin.Controllers
                 ParentId = ParentId,
                 SortNumber = SortNumber,
                 IsDeleted = IsDeleted,
-                IsHidden = IsHidden
+                IsHidden = IsHidden,
+                IsCacheContent = IsCacheContent
             };
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -30,8 +31,7 @@ namespace SunEngine.Controllers
             ICategoriesCache categoriesCache,
             OperationKeysContainer operationKeysContainer,
             IArticlesPresenter articlesPresenter,
-            MyUserManager userManager,
-            IRolesCache rolesCache) : base(rolesCache, userManager)
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             OperationKeys = operationKeysContainer;
 
@@ -55,11 +55,13 @@ namespace SunEngine.Controllers
             {
                 return Unauthorized();
             }
-            
-            IPagedList<ArticleInfoViewModel> articles =
-                await articlesPresenter.GetArticlesAsync(category.Id, page, articlesOptions.CategoryPageSize);
 
-            return Json(articles);
+            async Task<IPagedList<ArticleInfoViewModel>> LoadDataAsync()
+            {
+                return await articlesPresenter.GetArticlesAsync(category.Id, page, articlesOptions.CategoryPageSize);   
+            }
+
+            return await CacheContentAsync(category, category.Id, LoadDataAsync);
         }
         
         [HttpPost]

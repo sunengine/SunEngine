@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Controllers;
@@ -11,7 +12,7 @@ namespace SunEngine.Admin.Controllers
     [Authorize(Roles = RoleNames.Admin)]
     public class AdminBaseController : BaseController
     {
-        public AdminBaseController(IRolesCache rolesCache, MyUserManager userManager) : base(rolesCache, userManager)
+        public AdminBaseController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
     }

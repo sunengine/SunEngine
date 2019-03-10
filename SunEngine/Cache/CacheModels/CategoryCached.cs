@@ -49,6 +49,8 @@ namespace SunEngine.Stores.CacheModels
         public int SortNumber { get; }
 
         public bool IsHidden { get; }
+        
+        public bool IsCacheContent { get; private set; }
 
 
         protected bool initialized = false;
@@ -67,6 +69,7 @@ namespace SunEngine.Stores.CacheModels
             ParentId = category.ParentId;
             SortNumber = category.SortNumber;
             IsHidden = category.IsHidden;
+            IsCacheContent = category.IsCacheContent;
             _subCategories = new List<CategoryCached>();
             _allSubCategories = new List<CategoryCached>();
         }

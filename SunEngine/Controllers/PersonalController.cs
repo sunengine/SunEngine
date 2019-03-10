@@ -1,3 +1,4 @@
+using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -23,9 +24,7 @@ namespace SunEngine.Controllers
             IPersonalManager personalManager, 
             JwtService jwtService, 
             IPersonalPresenter personalPresenter,
-            MyUserManager userManager,
-            IRolesCache rolesCache)
-            : base(rolesCache, userManager)
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.personalManager = personalManager;
             this.jwtService = jwtService;

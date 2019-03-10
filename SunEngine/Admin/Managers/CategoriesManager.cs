@@ -69,6 +69,7 @@ namespace SunEngine.Admin.Managers
             сategoryExisted.Header = sanitizer.Sanitize(category.Header);
             сategoryExisted.ParentId = parent.Id;
             сategoryExisted.IsHidden = category.IsHidden;
+            сategoryExisted.IsCacheContent = category.IsCacheContent;
             сategoryExisted.IsMaterialsContainer = category.IsMaterialsContainer;
             сategoryExisted.AppendUrlToken = category.AppendUrlToken;
             сategoryExisted.SectionTypeId = category.SectionTypeId;

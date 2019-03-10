@@ -34,7 +34,8 @@
           isMaterialsContainer: true,
           areaRoot: false,
           parentId: 0,
-          isHidden: false
+          isHidden: false,
+          isCacheContent: false
         },
         loading: false
       }

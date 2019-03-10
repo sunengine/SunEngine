@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using LinqToDB.Mapping;
 using SunEngine.Models.Materials;
 
 namespace SunEngine.Models
@@ -22,9 +24,6 @@ namespace SunEngine.Models
 
         public string Description { get; set; }
         
-        //public int? SectionTypeId { get; set; }
-        //public SectionType SectionType { get; set; }
-
         /// <summary>
         /// Описание HTML сверху категории
         /// </summary>
@@ -49,9 +48,7 @@ namespace SunEngine.Models
 
         public bool IsHidden { get; set; }
         
-        //public ICollection<Category> CategoriesList { get; set; } = new List<Category>();
-        
-        //public bool IsCached { get; set; }
+        public bool IsCacheContent { get; set; }
     }
 
     public class SectionType

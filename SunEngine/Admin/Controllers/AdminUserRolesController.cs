@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Presenters;
@@ -17,7 +19,7 @@ namespace SunEngine.Admin.Controllers
             IUserRolesPresenter userRolesPresenter,
             JwtBlackListService jwtBlackListService,
             IRolesCache rolesCache,
-            MyUserManager userManager) : base(rolesCache, userManager)
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.userRolesPresenter = userRolesPresenter;
             this.jwtBlackListService = jwtBlackListService;
