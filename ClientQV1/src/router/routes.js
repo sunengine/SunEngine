@@ -10,6 +10,7 @@ import Categories1 from 'categories/Categories1';
 import Categories2 from 'categories/Categories2';
 import ActivitiesPage from 'activities/ActivitiesPage';
 import New2Col from 'pages/News2Col';
+import AdminPage from 'admin/AdminPage';
 
 const routes = [
   {
@@ -78,6 +79,14 @@ const routes = [
     components: {
       default: ChangeName,
       navigation: SettingsPanel
+    }
+  },
+  {
+    name: 'Admin',
+    path: '/admin',
+    components: {
+      default: AdminPage,
+      navigation: null,
     }
   },
   ...makeForumSection("Forum", Categories1),
