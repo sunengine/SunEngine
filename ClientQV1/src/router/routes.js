@@ -11,6 +11,12 @@ import Categories2 from 'categories/Categories2';
 import ActivitiesPage from 'activities/ActivitiesPage';
 import New2Col from 'pages/News2Col';
 import AdminPage from 'admin/AdminPage';
+import CategoriesAdminPage from 'admin/CategoriesAdminPage';
+import AdminPanel from 'admin/AdminPanel';
+import AddCategory from 'admin/AddEditCategory/AddCategory';
+import EditCategory from 'admin/AddEditCategory/EditCategory';
+
+
 
 const routes = [
   {
@@ -87,6 +93,36 @@ const routes = [
     components: {
       default: AdminPage,
       navigation: null,
+    }
+  },
+  {
+    name: 'CategoriesAdmin',
+    path: '/admin/CategoriesAdmin'.toLowerCase(),
+    components: {
+      default: CategoriesAdminPage,
+      navigation: AdminPanel
+    }
+  },
+  {
+    name: 'AddCategory',
+    path: '/admin/AddCategory'.toLowerCase(),
+    components: {
+      default: AddCategory,
+      navigation: AdminPanel
+    }
+  },
+  {
+    name: 'EditCategory',
+    path: '/admin/EditCategory/:id'.toLowerCase(),
+    components: {
+      default: EditCategory,
+      navigation: AdminPanel
+    },
+    props: {
+      default: (route) => {
+        return {categoryId: +route.params.id};
+      },
+      navigation: null
     }
   },
   ...makeForumSection("Forum", Categories1),

@@ -180,6 +180,17 @@ export default {
       categoriesAdminLabel: "Категории",
       rolesPermissionsLabel: "Настройка прав",
       rolesUsersLabel: "Группы пользователей"
+    },
+    editCategory: {
+      title: "Редактировать категорию",
+      btnDeleteLabel: "Удалить категорию",
+      save: "Сохранить",
+      cancel: "Отмена"
+    },
+    addCategory: {
+      title: "Добавить категорию",
+      btnCreateLabel: "Создать",
+      cancel: "Отмена"
     }
-  }
+  },
 }
