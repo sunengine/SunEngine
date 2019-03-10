@@ -26,9 +26,8 @@ namespace SunEngine.Controllers
             OperationKeysContainer operationKeys, 
             IMessagesManager messagesManager,
             IAuthorizationService authorizationService,
-            MyUserManager userManager,
             IMessagesPresenter messagesPresenter,
-            IRolesCache rolesCache) : base(rolesCache, userManager)
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             OperationKeys = operationKeys;
             this.messageAuthorization = messageAuthorization;
@@ -82,9 +81,10 @@ namespace SunEngine.Controllers
                 Text = text,
                 AuthorId = User.UserId
             };
+            
+            contentCache.InvalidateCache(material.CategoryId);
 
             await messagesManager.InsertAsync(message);
-
             return Ok();
         }
 
@@ -122,9 +122,8 @@ namespace SunEngine.Controllers
 
             message.Text = newMessage.Text;
             message.EditDate = DateTime.UtcNow;
-
+            
             await messagesManager.UpdateAsync(message);
-
             return Ok();
         }
 
@@ -142,8 +141,9 @@ namespace SunEngine.Controllers
                 return Unauthorized();
             }
             
-            await messagesManager.MoveToTrashAsync(message);
+            contentCache.InvalidateCache(categoryId);
             
+            await messagesManager.MoveToTrashAsync(message);
             return Ok();
         }
 

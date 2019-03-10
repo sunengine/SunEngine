@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Managers;
@@ -12,9 +13,8 @@ namespace SunEngine.Controllers
         protected readonly CaptchaService captchaService;
 
         public CaptchaController(
-            MyUserManager userManager, 
-            IRolesCache rolesCache,
-            CaptchaService captchaService) : base(rolesCache, userManager)
+            CaptchaService captchaService,
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.captchaService = captchaService;
         }

@@ -56,7 +56,8 @@ namespace SunEngine.Admin.Presenters
                 SortNumber = x.SortNumber,
                 MaterialsCount = x.Materials.Count,
                 IsHidden = x.IsHidden,
-                IsDeleted = x.IsDeleted
+                IsDeleted = x.IsDeleted,
+                IsCacheContent = x.IsCacheContent
             }).FirstOrDefaultAsync();
         }
 
@@ -78,7 +79,8 @@ namespace SunEngine.Admin.Presenters
                     SortNumber = x.SortNumber,
                     MaterialsCount = x.Materials.Count,
                     IsHidden = x.IsHidden,
-                    IsDeleted = x.IsDeleted
+                    IsDeleted = x.IsDeleted,
+                    IsCacheContent = x.IsCacheContent
                 }).ToDictionaryAsync(x => x.Id);
 
             CategoryAdminViewModel root = null;
@@ -132,5 +134,7 @@ namespace SunEngine.Admin.Presenters
         public bool IsDeleted { get; set; }
 
         public bool IsHidden { get; set; }
+        
+        public bool IsCacheContent { get; set; }
     }
 }

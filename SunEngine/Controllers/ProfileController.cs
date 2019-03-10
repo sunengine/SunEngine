@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,8 +23,7 @@ namespace SunEngine.Controllers
         public ProfileController(
             IProfileManager profileManager,
             IProfilePresenter profilePresenter,
-            MyUserManager userManager,
-            IRolesCache rolesCache) : base(rolesCache, userManager)
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.profileManager = profileManager;
             this.profilePresenter = profilePresenter;

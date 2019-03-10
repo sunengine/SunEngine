@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -23,11 +24,10 @@ namespace SunEngine.Controllers
 
         public ActivitiesController(
             OperationKeysContainer operationKeysContainer,
-            IRolesCache rolesCache,
             ICategoriesCache categoriesCache,
             IAuthorizationService authorizationService,
             IActivitiesPresenter activitiesPresenter,
-            MyUserManager userManager) : base(rolesCache, userManager)
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             OperationKeys = operationKeysContainer;
             this.categoriesCache = categoriesCache;

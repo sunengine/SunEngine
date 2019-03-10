@@ -15,6 +15,10 @@ namespace SunEngine.Configuration.AddServices
 
             services.AddSingleton<ICategoriesCache, CategoriesCache>();
 
+            services.AddSingleton<IContentCache, CategoryContentCache>();
+
+            services.AddSingleton<CacheKeyGenerator>();
+
             services.AddSingleton<SpamProtectionCache>();
         }
     }

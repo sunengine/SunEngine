@@ -25,9 +25,8 @@ namespace SunEngine.Controllers
             MaterialsAuthorization materialsAuthorization,
             ICategoriesCache categoriesCache,
             IMaterialsManager materialsManager,
-            MyUserManager userManager,
             IMaterialsPresenter materialsPresenter,
-            IRolesCache rolesCache) : base(rolesCache, userManager)
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.materialsAuthorization = materialsAuthorization;
             this.categoriesCache = categoriesCache;
@@ -91,8 +90,9 @@ namespace SunEngine.Controllers
                 material.Description = materialData.Description;
             }
 
+            contentCache.InvalidateCache(category.Id);
+            
             await materialsManager.InsertAsync(material, materialData.Tags, isDescriptionEditable);
-
             return Ok();
         }
 
@@ -130,7 +130,6 @@ namespace SunEngine.Controllers
             bool isDescriptionEditable = newCategory.IsDescriptionEditable();
             materialExisted.Description = isDescriptionEditable ? materialEdited.Description : null;
             
-
             // Если категория новая, то обновляем
             if (materialExisted.CategoryId != newCategory.Id)
             {
@@ -143,7 +142,6 @@ namespace SunEngine.Controllers
             }
 
             await materialsManager.UpdateAsync(materialExisted, materialEdited.Tags, isDescriptionEditable);
-
             return Ok();
         }
 
@@ -160,9 +158,10 @@ namespace SunEngine.Controllers
             {
                 return Unauthorized();
             }
-
+            
+            contentCache.InvalidateCache(material.CategoryId);
+            
             await materialsManager.MoveToTrashAsync(material);
-
             return Ok();
         }
 

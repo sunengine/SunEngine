@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,8 +30,7 @@ namespace SunEngine.Controllers
             ICategoriesCache categoriesCache,
             OperationKeysContainer operationKeysContainer,
             IBlogPresenter blogPresenter,
-            MyUserManager userManager,
-            IRolesCache rolesCache) : base(rolesCache, userManager)
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             OperationKeys = operationKeysContainer;
 
@@ -55,10 +55,12 @@ namespace SunEngine.Controllers
                 return Unauthorized();
             }
 
-            IPagedList<PostViewModel> posts =
-                await blogPresenter.GetPostsAsync(category.Id, page, blogOptions.PostsPageSize);
+            async Task<IPagedList<PostViewModel>> LoadDataAsync()
+            {
+                return await blogPresenter.GetPostsAsync(category.Id, page, blogOptions.PostsPageSize);
+            }
 
-            return Json(posts);
+            return await CacheContentAsync(category, category.Id, LoadDataAsync);
         }
 
         [HttpPost]
@@ -76,10 +78,13 @@ namespace SunEngine.Controllers
 
             var categoriesIds = categoriesList.Select(x => x.Id).ToArray();
 
-            IPagedList<PostViewModel> posts =
-                await blogPresenter.GetCategoriesPostsAsync(categoriesIds, page, blogOptions.PostsPageSize);
+            async Task<IPagedList<PostViewModel>> LoadDataAsync()
+            {
+               return await blogPresenter.GetCategoriesPostsAsync(categoriesIds, page, blogOptions.PostsPageSize);
+            }
 
-            return Json(posts);
+            var blogCategory = categoriesCache.GetCategory(categoriesNames);
+            return await CacheContentAsync(blogCategory, categoriesIds, LoadDataAsync);
         }
     }
 }

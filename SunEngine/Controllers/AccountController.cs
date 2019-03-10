@@ -34,14 +34,13 @@ namespace SunEngine.Controllers
         private readonly IAccountService accountService;
 
         public AccountController(
-            MyUserManager userManager,
             IEmailSender emailSender,
             DataBaseConnection db,
             ILoggerFactory loggerFactory,
             JwtService jwtService,
             IAccountService accountService,
             IOptions<GlobalOptions> globalOptions,
-            IRolesCache rolesCache) : base(rolesCache, userManager)
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.globalOptions = globalOptions.Value;
             this.emailSender = emailSender;

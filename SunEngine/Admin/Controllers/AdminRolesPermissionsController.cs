@@ -16,9 +16,8 @@ namespace SunEngine.Admin.Controllers
         private readonly RolesPermissionsAdminService rolesPermissionsAdminService;
 
         public AdminRolesPermissionsController(
-            MyUserManager userManager,
             RolesPermissionsAdminService rolesPermissionsAdminService,
-            IRolesCache rolesCache) : base(rolesCache, userManager)
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.rolesPermissionsAdminService = rolesPermissionsAdminService;
         }

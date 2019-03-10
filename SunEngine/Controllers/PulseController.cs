@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using LinqToDB;
 using Microsoft.AspNetCore.Authorization;
@@ -16,9 +17,8 @@ namespace SunEngine.Controllers
         protected readonly DataBaseConnection db;
         
         public PulseController(
-            MyUserManager userManager,
             DataBaseConnection db,
-            IRolesCache rolesCache) : base(rolesCache, userManager)
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.db = db;
         }

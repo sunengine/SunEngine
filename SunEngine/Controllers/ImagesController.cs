@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -23,8 +24,7 @@ namespace SunEngine.Controllers
             IImagesService imagesService,
             IOptions<ImagesOptions> imagesOptions,
             IPersonalManager personalManager,
-            MyUserManager userManager,
-            IRolesCache rolesCache) : base(rolesCache, userManager)
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.imagesService = imagesService;
             this.imagesOptions = imagesOptions.Value;

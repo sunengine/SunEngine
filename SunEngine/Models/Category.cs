@@ -48,6 +48,8 @@ namespace SunEngine.Models
         public bool IsDeleted { get; set; }
 
         public bool IsHidden { get; set; }
+        
+        public bool IsCacheContent { get; set; }
     }
 
     public class SectionType

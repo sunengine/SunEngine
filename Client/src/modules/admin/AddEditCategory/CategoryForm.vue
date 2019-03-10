@@ -48,6 +48,10 @@
     </div>
 
     <div class="q-my-sm">
+      <q-checkbox  :toggle-indeterminate="false" v-model="category.isCacheContent" label="Кэшировать содержимое"/>
+    </div>
+
+    <div class="q-my-sm">
 
       <q-checkbox toggle-indeterminate v-model="category.appendUrlToken" label="Добавлять в URL"/>
       <span class="text-amber-8 q-ml-md">

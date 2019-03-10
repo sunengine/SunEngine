@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 using SunEngine.Configuration.Options;
@@ -29,8 +30,7 @@ namespace SunEngine.Controllers
             ICategoriesCache categoriesCache,
             OperationKeysContainer operationKeysContainer,
             IArticlesPresenter articlesPresenter,
-            MyUserManager userManager,
-            IRolesCache rolesCache) : base(rolesCache, userManager)
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             OperationKeys = operationKeysContainer;
 
@@ -55,10 +55,12 @@ namespace SunEngine.Controllers
                 return Unauthorized();
             }
 
-            IPagedList<ArticleInfoViewModel> articles =
-                await articlesPresenter.GetArticlesAsync(category.Id, page, articlesOptions.CategoryPageSize);
+            async Task<IPagedList<ArticleInfoViewModel>> LoadDataAsync()
+            {
+                return await articlesPresenter.GetArticlesAsync(category.Id, page, articlesOptions.CategoryPageSize);   
+            }
 
-            return Json(articles);
+            return await CacheContentAsync(category, category.Id, LoadDataAsync);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -20,9 +21,8 @@ namespace SunEngine.Controllers
 
 
         public CategoriesController(
-            IRolesCache rolesCache,
             ICategoriesPresenter categoriesPresenter,
-            MyUserManager userManager) : base(rolesCache, userManager)
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.categoriesPresenter = categoriesPresenter;
         }
