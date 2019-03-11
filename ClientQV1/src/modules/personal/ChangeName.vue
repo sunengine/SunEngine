@@ -2,17 +2,17 @@
   <q-page class="flex flex-center">
     <div class="center-form">
       <div class="text-grey-7 q-mb-lg">
-        {{$t("changeName.nameRulesInfo")}}
+        {{$t("changeName.nameValidationInfo")}}
       </div>
 
-      <q-input ref="password" v-model="password" type="password" :label="$t('changeName.password')" :rules="passwordRules">
+      <q-input ref="password" v-model="password" type="password" :label="$t('changeName.password')" :rules="rules.passwordRules">
         <template v-slot:prepend>
           <q-icon name="fas fa-user"/>
         </template>
       </q-input>
 
       <q-input  ref="name"  color="positive" v-model="name" :label="$t('changeName.name')"  @keyup="checkNameInDb"
-               :rules="nameRules" :after="[{
+               :rules="rules.nameRules" :after="[{
         icon: 'far fa-check-circle',
         condition: nameInDb},
         ]">
@@ -35,6 +35,23 @@
   import {makeUserDataFromTokens} from "tokens";
   import LoaderSent from "LoaderSent";
 
+
+  function createRules()
+  {
+    return {
+      passwordRules:  [
+        value => !!value || this.$t("changeName.validation.password.required")
+      ],
+      nameRules: [
+        value => !!value || this.$t("changeName.validation.name.required"),
+        value => value.length >= 3 || this.$t("changeName.validation.name.minLength"),
+        value => /^[ a-zA-Zа-яА-ЯёЁ0-9-]*$/.test(value) || this.$t("changeName.validation.name.allowedChars"),
+        value => !this.nameInDb || this.$t("changeName.validation.name.nameInDb")
+      ]
+    }
+  }
+
+
   export default {
     name: "ChangeName",
     mixins: [Page],
@@ -47,21 +64,8 @@
         submitting: false
       }
     },
-    computed: {
-      passwordRules() {
-        return [
-          value => !!value || this.$t("changeName.validation.password.required")
-        ];
-      },
-      nameRules() {
-        return [
-          value => !!value || this.$t("changeName.validation.name.required"),
-          value => value.length >= 3 || this.$t("changeName.validation.name.minLength"),
-          value => /^[ a-zA-Zа-яА-ЯёЁ0-9-]*$/.test(value) || this.$t("changeName.validation.name.allowedChars"),
-          value => !this.nameInDb || this.$t("changeName.validation.name.nameInDb")
-        ];
-      }
-    },
+
+    rules: null,
     methods: {
       checkNameInDb() {
         clearTimeout(this.timeout);
@@ -127,6 +131,8 @@
     },
     async created() {
       this.title = this.$t("changeName.title");
+
+      this.rules = createRules.call(this);
     }
   }
 </script>

@@ -79,7 +79,7 @@ module.exports = function (ctx) {
       lang: 'ru' // Quasar language
     },
 
-    preFetch: true,
+    preFetch: false,
     supportIE: false,
 
     build: {

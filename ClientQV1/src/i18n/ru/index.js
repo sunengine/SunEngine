@@ -139,7 +139,7 @@ export default {
   changeName: {
     title: "Изменить имя пользователя",
     nameChangedSuccess: "Имя изменено",
-    nameRulesInfo: "Имя может состоять из букв, цифр, пробела и символа '-', длинны не менее 3.",
+    nameValidationInfo: "Имя может состоять из букв, цифр, пробела и символа '-', длинны не менее 3.",
     save: "Сохранить",
     name: "Имя",
     password: "Пароль",
@@ -153,6 +153,19 @@ export default {
         allowedChars: "Возможно использование только допустимых символов",
         nameInDb: "Это имя уже занято"
       }
+    }
+  },
+  changeLink: {
+    title: "Редактировать Link пользователя",
+    linkEditedMessage: "Link отредактирован",
+    link: "Link",
+    linkValidationInfo: "Link должен состоять не менее чем из 3 символов <span class='text-grey-7'>'a-z', 'A-Z', '-', '0-9'</span>. И содержать хотя бы одну букву.",
+    save: "Сохранить",
+    validation: {
+      minLength: "Длинна link должна быть не менее 3",
+      allowedChars: "Допустимы только буквы английского алфавита и цифры",
+      numberNotAllow: "Необходимо что бы в link входили буквы",
+      linkInDb: "Этот link уже занят"
     }
   },
   forumPanel: {
@@ -172,6 +185,7 @@ export default {
     topic: "Тема",
     last: "Последнее"
   },
+
   admin: {
     adminPanel: {
       title: "Админка"

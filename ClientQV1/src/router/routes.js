@@ -5,6 +5,7 @@ import {makeArticlesSection, makeBlogSection, makeForumSection} from "./makeSect
 import AddEditMaterial from "material/AddEditMaterial";
 import SettingsPage from "personal/SettingsPage";
 import ChangeName from "personal/ChangeName";
+import ChangeLink from "personal/ChangeLink";
 import SettingsPanel from "personal/SettingsPanel";
 import Categories1 from 'categories/Categories1';
 import Categories2 from 'categories/Categories2';
@@ -84,6 +85,14 @@ const routes = [
     path: '/personal/ChangeName'.toLowerCase(),
     components: {
       default: ChangeName,
+      navigation: SettingsPanel
+    }
+  },
+  {
+    name: 'ChangeLink',
+    path: '/personal/ChangeLink'.toLowerCase(),
+    components: {
+      default: ChangeLink,
       navigation: SettingsPanel
     }
   },
