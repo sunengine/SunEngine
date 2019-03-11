@@ -179,6 +179,9 @@ export default {
   ChangeEmail: {
     title: "Редактировать email пользователя",
     successNotify: "Сообщение с ссылкой для подтверждения email отправлено по почте",
+    password: "Ваш пароль",
+    newEmail: "Новый email",
+    saveBtn: "@:global.btn.save",
     validation: {
       password: {
         required: "Необходимо ввести пароль"
@@ -252,7 +255,7 @@ export default {
   EditInformation: {
     title: "Редактировать информацию о себе",
     label: "Информация о вас на странице вашего профиля.",
-    editedSuccessNotify: "Информация успешно отредактирована",
+    editedSuccessNotify: "Информация успешно сохранена",
     save: "@:global.btn.save"
   },
   admin: {

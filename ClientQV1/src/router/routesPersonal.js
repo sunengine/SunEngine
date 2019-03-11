@@ -1,7 +1,7 @@
 import SettingsPanel from 'personal/SettingsPanel';
 import SettingsPage from 'personal/SettingsPage';
 import LoadPhoto from 'personal/LoadPhoto';
-import EditProfileInformation from 'personal/EditProfileInformation';
+import EditInformation from 'personal/EditInformation';
 import ChangePassword from 'personal/ChangePassword.vue';
 import ChangeEmail from 'personal/ChangeEmail.vue';
 import ChangeLink from 'personal/ChangeLink.vue';
@@ -46,10 +46,10 @@ const routes = [
     }
   },
   {
-    name: 'EditProfileInformation',
-    path: '/personal/EditProfileInformation'.toLowerCase(),
+    name: 'EditInformation',
+    path: '/personal/EditInformation'.toLowerCase(),
     components: {
-      default: EditProfileInformation,
+      default: EditInformation,
       navigation: SettingsPanel
     }
   },

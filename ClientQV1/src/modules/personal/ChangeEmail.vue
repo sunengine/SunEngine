@@ -3,19 +3,19 @@
 
     <div class="center-form">
 
-      <q-input ref="password" v-model="password" type="password" label="Ваш пароль" :rules="rules.password">
+      <q-input ref="password" v-model="password" type="password" :label="$tl('password')" :rules="rules.password">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
       </q-input>
 
-      <q-input ref="email" v-model="email" type="email" label="Новый email" :rules="rules.email">
+      <q-input ref="email" v-model="email" type="email" :label="$tl('newEmail')" :rules="rules.email">
         <template v-slot:prepend>
           <q-icon name="fas fa-envelope"/>
         </template>
       </q-input>
 
-      <q-btn no-caps class="q-mt-lg" color="send" icon="far fa-save" label="Сохранить" @click="save" :loading="submitting">
+      <q-btn no-caps class="q-mt-lg" color="send" icon="far fa-save" :label="$tl('saveBtn')" @click="save" :loading="submitting">
         <LoaderSent slot="loading"/>
       </q-btn>
 
@@ -29,7 +29,7 @@
   import LoaderSent from "LoaderSent";
 
 
-  function getRules() {
+  function createRules() {
     return {
       password: [
         value => !!value || this.$tl("validation.password.required")
@@ -95,7 +95,7 @@
     },
     async created() {
       this.title = this.$tl("title");
-      this.rules = getRules.call(this);
+      this.rules = createRules.call(this);
     }
   }
 </script>
