@@ -3,7 +3,11 @@
     <div class="center-form">
       <div class="text-grey-7 q-mb-lg" style="text-align: justify" v-html="$t('changeLink.linkValidationInfo')"></div>
       <q-input ref="link" v-model="link" :label="$t('changeLink.link')" @keyup="checkLinkInDb"
-               :rules="linkRules"/>
+               :rules="linkRules">
+        <template v-slot:prepend>
+          <q-icon name="fas fa-link"/>
+        </template>
+      </q-input>
       <q-btn class="q-mt-lg" icon="far fa-save" :label="$t('changeLink.save')" color="send" @click="save"
              :loading="submitting">
         <LoaderSent slot="loading"/>

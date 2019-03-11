@@ -1,7 +1,7 @@
 <template>
   <q-page class="page-padding">
     <h2 class="q-title">
-      <QIcon name="far fa-address-card" class="q-mr-sm" color="grey-6"/>  {{$t("settingsPage.title")}}
+      <q-icon name="far fa-address-card" class="q-mr-sm" color="grey-6"/>  {{$t("settingsPage.title")}}
     </h2>
     <SettingsMenu />
   </q-page>

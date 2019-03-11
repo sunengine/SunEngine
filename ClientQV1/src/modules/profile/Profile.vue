@@ -2,17 +2,20 @@
   <q-page class="page-padding page-padding-top">
     <div class="f1" v-if="user">
       <div class="img flex column">
-        <img width="300" height="300"  :src="$imagePath(user.photo)"/>
-        <div v-if="messageButtons" class="private-messages-block flex q-mt-sm" style="padding-right: 2px; padding-left: 2px; align-items: center; width: 100%">
+        <img width="300" height="300" :src="$imagePath(user.photo)"/>
+        <div v-if="messageButtons" class="private-messages-block flex q-mt-sm"
+             style="padding-right: 2px; padding-left: 2px; align-items: center; width: 100%">
           <q-btn class="shadow-1" color="lime-4" style="flex-grow: 1" :disable="!canPrivateMessage"
                  :to="{path: '/WritePrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}"
-                 dense icon="far fa-envelope"  label="Написать пользователю"/>
-          <q-btn :color="!user.iBannedHim ? 'lime-4' : 'negative'" class="shadow-1 q-ml-sm" dense style="padding-left:10px !important; padding-right: 10px; !important"  v-if="!user.noBannable" icon="fas fa-ellipsis-v">
-            <q-menu v-close-menu>
-              <div>
-                <q-btn color="negative" dense v-close-overlay v-if="!user.iBannedHim" @click="ban"  icon="fas fa-ban" label="Забанить"/>
-                <q-btn color="positive" dense v-close-overlay v-else @click="unBan"  icon="fas fa-smile" label="Разбанить"/>
-              </div>
+                 dense icon="far fa-envelope" label="Написать пользователю"/>
+          <q-btn :color="!user.iBannedHim ? 'lime-4' : 'negative'" class="shadow-1 q-ml-sm" dense
+                 style="padding-left:10px !important; padding-right: 10px; !important" v-if="!user.noBannable"
+                 icon="fas fa-ellipsis-v">
+            <q-menu>
+              <q-btn v-close-menu color="negative"  v-close-overlay v-if="!user.iBannedHim" @click="ban"
+                     icon="fas fa-ban" label="Забанить"/>
+              <q-btn v-close-menu color="positive"  v-close-overlay v-else @click="unBan" icon="fas fa-smile"
+                     label="Разбанить"/>
             </q-menu>
           </q-btn>
         </div>
@@ -20,9 +23,9 @@
       <div>
         <h4>{{user.name}}</h4>
         <div v-html="user.information"></div>
-       <!-- <QCollapsible v-if="canEditRoles" @show="showRolesAdmin" icon="fas fa-cog" label="Группы" style="margin-top: 30px; border: 1px solid silver" header-style="background-color: #e4e4e4">
-          <RolesForProfile  :userId="user.id" v-if="isShowRolesAdmin" />
-        </QCollapsible>-->
+        <!-- <QCollapsible v-if="canEditRoles" @show="showRolesAdmin" icon="fas fa-cog" label="Группы" style="margin-top: 30px; border: 1px solid silver" header-style="background-color: #e4e4e4">
+           <RolesForProfile  :userId="user.id" v-if="isShowRolesAdmin" />
+         </QCollapsible>-->
       </div>
     </div>
     <loader-wait v-else/>
@@ -32,7 +35,7 @@
 <script>
   import LoaderWait from "LoaderWait";
   import Page from "Page";
- // import RolesForProfile from "../admin/RolesForProfile";
+  // import RolesForProfile from "../admin/RolesForProfile";
 
   export default {
     name: "Profile",
@@ -63,7 +66,7 @@
         return from.id !== this.user?.id;
       },
       canEditRoles() {
-        return this.$store?.state?.auth?.roles?.some(x=>x === "Admin");
+        return this.$store?.state?.auth?.roles?.some(x => x === "Admin");
       }
     },
     watch: {
@@ -85,7 +88,7 @@
           this.$q.notify({
             message: `Пользователь ${this.user.name} теперь не может вам писать`,
             timeout: 5000,
-            type: 'positive',
+            color: 'info',
             position: 'top'
           });
         }).catch(error => {
@@ -104,7 +107,7 @@
           this.$q.notify({
             message: `Пользователь ${this.user.name} теперь может вам писать`,
             timeout: 5000,
-            type: 'positive',
+            color: 'positive',
             position: 'top'
           });
         }).catch(error => {

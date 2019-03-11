@@ -15,9 +15,9 @@
         <q-icon name="far fa-clock"/>
           {{$formatDate(this.article.publishDate)}}
         </span>
-      <span v-if="article.messagesCount > 0">
+      <span v-if="article.commentsCount > 0">
           <q-icon name="far fa-comment"/>
-          {{article.messagesCount}}
+          {{article.commentsCount}}
         </span>
     </q-item-label>
     </q-item-section>
@@ -27,7 +27,7 @@
 <script>
 
   export default {
-    name: "ArticleInList",
+    name: "Article",
     props: {
       article: Object,
       required: true

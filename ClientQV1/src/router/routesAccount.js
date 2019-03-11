@@ -1,9 +1,9 @@
 import Login from 'account/Login.vue';
 import Register from 'account/Register.vue';
 import RegisterEmailConfirmed from 'account/RegisterEmailConfirmed.vue';
-import ResetPassword from 'account/ResetPassword.vue';
-import ResetPasswordSetNew from 'account/ResetPasswordSetNew';
-import ResetPasswordFailed from 'account/ResetPasswordFailed.vue';
+//import ResetPassword from 'account/ResetPassword.vue';
+//import ResetPasswordSetNew from 'account/ResetPasswordSetNew';
+//import ResetPasswordFailed from 'account/ResetPasswordFailed.vue';
 
 
 
@@ -32,7 +32,7 @@ const routes = [
       notReturnable: true
     }
   },
-  {
+  /*{
     name: 'ResetPassword',
     path: '/account/ResetPassword'.toLowerCase(),
     component: ResetPassword
@@ -49,7 +49,7 @@ const routes = [
     meta: {
       notReturnable: true
     }
-  },
+  },*/
 
 
 ];

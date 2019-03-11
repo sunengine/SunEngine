@@ -4,7 +4,7 @@
 
     <template v-else>
       <q-list no-border>
-        <ArticleInList :article="article" v-for="article in articles.items" :key="article.id"/>
+        <Article :article="article" v-for="article in articles.items" :key="article.id"/>
       </q-list>
 
       <q-pagination class="page-padding q-mt-md" v-if="articles.totalPages > 1"
@@ -22,11 +22,11 @@
 
 <script>
   import LoaderWait from "LoaderWait";
-  import ArticleInList from "./ArticleInList";
+  import Article from "./Article";
 
   export default {
     name: "ArticlesList",
-    components: {LoaderWait, ArticleInList},
+    components: {LoaderWait, Article},
     data: function () {
       return {
         articles: {}

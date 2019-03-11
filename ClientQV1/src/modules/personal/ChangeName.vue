@@ -7,7 +7,7 @@
 
       <q-input ref="password" v-model="password" type="password" :label="$t('changeName.password')" :rules="rules.passwordRules">
         <template v-slot:prepend>
-          <q-icon name="fas fa-user"/>
+          <q-icon name="fas fa-key"/>
         </template>
       </q-input>
 
