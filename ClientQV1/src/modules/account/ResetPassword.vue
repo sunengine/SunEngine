@@ -1,40 +1,58 @@
 <template>
-  <q-page padding class="flex middle">
+  <q-page class="flex middle page-padding">
     <div class="center-form" v-if="!done">
-      <q-field icon="fas fa-envelope" :error="$v.email.$invalid && !start"
-               :error-label="!$v.email.required ? 'Необходимо ввести email' : 'Неправильный формат email'">
-        <q-input v-model="email" type="email" float-label="Введите email"/>
-      </q-field>
+
+      <q-input ref="email" v-model="email" type="email" label="$tl('enterEmail')">
+        <template v-slot:prepend>
+          <q-icon name="fas fa-envelope"/>
+        </template>
+      </q-input>
+
 
       <div style="padding: 10px 10px 10px 44px; border-radius: 5px; background-color: #f0f4c3; margin-bottom: 16px;">
-        <span class="wait-msg" v-if="waitToken">Что бы сгенерировать новый токен, нужно немного подождать, попробуйте через некоторое время</span>
-        <img class="block" v-else-if="token" :src="$apiPath('/Captcha/CaptchaImage?token='+token)" />
+        <span class="captcha-wait-msg" v-if="waitToken">{{$tl('Captcha.waitMessage')}}</span>
+        <img class="block" v-else-if="token" :src="$apiPath('/Captcha/CaptchaImage?token='+token)"/>
 
-        <q-btn class="shadow-1 q-mt-sm block" color="lime-6" @click="GetToken" size="sm" no-caps icon="fas fa-sync"  label="Выдать новое изображение" />
+        <q-btn class="shadow-1 q-mt-sm block" color="lime-6" @click="GetToken" size="sm" no-caps icon="fas fa-sync"
+               :label="$tl('newCommentBtn')"/>
       </div>
 
-      <q-field icon="fas fa-hand-point-right" class="q-mb-md" :error="$v.captchaText.$invalid && !start"
-               error-label="Необходимо ввести текст">
-        <q-input v-model="captchaText" float-label="Введите текст с картинки"/>
-      </q-field>
 
-      <q-field>
-        <q-btn style="width:100%;" color="send" label="Сбросить пароль" @click="send" :loading="submitting">
+      <q-input ref="captchaText" v-model="captchaText" :label="$t('Captcha.enterToken')"/>
+
+
+      <q-btn style="width:100%;" color="send" :label="$tl('resetPasswordBtn')" @click="send" :loading="submitting">
           <span slot="loading">
-            <q-spinner-mat class="on-left"/>  Отправляю данные...
+            <q-spinner class="on-left"/>  {{$t("global.submitting")}}
           </span>
-        </q-btn>
-      </q-field>
+      </q-btn>
     </div>
-    <q-alert v-else type="positive" icon="email">
-      Сообщение с ссылой для сброса пароля отправленно на email
-    </q-alert>
+
+    <q-banner v-else class="bg-positive text-white">
+      <template v-slot:avatar>
+        <q-icon name="email" size="2em"/>
+      </template>
+      {{$tl("success")}}
+    </q-banner>
+
   </q-page>
 </template>
 
 <script>
   import Page from 'Page'
-  import {required, email} from 'vuelidate/lib/validators'
+
+  function createRules() {
+    return {
+      captchaText: [
+        value => !!value || this.$tl("validation.captchaText.required")
+      ],
+      email: [
+        value => !!value || this.$tl("validation.email.required"),
+        value => /.+@.+/.test(value) || this.$tl("validation.email.emailSig")
+      ],
+    }
+  }
+
 
   export default {
     name: "ResetPassword",
@@ -50,21 +68,13 @@
         token: null
       }
     },
-    validations: {
-      email: {
-        required,
-        email
-      },
-      captchaText: {
-        required
-      }
-    },
+    rules: null,
     methods: {
       async send() {
-        this.start = false;
-        this.$v.$touch();
+        this.$refs.email.validate();
+        this.$refs.captchaText.validate();
 
-        if (this.$v.$invalid) {
+        if (this.$refs.email.hasError || this.$refs.captchaText.hasError) {
           return;
         }
 
@@ -75,13 +85,13 @@
             CaptchaToken: this.token,
             CaptchaText: this.captchaText
           }
-        }).then(response => {
+        }).then(() => {
           this.done = true;
         }).catch(error => {
           this.$q.notify({
             message: error.response.data.errorText,
             timeout: 5000,
-            type: 'negative',
+            color: 'negative',
             position: 'top'
           });
           this.loading = false;
@@ -93,25 +103,22 @@
         }).then(response => {
           this.token = response.data;
           this.waitToken = false;
-        }).catch( x => {
-          if(x.response.data.errorName == "SpamProtection") {
+        }).catch(x => {
+          if (x.response.data.errorName === "SpamProtection") {
             this.waitToken = true;
           }
         });
       }
     },
     async created() {
-      this.setTitle("Сброс пароля");
+      this.title = this.$tl("title");
       await this.GetToken();
+
+      this.rules = createRules.call(this);
     }
   }
 </script>
 
 <style lang="stylus" scoped>
-  @import '~variables';
 
-  .wait-msg {
-    font-size : 0.8em;
-    color: $negative;
-  }
 </style>

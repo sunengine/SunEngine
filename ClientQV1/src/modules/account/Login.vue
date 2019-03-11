@@ -22,7 +22,7 @@
         <q-checkbox class="text-grey-9" left-label v-model="notMyComputer" :label="$tl('notMyComputer')"/>
       </div>
 
-      <q-btn style="width:100%;" color="send" label="Войти" @click="login" :loading="submitting">
+      <q-btn style="width:100%;" color="send" :label="$tl('enterBtn')" @click="login" :loading="submitting">
         <span slot="loading">
           <q-spinner class="on-left"/>  {{$tl('entering')}}
         </span>
@@ -49,7 +49,6 @@
         password: null,
         notMyComputer: false,
         submitting: false,
-        start: true
       }
     },
     methods: {
@@ -65,28 +64,28 @@
 
         const data = {nameOrEmail: this.nameOrEmail, password: this.password, notMyComputer: this.notMyComputer};
         await this.$store.dispatch('doLogin', data)
-          .then(data => {
-            const msg = this.$tl('enterSuccess')
-          this.$q.notify({
-            message: msg,
-            timeout: 2000,
-            color: 'positive',
-            position: 'top'
+          .then( () => {
+            const msg = this.$tl('enterSuccess');
+            this.$q.notify({
+              message: msg,
+              timeout: 2000,
+              color: 'positive',
+              position: 'top'
+            });
+            this.$router.back();
+          }).catch(data => {
+            this.submitting = false;
+            this.$q.notify({
+              message: data.response.data.errorText,
+              timeout: 5000,
+              color: 'negative',
+              position: 'top'
+            });
           });
-          this.$router.back();
-        }).catch(data => {
-          this.submitting = false;
-          this.$q.notify({
-            message: data.response.data.errorText,
-            timeout: 5000,
-            color: 'negative',
-            position: 'top'
-          });
-        });
       }
     },
     created() {
-     this.title = "Войти";
+      this.title = this.$tl("title");
     }
   }
 </script>

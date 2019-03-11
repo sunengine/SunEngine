@@ -34,18 +34,16 @@
       pageTitle: {
         type: String,
         required: false,
-        default: "Новое на сайте"
       }
     },
     created() {
-      this.setTitle(this.pageTitle);
+      this.title  = this.pageTitle ?? this.$tl("defaultTitle");
     }
   }
 </script>
 
 
-<style lang="stylus">
-  @import '~css/app';
+<style lang="stylus" scoped>
 
 
 

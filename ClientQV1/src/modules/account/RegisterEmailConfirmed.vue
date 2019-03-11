@@ -1,14 +1,20 @@
 <template>
-  <QPage class="flex middle">
-    <q-alert v-if="success" type="positive" icon="fas fa-check-circle">
-      Ваша почта успешно подтверждена.
-      <router-link :to="{name: 'Login'}">Войти</router-link>
+  <q-page class="flex middle page-padding">
+    <q-banner v-if="success" class="bg-positive text-white">
+      <template v-slot:avatar>
+        <q-icon name="fas fa-check-circle" size="2em"/>
+      </template>
+      {{$tl("success")}}
+      <router-link :to="{name: 'Login'}"> {{$tl("enter")}}</router-link>
       .
-    </q-alert>
-    <q-alert v-else type="negative" icon="fas fa-exclamation-circle">
-      Подтверждение почты. Что-то пошло не так.
-    </q-alert>
-  </QPage>
+    </q-banner>
+    <q-banner v-else class="bg-negative text-white">
+      <template v-slot:avatar>
+        <q-icon name="fas fa-exclamation-circle" size="2em"/>
+      </template>
+      {{$tl("error")}}
+    </q-banner>
+  </q-page>
 </template>
 
 <script>
@@ -23,7 +29,7 @@
       }
     },
     created() {
-      this.title = "Подтверждение почты";
+      this.title = this.$tl("title");
     }
 
   }

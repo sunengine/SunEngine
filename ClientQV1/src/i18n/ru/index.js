@@ -12,7 +12,11 @@ export default {
       save: "Сохранить",
       cancel: "Отмена"
     },
-    errorNotify: "Ошибка"
+    validation: {
+      emailSig: "Неправильная сигнатура email",
+    },
+    errorNotify: "Ошибка",
+    submitting: "Отправляю данные..."
   },
   LoginRegisterMenu: {
     enter: "Войти",
@@ -36,6 +40,7 @@ export default {
     logoutNotify: "Вы вышли",
   },
   Login: {
+    title: "Войти",
     nameOrEmail: "Имя или email",
     password: "Пароль",
     entering: "Заходим...",
@@ -69,7 +74,7 @@ export default {
       },
       email: {
         required: "Введите email",
-        emailSig: "Неправильная сигнатура email",
+        emailSig: "@:global.validation.emailSig",
         maxLength: `Email должен состоять не более чем из ${config.DbColumnSizes.Users_Email} символов`
       },
       password: {
@@ -79,6 +84,27 @@ export default {
       },
       password2: {
         equals: "Пароли должны совпадать"
+      }
+    }
+  },
+  RegisterEmailConfirmed: {
+    title: "Подтверждение почты",
+    success: "Ваша почта успешно подтверждена.",
+    error: "Подтверждение почты. Что-то пошло не так.",
+    enter: "Войти"
+  },
+  ResetPassword: {
+    title: "Сброс пароля",
+    enterEmail: "Введите email",
+    resetPasswordBtn: "Сбросить пароль",
+    success: "Сообщение с ссылкой для сброса пароля отправлено на email",
+    validation: {
+      email: {
+        required: "@:ResetPassword.enterEmail",
+        emailSig: "@:global.validation.emailSig",
+      },
+      captchaText: {
+        required: "@:Captcha.enterToken"
       }
     }
   },
@@ -257,6 +283,9 @@ export default {
     label: "Информация о вас на странице вашего профиля.",
     editedSuccessNotify: "Информация успешно сохранена",
     save: "@:global.btn.save"
+  },
+  ActivitiesPage: {
+    defaultTitle: "Новое на сайте"
   },
   admin: {
     AdminPanel: {
