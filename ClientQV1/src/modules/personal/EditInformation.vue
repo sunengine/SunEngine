@@ -1,13 +1,12 @@
 <template>
   <q-page class="flex column middle page-padding">
     <template v-if="userInfo">
-      <div class="q-mb-lg text-grey-8">Информация о вас на странице вашего профиля.</div>
+      <div class="q-mb-lg text-grey-8">{{$tl("label")}}</div>
 
       <MyEditor class="q-mb-sm" style="max-width: 100%;"
-        :toolbar="[
+                :toolbar="[
           ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
         ['token', 'hr', 'link', 'addImages'],
-
                 [
           {
             label: $q.lang.editor.formatting,
@@ -37,8 +36,8 @@
         ['undo', 'redo','fullscreen'],
              ]"
 
-        ref="htmlEditor" v-model="userInfo.information"/>
-      <q-btn no-caps class="send-btn" color="send" icon="far fa-save" label="Сохранить" @click="save"/>
+                ref="htmlEditor" v-model="userInfo.information"/>
+      <q-btn no-caps class="send-btn" color="send" icon="far fa-save" :label="$tl('save')" @click="$tl('save')"/>
     </template>
     <LoaderWait v-else/>
   </q-page>
@@ -50,7 +49,7 @@
   import Page from "Page";
 
   export default {
-    name: "EditProfileInformation",
+    name: "EditInformation",
     mixins: [Page],
     components: {LoaderWait, MyEditor},
     data: function () {
@@ -69,9 +68,10 @@
               html: this.userInfo.information
             }
           }).then(response => {
-          this.$router.push({name:'Personal'});
+          this.$router.push({name: 'Personal'});
+          const msg = this.$tl("editedSuccessNotify");
           this.$q.notify({
-            message: `Информация успешно отредактирована`,
+            message: msg,
             timeout: 2800,
             color: 'positive',
             icon: 'fas fa-check-circle',
@@ -83,7 +83,7 @@
       }
     },
     async created() {
-      this.title  = "Редактировать информацию о себе";
+      this.title = this.$tl("title");
       await this.$store.dispatch("request",
         {
           url: "/Personal/GetMyProfileInformation",
@@ -97,7 +97,7 @@
 </script>
 
 <style scoped>
-.send-btn {
-  width: 270px;
-}
+  .send-btn {
+    width: 270px;
+  }
 </style>

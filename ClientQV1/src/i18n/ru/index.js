@@ -249,6 +249,12 @@ export default {
     avatarDeletedSuccessNotify: "Аватар успешно удалён",
     avatarChangedSuccessNotify: "Аватар успешно обновлён"
   },
+  EditInformation: {
+    title: "Редактировать информацию о себе",
+    label: "Информация о вас на странице вашего профиля.",
+    editedSuccessNotify: "Информация успешно отредактирована",
+    save: "@:global.btn.save"
+  },
   admin: {
     AdminPanel: {
       title: "Админка"
