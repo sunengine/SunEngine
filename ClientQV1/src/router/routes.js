@@ -16,6 +16,8 @@ import CategoriesAdminPage from 'admin/CategoriesAdminPage';
 import AdminPanel from 'admin/AdminPanel';
 import AddCategory from 'admin/AddEditCategory/AddCategory';
 import EditCategory from 'admin/AddEditCategory/EditCategory';
+import Profile from 'profile/Profile';
+import {store} from "../store";
 
 
 
@@ -73,11 +75,33 @@ const routes = [
     }
   },
   {
+    name: 'User',
+    path: '/user/:link',
+    components: {
+      default: Profile,
+      navigation: null
+    },
+    props: {
+      default: true
+    }
+  },
+  {
     name: 'Personal',
     path: '/personal',
     components: {
       default: SettingsPage,
       navigation: null
+    }
+  },
+  {
+    name: 'ProfileInSettings',
+    path: '/personal/Profile'.toLowerCase(),
+    components: {
+      default: Profile,
+      navigation: SettingsPanel
+    },
+    props: {
+      default: () => {return { link: store.state.auth.userInfo?.link }}
     }
   },
   {

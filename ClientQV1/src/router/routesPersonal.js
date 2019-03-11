@@ -88,7 +88,7 @@ const routes = [
       default: () => {return { link: store.state.auth.userInfo?.link }}
     }
   },
-]
+];
 
 for (let rote of routes) {
   if (!rote.meta) {

@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="page-padding page-padding-top">
     <div class="f1" v-if="user">
       <div class="img flex column">
         <img width="300" height="300"  :src="$imagePath(user.photo)"/>
@@ -8,21 +8,21 @@
                  :to="{path: '/WritePrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}"
                  dense icon="far fa-envelope"  label="Написать пользователю"/>
           <q-btn :color="!user.iBannedHim ? 'lime-4' : 'negative'" class="shadow-1 q-ml-sm" dense style="padding-left:10px !important; padding-right: 10px; !important"  v-if="!user.noBannable" icon="fas fa-ellipsis-v">
-            <q-popover>
-              <div v-close-overlay>
+            <q-menu v-close-menu>
+              <div>
                 <q-btn color="negative" dense v-close-overlay v-if="!user.iBannedHim" @click="ban"  icon="fas fa-ban" label="Забанить"/>
                 <q-btn color="positive" dense v-close-overlay v-else @click="unBan"  icon="fas fa-smile" label="Разбанить"/>
               </div>
-            </q-popover>
+            </q-menu>
           </q-btn>
         </div>
       </div>
       <div>
         <h4>{{user.name}}</h4>
         <div v-html="user.information"></div>
-        <QCollapsible v-if="canEditRoles" @show="showRolesAdmin" icon="fas fa-cog" label="Группы" style="margin-top: 30px; border: 1px solid silver" header-style="background-color: #e4e4e4">
+       <!-- <QCollapsible v-if="canEditRoles" @show="showRolesAdmin" icon="fas fa-cog" label="Группы" style="margin-top: 30px; border: 1px solid silver" header-style="background-color: #e4e4e4">
           <RolesForProfile  :userId="user.id" v-if="isShowRolesAdmin" />
-        </QCollapsible>
+        </QCollapsible>-->
       </div>
     </div>
     <loader-wait v-else/>
@@ -32,12 +32,12 @@
 <script>
   import LoaderWait from "LoaderWait";
   import Page from "Page";
-  import RolesForProfile from "../admin/RolesForProfile";
+ // import RolesForProfile from "../admin/RolesForProfile";
 
   export default {
     name: "Profile",
     mixins: [Page],
-    components: {RolesForProfile, LoaderWait},
+    components: {/*RolesForProfile,*/ LoaderWait},
     props: {
       link: {
         type: String,
@@ -133,7 +133,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import '~variables';
 
 
   .f1 {
