@@ -37,7 +37,7 @@
              ]"
 
                 ref="htmlEditor" v-model="userInfo.information"/>
-      <q-btn no-caps class="send-btn" color="send" icon="far fa-save" :label="$tl('save')" @click="$tl('save')"/>
+      <q-btn no-caps class="send-btn" color="send" icon="far fa-save" :label="$tl('save')" @click="save"/>
     </template>
     <LoaderWait v-else/>
   </q-page>
