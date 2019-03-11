@@ -1,11 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import routes from './routes'
 
-import routesCore from './routesCore'
-import {routeHasAccess} from "services/routeAccess";
-//import routesSite from './routesSite'
+import routesAccount from './routesAccount'
+import routesSite from './routesSite'
 import routesPersonal from './routesPersonal';
 import routesSsr from './routesSsr';
 
@@ -23,7 +21,7 @@ export var router;
 export default function (/* { store, ssrContext } */) {
   router = new VueRouter({
     scrollBehavior: () => ({ y: 0 }),
-    routes: [...routes,...routesPersonal,...routesSsr],
+    routes: [...routesAccount,...routesPersonal,...routesSite,...routesSsr],
 
 
     // Leave these as is and change from quasar.conf.js instead!

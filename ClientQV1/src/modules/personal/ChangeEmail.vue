@@ -3,9 +3,9 @@
 
     <div class="center-form" v-if="!done">
 
-      <q-input v-model="password" type="password" float-label="Ваш пароль"/>
+      <q-input v-model="password" type="password" label="Ваш пароль" :rules="passwordRules"/>
 
-      <q-input v-model="email" type="email" float-label="Новый email"/>
+      <q-input v-model="email" type="email" label="Новый email" :rules="emailRules"/>
 
       <q-btn class="q-mt-lg" color="send" icon="far fa-save" label="Сохранить" @click="save" :loading="submitting">
         <LoaderSent slot="loading"/>
@@ -39,29 +39,23 @@
         submitting: false
       }
     },
-    validations: {
-      password: {
-        required
-      },
-      email: {
-        required,
-        email
-      }
-    },
-    computed: {
-      errorEmailMessage() {
-        if (!this.$v.email.required)
-          return "Необходимо ввести email";
-        else
-          return "Введите валидный email";
-      }
-    },
+    passwordRules: [
+      value => !!value || "Необходимо ввести пароль"
+    ],
+    emailRules: [
+      value => !!value || "Необходимо ввести email",
+      value => /.+@.+/.test(value) || "Введите валидный email"
+    ],
     methods: {
       async save() {
-        this.$v.$touch();
-        if (this.$v.$invalid) {
+
+        this.$refs.email.validate();
+        this.$refs.password.validate();
+
+        if (this.$refs.email.hasError || this.$refs.password.hasError) {
           return;
         }
+
         this.submitting = true;
 
         await this.$store.dispatch("request",
@@ -91,7 +85,5 @@
 </script>
 
 <style lang="stylus" scoped>
-  .q-field {
-    height: 78px;
-  }
+
 </style>

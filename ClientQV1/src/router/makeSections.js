@@ -6,33 +6,33 @@ import ForumPanel from 'forum/ForumPanel';
 import BlogPage from "blog/BlogPage";
 
 export function makeForumSection(name, categoriesPanel) {
-  let nameLover = name.toLowerCase();
+  let nameLower = name.toLowerCase();
   return [
     {
       name: name,
-      path: '/' + nameLover,
+      path: '/' + nameLower,
       components: {
         default: NewTopics,
         navigation: ForumPanel
       },
       props: {
-        default: {categoryName: nameLover},
-        navigation: {categories: categoriesPanel, categoryName: nameLover}
+        default: {categoryName: nameLower},
+        navigation: {categories: categoriesPanel, categoryName: nameLower}
       },
     },
     {
-      path: `/${nameLover}/:categoryName`,
+      path: `/${nameLower}/:categoryName`,
       components: {
         default: Thread,
         navigation: ForumPanel
       },
       props: {
         default: true,
-        navigation: {categories: categoriesPanel, categoryName: nameLover}
+        navigation: {categories: categoriesPanel, categoryName: nameLower}
       }
     },
     {
-      path: `/${nameLover}/:categoryName/:id`,
+      path: `/${nameLower}/:categoryName/:id`,
       components: {
         default: Material,
         navigation: ForumPanel
@@ -41,7 +41,7 @@ export function makeForumSection(name, categoriesPanel) {
         default: (route) => {
           return {categoryName: route.params.categoryName, id: +route.params.id}
         },
-        navigation: {categories: categoriesPanel, categoryName: nameLover}
+        navigation: {categories: categoriesPanel, categoryName: nameLower}
       }
     }
   ]
@@ -49,23 +49,23 @@ export function makeForumSection(name, categoriesPanel) {
 
 
 export function makeArticlesSection(name) {
-  let nameLover = name.toLowerCase();
+  let nameLower = name.toLowerCase();
   return [
     {
       name: name,
-      path: '/' + nameLover,
+      path: '/' + nameLower,
       components: {
         default: ArticlesPage,
         navigation: null
       },
       props: {
         default: {
-          categoryName: nameLover
+          categoryName: nameLower
         }
       }
     },
     {
-      path: `/${nameLover}/:id`,
+      path: `/${nameLower}/:id`,
       components: {
         default: Material,
         navigation: null
@@ -73,7 +73,7 @@ export function makeArticlesSection(name) {
       props: {
         default: (route) => {
           return {
-            categoryName: nameLover,
+            categoryName: nameLower,
             id: +route.params.id
           }
         }
@@ -84,23 +84,23 @@ export function makeArticlesSection(name) {
 
 
 export function makeBlogSection(name) {
-  let nameLover = name.toLowerCase();
+  let nameLower = name.toLowerCase();
   return [
     {
       name: name,
-      path: '/' + nameLover,
+      path: '/' + nameLower,
       components: {
         default: BlogPage,
         navigation: null
       },
       props: {
         default: {
-          categoryName: nameLover
+          categoryName: nameLower
         }
       }
     },
     {
-      path: `/${nameLover}/:id`,
+      path: `/${nameLower}/:id`,
       components: {
         default: Material,
         navigation: null
@@ -108,7 +108,7 @@ export function makeBlogSection(name) {
       props: {
         default: (route) => {
           return {
-            categoryName: nameLover,
+            categoryName: nameLower,
             id: +route.params.id
           }
         }

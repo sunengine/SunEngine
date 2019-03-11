@@ -148,16 +148,16 @@ namespace SunEngine.Controllers
             var user = await userManager.FindByIdAsync(uid);
             if (user == null)
             {
-                return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/ResetPasswordFailed".ToLower()));
+                return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "account/ResetPasswordFailed".ToLower()));
             }
 
             if (await userManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider, "ResetPassword", token))
             {
-                return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/SetNewPasswordFromReset".ToLower())
+                return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "account/ResetPasswordSetNew".ToLower())
                     .SetQueryParams(new {uid = uid, token = token}));
             }
 
-            return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/ResetPasswordFailed".ToLower()));
+            return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "account/ResetPasswordFailed".ToLower()));
         }
 
         [HttpPost]
@@ -175,7 +175,7 @@ namespace SunEngine.Controllers
                         await userManager.AddToRoleAsync(user, RoleNames.Registered);
 
                         transaction.Complete();
-                        return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/registeremailconfirmed?result=ok"));
+                        return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "account/RegisterEmailConfirmed?result=ok").ToLower());
                     }
                 }
                 catch
@@ -184,7 +184,7 @@ namespace SunEngine.Controllers
                 }
             }
 
-            return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/registeremailconfirmed?result=error"));
+            return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "account/RegisterEmailConfirmed?result=error".ToLower()));
         }
 
         
@@ -207,11 +207,11 @@ namespace SunEngine.Controllers
                 return Error();
             }
 
-            return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/emailconfirmed?result=ok"));
+            return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "account/RegisterEmailConfirmed?result=ok".ToLower()));
 
             IActionResult Error()
             {
-                return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/emailconfirmed?result=error"));
+                return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "account/RegisterEmailConfirmed?result=error").ToLower());
             }
         }
 

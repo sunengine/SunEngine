@@ -1,10 +1,9 @@
-import Categories1 from 'categories/Categories1.vue';
-import Categories2 from 'categories/Categories2.vue';
-import TestExt from 'pages/TestExt.vue';
-import Blog from 'blog/Blog';
-import Index from 'pages/Index.vue';
-import News from 'pages/News'
-import ActivitiesPage from 'activities/ActivitiesPage.vue';
+import Categories1 from 'categories/Categories1';
+import Categories2 from 'categories/Categories2';
+//import TestExt from 'pages/TestExt';
+import Index from 'pages/Index';
+import News2Col from 'pages/News2Col'
+import ActivitiesPage from 'activities/ActivitiesPage';
 import {makeArticlesSection, makeForumSection, makeBlogSection} from "./makeSections";
 
 
@@ -23,17 +22,17 @@ const routes = [
     }
   },
   {
-    name: "News2",
-    path: '/News2'.toLowerCase(),
+    name: "News2Col",
+    path: '/News2Col'.toLowerCase(),
     components: {
-      default: News,
+      default: News2Col,
       navigation: null
     }
   },
-  {
+/*  {
     path: '/TestExt'.toLowerCase(),
     component: TestExt,
-  },
+  },*/
   ...makeForumSection("Forum", Categories1),
   ...makeForumSection("Forum2L", Categories2),
   ...makeArticlesSection("Articles"),
