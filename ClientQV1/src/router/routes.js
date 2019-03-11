@@ -17,7 +17,6 @@ import AdminPanel from 'admin/AdminPanel';
 import AddCategory from 'admin/AddEditCategory/AddCategory';
 import EditCategory from 'admin/AddEditCategory/EditCategory';
 import Profile from 'profile/Profile';
-import WritePrivateMessage from 'profile/WritePrivateMessage';
 import {store} from "../store";
 
 
@@ -59,23 +58,6 @@ const routes = [
     }
   },
   {
-    name: "AddEditMaterial",
-    path: '/AddEditMaterial'.toLowerCase(),
-    components: {
-      default: AddEditMaterial,
-      navigation: null
-    },
-    props: {
-      default: (route) => {
-        return {
-          categoryName: route.query.categoryName,
-          id: +route.query.id
-        }
-      },
-      navigation: null
-    }
-  },
-  {
     name: 'User',
     path: '/user/:link',
     components: {
@@ -86,26 +68,6 @@ const routes = [
       default: true
     }
   },
-  {
-    name: 'WritePrivateMessage',
-    path: '/WritePrivateMessage'.toLowerCase(),
-    components: {
-      default: WritePrivateMessage,
-      navigation: null
-    },
-    props: {
-      default: (route) => {
-        return {
-          userId: route.query.userId,
-          userName: route.query.userName
-        }
-      }
-    },
-    meta: {
-      roles: ["Registered"]
-    }
-  },
-
   {
     name: 'Admin',
     path: '/admin',
@@ -150,12 +112,5 @@ const routes = [
   ...makeBlogSection("Blog"),
 ];
 
-// Always leave this as last one
-if (process.env.MODE !== 'ssr') {
-  routes.push({
-    path: '*',
-    component: () => import('pages/Error404.vue')
-  })
-}
 
 export default routes

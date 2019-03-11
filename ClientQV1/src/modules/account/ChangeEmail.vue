@@ -1,27 +1,30 @@
 <template>
-  <QPage class="flex middle">
-    <div class="center-form" v-if="!done">
-      <q-field icon="fas fa-key" :error="$v.password.$error"
-               error-label="Введите пароль">
-        <q-input v-model="password" type="password" float-label="Ваш пароль"/>
-      </q-field>
+  <q-page class="flex middle page-padding">
 
-      <q-field icon="far fa-envelope" :error="$v.email.$error" :error-label="errorEmailMessage">
-        <q-input v-model="email" type="email" float-label="Новый email"/>
-      </q-field>
-      <QBtn class="q-mt-lg" color="send" icon="far fa-save" label="Сохранить" @click="save" :loading="submitting">
+    <div class="center-form" v-if="!done">
+
+      <q-input v-model="password" type="password" float-label="Ваш пароль"/>
+
+      <q-input v-model="email" type="email" float-label="Новый email"/>
+
+      <q-btn class="q-mt-lg" color="send" icon="far fa-save" label="Сохранить" @click="save" :loading="submitting">
         <LoaderSent slot="loading"/>
-      </QBtn>
+      </q-btn>
+
     </div>
-    <q-alert v-else type="positive" icon="email">
-      Сообщение с ссылой для подтверждения email отправлено по почте
-    </q-alert>
-  </QPage>
+
+    <q-banner v-else class="bg-positive">
+      <template v-slot:avatar>
+        <q-icon name="email" size="2em"/>
+      </template>
+      Сообщение с ссылкой для подтверждения email отправлено по почте
+    </q-banner>
+
+  </q-page>
 </template>
 
 <script>
   import Page from "Page";
-  import {required, email} from 'vuelidate/lib/validators'
   import LoaderSent from "LoaderSent";
 
   export default {
@@ -75,14 +78,14 @@
           this.$q.notify({
             message: error.response.data.errorText,
             timeout: 5000,
-            type: 'negative',
+            color: 'negative',
             position: 'top'
           });
         });
       }
     },
     async created() {
-      this.setTitle("Редактировать email пользователя");
+      this.title = "Редактировать email пользователя";
     }
   }
 </script>

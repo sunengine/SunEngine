@@ -18,7 +18,7 @@ const routes = [
     meta: {
       roles: ["Unregistered"]
     }
-  },/*
+  },
   {
     name: 'Register',
     path: '/auth/register',
@@ -64,42 +64,7 @@ const routes = [
       default: true
     }
   },
-  {
-    name: 'WritePrivateMessage',
-    path: '/WritePrivateMessage'.toLowerCase(),
-    components: {
-      default: WritePrivateMessage,
-      navigation: null
-    },
-    props: {
-      default: (route) => {
-        return {
-          userId: route.query.userId,
-          userName: route.query.userName
-        }
-      }
-    },
-    meta: {
-      roles: ["Registered"]
-    }
-  },
-  {
-    name: "AddEditMaterial",
-    path: '/AddEditMaterial'.toLowerCase(),
-    components: {
-      default: AddEditMaterial,
-      navigation: null
-    },
-    props: {
-      default: (route) => {
-        return {
-          categoryName: route.query.categoryName,
-          id: +route.query.id
-        }
-      },
-      navigation: null
-    }
-  },*/
+
 ];
 
 
