@@ -1,19 +1,19 @@
-//import AddEditMaterial from 'material/AddEditMaterial.vue';
+import AddEditMaterial from 'material/AddEditMaterial.vue';
 import Login from 'account/Login.vue';
-import Register from 'account/Register/Register.vue';
-/*import EmailConfirmed from 'account/Register/EmailConfirmed.vue';
+import Register from 'account/Register.vue';
+import RegisterEmailConfirmed from 'account/Register/EmailConfirmed.vue';
 import ResetPassword from 'account/Password/ResetPassword.vue';
 import SetNewPasswordFromReset from 'account/Password/SetNewPasswordFromReset.vue';
 import ResetPasswordFailed from 'account/Password/ResetPasswordFailed.vue';
 
 import UserProfile from 'profile/Profile';
-import WritePrivateMessage from 'profile/WritePrivateMessage';*/
+import WritePrivateMessage from 'profile/WritePrivateMessage';
 
 
 const routes = [
   {
     name: 'Login',
-    path: '/auth/login',
+    path: '/account/login',
     component: Login,
     meta: {
       roles: ["Unregistered"]
@@ -21,49 +21,39 @@ const routes = [
   },
   {
     name: 'Register',
-    path: '/auth/register',
+    path: '/account/register',
     component: Register,
     meta: {
       roles: ["Unregistered"]
     }
   },
   {
-    name: 'EmailConfirmed',
-    path: '/auth/EmailConfirmed'.toLowerCase(),
-    component: EmailConfirmed,
+    name: 'RegisterEmailConfirmed',
+    path: '/account/RegisterEmailConfirmed'.toLowerCase(),
+    component: RegisterEmailConfirmed,
     meta: {
       notReturnable: true
     }
   },
   {
     name: 'ResetPassword',
-    path: '/auth/ResetPassword'.toLowerCase(),
+    path: '/account/ResetPassword'.toLowerCase(),
     component: ResetPassword
   },
   {
     name: 'SetNewPasswordFromReset',
-    path: '/auth/SetNewPasswordFromReset'.toLowerCase(),
+    path: '/account/SetNewPasswordFromReset'.toLowerCase(),
     component: SetNewPasswordFromReset
   },
   {
     name: 'ResetPasswordFailed',
-    path: '/auth/ResetPasswordFailed'.toLowerCase(),
+    path: '/account/ResetPasswordFailed'.toLowerCase(),
     component: ResetPasswordFailed,
     meta: {
       notReturnable: true
     }
   },
-  {
-    name: 'User',
-    path: '/user/:link',
-    components: {
-      default: UserProfile,
-      navigation: null
-    },
-    props: {
-      default: true
-    }
-  },
+
 
 ];
 

@@ -2,13 +2,12 @@ import SettingsPanel from 'personal/SettingsPanel';
 import SettingsPage from 'personal/SettingsPage';
 import LoadPhoto from 'personal/LoadPhoto';
 import EditProfileInformation from 'personal/EditProfileInformation';
-import ChangePassword from 'account/Password/ChangePassword.vue';
-import ChangeEmail from 'account/ChangeEmail.vue';
+import ChangePassword from 'personal/ChangePassword.vue';
+import ChangeEmail from 'personal/ChangeEmail.vue';
 import ChangeLink from 'personal/ChangeLink.vue';
 import ChangeName from 'personal/ChangeName.vue';
 import MyBanList from 'personal/MyBanList.vue';
 import Profile from 'profile/Profile.vue';
-import WritePrivateMessage from 'profile/WritePrivateMessage';
 
 import {store} from 'store';
 
@@ -89,45 +88,14 @@ const routes = [
       navigation: SettingsPanel
     }
   },
-  {
-    name: 'WritePrivateMessage',
-    path: '/WritePrivateMessage'.toLowerCase(),
-    components: {
-      default: WritePrivateMessage,
-      navigation: null
-    },
-    props: {
-      default: (route) => {
-        return {
-          userId: route.query.userId,
-          userName: route.query.userName
-        }
-      }
-    }
-  },
-  {
-    name: "AddEditMaterial",
-    path: '/AddEditMaterial'.toLowerCase(),
-    components: {
-      default: AddEditMaterial,
-      navigation: null
-    },
-    props: {
-      default: (route) => {
-        return {
-          categoryName: route.query.categoryName,
-          id: +route.query.id
-        }
-      },
-      navigation: null
-    }
-  },
+
+
 ];
 
 
-for (let rote of routes) {
-  if (!rote.meta) {
-    rote.meta = {
+for (let route of routes) {
+  if (!route.meta) {
+    route.meta = {
       roles: ["Registered"]
     };
   }

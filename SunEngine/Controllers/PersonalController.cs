@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using SunEngine.Managers;
 using SunEngine.Presenters;
 using SunEngine.Security.Authorization;
+using SunEngine.Utils;
 
 namespace SunEngine.Controllers
 {
@@ -19,6 +21,7 @@ namespace SunEngine.Controllers
         protected readonly JwtService jwtService;
         protected readonly IPersonalPresenter personalPresenter;
 
+
         public PersonalController(
             IPersonalManager personalManager, 
             JwtService jwtService, 
@@ -28,23 +31,28 @@ namespace SunEngine.Controllers
             this.personalManager = personalManager;
             this.jwtService = jwtService;
             this.personalPresenter = personalPresenter;
+
         }
 
+        [HttpPost]
         public virtual async Task<IActionResult> GetMyUserInfo()
         {
             return Ok(await personalPresenter.GetMyUserInfoAsync(User.UserId));
         }
 
+        [HttpPost]
         public virtual async Task<IActionResult> GetMyProfileInformation()
         {
             return Ok(await personalPresenter.GetMyProfileInformationAsync(User.UserId));
         }
 
+        [HttpPost]
         public virtual async Task SetMyProfileInformation(string html)
         {
             await personalManager.SetMyProfileInformationAsync(User.UserId, html);
         }
 
+        [HttpPost]
         public virtual async Task<IActionResult> SetMyLink(string link)
         {
             link = (link+"").Trim();
@@ -59,6 +67,7 @@ namespace SunEngine.Controllers
             return Ok(await personalPresenter.GetMyUserInfoAsync(User.UserId));
         }
 
+        [HttpPost]
         public virtual async Task<IActionResult> SetMyName(string password, string name)
         {
             var user = await GetUserAsync();
@@ -112,6 +121,48 @@ namespace SunEngine.Controllers
             var usersList = await personalPresenter.GetBanListAsync(User.UserId);
 
             return Ok(usersList);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> ChangeEmail(string password, string email)
+        {
+            email = email.Trim();
+
+            if (!EmailValidator.IsValidEmail(email))
+            {
+                return BadRequest(new ErrorViewModel {ErrorText = "Email not valid"});
+            }
+
+            var user = await GetUserAsync();
+
+            if (!await userManager.CheckPasswordAsync(user, password))
+            {
+                return BadRequest(new ErrorViewModel {ErrorText = "Password not valid"});
+            }
+
+            if (await userManager.CheckEmailInDbAsync(email, user.Id))
+            {
+                return BadRequest(new ErrorViewModel {ErrorText = "Email already registered"});
+            }
+
+            await personalManager.SendChangeEmailConfirmationMessageByEmailAsync(user, email);
+
+            return Ok();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(string passwordOld, string passwordNew)
+        {
+            var user = await GetUserAsync();
+
+            var result = await userManager.ChangePasswordAsync(user, passwordOld, passwordNew);
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return BadRequest(
+                new ErrorViewModel {ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()});
         }
     }
 

@@ -29,7 +29,7 @@
   import LoaderSent from "LoaderSent";
 
   export default {
-    name: "WritePrivateMessage",
+    name: "SendPrivateMessage",
     components: {LoaderSent},
     mixins: [Page],
     props: {

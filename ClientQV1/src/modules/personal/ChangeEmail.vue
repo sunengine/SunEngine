@@ -66,7 +66,7 @@
 
         await this.$store.dispatch("request",
           {
-            url: "/Account/ChangeEmail",
+            url: "/Personal/ChangeEmail",
             data: {
               password: this.password,
               email: this.email,

@@ -21,7 +21,7 @@ using SunEngine.Utils;
 
 namespace SunEngine.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class AccountController : BaseController
     {
         private readonly IEmailSender emailSender;
@@ -49,8 +49,7 @@ namespace SunEngine.Controllers
         }
 
 
-        [AllowAnonymous]
-        [Produces("application/json")]
+        [HttpPost]
         public async Task<IActionResult> Login(string nameOrEmail, string password)
         {
             var result = await accountService.LoginAsync(nameOrEmail,password);
@@ -65,6 +64,8 @@ namespace SunEngine.Controllers
             return Ok();
         }
 
+        [Authorize]
+        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             int userId = User.UserId;
@@ -77,7 +78,7 @@ namespace SunEngine.Controllers
         }
 
 
-        [AllowAnonymous]
+        [HttpPost]
         [CaptchaValidationFilter]
         public async Task<IActionResult> Register(NewUserViewModel model)
         {
@@ -93,24 +94,9 @@ namespace SunEngine.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> ChangePassword(string passwordOld, string passwordNew)
-        {
-            var user = await GetUserAsync();
-
-            var result = await userManager.ChangePasswordAsync(user, passwordOld, passwordNew);
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-
-            return BadRequest(
-                new ErrorViewModel {ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()});
-        }
+        
 
         [HttpPost]
-        [AllowAnonymous]
         [CaptchaValidationFilter]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
@@ -141,7 +127,6 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> ChangePasswordFromReset(string uid, string token, string newPassword)
         {
             var user = await userManager.FindByIdAsync(uid);
@@ -157,7 +142,7 @@ namespace SunEngine.Controllers
         /// <summary>
         /// Show Interface to change password
         /// </summary>
-        [AllowAnonymous]
+        [HttpPost]
         public async Task<IActionResult> ChangePasswordFromResetDialog(string uid, string token)
         {
             var user = await userManager.FindByIdAsync(uid);
@@ -175,7 +160,7 @@ namespace SunEngine.Controllers
             return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/ResetPasswordFailed".ToLower()));
         }
 
-        [AllowAnonymous]
+        [HttpPost]
         public async Task<IActionResult> Confirm(string uid, string token)
         {
             var user = await userManager.FindByIdAsync(uid);
@@ -190,7 +175,7 @@ namespace SunEngine.Controllers
                         await userManager.AddToRoleAsync(user, RoleNames.Registered);
 
                         transaction.Complete();
-                        return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/emailconfirmed?result=ok"));
+                        return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/registeremailconfirmed?result=ok"));
                     }
                 }
                 catch
@@ -199,38 +184,12 @@ namespace SunEngine.Controllers
                 }
             }
 
-            return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/emailconfirmed?result=error"));
+            return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "auth/registeremailconfirmed?result=error"));
         }
 
-        [Authorize]
+        
+
         [HttpPost]
-        public async Task<IActionResult> ChangeEmail(string password, string email)
-        {
-            email = email.Trim();
-
-            if (!EmailValidator.IsValidEmail(email))
-            {
-                return BadRequest(new ErrorViewModel {ErrorText = "Email not valid"});
-            }
-
-            var user = await GetUserAsync();
-
-            if (!await userManager.CheckPasswordAsync(user, password))
-            {
-                return BadRequest(new ErrorViewModel {ErrorText = "Password not valid"});
-            }
-
-            if (await userManager.CheckEmailInDbAsync(email, user.Id))
-            {
-                return BadRequest(new ErrorViewModel {ErrorText = "Email already registered"});
-            }
-
-            await accountService.SendChangeEmailConfirmationMessageByEmailAsync(user, email);
-
-            return Ok();
-        }
-
-        [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string token)
         {
             try

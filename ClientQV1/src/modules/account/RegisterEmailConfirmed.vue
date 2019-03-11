@@ -15,15 +15,15 @@
   import Page from "Page";
 
   export default {
-    name: "EmailConfirmed",
+    name: "RegisterEmailConfirmed",
     mixins: [Page],
     computed: {
       success() {
-        return this.$route.query["result"] == "ok";
+        return this.$route.query["result"] === "ok";
       }
     },
     created() {
-      this.setTitle("Подтверждение почты");
+      this.title = "Подтверждение почты";
     }
 
   }

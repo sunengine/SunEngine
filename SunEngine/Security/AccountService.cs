@@ -29,7 +29,6 @@ namespace SunEngine.Security
     {
         Task<UserServiceResult> LoginAsync(string nameOrEmail, string password);
         string GenerateChangeEmailToken(User user, string email);
-        Task SendChangeEmailConfirmationMessageByEmailAsync(User user, string email);
         bool ValidateChangeEmailToken(string token, out int userId, out string email);
         Task<ServiceResult> RegisterAsync(NewUserViewModel model);
     }
@@ -138,20 +137,7 @@ namespace SunEngine.Security
         }
 
 
-        public virtual async Task SendChangeEmailConfirmationMessageByEmailAsync(User user, string email)
-        {
-            var urlHelper = GetUrlHelper();
-
-            var emailToken = await userManager.GenerateChangeEmailTokenAsync(user, email);
-
-            var (schema, host) = globalOptions.GetSchemaAndHostApi();
-
-            var updateEmailUrl = urlHelper.Action("ConfirmEmail", "Account",
-                new {token = emailToken}, schema, host);
-
-            await emailSender.SendEmailAsync(user.Email, "Confirm your email",
-                $"Confirm your email by clicking this <a href=\"{updateEmailUrl}\">link</a>.");
-        }
+        
 
         public virtual bool ValidateChangeEmailToken(string token, out int userId, out string email)
         {
