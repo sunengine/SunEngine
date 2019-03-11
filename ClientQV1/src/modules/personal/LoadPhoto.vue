@@ -3,7 +3,8 @@
     <img v-if="photo" width="300" :src="photo"/>
     <br/>
     <input ref="file" type="file" accept="image/*" style="display:none" @change="handleFile"/>
-    <q-btn no-caps color="send" class="q-mb-xl" :loading="loading" icon="far fa-user-circle" :label="$tl('uploadNewPhotoBtn')"
+    <q-btn no-caps color="send" class="q-mb-xl" :loading="loading" icon="far fa-user-circle"
+           :label="$tl('uploadNewPhotoBtn')"
            @click="upload"/>
     <q-btn no-caps v-if="!isDefault && !loading" color="negative" icon="fas fa-trash-alt" :label="$tl('resetBtn')"
            @click="resetAvatar"/>
@@ -50,8 +51,7 @@
             url: "/Images/UploadUserPhoto",
             data: formData
           })
-          .then(
-            async response => {
+          .then(async () => {
               await this.$store.dispatch('getMyUserInfo');
               this.loading = false;
               const msg = this.$t("global.avatarChangedSuccessNotify");
@@ -82,8 +82,7 @@
           {
             url: "/Personal/RemoveMyAvatar"
           })
-          .then(
-            async response => {
+          .then(async () => {
               await this.$store.dispatch('getMyUserInfo');
               this.loading = false;
               const msg = this.$tl("avatarDeletedSuccessNotify");

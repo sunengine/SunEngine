@@ -67,7 +67,7 @@
             data: {
               html: this.userInfo.information
             }
-          }).then(response => {
+          }).then( () => {
           this.$router.push({name: 'Personal'});
           const msg = this.$tl("editedSuccessNotify");
           this.$q.notify({
