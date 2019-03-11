@@ -16,7 +16,7 @@
         </q-item-section>
         <q-item-section>
           <q-item-label>
-            {{$t('userMenu.profile')}}
+            {{$tl('profile')}}
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -26,7 +26,7 @@
         </q-item-section>
         <q-item-section>
           <q-item-label>
-            {{$t('userMenu.yourAccount')}}
+            {{$tl('yourAccount')}}
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -36,7 +36,7 @@
         </q-item-section>
         <q-item-section>
           <q-item-label>
-            {{$t('userMenu.adminPanel')}}
+            {{$tl('adminPanel')}}
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -46,7 +46,7 @@
         </q-item-section>
         <q-item-section>
           <q-item-label>
-            {{$t('userMenu.exit')}}
+            {{$tl('exit')}}
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -69,7 +69,7 @@
     },
     methods: {
       logout() {
-        const logoutNotifyMessage = this.$t('userMenu.logoutNotifyMessage');
+        const logoutNotifyMessage = this.$tl('logoutNotify');
         this.$store.dispatch('logout')
           .then(() => {
             this.$q.notify({

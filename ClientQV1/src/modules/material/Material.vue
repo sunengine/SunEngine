@@ -5,13 +5,13 @@
         {{material.title}}
       </h2>
       <div v-if="category" style="margin-top: -10px;" class="q-mb-md">
-        <span class="text-grey-7">{{$t("material.category")}} </span>
+        <span class="text-grey-7">{{$tl("category")}} </span>
         <router-link :to="categoryPath">{{category.title}}</router-link>
       </div>
       <div v-html="material.text">
       </div>
       <div v-if="material.tags && material.tags.length > 0" class="q-mt-lg" style="text-align: center">
-        {{$t("material.tags")}}
+        {{$tl("tags")}}
         <q-chip class="q-mx-xs" dense color="info" v-for="tag in material.tags" :key="tag">
           {{tag}}
         </q-chip>
@@ -29,7 +29,7 @@
           <a href="#" style="display: inline-flex; align-items: center;"
              @click.prevent="$router.push(`/AddEditMaterial?id=`+material.id)">
             <q-icon name="fas fa-edit" class="q-mr-xs"/>
-            {{$t("material.edit")}}</a>
+            {{$tl("edit")}}</a>
         </div>
         <div class="q-mr-md" v-if="canDelete">
           <a href="#" style="display: inline-flex; align-items: center;"

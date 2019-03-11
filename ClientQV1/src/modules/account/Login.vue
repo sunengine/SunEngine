@@ -3,15 +3,15 @@
 
     <div class="center-form">
 
-      <q-input ref="nameOrEmail" v-model="nameOrEmail" :label="$t('login.nameOrEmail')"
-               :rules="[(value) => !!value || $t('login.validation.nameOrEmail.required')]">
+      <q-input ref="nameOrEmail" v-model="nameOrEmail" :label="$tl('nameOrEmail')"
+               :rules="[(value) => !!value || $tl('validation.nameOrEmail.required')]">
         <template v-slot:prepend>
           <q-icon name="fas fa-user"/>
         </template>
       </q-input>
 
-      <q-input ref="password" v-model="password" type="password" @keyup.enter="login" :label="$t('login.password')"
-               :rules="[(value) => !!value || $t('login.validation.password.required')]">
+      <q-input ref="password" v-model="password" type="password" @keyup.enter="login" :label="$tl('password')"
+               :rules="[(value) => !!value || $tl('validation.password.required')]">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
@@ -19,18 +19,18 @@
 
 
       <div class="q-my-md" style="text-align: right;">
-        <q-checkbox class="text-grey-9" left-label v-model="notMyComputer" :label="$t('login.notMyComputer')"/>
+        <q-checkbox class="text-grey-9" left-label v-model="notMyComputer" :label="$tl('notMyComputer')"/>
       </div>
 
       <q-btn style="width:100%;" color="send" label="Войти" @click="login" :loading="submitting">
         <span slot="loading">
-          <q-spinner class="on-left"/>  {{$t('login.entering')}}
+          <q-spinner class="on-left"/>  {{$tl('entering')}}
         </span>
       </q-btn>
 
       <router-link class="text-center q-mt-lg" :to="{name:'ResetPassword'}">
         <QIcon class="q-mr-sm" name="far fa-question-circle"/>
-        <span>{{$t('login.forgotPassword')}}</span>
+        <span>{{$tl('forgotPassword')}}</span>
       </router-link>
     </div>
 
@@ -64,9 +64,11 @@
         this.submitting = true;
 
         const data = {nameOrEmail: this.nameOrEmail, password: this.password, notMyComputer: this.notMyComputer};
-        await this.$store.dispatch('doLogin', data).then(data => {
+        await this.$store.dispatch('doLogin', data)
+          .then(data => {
+            const msg = this.$tl('enterSuccess')
           this.$q.notify({
-            message: this.$t('login.enterSuccess'),
+            message: msg,
             timeout: 2000,
             color: 'positive',
             position: 'top'

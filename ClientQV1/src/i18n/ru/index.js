@@ -13,28 +13,28 @@ export default {
       cancel: "Отмена"
     }
   },
-  loginOrRegisterMenu: {
+  LoginRegisterMenu: {
     enter: "Войти",
     register: "Зарегистрироваться"
   },
-  app: {
+  App: {
     loading: "Загрузка...",
     canNotConnectApi: "Невозможно соединиться с API."
   },
-  captcha: {
+  Captcha: {
     newCommentBtn: "Выдать новое изображение",
     waitMessage: "Что бы сгенерировать новый токен, нужно немного подождать, попробуйте через некоторое время",
     enterToken: "Введите текст с картинки",
     required: "@:captcha.enterToken",
   },
-  userMenu: {
+  UserMenu: {
     profile: "Профиль",
     yourAccount: "Личный кабинет",
     adminPanel: "Админка",
     exit: "Выйти",
-    logoutNotifyMessage: "Вы вышли",
+    logoutNotify: "Вы вышли",
   },
-  login: {
+  Login: {
     nameOrEmail: "Имя или email",
     password: "Пароль",
     entering: "Заходим...",
@@ -51,7 +51,7 @@ export default {
       },
     }
   },
-  register: {
+  Register: {
     title: "Зарегистрироваться",
     userName: "Имя пользователя",
     email: "Email",
@@ -81,12 +81,12 @@ export default {
       }
     }
   },
-  addEditComment: {
+  AddEditComment: {
     required: "Введите сообщение",
     htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
     spamProtectionMessage: "Нельзя так часто отправлять сообщения. Подождите немного."
   },
-  addEditMaterial: {
+  AddEditMaterial: {
     title: "Заголовок",
     description: "Короткое описание",
     tags: "Метки",
@@ -108,26 +108,26 @@ export default {
       }
     }
   },
-  myEditor: {
+  MyEditor: {
     uploadImages: "Добавить изображения"
   },
-  material: {
+  Material: {
     category: "раздел:",
     edit: "Редактировать",
     tags: "Метки:"
   },
-  readComment: {
+  ReadComment: {
     edit: "редактировать",
     deleteDialogComment: "Удалить сообщение?"
   },
-  postInList: {
+  Post: {
     commentsCount: "сообщений",
     readMore: "Читать дальше"
   },
-  blog: {
-    newPost: "Новый пост"
+  Blog: {
+    newPostBtn: "Новый пост"
   },
-  settingsMenu: {
+  SettingsMenu: {
     goToProfile: "Просмотреть профиль",
     changeEmail: "Изменить email",
     changePassword: "Изменить пароль",
@@ -137,14 +137,17 @@ export default {
     changePhoto: "Изменить фотографию",
     banedUsersList: "Забаненые пользователи"
   },
-  settingsPage: {
+  SettingsPage: {
     title: "Личный кабинет"
   },
-  changeName: {
+  SettingsPanel: {
+    title: "@:SettingsPage.title"
+  },
+  ChangeName: {
     title: "Изменить имя пользователя",
     successNotify: "Имя изменено",
     nameValidationInfo: "Имя может состоять из букв, цифр, пробела и символа '-', длинны не менее 3.",
-    save: "@:global.btn.save",
+    saveBtn: "@:global.btn.save",
     name: "Имя",
     password: "Пароль",
     validation: {
@@ -159,7 +162,7 @@ export default {
       }
     }
   },
-  changeLink: {
+  ChangeLink: {
     title: "Редактировать Link пользователя",
     linkEditedMessage: "Link отредактирован",
     link: "Link",
@@ -172,7 +175,7 @@ export default {
       linkInDb: "Этот link уже занят"
     }
   },
-  changeEmail: {
+  ChangeEmail: {
     title: "Редактировать email пользователя",
     successNotify: "Сообщение с ссылкой для подтверждения email отправлено по почте",
     validation: {
@@ -185,7 +188,7 @@ export default {
       }
     }
   },
-  changePassword: {
+  ChangePassword: {
     title: "Изменить пароль",
     successNotify: 'Пароль изменён.',
     changeBtn: "Изменить пароль",
@@ -206,49 +209,49 @@ export default {
       }
     }
   },
-  forumPanel: {
+  ForumPanel: {
     newTopics: "Новые сообщения",
     sections: "Разделы"
   },
-  topic: {
+  Topic: {
     lastFrom: "Последнее от"
   },
-  activity: {
+  Activity: {
     material: "Текст",
     comment: "Комментарий"
   },
-  thread: {
+  Thread: {
     newTopicBtn: "Новая тема",
     topic: "Тема",
     last: "Последнее"
   },
-  newTopics: {
+  NewTopics: {
     titleStart: "Новые темы",
     newTopicBtn: "@:thread.newTopicBtn",
     topic: "@:thread.topic",
     last: "@:thread.last"
   },
   admin: {
-    adminPanel: {
+    AdminPanel: {
       title: "Админка"
     },
-    adminMenu: {
+    AdminMenu: {
       categoriesAdmin: "Категории",
       rolesPermissions: "Настройка прав",
       rolesUsers: "Группы пользователей"
     },
-    editCategory: {
+    EditCategory: {
       title: "Редактировать категорию",
       deleteBtn: "Удалить категорию",
       saveBtn: "@:global.btn.save",
       cancelBtn: "@:global.btn.cancel",
     },
-    addCategory: {
+    AddCategory: {
       title: "Добавить категорию",
       createBtn: "Создать",
       cancelBtn: "@:global.btn.cancel",
     },
-    categoryForm: {
+    CategoryForm: {
       name: "Имя категории (eng)",
       title: "Заголовок",
       shortDescription: "Короткое описание",
@@ -258,9 +261,12 @@ export default {
       deleteConfirm: "Вы уверены что хотите удалить категорию?\nВсё содержание категории также будут удалено.",
       parent: "Родитель: "
     },
-    categoriesAdminPage: {
+    CategoriesAdminPage: {
       title: "Админка категорий",
       addCategoryBtn: "Добавить категорию"
+    },
+    CategoryItem: {
+      rootCategory: "Корневая категория"
     }
   },
 }

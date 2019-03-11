@@ -30,25 +30,25 @@
       </q-input>
 
       <div style="padding: 10px 10px 10px 44px; border-radius: 5px; background-color: #f0f4c3">
-        <span class="wait-msg" v-if="waitToken">{{$t("captcha.waitMessage")}}</span>
+        <span class="wait-msg" v-if="waitToken">{{$tl("waitMessage")}}</span>
         <img class="block" v-else-if="token" :src="$apiPath('/Captcha/CaptchaImage?token='+token)"/>
 
         <q-btn class="shadow-1 q-mt-sm block" color="lime-6" @click="GetToken" size="sm" no-caps icon="fas fa-sync"
-               :label="$t('captcha.newMessageBtn')"/>
+               :label="$tl('newMessageBtn')"/>
       </div>
 
 
-      <q-input ref="captcha" v-model="captchaText" :label="$t('captcha.enterToken')" :rules="captchaRules">
+      <q-input ref="captcha" v-model="captchaText" :label="$tl('enterToken')" :rules="captchaRules">
         <template v-slot:prepend>
           <q-icon name="fas fa-hand-point-right"/>
         </template>
       </q-input>
 
 
-      <q-btn style="width:100%;" color="send" :label="$t('register.registerBtn')" @click="register"
+      <q-btn style="width:100%;" color="send" :label="$tl('registerBtn')" @click="register"
              :loading="submitting">
         <span slot="loading">
-          <q-spinner class="on-left"/>  {{$t('register.registering')}}
+          <q-spinner class="on-left"/>  {{$tl('registering')}}
         </span>
       </q-btn>
 
@@ -57,7 +57,7 @@
       <template v-slot:avatar>
         <q-icon name="far fa-envelope" size="2em"/>
       </template>
-      {{$t('register.emailSent')}}
+      {{$tl('emailSent')}}
     </q-banner>
   </q-page>
 </template>
@@ -86,28 +86,28 @@
     computed: {
       userNameRules() {
         return [
-          (value) => !!value || this.$t("register.validation.userName.required"),
-          (value) => value.length >= 3 || this.$t("register.validation.userName.minLength"),
-          (value) => value.length <= config.DbColumnSizes.Users_UserName || this.$t("register.validation.userName.maxLength")
+          (value) => !!value || this.$tl("validation.userName.required"),
+          (value) => value.length >= 3 || this.$tl("validation.userName.minLength"),
+          (value) => value.length <= config.DbColumnSizes.Users_UserName || this.$tl("validation.userName.maxLength")
         ];
       },
       emailRules() {
         return [
-          (value) => !!value || this.$t("register.validation.email.required"),
-          (value) => /.+@.+/.test(value) || this.$t("register.validation.email.emailSig"),
-          (value) => value.length <= config.DbColumnSizes.Users_Email || this.$t("register.validation.email.maxLength"),
+          (value) => !!value || this.$tl("validation.email.required"),
+          (value) => /.+@.+/.test(value) || this.$tl("validation.email.emailSig"),
+          (value) => value.length <= config.DbColumnSizes.Users_Email || this.$tl("validation.email.maxLength"),
         ];
       },
       passwordRules() {
         return [
-          (value) => !!value || this.$t("register.validation.password.required"),
-          (value) => value.length >= config.PasswordValidation.MinLength || this.$t("register.validation.password.minLength"),
-          (value) => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$t("register.validation.password.minDifferentChars"),
+          (value) => !!value || this.$tl("validation.password.required"),
+          (value) => value.length >= config.PasswordValidation.MinLength || this.$tl("validation.password.minLength"),
+          (value) => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$tl("validation.password.minDifferentChars"),
         ];
       },
       password2Rules() {
         return [...this.passwordRules,
-          (value) => this.password === this.password2 ||  this.$t("register.validation.password2.equals")];
+          (value) => this.password === this.password2 ||  this.$tl("validation.password2.equals")];
       },
       captchaRules() {
         return [(value) => !!value || this.$t("captcha.required"),
@@ -163,7 +163,7 @@
       }
     },
     async created() {
-      this.title = this.$t("register.title");
+      this.title = this.$tl("title");
       await this.GetToken();
       console.log(this.t);
     }

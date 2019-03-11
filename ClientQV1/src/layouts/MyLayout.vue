@@ -25,7 +25,7 @@
         <q-btn v-else flat dense round>
           <q-icon name="fas fa-user"/>
           <q-menu>
-            <LoginOrRegisterMenu v-close-menu/>
+            <LoginRegisterMenu v-close-menu/>
           </q-menu>
         </q-btn>
 
@@ -59,7 +59,7 @@
 
 <script>
   import MainMenu from "./MainMenu";
-  import LoginOrRegisterMenu from "./LoginOrRegisterMenu";
+  import LoginRegisterMenu from "./LoginRegisterMenu";
   import {mapState} from "vuex";
   import UserMenu from "./UserMenu";
 
@@ -68,7 +68,7 @@
 
 
     name: 'MyLayout',
-    components: {UserMenu, LoginOrRegisterMenu, MainMenu},
+    components: {UserMenu, LoginRegisterMenu, MainMenu},
     data() {
       return {
         leftDrawerOpen: this.$q.platform.is.desktop,

@@ -5,7 +5,7 @@
     <div v-else-if="!initializeError" class="loader">
       <div>
         <q-spinner-gears size="40px" class="q-mr-sm"/>
-        {{$t('app.loading')}}
+        {{$tl('loading')}}
       </div>
     </div>
 
@@ -14,7 +14,7 @@
         <template v-slot:avatar>
           <q-icon name="fas fa-exclamation-triangle" size="2em"/>
         </template>
-       {{$t('app.canNotConnectApi')}}
+       {{$tl('canNotConnectApi')}}
       </q-banner>
     </div>
   </div>

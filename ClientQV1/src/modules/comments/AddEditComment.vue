@@ -72,8 +72,8 @@
     computed: {
       commentRules() {
         return [
-          (value) => !!value || this.$t('addEditComment.required'),
-          (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$t('addEditComment.htmlTextSizeOrHasImage'),
+          (value) => !!value || this.$tl('required'),
+          (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$tl('htmlTextSizeOrHasImage'),
         ];
       },
       isNew: function () {
@@ -84,7 +84,7 @@
     methods: {
       async addComment() {
         this.loading = true;
-        const messageSpamProtection = this.$t("addEditComment.spamProtectionComment");
+        const messageSpamProtection = this.$tl("spamProtectionComment");
 
         await this.$store.dispatch("request",
           {

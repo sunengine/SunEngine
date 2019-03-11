@@ -5,15 +5,15 @@
 
       <div class="btn-block">
         <q-btn no-caps icon="fas fa-trash-alt" class="float-right" @click="tryDelete"
-               :label="$t('admin.editCategory.deleteBtn')" color="negative"/>
+               :label="$ta('deleteBtn')" color="negative"/>
 
-        <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$t('admin.editCategory.saveBtn')"
+        <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$ta('saveBtn')"
                @click="save" color="send">
           <LoaderSent slot="loading"/>
         </q-btn>
 
         <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack('CategoriesAdmin')"
-               :label="$t('admin.editCategory.cancelBtn')" color="warning"/>
+               :label="$ta('cancelBtn')" color="warning"/>
       </div>
     </div>
     <LoaderWait v-else/>
@@ -44,7 +44,7 @@
     },
     methods: {
       async tryDelete() {
-        const msg = this.$t("admin.categoryForm.deleteConfirm");
+        const msg = this.$ta("deleteConfirm");
         this.$q.dialog({
           message: msg,
           ok: 'Удалить',
@@ -128,7 +128,7 @@
     },
     async created() {
       await this.loadData();
-      this.title = this.$t("admin.editCategory.title") + ": " + this.category.title
+      this.title = this.$ta("title") + ": " + this.category.title
     }
 
   }

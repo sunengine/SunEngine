@@ -2,14 +2,14 @@
   <q-page class="q-pa-md">
     <template v-if="material">
 
-      <q-input ref="title" v-model="material.title" :label="$t('addEditMaterial.title')" :rules="titleRules">
+      <q-input ref="title" v-model="material.title" :label="$tl('title')" :rules="titleRules">
         <template v-slot:prepend>
           <q-icon name="fas fa-info-circle"/>
         </template>
       </q-input>
 
       <q-input ref="description" v-if="canEditDescription" v-model="material.description" type="textarea" autogrow
-               :label="$t('addEditMaterial.description')" :rules="descriptionRules">
+               :label="$tl('description')" :rules="descriptionRules">
         <template v-slot:prepend>
           <q-icon name="fas fa-info-circle"/>
         </template>
@@ -50,7 +50,7 @@
         :rules="textRules"
         ref="htmlEditor" v-model="material.text"/>
 
-      <q-select v-model="material.tags" use-input use-chips multiple :label="$t('addEditMaterial.tags')"
+      <q-select v-model="material.tags" use-input use-chips multiple :label="$tl('tags')"
                 hide-dropdown-icon input-debounce="0"
                 @new-value="arguments[0].length > 0 && arguments[1](arguments[0])">
         <template v-slot:prepend>
@@ -73,7 +73,7 @@
           </MyTree>
         </q-menu>
       </q-btn>
-      <div class="error" v-if="!material.categoryName && !start">{{$t('addEditMaterial.validation.category.required')}}</div>
+      <div class="error" v-if="!material.categoryName && !start">{{$tl('validation.category.required')}}</div>
 
       <div class="q-mt-md">
         <q-btn icon="fas fa-arrow-circle-right" class="btn-send" no-caps :loading="loading" label="Отправить"
@@ -125,20 +125,20 @@
     computed: {
       titleRules() {
         return [
-          (value) => !!value || this.$t('addEditMaterial.validation.title.required'),
-          (value) => value.length >= 3 || this.$t('addEditMaterial.validation.title.minLength'),
-          (value) => value.length <= config.DbColumnSizes.Categories_Title || this.$t('addEditMaterial.validation.title.maxLength'),
+          (value) => !!value || this.$tl('validation.title.required'),
+          (value) => value.length >= 3 || this.$tl('validation.title.minLength'),
+          (value) => value.length <= config.DbColumnSizes.Categories_Title || this.$tl('validation.title.maxLength'),
         ];
       },
       textRules() {
         return [
-          (value) => !!value || this.$t('addEditMaterial.validation.text.required'),
-          (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$t('addEditMaterial.validation.text.htmlTextSizeOrHasImage'),
+          (value) => !!value || this.$tl('validation.text.required'),
+          (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$tl('validation.text.htmlTextSizeOrHasImage'),
         ];
       },
       descriptionRules() {
         return [
-          (value) => value.length <= config.DbColumnSizes.Materials_Description || this.$t('addEditMaterial.validation.description.maxLength'),
+          (value) => value.length <= config.DbColumnSizes.Materials_Description || this.$tl('validation.description.maxLength'),
         ];
       },
       canEditDescription() {

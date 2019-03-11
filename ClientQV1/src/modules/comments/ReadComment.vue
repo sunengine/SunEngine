@@ -10,7 +10,7 @@ cd <template>
            </router-link>
         </span> &nbsp;
         <span v-if="canEdit" class=" q-mr-md">
-                    <a href="#" @click.prevent="$emit('goEdit')"><q-icon name="fas fa-edit"/> {{$t("readComment.edit")}}</a>
+                    <a href="#" @click.prevent="$emit('goEdit')"><q-icon name="fas fa-edit"/> {{$tl("edit")}}</a>
         </span>
         <span v-if="canMoveToTrash" class=" q-mr-md">
                     <a href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash"/></a>
@@ -44,7 +44,7 @@ cd <template>
     },
     methods: {
       async moveToTrash() {
-        const deleteDialogMessage = this.$t("readComment.deleteDialogMessage");
+        const deleteDialogMessage = this.$tl("deleteDialogMessage");
         const okButtonLabel = this.$t("global.dialog.ok");
         const cancelButtonLabel = this.$t("global.dialog.cancel");
 

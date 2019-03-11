@@ -32,11 +32,11 @@
   function getRules() {
     return {
       password: [
-        value => !!value || this.$t("changeEmail.validation.password.required")
+        value => !!value || this.$tl("validation.password.required")
       ],
       email: [
-        value => !!value || this.$t("changeEmail.validation.password.email"),
-        value => /.+@.+/.test(value) || this.$t("changeEmail.validation.password.email")
+        value => !!value || this.$tl("validation.password.email"),
+        value => /.+@.+/.test(value) || this.$tl("validation.password.email")
       ],
     }
   }
@@ -74,7 +74,7 @@
               email: this.email,
             }
           }).then(response => {
-          const msg = this.$t("changeEmail.successNotify");
+          const msg = this.$tl("successNotify");
           this.$q.notify({
             message: msg,
             timeout: 5000,
@@ -94,7 +94,7 @@
       }
     },
     async created() {
-      this.title = this.$t("changeEmail.title");
+      this.title = this.$tl("title");
       this.rules = getRules.call(this);
     }
   }

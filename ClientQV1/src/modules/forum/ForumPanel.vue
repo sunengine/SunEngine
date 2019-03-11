@@ -1,12 +1,12 @@
 <template>
   <div>
     <h4 class="menu-panel-title text-grey-8">
-      <QIcon name="far fa-comments" size="1.4em" class="q-mr-sm" /> {{$t("forumPanel.sections")}}
+      <QIcon name="far fa-comments" size="1.4em" class="q-mr-sm" /> {{$tl("sections")}}
     </h4>
     <q-item class="q-my-xs" exact dense :to="newTopicsPath">
       <q-item-section>
         <q-item-label>
-          {{$t("forumPanel.newTopics")}}
+          {{$tl("newTopics")}}
         </q-item-label>
       </q-item-section>
     </q-item>

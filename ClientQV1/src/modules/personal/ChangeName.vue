@@ -2,16 +2,16 @@
   <q-page class="flex flex-center">
     <div class="center-form">
       <div class="text-grey-7 q-mb-lg">
-        {{$t("changeName.nameValidationInfo")}}
+        {{$tl("nameValidationInfo")}}
       </div>
 
-      <q-input ref="password" v-model="password" type="password" :label="$t('changeName.password')" :rules="rules.passwordRules">
+      <q-input ref="password" v-model="password" type="password" :label="$tl('password')" :rules="rules.passwordRules">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
       </q-input>
 
-      <q-input  ref="name"  color="positive" v-model="name" :label="$t('changeName.name')"  @keyup="checkNameInDb"
+      <q-input  ref="name"  color="positive" v-model="name" :label="$tl('name')"  @keyup="checkNameInDb"
                :rules="rules.nameRules" :after="[{
         icon: 'far fa-check-circle',
         condition: nameInDb},
@@ -21,7 +21,7 @@
         </template>
       </q-input>
 
-      <q-btn class="q-mt-lg" color="send" icon="far fa-save" :label="$t('changeName.save')" @click="save"
+      <q-btn class="q-mt-lg" color="send" icon="far fa-save" :label="$tl('save')" @click="save"
              :loading="submitting">
         <LoaderSent slot="loading"/>
       </q-btn>
@@ -40,13 +40,13 @@
   {
     return {
       passwordRules:  [
-        value => !!value || this.$t("changeName.validation.password.required")
+        value => !!value || this.$tl("validation.password.required")
       ],
       nameRules: [
-        value => !!value || this.$t("changeName.validation.name.required"),
-        value => value.length >= 3 || this.$t("changeName.validation.name.minLength"),
-        value => /^[ a-zA-Zа-яА-ЯёЁ0-9-]*$/.test(value) || this.$t("changeName.validation.name.allowedChars"),
-        value => !this.nameInDb || this.$t("changeName.validation.name.nameInDb")
+        value => !!value || this.$tl("validation.name.required"),
+        value => value.length >= 3 || this.$tl("validation.name.minLength"),
+        value => /^[ a-zA-Zа-яА-ЯёЁ0-9-]*$/.test(value) || this.$tl("validation.name.allowedChars"),
+        value => !this.nameInDb || this.$tl("validation.name.nameInDb")
       ]
     }
   }
@@ -108,8 +108,7 @@
           const data = makeUserDataFromTokens(this.$store.state.auth.tokens);
           this.$store.commit('setUserData', data);
 
-          const msg = this.$t("changeName.successNotify");
-
+          const msg = this.$tl("successNotify");
           this.$q.notify({
             message: msg,
             timeout: 2800,
@@ -117,6 +116,7 @@
             icon: 'fas fa-check-circle',
             position: 'top'
           });
+
           this.$router.push({name: 'Personal'});
 
         }).catch(error => {
@@ -131,7 +131,7 @@
       }
     },
     async created() {
-      this.title = this.$t("changeName.title");
+      this.title = this.$tl("title");
 
       this.rules = createRules.call(this);
     }

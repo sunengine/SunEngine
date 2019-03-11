@@ -12,13 +12,13 @@
           <template v-if="!activity.commentId">
             <span>
               <q-icon name="far fa-file-alt"/>
-              {{$t("activity.material")}}
+              {{$tl("material")}}
               </span>
           </template>
           <template v-else>
             <span>
               <q-icon name="far fa-comment"/>
-              {{$t("activity.comment")}}
+              {{$tl("comment")}}
             </span>
           </template>
           <span>

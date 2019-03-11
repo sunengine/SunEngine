@@ -2,8 +2,8 @@
   <div>
     <h4 class="menu-panel-title">
       <router-link :to="{name: 'Personal'}">
-        <QIcon name="fas fa-address-card" size="1.4em" class="q-mr-sm"/>
-        {{$t("settingsPage.title")}}
+        <q-icon name="fas fa-address-card" size="1.4em" class="q-mr-sm"/>
+        {{$tl("title")}}
       </router-link>
     </h4>
     <SettingsMenu />

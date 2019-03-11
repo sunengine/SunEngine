@@ -43,7 +43,7 @@
         </q-item-section>
         <q-item-section class="info-block">
           <q-item-label caption>
-            <span class="xs">{{$t("topicInThread.lastFrom")}} </span>
+            <span class="xs">{{$tl("lastFrom")}} </span>
             {{topic.lastCommentAuthorName}}
           </q-item-label>
           <q-item-label  caption>

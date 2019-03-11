@@ -6,7 +6,7 @@
         {{localTitle}}
       </h2>
       <q-btn no-caps @click="$router.push({name:'AddEditMaterial',query:{categoryName:thread.name}})"
-             :label="$t('thread.newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus" color="post"/>
+             :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus" color="post"/>
       <div class="clear"></div>
     </div>
 
@@ -19,10 +19,10 @@
         <hr class="hr-sep"/>
         <div class="row">
           <div class="col-xs-12 col-sm-8" style="padding: 2px 0px 2px 76px; ">
-            {{$t("newTopics.topic")}}
+            {{$tl("topic")}}
           </div>
           <div class="col-xs-12 col-sm-2" style="padding: 2px 0px 2px 60px;">
-            {{$t("newTopics.last")}}
+            {{$tl("last")}}
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@
     },
     computed: {
       localTitle() {
-        return `${this.$t("newTopics.titleStart")} - ${this.thread?.title}`;
+        return `${this.$tl("titleStart")} - ${this.thread?.title}`;
       },
       thread() {
         return this.$store.getters.getCategory(this.categoryName);

@@ -3,10 +3,10 @@
 
     <div class="header-with-button">
       <h2 class="q-title">
-        $t("admin.categoriesAdminPage.title")
+        $ta("title")
       </h2>
       <q-btn icon="fas fa-plus" color="send" class="q-mr-lg" @click="add" no-caps
-             :label="$t('admin.categoriesAdminPage.addCategoryBtn')"/>
+             :label="$ta('addCategoryBtn')"/>
       <div class="clear"></div>
     </div>
 
@@ -85,7 +85,7 @@
 
     },
     async created() {
-      this.title = this.$t("admin.categoriesAdminPage.title");
+      this.title = this.$ta("title");
       await this.loadData();
     }
 

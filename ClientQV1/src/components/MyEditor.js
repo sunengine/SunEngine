@@ -87,7 +87,7 @@ export default {
     buttonDef() {
       return {
         ...QEditor.options.computed.buttonDef.call(this),
-        addImages: {icon: 'camera_enhance', tip: this.$t("myEditor.uploadImages"), handler: this.uploadImages}
+        addImages: {icon: 'camera_enhance', tip: this.$tl("uploadImages"), handler: this.uploadImages}
       };
     }
   },

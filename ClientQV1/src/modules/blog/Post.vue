@@ -25,12 +25,12 @@
       <q-item class="page-padding-left" :to="path+'#comments'">
         <span :class="[{'text-grey-6': !post.commentsCount}]">
         <q-icon name="far fa-comment" class="q-mr-sm"/>
-        {{post.commentsCount}} {{$t('postInList.commentsCount')}}
+        {{post.commentsCount}} {{$tl('commentsCount')}}
         </span>
       </q-item>
       <q-item :to="path" v-if="post.hasMoreText">
         <span>
-          {{$t('postInList.readMore')}}
+          {{$tl('readMore')}}
           <q-icon name="fas fa-arrow-right"/>
         </span>
       </q-item>

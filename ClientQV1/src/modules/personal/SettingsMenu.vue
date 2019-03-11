@@ -14,7 +14,7 @@
         <q-icon name="fas fa-user-circle"/>
       </q-item-section>
       <q-item-section>
-        {{$t("settingsMenu.goToProfile")}}
+        {{$tl("goToProfile")}}
       </q-item-section>
     </q-item>
     <q-item :to="{name:'ChangePassword'}">
@@ -22,7 +22,7 @@
         <q-icon name="fas fa-key"/>
       </q-item-section>
       <q-item-section>
-        {{$t("settingsMenu.changePassword")}}
+        {{$tl("changePassword")}}
       </q-item-section>
     </q-item>
     <q-item :to="{name:'ChangeEmail'}">
@@ -30,7 +30,7 @@
         <q-icon name="far fa-envelope"/>
       </q-item-section>
       <q-item-section>
-        {{$t("settingsMenu.changeEmail")}}
+        {{$tl("changeEmail")}}
       </q-item-section>
     </q-item>
     <q-item :to="{name:'ChangeLink'}">
@@ -38,7 +38,7 @@
         <q-icon name="fas fa-link"/>
       </q-item-section>
       <q-item-section>
-        {{$t("settingsMenu.changeLink")}}
+        {{$tl("changeLink")}}
       </q-item-section>
     </q-item>
     <q-item :to="{name: 'ChangeName'}">
@@ -46,7 +46,7 @@
         <q-icon name="fas fa-user"/>
       </q-item-section>
       <q-item-section>
-        {{$t("settingsMenu.changeName")}}
+        {{$tl("changeName")}}
       </q-item-section>
     </q-item>
     <q-item :to="{name: 'EditProfileInformation'}">
@@ -54,7 +54,7 @@
         <q-icon name="far fa-edit"/>
       </q-item-section>
       <q-item-section>
-        {{$t("settingsMenu.changeYourInformation")}}
+        {{$tl("changeYourInformation")}}
       </q-item-section>
     </q-item>
     <q-item :to="{name: 'LoadPhoto'}">
@@ -62,7 +62,7 @@
         <q-icon name="far fa-user-circle"/>
       </q-item-section>
       <q-item-section>
-        {{$t("settingsMenu.changePhoto")}}
+        {{$tl("changePhoto")}}
       </q-item-section>
     </q-item>
     <q-item :to="{name:'MyBanList'}">
@@ -70,7 +70,7 @@
         <q-icon name="fas fa-ban"/>
       </q-item-section>
       <q-item-section>
-        {{$t("settingsMenu.banedUsersList")}}
+        {{$tl("banedUsersList")}}
       </q-item-section>
     </q-item>
   </q-list>

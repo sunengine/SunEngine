@@ -3,11 +3,11 @@
       <CategoryForm ref="form" :category="category"/>
 
       <div class="btn-block">
-        <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$t('admin.addCategory.createBtn')" @click="save"
+        <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$ta('createBtn')" @click="save"
                color="send">
           <LoaderSent slot="loading"/>
         </q-btn>
-        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack('CategoriesAdmin')" :label="$t('admin.addCategory.cancelBtn')"
+        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack('CategoriesAdmin')" :label="$ta('cancelBtn')"
                color="warning"/>
       </div>
   </q-page>
@@ -72,7 +72,7 @@
       }
     },
     async created() {
-      this.title = this.$t("admin.addCategory.title")
+      this.title = this.$ta("title")
     }
   }
 </script>

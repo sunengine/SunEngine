@@ -5,7 +5,7 @@
         <q-icon name="fas fa-sign-in-alt"/>
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $i18n.t("loginOrRegisterMenu.enter") }}</q-item-label>
+        <q-item-label>{{ $tl("enter") }}</q-item-label>
       </q-item-section>
     </q-item>
     <q-item :to="{name:'Register'}">
@@ -13,7 +13,7 @@
         <q-icon name="fas fa-user-plus"/>
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $i18n.t("loginOrRegisterMenu.register") }}</q-item-label>
+        <q-item-label>{{ $tl("register") }}</q-item-label>
       </q-item-section>
     </q-item>
   </q-list>
@@ -21,7 +21,7 @@
 
 <script>
   export default {
-    name: "LoginOrRegisterMenu",
+    name: "LoginRegisterMenu",
   }
 </script>
 

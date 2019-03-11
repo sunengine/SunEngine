@@ -6,7 +6,7 @@
         <q-btn :disabled="isLast" @click="$emit('down',category)" color="info" dense size="10px" flat icon="fas fa-chevron-down"/>
       </span>
       <span v-if="notRoot">{{category.title}}</span>
-      <span v-else>Корневая категория</span>
+      <span v-else>{{$ta("rootCategory")}}</span>
 
       <span v-if="notRoot" class="q-ml-md">
         <q-btn @click="$emit('go',category.name)" icon="fas fa-arrow-right" color="info" dense size="10px" flat/>

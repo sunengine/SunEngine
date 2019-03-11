@@ -2,7 +2,7 @@
   <q-page class="page-padding">
     <h2 class="q-title">
       <QIcon name="fas fa-cog" class="q-mr-sm" color="grey-6" />
-      {{$t("admin.adminPanel.title")}}
+      {{$ta("title")}}
     </h2>
     <AdminMenu/>
   </q-page>
@@ -17,7 +17,7 @@
     components: {AdminMenu},
     mixins: [Page],
     created() {
-      this.title = this.$t("admin.adminPanel.title");
+      this.title = this.$ta("title");
     }
   }
 </script>

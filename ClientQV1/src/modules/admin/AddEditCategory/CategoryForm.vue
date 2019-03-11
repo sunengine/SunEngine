@@ -1,19 +1,19 @@
 <template>
   <div>
 
-    <q-input v-model="category.name" :label="$t('admin.categoryForm.name')"/>
+    <q-input v-model="category.name" :label="$ta('name')"/>
 
-    <q-input v-model="category.title" :label="$t('admin.categoryForm.title')"/>
+    <q-input v-model="category.title" :label="$ta('title')"/>
 
-    <q-input v-model="category.description" autogrow type="textarea" :label="$t('admin.categoryForm.shortDescription')"/>
+    <q-input v-model="category.description" autogrow type="textarea" :label="$ta('shortDescription')"/>
 
 
-    <div class="q-mt-sm text-grey-6">{{$t('admin.categoryForm.header')}}</div>
+    <div class="q-mt-sm text-grey-6">{{$ta('header')}}</div>
 
     <MyEditor style="margin-bottom: 12px;" v-model="category.header"/>
 
 <!--    <div :class="[{invisible: !(category.parentId.$invalid && !start)},'error']">
-      {{$t('admin.categoryForm.selectParent')}}
+      {{$ta('selectParent')}}
     </div>-->
     <q-btn v-if="root" class="q-mt-md select-category" :label="parentCategoryTitle" no-caps outline icon="fas fa-folder">
       <q-menu>
@@ -35,7 +35,7 @@
     </q-btn>
 
     <div class="q-mt-lg">
-      <q-select v-if="sectionTypes" :label="$t('admin.categoryForm.sectionType')" v-model="category.sectionTypeName"
+      <q-select v-if="sectionTypes" :label="$ta('sectionType')" v-model="category.sectionTypeName"
                 :options="sectionTypeOptions"/>
       <LoaderWait v-else/>
     </div>
@@ -139,8 +139,8 @@
       },
       parentCategoryTitle() {
         if (!this.category.parentId)
-          return this.$t("admin.categoryForm.selectParent");
-        return this.$t("admin.categoryForm.parent")  + this?.all?.[this.category.parentId]?.title;
+          return this.$ta("selectParent");
+        return this.$ta("parent")  + this?.all?.[this.category.parentId]?.title;
       }
       ,
       where() {
