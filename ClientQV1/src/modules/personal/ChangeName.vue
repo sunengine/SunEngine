@@ -21,7 +21,7 @@
         </template>
       </q-input>
 
-      <q-btn class="q-mt-lg" color="send" icon="far fa-save" :label="$tl('save')" @click="save"
+      <q-btn no-caps class="q-mt-lg" color="send" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
              :loading="submitting">
         <LoaderSent slot="loading"/>
       </q-btn>

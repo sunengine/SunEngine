@@ -11,11 +11,11 @@ export default async ({app, Vue}) => {
     messages
   });
 
-  Vue.prototype.$tl = function (key, locale, values) {
-    return this.$t(this.$options.name + "." + key, locale, values);
+  Vue.prototype.$tl = function (key, values) {
+    return this.$t(this.$options.name + "." + key, values);
   };
 
-  Vue.prototype.$ta = function (key, locale, values) {
-    return this.$t("admin." + this.$options.name + "." + key, locale, values);
+  Vue.prototype.$ta = function (key, values) {
+    return this.$t("admin." + this.$options.name + "." + key, values);
   };
 }

@@ -11,7 +11,8 @@ export default {
     btn: {
       save: "Сохранить",
       cancel: "Отмена"
-    }
+    },
+    errorNotify: "Ошибка"
   },
   LoginRegisterMenu: {
     enter: "Войти",
@@ -230,6 +231,23 @@ export default {
     newTopicBtn: "@:thread.newTopicBtn",
     topic: "@:thread.topic",
     last: "@:thread.last"
+  },
+  Profile: {
+    sendPrivateMessageBtn: "Написать пользователю",
+    banBtn: "Забанить",
+    unBanBtn: "Разбанить",
+    banNotify: "Пользователь {0} теперь не может вам писать",
+    unBanNotify: "Пользователь {0} теперь может вам писать"
+  },
+  MyBanList: {
+    title: "Забаненые пользователи"
+  },
+  LoadPhoto: {
+    title: "Изменить фотографию пользователя",
+    resetBtn: "Сбросить фотографию",
+    uploadNewPhotoBtn: "Выбрать фотографию",
+    avatarDeletedSuccessNotify: "Аватар успешно удалён",
+    avatarChangedSuccessNotify: "Аватар успешно обновлён"
   },
   admin: {
     AdminPanel: {

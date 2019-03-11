@@ -15,7 +15,7 @@
         </template>
       </q-input>
 
-      <q-btn class="q-mt-lg" color="send" icon="far fa-save" label="Сохранить" @click="save" :loading="submitting">
+      <q-btn no-caps class="q-mt-lg" color="send" icon="far fa-save" label="Сохранить" @click="save" :loading="submitting">
         <LoaderSent slot="loading"/>
       </q-btn>
 

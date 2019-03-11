@@ -8,7 +8,7 @@
           <q-icon name="fas fa-link"/>
         </template>
       </q-input>
-      <q-btn class="q-mt-lg" icon="far fa-save" :label="$tl('saveBtn')" color="send" @click="save"
+      <q-btn no-caps class="q-mt-lg" icon="far fa-save" :label="$tl('saveBtn')" color="send" @click="save"
              :loading="submitting">
         <LoaderSent slot="loading"/>
       </q-btn>

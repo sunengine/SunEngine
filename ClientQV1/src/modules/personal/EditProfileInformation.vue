@@ -38,7 +38,7 @@
              ]"
 
         ref="htmlEditor" v-model="userInfo.information"/>
-      <q-btn class="send-btn" color="send" icon="far fa-save" label="Сохранить" @click="save"/>
+      <q-btn no-caps class="send-btn" color="send" icon="far fa-save" label="Сохранить" @click="save"/>
     </template>
     <LoaderWait v-else/>
   </q-page>

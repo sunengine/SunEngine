@@ -7,15 +7,15 @@
              style="padding-right: 2px; padding-left: 2px; align-items: center; width: 100%">
           <q-btn class="shadow-1" color="lime-4" style="flex-grow: 1" :disable="!canPrivateMessage"
                  :to="{path: '/WritePrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}"
-                 dense icon="far fa-envelope" label="Написать пользователю"/>
+                 dense icon="far fa-envelope" :label="$tl('sendPrivateMessageBtn')"/>
           <q-btn :color="!user.iBannedHim ? 'lime-4' : 'negative'" class="shadow-1 q-ml-sm" dense
                  style="padding-left:10px !important; padding-right: 10px; !important" v-if="!user.noBannable"
                  icon="fas fa-ellipsis-v">
             <q-menu>
               <q-btn v-close-menu color="negative"  v-close-overlay v-if="!user.iBannedHim" @click="ban"
-                     icon="fas fa-ban" label="Забанить"/>
+                     icon="fas fa-ban" :label="$tl('banBtn')"/>
               <q-btn v-close-menu color="positive"  v-close-overlay v-else @click="unBan" icon="fas fa-smile"
-                     label="Разбанить"/>
+                     :label="$tl('unBanBtn')"/>
             </q-menu>
           </q-btn>
         </div>
@@ -85,8 +85,10 @@
             }
           }).then(async response => {
           await this.loadData();
+
+          const msg = this.$tl("banNotify",[this.user.name]);
           this.$q.notify({
-            message: `Пользователь ${this.user.name} теперь не может вам писать`,
+            message: msg,
             timeout: 5000,
             color: 'info',
             position: 'top'
@@ -104,8 +106,9 @@
             }
           }).then(async response => {
           await this.loadData();
+          const msg = this.$tl("unBanNotify",[this.user.name]);
           this.$q.notify({
-            message: `Пользователь ${this.user.name} теперь может вам писать`,
+            message: msg,
             timeout: 5000,
             color: 'positive',
             position: 'top'
@@ -123,7 +126,7 @@
             }
           }).then(response => {
           this.user = response.data;
-          this.setTitle(this.user.name);
+          this.title = this.user.name;
         }).catch(error => {
           console.log("error", error);
         });

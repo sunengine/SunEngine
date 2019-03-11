@@ -3,10 +3,10 @@
     <img v-if="photo" width="300" :src="photo"/>
     <br/>
     <input ref="file" type="file" accept="image/*" style="display:none" @change="handleFile"/>
-    <q-btn color="send" class="q-mb-xl" :loading="loading" icon="far fa-user-circle" label="Выбрать фотографию"
-          @click="upload"/>
-    <q-btn v-if="!isDefault && !loading" color="negative" icon="fas fa-trash-alt" label="Сбросить фотографию"
-          @click="resetAvatar"/>
+    <q-btn no-caps color="send" class="q-mb-xl" :loading="loading" icon="far fa-user-circle" :label="$tl('uploadNewPhotoBtn')"
+           @click="upload"/>
+    <q-btn no-caps v-if="!isDefault && !loading" color="negative" icon="fas fa-trash-alt" :label="$tl('resetBtn')"
+           @click="resetAvatar"/>
   </q-page>
 </template>
 
@@ -54,8 +54,9 @@
             async response => {
               await this.$store.dispatch('getMyUserInfo');
               this.loading = false;
+              const msg = this.$t("global.avatarChangedSuccessNotify");
               this.$q.notify({
-                message: `Аватар успешно обновлён`,
+                message: msg,
                 timeout: 2800,
                 color: 'positive',
                 icon: 'fas fa-check-circle',
@@ -64,8 +65,9 @@
             }
           ).catch(x => {
             console.log("error", x);
+            const msg = this.$t("global.errorNotify");
             this.$q.notify({
-              message: `Ошибка`,
+              message: msg,
               timeout: 2000,
               color: 'negative',
               position: 'top'
@@ -84,8 +86,9 @@
             async response => {
               await this.$store.dispatch('getMyUserInfo');
               this.loading = false;
+              const msg = this.$tl("avatarDeletedSuccessNotify");
               this.$q.notify({
-                message: `Аватар успешно удалён`,
+                message: msg,
                 timeout: 2000,
                 type: 'info',
                 position: 'top'
@@ -95,8 +98,9 @@
           ).catch(x => {
             this.loading = false;
             console.log("error", x);
+            const msg = this.$t("global.errorNotify");
             this.$q.notify({
-              message: `Ошибка`,
+              message: msg,
               timeout: 2000,
               color: 'negative',
               position: 'top'
@@ -106,7 +110,7 @@
     }
     ,
     async created() {
-      this.title = "Изменить фотографию пользователя";
+      this.title = this.$tl("title");
     }
   }
 </script>
