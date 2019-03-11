@@ -1,13 +1,10 @@
-import AddEditMaterial from 'material/AddEditMaterial.vue';
 import Login from 'account/Login.vue';
 import Register from 'account/Register.vue';
-import RegisterEmailConfirmed from 'account/Register/EmailConfirmed.vue';
-import ResetPassword from 'account/Password/ResetPassword.vue';
-import SetNewPasswordFromReset from 'account/Password/SetNewPasswordFromReset.vue';
-import ResetPasswordFailed from 'account/Password/ResetPasswordFailed.vue';
+import RegisterEmailConfirmed from 'account/RegisterEmailConfirmed.vue';
+import ResetPassword from 'account/ResetPassword.vue';
+import ResetPasswordSetNew from 'account/ResetPasswordSetNew';
+import ResetPasswordFailed from 'account/ResetPasswordFailed.vue';
 
-import UserProfile from 'profile/Profile';
-import WritePrivateMessage from 'profile/WritePrivateMessage';
 
 
 const routes = [
@@ -41,9 +38,9 @@ const routes = [
     component: ResetPassword
   },
   {
-    name: 'SetNewPasswordFromReset',
-    path: '/account/SetNewPasswordFromReset'.toLowerCase(),
-    component: SetNewPasswordFromReset
+    name: 'ResetPasswordSetNew',
+    path: '/account/ResetPasswordSetNew'.toLowerCase(),
+    component: ResetPasswordSetNew
   },
   {
     name: 'ResetPasswordFailed',
@@ -58,14 +55,7 @@ const routes = [
 ];
 
 
-// TODO
-// Always leave this as last one
-if (process.env.MODE !== 'ssr') {
-  routes.push({
-    path: '*',
-    component: () => import('pages/Error404.vue')
-  })
-}
+
 
 
 export default routes;
