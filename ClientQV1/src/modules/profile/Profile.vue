@@ -55,15 +55,15 @@
         const from = this.$store?.state?.auth?.user;
         if (!from) return false;
         if (this.user.heBannedMe || this.user.iBannedHim) return false;
-        return from.id != this.user?.id;
+        return from.id !== this.user?.id;
       },
       messageButtons() {
         const from = this.$store?.state?.auth?.user;
         if (!from) return false;
-        return from.id != this.user?.id;
+        return from.id !== this.user?.id;
       },
       canEditRoles() {
-        return this.$store?.state?.auth?.userGroups?.some(x=>x === "Admin");
+        return this.$store?.state?.auth?.roles?.some(x=>x === "Admin");
       }
     },
     watch: {

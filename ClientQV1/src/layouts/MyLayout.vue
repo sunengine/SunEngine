@@ -11,7 +11,11 @@
           SunEngine
         </q-toolbar-title>
 
-        <q-btn class="user-menu-button" v-if="userName" flat dense round>
+        <q-btn class="q-mr-sm" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu" v-if="rightDrawerIs">
+          <q-icon name="menu"/>
+        </q-btn>
+
+        <q-btn class="user-menu-button " v-if="userName" flat dense round>
           <img class="avatar" :src="userAvatar"/>
           <q-menu>
             <UserMenu />

@@ -17,6 +17,7 @@ import AdminPanel from 'admin/AdminPanel';
 import AddCategory from 'admin/AddEditCategory/AddCategory';
 import EditCategory from 'admin/AddEditCategory/EditCategory';
 import Profile from 'profile/Profile';
+import WritePrivateMessage from 'profile/WritePrivateMessage';
 import {store} from "../store";
 
 
@@ -83,6 +84,25 @@ const routes = [
     },
     props: {
       default: true
+    }
+  },
+  {
+    name: 'WritePrivateMessage',
+    path: '/WritePrivateMessage'.toLowerCase(),
+    components: {
+      default: WritePrivateMessage,
+      navigation: null
+    },
+    props: {
+      default: (route) => {
+        return {
+          userId: route.query.userId,
+          userName: route.query.userName
+        }
+      }
+    },
+    meta: {
+      roles: ["Registered"]
     }
   },
   {

@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <q-page class="page-padding">
     <h2 class="q-title"> Написать
-      <q-icon name="far fa-user"/>
+      <q-icon name="far fa-user" color="grey-7"/>
       {{userName}}
     </h2>
 
@@ -19,8 +19,8 @@
            label="Отправить">
       <loader-sent slot="loading"/>
     </q-btn>
-    <q-btn icon="fas fa-times" @click="$router.$goBack()" color="warning" label="Отмена"/>
-  </div>
+    <q-btn icon="fas fa-times" @click="$router.back()" color="warning" label="Отмена"/>
+  </q-page>
 </template>
 
 
@@ -63,7 +63,7 @@
               this.$q.notify({
                 message: `Сообщение успешно отправлено на почтовый ящик ${this.userName}.`,
                 timeout: 5000,
-                type: 'positive',
+                color: 'positive',
                 position: 'top'
               });
               this.loading = false;
@@ -71,11 +71,11 @@
             }
           ).catch(x => {
             debugger;
-            if (x.response.data.errorName == "SpamProtection") {
+            if (x.response.data.errorName === "SpamProtection") {
               this.$q.notify({
                 message: 'Нельзя так часто отправлять личные сообщения. Необходимо подождать.',
                 timeout: 5000,
-                type: 'warning',
+                color: 'warning',
                 position: 'top'
               });
             } else {
@@ -84,7 +84,7 @@
               this.$q.notify({
                 message: 'Сообщение не отправлено. Ошибка на сервере.',
                 timeout: 5000,
-                type: 'negative',
+                color: 'negative',
                 position: 'top'
               });
               this.loading = false;
@@ -94,7 +94,7 @@
       }
     },
     created() {
-      this.setTitle("Написать личное сообщение");
+      this.title = "Написать личное сообщение";
     }
 
   }
