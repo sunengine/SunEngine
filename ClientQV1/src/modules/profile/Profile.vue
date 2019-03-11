@@ -6,7 +6,7 @@
         <div v-if="messageButtons" class="private-messages-block flex q-mt-sm"
              style="padding-right: 2px; padding-left: 2px; align-items: center; width: 100%">
           <q-btn class="shadow-1" color="lime-4" style="flex-grow: 1" :disable="!canPrivateMessage"
-                 :to="{path: '/WritePrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}"
+                 :to="{path: '/SendPrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}"
                  dense icon="far fa-envelope" :label="$tl('sendPrivateMessageBtn')"/>
           <q-btn :color="!user.iBannedHim ? 'lime-4' : 'negative'" class="shadow-1 q-ml-sm" dense
                  style="padding-left:10px !important; padding-right: 10px; !important" v-if="!user.noBannable"
