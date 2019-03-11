@@ -105,41 +105,7 @@ const routes = [
       roles: ["Registered"]
     }
   },
-  {
-    name: 'Personal',
-    path: '/personal',
-    components: {
-      default: SettingsPage,
-      navigation: null
-    }
-  },
-  {
-    name: 'ProfileInSettings',
-    path: '/personal/Profile'.toLowerCase(),
-    components: {
-      default: Profile,
-      navigation: SettingsPanel
-    },
-    props: {
-      default: () => {return { link: store.state.auth.userInfo?.link }}
-    }
-  },
-  {
-    name: 'ChangeName',
-    path: '/personal/ChangeName'.toLowerCase(),
-    components: {
-      default: ChangeName,
-      navigation: SettingsPanel
-    }
-  },
-  {
-    name: 'ChangeLink',
-    path: '/personal/ChangeLink'.toLowerCase(),
-    components: {
-      default: ChangeLink,
-      navigation: SettingsPanel
-    }
-  },
+
   {
     name: 'Admin',
     path: '/admin',

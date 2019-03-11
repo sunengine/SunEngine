@@ -49,7 +49,7 @@
         {{$t("settingsMenu.changeName")}}
       </q-item-section>
     </q-item>
-    <q-item :to="{name: 'EditUserProfileInformation'}">
+    <q-item :to="{name: 'EditProfileInformation'}">
       <q-item-section avatar>
         <q-icon name="far fa-edit"/>
       </q-item-section>

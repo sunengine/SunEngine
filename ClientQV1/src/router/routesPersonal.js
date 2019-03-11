@@ -1,9 +1,9 @@
 import SettingsPanel from 'personal/SettingsPanel';
-import Settings from 'personal/Settings';
+import SettingsPage from 'personal/SettingsPage';
 import LoadPhoto from 'personal/LoadPhoto';
-import EditUserProfileInformation from 'personal/EditUserProfileInformation';
-import ChangePassword from 'account/Password/ChangePassword.vue';
-import ChangeEmail from 'account/ChangeEmail.vue';
+import EditProfileInformation from 'personal/EditProfileInformation';
+//import ChangePassword from 'account/Password/ChangePassword.vue';
+//import ChangeEmail from 'account/ChangeEmail.vue';
 import ChangeLink from 'personal/ChangeLink.vue';
 import ChangeName from 'personal/ChangeName.vue';
 import MyBanList from 'personal/MyBanList.vue';
@@ -13,7 +13,7 @@ import {store} from 'store';
 
 
 const routes = [
-  {
+/*  {
     name: 'ChangePassword',
     path: '/account/ChangePassword'.toLowerCase(),
     components: {
@@ -28,7 +28,7 @@ const routes = [
       default: ChangeEmail,
       navigation: SettingsPanel
     }
-  },
+  },*/
   {
     name: 'ChangeLink',
     path: '/personal/ChangeLink'.toLowerCase(),
@@ -49,7 +49,7 @@ const routes = [
     name: 'Personal',
     path: '/personal',
     components: {
-      default: Settings,
+      default: SettingsPage,
       navigation: null
     }
   },
@@ -62,10 +62,10 @@ const routes = [
     }
   },
   {
-    name: 'EditUserProfileInformation',
-    path: '/personal/EditUserProfileInformation'.toLowerCase(),
+    name: 'EditProfileInformation',
+    path: '/personal/EditProfileInformation'.toLowerCase(),
     components: {
-      default: EditUserProfileInformation,
+      default: EditProfileInformation,
       navigation: SettingsPanel
     }
   },
@@ -88,7 +88,7 @@ const routes = [
       default: () => {return { link: store.state.auth.userInfo?.link }}
     }
   },
-];
+]
 
 for (let rote of routes) {
   if (!rote.meta) {

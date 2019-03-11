@@ -84,8 +84,9 @@
           const msg = this.$t("changeLink.linkEditedMessage");
           this.$q.notify({
             message: msg,
-            timeout: 2000,
+            timeout: 2800,
             color: 'positive',
+            icon: 'fas fa-check-circle',
             position: 'top'
           });
           this.$router.push({name: 'Personal'});
