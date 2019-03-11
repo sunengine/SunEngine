@@ -42,10 +42,7 @@ export async function getMyUserInfo(context) {
     url: '/Personal/GetMyUserInfo',
   }).then(response => {
     context.commit('setUserInfo', response.data);
-  }).catch(error => {
-    console.log("error", error);
   });
-
 }
 
 

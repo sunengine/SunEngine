@@ -12,7 +12,7 @@
     <div v-else-if="initializeError" class="api-error">
       <q-banner rounded class="bg-negative text-white shadow-3">
         <template v-slot:avatar>
-          <q-icon name="fas fa-exclamation-triangle" size="2em"/>
+          <q-icon name="fas fa-exclamation-triangle" size="1.6em"/>
         </template>
        {{$tl('canNotConnectApi')}}
       </q-banner>

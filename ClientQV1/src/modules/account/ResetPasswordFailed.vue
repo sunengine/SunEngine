@@ -1,9 +1,12 @@
 <template>
-  <QPage class="flex middle">
-    <q-alert type="negative" icon="fas fa-exclamation-circle">
-      Что-то пошло не так. Возможно истекло время сброса.
-    </q-alert>
-  </QPage>
+  <q-page class="flex middle page-padding">
+    <q-banner rounded class="bg-negative text-white">
+      <template v-slot:avatar>
+        <q-icon name="fas fa-exclamation-circle" size="2em"/>
+      </template>
+      {{$tl("message")}}
+    </q-banner>
+  </q-page>
 </template>
 
 <script>
@@ -13,7 +16,7 @@
     name: "ResetPasswordFailed",
     mixins: [Page],
     created() {
-      this.setTitle("Сброс пароля");
+      this.title = this.$tl("title");
     }
   }
 </script>

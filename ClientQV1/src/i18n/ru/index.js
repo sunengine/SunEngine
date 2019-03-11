@@ -108,6 +108,10 @@ export default {
       }
     }
   },
+  ResetPasswordFailed: {
+    title: "Сброс пароля",
+    message: "Что-то пошло не так. Возможно истекло время сброса."
+  },
   AddEditComment: {
     required: "Введите сообщение",
     htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
