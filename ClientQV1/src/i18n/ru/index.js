@@ -7,6 +7,10 @@ export default {
       cancel: "Отмена",
       yes: "Да",
       ok: "Да"
+    },
+    btn: {
+      save: "Сохранить",
+      cancel: "Отмена"
     }
   },
   loginOrRegisterMenu: {
@@ -138,9 +142,9 @@ export default {
   },
   changeName: {
     title: "Изменить имя пользователя",
-    nameChangedSuccess: "Имя изменено",
+    successNotify: "Имя изменено",
     nameValidationInfo: "Имя может состоять из букв, цифр, пробела и символа '-', длинны не менее 3.",
-    save: "Сохранить",
+    save: "@:global.btn.save",
     name: "Имя",
     password: "Пароль",
     validation: {
@@ -160,12 +164,46 @@ export default {
     linkEditedMessage: "Link отредактирован",
     link: "Link",
     linkValidationInfo: "Link должен состоять не менее чем из 3 символов <span class='text-brown-9'>'a-z', 'A-Z', '-', '0-9'</span>. И содержать хотя бы одну букву.",
-    save: "Сохранить",
+    saveBtn: "@:global.btn.save",
     validation: {
       minLength: "Длинна link должна быть не менее 3",
       allowedChars: "Допустимы только буквы английского алфавита и цифры",
       numberNotAllow: "Необходимо что бы в link входили буквы",
       linkInDb: "Этот link уже занят"
+    }
+  },
+  changeEmail: {
+    title: "Редактировать email пользователя",
+    successNotify: "Сообщение с ссылкой для подтверждения email отправлено по почте",
+    validation: {
+      password: {
+        required: "Необходимо ввести пароль"
+      },
+      email: {
+        required: "Необходимо ввести email",
+        emailSig: "Введите валидный email"
+      }
+    }
+  },
+  changePassword: {
+    title: "Изменить пароль",
+    successNotify: 'Пароль изменён.',
+    changeBtn: "Изменить пароль",
+    passwordOld: "Старый пароль",
+    password: "Новый пароль",
+    password2: "Подтвердите новый пароль",
+    validation: {
+      passwordOld: {
+        required: "Необходимо ввести старый пароль"
+      },
+      password: {
+        required: "@:register.validation.password.required",
+        minLength: "@:register.validation.password.minLength",
+        minDifferentChars: "@:register.validation.password.minDifferentChars",
+      },
+      password2: {
+        equals: "@:register.validation.password2.equals",
+      }
     }
   },
   forumPanel: {
@@ -180,31 +218,35 @@ export default {
     comment: "Комментарий"
   },
   thread: {
-    newTopic: "Новая тема",
-    newTopics: "Новые темы",
+    newTopicBtn: "Новая тема",
     topic: "Тема",
     last: "Последнее"
   },
-
+  newTopics: {
+    titleStart: "Новые темы",
+    newTopicBtn: "@:thread.newTopicBtn",
+    topic: "@:thread.topic",
+    last: "@:thread.last"
+  },
   admin: {
     adminPanel: {
       title: "Админка"
     },
     adminMenu: {
-      categoriesAdminLabel: "Категории",
-      rolesPermissionsLabel: "Настройка прав",
-      rolesUsersLabel: "Группы пользователей"
+      categoriesAdmin: "Категории",
+      rolesPermissions: "Настройка прав",
+      rolesUsers: "Группы пользователей"
     },
     editCategory: {
       title: "Редактировать категорию",
-      btnDeleteLabel: "Удалить категорию",
-      save: "Сохранить",
-      cancel: "Отмена"
+      deleteBtn: "Удалить категорию",
+      saveBtn: "@:global.btn.save",
+      cancelBtn: "@:global.btn.cancel",
     },
     addCategory: {
       title: "Добавить категорию",
-      btnCreateLabel: "Создать",
-      cancel: "Отмена"
+      createBtn: "Создать",
+      cancelBtn: "@:global.btn.cancel",
     },
     categoryForm: {
       name: "Имя категории (eng)",
@@ -215,6 +257,10 @@ export default {
       sectionType: "Тип категории",
       deleteConfirm: "Вы уверены что хотите удалить категорию?\nВсё содержание категории также будут удалено.",
       parent: "Родитель: "
+    },
+    categoriesAdminPage: {
+      title: "Админка категорий",
+      addCategoryBtn: "Добавить категорию"
     }
   },
 }

@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex middle page-padding">
 
-    <div class="center-form" v-if="!done">
+    <div class="center-form">
 
       <q-input ref="password" v-model="password" type="password" label="Ваш пароль" :rules="rules.password">
         <template v-slot:prepend>
@@ -21,13 +21,6 @@
 
     </div>
 
-    <q-banner v-else class="bg-positive text-white">
-      <template v-slot:avatar>
-        <q-icon name="email" size="2em"/>
-      </template>
-      Сообщение с ссылкой для подтверждения email отправлено по почте
-    </q-banner>
-
   </q-page>
 </template>
 
@@ -39,11 +32,11 @@
   function getRules() {
     return {
       password: [
-        value => !!value || "Необходимо ввести пароль"
+        value => !!value || this.$t("changeEmail.validation.password.required")
       ],
       email: [
-        value => !!value || "Необходимо ввести email",
-        value => /.+@.+/.test(value) || "Введите валидный email"
+        value => !!value || this.$t("changeEmail.validation.password.email"),
+        value => /.+@.+/.test(value) || this.$t("changeEmail.validation.password.email")
       ],
     }
   }
@@ -57,7 +50,6 @@
       return {
         email: "",
         password: "",
-        done: false,
         submitting: false
       }
     },
@@ -82,7 +74,14 @@
               email: this.email,
             }
           }).then(response => {
-          this.done = true;
+          const msg = this.$t("changeEmail.successNotify");
+          this.$q.notify({
+            message: msg,
+            timeout: 5000,
+            color: 'positive',
+            icon: 'fas fa-check-circle',
+            position: 'top'
+          });
         }).catch(error => {
           this.submitting = false;
           this.$q.notify({
@@ -95,7 +94,7 @@
       }
     },
     async created() {
-      this.title = "Редактировать email пользователя";
+      this.title = this.$t("changeEmail.title");
       this.rules = getRules.call(this);
     }
   }

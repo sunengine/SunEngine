@@ -5,15 +5,15 @@
 
       <div class="btn-block">
         <q-btn no-caps icon="fas fa-trash-alt" class="float-right" @click="tryDelete"
-               :label="$t('admin.editCategory.btnDeleteLabel')" color="negative"/>
+               :label="$t('admin.editCategory.deleteBtn')" color="negative"/>
 
-        <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$t('admin.editCategory.save')"
+        <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$t('admin.editCategory.saveBtn')"
                @click="save" color="send">
           <LoaderSent slot="loading"/>
         </q-btn>
 
         <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack('CategoriesAdmin')"
-               :label="$t('admin.editCategory.cancel')" color="warning"/>
+               :label="$t('admin.editCategory.cancelBtn')" color="warning"/>
       </div>
     </div>
     <LoaderWait v-else/>

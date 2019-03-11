@@ -6,7 +6,7 @@
         {{thread.title}}
       </h2>
       <q-btn no-caps @click="$router.push({path:'/AddEditMaterial',query:{categoryName:thread.name}})"
-             :label="$t('thread.newTopic')" v-if="canAddTopic" icon="fas fa-plus" color="post"/>
+             :label="$t('thread.newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus" color="post"/>
       <div class="clear"></div>
     </div>
 

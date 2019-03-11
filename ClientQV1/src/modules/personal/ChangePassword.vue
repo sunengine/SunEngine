@@ -2,25 +2,25 @@
   <q-page class="flex middle page-padding">
 
     <div class="center-form">
-      <q-input ref="passwordOld" v-model="passwordOld" type="password" label="Старый пароль" :rules="rules.passwordOld" >
+      <q-input ref="passwordOld" v-model="passwordOld" type="password" :label="$t('changePassword.passwordOld')" :rules="rules.passwordOld" >
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
       </q-input>
 
-      <q-input ref="password" v-model="password" type="password" label="Новый пароль" :rules="rules.password">
+      <q-input ref="password" v-model="password" type="password" :label="$t('changePassword.password')" :rules="rules.password">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
       </q-input>
 
-      <q-input ref="password2" v-model="password2" type="password" label="Подтвердить пароль" :rules="rules.password2">
+      <q-input ref="password2" v-model="password2" type="password" :label="$t('changePassword.password2')" :rules="rules.password2">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
       </q-input>
 
-      <q-btn class="q-mt-lg" icon="far fa-save" color="send" label="Изменить пароль" @click="changePassword"
+      <q-btn class="q-mt-lg" icon="far fa-save" color="send" :label="$t('changePassword.changeBtn')" @click="changePassword"
              :loading="submitting">
         <LoaderSent slot="loading"/>
       </q-btn>
@@ -37,18 +37,16 @@
   function getRules() {
 
     const password = [
-      value => !!value || this.$t("register.validation.password.required"),
-      value => value.length >= config.PasswordValidation.MinLength || this.$t("register.validation.password.minLength"),
-      value => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$t("register.validation.password.minDifferentChars"),
+      value => !!value || this.$t("changePassword.validation.password.required"),
+      value => value.length >= config.PasswordValidation.MinLength || this.$t("changePassword.validation.password.minLength"),
+      value => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$t("changePassword.validation.password.minDifferentChars"),
     ];
 
     return {
       passwordOld: [
-        value => !!value || "Необходимо ввести старый пароль"
+        value => !!value ||  this.$t("changePassword.validation.passwordOld.required"),
       ],
-
       password: password,
-
       password2: [...password,
         value => this.password === this.password2 || this.$t("register.validation.password2.equals")]
     }
@@ -87,8 +85,9 @@
             passwordNew: this.password
           }
         }).then(response => {
+          const msg = this.$t("changePassword.successNotify");
           this.$q.notify({
-            message: 'Пароль изменён.',
+            message: msg,
             timeout: 2800,
             color: 'positive',
             icon: 'fas fa-check-circle',
@@ -108,7 +107,7 @@
       }
     },
     created() {
-      this.title = "Изменить пароль";
+      this.title = this.$t("changePassword.title");
       this.rules = getRules.call(this);
     },
 

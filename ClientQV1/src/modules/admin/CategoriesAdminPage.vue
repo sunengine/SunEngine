@@ -3,9 +3,10 @@
 
     <div class="header-with-button">
       <h2 class="q-title">
-        Админка категорий
+        $t("admin.categoriesAdminPage.title")
       </h2>
-      <q-btn icon="fas fa-plus" color="send" class="q-mr-lg" @click="add" no-caps="" label="Добавить категорию"/>
+      <q-btn icon="fas fa-plus" color="send" class="q-mr-lg" @click="add" no-caps
+             :label="$t('admin.categoriesAdminPage.addCategoryBtn')"/>
       <div class="clear"></div>
     </div>
 
@@ -46,8 +47,7 @@
             url: "/Admin/AdminCategories/CategoryUp",
             data: {name: category.name}
           })
-          .then(
-            async response => {
+          .then(async response => {
               await this.loadData();
             }
           ).catch(x => {
@@ -85,7 +85,7 @@
 
     },
     async created() {
-      this.title = "Админка категорий";
+      this.title = this.$t("admin.categoriesAdminPage.title");
       await this.loadData();
     }
 

@@ -108,7 +108,7 @@
           const data = makeUserDataFromTokens(this.$store.state.auth.tokens);
           this.$store.commit('setUserData', data);
 
-          const msg = this.$t("changeName.nameChangedSuccess");
+          const msg = this.$t("changeName.successNotify");
 
           this.$q.notify({
             message: msg,
