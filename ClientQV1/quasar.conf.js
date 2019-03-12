@@ -56,7 +56,8 @@ module.exports = function (ctx) {
         'QSelect',
         'QChip',
         'QAvatar',
-        'QTree'
+        'QTree',
+        'QExpansionItem'
       ],
 
       directives: [

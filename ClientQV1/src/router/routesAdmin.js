@@ -4,8 +4,8 @@ import CategoriesAdmin from 'admin/CategoriesAdmin.vue';
 import AddCategory from 'admin/AddEditCategory/AddCategory.vue';
 import EditCategory from 'admin/AddEditCategory/EditCategory.vue';
 import RolesPermissions from 'admin/RolesPermissions.vue';
-// import UsersFromRole from 'admin/UsersFromRole.vue';
-// import RolesUsers from 'admin/RolesUsers.vue';
+import UsersFromRole from 'admin/UsersFromRole.vue';
+import RolesUsers from 'admin/RolesUsers.vue';
 
 
 import {store} from 'store';
@@ -49,7 +49,7 @@ const routes = [
       navigation: null
     }
   },
- {
+  {
     name: 'RolesPermissions',
     path: '/admin/RolesPermissions'.toLowerCase(),
     components: {
@@ -57,7 +57,7 @@ const routes = [
       navigation: AdminPanel
     }
   },
- /*  {
+  {
     name: 'RolesUsers',
     path: '/admin/RolesUsers'.toLowerCase(),
     components: {
@@ -72,7 +72,7 @@ const routes = [
         props: true
       }
     ]
-  }*/
+  }
 ];
 
 
