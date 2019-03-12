@@ -20,10 +20,9 @@
            icon="fas fa-folder">
       <q-menu>
         <div style="background-color: white;" class="q-pa-sm">
-          <MyTree v-close-menu
+          <q-tree @update:selected="categorySelected" v-close-menu
                   default-expand-all
                   :selected.sync="category.parentId"
-
                   :nodes="where"
                   node-key="value">
             <div slot="header-normal" slot-scope="prop" class="row items-center">
@@ -32,7 +31,7 @@
                 <span>{{ prop.node.label }}</span>
               </div>
             </div>
-          </MyTree>
+          </q-tree>
         </div>
       </q-menu>
     </q-btn>
@@ -151,6 +150,13 @@
       }
     },
     methods: {
+      categorySelected(key) {
+        if(!key)
+        {
+          let pid = this.category.parentId;
+          this.$nextTick(() => {this.category.parentId = pid})
+        }
+      },
       validate() {
         this.$refs.name.validate();
         this.$refs.title.validate();

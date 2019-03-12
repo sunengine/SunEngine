@@ -55,7 +55,8 @@ module.exports = function (ctx) {
         'QEditor',
         'QSelect',
         'QChip',
-        'QAvatar'
+        'QAvatar',
+        'QTree'
       ],
 
       directives: [
