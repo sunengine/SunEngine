@@ -337,9 +337,24 @@ export default {
       selectParent: "Выберите родительскую категорию",
       sectionType: "Тип категории",
       deleteConfirm: "Вы уверены что хотите удалить категорию?\nВсё содержание категории также будут удалено.",
-      parent: "Родитель: "
+      parent: "Родитель: ",
+      hideCb: "Спрятать",
+      appendUrlTokenCb: "Добавлять в URL",
+      appendUrlTokenInfo: "(использовать только если вы понимаете что это)",
+      isMaterialsContainerCb: "Содержит материалы",
+      validation: {
+        name: {
+          required: "Введите имя (eng) категории",
+          minLength: "Имя (eng) должно быть не менее чем из 2 букв",
+          allowedChars: "Имя (eng) должно состоять из символов `a-z`, `A-Z`, `0-9`, `-`"
+        },
+        title: {
+          required: "Введите заголовок категории",
+          minLength: "Заголовок должен состоять не менее чем из 3 букв"
+        }
+      }
     },
-    CategoriesAdminPage: {
+    CategoriesAdmin: {
       title: "Админка категорий",
       addCategoryBtn: "Добавить категорию"
     },

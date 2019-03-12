@@ -3,7 +3,7 @@
 
     <div class="header-with-button">
       <h2 class="q-title">
-        $ta("title")
+        {{$ta("title")}}
       </h2>
       <q-btn icon="fas fa-plus" color="send" class="q-mr-lg" @click="add" no-caps
              :label="$ta('addCategoryBtn')"/>
@@ -23,7 +23,7 @@
   import LoaderWait from "LoaderWait";
 
   export default {
-    name: "CategoriesAdminPage",
+    name: "CategoriesAdmin",
     components: {LoaderWait, CategoryItem},
     mixins: [Page],
     data: function () {

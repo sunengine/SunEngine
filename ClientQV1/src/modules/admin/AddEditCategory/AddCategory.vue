@@ -32,7 +32,7 @@
           sectionTypeName: "unset",
           isMaterialsContainer: true,
           areaRoot: false,
-          parentId: 0,
+          parentId: 1,
           isHidden: false,
           isCacheContent: false
         },
@@ -41,12 +41,8 @@
     },
     methods: {
       async save() {
-        let form = this.$refs.form;
-        form.start = false;
-        form.$v.$touch();
-        if (form.$v.$invalid) {
-          return;
-        }
+        const form = this.$refs.form;
+
 
         this.loading = true;
 

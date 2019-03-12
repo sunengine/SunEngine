@@ -1,26 +1,29 @@
 <template>
   <div>
 
-    <q-input v-model="category.name" :label="$ta('name')"/>
+    <q-input ref="name" v-model="category.name" :label="$ta('name')" :rules="rules.name"/>
 
-    <q-input v-model="category.title" :label="$ta('title')"/>
+    <q-input ref="title" v-model="category.title" :label="$ta('title')" :rules="rules.title" />
 
-    <q-input v-model="category.description" autogrow type="textarea" :label="$ta('shortDescription')"/>
+    <q-input ref="description" v-model="category.description" autogrow type="textarea"
+             :label="$ta('shortDescription')"/>
 
 
     <div class="q-mt-sm text-grey-6">{{$ta('header')}}</div>
 
-    <MyEditor style="margin-bottom: 12px;" v-model="category.header"/>
+    <MyEditor ref="header" style="margin-bottom: 12px;" v-model="category.header"/>
 
-<!--    <div :class="[{invisible: !(category.parentId.$invalid && !start)},'error']">
-      {{$ta('selectParent')}}
-    </div>-->
-    <q-btn v-if="root" class="q-mt-md select-category" :label="parentCategoryTitle" no-caps outline icon="fas fa-folder">
+    <!--    <div :class="[{invisible: !(category.parentId.$invalid && !start)},'error']">
+          {{$ta('selectParent')}}
+        </div>-->
+    <q-btn v-if="root" class="q-mt-md select-category" :label="parentCategoryTitle" no-caps outline
+           icon="fas fa-folder">
       <q-menu>
         <div style="background-color: white;" class="q-pa-sm">
           <MyTree v-close-menu
                   default-expand-all
                   :selected.sync="category.parentId"
+
                   :nodes="where"
                   node-key="value">
             <div slot="header-normal" slot-scope="prop" class="row items-center">
@@ -41,7 +44,7 @@
     </div>
 
     <div class="q-mt-lg">
-      <q-checkbox :toggle-indeterminate="false" v-model="category.isMaterialsContainer" label="Содержит материалы"/>
+      <q-checkbox :toggle-indeterminate="false" v-model="category.isMaterialsContainer" :label="$ta('isMaterialsContainerCb')"/>
     </div>
 
     <div class="q-my-sm">
@@ -49,14 +52,13 @@
     </div>
 
     <div class="q-my-sm">
-
-      <q-checkbox toggle-indeterminate v-model="category.appendUrlToken" label="Добавлять в URL"/>
+      <q-checkbox toggle-indeterminate v-model="category.appendUrlToken" :label="$ta('appendUrlTokenCb')"/>
       <span class="text-amber-8 q-ml-md">
-        (использовать только если вы понимаете что это)
+        {{$ta("appendUrlTokenInfo")}}
       </span>
     </div>
     <div>
-      <q-checkbox :toggle-indeterminate="false" v-model="category.isHidden" label="Спрятать"/>
+      <q-checkbox :toggle-indeterminate="false" v-model="category.isHidden" :label="$ta('hideCb')"/>
     </div>
   </div>
 </template>
@@ -68,7 +70,8 @@
   import LoaderWait from "components/LoaderWait";
 
   const unset = "unset";
-  //const allowedChars = helpers.regex('allowedChars', /^[a-zA-Z0-9-]*$/)
+
+  //const allowedChars = helpers.regex('allowedChars', )
 
   function GoDeep(category) {
 
@@ -95,6 +98,21 @@
   }
 
 
+  function createRules() {
+    return {
+      name: [
+        value => !!value || this.$ta("validation.name.required"),
+        value => value.length >= 2 || this.$ta("validation.name.minLength"),
+        value => /^[a-zA-Z0-9-]*$/.test(value) || this.$ta("validation.name.allowedChars"),
+      ],
+      title: [
+        value => !!value || this.$ta("validation.title.required"),
+        value => value.length >= 3 || this.$ta("validation.title.minLength"),
+      ],
+
+    }
+  }
+
   export default {
     name: "CategoryForm",
     components: {LoaderWait, MyEditor, MyTree},
@@ -112,22 +130,7 @@
         sectionTypes: null
       }
     },
-   /* validations: {
-      category: {
-        name: {
-          required,
-          minLength: minLength(2),
-          allowedChars
-        },
-        title: {
-          required,
-          minLength: minLength(3)
-        },
-        parentId: {
-          not0: x => x !== 0
-        }
-      }
-    },*/
+    rules: null,
     computed: {
       sectionTypeOptions() {
         return [{label: "Без типа", value: unset}, ...this.sectionTypes?.map(x => {
@@ -140,33 +143,27 @@
       parentCategoryTitle() {
         if (!this.category.parentId)
           return this.$ta("selectParent");
-        return this.$ta("parent")  + this?.all?.[this.category.parentId]?.title;
+        return this.$ta("parent") + this?.all?.[this.category.parentId]?.title;
       }
       ,
       where() {
         return [GoDeep(this.root)];
       }
-      ,
-    /*  nameErrorLabel() {
-        if (!this.$v.category.name.required)
-          return "Введите имя (eng) категории";
-        if (!this.$v.category.name.minLength)
-          return "Имя (eng) должно быть не менее чем из 2 букв";
-        if (!this.$v.category.name.allowedChars)
-          return "Имя (eng) должно состоять из символов `a-z`, `A-Z`, `0-9`, `-`";
-      }
-      ,
-      titleErrorLabel() {
-        if (!this.$v.category.title.required)
-          return "Введите заголовок категории";
-        if (!this.$v.category.title.minLength)
-          return "Заголовок должен состоять не менее чем из 3 букв";
-      }*/
     },
-    methods: {},
+    methods: {
+      validate() {
+        this.$refs.name.validate();
+        this.$refs.title.validate();
+      },
+      hasError() {
+        return this.$refs.name.hasError || this.$refs.title.hasError;
+      }
+    },
     async created() {
       if (!this.category.sectionTypeName)
         this.category.sectionTypeName = unset;
+
+      this.rules = createRules.call(this);
 
       await adminGetAllCategories().then(
         data => {
