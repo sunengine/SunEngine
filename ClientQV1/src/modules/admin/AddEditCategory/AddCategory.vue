@@ -7,7 +7,7 @@
                color="send">
           <LoaderSent slot="loading"/>
         </q-btn>
-        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack('CategoriesAdmin')" :label="$ta('cancelBtn')"
+        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$ta('cancelBtn')"
                color="warning"/>
       </div>
   </q-page>
@@ -42,6 +42,9 @@
     methods: {
       async save() {
         const form = this.$refs.form;
+        form.validate();
+        if(form.hasError)
+          return;
 
 
         this.loading = true;
@@ -52,12 +55,13 @@
             data: this.category,
             sendAsJson: true
           })
-          .then(
-            response => {
+          .then( ()  => {
+            const msg = this.$ta("successNotify");
               this.$q.notify({
-                message: 'Категория добавлена. \nНе забудьте перегрузить сайт для обновления.',
+                message: msg,
                 timeout: 5000,
-                type: 'positive',
+                color: 'positive',
+                icon: 'far fa-check-circle',
                 position: 'top'
               });
               this.$router.push({name: 'CategoriesAdmin'});

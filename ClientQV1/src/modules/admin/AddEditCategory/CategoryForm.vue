@@ -20,7 +20,7 @@
            icon="fas fa-folder">
       <q-menu>
         <div style="background-color: white;" class="q-pa-sm">
-          <q-tree @update:selected="categorySelected" v-close-menu
+          <q-tree ref="catTree" @update:selected="categorySelected" v-close-menu
                   default-expand-all
                   :selected.sync="category.parentId"
                   :nodes="where"
@@ -37,7 +37,7 @@
     </q-btn>
 
     <div class="q-mt-lg">
-      <q-select v-if="sectionTypes" :label="$ta('sectionType')" v-model="category.sectionTypeName"
+      <q-select emit-value map-options v-if="sectionTypes" :label="$ta('sectionType')" v-model="category.sectionTypeName"
                 :options="sectionTypeOptions"/>
       <LoaderWait v-else/>
     </div>
@@ -65,12 +65,11 @@
 <script>
   import MyEditor from "MyEditor";
   import MyTree from 'MyTree';
-  import adminGetAllCategories from "services/adminGetAllCategories";
-  import LoaderWait from "components/LoaderWait";
+  import adminGetAllCategories from "adminGetAllCategories";
+  import LoaderWait from "LoaderWait";
 
   const unset = "unset";
 
-  //const allowedChars = helpers.regex('allowedChars', )
 
   function GoDeep(category) {
 
@@ -108,7 +107,6 @@
         value => !!value || this.$ta("validation.title.required"),
         value => value.length >= 3 || this.$ta("validation.title.minLength"),
       ],
-
     }
   }
 
@@ -132,7 +130,7 @@
     rules: null,
     computed: {
       sectionTypeOptions() {
-        return [{label: "Без типа", value: unset}, ...this.sectionTypes?.map(x => {
+        return [{label: this.$ta("noTypeLabel"), value: unset}, ...this.sectionTypes?.map(x => {
           return {
             label: x.title,
             value: x.name
@@ -143,10 +141,12 @@
         if (!this.category.parentId)
           return this.$ta("selectParent");
         return this.$ta("parent") + this?.all?.[this.category.parentId]?.title;
-      }
-      ,
+      },
       where() {
         return [GoDeep(this.root)];
+      },
+      hasError() {
+        return this.$refs.name.hasError || this.$refs.title.hasError;
       }
     },
     methods: {
@@ -160,14 +160,12 @@
       validate() {
         this.$refs.name.validate();
         this.$refs.title.validate();
-      },
-      hasError() {
-        return this.$refs.name.hasError || this.$refs.title.hasError;
       }
     },
     async created() {
-      if (!this.category.sectionTypeName)
+      if (!this.category.sectionTypeName) {
         this.category.sectionTypeName = unset;
+      }
 
       this.rules = createRules.call(this);
 
@@ -186,6 +184,7 @@
             this.sectionTypes = response.data;
           }
         );
+
     }
   }
 </script>

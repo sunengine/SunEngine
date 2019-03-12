@@ -2,7 +2,7 @@
   <q-page class="page-padding">
     <h2 class="q-title">
       <QIcon name="fas fa-cog" class="q-mr-sm" color="grey-6" />
-      {{$ta("title")}}
+      {{title}}
     </h2>
     <AdminMenu/>
   </q-page>

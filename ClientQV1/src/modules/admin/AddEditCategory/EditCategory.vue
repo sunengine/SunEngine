@@ -12,8 +12,8 @@
           <LoaderSent slot="loading"/>
         </q-btn>
 
-        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack('CategoriesAdmin')"
-               :label="$ta('cancelBtn')" color="warning"/>
+        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$ta('cancelBtn')"
+               color="warning"/>
       </div>
     </div>
     <LoaderWait v-else/>
@@ -45,11 +45,13 @@
     methods: {
       async tryDelete() {
         const msg = this.$ta("deleteConfirm");
+        const btnOk = this.$ta("deleteDialogBtnOk");
+        const btnCancel = this.$ta("deleteDialogBtnCancel");
         this.$q.dialog({
           message: msg,
-          ok: 'Удалить',
-          cancel: 'Отмена'
-        }).then(() => {
+          ok: btnOk,
+          cancel: btnCancel
+        }).onOk(() => {
           this.delete();
         });
       },
@@ -61,17 +63,17 @@
               name: this.category.name
             }
           })
-          .then(
-            response => {
-              this.$q.notify({
-                message: 'Категория успешно удалена.',
-                timeout: 5000,
-                type: 'warning',
-                position: 'top'
-              });
-              this.$router.push({name: 'CategoriesAdmin'});
-              this.loading = false;
-            }).catch(x => {
+          .then(() => {
+            const msg = this.$ta("deletedNotify");
+            this.$q.notify({
+              message: msg,
+              timeout: 5000,
+              color: 'warning',
+              position: 'top'
+            });
+            this.$router.push({name: 'CategoriesAdmin'});
+            this.loading = false;
+          }).catch(x => {
           console.log("error", x);
         });
       },
@@ -96,12 +98,11 @@
           });
       },
       async save() {
-        let form = this.$refs.form;
-        form.start = false;
-        form.$v.$touch();
-        if (form.$v.$invalid) {
+        const form = this.$refs.form;
+        form.validate();
+        if (form.hasError)
           return;
-        }
+
 
         this.loading = true;
 
@@ -111,16 +112,17 @@
             data: this.category,
             sendAsJson: true
           })
-          .then(
-            response => {
-              this.$q.notify({
-                message: 'Категория обновлена.\nНе забудьте перегрузить сайт для обновления.',
-                timeout: 5000,
-                type: 'positive',
-                position: 'top'
-              });
-              this.$router.push({name: 'CategoriesAdmin'});
-            }).catch(x => {
+          .then(() => {
+            const msg = this.$ta("successNotify");
+            this.$q.notify({
+              message: msg,
+              timeout: 5000,
+              color: 'positive',
+              icon: 'far fa-check-circle',
+              position: 'top'
+            });
+            this.$router.push({name: 'CategoriesAdmin'});
+          }).catch(x => {
             console.log("error", x);
             this.loading = false;
           });
@@ -140,6 +142,5 @@
   .btn-block {
     margin-top: $flex-gutter-md;
   }
-
 
 </style>

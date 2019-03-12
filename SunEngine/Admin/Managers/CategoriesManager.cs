@@ -7,6 +7,7 @@ using SunEngine.Cache;
 using SunEngine.DataBase;
 using SunEngine.Models;
 using SunEngine.Services;
+using SunEngine.Utils;
 using SunEngine.Utils.TextProcess;
 
 namespace SunEngine.Admin.Managers
@@ -37,6 +38,7 @@ namespace SunEngine.Admin.Managers
                 throw new ArgumentNullException("Category can not be null");
             
             category.Header = sanitizer.Sanitize(category.Header);
+            category.NameNormalized = Normalizer.Normalize(category.Name);
 
             var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.ParentId);
             
@@ -67,6 +69,7 @@ namespace SunEngine.Admin.Managers
             сategoryExisted.Name = category.Name;
             сategoryExisted.Title = category.Title;
             сategoryExisted.Header = sanitizer.Sanitize(category.Header);
+            сategoryExisted.Description = category.Description;
             сategoryExisted.ParentId = parent.Id;
             сategoryExisted.IsHidden = category.IsHidden;
             сategoryExisted.IsCacheContent = category.IsCacheContent;

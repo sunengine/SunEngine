@@ -2,7 +2,7 @@
   <q-page>
     <div class="header-with-button page-padding">
       <h2 class="q-title">
-        {{category.title}}
+        {{title}}
       </h2>
       <q-btn no-caps @click="$router.push({path:'/AddEditMaterial',query:{categoryName:category.name}})"
              :label="$tl('newPostBtn')"
@@ -18,14 +18,15 @@
 
 <script>
   import LoaderWait from "LoaderWait";
-  import Page from "components/Page";
+  import Page from "Page";
   import PostsList from "./PostsList";
 
   export default {
     name: "BlogPage",
     mixins: [Page],
     props: {
-      categoryName: String
+      categoryName: String,
+      required: true
     },
     components: {PostsList, LoaderWait},
     data: function () {

@@ -279,9 +279,9 @@ export default {
   },
   NewTopics: {
     titleStart: "Новые темы",
-    newTopicBtn: "@:thread.newTopicBtn",
-    topic: "@:thread.topic",
-    last: "@:thread.last"
+    newTopicBtn: "@:Thread.newTopicBtn",
+    topic: "@:Thread.topic",
+    last: "@:Thread.last"
   },
   Profile: {
     sendPrivateMessageBtn: "Написать пользователю",
@@ -313,6 +313,9 @@ export default {
     AdminPanel: {
       title: "Админка"
     },
+    AdminPage: {
+      title: "@:admin.AdminPanel.title"
+    },
     AdminMenu: {
       categoriesAdmin: "Категории",
       rolesPermissions: "Настройка прав",
@@ -323,11 +326,17 @@ export default {
       deleteBtn: "Удалить категорию",
       saveBtn: "@:global.btn.save",
       cancelBtn: "@:global.btn.cancel",
+      deletedNotify: "Категория успешно удалена.",
+      deleteConfirm: "Вы уверены, что хотите удалить категорию?\nВсе данные категории так же будут удалены.",
+      deleteDialogBtnOk: "Удалить",
+      deleteDialogBtnCancel: "Отмена",
+      successNotify: "Категория обновлена.\nНе забудьте перегрузить сайт для обновления."
     },
     AddCategory: {
       title: "Добавить категорию",
       createBtn: "Создать",
       cancelBtn: "@:global.btn.cancel",
+      successNotify: "Категория добавлена.\nНе забудьте перегрузить сайт для обновления."
     },
     CategoryForm: {
       name: "Имя категории (eng)",
@@ -342,6 +351,7 @@ export default {
       appendUrlTokenCb: "Добавлять в URL",
       appendUrlTokenInfo: "(использовать только если вы понимаете что это)",
       isMaterialsContainerCb: "Содержит материалы",
+      noTypeLabel: "Без типа",
       validation: {
         name: {
           required: "Введите имя (eng) категории",
