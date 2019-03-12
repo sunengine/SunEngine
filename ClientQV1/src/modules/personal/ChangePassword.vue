@@ -34,7 +34,7 @@
   import LoaderSent from "LoaderSent";
 
 
-  function getRules() {
+  function createRules() {
 
     const password = [
       value => !!value || this.$tl("validation.password.required"),
@@ -108,9 +108,8 @@
     },
     created() {
       this.title = this.$tl("title");
-      this.rules = getRules.call(this);
-    },
-
+      this.rules = createRules.call(this);
+    }
   }
 </script>
 

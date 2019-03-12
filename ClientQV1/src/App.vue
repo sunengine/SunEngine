@@ -37,7 +37,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import '~quasar-variables';
 
   .api-error {
     display: flex;

@@ -2,7 +2,7 @@
   <q-page class="flex middle page-padding">
     <div class="center-form" v-if="!done">
 
-      <q-input ref="email" v-model="email" type="email" label="$tl('enterEmail')">
+      <q-input ref="email" v-model="email" type="email" :label="$tl('email')" :rules="rules.email">
         <template v-slot:prepend>
           <q-icon name="fas fa-envelope"/>
         </template>
@@ -18,7 +18,11 @@
       </div>
 
 
-      <q-input ref="captchaText" v-model="captchaText" :label="$t('Captcha.enterToken')"/>
+      <q-input ref="captchaText" v-model="captchaText" :label="$t('Captcha.enterToken')" :rules="rules.captchaText">
+        <template v-slot:prepend>
+          <q-icon name="fas fa-hand-point-right"/>
+        </template>
+      </q-input>
 
 
       <q-btn style="width:100%;" color="send" :label="$tl('resetPasswordBtn')" @click="send" :loading="submitting">
@@ -112,9 +116,10 @@
     },
     async created() {
       this.title = this.$tl("title");
+      this.rules = createRules.call(this);
+
       await this.GetToken();
 
-      this.rules = createRules.call(this);
     }
   }
 </script>

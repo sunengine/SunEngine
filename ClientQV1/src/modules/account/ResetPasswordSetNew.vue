@@ -1,37 +1,57 @@
 <template>
-  <q-page padding class="flex middle">
+  <q-page class="flex middle page-padding">
     <div class="center-form" v-if="!done">
-      <q-field icon="fas fa-key" :error="$v.password.$invalid && !start"
-               :error-label="passwordErrorLabel">
-        <q-input v-model="password" type="password" float-label="Пароль"/>
-      </q-field>
 
-      <q-field icon="fas fa-key" class="q-mb-md" :error="$v.password2.$invalid && !start"
-               :error-label="password2ErrorLabel">
-        <q-input v-model="password2" type="password" float-label="Подвердите пароль"/>
-      </q-field>
+      <q-input ref="password" v-model="password" type="password" :label="$tl('password')" :rules="rules.password">
+        <template v-slot:prepend>
+          <q-icon name="fas fa-key"/>
+        </template>
+      </q-input>
 
-      <q-field>
-        <q-btn style="width:100%;" color="send" label="Изменить пароль" @click="changePassword" :loading="submitting">
-          <LoaderSent slot="loading"/>
-        </q-btn>
-      </q-field>
+      <q-input ref="password2" v-model="password2" type="password" :label="$tl('password2')" :rules="rules.password2">
+        <template v-slot:prepend>
+          <q-icon name="fas fa-key"/>
+        </template>
+      </q-input>
+
+      <q-btn style="width:100%;"  class="q-mt-md" color="send" :label="$tl('saveBtn')" @click="changePassword" :loading="submitting">
+        <LoaderSent slot="loading"/>
+      </q-btn>
     </div>
-    <q-alert v-else type="positive" icon="fas fa-key">
-      Пароль изменён.
-      <router-link :to="{name: 'Login'}">Войти</router-link>
+    <q-banner v-else class="bg-positive text-white">
+      <template v-slot:avatar>
+        <q-icon name="fas fa-key" size="2em"/>
+      </template>
+      {{$tl("successMessage")}}
+      <router-link :to="{name: 'Login'}">{{$tl("enter")}}</router-link>
       .
-    </q-alert>
+    </q-banner>
   </q-page>
 </template>
 
 <script>
   import Page from "Page";
   import LoaderSent from "LoaderSent";
-  import {required, minLength, sameAs} from 'vuelidate/lib/validators'
+
+
+  function createRules() {
+
+    const password = [
+      value => !!value || this.$tl("validation.password.required"),
+      value => value.length >= config.PasswordValidation.MinLength || this.$tl("validation.password.minLength"),
+      value => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$tl("validation.password.minDifferentChars"),
+    ];
+
+    return {
+      password: password,
+      password2: [...password,
+        value => this.password === this.password2 || this.$tl("validation.password2.equals")]
+    }
+  }
+
 
   export default {
-    name: "ResetPasswordSetNew.vue",
+    name: "ResetPasswordSetNew",
     components: {LoaderSent},
     mixins: [Page],
     data: function () {
@@ -39,42 +59,16 @@
         password: "",
         password2: "",
         submitting: false,
-        start: true,
         done: false
       }
     },
-    validations: {
-      password: {
-        required,
-        minLength: minLength(6),
-        minDif: (value) => [...new Set(value.split(''))].length >= 2
-      },
-      password2: {
-        required,
-        sameAs: sameAs('password')
-      }
-    },
-    computed: {
-      passwordErrorLabel() {
-        if (!this.$v.password.required)
-          return "Введите пароль";
-        if (!this.$v.password.minLength)
-          return "Пароль должен состоять не менее чем из 6 символов";
-        if (!this.$v.password.minDif)
-          return "В пароле должно быть не менее двух рахных символов";
-      },
-      password2ErrorLabel() {
-        if (!this.$v.password2.required)
-          return "Введите подтверждение пароля";
-        if (!this.$v.password2.sameAs)
-          return "Пароли должны совпадать";
-      }
-    },
+    rules: null,
     methods: {
       async changePassword() {
-        this.start = false;
-        this.$v.$touch();
-        if (this.$v.$invalid) {
+        this.$refs.password.validate();
+        this.$refs.password2.validate();
+
+        if (this.$refs.password.hasError || this.$refs.password2.hasError) {
           return;
         }
 
@@ -93,7 +87,7 @@
           this.$q.notify({
             message: error.response.data.errorText,
             timeout: 5000,
-            type: 'negative',
+            color: 'negative',
             position: 'top'
           });
           this.submitting = false;
@@ -101,7 +95,9 @@
       }
     },
     created() {
-      this.setTitle("Установить пароль");
+      this.title = "Установить пароль";
+
+      this.rules = createRules.call(this);
     },
 
   }

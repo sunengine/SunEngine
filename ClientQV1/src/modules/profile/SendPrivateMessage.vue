@@ -70,7 +70,6 @@
               this.$router.$goBack();
             }
           ).catch(x => {
-            debugger;
             if (x.response.data.errorName === "SpamProtection") {
               this.$q.notify({
                 message: 'Нельзя так часто отправлять личные сообщения. Необходимо подождать.',

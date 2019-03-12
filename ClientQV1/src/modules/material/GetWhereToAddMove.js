@@ -10,7 +10,6 @@ export function GetWhereToAdd(store, categoryName) {
   else
     rez= [...rez.children];
 
-  debugger;
 
   return rez;
 }

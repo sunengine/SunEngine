@@ -63,7 +63,7 @@ export default {
     email: "Email",
     password: "Пароль",
     password2: "Подтвердите пароль",
-    registerBtn: "@:register.title",
+    registerBtn: "@:Register.title",
     registering: "Регистрируемся...",
     emailSent: "Сообщение с ссылкой для регистрации отправлено на email",
     validation: {
@@ -95,7 +95,7 @@ export default {
   },
   ResetPassword: {
     title: "Сброс пароля",
-    enterEmail: "Введите email",
+    email: "Введите email",
     resetPasswordBtn: "Сбросить пароль",
     success: "Сообщение с ссылкой для сброса пароля отправлено на email",
     validation: {
@@ -111,6 +111,24 @@ export default {
   ResetPasswordFailed: {
     title: "Сброс пароля",
     message: "Что-то пошло не так. Возможно истекло время сброса."
+  },
+  ResetPasswordSetNew: {
+    title: "Установить пароль",
+    successMessage: 'Пароль изменён.',
+    enter: 'Войти',
+    saveBtn: "Изменить пароль",
+    password: "Новый пароль",
+    password2: "Подтвердите пароль",
+    validation: {
+      password: {
+        required: "@:Register.validation.password.required",
+        minLength: "@:Register.validation.password.minLength",
+        minDifferentChars: "@:Register.validation.password.minDifferentChars",
+      },
+      password2: {
+        equals: "@:Register.validation.password2.equals",
+      }
+    }
   },
   AddEditComment: {
     required: "Введите сообщение",
@@ -234,12 +252,12 @@ export default {
         required: "Необходимо ввести старый пароль"
       },
       password: {
-        required: "@:register.validation.password.required",
-        minLength: "@:register.validation.password.minLength",
-        minDifferentChars: "@:register.validation.password.minDifferentChars",
+        required: "@:Register.validation.password.required",
+        minLength: "@:Register.validation.password.minLength",
+        minDifferentChars: "@:Register.validation.password.minDifferentChars",
       },
       password2: {
-        equals: "@:register.validation.password2.equals",
+        equals: "@:Register.validation.password2.equals",
       }
     }
   },

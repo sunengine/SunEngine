@@ -142,7 +142,7 @@ namespace SunEngine.Controllers
         /// <summary>
         /// Show Interface to change password
         /// </summary>
-        [HttpPost]
+        [HttpGet]  // Goes here FromMail
         public async Task<IActionResult> ChangePasswordFromResetDialog(string uid, string token)
         {
             var user = await userManager.FindByIdAsync(uid);
@@ -189,7 +189,7 @@ namespace SunEngine.Controllers
 
         
 
-        [HttpPost]
+        [HttpGet] // Goes here FromMail
         public async Task<IActionResult> ConfirmEmail(string token)
         {
             try
