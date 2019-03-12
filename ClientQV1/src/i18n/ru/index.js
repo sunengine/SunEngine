@@ -370,6 +370,16 @@ export default {
     },
     CategoryItem: {
       rootCategory: "Корневая категория"
+    },
+    RolesPermissions: {
+      title: "Загрузка Json прав для групп",
+      backupWarning: "Перед загрузкой необходимо сделать backup базы.",
+      saveToServerBtn: "Сохранить на сервер",
+      getFromServer: "Загрузить с сервера",
+      getFromServerSuccessNotify: "Данные загружены с сервера",
+      saveToServerSuccessNotify: "Настройки групп успешно обновлены",
+      textAreaLabel: "Json файл конфигурации прав групп"
     }
+
   },
 }
