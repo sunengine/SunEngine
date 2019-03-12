@@ -94,6 +94,12 @@ namespace SunEngine.Controllers
             contentCache.CacheContent(key, json);
             return JsonString(json);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            userManager.Dispose();
+            base.Dispose(disposing);
+        }
     }
 
     public class ErrorViewModel

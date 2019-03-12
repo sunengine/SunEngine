@@ -20,6 +20,7 @@ namespace SunEngine.Admin.Controllers
             this.rolesPermissionsAdminService = rolesPermissionsAdminService;
         }
 
+        [HttpPost]
         public async Task<IActionResult> GetJson()
         {
             var json = await rolesPermissionsAdminService.GetGroupsJsonAsync();
@@ -27,6 +28,7 @@ namespace SunEngine.Admin.Controllers
             return Ok(new {Json = json});
         }
 
+        [HttpPost]
         public async Task<IActionResult> UploadJson(string json)
         {
             try

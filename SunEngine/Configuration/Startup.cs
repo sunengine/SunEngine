@@ -59,7 +59,7 @@ namespace SunEngine.Configuration
 
             services.AddPresenters();
 
-            services.AddAdminServices();
+            services.AddAdmin();
 
             //services.AddMemoryCache();
 

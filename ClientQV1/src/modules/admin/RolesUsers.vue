@@ -1,4 +1,5 @@
 <template>
+  <q-page class="page-padding page-padding-top">
   <div class="row">
     <div v-if="roles" class="xs-col-12 col-4">
       <div class="local-header">Группы</div>
@@ -13,6 +14,7 @@
     </div>
     <router-view style="margin-left: 6px;"></router-view>
   </div>
+  </q-page>
 </template>
 
 <script>

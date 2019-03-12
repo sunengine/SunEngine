@@ -2,14 +2,14 @@
   <div>
     <div class="xs-col-12 col-8">
       <div class="local-header">Пользователи</div>
-      <q-input v-model="filter" float-label="Фильтр" @input="filterValueChanged" />
+      <q-input v-model="filter" label="Фильтр" @input="filterValueChanged" />
 
       <div v-if="users" class="local-content">
         <div :key="user.id" v-for="user in users">
           <router-link :to="`/user/${user.link}`">{{user.name}}</router-link>
         </div>
-        <div v-if="users.length == 0" style="color: gray;">Нет результатов</div>
-        <div v-if="users.length == 40" style="color: gray;">Выведены первые 40 результатов</div>
+        <div v-if="users.length === 0" style="color: gray;">Нет результатов</div>
+        <div v-if="users.length === 40" style="color: gray;">Выведены первые 40 результатов</div>
       </div>
       <div v-else class="xs-col-12 col-8">
         <loader-wait/>

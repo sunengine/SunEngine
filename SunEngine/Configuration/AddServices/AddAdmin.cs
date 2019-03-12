@@ -5,9 +5,9 @@ using SunEngine.Admin.Services;
 
 namespace SunEngine.Configuration.AddServices
 {
-    public static class AddAdminServicesExtensions
+    public static class AddAdminExtensions
     {
-        public static void AddAdminServices(this IServiceCollection services)
+        public static void AddAdmin(this IServiceCollection services)
         {
             services.AddScoped<CategoriesManager>();
             services.AddScoped<RolesPermissionsAdminService>();

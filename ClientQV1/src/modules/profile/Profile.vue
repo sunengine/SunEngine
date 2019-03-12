@@ -5,16 +5,16 @@
         <img width="300" height="300" :src="$imagePath(user.photo)"/>
         <div v-if="messageButtons" class="private-messages-block flex q-mt-sm"
              style="padding-right: 2px; padding-left: 2px; align-items: center; width: 100%">
-          <q-btn class="shadow-1" color="lime-4" style="flex-grow: 1" :disable="!canPrivateMessage"
+          <q-btn no-caps class="shadow-1" color="lime-4" style="flex-grow: 1" :disable="!canPrivateMessage"
                  :to="{path: '/SendPrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}"
                  dense icon="far fa-envelope" :label="$tl('sendPrivateMessageBtn')"/>
           <q-btn :color="!user.iBannedHim ? 'lime-4' : 'negative'" class="shadow-1 q-ml-sm" dense
                  style="padding-left:10px !important; padding-right: 10px; !important" v-if="!user.noBannable"
                  icon="fas fa-ellipsis-v">
             <q-menu>
-              <q-btn v-close-menu color="negative"  v-close-overlay v-if="!user.iBannedHim" @click="ban"
+              <q-btn no-caps v-close-menu color="negative"  v-close-overlay v-if="!user.iBannedHim" @click="ban"
                      icon="fas fa-ban" :label="$tl('banBtn')"/>
-              <q-btn v-close-menu color="positive"  v-close-overlay v-else @click="unBan" icon="fas fa-smile"
+              <q-btn no-caps v-close-menu color="positive"  v-close-overlay v-else @click="unBan" icon="fas fa-smile"
                      :label="$tl('unBanBtn')"/>
             </q-menu>
           </q-btn>
@@ -23,8 +23,8 @@
       <div>
         <h4>{{user.name}}</h4>
         <div v-html="user.information"></div>
-         <q-expansion-item v-if="canEditRoles" @show="showRolesAdmin" icon="fas fa-cog" label="Группы" style="margin-top: 30px; border: 1px solid silver" header-style="background-color: #e4e4e4">
-           <RolesForProfile  :userId="user.id" v-if="isShowRolesAdmin" />
+         <q-expansion-item  v-if="canEditRoles" @show="showRolesAdmin" icon="fas fa-cog" label="Группы" style="border-radius: 12px; margin-top: 30px; border: 1px solid silver" header-style="background-color: #e4e4e4">
+           <RolesForProfile class="q-pa-md"  :userId="user.id" v-if="isShowRolesAdmin" />
          </q-expansion-item>
       </div>
     </div>

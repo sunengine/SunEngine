@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Caching.Memory;
 using SunEngine.Utils;
 
 namespace SunEngine.Cache
 {
-    public interface IContentCache 
+    public interface IContentCache
     {
         string GetContent(string key);
         bool IsCached(int categoryId);

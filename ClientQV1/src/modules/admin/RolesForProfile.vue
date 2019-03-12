@@ -3,23 +3,53 @@
     <div v-if="userRoles">
       <div class="user-groups">
         <div>Группы пользователя:</div>
-        <div style="margin: 7px 0; background-color: #f7fbc9; padding: 10px;">
+        <div class="q-my-md" style="background-color: #f7fbc9; padding: 10px;">
         <span class="one-group" v-for="role in userRoles"
               :class="'group-'+role.name.toLowerCase()">{{role.title}}</span>
         </div>
       </div>
-      <div>
-        <q-select v-if="availableRoles"
-                  v-model="roleToAdd"
-                  float-label="Добавить группу"
-                  :options="addOptions" @input="addToRoleConfirm"
-        />
-        <q-select v-if="userRoles"
-                  v-model="roleToRemove"
-                  float-label="Удалить группу"
-                  :options="removeOptions" @input="removeFromRoleConfirm"
-        />
-        <br/>
+      <div class="flex q-gutter-sm">
+        <q-btn style="flex-grow: 1" @click="add = true" no-caps color="positive" icon="fas fa-plus" label="Добавить группу"/>
+
+        <q-btn style="flex-grow: 1"  @click="remove = true" no-caps color="negative" icon="fas fa-minus" label="Удалить группу"/>
+
+        <q-dialog  v-model="add">
+
+          <q-list class="bg-white">
+            <q-toolbar class="bg-positive text-white shadow-2">
+              <q-toolbar-title>
+                <q-icon name="fas fa-plus" class="q-mr-sm" />
+                Добавить
+              </q-toolbar-title>
+            </q-toolbar>
+            <q-item  clickable @click="addToRoleConfirm(role)" v-for="role in availableRoles">
+              <q-item-section>
+                <q-item-label class="text-blue">
+                  {{role.title}}
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-dialog>
+
+        <q-dialog  v-model="remove">
+          <q-list class="bg-white">
+            <q-toolbar class="bg-negative text-white shadow-2">
+              <q-toolbar-title>
+                <q-icon name="fas fa-minus" class="q-mr-sm" />
+                Удалить
+              </q-toolbar-title>
+            </q-toolbar>
+            <q-item clickable @click="removeFromRoleConfirm(role)" v-for="role in userRoles">
+              <q-item-section>
+                <q-item-label>
+                  {{role.title}}
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-dialog>
+
       </div>
     </div>
     <LoaderWait v-else/>
@@ -43,64 +73,41 @@
         allRoles: null,
         userRoles: null,
         availableRoles: null,
-        roleToAdd: null,
-        roleToRemove: null
-      }
-    },
-    computed: {
-      addOptions() {
-        return this.availableRoles?.map(x => {
-          return {
-            label: x.title, value: x.name
-          }
-        });
-      },
-      removeOptions() {
-        return this.userRoles?.map(x => {
-          return {
-            label: x.title, value: x.name
-          }
-        });
+        add: false,
+        remove: false
       }
     },
     methods: {
-      async addToRoleConfirm(roleName) {
-        let role = this.allRoles.find(x => x.name === roleName);
-
+      async addToRoleConfirm(role) {
+        this.add = false;
         this.$q.dialog({
           //title: 'Confirm',
           message: `Добавить группу '${role.title}'?`,
           ok: 'Добавить',
           cancel: 'Отмена'
-        }).then(async () => {
-          await this.addToRole(roleName);
-          this.roleToAdd = null;
-        }).catch(() => {
-          this.roleToAdd = null;
+        }).onOk(async () => {
+          await this.addToRole(role);
         })
       },
-      async removeFromRoleConfirm(roleName) {
-        let role = this.allRoles.find(x => x.name === roleName);
-
+      async removeFromRoleConfirm(role) {
+        this.remove = false;
         this.$q.dialog({
           //title: 'Confirm',
           message: `Удалить группу '${role.title}'?`,
           ok: 'Удалить',
           cancel: 'Отмена'
-        }).then(async () => {
-          await this.removeFromRole(roleName);
-          this.roleToRemove = null;
-        }).catch(() => {
-          this.roleToRemove = null;
+        }).onOk(async () => {
+          await this.removeFromRole(role);
         })
       },
-      async addToRole(roleName) {
+      async addToRole(role) {
+        debugger;
         await this.$store.dispatch("request",
           {
             url: "/Admin/AdminUserRoles/AddUserToRole",
             data: {
               userId: this.userId,
-              roleName: roleName
+              roleName: role.name
             }
           })
           .then(async () => {
@@ -108,13 +115,13 @@
             }
           );
       },
-      async removeFromRole(roleName) {
+      async removeFromRole(role) {
         await this.$store.dispatch("request",
           {
             url: "/Admin/AdminUserRoles/RemoveUserFromRole",
             data: {
               userId: this.userId,
-              roleName: roleName
+              roleName: role.name
             }
           })
           .then(async () => {

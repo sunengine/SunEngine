@@ -23,25 +23,28 @@ namespace SunEngine.Admin.Controllers
             this.jwtBlackListService = jwtBlackListService;
         }
 
+        [HttpPost]
         public async Task<IActionResult> GetAllUserRoles()
         {
             var groups = await userRolesPresenter.GetAllRolesAsync();
             return Ok(groups);
         }
 
+        [HttpPost]
         public async Task<IActionResult> GetUserRoles(int userId)
         {
             var groups = await userRolesPresenter.GetUserRolesAsync(userId);
             return Ok(groups);
         }
 
+        [HttpPost]
         public async Task<IActionResult> GetRoleUsers(string roleName, string userNamePart)
         {
             var users = await userRolesPresenter.GetRoleUsers(roleName, userNamePart);
             return Ok(users);
         }
 
-
+        [HttpPost]
         public async Task<IActionResult> AddUserToRole(int userId, string roleName)
         {
             var user = await userManager.FindByIdAsync(userId);
@@ -52,6 +55,7 @@ namespace SunEngine.Admin.Controllers
             return Ok();
         }
 
+        [HttpPost]
         public async Task<IActionResult> RemoveUserFromRole(int userId, string roleName)
         {
             var user = await userManager.FindByIdAsync(userId);
