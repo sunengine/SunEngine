@@ -96,7 +96,7 @@ namespace SunEngine.Managers
             var updateEmailUrl = globalOptions.SiteApi.AppendPathSegments("Account", "ConfirmChangeEmail")
                 .SetQueryParam("token", emailToken);
 
-            await emailSender.SendEmailAsync(user.Email, "Confirm your email",
+            await emailSender.SendEmailAsync(email, "Confirm your email",
                 $"Confirm your email by clicking this <a href=\"{updateEmailUrl}\">link</a>.");
         }
 
