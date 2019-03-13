@@ -13,6 +13,10 @@
 
     <PostsList ref="postsList" />
 
+    <q-pagination class="page-padding q-mt-md" v-if="posts.totalPages > 1" v-model="posts.pageIndex" color="pagination"
+                  :max-pages="12" :max="posts.totalPages" ellipses direction-links @input="pageChanges"/>
+
+
   </q-page>
 </template>
 
@@ -48,13 +52,12 @@
         return this.category?.categoryPersonalAccess?.materialWrite;
       },
       currentPage() {
-        let page1 = this.$route.query?.["page"];
-        return page1 ?? 1;
+        let page = this.$route.query?.page;
+        return page ?? 1;
       }
     },
 
     methods: {
-
       pageChanges(newPage) {
         if (this.currentPage !== newPage) {
           let req = {path: this.$route.path};
@@ -79,6 +82,7 @@
           .then(
             response => {
               this.$refs.postsList.posts = response.data;
+              this.posts = response.data;
             }
           ).catch(x => {
             console.log("error", x);

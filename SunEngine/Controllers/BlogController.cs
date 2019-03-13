@@ -62,11 +62,13 @@ namespace SunEngine.Controllers
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> GetPostsFromMultiCategories(string categoriesNames, int page = 1)
+        public virtual async Task<IActionResult> GetPostsFromMultiCategories(string categoriesNames,
+            int page = 1, int? pageSize = null)
         {
             var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(categoriesNames);
 
-            IList<CategoryCached> categoriesList = authorizationService.GetAllowedCategories(User.Roles, materialsCategoriesDic.Values,
+            IList<CategoryCached> categoriesList = authorizationService.GetAllowedCategories(User.Roles,
+                materialsCategoriesDic.Values,
                 OperationKeys.MaterialAndCommentsRead);
 
             if (categoriesList.Count == 0)
@@ -76,7 +78,8 @@ namespace SunEngine.Controllers
 
             var categoriesIds = categoriesList.Select(x => x.Id).ToArray();
 
-            var rez = await blogPresenter.GetPostsFromMultiCategoriesAsync(categoriesIds, page, blogOptions.PostsPageSize);
+            var rez = await blogPresenter.GetPostsFromMultiCategoriesAsync(categoriesIds, page,
+                pageSize ?? blogOptions.PostsPageSize);
 
             return Json(rez);
 

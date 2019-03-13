@@ -43,10 +43,6 @@
         if (!this.mounted)
           return;
         return this.$refs?.postsList?.posts && this.$refs?.activitiesList?.activities;
-      },
-      currentPage() {
-        let page1 = this.$route.query?.page;
-        return page1 ?? 1;
       }
     },
     methods: {
@@ -57,7 +53,8 @@
             url: "/Blog/GetPostsFromMultiCategories",
             data: {
               categoriesNames: "root",
-              page: this.currentPage
+              pageSize: 6
+              //page: 1
             }
           })
           .then(
