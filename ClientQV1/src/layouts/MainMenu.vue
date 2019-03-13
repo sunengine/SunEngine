@@ -115,5 +115,9 @@
     align-items: center;
   }
 
+  .q-item__section--main {
+    //font-weight : 600;
+  }
+
 
 </style>

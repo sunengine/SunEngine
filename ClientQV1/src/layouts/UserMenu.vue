@@ -21,7 +21,7 @@
         </q-item-section>
       </q-item>
       <q-item :to="{name: 'Personal'}" v-close-menu>
-        <q-item-section avatar="">
+        <q-item-section avatar>
           <q-icon name="fas fa-address-card"/>
         </q-item-section>
         <q-item-section>
@@ -31,7 +31,7 @@
         </q-item-section>
       </q-item>
       <q-item v-if="isAdmin" :to="{name: 'Admin'}" v-close-menu>
-        <q-item-section avatar="">
+        <q-item-section avatar>
           <q-icon name="fas fa-cog"/>
         </q-item-section>
         <q-item-section>
@@ -41,7 +41,7 @@
         </q-item-section>
       </q-item>
       <q-item   @click.native="logout()" clickable v-close-menu>
-        <q-item-section avatar="">
+        <q-item-section avatar>
           <q-icon name="fas fa-sign-out-alt"/>
         </q-item-section>
         <q-item-section>

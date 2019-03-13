@@ -3,7 +3,7 @@
     <q-item :to="path" class="header page-padding">
       <img class="avatar" :src="$imagePath(post.authorAvatar)"/>
       <div>
-        <div style="font-weight: 600">
+        <div class="blog-title my-header">
           {{post.title}}
         </div>
         <div>
@@ -79,6 +79,10 @@
     //margin-left: -16px;
     //padding-left: 16px !important;
     color: #3a67d3 !important;
+  }
+
+  .blog-title {
+    font-weight: 600 !important;
   }
 
   $footer-line-height = 38px;
