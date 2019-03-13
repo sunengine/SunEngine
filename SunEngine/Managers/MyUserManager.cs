@@ -23,6 +23,22 @@ namespace SunEngine.Managers
             KeyNormalizer = Normalizer.Singleton;
         }    
         
+        public async Task<User> FindUserByNameOrEmailAsync(string nameOrEmail)
+        {
+            User user;
+            if (EmailValidator.IsValidEmail(nameOrEmail))
+            {
+                user = await FindByEmailAsync(nameOrEmail)
+                       ?? await FindByNameAsync(nameOrEmail); // if name is email like
+            }
+            else
+            {
+                user = await FindByNameAsync(nameOrEmail);
+            }
+
+            return user;
+        }
+        
         public virtual Task ChangeEmailAsync(int userId, string email)
         {
             return db.Users.Where(x => x.Id == userId).Set(x => x.Email, email)

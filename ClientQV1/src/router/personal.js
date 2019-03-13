@@ -2,8 +2,6 @@ import SettingsPanel from 'personal/SettingsPanel';
 import SettingsPage from 'personal/SettingsPage';
 import LoadPhoto from 'personal/LoadPhoto';
 import EditInformation from 'personal/EditInformation';
-import ChangePassword from 'personal/ChangePassword.vue';
-import ChangeEmail from 'personal/ChangeEmail.vue';
 import ChangeLink from 'personal/ChangeLink.vue';
 import ChangeName from 'personal/ChangeName.vue';
 import MyBanList from 'personal/MyBanList.vue';
@@ -69,23 +67,9 @@ const routes = [
       navigation: SettingsPanel
     },
     props: {
-      default: () => {return { link: store.state.auth.userInfo?.link }}
-    }
-  },
-  {
-    name: 'ChangePassword',
-    path: '/account/ChangePassword'.toLowerCase(),
-    components: {
-      default: ChangePassword,
-      navigation: SettingsPanel
-    }
-  },
-  {
-    name: 'ChangeEmail',
-    path: '/account/ChangeEmail'.toLowerCase(),
-    components: {
-      default: ChangeEmail,
-      navigation: SettingsPanel
+      default: () => {
+        return {link: store.state.auth.userInfo?.link}
+      }
     }
   },
 

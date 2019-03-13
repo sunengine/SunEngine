@@ -29,7 +29,7 @@
       </q-btn>
 
       <router-link class="text-center q-mt-lg" :to="{name:'ResetPassword'}">
-        <QIcon class="q-mr-sm" name="far fa-question-circle"/>
+        <q-icon class="q-mr-sm" name="far fa-question-circle"/>
         <span>{{$tl('forgotPassword')}}</span>
       </router-link>
     </div>

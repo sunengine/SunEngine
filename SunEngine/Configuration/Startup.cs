@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using SunEngine.Configuration.AddServices;
 using SunEngine.DataBase;
-using SunEngine.Security;
 using SunEngine.Security.Authentication;
 using SunEngine.Security.Captcha;
 using SunEngine.Services;
@@ -67,11 +66,8 @@ namespace SunEngine.Configuration
 
             services.AddImagesServices();
 
-            services.AddUrlHelper();
-            
             services.AddJobs();
 
-            services.AddScoped<IAccountService, AccountService>();
             services.AddSingleton<CaptchaService>();
             services.AddSingleton<Sanitizer>();
             services.AddTransient<IEmailSender, EmailSender>();

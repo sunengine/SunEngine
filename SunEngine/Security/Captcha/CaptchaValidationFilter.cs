@@ -20,9 +20,9 @@ namespace SunEngine.Security.Captcha
             {
                 var parameters = descriptor.MethodInfo.GetParameters();
 
-                var modelParameter = parameters.FirstOrDefault(x=>x.ParameterType.IsSubclassOf(typeof(CaptchaViewModel)));
+                var modelParameter = parameters.FirstOrDefault(x=>x.ParameterType.IsSubclassOf(typeof(CaptchaArgs)));
                 
-                var model = (CaptchaViewModel)context.ActionArguments[modelParameter.Name];
+                var model = (CaptchaArgs)context.ActionArguments[modelParameter.Name];
                 
                 if (!captchaService.VerifyToken(model.CaptchaToken, model.CaptchaText))
                 {

@@ -32,8 +32,8 @@
         return null;
       },
       isDefault() {
-        if (this.$store && this.$store.state && this.$store.state.auth && this.$store.state.auth.user.photo)
-          return this.$store.state.auth.user.photo.endsWith(defaultAvatar);
+        if (this.$store && this.$store.state && this.$store.state.auth && this.$store.state.auth.userInfo.photo)
+          return this.$store.state.auth.userInfo.photo.endsWith(defaultAvatar);
       }
     },
     methods: {
@@ -54,7 +54,7 @@
           .then(async () => {
               await this.$store.dispatch('getMyUserInfo');
               this.loading = false;
-              const msg = this.$t("global.avatarChangedSuccessNotify");
+              const msg = this.$tl("avatarChangedSuccessNotify");
               this.$q.notify({
                 message: msg,
                 timeout: 2800,
@@ -89,10 +89,9 @@
               this.$q.notify({
                 message: msg,
                 timeout: 2000,
-                type: 'info',
+                color: 'info',
                 position: 'top'
               });
-              //this.$router.push({name: "Personal"});
             }
           ).catch(x => {
             this.loading = false;

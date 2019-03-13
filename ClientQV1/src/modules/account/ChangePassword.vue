@@ -79,7 +79,7 @@
         this.submitting = true;
 
         await this.$store.dispatch('request', {
-          url: '/Personal/ChangePassword',
+          url: '/Account/ChangePassword',
           data: {
             passwordOld: this.passwordOld,
             passwordNew: this.password

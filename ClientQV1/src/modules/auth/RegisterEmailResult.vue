@@ -21,7 +21,7 @@
   import Page from "Page";
 
   export default {
-    name: "RegisterEmailConfirmed",
+    name: "RegisterEmailResult",
     mixins: [Page],
     computed: {
       success() {
@@ -31,7 +31,6 @@
     created() {
       this.title = this.$tl("title");
     }
-
   }
 </script>
 

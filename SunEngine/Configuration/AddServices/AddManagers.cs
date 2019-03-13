@@ -12,6 +12,8 @@ namespace SunEngine.Configuration.AddServices
             services.AddScoped<IPersonalManager, PersonalManager>();
             services.AddScoped<IProfileManager, ProfileManager>();
             services.AddScoped<ITagsManager, TagsManager>();
+            services.AddScoped<IAuthManager, AuthManager>();
+            services.AddScoped<IAccountManager, AccountManager>();
         }
     }
 }

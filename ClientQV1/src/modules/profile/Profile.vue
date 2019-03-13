@@ -24,7 +24,7 @@
         <h4>{{user.name}}</h4>
         <div v-html="user.information"></div>
          <q-expansion-item  v-if="canEditRoles" @show="showRolesAdmin" icon="fas fa-cog" label="Группы" style="border-radius: 12px; margin-top: 30px; border: 1px solid silver" header-style="background-color: #e4e4e4">
-           <RolesForProfile class="q-pa-md"  :userId="user.id" v-if="isShowRolesAdmin" />
+           <ProfileRoles class="q-pa-md"  :userId="user.id" v-if="isShowRolesAdmin" />
          </q-expansion-item>
       </div>
     </div>
@@ -35,12 +35,12 @@
 <script>
   import LoaderWait from "LoaderWait";
   import Page from "Page";
-  import RolesForProfile from "admin/RolesForProfile";
+  import ProfileRoles from "admin/ProfileRoles";
 
   export default {
     name: "Profile",
     mixins: [Page],
-    components: {RolesForProfile, LoaderWait},
+    components: {ProfileRoles, LoaderWait},
     props: {
       link: {
         type: String,

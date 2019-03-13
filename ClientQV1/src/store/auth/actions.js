@@ -7,7 +7,7 @@ export async function doLogin(context, userData) {
 
   await context.dispatch('request',
     {
-      url: "/Account/Login",
+      url: "/Auth/Login",
       data: {
         nameOrEmail: userData.nameOrEmail,
         password: userData.password
@@ -27,7 +27,7 @@ export async function doLogin(context, userData) {
 
 
 export async function logout(context) {
-  return await context.dispatch('request', {url: '/Account/Logout'});
+  return await context.dispatch('request', {url: '/Auth/Logout'});
 }
 
 

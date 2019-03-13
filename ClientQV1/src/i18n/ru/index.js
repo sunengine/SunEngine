@@ -27,7 +27,7 @@ export default {
     canNotConnectApi: "Невозможно соединиться с API."
   },
   Captcha: {
-    newCommentBtn: "Выдать новое изображение",
+    newMessageBtn: "Выдать новое изображение",
     waitMessage: "Что бы сгенерировать новый токен, нужно немного подождать, попробуйте через некоторое время",
     enterToken: "Введите текст с картинки",
     required: "@:captcha.enterToken",
@@ -87,11 +87,16 @@ export default {
       }
     }
   },
-  RegisterEmailConfirmed: {
+  RegisterEmailResult: {
     title: "Подтверждение почты",
     success: "Ваша почта успешно подтверждена.",
     error: "Подтверждение почты. Что-то пошло не так.",
     enter: "Войти"
+  },
+  ChangeEmailResult: {
+    title: "@:RegisterEmailResult.title",
+    success: "@:RegisterEmailResult.success",
+    error: "@:RegisterEmailResult.error",
   },
   ResetPassword: {
     title: "Сброс пароля",

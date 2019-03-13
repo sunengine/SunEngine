@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -7,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using SunEngine.Managers;
 using SunEngine.Presenters;
 using SunEngine.Security.Authorization;
-using SunEngine.Utils;
 
 namespace SunEngine.Controllers
 {
@@ -123,47 +121,7 @@ namespace SunEngine.Controllers
             return Ok(usersList);
         }
         
-        [HttpPost]
-        public async Task<IActionResult> ChangeEmail(string password, string email)
-        {
-            email = email.Trim();
-
-            if (!EmailValidator.IsValidEmail(email))
-            {
-                return BadRequest(new ErrorViewModel {ErrorText = "Email not valid"});
-            }
-
-            var user = await GetUserAsync();
-
-            if (!await userManager.CheckPasswordAsync(user, password))
-            {
-                return BadRequest(new ErrorViewModel {ErrorText = "Password not valid"});
-            }
-
-            if (await userManager.CheckEmailInDbAsync(email, user.Id))
-            {
-                return BadRequest(new ErrorViewModel {ErrorText = "Email already registered"});
-            }
-
-            await personalManager.SendChangeEmailConfirmationMessageByEmailAsync(user, email);
-
-            return Ok();
-        }
         
-        [HttpPost]
-        public async Task<IActionResult> ChangePassword(string passwordOld, string passwordNew)
-        {
-            var user = await GetUserAsync();
-
-            var result = await userManager.ChangePasswordAsync(user, passwordOld, passwordNew);
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-
-            return BadRequest(
-                new ErrorViewModel {ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()});
-        }
     }
 
     

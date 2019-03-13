@@ -22,7 +22,7 @@
                 Добавить
               </q-toolbar-title>
             </q-toolbar>
-            <q-item  clickable @click="addToRoleConfirm(role)" v-for="role in availableRoles">
+            <q-item key="role.name"  clickable @click="addToRoleConfirm(role)" v-for="role in availableRoles">
               <q-item-section>
                 <q-item-label class="text-blue">
                   {{role.title}}
@@ -40,7 +40,7 @@
                 Удалить
               </q-toolbar-title>
             </q-toolbar>
-            <q-item clickable @click="removeFromRoleConfirm(role)" v-for="role in userRoles">
+            <q-item key="role.name" clickable @click="removeFromRoleConfirm(role)" v-for="role in userRoles">
               <q-item-section>
                 <q-item-label>
                   {{role.title}}
@@ -60,7 +60,7 @@
   import LoaderWait from "LoaderWait";
 
   export default {
-    name: "RolesForProfile",
+    name: "ProfileRoles",
     components: {LoaderWait},
     props: {
       userId: {

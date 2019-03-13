@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Extensions.Caching.Memory;
 using SunEngine.Utils;
 
 namespace SunEngine.Cache

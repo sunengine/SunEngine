@@ -6,82 +6,54 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using Flurl;
 using LinqToDB;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SunEngine.Configuration.Options;
 using SunEngine.Controllers;
 using SunEngine.DataBase;
-using SunEngine.Managers;
 using SunEngine.Models;
+using SunEngine.Security;
 using SunEngine.Security.Cryptography;
 using SunEngine.Services;
 using SunEngine.Utils;
-    
-namespace SunEngine.Security
+
+namespace SunEngine.Managers
 {
-    public interface IAccountService
+    public interface IAuthManager
     {
         Task<UserServiceResult> LoginAsync(string nameOrEmail, string password);
-        string GenerateChangeEmailToken(User user, string email);
-        bool ValidateChangeEmailToken(string token, out int userId, out string email);
-        Task<ServiceResult> RegisterAsync(NewUserViewModel model);
+        Task<ServiceResult> RegisterAsync(NewUserArgs model);
     }
 
-    public class AccountService : DbService, IAccountService
+    public class AuthManager : DbService, IAuthManager
     {
-        protected readonly JwtOptions jwtOptions;
         protected readonly MyUserManager userManager;
         protected readonly GlobalOptions globalOptions;
         protected readonly IEmailSender emailSender;
-        protected readonly IUrlHelperFactory urlHelperFactory;
-        protected readonly IActionContextAccessor accessor;
         protected readonly ILogger logger;
 
 
-        public AccountService(
+        public AuthManager(
             MyUserManager userManager,
             IEmailSender emailSender,
             DataBaseConnection db,
             IOptions<GlobalOptions> globalOptions,
-            IUrlHelperFactory urlHelperFactory,
-            IActionContextAccessor accessor,
-            IOptions<JwtOptions> jwtOptions,
             ILoggerFactory loggerFactory) : base(db)
         {
-            this.jwtOptions = jwtOptions.Value;
             this.userManager = userManager;
             this.globalOptions = globalOptions.Value;
             this.emailSender = emailSender;
-            this.urlHelperFactory = urlHelperFactory;
-            this.accessor = accessor;
             logger = loggerFactory.CreateLogger<AccountController>();
         }
-
-        public async Task<User> FindUserByNameOrEmailAsync(string nameOrEmail)
-        {
-            User user;
-            if (EmailValidator.IsValidEmail(nameOrEmail))
-            {
-                user = await userManager.FindByEmailAsync(nameOrEmail)
-                       ?? await userManager.FindByNameAsync(nameOrEmail); // if name is email like
-            }
-            else
-            {
-                user = await userManager.FindByNameAsync(nameOrEmail);
-            }
-
-            return user;
-        }
+        
 
         public async Task<UserServiceResult> LoginAsync(string nameOrEmail, string password)
         {
-            User user = await FindUserByNameOrEmailAsync(nameOrEmail);
+            User user = await userManager.FindUserByNameOrEmailAsync(nameOrEmail);
 
             if (user == null || !await userManager.CheckPasswordAsync(user, password))
             {
@@ -114,62 +86,7 @@ namespace SunEngine.Security
         }
 
 
-        public virtual string GenerateChangeEmailToken(User user, string email)
-        {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKeyEmailChange));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, email),
-                new Claim(JwtRegisteredClaimNames.Jti, CryptoRandomizer.GetRandomString(16))
-            };
-
-            var token = new JwtSecurityToken(
-                issuer: jwtOptions.Issuer,
-                audience: jwtOptions.Issuer,
-                claims: claims.ToArray(),
-                expires: DateTime.Now.AddDays(3),
-                signingCredentials: credentials);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-
-        
-
-        public virtual bool ValidateChangeEmailToken(string token, out int userId, out string email)
-        {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKeyEmailChange));
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var validationParameters = new TokenValidationParameters()
-            {
-                ValidateLifetime = true,
-                ValidateAudience = true,
-                ValidateIssuer = true,
-                ValidIssuer = jwtOptions.Issuer,
-                ValidAudience = jwtOptions.Issuer,
-                IssuerSigningKey = key // The same key as the one that generate the token
-            };
-
-            var securityToken = tokenHandler.ValidateToken(token, validationParameters, out _);
-            if (securityToken == null)
-            {
-                userId = 0;
-                email = null;
-                return false;
-            }
-
-            var jwt = tokenHandler.ReadJwtToken(token);
-            email = jwt.Claims.First(x => x.Type == JwtRegisteredClaimNames.Email).Value;
-            userId = int.Parse(jwt.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-            return true;
-        }
-
-
-        public virtual async Task<ServiceResult> RegisterAsync(NewUserViewModel model)
+        public virtual async Task<ServiceResult> RegisterAsync(NewUserArgs model)
         {
             var user = new User
             {
@@ -202,13 +119,8 @@ namespace SunEngine.Security
                     // Send email confirmation email
                     var confirmToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                    var (schema, host) = globalOptions.GetSchemaAndHostApi();
-
-                    var Url = GetUrlHelper();
-
-                    var emailConfirmUrl = Url.Action("Confirm", "Account",
-                        new {uid = user.Id, token = confirmToken},
-                        schema, host);
+                    var emailConfirmUrl = globalOptions.SiteApi.AppendPathSegments("Auth", "ConfirmRegister")
+                        .SetQueryParams(new {uid = user.Id, token = confirmToken});
 
                     try
                     {
@@ -242,12 +154,6 @@ namespace SunEngine.Security
                     Succeeded = true
                 };
             }
-        }
-
-        protected IUrlHelper GetUrlHelper()
-        {
-            ActionContext context = accessor.ActionContext;
-            return urlHelperFactory.GetUrlHelper(context);
         }
     }
 }

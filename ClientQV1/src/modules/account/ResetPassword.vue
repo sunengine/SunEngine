@@ -83,7 +83,7 @@
         }
 
         this.$store.dispatch('request', {
-          url: '/Account/ResetPassword',
+          url: '/Account/ResetPasswordSendEmail',
           data: {
             Email: this.email,
             CaptchaToken: this.token,

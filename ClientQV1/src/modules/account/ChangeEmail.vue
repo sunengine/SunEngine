@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex middle page-padding">
 
-    <div class="center-form">
+    <div v-if="!done" class="center-form">
 
       <q-input ref="password" v-model="password" type="password" :label="$tl('password')" :rules="rules.password">
         <template v-slot:prepend>
@@ -15,11 +15,18 @@
         </template>
       </q-input>
 
-      <q-btn no-caps class="q-mt-lg" color="send" icon="far fa-save" :label="$tl('saveBtn')" @click="save" :loading="submitting">
+      <q-btn no-caps class="q-mt-lg" color="send" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
+             :loading="submitting">
         <LoaderSent slot="loading"/>
       </q-btn>
 
     </div>
+    <q-banner v-else class="bg-positive text-white">
+      <template v-slot:avatar>
+        <q-icon name="far fa-envelope" size="2em"/>
+      </template>
+      {{$tl('successNotify')}}
+    </q-banner>
 
   </q-page>
 </template>
@@ -50,7 +57,8 @@
       return {
         email: "",
         password: "",
-        submitting: false
+        submitting: false,
+        done: false
       }
     },
     rules: null,
@@ -68,20 +76,13 @@
 
         await this.$store.dispatch("request",
           {
-            url: "/Personal/ChangeEmail",
+            url: "/Account/ChangeEmail",
             data: {
               password: this.password,
               email: this.email,
             }
-          }).then(response => {
-          const msg = this.$tl("successNotify");
-          this.$q.notify({
-            message: msg,
-            timeout: 5000,
-            color: 'positive',
-            icon: 'fas fa-check-circle',
-            position: 'top'
-          });
+          }).then(() => {
+          this.done = true;
         }).catch(error => {
           this.submitting = false;
           this.$q.notify({

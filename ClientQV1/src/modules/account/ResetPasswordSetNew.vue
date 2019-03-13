@@ -75,13 +75,13 @@
         this.submitting = true;
 
         await this.$store.dispatch('request', {
-          url: '/Account/ChangePasswordFromReset',
+          url: '/Account/ResetPasswordSetNew',
           data: {
             uid: this.$route.query.uid,
             token: this.$route.query.token,
             newPassword: this.password
           }
-        }).then(response => {
+        }).then( () => {
           this.done = true;
         }).catch(error => {
           this.$q.notify({
@@ -95,7 +95,7 @@
       }
     },
     created() {
-      this.title = "Установить пароль";
+      this.title = this.$tl("title");
 
       this.rules = createRules.call(this);
     },

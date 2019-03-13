@@ -3,50 +3,47 @@
 
     <div v-if="!done" class="center-form">
 
-      <q-input ref="userName" v-model="userName" :label="$i18n.t('register.userName')" :rules="rules.userName">
+      <q-input ref="userName" v-model="userName" :label="$tl('userName')" :rules="rules.userName">
         <template v-slot:prepend>
           <q-icon name="fas fa-user"/>
         </template>
       </q-input>
 
-      <q-input ref="email" v-model="email" type="email" :label="$i18n.t('register.email')" :rules="rules.email">
+      <q-input ref="email" v-model="email" type="email" :label="$tl('email')" :rules="rules.email">
         <template v-slot:prepend>
           <q-icon name="fas fa-envelope"/>
         </template>
       </q-input>
 
-      <q-input ref="password" v-model="password" type="password" :label="$i18n.t('register.password')"
-               :rules="rules.password">
+      <q-input ref="password" v-model="password" type="password" :label="$tl('password')" :rules="rules.password">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
       </q-input>
 
-      <q-input ref="password2" v-model="password2" type="password" :label="$i18n.t('register.password2')"
-               :rules="rules.password2">
+      <q-input ref="password2" v-model="password2" type="password" :label="$tl('password2')" :rules="rules.password2">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
       </q-input>
 
       <div style="padding: 10px 10px 10px 44px; border-radius: 5px; background-color: #f0f4c3">
-        <span class="captcha-wait-msg" v-if="waitToken">{{$tl("waitMessage")}}</span>
+        <span class="captcha-wait-msg" v-if="waitToken">{{$t("Captcha.waitMessage")}}</span>
         <img class="block" v-else-if="token" :src="$apiPath('/Captcha/CaptchaImage?token='+token)"/>
 
         <q-btn class="shadow-1 q-mt-sm block" color="lime-6" @click="GetToken" size="sm" no-caps icon="fas fa-sync"
-               :label="$tl('newMessageBtn')"/>
+               :label="$t('Captcha.newMessageBtn')"/>
       </div>
 
 
-      <q-input ref="captcha" v-model="captchaText" :label="$tl('enterToken')" :rules="rules.captcha">
+      <q-input ref="captcha" v-model="captchaText" :label="$t('Captcha.enterToken')" :rules="rules.captcha">
         <template v-slot:prepend>
           <q-icon name="fas fa-hand-point-right"/>
         </template>
       </q-input>
 
 
-      <q-btn style="width:100%;" color="send" :label="$tl('registerBtn')" @click="register"
-             :loading="submitting">
+      <q-btn style="width:100%;" color="send" :label="$tl('registerBtn')" @click="register" :loading="submitting">
         <span slot="loading">
           <q-spinner class="on-left"/>  {{$tl('registering')}}
         </span>
@@ -67,6 +64,12 @@
   import Page from "Page";
 
   function createRules() {
+    const password = [
+      value => !!value || this.$tl("validation.password.required"),
+      value => value.length >= config.PasswordValidation.MinLength || this.$tl("validation.password.minLength"),
+      value => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$tl("validation.password.minDifferentChars"),
+    ];
+
     return {
       userName: [
         value => !!value || this.$tl("validation.userName.required"),
@@ -78,13 +81,9 @@
         value => /.+@.+/.test(value) || this.$tl("validation.email.emailSig"),
         value => value.length <= config.DbColumnSizes.Users_Email || this.$tl("validation.email.maxLength"),
       ],
-      password: [
-        value => !!value || this.$tl("validation.password.required"),
-        value => value.length >= config.PasswordValidation.MinLength || this.$tl("validation.password.minLength"),
-        value => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$tl("validation.password.minDifferentChars"),
-      ],
+      password: password,
       password2: [
-        ...this.passwordRules,
+        ...password,
         value => this.password === this.password2 || this.$tl("validation.password2.equals")
       ],
       captcha: [
@@ -126,7 +125,7 @@
         this.submitting = true;
 
         await this.$store.dispatch('request', {
-          url: '/Account/Register',
+          url: '/Auth/Register',
           data: {
             UserName: this.userName,
             Email: this.email,
@@ -134,7 +133,7 @@
             CaptchaToken: this.token,
             CaptchaText: this.captchaText
           }
-        }).then(response => {
+        }).then(() => {
           this.done = true;
         }).catch(error => {
           this.$q.notify({
@@ -161,14 +160,15 @@
     },
     async created() {
       this.title = this.$tl("title");
-      this.rules = createRules.call(true);
+
+      this.rules = createRules.call(this);
+
       await this.GetToken();
     }
   }
 </script>
 
 <style lang="stylus" scoped>
-
 
 
 </style>
