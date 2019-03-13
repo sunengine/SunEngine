@@ -102,6 +102,15 @@
     box-shadow: 0 0 8px 1px grey;
   }
 
+  .q-router-link--active {
+    background-color: #e5eed2;
+    //border-radius : 20px;
+
+    >>> .q-item__section--main {
+      color: black !important;
+    }
+  }
+
   .logo-div {
     margin: 20px 0 12px;
   }
@@ -118,6 +127,7 @@
   .q-item__section--main {
     font-size: 1.15em;
     //font-weight : 600;
+    color: black !important;
   }
 
 

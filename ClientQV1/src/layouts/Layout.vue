@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh LpR lfr">
-    <q-header class="glossy" >
-      <q-toolbar  class="toolbar">
+    <q-header class="glossy">
+      <q-toolbar class="toolbar">
 
         <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
           <q-icon name="menu"/>
@@ -11,14 +11,15 @@
           SunEngine
         </q-toolbar-title>
 
-        <q-btn class="q-mr-sm" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu" v-if="rightDrawerIs">
+        <q-btn class="q-mr-sm" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu"
+               v-if="rightDrawerIs">
           <q-icon name="menu"/>
         </q-btn>
 
         <q-btn class="user-menu-button " v-if="userName" flat dense round>
           <img class="avatar" :src="userAvatar"/>
           <q-menu>
-            <UserMenu />
+            <UserMenu/>
           </q-menu>
         </q-btn>
 
@@ -32,11 +33,11 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" bordered content-class="bg-grey-1">
+    <q-drawer v-model="leftDrawerOpen" bordered content-class="menu-drawer">
       <MainMenu/>
     </q-drawer>
 
-    <q-drawer v-if="rightDrawerIs" bordered side="right" v-model="rightDrawerOpen" >
+    <q-drawer v-if="rightDrawerIs" bordered side="right" v-model="rightDrawerOpen">
       <router-view name="navigation"/>
     </q-drawer>
 
@@ -97,6 +98,10 @@
     box-shadow: 0px 0px 4px 1.5px white;
   }
 
+  >>> .menu-drawer {
+    background-color: #edfceb;
+
+  }
 
   .toolbar {
     background-color: #3392FF;
@@ -107,7 +112,7 @@
     text-align: center;
     color: $primary;
     font-family: "BoomBoomRegular";
-    font-size : 16px;
+    font-size: 16px;
 
     span {
       color: $primary;
