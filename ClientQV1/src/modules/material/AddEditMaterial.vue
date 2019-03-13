@@ -80,7 +80,7 @@
                @click="send" color="send">
           <LoaderSent slot="loading"/>
         </q-btn>
-        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack()" label="Отмена" color="warning"/>
+        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" label="Отмена" color="warning"/>
       </div>
     </template>
     <LoaderWait v-else/>

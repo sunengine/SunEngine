@@ -1,6 +1,6 @@
 <template>
   <q-page class="page-padding">
-    <h2 class="q-title"> Написать
+    <h2 class="q-title"> {{$tl("titleStart")}}
       <q-icon name="far fa-user" color="grey-7"/>
       {{userName}}
     </h2>
@@ -15,11 +15,11 @@
 
               ref="htmlEditor" v-model="text"/>
 
-    <q-btn icon="fas fa-arrow-circle-right" class="q-mr-sm" @click="send" color="send" :loading="loading"
-           label="Отправить">
+    <q-btn no-caps icon="fas fa-arrow-circle-right" class="q-mr-sm" @click="send" color="send" :loading="loading"
+           :label="$tl('sendBtn')">
       <loader-sent slot="loading"/>
     </q-btn>
-    <q-btn icon="fas fa-times" @click="$router.back()" color="warning" label="Отмена"/>
+    <q-btn no-caps icon="fas fa-times" @click="$router.back()" color="warning" :label="$t('global.btn.cancel')"/>
   </q-page>
 </template>
 
@@ -58,10 +58,10 @@
               text: this.text
             }
           })
-          .then(
-            response => {
+          .then( () => {
+              const msg = this.$tl("sendSuccessNotify",this.userName);
               this.$q.notify({
-                message: `Сообщение успешно отправлено на почтовый ящик ${this.userName}.`,
+                message: msg,
                 timeout: 5000,
                 color: 'positive',
                 position: 'top'
@@ -71,8 +71,9 @@
             }
           ).catch(x => {
             if (x.response.data.errorName === "SpamProtection") {
+              const msg = this.$tl("sendSpamProtectionNotify");
               this.$q.notify({
-                message: 'Нельзя так часто отправлять личные сообщения. Необходимо подождать.',
+                message: msg,
                 timeout: 5000,
                 color: 'warning',
                 position: 'top'
@@ -80,8 +81,9 @@
             } else {
               console.log("error", x);
               this.loading = false;
+              const msg = this.$tl("sendErrorNotify");
               this.$q.notify({
-                message: 'Сообщение не отправлено. Ошибка на сервере.',
+                message: msg,
                 timeout: 5000,
                 color: 'negative',
                 position: 'top'
@@ -93,7 +95,7 @@
       }
     },
     created() {
-      this.title = "Написать личное сообщение";
+      this.title = this.$tl("title");
     }
 
   }

@@ -19,6 +19,11 @@ const routes = [
     components: {
       default: ActivitiesPage,
       navigation: null
+    },
+    props: {
+      default: {
+        pageTitle: "Активность на сайте"
+      }
     }
   },
   {

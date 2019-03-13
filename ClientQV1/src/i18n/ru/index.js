@@ -177,7 +177,7 @@ export default {
     commentsCount: "сообщений",
     readMore: "Читать дальше"
   },
-  Blog: {
+  BlogPage: {
     newPostBtn: "Новый пост"
   },
   SettingsMenu: {
@@ -293,6 +293,14 @@ export default {
     unBanBtn: "Разбанить",
     banNotify: "Пользователь {0} теперь не может вам писать",
     unBanNotify: "Пользователь {0} теперь может вам писать"
+  },
+  SendPrivateMessage: {
+    title: "Написать личное сообщение",
+    titleStart: "Написать",
+    sendBtn: "Отправить",
+    sendSuccessNotify: "Сообщение успешно отправлено пользователю {0}",
+    sendErrorNotify: "Сообщение не отправлено. Ошибка на сервере.",
+    sendSpamProtectionNotify: "Нельзя так часто отправлять личные сообщения. Необходимо подождать.",
   },
   MyBanList: {
     title: "Забаненые пользователи"
