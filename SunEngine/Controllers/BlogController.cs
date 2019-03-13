@@ -76,13 +76,17 @@ namespace SunEngine.Controllers
 
             var categoriesIds = categoriesList.Select(x => x.Id).ToArray();
 
-            async Task<IPagedList<PostViewModel>> LoadDataAsync()
+            var rez = await blogPresenter.GetPostsFromMultiCategoriesAsync(categoriesIds, page, blogOptions.PostsPageSize);
+
+            return Json(rez);
+
+            /*async Task<IPagedList<PostViewModel>> LoadDataAsync()
             {
                return await blogPresenter.GetPostsFromMultiCategoriesAsync(categoriesIds, page, blogOptions.PostsPageSize);
             }
 
             var blogCategory = categoriesCache.GetCategory(categoriesNames);
-            return await CacheContentAsync(blogCategory, categoriesIds, LoadDataAsync);
+            return await CacheContentAsync(blogCategory, categoriesIds, LoadDataAsync);*/
         }
     }
 }
