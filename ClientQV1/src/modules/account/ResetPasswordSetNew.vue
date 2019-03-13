@@ -2,15 +2,29 @@
   <q-page class="flex middle page-padding">
     <div class="center-form" v-if="!done">
 
-      <q-input ref="password" v-model="password" type="password" :label="$tl('password')" :rules="rules.password">
+      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'" :label="$tl('password')" :rules="rules.password">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
+        <template v-slot:append>
+          <q-icon
+            :name="showPassword ? 'visibility' : 'visibility_off'"
+            class="cursor-pointer"
+            @click="showPassword = !showPassword"
+          />
+        </template>
       </q-input>
 
-      <q-input ref="password2" v-model="password2" type="password" :label="$tl('password2')" :rules="rules.password2">
+      <q-input ref="password2" v-model="password2" :type="showPassword2 ? 'text' : 'password'" :label="$tl('password2')" :rules="rules.password2">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
+        </template>
+        <template v-slot:append>
+          <q-icon
+            :name="showPassword2 ? 'visibility' : 'visibility_off'"
+            class="cursor-pointer"
+            @click="showPassword2 = !showPassword2"
+          />
         </template>
       </q-input>
 
@@ -59,7 +73,9 @@
         password: "",
         password2: "",
         submitting: false,
-        done: false
+        done: false,
+        showPassword: false,
+        showPassword2: false,
       }
     },
     rules: null,

@@ -10,10 +10,17 @@
         </template>
       </q-input>
 
-      <q-input ref="password" v-model="password" type="password" @keyup.enter="login" :label="$tl('password')"
+      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'"  @keyup.enter="login" :label="$tl('password')"
                :rules="[(value) => !!value || $tl('validation.password.required')]">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
+        </template>
+        <template v-slot:append>
+          <q-icon
+            :name="showPassword ? 'visibility' : 'visibility_off'"
+            class="cursor-pointer"
+            @click="showPassword = !showPassword"
+          />
         </template>
       </q-input>
 
@@ -49,6 +56,7 @@
         password: null,
         notMyComputer: false,
         submitting: false,
+        showPassword: false
       }
     },
     methods: {

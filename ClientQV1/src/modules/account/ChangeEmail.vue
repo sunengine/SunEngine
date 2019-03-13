@@ -3,9 +3,16 @@
 
     <div v-if="!done" class="center-form">
 
-      <q-input ref="password" v-model="password" type="password" :label="$tl('password')" :rules="rules.password">
+      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'"  :label="$tl('password')" :rules="rules.password">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
+        </template>
+        <template v-slot:append>
+          <q-icon
+            :name="showPassword ? 'visibility' : 'visibility_off'"
+            class="cursor-pointer"
+            @click="showPassword = !showPassword"
+          />
         </template>
       </q-input>
 
@@ -58,7 +65,8 @@
         email: "",
         password: "",
         submitting: false,
-        done: false
+        done: false,
+        showPassword: false
       }
     },
     rules: null,
