@@ -118,7 +118,7 @@
         return this.category.categoryPersonalAccess;
       },
       canEdit() {
-        if (!this.material || !this.messages) {
+        if (!this.material || !this.comments) {
           return false;
         }
         if (!this.$store.state.auth.user) {
@@ -133,7 +133,7 @@
           return false;
         }
         if (!category.categoryPersonalAccess.materialEditOwnIfHasReplies &&
-          this.messages.length >= 1 && !this.checkLastOwn(this.messages[0])
+          this.comments.length >= 1 && !this.checkLastOwn(this.comments[0])
         ) {
           return false;
         }
