@@ -116,6 +116,7 @@
   }
 
   .q-item__section--main {
+    font-size: 1.15em;
     //font-weight : 600;
   }
 
