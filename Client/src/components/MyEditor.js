@@ -1,17 +1,20 @@
 import {QEditor, QInnerLoading, QSpinnerGears} from "quasar";
+import ValidateMixin from "quasar/src/mixins/validate";
 
 
 export default {
   name: "MyEditor",
   extends: QEditor,
+  mixins: [ValidateMixin],
   data: function () {
     return {
       filesNumber: 0,
       filesNames: [],
-      filesLoading: false
+      filesLoading: false,
     }
   },
   methods: {
+
     oneFileDone() {
       this.filesNumber--;
       if (this.filesNumber <= 0) {
@@ -56,10 +59,8 @@ export default {
 
       for (let i = 0; i < files.length; i++) {
 
-        let formData = new FormData();
+        const formData = new FormData();
         formData.append('file', files[i]);
-
-
 
         this.$store.dispatch("request",
           {
@@ -83,28 +84,48 @@ export default {
   },
 
   computed: {
-
     buttonDef() {
       return {
-        ...QEditor.computed.buttonDef.call(this),
-        addImages: {icon: 'camera_enhance', tip: 'Добавить изображения', handler: this.uploadImages}
+        ...QEditor.options.computed.buttonDef.call(this),
+        addImages: {icon: 'camera_enhance', tip: this.$tl("uploadImages"), handler: this.uploadImages}
       };
     }
   },
 
   render(h) {
-    let fileInput = h("input", {
+    const fileInput = h("input", {
       ref: "file",
       attrs: {type: "file", accept: "image/*", multiple: true},
       style: {display: "none"},
       on: {change: this.handleFiles}
     });
-    let editor = QEditor.render.call(this, h);
-    let loading = h(QInnerLoading, {props: {visible: this.filesLoading}},
+    const editor = QEditor.options.render.call(this, h);
+    const loading = h(QInnerLoading, {props: {visible: this.filesLoading}},
       [h(QSpinnerGears, {props: {size: "60px"}, class: "text-grey-8"})]
     );
-    return h('div', {class: "relative-position"}, [editor, fileInput, loading]);
+
+    const error = h('div', {
+      staticClass: 'error',
+      key: 'q--slot-error'
+    }, this.computedErrorMessage);
+
+    const errorTransition = h('transition', {
+      staticClass: '',
+      props: {
+        name: 'q-transition--field-message',
+      }
+    }, [error]);
+
+    const errorMessage = this.hasError && errorTransition;
+
+    return h('div', {staticClass: "relative-position"}, [editor, errorMessage, fileInput, loading]);
   }
 }
 
-
+/*
+* <div class="q-field__bottom absolute-bottom row items-start relative-position">
+*     <div class="q-field__messages col">
+*         <div>Field is required</div>
+*     </div>
+* </div>
+* */

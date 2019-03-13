@@ -30,4 +30,4 @@ quasar build
 
 
 echo  -e "$GREEN Copying Client $NC"
-cp -rf "$parent_path/Client/dist/spa-mat/." "$parent_path/Build/wwwroot"
+cp -rf "$parent_path/Client/dist/spa/." "$parent_path/Build/wwwroot"

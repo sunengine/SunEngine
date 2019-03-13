@@ -1,0 +1,26 @@
+<template>
+  <QList no-border>
+    <q-item :to="{name: 'CategoriesAdmin'}" :multiline="false" link>
+      <q-icon name="far fa-folder-open" size="16px" class="on-left"/>
+      Категории
+    </q-item>
+    <q-item :to="{name: 'RolesPermissions'}" :multiline="false" link>
+      <q-icon name="fas fa-users-cog" size="16px" class="on-left"/>
+      Настройка прав
+    </q-item>
+    <q-item :to="{name: 'RolesUsers'}" :multiline="false" link>
+      <q-icon name="fas fa-users" size="16px" class="on-left"/>
+      Группы пользователей
+    </q-item>
+  </QList>
+</template>
+
+<script>
+  export default {
+    name: "AdminMenu"
+  }
+</script>
+
+<style scoped>
+
+</style>

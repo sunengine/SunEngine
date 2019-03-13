@@ -79,6 +79,16 @@
       <_ContentIncludedByDefault Remove="Settings\appsettings.Development.json" />
       <_ContentIncludedByDefault Remove="Settings\appsettings.json" />
       <_ContentIncludedByDefault Remove="Settings\SunEngine.json" />
+      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\109\mvXVms1Qu2yaxT9ChWRw.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\116\tqykUAPlq9ZaPysKIDfI.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\122\zxRh0mEJeBO1Phvd2tA4.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\49\1nraZEQ7S5Z9.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\51\3iwd6OtrEPiWM9SjeWKX.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\54\6SmDyKkOPWcuTjKXS6GR.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\76\LWb30tkmmEuJi8560B7Y.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\82\Rt0i985tDwmF0zYb5PvD.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\87\WLkqvehFszYBfJoiSxYe.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\97\aeA7vBoOdIvdUxCDPgh1.jpg" />
     </ItemGroup>
 
 

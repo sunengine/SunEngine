@@ -1,21 +1,24 @@
 <template>
   <div class="activity">
-    <q-item :to='path'>
-      <q-item-main :label="activity.title">
-        <q-item-tile class="desc" sublabel>
+    <q-item :to='path' class="page-padding">
+      <q-item-section>
+        <q-item-label class="my-header">
+          {{activity.title}}
+        </q-item-label>
+        <q-item-label class="word-break" caption>
           {{activity.description}}
-        </q-item-tile>
-        <q-item-tile class="info-block" sublabel>
-          <template v-if="!activity.messageId">
+        </q-item-label>
+        <q-item-label class="info-block" caption>
+          <template v-if="!activity.commentId">
             <span>
               <q-icon name="far fa-file-alt"/>
-              Текст
+              {{$tl("material")}}
               </span>
           </template>
           <template v-else>
             <span>
               <q-icon name="far fa-comment"/>
-              Ответ
+              {{$tl("comment")}}
             </span>
           </template>
           <span>
@@ -30,18 +33,16 @@
             <q-icon name="far fa-clock"/>
             {{$formatDate(activity.publishDate)}}
           </span>
-        </q-item-tile>
-      </q-item-main>
+        </q-item-label>
+      </q-item-section>
     </q-item>
   </div>
 </template>
 
 <script>
-  import SettingsPanel from "personal/SettingsPanel";
 
   export default {
     name: "Activity",
-    components: {SettingsPanel},
     props: {
       activity: {
         type: Object,
@@ -51,8 +52,8 @@
     computed: {
       path() {
         let path = this.category.path + "/" + this.activity.materialId;
-        if (this.activity.messageId)
-          path += "#message-" + this.activity.messageId;
+        if (this.activity.commentId)
+          path += "#comment-" + this.activity.commentId;
         return path;
       },
       category() {
@@ -63,25 +64,7 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import '~variables'
-  @import '~src/css/app'
-
-  .desc {
-    word-break: break-all;
-  }
 
 
-  .pull-right {
-    .q-item {
-      @extend .margin-back-right;
-      @extend .pp-right;
-    }
-  }
 
-  .pull-left {
-    .q-item {
-      @extend .margin-back-left;
-      @extend .pp-left;
-    }
-  }
 </style>

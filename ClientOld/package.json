@@ -1,0 +1,29 @@
+{
+  "name": "SunEngine",
+  "version": "0.9.1",
+  "description": "SunEngine",
+  "productName": "SunEngine",
+  "author": "Dmitrii Polianin",
+  "private": false,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "vuelidate": "^0.7.4",
+    "js-lock": "^0.1.1"
+  },
+  "devDependencies": {
+    "quasar-cli": "^0.17.23",
+    "strip-ansi": "=3.0.1",
+    "path": "^0.12.7",
+    "babel-preset-proposals": "^0.1.0"
+  },
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ]
+}

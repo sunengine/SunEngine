@@ -1,28 +1,60 @@
 <template>
-  <QPage class="flex middle">
-    <div class="center-form" v-if="!done">
-      <q-field icon="fas fa-key" :error="$v.password.$error"
-               error-label="Введите пароль">
-        <q-input v-model="password" type="password" float-label="Ваш пароль"/>
-      </q-field>
+  <q-page class="flex middle page-padding">
 
-      <q-field icon="far fa-envelope" :error="$v.email.$error" :error-label="errorEmailMessage">
-        <q-input v-model="email" type="email" float-label="Новый email"/>
-      </q-field>
-      <QBtn class="q-mt-lg" color="send" icon="far fa-save" label="Сохранить" @click="save" :loading="submitting">
+    <div v-if="!done" class="center-form">
+
+      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'"  :label="$tl('password')" :rules="rules.password">
+        <template v-slot:prepend>
+          <q-icon name="fas fa-key"/>
+        </template>
+        <template v-slot:append>
+          <q-icon
+            :name="showPassword ? 'visibility' : 'visibility_off'"
+            class="cursor-pointer"
+            @click="showPassword = !showPassword"
+          />
+        </template>
+      </q-input>
+
+      <q-input ref="email" v-model="email" type="email" :label="$tl('newEmail')" :rules="rules.email">
+        <template v-slot:prepend>
+          <q-icon name="fas fa-envelope"/>
+        </template>
+      </q-input>
+
+      <q-btn no-caps class="q-mt-lg" color="send" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
+             :loading="submitting">
         <LoaderSent slot="loading"/>
-      </QBtn>
+      </q-btn>
+
     </div>
-    <q-alert v-else type="positive" icon="email">
-      Сообщение с ссылой для подтверждения email отправлено по почте
-    </q-alert>
-  </QPage>
+    <q-banner v-else class="bg-positive text-white">
+      <template v-slot:avatar>
+        <q-icon name="far fa-envelope" size="2em"/>
+      </template>
+      {{$tl('successNotify')}}
+    </q-banner>
+
+  </q-page>
 </template>
 
 <script>
   import Page from "Page";
-  import {required, email} from 'vuelidate/lib/validators'
   import LoaderSent from "LoaderSent";
+
+
+  function createRules() {
+    return {
+      password: [
+        value => !!value || this.$tl("validation.password.required")
+      ],
+      email: [
+        value => !!value || this.$tl("validation.password.email"),
+        value => /.+@.+/.test(value) || this.$tl("validation.password.email")
+      ],
+    }
+  }
+
 
   export default {
     name: "ChangeEmail",
@@ -32,33 +64,22 @@
       return {
         email: "",
         password: "",
+        submitting: false,
         done: false,
-        submitting: false
+        showPassword: false
       }
     },
-    validations: {
-      password: {
-        required
-      },
-      email: {
-        required,
-        email
-      }
-    },
-    computed: {
-      errorEmailMessage() {
-        if (!this.$v.email.required)
-          return "Необходимо ввести email";
-        else
-          return "Введите валидный email";
-      }
-    },
+    rules: null,
     methods: {
       async save() {
-        this.$v.$touch();
-        if (this.$v.$invalid) {
+
+        this.$refs.email.validate();
+        this.$refs.password.validate();
+
+        if (this.$refs.email.hasError || this.$refs.password.hasError) {
           return;
         }
+
         this.submitting = true;
 
         await this.$store.dispatch("request",
@@ -68,27 +89,26 @@
               password: this.password,
               email: this.email,
             }
-          }).then(response => {
+          }).then(() => {
           this.done = true;
         }).catch(error => {
           this.submitting = false;
           this.$q.notify({
             message: error.response.data.errorText,
             timeout: 5000,
-            type: 'negative',
+            color: 'negative',
             position: 'top'
           });
         });
       }
     },
     async created() {
-      this.setTitle("Редактировать email пользователя");
+      this.title = this.$tl("title");
+      this.rules = createRules.call(this);
     }
   }
 </script>
 
 <style lang="stylus" scoped>
-  .q-field {
-    height: 78px;
-  }
+
 </style>

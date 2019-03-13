@@ -1,13 +1,15 @@
 <template>
   <q-list no-border dense v-if="subCategories" highlight>
     <template v-for="folder in subCategories">
-      <q-list-header class="header" :key="folder.id">{{folder.title}}</q-list-header>
+      <q-item-label :key="folder.id" class="header" header>{{folder.title}}</q-item-label>
       <q-item :to='category.path' link multiline
               v-for="category in folder.subCategories"
               :key="category.id">
-        <q-item-main :label="category.title">
-
-        </q-item-main>
+        <q-item-section>
+          <q-item-label>
+            {{category.title}}
+          </q-item-label>
+        </q-item-section>
       </q-item>
     </template>
   </q-list>
@@ -35,10 +37,10 @@
 </script>
 
 <style scoped lang="stylus">
-  @import '~variables';
+  @import '~quasar-variables';
 
   .header {
-    padding: 6px 16px;
+    padding: 8px 16px;
     min-height: unset;
     font-size: unset;
     background-color: #e7ffc1;

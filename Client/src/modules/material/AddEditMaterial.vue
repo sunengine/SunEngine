@@ -1,34 +1,35 @@
 <template>
   <q-page class="q-pa-md">
     <template v-if="material">
-        <q-field class="field" :error="$v.material.title.$invalid && !start"
-                 :error-label="!$v.material.title.required ? 'Введите заголовок' : 'Минимальная длинна заголовка - 3'"
-                 icon="fas fa-info-circle">
-          <q-input v-model="$v.material.title.$model" float-label="Заголовок"/>
-        </q-field>
-        <q-field class="q-mb-md" v-if="canEditDescription"
-                 icon="fas fa-info">
-          <q-input v-model="$v.material.description.$model" type="textarea"
-                   :error="$v.material.description.$invalid && !start"
-                   :error-label="descriptionErrorMessage" float-label="Короткое описание"/>
-        </q-field>
-      <q-field :error="$v.material.text.$invalid && !start"
-               :error-label="!$v.material.text.required ? 'Введите текст' : 'Минимальная длинна текста - 5'"
-               icon="fas fa-edit">
-        <MyEditor
-          :toolbar="[
+
+      <q-input ref="title" v-model="material.title" :label="$tl('title')" :rules="titleRules">
+        <template v-slot:prepend>
+          <q-icon name="fas fa-info-circle"/>
+        </template>
+      </q-input>
+
+      <q-input ref="description" v-if="canEditDescription" v-model="material.description" type="textarea" autogrow
+               :label="$tl('description')" :rules="descriptionRules">
+        <template v-slot:prepend>
+          <q-icon name="fas fa-info-circle"/>
+        </template>
+      </q-input>
+
+
+      <MyEditor
+        :toolbar="[
           ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
           ['token', 'hr', 'link', 'addImages'],
           [
           {
-            label: $q.i18n.editor.formatting,
-            icon: $q.icon.editor.formatting,
+            //label: $q.lang.editor.formatting,
+            icon: $q.iconSet.editor.formatting,
             list: 'no-icons',
             options: ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'code']
           },
           {
-            label: $q.i18n.editor.fontSize,
-            icon: $q.icon.editor.fontSize,
+            //label: $q.lang.editor.fontSize,
+            icon: $q.iconSet.editor.fontSize,
             fixedLabel: true,
             fixedIcon: true,
             list: 'no-icons',
@@ -39,52 +40,47 @@
           ['quote', 'unordered', 'ordered', 'outdent', 'indent',
           {
             //label: $q.i18n.editor.align,
-            icon: $q.icon.editor.align,
+            icon: $q.iconSet.editor.align,
             fixedLabel: true,
             options: ['left', 'center', 'right', 'justify']
           }
           ],
           ['undo', 'redo', 'fullscreen'],
              ]"
+        :rules="textRules"
+        ref="htmlEditor" v-model="material.text"/>
 
-          ref="htmlEditor" v-model="$v.material.text.$model"/>
+      <q-select v-model="material.tags" use-input use-chips multiple :label="$tl('tags')"
+                hide-dropdown-icon input-debounce="0"
+                @new-value="arguments[0].length > 0 && arguments[1](arguments[0])">
+        <template v-slot:prepend>
+          <q-icon name="fas fa-tags"/>
+        </template>
+      </q-select>
 
-      </q-field>
-      <q-field class="field" icon="fas fa-tags">
-        <my-chips-input color="info" v-model="material.tags" float-label="Метки"/>
-      </q-field>
-      <q-field icon="fas fa-folder" :error="$v.material.categoryName.$invalid && !start"
-               error-label="Выберите раздел">
-        <q-btn :label="categoryTitle" no-caps icon-right="fas fa-caret-down">
-          <q-popover>
-            <div style="background-color: white;" class="q-pa-sm">
-              <MyTree v-close-overlay
-                      default-expand-all
-                      :selected.sync="material.categoryName"
-                      :nodes="where"
-                      node-key="value">
-                <div slot="header-root" slot-scope="prop" class="row items-center">
-                  <div class="text-grey-7">
-                    {{ prop.node.label }}
-                  </div>
-                </div>
-                <div slot="header-normal" slot-scope="prop" class="row items-center">
-                  <div style="display: flex; align-items: center; align-content: center;">
-                    <!--<Q-Icon name="fas fa-folder" size="16" color="primary" class="q-mr-sm"/>-->
-                    <span>{{ prop.node.label }}</span>
-                  </div>
-                </div>
-              </MyTree>
+      <q-btn class="q-mt-md select-category" :label="categoryTitle" no-caps outline icon="fas fa-folder">
+        <q-menu>
+          <MyTree v-close-menu class="q-ma-sm" default-expand-all :selected.sync="material.categoryName"
+                  :nodes="where" node-key="value">
+            <div slot="header-root" slot-scope="prop" class="row items-center text-grey-7">
+              {{ prop.node.label }}
             </div>
-          </q-popover>
-        </q-btn>
-      </q-field>
-      <div class="btn-block">
+            <div slot="header-normal" slot-scope="prop" class="row items-center"
+                 style="display: flex; align-items: center; align-content: center;">
+              <QIcon name="fas fa-folder" size="16" color="green" class="q-mr-sm"/>
+              <span>{{ prop.node.label }}</span>
+            </div>
+          </MyTree>
+        </q-menu>
+      </q-btn>
+      <div class="error" v-if="!material.categoryName && !start">{{$tl('validation.category.required')}}</div>
+
+      <div class="q-mt-md">
         <q-btn icon="fas fa-arrow-circle-right" class="btn-send" no-caps :loading="loading" label="Отправить"
                @click="send" color="send">
           <LoaderSent slot="loading"/>
         </q-btn>
-        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack()" label="Отмена" color="warning"/>
+        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" label="Отмена" color="warning"/>
       </div>
     </template>
     <LoaderWait v-else/>
@@ -92,10 +88,8 @@
 </template>
 
 <script>
-  import MyChipsInput from "MyChipsInput";
   import LoaderSent from "LoaderSent";
   import LoaderWait from "LoaderWait";
-  import {required, minLength, maxLength} from 'vuelidate/lib/validators'
   import {GetWhereToMove, GetWhereToAdd} from './GetWhereToAddMove';
   import MyTree from 'MyTree';
   import htmlTextSizeOrHasImage from "HtmlTextSizeOrHasImage.js";
@@ -108,7 +102,7 @@
   export default {
     name: "AddEditMaterial",
     mixins: [Page],
-    components: {MyEditor, LoaderWait, LoaderSent, MyChipsInput, MyTree},
+    components: {MyEditor, LoaderWait, LoaderSent, MyTree},
     props: {
       categoryName: {
         type: String,
@@ -129,11 +123,26 @@
       }
     },
     computed: {
-      descriptionErrorMessage() {
-        return "Максимально допустимая длинна " + config.DbColumnSizes.Materials_Description;
+      titleRules() {
+        return [
+          (value) => !!value || this.$tl('validation.title.required'),
+          (value) => value.length >= 3 || this.$tl('validation.title.minLength'),
+          (value) => value.length <= config.DbColumnSizes.Categories_Title || this.$tl('validation.title.maxLength'),
+        ];
+      },
+      textRules() {
+        return [
+          (value) => !!value || this.$tl('validation.text.required'),
+          (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$tl('validation.text.htmlTextSizeOrHasImage'),
+        ];
+      },
+      descriptionRules() {
+        return [
+          (value) => value.length <= config.DbColumnSizes.Materials_Description || this.$tl('validation.description.maxLength'),
+        ];
       },
       canEditDescription() {
-        return this.category?.sectionType?.name  === 'Articles';
+        return this.category?.sectionType?.name === 'Articles';
       },
       where() {
         if (this.mode === ADD)
@@ -154,34 +163,18 @@
         return "Раздел: " + this.category.title;
       }
     },
-    validations: {
-      material: {
-        title: {
-          required,
-          minLength: minLength(3)
-        },
-        text: {
-          required,
-          htmlTextSizeOrHasImage() {
-            return htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5);
-          }
-        },
-        categoryName: {
-          required
-        },
-        description: {
-          maxLength: maxLength(config.DbColumnSizes.Materials_Description)
-        }
-      }
-    },
     methods: {
       async send() {
         this.start = false;
-        this.$v.$touch();
+        this.$refs.title.validate();
+        this.$refs.description.validate();
+        this.$refs.htmlEditor.validate();
 
-        if (this.$v.$invalid) {
+
+        if (this.$refs.title.hasError || this.$refs.description.hasError || this.$refs.htmlEditor.hasError || !this.material.categoryName) {
           return;
         }
+
 
         if (this.mode === ADD) {
           await this.add();
@@ -247,7 +240,7 @@
           }
         }).then(response => {
           this.material = response.data;
-          this.setTitle(`Редактировать текст: ${this.material.title}`);
+          this.title = "Редактировать текст:" + this.material.title;
         })
       },
     },
@@ -258,7 +251,7 @@
         await this.loadData();
       } else {
         this.mode = ADD;
-        this.setTitle("Создание записи");
+        this.title = "Создание записи";
         this.material = {
           title: "",
           text: "",
@@ -272,21 +265,7 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import '~variables';
 
-  .error {
-    font-size: 0.9em;
-    color: $red-5;
-    margin-left: 44px;
-  }
 
-  .btn-block {
-    margin-top: 8px;
-    margin-left: 28px + 16px;
-  }
-
-  .field {
-    height: 78px;
-  }
 
 </style>

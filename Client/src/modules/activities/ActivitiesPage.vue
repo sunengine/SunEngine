@@ -1,6 +1,6 @@
 <template>
-  <q-page class="pull-left pull-right">
-    <h2 class="q-title">
+  <q-page>
+    <h2 class="q-title page-padding">
       {{pageTitle}}
     </h2>
     <activities-list :materialsCategories="materialsCategories" :messagesCategories="messagesCategories" :activitiesNumber="30"/>
@@ -34,18 +34,16 @@
       pageTitle: {
         type: String,
         required: false,
-        default: "Новое на сайте"
       }
     },
     created() {
-      this.setTitle(this.pageTitle);
+      this.title  = this.pageTitle ?? this.$tl("defaultTitle");
     }
   }
 </script>
 
 
-<style lang="stylus">
-  @import '~css/app';
+<style lang="stylus" scoped>
 
 
 

@@ -1,37 +1,55 @@
 <template>
-  <QPage padding class="flex middle">
+  <q-page class="flex flex-center">
     <div class="center-form">
       <div class="text-grey-7 q-mb-lg">
-        Имя может состоять из букв, цифр, пробела и символа '-', длинны не менее 3.
+        {{$tl("nameValidationInfo")}}
       </div>
-      <q-field :error="$v.password.$error"
-               error-label="Введите пароль">
-        <q-input v-model="password" type="password" float-label="Пароль"/>
-      </q-field>
 
-      <q-field :error="$v.name.$invalid" :error-label="errorMessage">
-        <q-input color="positive" v-model="name" float-label="Имя" @keyup="checkNameInDb" :after="[{
+      <q-input ref="password" v-model="password" type="password" :label="$tl('password')" :rules="rules.passwordRules">
+        <template v-slot:prepend>
+          <q-icon name="fas fa-key"/>
+        </template>
+      </q-input>
+
+      <q-input  ref="name"  color="positive" v-model="name" :label="$tl('name')"  @keyup="checkNameInDb"
+               :rules="rules.nameRules" :after="[{
         icon: 'far fa-check-circle',
-        condition: !$v.name.$invalid},
-        ]"/>
-      </q-field>
-      <QBtn class="q-mt-lg" color="send" icon="far fa-save" label="Сохранить" @click="save" :loading="submitting">
+        condition: nameInDb},
+        ]">
+        <template v-slot:prepend>
+          <q-icon name="fas fa-user"/>
+        </template>
+      </q-input>
+
+      <q-btn no-caps class="q-mt-lg" color="send" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
+             :loading="submitting">
         <LoaderSent slot="loading"/>
-      </QBtn>
+      </q-btn>
     </div>
-  </QPage>
+  </q-page>
 </template>
 
 <script>
   import Page from "Page";
 
-
-  import {makeUserDataFromToken} from "services/auth";
-  import {getToken} from "services/token"
+  import {makeUserDataFromTokens} from "tokens";
   import LoaderSent from "LoaderSent";
-  import {required, helpers} from 'vuelidate/lib/validators'
 
-  const allowedChars = helpers.regex('allowedChars', /^[ a-zA-Zа-яА-ЯёЁ0-9-]*$/)
+
+  function createRules()
+  {
+    return {
+      passwordRules:  [
+        value => !!value || this.$tl("validation.password.required")
+      ],
+      nameRules: [
+        value => !!value || this.$tl("validation.name.required"),
+        value => value.length >= 3 || this.$tl("validation.name.minLength"),
+        value => /^[ a-zA-Zа-яА-ЯёЁ0-9-]*$/.test(value) || this.$tl("validation.name.allowedChars"),
+        value => !this.nameInDb || this.$tl("validation.name.nameInDb")
+      ]
+    }
+  }
 
 
   export default {
@@ -42,44 +60,19 @@
       return {
         name: this.$store.state.auth.user.name,
         password: null,
-        nameInDb: true,
+        nameInDb: false,
         submitting: false
       }
     },
-    validations: {
-      password: {
-        required
-      },
-      name: {
-        required,
-        minLength: x => x.replace(/ /g, "").length >= 3,
-        allowedChars,
-        nameInDb: function () {
-          return this.nameInDb
-        }
-      }
-    },
-    computed: {
-      errorMessage() {
-        if (!this.$v.name.required)
-          return "Введите имя"
-        if (!this.$v.name.minLength)
-          return "Длинна имени должна быть не менее 3";
-        if (!this.$v.name.allowedChars)
-          return "Возможно использование только допустимых символов";
-        if (!this.$v.name.nameInDb)
-          return "Это имя уже занято";
-      }
-    },
+    rules: null,
     methods: {
       checkNameInDb() {
         clearTimeout(this.timeout);
-        if (this.link.toLowerCase() == this.$store.state.auth.user.name.toLowerCase())
-          return;
-        this.timeout = setTimeout(this.checkNameInDb, 1000);
+        this.timeout = setTimeout(this.checkNameInDbServer, 500);
       },
-
-      checkNameInDb() {
+      checkNameInDbServer() {
+        if (this.name.toLowerCase() === this.$store.state.auth.user.name.toLowerCase())
+          return;
         this.$store.dispatch("request",
           {
             url: "/Personal/CheckNameInDb",
@@ -87,13 +80,16 @@
               name: this.name
             }
           }).then(response => {
-          this.nameInDb = !response.data.yes;
+          this.nameInDb = response.data.yes;
+          this.$refs.name.validate();
         })
       },
 
       async save() {
-        this.$v.$touch();
-        if (this.$v.$invalid) {
+        this.$refs.name.validate();
+        this.$refs.password.validate();
+
+        if (this.$refs.name.hasError || this.$refs.password.hasError) {
           return;
         }
 
@@ -108,42 +104,39 @@
             }
           }).then(response => {
 
-          const data = makeUserDataFromToken(getToken());
-          this.$store.commit('makeLogin', data);
+          const data = makeUserDataFromTokens(this.$store.state.auth.tokens);
+          this.$store.commit('setUserData', data);
 
+          const msg = this.$tl("successNotify");
           this.$q.notify({
-            message: `Имя изменено`,
-            timeout: 2000,
-            type: 'info',
+            message: msg,
+            timeout: 2800,
+            color: 'positive',
+            icon: 'fas fa-check-circle',
             position: 'top'
           });
+
           this.$router.push({name: 'Personal'});
 
         }).catch(error => {
-
-          debugger;
-
           this.$q.notify({
             message: error.response.data.errorText,
             timeout: 5000,
-            type: 'negative',
+            color: 'negative',
             position: 'top'
           });
           this.submitting = false;
-
         });
       }
     },
     async created() {
-      this.setTitle("Редактировать имя пользователя");
+      this.title = this.$tl("title");
+
+      this.rules = createRules.call(this);
     }
   }
 </script>
 
 <style lang="stylus" scoped>
-  .q-field {
-    height: 78px;
-  }
-
 
 </style>

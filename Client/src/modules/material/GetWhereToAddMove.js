@@ -4,11 +4,14 @@ export function GetWhereToMove(store) {
 }
 
 export function GetWhereToAdd(store, categoryName) {
-  const rez = GoDeep(store.getters.getCategory(categoryName));
+  let rez = GoDeep(store.getters.getCategory(categoryName));
   if(rez.selectable)
-    return [rez];
+    rez = [rez];
   else
-    return [...rez.children];
+    rez= [...rez.children];
+
+
+  return rez;
 }
 
 function GoDeep(category) {

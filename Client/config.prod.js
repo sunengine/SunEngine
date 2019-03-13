@@ -6,7 +6,7 @@ const config = {
   UploadedImages: 'http://localhost:8000/UploadImages',
   SiteName: 'SunEngine',
 
-  Messages: {
+  Comments: {
     "TimeToOwnEditInMinutes": 15,
     "TimeToOwnDeleteInMinutes": 15
   },
@@ -28,6 +28,13 @@ const config = {
     Roles_Name: 64,
     Roles_Title: 64,
     OperationKey_Name: 100
+  },
+  PasswordValidation: {
+    MinLength: 6,
+    MinDifferentChars: 2
+  },
+  Misc: {
+    AdminRoleUsersMaxUsersTake: 40
   }
 
 };

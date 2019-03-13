@@ -20,6 +20,7 @@ const config = {
     Users_UserName: 64,
     Users_Email: 64,
     Users_Link: 32,
+    Users_PasswordMinLength: 6,
     Materials_Name: 32,
     Materials_Title: 256,
     Materials_Description: 256,
@@ -27,6 +28,12 @@ const config = {
     Roles_Name: 64,
     Roles_Title: 64,
     OperationKey_Name: 100
+  },
+  PasswordValidation: {
+    MinLength: 6,
+    MinDifferentChars: 2
+  },
+  Misc: {
+    AdminRoleUsersMaxUsersTake: 40
   }
-
 };

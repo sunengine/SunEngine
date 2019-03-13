@@ -1,97 +1,40 @@
-@import '~variables';
-@import '/css/fonts/BoomBoomRegular.css';
+// app global css
+@import '~quasar-variables'
+@import '/statics/fonts/BoomBoomRegular.css';
 
-// ——— Main ————————————————————————————————————
+// ——— Colors ————————————————————————————————————
+
+html {
+  font-size: 20px;
+}
 
 body {
   color: #06000d;
   font-family: 'Open Sans', sans-serif;
 }
 
+$link-color = #3a67d3;
+
 a {
   text-decoration: none;
-  color: #3a67d3;
-}
-
-.q-title {
-  margin-top: 6px;
-}
-
-.header-with-button {
-  margin-bottom: $flex-gutter-sm;
-
-  .q-title {
-    float: left;
-    margin-bottom: 6px !important;
-  }
-
-  button {
-    float: right;
-  }
-}
-
-.center {
-  text-align: center;
-}
-
-.text-img {
-  max-width: 100%;
-}
-
-.middle {
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-}
-
-.avatar {
-  width: 38px;
-  border-radius: 15px;
-}
-
-.center-form {
-  width: 400px;
-  display flex;
-  flex-direction: column;
-  justify-content: stretch;
-}
-
-.clear {
-  clear: both;
-}
-
-.modal-message,.q-notification {
-  white-space: pre-wrap;
-}
-
-// ——— Elements ————————————————————————————————————
-
-.menu-panel-title {
-  text-align: center;
-  margin: 0;
-  padding: 7px 0 4px 0;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  font-weight: bolder;
-  background-color: #f3ffdd;
-  border-bottom: 1px solid #cacaca;
-  color: $grey-8;
-}
-
-
-// ——— Colors ————————————————————————————————————
-
-.bg-post {
-  background-color: #66f532 !important;
+  color:  $link-color
 }
 
 
 .bg-send {
-  background-color: #66f532 !important;
+  background-color: #5ee22f !important;
 }
 
 .text-send {
-  color: #66f532 !important;
+  color: #5ee22f !important;
+}
+
+.bg-post {
+  background-color: #5ee22f !important;
+}
+
+.text-post {
+  color: #5ee22f !important;
 }
 
 .bg-pagination {
@@ -99,24 +42,45 @@ a {
 }
 
 .text-pagination {
-  color: $primary !important;
+  color: #26a69a !important;
 }
 
+.text-hot {
+  color: #ff7700;
+}
 
-.q-pagination {
-  button {
-    color: $secondary !important;
+.bg-hot {
+  background-color: #ff7700;
+}
+
+$q-field-color = #00c63b;
+
+.q-field--focused {
+  .q-field__label {
+    color: $q-field-color !important;
+  }
+
+  .q-field__control {
+    color: $q-field-color !important;
   }
 }
 
-.q-field {
-  .text-primary {
-    color: #55cb2b !important;
-  }
+.error {
+  color: var(--q-color-negative);
+  font-size: 12px;
+  margin-top: 4px;
 }
 
-.inline-flex {
-  display: inline-flex;
+
+// ——— Extras ————————————————————————————————————
+
+
+.clear {
+  clear: both;
+}
+
+.word-break {
+  word-break: break-all;
 }
 
 .info-block {
@@ -135,142 +99,195 @@ a {
   }
 }
 
+.middle {
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
 
-.desktop { // ——— Editor multiline toolbar for desktop ————————————————————————————————————
+// ——— Forms ————————————————————————————————————
 
-  .q-editor-toolbar-padding {
-    flex-wrap: wrap !important;
-  }
 
-  .q-editor-toolbar .q-btn-group + .q-btn-group {
-    margin-left: unset !important;
-    margin-right: 5px !important;
-  }
-
-  .q-editor-toolbar-separator .q-btn-group + .q-btn-group {
-    padding-left: unset !important;
-    padding-right: 5px !important;
-  }
-
-  .q-editor-toolbar-separator .q-btn-group + .q-btn-group:before {
-    content: unset !important;
-    position: unset !important;
-    right: unset !important;
-    top: unset !important;
-    bottom: unset !important;
-    height: unset !important;
-    width: unset !important;
-    background: unset !important;
-  }
-
-  .q-editor-toolbar-separator .q-btn-group + .q-btn-group:after {
-    content: ' ';
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    height: 100%;
-    width: 1px;
-    background: #ccc !important;
-  }
-
-  .q-editor-toolbar-separator .q-btn-group:last-child:after {
-    content: unset !important;
-    position: unset !important;
-    right: unset !important;
-    top: unset !important;
-    bottom: unset !important;
-    height: unset !important;
-    width: unset !important;
-    background: unset !important;
-  }
+.center-form {
+  width: 400px;
+  display flex;
+  flex-direction: column;
+  justify-content: stretch;
 }
 
 
-.menu-list {
-  .q-item-side {
-    min-width: 18px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-items: center !important;
+// ——— Menus ————————————————————————————————————
 
-    .q-item-icon {
-      font-size: 16px !important;
-    }
+
+.my-menu {
+  .q-item {
+    min-height: 40px;
   }
 
-  .q-item {
-    white-space: nowrap;
+  .q-item__section--avatar {
+    width: 28px !important;
+    min-width: unset !important;
+    padding: 0 !important;
+    margin: 0 !important;
 
     .q-icon {
       font-size: 16px !important;
-      color: $grey-9;
+    }
+  }
 
-      &:before {
-        width: 18px;
-        display: flex;
-        margin-right: 8px !important;
-      }
+  .avatar-menu-item {
+    .q-item__section--avatar {
+      width: 40px !important;
+    }
+
+    .avatar {
+      margin-left: -6px;
+      margin-right: 11px;
+      border-radius: 16px
+      width: 32px;
+      height: 32px;
     }
   }
 }
 
+// ——— Title ————————————————————————————————————
 
-// ——— Margins ————————————————————————————————————
 
-//$pagePaddings = ( 24px 18px 12px )
+.q-title {
+  margin-top: $flex-gutter-sm !important;
+  margin-bottom: $flex-gutter-sm !important;
+  font-size: 1.3rem;
+  line-height: unset;
+  padding: 0;
+  font-weight: 500;
+}
 
-mp($size) {
+.header-with-button {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: $flex-gutter-sm !important;
+  margin-bottom: $flex-gutter-sm !important;
 
-  .q-layout-page {
-    padding: $size !important;
+
+  .q-title {
+    flex-grow: 1;
+    margin: 0 $flex-gutter-sm 0 0 !important;
   }
 
-  .margin-back {
-    margin-left: - $size !important;
-    margin-right: - $size !important;
-  }
-
-  .margin-back-right {
-    margin-right: - $size !important;
-  }
-
-  .margin-back-left {
-    margin-left: - $size !important;
-  }
-
-  .pp-both {
-    padding-right: $size !important;
-    padding-left: $size !important;
-  }
-
-  .pp-right {
-    padding-right: $size !important;
-  }
-
-  .pp-left {
-    padding-left: $size !important;
+  button {
+    flex-grow: 0;
   }
 }
 
-mp(24px);
 
-@media (max-width: 400px) {
-  mp(12px)
+// ——— Page paddings ————————————————————————————————————
+
+.q-page {
+  padding-bottom: $flex-gutter-xl !important;
 }
 
-@media ( min-width: 401px ) and ( max-width: 701px ) {
-  mp(18px)
+
+/*.page-margin-bottom {
+  margin-bottom: $flex-gutter-lg !important;
 }
 
-// ——— Roles ————————————————————————————————————
+.page-padding-bottom {
+  padding-bottom: $flex-gutter-lg !important;
+}*/
 
-.group-admin {
-  font-weight : 600;
-  color : #ff7c00;
+
+$paddings = (12px 18px 24px)
+
+page-paddings-block(size) {
+  .page-padding {
+    padding-right: size !important;
+    padding-left: size !important;
+  }
+
+  .page-padding-right {
+    padding-right: size !important;
+  }
+
+  .page-padding-left {
+    padding-left: size !important;
+  }
+
+  .page-margin {
+    margin-right: size !important;
+    margin-left: size !important;
+  }
+
+  .page-padding-top {
+    padding-top: size !important;
+  }
 }
 
-.group-moderator {
-  font-weight : 600;
-  color : green;
+@media ( max-width: 599px ) {
+  page-paddings-block($paddings[0])
+}
+
+@media ( min-width: 600px ) and ( max-width: 1023px ) {
+  page-paddings-block($paddings[1])
+}
+
+@media ( min-width: 1024px ) {
+  page-paddings-block($paddings[2])
+}
+
+
+// ——— QEditor ————————————————————————————————————
+
+
+.q-editor-toolbar {
+  .q-btn {
+    font-size: 0.6rem !important;
+  }
+}
+
+
+// ——— QItems ————————————————————————————————————
+
+.q-item {
+  .my-header {
+    //color: $link-color;
+    font-weight: 500;
+    font-size : 1.1em;
+  }
+}
+
+.q-router-link--active {
+  background-color : #e2f8e8;
+}
+
+/*.q-avatar {
+  @extend $shadow-2;
+}*/
+
+
+// ——— Elements ————————————————————————————————————
+
+.menu-panel-title {
+  text-align: center;
+  margin: 0;
+  padding: 7px 0 4px 0;
+  text-transform: uppercase;
+  font-size: 0.82rem !important;
+  font-weight: bolder;
+  background-color: #f3ffdd;
+  border-bottom: 1px solid #cacaca;
+  color: $grey-8;
+}
+
+.select-category {
+  border: 1px solid rgba(0, 0, 0, 0.54) !important;
+
+  .q-icon {
+    color: rgba(0, 0, 0, 0.54) !important;
+  }
+}
+
+.captcha-wait-msg {
+  font-size: 0.8em;
+  color: $negative;
 }

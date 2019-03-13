@@ -1,16 +1,15 @@
 <template>
-  <q-page>
-    <div>
+  <q-page class="page-padding">
       <CategoryForm ref="form" :category="category"/>
 
       <div class="btn-block">
-        <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" label="Создать" @click="save"
+        <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$tl('createBtn')" @click="save"
                color="send">
-          <loader-sent slot="loading" />
+          <LoaderSent slot="loading"/>
         </q-btn>
-        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.$goBack('CategoriesAdmin')" label="Отмена" color="warning"/>
+        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$tl('cancelBtn')"
+               color="warning"/>
       </div>
-    </div>
   </q-page>
 </template>
 
@@ -23,6 +22,7 @@
     name: "AddCategory",
     components: {LoaderSent, CategoryForm},
     mixins: [Page],
+    i18nPrefix: "admin",
     data: function () {
       return {
         category: {
@@ -33,7 +33,7 @@
           sectionTypeName: "unset",
           isMaterialsContainer: true,
           areaRoot: false,
-          parentId: 0,
+          parentId: 1,
           isHidden: false,
           isCacheContent: false
         },
@@ -42,12 +42,11 @@
     },
     methods: {
       async save() {
-        let form = this.$refs.form;
-        form.start = false;
-        form.$v.$touch();
-        if (form.$v.$invalid) {
+        const form = this.$refs.form;
+        form.validate();
+        if(form.hasError)
           return;
-        }
+
 
         this.loading = true;
 
@@ -57,12 +56,13 @@
             data: this.category,
             sendAsJson: true
           })
-          .then(
-            response => {
+          .then( ()  => {
+            const msg = this.$tl("successNotify");
               this.$q.notify({
-                message: 'Категория добавлена. \nНе забудьте перегрузить сайт для обновления.',
+                message: msg,
                 timeout: 5000,
-                type: 'positive',
+                color: 'positive',
+                icon: 'far fa-check-circle',
                 position: 'top'
               });
               this.$router.push({name: 'CategoriesAdmin'});
@@ -73,14 +73,13 @@
       }
     },
     async created() {
-      this.setTitle("Добавить категорию");
+      this.title = this.$tl("title")
     }
-
   }
 </script>
 
 <style lang="stylus" scoped>
-  @import '~variables';
+  @import '~quasar-variables';
 
   .btn-block {
     margin-top: $flex-gutter-md;

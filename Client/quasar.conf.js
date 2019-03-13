@@ -3,51 +3,38 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-
 module.exports = function (ctx) {
   return {
-    plugins: [
-      "buildPath", "formatDate", "vuelidate", "ext", "imagePath", "apiPath"
+    // app boot file (/src/boot)
+    // --> boot files are part of "main.js"
+    boot: [
+      'i18n',
+      'axios',
+      'globalApp',
+      'apiPath',
+      'buildPath',
+      'imagePath',
+      'formatDate'
     ],
     css: [
       'app.styl'
     ],
     extras: [
-      'material-icons',
-      'fontawesome'
+      //'roboto-font',
+      'material-icons', // optional, you are not bound to it
+      // 'ionicons-v4',
+      // 'mdi-v3',
+       'fontawesome-v5',
+      // 'eva-icons'
     ],
-    supportIE: false,
-    build: {
-      scopeHoisting: true,
-      vueRouterMode: 'history',
-      // vueCompiler: true,
-      // gzip: true,
-      // analyze: true,
-      // extractCSS: false,
-      extendWebpack(cfg, { isServer, isClient } ) {
-        cfg.resolve.modules.push(path.resolve('./src'));
-        cfg.resolve.modules.push(path.resolve('./src/modules'));
-        cfg.resolve.modules.push(path.resolve('./src/components'));
-        cfg.resolve.modules.push(path.resolve('./src/classes'));
-        if(ctx.dev) {
-          cfg.plugins.push( new CopyWebpackPlugin([{from: 'config.dev.js', to:'config.js'}]));
-        } else {
-          cfg.plugins.push( new CopyWebpackPlugin([{from: 'config.prod.js',to:'config.js'}]));
-        }
-      }
-    },
-    devServer: {
-      https: false,
-      host: 'localhost',
-      port: 5005,
-      open: true // opens browser window automatically
-    },
+
+    // framework: 'all', // --- includes everything; for dev only!
     framework: {
       components: [
         'QLayout',
-        'QLayoutHeader',
-        'QLayoutFooter',
-        'QLayoutDrawer',
+        'QHeader',
+        'QFooter',
+        'QDrawer',
         'QPageContainer',
         'QPage',
         'QToolbar',
@@ -55,43 +42,83 @@ module.exports = function (ctx) {
         'QBtn',
         'QIcon',
         'QList',
-        'QListHeader',
         'QItem',
-        'QItemMain',
-        'QItemSide',
-        'QItemTile',
-        'QEditor',
+        'QItemSection',
+        'QItemLabel',
+        'QMenu',
         'QInput',
-        'QField',
-        'QChipsInput',
-        'QAlert',
-        'QPagination',
         'QCheckbox',
-        'QTree',
         'QSpinner',
-        'QSpinnerMat',
         'QSpinnerGears',
-        'QPopover',
+        'QBanner',
+        'QPagination',
+        'QEditor',
+        'QSelect',
         'QChip',
-        'QCollapsible',
-        'QSelect'
+        'QAvatar',
+        'QTree',
+        'QExpansionItem',
+        'QDialog'
       ],
+
       directives: [
         'Ripple',
-        'CloseOverlay'
+        'CloseMenu'
       ],
+
+      // Quasar plugins
       plugins: [
         'Notify',
-        'Dialog',
         'Meta',
-        'Screen'
+        'Dialog'
       ],
-      i18n: 'ru',
+
+      animations: [
+        'bounceInDown',
+        'bounceOutUp'
+      ],
+
+      // iconSet: 'ionicons-v4'
+      lang: 'ru' // Quasar language
     },
+
+    preFetch: false,
+    supportIE: false,
+
+    build: {
+      scopeHoisting: true,
+      vueRouterMode: 'history',
+      // vueCompiler: true,
+      // gzip: true,
+      // analyze: true,
+      // extractCSS: false,
+      extendWebpack (cfg) {
+        cfg.resolve.modules.push(path.resolve('./src'));
+        cfg.resolve.modules.push(path.resolve('./src/modules'));
+        cfg.resolve.modules.push(path.resolve('./src/components'));
+        cfg.resolve.modules.push(path.resolve('./src/services'));
+        if(ctx.dev) {
+          cfg.plugins.push( new CopyWebpackPlugin([{from: 'config.dev.js', to:'config.js'}]));
+        } else {
+          cfg.plugins.push( new CopyWebpackPlugin([{from: 'config.prod.js', to:'config.js'}]));
+        }
+      }
+    },
+
+    devServer: {
+      // https: true,
+      host: 'localhost',
+      port: 5005,
+      open: true // opens browser window automatically
+    },
+
+    // animations: 'all' --- includes all animations
     animations: [],
+
     ssr: {
       pwa: false
     },
+
     pwa: {
       // workboxPluginMode: 'InjectManifest',
       // workboxOptions: {},
@@ -132,5 +159,33 @@ module.exports = function (ctx) {
         ]
       }
     },
+
+    cordova: {
+      // id: 'org.cordova.quasar.app'
+    },
+
+    electron: {
+      // bundler: 'builder', // or 'packager'
+      extendWebpack (cfg) {
+        // do something with Electron process Webpack cfg
+      },
+      packager: {
+        // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
+
+        // OS X / Mac App Store
+        // appBundleId: '',
+        // appCategoryType: '',
+        // osxSign: '',
+        // protocol: 'myapp://path',
+
+        // Window only
+        // win32metadata: { ... }
+      },
+      builder: {
+        // https://www.electron.build/configuration/configuration
+
+        // appId: 'quasar-app'
+      }
+    }
   }
 }

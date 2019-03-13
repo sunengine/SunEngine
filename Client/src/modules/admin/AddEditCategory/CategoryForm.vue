@@ -1,78 +1,75 @@
 <template>
   <div>
-    <q-field :error="$v.category.name.$invalid && !start" :error-label="nameErrorLabel">
-      <q-input v-model="category.name" float-label="Имя категории (eng)"/>
-    </q-field>
 
-    <q-field :error="$v.category.title.$invalid && !start" :error-label="titleErrorLabel">
-      <q-input v-model="category.title" float-label="Заголовок"/>
-    </q-field>
+    <q-input ref="name" v-model="category.name" :label="$tl('name')" :rules="rules.name"/>
 
-    <q-field>
-      <q-input v-model="category.description" type="textarea" float-label="Короткое описание"/>
-    </q-field>
+    <q-input ref="title" v-model="category.title" :label="$tl('title')" :rules="rules.title" />
+
+    <q-input ref="description" v-model="category.description" autogrow type="textarea"
+             :label="$tl('shortDescription')"/>
 
 
-    <div class="q-mt-sm text-grey-6">Шапка категории</div>
+    <div class="q-mt-sm text-grey-6">{{$tl('header')}}</div>
 
-    <MyEditor style="margin-bottom: 12px;" v-model="category.header"/>
+    <MyEditor ref="header" style="margin-bottom: 12px;" v-model="category.header"/>
 
-    <div :class="[{invisible: !($v.category.parentId.$invalid && !start)},'error']">Выберите родительскую категорию
-    </div>
-    <q-btn v-if="root" :label="parentCategoryTitle" no-caps icon-right="fas fa-caret-down">
-      <q-popover>
+    <!--    <div :class="[{invisible: !(category.parentId.$invalid && !start)},'error']">
+          {{$tl('selectParent')}}
+        </div>-->
+    <q-btn v-if="root" class="q-mt-md select-category" :label="parentCategoryTitle" no-caps outline
+           icon="fas fa-folder">
+      <q-menu>
         <div style="background-color: white;" class="q-pa-sm">
-          <MyTree v-close-overlay
+          <q-tree ref="catTree" @update:selected="categorySelected" v-close-menu
                   default-expand-all
                   :selected.sync="category.parentId"
                   :nodes="where"
                   node-key="value">
             <div slot="header-normal" slot-scope="prop" class="row items-center">
               <div style="display: flex; align-items: center; align-content: center;">
-                <Q-Icon name="fas fa-folder" size="16" color="green-5" class="q-mr-sm"/>
+                <q-icon name="fas fa-folder" size="16px" color="green-5" class="q-mr-sm"/>
                 <span>{{ prop.node.label }}</span>
               </div>
             </div>
-          </MyTree>
+          </q-tree>
         </div>
-      </q-popover>
+      </q-menu>
     </q-btn>
 
     <div class="q-mt-lg">
-      <q-select v-if="sectionTypes" float-label="Тип категории" v-model="category.sectionTypeName" :options="sectionTypeOptions"/>
+      <q-select emit-value map-options v-if="sectionTypes" :label="$tl('sectionType')" v-model="category.sectionTypeName"
+                :options="sectionTypeOptions"/>
       <LoaderWait v-else/>
     </div>
 
     <div class="q-mt-lg">
-      <q-checkbox  :toggle-indeterminate="false" v-model="category.isMaterialsContainer" label="Содержит материалы"/>
+      <q-checkbox :toggle-indeterminate="false" v-model="category.isMaterialsContainer" :label="$tl('isMaterialsContainerCb')"/>
     </div>
 
     <div class="q-my-sm">
-      <q-checkbox  :toggle-indeterminate="false" v-model="category.isCacheContent" label="Кэшировать содержимое"/>
+      <q-checkbox :toggle-indeterminate="false" v-model="category.isCacheContent" label="Кэшировать содержимое"/>
     </div>
 
     <div class="q-my-sm">
-
-      <q-checkbox toggle-indeterminate v-model="category.appendUrlToken" label="Добавлять в URL"/>
+      <q-checkbox toggle-indeterminate v-model="category.appendUrlToken" :label="$tl('appendUrlTokenCb')"/>
       <span class="text-amber-8 q-ml-md">
-        (использовать только если вы понимаете что это)
+        {{$tl("appendUrlTokenInfo")}}
       </span>
     </div>
     <div>
-      <q-checkbox :toggle-indeterminate="false" v-model="category.isHidden" label="Спрятать"/>
+      <q-checkbox :toggle-indeterminate="false" v-model="category.isHidden" :label="$tl('hideCb')"/>
     </div>
   </div>
 </template>
 
 <script>
-  import {required, minLength, helpers} from 'vuelidate/lib/validators'
   import MyEditor from "MyEditor";
   import MyTree from 'MyTree';
-  import adminGetAllCategories from "services/adminGetAllCategories";
-  import LoaderWait from "components/LoaderWait";
+  import adminGetAllCategories from "adminGetAllCategories";
+  import LoaderWait from "LoaderWait";
 
   const unset = "unset";
-  const allowedChars = helpers.regex('allowedChars', /^[a-zA-Z0-9-]*$/)
+
 
   function GoDeep(category) {
 
@@ -99,6 +96,20 @@
   }
 
 
+  function createRules() {
+    return {
+      name: [
+        value => !!value || this.$tl("validation.name.required"),
+        value => value.length >= 2 || this.$tl("validation.name.minLength"),
+        value => /^[a-zA-Z0-9-]*$/.test(value) || this.$tl("validation.name.allowedChars"),
+      ],
+      title: [
+        value => !!value || this.$tl("validation.title.required"),
+        value => value.length >= 3 || this.$tl("validation.title.minLength"),
+      ],
+    }
+  }
+
   export default {
     name: "CategoryForm",
     components: {LoaderWait, MyEditor, MyTree},
@@ -108,6 +119,7 @@
         required: true,
       },
     },
+    i18nPrefix: "admin",
     data: function () {
       return {
         root: null,
@@ -116,25 +128,10 @@
         sectionTypes: null
       }
     },
-    validations: {
-      category: {
-        name: {
-          required,
-          minLength: minLength(2),
-          allowedChars
-        },
-        title: {
-          required,
-          minLength: minLength(3)
-        },
-        parentId: {
-          not0: x => x !== 0
-        }
-      }
-    },
+    rules: null,
     computed: {
       sectionTypeOptions() {
-        return [{label: "Без типа", value: unset}, ...this.sectionTypes?.map(x => {
+        return [{label: this.$tl("noTypeLabel"), value: unset}, ...this.sectionTypes?.map(x => {
           return {
             label: x.title,
             value: x.name
@@ -143,34 +140,35 @@
       },
       parentCategoryTitle() {
         if (!this.category.parentId)
-          return "Выберите родительскую категорию";
-        return "Родитель: " + this?.all?.[this.category.parentId]?.title;
-      }
-      ,
+          return this.$tl("selectParent");
+        return this.$tl("parent") + this?.all?.[this.category.parentId]?.title;
+      },
       where() {
         return [GoDeep(this.root)];
-      }
-      ,
-      nameErrorLabel() {
-        if (!this.$v.category.name.required)
-          return "Введите имя (eng) категории";
-        if (!this.$v.category.name.minLength)
-          return "Имя (eng) должно быть не менее чем из 2 букв";
-        if (!this.$v.category.name.allowedChars)
-          return "Имя (eng) должно состоять из символов `a-z`, `A-Z`, `0-9`, `-`";
-      }
-      ,
-      titleErrorLabel() {
-        if (!this.$v.category.title.required)
-          return "Введите заголовок категории";
-        if (!this.$v.category.title.minLength)
-          return "Заголовок должен состоять не менее чем из 3 букв";
+      },
+      hasError() {
+        return this.$refs.name.hasError || this.$refs.title.hasError;
       }
     },
-    methods: {},
+    methods: {
+      categorySelected(key) {
+        if(!key)
+        {
+          let pid = this.category.parentId;
+          this.$nextTick(() => {this.category.parentId = pid})
+        }
+      },
+      validate() {
+        this.$refs.name.validate();
+        this.$refs.title.validate();
+      }
+    },
     async created() {
-      if(!this.category.sectionTypeName)
+      if (!this.category.sectionTypeName) {
         this.category.sectionTypeName = unset;
+      }
+
+      this.rules = createRules.call(this);
 
       await adminGetAllCategories().then(
         data => {
@@ -187,19 +185,12 @@
             this.sectionTypes = response.data;
           }
         );
+
     }
   }
 </script>
 
 <style lang="stylus" scoped>
-  @import '~variables';
 
-  .q-field {
-    height: 78px;
-  }
 
-  .error {
-    font-size: 0.9em;
-    color: $red-5;
-  }
 </style>

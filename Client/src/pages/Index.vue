@@ -1,15 +1,16 @@
 <template>
-  <q-page class="flex column middle">
-    <h1>Demo</h1>
+  <q-page class="flex column middle page-padding">
+    <h1 class="text-hot">Demo</h1>
     <div class="p1">
       <p>Каждые несколько часов данные сбрасываются.</p>
       <p>Пользователи: <span class="hl">User1</span>, <span class="hl">User2</span>, <span class="hl">User3</span>,
         <span class="hl">User4</span>, <span class="hl">User5</span>, <span class="hl">Moderator</span>, <span
           class="hl">Admin</span></p>
       <p>Пароль: <span class="hl">password</span></p>
-      <p>При регистрации и других операциях с почтой можете указывать любой почтовый ящик, например '<span class="hl">ooo@ooo.ru</span>',
-        почта будет отправляться на mailcatcher <a target="_blank" href="http://demo.sunengine.site:1444">сюда</a>.</p>
-      <p class="ver q-mb-xl">Версия: 0.9.1</p>
+      <p>При регистрации можете указывать любой почтовый ящик, например <span class="hl">ooo@ooo.eml</span>.
+        <br/>
+        Почта будет отправляться на <a target="_blank" href="http://demo.sunengine.site:1444"><b>mailcatcher</b></a>.</p>
+      <p class="ver q-mb-xl">Версия: 0.11</p>
 
     </div>
   </q-page>
@@ -17,45 +18,38 @@
 
 
 <script>
-  import Page from "Page";
-
   export default {
-    name: 'PageIndex',
-    mixins: [Page],
-    async created() {
-      this.title = config.SiteName;
-    }
+    name: 'PageIndex'
   }
 </script>
 
 
 <style lang="stylus" scoped>
-  @import '~variables';
+  @import '~quasar-variables';
 
 
   h1 {
-    color: $primary;
     margin: 0 0 40px;
     font-family: "BoomBoomRegular";
     letter-spacing: 2px;
+    text-align: center;
   }
 
   .ver {
-   // font-weight: bold;
+    font-weight: bold;
     color: $primary;
-   // color: $tertiary !important;
+    // color: $tertiary !important;
   }
 
   .p1 p {
     margin: 4px 0;
     text-align: center;
     color: #616161;
+    font-size : 16px;
   }
 
   .hl {
     color: #a38167;
     font-weight: 600;
   }
-
-
 </style>
