@@ -1,6 +1,6 @@
 <template>
   <div id="q-app">
-    <MyLayout v-if="isInitialized"/>
+    <Layout v-if="isInitialized"/>
 
     <div v-else-if="!initializeError" class="loader">
       <div>
@@ -21,12 +21,12 @@
 </template>
 
 <script>
-  import MyLayout from "./layouts/MyLayout";
+  import Layout from "./layouts/Layout";
   import {mapState} from 'vuex';
 
   export default {
     name: 'App',
-    components: {MyLayout},
+    components: {Layout},
     computed: {
       ...mapState(['isInitialized', 'initializeError'])
     },

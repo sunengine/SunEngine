@@ -1,65 +1,74 @@
 <template>
   <q-layout view="lHh LpR lfr">
-    <q-layout-header>
-      <q-toolbar color="toolbar">
+    <q-header class="glossy" >
+      <q-toolbar  class="toolbar">
+
         <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
           <q-icon name="menu"/>
         </q-btn>
 
-        <q-toolbar-title class="ttl">
-          <span>SunEngine</span>
-          </q-toolbar-title>
+        <q-toolbar-title>
+          SunEngine
+        </q-toolbar-title>
 
-        <q-btn flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu" v-if="rightDrawerIs">
+        <q-btn class="q-mr-sm" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu" v-if="rightDrawerIs">
           <q-icon name="menu"/>
         </q-btn>
 
-        <q-btn class="user-menu-button" v-if="userName" flat dense round>
+        <q-btn class="user-menu-button " v-if="userName" flat dense round>
           <img class="avatar" :src="userAvatar"/>
-          <q-popover>
-            <user-menu/>
-          </q-popover>
+          <q-menu>
+            <UserMenu />
+          </q-menu>
+        </q-btn>
+
+        <q-btn v-else flat dense round>
+          <q-icon name="fas fa-user"/>
+          <q-menu>
+            <LoginRegisterMenu v-close-menu/>
+          </q-menu>
         </q-btn>
 
       </q-toolbar>
-    </q-layout-header>
+    </q-header>
 
-    <q-layout-drawer v-model="leftDrawerOpen" side="left" :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null">
-      <main-menu/>
-    </q-layout-drawer>
+    <q-drawer v-model="leftDrawerOpen" bordered content-class="bg-grey-1">
+      <MainMenu/>
+    </q-drawer>
 
-    <q-layout-drawer v-if="rightDrawerIs" side="right" v-model="rightDrawerOpen"
-                     :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null">
+    <q-drawer v-if="rightDrawerIs" bordered side="right" v-model="rightDrawerOpen" >
       <router-view name="navigation"/>
-    </q-layout-drawer>
+    </q-drawer>
 
     <q-page-container>
-      <router-view class="q-pa-lg"/>
+      <router-view/>
     </q-page-container>
 
-    <q-layout-footer class="footer q-py-lg bg-yellow-1">
+    <q-footer bordered class="footer q-py-lg bg-yellow-1">
       Сделано с Любовью
-      <QIcon name="fas fa-heart" size="10px" color="primary"/>
+      <q-icon name="fas fa-heart" size="12px" color="hot"/>
       <a href="http://sunengine.site">Sun Engine</a>
-      <QIcon class="gt-xs" name="fas fa-heart" size="10px" color="primary"/>
-      <br class="xs" />
+      <q-icon class="gt-xs" name="fas fa-heart" size="12px" color="hot"/>
+      <br class="xs"/>
       <a href="https://github.com/Dmitrij-Polyanin/SunEngine">GitHub</a>
-      <QIcon name="fas fa-heart" size="10px" color="primary"/>
+      <q-icon name="fas fa-heart" size="12px" color="hot"/>
       <a href="https://t-do.ru/SunEngine">Telegram</a>
-    </q-layout-footer>
+    </q-footer>
   </q-layout>
 </template>
 
 <script>
-  import {openURL} from 'quasar'
-  import UserMenu from "./UserMenu";
-  import LoginOrRegisterMenu from "./LoginOrRegisterMenu";
   import MainMenu from "./MainMenu";
+  import LoginRegisterMenu from "./LoginRegisterMenu";
   import {mapState} from "vuex";
+  import UserMenu from "./UserMenu";
+
 
   export default {
-    name: 'Layout',
-    components: {UserMenu, MainMenu, LoginOrRegisterMenu},
+
+
+    name: 'MyLayout',
+    components: {UserMenu, LoginRegisterMenu, MainMenu},
     data() {
       return {
         leftDrawerOpen: this.$q.platform.is.desktop,
@@ -68,7 +77,7 @@
     },
     computed: {
       rightDrawerIs: function () {
-        return this.$route?.matched?.[0]?.components?.navigation ? true : false;
+        return !!this.$route?.matched?.[0]?.components?.navigation;
       },
 
       ...mapState({
@@ -79,12 +88,8 @@
   }
 </script>
 
-<style scoped lang="stylus">
-  @import '~variables'
-
-  .bg-toolbar {
-    background-color: $tertiary;
-  }
+<style lang="stylus" scoped>
+  @import '~quasar-variables'
 
   .avatar {
     width: 32px;
@@ -92,24 +97,17 @@
     box-shadow: 0px 0px 4px 1.5px white;
   }
 
-  .ttl {
-    font-family: "BoomBoomRegular";
-    //color: $tertiary;
-    text-shadow: 2px 2px 2px 2px black !important;
-    font-size : 1.5em;
-  }
 
-  .logo {
-    width: 42px;
-    height: 42px;
-    border-radius: 21px;
-    box-shadow: 0px 0px 4px 1.5px white;
+  .toolbar {
+    background-color: #3392FF;
+    font-family: "BoomBoomRegular";
   }
 
   .footer {
     text-align: center;
-    color: $tertiary;
+    color: $primary;
     font-family: "BoomBoomRegular";
+    font-size : 16px;
 
     span {
       color: $primary;
@@ -119,9 +117,5 @@
     .q-icon {
       margin: 0 16px;
     }
-  }
-
-  .user-menu-button {
-    margin: 0 5px 0 12px;
   }
 </style>

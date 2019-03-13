@@ -1,6 +1,6 @@
 {
   "name": "sunengine-client",
-  "version": "0.10.0",
+  "version": "0.11",
   "description": "A Quasar Framework app",
   "productName": "SunEngine Client",
   "cordovaId": "org.cordova.quasar.app",
