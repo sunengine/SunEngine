@@ -3,11 +3,11 @@
       <CategoryForm ref="form" :category="category"/>
 
       <div class="btn-block">
-        <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$ta('createBtn')" @click="save"
+        <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$tl('createBtn')" @click="save"
                color="send">
           <LoaderSent slot="loading"/>
         </q-btn>
-        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$ta('cancelBtn')"
+        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$tl('cancelBtn')"
                color="warning"/>
       </div>
   </q-page>
@@ -22,6 +22,7 @@
     name: "AddCategory",
     components: {LoaderSent, CategoryForm},
     mixins: [Page],
+    i18nPrefix: "admin",
     data: function () {
       return {
         category: {
@@ -56,7 +57,7 @@
             sendAsJson: true
           })
           .then( ()  => {
-            const msg = this.$ta("successNotify");
+            const msg = this.$tl("successNotify");
               this.$q.notify({
                 message: msg,
                 timeout: 5000,
@@ -72,7 +73,7 @@
       }
     },
     async created() {
-      this.title = this.$ta("title")
+      this.title = this.$tl("title")
     }
   }
 </script>

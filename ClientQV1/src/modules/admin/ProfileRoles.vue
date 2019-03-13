@@ -68,6 +68,7 @@
         required: true
       }
     },
+    i18nPrefix: "admin",
     data: function () {
       return {
         allRoles: null,

@@ -12,10 +12,11 @@ export default async ({app, Vue}) => {
   });
 
   Vue.prototype.$tl = function (key, values) {
+    if(this.$options.i18nPrefix) {
+      return this.$t(this.$options.i18nPrefix + "." + this.$options.name + "." + key, values);
+    }
+
     return this.$t(this.$options.name + "." + key, values);
   };
 
-  Vue.prototype.$ta = function (key, values) {
-    return this.$t("admin." + this.$options.name + "." + key, values);
-  };
 }

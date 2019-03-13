@@ -6,7 +6,7 @@
         <q-icon name="far fa-folder-open" />
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $ta("categoriesAdmin") }}</q-item-label>
+        <q-item-label>{{ $tl("categoriesAdmin") }}</q-item-label>
       </q-item-section>
     </q-item>
 
@@ -15,7 +15,7 @@
         <q-icon name="fas fa-users-cog" />
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $ta("rolesPermissions") }}</q-item-label>
+        <q-item-label>{{ $tl("rolesPermissions") }}</q-item-label>
       </q-item-section>
     </q-item>
 
@@ -24,7 +24,7 @@
         <q-icon name="fas fa-users" />
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $ta("rolesUsers") }}</q-item-label>
+        <q-item-label>{{ $tl("rolesUsers") }}</q-item-label>
       </q-item-section>
     </q-item>
 
@@ -33,7 +33,8 @@
 
 <script>
   export default {
-    name: "AdminMenu"
+    name: "AdminMenu",
+    i18nPrefix: "admin"
   }
 </script>
 

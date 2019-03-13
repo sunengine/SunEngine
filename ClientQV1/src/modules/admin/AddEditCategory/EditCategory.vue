@@ -5,14 +5,14 @@
 
       <div class="btn-block">
         <q-btn no-caps icon="fas fa-trash-alt" class="float-right" @click="tryDelete"
-               :label="$ta('deleteBtn')" color="negative"/>
+               :label="$tl('deleteBtn')" color="negative"/>
 
-        <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$ta('saveBtn')"
+        <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$tl('saveBtn')"
                @click="save" color="send">
           <LoaderSent slot="loading"/>
         </q-btn>
 
-        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$ta('cancelBtn')"
+        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$tl('cancelBtn')"
                color="warning"/>
       </div>
     </div>
@@ -36,6 +36,7 @@
         required: true
       }
     },
+    i18nPrefix: "admin",
     data: function () {
       return {
         category: null,
@@ -44,9 +45,9 @@
     },
     methods: {
       async tryDelete() {
-        const msg = this.$ta("deleteConfirm");
-        const btnOk = this.$ta("deleteDialogBtnOk");
-        const btnCancel = this.$ta("deleteDialogBtnCancel");
+        const msg = this.$tl("deleteConfirm");
+        const btnOk = this.$tl("deleteDialogBtnOk");
+        const btnCancel = this.$tl("deleteDialogBtnCancel");
         this.$q.dialog({
           message: msg,
           ok: btnOk,
@@ -64,7 +65,7 @@
             }
           })
           .then(() => {
-            const msg = this.$ta("deletedNotify");
+            const msg = this.$tl("deletedNotify");
             this.$q.notify({
               message: msg,
               timeout: 5000,
@@ -113,7 +114,7 @@
             sendAsJson: true
           })
           .then(() => {
-            const msg = this.$ta("successNotify");
+            const msg = this.$tl("successNotify");
             this.$q.notify({
               message: msg,
               timeout: 5000,
@@ -130,7 +131,7 @@
     },
     async created() {
       await this.loadData();
-      this.title = this.$ta("title") + ": " + this.category.title
+      this.title = this.$tl("title") + ": " + this.category.title
     }
 
   }

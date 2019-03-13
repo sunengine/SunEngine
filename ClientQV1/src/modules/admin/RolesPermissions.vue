@@ -3,14 +3,14 @@
     <h2 class="q-title">{{title}}</h2>
     <div class="q-my-md alert-backup">
       <q-icon name="fas fa-exclamation-circle" size="24px" class="q-mr-sm"/>
-      {{$ta("backupWarning")}}
+      {{$tl("backupWarning")}}
     </div>
     <template v-if="json !== null">
-      <q-input input-class="json-input"  v-model="json" type="textarea" :label="$ta('textAreaLabel')"/>
+      <q-input input-class="json-input"  v-model="json" type="textarea" :label="$tl('textAreaLabel')"/>
       <div class="q-my-md">
-        <q-btn no-caps color="send" icon="far fa-save" @click="send" :label="$ta('saveToServerBtn')"/>
+        <q-btn no-caps color="send" icon="far fa-save" @click="send" :label="$tl('saveToServerBtn')"/>
         <q-btn no-caps class="q-ml-md" color="info" icon="fas fa-sync-alt" @click="loadDataRefresh"
-               :label="$ta('getFromServer')"/>
+               :label="$tl('getFromServer')"/>
       </div>
       <div class="json-error" v-if="error">
         <q-icon name="fas "/>
@@ -30,6 +30,7 @@
     name: "RolesPermissions",
     components: {LoaderWait},
     mixins: [Page],
+    i18nPrefix: "admin",
     computed: {},
     data: function () {
       return {
@@ -41,7 +42,7 @@
 
       async loadDataRefresh() {
         await this.loadData();
-        const msg = this.$ta('getFromServerSuccessNotify');
+        const msg = this.$tl('getFromServerSuccessNotify');
         this.$q.notify({
           message: msg,
           timeout: 5000,
@@ -74,7 +75,7 @@
           .then(
             async response => {
               this.error = null;
-              const msg = this.$ta("saveToServerSuccessNotify");
+              const msg = this.$tl("saveToServerSuccessNotify");
               this.$q.notify({
                 message: msg,
                 timeout: 4000,
@@ -93,7 +94,7 @@
       }
     },
     async created() {
-      this.title = this.$ta("title");
+      this.title = this.$tl("title");
       await this.loadData();
     }
   }

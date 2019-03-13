@@ -16,8 +16,9 @@
     name: "AdminPage",
     components: {AdminMenu},
     mixins: [Page],
+    i18nPrefix: "admin",
     created() {
-      this.title = this.$ta("title");
+      this.title = this.$tl("title");
     }
   }
 </script>

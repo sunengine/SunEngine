@@ -3,10 +3,10 @@
 
     <div class="header-with-button">
       <h2 class="q-title">
-        {{$ta("title")}}
+        {{$tl("title")}}
       </h2>
       <q-btn icon="fas fa-plus" color="send" class="q-mr-lg" @click="add" no-caps
-             :label="$ta('addCategoryBtn')"/>
+             :label="$tl('addCategoryBtn')"/>
       <div class="clear"></div>
     </div>
 
@@ -26,6 +26,7 @@
     name: "CategoriesAdmin",
     components: {LoaderWait, CategoryItem},
     mixins: [Page],
+    i18nPrefix: "admin",
     data: function () {
       return {
         root: null
@@ -85,7 +86,7 @@
 
     },
     async created() {
-      this.title = this.$ta("title");
+      this.title = this.$tl("title");
       await this.loadData();
     }
 
