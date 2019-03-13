@@ -2,16 +2,16 @@
   <div>
     <div v-if="userRoles">
       <div class="user-groups">
-        <div>Группы пользователя:</div>
+        <div>{{$tl("roles")}}</div>
         <div class="q-my-md" style="background-color: #f7fbc9; padding: 10px;">
         <span class="one-group" v-for="role in userRoles"
               :class="'group-'+role.name.toLowerCase()">{{role.title}}</span>
         </div>
       </div>
       <div class="flex q-gutter-sm">
-        <q-btn style="flex-grow: 1" @click="add = true" no-caps color="positive" icon="fas fa-plus" label="Добавить группу"/>
+        <q-btn style="flex-grow: 1" @click="add = true" no-caps color="positive" icon="fas fa-plus" :label="$tl('addRoleBtn')"/>
 
-        <q-btn style="flex-grow: 1"  @click="remove = true" no-caps color="negative" icon="fas fa-minus" label="Удалить группу"/>
+        <q-btn style="flex-grow: 1"  @click="remove = true" no-caps color="negative" icon="fas fa-minus"  :label="$tl('removeRoleBtn')"/>
 
         <q-dialog  v-model="add">
 
@@ -19,7 +19,7 @@
             <q-toolbar class="bg-positive text-white shadow-2">
               <q-toolbar-title>
                 <q-icon name="fas fa-plus" class="q-mr-sm" />
-                Добавить
+                {{$tl('addRoleBtn')}}
               </q-toolbar-title>
             </q-toolbar>
             <q-item key="role.name"  clickable @click="addToRoleConfirm(role)" v-for="role in availableRoles">
@@ -37,7 +37,7 @@
             <q-toolbar class="bg-negative text-white shadow-2">
               <q-toolbar-title>
                 <q-icon name="fas fa-minus" class="q-mr-sm" />
-                Удалить
+                {{$tl('removeRoleBtn')}}
               </q-toolbar-title>
             </q-toolbar>
             <q-item key="role.name" clickable @click="removeFromRoleConfirm(role)" v-for="role in userRoles">
@@ -81,22 +81,30 @@
     methods: {
       async addToRoleConfirm(role) {
         this.add = false;
+        const msg = this.$tl("addRoleConfirm",role.title);
+        debugger;
+        const addRoleConfirmOkBtn = this.$tl("addRoleConfirmOkBtn");
+        const cancelBtn = this.$t("global.btn.cancel");
+
         this.$q.dialog({
           //title: 'Confirm',
-          message: `Добавить группу '${role.title}'?`,
-          ok: 'Добавить',
-          cancel: 'Отмена'
+          message: msg,
+          ok: addRoleConfirmOkBtn,
+          cancel: cancelBtn
         }).onOk(async () => {
           await this.addToRole(role);
         })
       },
       async removeFromRoleConfirm(role) {
         this.remove = false;
+        const msg = this.$tl("removeRoleConfirm",role.title);
+        const removeRoleConfirmOkBtn = this.$tl("removeRoleConfirmOkBtn");
+        const cancelBtn = this.$t("global.btn.cancel");
         this.$q.dialog({
           //title: 'Confirm',
-          message: `Удалить группу '${role.title}'?`,
-          ok: 'Удалить',
-          cancel: 'Отмена'
+          message: msg,
+          ok: removeRoleConfirmOkBtn,
+          cancel: cancelBtn
         }).onOk(async () => {
           await this.removeFromRole(role);
         })

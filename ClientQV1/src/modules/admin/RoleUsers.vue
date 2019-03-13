@@ -1,15 +1,15 @@
 <template>
   <div>
     <div class="xs-col-12 col-8">
-      <div class="local-header">Пользователи</div>
-      <q-input v-model="filter" label="Фильтр" @input="filterValueChanged" />
+      <div class="local-header">{{$tl("users")}}</div>
+      <q-input v-model="filter" :label="$tl('filter')" @input="filterValueChanged" />
 
       <div v-if="users" class="local-content">
         <div :key="user.id" v-for="user in users">
           <router-link :to="`/user/${user.link}`">{{user.name}}</router-link>
         </div>
-        <div v-if="users.length === 0" style="color: gray;">Нет результатов</div>
-        <div v-if="users.length === 40" style="color: gray;">Выведены первые 40 результатов</div>
+        <div v-if="users.length === 0" style="color: gray;">{{$tl("noResults")}}</div>
+        <div v-if="users.length === maxUsersTake" style="color: gray;">{{$tl("filterLimitReached",maxUsersTake)}}</div>
       </div>
       <div v-else class="xs-col-12 col-8">
         <loader-wait/>
@@ -23,7 +23,7 @@
   import LoaderWait from "LoaderWait";
 
   export default {
-    name: "UsersFromRole",
+    name: "RoleUsers",
     components: {LoaderWait},
     props: {
       roleName: {
@@ -41,6 +41,7 @@
     watch: {
       'roleName': 'loadRoleUsers'
     },
+    maxUsersTake: config.Misc.AdminRoleUsersMaxUsersTake,
     methods: {
       filterValueChanged() {
         this.timeout && clearTimeout(this.timeout);

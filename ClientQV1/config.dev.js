@@ -32,5 +32,8 @@ const config = {
   PasswordValidation: {
     MinLength: 6,
     MinDifferentChars: 2
+  },
+  Misc: {
+    AdminRoleUsersMaxUsersTake: 40
   }
 };

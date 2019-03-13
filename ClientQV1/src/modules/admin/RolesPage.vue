@@ -2,10 +2,10 @@
   <q-page class="page-padding page-padding-top">
   <div class="row">
     <div v-if="roles" class="xs-col-12 col-4">
-      <div class="local-header">Группы</div>
+      <div class="local-header">{{$tl("roles")}}</div>
       <div class="local-content">
         <div :key="role.id" v-for="role in roles">
-          <router-link :to="{name: 'UsersFromRole', params: {roleName: role.name}}">{{role.title}}</router-link>
+          <router-link :to="{name: 'RoleUsers', params: {roleName: role.name}}">{{role.title}}</router-link>
         </div>
       </div>
     </div>
@@ -23,7 +23,7 @@
   import LoaderWait from "LoaderWait";
 
   export default {
-    name: "RolesUsers",
+    name: "RolesPage",
     mixins: [Page],
     components: {LoaderWait},
     i18nPrefix: "admin",
@@ -46,7 +46,7 @@
       }
     },
     async created() {
-      this.title = "Админка категорий";
+      this.title = this.$tl("title");
       await this.loadAllRoles();
     }
   }

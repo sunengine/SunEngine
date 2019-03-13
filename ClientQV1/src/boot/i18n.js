@@ -1,5 +1,5 @@
 import VueI18n from 'vue-i18n'
-import messages from 'src/i18n'
+import messages from 'i18n'
 
 export default async ({app, Vue}) => {
   Vue.use(VueI18n)
@@ -11,10 +11,9 @@ export default async ({app, Vue}) => {
     messages
   });
 
-  Vue.prototype.$tl = function (key, values) {
-    if(this.$options.i18nPrefix) {
+  Vue.prototype.$tl = function (key, ...values) {
+    if(this.$options.i18nPrefix)
       return this.$t(this.$options.i18nPrefix + "." + this.$options.name + "." + key, values);
-    }
 
     return this.$t(this.$options.name + "." + key, values);
   };

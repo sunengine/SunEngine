@@ -18,6 +18,9 @@ namespace SunEngine.Admin.Presenters
 
     public class UserRolesPresenter : DbService, IUserRolesPresenter
     {
+        private const int MaxUsersTake = 40;
+        
+        
         public UserRolesPresenter(DataBaseConnection db) : base(db)
         {
         }
@@ -48,7 +51,7 @@ namespace SunEngine.Admin.Presenters
             }
 
             return query
-                .Take(40)
+                .Take(MaxUsersTake)
                 .Select(x => new UserInfoViewModel
                 {
                     Id = x.UserId,

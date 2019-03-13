@@ -1,11 +1,11 @@
 import AdminPage from 'admin/AdminPage';
-import AdminPanel from 'admin/AdminPanel.vue';
-import CategoriesAdmin from 'admin/CategoriesAdmin.vue';
-import AddCategory from 'admin/AddEditCategory/AddCategory.vue';
-import EditCategory from 'admin/AddEditCategory/EditCategory.vue';
-import RolesPermissions from 'admin/RolesPermissions.vue';
-import UsersFromRole from 'admin/UsersFromRole.vue';
-import RolesUsers from 'admin/RolesUsers.vue';
+import AdminPanel from 'admin/AdminPanel';
+import CategoriesAdmin from 'admin/CategoriesAdmin';
+import AddCategory from 'admin/AddEditCategory/AddCategory';
+import EditCategory from 'admin/AddEditCategory/EditCategory';
+import RolesPermissions from 'admin/RolesPermissions';
+import RoleUsers from 'admin/RoleUsers';
+import RolesPage from 'admin/RolesPage';
 
 
 import {store} from 'store';
@@ -58,17 +58,17 @@ const routes = [
     }
   },
   {
-    name: 'RolesUsers',
-    path: '/admin/RolesUsers'.toLowerCase(),
+    name: 'RolesPage',
+    path: '/admin/RolesPage'.toLowerCase(),
     components: {
-      default: RolesUsers,
+      default: RolesPage,
       navigation: AdminPanel
     },
     children: [
       {
-        name: 'UsersFromRole',
+        name: 'RoleUsers',
         path: ':roleName',
-        component: UsersFromRole,
+        component: RoleUsers,
         props: true
       }
     ]

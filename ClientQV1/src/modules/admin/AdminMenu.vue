@@ -19,7 +19,7 @@
       </q-item-section>
     </q-item>
 
-    <q-item :to="{name: 'RolesUsers'}">
+    <q-item :to="{name: 'RolesPage'}">
       <q-item-section avatar>
         <q-icon name="fas fa-users" />
       </q-item-section>

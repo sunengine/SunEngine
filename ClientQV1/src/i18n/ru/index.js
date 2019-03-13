@@ -391,6 +391,26 @@ export default {
       getFromServerSuccessNotify: "Данные загружены с сервера",
       saveToServerSuccessNotify: "Настройки групп успешно обновлены",
       textAreaLabel: "Json файл конфигурации прав групп"
+    },
+    ProfileRoles: {
+      roles: "Группы пользователя:",
+      addRoleBtn: "Добавить группу",
+      removeRoleBtn: "Удалить группу",
+      addRoleConfirm: "Добавить в группу '{0}'?",
+      addRoleConfirmOkBtn: "Добавить",
+      removeRoleConfirm: "Удалить из группы '{0}'?",
+      removeRoleConfirmOkBtn: "Удалить",
+
+    },
+    RolesPage: {
+      title: "Группы пользователей",
+      roles: "Группы",
+    },
+    RoleUsers: {
+      users: "Пользователи",
+      filter: "Фильтр",
+      noResults: "Нет результатов",
+      filterLimitReached: "Выведены первые {0} результатов"
     }
 
   },

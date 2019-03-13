@@ -6,7 +6,7 @@
       {{$tl("backupWarning")}}
     </div>
     <template v-if="json !== null">
-      <q-input input-class="json-input"  v-model="json" type="textarea" :label="$tl('textAreaLabel')"/>
+      <q-input input-class="json-input" v-model="json" type="textarea" :label="$tl('textAreaLabel')"/>
       <div class="q-my-md">
         <q-btn no-caps color="send" icon="far fa-save" @click="send" :label="$tl('saveToServerBtn')"/>
         <q-btn no-caps class="q-ml-md" color="info" icon="fas fa-sync-alt" @click="loadDataRefresh"
@@ -72,8 +72,7 @@
               json: this.json
             }
           })
-          .then(
-            async response => {
+          .then(async () => {
               this.error = null;
               const msg = this.$tl("saveToServerSuccessNotify");
               this.$q.notify({
@@ -114,7 +113,7 @@
   >>> .json-input {
     font-size: 0.9em !important;
     max-height: 600px !important;
-    min-height : 400px !important;
+    min-height: 400px !important;
     line-height: unset !important;
   }
 
