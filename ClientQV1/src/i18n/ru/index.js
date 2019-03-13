@@ -171,7 +171,7 @@ export default {
   },
   ReadComment: {
     edit: "редактировать",
-    deleteDialogComment: "Удалить сообщение?"
+    deleteDialogMessage: "Удалить сообщение?"
   },
   Post: {
     commentsCount: "сообщений",
@@ -321,6 +321,11 @@ export default {
   ActivitiesPage: {
     defaultTitle: "Новое на сайте"
   },
+  Error404: {
+    title: "Ошибка 404",
+    info: "Извините, страница не найдена...",
+    goBackBtn: "Вернуться назад"
+  },
   admin: {
     AdminPanel: {
       title: "Админка"
@@ -408,7 +413,7 @@ export default {
     },
     RoleUsers: {
       users: "Пользователи",
-      filter: "Фильтр",
+      filter: "Найти по имени",
       noResults: "Нет результатов",
       filterLimitReached: "Выведены первые {0} результатов"
     }

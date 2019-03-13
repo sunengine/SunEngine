@@ -7,9 +7,9 @@
         <span class="hl">User4</span>, <span class="hl">User5</span>, <span class="hl">Moderator</span>, <span
           class="hl">Admin</span></p>
       <p>Пароль: <span class="hl">password</span></p>
-      <p>При регистрации и других операциях с почтой можете указывать любой почтовый ящик, например <span class="hl">ooo@ooo.eml</span>.
+      <p>При регистрации можете указывать любой почтовый ящик, например <span class="hl">ooo@ooo.eml</span>.
         <br/>
-        Почта будет отправляться на <span class="hl">mailcatcher</span> - <a target="_blank" href="http://demo.sunengine.site:1444">сюда</a>.</p>
+        Почта будет отправляться на <a target="_blank" href="http://demo.sunengine.site:1444"><b>mailcatcher</b></a>.</p>
       <p class="ver q-mb-xl">Версия: 0.11</p>
 
     </div>
