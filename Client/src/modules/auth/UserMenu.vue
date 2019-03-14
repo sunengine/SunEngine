@@ -15,7 +15,7 @@
           <q-icon name="fas fa-user-circle"/>
         </q-item-section>
         <q-item-section>
-          <q-item-label>
+          <q-item-label >
             {{$tl('profile')}}
           </q-item-label>
         </q-item-section>
@@ -25,7 +25,7 @@
           <q-icon name="fas fa-address-card"/>
         </q-item-section>
         <q-item-section>
-          <q-item-label>
+          <q-item-label :lines="1">
             {{$tl('yourAccount')}}
           </q-item-label>
         </q-item-section>

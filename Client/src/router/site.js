@@ -1,8 +1,8 @@
 import Categories1 from 'categories/Categories1';
 import Categories2 from 'categories/Categories2';
 //import TestExt from 'pages/TestExt';
-import Index from 'pages/Index';
-import News2Col from 'pages/News2Col'
+import Index from 'site/Index';
+import News2Col from 'site/News2Col'
 import ActivitiesPage from 'activities/ActivitiesPage';
 import {makeArticlesSection, makeForumSection, makeBlogSection} from "./makeSections";
 

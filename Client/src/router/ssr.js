@@ -1,3 +1,4 @@
+import Error404 from "Error404"
 
 let routes = [];
 
@@ -5,7 +6,7 @@ let routes = [];
 if (process.env.MODE !== 'ssr') {
   routes.push({
     path: '*',
-    component: () => import('pages/Error404.vue')
+    component: Error404
   })
 }
 

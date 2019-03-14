@@ -18,8 +18,8 @@
 
         <q-btn class="user-menu-button " v-if="userName" flat dense round>
           <img class="avatar" :src="userAvatar"/>
-          <q-menu>
-            <UserMenu/>
+          <q-menu >
+            <UserMenu style="width:180px;"/>
           </q-menu>
         </q-btn>
 
@@ -60,15 +60,14 @@
 
 <script>
   import MainMenu from "./MainMenu";
-  import LoginRegisterMenu from "./LoginRegisterMenu";
+  import LoginRegisterMenu from "auth/LoginRegisterMenu";
   import {mapState} from "vuex";
-  import UserMenu from "./UserMenu";
+  import UserMenu from "auth/UserMenu";
 
 
   export default {
 
-
-    name: 'MyLayout',
+    name: 'Layout',
     components: {UserMenu, LoginRegisterMenu, MainMenu},
     data() {
       return {

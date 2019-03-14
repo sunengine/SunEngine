@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import Layout from "./layouts/Layout";
+  import Layout from "site/Layout";
   import {mapState} from 'vuex';
 
   export default {

@@ -2,23 +2,11 @@
 @import '~quasar-variables'
 @import '/statics/fonts/BoomBoomRegular.css';
 
+
 // ——— Colors ————————————————————————————————————
 
-html {
-  font-size: 20px;
-}
-
-body {
-  color: #06000d;
-  font-family: 'Open Sans', sans-serif;
-}
 
 $link-color = #3a67d3;
-
-a {
-  text-decoration: none;
-  color:  $link-color
-}
 
 
 .bg-send {
@@ -65,90 +53,22 @@ $q-field-color = #00c63b;
   }
 }
 
-.error {
-  color: var(--q-color-negative);
-  font-size: 12px;
-  margin-top: 4px;
+
+// ——— Main ————————————————————————————————————
+
+
+html {
+  font-size: 20px;
+  color: #06000d;
+  font-family: 'Open Sans', sans-serif;
 }
 
 
-// ——— Extras ————————————————————————————————————
-
-
-.clear {
-  clear: both;
+a {
+  text-decoration: none;
+  color:  $link-color
 }
 
-.word-break {
-  word-break: break-all;
-}
-
-.info-block {
-  display: flex;
-
-  span {
-    display: inline-flex;
-    margin-right: 10px;
-    white-space: nowrap;
-    align-items: center;
-
-
-    .q-icon {
-      margin-right: 5px;
-    }
-  }
-}
-
-.middle {
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-}
-
-// ——— Forms ————————————————————————————————————
-
-
-.center-form {
-  width: 400px;
-  display flex;
-  flex-direction: column;
-  justify-content: stretch;
-}
-
-
-// ——— Menus ————————————————————————————————————
-
-
-.my-menu {
-  .q-item {
-    min-height: 40px;
-  }
-
-  .q-item__section--avatar {
-    width: 28px !important;
-    min-width: unset !important;
-    padding: 0 !important;
-    margin: 0 !important;
-
-    .q-icon {
-      font-size: 16px !important;
-    }
-  }
-
-  .avatar-menu-item {
-    .q-item__section--avatar {
-      width: 40px !important;
-    }
-
-    .avatar {
-      margin-left: -6px;
-      margin-right: 11px;
-      border-radius: 16px
-      width: 32px;
-      height: 32px;
-    }
-  }
-}
 
 // ——— Title ————————————————————————————————————
 
@@ -180,20 +100,70 @@ $q-field-color = #00c63b;
 }
 
 
+
+// ——— Menus ————————————————————————————————————
+
+
+.my-menu {
+
+  .q-item {
+    min-height: 40px;
+  }
+
+  .q-item__section--avatar {
+    width: 28px !important;
+    min-width: unset !important;
+    padding: 0 !important;
+    margin: 0 !important;
+
+    .q-icon {
+      font-size: 16px !important;
+    }
+  }
+
+  .avatar-menu-item {
+    .q-item__section--avatar {
+      width: 40px !important;
+    }
+
+    .avatar {
+      margin-left: -6px;
+      margin-right: 11px;
+      border-radius: 16px
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+
+
+// ——— QItems ————————————————————————————————————
+
+.q-item {
+  .my-header {
+    //color: $link-color;
+    font-weight: 500;
+    font-size : 1.1em;
+  }
+}
+
+.q-router-link--active {
+  background-color : #e2f8e8;
+}
+
+/*.q-avatar {
+  @extend $shadow-2;
+}*/
+
+
+
 // ——— Page paddings ————————————————————————————————————
+
 
 .q-page {
   padding-bottom: $flex-gutter-xl !important;
 }
 
-
-/*.page-margin-bottom {
-  margin-bottom: $flex-gutter-lg !important;
-}
-
-.page-padding-bottom {
-  padding-bottom: $flex-gutter-lg !important;
-}*/
 
 
 $paddings = (12px 18px 24px)
@@ -235,36 +205,9 @@ page-paddings-block(size) {
 }
 
 
-// ——— QEditor ————————————————————————————————————
-
-
-.q-editor-toolbar {
-  .q-btn {
-    font-size: 0.6rem !important;
-  }
-}
-
-
-// ——— QItems ————————————————————————————————————
-
-.q-item {
-  .my-header {
-    //color: $link-color;
-    font-weight: 500;
-    font-size : 1.1em;
-  }
-}
-
-.q-router-link--active {
-  background-color : #e2f8e8;
-}
-
-/*.q-avatar {
-  @extend $shadow-2;
-}*/
-
 
 // ——— Elements ————————————————————————————————————
+
 
 .menu-panel-title {
   text-align: center;
@@ -276,6 +219,13 @@ page-paddings-block(size) {
   background-color: #f3ffdd;
   border-bottom: 1px solid #cacaca;
   color: $grey-8;
+}
+
+.center-form {
+  width: 400px;
+  display flex;
+  flex-direction: column;
+  justify-content: stretch;
 }
 
 .select-category {
@@ -290,3 +240,50 @@ page-paddings-block(size) {
   font-size: 0.8em;
   color: $negative;
 }
+
+.q-editor-toolbar {
+  .q-btn {
+    font-size: 0.6rem !important;
+  }
+}
+
+.info-block {
+  display: flex;
+
+  span {
+    display: inline-flex;
+    margin-right: 10px;
+    white-space: nowrap;
+    align-items: center;
+
+
+    .q-icon {
+      margin-right: 5px;
+    }
+  }
+}
+
+.error {
+  color: var(--q-color-negative);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+
+// ——— Extras ————————————————————————————————————
+
+
+.clear {
+  clear: both;
+}
+
+.word-break {
+  word-break: break-all;
+}
+
+.middle {
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
