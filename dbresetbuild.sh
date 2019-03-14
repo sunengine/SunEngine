@@ -18,3 +18,9 @@ dotnet publish -c Release Migrations -o "$parent_path/BuildDbReset/Migrations" -
 
 echo -e "\n$GREEN Publishing DataSeed $NC"
 dotnet publish -c Release DataSeed -o "$parent_path/BuildDbReset/DataSeed" -v m
+
+echo -e "\n$GREEN Clearing Images $NC"
+shopt -s extglob
+rm -rf "$parent_path/BuildDbReset/Migrations/wwwroot/UploadImages"
+rm -rf "$parent_path/BuildDbReset/DataSeed/wwwroot/UploadImages"
+shopt -u extglob
