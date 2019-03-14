@@ -2,7 +2,7 @@
   <q-page class="q-pa-md">
     <template v-if="material">
 
-      <q-input ref="title" v-model="material.title" :label="$tl('title')" :rules="titleRules">
+      <q-input ref="title" v-model="material.title" :label="$tl('titleField')" :rules="titleRules">
         <template v-slot:prepend>
           <q-icon name="fas fa-info-circle"/>
         </template>
@@ -76,11 +76,11 @@
       <div class="error" v-if="!material.categoryName && !start">{{$tl('validation.category.required')}}</div>
 
       <div class="q-mt-md">
-        <q-btn icon="fas fa-arrow-circle-right" class="btn-send" no-caps :loading="loading" label="Отправить"
+        <q-btn icon="fas fa-arrow-circle-right" class="btn-send" no-caps :loading="loading" :label="$tl('sendBtn')"
                @click="send" color="send">
           <LoaderSent slot="loading"/>
         </q-btn>
-        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" label="Отмена" color="warning"/>
+        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$t('global.btn.cancel')" color="warning"/>
       </div>
     </template>
     <LoaderWait v-else/>
@@ -158,20 +158,20 @@
       },
       categoryTitle() {
         if (!this.material.categoryName) {
-          return "Выберите раздел";
+          return this.$tl("selectCategory");
         }
-        return "Раздел: " + this.category.title;
+        return this.$tl("category",this.category.title);
       }
     },
     methods: {
       async send() {
         this.start = false;
         this.$refs.title.validate();
-        this.$refs.description.validate();
+        this.$refs.description?.validate();
         this.$refs.htmlEditor.validate();
 
 
-        if (this.$refs.title.hasError || this.$refs.description.hasError || this.$refs.htmlEditor.hasError || !this.material.categoryName) {
+        if (this.$refs.title.hasError ||  this.$refs.htmlEditor.hasError || !this.material.categoryName ||  this.$refs.description?.hasError) {
           return;
         }
 
@@ -193,21 +193,29 @@
             text: this.material.text,
             tags: this.material.tags.join(',')
           }
-        }).then(response => {
+        }).then( () => {
+          const msg = this.$tl("successNotify");
+          this.$q.notify({
+            message: msg,
+            timeout: 2300,
+            color: 'positive',
+            position: 'top'
+          });
           this.$router.push(this.category.path);
         }).catch(error => {
           if (error.response.data.errorName === "SpamProtection") {
+            const msg = this.$tl("spamProtectionNotify");
             this.$q.notify({
-              message: 'Нельзя так часто создавать материалы. Необходимо подождать.',
+              message: msg,
               timeout: 5000,
-              type: 'warning',
+              color: 'warning',
               position: 'top'
             });
           } else {
             this.$q.notify({
               message: error.response.data.errorText,
               timeout: 2000,
-              type: 'negative',
+              color: 'negative',
               position: 'top'
             });
           }
@@ -226,9 +234,9 @@
             text: this.material.text,
             tags: this.material.tags.join(',')
           }
-        }).then(response => {
+        }).then( () => {
           this.$router.push(this.category.path);
-        }).catch(error => {
+        }).catch( () => {
           this.loading = false;
         });
       },
@@ -240,7 +248,7 @@
           }
         }).then(response => {
           this.material = response.data;
-          this.title = "Редактировать текст:" + this.material.title;
+          this.title =  this.$tl("editTitle",this.material.title);
         })
       },
     },
@@ -251,7 +259,7 @@
         await this.loadData();
       } else {
         this.mode = ADD;
-        this.title = "Создание записи";
+        this.title = this.$tl("addTitle");
         this.material = {
           title: "",
           text: "",

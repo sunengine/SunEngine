@@ -140,9 +140,16 @@ export default {
     spamProtectionMessage: "Нельзя так часто отправлять сообщения. Подождите немного."
   },
   AddEditMaterial: {
-    title: "Заголовок",
+    titleField: "Заголовок",
+    addTitle: "Добавить материал",
+    editTitle: "Редактировать текст: {0}",
     description: "Короткое описание",
     tags: "Метки",
+    sendBtn: "Отправить",
+    selectCategory: "Выберите раздел",
+    category: "Раздел: {0}",
+    successNotify: "Материал успешно добавлен",
+    spamProtectionNotify: "Нельзя так часто создавать материалы. Необходимо подождать.",
     validation: {
       title: {
         required: "Введите заголовок",
