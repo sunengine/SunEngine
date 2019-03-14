@@ -7,7 +7,7 @@ cd "$parent_path"
 
 
 echo -e "$GREEN Clearing Build $NC"
-rm -rf "$parent_path/Build"
+rm -r "$parent_path/Build"
 mkdir "$parent_path/Build"
  
 
@@ -17,11 +17,11 @@ dotnet publish -c Release SunEngine -o "$parent_path/Build" -v m
 
 echo -e "\n$GREEN Clearing Images $NC"
 shopt -s extglob
-rm -rf "$parent_path/Build/wwwroot/UploadImages/!(_)"
+rm -r "$parent_path/Build/wwwroot/UploadImages/!(_)"
 shopt -u extglob
 
 #echo -e "\n$GREEN Remove local.app.settings.json $NC"
-#rm -f  "$parent_path/Build/local.app.settings.json"
+#rm   "$parent_path/Build/local.app.settings.json"
 
 
 echo -e "$GREEN Building Client $NC"
@@ -30,4 +30,4 @@ quasar build
 
 
 echo  -e "$GREEN Copying Client $NC"
-cp -rf "$parent_path/Client/dist/spa/." "$parent_path/Build/wwwroot"
+cp -r "$parent_path/Client/dist/spa/." "$parent_path/Build/wwwroot"

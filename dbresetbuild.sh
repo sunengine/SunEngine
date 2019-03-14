@@ -7,7 +7,7 @@ cd "$parent_path"
 
 
 echo -e "$GREEN Clearing BuildDbReset $NC"
-rm -rf "$parent_path/BuildDbReset"
+rm -r "$parent_path/BuildDbReset"
 mkdir "$parent_path/BuildDbReset"
 mkdir "$parent_path/BuildDbReset/Migrations"
 mkdir "$parent_path/BuildDbReset/DataSeed"
@@ -20,7 +20,6 @@ echo -e "\n$GREEN Publishing DataSeed $NC"
 dotnet publish -c Release DataSeed -o "$parent_path/BuildDbReset/DataSeed" -v m
 
 echo -e "\n$GREEN Clearing Images $NC"
-shopt -s extglob
-rm -rf "$parent_path/BuildDbReset/Migrations/wwwroot/UploadImages"
-rm -rf "$parent_path/BuildDbReset/DataSeed/wwwroot/UploadImages"
-shopt -u extglob
+rm -r "$parent_path/BuildDbReset/DataSeed/wwwroot"
+rm -r "$parent_path/BuildDbReset/DataSeed/Resources"
+rm -r $parent_path/BuildDbReset/DataSeed/local.OkeanLubvi
