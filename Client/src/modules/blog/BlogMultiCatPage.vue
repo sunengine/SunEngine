@@ -1,5 +1,5 @@
 <template>
-  <q-page class="pull-left pull-right">
+  <q-page>
     <div class="header-with-button">
       <h2 class="q-title">
         {{pageTitle}}
@@ -7,7 +7,6 @@
       <q-btn v-if="addButtonCategoryName && canPost" no-caps
              @click="$router.push({path:'/AddEditMaterial',query:{categoryName:addButtonCategoryName}})"
              :label="addButtonLabel" icon="fas fa-plus" color="post"/>
-      <div class="clear"></div>
     </div>
     <PostsList ref="postsList" />
   </q-page>
