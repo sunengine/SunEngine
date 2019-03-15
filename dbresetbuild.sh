@@ -22,4 +22,4 @@ dotnet publish -c Release DataSeed -o "$parent_path/BuildDbReset/DataSeed" -v m
 echo -e "\n$GREEN Clearing Images $NC"
 rm -r "$parent_path/BuildDbReset/DataSeed/wwwroot"
 rm -r "$parent_path/BuildDbReset/DataSeed/Resources"
-rm -r $parent_path/BuildDbReset/DataSeed/local.OkeanLubvi
+rm -r "$parent_path/BuildDbReset/DataSeed/"[Ll]ocal.*

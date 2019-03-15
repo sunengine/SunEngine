@@ -11,9 +11,6 @@
       </q-item-section>
       <q-item-section>
         <q-item-label>Домой</q-item-label>
-        <!--
-                <q-item-label caption>Главная страница</q-item-label>
-        -->
       </q-item-section>
     </q-item>
     <q-item to='/news2col'>
@@ -49,9 +46,6 @@
       </q-item-section>
       <q-item-section>
         <q-item-label>Активность</q-item-label>
-        <!--
-                <q-item-label caption>Новое на сайте</q-item-label>
-        -->
       </q-item-section>
     </q-item>
     <q-item to='/blog'>
@@ -68,21 +62,8 @@
       </q-item-section>
       <q-item-section>
         <q-item-label>Статьи</q-item-label>
-        <!--   <q-item-label caption>Раздел статей</q-item-label>-->
       </q-item-section>
     </q-item>
-
-
-    <!-- <q-item to='/testext' >
-       <q-item-section avatar>
-         <q-icon name="fas fa-flask"/>
-       </q-item-section>
-       <q-item-section>
-         <q-item-label>Lab-Ext</q-item-label>
-         <q-item-label caption>Тестируем расширения</q-item-label>
-       </q-item-section>
-     </q-item>-->
-
   </q-list>
 </template>
 
@@ -104,7 +85,6 @@
 
   .q-router-link--active {
     background-color: #e5eed2;
-    //border-radius : 20px;
 
     >>> .q-item__section--main {
       color: black !important;
@@ -125,10 +105,12 @@
   }
 
   .q-item__section--main {
-    font-size: 1.15em;
-    //font-weight : 600;
+    font-size: 1.2em;
     color: black !important;
   }
 
+  .q-item__label--caption {
+    font-size: 0.8em;
+  }
 
 </style>

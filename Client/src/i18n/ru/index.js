@@ -226,7 +226,7 @@ export default {
     title: "Редактировать Link пользователя",
     linkEditedMessage: "Link отредактирован",
     link: "Link",
-    linkValidationInfo: "Link должен состоять не менее чем из 3 символов <span class='text-brown-9'>'a-z', 'A-Z', '-', '0-9'</span>. И содержать хотя бы одну букву.",
+    linkValidationInfo: "Link должен состоять не менее чем из 3 символов 'a-z', 'A-Z', '-', '0-9'. И содержать хотя бы одну букву.",
     saveBtn: "@:global.btn.save",
     validation: {
       minLength: "Длинна link должна быть не менее 3",

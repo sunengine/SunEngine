@@ -7,7 +7,7 @@ import account from './account'
 import misc from './misc'
 import personal from './personal';
 import admin from './admin';
-import site from './site'
+import site from 'site/routesSite';
 import ssr from './ssr';
 
 

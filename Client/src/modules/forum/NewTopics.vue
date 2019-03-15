@@ -35,7 +35,7 @@
         </div>
       </q-list>
 
-      <q-pagination class="page-padding" v-if="topics.totalPages > 1" v-model="topics.pageIndex" color="pagination"
+      <q-pagination  v-if="topics.totalPages > 1" v-model="topics.pageIndex" color="pagination"
                     :max-pages="12" :max="topics.totalPages" ellipses direction-links @input="pageChanges"/>
     </template>
   </q-page>

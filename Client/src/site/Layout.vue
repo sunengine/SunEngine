@@ -111,7 +111,7 @@
     text-align: center;
     color: $primary;
     font-family: "BoomBoomRegular";
-    font-size: 16px;
+    //font-size: 16px;
 
     span {
       color: $primary;

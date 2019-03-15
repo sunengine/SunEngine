@@ -7,13 +7,11 @@
           ['token', 'hr', 'link', 'addImages'],
  [
             {
-              label: $q.lang.editor.formatting,
               icon: $q.iconSet.editor.formatting,
               list: 'no-icons',
               options: ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'code']
             },
             {
-              label: $q.lang.editor.fontSize,
               icon: $q.iconSet.editor.fontSize,
               fixedLabel: true,
               fixedIcon: true,

@@ -4,7 +4,7 @@ import Categories2 from 'categories/Categories2';
 import Index from 'site/Index';
 import News2Col from 'site/News2Col'
 import ActivitiesPage from 'activities/ActivitiesPage';
-import {makeArticlesSection, makeForumSection, makeBlogSection} from "./makeSections";
+import {makeArticlesSection, makeForumSection, makeBlogSection} from "router/makeSections";
 
 
 const routes = [

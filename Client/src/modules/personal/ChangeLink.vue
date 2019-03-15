@@ -1,7 +1,9 @@
 <template>
   <q-page class="flex flex-center">
     <div class="center-form">
-      <div class="text-grey-7 q-mb-lg" style="text-align: justify" v-html="$tl('linkValidationInfo')"></div>
+      <div class="text-grey-7 q-mb-lg" style="text-align: justify">
+        {{$tl('linkValidationInfo')}}
+      </div>
       <q-input ref="link" v-model="link" :label="$tl('link')" @keyup="checkLinkInDb" :rules="linkRules">
         <template v-slot:prepend>
           <q-icon name="fas fa-link"/>
