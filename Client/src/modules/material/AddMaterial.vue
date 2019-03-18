@@ -38,7 +38,7 @@
           text: "",
           description: "",
           tags: [],
-          categoryName: this.initialCategoryName
+          categoryName: this.initialCategoryName ?? ""
         },
         //initialCategory: null,
         loading: false
@@ -46,21 +46,8 @@
     },
     computed: {
       categoryNodes() {
-        if(this.categoriesNames.includes(","))
-          return GetWhereToAddMultiCat(this.$store, this.categoriesNames);
-        else
           return GetWhereToAdd(this.$store, this.categoriesNames);
-
-        /* const categories = this.categoriesNames.split(",").map(x=>x.trim());
-         if(categories.length === 1)
-           return GetWhereToAdd(this.$store, this.categoryName);
-         else
-           return GetWhereToAddMultiCat(this.$store, this.categoriesNames);*/
       },
-     /* initialCategory() {
-        if(this.initialCategoryName)
-          return this.$store.getters.getCategory(this.initialCategoryName);
-      }*/
     },
     methods: {
       send() {

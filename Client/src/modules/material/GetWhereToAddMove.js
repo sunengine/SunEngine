@@ -3,7 +3,14 @@ export function GetWhereToMove(store) {
   return [...rez.children];
 }
 
-export function GetWhereToAdd(store, categoryName) {
+export function GetWhereToAdd(store, categoriesNames) {
+  if (categoriesNames.includes(","))
+    return GetWhereToAddMultiCat(store, categoriesNames);
+  else
+    return GetWhereToAddOneCat(store, categoriesNames);
+}
+
+export function GetWhereToAddOneCat(store, categoryName) {
   let rez = GoDeep(store.getters.getCategory(categoryName));
   if (rez.selectable)
     rez = [rez];
@@ -24,6 +31,7 @@ export function GetWhereToAddMultiCat(store, categoriesNames) {
   return nodes;
 }
 
+
 function GoDeep(category) {
 
   if (!category)
@@ -38,15 +46,18 @@ function GoDeep(category) {
     }
   }
 
+  if(children && children.length === 0)
+    children = null;
+
   const ret = {
     label: category.title,
     value: category.name,
     category: category,
     children: children,
+    selectable: false
   };
 
-  if (category?.categoryPersonalAccess?.materialWrite) {
-
+  if (category.categoryPersonalAccess?.materialWrite) {
     if (category.isMaterialsContainer) { // writable
       ret.icon = 'fas fa-folder';
       ret.iconColor = 'green-5';
@@ -54,8 +65,10 @@ function GoDeep(category) {
     } else if (children) { // disabled mode on FolderCategory
       ret.selectable = false;
     }
-  }
 
+  } else if (!children) {
+    return null;
+  }
   return ret;
 }
 
