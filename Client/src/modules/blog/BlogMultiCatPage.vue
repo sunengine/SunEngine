@@ -5,12 +5,13 @@
         {{pageTitle}}
       </h2>
       <q-btn v-if="addButtonCategoryName && canPost" no-caps
-             @click="$router.push({path:'/AddEditMaterial',query:{categoryName:addButtonCategoryName}})"
+             @click="$router.push( {name:'AddMaterial',params:{categoriesNames: categoriesNames}})"
              :label="addButtonLabel" icon="fas fa-plus" color="post"/>
     </div>
-    <PostsList ref="postsList" />
+    <PostsList ref="postsList"/>
 
-    <q-pagination class="page-padding q-mt-md" v-if="posts && posts.totalPages > 1" v-model="posts.pageIndex" color="pagination"
+    <q-pagination class="page-padding q-mt-md" v-if="posts && posts.totalPages > 1" v-model="posts.pageIndex"
+                  color="pagination"
                   :max-pages="12" :max="posts.totalPages" ellipses direction-links @input="pageChanges"/>
 
 
@@ -30,10 +31,6 @@
         type: String,
         required: true,
       },
-      addButtonCategoryName: {
-        type: String,
-        required: false,
-      },
       addButtonLabel: {
         type: String,
         required: false,
@@ -44,7 +41,7 @@
         required: true
       }
     },
-    data: function() {
+    data: function () {
       return {
         posts: null
       }
@@ -103,7 +100,7 @@
       }
     },
     async created() {
-      this.title  = this.pageTitle;
+      this.title = this.pageTitle;
       await this.loadData();
     }
   }

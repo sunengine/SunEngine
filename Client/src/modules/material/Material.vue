@@ -27,7 +27,7 @@
         </div>
         <div class="q-mr-md" v-if="canEdit">
           <a href="#" style="display: inline-flex; align-items: center;"
-             @click.prevent="$router.push(`/AddEditMaterial?id=`+material.id)">
+             @click.prevent="$router.push({name: 'EditMaterial', params: {id: id}})">
             <q-icon name="fas fa-edit" class="q-mr-xs"/>
             {{$tl("edit")}}</a>
         </div>

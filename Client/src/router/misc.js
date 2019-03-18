@@ -1,20 +1,34 @@
 import Profile from 'profile/Profile';
-import AddEditMaterial from 'material/AddEditMaterial';
+import AddMaterial from 'material/AddMaterial';
+import EditMaterial from 'material/EditMaterial';
 import SendPrivateMessage from 'profile/SendPrivateMessage';
 
 const routes = [
   {
-    name: "AddEditMaterial",
-    path: '/AddEditMaterial'.toLowerCase(),
+    name: "AddMaterial",
+    path: '/AddMaterial/'.toLowerCase()+':categoriesNames/:initialCategoryName?',
     components: {
-      default: AddEditMaterial,
+      default: AddMaterial,
+      navigation: null
+    },
+    props: {
+      default: true,
+    },
+    meta: {
+      roles: ["Registered"]
+    }
+  },
+  {
+    name: "EditMaterial",
+    path: '/EditMaterial/'.toLowerCase()+':id',
+    components: {
+      default: EditMaterial,
       navigation: null
     },
     props: {
       default: (route) => {
         return {
-          categoryName: route.query.categoryName,
-          id: +route.query.id
+          id: +route.params.id
         }
       },
       navigation: null

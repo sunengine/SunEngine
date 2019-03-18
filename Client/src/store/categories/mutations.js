@@ -5,7 +5,7 @@ export function setCategories(state, root) {
   state.all = {};
   buildStructureRecursive(root);
 
-  function buildStructureRecursive(category, sectionType = null) {
+  function buildStructureRecursive(category, sectionRoot = null) {
 
     if (!category) {
       return;
@@ -16,10 +16,12 @@ export function setCategories(state, root) {
 
     // Make section types
     if(category.sectionType) {
-      sectionType = category.sectionType;
+      sectionRoot = category;
+      category.sectionRoot = category;
     }
-    else {
-      category.sectionType = sectionType;
+    else if(sectionRoot) {
+      category.sectionType = sectionRoot.sectionType;
+      category.sectionRoot = sectionRoot;
     }
 
     if (!category.subCategories) {
@@ -31,7 +33,7 @@ export function setCategories(state, root) {
       // Make parents
       subCategory.parent = category;
 
-      buildStructureRecursive(subCategory, sectionType);
+      buildStructureRecursive(subCategory, sectionRoot);
     }
   }
 }

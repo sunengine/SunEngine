@@ -24,14 +24,8 @@
                   default-expand-all
                   :selected.sync="category.parentId"
                   :nodes="where"
-                  node-key="value">
-            <div slot="header-normal" slot-scope="prop" class="row items-center">
-              <div style="display: flex; align-items: center; align-content: center;">
-                <q-icon name="fas fa-folder" size="16px" color="green-5" class="q-mr-sm"/>
-                <span>{{ prop.node.label }}</span>
-              </div>
-            </div>
-          </q-tree>
+                  node-key="value" />
+
         </div>
       </q-menu>
     </q-btn>
@@ -64,7 +58,6 @@
 
 <script>
   import MyEditor from "MyEditor";
-  import MyTree from 'MyTree';
   import adminGetAllCategories from "adminGetAllCategories";
   import LoaderWait from "LoaderWait";
 
@@ -91,7 +84,8 @@
       category: category,
       children: children,
       selectable: true,
-      header: 'normal'
+      icon: 'fas fa-folder',
+      iconColor: 'green-5'
     };
   }
 
@@ -112,7 +106,7 @@
 
   export default {
     name: "CategoryForm",
-    components: {LoaderWait, MyEditor, MyTree},
+    components: {LoaderWait, MyEditor },
     props: {
       category: {
         type: Object,

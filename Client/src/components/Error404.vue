@@ -22,8 +22,11 @@
 </template>
 
 <script>
+  import Page from "Page";
+
   export default {
     name: 'Error404',
+    mixins: [Page],
     created() {
       this.title = this.$tl("title");
     }

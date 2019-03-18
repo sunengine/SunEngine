@@ -82,16 +82,16 @@ namespace SunEngine.Controllers
             Func<Task<T>> dataLoader)
         {
             string json;
-            if (category != null
+            /*if (category != null
                 && category.IsCacheContent
                 && !string.IsNullOrEmpty(json = contentCache.GetContent(key)))
             {
                 return JsonString(json);
-            }
+            }*/
 
             var content = await dataLoader();
             json = WebJson.Serialize(content);
-            contentCache.CacheContent(key, json);
+            //contentCache.CacheContent(key, json);
             return JsonString(json);
         }
 

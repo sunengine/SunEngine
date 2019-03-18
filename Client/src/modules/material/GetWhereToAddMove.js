@@ -5,13 +5,23 @@ export function GetWhereToMove(store) {
 
 export function GetWhereToAdd(store, categoryName) {
   let rez = GoDeep(store.getters.getCategory(categoryName));
-  if(rez.selectable)
+  if (rez.selectable)
     rez = [rez];
   else
-    rez= [...rez.children];
-
+    rez = [...rez.children];
 
   return rez;
+}
+
+export function GetWhereToAddMultiCat(store, categoriesNames) {
+  const categories = categoriesNames.split(",").map(x => x.trim());
+  const nodes = [];
+  for (let categoryName of categories) {
+    const node = GoDeep(store.getters.getCategory(categoryName));
+    nodes.push(node);
+  }
+
+  return nodes;
 }
 
 function GoDeep(category) {
@@ -28,32 +38,23 @@ function GoDeep(category) {
     }
   }
 
-  let ret;
+  const ret = {
+    label: category.title,
+    value: category.name,
+    category: category,
+    children: children,
+  };
 
   if (category?.categoryPersonalAccess?.materialWrite) {
+
     if (category.isMaterialsContainer) { // writable
-      ret = {
-        label: category.title,
-        value: category.name,
-        category: category,
-        children: children,
-        selectable: true,
-        header: 'normal'
-      };
-    } else if(children){ // disabled mode on FolderCategory
-      ret = {
-        label: category.title,
-        value: category.name,
-        category: category,
-        children: children,
-        selectable: false,
-        header: 'root'
-      };
+      ret.icon = 'fas fa-folder';
+      ret.iconColor = 'green-5';
+      ret.selectable = true;
+    } else if (children) { // disabled mode on FolderCategory
+      ret.selectable = false;
     }
   }
-
-  if(!ret && children)
-    ret = {children: children}
 
   return ret;
 }

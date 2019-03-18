@@ -5,7 +5,8 @@
       <h2 class="q-title">
         {{thread.title}}
       </h2>
-      <q-btn no-caps @click="$router.push({path:'/AddEditMaterial',query:{categoryName:thread.name}})"
+      <q-btn no-caps
+             @click="$router.push({name:'AddMaterial',params:{categoriesNames: thread.sectionRoot.name, initialCategoryName: thread.name}})"
              :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus" color="post"/>
     </div>
 
@@ -66,9 +67,6 @@
       '$store.state.auth.user': 'loadData',
     },
     computed: {
-      rootCategoryPath() {
-        return this.thread.path;
-      },
       canAddTopic() {
         return this.thread?.categoryPersonalAccess?.materialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;
       },
@@ -76,6 +74,9 @@
         let page1 = this.$route.query?.page;
         return page1 ?? 1;
       },
+     /* sectionRootName() {
+        return thread.sectionRoot.name;
+      }*/
     },
 
     methods: {

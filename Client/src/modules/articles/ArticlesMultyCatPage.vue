@@ -4,7 +4,7 @@
       <h2 class="q-title">
         {{category.title}}
       </h2>
-      <q-btn no-caps @click="$router.push({path:'/AddEditMaterial',query:{categoryName:category.name}})"
+      <q-btn no-caps @click="$router.push({name:'AddMaterial',params:{categoriesNames: category.name}})"
              label="Новая статья"
              v-if="canAddArticle" icon="fas fa-plus" color="post"/>
 

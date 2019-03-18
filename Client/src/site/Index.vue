@@ -10,7 +10,7 @@
       <p>При регистрации можете указывать любой почтовый ящик, например <span class="hl">ooo@ooo.eml</span>.
         <br/>
         Почта будет отправляться на <a target="_blank" href="http://demo.sunengine.site:1444"><b>mailcatcher</b></a>.</p>
-      <p class="ver q-mb-xl">Версия: 0.11.2</p>
+      <p class="ver q-mb-xl">Версия: 0.11.3</p>
 
     </div>
   </q-page>
@@ -18,8 +18,12 @@
 
 
 <script>
+  import Page from "Page";
+
   export default {
-    name: 'PageIndex'
+    name: 'PageIndex',
+    mixins: [Page],
+
   }
 </script>
 

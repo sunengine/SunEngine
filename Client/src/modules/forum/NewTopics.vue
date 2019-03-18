@@ -5,7 +5,7 @@
       <h2 class="q-title">
         {{localTitle}}
       </h2>
-      <q-btn no-caps @click="$router.push({name:'AddEditMaterial',query:{categoryName:thread.name}})"
+      <q-btn no-caps @click="$router.push({name:'AddMaterial',params:{categoriesNames: thread.name}})"
              :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus" color="post"/>
 
     </div>
@@ -71,9 +71,6 @@
       },
       thread() {
         return this.$store.getters.getCategory(this.categoryName);
-      },
-      rootCategoryPath() {
-        return this.category.path;
       },
       canAddTopic() {
         return this.thread?.categoryPersonalAccess?.materialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;

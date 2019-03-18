@@ -139,6 +139,41 @@ export default {
     htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
     spamProtectionMessage: "Нельзя так часто отправлять сообщения. Подождите немного."
   },
+  AddMaterial: {
+    title: "Добавить материал",
+    sendBtn: "Отправить",
+    successNotify: "Материал успешно добавлен",
+    spamProtectionNotify: "Нельзя так часто создавать материалы. Необходимо подождать."
+  },
+  EditMaterial: {
+    title: "Редактировать материал",
+    saveBtn: "Сохранить",
+    successNotify: "Материал успешно сохранён",
+  },
+  MaterialForm: {
+    titleField: "Заголовок",
+    description: "Короткое описание",
+    tags: "Метки",
+    selectCategory: "Выберите раздел",
+    category: "Раздел: {0}",
+    validation: {
+      title: {
+        required: "Введите заголовок",
+        minLength: "Минимальная длинна заголовка - 3",
+        maxLength: `Максимальная длинна заголовка - ${config.DbColumnSizes.Materials_Title}`,
+      },
+      text: {
+        required: "Введите текст",
+        htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
+      },
+      description: {
+        maxLength: "Максимально допустимая длинна " + config.DbColumnSizes.Materials_Description
+      },
+      category: {
+        required: "Выберите раздел"
+      }
+    }
+  },
   AddEditMaterial: {
     titleField: "Заголовок",
     addTitle: "Добавить материал",
