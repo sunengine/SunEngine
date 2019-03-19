@@ -14,7 +14,7 @@
 
     <LoaderWait v-if="!topics.items"/>
 
-    <template v-else>
+    <div class="q-mt-sm" v-else>
       <div class="margin-back bg-grey-2 gt-xs text-grey-6">
         <hr class="hr-sep"/>
         <div class="row">
@@ -37,7 +37,7 @@
 
       <q-pagination  v-if="topics.totalPages > 1" v-model="topics.pageIndex" color="pagination"
                     :max-pages="12" :max="topics.totalPages" ellipses direction-links @input="pageChanges"/>
-    </template>
+    </div>
   </q-page>
 
 </template>

@@ -9,7 +9,7 @@
              :label="addButtonLabel" icon="fas fa-plus" color="post"/>
     </div>
 
-    <div v-if="caption" class="page-padding q-mb-lg text-grey-9" style="margin-top: -28px" v-html="caption"></div>
+    <div v-if="caption" class="page-padding q-mb-lg text-grey-9" style="margin-top: -14px" v-html="caption"></div>
 
 
     <PostsList ref="postsList"/>
