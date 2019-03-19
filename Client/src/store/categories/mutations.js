@@ -1,9 +1,10 @@
-
 export function setCategories(state, root) {
 
   state.root = root;
   state.all = {};
   buildStructureRecursive(root);
+
+  detectCanSomeChildrenWriteMaterial(root);
 
   function buildStructureRecursive(category, sectionRoot = null) {
 
@@ -15,11 +16,10 @@ export function setCategories(state, root) {
     state.all[category.name] = category;
 
     // Make section types
-    if(category.sectionType) {
+    if (category.sectionType) {
       sectionRoot = category;
-      category.sectionRoot = category;
-    }
-    else if(sectionRoot) {
+      //category.sectionRoot = category;
+    } else if (sectionRoot) {
       category.sectionType = sectionRoot.sectionType;
       category.sectionRoot = sectionRoot;
     }
@@ -35,6 +35,27 @@ export function setCategories(state, root) {
 
       buildStructureRecursive(subCategory, sectionRoot);
     }
+  }
+
+  function detectCanSomeChildrenWriteMaterial(category) {
+    if (!category) {
+      return;
+    }
+
+    let has = false;
+    if(category.subCategories) {
+      for(const cat of category.subCategories)
+      {
+        if(detectCanSomeChildrenWriteMaterial(cat))
+          has = true;
+      }
+    }
+    if(category.categoryPersonalAccess?.materialWrite)
+      has = true;
+
+    category.canSomeChildrenWriteMaterial = has;
+
+    return has;
   }
 }
 

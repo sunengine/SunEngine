@@ -4,7 +4,7 @@
       <h2 class="q-title">
         {{pageTitle}}
       </h2>
-      <q-btn v-if="addButtonCategoryName && canPost" no-caps
+      <q-btn v-if="canPost" no-caps
              @click="$router.push( {name:'AddMaterial',params:{categoriesNames: categoriesNames}})"
              :label="addButtonLabel" icon="fas fa-plus" color="post"/>
     </div>
@@ -39,6 +39,10 @@
       pageTitle: {
         type: String,
         required: true
+      },
+      rolesCanAdd: {
+        type: Array,
+        required: false
       }
     },
     data: function () {
@@ -54,10 +58,14 @@
     },
     computed: {
       canPost() {
+        if(this.rolesCanAdd)
+          if(!this.$store.state.auth.roles.some(x=>this.rolesCanAdd.some(y=> y === x)))
+            return false;
+
         let categories = this.categoriesNames.split(",").map(x => x.trim());
         for (let catName of categories) {
           let cat = this.$store.getters.getCategory(catName);
-          if (cat?.categoryPersonalAccess?.materialWrite) {
+          if (cat?.canSomeChildrenWriteMaterial) {
             return true;
           }
         }

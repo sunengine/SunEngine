@@ -25,7 +25,8 @@ export function GetWhereToAddMultiCat(store, categoriesNames) {
   const nodes = [];
   for (let categoryName of categories) {
     const node = GoDeep(store.getters.getCategory(categoryName));
-    nodes.push(node);
+    if(node)
+      nodes.push(node);
   }
 
   return nodes;

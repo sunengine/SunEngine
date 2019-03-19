@@ -7,14 +7,15 @@
              @click="send" color="send">
         <LoaderSent slot="loading"/>
       </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$t('global.btn.cancel')" color="warning"/>
+      <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$t('global.btn.cancel')"
+             color="warning"/>
     </div>
   </q-page>
 </template>
 
 <script>
   import MaterialForm from "./MaterialForm";
-  import {GetWhereToAdd, GetWhereToAddMultiCat} from "./GetWhereToAddMove";
+  import {GetWhereToAdd} from "./GetWhereToAddMove";
   import Page from "Page";
 
   export default {
@@ -28,17 +29,18 @@
       },
       initialCategoryName: {
         type: String,
-        required: false
+        required: false,
+        default: ""
       }
     },
-    data: function() {
+    data: function () {
       return {
         material: {
           title: "",
           text: "",
           description: "",
           tags: [],
-          categoryName: this.initialCategoryName ?? ""
+          categoryName: this.initialCategoryName
         },
         //initialCategory: null,
         loading: false
@@ -46,14 +48,14 @@
     },
     computed: {
       categoryNodes() {
-          return GetWhereToAdd(this.$store, this.categoriesNames);
+        return GetWhereToAdd(this.$store, this.categoriesNames);
       },
     },
     methods: {
       send() {
         this.$refs.form.start = false;
         this.$refs.form.validate();
-        if(this.$refs.form.hasError)
+        if (this.$refs.form.hasError)
           return;
 
         this.loading = true;
@@ -66,7 +68,7 @@
             text: this.material.text,
             tags: this.material.tags.join(',')
           }
-        }).then( () => {
+        }).then(() => {
           const msg = this.$tl("successNotify");
           this.$q.notify({
             message: msg,
