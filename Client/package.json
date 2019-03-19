@@ -1,6 +1,6 @@
 {
   "name": "sunengine-client",
-  "version": "0.11.4",
+  "version": "0.11.5",
   "description": "SunEngine - Site engine with blog, forum and articles functionalities",
   "productName": "SunEngine Client",
   "cordovaId": "org.cordova.quasar.app",
