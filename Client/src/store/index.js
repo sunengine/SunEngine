@@ -29,10 +29,14 @@ export default function (/* { ssrContext } */) {
 
         console.info("%cStartInit", consoleInit);
 
-        try {
-          initUser(this);
+        initUser(this);
 
+        try {
           this.state.auth.user && await this.dispatch('getMyUserInfo');
+        } catch (x) {
+        }
+
+        try {
 
           !this.state.categories.all && await this.dispatch('getAllCategories');
 
