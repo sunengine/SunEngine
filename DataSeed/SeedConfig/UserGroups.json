@@ -111,27 +111,13 @@
     "IsSuper": true,
     "Categories": [
       {
-        "Category": "Forum",
+        "Category": "Root",
         "OperationKeys": {
+          "MaterialWrite": true,
+          "CommentWrite": true,
           "MaterialEditAny": true,
           "CommentEditAny": true,
           "MaterialDeleteAny": true,
-          "CommentDeleteAny": true
-        }
-      },
-      {
-        "Category": "Forum2L",
-        "OperationKeys": {
-          "MaterialEditAny": true,
-          "CommentEditAny": true,
-          "MaterialDeleteAny": true,
-          "CommentDeleteAny": true
-        }
-      },
-      {
-        "Category": "Articles",
-        "OperationKeys": {
-          "CommentEditAny": true,
           "CommentDeleteAny": true
         }
       }
