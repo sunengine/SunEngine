@@ -2,7 +2,8 @@ import Categories1 from 'categories/Categories1';
 import Categories2 from 'categories/Categories2';
 //import TestExt from 'pages/TestExt';
 import Index from 'site/Index';
-import News2Col from 'site/News2Col'
+import News2Col from 'site/News2Col';
+import BlogMultiCatPage from 'blog/BlogMultiCatPage';
 import ActivitiesPage from 'activities/ActivitiesPage';
 import {makeArticlesSection, makeForumSection, makeBlogSection} from "router/makeSections";
 
@@ -32,6 +33,22 @@ const routes = [
     components: {
       default: News2Col,
       navigation: null
+    }
+  },
+  {
+    name: "BlogMulti",
+    path: '/BlogMulti'.toLowerCase(),
+    components: {
+      default: BlogMultiCatPage,
+      navigation: null
+    },
+    props: {
+      default: {
+        pageTitle: "Новые материалы",
+        categoriesNames: "Forum,Articles,Blog".toLowerCase(),
+        addButtonLabel: "Добавить материал",
+        rolesCanAdd: ["Admin", "Moderator"]
+      }
     }
   },
 /*  {

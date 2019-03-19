@@ -10,6 +10,8 @@ import admin from './admin';
 import site from 'site/routesSite';
 import ssr from './ssr';
 
+import {routeHasAccess} from "services/routeAccess"
+
 
 Vue.use(VueRouter);
 
@@ -33,6 +35,14 @@ export default function (/* { store, ssrContext } */) {
     base: process.env.VUE_ROUTER_BASE
   });
 
+  router.beforeEach((to, from, next) => {
+    if (!routeHasAccess(to)) {
+      router.push({name: 'Home'});
+      return;
+    }
+
+    next();
+  });
 
 
   return router;

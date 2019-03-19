@@ -3,7 +3,7 @@ import {router} from "router"
 
 export var routeHasAccess = function(route) {
   return !route.meta.roles ||
-    store.state.auth.userGroups.some(x => route.meta.roles.some(y => x === y))
+    store.state.auth.roles.some(x => route.meta.roles.some(y => x === y))
 };
 
 export var routeCheckAccess = function(route) {

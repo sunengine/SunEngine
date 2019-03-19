@@ -55,6 +55,7 @@
 
 <script>
   import {mapState} from 'vuex';
+  import {routeCheckAccess} from 'services/routeAccess';
 
   export default {
     name: "UserMenu",
@@ -78,6 +79,7 @@
               color: 'info',
               position: 'top'
             });
+            routeCheckAccess(this.$route);
           });
       }
     }
