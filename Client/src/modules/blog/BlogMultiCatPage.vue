@@ -8,6 +8,10 @@
              @click="$router.push( {name:'AddMaterial',params:{categoriesNames: categoriesNames}})"
              :label="addButtonLabel" icon="fas fa-plus" color="post"/>
     </div>
+
+    <div v-if="caption" class="page-padding q-mb-lg text-grey-9" style="margin-top: -28px" v-html="caption"></div>
+
+
     <PostsList ref="postsList"/>
 
     <q-pagination class="page-padding q-mt-md" v-if="posts && posts.totalPages > 1" v-model="posts.pageIndex"
@@ -40,6 +44,10 @@
         type: String,
         required: true
       },
+      caption: {
+        type: String,
+        required: false
+      },
       rolesCanAdd: {
         type: Array,
         required: false
@@ -58,8 +66,8 @@
     },
     computed: {
       canPost() {
-        if(this.rolesCanAdd)
-          if(!this.$store.state.auth.roles.some(x=>this.rolesCanAdd.some(y=> y === x)))
+        if (this.rolesCanAdd)
+          if (!this.$store.state.auth.roles.some(x => this.rolesCanAdd.some(y => y === x)))
             return false;
 
         let categories = this.categoriesNames.split(",").map(x => x.trim());
