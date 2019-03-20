@@ -32,11 +32,6 @@
 
 
     <ItemGroup>
-        <Folder Include="wwwroot" />
-    </ItemGroup>
-
-
-    <ItemGroup>
         <Content Update="SunEngine.json">
             <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -74,11 +69,7 @@
         <_ContentIncludedByDefault Remove="Settings\SunEngine.json" />
     </ItemGroup>
     
-
-
    
-
-
     <PropertyGroup>
         <ServerGarbageCollection>false</ServerGarbageCollection>
     </PropertyGroup>
