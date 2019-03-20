@@ -61,7 +61,7 @@
 
 
     <ItemGroup>
-        <Content Include="wwwroot/">
+        <Content Include="wwwroot">
             <CopyToOutputDirectory>None</CopyToOutputDirectory>
         </Content>
        
