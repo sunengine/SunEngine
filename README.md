@@ -69,7 +69,7 @@
 - Если что-то не работает написать сюда в Issue, или Telegram группу.
 
 #### Работа с другими базами данных
-- База данных: любая совместимая с Linq2db [(инфо)](https://fluentmigrator.github.io/articles/faq.html) и FluentMigrator [(инфо)](https://linq2db.github.io/articles/general/databases.html)  
+- База данных: любая совместимая с Linq2db [(список)](https://fluentmigrator.github.io/articles/faq.html) и FluentMigrator [(список)](https://linq2db.github.io/articles/general/databases.html)  
 - Протестировано с MySql, Postgres, SqLite 
 
 ##### Последовательность подключения
