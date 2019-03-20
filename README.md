@@ -1,6 +1,6 @@
 # SunEngine
 
-Движок сайта - форум, статьи, блог.
+Движок для сайтов с функциональностью форума, статей, блогов.
 
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
@@ -68,13 +68,54 @@
   - Откроется браузер с сайтом
 - Если что-то не работает написать мне.
 
+#### Работа с другими базами данных
+- База данных: любая совместимая с Linq2db [(инфо)](https://fluentmigrator.github.io/articles/faq.html) и FluentMigrator [(инфо)](https://linq2db.github.io/articles/general/databases.html)  
+- Протестировано с MySql, Postgres, SqLite 
+
+##### Последовательность подключения
+- Для работы с любой базой данных необходимо подключить необходимые NuGet пакеты для работы FluentMigrator и Linq2db с этими базами.
+- Пакеты для MySql, Postgres, SqLite подключены изначально,
+- Указать имя провайдера и ConnectionString в файлах конфигурации для каждого проекта (SunEngine, Migrations, DataSeed), имя провайдера для FluentMigrator и для Linq2db может отличаться, например для MySql имя провайдера для Linq2db `SQLite`, а для FluentMigrator `Sqlite` (Другой регистр).
+- В проекте Migrations в файле Main.cs -> CreateService указать вместо `AddSQLite` функцию для работы с выбранной базой, например `AddPostgres`.
+
 #### Установка и запуск на Production
 
-Описание в разработке
+##### Вариант запуска на Nginx на Ubuntu. 
 
-#### Работа с другими базами данных
-- Любая совместимая с Linq2db и FluentMigrator  
-- Протестировано с MySql, Postgres, SqLite 
+Серверная и клиентская части запускаются на разных endpoint-ах, например клиентская часть `mysite.site`, серверная часть `mysite.site/api`.
+
+```
+server {
+         listen 80;
+         server_name mysite.site;
+         
+
+         add_header X-Frame-Options "SAMEORIGIN";
+         add_header X-XSS-Protection "1; mode=block";
+         add_header X-Content-Type-Options "nosniff";
+
+         charset utf-8;
+         
+         location / {    # Endpoint для клиентской части
+            root /site/mysite/wwwroot;
+            try_files $uri $uri/ /index.html;   # если файл не найден - возвращаем index.html
+            
+            client_max_body_size 11M;
+         }
+         
+         location /api/ {    # Endpoint для серверной части. Работает как reverse proxy отправляя запросы в Kestrel работающий отдельным процессом.
+            proxy_pass  http://localhost:5020/;
+            
+            client_max_body_size 11M;
+         }
+         
+         client_max_body_size 11M;
+    }
+```
+
+Теперь необходимо запустить отдельным процессом kestrel сервис по локальному адресу http://localhost:5020/
+
+Как это делается читаем [статью](https://kimsereyblog.blogspot.com/2018/05/manage-kestrel-process-with-systemd.html).
 
 #### Лицензия
 
@@ -83,4 +124,4 @@
 - Без оплаты для некоммерческого использования.
 - Платно для коммерческого использования.
 
-[Ссылка на текст лицензии](licence.md)
+[Текст лицензии](licence.md)
