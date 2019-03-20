@@ -78,7 +78,7 @@
 - Указать имя провайдера и ConnectionString в файлах конфигурации для каждого проекта (SunEngine, Migrations, DataSeed), имя провайдера для FluentMigrator и для Linq2db может отличаться, например для MySql имя провайдера для Linq2db `SQLite`, а для FluentMigrator `Sqlite` (Другой регистр).
 - В проекте Migrations в файле Main.cs -> CreateService указать вместо `AddSQLite` функцию для работы с выбранной базой, например `AddPostgres`.
 
-### Установка и запуск на Production
+## Установка и запуск на Production
 
 #### Вариант запуска на Nginx на Ubuntu. 
 
