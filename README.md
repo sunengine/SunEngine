@@ -117,7 +117,7 @@ server {
 
 Как это делается читаем [статью](https://kimsereyblog.blogspot.com/2018/05/manage-kestrel-process-with-systemd.html).
 
-### Лицензия
+## Лицензия
 
 Кратко:
 - Без оплаты для некоммерческого использования.
