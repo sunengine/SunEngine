@@ -10,7 +10,7 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@quasar/extras": "^1.1.0",
+    "@quasar/extras": "^1.1.1",
     "axios": "^0.18.0",
     "js-lock": "^0.1.1",
     "quasar": "^1.0.0-beta.11",
@@ -21,10 +21,7 @@
     "babel-preset-proposals": "^0.1.0",
     "path": "^0.12.7",
     "quasar-app-extension-ide-helper": "0.0.5",
-    "strip-ansi": "=3.0.1",
-    "vue": "^2.6.8",
-    "vue-router": "^3.0.2",
-    "vuex": "^3.1.0"
+    "strip-ansi": "=3.0.1"
   },
   "engines": {
     "node": ">= 8.9.0",

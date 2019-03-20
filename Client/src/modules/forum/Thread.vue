@@ -1,4 +1,4 @@
-<div>
+<template>
   <q-page>
 
     <div class="header-with-button page-padding">
