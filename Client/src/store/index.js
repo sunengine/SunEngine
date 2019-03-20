@@ -31,13 +31,10 @@ export default function (/* { ssrContext } */) {
 
         initUser(this);
 
-        try {
-          this.state.auth.user && await this.dispatch('getMyUserInfo');
-        } catch (x) {
-        }
+        this.state.auth.user && await this.dispatch('getMyUserInfo').catch(() => {
+        });
 
         try {
-
           !this.state.categories.all && await this.dispatch('getAllCategories');
 
           //await this.dispatch('getAndSetAllExtensions');
