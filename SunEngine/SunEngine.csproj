@@ -48,10 +48,6 @@
             <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <Content Update="wwwroot\UploadImages\_\default-avatar.svg">
-          <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
     </ItemGroup>
 
 
@@ -67,6 +63,15 @@
         <_ContentIncludedByDefault Remove="Settings\appsettings.Development.json" />
         <_ContentIncludedByDefault Remove="Settings\appsettings.json" />
         <_ContentIncludedByDefault Remove="Settings\SunEngine.json" />
+    </ItemGroup>
+    
+
+    <ItemGroup>
+      <Content Remove="wwwroot\UploadImages\_\default-avatar.svg" />
+      <None Include="wwwroot\UploadImages\_\default-avatar.svg">
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
     
    
