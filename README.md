@@ -66,7 +66,7 @@
   - Зайти в консоль в директорию `SunEngine/Client`
   - `quasar dev` 
   - Откроется браузер с сайтом
-- Если что-то не работает написать мне.
+- Если что-то не работает написать сюда в Issue, или Telegram группу.
 
 #### Работа с другими базами данных
 - База данных: любая совместимая с Linq2db [(инфо)](https://fluentmigrator.github.io/articles/faq.html) и FluentMigrator [(инфо)](https://linq2db.github.io/articles/general/databases.html)  
