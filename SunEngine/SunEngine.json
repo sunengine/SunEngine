@@ -1,11 +1,15 @@
 {
-  "DataBaseConnection": {
+  "DataBaseConnection": { 
+    "Provider": "SQLite",
+    "ConnectionString": "Data Source=../SunEngine.db"
+  },
+  /*"DataBaseConnection": {
     "Provider": "PostgreSQL.9.5",
     "ConnectionString": "Host=localhost;Database=SunEngineDb;Username=postgres;Password=password"
   },
-  /*"DataBaseConnection": {   // Example for SqLite
+  "DataBaseConnection": {   // Example for SqLite
     "Provider": "SQLite",
-    "ConnectionString": "Data Source=../SunEngine/mydb.db"
+    "ConnectionString": "Data Source=../SunEngineDb.db"
   },
   "DataBaseConnection": {   // Example for MySql
     "Provider": "MySql",

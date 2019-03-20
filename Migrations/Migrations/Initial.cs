@@ -3,7 +3,7 @@ using System.Data;
 using FluentMigrator;
 using FluentMigrator.Builders.Create.Table;
 
-namespace Migrations
+namespace Migrations.Migrations
 {
     [Migration(20190208000000)]
     public class Initial : Migration

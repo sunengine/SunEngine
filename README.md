@@ -4,7 +4,7 @@
 
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
-Версия: 0.11.5
+Версия: 1.0.0-beta.1
 
 Демо: [demo.sunengine.site](http://demo.sunengine.site)  
 
@@ -39,34 +39,25 @@
 Можно настроить для любой группы пользователей для любого раздела сайта (категории) права на доступ на конкретные операции (Добавлять тексты, Добавлять сообщения, Редактировать и тд.)
 
 ## Ближайшие планы
+- Улучшение серверного кэширования
+- Cli для работы с базой и сервисных функций
 - Модульная система
-- Рефакторинг кода
-- Админка
-- Улучшение кэширования
 
 ## Контакты  
 - Дмитрий Полянин  
 - Telegram: [@okeanij](https://t.me/Okeanij)    
 - Группа проекта в Telegram: [https://t.me/SunEngine](https://t.me/SunEngine) 
 
-## Проект находится в стадии разработки
-Желающие 
-- Потестировать
-- Предложить идеи по коду  
-
-Пишите в группу Telegram или мне, либо сюда на github.
-
 ## Инсталляция
 #### Перед инсталяцией должны быть установлены
 - [.Net Core 2.2 SDK](https://dotnet.microsoft.com/download)
 - [NodeJs](https://nodejs.org/en/download/)
 - [Npm](https://www.npmjs.com)
-- [Quasar-CLI](https://quasar-framework.org/guide/quasar-cli.html)  `npm install -g quasar-cli`
+- [Quasar cli](https://v1.quasar-framework.org/quasar-cli/installation)  `npm install -g @quasar/cli`
 
 #### Установка и запуск
 - Клонировать репозиторий SunEngine с GitHub.
-- Создать на PostgreSQL пустую базу c названием `<DataBaseName>`.
-- Указать название базы и `ConnectionString` в файле `SunEngine/DataBaseConnection.json`.
+- По умолчанию (для целей простоты тестов) стоят настройки для базы SQLite, и дополнительный сервер базы данных не требуется
 - Запустить проект Migrations. Произойдёт создание таблиц.
 - Запустить проект DataSeedDev. Заполнение таблиц тестовыми данными.
 - Компилируем и запускаем серверную часть Asp.Net Core.  
@@ -76,17 +67,6 @@
   - `quasar dev` 
   - Откроется браузер с сайтом
 - Если что-то не работает написать мне.
-
-#### Использование других баз данных
-
- - Для MySql дополнительные пакеты подключать не надо, они уже подключены. 
- - Для других DB подключить NuGet пакеты поддержки этой DB для
-   - [FluentMigrator](https://fluentmigrator.github.io) в проекте `Migrations`.
-   - [Linq2db](https://github.com/linq2db/linq2db) в проектах `SunEngine`,`SunEngine.Commons`,`DataSeedDev`.
- - Прописать поддержку в файле `Migrations/Main.cs`.  
-   Строку `.AddPostgres()` заменяем на нужное.
- - На данный момент тестировалось с Postgres, MySql, SQLite.
-
 
 #### Лицензия
 

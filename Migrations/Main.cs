@@ -3,6 +3,8 @@ using System.IO;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Migrations.Migrations;
+
 
 namespace Migrations
 {
@@ -43,8 +45,8 @@ namespace Migrations
                 .ConfigureRunner(rb => rb
                     // Select DataBaseSupport
                     //.AddMySql5() 
-                    .AddPostgres()
-                    //.AddSQLite()
+                    //.AddPostgres()
+                    .AddSQLite()
                     .WithGlobalConnectionString(connectionString)
                     // Define the assembly containing the migrations
                     .ScanIn(typeof(Initial).Assembly).For.Migrations())
