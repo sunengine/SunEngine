@@ -32,46 +32,31 @@
 
 
     <ItemGroup>
-        <Content Update="SunEngine.json">
-            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Update="local.SunEngine.json">
-            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Update="LogConfig.dev.json">
-            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Update="LogConfig.json">
-            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
-
-
-    <ItemGroup>
         <Content Include="wwwroot">
             <CopyToOutputDirectory>None</CopyToOutputDirectory>
+            <CopyToPublishDirectory>None</CopyToPublishDirectory>
+        </Content>
+        <Content Update="SunEngine.json">
+          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Update="LogConfig.json">
+          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Update="local.SunEngine.json">
+          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Update="LogConfig.dev.json">
+          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\UploadImages\_\default-avatar.svg">
+          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
        
-    </ItemGroup>
-    
-
-    <ItemGroup>
-        <_ContentIncludedByDefault Remove="Settings\appsettings.Development.json" />
-        <_ContentIncludedByDefault Remove="Settings\appsettings.json" />
-        <_ContentIncludedByDefault Remove="Settings\SunEngine.json" />
-    </ItemGroup>
-    
-
-    <ItemGroup>
-      <Content Remove="wwwroot\UploadImages\_\default-avatar.svg" />
-      <None Include="wwwroot\UploadImages\_\default-avatar.svg">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
     </ItemGroup>
     
    

@@ -21,9 +21,18 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="DataBaseConnection.json">
+      <None Remove="DataBaseConnection.json" />
+      <Content Include="DataBaseConnection.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+      </Content>
+      <None Remove="local.DataBaseConnection.json" />
+      <Content Include="local.DataBaseConnection.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="local.OkeanLubvi.json" />
+      <Content Include="local.OkeanLubvi.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>
