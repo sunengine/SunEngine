@@ -33,27 +33,29 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <Content Include="SeedConfig\UserGroups.json">
-            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <Content Include="SeedConfig\UserGroups.schema.json">
-            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="SeedConfig\Disabled\Articles1lvl.json" />
         <Content Include="SeedConfig\Disabled\Articles1lvl.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="SeedConfig\Disabled\Test.json" />
         <Content Include="SeedConfig\Disabled\Test.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Update="SeedConfig\DataBaseConnection.json">
+        <None Remove="SeedConfig\DataBaseConnection.json" />
+        <Content Include="SeedConfig\DataBaseConnection.json">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="SeedConfig\Users.json">
+        </Content>
+        <None Remove="SeedConfig\local.DataBaseConnection.json" />
+        <Content Include="SeedConfig\local.DataBaseConnection.json">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
+        </Content>
+        <None Remove="SeedConfig\Users.json" />
+        <Content Include="SeedConfig\Users.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
