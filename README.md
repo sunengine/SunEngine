@@ -68,6 +68,16 @@
   - Откроется браузер с сайтом
 - Если что-то не работает написать мне.
 
+#### Работа с другими базами данных
+- База данных: любая совместимая с Linq2db [(инфо)](https://fluentmigrator.github.io/articles/faq.html) и FluentMigrator [(инфо)](https://linq2db.github.io/articles/general/databases.html)  
+- Протестировано с MySql, Postgres, SqLite 
+
+##### Последовательность подключения
+- Для работы с любой базой данных необходимо подключить необходимые NuGet пакеты для работы FluentMigrator и Linq2db с этими базами.
+- Пакеты для MySql, Postgres, SqLite подключены изначально,
+- Указать имя провайдера и ConnectionString в файлах конфигурации для каждого проекта (SunEngine, Migrations, DataSeed), имя провайдера для FluentMigrator и для Linq2db может отличаться, например для MySql имя провайдера для Linq2db `SQLite`, а для FluentMigrator `Sqlite` (Другой регистр).
+- В проекте Migrations в файле Main.cs -> CreateService указать вместо `AddSQLite` функцию для работы с выбранной базой, например `AddPostgres`.
+
 #### Установка и запуск на Production
 
 ##### Вариант запуска на Nginx на Ubuntu. 
@@ -106,16 +116,6 @@ server {
 Теперь необходимо запустить отдельным процессом kestrel сервис по локальному адресу http://localhost:5020/
 
 Как это делается читаем [статью](https://kimsereyblog.blogspot.com/2018/05/manage-kestrel-process-with-systemd.html).
-
-#### Работа с другими базами данных
-- База данных: любая совместимая с Linq2db [(инфо)](https://fluentmigrator.github.io/articles/faq.html) и FluentMigrator [(инфо)](https://linq2db.github.io/articles/general/databases.html)  
-- Протестировано с MySql, Postgres, SqLite 
-
-##### Последовательность подключения
-- Для работы с любой базой данных необходимо подключить необходимые NuGet пакеты для работы FluentMigrator и Linq2db с этими базами.
-- Пакеты для MySql, Postgres, SqLite подключены изначально,
-- Указать имя провайдера и ConnectionString в файлах конфигурации для каждого проекта (SunEngine, Migrations, DataSeed), имя провайдера для FluentMigrator и для Linq2db может отличаться, например для MySql имя провайдера для Linq2db `SQLite`, а для FluentMigrator `Sqlite` (Другой регистр).
-- В проекте Migrations в файле Main.cs -> CreateService указать вместо `AddSQLite` функцию для работы с выбранной базой, например `AddPostgres`.
 
 #### Лицензия
 
