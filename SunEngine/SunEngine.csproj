@@ -29,71 +29,58 @@
         <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0006" />
         <PackageReference Include="SixLabors.Shapes" Version="1.0.0-beta0008" />
     </ItemGroup>
+
+
+    <ItemGroup>
+        <Folder Include="wwwroot" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <Content Update="SunEngine.json">
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Update="local.SunEngine.json">
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Update="LogConfig.dev.json">
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Update="LogConfig.json">
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\UploadImages\_\default-avatar.svg">
+          <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <Content Include="wwwroot/">
+            <CopyToOutputDirectory>None</CopyToOutputDirectory>
+        </Content>
+       
+    </ItemGroup>
     
 
     <ItemGroup>
-      <Folder Include="wwwroot" />
+        <_ContentIncludedByDefault Remove="Settings\appsettings.Development.json" />
+        <_ContentIncludedByDefault Remove="Settings\appsettings.json" />
+        <_ContentIncludedByDefault Remove="Settings\SunEngine.json" />
     </ItemGroup>
     
+
 
    
-    
-
-    <ItemGroup>
-      <Reference Include="System.Collections, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-        <HintPath>..\..\..\..\..\usr\share\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.2.0\ref\netcoreapp2.2\System.Collections.dll</HintPath>
-      </Reference>
-      <Reference Include="System.Security.Cryptography.Primitives, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-        <HintPath>..\..\..\..\..\usr\share\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.2.0\ref\netcoreapp2.2\System.Security.Cryptography.Primitives.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-    
-
-   
-    
-
-    <ItemGroup>
-      <Content Update="SunEngine.json">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <Content Update="local.SunEngine.json">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <Content Update="LogConfig.dev.json">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <Content Update="LogConfig.json">
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-    </ItemGroup>
-    
-
-   
-    
-
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="Settings\appsettings.Development.json" />
-      <_ContentIncludedByDefault Remove="Settings\appsettings.json" />
-      <_ContentIncludedByDefault Remove="Settings\SunEngine.json" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\109\mvXVms1Qu2yaxT9ChWRw.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\116\tqykUAPlq9ZaPysKIDfI.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\122\zxRh0mEJeBO1Phvd2tA4.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\49\1nraZEQ7S5Z9.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\51\3iwd6OtrEPiWM9SjeWKX.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\54\6SmDyKkOPWcuTjKXS6GR.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\76\LWb30tkmmEuJi8560B7Y.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\82\Rt0i985tDwmF0zYb5PvD.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\87\WLkqvehFszYBfJoiSxYe.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\UploadImages\97\aeA7vBoOdIvdUxCDPgh1.jpg" />
-    </ItemGroup>
 
 
-  <PropertyGroup>
-    <ServerGarbageCollection>false</ServerGarbageCollection>
-  </PropertyGroup>
+    <PropertyGroup>
+        <ServerGarbageCollection>false</ServerGarbageCollection>
+    </PropertyGroup>
 
 </Project>
