@@ -100,20 +100,20 @@ server {
             root /site/mysite/wwwroot;
             try_files $uri $uri/ /index.html;   # если файл не найден - возвращаем index.html
             
-            client_max_body_size 11M;
+            client_max_body_size 11M; 
          }
          
          location /api/ {    # Endpoint для серверной части. Работает как reverse proxy отправляя запросы в Kestrel работающий отдельным процессом.
             proxy_pass  http://localhost:5020/;
             
-            client_max_body_size 11M;
+            client_max_body_size 11M;  # максимальный размер тела запроса, котрый допускает Nginx ~= максимальный размер для upload файла  
          }
          
          client_max_body_size 11M;
     }
 ```
 
-Теперь необходимо запустить отдельным процессом kestrel сервис по локальному адресу http://localhost:5020/
+Теперь необходимо запустить отдельным процессом kestrel сервис по локальному адресу `http://localhost:5020`
 
 Как это делается читаем [статью](https://kimsereyblog.blogspot.com/2018/05/manage-kestrel-process-with-systemd.html).
 
