@@ -49,17 +49,23 @@
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <None Remove="SeedConfig\local.DataBaseConnection.json" />
-        <Content Include="SeedConfig\local.DataBaseConnection.json">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
         <None Remove="SeedConfig\Users.json" />
         <Content Include="SeedConfig\Users.json">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+        <None Remove="local.OkeanLubvi\**" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\SunEngine\SunEngine.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="local.OkeanLubvi\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="local.OkeanLubvi\**" />
     </ItemGroup>
 
 </Project>

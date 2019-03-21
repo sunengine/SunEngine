@@ -44,10 +44,6 @@
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <Content Update="local.SunEngine.json">
-          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
         <Content Update="LogConfig.dev.json">
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -56,6 +52,7 @@
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+        <Content Remove="local.SunEngine.json" />
        
     </ItemGroup>
     
