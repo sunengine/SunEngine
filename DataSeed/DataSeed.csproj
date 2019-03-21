@@ -48,10 +48,20 @@
         <Content Include="SeedConfig\Disabled\Test.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+        <None Remove="local.OkeanLubvi\**" />
+        <None Remove="SeedConfig\local.DataBaseConnection.json" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\SunEngine\SunEngine.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="local.OkeanLubvi\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="local.OkeanLubvi\**" />
     </ItemGroup>
 
 </Project>
