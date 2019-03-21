@@ -1,0 +1,47 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "/home/okeanij/Projects/SunEngine/DbTool/DbTool.csproj",
+    "projectName": "DbTool",
+    "projectPath": "/home/okeanij/Projects/SunEngine/DbTool/DbTool.csproj",
+    "outputPath": "/home/okeanij/Projects/SunEngine/DbTool/obj/",
+    "projectStyle": "PackageReference",
+    "fallbackFolders": [
+      "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+    ],
+    "originalTargetFrameworks": [
+      "netcoreapp2.2"
+    ],
+    "frameworks": {
+      "netcoreapp2.2": {
+        "projectReferences": {
+          "/home/okeanij/Projects/SunEngine/SunEngine/SunEngine.csproj": {
+            "projectPath": "/home/okeanij/Projects/SunEngine/SunEngine/SunEngine.csproj"
+          }
+        }
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp2.2": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "suppressParent": "All",
+          "target": "Package",
+          "version": "[2.2.0, )",
+          "autoReferenced": true
+        }
+      },
+      "imports": [
+        "net461"
+      ],
+      "assetTargetFallback": true,
+      "warn": true
+    }
+  }
+}

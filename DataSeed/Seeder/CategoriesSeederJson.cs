@@ -11,13 +11,10 @@ namespace DataSeedDev.Seeder
     public class CategoriesSeederJson
     {
         private readonly DataContainer dataContainer;
-        private readonly MaterialsSeeder materialsSeeder;
 
-        public CategoriesSeederJson(DataContainer dataContainer,
-            MaterialsSeeder materialsSeeder)
+        public CategoriesSeederJson(DataContainer dataContainer)
         {
             this.dataContainer = dataContainer;
-            this.materialsSeeder = materialsSeeder;
         }
 
         public void Seed(string fileName)
@@ -95,52 +92,7 @@ namespace DataSeedDev.Seeder
 
                 dataContainer.Categories.Add(category);
 
-                if (categoryToken["MaterialTitleStart"] != null)
-                {
-                    materialTitleStart = (string) categoryToken["MaterialTitleStart"];
-                }
-
-                if (categoryToken["SubCategories"] != null)
-                {
-                    var numbers1 = new List<int> {1};
-                    numbers1.AddRange(numbers);
-
-                    foreach (JToken subCategoryToken in (JArray) categoryToken["SubCategories"])
-                    {
-                        SeedCategory(category, subCategoryToken, numbers1, materialTitleStart);
-                    }
-                }
-
-                string linesCount = (string) categoryToken["MaterialLinesCount"];
-                int minLinesCount;
-                int maxLinesCount;
-
-                if (linesCount != null)
-                {
-                    string[] lineCountArr = linesCount.Split("-");
-                    minLinesCount = int.Parse(lineCountArr[0]);
-                    maxLinesCount = int.Parse(lineCountArr[1]);
-                }
-
-                if (category.IsMaterialsContainer)
-                {
-
-                    bool materialTitleAppendCategoryName = true;
-                    if (categoryToken["MaterialTitleAppendCategoryName"] != null)
-                        materialTitleAppendCategoryName = (bool)categoryToken["MaterialTitleAppendCategoryName"];
-                    
-                    
-                    if (categoryToken["MaterialsCount"] != null)
-                    {
-                        int materialsCount = (int) categoryToken["MaterialsCount"];
-                        materialsSeeder.SeedMaterials(category, materialTitleStart, materialTitleAppendCategoryName, materialsCount);
-                    }
-                    else
-                    {
-                        materialsSeeder.SeedMaterials(category, materialTitleStart, materialTitleAppendCategoryName);
-                    }
-                }
-
+               
                 numbers[0]++;
             }
         }

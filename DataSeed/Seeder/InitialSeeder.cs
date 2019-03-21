@@ -9,22 +9,19 @@ using SunEngine.Utils;
 
 namespace DataSeedDev.Seeder
 {
-    public class MemorySeeder
+    public class InitialSeeder
     {
         private readonly DataContainer dataContainer;
-
-        private readonly MaterialsSeeder materialsSeeder;
 
         private readonly UsersSeederJson usersSeederJson;
 
 
         private readonly string configDir;
 
-        public MemorySeeder(string configDir)
+        public InitialSeeder(string configDir)
         {
             this.configDir = configDir;
             dataContainer = new DataContainer();
-            materialsSeeder = new MaterialsSeeder(dataContainer);
             usersSeederJson = new UsersSeederJson(dataContainer, configDir);
         }
 
@@ -178,7 +175,7 @@ namespace DataSeedDev.Seeder
             var fileNames = Directory.GetFiles(Path.GetFullPath(configDir + "/CategoriesStartConfig"));
 
             CategoriesSeederJson categoriesSeederJson =
-                new CategoriesSeederJson(dataContainer, materialsSeeder);
+                new CategoriesSeederJson(dataContainer);
             foreach (var fileName in fileNames)
             {
                 categoriesSeederJson.Seed(fileName);

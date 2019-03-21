@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json.Linq;
 using SunEngine.Models;
 using SunEngine.Models.Materials;
 using SunEngine.Utils.TextProcess;
@@ -30,12 +32,76 @@ namespace DataSeedDev.Seeder
         private readonly LinesCount defaultLinesCount = new LinesCount {Min = 4, Max = 30};
 
 
-        public MaterialsSeeder(DataContainer dataContainer)
+        public void Seed()
         {
-            this.dataContainer = dataContainer;
+            var fileNames = Directory.GetFiles(Path.GetFullPath(configDir + "/CategoriesStartConfig"));
+
+            CategoriesSeederJson categoriesSeederJson =
+                new CategoriesSeederJson(dataContainer);
+            foreach (var fileName in fileNames)
+            {
+                SeedCategoryFile(fileName);
+            }
         }
 
-        public void SeedMaterials(Category category, string titleStart = null, bool titleAppendCategoryName = true,
+        public void SeedCategoryFile(string fileName)
+        {
+            string jsonText = File.ReadAllText(fileName);
+            JArray categoriesJson = JArray.Parse(jsonText);
+
+            int i = 1;
+            foreach (var categoryJson in categoriesJson)
+            {
+                SeedCategory(categoryJson);
+            }
+        }
+        
+        public void SeedCategory(JToken fileName)
+        {
+
+
+                string name = PrepareText((string) categoryToken["Name"], numbers);
+
+
+                if (categoryToken["MaterialTitleStart"] != null)
+                {
+                    materialTitleStart = (string) categoryToken["MaterialTitleStart"];
+                }
+
+
+
+                string linesCount = (string) categoryToken["MaterialLinesCount"];
+                int minLinesCount;
+                int maxLinesCount;
+
+                if (linesCount != null)
+                {
+                    string[] lineCountArr = linesCount.Split("-");
+                    minLinesCount = int.Parse(lineCountArr[0]);
+                    maxLinesCount = int.Parse(lineCountArr[1]);
+                }
+
+                if (category.IsMaterialsContainer)
+                {
+
+                    bool materialTitleAppendCategoryName = true;
+                    if (categoryToken["MaterialTitleAppendCategoryName"] != null)
+                        materialTitleAppendCategoryName = (bool)categoryToken["MaterialTitleAppendCategoryName"];
+                    
+                    
+                    if (categoryToken["MaterialsCount"] != null)
+                    {
+                        int materialsCount = (int) categoryToken["MaterialsCount"];
+                        materialsSeeder.SeedMaterials(category, materialTitleStart, materialTitleAppendCategoryName, materialsCount);
+                    }
+                    else
+                    {
+                        materialsSeeder.SeedMaterials(category, materialTitleStart, materialTitleAppendCategoryName);
+                    }
+            
+        }
+        
+        public void SeedCategoryWithMaterials(Category category, string titleStart = null, bool titleAppendCategoryName = true,
             int? materialsCount = null, LinesCount? linesCount = null)
         {
             if (materialsCount == null)

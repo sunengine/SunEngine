@@ -1,18 +1,24 @@
 using System;
 using System.IO;
-using FluentMigrator.Runner;
-using Microsoft.Extensions.Configuration;
+using DbTool.Migrations;
 using Microsoft.Extensions.DependencyInjection;
-using Migrations.Migrations;
+using SunEngine.Utils;
 
-
-namespace Migrations
+namespace DbTool
 {
-    class Program
+    public class Migrator
     {
-        static void Main(string[] args)
+        private string configDirName;
+        private const string configFileName = "DataBaseConnection.json";
+        
+        public Migrator(string configDirPath)
         {
-            var serviceProvider = CreateServices(args.Length == 0 ? "DataBaseConnection.json" : args[0]);
+            this.configDirPath = configDirPath;
+        }
+        
+        public void Migrate()
+        {
+            var serviceProvider = CreateServices();
 
             using (var scope = serviceProvider.CreateScope())
             {
@@ -24,10 +30,9 @@ namespace Migrations
         /// <summary>
         /// Configure the dependency injection services
         /// </sumamry>
-        private static IServiceProvider CreateServices(string configFile)
+        private IServiceProvider CreateServices()
         {
-            configFile = configFile.Trim();
-
+SettingsFileLocator.GetSettingFilePath("")
             string dbSettingsFile = GetSettingFilePath(configFile);
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(dbSettingsFile, optional: false, reloadOnChange: true)
@@ -57,27 +62,14 @@ namespace Migrations
         /// <summary>
         /// Update the database
         /// </sumamry>
-        private static void UpdateDatabase(IServiceProvider serviceProvider)
+        private void UpdateDatabase(IServiceProvider serviceProvider)
         {
             var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
             
             runner.MigrateUp();
         }
 
-        private static string GetSettingFilePath(string fileName)
-        {
-            string fileLocal = "local." + fileName;
-            string pathLocal = Path.GetFullPath(fileLocal);
-            if (File.Exists(pathLocal))
-                return pathLocal;
-
-            string fileCommon = fileName;
-            string pathCommon = Path.GetFullPath(fileCommon);
-            if (File.Exists(pathCommon))
-                return pathCommon;
-
-            throw new Exception($"Can not locate local.{fileName} or {fileName}");
-        }
+       
     }
 
     
