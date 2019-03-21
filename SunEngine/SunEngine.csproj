@@ -52,7 +52,6 @@
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <Content Remove="local.SunEngine.json" />
        
     </ItemGroup>
     

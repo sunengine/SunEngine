@@ -15,57 +15,19 @@
         <PackageReference Include="MySql.Data" Version="8.0.15" />
         <PackageReference Include="Npgsql" Version="4.0.5" />
     </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="SeedConfig\CategoriesStartConfig\Articles.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="SeedConfig\CategoriesStartConfig\Blog.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="SeedConfig\CategoriesStartConfig\Forum.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="SeedConfig\CategoriesStartConfig\Forum2L.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="SeedConfig\Disabled\ForumML.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="SeedConfig\UserGroups.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="SeedConfig\UserGroups.schema.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="SeedConfig\Disabled\Articles1lvl.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="SeedConfig\Disabled\Test.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <None Remove="SeedConfig\DataBaseConnection.json" />
-        <Content Include="SeedConfig\DataBaseConnection.json">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <None Remove="SeedConfig\local.DataBaseConnection.json" />
-        <None Remove="SeedConfig\Users.json" />
-        <Content Include="SeedConfig\Users.json">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <None Remove="local.OkeanLubvi\**" />
-    </ItemGroup>
+    
 
     <ItemGroup>
       <ProjectReference Include="..\SunEngine\SunEngine.csproj" />
     </ItemGroup>
+    
 
     <ItemGroup>
-      <Compile Remove="local.OkeanLubvi\**" />
+      <None Remove="SeedConfig\**" />
+      <Content Include="SeedConfig\**">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
-    <ItemGroup>
-      <EmbeddedResource Remove="local.OkeanLubvi\**" />
-    </ItemGroup>
 
 </Project>

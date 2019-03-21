@@ -25,8 +25,6 @@
       <Content Include="DataBaseConnection.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
-      <None Remove="local.DataBaseConnection.json" />
-      <None Remove="local.OkeanLubvi.json" />
     </ItemGroup>
 
 </Project>
