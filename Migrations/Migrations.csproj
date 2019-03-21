@@ -23,7 +23,8 @@
     <ItemGroup>
       <None Remove="DataBaseConnection.json" />
       <Content Include="DataBaseConnection.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+          <CopyToPublishDirectory>None</CopyToPublishDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
     </ItemGroup>
 

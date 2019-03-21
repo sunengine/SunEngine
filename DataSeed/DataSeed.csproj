@@ -25,7 +25,8 @@
     <ItemGroup>
       <None Remove="SeedConfig\**" />
       <Content Include="SeedConfig\**">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+          <CopyToPublishDirectory>None</CopyToPublishDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
     </ItemGroup>
 

@@ -37,19 +37,19 @@
             <CopyToPublishDirectory>None</CopyToPublishDirectory>
         </Content>
         <Content Update="SunEngine.json">
-          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+          <CopyToPublishDirectory>None</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <Content Update="LogConfig.json">
-          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+          <CopyToPublishDirectory>None</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <Content Update="LogConfig.dev.json">
-          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+          <CopyToPublishDirectory>None</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <Content Update="wwwroot\UploadImages\_\default-avatar.svg">
-          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+          <CopyToPublishDirectory>None</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
        
