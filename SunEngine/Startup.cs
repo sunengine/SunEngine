@@ -2,17 +2,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebSockets.Internal;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using SunEngine.Commons.Configuration.AddServices;
 using SunEngine.Commons.DataBase;
+using SunEngine.Commons.Security.Authentication;
 using SunEngine.Commons.Security.Captcha;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.Utils.TextProcess;
-using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace SunEngine
 {
@@ -43,13 +42,13 @@ namespace SunEngine
                 services.AddCors();
             }
 
-            OptionsServiceCollectionExtensions.AddOptions(services, Configuration);
+            services.AddOptions();
 
             DataBaseFactory dataBaseFactory = services.AddDatabase(Configuration);
 
             services.AddStores(dataBaseFactory);
 
-            services.AddIdentity<,>(dataBaseFactory);
+            services.AddIdentity(dataBaseFactory);
 
             AddAuthenticationExtensions.AddAuthentication(services);
 
@@ -120,7 +119,7 @@ namespace SunEngine
                 app.UseCors(builder =>
                     builder.WithOrigins("http://localhost:5005")
                         .AllowCredentials().AllowAnyHeader().AllowAnyMethod()
-                        .WithExposedHeaders(Constants.Headers.TokensHeaderName));
+                        .WithExposedHeaders(Headers.TokensHeaderName));
             }
 
 

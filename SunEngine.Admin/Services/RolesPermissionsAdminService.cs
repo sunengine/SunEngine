@@ -13,7 +13,6 @@ using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.Authorization;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.Utils;
-using Formatting = System.Xml.Formatting;
 
 namespace SunEngine.Admin.Services
 {
