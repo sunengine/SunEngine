@@ -58,6 +58,13 @@
         </Content>
        
     </ItemGroup>
+
+
+    <ItemGroup>
+      <ProjectReference Include="..\SunEngine.Admin\SunEngine.Admin.csproj" />
+      <ProjectReference Include="..\SunEngine.Commons\SunEngine.Commons.csproj" />
+      <ProjectReference Include="..\SunEngine.Migrations\SunEngine.Migrations.csproj" />
+    </ItemGroup>
     
    
     <PropertyGroup>
