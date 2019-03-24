@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
-        <OutputType>Exe</OutputType>
         <LangVersion>latest</LangVersion>
         <RootNamespace>DataSeedDev</RootNamespace>
     </PropertyGroup>
