@@ -1,20 +1,4 @@
 {
-  "DataBaseConnection": { 
-    "Provider": "SQLite",
-    "ConnectionString": "Data Source=../SunEngine.db"
-  },
-  /*"DataBaseConnection": {
-    "Provider": "PostgreSQL.9.5",
-    "ConnectionString": "Host=localhost;Database=SunEngineDb;Username=postgres;Password=password"
-  },
-  "DataBaseConnection": {   // Example for SqLite
-    "Provider": "SQLite",
-    "ConnectionString": "Data Source=../SunEngineDb.db"
-  },
-  "DataBaseConnection": {   // Example for MySql
-    "Provider": "MySql",
-    "ConnectionString": "server=localhost;database=SunEngineDb;user=username;password=password"
-  },*/
   "Global": {
     "SiteUrl": "http://localhost:5005",
     "SiteApi": "http://localhost:5000",

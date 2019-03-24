@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Migrations.Migrations;
 
-
 namespace Migrations
 {
     class Program
@@ -42,14 +41,15 @@ namespace Migrations
 
             return new ServiceCollection()
                 .AddFluentMigratorCore()
-                .ConfigureRunner(rb => rb
-                    // Select DataBaseSupport
-                    //.AddMySql5() 
-                    //.AddPostgres()
-                    .AddSQLite()
-                    .WithGlobalConnectionString(connectionString)
-                    // Define the assembly containing the migrations
-                    .ScanIn(typeof(Initial).Assembly).For.Migrations())
+                .ConfigureRunner(rb =>
+                {
+                    rb
+                        // Select DataBaseSupport
+                        .AddDb()
+                        .WithGlobalConnectionString(connectionString)
+                        // Define the assembly containing the migrations
+                        .ScanIn(typeof(Initial).Assembly).For.Migrations();
+                })
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 .BuildServiceProvider(false);
         }
@@ -60,7 +60,7 @@ namespace Migrations
         private static void UpdateDatabase(IServiceProvider serviceProvider)
         {
             var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
-            
+
             runner.MigrateUp();
         }
 
@@ -77,24 +77,6 @@ namespace Migrations
                 return pathCommon;
 
             throw new Exception($"Can not locate local.{fileName} or {fileName}");
-        }
-    }
-
-    
-    public static class DbProvider
-    {       
-        public static string Name { get; private set; }
-
-        public static bool IsPostgre { get; private set; }
-
-        public static void Initialize(string name)
-        {
-            Name = name;
-
-            if (name.StartsWith("Postgre"))
-            {
-                IsPostgre = true;
-            }
         }
     }
 }

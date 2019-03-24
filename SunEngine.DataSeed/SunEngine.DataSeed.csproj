@@ -17,45 +17,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="SeedConfig\CategoriesConfig\Articles.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="SeedConfig\CategoriesConfig\Blog.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="SeedConfig\CategoriesConfig\Forum.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="SeedConfig\CategoriesConfig\Forum2L.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="SeedConfig\Disabled\ForumML.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="SeedConfig\UserGroups.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="SeedConfig\UserGroups.schema.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="SeedConfig\Disabled\Articles1lvl.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="SeedConfig\Disabled\Test.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
         <None Remove="SeedConfig\DataBaseConnection.json" />
-        <Content Include="SeedConfig\DataBaseConnection.json">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
         <None Remove="SeedConfig\local.DataBaseConnection.json" />
-        <Content Include="SeedConfig\local.DataBaseConnection.json">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
         <None Remove="SeedConfig\Users.json" />
-        <Content Include="SeedConfig\Users.json">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
     </ItemGroup>
 
     <ItemGroup>

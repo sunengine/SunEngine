@@ -25,22 +25,6 @@
             <CopyToOutputDirectory>None</CopyToOutputDirectory>
             <CopyToPublishDirectory>None</CopyToPublishDirectory>
         </Content>
-        <Content Update="SunEngine.json">
-          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Update="LogConfig.json">
-          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Update="local.SunEngine.json">
-          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Update="LogConfig.dev.json">
-          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
         <Content Update="wwwroot\UploadImages\_\default-avatar.svg">
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -52,6 +36,7 @@
     <ItemGroup>
       <ProjectReference Include="..\SunEngine.Admin\SunEngine.Admin.csproj" />
       <ProjectReference Include="..\SunEngine.Commons\SunEngine.Commons.csproj" />
+      <ProjectReference Include="..\SunEngine.DataSeed\SunEngine.DataSeed.csproj" />
       <ProjectReference Include="..\SunEngine.Migrations\SunEngine.Migrations.csproj" />
     </ItemGroup>
 
