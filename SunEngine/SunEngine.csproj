@@ -3,10 +3,10 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <LangVersion>latest</LangVersion>
-        <PackageVersion>1.0.0-beta.2</PackageVersion>
+        <PackageVersion>1.0.0-beta.3</PackageVersion>
         <Title>SunEngine</Title>
         <Authors>Dmitrii Polianin</Authors>
-        <Description>Web engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>
+        <Description>Site engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>
         <Copyright>Dmitrii Polianin</Copyright>
         <PackageProjectUrl>https://github.com/Dmitrij-Polyanin/SunEngine</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/licence.md</PackageLicenseUrl>
@@ -14,20 +14,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentMigrator" Version="3.1.3" />
         <PackageReference Include="Flurl" Version="2.8.1" />
-        <PackageReference Include="HtmlSanitizer" Version="4.0.207" />
-        <PackageReference Include="linq2db" Version="2.6.4" />
-        <PackageReference Include="linq2db.Identity" Version="2.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.2" />
-        <PackageReference Include="Microsoft.Data.Sqlite" Version="2.2.2" />
-        <PackageReference Include="MySql.Data" Version="8.0.15" />
-        <PackageReference Include="NJsonSchema" Version="9.13.22" />
-        <PackageReference Include="Npgsql" Version="4.0.5" />
-        <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta0008" />
-        <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
-        <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0006" />
-        <PackageReference Include="SixLabors.Shapes" Version="1.0.0-beta0008" />
     </ItemGroup>
 
 
@@ -36,23 +24,42 @@
             <CopyToOutputDirectory>None</CopyToOutputDirectory>
             <CopyToPublishDirectory>None</CopyToPublishDirectory>
         </Content>
-        <Content Update="SunEngine.json">
-          <CopyToPublishDirectory>None</CopyToPublishDirectory>
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Update="LogConfig.json">
-          <CopyToPublishDirectory>None</CopyToPublishDirectory>
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Update="LogConfig.dev.json">
-          <CopyToPublishDirectory>None</CopyToPublishDirectory>
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
         <Content Update="wwwroot\UploadImages\_\default-avatar.svg">
+          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Update="Config\**">
           <CopyToPublishDirectory>None</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-       
+        <Content Update="*.Config.*\**">
+            <CopyToPublishDirectory>None</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Update="*.Config\**">
+            <CopyToPublishDirectory>None</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Update="Config.*\**">
+            <CopyToPublishDirectory>None</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Update="Resources\UserGroups.schema.json">
+          <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Resources\gunnyrewritten.ttf" />
+        <Content Include="Resources\gunnyrewritten.ttf">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <ProjectReference Include="..\SunEngine.Admin\SunEngine.Admin.csproj" />
+      <ProjectReference Include="..\SunEngine.Commons\SunEngine.Commons.csproj" />
+      <ProjectReference Include="..\SunEngine.DataSeed\SunEngine.DataSeed.csproj" />
+      <ProjectReference Include="..\SunEngine.Migrations\SunEngine.Migrations.csproj" />
     </ItemGroup>
     
    

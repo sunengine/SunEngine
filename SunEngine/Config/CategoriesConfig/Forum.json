@@ -1,0 +1,50 @@
+﻿[
+  {
+    "Name": "Forum",
+    "Title": "Форум",
+    "SectionType": "Forum",
+    "InstanceTitle" : "Топик",
+    "SubCategories": [
+      {
+        "Name": "Thread[n]",
+        "Title": "Раздел [n]",
+        "IsMaterialsContainer": true,
+        "Repeat": 2
+      },
+      {
+        "Name": "Thread[n]",
+        "Title": "Раздел [n]",
+        "IsMaterialsContainer": true,
+        "Repeat": 2,
+        "StartNumber": 6
+        
+      },
+      {
+        "Name": "ThreadWithHeader",
+        "Title": "Раздел с шапкой",
+        "IsMaterialsContainer": true,
+        "Header": "<div style=\"background-color:#FFEBE3; padding:10px\">Шапка категории<br/>текст шапки, текст шапки<br/>текст шапки, текст шапки</div>"
+      },
+      {
+        "Name": "NoAddMaterials",
+        "Title": "Без добавления материалов",
+        "IsMaterialsContainer": true
+      },
+      {
+        "Name": "NoAddMaterialsAndComments",
+        "Title": "Без добавления полное",
+        "IsMaterialsContainer": true
+      },
+      {
+        "Name": "OnlyForRegistered",
+        "Title": "Только для зарегистрированных",
+        "IsMaterialsContainer": true
+      },
+      {
+        "Name": "NoEditOwnThread",
+        "Title": "Без редактирования своих",
+        "IsMaterialsContainer": true
+      }
+    ]
+  }
+]
