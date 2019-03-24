@@ -20,7 +20,7 @@
           "type": "string",
           "title": "Title of the group",
           "examples": [
-            "Пользователь"
+            "Moderator"
           ],
           "pattern": "^([a-zA-Zа-яА-ЯёЁ0-9 -]{3,})$"
         },
