@@ -4,7 +4,7 @@
 
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
-Версия: 1.0.0-beta.2
+Версия: 1.0.0-beta.3
 
 Демо: [demo.sunengine.site](http://demo.sunengine.site)  
 
@@ -58,25 +58,34 @@
 #### Установка и запуск для Dev или Demo целей
 - Клонировать репозиторий SunEngine с GitHub.
 - По умолчанию стоит база SQLite (файл: `SunEngine/SunEngine.db`)
-- Запустить проект Migrations. Произойдёт создание таблиц.
-- Запустить проект DataSeedDev. Заполнение таблиц тестовыми данными.
-- Компилируем и запускаем серверную часть Asp.Net Core.  
-  - Компилируем и запускаем проект SunEngine.
+- Скомпилировать солюшен.
+- Зайти в дирректорию куда скомпилировался код `/SunEngine/SunEngine/bin/Debug/netcoreapp2.2/` 
+- Заполнить базу `dotnet SunEngine.dll migrate init add-test-data`
+- Запускаем сервер `dotnet SunEngine.dll server`
 - Компилируем и запускаем клиентскую часть.  
   - Зайти в консоль в директорию `SunEngine/Client`
   - `quasar dev` 
   - Откроется браузер с сайтом
 - Если что-то не работает написать сюда в Issue, или Telegram группу.
 
+#### Комманды для `dotnet SunEngine.dll`
+- `server` - запуск API сервера
+- `migrate` - создание таблиц
+- `init` - заполнение изначальными данными (пользователи, роли, категории), начальные данные настраиваются в папке `/SunEngine/SunEngine/Config`
+- `add-test-data` - заполняет базу данными для тестов (материалы и комментарии)
+- `config:<pathToConfigDirectory>` - указываем дирректорию из которой будут браться все настройки, если не указывать берётся `/Config`, можно указывать как полные, так и локальные пути.
+  - Пример `config:/local.Config.MySite`
+
 #### Работа с другими базами данных
 - База данных: любая совместимая с Linq2db [(список)](https://fluentmigrator.github.io/articles/faq.html) и FluentMigrator [(список)](https://linq2db.github.io/articles/general/databases.html)  
 - Протестировано с MySql, Postgres, SqLite 
 
 ##### Последовательность подключения
-- Для работы с любой базой данных необходимо подключить необходимые NuGet пакеты для работы FluentMigrator и Linq2db с этими базами.
-- Пакеты для MySql, Postgres, SqLite подключены изначально,
-- Указать имя провайдера и ConnectionString в файлах конфигурации для каждого проекта (SunEngine, Migrations, DataSeed), имя провайдера для FluentMigrator и для Linq2db может отличаться, например для MySql имя провайдера для Linq2db `SQLite`, а для FluentMigrator `Sqlite` (Другой регистр).
-- В проекте Migrations в файле Main.cs -> CreateService указать вместо `AddSQLite` функцию для работы с выбранной базой, например `AddPostgres`.
+- Если база MySql, Postgres или SqLite
+  - Указать ConnectionString и имена провайдеров для FluentMigrator и Linq2db в файле `/SunEngine/SunEngine/DataBaseConnection.json`. Список провайдеров для Linq2db [(список)](https://fluentmigrator.github.io/articles/faq.html) и FluentMigrator [(список)](https://linq2db.github.io/articles/general/databases.html)  
+- Если база другая дополнительно:
+  - Подключить необходимые NuGet пакеты для работы FluentMigrator и Linq2db с этими базами.
+  - В проекте `SunEngine.Migrations` в файле `DbProvider.cs` -> `AddDb` прописать базу.
 
 ## Установка и запуск на Production
 
