@@ -14,9 +14,9 @@ namespace SunEngine
         
         public static void Main(string[] args)
         {
-            configDir = args.FirstOrDefault(x => x.StartsWith("c:"));
+            configDir = args.FirstOrDefault(x => x.StartsWith("config:"));
             if (configDir != null)
-                configDir = configDir.Substring(2);
+                configDir = configDir.Substring("config:".Length);
             else
                 configDir = "Config";
 

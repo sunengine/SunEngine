@@ -7,12 +7,12 @@ namespace SunEngine.DataSeed
     {
         public static void Main(string[] args)
         {
-            string configDir = args.FirstOrDefault(x => x.StartsWith("c:"));
+            string configDir = args.FirstOrDefault(x => x.StartsWith("config:"));
             if (configDir != null)
-                configDir = configDir.Substring(2);
+                configDir = configDir.Substring("config:".Length);
             else
                 configDir = "Config";
-            
+
             configDir = Path.GetFullPath(configDir);
             
             if (args.Any(x => x == "init"))
