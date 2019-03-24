@@ -29,6 +29,10 @@
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+        <Content Update="Config\**">
+          <CopyToPublishDirectory>None</CopyToPublishDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
        
     </ItemGroup>
 

@@ -36,7 +36,7 @@
         "IsMaterialsContainer": true
       },
       {
-        "Name": "OnlyForRegisteredThread",
+        "Name": "OnlyForRegistered",
         "Title": "Только для зарегистрированных",
         "IsMaterialsContainer": true
       },

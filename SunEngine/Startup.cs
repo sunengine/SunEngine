@@ -42,7 +42,7 @@ namespace SunEngine
                 services.AddCors();
             }
 
-            services.AddOptions();
+            services.AddOptions(Configuration);
 
             DataBaseFactory dataBaseFactory = services.AddDatabase(Configuration);
 

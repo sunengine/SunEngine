@@ -14,6 +14,7 @@ namespace SunEngine.DataSeed
 
         public MainSeeder(string configDirPath = "Config")
         {
+            this.configDirPath = configDirPath;
             string dbSettingsFile = SettingsFileLocator.GetSettingFilePath(configDirPath, "DataBaseConnection.json");
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(dbSettingsFile, optional: false, reloadOnChange: true)
@@ -39,7 +40,8 @@ namespace SunEngine.DataSeed
             {
                 DataContainer dataContainer = new DataContainer
                 {
-                    Categories = db.Categories.ToList()
+                    Categories = db.Categories.ToList(),
+                    Users = db.Users.ToList()
                 };
                 new MaterialsSeeder(dataContainer).Seed();
                 new DataBaseSeeder(db, dataContainer).SeedMaterials().PostSeedMaterials();

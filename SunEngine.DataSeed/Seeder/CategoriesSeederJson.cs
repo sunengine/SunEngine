@@ -92,6 +92,16 @@ namespace SunEngine.DataSeed.Seeder
 
                 dataContainer.Categories.Add(category);
 
+                if (categoryToken["SubCategories"] != null)
+                {
+                    var numbers1 = new List<int> {1};
+                    numbers1.AddRange(numbers);
+
+                    foreach (JToken subCategoryToken in (JArray) categoryToken["SubCategories"])
+                    {
+                        SeedCategory(category, subCategoryToken, numbers1, materialTitleStart);
+                    }
+                }
                
                 numbers[0]++;
             }

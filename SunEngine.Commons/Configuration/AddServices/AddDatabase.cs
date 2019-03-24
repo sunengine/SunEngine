@@ -12,7 +12,7 @@ namespace SunEngine.Commons.Configuration.AddServices
             LinqToDB.Common.Configuration.Linq.AllowMultipleQuery = true;
 
             var dataBaseConfiguration = configuration.GetSection("DataBaseConnection");
-            var providerName = dataBaseConfiguration["Provider"];
+            var providerName = dataBaseConfiguration["Linq2dbProvider"];
             var connectionString = dataBaseConfiguration["ConnectionString"];
             var dataProvider = DataConnection.GetDataProvider(providerName, connectionString);
             DbMappingSchema mappingSchema = new DbMappingSchema();

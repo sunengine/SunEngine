@@ -5,6 +5,7 @@
         <LangVersion>latest</LangVersion>
         <AssemblyName>SunEngine.Migrations</AssemblyName>
         <RootNamespace>Migrations</RootNamespace>
+        <OutputType>Exe</OutputType>
     </PropertyGroup>
 
     <ItemGroup>
@@ -22,9 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="DataBaseConnection.json" />
-      <None Remove="local.DataBaseConnection.json" />
-      <None Remove="local.OkeanLubvi.json" />
+      <ProjectReference Include="..\SunEngine.Commons\SunEngine.Commons.csproj" />
     </ItemGroup>
 
 </Project>
