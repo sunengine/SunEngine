@@ -1,7 +1,7 @@
+using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
 using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Utils;
 using SunEngine.DataSeed.Seeder;
 
 namespace SunEngine.DataSeed
@@ -15,7 +15,7 @@ namespace SunEngine.DataSeed
         public MainSeeder(string configDirPath = "Config")
         {
             this.configDirPath = configDirPath;
-            string dbSettingsFile = SettingsFileLocator.GetSettingFilePath(configDirPath, "DataBaseConnection.json");
+            string dbSettingsFile =  Path.GetFullPath(Path.Combine(configDirPath, "DataBaseConnection.json"));
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(dbSettingsFile, optional: false, reloadOnChange: true)
                 .Build();

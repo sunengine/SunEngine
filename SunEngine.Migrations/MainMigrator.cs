@@ -1,9 +1,9 @@
 using System;
+using System.IO;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Migrations.Migrations;
-using SunEngine.Commons.Utils;
 
 namespace Migrations
 {
@@ -13,7 +13,7 @@ namespace Migrations
 
         public MainMigrator(string configDirPath)
         {
-            dbConfigFilePath = SettingsFileLocator.GetSettingFilePath(configDirPath, "DataBaseConnection.json");
+            dbConfigFilePath =  Path.GetFullPath(Path.Combine(configDirPath, "DataBaseConnection.json"));
         }
 
         public void Migrate()

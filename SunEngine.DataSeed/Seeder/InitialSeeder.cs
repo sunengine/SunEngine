@@ -103,7 +103,7 @@ namespace SunEngine.DataSeed.Seeder
             Console.WriteLine("Roles");
 
             string pathToUserGroupsConfig = Path.GetFullPath(configDir + "/UserGroups.json");
-            string pathToUserGroupsSchema = Path.GetFullPath(configDir + "/UserGroups.schema.json");
+            string pathToUserGroupsSchema = Path.GetFullPath("Resources/UserGroups.schema.json");
             JsonSchema4 schema = JsonSchema4.FromFileAsync(pathToUserGroupsSchema).GetAwaiter().GetResult();
 
 

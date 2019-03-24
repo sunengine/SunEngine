@@ -4,7 +4,6 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Migrations;
-using SunEngine.Commons.Utils;
 using SunEngine.DataSeed;
 
 namespace SunEngine
@@ -63,19 +62,11 @@ namespace SunEngine
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
-                    IHostingEnvironment env = builderContext.HostingEnvironment;
-                    string dbSettingFile = SettingsFileLocator.GetSettingFilePath(configDir,"DataBaseConnection.json");
-                    string mainSettingsFile = SettingsFileLocator.GetSettingFilePath(configDir,"SunEngine.json");
-                    string logSettingsFile = SettingsFileLocator.GetSettingFilePath(configDir,"LogConfig.json");
-                    string logSettingsFileEnv =
-                        SettingsFileLocator.GetSettingFilePath(configDir,
-                            $"LogConfig.{SettingsFileLocator.GetEnvSuffix(env)}.json",
-                            true);
+                    string dbSettingFile = Path.GetFullPath(Path.Combine(configDir,"DataBaseConnection.json"));
+                    string mainSettingsFile = Path.GetFullPath(Path.Combine(configDir,"SunEngine.json"));
+                    string logSettingsFile = Path.GetFullPath(Path.Combine(configDir,"LogConfig.json"));
 
                     config.AddJsonFile(logSettingsFile, optional: false, reloadOnChange: false);
-                    if (logSettingsFileEnv != null)
-                        config.AddJsonFile(logSettingsFileEnv, optional: true, reloadOnChange: false);
-
                     config.AddJsonFile(dbSettingFile, optional: false, reloadOnChange: false);
                     config.AddJsonFile(mainSettingsFile, optional: false, reloadOnChange: false);
                     config.AddCommandLine(args);
