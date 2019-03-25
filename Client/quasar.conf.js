@@ -97,7 +97,7 @@ module.exports = function (ctx) {
         cfg.resolve.modules.push(path.resolve('./src/modules'));
         cfg.resolve.modules.push(path.resolve('./src/components'));
         cfg.resolve.modules.push(path.resolve('./src/services'));
-        cfg.resolve.alias.config = path.resolve('./src/statics/config.js');
+        cfg.plugins.push( new CopyWebpackPlugin([{from: 'config.js', to:'config.js'}]));
       }
     },
 
