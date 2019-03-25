@@ -16,18 +16,11 @@
     <ItemGroup>
         <PackageReference Include="Flurl" Version="2.8.1" />
         <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.2" />
+        <PackageReference Include="System.Linq" Version="4.3.0" />
     </ItemGroup>
 
 
     <ItemGroup>
-        <Content Include="wwwroot">
-            <CopyToOutputDirectory>None</CopyToOutputDirectory>
-            <CopyToPublishDirectory>None</CopyToPublishDirectory>
-        </Content>
-        <Content Update="wwwroot\UploadImages\_\default-avatar.svg">
-          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
         <Content Update="Config\**">
           <CopyToPublishDirectory>None</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -50,6 +43,10 @@
         </Content>
         <None Remove="Resources\gunnyrewritten.ttf" />
         <Content Include="Resources\gunnyrewritten.ttf">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\UploadImages\default-avatar.svg">
+          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
     </ItemGroup>

@@ -8,7 +8,7 @@ namespace SunEngine.Commons.Models
     
     public class User : IdentityUser<int>
     {
-        public static string DefaultAvatar => "_/default-avatar.svg";
+        public static string DefaultAvatar => "default-avatar.svg";
 
         /// <summary>
         /// токен для ссылки на пользователя site.com/user/DmitrijP 

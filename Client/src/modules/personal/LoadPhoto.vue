@@ -14,7 +14,7 @@
 <script>
   import Page from "Page";
 
-  const defaultAvatar = "_/default-avatar.svg";
+  const defaultAvatar = config.Misc.DefaultAvatar;
 
   export default {
 

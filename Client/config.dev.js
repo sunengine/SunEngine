@@ -34,6 +34,7 @@ const config = {
     MinDifferentChars: 2
   },
   Misc: {
-    AdminRoleUsersMaxUsersTake: 40
+    AdminRoleUsersMaxUsersTake: 40,
+    DefaultAvatar: "default-avatar.svg"
   }
 };
