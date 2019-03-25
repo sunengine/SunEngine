@@ -3,7 +3,7 @@ import {removeTokens, setTokens, parseJwt} from 'services/tokens';
 import Lock from 'js-lock';
 import {store} from 'store';
 import {consoleTokens, consoleUserLogout, consoleRequestStart, consoleRequestUrl} from "services/consoleStyles";
-
+import config from "config";
 
 const lock = new Lock("request-lock");
 

@@ -73,8 +73,11 @@
 - `migrate` - создание таблиц
 - `init` - заполнение изначальными данными (пользователи, роли, категории), начальные данные настраиваются в папке `/SunEngine/SunEngine/Config`
 - `add-test-data` - заполняет базу данными для тестов (материалы и комментарии)
-- `config:<pathToConfigDirectory>` - указываем дирректорию из которой будут браться все настройки, если не указывать берётся `/Config`, можно указывать как полные, так и локальные пути.
+- `config:<pathToConfigDirectory>` - дирректория настроек, если не указывать берётся `/Config`, можно указывать как полные, так и локальные пути.
   - Пример `config:/local.Config.MySite`
+
+Дополнительные директории с конфигами должна содержать в названии `.Config|Config.|.Config.`, только в этом случае они будут правильно обрабатываться движком.  
+Примеры: `local.Config`, `local.Config.MySite`, `Config.MySite`.
 
 #### Работа с другими базами данных
 - База данных: любая совместимая с Linq2db [(список)](https://fluentmigrator.github.io/articles/faq.html) и FluentMigrator [(список)](https://linq2db.github.io/articles/general/databases.html)  
@@ -82,7 +85,8 @@
 
 ##### Последовательность подключения
 - Если база MySql, Postgres или SqLite
-  - Указать ConnectionString и имена провайдеров для FluentMigrator и Linq2db в файле `/SunEngine/SunEngine/DataBaseConnection.json`. Список провайдеров для Linq2db [(список)](https://fluentmigrator.github.io/articles/faq.html) и FluentMigrator [(список)](https://linq2db.github.io/articles/general/databases.html)  
+  - Указать ConnectionString и имена провайдеров для FluentMigrator и Linq2db в файле `/SunEngine/SunEngine/DataBaseConnection.json`. Список провайдеров для Linq2db [(список)](https://fluentmigrator.github.io/articles/faq.html) и FluentMigrator [(список)](https://linq2db.github.io/articles/general/databases.html)
+  - Если база MySql, при создании, необходимо установить кодировку базы `utf8mb4` 
 - Если база другая дополнительно:
   - Подключить необходимые NuGet пакеты для работы FluentMigrator и Linq2db с этими базами.
   - В проекте `SunEngine.Migrations` в файле `DbProvider.cs` -> `AddDb` прописать базу.
@@ -108,8 +112,6 @@ server {
          location / {    # Endpoint для клиентской части
             root /site/mysite/wwwroot;
             try_files $uri $uri/ /index.html;   # если файл не найден - возвращаем index.html
-            
-            client_max_body_size 11M; 
          }
          
          location /api/ {    # Endpoint для серверной части. Работает как reverse proxy отправляя запросы в Kestrel работающий отдельным процессом.
@@ -117,8 +119,6 @@ server {
             
             client_max_body_size 11M;  # максимальный размер тела запроса, котрый допускает Nginx ~= максимальный размер для upload файла  
          }
-         
-         client_max_body_size 11M;
     }
 ```
 

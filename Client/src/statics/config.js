@@ -1,12 +1,11 @@
+export default config = {
 
-const config = {
-
-  API: 'http://localhost:8000/api',
+  API: 'http://localhost:5000',
   SiteUrl: "http://localhost:5005",
-  UploadedImages: 'http://localhost:8000/UploadImages',
+  UploadedImages: 'http://localhost:5000/UploadImages',
   SiteName: 'SunEngine',
 
-  Comments: {
+  Messages: {
     "TimeToOwnEditInMinutes": 15,
     "TimeToOwnDeleteInMinutes": 15
   },
@@ -21,6 +20,7 @@ const config = {
     Users_UserName: 64,
     Users_Email: 64,
     Users_Link: 32,
+    Users_PasswordMinLength: 6,
     Materials_Name: 32,
     Materials_Title: 256,
     Materials_Description: 256,
@@ -34,7 +34,7 @@ const config = {
     MinDifferentChars: 2
   },
   Misc: {
-    AdminRoleUsersMaxUsersTake: 40
+    AdminRoleUsersMaxUsersTake: 40,
+    DefaultAvatar: "default-avatar.svg"
   }
-
 };

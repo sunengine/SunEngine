@@ -25,6 +25,7 @@
 <script>
 
   import LoaderWait from "LoaderWait";
+  import config from "config";
 
   export default {
     name: "RoleUsers",
