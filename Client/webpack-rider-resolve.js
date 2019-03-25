@@ -12,8 +12,5 @@ module.exports = {
       path.resolve(__dirname, './src/components'),
       path.resolve(__dirname, './src/services')
     ],
-    alias: {
-      config: path.resolve('./src/statics/config.js')
-    }
   }
 }
