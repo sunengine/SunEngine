@@ -77,6 +77,7 @@
   import LoaderSent from "LoaderSent";
   import Page from "Page";
 
+
   function createRules() {
     const password = [
       value => !!value || this.$tl("validation.password.required"),

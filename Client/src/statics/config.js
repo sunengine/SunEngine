@@ -1,4 +1,5 @@
-export default config = {
+
+const config = {
 
   API: 'http://localhost:5000',
   SiteUrl: "http://localhost:5005",

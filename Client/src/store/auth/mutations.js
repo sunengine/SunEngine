@@ -1,5 +1,4 @@
 import imagePath from "services/imagePath.js";
-import Vue from "vue";
 import {setTokens} from "services/tokens";
 import {store} from "store";
 

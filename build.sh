@@ -26,7 +26,7 @@ cd "$parent_path/Client"
 quasar build
 
 echo -e "\n${GREEN}Removing /Client/dist/spa/config.js ${NC}\n"
-rm -r "$parent_path/Client/dist/spa/config.js"
+rm -r "$parent_path/Client/dist/spa/statics/config.js"
 
 echo  -e "\n${GREEN}Copying Client${NC}\n"
 cp -r "$parent_path/Client/dist/spa/." "$parent_path/Build/wwwroot"
