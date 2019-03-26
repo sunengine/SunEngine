@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +16,7 @@ namespace SunEngine.DataSeed
         public MainSeeder(string configDirPath = "Config")
         {
             this.configDirPath = configDirPath;
-            string dbSettingsFile =  Path.GetFullPath(Path.Combine(configDirPath, "DataBaseConnection.json"));
+            string dbSettingsFile = Path.GetFullPath(Path.Combine(configDirPath, "DataBaseConnection.json"));
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(dbSettingsFile, optional: false, reloadOnChange: true)
                 .Build();
@@ -34,7 +35,7 @@ namespace SunEngine.DataSeed
             }
         }
 
-        public void SeedAddTestData(string settings = "")
+        public void SeedAddTestData(IEnumerable<string> catTokens, bool? titleAppendCategoryName = null)
         {
             using (DataBaseConnection db = new DataBaseConnection(providerName, connectionString))
             {
@@ -43,7 +44,64 @@ namespace SunEngine.DataSeed
                     Categories = db.Categories.ToList(),
                     Users = db.Users.ToList()
                 };
-                new MaterialsSeeder(dataContainer).Seed();
+                
+                MaterialsSeeder materialsSeeder = new MaterialsSeeder(dataContainer);
+
+                foreach (var catToken in catTokens)
+                {
+                    var parts = catToken.Split(",");
+                    var categoryName = parts[0];
+                    int? materialsCount = null;
+                    if (parts.Length > 1)
+                        materialsCount = int.Parse(parts[1]);
+                    int? commentsCount = null;
+                    if (parts.Length > 2)
+                        commentsCount = int.Parse(parts[2]);
+
+                    if (materialsCount.HasValue)
+                    {
+                        materialsSeeder.MinMaterialCount = materialsCount.Value;
+                        materialsSeeder.MaxMaterialCount = materialsCount.Value;
+                    }
+
+                    if (commentsCount.HasValue)
+                        materialsSeeder.CommentsCount = commentsCount.Value;
+
+                    if (titleAppendCategoryName.HasValue)
+                        materialsSeeder.TitleAppendCategoryName = titleAppendCategoryName.Value;
+
+                    materialsSeeder.SeedCategoryAndSub(categoryName);
+                }
+               
+                new DataBaseSeeder(db, dataContainer).SeedMaterials().PostSeedMaterials();
+            }
+        }
+        
+        public void SeedAddTestData(string categoryName, int? materialsCount = null, int? commentsCount = null,
+            bool? titleAppendCategoryName = null)
+        {
+            using (DataBaseConnection db = new DataBaseConnection(providerName, connectionString))
+            {
+                DataContainer dataContainer = new DataContainer
+                {
+                    Categories = db.Categories.ToList(),
+                    Users = db.Users.ToList()
+                };
+                
+                MaterialsSeeder materialsSeeder = new MaterialsSeeder(dataContainer);
+                if (materialsCount.HasValue)
+                {
+                    materialsSeeder.MinMaterialCount = materialsCount.Value;
+                    materialsSeeder.MaxMaterialCount = materialsCount.Value;
+                }
+
+                if (commentsCount.HasValue)
+                    materialsSeeder.CommentsCount = commentsCount.Value;
+
+                if (titleAppendCategoryName.HasValue)
+                    materialsSeeder.TitleAppendCategoryName = titleAppendCategoryName.Value;
+
+                materialsSeeder.SeedCategoryAndSub(categoryName);
                 new DataBaseSeeder(db, dataContainer).SeedMaterials().PostSeedMaterials();
             }
         }

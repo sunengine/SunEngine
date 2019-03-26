@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.Materials;
+using SunEngine.Commons.Utils;
 using SunEngine.Commons.Utils.TextProcess;
 
 namespace SunEngine.DataSeed.Seeder
@@ -20,9 +21,11 @@ namespace SunEngine.DataSeed.Seeder
 
         private readonly Random ran = new Random();
 
-        private const int MinMaterialCount = 5;
-        private const int MaxMaterialCount = 20;
-
+        public int MinMaterialCount = 5;
+        public int MaxMaterialCount = 20;
+        public int CommentsCount = 12;
+        public bool TitleAppendCategoryName;
+        
         private const int MaterialDescriptionLength = 80;
         private const int MaterialPreviewLength = 800;
 
@@ -38,13 +41,27 @@ namespace SunEngine.DataSeed.Seeder
         {
             foreach (var category in dataContainer.Categories.Where(x => x.IsMaterialsContainer))
             {
-                SeedCategoryWithMaterials(category);
+                SeedCategoryWithMaterials(category, category.InstanceTitle,TitleAppendCategoryName);
             }
         }
+        
+        public void SeedCategoryAndSub(string categoryName)
+        {
+            var category = dataContainer.Categories.FirstOrDefault(x=>x.NameNormalized == Normalizer.Normalize(categoryName));
+            if (category == null)
+                throw new Exception($"No category '{categoryName}' in data base");
+            
+            if(category.IsMaterialsContainer)
+                SeedCategoryWithMaterials(category, category.InstanceTitle,TitleAppendCategoryName);
 
+            foreach (var subCategory in category.SubCategories)
+            {
+                SeedCategoryAndSub(subCategory.Name);
+            }                
+        }
 
         public void SeedCategoryWithMaterials(Category category, string titleStart = null,
-            bool titleAppendCategoryName = true,
+            bool titleAppendCategoryName = false,
             int? materialsCount = null, LinesCount? linesCount = null)
         {
             if (materialsCount == null)
@@ -123,7 +140,7 @@ namespace SunEngine.DataSeed.Seeder
         {
             List<Comment> addedComments = new List<Comment>();
 
-            for (int i = 1; i < 12; i++)
+            for (int i = 1; i <= CommentsCount; i++)
             {
                 Comment comment = new Comment
                 {

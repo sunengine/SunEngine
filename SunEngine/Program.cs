@@ -1,10 +1,12 @@
 ﻿using System.IO;
 using System.Linq;
+using System.Reflection;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Migrations;
 using SunEngine.DataSeed;
+
 
 namespace SunEngine
 {
@@ -22,10 +24,17 @@ namespace SunEngine
 
             configDir = Path.GetFullPath(configDir);
 
-
-            if (args.Any(x => x == "server"))
+            if (args.Length == 0 || args.Any(x => x == "help"))
+            {
+                InfoPrinter.PrintHelp();
+            }
+            else if (args.Any(x => x == "server"))
             {
                 RunServer(args);
+            }
+            else if(args.Any(x => x == "version"))
+            {
+                InfoPrinter.PrintVersion();
             }
             else
             {
@@ -41,10 +50,18 @@ namespace SunEngine
                     ms.SeedInitialize();
                 }
 
-                if (args.Any(x => x == "add-test-data"))
+                if (args.Any(x => x.StartsWith("seed")))
                 {
                     MainSeeder ms = new MainSeeder(configDir);
-                    ms.SeedAddTestData();
+
+                    var catsTokens = args.Where(x => x.StartsWith("seed")).ToList();
+                    
+                    if (catsTokens.Contains("seed"))
+                        catsTokens[catsTokens.IndexOf("seed")] = "seed:Root";
+
+                    var tokensCleared = catsTokens.Select(x => x.Substring("seed:".Length));
+                    
+                    ms.SeedAddTestData(tokensCleared);
                 }
             }
         }
