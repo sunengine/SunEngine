@@ -1,23 +1,21 @@
 Commands:
     server                      host server api with kestrel
     config:<path>               path to config directory, if none "Config" is default 
-    migrate                     make initial database structure and migrations
-    init                        initialize database with seed data from config directory (users, roles, categories)
+    migrate                     make initial database table structure and migrations in existing database
+    init                        initialize users, roles and categories tables from config directory
     version                     print SunEngine version
     help                        show this help   
     
 Seed testing data commands:    
-    seed:<CatName>:<X>:<Y>      seed category and all subcategories
+    seed:<CatName>:<X>:<Y>      seed category and all subcategories with materials and comments
                                 CatName - category name, 'Root' if skipped
                                 X - materials count, default if skipped
                                 Y - comments count, default if skipped
                                 
-    append-cat-name             add category name to material titles on "seed"
+    append-cat-name             add category name to material titles on 'seed'
 
 Examples:
     dotnet SunEngine.dll server
     dotnet SunEngine.dll server config:local.Config.MySite
     dotnet SunEngine.dll migrate init seed
     dotnet SunEngine.dll seed:Articles:20:15
-
-            

@@ -40,30 +40,20 @@ namespace SunEngine
             {
                 if (args.Any(x => x == "migrate"))
                 {
-                    MainMigrator mainMigrator = new MainMigrator(configDir);
-                    mainMigrator.Migrate();
+                    new MainMigrator(configDir).Migrate();
                 }
 
                 if (args.Any(x => x == "init"))
                 {
-                    MainSeeder ms = new MainSeeder(configDir);
-                    ms.SeedInitialize();
+                    new MainSeeder(configDir).SeedInitialize();
                 }
 
                 if (args.Any(x => x.StartsWith("seed")))
                 {
-                    MainSeeder ms = new MainSeeder(configDir);
-
-                    var catsTokens = args.Where(x => x.StartsWith("seed")).ToList();
-
-                    if (catsTokens.Contains("seed"))
-                        catsTokens[catsTokens.IndexOf("seed")] = "seed:Root";
-
-                    var tokensCleared = catsTokens.Select(x => x.Substring("seed:".Length));
-
-                    bool titleAppendCategoryName = args.Any(x => x == "append-cat-name");
-
-                    ms.SeedAddTestData(tokensCleared, titleAppendCategoryName);
+                    new MainSeeder(configDir)
+                        .SeedAddTestData(
+                            args.Where(x => x.StartsWith("seed")).ToList(), 
+                            args.Any(x => x == "append-cat-name"));
                 }
             }
         }
