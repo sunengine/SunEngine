@@ -4,7 +4,7 @@ using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.Authorization;
 using SunEngine.Commons.Models.Materials;
 
-namespace SunEngine.DataSeed.Seeder
+namespace SunEngine.DataSeed
 {
     public class DataContainer
     {

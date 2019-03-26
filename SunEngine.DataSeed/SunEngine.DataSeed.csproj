@@ -3,7 +3,6 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <LangVersion>latest</LangVersion>
-        <RootNamespace>DataSeedDev</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

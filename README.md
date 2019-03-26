@@ -4,7 +4,7 @@
 
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
-Версия: 1.0.0-beta.3
+Версия: 1.0.0-beta.4
 
 Демо: [demo.sunengine.site](http://demo.sunengine.site)  
 
@@ -49,7 +49,7 @@
 - Группа проекта в Telegram: [https://t.me/SunEngine](https://t.me/SunEngine) 
 
 ## Инсталляция
-#### Перед инсталяцией должны быть установлены
+#### Перед инсталляцией должны быть установлены
 - [.Net Core 2.2 SDK](https://dotnet.microsoft.com/download)
 - [NodeJs](https://nodejs.org/en/download/)
 - [Npm](https://www.npmjs.com)
@@ -58,8 +58,8 @@
 #### Установка и запуск для Dev или Demo целей
 - Клонировать репозиторий SunEngine с GitHub.
 - По умолчанию стоит база SQLite (файл: `SunEngine/SunEngine.db`)
-- Скомпилировать солюшен.
-- Зайти в дирректорию куда скомпилировался код `/SunEngine/SunEngine/bin/Debug/netcoreapp2.2/` 
+- Скомпилировать solution.
+- Зайти в директорию куда скомпилировался код `/SunEngine/SunEngine/bin/Debug/netcoreapp2.2/` 
 - Заполнить базу `dotnet SunEngine.dll migrate init add-test-data`
 - Запускаем сервер `dotnet SunEngine.dll server`
 - Компилируем и запускаем клиентскую часть.  
@@ -68,16 +68,35 @@
   - Откроется браузер с сайтом
 - Если что-то не работает написать сюда в Issue, или Telegram группу.
 
-#### Команды для `dotnet SunEngine.dll`
-- `server` - запуск API сервера
-- `migrate` - создание таблиц
-- `init` - заполнение изначальными данными (пользователи, роли, категории), начальные данные настраиваются в папке `/SunEngine/SunEngine/Config`
-- `add-test-data` - заполняет базу данными для тестов (материалы и комментарии)
-- `config:<pathToConfigDirectory>` - дирректория настроек, если не указывать берётся `/Config`, можно указывать как полные, так и локальные пути.
-  - Пример `config:/local.Config.MySite`
+#### Команды для `SunEngine.dll`
 
-Дополнительные директории с конфигами должна содержать в названии `.Config|Config.|.Config.`, только в этом случае они будут правильно обрабатываться движком.  
-Примеры: `local.Config`, `local.Config.MySite`, `Config.MySite`.
+```
+Commands:
+    server                      host server api with kestrel
+    config:<path>               path to config directory, if none "Config" is default 
+    migrate                     make initial database table structure and migrations in existing database
+    init                        initialize users, roles and categories tables from config directory
+    version                     print SunEngine version
+    help                        show this help   
+    
+Seed test data commands:    
+    seed:<CatName>:<X>:<Y>      seed category and all subcategories with materials and comments
+                                CatName - category name, 'Root' if skipped
+                                X - materials count, default if skipped
+                                Y - comments count, default if skipped
+                                
+    append-cat-name             add category name to material titles on 'seed'
+
+Examples:
+    dotnet SunEngine.dll server
+    dotnet SunEngine.dll server config:local.Config.MySite
+    dotnet SunEngine.dll migrate init seed
+    dotnet SunEngine.dll seed:Forum:10:10
+```
+
+Директории с конфигами должны содержать в названии токен `'Config'`.  
+Примеры: `local.Config`, `local.Config.MySite`, `Config.MySite`.  
+Все файлы и дирректории с префиксом `local.` настроены в `.gitignore` и не идут в коммиты.
 
 #### Работа с другими базами данных
 - База данных: любая совместимая с Linq2db [(список)](https://fluentmigrator.github.io/articles/faq.html) и FluentMigrator [(список)](https://linq2db.github.io/articles/general/databases.html)  
@@ -97,7 +116,7 @@
 - Появится директория `/SunEngine/SunEngine/Build`
 - Записать на сервер
 - Для удобства записи на сервер можно использовать скрипт `publishExample.sh`, этот скрипт необходимо отредактировать и настроить под свой сервер
-- Обратите внимание, что при запуске `build.sh` из выходной дирректории убираются все файлы конфигурации, что бы они не затёрли уже существующие на сервере.
+- Обратите внимание, что при запуске `build.sh` из выходной директории убираются все файлы конфигурации, что бы они не затёрли уже существующие на сервере.
 - Записать и настроить файлы конфигурации на сервер (делается один раз при первой записи проекта на сервер, далее менять уже на сервере при изменении настроек) 
   - Папка `Config` из корневой директории проекта, аналогично `/SunEngine/SunEngine/Config`
   - Файл `/wwwroot/config.js` аналогично `/Client/config.js`

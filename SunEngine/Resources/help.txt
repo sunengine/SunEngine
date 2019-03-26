@@ -6,7 +6,7 @@ Commands:
     version                     print SunEngine version
     help                        show this help   
     
-Seed testing data commands:    
+Seed test data commands:    
     seed:<CatName>:<X>:<Y>      seed category and all subcategories with materials and comments
                                 CatName - category name, 'Root' if skipped
                                 X - materials count, default if skipped
@@ -18,4 +18,4 @@ Examples:
     dotnet SunEngine.dll server
     dotnet SunEngine.dll server config:local.Config.MySite
     dotnet SunEngine.dll migrate init seed
-    dotnet SunEngine.dll seed:Articles:20:15
+    dotnet SunEngine.dll seed:Forum:10:10

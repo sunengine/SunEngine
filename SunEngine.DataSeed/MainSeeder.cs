@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
 using SunEngine.Commons.DataBase;
-using SunEngine.DataSeed.Seeder;
 
 namespace SunEngine.DataSeed
 {

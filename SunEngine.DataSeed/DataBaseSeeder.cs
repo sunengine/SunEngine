@@ -4,7 +4,7 @@ using LinqToDB;
 using LinqToDB.Data;
 using SunEngine.Commons.DataBase;
 
-namespace SunEngine.DataSeed.Seeder
+namespace SunEngine.DataSeed
 {
     public class DataBaseSeeder
     {

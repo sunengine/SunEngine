@@ -3,7 +3,7 @@ using SunEngine.Admin.Managers;
 using SunEngine.Admin.Presenters;
 using SunEngine.Admin.Services;
 
-namespace SunEngine.Commons.Configuration.AddServices
+namespace SunEngine.Admin
 {
     public static class AddAdminExtensions
     {

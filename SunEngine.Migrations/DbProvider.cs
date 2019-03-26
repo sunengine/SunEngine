@@ -1,8 +1,7 @@
 using System;
 using FluentMigrator.Runner;
 
-
-namespace Migrations
+namespace SunEngine.Migrations
 {
     public static class DbProvider
     {

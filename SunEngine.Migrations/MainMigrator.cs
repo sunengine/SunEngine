@@ -3,9 +3,9 @@ using System.IO;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Migrations.Migrations;
+using SunEngine.Migrations.Migrations;
 
-namespace Migrations
+namespace SunEngine.Migrations
 {
     public class MainMigrator
     {

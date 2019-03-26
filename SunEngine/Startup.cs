@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using SunEngine.Admin;
 using SunEngine.Commons.Configuration.AddServices;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Security.Authentication;
