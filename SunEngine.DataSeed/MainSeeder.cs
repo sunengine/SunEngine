@@ -37,21 +37,22 @@ namespace SunEngine.DataSeed
 
         public void SeedAddTestData(IList<string> catTokens, bool titleAppendCategoryName = false)
         {
-            catTokens = catTokens.Select(x => x.Substring("seed".Length)).ToList();
-            if (catTokens.Contains("seed"))
-                catTokens[catTokens.IndexOf("seed")] = "seed:Root";
-            catTokens = catTokens.Select(x => x.Substring("seed:".Length)).ToList();
+
+
             
+            if (catTokens.Contains("seed")) catTokens[catTokens.IndexOf("seed")] = "seed:Root";
+            catTokens = catTokens.Select(x => x.Substring("seed:".Length)).ToList();
+
             using (DataBaseConnection db = new DataBaseConnection(providerName, connectionString))
             {
                 DataContainer dataContainer = new DataContainer
                 {
                     Categories = db.Categories.ToList(),
                     Users = db.Users.ToList(),
-                    currentMaterialId = db.Materials.Max(x=>x.Id)+1,
-                    currentCommentId = db.Comments.Max(x=>x.Id)+1
+                    currentMaterialId = db.Materials.Any() ? db.Materials.Max(x => x.Id) + 1 : 1,
+                    currentCommentId = db.Comments.Any() ? db.Comments.Max(x => x.Id) + 1 : 1
                 };
-                
+
                 MaterialsSeeder materialsSeeder = new MaterialsSeeder(dataContainer);
 
                 foreach (var catToken in catTokens)
@@ -75,9 +76,9 @@ namespace SunEngine.DataSeed
 
                     materialsSeeder.SeedCategoryAndSub(categoryName);
                 }
-               
+
                 new DataBaseSeeder(db, dataContainer).SeedMaterials().PostSeedMaterials();
             }
-        }        
+        }
     }
 }

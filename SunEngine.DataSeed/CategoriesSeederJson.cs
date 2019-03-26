@@ -46,7 +46,7 @@ namespace SunEngine.DataSeed
         }
 
         private void SeedCategory(Category parent, JToken categoryToken, IList<int> numbers,
-            string materialTitleStart = null)
+            string instanceTitle = null)
         {
             int repeatCount = 1;
             var repeat = categoryToken["Repeat"];
@@ -59,6 +59,8 @@ namespace SunEngine.DataSeed
             {
                 int id = dataContainer.NextCategoryId();
                 string name = PrepareText((string) categoryToken["Name"], numbers);
+                string thisInstanceTitle = (string) categoryToken["InstanceTitle"] ?? instanceTitle;
+                
                 Category category = new Category
                 {
                     Id = id,
@@ -67,6 +69,7 @@ namespace SunEngine.DataSeed
                     NameNormalized = Normalizer.Normalize(name),
                     Title = PrepareText((string) categoryToken["Title"], numbers),
                     Header = PrepareText((string) categoryToken["Header"], numbers),
+                    InstanceTitle = thisInstanceTitle,
                     SortNumber = id
                 };
 
@@ -99,7 +102,7 @@ namespace SunEngine.DataSeed
 
                     foreach (JToken subCategoryToken in (JArray) categoryToken["SubCategories"])
                     {
-                        SeedCategory(category, subCategoryToken, numbers1, materialTitleStart);
+                        SeedCategory(category, subCategoryToken, numbers1, thisInstanceTitle);
                     }
                 }
                

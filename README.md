@@ -90,7 +90,7 @@ Seed test data commands:
 Examples:
     dotnet SunEngine.dll server
     dotnet SunEngine.dll server config:local.Config.MySite
-    dotnet SunEngine.dll migrate init seed
+    dotnet SunEngine.dll migrate init seed append-cat-name
     dotnet SunEngine.dll seed:Forum:10:10
 ```
 

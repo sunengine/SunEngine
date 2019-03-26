@@ -44,23 +44,27 @@ namespace SunEngine.DataSeed
                 SeedCategoryWithMaterials(category, category.InstanceTitle,TitleAppendCategoryName);
             }
         }
-        
+
         public void SeedCategoryAndSub(string categoryName)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Seed test materials and comments in memory");
+            Console.ResetColor();
+            
+            SeedCategoryAndSubRec(categoryName);
+        }
+        
+        public void SeedCategoryAndSubRec(string categoryName)
+        {
             var category = dataContainer.Categories.FirstOrDefault(x=>x.NameNormalized == Normalizer.Normalize(categoryName));
-            if (category == null)
+            if (category == null) 
                 throw new Exception($"No category '{categoryName}' in data base");
 
             if (category.IsMaterialsContainer)
-            {
-                
                 SeedCategoryWithMaterials(category, category.InstanceTitle, TitleAppendCategoryName);
-            }
 
             foreach (var subCategory in dataContainer.Categories.Where(x=>x.ParentId.HasValue && x.ParentId.Value == category.Id))
-            {
-                SeedCategoryAndSub(subCategory.Name);
-            }                
+                SeedCategoryAndSubRec(subCategory.Name);
         }
 
         public void SeedCategoryWithMaterials(Category category, string titleStart = null,
@@ -73,7 +77,7 @@ namespace SunEngine.DataSeed
                 return;
             
            
-            Console.WriteLine($"Seeding '{category.Name}' category with {materialsCount} mat,{CommentsCount} com");
+            Console.WriteLine($"'{category.Name}' category with {materialsCount} mat, {CommentsCount} comm");
             
             if (linesCount == null)
             {

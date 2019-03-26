@@ -1,3 +1,5 @@
 .idea/
 Build/
 *.db
+[Ll]ocal.*
+[Ll].*
