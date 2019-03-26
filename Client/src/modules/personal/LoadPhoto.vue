@@ -1,19 +1,20 @@
 <template>
-  <q-page class="flex column middle center">
+  <q-page class="flex column middle">
     <img v-if="photo" width="300" :src="photo"/>
     <br/>
     <input ref="file" type="file" accept="image/*" style="display:none" @change="handleFile"/>
-    <QBtn color="send" class="q-mb-xl" :loading="loading" icon="far fa-user-circle" label="Выбрать фотографию"
-          @click="upload"/>
-    <QBtn v-if="!isDefault && !loading" color="negative" icon="fas fa-trash-alt" label="Сбросить фотографию"
-          @click="resetAvatar"/>
+    <q-btn no-caps color="send" class="q-mb-xl" :loading="loading" icon="far fa-user-circle"
+           :label="$tl('uploadNewPhotoBtn')"
+           @click="upload"/>
+    <q-btn no-caps v-if="!isDefault && !loading" color="negative" icon="fas fa-trash-alt" :label="$tl('resetBtn')"
+           @click="resetAvatar"/>
   </q-page>
 </template>
 
 <script>
   import Page from "Page";
 
-  const defaultAvatar = "_/default-avatar.svg";
+  const defaultAvatar = config.Misc.DefaultAvatar;
 
   export default {
 
@@ -31,8 +32,8 @@
         return null;
       },
       isDefault() {
-        if (this.$store && this.$store.state && this.$store.state.auth && this.$store.state.auth.user.photo)
-          return this.$store.state.auth.user.photo.endsWith(defaultAvatar);
+        if (this.$store && this.$store.state && this.$store.state.auth && this.$store.state.auth.userInfo.photo)
+          return this.$store.state.auth.userInfo.photo.endsWith(defaultAvatar);
       }
     },
     methods: {
@@ -50,23 +51,25 @@
             url: "/Images/UploadUserPhoto",
             data: formData
           })
-          .then(
-            async response => {
+          .then(async () => {
               await this.$store.dispatch('getMyUserInfo');
               this.loading = false;
+              const msg = this.$tl("avatarChangedSuccessNotify");
               this.$q.notify({
-                message: `Аватар успешно обновлён`,
-                timeout: 2000,
-                type: 'info',
+                message: msg,
+                timeout: 2800,
+                color: 'positive',
+                icon: 'fas fa-check-circle',
                 position: 'top'
               });
             }
           ).catch(x => {
             console.log("error", x);
+            const msg = this.$t("global.errorNotify");
             this.$q.notify({
-              message: `Ошибка`,
+              message: msg,
               timeout: 2000,
-              type: 'negative',
+              color: 'negative',
               position: 'top'
             });
           });
@@ -79,25 +82,25 @@
           {
             url: "/Personal/RemoveMyAvatar"
           })
-          .then(
-            async response => {
+          .then(async () => {
               await this.$store.dispatch('getMyUserInfo');
               this.loading = false;
+              const msg = this.$tl("avatarDeletedSuccessNotify");
               this.$q.notify({
-                message: `Аватар успешно удалён`,
+                message: msg,
                 timeout: 2000,
-                type: 'info',
+                color: 'info',
                 position: 'top'
               });
-              //this.$router.push({name: "Personal"});
             }
           ).catch(x => {
             this.loading = false;
             console.log("error", x);
+            const msg = this.$t("global.errorNotify");
             this.$q.notify({
-              message: `Ошибка`,
+              message: msg,
               timeout: 2000,
-              type: 'negative',
+              color: 'negative',
               position: 'top'
             });
           });
@@ -105,7 +108,7 @@
     }
     ,
     async created() {
-      this.setTitle("Изменить фотографию пользователя");
+      this.title = this.$tl("title");
     }
   }
 </script>

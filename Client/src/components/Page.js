@@ -1,18 +1,15 @@
 
+
 export default {
-  data () {
+  data() {
     return {
-      title: null,
+      title: "_",
     }
   },
-  meta () {
+  meta() {
     return {
-      title: this.title
-    }
-  },
-  methods: {
-    setTitle(text) {
-      this.title = text + " - " + config.SiteName;
+      title: this.title,
+      titleTemplate: title => title === "_" ? config.SiteName :  `${title} - ${config.SiteName}`
     }
   }
 }

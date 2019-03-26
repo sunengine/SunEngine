@@ -1,26 +1,28 @@
 <template>
   <q-page>
-    <div class="header-with-button">
+
+    <div class="header-with-button page-padding">
       <h2 class="q-title">
         {{thread.title}}
       </h2>
-      <q-btn no-caps @click="$router.push({path:'/AddEditMaterial',query:{categoryName:thread.name}})"
-             label="Новая тема" v-if="canAddTopic" icon="fas fa-plus" color="post" />
-      <div class="clear"></div>
+      <q-btn no-caps
+             @click="$router.push({name:'AddMaterial',params:{categoriesNames: thread.sectionRoot.name, initialCategoryName: thread.name}})"
+             :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus" color="post"/>
     </div>
+
     <div v-if="thread.header" class="q-mb-sm" v-html="thread.header"></div>
 
     <LoaderWait v-if="!topics.items"/>
 
-    <template v-else>
+    <div class="q-mt-sm" v-else>
       <div class="margin-back bg-grey-2 gt-xs text-grey-6">
-        <hr class="hr-sep" />
+        <hr class="hr-sep"/>
         <div class="row">
           <div class="col-xs-12 col-sm-8" style="padding: 2px 0px 2px 76px; ">
-            Тема
+            {{$tl("topic")}}
           </div>
           <div class="col-xs-12 col-sm-2" style="padding: 2px 0px 2px 60px;">
-            Последнее
+            {{$tl("last")}}
           </div>
         </div>
       </div>
@@ -28,29 +30,22 @@
       <q-list no-border>
         <hr class="hr-sep margin-back"/>
         <div class="margin-back" v-for="topic in topics.items" :key="topic.id">
-          <TopicInThread :topic="topic" />
+          <Topic :topic="topic"/>
           <hr class="hr-sep"/>
         </div>
       </q-list>
 
-      <q-pagination v-if="topics.totalPages > 1"
-                    v-model="topics.pageIndex"
-                    color="pagination"
-                    :max-pages="12"
-                    :max="topics.totalPages"
-                    ellipses
-                    direction-links
-                    @input="pageChanges"
-      />
-    </template>
+      <q-pagination v-if="topics.totalPages > 1" v-model="topics.pageIndex" color="pagination" :max-pages="12"
+                    :max="topics.totalPages" ellipses direction-links @input="pageChanges"/>
+    </div>
   </q-page>
 
 </template>
 
 <script>
-  import TopicInThread from './TopicInThread'
+  import Topic from './Topic'
   import LoaderWait from "LoaderWait";
-  import Page from "../../components/Page";
+  import Page from "Page";
 
   export default {
     name: "Thread",
@@ -58,7 +53,7 @@
     props: {
       categoryName: String
     },
-    components: {LoaderWait, TopicInThread},
+    components: {LoaderWait, Topic},
     data: function () {
       return {
         thread: null,
@@ -70,28 +65,26 @@
       '$route': 'loadData',
       "$store.state.categories.all": "loadData",
       '$store.state.auth.user': 'loadData',
-
     },
     computed: {
-      rootCategoryPath() {
-        return this.thread.path;
-      },
       canAddTopic() {
         return this.thread?.categoryPersonalAccess?.materialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;
       },
       currentPage() {
-        let page1 = this.$route.query?.["page"];
+        let page1 = this.$route.query?.page;
         return page1 ?? 1;
       },
+     /* sectionRootName() {
+        return thread.sectionRoot.name;
+      }*/
     },
 
     methods: {
 
-
       pageChanges(newPage) {
-        if (this.currentPage != newPage) {
+        if (this.currentPage !== newPage) {
           let req = {path: this.$route.path};
-          if (newPage != 1) {
+          if (newPage !== 1) {
             req.query = {page: newPage};
           }
           this.$router.push(req);
@@ -101,12 +94,12 @@
       async loadData() {
         this.thread = this.$store.getters.getCategory(this.categoryName);
 
-        if(!this.thread)
+        if (!this.thread)
           this.$router.push({name: "Home"});
 
         this.topics = {};
 
-        this.setTitle(this.thread.title);
+        this.title = this.thread.title;
 
         await this.$store.dispatch("request",
           {

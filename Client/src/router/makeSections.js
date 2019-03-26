@@ -1,47 +1,47 @@
-import Material from 'material/Material.vue';
-import Thread from 'forum/Thread.vue';
-import NewTopics from 'forum/NewTopics.vue';
-import ArticlesList from 'articles/ArticlesList.vue';
-import ForumNavPanel from 'forum/ForumNavPanel';
-import Blog from "blog/Blog";
+import Material from 'material/Material';
+import Thread from 'forum/Thread';
+import NewTopics from 'forum/NewTopics';
+import ArticlesPage from 'articles/ArticlesPage';
+import ForumPanel from 'forum/ForumPanel';
+import BlogPage from "blog/BlogPage";
 
 export function makeForumSection(name, categoriesPanel) {
-  let nameLover = name.toLowerCase();
+  let nameLower = name.toLowerCase();
   return [
     {
       name: name,
-      path: '/' + nameLover,
+      path: '/' + nameLower,
       components: {
         default: NewTopics,
-        navigation: ForumNavPanel
+        navigation: ForumPanel
       },
       props: {
-        default: {categoryName: nameLover},
-        navigation: {categories: categoriesPanel, categoryName: nameLover}
+        default: {categoryName: nameLower},
+        navigation: {categories: categoriesPanel, categoryName: nameLower}
       },
     },
     {
-      path: `/${nameLover}/:categoryName`,
+      path: `/${nameLower}/:categoryName`,
       components: {
         default: Thread,
-        navigation: ForumNavPanel
+        navigation: ForumPanel
       },
       props: {
         default: true,
-        navigation: {categories: categoriesPanel, categoryName: nameLover}
+        navigation: {categories: categoriesPanel, categoryName: nameLower}
       }
     },
     {
-      path: `/${nameLover}/:categoryName/:id`,
+      path: `/${nameLower}/:categoryName/:id`,
       components: {
         default: Material,
-        navigation: ForumNavPanel
+        navigation: ForumPanel
       },
       props: {
         default: (route) => {
           return {categoryName: route.params.categoryName, id: +route.params.id}
         },
-        navigation: {categories: categoriesPanel, categoryName: nameLover}
+        navigation: {categories: categoriesPanel, categoryName: nameLower}
       }
     }
   ]
@@ -49,23 +49,23 @@ export function makeForumSection(name, categoriesPanel) {
 
 
 export function makeArticlesSection(name) {
-  let nameLover = name.toLowerCase();
+  let nameLower = name.toLowerCase();
   return [
     {
       name: name,
-      path: '/' + nameLover,
+      path: '/' + nameLower,
       components: {
-        default: ArticlesList,
+        default: ArticlesPage,
         navigation: null
       },
       props: {
         default: {
-          categoryName: nameLover
+          categoryName: nameLower
         }
       }
     },
     {
-      path: `/${nameLover}/:id`,
+      path: `/${nameLower}/:id`,
       components: {
         default: Material,
         navigation: null
@@ -73,7 +73,7 @@ export function makeArticlesSection(name) {
       props: {
         default: (route) => {
           return {
-            categoryName: nameLover,
+            categoryName: nameLower,
             id: +route.params.id
           }
         }
@@ -82,24 +82,25 @@ export function makeArticlesSection(name) {
   ];
 }
 
+
 export function makeBlogSection(name) {
-  let nameLover = name.toLowerCase();
+  let nameLower = name.toLowerCase();
   return [
     {
       name: name,
-      path: '/' + nameLover,
+      path: '/' + nameLower,
       components: {
-        default: Blog,
+        default: BlogPage,
         navigation: null
       },
       props: {
         default: {
-          categoryName: nameLover
+          categoryName: nameLower
         }
       }
     },
     {
-      path: `/${nameLover}/:id`,
+      path: `/${nameLower}/:id`,
       components: {
         default: Material,
         navigation: null
@@ -107,7 +108,7 @@ export function makeBlogSection(name) {
       props: {
         default: (route) => {
           return {
-            categoryName: nameLover,
+            categoryName: nameLower,
             id: +route.params.id
           }
         }
@@ -115,3 +116,4 @@ export function makeBlogSection(name) {
     }
   ];
 }
+

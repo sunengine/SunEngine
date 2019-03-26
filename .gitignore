@@ -1,3 +1,5 @@
 .idea/
 Build/
-BuildDbReset/
+*.db
+[Ll]ocal.*
+[Ll].*

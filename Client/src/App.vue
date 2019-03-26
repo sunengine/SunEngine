@@ -5,38 +5,38 @@
     <div v-else-if="!initializeError" class="loader">
       <div>
         <q-spinner-gears size="40px" class="q-mr-sm"/>
-        Загрузка...
+        {{$tl('loading')}}
       </div>
     </div>
 
     <div v-else-if="initializeError" class="api-error">
-      <q-alert type="negative" icon="fas fa-exclamation-triangle">
-        Невозможно соединиться с API.
-      </q-alert>
+      <q-banner rounded class="bg-negative text-white shadow-3">
+        <template v-slot:avatar>
+          <q-icon name="fas fa-exclamation-triangle" size="1.6em"/>
+        </template>
+       {{$tl('canNotConnectApi')}}
+      </q-banner>
     </div>
   </div>
 </template>
 
 <script>
-  import Layout from "layout/Layout";
+  import Layout from "site/Layout";
   import {mapState} from 'vuex';
-  import LoaderWait from "LoaderWait";
 
   export default {
     name: 'App',
-    components: {Layout, LoaderWait},
+    components: {Layout},
     computed: {
       ...mapState(['isInitialized', 'initializeError'])
     },
-    async created() {
-      await this.$store.dispatch('init');
-      if(window) window.App = this;
+    created() {
+      this.$store.dispatch('init');
     }
   }
 </script>
 
 <style lang="stylus" scoped>
-  @import '~variables';
 
   .api-error {
     display: flex;

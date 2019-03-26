@@ -1,38 +1,39 @@
 <template>
-  <QPage padding class="flex middle">
+  <q-page class="flex flex-center">
     <div class="center-form">
       <div class="text-grey-7 q-mb-lg" style="text-align: justify">
-        Link должен состоять не менее чем из 3 символов <span class="text-grey-7">'a-z', 'A-Z', '-', '0-9'</span>. И
-        содержать хотя бы одну букву.
+        {{$tl('linkValidationInfo')}}
       </div>
-      <q-field :error="$v.link.$invalid" :error-label="errorMessage">
-        <q-input v-model="link" float-label="Link" @keyup="checkLinkInDb"
-                 :after="[{
-        icon: 'far fa-check-circle',
-        color: 'green',
-        condition: !$v.link.$invalid},
-        ]"
-        />
-      </q-field>
-      <QBtn class="q-mt-lg" icon="far fa-save" label="Сохранить" color="send" @click="save" :loading="submitting">
+      <q-input ref="link" v-model="link" :label="$tl('link')" @keyup="checkLinkInDb" :rules="linkRules">
+        <template v-slot:prepend>
+          <q-icon name="fas fa-link"/>
+        </template>
+      </q-input>
+      <q-btn no-caps class="q-mt-lg" icon="far fa-save" :label="$tl('saveBtn')" color="send" @click="save"
+             :loading="submitting">
         <LoaderSent slot="loading"/>
-      </QBtn>
+      </q-btn>
     </div>
-  </QPage>
+  </q-page>
 </template>
 
 <script>
   import Page from "Page";
-  import {minLength, helpers, or} from 'vuelidate/lib/validators'
   import LoaderSent from "LoaderSent";
+  import {store} from "store";
 
-  const allowedChars = helpers.regex('allowedChars', /^[a-zA-Z0-9-]*$/)
-  const needChar = helpers.regex('numberNotAllow', /[a-zA-Z]/)
-
-  function allowMyId(x) {
-    return this.$store.state.auth.user.id == x
+  function allowMyIdOrEmpty(id) {
+    return !id || store.state.auth.user.id == id;
   }
 
+  function createLinkRules() {
+    return [
+      value => (value.length >= 3 || allowMyIdOrEmpty.call(this, value)) || this.$tl("validation.minLength"),  // minLength or myId
+      value => /^[a-zA-Z0-9-]*$/.test(value) || this.$tl("validation.allowedChars"), // allowed chars
+      value => (/[a-zA-Z]/.test(value) || allowMyIdOrEmpty.call(this, value)) || this.$tl("validation.numberNotAllow"), // need char or myId
+      value => !this.linkInDb || this.$tl("validation.linkInDb"), // link in db
+    ];
+  }
 
   export default {
     name: "ChangeLink",
@@ -41,38 +42,17 @@
     data: function () {
       return {
         link: this.$store.state.auth.userInfo.link,
-        linkInDb: true,
+        linkInDb: false,
         submitting: false
       }
     },
-    validations: {
-      link: {
-        minLength: or(minLength(3), allowMyId),
-        allowedChars,
-        numberNotAllow: or(needChar, allowMyId),
-        linkInDb: function () {
-          return this.linkInDb
-        }
-      }
-    },
-    computed: {
-      errorMessage() {
-        if (!this.$v.link.minLength)
-          return "Длинна link должна быть не менее 3";
-        if (!this.$v.link.allowedChars)
-          return "Допустимы только буквы английского алфавита и цифры";
-        if (!this.$v.link.numberNotAllow)
-          return "Необходимо что бы в link входили буквы";
-        if (!this.$v.link.linkInDb)
-          return "Этот link уже занят";
-      }
-    },
+    linkRules: null,
     methods: {
       checkLinkInDb() {
         clearTimeout(this.timeout);
-        if (this.link.toLowerCase() == this.$store.state.auth.userInfo.link.toLowerCase())
+        if (this.link.toLowerCase() === this.$store.state.auth.userInfo.link.toLowerCase())
           return;
-        this.timeout = setTimeout(this.checkLinkInDbDo, 1000);
+        this.timeout = setTimeout(this.checkLinkInDbDo, 500);
       },
       checkLinkInDbDo() {
         this.$store.dispatch("request",
@@ -82,16 +62,19 @@
               link: this.link
             }
           }).then(response => {
-          this.linkInDb = !response.data.yes;
+          this.linkInDb = response.data.yes;
+          this.$refs.link.validate();
         })
       },
 
       async save() {
 
-        this.$v.$touch();
-        if (this.$v.$invalid) {
+        this.$refs.link.validate();
+
+        if (this.$refs.link.hasError) {
           return;
         }
+
 
         this.submitting = true;
 
@@ -103,10 +86,12 @@
             }
           }).then(response => {
           this.$store.commit('setUserInfo', response.data);
+          const msg = this.$tl("linkEditedMessage");
           this.$q.notify({
-            message: `Link отредактирован`,
-            timeout: 2000,
-            type: 'info',
+            message: msg,
+            timeout: 2800,
+            color: 'positive',
+            icon: 'fas fa-check-circle',
             position: 'top'
           });
           this.$router.push({name: 'Personal'});
@@ -115,7 +100,7 @@
           this.$q.notify({
             message: error.response.data.errorText,
             timeout: 5000,
-            type: 'negative',
+            color: 'negative',
             position: 'top'
           });
           this.submitting = false;
@@ -126,15 +111,14 @@
       clearTimeout(this.timeout);
     },
     async created() {
-      this.setTitle("Редактировать Link пользователя");
+      this.title = this.$tl("title");
+
+      this.linkRules = createLinkRules.call(this);
     }
   }
 </script>
 
 <style lang="stylus" scoped>
-  .q-field {
-    height: 78px;
-  }
 
 
 </style>

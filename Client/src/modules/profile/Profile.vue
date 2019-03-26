@@ -1,28 +1,31 @@
 <template>
-  <q-page>
+  <q-page class="page-padding page-padding-top">
     <div class="f1" v-if="user">
       <div class="img flex column">
-        <img width="300" height="300"  :src="$imagePath(user.photo)"/>
-        <div v-if="messageButtons" class="private-messages-block flex q-mt-sm" style="padding-right: 2px; padding-left: 2px; align-items: center; width: 100%">
-          <q-btn class="shadow-1" color="lime-4" style="flex-grow: 1" :disable="!canPrivateMessage"
-                 :to="{path: '/WritePrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}"
-                 dense icon="far fa-envelope"  label="Написать пользователю"/>
-          <q-btn :color="!user.iBannedHim ? 'lime-4' : 'negative'" class="shadow-1 q-ml-sm" dense style="padding-left:10px !important; padding-right: 10px; !important"  v-if="!user.noBannable" icon="fas fa-ellipsis-v">
-            <q-popover>
-              <div v-close-overlay>
-                <q-btn color="negative" dense v-close-overlay v-if="!user.iBannedHim" @click="ban"  icon="fas fa-ban" label="Забанить"/>
-                <q-btn color="positive" dense v-close-overlay v-else @click="unBan"  icon="fas fa-smile" label="Разбанить"/>
-              </div>
-            </q-popover>
+        <img width="300" height="300" :src="$imagePath(user.photo)"/>
+        <div v-if="messageButtons" class="private-messages-block flex q-mt-sm"
+             style="padding-right: 2px; padding-left: 2px; align-items: center; width: 100%">
+          <q-btn no-caps class="shadow-1" color="lime-4" style="flex-grow: 1" :disable="!canPrivateMessage"
+                 :to="{path: '/SendPrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}"
+                 dense icon="far fa-envelope" :label="$tl('sendPrivateMessageBtn')"/>
+          <q-btn :color="!user.iBannedHim ? 'lime-4' : 'negative'" class="shadow-1 q-ml-sm" dense
+                 style="padding-left:10px !important; padding-right: 10px; !important" v-if="!user.noBannable"
+                 icon="fas fa-ellipsis-v">
+            <q-menu>
+              <q-btn no-caps v-close-menu color="negative"  v-close-overlay v-if="!user.iBannedHim" @click="ban"
+                     icon="fas fa-ban" :label="$tl('banBtn')"/>
+              <q-btn no-caps v-close-menu color="positive"  v-close-overlay v-else @click="unBan" icon="fas fa-smile"
+                     :label="$tl('unBanBtn')"/>
+            </q-menu>
           </q-btn>
         </div>
       </div>
       <div>
         <h4>{{user.name}}</h4>
         <div v-html="user.information"></div>
-        <QCollapsible v-if="canEditRoles" @show="showRolesAdmin" icon="fas fa-cog" label="Группы" style="margin-top: 30px; border: 1px solid silver" header-style="background-color: #e4e4e4">
-          <RolesForProfile  :userId="user.id" v-if="isShowRolesAdmin" />
-        </QCollapsible>
+         <q-expansion-item  v-if="canEditRoles" @show="showRolesAdmin" icon="fas fa-cog" label="Группы" style="border-radius: 12px; margin-top: 30px; border: 1px solid silver" header-style="background-color: #e4e4e4">
+           <ProfileRoles class="q-pa-md"  :userId="user.id" v-if="isShowRolesAdmin" />
+         </q-expansion-item>
       </div>
     </div>
     <loader-wait v-else/>
@@ -32,12 +35,12 @@
 <script>
   import LoaderWait from "LoaderWait";
   import Page from "Page";
-  import RolesForProfile from "../admin/RolesForProfile";
+  import ProfileRoles from "admin/ProfileRoles";
 
   export default {
     name: "Profile",
     mixins: [Page],
-    components: {RolesForProfile, LoaderWait},
+    components: {ProfileRoles, LoaderWait},
     props: {
       link: {
         type: String,
@@ -55,15 +58,15 @@
         const from = this.$store?.state?.auth?.user;
         if (!from) return false;
         if (this.user.heBannedMe || this.user.iBannedHim) return false;
-        return from.id != this.user?.id;
+        return from.id !== this.user?.id;
       },
       messageButtons() {
         const from = this.$store?.state?.auth?.user;
         if (!from) return false;
-        return from.id != this.user?.id;
+        return from.id !== this.user?.id;
       },
       canEditRoles() {
-        return this.$store?.state?.auth?.userGroups?.some(x=>x === "Admin");
+        return this.$store?.state?.auth?.roles?.some(x => x === "Admin");
       }
     },
     watch: {
@@ -82,10 +85,12 @@
             }
           }).then(async response => {
           await this.loadData();
+
+          const msg = this.$tl("banNotify",[this.user.name]);
           this.$q.notify({
-            message: `Пользователь ${this.user.name} теперь не может вам писать`,
+            message: msg,
             timeout: 5000,
-            type: 'positive',
+            color: 'info',
             position: 'top'
           });
         }).catch(error => {
@@ -101,10 +106,11 @@
             }
           }).then(async response => {
           await this.loadData();
+          const msg = this.$tl("unBanNotify",[this.user.name]);
           this.$q.notify({
-            message: `Пользователь ${this.user.name} теперь может вам писать`,
+            message: msg,
             timeout: 5000,
-            type: 'positive',
+            color: 'positive',
             position: 'top'
           });
         }).catch(error => {
@@ -120,7 +126,7 @@
             }
           }).then(response => {
           this.user = response.data;
-          this.setTitle(this.user.name);
+          this.title = this.user.name;
         }).catch(error => {
           console.log("error", error);
         });
@@ -133,7 +139,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import '~variables';
 
 
   .f1 {

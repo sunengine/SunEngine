@@ -1,127 +1,48 @@
 <template>
-  <q-page>
-    <div class="header-with-button">
-      <h2 class="q-title">
-        {{category.title}}
-      </h2>
-      <q-btn no-caps @click="$router.push({path:'/AddEditMaterial',query:{categoryName:category.name}})"
-             label="Новая статья"
-             v-if="canAddArticle" icon="fas fa-plus" color="post"/>
-      <div class="clear"></div>
-    </div>
-    <div v-if="category.header" class="q-mb-sm" v-html="category.header"></div>
-
+  <div>
     <LoaderWait v-if="!articles.items"/>
 
-    <q-list no-border>
-      <ArticleInList :startPath="articlesStartPath" :article="article" v-for="article in articles.items"
-                     :key="article.id"/>
-    </q-list>
+    <template v-else>
+      <q-list no-border>
+        <Article :article="article" v-for="article in articles.items" :key="article.id"/>
+      </q-list>
 
-    <q-pagination v-if="articles.totalPages > 1"
-                  v-model="articles.pageIndex"
-                  color="pagination"
-                  :max-pages="12"
-                  :max="articles.totalPages"
-                  ellipses
-                  direction-links
-                  @input="pageChanges"
-    />
-  </q-page>
+      <q-pagination class="page-padding q-mt-md" v-if="articles.totalPages > 1"
+                    v-model="articles.pageIndex"
+                    color="pagination"
+                    :max-pages="12"
+                    :max="articles.totalPages"
+                    ellipses
+                    direction-links
+                    @input="pageChanges"/>
+    </template>
 
+  </div>
 </template>
 
 <script>
   import LoaderWait from "LoaderWait";
-  import ArticleInList from "./ArticleInList";
-  import Page from "components/Page";
+  import Article from "./Article";
 
   export default {
     name: "ArticlesList",
-    mixins: [Page],
-    props: {
-      categoryName: String
-    }
-    ,
-    components: {
-      ArticleInList, LoaderWait
-    }
-    ,
+    components: {LoaderWait, Article},
     data: function () {
       return {
-        category: null,
-        articles: {
-          pagesCount: null,
-          items: null
-        },
+        articles: {}
       }
-    }
-    ,
-    watch: {
-      'categoryName':
-        'loadData',
-      '$route':
-        'loadData',
-      "$store.state.categories.all":
-        "loadData",
-      '$store.state.auth.user':
-        'loadData'
-    }
-    ,
-    computed: {
-      articlesStartPath() {
-        return this.category?.path;
-      }
-      ,
-      canAddArticle() {
-        return this.category?.categoryPersonalAccess?.materialWrite;
-      }
-    }
-    ,
+    },
 
     methods: {
-      getCurrentPage() {
-        return this.$route.query?.["page"] ?? 1;
-      }
-      ,
-
       pageChanges(newPage) {
-        if (this.getCurrentPage() != newPage) {
+        if (this.currentPage !== newPage) {
           let req = {path: this.$route.path};
-          if (newPage != 1) {
+          if (newPage !== 1) {
             req.query = {page: newPage};
           }
           this.$router.push(req);
         }
       }
-      ,
-
-      async loadData() {
-        let currentPage = this.getCurrentPage();
-        this.category = this.$store.getters.getCategory(this.categoryName);
-        this.setTitle(this.category.title);
-
-        await this.$store.dispatch("request",
-          {
-            url: "/Articles/GetArticles",
-            data: {
-              categoryName: this.categoryName,
-              page: currentPage
-            }
-          })
-          .then(
-            response => {
-              this.articles = response.data;
-            }
-          ).catch(x => {
-            console.log("error", x);
-          });
-      }
-    }
-    ,
-
-    async created() {
-      await this.loadData()
     }
   }
 </script>

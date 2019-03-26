@@ -1,13 +1,19 @@
 <template>
-  <q-page>
-    <template v-if="root">
+  <q-page class="page-padding">
 
-      <q-btn icon="fas fa-plus" color="send" class="q-mr-lg" @click="add" label="Добавить категорию" />
+    <div class="header-with-button">
+      <h2 class="q-title">
+        {{$tl("title")}}
+      </h2>
+      <q-btn icon="fas fa-plus" color="send" class="q-mr-lg" @click="add" no-caps
+             :label="$tl('addCategoryBtn')"/>
+      <div class="clear"></div>
+    </div>
 
-      <category-item @up="up" @down="down" @edit="edit" @go="go" :category="root" class="q-mt-lg" />
+    <CategoryItem v-if="root" @up="up" @down="down" @edit="edit" @go="go" :category="root" class="q-mt-lg"/>
 
-    </template>
-    <LoaderWait v-else />
+    <LoaderWait v-else/>
+
   </q-page>
 </template>
 
@@ -20,7 +26,8 @@
     name: "CategoriesAdmin",
     components: {LoaderWait, CategoryItem},
     mixins: [Page],
-    data: function() {
+    i18nPrefix: "admin",
+    data: function () {
       return {
         root: null
       }
@@ -41,8 +48,7 @@
             url: "/Admin/AdminCategories/CategoryUp",
             data: {name: category.name}
           })
-          .then(
-            async response => {
+          .then(async response => {
               await this.loadData();
             }
           ).catch(x => {
@@ -80,7 +86,7 @@
 
     },
     async created() {
-      this.setTitle("Админка категорий");
+      this.title = this.$tl("title");
       await this.loadData();
     }
 

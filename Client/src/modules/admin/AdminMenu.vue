@@ -1,23 +1,40 @@
 <template>
-  <QList no-border>
-    <q-item :to="{name: 'CategoriesAdmin'}" :multiline="false" link>
-      <q-icon name="far fa-folder-open" size="16px" class="on-left"/>
-      Категории
+  <q-list class="my-menu" no-border>
+
+    <q-item :to="{name: 'CategoriesAdmin'}">
+      <q-item-section avatar>
+        <q-icon name="far fa-folder-open" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $tl("categoriesAdmin") }}</q-item-label>
+      </q-item-section>
     </q-item>
-    <q-item :to="{name: 'RolesPermissions'}" :multiline="false" link>
-      <q-icon name="fas fa-users-cog" size="16px" class="on-left"/>
-      Настройка прав
+
+    <q-item :to="{name: 'RolesPermissions'}">
+      <q-item-section avatar>
+        <q-icon name="fas fa-users-cog" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $tl("rolesPermissions") }}</q-item-label>
+      </q-item-section>
     </q-item>
-    <q-item :to="{name: 'RolesUsers'}" :multiline="false" link>
-      <q-icon name="fas fa-users" size="16px" class="on-left"/>
-      Группы пользователей
+
+    <q-item :to="{name: 'RolesPage'}">
+      <q-item-section avatar>
+        <q-icon name="fas fa-users" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $tl("rolesUsers") }}</q-item-label>
+      </q-item-section>
     </q-item>
-  </QList>
+
+  </q-list>
 </template>
 
 <script>
   export default {
-    name: "AdminMenu"
+    name: "AdminMenu",
+    i18nPrefix: "admin"
   }
 </script>
 

@@ -2,58 +2,42 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import auth from './auth'
-import categories from './categories'
-import extensions from './extensions'
+import request from "./request";
+import categories from "store/categories";
+import {getTokens, makeUserDataFromTokens} from "services/tokens";
+import {consoleInit} from "services/consoleStyles";
+//import extensions from './extensions'
 
-import {makeUserDataFromToken} from "services/auth";
-import {getToken} from "services/token";
-
-import request from "services/request";
-
-
-import {setSessionTokens} from "services/request"
-
-
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 /*
- * If not building with SSR isReadMode, you can
+ * If not building with SSR mode, you can
  * directly export the Store instantiation
  */
 
 export var store;
 
 export default function (/* { ssrContext } */) {
-  const Store = new Vuex.Store({
+  store = new Vuex.Store({
     state: {
       isInitialized: false,
       initializeError: false
     },
     actions: {
-      async request(context, data) {
-        return request(data.url, data.data, data.sendAsJson)
-          .then(async rez => {
-            if (rez.headers.tokensexpire) {
-              await store.dispatch('doLogout');
-            }
-            return rez;
-          }).catch(async rez => {
-            if (rez.response.headers.tokensexpire) {
-              await store.dispatch('doLogout');
-            }
-            throw rez;
-          })
-      },
+      request,
       async init() {
 
-        console.log("StartInit");
+        console.info("%cStartInit", consoleInit);
+
+        initUser(this);
+
+        this.state.auth.user && await this.dispatch('getMyUserInfo').catch(() => {
+        });
 
         try {
-          await getAllCategories(this);
+          !this.state.categories.all && await this.dispatch('getAllCategories');
 
-          await getMyUserInfo(this);
-
-          await initExtensions(this);
+          //await this.dispatch('getAndSetAllExtensions');
 
           this.state.isInitialized = true;
         } catch (x) {
@@ -65,40 +49,26 @@ export default function (/* { ssrContext } */) {
     modules: {
       auth,
       categories,
-      extensions
+      //extensions
     }
   });
 
-  store = Store;
-
-  initUser(store);
-
-  return Store
+  return store;
 }
 
 function initUser(store) {
-  const tokens = getToken();
-  setSessionTokens(tokens);
+  const tokens = getTokens();
+
+  store.state.auth.tokens = tokens;
 
   if (tokens) {
-    const userData = makeUserDataFromToken(tokens);
-    store.commit('makeLogin', userData);
+    const userData = makeUserDataFromTokens(tokens);
+    userData.isPermanentLogin = true;
 
-    console.log('UserRestored');
+    store.commit('setUserData', userData);
+
+    console.info('%cUser restored from localStorage', consoleInit, userData);
   }
+
 }
 
-async function getAllCategories(store) {
-  await store.dispatch('getAllCategories');
-}
-
-async function getMyUserInfo(store) {
-  if (!store.state.auth.user)
-    return;
-
-  await store.dispatch('getMyUserInfo');
-}
-
-async function initExtensions(store) {
-  await store.dispatch('getAndSetAllExtensions');
-}

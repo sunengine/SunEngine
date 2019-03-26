@@ -1,17 +1,16 @@
 <template>
-  <q-page>
-    <h2 class="q-title">Загрузка Json прав для групп</h2>
+  <q-page class="page-padding">
+    <h2 class="q-title">{{title}}</h2>
     <div class="q-my-md alert-backup">
       <q-icon name="fas fa-exclamation-circle" size="24px" class="q-mr-sm"/>
-      Перед загрузкой необходимо сделать backup базы.
+      {{$tl("backupWarning")}}
     </div>
     <template v-if="json !== null">
-      <q-input class="json-input" v-model="json" type="textarea" float-label="UsersGroups Config Json"
-               max-height="600"/>
+      <q-input input-class="json-input" v-model="json" type="textarea" :label="$tl('textAreaLabel')"/>
       <div class="q-my-md">
-        <q-btn color="send" icon="far fa-save" @click="send" label="Сохранить на сервер"/>
-        <q-btn class="q-ml-md" color="info" icon="fas fa-sync-alt" @click="loadDataRefresh"
-               label="Загрузить с сервера"/>
+        <q-btn no-caps color="send" icon="far fa-save" @click="send" :label="$tl('saveToServerBtn')"/>
+        <q-btn no-caps class="q-ml-md" color="info" icon="fas fa-sync-alt" @click="loadDataRefresh"
+               :label="$tl('getFromServer')"/>
       </div>
       <div class="json-error" v-if="error">
         <q-icon name="fas "/>
@@ -31,6 +30,7 @@
     name: "RolesPermissions",
     components: {LoaderWait},
     mixins: [Page],
+    i18nPrefix: "admin",
     computed: {},
     data: function () {
       return {
@@ -42,10 +42,11 @@
 
       async loadDataRefresh() {
         await this.loadData();
+        const msg = this.$tl('getFromServerSuccessNotify');
         this.$q.notify({
-          message: 'Данные загружены с сервера',
+          message: msg,
           timeout: 5000,
-          type: 'info',
+          color: 'info',
           position: 'top'
         });
       },
@@ -71,13 +72,14 @@
               json: this.json
             }
           })
-          .then(
-            async response => {
+          .then(async () => {
               this.error = null;
+              const msg = this.$tl("saveToServerSuccessNotify");
               this.$q.notify({
-                message: 'Настройки групп успешно установлены',
+                message: msg,
                 timeout: 4000,
-                type: 'positive',
+                color: 'positive',
+                icon: 'far fa-check-circle',
                 position: 'top'
               });
             }
@@ -91,7 +93,7 @@
       }
     },
     async created() {
-      this.setTitle("Загрузка Json прав для групп");
+      this.title = this.$tl("title");
       await this.loadData();
     }
   }
@@ -108,12 +110,11 @@
     //font-weight: 500;
   }
 
-  .json-input {
-    font-size: 0.85em;
-
-    >>> .q-input-target {
-      line-height: unset !important;
-    }
+  >>> .json-input {
+    font-size: 0.9em !important;
+    max-height: 600px !important;
+    min-height: 400px !important;
+    line-height: unset !important;
   }
 
   .json-error {

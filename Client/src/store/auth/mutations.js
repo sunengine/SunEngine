@@ -1,25 +1,24 @@
 import imagePath from "services/imagePath.js";
-import Vue from "vue";
-import {setToken} from "services/token";
+import {setTokens} from "services/tokens";
 import {store} from "store";
-import {removeToken} from "services/token";
 
-export function makeLogin(state, data) {
+
+export function setUserData(state, data) {
 
   Object.assign(state, data);
 
-  if (data.permanent) {
-    setToken(data.tokens);
+  if (data.isPermanentLogin) {
+    setTokens(data.tokens);
   }
 
 }
 
-export function makeLogout(state) {
+export function clearAllUserRelatedData(state) {
   state.tokens = null;
+  state.isPermanentLogin = null;
   state.user = null;
   state.userInfo = null;
-  state.userGroup = 'Unregistered';
-  state.userGroups = ['Unregistered'];
+  state.roles = ['Unregistered'];
   store.state.categories.root = null;
   store.state.categories.all = null;
 }

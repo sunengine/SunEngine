@@ -20,7 +20,7 @@
           "type": "string",
           "title": "Title of the group",
           "examples": [
-            "Пользователь"
+            "Moderator"
           ],
           "pattern": "^([a-zA-Zа-яА-ЯёЁ0-9 -]{3,})$"
         },
@@ -60,7 +60,7 @@
                 "type": "object",
                 "title": "Operationkeys",
                 "patternProperties": {
-                  "MaterialAndMessagesRead|MaterialWrite|MaterialEditOwn|MaterialEditOwnIfTimeNotExceeded|MaterialEditOwnIfHasReplies|MaterialDeleteOwn|MaterialDeleteOwnIfTimeNotExceeded|MaterialDeleteOwnIfHasReplies|MessageWrite|MessageEditOwn|MessageEditOwnIfTimeNotExceeded|MessageEditOwnIfHasReplies|MessageDeleteOwn|MessageDeleteOwnIfTimeNotExceeded|MessageDeleteOwnIfHasReplies|MaterialEditAny|MaterialDeleteAny|MessageEditAny|MessageDeleteAny": {
+                  "MaterialAndCommentsRead|MaterialWrite|MaterialEditOwn|MaterialEditOwnIfTimeNotExceeded|MaterialEditOwnIfHasReplies|MaterialDeleteOwn|MaterialDeleteOwnIfTimeNotExceeded|MaterialDeleteOwnIfHasReplies|CommentWrite|CommentEditOwn|CommentEditOwnIfTimeNotExceeded|CommentEditOwnIfHasReplies|CommentDeleteOwn|CommentDeleteOwnIfTimeNotExceeded|CommentDeleteOwnIfHasReplies|MaterialEditAny|MaterialDeleteAny|CommentEditAny|CommentDeleteAny": {
                     "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/OperationKey",
                     "type": "boolean",
                     "title": "Operation Key",

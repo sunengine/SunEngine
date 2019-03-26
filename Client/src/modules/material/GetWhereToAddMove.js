@@ -3,13 +3,35 @@ export function GetWhereToMove(store) {
   return [...rez.children];
 }
 
-export function GetWhereToAdd(store, categoryName) {
-  const rez = GoDeep(store.getters.getCategory(categoryName));
-  if(rez.selectable)
-    return [rez];
+export function GetWhereToAdd(store, categoriesNames) {
+  if (categoriesNames.includes(","))
+    return GetWhereToAddMultiCat(store, categoriesNames);
   else
-    return [...rez.children];
+    return GetWhereToAddOneCat(store, categoriesNames);
 }
+
+export function GetWhereToAddOneCat(store, categoryName) {
+  let rez = GoDeep(store.getters.getCategory(categoryName));
+  if (rez.selectable)
+    rez = [rez];
+  else
+    rez = [...rez.children];
+
+  return rez;
+}
+
+export function GetWhereToAddMultiCat(store, categoriesNames) {
+  const categories = categoriesNames.split(",").map(x => x.trim());
+  const nodes = [];
+  for (let categoryName of categories) {
+    const node = GoDeep(store.getters.getCategory(categoryName));
+    if(node)
+      nodes.push(node);
+  }
+
+  return nodes;
+}
+
 
 function GoDeep(category) {
 
@@ -25,33 +47,29 @@ function GoDeep(category) {
     }
   }
 
-  let ret;
+  if(children && children.length === 0)
+    children = null;
 
-  if (category?.categoryPersonalAccess?.materialWrite) {
+  const ret = {
+    label: category.title,
+    value: category.name,
+    category: category,
+    children: children,
+    selectable: false
+  };
+
+  if (category.categoryPersonalAccess?.materialWrite) {
     if (category.isMaterialsContainer) { // writable
-      ret = {
-        label: category.title,
-        value: category.name,
-        category: category,
-        children: children,
-        selectable: true,
-        header: 'normal'
-      };
-    } else if(children){ // disabled mode on FolderCategory
-      ret = {
-        label: category.title,
-        value: category.name,
-        category: category,
-        children: children,
-        selectable: false,
-        header: 'root'
-      };
+      ret.icon = 'fas fa-folder';
+      ret.iconColor = 'green-5';
+      ret.selectable = true;
+    } else if (children) { // disabled mode on FolderCategory
+      ret.selectable = false;
     }
+
+  } else if (!children) {
+    return null;
   }
-
-  if(!ret && children)
-    ret = {children: children}
-
   return ret;
 }
 

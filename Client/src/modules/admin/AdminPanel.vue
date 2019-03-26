@@ -2,8 +2,8 @@
   <div>
     <h4 class="menu-panel-title">
       <router-link :to="{name: 'Admin'}">
-        <QIcon name="fas fa-cog" size="1.4em" class="q-mr-sm"/>
-        Админка
+        <q-icon name="fas fa-cog" size="1.4em" class="q-mr-sm"/>
+        {{$tl("title")}}
       </router-link>
     </h4>
     <AdminMenu/>
@@ -14,7 +14,8 @@
   import AdminMenu from './AdminMenu'
   export default {
     name: "AdminPanel",
-    components: {AdminMenu}
+    components: {AdminMenu},
+    i18nPrefix: "admin",
   }
 </script>
 

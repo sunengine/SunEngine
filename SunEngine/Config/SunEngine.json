@@ -1,0 +1,68 @@
+{
+  "Global": {
+    "SiteUrl": "http://localhost:5005",
+    "SiteApi": "http://localhost:5000",
+    "SiteName": "SunEngine"
+  },
+  "Images": {
+    "UploadDir": "UploadImages",
+    "MaxWidthPixels": 1200,
+    "MaxHeightPixels": 800,
+    "PhotoMaxWidthPixels": 500,
+    "PhotoMaxHeightPixels": 500,
+    "AvatarSizePixels": 300,
+    "AllowSvgUpload":true,
+    "ImageRequestSizeLimitBytes": 10485760,
+    "DoResize": true
+  },
+  "Comments": {
+    "TimeToOwnEditInMinutes": 15,
+    "TimeToOwnDeleteInMinutes": 15
+  },
+  "Materials": {
+    "CommentsPageSize": 5,
+    "TimeToOwnEditInMinutes": 15,
+    "TimeToOwnDeleteInMinutes": 15,
+    "TimeToOwnMoveInMinutes": 15,
+    "DescriptionLength": 80,
+    "PreviewLength": 850
+  },
+  "Forum": {
+    "ThreadMaterialsPageSize": 5,
+    "NewTopicsPageSize": 5,
+    "NewTopicsMaxPages": 8
+  },
+  "Articles": {
+    "CategoryPageSize": 8
+  },
+  "Blog": {
+    "PostsPageSize": 8
+  },
+  "Captcha": {
+  },
+  "Jwt": {
+    "LongTokenLiveTimeDays": 90,
+    "ShortTokenLiveTimeMinutes": 30,
+    "ShortJwtSecurityKey": "15810a26-ee1c-4ced-9078-f2d92f23ee0f",
+    "LongJwtSecurityKey": "1c52893e-00b8-485a-b655-5ea01131816c",
+    "Issuer": "SunEngine Asp.net Core",
+    "SecurityKeyEmailChange": "f29aa7cf-229d-4187-9244-e700e8e8d207"
+  },
+  "Scheduler": {
+    "SpamProtectionCacheClearMinutes": 8,
+    "JwtBlackListServiceClearMinutes": 60,
+    "LongSessionsClearDays": 1
+  },
+  "Email": {
+    "SmtpConfig": "username:password@127.0.0.1:1025",
+    "EmailFromName": "SunEngine",
+    "EmailFromAddress": "system@sunengine.site"
+  },
+  "Kestrel": {
+    "EndPoints": {
+      "Http": {
+        "Url": "http://localhost:5000"
+      }
+    }
+  }
+}

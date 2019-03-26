@@ -1,44 +1,48 @@
-import {loginRequest,makeUserDataFromToken} from "services/auth";
-import {removeToken} from "services/token"
-import {routeCheckAccess} from "plugins/routeAccess"
+import {routeCheckAccess} from "services/routeAccess"
 import {router} from 'router'
+import {parseJwt, makeUserDataFromTokens} from 'services/tokens'
+
 
 export async function doLogin(context, userData) {
 
-  return await loginRequest(userData.nameOrEmail, userData.password)
-    .then(async tokenData => {
+  await context.dispatch('request',
+    {
+      url: "/Auth/Login",
+      data: {
+        nameOrEmail: userData.nameOrEmail,
+        password: userData.password
+      }
+    }).then(async () => {
 
-      const data = makeUserDataFromToken(tokenData);
+    const data = makeUserDataFromTokens(context.state.tokens);
 
-      data.permanent = !userData.notMyComputer;
+    data.isPermanentLogin = !userData.notMyComputer;
 
-      context.commit('makeLogin', data);
-
-      let x1 = context.dispatch('getAllCategories');
-      let x2 = context.dispatch('getMyUserInfo');
-      await Promise.all( [x1,x2]);
-
-    });
+    context.commit('setUserData', data);
+    let request1 = context.dispatch('getAllCategories');
+    let request2 = context.dispatch('getMyUserInfo');
+    await Promise.all([request1, request2]);
+  });
 }
 
 
-export async function doLogout(context) {
+export async function logout(context) {
+  return await context.dispatch('request', {url: '/Auth/Logout'});
+}
 
-  context.commit('makeLogout');
 
+/*export async function resetToUnregistered(context) {
+  context.commit('clearAllUserRelatedData');
   await context.dispatch('getAllCategories');
-}
+}*/
 
 
 export async function getMyUserInfo(context) {
   await context.dispatch('request', {
     url: '/Personal/GetMyUserInfo',
   }).then(response => {
-    context.commit('setUserInfo',response.data);
-  }).catch(error => {
-   console.log("error",error);
+    context.commit('setUserInfo', response.data);
   });
-
 }
 
 
