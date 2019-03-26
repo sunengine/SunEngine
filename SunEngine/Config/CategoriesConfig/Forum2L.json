@@ -3,7 +3,7 @@
     "Name": "Forum2L",
     "Title": "Форум 2 уровня",
     "SectionType": "Forum",
-    "InstanceTitle" : "Топик",
+    "MaterialTypeTitle" : "Топик",
     "SubCategories": [
       {
         "Name": "ThreadF2L-[n]",

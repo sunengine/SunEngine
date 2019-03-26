@@ -22,7 +22,7 @@ namespace SunEngine.Commons.Models
         /// Common title of one material
         /// For example: Video, Seminar, Article...
         /// </summary>
-        public string InstanceTitle { get; set; }
+        public string MaterialTypeTitle { get; set; }
 
         public bool IsMaterialsContainer { get; set; }
 

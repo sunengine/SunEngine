@@ -22,7 +22,7 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("Name").AsString(DbColumnSizes.Categories_Name).NotNullable()
                 .WithColumn("NameNormalized").AsString(DbColumnSizes.Categories_Name).NotNullable()
                 .WithColumn("Title").AsString(DbColumnSizes.Categories_Title).NotNullable()
-                .WithColumn("InstanceTitle").AsString(DbColumnSizes.Categories_InstanceTitle).Nullable()
+                .WithColumn("MaterialTypeTitle").AsString(DbColumnSizes.Categories_MaterialTypeTitle).Nullable()
                 .WithColumn("Description").AsMaxString().Nullable()
                 .WithColumn("Header").AsMaxString().Nullable()
                 .WithColumn("AppendUrlToken").AsBoolean().NotNullable()
@@ -182,7 +182,7 @@ namespace SunEngine.Migrations.Migrations
         public const int SectionType_Title = 64;
         public const int Categories_Name = 64;
         public const int Categories_Title = 256;
-        public const int Categories_InstanceTitle = 32;
+        public const int Categories_MaterialTypeTitle = 32;
         public const int Users_UserName = 64;
         public const int Users_Email = 64;
         public const int Users_Link = 32;

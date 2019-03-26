@@ -10,7 +10,7 @@
       <p>При регистрации можете указывать любой почтовый ящик, например <span class="hl">ooo@ooo.eml</span>.
         <br/>
         Почта будет отправляться на <a target="_blank" href="http://demo.sunengine.site:1444"><b>mailcatcher</b></a>.</p>
-      <p class="ver q-mb-xl">Версия: 1.0.0-beta.4</p>
+      <p class="ver q-mb-xl">Версия: 1.0.0-beta.5</p>
 
     </div>
   </q-page>

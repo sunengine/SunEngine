@@ -41,7 +41,7 @@ namespace SunEngine.DataSeed
         {
             foreach (var category in dataContainer.Categories.Where(x => x.IsMaterialsContainer))
             {
-                SeedCategoryWithMaterials(category, category.InstanceTitle,TitleAppendCategoryName);
+                SeedCategoryWithMaterials(category, category.MaterialTypeTitle,TitleAppendCategoryName);
             }
         }
 
@@ -61,7 +61,7 @@ namespace SunEngine.DataSeed
                 throw new Exception($"No category '{categoryName}' in data base");
 
             if (category.IsMaterialsContainer)
-                SeedCategoryWithMaterials(category, category.InstanceTitle, TitleAppendCategoryName);
+                SeedCategoryWithMaterials(category, category.MaterialTypeTitle, TitleAppendCategoryName);
 
             foreach (var subCategory in dataContainer.Categories.Where(x=>x.ParentId.HasValue && x.ParentId.Value == category.Id))
                 SeedCategoryAndSubRec(subCategory.Name);

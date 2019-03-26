@@ -11,10 +11,10 @@ ssh-add
 
 echo -e "${GREEN}Publishing MySite${NC}\n"
 
-scp -r -C  ~/PathToLocalBuildDirectory/SunEngine/Build/* remoteUserName@host:remoteDirToMySite
-#Example scp -r -C  ~/Projects/SunEngine/Build/* user1@123.123.123.123:/site/MySite/
+scp -r -C  ~/PathToLocalBuildDirectory/SunEngine/build/* remoteUserName@host:remoteDirToMySite
+#Example scp -r -C  ~/Projects/SunEngine/build/* user1@123.123.123.123:/site/MySite/
 
-echo -e "${GREEN}Reseting owner of /site/MySite to www-data and restarting MySite${NC}\n" 
+echo -e "${GREEN}Resetting owner of /site/MySite to www-data and restarting MySite${NC}\n" 
 
 ssh remoteUserName@host << EOF
   chown www-data:www-data -R /site/MySite

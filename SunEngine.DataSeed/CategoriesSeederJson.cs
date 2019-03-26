@@ -59,7 +59,7 @@ namespace SunEngine.DataSeed
             {
                 int id = dataContainer.NextCategoryId();
                 string name = PrepareText((string) categoryToken["Name"], numbers);
-                string thisInstanceTitle = (string) categoryToken["InstanceTitle"] ?? instanceTitle;
+                string thisMaterialTypeTitle = (string) categoryToken["MaterialTypeTitle"] ?? instanceTitle;
                 
                 Category category = new Category
                 {
@@ -69,7 +69,7 @@ namespace SunEngine.DataSeed
                     NameNormalized = Normalizer.Normalize(name),
                     Title = PrepareText((string) categoryToken["Title"], numbers),
                     Header = PrepareText((string) categoryToken["Header"], numbers),
-                    InstanceTitle = thisInstanceTitle,
+                    MaterialTypeTitle = thisMaterialTypeTitle,
                     SortNumber = id
                 };
 
@@ -102,7 +102,7 @@ namespace SunEngine.DataSeed
 
                     foreach (JToken subCategoryToken in (JArray) categoryToken["SubCategories"])
                     {
-                        SeedCategory(category, subCategoryToken, numbers1, thisInstanceTitle);
+                        SeedCategory(category, subCategoryToken, numbers1, thisMaterialTypeTitle);
                     }
                 }
                
