@@ -15,12 +15,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="SeedConfig\DataBaseConnection.json" />
-        <None Remove="SeedConfig\local.DataBaseConnection.json" />
-        <None Remove="SeedConfig\Users.json" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\SunEngine.Commons\SunEngine.Commons.csproj" />
     </ItemGroup>
 

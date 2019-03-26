@@ -46,6 +46,10 @@
         <Content Include="Resources\gunnyrewritten.ttf">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+        <Content Update="wwwroot\*\*">
+            <CopyToPublishDirectory>None</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
         <Content Update="wwwroot\UploadImages\default-avatar.svg">
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
