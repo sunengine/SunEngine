@@ -16,5 +16,5 @@ Examples:
     dotnet SunEngine.dll server config:local.Config.MySite
     dotnet SunEngine.dll seed:Articles:20:15 seed:Forum:20:15 append-cat-name
     
-You can combine "migrate", "init", "seed" in one command:
-    dotnet SunEngine.dll migrate init add-test-data
+You can combine 'migrate', 'init', 'seed' in one command:
+    dotnet SunEngine.dll migrate init seed

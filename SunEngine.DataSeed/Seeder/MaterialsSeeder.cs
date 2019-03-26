@@ -50,11 +50,14 @@ namespace SunEngine.DataSeed.Seeder
             var category = dataContainer.Categories.FirstOrDefault(x=>x.NameNormalized == Normalizer.Normalize(categoryName));
             if (category == null)
                 throw new Exception($"No category '{categoryName}' in data base");
-            
-            if(category.IsMaterialsContainer)
-                SeedCategoryWithMaterials(category, category.InstanceTitle,TitleAppendCategoryName);
 
-            foreach (var subCategory in category.SubCategories)
+            if (category.IsMaterialsContainer)
+            {
+                
+                SeedCategoryWithMaterials(category, category.InstanceTitle, TitleAppendCategoryName);
+            }
+
+            foreach (var subCategory in dataContainer.Categories.Where(x=>x.ParentId.HasValue && x.ParentId.Value == category.Id))
             {
                 SeedCategoryAndSub(subCategory.Name);
             }                
@@ -65,10 +68,13 @@ namespace SunEngine.DataSeed.Seeder
             int? materialsCount = null, LinesCount? linesCount = null)
         {
             if (materialsCount == null)
-            {
                 materialsCount = ran.Next(MinMaterialCount, MaxMaterialCount);
-            }
-
+            if (materialsCount == 0)
+                return;
+            
+           
+            Console.WriteLine($"Seeding '{category.Name}' category with {materialsCount} mat,{CommentsCount} com");
+            
             if (linesCount == null)
             {
                 linesCount = defaultLinesCount;
@@ -78,11 +84,9 @@ namespace SunEngine.DataSeed.Seeder
             {
                 var title = titleStart != null ? titleStart + " " + i : $"Материал {i}";
                 if (titleAppendCategoryName)
-                    title += " (" + category.Name + ")";
+                    title += $" ({category.Name})";
 
-                SeedMaterial(category, title,
-                    (i >= 2 && i <= 3) ? 0 : 12,
-                    $"{titleStart ?? "Материал"} {i}, категория {category.Name}", "материал " + i,
+                SeedMaterial(category, title, CommentsCount ,$"{titleStart ?? "Материал"} {i}, категория {category.Name}", "материал " + i,
                     linesCount.Value);
             }
         }

@@ -20,11 +20,11 @@ namespace SunEngine.DataSeed
                 MainSeeder ms = new MainSeeder(configDir);
                 ms.SeedInitialize();
             }
-            if (args.Any(x => x == "add-test-data"))
+            /*if (args.Any(x => x == "add-test-data"))
             {
                 MainSeeder ms = new MainSeeder(configDir);
                 ms.SeedAddTestData();
-            }
+            }*/
         }
     }
 }

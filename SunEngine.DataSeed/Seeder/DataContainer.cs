@@ -14,9 +14,9 @@ namespace SunEngine.DataSeed.Seeder
 
         private int currentCategoryId = 1;
 
-        private int currentCommentId = 1;
+        public int currentCommentId = 1;
 
-        private int currentMaterialId = 1;
+        public int currentMaterialId = 1;
 
         private int currentCategoryAccessId = 1;
 

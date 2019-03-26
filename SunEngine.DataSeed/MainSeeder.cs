@@ -42,14 +42,16 @@ namespace SunEngine.DataSeed
                 DataContainer dataContainer = new DataContainer
                 {
                     Categories = db.Categories.ToList(),
-                    Users = db.Users.ToList()
+                    Users = db.Users.ToList(),
+                    currentMaterialId = db.Materials.Max(x=>x.Id)+1,
+                    currentCommentId = db.Comments.Max(x=>x.Id)+1
                 };
                 
                 MaterialsSeeder materialsSeeder = new MaterialsSeeder(dataContainer);
 
                 foreach (var catToken in catTokens)
                 {
-                    var parts = catToken.Split(",");
+                    var parts = catToken.Split(":");
                     var categoryName = parts[0];
                     int? materialsCount = null;
                     if (parts.Length > 1)
@@ -85,7 +87,9 @@ namespace SunEngine.DataSeed
                 DataContainer dataContainer = new DataContainer
                 {
                     Categories = db.Categories.ToList(),
-                    Users = db.Users.ToList()
+                    Users = db.Users.ToList(),
+                    currentMaterialId = db.Materials.Max(x=>x.Id)+1,
+                    currentCommentId = db.Comments.Max(x=>x.Id)+1
                 };
                 
                 MaterialsSeeder materialsSeeder = new MaterialsSeeder(dataContainer);
