@@ -1,3 +1,5 @@
+[Ll].*
+[Ll]ocal.*
 .quasar-ide-helper
 .quasar
 .DS_Store
