@@ -7,14 +7,17 @@ Commands:
     help                        show this help   
     
 Seed testing data commands:    
-    seed:<CatName>:X:Y          seed category and all subcategories with X materials and Y comments in each, allow multiple entries
-    seed                        the same as seed:Root with default X and Y
+    seed:<CatName>:<X>:<Y>      seed category and all subcategories
+                                CatName - category name, 'Root' if skipped
+                                X - materials count, default if skipped
+                                Y - comments count, default if skipped
+                                
     append-cat-name             add category name to material titles on "seed"
 
 Examples:
     dotnet SunEngine.dll server
     dotnet SunEngine.dll server config:local.Config.MySite
-    dotnet SunEngine.dll seed:Articles:20:15 seed:Forum:20:15 append-cat-name
-    
-You can combine 'migrate', 'init', 'seed' in one command:
     dotnet SunEngine.dll migrate init seed
+    dotnet SunEngine.dll seed:Articles:20:15
+
+            

@@ -13,7 +13,7 @@ namespace SunEngine
     public class Program
     {
         private static string configDir;
-        
+
         public static void Main(string[] args)
         {
             configDir = args.FirstOrDefault(x => x.StartsWith("config:"));
@@ -32,7 +32,7 @@ namespace SunEngine
             {
                 RunServer(args);
             }
-            else if(args.Any(x => x == "version"))
+            else if (args.Any(x => x == "version"))
             {
                 InfoPrinter.PrintVersion();
             }
@@ -55,13 +55,15 @@ namespace SunEngine
                     MainSeeder ms = new MainSeeder(configDir);
 
                     var catsTokens = args.Where(x => x.StartsWith("seed")).ToList();
-                    
+
                     if (catsTokens.Contains("seed"))
                         catsTokens[catsTokens.IndexOf("seed")] = "seed:Root";
 
                     var tokensCleared = catsTokens.Select(x => x.Substring("seed:".Length));
-                    
-                    ms.SeedAddTestData(tokensCleared);
+
+                    bool titleAppendCategoryName = args.Any(x => x == "append-cat-name");
+
+                    ms.SeedAddTestData(tokensCleared, titleAppendCategoryName);
                 }
             }
         }
@@ -79,9 +81,9 @@ namespace SunEngine
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
-                    string dbSettingFile = Path.GetFullPath(Path.Combine(configDir,"DataBaseConnection.json"));
-                    string mainSettingsFile = Path.GetFullPath(Path.Combine(configDir,"SunEngine.json"));
-                    string logSettingsFile = Path.GetFullPath(Path.Combine(configDir,"LogConfig.json"));
+                    string dbSettingFile = Path.GetFullPath(Path.Combine(configDir, "DataBaseConnection.json"));
+                    string mainSettingsFile = Path.GetFullPath(Path.Combine(configDir, "SunEngine.json"));
+                    string logSettingsFile = Path.GetFullPath(Path.Combine(configDir, "LogConfig.json"));
 
                     config.AddJsonFile(logSettingsFile, optional: false, reloadOnChange: false);
                     config.AddJsonFile(dbSettingFile, optional: false, reloadOnChange: false);
