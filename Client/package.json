@@ -5,7 +5,7 @@
   "productName": "SunEngine Client",
   "cordovaId": "org.cordova.quasar.app",
   "author": "Okeanij <dmitrij.polyanin@gmail.com>",
-  "private": true,
+  "private": false,
   "scripts": {
     "test": "echo \"No test specified\" && exit 0"
   },

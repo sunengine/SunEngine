@@ -1,5 +1,5 @@
 .idea/
-Build/
+[Bb]uild/
 *.db
 [Ll]ocal.*
 [Ll].*
