@@ -168,8 +168,8 @@ namespace SunEngine.Commons.Cache
             foreach (var category in categoriesList)
             {
                 category.Init6SetListsAndBlockEditable();
-            }
-
+            }            
+            
             _allCategories = categoriesList.ToImmutableDictionary(x => x.NameNormalized);
         }
     }

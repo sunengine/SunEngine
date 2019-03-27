@@ -107,7 +107,6 @@ namespace SunEngine
                 app.UseHsts();
             }
 
-
             //app.UseHttpsRedirection();
             //app.UseFileServer();
 
