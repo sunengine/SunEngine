@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SunEngine.Commons.Filters;
 using SunEngine.Commons.Managers;
 using SunEngine.Commons.Models.Materials;
 using SunEngine.Commons.Presenters;
-using SunEngine.Commons.Security.Authorization;
-using SunEngine.Commons.Security.Filters;
-using IAuthorizationService = SunEngine.Commons.Security.Authorization.IAuthorizationService;
+using SunEngine.Commons.Security;
+using IAuthorizationService = SunEngine.Commons.Security.IAuthorizationService;
 
 namespace SunEngine.Commons.Controllers
 {

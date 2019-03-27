@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Commons.Controllers;
+using SunEngine.Commons.Services;
 
-namespace SunEngine.Commons.Security.Captcha
+namespace SunEngine.Commons.Filters
 {
     public class CaptchaValidationFilter : ActionFilterAttribute
     {        

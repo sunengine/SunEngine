@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using SunEngine.Commons.DataBase;
 
-namespace SunEngine.Commons.Security.Authorization
+namespace SunEngine.Commons.Security
 {
     /// <summary>
     /// This is registered Singleton Service. This container made for Main module. Others modules

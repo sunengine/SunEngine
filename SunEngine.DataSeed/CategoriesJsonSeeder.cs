@@ -8,11 +8,11 @@ using SunEngine.Commons.Utils;
 
 namespace SunEngine.DataSeed
 {
-    public class CategoriesSeederJson
+    public class CategoriesJsonSeeder
     {
         private readonly DataContainer dataContainer;
 
-        public CategoriesSeederJson(DataContainer dataContainer)
+        public CategoriesJsonSeeder(DataContainer dataContainer)
         {
             this.dataContainer = dataContainer;
         }

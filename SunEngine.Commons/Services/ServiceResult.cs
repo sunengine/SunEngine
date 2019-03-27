@@ -3,6 +3,9 @@ using SunEngine.Commons.Models;
 
 namespace SunEngine.Commons.Services
 {
+    /// <summary>
+    /// Class for Ok or Error result for async methods
+    /// </summary>
     public class ServiceResult
     {
         public bool Succeeded;

@@ -1,6 +1,6 @@
 using System.Text;
 using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Security.Cryptography;
+using SunEngine.Commons.Utils;
 
 namespace SunEngine.Commons.Services
 {
@@ -34,7 +34,7 @@ namespace SunEngine.Commons.Services
         {
             var cid = CryptoRandomizer.GetRandomString(
                 DbColumnSizes.FileNameWithDirSize -
-                8); // Why -8, 4 needed for directory start ("123/"), and 4 needed for extension (".jpg")
+                8); // Why -8. 4 needed for directory start "123/", and 4 needed for extension ".jpg"
             byte[] bites = Encoding.UTF8.GetBytes(cid);
 
             return new FileAndDir(cid + ext, bites[0].ToString());

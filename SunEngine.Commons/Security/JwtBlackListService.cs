@@ -9,7 +9,7 @@ using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models.Authorization;
 
-namespace SunEngine.Commons.Security.Authentication
+namespace SunEngine.Commons.Security
 {
     public class JwtBlackListService : IMyMemoryCache
     {

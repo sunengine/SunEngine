@@ -3,32 +3,28 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using LinqToDB;
 using Microsoft.Extensions.Options;
-using SunEngine.Commons.Cache;
 using SunEngine.Commons.Cache.CacheModels;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models.Materials;
-using SunEngine.Commons.Security.Authentication;
 
-namespace SunEngine.Commons.Security.Authorization
+namespace SunEngine.Commons.Security
 {
     public class MaterialsAuthorization
     {
         private readonly OperationKeysContainer OperationKeys;
         private readonly IAuthorizationService authorizationService;
         private readonly MaterialsOptions materialsOptions;
-        private readonly ICategoriesCache categoriesCache;
         private readonly DataBaseConnection db;
 
-        public MaterialsAuthorization(IAuthorizationService authorizationService,
+        public MaterialsAuthorization(
+            IAuthorizationService authorizationService,
             IOptions<MaterialsOptions> materialOptions, 
             OperationKeysContainer operationKeysContainer,
-            ICategoriesCache categoriesCache,
             DataBaseConnection db)
         {
             this.authorizationService = authorizationService;
             this.materialsOptions = materialOptions.Value;
-            this.categoriesCache = categoriesCache;
             this.db = db;
 
             OperationKeys = operationKeysContainer;

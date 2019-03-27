@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using LinqToDB;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
@@ -6,11 +8,11 @@ using Microsoft.Extensions.Options;
 using SunEngine.Commons.Cache;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Security.Authentication;
+using SunEngine.Commons.Security;
 
 namespace SunEngine.Commons.Scheduler
 {
-    public class CleanCacheJobs : IHostedService
+    public class CleanCacheJobsService : IHostedService
     {
         private readonly SpamProtectionCache spamProtectionCache;
         private readonly JwtBlackListService jwtBlackListService;
@@ -23,7 +25,7 @@ namespace SunEngine.Commons.Scheduler
         private Timer timerLongSessionsClearer;
 
 
-        public CleanCacheJobs(
+        public CleanCacheJobsService(
             IDataBaseFactory dbFactory,
             SpamProtectionCache spamProtectionCache,
             IOptions<SchedulerOptions> schedulerOptions,
@@ -69,6 +71,15 @@ namespace SunEngine.Commons.Scheduler
             timerLongSessionsClearer.Dispose();
 
             return Task.CompletedTask;
+        }
+    }
+    
+    public static class LongSessionsClearer
+    {
+        public static void ClearExpiredLongSessions(DataBaseConnection db)
+        {
+            var now = DateTime.UtcNow;
+            db.LongSessions.Where(x => x.ExpirationDate <= now).Delete();
         }
     }
 }

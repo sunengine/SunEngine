@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SunEngine.Commons.Cache;
 using SunEngine.Commons.Cache.CacheModels;
-using SunEngine.Commons.Security.Authorization;
+using SunEngine.Commons.Security;
 
 namespace SunEngine.Commons.Presenters
 {

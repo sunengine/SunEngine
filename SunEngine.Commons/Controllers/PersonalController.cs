@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.Managers;
 using SunEngine.Commons.Presenters;
-using SunEngine.Commons.Security.Authorization;
+using SunEngine.Commons.Security;
 
 namespace SunEngine.Commons.Controllers
 {

@@ -12,9 +12,8 @@ using SunEngine.Commons.Cache;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.Managers;
 using SunEngine.Commons.Models;
-using SunEngine.Commons.Security.Authorization;
 
-namespace SunEngine.Commons.Security.Authentication
+namespace SunEngine.Commons.Security
 {
     public class MyJwtHandler : AuthenticationHandler<MyJwtOptions>
     {

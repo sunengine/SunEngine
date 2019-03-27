@@ -7,9 +7,8 @@ using SunEngine.Commons.Cache.CacheModels;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models.Materials;
-using SunEngine.Commons.Security.Authentication;
 
-namespace SunEngine.Commons.Security.Authorization
+namespace SunEngine.Commons.Security
 {
     
     public class CommentsAuthorization

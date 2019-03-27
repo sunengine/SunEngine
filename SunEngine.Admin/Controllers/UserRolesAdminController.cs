@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Presenters;
 using SunEngine.Commons.Cache;
-using SunEngine.Commons.Security.Authentication;
+using SunEngine.Commons.Security;
 
 namespace SunEngine.Admin.Controllers
 {

@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 using NJsonSchema;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.Authorization;
-using SunEngine.Commons.Security.Authorization;
+using SunEngine.Commons.Security;
 
 namespace SunEngine.Commons.Utils
 {

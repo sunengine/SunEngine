@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using SunEngine.Commons.Security.Authentication;
+using SunEngine.Commons.Security;
 
 namespace SunEngine.Commons.Configuration.AddServices
 {

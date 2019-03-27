@@ -9,10 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.DataBase;
+using SunEngine.Commons.Filters;
 using SunEngine.Commons.Managers;
 using SunEngine.Commons.Security;
-using SunEngine.Commons.Security.Authorization;
-using SunEngine.Commons.Security.Captcha;
 
 namespace SunEngine.Commons.Controllers
 {

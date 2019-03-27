@@ -8,7 +8,7 @@ using SunEngine.Commons.Cache;
 using SunEngine.Commons.Cache.CacheModels;
 using SunEngine.Commons.Managers;
 using SunEngine.Commons.Models;
-using SunEngine.Commons.Security.Authentication;
+using SunEngine.Commons.Security;
 using SunEngine.Commons.Utils;
 
 namespace SunEngine.Commons.Controllers

@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using LinqToDB;
 
-namespace SunEngine.Commons.Presenters.PagedList
+namespace SunEngine.Commons.Utils.PagedList
 {
     public static class IQueryableExtensions
     {

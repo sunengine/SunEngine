@@ -19,11 +19,10 @@ using SunEngine.Commons.Controllers;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Managers;
 using SunEngine.Commons.Models;
-using SunEngine.Commons.Security.Authentication;
-using SunEngine.Commons.Security.Cryptography;
 using SunEngine.Commons.Services;
+using SunEngine.Commons.Utils;
 
-namespace SunEngine.Commons.Security.Authorization
+namespace SunEngine.Commons.Security
 {
     public class JwtService : DbService
     {       

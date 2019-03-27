@@ -2,7 +2,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace SunEngine.Commons.Security.Cryptography
+namespace SunEngine.Commons.Utils
 {
     public static class CryptoRandomizer
     {

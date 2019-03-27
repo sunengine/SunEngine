@@ -26,7 +26,7 @@ namespace SunEngine.Commons.Managers
         public async Task<User> FindUserByNameOrEmailAsync(string nameOrEmail)
         {
             User user;
-            if (EmailValidator.IsValidEmail(nameOrEmail))
+            if (EmailValidator.IsValid(nameOrEmail))
             {
                 user = await FindByEmailAsync(nameOrEmail)
                        ?? await FindByNameAsync(nameOrEmail); // if name is email like

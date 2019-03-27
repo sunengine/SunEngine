@@ -56,34 +56,22 @@ namespace SunEngine.Commons.Services
         {
             var ext = GetAllowedExtension(file.FileName);
             if (ext == null)
-            {
                 throw new Exception($"Not allowed extension");
-            }
 
             if (ext == ".svg" && file.Length >= MaxSvgSizeBytes)
-            {
                 throw new Exception($"Svg max size is {MaxSvgSizeBytes / 1024} kb");
-            }
 
             var fileAndDir = imagesNamesService.GetNewImageNameAndDir(ext);
             var dirFullPath = Path.Combine(env.WebRootPath, imagesOptions.UploadDir, fileAndDir.Dir);
             var fullFileName = Path.Combine(dirFullPath, fileAndDir.File);
 
             lock (lockObject)
-            {
                 if (!Directory.Exists(dirFullPath))
-                {
                     Directory.CreateDirectory(dirFullPath);
-                }
-            }
 
             if (ext == ".svg")
-            {
                 using (var stream = new FileStream(fullFileName, FileMode.Create))
-                {
                     await file.CopyToAsync(stream);
-                }
-            }
             else
             {
                 using (var stream = file.OpenReadStream())
@@ -105,17 +93,12 @@ namespace SunEngine.Commons.Services
                 var dirFullPath = Path.Combine(env.WebRootPath, imagesOptions.UploadDir, fileAndDir.Dir);
 
                 lock (lockObject)
-                {
                     if (!Directory.Exists(dirFullPath))
-                    {
                         Directory.CreateDirectory(dirFullPath);
-                    }
-                }
 
                 var fullFileName = Path.Combine(dirFullPath, fileAndDir.File);
 
-                image.Mutate(x => x
-                    .Resize(ro));
+                image.Mutate(x => x.Resize(ro));
 
                 image.Save(fullFileName);
 

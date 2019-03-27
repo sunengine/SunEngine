@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace SunEngine.Commons.Presenters.PagedList
+namespace SunEngine.Commons.Utils.PagedList
 {
     /// <summary>
     /// Provides the interface(s) for paged list of any type.

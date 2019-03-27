@@ -5,7 +5,7 @@ using System.Security.Claims;
 using SunEngine.Commons.Cache;
 using SunEngine.Commons.Cache.CacheModels;
 
-namespace SunEngine.Commons.Security.Authentication
+namespace SunEngine.Commons.Security
 {
     public class MyClaimsPrincipal : ClaimsPrincipal
     {

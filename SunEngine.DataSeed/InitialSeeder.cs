@@ -4,7 +4,7 @@ using System.Linq;
 using NJsonSchema;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.Authorization;
-using SunEngine.Commons.Security.Authorization;
+using SunEngine.Commons.Security;
 using SunEngine.Commons.Utils;
 
 namespace SunEngine.DataSeed
@@ -15,7 +15,7 @@ namespace SunEngine.DataSeed
 
         private readonly DataContainer dataContainer;
 
-        private readonly UsersSeederJson usersSeederJson;
+        private readonly UsersJsonSeeder usersJsonSeeder;
 
 
         private readonly string configDir;
@@ -24,7 +24,7 @@ namespace SunEngine.DataSeed
         {
             this.configDir = configDir;
             dataContainer = new DataContainer();
-            usersSeederJson = new UsersSeederJson(dataContainer, configDir);
+            usersJsonSeeder = new UsersJsonSeeder(dataContainer, configDir);
         }
 
         public DataContainer Seed()
@@ -58,14 +58,14 @@ namespace SunEngine.DataSeed
         {
             Console.WriteLine("Users");
 
-            usersSeederJson.SeedUsers();
+            usersJsonSeeder.SeedUsers();
         }
 
         private void SeedUserRoles()
         {
             Console.WriteLine("UsersRoles");
 
-            usersSeederJson.SeedUserRoles();
+            usersJsonSeeder.SeedUserRoles();
         }
 
         private void SeedSectionTypes()
@@ -176,11 +176,11 @@ namespace SunEngine.DataSeed
         {
             var fileNames = Directory.GetFiles(Path.GetFullPath(Path.Combine(configDir, CategoriesConfigDir)));
 
-            CategoriesSeederJson categoriesSeederJson =
-                new CategoriesSeederJson(dataContainer);
+            CategoriesJsonSeeder categoriesJsonSeeder =
+                new CategoriesJsonSeeder(dataContainer);
             foreach (var fileName in fileNames)
             {
-                categoriesSeederJson.Seed(fileName);
+                categoriesJsonSeeder.Seed(fileName);
             }
         }
     }

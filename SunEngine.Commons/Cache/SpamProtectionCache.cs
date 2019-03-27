@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 using System.Linq;
-using SunEngine.Commons.Security.Filters;
+using SunEngine.Commons.Filters;
 
 namespace SunEngine.Commons.Cache
 {

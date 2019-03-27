@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SunEngine.Commons.Configuration.Options;
+using SunEngine.Commons.Filters;
 using SunEngine.Commons.Managers;
 using SunEngine.Commons.Models;
-using SunEngine.Commons.Security.Captcha;
 using SunEngine.Commons.Utils;
 
 namespace SunEngine.Commons.Controllers
@@ -80,7 +80,7 @@ namespace SunEngine.Commons.Controllers
         {
             email = email.Trim();
 
-            if (!EmailValidator.IsValidEmail(email))
+            if (!EmailValidator.IsValid(email))
             {
                 return BadRequest(new ErrorViewModel {ErrorText = "Email not valid"});
             }

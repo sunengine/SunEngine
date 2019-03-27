@@ -3,7 +3,7 @@ using System.Linq;
 using SunEngine.Commons.Cache;
 using SunEngine.Commons.Cache.CacheModels;
 
-namespace SunEngine.Commons.Security.Authorization
+namespace SunEngine.Commons.Security
 {
     public interface IAuthorizationService
     {

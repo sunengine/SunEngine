@@ -1,48 +1,44 @@
 using System;
+using System.Net;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Commons.Cache;
 using SunEngine.Commons.Controllers;
 
-namespace SunEngine.Commons.Security.Filters
+namespace SunEngine.Commons.Filters
 {
-    public class UserSpamProtectionFilter : ActionFilterAttribute
+    public class IpSpamProtectionFilter : ActionFilterAttribute
     {
-        private const string CacheKeyStart = "RFUSER";
-
-
+        private const string CacheKeyStart = "RFIP";
+        
         public int TimeoutSeconds
         {
             set => timeout = TimeSpan.FromSeconds(value);
-            get => (int) timeout.TotalSeconds;
+            get => (int)timeout.TotalSeconds;
         }
 
-        protected TimeSpan timeout;
+        protected TimeSpan timeout; 
 
-
+        
         public override void OnActionExecuting(ActionExecutingContext context)
         {
+            
             SpamProtectionCache spamProtectionCache =
                 context.HttpContext.RequestServices.GetRequiredService<SpamProtectionCache>();
 
             BaseController controller = (BaseController) context.Controller;
-
-            var user = controller.User;
-
-            if (!user.Identity.IsAuthenticated)
-            {
-                context.Result = controller.BadRequest("This user can not make post requests");
-            }
+            
 
             var actionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
             string controllerName = actionDescriptor?.ControllerTypeInfo.FullName;
             string actionName = actionDescriptor?.ActionName;
 
-            string key = MakeKey(user.UserId, controllerName, actionName);
+            var ip = controller.Request.HttpContext.Connection.RemoteIpAddress;
+            
+            string key = MakeKey(ip, controllerName, actionName);
             RequestFree requestFree = spamProtectionCache.Find(key);
-
-
+            
             if (requestFree != null && requestFree.Working())
             {
                 context.Result = controller.BadRequest(new ErrorViewModel
@@ -58,13 +54,13 @@ namespace SunEngine.Commons.Security.Filters
                 RequestFree = requestFree,
                 SpamProtectionCache = spamProtectionCache
             };
-
+            
             controller.ViewData[SpamProtectionFilterTransfer.ViewDataKey] = temp;
         }
 
-        private static string MakeKey(int userId, string controllerName, string actionName)
+        private static string MakeKey(IPAddress ip, string controllerName, string actionName)
         {
-            return string.Join("-", CacheKeyStart, userId, controllerName, actionName);
+            return CacheKeyStart + "-" + ip + "-" + controllerName + "-" + actionName;
         }
 
         public override void OnResultExecuted(ResultExecutedContext context)
@@ -74,8 +70,8 @@ namespace SunEngine.Commons.Security.Filters
 
             BaseController controller = (BaseController) context.Controller;
 
-            var temp = (SpamProtectionFilterTransfer) controller.ViewData[SpamProtectionFilterTransfer.ViewDataKey];
-
+            var temp = (SpamProtectionFilterTransfer)controller.ViewData[SpamProtectionFilterTransfer.ViewDataKey];
+            
             if (temp.RequestFree != null)
             {
                 temp.RequestFree.UpdateDateTime(timeout);
@@ -87,36 +83,7 @@ namespace SunEngine.Commons.Security.Filters
             }
         }
     }
+    
 
-    /// <summary>
-    /// Object to transfer data between OnActionExecuting and OnResultExecuted
-    /// </summary>
-    public class SpamProtectionFilterTransfer
-    {
-        public const string ViewDataKey = "SpamProtectionFilterTransfer";
-
-        public string Key;
-        public RequestFree RequestFree;
-        public SpamProtectionCache SpamProtectionCache;
-    }
-
-    public class RequestFree
-    {
-        private DateTime dateTimeTil;
-
-        public RequestFree(TimeSpan timeout)
-        {
-            dateTimeTil = DateTime.UtcNow.Add(timeout);
-        }
-
-        public void UpdateDateTime(TimeSpan timeout)
-        {
-            dateTimeTil = DateTime.UtcNow.Add(timeout);
-        }
-
-        public bool Working()
-        {
-            return dateTimeTil >= DateTime.UtcNow;
-        }
-    }
+  
 }

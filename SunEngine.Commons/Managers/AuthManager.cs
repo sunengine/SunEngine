@@ -26,20 +26,20 @@ namespace SunEngine.Commons.Managers
     {
         protected readonly MyUserManager userManager;
         protected readonly GlobalOptions globalOptions;
-        protected readonly IEmailSender emailSender;
+        protected readonly IEmailSenderService EmailSenderService;
         protected readonly ILogger logger;
 
 
         public AuthManager(
             MyUserManager userManager,
-            IEmailSender emailSender,
+            IEmailSenderService emailSenderService,
             DataBaseConnection db,
             IOptions<GlobalOptions> globalOptions,
             ILoggerFactory loggerFactory) : base(db)
         {
             this.userManager = userManager;
             this.globalOptions = globalOptions.Value;
-            this.emailSender = emailSender;
+            this.EmailSenderService = emailSenderService;
             logger = loggerFactory.CreateLogger<AccountController>();
         }
         
@@ -117,7 +117,7 @@ namespace SunEngine.Commons.Managers
 
                     try
                     {
-                        await emailSender.SendEmailAsync(model.Email, "Please confirm your account",
+                        await EmailSenderService.SendEmailAsync(model.Email, "Please confirm your account",
                             $"Please confirm your account by clicking this <a href=\"{emailConfirmUrl}\">link</a>."
                         );
                     }

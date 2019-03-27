@@ -7,16 +7,16 @@ using SunEngine.Commons.Configuration.Options;
 
 namespace SunEngine.Commons.Services
 {
-    public interface IEmailSender
+    public interface IEmailSenderService
     {
         Task SendEmailAsync(string toEmail, string subject, string htmlMessage, string textMessage = null);
     }
     
-    public class EmailSender : IEmailSender
+    public class EmailSenderService : IEmailSenderService
     {
         private readonly EmailSenderOptions options;
 
-        public EmailSender(IOptions<EmailSenderOptions> optionsAccessor)
+        public EmailSenderService(IOptions<EmailSenderOptions> optionsAccessor)
         {
             options = optionsAccessor.Value;
         }

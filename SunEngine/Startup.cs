@@ -9,8 +9,7 @@ using Newtonsoft.Json;
 using SunEngine.Admin;
 using SunEngine.Commons.Configuration.AddServices;
 using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Security.Authentication;
-using SunEngine.Commons.Security.Captcha;
+using SunEngine.Commons.Security;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.Utils.TextProcess;
 
@@ -71,7 +70,7 @@ namespace SunEngine
 
             services.AddSingleton<CaptchaService>();
             services.AddSingleton<Sanitizer>();
-            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IEmailSenderService, EmailSenderService>();
 
 
             services.AddMvcCore(options =>

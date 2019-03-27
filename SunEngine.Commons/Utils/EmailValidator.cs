@@ -4,10 +4,9 @@ namespace SunEngine.Commons.Utils
 {
     public  static class EmailValidator
     {
-        public static bool IsValidEmail(string email)
+        public static bool IsValid(string email)
         {
-            EmailAddressAttribute emailValidator = new EmailAddressAttribute();
-            return emailValidator.IsValid(email);
+            return new EmailAddressAttribute().IsValid(email);
         }
     }
 }
