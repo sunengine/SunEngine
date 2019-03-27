@@ -52,7 +52,7 @@
 
         await this.$store.dispatch("request",
           {
-            url: "/Admin/AdminCategories/AddCategory",
+            url: "/Admin/CategoriesAdmin/AddCategory",
             data: this.category,
             sendAsJson: true
           })

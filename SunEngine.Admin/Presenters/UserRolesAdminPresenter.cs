@@ -9,19 +9,19 @@ using SunEngine.Commons.Utils;
 
 namespace SunEngine.Admin.Presenters
 {
-    public interface IUserRolesPresenter
+    public interface IUserRolesAdminPresenter
     {
         Task<RoleViewModel[]> GetAllRolesAsync();
         Task<UserInfoViewModel[]> GetRoleUsers(string groupName, string userNamePart);
         Task<RoleViewModel[]> GetUserRolesAsync(int userId);
     }
 
-    public class UserRolesPresenter : DbService, IUserRolesPresenter
+    public class UserRolesAdminPresenter : DbService, IUserRolesAdminPresenter
     {
         private const int MaxUsersTake = 40;
         
         
-        public UserRolesPresenter(DataBaseConnection db) : base(db)
+        public UserRolesAdminPresenter(DataBaseConnection db) : base(db)
         {
         }
 

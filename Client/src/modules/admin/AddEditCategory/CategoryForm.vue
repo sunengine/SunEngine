@@ -173,7 +173,7 @@
 
       await this.$store.dispatch("request",
         {
-          url: "/Admin/AdminCategories/GetAllSectionTypes"
+          url: "/Admin/CategoriesAdmin/GetAllSectionTypes"
         })
         .then(response => {
             this.sectionTypes = response.data;

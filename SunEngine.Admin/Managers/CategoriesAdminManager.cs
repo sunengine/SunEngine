@@ -12,13 +12,13 @@ using SunEngine.Commons.Utils.TextProcess;
 
 namespace SunEngine.Admin.Managers
 {
-    public class CategoriesManager : DbService
+    public class CategoriesAdminManager : DbService
     {
         private readonly Sanitizer sanitizer;
         private readonly ICategoriesCache categoriesCache;
 
         
-        public CategoriesManager(
+        public CategoriesAdminManager(
             DataBaseConnection db,
             ICategoriesCache categoriesCache,
             Sanitizer sanitizer) : base(db)

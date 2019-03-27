@@ -8,9 +8,9 @@ namespace SunEngine.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = RoleNames.Admin)]
-    public class AdminBaseController : BaseController
+    public abstract class BaseAdminController : BaseController
     {
-        public AdminBaseController(IServiceProvider serviceProvider) : base(serviceProvider)
+        protected BaseAdminController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
     }

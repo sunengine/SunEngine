@@ -9,11 +9,11 @@ namespace SunEngine.Admin.Controllers
     /// <summary>
     /// Settings roles permissions
     /// </summary>
-    public class AdminRolesPermissionsController : AdminBaseController
+    public class RolesPermissionsAdminController : BaseAdminController
     {
         private readonly RolesPermissionsAdminService rolesPermissionsAdminService;
 
-        public AdminRolesPermissionsController(
+        public RolesPermissionsAdminController(
             RolesPermissionsAdminService rolesPermissionsAdminService,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {

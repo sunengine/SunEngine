@@ -59,7 +59,7 @@
       delete() {
         this.$store.dispatch("request",
           {
-            url: "/Admin/AdminCategories/CategoryMoveToTrash",
+            url: "/Admin/CategoriesAdmin/CategoryMoveToTrash",
             data: {
               name: this.category.name
             }
@@ -81,7 +81,7 @@
       async loadData() {
         await this.$store.dispatch("request",
           {
-            url: "/Admin/AdminCategories/GetCategory",
+            url: "/Admin/CategoriesAdmin/GetCategory",
             data: {
               id: this.categoryId
             }
@@ -109,7 +109,7 @@
 
         await this.$store.dispatch("request",
           {
-            url: "/Admin/AdminCategories/EditCategory",
+            url: "/Admin/CategoriesAdmin/EditCategory",
             data: this.category,
             sendAsJson: true
           })

@@ -8,39 +8,39 @@ using SunEngine.Commons.Security.Authentication;
 namespace SunEngine.Admin.Controllers
 {
 
-    public class AdminUserRolesController : AdminBaseController
+    public class UserRolesAdminController : BaseAdminController
     {
-        private readonly IUserRolesPresenter userRolesPresenter;
+        private readonly IUserRolesAdminPresenter userRolesAdminPresenter;
         private readonly JwtBlackListService jwtBlackListService;
 
-        public AdminUserRolesController(
-            IUserRolesPresenter userRolesPresenter,
+        public UserRolesAdminController(
+            IUserRolesAdminPresenter userRolesAdminPresenter,
             JwtBlackListService jwtBlackListService,
             IRolesCache rolesCache,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            this.userRolesPresenter = userRolesPresenter;
+            this.userRolesAdminPresenter = userRolesAdminPresenter;
             this.jwtBlackListService = jwtBlackListService;
         }
 
         [HttpPost]
         public async Task<IActionResult> GetAllUserRoles()
         {
-            var groups = await userRolesPresenter.GetAllRolesAsync();
+            var groups = await userRolesAdminPresenter.GetAllRolesAsync();
             return Ok(groups);
         }
 
         [HttpPost]
         public async Task<IActionResult> GetUserRoles(int userId)
         {
-            var groups = await userRolesPresenter.GetUserRolesAsync(userId);
+            var groups = await userRolesAdminPresenter.GetUserRolesAsync(userId);
             return Ok(groups);
         }
 
         [HttpPost]
         public async Task<IActionResult> GetRoleUsers(string roleName, string userNamePart)
         {
-            var users = await userRolesPresenter.GetRoleUsers(roleName, userNamePart);
+            var users = await userRolesAdminPresenter.GetRoleUsers(roleName, userNamePart);
             return Ok(users);
         }
 

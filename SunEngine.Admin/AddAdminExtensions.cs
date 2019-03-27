@@ -9,11 +9,11 @@ namespace SunEngine.Admin
     {
         public static void AddAdmin(this IServiceCollection services)
         {
-            services.AddScoped<CategoriesManager>();
+            services.AddScoped<CategoriesAdminManager>();
             services.AddScoped<RolesPermissionsAdminService>();
-            services.AddScoped<IUserRolesPresenter, UserRolesPresenter>();
+            services.AddScoped<IUserRolesAdminPresenter, UserRolesAdminPresenter>();
             services.AddScoped<ICategoriesAdminPresenter, CategoriesAdminPresenter>();
-            services.AddScoped<IUserRolesPresenter, UserRolesPresenter>();
+            services.AddScoped<IUserRolesAdminPresenter, UserRolesAdminPresenter>();
 
         }
     }

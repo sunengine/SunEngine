@@ -9,20 +9,20 @@ using SunEngine.Commons.Models;
 
 namespace SunEngine.Admin.Controllers
 {
-    public class AdminCategoriesController : AdminBaseController
+    public class CategoriesAdminController : BaseAdminController
     {
         private readonly ICategoriesCache categoriesCache;
-        private readonly CategoriesManager categoriesManager;
+        private readonly CategoriesAdminManager categoriesAdminManager;
         private readonly ICategoriesAdminPresenter categoriesAdminPresenter;
 
-        public AdminCategoriesController(
-            CategoriesManager categoriesManager,
+        public CategoriesAdminController(
+            CategoriesAdminManager categoriesAdminManager,
             ICategoriesAdminPresenter categoriesAdminPresenter,
             ICategoriesCache categoriesCache,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.categoriesCache = categoriesCache;
-            this.categoriesManager = categoriesManager;
+            this.categoriesAdminManager = categoriesAdminManager;
             this.categoriesAdminPresenter = categoriesAdminPresenter;
         }
 
@@ -89,7 +89,7 @@ namespace SunEngine.Admin.Controllers
                 category.AppendUrlToken = categoryData.AppendUrlToken.Value;
             }
 
-            await categoriesManager.AddCategoryAsync(category);
+            await categoriesAdminManager.AddCategoryAsync(category);
 
             categoriesCache.Reset();
             contentCache.Reset();
@@ -122,7 +122,7 @@ namespace SunEngine.Admin.Controllers
                 category.AppendUrlToken = categoryData.AppendUrlToken.Value;
             }
 
-            await categoriesManager.EditCategoryAsync(category);
+            await categoriesAdminManager.EditCategoryAsync(category);
 
             categoriesCache.Reset();
             contentCache.Reset();
@@ -133,7 +133,7 @@ namespace SunEngine.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CategoryUp(string name)
         {
-            var rez = await categoriesManager.CategoryUp(name);
+            var rez = await categoriesAdminManager.CategoryUp(name);
             if (rez.Failed)
                 return BadRequest();
 
@@ -146,7 +146,7 @@ namespace SunEngine.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CategoryDown(string name)
         {
-            var rez = await categoriesManager.CategoryDown(name);
+            var rez = await categoriesAdminManager.CategoryDown(name);
             if (rez.Failed)
                 return BadRequest();
 
@@ -159,7 +159,7 @@ namespace SunEngine.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CategoryMoveToTrash(string name)
         {
-            await categoriesManager.CategoryMoveToTrashAsync(name);
+            await categoriesAdminManager.CategoryMoveToTrashAsync(name);
 
             categoriesCache.Reset();
             contentCache.Reset();

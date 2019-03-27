@@ -54,7 +54,7 @@
         this.json = null;
         await this.$store.dispatch("request",
           {
-            url: "/Admin/AdminRolesPermissions/GetJson"
+            url: "/Admin/RolesPermissionsAdmin/GetJson"
           })
           .then(response => {
               this.error = null;
@@ -67,7 +67,7 @@
       async send() {
         await this.$store.dispatch("request",
           {
-            url: "/Admin/AdminRolesPermissions/UploadJson",
+            url: "/Admin/RolesPermissionsAdmin/UploadJson",
             data: {
               json: this.json
             }
