@@ -3,8 +3,8 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <LangVersion>latest</LangVersion>
-        <Version>1.0.0-beta.5</Version>
-        <PackageVersion>1.0.0-beta.5</PackageVersion>
+        <Version>1.0.0-beta.6</Version>
+        <PackageVersion>1.0.0-beta.6</PackageVersion>
         <Title>SunEngine</Title>
         <Authors>Dmitrii Polianin</Authors>
         <Description>Site engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>
@@ -46,7 +46,7 @@
         <Content Include="Resources\gunnyrewritten.ttf">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <Content Update="wwwroot\*\*">
+        <Content Update="wwwroot\UploadImages\*\*">
             <CopyToPublishDirectory>None</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
