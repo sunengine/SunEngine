@@ -1,9 +1,9 @@
 {
-  "DataBaseConnection": {   // Example for SQLite
+  /*"DataBaseConnection": {   // Example for SQLite
     "Linq2dbProvider": "SQLite",
     "FluentMigratorProvider": "Sqlite",
     "ConnectionString": "Data Source=../SunEngine.db"
-  }
+  }*/
   /*"DataBaseConnection": {
     "Linq2dbProvider": "PostgreSQL.9.5",
     "FluentMigratorProvider": "Postgres",
@@ -13,10 +13,10 @@
     "Linq2dbProvider": "SQLite",
     "FluentMigratorProvider": "Sqlite",
     "ConnectionString": "Data Source=../SunEngine/mydb.db"
-  },
+  },*/
   "DataBaseConnection": {     // Example for MySql
     "Linq2dbProvider": "MySql",
     "FluentMigratorProvider": "MySql",
-    "ConnectionString": "server=localhost;database=SunEngineDb;user=username;password=password"
-  }*/
+    "ConnectionString": "server=localhost;database=SunEngineDb;user=root;password="
+  }
 }

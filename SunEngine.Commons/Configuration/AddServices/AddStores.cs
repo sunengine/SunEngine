@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Commons.Cache;
+using SunEngine.Commons.Cache.CachePolicy;
 using SunEngine.Commons.DataBase;
 
 namespace SunEngine.Commons.Configuration.AddServices
@@ -14,6 +15,8 @@ namespace SunEngine.Commons.Configuration.AddServices
             services.AddSingleton<IRolesCache>(userGroupStore);
 
             services.AddSingleton<ICategoriesCache, CategoriesCache>();
+
+            services.AddSingleton<ICachePolicy, CustomCachePolicy>();
 
             services.AddSingleton<IContentCache, CategoryContentCache>();
 

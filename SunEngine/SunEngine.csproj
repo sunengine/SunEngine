@@ -18,6 +18,7 @@
         <PackageReference Include="Flurl" Version="2.8.1" />
         <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.2" />
         <PackageReference Include="System.Linq" Version="4.3.0" />
+        <PackageReference Include="System.Runtime.Caching" Version="4.6.0-preview3.19128.7" />
     </ItemGroup>
 
 

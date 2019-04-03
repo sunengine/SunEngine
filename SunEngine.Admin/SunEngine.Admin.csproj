@@ -8,4 +8,8 @@
       <ProjectReference Include="..\SunEngine.Commons\SunEngine.Commons.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="System.Runtime.Caching" Version="4.6.0-preview3.19128.7" />
+    </ItemGroup>
+
 </Project>

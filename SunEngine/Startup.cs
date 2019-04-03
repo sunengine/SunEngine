@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Internal;
 using Newtonsoft.Json;
 using SunEngine.Admin;
 using SunEngine.Commons.Configuration.AddServices;
@@ -27,7 +28,6 @@ namespace SunEngine
         private IConfiguration Configuration { get; }
 
         private IHostingEnvironment CurrentEnvironment { get; }
-
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -61,7 +61,7 @@ namespace SunEngine
 
             services.AddAdmin();
 
-            //services.AddMemoryCache();
+            services.AddMemoryCache();
 
             services.AddCryptServices();
 
@@ -107,7 +107,6 @@ namespace SunEngine
                 app.UseHsts();
             }
 
-
             //app.UseHttpsRedirection();
             //app.UseFileServer();
 
@@ -123,10 +122,7 @@ namespace SunEngine
                         .WithExposedHeaders(Headers.TokensHeaderName));
             }
 
-
             app.UseAuthentication();
-
-            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

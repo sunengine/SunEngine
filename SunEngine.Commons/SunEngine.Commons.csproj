@@ -20,6 +20,14 @@
       <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
       <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0006" />
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.4.0" />
+      <PackageReference Include="System.Runtime.Caching" Version="4.6.0-preview3.19128.7" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+        <HintPath>..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.caching.abstractions\2.2.0\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

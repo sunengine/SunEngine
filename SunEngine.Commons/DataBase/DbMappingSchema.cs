@@ -35,7 +35,8 @@ namespace SunEngine.Commons.DataBase
                 .HasTableName("Categories")
                 .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
                 .Association(x => x.Materials, x => x.Id, x => x.CategoryId)
-                .Association(x => x.SectionType, x => x.SectionTypeId, x => x.Id);
+                .Association(x => x.SectionType, x => x.SectionTypeId, x => x.Id)
+                .Association(x => x.CacheSettings, x => x.CacheSettingsId, x => x.Id);
 
             mp.Entity<OperationKey>()
                 .HasTableName("OperationKeys")
@@ -96,6 +97,15 @@ namespace SunEngine.Commons.DataBase
             mp.Entity<BlackListShortToken>()
                 .HasTableName("BlackListShortTokens")
                 .HasPrimaryKey(x => x.TokenId);
+
+            mp.Entity<CacheSettings>()
+                .HasTableName("CacheSettings")
+                .HasIdentity(x => x.Id)
+                .HasPrimaryKey(x => x.Id);
+
+            mp.Entity<CategoryCacheSettings>()
+                .HasTableName("CategoryCacheSettings")
+                .HasPrimaryKey(x => x.Id);
         }
     }
 

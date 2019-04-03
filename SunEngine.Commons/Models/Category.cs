@@ -48,6 +48,10 @@ namespace SunEngine.Commons.Models
 
         public ICollection<Material> Materials { get; set; }
 
+        public int? CacheSettingsId { get; set; }
+        
+        public CategoryCacheSettings CacheSettings { get; set; }
+        
         public bool IsDeleted { get; set; }
 
         public bool IsHidden { get; set; }
