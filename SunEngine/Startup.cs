@@ -37,7 +37,6 @@ namespace SunEngine
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             if (CurrentEnvironment.IsDevelopment())
             {
                 services.AddCors();
@@ -72,7 +71,6 @@ namespace SunEngine
             services.AddSingleton<CaptchaService>();
             services.AddSingleton<Sanitizer>();
             services.AddTransient<IEmailSender, EmailSender>();
-
 
             services.AddMvcCore(options =>
                 {

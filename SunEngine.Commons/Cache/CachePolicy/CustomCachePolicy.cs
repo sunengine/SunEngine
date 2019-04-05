@@ -7,11 +7,12 @@ namespace SunEngine.Commons.Cache.CachePolicy
     public class CustomCachePolicy : ICachePolicy
 
     {
-        private IServiceCollection services;
-
         public bool CanCache(CategoryCached category, int? page = null)
         {
-            throw new System.NotImplementedException();
+            if (category.CacheSettings == null)
+                return true;
+
+            return true;
         }
     }
 }
