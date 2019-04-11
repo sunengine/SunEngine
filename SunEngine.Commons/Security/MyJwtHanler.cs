@@ -95,20 +95,14 @@ namespace SunEngine.Commons.Security
                     string authorization = Request.Headers["Authorization"];
 
                     if (string.IsNullOrEmpty(authorization))
-                    {
                         return AuthenticateResult.NoResult();
-                    }
 
                     string jwtShortToken = null;
                     if (authorization.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-                    {
                         jwtShortToken = authorization.Substring("Bearer ".Length).Trim();
-                    }
 
                     if (string.IsNullOrEmpty(jwtShortToken))
-                    {
                         return AuthenticateResult.NoResult();
-                    }
 
 
                     var claimsPrincipal =
@@ -118,9 +112,7 @@ namespace SunEngine.Commons.Security
                     string lat2ran_2 = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
 
                     if (!string.Equals(lat2ran_1, lat2ran_2))
-                    {
                         return ErrorAuthorization();
-                    }
 
                     long sessionId = long.Parse(jwtLongToken2.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.SessionId).Value);
 
@@ -130,14 +122,10 @@ namespace SunEngine.Commons.Security
                 }
 
                 if (jwtBlackListService.IsTokenNotInBlackList(myClaimsPrincipal.LongToken2Db))
-                {
                     return ErrorAuthorization();
-                }
 
                 if (myClaimsPrincipal.Roles.ContainsKey(RoleNames.Banned))
-                {
                     return ErrorAuthorization();
-                }
 
                 var authenticationTicket = new AuthenticationTicket(myClaimsPrincipal, MyJwt.Scheme);
                 return AuthenticateResult.Success(authenticationTicket);

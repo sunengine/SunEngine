@@ -28,6 +28,7 @@ namespace SunEngine.Commons.Presenters
                 x => new ArticleInfoViewModel
                 {
                     Id = x.Id,
+                    Name = x.Name,
                     Title = x.Title,
                     Description = x.Description,
                     CommentsCount = x.CommentsCount,
@@ -47,6 +48,7 @@ namespace SunEngine.Commons.Presenters
                 x => new ArticleInfoViewModel
                 {
                     Id = x.Id,
+                    Name = x.Name,
                     Title = x.Title,
                     Description = x.Description,
                     CommentsCount = x.CommentsCount,
@@ -64,6 +66,7 @@ namespace SunEngine.Commons.Presenters
 
     public class ArticleInfoViewModel
     {
+        public string Name { get; set; }
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

@@ -33,24 +33,44 @@ namespace SunEngine.Commons.Controllers
             this.materialsPresenter = materialsPresenter;
         }
 
-        [HttpPost]
-        public virtual async Task<IActionResult> Get(int id) // TODO Pages
+        public virtual async Task<IActionResult> Get(string idOrName)
+        {
+            if (int.TryParse(idOrName, out int id))
+                return await GetById(id);
+            else
+                return await GetByName(idOrName);
+        }
+
+        public virtual async Task<IActionResult> GetById(int id) // TODO Pages
         {
             int? categoryId = await materialsManager.GetMaterialCategoryIdAsync(id);
             if (categoryId == null)
-            {
                 return BadRequest();
-            }
 
             var category = categoriesCache.GetCategory(categoryId.Value);
 
             if (!materialsAuthorization.CanGet(User.Roles, category))
-            {
                 return Unauthorized();
-            }
 
 
             var materialViewModel = await materialsPresenter.GetViewModelAsync(id);
+
+            return Json(materialViewModel);
+        }
+        
+        public virtual async Task<IActionResult> GetByName(string name) 
+        {
+            int? categoryId = await materialsManager.GetMaterialCategoryIdAsync(name);
+            if (categoryId == null)
+                return BadRequest();
+
+            var category = categoriesCache.GetCategory(categoryId.Value);
+
+            if (!materialsAuthorization.CanGet(User.Roles, category))
+                return Unauthorized();
+
+
+            var materialViewModel = await materialsPresenter.GetViewModelAsync(name);
 
             return Json(materialViewModel);
         }
@@ -62,14 +82,10 @@ namespace SunEngine.Commons.Controllers
         {
             var category = categoriesCache.GetCategory(materialData.CategoryName);
             if (category == null)
-            {
                 return BadRequest();
-            }
 
             if (!materialsAuthorization.CanAdd(User.Roles, category))
-            {
                 return Unauthorized();
-            }
 
             var now = DateTime.UtcNow;
 
@@ -83,11 +99,29 @@ namespace SunEngine.Commons.Controllers
                 AuthorId = User.UserId
             };
 
+            if (User.IsInRole(RoleNames.Admin) )
+            {
+                if (string.IsNullOrWhiteSpace(materialData.Name))
+                {
+                    material.Name = null;
+                }
+                else
+                {
+                    if (!materialsManager.IsNameValid(materialData.Name))
+                        return BadRequest(
+                            new ErrorViewModel("MaterialNameNotValid","Invalid material name"));
+
+                    if (await materialsManager.IsNameInDb(materialData.Name))
+                        return BadRequest(
+                            new ErrorViewModel("MaterialNameAlreadyUsed","This material name is already used"));
+
+                    material.Name = materialData.Name;
+                }
+            }                
+
             bool isDescriptionEditable = category.IsDescriptionEditable();
             if (isDescriptionEditable)
-            {
                 material.Description = materialData.Description;
-            }
 
             contentCache.InvalidateCache(category.Id);
             
@@ -96,6 +130,7 @@ namespace SunEngine.Commons.Controllers
         }
 
 
+        
         [HttpPost]
         public virtual async Task<IActionResult> Edit(MaterialRequestModel materialEdited)
         {
@@ -107,14 +142,10 @@ namespace SunEngine.Commons.Controllers
             
             Material materialExisted = await materialsManager.GetAsync(materialEdited.Id);
             if (materialExisted == null)
-            {
                 return BadRequest();
-            }
 
             if (!await materialsAuthorization.CanEditAsync(User, materialExisted))
-            {
                 return Unauthorized();
-            }
 
             var newCategory = categoriesCache.GetCategory(materialEdited.CategoryName);
             if (newCategory == null)
@@ -126,19 +157,37 @@ namespace SunEngine.Commons.Controllers
             materialExisted.Text = materialEdited.text;
             materialExisted.EditDate = DateTime.UtcNow;
             
+            if (User.IsInRole(RoleNames.Admin) )
+            {
+                if (string.IsNullOrWhiteSpace(materialEdited.Name))
+                {
+                    materialExisted.Name = null;
+                }
+                else
+                {
+                    if (!materialsManager.IsNameValid(materialEdited.Name))
+                        return BadRequest(
+                            new ErrorViewModel("MaterialNameNotValid","Invalid material name"));
+
+                    if (materialEdited.Name != materialExisted.Name && await materialsManager.IsNameInDb(materialEdited.Name))
+                        return BadRequest(
+                            new ErrorViewModel("MaterialNameAlreadyUsed","This material name is already used"));
+
+                    materialExisted.Name = materialEdited.Name;
+                }
+            }     
+            
             bool isDescriptionEditable = newCategory.IsDescriptionEditable();
             materialExisted.Description = isDescriptionEditable ? materialEdited.Description : null;
             
             // Если категория новая, то обновляем
-            if (materialExisted.CategoryId != newCategory.Id)
-            {
-                if (materialsAuthorization.CanMove(User,
+            if (materialExisted.CategoryId != newCategory.Id 
+                && materialsAuthorization.CanMove(User,
                     categoriesCache.GetCategory(materialExisted.CategoryId),
                     newCategory))
                 {
                     materialExisted.CategoryId = newCategory.Id;
                 }
-            }
 
             await materialsManager.UpdateAsync(materialExisted, materialEdited.Tags, isDescriptionEditable);
             return Ok();
@@ -149,14 +198,10 @@ namespace SunEngine.Commons.Controllers
         {
             Material material = await materialsManager.GetAsync(id);
             if (material == null)
-            {
                 return BadRequest();
-            }
 
             if (!await materialsAuthorization.CanMoveToTrashAsync(User, material))
-            {
                 return Unauthorized();
-            }
             
             contentCache.InvalidateCache(material.CategoryId);
             
@@ -170,14 +215,10 @@ namespace SunEngine.Commons.Controllers
         {
             Material material = await _materialsRepository.FindAsync(id);
             if (material == null)
-            {
                 return BadRequest();
-            }
 
             if (!_materialsAuthorization.CanDelete(User, material))
-            {
                 return Unauthorized();
-            }
 
             await _materialsRepository.RestoreFromTrashAsync(material);
 
@@ -187,6 +228,7 @@ namespace SunEngine.Commons.Controllers
 
     public class MaterialRequestModel
     {
+        public string Name { get; set; }
         public int Id { get; set; }
         public string CategoryName { get; set; }
         [Required]

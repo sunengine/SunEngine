@@ -42,9 +42,7 @@ namespace SunEngine.Commons.Controllers
             var categoryParent = categoriesCache.GetCategory(categoryName);
 
             if (categoryParent == null)
-            {
                 return BadRequest();
-            }
 
             var allCategories = categoryParent.AllSubCategories.Where(x => x.IsMaterialsContainer);
 
@@ -69,14 +67,10 @@ namespace SunEngine.Commons.Controllers
             var category = categoriesCache.GetCategory(categoryName);
 
             if (category == null)
-            {
                 return BadRequest();
-            }
 
             if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
-            {
                 return Unauthorized();
-            }
 
             async Task<IPagedList<TopicInfoViewModel>> LoadDataAsync()
             {

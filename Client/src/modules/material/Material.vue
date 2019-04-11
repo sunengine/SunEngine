@@ -27,7 +27,7 @@
         </div>
         <div class="q-mr-md" v-if="canEdit">
           <a href="#" style="display: inline-flex; align-items: center;"
-             @click.prevent="$router.push({name: 'EditMaterial', params: {id: id}})">
+             @click.prevent="$router.push({name: 'EditMaterial', params: {id: material.id}})">
             <q-icon name="fas fa-edit" class="q-mr-xs"/>
             {{$tl("edit")}}</a>
         </div>
@@ -47,7 +47,7 @@
       <div class="clear"></div>
     </div>
 
-    <div id="comments" v-if="comments" class="msgs">
+    <div id="comments" v-if="material && comments" class="msgs">
       <hr class="hr-sep"/>
       <div v-for="(comment,index) in comments" :key="comment.id">
         <CommentContainer class="page-padding" :comment="comment" :checkLastOwn="checkLastOwn"
@@ -56,7 +56,7 @@
         <hr class="hr-sep"/>
       </div>
       <div v-if="canCommentWrite">
-        <AddEditComment class="page-padding" @done="commentAdded" :materialId="id"/>
+        <AddEditComment class="page-padding" @done="commentAdded" :materialId="material.id"/>
       </div>
     </div>
 
@@ -80,8 +80,8 @@
     components: {CommentContainer, AddEditComment, LoaderWait},
     mixins: [Page],
     props: {
-      id: {
-        type: Number,
+      idOrName: {
+        type: String,
         required: true
       },
       categoryName: {
@@ -97,7 +97,7 @@
       }
     },
     watch: {
-      'id': 'loadData',
+      'idOrName': 'loadData',
       'categoryName': 'loadData',
       '$store.state.auth.user': 'loadData'
     },
@@ -190,7 +190,7 @@
           {
             url: "/Materials/Get",
             data: {
-              id: this.id
+              idOrName: this.idOrName
             }
           }).then(
           response => {
@@ -208,7 +208,7 @@
             url: "/Comments/GetMaterialComments",
             data:
               {
-                materialId: this.id
+                materialId: this.material.id
               }
           }).then(
           response => {
@@ -251,7 +251,7 @@
               url: "/Materials/Delete",
               data:
                 {
-                  id: this.id
+                  id: this.material.id
                 }
             }).then(
             () => {

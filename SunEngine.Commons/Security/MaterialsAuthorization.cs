@@ -19,12 +19,12 @@ namespace SunEngine.Commons.Security
 
         public MaterialsAuthorization(
             IAuthorizationService authorizationService,
-            IOptions<MaterialsOptions> materialOptions, 
+            IOptions<MaterialsOptions> materialsOptions, 
             OperationKeysContainer operationKeysContainer,
             DataBaseConnection db)
         {
             this.authorizationService = authorizationService;
-            this.materialsOptions = materialOptions.Value;
+            this.materialsOptions = materialsOptions.Value;
             this.db = db;
 
             OperationKeys = operationKeysContainer;
@@ -78,33 +78,21 @@ namespace SunEngine.Commons.Security
 
             // Если пользователь может редактировать любой материал, то пускаем 
             if (operationKeys.Contains(OperationKeys.MaterialEditAny))
-            {
                 return true;
-            }
 
             // Если это чужой материал, то запрещаем
             if (material.AuthorId != user.UserId)
-            {
                 return false;
-            }
 
             // Если MaterialEditOwnIfHasReplies заблокировано и есть чужие ответы то запрещаем
             if (!operationKeys.Contains(OperationKeys.MaterialEditOwnIfHasReplies))
-            {
                 if (await CheckHasNotOwnRepliesAsync(material, user.UserId))
-                {
                     return false;
-                }
-            }
 
             // Если MaterialEditOwnIfTimeNotExceeded заблокировано и время редактирования истекло то блокируем
             if (!operationKeys.Contains(OperationKeys.MaterialEditOwnIfTimeNotExceeded))
-            {
                 if (!EditOwnIfTimeNotExceededCheck(material.PublishDate))
-                {
                     return false;
-                }
-            }
 
             // Если MaterialEditOwn то разрешаем
             return operationKeys.Contains(OperationKeys.MaterialEditOwn);
@@ -123,33 +111,21 @@ namespace SunEngine.Commons.Security
 
             // Если пользователь может редактировать любой материал, то пускаем 
             if (operationKeys.Contains(OperationKeys.MaterialDeleteAny))
-            {
                 return true;
-            }
 
             // Если это чужой материал, то запрещаем
             if (material.AuthorId != user.UserId)
-            {
                 return false;
-            }
 
             // Если MaterialEditOwnIfHasReplies заблокировано и есть чужие ответы то запрещаем
             if (!operationKeys.Contains(OperationKeys.MaterialDeleteOwnIfHasReplies))
-            {
                 if (await CheckHasNotOwnRepliesAsync(material, user.UserId))
-                {
                     return false;
-                }
-            }
 
             // Если MaterialEditOwnIfTimeNotExceeded заблокировано и время редактирования истекло то блокируем
             if (!operationKeys.Contains(OperationKeys.MaterialDeleteOwnIfTimeNotExceeded))
-            {
                 if (!EditOwnIfTimeNotExceededCheck(material.PublishDate))
-                {
                     return false;
-                }
-            }
 
             // Если MaterialEditOwn то разрешаем
             return operationKeys.Contains(OperationKeys.MaterialDeleteOwn);

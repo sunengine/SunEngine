@@ -69,9 +69,7 @@ namespace SunEngine.Commons.Controllers
         public async Task<IActionResult> Register(NewUserArgs model)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             var result = await authManager.RegisterAsync(model);
             if (!result.Succeeded)

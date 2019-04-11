@@ -5,6 +5,7 @@
 .DS_Store
 .thumbs.db
 node_modules
+/build
 /dist
 /src-cordova/node_modules
 /src-cordova/platforms
