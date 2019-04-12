@@ -125,7 +125,7 @@
         return this.category?.sectionType?.name === 'Articles';
       },
       canEditName() {
-        return this.$store.state.auth.roles.includes("Admin");
+        return this.$store.state.auth.roles.includes("Admin") && this.category?.sectionType?.name === 'Articles';
       },
       categoryTitle() {
         if (!this.material.categoryName) {
