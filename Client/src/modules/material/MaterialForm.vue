@@ -1,7 +1,13 @@
 <template>
   <div>
 
-    <q-input ref="title" v-model="material.title" :label="$tl('titleField')" :rules="rules.titleRules">
+    <q-input v-if="canEditName" ref="name" v-model="material.name" :label="$tl('name')" :rules="rules.nameRules">
+      <template v-slot:prepend>
+        <q-icon name="fas fa-info-circle"/>
+      </template>
+    </q-input>
+
+    <q-input ref="title" v-model="material.title" :label="$tl('title')" :rules="rules.titleRules">
       <template v-slot:prepend>
         <q-icon name="fas fa-info-circle"/>
       </template>
@@ -70,6 +76,12 @@
 
   function createRules() {
     return {
+      nameRules: [
+        (value) => /^[a-zA-Z0-9-]+$/.test(value) || this.$tl('validation.name.allowedChars'),
+        (value) => !/^[0-9]+$/.test(value) || this.$tl('validation.name.numberNotAllowed'),
+        (value) => value.length >= 3 || this.$tl('validation.name.minLength'),
+        (value) => value.length <= config.DbColumnSizes.Materials_Name || this.$tl('validation.name.maxLength'),
+      ],
       titleRules: [
         (value) => !!value || this.$tl('validation.title.required'),
         (value) => value.length >= 3 || this.$tl('validation.title.minLength'),
@@ -107,10 +119,13 @@
     },
     computed: {
       hasError() {
-        return this.$refs.title.hasError || this.$refs.htmlEditor.hasError || !this.material.categoryName || this.$refs.description?.hasError;
+        return this.$refs.title.hasError || this.$refs.htmlEditor.hasError || !this.material.categoryName || this.$refs.description?.hasError || this.$refs.name?.hasError;
       },
       canEditDescription() {
         return this.category?.sectionType?.name === 'Articles';
+      },
+      canEditName() {
+        return this.$store.state.auth.roles.includes("Admin") && this.category?.sectionType?.name === 'Articles';
       },
       categoryTitle() {
         if (!this.material.categoryName) {
@@ -124,6 +139,7 @@
     },
     methods: {
       validate() {
+        this.$refs.name.validate();
         this.$refs.title.validate();
         this.$refs.description?.validate();
         this.$refs.htmlEditor.validate();

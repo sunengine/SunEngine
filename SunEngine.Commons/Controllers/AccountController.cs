@@ -55,7 +55,7 @@ namespace SunEngine.Commons.Controllers
                 return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "Account/ResetPasswordFailed".ToLower()));
 
             if (await userManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider, "ResetPassword", token))
-            {
+            {    
                 return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "Account/ResetPasswordSetNew".ToLower())
                     .SetQueryParams(new {uid = uid, token = token}));
             }
@@ -81,21 +81,15 @@ namespace SunEngine.Commons.Controllers
             email = email.Trim();
 
             if (!EmailValidator.IsValid(email))
-            {
                 return BadRequest(new ErrorViewModel {ErrorText = "Email not valid"});
-            }
 
             var user = await GetUserAsync();
 
             if (!await userManager.CheckPasswordAsync(user, password))
-            {
                 return BadRequest(new ErrorViewModel {ErrorText = "Password not valid"});
-            }
 
             if (await userManager.CheckEmailInDbAsync(email, user.Id))
-            {
                 return BadRequest(new ErrorViewModel {ErrorText = "Email already registered"});
-            }
 
             await accountManager.SendChangeEmailConfirmationMessageByEmailAsync(user, email);
 
@@ -136,9 +130,7 @@ namespace SunEngine.Commons.Controllers
 
             var result = await userManager.ChangePasswordAsync(user, passwordOld, passwordNew);
             if (result.Succeeded)
-            {
                 return Ok();
-            }
 
             return BadRequest(
                 new ErrorViewModel {ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()});

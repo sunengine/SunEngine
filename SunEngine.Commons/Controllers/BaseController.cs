@@ -108,5 +108,16 @@ namespace SunEngine.Commons.Controllers
         public string ErrorText { get; set; }
         public string[] ErrorsNames { get; set; }
         public string[] ErrorsTexts { get; set; }
+
+        public ErrorViewModel()
+        {
+        }
+
+        public ErrorViewModel(string errorName, string errorText)
+        {
+            this.ErrorName = errorName;
+            this.ErrorText = errorText;
+        }     
+
     }
 }

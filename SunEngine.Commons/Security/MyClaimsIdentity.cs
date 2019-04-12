@@ -26,15 +26,11 @@ namespace SunEngine.Commons.Security
             this.LongToken2Db = longToken2Db;
             
             if (Identity.IsAuthenticated)
-            {
                 UserId = int.Parse(this.FindFirstValue(ClaimTypes.NameIdentifier));
-            }
             
             Roles = GetUserRoles(rolesCache);
             if (Roles.Count == 1)
-            {
                 Role = Roles.Values.ElementAt(0);
-            }
         }
         
         private IReadOnlyDictionary<string, RoleCached> GetUserRoles(IRolesCache rolesCache)

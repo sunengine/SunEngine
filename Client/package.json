@@ -1,6 +1,6 @@
 {
   "name": "sunengine-client",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-beta.7",
   "description": "SunEngine - Site engine with blog, forum and articles functionalities",
   "productName": "SunEngine Client",
   "cordovaId": "org.cordova.quasar.app",
@@ -13,11 +13,11 @@
     "@quasar/extras": "^1.1.1",
     "axios": "^0.18.0",
     "js-lock": "^0.1.1",
-    "quasar": "^1.0.0-beta.13",
+    "quasar": "^1.0.0-beta.16",
     "vue-i18n": "^8.9.0"
   },
   "devDependencies": {
-    "@quasar/app": "^1.0.0-beta.14",
+    "@quasar/app": "^1.0.0-beta.16",
     "babel-preset-proposals": "^0.1.0",
     "path": "^0.12.7",
     "quasar-app-extension-ide-helper": "0.0.5",

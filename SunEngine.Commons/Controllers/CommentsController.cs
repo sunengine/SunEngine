@@ -41,14 +41,10 @@ namespace SunEngine.Commons.Controllers
         {
             int? categoryId = await materialsManager.GetMaterialCategoryIdAsync(materialId);
             if (!categoryId.HasValue)
-            {
                 return BadRequest();
-            }
 
             if (!commentsAuthorization.HasAccessForGetComments(User.Roles, categoryId.Value))
-            {
                 return Unauthorized();
-            }
 
             var comments = await commentsPresenter.GetMaterialCommentsAsync(materialId);
 
@@ -61,14 +57,10 @@ namespace SunEngine.Commons.Controllers
         {
             Material material = await materialsManager.GetAsync(materialId);
             if (material == null)
-            {
                 return BadRequest();
-            }
 
             if (!commentsAuthorization.CanAdd(User.Roles, material.CategoryId))
-            {
                 return Unauthorized();
-            }
 
             var now = DateTime.UtcNow;
             Comment comment = new Comment
@@ -82,7 +74,7 @@ namespace SunEngine.Commons.Controllers
             };
 
             await commentsManager.InsertAsync(comment);
-            
+
             contentCache.InvalidateCache(material.CategoryId);
 
 
@@ -94,15 +86,10 @@ namespace SunEngine.Commons.Controllers
         {
             (CommentViewModel commentViewModel, int categoryId) = await commentsPresenter.GetCommentAsync(id);
             if (commentViewModel == null)
-            {
                 return BadRequest();
-            }
 
-            if (!authorizationService.HasAccess(User.Roles, categoryId,
-                OperationKeys.MaterialAndCommentsRead))
-            {
+            if (!authorizationService.HasAccess(User.Roles, categoryId, OperationKeys.MaterialAndCommentsRead))
                 return Unauthorized();
-            }
 
             return Json(commentViewModel);
         }
@@ -112,14 +99,10 @@ namespace SunEngine.Commons.Controllers
         {
             (Comment comment, int categoryId) = await commentsManager.GetAsync(newComment.Id);
             if (comment == null)
-            {
                 return BadRequest();
-            }
 
             if (!await commentsAuthorization.CanEditAsync(User, comment, categoryId))
-            {
                 return Unauthorized();
-            }
 
             comment.Text = newComment.Text;
             comment.EditDate = DateTime.UtcNow;
@@ -134,22 +117,16 @@ namespace SunEngine.Commons.Controllers
         {
             (Comment comment, int categoryId) = await commentsManager.GetAsync(id);
             if (comment == null)
-            {
                 return BadRequest();
-            }
 
             if (!await commentsAuthorization.CanMoveToTrashAsync(User, comment, categoryId))
-            {
                 return Unauthorized();
-            }
 
             await commentsManager.MoveToTrashAsync(comment);
 
             contentCache.InvalidateCache(categoryId);
-            
+
             return Ok();
         }
-
-     
     }
 }

@@ -37,7 +37,7 @@
         return this.article.description?.replace(/\n/g, "<br/>");
       },
       path() {
-        return this.$buildPath(this.category.path, this.article.id);
+        return this.$buildPath(this.category.path, this.article.name ?? this.article.id);
       },
       category() {
         return this.$store.getters.getCategory(this.article.categoryName);

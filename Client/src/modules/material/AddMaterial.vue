@@ -62,6 +62,7 @@
         this.$store.dispatch('request', {
           url: '/Materials/Add',
           data: {
+            name: this.material.name,
             categoryName: this.material.categoryName,
             title: this.material.title,
             description: this.material.description,

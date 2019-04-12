@@ -44,6 +44,7 @@
         this.$store.dispatch('request', {
           url: '/Materials/Add',
           data: {
+            name: this.material.name,
             categoryName: this.material.categoryName,
             title: this.material.title,
             description: this.material.description,
@@ -83,6 +84,7 @@
     data: function () {
       return {
         material: {
+          name: null,
           title: "",
           text: "",
           description: "",
@@ -105,6 +107,7 @@
           url: '/Materials/Edit',
           data: {
             id: this.id,
+            name: this.material.name,
             categoryName: this.material.categoryName,
             title: this.material.title,
             description: this.material.description,
@@ -128,7 +131,7 @@
         this.$store.dispatch('request', {
           url: '/Materials/Get',
           data: {
-            id: this.id,
+            idOrName: this.id,
           }
         }).then(response => {
           this.material = response.data;

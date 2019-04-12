@@ -150,12 +150,19 @@ export default {
     successNotify: "Материал успешно сохранён",
   },
   MaterialForm: {
-    titleField: "Заголовок",
+    name: "Имя (eng)",
+    title: "Заголовок",
     description: "Короткое описание",
     tags: "Метки",
     selectCategory: "Выберите раздел",
     category: "Раздел: {0}",
     validation: {
+      name: {
+        allowedChars: "Имя должно содержать только английские буквы цифры и символ '-'",
+        numberNotAllowed: "Имя материала не может быть числом",
+        minLength: "Минимальная длинна имени - 3",
+        maxLength: `Максимальная длинна имени - ${config.DbColumnSizes.Materials_Name}`,
+      },
       title: {
         required: "Введите заголовок",
         minLength: "Минимальная длинна заголовка - 3",

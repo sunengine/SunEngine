@@ -5,6 +5,7 @@ import Index from 'site/Index';
 import News2Col from 'site/News2Col';
 import BlogMultiCatPage from 'blog/BlogMultiCatPage';
 import ActivitiesPage from 'activities/ActivitiesPage';
+import PageWithMaterialInline from 'site/PageWithMaterialInline';
 import {makeArticlesSection, makeForumSection, makeBlogSection} from "router/makeSections";
 
 
@@ -32,6 +33,14 @@ const routes = [
     path: '/News2Col'.toLowerCase(),
     components: {
       default: News2Col,
+      navigation: null
+    }
+  },
+  {
+    name: "PageWithMaterialInline",
+    path: '/PageWithMaterialInline'.toLowerCase(),
+    components: {
+      default: PageWithMaterialInline,
       navigation: null
     }
   },

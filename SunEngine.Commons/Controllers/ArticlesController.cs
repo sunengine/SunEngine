@@ -46,14 +46,10 @@ namespace SunEngine.Commons.Controllers
             CategoryCached category = categoriesCache.GetCategory(categoryName);
 
             if (category == null)
-            {
                 return BadRequest();
-            }
 
             if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
-            {
                 return Unauthorized();
-            }
 
             async Task<IPagedList<ArticleInfoViewModel>> LoadDataAsync()
             {
@@ -72,9 +68,7 @@ namespace SunEngine.Commons.Controllers
                 OperationKeys.MaterialAndCommentsRead);
 
             if (categoriesList.Count == 0)
-            {
                 return BadRequest("No categories to show");
-            }
 
             var categoriesIds = categoriesList.Select(x => x.Id).ToArray();
             
