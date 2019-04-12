@@ -52,32 +52,32 @@ namespace SunEngine.Admin.Managers
             }
         }
         
-        public async Task EditCategoryAsync(Category category)
+        public async Task EditCategoryAsync(Category categoryEdited)
         {
-            if(category == null)
+            if(categoryEdited == null)
                 throw new ArgumentNullException("Category can not be null");
             
-            Category categoryExisted = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.Id);
-            if(categoryExisted == null)
-                throw new Exception("No category with " + category.Id + " id");  
+            Category category = await db.Categories.FirstOrDefaultAsync(x => x.Id == categoryEdited.Id);
+            if(category == null)
+                throw new Exception("No category with " + categoryEdited.Id + " id");  
 
-            var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.ParentId);
+            var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == categoryEdited.ParentId);
 
             if (parent == null)
-                throw new ParentCategoryNotFoundByIdException(category.ParentId);
+                throw new ParentCategoryNotFoundByIdException(categoryEdited.ParentId);
 
-            categoryExisted.Name = category.Name;
-            categoryExisted.Title = category.Title;
-            categoryExisted.Header = sanitizer.Sanitize(category.Header);
-            categoryExisted.Description = category.Description;
-            categoryExisted.ParentId = parent.Id;
-            categoryExisted.IsHidden = category.IsHidden;
-            categoryExisted.IsCacheContent = category.IsCacheContent;
-            categoryExisted.IsMaterialsContainer = category.IsMaterialsContainer;
-            categoryExisted.AppendUrlToken = category.AppendUrlToken;
-            categoryExisted.SectionTypeId = category.SectionTypeId;
+            category.Name = categoryEdited.Name;
+            category.Title = categoryEdited.Title;
+            category.Header = sanitizer.Sanitize(categoryEdited.Header);
+            category.Description = categoryEdited.Description;
+            category.ParentId = parent.Id;
+            category.IsHidden = categoryEdited.IsHidden;
+            category.IsCacheContent = categoryEdited.IsCacheContent;
+            category.IsMaterialsContainer = categoryEdited.IsMaterialsContainer;
+            category.AppendUrlToken = categoryEdited.AppendUrlToken;
+            category.SectionTypeId = categoryEdited.SectionTypeId;
             
-            await db.UpdateAsync(categoryExisted);
+            await db.UpdateAsync(category);
         }
         
         public async Task<ServiceResult> CategoryUp(string name)

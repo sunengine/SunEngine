@@ -150,8 +150,8 @@ export default {
     successNotify: "Материал успешно сохранён",
   },
   MaterialForm: {
-    nameField: "Имя (eng)",
-    titleField: "Заголовок",
+    name: "Имя (eng)",
+    title: "Заголовок",
     description: "Короткое описание",
     tags: "Метки",
     selectCategory: "Выберите раздел",

@@ -1,13 +1,13 @@
 <template>
   <div>
 
-    <q-input v-if="canEditName" ref="name" v-model="material.name" :label="$tl('nameField')" :rules="rules.nameRules">
+    <q-input v-if="canEditName" ref="name" v-model="material.name" :label="$tl('name')" :rules="rules.nameRules">
       <template v-slot:prepend>
         <q-icon name="fas fa-info-circle"/>
       </template>
     </q-input>
 
-    <q-input ref="title" v-model="material.title" :label="$tl('titleField')" :rules="rules.titleRules">
+    <q-input ref="title" v-model="material.title" :label="$tl('title')" :rules="rules.titleRules">
       <template v-slot:prepend>
         <q-icon name="fas fa-info-circle"/>
       </template>

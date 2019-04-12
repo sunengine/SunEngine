@@ -10,6 +10,7 @@ using SunEngine.Commons.Managers;
 using SunEngine.Commons.Models.Materials;
 using SunEngine.Commons.Presenters;
 using SunEngine.Commons.Security;
+using SunEngine.Commons.Services;
 
 namespace SunEngine.Commons.Controllers
 {
@@ -35,13 +36,12 @@ namespace SunEngine.Commons.Controllers
 
         public virtual async Task<IActionResult> Get(string idOrName)
         {
-            if (int.TryParse(idOrName, out int id))
-                return await GetById(id);
-            else
-                return await GetByName(idOrName);
+            return int.TryParse(idOrName, out int id) 
+                ? await GetById(id) 
+                : await GetByName(idOrName);
         }
 
-        public virtual async Task<IActionResult> GetById(int id) // TODO Pages
+        public virtual async Task<IActionResult> GetById(int id)
         {
             int? categoryId = await materialsManager.GetMaterialCategoryIdAsync(id);
             if (categoryId == null)
@@ -57,8 +57,8 @@ namespace SunEngine.Commons.Controllers
 
             return Json(materialViewModel);
         }
-        
-        public virtual async Task<IActionResult> GetByName(string name) 
+
+        public virtual async Task<IActionResult> GetByName(string name)
         {
             int? categoryId = await materialsManager.GetMaterialCategoryIdAsync(name);
             if (categoryId == null)
@@ -99,96 +99,86 @@ namespace SunEngine.Commons.Controllers
                 AuthorId = User.UserId
             };
 
-            if (User.IsInRole(RoleNames.Admin) )
-            {
-                if (string.IsNullOrWhiteSpace(materialData.Name))
-                {
-                    material.Name = null;
-                }
-                else
-                {
-                    if (!materialsManager.IsNameValid(materialData.Name))
-                        return BadRequest(
-                            new ErrorViewModel("MaterialNameNotValid","Invalid material name"));
-
-                    if (await materialsManager.IsNameInDb(materialData.Name))
-                        return BadRequest(
-                            new ErrorViewModel("MaterialNameAlreadyUsed","This material name is already used"));
-
-                    material.Name = materialData.Name;
-                }
-            }                
+            var result = await SetNameAsync(material, materialData.Name);
+            if (result.Failed)
+                return BadRequest(result.Error);
 
             bool isDescriptionEditable = category.IsDescriptionEditable();
             if (isDescriptionEditable)
                 material.Description = materialData.Description;
 
             contentCache.InvalidateCache(category.Id);
-            
+
             await materialsManager.InsertAsync(material, materialData.Tags, isDescriptionEditable);
             return Ok();
         }
 
 
-        
         [HttpPost]
-        public virtual async Task<IActionResult> Edit(MaterialRequestModel materialEdited)
+        public virtual async Task<IActionResult> Edit(MaterialRequestModel materialData)
         {
             if (!ModelState.IsValid)
             {
                 var ers = ModelState.Values.SelectMany(v => v.Errors);
-                return BadRequest(string.Join(",\n ",ers.Select(x=>x.ErrorMessage)));
+                return BadRequest(string.Join(",\n ", ers.Select(x => x.ErrorMessage)));
             }
-            
-            Material materialExisted = await materialsManager.GetAsync(materialEdited.Id);
-            if (materialExisted == null)
+
+            Material material = await materialsManager.GetAsync(materialData.Id);
+            if (material == null)
                 return BadRequest();
 
-            if (!await materialsAuthorization.CanEditAsync(User, materialExisted))
+            if (!await materialsAuthorization.CanEditAsync(User, material))
                 return Unauthorized();
 
-            var newCategory = categoriesCache.GetCategory(materialEdited.CategoryName);
+            var newCategory = categoriesCache.GetCategory(materialData.CategoryName);
             if (newCategory == null)
                 return BadRequest();
 
-            materialExisted.Title = materialEdited.Title;
-            materialExisted.Text = materialEdited.text;
-            materialExisted.EditDate = DateTime.UtcNow;
-            
-            if (User.IsInRole(RoleNames.Admin) )
+            material.Title = materialData.Title;
+            material.Text = materialData.text;
+            material.EditDate = DateTime.UtcNow;
+
+            var result = await SetNameAsync(material, materialData.Name);
+            if (result.Failed)
+                return BadRequest(result.Error);
+
+            bool isDescriptionEditable = newCategory.IsDescriptionEditable();
+            material.Description = isDescriptionEditable ? materialData.Description : null;
+
+            // Если категория новая, то обновляем
+            if (material.CategoryId != newCategory.Id
+                && materialsAuthorization.CanMove(User,
+                    categoriesCache.GetCategory(material.CategoryId),
+                    newCategory))
             {
-                if (string.IsNullOrWhiteSpace(materialEdited.Name))
+                material.CategoryId = newCategory.Id;
+            }
+
+            await materialsManager.UpdateAsync(material, materialData.Tags, isDescriptionEditable);
+            return Ok();
+        }
+
+        protected async Task<ServiceResult> SetNameAsync(Material material, string name)
+        {
+            if (User.IsInRole(RoleNames.Admin))
+            {
+                if (string.IsNullOrWhiteSpace(name))
                 {
-                    materialExisted.Name = null;
+                    material.Name = null;
                 }
                 else
                 {
-                    if (!materialsManager.IsNameValid(materialEdited.Name))
-                        return BadRequest(
-                            new ErrorViewModel("MaterialNameNotValid","Invalid material name"));
+                    if (!materialsManager.IsNameValid(name))
+                        return ServiceResult.BadResult(new ErrorViewModel("MaterialNameNotValid", "Invalid material name"));
 
-                    if (materialEdited.Name != materialExisted.Name && await materialsManager.IsNameInDb(materialEdited.Name))
-                        return BadRequest(
-                            new ErrorViewModel("MaterialNameAlreadyUsed","This material name is already used"));
+                    if (name != material.Name && await materialsManager.IsNameInDb(name))
+                        return ServiceResult.BadResult(new ErrorViewModel("MaterialNameAlreadyUsed", "This material name is already used"));
 
-                    materialExisted.Name = materialEdited.Name;
+                    material.Name = name;
                 }
-            }     
+            }
             
-            bool isDescriptionEditable = newCategory.IsDescriptionEditable();
-            materialExisted.Description = isDescriptionEditable ? materialEdited.Description : null;
-            
-            // Если категория новая, то обновляем
-            if (materialExisted.CategoryId != newCategory.Id 
-                && materialsAuthorization.CanMove(User,
-                    categoriesCache.GetCategory(materialExisted.CategoryId),
-                    newCategory))
-                {
-                    materialExisted.CategoryId = newCategory.Id;
-                }
-
-            await materialsManager.UpdateAsync(materialExisted, materialEdited.Tags, isDescriptionEditable);
-            return Ok();
+            return ServiceResult.OkResult();
         }
 
         [HttpPost]
@@ -200,9 +190,9 @@ namespace SunEngine.Commons.Controllers
 
             if (!await materialsAuthorization.CanMoveToTrashAsync(User, material))
                 return Unauthorized();
-            
+
             contentCache.InvalidateCache(material.CategoryId);
-            
+
             await materialsManager.MoveToTrashAsync(material);
             return Ok();
         }
@@ -229,14 +219,16 @@ namespace SunEngine.Commons.Controllers
         public string Name { get; set; }
         public int Id { get; set; }
         public string CategoryName { get; set; }
+
         [Required]
         [MinLength(3)]
         [MaxLength(DbColumnSizes.Materials_Title)]
         public string Title { get; set; }
+
         [MaxLength(DbColumnSizes.Materials_Description)]
         public string Description { get; set; }
-        [Required]
-        public string text { get; set; }
+
+        [Required] public string text { get; set; }
 
         public string Tags { get; set; } = "";
         public DateTime? PublishDate { get; set; } = null;
