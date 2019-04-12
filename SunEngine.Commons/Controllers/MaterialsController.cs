@@ -149,9 +149,7 @@ namespace SunEngine.Commons.Controllers
 
             var newCategory = categoriesCache.GetCategory(materialEdited.CategoryName);
             if (newCategory == null)
-            {
                 return BadRequest();
-            }
 
             materialExisted.Title = materialEdited.Title;
             materialExisted.Text = materialEdited.text;

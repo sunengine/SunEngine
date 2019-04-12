@@ -57,8 +57,8 @@ namespace SunEngine.Admin.Managers
             if(category == null)
                 throw new ArgumentNullException("Category can not be null");
             
-            Category сategoryExisted = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.Id);
-            if(сategoryExisted == null)
+            Category categoryExisted = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.Id);
+            if(categoryExisted == null)
                 throw new Exception("No category with " + category.Id + " id");  
 
             var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.ParentId);
@@ -66,18 +66,18 @@ namespace SunEngine.Admin.Managers
             if (parent == null)
                 throw new ParentCategoryNotFoundByIdException(category.ParentId);
 
-            сategoryExisted.Name = category.Name;
-            сategoryExisted.Title = category.Title;
-            сategoryExisted.Header = sanitizer.Sanitize(category.Header);
-            сategoryExisted.Description = category.Description;
-            сategoryExisted.ParentId = parent.Id;
-            сategoryExisted.IsHidden = category.IsHidden;
-            сategoryExisted.IsCacheContent = category.IsCacheContent;
-            сategoryExisted.IsMaterialsContainer = category.IsMaterialsContainer;
-            сategoryExisted.AppendUrlToken = category.AppendUrlToken;
-            сategoryExisted.SectionTypeId = category.SectionTypeId;
+            categoryExisted.Name = category.Name;
+            categoryExisted.Title = category.Title;
+            categoryExisted.Header = sanitizer.Sanitize(category.Header);
+            categoryExisted.Description = category.Description;
+            categoryExisted.ParentId = parent.Id;
+            categoryExisted.IsHidden = category.IsHidden;
+            categoryExisted.IsCacheContent = category.IsCacheContent;
+            categoryExisted.IsMaterialsContainer = category.IsMaterialsContainer;
+            categoryExisted.AppendUrlToken = category.AppendUrlToken;
+            categoryExisted.SectionTypeId = category.SectionTypeId;
             
-            await db.UpdateAsync(сategoryExisted);
+            await db.UpdateAsync(categoryExisted);
         }
         
         public async Task<ServiceResult> CategoryUp(string name)
