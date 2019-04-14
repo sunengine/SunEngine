@@ -48,7 +48,7 @@ namespace SunEngine.Commons.Controllers
             {
                 return Unauthorized();
             }
-
+  
 
             var materialViewModel = await materialsPresenter.GetViewModelAsync(id);
 
