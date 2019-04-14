@@ -31,8 +31,8 @@ namespace SunEngine.Commons.Configuration.AddServices
                             engChars + engChars.ToUpper() + rusChars + rusChars.ToUpper() + numbers + other;
                     })
                 .AddLinqToDBStores<int>(dataBaseFactory)
-                .AddUserManager<MyUserManager>()
-                .AddRoleManager<MyRoleManager>()
+                .AddUserManager<SunUserManager>()
+                .AddRoleManager<SunRoleManager>()
                 .AddDefaultTokenProviders();
         }
     }

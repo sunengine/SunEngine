@@ -8,9 +8,9 @@ namespace SunEngine.Commons.Presenters
 {
     public interface IPersonalPresenter
     {
-        Task<MyUserInfoViewModel> GetMyUserInfoAsync(int id);
-        Task<MyProfileInformationViewModel> GetMyProfileInformationAsync(int id);
-        Task<UserInfoViewModel[]> GetBanListAsync(int userId);
+        Task<SunUserInfoView> GetMyUserInfoAsync(int id);
+        Task<SunProfileInformationView> GetMyProfileInformationAsync(int id);
+        Task<UserInfoView[]> GetBanListAsync(int userId);
     }
 
     public class PersonalPresenter : DbService, IPersonalPresenter
@@ -19,10 +19,10 @@ namespace SunEngine.Commons.Presenters
         {
         }
 
-        public virtual Task<MyUserInfoViewModel> GetMyUserInfoAsync(int id)
+        public virtual Task<SunUserInfoView> GetMyUserInfoAsync(int id)
         {
             return db.Users.Where(x => x.Id == id).Select(x =>
-                new MyUserInfoViewModel
+                new SunUserInfoView
                 {
                     Photo = x.Photo,
                     Avatar = x.Avatar,
@@ -30,19 +30,19 @@ namespace SunEngine.Commons.Presenters
                 }).FirstOrDefaultAsync();
         }
 
-        public virtual Task<MyProfileInformationViewModel> GetMyProfileInformationAsync(int id)
+        public virtual Task<SunProfileInformationView> GetMyProfileInformationAsync(int id)
         {
             return db.Users.Where(x => x.Id == id).Select(x =>
-                new MyProfileInformationViewModel
+                new SunProfileInformationView
                 {
                     Information = x.Information
                 }).FirstOrDefaultAsync();
         }
         
-        public virtual Task<UserInfoViewModel[]> GetBanListAsync(int userId)
+        public virtual Task<UserInfoView[]> GetBanListAsync(int userId)
         {
             return db.UserBanedUnits.Where(x => x.UserId == userId).OrderBy(x=>x.UserBaned.UserName).Select(x => 
-                new UserInfoViewModel
+                new UserInfoView
                 {
                     Id = x.UserBaned.Id,
                     Name = x.UserBaned.UserName,
@@ -51,12 +51,12 @@ namespace SunEngine.Commons.Presenters
         }
     }
 
-    public class MyProfileInformationViewModel
+    public class SunProfileInformationView
     {
         public string Information { get; set; }
     }
 
-    public class MyUserInfoViewModel
+    public class SunUserInfoView
     {
         public string Photo { get; set; }
         public string Avatar { get; set; }

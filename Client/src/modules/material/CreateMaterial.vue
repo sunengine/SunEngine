@@ -19,7 +19,7 @@
   import Page from "Page";
 
   export default {
-    name: "AddMaterial",
+    name: "CreateMaterial",
     mixins: [Page],
     components: {MaterialForm},
     props: {
@@ -60,8 +60,9 @@
 
         this.loading = true;
         this.$store.dispatch('request', {
-          url: '/Materials/Add',
+          url: '/Materials/Create',
           data: {
+            name: this.material.name,
             categoryName: this.material.categoryName,
             title: this.material.title,
             description: this.material.description,

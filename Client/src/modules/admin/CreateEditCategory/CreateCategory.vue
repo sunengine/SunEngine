@@ -19,7 +19,7 @@
   import LoaderSent from "components/LoaderSent";
 
   export default {
-    name: "AddCategory",
+    name: "CreateCategory",
     components: {LoaderSent, CategoryForm},
     mixins: [Page],
     i18nPrefix: "admin",
@@ -52,7 +52,7 @@
 
         await this.$store.dispatch("request",
           {
-            url: "/Admin/CategoriesAdmin/AddCategory",
+            url: "/Admin/CategoriesAdmin/CreateCategory",
             data: this.category,
             sendAsJson: true
           })

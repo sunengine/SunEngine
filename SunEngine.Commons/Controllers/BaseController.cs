@@ -15,7 +15,7 @@ namespace SunEngine.Commons.Controllers
 {
     public abstract class BaseController : Controller
     {
-        protected readonly MyUserManager userManager;
+        protected readonly SunUserManager userManager;
         protected readonly IRolesCache rolesCache;
         protected readonly IContentCache contentCache;
         protected readonly CacheKeyGenerator keyGenerator;
@@ -24,7 +24,7 @@ namespace SunEngine.Commons.Controllers
         {
             contentCache = serviceProvider.GetRequiredService<IContentCache>();
             rolesCache = serviceProvider.GetRequiredService<IRolesCache>();
-            userManager = serviceProvider.GetRequiredService<MyUserManager>();
+            userManager = serviceProvider.GetRequiredService<SunUserManager>();
             keyGenerator = serviceProvider.GetRequiredService<CacheKeyGenerator>();
         }
 
@@ -38,16 +38,16 @@ namespace SunEngine.Commons.Controllers
             get => ControllerContext.ActionDescriptor.ActionName;
         }
 
-        private MyClaimsPrincipal _user;
+        private SunClaimsPrincipal _user;
 
-        public new MyClaimsPrincipal User
+        public new SunClaimsPrincipal User
         {
             get
             {
                 if (_user == null)
                 {
-                    MyClaimsPrincipal myClaimsPrincipal = base.User as MyClaimsPrincipal;
-                    _user = myClaimsPrincipal ?? new MyClaimsPrincipal(base.User, rolesCache);
+                    SunClaimsPrincipal sunClaimsPrincipal = base.User as SunClaimsPrincipal;
+                    _user = sunClaimsPrincipal ?? new SunClaimsPrincipal(base.User, rolesCache);
                 }
 
                 return _user;
@@ -102,11 +102,22 @@ namespace SunEngine.Commons.Controllers
         }
     }
 
-    public class ErrorViewModel
+    public class ErrorView
     {
         public string ErrorName { get; set; }
         public string ErrorText { get; set; }
         public string[] ErrorsNames { get; set; }
         public string[] ErrorsTexts { get; set; }
+
+        public ErrorView()
+        {
+        }
+
+        public ErrorView(string errorName, string errorText)
+        {
+            this.ErrorName = errorName;
+            this.ErrorText = errorText;
+        }     
+
     }
 }

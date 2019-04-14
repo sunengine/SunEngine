@@ -4,7 +4,7 @@
 
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
-Версия: 1.0.0-beta.4
+Версия: 1.0.0-beta.7
 
 Демо: [demo.sunengine.site](http://demo.sunengine.site)  
 
@@ -161,4 +161,4 @@ server {
 - Без оплаты для некоммерческого использования.
 - Платно для коммерческого использования.
 
-**[Текст лицензии](docs/licence.md)**
+**[Текст лицензии](LICENSE.md)**

@@ -11,9 +11,9 @@ namespace SunEngine.Admin.Presenters
 {
     public interface IUserRolesAdminPresenter
     {
-        Task<RoleViewModel[]> GetAllRolesAsync();
-        Task<UserInfoViewModel[]> GetRoleUsers(string groupName, string userNamePart);
-        Task<RoleViewModel[]> GetUserRolesAsync(int userId);
+        Task<RoleView[]> GetAllRolesAsync();
+        Task<UserInfoView[]> GetRoleUsers(string groupName, string userNamePart);
+        Task<RoleView[]> GetUserRolesAsync(int userId);
     }
 
     public class UserRolesAdminPresenter : DbService, IUserRolesAdminPresenter
@@ -25,9 +25,9 @@ namespace SunEngine.Admin.Presenters
         {
         }
 
-        public Task<RoleViewModel[]> GetAllRolesAsync()
+        public Task<RoleView[]> GetAllRolesAsync()
         {
-            return db.Roles.Where(x=>x.NormalizedName !=  RoleNames.UnregisteredNormalized).Select(x => new RoleViewModel
+            return db.Roles.Where(x=>x.NormalizedName !=  RoleNames.UnregisteredNormalized).Select(x => new RoleView
             {
                 Name = x.Name,
                 Title = x.Title,
@@ -36,7 +36,7 @@ namespace SunEngine.Admin.Presenters
             }).ToArrayAsync();
         }
 
-        public Task<UserInfoViewModel[]> GetRoleUsers(string roleName, string userNamePart)
+        public Task<UserInfoView[]> GetRoleUsers(string roleName, string userNamePart)
         {
             var normalizedGroupName = Normalizer.Normalize(roleName);
             var query = db.UserRoles.Where(x => x.Role.NormalizedName == normalizedGroupName);
@@ -52,7 +52,7 @@ namespace SunEngine.Admin.Presenters
 
             return query
                 .Take(MaxUsersTake)
-                .Select(x => new UserInfoViewModel
+                .Select(x => new UserInfoView
                 {
                     Id = x.UserId,
                     Name = x.User.UserName,
@@ -61,9 +61,9 @@ namespace SunEngine.Admin.Presenters
                 }).ToArrayAsync();
         }
 
-        public Task<RoleViewModel[]> GetUserRolesAsync(int userId)
+        public Task<RoleView[]> GetUserRolesAsync(int userId)
         {
-            return db.Roles.Where(x => x.Users.Any(y => y.UserId == userId)).Select(x => new RoleViewModel
+            return db.Roles.Where(x => x.Users.Any(y => y.UserId == userId)).Select(x => new RoleView
             {
                 Name = x.Name,
                 Title = x.Title,
@@ -73,7 +73,7 @@ namespace SunEngine.Admin.Presenters
         }
     }
 
-    public class RoleViewModel
+    public class RoleView
     {
         public string Name { get; set; }
         public string Title { get; set; }

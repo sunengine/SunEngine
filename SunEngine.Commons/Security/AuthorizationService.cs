@@ -11,7 +11,6 @@ namespace SunEngine.Commons.Security
 
         HashSet<int> HasAccess(IReadOnlyDictionary<string, RoleCached> roles, CategoryCached category,
             IEnumerable<int> operationKeys);
-
         
         IList<CategoryCached> GetAllowedCategories(IReadOnlyDictionary<string, RoleCached> userGroups, IEnumerable<CategoryCached> categories, int operationKey);
         
@@ -50,18 +49,12 @@ namespace SunEngine.Commons.Security
             IEnumerable<int> operationKeys)
         {
             if (roles.ContainsKey(RoleNames.Admin))
-            {
                 operationKeys.ToHashSet();
-            }
 
             HashSet<int> operationKeysReturn = new HashSet<int>();
             foreach (int operationKey in operationKeys)
-            {
                 if (HasAccess(roles, category, operationKey))
-                {
                     operationKeysReturn.Add(operationKey);
-                }
-            }
 
             return operationKeysReturn;
         }
@@ -75,9 +68,7 @@ namespace SunEngine.Commons.Security
                 {
                     var categoryAccess = role.CategoryAccesses[category.Id];
                     if (categoryAccess.CategoryOperationAccesses.ContainsKey(operationKey))
-                    {
                         return categoryAccess.CategoryOperationAccesses[operationKey];
-                    }
 
                     category = category.Parent;
                 }

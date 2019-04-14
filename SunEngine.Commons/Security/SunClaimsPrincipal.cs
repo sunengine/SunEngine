@@ -7,7 +7,7 @@ using SunEngine.Commons.Cache.CacheModels;
 
 namespace SunEngine.Commons.Security
 {
-    public class MyClaimsPrincipal : ClaimsPrincipal
+    public class SunClaimsPrincipal : ClaimsPrincipal
     {
         public int UserId { get; }
         public long SessionId { get; }
@@ -20,21 +20,17 @@ namespace SunEngine.Commons.Security
         /// </summary>
         public RoleCached Role { get; }
 
-        public MyClaimsPrincipal(ClaimsPrincipal user, IRolesCache rolesCache, long sessionId = 0, string longToken2Db = null) : base(user)
+        public SunClaimsPrincipal(ClaimsPrincipal user, IRolesCache rolesCache, long sessionId = 0, string longToken2Db = null) : base(user)
         {
             this.SessionId = sessionId;
             this.LongToken2Db = longToken2Db;
             
             if (Identity.IsAuthenticated)
-            {
                 UserId = int.Parse(this.FindFirstValue(ClaimTypes.NameIdentifier));
-            }
             
             Roles = GetUserRoles(rolesCache);
             if (Roles.Count == 1)
-            {
                 Role = Roles.Values.ElementAt(0);
-            }
         }
         
         private IReadOnlyDictionary<string, RoleCached> GetUserRoles(IRolesCache rolesCache)

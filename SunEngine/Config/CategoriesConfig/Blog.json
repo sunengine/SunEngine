@@ -4,8 +4,6 @@
     "Title": "Блог",
     "SectionType": "Blog",
     "IsMaterialsContainer": true,
-    "MaterialsCount": 15,
-    "MaterialLinesCount": "3-30",
-    "MaterialTypeTitle" : "Пост",
+    "MaterialTypeTitle" : "Пост"
   }
 ]

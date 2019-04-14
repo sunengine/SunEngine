@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,11 +47,18 @@ namespace SunEngine.Commons.Services
             using (SmtpClient client = new SmtpClient(options.Host, options.Port)
             {
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(options.Username, options.Password),
+                Credentials = new NetworkCredential(options.Login, options.Password),
                 EnableSsl = options.UseSSL
             })
             {
-                await client.SendMailAsync(mailMessage);
+                try
+                {
+                    await client.SendMailAsync(mailMessage);
+                }
+                catch(Exception e)
+                {
+                    
+                }
             }
         }
     }

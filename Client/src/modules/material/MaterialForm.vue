@@ -1,14 +1,20 @@
 <template>
   <div>
 
-    <q-input ref="title" v-model="material.title" :label="$tl('titleField')" :rules="rules.titleRules">
+    <q-input v-if="canEditName" ref="name" v-model="material.name" :label="$tl('name')" :rules="rules.name">
+      <template v-slot:prepend>
+        <q-icon name="fas fa-info-circle"/>
+      </template>
+    </q-input>
+
+    <q-input ref="title" v-model="material.title" :label="$tl('title')" :rules="rules.title">
       <template v-slot:prepend>
         <q-icon name="fas fa-info-circle"/>
       </template>
     </q-input>
 
     <q-input ref="description" v-if="canEditDescription" v-model="material.description" type="textarea" autogrow
-             :label="$tl('description')" :rules="rules.descriptionRules">
+             :label="$tl('description')" :rules="rules.description">
       <template v-slot:prepend>
         <q-icon name="fas fa-info-circle"/>
       </template>
@@ -43,7 +49,7 @@
           ],
           ['undo', 'redo', 'fullscreen'],
              ]"
-      :rules="rules.textRules"
+      :rules="rules.text"
       ref="htmlEditor" v-model="material.text"/>
 
     <q-select v-model="material.tags" use-input use-chips multiple :label="$tl('tags')"
@@ -70,16 +76,22 @@
 
   function createRules() {
     return {
-      titleRules: [
+      name: [
+        (value) => /^[a-zA-Z0-9-]+$/.test(value) || this.$tl('validation.name.allowedChars'),
+        (value) => !/^[0-9]+$/.test(value) || this.$tl('validation.name.numberNotAllowed'),
+        (value) => value.length >= 3 || this.$tl('validation.name.minLength'),
+        (value) => value.length <= config.DbColumnSizes.Materials_Name || this.$tl('validation.name.maxLength'),
+      ],
+      title: [
         (value) => !!value || this.$tl('validation.title.required'),
         (value) => value.length >= 3 || this.$tl('validation.title.minLength'),
         (value) => value.length <= config.DbColumnSizes.Categories_Title || this.$tl('validation.title.maxLength'),
       ],
-      textRules: [
+      text: [
         (value) => !!value || this.$tl('validation.text.required'),
         (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$tl('validation.text.htmlTextSizeOrHasImage'),
       ],
-      descriptionRules: [
+      description: [
         (value) => value.length <= config.DbColumnSizes.Materials_Description || this.$tl('validation.description.maxLength'),
       ]
     }
@@ -107,10 +119,13 @@
     },
     computed: {
       hasError() {
-        return this.$refs.title.hasError || this.$refs.htmlEditor.hasError || !this.material.categoryName || this.$refs.description?.hasError;
+        return this.$refs.title.hasError || this.$refs.htmlEditor.hasError || !this.material.categoryName || this.$refs.description?.hasError || this.$refs.name?.hasError;
       },
       canEditDescription() {
         return this.category?.sectionType?.name === 'Articles';
+      },
+      canEditName() {
+        return this.$store.state.auth.roles.includes("Admin") && this.category?.sectionType?.name === 'Articles';
       },
       categoryTitle() {
         if (!this.material.categoryName) {
@@ -124,6 +139,7 @@
     },
     methods: {
       validate() {
+        this.$refs.name?.validate();
         this.$refs.title.validate();
         this.$refs.description?.validate();
         this.$refs.htmlEditor.validate();

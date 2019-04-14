@@ -27,7 +27,7 @@ namespace SunEngine.Commons.Filters
                 
                 if (!captchaService.VerifyToken(model.CaptchaToken, model.CaptchaText))
                 {
-                    context.Result = ((Controller)context.Controller).BadRequest(new ErrorViewModel
+                    context.Result = ((Controller)context.Controller).BadRequest(new ErrorView
                     {
                         ErrorName = "CaptchaValidationError",
                         ErrorText = "Ошибка проверки капчи."

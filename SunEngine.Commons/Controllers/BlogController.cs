@@ -44,16 +44,12 @@ namespace SunEngine.Commons.Controllers
             var category = categoriesCache.GetCategory(categoryName);
 
             if (category == null)
-            {
                 return BadRequest();
-            }
 
             if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
-            {
                 return Unauthorized();
-            }
 
-            async Task<IPagedList<PostViewModel>> LoadDataAsync()
+            async Task<IPagedList<PostView>> LoadDataAsync()
             {
                 return await blogPresenter.GetPostsAsync(category.Id, page, blogOptions.PostsPageSize);
             }
@@ -68,13 +64,10 @@ namespace SunEngine.Commons.Controllers
             var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(categoriesNames);
 
             IList<CategoryCached> categoriesList = authorizationService.GetAllowedCategories(User.Roles,
-                materialsCategoriesDic.Values,
-                OperationKeys.MaterialAndCommentsRead);
+                materialsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);
 
             if (categoriesList.Count == 0)
-            {
                 return BadRequest("No categories to show");
-            }
 
             var categoriesIds = categoriesList.Select(x => x.Id).ToArray();
 

@@ -42,9 +42,7 @@ namespace SunEngine.Commons.Controllers
             var categoryParent = categoriesCache.GetCategory(categoryName);
 
             if (categoryParent == null)
-            {
                 return BadRequest();
-            }
 
             var allCategories = categoryParent.AllSubCategories.Where(x => x.IsMaterialsContainer);
 
@@ -54,7 +52,7 @@ namespace SunEngine.Commons.Controllers
 
             var categoriesIds = categories.Select(x => x.Id).ToArray();
 
-            async Task<IPagedList<TopicInfoViewModel>> LoadDataAsync()
+            async Task<IPagedList<TopicInfoView>> LoadDataAsync()
             {
                 return await forumPresenter.GetNewTopics(categoriesIds,
                     page, forumOptions.NewTopicsPageSize, forumOptions.NewTopicsMaxPages);
@@ -69,16 +67,12 @@ namespace SunEngine.Commons.Controllers
             var category = categoriesCache.GetCategory(categoryName);
 
             if (category == null)
-            {
                 return BadRequest();
-            }
 
             if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
-            {
                 return Unauthorized();
-            }
 
-            async Task<IPagedList<TopicInfoViewModel>> LoadDataAsync()
+            async Task<IPagedList<TopicInfoView>> LoadDataAsync()
             {
                 return await forumPresenter.GetThread(category.Id, page, forumOptions.ThreadMaterialsPageSize);
             }

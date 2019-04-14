@@ -11,9 +11,9 @@ namespace SunEngine.Admin.Presenters
     public interface ICategoriesAdminPresenter
     {
         Task<SectionType[]> GetAllSectionTypesAsync();
-        Task<CategoryAdminViewModel> GetCategoryAsync(int id);
-        Task<CategoryAdminViewModel> GetCategoryAsync(string name);
-        Task<CategoryAdminViewModel> GetAllCategoriesAsync();
+        Task<CategoryAdminView> GetCategoryAsync(int id);
+        Task<CategoryAdminView> GetCategoryAsync(string name);
+        Task<CategoryAdminView> GetAllCategoriesAsync();
     }
 
     public class CategoriesAdminPresenter : DbService, ICategoriesAdminPresenter
@@ -27,21 +27,21 @@ namespace SunEngine.Admin.Presenters
             return db.SectionTypes.OrderBy(x => x.Id).ToArrayAsync();
         }
 
-        public Task<CategoryAdminViewModel> GetCategoryAsync(int id)
+        public Task<CategoryAdminView> GetCategoryAsync(int id)
         {
             var query = db.Categories.LoadWith(x => x.SectionType).Where(x => x.Id == id);
             return GetCategoryByQueryAsync(query);
         }
 
-        public Task<CategoryAdminViewModel> GetCategoryAsync(string name)
+        public Task<CategoryAdminView> GetCategoryAsync(string name)
         {
             var query = db.Categories.LoadWith(x => x.SectionType).Where(x => x.Name == name);
             return GetCategoryByQueryAsync(query);
         }
 
-        private Task<CategoryAdminViewModel> GetCategoryByQueryAsync(IQueryable<Category> categoryQuery)
+        private Task<CategoryAdminView> GetCategoryByQueryAsync(IQueryable<Category> categoryQuery)
         {
-            return categoryQuery.Select(x => new CategoryAdminViewModel
+            return categoryQuery.Select(x => new CategoryAdminView
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -61,10 +61,10 @@ namespace SunEngine.Admin.Presenters
             }).FirstOrDefaultAsync();
         }
 
-        public async Task<CategoryAdminViewModel> GetAllCategoriesAsync()
+        public async Task<CategoryAdminView> GetAllCategoriesAsync()
         {
             var categories = await db.Categories.LoadWith(x => x.SectionType).Where(x=>!x.IsDeleted)
-                .OrderBy(x => x.SortNumber).Select(x => new CategoryAdminViewModel
+                .OrderBy(x => x.SortNumber).Select(x => new CategoryAdminView
                 {
                     Id = x.Id,
                     Name = x.Name,
@@ -83,7 +83,7 @@ namespace SunEngine.Admin.Presenters
                     IsCacheContent = x.IsCacheContent
                 }).ToDictionaryAsync(x => x.Id);
 
-            CategoryAdminViewModel root = null;
+            CategoryAdminView root = null;
 
             foreach (var category in categories.Values)
             {
@@ -94,7 +94,7 @@ namespace SunEngine.Admin.Presenters
                 }
 
                 var parent = categories[category.ParentId.Value];
-                if (parent.SubCategories == null) parent.SubCategories = new List<CategoryAdminViewModel>();
+                if (parent.SubCategories == null) parent.SubCategories = new List<CategoryAdminView>();
 
                 parent.SubCategories.Add(category);
             }
@@ -103,7 +103,7 @@ namespace SunEngine.Admin.Presenters
         }
     }
 
-    public class CategoryAdminViewModel
+    public class CategoryAdminView
     {
         public int Id { get; set; }
 
@@ -125,7 +125,7 @@ namespace SunEngine.Admin.Presenters
 
         public int? ParentId { get; set; }
 
-        public IList<CategoryAdminViewModel> SubCategories { get; set; }
+        public IList<CategoryAdminView> SubCategories { get; set; }
 
         public int SortNumber { get; set; }
 

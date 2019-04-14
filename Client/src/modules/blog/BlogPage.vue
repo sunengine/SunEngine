@@ -2,9 +2,9 @@
   <q-page>
     <div class="header-with-button page-padding">
       <h2 class="q-title">
-        {{title}}
+        {{category.title}}
       </h2>
-      <q-btn no-caps @click="$router.push({name:'AddMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
+      <q-btn no-caps @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
              :label="$tl('newPostBtn')"
              v-if="canAddArticle" icon="fas fa-plus" color="post"/>
     </div>
@@ -34,7 +34,7 @@
     components: {PostsList, LoaderWait},
     data: function () {
       return {
-        posts: Object
+        posts: Object,
       }
     },
     watch: {
@@ -68,7 +68,6 @@
       },
 
       async loadData() {
-        this.title  = this.category.title;
 
         await this.$store.dispatch("request",
           {

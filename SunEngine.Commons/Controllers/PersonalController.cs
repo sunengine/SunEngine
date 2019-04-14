@@ -56,9 +56,7 @@ namespace SunEngine.Commons.Controllers
             link = (link+"").Trim();
             
             if (!await personalManager.ValidateLinkAsync(User.UserId,link))
-            {
-                return BadRequest(new ErrorViewModel {ErrorText = "Validation error"});
-            }
+                return BadRequest(new ErrorView {ErrorText = "Validation error"});
 
             await personalManager.SetMyLinkAsync(User.UserId, link);
 
@@ -70,16 +68,12 @@ namespace SunEngine.Commons.Controllers
         {
             var user = await GetUserAsync();
             if (!await userManager.CheckPasswordAsync(user, password))
-            {
-                return BadRequest(new ErrorViewModel {ErrorText = "Wrong password"});
-            }
+                return BadRequest(new ErrorView {ErrorText = "Wrong password"});
 
             name = Regex.Replace(name.Trim()," {2,}","");
 
             if (!await personalManager.ValidateNameAsync(name,user.Id))
-            {
-                return BadRequest(new ErrorViewModel {ErrorText = "Validation error"});
-            }
+                return BadRequest(new ErrorView {ErrorText = "Validation error"});
 
             await personalManager.SetMyNameAsync(user, name);
 
@@ -121,8 +115,5 @@ namespace SunEngine.Commons.Controllers
             return Ok(usersList);
         }
         
-        
-    }
-
-    
+    } 
 }

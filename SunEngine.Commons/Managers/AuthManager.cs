@@ -24,14 +24,14 @@ namespace SunEngine.Commons.Managers
 
     public class AuthManager : DbService, IAuthManager
     {
-        protected readonly MyUserManager userManager;
+        protected readonly SunUserManager userManager;
         protected readonly GlobalOptions globalOptions;
         protected readonly IEmailSenderService EmailSenderService;
         protected readonly ILogger logger;
 
 
         public AuthManager(
-            MyUserManager userManager,
+            SunUserManager userManager,
             IEmailSenderService emailSenderService,
             DataBaseConnection db,
             IOptions<GlobalOptions> globalOptions,
@@ -50,7 +50,7 @@ namespace SunEngine.Commons.Managers
 
             if (user == null || !await userManager.CheckPasswordAsync(user, password))
             {
-                return UserServiceResult.BadResult(new ErrorViewModel
+                return UserServiceResult.BadResult(new ErrorView
                 {
                     ErrorName = "username_password_invalid",
                     ErrorText = "The username or password is invalid."
@@ -59,7 +59,7 @@ namespace SunEngine.Commons.Managers
 
             if (!await userManager.IsEmailConfirmedAsync(user))
             {
-                return UserServiceResult.BadResult(new ErrorViewModel
+                return UserServiceResult.BadResult(new ErrorView
                 {
                     ErrorName = "email_not_confirmed",
                     ErrorText = "You must have a confirmed email to log in."
@@ -68,7 +68,7 @@ namespace SunEngine.Commons.Managers
 
             if (await userManager.IsUserInRoleAsync(user.Id, RoleNames.Banned))
             {
-                return UserServiceResult.BadResult(new ErrorViewModel
+                return UserServiceResult.BadResult(new ErrorView
                 {
                     ErrorName = "user_banned",
                     ErrorText = "Error" // Что бы не провоцировать пользователя словами что он забанен
@@ -98,7 +98,7 @@ namespace SunEngine.Commons.Managers
                     return new ServiceResult
                     {
                         Succeeded = false,
-                        Error = new ErrorViewModel
+                        Error = new ErrorView
                         {
                             ErrorsNames = result.Errors.Select(x => x.Code).ToArray(),
                             ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()
@@ -126,7 +126,7 @@ namespace SunEngine.Commons.Managers
                         return new ServiceResult
                         {
                             Succeeded = false,
-                            Error = new ErrorViewModel
+                            Error = new ErrorView
                             {
                                 ErrorName = "Can not send email",
                                 ErrorText = "Ошибка отправки email"

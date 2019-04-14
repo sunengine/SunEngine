@@ -46,11 +46,11 @@ namespace SunEngine.Commons.Controllers
                 Mode = ResizeMode.Max,
                 Size = new Size(imagesOptions.MaxWidthPixels, imagesOptions.MaxHeightPixels),
             };
+            
             FileAndDir fileAndDir = await imagesService.SaveImageAsync(file, ro);
+            
             if (fileAndDir == null)
-            {
                 return BadRequest();
-            }
 
             return Ok(new {FileName = fileAndDir.Path});
         }
@@ -71,11 +71,11 @@ namespace SunEngine.Commons.Controllers
                 Mode = ResizeMode.Crop,
                 Size = new Size(imagesOptions.PhotoMaxWidthPixels, imagesOptions.PhotoMaxWidthPixels),
             };
+            
             FileAndDir fileAndDirPhoto = await imagesService.SaveImageAsync(file, resizeOptionsPhoto);
+            
             if (fileAndDirPhoto == null)
-            {
                 return BadRequest();
-            }
 
 
             ResizeOptions resizeOptionsAvatar = new ResizeOptions
@@ -86,9 +86,7 @@ namespace SunEngine.Commons.Controllers
             };
             FileAndDir fileAndDirAvatar = await imagesService.SaveImageAsync(file, resizeOptionsAvatar);
             if (fileAndDirAvatar == null)
-            {
                 return BadRequest();
-            }
 
             await personalManager.SetPhotoAndAvatarAsync(User.UserId, fileAndDirPhoto.Path, fileAndDirAvatar.Path);
 

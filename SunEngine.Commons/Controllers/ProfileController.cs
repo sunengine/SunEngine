@@ -35,9 +35,7 @@ namespace SunEngine.Commons.Controllers
             
             var rez = await profilePresenter.GetProfileAsync(link, userId);
             if (rez == null)
-            {
                 return NotFound();
-            }
 
             return Json(rez);
         }

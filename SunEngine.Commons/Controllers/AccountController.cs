@@ -35,7 +35,7 @@ namespace SunEngine.Commons.Controllers
         {
             User user = await userManager.FindByEmailAsync(model.Email);
             if (user == null)
-                return BadRequest(new ErrorViewModel {ErrorText = "User with this email not found."});
+                return BadRequest(new ErrorView {ErrorText = "User with this email not found."});
 
             var result = await accountManager.ResetPasswordSendEmailAsync(user);
             if (result.Failed)
@@ -55,7 +55,7 @@ namespace SunEngine.Commons.Controllers
                 return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "Account/ResetPasswordFailed".ToLower()));
 
             if (await userManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider, "ResetPassword", token))
-            {
+            {    
                 return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "Account/ResetPasswordSetNew".ToLower())
                     .SetQueryParams(new {uid = uid, token = token}));
             }
@@ -72,7 +72,7 @@ namespace SunEngine.Commons.Controllers
             if (result.Succeeded)
                 return Ok();
 
-            return BadRequest(new ErrorViewModel {ErrorText = "Server error. Something goes wrong."});
+            return BadRequest(new ErrorView {ErrorText = "Server error. Something goes wrong."});
         }
         
         [HttpPost]
@@ -81,21 +81,15 @@ namespace SunEngine.Commons.Controllers
             email = email.Trim();
 
             if (!EmailValidator.IsValid(email))
-            {
-                return BadRequest(new ErrorViewModel {ErrorText = "Email not valid"});
-            }
+                return BadRequest(new ErrorView {ErrorText = "Email not valid"});
 
             var user = await GetUserAsync();
 
             if (!await userManager.CheckPasswordAsync(user, password))
-            {
-                return BadRequest(new ErrorViewModel {ErrorText = "Password not valid"});
-            }
+                return BadRequest(new ErrorView {ErrorText = "Password not valid"});
 
             if (await userManager.CheckEmailInDbAsync(email, user.Id))
-            {
-                return BadRequest(new ErrorViewModel {ErrorText = "Email already registered"});
-            }
+                return BadRequest(new ErrorView {ErrorText = "Email already registered"});
 
             await accountManager.SendChangeEmailConfirmationMessageByEmailAsync(user, email);
 
@@ -136,12 +130,10 @@ namespace SunEngine.Commons.Controllers
 
             var result = await userManager.ChangePasswordAsync(user, passwordOld, passwordNew);
             if (result.Succeeded)
-            {
                 return Ok();
-            }
 
             return BadRequest(
-                new ErrorViewModel {ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()});
+                new ErrorView {ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()});
         }
     }
 }
