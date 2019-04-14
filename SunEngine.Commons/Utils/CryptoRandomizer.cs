@@ -4,6 +4,9 @@ using System.Text;
 
 namespace SunEngine.Commons.Utils
 {
+    /// <summary>
+    /// Generate random strings ind numbers using crypto random generator
+    /// </summary>
     public static class CryptoRandomizer
     {
         public static readonly RNGCryptoServiceProvider CryptoProvider = new RNGCryptoServiceProvider();
