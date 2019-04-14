@@ -6,6 +6,10 @@ using SunEngine.Commons.Models.Materials;
 
 namespace SunEngine.DataSeed
 {
+    /// <summary>
+    /// Container for data to seed in memory.
+    /// After it goes to database with DataBaseSeeder
+    /// </summary>
     public class DataContainer
     {
         private int currentUserId = 1;

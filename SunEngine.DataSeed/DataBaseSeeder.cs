@@ -6,6 +6,9 @@ using SunEngine.Commons.DataBase;
 
 namespace SunEngine.DataSeed
 {
+    /// <summary>
+    /// Seed data from DataContainer to database
+    /// </summary>
     public class DataBaseSeeder
     {
         private readonly DataContainer dataContainer;

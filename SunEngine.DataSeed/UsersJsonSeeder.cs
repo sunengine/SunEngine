@@ -8,6 +8,9 @@ using SunEngine.Commons.Utils;
 
 namespace SunEngine.DataSeed
 {
+    /// <summary>
+    /// Seed users from json file from config dir to DataContainer
+    /// </summary>
     public class UsersJsonSeeder
     {
         private const string AllUsersDefaultPassword = "password";

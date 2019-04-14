@@ -9,6 +9,10 @@ using SunEngine.Commons.Utils;
 
 namespace SunEngine.DataSeed
 {
+    /// <summary>
+    /// Seed initial data Users, Roles, UserRoles, Categories, OperationKeys, SectionTypes
+    /// from config dir to DataContainer.
+    /// </summary>
     public class InitialSeeder
     {
         public const string CategoriesConfigDir = "CategoriesConfig";
