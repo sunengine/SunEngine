@@ -12,13 +12,7 @@ namespace SunEngine.Commons.Security
         public int UserId { get; }
         public long SessionId { get; }
         public string LongToken2Db { get; }
-
         public IReadOnlyDictionary<string, RoleCached> Roles { get; }
-        
-        /// <summary>
-        /// If only one group
-        /// </summary>
-        public RoleCached Role { get; }
 
         public SunClaimsPrincipal(ClaimsPrincipal user, IRolesCache rolesCache, long sessionId = 0, string longToken2Db = null) : base(user)
         {
@@ -29,8 +23,6 @@ namespace SunEngine.Commons.Security
                 UserId = int.Parse(this.FindFirstValue(ClaimTypes.NameIdentifier));
             
             Roles = GetUserRoles(rolesCache);
-            if (Roles.Count == 1)
-                Role = Roles.Values.ElementAt(0);
         }
         
         private IReadOnlyDictionary<string, RoleCached> GetUserRoles(IRolesCache rolesCache)

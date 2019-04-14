@@ -10,6 +10,9 @@ using SunEngine.Commons.Models.Materials;
 
 namespace SunEngine.Commons.Security
 {
+    /// <summary>
+    /// Authorization helpers for MaterialsController
+    /// </summary>
     public class MaterialsAuthorization
     {
         private readonly OperationKeysContainer OperationKeys;

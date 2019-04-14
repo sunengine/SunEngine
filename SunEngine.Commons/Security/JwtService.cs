@@ -24,6 +24,9 @@ using SunEngine.Commons.Utils;
 
 namespace SunEngine.Commons.Security
 {
+    /// <summary>
+    /// Functions for generating, renewing and reading Jwt tokens.
+    /// </summary>
     public class JwtService : DbService
     {       
         private readonly SunUserManager userManager;
@@ -127,7 +130,6 @@ namespace SunEngine.Commons.Security
             return tokenAndClaimsPrincipal.ClaimsPrincipal;
         }
 
-        
 
         private class TokenAndClaimsPrincipal
         {

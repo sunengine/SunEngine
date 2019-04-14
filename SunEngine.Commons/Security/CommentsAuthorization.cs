@@ -10,7 +10,9 @@ using SunEngine.Commons.Models.Materials;
 
 namespace SunEngine.Commons.Security
 {
-    
+    /// <summary>
+    /// Authorization helpers for CommentsController
+    /// </summary>
     public class CommentsAuthorization
     {
         private readonly OperationKeysContainer OperationKeys;
