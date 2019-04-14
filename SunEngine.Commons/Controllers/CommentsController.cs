@@ -53,7 +53,7 @@ namespace SunEngine.Commons.Controllers
 
         [HttpPost]
         [UserSpamProtectionFilter(TimeoutSeconds = 10)]
-        public virtual async Task<IActionResult> Add(int materialId, string text)
+        public virtual async Task<IActionResult> Create(int materialId, string text)
         {
             Material material = await materialsManager.GetAsync(materialId);
             if (material == null)
@@ -73,7 +73,7 @@ namespace SunEngine.Commons.Controllers
                 AuthorId = User.UserId
             };
 
-            await commentsManager.InsertAsync(comment);
+            await commentsManager.CreateAsync(comment);
 
             contentCache.InvalidateCache(material.CategoryId);
 
@@ -84,7 +84,7 @@ namespace SunEngine.Commons.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> Get(int id)
         {
-            (CommentViewModel commentViewModel, int categoryId) = await commentsPresenter.GetCommentAsync(id);
+            (CommentView commentViewModel, int categoryId) = await commentsPresenter.GetCommentAsync(id);
             if (commentViewModel == null)
                 return BadRequest();
 
@@ -95,7 +95,7 @@ namespace SunEngine.Commons.Controllers
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> Edit(Comment newComment)
+        public virtual async Task<IActionResult> Update(Comment newComment)
         {
             (Comment comment, int categoryId) = await commentsManager.GetAsync(newComment.Id);
             if (comment == null)

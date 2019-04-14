@@ -78,13 +78,13 @@ namespace SunEngine.Commons.Controllers
 
         [HttpPost]
         [UserSpamProtectionFilter(TimeoutSeconds = 60)]
-        public virtual async Task<IActionResult> Add(MaterialRequestModel materialData)
+        public virtual async Task<IActionResult> Create(MaterialRequestModel materialData)
         {
             var category = categoriesCache.GetCategory(materialData.CategoryName);
             if (category == null)
                 return BadRequest();
 
-            if (!materialsAuthorization.CanAdd(User.Roles, category))
+            if (!materialsAuthorization.CanCreate(User.Roles, category))
                 return Unauthorized();
 
             var now = DateTime.UtcNow;
@@ -109,13 +109,13 @@ namespace SunEngine.Commons.Controllers
 
             contentCache.InvalidateCache(category.Id);
 
-            await materialsManager.InsertAsync(material, materialData.Tags, isDescriptionEditable);
+            await materialsManager.CreateAsync(material, materialData.Tags, isDescriptionEditable);
             return Ok();
         }
 
 
         [HttpPost]
-        public virtual async Task<IActionResult> Edit(MaterialRequestModel materialData)
+        public virtual async Task<IActionResult> Update(MaterialRequestModel materialData)
         {
             if (!ModelState.IsValid)
             {
@@ -127,7 +127,7 @@ namespace SunEngine.Commons.Controllers
             if (material == null)
                 return BadRequest();
 
-            if (!await materialsAuthorization.CanEditAsync(User, material))
+            if (!await materialsAuthorization.CanUpdateAsync(User, material))
                 return Unauthorized();
 
             var newCategory = categoriesCache.GetCategory(materialData.CategoryName);
@@ -169,10 +169,10 @@ namespace SunEngine.Commons.Controllers
                 else
                 {
                     if (!materialsManager.IsNameValid(name))
-                        return ServiceResult.BadResult(new ErrorViewModel("MaterialNameNotValid", "Invalid material name"));
+                        return ServiceResult.BadResult(new ErrorView("MaterialNameNotValid", "Invalid material name"));
 
                     if (name != material.Name && await materialsManager.IsNameInDb(name))
-                        return ServiceResult.BadResult(new ErrorViewModel("MaterialNameAlreadyUsed", "This material name is already used"));
+                        return ServiceResult.BadResult(new ErrorView("MaterialNameAlreadyUsed", "This material name is already used"));
 
                     material.Name = name;
                 }

@@ -9,10 +9,10 @@ namespace SunEngine.Commons.Configuration.AddServices
         {
             services.AddAuthentication(options =>
                 {
-                    options.DefaultAuthenticateScheme = MyJwt.Scheme;
-                    options.DefaultChallengeScheme = MyJwt.Scheme;
+                    options.DefaultAuthenticateScheme = SunJwt.Scheme;
+                    options.DefaultChallengeScheme = SunJwt.Scheme;
                 })
-                .AddScheme<MyJwtOptions, MyJwtHandler>(MyJwt.Scheme, MyJwt.Scheme, options => { });
+                .AddScheme<SunJwtOptions, SunJwtHandler>(SunJwt.Scheme, SunJwt.Scheme, options => { });
         }
     }
 }

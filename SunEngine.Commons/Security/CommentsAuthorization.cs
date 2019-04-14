@@ -46,7 +46,7 @@ namespace SunEngine.Commons.Security
             return DateTime.Now - publishDate < new TimeSpan(0, 0, commentsOptions.TimeToOwnDeleteInMinutes, 0, 0);
         }
 
-        public async Task<bool> CanEditAsync(MyClaimsPrincipal user, Comment comment, int categoryId)
+        public async Task<bool> CanEditAsync(SunClaimsPrincipal user, Comment comment, int categoryId)
         {
             
             var operationKeys = authorizationService.HasAccess(user.Roles, categoryId, new[]
@@ -91,7 +91,7 @@ namespace SunEngine.Commons.Security
             return operationKeys.Contains(OperationKeys.CommentEditOwn);
         }
         
-        public async Task<bool> CanMoveToTrashAsync(MyClaimsPrincipal user, Comment comment, int categoryId)
+        public async Task<bool> CanMoveToTrashAsync(SunClaimsPrincipal user, Comment comment, int categoryId)
         {
             var operationKeys = authorizationService.HasAccess(user.Roles, categoryId, new[]
             {

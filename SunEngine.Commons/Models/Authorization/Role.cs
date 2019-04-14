@@ -5,9 +5,6 @@ namespace SunEngine.Commons.Models.Authorization
 {
     public class Role : IdentityRole<int>
     {
-       
-
-
         public string Title { get; set; }
 
         public int SortNumber { get; set; }

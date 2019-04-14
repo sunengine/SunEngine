@@ -45,7 +45,7 @@ namespace SunEngine.Commons.Filters
 
             if (requestFree != null && requestFree.Working())
             {
-                context.Result = controller.BadRequest(new ErrorViewModel
+                context.Result = controller.BadRequest(new ErrorView
                 {
                     ErrorName = "SpamProtection",
                     ErrorText = "Нельзя так часто делать запросы."

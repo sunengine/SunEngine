@@ -52,7 +52,7 @@ namespace SunEngine.Commons.Controllers
 
             var categoriesIds = categories.Select(x => x.Id).ToArray();
 
-            async Task<IPagedList<TopicInfoViewModel>> LoadDataAsync()
+            async Task<IPagedList<TopicInfoView>> LoadDataAsync()
             {
                 return await forumPresenter.GetNewTopics(categoriesIds,
                     page, forumOptions.NewTopicsPageSize, forumOptions.NewTopicsMaxPages);
@@ -72,7 +72,7 @@ namespace SunEngine.Commons.Controllers
             if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
                 return Unauthorized();
 
-            async Task<IPagedList<TopicInfoViewModel>> LoadDataAsync()
+            async Task<IPagedList<TopicInfoView>> LoadDataAsync()
             {
                 return await forumPresenter.GetThread(category.Id, page, forumOptions.ThreadMaterialsPageSize);
             }

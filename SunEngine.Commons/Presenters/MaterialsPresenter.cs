@@ -10,8 +10,8 @@ namespace SunEngine.Commons.Presenters
 {
     public interface IMaterialsPresenter
     {
-        Task<MaterialViewModel> GetViewModelAsync(int id);
-        Task<MaterialViewModel> GetViewModelAsync(string name);
+        Task<MaterialView> GetViewModelAsync(int id);
+        Task<MaterialView> GetViewModelAsync(string name);
     }
 
     public class MaterialsPresenter : DbService, IMaterialsPresenter
@@ -20,22 +20,22 @@ namespace SunEngine.Commons.Presenters
         {
         }
 
-        public virtual Task<MaterialViewModel> GetViewModelAsync(int id)
+        public virtual Task<MaterialView> GetViewModelAsync(int id)
         {
             var query = db.Materials.Where(x => x.Id == id);
             return GetViewModelAsync(query);
         }
 
-        public virtual Task<MaterialViewModel> GetViewModelAsync(string name)
+        public virtual Task<MaterialView> GetViewModelAsync(string name)
         {
             var query = db.Materials.Where(x => x.Name == name);
             return GetViewModelAsync(query);
         }
 
-        protected virtual Task<MaterialViewModel> GetViewModelAsync(IQueryable<Material> query)
+        protected virtual Task<MaterialView> GetViewModelAsync(IQueryable<Material> query)
         {
             return query.Select(x =>
-                new MaterialViewModel
+                new MaterialView
                 {
                     Id = x.Id,
                     Name = x.Name,
@@ -57,7 +57,7 @@ namespace SunEngine.Commons.Presenters
         }
     }
 
-    public class MaterialViewModel
+    public class MaterialView
     {
         public string Name { get; set; }
         public int Id { get; set; }

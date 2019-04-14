@@ -5,7 +5,7 @@
         {{pageTitle}}
       </h2>
       <q-btn v-if="canPost" no-caps
-             @click="$router.push( {name:'AddMaterial',params:{categoriesNames: categoriesNames}})"
+             @click="$router.push( {name:'CreateMaterial',params:{categoriesNames: categoriesNames}})"
              :label="addButtonLabel" icon="fas fa-plus" color="post"/>
     </div>
 

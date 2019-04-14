@@ -1,14 +1,14 @@
 import Profile from 'profile/Profile';
-import AddMaterial from 'material/AddMaterial';
+import CreateMaterial from 'material/CreateMaterial';
 import EditMaterial from 'material/EditMaterial';
 import SendPrivateMessage from 'profile/SendPrivateMessage';
 
 const routes = [
   {
-    name: "AddMaterial",
-    path: '/AddMaterial/'.toLowerCase()+':categoriesNames/:initialCategoryName?',
+    name: "CreateMaterial",
+    path: '/CreateMaterial/'.toLowerCase()+':categoriesNames/:initialCategoryName?',
     components: {
-      default: AddMaterial,
+      default: CreateMaterial,
       navigation: null
     },
     props: {

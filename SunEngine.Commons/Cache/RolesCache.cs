@@ -8,7 +8,7 @@ using SunEngine.Commons.Models.Authorization;
 
 namespace SunEngine.Commons.Cache
 {
-    public interface IRolesCache : IMyMemoryCache
+    public interface IRolesCache : ISunMemoryCache
     {
         IImmutableList<OperationKeyCached> AllOperationKeys { get; }
         RoleCached GetRole(string name);

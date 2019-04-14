@@ -28,59 +28,6 @@
         required: true
       }
     },
-    computed: {
-      categoryNodes() {
-        return GetWhereToMove(this.$store);
-      }
-    },
-    methods: {
-      save() {
-        this.$refs.form.start = false;
-        this.$refs.form.validate();
-        if (this.$refs.form.hasError)
-          return;
-
-        this.loading = true;
-        this.$store.dispatch('request', {
-          url: '/Materials/Add',
-          data: {
-            name: this.material.name,
-            categoryName: this.material.categoryName,
-            title: this.material.title,
-            description: this.material.description,
-            text: this.material.text,
-            tags: this.material.tags.join(',')
-          }
-        }).then(() => {
-          const msg = this.$tl("successNotify");
-          this.$q.notify({
-            message: msg,
-            timeout: 2300,
-            color: 'positive',
-            position: 'top'
-          });
-          this.$router.push(this.$refs.form.category.path);
-        }).catch(error => {
-          if (error.response.data.errorName === "SpamProtection") {
-            const msg = this.$tl("spamProtectionNotify");
-            this.$q.notify({
-              message: msg,
-              timeout: 5000,
-              color: 'warning',
-              position: 'top'
-            });
-          } else {
-            this.$q.notify({
-              message: error.response.data.errorText,
-              timeout: 2000,
-              color: 'negative',
-              position: 'top'
-            });
-          }
-          this.loading = false;
-        });
-      }
-    },
     data: function () {
       return {
         material: {
@@ -94,6 +41,11 @@
         loading: false
       }
     },
+    computed: {
+      categoryNodes() {
+        return GetWhereToMove(this.$store);
+      }
+    },
     methods: {
       async save() {
         this.$refs.form.start = false;
@@ -102,9 +54,8 @@
           return;
         this.loading = true;
 
-
         await this.$store.dispatch('request', {
-          url: '/Materials/Edit',
+          url: '/Materials/Update',
           data: {
             id: this.id,
             name: this.material.name,
@@ -127,6 +78,7 @@
           this.loading = false;
         });
       },
+
       async loadData() {
         this.$store.dispatch('request', {
           url: '/Materials/Get',

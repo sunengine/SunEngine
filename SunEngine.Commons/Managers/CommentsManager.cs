@@ -10,7 +10,7 @@ namespace SunEngine.Commons.Managers
 {
     public interface ICommentsManager
     {
-        Task InsertAsync(Comment comment);
+        Task CreateAsync(Comment comment);
         Task<(Comment comment, int categoryId)> GetAsync(int commentId);
         Task DeleteAsync(Comment comment);
         Task UpdateAsync(Comment comment);
@@ -32,7 +32,7 @@ namespace SunEngine.Commons.Managers
             this.sanitizer = sanitizer;
         }
 
-        public virtual async Task InsertAsync(Comment comment)
+        public virtual async Task CreateAsync(Comment comment)
         {
             comment.Text = sanitizer.Sanitize(comment.Text);
             comment.Id = await db.InsertWithInt32IdentityAsync(comment);

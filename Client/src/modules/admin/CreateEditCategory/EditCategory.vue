@@ -109,7 +109,7 @@
 
         await this.$store.dispatch("request",
           {
-            url: "/Admin/CategoriesAdmin/EditCategory",
+            url: "/Admin/CategoriesAdmin/UpdateCategory",
             data: this.category,
             sendAsJson: true
           })

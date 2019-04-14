@@ -11,7 +11,7 @@ using SunEngine.Commons.Models.Authorization;
 
 namespace SunEngine.Commons.Security
 {
-    public class JwtBlackListService : IMyMemoryCache
+    public class JwtBlackListService : ISunMemoryCache
     {
         private readonly IDataBaseFactory dataBaseFactory;
         private readonly JwtOptions jwtOptions;

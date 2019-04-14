@@ -43,7 +43,7 @@
   import MyEditor from "MyEditor";
 
   export default {
-    name: "AddEditComment",
+    name: "CreateEditComment",
     components: {MyEditor, LoaderSent},
     data: function () {
       return {
@@ -86,12 +86,12 @@
 
         await this.$store.dispatch("request",
           {
-            url: "/Comments/Add",
+            url: "/Comments/Create",
             data: {
               materialId: this.materialId,
               text: this.comment.text
             }
-          }).then(response => {
+          }).then( () => {
           this.comment.text = "";
           this.$emit('done');
           this.loading = false;
@@ -118,18 +118,17 @@
         this.loading = true;
         await this.$store.dispatch("request",
           {
-            url: "/Comments/Edit",
+            url: "/Comments/Update",
             data: {
               Id: this.commentId,
               MaterialId: this.materialId,
               Text: this.comment.text
             }
-          }).then(response => {
+          }).then( () => {
             this.$emit('done');
             this.loading = false;
           }
-        ).catch(error => {
-
+        ).catch( response => {
           this.loading = false;
         });
       },
@@ -151,6 +150,7 @@
     },
 
     async created() {
+      debugger;
       if (!this.isNew) {
         await this.$store.dispatch("request",
           {

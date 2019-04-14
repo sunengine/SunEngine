@@ -17,7 +17,7 @@ namespace SunEngine.Commons.Managers
         Task<int?> GetMaterialCategoryIdAsync(int materialId);
         Task<int?> GetMaterialCategoryIdAsync(string materialName);
         Task<Material> GetAsync(int id);
-        Task InsertAsync(Material material, string tags, bool isDescriptionEditable);
+        Task CreateAsync(Material material, string tags, bool isDescriptionEditable);
         Task UpdateAsync(Material material, string tags, bool isDescriptionEditable);
         Task MoveToTrashAsync(Material material);
         Task DetectAndSetLastCommentAndCountAsync(Material material);
@@ -61,7 +61,7 @@ namespace SunEngine.Commons.Managers
             return db.Materials.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public virtual async Task InsertAsync(Material material, string tags, bool isDescriptionEditable = false)
+        public virtual async Task CreateAsync(Material material, string tags, bool isDescriptionEditable = false)
         {
             material.Text = sanitizer.Sanitize(material.Text);
 

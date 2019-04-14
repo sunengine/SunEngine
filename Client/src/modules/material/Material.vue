@@ -56,7 +56,7 @@
         <hr class="hr-sep"/>
       </div>
       <div v-if="canCommentWrite">
-        <AddEditComment class="page-padding" @done="commentAdded" :materialId="material.id"/>
+        <CreateEditComment class="page-padding" @done="commentAdded" :materialId="material.id"/>
       </div>
     </div>
 
@@ -67,7 +67,7 @@
 
 <script>
   import CommentContainer from "comments/CommentContainer";
-  import AddEditComment from "comments/AddEditComment";
+  import CreateEditComment from "comments/CreateEditComment";
   import {date} from 'quasar';
   import LoaderWait from "LoaderWait";
   import {scroll} from 'quasar';
@@ -77,7 +77,7 @@
 
   export default {
     name: "Material",
-    components: {CommentContainer, AddEditComment, LoaderWait},
+    components: {CommentContainer, CreateEditComment, LoaderWait},
     mixins: [Page],
     props: {
       idOrName: {

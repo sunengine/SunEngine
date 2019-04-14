@@ -9,9 +9,9 @@ namespace SunEngine.Commons.Presenters
 {
     public interface IArticlesPresenter
     {
-        Task<IPagedList<ArticleInfoViewModel>> GetArticlesAsync(int categoryId, int page, int pageSize);
+        Task<IPagedList<ArticleInfoView>> GetArticlesAsync(int categoryId, int page, int pageSize);
 
-        Task<IPagedList<ArticleInfoViewModel>> GetArticlesFromMultiCategoriesAsync(int[] categoriesIds, int page,
+        Task<IPagedList<ArticleInfoView>> GetArticlesFromMultiCategoriesAsync(int[] categoriesIds, int page,
             int pageSize);
 
     }
@@ -22,10 +22,10 @@ namespace SunEngine.Commons.Presenters
         {
         }
 
-        public virtual Task<IPagedList<ArticleInfoViewModel>> GetArticlesAsync(int categoryId, int page, int pageSize)
+        public virtual Task<IPagedList<ArticleInfoView>> GetArticlesAsync(int categoryId, int page, int pageSize)
         {
             return db.MaterialsNotDeleted.GetPagedListAsync(
-                x => new ArticleInfoViewModel
+                x => new ArticleInfoView
                 {
                     Id = x.Id,
                     Name = x.Name,
@@ -42,10 +42,10 @@ namespace SunEngine.Commons.Presenters
                 pageSize);
         }
         
-        public virtual Task<IPagedList<ArticleInfoViewModel>> GetArticlesFromMultiCategoriesAsync(int[] categoriesIds, int page, int pageSize)
+        public virtual Task<IPagedList<ArticleInfoView>> GetArticlesFromMultiCategoriesAsync(int[] categoriesIds, int page, int pageSize)
         {
             return db.MaterialsNotDeleted.GetPagedListAsync(
-                x => new ArticleInfoViewModel
+                x => new ArticleInfoView
                 {
                     Id = x.Id,
                     Name = x.Name,
@@ -64,7 +64,7 @@ namespace SunEngine.Commons.Presenters
         }
     }
 
-    public class ArticleInfoViewModel
+    public class ArticleInfoView
     {
         public string Name { get; set; }
         public int Id { get; set; }

@@ -51,7 +51,7 @@ namespace SunEngine.Commons.Controllers
             if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
                 return Unauthorized();
 
-            async Task<IPagedList<ArticleInfoViewModel>> LoadDataAsync()
+            async Task<IPagedList<ArticleInfoView>> LoadDataAsync()
             {
                 return await articlesPresenter.GetArticlesAsync(category.Id, page, articlesOptions.CategoryPageSize);   
             }
@@ -72,7 +72,7 @@ namespace SunEngine.Commons.Controllers
 
             var categoriesIds = categoriesList.Select(x => x.Id).ToArray();
             
-            IPagedList<ArticleInfoViewModel> articles =
+            IPagedList<ArticleInfoView> articles =
                 await articlesPresenter.GetArticlesFromMultiCategoriesAsync(categoriesIds, page, articlesOptions.CategoryPageSize);
 
             return Json(articles);
