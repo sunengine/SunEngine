@@ -16,7 +16,7 @@
 
     <ItemGroup>
         <PackageReference Include="Flurl" Version="2.8.1" />
-        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.2" />
+        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.4" />
         <PackageReference Include="System.Linq" Version="4.3.0" />
     </ItemGroup>
 
