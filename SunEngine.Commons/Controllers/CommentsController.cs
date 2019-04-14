@@ -10,6 +10,9 @@ using IAuthorizationService = SunEngine.Commons.Security.IAuthorizationService;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Material comments CRUD controller 
+    /// </summary>
     public class CommentsController : BaseController
     {
         protected readonly OperationKeysContainer OperationKeys;

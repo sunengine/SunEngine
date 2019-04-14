@@ -13,6 +13,9 @@ using SunEngine.Commons.Utils;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Base class for all controllers on the site
+    /// </summary>
     public abstract class BaseController : Controller
     {
         protected readonly SunUserManager userManager;

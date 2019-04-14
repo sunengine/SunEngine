@@ -11,6 +11,9 @@ using SunEngine.Commons.Utils.PagedList;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Get new forum topics controller
+    /// </summary>
     public class ForumController : BaseController
     {
         protected readonly OperationKeysContainer OperationKeys;

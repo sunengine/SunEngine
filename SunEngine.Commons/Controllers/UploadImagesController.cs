@@ -12,14 +12,17 @@ using SixLabors.Primitives;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Upload images controller
+    /// </summary>
     [Authorize]
-    public class ImagesController : BaseController
+    public class UploadImagesController : BaseController
     {
         protected readonly IImagesService imagesService;
         protected readonly ImagesOptions imagesOptions;
         protected readonly IPersonalManager personalManager;
 
-        public ImagesController(
+        public UploadImagesController(
             IImagesService imagesService,
             IOptions<ImagesOptions> imagesOptions,
             IPersonalManager personalManager,

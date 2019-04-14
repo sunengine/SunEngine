@@ -10,6 +10,9 @@ using SunEngine.Commons.Security;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Whats new activities on site, new materials and comments
+    /// </summary>
     public class ActivitiesController : BaseController
     {
         protected const int MaxActivitiesInQuery = 50;

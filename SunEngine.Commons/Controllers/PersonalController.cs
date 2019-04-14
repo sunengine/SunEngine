@@ -10,7 +10,7 @@ using SunEngine.Commons.Security;
 namespace SunEngine.Commons.Controllers
 {
     /// <summary>
-    /// Контроллер отвечающий за работу с информацией по текущему пользователю this.User
+    /// User info get set controller for this.User
     /// </summary>
     [Authorize]
     public class PersonalController : BaseController

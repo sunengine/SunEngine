@@ -3,10 +3,12 @@ using SunEngine.Commons.Models.Materials;
 
 namespace SunEngine.Commons.Models
 {
+    /// <summary>
+    /// Container for materials of any type or for Categories
+    /// </summary>
     public class Category
     {
         public const string RootName = "Root";
-
 
         public int Id { get; set; }
 
@@ -16,6 +18,9 @@ namespace SunEngine.Commons.Models
         public string NameNormalized { get; set; }
         
         //[Required, MinLength(3)] 
+        /// <summary>
+        /// Title for human
+        /// </summary>
         public string Title { get; set; }
         
         /// <summary>
@@ -24,12 +29,15 @@ namespace SunEngine.Commons.Models
         /// </summary>
         public string MaterialTypeTitle { get; set; }
 
+        /// <summary>
+        /// Can contain Materials
+        /// </summary>
         public bool IsMaterialsContainer { get; set; }
 
         public string Description { get; set; }
         
         /// <summary>
-        /// Описание HTML сверху категории
+        /// HTML description on the top of the page on Client 
         /// </summary>
         public string Header { get; set; }
 
@@ -44,8 +52,14 @@ namespace SunEngine.Commons.Models
         [LinqToDB.Mapping.Association(ThisKey = "Id", OtherKey = "ParentId")]
         public ICollection<Category> SubCategories { get; set; } = new List<Category>();
 
+        /// <summary>
+        /// Order number inside parent Category
+        /// </summary>
         public int SortNumber { get; set; }
 
+        /// <summary>
+        /// Containing Materials
+        /// </summary>
         public ICollection<Material> Materials { get; set; }
 
         public bool IsDeleted { get; set; }

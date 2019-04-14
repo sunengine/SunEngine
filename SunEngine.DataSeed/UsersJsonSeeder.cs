@@ -82,7 +82,7 @@ namespace SunEngine.DataSeed
                     Avatar = User.DefaultAvatar
                 };
                 if(string.IsNullOrEmpty(user.Link))
-                    user.SetDefaultLink();
+                    user.Link = user.Id.ToString();
                 
                 MakeNormalizedUserFields(user);
                 dataContainer.Users.Add(user);

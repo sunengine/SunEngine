@@ -14,6 +14,10 @@ using SunEngine.Commons.Services;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Materials CRUD controller.
+    /// Used by Articles, Forum and Blog
+    /// </summary>
     public class MaterialsController : BaseController
     {
         protected readonly MaterialsAuthorization materialsAuthorization;

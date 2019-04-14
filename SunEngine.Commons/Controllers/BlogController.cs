@@ -13,6 +13,9 @@ using SunEngine.Commons.Utils.PagedList;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Get blog posts controller
+    /// </summary>
     public class BlogController : BaseController
     {
         protected readonly OperationKeysContainer OperationKeys;

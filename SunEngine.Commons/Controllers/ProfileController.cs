@@ -11,8 +11,8 @@ using SunEngine.Commons.Security;
 namespace SunEngine.Commons.Controllers
 {
     /// <summary>
-    /// UserProfile
-    /// Контроллер отвечающий за работу страницы /user/id111 профиля пользователей
+    /// User profile controller for "/user/userLink" 
+    /// Get profile, send private message, (un)ban user
     /// </summary>
     public class ProfileController : BaseController
     {

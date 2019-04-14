@@ -13,6 +13,9 @@ using SunEngine.Commons.Utils.PagedList;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Get article materials controller
+    /// </summary>
     public class ArticlesController : BaseController
     {
         protected readonly OperationKeysContainer OperationKeys;

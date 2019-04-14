@@ -2,6 +2,9 @@
 
 namespace SunEngine.Commons.Models.Materials
 {
+    /// <summary>
+    /// Tag, Label for Material
+    /// </summary>
     public class Tag
     {
         public int Id { get; set; }
@@ -19,6 +22,9 @@ namespace SunEngine.Commons.Models.Materials
         public ICollection<Tag> Tags { get; set; }
     }
 
+    /// <summary>
+    /// Many to many relationship between Materials and Tags
+    /// </summary>
     public class TagMaterial
     {
         public int TagId { get; set; }
