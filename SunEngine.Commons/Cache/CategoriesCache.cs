@@ -9,7 +9,7 @@ using SunEngine.Commons.Utils;
 
 namespace SunEngine.Commons.Cache
 {
-    public interface ICategoriesCache : IMyMemoryCache
+    public interface ICategoriesCache : ISunMemoryCache
     {
         IReadOnlyDictionary<string, SectionTypeCached> AllSectionTypes { get; }
         CategoryCached GetCategory(int id);

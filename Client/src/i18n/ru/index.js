@@ -133,12 +133,12 @@ export default {
       }
     }
   },
-  AddEditComment: {
+  CreateEditComment: {
     required: "Введите сообщение",
     htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
     spamProtectionMessage: "Нельзя так часто отправлять сообщения. Подождите немного."
   },
-  AddMaterial: {
+  CreateMaterial: {
     title: "Добавить материал",
     sendBtn: "Отправить",
     successNotify: "Материал успешно добавлен",
@@ -180,7 +180,7 @@ export default {
       }
     }
   },
-  AddEditMaterial: {
+  CreateEditMaterial: {
     titleField: "Заголовок",
     addTitle: "Добавить материал",
     editTitle: "Редактировать текст: {0}",
@@ -397,7 +397,7 @@ export default {
       deleteDialogBtnCancel: "Отмена",
       successNotify: "Категория обновлена.\nНе забудьте перегрузить сайт для обновления."
     },
-    AddCategory: {
+    CreateCategory: {
       title: "Добавить категорию",
       createBtn: "Создать",
       cancelBtn: "@:global.btn.cancel",

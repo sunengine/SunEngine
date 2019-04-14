@@ -9,11 +9,11 @@ namespace SunEngine.Commons.Services
     public class ServiceResult
     {
         public bool Succeeded;
-        public ErrorViewModel Error;
+        public ErrorView Error;
 
         public bool Failed => !Succeeded;
 
-        public static ServiceResult BadResult(ErrorViewModel error = null)
+        public static ServiceResult BadResult(ErrorView error = null)
         {
             return new ServiceResult
             {
@@ -44,7 +44,7 @@ namespace SunEngine.Commons.Services
             };
         }
         
-        public static UserServiceResult BadResult(ErrorViewModel error = null)
+        public static UserServiceResult BadResult(ErrorView error = null)
         {
             return new UserServiceResult
             {

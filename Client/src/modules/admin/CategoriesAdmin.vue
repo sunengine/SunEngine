@@ -37,7 +37,7 @@
         this.$router.push(this.$store.getters.getCategory(name).path);
       },
       add() {
-        this.$router.push({name: 'AddCategory'});
+        this.$router.push({name: 'CreateCategory'});
       },
       edit(id) {
         this.$router.push({name: 'EditCategory', params: {id}});

@@ -37,7 +37,7 @@ namespace SunEngine.Admin.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(new ErrorViewModel
+                return BadRequest(new ErrorView
                 {
                     ErrorName = e.Message,
                     ErrorText = e.StackTrace

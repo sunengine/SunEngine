@@ -13,7 +13,7 @@ namespace SunEngine.Commons.Presenters
 {
     public interface IActivitiesPresenter
     {
-        Task<ActivityViewModel[]> GetActivitiesAsync(int[] materialsCategoriesIds, int[] commentsCategoriesIds,
+        Task<ActivityView[]> GetActivitiesAsync(int[] materialsCategoriesIds, int[] commentsCategoriesIds,
             int number);
     }
 
@@ -28,14 +28,14 @@ namespace SunEngine.Commons.Presenters
             this.materialsOptions = materialsOptions.Value;
         }
 
-        public async Task<ActivityViewModel[]> GetActivitiesAsync(int[] materialsCategoriesIds,
+        public async Task<ActivityView[]> GetActivitiesAsync(int[] materialsCategoriesIds,
             int[] commentsCategoriesIds, int number)
         {
             var materialsActivities = await db.Materials
                 .Where(x => materialsCategoriesIds.Contains(x.CategoryId))
                 .OrderByDescending(x => x.PublishDate)
                 .Take(number)
-                .Select(x => new ActivityViewModel
+                .Select(x => new ActivityView
                 {
                     MaterialId = x.Id,
                     Title = x.Title,
@@ -54,7 +54,7 @@ namespace SunEngine.Commons.Presenters
                 .Where(x => commentsCategoriesIds.Contains(x.Material.CategoryId))
                 .OrderByDescending(x => x.PublishDate)
                 .Take(number)
-                .Select(x => new ActivityViewModel
+                .Select(x => new ActivityView
                 {
                     MaterialId = x.MaterialId,
                     CommentId = x.Id,
@@ -71,7 +71,7 @@ namespace SunEngine.Commons.Presenters
                 x.Description = SimpleHtmlToText.ClearTagsAndBreaks(x.Description)
                     .Substring(0, Math.Min(x.Description.Length, descriptionSize)));
 
-            List<ActivityViewModel> allActivities = new List<ActivityViewModel>();
+            List<ActivityView> allActivities = new List<ActivityView>();
             allActivities.AddRange(materialsActivities);
             allActivities.AddRange(commentsActivities);
 
@@ -79,7 +79,7 @@ namespace SunEngine.Commons.Presenters
         }
     }
 
-    public class ActivityViewModel
+    public class ActivityView
     {
         public int MaterialId { get; set; }
         public int CommentId { get; set; }

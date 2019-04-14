@@ -4,7 +4,7 @@
     <template v-if="!comment.isDeleted">
       <ReadComment @goEdit="goEdit" v-if="isReadMode" :comment="comment" :canEdit="canEdit()" :canMoveToTrash="canMoveToTrash()" />
 
-      <AddEditComment @done="saved" @cancel="isReadMode=true" :messageId="comment.id" v-else/>
+      <CreateEditComment @done="saved" @cancel="isReadMode=true" :commentId="comment.id" v-else/>
 
     </template>
     <DeletedComment v-else/>
@@ -13,13 +13,13 @@
 
 <script>
   import ReadComment from "./ReadComment";
-  import AddEditComment from "./AddEditComment";
+  import CreateEditComment from "./CreateEditComment";
   import {date} from 'quasar';
   import DeletedComment from "./DeletedComment";
 
   export default {
     name: "CommentContainer",
-    components: {DeletedComment, ReadComment, AddEditComment},
+    components: {DeletedComment, ReadComment, CreateEditComment},
     props: {
       comment: Object,
       categoryPersonalAccess: Object,
@@ -44,7 +44,7 @@
           {
             url: "/Comments/Get",
             data: {
-              id: this.message.id,
+              id: this.comment.id,
             }
           }).then(response => {
           for (const key in response.data) {

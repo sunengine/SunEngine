@@ -38,7 +38,7 @@ namespace SunEngine.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> GetCategory(int? id = null, string name = null)
         {
-            CategoryAdminViewModel category;
+            CategoryAdminView category;
 
             if (id.HasValue)
             {
@@ -65,7 +65,7 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCategory([FromBody] CategoryRequestModel categoryData)
+        public async Task<IActionResult> CreateCategory([FromBody] CategoryRequestModel categoryData)
         {
             if (!ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace SunEngine.Admin.Controllers
                 category.AppendUrlToken = categoryData.AppendUrlToken.Value;
             }
 
-            await categoriesAdminManager.AddCategoryAsync(category);
+            await categoriesAdminManager.CreateCategoryAsync(category);
 
             categoriesCache.Reset();
             contentCache.Reset();
@@ -98,7 +98,7 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditCategory([FromBody] CategoryRequestModel categoryData)
+        public async Task<IActionResult> UpdateCategory([FromBody] CategoryRequestModel categoryData)
         {
             if (!ModelState.IsValid)
             {
@@ -122,7 +122,7 @@ namespace SunEngine.Admin.Controllers
                 category.AppendUrlToken = categoryData.AppendUrlToken.Value;
             }
 
-            await categoriesAdminManager.EditCategoryAsync(category);
+            await categoriesAdminManager.UpdateCategoryAsync(category);
 
             categoriesCache.Reset();
             contentCache.Reset();

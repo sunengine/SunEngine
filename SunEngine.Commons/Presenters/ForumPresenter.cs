@@ -10,8 +10,8 @@ namespace SunEngine.Commons.Presenters
 {
     public interface IForumPresenter
     {
-        Task<IPagedList<TopicInfoViewModel>> GetNewTopics(IList<int> categoryIds, int page,int pageSize,int maxPages);
-        Task<IPagedList<TopicInfoViewModel>> GetThread(int categoryId, int page,int pageSize);
+        Task<IPagedList<TopicInfoView>> GetNewTopics(IList<int> categoryIds, int page,int pageSize,int maxPages);
+        Task<IPagedList<TopicInfoView>> GetThread(int categoryId, int page,int pageSize);
     }
 
     public class ForumPresenter : DbService, IForumPresenter
@@ -20,11 +20,11 @@ namespace SunEngine.Commons.Presenters
         {
         }
 
-        public virtual Task<IPagedList<TopicInfoViewModel>> GetNewTopics(IList<int> categoryIds, int page,int pageSize,int maxPages)
+        public virtual Task<IPagedList<TopicInfoView>> GetNewTopics(IList<int> categoryIds, int page,int pageSize,int maxPages)
         {
             
             return db.MaterialsNotDeleted.GetPagedListMaxAsync(
-                x => new TopicInfoViewModel
+                x => new TopicInfoView
                 {
                     Id = x.Id,
                     Title = x.Title,
@@ -47,10 +47,10 @@ namespace SunEngine.Commons.Presenters
                 maxPages);
         }
         
-        public virtual Task<IPagedList<TopicInfoViewModel>> GetThread(int categoryId, int page,int pageSize)
+        public virtual Task<IPagedList<TopicInfoView>> GetThread(int categoryId, int page,int pageSize)
         {
             return db.MaterialsNotDeleted.GetPagedListAsync(
-                x => new TopicInfoViewModel
+                x => new TopicInfoView
                 {
                     Id = x.Id,
                     Title = x.Title,
@@ -75,7 +75,7 @@ namespace SunEngine.Commons.Presenters
     /// <summary>
     /// Tопик  в треде (Материал в категории)
     /// </summary>
-    public class TopicInfoViewModel
+    public class TopicInfoView
     {
         public int Id { get; set; }
         public string Title { get; set; }

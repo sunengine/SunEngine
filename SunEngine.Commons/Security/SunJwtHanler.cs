@@ -15,16 +15,16 @@ using SunEngine.Commons.Models;
 
 namespace SunEngine.Commons.Security
 {
-    public class MyJwtHandler : AuthenticationHandler<MyJwtOptions>
+    public class SunJwtHandler : AuthenticationHandler<SunJwtOptions>
     {
         private readonly IRolesCache rolesCache;
         private readonly JwtOptions jwtOptions;
         private readonly JwtService jwtService;
-        private readonly MyUserManager userManager;
+        private readonly SunUserManager userManager;
         private readonly JwtBlackListService jwtBlackListService;
 
-        public MyJwtHandler(
-            IOptionsMonitor<MyJwtOptions> options,
+        public SunJwtHandler(
+            IOptionsMonitor<SunJwtOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
             ISystemClock clock,
@@ -32,7 +32,7 @@ namespace SunEngine.Commons.Security
             IOptions<JwtOptions> jwtOptions,
             JwtService jwtService,
             JwtBlackListService jwtBlackListService,
-            MyUserManager userManager) : base(options, logger, encoder, clock)
+            SunUserManager userManager) : base(options, logger, encoder, clock)
         {
             this.rolesCache = rolesCache;
             this.jwtOptions = jwtOptions.Value;
@@ -65,7 +65,7 @@ namespace SunEngine.Commons.Security
 
                 var longToken2db = jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.LongToken2Db).Value;
 
-                MyClaimsPrincipal myClaimsPrincipal;
+                SunClaimsPrincipal sunClaimsPrincipal;
 
                 if (Request.Headers.ContainsKey(Headers.LongToken1HeaderName))
                 {
@@ -84,7 +84,7 @@ namespace SunEngine.Commons.Security
                     if (longSession == null)
                         return ErrorAuthorization();
 
-                    myClaimsPrincipal = await jwtService.RenewSecurityTokensAsync(Response, userId, longSession);
+                    sunClaimsPrincipal = await jwtService.RenewSecurityTokensAsync(Response, userId, longSession);
 
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("\nToken renews\n");
@@ -118,16 +118,16 @@ namespace SunEngine.Commons.Security
 
                     string lat2db = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.LongToken2Db).Value;
 
-                    myClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, rolesCache, sessionId, lat2db);
+                    sunClaimsPrincipal = new SunClaimsPrincipal(claimsPrincipal, rolesCache, sessionId, lat2db);
                 }
 
-                if (jwtBlackListService.IsTokenNotInBlackList(myClaimsPrincipal.LongToken2Db))
+                if (jwtBlackListService.IsTokenNotInBlackList(sunClaimsPrincipal.LongToken2Db))
                     return ErrorAuthorization();
 
-                if (myClaimsPrincipal.Roles.ContainsKey(RoleNames.Banned))
+                if (sunClaimsPrincipal.Roles.ContainsKey(RoleNames.Banned))
                     return ErrorAuthorization();
 
-                var authenticationTicket = new AuthenticationTicket(myClaimsPrincipal, MyJwt.Scheme);
+                var authenticationTicket = new AuthenticationTicket(sunClaimsPrincipal, SunJwt.Scheme);
                 return AuthenticateResult.Success(authenticationTicket);
             }
             catch (Exception e)
@@ -137,11 +137,11 @@ namespace SunEngine.Commons.Security
         }
     }
 
-    public class MyJwtOptions : AuthenticationSchemeOptions
+    public class SunJwtOptions : AuthenticationSchemeOptions
     {
     }
 
-    public static class MyJwt
+    public static class SunJwt
     {
         public const string Scheme = "MyScheme";
     }

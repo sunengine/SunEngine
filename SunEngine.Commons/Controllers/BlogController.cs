@@ -49,7 +49,7 @@ namespace SunEngine.Commons.Controllers
             if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
                 return Unauthorized();
 
-            async Task<IPagedList<PostViewModel>> LoadDataAsync()
+            async Task<IPagedList<PostView>> LoadDataAsync()
             {
                 return await blogPresenter.GetPostsAsync(category.Id, page, blogOptions.PostsPageSize);
             }

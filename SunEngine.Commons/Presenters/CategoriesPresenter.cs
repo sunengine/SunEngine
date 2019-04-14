@@ -126,10 +126,7 @@ namespace SunEngine.Commons.Presenters
         public string Path { get; set; }
         public bool IsMaterialsContainer { get; set; }
         public bool IsHidden { get; set; }
-
         public Dictionary<string, bool> CategoryPersonalAccess { get; set; }
-
         public List<CategoryInfoWithAccesses> SubCategories { get; set; }
     }
-    
 }

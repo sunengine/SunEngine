@@ -26,14 +26,14 @@ namespace SunEngine.Commons.Security
 {
     public class JwtService : DbService
     {       
-        private readonly MyUserManager userManager;
+        private readonly SunUserManager userManager;
         private readonly JwtOptions jwtOptions;
         private readonly ILogger logger;
         private readonly IRolesCache rolesCache;
 
         public JwtService(
             DataBaseConnection db,
-            MyUserManager userManager,
+            SunUserManager userManager,
             IRolesCache rolesCache,
             IOptions<JwtOptions> jwtOptions,
             ILoggerFactory loggerFactory) : base(db)
@@ -51,21 +51,21 @@ namespace SunEngine.Commons.Security
 
 
         
-        public async Task<MyClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, int userId,
+        public async Task<SunClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, int userId,
             LongSession longSession = null)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Id == userId);
             return await RenewSecurityTokensAsync(response, user, longSession);
         }
 
-        public Task<MyClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, User user,
+        public Task<SunClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, User user,
             long sessionId)
         {
             var longSession = db.LongSessions.FirstOrDefault(x=>x.Id == sessionId);
             return RenewSecurityTokensAsync(response, user, longSession);
         }
 
-        public async Task<MyClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, User user,
+        public async Task<SunClaimsPrincipal> RenewSecurityTokensAsync(HttpResponse response, User user,
             LongSession longSession = null)
         {
             void GenerateTokens(LongSession longSession1)
@@ -132,7 +132,7 @@ namespace SunEngine.Commons.Security
         private class TokenAndClaimsPrincipal
         {
             public string Token;
-            public MyClaimsPrincipal ClaimsPrincipal;
+            public SunClaimsPrincipal ClaimsPrincipal;
         }
 
         private async Task<TokenAndClaimsPrincipal> GenerateShortAuthTokenAsync(User user, string lat2r, string lat2, long sessionId)
@@ -168,7 +168,7 @@ namespace SunEngine.Commons.Security
 
             return new TokenAndClaimsPrincipal
             {
-                ClaimsPrincipal = new MyClaimsPrincipal(claimsPrincipal, rolesCache, sessionId, lat2),
+                ClaimsPrincipal = new SunClaimsPrincipal(claimsPrincipal, rolesCache, sessionId, lat2),
                 Token = new JwtSecurityTokenHandler().WriteToken(token)
             };
         }

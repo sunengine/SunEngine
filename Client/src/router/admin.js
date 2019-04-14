@@ -1,8 +1,8 @@
 import AdminPage from 'admin/AdminPage';
 import AdminPanel from 'admin/AdminPanel';
 import CategoriesAdmin from 'admin/CategoriesAdmin';
-import AddCategory from 'admin/AddEditCategory/AddCategory';
-import EditCategory from 'admin/AddEditCategory/EditCategory';
+import CreateCategory from 'admin/CreateEditCategory/CreateCategory';
+import EditCategory from 'admin/CreateEditCategory/EditCategory';
 import RolesPermissions from 'admin/RolesPermissions';
 import RoleUsers from 'admin/RoleUsers';
 import RolesPage from 'admin/RolesPage';
@@ -28,10 +28,10 @@ const routes = [
     }
   },
   {
-    name: 'AddCategory',
-    path: '/admin/AddCategory'.toLowerCase(),
+    name: 'CreateCategory',
+    path: '/admin/CreateCategory'.toLowerCase(),
     components: {
-      default: AddCategory,
+      default: CreateCategory,
       navigation: AdminPanel
     }
   },

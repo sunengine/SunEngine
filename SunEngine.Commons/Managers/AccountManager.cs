@@ -27,13 +27,13 @@ namespace SunEngine.Commons.Managers
     public class AccountManager : DbService, IAccountManager
     {
         protected readonly JwtOptions jwtOptions;
-        protected readonly MyUserManager userManager;
+        protected readonly SunUserManager userManager;
         protected readonly GlobalOptions globalOptions;
         protected readonly IEmailSenderService EmailSenderService;
 
 
         public AccountManager(
-            MyUserManager userManager,
+            SunUserManager userManager,
             IEmailSenderService emailSenderService,
             DataBaseConnection db,
             IOptions<GlobalOptions> globalOptions,
@@ -61,7 +61,7 @@ namespace SunEngine.Commons.Managers
             }
             catch (Exception)
             {
-                ServiceResult.BadResult(new ErrorViewModel {ErrorText = "Server error. Can not send email."});
+                ServiceResult.BadResult(new ErrorView {ErrorText = "Server error. Can not send email."});
             }
 
             return ServiceResult.OkResult();
