@@ -105,9 +105,7 @@ namespace SunEngine.Commons.Controllers
     public class ErrorView
     {
         public IList<ErrorObject> Errors { get; } = new List<ErrorObject>();
-        public string[] ErrorsNames { get; set; }
-        public string[] ErrorsTexts { get; set; }
-
+        
         public ErrorView()
         {
         }

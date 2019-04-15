@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -68,7 +69,6 @@ namespace SunEngine.Commons.Managers
             return UserServiceResult.OkResult(user);
         }
 
-
         public virtual async Task<ServiceResult> RegisterAsync(NewUserArgs model)
         {
             var user = new User
@@ -85,15 +85,7 @@ namespace SunEngine.Commons.Managers
                 await db.Users.Where(x => x.Id == user.Id).Set(x => x.Link, x => x.Id.ToString()).UpdateAsync();
 
                 if (!result.Succeeded)
-                    return new ServiceResult
-                    {
-                        Succeeded = false,
-                        Error = new ErrorView
-                        {
-                            ErrorsNames = result.Errors.Select(x => x.Code).ToArray(),
-                            ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()
-                        }
-                    };
+                    return CreateResultWithErrors(result);
 
                 logger.LogInformation($"New user registered (id: {user.Id})");
 
@@ -134,5 +126,27 @@ namespace SunEngine.Commons.Managers
                 };
             }
         }
+        
+        private ServiceResult CreateResultWithErrors(IdentityResult result)
+        {   
+            return new ServiceResult
+            {
+                Succeeded = false,
+                Error = CreateErrorView(result.Errors) 
+            };
+        }
+
+        private ErrorView CreateErrorView(IEnumerable<IdentityError> resultErrors)
+        {
+            ErrorView errorView = new ErrorView();
+            
+            foreach (IdentityError identityError in resultErrors)
+            {
+                errorView.AddError(identityError.Code, identityError.Description);
+            }
+
+            return errorView;
+        }
     }
+    
 }

@@ -1,5 +1,5 @@
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Flurl;
 using Microsoft.AspNetCore.Authorization;
@@ -132,8 +132,20 @@ namespace SunEngine.Commons.Controllers
             if (result.Succeeded)
                 return Ok();
 
-            return BadRequest(
-                new ErrorView {ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()});
+            return BadRequest(CreateErrorView(result.Errors));
+        }
+        
+        //TODO Remove code duplication. Consider move logic inside AuthManager. Abstraction violation.
+        private ErrorView CreateErrorView(IEnumerable<IdentityError> resultErrors)
+        {
+            ErrorView errorView = new ErrorView();
+            
+            foreach (IdentityError identityError in resultErrors)
+            {
+                errorView.AddError(identityError.Code, identityError.Description);
+            }
+
+            return errorView;
         }
     }
 }
