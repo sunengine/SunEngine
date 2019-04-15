@@ -60,7 +60,7 @@
 - По умолчанию стоит база SQLite (файл: `SunEngine/SunEngine.db`)
 - Скомпилировать solution.
 - Зайти в директорию куда скомпилировался код `/SunEngine/SunEngine/bin/Debug/netcoreapp2.2/` 
-- Заполнить базу `dotnet SunEngine.dll migrate init add-test-data`
+- Заполнить базу `dotnet SunEngine.dll migrate init seed`
 - Запускаем сервер `dotnet SunEngine.dll server`
 - Компилируем и запускаем клиентскую часть.  
   - Зайти в консоль в директорию `SunEngine/Client`

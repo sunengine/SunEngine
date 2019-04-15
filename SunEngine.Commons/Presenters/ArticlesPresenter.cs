@@ -10,12 +10,13 @@ namespace SunEngine.Commons.Presenters
 {
     public interface IArticlesPresenter
     {
-        Task<IPagedList<ArticleInfoView>> GetArticlesAsync(int categoryId, ArticlesOrderType order, int page, int pageSize);
+        Task<IPagedList<ArticleInfoView>> GetArticlesAsync(int categoryId, ArticlesOrderType order, int page,
+            int pageSize);
 
         Task<IPagedList<ArticleInfoView>> GetArticlesFromMultiCategoriesAsync(int[] categoriesIds, int page,
             int pageSize);
     }
-    
+
     public enum ArticlesOrderType
     {
         PublishDate = 0,
@@ -28,7 +29,8 @@ namespace SunEngine.Commons.Presenters
         {
         }
 
-        public virtual Task<IPagedList<ArticleInfoView>> GetArticlesAsync(int categoryId, ArticlesOrderType order, int page,
+        public virtual Task<IPagedList<ArticleInfoView>> GetArticlesAsync(int categoryId, ArticlesOrderType order,
+            int page,
             int pageSize)
         {
             Func<IQueryable<Material>, IOrderedQueryable<Material>> orderBy;
@@ -78,8 +80,6 @@ namespace SunEngine.Commons.Presenters
                 page,
                 pageSize);
         }
-
-       
     }
 
 
