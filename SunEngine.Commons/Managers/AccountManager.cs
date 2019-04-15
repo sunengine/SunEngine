@@ -61,7 +61,7 @@ namespace SunEngine.Commons.Managers
             }
             catch (Exception)
             {
-                ServiceResult.BadResult(new ErrorView {ErrorText = "Server error. Can not send email."});
+                ServiceResult.BadResult(new ErrorView ("SystemError","Server error. Can not send email."));
             }
 
             return ServiceResult.OkResult();

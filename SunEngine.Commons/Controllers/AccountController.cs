@@ -35,7 +35,7 @@ namespace SunEngine.Commons.Controllers
         {
             User user = await userManager.FindByEmailAsync(model.Email);
             if (user == null)
-                return BadRequest(new ErrorView {ErrorText = "User with this email not found."});
+                return BadRequest(new ErrorView ("UserNotFound","User with this email not found."));
 
             var result = await accountManager.ResetPasswordSendEmailAsync(user);
             if (result.Failed)
@@ -72,7 +72,7 @@ namespace SunEngine.Commons.Controllers
             if (result.Succeeded)
                 return Ok();
 
-            return BadRequest(new ErrorView {ErrorText = "Server error. Something goes wrong."});
+            return BadRequest(new ErrorView ("SystemError","Server error. Something goes wrong."));
         }
         
         [HttpPost]
@@ -81,15 +81,15 @@ namespace SunEngine.Commons.Controllers
             email = email.Trim();
 
             if (!EmailValidator.IsValid(email))
-                return BadRequest(new ErrorView {ErrorText = "Email not valid"});
+                return BadRequest(new ErrorView ("EmailInvalid","Email not valid"));
 
             var user = await GetUserAsync();
 
             if (!await userManager.CheckPasswordAsync(user, password))
-                return BadRequest(new ErrorView {ErrorText = "Password not valid"});
+                return BadRequest(new ErrorView ("PasswordInvalid","Password not valid"));
 
             if (await userManager.CheckEmailInDbAsync(email, user.Id))
-                return BadRequest(new ErrorView {ErrorText = "Email already registered"});
+                return BadRequest(new ErrorView ("EmailAlreadyTaken","Email already registered"));
 
             await accountManager.SendChangeEmailConfirmationMessageByEmailAsync(user, email);
 

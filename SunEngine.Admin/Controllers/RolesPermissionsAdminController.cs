@@ -37,11 +37,7 @@ namespace SunEngine.Admin.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(new ErrorView
-                {
-                    ErrorName = e.Message,
-                    ErrorText = e.StackTrace
-                });
+                return BadRequest(new ErrorView(e.Message, e.StackTrace));
             }
 
             rolesCache.Reset();

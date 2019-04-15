@@ -104,8 +104,8 @@ namespace SunEngine.Commons.Controllers
 
     public class ErrorView
     {
-        public string ErrorName { get; set; }
-        public string ErrorText { get; set; }
+        public string ErrorName { get; }
+        public string ErrorText { get; }
         public string[] ErrorsNames { get; set; }
         public string[] ErrorsTexts { get; set; }
 
@@ -115,9 +115,10 @@ namespace SunEngine.Commons.Controllers
 
         public ErrorView(string errorName, string errorText)
         {
-            this.ErrorName = errorName;
-            this.ErrorText = errorText;
+            ErrorName = errorName;
+            ErrorText = errorText;
         }     
 
     }
+
 }

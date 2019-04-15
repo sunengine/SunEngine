@@ -41,11 +41,9 @@ namespace SunEngine.Commons.Filters
             
             if (requestFree != null && requestFree.Working())
             {
-                context.Result = controller.BadRequest(new ErrorView
-                {
-                    ErrorName = "SpamProtection",
-                    ErrorText = "Нельзя так часто делать запросы."
-                });
+                context.Result =
+                    controller.BadRequest(
+                        new ErrorView("SpamProtection", "Нельзя так часто делать запросы."));
             }
 
             SpamProtectionFilterTransfer temp = new SpamProtectionFilterTransfer()

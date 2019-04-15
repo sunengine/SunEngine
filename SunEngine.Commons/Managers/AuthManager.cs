@@ -50,29 +50,19 @@ namespace SunEngine.Commons.Managers
 
             if (user == null || !await userManager.CheckPasswordAsync(user, password))
             {
-                return UserServiceResult.BadResult(new ErrorView
-                {
-                    ErrorName = "username_password_invalid",
-                    ErrorText = "The username or password is invalid."
-                });
+                return UserServiceResult.BadResult(
+                    new ErrorView("username_password_invalid","The username or password is invalid."));
             }
 
             if (!await userManager.IsEmailConfirmedAsync(user))
             {
-                return UserServiceResult.BadResult(new ErrorView
-                {
-                    ErrorName = "email_not_confirmed",
-                    ErrorText = "You must have a confirmed email to log in."
-                });
+                return UserServiceResult.BadResult(
+                    new ErrorView("email_not_confirmed","You must have a confirmed email to log in."));
             }
 
             if (await userManager.IsUserInRoleAsync(user.Id, RoleNames.Banned))
             {
-                return UserServiceResult.BadResult(new ErrorView
-                {
-                    ErrorName = "user_banned",
-                    ErrorText = "Error" // Что бы не провоцировать пользователя словами что он забанен
-                });
+                return UserServiceResult.BadResult(new ErrorView("user_banned", "Error"));
             }
 
             return UserServiceResult.OkResult(user);
@@ -126,11 +116,7 @@ namespace SunEngine.Commons.Managers
                         return new ServiceResult
                         {
                             Succeeded = false,
-                            Error = new ErrorView
-                            {
-                                ErrorName = "Can not send email",
-                                ErrorText = "Ошибка отправки email"
-                            }
+                            Error = new ErrorView("Can not send email","Ошибка отправки email")
                         };
                     }
 
