@@ -55,7 +55,9 @@ namespace SunEngine.Commons.Security
         public int MaterialEditAny { get; private set; }
         [IsSuper] 
         public int MaterialDeleteAny { get; private set; }
-
+        [IsSuper] 
+        public int MaterialChangeOrder { get; private set; }
+        
         [IsSuper] 
         public int CommentEditAny { get; private set; }
         [IsSuper] 

@@ -44,6 +44,10 @@ namespace SunEngine.Commons.Security
             return authorizationService.HasAccess(roles, category, OperationKeys.MaterialAndCommentsRead);
         }
 
+        public bool CanChangeOrder(IReadOnlyDictionary<string, RoleCached> roles, int categoryId)
+        {
+            return authorizationService.HasAccess(roles, categoryId, OperationKeys.MaterialChangeOrder);
+        }
 
         private bool EditOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
