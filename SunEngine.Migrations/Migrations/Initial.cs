@@ -84,6 +84,7 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("LastActivity").AsMyDateTime().NotNullable().Indexed()
                 .WithColumn("CommentsCount").AsInt32().NotNullable()
                 .WithColumn("SortNumber").AsInt32().NotNullable().Indexed()
+                .WithColumn("IsHidden").AsBoolean().NotNullable().Indexed()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable().Indexed();
 
 

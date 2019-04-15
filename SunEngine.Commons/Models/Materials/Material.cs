@@ -57,6 +57,9 @@ namespace SunEngine.Commons.Models.Materials
         
         public bool IsDeleted { get; set; }
         
+        public bool IsHidden { get; set; }
+
+        
         /// <summary>
         /// Count of not deleted comments
         /// </summary>
