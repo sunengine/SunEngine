@@ -10,6 +10,9 @@ using SunEngine.Commons.Models.Materials;
 
 namespace SunEngine.Commons.DataBase
 {
+    /// <summary>
+    /// Main Linq2db class to make database operations
+    /// </summary>
     public class DataBaseConnection : IdentityDataConnection<User, Role, int>
     {
         public DataBaseConnection(string providerName, string connectionString, DbMappingSchema mappingSchema) : base(

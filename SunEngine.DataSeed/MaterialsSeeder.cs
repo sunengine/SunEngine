@@ -9,6 +9,9 @@ using SunEngine.Commons.Utils.TextProcess;
 
 namespace SunEngine.DataSeed
 {
+    /// <summary>
+    /// Seed materials and comments to DataContainer for testing purposes 
+    /// </summary>
     public class MaterialsSeeder
     {
         public struct LinesCount

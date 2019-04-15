@@ -3,14 +3,14 @@
     "Name": "Articles1L",
     "Title": "Статьи с подразделами",
     "SectionType": "Articles",
-    "MaterialTypeTitle" : "Статья",
+    "MaterialTypeTitle": "Статья",
     "SubCategories": [
       {
-        "Name": "Thread[n]",
+        "Name": "Articles1L-[n]",
         "Title": "Раздел [n]",
         "IsMaterialsContainer": true,
         "Repeat": 2
       }
-      ]
+    ]
   }
 ]

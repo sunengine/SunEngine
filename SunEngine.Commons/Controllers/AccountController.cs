@@ -14,6 +14,9 @@ using SunEngine.Commons.Utils;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Change and reset password, change email controller
+    /// </summary>
     [Authorize]
     public class AccountController : BaseController
     {

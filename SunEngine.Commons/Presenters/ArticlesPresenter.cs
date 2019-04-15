@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using SunEngine.Commons.DataBase;
+using SunEngine.Commons.Models.Materials;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.Utils.PagedList;
 
@@ -9,11 +10,17 @@ namespace SunEngine.Commons.Presenters
 {
     public interface IArticlesPresenter
     {
-        Task<IPagedList<ArticleInfoView>> GetArticlesAsync(int categoryId, int page, int pageSize);
+        Task<IPagedList<ArticleInfoView>> GetArticlesAsync(int categoryId, ArticlesOrderType order, int page,
+            int pageSize);
 
         Task<IPagedList<ArticleInfoView>> GetArticlesFromMultiCategoriesAsync(int[] categoriesIds, int page,
             int pageSize);
+    }
 
+    public enum ArticlesOrderType
+    {
+        PublishDate = 0,
+        SortNumber = 1
     }
 
     public class ArticlesPresenter : DbService, IArticlesPresenter
@@ -22,8 +29,17 @@ namespace SunEngine.Commons.Presenters
         {
         }
 
-        public virtual Task<IPagedList<ArticleInfoView>> GetArticlesAsync(int categoryId, int page, int pageSize)
+        public virtual Task<IPagedList<ArticleInfoView>> GetArticlesAsync(int categoryId, ArticlesOrderType order,
+            int page,
+            int pageSize)
         {
+            Func<IQueryable<Material>, IOrderedQueryable<Material>> orderBy;
+            if (order == ArticlesOrderType.PublishDate)
+                orderBy = x => x.OrderByDescending(y => y.PublishDate);
+            else
+                orderBy = x => x.OrderByDescending(y => y.SortNumber);
+
+
             return db.MaterialsNotDeleted.GetPagedListAsync(
                 x => new ArticleInfoView
                 {
@@ -37,12 +53,13 @@ namespace SunEngine.Commons.Presenters
                     CategoryName = x.Category.NameNormalized
                 },
                 x => x.CategoryId == categoryId,
-                x => x.OrderByDescending(y => y.PublishDate),
+                orderBy,
                 page,
                 pageSize);
         }
-        
-        public virtual Task<IPagedList<ArticleInfoView>> GetArticlesFromMultiCategoriesAsync(int[] categoriesIds, int page, int pageSize)
+
+        public virtual Task<IPagedList<ArticleInfoView>> GetArticlesFromMultiCategoriesAsync(int[] categoriesIds,
+            int page, int pageSize)
         {
             return db.MaterialsNotDeleted.GetPagedListAsync(
                 x => new ArticleInfoView
@@ -55,7 +72,8 @@ namespace SunEngine.Commons.Presenters
                     AuthorName = x.Author.UserName,
                     PublishDate = x.PublishDate,
                     CategoryName = x.Category.NameNormalized,
-                    CategoryTitle = x.Category.Title
+                    CategoryTitle = x.Category.Title,
+                    SortNumber = x.SortNumber
                 },
                 x => categoriesIds.Contains(x.CategoryId),
                 x => x.OrderByDescending(y => y.PublishDate),
@@ -63,6 +81,7 @@ namespace SunEngine.Commons.Presenters
                 pageSize);
         }
     }
+
 
     public class ArticleInfoView
     {
@@ -75,5 +94,7 @@ namespace SunEngine.Commons.Presenters
         public DateTime PublishDate { get; set; }
         public string CategoryTitle { get; set; }
         public string CategoryName { get; set; }
+
+        public int SortNumber { get; set; }
     }
 }

@@ -2,6 +2,9 @@
 
 namespace SunEngine.Commons.Models.Authorization
 {
+    /// <summary>
+    /// Container for all CategoryOperationAccesses for Role, Category pair
+    /// </summary>
     public class CategoryAccess
     {
         public int Id { get; set; }

@@ -5,12 +5,14 @@ using FluentMigrator.Builders.Create.Table;
 
 namespace SunEngine.Migrations.Migrations
 {
+    /// <summary>
+    /// Initial migration for FluentMigrator
+    /// </summary>
     [Migration(20190208000000)]
     public class Initial : Migration
     {
         public override void Up()
         {
-           
             
             Create.Table("SectionTypes")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
@@ -82,6 +84,7 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("LastActivity").AsMyDateTime().NotNullable().Indexed()
                 .WithColumn("CommentsCount").AsInt32().NotNullable()
                 .WithColumn("SortNumber").AsInt32().NotNullable().Indexed()
+                .WithColumn("IsHidden").AsBoolean().NotNullable().Indexed()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable().Indexed();
 
 

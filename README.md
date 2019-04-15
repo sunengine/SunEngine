@@ -60,7 +60,7 @@
 - По умолчанию стоит база SQLite (файл: `SunEngine/SunEngine.db`)
 - Скомпилировать solution.
 - Зайти в директорию куда скомпилировался код `/SunEngine/SunEngine/bin/Debug/netcoreapp2.2/` 
-- Заполнить базу `dotnet SunEngine.dll migrate init add-test-data`
+- Заполнить базу `dotnet SunEngine.dll migrate init seed`
 - Запускаем сервер `dotnet SunEngine.dll server`
 - Компилируем и запускаем клиентскую часть.  
   - Зайти в консоль в директорию `SunEngine/Client`
@@ -154,11 +154,3 @@ server {
 Теперь необходимо запустить отдельным процессом kestrel сервис по локальному адресу `http://localhost:5020`
 
 Как это делается читаем [статью](https://kimsereyblog.blogspot.com/2018/05/manage-kestrel-process-with-systemd.html).
-
-## Лицензия
-
-Кратко:
-- Без оплаты для некоммерческого использования.
-- Платно для коммерческого использования.
-
-**[Текст лицензии](LICENSE.md)**

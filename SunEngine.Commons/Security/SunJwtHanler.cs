@@ -15,6 +15,13 @@ using SunEngine.Commons.Models;
 
 namespace SunEngine.Commons.Security
 {
+    /// <summary>
+    /// Jwt validation handler with system of 3 tokens
+    /// 1 - ShortToken (Access token), stored in client JS or localStorage Short token life approximate 5 minutes to 2 days
+    /// 2 - LongToken1 (Refresh token), stored in client JS or localStorage. Long token life ~ 3 month.
+    /// 3 - LongToken2 (Access + Refresh token, 2 in 1), stored in cookie Long token life ~ 3 month.
+    /// LongToken2 needed to verify ShortToken and LongToken1 to protect against XSS attacks.
+    /// </summary>
     public class SunJwtHandler : AuthenticationHandler<SunJwtOptions>
     {
         private readonly IRolesCache rolesCache;

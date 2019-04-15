@@ -11,6 +11,9 @@ using SunEngine.Commons.Models.Authorization;
 
 namespace SunEngine.Commons.Security
 {
+    /// <summary>
+    /// Store for JWT black listed JWT short tokens
+    /// </summary>
     public class JwtBlackListService : ISunMemoryCache
     {
         private readonly IDataBaseFactory dataBaseFactory;

@@ -14,6 +14,10 @@ using SunEngine.Commons.Services;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Materials CRUD controller.
+    /// Used by Articles, Forum and Blog
+    /// </summary>
     public class MaterialsController : BaseController
     {
         protected readonly MaterialsAuthorization materialsAuthorization;
@@ -36,8 +40,8 @@ namespace SunEngine.Commons.Controllers
 
         public virtual async Task<IActionResult> Get(string idOrName)
         {
-            return int.TryParse(idOrName, out int id) 
-                ? await GetById(id) 
+            return int.TryParse(idOrName, out int id)
+                ? await GetById(id)
                 : await GetByName(idOrName);
         }
 
@@ -172,12 +176,13 @@ namespace SunEngine.Commons.Controllers
                         return ServiceResult.BadResult(new ErrorView("MaterialNameNotValid", "Invalid material name"));
 
                     if (name != material.Name && await materialsManager.IsNameInDb(name))
-                        return ServiceResult.BadResult(new ErrorView("MaterialNameAlreadyUsed", "This material name is already used"));
+                        return ServiceResult.BadResult(new ErrorView("MaterialNameAlreadyUsed",
+                            "This material name is already used"));
 
                     material.Name = name;
                 }
             }
-            
+
             return ServiceResult.OkResult();
         }
 
@@ -197,6 +202,45 @@ namespace SunEngine.Commons.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Move material up in sort order inside category
+        /// </summary>
+        [HttpPost]
+        public virtual async Task<IActionResult> MaterialUp(int id)
+        {
+            int? categoryId = await materialsManager.GetMaterialCategoryIdAsync(id);
+            if (!categoryId.HasValue)
+                return BadRequest();
+
+            if (materialsAuthorization.CanChangeOrder(User.Roles, categoryId.Value))
+                return Unauthorized();
+            
+            var result = await materialsManager.MaterialUpAsync(id);
+            if (result.Failed)
+                return BadRequest();
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Move material down in sort order inside category
+        /// </summary>
+        [HttpPost]
+        public virtual async Task<IActionResult> MaterialDown(int id)
+        {
+            int? categoryId = await materialsManager.GetMaterialCategoryIdAsync(id);
+            if (!categoryId.HasValue)
+                return BadRequest();
+
+            if (materialsAuthorization.CanChangeOrder(User.Roles, categoryId.Value))
+                return Unauthorized();
+
+            var result = await materialsManager.MaterialDownAsync(id);
+            if (result.Failed)
+                return BadRequest();
+
+            return Ok();
+        }
 
         /*[HttpPost]
         public async Task<IActionResult> Restore(int id)

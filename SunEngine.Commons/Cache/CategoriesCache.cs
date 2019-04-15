@@ -9,6 +9,9 @@ using SunEngine.Commons.Utils;
 
 namespace SunEngine.Commons.Cache
 {
+    /// <summary>
+    /// Store categories in cache to fast access interface for singleton service
+    /// </summary>
     public interface ICategoriesCache : ISunMemoryCache
     {
         IReadOnlyDictionary<string, SectionTypeCached> AllSectionTypes { get; }
@@ -19,6 +22,9 @@ namespace SunEngine.Commons.Cache
         IDictionary<string, CategoryCached> GetAllCategoriesIncludeSub(string categoriesList);
     }
 
+    /// <summary>
+    /// Store categories in cache to fast access singleton service
+    /// </summary>
     public class CategoriesCache : ICategoriesCache
     {
         private readonly IDataBaseFactory dataBaseFactory;

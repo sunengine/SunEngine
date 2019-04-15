@@ -6,6 +6,9 @@ using SunEngine.Commons.Models.Materials;
 
 namespace SunEngine.Commons.DataBase
 {
+    /// <summary>
+    /// Mapping model to database schema for Linq2db DataBaseConnection class.
+    /// </summary>
     public class DbMappingSchema : MappingSchema
     {
         public DbMappingSchema()

@@ -15,6 +15,9 @@ namespace SunEngine.Commons.Cache
         IImmutableDictionary<string, RoleCached> AllRoles { get; }
     }
     
+    /// <summary>
+    /// Quick access roles cache for authorization system (AuthorizationService)
+    /// </summary>
     public class RolesCache : IRolesCache
     {
         private readonly IDataBaseFactory dataBaseFactory;

@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Transactions;
 using AngleSharp.Dom.Io;
 using LinqToDB;
 using Microsoft.Extensions.Options;
@@ -24,6 +25,8 @@ namespace SunEngine.Commons.Managers
         Task DetectAndSetLastCommentAndCountAsync(int materialId);
         bool IsNameValid(string name);
         Task<bool> IsNameInDb(string name);
+        Task<ServiceResult> MaterialUpAsync(int id);
+        Task<ServiceResult> MaterialDownAsync(int id);
     }
 
     public class MaterialsManager : DbService, IMaterialsManager
@@ -148,6 +151,52 @@ namespace SunEngine.Commons.Managers
         public virtual Task<bool> IsNameInDb(string name)
         {
             return db.Materials.AnyAsync(x => x.Name.ToLower() == name.ToLower());
+        }
+
+        public async Task<ServiceResult> MaterialUpAsync(int id)
+        {
+            var material = await db.Materials.Where(x => !x.IsDeleted).FirstOrDefaultAsync(x => x.Id == id);
+            if (material == null)
+                return ServiceResult.BadResult();
+
+            var material2 = await db.Materials
+                .Where(x => !x.IsDeleted && x.CategoryId == material.CategoryId && x.SortNumber > material.SortNumber)
+                .OrderBy(x => x.SortNumber).FirstOrDefaultAsync();
+
+            if (material2 == null)
+                return ServiceResult.BadResult();
+
+            db.BeginTransaction();
+            await db.Materials.Where(x => x.Id == material.Id).Set(x => x.SortNumber, material2.SortNumber)
+                .UpdateAsync();
+            await db.Materials.Where(x => x.Id == material2.Id).Set(x => x.SortNumber, material.SortNumber)
+                .UpdateAsync();
+            db.CommitTransaction();
+
+            return ServiceResult.OkResult();
+        }
+
+        public async Task<ServiceResult> MaterialDownAsync(int id)
+        {
+            var material = await db.Materials.Where(x => !x.IsDeleted).FirstOrDefaultAsync(x => x.Id == id);
+            if (material == null)
+                return ServiceResult.BadResult();
+
+            var material2 = await db.Materials
+                .Where(x => !x.IsDeleted && x.CategoryId == material.CategoryId && x.SortNumber < material.SortNumber)
+                .OrderByDescending(x => x.SortNumber).FirstOrDefaultAsync();
+
+            if (material2 == null)
+                return ServiceResult.BadResult();
+
+            db.BeginTransaction();
+            await db.Materials.Where(x => x.Id == material.Id).Set(x => x.SortNumber, material2.SortNumber)
+                .UpdateAsync();
+            await db.Materials.Where(x => x.Id == material2.Id).Set(x => x.SortNumber, material.SortNumber)
+                .UpdateAsync();
+            db.CommitTransaction();
+
+            return ServiceResult.OkResult();
         }
     }
 }

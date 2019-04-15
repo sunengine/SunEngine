@@ -4,6 +4,9 @@ using SunEngine.Commons.Filters;
 
 namespace SunEngine.Commons.Cache
 {
+    /// <summary>
+    /// Cache to track and prevent to quick posting content on site
+    /// </summary>
     public class SpamProtectionCache
     {
         protected ConcurrentDictionary<string, RequestFree> Requests { get; } =

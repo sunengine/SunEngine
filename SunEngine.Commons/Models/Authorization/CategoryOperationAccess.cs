@@ -1,5 +1,8 @@
 ﻿namespace SunEngine.Commons.Models.Authorization
 {
+    /// <summary>
+    /// Allow access or disallow to OperationKey for CategoryAccess  
+    /// </summary>
     public class CategoryOperationAccess
     {
         public int CategoryAccessId { get; set; }

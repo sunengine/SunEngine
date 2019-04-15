@@ -2,6 +2,9 @@ using SunEngine.Commons.Models.Authorization;
 
 namespace SunEngine.Commons.Cache.CacheModels
 {
+    /// <summary>
+    /// Cache of OperationKey for RolesCache
+    /// </summary>
     public class OperationKeyCached
     {
         public int OperationKeyId { get;  }

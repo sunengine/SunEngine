@@ -10,6 +10,9 @@ using SunEngine.Commons.Models.Materials;
 
 namespace SunEngine.Commons.Security
 {
+    /// <summary>
+    /// Authorization helpers for MaterialsController
+    /// </summary>
     public class MaterialsAuthorization
     {
         private readonly OperationKeysContainer OperationKeys;
@@ -41,6 +44,10 @@ namespace SunEngine.Commons.Security
             return authorizationService.HasAccess(roles, category, OperationKeys.MaterialAndCommentsRead);
         }
 
+        public bool CanChangeOrder(IReadOnlyDictionary<string, RoleCached> roles, int categoryId)
+        {
+            return authorizationService.HasAccess(roles, categoryId, OperationKeys.MaterialChangeOrder);
+        }
 
         private bool EditOwnIfTimeNotExceededCheck(DateTime publishDate)
         {

@@ -32,7 +32,6 @@ namespace SunEngine.Commons.Security
 
     public static class Headers
     {
-        
         public const string LongToken1HeaderName = "LongToken1";
     
         /// <summary>

@@ -5,7 +5,7 @@ namespace SunEngine.Commons.Utils
 {
     public static class WebJson
     {
-        public static JsonSerializerSettings jsonSettings { get; } = new JsonSerializerSettings()
+        public static JsonSerializerSettings jsonSettings { get; } = new JsonSerializerSettings
         {
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
             MissingMemberHandling = MissingMemberHandling.Ignore,

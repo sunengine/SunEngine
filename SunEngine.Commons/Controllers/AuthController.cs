@@ -15,6 +15,9 @@ using SunEngine.Commons.Security;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Login, logout, register controller
+    /// </summary>
     [AllowAnonymous]
     public class AuthController : BaseController
     {

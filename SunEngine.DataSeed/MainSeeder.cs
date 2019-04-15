@@ -6,6 +6,11 @@ using SunEngine.Commons.DataBase;
 
 namespace SunEngine.DataSeed
 {
+    /// <summary>
+    /// Class to seed database with initial data with 2 modes
+    /// "init" (SeedInitialize) - seed roles, users, categories
+    /// "seed" (SeedAddTestData) - seed test materials and comments 
+    /// </summary>
     public class MainSeeder
     {
         private readonly string providerName;
@@ -25,6 +30,9 @@ namespace SunEngine.DataSeed
             connectionString = dataBaseConfiguration["ConnectionString"];
         }
 
+        /// <summary>
+        /// Initialize database with roles, users, categories from config direcory
+        /// </summary>
         public void SeedInitialize()
         {
             using (DataBaseConnection db = new DataBaseConnection(providerName, connectionString))
@@ -34,11 +42,11 @@ namespace SunEngine.DataSeed
             }
         }
 
-
+        /// <summary>
+        /// Seed database with materials and comment for testing purposes
+        /// </summary>
         public void SeedAddTestData(IList<string> catTokens, bool titleAppendCategoryName = false)
         {
-
-
             
             if (catTokens.Contains("seed")) catTokens[catTokens.IndexOf("seed")] = "seed:Root";
             catTokens = catTokens.Select(x => x.Substring("seed:".Length)).ToList();

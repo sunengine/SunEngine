@@ -4,6 +4,9 @@ using SunEngine.Commons.Models.Authorization;
 
 namespace SunEngine.Commons.Cache.CacheModels
 {
+    /// <summary>
+    /// Role information cached in RolesCache service
+    /// </summary>
     public class RoleCached
     {
         public int Id { get; }

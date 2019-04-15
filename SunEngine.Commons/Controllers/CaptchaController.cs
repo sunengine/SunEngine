@@ -6,6 +6,9 @@ using SunEngine.Commons.Services;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Spam protection captcha controller
+    /// </summary>
     public class CaptchaController : BaseController
     {
         protected readonly CaptchaService captchaService;

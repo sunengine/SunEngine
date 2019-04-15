@@ -2,6 +2,10 @@ using System;
 
 namespace SunEngine.Commons.Models
 {
+    /// <summary>
+    /// JWT session for single browser
+    /// Any browser has its own session
+    /// </summary>
     public class LongSession
     {
         public const int LongToken1Length = 16;

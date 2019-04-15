@@ -8,6 +8,9 @@ using SunEngine.Commons.Utils;
 
 namespace SunEngine.DataSeed
 {
+    /// <summary>
+    /// Seed categories from json from config directory to DataContainer
+    /// </summary>
     public class CategoriesJsonSeeder
     {
         private readonly DataContainer dataContainer;

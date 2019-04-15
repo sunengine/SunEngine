@@ -2,6 +2,9 @@
 
 namespace SunEngine.Commons.Models.Materials
 {
+    /// <summary>
+    /// Comment for Material
+    /// </summary>
     public class Comment
     {
         public int Id { get; set; }

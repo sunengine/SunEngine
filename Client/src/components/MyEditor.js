@@ -64,7 +64,7 @@ export default {
 
         this.$store.dispatch("request",
           {
-            url: "/Images/UploadImage",
+            url: "/UploadImages/UploadImage",
             data: formData
           })
           .then(response => {

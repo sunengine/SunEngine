@@ -5,15 +5,19 @@ using SunEngine.Commons.Cache.CacheModels;
 
 namespace SunEngine.Commons.Security
 {
+    /// <summary>
+    /// Main authorization service interface to check access for (Role, Category and OperationKey) triple.
+    /// </summary>
     public interface IAuthorizationService
     {
         bool HasAccess(IReadOnlyDictionary<string, RoleCached> roles, CategoryCached category, int operationKey);
 
         HashSet<int> HasAccess(IReadOnlyDictionary<string, RoleCached> roles, CategoryCached category,
             IEnumerable<int> operationKeys);
-        
-        IList<CategoryCached> GetAllowedCategories(IReadOnlyDictionary<string, RoleCached> userGroups, IEnumerable<CategoryCached> categories, int operationKey);
-        
+
+        IList<CategoryCached> GetAllowedCategories(IReadOnlyDictionary<string, RoleCached> userGroups,
+            IEnumerable<CategoryCached> categories, int operationKey);
+
 
         #region With CategoryId
 
@@ -25,7 +29,9 @@ namespace SunEngine.Commons.Security
         #endregion
     }
 
-
+    /// <summary>
+    /// Main authorization service to check access for (Role, Category and OperationKey) triple.
+    /// </summary>
     public class AuthorizationService : IAuthorizationService
     {
         private readonly ICategoriesCache categoriesCache;

@@ -8,6 +8,9 @@ using SunEngine.Commons.Utils;
 
 namespace SunEngine.DataSeed
 {
+    /// <summary>
+    /// Seed users from json file from config dir to DataContainer
+    /// </summary>
     public class UsersJsonSeeder
     {
         private const string AllUsersDefaultPassword = "password";
@@ -82,7 +85,7 @@ namespace SunEngine.DataSeed
                     Avatar = User.DefaultAvatar
                 };
                 if(string.IsNullOrEmpty(user.Link))
-                    user.SetDefaultLink();
+                    user.Link = user.Id.ToString();
                 
                 MakeNormalizedUserFields(user);
                 dataContainer.Users.Add(user);

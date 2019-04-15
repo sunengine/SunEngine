@@ -6,6 +6,9 @@ using SunEngine.Commons.Presenters;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Send all categories information controller
+    /// </summary>
     public class CategoriesController : BaseController
     {
         protected readonly ICategoriesPresenter categoriesPresenter;

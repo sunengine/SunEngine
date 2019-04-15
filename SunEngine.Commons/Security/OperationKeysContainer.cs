@@ -7,7 +7,9 @@ using SunEngine.Commons.DataBase;
 namespace SunEngine.Commons.Security
 {
     /// <summary>
-    /// This is registered Singleton Service. This container made for Main module. Others modules
+    /// Store OperationKeys ids in fields with correspondence names
+    /// 
+    /// This container made for Main module. Others modules
     /// must have different name like: ModuleNameOperationKeysContainer
     /// </summary>
     public class OperationKeysContainer
@@ -47,13 +49,19 @@ namespace SunEngine.Commons.Security
         public int CommentDeleteOwnIfHasReplies { get; private set; }
 
 
-        // moderator
+        // For Moderator +
 
-        [IsSuper] public int MaterialEditAny { get; private set; }
-        [IsSuper] public int MaterialDeleteAny { get; private set; }
-
-        [IsSuper] public int CommentEditAny { get; private set; }
-        [IsSuper] public int CommentDeleteAny { get; private set; }
+        [IsSuper] 
+        public int MaterialEditAny { get; private set; }
+        [IsSuper] 
+        public int MaterialDeleteAny { get; private set; }
+        [IsSuper] 
+        public int MaterialChangeOrder { get; private set; }
+        
+        [IsSuper] 
+        public int CommentEditAny { get; private set; }
+        [IsSuper] 
+        public int CommentDeleteAny { get; private set; }
         
         
 
@@ -71,6 +79,9 @@ namespace SunEngine.Commons.Security
         }
     }
 
+    /// <summary>
+    /// For Roles with super privileges
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class IsSuperAttribute : Attribute
     {
