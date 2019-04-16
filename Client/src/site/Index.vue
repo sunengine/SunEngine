@@ -10,7 +10,6 @@
         <br/>
         Почта будет отправляться на <a target="_blank" href="http://demo.sunengine.site:1444"><b>mailcatcher</b></a>.</p>
       <p class="ver q-mb-xl">Версия: 1.0.0-beta.9</p>
-
     </div>
   </q-page>
 </template>
