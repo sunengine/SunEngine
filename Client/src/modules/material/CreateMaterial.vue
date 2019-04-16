@@ -36,6 +36,7 @@
     data: function () {
       return {
         material: {
+          name: null,
           title: "",
           text: "",
           description: "",
