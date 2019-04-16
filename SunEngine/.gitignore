@@ -1,2 +1,2 @@
-wwwroot/UploadImages/
-!wwwroot/UploadImages/_/
+wwwroot/UploadImages/*/*
+!wwwroot/UploadImages/*
