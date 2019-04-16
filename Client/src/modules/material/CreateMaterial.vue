@@ -39,7 +39,7 @@
           name: null,
           title: "",
           text: "",
-          description: "",
+          description: null,
           tags: [],
           categoryName: this.initialCategoryName
         },
@@ -60,16 +60,22 @@
           return;
 
         this.loading = true;
+
+        const data = {
+          categoryName: this.material.categoryName,
+          title: this.material.title,
+          text: this.material.text,
+          tags: this.material.tags.join(',')
+        };
+
+        if (this.material.name)
+          data.name = this.material.name;
+        if (this.material.description)
+          data.description = this.material.description;
+
         this.$store.dispatch('request', {
           url: '/Materials/Create',
-          data: {
-            name: this.material.name,
-            categoryName: this.material.categoryName,
-            title: this.material.title,
-            description: this.material.description,
-            text: this.material.text,
-            tags: this.material.tags.join(',')
-          }
+          data: data
         }).then(() => {
           const msg = this.$tl("successNotify");
           this.$q.notify({

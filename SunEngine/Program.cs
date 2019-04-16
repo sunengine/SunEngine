@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Linq;
-using System.Reflection;
 using SunEngine.DataSeed;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;

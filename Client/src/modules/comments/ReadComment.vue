@@ -19,7 +19,7 @@ cd <template>
                     <q-icon name="far fa-clock"/> {{ $formatDate(comment.publishDate) }}
         </span>
       </div>
-      <div v-html="comment.text">
+      <div class="comment" v-html="comment.text">
 
       </div>
     </div>
