@@ -9,7 +9,7 @@ namespace SunEngine.Commons.Utils.TextProcess
         private readonly string siteUrl = "";
 
         private readonly string[] allowedTags = { "a", "b" ,"strong", "i", "em", "blockquote", "ol","li","ul", "p",
-            "div", "br","video","audio","source","span", "img" };
+            "div", "br","video","audio","source","span", "img", "code", "pre" };
 
         private readonly string[] allowedAttributes = { "style", "src", "controls", "autoplay", "loop", "alt",
             "width", "height", "target", "frameborder", "allowfullscreen", "download", "controlsList"};
