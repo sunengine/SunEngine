@@ -28,7 +28,7 @@ export default {
     newMessageBtn: "Выдать новое изображение",
     waitMessage: "Что бы сгенерировать новый токен, нужно немного подождать, попробуйте через некоторое время",
     enterToken: "Введите текст с картинки",
-    required: "@:captcha.enterToken",
+    required: "@:Captcha.enterToken",
   },
   UserMenu: {
     profile: "Профиль",
@@ -103,11 +103,8 @@ export default {
     success: "Сообщение с ссылкой для сброса пароля отправлено на email",
     validation: {
       email: {
-        required: "@:ResetPassword.enterEmail",
+        required: "@:ResetPassword.email",
         emailSig: "@:global.validation.emailSig",
-      },
-      captchaText: {
-        required: "@:Captcha.enterToken"
       }
     }
   },

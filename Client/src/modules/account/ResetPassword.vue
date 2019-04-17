@@ -10,11 +10,11 @@
 
 
       <div style="padding: 10px 10px 10px 44px; border-radius: 5px; background-color: #f0f4c3; margin-bottom: 16px;">
-        <span class="captcha-wait-msg" v-if="waitToken">{{$tl('Captcha.waitMessage')}}</span>
+        <span class="captcha-wait-msg" v-if="waitToken">{{$t('Captcha.waitMessage')}}</span>
         <img class="block" v-else-if="token" :src="$apiPath('/Captcha/CaptchaImage?token='+token)"/>
 
         <q-btn class="shadow-1 q-mt-sm block" color="lime-6" @click="GetToken" size="sm" no-caps icon="fas fa-sync"
-               :label="$tl('newCommentBtn')"/>
+               :label="$t('Captcha.newMessageBtn')"/>
       </div>
 
 
@@ -52,7 +52,7 @@
       ],
       email: [
         value => !!value || this.$tl("validation.email.required"),
-        value => /.+@.+/.test(value) || this.$tl("validation.email.emailSig")
+        value => /.+@.+/.test(value) || this.$t("Global.validation.emailSig")
       ],
     }
   }

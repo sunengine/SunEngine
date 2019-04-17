@@ -17,7 +17,6 @@ namespace SunEngine.Commons.Controllers
     /// <summary>
     /// Change and reset password, change email controller
     /// </summary>
-    [Authorize]
     public class AccountController : BaseController
     {
         private readonly GlobalOptions globalOptions;
@@ -33,6 +32,7 @@ namespace SunEngine.Commons.Controllers
         }
         
         [HttpPost]
+        [AllowAnonymous]
         [CaptchaValidationFilter]
         public async Task<IActionResult> ResetPasswordSendEmail(ResetPasswordArgs model)
         {
@@ -50,6 +50,7 @@ namespace SunEngine.Commons.Controllers
         /// <summary>
         /// Show client dialog to change password
         /// </summary>
+        [AllowAnonymous]
         [HttpGet] // Goes here FromMail
         public async Task<IActionResult> ResetPasswordShowClientDialog(string uid, string token)
         {
@@ -66,7 +67,7 @@ namespace SunEngine.Commons.Controllers
             return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "Account/ResetPasswordFailed".ToLower()));
         }
 
-
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> ResetPasswordSetNew(string uid, string token, string newPassword)
         {
@@ -79,6 +80,7 @@ namespace SunEngine.Commons.Controllers
         }
         
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> ChangeEmail(string password, string email)
         {
             email = email.Trim();
@@ -126,6 +128,7 @@ namespace SunEngine.Commons.Controllers
             }
         }
         
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> ChangePassword(string passwordOld, string passwordNew)
         {
