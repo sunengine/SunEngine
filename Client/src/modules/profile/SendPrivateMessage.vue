@@ -19,7 +19,7 @@
            :label="$tl('sendBtn')">
       <loader-sent slot="loading"/>
     </q-btn>
-    <q-btn no-caps icon="fas fa-times" @click="$router.back()" color="warning" :label="$t('global.btn.cancel')"/>
+    <q-btn no-caps icon="fas fa-times" @click="$router.back()" color="warning" :label="$t('Global.btn.cancel')"/>
   </q-page>
 </template>
 

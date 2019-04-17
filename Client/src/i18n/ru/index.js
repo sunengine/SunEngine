@@ -5,6 +5,6 @@ import site from 'site/i18n/ru.js';
 
 export default {
   ...main,
-  admin: {...admin},
+  Admin: {...admin},
   ...site
 }

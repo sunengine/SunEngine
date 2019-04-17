@@ -27,7 +27,7 @@
 
       <q-btn style="width:100%;" color="send" :label="$tl('resetPasswordBtn')" @click="send" :loading="submitting">
           <span slot="loading">
-            <q-spinner class="on-left"/>  {{$t("global.submitting")}}
+            <q-spinner class="on-left"/>  {{$t("Global.submitting")}}
           </span>
       </q-btn>
     </div>
@@ -48,7 +48,7 @@
   function createRules() {
     return {
       captchaText: [
-        value => !!value || this.$tl("validation.captchaText.required")
+        value => !!value || this.$t("Captcha.required")
       ],
       email: [
         value => !!value || this.$tl("validation.email.required"),

@@ -1,6 +1,6 @@
 export default {
 
-  global: {
+  Global: {
     dialog: {
       cancel: "Отмена",
       yes: "Да",
@@ -105,9 +105,6 @@ export default {
       email: {
         required: "@:ResetPassword.enterEmail",
         emailSig: "@:global.validation.emailSig",
-      },
-      captchaText: {
-        required: "@:Captcha.enterToken"
       }
     }
   },

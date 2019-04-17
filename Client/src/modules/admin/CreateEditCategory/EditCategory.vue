@@ -36,7 +36,7 @@
         required: true
       }
     },
-    i18nPrefix: "admin",
+    i18nPrefix: "Admin",
     data: function () {
       return {
         category: null,

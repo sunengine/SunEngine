@@ -1,6 +1,6 @@
 export default {
 
-  global: {
+  Global: {
     dialog: {
       cancel: "Отмена",
       yes: "Да",

@@ -45,8 +45,8 @@ cd <template>
     methods: {
       async moveToTrash() {
         const deleteDialogMessage = this.$tl("deleteDialogMessage");
-        const okButtonLabel = this.$t("global.dialog.ok");
-        const cancelButtonLabel = this.$t("global.dialog.cancel");
+        const okButtonLabel = this.$t("Global.dialog.ok");
+        const cancelButtonLabel = this.$t("Global.dialog.cancel");
 
         this.$q.dialog({
           title: deleteDialogMessage,

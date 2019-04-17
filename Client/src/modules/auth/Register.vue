@@ -102,7 +102,7 @@
         value => this.password === this.password2 || this.$tl("validation.password2.equals")
       ],
       captcha: [
-        value => !!value || this.$t("captcha.required"),
+        value => !!value || this.$t("Captcha.required"),
       ]
     }
   }

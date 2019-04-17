@@ -30,7 +30,7 @@
     name: "RolesPermissions",
     components: {LoaderWait},
     mixins: [Page],
-    i18nPrefix: "admin",
+    i18nPrefix: "Admin",
     computed: {},
     data: function () {
       return {

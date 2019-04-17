@@ -65,7 +65,7 @@
             }
           ).catch(x => {
             console.log("error", x);
-            const msg = this.$t("global.errorNotify");
+            const msg = this.$t("Global.errorNotify");
             this.$q.notify({
               message: msg,
               timeout: 2000,
@@ -96,7 +96,7 @@
           ).catch(x => {
             this.loading = false;
             console.log("error", x);
-            const msg = this.$t("global.errorNotify");
+            const msg = this.$t("Global.errorNotify");
             this.$q.notify({
               message: msg,
               timeout: 2000,
