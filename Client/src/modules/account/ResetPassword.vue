@@ -82,6 +82,7 @@
           return;
         }
 
+        this.submitting = true;
         this.$store.dispatch('request', {
           url: '/Account/ResetPasswordSendEmail',
           data: {
@@ -91,6 +92,7 @@
           }
         }).then(() => {
           this.done = true;
+          this.submitting = false;
         }).catch(error => {
           this.$q.notify({
             message: error.response.data.errorText,
@@ -98,7 +100,7 @@
             color: 'negative',
             position: 'top'
           });
-          this.loading = false;
+          this.submitting = false;
         });
       },
       async GetToken() {
