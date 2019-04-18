@@ -12,7 +12,7 @@ namespace SunEngine.Commons.Utils.TextProcess
             "div", "br","video","audio","source","span", "img", "code", "pre", "font" };
 
         private readonly string[] allowedAttributes = { "style", "src", "controls", "autoplay", "loop", "alt",
-            "width", "height", "target", "frameborder", "allowfullscreen", "download", "controlsList"};
+            "width", "height", "target", "frameborder", "allowfullscreen", "download", "controlsList", "size"};
 
         private readonly string[] allowedClasses = { "text-img" };
 
