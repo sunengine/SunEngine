@@ -48,7 +48,7 @@
         this.loading = true;
         await this.$store.dispatch("request",
           {
-            url: "/Images/UploadUserPhoto",
+            url: "/UploadImages/UploadUserPhoto",
             data: formData
           })
           .then(async () => {

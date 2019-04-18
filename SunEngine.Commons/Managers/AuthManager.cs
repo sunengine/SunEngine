@@ -142,10 +142,7 @@ namespace SunEngine.Commons.Managers
 
                 transaction.Complete();
 
-                return new ServiceResult
-                {
-                    Succeeded = true
-                };
+                return ServiceResult.OkResult();
             }
         }
     }
