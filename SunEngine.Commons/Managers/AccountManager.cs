@@ -50,7 +50,7 @@ namespace SunEngine.Commons.Managers
             var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
 
             var resetPasswordUrl = globalOptions.SiteApi
-                .AppendPathSegments("Auth", "ResetPasswordShowClientDialog")
+                .AppendPathSegments("Account", "ResetPasswordShowClientDialog")
                 .SetQueryParams(new {uid = user.Id, token = resetToken});
 
             try
