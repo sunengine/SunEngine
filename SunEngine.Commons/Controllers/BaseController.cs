@@ -68,7 +68,7 @@ namespace SunEngine.Commons.Controllers
         }
 
         public async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, IEnumerable<int> categoryIds,
-            Func<Task<T>> dataLoader,  int page = 0)
+            Func<Task<T>> dataLoader, int page = 0)
         {
             var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryIds);
             return await CacheContentAsync(category, key, dataLoader);
@@ -107,20 +107,33 @@ namespace SunEngine.Commons.Controllers
 
     public class ErrorView
     {
-        public string ErrorName { get; set; }
-        public string ErrorText { get; set; }
-        public string[] ErrorsNames { get; set; }
-        public string[] ErrorsTexts { get; set; }
-
+        public IList<ErrorObject> Errors { get; } = new List<ErrorObject>();
+        
         public ErrorView()
         {
         }
 
         public ErrorView(string errorName, string errorText)
         {
-            this.ErrorName = errorName;
-            this.ErrorText = errorText;
-        }     
+            AddError(errorName, errorText);
+        }
 
+        public void AddError(string errorName, string errorText)
+        {
+            ErrorObject error = new ErrorObject(errorName, errorText);
+            Errors.Add(error);
+        }
+    }
+
+    public class ErrorObject
+    {
+        public string Code { get; }
+        public string Description { get; }
+
+        public ErrorObject(string code, string description)
+        {
+            Code = code;
+            Description = description;
+        }
     }
 }

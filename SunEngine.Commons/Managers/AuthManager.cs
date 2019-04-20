@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -50,34 +51,23 @@ namespace SunEngine.Commons.Managers
 
             if (user == null || !await userManager.CheckPasswordAsync(user, password))
             {
-                return UserServiceResult.BadResult(new ErrorView
-                {
-                    ErrorName = "username_password_invalid",
-                    ErrorText = "The username or password is invalid."
-                });
+                return UserServiceResult.BadResult(
+                    new ErrorView("username_password_invalid","The username or password is invalid."));
             }
 
             if (!await userManager.IsEmailConfirmedAsync(user))
             {
-                return UserServiceResult.BadResult(new ErrorView
-                {
-                    ErrorName = "email_not_confirmed",
-                    ErrorText = "You must have a confirmed email to log in."
-                });
+                return UserServiceResult.BadResult(
+                    new ErrorView("email_not_confirmed","You must have a confirmed email to log in."));
             }
 
             if (await userManager.IsUserInRoleAsync(user.Id, RoleNames.Banned))
             {
-                return UserServiceResult.BadResult(new ErrorView
-                {
-                    ErrorName = "user_banned",
-                    ErrorText = "Error" // Что бы не провоцировать пользователя словами что он забанен
-                });
+                return UserServiceResult.BadResult(new ErrorView("user_banned", "Error"));
             }
 
             return UserServiceResult.OkResult(user);
         }
-
 
         public virtual async Task<ServiceResult> RegisterAsync(NewUserArgs model)
         {
@@ -95,15 +85,7 @@ namespace SunEngine.Commons.Managers
                 await db.Users.Where(x => x.Id == user.Id).Set(x => x.Link, x => x.Id.ToString()).UpdateAsync();
 
                 if (!result.Succeeded)
-                    return new ServiceResult
-                    {
-                        Succeeded = false,
-                        Error = new ErrorView
-                        {
-                            ErrorsNames = result.Errors.Select(x => x.Code).ToArray(),
-                            ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()
-                        }
-                    };
+                    return CreateResultWithErrors(result);
 
                 logger.LogInformation($"New user registered (id: {user.Id})");
 
@@ -126,11 +108,7 @@ namespace SunEngine.Commons.Managers
                         return new ServiceResult
                         {
                             Succeeded = false,
-                            Error = new ErrorView
-                            {
-                                ErrorName = "Can not send email",
-                                ErrorText = "Ошибка отправки email"
-                            }
+                            Error = new ErrorView("Can not send email","Ошибка отправки email")
                         };
                     }
 
@@ -145,5 +123,27 @@ namespace SunEngine.Commons.Managers
                 return ServiceResult.OkResult();
             }
         }
+        
+        private ServiceResult CreateResultWithErrors(IdentityResult result)
+        {   
+            return new ServiceResult
+            {
+                Succeeded = false,
+                Error = CreateErrorView(result.Errors) 
+            };
+        }
+
+        private ErrorView CreateErrorView(IEnumerable<IdentityError> resultErrors)
+        {
+            ErrorView errorView = new ErrorView();
+            
+            foreach (IdentityError identityError in resultErrors)
+            {
+                errorView.AddError(identityError.Code, identityError.Description);
+            }
+
+            return errorView;
+        }
     }
+    
 }
