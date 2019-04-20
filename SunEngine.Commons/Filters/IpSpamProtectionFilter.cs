@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Commons.Cache;
+using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.Controllers;
 
 namespace SunEngine.Commons.Filters

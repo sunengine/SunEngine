@@ -7,7 +7,7 @@ using SunEngine.Commons.Cache.CacheModels;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Utils;
 
-namespace SunEngine.Commons.Cache
+namespace SunEngine.Commons.Cache.Services
 {
     /// <summary>
     /// Store categories in cache to fast access interface for singleton service

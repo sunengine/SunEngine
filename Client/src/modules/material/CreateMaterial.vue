@@ -95,12 +95,7 @@
               position: 'top'
             });
           } else {
-            this.$q.notify({
-              message: error.response.data.errorText,
-              timeout: 2000,
-              color: 'negative',
-              position: 'top'
-            });
+            this.$errorNotify(error.response.data);
           }
           this.loading = false;
         });

@@ -2,6 +2,7 @@
 using System.Linq;
 using SunEngine.Commons.Cache;
 using SunEngine.Commons.Cache.CacheModels;
+using SunEngine.Commons.Cache.Services;
 
 namespace SunEngine.Commons.Security
 {

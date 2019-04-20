@@ -93,12 +93,7 @@
           this.done = true;
         }).catch(error => {
           this.submitting = false;
-          this.$q.notify({
-            message: error.response.data.errorText,
-            timeout: 5000,
-            color: 'negative',
-            position: 'top'
-          });
+          this.$errorNotify(error.response.data);
         });
       }
     },
