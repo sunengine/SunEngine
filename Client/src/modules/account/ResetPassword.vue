@@ -94,7 +94,7 @@
           this.done = true;
           this.submitting = false;
         }).catch(error => {
-          this.$errorNotify(error.response.data);
+          this.$errorNotify(error);
           this.submitting = false;
         });
       },
@@ -104,8 +104,8 @@
         }).then(response => {
           this.token = response.data;
           this.waitToken = false;
-        }).catch(x => {
-          if (x.response.data.errorName === "SpamProtection") {
+        }).catch(error => {
+          if (error.response.data.errors[0].code === "SpamProtection") {
             this.waitToken = true;
           }
         });

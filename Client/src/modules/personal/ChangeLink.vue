@@ -97,12 +97,7 @@
           this.$router.push({name: 'Personal'});
 
         }).catch(error => {
-          this.$q.notify({
-            message: error.response.data.errorText,
-            timeout: 5000,
-            color: 'negative',
-            position: 'top'
-          });
+          this.$errorNotify(error);
           this.submitting = false;
         });
       }

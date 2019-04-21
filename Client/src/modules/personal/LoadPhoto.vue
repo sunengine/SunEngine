@@ -63,15 +63,8 @@
                 position: 'top'
               });
             }
-          ).catch(x => {
-            console.log("error", x);
-            const msg = this.$t("Global.errorNotify");
-            this.$q.notify({
-              message: msg,
-              timeout: 2000,
-              color: 'negative',
-              position: 'top'
-            });
+          ).catch(error => {
+            this.$errorNotify(error);
           });
       },
       upload() {

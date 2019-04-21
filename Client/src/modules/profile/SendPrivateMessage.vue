@@ -69,27 +69,9 @@
               this.loading = false;
               this.$router.$goBack();
             }
-          ).catch(x => {
-            if (x.response.data.errorName === "SpamProtection") {
-              const msg = this.$tl("sendSpamProtectionNotify");
-              this.$q.notify({
-                message: msg,
-                timeout: 5000,
-                color: 'warning',
-                position: 'top'
-              });
-            } else {
-              console.log("error", x);
-              this.loading = false;
-              const msg = this.$tl("sendErrorNotify");
-              this.$q.notify({
-                message: msg,
-                timeout: 5000,
-                color: 'negative',
-                position: 'top'
-              });
-              this.loading = false;
-            }
+          ).catch(error => {
+            this.$errorNotify(error);
+            this.loading = false;
           });
 
       }

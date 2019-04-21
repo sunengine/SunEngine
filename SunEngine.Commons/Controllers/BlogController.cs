@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using SunEngine.Commons.Cache;
 using SunEngine.Commons.Cache.CacheModels;
 using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.Configuration.Options;
@@ -73,6 +72,8 @@ namespace SunEngine.Commons.Controllers
             if (categoriesList.Count == 0)
                 return BadRequest("No categories to show");
 
+            
+            
             var categoriesIds = categoriesList.Select(x => x.Id).ToArray();
 
             var rez = await blogPresenter.GetPostsFromMultiCategoriesAsync(categoriesIds, page,

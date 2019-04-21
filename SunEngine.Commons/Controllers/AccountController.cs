@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Flurl;
 using Microsoft.AspNetCore.Authorization;
@@ -38,7 +39,7 @@ namespace SunEngine.Commons.Controllers
         {
             User user = await userManager.FindByEmailAsync(model.Email);
             if (user == null)
-                return BadRequest(new ErrorView ("UserNotFound","User with this email not found."));
+                return BadRequest(new ErrorView ("UserWithThisEmailNotFound","User with this email not found."));
 
             var result = await accountManager.ResetPasswordSendEmailAsync(user);
             if (result.Failed)
@@ -86,15 +87,15 @@ namespace SunEngine.Commons.Controllers
             email = email.Trim();
 
             if (!EmailValidator.IsValid(email))
-                return BadRequest(new ErrorView ("EmailInvalid","Email not valid"));
+                return BadRequest(ErrorView.CreateSoft("EmailInvalid","Email not valid"));
 
             var user = await GetUserAsync();
 
             if (!await userManager.CheckPasswordAsync(user, password))
-                return BadRequest(new ErrorView ("PasswordInvalid","Password not valid"));
+                return BadRequest(ErrorView.CreateSoft("PasswordInvalid","Password not valid"));
 
             if (await userManager.CheckEmailInDbAsync(email, user.Id))
-                return BadRequest(new ErrorView ("EmailAlreadyTaken","Email already registered"));
+                return BadRequest(ErrorView.CreateSoft("EmailAlreadyTaken","Email already registered"));
 
             await accountManager.SendChangeEmailConfirmationMessageByEmailAsync(user, email);
 
@@ -138,20 +139,7 @@ namespace SunEngine.Commons.Controllers
             if (result.Succeeded)
                 return Ok();
 
-            return BadRequest(CreateErrorView(result.Errors));
-        }
-        
-        //TODO Remove code duplication. Consider move logic inside AuthManager. Abstraction violation.
-        private ErrorView CreateErrorView(IEnumerable<IdentityError> resultErrors)
-        {
-            ErrorView errorView = new ErrorView();
-            
-            foreach (IdentityError identityError in resultErrors)
-            {
-                errorView.AddError(identityError.Code, identityError.Description);
-            }
-
-            return errorView;
+            return BadRequest(new ErrorView(result.Errors));
         }
     }
 }

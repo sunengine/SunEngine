@@ -79,7 +79,8 @@
             position: 'top'
           });
           this.$router.push(this.$refs.form.category.path);
-        }).catch(() => {
+        }).catch(error => {
+          this.$errorNotify(error);
           this.loading = false;
         });
       },

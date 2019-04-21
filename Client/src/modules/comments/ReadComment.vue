@@ -64,8 +64,8 @@ cd <template>
             }).then(
             () => {
               this.comment.isDeleted = true;
-            }).catch((x) => {
-            console.log("error", x)
+            }).catch(error => {
+            this.$errorNotify(error);
           });
         }).onCancel(() => {
         });

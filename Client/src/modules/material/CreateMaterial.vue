@@ -86,17 +86,7 @@
           });
           this.$router.push(this.$refs.form.category.path);
         }).catch(error => {
-          if (error.response.data.errorName === "SpamProtection") {
-            const msg = this.$tl("spamProtectionNotify");
-            this.$q.notify({
-              message: msg,
-              timeout: 5000,
-              color: 'warning',
-              position: 'top'
-            });
-          } else {
-            this.$errorNotify(error.response.data);
-          }
+          this.$errorNotify(error);
           this.loading = false;
         });
       }

@@ -2,9 +2,11 @@
   <q-page class="page-padding">
     <h2 class="q-title">{{$tl("title")}}</h2>
     <div v-if="users">
-      <router-link :key="user.id" class="block q-mb-xs" style="font-weight: 600" :to="{name:'User', params: {link: user.link}}" v-for="user in users" >{{user.name}}</router-link>
+      <router-link :key="user.id" class="block q-mb-xs" style="font-weight: 600"
+                   :to="{name:'User', params: {link: user.link}}" v-for="user in users">{{user.name}}
+      </router-link>
     </div>
-    <LoaderWait v-else />
+    <LoaderWait v-else/>
   </q-page>
 </template>
 
@@ -16,7 +18,7 @@
     name: "MyBanList",
     components: {LoaderWait},
     mixins: [Page],
-    data: function() {
+    data: function () {
       return {
         users: null
       }

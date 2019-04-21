@@ -106,35 +106,5 @@ namespace SunEngine.Commons.Controllers
         }
     }
 
-    public class ErrorView
-    {
-        public IList<ErrorObject> Errors { get; } = new List<ErrorObject>();
-        
-        public ErrorView()
-        {
-        }
-
-        public ErrorView(string errorName, string errorText)
-        {
-            AddError(errorName, errorText);
-        }
-
-        public void AddError(string errorName, string errorText)
-        {
-            ErrorObject error = new ErrorObject(errorName, errorText);
-            Errors.Add(error);
-        }
-    }
-
-    public class ErrorObject
-    {
-        public string Code { get; }
-        public string Description { get; }
-
-        public ErrorObject(string code, string description)
-        {
-            Code = code;
-            Description = description;
-        }
-    }
+    
 }

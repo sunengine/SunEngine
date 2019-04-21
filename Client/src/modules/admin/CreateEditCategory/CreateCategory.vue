@@ -66,8 +66,8 @@
                 position: 'top'
               });
               this.$router.push({name: 'CategoriesAdmin'});
-            }).catch(x => {
-            console.log("error", x);
+            }).catch(error => {
+            this.$errorNotify(error);
             this.loading = false;
           });
       }
