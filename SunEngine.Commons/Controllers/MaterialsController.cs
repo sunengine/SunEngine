@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SunEngine.Commons.Cache;
 using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Filters;
@@ -177,7 +176,7 @@ namespace SunEngine.Commons.Controllers
                         return ServiceResult.BadResult(new ErrorView("MaterialNameNotValid", "Invalid material name"));
 
                     if (name != material.Name && await materialsManager.IsNameInDb(name))
-                        return ServiceResult.BadResult(new ErrorView("MaterialNameAlreadyUsed",
+                        return ServiceResult.BadResult(ErrorView.SoftError("MaterialNameAlreadyUsed",
                             "This material name is already used"));
 
                     material.Name = name;

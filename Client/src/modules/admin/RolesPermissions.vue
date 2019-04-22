@@ -84,6 +84,7 @@
               });
             }
           ).catch(error => {
+            this.error = error.response.data.errors[0];
             this.$errorNotify(error);
           });
       }

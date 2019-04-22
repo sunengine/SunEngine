@@ -43,7 +43,7 @@ namespace SunEngine.Commons.Managers
             this.EmailSenderService = emailSenderService;
             logger = loggerFactory.CreateLogger<AccountController>();
         }
-        
+
 
         public async Task<UserServiceResult> LoginAsync(string nameOrEmail, string password)
         {
@@ -52,18 +52,18 @@ namespace SunEngine.Commons.Managers
             if (user == null || !await userManager.CheckPasswordAsync(user, password))
             {
                 return UserServiceResult.BadResult(
-                    new ErrorView("username_password_invalid","The username or password is invalid."));
+                    ErrorView.SoftError("UsernamePasswordInvalid", "The username or password is invalid."));
             }
 
             if (!await userManager.IsEmailConfirmedAsync(user))
             {
                 return UserServiceResult.BadResult(
-                    new ErrorView("email_not_confirmed","You must have a confirmed email to log in."));
+                    ErrorView.SoftError("EmailNotConfirmed", "You must have a confirmed email to log in."));
             }
 
             if (await userManager.IsUserInRoleAsync(user.Id, RoleNames.Banned))
             {
-                return UserServiceResult.BadResult(new ErrorView("user_banned", "Error"));
+                return UserServiceResult.BadResult(new ErrorView("UserBanned", "User is banned"));
             }
 
             return UserServiceResult.OkResult(user);
@@ -85,7 +85,7 @@ namespace SunEngine.Commons.Managers
                 await db.Users.Where(x => x.Id == user.Id).Set(x => x.Link, x => x.Id.ToString()).UpdateAsync();
 
                 if (!result.Succeeded)
-                    return CreateResultWithErrors(result);
+                    return ServiceResult.BadResult(new ErrorView(result.Errors));
 
                 logger.LogInformation($"New user registered (id: {user.Id})");
 
@@ -103,13 +103,10 @@ namespace SunEngine.Commons.Managers
                             $"Please confirm your account by clicking this <a href=\"{emailConfirmUrl}\">link</a>."
                         );
                     }
-                    catch (Exception e)
+                    catch (Exception exception)
                     {
-                        return new ServiceResult
-                        {
-                            Succeeded = false,
-                            Error = new ErrorView("Can not send email","Ошибка отправки email")
-                        };
+                        return ServiceResult.BadResult(
+                            new ErrorView("EmailSendError", "Can not send email", exception));
                     }
 
 
@@ -123,27 +120,5 @@ namespace SunEngine.Commons.Managers
                 return ServiceResult.OkResult();
             }
         }
-        
-        private ServiceResult CreateResultWithErrors(IdentityResult result)
-        {   
-            return new ServiceResult
-            {
-                Succeeded = false,
-                Error = CreateErrorView(result.Errors) 
-            };
-        }
-
-        private ErrorView CreateErrorView(IEnumerable<IdentityError> resultErrors)
-        {
-            ErrorView errorView = new ErrorView();
-            
-            foreach (IdentityError identityError in resultErrors)
-            {
-                errorView.AddError(identityError.Code, identityError.Description);
-            }
-
-            return errorView;
-        }
     }
-    
 }

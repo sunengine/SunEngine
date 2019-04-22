@@ -49,8 +49,8 @@
         value => !!value || this.$tl("validation.password.required")
       ],
       email: [
-        value => !!value || this.$tl("validation.password.email"),
-        value => /.+@.+/.test(value) || this.$tl("validation.password.email")
+        value => !!value || this.$tl("validation.email.required"),
+        value => /.+@.+/.test(value) || this.$tl("validation.email.emailSig")
       ],
     }
   }
@@ -93,7 +93,7 @@
           this.done = true;
         }).catch(error => {
           this.submitting = false;
-          this.$errorNotify(error.response.data);
+          this.$errorNotify(error);
         });
       }
     },

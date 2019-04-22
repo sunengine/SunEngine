@@ -29,7 +29,7 @@ namespace SunEngine.Commons.Filters
                 {
                     context.Result =
                         ((Controller) context.Controller).BadRequest(
-                            new ErrorView("CaptchaValidationError","Ошибка проверки капчи."));
+                            new ErrorView("CaptchaValidationError","Captcha text not valid"));
                 }
                 
                 base.OnActionExecuting(context);

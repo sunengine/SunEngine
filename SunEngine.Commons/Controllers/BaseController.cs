@@ -4,7 +4,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using SunEngine.Commons.Cache;
 using SunEngine.Commons.Cache.CacheModels;
 using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.Managers;
@@ -31,6 +30,8 @@ namespace SunEngine.Commons.Controllers
             userManager = serviceProvider.GetRequiredService<SunUserManager>();
             keyGenerator = serviceProvider.GetRequiredService<CacheKeyGenerator>();
         }
+        
+        
 
         protected string ControllerName
         {
@@ -58,6 +59,16 @@ namespace SunEngine.Commons.Controllers
             }
         }
 
+        public new UnauthorizedObjectResult Unauthorized()
+        {
+            return base.Unauthorized(ErrorView.Unauthorized());
+        }
+
+        public new BadRequestObjectResult BadRequest()
+        {
+            return base.BadRequest(ErrorView.BadRequest());
+        }
+        
         public Task<User> GetUserAsync()
         {
             return userManager.FindByIdAsync(User.UserId.ToString());

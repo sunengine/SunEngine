@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using SunEngine.Commons.Cache;
 using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.Presenters;

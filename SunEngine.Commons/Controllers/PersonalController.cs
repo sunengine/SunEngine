@@ -56,7 +56,7 @@ namespace SunEngine.Commons.Controllers
             link = (link+"").Trim();
             
             if (!await personalManager.ValidateLinkAsync(User.UserId,link))
-                return BadRequest(new ErrorView ("LinkInvalid","Validation error"));
+                return BadRequest(new ErrorView ("LinkInvalid","Link validation error"));
 
             await personalManager.SetMyLinkAsync(User.UserId, link);
 

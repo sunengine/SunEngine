@@ -35,9 +35,9 @@ namespace SunEngine.Admin.Controllers
             {
                 await rolesPermissionsAdminService.LoadUserGroupsFromJsonAsync(json);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                return BadRequest(ErrorView.Create("UploadJsonAdminError", "Error uploading json",e.Message));
+                return BadRequest(new ErrorView("UploadJsonAdminError", "Error uploading json", exception));
             }
 
             rolesCache.Reset();

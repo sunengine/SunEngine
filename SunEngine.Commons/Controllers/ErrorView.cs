@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Identity;
 
 namespace SunEngine.Commons.Controllers
@@ -12,9 +12,33 @@ namespace SunEngine.Commons.Controllers
         {
         }
 
-        public ErrorView(string code, string description, bool isSoft = false, string message = null)
+        public ErrorView(string code, string description)
         {
-            ErrorObject errorObject = new ErrorObject(code,description,isSoft,message);
+            ErrorObject errorObject = new ErrorObject(code, description);
+            Errors.Add(errorObject);
+        }
+
+        public ErrorView(string code, string description, string message)
+        {
+            ErrorObject errorObject = new ErrorObject(code, description, false, message);
+            Errors.Add(errorObject);
+        }
+
+        public ErrorView(string code, string description, Exception exception)
+        {
+            ErrorObject errorObject = new ErrorObject(code, description, false, exception);
+            Errors.Add(errorObject);
+        }
+
+        public ErrorView(string code, string description, bool isSoft, string message = null)
+        {
+            ErrorObject errorObject = new ErrorObject(code, description, isSoft, message);
+            Errors.Add(errorObject);
+        }
+
+        public ErrorView(string code, string description, bool isSoft, Exception exception)
+        {
+            ErrorObject errorObject = new ErrorObject(code, description, isSoft, exception);
             Errors.Add(errorObject);
         }
 
@@ -22,21 +46,39 @@ namespace SunEngine.Commons.Controllers
         {
             foreach (var identityError in identityErrors)
             {
-                AddError(identityError.Code,identityError.Description);
+                AddError(identityError.Code, identityError.Description);
             }
         }
-        
-        public static ErrorView Create(string code, string description, string message = null)
+
+        public static ErrorView SoftError(string code, string description)
         {
-            return new ErrorView(code, description, false, message);
+            return new ErrorView(code, description, true);
         }
 
-        public static ErrorView CreateSoft(string code, string description, string message = null)
+        public static ErrorView SoftError(string code, string description, string message)
         {
             return new ErrorView(code, description, true, message);
         }
+
+        public static ErrorView SoftError(string code, string description, Exception exception)
+        {
+            return new ErrorView(code, description, true, exception);
+        }
+
+        public static ErrorView Unauthorized()
+        {
+            return new ErrorView("Unauthorized", "Not unauthorized for this request");
+        }
+
+        public static ErrorView BadRequest()
+        {
+            return new ErrorView("BadRequest", "BadRequest happened");
+        }
         
-        
+        public static ErrorView ServerError()
+        {
+            return new ErrorView("ServerError", "Server error. Something goes wrong");
+        }
 
         public void AddError(string code, string description, string message = null)
         {
@@ -44,9 +86,21 @@ namespace SunEngine.Commons.Controllers
             Errors.Add(errorObject);
         }
 
+        public void AddError(string code, string description, Exception exception)
+        {
+            ErrorObject errorObject = new ErrorObject(code, description, false, exception);
+            Errors.Add(errorObject);
+        }
+
         public void AddSoftError(string code, string description, string message = null)
         {
             ErrorObject errorObject = new ErrorObject(code, description, true, message);
+            Errors.Add(errorObject);
+        }
+
+        public void AddSoftError(string code, string description, Exception exception)
+        {
+            ErrorObject errorObject = new ErrorObject(code, description, true, exception);
             Errors.Add(errorObject);
         }
     }
@@ -57,26 +111,41 @@ namespace SunEngine.Commons.Controllers
 
         public string Description { get; }
 
-        public string Message { get; }
+        public string Message { get; set; }
+
+        public string StackTrace { get; set; }
 
         public bool IsSoft { get; }
 
-        public ErrorObject(string code, string description, bool isSoft = false, string message = null)
+        public ErrorObject(string code, string description)
+        {
+            Code = code;
+            Description = description;
+            IsSoft = false;
+        }
+
+        public ErrorObject(string code, string description, bool isSoft)
+        {
+            Code = code;
+            Description = description;
+            IsSoft = isSoft;
+        }
+
+        public ErrorObject(string code, string description, bool isSoft, Exception exception)
+        {
+            Code = code;
+            Description = description;
+            IsSoft = isSoft;
+            Message = exception?.Message;
+            StackTrace = exception?.StackTrace;
+        }
+
+        public ErrorObject(string code, string description, bool isSoft, string message)
         {
             Code = code;
             Description = description;
             IsSoft = isSoft;
             Message = message;
-        }
-
-        public static ErrorObject Create(string code, string description, string message = null)
-        {
-            return new ErrorObject(code, description, false, message);
-        }
-
-        public static ErrorObject CreateSoft(string code, string description, string message = null)
-        {
-            return new ErrorObject(code, description, true, message);
         }
     }
 }
