@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
-namespace SunEngine.Commons.Controllers
+namespace SunEngine.Commons.Misc
 {
     public class ErrorView
     {
@@ -74,10 +74,10 @@ namespace SunEngine.Commons.Controllers
         {
             return new ErrorView("BadRequest", "BadRequest happened");
         }
-        
-        public static ErrorView ServerError()
+
+        public static ErrorView ServerError(Exception exception = null)
         {
-            return new ErrorView("ServerError", "Server error. Something goes wrong");
+            return new ErrorView("ServerError", "Server error. Something goes wrong", exception);
         }
 
         public void AddError(string code, string description, string message = null)

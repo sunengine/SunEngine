@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,9 +10,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using SunEngine.Admin;
 using SunEngine.Commons.Configuration.AddServices;
+using SunEngine.Commons.Controllers;
 using SunEngine.Commons.DataBase;
+using SunEngine.Commons.Misc;
 using SunEngine.Commons.Security;
 using SunEngine.Commons.Services;
+using SunEngine.Commons.Utils;
 using SunEngine.Commons.Utils.TextProcess;
 
 namespace SunEngine
@@ -82,7 +87,7 @@ namespace SunEngine
                 .AddJsonFormatters(options =>
                 {
                     options.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                   // options.NullValueHandling = NullValueHandling.Ignore;
+                    // options.NullValueHandling = NullValueHandling.Ignore;
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -121,10 +126,10 @@ namespace SunEngine
                         .WithExposedHeaders(Headers.TokensHeaderName));
             }
 
-
             app.UseAuthentication();
 
-            
+            app.UseExceptionHandler(errorApp => errorApp.Run(SunExceptionHandler.Handler));
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
