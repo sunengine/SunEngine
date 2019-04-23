@@ -139,7 +139,6 @@ export default {
     title: "Добавить материал",
     sendBtn: "Отправить",
     successNotify: "Материал успешно добавлен",
-    spamProtectionNotify: "Нельзя так часто создавать материалы. Необходимо подождать."
   },
   EditMaterial: {
     title: "Редактировать материал",

@@ -8,7 +8,7 @@
         <span class="text-grey-7">{{$tl("category")}} </span>
         <router-link :to="categoryPath">{{category.title}}</router-link>
       </div>
-      <div class="material" v-html="material.text">
+      <div class="material q-mb-lg" v-html="material.text">
       </div>
       <div v-if="material.tags && material.tags.length > 0" class="q-mt-lg" style="text-align: center">
         {{$tl("tags")}}

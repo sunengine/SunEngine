@@ -137,7 +137,6 @@
     },
 
     async created() {
-      debugger;
       if (!this.isNew) {
         await this.$store.dispatch("request",
           {

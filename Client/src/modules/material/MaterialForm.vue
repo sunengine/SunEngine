@@ -29,7 +29,7 @@
           {
             icon: $q.iconSet.editor.formatting,
             list: 'no-icons',
-            options: ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'code']
+            options: ['p', 'h3', 'h4', 'h5', 'h6', 'code']
           },
           {
             icon: $q.iconSet.editor.fontSize,
@@ -112,7 +112,7 @@
       }
     },
     rules: null,
-    data: function() {
+    data: function () {
       return {
         start: true
       }
