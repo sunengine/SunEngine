@@ -65,8 +65,6 @@ namespace SunEngine
 
             services.AddAdmin();
 
-            //services.AddMemoryCache();
-
             services.AddCryptServices();
 
             services.AddImagesServices();

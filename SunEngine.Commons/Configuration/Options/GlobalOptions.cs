@@ -35,5 +35,7 @@ namespace SunEngine.Commons.Configuration.Options
         }
         
         public string SiteName { get; set; }
+        
+        public bool ShowExceptions { get; set; }
     }
 }

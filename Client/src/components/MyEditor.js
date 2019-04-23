@@ -26,9 +26,6 @@ export default {
 
     allUploaded() {
       this.filesNames = this.filesNames.filter(x => x);
-      const cursorPos = document.createRange();
-      cursorPos.move.moveTo(this.cursorX, this.cursorY);
-      cursorPos.select();
       this.runCmd('insertHTML', this.getImagesHtml(), true);
       this.filesNames = [];
       this.filesNumber = 0;
@@ -58,10 +55,6 @@ export default {
       const files = Array.from(filesSelected).filter(x => isImage(x.name));
       if (!files.length)
         return;
-
-      const cursorPos = window.getSelection();
-      this.cursorX = cursorPos.getBoundingClientRect().left;
-      this.cursorY = cursorPos.getBoundingClientRect().top;
 
       this.filesNumber = files.length;
       this.filesLoading = true;

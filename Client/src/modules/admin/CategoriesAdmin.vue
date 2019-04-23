@@ -45,7 +45,7 @@
       async up(category) {
         await this.$store.dispatch("request",
           {
-            url: "/Admin/AdminCategories/CategoryUp",
+            url: "/Admin/CategoriesAdmin/CategoryUp",
             data: {name: category.name}
           })
           .then(async response => {
