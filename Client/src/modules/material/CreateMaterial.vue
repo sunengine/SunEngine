@@ -7,7 +7,7 @@
              @click="send" color="send">
         <LoaderSent slot="loading"/>
       </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$t('global.btn.cancel')"
+      <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$t('Global.btn.cancel')"
              color="warning"/>
     </div>
   </q-page>
@@ -39,7 +39,7 @@
           name: null,
           title: "",
           text: "",
-          description: "",
+          description: null,
           tags: [],
           categoryName: this.initialCategoryName
         },
@@ -60,16 +60,22 @@
           return;
 
         this.loading = true;
+
+        const data = {
+          categoryName: this.material.categoryName,
+          title: this.material.title,
+          text: this.material.text,
+          tags: this.material.tags.join(',')
+        };
+
+        if (this.material.name)
+          data.name = this.material.name;
+        if (this.material.description)
+          data.description = this.material.description;
+
         this.$store.dispatch('request', {
           url: '/Materials/Create',
-          data: {
-            name: this.material.name,
-            categoryName: this.material.categoryName,
-            title: this.material.title,
-            description: this.material.description,
-            text: this.material.text,
-            tags: this.material.tags.join(',')
-          }
+          data: data
         }).then(() => {
           const msg = this.$tl("successNotify");
           this.$q.notify({
@@ -80,22 +86,7 @@
           });
           this.$router.push(this.$refs.form.category.path);
         }).catch(error => {
-          if (error.response.data.errorName === "SpamProtection") {
-            const msg = this.$tl("spamProtectionNotify");
-            this.$q.notify({
-              message: msg,
-              timeout: 5000,
-              color: 'warning',
-              position: 'top'
-            });
-          } else {
-            this.$q.notify({
-              message: error.response.data.errorText,
-              timeout: 2000,
-              color: 'negative',
-              position: 'top'
-            });
-          }
+          this.$errorNotify(error);
           this.loading = false;
         });
       }

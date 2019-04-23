@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Services;
 using SunEngine.Commons.Controllers;
+using SunEngine.Commons.Misc;
 
 namespace SunEngine.Admin.Controllers
 {
@@ -35,13 +36,9 @@ namespace SunEngine.Admin.Controllers
             {
                 await rolesPermissionsAdminService.LoadUserGroupsFromJsonAsync(json);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                return BadRequest(new ErrorView
-                {
-                    ErrorName = e.Message,
-                    ErrorText = e.StackTrace
-                });
+                return BadRequest(new ErrorView("UploadJsonAdminError", "Error uploading json", exception));
             }
 
             rolesCache.Reset();

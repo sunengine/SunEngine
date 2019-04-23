@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace SunEngine.Commons.Cache
+namespace SunEngine.Commons.Cache.Services
 {   
     public interface ISunMemoryCache
     {

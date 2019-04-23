@@ -29,7 +29,7 @@
           {
             icon: $q.iconSet.editor.formatting,
             list: 'no-icons',
-            options: ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'code']
+            options: ['p', 'h3', 'h4', 'h5', 'h6', 'code']
           },
           {
             icon: $q.iconSet.editor.fontSize,
@@ -77,10 +77,10 @@
   function createRules() {
     return {
       name: [
-        (value) => /^[a-zA-Z0-9-]+$/.test(value) || this.$tl('validation.name.allowedChars'),
-        (value) => !/^[0-9]+$/.test(value) || this.$tl('validation.name.numberNotAllowed'),
-        (value) => value.length >= 3 || this.$tl('validation.name.minLength'),
-        (value) => value.length <= config.DbColumnSizes.Materials_Name || this.$tl('validation.name.maxLength'),
+        (value) => !value || /^[a-zA-Z0-9-]+$/.test(value) || this.$tl('validation.name.allowedChars'),
+        (value) => !value || !/^[0-9]+$/.test(value) || this.$tl('validation.name.numberNotAllowed'),
+        (value) => !value || value.length >= 3 || this.$tl('validation.name.minLength'),
+        (value) => !value || value.length <= config.DbColumnSizes.Materials_Name || this.$tl('validation.name.maxLength'),
       ],
       title: [
         (value) => !!value || this.$tl('validation.title.required'),
@@ -92,7 +92,7 @@
         (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$tl('validation.text.htmlTextSizeOrHasImage'),
       ],
       description: [
-        (value) => value.length <= config.DbColumnSizes.Materials_Description || this.$tl('validation.description.maxLength'),
+        (value) => !value || value.length <= config.DbColumnSizes.Materials_Description || this.$tl('validation.description.maxLength'),
       ]
     }
   }
@@ -112,7 +112,7 @@
       }
     },
     rules: null,
-    data: function() {
+    data: function () {
       return {
         start: true
       }

@@ -5,7 +5,7 @@ export default {
     title: "Админка"
   },
   AdminPage: {
-    title: "@:admin.AdminPanel.title"
+    title: "@:Admin.AdminPanel.title"
   },
   AdminMenu: {
     categoriesAdmin: "Категории",
@@ -15,8 +15,8 @@ export default {
   EditCategory: {
     title: "Редактировать категорию",
       deleteBtn: "Удалить категорию",
-      saveBtn: "@:global.btn.save",
-      cancelBtn: "@:global.btn.cancel",
+      saveBtn: "@:Global.btn.save",
+      cancelBtn: "@:Global.btn.cancel",
       deletedNotify: "Категория успешно удалена.",
       deleteConfirm: "Вы уверены, что хотите удалить категорию?\nВсе данные категории так же будут удалены.",
       deleteDialogBtnOk: "Удалить",
@@ -26,7 +26,7 @@ export default {
   CreateCategory: {
     title: "Добавить категорию",
       createBtn: "Создать",
-      cancelBtn: "@:global.btn.cancel",
+      cancelBtn: "@:Global.btn.cancel",
       successNotify: "Категория добавлена.\nНе забудьте перегрузить сайт для обновления."
   },
   CategoryForm: {

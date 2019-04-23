@@ -4,9 +4,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using SunEngine.Commons.Cache;
 using SunEngine.Commons.Cache.CacheModels;
+using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.Managers;
+using SunEngine.Commons.Misc;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Security;
 using SunEngine.Commons.Utils;
@@ -30,6 +31,8 @@ namespace SunEngine.Commons.Controllers
             userManager = serviceProvider.GetRequiredService<SunUserManager>();
             keyGenerator = serviceProvider.GetRequiredService<CacheKeyGenerator>();
         }
+        
+        
 
         protected string ControllerName
         {
@@ -57,6 +60,16 @@ namespace SunEngine.Commons.Controllers
             }
         }
 
+        public new UnauthorizedObjectResult Unauthorized()
+        {
+            return base.Unauthorized(ErrorView.Unauthorized());
+        }
+
+        public new BadRequestObjectResult BadRequest()
+        {
+            return base.BadRequest(ErrorView.BadRequest());
+        }
+        
         public Task<User> GetUserAsync()
         {
             return userManager.FindByIdAsync(User.UserId.ToString());
@@ -68,7 +81,7 @@ namespace SunEngine.Commons.Controllers
         }
 
         public async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, IEnumerable<int> categoryIds,
-            Func<Task<T>> dataLoader,  int page = 0)
+            Func<Task<T>> dataLoader, int page = 0)
         {
             var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryIds);
             return await CacheContentAsync(category, key, dataLoader);
@@ -105,22 +118,5 @@ namespace SunEngine.Commons.Controllers
         }
     }
 
-    public class ErrorView
-    {
-        public string ErrorName { get; set; }
-        public string ErrorText { get; set; }
-        public string[] ErrorsNames { get; set; }
-        public string[] ErrorsTexts { get; set; }
-
-        public ErrorView()
-        {
-        }
-
-        public ErrorView(string errorName, string errorText)
-        {
-            this.ErrorName = errorName;
-            this.ErrorText = errorText;
-        }     
-
-    }
+    
 }

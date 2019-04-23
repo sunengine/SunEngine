@@ -36,7 +36,7 @@
         required: true
       }
     },
-    i18nPrefix: "admin",
+    i18nPrefix: "Admin",
     data: function () {
       return {
         category: null,
@@ -74,8 +74,8 @@
             });
             this.$router.push({name: 'CategoriesAdmin'});
             this.loading = false;
-          }).catch(x => {
-          console.log("error", x);
+          }).catch(error => {
+          this.$errorNotify(error);
         });
       },
       async loadData() {
@@ -94,8 +94,8 @@
               if (!this.category.header)
                 this.category.header = "";
               this.loading = false;
-            }).catch(x => {
-            console.log("error", x);
+            }).catch(error => {
+            this.$errorNotify(error);
           });
       },
       async save() {
@@ -123,8 +123,8 @@
               position: 'top'
             });
             this.$router.push({name: 'CategoriesAdmin'});
-          }).catch(x => {
-            console.log("error", x);
+          }).catch(error => {
+            this.$errorNotify(error);
             this.loading = false;
           });
       }

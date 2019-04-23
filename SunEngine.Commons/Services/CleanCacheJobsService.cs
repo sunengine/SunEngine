@@ -1,16 +1,16 @@
 using System;
 using System.Linq;
-using LinqToDB;
 using System.Threading;
 using System.Threading.Tasks;
+using LinqToDB;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using SunEngine.Commons.Cache;
+using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Security;
 
-namespace SunEngine.Commons.Scheduler
+namespace SunEngine.Commons.Services
 {
     public class CleanCacheJobsService : IHostedService
     {

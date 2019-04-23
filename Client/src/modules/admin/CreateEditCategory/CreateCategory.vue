@@ -22,7 +22,7 @@
     name: "CreateCategory",
     components: {LoaderSent, CategoryForm},
     mixins: [Page],
-    i18nPrefix: "admin",
+    i18nPrefix: "Admin",
     data: function () {
       return {
         category: {
@@ -66,8 +66,8 @@
                 position: 'top'
               });
               this.$router.push({name: 'CategoriesAdmin'});
-            }).catch(x => {
-            console.log("error", x);
+            }).catch(error => {
+            this.$errorNotify(error);
             this.loading = false;
           });
       }

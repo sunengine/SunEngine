@@ -96,21 +96,7 @@
           this.$emit('done');
           this.loading = false;
         }).catch(error => {
-          if (error.response.data.errorName === "SpamProtection") {
-            this.$q.notify({
-              message: messageSpamProtection,
-              timeout: 5000,
-              type: 'warning',
-              position: 'top'
-            });
-          } else {
-            this.$q.notify({
-              message: error.response.data.errorText,
-              timeout: 2000,
-              type: 'negative',
-              position: 'top'
-            });
-          }
+          this.$errorNotify(error);
           this.loading = false;
         });
       },
@@ -128,7 +114,8 @@
             this.$emit('done');
             this.loading = false;
           }
-        ).catch( response => {
+        ).catch( error => {
+          this.$errorNotify(error);
           this.loading = false;
         });
       },
@@ -150,7 +137,6 @@
     },
 
     async created() {
-      debugger;
       if (!this.isNew) {
         await this.$store.dispatch("request",
           {

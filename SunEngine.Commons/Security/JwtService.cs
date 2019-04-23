@@ -13,7 +13,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using SunEngine.Commons.Cache;
+using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.Controllers;
 using SunEngine.Commons.DataBase;

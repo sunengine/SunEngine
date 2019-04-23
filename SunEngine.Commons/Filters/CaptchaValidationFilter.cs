@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Commons.Controllers;
+using SunEngine.Commons.Misc;
 using SunEngine.Commons.Services;
 
 namespace SunEngine.Commons.Filters
@@ -27,11 +28,9 @@ namespace SunEngine.Commons.Filters
                 
                 if (!captchaService.VerifyToken(model.CaptchaToken, model.CaptchaText))
                 {
-                    context.Result = ((Controller)context.Controller).BadRequest(new ErrorView
-                    {
-                        ErrorName = "CaptchaValidationError",
-                        ErrorText = "Ошибка проверки капчи."
-                    });
+                    context.Result =
+                        ((Controller) context.Controller).BadRequest(
+                            new ErrorView("CaptchaValidationError","Captcha text not valid"));
                 }
                 
                 base.OnActionExecuting(context);

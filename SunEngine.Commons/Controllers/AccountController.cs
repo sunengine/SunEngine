@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Flurl;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +8,7 @@ using Microsoft.Extensions.Options;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.Filters;
 using SunEngine.Commons.Managers;
+using SunEngine.Commons.Misc;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Utils;
 
@@ -17,7 +17,6 @@ namespace SunEngine.Commons.Controllers
     /// <summary>
     /// Change and reset password, change email controller
     /// </summary>
-    [Authorize]
     public class AccountController : BaseController
     {
         private readonly GlobalOptions globalOptions;
@@ -31,14 +30,15 @@ namespace SunEngine.Commons.Controllers
             this.globalOptions = globalOptions.Value;
             this.accountManager = accountManager;
         }
-        
+
         [HttpPost]
+        [AllowAnonymous]
         [CaptchaValidationFilter]
         public async Task<IActionResult> ResetPasswordSendEmail(ResetPasswordArgs model)
         {
             User user = await userManager.FindByEmailAsync(model.Email);
             if (user == null)
-                return BadRequest(new ErrorView {ErrorText = "User with this email not found."});
+                return BadRequest(new ErrorView("UserWithThisEmailNotFound", "User with this email not found."));
 
             var result = await accountManager.ResetPasswordSendEmailAsync(user);
             if (result.Failed)
@@ -50,6 +50,7 @@ namespace SunEngine.Commons.Controllers
         /// <summary>
         /// Show client dialog to change password
         /// </summary>
+        [AllowAnonymous]
         [HttpGet] // Goes here FromMail
         public async Task<IActionResult> ResetPasswordShowClientDialog(string uid, string token)
         {
@@ -58,7 +59,7 @@ namespace SunEngine.Commons.Controllers
                 return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "Account/ResetPasswordFailed".ToLower()));
 
             if (await userManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider, "ResetPassword", token))
-            {    
+            {
                 return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "Account/ResetPasswordSetNew".ToLower())
                     .SetQueryParams(new {uid = uid, token = token}));
             }
@@ -66,7 +67,7 @@ namespace SunEngine.Commons.Controllers
             return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "Account/ResetPasswordFailed".ToLower()));
         }
 
-
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> ResetPasswordSetNew(string uid, string token, string newPassword)
         {
@@ -75,30 +76,31 @@ namespace SunEngine.Commons.Controllers
             if (result.Succeeded)
                 return Ok();
 
-            return BadRequest(new ErrorView {ErrorText = "Server error. Something goes wrong."});
+            return BadRequest(ErrorView.ServerError());
         }
-        
+
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> ChangeEmail(string password, string email)
         {
             email = email.Trim();
 
             if (!EmailValidator.IsValid(email))
-                return BadRequest(new ErrorView {ErrorText = "Email not valid"});
+                return BadRequest(ErrorView.SoftError("EmailInvalid", "Email not valid"));
 
             var user = await GetUserAsync();
 
             if (!await userManager.CheckPasswordAsync(user, password))
-                return BadRequest(new ErrorView {ErrorText = "Password not valid"});
+                return BadRequest(ErrorView.SoftError("PasswordInvalid", "Password not valid"));
 
             if (await userManager.CheckEmailInDbAsync(email, user.Id))
-                return BadRequest(new ErrorView {ErrorText = "Email already registered"});
+                return BadRequest(ErrorView.SoftError("EmailAlreadyTaken", "Email already registered"));
 
             await accountManager.SendChangeEmailConfirmationMessageByEmailAsync(user, email);
 
             return Ok();
         }
-        
+
         [AllowAnonymous]
         [HttpGet] // Goes here FromMail
         public async Task<IActionResult> ConfirmChangeEmail(string token)
@@ -122,10 +124,12 @@ namespace SunEngine.Commons.Controllers
 
             IActionResult Error()
             {
-                return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "Account/ChangeEmailResult?result=error").ToLower());
+                return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "Account/ChangeEmailResult?result=error")
+                    .ToLower());
             }
         }
-        
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> ChangePassword(string passwordOld, string passwordNew)
         {
@@ -135,8 +139,7 @@ namespace SunEngine.Commons.Controllers
             if (result.Succeeded)
                 return Ok();
 
-            return BadRequest(
-                new ErrorView {ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()});
+            return BadRequest(new ErrorView(result.Errors));
         }
     }
 }

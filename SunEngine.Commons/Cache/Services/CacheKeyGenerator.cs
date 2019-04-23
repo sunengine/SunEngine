@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SunEngine.Commons.Cache
+namespace SunEngine.Commons.Cache.Services
 {
     public class CacheKeyGenerator
     {

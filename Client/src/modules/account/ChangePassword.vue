@@ -120,12 +120,7 @@
           this.submitting = false;
           this.$router.back();
         }).catch(error => {
-          this.$q.notify({
-            message: error.response.data.errorsTexts,
-            timeout: 5000,
-            color: 'negative',
-            position: 'top'
-          });
+          this.$errorNotify(error.response.data);
           this.submitting = false;
         });
       }

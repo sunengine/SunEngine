@@ -37,5 +37,13 @@ namespace SunEngine.Commons.Controllers
             bool anyUserGroup = await  db.Roles.AnyAsync();
             return Ok(new {db_UserGroups_AnyAsync = anyUserGroup});
         }
+        
+        [HttpGet]
+        [HttpPost]
+        [AllowAnonymous]
+        public virtual IActionResult TestException()
+        {
+            throw new Exception("TestException");
+        }
     }
 }

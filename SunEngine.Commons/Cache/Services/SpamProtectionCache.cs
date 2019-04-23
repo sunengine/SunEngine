@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 using System.Linq;
 using SunEngine.Commons.Filters;
 
-namespace SunEngine.Commons.Cache
+namespace SunEngine.Commons.Cache.Services
 {
     /// <summary>
     /// Cache to track and prevent to quick posting content on site
