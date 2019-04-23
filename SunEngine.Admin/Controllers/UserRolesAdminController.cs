@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Presenters;
-using SunEngine.Commons.Cache;
+using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.Security;
 
 namespace SunEngine.Admin.Controllers

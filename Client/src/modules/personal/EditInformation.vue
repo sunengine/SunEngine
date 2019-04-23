@@ -75,7 +75,7 @@
             position: 'top'
           });
         }).catch(error => {
-          console.error("error", error);
+          this.$errorNotify(error);
         });
       }
     },

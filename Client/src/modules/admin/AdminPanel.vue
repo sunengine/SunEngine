@@ -15,7 +15,7 @@
   export default {
     name: "AdminPanel",
     components: {AdminMenu},
-    i18nPrefix: "admin",
+    i18nPrefix: "Admin",
   }
 </script>
 

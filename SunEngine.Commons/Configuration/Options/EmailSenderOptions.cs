@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
-
-namespace SunEngine.Commons.Configuration.Options
+﻿namespace SunEngine.Commons.Configuration.Options
 {
     public class EmailSenderOptions
     {

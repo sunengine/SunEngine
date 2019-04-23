@@ -102,7 +102,7 @@
         value => this.password === this.password2 || this.$tl("validation.password2.equals")
       ],
       captcha: [
-        value => !!value || this.$t("captcha.required"),
+        value => !!value || this.$t("Captcha.required"),
       ]
     }
   }
@@ -153,12 +153,7 @@
         }).then(() => {
           this.done = true;
         }).catch(error => {
-          this.$q.notify({
-            message: error.response.data?.errorText ?? error.response.data?.errorsTexts?.join(", "),
-            timeout: 5000,
-            color: 'negative',
-            position: 'top'
-          });
+          this.$errorNotify(error);
           this.submitting = false;
         });
       },
@@ -169,7 +164,7 @@
           this.token = response.data;
           this.waitToken = false;
         }).catch(x => {
-          if (x.response.data.errorName === "SpamProtection") {
+          if (x.response.data.errors[0].code === "SpamProtection") {
             this.waitToken = true;
           }
         });

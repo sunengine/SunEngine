@@ -6,7 +6,7 @@ using SunEngine.Commons.Cache.CacheModels;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models.Authorization;
 
-namespace SunEngine.Commons.Cache
+namespace SunEngine.Commons.Cache.Services
 {
     public interface IRolesCache : ISunMemoryCache
     {

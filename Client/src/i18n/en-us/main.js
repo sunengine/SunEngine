@@ -1,6 +1,6 @@
 export default {
 
-  global: {
+  Global: {
     dialog: {
       cancel: "Отмена",
       yes: "Да",
@@ -28,7 +28,7 @@ export default {
     newMessageBtn: "Выдать новое изображение",
     waitMessage: "Что бы сгенерировать новый токен, нужно немного подождать, попробуйте через некоторое время",
     enterToken: "Введите текст с картинки",
-    required: "@:captcha.enterToken",
+    required: "@:Captcha.enterToken",
   },
   UserMenu: {
     profile: "Профиль",
@@ -72,7 +72,7 @@ export default {
       },
       email: {
         required: "Введите email",
-        emailSig: "@:global.validation.emailSig",
+        emailSig: "@:Global.validation.emailSig",
         maxLength: `Email должен состоять не более чем из ${config.DbColumnSizes.Users_Email} символов`
       },
       password: {
@@ -103,11 +103,8 @@ export default {
     success: "Сообщение с ссылкой для сброса пароля отправлено на email",
     validation: {
       email: {
-        required: "@:ResetPassword.enterEmail",
-        emailSig: "@:global.validation.emailSig",
-      },
-      captchaText: {
-        required: "@:Captcha.enterToken"
+        required: "@:ResetPassword.email",
+        emailSig: "@:Global.validation.emailSig",
       }
     }
   },
@@ -248,7 +245,7 @@ export default {
     title: "Изменить имя пользователя",
     successNotify: "Имя изменено",
     nameValidationInfo: "Имя может состоять из букв, цифр, пробела и символа '-', длинны не менее 3.",
-    saveBtn: "@:global.btn.save",
+    saveBtn: "@:Global.btn.save",
     name: "Имя",
     password: "Пароль",
     validation: {
@@ -268,7 +265,7 @@ export default {
     linkEditedMessage: "Link отредактирован",
     link: "Link",
     linkValidationInfo: "Link должен состоять не менее чем из 3 символов 'a-z', 'A-Z', '-', '0-9'. И содержать хотя бы одну букву.",
-    saveBtn: "@:global.btn.save",
+    saveBtn: "@:Global.btn.save",
     validation: {
       minLength: "Длинна link должна быть не менее 3",
       allowedChars: "Допустимы только буквы английского алфавита и цифры",
@@ -281,7 +278,7 @@ export default {
     successNotify: "Сообщение с ссылкой для подтверждения email отправлено по почте",
     password: "Ваш пароль",
     newEmail: "Новый email",
-    saveBtn: "@:global.btn.save",
+    saveBtn: "@:Global.btn.save",
     validation: {
       password: {
         required: "Необходимо ввести пароль"
@@ -364,7 +361,7 @@ export default {
     title: "Редактировать информацию о себе",
     label: "Информация о вас на странице вашего профиля.",
     editedSuccessNotify: "Информация успешно сохранена",
-    save: "@:global.btn.save"
+    save: "@:Global.btn.save"
   },
   ActivitiesPage: {
     defaultTitle: "Новое на сайте"

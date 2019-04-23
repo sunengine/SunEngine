@@ -40,7 +40,7 @@ export function makeForumSection(name, categoriesPanel) {
       },
       props: {
         default: (route) => {
-          return {categoryName: route.params.categoryName, id: +route.params.id}
+          return {categoryName: route.params.categoryName, idOrName: route.params.id}
         },
         navigation: {categories: categoriesPanel, categoryName: nameLower}
       }
@@ -144,7 +144,7 @@ export function makeBlogSection(name) {
         default: (route) => {
           return {
             categoryName: nameLower,
-            id: +route.params.id
+            idOrName: route.params.id
           }
         }
       }

@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using SunEngine.Commons.Scheduler;
+using SunEngine.Commons.Services;
 
 namespace SunEngine.Commons.Configuration.AddServices
 {

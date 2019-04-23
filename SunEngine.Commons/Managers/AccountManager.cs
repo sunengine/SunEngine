@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.Controllers;
 using SunEngine.Commons.DataBase;
+using SunEngine.Commons.Misc;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.Utils;
@@ -50,7 +51,7 @@ namespace SunEngine.Commons.Managers
             var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
 
             var resetPasswordUrl = globalOptions.SiteApi
-                .AppendPathSegments("Auth", "ResetPasswordShowClientDialog")
+                .AppendPathSegments("Account", "ResetPasswordShowClientDialog")
                 .SetQueryParams(new {uid = user.Id, token = resetToken});
 
             try
@@ -61,7 +62,7 @@ namespace SunEngine.Commons.Managers
             }
             catch (Exception)
             {
-                ServiceResult.BadResult(new ErrorView {ErrorText = "Server error. Can not send email."});
+                ServiceResult.BadResult(new ErrorView ("EmailSendError","Server error. Can not send email."));
             }
 
             return ServiceResult.OkResult();

@@ -2,8 +2,9 @@ using System;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
-using SunEngine.Commons.Cache;
+using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.Controllers;
+using SunEngine.Commons.Misc;
 
 namespace SunEngine.Commons.Filters
 {
@@ -32,7 +33,7 @@ namespace SunEngine.Commons.Filters
 
             if (!user.Identity.IsAuthenticated)
             {
-                context.Result = controller.BadRequest("This user can not make post requests");
+                context.Result = controller.Unauthorized();
             }
 
             var actionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
@@ -45,14 +46,11 @@ namespace SunEngine.Commons.Filters
 
             if (requestFree != null && requestFree.Working())
             {
-                context.Result = controller.BadRequest(new ErrorView
-                {
-                    ErrorName = "SpamProtection",
-                    ErrorText = "Нельзя так часто делать запросы."
-                });
+                context.Result =
+                    controller.BadRequest(ErrorView.SoftError("SpamProtection", "To rapid requests does not allowed"));
             }
 
-            SpamProtectionFilterTransfer temp = new SpamProtectionFilterTransfer()
+            SpamProtectionFilterTransfer temp = new SpamProtectionFilterTransfer
             {
                 Key = key,
                 RequestFree = requestFree,

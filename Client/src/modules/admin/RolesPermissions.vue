@@ -30,7 +30,7 @@
     name: "RolesPermissions",
     components: {LoaderWait},
     mixins: [Page],
-    i18nPrefix: "admin",
+    i18nPrefix: "Admin",
     computed: {},
     data: function () {
       return {
@@ -60,8 +60,8 @@
               this.error = null;
               this.json = response.data.json
             }
-          ).catch(x => {
-            console.log("error", response);
+          ).catch(error => {
+            this.$errorNotify(error);
           });
       },
       async send() {
@@ -83,12 +83,9 @@
                 position: 'top'
               });
             }
-          ).catch(x => {
-            this.error = {
-              message: x.response.data.errorName.replace(/\n/g, '<br/>'),
-              text: x.response.data.errorText.replace(/\n/g, '<br/>')
-            };
-            console.log("error", x);
+          ).catch(error => {
+            this.error = error.response.data.errors[0];
+            this.$errorNotify(error);
           });
       }
     },

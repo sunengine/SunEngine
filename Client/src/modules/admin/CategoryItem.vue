@@ -31,7 +31,7 @@
       isFirst: Boolean,
       isLast: Boolean
     },
-    i18nPrefix: "admin",
+    i18nPrefix: "Admin",
     computed: {
       notRoot() {
         return this.category.name !== 'Root'

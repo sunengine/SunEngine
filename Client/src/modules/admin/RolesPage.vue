@@ -26,7 +26,7 @@
     name: "RolesPage",
     mixins: [Page],
     components: {LoaderWait},
-    i18nPrefix: "admin",
+    i18nPrefix: "Admin",
     data: function () {
       return {
         roles: null,

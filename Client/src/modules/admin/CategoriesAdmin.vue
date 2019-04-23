@@ -26,7 +26,7 @@
     name: "CategoriesAdmin",
     components: {LoaderWait, CategoryItem},
     mixins: [Page],
-    i18nPrefix: "admin",
+    i18nPrefix: "Admin",
     data: function () {
       return {
         root: null
@@ -65,8 +65,8 @@
             async response => {
               await this.loadData();
             }
-          ).catch(x => {
-            console.log("error", x);
+          ).catch(error => {
+            this.$errorNotify(error);
           });
       },
       async loadData() {
@@ -79,8 +79,8 @@
             response => {
               this.root = response.data;
             }
-          ).catch(x => {
-            console.log("error", x);
+          ).catch(error => {
+            this.$errorNotify(error);
           });
       }
 

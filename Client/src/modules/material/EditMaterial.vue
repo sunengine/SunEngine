@@ -7,7 +7,7 @@
              @click="save" color="send">
         <LoaderSent slot="loading"/>
       </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$t('global.btn.cancel')"
+      <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$t('Global.btn.cancel')"
              color="warning"/>
     </div>
   </q-page>
@@ -15,13 +15,14 @@
 
 <script>
   import MaterialForm from "./MaterialForm";
+  import LoaderSent from "LoaderSent";
   import {GetWhereToMove} from "./GetWhereToAddMove";
   import Page from "Page";
 
   export default {
     name: "EditMaterial",
     mixins: [Page],
-    components: {MaterialForm},
+    components: {MaterialForm, LoaderSent},
     props: {
       id: {
         type: Number,
@@ -34,9 +35,8 @@
           name: null,
           title: "",
           text: "",
-          description: "",
+          description: null,
           tags: [],
-          categoryName: ""
         },
         loading: false
       }
@@ -50,21 +50,26 @@
       async save() {
         this.$refs.form.start = false;
         this.$refs.form.validate();
-        if(this.$refs.form.hasError)
+        if (this.$refs.form.hasError)
           return;
         this.loading = true;
 
+        const data = {
+          id: this.id,
+          categoryName: this.material.categoryName,
+          title: this.material.title,
+          text: this.material.text,
+          tags: this.material.tags.join(',')
+        };
+
+        if (this.material.name)
+          data.name = this.material.name;
+        if (this.material.description)
+          data.description = this.material.description;
+
         await this.$store.dispatch('request', {
           url: '/Materials/Update',
-          data: {
-            id: this.id,
-            name: this.material.name,
-            categoryName: this.material.categoryName,
-            title: this.material.title,
-            description: this.material.description,
-            text: this.material.text,
-            tags: this.material.tags.join(',')
-          }
+          data: data
         }).then(() => {
           const msg = this.$tl("successNotify");
           this.$q.notify({
@@ -74,7 +79,8 @@
             position: 'top'
           });
           this.$router.push(this.$refs.form.category.path);
-        }).catch(() => {
+        }).catch(error => {
+          this.$errorNotify(error);
           this.loading = false;
         });
       },

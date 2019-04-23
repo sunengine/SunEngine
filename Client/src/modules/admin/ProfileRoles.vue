@@ -68,7 +68,7 @@
         required: true
       }
     },
-    i18nPrefix: "admin",
+    i18nPrefix: "Admin",
     data: function () {
       return {
         allRoles: null,
@@ -84,7 +84,7 @@
         const msg = this.$tl("addRoleConfirm",role.title);
         debugger;
         const addRoleConfirmOkBtn = this.$tl("addRoleConfirmOkBtn");
-        const cancelBtn = this.$t("global.btn.cancel");
+        const cancelBtn = this.$t("Global.btn.cancel");
 
         this.$q.dialog({
           //title: 'Confirm',
@@ -99,7 +99,7 @@
         this.remove = false;
         const msg = this.$tl("removeRoleConfirm",role.title);
         const removeRoleConfirmOkBtn = this.$tl("removeRoleConfirmOkBtn");
-        const cancelBtn = this.$t("global.btn.cancel");
+        const cancelBtn = this.$t("Global.btn.cancel");
         this.$q.dialog({
           //title: 'Confirm',
           message: msg,

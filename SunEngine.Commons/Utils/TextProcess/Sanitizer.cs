@@ -8,11 +8,11 @@ namespace SunEngine.Commons.Utils.TextProcess
         private readonly HtmlSanitizer htmlSanitizer;
         private readonly string siteUrl = "";
 
-        private readonly string[] allowedTags = { "a", "b" ,"strong", "i", "em", "blockquote", "ol","li","ul", "p",
-            "div", "br","video","audio","source","span", "img", "code", "pre" };
+        private readonly string[] allowedTags = { "a", "b" ,"strong", "i", "em", "blockquote", "ol","li","ul", "ol", "p",
+            "div", "br","video","audio","source","span", "img", "code", "pre", "font" };
 
         private readonly string[] allowedAttributes = { "style", "src", "controls", "autoplay", "loop", "alt",
-            "width", "height", "target", "frameborder", "allowfullscreen", "download", "controlsList"};
+            "width", "height", "target", "frameborder", "allowfullscreen", "download", "controlsList", "size"};
 
         private readonly string[] allowedClasses = { "text-img" };
 
