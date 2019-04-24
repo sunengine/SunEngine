@@ -10,6 +10,9 @@ namespace SunEngine.Commons.Models
     public class CacheSettings
     {
         public long Id { get; set; }
+        
         public CachePolicy CachePolicy { get; set; }
+        
+        public int? InvalidateCacheTime { get; set; }
     }
 }

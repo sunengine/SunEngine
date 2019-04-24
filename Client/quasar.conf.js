@@ -58,7 +58,8 @@ module.exports = function (ctx) {
         'QAvatar',
         'QTree',
         'QExpansionItem',
-        'QDialog'
+        'QDialog',
+        'QField'
       ],
 
       directives: [

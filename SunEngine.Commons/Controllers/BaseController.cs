@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Commons.Cache;
 using SunEngine.Commons.Cache.CacheModels;
+using SunEngine.Commons.Cache.CachePolicy;
 using SunEngine.Commons.Managers;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Security.Authentication;
@@ -17,12 +18,14 @@ namespace SunEngine.Commons.Controllers
     {
         protected readonly MyUserManager userManager;
         protected readonly IRolesCache rolesCache;
+        protected readonly ICachePolicy cachePolicy;
         protected readonly IContentCache contentCache;
         protected readonly CacheKeyGenerator keyGenerator;
 
         protected BaseController(IServiceProvider serviceProvider)
         {
             contentCache = serviceProvider.GetRequiredService<IContentCache>();
+            cachePolicy = serviceProvider.GetRequiredService<ICachePolicy>();
             rolesCache = serviceProvider.GetRequiredService<IRolesCache>();
             userManager = serviceProvider.GetRequiredService<MyUserManager>();
             keyGenerator = serviceProvider.GetRequiredService<CacheKeyGenerator>();
@@ -81,17 +84,20 @@ namespace SunEngine.Commons.Controllers
         protected async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, string key,
             Func<Task<T>> dataLoader)
         {
+            if (!cachePolicy.CanCache(category))
+                return Json(await dataLoader());
+
             string json;
-            /*if (category != null
+            if (category != null
                 && category.IsCacheContent
                 && !string.IsNullOrEmpty(json = contentCache.GetContent(key)))
             {
                 return JsonString(json);
-            }*/
+            }
 
             var content = await dataLoader();
             json = WebJson.Serialize(content);
-            //contentCache.CacheContent(key, json);
+            contentCache.CacheContent(key, json);
             return JsonString(json);
         }
 

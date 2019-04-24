@@ -43,10 +43,14 @@ namespace SunEngine
             }
 
             services.AddOptions(Configuration);
-
+            
             DataBaseFactory dataBaseFactory = services.AddDatabase(Configuration);
 
+            services.AddDbOptions(dataBaseFactory);
+            
             services.AddStores(dataBaseFactory);
+
+            services.AddCachePolicy();
 
             services.AddIdentity(dataBaseFactory);
 
@@ -68,6 +72,8 @@ namespace SunEngine
 
             services.AddJobs();
 
+            services.AddSingleton<IServiceCollection>(x => services);
+            
             services.AddSingleton<CaptchaService>();
             services.AddSingleton<Sanitizer>();
             services.AddTransient<IEmailSender, EmailSender>();

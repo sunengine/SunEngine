@@ -5,13 +5,16 @@ using SunEngine.Commons.DataBase;
 namespace SunEngine.Commons.Cache.CachePolicy
 {
     public class CustomCachePolicy : ICachePolicy
-
     {
         public bool CanCache(CategoryCached category, int? page = null)
         {
-            if (category.CacheSettings == null)
-                return true;
+            if (category.Parent?.CacheSettings == null)
+                return false;
 
+            var cachingPageCount = category.Parent.CacheSettings.PagesAmount;
+            if (cachingPageCount != 0 && page >= cachingPageCount)
+                return false;
+            
             return true;
         }
     }

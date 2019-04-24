@@ -45,7 +45,13 @@ namespace SunEngine.Commons.Cache
                 || string.IsNullOrEmpty(content))
                 return false;
 
-            memoryCache.Set(key, content, TimeSpan.FromMinutes(cacheOptions.Value.InvalidateCacheTime));
+            var invalidateCacheTime = 10;
+            if (cacheOptions.Value.InvalidateCacheTime.HasValue)
+            {
+                invalidateCacheTime = cacheOptions.Value.InvalidateCacheTime.Value;
+            }
+            
+            memoryCache.Set(key, content, TimeSpan.FromMinutes(invalidateCacheTime));
             return true;
         }
 

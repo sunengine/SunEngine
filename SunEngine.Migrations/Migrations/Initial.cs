@@ -5,13 +5,12 @@ using FluentMigrator.Builders.Create.Table;
 
 namespace SunEngine.Migrations.Migrations
 {
+    // Site version 1.0.0-beta.11
     [Migration(20190208000000)]
     public class Initial : Migration
     {
         public override void Up()
         {
-           
-            
             Create.Table("SectionTypes")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(DbColumnSizes.SectionType_Name).NotNullable()
@@ -30,11 +29,12 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("IsMaterialsContainer").AsBoolean().NotNullable()
                 .WithColumn("ParentId").AsInt32().Indexed().Nullable()
                 .ForeignKey("FK_Categories_Categories_ParentId", "Categories", "Id")
+                .WithColumn("CacheSettingsId").AsInt32().Indexed().Nullable()
+                .ForeignKey("FK_Categories_CategoryCacheSettings_CacheSettingsId", "CategoryCacheSettings", "Id")
                 .WithColumn("SortNumber").AsInt32().NotNullable()
                 .WithColumn("IsCacheContent").AsBoolean().NotNullable()
                 .WithColumn("IsHidden").AsBoolean().NotNullable()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable();
-
 
             Create.Table("AspNetUsers")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
@@ -167,8 +167,16 @@ namespace SunEngine.Migrations.Migrations
             Create.Table("BlackListShortTokens")
                 .WithColumn("TokenId").AsString(DbColumnSizes.BlackListShortToken_TokenId).PrimaryKey().NotNullable()
                 .WithColumn("Expire").AsMyDateTime().Indexed().NotNullable();
+            
+            Create.Table("CacheSettings")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("CachePolicy").AsInt32().NotNullable()
+                .WithColumn("InvalidateCacheTime").AsInt32().Nullable();
+            
+            Create.Table("CategoryCacheSettings")
+                .WithColumn("Id").AsInt32().PrimaryKey().NotNullable()
+                .WithColumn("PagesAmount").AsInt32().NotNullable();
         }
-
 
         public override void Down()
         {
