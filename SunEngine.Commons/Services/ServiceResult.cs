@@ -1,16 +1,20 @@
 using SunEngine.Commons.Controllers;
+using SunEngine.Commons.Misc;
 using SunEngine.Commons.Models;
 
 namespace SunEngine.Commons.Services
 {
+    /// <summary>
+    /// Class for Ok or Error result for async methods
+    /// </summary>
     public class ServiceResult
     {
         public bool Succeeded;
-        public ErrorViewModel Error;
+        public ErrorView Error;
 
         public bool Failed => !Succeeded;
 
-        public static ServiceResult BadResult(ErrorViewModel error = null)
+        public static ServiceResult BadResult(ErrorView error = null)
         {
             return new ServiceResult
             {
@@ -41,7 +45,7 @@ namespace SunEngine.Commons.Services
             };
         }
         
-        public static UserServiceResult BadResult(ErrorViewModel error = null)
+        public static UserServiceResult BadResult(ErrorView error = null)
         {
             return new UserServiceResult
             {

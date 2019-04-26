@@ -11,9 +11,10 @@ using Microsoft.IdentityModel.Tokens;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.Controllers;
 using SunEngine.Commons.DataBase;
+using SunEngine.Commons.Misc;
 using SunEngine.Commons.Models;
-using SunEngine.Commons.Security.Cryptography;
 using SunEngine.Commons.Services;
+using SunEngine.Commons.Utils;
 
 namespace SunEngine.Commons.Managers
 {
@@ -27,14 +28,14 @@ namespace SunEngine.Commons.Managers
     public class AccountManager : DbService, IAccountManager
     {
         protected readonly JwtOptions jwtOptions;
-        protected readonly MyUserManager userManager;
+        protected readonly SunUserManager userManager;
         protected readonly GlobalOptions globalOptions;
-        protected readonly IEmailSender emailSender;
+        protected readonly IEmailSenderService EmailSenderService;
 
 
         public AccountManager(
-            MyUserManager userManager,
-            IEmailSender emailSender,
+            SunUserManager userManager,
+            IEmailSenderService emailSenderService,
             DataBaseConnection db,
             IOptions<GlobalOptions> globalOptions,
             IOptions<JwtOptions> jwtOptions) : base(db)
@@ -42,7 +43,7 @@ namespace SunEngine.Commons.Managers
             this.jwtOptions = jwtOptions.Value;
             this.userManager = userManager;
             this.globalOptions = globalOptions.Value;
-            this.emailSender = emailSender;
+            this.EmailSenderService = emailSenderService;
         }
 
         public virtual async Task<ServiceResult> ResetPasswordSendEmailAsync(User user)
@@ -50,18 +51,18 @@ namespace SunEngine.Commons.Managers
             var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
 
             var resetPasswordUrl = globalOptions.SiteApi
-                .AppendPathSegments("Auth", "ResetPasswordShowClientDialog")
+                .AppendPathSegments("Account", "ResetPasswordShowClientDialog")
                 .SetQueryParams(new {uid = user.Id, token = resetToken});
 
             try
             {
-                await emailSender.SendEmailAsync(user.Email, "You can reset your password",
+                await EmailSenderService.SendEmailAsync(user.Email, "You can reset your password",
                     $"Reset password by clicking this <a href=\"{resetPasswordUrl}\">link</a>."
                 );
             }
             catch (Exception)
             {
-                ServiceResult.BadResult(new ErrorViewModel {ErrorText = "Server error. Can not send email."});
+                ServiceResult.BadResult(new ErrorView ("EmailSendError","Server error. Can not send email."));
             }
 
             return ServiceResult.OkResult();
@@ -96,7 +97,7 @@ namespace SunEngine.Commons.Managers
             var updateEmailUrl = globalOptions.SiteApi.AppendPathSegments("Account", "ConfirmChangeEmail")
                 .SetQueryParam("token", emailToken);
 
-            await emailSender.SendEmailAsync(email, "Confirm your email",
+            await EmailSenderService.SendEmailAsync(email, "Confirm your email",
                 $"Confirm your email by clicking this <a href=\"{updateEmailUrl}\">link</a>.");
         }
 

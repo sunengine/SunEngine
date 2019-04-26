@@ -4,19 +4,23 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using SunEngine.Commons.Cache;
 using SunEngine.Commons.Cache.CacheModels;
 using SunEngine.Commons.Cache.CachePolicy;
+using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.Managers;
+using SunEngine.Commons.Misc;
 using SunEngine.Commons.Models;
-using SunEngine.Commons.Security.Authentication;
+using SunEngine.Commons.Security;
 using SunEngine.Commons.Utils;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Base class for all controllers on the site
+    /// </summary>
     public abstract class BaseController : Controller
     {
-        protected readonly MyUserManager userManager;
+        protected readonly SunUserManager userManager;
         protected readonly IRolesCache rolesCache;
         protected readonly ICachePolicy cachePolicy;
         protected readonly IContentCache contentCache;
@@ -27,9 +31,11 @@ namespace SunEngine.Commons.Controllers
             contentCache = serviceProvider.GetRequiredService<IContentCache>();
             cachePolicy = serviceProvider.GetRequiredService<ICachePolicy>();
             rolesCache = serviceProvider.GetRequiredService<IRolesCache>();
-            userManager = serviceProvider.GetRequiredService<MyUserManager>();
+            userManager = serviceProvider.GetRequiredService<SunUserManager>();
             keyGenerator = serviceProvider.GetRequiredService<CacheKeyGenerator>();
         }
+        
+        
 
         protected string ControllerName
         {
@@ -41,22 +47,32 @@ namespace SunEngine.Commons.Controllers
             get => ControllerContext.ActionDescriptor.ActionName;
         }
 
-        private MyClaimsPrincipal _user;
+        private SunClaimsPrincipal _user;
 
-        public new MyClaimsPrincipal User
+        public new SunClaimsPrincipal User
         {
             get
             {
                 if (_user == null)
                 {
-                    MyClaimsPrincipal myClaimsPrincipal = base.User as MyClaimsPrincipal;
-                    _user = myClaimsPrincipal ?? new MyClaimsPrincipal(base.User, rolesCache);
+                    SunClaimsPrincipal sunClaimsPrincipal = base.User as SunClaimsPrincipal;
+                    _user = sunClaimsPrincipal ?? new SunClaimsPrincipal(base.User, rolesCache);
                 }
 
                 return _user;
             }
         }
 
+        public new UnauthorizedObjectResult Unauthorized()
+        {
+            return base.Unauthorized(ErrorView.Unauthorized());
+        }
+
+        public new BadRequestObjectResult BadRequest()
+        {
+            return base.BadRequest(ErrorView.BadRequest());
+        }
+        
         public Task<User> GetUserAsync()
         {
             return userManager.FindByIdAsync(User.UserId.ToString());
@@ -68,7 +84,7 @@ namespace SunEngine.Commons.Controllers
         }
 
         public async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, IEnumerable<int> categoryIds,
-            Func<Task<T>> dataLoader,  int page = 0)
+            Func<Task<T>> dataLoader, int page = 0)
         {
             var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryIds);
             return await CacheContentAsync(category, key, dataLoader);
@@ -108,11 +124,5 @@ namespace SunEngine.Commons.Controllers
         }
     }
 
-    public class ErrorViewModel
-    {
-        public string ErrorName { get; set; }
-        public string ErrorText { get; set; }
-        public string[] ErrorsNames { get; set; }
-        public string[] ErrorsTexts { get; set; }
-    }
+    
 }

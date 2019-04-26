@@ -4,6 +4,7 @@ import NewTopics from 'forum/NewTopics';
 import ArticlesPage from 'articles/ArticlesPage';
 import ForumPanel from 'forum/ForumPanel';
 import BlogPage from "blog/BlogPage";
+import Categories1 from "categories/Categories1";
 
 export function makeForumSection(name, categoriesPanel) {
   let nameLower = name.toLowerCase();
@@ -39,7 +40,7 @@ export function makeForumSection(name, categoriesPanel) {
       },
       props: {
         default: (route) => {
-          return {categoryName: route.params.categoryName, id: +route.params.id}
+          return {categoryName: route.params.categoryName, idOrName: route.params.id}
         },
         navigation: {categories: categoriesPanel, categoryName: nameLower}
       }
@@ -65,7 +66,7 @@ export function makeArticlesSection(name) {
       }
     },
     {
-      path: `/${nameLower}/:id`,
+      path: `/${nameLower}/:idOrName`,
       components: {
         default: Material,
         navigation: null
@@ -74,7 +75,41 @@ export function makeArticlesSection(name) {
         default: (route) => {
           return {
             categoryName: nameLower,
-            id: +route.params.id
+            idOrName: route.params.idOrName
+          }
+        }
+      }
+    }
+  ];
+}
+
+export function makeArticlesSectionWithMenu(name) {
+  let nameLower = name.toLowerCase();
+  return [
+    {
+      name: name,
+      path: '/' + nameLower,
+      components: {
+        default: ArticlesPage,
+        navigation: Categories1
+      },
+      props: {
+        default: {
+          categoryName: nameLower
+        }
+      }
+    },
+    {
+      path: `/${nameLower}/:idOrName`,
+      components: {
+        default: Material,
+        navigation: Categories1
+      },
+      props: {
+        default: (route) => {
+          return {
+            categoryName: nameLower,
+            idOrName: route.params.idOrName
           }
         }
       }
@@ -109,7 +144,7 @@ export function makeBlogSection(name) {
         default: (route) => {
           return {
             categoryName: nameLower,
-            id: +route.params.id
+            idOrName: route.params.id
           }
         }
       }

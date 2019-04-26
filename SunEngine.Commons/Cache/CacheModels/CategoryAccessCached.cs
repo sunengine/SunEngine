@@ -5,6 +5,9 @@ using SunEngine.Commons.Models.Authorization;
 
 namespace SunEngine.Commons.Cache.CacheModels
 {
+    /// <summary>
+    /// Cache for CategoryAccess for RolesCache
+    /// </summary>
     public class CategoryAccessCached
     {
         public int Id { get; }

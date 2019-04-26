@@ -26,7 +26,7 @@
     name: "CategoriesAdmin",
     components: {LoaderWait, CategoryItem},
     mixins: [Page],
-    i18nPrefix: "admin",
+    i18nPrefix: "Admin",
     data: function () {
       return {
         root: null
@@ -34,10 +34,10 @@
     },
     methods: {
       go(name) {
-        this.$router.push(this.$store.getters.getCategory(name).getPath());
+        this.$router.push(this.$store.getters.getCategory(name).path);
       },
       add() {
-        this.$router.push({name: 'AddCategory'});
+        this.$router.push({name: 'CreateCategory'});
       },
       edit(id) {
         this.$router.push({name: 'EditCategory', params: {id}});
@@ -45,7 +45,7 @@
       async up(category) {
         await this.$store.dispatch("request",
           {
-            url: "/Admin/AdminCategories/CategoryUp",
+            url: "/Admin/CategoriesAdmin/CategoryUp",
             data: {name: category.name}
           })
           .then(async response => {
@@ -58,29 +58,29 @@
       async down(category) {
         await this.$store.dispatch("request",
           {
-            url: "/Admin/AdminCategories/CategoryDown",
+            url: "/Admin/CategoriesAdmin/CategoryDown",
             data: {name: category.name}
           })
           .then(
             async response => {
               await this.loadData();
             }
-          ).catch(x => {
-            console.log("error", x);
+          ).catch(error => {
+            this.$errorNotify(error);
           });
       },
       async loadData() {
         await this.$store.dispatch("request",
           {
-            url: "/Admin/AdminCategories/GetAllCategories",
+            url: "/Admin/CategoriesAdmin/GetAllCategories",
             data: {}
           })
           .then(
             response => {
               this.root = response.data;
             }
-          ).catch(x => {
-            console.log("error", x);
+          ).catch(error => {
+            this.$errorNotify(error);
           });
       }
 

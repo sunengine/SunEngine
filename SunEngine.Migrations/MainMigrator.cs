@@ -7,6 +7,9 @@ using SunEngine.Migrations.Migrations;
 
 namespace SunEngine.Migrations
 {
+    /// <summary>
+    /// Class to migrate database or create initial structure with FluentMigrator Framework
+    /// </summary>
     public class MainMigrator
     {
         private string dbConfigFilePath;

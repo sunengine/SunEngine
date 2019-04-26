@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
-using SunEngine.Commons.Cache;
+using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
@@ -10,7 +10,7 @@ namespace SunEngine.Commons.Presenters
 {
     public interface IProfilePresenter
     {
-        Task<ProfileViewModel> GetProfileAsync(string link, int? viewerUserId);
+        Task<ProfileView> GetProfileAsync(string link, int? viewerUserId);
     }
 
     public class ProfilePresenter : DbService, IProfilePresenter
@@ -22,7 +22,7 @@ namespace SunEngine.Commons.Presenters
             this.RolesCache = rolesCache;
         }
         
-        public virtual async Task<ProfileViewModel> GetProfileAsync(string link, int? viewerUserId)
+        public virtual async Task<ProfileView> GetProfileAsync(string link, int? viewerUserId)
         {
             IQueryable<User> query;
             if (int.TryParse(link, out int id))
@@ -35,7 +35,7 @@ namespace SunEngine.Commons.Presenters
                 int adminGroupId = RolesCache.AllRoles["Admin"].Id;
 
                 var user = await query.Select(x =>
-                    new ProfileViewModel
+                    new ProfileView
                     {
                         Id = x.Id,
                         Name = x.UserName,
@@ -53,7 +53,7 @@ namespace SunEngine.Commons.Presenters
             }
 
             return await query.Select(x =>
-                new ProfileViewModel
+                new ProfileView
                 {
                     Id = x.Id,
                     Name = x.UserName,
@@ -67,7 +67,7 @@ namespace SunEngine.Commons.Presenters
         }
     }
     
-    public class UserInfoViewModel
+    public class UserInfoView
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -75,7 +75,7 @@ namespace SunEngine.Commons.Presenters
         public string Avatar { get; set; }
     }
 
-    public class ProfileViewModel
+    public class ProfileView
     {
         public int Id { get; set; }
         public string Name { get; set; }

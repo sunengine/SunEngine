@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Options;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.Controllers;
 using SunEngine.Commons.DataBase;
+using SunEngine.Commons.Misc;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Security;
 using SunEngine.Commons.Services;
@@ -24,25 +26,25 @@ namespace SunEngine.Commons.Managers
 
     public class AuthManager : DbService, IAuthManager
     {
-        protected readonly MyUserManager userManager;
+        protected readonly SunUserManager userManager;
         protected readonly GlobalOptions globalOptions;
-        protected readonly IEmailSender emailSender;
+        protected readonly IEmailSenderService EmailSenderService;
         protected readonly ILogger logger;
 
 
         public AuthManager(
-            MyUserManager userManager,
-            IEmailSender emailSender,
+            SunUserManager userManager,
+            IEmailSenderService emailSenderService,
             DataBaseConnection db,
             IOptions<GlobalOptions> globalOptions,
             ILoggerFactory loggerFactory) : base(db)
         {
             this.userManager = userManager;
             this.globalOptions = globalOptions.Value;
-            this.emailSender = emailSender;
+            this.EmailSenderService = emailSenderService;
             logger = loggerFactory.CreateLogger<AccountController>();
         }
-        
+
 
         public async Task<UserServiceResult> LoginAsync(string nameOrEmail, string password)
         {
@@ -50,34 +52,23 @@ namespace SunEngine.Commons.Managers
 
             if (user == null || !await userManager.CheckPasswordAsync(user, password))
             {
-                return UserServiceResult.BadResult(new ErrorViewModel
-                {
-                    ErrorName = "username_password_invalid",
-                    ErrorText = "The username or password is invalid."
-                });
+                return UserServiceResult.BadResult(
+                    ErrorView.SoftError("UsernamePasswordInvalid", "The username or password is invalid."));
             }
 
             if (!await userManager.IsEmailConfirmedAsync(user))
             {
-                return UserServiceResult.BadResult(new ErrorViewModel
-                {
-                    ErrorName = "email_not_confirmed",
-                    ErrorText = "You must have a confirmed email to log in."
-                });
+                return UserServiceResult.BadResult(
+                    ErrorView.SoftError("EmailNotConfirmed", "You must have a confirmed email to log in."));
             }
 
             if (await userManager.IsUserInRoleAsync(user.Id, RoleNames.Banned))
             {
-                return UserServiceResult.BadResult(new ErrorViewModel
-                {
-                    ErrorName = "user_banned",
-                    ErrorText = "Error" // Что бы не провоцировать пользователя словами что он забанен
-                });
+                return UserServiceResult.BadResult(new ErrorView("UserBanned", "User is banned"));
             }
 
             return UserServiceResult.OkResult(user);
         }
-
 
         public virtual async Task<ServiceResult> RegisterAsync(NewUserArgs model)
         {
@@ -95,15 +86,7 @@ namespace SunEngine.Commons.Managers
                 await db.Users.Where(x => x.Id == user.Id).Set(x => x.Link, x => x.Id.ToString()).UpdateAsync();
 
                 if (!result.Succeeded)
-                    return new ServiceResult
-                    {
-                        Succeeded = false,
-                        Error = new ErrorViewModel
-                        {
-                            ErrorsNames = result.Errors.Select(x => x.Code).ToArray(),
-                            ErrorsTexts = result.Errors.Select(x => x.Description).ToArray()
-                        }
-                    };
+                    return ServiceResult.BadResult(new ErrorView(result.Errors));
 
                 logger.LogInformation($"New user registered (id: {user.Id})");
 
@@ -117,21 +100,14 @@ namespace SunEngine.Commons.Managers
 
                     try
                     {
-                        await emailSender.SendEmailAsync(model.Email, "Please confirm your account",
+                        await EmailSenderService.SendEmailAsync(model.Email, "Please confirm your account",
                             $"Please confirm your account by clicking this <a href=\"{emailConfirmUrl}\">link</a>."
                         );
                     }
-                    catch (Exception e)
+                    catch (Exception exception)
                     {
-                        return new ServiceResult
-                        {
-                            Succeeded = false,
-                            Error = new ErrorViewModel
-                            {
-                                ErrorName = "Can not send email",
-                                ErrorText = "Ошибка отправки email"
-                            }
-                        };
+                        return ServiceResult.BadResult(
+                            new ErrorView("EmailSendError", "Can not send email", exception));
                     }
 
 
@@ -142,10 +118,7 @@ namespace SunEngine.Commons.Managers
 
                 transaction.Complete();
 
-                return new ServiceResult
-                {
-                    Succeeded = true
-                };
+                return ServiceResult.OkResult();
             }
         }
     }

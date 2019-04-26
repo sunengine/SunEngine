@@ -4,15 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using SunEngine.Commons.Cache;
 using SunEngine.Commons.Cache.CacheModels;
+using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.Presenters;
-using SunEngine.Commons.Presenters.PagedList;
-using SunEngine.Commons.Security.Authorization;
+using SunEngine.Commons.Security;
+using SunEngine.Commons.Utils.PagedList;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Get blog posts controller
+    /// </summary>
     public class BlogController : BaseController
     {
         protected readonly OperationKeysContainer OperationKeys;
@@ -44,16 +47,12 @@ namespace SunEngine.Commons.Controllers
             var category = categoriesCache.GetCategory(categoryName);
 
             if (category == null)
-            {
                 return BadRequest();
-            }
 
             if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
-            {
                 return Unauthorized();
-            }
 
-            async Task<IPagedList<PostViewModel>> LoadDataAsync()
+            async Task<IPagedList<PostView>> LoadDataAsync()
             {
                 return await blogPresenter.GetPostsAsync(category.Id, page, blogOptions.PostsPageSize);
             }
@@ -68,14 +67,13 @@ namespace SunEngine.Commons.Controllers
             var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(categoriesNames);
 
             IList<CategoryCached> categoriesList = authorizationService.GetAllowedCategories(User.Roles,
-                materialsCategoriesDic.Values,
-                OperationKeys.MaterialAndCommentsRead);
+                materialsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);
 
             if (categoriesList.Count == 0)
-            {
                 return BadRequest("No categories to show");
-            }
 
+            
+            
             var categoriesIds = categoriesList.Select(x => x.Id).ToArray();
 
             var rez = await blogPresenter.GetPostsFromMultiCategoriesAsync(categoriesIds, page,

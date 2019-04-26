@@ -7,6 +7,9 @@ using SunEngine.Commons.Utils;
 
 namespace SunEngine.Commons.Cache.CacheModels
 {
+    /// <summary>
+    /// Cache of category for CategoriesCache
+    /// </summary>
     public class CategoryCached
     {
         public int Id { get; }

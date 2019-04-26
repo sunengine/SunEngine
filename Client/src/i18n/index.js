@@ -1,7 +1,3 @@
-import enUS from './en-us'
-import ru from './ru'
+import index from 'site/i18n/index';
 
-export default {
-  'en-us': enUS,
-  'ru': ru
-}
+export default index;

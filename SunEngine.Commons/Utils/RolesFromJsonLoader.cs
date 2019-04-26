@@ -4,10 +4,13 @@ using Newtonsoft.Json.Linq;
 using NJsonSchema;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.Authorization;
-using SunEngine.Commons.Security.Authorization;
+using SunEngine.Commons.Security;
 
 namespace SunEngine.Commons.Utils
 {
+    /// <summary>
+    /// Make role structure: roles, categoryAccesses, categoryOperationAccesses from Json.
+    /// </summary>
     public class RolesFromJsonLoader
     {
         public readonly List<Role> roles = new List<Role>();

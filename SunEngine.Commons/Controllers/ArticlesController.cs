@@ -4,15 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using SunEngine.Commons.Cache;
 using SunEngine.Commons.Cache.CacheModels;
+using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.Presenters;
-using SunEngine.Commons.Presenters.PagedList;
-using SunEngine.Commons.Security.Authorization;
+using SunEngine.Commons.Security;
+using SunEngine.Commons.Utils.PagedList;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Get article materials controller
+    /// </summary>
     public class ArticlesController : BaseController
     {
         protected readonly OperationKeysContainer OperationKeys;
@@ -23,6 +26,7 @@ namespace SunEngine.Commons.Controllers
 
         protected readonly IArticlesPresenter articlesPresenter;
 
+       
 
         public ArticlesController(
             IOptions<ArticlesOptions> articlesOptions,
@@ -41,23 +45,19 @@ namespace SunEngine.Commons.Controllers
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> GetArticles(string categoryName, int page = 1)
+        public virtual async Task<IActionResult> GetArticles(string categoryName, ArticlesOrderType sort = ArticlesOrderType.PublishDate, int page = 1)
         {
             CategoryCached category = categoriesCache.GetCategory(categoryName);
 
             if (category == null)
-            {
                 return BadRequest();
-            }
 
             if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
-            {
                 return Unauthorized();
-            }
 
-            async Task<IPagedList<ArticleInfoViewModel>> LoadDataAsync()
+            async Task<IPagedList<ArticleInfoView>> LoadDataAsync()
             {
-                return await articlesPresenter.GetArticlesAsync(category.Id, page, articlesOptions.CategoryPageSize);   
+                return await articlesPresenter.GetArticlesAsync(category.Id, sort, page, articlesOptions.CategoryPageSize);   
             }
 
             return await CacheContentAsync(category, category.Id, LoadDataAsync, page);
@@ -72,13 +72,11 @@ namespace SunEngine.Commons.Controllers
                 OperationKeys.MaterialAndCommentsRead);
 
             if (categoriesList.Count == 0)
-            {
                 return BadRequest("No categories to show");
-            }
 
             var categoriesIds = categoriesList.Select(x => x.Id).ToArray();
             
-            IPagedList<ArticleInfoViewModel> articles =
+            IPagedList<ArticleInfoView> articles =
                 await articlesPresenter.GetArticlesFromMultiCategoriesAsync(categoriesIds, page, articlesOptions.CategoryPageSize);
 
             return Json(articles);

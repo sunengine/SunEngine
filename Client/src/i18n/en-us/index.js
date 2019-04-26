@@ -1,15 +1,10 @@
-// This is just an example,
-// so you can safely delete all default props below
+import admin from './admin';
+import components from './components';
+import errors from './errors.js';
+
 
 export default {
-  loginOrRegisterMenu: {
-    enter: "Enter",
-    register: "Register"
-  },
-  register: {
-    userName: "User name",
-    email: "Email",
-    password: "Password",
-    password2: "Confirm password"
-  }
+  ...components,
+  Admin: {...admin},
+  Errors: {...errors},
 }

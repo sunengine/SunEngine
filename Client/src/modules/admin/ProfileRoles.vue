@@ -68,7 +68,7 @@
         required: true
       }
     },
-    i18nPrefix: "admin",
+    i18nPrefix: "Admin",
     data: function () {
       return {
         allRoles: null,
@@ -84,7 +84,7 @@
         const msg = this.$tl("addRoleConfirm",role.title);
         debugger;
         const addRoleConfirmOkBtn = this.$tl("addRoleConfirmOkBtn");
-        const cancelBtn = this.$t("global.btn.cancel");
+        const cancelBtn = this.$t("Global.btn.cancel");
 
         this.$q.dialog({
           //title: 'Confirm',
@@ -99,7 +99,7 @@
         this.remove = false;
         const msg = this.$tl("removeRoleConfirm",role.title);
         const removeRoleConfirmOkBtn = this.$tl("removeRoleConfirmOkBtn");
-        const cancelBtn = this.$t("global.btn.cancel");
+        const cancelBtn = this.$t("Global.btn.cancel");
         this.$q.dialog({
           //title: 'Confirm',
           message: msg,
@@ -113,7 +113,7 @@
         debugger;
         await this.$store.dispatch("request",
           {
-            url: "/Admin/AdminUserRoles/AddUserToRole",
+            url: "/Admin/UserRolesAdmin/AddUserToRole",
             data: {
               userId: this.userId,
               roleName: role.name
@@ -127,7 +127,7 @@
       async removeFromRole(role) {
         await this.$store.dispatch("request",
           {
-            url: "/Admin/AdminUserRoles/RemoveUserFromRole",
+            url: "/Admin/UserRolesAdmin/RemoveUserFromRole",
             data: {
               userId: this.userId,
               roleName: role.name
@@ -141,7 +141,7 @@
       async loadUserRoles() {
         await this.$store.dispatch("request",
           {
-            url: "/Admin/AdminUserRoles/GetUserRoles",
+            url: "/Admin/UserRolesAdmin/GetUserRoles",
             data: {
               userId: this.userId
             }
@@ -155,7 +155,7 @@
       async loadAllRoles() {
         await this.$store.dispatch("request",
           {
-            url: "/Admin/AdminUserRoles/GetAllUserRoles"
+            url: "/Admin/UserRolesAdmin/GetAllUserRoles"
           })
           .then(response => {
               this.allRoles = response.data;

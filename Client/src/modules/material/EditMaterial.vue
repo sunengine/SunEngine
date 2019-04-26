@@ -7,7 +7,7 @@
              @click="save" color="send">
         <LoaderSent slot="loading"/>
       </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$t('global.btn.cancel')"
+      <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$t('Global.btn.cancel')"
              color="warning"/>
     </div>
   </q-page>
@@ -15,17 +15,30 @@
 
 <script>
   import MaterialForm from "./MaterialForm";
+  import LoaderSent from "LoaderSent";
   import {GetWhereToMove} from "./GetWhereToAddMove";
   import Page from "Page";
 
   export default {
     name: "EditMaterial",
     mixins: [Page],
-    components: {MaterialForm},
+    components: {MaterialForm, LoaderSent},
     props: {
       id: {
         type: Number,
         required: true
+      }
+    },
+    data: function () {
+      return {
+        material: {
+          name: null,
+          title: "",
+          text: "",
+          description: null,
+          tags: [],
+        },
+        loading: false
       }
     },
     computed: {
@@ -34,22 +47,29 @@
       }
     },
     methods: {
-      save() {
+      async save() {
         this.$refs.form.start = false;
         this.$refs.form.validate();
         if (this.$refs.form.hasError)
           return;
-
         this.loading = true;
-        this.$store.dispatch('request', {
-          url: '/Materials/Add',
-          data: {
-            categoryName: this.material.categoryName,
-            title: this.material.title,
-            description: this.material.description,
-            text: this.material.text,
-            tags: this.material.tags.join(',')
-          }
+
+        const data = {
+          id: this.id,
+          categoryName: this.material.categoryName,
+          title: this.material.title,
+          text: this.material.text,
+          tags: this.material.tags.join(',')
+        };
+
+        if (this.material.name)
+          data.name = this.material.name;
+        if (this.material.description)
+          data.description = this.material.description;
+
+        await this.$store.dispatch('request', {
+          url: '/Materials/Update',
+          data: data
         }).then(() => {
           const msg = this.$tl("successNotify");
           this.$q.notify({
@@ -60,75 +80,16 @@
           });
           this.$router.push(this.$refs.form.category.path);
         }).catch(error => {
-          if (error.response.data.errorName === "SpamProtection") {
-            const msg = this.$tl("spamProtectionNotify");
-            this.$q.notify({
-              message: msg,
-              timeout: 5000,
-              color: 'warning',
-              position: 'top'
-            });
-          } else {
-            this.$q.notify({
-              message: error.response.data.errorText,
-              timeout: 2000,
-              color: 'negative',
-              position: 'top'
-            });
-          }
-          this.loading = false;
-        });
-      }
-    },
-    data: function () {
-      return {
-        material: {
-          title: "",
-          text: "",
-          description: "",
-          tags: [],
-          categoryName: ""
-        },
-        loading: false
-      }
-    },
-    methods: {
-      async save() {
-        this.$refs.form.start = false;
-        this.$refs.form.validate();
-        if(this.$refs.form.hasError)
-          return;
-        this.loading = true;
-
-
-        await this.$store.dispatch('request', {
-          url: '/Materials/Edit',
-          data: {
-            id: this.id,
-            categoryName: this.material.categoryName,
-            title: this.material.title,
-            description: this.material.description,
-            text: this.material.text,
-            tags: this.material.tags.join(',')
-          }
-        }).then(() => {
-          const msg = this.$tl("successNotify");
-          this.$q.notify({
-            message: msg,
-            timeout: 2300,
-            color: 'positive',
-            position: 'top'
-          });
-          this.$router.push(this.$refs.form.category.path);
-        }).catch(() => {
+          this.$errorNotify(error);
           this.loading = false;
         });
       },
+
       async loadData() {
         this.$store.dispatch('request', {
           url: '/Materials/Get',
           data: {
-            id: this.id,
+            idOrName: this.id,
           }
         }).then(response => {
           this.material = response.data;

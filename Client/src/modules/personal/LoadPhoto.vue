@@ -48,7 +48,7 @@
         this.loading = true;
         await this.$store.dispatch("request",
           {
-            url: "/Images/UploadUserPhoto",
+            url: "/UploadImages/UploadUserPhoto",
             data: formData
           })
           .then(async () => {
@@ -63,15 +63,8 @@
                 position: 'top'
               });
             }
-          ).catch(x => {
-            console.log("error", x);
-            const msg = this.$t("global.errorNotify");
-            this.$q.notify({
-              message: msg,
-              timeout: 2000,
-              color: 'negative',
-              position: 'top'
-            });
+          ).catch(error => {
+            this.$errorNotify(error);
           });
       },
       upload() {
@@ -96,7 +89,7 @@
           ).catch(x => {
             this.loading = false;
             console.log("error", x);
-            const msg = this.$t("global.errorNotify");
+            const msg = this.$t("Global.errorNotify");
             this.$q.notify({
               message: msg,
               timeout: 2000,

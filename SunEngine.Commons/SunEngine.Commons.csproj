@@ -7,15 +7,15 @@
 
     <ItemGroup>
       <PackageReference Include="Flurl" Version="2.8.1" />
-      <PackageReference Include="HtmlSanitizer" Version="4.0.207" />
+      <PackageReference Include="HtmlSanitizer" Version="4.0.210" />
       <PackageReference Include="linq2db" Version="2.6.4" />
       <PackageReference Include="linq2db.Identity" Version="2.0.1" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.2" />
-      <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="1.1.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
       <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.4.0" />
-      <PackageReference Include="NJsonSchema" Version="9.13.27" />
-      <PackageReference Include="Npgsql" Version="4.0.5" />
+      <PackageReference Include="NJsonSchema" Version="9.13.29" />
+      <PackageReference Include="Npgsql" Version="4.0.6" />
       <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta0008" />
       <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
       <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0006" />

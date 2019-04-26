@@ -2,16 +2,16 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Presenters.PagedList;
 using SunEngine.Commons.Services;
+using SunEngine.Commons.Utils.PagedList;
 
 namespace SunEngine.Commons.Presenters
 {
     public interface IBlogPresenter
     {
-        Task<IPagedList<PostViewModel>> GetPostsAsync(int categoryId, int page, int pageSize);
+        Task<IPagedList<PostView>> GetPostsAsync(int categoryId, int page, int pageSize);
 
-        Task<IPagedList<PostViewModel>>
+        Task<IPagedList<PostView>>
             GetPostsFromMultiCategoriesAsync(int[] categoriesIds, int page, int pageSize);
     }
 
@@ -21,10 +21,10 @@ namespace SunEngine.Commons.Presenters
         {
         }
 
-        public virtual Task<IPagedList<PostViewModel>> GetPostsAsync(int categoryId, int page, int pageSize)
+        public virtual Task<IPagedList<PostView>> GetPostsAsync(int categoryId, int page, int pageSize)
         {
             return db.MaterialsNotDeleted.GetPagedListAsync(
-                x => new PostViewModel
+                x => new PostView
                 {
                     Id = x.Id,
                     Title = x.Title,
@@ -43,10 +43,10 @@ namespace SunEngine.Commons.Presenters
                 pageSize);
         }
         
-        public virtual Task<IPagedList<PostViewModel>> GetPostsFromMultiCategoriesAsync(int[] categoriesIds, int page, int pageSize)
+        public virtual Task<IPagedList<PostView>> GetPostsFromMultiCategoriesAsync(int[] categoriesIds, int page, int pageSize)
         {
             return db.MaterialsNotDeleted.GetPagedListAsync(
-                x => new PostViewModel
+                x => new PostView
                 {
                     Id = x.Id,
                     Title = x.Title,
@@ -67,7 +67,7 @@ namespace SunEngine.Commons.Presenters
         }
     }
 
-    public class PostViewModel
+    public class PostView
     {
         public int Id { get; set; }
         public string Title { get; set; }

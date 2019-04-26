@@ -20,18 +20,18 @@ namespace SunEngine.Commons.Managers
 
     public class ProfileManager : DbService, IProfileManager
     {
-        protected readonly IEmailSender emailSender;
+        protected readonly IEmailSenderService EmailSenderService;
         protected readonly Sanitizer sanitizer;
         protected readonly GlobalOptions globalOptions;
 
         public ProfileManager(
             DataBaseConnection db,
-            IEmailSender emailSender,
+            IEmailSenderService emailSenderService,
             IOptions<GlobalOptions> globalOptions,
             Sanitizer sanitizer
         ) : base(db)
         {
-            this.emailSender = emailSender;
+            this.EmailSenderService = emailSenderService;
             this.sanitizer = sanitizer;
             this.globalOptions = globalOptions.Value;
         }
@@ -44,7 +44,7 @@ namespace SunEngine.Commons.Managers
             text = sanitizer.Sanitize(header + text);
             string subject = $"Сообщение от {to.UserName} с сайта {globalOptions.SiteName}";
 
-            return emailSender.SendEmailAsync(to.Email, subject, text);
+            return EmailSenderService.SendEmailAsync(to.Email, subject, text);
         }
 
         public virtual Task BanUserAsync(User who, User banned)

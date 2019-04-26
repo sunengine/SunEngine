@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using SunEngine.Commons.Cache;
 using SunEngine.Commons.Cache.CacheModels;
-using SunEngine.Commons.Security.Authorization;
+using SunEngine.Commons.Cache.Services;
+using SunEngine.Commons.Security;
 
 namespace SunEngine.Commons.Presenters
 {
@@ -126,10 +126,7 @@ namespace SunEngine.Commons.Presenters
         public string Path { get; set; }
         public bool IsMaterialsContainer { get; set; }
         public bool IsHidden { get; set; }
-
         public Dictionary<string, bool> CategoryPersonalAccess { get; set; }
-
         public List<CategoryInfoWithAccesses> SubCategories { get; set; }
     }
-    
 }

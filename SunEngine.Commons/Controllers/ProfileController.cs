@@ -2,17 +2,17 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SunEngine.Commons.Filters;
 using SunEngine.Commons.Managers;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Presenters;
 using SunEngine.Commons.Security;
-using SunEngine.Commons.Security.Filters;
 
 namespace SunEngine.Commons.Controllers
 {
     /// <summary>
-    /// UserProfile
-    /// Контроллер отвечающий за работу страницы /user/id111 профиля пользователей
+    /// User profile controller for "/user/userLink" 
+    /// Get profile, send private message, (un)ban user
     /// </summary>
     public class ProfileController : BaseController
     {
@@ -35,9 +35,7 @@ namespace SunEngine.Commons.Controllers
             
             var rez = await profilePresenter.GetProfileAsync(link, userId);
             if (rez == null)
-            {
                 return NotFound();
-            }
 
             return Json(rez);
         }

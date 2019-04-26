@@ -35,7 +35,7 @@
         required: true
       }
     },
-    i18nPrefix: "admin",
+    i18nPrefix: "Admin",
     data: function () {
       return {
         users: null,
@@ -55,7 +55,7 @@
         this.users = null;
         await this.$store.dispatch("request",
           {
-            url: "/Admin/AdminUserRoles/GetRoleUsers",
+            url: "/Admin/UserRolesAdmin/GetRoleUsers",
             data: {
               roleName: this.roleName,
               userNamePart: this.filter

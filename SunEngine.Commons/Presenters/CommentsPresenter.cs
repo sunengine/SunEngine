@@ -10,10 +10,10 @@ namespace SunEngine.Commons.Presenters
 {
     public interface ICommentsPresenter
     {
-        Task<(CommentViewModel commentViewModel, int categoryId)>
+        Task<(CommentView commentViewModel, int categoryId)>
             GetCommentAsync(int commentId);
 
-        Task<List<CommentViewModel>> GetMaterialCommentsAsync(int materialId);
+        Task<List<CommentView>> GetMaterialCommentsAsync(int materialId);
     }
 
     public class CommentsPresenter : DbService, ICommentsPresenter
@@ -22,13 +22,13 @@ namespace SunEngine.Commons.Presenters
         {
         }
         
-        public virtual async Task<(CommentViewModel commentViewModel, int categoryId)>
+        public virtual async Task<(CommentView commentViewModel, int categoryId)>
             GetCommentAsync(int commentId)
         {
             var rez = await db.Comments.Where(x => x.Id == commentId).Select(x =>
                 new
                 {
-                    commentViewModel = new CommentViewModel
+                    commentViewModel = new CommentView
                     {
                         Id = x.Id,
                         AuthorId = x.AuthorId,
@@ -47,12 +47,12 @@ namespace SunEngine.Commons.Presenters
             return (rez.commentViewModel, rez.categoryId);
         }
 
-        public virtual Task<List<CommentViewModel>> GetMaterialCommentsAsync(int materialId)
+        public virtual Task<List<CommentView>> GetMaterialCommentsAsync(int materialId)
         {
             return db.CommentsNotDeleted.Where(x => x.MaterialId == materialId)
                 .OrderBy(x => x.PublishDate)
                 .Select(
-                    x => new CommentViewModel
+                    x => new CommentView
                     {
                         Id = x.Id,
                         PublishDate = x.PublishDate,
@@ -69,7 +69,7 @@ namespace SunEngine.Commons.Presenters
         
     }
     
-    public class CommentViewModel
+    public class CommentView
     {
         public int Id { get; set; }
         public int AuthorId { get; set; }

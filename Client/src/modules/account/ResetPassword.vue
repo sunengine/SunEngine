@@ -10,11 +10,11 @@
 
 
       <div style="padding: 10px 10px 10px 44px; border-radius: 5px; background-color: #f0f4c3; margin-bottom: 16px;">
-        <span class="captcha-wait-msg" v-if="waitToken">{{$tl('Captcha.waitMessage')}}</span>
+        <span class="captcha-wait-msg" v-if="waitToken">{{$t('Captcha.waitMessage')}}</span>
         <img class="block" v-else-if="token" :src="$apiPath('/Captcha/CaptchaImage?token='+token)"/>
 
         <q-btn class="shadow-1 q-mt-sm block" color="lime-6" @click="GetToken" size="sm" no-caps icon="fas fa-sync"
-               :label="$tl('newCommentBtn')"/>
+               :label="$t('Captcha.newMessageBtn')"/>
       </div>
 
 
@@ -27,7 +27,7 @@
 
       <q-btn style="width:100%;" color="send" :label="$tl('resetPasswordBtn')" @click="send" :loading="submitting">
           <span slot="loading">
-            <q-spinner class="on-left"/>  {{$t("global.submitting")}}
+            <q-spinner class="on-left"/>  {{$t("Global.submitting")}}
           </span>
       </q-btn>
     </div>
@@ -48,11 +48,11 @@
   function createRules() {
     return {
       captchaText: [
-        value => !!value || this.$tl("validation.captchaText.required")
+        value => !!value || this.$t("Captcha.required")
       ],
       email: [
         value => !!value || this.$tl("validation.email.required"),
-        value => /.+@.+/.test(value) || this.$tl("validation.email.emailSig")
+        value => /.+@.+/.test(value) || this.$t("Global.validation.emailSig")
       ],
     }
   }
@@ -82,6 +82,7 @@
           return;
         }
 
+        this.submitting = true;
         this.$store.dispatch('request', {
           url: '/Account/ResetPasswordSendEmail',
           data: {
@@ -91,14 +92,10 @@
           }
         }).then(() => {
           this.done = true;
+          this.submitting = false;
         }).catch(error => {
-          this.$q.notify({
-            message: error.response.data.errorText,
-            timeout: 5000,
-            color: 'negative',
-            position: 'top'
-          });
-          this.loading = false;
+          this.$errorNotify(error);
+          this.submitting = false;
         });
       },
       async GetToken() {
@@ -107,8 +104,8 @@
         }).then(response => {
           this.token = response.data;
           this.waitToken = false;
-        }).catch(x => {
-          if (x.response.data.errorName === "SpamProtection") {
+        }).catch(error => {
+          if (error.response.data.errors[0].code === "SpamProtection") {
             this.waitToken = true;
           }
         });

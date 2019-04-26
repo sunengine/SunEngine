@@ -9,13 +9,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.DataBase;
+using SunEngine.Commons.Filters;
 using SunEngine.Commons.Managers;
 using SunEngine.Commons.Security;
-using SunEngine.Commons.Security.Authorization;
-using SunEngine.Commons.Security.Captcha;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Login, logout, register controller
+    /// </summary>
     [AllowAnonymous]
     public class AuthController : BaseController
     {
@@ -70,9 +72,7 @@ namespace SunEngine.Commons.Controllers
         public async Task<IActionResult> Register(NewUserArgs model)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             var result = await authManager.RegisterAsync(model);
             if (!result.Succeeded)

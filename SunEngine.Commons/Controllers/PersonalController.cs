@@ -4,13 +4,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.Managers;
+using SunEngine.Commons.Misc;
 using SunEngine.Commons.Presenters;
-using SunEngine.Commons.Security.Authorization;
+using SunEngine.Commons.Security;
 
 namespace SunEngine.Commons.Controllers
 {
     /// <summary>
-    /// Контроллер отвечающий за работу с информацией по текущему пользователю this.User
+    /// User info get set controller for this.User
     /// </summary>
     [Authorize]
     public class PersonalController : BaseController
@@ -56,9 +57,7 @@ namespace SunEngine.Commons.Controllers
             link = (link+"").Trim();
             
             if (!await personalManager.ValidateLinkAsync(User.UserId,link))
-            {
-                return BadRequest(new ErrorViewModel {ErrorText = "Validation error"});
-            }
+                return BadRequest(new ErrorView ("LinkInvalid","Link validation error"));
 
             await personalManager.SetMyLinkAsync(User.UserId, link);
 
@@ -70,16 +69,12 @@ namespace SunEngine.Commons.Controllers
         {
             var user = await GetUserAsync();
             if (!await userManager.CheckPasswordAsync(user, password))
-            {
-                return BadRequest(new ErrorViewModel {ErrorText = "Wrong password"});
-            }
+                return BadRequest(new ErrorView ("PasswordInvalid","Wrong password"));
 
             name = Regex.Replace(name.Trim()," {2,}","");
 
             if (!await personalManager.ValidateNameAsync(name,user.Id))
-            {
-                return BadRequest(new ErrorViewModel {ErrorText = "Validation error"});
-            }
+                return BadRequest(new ErrorView ("NameInvalid","Validation error"));
 
             await personalManager.SetMyNameAsync(user, name);
 
@@ -121,8 +116,5 @@ namespace SunEngine.Commons.Controllers
             return Ok(usersList);
         }
         
-        
-    }
-
-    
+    } 
 }

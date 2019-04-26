@@ -1,6 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using SunEngine.Commons.Security.Captcha;
-using SunEngine.Commons.Security.Cryptography;
+using SunEngine.Commons.Services;
 
 namespace SunEngine.Commons.Configuration.AddServices
 {

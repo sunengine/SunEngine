@@ -39,10 +39,10 @@
 </template>
 
 <script>
-export default {
-  name: "AdminMenu",
-  i18nPrefix: "admin"
-};
+  export default {
+    name: "AdminMenu",
+    i18nPrefix: "Admin"
+  }
 </script>
 
 <style scoped>

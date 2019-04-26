@@ -3,7 +3,7 @@ import {store} from "store";
 export default function adminGetAllCategories() {
   return store.dispatch("request",
     {
-      url: "/Admin/AdminCategories/GetAllCategories"
+      url: "/Admin/CategoriesAdmin/GetAllCategories"
     })
     .then(response => {
         return {

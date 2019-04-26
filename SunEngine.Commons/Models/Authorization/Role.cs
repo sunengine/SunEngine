@@ -3,11 +3,11 @@ using LinqToDB.Identity;
 
 namespace SunEngine.Commons.Models.Authorization
 {
+    /// <summary>
+    /// Authorization Role for Users
+    /// </summary>
     public class Role : IdentityRole<int>
     {
-       
-
-
         public string Title { get; set; }
 
         public int SortNumber { get; set; }

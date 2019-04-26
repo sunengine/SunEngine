@@ -4,7 +4,7 @@
 
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
-Версия: 1.0.0-beta.4
+Версия: 1.0.0-beta.11
 
 Демо: [demo.sunengine.site](http://demo.sunengine.site)  
 
@@ -38,11 +38,6 @@
 #### Гибкая настройка прав пользователей
 Можно настроить для любой группы пользователей для любого раздела сайта (категории) права на доступ на конкретные операции (добавлять материалы, добавлять комментарии, редактировать и тд.)
 
-## Ближайшие планы
-- Улучшение серверного кэширования
-- Cli для работы с базой и сервисных функций
-- Модульная система
-
 ## Контакты  
 - Дмитрий Полянин  
 - Telegram: [@okeanij](https://t.me/Okeanij)    
@@ -60,11 +55,12 @@
 - По умолчанию стоит база SQLite (файл: `SunEngine/SunEngine.db`)
 - Скомпилировать solution.
 - Зайти в директорию куда скомпилировался код `/SunEngine/SunEngine/bin/Debug/netcoreapp2.2/` 
-- Заполнить базу `dotnet SunEngine.dll migrate init add-test-data`
+- Заполнить базу `dotnet SunEngine.dll migrate init seed`
 - Запускаем сервер `dotnet SunEngine.dll server`
 - Компилируем и запускаем клиентскую часть.  
   - Зайти в консоль в директорию `SunEngine/Client`
-  - `quasar dev` 
+  - `npm install` - инсталлируем все npm модули
+  - `quasar dev` - запускаем клиент в dev режиме
   - Откроется браузер с сайтом
 - Если что-то не работает написать сюда в Issue, или Telegram группу.
 
@@ -154,11 +150,3 @@ server {
 Теперь необходимо запустить отдельным процессом kestrel сервис по локальному адресу `http://localhost:5020`
 
 Как это делается читаем [статью](https://kimsereyblog.blogspot.com/2018/05/manage-kestrel-process-with-systemd.html).
-
-## Лицензия
-
-Кратко:
-- Без оплаты для некоммерческого использования.
-- Платно для коммерческого использования.
-
-**[Текст лицензии](docs/licence.md)**

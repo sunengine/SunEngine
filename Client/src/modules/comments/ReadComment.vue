@@ -19,7 +19,7 @@ cd <template>
                     <q-icon name="far fa-clock"/> {{ $formatDate(comment.publishDate) }}
         </span>
       </div>
-      <div v-html="comment.text">
+      <div class="comment" v-html="comment.text">
 
       </div>
     </div>
@@ -45,8 +45,8 @@ cd <template>
     methods: {
       async moveToTrash() {
         const deleteDialogMessage = this.$tl("deleteDialogMessage");
-        const okButtonLabel = this.$t("global.dialog.ok");
-        const cancelButtonLabel = this.$t("global.dialog.cancel");
+        const okButtonLabel = this.$t("Global.dialog.ok");
+        const cancelButtonLabel = this.$t("Global.dialog.cancel");
 
         this.$q.dialog({
           title: deleteDialogMessage,
@@ -64,8 +64,8 @@ cd <template>
             }).then(
             () => {
               this.comment.isDeleted = true;
-            }).catch((x) => {
-            console.log("error", x)
+            }).catch(error => {
+            this.$errorNotify(error);
           });
         }).onCancel(() => {
         });

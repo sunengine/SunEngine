@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SunEngine.Commons.Cache;
 using SunEngine.Commons.Cache.CacheModels;
+using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.Presenters;
-using SunEngine.Commons.Security.Authorization;
+using SunEngine.Commons.Security;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Whats new activities on site, new materials and comments
+    /// </summary>
     public class ActivitiesController : BaseController
     {
         protected const int MaxActivitiesInQuery = 50;

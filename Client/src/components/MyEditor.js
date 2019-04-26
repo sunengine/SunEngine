@@ -11,6 +11,8 @@ export default {
       filesNumber: 0,
       filesNames: [],
       filesLoading: false,
+      cursorX: null,
+      cursorY: null
     }
   },
   methods: {
@@ -64,7 +66,7 @@ export default {
 
         this.$store.dispatch("request",
           {
-            url: "/Images/UploadImage",
+            url: "/UploadImages/UploadImage",
             data: formData
           })
           .then(response => {
@@ -100,7 +102,7 @@ export default {
       on: {change: this.handleFiles}
     });
     const editor = QEditor.options.render.call(this, h);
-    const loading = h(QInnerLoading, {props: {visible: this.filesLoading}},
+    const loading = h(QInnerLoading, {props: {showing: this.filesLoading}},
       [h(QSpinnerGears, {props: {size: "60px"}, class: "text-grey-8"})]
     );
 

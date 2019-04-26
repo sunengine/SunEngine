@@ -3,14 +3,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using SunEngine.Commons.Cache;
+using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.Presenters;
-using SunEngine.Commons.Presenters.PagedList;
-using SunEngine.Commons.Security.Authorization;
+using SunEngine.Commons.Security;
+using SunEngine.Commons.Utils.PagedList;
 
 namespace SunEngine.Commons.Controllers
 {
+    /// <summary>
+    /// Get new forum topics controller
+    /// </summary>
     public class ForumController : BaseController
     {
         protected readonly OperationKeysContainer OperationKeys;
@@ -42,9 +45,7 @@ namespace SunEngine.Commons.Controllers
             var categoryParent = categoriesCache.GetCategory(categoryName);
 
             if (categoryParent == null)
-            {
                 return BadRequest();
-            }
 
             var allCategories = categoryParent.AllSubCategories.Where(x => x.IsMaterialsContainer);
 
@@ -54,7 +55,7 @@ namespace SunEngine.Commons.Controllers
 
             var categoriesIds = categories.Select(x => x.Id).ToArray();
 
-            async Task<IPagedList<TopicInfoViewModel>> LoadDataAsync()
+            async Task<IPagedList<TopicInfoView>> LoadDataAsync()
             {
                 return await forumPresenter.GetNewTopics(categoriesIds,
                     page, forumOptions.NewTopicsPageSize, forumOptions.NewTopicsMaxPages);
@@ -69,16 +70,12 @@ namespace SunEngine.Commons.Controllers
             var category = categoriesCache.GetCategory(categoryName);
 
             if (category == null)
-            {
                 return BadRequest();
-            }
 
             if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
-            {
                 return Unauthorized();
-            }
 
-            async Task<IPagedList<TopicInfoViewModel>> LoadDataAsync()
+            async Task<IPagedList<TopicInfoView>> LoadDataAsync()
             {
                 return await forumPresenter.GetThread(category.Id, page, forumOptions.ThreadMaterialsPageSize);
             }

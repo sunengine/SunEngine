@@ -81,14 +81,9 @@
               position: 'top'
             });
             this.$router.back();
-          }).catch(data => {
+          }).catch(error => {
             this.submitting = false;
-            this.$q.notify({
-              message: data.response.data.errorText,
-              timeout: 5000,
-              color: 'negative',
-              position: 'top'
-            });
+            this.$errorNotify(error);
           });
       }
     },

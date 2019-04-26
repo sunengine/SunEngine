@@ -2,22 +2,30 @@
 
 namespace SunEngine.Commons.Utils.TextProcess
 {
-
     public class Sanitizer
     {
         private readonly HtmlSanitizer htmlSanitizer;
         private readonly string siteUrl = "";
 
-        private readonly string[] allowedTags = { "a", "b" ,"strong", "i", "em", "blockquote", "ol","li","ul", "p",
-            "div", "br","video","audio","source","span", "img" };
+        private readonly string[] allowedTags =
+        {
+            "a", "b", "strong", "i", "em", "blockquote", "ol", "li", "ul", "ol", "p",
+            "div", "br", "video", "audio", "source", "span", "img", "code", "pre", "font", "h3", "h4", "h5", "h6"
+        };
 
-        private readonly string[] allowedAttributes = { "style", "src", "controls", "autoplay", "loop", "alt",
-            "width", "height", "target", "frameborder", "allowfullscreen", "download", "controlsList"};
+        private readonly string[] allowedAttributes =
+        {
+            "style", "src", "controls", "autoplay", "loop", "alt",
+            "width", "height", "target", "frameborder", "allowfullscreen", "download", "controlsList", "size"
+        };
 
-        private readonly string[] allowedClasses = { "text-img" };
+        private readonly string[] allowedClasses = {"text-img"};
 
-        private readonly string[] allowedCssProperties = { "float", "margin", "indent", "padding", "color",
-            "text-decoration", "font-size", "width", "height", "max-width" };
+        private readonly string[] allowedCssProperties =
+        {
+            "float", "margin", "indent", "padding", "color",
+            "text-decoration", "font-size", "width", "height", "max-width"
+        };
 
         public Sanitizer()
         {
@@ -25,7 +33,7 @@ namespace SunEngine.Commons.Utils.TextProcess
 
             htmlSanitizer.AllowedTags.Clear();
 
-            foreach(string tag in allowedTags)
+            foreach (string tag in allowedTags)
             {
                 htmlSanitizer.AllowedTags.Add(tag);
             }
@@ -54,25 +62,23 @@ namespace SunEngine.Commons.Utils.TextProcess
         }
 
 
-
         private void ForumSanitizer_RemovingAttribute_Forum(object s, RemovingAttributeEventArgs e)
         {
             var attributeName = e.Attribute.Name.ToLower();
-            bool x = SanitizerBlocksAttributes.AllowOnlyClassList(attributeName, e,allowedClasses) 
-                || SanitizerBlocksAttributes.MakeExternalLinksOpenedNewTab(attributeName, e,siteUrl);
+            var _ = SanitizerBlocksAttributes.AllowOnlyClassList(attributeName, e, allowedClasses)
+                     || SanitizerBlocksAttributes.MakeExternalLinksOpenedNewTab(attributeName, e, siteUrl);
         }
 
         private void ForumSanitizer_RemovingTag(object sender, RemovingTagEventArgs e)
         {
             string tagName = e.Tag.TagName.ToLower();
-            bool x = SanitizerBlocksTags.CheckIframeAllowedDomens(tagName,e) 
-                || SanitizerBlocksTags.AddImgClasses(tagName,e);
-            
+            var _ = SanitizerBlocksTags.CheckIframeAllowedDomens(tagName, e)
+                     || SanitizerBlocksTags.AddImgClasses(tagName, e);
         }
 
         public string Sanitize(string text)
         {
-            if(string.IsNullOrWhiteSpace(text))
+            if (string.IsNullOrWhiteSpace(text))
                 return null;
             return htmlSanitizer.Sanitize(text);
         }

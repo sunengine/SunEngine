@@ -3,8 +3,8 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <LangVersion>latest</LangVersion>
-        <Version>1.0.0-beta.4</Version>
-        <PackageVersion>1.0.0-beta.4</PackageVersion>
+        <Version>1.0.0-beta.12</Version>
+        <PackageVersion>1.0.0-beta.12</PackageVersion>
         <Title>SunEngine</Title>
         <Authors>Dmitrii Polianin</Authors>
         <Description>Site engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>
@@ -16,7 +16,7 @@
 
     <ItemGroup>
         <PackageReference Include="Flurl" Version="2.8.1" />
-        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.2" />
+        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.4" />
         <PackageReference Include="System.Linq" Version="4.3.0" />
         <PackageReference Include="System.Runtime.Caching" Version="4.6.0-preview3.19128.7" />
     </ItemGroup>
@@ -46,6 +46,10 @@
         <None Remove="Resources\gunnyrewritten.ttf" />
         <Content Include="Resources\gunnyrewritten.ttf">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Update="wwwroot\UploadImages\*\*">
+            <CopyToPublishDirectory>None</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <Content Update="wwwroot\UploadImages\default-avatar.svg">
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
