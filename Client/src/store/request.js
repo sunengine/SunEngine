@@ -2,6 +2,7 @@ import axios from 'axios'
 import {removeTokens, setTokens, parseJwt} from 'services/tokens';
 import Lock from 'js-lock';
 import {store} from 'store';
+import Vue from 'vue';
 import {consoleTokens, consoleUserLogout, consoleRequestStart, consoleRequestUrl} from "services/consoleStyles";
 
 const lock = new Lock("request-lock");
@@ -15,6 +16,7 @@ apiAxios.interceptors.response.use(async rez => {
   return rez;
 }, async rez => {
   await checkTokens(rez.response);
+  Vue.prototype.$errorNotify(rez);
   throw rez;
 });
 

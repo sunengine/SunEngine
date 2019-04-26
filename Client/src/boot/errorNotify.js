@@ -2,11 +2,24 @@
 export default async ({app, Vue}) => {
   Vue.prototype.$errorNotify = function (error) {
 
-    const errors = error.response.data.errors;
+    const errors = error?.response?.data?.errors;
+    if(!errors)
+      return;
 
     for (const error of errors) {
-      const localizeDescription = this.$t("Errors." + error.code);
-      console.error(`Error code: ${error.code}, description: ${error.description}\nLocalize description: ${localizeDescription}`);
+      console.log(app.i18n);
+      const localizeDescription = app.i18n.t("Errors." + error.code);
+
+      let errorText = `Error code: ${error.code}\n`;
+      errorText += `Description: ${error.description}\nLocalize description: ${localizeDescription}\n`;
+
+      if(error.message)
+        errorText += `Message: ${error.message}\n`;
+      if(error.stackTrace)
+        errorText += `StackTrace: ${error.stackTrace}`;
+
+      console.error(errorText);
+
       const color = error.isSoft ? "warning" : "negative";
 
       this.$q.notify({

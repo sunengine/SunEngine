@@ -49,6 +49,8 @@ namespace SunEngine
 
             services.AddOptions(Configuration);
 
+            SetExceptionsMode();
+
             DataBaseFactory dataBaseFactory = services.AddDatabase(Configuration);
 
             services.AddStores(dataBaseFactory);
@@ -84,30 +86,21 @@ namespace SunEngine
                 .AddAuthorization()
                 .AddJsonFormatters(options =>
                 {
+                    options.ContractResolver = SunJsonContractResolver.Instance;
                     options.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                    // options.NullValueHandling = NullValueHandling.Ignore;
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
+        
 
         public void Configure(IApplicationBuilder app)
         {
-            if (CurrentEnvironment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                Console.WriteLine("ShowExceptionPages");
-            }
-            else
-            {
-                if (string.Equals(Configuration["showexceptionpages"], "true", StringComparison.OrdinalIgnoreCase))
-                {
-                    Console.WriteLine("ShowExceptionPages");
-                    app.UseDeveloperExceptionPage();
-                }
 
+
+            if (!CurrentEnvironment.IsDevelopment())
                 app.UseHsts();
-            }
+
 
             //app.UseHttpsRedirection();
             //app.UseFileServer();
@@ -138,6 +131,27 @@ namespace SunEngine
                     name: "default",
                     template: "{controller}/{action}");
             });
+        }
+        
+        void SetExceptionsMode()
+        {
+            void ShowExceptions()
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("ShowExceptions mode");
+                Console.ResetColor();
+                SunJsonContractResolver.ShowExceptions = true;
+            }
+
+            if (bool.TryParse(Configuration["Global:ShowExceptions"], out bool showExceptions))
+            {
+                if (showExceptions)
+                    ShowExceptions();
+            }
+            else if (CurrentEnvironment.IsDevelopment())
+            {
+                ShowExceptions();
+            }
         }
     }
 }

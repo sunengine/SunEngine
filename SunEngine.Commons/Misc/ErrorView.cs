@@ -111,9 +111,9 @@ namespace SunEngine.Commons.Misc
 
         public string Description { get; }
 
-        public string Message { get; set; }
+        public string Message { get; }
 
-        public string StackTrace { get; set; }
+        public string StackTrace { get; }
 
         public bool IsSoft { get; }
 
