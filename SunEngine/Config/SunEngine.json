@@ -66,8 +66,5 @@
         "Url": "http://localhost:5000"
       }
     }
-  },
-  "Cache": {
-    "InvalidateCacheTime": 15
   }
 }
