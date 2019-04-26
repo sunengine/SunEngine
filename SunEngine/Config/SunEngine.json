@@ -2,9 +2,11 @@
   "Global": {
     "SiteUrl": "http://localhost:5005",
     "SiteApi": "http://localhost:5000",
-    "SiteName": "SunEngine",
-    
-    "ShowExceptions": true
+    "SiteName": "SunEngine"
+  },
+  "Dev":  {
+    "ShowExceptions": false,
+    "SunEngineDllRunServer": false
   },
   "Images": {
     "UploadDir": "UploadImages",

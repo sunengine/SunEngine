@@ -49,8 +49,6 @@ namespace SunEngine
 
             services.AddOptions(Configuration);
 
-            SetExceptionsMode();
-
             DataBaseFactory dataBaseFactory = services.AddDatabase(Configuration);
 
             services.AddStores(dataBaseFactory);
@@ -133,25 +131,8 @@ namespace SunEngine
             });
         }
         
-        void SetExceptionsMode()
-        {
-            void ShowExceptions()
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("ShowExceptions mode");
-                Console.ResetColor();
-                SunJsonContractResolver.ShowExceptions = true;
-            }
-
-            if (bool.TryParse(Configuration["Global:ShowExceptions"], out bool showExceptions))
-            {
-                if (showExceptions)
-                    ShowExceptions();
-            }
-            else if (CurrentEnvironment.IsDevelopment())
-            {
-                ShowExceptions();
-            }
-        }
+        
+        
+       
     }
 }

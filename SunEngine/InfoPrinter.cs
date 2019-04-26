@@ -7,6 +7,11 @@ namespace SunEngine
 {
     public static class InfoPrinter
     { 
+        public static void PrintVoidStartInfo()
+        {
+            Console.WriteLine("You start \"SunEngine.dll\" with out arguments.\nRun with \"help\" argument to list commands:\n\tdotnet SunEngine.dll help");
+        }
+        
         public static void PrintHelp()
         {
             var text = File.ReadAllText(Path.GetFullPath("Resources/help.txt"));

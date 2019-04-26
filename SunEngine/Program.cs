@@ -1,9 +1,11 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using SunEngine.DataSeed;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using SunEngine.Commons.Utils;
 using SunEngine.Migrations;
 
 
@@ -20,7 +22,8 @@ namespace SunEngine
 
             configDir = Path.GetFullPath(configDir);
 
-            if (args.Length == 0 || args.Any(x => x == "help"))
+
+            if (args.Any(x => x == "help"))
                 InfoPrinter.PrintHelp();
 
             else if (args.Any(x => x == "server"))
@@ -29,7 +32,7 @@ namespace SunEngine
             else if (args.Any(x => x == "version"))
                 InfoPrinter.PrintVersion();
 
-            else
+            else if(args.Any(x => x == "migrate" || x == "init" || x == "seed"))
             {
                 if (args.Any(x => x == "migrate"))
                     new MainMigrator(configDir).Migrate();
@@ -42,12 +45,28 @@ namespace SunEngine
                         .SeedAddTestData(
                             args.Where(x => x.StartsWith("seed")).ToList(),
                             args.Any(x => x == "append-cat-name"));
+
             }
+            else
+            {
+                if (SunEngineDllRunServer(args))
+                    RunServer(args);
+                else
+                    InfoPrinter.PrintVoidStartInfo();
+            }
+           
         }
 
         public static void RunServer(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            var webHost = CreateWebHostBuilder(args).Build();
+
+            IHostingEnvironment env = (IHostingEnvironment) webHost.Services.GetService(typeof(IHostingEnvironment));
+            IConfiguration conf = (IConfiguration) webHost.Services.GetService(typeof(IConfiguration));
+
+            SetExceptionsMode(env, conf);
+
+            webHost.Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -65,5 +84,45 @@ namespace SunEngine
                     config.AddJsonFile(mainSettingsFile, false, false);
                     config.AddCommandLine(args);
                 });
+
+        static bool SunEngineDllRunServer(string[] args)
+        {
+            var webHost = CreateWebHostBuilder(args).Build();
+
+            IHostingEnvironment env = (IHostingEnvironment) webHost.Services.GetService(typeof(IHostingEnvironment));
+            IConfiguration conf = (IConfiguration) webHost.Services.GetService(typeof(IConfiguration));
+
+            if (bool.TryParse(conf["Dev:SunEngineDllRunServer"], out bool sunEngineDllRunServer))
+            {
+                if (sunEngineDllRunServer)
+                    return true;
+            }
+            else if (env.IsDevelopment())
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        static void SetExceptionsMode(IHostingEnvironment env, IConfiguration conf)
+        {
+            void ShowExceptions()
+            {
+                Console.WriteLine("ShowExceptions mode");
+                SunJsonContractResolver.ShowExceptions = true;
+            }
+
+            if (bool.TryParse(conf["Dev:ShowExceptions"], out bool showExceptions))
+            {
+                if (showExceptions)
+                    ShowExceptions();
+            }
+            else if (env.IsDevelopment())
+            {
+                ShowExceptions();
+            }
+        }
+
     }
 }
