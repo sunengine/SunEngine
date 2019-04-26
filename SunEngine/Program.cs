@@ -64,7 +64,7 @@ namespace SunEngine
             IHostingEnvironment env = (IHostingEnvironment) webHost.Services.GetService(typeof(IHostingEnvironment));
             IConfiguration conf = (IConfiguration) webHost.Services.GetService(typeof(IConfiguration));
 
-            SetExceptionsMode(env, conf);
+            Startup.SetExceptionsMode(env, conf);
 
             webHost.Run();
         }
@@ -103,25 +103,6 @@ namespace SunEngine
             }
 
             return false;
-        }
-
-        static void SetExceptionsMode(IHostingEnvironment env, IConfiguration conf)
-        {
-            void ShowExceptions()
-            {
-                Console.WriteLine("ShowExceptions mode");
-                SunJsonContractResolver.ShowExceptions = true;
-            }
-
-            if (bool.TryParse(conf["Dev:ShowExceptions"], out bool showExceptions))
-            {
-                if (showExceptions)
-                    ShowExceptions();
-            }
-            else if (env.IsDevelopment())
-            {
-                ShowExceptions();
-            }
         }
 
     }

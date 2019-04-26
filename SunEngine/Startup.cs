@@ -132,7 +132,24 @@ namespace SunEngine
         }
         
         
-        
+        public static void SetExceptionsMode(IHostingEnvironment env, IConfiguration conf)
+        {
+            void ShowExceptions()
+            {
+                Console.WriteLine("ShowExceptions mode");
+                SunJsonContractResolver.ShowExceptions = true;
+            }
+
+            if (bool.TryParse(conf["Dev:ShowExceptions"], out bool showExceptions))
+            {
+                if (showExceptions)
+                    ShowExceptions();
+            }
+            else if (env.IsDevelopment())
+            {
+                ShowExceptions();
+            }
+        }
        
     }
 }
