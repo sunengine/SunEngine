@@ -4,7 +4,6 @@ using LinqToDB;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Misc;
 
 namespace SunEngine.Commons.Controllers
 {
@@ -37,37 +36,6 @@ namespace SunEngine.Commons.Controllers
         {
             bool anyUserGroup = await db.Roles.AnyAsync();
             return Ok(new {db_UserGroups_AnyAsync = anyUserGroup});
-        }
-
-        [HttpGet]
-        [HttpPost]
-        [AllowAnonymous]
-        public virtual IActionResult TestException()
-        {
-            throw new Exception("TestException");
-        }
-
-        [HttpGet]
-        [HttpPost]
-        [AllowAnonymous]
-        public virtual IActionResult TestError1()
-        {
-            return BadRequest(new ErrorView("Code", "Desc", "Message"));
-        }
-
-        [HttpGet]
-        [HttpPost]
-        [AllowAnonymous]
-        public virtual IActionResult TestError2()
-        {
-            try
-            {
-                throw new Exception("Message");
-            }
-            catch(Exception e)
-            {
-                return BadRequest(new ErrorView("Code", "Desc", e));
-            }
         }
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SunEngine.Commons.Misc;
@@ -46,7 +45,6 @@ namespace SunEngine.Commons.Utils
                 if (string.Equals(property.PropertyName, "IsSoft", StringComparison.OrdinalIgnoreCase))
                     property.ShouldSerialize = instance => (instance as ErrorObject).IsSoft;
             }
-
 
             return property;
         }
