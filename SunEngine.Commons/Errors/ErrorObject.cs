@@ -29,6 +29,14 @@ namespace SunEngine.Commons.Errors
             Description = description;
             Type = type;
         }
+        
+        public ErrorObject(string code, string description, ErrorType type, string message)
+        {
+            Code = code;
+            Description = description;
+            Type = type;
+            Message = message;
+        }
 
         public ErrorObject(string code, string description, ErrorType type, Exception exception)
         {
@@ -39,12 +47,6 @@ namespace SunEngine.Commons.Errors
             StackTrace = exception.StackTrace;
         }
 
-        public ErrorObject(string code, string description, ErrorType type, string message)
-        {
-            Code = code;
-            Description = description;
-            Type = type;
-            Message = message;
-        }
+        
     }
 }
