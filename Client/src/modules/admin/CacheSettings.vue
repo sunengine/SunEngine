@@ -35,7 +35,7 @@ export default {
   name: "CacheSettings",
   components: {LoaderSent},
   mixins: [Page],
-  i18nPrefix: "admin",
+  i18nPrefix: "Admin",
   data: function() {
     return {
       cacheSettings: null,

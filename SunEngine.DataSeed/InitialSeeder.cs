@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using NJsonSchema;
+using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Models.Authorization;
 using SunEngine.Commons.Security;
@@ -20,7 +21,6 @@ namespace SunEngine.DataSeed
         private readonly DataContainer dataContainer;
 
         private readonly UsersJsonSeeder usersJsonSeeder;
-
 
         private readonly string configDir;
 
@@ -46,7 +46,8 @@ namespace SunEngine.DataSeed
             SeedRoles();
 
             SeedUserRoles();
-
+            
+            SeedCacheSettings();
 
             return dataContainer;
         }
@@ -186,6 +187,16 @@ namespace SunEngine.DataSeed
             {
                 categoriesJsonSeeder.Seed(fileName);
             }
+        }
+
+        private void SeedCacheSettings()
+        {
+            dataContainer.CacheSettings = new CacheSettings()
+            {
+                Id = 1,
+                CachePolicy = CachePolicy.CustomPolicy,
+                InvalidateCacheTime = 10
+            };
         }
     }
 }

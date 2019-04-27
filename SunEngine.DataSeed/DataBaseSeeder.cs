@@ -57,6 +57,12 @@ namespace SunEngine.DataSeed
             Console.WriteLine("CategoryOperationAccesses");
             db.BulkCopy(options, dataContainer.CategoryOperationAccesses);
 
+            if (dataContainer.CacheSettings != null)
+            {
+                Console.WriteLine("Cache Settings");
+                db.Insert(dataContainer.CacheSettings);
+            }
+
             RunDbCpecificCode();
 
             return this;

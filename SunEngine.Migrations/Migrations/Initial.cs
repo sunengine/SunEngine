@@ -5,11 +5,10 @@ using FluentMigrator.Builders.Create.Table;
 
 namespace SunEngine.Migrations.Migrations
 {
-    // Site version 1.0.0-beta.11
     /// <summary>
     /// Initial migration for FluentMigrator
     /// </summary>
-    [Migration(20190208000000)]
+    [Migration(20190427000000)]
     public class Initial : Migration
     {
         public override void Up()
