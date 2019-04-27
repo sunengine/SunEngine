@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using SunEngine.Commons.Utils;
 
-namespace SunEngine.Commons.Misc
+namespace SunEngine.Commons.Errors
 {
     public static class SunExceptionHandler
     {

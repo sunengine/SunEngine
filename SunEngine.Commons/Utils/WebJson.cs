@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using SunEngine.Commons.Misc;
+using SunEngine.Commons.Errors;
 
 namespace SunEngine.Commons.Utils
 {
