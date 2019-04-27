@@ -35,8 +35,8 @@ namespace SunEngine.Commons.Errors
             Code = code;
             Description = description;
             Type = type;
-            Message = exception?.Message;
-            StackTrace = exception?.StackTrace;
+            Message = exception.Message;
+            StackTrace = exception.StackTrace;
         }
 
         public ErrorObject(string code, string description, ErrorType type, string message)
