@@ -18,6 +18,15 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(DbColumnSizes.SectionType_Name).NotNullable()
                 .WithColumn("Title").AsString(DbColumnSizes.SectionType_Title).NotNullable();
+            
+            Create.Table("CacheSettings")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("CachePolicy").AsInt32().NotNullable()
+                .WithColumn("InvalidateCacheTime").AsInt32().Nullable();
+            
+            Create.Table("CategoryCacheSettings")
+                .WithColumn("Id").AsInt32().PrimaryKey().NotNullable()
+                .WithColumn("PagesAmount").AsInt32().NotNullable();
 
             Create.Table("Categories")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
@@ -171,15 +180,6 @@ namespace SunEngine.Migrations.Migrations
             Create.Table("BlackListShortTokens")
                 .WithColumn("TokenId").AsString(DbColumnSizes.BlackListShortToken_TokenId).PrimaryKey().NotNullable()
                 .WithColumn("Expire").AsMyDateTime().Indexed().NotNullable();
-            
-            Create.Table("CacheSettings")
-                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("CachePolicy").AsInt32().NotNullable()
-                .WithColumn("InvalidateCacheTime").AsInt32().Nullable();
-            
-            Create.Table("CategoryCacheSettings")
-                .WithColumn("Id").AsInt32().PrimaryKey().NotNullable()
-                .WithColumn("PagesAmount").AsInt32().NotNullable();
         }
 
         public override void Down()
