@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace SunEngine.Commons.Misc
 {
@@ -12,33 +14,21 @@ namespace SunEngine.Commons.Misc
         {
         }
 
-        public ErrorView(string code, string description)
+        public ErrorView(string code, string description, ErrorType type)
         {
-            ErrorObject errorObject = new ErrorObject(code, description);
+            ErrorObject errorObject = new ErrorObject(code, description, type);
             Errors.Add(errorObject);
         }
 
-        public ErrorView(string code, string description, string message)
+        public ErrorView(string code, string description, ErrorType type, string message)
         {
-            ErrorObject errorObject = new ErrorObject(code, description, false, message);
+            ErrorObject errorObject = new ErrorObject(code, description, type, message);
             Errors.Add(errorObject);
         }
 
-        public ErrorView(string code, string description, Exception exception)
+        public ErrorView(string code, string description, ErrorType type, Exception exception)
         {
-            ErrorObject errorObject = new ErrorObject(code, description, false, exception);
-            Errors.Add(errorObject);
-        }
-
-        public ErrorView(string code, string description, bool isSoft, string message = null)
-        {
-            ErrorObject errorObject = new ErrorObject(code, description, isSoft, message);
-            Errors.Add(errorObject);
-        }
-
-        public ErrorView(string code, string description, bool isSoft, Exception exception)
-        {
-            ErrorObject errorObject = new ErrorObject(code, description, isSoft, exception);
+            ErrorObject errorObject = new ErrorObject(code, description, type, exception);
             Errors.Add(errorObject);
         }
 
@@ -46,63 +36,59 @@ namespace SunEngine.Commons.Misc
         {
             foreach (var identityError in identityErrors)
             {
-                AddError(identityError.Code, identityError.Description);
+                AddError(identityError.Code, identityError.Description, ErrorType.System);
             }
         }
 
+
         public static ErrorView SoftError(string code, string description)
         {
-            return new ErrorView(code, description, true);
+            return new ErrorView(code, description, ErrorType.Soft);
         }
 
         public static ErrorView SoftError(string code, string description, string message)
         {
-            return new ErrorView(code, description, true, message);
+            return new ErrorView(code, description, ErrorType.Soft, message);
         }
 
         public static ErrorView SoftError(string code, string description, Exception exception)
         {
-            return new ErrorView(code, description, true, exception);
+            return new ErrorView(code, description, ErrorType.Soft, exception);
         }
 
         public static ErrorView Unauthorized()
         {
-            return new ErrorView("Unauthorized", "Not unauthorized for this request");
+            return new ErrorView("Unauthorized", "Not unauthorized for this request", ErrorType.System);
         }
 
         public static ErrorView BadRequest()
         {
-            return new ErrorView("BadRequest", "BadRequest happened");
+            return new ErrorView("BadRequest", "BadRequest happened", ErrorType.System);
         }
 
         public static ErrorView ServerError(Exception exception = null)
         {
-            return new ErrorView("ServerError", "Server error. Something goes wrong", exception);
+            return new ErrorView("ServerError", "Server error. Something goes wrong", ErrorType.System, exception);
         }
 
-        public void AddError(string code, string description, string message = null)
+        public void AddError(string code, string description, ErrorType type, string message = null)
         {
-            ErrorObject errorObject = new ErrorObject(code, description, false, message);
+            ErrorObject errorObject = new ErrorObject(code, description, type, message);
             Errors.Add(errorObject);
         }
 
-        public void AddError(string code, string description, Exception exception)
+        public void AddError(string code, string description, ErrorType type, Exception exception)
         {
-            ErrorObject errorObject = new ErrorObject(code, description, false, exception);
+            ErrorObject errorObject = new ErrorObject(code, description, type, exception);
             Errors.Add(errorObject);
         }
+    }
 
-        public void AddSoftError(string code, string description, string message = null)
-        {
-            ErrorObject errorObject = new ErrorObject(code, description, true, message);
-            Errors.Add(errorObject);
-        }
-
-        public void AddSoftError(string code, string description, Exception exception)
-        {
-            ErrorObject errorObject = new ErrorObject(code, description, true, exception);
-            Errors.Add(errorObject);
-        }
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum ErrorType
+    {
+        System = 0,
+        Soft = 1
     }
 
     public class ErrorObject
@@ -115,36 +101,29 @@ namespace SunEngine.Commons.Misc
 
         public string StackTrace { get; }
 
-        public bool IsSoft { get; }
+        public ErrorType Type { get; }
 
-        public ErrorObject(string code, string description)
+        public ErrorObject(string code, string description, ErrorType type)
         {
             Code = code;
             Description = description;
-            IsSoft = false;
+            Type = type;
         }
 
-        public ErrorObject(string code, string description, bool isSoft)
+        public ErrorObject(string code, string description, ErrorType type, Exception exception)
         {
             Code = code;
             Description = description;
-            IsSoft = isSoft;
-        }
-
-        public ErrorObject(string code, string description, bool isSoft, Exception exception)
-        {
-            Code = code;
-            Description = description;
-            IsSoft = isSoft;
+            Type = type;
             Message = exception?.Message;
             StackTrace = exception?.StackTrace;
         }
 
-        public ErrorObject(string code, string description, bool isSoft, string message)
+        public ErrorObject(string code, string description, ErrorType type, string message)
         {
             Code = code;
             Description = description;
-            IsSoft = isSoft;
+            Type = type;
             Message = message;
         }
     }

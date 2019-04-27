@@ -38,7 +38,8 @@ namespace SunEngine.Commons.Controllers
         {
             User user = await userManager.FindByEmailAsync(model.Email);
             if (user == null)
-                return BadRequest(new ErrorView("UserWithThisEmailNotFound", "User with this email not found."));
+                return BadRequest(new ErrorView("UserWithThisEmailNotFound", "User with this email not found.",
+                    ErrorType.System));
 
             var result = await accountManager.ResetPasswordSendEmailAsync(user);
             if (result.Failed)

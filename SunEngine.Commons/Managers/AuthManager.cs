@@ -64,7 +64,7 @@ namespace SunEngine.Commons.Managers
 
             if (await userManager.IsUserInRoleAsync(user.Id, RoleNames.Banned))
             {
-                return UserServiceResult.BadResult(new ErrorView("UserBanned", "User is banned"));
+                return UserServiceResult.BadResult(new ErrorView("UserBanned", "User is banned", ErrorType.System));
             }
 
             return UserServiceResult.OkResult(user);
@@ -107,7 +107,7 @@ namespace SunEngine.Commons.Managers
                     catch (Exception exception)
                     {
                         return ServiceResult.BadResult(
-                            new ErrorView("EmailSendError", "Can not send email", exception));
+                            new ErrorView("EmailSendError", "Can not send email", ErrorType.System,     exception));
                     }
 
 

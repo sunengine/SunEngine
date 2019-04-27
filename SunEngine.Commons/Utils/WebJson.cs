@@ -41,9 +41,6 @@ namespace SunEngine.Commons.Utils
 
                 if (string.Equals(property.PropertyName, "StackTrace", StringComparison.OrdinalIgnoreCase))
                     property.ShouldSerialize = instance => ShowExceptions;
-
-                if (string.Equals(property.PropertyName, "IsSoft", StringComparison.OrdinalIgnoreCase))
-                    property.ShouldSerialize = instance => (instance as ErrorObject).IsSoft;
             }
 
             return property;

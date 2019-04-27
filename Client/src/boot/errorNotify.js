@@ -20,7 +20,7 @@ export default async ({app, Vue}) => {
 
       console.error(errorText);
 
-      const color = error.isSoft ? "warning" : "negative";
+      const color = error.type.toLowerCase() === "soft" ? "warning" : "negative";
 
       this.$q.notify({
         message: localizeDescription,

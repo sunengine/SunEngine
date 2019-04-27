@@ -38,7 +38,7 @@ namespace SunEngine.Admin.Controllers
             }
             catch (Exception exception)
             {
-                return BadRequest(new ErrorView("UploadJsonAdminError", "Error uploading json", exception));
+                return BadRequest(new ErrorView("UploadJsonAdminError", "Error uploading json", ErrorType.System , exception));
             }
 
             rolesCache.Reset();

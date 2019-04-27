@@ -174,7 +174,7 @@ namespace SunEngine.Commons.Controllers
                 else
                 {
                     if (!materialsManager.IsNameValid(name))
-                        return ServiceResult.BadResult(new ErrorView("MaterialNameNotValid", "Invalid material name"));
+                        return ServiceResult.BadResult(new ErrorView("MaterialNameNotValid", "Invalid material name", ErrorType.System));
 
                     if (name != material.Name && await materialsManager.IsNameInDb(name))
                         return ServiceResult.BadResult(ErrorView.SoftError("MaterialNameAlreadyUsed",
