@@ -46,7 +46,6 @@ namespace SunEngine.Commons.Errors
             Message = exception.Message;
             StackTrace = exception.StackTrace;
         }
-
         
     }
 }

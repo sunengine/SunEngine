@@ -81,6 +81,4 @@ namespace SunEngine.Commons.Errors
             Errors.Add(errorObject);
         }
     }
-
-    
 }

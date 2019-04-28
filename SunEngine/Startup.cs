@@ -122,8 +122,8 @@ namespace SunEngine
                     template: "{controller}/{action}");
             });
         }
-        
-        
+
+
         public static void SetExceptionsMode(IHostingEnvironment env, IConfiguration conf)
         {
             void ShowExceptions()
@@ -142,6 +142,5 @@ namespace SunEngine
                 ShowExceptions();
             }
         }
-       
     }
 }

@@ -30,7 +30,7 @@ namespace SunEngine
             else if (args.Any(x => x == "version"))
                 InfoPrinter.PrintVersion();
 
-            else if(args.Any(x => x == "migrate" || x == "init" || x == "seed"))
+            else if (args.Any(x => x == "migrate" || x == "init" || x == "seed"))
             {
                 if (args.Any(x => x == "migrate"))
                     new MainMigrator(configDir).Migrate();
@@ -39,11 +39,7 @@ namespace SunEngine
                     new MainSeeder(configDir).SeedInitialize();
 
                 if (args.Any(x => x.StartsWith("seed")))
-                    new MainSeeder(configDir)
-                        .SeedAddTestData(
-                            args.Where(x => x.StartsWith("seed")).ToList(),
-                            args.Any(x => x == "append-cat-name"));
-
+                    new MainSeeder(configDir).SeedAddTestData(args.Where(x => x.StartsWith("seed")).ToList(), args.Any(x => x == "append-cat-name"));
             }
             else
             {
@@ -52,7 +48,6 @@ namespace SunEngine
                 else
                     InfoPrinter.PrintVoidStartInfo();
             }
-           
         }
 
         public static void RunServer(string[] args)
@@ -102,6 +97,5 @@ namespace SunEngine
 
             return false;
         }
-
     }
 }

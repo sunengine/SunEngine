@@ -34,8 +34,8 @@ namespace SunEngine.Commons.Controllers
         [AllowAnonymous]
         public virtual async Task<IActionResult> PulseDb()
         {
-            bool anyUserGroup = await db.Roles.AnyAsync();
-            return Ok(new {db_UserGroups_AnyAsync = anyUserGroup});
+            bool anyRole = await db.Roles.AnyAsync();
+            return Ok(new {db_Roles_AnyAsync = anyRole});
         }
     }
 }
