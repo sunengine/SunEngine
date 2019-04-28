@@ -12,38 +12,36 @@ namespace SunEngine
     {
         private static readonly InfoPrinter InfoPrinter = new InfoPrinter();
         
-        private static StartupConfiguration StartupConfiguration;
-        
         public static void Main(string[] args)
         {
-            StartupConfiguration = new StartupConfiguration(args);
+            StartupConfiguration startupConfiguration = new StartupConfiguration(args);
 
-            if (StartupConfiguration.PrintHelp)
+            if (startupConfiguration.PrintHelp)
                 InfoPrinter.PrintHelp();
 
-            else if (StartupConfiguration.StartServer)
-                RunServer(StartupConfiguration);
+            else if (startupConfiguration.StartServer)
+                RunServer(startupConfiguration);
 
-            else if (StartupConfiguration.PrintVersion)
+            else if (startupConfiguration.PrintVersion)
                 InfoPrinter.PrintVersion();
 
-            else if (ShouldUpdateData(StartupConfiguration))
+            else if (ShouldUpdateData(startupConfiguration))
             {
-                if (StartupConfiguration.Migrate)
-                    new MainMigrator(StartupConfiguration.ConfigurationDirectoryRoute).Migrate();
+                if (startupConfiguration.Migrate)
+                    new MainMigrator(startupConfiguration.ConfigurationDirectoryRoute).Migrate();
 
-                if (StartupConfiguration.InitializeCoreData)
-                    new MainSeeder(StartupConfiguration.ConfigurationDirectoryRoute).SeedInitialize();
+                if (startupConfiguration.InitializeCoreData)
+                    new MainSeeder(startupConfiguration.ConfigurationDirectoryRoute).SeedInitialize();
 
-                if (StartupConfiguration.SeedWithTestData)
-                    new MainSeeder(StartupConfiguration.ConfigurationDirectoryRoute)
-                        .SeedAddTestData(StartupConfiguration.CategoryTokensToSeed,
-                            StartupConfiguration.SeedWithCategoryNames);
+                if (startupConfiguration.SeedWithTestData)
+                    new MainSeeder(startupConfiguration.ConfigurationDirectoryRoute)
+                        .SeedAddTestData(startupConfiguration.CategoryTokensToSeed,
+                            startupConfiguration.SeedWithCategoryNames);
             }
             else
             {
-                if (SunEngineDllRunServer(StartupConfiguration))
-                    RunServer(StartupConfiguration);
+                if (SunEngineDllRunServer(startupConfiguration))
+                    RunServer(startupConfiguration);
                 else
                     InfoPrinter.PrintVoidStartInfo();
             }
@@ -56,7 +54,7 @@ namespace SunEngine
                    startupConfiguration.SeedWithTestData;
         }
         
-        public static void RunServer(StartupConfiguration startupConfiguration)
+        private static void RunServer(StartupConfiguration startupConfiguration)
         {
             var webHost = CreateWebHostBuilder(startupConfiguration).Build();
 
@@ -68,7 +66,7 @@ namespace SunEngine
             webHost.Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(StartupConfiguration startupConfiguration) =>
+        private static IWebHostBuilder CreateWebHostBuilder(StartupConfiguration startupConfiguration) =>
             WebHost.CreateDefaultBuilder(startupConfiguration.Arguments)
                 .UseKestrel()
                 .UseStartup<Startup>()
@@ -84,7 +82,7 @@ namespace SunEngine
                     config.AddCommandLine(startupConfiguration.Arguments);
                 });
 
-        static bool SunEngineDllRunServer(StartupConfiguration startupConfiguration)
+        private static bool SunEngineDllRunServer(StartupConfiguration startupConfiguration)
         {
             var webHost = CreateWebHostBuilder(startupConfiguration).Build();
 
