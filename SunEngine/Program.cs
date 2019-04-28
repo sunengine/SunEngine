@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore;
@@ -7,14 +5,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using SunEngine.DataSeed;
 using SunEngine.Migrations;
+using SunEngine.Start;
 
 namespace SunEngine
 {
     public class Program
     {
-        public static string configDir;
-        private const string ConfigurationArgumentName = "config:"; 
-        private const string DefaultConfigurationFileName = "Config";
+        private static StartupConfiguration StartupConfiguration;
 
         private const string HelpCommand = "help";
         private const string ServerCommand = "server";
@@ -24,35 +21,9 @@ namespace SunEngine
         private const string SeedCommand = MainSeeder.SeedCommand;
         private const string AppendCategoriesNamesCommand = "append-cat-name";
         
-        public static void SetUpConfigurationDirectory(IEnumerable<string> arguments)
-        {
-            var configurationDirectory = GetConfigurationDirectory(arguments);
-            configDir = Path.GetFullPath(configurationDirectory);   
-        }
-
-        private static string GetConfigurationDirectory(IEnumerable<string> arguments)
-        {
-            var configurationProperty = arguments.FirstOrDefault(x => x.StartsWith(ConfigurationArgumentName));
-            if (string.IsNullOrEmpty(configurationProperty))
-            {
-                Console.Write("Property for configuration wasn't set. Default configuration will be used.");
-                return DefaultConfigurationFileName;
-            }
-            
-            var configurationFileName = configurationProperty.Substring(ConfigurationArgumentName.Length).Trim();
-            if (string.IsNullOrEmpty(configurationFileName))
-            {
-                Console.Write("Property for configuration was empty or blank. Default configuration will be used.");
-                return DefaultConfigurationFileName;
-            }
-
-            Console.Write($"Configuration file {configurationFileName} will be used.");
-            return configurationFileName;
-        }
-        
         public static void Main(string[] args)
         {
-            SetUpConfigurationDirectory(args);
+            StartupConfiguration = new StartupConfiguration(args);
 
             if (args.Any(x => x == HelpCommand))
                 InfoPrinter.PrintHelp();
@@ -66,13 +37,14 @@ namespace SunEngine
             else if (args.Any(x => x == MigrateCommand || x == InitCommand|| x == SeedCommand))
             {
                 if (args.Any(x => x == MigrateCommand))
-                    new MainMigrator(configDir).Migrate();
+                    new MainMigrator(StartupConfiguration.ConfigurationDirectoryRoute).Migrate();
 
                 if (args.Any(x => x == InitCommand))
-                    new MainSeeder(configDir).SeedInitialize();
+                    new MainSeeder(StartupConfiguration.ConfigurationDirectoryRoute).SeedInitialize();
 
                 if (args.Any(x => x.StartsWith(SeedCommand)))
-                    new MainSeeder(configDir).SeedAddTestData(args.Where(x => x.StartsWith(SeedCommand)).ToList(), args.Any(x => x == AppendCategoriesNamesCommand));
+                    new MainSeeder(StartupConfiguration.ConfigurationDirectoryRoute)
+                        .SeedAddTestData(args.Where(x => x.StartsWith(SeedCommand)).ToList(), args.Any(x => x == AppendCategoriesNamesCommand));
             }
             else
             {
@@ -101,9 +73,9 @@ namespace SunEngine
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
-                    string dbSettingFile = Path.GetFullPath(Path.Combine(configDir, "DataBaseConnection.json"));
-                    string mainSettingsFile = Path.GetFullPath(Path.Combine(configDir, "SunEngine.json"));
-                    string logSettingsFile = Path.GetFullPath(Path.Combine(configDir, "LogConfig.json"));
+                    string dbSettingFile = Path.GetFullPath(Path.Combine(StartupConfiguration.ConfigurationDirectoryRoute, "DataBaseConnection.json"));
+                    string mainSettingsFile = Path.GetFullPath(Path.Combine(StartupConfiguration.ConfigurationDirectoryRoute, "SunEngine.json"));
+                    string logSettingsFile = Path.GetFullPath(Path.Combine(StartupConfiguration.ConfigurationDirectoryRoute, "LogConfig.json"));
 
                     config.AddJsonFile(logSettingsFile, false, false);
                     config.AddJsonFile(dbSettingFile, false, false);
