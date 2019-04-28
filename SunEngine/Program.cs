@@ -20,10 +20,9 @@ namespace SunEngine
         public const string AppendCategoriesNamesCommand = "append-cat-name";
         public const string ConfigCommand = "config:";
 
-        
+
         private static string configDir;
-        
-        
+
 
         public static void Main(string[] args)
         {
@@ -42,7 +41,7 @@ namespace SunEngine
             else if (args.Any(x => x == VersionCommand))
                 InfoPrinter.PrintVersion();
 
-            else if (args.Any(x => x == MigrateCommand || x == InitCommand|| x == SeedCommand))
+            else if (args.Any(x => x == MigrateCommand || x == InitCommand || x == SeedCommand))
             {
                 if (args.Any(x => x == MigrateCommand))
                     new MainMigrator(configDir).Migrate();
