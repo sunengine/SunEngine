@@ -22,7 +22,7 @@ namespace SunEngine
                 InfoPrinter.PrintHelp();
 
             else if (StartupConfiguration.StartServer)
-                RunServer(args);
+                RunServer(StartupConfiguration);
 
             else if (StartupConfiguration.PrintVersion)
                 InfoPrinter.PrintVersion();
@@ -42,8 +42,8 @@ namespace SunEngine
             }
             else
             {
-                if (SunEngineDllRunServer(args))
-                    RunServer(args);
+                if (SunEngineDllRunServer(StartupConfiguration))
+                    RunServer(StartupConfiguration);
                 else
                     InfoPrinter.PrintVoidStartInfo();
             }
@@ -56,9 +56,9 @@ namespace SunEngine
                    startupConfiguration.SeedWithTestData;
         }
         
-        public static void RunServer(string[] args)
+        public static void RunServer(StartupConfiguration startupConfiguration)
         {
-            var webHost = CreateWebHostBuilder(args).Build();
+            var webHost = CreateWebHostBuilder(startupConfiguration).Build();
 
             IHostingEnvironment env = (IHostingEnvironment) webHost.Services.GetService(typeof(IHostingEnvironment));
             IConfiguration conf = (IConfiguration) webHost.Services.GetService(typeof(IConfiguration));
@@ -68,25 +68,25 @@ namespace SunEngine
             webHost.Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IWebHostBuilder CreateWebHostBuilder(StartupConfiguration startupConfiguration) =>
+            WebHost.CreateDefaultBuilder(startupConfiguration.Arguments)
                 .UseKestrel()
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
-                    string dbSettingFile = Path.GetFullPath(Path.Combine(StartupConfiguration.ConfigurationDirectoryRoute, "DataBaseConnection.json"));
-                    string mainSettingsFile = Path.GetFullPath(Path.Combine(StartupConfiguration.ConfigurationDirectoryRoute, "SunEngine.json"));
-                    string logSettingsFile = Path.GetFullPath(Path.Combine(StartupConfiguration.ConfigurationDirectoryRoute, "LogConfig.json"));
+                    string dbSettingFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigurationDirectoryRoute, "DataBaseConnection.json"));
+                    string mainSettingsFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigurationDirectoryRoute, "SunEngine.json"));
+                    string logSettingsFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigurationDirectoryRoute, "LogConfig.json"));
 
                     config.AddJsonFile(logSettingsFile, false, false);
                     config.AddJsonFile(dbSettingFile, false, false);
                     config.AddJsonFile(mainSettingsFile, false, false);
-                    config.AddCommandLine(args);
+                    config.AddCommandLine(startupConfiguration.Arguments);
                 });
 
-        static bool SunEngineDllRunServer(string[] args)
+        static bool SunEngineDllRunServer(StartupConfiguration startupConfiguration)
         {
-            var webHost = CreateWebHostBuilder(args).Build();
+            var webHost = CreateWebHostBuilder(startupConfiguration).Build();
 
             IHostingEnvironment env = (IHostingEnvironment) webHost.Services.GetService(typeof(IHostingEnvironment));
             IConfiguration conf = (IConfiguration) webHost.Services.GetService(typeof(IConfiguration));

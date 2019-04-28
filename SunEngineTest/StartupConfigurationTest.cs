@@ -62,7 +62,7 @@ namespace SunEngineTest
             StartupConfiguration startupConfiguration = new StartupConfiguration(new[] {"help123"});
             Assert.False(startupConfiguration.PrintHelp);
         }
-        
+
         [Fact]
         public void ShouldSetPrintVersionToTrueIfArgumentPassed()
         {
@@ -76,14 +76,14 @@ namespace SunEngineTest
             StartupConfiguration startupConfiguration = new StartupConfiguration(new[] {"version123"});
             Assert.False(startupConfiguration.PrintHelp);
         }
-        
+
         [Fact]
         public void ShouldSetStartServerToTrueIfArgumentPassed()
         {
             StartupConfiguration startupConfiguration = new StartupConfiguration(new[] {"server"});
             Assert.True(startupConfiguration.StartServer);
         }
-        
+
         [Fact]
         public void ShouldSetStartServerToFalseIfInvalidArgumentPassed()
         {
@@ -97,7 +97,7 @@ namespace SunEngineTest
             StartupConfiguration startupConfiguration = new StartupConfiguration(new[] {"migrate"});
             Assert.True(startupConfiguration.Migrate);
         }
-        
+
         [Fact]
         public void ShouldSetMigrateToFalseIfInvalidArgumentPassed()
         {
@@ -111,7 +111,7 @@ namespace SunEngineTest
             StartupConfiguration startupConfiguration = new StartupConfiguration(new[] {"init"});
             Assert.True(startupConfiguration.InitializeCoreData);
         }
-        
+
         [Fact]
         public void ShouldSetInitializeCoreDataToFalseIfInvalidArgumentPassed()
         {
@@ -125,7 +125,7 @@ namespace SunEngineTest
             StartupConfiguration startupConfiguration = new StartupConfiguration(new[] {"seed"});
             Assert.True(startupConfiguration.SeedWithTestData);
         }
-        
+
         [Fact]
         public void ShouldSetSeedWithTestDataToFalseIfInvalidArgumentPassed()
         {
@@ -147,12 +147,20 @@ namespace SunEngineTest
             StartupConfiguration startupConfiguration = new StartupConfiguration(new[] {"append-cat-name"});
             Assert.True(startupConfiguration.SeedWithCategoryNames);
         }
-        
+
         [Fact]
         public void ShouldSetSeedWithCategoryNamesToFalseIfInvalidArgumentPassed()
         {
             StartupConfiguration startupConfiguration = new StartupConfiguration(new[] {"append-cat-name123"});
             Assert.False(startupConfiguration.SeedWithCategoryNames);
+        }
+
+        [Fact]
+        public void ShouldSetPassedArgumentsToArgumentsProperty()
+        {
+            var arguments = new[] {"arg1", "arg2"};
+            StartupConfiguration startupConfiguration = new StartupConfiguration(arguments);
+            Assert.Equal(arguments, startupConfiguration.Arguments);
         }
 
         private string GetFullPath(string configPath)

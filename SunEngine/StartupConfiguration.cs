@@ -11,7 +11,7 @@ namespace SunEngine
     public class StartupConfiguration
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
+        
         private const string ConfigurationArgumentName = "config:";
         private const string DefaultConfigurationFileName = "Config";
 
@@ -23,6 +23,7 @@ namespace SunEngine
         private const string SeedCommand = "seed";
         private const string AppendCategoriesNamesCommand = "append-cat-name";
 
+        public string[] Arguments { get; }
         public string ConfigurationDirectoryRoute { get; }
         public bool PrintHelp { get; }
         public bool PrintVersion { get; }
@@ -37,6 +38,8 @@ namespace SunEngine
 
         public StartupConfiguration(string[] arguments)
         {
+            Arguments = arguments;
+            
             var startupArguments = arguments.ToHashSet();
 
             PrintHelp = startupArguments.Contains(HelpCommand);
