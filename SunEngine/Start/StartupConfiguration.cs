@@ -1,12 +1,14 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using NLog;
 
 namespace SunEngine.Start
 {
     public class StartupConfiguration
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private const string ConfigurationArgumentName = "config:";
         private const string DefaultConfigurationFileName = "Config";
 
@@ -23,20 +25,19 @@ namespace SunEngine.Start
             var configurationProperty = arguments.FirstOrDefault(x => x.StartsWith(ConfigurationArgumentName));
             if (string.IsNullOrEmpty(configurationProperty))
             {
-                Console.Write("Property for configuration wasn't set. Default configuration will be used.");
+                Logger.Warn("Property for configuration wasn't set. Default configuration will be used.");
                 return DefaultConfigurationFileName;
             }
 
             var configurationFileName = configurationProperty.Substring(ConfigurationArgumentName.Length).Trim();
             if (string.IsNullOrEmpty(configurationFileName))
             {
-                Console.Write("Property for configuration was empty or blank. Default configuration will be used.");
+                Logger.Warn("Property for configuration was empty or blank. Default configuration will be used.");
                 return DefaultConfigurationFileName;
             }
 
-            Console.Write($"Configuration file {configurationFileName} will be used.");
+            Logger.Info($"Configuration file {configurationFileName} will be used.");
             return configurationFileName;
         }
     }
-    
 }
