@@ -11,35 +11,47 @@ namespace SunEngine
 {
     public class Program
     {
+        public const string HelpCommand = "help";
+        public const string ServerCommand = "server";
+        public const string VersionCommand = "version";
+        public const string MigrateCommand = "migrate";
+        public const string InitCommand = "init";
+        public const string SeedCommand = MainSeeder.SeedCommand;
+        public const string AppendCategoriesNamesCommand = "append-cat-name";
+        public const string ConfigCommand = "config:";
+
+        
         private static string configDir;
+        
+        
 
         public static void Main(string[] args)
         {
-            configDir = args.FirstOrDefault(x => x.StartsWith("config:"));
-            configDir = configDir != null ? configDir.Substring("config:".Length) : "Config";
+            configDir = args.FirstOrDefault(x => x.StartsWith(ConfigCommand));
+            configDir = configDir != null ? configDir.Substring(ConfigCommand.Length) : "Config";
 
             configDir = Path.GetFullPath(configDir);
 
 
-            if (args.Any(x => x == "help"))
+            if (args.Any(x => x == HelpCommand))
                 InfoPrinter.PrintHelp();
 
-            else if (args.Any(x => x == "server"))
+            else if (args.Any(x => x == ServerCommand))
                 RunServer(args);
 
-            else if (args.Any(x => x == "version"))
+            else if (args.Any(x => x == VersionCommand))
                 InfoPrinter.PrintVersion();
 
-            else if (args.Any(x => x == "migrate" || x == "init" || x == "seed"))
+            else if (args.Any(x => x == MigrateCommand || x == InitCommand|| x == SeedCommand))
             {
-                if (args.Any(x => x == "migrate"))
+                if (args.Any(x => x == MigrateCommand))
                     new MainMigrator(configDir).Migrate();
 
-                if (args.Any(x => x == "init"))
+                if (args.Any(x => x == InitCommand))
                     new MainSeeder(configDir).SeedInitialize();
 
-                if (args.Any(x => x.StartsWith("seed")))
-                    new MainSeeder(configDir).SeedAddTestData(args.Where(x => x.StartsWith("seed")).ToList(), args.Any(x => x == "append-cat-name"));
+                if (args.Any(x => x.StartsWith(SeedCommand)))
+                    new MainSeeder(configDir).SeedAddTestData(args.Where(x => x.StartsWith(SeedCommand)).ToList(), args.Any(x => x == AppendCategoriesNamesCommand));
             }
             else
             {
