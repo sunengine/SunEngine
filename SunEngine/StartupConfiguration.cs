@@ -3,8 +3,11 @@ using System.IO;
 using System.Linq;
 using NLog;
 
-namespace SunEngine.Start
+namespace SunEngine
 {
+    /// <summary>
+    /// Translate arguments into configuration properties.
+    /// </summary>
     public class StartupConfiguration
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();

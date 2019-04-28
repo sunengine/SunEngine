@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using SunEngine.DataSeed;
 using SunEngine.Migrations;
-using SunEngine.Start;
 
 namespace SunEngine
 {

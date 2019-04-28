@@ -1,5 +1,5 @@
 using System.IO;
-using SunEngine.Start;
+using SunEngine;
 using Xunit;
 
 namespace SunEngineTest
