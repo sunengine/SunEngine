@@ -1,15 +1,15 @@
 <template>
   <q-page class="page-padding">
-      <CategoryForm ref="form" :category="category"/>
+    <CategoryForm ref="form" :category="category"/>
 
-      <div class="btn-block">
-        <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$tl('createBtn')" @click="save"
-               color="send">
-          <LoaderSent slot="loading"/>
-        </q-btn>
-        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$tl('cancelBtn')"
-               color="warning"/>
-      </div>
+    <div class="btn-block">
+      <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$tl('createBtn')" @click="save"
+             color="send">
+        <LoaderSent slot="loading"/>
+      </q-btn>
+      <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$tl('cancelBtn')"
+             color="warning"/>
+    </div>
   </q-page>
 </template>
 
@@ -44,7 +44,7 @@
       async save() {
         const form = this.$refs.form;
         form.validate();
-        if(form.hasError)
+        if (form.hasError)
           return;
 
 
@@ -56,17 +56,10 @@
             data: this.category,
             sendAsJson: true
           })
-          .then( ()  => {
-            const msg = this.$tl("successNotify");
-              this.$q.notify({
-                message: msg,
-                timeout: 5000,
-                color: 'positive',
-                icon: 'far fa-check-circle',
-                position: 'top'
-              });
-              this.$router.push({name: 'CategoriesAdmin'});
-            }).catch(error => {
+          .then(() => {
+            this.$successNotify();
+            this.$router.push({name: 'CategoriesAdmin'});
+          }).catch(error => {
             this.$errorNotify(error);
             this.loading = false;
           });

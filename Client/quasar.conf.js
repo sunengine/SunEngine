@@ -15,7 +15,8 @@ module.exports = function (ctx) {
       'buildPath',
       'imagePath',
       'formatDate',
-      'errorNotify'
+      'errorNotify',
+      'successNotify'
     ],
     css: [
       'app.styl'

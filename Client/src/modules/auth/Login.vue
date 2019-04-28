@@ -10,7 +10,8 @@
         </template>
       </q-input>
 
-      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'"  @keyup.enter="login" :label="$tl('password')"
+      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'" @keyup.enter="login"
+               :label="$tl('password')"
                :rules="[(value) => !!value || $tl('validation.password.required')]">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
@@ -72,14 +73,8 @@
 
         const data = {nameOrEmail: this.nameOrEmail, password: this.password, notMyComputer: this.notMyComputer};
         await this.$store.dispatch('doLogin', data)
-          .then( () => {
-            const msg = this.$tl('enterSuccess');
-            this.$q.notify({
-              message: msg,
-              timeout: 2000,
-              color: 'positive',
-              position: 'top'
-            });
+          .then(() => {
+            this.$successNotify();
             this.$router.back();
           }).catch(error => {
             this.submitting = false;

@@ -85,16 +85,8 @@
             }
           }).then(async response => {
           await this.loadData();
-
           const msg = this.$tl("banNotify",[this.user.name]);
-          this.$q.notify({
-            message: msg,
-            timeout: 5000,
-            color: 'info',
-            position: 'top'
-          });
-        }).catch(error => {
-          console.log("error", error);
+          this.$successNotify(msg);
         });
       },
       async unBan() {
@@ -107,14 +99,7 @@
           }).then(async response => {
           await this.loadData();
           const msg = this.$tl("unBanNotify",[this.user.name]);
-          this.$q.notify({
-            message: msg,
-            timeout: 5000,
-            color: 'positive',
-            position: 'top'
-          });
-        }).catch(error => {
-          console.log("error", error);
+          this.$successNotify(msg);
         });
       },
       async loadData() {
@@ -127,8 +112,6 @@
           }).then(response => {
           this.user = response.data;
           this.title = this.user.name;
-        }).catch(error => {
-          console.log("error", error);
         });
       }
     },

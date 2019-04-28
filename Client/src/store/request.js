@@ -16,7 +16,7 @@ apiAxios.interceptors.response.use(async rez => {
   return rez;
 }, async rez => {
   await checkTokens(rez.response);
-  Vue.prototype.$errorNotify(rez);
+  //Vue.prototype.$errorNotify(rez);
   throw rez;
 });
 

@@ -59,14 +59,8 @@
             }
           })
           .then( () => {
-              const msg = this.$tl("sendSuccessNotify",this.userName);
-              this.$q.notify({
-                message: msg,
-                timeout: 5000,
-                color: 'positive',
-                position: 'top'
-              });
-              this.loading = false;
+            this.$successNotify();
+            this.loading = false;
               this.$router.$goBack();
             }
           ).catch(error => {

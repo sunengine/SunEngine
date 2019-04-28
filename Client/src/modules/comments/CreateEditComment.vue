@@ -91,7 +91,9 @@
               materialId: this.materialId,
               text: this.comment.text
             }
-          }).then( () => {
+          }).then(() => {
+          const msg = this.$tl("addSuccessNotify");
+          this.$successNotify(msg);
           this.comment.text = "";
           this.$emit('done');
           this.loading = false;
@@ -110,11 +112,13 @@
               MaterialId: this.materialId,
               Text: this.comment.text
             }
-          }).then( () => {
+          }).then(() => {
+          const msg = this.$tl("editSuccessNotify");
+          this.$successNotify(msg);
             this.$emit('done');
             this.loading = false;
           }
-        ).catch( error => {
+        ).catch(error => {
           this.$errorNotify(error);
           this.loading = false;
         });
