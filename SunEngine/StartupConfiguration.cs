@@ -15,10 +15,43 @@ namespace SunEngine
         private const string ConfigurationArgumentName = "config:";
         private const string DefaultConfigurationFileName = "Config";
 
-        public string ConfigurationDirectoryRoute { get; }
+        private const string HelpCommand = "help";
+        private const string VersionCommand = "version";
+        private const string ServerCommand = "server";
+        private const string MigrateCommand = "migrate";
+        private const string InitCommand = "init";
+        private const string SeedCommand = "seed";
+        private const string AppendCategoriesNamesCommand = "append-cat-name";
 
-        public StartupConfiguration(IEnumerable<string> arguments)
+        public string ConfigurationDirectoryRoute { get; }
+        public bool PrintHelp { get; }
+        public bool PrintVersion { get; }
+        public bool StartServer { get; }
+
+        public bool Migrate { get; }
+        public bool InitializeCoreData { get; }
+        
+        public bool SeedWithTestData { get; }
+        public bool SeedWithCategoryNames { get; }
+        public List<string> CategoryTokensToSeed { get; }
+
+        public StartupConfiguration(string[] arguments)
         {
+            var startupArguments = arguments.ToHashSet();
+
+            PrintHelp = startupArguments.Contains(HelpCommand);
+            PrintVersion = startupArguments.Contains(VersionCommand);
+            
+            StartServer = startupArguments.Contains(ServerCommand);
+            InitializeCoreData = startupArguments.Contains(InitCommand);
+            Migrate = startupArguments.Contains(MigrateCommand);
+            
+            SeedWithTestData = startupArguments.Contains(SeedCommand);
+            SeedWithCategoryNames = startupArguments.Contains(AppendCategoriesNamesCommand);
+            
+            // TODO Revisit logic of category tokens. It could be seed:catToken, seed-catToken etc. Write logic to contain only category names, without "seed"
+            CategoryTokensToSeed = startupArguments.Where(x => x.StartsWith(SeedCommand)).ToList();
+            
             var configurationDirectory = GetConfigurationDirectory(arguments);
             ConfigurationDirectoryRoute = Path.GetFullPath(configurationDirectory);
         }
@@ -43,4 +76,5 @@ namespace SunEngine
             return configurationFileName;
         }
     }
+    
 }

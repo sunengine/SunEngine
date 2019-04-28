@@ -13,38 +13,35 @@ namespace SunEngine
     {
         private static StartupConfiguration StartupConfiguration;
 
-        private const string HelpCommand = "help";
-        private const string ServerCommand = "server";
-        private const string VersionCommand = "version";
         private const string MigrateCommand = "migrate";
         private const string InitCommand = "init";
         private const string SeedCommand = MainSeeder.SeedCommand;
-        private const string AppendCategoriesNamesCommand = "append-cat-name";
         
         public static void Main(string[] args)
         {
             StartupConfiguration = new StartupConfiguration(args);
 
-            if (args.Any(x => x == HelpCommand))
+            if (StartupConfiguration.PrintHelp)
                 InfoPrinter.PrintHelp();
 
-            else if (args.Any(x => x == ServerCommand))
+            else if (StartupConfiguration.StartServer)
                 RunServer(args);
 
-            else if (args.Any(x => x == VersionCommand))
+            else if (StartupConfiguration.PrintVersion)
                 InfoPrinter.PrintVersion();
 
             else if (args.Any(x => x == MigrateCommand || x == InitCommand || x == SeedCommand))
             {
-                if (args.Any(x => x == MigrateCommand))
+                if (StartupConfiguration.Migrate)
                     new MainMigrator(StartupConfiguration.ConfigurationDirectoryRoute).Migrate();
 
-                if (args.Any(x => x == InitCommand))
+                if (StartupConfiguration.InitializeCoreData)
                     new MainSeeder(StartupConfiguration.ConfigurationDirectoryRoute).SeedInitialize();
 
-                if (args.Any(x => x.StartsWith(SeedCommand)))
+                if (StartupConfiguration.SeedWithTestData)
                     new MainSeeder(StartupConfiguration.ConfigurationDirectoryRoute)
-                        .SeedAddTestData(args.Where(x => x.StartsWith(SeedCommand)).ToList(), args.Any(x => x == AppendCategoriesNamesCommand));
+                        .SeedAddTestData(StartupConfiguration.CategoryTokensToSeed,
+                            StartupConfiguration.SeedWithCategoryNames);
             }
             else
             {
