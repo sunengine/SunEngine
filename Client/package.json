@@ -3,11 +3,10 @@
   "version": "1.0.0-beta.13",
   "description": "SunEngine - web engine with support of blog, forum and articles functionality",
   "productName": "SunEngine Client",
-  "cordovaId": "org.cordova.quasar.app",
   "author": "Okeanij <dmitrij.polyanin@gmail.com>",
   "private": false,
   "scripts": {
-    "test": "echo \"No test specified\" && exit 0"
+    "Client dev run": "quasar dev"
   },
   "dependencies": {
     "@quasar/extras": "^1.1.1",
