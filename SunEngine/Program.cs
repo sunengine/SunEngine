@@ -1,37 +1,58 @@
-﻿using System.IO;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using SunEngine.DataSeed;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using SunEngine.DataSeed;
 using SunEngine.Migrations;
-
 
 namespace SunEngine
 {
     public class Program
     {
-        public const string HelpCommand = "help";
-        public const string ServerCommand = "server";
-        public const string VersionCommand = "version";
-        public const string MigrateCommand = "migrate";
-        public const string InitCommand = "init";
-        public const string SeedCommand = MainSeeder.SeedCommand;
-        public const string AppendCategoriesNamesCommand = "append-cat-name";
-        public const string ConfigCommand = "config:";
+        public static string configDir;
+        private const string ConfigurationArgumentName = "config:"; 
+        private const string DefaultConfigurationFileName = "Config";
 
+        private const string HelpCommand = "help";
+        private const string ServerCommand = "server";
+        private const string VersionCommand = "version";
+        private const string MigrateCommand = "migrate";
+        private const string InitCommand = "init";
+        private const string SeedCommand = MainSeeder.SeedCommand;
+        private const string AppendCategoriesNamesCommand = "append-cat-name";
         
-        private static string configDir;
-        
-        
+        public static void SetUpConfigurationDirectory(IEnumerable<string> arguments)
+        {
+            var configurationDirectory = GetConfigurationDirectory(arguments);
+            configDir = Path.GetFullPath(configurationDirectory);   
+        }
 
+        private static string GetConfigurationDirectory(IEnumerable<string> arguments)
+        {
+            var configurationProperty = arguments.FirstOrDefault(x => x.StartsWith(ConfigurationArgumentName));
+            if (string.IsNullOrEmpty(configurationProperty))
+            {
+                Console.Write("Property for configuration wasn't set. Default configuration will be used.");
+                return DefaultConfigurationFileName;
+            }
+            
+            var configurationFileName = configurationProperty.Substring(ConfigurationArgumentName.Length).Trim();
+            if (string.IsNullOrEmpty(configurationFileName))
+            {
+                Console.Write("Property for configuration was empty or blank. Default configuration will be used.");
+                return DefaultConfigurationFileName;
+            }
+
+            Console.Write($"Configuration file {configurationFileName} will be used.");
+            return configurationFileName;
+        }
+        
         public static void Main(string[] args)
         {
-            configDir = args.FirstOrDefault(x => x.StartsWith(ConfigCommand));
-            configDir = configDir != null ? configDir.Substring(ConfigCommand.Length) : "Config";
-
-            configDir = Path.GetFullPath(configDir);
-
+            SetUpConfigurationDirectory(args);
 
             if (args.Any(x => x == HelpCommand))
                 InfoPrinter.PrintHelp();

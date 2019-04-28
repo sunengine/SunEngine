@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunEngine.Commons", "SunEng
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunEngine.Admin", "SunEngine.Admin\SunEngine.Admin.csproj", "{07C6B121-79B4-4830-9164-25F414F9BC79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunEngineTest", "SunEngineTest\SunEngineTest.csproj", "{B6DFE230-26A5-465B-8682-7EBB5A39746D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{07C6B121-79B4-4830-9164-25F414F9BC79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07C6B121-79B4-4830-9164-25F414F9BC79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07C6B121-79B4-4830-9164-25F414F9BC79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6DFE230-26A5-465B-8682-7EBB5A39746D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6DFE230-26A5-465B-8682-7EBB5A39746D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6DFE230-26A5-465B-8682-7EBB5A39746D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6DFE230-26A5-465B-8682-7EBB5A39746D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
