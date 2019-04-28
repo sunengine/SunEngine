@@ -10,6 +10,8 @@ namespace SunEngine
 {
     public class Program
     {
+        private static readonly InfoPrinter InfoPrinter = new InfoPrinter();
+        
         private static StartupConfiguration StartupConfiguration;
         
         public static void Main(string[] args)
