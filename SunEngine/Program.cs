@@ -1,5 +1,4 @@
 using System.IO;
-using System.Linq;
 using SunEngine.DataSeed;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -12,10 +11,6 @@ namespace SunEngine
     public class Program
     {
         private static StartupConfiguration StartupConfiguration;
-
-        private const string MigrateCommand = "migrate";
-        private const string InitCommand = "init";
-        private const string SeedCommand = MainSeeder.SeedCommand;
         
         public static void Main(string[] args)
         {
@@ -30,7 +25,7 @@ namespace SunEngine
             else if (StartupConfiguration.PrintVersion)
                 InfoPrinter.PrintVersion();
 
-            else if (args.Any(x => x == MigrateCommand || x == InitCommand || x == SeedCommand))
+            else if (ShouldUpdateData(StartupConfiguration))
             {
                 if (StartupConfiguration.Migrate)
                     new MainMigrator(StartupConfiguration.ConfigurationDirectoryRoute).Migrate();
@@ -52,6 +47,13 @@ namespace SunEngine
             }
         }
 
+        private static bool ShouldUpdateData(StartupConfiguration startupConfiguration)
+        {
+            return startupConfiguration.Migrate || 
+                   startupConfiguration.InitializeCoreData ||
+                   startupConfiguration.SeedWithTestData;
+        }
+        
         public static void RunServer(string[] args)
         {
             var webHost = CreateWebHostBuilder(args).Build();
