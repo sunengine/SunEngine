@@ -1,10 +1,11 @@
 using System.IO;
 using System.Linq;
+using SunEngine.DataSeed;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using SunEngine.DataSeed;
 using SunEngine.Migrations;
+
 
 namespace SunEngine
 {
@@ -33,7 +34,7 @@ namespace SunEngine
             else if (args.Any(x => x == VersionCommand))
                 InfoPrinter.PrintVersion();
 
-            else if (args.Any(x => x == MigrateCommand || x == InitCommand|| x == SeedCommand))
+            else if (args.Any(x => x == MigrateCommand || x == InitCommand || x == SeedCommand))
             {
                 if (args.Any(x => x == MigrateCommand))
                     new MainMigrator(StartupConfiguration.ConfigurationDirectoryRoute).Migrate();

@@ -51,7 +51,16 @@ namespace SunEngine.Commons.Security
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            AuthenticateResult ErrorAuthorization()
+            async Task<AuthenticateResult> DeleteLongSessionAndLogout(long sessionId)
+            {
+                await userManager.DeleteLongSessionAsync(sessionId);
+                
+                jwtService.MakeLogoutCookiesAndHeaders(Response);
+
+                return AuthenticateResult.NoResult();
+            }
+
+            AuthenticateResult Logout()
             {
                 jwtService.MakeLogoutCookiesAndHeaders(Response);
 
@@ -68,7 +77,7 @@ namespace SunEngine.Commons.Security
 
                 JwtSecurityToken jwtLongToken2 = jwtService.ReadLongToken2(cookie);
                 if (jwtLongToken2 == null)
-                    return ErrorAuthorization();
+                    return Logout();
 
                 var longToken2db = jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.LongToken2Db).Value;
 
@@ -86,10 +95,10 @@ namespace SunEngine.Commons.Security
                         LongToken2 = longToken2db
                     };
 
-                    var longSession = userManager.FindLongSession(longSessionToFind);
+                    var longSession = await userManager.FindLongSessionAsync(longSessionToFind);
 
                     if (longSession == null)
-                        return ErrorAuthorization();
+                        return Logout();
 
                     sunClaimsPrincipal = await jwtService.RenewSecurityTokensAsync(Response, userId, longSession);
 
@@ -115,31 +124,31 @@ namespace SunEngine.Commons.Security
                     var claimsPrincipal =
                         jwtService.ReadShortToken(jwtShortToken, out SecurityToken shortToken);
 
-                    string lat2ran_1 = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
-                    string lat2ran_2 = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
+                    string lat2ran_1 = jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
+                    string lat2ran_2 = claimsPrincipal.Claims.First(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
 
+                    long sessionId = long.Parse(jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.SessionId).Value);
+                    
                     if (!string.Equals(lat2ran_1, lat2ran_2))
-                        return ErrorAuthorization();
+                        return await DeleteLongSessionAndLogout(sessionId);
 
-                    long sessionId = long.Parse(jwtLongToken2.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.SessionId).Value);
-
-                    string lat2db = jwtLongToken2.Claims.FirstOrDefault(x => x.Type == TokenClaimNames.LongToken2Db).Value;
+                    string lat2db = jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.LongToken2Db).Value;
 
                     sunClaimsPrincipal = new SunClaimsPrincipal(claimsPrincipal, rolesCache, sessionId, lat2db);
                 }
 
-                if (jwtBlackListService.IsTokenNotInBlackList(sunClaimsPrincipal.LongToken2Db))
-                    return ErrorAuthorization();
+                if (jwtBlackListService.IsTokenInBlackList(sunClaimsPrincipal.LongToken2Db))
+                    return await DeleteLongSessionAndLogout(sunClaimsPrincipal.SessionId);
 
                 if (sunClaimsPrincipal.Roles.ContainsKey(RoleNames.Banned))
-                    return ErrorAuthorization();
+                    return await DeleteLongSessionAndLogout(sunClaimsPrincipal.SessionId);
 
                 var authenticationTicket = new AuthenticationTicket(sunClaimsPrincipal, SunJwt.Scheme);
                 return AuthenticateResult.Success(authenticationTicket);
             }
             catch (Exception e)
             {
-                return ErrorAuthorization();
+                return Logout();
             }
         }
     }

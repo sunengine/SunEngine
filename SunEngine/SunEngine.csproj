@@ -10,8 +10,8 @@
         <Description>Site engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>
         <Copyright>Dmitrii Polianin</Copyright>
         <PackageProjectUrl>https://github.com/Dmitrij-Polyanin/SunEngine</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/licence.md</PackageLicenseUrl>
-        <PackageTags>forum, blog, cms, web engine, web, engine</PackageTags>
+        <PackageLicenseUrl>https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/LICENSE.md</PackageLicenseUrl>
+        <PackageTags>forum, blog, site, cms, web engine, web, engine, asp.net core, spa, vuejs, vue</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

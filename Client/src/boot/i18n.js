@@ -18,4 +18,10 @@ export default async ({app, Vue}) => {
     return this.$t(this.$options.name + "." + key, values);
   };
 
+  Vue.prototype.$tle = function (key, ...values) {
+    if(this.$options.i18nPrefix)
+      return this.$te(this.$options.i18nPrefix + "." + this.$options.name + "." + key, values);
+
+    return this.$te(this.$options.name + "." + key, values);
+  };
 }

@@ -51,11 +51,16 @@ namespace SunEngine.Commons.Managers
             return db.Users.AnyAsync(x => x.NormalizedEmail == Normalizer.Normalize(email) && x.Id != userId);
         }
 
-        public virtual LongSession FindLongSession(LongSession longSession)
+        public virtual Task<LongSession> FindLongSessionAsync(LongSession longSession)
         {
-            return db.LongSessions.FirstOrDefault(x => x.UserId == longSession.UserId &&
+            return db.LongSessions.FirstOrDefaultAsync(x => x.UserId == longSession.UserId &&
                                                        x.LongToken1 == longSession.LongToken1 &&
                                                        x.LongToken2 == longSession.LongToken2);
+        }
+        
+        public virtual Task DeleteLongSessionAsync(long longSessionId)
+        {
+            return db.LongSessions.Where(x => x.Id == longSessionId).DeleteAsync();
         }
 
         public virtual Task<User> FindByIdAsync(int id)

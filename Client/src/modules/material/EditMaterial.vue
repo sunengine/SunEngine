@@ -71,13 +71,7 @@
           url: '/Materials/Update',
           data: data
         }).then(() => {
-          const msg = this.$tl("successNotify");
-          this.$q.notify({
-            message: msg,
-            timeout: 2300,
-            color: 'positive',
-            position: 'top'
-          });
+          this.$successNotify();
           this.$router.push(this.$refs.form.category.path);
         }).catch(error => {
           this.$errorNotify(error);

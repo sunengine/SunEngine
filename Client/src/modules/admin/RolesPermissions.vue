@@ -42,13 +42,7 @@
 
       async loadDataRefresh() {
         await this.loadData();
-        const msg = this.$tl('getFromServerSuccessNotify');
-        this.$q.notify({
-          message: msg,
-          timeout: 5000,
-          color: 'info',
-          position: 'top'
-        });
+        this.$successNotify(this.$tl("getSuccessNotify"));
       },
       async loadData() {
         this.json = null;
@@ -74,14 +68,7 @@
           })
           .then(async () => {
               this.error = null;
-              const msg = this.$tl("saveToServerSuccessNotify");
-              this.$q.notify({
-                message: msg,
-                timeout: 4000,
-                color: 'positive',
-                icon: 'far fa-check-circle',
-                position: 'top'
-              });
+              this.$successNotify(this.$tl("saveSuccessNotify"));
             }
           ).catch(error => {
             this.error = error.response.data.errors[0];

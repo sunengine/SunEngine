@@ -14,6 +14,7 @@ export default {
       emailSig: "Неправильная сигнатура email",
     },
     errorNotify: "Ошибка",
+    successNotify: "Операция выполнена успешно",
     submitting: "Отправляю данные..."
   },
   LoginRegisterMenu: {
@@ -45,7 +46,7 @@ export default {
     enterBtn: "Войти",
     forgotPassword: "Забыли пароль?",
     notMyComputer: "Чужой компьютер",
-    enterSuccess: "Вы зашли",
+    successNotify: "Вы зашли",
     validation: {
       nameOrEmail: {
         required: "Введите имя или email"
@@ -133,7 +134,9 @@ export default {
   CreateEditComment: {
     required: "Введите сообщение",
     htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
-    spamProtectionMessage: "Нельзя так часто отправлять сообщения. Подождите немного."
+    spamProtectionMessage: "Нельзя так часто отправлять сообщения. Подождите немного.",
+    addSuccessNotify: "Комментарий добавлен",
+    editSuccessNotify: "Комментарий обновлён",
   },
   CreateMaterial: {
     title: "Добавить материал",
@@ -342,7 +345,7 @@ export default {
     title: "Написать личное сообщение",
     titleStart: "Написать",
     sendBtn: "Отправить",
-    sendSuccessNotify: "Сообщение успешно отправлено пользователю {0}",
+    successNotify: "Сообщение успешно отправлено пользователю {0}",
     sendErrorNotify: "Сообщение не отправлено. Ошибка на сервере.",
     sendSpamProtectionNotify: "Нельзя так часто отправлять личные сообщения. Необходимо подождать.",
   },
@@ -364,6 +367,9 @@ export default {
   },
   ActivitiesPage: {
     defaultTitle: "Новое на сайте"
+  },
+  DeletedComment: {
+    label: "Сообщение удалено"
   },
   Error404: {
     title: "Ошибка 404",

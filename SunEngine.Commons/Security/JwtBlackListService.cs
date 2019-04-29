@@ -39,7 +39,7 @@ namespace SunEngine.Commons.Security
             cycle = 0;
         }
 
-        public bool IsTokenNotInBlackList(string shortJwtTokenId)
+        public bool IsTokenInBlackList(string shortJwtTokenId)
         {
             if (tokens == null)
                 Initialize();
