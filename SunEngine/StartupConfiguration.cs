@@ -6,7 +6,7 @@ using NLog;
 namespace SunEngine
 {
     /// <summary>
-    /// Translate arguments into configuration properties.
+    /// Translates arguments into configuration properties.
     /// </summary>
     public class StartupConfiguration
     {

@@ -4,7 +4,7 @@ using Xunit;
 
 namespace SunEngineTest
 {
-    public class UnitFact
+    public class StartupConfigurationTest
     {
         private const string DefaultConfigurationFileName = "Config";
         private const string InvalidConfigurationProperty = "invalidProperty:";
