@@ -1,4 +1,5 @@
 using System;
+using AngleSharp.Css;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using SunEngine.Commons.Cache.CachePolicy;
@@ -29,26 +30,25 @@ namespace SunEngine.Commons.Configuration.AddServices
         }
 
         // Temporary solution
-        public static void AddCachePolicy(this IServiceCollection services)
-        {
-            services.AddScoped<ICachePolicy>(provider =>
-            {
-                var cacheOptions = provider.GetRequiredService<IOptions<CacheOptions>>();
-                if(cacheOptions == null)
-                    throw new NotFoundServiceException("Cache policy must be added after loading settings from database");
+        public static void AddCachePolicy(this IServiceCollection services) => services.AddScoped(GetCachePolicy);
 
-                switch (cacheOptions.Value.CurrentCachePolicy)
-                {
-                    case CachePolicy.AlwaysPolicy:
-                        return new AlwaysCachePolicy();
-                    case CachePolicy.NeverPolicy:
-                        return new NeverCachePolicy();
-                    case CachePolicy.CustomPolicy:
-                        return new CustomCachePolicy();
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            });
+        private static ICachePolicy GetCachePolicy(IServiceProvider provider)
+        {
+            var cacheOptions = provider.GetRequiredService<IOptions<CacheOptions>>();
+            if(cacheOptions == null)
+                throw new NotFoundServiceException("Cache policy must be added after loading settings from database");
+
+            switch (cacheOptions.Value.CurrentCachePolicy)
+            {
+                case CachePolicy.AlwaysPolicy:
+                    return new AlwaysCachePolicy();
+                case CachePolicy.NeverPolicy:
+                    return new NeverCachePolicy();
+                case CachePolicy.CustomPolicy:
+                    return new CustomCachePolicy();
+                default:
+                    throw new InvalidOperationException("No operation is defined for this cache policy");
+            }
         }
     }
 }

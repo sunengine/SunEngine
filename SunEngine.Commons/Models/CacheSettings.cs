@@ -2,7 +2,7 @@ namespace SunEngine.Commons.Models
 {
     public enum CachePolicy
     {
-        AlwaysPolicy = 0,
+        AlwaysPolicy,
         NeverPolicy,
         CustomPolicy
     }

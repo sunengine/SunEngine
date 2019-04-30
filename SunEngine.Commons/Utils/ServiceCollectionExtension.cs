@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace SunEngine.Commons.Utils
 {
-    public static class ServiceCollectionEx
+    public static class ServiceCollectionExtension
     {
         public static IServiceCollection Replace<TService, TImplementation>(
             this IServiceCollection services,

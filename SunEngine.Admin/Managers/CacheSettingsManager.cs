@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using SunEngine.Commons.Cache.CachePolicy;
+using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.DataBase;
 using SunEngine.Commons.Models;
@@ -19,17 +20,23 @@ namespace SunEngine.Admin.Managers
     {
         private IServiceCollection serviceCollection;
         private IServiceProvider serviceProvider;
+        private IContentCache contentCache;
         
-        public CacheSettingsManager(IServiceCollection serviceCollection, IServiceProvider serviceProvider, DataBaseConnection db) : base(db)
+        public CacheSettingsManager(IServiceCollection serviceCollection,
+            IServiceProvider serviceProvider, IContentCache contentCache, DataBaseConnection db) : base(db)
         {
             this.serviceCollection = serviceCollection;
             this.serviceProvider = serviceProvider;
+            this.contentCache = contentCache;
         }
 
         public async Task UpdateCachePolicy(CacheSettings cacheSettings)
         {
             if(!Enum.IsDefined(typeof(CachePolicy), cacheSettings.CachePolicy))
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(cacheSettings.CachePolicy), "Unknown cache policy type");
+
+            if (cacheSettings.CachePolicy == CachePolicy.NeverPolicy) 
+                cacheSettings.InvalidateCacheTime = null;
             
             serviceProvider.GetRequiredService<IOptions<CacheOptions>>()?.Value.UpdateOptions(cacheSettings);
             
@@ -40,6 +47,8 @@ namespace SunEngine.Admin.Managers
             currentSettings.CachePolicy = cacheSettings.CachePolicy;
             currentSettings.InvalidateCacheTime = cacheSettings.InvalidateCacheTime;
             await db.UpdateAsync(currentSettings);
+            
+            contentCache.Reset();
         }
     }
 }

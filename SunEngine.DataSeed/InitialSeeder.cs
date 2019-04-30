@@ -195,7 +195,7 @@ namespace SunEngine.DataSeed
             {
                 Id = 1,
                 CachePolicy = CachePolicy.CustomPolicy,
-                InvalidateCacheTime = 10
+                InvalidateCacheTime = 15
             };
         }
     }

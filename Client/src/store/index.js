@@ -5,7 +5,7 @@ import auth from './auth'
 import request from "./request";
 import categories from "store/categories";
 import {getTokens, makeUserDataFromTokens} from "services/tokens";
-import {consoleInit} from "services/consoleStyles";
+import { consoleInit } from "../defination";
 //import extensions from './extensions'
 
 Vue.use(Vuex);

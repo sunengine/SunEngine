@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Flurl.Util;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using SunEngine.Commons.Configuration.Options;
@@ -18,12 +16,13 @@ namespace SunEngine.Commons.Cache.Services
         void InvalidateCache(string categoryName);
         void Reset();
     }
-    
+
     public class CategoryContentCache : IContentCache
     {
         private ICategoriesCache categoriesCache;
         private IMemoryCache memoryCache;
         private IOptions<CacheOptions> cacheOptions;
+        private List<string> recordsKeyList = new List<string>();
 
         public CategoryContentCache(ICategoriesCache categoriesCache,
             IMemoryCache memoryCache,
@@ -45,13 +44,28 @@ namespace SunEngine.Commons.Cache.Services
                 || string.IsNullOrEmpty(content))
                 return false;
 
-            var invalidateCacheTime = 10;
+            var invalidateCacheTime = 15;
             if (cacheOptions.Value.InvalidateCacheTime.HasValue)
             {
                 invalidateCacheTime = cacheOptions.Value.InvalidateCacheTime.Value;
+                if (invalidateCacheTime == 0)
+                    invalidateCacheTime = int.MaxValue;
             }
+
+            var options = new MemoryCacheEntryOptions()
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(invalidateCacheTime),
+                PostEvictionCallbacks =
+                {
+                    new PostEvictionCallbackRegistration()
+                    {
+                        EvictionCallback = OnCacheRecordExpire
+                    }
+                }
+            };
             
-            memoryCache.Set(key, content, TimeSpan.FromMinutes(invalidateCacheTime));
+            memoryCache.Set(key, content, options);
+            recordsKeyList.Add(key);
             return true;
         }
 
@@ -63,11 +77,10 @@ namespace SunEngine.Commons.Cache.Services
 
         public void InvalidateCache(int categoryId)
         {
-            var keyValuePairs = memoryCache.ToKeyValuePairs();
-            foreach (var pair in keyValuePairs)
+            foreach (var key in recordsKeyList)
             {
-                if (pair.Key.Contains($",{categoryId},"))
-                    memoryCache.Remove(pair.Key);
+                if (key.Contains($",{categoryId},"))
+                    memoryCache.Remove(key);
             }
         }
 
@@ -82,13 +95,20 @@ namespace SunEngine.Commons.Cache.Services
 
         public void Reset()
         {
-            memoryCache.ToKeyValuePairs()
-                .ToList().ForEach(x => memoryCache.Remove(x.Key));
+            recordsKeyList.ForEach(x => memoryCache.Remove(x));
         }
 
         private int? GetCategoryId(string categoryName)
         {
             return categoriesCache.GetCategory(Normalizer.Normalize(categoryName))?.Id;
+        }
+
+        private void OnCacheRecordExpire(object key,
+            object value,
+            EvictionReason reason,
+            object state)
+        {
+            recordsKeyList.Remove((string) key);
         }
     }
 }

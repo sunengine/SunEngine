@@ -9,12 +9,17 @@
         <q-select
           v-model="policy"
           :label="$tl('CachePolicy')"
-          :options="PolicyTypes"
-        />
+          :options="OptionTypes" />
         <br />
-        <q-input v-if="policy !== null && policy.id !== 1" v-model="cacheSettings.invalidateCacheTime" type="number" :label="$tl('CacheLifetime')" />
-      </div>
+        <div v-if="policy !== null && policy.id !== 1">
+          <q-input v-if="!withoutTime" ref="cacheTime"  type="number"
+            v-model="cacheSettings.invalidateCacheTime"
+            :label="$tl('CacheLifetime')" 
+            :rules="rules.invalidateCacheTime" />
 
+          <q-checkbox v-model="withoutTime" v-on:input="withoutTimeChanged" :label="$tl('WithoutInvalidationTime')" />
+        </div>
+      </div>
       <br>
       <div class="btn-block">
         <q-btn icon="fas fa-plus" class="btn-send" :loading="loading"
@@ -30,6 +35,16 @@
 <script>
 import Page from "Page";
 import LoaderSent from "LoaderSent";
+import { CachePolicies } from "../../defination";
+
+function createRules() {
+  return {
+    invalidateCacheTime: [
+      value => !!value || this.$tl("validation.invalidateCacheTime.required"),
+      value => value >= 0 || this.$tl("validation.invalidateCacheTime.invalidValue")
+    ]
+  }
+}
 
 export default {
   name: "CacheSettings",
@@ -41,11 +56,13 @@ export default {
       cacheSettings: null,
       policy: null,
       loading: false,
-      PolicyTypes: [
-        { id: 0, label: this.$tl("AlwaysPolicy"), value: "AlwaysPolicy" },
-        { id: 1, label: this.$tl("NeverPolicy"), value: "NeverPolicy" },
-        { id: 2, label: this.$tl("CustomPolicy"), value: "CustomPolicy" }
-      ]
+      withoutTime: false,
+      rules: null,
+      OptionTypes: [
+        { id: CachePolicies.Always, label: this.$tl("AlwaysPolicy"), value: "AlwaysPolicy" },
+        { id: CachePolicies.Never, label: this.$tl("NeverPolicy"), value: "NeverPolicy" },
+        { id: CachePolicies.Custom, label: this.$tl("CustomPolicy"), value: "CustomPolicy" }
+      ],
     };
   },
   methods: {
@@ -55,25 +72,31 @@ export default {
           url: "/Admin/AdminCacheSettings/GetCurrentCacheSettings"
         })
         .then(res => {
-          this.policy = this.PolicyTypes[res.data.currentCachePolicy];
+          this.policy = this.OptionTypes[res.data.currentCachePolicy];
           this.cacheSettings = res.data;
           this.loading = false;
+          if(this.cacheSettings.invalidateCacheTime === 0) this.withoutTime = true;
         });
     },
     async save() {
-      if(this.policy.id === 1) this.cacheSettings.invalidateCacheTime = null;
+      if(this.policy.id !== CachePolicies.Never && !this.withoutTime) {
+        const cacheTime = this.$refs.cacheTime;
+        cacheTime.validate();
+        if(cacheTime.hasError)
+          return;
+      }
+
       this.loading = true;
       await this.$store.dispatch("request", {
         url: "/Admin/AdminCacheSettings/ChangeCachePolicy",
         data: { 
             selectedPolicy: this.policy.id,
-            invalidateCacheTime: this.cacheSettings.invalidateCacheTime
+            invalidateCacheTime: !this.withoutTime ? this.cacheSettings.invalidateCacheTime : 0
           },
       })
       .then(() => {
-        const msg = this.$tl("successNotify");
         this.$q.notify({
-          message: msg,
+          message: this.$tl("successNotify"),
           timeout: 5000,
           color: 'positive',
           icon: 'far fa-check-circle',
@@ -89,10 +112,15 @@ export default {
           });
         this.loading = false;
       });
+    },
+    async withoutTimeChanged(value) {
+      if(!value && this.cacheSettings.invalidateCacheTime === 0)
+        this.cacheSettings.invalidateCacheTime = 15;    
     }
   },
   async created() {
       this.title = this.$tl("title");
+      this.rules = createRules.call(this);
       await this.loadCurrentPolicy();
   }
 };

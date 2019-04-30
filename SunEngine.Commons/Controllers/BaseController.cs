@@ -34,8 +34,6 @@ namespace SunEngine.Commons.Controllers
             userManager = serviceProvider.GetRequiredService<SunUserManager>();
             keyGenerator = serviceProvider.GetRequiredService<CacheKeyGenerator>();
         }
-        
-        
 
         protected string ControllerName
         {
@@ -104,9 +102,7 @@ namespace SunEngine.Commons.Controllers
                 return Json(await dataLoader());
 
             string json;
-            if (category != null
-                && category.IsCacheContent
-                && !string.IsNullOrEmpty(json = contentCache.GetContent(key)))
+            if (!string.IsNullOrEmpty(json = contentCache.GetContent(key)))
             {
                 return JsonString(json);
             }

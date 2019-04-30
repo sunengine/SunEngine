@@ -7,7 +7,7 @@ using SunEngine.Admin.Managers;
 using SunEngine.Admin.Presenters;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.Controllers;
-using SunEngine.Commons.Misc;
+using SunEngine.Commons.Errors;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Utils.CustomExceptions;
 
@@ -36,9 +36,8 @@ namespace SunEngine.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangeCachePolicy(CachePolicy selectedPolicy, int? invalidateCacheTime = null)
         {
-            if (selectedPolicy != CachePolicy.NeverPolicy
-                && invalidateCacheTime == null)
-                return ValidationProblem();
+            if (selectedPolicy != CachePolicy.NeverPolicy && invalidateCacheTime == null)
+                return BadRequest(ErrorView.ValidationError());
 
             try
             {
@@ -52,11 +51,11 @@ namespace SunEngine.Admin.Controllers
             }
             catch (ArgumentOutOfRangeException)
             {
-                return BadRequest(); // TODO : Error
+                return BadRequest(ErrorView.ValidationError());
             }
             catch (NotFoundDataException)
             {
-                return BadRequest(); // TODO : Error
+                return BadRequest(ErrorView.ServerError());
             }
         }
     }

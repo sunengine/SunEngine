@@ -68,6 +68,11 @@ namespace SunEngine.Commons.Errors
         {
             return new ErrorView("ServerError", "Server error. Something goes wrong", ErrorType.System, exception);
         }
+        
+        public static ErrorView ValidationError()
+        {
+            return new ErrorView("ValidationError", "Data validation failed", ErrorType.Soft);
+        }
 
         public void AddError(string code, string description, ErrorType type, string message = null)
         {

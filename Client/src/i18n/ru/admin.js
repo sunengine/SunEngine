@@ -102,7 +102,14 @@ export default {
     CustomPolicy: "Настриваемая политика",
     CacheLifetime: "Время хранения записи",
     SaveChanges: "Сохранить настройки",
+    WithoutInvalidationTime: "Без ограничения по времени",
     successNotify: "Политика кэширования изменена",
-    error: "Произошла ошибка"
+    error: "Произошла ошибка",
+    validation: {
+      invalidateCacheTime: {
+        required: "Поле должно быть заполнено",
+        invalidValue: "Значение не может быть ниже 0",
+      }
+    }
   }
 };
