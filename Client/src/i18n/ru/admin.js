@@ -70,8 +70,8 @@ export default {
       backupWarning: "Перед загрузкой необходимо сделать backup базы.",
       saveToServerBtn: "Сохранить на сервер",
       getFromServer: "Загрузить с сервера",
-      getFromServerSuccessNotify: "Данные загружены с сервера",
-      saveToServerSuccessNotify: "Настройки групп успешно обновлены",
+      getSuccessNotify: "Данные загружены с сервера",
+      saveSuccessNotify: "Настройки групп успешно обновлены",
       textAreaLabel: "Json файл конфигурации прав групп"
   },
   ProfileRoles: {

@@ -1,5 +1,5 @@
 export default {
-  ServerError: "",
+  ServerError: "Ошибка на сервере",
   Unauthorized: "Вы не имеете прав для захода на эту страницу",
   BadRequest: "Ошибка в запросе",
   UploadJsonAdminError: "Ошибка загрузки Json",

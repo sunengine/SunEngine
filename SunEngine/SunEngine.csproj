@@ -3,15 +3,15 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <LangVersion>latest</LangVersion>
-        <Version>1.0.0-beta.12</Version>
-        <PackageVersion>1.0.0-beta.12</PackageVersion>
+        <Version>1.0.0-beta.14</Version>
+        <PackageVersion>1.0.0-beta.14</PackageVersion>
         <Title>SunEngine</Title>
         <Authors>Dmitrii Polianin</Authors>
         <Description>Site engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>
         <Copyright>Dmitrii Polianin</Copyright>
         <PackageProjectUrl>https://github.com/Dmitrij-Polyanin/SunEngine</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/licence.md</PackageLicenseUrl>
-        <PackageTags>forum, blog, cms, web engine, web, engine</PackageTags>
+        <PackageLicenseUrl>https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/LICENSE.md</PackageLicenseUrl>
+        <PackageTags>forum, blog, site, cms, web engine, web, engine, asp.net core, spa, vuejs, vue</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

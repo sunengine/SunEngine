@@ -5,15 +5,29 @@ using System.Reflection;
 
 namespace SunEngine
 {
-    public static class InfoPrinter
+    public class InfoPrinter
     { 
-        public static void PrintHelp()
+        /// <summary>
+        /// Print this info if "dotnet SunEngine.dll" starts with no commands.
+        /// </summary>
+        public void PrintVoidStartInfo()
+        {
+            Console.WriteLine("You start \"SunEngine.dll\" with out arguments.\nRun with \"help\" argument to list commands:\n\tdotnet SunEngine.dll help");
+        }
+        
+        /// <summary>
+        /// Print help on dotnet "dotnet SunEngine.dll help"
+        /// </summary>
+        public void PrintHelp()
         {
             var text = File.ReadAllText(Path.GetFullPath("Resources/help.txt"));
             Console.WriteLine(text);
         }
 
-        public static void PrintVersion()
+        /// <summary>
+        /// Print version of SunEngine
+        /// </summary>
+        public void PrintVersion()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Commons.Controllers;
-using SunEngine.Commons.Misc;
+using SunEngine.Commons.Errors;
 using SunEngine.Commons.Services;
 
 namespace SunEngine.Commons.Filters
@@ -30,7 +30,7 @@ namespace SunEngine.Commons.Filters
                 {
                     context.Result =
                         ((Controller) context.Controller).BadRequest(
-                            new ErrorView("CaptchaValidationError","Captcha text not valid"));
+                            new ErrorView("CaptchaValidationError","Captcha text not valid", ErrorType.System));
                 }
                 
                 base.OnActionExecuting(context);

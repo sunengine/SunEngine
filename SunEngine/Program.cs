@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Linq;
+using System.IO;
 using SunEngine.DataSeed;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -11,59 +10,96 @@ namespace SunEngine
 {
     public class Program
     {
-        private static string configDir;
-
+        private static readonly InfoPrinter InfoPrinter = new InfoPrinter();
+        
         public static void Main(string[] args)
         {
-            configDir = args.FirstOrDefault(x => x.StartsWith("config:"));
-            configDir = configDir != null ? configDir.Substring("config:".Length) : "Config";
+            StartupConfiguration startupConfiguration = new StartupConfiguration(args);
 
-            configDir = Path.GetFullPath(configDir);
-
-            if (args.Length == 0 || args.Any(x => x == "help"))
+            if (startupConfiguration.PrintHelp)
                 InfoPrinter.PrintHelp();
 
-            else if (args.Any(x => x == "server"))
-                RunServer(args);
+            else if (startupConfiguration.StartServer)
+                RunServer(startupConfiguration);
 
-            else if (args.Any(x => x == "version"))
+            else if (startupConfiguration.PrintVersion)
                 InfoPrinter.PrintVersion();
 
+            else if (ShouldUpdateData(startupConfiguration))
+            {
+                if (startupConfiguration.Migrate)
+                    new MainMigrator(startupConfiguration.ConfigurationDirectoryRoute).Migrate();
+
+                if (startupConfiguration.InitializeCoreData)
+                    new MainSeeder(startupConfiguration.ConfigurationDirectoryRoute).SeedInitialize();
+
+                if (startupConfiguration.SeedWithTestData)
+                    new MainSeeder(startupConfiguration.ConfigurationDirectoryRoute)
+                        .SeedAddTestData(startupConfiguration.CategoryTokensToSeed,
+                            startupConfiguration.SeedWithCategoryNames);
+            }
             else
             {
-                if (args.Any(x => x == "migrate"))
-                    new MainMigrator(configDir).Migrate();
-
-                if (args.Any(x => x == "init"))
-                    new MainSeeder(configDir).SeedInitialize();
-
-                if (args.Any(x => x.StartsWith("seed")))
-                    new MainSeeder(configDir)
-                        .SeedAddTestData(
-                            args.Where(x => x.StartsWith("seed")).ToList(),
-                            args.Any(x => x == "append-cat-name"));
+                if (SunEngineDllRunServer(startupConfiguration))
+                    RunServer(startupConfiguration);
+                else
+                    InfoPrinter.PrintVoidStartInfo();
             }
         }
 
-        public static void RunServer(string[] args)
+        private static bool ShouldUpdateData(StartupConfiguration startupConfiguration)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            return startupConfiguration.Migrate || 
+                   startupConfiguration.InitializeCoreData ||
+                   startupConfiguration.SeedWithTestData;
+        }
+        
+        private static void RunServer(StartupConfiguration startupConfiguration)
+        {
+            var webHost = CreateWebHostBuilder(startupConfiguration).Build();
+
+            IHostingEnvironment env = (IHostingEnvironment) webHost.Services.GetService(typeof(IHostingEnvironment));
+            IConfiguration conf = (IConfiguration) webHost.Services.GetService(typeof(IConfiguration));
+
+            Startup.SetExceptionsMode(env, conf);
+
+            webHost.Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        private static IWebHostBuilder CreateWebHostBuilder(StartupConfiguration startupConfiguration) =>
+            WebHost.CreateDefaultBuilder(startupConfiguration.Arguments)
                 .UseKestrel()
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
-                    string dbSettingFile = Path.GetFullPath(Path.Combine(configDir, "DataBaseConnection.json"));
-                    string mainSettingsFile = Path.GetFullPath(Path.Combine(configDir, "SunEngine.json"));
-                    string logSettingsFile = Path.GetFullPath(Path.Combine(configDir, "LogConfig.json"));
+                    string dbSettingFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigurationDirectoryRoute, "DataBaseConnection.json"));
+                    string mainSettingsFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigurationDirectoryRoute, "SunEngine.json"));
+                    string logSettingsFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigurationDirectoryRoute, "LogConfig.json"));
 
                     config.AddJsonFile(logSettingsFile, false, false);
                     config.AddJsonFile(dbSettingFile, false, false);
                     config.AddJsonFile(mainSettingsFile, false, false);
-                    config.AddCommandLine(args);
+                    config.AddCommandLine(startupConfiguration.Arguments);
                 });
+
+        private static bool SunEngineDllRunServer(StartupConfiguration startupConfiguration)
+        {
+            var webHost = CreateWebHostBuilder(startupConfiguration).Build();
+
+            IHostingEnvironment env = (IHostingEnvironment) webHost.Services.GetService(typeof(IHostingEnvironment));
+            IConfiguration conf = (IConfiguration) webHost.Services.GetService(typeof(IConfiguration));
+
+            if (bool.TryParse(conf["Dev:SunEngineDllRunServer"], out bool sunEngineDllRunServer))
+            {
+                if (sunEngineDllRunServer)
+                    return true;
+            }
+            else if (env.IsDevelopment())
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

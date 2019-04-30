@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.DataBase;
+using SunEngine.Commons.Errors;
 using SunEngine.Commons.Filters;
 using SunEngine.Commons.Managers;
-using SunEngine.Commons.Misc;
 using SunEngine.Commons.Models.Materials;
 using SunEngine.Commons.Presenters;
 using SunEngine.Commons.Security;
@@ -174,7 +174,7 @@ namespace SunEngine.Commons.Controllers
                 else
                 {
                     if (!materialsManager.IsNameValid(name))
-                        return ServiceResult.BadResult(new ErrorView("MaterialNameNotValid", "Invalid material name"));
+                        return ServiceResult.BadResult(new ErrorView("MaterialNameNotValid", "Invalid material name", ErrorType.System));
 
                     if (name != material.Name && await materialsManager.IsNameInDb(name))
                         return ServiceResult.BadResult(ErrorView.SoftError("MaterialNameAlreadyUsed",

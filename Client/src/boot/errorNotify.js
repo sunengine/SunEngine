@@ -1,13 +1,30 @@
-
 export default async ({app, Vue}) => {
   Vue.prototype.$errorNotify = function (error) {
 
-    const errors = error.response.data.errors;
+    const errors = error?.response?.data?.errors;
+    if (!errors)
+      return;
 
     for (const error of errors) {
-      const localizeDescription = this.$t("Errors." + error.code);
-      console.error(`Error code: ${error.code}, description: ${error.description}\nLocalize description: ${localizeDescription}`);
-      const color = error.isSoft ? "warning" : "negative";
+      const token = "Errors." + error.code;
+
+      let localizeDescription;
+      if (app.i18n.te(token))
+        localizeDescription = app.i18n.t(token);
+      else
+        localizeDescription = error.description;
+
+      let errorText = `Error code: ${error.code}\n`;
+      errorText += `Description: ${error.description}\nLocalize description: ${localizeDescription}\n`;
+
+      if (error.message)
+        errorText += `Message: ${error.message}\n`;
+      if (error.stackTrace)
+        errorText += `StackTrace: ${error.stackTrace}`;
+
+      console.error(errorText);
+
+      const color = error.type.toLowerCase() === "soft" ? "warning" : "negative";
 
       this.$q.notify({
         message: localizeDescription,
@@ -16,8 +33,5 @@ export default async ({app, Vue}) => {
         position: 'top'
       });
     }
-
-
-
   }
 }

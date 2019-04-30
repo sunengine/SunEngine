@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SunEngine.Commons.Configuration.Options;
+using SunEngine.Commons.Errors;
 using SunEngine.Commons.Filters;
 using SunEngine.Commons.Managers;
-using SunEngine.Commons.Misc;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Utils;
 
@@ -38,7 +38,8 @@ namespace SunEngine.Commons.Controllers
         {
             User user = await userManager.FindByEmailAsync(model.Email);
             if (user == null)
-                return BadRequest(new ErrorView("UserWithThisEmailNotFound", "User with this email not found."));
+                return BadRequest(new ErrorView("UserWithThisEmailNotFound", "User with this email not found.",
+                    ErrorType.System));
 
             var result = await accountManager.ResetPasswordSendEmailAsync(user);
             if (result.Failed)

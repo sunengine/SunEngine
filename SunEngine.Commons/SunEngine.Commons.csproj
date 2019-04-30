@@ -16,6 +16,8 @@
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
       <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.4.0" />
       <PackageReference Include="NJsonSchema" Version="9.13.29" />
+      <PackageReference Include="NLog" Version="4.6.2" />
+      <PackageReference Include="NLog.Config" Version="4.6.2" />
       <PackageReference Include="Npgsql" Version="4.0.6" />
       <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta0008" />
       <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />

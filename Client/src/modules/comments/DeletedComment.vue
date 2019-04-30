@@ -1,6 +1,6 @@
 <template>
   <div class="q-ml-lg text-grey-8">
-    Сообщение удалено
+    {{$tl("label")}}
   </div>
 </template>
 

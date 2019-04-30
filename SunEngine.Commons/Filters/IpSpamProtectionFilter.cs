@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Commons.Cache.Services;
 using SunEngine.Commons.Controllers;
-using SunEngine.Commons.Misc;
+using SunEngine.Commons.Errors;
 
 namespace SunEngine.Commons.Filters
 {

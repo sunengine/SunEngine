@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -11,7 +10,7 @@ using Microsoft.Extensions.Options;
 using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.Controllers;
 using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Misc;
+using SunEngine.Commons.Errors;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Security;
 using SunEngine.Commons.Services;
@@ -64,7 +63,7 @@ namespace SunEngine.Commons.Managers
 
             if (await userManager.IsUserInRoleAsync(user.Id, RoleNames.Banned))
             {
-                return UserServiceResult.BadResult(new ErrorView("UserBanned", "User is banned"));
+                return UserServiceResult.BadResult(new ErrorView("UserBanned", "User is banned", ErrorType.System));
             }
 
             return UserServiceResult.OkResult(user);
@@ -107,7 +106,7 @@ namespace SunEngine.Commons.Managers
                     catch (Exception exception)
                     {
                         return ServiceResult.BadResult(
-                            new ErrorView("EmailSendError", "Can not send email", exception));
+                            new ErrorView("EmailSendError", "Can not send email", ErrorType.System,     exception));
                     }
 
 

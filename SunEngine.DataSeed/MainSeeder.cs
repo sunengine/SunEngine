@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
 using SunEngine.Commons.DataBase;
+using SunEngine.Commons.Models;
 
 namespace SunEngine.DataSeed
 {
@@ -13,6 +14,9 @@ namespace SunEngine.DataSeed
     /// </summary>
     public class MainSeeder
     {
+        public const string SeedCommand = "seed";
+
+
         private readonly string providerName;
         private readonly string connectionString;
         private readonly string configDirPath;
@@ -47,9 +51,9 @@ namespace SunEngine.DataSeed
         /// </summary>
         public void SeedAddTestData(IList<string> catTokens, bool titleAppendCategoryName = false)
         {
-            
-            if (catTokens.Contains("seed")) catTokens[catTokens.IndexOf("seed")] = "seed:Root";
-            catTokens = catTokens.Select(x => x.Substring("seed:".Length)).ToList();
+            string seedCommandDots = SeedCommand + ":";
+            if (catTokens.Contains(SeedCommand)) catTokens[catTokens.IndexOf(SeedCommand)] = seedCommandDots + Category.RootName;
+            catTokens = catTokens.Select(x => x.Substring(seedCommandDots.Length)).ToList();
 
             using (DataBaseConnection db = new DataBaseConnection(providerName, connectionString))
             {

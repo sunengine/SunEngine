@@ -9,9 +9,8 @@ using Flurl;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SunEngine.Commons.Configuration.Options;
-using SunEngine.Commons.Controllers;
 using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Misc;
+using SunEngine.Commons.Errors;
 using SunEngine.Commons.Models;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.Utils;
@@ -62,7 +61,7 @@ namespace SunEngine.Commons.Managers
             }
             catch (Exception)
             {
-                ServiceResult.BadResult(new ErrorView ("EmailSendError","Server error. Can not send email."));
+                ServiceResult.BadResult(new ErrorView ("EmailSendError","Server error. Can not send email.", ErrorType.System));
             }
 
             return ServiceResult.OkResult();

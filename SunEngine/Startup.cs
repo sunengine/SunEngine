@@ -1,7 +1,5 @@
 ﻿using System;
-using System.IO;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +9,8 @@ using Microsoft.Extensions.Internal;
 using Newtonsoft.Json;
 using SunEngine.Admin;
 using SunEngine.Commons.Configuration.AddServices;
-using SunEngine.Commons.Controllers;
 using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Misc;
+using SunEngine.Commons.Errors;
 using SunEngine.Commons.Security;
 using SunEngine.Commons.Services;
 using SunEngine.Commons.Utils;
@@ -90,8 +87,8 @@ namespace SunEngine
                 .AddAuthorization()
                 .AddJsonFormatters(options =>
                 {
+                    options.ContractResolver = SunJsonContractResolver.Instance;
                     options.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                    // options.NullValueHandling = NullValueHandling.Ignore;
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -99,24 +96,10 @@ namespace SunEngine
 
         public void Configure(IApplicationBuilder app)
         {
-            if (CurrentEnvironment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                Console.WriteLine("ShowExceptionPages");
-            }
-            else
-            {
-                if (string.Equals(Configuration["showexceptionpages"], "true", StringComparison.OrdinalIgnoreCase))
-                {
-                    Console.WriteLine("ShowExceptionPages");
-                    app.UseDeveloperExceptionPage();
-                }
-
+            if (!CurrentEnvironment.IsDevelopment())
                 app.UseHsts();
-            }
 
-            //app.UseHttpsRedirection();
-            //app.UseFileServer();
+            // app.UseFileServer();
 
             app.UseCookiePolicy();
 
@@ -142,6 +125,26 @@ namespace SunEngine
                     name: "default",
                     template: "{controller}/{action}");
             });
+        }
+
+
+        public static void SetExceptionsMode(IHostingEnvironment env, IConfiguration conf)
+        {
+            void ShowExceptions()
+            {
+                Console.WriteLine("ShowExceptions mode");
+                SunJsonContractResolver.ShowExceptions = true;
+            }
+
+            if (bool.TryParse(conf["Dev:ShowExceptions"], out bool showExceptions))
+            {
+                if (showExceptions)
+                    ShowExceptions();
+            }
+            else if (env.IsDevelopment())
+            {
+                ShowExceptions();
+            }
         }
     }
 }
