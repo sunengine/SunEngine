@@ -11,7 +11,8 @@ namespace SunEngine
     public class Program
     {
         private static readonly InfoPrinter InfoPrinter = new InfoPrinter();
-        
+        private static readonly StartupRunner StartupRunner = new StartupRunner();
+
         public static void Main(string[] args)
         {
             StartupConfiguration startupConfiguration = new StartupConfiguration(args);
@@ -20,7 +21,7 @@ namespace SunEngine
                 InfoPrinter.PrintHelp();
 
             else if (startupConfiguration.StartServer)
-                RunServer(startupConfiguration);
+                StartupRunner.RunServer(startupConfiguration);
 
             else if (startupConfiguration.PrintVersion)
                 InfoPrinter.PrintVersion();
@@ -40,8 +41,8 @@ namespace SunEngine
             }
             else
             {
-                if (SunEngineDllRunServer(startupConfiguration))
-                    RunServer(startupConfiguration);
+                if (StartupRunner.SunEngineDllRunServer(startupConfiguration))
+                    StartupRunner.RunServer(startupConfiguration);
                 else
                     InfoPrinter.PrintVoidStartInfo();
             }
@@ -49,57 +50,10 @@ namespace SunEngine
 
         private static bool ShouldUpdateData(StartupConfiguration startupConfiguration)
         {
-            return startupConfiguration.Migrate || 
+            return startupConfiguration.Migrate ||
                    startupConfiguration.InitializeCoreData ||
                    startupConfiguration.SeedWithTestData;
         }
-        
-        private static void RunServer(StartupConfiguration startupConfiguration)
-        {
-            var webHost = CreateWebHostBuilder(startupConfiguration).Build();
-
-            IHostingEnvironment env = (IHostingEnvironment) webHost.Services.GetService(typeof(IHostingEnvironment));
-            IConfiguration conf = (IConfiguration) webHost.Services.GetService(typeof(IConfiguration));
-
-            Startup.SetExceptionsMode(env, conf);
-
-            webHost.Run();
-        }
-
-        private static IWebHostBuilder CreateWebHostBuilder(StartupConfiguration startupConfiguration) =>
-            WebHost.CreateDefaultBuilder(startupConfiguration.Arguments)
-                .UseKestrel()
-                .UseStartup<Startup>()
-                .ConfigureAppConfiguration((builderContext, config) =>
-                {
-                    string dbSettingFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigurationDirectoryRoute, "DataBaseConnection.json"));
-                    string mainSettingsFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigurationDirectoryRoute, "SunEngine.json"));
-                    string logSettingsFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigurationDirectoryRoute, "LogConfig.json"));
-
-                    config.AddJsonFile(logSettingsFile, false, false);
-                    config.AddJsonFile(dbSettingFile, false, false);
-                    config.AddJsonFile(mainSettingsFile, false, false);
-                    config.AddCommandLine(startupConfiguration.Arguments);
-                });
-
-        private static bool SunEngineDllRunServer(StartupConfiguration startupConfiguration)
-        {
-            var webHost = CreateWebHostBuilder(startupConfiguration).Build();
-
-            IHostingEnvironment env = (IHostingEnvironment) webHost.Services.GetService(typeof(IHostingEnvironment));
-            IConfiguration conf = (IConfiguration) webHost.Services.GetService(typeof(IConfiguration));
-
-            if (bool.TryParse(conf["Dev:SunEngineDllRunServer"], out bool sunEngineDllRunServer))
-            {
-                if (sunEngineDllRunServer)
-                    return true;
-            }
-            else if (env.IsDevelopment())
-            {
-                return true;
-            }
-
-            return false;
-        }
     }
+
 }
