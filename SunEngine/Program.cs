@@ -1,8 +1,4 @@
-using System.IO;
 using SunEngine.DataSeed;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using SunEngine.Migrations;
 
 
@@ -11,7 +7,7 @@ namespace SunEngine
     public class Program
     {
         private static readonly InfoPrinter InfoPrinter = new InfoPrinter();
-        private static readonly StartupRunner StartupRunner = new StartupRunner();
+        private static readonly ServerStartup ServerStartup = new ServerStartup();
 
         public static void Main(string[] args)
         {
@@ -19,9 +15,6 @@ namespace SunEngine
 
             if (startupConfiguration.PrintHelp)
                 InfoPrinter.PrintHelp();
-
-            else if (startupConfiguration.StartServer)
-                StartupRunner.RunServer(startupConfiguration);
 
             else if (startupConfiguration.PrintVersion)
                 InfoPrinter.PrintVersion();
@@ -41,11 +34,9 @@ namespace SunEngine
             }
             else
             {
-                if (StartupRunner.SunEngineDllRunServer(startupConfiguration))
-                    StartupRunner.RunServer(startupConfiguration);
-                else
-                    InfoPrinter.PrintVoidStartInfo();
+                ServerStartup.RunServer(startupConfiguration);    
             }
+            
         }
 
         private static bool ShouldUpdateData(StartupConfiguration startupConfiguration)
@@ -55,5 +46,5 @@ namespace SunEngine
                    startupConfiguration.SeedWithTestData;
         }
     }
-
+    
 }

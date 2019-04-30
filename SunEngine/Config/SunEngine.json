@@ -5,8 +5,7 @@
     "SiteName": "SunEngine"
   },
   "Dev":  {
-    "ShowExceptions": true,
-    "SunEngineDllRunServer": true
+    "ShowExceptions": true    
   },
   "Images": {
     "UploadDir": "UploadImages",
