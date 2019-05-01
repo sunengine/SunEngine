@@ -38,6 +38,10 @@ namespace SunEngine.Commons.Cache.CacheModels
 
         public int? ParentId { get; }
         public CategoryCached Parent { get; private set; }
+        
+        public int? CacheSettingsId { get; set; }
+        
+        public CategoryCacheSettings CacheSettings { get; set; }
 
         public IImmutableList<CategoryCached> SubCategories { get; private set; }
 
@@ -70,6 +74,8 @@ namespace SunEngine.Commons.Cache.CacheModels
             SectionTypeId = category.SectionTypeId;
             AppendUrlToken = category.AppendUrlToken;
             ParentId = category.ParentId;
+            CacheSettingsId = category.CacheSettingsId;
+            CacheSettings = category.CacheSettings;
             SortNumber = category.SortNumber;
             IsHidden = category.IsHidden;
             IsCacheContent = category.IsCacheContent;

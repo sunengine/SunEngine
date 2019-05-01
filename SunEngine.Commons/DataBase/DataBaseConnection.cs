@@ -71,6 +71,8 @@ namespace SunEngine.Commons.DataBase
 
         public ITable<BlackListShortToken> BlackListShortTokens => GetTable<BlackListShortToken>();
 
+        public ITable<CacheSettings> CacheSettings => GetTable<CacheSettings>();
+
 
         public void UpdateSequence(string tableName, string keyName)
         {

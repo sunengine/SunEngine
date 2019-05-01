@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Internal;
 using Newtonsoft.Json;
 using SunEngine.Admin;
 using SunEngine.Commons.Configuration.AddServices;
@@ -29,7 +30,6 @@ namespace SunEngine
 
         private IHostingEnvironment CurrentEnvironment { get; }
 
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
@@ -38,17 +38,20 @@ namespace SunEngine
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             if (CurrentEnvironment.IsDevelopment())
             {
                 services.AddCors();
             }
 
             services.AddOptions(Configuration);
-
+            
             DataBaseFactory dataBaseFactory = services.AddDatabase(Configuration);
 
+            services.AddDbOptions(dataBaseFactory);
+            
             services.AddStores(dataBaseFactory);
+
+            services.AddCachePolicy();
 
             services.AddIdentity(dataBaseFactory);
 
@@ -62,16 +65,19 @@ namespace SunEngine
 
             services.AddAdmin();
 
+            services.AddMemoryCache();
+
             services.AddCryptServices();
 
             services.AddImagesServices();
 
             services.AddJobs();
 
+            services.AddSingleton<IServiceCollection>(x => services);
+            
             services.AddSingleton<CaptchaService>();
             services.AddSingleton<Sanitizer>();
             services.AddTransient<IEmailSenderService, EmailSenderService>();
-
 
             services.AddMvcCore(options =>
                 {
@@ -108,9 +114,7 @@ namespace SunEngine
             }
 
             app.UseAuthentication();
-
             app.UseExceptionHandler(errorApp => errorApp.Run(SunExceptionHandler.Handler));
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

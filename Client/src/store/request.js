@@ -2,8 +2,9 @@ import axios from 'axios'
 import {removeTokens, setTokens, parseJwt} from 'services/tokens';
 import Lock from 'js-lock';
 import {store} from 'store';
+
 import Vue from 'vue';
-import {consoleTokens, consoleUserLogout, consoleRequestStart, consoleRequestUrl} from "services/consoleStyles";
+import { consoleTokens, consoleUserLogout, consoleRequestStart, consoleRequestUrl } from "../defination";
 
 const lock = new Lock("request-lock");
 
