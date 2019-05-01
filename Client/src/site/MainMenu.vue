@@ -92,7 +92,7 @@
 
 <script>
   export default {
-    name: "MainMenu"
+    name: "MainMenu",
   }
 </script>
 
