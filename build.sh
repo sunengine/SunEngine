@@ -17,7 +17,7 @@ mkdir "$parent_path/build"
  
 
 echo -e "\n${GREEN}Publishing SunEngine${NC}\n"
-dotnet publish -c Release SunEngine -o "$parent_path/build" -v m
+dotnet publish -c Release SunEngine.Cli -o "$parent_path/build" -v m
 
 
 echo -e "\n${GREEN}Building Client${NC}\n"
