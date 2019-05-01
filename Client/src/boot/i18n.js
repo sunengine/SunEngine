@@ -1,5 +1,5 @@
 import VueI18n from 'vue-i18n'
-import messages from 'i18n'
+import messages from 'site/i18n'
 
 export default async ({app, Vue}) => {
   Vue.use(VueI18n)

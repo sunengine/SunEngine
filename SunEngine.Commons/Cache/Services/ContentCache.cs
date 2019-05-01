@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
+using SunEngine.Commons.Configuration.Options;
 using SunEngine.Commons.Utils;
 
 namespace SunEngine.Commons.Cache.Services
@@ -7,54 +10,32 @@ namespace SunEngine.Commons.Cache.Services
     public interface IContentCache
     {
         string GetContent(string key);
-        bool IsCached(int categoryId);
-        bool IsCached(string categoryName);
         bool CacheContent(string key, string content);
         bool CacheContent(string key, object content, out string convertedContent);
         void InvalidateCache(int categoryId);
         void InvalidateCache(string categoryName);
-
         void Reset();
     }
 
     public class CategoryContentCache : IContentCache
     {
-        private Dictionary<string, string> allContent =
-            new Dictionary<string, string>();
-
         private ICategoriesCache categoriesCache;
+        private IMemoryCache memoryCache;
+        private IOptions<CacheOptions> cacheOptions;
+        private List<string> recordsKeyList = new List<string>();
 
-        public CategoryContentCache(ICategoriesCache categoriesCache)
+        public CategoryContentCache(ICategoriesCache categoriesCache,
+            IMemoryCache memoryCache,
+            IOptions<CacheOptions> cacheOptions)
         {
             this.categoriesCache = categoriesCache;
-        }
-
-        public void Reset()
-        {
-            allContent.Clear();
+            this.memoryCache = memoryCache;
+            this.cacheOptions = cacheOptions;
         }
 
         public string GetContent(string key)
         {
-            allContent.TryGetValue(key, out var content);
-            return content;
-        }
-
-        public bool IsCached(int categoryId)
-        {
-            foreach (var key in allContent.Keys)
-            {
-                if (key.Contains($",{categoryId},"))
-                    return true;
-            }
-
-            return false;
-        }
-
-        public bool IsCached(string categoryName)
-        {
-            var categoryId = GetCategoryId(categoryName);
-            return categoryId != null && IsCached((int)categoryId);
+            return memoryCache.Get<string>(key);
         }
 
         public bool CacheContent(string key, string content)
@@ -63,7 +44,28 @@ namespace SunEngine.Commons.Cache.Services
                 || string.IsNullOrEmpty(content))
                 return false;
 
-            allContent[key] = content;
+            var invalidateCacheTime = 15;
+            if (cacheOptions.Value.InvalidateCacheTime.HasValue)
+            {
+                invalidateCacheTime = cacheOptions.Value.InvalidateCacheTime.Value;
+                if (invalidateCacheTime == 0)
+                    invalidateCacheTime = int.MaxValue;
+            }
+
+            var options = new MemoryCacheEntryOptions()
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(invalidateCacheTime),
+                PostEvictionCallbacks =
+                {
+                    new PostEvictionCallbackRegistration()
+                    {
+                        EvictionCallback = OnCacheRecordExpire
+                    }
+                }
+            };
+            
+            memoryCache.Set(key, content, options);
+            recordsKeyList.Add(key);
             return true;
         }
 
@@ -75,8 +77,11 @@ namespace SunEngine.Commons.Cache.Services
 
         public void InvalidateCache(int categoryId)
         {
-            allContent.Keys.Where(x => x.Contains($",{categoryId},"))
-                .ToList().ForEach(x => allContent.Remove(x));
+            foreach (var key in recordsKeyList)
+            {
+                if (key.Contains($",{categoryId},"))
+                    memoryCache.Remove(key);
+            }
         }
 
         public void InvalidateCache(string categoryName)
@@ -85,12 +90,25 @@ namespace SunEngine.Commons.Cache.Services
             if (categoryId == null)
                 return;
 
-            InvalidateCache((int)categoryId);
+            InvalidateCache((int) categoryId);
+        }
+
+        public void Reset()
+        {
+            recordsKeyList.ForEach(x => memoryCache.Remove(x));
         }
 
         private int? GetCategoryId(string categoryName)
         {
             return categoriesCache.GetCategory(Normalizer.Normalize(categoryName))?.Id;
+        }
+
+        private void OnCacheRecordExpire(object key,
+            object value,
+            EvictionReason reason,
+            object state)
+        {
+            recordsKeyList.Remove((string) key);
         }
     }
 }

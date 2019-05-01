@@ -1,4 +1,3 @@
-
 export var consoleInit = "color:white; background-color: #49AB00; border-radius: 5px; padding: 1px 7px;";
 export var consoleUserLogout = "color:white; background-color: #EE7063; border-radius: 5px; padding: 1px 7px;";
 

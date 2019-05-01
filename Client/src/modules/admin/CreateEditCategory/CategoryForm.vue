@@ -95,7 +95,7 @@
       name: [
         value => !!value || this.$tl("validation.name.required"),
         value => value.length >= 2 || this.$tl("validation.name.minLength"),
-        value => /^[a-zA-Z0-9-]*$/.test(value) || this.$tl("validation.name.allowedChars"),
+        value => /^[a-zA-Z0-9_-]*$/.test(value) || this.$tl("validation.name.allowedChars"),
       ],
       title: [
         value => !!value || this.$tl("validation.title.required"),

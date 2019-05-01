@@ -15,8 +15,8 @@ module.exports = function (ctx) {
       'buildPath',
       'imagePath',
       'formatDate',
-      'errorNotify',
-      'successNotify'
+      'successNotify',
+      'errorNotify'
     ],
     css: [
       'app.styl'
@@ -60,7 +60,8 @@ module.exports = function (ctx) {
         'QAvatar',
         'QTree',
         'QExpansionItem',
-        'QDialog'
+        'QDialog',
+        'QField'
       ],
 
       directives: [

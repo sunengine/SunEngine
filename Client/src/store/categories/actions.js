@@ -1,4 +1,4 @@
-import {consoleInit} from "services/consoleStyles";
+import { consoleInit } from "../../defination";
 
 export async function getAllCategories(context, data) {
 

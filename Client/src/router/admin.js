@@ -6,6 +6,7 @@ import EditCategory from 'admin/CreateEditCategory/EditCategory';
 import RolesPermissions from 'admin/RolesPermissions';
 import RoleUsers from 'admin/RoleUsers';
 import RolesPage from 'admin/RolesPage';
+import CacheSettings from 'admin/CacheSettings';
 
 
 import {store} from 'store';
@@ -24,6 +25,14 @@ const routes = [
     path: '/admin/CategoriesAdmin'.toLowerCase(),
     components: {
       default: CategoriesAdmin,
+      navigation: AdminPanel
+    }
+  },
+  {
+    name: 'CacheSettings',
+    path: '/admin/CacheSettings'.toLowerCase(),
+    components: {
+      default: CacheSettings,
       navigation: AdminPanel
     }
   },
