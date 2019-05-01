@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Models.Authorization;
-using SunEngine.Commons.Models.Materials;
+using SunEngine.Core.Models;
+using SunEngine.Core.Models.Authorization;
+using SunEngine.Core.Models.Materials;
 
 namespace SunEngine.DataSeed
 {

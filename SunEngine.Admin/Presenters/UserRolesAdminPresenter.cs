@@ -1,11 +1,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Presenters;
-using SunEngine.Commons.Security;
-using SunEngine.Commons.Services;
-using SunEngine.Commons.Utils;
+using SunEngine.Core.DataBase;
+using SunEngine.Core.Presenters;
+using SunEngine.Core.Security;
+using SunEngine.Core.Services;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.Admin.Presenters
 {

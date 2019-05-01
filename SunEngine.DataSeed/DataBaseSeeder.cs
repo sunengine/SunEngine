@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using LinqToDB;
 using LinqToDB.Data;
-using SunEngine.Commons.DataBase;
+using SunEngine.Core.DataBase;
 
 namespace SunEngine.DataSeed
 {

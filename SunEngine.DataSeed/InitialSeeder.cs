@@ -2,11 +2,10 @@ using System;
 using System.IO;
 using System.Linq;
 using NJsonSchema;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Models.Authorization;
-using SunEngine.Commons.Security;
-using SunEngine.Commons.Utils;
+using SunEngine.Core.Models;
+using SunEngine.Core.Models.Authorization;
+using SunEngine.Core.Security;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.DataSeed
 {

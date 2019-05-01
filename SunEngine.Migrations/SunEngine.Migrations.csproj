@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SunEngine.Commons\SunEngine.Commons.csproj" />
+      <ProjectReference Include="..\SunEngine.Core\SunEngine.Core.csproj" />
     </ItemGroup>
 
 </Project>

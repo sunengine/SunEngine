@@ -2,9 +2,9 @@ using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json.Linq;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Models.Authorization;
-using SunEngine.Commons.Utils;
+using SunEngine.Core.Models;
+using SunEngine.Core.Models.Authorization;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.DataSeed
 {

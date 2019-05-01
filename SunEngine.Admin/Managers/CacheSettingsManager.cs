@@ -5,14 +5,12 @@ using LinqToDB;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using SunEngine.Commons.Cache.CachePolicy;
-using SunEngine.Commons.Cache.Services;
-using SunEngine.Commons.Configuration.Options;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Services;
-using SunEngine.Commons.Utils;
-using SunEngine.Commons.Utils.CustomExceptions;
+using SunEngine.Core.Cache.Services;
+using SunEngine.Core.Configuration.Options;
+using SunEngine.Core.DataBase;
+using SunEngine.Core.Models;
+using SunEngine.Core.Services;
+using SunEngine.Core.Utils.CustomExceptions;
 
 namespace SunEngine.Admin.Managers
 {

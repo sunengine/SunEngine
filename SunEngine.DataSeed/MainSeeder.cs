@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Models;
+using SunEngine.Core.DataBase;
+using SunEngine.Core.Models;
 
 namespace SunEngine.DataSeed
 {

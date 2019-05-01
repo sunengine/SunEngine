@@ -8,11 +8,11 @@ using LinqToDB.Data;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using NJsonSchema;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Models.Authorization;
-using SunEngine.Commons.Services;
-using SunEngine.Commons.Utils;
+using SunEngine.Core.DataBase;
+using SunEngine.Core.Models;
+using SunEngine.Core.Models.Authorization;
+using SunEngine.Core.Services;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.Admin.Services
 {

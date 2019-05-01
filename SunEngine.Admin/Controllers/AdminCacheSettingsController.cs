@@ -5,11 +5,10 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Managers;
 using SunEngine.Admin.Presenters;
-using SunEngine.Commons.Configuration.Options;
-using SunEngine.Commons.Controllers;
-using SunEngine.Commons.Errors;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Utils.CustomExceptions;
+using SunEngine.Core.Configuration.Options;
+using SunEngine.Core.Errors;
+using SunEngine.Core.Models;
+using SunEngine.Core.Utils.CustomExceptions;
 
 namespace SunEngine.Admin.Controllers
 {

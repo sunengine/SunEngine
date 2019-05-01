@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Services;
-using SunEngine.Commons.Errors;
+using SunEngine.Core.Errors;
 
 namespace SunEngine.Admin.Controllers
 {
