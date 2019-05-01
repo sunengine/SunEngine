@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using SunEngine.DataSeed;
 using Microsoft.AspNetCore;
@@ -11,7 +12,7 @@ namespace SunEngine
     public class Program
     {
         private static readonly InfoPrinter InfoPrinter = new InfoPrinter();
-        
+
         public static void Main(string[] args)
         {
             StartupConfiguration startupConfiguration = new StartupConfiguration(args);
@@ -49,18 +50,18 @@ namespace SunEngine
 
         private static bool ShouldUpdateData(StartupConfiguration startupConfiguration)
         {
-            return startupConfiguration.Migrate || 
+            return startupConfiguration.Migrate ||
                    startupConfiguration.InitializeCoreData ||
                    startupConfiguration.SeedWithTestData;
         }
-        
+
         private static void RunServer(StartupConfiguration startupConfiguration)
         {
             var webHost = CreateWebHostBuilder(startupConfiguration).Build();
 
             IHostingEnvironment env = (IHostingEnvironment) webHost.Services.GetService(typeof(IHostingEnvironment));
             IConfiguration conf = (IConfiguration) webHost.Services.GetService(typeof(IConfiguration));
-
+            
             Startup.SetExceptionsMode(env, conf);
 
             webHost.Run();

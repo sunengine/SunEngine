@@ -19,8 +19,7 @@
         <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.4" />
         <PackageReference Include="System.Linq" Version="4.3.0" />
     </ItemGroup>
-
-
+    
     <ItemGroup>
         <Content Update="Config\**">
           <CopyToPublishDirectory>None</CopyToPublishDirectory>
