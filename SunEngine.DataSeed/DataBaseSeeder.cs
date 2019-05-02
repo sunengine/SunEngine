@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using LinqToDB;
 using LinqToDB.Data;
-using SunEngine.Commons.DataBase;
+using SunEngine.Core.DataBase;
 
 namespace SunEngine.DataSeed
 {
@@ -56,6 +56,12 @@ namespace SunEngine.DataSeed
 
             Console.WriteLine("CategoryOperationAccesses");
             db.BulkCopy(options, dataContainer.CategoryOperationAccesses);
+
+            if (dataContainer.CacheSettings != null)
+            {
+                Console.WriteLine("Cache Settings");
+                db.Insert(dataContainer.CacheSettings);
+            }
 
             RunDbCpecificCode();
 

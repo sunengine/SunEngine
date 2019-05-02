@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Models.Materials;
-using SunEngine.Commons.Utils;
-using SunEngine.Commons.Utils.TextProcess;
+using SunEngine.Core.Models;
+using SunEngine.Core.Models.Materials;
+using SunEngine.Core.Utils;
+using SunEngine.Core.Utils.TextProcess;
 
 namespace SunEngine.DataSeed
 {

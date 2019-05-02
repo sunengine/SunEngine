@@ -61,10 +61,6 @@ const routes = [
       }
     }
   },
-/*  {
-    path: '/TestExt'.toLowerCase(),
-    component: TestExt,
-  },*/
   ...makeForumSection("Forum", Categories1),
   ...makeForumSection("Forum2L", Categories2),
   ...makeArticlesSection("Articles"),

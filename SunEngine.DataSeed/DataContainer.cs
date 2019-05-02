@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Models.Authorization;
-using SunEngine.Commons.Models.Materials;
+using SunEngine.Core.Models;
+using SunEngine.Core.Models.Authorization;
+using SunEngine.Core.Models.Materials;
 
 namespace SunEngine.DataSeed
 {
@@ -40,8 +40,8 @@ namespace SunEngine.DataSeed
         public List<UserRole> UserRoles = new List<UserRole>();
         public List<CategoryAccess> CategoryAccesses = new List<CategoryAccess>(); 
         public List<CategoryOperationAccess> CategoryOperationAccesses = new List<CategoryOperationAccess>();
-        public List<OperationKey> OperationKeys = new List<OperationKey>(); 
-
+        public List<OperationKey> OperationKeys = new List<OperationKey>();
+        public CacheSettings CacheSettings = null;
 
         public Random ran = new Random();
         

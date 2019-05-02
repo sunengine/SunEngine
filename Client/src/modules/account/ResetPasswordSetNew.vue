@@ -107,10 +107,8 @@
     },
     created() {
       this.title = this.$tl("title");
-
       this.rules = createRules.call(this);
-    },
-
+    }
   }
 </script>
 

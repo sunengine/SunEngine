@@ -10,7 +10,8 @@ export default {
   AdminMenu: {
     categoriesAdmin: "Категории",
       rolesPermissions: "Настройка прав",
-      rolesUsers: "Группы пользователей"
+      rolesUsers: "Группы пользователей",
+      cacheSettings: "Настройки кэширования"
   },
   EditCategory: {
     title: "Редактировать категорию",
@@ -42,6 +43,8 @@ export default {
       appendUrlTokenCb: "Добавлять в URL",
       appendUrlTokenInfo: "(использовать только если вы понимаете что это)",
       isMaterialsContainerCb: "Содержит материалы",
+      isCaching: "Кэшировать содержимое",
+      cachingPageCount: "Кэшировать N страниц",
       noTypeLabel: "Без типа",
       validation: {
       name: {
@@ -67,8 +70,8 @@ export default {
       backupWarning: "Перед загрузкой необходимо сделать backup базы.",
       saveToServerBtn: "Сохранить на сервер",
       getFromServer: "Загрузить с сервера",
-      getFromServerSuccessNotify: "Данные загружены с сервера",
-      saveToServerSuccessNotify: "Настройки групп успешно обновлены",
+      getSuccessNotify: "Данные загружены с сервера",
+      saveSuccessNotify: "Настройки групп успешно обновлены",
       textAreaLabel: "Json файл конфигурации прав групп"
   },
   ProfileRoles: {
@@ -90,5 +93,23 @@ export default {
       filter: "Найти по имени",
       noResults: "Нет результатов",
       filterLimitReached: "Выведены первые {0} результатов"
+  },
+  CacheSettings: {
+    title: "Настройки кэширования",
+    CachePolicy: "Политика кэширования",
+    AlwaysPolicy: "Всегда кэшировать",
+    NeverPolicy: "Никогда не кэшировать",
+    CustomPolicy: "Настриваемая политика",
+    CacheLifetime: "Время хранения записи",
+    SaveChanges: "Сохранить настройки",
+    WithoutInvalidationTime: "Без ограничения по времени",
+    successNotify: "Политика кэширования изменена",
+    error: "Произошла ошибка",
+    validation: {
+      invalidateCacheTime: {
+        required: "Поле должно быть заполнено",
+        invalidValue: "Значение не может быть ниже 0",
+      }
+    }
   }
 };

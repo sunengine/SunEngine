@@ -5,7 +5,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SunEngine.Commons\SunEngine.Commons.csproj" />
+      <PackageReference Include="System.Runtime.Caching" Version="4.6.0-preview4.19212.13" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SunEngine.Core\SunEngine.Core.csproj" />
     </ItemGroup>
 
 </Project>

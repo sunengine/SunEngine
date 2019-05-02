@@ -1,8 +1,8 @@
 using System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SunEngine.Commons.Controllers;
-using SunEngine.Commons.Security;
+using SunEngine.Core.Controllers;
+using SunEngine.Core.Security;
 
 namespace SunEngine.Admin.Controllers
 {

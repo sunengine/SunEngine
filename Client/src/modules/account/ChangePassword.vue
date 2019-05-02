@@ -109,14 +109,7 @@
             passwordNew: this.password
           }
         }).then(response => {
-          const msg = this.$tl("successNotify");
-          this.$q.notify({
-            message: msg,
-            timeout: 2800,
-            color: 'positive',
-            icon: 'fas fa-check-circle',
-            position: 'top'
-          });
+          this.$successNotify();
           this.submitting = false;
           this.$router.back();
         }).catch(error => {

@@ -5,8 +5,8 @@ import auth from './auth'
 import request from "./request";
 import categories from "store/categories";
 import {getTokens, makeUserDataFromTokens} from "services/tokens";
-import {consoleInit} from "services/consoleStyles";
-//import extensions from './extensions'
+import { consoleInit } from "defination";
+
 
 Vue.use(Vuex);
 
@@ -37,8 +37,6 @@ export default function (/* { ssrContext } */) {
         try {
           !this.state.categories.all && await this.dispatch('getAllCategories');
 
-          //await this.dispatch('getAndSetAllExtensions');
-
           this.state.isInitialized = true;
         } catch (x) {
           console.error("error", x);
@@ -48,8 +46,7 @@ export default function (/* { ssrContext } */) {
     },
     modules: {
       auth,
-      categories,
-      //extensions
+      categories
     }
   });
 

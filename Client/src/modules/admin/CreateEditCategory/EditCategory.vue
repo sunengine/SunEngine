@@ -114,14 +114,7 @@
             sendAsJson: true
           })
           .then(() => {
-            const msg = this.$tl("successNotify");
-            this.$q.notify({
-              message: msg,
-              timeout: 5000,
-              color: 'positive',
-              icon: 'far fa-check-circle',
-              position: 'top'
-            });
+            this.$successNotify();
             this.$router.push({name: 'CategoriesAdmin'});
           }).catch(error => {
             this.$errorNotify(error);

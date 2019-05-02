@@ -17,11 +17,12 @@
   import MaterialForm from "./MaterialForm";
   import {GetWhereToAdd} from "./GetWhereToAddMove";
   import Page from "Page";
+  import LoaderSent from "LoaderSent";
 
   export default {
     name: "CreateMaterial",
     mixins: [Page],
-    components: {MaterialForm},
+    components: {MaterialForm, LoaderSent},
     props: {
       categoriesNames: {
         type: String,
@@ -77,13 +78,7 @@
           url: '/Materials/Create',
           data: data
         }).then(() => {
-          const msg = this.$tl("successNotify");
-          this.$q.notify({
-            message: msg,
-            timeout: 2300,
-            color: 'positive',
-            position: 'top'
-          });
+          this.$successNotify();
           this.$router.push(this.$refs.form.category.path);
         }).catch(error => {
           this.$errorNotify(error);

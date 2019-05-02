@@ -3,8 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Utils;
+using SunEngine.Core.Models;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.DataSeed
 {

@@ -3,12 +3,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
 using LinqToDB;
-using SunEngine.Commons.Cache.Services;
-using SunEngine.Commons.DataBase;
-using SunEngine.Commons.Models;
-using SunEngine.Commons.Services;
-using SunEngine.Commons.Utils;
-using SunEngine.Commons.Utils.TextProcess;
+using SunEngine.Core.Cache.Services;
+using SunEngine.Core.DataBase;
+using SunEngine.Core.Models;
+using SunEngine.Core.Services;
+using SunEngine.Core.Utils;
+using SunEngine.Core.Utils.TextProcess;
 
 namespace SunEngine.Admin.Managers
 {
