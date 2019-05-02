@@ -218,7 +218,8 @@ export default {
   },
   ReadComment: {
     edit: "редактировать",
-    deleteDialogMessage: "Удалить сообщение?"
+    deleteDialogMessage: "Удалить сообщение?",
+    moveToTrashSuccess: "Комментарий удалён"
   },
   Post: {
     commentsCount: "сообщений",

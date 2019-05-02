@@ -63,6 +63,8 @@ cd <template>
                 }
             }).then(
             () => {
+              const msg = this.$tl("moveToTrashSuccess");
+              this.$successNotify(msg);
               this.comment.isDeleted = true;
             }).catch(error => {
             this.$errorNotify(error);

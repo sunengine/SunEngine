@@ -5,9 +5,10 @@
       :toolbar="[
           ['bold', 'italic', 'strike', 'underline'],
           ['token', 'hr', 'link', 'addImages'],
- [
+          [
             {
               icon: $q.iconSet.editor.formatting,
+              fixedLabel: true,
               list: 'no-icons',
               options: ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'code']
             },
@@ -82,7 +83,6 @@
     methods: {
       async addComment() {
         this.loading = true;
-        const messageSpamProtection = this.$tl("spamProtectionComment");
 
         await this.$store.dispatch("request",
           {
