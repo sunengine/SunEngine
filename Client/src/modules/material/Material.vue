@@ -18,7 +18,7 @@
       </div>
       <div class="q-py-sm text-grey-8 flex" style="align-items: center">
         <div class="q-mr-md">
-          <router-link :to="'/user/'+material.authorLink">
+          <router-link :to="{name: 'User', params: {link: material.authorLink}}">
             <img class="avatar mat-avatar" :src="$imagePath(material.authorAvatar)"/>{{material.authorName}}
           </router-link>
         </div>

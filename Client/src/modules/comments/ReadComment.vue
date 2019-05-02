@@ -5,7 +5,7 @@ cd <template>
     <div class="q-my-md">
       <div class="q-mb-xs" style="display: flex;">
         <span  style="flex-grow:1">
-           <router-link :to="'/user/'+comment.authorLink">
+           <router-link :to="{name: 'User', params: {link: comment.authorLink}}" >
              {{comment.authorName}}
            </router-link>
         </span> &nbsp;
