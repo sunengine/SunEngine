@@ -1,7 +1,6 @@
 <template>
   <div>
     <MyEditor
-
       :toolbar="[
           ['bold', 'italic', 'strike', 'underline'],
           ['token', 'hr', 'link', 'addImages'],
@@ -113,8 +112,8 @@
               Text: this.comment.text
             }
           }).then(() => {
-          const msg = this.$tl("editSuccessNotify");
-          this.$successNotify(msg);
+            const msg = this.$tl("editSuccessNotify");
+            this.$successNotify(msg);
             this.$emit('done');
             this.loading = false;
           }
