@@ -82,7 +82,6 @@ export default {
     addRoleConfirmOkBtn: "Yes",
     removeRoleConfirm: "Remove from group '{0}'?",
     removeRoleConfirmOkBtn: "Remove",
-
   },
   RolesPage: {
     title: "Groups page",
