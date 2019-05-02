@@ -1,95 +1,94 @@
 export default {
-
   Global: {
     dialog: {
-      cancel: "Отмена",
-      yes: "Да",
-      ok: "Да"
+      cancel: "Cancel",
+      yes: "Yes",
+      ok: "Ok"
     },
     btn: {
-      save: "Сохранить",
-      cancel: "Отмена"
+      save: "Save",
+      cancel: "Cancel"
     },
     validation: {
-      emailSig: "Неправильная сигнатура email",
+      emailSig: "Incorrect email",
     },
-    errorNotify: "Ошибка",
-    submitting: "Отправляю данные..."
+    errorNotify: "Error",
+    submitting: "Sending..."
   },
   LoginRegisterMenu: {
-    enter: "Войти",
-    register: "Зарегистрироваться"
+    enter: "Sign In",
+    register: "Sign Up"
   },
   App: {
-    loading: "Загрузка...",
-    canNotConnectApi: "Невозможно соединиться с API."
+    loading: "Loading...",
+    canNotConnectApi: "Can`t connect to API."
   },
   Captcha: {
-    newMessageBtn: "Выдать новое изображение",
-    waitMessage: "Что бы сгенерировать новый токен, нужно немного подождать, попробуйте через некоторое время",
-    enterToken: "Введите текст с картинки",
+    newMessageBtn: "Generate new captcha",
+    waitMessage: "To generate a new token, you need to wait a bit, try after a while",
+    enterToken: "Enter text from image",
     required: "@:Captcha.enterToken",
   },
   UserMenu: {
-    profile: "Профиль",
-    yourAccount: "Личный кабинет",
-    adminPanel: "Админка",
-    exit: "Выйти",
-    logoutNotify: "Вы вышли",
+    profile: "Profile",
+    yourAccount: "Account",
+    adminPanel: "Admin Panel",
+    exit: "Sign Out",
+    logoutNotify: "You did logout",
   },
   Login: {
-    title: "Войти",
-    nameOrEmail: "Имя или email",
-    password: "Пароль",
-    entering: "Заходим...",
-    enterBtn: "Войти",
-    forgotPassword: "Забыли пароль?",
-    notMyComputer: "Чужой компьютер",
-    enterSuccess: "Вы зашли",
+    title: "Sign In",
+    nameOrEmail: "Login or email",
+    password: "Password",
+    entering: "Sign In...",
+    enterBtn: "Sign In",
+    forgotPassword: "Forget password?",
+    doNotRemember: "Do not remember",
+    enterSuccess: "You logged in",
     validation: {
       nameOrEmail: {
-        required: "Введите имя или email"
+        required: "Enter login or email"
       },
       password: {
-        required: "Введите пароль"
+        required: "Enter password"
       },
     }
   },
   Register: {
-    title: "Зарегистрироваться",
-    userName: "Имя пользователя",
+    title: "Sign Up",
+    userName: "Login",
     email: "Email",
-    password: "Пароль",
-    password2: "Подтвердите пароль",
+    password: "Password",
+    password2: "Repeat password",
     registerBtn: "@:Register.title",
-    registering: "Регистрируемся...",
-    emailSent: "Сообщение с ссылкой для регистрации отправлено на email",
+    registering: "Sing Up...",
+    emailSent: "An email has been sent to the address you supplied. Important! Please check your email for a message confirming your registration.",
     validation: {
       userName: {
-        required: "Введите имя пользователя",
-        minLength: "Имя пользователя должно быть не менее чем из 3 букв",
-        maxLength: `Имя пользователя должно состоять не более чем из ${config.DbColumnSizes.Users_UserName} символов`
+        required: "Enter login",
+        minLength: "Login must be at least 3 letters long",
+        maxLength: `Login must be at most not ${config.DbColumnSizes.Users_UserName} characters`
       },
       email: {
-        required: "Введите email",
+        required: "Enter email",
         emailSig: "@:Global.validation.emailSig",
-        maxLength: `Email должен состоять не более чем из ${config.DbColumnSizes.Users_Email} символов`
+        maxLength: `Email must be at most not ${config.DbColumnSizes.Users_Email} characters`
       },
       password: {
-        required: "Введите пароль",
-        minLength: `Пароль должен состоять не менее чем из ${config.PasswordValidation.MinLength} символов`,
-        minDifferentChars: `В пароле должно быть не менее ${config.PasswordValidation.MinDifferentChars} разных символов`
+        required: "Enter password",
+        minLength: `Password must be at least ${config.PasswordValidation.MinLength} characters`,
+        minDifferentChars: `Password must contain at least ${config.PasswordValidation.MinDifferentChars} different characters`
       },
       password2: {
-        equals: "Пароли должны совпадать"
+        equals: "Passwords must match"
       }
     }
   },
   RegisterEmailResult: {
-    title: "Подтверждение почты",
-    success: "Ваша почта успешно подтверждена.",
-    error: "Подтверждение почты. Что-то пошло не так.",
-    enter: "Войти"
+    title: "Confirm Email",
+    success: "Your email was confirmed.",
+    error: "Something went wrong.",
+    enter: "Sign In"
   },
   ChangeEmailResult: {
     title: "@:RegisterEmailResult.title",
@@ -97,10 +96,10 @@ export default {
     error: "@:RegisterEmailResult.error",
   },
   ResetPassword: {
-    title: "Сброс пароля",
-    email: "Введите email",
-    resetPasswordBtn: "Сбросить пароль",
-    success: "Сообщение с ссылкой для сброса пароля отправлено на email",
+    title: "Reset password",
+    email: "Enter email",
+    resetPasswordBtn: "Reset password",
+    success: "Message with a link to reset password sent to your Email.",
     validation: {
       email: {
         required: "@:ResetPassword.email",
@@ -109,16 +108,16 @@ export default {
     }
   },
   ResetPasswordFailed: {
-    title: "Сброс пароля",
-    message: "Что-то пошло не так. Возможно истекло время сброса."
+    title: "Reset password",
+    message: "Something went wrong."
   },
   ResetPasswordSetNew: {
-    title: "Установить пароль",
-    successMessage: 'Пароль изменён.',
-    enter: 'Войти',
-    saveBtn: "Изменить пароль",
-    password: "Новый пароль",
-    password2: "Подтвердите пароль",
+    title: "Set password",
+    successMessage: 'Password changed.',
+    enter: 'Sign In',
+    saveBtn: "Change password",
+    password: "New password",
+    password2: "Repeat password",
     validation: {
       password: {
         required: "@:Register.validation.password.required",
@@ -131,173 +130,173 @@ export default {
     }
   },
   CreateEditComment: {
-    required: "Введите сообщение",
-    htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
-    spamProtectionMessage: "Нельзя так часто отправлять сообщения. Подождите немного."
+    required: "Enter message",
+    htmlTextSizeOrHasImage: "Minimum text length - 5",
+    spamProtectionMessage: "You can't send messages that often. Please, wait."
   },
   CreateMaterial: {
-    title: "Добавить материал",
-    sendBtn: "Отправить",
-    successNotify: "Материал успешно добавлен",
+    title: "Add material",
+    sendBtn: "Post",
+    successNotify: "Material successfully added"
   },
   EditMaterial: {
-    title: "Редактировать материал",
-    saveBtn: "Сохранить",
-    successNotify: "Материал успешно сохранён",
+    title: "Edit material",
+    saveBtn: "Save",
+    successNotify: "Material successfully saved",
   },
   MaterialForm: {
-    name: "Имя (eng)",
-    title: "Заголовок",
-    description: "Короткое описание",
-    tags: "Метки",
-    selectCategory: "Выберите раздел",
-    category: "Раздел: {0}",
+    name: "Name (eng)",
+    title: "Header",
+    description: "Short description",
+    tags: "Tags",
+    selectCategory: "Select category",
+    category: "Category: {0}",
     validation: {
       name: {
-        allowedChars: "Имя должно содержать только английские буквы цифры и символ '-'",
-        numberNotAllowed: "Имя материала не может быть числом",
-        minLength: "Минимальная длинна имени - 3",
-        maxLength: `Максимальная длинна имени - ${config.DbColumnSizes.Materials_Name}`,
+        allowedChars: "Name must be contain only english letters, numbers and character '-'",
+        numberNotAllowed: "Material name can`t be number",
+        minLength: "Minimal name length - 3",
+        maxLength: `Maximal name length - ${config.DbColumnSizes.Materials_Name}`,
       },
       title: {
-        required: "Введите заголовок",
-        minLength: "Минимальная длинна заголовка - 3",
-        maxLength: `Максимальная длинна заголовка - ${config.DbColumnSizes.Materials_Title}`,
+        required: "Enter header",
+        minLength: "Minimal header length - 3",
+        maxLength: `Maximal header length - ${config.DbColumnSizes.Materials_Title}`,
       },
       text: {
-        required: "Введите текст",
-        htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
+        required: "Enter text",
+        htmlTextSizeOrHasImage: "Minimal text length - 5",
       },
       description: {
-        maxLength: "Максимально допустимая длинна " + config.DbColumnSizes.Materials_Description
+        maxLength: "Maximal length " + config.DbColumnSizes.Materials_Description
       },
       category: {
-        required: "Выберите раздел"
+        required: "Selected category"
       }
     }
   },
   CreateEditMaterial: {
-    titleField: "Заголовок",
-    addTitle: "Добавить материал",
-    editTitle: "Редактировать текст: {0}",
-    description: "Короткое описание",
-    tags: "Метки",
-    sendBtn: "Отправить",
-    selectCategory: "Выберите раздел",
-    category: "Раздел: {0}",
-    successNotify: "Материал успешно добавлен",
-    spamProtectionNotify: "Нельзя так часто создавать материалы. Необходимо подождать.",
+    titleField: "Header",
+    addTitle: "Add material",
+    editTitle: "Edit text: {0}",
+    description: "Short description",
+    tags: "Tags",
+    sendBtn: "Send",
+    selectCategory: "Select category",
+    category: "Category: {0}",
+    successNotify: "Material successfully added",
+    spamProtectionNotify: "You can't create material that often. Please, wait.",
     validation: {
       title: {
-        required: "Введите заголовок",
-        minLength: "Минимальная длинна заголовка - 3",
-        maxLength: `Максимальная длинна заголовка - ${config.DbColumnSizes.Materials_Title}`,
+        required: "Enter header",
+        minLength: "Minimal header length - 3",
+        maxLength: `Maximal header length - ${config.DbColumnSizes.Materials_Title}`,
       },
       text: {
-        required: "Введите текст",
-        htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
+        required: "Enter text",
+        htmlTextSizeOrHasImage: "Minimal text length - 5",
       },
       description: {
-        maxLength: "Максимально допустимая длинна " + config.DbColumnSizes.Materials_Description
+        maxLength: "Maximal length " + config.DbColumnSizes.Materials_Description
       },
       category: {
-        required: "Выберите раздел"
+        required: "Selected category"
       }
     }
   },
   MyEditor: {
-    uploadImages: "Добавить изображения"
+    uploadImages: "Upload image"
   },
   Material: {
-    category: "раздел:",
-    edit: "Редактировать",
-    tags: "Метки:"
+    category: "category:",
+    edit: "Edit",
+    tags: "Tags:"
   },
   ReadComment: {
-    edit: "редактировать",
-    deleteDialogMessage: "Удалить сообщение?"
+    edit: "edit",
+    deleteDialogMessage: "Remove message?"
   },
   Post: {
-    commentsCount: "сообщений",
-    readMore: "Читать дальше"
+    commentsCount: "comments",
+    readMore: "Read more"
   },
   BlogPage: {
-    newPostBtn: "Новый пост"
+    newPostBtn: "New post"
   },
   SettingsMenu: {
-    goToProfile: "Просмотреть профиль",
-    changeEmail: "Изменить email",
-    changePassword: "Изменить пароль",
-    changeLink: "Изменить link",
-    changeName: "Изменить имя",
-    changeYourInformation: "Изменить информацию о вас",
-    changePhoto: "Изменить фотографию",
-    banedUsersList: "Забаненые пользователи"
+    goToProfile: "View profile",
+    changeEmail: "Change email",
+    changePassword: "Change password",
+    changeLink: "Change link",
+    changeName: "Change login",
+    changeYourInformation: "Change your information",
+    changePhoto: "Change avatar",
+    banedUsersList: "Banned users"
   },
   SettingsPage: {
-    title: "Личный кабинет"
+    title: "Account"
   },
   SettingsPanel: {
     title: "@:SettingsPage.title"
   },
   ChangeName: {
-    title: "Изменить имя пользователя",
-    successNotify: "Имя изменено",
-    nameValidationInfo: "Имя может состоять из букв, цифр, пробела и символа '-', длинны не менее 3.",
+    title: "Change login",
+    successNotify: "Login changed",
+    nameValidationInfo: "Login can contain letters, numbers, space and '-' character, and must be at least 3 characters long.",
     saveBtn: "@:Global.btn.save",
-    name: "Имя",
-    password: "Пароль",
+    name: "Login",
+    password: "Password",
     validation: {
       password: {
-        required: "Введите пароль"
+        required: "Enter password"
       },
       name: {
-        required: "Введите имя",
-        minLength: "Длинна имени должна быть не меньше 3",
-        allowedChars: "Возможно использование только допустимых символов",
-        nameInDb: "Это имя уже занято"
+        required: "Enter login",
+        minLength: "Login must be at least 3 characters",
+        allowedChars: "Only allowed characters are allowed.",
+        nameInDb: "Login already used"
       }
     }
   },
   ChangeLink: {
-    title: "Редактировать Link пользователя",
-    linkEditedMessage: "Link отредактирован",
+    title: "Edit user Link",
+    linkEditedMessage: "Link edited",
     link: "Link",
-    linkValidationInfo: "Link должен состоять не менее чем из 3 символов 'a-z', 'A-Z', '-', '0-9'. И содержать хотя бы одну букву.",
+    linkValidationInfo: "Link must consist of at least 3 characters 'a-z', 'A-Z', '-', '0-9'. And contain at least one letter.",
     saveBtn: "@:Global.btn.save",
     validation: {
-      minLength: "Длинна link должна быть не менее 3",
-      allowedChars: "Допустимы только буквы английского алфавита и цифры",
-      numberNotAllow: "Необходимо что бы в link входили буквы",
-      linkInDb: "Этот link уже занят"
+      minLength: "Link must be at least 3 characters",
+      allowedChars: "Allowed only english letters and numbers",
+      numberNotAllow: "Link must be contain letters",
+      linkInDb: "This link already used"
     }
   },
   ChangeEmail: {
-    title: "Редактировать email пользователя",
+    title: "Edit user email",
     successNotify: "Сообщение с ссылкой для подтверждения email отправлено по почте",
-    password: "Ваш пароль",
-    newEmail: "Новый email",
+    password: "Current password",
+    newEmail: "New email",
     saveBtn: "@:Global.btn.save",
     validation: {
       password: {
-        required: "Необходимо ввести пароль"
+        required: "Required password"
       },
       email: {
-        required: "Необходимо ввести email",
-        emailSig: "Введите валидный email"
+        required: "Required email",
+        emailSig: "Enter correct email"
       }
     }
   },
   ChangePassword: {
-    title: "Изменить пароль",
-    successNotify: 'Пароль изменён.',
-    changeBtn: "Изменить пароль",
-    passwordOld: "Старый пароль",
-    password: "Новый пароль",
-    password2: "Подтвердите новый пароль",
+    title: "Change password",
+    successNotify: 'Password changed.',
+    changeBtn: "Change password",
+    passwordOld: "Current password",
+    password: "New password",
+    password2: "Repeat new password",
     validation: {
       passwordOld: {
-        required: "Необходимо ввести старый пароль"
+        required: "Required enter old password"
       },
       password: {
         required: "@:Register.validation.password.required",
@@ -310,64 +309,64 @@ export default {
     }
   },
   ForumPanel: {
-    newTopics: "Новые сообщения",
-    sections: "Разделы"
+    newTopics: "New topics",
+    sections: "Sections"
   },
   Topic: {
-    lastFrom: "Последнее от"
+    lastFrom: "Last from"
   },
   Activity: {
-    material: "Текст",
-    comment: "Комментарий"
+    material: "Text",
+    comment: "Comment"
   },
   Thread: {
-    newTopicBtn: "Новая тема",
-    topic: "Тема",
-    last: "Последнее"
+    newTopicBtn: "New topic",
+    topic: "Topic",
+    last: "Last"
   },
   NewTopics: {
-    titleStart: "Новые темы",
+    titleStart: "New topics",
     newTopicBtn: "@:Thread.newTopicBtn",
     topic: "@:Thread.topic",
     last: "@:Thread.last"
   },
   Profile: {
-    sendPrivateMessageBtn: "Написать пользователю",
-    banBtn: "Забанить",
-    unBanBtn: "Разбанить",
-    banNotify: "Пользователь {0} теперь не может вам писать",
-    unBanNotify: "Пользователь {0} теперь может вам писать"
+    sendPrivateMessageBtn: "Private message",
+    banBtn: "Ban",
+    unBanBtn: "Unban",
+    banNotify: "User {0} can`t now write you",
+    unBanNotify: "User {0} can now write you"
   },
   SendPrivateMessage: {
-    title: "Написать личное сообщение",
-    titleStart: "Написать",
-    sendBtn: "Отправить",
-    sendSuccessNotify: "Сообщение успешно отправлено пользователю {0}",
-    sendErrorNotify: "Сообщение не отправлено. Ошибка на сервере.",
-    sendSpamProtectionNotify: "Нельзя так часто отправлять личные сообщения. Необходимо подождать.",
+    title: "Private message",
+    titleStart: "Write private message",
+    sendBtn: "Send",
+    sendSuccessNotify: "Message is successfully sent to the user {0}",
+    sendErrorNotify: "Message sending failed. Server error.",
+    sendSpamProtectionNotify: "You can't send private messages that often. Please, wait.",
   },
   MyBanList: {
-    title: "Забаненые пользователи"
+    title: "Banned users"
   },
   LoadPhoto: {
-    title: "Изменить фотографию пользователя",
-    resetBtn: "Сбросить фотографию",
-    uploadNewPhotoBtn: "Выбрать фотографию",
-    avatarDeletedSuccessNotify: "Аватар успешно удалён",
-    avatarChangedSuccessNotify: "Аватар успешно обновлён"
+    title: "Change user`s avatar",
+    resetBtn: "Reset user`s avatar",
+    uploadNewPhotoBtn: "Upload avatar",
+    avatarDeletedSuccessNotify: "Avatar was deleted",
+    avatarChangedSuccessNotify: "Avatar was changed"
   },
   EditInformation: {
-    title: "Редактировать информацию о себе",
-    label: "Информация о вас на странице вашего профиля.",
-    editedSuccessNotify: "Информация успешно сохранена",
+    title: "Edit information",
+    label: "Information about you on your profile page.",
+    editedSuccessNotify: "Information successfully saved",
     save: "@:Global.btn.save"
   },
   ActivitiesPage: {
     defaultTitle: "Новое на сайте"
   },
   Error404: {
-    title: "Ошибка 404",
-    info: "Извините, страница не найдена...",
-    goBackBtn: "Вернуться назад"
+    title: "Error 404",
+    info: "Sorry, page not found...",
+    goBackBtn: "Return back"
   },
 };

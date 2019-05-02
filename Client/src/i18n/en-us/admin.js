@@ -2,93 +2,114 @@
 export default {
 
   AdminPanel: {
-    title: "Админка"
+    title: "Admin panel"
   },
   AdminPage: {
     title: "@:Admin.AdminPanel.title"
   },
   AdminMenu: {
-    categoriesAdmin: "Категории",
-      rolesPermissions: "Настройка прав",
-      rolesUsers: "Группы пользователей"
+    categoriesAdmin: "Categories",
+    rolesPermissions: "Permission settings",
+    rolesUsers: "Groups",
+    cacheSettings: "Cache settings"
   },
   EditCategory: {
-    title: "Редактировать категорию",
-      deleteBtn: "Удалить категорию",
-      saveBtn: "@:Global.btn.save",
-      cancelBtn: "@:Global.btn.cancel",
-      deletedNotify: "Категория успешно удалена.",
-      deleteConfirm: "Вы уверены, что хотите удалить категорию?\nВсе данные категории так же будут удалены.",
-      deleteDialogBtnOk: "Удалить",
-      deleteDialogBtnCancel: "Отмена",
-      successNotify: "Категория обновлена.\nНе забудьте перегрузить сайт для обновления."
+    title: "Edit category",
+    deleteBtn: "Remove category",
+    saveBtn: "@:Global.btn.save",
+    cancelBtn: "@:Global.btn.cancel",
+    deletedNotify: "Category successfully removed.",
+    deleteConfirm: "You want to remove the category?",
+    deleteDialogBtnOk: "Remove",
+    deleteDialogBtnCancel: "Cancel",
+    successNotify: "Category was updated.\nDon`t forget to reload the site in your browser."
   },
   CreateCategory: {
-    title: "Добавить категорию",
-      createBtn: "Создать",
-      cancelBtn: "@:Global.btn.cancel",
-      successNotify: "Категория добавлена.\nНе забудьте перегрузить сайт для обновления."
+    title: "Create category",
+    createBtn: "Create",
+    cancelBtn: "@:Global.btn.cancel",
+    successNotify: "Category was added.\nDon`t forget to reload the site in your browser."
   },
   CategoryForm: {
-    name: "Имя категории (eng)",
-      title: "Заголовок",
-      shortDescription: "Короткое описание",
-      header: "Шапка категории",
-      selectParent: "Выберите родительскую категорию",
-      sectionType: "Тип категории",
-      deleteConfirm: "Вы уверены что хотите удалить категорию?\nВсё содержание категории также будут удалено.",
-      parent: "Родитель: ",
-      hideCb: "Спрятать",
-      appendUrlTokenCb: "Добавлять в URL",
-      appendUrlTokenInfo: "(использовать только если вы понимаете что это)",
-      isMaterialsContainerCb: "Содержит материалы",
-      noTypeLabel: "Без типа",
-      validation: {
+    name: "Category name (eng)",
+    title: "Title",
+    shortDescription: "Short description",
+    header: "Category header",
+    selectParent: "Select parent category",
+    sectionType: "Category type",
+    deleteConfirm: "You want to remove the category?",
+    parent: "Parent: ",
+    hideCb: "Hide",
+    appendUrlTokenCb: "Add to URL",
+    appendUrlTokenInfo: "(use only if you understand what it is)",
+    isMaterialsContainerCb: "Contains materials",
+    isCaching: "Caching",
+    cachingPageCount: "Cache N pages",
+    noTypeLabel: "Without type",
+    validation: {
       name: {
-        required: "Введите имя (eng) категории",
-          minLength: "Имя (eng) должно быть не менее чем из 2 букв",
-          allowedChars: "Имя (eng) должно состоять из символов `a-z`, `A-Z`, `0-9`, `-`"
+        required: "Enter category name (eng)",
+        minLength: "Name (eng) must be at least 2 letters",
+        allowedChars: "The name (eng) must consist of the characters `a-z`, `A-Z`, `0-9`, `-`"
       },
       title: {
-        required: "Введите заголовок категории",
-          minLength: "Заголовок должен состоять не менее чем из 3 букв"
+        required: "Enter category title",
+        minLength: "Category title must contain at least 3 letters"
       }
     }
   },
   CategoriesAdmin: {
-    title: "Админка категорий",
-      addCategoryBtn: "Добавить категорию"
+    title: "Admin page",
+    addCategoryBtn: "Add category"
   },
   CategoryItem: {
-    rootCategory: "Корневая категория"
+    rootCategory: "Root category"
   },
   RolesPermissions: {
-    title: "Загрузка Json прав для групп",
-      backupWarning: "Перед загрузкой необходимо сделать backup базы.",
-      saveToServerBtn: "Сохранить на сервер",
-      getFromServer: "Загрузить с сервера",
-      getFromServerSuccessNotify: "Данные загружены с сервера",
-      saveToServerSuccessNotify: "Настройки групп успешно обновлены",
-      textAreaLabel: "Json файл конфигурации прав групп"
+    title: "Upload group config(json)",
+    backupWarning: "Before uploading, you need to make a database backup.",
+    saveToServerBtn: "Save",
+    getFromServer: "Load from server",
+    getSuccessNotify: "Download completed successfully",
+    saveSuccessNotify: "Group settings were updated successfully",
+    textAreaLabel: "Json файл конфигурации прав групп"
   },
   ProfileRoles: {
-    roles: "Группы пользователя:",
-      addRoleBtn: "Добавить группу",
-      removeRoleBtn: "Удалить группу",
-      addRoleConfirm: "Добавить в группу '{0}'?",
-      addRoleConfirmOkBtn: "Добавить",
-      removeRoleConfirm: "Удалить из группы '{0}'?",
-      removeRoleConfirmOkBtn: "Удалить",
+    roles: "User groups:",
+    addRoleBtn: "Add to group",
+    removeRoleBtn: "Remove from group",
+    addRoleConfirm: "Add to group '{0}'?",
+    addRoleConfirmOkBtn: "Yes",
+    removeRoleConfirm: "Remove from group '{0}'?",
+    removeRoleConfirmOkBtn: "Remove",
 
   },
   RolesPage: {
-    title: "Группы пользователей",
-      roles: "Группы",
+    title: "Groups page",
+    roles: "Groups",
   },
   RoleUsers: {
-    users: "Пользователи",
-      filter: "Найти по имени",
-      noResults: "Нет результатов",
-      filterLimitReached: "Выведены первые {0} результатов"
+    users: "Users",
+    filter: "Find by name",
+    noResults: "Not found",
+    filterLimitReached: "First {0} results are derived"
+  },
+  CacheSettings: {
+    title: "Cache settings",
+    CachePolicy: "Cache policy",
+    AlwaysPolicy: "Always cache",
+    NeverPolicy: "Never cache",
+    CustomPolicy: "Custom cache",
+    CacheLifetime: "Cache record lifetime",
+    SaveChanges: "Save changes",
+    WithoutInvalidationTime: "No time limit",
+    successNotify: "Cache policy changed",
+    error: "Server error",
+    validation: {
+      invalidateCacheTime: {
+        required: "Require input",
+        invalidValue: "Value can`t be lower 0",
+      }
+    }
   }
 };

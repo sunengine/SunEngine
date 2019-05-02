@@ -27,7 +27,7 @@
 
 
       <div class="q-my-md" style="text-align: right;">
-        <q-checkbox class="text-grey-9" left-label v-model="notMyComputer" :label="$tl('notMyComputer')"/>
+        <q-checkbox class="text-grey-9" left-label v-model="notMyComputer" :label="$tl('doNotRemember')"/>
       </div>
 
       <q-btn style="width:100%;" color="send" :label="$tl('enterBtn')" @click="login" :loading="submitting">
