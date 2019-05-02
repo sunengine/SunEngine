@@ -1,6 +1,6 @@
 export default {
   ServerError: "Ошибка на сервере",
-  Unauthorized: "Вы не имеете прав для захода на эту страницу",
+  Unauthorized: "У вас недостаточно прав для доступа",
   BadRequest: "Ошибка в запросе",
   UploadJsonAdminError: "Ошибка загрузки Json",
   CaptchaValidationError: "Ошибка проверки капчи",
