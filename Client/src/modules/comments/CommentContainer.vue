@@ -1,6 +1,6 @@
 <template>
   <div :id="'comment-'+comment.id">
-    <span v-if="isLast" id="message-last"></span>
+    <span v-if="isLast" id="comment-last"></span>
     <template v-if="!comment.isDeleted">
       <ReadComment @goEdit="goEdit" v-if="isReadMode" :comment="comment" :canEdit="canEdit()" :canMoveToTrash="canMoveToTrash()" />
 

@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <q-item :to="path" class="header page-padding">
       <img class="avatar" :src="$imagePath(post.authorAvatar)"/>
       <div>
@@ -51,6 +51,12 @@
       }
     },
     computed: {
+      to() {
+        return {
+          name: `blog-${this.post.categoryName}-mat`,
+          params: {id: this.post.id}
+        };
+      },
       path() {
         return this.$buildPath(this.category.path, this.post.id);
       },
@@ -141,7 +147,6 @@
       margin-right: 7px;
     }
   }
-
 
 
 </style>
