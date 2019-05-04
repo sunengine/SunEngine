@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using Microsoft.Extensions.Configuration;
 using NLog;
 using SunEngine.Core.DataBase;
+using SunEngine.Core.Exceptions.Database.Connection;
 using SunEngine.Core.Models;
 
 namespace SunEngine.DataSeed
@@ -63,7 +66,23 @@ namespace SunEngine.DataSeed
             using (DataBaseConnection db = new DataBaseConnection(providerName, connectionString))
             {
                 DataContainer dataContainer = new InitialSeeder(configDirPath).Seed();
-                new DataBaseSeeder(db, dataContainer).SeedInitial();
+                var databaseSeeder = new DataBaseSeeder(db, dataContainer);
+
+                try
+                {
+                    databaseSeeder.SeedInitial();
+                }
+                catch (DbException e)
+                {
+                    throw new SunDatabaseException(
+                        "Exception happened in initialization process. " +
+                        "Check that last migrations were done.", e);
+                }
+                catch (SocketException e)
+                {
+                    throw new SunDatabaseConnectionException("The connection could not be made. " +
+                                                             "Check the database you are trying to connect exists.", e);
+                }
             }
         }
 
