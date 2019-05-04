@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
+using NLog;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
 
@@ -14,6 +16,8 @@ namespace SunEngine.DataSeed
     /// </summary>
     public class MainSeeder
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        
         public const string SeedCommand = "seed";
 
 
@@ -33,7 +37,24 @@ namespace SunEngine.DataSeed
             providerName = dataBaseConfiguration["Linq2dbProvider"];
             connectionString = dataBaseConfiguration["ConnectionString"];
         }
-
+        
+        public bool СheckConnection()
+        {
+            try
+            {
+                DataBaseConnection db = new DataBaseConnection(providerName, connectionString);
+                db.Connection.Open();
+                db.Connection.Close();
+                Logger.Info("Database is available.");
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logger.Warn("Database is unavailable.\n" + e);
+                return false;
+            }
+        }
+        
         /// <summary>
         /// Initialize database with roles, users, categories from config direcory
         /// </summary>

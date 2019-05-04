@@ -18,6 +18,9 @@ namespace SunEngine.Cli
             else if (startupConfiguration.PrintVersion)
                 InfoPrinter.PrintVersion();
 
+            else if (startupConfiguration.CheckDatabaseAvailability)
+                new MainSeeder(startupConfiguration.ConfigurationDirectoryRoute).СheckConnection();
+            
             else if (ShouldUpdateData(startupConfiguration))
             {
                 if (startupConfiguration.Migrate)
@@ -31,10 +34,9 @@ namespace SunEngine.Cli
                         .SeedAddTestData(startupConfiguration.CategoryTokensToSeed,
                             startupConfiguration.SeedWithCategoryNames);
             }
+            
             else
-            {
-                ServerStartup.RunServer(startupConfiguration);    
-            }
+                ServerStartup.RunServer(startupConfiguration);
             
         }
 
