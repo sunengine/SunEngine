@@ -75,8 +75,8 @@ namespace SunEngine.DataSeed
                 catch (DbException e)
                 {
                     throw new SunDatabaseException(
-                        "Exception happened in initialization process. " +
-                        "Check that last migrations were done.", e);
+                        "Exception happened in data seed process. " +
+                        "Check that last migrations were done('migrate' argument).", e);
                 }
                 catch (SocketException e)
                 {
@@ -97,40 +97,60 @@ namespace SunEngine.DataSeed
 
             using (DataBaseConnection db = new DataBaseConnection(providerName, connectionString))
             {
-                DataContainer dataContainer = new DataContainer
+                try
                 {
-                    Categories = db.Categories.ToList(),
-                    Users = db.Users.ToList(),
-                    currentMaterialId = db.Materials.Any() ? db.Materials.Max(x => x.Id) + 1 : 1,
-                    currentCommentId = db.Comments.Any() ? db.Comments.Max(x => x.Id) + 1 : 1
-                };
-
-                MaterialsSeeder materialsSeeder = new MaterialsSeeder(dataContainer);
-
-                foreach (var catToken in catTokens)
-                {
-                    var parts = catToken.Split(":");
-                    var categoryName = parts[0];
-                    int? materialsCount = null;
-                    if (parts.Length > 1)
-                        materialsCount = int.Parse(parts[1]);
-                    int? commentsCount = null;
-                    if (parts.Length > 2)
-                        commentsCount = int.Parse(parts[2]);
-
-                    if (materialsCount.HasValue)
-                        materialsSeeder.MinMaterialCount = materialsSeeder.MaxMaterialCount = materialsCount.Value;
-
-                    if (commentsCount.HasValue)
-                        materialsSeeder.CommentsCount = commentsCount.Value;
-
-                    materialsSeeder.TitleAppendCategoryName = titleAppendCategoryName;
-
-                    materialsSeeder.SeedCategoryAndSub(categoryName);
+                    SeedTestData(db, catTokens, titleAppendCategoryName);
                 }
-
-                new DataBaseSeeder(db, dataContainer).SeedMaterials().PostSeedMaterials();
+                catch (DbException e)
+                {
+                    throw new SunDatabaseException(
+                        "Exception happened in data seed process. " +
+                        "Check that last migrations were done('migrate' argument) and system initialized ('initialize' argument).", e);
+                }
+                catch (SocketException e)
+                {
+                    throw new SunDatabaseConnectionException("The connection could not be made. " +
+                                                             "Check the database you are trying to connect exists.", e);
+                }
             }
         }
+
+        private void SeedTestData(DataBaseConnection db, IList<string> catTokens, bool titleAppendCategoryName)
+        {
+            DataContainer dataContainer = new DataContainer
+            {
+                Categories = db.Categories.ToList(),
+                Users = db.Users.ToList(),
+                currentMaterialId = db.Materials.Any() ? db.Materials.Max(x => x.Id) + 1 : 1,
+                currentCommentId = db.Comments.Any() ? db.Comments.Max(x => x.Id) + 1 : 1
+            };
+
+            MaterialsSeeder materialsSeeder = new MaterialsSeeder(dataContainer);
+
+            foreach (var catToken in catTokens)
+            {
+                var parts = catToken.Split(":");
+                var categoryName = parts[0];
+                int? materialsCount = null;
+                if (parts.Length > 1)
+                    materialsCount = int.Parse(parts[1]);
+                int? commentsCount = null;
+                if (parts.Length > 2)
+                    commentsCount = int.Parse(parts[2]);
+
+                if (materialsCount.HasValue)
+                    materialsSeeder.MinMaterialCount = materialsSeeder.MaxMaterialCount = materialsCount.Value;
+
+                if (commentsCount.HasValue)
+                    materialsSeeder.CommentsCount = commentsCount.Value;
+
+                materialsSeeder.TitleAppendCategoryName = titleAppendCategoryName;
+
+                materialsSeeder.SeedCategoryAndSub(categoryName);
+            }
+
+            new DataBaseSeeder(db, dataContainer).SeedMaterials().PostSeedMaterials();
+        }
+        
     }
 }
