@@ -7,7 +7,7 @@
           {{post.title}}
         </div>
         <div>
-          <router-link :to="`/user/${post.authorLink}`" class="user-link">
+          <router-link :to="{name: 'User', params: {link: post.authorLink}}" class="user-link">
             {{post.authorName}}
           </router-link>
         </div>
