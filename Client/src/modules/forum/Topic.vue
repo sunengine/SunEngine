@@ -66,7 +66,7 @@
     computed: {
       to() {
         return {
-          name: `forum-${this.category.parent.name}-cat-mat`,
+          name: `forum-${this.category.sectionRoot.name}-cat-mat`,
           params: {
             categoryName: this.topic.categoryName,
             id: this.topic.id
