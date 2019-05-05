@@ -45,7 +45,7 @@ namespace SunEngine.DataSeed
         {
             try
             {
-                DataBaseConnection db = new DataBaseConnection(providerName, connectionString);
+                var db = new DataBaseConnection(providerName, connectionString);
                 db.Connection.Open();
                 db.Connection.Close();
                 Logger.Info("Database is available.");
@@ -63,9 +63,9 @@ namespace SunEngine.DataSeed
         /// </summary>
         public void SeedInitialize()
         {
-            using (DataBaseConnection db = new DataBaseConnection(providerName, connectionString))
+            using (var db = new DataBaseConnection(providerName, connectionString))
             {
-                DataContainer dataContainer = new InitialSeeder(configDirPath).Seed();
+                var dataContainer = new InitialSeeder(configDirPath).Seed();
                 var databaseSeeder = new DataBaseSeeder(db, dataContainer);
 
                 try
@@ -117,7 +117,7 @@ namespace SunEngine.DataSeed
 
         private void SeedTestData(DataBaseConnection db, IList<string> catTokens, bool titleAppendCategoryName)
         {
-            DataContainer dataContainer = new DataContainer
+            var dataContainer = new DataContainer
             {
                 Categories = db.Categories.ToList(),
                 Users = db.Users.ToList(),
@@ -125,7 +125,7 @@ namespace SunEngine.DataSeed
                 currentCommentId = db.Comments.Any() ? db.Comments.Max(x => x.Id) + 1 : 1
             };
 
-            MaterialsSeeder materialsSeeder = new MaterialsSeeder(dataContainer);
+            var materialsSeeder = new MaterialsSeeder(dataContainer);
 
             foreach (var catToken in catTokens)
             {
