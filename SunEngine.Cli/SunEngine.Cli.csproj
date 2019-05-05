@@ -56,10 +56,6 @@
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <None Remove="Resources\all.txt" />
-        <Content Include="Resources\help.txt">
-            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
     </ItemGroup>
 
 
