@@ -1,3 +1,4 @@
+using System;
 using SunEngine.DataSeed;
 using SunEngine.Migrations;
 
@@ -39,8 +40,11 @@ namespace SunEngine.Cli
                         startupConfiguration.SeedWithCategoryNames);
             }
 
-            else
+            else if (startupConfiguration.StartServer)
                 ServerStartup.RunServer(startupConfiguration);
+
+            else
+                Console.WriteLine("Startup arguments wasn't provided. To list available commands use 'help' argument.");
         }
 
         private static bool ShouldUpdateData(StartupConfiguration startupConfiguration)
