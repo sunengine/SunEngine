@@ -336,6 +336,7 @@ export default {
     last: "@:Thread.last"
   },
   Profile: {
+    roles: "Группы",
     sendPrivateMessageBtn: "Написать пользователю",
     banBtn: "Забанить",
     unBanBtn: "Разбанить",

@@ -14,7 +14,7 @@
         <div v-if="policy !== null && policy.id !== 1">
           <q-input v-if="!withoutTime" ref="cacheTime"  type="number"
             v-model="cacheSettings.invalidateCacheTime"
-            :label="$tl('CacheLifetime')" 
+            :label="$tl('CacheLifetime')"
             :rules="rules.invalidateCacheTime" />
 
           <q-checkbox v-model="withoutTime" v-on:input="withoutTimeChanged" :label="$tl('WithoutInvalidationTime')" />
@@ -35,7 +35,7 @@
 <script>
 import Page from "Page";
 import LoaderSent from "LoaderSent";
-import { CachePolicies } from "../../defination";
+import { CachePolicies } from "defination";
 
 function createRules() {
   return {
@@ -89,7 +89,7 @@ export default {
       this.loading = true;
       await this.$store.dispatch("request", {
         url: "/Admin/AdminCacheSettings/ChangeCachePolicy",
-        data: { 
+        data: {
             selectedPolicy: this.policy.id,
             invalidateCacheTime: !this.withoutTime ? this.cacheSettings.invalidateCacheTime : 0
           },
@@ -115,7 +115,7 @@ export default {
     },
     async withoutTimeChanged(value) {
       if(!value && this.cacheSettings.invalidateCacheTime === 0)
-        this.cacheSettings.invalidateCacheTime = 15;    
+        this.cacheSettings.invalidateCacheTime = 15;
     }
   },
   async created() {

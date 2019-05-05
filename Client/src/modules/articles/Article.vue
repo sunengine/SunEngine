@@ -1,25 +1,25 @@
 <template>
-  <q-item class="page-padding" :to='path'>
+  <q-item class="page-padding" :to="to">
     <q-item-section>
       <q-item-label class="my-header">{{article.title}}</q-item-label>
-    <q-item-label v-if="description"  class="info-block" caption>
-      <div v-html="description">
-      </div>
-    </q-item-label>
-    <q-item-label class="info-block" caption>
+      <q-item-label v-if="description" class="info-block" caption>
+        <div v-html="description">
+        </div>
+      </q-item-label>
+      <q-item-label class="info-block" caption>
        <span>
         <q-icon name="far fa-user"/>
         {{article.authorName}} &nbsp;
           </span>
-      <span>
+        <span>
         <q-icon name="far fa-clock"/>
           {{$formatDate(this.article.publishDate)}}
         </span>
-      <span v-if="article.commentsCount > 0">
+        <span v-if="article.commentsCount > 0">
           <q-icon name="far fa-comment"/>
           {{article.commentsCount}}
         </span>
-    </q-item-label>
+      </q-item-label>
     </q-item-section>
   </q-item>
 </template>
@@ -36,8 +36,11 @@
       description() {
         return this.article.description?.replace(/\n/g, "<br/>");
       },
-      path() {
-        return this.$buildPath(this.category.path, this.article.name ?? this.article.id);
+      to() {
+        return {
+          name: `articles-${this.article.categoryName}-mat`,
+          params: {idOrName: this.article.name ?? this.article.id}
+        };
       },
       category() {
         return this.$store.getters.getCategory(this.article.categoryName);

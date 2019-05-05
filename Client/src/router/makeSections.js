@@ -10,7 +10,7 @@ export function makeForumSection(name, categoriesPanel) {
   let nameLower = name.toLowerCase();
   return [
     {
-      name: name,
+      name: `forum-${nameLower}`,
       path: '/' + nameLower,
       components: {
         default: NewTopics,
@@ -22,6 +22,7 @@ export function makeForumSection(name, categoriesPanel) {
       },
     },
     {
+      name: `forum-${nameLower}-cat`,
       path: `/${nameLower}/:categoryName`,
       components: {
         default: Thread,
@@ -33,6 +34,7 @@ export function makeForumSection(name, categoriesPanel) {
       }
     },
     {
+      name: `forum-${nameLower}-cat-mat`,
       path: `/${nameLower}/:categoryName/:id`,
       components: {
         default: Material,
@@ -53,7 +55,7 @@ export function makeArticlesSection(name) {
   let nameLower = name.toLowerCase();
   return [
     {
-      name: name,
+      name: `articles-${nameLower}`,
       path: '/' + nameLower,
       components: {
         default: ArticlesPage,
@@ -66,6 +68,7 @@ export function makeArticlesSection(name) {
       }
     },
     {
+      name: `articles-${nameLower}-mat`,
       path: `/${nameLower}/:idOrName`,
       components: {
         default: Material,
@@ -87,7 +90,7 @@ export function makeArticlesSectionWithMenu(name) {
   let nameLower = name.toLowerCase();
   return [
     {
-      name: name,
+      name: `articles-${nameLower}`,
       path: '/' + nameLower,
       components: {
         default: ArticlesPage,
@@ -100,6 +103,7 @@ export function makeArticlesSectionWithMenu(name) {
       }
     },
     {
+      name: `articles-${nameLower}-mat`,
       path: `/${nameLower}/:idOrName`,
       components: {
         default: Material,
@@ -122,7 +126,7 @@ export function makeBlogSection(name) {
   let nameLower = name.toLowerCase();
   return [
     {
-      name: name,
+      name: `blog-${nameLower}`,
       path: '/' + nameLower,
       components: {
         default: BlogPage,
@@ -135,6 +139,7 @@ export function makeBlogSection(name) {
       }
     },
     {
+      name:  `blog-${nameLower}-mat`,
       path: `/${nameLower}/:id`,
       components: {
         default: Material,

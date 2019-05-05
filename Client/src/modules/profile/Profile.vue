@@ -23,7 +23,7 @@
       <div>
         <h4>{{user.name}}</h4>
         <div v-html="user.information"></div>
-         <q-expansion-item  v-if="canEditRoles" @show="showRolesAdmin" icon="fas fa-cog" label="Группы" style="border-radius: 12px; margin-top: 30px; border: 1px solid silver" header-style="background-color: #e4e4e4">
+         <q-expansion-item  v-if="canEditRoles" @show="showRolesAdmin" icon="fas fa-cog" :label="$tl('roles')" style="border-radius: 12px; margin-top: 30px; border: 1px solid silver" header-style="background-color: #e4e4e4">
            <ProfileRoles class="q-pa-md"  :userId="user.id" v-if="isShowRolesAdmin" />
          </q-expansion-item>
       </div>

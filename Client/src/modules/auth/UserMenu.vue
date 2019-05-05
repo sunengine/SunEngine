@@ -10,7 +10,7 @@
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-item :to="$buildPath(`/user/${userInfo.link}`)" v-close-menu>
+      <q-item  :to="{name: 'User', params: {link: userInfo.link}}" v-close-menu>
         <q-item-section avatar>
           <q-icon name="fas fa-user-circle"/>
         </q-item-section>
