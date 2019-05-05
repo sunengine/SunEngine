@@ -14,17 +14,9 @@ namespace SunEngine.Cli
                 
             IHostingEnvironment env = (IHostingEnvironment) webHost.Services.GetService(typeof(IHostingEnvironment));
             IConfiguration conf = (IConfiguration) webHost.Services.GetService(typeof(IConfiguration));
-
-            // TODO refactor this behaviour. Startup commands should not behave differently based on environment. 
-            if (startupConfiguration.StartServer || env.IsDevelopment())
-            {
-                Startup.SetExceptionsMode(env, conf);
-                webHost.Run();
-            }
-            else
-            {
-                Console.WriteLine("Startup arguments wasn't provided. To list available commands use 'help' argument.");
-            }
+            
+            Startup.SetExceptionsMode(env, conf);
+            webHost.Run();
         }
 
         private IWebHostBuilder CreateWebHostBuilder(StartupConfiguration startupConfiguration) =>

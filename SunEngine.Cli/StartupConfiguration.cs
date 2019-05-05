@@ -22,6 +22,7 @@ namespace SunEngine.Cli
         private const string InitCommand = "init";
         private const string SeedCommand = "seed";
         private const string AppendCategoriesNamesCommand = "append-cat-name";
+        private const string TestDatabaseConnection = "test-connection";
 
         public string[] Arguments { get; }
         public string ConfigurationDirectoryRoute { get; }
@@ -35,6 +36,8 @@ namespace SunEngine.Cli
         public bool SeedWithTestData { get; }
         public bool SeedWithCategoryNames { get; }
         public List<string> CategoryTokensToSeed { get; }
+        
+        public bool CheckDatabaseAvailability { get; }
 
         public StartupConfiguration(string[] arguments)
         {
@@ -51,6 +54,7 @@ namespace SunEngine.Cli
             
             SeedWithTestData = startupArguments.Contains(SeedCommand);
             SeedWithCategoryNames = startupArguments.Contains(AppendCategoriesNamesCommand);
+            CheckDatabaseAvailability = startupArguments.Contains(TestDatabaseConnection);
             
             // TODO Revisit logic of category tokens. It could be seed:catToken, seed-catToken etc. Write logic to contain only category names, without "seed"
             CategoryTokensToSeed = startupArguments.Where(x => x.StartsWith(SeedCommand)).ToList();
