@@ -11,8 +11,7 @@ namespace SunEngine.Cli
         /// </summary>
         public void PrintStartWithNoArgumentsInfo()
         {
-            var infoText = "Startup arguments wasn't provided. To list available commands use 'help' argument."
-            Console.WriteLine(infoText);
+            Console.WriteLine("Startup arguments wasn't provided. To list available commands use 'help' argument.");
         }
 
         /// <summary>
