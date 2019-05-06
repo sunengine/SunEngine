@@ -35,7 +35,7 @@ namespace SunEngine.Core.Presenters
                     LastCommentId = x.LastCommentId,
                     LastCommentPublishDate =
                         x.LastCommentId.HasValue ? (DateTime?) x.LastComment.PublishDate : null,
-                    CategoryName = x.Category.NameNormalized,
+                    CategoryName = x.Category.Name,
                     CategoryTitle =  x.Category.Title,
                     LastCommentAuthorName = x.LastComment.Author.UserName,
                     LastCommentAuthorAvatar = x.LastComment.Author.Avatar
@@ -61,7 +61,7 @@ namespace SunEngine.Core.Presenters
                     LastCommentId = x.LastCommentId,
                     LastCommentPublishDate =
                         x.LastCommentId.HasValue ? (DateTime?) x.LastComment.PublishDate : null,
-                    CategoryName = x.Category.Name.ToLower(),
+                    CategoryName = x.Category.Name,
                     LastCommentAuthorName = x.LastComment.Author.UserName,
                     LastCommentAuthorAvatar = x.LastComment.Author.Avatar
                 },

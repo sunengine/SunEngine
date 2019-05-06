@@ -68,16 +68,16 @@
         return {
           name: `forum-${this.category.sectionRoot.name}-cat-mat`,
           params: {
-            categoryName: this.topic.categoryName,
+            categoryName: this.topic.categoryName.toLowerCase(),
             id: this.topic.id
           }
         };
       },
       toHash() {
         return {
-          name: `forum-${this.category.parent.name}-cat-mat`,
+          name: `forum-${this.category.sectionRoot.name}-cat-mat`,
           params: {
-            categoryName: this.topic.categoryName,
+            categoryName: this.topic.categoryName.toLowerCase(),
             id: this.topic.id
           },
           hash: '#comment-last'

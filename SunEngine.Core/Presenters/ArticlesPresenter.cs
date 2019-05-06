@@ -50,7 +50,7 @@ namespace SunEngine.Core.Presenters
                     CommentsCount = x.CommentsCount,
                     AuthorName = x.Author.UserName,
                     PublishDate = x.PublishDate,
-                    CategoryName = x.Category.NameNormalized
+                    CategoryName = x.Category.Name
                 },
                 x => x.CategoryId == categoryId,
                 orderBy,
@@ -71,7 +71,7 @@ namespace SunEngine.Core.Presenters
                     CommentsCount = x.CommentsCount,
                     AuthorName = x.Author.UserName,
                     PublishDate = x.PublishDate,
-                    CategoryName = x.Category.NameNormalized,
+                    CategoryName = x.Category.Name,
                     CategoryTitle = x.Category.Title,
                     SortNumber = x.SortNumber
                 },

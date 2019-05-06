@@ -34,7 +34,7 @@ namespace SunEngine.Core.Presenters
                     AuthorLink = x.Author.Link,
                     AuthorAvatar = x.Author.Avatar,
                     PublishDate = x.PublishDate,
-                    CategoryName = x.Category.NameNormalized,
+                    CategoryName = x.Category.Name,
                     HasMoreText = x.Text.Length != x.Preview.Length
                 },
                 x => x.CategoryId == categoryId,
@@ -56,7 +56,7 @@ namespace SunEngine.Core.Presenters
                     AuthorLink = x.Author.Link,
                     AuthorAvatar = x.Author.Avatar,
                     PublishDate = x.PublishDate,
-                    CategoryName = x.Category.NameNormalized,
+                    CategoryName = x.Category.Name,
                     CategoryTitle = x.Category.Title,
                     HasMoreText = x.Text.Length != x.Preview.Length
                 },

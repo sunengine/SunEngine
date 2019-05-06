@@ -13,7 +13,7 @@ export function setCategories(state, root) {
     }
 
     // Add to all
-    state.all[category.name] = category;
+    state.all[category.name.toLowerCase()] = category;
 
     // Make section types
     if (category.sectionType) {

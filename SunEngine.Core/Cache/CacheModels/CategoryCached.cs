@@ -66,7 +66,7 @@ namespace SunEngine.Core.Cache.CacheModels
         {
             Id = category.Id;
             Name = category.Name;
-            NameNormalized = Normalizer.Normalize(category.Name);
+            NameNormalized = category.NameNormalized;
             Title = category.Title;
             IsMaterialsContainer = category.IsMaterialsContainer;
             Description = category.Description;

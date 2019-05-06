@@ -49,7 +49,7 @@ namespace SunEngine.Core.Presenters
                     EditDate = x.EditDate,
                     CommentsCount = x.CommentsCount,
                     Text = x.Text,
-                    CategoryName = x.Category.NameNormalized,
+                    CategoryName = x.Category.Name,
                     IsDeleted = x.IsDeleted,
                     Tags = x.TagMaterials.OrderBy(y => y.Tag.Name).Select(y => y.Tag.Name).ToArray()
                 }
