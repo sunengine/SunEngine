@@ -44,7 +44,7 @@ namespace SunEngine.Cli
                 ServerStartup.RunServer(startupConfiguration);
 
             else
-                Console.WriteLine("Startup arguments wasn't provided. To list available commands use 'help' argument.");
+                InfoPrinter.PrintStartWithNoArgumentsInfo();
         }
 
         private static bool ShouldUpdateData(StartupConfiguration startupConfiguration)

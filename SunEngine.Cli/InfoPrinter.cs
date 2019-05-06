@@ -9,10 +9,10 @@ namespace SunEngine.Cli
         /// <summary>
         /// Print this info if "dotnet SunEngine.dll" starts with no commands.
         /// </summary>
-        public void PrintVoidStartInfo()
+        public void PrintStartWithNoArgumentsInfo()
         {
-            Console.WriteLine(
-                "You start \"SunEngine.dll\" with out arguments.\nRun with \"help\" argument to list commands:\n\tdotnet SunEngine.dll help");
+            var infoText = "Startup arguments wasn't provided. To list available commands use 'help' argument."
+            Console.WriteLine(infoText);
         }
 
         /// <summary>
