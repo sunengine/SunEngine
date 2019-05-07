@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Mime;
 using NLog;
 
 namespace SunEngine.Cli
@@ -14,18 +13,18 @@ namespace SunEngine.Cli
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         
-        private const string ConfigurationArgumentName = "config:";
-        private const string DefaultConfigurationFileName = "Config";
-        private const string ConfigurationDirectoryNameEnd = ".Config";
+        public const string ConfigurationArgumentName = "config:";
+        public const string DefaultConfigurationFileName = "Config";
+        public const string ConfigurationDirectoryNameEnd = ".Config";
 
-        private const string HelpCommand = "help";
-        private const string VersionCommand = "version";
-        private const string ServerCommand = "server";
-        private const string MigrateCommand = "migrate";
-        private const string InitCommand = "init";
-        private const string SeedCommand = "seed";
-        private const string AppendCategoriesNamesCommand = "append-cat-name";
-        private const string TestDatabaseConnection = "test-dbcon";
+        public const string HelpCommand = "help";
+        public const string VersionCommand = "version";
+        public const string ServerCommand = "server";
+        public const string MigrateCommand = "migrate";
+        public const string InitCommand = "init";
+        public const string SeedCommand = "seed";
+        public const string AppendCategoriesNamesCommand = "append-cat-name";
+        public const string TestDatabaseConnection = "test-dbcon";
 
 
         public string[] Arguments { get; }
@@ -92,21 +91,6 @@ namespace SunEngine.Cli
             return configurationFileName;
         }
 
-        public void ExitApplicationIfConfigurationIsNotValid()
-        {
-            bool failed = !TestIfConfigurationDirectoryExists(ConfigurationDirectoryRoute);
-
-            if(failed)
-                Environment.Exit(0);
-        }
-
-        public bool TestIfConfigurationDirectoryExists(string dirPath)
-        {
-            if (Directory.Exists(dirPath))
-                return true;
-            
-            Console.WriteLine($"Configuration directory \"{dirPath}\" does not exists.");
-            return false;
-        }
+        
     }
 }
