@@ -22,7 +22,7 @@ namespace SunEngine.Cli
         private const string InitCommand = "init";
         private const string SeedCommand = "seed";
         private const string AppendCategoriesNamesCommand = "append-cat-name";
-        private const string TestDatabaseConnection = "test-connection";
+        private const string TestDatabaseConnection = "test-dbcon";
 
         public string[] Arguments { get; }
         public string ConfigurationDirectoryRoute { get; }
