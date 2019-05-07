@@ -14,6 +14,7 @@ namespace SunEngine.Cli
         public static void Main(string[] args)
         {
             StartupConfiguration startupConfiguration = new StartupConfiguration(args);
+            startupConfiguration.ExitApplicationIfConfigurationIsNotValid();
 
             MainSeeder = new MainSeeder(startupConfiguration.ConfigurationDirectoryRoute);
             MainMigrator = new MainMigrator(startupConfiguration.ConfigurationDirectoryRoute);
