@@ -4,7 +4,7 @@
 
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
-Версия: 1.0.0-rc.1
+Версия: 1.0.0
 
 Демо: [demo.sunengine.site](http://demo.sunengine.site)  
 
@@ -50,49 +50,44 @@
 - [Npm](https://www.npmjs.com)
 - [Quasar cli](https://v1.quasar-framework.org/quasar-cli/installation)  `npm install -g @quasar/cli`
 
-#### Установка и запуск для Dev или Demo целей
+#### Установка и запуск в режиме Development
 - Клонировать репозиторий SunEngine с GitHub.
-- По умолчанию стоит база SQLite (файл: `SunEngine/SunEngine.db`)
-- Скомпилировать solution.
-- Зайти в директорию куда скомпилировался код `/SunEngine/SunEngine/bin/Debug/netcoreapp2.2/` 
-- Заполнить базу `dotnet SunEngine.dll migrate init seed`
-- Запускаем сервер `dotnet SunEngine.dll server`
-- Компилируем и запускаем клиентскую часть.  
-  - Зайти в консоль в директорию `SunEngine/Client`
-  - `npm install` - инсталлируем все npm модули
-  - `quasar dev` - запускаем клиент в dev режиме
-  - Откроется браузер с сайтом
-- Если что-то не работает написать сюда в Issue, или Telegram группу.
+- Из консоли зайти в папку `SunEngine.Cli`
+- Заполняем базу SqLite начальными данными `dotnet run migrate init seed` - 
+- Запускаем сервер `dotnet run server`
+- Из консоли зайти в папку `Client`
+- Инсталлируем npm модули - `npm install`
+- Запускаем клиент в dev режиме - `quasar dev` 
+- Откроется браузер с сайтом
 
 #### Команды для `SunEngine.dll`
 
 ```
 Commands:
     server                      host server api with kestrel
-    config:<path>               path to config directory, if none "Config" is default 
+    config:<path>               path to config directory, if none 'Config' is default 
     migrate                     make initial database table structure and migrations in existing database
     init                        initialize users, roles and categories tables from config directory
+    test-dbcon                  check is data base connection is working                     
     version                     print SunEngine version
     help                        show this help   
     
 Seed test data commands:    
-    seed:<CatName>:<X>:<Y>      seed category and all subcategories with materials and comments
-                                CatName - category name, 'Root' if skipped
-                                X - materials count, default if skipped
-                                Y - comments count, default if skipped
+    seed:<CategoryName>:<mCount>:<cCount>      
+                                seed category and all subcategories with materials and comments
+                                mCount - materials count, default if skipped
+                                cCount - comments count, default if skipped
+                                example - seed:SomeCategory:20:10
                                 
     append-cat-name             add category name to material titles on 'seed'
 
 Examples:
     dotnet SunEngine.dll server
     dotnet SunEngine.dll server config:local.Config.MySite
-    dotnet SunEngine.dll migrate init seed append-cat-name
+    dotnet SunEngine.dll migrate init seed
+    dotnet SunEngine.dll migrate init seed config:local.Config.MySite
     dotnet SunEngine.dll seed:Forum:10:10
 ```
-
-Директории с конфигами должны содержать в названии токен `'Config'`.  
-Примеры: `local.Config`, `local.Config.MySite`, `Config.MySite`.  
-Все файлы и дирректории с префиксом `local.` настроены в `.gitignore` и не идут в коммиты.
 
 #### Работа с другими базами данных
 - База данных: любая совместимая с Linq2db [(список)](https://fluentmigrator.github.io/articles/faq.html) и FluentMigrator [(список)](https://linq2db.github.io/articles/general/databases.html)  
@@ -108,14 +103,14 @@ Examples:
 
 ## Установка и запуск на Production
 
-- Собрать проект через `build.sh`.
-- Появится директория `/SunEngine/SunEngine/Build`
-- Записать на сервер
-- Для удобства записи на сервер можно использовать скрипт `publishExample.sh`, этот скрипт необходимо отредактировать и настроить под свой сервер
-- Обратите внимание, что при запуске `build.sh` из выходной директории убираются все файлы конфигурации, что бы они не затёрли уже существующие на сервере.
-- Записать и настроить файлы конфигурации на сервер (делается один раз при первой записи проекта на сервер, далее менять уже на сервере при изменении настроек) 
-  - Папка `Config` из корневой директории проекта, аналогично `/SunEngine/SunEngine/Config`
-  - Файл `/wwwroot/config.js` аналогично `/Client/config.js`
+- Собрать проект через `build.sh` (Параметры сборки настраиваются переменными внутри скрипта `build.sh`)
+- Появится директория `/SunEngine/Build`
+- Записать на сервер вручную или через `publish.sh` (Настройки подключения к серверу внутри файла скрипта)
+
+- При публикации через `build.sh` файлы конфигурации не публикуются
+- Для работы сборки на production необходимо один раз вручную переписать файлы конфигурации:
+  - Папка `SunEngine.Cli/Config` - записать в корневую директорию сайта на сервере
+  - Файл `/Client/config.js` записать в директорию `wwwroot` в папке сайта не сервере. 
 
 
 #### Вариант запуска на Nginx на Ubuntu. 
