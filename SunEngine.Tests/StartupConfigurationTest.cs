@@ -1,9 +1,8 @@
 using System.IO;
-using SunEngine;
 using SunEngine.Cli;
 using Xunit;
 
-namespace SunEngineTest
+namespace SunEngine.Tests
 {
     public class StartupConfigurationTest
     {

@@ -48,12 +48,13 @@ namespace SunEngine.DataSeed
                 var db = new DataBaseConnection(providerName, connectionString);
                 db.Connection.Open();
                 db.Connection.Close();
-                Logger.Info("Database is available.");
+                Console.WriteLine("Database is available.");
                 return true;
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Logger.Warn("Database is unavailable.\n" + e);
+                Console.WriteLine("Database is unavailable.");
+                Console.WriteLine(exception);
                 return false;
             }
         }
@@ -105,7 +106,7 @@ namespace SunEngine.DataSeed
                 {
                     throw new SunDatabaseException(
                         "Exception happened in data seed process. " +
-                        "Check that last migrations were done('migrate' argument) and system initialized ('initialize' argument).", e);
+                        "Check that last migrations were done('migrate' argument) and system initialized ('init' argument).", e);
                 }
                 catch (SocketException e)
                 {

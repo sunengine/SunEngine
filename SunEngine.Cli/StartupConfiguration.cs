@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,19 +11,19 @@ namespace SunEngine.Cli
     /// </summary>
     public class StartupConfiguration
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-        
-        private const string ConfigurationArgumentName = "config:";
-        private const string DefaultConfigurationFileName = "Config";
+        public const string ConfigurationArgumentName = "config:";
+        public const string DefaultConfigurationFileName = "Config";
+        public const string ConfigurationDirectoryNameEnd = ".Config";
 
-        private const string HelpCommand = "help";
-        private const string VersionCommand = "version";
-        private const string ServerCommand = "server";
-        private const string MigrateCommand = "migrate";
-        private const string InitCommand = "init";
-        private const string SeedCommand = "seed";
-        private const string AppendCategoriesNamesCommand = "append-cat-name";
-        private const string TestDatabaseConnection = "test-connection";
+        public const string HelpCommand = "help";
+        public const string VersionCommand = "version";
+        public const string ServerCommand = "server";
+        public const string MigrateCommand = "migrate";
+        public const string InitCommand = "init";
+        public const string SeedCommand = "seed";
+        public const string AppendCategoriesNamesCommand = "append-cat-name";
+        public const string TestDatabaseConnection = "test-dbcon";
+
 
         public string[] Arguments { get; }
         public string ConfigurationDirectoryRoute { get; }
@@ -68,20 +69,26 @@ namespace SunEngine.Cli
             var configurationProperty = arguments.FirstOrDefault(x => x.StartsWith(ConfigurationArgumentName));
             if (string.IsNullOrEmpty(configurationProperty))
             {
-                Logger.Warn("Property for configuration wasn't set. Default configuration will be used.");
+                Console.WriteLine("Property for configuration wasn't set. Default configuration will be used.");
                 return DefaultConfigurationFileName;
             }
 
             var configurationFileName = configurationProperty.Substring(ConfigurationArgumentName.Length).Trim();
             if (string.IsNullOrEmpty(configurationFileName))
             {
-                Logger.Warn("Property for configuration was empty or blank. Default configuration will be used.");
+                Console.WriteLine("Property for configuration was empty or blank. Default configuration will be used.");
                 return DefaultConfigurationFileName;
             }
 
-            Logger.Info($"Configuration file {configurationFileName} will be used.");
+            if (!configurationFileName.Equals(DefaultConfigurationFileName) && !configurationFileName.EndsWith(ConfigurationDirectoryNameEnd))
+            {
+                configurationFileName += ConfigurationDirectoryNameEnd;
+            }
+
+            Console.WriteLine($"Configuration directory \"{configurationFileName}\" will be used.");
             return configurationFileName;
         }
+
+        
     }
-    
 }

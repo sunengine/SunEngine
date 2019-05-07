@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using SunEngine.DataSeed;
 using SunEngine.Migrations;
 
@@ -14,6 +15,7 @@ namespace SunEngine.Cli
         public static void Main(string[] args)
         {
             StartupConfiguration startupConfiguration = new StartupConfiguration(args);
+            ExitApplicationIfConfigurationIsNotValid(startupConfiguration);
 
             MainSeeder = new MainSeeder(startupConfiguration.ConfigurationDirectoryRoute);
             MainMigrator = new MainMigrator(startupConfiguration.ConfigurationDirectoryRoute);
@@ -53,6 +55,23 @@ namespace SunEngine.Cli
                    startupConfiguration.InitializeCoreData ||
                    startupConfiguration.SeedWithTestData;
         }
+
+        private static void ExitApplicationIfConfigurationIsNotValid(StartupConfiguration startupConfiguration)
+        {
+            bool failed = !TestIfConfigurationDirectoryExists(startupConfiguration.ConfigurationDirectoryRoute);
+
+            if (failed)
+                Environment.Exit(0);
+
+
+            bool TestIfConfigurationDirectoryExists(string dirPath)
+            {
+                if (Directory.Exists(dirPath))
+                    return true;
+
+                Console.WriteLine($"Configuration directory \"{dirPath}\" does not exists.");
+                return false;
+            }
+        }
     }
-    
 }
