@@ -11,8 +11,6 @@ namespace SunEngine.Cli
     /// </summary>
     public class StartupConfiguration
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-        
         public const string ConfigurationArgumentName = "config:";
         public const string DefaultConfigurationFileName = "Config";
         public const string ConfigurationDirectoryNameEnd = ".Config";
