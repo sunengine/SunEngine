@@ -56,8 +56,8 @@
 - Заполняем базу SqLite начальными данными `dotnet run migrate init seed` - 
 - Запускаем сервер `dotnet run server`
 - Из консоли зайти в папку `Client`
-- Инсталлируем npm модули - `npm install`
-- Запускаем клиент в dev режиме - `quasar dev` 
+- Инсталлируем npm модули `npm install`
+- Запускаем клиент в dev режиме `quasar dev`
 - Откроется браузер с сайтом
 
 #### Команды для `SunEngine.dll`
