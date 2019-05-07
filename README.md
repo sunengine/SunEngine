@@ -68,7 +68,7 @@ Commands:
     config:<path>               path to config directory, if none 'Config' is default 
     migrate                     make initial database table structure and migrations in existing database
     init                        initialize users, roles and categories tables from config directory
-    test-dbcon                  check is data base connection is working                     
+    check-db-con                check is data base connection is working                     
     version                     print SunEngine version
     help                        show this help   
     
