@@ -109,5 +109,4 @@ namespace SunEngine.Cli
             return false;
         }
     }
-    
 }

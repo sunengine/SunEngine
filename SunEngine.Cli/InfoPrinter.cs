@@ -30,10 +30,10 @@ Commands:
     help                        show this help   
     
 Seed test data commands:    
-    seed:<CategoryName>:<MCount>:<CCount>      
+    seed:<CategoryName>:<mCount>:<cCount>      
                                 seed category and all subcategories with materials and comments
-                                MCount - materials count, default if skipped
-                                CCount - comments count, default if skipped
+                                mCount - materials count, default if skipped
+                                cCount - comments count, default if skipped
                                 example - seed:SomeCategory:20:10
                                 
     append-cat-name             add category name to material titles on 'seed'
