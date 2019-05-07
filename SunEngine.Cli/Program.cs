@@ -55,23 +55,23 @@ namespace SunEngine.Cli
                    startupConfiguration.InitializeCoreData ||
                    startupConfiguration.SeedWithTestData;
         }
-        
+
         private static void ExitApplicationIfConfigurationIsNotValid(StartupConfiguration startupConfiguration)
         {
             bool failed = !TestIfConfigurationDirectoryExists(startupConfiguration.ConfigurationDirectoryRoute);
 
-            if(failed)
+            if (failed)
                 Environment.Exit(0);
-        }
 
-        private static bool TestIfConfigurationDirectoryExists(string dirPath)
-        {
-            if (Directory.Exists(dirPath))
-                return true;
-            
-            Console.WriteLine($"Configuration directory \"{dirPath}\" does not exists.");
-            return false;
+
+            bool TestIfConfigurationDirectoryExists(string dirPath)
+            {
+                if (Directory.Exists(dirPath))
+                    return true;
+
+                Console.WriteLine($"Configuration directory \"{dirPath}\" does not exists.");
+                return false;
+            }
         }
     }
-    
 }
