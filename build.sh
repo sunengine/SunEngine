@@ -34,7 +34,7 @@ PROJECT_NAME="Sun Engine"    # replace with you project name
 # Path to SunEngine solution directory
 SOLUTION_PATH=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )    # Now set to current path
 # Can be any path, for example 
-# SOLUTION_PATH="~/projects/MySite"
+# SOLUTION_PATH="$HOME/projects/MySite"
 
 # Path to build folder
 BUILD_PATH="$SOLUTION_PATH/build"
@@ -51,13 +51,13 @@ GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
 
-echo -e "\n${GREEN}Publishing to directory ${PROJECT_NAME} project$ {NC}\n"
+echo -e "\n${GREEN}Publishing to directory ${PROJECT_NAME} project$ ${NC}\n"
 
 
 cd "$SOLUTION_PATH"
 
 
-echo -e "\n${GREEN}Clearing build$ {NC}\n"
+echo -e "\n${GREEN}Clearing build ${NC}\n"
 rm -r "$BUILD_PATH"
 mkdir "$BUILD_PATH"
  

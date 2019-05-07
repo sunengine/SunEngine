@@ -10,6 +10,7 @@
                 [
           {
             icon: $q.iconSet.editor.formatting,
+            fixedLabel: true,
             list: 'no-icons',
             options: ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'code']
           },
@@ -64,7 +65,7 @@
             data: {
               html: this.userInfo.information
             }
-          }).then( () => {
+          }).then(() => {
           this.$router.push({name: 'Personal'});
           const msg = this.$tl("editedSuccessNotify");
           this.$q.notify({
