@@ -105,7 +105,7 @@ namespace SunEngine.DataSeed
                 {
                     throw new SunDatabaseException(
                         "Exception happened in data seed process. " +
-                        "Check that last migrations were done('migrate' argument) and system initialized ('initialize' argument).", e);
+                        "Check that last migrations were done('migrate' argument) and system initialized ('init' argument).", e);
                 }
                 catch (SocketException e)
                 {
