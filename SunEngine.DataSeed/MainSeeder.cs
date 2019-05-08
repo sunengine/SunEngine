@@ -19,8 +19,6 @@ namespace SunEngine.DataSeed
     /// </summary>
     public class MainSeeder
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-        
         public const string SeedCommand = "seed";
 
 
@@ -152,6 +150,5 @@ namespace SunEngine.DataSeed
 
             new DataBaseSeeder(db, dataContainer).SeedMaterials().PostSeedMaterials();
         }
-        
     }
 }
