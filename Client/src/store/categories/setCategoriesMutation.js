@@ -1,10 +1,13 @@
-export function setCategories(state, root) {
+export default function setCategories(state, root) {
 
   state.root = root;
   state.all = {};
+
   buildStructureRecursive(root);
 
   detectCanSomeChildrenWriteMaterial(root);
+
+  setSettingsFromJson();
 
   function buildStructureRecursive(category, sectionRoot = null) {
 
@@ -43,23 +46,25 @@ export function setCategories(state, root) {
     }
 
     let has = false;
-    if(category.subCategories) {
-      for(const cat of category.subCategories)
-      {
-        if(detectCanSomeChildrenWriteMaterial(cat))
+    if (category.subCategories) {
+      for (const cat of category.subCategories) {
+        if (detectCanSomeChildrenWriteMaterial(cat))
           has = true;
       }
     }
-    if(category.categoryPersonalAccess?.materialWrite)
+    if (category.categoryPersonalAccess?.materialWrite)
       has = true;
 
     category.canSomeChildrenWriteMaterial = has;
 
     return has;
   }
+
+  function setSettingsFromJson() {
+    for (const cat in state.all) {
+      if (cat.settingJson) {
+        cat.settings = eval(cat.settingsJson);
+      }
+    }
+  }
 }
-
-
-
-
-

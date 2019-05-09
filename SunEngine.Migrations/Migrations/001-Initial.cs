@@ -43,6 +43,8 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("CacheSettingsId").AsInt32().Indexed().Nullable()
                 .ForeignKey("FK_Categories_CategoryCacheSettings_CacheSettingsId", "CategoryCacheSettings", "Id")
                 .WithColumn("SortNumber").AsInt32().NotNullable()
+                .WithColumn("LayoutName").AsString(DbColumnSizes.Categories_LayoutName).Nullable()
+                .WithColumn("SettingsJson").AsMaxString().Nullable()
                 .WithColumn("IsCacheContent").AsBoolean().NotNullable()
                 .WithColumn("IsHidden").AsBoolean().NotNullable()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable();
@@ -193,6 +195,7 @@ namespace SunEngine.Migrations.Migrations
         public const int SectionType_Title = 64;
         public const int Categories_Name = 64;
         public const int Categories_Title = 256;
+        public const int Categories_LayoutName = 32;
         public const int Categories_MaterialTypeTitle = 32;
         public const int Users_UserName = 64;
         public const int Users_Email = 64;

@@ -3,6 +3,7 @@
     "Name": "Articles",
     "Title": "Статьи",
     "SectionType": "Articles",
+    "LayoutName": "Articles",
     "IsMaterialsContainer": true,
     "MaterialTypeTitle" : "Статья"
   }

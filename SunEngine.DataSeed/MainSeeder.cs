@@ -38,25 +38,32 @@ namespace SunEngine.DataSeed
             providerName = dataBaseConfiguration["Linq2dbProvider"];
             connectionString = dataBaseConfiguration["ConnectionString"];
         }
-        
+
         public bool СheckConnection()
         {
-            try
+            using (var db = new DataBaseConnection(providerName, connectionString))
             {
-                var db = new DataBaseConnection(providerName, connectionString);
-                db.Connection.Open();
-                db.Connection.Close();
-                Console.WriteLine("Database is available.");
-                return true;
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine("Database is unavailable.");
-                Console.WriteLine(exception);
-                return false;
+                try
+                {
+                    db.Connection.Open();
+                    db.Close();
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.WriteLine("Database is available.");
+                    Console.ResetColor();
+                    return true;
+                }
+                catch (Exception exception)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Database is unavailable.");
+                    Console.ResetColor();
+                    Console.WriteLine(exception);
+                    db.Close();
+                    return false;
+                }
             }
         }
-        
+
         /// <summary>
         /// Initialize database with roles, users, categories from config direcory
         /// </summary>

@@ -48,7 +48,8 @@ namespace SunEngine.DataSeed
             });
         }
 
-        private void SeedCategory(Category parent, JToken categoryToken, IList<int> numbers,
+        private void SeedCategory(
+            Category parent, JToken categoryToken, IList<int> numbers,
             string instanceTitle = null)
         {
             int repeatCount = 1;
@@ -63,7 +64,7 @@ namespace SunEngine.DataSeed
                 int id = dataContainer.NextCategoryId();
                 string name = PrepareText((string) categoryToken["Name"], numbers);
                 string thisMaterialTypeTitle = (string) categoryToken["MaterialTypeTitle"] ?? instanceTitle;
-                
+
                 Category category = new Category
                 {
                     Id = id,
@@ -79,6 +80,11 @@ namespace SunEngine.DataSeed
                 if (categoryToken["IsMaterialsContainer"] != null)
                 {
                     category.IsMaterialsContainer = (bool) categoryToken["IsMaterialsContainer"];
+                }
+
+                if (categoryToken["LayoutName"] != null)
+                {
+                    category.LayoutName = (string) categoryToken["LayoutName"];
                 }
 
                 var sectionTypeName = categoryToken["SectionType"];
@@ -108,7 +114,7 @@ namespace SunEngine.DataSeed
                         SeedCategory(category, subCategoryToken, numbers1, thisMaterialTypeTitle);
                     }
                 }
-               
+
                 numbers[0]++;
             }
         }

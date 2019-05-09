@@ -68,6 +68,7 @@ namespace SunEngine.Admin.Managers
                 throw new ParentCategoryNotFoundByIdException(categoryUpdate.ParentId);
 
             category.Name = categoryUpdate.Name;
+            category.NameNormalized = Normalizer.Normalize(category.Name);
             category.Title = categoryUpdate.Title;
             category.Header = sanitizer.Sanitize(categoryUpdate.Header);
             category.Description = categoryUpdate.Description;

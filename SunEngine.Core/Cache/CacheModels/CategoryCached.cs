@@ -35,6 +35,8 @@ namespace SunEngine.Core.Cache.CacheModels
         public int? SectionTypeId { get; private set; }
 
         public SectionTypeCached SectionType { get; private set; }
+        
+        public string SettingsJson { get; private set; }
 
         public int? ParentId { get; }
         public CategoryCached Parent { get; private set; }
@@ -54,6 +56,8 @@ namespace SunEngine.Core.Cache.CacheModels
         protected List<CategoryCached> _allSubCategories { get; private set; }
 
         public int SortNumber { get; }
+        
+        public string LayoutName { get; private set; }
 
         public bool IsHidden { get; }
         
@@ -73,10 +77,12 @@ namespace SunEngine.Core.Cache.CacheModels
             Header = category.Header;
             SectionTypeId = category.SectionTypeId;
             AppendUrlToken = category.AppendUrlToken;
+            SettingsJson = category.SettingsJson;
             ParentId = category.ParentId;
             CacheSettingsId = category.CacheSettingsId;
             CacheSettings = category.CacheSettings;
             SortNumber = category.SortNumber;
+            LayoutName = category.LayoutName;
             IsHidden = category.IsHidden;
             IsCacheContent = category.IsCacheContent;
             _subCategories = new List<CategoryCached>();

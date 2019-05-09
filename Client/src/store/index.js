@@ -5,8 +5,11 @@ import auth from './auth'
 import request from "./request";
 import categories from "store/categories";
 import {getTokens, makeUserDataFromTokens} from "services/tokens";
-import { consoleInit } from "defination";
-
+import {consoleInit} from "defination";
+import registerLayouts from './registerLayouts';
+import {router} from "router";
+import makeRoutesFromLayouts from "router/makeRoutesFromLayouts";
+import ssr from "router/ssr";
 
 Vue.use(Vuex);
 
@@ -37,6 +40,13 @@ export default function (/* { ssrContext } */) {
         try {
           !this.state.categories.all && await this.dispatch('getAllCategories');
 
+          registerLayouts(store);
+
+          const routes = makeRoutesFromLayouts(store);
+          const router1 = router;
+          router1.addRoutes(routes);
+          router1.addRoutes(ssr);
+
           this.state.isInitialized = true;
         } catch (x) {
           console.error("error", x);
@@ -66,6 +76,6 @@ function initUser(store) {
 
     console.info('%cUser restored from localStorage', consoleInit, userData);
   }
-
 }
+
 

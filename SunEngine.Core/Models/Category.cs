@@ -57,6 +57,10 @@ namespace SunEngine.Core.Models
         /// </summary>
         public int SortNumber { get; set; }
 
+        public string LayoutName { get; set; }
+        
+        public string SettingsJson { get; set; }
+        
         /// <summary>
         /// Containing Materials
         /// </summary>

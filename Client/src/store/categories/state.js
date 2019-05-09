@@ -1,4 +1,5 @@
 export default {
   root: null,
-  all: null
+  all: null,
+  layouts: {}
 }

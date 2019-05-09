@@ -1,6 +1,6 @@
-import { consoleInit } from "../../defination";
+import { consoleInit } from "defination";
 
-export async function getAllCategories(context, data) {
+export default async function getAllCategories(context, data) {
 
   let requestData = {
     url: "/Categories/GetAllCategoriesAndAccesses"

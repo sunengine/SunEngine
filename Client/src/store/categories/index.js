@@ -1,12 +1,22 @@
 import state from './state'
-import * as getters from './getters'
-import * as mutations from './mutations'
-import * as actions from './actions'
+import getCategory from './getCategory'
+import setCategories from './setCategoriesMutation'
+import getAllCategories from './getAllCategoriesAction'
+import getLayout from "./getLayout"
+import registerLayout from './registerLayoutMutation'
 
 export default {
   //namespaced: true,
-  state,
-  getters,
-  mutations,
-  actions
+  state: state,
+  getters : {
+    getCategory,
+    getLayout
+  },
+  mutations: {
+    setCategories,
+    registerLayout
+  },
+  actions: {
+    getAllCategories
+  }
 }

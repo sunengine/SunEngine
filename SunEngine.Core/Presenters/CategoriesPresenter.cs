@@ -61,6 +61,8 @@ namespace SunEngine.Core.Presenters
                 Path = category.Path,
                 AppendUrlToken = category.AppendUrlToken,
                 SortNumber = category.SortNumber,
+                LayoutName= category.LayoutName,
+                SettingsJson =  category.SettingsJson,
                 IsHidden = category.IsHidden,
 
                 CategoryPersonalAccess = DetectPersonalAccesses(category, roles)
@@ -122,6 +124,8 @@ namespace SunEngine.Core.Presenters
         public string Header { get; set; }
         public bool AppendUrlToken { get; set; }
         public int SortNumber { get; set; }
+        public string LayoutName { get; set; }
+        public string SettingsJson { get; set; }
         public SectionTypeCached SectionType { get; set; }
         public string Path { get; set; }
         public bool IsMaterialsContainer { get; set; }

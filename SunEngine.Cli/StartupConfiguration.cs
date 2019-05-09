@@ -87,7 +87,5 @@ namespace SunEngine.Cli
             Console.WriteLine($"Configuration directory \"{configurationFileName}\" will be used.");
             return configurationFileName;
         }
-
-        
     }
 }
