@@ -1,13 +1,5 @@
-import HtmlTextSizeOrHasImage from './HtmlTextSizeOrHasImage'
-import LoaderSent from './LoaderSent'
-import LoaderWait from './LoaderWait'
-import MyEditor from './MyEditor'
-import Page from './Page'
-
-export {
-  HtmlTextSizeOrHasImage,
-  LoaderSent,
-  LoaderWait,
-  MyEditor,
-  Page
-};
+export HtmlTextSizeOrHasImage from './HtmlTextSizeOrHasImage'
+export LoaderSent from './LoaderSent'
+export LoaderWait from './LoaderWait'
+export MyEditor from './MyEditor'
+export Page from './Page'

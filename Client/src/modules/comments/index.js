@@ -1,12 +1,4 @@
-import CommentContainer from './CommentContainer'
-import CreateEditComment from './CreateEditComment'
-import DeletedComment from './DeletedComment'
-import ReadComment from './ReadComment'
-
-
-export {
-  CommentContainer,
-  CreateEditComment,
-  DeletedComment,
-  ReadComment
-}
+export CommentContainer from './CommentContainer'
+export CreateEditComment from './CreateEditComment'
+export DeletedComment from './DeletedComment'
+export ReadComment from './ReadComment'

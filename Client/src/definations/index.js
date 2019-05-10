@@ -1,4 +1,2 @@
-import CachePolicies from "./CachePolicies";
-
-export * from "./ConsoleStyles";
-export { CachePolicies };
+export cachePolicies from "./cachePolicies";
+export * from "./consoleStyles";

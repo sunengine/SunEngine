@@ -1,18 +1,7 @@
-import adminGetAllCategories from './adminGetAllCategories'
-import apiPath from './apiPath'
-import buildPath from './buildPath'
-import categoriesTree from './categoriesTree'
-import imagePath from './imagePath'
-import routeAccess from './routeAccess'
-import tokens from './tokens'
-
-
-export {
-  adminGetAllCategories,
-  apiPath,
-  buildPath,
-  categoriesTree,
-  imagePath,
-  routeAccess,
-  tokens
-}
+export adminGetAllCategories from './adminGetAllCategories'
+export apiPath from './apiPath'
+export buildPath from './buildPath'
+export * from './categoriesTree'
+export imagePath from './imagePath'
+export * from './routeAccess'
+export * from './tokens'

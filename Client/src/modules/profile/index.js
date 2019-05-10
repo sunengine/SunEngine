@@ -1,8 +1,2 @@
-import Profile from './Profile'
-import SendPrivateMessage from './SendPrivateMessage'
-
-
-export {
-  Profile,
-  SendPrivateMessage
-}
+export Profile from './Profile'
+export SendPrivateMessage from './SendPrivateMessage'

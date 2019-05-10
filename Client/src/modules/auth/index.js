@@ -1,14 +1,5 @@
-import Login from './Login'
-import LoginRegisterMenu from './LoginRegisterMenu'
-import Register from './Register'
-import RegisterEmailResult from './RegisterEmailResult'
-import UserMenu from './UserMenu'
-
-
-export {
-  Login,
-  LoginRegisterMenu,
-  Register,
-  RegisterEmailResult,
-  UserMenu
-}
+export Login from './Login'
+export LoginRegisterMenu from './LoginRegisterMenu'
+export Register from './Register'
+export RegisterEmailResult from './RegisterEmailResult'
+export UserMenu from './UserMenu'
