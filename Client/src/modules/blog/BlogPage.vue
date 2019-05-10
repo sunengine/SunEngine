@@ -20,9 +20,9 @@
 </template>
 
 <script>
-  import LoaderWait from "LoaderWait";
-  import Page from "Page";
-  import PostsList from "./PostsList";
+  import {LoaderWait} from 'sun'
+  import {Page} from 'sun'
+  import {PostsList} from 'sun'
 
   export default {
     name: "BlogPage",

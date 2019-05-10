@@ -33,9 +33,9 @@
 </template>
 
 <script>
-  import LoaderWait from "LoaderWait";
-  import Page from "Page";
-  import ProfileRoles from "admin/ProfileRoles";
+  import {LoaderWait} from 'sun'
+  import {Page} from 'sun'
+  import {ProfileRoles} from 'sun'
 
   export default {
     name: "Profile",

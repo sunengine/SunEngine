@@ -11,12 +11,14 @@
 </template>
 
 <script>
-  import AdminMenu from './AdminMenu'
+  import {AdminMenu} from 'sun'
+
   export default {
     name: "AdminPanel",
     components: {AdminMenu},
     i18nPrefix: "Admin",
   }
+
 </script>
 
 <style scoped>

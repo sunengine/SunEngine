@@ -86,7 +86,7 @@
         user: state => state.auth.user,
         userInfo: state => state.auth.userInfo
       })
-    },
+    }
   }
 </script>
 

@@ -21,8 +21,8 @@
 </template>
 
 <script>
-  import LoaderWait from "LoaderWait";
-  import Article from "./Article";
+  import {LoaderWait} from 'sun'
+  import {Article} from 'sun'
 
   export default {
     name: "ArticlesList",

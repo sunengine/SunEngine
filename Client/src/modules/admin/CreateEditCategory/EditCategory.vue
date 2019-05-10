@@ -21,10 +21,10 @@
 </template>
 
 <script>
-  import CategoryForm from "./CategoryForm";
-  import LoaderWait from "LoaderWait";
-  import LoaderSent from "LoaderSent";
-  import Page from "Page";
+  import {CategoryForm} from 'sun';
+  import {LoaderWait} from 'sun';
+  import {LoaderSent} from 'sun';
+  import {Page} from 'sun';
 
   export default {
     name: "EditCategory",
@@ -126,8 +126,8 @@
       await this.loadData();
       this.title = this.$tl("title") + ": " + this.category.title
     }
+  };
 
-  }
 </script>
 
 <style lang="stylus" scoped>

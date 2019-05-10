@@ -17,9 +17,9 @@
 </template>
 
 <script>
-  import LoaderWait from "LoaderWait";
-  import Page from "Page";
-  import ArticlesList from "./ArticlesList";
+  import {LoaderWait} from 'sun'
+  import {Page} from 'sun'
+  import {ArticlesList} from 'sun'
 
   export default {
     name: "ArticlesPage",

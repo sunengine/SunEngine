@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import {routes, initRouter} from 'site/routerInit';
 
-import {routeHasAccess} from "routeAccess"
+import {routes} from 'sun'
+import {routeHasAccess} from'sun'
 
 
 Vue.use(VueRouter);

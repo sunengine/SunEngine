@@ -54,8 +54,8 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex';
-  import {routeCheckAccess} from 'services/routeAccess';
+  import {mapState} from 'vuex'
+  import {routeCheckAccess} from 'sun'
 
   export default {
     name: "UserMenu",

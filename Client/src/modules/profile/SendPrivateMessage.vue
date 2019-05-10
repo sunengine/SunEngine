@@ -6,13 +6,7 @@
     </h2>
 
     <q-editor class="q-mb-md"
-              :toolbar="[
-          ['bold', 'italic', 'strike', 'underline'],
-          ['token', 'hr' ],
-          ['quote', 'unordered', 'ordered' ],
-          ['undo', 'redo','fullscreen'],
-             ]"
-
+              :toolbar="sendPrivateMessageToolbar"
               ref="htmlEditor" v-model="text"/>
 
     <q-btn no-caps icon="fas fa-arrow-circle-right" class="q-mr-sm" @click="send" color="send" :loading="loading"
@@ -25,8 +19,10 @@
 
 
 <script>
-  import Page from "Page";
-  import LoaderSent from "LoaderSent";
+  import {Page} from 'sun'
+  import {LoaderSent} from 'sun'
+  import {sendPrivateMessageToolbar as sendPrivateMessageToolbar} from 'sun'
+
 
   export default {
     name: "SendPrivateMessage",

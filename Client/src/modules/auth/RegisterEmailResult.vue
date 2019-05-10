@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import Page from "Page";
+  import {Page} from 'sun'
 
   export default {
     name: "RegisterEmailResult",

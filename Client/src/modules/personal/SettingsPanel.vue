@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import SettingsMenu from './SettingsMenu'
+  import {SettingsMenu} from 'sun'
 
   export default {
     name: "SettingsPanel",

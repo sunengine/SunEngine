@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import Categories1 from "categories/Categories1"
+  import {Categories1} from 'sun'
 
   export default {
     name: "ForumPanel",

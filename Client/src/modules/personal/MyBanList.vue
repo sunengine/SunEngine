@@ -11,8 +11,8 @@
 </template>
 
 <script>
-  import Page from "Page";
-  import LoaderWait from "LoaderWait";
+  import {Page} from 'sun'
+  import {LoaderWait} from 'sun'
 
   export default {
     name: "MyBanList",

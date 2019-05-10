@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import Page from 'Page'
+  import {Page} from 'sun'
 
   export default {
     name: "ResetPasswordFailed",
@@ -19,6 +19,7 @@
       this.title = this.$tl("title");
     }
   }
+
 </script>
 
 <style scoped>

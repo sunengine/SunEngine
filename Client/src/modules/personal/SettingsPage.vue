@@ -8,8 +8,8 @@
 </template>
 
 <script>
-  import SettingsMenu from "./SettingsMenu";
-  import Page from "Page";
+  import {SettingsMenu} from 'sun'
+  import {Page} from 'sun'
 
   export default {
     name: "SettingsPage",

@@ -23,8 +23,8 @@
 </template>
 
 <script>
-  import Page from "Page";
-  import PostsList from "./PostsList";
+  import {Page} from 'sun'
+  import {PostsList} from 'sun'
 
   export default {
     name: 'BlogMultiCatPage',

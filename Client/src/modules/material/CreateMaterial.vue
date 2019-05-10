@@ -14,10 +14,10 @@
 </template>
 
 <script>
-  import MaterialForm from "./MaterialForm";
-  import {GetWhereToAdd} from "./GetWhereToAddMove";
-  import Page from "Page";
-  import LoaderSent from "LoaderSent";
+  import {MaterialForm} from 'sun'
+  import {GetWhereToAdd} from 'sun'
+  import {Page} from 'sun'
+  import {LoaderSent} from 'sun'
 
   export default {
     name: "CreateMaterial",

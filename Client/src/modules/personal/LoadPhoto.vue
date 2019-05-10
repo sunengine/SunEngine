@@ -12,7 +12,8 @@
 </template>
 
 <script>
-  import Page from "Page";
+  import {Page} from 'sun';
+
 
   const defaultAvatar = config.Misc.DefaultAvatar;
 

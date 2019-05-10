@@ -14,9 +14,9 @@
 </template>
 
 <script>
-  import CategoryForm from "./CategoryForm";
-  import Page from "Page";
-  import LoaderSent from "components/LoaderSent";
+  import {CategoryForm} from 'sun'
+  import {Page} from 'sun'
+  import {LoaderSent} from 'sun'
 
   export default {
     name: "CreateCategory",
@@ -68,7 +68,8 @@
     async created() {
       this.title = this.$tl("title")
     }
-  }
+  };
+
 </script>
 
 <style lang="stylus" scoped>

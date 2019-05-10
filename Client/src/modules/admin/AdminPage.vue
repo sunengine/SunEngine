@@ -9,8 +9,8 @@
 </template>
 
 <script>
-  import AdminMenu from "./AdminMenu";
-  import Page from "Page";
+  import {AdminMenu} from 'sun'
+  import {Page} from 'sun'
 
   export default {
     name: "AdminPage",
@@ -20,7 +20,8 @@
     created() {
       this.title = this.$tl("title");
     }
-  }
+  };
+
 </script>
 
 <style scoped>

@@ -18,9 +18,9 @@
 </template>
 
 <script>
-  import Page from "Page";
-  import CategoryItem from "./CategoryItem";
-  import LoaderWait from "LoaderWait";
+  import {Page} from 'sun'
+  import {CategoryItem} from 'sun'
+  import {LoaderWait} from 'sun'
 
   export default {
     name: "CategoriesAdmin",

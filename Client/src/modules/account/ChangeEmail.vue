@@ -39,8 +39,8 @@
 </template>
 
 <script>
-  import Page from "Page";
-  import LoaderSent from "LoaderSent";
+  import {Page} from 'sun';
+  import {LoaderSent} from 'sun';
 
 
   function createRules() {

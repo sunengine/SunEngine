@@ -1,4 +1,4 @@
-import buildPath from "services/buildPath"
+import {buildPath} from 'sun'
 
 export default function (token) {
   return buildPath(config.API, token);

@@ -16,8 +16,8 @@
 </template>
 
 <script>
-  import LoaderWait from "LoaderWait";
-  import Post from "./Post";
+  import {LoaderWait} from 'sun'
+  import {Post} from 'sun'
 
   export default {
     name: "PostsList",

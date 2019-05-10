@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import Page from 'Page'
+  import {Page} from 'sun'
 
   function createRules() {
     return {

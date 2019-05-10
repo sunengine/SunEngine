@@ -3,9 +3,11 @@
 </template>
 
 <script>
-    export default {
+    export const LoaderWait = {
         name: "LoaderWait"
-    }
+    };
+
+    export default LoaderWait;
 </script>
 
 <style scoped>

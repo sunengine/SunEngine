@@ -42,7 +42,8 @@
   export default {
     name: "AdminMenu",
     i18nPrefix: "Admin"
-  }
+  };
+
 </script>
 
 <style scoped>

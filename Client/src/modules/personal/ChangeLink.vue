@@ -18,9 +18,9 @@
 </template>
 
 <script>
-  import Page from "Page";
-  import LoaderSent from "LoaderSent";
-  import {store} from "store";
+  import {Page} from 'sun'
+  import {LoaderSent} from 'sun'
+  import {store} from 'sun'
 
   function allowMyIdOrEmpty(id) {
     return !id || store.state.auth.user.id == id;

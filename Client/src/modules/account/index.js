@@ -1,6 +1,15 @@
-export ChangeEmail from './ChangeEmail'
-export ChangeEmailResult from './ChangeEmailResult'
-export ChangePassword from './ChangePassword'
-export ResetPassword from './ResetPassword'
-export ResetPasswordFailed from './ResetPasswordFailed'
-export ResetPasswordSetNew from './ResetPasswordSetNew'
+import ChangeEmail from './ChangeEmail'
+import ChangeEmailResult from './ChangeEmailResult'
+import ChangePassword from './ChangePassword'
+import ResetPassword from './ResetPassword'
+import ResetPasswordFailed from './ResetPasswordFailed'
+import ResetPasswordSetNew from './ResetPasswordSetNew'
+
+export {
+  ChangeEmail,
+  ChangeEmailResult,
+  ChangePassword,
+  ResetPassword,
+  ResetPasswordFailed,
+  ResetPasswordSetNew
+}

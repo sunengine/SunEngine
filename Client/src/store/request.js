@@ -1,10 +1,8 @@
 import axios from 'axios'
-import {removeTokens, setTokens, parseJwt} from 'services/tokens';
+import {removeTokens, setTokens, parseJwt} from 'sun'
 import Lock from 'js-lock';
 import {store} from 'store';
-
-import Vue from 'vue';
-import { consoleTokens, consoleUserLogout, consoleRequestStart, consoleRequestUrl } from "../defination";
+import { consoleTokens, consoleUserLogout, consoleRequestStart, consoleRequestUrl } from 'sun'
 
 const lock = new Lock("request-lock");
 

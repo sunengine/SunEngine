@@ -1,8 +1,7 @@
-import ArticlesPage from "./ArticlesPage";
-import Material from "material/Material";
+import {ArticlesPage} from 'sun'
+import {Material} from 'sun'
 
 export default {
-
   name: 'Articles',
   title: 'Articles',
   categoryType: 'Articles',

@@ -9,10 +9,11 @@
 </template>
 
 <script>
-  import Activity from "./Activity";
-  import LoaderWait from "LoaderWait";
+  import {Activity} from 'sun'
+  import {LoaderWait} from 'sun'
 
-  export default {
+
+  export default  {
     name: "ActivitiesList",
     components: {LoaderWait, Activity},
     props: {

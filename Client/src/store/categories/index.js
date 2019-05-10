@@ -1,13 +1,13 @@
-import state from './state'
-import getCategory from './getCategory'
-import setCategories from './setCategoriesMutation'
-import getAllCategories from './getAllCategoriesAction'
-import getLayout from "./getLayout"
-import registerLayout from './registerLayoutMutation'
+import {categoriesState} from './categoriesState'
+import {getCategory} from 'sun'
+import {setCategories} from 'sun'
+import {getAllCategories} from 'sun'
+import {getLayout} from 'sun'
+import {registerLayout} from 'sun'
 
 export default {
   //namespaced: true,
-  state: state,
+  state: categoriesState,
   getters : {
     getCategory,
     getLayout

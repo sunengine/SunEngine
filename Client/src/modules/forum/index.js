@@ -1,4 +1,11 @@
-export ForumPanel from './ForumPanel'
-export NewTopics from './NewTopics'
-export Thread from './Thread'
-export Topic from './Topic'
+import ForumPanel from './ForumPanel'
+import NewTopics from './NewTopics'
+import Thread from './Thread'
+import Topic from './Topic'
+
+export {
+  ForumPanel,
+  NewTopics,
+  Thread,
+  Topic
+}

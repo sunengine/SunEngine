@@ -12,10 +12,12 @@
 </template>
 
 <script>
-  import ReadComment from "./ReadComment";
-  import CreateEditComment from "./CreateEditComment";
-  import {date} from 'quasar';
-  import DeletedComment from "./DeletedComment";
+  import {ReadComment} from 'sun'
+  import {CreateEditComment} from 'sun'
+  import {DeletedComment} from 'sun'
+
+  import {date} from 'quasar'
+
 
   export default {
     name: "CommentContainer",

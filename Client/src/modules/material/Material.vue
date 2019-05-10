@@ -66,14 +66,16 @@
 </template>
 
 <script>
-  import CommentContainer from "comments/CommentContainer";
-  import CreateEditComment from "comments/CreateEditComment";
-  import {date} from 'quasar';
-  import LoaderWait from "LoaderWait";
-  import {scroll} from 'quasar';
-  import Page from "Page";
+  import {CommentContainer} from 'sun'
+  import {CreateEditComment} from 'sun'
+  import {LoaderWait} from 'sun'
+  import {Page} from 'sun'
+
+  import {date} from 'quasar'
+  import {scroll} from 'quasar'
 
   const {getScrollTarget, setScrollPosition} = scroll;
+
 
   export default {
     name: "Material",

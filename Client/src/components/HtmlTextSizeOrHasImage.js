@@ -1,6 +1,9 @@
 // QEditor html validator. Returns true if html contains image or if innerText size >= minLength
 
-export default function (el, minLength) {
+/**
+ * @return {boolean}
+ */
+export default HtmlTextSizeOrHasImage(el, minLength) {
 
   if (!el)
     return true;
@@ -13,4 +16,5 @@ export default function (el, minLength) {
   let textLength = el.innerText.replace(/\s/g, "").length;
 
   return textLength >= minLength;
-};
+
+}

@@ -1,19 +1,25 @@
-import Categories1 from 'categories/Categories1';
-import Categories2 from 'categories/Categories2';
-//import TestExt from 'pages/TestExt';
-import Index from 'site/Index';
-import News2Col from 'site/News2Col';
-import BlogMultiCatPage from 'blog/BlogMultiCatPage';
-import ActivitiesPage from 'activities/ActivitiesPage';
-import PageWithMaterialInline from 'site/PageWithMaterialInline';
-import {makeArticlesSection, makeForumSection, makeBlogSection} from "router/makeSections";
+import {Categories1} from 'sun'
+import {Categories2} from 'sun'
+import {IndexPage} from 'sun'
+import {News2Col} from 'sun'
+import {BlogMultiCatPage} from 'sun'
+import {ActivitiesPage} from 'sun'
+import {PageWithMaterialInline} from 'sun'
+import {makeArticlesSection, makeForumSection, makeBlogSection} from'sun'
 
+import {auth} from 'sun'
+import {account} from 'sun'
+import {misc} from 'sun'
+import {personal} from 'sun'
+import {admin} from 'sun'
 
-const routes = [
+const routesCore = [...auth, ...account, ...misc, ...personal, ...admin];
+
+const routesSite = [
   {
     name: "Home",
     path: '/',
-    component: Index
+    component: IndexPage
   },
   {
     name: "News",
@@ -68,5 +74,5 @@ const routes = [
 ];
 
 
-export default routes;
+export default [...routesCore, ...routesSite, ssr]
 

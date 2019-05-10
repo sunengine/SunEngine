@@ -30,10 +30,9 @@
 </template>
 
 <script>
-  import Page from "Page";
-
-  import {makeUserDataFromTokens} from "tokens";
-  import LoaderSent from "LoaderSent";
+  import {Page} from 'sun'
+  import {makeUserDataFromTokens} from 'sun'
+  import {LoaderSent} from 'sun'
 
 
   function createRules()

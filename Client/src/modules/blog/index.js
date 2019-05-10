@@ -1,4 +1,12 @@
-export BlogMultiCatPage from './BlogMultiCatPage'
-export BlogPage from './BlogPage'
-export Post from './Post'
-export PostsList from './PostsList'
+import BlogMultiCatPage from './BlogMultiCatPage'
+import BlogPage from './BlogPage'
+import Post from './Post'
+import PostsList from './PostsList'
+
+
+export {
+  BlogMultiCatPage,
+  BlogPage,
+  Post,
+  PostsList
+}

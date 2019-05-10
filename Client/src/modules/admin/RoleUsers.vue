@@ -24,7 +24,7 @@
 
 <script>
 
-  import LoaderWait from "LoaderWait";
+  import {LoaderWait} from 'sun'
 
   export default {
     name: "RoleUsers",

@@ -74,8 +74,8 @@
 </template>
 
 <script>
-  import LoaderSent from "LoaderSent";
-  import Page from "Page";
+  import {LoaderSent} from 'sun'
+  import {Page} from 'sun'
 
 
   function createRules() {

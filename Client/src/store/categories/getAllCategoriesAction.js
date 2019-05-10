@@ -1,4 +1,4 @@
-import { consoleInit } from "defination";
+import { consoleInit } from 'sun'
 
 export default async function getAllCategories(context, data) {
 

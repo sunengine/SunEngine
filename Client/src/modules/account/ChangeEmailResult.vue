@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import Page from "Page";
+  import {Page} from 'sun'
 
   export default {
     name: "ChangeEmailResult",
@@ -29,8 +29,8 @@
     created() {
       this.title = this.$tl("title");
     }
-
   }
+
 </script>
 
 <style scoped>

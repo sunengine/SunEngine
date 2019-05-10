@@ -1,28 +1,7 @@
 <template>
   <div>
     <MyEditor
-      :toolbar="[
-          ['bold', 'italic', 'strike', 'underline'],
-          ['token', 'hr', 'link', 'addImages'],
-          [
-            {
-              icon: $q.iconSet.editor.formatting,
-              fixedLabel: true,
-              list: 'no-icons',
-              options: ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'code']
-            },
-            {
-              icon: $q.iconSet.editor.fontSize,
-              fixedLabel: true,
-              fixedIcon: true,
-              list: 'no-icons',
-              options: ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6', 'size-7']
-            },
-            'removeFormat'
-        ],
-        ['quote', 'unordered', 'ordered'],
-        ['undo', 'redo','fullscreen'],
-                    ]"
+      :toolbar="commentEditorToolbar"
       :rules="commentRules"
       class="editor" ref="htmlEditor" v-model="comment.text"/>
     <div>
@@ -38,9 +17,10 @@
 </template>
 
 <script>
-  import LoaderSent from "LoaderSent";
-  import htmlTextSizeOrHasImage from "HtmlTextSizeOrHasImage.js";
-  import MyEditor from "MyEditor";
+  import {LoaderSent} from 'sun'
+  import {htmlTextSizeOrHasImage} from 'sun'
+  import {MyEditor} from 'sun'
+  import {commentEditorToolbar as commentEditorToolbar} from 'sun'
 
   export default {
     name: "CreateEditComment",
@@ -65,8 +45,6 @@
       },
       done: Function
     },
-
-
     computed: {
       commentRules() {
         return [

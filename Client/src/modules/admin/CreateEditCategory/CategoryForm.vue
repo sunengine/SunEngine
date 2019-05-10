@@ -57,9 +57,8 @@
 </template>
 
 <script>
-  import MyEditor from "MyEditor";
-  import adminGetAllCategories from "adminGetAllCategories";
-  import LoaderWait from "LoaderWait";
+  import {MyEditor} from 'sun';
+  import {LoaderWait} from 'sun';
 
   const unset = "unset";
 
@@ -181,7 +180,8 @@
         );
 
     }
-  }
+  };
+
 </script>
 
 <style lang="stylus" scoped>

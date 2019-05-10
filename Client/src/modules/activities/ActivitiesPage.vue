@@ -8,8 +8,8 @@
 </template>
 
 <script>
-  import Page from "Page";
-  import ActivitiesList from "activities/ActivitiesList";
+  import {Page} from 'sun'
+  import {ActivitiesList} from 'sun'
 
   export default {
     name: 'ActivitiesPage',

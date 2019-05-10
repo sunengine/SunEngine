@@ -1,3 +1,9 @@
-export ActivitiesList from './ActivitiesList'
-export ActivitiesPage from './ActivitiesPage'
-export Activity from './Activity'
+import ActivitiesList from './ActivitiesList'
+import ActivitiesPage from './ActivitiesPage'
+import Activity from './Activity'
+
+export {
+  ActivitiesList,
+  ActivitiesPage,
+  Activity
+}
