@@ -19,7 +19,7 @@
   import Page from "Page";
 
   export default {
-    name: 'Index',
+    name: 'IndexPage',
     mixins: [Page],
   }
 </script>

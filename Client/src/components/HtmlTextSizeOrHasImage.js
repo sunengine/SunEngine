@@ -1,3 +1,5 @@
+// QEditor html validator. Returns true if html contains image or if innerText size >= minLength
+
 export default function (el, minLength) {
 
   if (!el)
