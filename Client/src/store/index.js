@@ -2,14 +2,14 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import auth from './auth'
-import request from './request'
-import categories from 'store/categories'
+import {request} from 'sun'
+import {categories} from 'sun'
 import {getTokens, makeUserDataFromTokens} from 'sun'
 import {consoleInit} from 'sun'
 import {registerLayouts} from 'sun'
 import {router} from 'router';
 import {makeRoutesFromLayouts} from 'sun'
-import {ssr} from 'router/ssr';
+import {ssr} from 'sun'
 
 Vue.use(Vuex);
 

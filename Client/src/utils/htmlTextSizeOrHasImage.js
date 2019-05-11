@@ -3,7 +3,7 @@
 /**
  * @return {boolean}
  */
-export default HtmlTextSizeOrHasImage(el, minLength) {
+export default function htmlTextSizeOrHasImage(el, minLength) {
 
   if (!el)
     return true;

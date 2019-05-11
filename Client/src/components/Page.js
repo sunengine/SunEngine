@@ -1,5 +1,5 @@
 
-export const Page = {
+export default {
   data() {
     return {
       title: "_",

@@ -1,4 +1,4 @@
-import Error404 from 'sun'
+import {Error404} from 'sun'
 
 let routes = [];
 

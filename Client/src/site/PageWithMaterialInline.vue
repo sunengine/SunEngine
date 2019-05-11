@@ -8,11 +8,11 @@
 </template>
 
 <script>
-  import ArticleInline from "material/MaterialInline";
+  import {MaterialInline} from 'sun'
 
   export default {
     name: "PageWithMaterialInline",
-    components: {ArticleInline}
+    components: {MaterialInline}
   }
 </script>
 

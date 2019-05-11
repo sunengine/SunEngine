@@ -1,4 +1,4 @@
-import {makeUserDataFromTokens} from "../../utils";
+import {makeUserDataFromTokens} from 'sun'
 
 export default async function doLogin(context, userData) {
 

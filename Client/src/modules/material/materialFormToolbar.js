@@ -1,3 +1,4 @@
+import Vue from 'vue'
 
 export default [
   ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
@@ -5,13 +6,13 @@ export default [
   ],
   [
     {
-      icon: $q.iconSet.editor.formatting,
+      icon: Vue.prototype.$q.iconSet.editor.formatting,
       fixedLabel: true,
       list: 'no-icons',
       options: ['p', 'h3', 'h4', 'h5', 'h6', 'code']
     },
     {
-      icon: $q.iconSet.editor.fontSize,
+      icon: Vue.prototype.$q.iconSet.editor.fontSize,
       fixedLabel: true,
       fixedIcon: true,
       list: 'no-icons',
@@ -21,7 +22,7 @@ export default [
   ],
   ['quote', 'unordered', 'ordered', 'outdent', 'indent',
     {
-      icon: $q.iconSet.editor.align,
+      icon: Vue.prototype.$q.iconSet.editor.align,
       fixedLabel: true,
       options: ['left', 'center', 'right', 'justify']
     }

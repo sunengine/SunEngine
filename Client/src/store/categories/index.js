@@ -1,4 +1,4 @@
-import {categoriesState} from './categoriesState'
+import {categoriesState} from 'sun'
 import {getCategory} from 'sun'
 import {setCategories} from 'sun'
 import {getAllCategories} from 'sun'

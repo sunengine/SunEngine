@@ -20,7 +20,7 @@
   import {LoaderSent} from 'sun'
   import {htmlTextSizeOrHasImage} from 'sun'
   import {MyEditor} from 'sun'
-  import {commentEditorToolbar as commentEditorToolbar} from 'sun'
+  import {commentEditorToolbar} from 'sun'
 
   export default {
     name: "CreateEditComment",
@@ -45,6 +45,7 @@
       },
       done: Function
     },
+    commentEditorToolbar: null,
     computed: {
       commentRules() {
         return [
@@ -118,6 +119,8 @@
     },
 
     async created() {
+      this.commentEditorToolbar = commentEditorToolbar.call(this);
+
       if (!this.isNew) {
         await this.$store.dispatch("request",
           {

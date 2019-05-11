@@ -2,7 +2,7 @@ import {QEditor, QInnerLoading, QSpinnerGears} from "quasar";
 import ValidateMixin from "quasar/src/mixins/validate";
 
 
-export const MyEditor = {
+export default {
   name: "MyEditor",
   extends: QEditor,
   mixins: [ValidateMixin],

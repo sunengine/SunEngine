@@ -43,9 +43,9 @@
 </template>
 
 <script>
-  import Topic from 'sun'
-  import LoaderWait from 'sun'
-  import Page from 'sun'
+  import {Topic} from 'sun'
+  import {LoaderWait} from 'sun'
+  import {Page} from 'sun'
 
   export default {
     name: "NewTopics",

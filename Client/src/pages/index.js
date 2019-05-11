@@ -1,3 +1,3 @@
-import error404 from './Error404'
+import Error404 from './Error404'
 
-export {error404}
+export {Error404}

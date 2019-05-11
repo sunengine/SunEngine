@@ -1,6 +1,6 @@
-import imagePath from "../../../utils";
+import {imagePath} from 'sun'
 
-export function setUserInfo(state, data) {
+export default function setUserInfo(state, data) {
   const userInfo = {
     photo: imagePath(data.photo),
     avatar: imagePath(data.avatar),

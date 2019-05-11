@@ -74,5 +74,5 @@ const routesSite = [
 ];
 
 
-export default [...routesCore, ...routesSite, ssr]
+export default [...routesCore, ...routesSite]
 

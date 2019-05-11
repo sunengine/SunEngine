@@ -36,7 +36,5 @@ export default function ({ store, ssrContext }) {
     next();
   });
 
-  initRouter(router);
-
   return router;
 }

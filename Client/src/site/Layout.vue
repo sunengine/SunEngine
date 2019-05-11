@@ -59,10 +59,11 @@
 </template>
 
 <script>
-  import MainMenu from "./MainMenu";
-  import LoginRegisterMenu from "auth/LoginRegisterMenu";
+  import {MainMenu} from 'sun'
+  import {LoginRegisterMenu} from 'sun'
+  import {UserMenu} from 'sun'
+
   import {mapState} from "vuex";
-  import UserMenu from "auth/UserMenu";
 
 
   export default {

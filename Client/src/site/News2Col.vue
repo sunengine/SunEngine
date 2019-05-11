@@ -20,10 +20,10 @@
 </template>
 
 <script>
-  import Page from "Page";
-  import ActivitiesList from "activities/ActivitiesList";
-  import PostsList from "blog/PostsList";
-  import LoaderWait from "LoaderWait";
+  import {Page} from 'sun'
+  import {ActivitiesList} from 'sun'
+  import {PostsList} from 'sun'
+  import {LoaderWait} from 'sun'
 
 
   export default {

@@ -35,7 +35,7 @@
 <script>
   import {Page} from 'sun'
   import {LoaderSent} from 'sun'
-  import {CachePolicies} from 'sun'
+  import {cachePolicies} from 'sun'
 
   function createRules() {
     return {
@@ -59,9 +59,9 @@
         withoutTime: false,
         rules: null,
         OptionTypes: [
-          {id: CachePolicies.Always, label: this.$tl("AlwaysPolicy"), value: "AlwaysPolicy"},
-          {id: CachePolicies.Never, label: this.$tl("NeverPolicy"), value: "NeverPolicy"},
-          {id: CachePolicies.Custom, label: this.$tl("CustomPolicy"), value: "CustomPolicy"}
+          {id: cachePolicies.Always, label: this.$tl("AlwaysPolicy"), value: "AlwaysPolicy"},
+          {id: cachePolicies.Never, label: this.$tl("NeverPolicy"), value: "NeverPolicy"},
+          {id: cachePolicies.Custom, label: this.$tl("CustomPolicy"), value: "CustomPolicy"}
         ],
       };
     },
