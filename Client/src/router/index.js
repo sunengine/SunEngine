@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import {routes} from 'sun'
 import {routeHasAccess} from'sun'
+import {router} from 'sun'
 
 
 Vue.use(VueRouter);
@@ -12,7 +13,7 @@ Vue.use(VueRouter);
  * directly export the Router instantiation
  */
 
-export var router;
+
 
 export default function ({ store, ssrContext }) {
 

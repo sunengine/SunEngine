@@ -6,7 +6,8 @@ import {BlogMultiCatPage} from 'sun'
 import {ActivitiesPage} from 'sun'
 import {PageWithMaterialInline} from 'sun'
 import {makeArticlesSection, makeForumSection, makeBlogSection} from'sun'
-import {mainRoutes} from 'sun'
+
+import mainRoutes from './mainRoutes'
 
 const siteRoutes = [
   {
