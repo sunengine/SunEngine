@@ -20,7 +20,7 @@
 <script>
   import {Page} from 'sun'
   import {LoaderSent} from 'sun'
-  import {store} from 'store'
+  import {store} from 'sun'
 
   function allowMyIdOrEmpty(id) {
     return !id || store.state.auth.user.id == id;

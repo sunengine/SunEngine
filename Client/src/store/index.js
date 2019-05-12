@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import {authModule} from 'sun'
-import {categoriesModule} from 'sun'
+import {authModule as auth} from 'sun'
+import {categoriesModule as categories} from 'sun'
 import {request} from 'sun'
 import {initStore} from 'sun'
+import {setStore} from 'sun'
 
 
 Vue.use(Vuex);
@@ -14,10 +15,9 @@ Vue.use(Vuex);
  * directly export the Store instantiation
  */
 
-export var store;
-
 export default function (/* { ssrContext } */) {
-  store = new Vuex.Store({
+
+  const store = new Vuex.Store({
     state: {
       isInitialized: false,
       initializeError: false
@@ -27,10 +27,12 @@ export default function (/* { ssrContext } */) {
       initStore
     },
     modules: {
-      auth: authModule,
-      categories: categoriesModule
+      auth,
+      categories
     }
   });
+
+  setStore(store);
 
   return store;
 }

@@ -26,8 +26,7 @@
       return {
         posts: {}
       }
-    },
-
+    }
   }
 </script>
 

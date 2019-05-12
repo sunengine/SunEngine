@@ -1,4 +1,4 @@
-import {store} from "../../index";
+import {store} from 'sun';
 
 export default function clearAllUserRelatedData(state) {
   state.tokens = null;

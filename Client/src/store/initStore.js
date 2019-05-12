@@ -10,13 +10,10 @@ export default async function init() {
 
   console.info("%cStartInit", consoleInit);
 
-  initUser(this);
-
-  this.state.auth.user && await this.dispatch('getMyUserInfo').catch(() => {
-  });
+  await initUser(this);
 
   try {
-    !this.state.categories.all && await this.dispatch('loadAllCategories');
+    await this.dispatch('loadAllCategories');
 
     registerLayouts(store);
 
@@ -33,7 +30,7 @@ export default async function init() {
 }
 
 
-function initUser(store) {
+async function initUser(store) {
   const tokens = getTokens();
 
   store.state.auth.tokens = tokens;
@@ -45,5 +42,8 @@ function initUser(store) {
     store.commit('setUserData', userData);
 
     console.info('%cUser restored from localStorage', consoleInit, userData);
+
+    await this.dispatch('getMyUserInfo').catch(() => {
+    });
   }
 }

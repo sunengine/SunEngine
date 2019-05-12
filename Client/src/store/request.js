@@ -1,8 +1,8 @@
 import axios from 'axios'
 import Lock from 'js-lock';
-import {removeTokens, setTokens, parseJwt} from 'sun'
 
-import {store} from 'store';
+import {removeTokens, setTokens, parseJwt} from 'sun'
+import {store} from 'sun';
 import { consoleTokens, consoleUserLogout, consoleRequestStart, consoleRequestUrl } from 'sun'
 
 const lock = new Lock("request-lock");

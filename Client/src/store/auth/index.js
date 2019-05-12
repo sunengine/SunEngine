@@ -1,9 +1,10 @@
-import authState from './authState'
-import authActions from './actions'
-import authMutations from './mutations'
+import state from './state'
+import actions from './actions'
+import mutations from './mutations'
 
-export {
-  authState,
-  authActions,
-  authMutations
+
+export default {
+  state,
+  mutations,
+  actions
 }

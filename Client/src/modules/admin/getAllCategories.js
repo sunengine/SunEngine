@@ -1,4 +1,4 @@
-import {store} from "store";
+import {store} from 'sun'
 
 export default function getAllCategories() {
   return store.dispatch("request",
@@ -20,6 +20,6 @@ export default function getAllCategories() {
         findAll(cat, all);
     return all;
   }
-
 }
+
 

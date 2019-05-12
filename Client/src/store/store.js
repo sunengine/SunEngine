@@ -1,16 +1,18 @@
 import registerLayouts from './registerLayouts'
 import request from './request'
-import authModule from './auth/authModule'
 import initStore from './initStore'
-import categoriesModule from './categories/categoriesModule'
+import authModule from './auth'
+import categoriesModule from './categories'
 
-import {store} from './index'
 
-export * from './auth'
-export * from './categories'
+export var store;
+
+export function setStore(store1) {
+  if(!store)
+    store = store1;
+}
 
 export {
-  store,
   authModule,
   initStore,
   categoriesModule,

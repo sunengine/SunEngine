@@ -1,12 +1,12 @@
-import categoriesState from './categoriesState'
+import state from './state'
+import actions from './actions'
+import getters from './getters'
+import mutations from './mutations'
 
-import categoriesActions from './actions'
-import categoriesGetters from './getters'
-import categoriesMutations from './mutations'
 
-export {
-  categoriesActions,
-  categoriesGetters,
-  categoriesMutations,
-  categoriesState
-}
+export default {
+  state,
+  getters,
+  mutations,
+  actions
+};
