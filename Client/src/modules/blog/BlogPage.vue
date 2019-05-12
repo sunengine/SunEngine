@@ -31,7 +31,7 @@
       categoryName: String,
       required: true
     },
-    components: {PostsList, LoaderWait},
+    components: {LoaderWait},
     data: function () {
       return {
         posts: Object,
@@ -87,7 +87,9 @@
           });
       }
     },
-
+    beforeCreate() {
+      this.$options.components.PostsList = require('sun.js').PostsList;
+    },
     async created() {
       await this.loadData()
     }

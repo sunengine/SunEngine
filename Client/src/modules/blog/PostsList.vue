@@ -17,15 +17,17 @@
 
 <script>
   import {LoaderWait} from 'sun'
-  import {Post} from 'sun'
 
   export default {
     name: "PostsList",
-    components: {Post, LoaderWait},
+    components: { LoaderWait},
     data: function () {
       return {
         posts: {}
       }
+    },
+    beforeCreate() {
+      this.$options.components.Post = require('sun.js').Post;
     }
   }
 </script>
