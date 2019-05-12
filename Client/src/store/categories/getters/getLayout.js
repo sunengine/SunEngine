@@ -1,3 +1,4 @@
+
 export default function getLayout (state) {
   return function(name) {
     if(!name)

@@ -1,5 +1,5 @@
-import getAllCategories from './getAllCategories'
+import loadAllCategories from './loadAllCategories'
 
 export default {
-  getAllCategories
+  loadAllCategories
 }

@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 import {routes} from 'sun'
 import {routeHasAccess} from'sun'
-import {router} from 'sun'
+import {initRouter} from 'sun'
 
 
 Vue.use(VueRouter);
@@ -17,7 +17,7 @@ Vue.use(VueRouter);
 
 export default function ({ store, ssrContext }) {
 
-  router = new VueRouter({
+  const router = new VueRouter({
     scrollBehavior: () => ({y: 0}),
     routes,
 
@@ -36,6 +36,8 @@ export default function ({ store, ssrContext }) {
 
     next();
   });
+
+  initRouter(router);
 
   return router;
 }

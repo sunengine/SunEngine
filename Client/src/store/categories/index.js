@@ -1,16 +1,12 @@
-import getAllCategories from './actions/getAllCategories'
-import getCategory from './getters/getCategory'
-import getLayout from './getters/getLayout'
-import registerLayout from './mutations/registerLayout'
-import prepareAllCategories from './mutations/prepareAllCategories'
 import categoriesState from './categoriesState'
 
+import categoriesActions from './actions'
+import categoriesGetters from './getters'
+import categoriesMutations from './mutations'
 
 export {
-  getAllCategories,
-  getCategory,
-  getLayout,
-  registerLayout,
-  prepareAllCategories,
+  categoriesActions,
+  categoriesGetters,
+  categoriesMutations,
   categoriesState
 }

@@ -6,7 +6,7 @@ import {SendPrivateMessage} from 'sun'
 
 const routes = [
   {
-    name: "CreateMaterial",
+    name: 'CreateMaterial',
     path: '/CreateMaterial/'.toLowerCase()+':categoriesNames/:initialCategoryName?',
     components: {
       default: CreateMaterial,
@@ -16,11 +16,11 @@ const routes = [
       default: true,
     },
     meta: {
-      roles: ["Registered"]
+      roles: ['Registered']
     }
   },
   {
-    name: "EditMaterial",
+    name: 'EditMaterial',
     path: '/EditMaterial/'.toLowerCase()+':id',
     components: {
       default: EditMaterial,
@@ -35,7 +35,7 @@ const routes = [
       navigation: null
     },
     meta: {
-      roles: ["Registered"]
+      roles: ['Registered']
     }
   },
   {

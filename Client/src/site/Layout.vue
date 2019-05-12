@@ -59,7 +59,7 @@
 </template>
 
 <script>
-  import {MainMenu} from 'sun'
+  import MainMenu from './MainMenu'
   import {LoginRegisterMenu} from 'sun'
   import {UserMenu} from 'sun'
 

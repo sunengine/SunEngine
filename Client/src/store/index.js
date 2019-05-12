@@ -1,16 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import {auth} from 'sun'
-import {categories} from 'sun'
+import {authModule} from 'sun'
+import {categoriesModule} from 'sun'
 import {request} from 'sun'
-
-import {getTokens, makeUserDataFromTokens} from 'sun'
-import {consoleInit} from 'sun'
-import {registerLayouts} from 'sun'
-import {makeRoutesFromLayouts} from 'sun'
-import {router} from 'sun';
-import {pageNotFoundRoute} from 'sun'
+import {initStore} from 'sun'
 
 
 Vue.use(Vuex);
@@ -30,35 +24,11 @@ export default function (/* { ssrContext } */) {
     },
     actions: {
       request,
-      async init() {
-
-        console.info("%cStartInit", consoleInit);
-
-        initUser(this);
-
-        this.state.auth.user && await this.dispatch('getMyUserInfo').catch(() => {
-        });
-
-        try {
-          !this.state.categories.all && await this.dispatch('getAllCategories');
-
-          registerLayouts(store);
-
-          const routes = makeRoutesFromLayouts(store);
-          const router1 = router;
-          router1.addRoutes(routes);
-          router1.addRoutes(pageNotFoundRoute);
-
-          this.state.isInitialized = true;
-        } catch (x) {
-          console.error("error", x);
-          this.state.initializeError = true;
-        }
-      },
+      initStore
     },
     modules: {
-      auth,
-      categories
+      auth: authModule,
+      categories: categoriesModule
     }
   });
 
@@ -66,19 +36,6 @@ export default function (/* { ssrContext } */) {
 }
 
 
-function initUser(store) {
-  const tokens = getTokens();
 
-  store.state.auth.tokens = tokens;
-
-  if (tokens) {
-    const userData = makeUserDataFromTokens(tokens);
-    userData.isPermanentLogin = true;
-
-    store.commit('setUserData', userData);
-
-    console.info('%cUser restored from localStorage', consoleInit, userData);
-  }
-}
 
 

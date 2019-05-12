@@ -71,9 +71,7 @@ const routes = [
         return {link: store.state.auth.userInfo?.link}
       }
     }
-  },
-
-
+  }
 ];
 
 

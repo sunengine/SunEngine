@@ -11,6 +11,6 @@ module.exports = {
       path.resolve(__dirname, './src/modules'),
       path.resolve(__dirname, './src/components'),
       path.resolve(__dirname, './src/services')
-    ],
+    ]
   }
 }

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "SunEngine - web engine with support of blog, forum and articles functionality",
   "productName": "SunEngine Client",
-  "author": "Okeanij <dmitrij.polyanin@gmail.com>",
+  "author": "Dmitrij Polianin <dmitrij.polyanin@gmail.com>",
   "private": false,
   "scripts": {
     "Client dev run": "quasar dev"
@@ -13,7 +13,7 @@
     "axios": "^0.18.0",
     "js-lock": "^0.1.1",
     "quasar": "^1.0.0-beta.23",
-    "vue-i18n": "^8.9.0"
+    "vue-i18n": "^8.11.2"
   },
   "devDependencies": {
     "@quasar/app": "^1.0.0-beta.24",

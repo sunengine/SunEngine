@@ -1,13 +1,16 @@
 import {Categories1} from 'sun'
 import {Categories2} from 'sun'
-import {IndexPage} from 'sun'
 import {News2Col} from 'sun'
 import {BlogMultiCatPage} from 'sun'
 import {ActivitiesPage} from 'sun'
-import {PageWithMaterialInline} from 'sun'
 import {makeArticlesSection, makeForumSection, makeBlogSection} from'sun'
 
-import mainRoutes from './mainRoutes'
+import IndexPage from './IndexPage'
+import PageWithMaterialInline from './PageWithMaterialInline'
+
+
+import coreRoutes from './coreRoutes'
+
 
 const siteRoutes = [
   {
@@ -68,5 +71,5 @@ const siteRoutes = [
 ];
 
 
-export default [...mainRoutes, ...siteRoutes]
+export default [...coreRoutes, ...siteRoutes]
 

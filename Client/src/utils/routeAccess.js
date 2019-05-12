@@ -1,13 +1,13 @@
-import {store} from "store";
-import {router} from "router"
+import {store} from 'sun'
+import {router} from 'sun'
 
-export var routeHasAccess = function(route) {
+export function routeHasAccess(route) {
   return !route.meta.roles ||
     store.state.auth.roles.some(x => route.meta.roles.some(y => x === y))
-};
+}
 
-export var routeCheckAccess = function(route) {
+export function routeCheckAccess(route) {
   if (!routeHasAccess(route)) {
     router.push({name: 'Home'});
   }
-};
+}

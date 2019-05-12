@@ -9,6 +9,10 @@ import pageNotFoundRoute from './pageNotFoundRoute'
 
 export var router;
 
+export function initRouter(router1) {
+  router = router1;
+}
+
 export * from './makeSections'
 
 export {
