@@ -24,11 +24,8 @@
 
 <script>
 
-  import {LoaderWait} from 'sun'
-
   export default {
     name: "RoleUsers",
-    components: {LoaderWait},
     props: {
       roleName: {
         type: String,
@@ -36,7 +33,7 @@
       }
     },
     i18nPrefix: "Admin",
-    data: function () {
+    data() {
       return {
         users: null,
         filter: ""
@@ -66,6 +63,9 @@
             }
           );
       },
+    },
+    beforeCreate() {
+      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
     },
     async created() {
       await this.loadRoleUsers();

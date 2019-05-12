@@ -17,9 +17,7 @@
 </template>
 
 <script>
-  import {LoaderWait} from 'sun'
   import {Page} from 'sun'
-  import {ArticlesList} from 'sun'
 
   export default {
     name: "ArticlesPage",
@@ -30,10 +28,7 @@
         required: true
       }
     },
-    components: {
-      ArticlesList, LoaderWait
-    },
-    data: function () {
+    data() {
       return {
         articles: {
           pagesCount: null,
@@ -96,6 +91,10 @@
             console.log("error", x);
           });
       }
+    },
+    beforeCreate() {
+      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
+      this.$options.components.ArticlesList = require('sun.js').ArticlesList;
     },
     async created() {
       await this.loadData()

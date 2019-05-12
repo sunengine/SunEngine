@@ -12,16 +12,11 @@
 </template>
 
 <script>
-  import {ReadComment} from 'sun'
-  import {CreateEditComment} from 'sun'
-  import {DeletedComment} from 'sun'
-
   import {date} from 'quasar'
 
 
   export default {
     name: "CommentContainer",
-    components: {DeletedComment, ReadComment, CreateEditComment},
     props: {
       comment: Object,
       categoryPersonalAccess: Object,
@@ -34,7 +29,7 @@
         required: true
       }
     },
-    data: function () {
+    data() {
       return {
         isReadMode: true,
       }
@@ -54,14 +49,11 @@
           }
           this.isReadMode = true;
         });
-
-
       },
       goEdit() {
         this.isReadMode = false;
       },
       canEdit() {
-
         if (!this.$store.state.auth.user || !this.categoryPersonalAccess) {
           return false;
         }
@@ -113,6 +105,11 @@
         }
         return false;
       }
+    },
+    beforeCreate() {
+      this.$options.components.ReadComment = require('sun.js').ReadComment;
+      this.$options.components.CreateEditComment = require('sun.js').CreateEditComment;
+      this.$options.components.DeletedComment = require('sun.js').DeletedComment;
     }
   }
 </script>

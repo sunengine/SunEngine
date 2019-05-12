@@ -40,7 +40,6 @@
 
 <script>
   import {Page} from 'sun';
-  import {LoaderSent} from 'sun';
 
 
   function createRules() {
@@ -58,7 +57,6 @@
 
   export default {
     name: "ChangeEmail",
-    components: {LoaderSent},
     mixins: [Page],
     data: function () {
       return {
@@ -96,6 +94,9 @@
           this.$errorNotify(error);
         });
       }
+    },
+    beforeCreate() {
+      this.$options.components.LoaderSent = require('sun.js').LoaderSent;
     },
     async created() {
       this.title = this.$tl("title");

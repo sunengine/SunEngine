@@ -21,7 +21,7 @@
 
 <script>
   export default {
-    name: "LoginRegisterMenu",
+    name: "LoginRegisterMenu"
   }
 </script>
 

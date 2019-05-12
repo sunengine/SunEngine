@@ -9,11 +9,9 @@
 
 <script>
   import {Page} from 'sun'
-  import {ActivitiesList} from 'sun'
 
   export default {
     name: 'ActivitiesPage',
-    components: {ActivitiesList},
     mixins: [Page],
     props: {
       materialsCategories: {
@@ -35,6 +33,9 @@
         type: String,
         required: false,
       }
+    },
+    beforeCreate() {
+      this.$options.components.ActivitiesList = require('sun.js').ActivitiesList;
     },
     created() {
       this.title  = this.pageTitle ?? this.$tl("defaultTitle");

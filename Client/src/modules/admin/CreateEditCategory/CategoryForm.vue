@@ -57,8 +57,6 @@
 </template>
 
 <script>
-  import {MyEditor} from 'sun';
-  import {LoaderWait} from 'sun';
 
   const unset = "unset";
 
@@ -105,7 +103,6 @@
 
   export default {
     name: "CategoryForm",
-    components: {LoaderWait, MyEditor },
     props: {
       category: {
         type: Object,
@@ -155,6 +152,10 @@
         this.$refs.name.validate();
         this.$refs.title.validate();
       }
+    },
+    beforeCreate() {
+      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
+      this.$options.components.MyEditor = require('sun.js').MyEditor;
     },
     async created() {
       if (!this.category.sectionTypeName) {

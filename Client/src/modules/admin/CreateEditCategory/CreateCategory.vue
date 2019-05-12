@@ -14,13 +14,11 @@
 </template>
 
 <script>
-  import {CategoryForm} from 'sun'
   import {Page} from 'sun'
-  import {LoaderSent} from 'sun'
+
 
   export default {
     name: "CreateCategory",
-    components: {LoaderSent, CategoryForm},
     mixins: [Page],
     i18nPrefix: "Admin",
     data: function () {
@@ -64,6 +62,10 @@
             this.loading = false;
           });
       }
+    },
+    beforeCreate() {
+      this.$options.components.LoaderSent = require('sun.js').LoaderSent;
+      this.$options.components.CategoryForm = require('sun.js').CategoryForm;
     },
     async created() {
       this.title = this.$tl("title")

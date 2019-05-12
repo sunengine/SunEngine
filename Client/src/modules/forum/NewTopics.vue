@@ -43,8 +43,7 @@
 </template>
 
 <script>
-  import {Topic} from 'sun'
-  import {LoaderWait} from 'sun'
+
   import {Page} from 'sun'
 
   export default {
@@ -53,7 +52,6 @@
     props: {
       categoryName: String
     },
-    components: {LoaderWait, Topic},
     data: function () {
       return {
         topics: {},
@@ -112,7 +110,10 @@
           });
       }
     },
-
+    beforeCreate() {
+      this.$options.components.Topic = require('sun.js').Topic;
+      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
+    },
     async created() {
       await this.loadData()
     }

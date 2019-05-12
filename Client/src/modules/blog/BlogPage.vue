@@ -20,9 +20,7 @@
 </template>
 
 <script>
-  import {LoaderWait} from 'sun'
   import {Page} from 'sun'
-  import {PostsList} from 'sun'
 
   export default {
     name: "BlogPage",
@@ -31,8 +29,7 @@
       categoryName: String,
       required: true
     },
-    components: {LoaderWait},
-    data: function () {
+    data() {
       return {
         posts: Object,
       }
@@ -89,6 +86,7 @@
     },
     beforeCreate() {
       this.$options.components.PostsList = require('sun.js').PostsList;
+      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
     },
     async created() {
       await this.loadData()

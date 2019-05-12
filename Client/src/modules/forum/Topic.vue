@@ -86,7 +86,6 @@
       category() {
         return this.$store.getters.getCategory(this.topic.categoryName);
       }
-
     }
   }
 </script>

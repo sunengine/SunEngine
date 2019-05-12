@@ -24,11 +24,9 @@
 
 <script>
   import {Page} from 'sun'
-  import {PostsList} from 'sun'
 
   export default {
     name: 'BlogMultiCatPage',
-    components: {PostsList},
     mixins: [Page],
     props: {
       categoriesNames: {
@@ -53,7 +51,7 @@
         required: false
       }
     },
-    data: function () {
+    data() {
       return {
         posts: null
       }
@@ -114,6 +112,9 @@
             console.log("error", x);
           });
       }
+    },
+    beforeCreate() {
+      this.$options.components.PostsList = require('sun.js').PostsList;
     },
     async created() {
       this.title = this.pageTitle;

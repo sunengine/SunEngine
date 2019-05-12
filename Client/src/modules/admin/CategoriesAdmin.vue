@@ -19,15 +19,13 @@
 
 <script>
   import {Page} from 'sun'
-  import {CategoryItem} from 'sun'
-  import {LoaderWait} from 'sun'
+
 
   export default {
     name: "CategoriesAdmin",
-    components: {LoaderWait, CategoryItem},
     mixins: [Page],
     i18nPrefix: "Admin",
-    data: function () {
+    data() {
       return {
         root: null
       }
@@ -83,13 +81,15 @@
             this.$errorNotify(error);
           });
       }
-
+    },
+    beforeCreate() {
+      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
+      this.$options.components.CategoryItem = require('sun.js').CategoryItem;
     },
     async created() {
       this.title = this.$tl("title");
       await this.loadData();
     }
-
   }
 </script>
 

@@ -9,13 +9,9 @@
 </template>
 
 <script>
-  import {Activity} from 'sun'
-  import {LoaderWait} from 'sun'
-
 
   export default  {
     name: "ActivitiesList",
-    components: {LoaderWait, Activity},
     props: {
       materialsCategories: {
         type: String,
@@ -55,6 +51,10 @@
             console.log("error", x);
           });
       }
+    },
+    beforeCreate() {
+      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
+      this.$options.components.Activity = require('sun.js').Activity;
     },
     async created() {
       await this.loadData()

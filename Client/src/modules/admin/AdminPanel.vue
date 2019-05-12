@@ -11,12 +11,13 @@
 </template>
 
 <script>
-  import {AdminMenu} from 'sun'
 
   export default {
-    name: "AdminPanel",
-    components: {AdminMenu},
-    i18nPrefix: "Admin",
+    name: 'AdminPanel',
+    i18nPrefix: 'Admin',
+    beforeCreate() {
+      this.$options.components.AdminMenu = require('sun.js').AdminMenu;
+    }
   }
 
 </script>

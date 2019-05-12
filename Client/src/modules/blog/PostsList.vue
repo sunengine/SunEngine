@@ -16,18 +16,16 @@
 </template>
 
 <script>
-  import {LoaderWait} from 'sun'
-
   export default {
     name: "PostsList",
-    components: { LoaderWait},
-    data: function () {
+    data() {
       return {
         posts: {}
       }
     },
     beforeCreate() {
       this.$options.components.Post = require('sun.js').Post;
+      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
     }
   }
 </script>

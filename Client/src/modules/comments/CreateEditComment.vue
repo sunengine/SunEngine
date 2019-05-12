@@ -17,14 +17,11 @@
 </template>
 
 <script>
-  import {LoaderSent} from 'sun'
   import {htmlTextSizeOrHasImage} from 'sun'
-  import {MyEditor} from 'sun'
   import {commentEditorToolbar} from 'sun'
 
   export default {
     name: "CreateEditComment",
-    components: {MyEditor, LoaderSent},
     data: function () {
       return {
         comment: {
@@ -117,7 +114,10 @@
         this.$refs.htmlEditor.resetValidation()
       }
     },
-
+    beforeCreate() {
+      this.$options.components.LoaderSent = require('sun.js').LoaderSent;
+      this.$options.components.MyEditor = require('sun.js').MyEditor;
+    },
     async created() {
       this.commentEditorToolbar = commentEditorToolbar.call(this);
 

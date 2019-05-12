@@ -51,7 +51,7 @@
   export default {
     name: "Login",
     mixins: [Page],
-    data: function () {
+    data() {
       return {
         nameOrEmail: null,
         password: null,

@@ -52,7 +52,6 @@
 
 <script>
   import {Page} from 'sun'
-  import {LoaderSent} from 'sun'
 
 
   function createRules() {
@@ -76,7 +75,6 @@
 
   export default {
     name: "ChangePassword",
-    components: {LoaderSent},
     mixins: [Page],
     data: function () {
       return {
@@ -117,6 +115,9 @@
           this.submitting = false;
         });
       }
+    },
+    beforeCreate() {
+      this.$options.components.LoaderSent = require('sun.js').LoaderSent;
     },
     created() {
       this.title = this.$tl("title");

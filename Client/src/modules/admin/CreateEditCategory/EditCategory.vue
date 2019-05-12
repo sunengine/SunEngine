@@ -21,14 +21,10 @@
 </template>
 
 <script>
-  import {CategoryForm} from 'sun';
-  import {LoaderWait} from 'sun';
-  import {LoaderSent} from 'sun';
   import {Page} from 'sun';
 
   export default {
     name: "EditCategory",
-    components: {LoaderWait, LoaderSent, CategoryForm},
     mixins: [Page],
     props: {
       categoryId: {
@@ -121,6 +117,11 @@
             this.loading = false;
           });
       }
+    },
+    beforeCreate() {
+      this.$options.components.CategoryForm = require('sun.js').CategoryForm;
+      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
+      this.$options.components.LoaderSent = require('sun.js').LoaderSent;
     },
     async created() {
       await this.loadData();

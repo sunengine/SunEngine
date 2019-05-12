@@ -48,10 +48,9 @@
 
   export default {
     name: "CacheSettings",
-    components: {LoaderSent},
     mixins: [Page],
     i18nPrefix: "Admin",
-    data: function () {
+    data() {
       return {
         cacheSettings: null,
         policy: null,
@@ -117,6 +116,9 @@
         if (!value && this.cacheSettings.invalidateCacheTime === 0)
           this.cacheSettings.invalidateCacheTime = 15;
       }
+    },
+    beforeCreate() {
+      this.$options.components.LoaderSent = require('sun.js').LoaderSent;
     },
     async created() {
       this.title = this.$tl("title");

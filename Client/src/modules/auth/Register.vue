@@ -74,7 +74,6 @@
 </template>
 
 <script>
-  import {LoaderSent} from 'sun'
   import {Page} from 'sun'
 
 
@@ -109,9 +108,8 @@
 
   export default {
     name: "Register",
-    components: {LoaderSent},
     mixins: [Page],
-    data: function () {
+    data() {
       return {
         userName: "",
         email: "",

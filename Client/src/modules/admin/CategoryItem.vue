@@ -22,7 +22,7 @@
 
 <script>
   export default {
-    name: "CategoryItem",
+    name: 'CategoryItem',
     props: {
       category: {
         type: Object,
@@ -31,7 +31,7 @@
       isFirst: Boolean,
       isLast: Boolean
     },
-    i18nPrefix: "Admin",
+    i18nPrefix: 'Admin',
     computed: {
       notRoot() {
         return this.category.name !== 'Root'

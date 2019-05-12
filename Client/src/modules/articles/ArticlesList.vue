@@ -21,18 +21,14 @@
 </template>
 
 <script>
-  import {LoaderWait} from 'sun'
-  import {Article} from 'sun'
 
   export default {
     name: "ArticlesList",
-    components: {LoaderWait, Article},
-    data: function () {
+    data() {
       return {
         articles: {}
       }
     },
-
     methods: {
       pageChanges(newPage) {
         if (this.currentPage !== newPage) {
@@ -43,6 +39,10 @@
           this.$router.push(req);
         }
       }
+    },
+    beforeCreate() {
+      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
+      this.$options.components.Article = require('sun.js').Article;
     }
   }
 </script>

@@ -43,8 +43,6 @@
 </template>
 
 <script>
-  import {Topic} from 'sun'
-  import {LoaderWait} from 'sun'
   import {Page} from 'sun'
 
   export default {
@@ -53,7 +51,6 @@
     props: {
       categoryName: String
     },
-    components: {LoaderWait, Topic},
     data: function () {
       return {
         thread: null,
@@ -73,14 +70,9 @@
       currentPage() {
         let page1 = this.$route.query?.page;
         return page1 ?? 1;
-      },
-     /* sectionRootName() {
-        return thread.sectionRoot.name;
-      }*/
+      }
     },
-
     methods: {
-
       pageChanges(newPage) {
         if (this.currentPage !== newPage) {
           let req = {path: this.$route.path};
@@ -118,7 +110,10 @@
           });
       }
     },
-
+    beforeCreate() {
+      this.$options.components.Topic = require('sun.js').Topic;
+      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
+    },
     async created() {
       await this.loadData()
     }

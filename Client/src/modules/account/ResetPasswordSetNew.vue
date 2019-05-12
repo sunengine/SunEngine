@@ -45,7 +45,6 @@
 
 <script>
   import {Page} from 'sun'
-  import {LoaderSent} from 'sun'
 
 
   function createRules() {
@@ -104,6 +103,9 @@
           this.submitting = false;
         });
       }
+    },
+    beforeCreate() {
+      this.$options.components.LoaderSent = require('sun.js').LoaderSent;
     },
     created() {
       this.title = this.$tl("title");

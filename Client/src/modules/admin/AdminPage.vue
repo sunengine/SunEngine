@@ -9,18 +9,19 @@
 </template>
 
 <script>
-  import {AdminMenu} from 'sun'
   import {Page} from 'sun'
 
   export default {
     name: "AdminPage",
-    components: {AdminMenu},
     mixins: [Page],
     i18nPrefix: "Admin",
+    beforeCreate() {
+      this.$options.components.AdminMenu = require('sun.js').AdminMenu;
+    },
     created() {
       this.title = this.$tl("title");
     }
-  };
+  }
 
 </script>
 

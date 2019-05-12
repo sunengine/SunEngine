@@ -20,14 +20,12 @@
 <script>
 
   import {Page} from 'sun'
-  import {LoaderWait} from 'sun'
 
   export default {
     name: "RolesPage",
     mixins: [Page],
-    components: {LoaderWait},
     i18nPrefix: "Admin",
-    data: function () {
+    data() {
       return {
         roles: null,
         currentRole: null,
@@ -44,6 +42,9 @@
             }
           );
       }
+    },
+    beforeCreate() {
+      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
     },
     async created() {
       this.title = this.$tl("title");
