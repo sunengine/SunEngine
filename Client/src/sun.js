@@ -14,6 +14,9 @@ export * from 'personal'
 export * from 'profile'
 export * from 'pages'
 export * from 'utils'
-export * from 'router/indexFiles'
 export * from 'store/indexFiles'
 export * from 'site'
+
+import * as router from 'router'
+
+export {router}

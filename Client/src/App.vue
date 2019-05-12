@@ -21,8 +21,10 @@
 </template>
 
 <script>
-  import Layout from "site/Layout";
-  import {mapState} from 'vuex';
+  import {mapState} from 'vuex'
+
+  import {Layout} from 'sun'
+
 
   export default {
     name: 'App',
