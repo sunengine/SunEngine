@@ -3,7 +3,7 @@ import setUserData from './setUserData'
 import setUserInfo from './setUserInfo'
 
 
-export {
+export default {
   clearAllUserRelatedData,
   setUserData,
   setUserInfo

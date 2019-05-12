@@ -1,7 +1,8 @@
-import Profile from 'profile/Profile';
-import CreateMaterial from 'material/CreateMaterial';
-import EditMaterial from 'material/EditMaterial';
-import SendPrivateMessage from 'profile/SendPrivateMessage';
+import {Profile} from 'sun'
+import {CreateMaterial} from 'sun'
+import {EditMaterial} from 'sun'
+import {SendPrivateMessage} from 'sun'
+
 
 const routes = [
   {

@@ -1,15 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import auth from './auth'
-import {request} from 'sun'
+import {auth} from 'sun'
 import {categories} from 'sun'
+import {request} from 'sun'
+
 import {getTokens, makeUserDataFromTokens} from 'sun'
 import {consoleInit} from 'sun'
 import {registerLayouts} from 'sun'
-import {router} from 'router';
 import {makeRoutesFromLayouts} from 'sun'
-import {ssr} from 'sun'
+import {router} from 'sun';
+import {pageNotFoundRoute} from 'sun'
+
 
 Vue.use(Vuex);
 
@@ -45,7 +47,7 @@ export default function (/* { ssrContext } */) {
           const routes = makeRoutesFromLayouts(store);
           const router1 = router;
           router1.addRoutes(routes);
-          router1.addRoutes(ssr);
+          router1.addRoutes(pageNotFoundRoute);
 
           this.state.isInitialized = true;
         } catch (x) {
@@ -62,6 +64,7 @@ export default function (/* { ssrContext } */) {
 
   return store;
 }
+
 
 function initUser(store) {
   const tokens = getTokens();

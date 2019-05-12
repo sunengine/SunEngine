@@ -1,10 +1,11 @@
-import Material from 'material/Material';
-import Thread from 'forum/Thread';
-import NewTopics from 'forum/NewTopics';
-import ArticlesPage from 'articles/ArticlesPage';
-import ForumPanel from 'forum/ForumPanel';
-import BlogPage from "blog/BlogPage";
-import Categories1 from "categories/Categories1";
+import {Material} from 'sun'
+import {Thread} from 'sun'
+import {NewTopics} from 'sun'
+import {ArticlesPage} from 'sun'
+import {ForumPanel} from 'sun'
+import {BlogPage} from 'sun'
+import {Categories1} from 'sun'
+
 
 export function makeForumSection(name, categoriesPanel) {
   let nameLower = name.toLowerCase();

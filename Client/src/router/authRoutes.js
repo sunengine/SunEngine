@@ -1,6 +1,6 @@
-import Login from 'auth/Login.vue';
-import Register from 'auth/Register.vue';
-import RegisterEmailResult from 'auth/RegisterEmailResult.vue';
+import {Login} from 'sun'
+import {Register} from 'sun'
+import {RegisterEmailResult} from 'sun'
 
 
 const routes = [

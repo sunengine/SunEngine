@@ -1,22 +1,16 @@
-import {categoriesState} from 'sun'
-import {getCategory} from 'sun'
-import {setCategories} from 'sun'
-import {getAllCategories} from 'sun'
-import {getLayout} from 'sun'
-import {registerLayout} from 'sun'
+import getAllCategories from './actions/getAllCategories'
+import getCategory from './getters/getCategory'
+import getLayout from './getters/getLayout'
+import registerLayout from './mutations/registerLayout'
+import prepareAllCategories from './mutations/prepareAllCategories'
+import categoriesState from './categoriesState'
 
-export default {
-  //namespaced: true,
-  state: categoriesState,
-  getters : {
-    getCategory,
-    getLayout
-  },
-  mutations: {
-    setCategories,
-    registerLayout
-  },
-  actions: {
-    getAllCategories
-  }
+
+export {
+  getAllCategories,
+  getCategory,
+  getLayout,
+  registerLayout,
+  prepareAllCategories,
+  categoriesState
 }

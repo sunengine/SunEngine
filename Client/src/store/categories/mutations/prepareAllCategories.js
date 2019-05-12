@@ -1,4 +1,4 @@
-export default function setCategories(state, root) {
+export default function prepareAllCategories(state, root) {
 
   state.root = root;
   state.all = {};

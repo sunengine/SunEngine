@@ -1,13 +1,13 @@
-import SettingsPanel from 'personal/SettingsPanel';
-import SettingsPage from 'personal/SettingsPage';
-import LoadPhoto from 'personal/LoadPhoto';
-import EditInformation from 'personal/EditInformation';
-import ChangeLink from 'personal/ChangeLink.vue';
-import ChangeName from 'personal/ChangeName.vue';
-import MyBanList from 'personal/MyBanList.vue';
-import Profile from 'profile/Profile.vue';
+import {SettingsPanel} from 'sun'
+import {SettingsPage} from 'sun'
+import {LoadPhoto} from 'sun'
+import {EditInformation} from 'sun'
+import {ChangeLink} from 'sun'
+import {ChangeName} from 'sun'
+import {MyBanList} from 'sun'
+import {Profile} from 'sun'
 
-import {store} from 'store';
+import {store} from 'sun';
 
 
 const routes = [

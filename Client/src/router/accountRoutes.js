@@ -1,10 +1,10 @@
-import ResetPassword from 'account/ResetPassword';
-import ResetPasswordSetNew from 'account/ResetPasswordSetNew';
-import ResetPasswordFailed from 'account/ResetPasswordFailed';
-import ChangePassword from 'account/ChangePassword';
-import ChangeEmail from 'account/ChangeEmail';
-import ChangeEmailResult from 'account/ChangeEmailResult';
-import SettingsPanel from 'personal/SettingsPanel';
+import {ResetPassword} from 'sun'
+import {ResetPasswordSetNew} from 'sun'
+import {ResetPasswordFailed} from 'sun'
+import {ChangePassword} from 'sun'
+import {ChangeEmail} from 'sun'
+import {ChangeEmailResult} from 'sun'
+import {SettingsPanel} from 'sun'
 
 
 const routes = [

@@ -1,10 +1,9 @@
-import {authState} from 'sun'
-import {authMutations} from 'sun'
-import {authActions} from 'sun'
+import authState from './authState'
+import authActions from './actions'
+import authMutations from './mutations'
 
-export default {
-  //namespaced: true,
-  state: authState,
-  mutations: authMutations,
-  actions: authActions
+export {
+  authState,
+  authActions,
+  authMutations
 }

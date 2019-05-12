@@ -6,16 +6,9 @@ import {BlogMultiCatPage} from 'sun'
 import {ActivitiesPage} from 'sun'
 import {PageWithMaterialInline} from 'sun'
 import {makeArticlesSection, makeForumSection, makeBlogSection} from'sun'
+import {mainRoutes} from 'sun'
 
-import {auth} from 'sun'
-import {account} from 'sun'
-import {misc} from 'sun'
-import {personal} from 'sun'
-import {admin} from 'sun'
-
-const routesCore = [...auth, ...account, ...misc, ...personal, ...admin];
-
-const routesSite = [
+const siteRoutes = [
   {
     name: "Home",
     path: '/',
@@ -74,5 +67,5 @@ const routesSite = [
 ];
 
 
-export default [...routesCore, ...routesSite]
+export default [...mainRoutes, ...siteRoutes]
 

@@ -1,5 +1,6 @@
 import {Error404} from 'sun'
 
+
 let routes = [];
 
 // Always leave this as last one

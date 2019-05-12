@@ -1,15 +1,13 @@
-import AdminPage from 'admin/AdminPage';
-import AdminPanel from 'admin/AdminPanel';
-import CategoriesAdmin from 'admin/CategoriesAdmin';
-import CreateCategory from 'admin/CreateEditCategory/CreateCategory';
-import EditCategory from 'admin/CreateEditCategory/EditCategory';
-import RolesPermissions from 'admin/RolesPermissions';
-import RoleUsers from 'admin/RoleUsers';
-import RolesPage from 'admin/RolesPage';
-import CacheSettings from 'admin/CacheSettings';
+import {AdminPage} from 'sun'
+import {AdminPanel} from 'sun'
+import {CategoriesAdmin} from 'sun'
+import {CreateCategory} from 'sun'
+import {EditCategory} from 'sun'
+import {RolesPermissions} from 'sun'
+import {RoleUsers} from 'sun'
+import {RolesPage} from 'sun'
+import {CacheSettings} from 'sun'
 
-
-import {store} from 'store';
 
 const routes = [
   {
