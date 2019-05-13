@@ -53,9 +53,9 @@
               text: this.text
             }
           })
-          .then( () => {
-            this.$successNotify();
-            this.loading = false;
+          .then(() => {
+              this.$successNotify();
+              this.loading = false;
               this.$router.$goBack();
             }
           ).catch(error => {

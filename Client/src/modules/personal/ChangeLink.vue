@@ -84,14 +84,7 @@
             }
           }).then(response => {
           this.$store.commit('setUserInfo', response.data);
-          const msg = this.$tl("linkEditedMessage");
-          this.$q.notify({
-            message: msg,
-            timeout: 2800,
-            color: 'positive',
-            icon: 'fas fa-check-circle',
-            position: 'top'
-          });
+          this.$successNotify();
           this.$router.push({name: 'Personal'});
 
         }).catch(error => {

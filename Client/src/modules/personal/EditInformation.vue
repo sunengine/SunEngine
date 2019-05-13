@@ -39,14 +39,7 @@
             }
           }).then(() => {
           this.$router.push({name: 'Personal'});
-          const msg = this.$tl("editedSuccessNotify");
-          this.$q.notify({
-            message: msg,
-            timeout: 2800,
-            color: 'positive',
-            icon: 'fas fa-check-circle',
-            position: 'top'
-          });
+          this.$successNotify();
         }).catch(error => {
           this.$errorNotify(error);
         });

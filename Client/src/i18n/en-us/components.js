@@ -260,7 +260,7 @@ export default {
   },
   ChangeLink: {
     title: "Edit user Link",
-    linkEditedMessage: "Link edited",
+    successNotify: "Link edited",
     link: "Link",
     linkValidationInfo: "Link must consist of at least 3 characters 'a-z', 'A-Z', '-', '0-9'. And contain at least one letter.",
     saveBtn: "@:Global.btn.save",
@@ -342,7 +342,7 @@ export default {
     title: "Private message",
     titleStart: "Write private message",
     sendBtn: "Send",
-    sendSuccessNotify: "Message is successfully sent to the user {0}",
+    successNotify: "Message is successfully sent to the user {0}",
     sendErrorNotify: "Message sending failed. Server error.",
     sendSpamProtectionNotify: "You can't send private messages that often. Please, wait.",
   },
@@ -359,7 +359,7 @@ export default {
   EditInformation: {
     title: "Edit information",
     label: "Information about you on your profile page.",
-    editedSuccessNotify: "Information successfully saved",
+    successNotify: "Information successfully saved",
     save: "@:Global.btn.save"
   },
   ActivitiesPage: {

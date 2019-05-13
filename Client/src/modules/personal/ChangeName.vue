@@ -103,16 +103,7 @@
 
           const data = makeUserDataFromTokens(this.$store.state.auth.tokens);
           this.$store.commit('setUserData', data);
-
-          const msg = this.$tl("successNotify");
-          this.$q.notify({
-            message: msg,
-            timeout: 2800,
-            color: 'positive',
-            icon: 'fas fa-check-circle',
-            position: 'top'
-          });
-
+          this.$successNotify();
           this.$router.push({name: 'Personal'});
 
         }).catch(error => {

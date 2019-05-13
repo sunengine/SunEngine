@@ -265,7 +265,7 @@ export default {
   },
   ChangeLink: {
     title: "Редактировать Link пользователя",
-    linkEditedMessage: "Link отредактирован",
+    successNotify: "Link отредактирован",
     link: "Link",
     linkValidationInfo: "Link должен состоять не менее чем из 3 символов 'a-z', 'A-Z', '-', '0-9'. И содержать хотя бы одну букву.",
     saveBtn: "@:Global.btn.save",
@@ -364,7 +364,7 @@ export default {
   EditInformation: {
     title: "Редактировать информацию о себе",
     label: "Информация о вас на странице вашего профиля.",
-    editedSuccessNotify: "Информация успешно сохранена",
+    successNotify: "Информация успешно сохранена",
     save: "@:Global.btn.save"
   },
   ActivitiesPage: {

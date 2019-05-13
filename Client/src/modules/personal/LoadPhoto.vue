@@ -55,14 +55,7 @@
           .then(async () => {
               await this.$store.dispatch('getMyUserInfo');
               this.loading = false;
-              const msg = this.$tl("avatarChangedSuccessNotify");
-              this.$q.notify({
-                message: msg,
-                timeout: 2800,
-                color: 'positive',
-                icon: 'fas fa-check-circle',
-                position: 'top'
-              });
+              this.$successNotify(this.$tl('avatarChangedSuccessNotify'));
             }
           ).catch(error => {
             this.$errorNotify(error);
@@ -79,13 +72,7 @@
           .then(async () => {
               await this.$store.dispatch('getMyUserInfo');
               this.loading = false;
-              const msg = this.$tl("avatarDeletedSuccessNotify");
-              this.$q.notify({
-                message: msg,
-                timeout: 2000,
-                color: 'info',
-                position: 'top'
-              });
+              this.$successNotify(this.$tl('avatarDeletedSuccessNotify'));
             }
           ).catch(x => {
             this.loading = false;
@@ -99,8 +86,7 @@
             });
           });
       }
-    }
-    ,
+    },
     async created() {
       this.title = this.$tl("title");
     }
