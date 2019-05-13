@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using Microsoft.Extensions.Configuration;
-using NLog;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Exceptions.Database.Connection;
 using SunEngine.Core.Models;
