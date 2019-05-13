@@ -23,6 +23,8 @@
 </template>
 
 <script>
+  import Vue from 'vue';
+
   import {Page} from 'sun'
 
   export default {
@@ -36,7 +38,7 @@
       addButtonLabel: {
         type: String,
         required: false,
-        default: "Добавить текст"
+        default: Vue.prototype.$tl('newPostBtnDefault')
       },
       pageTitle: {
         type: String,

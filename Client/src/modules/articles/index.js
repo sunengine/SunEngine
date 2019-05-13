@@ -1,6 +1,6 @@
 import Article from './Article'
 import ArticlesList from './ArticlesList'
-import ArticlesMultyCatPage from './ArticlesMultyCatPage'
+import ArticlesMultiCatPage from './ArticlesMultiCatPage'
 import ArticlesPage from './ArticlesPage'
 import articlesLayout from './articlesLayout'
 
@@ -8,7 +8,7 @@ import articlesLayout from './articlesLayout'
 export {
   Article,
   ArticlesList,
-  ArticlesMultyCatPage,
+  ArticlesMultiCatPage,
   ArticlesPage,
   articlesLayout
 }

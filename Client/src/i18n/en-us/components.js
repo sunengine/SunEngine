@@ -90,45 +90,6 @@ export default {
     error: "Something went wrong.",
     enter: "Sign In"
   },
-  ChangeEmailResult: {
-    title: "@:RegisterEmailResult.title",
-    success: "@:RegisterEmailResult.success",
-    error: "@:RegisterEmailResult.error",
-  },
-  ResetPassword: {
-    title: "Reset password",
-    email: "Enter email",
-    resetPasswordBtn: "Reset password",
-    success: "Message with a link to reset password sent to your Email.",
-    validation: {
-      email: {
-        required: "@:ResetPassword.email",
-        emailSig: "@:Global.validation.emailSig",
-      }
-    }
-  },
-  ResetPasswordFailed: {
-    title: "Reset password",
-    message: "Something went wrong."
-  },
-  ResetPasswordSetNew: {
-    title: "Set password",
-    successMessage: 'Password changed.',
-    enter: 'Sign In',
-    saveBtn: "Change password",
-    password: "New password",
-    password2: "Repeat password",
-    validation: {
-      password: {
-        required: "@:Register.validation.password.required",
-        minLength: "@:Register.validation.password.minLength",
-        minDifferentChars: "@:Register.validation.password.minDifferentChars",
-      },
-      password2: {
-        equals: "@:Register.validation.password2.equals",
-      }
-    }
-  },
   CreateEditComment: {
     required: "Enter message",
     htmlTextSizeOrHasImage: "Minimum text length - 5",
@@ -271,43 +232,8 @@ export default {
       linkInDb: "This link already used"
     }
   },
-  ChangeEmail: {
-    title: "Edit user email",
-    successNotify: "Сообщение с ссылкой для подтверждения email отправлено по почте",
-    password: "Current password",
-    newEmail: "New email",
-    saveBtn: "@:Global.btn.save",
-    validation: {
-      password: {
-        required: "Required password"
-      },
-      email: {
-        required: "Required email",
-        emailSig: "Enter correct email"
-      }
-    }
-  },
-  ChangePassword: {
-    title: "Change password",
-    successNotify: 'Password changed.',
-    changeBtn: "Change password",
-    passwordOld: "Current password",
-    password: "New password",
-    password2: "Repeat new password",
-    validation: {
-      passwordOld: {
-        required: "Required enter old password"
-      },
-      password: {
-        required: "@:Register.validation.password.required",
-        minLength: "@:Register.validation.password.minLength",
-        minDifferentChars: "@:Register.validation.password.minDifferentChars",
-      },
-      password2: {
-        equals: "@:Register.validation.password2.equals",
-      }
-    }
-  },
+
+
   ForumPanel: {
     newTopics: "New topics",
     sections: "Sections"
@@ -315,10 +241,7 @@ export default {
   Topic: {
     lastFrom: "Last from"
   },
-  Activity: {
-    material: "Text",
-    comment: "Comment"
-  },
+
   Thread: {
     newTopicBtn: "New topic",
     topic: "Topic",
@@ -362,9 +285,7 @@ export default {
     successNotify: "Information successfully saved",
     save: "@:Global.btn.save"
   },
-  ActivitiesPage: {
-    defaultTitle: "Новое на сайте"
-  },
+
   Error404: {
     title: "Error 404",
     info: "Sorry, page not found...",

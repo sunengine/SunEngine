@@ -92,45 +92,6 @@ export default {
     error: "Подтверждение почты. Что-то пошло не так.",
     enter: "Войти"
   },
-  ChangeEmailResult: {
-    title: "@:RegisterEmailResult.title",
-    success: "@:RegisterEmailResult.success",
-    error: "@:RegisterEmailResult.error",
-  },
-  ResetPassword: {
-    title: "Сброс пароля",
-    email: "Введите email",
-    resetPasswordBtn: "Сбросить пароль",
-    success: "Сообщение с ссылкой для сброса пароля отправлено на email",
-    validation: {
-      email: {
-        required: "@:ResetPassword.email",
-        emailSig: "@:Global.validation.emailSig",
-      }
-    }
-  },
-  ResetPasswordFailed: {
-    title: "Сброс пароля",
-    message: "Что-то пошло не так. Возможно истекло время сброса."
-  },
-  ResetPasswordSetNew: {
-    title: "Установить пароль",
-    successMessage: 'Пароль изменён.',
-    enter: 'Войти',
-    saveBtn: "Изменить пароль",
-    password: "Новый пароль",
-    password2: "Подтвердите пароль",
-    validation: {
-      password: {
-        required: "@:Register.validation.password.required",
-        minLength: "@:Register.validation.password.minLength",
-        minDifferentChars: "@:Register.validation.password.minDifferentChars",
-      },
-      password2: {
-        equals: "@:Register.validation.password2.equals",
-      }
-    }
-  },
   CreateEditComment: {
     required: "Введите сообщение",
     htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
@@ -228,6 +189,9 @@ export default {
   BlogPage: {
     newPostBtn: "Новый пост"
   },
+  newPostBtnDefault: {
+    newPostBtnDefault: "@:BlogPage.newPostBtn"
+  },
   SettingsMenu: {
     goToProfile: "Просмотреть профиль",
     changeEmail: "Изменить email",
@@ -276,43 +240,8 @@ export default {
       linkInDb: "Этот link уже занят"
     }
   },
-  ChangeEmail: {
-    title: "Редактировать email пользователя",
-    successNotify: "Сообщение с ссылкой для подтверждения email отправлено по почте",
-    password: "Ваш пароль",
-    newEmail: "Новый email",
-    saveBtn: "@:Global.btn.save",
-    validation: {
-      password: {
-        required: "Необходимо ввести пароль"
-      },
-      email: {
-        required: "Необходимо ввести email",
-        emailSig: "Введите валидный email"
-      }
-    }
-  },
-  ChangePassword: {
-    title: "Изменить пароль",
-    successNotify: 'Пароль изменён.',
-    changeBtn: "Изменить пароль",
-    passwordOld: "Старый пароль",
-    password: "Новый пароль",
-    password2: "Подтвердите новый пароль",
-    validation: {
-      passwordOld: {
-        required: "Необходимо ввести старый пароль"
-      },
-      password: {
-        required: "@:Register.validation.password.required",
-        minLength: "@:Register.validation.password.minLength",
-        minDifferentChars: "@:Register.validation.password.minDifferentChars",
-      },
-      password2: {
-        equals: "@:Register.validation.password2.equals",
-      }
-    }
-  },
+
+
   ForumPanel: {
     newTopics: "Новые сообщения",
     sections: "Разделы"
@@ -320,10 +249,7 @@ export default {
   Topic: {
     lastFrom: "Последнее от"
   },
-  Activity: {
-    material: "Текст",
-    comment: "Комментарий"
-  },
+
   Thread: {
     newTopicBtn: "Новая тема",
     topic: "Тема",
@@ -367,9 +293,7 @@ export default {
     successNotify: "Информация успешно сохранена",
     save: "@:Global.btn.save"
   },
-  ActivitiesPage: {
-    defaultTitle: "Новое на сайте"
-  },
+
   DeletedComment: {
     label: "Сообщение удалено"
   },
