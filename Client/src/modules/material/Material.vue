@@ -79,7 +79,6 @@
 
   export default {
     name: "Material",
-    components: {CommentContainer, CreateEditComment, LoaderWait},
     mixins: [Page],
     props: {
       idOrName: {
@@ -91,7 +90,7 @@
         required: true
       }
     },
-    data: function () {
+    data() {
       return {
         material: null,
         comments: null,
@@ -203,7 +202,6 @@
           console.log("error", x);
         });
       },
-
       async loadDataComments() {
         await this.$store.dispatch("request",
           {
@@ -226,7 +224,6 @@
           console.log("error", x);
         });
       },
-
       checkLastOwn(comment) {
         if (!this.comments) {
           return false;
@@ -240,7 +237,6 @@
         }
         return true;
       },
-
       async deleteMaterial() {
         this.$q.dialog({
           title: 'Удалить материал?',
@@ -270,7 +266,6 @@
         }).catch(() => {
         });
       },
-
       async commentAdded() {
         let currentPath = this.$route.fullPath;
         let ind = currentPath.lastIndexOf("#");
@@ -278,13 +273,16 @@
         window.history.pushState("", document.title, path);
         await this.loadData();
       },
-
       async loadData() {
         await this.loadDataMaterial();
         await this.loadDataComments();
       }
     },
-
+    beforeCreate() {
+      this.$options.components.CommentContainer = require('sun.js').CommentContainer;
+      this.$options.components.CreateEditComment = require('sun.js').CreateEditComment;
+      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
+    },
     async created() {
       await this.loadData();
     }

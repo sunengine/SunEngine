@@ -22,7 +22,7 @@
 
 
     <MyEditor
-      :toolbar="materialFormToolbar"
+      :toolbar="editorToolbar"
       :rules="rules.text"
       ref="htmlEditor" v-model="material.text"/>
 
@@ -45,9 +45,10 @@
 </template>
 
 <script>
-  import {MyEditor} from 'sun'
   import {htmlTextSizeOrHasImage} from 'sun'
-  import {materialFormToolbar as materialFormToolbar} from 'sun'
+  import {materialFormToolbar} from 'sun'
+
+  const editorToolbar = materialFormToolbar;
 
   function createRules() {
     return {
@@ -75,7 +76,6 @@
 
   export default {
     name: "MaterialForm",
-    components: {MyEditor},
     props: {
       material: {
         type: Object,
@@ -87,7 +87,7 @@
       }
     },
     rules: null,
-    data: function () {
+    data() {
       return {
         start: true
       }
@@ -119,6 +119,9 @@
         this.$refs.description?.validate();
         this.$refs.htmlEditor.validate();
       }
+    },
+    beforeCreate() {
+      this.$options.components.MyEditor = require('sun.js').MyEditor;
     },
     created() {
       this.rules = createRules.call(this);

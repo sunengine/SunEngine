@@ -1,17 +1,17 @@
 export function getWhereToMove(store) {
-  const rez = GoDeep(store.state.categories.root);
+  const rez = goDeep(store.state.categories.root);
   return [...rez.children];
 }
 
 export function getWhereToAdd(store, categoriesNames) {
   if (categoriesNames.includes(","))
-    return GetWhereToAddMultiCat(store, categoriesNames);
+    return getWhereToAddMultiCat(store, categoriesNames);
   else
-    return GetWhereToAddOneCat(store, categoriesNames);
+    return getWhereToAddOneCat(store, categoriesNames);
 }
 
-export function GetWhereToAddOneCat(store, categoryName) {
-  let rez = GoDeep(store.getters.getCategory(categoryName));
+export function getWhereToAddOneCat(store, categoryName) {
+  let rez = goDeep(store.getters.getCategory(categoryName));
   if (rez.selectable)
     rez = [rez];
   else
@@ -24,7 +24,7 @@ export function getWhereToAddMultiCat(store, categoriesNames) {
   const categories = categoriesNames.split(",").map(x => x.trim());
   const nodes = [];
   for (let categoryName of categories) {
-    const node = GoDeep(store.getters.getCategory(categoryName));
+    const node = goDeep(store.getters.getCategory(categoryName));
     if(node)
       nodes.push(node);
   }
@@ -42,7 +42,7 @@ function goDeep(category) {
   if (category.subCategories) {
     children = [];
     for (let child of category.subCategories) {
-      let one = GoDeep(child);
+      let one = goDeep(child);
       if (one) children.push(one);
     }
   }

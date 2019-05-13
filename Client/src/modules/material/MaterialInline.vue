@@ -13,7 +13,7 @@
         required: true
       }
     },
-    data: function () {
+    data() {
       return {
         material: null
       }

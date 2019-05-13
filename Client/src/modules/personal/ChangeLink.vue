@@ -19,7 +19,6 @@
 
 <script>
   import {Page} from 'sun'
-  import {LoaderSent} from 'sun'
   import {store} from 'sun'
 
   function allowMyIdOrEmpty(id) {
@@ -38,7 +37,6 @@
   export default {
     name: "ChangeLink",
     mixins: [Page],
-    components: {LoaderSent},
     data: function () {
       return {
         link: this.$store.state.auth.userInfo.link,
@@ -104,6 +102,9 @@
     },
     beforeDestroy() {
       clearTimeout(this.timeout);
+    },
+    beforeCreate() {
+      this.$options.components.LoaderSent = require('sun.js').LoaderSent;
     },
     async created() {
       this.title = this.$tl("title");
