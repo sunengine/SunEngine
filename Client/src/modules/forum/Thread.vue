@@ -51,7 +51,7 @@
     props: {
       categoryName: String
     },
-    data: function () {
+    data() {
       return {
         thread: null,
         topics: {}

@@ -14,22 +14,19 @@
 </template>
 
 <script>
-  import {MaterialForm} from 'sun'
-  import {LoaderSent} from 'sun'
-  import {GetWhereToMove} from 'sun'
+  import {getWhereToMove} from 'sun'
   import {Page} from 'sun'
 
   export default {
     name: "EditMaterial",
     mixins: [Page],
-    components: {MaterialForm, LoaderSent},
     props: {
       id: {
         type: Number,
         required: true
       }
     },
-    data: function () {
+    data() {
       return {
         material: {
           name: null,
@@ -43,7 +40,7 @@
     },
     computed: {
       categoryNodes() {
-        return GetWhereToMove(this.$store);
+        return getWhereToMove(this.$store);
       }
     },
     methods: {
@@ -89,6 +86,10 @@
           this.material = response.data;
         })
       },
+    },
+    beforeCreate() {
+      this.$options.components.MaterialForm = require('sun.js').MaterialForm;
+      this.$options.components.LoaderSent = require('sun.js').LoaderSent;
     },
     async created() {
       this.title = this.$tl("title");

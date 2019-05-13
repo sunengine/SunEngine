@@ -14,15 +14,12 @@
 </template>
 
 <script>
-  import {MaterialForm} from 'sun'
-  import {GetWhereToAdd} from 'sun'
+  import {getWhereToAdd} from 'sun'
   import {Page} from 'sun'
-  import {LoaderSent} from 'sun'
 
   export default {
     name: "CreateMaterial",
     mixins: [Page],
-    components: {MaterialForm, LoaderSent},
     props: {
       categoriesNames: {
         type: String,
@@ -34,7 +31,7 @@
         default: ""
       }
     },
-    data: function () {
+    data() {
       return {
         material: {
           name: null,
@@ -44,14 +41,13 @@
           tags: [],
           categoryName: this.initialCategoryName
         },
-        //initialCategory: null,
         loading: false
       }
     },
     computed: {
       categoryNodes() {
-        return GetWhereToAdd(this.$store, this.categoriesNames);
-      },
+        return getWhereToAdd(this.$store, this.categoriesNames);
+      }
     },
     methods: {
       send() {
@@ -85,6 +81,10 @@
           this.loading = false;
         });
       }
+    },
+    beforeCreate() {
+      this.$options.components.MaterialForm = require('sun.js').MaterialForm;
+      this.$options.components.LoaderSent = require('sun.js').LoaderSent;
     },
     created() {
       this.title = this.$tl("title");

@@ -5,7 +5,7 @@ import MaterialForm from './MaterialForm'
 import materialFormToolbar from './materialFormToolbar'
 import MaterialInline from './MaterialInline'
 
-export * from './GetWhereToAddMove'
+export * from './getWhereToAddMove'
 
 export {
   CreateMaterial,

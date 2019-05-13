@@ -52,7 +52,7 @@
     props: {
       categoryName: String
     },
-    data: function () {
+    data() {
       return {
         topics: {},
       }

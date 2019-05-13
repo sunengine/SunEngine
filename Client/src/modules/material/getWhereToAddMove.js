@@ -1,9 +1,9 @@
-export function GetWhereToMove(store) {
+export function getWhereToMove(store) {
   const rez = GoDeep(store.state.categories.root);
   return [...rez.children];
 }
 
-export function GetWhereToAdd(store, categoriesNames) {
+export function getWhereToAdd(store, categoriesNames) {
   if (categoriesNames.includes(","))
     return GetWhereToAddMultiCat(store, categoriesNames);
   else
@@ -20,7 +20,7 @@ export function GetWhereToAddOneCat(store, categoryName) {
   return rez;
 }
 
-export function GetWhereToAddMultiCat(store, categoriesNames) {
+export function getWhereToAddMultiCat(store, categoriesNames) {
   const categories = categoriesNames.split(",").map(x => x.trim());
   const nodes = [];
   for (let categoryName of categories) {
@@ -33,7 +33,7 @@ export function GetWhereToAddMultiCat(store, categoriesNames) {
 }
 
 
-function GoDeep(category) {
+function goDeep(category) {
 
   if (!category)
     return null;
