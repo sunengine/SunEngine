@@ -18,18 +18,18 @@
 
 
   export default {
-    name: "CreateCategory",
+    name: 'CreateCategory',
     mixins: [Page],
 
     data: function () {
       return {
         category: {
-          name: "",
-          title: "",
-          description: "",
-          header: "",
-          layoutName: "",
-          sectionTypeName: "unset",
+          name: '',
+          title: '',
+          description: '',
+          header: '',
+          layoutName: '',
+          sectionTypeName: 'unset',
           isMaterialsContainer: true,
           areaRoot: false,
           parentId: 1,
@@ -49,9 +49,9 @@
 
         this.loading = true;
 
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Admin/CategoriesAdmin/CreateCategory",
+            url: '/Admin/CategoriesAdmin/CreateCategory',
             data: this.category,
             sendAsJson: true
           })
@@ -69,7 +69,7 @@
       this.$options.components.CategoryForm = require('sun').CategoryForm;
     },
     async created() {
-      this.title = this.$tl("title")
+      this.title = this.$tl('title')
     }
   };
 

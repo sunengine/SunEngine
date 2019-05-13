@@ -32,7 +32,7 @@
 
     <div class="q-mt-lg">
       <q-select emit-value map-options v-if="sectionTypes" :label="$tl('sectionType')"
-                v-model="category.sectionTypeName"
+                v-model="category.sectionTypeName" @input="sectionTypeChanged"
                 :options="sectionTypeOptions"/>
       <LoaderWait v-else/>
     </div>
@@ -48,15 +48,15 @@
     </div>
 
     <div class="q-my-sm">
-      <q-checkbox :toggle-indeterminate="false" v-model="category.isCacheContent" label="Кэшировать содержимое"/>
+      <q-checkbox :toggle-indeterminate="false" v-model="category.isCacheContent" :label="$tl('isCaching')"/>
     </div>
 
-    <div class="q-my-sm">
+    <!--<div class="q-my-sm">
       <q-checkbox toggle-indeterminate v-model="category.appendUrlToken" :label="$tl('appendUrlTokenCb')"/>
       <span class="text-amber-8 q-ml-md">
         {{$tl("appendUrlTokenInfo")}}
       </span>
-    </div>
+    </div>-->
     <div>
       <q-checkbox :toggle-indeterminate="false" v-model="category.isHidden" :label="$tl('hideCb')"/>
     </div>
@@ -140,14 +140,15 @@
       layoutOptions() {
         return Object.getOwnPropertyNames(this.$store.state.categories.layouts)
           .filter(x => !x.startsWith("__"))
+          .map(x => this.$store.state.categories.layouts[x])
+          .filter(x => x.categoryType === this.category.sectionTypeName)
           .map(x => {
-              const item = this.$store.state.categories.layouts[x];
-              return {
-                label: item.title,
-                value: item.name
-              }
+            return {
+              label: x.title,
+              value: x.name,
+              sectionType: x.categoryType
             }
-          );
+          });
       },
       parentCategoryTitle() {
         if (!this.category.parentId)
@@ -162,6 +163,12 @@
       }
     },
     methods: {
+      sectionTypeChanged() {
+        if(this.category.sectionTypeName !== this.category.layoutName)
+        {
+          this.category.layoutName = this.layoutOptions?.[0] ?? '';
+        }
+      },
       categorySelected(key) {
         if (!key) {
           let pid = this.category.parentId;
@@ -180,6 +187,7 @@
       this.$options.components.MyEditor = require('sun').MyEditor;
     },
     async created() {
+
       if (!this.category.sectionTypeName) {
         this.category.sectionTypeName = unset;
       }
