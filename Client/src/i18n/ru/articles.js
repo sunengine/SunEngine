@@ -1,8 +1,8 @@
 export default {
-  ArticlesPage: {
-    newArticleBtn: "Новая статья"
-  },
   ArticlesMultiCatPage: {
     newArticleBtnDefault: "@:ArticlesPage.newArticle"
+  },
+  ArticlesPage: {
+    newArticleBtn: "Новая статья"
   }
 }
