@@ -14,4 +14,8 @@ export default async ({app, Vue}) => {
   Vue.prototype.$tl = function (key, ...values) {
     return this.$t(this.$options.name + "." + key, values);
   };
+
+  Vue.prototype.$tle = function (key, ...values) {
+    return this.$te(this.$options.name + "." + key, values);
+  };
 }

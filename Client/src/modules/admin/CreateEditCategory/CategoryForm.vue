@@ -138,15 +138,16 @@
         })];
       },
       layoutOptions() {
-        const arr = [];
-        const pp = Object.getOwnPropertyNames(this.$store.state.categories.layouts);
-debugger; // TODO MAKE ARRAY
-       /* return [...].map(x => {
-          return {
-            label: x.title,
-            value: x.name
-          }
-        })*/
+        return Object.getOwnPropertyNames(this.$store.state.categories.layouts)
+          .filter(x => !x.startsWith("__"))
+          .map(x => {
+              const item = this.$store.state.categories.layouts[x];
+              return {
+                label: item.title,
+                value: item.name
+              }
+            }
+          );
       },
       parentCategoryTitle() {
         if (!this.category.parentId)
