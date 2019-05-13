@@ -27,7 +27,7 @@
 
 
   export default {
-    name: 'News2Col',
+    name: 'News2ColPage',
     components: {LoaderWait, PostsList, ActivitiesList},
     mixins: [Page],
     data: function() {

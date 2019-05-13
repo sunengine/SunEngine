@@ -78,6 +78,7 @@ namespace SunEngine.Admin.Managers
             category.IsMaterialsContainer = categoryUpdate.IsMaterialsContainer;
             category.AppendUrlToken = categoryUpdate.AppendUrlToken;
             category.SectionTypeId = categoryUpdate.SectionTypeId;
+            category.LayoutName = categoryUpdate.LayoutName;
             
             await db.UpdateAsync(category);
         }

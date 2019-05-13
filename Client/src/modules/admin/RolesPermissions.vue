@@ -28,7 +28,6 @@
   export default {
     name: "RolesPermissions",
     mixins: [Page],
-    i18nPrefix: "Admin",
     computed: {},
     data() {
       return {

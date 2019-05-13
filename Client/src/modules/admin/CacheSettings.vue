@@ -8,22 +8,22 @@
       <div class="q-mt-lg">
         <q-select
           v-model="policy"
-          :label="$tl('CachePolicy')"
+          :label="$tl('cachePolicy')"
           :options="OptionTypes"/>
         <br/>
         <div v-if="policy !== null && policy.id !== 1">
           <q-input v-if="!withoutTime" ref="cacheTime" type="number"
                    v-model="cacheSettings.invalidateCacheTime"
-                   :label="$tl('CacheLifetime')"
+                   :label="$tl('cacheLifetime')"
                    :rules="rules.invalidateCacheTime"/>
 
-          <q-checkbox v-model="withoutTime" v-on:input="withoutTimeChanged" :label="$tl('WithoutInvalidationTime')"/>
+          <q-checkbox v-model="withoutTime" v-on:input="withoutTimeChanged" :label="$tl('withoutInvalidationTime')"/>
         </div>
       </div>
       <br>
       <div class="btn-block">
         <q-btn icon="fas fa-plus" class="btn-send" :loading="loading"
-               no-caps :label="$tl('SaveChanges')" color="send"
+               no-caps :label="$tl('saveChangesBtn')" color="send"
                @click="save">
           <LoaderSent slot="loading"/>
         </q-btn>
@@ -34,7 +34,6 @@
 
 <script>
   import {Page} from 'sun'
-  import {LoaderSent} from 'sun'
   import {cachePolicies} from 'sun'
 
   function createRules() {
@@ -49,7 +48,6 @@
   export default {
     name: "CacheSettings",
     mixins: [Page],
-    i18nPrefix: "Admin",
     data() {
       return {
         cacheSettings: null,
@@ -58,9 +56,9 @@
         withoutTime: false,
         rules: null,
         OptionTypes: [
-          {id: cachePolicies.Always, label: this.$tl("AlwaysPolicy"), value: "AlwaysPolicy"},
-          {id: cachePolicies.Never, label: this.$tl("NeverPolicy"), value: "NeverPolicy"},
-          {id: cachePolicies.Custom, label: this.$tl("CustomPolicy"), value: "CustomPolicy"}
+          {id: cachePolicies.Always, label: this.$tl("alwaysPolicy"), value: "AlwaysPolicy"},
+          {id: cachePolicies.Never, label: this.$tl("neverPolicy"), value: "NeverPolicy"},
+          {id: cachePolicies.Custom, label: this.$tl("customPolicy"), value: "CustomPolicy"}
         ],
       };
     },
@@ -94,21 +92,10 @@
           },
         })
           .then(() => {
-            this.$q.notify({
-              message: this.$tl("successNotify"),
-              timeout: 5000,
-              color: 'positive',
-              icon: 'far fa-check-circle',
-              position: 'top'
-            });
+            this.$successNotify();
             this.loading = false;
           }).catch(error => {
-            this.$q.notify({
-              message: this.$tl("error"),
-              timeout: 5000,
-              color: 'negative',
-              position: 'top'
-            });
+            this.$errorNotify(error);
             this.loading = false;
           });
       },

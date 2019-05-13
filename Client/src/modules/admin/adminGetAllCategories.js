@@ -1,6 +1,6 @@
 import {store} from 'sun'
 
-export default function getAllCategories() {
+export default function adminGetAllCategories() {
   return store.dispatch("request",
     {
       url: "/Admin/CategoriesAdmin/GetAllCategories"

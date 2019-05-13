@@ -1,34 +1,4 @@
 export default {
-
-  AdminPanel: {
-    title: "Админка"
-  },
-  AdminPage: {
-    title: "@:Admin.AdminPanel.title"
-  },
-  AdminMenu: {
-    categoriesAdmin: "Категории",
-    rolesPermissions: "Настройка прав",
-    rolesUsers: "Группы пользователей",
-    cacheSettings: "Настройки кэширования"
-  },
-  EditCategory: {
-    title: "Редактировать категорию",
-    deleteBtn: "Удалить категорию",
-    saveBtn: "@:Global.btn.save",
-    cancelBtn: "@:Global.btn.cancel",
-    deletedNotify: "Категория успешно удалена.",
-    deleteConfirm: "Вы уверены, что хотите удалить категорию?\nВсе данные категории так же будут удалены.",
-    deleteDialogBtnOk: "Удалить",
-    deleteDialogBtnCancel: "Отмена",
-    successNotify: "Категория обновлена.\nНе забудьте перегрузить сайт для обновления."
-  },
-  CreateCategory: {
-    title: "Добавить категорию",
-    createBtn: "Создать",
-    cancelBtn: "@:Global.btn.cancel",
-    successNotify: "Категория добавлена.\nНе забудьте перегрузить сайт для обновления."
-  },
   CategoryForm: {
     name: "Имя категории (eng)",
     title: "Заголовок",
@@ -45,6 +15,7 @@ export default {
     isCaching: "Кэшировать содержимое",
     cachingPageCount: "Кэшировать N страниц",
     noTypeLabel: "Без типа",
+    layout: "Шаблон",
     validation: {
       name: {
         required: "Введите имя (eng) категории",
@@ -57,12 +28,72 @@ export default {
       }
     }
   },
+  CreateCategory: {
+    title: "Добавить категорию",
+    createBtn: "Создать",
+    cancelBtn: "@:Global.btn.cancel",
+    successNotify: "Категория добавлена.\nНе забудьте перегрузить сайт для обновления."
+  },
+  EditCategory: {
+    title: "Редактировать категорию",
+    deleteBtn: "Удалить категорию",
+    saveBtn: "@:Global.btn.save",
+    cancelBtn: "@:Global.btn.cancel",
+    deletedNotify: "Категория успешно удалена.",
+    deleteConfirm: "Вы уверены, что хотите удалить категорию?\nВсе данные категории так же будут удалены.",
+    deleteDialogBtnOk: "Удалить",
+    deleteDialogBtnCancel: "Отмена",
+    successNotify: "Категория обновлена.\nНе забудьте перегрузить сайт для обновления."
+  },
+  AdminMenu: {
+    categoriesAdmin: "Категории",
+    rolesPermissions: "Настройка прав",
+    rolesUsers: "Группы пользователей",
+    cacheSettings: "Настройки кэширования"
+  },
+  AdminPage: {
+    title: "@:AdminPanel.title"
+  },
+  AdminPanel: {
+    title: "Админка"
+  },
+  CacheSettings: {
+    title: "Настройки кэширования",
+    cachePolicy: "Политика кэширования",
+    alwaysPolicy: "Всегда кэшировать",
+    neverPolicy: "Никогда не кэшировать",
+    customPolicy: "Настриваемая политика",
+    cacheLifetime: "Время хранения записи",
+    saveChangesBtn: "Сохранить настройки",
+    withoutInvalidationTime: "Без ограничения по времени",
+    successNotify: "Политика кэширования изменена",
+    error: "Произошла ошибка",
+    validation: {
+      invalidateCacheTime: {
+        required: "Поле должно быть заполнено",
+        invalidValue: "Значение не может быть ниже 0",
+      }
+    }
+  },
   CategoriesAdmin: {
     title: "Админка категорий",
     addCategoryBtn: "Добавить категорию"
   },
   CategoryItem: {
     rootCategory: "Корневая категория"
+  },
+  ProfileRoles: {
+    roles: "Группы пользователя:",
+    addRoleBtn: "Добавить группу",
+    removeRoleBtn: "Удалить группу",
+    addRoleConfirm: "Добавить в группу '{0}'?",
+    addRoleConfirmOkBtn: "Добавить",
+    removeRoleConfirm: "Удалить из группы '{0}'?",
+    removeRoleConfirmOkBtn: "Удалить",
+  },
+  RolesPage: {
+    title: "Группы пользователей",
+    roles: "Группы",
   },
   RolesPermissions: {
     title: "Загрузка Json прав для групп",
@@ -73,42 +104,10 @@ export default {
     saveSuccessNotify: "Настройки групп успешно обновлены",
     textAreaLabel: "Json файл конфигурации прав групп"
   },
-  ProfileRoles: {
-    roles: "Группы пользователя:",
-    addRoleBtn: "Добавить группу",
-    removeRoleBtn: "Удалить группу",
-    addRoleConfirm: "Добавить в группу '{0}'?",
-    addRoleConfirmOkBtn: "Добавить",
-    removeRoleConfirm: "Удалить из группы '{0}'?",
-    removeRoleConfirmOkBtn: "Удалить",
-
-  },
-  RolesPage: {
-    title: "Группы пользователей",
-    roles: "Группы",
-  },
   RoleUsers: {
     users: "Пользователи",
     filter: "Найти по имени",
     noResults: "Нет результатов",
     filterLimitReached: "Выведены первые {0} результатов"
-  },
-  CacheSettings: {
-    title: "Настройки кэширования",
-    CachePolicy: "Политика кэширования",
-    AlwaysPolicy: "Всегда кэшировать",
-    NeverPolicy: "Никогда не кэшировать",
-    CustomPolicy: "Настриваемая политика",
-    CacheLifetime: "Время хранения записи",
-    SaveChanges: "Сохранить настройки",
-    WithoutInvalidationTime: "Без ограничения по времени",
-    successNotify: "Политика кэширования изменена",
-    error: "Произошла ошибка",
-    validation: {
-      invalidateCacheTime: {
-        required: "Поле должно быть заполнено",
-        invalidValue: "Значение не может быть ниже 0",
-      }
-    }
   }
-};
+}

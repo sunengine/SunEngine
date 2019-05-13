@@ -40,8 +40,7 @@
 
 <script>
   export default {
-    name: "AdminMenu",
-    i18nPrefix: "Admin"
+    name: "AdminMenu"
   }
 </script>
 

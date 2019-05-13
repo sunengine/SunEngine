@@ -66,7 +66,6 @@
         required: true
       }
     },
-    i18nPrefix: "Admin",
     data() {
       return {
         allRoles: null,

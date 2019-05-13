@@ -10,7 +10,6 @@ module.exports = function (ctx) {
     boot: [
       'i18n',
       'axios',
-      'globalApp',
       'apiPath',
       'buildPath',
       'imagePath',

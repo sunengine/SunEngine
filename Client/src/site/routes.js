@@ -1,25 +1,21 @@
-import {Categories1} from 'sun'
-import {Categories2} from 'sun'
-import {News2Col} from 'sun'
 import {BlogMultiCatPage} from 'sun'
 import {ActivitiesPage} from 'sun'
-import {makeArticlesSection, makeForumSection, makeBlogSection} from'sun'
 
 import IndexPage from './IndexPage'
-import PageWithMaterialInline from './PageWithMaterialInline'
-
+import News2ColPage from './News2ColPage'
+import MaterialInlinePage from './MaterialInlinePage'
 
 import coreRoutes from './coreRoutes'
 
 
 const siteRoutes = [
   {
-    name: "Home",
+    name: 'Home',
     path: '/',
     component: IndexPage
   },
   {
-    name: "News",
+    name: 'News',
     path: '/News'.toLowerCase(),
     components: {
       default: ActivitiesPage,
@@ -32,23 +28,23 @@ const siteRoutes = [
     }
   },
   {
-    name: "News2Col",
-    path: '/News2Col'.toLowerCase(),
+    name: 'News2ColPage',
+    path: '/News2ColPage'.toLowerCase(),
     components: {
-      default: News2Col,
+      default: News2ColPage,
       navigation: null
     }
   },
   {
-    name: "PageWithMaterialInline",
-    path: '/PageWithMaterialInline'.toLowerCase(),
+    name: 'MaterialInlinePage',
+    path: '/MaterialInlinePage'.toLowerCase(),
     components: {
-      default: PageWithMaterialInline,
+      default: MaterialInlinePage,
       navigation: null
     }
   },
   {
-    name: "BlogMulti",
+    name: 'BlogMulti',
     path: '/BlogMulti'.toLowerCase(),
     components: {
       default: BlogMultiCatPage,
@@ -56,18 +52,14 @@ const siteRoutes = [
     },
     props: {
       default: {
-        pageTitle: "Новые материалы",
-        categoriesNames: "Forum,Articles,Blog".toLowerCase(),
-        addButtonLabel: "Добавить материал",
-        caption: "Посты в виде блога из категорий: Forum, Articles, Blog",
-        rolesCanAdd: ["Admin", "Moderator"]
+        pageTitle: 'Новые материалы',
+        categoriesNames: 'Forum,Articles,Blog'.toLowerCase(),
+        addButtonLabel: 'Добавить материал',
+        caption: 'Посты в виде блога из категорий: Forum, Articles, Blog',
+        rolesCanAdd: ['Admin', 'Moderator']
       }
     }
-  },
-  ...makeForumSection("Forum", Categories1),
-  ...makeForumSection("Forum2L", Categories2),
-  ...makeArticlesSection("Articles"),
-  ...makeBlogSection("Blog")
+  }
 ];
 
 

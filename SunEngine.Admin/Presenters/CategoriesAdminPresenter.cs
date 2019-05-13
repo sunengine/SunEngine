@@ -51,6 +51,7 @@ namespace SunEngine.Admin.Presenters
                 Header = x.Header,
                 SectionTypeName = x.SectionType != null ? x.SectionType.Name : null,
                 SectionType = x.SectionType,
+                LayoutName = x.LayoutName,
                 AppendUrlToken = x.AppendUrlToken,
                 ParentId = x.ParentId,
                 SortNumber = x.SortNumber,
@@ -74,6 +75,7 @@ namespace SunEngine.Admin.Presenters
                     Header = x.Header,
                     SectionTypeName = x.SectionType != null ? x.SectionType.Name : null,
                     SectionType = x.SectionType,
+                    LayoutName = x.LayoutName,
                     AppendUrlToken = x.AppendUrlToken,
                     ParentId = x.ParentId,
                     SortNumber = x.SortNumber,
@@ -120,6 +122,8 @@ namespace SunEngine.Admin.Presenters
         public string SectionTypeName { get; set; }
 
         public SectionType SectionType { get; set; }
+        
+        public string LayoutName { get; set; }
 
         public bool AppendUrlToken { get; set; }
 

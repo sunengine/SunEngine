@@ -3,7 +3,7 @@
 
     <q-input ref="name" v-model="category.name" :label="$tl('name')" :rules="rules.name"/>
 
-    <q-input ref="title" v-model="category.title" :label="$tl('title')" :rules="rules.title" />
+    <q-input ref="title" v-model="category.title" :label="$tl('title')" :rules="rules.title"/>
 
     <q-input ref="description" v-model="category.description" autogrow type="textarea"
              :label="$tl('shortDescription')"/>
@@ -24,32 +24,39 @@
                   default-expand-all
                   :selected.sync="category.parentId"
                   :nodes="where"
-                  node-key="value" />
+                  node-key="value"/>
 
         </div>
       </q-menu>
     </q-btn>
 
     <div class="q-mt-lg">
-      <q-select emit-value map-options v-if="sectionTypes" :label="$tl('sectionType')" v-model="category.sectionTypeName"
+      <q-select emit-value map-options v-if="sectionTypes" :label="$tl('sectionType')"
+                v-model="category.sectionTypeName" @input="sectionTypeChanged"
                 :options="sectionTypeOptions"/>
       <LoaderWait v-else/>
     </div>
 
     <div class="q-mt-lg">
-      <q-checkbox :toggle-indeterminate="false" v-model="category.isMaterialsContainer" :label="$tl('isMaterialsContainerCb')"/>
+      <q-select emit-value map-options :label="$tl('layout')" v-model="category.layoutName"
+                :options="layoutOptions"/>
+    </div>
+
+    <div class="q-mt-lg">
+      <q-checkbox :toggle-indeterminate="false" v-model="category.isMaterialsContainer"
+                  :label="$tl('isMaterialsContainerCb')"/>
     </div>
 
     <div class="q-my-sm">
-      <q-checkbox :toggle-indeterminate="false" v-model="category.isCacheContent" label="Кэшировать содержимое"/>
+      <q-checkbox :toggle-indeterminate="false" v-model="category.isCacheContent" :label="$tl('isCaching')"/>
     </div>
 
-    <div class="q-my-sm">
+    <!--<div class="q-my-sm">
       <q-checkbox toggle-indeterminate v-model="category.appendUrlToken" :label="$tl('appendUrlTokenCb')"/>
       <span class="text-amber-8 q-ml-md">
         {{$tl("appendUrlTokenInfo")}}
       </span>
-    </div>
+    </div>-->
     <div>
       <q-checkbox :toggle-indeterminate="false" v-model="category.isHidden" :label="$tl('hideCb')"/>
     </div>
@@ -57,6 +64,8 @@
 </template>
 
 <script>
+  import {adminGetAllCategories} from 'sun'
+
 
   const unset = "unset";
 
@@ -109,7 +118,7 @@
         required: true,
       },
     },
-    i18nPrefix: "Admin",
+
     data: function () {
       return {
         root: null,
@@ -128,6 +137,19 @@
           }
         })];
       },
+      layoutOptions() {
+        return Object.getOwnPropertyNames(this.$store.state.categories.layouts)
+          .filter(x => !x.startsWith("__"))
+          .map(x => this.$store.state.categories.layouts[x])
+          .filter(x => x.categoryType === this.category.sectionTypeName)
+          .map(x => {
+            return {
+              label: x.title,
+              value: x.name,
+              sectionType: x.categoryType
+            }
+          });
+      },
       parentCategoryTitle() {
         if (!this.category.parentId)
           return this.$tl("selectParent");
@@ -141,11 +163,18 @@
       }
     },
     methods: {
-      categorySelected(key) {
-        if(!key)
+      sectionTypeChanged() {
+        if(this.category.sectionTypeName !== this.category.layoutName)
         {
+          this.category.layoutName = this.layoutOptions?.[0] ?? '';
+        }
+      },
+      categorySelected(key) {
+        if (!key) {
           let pid = this.category.parentId;
-          this.$nextTick(() => {this.category.parentId = pid})
+          this.$nextTick(() => {
+            this.category.parentId = pid
+          })
         }
       },
       validate() {
@@ -158,6 +187,7 @@
       this.$options.components.MyEditor = require('sun').MyEditor;
     },
     async created() {
+
       if (!this.category.sectionTypeName) {
         this.category.sectionTypeName = unset;
       }

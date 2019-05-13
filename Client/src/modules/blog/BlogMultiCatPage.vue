@@ -23,7 +23,10 @@
 </template>
 
 <script>
+  import Vue from 'vue';
+
   import {Page} from 'sun'
+
 
   export default {
     name: 'BlogMultiCatPage',
@@ -36,7 +39,9 @@
       addButtonLabel: {
         type: String,
         required: false,
-        default: "Добавить текст"
+        default() {
+          return Vue.prototype.$tl('newPostBtnDefault')
+        }
       },
       pageTitle: {
         type: String,

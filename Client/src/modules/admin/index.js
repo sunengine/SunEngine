@@ -4,7 +4,7 @@ import AdminPanel from './AdminPanel'
 import CacheSettings from './CacheSettings'
 import CategoriesAdmin from './CategoriesAdmin'
 import CategoryItem from './CategoryItem'
-import getAllCategories from './getAllCategories'
+import adminGetAllCategories from './adminGetAllCategories'
 import ProfileRoles from './ProfileRoles'
 import RolesPage from './RolesPage'
 import RolesPermissions from './RolesPermissions'
@@ -12,7 +12,7 @@ import RoleUsers from './RoleUsers'
 import CategoryForm from './CreateEditCategory/CategoryForm'
 import CreateCategory from './CreateEditCategory/CreateCategory'
 import EditCategory from './CreateEditCategory/EditCategory'
-
+import cachePolicies from './cachePolicies'
 
 export {
   AdminMenu,
@@ -21,12 +21,13 @@ export {
   CacheSettings,
   CategoriesAdmin,
   CategoryItem,
-  getAllCategories,
+  adminGetAllCategories,
   ProfileRoles,
   RolesPage,
   RolesPermissions,
   RoleUsers,
   CategoryForm,
   CreateCategory,
-  EditCategory
+  EditCategory,
+  cachePolicies
 }
