@@ -84,8 +84,8 @@
       })
     },
     beforeCreate() {
-      this.$options.components.UserMenu = require('sun.js').UserMenu;
-      this.$options.components.LoginRegisterMenu = require('sun.js').LoginRegisterMenu;
+      this.$options.components.UserMenu = require('sun').UserMenu;
+      this.$options.components.LoginRegisterMenu = require('sun').LoginRegisterMenu;
     }
   }
 </script>

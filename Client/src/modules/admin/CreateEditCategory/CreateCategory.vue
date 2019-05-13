@@ -64,8 +64,8 @@
       }
     },
     beforeCreate() {
-      this.$options.components.LoaderSent = require('sun.js').LoaderSent;
-      this.$options.components.CategoryForm = require('sun.js').CategoryForm;
+      this.$options.components.LoaderSent = require('sun').LoaderSent;
+      this.$options.components.CategoryForm = require('sun').CategoryForm;
     },
     async created() {
       this.title = this.$tl("title")

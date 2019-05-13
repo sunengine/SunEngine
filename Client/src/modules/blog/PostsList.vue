@@ -24,8 +24,8 @@
       }
     },
     beforeCreate() {
-      this.$options.components.Post = require('sun.js').Post;
-      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
+      this.$options.components.Post = require('sun').Post;
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
     }
   }
 </script>

@@ -53,8 +53,8 @@
       }
     },
     beforeCreate() {
-      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
-      this.$options.components.Activity = require('sun.js').Activity;
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
+      this.$options.components.Activity = require('sun').Activity;
     },
     async created() {
       await this.loadData()

@@ -279,9 +279,9 @@
       }
     },
     beforeCreate() {
-      this.$options.components.CommentContainer = require('sun.js').CommentContainer;
-      this.$options.components.CreateEditComment = require('sun.js').CreateEditComment;
-      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
+      this.$options.components.CommentContainer = require('sun').CommentContainer;
+      this.$options.components.CreateEditComment = require('sun').CreateEditComment;
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
     },
     async created() {
       await this.loadData();

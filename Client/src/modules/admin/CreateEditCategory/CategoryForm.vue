@@ -154,8 +154,8 @@
       }
     },
     beforeCreate() {
-      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
-      this.$options.components.MyEditor = require('sun.js').MyEditor;
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
+      this.$options.components.MyEditor = require('sun').MyEditor;
     },
     async created() {
       if (!this.category.sectionTypeName) {

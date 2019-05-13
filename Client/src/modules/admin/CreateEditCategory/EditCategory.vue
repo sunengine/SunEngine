@@ -119,9 +119,9 @@
       }
     },
     beforeCreate() {
-      this.$options.components.CategoryForm = require('sun.js').CategoryForm;
-      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
-      this.$options.components.LoaderSent = require('sun.js').LoaderSent;
+      this.$options.components.CategoryForm = require('sun').CategoryForm;
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
+      this.$options.components.LoaderSent = require('sun').LoaderSent;
     },
     async created() {
       await this.loadData();

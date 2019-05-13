@@ -88,8 +88,8 @@
       },
     },
     beforeCreate() {
-      this.$options.components.MaterialForm = require('sun.js').MaterialForm;
-      this.$options.components.LoaderSent = require('sun.js').LoaderSent;
+      this.$options.components.MaterialForm = require('sun').MaterialForm;
+      this.$options.components.LoaderSent = require('sun').LoaderSent;
     },
     async created() {
       this.title = this.$tl("title");

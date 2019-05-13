@@ -14,7 +14,7 @@
     name: "SettingsPage",
     mixins: [Page],
     beforeCreate() {
-      this.$options.components.SettingsMenu = require('sun.js').SettingsMenu;
+      this.$options.components.SettingsMenu = require('sun').SettingsMenu;
     },
     created() {
       this.title = this.$tl("title") + " (" + this.$store.state.auth.user.name + ")";

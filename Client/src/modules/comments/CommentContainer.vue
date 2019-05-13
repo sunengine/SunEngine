@@ -107,9 +107,9 @@
       }
     },
     beforeCreate() {
-      this.$options.components.ReadComment = require('sun.js').ReadComment;
-      this.$options.components.CreateEditComment = require('sun.js').CreateEditComment;
-      this.$options.components.DeletedComment = require('sun.js').DeletedComment;
+      this.$options.components.ReadComment = require('sun').ReadComment;
+      this.$options.components.CreateEditComment = require('sun').CreateEditComment;
+      this.$options.components.DeletedComment = require('sun').DeletedComment;
     }
   }
 </script>

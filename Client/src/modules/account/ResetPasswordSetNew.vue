@@ -104,7 +104,7 @@
       }
     },
     beforeCreate() {
-      this.$options.components.LoaderSent = require('sun.js').LoaderSent;
+      this.$options.components.LoaderSent = require('sun').LoaderSent;
     },
     created() {
       this.title = this.$tl("title");

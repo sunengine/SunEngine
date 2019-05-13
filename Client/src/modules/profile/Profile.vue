@@ -114,8 +114,8 @@
       }
     },
     beforeCreate() {
-      this.$options.components.ProfileRoles = require('sun.js').ProfileRoles;
-      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
+      this.$options.components.ProfileRoles = require('sun').ProfileRoles;
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
     },
     async created() {
       await this.loadData();

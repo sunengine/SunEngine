@@ -85,8 +85,8 @@
       }
     },
     beforeCreate() {
-      this.$options.components.PostsList = require('sun.js').PostsList;
-      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
+      this.$options.components.PostsList = require('sun').PostsList;
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
     },
     async created() {
       await this.loadData()

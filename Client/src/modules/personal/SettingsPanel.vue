@@ -14,7 +14,7 @@
   export default {
     name: "SettingsPanel",
     beforeCreate() {
-      this.$options.components.SettingsMenu = require('sun.js').SettingsMenu;
+      this.$options.components.SettingsMenu = require('sun').SettingsMenu;
     }
   }
 </script>

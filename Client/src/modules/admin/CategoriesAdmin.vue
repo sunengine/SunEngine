@@ -83,8 +83,8 @@
       }
     },
     beforeCreate() {
-      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
-      this.$options.components.CategoryItem = require('sun.js').CategoryItem;
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
+      this.$options.components.CategoryItem = require('sun').CategoryItem;
     },
     async created() {
       this.title = this.$tl("title");

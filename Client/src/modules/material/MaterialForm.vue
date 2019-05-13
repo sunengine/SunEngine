@@ -121,7 +121,7 @@
       }
     },
     beforeCreate() {
-      this.$options.components.MyEditor = require('sun.js').MyEditor;
+      this.$options.components.MyEditor = require('sun').MyEditor;
     },
     created() {
       this.rules = createRules.call(this);

@@ -111,8 +111,8 @@
       }
     },
     beforeCreate() {
-      this.$options.components.Topic = require('sun.js').Topic;
-      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
+      this.$options.components.Topic = require('sun').Topic;
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
     },
     async created() {
       await this.loadData()

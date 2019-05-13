@@ -35,7 +35,7 @@
       }
     },
     beforeCreate() {
-      this.$options.components.ActivitiesList = require('sun.js').ActivitiesList;
+      this.$options.components.ActivitiesList = require('sun').ActivitiesList;
     },
     created() {
       this.title  = this.pageTitle ?? this.$tl("defaultTitle");

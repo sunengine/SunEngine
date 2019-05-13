@@ -115,8 +115,8 @@
       }
     },
     beforeCreate() {
-      this.$options.components.LoaderSent = require('sun.js').LoaderSent;
-      this.$options.components.MyEditor = require('sun.js').MyEditor;
+      this.$options.components.LoaderSent = require('sun').LoaderSent;
+      this.$options.components.MyEditor = require('sun').MyEditor;
     },
     async created() {
       this.commentEditorToolbar = commentEditorToolbar.call(this);

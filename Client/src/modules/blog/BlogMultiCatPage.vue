@@ -114,7 +114,7 @@
       }
     },
     beforeCreate() {
-      this.$options.components.PostsList = require('sun.js').PostsList;
+      this.$options.components.PostsList = require('sun').PostsList;
     },
     async created() {
       this.title = this.pageTitle;

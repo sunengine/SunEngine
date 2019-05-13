@@ -162,7 +162,7 @@
       }
     },
     beforeCreate() {
-      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
     },
     async created() {
       await this.loadAllRoles();

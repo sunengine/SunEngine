@@ -41,8 +41,8 @@
       }
     },
     beforeCreate() {
-      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
-      this.$options.components.Article = require('sun.js').Article;
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
+      this.$options.components.Article = require('sun').Article;
     }
   }
 </script>
