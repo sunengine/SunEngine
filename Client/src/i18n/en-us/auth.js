@@ -14,7 +14,7 @@ export default {
       },
       password: {
         required: "Enter password"
-      },
+      }
     }
   },
   LoginRegisterMenu: {
