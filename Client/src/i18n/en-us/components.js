@@ -115,13 +115,7 @@ export default {
     edit: "edit",
     deleteDialogMessage: "Remove message?"
   },
-  Post: {
-    commentsCount: "comments",
-    readMore: "Read more"
-  },
-  BlogPage: {
-    newPostBtn: "New post"
-  },
+
   SettingsMenu: {
     goToProfile: "View profile",
     changeEmail: "Change email",

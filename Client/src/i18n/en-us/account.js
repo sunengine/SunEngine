@@ -1,9 +1,4 @@
 export default {
-  ChangeEmailResult: {
-    title: "@:RegisterEmailResult.title",
-    success: "@:RegisterEmailResult.success",
-    error: "@:RegisterEmailResult.error",
-  },
   ChangeEmail: {
     title: "Edit user email",
     successNotify: "Сообщение с ссылкой для подтверждения email отправлено по почте",
@@ -19,6 +14,11 @@ export default {
         emailSig: "Enter correct email"
       }
     }
+  },
+  ChangeEmailResult: {
+    title: "@:RegisterEmailResult.title",
+    success: "@:RegisterEmailResult.success",
+    error: "@:RegisterEmailResult.error",
   },
   ChangePassword: {
     title: "Change password",

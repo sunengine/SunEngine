@@ -120,16 +120,8 @@ export default {
     deleteDialogMessage: "Удалить сообщение?",
     moveToTrashSuccess: "Комментарий удалён"
   },
-  Post: {
-    commentsCount: "сообщений",
-    readMore: "Читать дальше"
-  },
-  BlogPage: {
-    newPostBtn: "Новый пост"
-  },
-  newPostBtnDefault: {
-    newPostBtnDefault: "@:BlogPage.newPostBtn"
-  },
+
+
   SettingsMenu: {
     goToProfile: "Просмотреть профиль",
     changeEmail: "Изменить email",
