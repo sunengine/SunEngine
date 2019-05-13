@@ -37,7 +37,7 @@
   export default {
     name: "ChangeLink",
     mixins: [Page],
-    data: function () {
+    data() {
       return {
         link: this.$store.state.auth.userInfo.link,
         linkInDb: false,

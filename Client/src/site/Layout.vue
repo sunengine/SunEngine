@@ -18,7 +18,7 @@
 
         <q-btn class="user-menu-button " v-if="userName" flat dense round>
           <img class="avatar" :src="userAvatar"/>
-          <q-menu >
+          <q-menu>
             <UserMenu style="width:180px;"/>
           </q-menu>
         </q-btn>
@@ -60,16 +60,13 @@
 
 <script>
   import MainMenu from './MainMenu'
-  import {LoginRegisterMenu} from 'sun'
-  import {UserMenu} from 'sun'
 
   import {mapState} from "vuex";
 
 
   export default {
-
     name: 'Layout',
-    components: {UserMenu, LoginRegisterMenu, MainMenu},
+    components: {MainMenu},
     data() {
       return {
         leftDrawerOpen: this.$q.platform.is.desktop,
@@ -85,6 +82,10 @@
         userName: state => state.auth.user?.name,
         userAvatar: state => state.auth.userInfo?.avatar,
       })
+    },
+    beforeCreate() {
+      this.$options.components.UserMenu = require('sun.js').UserMenu;
+      this.$options.components.LoginRegisterMenu = require('sun.js').LoginRegisterMenu;
     }
   }
 </script>

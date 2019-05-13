@@ -21,7 +21,7 @@
 
     name: "LoadPhoto",
     mixins: [Page],
-    data: function () {
+    data() {
       return {
         loading: false
       }

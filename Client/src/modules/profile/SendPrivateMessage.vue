@@ -6,7 +6,7 @@
     </h2>
 
     <q-editor class="q-mb-md"
-              :toolbar="sendPrivateMessageToolbar"
+              :toolbar="editorToolbar"
               ref="htmlEditor" v-model="text"/>
 
     <q-btn no-caps icon="fas fa-arrow-circle-right" class="q-mr-sm" @click="send" color="send" :loading="loading"
@@ -20,13 +20,12 @@
 
 <script>
   import {Page} from 'sun'
-  import {LoaderSent} from 'sun'
-  import {sendPrivateMessageToolbar as sendPrivateMessageToolbar} from 'sun'
+  import {sendPrivateMessageToolbar} from 'sun'
 
+  const editorToolbar = sendPrivateMessageToolbar;
 
   export default {
     name: "SendPrivateMessage",
-    components: {LoaderSent},
     mixins: [Page],
     props: {
       userId: {
@@ -38,7 +37,7 @@
         required: true
       }
     },
-    data: function () {
+    data() {
       return {
         text: "",
         loading: false
@@ -66,10 +65,12 @@
 
       }
     },
+    beforeCreate() {
+      this.$options.components.LoaderSent = require('sun.js').LoaderSent;
+    },
     created() {
       this.title = this.$tl("title");
     }
-
   }
 </script>
 

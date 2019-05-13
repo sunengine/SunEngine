@@ -12,13 +12,12 @@
 
 <script>
   import {Page} from 'sun'
-  import {LoaderWait} from 'sun'
+
 
   export default {
     name: "MyBanList",
-    components: {LoaderWait},
     mixins: [Page],
-    data: function () {
+    data() {
       return {
         users: null
       }
@@ -35,6 +34,9 @@
             }
           )
       }
+    },
+    beforeCreate() {
+      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
     },
     async created() {
       this.title = this.$tl("title");

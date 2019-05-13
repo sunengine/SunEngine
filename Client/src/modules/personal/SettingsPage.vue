@@ -8,13 +8,14 @@
 </template>
 
 <script>
-  import {SettingsMenu} from 'sun'
   import {Page} from 'sun'
 
   export default {
     name: "SettingsPage",
     mixins: [Page],
-    components: {SettingsMenu},
+    beforeCreate() {
+      this.$options.components.SettingsMenu = require('sun.js').SettingsMenu;
+    },
     created() {
       this.title = this.$tl("title") + " (" + this.$store.state.auth.user.name + ")";
     }

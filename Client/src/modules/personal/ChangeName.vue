@@ -32,7 +32,6 @@
 <script>
   import {Page} from 'sun'
   import {makeUserDataFromTokens} from 'sun'
-  import {LoaderSent} from 'sun'
 
 
   function createRules()
@@ -54,8 +53,7 @@
   export default {
     name: "ChangeName",
     mixins: [Page],
-    components: {LoaderSent},
-    data: function () {
+    data() {
       return {
         name: this.$store.state.auth.user.name,
         password: null,
@@ -122,6 +120,9 @@
           this.submitting = false;
         });
       }
+    },
+    beforeCreate() {
+      this.$options.components.LoaderSent = require('sun.js').LoaderSent;
     },
     async created() {
       this.title = this.$tl("title");

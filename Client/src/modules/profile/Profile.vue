@@ -33,21 +33,19 @@
 </template>
 
 <script>
-  import {LoaderWait} from 'sun'
   import {Page} from 'sun'
-  import {ProfileRoles} from 'sun'
+
 
   export default {
     name: "Profile",
     mixins: [Page],
-    components: {ProfileRoles, LoaderWait},
     props: {
       link: {
         type: String,
         required: true
       }
     },
-    data: function () {
+    data() {
       return {
         user: null,
         isShowRolesAdmin: false
@@ -114,6 +112,10 @@
           this.title = this.user.name;
         });
       }
+    },
+    beforeCreate() {
+      this.$options.components.ProfileRoles = require('sun.js').ProfileRoles;
+      this.$options.components.LoaderWait = require('sun.js').LoaderWait;
     },
     async created() {
       await this.loadData();

@@ -1,6 +1,6 @@
 import ChangeLink from './ChangeLink'
 import ChangeName from './ChangeName'
-import editInforamtionToolbar from './editInforamtionToolbar'
+import editInformationToolbar from './editInformationToolbar'
 import EditInformation from './EditInformation'
 import LoadPhoto from './LoadPhoto'
 import MyBanList from './MyBanList'
@@ -11,7 +11,7 @@ import SettingsPanel from './SettingsPanel'
 export {
   ChangeLink,
   ChangeName,
-  editInforamtionToolbar,
+  editInformationToolbar,
   EditInformation,
   LoadPhoto,
   MyBanList,

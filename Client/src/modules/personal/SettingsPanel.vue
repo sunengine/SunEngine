@@ -11,11 +11,11 @@
 </template>
 
 <script>
-  import {SettingsMenu} from 'sun'
-
   export default {
     name: "SettingsPanel",
-    components: {SettingsMenu}
+    beforeCreate() {
+      this.$options.components.SettingsMenu = require('sun.js').SettingsMenu;
+    }
   }
 </script>
 
