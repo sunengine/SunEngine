@@ -12,7 +12,7 @@ import RoleUsers from './RoleUsers'
 import CategoryForm from './CreateEditCategory/CategoryForm'
 import CreateCategory from './CreateEditCategory/CreateCategory'
 import EditCategory from './CreateEditCategory/EditCategory'
-
+import cachePolicies from './cachePolicies'
 
 export {
   AdminMenu,
@@ -28,5 +28,6 @@ export {
   RoleUsers,
   CategoryForm,
   CreateCategory,
-  EditCategory
+  EditCategory,
+  cachePolicies
 }

@@ -34,7 +34,6 @@
 
 <script>
   import {Page} from 'sun'
-  import {LoaderSent} from 'sun'
   import {cachePolicies} from 'sun'
 
   function createRules() {
