@@ -109,7 +109,7 @@
         required: true,
       },
     },
-    i18nPrefix: "Admin",
+    
     data: function () {
       return {
         root: null,

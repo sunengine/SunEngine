@@ -27,6 +27,7 @@
 
   import {Page} from 'sun'
 
+
   export default {
     name: 'BlogMultiCatPage',
     mixins: [Page],
@@ -38,7 +39,9 @@
       addButtonLabel: {
         type: String,
         required: false,
-        default: Vue.prototype.$tl('newPostBtnDefault')
+        default() {
+          return Vue.prototype.$tl('newPostBtnDefault')
+        }
       },
       pageTitle: {
         type: String,

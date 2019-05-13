@@ -48,7 +48,6 @@
   export default {
     name: "CacheSettings",
     mixins: [Page],
-    i18nPrefix: "Admin",
     data() {
       return {
         cacheSettings: null,

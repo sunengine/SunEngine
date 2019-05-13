@@ -24,7 +24,6 @@
   export default {
     name: "RolesPage",
     mixins: [Page],
-    i18nPrefix: "Admin",
     data() {
       return {
         roles: null,

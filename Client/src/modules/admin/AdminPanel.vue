@@ -14,7 +14,6 @@
 
   export default {
     name: 'AdminPanel',
-    i18nPrefix: 'Admin',
     beforeCreate() {
       this.$options.components.AdminMenu = require('sun').AdminMenu;
     }

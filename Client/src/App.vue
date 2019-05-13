@@ -34,6 +34,7 @@
     },
     created() {
       this.$store.dispatch('initStore');
+      window.App = this;
     }
   }
 </script>

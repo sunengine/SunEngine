@@ -20,7 +20,7 @@
   export default {
     name: "CreateCategory",
     mixins: [Page],
-    i18nPrefix: "Admin",
+
     data: function () {
       return {
         category: {

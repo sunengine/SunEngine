@@ -24,6 +24,7 @@
 
   import {Page} from 'sun'
 
+
   export default {
     name: "ArticlesMultiCatPage",
     mixins: [Page],
@@ -39,7 +40,9 @@
       addButtonLabel: {
         type: String,
         required: false,
-        default: Vue.prototype.$tl('newArticleBtnDefault')
+        default() {
+          return Vue.prototype.$tl('newArticleBtnDefault')
+        }
       },
       caption: {
         type: String,
