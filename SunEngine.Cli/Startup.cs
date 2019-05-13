@@ -72,8 +72,6 @@ namespace SunEngine.Cli
 
             services.AddJobs();
 
-            services.AddSingleton<IServiceCollection>(x => services);
-            
             services.AddSingleton<CaptchaService>();
             services.AddSingleton<Sanitizer>();
             services.AddTransient<IEmailSenderService, EmailSenderService>();
