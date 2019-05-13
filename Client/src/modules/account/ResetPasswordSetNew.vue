@@ -65,7 +65,6 @@
 
   export default {
     name: "ResetPasswordSetNew",
-    components: {LoaderSent},
     mixins: [Page],
     data: function () {
       return {
