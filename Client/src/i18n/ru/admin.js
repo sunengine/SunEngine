@@ -15,6 +15,7 @@ export default {
     isCaching: "Кэшировать содержимое",
     cachingPageCount: "Кэшировать N страниц",
     noTypeLabel: "Без типа",
+    layout: "Шаблон",
     validation: {
       name: {
         required: "Введите имя (eng) категории",
@@ -51,7 +52,7 @@ export default {
     cacheSettings: "Настройки кэширования"
   },
   AdminPage: {
-    title: "@:Admin.AdminPanel.title"
+    title: "@:AdminPanel.title"
   },
   AdminPanel: {
     title: "Админка"

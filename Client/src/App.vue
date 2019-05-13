@@ -33,7 +33,6 @@
       ...mapState(['isInitialized', 'initializeError'])
     },
     created() {
-      window.App = this;
       this.$store.dispatch('initStore');
     }
   }

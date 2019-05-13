@@ -15,6 +15,7 @@ export default {
     isCaching: "Caching",
     cachingPageCount: "Cache N pages",
     noTypeLabel: "Without type",
+    layout: "Layout",
     validation: {
       name: {
         required: "Enter category name (eng)",
@@ -51,7 +52,7 @@ export default {
     cacheSettings: "Cache settings"
   },
   AdminPage: {
-    title: "@:Admin.AdminPanel.title"
+    title: "@:AdminPanel.title"
   },
   AdminPanel: {
     title: "Admin panel"

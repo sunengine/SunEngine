@@ -82,7 +82,7 @@ namespace SunEngine.Admin.Controllers
             if (!categoryData.AppendUrlToken.HasValue)
             {
                 if (sectionType != null)
-                    category.AppendUrlToken = true;                
+                    category.AppendUrlToken = true;
             }
             else
             {
@@ -155,7 +155,7 @@ namespace SunEngine.Admin.Controllers
 
             return Ok();
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> CategoryMoveToTrash(string name)
         {
@@ -183,8 +183,7 @@ namespace SunEngine.Admin.Controllers
         [Required, MinLength(2), RegularExpression("^[a-zA-Z-]*$")]
         public string Name { get; set; }
 
-        [Required, MinLength(3)] 
-        public string Title { get; set; }
+        [Required, MinLength(3)] public string Title { get; set; }
         public bool IsMaterialsContainer { get; set; }
 
         public string Description { get; set; }
@@ -195,6 +194,8 @@ namespace SunEngine.Admin.Controllers
 
         public string SectionTypeName { get; set; }
 
+        public string LayoutName { get; set; }
+
         public int ParentId { get; set; }
 
         public int SortNumber { get; set; }
@@ -202,7 +203,7 @@ namespace SunEngine.Admin.Controllers
         public bool IsDeleted { get; set; }
 
         public bool IsHidden { get; set; }
-        
+
         public bool IsCacheContent { get; set; }
 
         public Category ToCategory()
@@ -215,6 +216,7 @@ namespace SunEngine.Admin.Controllers
                 IsMaterialsContainer = IsMaterialsContainer,
                 Description = Description,
                 Header = Header,
+                LayoutName = LayoutName,
                 //AppendUrlToken = AppendUrlToken,
                 ParentId = ParentId,
                 SortNumber = SortNumber,

@@ -3,7 +3,7 @@
 
     <q-input ref="name" v-model="category.name" :label="$tl('name')" :rules="rules.name"/>
 
-    <q-input ref="title" v-model="category.title" :label="$tl('title')" :rules="rules.title" />
+    <q-input ref="title" v-model="category.title" :label="$tl('title')" :rules="rules.title"/>
 
     <q-input ref="description" v-model="category.description" autogrow type="textarea"
              :label="$tl('shortDescription')"/>
@@ -24,20 +24,27 @@
                   default-expand-all
                   :selected.sync="category.parentId"
                   :nodes="where"
-                  node-key="value" />
+                  node-key="value"/>
 
         </div>
       </q-menu>
     </q-btn>
 
     <div class="q-mt-lg">
-      <q-select emit-value map-options v-if="sectionTypes" :label="$tl('sectionType')" v-model="category.sectionTypeName"
+      <q-select emit-value map-options v-if="sectionTypes" :label="$tl('sectionType')"
+                v-model="category.sectionTypeName"
                 :options="sectionTypeOptions"/>
       <LoaderWait v-else/>
     </div>
 
     <div class="q-mt-lg">
-      <q-checkbox :toggle-indeterminate="false" v-model="category.isMaterialsContainer" :label="$tl('isMaterialsContainerCb')"/>
+      <q-select emit-value map-options :label="$tl('layout')" v-model="category.layoutName"
+                :options="layoutOptions"/>
+    </div>
+
+    <div class="q-mt-lg">
+      <q-checkbox :toggle-indeterminate="false" v-model="category.isMaterialsContainer"
+                  :label="$tl('isMaterialsContainerCb')"/>
     </div>
 
     <div class="q-my-sm">
@@ -57,6 +64,8 @@
 </template>
 
 <script>
+  import {adminGetAllCategories} from 'sun'
+
 
   const unset = "unset";
 
@@ -109,7 +118,7 @@
         required: true,
       },
     },
-    
+
     data: function () {
       return {
         root: null,
@@ -128,6 +137,17 @@
           }
         })];
       },
+      layoutOptions() {
+        const arr = [];
+        const pp = Object.getOwnPropertyNames(this.$store.state.categories.layouts);
+debugger; // TODO MAKE ARRAY
+       /* return [...].map(x => {
+          return {
+            label: x.title,
+            value: x.name
+          }
+        })*/
+      },
       parentCategoryTitle() {
         if (!this.category.parentId)
           return this.$tl("selectParent");
@@ -142,10 +162,11 @@
     },
     methods: {
       categorySelected(key) {
-        if(!key)
-        {
+        if (!key) {
           let pid = this.category.parentId;
-          this.$nextTick(() => {this.category.parentId = pid})
+          this.$nextTick(() => {
+            this.category.parentId = pid
+          })
         }
       },
       validate() {

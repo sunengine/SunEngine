@@ -6,7 +6,7 @@ import {store} from 'sun'
 
 
 
-export default async function init() {
+export default async function() {
 
   console.info("%cStartInit", consoleInit);
 
@@ -43,7 +43,7 @@ async function initUser(store) {
 
     console.info('%cUser restored from localStorage', consoleInit, userData);
 
-    await this.dispatch('getMyUserInfo').catch(() => {
+    await store.dispatch('getMyUserInfo').catch(() => {
     });
   }
 }

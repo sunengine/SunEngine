@@ -1,11 +1,6 @@
-import ForumPanel from './ForumPanel'
-import NewTopics from './NewTopics'
-import Thread from './Thread'
-import Topic from './Topic'
-
-export {
-  ForumPanel,
-  NewTopics,
-  Thread,
-  Topic
-}
+export ForumPanel from './ForumPanel'
+export NewTopics from './NewTopics'
+export Thread from './Thread'
+export Topic from './Topic'
+export forum1Layout from './forum1Layout'
+export forum2Layout from './forum2Layout'

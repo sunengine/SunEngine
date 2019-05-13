@@ -28,6 +28,7 @@
           title: "",
           description: "",
           header: "",
+          layoutName: "",
           sectionTypeName: "unset",
           isMaterialsContainer: true,
           areaRoot: false,

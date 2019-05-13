@@ -1,13 +1,9 @@
-import {Categories1} from 'sun'
-import {Categories2} from 'sun'
 import {BlogMultiCatPage} from 'sun'
 import {ActivitiesPage} from 'sun'
-import {makeArticlesSection, makeForumSection, makeBlogSection} from'sun'
 
 import IndexPage from './IndexPage'
 import News2ColPage from './News2ColPage'
 import MaterialInlinePage from './MaterialInlinePage'
-
 
 import coreRoutes from './coreRoutes'
 
@@ -63,11 +59,7 @@ const siteRoutes = [
         rolesCanAdd: ['Admin', 'Moderator']
       }
     }
-  },
-  ...makeForumSection("Forum", Categories1),
-  ...makeForumSection("Forum2L", Categories2),
-  ...makeArticlesSection("Articles"),
-  ...makeBlogSection("Blog")
+  }
 ];
 
 

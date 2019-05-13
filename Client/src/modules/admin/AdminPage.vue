@@ -12,13 +12,13 @@
   import {Page} from 'sun'
 
   export default {
-    name: "AdminPage",
+    name: 'AdminPage',
     mixins: [Page],
     beforeCreate() {
       this.$options.components.AdminMenu = require('sun').AdminMenu;
     },
     created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
     }
   }
 
