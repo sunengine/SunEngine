@@ -11,7 +11,7 @@
   import {MaterialInline} from 'sun'
 
   export default {
-    name: "PageWithMaterialInline",
+    name: "MaterialInlinePage",
     components: {MaterialInline}
   }
 </script>

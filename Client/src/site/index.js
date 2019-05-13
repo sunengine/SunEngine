@@ -1,12 +1,12 @@
 import Layout from './Layout'
-import News2Col from './News2Col'
+import News2ColPage from './News2ColPage'
 import registerLayoutsSite from './registerLayoutsSite'
 import routes from './routes'
 
 
 export {
   Layout,
-  News2Col,
+  News2ColPage,
   registerLayoutsSite,
   routes
 }
