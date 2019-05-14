@@ -96,8 +96,7 @@ namespace SunEngine.Core.Controllers
                         await userManager.AddToRoleAsync(user, RoleNames.Registered);
 
                         transaction.Complete();
-                        return Redirect(Flurl.Url
-                            .Combine(globalOptions.SiteUrl, "Auth/RegisterEmailResult?result=ok").ToLower());
+                        return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "Auth/RegisterEmailResult?result=ok").ToLower());
                     }
                 }
                 catch
@@ -109,9 +108,6 @@ namespace SunEngine.Core.Controllers
             return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl,
                 "Auth/RegisterEmailResult?result=error".ToLower()));
         }
-
-
-       
     }
 
     public class NewUserArgs : CaptchaArgs
