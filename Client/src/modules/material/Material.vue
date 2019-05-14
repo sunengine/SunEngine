@@ -56,7 +56,7 @@
         <hr class="hr-sep"/>
       </div>
       <div v-if="canCommentWrite">
-        <CreateEditComment class="page-padding" @done="commentAdded" :materialId="material.id"/>
+        <CreateComment class="page-padding" @done="commentAdded" :materialId="material.id"/>
       </div>
     </div>
 
@@ -232,11 +232,15 @@
         return true;
       },
       async deleteMaterial() {
+        const deleteDialogTitle = this.$tl('deleteDialogTitle');
+        const deleteDialogMessage = this.$tl('deleteDialogMessage');
+        const okBtn = this.$tl('deleteDialogOk');
+        const cancelBtn = this.$tl('deleteDialogCancel');
         this.$q.dialog({
-          title: 'Удалить материал?',
-          //message: '',
-          ok: 'Да',
-          cancel: 'Отмeна'
+          title: deleteDialogTitle,
+          message: deleteDialogMessage,
+          ok: okBtn,
+          cancel: cancelBtn
         }).then(async () => {
           await this.$store.dispatch("request",
             {
@@ -247,12 +251,8 @@
                 }
             }).then(
             () => {
-              this.$q.notify({
-                message: `Материал успешно удалён`,
-                timeout: 2000,
-                type: 'info',
-                position: 'top'
-              });
+              const deleteSuccessMsg = this.$tl('deleteSuccess');
+              this.$successNotify(deleteSuccessMsg);
               this.$router.push(this.category.path);
             }).catch((x) => {
             console.log("error", x)
@@ -274,7 +274,7 @@
     },
     beforeCreate() {
       this.$options.components.CommentContainer = require('sun').CommentContainer;
-      this.$options.components.CreateEditComment = require('sun').CreateEditComment;
+      this.$options.components.CreateComment = require('sun').CreateComment;
       this.$options.components.LoaderWait = require('sun').LoaderWait;
     },
     async created() {

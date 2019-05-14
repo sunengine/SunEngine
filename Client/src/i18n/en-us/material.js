@@ -12,7 +12,12 @@ export default {
   Material: {
     category: "category:",
     edit: "Edit",
-    tags: "Tags:"
+    tags: "Tags:",
+    deleteDialogTitle: "Delete material?",
+    deleteDialogMessage: "",
+    deleteDialogOk: "@:Global.dialog.ok",
+    deleteDialogCancel: "@:Global.dialog.cancel",
+    deleteSuccess: "Material deleted"
   },
   MaterialForm: {
     name: "Name (eng)",

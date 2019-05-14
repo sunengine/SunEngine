@@ -12,7 +12,12 @@ export default {
   Material: {
     category: "раздел:",
     edit: "Редактировать",
-    tags: "Метки:"
+    tags: "Метки:",
+    deleteDialogTitle: "Удалить материал?",
+    deleteDialogMessage: "",
+    deleteDialogOk: "@:Global.dialog.ok",
+    deleteDialogCancel: "@:Global.dialog.cancel",
+    deleteSuccess: "Материал успешно удалён"
   },
   MaterialForm: {
     name: "Имя (eng)",
