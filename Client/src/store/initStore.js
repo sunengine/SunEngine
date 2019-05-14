@@ -5,7 +5,6 @@ import {getTokens, makeUserDataFromTokens} from 'sun'
 import {store} from 'sun'
 
 
-
 export default async function() {
 
   console.info("%cStartInit", consoleInit);

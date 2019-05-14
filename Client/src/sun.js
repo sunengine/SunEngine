@@ -1,3 +1,4 @@
+export {app} from 'App'
 export * from 'components'
 export * from 'account'
 export * from 'activities'

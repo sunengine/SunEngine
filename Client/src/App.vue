@@ -25,6 +25,7 @@
 
   import {Layout} from 'sun'
 
+  var app;
 
   export default {
     name: 'App',
@@ -33,9 +34,12 @@
       ...mapState(['isInitialized', 'initializeError'])
     },
     created() {
+      window.app = app = this;
       this.$store.dispatch('initStore');
     }
   }
+
+  export {app};
 </script>
 
 <style lang="stylus" scoped>
