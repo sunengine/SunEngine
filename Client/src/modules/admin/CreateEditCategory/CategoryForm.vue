@@ -160,7 +160,7 @@
       sectionTypeChanged() {
         if(this.category.sectionTypeName !== this.category.layoutName)
         {
-          this.category.layoutName = this.layoutOptions?.[0] ?? '';
+          this.category.layoutName = this.layoutOptions?.[0]?.value ?? '';
         }
       },
       categorySelected(key) {
