@@ -23,11 +23,6 @@
     computed: {
       subCategories() {
         return this.category?.subCategories?.filter(x => !x.isHidden);
-        /*if (cats) { // Now sorting on server
-          return cats.sort(function (a, b) {
-            return a.sortNumber - b.sortNumber;
-          });
-        }*/
       },
       category() {
         return this.$store.getters.getCategory(this.categoryName);

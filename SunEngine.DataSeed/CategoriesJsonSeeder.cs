@@ -94,13 +94,8 @@ namespace SunEngine.DataSeed
                         dataContainer.SectionTypes.FirstOrDefault(x => x.Name == (string) sectionTypeName);
                     category.SectionTypeId = sectionType.Id;
                     category.SectionType = sectionType;
-                    category.AppendUrlToken = true;
                 }
 
-                if (categoryToken["AppendUrlToken"] != null)
-                {
-                    category.AppendUrlToken = (bool) categoryToken["AppendUrlToken"];
-                }
 
                 dataContainer.Categories.Add(category);
 

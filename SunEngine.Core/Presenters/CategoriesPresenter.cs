@@ -58,8 +58,6 @@ namespace SunEngine.Core.Presenters
                 Header = category.Header,
                 IsMaterialsContainer = category.IsMaterialsContainer,
                 SectionType = category.SectionType,
-                Path = category.Path,
-                AppendUrlToken = category.AppendUrlToken,
                 SortNumber = category.SortNumber,
                 LayoutName= category.LayoutName,
                 SettingsJson =  category.SettingsJson,
@@ -122,7 +120,6 @@ namespace SunEngine.Core.Presenters
         public string Name { get; set; }
         public string Title { get; set; }
         public string Header { get; set; }
-        public bool AppendUrlToken { get; set; }
         public int SortNumber { get; set; }
         public string LayoutName { get; set; }
         public string SettingsJson { get; set; }

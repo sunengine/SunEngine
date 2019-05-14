@@ -35,7 +35,6 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("MaterialTypeTitle").AsString(DbColumnSizes.Categories_MaterialTypeTitle).Nullable()
                 .WithColumn("Description").AsMaxString().Nullable()
                 .WithColumn("Header").AsMaxString().Nullable()
-                .WithColumn("AppendUrlToken").AsBoolean().NotNullable()
                 .WithColumn("SectionTypeId").AsInt32().Nullable()
                 .WithColumn("IsMaterialsContainer").AsBoolean().NotNullable()
                 .WithColumn("ParentId").AsInt32().Indexed().Nullable()

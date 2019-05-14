@@ -41,8 +41,6 @@ namespace SunEngine.Core.Models
         /// </summary>
         public string Header { get; set; }
 
-        public bool AppendUrlToken { get; set; }
-        
         public int? SectionTypeId { get; set; }
         public SectionType SectionType { get; set; }
 

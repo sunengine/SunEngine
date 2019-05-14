@@ -79,16 +79,6 @@ namespace SunEngine.Admin.Controllers
             var category = categoryData.ToCategory();
             category.SectionTypeId = sectionType?.Id;
 
-            if (!categoryData.AppendUrlToken.HasValue)
-            {
-                if (sectionType != null)
-                    category.AppendUrlToken = true;
-            }
-            else
-            {
-                category.AppendUrlToken = categoryData.AppendUrlToken.Value;
-            }
-
             await categoriesAdminManager.CreateCategoryAsync(category);
 
             categoriesCache.Reset();
@@ -111,16 +101,6 @@ namespace SunEngine.Admin.Controllers
 
             var category = categoryData.ToCategory();
             category.SectionTypeId = sectionType?.Id;
-
-            if (!categoryData.AppendUrlToken.HasValue)
-            {
-                if (sectionType != null)
-                    category.AppendUrlToken = true;
-            }
-            else
-            {
-                category.AppendUrlToken = categoryData.AppendUrlToken.Value;
-            }
 
             await categoriesAdminManager.UpdateCategoryAsync(category);
 

@@ -76,7 +76,6 @@ namespace SunEngine.Admin.Managers
             category.IsHidden = categoryUpdate.IsHidden;
             category.IsCacheContent = categoryUpdate.IsCacheContent;
             category.IsMaterialsContainer = categoryUpdate.IsMaterialsContainer;
-            category.AppendUrlToken = categoryUpdate.AppendUrlToken;
             category.SectionTypeId = categoryUpdate.SectionTypeId;
             category.LayoutName = categoryUpdate.LayoutName;
             

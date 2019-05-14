@@ -51,12 +51,6 @@
       <q-checkbox :toggle-indeterminate="false" v-model="category.isCacheContent" :label="$tl('isCaching')"/>
     </div>
 
-    <!--<div class="q-my-sm">
-      <q-checkbox toggle-indeterminate v-model="category.appendUrlToken" :label="$tl('appendUrlTokenCb')"/>
-      <span class="text-amber-8 q-ml-md">
-        {{$tl("appendUrlTokenInfo")}}
-      </span>
-    </div>-->
     <div>
       <q-checkbox :toggle-indeterminate="false" v-model="category.isHidden" :label="$tl('hideCb')"/>
     </div>
@@ -209,9 +203,8 @@
             this.sectionTypes = response.data;
           }
         );
-
     }
-  };
+  }
 
 </script>
 

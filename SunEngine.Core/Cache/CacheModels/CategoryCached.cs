@@ -25,10 +25,6 @@ namespace SunEngine.Core.Cache.CacheModels
 
         public string Header { get; }
 
-        public bool AppendUrlToken { get; }
-
-        public string Path { get; private set; }
-
         public CategoryCached SectionRoot { get; private set; }
 
         public int? SectionTypeId { get; private set; }
@@ -75,7 +71,6 @@ namespace SunEngine.Core.Cache.CacheModels
             Description = category.Description;
             Header = category.Header;
             SectionTypeId = category.SectionTypeId;
-            AppendUrlToken = category.AppendUrlToken;
             SettingsJson = category.SettingsJson;
             ParentId = category.ParentId;
             CacheSettingsId = category.CacheSettingsId;
@@ -142,35 +137,7 @@ namespace SunEngine.Core.Cache.CacheModels
                 category.Init4InitSectionsRoots(sectionRoot);
             }
         }
-
-        /// <summary>
-        /// Должна запускаться только на Root, так как до других категорий доберётся через реккурсию
-        /// </summary>
-        public void Init5PreparePaths()
-        {
-            if (initialized)
-                return;
-
-            if (AppendUrlToken && Name != Category.RootName)
-            {
-                Path += "/" + Name.ToLower();
-            }
-
-            foreach (var category in _subCategories)
-            {
-                category.Path = Path;
-            }
-
-            foreach (var category in _subCategories)
-            {
-                category.Init5PreparePaths();
-            }
-
-            if (!AppendUrlToken && Name != Category.RootName)
-            {
-                Path += "/" + Name.ToLower();
-            }
-        }
+        
 
         public void Init6SetListsAndBlockEditable()
         {

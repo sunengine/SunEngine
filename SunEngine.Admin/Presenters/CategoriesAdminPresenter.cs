@@ -52,7 +52,6 @@ namespace SunEngine.Admin.Presenters
                 SectionTypeName = x.SectionType != null ? x.SectionType.Name : null,
                 SectionType = x.SectionType,
                 LayoutName = x.LayoutName,
-                AppendUrlToken = x.AppendUrlToken,
                 ParentId = x.ParentId,
                 SortNumber = x.SortNumber,
                 MaterialsCount = x.Materials.Count,
@@ -76,7 +75,6 @@ namespace SunEngine.Admin.Presenters
                     SectionTypeName = x.SectionType != null ? x.SectionType.Name : null,
                     SectionType = x.SectionType,
                     LayoutName = x.LayoutName,
-                    AppendUrlToken = x.AppendUrlToken,
                     ParentId = x.ParentId,
                     SortNumber = x.SortNumber,
                     MaterialsCount = x.Materials.Count,
@@ -124,9 +122,7 @@ namespace SunEngine.Admin.Presenters
         public SectionType SectionType { get; set; }
         
         public string LayoutName { get; set; }
-
-        public bool AppendUrlToken { get; set; }
-
+        
         public int? ParentId { get; set; }
 
         public IList<CategoryAdminView> SubCategories { get; set; }

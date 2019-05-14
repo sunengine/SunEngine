@@ -169,7 +169,6 @@ namespace SunEngine.Core.Cache.Services
             }
 
             _rootCategory.Init4InitSectionsRoots();
-            _rootCategory.Init5PreparePaths();
 
             foreach (var category in categoriesList)
             {
