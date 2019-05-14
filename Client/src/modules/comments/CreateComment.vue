@@ -1,7 +1,7 @@
 <template>
   <div>
     <MyEditor
-      :toolbar="commentEditorToolbar"
+      :toolbar="editorToolbar"
       :rules="commentRules"
       class="editor" ref="htmlEditor" v-model="comment.text"/>
     <div>
@@ -17,6 +17,7 @@
   import {htmlTextSizeOrHasImage} from 'sun'
   import {commentEditorToolbar} from 'sun'
 
+
   export default {
     name: 'CreateComment',
     data() {
@@ -28,6 +29,7 @@
         loading: false,
       }
     },
+    editorToolbar: null,
     props: {
       materialId: {
         type: Number,
@@ -35,7 +37,6 @@
       },
       done: Function
     },
-    commentEditorToolbar: null,
     computed: {
       commentRules() {
         return [
@@ -79,11 +80,9 @@
       }
     },
     beforeCreate() {
+      this.editorToolbar = commentEditorToolbar;
       this.$options.components.LoaderSent = require('sun').LoaderSent;
       this.$options.components.MyEditor = require('sun').MyEditor;
-    },
-    async created() {
-      this.commentEditorToolbar = commentEditorToolbar.call(this);
     }
   }
 </script>

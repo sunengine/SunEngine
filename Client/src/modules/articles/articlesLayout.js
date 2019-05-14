@@ -8,7 +8,7 @@ export default {
 
   setCategoryRoute(category) {
     category.route = {
-      name: `articles-${name}`,
+      name: `articles-${category.name}`,
       params:  {}
     }
   },

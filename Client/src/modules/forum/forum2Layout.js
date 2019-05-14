@@ -9,14 +9,14 @@ export default {
 
   setCategoryRoute(category) {
     category.route = {
-      name: `forum-${name}`,
+      name: `forum-${category.name}`,
       params:  {}
     };
 
     for(const cat0 of category.subCategories) {
       for (const cat1 of cat0.subCategories) {
         cat1.route = {
-          name: `forum-${name}-cat`,
+          name: `forum-${category.name}-cat`,
           params: {
             categoryName: cat1.name
           }

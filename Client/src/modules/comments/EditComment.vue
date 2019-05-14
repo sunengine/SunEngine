@@ -38,7 +38,7 @@
       },
       done: Function
     },
-    commentEditorToolbar: null,
+    editorToolbar: null,
     computed: {
       commentRules() {
         return [
@@ -77,12 +77,12 @@
       }
     },
     beforeCreate() {
+      this.editorToolbar = commentEditorToolbar;
       this.$options.components.LoaderSent = require('sun').LoaderSent;
       this.$options.components.LoaderWait = require('sun').LoaderWait;
       this.$options.components.MyEditor = require('sun').MyEditor;
     },
     async created() {
-      this.commentEditorToolbar = commentEditorToolbar.call(this);
 
       await this.$store.dispatch("request",
         {

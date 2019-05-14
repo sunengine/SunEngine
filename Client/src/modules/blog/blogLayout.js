@@ -8,7 +8,7 @@ export default {
 
   setCategoryRoute(category) {
     category.route = {
-      name: `blog-${name}`,
+      name: `blog-${category.name}`,
       params:  {}
     }
   },
