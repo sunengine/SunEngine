@@ -3,6 +3,7 @@
     "Name": "Forum",
     "Title": "Форум",
     "SectionType": "Forum",
+    "LayoutName": "Forum1",
     "MaterialTypeTitle" : "Топик",
     "SubCategories": [
       {

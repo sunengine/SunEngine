@@ -3,6 +3,7 @@
     "Name": "Forum2L",
     "Title": "Форум 2 уровня",
     "SectionType": "Forum",
+    "LayoutName": "Forum2",
     "MaterialTypeTitle" : "Топик",
     "SubCategories": [
       {

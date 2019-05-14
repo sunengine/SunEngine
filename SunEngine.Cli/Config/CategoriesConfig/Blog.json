@@ -3,6 +3,7 @@
     "Name": "Blog",
     "Title": "Блог",
     "SectionType": "Blog",
+    "LayoutName": "Blog",
     "IsMaterialsContainer": true,
     "MaterialTypeTitle" : "Пост"
   }

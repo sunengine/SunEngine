@@ -4,10 +4,17 @@ export default class Category {
   }
 
   getMaterialRoute(idOrName, hash) {
-    let route = Object.assign({}, this.route);
+    if(!this.route)
+      return;
+
+    let route = Object.assign({}, this.getRoute());
+
     route.name += "-mat";
-    route.params.idOrName = idOrName;
-    if (hash) route.hash = hash;
+    route.params.idOrName = idOrName.toString();
+
+    if (hash)
+      route.hash = hash;
+
     return route;
   }
 }
