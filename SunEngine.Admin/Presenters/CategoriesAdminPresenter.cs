@@ -93,8 +93,13 @@ namespace SunEngine.Admin.Presenters
                     continue;
                 }
 
+                if(!categories.ContainsKey(category.ParentId.Value))
+                    continue;
+
                 var parent = categories[category.ParentId.Value];
-                if (parent.SubCategories == null) parent.SubCategories = new List<CategoryAdminView>();
+                
+                if (parent.SubCategories == null) 
+                    parent.SubCategories = new List<CategoryAdminView>();
 
                 parent.SubCategories.Add(category);
             }
