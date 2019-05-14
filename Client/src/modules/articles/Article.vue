@@ -37,10 +37,7 @@
         return this.article.description?.replace(/\n/g, "<br/>");
       },
       to() {
-        return {
-          name: `articles-${this.article.categoryName}-mat`,
-          params: {idOrName: this.article.name ?? this.article.id}
-        };
+        return this.category.getMaterialRoute(this.article.name ?? this.article.id);
       },
       category() {
         return this.$store.getters.getCategory(this.article.categoryName);

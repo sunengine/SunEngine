@@ -172,7 +172,7 @@ namespace SunEngine.Core.Cache.Services
 
             foreach (var category in categoriesList)
             {
-                category.Init6SetListsAndBlockEditable();
+                category.Init5SetListsAndBlockEditable();
             }            
             
             _allCategories = categoriesList.ToImmutableDictionary(x => x.NameNormalized);

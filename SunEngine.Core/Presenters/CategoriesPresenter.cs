@@ -124,7 +124,6 @@ namespace SunEngine.Core.Presenters
         public string LayoutName { get; set; }
         public string SettingsJson { get; set; }
         public SectionTypeCached SectionType { get; set; }
-        public string Path { get; set; }
         public bool IsMaterialsContainer { get; set; }
         public bool IsHidden { get; set; }
         public Dictionary<string, bool> CategoryPersonalAccess { get; set; }

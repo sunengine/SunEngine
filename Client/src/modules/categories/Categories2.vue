@@ -2,7 +2,7 @@
   <q-list no-border dense v-if="subCategories" highlight>
     <template v-for="folder in subCategories">
       <q-item-label :key="folder.id" class="header" header>{{folder.title}}</q-item-label>
-      <q-item :to='category.path' link multiline
+      <q-item :to='category.getRoute()' link multiline
               v-for="category in folder.subCategories"
               :key="category.id">
         <q-item-section>

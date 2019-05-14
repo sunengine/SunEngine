@@ -50,7 +50,8 @@
       }
     },
     computed: {
-      path() {
+      route() {
+        let route = this.category.get
         let path = this.category.path + "/" + this.activity.materialId;
         if (this.activity.commentId)
           path += "#comment-" + this.activity.commentId;

@@ -5,6 +5,14 @@ export default {
   name: 'Articles',
   title: 'Articles',
   categoryType: 'Articles',
+
+  setCategoryRoute(category) {
+    category.route = {
+      name: `articles-${name}`,
+      params:  {}
+    }
+  },
+
   getRoutes(category) {
     const name = category.name;
     const nameLower = name.toLowerCase();

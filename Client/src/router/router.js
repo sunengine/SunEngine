@@ -1,10 +1,11 @@
-import accountRoutes from './accountRoutes'
-import adminRoutes from './adminRoutes'
-import authRoutes from './authRoutes'
-import makeRoutesFromLayouts from './makeRoutesFromLayouts'
-import miscRoutes from './miscRoutes'
-import personalRoutes from './personalRoutes'
-import pageNotFoundRoute from './pageNotFoundRoute'
+export accountRoutes from './accountRoutes'
+export adminRoutes from './adminRoutes'
+export authRoutes from './authRoutes'
+export makeRoutesFromLayouts from './makeRoutesFromLayouts'
+export miscRoutes from './miscRoutes'
+export personalRoutes from './personalRoutes'
+export pageNotFoundRoute from './pageNotFoundRoute'
+export * from './makeSections'
 
 
 export var router;
@@ -14,14 +15,5 @@ export function setRouter(router1) {
     router = router1;
 }
 
-export * from './makeSections'
 
-export {
-  accountRoutes,
-  adminRoutes,
-  authRoutes,
-  makeRoutesFromLayouts,
-  miscRoutes,
-  personalRoutes,
-  pageNotFoundRoute
-}
+

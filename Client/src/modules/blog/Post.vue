@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-item :to="path" class="header page-padding">
+    <q-item :to="to" class="header page-padding">
       <img class="avatar" :src="$imagePath(post.authorAvatar)"/>
       <div>
         <div class="blog-title my-header">
@@ -22,7 +22,7 @@
     </div>
 
     <div class="flex footer float-left ">
-      <q-item class="page-padding-left" :to="path+'#comments'">
+      <q-item class="page-padding-left" :to="toCommentsStart">
         <span :class="[{'text-grey-6': !post.commentsCount}]">
         <q-icon name="far fa-comment" class="q-mr-sm"/>
         {{post.commentsCount}} {{$tl('commentsCount')}}
@@ -52,13 +52,10 @@
     },
     computed: {
       to() {
-        return {
-          name: `blog-${this.post.categoryName}-mat`,
-          params: {id: this.post.id}
-        };
+        return this.category.getMaterialRoute(this.post.id);
       },
-      path() {
-        return this.$buildPath(this.category.path, this.post.id);
+      toCommentsStart() {
+        return this.category.getMaterialRoute(this.post.id, '#comments');
       },
       category() {
         return this.$store.getters.getCategory(this.post.categoryName);

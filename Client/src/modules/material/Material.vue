@@ -6,7 +6,7 @@
       </h2>
       <div v-if="category" style="margin-top: -10px;" class="q-mb-md">
         <span class="text-grey-7">{{$tl("category")}} </span>
-        <router-link :to="categoryPath">{{category.title}}</router-link>
+        <router-link :to="category.getRoute()">{{category.title}}</router-link>
       </div>
       <div class="material q-mb-lg" v-html="material.text">
       </div>
@@ -66,9 +66,6 @@
 </template>
 
 <script>
-  import {CommentContainer} from 'sun'
-  import {CreateEditComment} from 'sun'
-  import {LoaderWait} from 'sun'
   import {Page} from 'sun'
 
   import {date} from 'quasar'
@@ -108,9 +105,6 @@
       },
       category() {
         return this.$store.getters.getCategory(this.categoryName);
-      },
-      categoryPath() {
-        return this.category.path;
       },
       canCommentWrite() {
         return this.category.categoryPersonalAccess.commentWrite;
@@ -215,8 +209,8 @@
             this.comments = response.data;
             this.$nextTick(function () {
               if (this.$route.hash) {
-                let el = document.getElementById(this.$route.hash.substring(1))
-                setScrollPosition(getScrollTarget(el), el.offsetTop, 300)
+                let el = document.getElementById(this.$route.hash.substring(1));
+                setScrollPosition(getScrollTarget(el), el.offsetTop, 300);
               }
             });
           }

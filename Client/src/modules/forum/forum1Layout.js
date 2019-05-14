@@ -6,6 +6,23 @@ export default {
   name: 'Forum1',
   title: 'Forum 1',
   categoryType: 'Forum',
+
+  setCategoryRoute(category) {
+    category.route = {
+      name: `forum-${name}`,
+      params:  {}
+    };
+
+    for(const cat of category.subCategories) {
+      cat.route = {
+        name: `forum-${name}-cat`,
+        params:  {
+          categoryName: cat.name
+        }
+      }
+    }
+  },
+
   getRoutes(category) {
     const name = category.name;
     const nameLower = name.toLowerCase();
@@ -37,14 +54,14 @@ export default {
       },
       {
         name: `forum-${name}-cat-mat`,
-        path: `/${nameLower}/:categoryName/:id`,
+        path: `/${nameLower}/:categoryName/:idOrName`,
         components: {
           default: Material,
           navigation: ForumPanel
         },
         props: {
           default: (route) => {
-            return {categoryName: route.params.categoryName, idOrName: route.params.id}
+            return {categoryName: route.params.categoryName, idOrName: route.params.idOrName}
           },
           navigation: {categories: Categories1, categoryName: nameLower}
         }

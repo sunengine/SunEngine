@@ -1,14 +1,7 @@
-import CommentContainer from './CommentContainer'
-import commentEditorToolbar from './commentEditorToolbar'
-import CreateEditComment from './CreateEditComment'
-import DeletedComment from './DeletedComment'
-import ReadComment from './ReadComment'
+export CommentContainer from './CommentContainer'
+export commentEditorToolbar from './commentEditorToolbar'
+export EditComment from './EditComment'
+export CreateComment from './CreateComment'
+export DeletedComment from './DeletedComment'
+export ReadComment from './ReadComment'
 
-
-export {
-  CommentContainer,
-  commentEditorToolbar,
-  CreateEditComment,
-  DeletedComment,
-  ReadComment
-}

@@ -43,9 +43,7 @@ namespace SunEngine.Core.Cache.CacheModels
         public IImmutableList<CategoryCached> SubCategories { get; private set; }
 
         public IImmutableList<CategoryCached> AllSubCategories { get; private set; }
-
-        //public IReadOnlyDictionary<string, CategoryStored> AllSubCategoriesDic { get; private set; }
-
+        
         protected List<CategoryCached> _subCategories { get; private set; }
 
         protected List<CategoryCached> _allSubCategories { get; private set; }
@@ -139,12 +137,11 @@ namespace SunEngine.Core.Cache.CacheModels
         }
         
 
-        public void Init6SetListsAndBlockEditable()
+        public void Init5SetListsAndBlockEditable()
         {
             if (initialized)
                 return;
 
-            //AllSubCategoriesDic = _allSubCategories.ToImmutableDictionary(x=>x.Name,x=>x);
             AllSubCategories = _allSubCategories.ToImmutableList();
             SubCategories = _subCategories.ToImmutableList();
 
@@ -164,19 +161,6 @@ namespace SunEngine.Core.Cache.CacheModels
 
             return SectionRoot.SectionType.Name == SectionTypeNames.Articles;
         }
-
-        /*public void Init(CategoryStored parent, IReadOnlyList<CategoryStored> subCategories,
-            IReadOnlyList<CategoryStored> allSubCategories)
-        {
-            if (initialized)
-                return;
-
-            this.Parent = parent;
-            this.SubCategories = subCategories;
-            this.AllSubCategories = allSubCategories;
-
-            initialized = true;
-        }*/
     }
 
     public class SectionTypeCached

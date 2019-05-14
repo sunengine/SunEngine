@@ -8,6 +8,8 @@ export default function (store) {
       const layout = store.getters.getLayout(category.layoutName);
 
       routes.push(...layout.getRoutes(category));
+
+      layout.setCategoryRoute(category);
     }
   }
 

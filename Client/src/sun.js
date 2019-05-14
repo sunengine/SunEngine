@@ -1,4 +1,5 @@
 export {app} from 'App'
+export * from 'classes'
 export * from 'components'
 export * from 'account'
 export * from 'activities'

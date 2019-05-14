@@ -1,21 +1,10 @@
-import ChangeLink from './ChangeLink'
-import ChangeName from './ChangeName'
-import editInformationToolbar from './editInformationToolbar'
-import EditInformation from './EditInformation'
-import LoadPhoto from './LoadPhoto'
-import MyBanList from './MyBanList'
-import SettingsMenu from './SettingsMenu'
-import SettingsPage from './SettingsPage'
-import SettingsPanel from './SettingsPanel'
+export ChangeLink from './ChangeLink'
+export ChangeName from './ChangeName'
+export editInformationToolbar from './editInformationToolbar'
+export EditInformation from './EditInformation'
+export LoadPhoto from './LoadPhoto'
+export MyBanList from './MyBanList'
+export SettingsMenu from './SettingsMenu'
+export SettingsPage from './SettingsPage'
+export SettingsPanel from './SettingsPanel'
 
-export {
-  ChangeLink,
-  ChangeName,
-  editInformationToolbar,
-  EditInformation,
-  LoadPhoto,
-  MyBanList,
-  SettingsMenu,
-  SettingsPage,
-  SettingsPanel
-}

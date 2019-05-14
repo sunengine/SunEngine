@@ -4,7 +4,7 @@
     <template v-if="!comment.isDeleted">
       <ReadComment @goEdit="goEdit" v-if="isReadMode" :comment="comment" :canEdit="canEdit()" :canMoveToTrash="canMoveToTrash()" />
 
-      <CreateEditComment @done="saved" @cancel="isReadMode=true" :commentId="comment.id" v-else/>
+      <EditComment @done="saved" @cancel="isReadMode=true" :commentId="comment.id" v-else/>
 
     </template>
     <DeletedComment v-else/>
@@ -108,7 +108,7 @@
     },
     beforeCreate() {
       this.$options.components.ReadComment = require('sun').ReadComment;
-      this.$options.components.CreateEditComment = require('sun').CreateEditComment;
+      this.$options.components.EditComment = require('sun').EditComment;
       this.$options.components.DeletedComment = require('sun').DeletedComment;
     }
   }

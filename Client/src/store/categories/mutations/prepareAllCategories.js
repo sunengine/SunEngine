@@ -1,3 +1,5 @@
+import {Category} from 'sun'
+
 export default function prepareAllCategories(state, root) {
 
   state.root = root;
@@ -7,7 +9,10 @@ export default function prepareAllCategories(state, root) {
 
   detectCanSomeChildrenWriteMaterial(root);
 
+  injectPrototype();
+
   setSettingsFromJson();
+
 
   function buildStructureRecursive(category, sectionRoot = null) {
 
@@ -67,4 +72,13 @@ export default function prepareAllCategories(state, root) {
       }
     }
   }
+
+  function injectPrototype() {
+    for (const catName in state.all) {
+      const category = state.all[catName];
+      category.prototype.constructor = Category.prot;
+    }
+  }
 }
+
+

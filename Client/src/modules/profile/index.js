@@ -1,10 +1,3 @@
-import Profile from './Profile'
-import SendPrivateMessage from './SendPrivateMessage'
-import sendPrivateMessageToolbar from './sendPrivateMessageToolbar'
-
-
-export {
-  Profile,
-  SendPrivateMessage,
-  sendPrivateMessageToolbar
-}
+export Profile from './Profile'
+export SendPrivateMessage from './SendPrivateMessage'
+export sendPrivateMessageToolbar from './sendPrivateMessageToolbar'

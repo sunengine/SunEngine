@@ -33,11 +33,11 @@
     </div>
 
     <div class="last-reply col-xs-12 col-sm-4" v-if="topic.lastCommentId">
-      <q-item :to='toHash'>
+      <q-item :to='toLast'>
         <q-item-section avatar>
           <q-item-label>
             <q-avatar class="shadow-1" size="42px">
-              <img :src="$imagePath(topic.lastCommentAuthorAvatar)"  />
+              <img :src="$imagePath(topic.lastCommentAuthorAvatar)"/>
             </q-avatar>
           </q-item-label>
         </q-item-section>
@@ -65,23 +65,10 @@
     },
     computed: {
       to() {
-        return {
-          name: `forum-${this.category.sectionRoot.name}-cat-mat`,
-          params: {
-            categoryName: this.topic.categoryName.toLowerCase(),
-            id: this.topic.id
-          }
-        };
+        return this.category.getMaterialRoute(this.topic.id);
       },
-      toHash() {
-        return {
-          name: `forum-${this.category.sectionRoot.name}-cat-mat`,
-          params: {
-            categoryName: this.topic.categoryName.toLowerCase(),
-            id: this.topic.id
-          },
-          hash: '#comment-last'
-        };
+      toLast() {
+        return this.category.getMaterialRoute(this.topic.id, '#comment-last');
       },
       category() {
         return this.$store.getters.getCategory(this.topic.categoryName);

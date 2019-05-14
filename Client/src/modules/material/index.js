@@ -1,17 +1,7 @@
-import CreateMaterial from './CreateMaterial'
-import EditMaterial from './EditMaterial'
-import Material from './Material'
-import MaterialForm from './MaterialForm'
-import materialFormToolbar from './materialFormToolbar'
-import MaterialInline from './MaterialInline'
-
+export CreateMaterial from './CreateMaterial'
+export EditMaterial from './EditMaterial'
+export Material from './Material'
+export MaterialForm from './MaterialForm'
+export materialFormToolbar from './materialFormToolbar'
+export MaterialInline from './MaterialInline'
 export * from './getWhereToAddMove'
-
-export {
-  CreateMaterial,
-  EditMaterial,
-  Material,
-  MaterialForm,
-  materialFormToolbar,
-  MaterialInline
-}
