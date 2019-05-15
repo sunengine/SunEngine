@@ -45,7 +45,7 @@ export function makeUserDataFromTokens(tokens) {
 
   tokens.shortTokenExpiration = new Date(tokenParsed.exp * 1000);
 
-  const data = {
+  return {
     tokens: tokens,
     user: {
       id: +tokenParsed[IdKey],
@@ -53,6 +53,4 @@ export function makeUserDataFromTokens(tokens) {
     },
     roles: roles,
   };
-
-  return data;
 }

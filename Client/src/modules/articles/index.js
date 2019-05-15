@@ -5,4 +5,4 @@ export ArticlesPage from './ArticlesPage'
 export ArticlesPanel from './ArticlesPanel'
 export articlesLayout from './articlesLayout'
 export articles1Layout from './articles1Layout'
-
+export articles2Layout from './articles2Layout'

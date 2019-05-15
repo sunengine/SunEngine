@@ -31,7 +31,7 @@
     },
     methods: {
       go(name) {
-        this.$router.push(this.$store.getters.getCategory(name).path);
+        this.$router.push(this.$store.getters.getCategory(name).getRoute());
       },
       add() {
         this.$router.push({name: 'CreateCategory'});
