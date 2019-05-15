@@ -20,7 +20,7 @@
            icon="fas fa-folder">
       <q-menu>
         <div style="background-color: white;" class="q-pa-sm">
-          <q-tree ref="catTree" @update:selected="categorySelected" v-close-menu
+          <q-tree ref="catTree" @update:selected="categorySelected" v-close-popup
                   default-expand-all
                   :selected.sync="category.parentId"
                   :nodes="where"

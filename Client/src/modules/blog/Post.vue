@@ -28,7 +28,7 @@
         {{post.commentsCount}} {{$tl('commentsCount')}}
         </span>
       </q-item>
-      <q-item :to="path" v-if="post.hasMoreText">
+      <q-item :to="to" v-if="post.hasMoreText">
         <span>
           {{$tl('readMore')}}
           <q-icon name="fas fa-arrow-right"/>

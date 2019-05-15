@@ -20,8 +20,14 @@
   export default {
     name: 'CreateCategory',
     mixins: [Page],
-
-    data: function () {
+    props: {
+      parentCategoryId: {
+        type: Number,
+        required: false,
+        default: 1
+      }
+    },
+    data() {
       return {
         category: {
           name: '',
@@ -32,7 +38,7 @@
           sectionTypeName: 'unset',
           isMaterialsContainer: true,
           areaRoot: false,
-          parentId: 1,
+          parentId: this.parentCategoryId,
           isHidden: false,
           isCacheContent: false
         },

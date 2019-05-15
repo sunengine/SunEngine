@@ -10,7 +10,7 @@
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-item  :to="{name: 'User', params: {link: userInfo.link}}" v-close-menu>
+      <q-item  :to="{name: 'User', params: {link: userInfo.link}}" v-close-popup>
         <q-item-section avatar>
           <q-icon name="fas fa-user-circle"/>
         </q-item-section>
@@ -20,7 +20,7 @@
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-item :to="{name: 'Personal'}" v-close-menu>
+      <q-item :to="{name: 'Personal'}" v-close-popup>
         <q-item-section avatar>
           <q-icon name="fas fa-address-card"/>
         </q-item-section>
@@ -30,7 +30,7 @@
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-item v-if="isAdmin" :to="{name: 'Admin'}" v-close-menu>
+      <q-item v-if="isAdmin" :to="{name: 'Admin'}" v-close-popup>
         <q-item-section avatar>
           <q-icon name="fas fa-cog"/>
         </q-item-section>
@@ -40,7 +40,7 @@
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-item   @click.native="logout()" clickable v-close-menu>
+      <q-item   @click.native="logout()" clickable v-close-popup>
         <q-item-section avatar>
           <q-icon name="fas fa-sign-out-alt"/>
         </q-item-section>

@@ -12,9 +12,9 @@
                  style="padding-left:10px !important; padding-right: 10px; !important" v-if="!user.noBannable"
                  icon="fas fa-ellipsis-v">
             <q-menu>
-              <q-btn no-caps v-close-menu color="negative"  v-close-overlay v-if="!user.iBannedHim" @click="ban"
+              <q-btn no-caps v-close-popup color="negative"  v-close-overlay v-if="!user.iBannedHim" @click="ban"
                      icon="fas fa-ban" :label="$tl('banBtn')"/>
-              <q-btn no-caps v-close-menu color="positive"  v-close-overlay v-else @click="unBan" icon="fas fa-smile"
+              <q-btn no-caps v-close-popup color="positive"  v-close-overlay v-else @click="unBan" icon="fas fa-smile"
                      :label="$tl('unBanBtn')"/>
             </q-menu>
           </q-btn>

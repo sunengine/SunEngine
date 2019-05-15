@@ -35,7 +35,7 @@
 
     <q-btn class="q-mt-md select-category" :label="categoryTitle" no-caps outline icon="fas fa-folder">
       <q-menu>
-        <q-tree v-close-menu class="q-ma-sm" default-expand-all :selected.sync="material.categoryName"
+        <q-tree v-close-popup class="q-ma-sm" default-expand-all :selected.sync="material.categoryName"
                 :nodes="categoriesNodes" node-key="value"/>
       </q-menu>
     </q-btn>

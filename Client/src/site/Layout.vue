@@ -26,7 +26,7 @@
         <q-btn v-else flat dense round>
           <q-icon name="fas fa-user"/>
           <q-menu>
-            <LoginRegisterMenu v-close-menu/>
+            <LoginRegisterMenu v-close-popup/>
           </q-menu>
         </q-btn>
 

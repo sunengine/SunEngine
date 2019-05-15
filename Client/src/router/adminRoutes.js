@@ -36,23 +36,25 @@ const routes = [
   },
   {
     name: 'CreateCategory',
-    path: '/admin/CreateCategory'.toLowerCase(),
+    path: '/admin/CreateCategory/'.toLowerCase() + ':parentCategoryId?',
     components: {
       default: CreateCategory,
       navigation: AdminPanel
+    },
+    props: {
+      default: true,
+      navigation: null
     }
   },
   {
     name: 'EditCategory',
-    path: '/admin/EditCategory/:id'.toLowerCase(),
+    path: '/admin/EditCategory/'.toLowerCase() + ':categoryId',
     components: {
       default: EditCategory,
       navigation: AdminPanel
     },
     props: {
-      default: (route) => {
-        return {categoryId: +route.params.id};
-      },
+      default: true,
       navigation: null
     }
   },

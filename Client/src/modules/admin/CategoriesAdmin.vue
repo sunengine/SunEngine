@@ -5,12 +5,12 @@
       <h2 class="q-title">
         {{$tl("title")}}
       </h2>
-      <q-btn icon="fas fa-plus" color="send" class="q-mr-lg" @click="add" no-caps
+      <q-btn icon="fas fa-plus" color="send" class="q-mr-lg" @click="add()" no-caps
              :label="$tl('addCategoryBtn')"/>
       <div class="clear"></div>
     </div>
 
-    <CategoryItem v-if="root" @up="up" @down="down" @edit="edit" @go="go" :category="root" class="q-mt-lg"/>
+    <CategoryItem v-if="root" @up="up" @down="down" @add="add" @edit="edit" @go="go" :category="root" class="q-mt-lg"/>
 
     <LoaderWait v-else/>
 
@@ -33,11 +33,11 @@
       go(name) {
         this.$router.push(this.$store.getters.getCategory(name).getRoute());
       },
-      add() {
-        this.$router.push({name: 'CreateCategory'});
+      add(parentCategoryId = 1) {
+        this.$router.push({name: 'CreateCategory', params: {parentCategoryId}});
       },
-      edit(id) {
-        this.$router.push({name: 'EditCategory', params: {id}});
+      edit(categoryId) {
+        this.$router.push({name: 'EditCategory', params: {categoryId}});
       },
       async up(category) {
         await this.$store.dispatch("request",
