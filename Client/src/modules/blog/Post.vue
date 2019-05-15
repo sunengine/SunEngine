@@ -22,7 +22,7 @@
     </div>
 
     <div class="flex footer float-left ">
-      <q-item class="page-padding-left" :to="toCommentsStart">
+      <q-item class="page-padding-left" :to="toComments">
         <span :class="[{'text-grey-6': !post.commentsCount}]">
         <q-icon name="far fa-comment" class="q-mr-sm"/>
         {{post.commentsCount}} {{$tl('commentsCount')}}
@@ -54,7 +54,7 @@
       to() {
         return this.category.getMaterialRoute(this.post.id);
       },
-      toCommentsStart() {
+      toComments() {
         return this.category.getMaterialRoute(this.post.id, '#comments');
       },
       category() {
