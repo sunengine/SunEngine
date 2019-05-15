@@ -22,7 +22,7 @@ namespace SunEngine.Cli
             var helpText = @"
 Commands:
     server                      host server api with kestrel
-    config:<path>               path to config directory, if none 'Config' is default 
+    config:<path>               path to config directory, if none 'Config' is default, '.Config' suffix at the end of the path can be skipped               
     migrate                     make initial database table structure and migrations in existing database
     init                        initialize users, roles and categories tables from config directory
     check-db-con                check is data base connection is working                     
@@ -40,9 +40,9 @@ Seed test data commands:
 
 Examples:
     dotnet SunEngine.dll server
-    dotnet SunEngine.dll server config:local.Config.MySite
+    dotnet SunEngine.dll server config:local.MySite
     dotnet SunEngine.dll migrate init seed
-    dotnet SunEngine.dll migrate init seed config:local.Config.MySite
+    dotnet SunEngine.dll migrate init seed config:local.MySite
     dotnet SunEngine.dll seed:Forum:10:10
 ";
             Console.WriteLine(helpText);

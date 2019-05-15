@@ -24,15 +24,15 @@
 
 #### Дружественный интерфейс
 - Одностраничное приложение c красивым интерфейсом
-- Адаптировано для мобильных телефонов, планшетов, ПК
+- Работает на персональных компьютерах, планшетах, мобильных телефонах
 
 #### Сделано с любовью ❤
 - Красивый код, который я постоянно улучшаю и совершенствую.
-- Если что-то ещё в плане кода не настолько красиво как могло бы быть, принимается обратная связь.
+- Принимаются идеи по улучшению кода и архитектуры.
 
 #### Быстрая работа (quick & fast)
 - Быстрый доступ к данным на основе linq2db.  
-- Приложение грузит только то что нужно, без запроса всех данных при каждом запросе. SPA. 
+- Одностраничное приложение грузит только то что нужно, без лишних запросов (SPA).
 - Эффективное кэширование
 
 #### Гибкая настройка прав пользователей
@@ -65,7 +65,7 @@
 ```
 Commands:
     server                      host server api with kestrel
-    config:<path>               path to config directory, if none 'Config' is default, can be used with out '.Config' end                         
+    config:<path>               path to config directory, if none 'Config' is default, '.Config' suffix at the end of the path can be skipped               
     migrate                     make initial database table structure and migrations in existing database
     init                        initialize users, roles and categories tables from config directory
     check-db-con                check is data base connection is working                     
