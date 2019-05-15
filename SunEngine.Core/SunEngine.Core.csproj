@@ -23,7 +23,7 @@
       <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
       <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0006" />
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.4.0" />
-      <PackageReference Include="System.Runtime.Caching" Version="4.6.0-preview4.19212.13" />
+      <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
     </ItemGroup>
 
 </Project>

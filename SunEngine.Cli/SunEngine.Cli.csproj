@@ -19,7 +19,7 @@
         <PackageReference Include="Flurl" Version="2.8.2" />
         <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.4" />
         <PackageReference Include="System.Linq" Version="4.3.0" />
-        <PackageReference Include="System.Runtime.Caching" Version="4.6.0-preview4.19212.13" />
+        <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
     </ItemGroup>
     
     <ItemGroup>
@@ -37,7 +37,8 @@
         </Content>
         <None Remove="Resources\gunnyrewritten.ttf" />
         <Content Include="Resources\gunnyrewritten.ttf">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <Content Update="wwwroot\UploadImages\*\*">
             <CopyToPublishDirectory>None</CopyToPublishDirectory>
@@ -47,7 +48,6 @@
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Resources\all.txt" />
     </ItemGroup>
 
 
