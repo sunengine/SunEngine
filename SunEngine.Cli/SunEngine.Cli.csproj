@@ -59,30 +59,6 @@
     </ItemGroup>
 
 
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\NLog.config" />
-      <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\web.config" />
-      <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\NLog.config" />
-      <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\web.config" />
-      <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\NLog.config" />
-      <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\web.config" />
-      <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\Resources\UserGroups.schema.json" />
-      <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\SunEngine.deps.json" />
-      <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\SunEngine.runtimeconfig.json" />
-      <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\Resources\UserGroups.schema.json" />
-      <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\SunEngine.deps.json" />
-      <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\SunEngine.runtimeconfig.json" />
-      <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\Resources\UserGroups.schema.json" />
-      <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\SunEngine.deps.json" />
-      <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\SunEngine.runtimeconfig.json" />
-    </ItemGroup>
-
-
-    <ItemGroup>
-      <Folder Include="Config\Disabled" />
-      <Folder Include="local.Config\Disabled" />
-    </ItemGroup>
-    
    
     <PropertyGroup>
         <ServerGarbageCollection>false</ServerGarbageCollection>

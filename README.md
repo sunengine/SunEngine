@@ -53,12 +53,16 @@
 #### Установка и запуск в режиме Development
 - Клонировать репозиторий SunEngine с GitHub.
 - Из консоли зайти в папку `SunEngine.Cli`
-- Заполняем базу SqLite начальными данными `dotnet run migrate init seed` - 
+- Заполняем базу SqLite начальными данными `dotnet run migrate init seed`
 - Запускаем сервер `dotnet run server`
 - Из консоли зайти в папку `Client`
 - Инсталлируем npm модули `npm install`
 - Запускаем клиент в dev режиме `quasar dev`
-- Откроется браузер с сайтом
+- Откроется браузер с сайтом  
+
+
+Для работы с другими базами данных базу надо создать вручную и прописать в файл `Config/DataBaseConnection.json` в проекте `SunEgnine.Cli`
+
 
 #### Команды для `SunEngine.dll`
 
@@ -91,6 +95,7 @@ Examples:
 ```
 
 #### Работа с другими базами данных
+- Перед `migrate` базу данных надо создать вручную и прописать в файл `Config/DataBaseConnection.json` в проекте `SunEgnine.Cli`
 - База данных: любая совместимая с Linq2db [(список)](https://fluentmigrator.github.io/articles/faq.html) и FluentMigrator [(список)](https://linq2db.github.io/articles/general/databases.html)  
 - Протестировано с MySql, Postgres, SqLite 
 
