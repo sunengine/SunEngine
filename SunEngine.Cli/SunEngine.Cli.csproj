@@ -3,8 +3,8 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <LangVersion>latest</LangVersion>
-        <Version>1.1.3</Version>
-        <PackageVersion>1.1.4</PackageVersion>
+        <Version>1.1.5</Version>
+        <PackageVersion>1.1.5</PackageVersion>
         <Title>SunEngine</Title>
         <Authors>Dmitrii Polianin</Authors>
         <Description>Site engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>
@@ -75,6 +75,12 @@
       <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\Resources\UserGroups.schema.json" />
       <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\SunEngine.deps.json" />
       <_ContentIncludedByDefault Remove="~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\~\home\okeanij\Projects\sunengine.site\build\SunEngine.runtimeconfig.json" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Folder Include="Config\Disabled" />
+      <Folder Include="local.Config\Disabled" />
     </ItemGroup>
     
    

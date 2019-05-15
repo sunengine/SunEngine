@@ -41,7 +41,7 @@
       </q-item-section>
     </q-item>
 
-    <q-item to='/forum'>
+    <q-item to='/forum1'>
       <q-item-section avatar>
         <q-icon name="far fa-comments"/>
       </q-item-section>
@@ -55,7 +55,7 @@
       icon="fas fa-puzzle-piece"
       label="Дополнительно"
     >
-      <q-item to='/news2col'>
+      <q-item :to="{name: 'News2ColPage'}">
         <q-item-section avatar>
           <q-icon name="fas fa-columns"/><!--fas fa-dot-circle-->
         </q-item-section>
@@ -75,7 +75,17 @@
         </q-item-section>
       </q-item>
 
-      <q-item to='/forum2l'>
+      <q-item to='/articles1'>
+        <q-item-section avatar>
+          <q-icon name="far fa-file-alt"/>
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>Статьи 1</q-item-label>
+          <q-item-label caption>Статьи с подразделами</q-item-label>
+        </q-item-section>
+      </q-item>
+
+      <q-item to='/forum2'>
         <q-item-section avatar>
           <q-icon name="far fa-comments"/>
         </q-item-section>
@@ -84,7 +94,6 @@
           <q-item-label caption>2 уровня вложенности категорий</q-item-label>
         </q-item-section>
       </q-item>
-
 
     </q-expansion-item>
   </q-list>

@@ -4,7 +4,7 @@
       <h2 class="q-title">
         {{pageTitle}}
       </h2>
-      <q-btn no-caps @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name}})"
+      <q-btn no-caps @click="$router.push({name:'CreateMaterial',params:{categoriesNames: categoriesNames}})"
              :label="addButtonLabel"
              v-if="canAddArticle" icon="fas fa-plus" color="post"/>
 
@@ -41,7 +41,7 @@
         type: String,
         required: false,
         default() {
-          return Vue.prototype.$tl('newArticleBtnDefault')
+          return this.$tl('newArticleBtnDefault')
         }
       },
       caption: {
@@ -92,7 +92,7 @@
     },
     methods: {
       pageChanges(newPage) {
-        if (this.currentPage() !== newPage) {
+        if (this.currentPage !== newPage) {
           let req = {path: this.$route.path};
           if (newPage !== 1) {
             req.query = {page: newPage};
@@ -101,7 +101,6 @@
         }
       },
       async loadData() {
-        let currentPage = this.currentPage();
 
         this.title = this.category?.title;
 
@@ -110,7 +109,7 @@
             url: "/Articles/GetArticlesFromMultiCategories",
             data: {
               categoriesNames: this.categoriesNames,
-              page: currentPage
+              page: this.currentPage
             }
           })
           .then(

@@ -75,7 +75,7 @@
           data: data
         }).then(() => {
           this.$successNotify();
-          this.$router.push(this.$refs.form.category.path);
+          this.$router.push(this.$refs.form.category.getRoute());
         }).catch(error => {
           this.$errorNotify(error);
           this.loading = false;

@@ -1,8 +1,9 @@
 [
   {
-    "Name": "Articles1L",
+    "Name": "Articles1",
     "Title": "Статьи с подразделами",
     "SectionType": "Articles",
+    "LayoutName": "Articles1",
     "MaterialTypeTitle": "Статья",
     "SubCategories": [
       {

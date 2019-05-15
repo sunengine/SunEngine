@@ -16,7 +16,14 @@ export default function (store) {
   }
 
   const whiteSpace = "    ";
-  console.info("%cRoutes registered:", consoleInit,"\n\n"+whiteSpace + routes.map(x => x.name).join("\n"+whiteSpace));
+  console.info("%cRoutes registered:", consoleInit,"\n\n"+whiteSpace + routes.map(x => `${fill(x.name)} ${x.path}`).join("\n"+whiteSpace));
 
   return routes;
+
+  function fill(str) {
+    let dist = 35 - str.length;
+    if(dist <= 5)
+      dist = 5;
+    return str + ' '.repeat(dist);
+  }
 }

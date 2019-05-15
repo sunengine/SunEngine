@@ -55,6 +55,7 @@ namespace SunEngine.Admin.Managers
             catch (Exception e)
             {
                 db.RollbackTransaction();
+                throw e;
             }
         }
 

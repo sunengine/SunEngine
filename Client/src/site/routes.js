@@ -53,7 +53,7 @@ const siteRoutes = [
     props: {
       default: {
         pageTitle: 'Новые материалы',
-        categoriesNames: 'Forum,Articles,Blog'.toLowerCase(),
+        categoriesNames: 'Forum1,Articles,Blog'.toLowerCase(),
         addButtonLabel: 'Добавить материал',
         caption: 'Посты в виде блога из категорий: Forum, Articles, Blog',
         rolesCanAdd: ['Admin', 'Moderator']

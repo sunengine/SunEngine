@@ -38,8 +38,8 @@ export default {
           navigation: ForumPanel
         },
         props: {
-          default: {categoryName: nameLower},
-          navigation: {categories: Categories2, categoryName: nameLower}
+          default: {categoryName: name},
+          navigation: {categories: Categories2, categoryName: name}
         },
       },
       {
@@ -51,7 +51,7 @@ export default {
         },
         props: {
           default: true,
-          navigation: {categories: Categories2, categoryName: nameLower}
+          navigation: {categories: Categories2, categoryName: name}
         }
       },
       {
@@ -65,7 +65,7 @@ export default {
           default: (route) => {
             return {categoryName: route.params.categoryName, idOrName: route.params.idOrName}
           },
-          navigation: {categories: Categories2, categoryName: nameLower}
+          navigation: {categories: Categories2, categoryName: name}
         }
       }
     ]

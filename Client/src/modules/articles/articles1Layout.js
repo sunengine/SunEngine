@@ -1,22 +1,24 @@
-import {ForumPanel, NewTopics, Thread} from 'sun'
+import {ArticlesPanel} from 'sun'
+import {ArticlesMultiCatPage} from 'sun'
 import {Categories1} from 'sun'
 import {Material} from 'sun'
+import {ArticlesPage} from 'sun'
 
 export default {
-  name: 'Forum1',
-  title: 'Forum 1',
-  categoryType: 'Forum',
+  name: 'Articles1',
+  title: 'Articles 1',
+  categoryType: 'Articles',
 
   setCategoryRoute(category) {
     category.route = {
-      name: `forum-${category.name}`,
-      params:  {}
+      name: `articles-${category.name}`,
+      params: {}
     };
 
-    for(const cat of category.subCategories) {
+    for (const cat of category.subCategories) {
       cat.route = {
-        name: `forum-${category.name}-cat`,
-        params:  {
+        name: `articles-${category.name}-cat`,
+        params: {
           categoryName: cat.name
         }
       }
@@ -29,23 +31,23 @@ export default {
 
     return [
       {
-        name: `forum-${name}`,
+        name: `articles-${name}`,
         path: '/' + nameLower,
         components: {
-          default: NewTopics,
-          navigation: ForumPanel
+          default: ArticlesMultiCatPage,
+          navigation: ArticlesPanel
         },
         props: {
-          default: {categoryName: name},
+          default: {categoriesNames: nameLower, pageTitle: category.title},
           navigation: {categories: Categories1, categoryName: name}
         },
       },
       {
-        name: `forum-${name}-cat`,
+        name: `articles-${name}-cat`,
         path: `/${nameLower}/:categoryName`,
         components: {
-          default: Thread,
-          navigation: ForumPanel
+          default: ArticlesPage,
+          navigation: ArticlesPanel
         },
         props: {
           default: true,
@@ -53,11 +55,11 @@ export default {
         }
       },
       {
-        name: `forum-${name}-cat-mat`,
+        name: `articles-${name}-cat-mat`,
         path: `/${nameLower}/:categoryName/:idOrName`,
         components: {
           default: Material,
-          navigation: ForumPanel
+          navigation: ArticlesPanel
         },
         props: {
           default: (route) => {

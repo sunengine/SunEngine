@@ -3,7 +3,7 @@
 
     <div class="header-with-button page-padding">
       <h2 class="q-title">
-        {{localTitle}}
+        {{pageTitle}}
       </h2>
       <q-btn no-caps @click="$router.push({name:'CreateMaterial',params:{categoriesNames: thread.name}})"
              :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus" color="post"/>
@@ -35,7 +35,7 @@
         </div>
       </q-list>
 
-      <q-pagination  v-if="topics.totalPages > 1" v-model="topics.pageIndex" color="pagination"
+      <q-pagination v-if="topics.totalPages > 1" v-model="topics.pageIndex" color="pagination"
                     :max-pages="12" :max="topics.totalPages" ellipses direction-links @input="pageChanges"/>
     </div>
   </q-page>
@@ -64,7 +64,7 @@
       '$store.state.auth.user': 'loadData'
     },
     computed: {
-      localTitle() {
+      pageTitle() {
         return `${this.$tl("titleStart")} - ${this.thread?.title}`;
       },
       thread() {
@@ -74,8 +74,7 @@
         return this.thread?.categoryPersonalAccess?.materialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;
       },
       currentPage() {
-        let page1 = this.$route.query?.page;
-        return page1 ?? 1;
+        return this.$route.query?.page ?? 1;
       }
     },
 
@@ -91,7 +90,7 @@
       },
 
       async loadData() {
-        this.title = this.localTitle;
+        this.title = this.pageTitle;
 
         await this.$store.dispatch("request",
           {

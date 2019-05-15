@@ -4,5 +4,9 @@ export default {
   },
   ArticlesPage: {
     newArticleBtn: "Create new article"
+  },
+  ArticlesPanel: {
+    sections: "Sections",
+    newArticles: "All articles"
   }
 }

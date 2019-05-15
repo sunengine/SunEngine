@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Name": "Forum",
+    "Name": "Forum1",
     "Title": "Форум",
     "SectionType": "Forum",
     "LayoutName": "Forum1",
@@ -18,7 +18,6 @@
         "IsMaterialsContainer": true,
         "Repeat": 2,
         "StartNumber": 6
-        
       },
       {
         "Name": "ThreadWithHeader",
