@@ -26,7 +26,6 @@
 
 
 <style lang="stylus" scoped>
-  @import '~quasar-variables';
 
   h1 {
     margin: 0 0 40px;
@@ -50,4 +49,5 @@
     color: #a38167;
     font-weight: 600;
   }
+
 </style>

@@ -64,7 +64,9 @@
 </script>
 
 <style scoped>
+
   .send-btn {
     width: 270px;
   }
+
 </style>

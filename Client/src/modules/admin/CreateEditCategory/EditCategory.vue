@@ -132,7 +132,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import '~quasar-variables';
 
   .btn-block {
     margin-top: $flex-gutter-md;

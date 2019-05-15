@@ -91,7 +91,7 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import '~quasar-variables'
+
 
   .avatar {
     width: 32px;

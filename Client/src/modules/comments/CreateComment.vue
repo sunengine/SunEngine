@@ -88,7 +88,7 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import '~quasar-variables'
+
 
   .editor {
     margin-bottom: 7px;
