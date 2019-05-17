@@ -6,13 +6,13 @@
     "Title": "Гость",
     "Categories": [
       {
-        "Category": "Forum",
+        "Category": "Forum1",
         "OperationKeys": {
           "MaterialAndCommentsRead": true
         }
       },
       {
-        "Category": "Forum2L",
+        "Category": "Forum2",
         "OperationKeys": {
           "MaterialAndCommentsRead": true
         }
@@ -41,7 +41,7 @@
     "Title": "Пользователь",
     "Categories": [
       {
-        "Category": "Forum",
+        "Category": "Forum1",
         "OperationKeys": {
           "MaterialAndCommentsRead": true,
           "MaterialWrite": true,
@@ -76,7 +76,7 @@
         }
       },
       {
-        "Category": "Forum2L",
+        "Category": "Forum2",
         "OperationKeys": {
           "MaterialAndCommentsRead": true,
           "MaterialWrite": true,
