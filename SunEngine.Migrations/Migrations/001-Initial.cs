@@ -17,12 +17,12 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(DbColumnSizes.SectionType_Name).NotNullable()
                 .WithColumn("Title").AsString(DbColumnSizes.SectionType_Title).NotNullable();
-            
+
             Create.Table("CacheSettings")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("CachePolicy").AsInt32().NotNullable()
                 .WithColumn("InvalidateCacheTime").AsInt32().Nullable();
-            
+
             Create.Table("CategoryCacheSettings")
                 .WithColumn("Id").AsInt32().PrimaryKey().NotNullable()
                 .WithColumn("PagesAmount").AsInt32().NotNullable();
@@ -81,7 +81,7 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(DbColumnSizes.Materials_Name).Nullable().Indexed()
                 .WithColumn("Title").AsString(DbColumnSizes.Materials_Title).NotNullable()
-                .WithColumn("Description").AsMaxString().Nullable()
+                .WithColumn("Description").AsString(DbColumnSizes.Materials_Description).Nullable()
                 .WithColumn("Preview").AsMaxString().Nullable()
                 .WithColumn("Text").AsMaxString().NotNullable()
                 .WithColumn("CategoryId").AsInt32().NotNullable().Indexed()
@@ -180,7 +180,24 @@ namespace SunEngine.Migrations.Migrations
             Create.Table("BlackListShortTokens")
                 .WithColumn("TokenId").AsString(DbColumnSizes.BlackListShortToken_TokenId).PrimaryKey().NotNullable()
                 .WithColumn("Expire").AsMyDateTime().Indexed().NotNullable();
+
+            Create.Table("MenuItems")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("ParentId").AsInt32().Nullable().ForeignKey("FK_MenuItems_MenuItems_Id", "MenuItems", "Id")
+                .WithColumn("Name").AsString(DbColumnSizes.MenuItems_Name).Nullable()
+                .WithColumn("Title").AsString(DbColumnSizes.MenuItems_Title).NotNullable()
+                .WithColumn("SubTitle").AsString(DbColumnSizes.MenuItems_SubTitle).Nullable()
+                .WithColumn("RouteName").AsString(DbColumnSizes.MenuItems_RouteName).Nullable()
+                .WithColumn("RouteParamsJson").AsMaxString().Nullable()
+                .WithColumn("SettingsJson").AsMaxString().Nullable()
+                .WithColumn("CssClass").AsString(DbColumnSizes.MenuItems_CssClass).Nullable()
+                .WithColumn("ExternalUrl").AsMaxString().Nullable()
+                .WithColumn("IsSeparator").AsBoolean().NotNullable()
+                .WithColumn("SortNumber").AsInt32().NotNullable()
+                .WithColumn("Icon").AsString(DbColumnSizes.MenuItems_Icon).Nullable()
+                .WithColumn("CustomIcon").AsString(DbColumnSizes.MenuItems_CustomIcon).Nullable();
         }
+
 
         public override void Down()
         {
@@ -202,7 +219,7 @@ namespace SunEngine.Migrations.Migrations
         public const int FileNameWithDirSize = 28;
         public const int Materials_Name = 32;
         public const int Materials_Title = 256;
-        public const int Materials_Description = 256;
+        public const int Materials_Description = Int32.MaxValue;
         public const int Tags_Name = 64;
         public const int Roles_Name = 64;
         public const int Roles_Title = 64;
@@ -210,6 +227,13 @@ namespace SunEngine.Migrations.Migrations
         public const int LongSessions_LongToken1 = 16;
         public const int LongSessions_LongToken2 = 16;
         public const int BlackListShortToken_TokenId = 16;
+        public const int MenuItems_Name = 32;
+        public const int MenuItems_Title = 64;
+        public const int MenuItems_SubTitle = 64;
+        public const int MenuItems_RouteName = 64;
+        public const int MenuItems_CssClass = 64;
+        public const int MenuItems_Icon = 64;
+        public const int MenuItems_CustomIcon = 128;
     }
 
     internal static class MigratorExtensions
