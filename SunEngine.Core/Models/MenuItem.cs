@@ -1,3 +1,10 @@
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using SunEngine.Core.Models.Authorization;
+using SunEngine.Core.Security;
+
 namespace SunEngine.Core.Models
 {
     public class MenuItem
@@ -9,6 +16,7 @@ namespace SunEngine.Core.Models
         public string SubTitle { get; set; }
         public string RouteName { get; set; }
         public string RouteParamsJson { get; set; }
+        public string Roles { get; set; }
         public string SettingsJson { get; set; }
         public string CssClass { get; set; }
         public string ExternalUrl { get; set; }

@@ -48,7 +48,7 @@ namespace SunEngine.Cli
 
             services.AddDbOptions(dataBaseFactory);
             
-            services.AddStores(dataBaseFactory);
+            services.AddCaches(dataBaseFactory);
 
             services.AddCachePolicy();
 

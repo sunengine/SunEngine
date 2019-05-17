@@ -12,14 +12,17 @@ namespace SunEngine.Core.Configuration.AddServices
 {
     public static class AddStoresExtensions
     {
-        public static void AddStores(this IServiceCollection services, DataBaseFactory dataBaseFactory)
+        public static void AddCaches(this IServiceCollection services, DataBaseFactory dataBaseFactory)
         {
-            // Add Singleton Stores
-            var userGroupStore = new RolesCache(dataBaseFactory);
+            // Add Singleton cache services
+            var rolesCache = new RolesCache(dataBaseFactory);
 
-            services.AddSingleton<IRolesCache>(userGroupStore);
+            services.AddSingleton<IRolesCache>(rolesCache);
 
             services.AddSingleton<ICategoriesCache, CategoriesCache>();
+            
+            services.AddSingleton<MenuCache>();
+
 
             services.AddSingleton<IContentCache, CategoryContentCache>();
 
