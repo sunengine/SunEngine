@@ -106,8 +106,8 @@ namespace SunEngine.DataSeed
         {
             Console.WriteLine("Roles");
 
-            string pathToUserGroupsConfig = Path.GetFullPath(configDir + "/UserGroups.json");
-            string pathToUserGroupsSchema = Path.GetFullPath("Resources/UserGroups.schema.json");
+            string pathToUserGroupsConfig = Path.GetFullPath(configDir + "/Roles.json");
+            string pathToUserGroupsSchema = Path.GetFullPath("Resources/Roles.schema.json");
             JsonSchema4 schema = JsonSchema4.FromFileAsync(pathToUserGroupsSchema).GetAwaiter().GetResult();
 
 
@@ -169,7 +169,7 @@ namespace SunEngine.DataSeed
                 Id = id,
                 Name = Category.RootName,
                 NameNormalized = Normalizer.Normalize(Category.RootName),
-                Title = "Корень",
+                Title = Category.RootName,
                 SortNumber = id
             };
             dataContainer.RootCategory = rootCategory;
