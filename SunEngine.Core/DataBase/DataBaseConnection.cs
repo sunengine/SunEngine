@@ -73,7 +73,9 @@ namespace SunEngine.Core.DataBase
 
         public ITable<CacheSettings> CacheSettings => GetTable<CacheSettings>();
 
+        public ITable<MenuItem> MenuItems => GetTable<MenuItem>();
 
+        
         public void UpdateSequence(string tableName, string keyName)
         {
             if (IsPostgres())
