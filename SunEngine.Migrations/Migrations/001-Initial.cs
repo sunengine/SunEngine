@@ -197,7 +197,8 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("IsSeparator").AsBoolean().NotNullable()
                 .WithColumn("SortNumber").AsInt32().NotNullable()
                 .WithColumn("Icon").AsString(DbColumnSizes.MenuItems_Icon).Nullable()
-                .WithColumn("CustomIcon").AsString(DbColumnSizes.MenuItems_CustomIcon).Nullable();
+                .WithColumn("CustomIcon").AsString(DbColumnSizes.MenuItems_CustomIcon).Nullable()
+                .WithColumn("IsHidden").AsBoolean().NotNullable();
         }
 
 

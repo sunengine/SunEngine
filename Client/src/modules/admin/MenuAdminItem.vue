@@ -1,7 +1,7 @@
 <template>
   <div>
     {{menuItem.title}} <span v-if="menuItem.name">({{menuItem.name}})</span>
-    <q-btn :to="" icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
+    <q-btn :to="menuItem.to" icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
     <q-btn :disabled="isFirst" @click="up" color="info" dense size="10px" flat
            icon="fas fa-chevron-up"/>
     <q-btn :disabled="isLast" @click="down" color="info" dense size="10px" flat
@@ -13,7 +13,7 @@
 
 <script>
   export default {
-    name: "MenuItem",
+    name: "MenuAdminItem",
     props: {
       menuItem: {
         type: Object,

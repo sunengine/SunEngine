@@ -23,6 +23,7 @@ namespace SunEngine.Core.Cache.CacheModels
         public int SortNumber { get; }
         public string Icon { get; }
         public string CustomIcon { get; }
+        public bool IsHidden { get; }
 
 
         public MenuItemCached(MenuItem menuItem, IReadOnlyDictionary<int, RoleCached> roles)
@@ -42,7 +43,8 @@ namespace SunEngine.Core.Cache.CacheModels
             SortNumber = menuItem.SortNumber;
             Icon = menuItem.Icon;
             CustomIcon = menuItem.CustomIcon;
-
+            IsHidden = menuItem.IsHidden;
+            
             Roles = roles;
         }
     }
