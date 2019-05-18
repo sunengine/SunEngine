@@ -28,6 +28,8 @@ namespace SunEngine.DataSeed
 
         private int operationKeyId = 1;
         
+        private int menuItemId = 1;
+        
         private DateTime commentPublishDate = DateTime.UtcNow.AddMinutes(-3);
 
         public Category RootCategory;
@@ -41,6 +43,7 @@ namespace SunEngine.DataSeed
         public List<CategoryAccess> CategoryAccesses = new List<CategoryAccess>(); 
         public List<CategoryOperationAccess> CategoryOperationAccesses = new List<CategoryOperationAccess>();
         public List<OperationKey> OperationKeys = new List<OperationKey>();
+        public List<MenuItem> MenuItems = new List<MenuItem>();
         public CacheSettings CacheSettings = null;
 
         public Random ran = new Random();
@@ -85,6 +88,11 @@ namespace SunEngine.DataSeed
         public int NextOperationKeyId()
         {
             return operationKeyId++;
+        }
+        
+        public int NextMenuItemId()
+        {
+            return menuItemId++;
         }
 
         public int GetRandomUserId()

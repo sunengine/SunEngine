@@ -19,7 +19,7 @@ namespace SunEngine.Core.Cache.CacheModels
         public string CssClass { get; }
         public string ExternalUrl { get; }
         public bool IsSeparator { get; }
-        public string SortNumber { get; }
+        public int SortNumber { get; }
         public string Icon { get; }
         public string CustomIcon { get; }
 

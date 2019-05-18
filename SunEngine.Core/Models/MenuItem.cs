@@ -21,7 +21,7 @@ namespace SunEngine.Core.Models
         public string CssClass { get; set; }
         public string ExternalUrl { get; set; }
         public bool IsSeparator { get; set; }
-        public string SortNumber { get; set; }
+        public int SortNumber { get; set; }
         public string Icon { get; set; }
         public string CustomIcon { get; set; }
     }
