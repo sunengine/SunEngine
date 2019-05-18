@@ -15,7 +15,9 @@ namespace SunEngine.DataSeed
     /// </summary>
     public class InitialSeeder
     {
-        public const string CategoriesConfigDir = "CategoriesConfig";
+        public const string CategoriesConfigDir = "Categories";
+        public const string MenusConfigDir = "Menu";
+
 
         private readonly DataContainer dataContainer;
 
@@ -48,7 +50,16 @@ namespace SunEngine.DataSeed
             
             SeedCacheSettings();
 
+            SeedMenus();
+
             return dataContainer;
+        }
+
+        private void SeedMenus()
+        {
+            var path = Path.GetFullPath(Path.Combine(configDir, MenusConfigDir));
+            MenuSeeder menuSeeder = new MenuSeeder(dataContainer,path);
+            menuSeeder.Seed();
         }
 
         private void StartConsoleLog()
@@ -106,7 +117,7 @@ namespace SunEngine.DataSeed
         {
             Console.WriteLine("Roles");
 
-            string pathToUserGroupsConfig = Path.GetFullPath(configDir + "/Roles.json");
+            string pathToUserGroupsConfig = Path.GetFullPath(Path.Combine(configDir,"Roles.json"));
             string pathToUserGroupsSchema = Path.GetFullPath("Resources/Roles.schema.json");
             JsonSchema4 schema = JsonSchema4.FromFileAsync(pathToUserGroupsSchema).GetAwaiter().GetResult();
 

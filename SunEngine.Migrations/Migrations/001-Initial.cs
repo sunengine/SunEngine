@@ -189,6 +189,8 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("SubTitle").AsString(DbColumnSizes.MenuItems_SubTitle).Nullable()
                 .WithColumn("RouteName").AsString(DbColumnSizes.MenuItems_RouteName).Nullable()
                 .WithColumn("RouteParamsJson").AsMaxString().Nullable()
+                .WithColumn("Exact").AsBoolean().NotNullable()
+                .WithColumn("Roles").AsMaxString().Nullable()
                 .WithColumn("SettingsJson").AsMaxString().Nullable()
                 .WithColumn("CssClass").AsString(DbColumnSizes.MenuItems_CssClass).Nullable()
                 .WithColumn("ExternalUrl").AsMaxString().Nullable()

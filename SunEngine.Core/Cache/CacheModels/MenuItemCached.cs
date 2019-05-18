@@ -13,6 +13,7 @@ namespace SunEngine.Core.Cache.CacheModels
         public string SubTitle { get; }
         public string RouteName { get; }
         public string RouteParamsJson { get; }
+        public bool Exact { get; }
 
         [JsonIgnore] public IReadOnlyDictionary<int, RoleCached> Roles { get; }
         public string SettingsJson { get; }
@@ -33,6 +34,7 @@ namespace SunEngine.Core.Cache.CacheModels
             SubTitle = menuItem.SubTitle;
             RouteName = menuItem.RouteName;
             RouteParamsJson = menuItem.RouteParamsJson;
+            Exact = menuItem.Exact;
             SettingsJson = menuItem.SettingsJson;
             CssClass = menuItem.CssClass;
             ExternalUrl = menuItem.ExternalUrl;

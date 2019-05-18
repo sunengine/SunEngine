@@ -1,6 +1,9 @@
 using System.IO;
 using Newtonsoft.Json.Linq;
+using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Models;
+using SunEngine.Core.Models.Authorization;
+using SunEngine.Core.Security;
 
 namespace SunEngine.DataSeed
 {
@@ -26,7 +29,7 @@ namespace SunEngine.DataSeed
             }
         }
 
-        public MenuItem SeedMenuItem(JObject jObject)
+        private MenuItem SeedMenuItem(JObject jObject)
         {
             MenuItem menuItem = new MenuItem();
 
@@ -46,7 +49,10 @@ namespace SunEngine.DataSeed
             
             if (jObject.ContainsKey("RouteParams"))
                 menuItem.RouteParamsJson = (string)jObject["RouteParams"];
-
+            
+            if (jObject.ContainsKey("Exact"))
+                menuItem.Exact = (bool)jObject["Exact"];
+            
             if (jObject.ContainsKey("IsSeparator"))
                 menuItem.IsSeparator = (bool) jObject["IsSeparator"];
             
@@ -64,10 +70,12 @@ namespace SunEngine.DataSeed
             
             if (jObject.ContainsKey("ExternalUrl"))
                 menuItem.ExternalUrl = (string) jObject["ExternalUrl"];
-            
+
             if (jObject.ContainsKey("Roles"))
                 menuItem.Roles = (string) jObject["Roles"];
-
+            else
+                menuItem.Roles = string.Join(',', RoleNames.Unregistered, RoleNames.Registered); 
+            
             dataContainer.MenuItems.Add(menuItem);
 
             if (jObject.ContainsKey("SubMenuItems"))

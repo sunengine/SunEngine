@@ -56,6 +56,9 @@ namespace SunEngine.DataSeed
 
             Console.WriteLine("CategoryOperationAccesses");
             db.BulkCopy(options, dataContainer.CategoryOperationAccesses);
+            
+            Console.WriteLine("MenuItems");
+            db.BulkCopy(options, dataContainer.MenuItems);
 
             if (dataContainer.CacheSettings != null)
             {

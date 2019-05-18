@@ -16,6 +16,7 @@ namespace SunEngine.Core.Models
         public string SubTitle { get; set; }
         public string RouteName { get; set; }
         public string RouteParamsJson { get; set; }
+        public bool Exact { get; set; }
         public string Roles { get; set; }
         public string SettingsJson { get; set; }
         public string CssClass { get; set; }

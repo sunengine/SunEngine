@@ -1,5 +1,5 @@
 
-export default function prepareAllCategories(state, allMenuItems) {
+export default function prepareAllMenuItems(state, allMenuItems) {
 
   let menuItemsById = {};
 
@@ -21,11 +21,25 @@ export default function prepareAllCategories(state, allMenuItems) {
     }
   }
 
+  state.namedMenuItems = {};
+
   for(const menuItemId in menuItemsById) {
     const menuItem = menuItemsById[menuItemId];
 
     if(menuItem.name) {
       state.namedMenuItems[menuItem.name.toLowerCase()] = menuItem;
+    }
+  }
+
+  for(const menuItem of allMenuItems) {
+    if(menuItem.routeName) {
+      menuItem.to = {
+        name: menuItem.routeName,
+        params: menuItem.routeParamsJson
+      }
+    }
+    else if(menuItem.externalUrl) {
+      menuItem.to = menuItem.externalUrl;
     }
   }
 }

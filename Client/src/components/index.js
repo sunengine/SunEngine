@@ -1,11 +1,5 @@
-import LoaderSent from './LoaderSent'
-import LoaderWait from './LoaderWait'
-import MyEditor from './MyEditor'
-import Page from './Page'
-
-export {
-  LoaderSent,
-  LoaderWait,
-  MyEditor,
-  Page
-}
+export LoaderSent from './LoaderSent'
+export LoaderWait from './LoaderWait'
+export MyEditor from './MyEditor'
+export Page from './Page'
+export MenuItem from './MenuItem'

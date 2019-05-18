@@ -16,13 +16,23 @@ namespace SunEngine.Core.Cache.Services
     public class MenuCache : ISunMemoryCache, IMenuCache
     {
         private readonly IDataBaseFactory dataBaseFactory;
-        private readonly RolesCache rolesCache;
+        private readonly IRolesCache rolesCache;
 
-        public IReadOnlyList<MenuItemCached> AllMenuItems { get; private set; }
+        private IReadOnlyList<MenuItemCached> _allMenuItems;
+
+        public IReadOnlyList<MenuItemCached> AllMenuItems
+        {
+            get
+            {
+                if(_allMenuItems==null)
+                    Initialize();
+                return _allMenuItems;
+            }
+        }
 
         public MenuCache(
             IDataBaseFactory dataBaseFactory,
-            RolesCache rolesCache)
+            IRolesCache rolesCache)
         {
             this.dataBaseFactory = dataBaseFactory;
             this.rolesCache = rolesCache;
@@ -51,7 +61,7 @@ namespace SunEngine.Core.Cache.Services
                     allMenuItems.Add(new MenuItemCached(menuItem, roles));
                 }
 
-                AllMenuItems = allMenuItems.OrderBy(x=>x.SortNumber).ToImmutableList();
+                _allMenuItems = allMenuItems.OrderBy(x=>x.SortNumber).ToImmutableList();
             }
         }
 
@@ -62,7 +72,7 @@ namespace SunEngine.Core.Cache.Services
 
         public void Reset()
         {
-            AllMenuItems = null;
+            _allMenuItems = null;
         }
     }
 }

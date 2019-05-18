@@ -14,6 +14,9 @@ export default async function() {
   try {
     await this.dispatch('loadAllCategories');
 
+    await this.dispatch('loadAllMenuItems');
+
+
     registerLayouts(store);
 
     const routes = makeRoutesFromLayouts(store);
