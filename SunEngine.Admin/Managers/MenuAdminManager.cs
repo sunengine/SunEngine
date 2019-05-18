@@ -26,9 +26,7 @@ namespace SunEngine.Admin.Managers
             if (menuItem2 == null)
                 return ServiceResult.BadResult();
 
-            db.BeginTransaction();
-            
-            try
+            using (db.BeginTransaction())
             {
                 await db.MenuItems.Where(x => x.Id == menuItem.Id).Set(x => x.SortNumber, menuItem2.SortNumber)
                     .UpdateAsync();
@@ -37,12 +35,7 @@ namespace SunEngine.Admin.Managers
 
                 db.CommitTransaction();
             }
-            catch (Exception exception)
-            {
-                db.RollbackTransaction();
-                throw exception;
-            }
-
+           
             return ServiceResult.OkResult();
         }
         
@@ -59,9 +52,7 @@ namespace SunEngine.Admin.Managers
             if (menuItem2 == null)
                 return ServiceResult.BadResult();
             
-            db.BeginTransaction();
-            
-            try
+            using (db.BeginTransaction())
             {
                 await db.MenuItems.Where(x => x.Id == menuItem.Id).Set(x => x.SortNumber, menuItem2.SortNumber)
                     .UpdateAsync();
@@ -69,11 +60,6 @@ namespace SunEngine.Admin.Managers
                     .UpdateAsync();
 
                 db.CommitTransaction();
-            }
-            catch (Exception exception)
-            {
-                db.RollbackTransaction();
-                throw exception;
             }
 
             return ServiceResult.OkResult();

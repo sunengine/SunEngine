@@ -102,9 +102,7 @@ namespace SunEngine.Admin.Managers
             if (category2 == null)
                 return ServiceResult.BadResult();
 
-            db.BeginTransaction();
-            
-            try
+            using (db.BeginTransaction())
             {
                 await db.Categories.Where(x => x.Id == category.Id).Set(x => x.SortNumber, category2.SortNumber)
                     .UpdateAsync();
@@ -112,11 +110,6 @@ namespace SunEngine.Admin.Managers
                     .UpdateAsync();
 
                 db.CommitTransaction();
-            }
-            catch (Exception exception)
-            {
-                db.RollbackTransaction();
-                throw exception;
             }
 
             return ServiceResult.OkResult();
@@ -135,9 +128,8 @@ namespace SunEngine.Admin.Managers
             if (category2 == null)
                 return ServiceResult.BadResult();
             
-            db.BeginTransaction();
             
-            try
+            using(db.BeginTransaction())
             {
                 await db.Categories.Where(x => x.Id == category.Id).Set(x => x.SortNumber, category2.SortNumber)
                     .UpdateAsync();
@@ -146,11 +138,7 @@ namespace SunEngine.Admin.Managers
 
                 db.CommitTransaction();
             }
-            catch (Exception exception)
-            {
-                db.RollbackTransaction();
-                throw exception;
-            }
+          
 
             return ServiceResult.OkResult();
         }
