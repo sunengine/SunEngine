@@ -27,5 +27,10 @@ export default {
   },
   MyEditor: {
     uploadImages: "Upload image"
+  },
+  SectionTypes: {
+    Forum: "Forum",
+    Articles: "Articles",
+    Blog: "Blog"
   }
 }

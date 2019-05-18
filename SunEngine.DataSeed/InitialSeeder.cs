@@ -80,7 +80,7 @@ namespace SunEngine.DataSeed
             {
                 Id = dataContainer.NextSectionTypeId(),
                 Name = "Articles",
-                Title = "Статьи"
+                Title = "Articles"
             };
             dataContainer.SectionTypes.Add(sectionTypeArticles);
 
@@ -88,7 +88,7 @@ namespace SunEngine.DataSeed
             {
                 Id = dataContainer.NextSectionTypeId(),
                 Name = "Forum",
-                Title = "Форум"
+                Title = "Forum"
             };
             dataContainer.SectionTypes.Add(sectionTypeForum);
 
@@ -96,7 +96,7 @@ namespace SunEngine.DataSeed
             {
                 Id = dataContainer.NextSectionTypeId(),
                 Name = "Blog",
-                Title = "Блог"
+                Title = "Blog"
             };
             dataContainer.SectionTypes.Add(sectionTypeBlog);
         }
@@ -190,7 +190,7 @@ namespace SunEngine.DataSeed
 
         private void SeedCacheSettings()
         {
-            dataContainer.CacheSettings = new CacheSettings()
+            dataContainer.CacheSettings = new CacheSettings
             {
                 Id = 1,
                 CachePolicy = CachePolicy.CustomPolicy,

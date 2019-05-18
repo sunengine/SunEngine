@@ -126,7 +126,7 @@
       sectionTypeOptions() {
         return [{label: this.$tl("noTypeLabel"), value: unset}, ...this.sectionTypes?.map(x => {
           return {
-            label: x.title,
+            label: this.$t('SectionTypes.'+x.name),
             value: x.name
           }
         })];

@@ -1,5 +1,15 @@
 <template>
   <q-list class="my-menu" no-border>
+
+    <q-item :to="{name: 'MenuAdmin'}">
+      <q-item-section avatar>
+        <q-icon name="fas fa-bars"/>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $tl("menuAdmin") }}</q-item-label>
+      </q-item-section>
+    </q-item>
+
     <q-item :to="{name: 'CategoriesAdmin'}">
       <q-item-section avatar>
         <q-icon name="far fa-folder-open"/>
