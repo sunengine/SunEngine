@@ -38,8 +38,5 @@ export default function prepareAllMenuItems(state, allMenuItems) {
         params: menuItem.routeParamsJson
       }
     }
-    else if(menuItem.externalUrl) {
-      menuItem.to = menuItem.externalUrl;
-    }
   }
 }

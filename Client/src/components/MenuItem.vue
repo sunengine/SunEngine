@@ -1,7 +1,6 @@
 <template>
   <div>
-
-    <q-item v-if="menuItem.to" :to="menuItem.to" :exact="menuItem.exact">
+    <q-item v-if="(menuItem.to || menuItem.externalUrl) && !menuItem.subMenuItems" :to="menuItem.to" :clickable="true"  @click.native="goExternal()" :exact="menuItem.exact">
       <q-item-section avatar v-if="menuItem.icon">
         <q-icon :name="menuItem.icon"/>
       </q-item-section>
@@ -12,8 +11,8 @@
     </q-item>
 
     <q-expansion-item v-if="menuItem.subMenuItems" :icon="menuItem.icon" :label="menuItem.title" :caption="menuItem.subTitle"
-                      :to='menuItem.to' :exact="menuItem.exact">
-      <MenuItem :menuItem="subItem" v-for="subItem of menuItem.subMenuItems"/>
+                      @click.native="goExternal()"  :to='menuItem.to' :exact="menuItem.exact">
+      <MenuItem :menuItem="subItem" :key="subItem.id" v-for="subItem of menuItem.subMenuItems"/>
     </q-expansion-item>
   </div>
 </template>
@@ -24,6 +23,12 @@
     props: {
       menuItem: Object,
       required: true
+    },
+    methods: {
+      goExternal() {
+        if(this.menuItem.externalUrl)
+          window.open(this.menuItem.externalUrl);
+      }
     },
     beforeCreate() {
       this.$options.components.MenuItem = require('sun').MenuItem;

@@ -5,7 +5,7 @@
         <img src="/statics/SunEngine.svg" class="logo">
       </router-link>
     </div>
-    <MenuItem :menuItem="menuItem" v-for="menuItem of menu"/>
+    <MenuItem :menuItem="menuItem"  :key="menuItem.id" v-for="menuItem of menu"/>
     <!--  <q-item to='/' exact>
         <q-item-section avatar>
           <q-icon name="fas fa-home"/>
