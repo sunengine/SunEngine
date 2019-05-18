@@ -70,6 +70,9 @@ namespace SunEngine.DataSeed
             
             if (jObject.ContainsKey("ExternalUrl"))
                 menuItem.ExternalUrl = (string) jObject["ExternalUrl"];
+            
+            if (jObject.ContainsKey("IsHidden"))
+                menuItem.IsHidden = (bool) jObject["IsHidden"];
 
             if (jObject.ContainsKey("Roles"))
                 menuItem.Roles = (string) jObject["Roles"];
