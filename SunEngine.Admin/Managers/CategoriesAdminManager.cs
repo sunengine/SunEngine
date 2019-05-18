@@ -37,6 +37,12 @@ namespace SunEngine.Admin.Managers
             if (category == null)
                 throw new ArgumentNullException("Category can not be null");
 
+            if (string.IsNullOrEmpty(category.Name))
+                throw new InvalidModelException(nameof(category), nameof(category.Name));
+
+            if (string.IsNullOrEmpty(category.Title))
+                throw new InvalidModelException(nameof(category), nameof(category.Title));
+
             category.Header = sanitizer.Sanitize(category.Header);
             category.NameNormalized = Normalizer.Normalize(category.Name);
 
@@ -165,6 +171,14 @@ namespace SunEngine.Admin.Managers
     {
         public ParentCategoryNotFoundByIdException(int? parentId) : base($"Parent category (id:{parentId}) not found. Can not add category without parent")
         {
+        }
+    }
+
+    public class InvalidModelException : Exception
+    {
+        public InvalidModelException(string modelName, string propertyName, string message = "is null or empty") : base($"{modelName}.{propertyName} {message}")
+        {
+
         }
     }
 }
