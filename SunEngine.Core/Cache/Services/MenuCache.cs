@@ -39,7 +39,7 @@ namespace SunEngine.Core.Cache.Services
             using (var db = dataBaseFactory.CreateDb())
             {
                 var menuItems = db.MenuItems.ToDictionary(x => x.Id, x => x);
-                List<MenuItemCached> allMenuItems = new List<MenuItemCached>(menuItems.Count);
+                var allMenuItems = new List<MenuItemCached>(menuItems.Count);
 
                 foreach (var menuItem in menuItems.Values)
                 {
@@ -51,7 +51,7 @@ namespace SunEngine.Core.Cache.Services
                     allMenuItems.Add(new MenuItemCached(menuItem, roles));
                 }
 
-                AllMenuItems = allMenuItems;
+                AllMenuItems = allMenuItems.OrderBy(x=>x.SortNumber).ToImmutableList();
             }
         }
 

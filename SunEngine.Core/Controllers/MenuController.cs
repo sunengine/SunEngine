@@ -21,7 +21,7 @@ namespace SunEngine.Core.Controllers
         }
 
         [HttpPost]
-        public virtual IActionResult GetAllCategoriesAndAccesses()
+        public virtual IActionResult GetAllMenuItems()
         {
             var menu = menuCache.GetMenu(User.Roles);
             return Json(menu);

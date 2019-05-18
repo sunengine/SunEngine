@@ -3,6 +3,7 @@ export request from './request'
 export initStore from './initStore'
 export authModule from './auth'
 export categoriesModule from './categories'
+export menuModule from './menu'
 
 
 

@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import {authModule as auth} from 'sun'
 import {categoriesModule as categories} from 'sun'
+import {menuModule as menu} from 'sun'
 import {request} from 'sun'
 import {initStore} from 'sun'
 import {setStore} from 'sun'
@@ -28,7 +29,8 @@ export default function (/* { ssrContext } */) {
     },
     modules: {
       auth,
-      categories
+      categories,
+      menu
     }
   });
 
