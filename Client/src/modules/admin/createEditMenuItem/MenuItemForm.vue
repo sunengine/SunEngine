@@ -15,7 +15,49 @@
 </template>
 
 <script>
+  function createRules() {
+    return {
+      name: [
+        value => (!!value || value.length >= 3) || this.$tl("validation.name.minLength"),
+        value => value.length <= config.DbColumnSizes.MenuItems_Name || this.$tl("validation.name.maxLength"),
+        value => /^[a-zA-Z0-9_-]*$/.test(value) || this.$tl("validation.name.allowedChars"),
+      ],
+      title: [
+        value => !!value || this.$tl("validation.title.required"),
+        value => value.length >= 3 || this.$tl("validation.title.minLength"),
+        value => value.length <= config.DbColumnSizes.MenuItems_Title || this.$tl("validation.title.maxLength"),
+      ],
+      subTitle: [
+        value => (!!value || value.length >= 3) || this.$tl("validation.subTitle.minLength"),
+        value => value.length <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl("validation.subTitle.maxLength"),
+      ],
+      url: [],
+      cssClass: [
+        value => (!!value || value.length >= 3) || this.$tl("validation.cssClass.minLength"),
+        value => value.length <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl("validation.cssClass.maxLength"),
+      ],
+      icon: [
+        value => (!!value || value.length >= 3) || this.$tl("validation.icon.minLength"),
+        value => value.length <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl("validation.icon.maxLength"),
+      ],
+      customIcon: [
+        value => (!!value || value.length >= 3) || this.$tl("validation.customIcon.minLength"),
+        value => value.length <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl("validation.customIcon.maxLength"),
+      ],
+      settingsJson: [
+        value => JSON.parse(value) || this.$tl("validation.settingsJson.jsonFormatError")
+      ]
+    }
+  }
 
+  function isJson(str) {
+    try {
+      JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
 
   export default {
     name: "MenuItemForm",
@@ -46,6 +88,7 @@
         urlError: false
       }
     },
+    rules: null,
     watch: {
       'url': 'urlUpdated'
     },
@@ -70,6 +113,9 @@
 
         this.urlError = true;
       }
+    },
+    created() {
+      this.rules = createRules.call(this);
     }
   }
 
