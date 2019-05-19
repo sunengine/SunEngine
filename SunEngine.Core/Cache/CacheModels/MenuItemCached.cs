@@ -7,6 +7,8 @@ namespace SunEngine.Core.Cache.CacheModels
     public class MenuItemCached
     {
         public int Id { get; }
+        
+        public MenuItemCached Parent { get; }
         public int? ParentId { get; }
         public string Name { get; }
         public string Title { get; }

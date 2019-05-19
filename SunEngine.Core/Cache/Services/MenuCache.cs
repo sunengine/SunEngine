@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.DataBase;
+using SunEngine.Core.Models;
 
 namespace SunEngine.Core.Cache.Services
 {
@@ -24,7 +25,7 @@ namespace SunEngine.Core.Cache.Services
         {
             get
             {
-                if(_allMenuItems==null)
+                if (_allMenuItems == null)
                     Initialize();
                 return _allMenuItems;
             }
@@ -48,7 +49,7 @@ namespace SunEngine.Core.Cache.Services
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-                var menuItems = db.MenuItems.ToDictionary(x => x.Id, x => x);
+                var menuItems = db.MenuItems.Where(x => !x.IsHidden).ToDictionary(x => x.Id, x => x);
                 var allMenuItems = new List<MenuItemCached>(menuItems.Count);
 
                 foreach (var menuItem in menuItems.Values)
@@ -58,10 +59,27 @@ namespace SunEngine.Core.Cache.Services
                         .ToDictionary(x => x.Id, x => x)
                         .ToImmutableDictionary();
 
-                    allMenuItems.Add(new MenuItemCached(menuItem, roles));
+                    if(CheckIsVisible(menuItem))
+                        allMenuItems.Add(new MenuItemCached(menuItem, roles));
                 }
 
-                _allMenuItems = allMenuItems.OrderBy(x=>x.SortNumber).ToImmutableList();
+                _allMenuItems = allMenuItems.OrderBy(x => x.SortNumber).ToImmutableList();
+
+                bool CheckIsVisible(MenuItem menuItem)
+                {
+                    if (menuItem.IsHidden)
+                        return false;
+
+                    if (menuItem.ParentId.HasValue)
+                    {
+                        if (!menuItems.ContainsKey(menuItem.ParentId.Value))
+                            return false;
+
+                        return CheckIsVisible(menuItems[menuItem.ParentId.Value]);
+                    }
+
+                    return true;
+                }
             }
         }
 

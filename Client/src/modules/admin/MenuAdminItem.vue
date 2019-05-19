@@ -1,19 +1,21 @@
 <template>
-  <div>
+  <div :class="{'hdn': menuItem.isHidden}">
     {{menuItem.title}}
-    <q-btn class="q-ml-sm" :disabled="!(to || menuItem.externalUrl)" type="a" :to="to" @click="goExternal" icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
-    <q-btn :disabled="isFirst" @click="up" color="info" dense size="10px" flat
+    <q-btn class="q-ml-sm" :disabled="!(to || menuItem.externalUrl)" type="a" :to="to" @click="goExternal"
+           icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
+    <q-btn :disabled="isFirst" @click="$emit('up',menuItem)" color="info" dense size="10px" flat
            icon="fas fa-chevron-up"/>
-    <q-btn :disabled="isLast" @click="down" color="info" dense size="10px" flat
+    <q-btn :disabled="isLast" @click="$emit('down',menuItem)" color="info" dense size="10px" flat
            icon="fas fa-chevron-down"/>
     <q-btn @click="edit" icon="fas fa-pencil-alt" color="info" dense size="10px" flat/>
+    <q-btn @click="$emit('changeIsHidden',menuItem)" :icon="!menuItem.isHidden ? 'far fa-eye' : 'far fa-eye-slash'"
+           :color="!menuItem.isHidden ? 'info' : 'grey-5'" dense size="10px" flat/>
     <q-btn @click="remove" icon="fas fa-minus" color="info" dense size="10px" flat/>
-
     <span v-if="menuItem.name" class="q-pl-lg">[ {{menuItem.name}} ]</span>
 
-    <div v-if="menuItem.subMenuItems"  class="padding-mi">
+    <div v-if="menuItem.subMenuItems" class="padding-mi">
       <MenuAdminItem :menuItem="subMenuItem" :isFirst="index === 0" :isLast="index === lastIndex"
-                     :key="subMenuItem.id" v-for="(subMenuItem,index) in menuItem.subMenuItems"/>
+                     :key="subMenuItem.id" v-for="(subMenuItem,index) in menuItem.subMenuItems" v-on="$listeners"/>
     </div>
 
   </div>
@@ -26,11 +28,19 @@
       menuItem: {
         type: Object,
         required: true
+      },
+      isFirst: {
+        type: Boolean,
+        required: true
+      },
+      isLast: {
+        type: Boolean,
+        required: true
       }
     },
     computed: {
       to() {
-        if(this.menuItem.routeName) {
+        if (this.menuItem.routeName) {
           return {
             name: this.menuItem.routeName,
             params: this.menuItem.routeParamsJson
@@ -57,6 +67,11 @@
 </script>
 
 <style lang="stylus" scoped>
+  .hdn {
+    color: $grey-8;
+    filter: grayscale(1);
+  }
+
   .padding-mi {
     padding-left: 25px;
   }
