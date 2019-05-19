@@ -7,7 +7,13 @@ using SunEngine.Core.Services;
 
 namespace SunEngine.Admin.Managers
 {
-    public class MenuAdminManager  : DbService
+    public interface IMenuAdminManager
+    {
+        Task<ServiceResult> MenuItemUp(int id);
+        Task<ServiceResult> MenuItemDown(string name);
+    }
+
+    public class MenuAdminManager  : DbService, IMenuAdminManager
     {
         public MenuAdminManager(DataBaseConnection db) : base(db)
         {
@@ -64,6 +70,5 @@ namespace SunEngine.Admin.Managers
 
             return ServiceResult.OkResult();
         }
-
     }
 }

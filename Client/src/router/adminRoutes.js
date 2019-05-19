@@ -1,6 +1,7 @@
 import {AdminPage} from 'sun'
 import {AdminPanel} from 'sun'
 import {CategoriesAdmin} from 'sun'
+import {MenuAdmin} from 'sun'
 import {CreateCategory} from 'sun'
 import {EditCategory} from 'sun'
 import {RolesPermissions} from 'sun'
@@ -16,6 +17,14 @@ const routes = [
     components: {
       default: AdminPage,
       navigation: null,
+    }
+  },
+  {
+    name: 'MenuAdmin',
+    path: '/admin/MenuAdmin'.toLowerCase(),
+    components: {
+      default: MenuAdmin,
+      navigation: AdminPanel
     }
   },
   {
