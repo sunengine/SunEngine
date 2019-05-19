@@ -15,6 +15,7 @@ namespace SunEngine.Admin.Managers
         Task CreateAsync(MenuItem menuItem);
         Task UpdateAsync(MenuItem menuItem);
         Task<ServiceResult> SetIsHiddenAsync(int menuItemId, bool hidden);
+        Task DeleteAsync(int menuItemId);
     }
 
     public class MenuAdminManager : DbService, IMenuAdminManager
@@ -91,6 +92,12 @@ namespace SunEngine.Admin.Managers
         {
             int lines = await db.MenuItems.Where(x => x.Id == menuItemId).Set(x => x.IsHidden, x => isHidden).UpdateAsync();
             return lines == 0 ? ServiceResult.BadResult() : ServiceResult.OkResult();
+        }
+        
+        public virtual async Task DeleteAsync(int menuItemId)
+        {
+            int lines = await db.MenuItems.Where(x => x.Id == menuItemId).DeleteAsync();
+                throw new Exception("No items found to delete");
         }
 
         protected virtual string CheckAndSetRoles(string Roles)

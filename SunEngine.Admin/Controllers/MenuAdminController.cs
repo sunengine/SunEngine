@@ -73,5 +73,14 @@ namespace SunEngine.Admin.Controllers
 
             return Ok(menuItems);
         }
+        
+        public async Task<IActionResult> Delete(int menuItemId)
+        {
+            await menuAdminManager.DeleteAsync(menuItemId);
+            
+            menuCache.Reset();
+
+            return Ok();
+        }
     }
 }
