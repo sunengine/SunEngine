@@ -97,6 +97,7 @@ namespace SunEngine.Admin.Managers
         public virtual async Task DeleteAsync(int menuItemId)
         {
             int lines = await db.MenuItems.Where(x => x.Id == menuItemId).DeleteAsync();
+            if(lines == 0)
                 throw new Exception("No items found to delete");
         }
 
