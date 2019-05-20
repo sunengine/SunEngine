@@ -45,7 +45,7 @@
         value => value.length <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl("validation.customIcon.maxLength"),
       ],
       settingsJson: [
-        value => JSON.parse(value) || this.$tl("validation.settingsJson.jsonFormatError")
+        value => isJson(value) || this.$tl("validation.settingsJson.jsonFormatError")
       ]
     }
   }
@@ -53,7 +53,7 @@
   function isJson(str) {
     try {
       JSON.parse(str);
-    } catch (e) {
+    } catch {
       return false;
     }
     return true;
@@ -64,22 +64,7 @@
     props: {
       menuItem: {
         type: Object,
-        required: false,
-        default: {
-          id: 0,
-          name: '',
-          title: '',
-          subTitle: '',
-          exact: false,
-          routeName: '',
-          routeParamsJson: '',
-          cssClass: '',
-          externalUrl: '',
-          icon: '',
-          customIcon: '',
-          settingsJson: '',
-          isHidden: false
-        }
+        required: true
       }
     },
     data() {
