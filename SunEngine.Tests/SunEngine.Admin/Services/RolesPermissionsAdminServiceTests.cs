@@ -39,8 +39,9 @@ namespace SunEngine.Tests.SunEngine.Admin.Services
         [Fact]
         public async void ShouldGetGroupJson()
         {
-            var _rolesService = new RolesPermissionsAdminService(dbConnection, environment);
-            Assert.NotEqual(string.Empty, await _rolesService.GetGroupsJsonAsync());
+            var rolesService = new RolesPermissionsAdminService(dbConnection, environment);
+
+            Assert.NotEqual(string.Empty, await rolesService.GetGroupsJsonAsync());
         }
 
         
@@ -54,10 +55,13 @@ namespace SunEngine.Tests.SunEngine.Admin.Services
             {
                 await dbConnection.Roles.Set(x => x.Name, "test").UpdateAsync();
                 var before = dbConnection.Roles.Select(x => x.Name).ToList();
+
                 await rolesService.LoadUserGroupsFromJsonAsync(json);
+
                 var after = dbConnection.Roles.Select(x => x.Name).ToList();
-                Assert.NotEqual(before, after);
                 transaction.Rollback();
+
+                Assert.NotEqual(before, after);
             }  
         }
     }

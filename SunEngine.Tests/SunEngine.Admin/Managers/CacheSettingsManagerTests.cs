@@ -20,10 +20,10 @@ namespace SunEngine.Tests.SunEngine.Admin.Managers
         public CacheSettingsManagerTests()
         {
             dbConnection = DefaultInit.GetTestDataBaseConnection();
-            cacheSettingsManager = InitialiseDefaultSettingsManager();
+            cacheSettingsManager = InitializeDefaultSettingsManager();
         }
 
-        private CacheSettingsManager InitialiseDefaultSettingsManager()
+        private CacheSettingsManager InitializeDefaultSettingsManager()
         {
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddOptions<IOptions<CacheOptions>>();
@@ -43,10 +43,13 @@ namespace SunEngine.Tests.SunEngine.Admin.Managers
             {
                 var cacheSettings = dbConnection.CacheSettings.First();
                 var before = cacheSettings.InvalidateCacheTime;
+
                 cacheSettings.InvalidateCacheTime = 0;
                 await cacheSettingsManager.UpdateCachePolicy(cacheSettings);
+
                 var after = dbConnection.CacheSettings.First().InvalidateCacheTime;
                 transaction.Rollback();
+
                 Assert.NotEqual(after, before);
             }
         }
@@ -55,10 +58,9 @@ namespace SunEngine.Tests.SunEngine.Admin.Managers
         public async void ShouldThrowExceptionWhenCachePolicyIsNotDefined()
         {
             var cacheSettings = new CacheSettings{ CachePolicy = (CachePolicy)4, Id = 1, InvalidateCacheTime = 10};
+
             await Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
                 await cacheSettingsManager.UpdateCachePolicy(cacheSettings));
         }
-
-        
     }
 }
