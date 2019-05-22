@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Transactions;
 using LinqToDB;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.DataBase;
@@ -34,8 +33,7 @@ namespace SunEngine.Admin.Managers
 
         public async Task CreateCategoryAsync(Category category)
         {
-            if (category == null)
-                throw new ArgumentNullException("Category can not be null");
+            ValidateCategory(category);
 
             category.Header = sanitizer.Sanitize(category.Header);
             category.NameNormalized = Normalizer.Normalize(category.Name);
@@ -52,11 +50,23 @@ namespace SunEngine.Admin.Managers
                 await db.Categories.Where(x => x.Id == id).Set(x => x.SortNumber, id).UpdateAsync();
                 db.CommitTransaction();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 db.RollbackTransaction();
-                throw e;
+                throw;
             }
+        }
+
+        private void ValidateCategory(Category category)
+        {
+            if (category == null)
+                throw new ArgumentNullException("Category can not be null");
+
+            if (string.IsNullOrEmpty(category.Name))
+                throw new InvalidModelException(nameof(category), nameof(category.Name));
+
+            if (string.IsNullOrEmpty(category.Title))
+                throw new InvalidModelException(nameof(category), nameof(category.Title));
         }
 
 
@@ -113,10 +123,10 @@ namespace SunEngine.Admin.Managers
 
                 db.CommitTransaction();
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 db.RollbackTransaction();
-                throw exception;
+                throw;
             }
 
             return ServiceResult.OkResult();
@@ -146,10 +156,10 @@ namespace SunEngine.Admin.Managers
 
                 db.CommitTransaction();
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 db.RollbackTransaction();
-                throw exception;
+                throw;
             }
 
             return ServiceResult.OkResult();
@@ -164,6 +174,13 @@ namespace SunEngine.Admin.Managers
     public class ParentCategoryNotFoundByIdException : Exception
     {
         public ParentCategoryNotFoundByIdException(int? parentId) : base($"Parent category (id:{parentId}) not found. Can not add category without parent")
+        {
+        }
+    }
+
+    public class InvalidModelException : Exception
+    {
+        public InvalidModelException(string modelName, string propertyName, string message = "is null or empty") : base($"{modelName}.{propertyName} {message}")
         {
         }
     }
