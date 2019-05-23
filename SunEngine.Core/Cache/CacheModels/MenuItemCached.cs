@@ -44,7 +44,6 @@ namespace SunEngine.Core.Cache.CacheModels
             IsSeparator = menuItem.IsSeparator;
             SortNumber = menuItem.SortNumber;
             Icon = menuItem.Icon;
-            CustomIcon = menuItem.CustomIcon;
             IsHidden = menuItem.IsHidden;
             
             Roles = roles;

@@ -197,7 +197,6 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("IsSeparator").AsBoolean().NotNullable()
                 .WithColumn("SortNumber").AsInt32().NotNullable()
                 .WithColumn("Icon").AsString(DbColumnSizes.MenuItems_Icon).Nullable()
-                .WithColumn("CustomIcon").AsString(DbColumnSizes.MenuItems_CustomIcon).Nullable()
                 .WithColumn("IsHidden").AsBoolean().NotNullable();
         }
 
@@ -236,7 +235,6 @@ namespace SunEngine.Migrations.Migrations
         public const int MenuItems_RouteName = 64;
         public const int MenuItems_CssClass = 64;
         public const int MenuItems_Icon = 64;
-        public const int MenuItems_CustomIcon = 128;
     }
 
     internal static class MigratorExtensions

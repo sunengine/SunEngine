@@ -18,7 +18,7 @@
 
 
   export default {
-    name: 'CreateCategory',
+    name: 'CreateMenuItem',
     mixins: [Page],
     props: {
       parentMenuItemId: {
@@ -60,13 +60,13 @@
 
         await this.$store.dispatch('request',
           {
-            url: '/Admin/CategoriesAdmin/CreateCategory',
+            url: '/Admin/MenuAdmin/Create',
             data: this.category,
             sendAsJson: true
           })
           .then(() => {
             this.$successNotify();
-            this.$router.push({name: 'CategoriesAdmin'});
+            this.$router.push({name: 'AdminMenu'});
           }).catch(error => {
             this.$errorNotify(error);
             this.loading = false;
@@ -75,7 +75,7 @@
     },
     beforeCreate() {
       this.$options.components.LoaderSent = require('sun').LoaderSent;
-      this.$options.components.MenuAdminItem = require('sun').MenuAdminItem;
+      this.$options.components.MenuItemForm = require('sun').MenuItemForm;
     },
     async created() {
       this.title = this.$tl('title')

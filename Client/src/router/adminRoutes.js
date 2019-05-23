@@ -1,13 +1,14 @@
 import {AdminPage} from 'sun'
 import {AdminPanel} from 'sun'
 import {CategoriesAdmin} from 'sun'
-import {MenuAdmin} from 'sun'
+import {MenuItemsAdmin} from 'sun'
 import {CreateCategory} from 'sun'
 import {EditCategory} from 'sun'
 import {RolesPermissions} from 'sun'
 import {RoleUsers} from 'sun'
 import {RolesPage} from 'sun'
 import {CacheSettings} from 'sun'
+import {CreateMenuItem} from 'sun'
 
 
 const routes = [
@@ -20,10 +21,18 @@ const routes = [
     }
   },
   {
-    name: 'MenuAdmin',
-    path: '/admin/MenuAdmin'.toLowerCase(),
+    name: 'MenuItemsAdmin',
+    path: '/admin/MenuItemsAdmin'.toLowerCase(),
     components: {
-      default: MenuAdmin,
+      default: MenuItemsAdmin,
+      navigation: AdminPanel
+    }
+  },
+  {
+    name: 'CreateMenuItem',
+    path: '/admin/CreateMenuItem'.toLowerCase(),
+    components: {
+      default: CreateMenuItem,
       navigation: AdminPanel
     }
   },

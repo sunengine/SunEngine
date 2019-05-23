@@ -1,7 +1,7 @@
 <template>
   <q-list class="my-menu" no-border>
 
-    <q-item :to="{name: 'MenuAdmin'}">
+    <q-item :to="{name: 'MenuItemsAdmin'}">
       <q-item-section avatar>
         <q-icon name="fas fa-bars"/>
       </q-item-section>

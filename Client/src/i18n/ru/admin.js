@@ -1,4 +1,26 @@
 export default {
+  CreateMenuItem: {
+    createBtn: "@:Global.btn.create",
+    cancelBtn: "@:Global.btn.cancel",
+  },
+  MenuItemForm: {
+    name: "Идентификатор (eng)",
+    title: "Заголовок",
+    subTitle: "Подпись заголовка",
+    url: "Ссылка, внутренняя или внешняя",
+    exact: "Подсвечивать пункт меню только при точном совпадении адреса (exact)",
+    cssClass: "Css class",
+    icon: "Иконка",
+    settingsJson: "Кастомные настройки (Json)",
+    isHidden: "Спрятать",
+    validation: {
+      name: {
+        minLength: "Длинна должна быть не меньше 3 символов",
+        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.MenuItems_Name,
+        allowedChars: "Вы ввели недопустимые символы, разрешено использование только [a-zA-Z0-9_-] символов"
+      }
+    }
+  },
   CategoryForm: {
     name: "Имя категории (eng)",
     title: "Заголовок",
@@ -82,6 +104,11 @@ export default {
   },
   CategoryItem: {
     rootCategory: "Корневая категория"
+  },
+  MenuAdminItem: {},
+  MenuItemsAdmin: {
+    title: "Редактирование меню",
+    addMenuItemBtn: "Добавить пункт меню"
   },
   ProfileRoles: {
     roles: "Группы пользователя:",

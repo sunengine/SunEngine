@@ -7,7 +7,6 @@
     <q-checkbox ref="exact" v-model="menuItem.exact" :label="$tl('exact')"/>
     <q-input ref="cssClass" v-model="menuItem.cssClass" :label="$tl('cssClass')" :rules="rules.cssClass"/>
     <q-input ref="icon" v-model="menuItem.icon" :label="$tl('icon')" :rules="rules.icon"/>
-    <q-input ref="customIcon" v-model="menuItem.customIcon" :label="$tl('customIcon')" :rules="rules.customIcon"/>
     <q-input ref="settingsJson" type="textarea" v-model="menuItem.settingsJson" :label="$tl('settingsJson')"
              :rules="rules.settingsJson"/>
     <q-checkbox ref="isHidden" v-model="menuItem.isHidden" :label="$tl('isHidden')"/>
@@ -18,7 +17,7 @@
   function createRules() {
     return {
       name: [
-        value => (!!value || value.length >= 3) || this.$tl("validation.name.minLength"),
+        value => (!value || value.length >= 3) || this.$tl("validation.name.minLength"),
         value => value.length <= config.DbColumnSizes.MenuItems_Name || this.$tl("validation.name.maxLength"),
         value => /^[a-zA-Z0-9_-]*$/.test(value) || this.$tl("validation.name.allowedChars"),
       ],
@@ -28,7 +27,7 @@
         value => value.length <= config.DbColumnSizes.MenuItems_Title || this.$tl("validation.title.maxLength"),
       ],
       subTitle: [
-        value => (!!value || value.length >= 3) || this.$tl("validation.subTitle.minLength"),
+        value => (!value || value.length >= 3) || this.$tl("validation.subTitle.minLength"),
         value => value.length <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl("validation.subTitle.maxLength"),
       ],
       url: [],
@@ -39,10 +38,6 @@
       icon: [
         value => (!!value || value.length >= 3) || this.$tl("validation.icon.minLength"),
         value => value.length <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl("validation.icon.maxLength"),
-      ],
-      customIcon: [
-        value => (!!value || value.length >= 3) || this.$tl("validation.customIcon.minLength"),
-        value => value.length <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl("validation.customIcon.maxLength"),
       ],
       settingsJson: [
         value => isJson(value) || this.$tl("validation.settingsJson.jsonFormatError")

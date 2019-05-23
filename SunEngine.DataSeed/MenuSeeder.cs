@@ -65,9 +65,6 @@ namespace SunEngine.DataSeed
             if (jObject.ContainsKey("Icon"))
                 menuItem.Icon = (string) jObject["Icon"];
             
-            if (jObject.ContainsKey("CustomIcon"))
-                menuItem.CustomIcon = (string) jObject["CustomIcon"];
-            
             if (jObject.ContainsKey("ExternalUrl"))
                 menuItem.ExternalUrl = (string) jObject["ExternalUrl"];
             

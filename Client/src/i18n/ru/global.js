@@ -6,6 +6,7 @@ export default {
       ok: "Да"
     },
     btn: {
+      create: "Создать",
       save: "Сохранить",
       cancel: "Отмена"
     },

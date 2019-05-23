@@ -24,7 +24,6 @@ namespace SunEngine.Core.Models
         public bool IsSeparator { get; set; }
         public int SortNumber { get; set; }
         public string Icon { get; set; }
-        public string CustomIcon { get; set; }
         public bool IsHidden { get; set; }
 
     }

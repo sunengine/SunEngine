@@ -5,8 +5,8 @@
       <h2 class="q-title">
         {{$tl("title")}}
       </h2>
-      <q-btn icon="fas fa-plus" color="send" class="q-mr-lg" @click="add()" no-caps
-             :label="$tl('addCategoryBtn')"/>
+      <q-btn icon="fas fa-plus" color="send" class="q-mr-lg" type="a" :to="{name: 'CreateMenuItem'}" no-caps
+             :label="$tl('addMenuItemBtn')"/>
       <div class="clear"></div>
     </div>
 
@@ -22,7 +22,7 @@
   import {Page} from 'sun'
 
   export default {
-    name: "MenuAdmin",
+    name: "MenuItemsAdmin",
     mixins: [Page],
     data() {
       return {
