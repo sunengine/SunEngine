@@ -10,7 +10,7 @@
       <div class="clear"></div>
     </div>
 
-    <MenuAdminItem @up="up" @down="down" @changeIsHidden="changeIsHidden" :key="menuItem.id" v-if="menuItems"
+    <MenuAdminItem @up="up" @down="down" @add="add" @changeIsHidden="changeIsHidden" :key="menuItem.id" v-if="menuItems"
                    :menuItem="menuItem"
                    :isFirst="index === 0" :isLast="index === lastIndex" v-for="(menuItem,index) of menuItems"/>
 
@@ -21,6 +21,7 @@
 
 <script>
   import {Page} from 'sun'
+  import CreateMenuItem from "./CreateMenuItem";
 
   export default {
     name: "MenuItemsAdmin",
@@ -47,6 +48,9 @@
           }).then((response) => {
           this.setData(response.data);
         });
+      },
+      async add(menuItem) {
+        this.$router.push({name: 'CreateMenuItem', params: {parentMenuItemId: menuItem.id}});
       },
       async up(menuItem) {
         await this.$store.dispatch("request",

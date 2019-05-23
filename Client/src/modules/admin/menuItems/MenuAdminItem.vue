@@ -1,6 +1,6 @@
 <template>
   <div :class="{'hdn': menuItem.isHidden}">
-    <q-icon v-if="menuItem.icon" :name="menuItem.icon" class="q-mr-sm" color="grey-6" />
+    <q-icon :name="menuItem.icon ? menuItem.icon: 'far fa-file'" class="q-mr-sm" color="grey-6" />
     {{menuItem.title}}
     <q-btn class="q-ml-sm" :disabled="!(to || menuItem.externalUrl)" type="a" :to="to" @click="goExternal"
            icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
@@ -11,7 +11,8 @@
     <q-btn @click="" icon="fas fa-pencil-alt" color="info" dense size="10px" flat/>
     <q-btn @click="$emit('changeIsHidden',menuItem)" :icon="!menuItem.isHidden ? 'far fa-eye' : 'far fa-eye-slash'"
            :color="!menuItem.isHidden ? 'info' : 'grey-5'" dense size="10px" flat/>
-    <q-btn @click="remove" icon="fas fa-minus" color="info" dense size="10px" flat/>
+    <q-btn @click="$emit('add',menuItem)" icon="fas fa-plus" color="info" dense size="10px" flat/>
+    <q-btn @click="$emit('remove',menuItem)" icon="fas fa-minus" color="info" dense size="10px" flat/>
     <span v-if="menuItem.name" class="q-pl-lg">[ {{menuItem.name}} ]</span>
 
     <div v-if="menuItem.subMenuItems" class="padding-mi">

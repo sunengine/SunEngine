@@ -10,7 +10,8 @@
     <q-field v-if="parentOptions" :label="$tl('parent')" stack-label>
       <template v-slot:control>
         <div tabindex="0" class="no-outline full-width">
-           <q-icon v-if="parentIcon" :name="parentIcon" class="q-mr-xs"/> {{parentTitle}}
+          <q-icon :name="parentIcon" class="q-mr-xs" color="grey-7"/>
+          {{parentTitle}}
         </div>
       </template>
       <template v-slot:append>
@@ -101,14 +102,14 @@
     computed: {
       parentTitle() {
         const key = this.menuItem.parentId;
-        if(!this.menuItemsById[key])
+        if (!this.menuItemsById[key])
           return "";
         else
           return this.menuItemsById[key].title;
       },
       parentIcon() {
         const key = this.menuItem.parentId;
-        if(!this.menuItemsById[key])
+        if (!this.menuItemsById[key])
           return null;
         else
           return this.menuItemsById[key].icon;
@@ -157,6 +158,7 @@
 
         for (const menuItem of allMenuItems) {
           this.menuItemsById[menuItem.id.toString()] = menuItem;
+
         }
 
         let root;
@@ -172,8 +174,12 @@
 
             parent.children.push(menuItem);
             menuItem.parent = parent;
+
+            if (!menuItem.icon)
+              menuItem.icon = 'far fa-file';
           } else {
             root = menuItem;
+            root.icon = 'fas fa-dot-circle';
           }
         }
 

@@ -34,6 +34,10 @@ const routes = [
     components: {
       default: CreateMenuItem,
       navigation: AdminPanel
+    },
+    props: {
+      default: true,
+      navigation: null
     }
   },
   {
