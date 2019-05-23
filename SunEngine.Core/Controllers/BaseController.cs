@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -84,7 +85,7 @@ namespace SunEngine.Core.Controllers
         public async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, IEnumerable<int> categoryIds,
             Func<Task<T>> dataLoader, int page = 0)
         {
-            var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryIds);
+            var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryIds.ToArray());
             return await CacheContentAsync(category, key, dataLoader);
         }
 
