@@ -9,6 +9,9 @@ import {RoleUsers} from 'sun'
 import {RolesPage} from 'sun'
 import {CacheSettings} from 'sun'
 import {CreateMenuItem} from 'sun'
+import {EditMenuItem} from 'sun'
+
+
 
 
 const routes = [
@@ -30,9 +33,21 @@ const routes = [
   },
   {
     name: 'CreateMenuItem',
-    path: '/admin/CreateMenuItem'.toLowerCase(),
+    path: '/admin/CreateMenuItem/'.toLowerCase()+':parentMenuItemId?',
     components: {
       default: CreateMenuItem,
+      navigation: AdminPanel
+    },
+    props: {
+      default: true,
+      navigation: null
+    }
+  },
+  {
+    name: 'EditMenuItem',
+    path: '/admin/EditMenuItem/'.toLowerCase()+':menuItemId?',
+    components: {
+      default: EditMenuItem,
       navigation: AdminPanel
     },
     props: {

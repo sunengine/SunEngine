@@ -6,6 +6,7 @@ export CreateCategory from './categories/CreateCategory'
 export EditCategory from './categories/EditCategory'
 
 export CreateMenuItem from './menuItems/CreateMenuItem'
+export EditMenuItem from './menuItems/EditMenuItem'
 export MenuAdminItem from './menuItems/MenuAdminItem'
 export MenuItemForm from './menuItems/MenuItemForm'
 export MenuItemsAdmin from './menuItems/MenuItemsAdmin'
