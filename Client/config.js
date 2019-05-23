@@ -33,8 +33,7 @@ const config = {
     MenuItems_SubTitle: 64,
     MenuItems_RouteName: 64,
     MenuItems_CssClass: 64,
-    MenuItems_Icon: 64,
-    MenuItems_CustomIcon: 128
+    MenuItems_Icon: 64
   },
   PasswordValidation: {
     MinLength: 6,

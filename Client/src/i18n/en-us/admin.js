@@ -87,6 +87,26 @@ export default {
         minLength: "Minimal name length - 3",
         maxLength: "Maximum name length - " + config.DbColumnSizes.MenuItems_Name,
         allowedChars: "Only [a-zA-Z0-9_-] symbols allowed"
+      },
+      title: {
+        required: "Title required",
+        minLength: "Minimal title length - 3",
+        maxLength: "Maximum title length - " + config.DbColumnSizes.Categories_Title,
+      },
+      subTitle: {
+        minLength: "Minimal sub title length - 3",
+        maxLength: "Maximum sub title length - " + config.DbColumnSizes.MenuItems_SubTitle,
+      },
+      cssClass: {
+        minLength: "Minimal css class length - 3",
+        maxLength: "Maximum css class length - " + config.DbColumnSizes.MenuItems_CssClass,
+      },
+      icon: {
+        minLength: "Minimal icon length - 3",
+        maxLength: "Maximum icon length - " + config.DbColumnSizes.MenuItems_Icon,
+      },
+      settingsJson: {
+        jsonFormatError: "Invalid Json format",
       }
     }
   },

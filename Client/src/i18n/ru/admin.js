@@ -88,6 +88,26 @@ export default {
         minLength: "Длинна должна быть не меньше 3 символов",
         maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.MenuItems_Name,
         allowedChars: "Вы ввели недопустимые символы, разрешено использование только [a-zA-Z0-9_-] символов"
+      },
+      title: {
+        required: "Необходимо ввести заголовок",
+        minLength: "Длинна должна быть не меньше 3 символов",
+        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.Categories_Title,
+      },
+      subTitle: {
+        minLength: "Длинна должна быть не меньше 3 символов",
+        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.MenuItems_SubTitle,
+      },
+      cssClass: {
+        minLength: "Длинна должна быть не меньше 3 символов",
+        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.MenuItems_CssClass,
+      },
+      icon: {
+        minLength: "Длинна должна быть не меньше 3 символов",
+        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.MenuItems_Icon,
+      },
+      settingsJson: {
+        jsonFormatError: "Неверный формат Json",
       }
     }
   },
