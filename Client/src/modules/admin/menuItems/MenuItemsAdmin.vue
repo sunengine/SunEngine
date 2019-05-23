@@ -69,7 +69,7 @@
           this.setData(response.data);
         });
       },
-      prepairMenuItems(allMenuItems) {
+      prepareMenuItems(allMenuItems) {
         let menuItemsById = {};
 
         for (const menuItem of allMenuItems) {
@@ -100,10 +100,10 @@
           }
         }
 
-        return menuItemsRoot
+        return menuItemsRoot;
       },
       setData(data) {
-        this.menuItems = this.prepairMenuItems(data);
+        this.menuItems = this.prepareMenuItems(data);
       },
       async loadData() {
         await this.$store.dispatch("request",

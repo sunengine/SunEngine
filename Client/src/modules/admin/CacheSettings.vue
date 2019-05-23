@@ -9,7 +9,7 @@
         <q-select
           v-model="policy"
           :label="$tl('cachePolicy')"
-          :options="OptionTypes"/>
+          :options="optionTypes"/>
         <br/>
         <div v-if="policy !== null && policy.id !== 1">
           <q-input v-if="!withoutTime" ref="cacheTime" type="number"
@@ -34,7 +34,13 @@
 
 <script>
   import {Page} from 'sun'
-  import {cachePolicies} from 'sun'
+
+  const cachePolicies = {
+    Always: 0,
+    Never: 1,
+    Custom: 2
+  };
+
 
   function createRules() {
     return {
@@ -55,7 +61,7 @@
         loading: false,
         withoutTime: false,
         rules: null,
-        OptionTypes: [
+        optionTypes: [
           {id: cachePolicies.Always, label: this.$tl("alwaysPolicy"), value: "AlwaysPolicy"},
           {id: cachePolicies.Never, label: this.$tl("neverPolicy"), value: "NeverPolicy"},
           {id: cachePolicies.Custom, label: this.$tl("customPolicy"), value: "CustomPolicy"}
@@ -76,7 +82,7 @@
           });
       },
       async save() {
-        if (this.policy.id !== CachePolicies.Never && !this.withoutTime) {
+        if (this.policy.id !== cachePolicies.Never && !this.withoutTime) {
           const cacheTime = this.$refs.cacheTime;
           cacheTime.validate();
           if (cacheTime.hasError)

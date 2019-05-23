@@ -5,6 +5,29 @@
     <q-input ref="subTitle" v-model="menuItem.subTitle" :label="$tl('subTitle')" :rules="rules.subTitle"/>
     <q-input ref="url" @input="urlUpdated" v-model="url" :label="$tl('url')" :rules="rules.url"/>
     <q-checkbox ref="exact" v-model="menuItem.exact" :label="$tl('exact')"/>
+
+
+    <q-field v-if="parentOptions" :label="$tl('parent')" stack-label>
+      <template v-slot:control>
+        <div tabindex="0" class="no-outline full-width">
+
+        </div>
+      </template>
+      <template v-slot:append>
+        <q-icon name="expand_more"></q-icon>
+      </template>
+      <q-menu fit auto-close>
+        <q-tree
+          :nodes="parentOptions"
+          default-expand-all
+          :selected.sync="selectedParentMenuItem"
+         node-key="id"
+          label-key="title"
+        ></q-tree>
+      </q-menu>
+    </q-field>
+    <LoaderWait v-else/>
+
     <q-input ref="cssClass" v-model="menuItem.cssClass" :label="$tl('cssClass')" :rules="rules.cssClass"/>
     <q-input ref="icon" v-model="menuItem.icon" :label="$tl('icon')" :rules="rules.icon"/>
     <q-input ref="settingsJson" type="textarea" v-model="menuItem.settingsJson" :label="$tl('settingsJson')"
@@ -65,7 +88,10 @@
     data() {
       return {
         url: '',
-        urlError: false
+        urlError: false,
+        parentOptions: null,
+        menuItemsById: null,
+        selectedParentMenuItem: null
       }
     },
     rules: null,
@@ -110,10 +136,62 @@
         }
 
         this.urlError = true;
+      },
+      prepareMenuItems(allMenuItems) {
+
+        this.menuItemsById = {};
+
+        for (const menuItem of allMenuItems) {
+          this.menuItemsById['id' + menuItem.id] = menuItem;
+        }
+
+        for (let menuItem of allMenuItems) {
+          if (menuItem.parentId) {
+            const parent = this.menuItemsById['id' + menuItem.parentId];
+            if (!parent)
+              continue;
+
+            if (!parent.children)
+              parent.children = [];
+
+            parent.children.push(menuItem);
+            menuItem.parent = parent;
+          }
+        }
+
+        const menuItemsRoot = [];
+
+        for (const menuItemId in this.menuItemsById) {
+          const menuItem = this.menuItemsById[menuItemId];
+
+
+          if (menuItem.name) {
+            menuItemsRoot.push(menuItem);
+          }
+        }
+
+        this.parentOptions = menuItemsRoot;
+      },
+      async loadData() {
+        await this.$store.dispatch("request",
+          {
+            url: "/Admin/MenuAdmin/GetMenuItems",
+          })
+          .then(
+            response => {
+              this.prepareMenuItems(response.data);
+            }
+          ).catch(error => {
+            this.$errorNotify(error);
+          });
       }
     },
-    created() {
+    beforeCreate() {
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
+    },
+    async created() {
       this.rules = createRules.call(this);
+      await this.loadData();
     }
   }
 
