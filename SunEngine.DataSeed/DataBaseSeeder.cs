@@ -104,7 +104,7 @@ namespace SunEngine.DataSeed
                 string[] tablesWithSequenceIds =
                 {
                     "SectionTypes", "Categories", "AspNetUsers", "Materials", "Comments", "AspNetRoles",
-                    "CategoryAccesses", "Tags"
+                    "CategoryAccesses", "Tags", "MenuItems"
                 };
 
                 foreach (string tableName in tablesWithSequenceIds)

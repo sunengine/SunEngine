@@ -112,7 +112,6 @@
         required: true,
       },
     },
-
     data: function () {
       return {
         root: null,

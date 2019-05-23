@@ -6,7 +6,7 @@
         <q-icon name="fas fa-bars"/>
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $tl("menuAdmin") }}</q-item-label>
+        <q-item-label>{{ $tl("menuItemsAdmin") }}</q-item-label>
       </q-item-section>
     </q-item>
 

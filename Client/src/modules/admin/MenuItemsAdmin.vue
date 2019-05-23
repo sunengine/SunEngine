@@ -50,7 +50,7 @@
       async up(menuItem) {
         await this.$store.dispatch("request",
           {
-            url: "/Admin/MenuAdmin/MenuItemUp",
+            url: "/Admin/MenuAdmin/Up",
             data: {
               id: menuItem.id
             }
@@ -61,7 +61,7 @@
       async down(menuItem) {
         await this.$store.dispatch("request",
           {
-            url: "/Admin/MenuAdmin/MenuItemDown",
+            url: "/Admin/MenuAdmin/Down",
             data: {
               id: menuItem.id
             }

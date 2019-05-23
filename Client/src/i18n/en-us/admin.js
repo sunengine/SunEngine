@@ -46,7 +46,7 @@ export default {
     successNotify: "Category was updated.\nDon`t forget to reload the site in your browser."
   },
   AdminMenu: {
-    menuAdmin: "Menu",
+    menuItemsAdmin: "Menu",
     categoriesAdmin: "Categories",
     rolesPermissions: "Permission settings",
     rolesUsers: "Groups",

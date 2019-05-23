@@ -2,8 +2,10 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
+using SunEngine.Core.Cache.Services;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
+using SunEngine.Core.Security;
 using SunEngine.Core.Services;
 
 namespace SunEngine.Admin.Managers
@@ -20,8 +22,11 @@ namespace SunEngine.Admin.Managers
 
     public class MenuAdminManager : DbService, IMenuAdminManager
     {
-        public MenuAdminManager(DataBaseConnection db) : base(db)
+        private readonly IRolesCache rolesCache;
+
+        public MenuAdminManager(IRolesCache rolesCache, DataBaseConnection db) : base(db)
         {
+            this.rolesCache = rolesCache;
         }
 
         public virtual async Task<ServiceResult> UpAsync(int id)
@@ -78,6 +83,8 @@ namespace SunEngine.Admin.Managers
 
         public virtual Task CreateAsync(MenuItem menuItem)
         {
+            if (menuItem.ParentId == 0)
+                menuItem.ParentId = null;
             menuItem.Roles = CheckAndSetRoles(menuItem.Roles);
             return db.InsertWithIdentityAsync(menuItem);
         }
@@ -93,17 +100,21 @@ namespace SunEngine.Admin.Managers
             int lines = await db.MenuItems.Where(x => x.Id == menuItemId).Set(x => x.IsHidden, x => isHidden).UpdateAsync();
             return lines == 0 ? ServiceResult.BadResult() : ServiceResult.OkResult();
         }
-        
+
         public virtual async Task DeleteAsync(int menuItemId)
         {
             int lines = await db.MenuItems.Where(x => x.Id == menuItemId).DeleteAsync();
-            if(lines == 0)
+            if (lines == 0)
                 throw new Exception("No items found to delete");
         }
 
-        protected virtual string CheckAndSetRoles(string Roles)
+        protected virtual string CheckAndSetRoles(string roles)
         {
-            return "";
+            if (string.IsNullOrWhiteSpace(roles))
+                return string.Join(',', RoleNames.Unregistered, RoleNames.Registered);
+
+            var rolesNames = roles.Split(',').Select(x => x.Trim()).ToList().Where(x => rolesCache.AllRoles.ContainsKey(x));
+            return string.Join(',', rolesNames);
         }
     }
 }

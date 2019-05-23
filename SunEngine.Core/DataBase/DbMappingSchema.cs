@@ -112,8 +112,8 @@ namespace SunEngine.Core.DataBase
 
             mp.Entity<MenuItem>()
                 .HasTableName("MenuItems")
+                .HasIdentity(x => x.Id)
                 .HasPrimaryKey(x => x.Id);
-
         }
     }
 

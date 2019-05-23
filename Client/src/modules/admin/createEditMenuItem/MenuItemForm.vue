@@ -32,15 +32,15 @@
       ],
       url: [],
       cssClass: [
-        value => (!!value || value.length >= 3) || this.$tl("validation.cssClass.minLength"),
+        value => (!value || value.length >= 3) || this.$tl("validation.cssClass.minLength"),
         value => value.length <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl("validation.cssClass.maxLength"),
       ],
       icon: [
-        value => (!!value || value.length >= 3) || this.$tl("validation.icon.minLength"),
+        value => (!value || value.length >= 3) || this.$tl("validation.icon.minLength"),
         value => value.length <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl("validation.icon.maxLength"),
       ],
       settingsJson: [
-        value => isJson(value) || this.$tl("validation.settingsJson.jsonFormatError")
+        value => (!value || isJson(value)) || this.$tl("validation.settingsJson.jsonFormatError")
       ]
     }
   }
@@ -72,7 +72,25 @@
     watch: {
       'url': 'urlUpdated'
     },
+    computed: {
+      hasError() {
+        return this.$refs.name.hasError ||
+          this.$refs.title.hasError ||
+          this.$refs.subTitle.hasError ||
+          this.$refs.cssClass.hasError ||
+          this.$refs.icon.hasError ||
+          this.$refs.settingsJson.hasError;
+      }
+    },
     methods: {
+      validate() {
+        this.$refs.name.validate();
+        this.$refs.title.validate();
+        this.$refs.subTitle.validate();
+        this.$refs.cssClass.validate();
+        this.$refs.icon.validate();
+        this.$refs.settingsJson.validate();
+      },
       urlUpdated() {
         if (this.url.startsWith(config.SiteUrl)) {
           const resolved = this.$router.resolve(this.url);

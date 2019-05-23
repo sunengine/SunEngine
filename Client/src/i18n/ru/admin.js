@@ -68,7 +68,7 @@ export default {
     successNotify: "Категория обновлена.\nНе забудьте перегрузить сайт для обновления."
   },
   AdminMenu: {
-    menuAdmin: "Меню",
+    menuItemsAdmin: "Меню",
     categoriesAdmin: "Категории",
     rolesPermissions: "Настройка прав",
     rolesUsers: "Группы пользователей",

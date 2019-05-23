@@ -1,8 +1,6 @@
 using System.IO;
 using Newtonsoft.Json.Linq;
-using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Models;
-using SunEngine.Core.Models.Authorization;
 using SunEngine.Core.Security;
 
 namespace SunEngine.DataSeed

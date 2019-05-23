@@ -55,18 +55,20 @@
         if (form.hasError)
           return;
 
-
         this.loading = true;
+
+        if(this.menuItem.parentId === 0)
+          delete this.menuItem.parentId;
 
         await this.$store.dispatch('request',
           {
             url: '/Admin/MenuAdmin/Create',
-            data: this.category,
+            data: this.menuItem,
             sendAsJson: true
           })
           .then(() => {
             this.$successNotify();
-            this.$router.push({name: 'AdminMenu'});
+            this.$router.push({name: 'MenuItemsAdmin'});
           }).catch(error => {
             this.$errorNotify(error);
             this.loading = false;

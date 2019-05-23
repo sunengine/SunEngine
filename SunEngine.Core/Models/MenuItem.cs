@@ -1,10 +1,3 @@
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using SunEngine.Core.Models.Authorization;
-using SunEngine.Core.Security;
-
 namespace SunEngine.Core.Models
 {
     public class MenuItem
