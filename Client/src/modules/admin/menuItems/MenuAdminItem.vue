@@ -12,7 +12,7 @@
     <q-btn @click="$emit('changeIsHidden',menuItem)" :icon="!menuItem.isHidden ? 'far fa-eye' : 'far fa-eye-slash'"
            :color="!menuItem.isHidden ? 'info' : 'grey-5'" dense size="10px" flat/>
     <q-btn @click="$emit('add',menuItem)" icon="fas fa-plus" color="info" dense size="10px" flat/>
-    <q-btn @click="$emit('remove',menuItem)" icon="fas fa-minus" color="info" dense size="10px" flat/>
+    <q-btn @click="$emit('deleteMenuItem',menuItem)" icon="fas fa-minus" color="info" dense size="10px" flat/>
     <span v-if="menuItem.name" class="q-pl-lg">[ {{menuItem.name}} ]</span>
 
     <div v-if="menuItem.subMenuItems" class="padding-mi">

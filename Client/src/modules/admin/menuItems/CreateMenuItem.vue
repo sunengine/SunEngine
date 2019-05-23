@@ -58,7 +58,7 @@
         this.loading = true;
 
         if(this.menuItem.parentId === 0)
-          delete this.menuItem.parentId;
+          this.menuItem.parentId = undefined;
 
         await this.$store.dispatch('request',
           {

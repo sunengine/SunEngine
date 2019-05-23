@@ -6,7 +6,6 @@
     <q-input ref="url" @input="urlUpdated" v-model="url" :label="$tl('url')" :rules="rules.url"/>
     <q-checkbox ref="exact" v-model="menuItem.exact" :label="$tl('exact')"/>
 
-
     <q-field v-if="parentOptions" :label="$tl('parent')" stack-label>
       <template v-slot:control>
         <div tabindex="0" class="no-outline full-width">
@@ -134,10 +133,11 @@
       },
       urlUpdated() {
         if (this.url.startsWith(config.SiteUrl)) {
-          const resolved = this.$router.resolve(this.url);
+          const lastPart = this.url.substring(config.SiteUrl.length);
+          const resolved = this.$router.resolve(lastPart);
           if (resolved && resolved.route) {
             this.menuItem.routeName = resolved.route.name;
-            this.menuItem.routeParamsJson = resolved.route.params;
+            this.menuItem.routeParamsJson = JSON.stringify(resolved.route.params);
             this.menuItem.externalUrl = '';
             this.urlError = false;
             return;

@@ -110,7 +110,10 @@ export default {
   MenuAdminItem: {},
   MenuItemsAdmin: {
     title: "Редактирование меню",
-    addMenuItemBtn: "Добавить пункт меню"
+    addMenuItemBtn: "Добавить пункт меню",
+    deleteMsg: "Удалить пункт меню?",
+    btnDeleteOk: "@:Global.dialog.ok",
+    btnDeleteCancel: "@:Global.dialog.cancel"
   },
   ProfileRoles: {
     roles: "Группы пользователя:",

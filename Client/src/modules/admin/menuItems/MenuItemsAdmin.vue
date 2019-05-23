@@ -10,7 +10,7 @@
       <div class="clear"></div>
     </div>
 
-    <MenuAdminItem @up="up" @down="down" @add="add" @changeIsHidden="changeIsHidden" :key="menuItem.id" v-if="menuItems"
+    <MenuAdminItem @up="up" @down="down" @add="add" @deleteMenuItem="deleteMenuItem" @changeIsHidden="changeIsHidden" :key="menuItem.id" v-if="menuItems"
                    :menuItem="menuItem"
                    :isFirst="index === 0" :isLast="index === lastIndex" v-for="(menuItem,index) of menuItems"/>
 
@@ -47,6 +47,27 @@
             }
           }).then((response) => {
           this.setData(response.data);
+        });
+      },
+      async deleteMenuItem(menuItem) {
+        const deleteMsg = this.$tl("deleteMsg");
+        const btnDeleteOk = this.$tl("btnDeleteOk");
+        const btnDeleteCancel = this.$tl("btnDeleteCancel");
+
+        this.$q.dialog({
+          message: deleteMsg,
+          ok: btnDeleteOk,
+          cancel: btnDeleteCancel
+        }).onOk(async () => {
+          await this.$store.dispatch("request",
+            {
+              url: "/Admin/MenuAdmin/Delete",
+              data: {
+                menuItemId: menuItem.id
+              }
+            }).then((response) => {
+            this.setData(response.data);
+          });
         });
       },
       async add(menuItem) {
