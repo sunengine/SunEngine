@@ -10,7 +10,7 @@
     <q-field v-if="parentOptions" :label="$tl('parent')" stack-label>
       <template v-slot:control>
         <div tabindex="0" class="no-outline full-width">
-
+           <q-icon v-if="parentIcon" :name="parentIcon" class="q-mr-xs"/> {{parentTitle}}
         </div>
       </template>
       <template v-slot:append>
@@ -20,8 +20,8 @@
         <q-tree
           :nodes="parentOptions"
           default-expand-all
-          :selected.sync="selectedParentMenuItem"
-         node-key="id"
+          :selected.sync="menuItem.parentId"
+          node-key="id"
           label-key="title"
         ></q-tree>
       </q-menu>
@@ -99,6 +99,20 @@
       'url': 'urlUpdated'
     },
     computed: {
+      parentTitle() {
+        const key = this.menuItem.parentId;
+        if(!this.menuItemsById[key])
+          return "";
+        else
+          return this.menuItemsById[key].title;
+      },
+      parentIcon() {
+        const key = this.menuItem.parentId;
+        if(!this.menuItemsById[key])
+          return null;
+        else
+          return this.menuItemsById[key].icon;
+      },
       hasError() {
         return this.$refs.name.hasError ||
           this.$refs.title.hasError ||
@@ -142,12 +156,14 @@
         this.menuItemsById = {};
 
         for (const menuItem of allMenuItems) {
-          this.menuItemsById['id' + menuItem.id] = menuItem;
+          this.menuItemsById[menuItem.id.toString()] = menuItem;
         }
+
+        let root;
 
         for (let menuItem of allMenuItems) {
           if (menuItem.parentId) {
-            const parent = this.menuItemsById['id' + menuItem.parentId];
+            const parent = this.menuItemsById[menuItem.parentId.toString()];
             if (!parent)
               continue;
 
@@ -156,21 +172,12 @@
 
             parent.children.push(menuItem);
             menuItem.parent = parent;
+          } else {
+            root = menuItem;
           }
         }
 
-        const menuItemsRoot = [];
-
-        for (const menuItemId in this.menuItemsById) {
-          const menuItem = this.menuItemsById[menuItemId];
-
-
-          if (menuItem.name) {
-            menuItemsRoot.push(menuItem);
-          }
-        }
-
-        this.parentOptions = menuItemsRoot;
+        this.parentOptions = [root];
       },
       async loadData() {
         await this.$store.dispatch("request",

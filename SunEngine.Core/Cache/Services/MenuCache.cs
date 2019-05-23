@@ -12,6 +12,8 @@ namespace SunEngine.Core.Cache.Services
     {
         IList<MenuItemCached> GetMenu(IReadOnlyDictionary<string, RoleCached> Roles);
         IReadOnlyList<MenuItemCached> AllMenuItems { get; }
+
+        MenuItemCached RootMenuItem { get; }
     }
 
     public class MenuCache : ISunMemoryCache, IMenuCache
@@ -20,6 +22,8 @@ namespace SunEngine.Core.Cache.Services
         private readonly IRolesCache rolesCache;
 
         private IReadOnlyList<MenuItemCached> _allMenuItems;
+
+        public MenuItemCached RootMenuItem { get; private set; }
 
         public IReadOnlyList<MenuItemCached> AllMenuItems
         {
@@ -42,7 +46,11 @@ namespace SunEngine.Core.Cache.Services
 
         public IList<MenuItemCached> GetMenu(IReadOnlyDictionary<string, RoleCached> Roles)
         {
-            return AllMenuItems.Where(menuItem => Roles.Values.Any(role => menuItem.Roles.ContainsKey(role.Id))).ToList();
+            var menuItems = new List<MenuItemCached> {RootMenuItem};
+
+            menuItems.AddRange(AllMenuItems.Where(menuItem => Roles.Values.Any(role => menuItem.Roles.ContainsKey(role.Id))));
+
+            return menuItems;
         }
 
         public void Initialize()
@@ -54,16 +62,27 @@ namespace SunEngine.Core.Cache.Services
 
                 foreach (var menuItem in menuItems.Values)
                 {
-                    var roles = menuItem.Roles.Split(',')
-                        .Select(x => rolesCache.GetRole(x))
-                        .ToDictionary(x => x.Id, x => x)
-                        .ToImmutableDictionary();
+                    ImmutableDictionary<int, RoleCached> roles;
+                    if (menuItem.Roles != null)
+                    {
+                        roles = menuItem.Roles.Split(',')
+                            .Select(x => rolesCache.GetRole(x))
+                            .ToDictionary(x => x.Id, x => x)
+                            .ToImmutableDictionary();
+                    }
+                    else
+                    {
+                        roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
+                    }
+                    
 
-                    if(CheckIsVisible(menuItem))
+                    if (CheckIsVisible(menuItem))
                         allMenuItems.Add(new MenuItemCached(menuItem, roles));
                 }
 
                 _allMenuItems = allMenuItems.OrderBy(x => x.SortNumber).ToImmutableList();
+
+                RootMenuItem = _allMenuItems.First(x => x.Id == 1);
 
                 bool CheckIsVisible(MenuItem menuItem)
                 {

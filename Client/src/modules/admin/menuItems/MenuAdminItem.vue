@@ -1,5 +1,6 @@
 <template>
   <div :class="{'hdn': menuItem.isHidden}">
+    <q-icon v-if="menuItem.icon" :name="menuItem.icon" class="q-mr-sm" color="grey-6" />
     {{menuItem.title}}
     <q-btn class="q-ml-sm" :disabled="!(to || menuItem.externalUrl)" type="a" :to="to" @click="goExternal"
            icon="fas fa-arrow-right" color="info" dense size="10px" flat/>

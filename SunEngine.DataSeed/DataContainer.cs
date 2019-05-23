@@ -16,7 +16,7 @@ namespace SunEngine.DataSeed
         
         private int currentSectionTypeId = 1;
 
-        private int currentCategoryId = 1;
+        private int currentCategoryId = 2;
 
         public int currentCommentId = 1;
 
@@ -28,11 +28,12 @@ namespace SunEngine.DataSeed
 
         private int operationKeyId = 1;
         
-        private int menuItemId = 1;
+        private int menuItemId = 2;
         
         private DateTime commentPublishDate = DateTime.UtcNow.AddMinutes(-3);
 
         public Category RootCategory;
+        public MenuItem RootMenuItem;
         public List<SectionType> SectionTypes = new List<SectionType>(); 
         public List<Category> Categories = new List<Category>();
         public List<Comment> Comments = new List<Comment>();

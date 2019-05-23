@@ -174,14 +174,13 @@ namespace SunEngine.DataSeed
 
         private void SeedRootCategory()
         {
-            int id = dataContainer.NextCategoryId();
             Category rootCategory = new Category
             {
-                Id = id,
+                Id = 1,
                 Name = Category.RootName,
                 NameNormalized = Normalizer.Normalize(Category.RootName),
                 Title = Category.RootName,
-                SortNumber = id
+                SortNumber = 1
             };
             dataContainer.RootCategory = rootCategory;
             dataContainer.Categories.Add(rootCategory);

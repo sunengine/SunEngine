@@ -10,7 +10,8 @@
       <div class="clear"></div>
     </div>
 
-    <MenuAdminItem @up="up" @down="down" @changeIsHidden="changeIsHidden" :key="menuItem.id" v-if="menuItems" :menuItem="menuItem"
+    <MenuAdminItem @up="up" @down="down" @changeIsHidden="changeIsHidden" :key="menuItem.id" v-if="menuItems"
+                   :menuItem="menuItem"
                    :isFirst="index === 0" :isLast="index === lastIndex" v-for="(menuItem,index) of menuItems"/>
 
     <LoaderWait v-else/>
@@ -73,12 +74,14 @@
         let menuItemsById = {};
 
         for (const menuItem of allMenuItems) {
-          menuItemsById['id' + menuItem.id] = menuItem;
+          menuItemsById[menuItem.id.toString()] = menuItem;
         }
+
+        let root;
 
         for (let menuItem of allMenuItems) {
           if (menuItem.parentId) {
-            const parent = menuItemsById['id' + menuItem.parentId];
+            const parent = menuItemsById[menuItem.parentId.toString()];
             if (!parent)
               continue;
 
@@ -87,20 +90,13 @@
 
             parent.subMenuItems.push(menuItem);
             menuItem.parent = parent;
+
+          } else {
+            root = menuItem;
           }
         }
 
-        const menuItemsRoot = [];
-
-        for (const menuItemId in menuItemsById) {
-          const menuItem = menuItemsById[menuItemId];
-
-          if (menuItem.name) {
-            menuItemsRoot.push(menuItem);
-          }
-        }
-
-        return menuItemsRoot;
+        return root.subMenuItems;
       },
       setData(data) {
         this.menuItems = this.prepareMenuItems(data);

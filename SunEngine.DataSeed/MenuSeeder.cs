@@ -18,18 +18,27 @@ namespace SunEngine.DataSeed
 
         public void Seed()
         {
+            dataContainer.RootMenuItem = new MenuItem
+            {
+                Id = 1,
+                Title = "Root",
+                Name = "Root"
+            };
+            dataContainer.MenuItems.Add(dataContainer.RootMenuItem);
+            
             var files = Directory.GetFiles(configDir);
             foreach (var file in files)
             {
                 string jsonText = File.ReadAllText(file);
                 JObject jObject = JObject.Parse(jsonText);
-                SeedMenuItem(jObject);
+                MenuItem menuItem = SeedMenuItem(jObject);
+                menuItem.ParentId = dataContainer.RootMenuItem.Id;
             }
         }
 
         private MenuItem SeedMenuItem(JObject jObject)
         {
-            MenuItem menuItem = new MenuItem();
+            var menuItem = new MenuItem();
 
             menuItem.Id = dataContainer.NextMenuItemId();
             menuItem.SortNumber = menuItem.Id;
