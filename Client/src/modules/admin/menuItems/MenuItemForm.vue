@@ -3,7 +3,24 @@
     <q-input ref="name" v-model="menuItem.name" :label="$tl('name')" :rules="rules.name"/>
     <q-input ref="title" v-model="menuItem.title" :label="$tl('title')" :rules="rules.title"/>
     <q-input ref="subTitle" v-model="menuItem.subTitle" :label="$tl('subTitle')" :rules="rules.subTitle"/>
-    <q-input ref="url" @input="urlUpdated" v-model="url" :label="$tl('url')" :rules="rules.url"/>
+    <q-input ref="url" @input="urlUpdated" v-model="url" :label="$tl('url')" :rules="rules.url">
+      <div slot="hint">
+        <div v-if="menuItem.routeName" class="text-positive">
+          [{{$tl("local")}}: RouteName={{menuItem.routeName}}
+          <template v-if="menuItem.routeParamsJson">
+            Params={{menuItem.routeParamsJson}}
+          </template>
+          ]
+        </div>
+        <div v-else-if="menuItem.externalUrl" class="text-positive">
+          [{{$tl("external")}}]
+        </div>
+        <div v-else-if="urlError" class="text-red-8">
+          [{{$tl("urlError")}}]
+        </div>
+      </div>
+    </q-input>
+
     <q-checkbox ref="exact" v-model="menuItem.exact" :label="$tl('exact')"/>
 
     <q-field v-if="parentOptions" :label="$tl('parent')" stack-label>
@@ -23,7 +40,14 @@
           :selected.sync="menuItem.parentId"
           node-key="id"
           label-key="title"
-        ></q-tree>
+        >
+          <template v-slot:default-header="prop">
+            <div style="margin:0; padding: 0;">
+              <q-icon :name="prop.node.icon" class="q-mr-sm" color="grey-7" size="16px"/>
+              <span>{{prop.node.title}}</span>
+            </div>
+          </template>
+        </q-tree>
       </q-menu>
     </q-field>
     <LoaderWait v-else/>
@@ -132,25 +156,45 @@
         this.$refs.settingsJson.validate();
       },
       urlUpdated() {
-        if (this.url.startsWith(config.SiteUrl)) {
-          const lastPart = this.url.substring(config.SiteUrl.length);
-          const resolved = this.$router.resolve(lastPart);
-          if (resolved && resolved.route) {
-            this.menuItem.routeName = resolved.route.name;
-            this.menuItem.routeParamsJson = JSON.stringify(resolved.route.params);
+
+        const resolve = function resolve(url) {
+          if (!url) {
+            this.menuItem.routeName = '';
+            this.menuItem.routeParamsJson = '';
             this.menuItem.externalUrl = '';
             this.urlError = false;
             return;
           }
+
+          const resolved = this.$router.resolve(url);
+
+          if (resolved && resolved.route && resolved.route.name) {
+            this.menuItem.routeName = resolved.route.name;
+            this.menuItem.routeParamsJson = JSON.stringify(resolved.route.params);
+            if (this.menuItem.routeParamsJson === '{}') {
+              this.menuItem.routeParamsJson = null;
+            }
+            this.menuItem.externalUrl = '';
+            this.urlError = false;
+          } else {
+            this.menuItem.routeName = '';
+            this.menuItem.routeParamsJson = '';
+            this.menuItem.externalUrl = '';
+            this.urlError = true;
+          }
+        }.bind(this);
+
+        if (this.url.startsWith(config.SiteUrl)) {
+          const lastPart = this.url.substring(config.SiteUrl.length);
+          resolve(lastPart);
         } else if (this.url.startsWith('http://') || this.url.startsWith('https://')) {
           this.menuItem.routeName = '';
           this.menuItem.routeParamsJson = '';
           this.menuItem.externalUrl = this.url;
           this.urlError = false;
-          return;
+        } else {
+          resolve(this.url);
         }
-
-        this.urlError = true;
       },
       prepareMenuItems(allMenuItems) {
 
@@ -210,6 +254,9 @@
 
 </script>
 
-<style scoped>
-
+<style lang="stylus" scoped>
+  >>> .q-tree__node-header {
+    padding: 2px 4px !important;
+    margin: 0;
+  }
 </style>

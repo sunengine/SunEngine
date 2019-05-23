@@ -15,6 +15,9 @@ export default {
     icon: "Иконка",
     settingsJson: "Кастомные настройки (Json)",
     isHidden: "Спрятать",
+    local: "Локальная ссылка",
+    external: "Внешняя ссылка",
+    urlError: "Введена некорректная ссылка",
     validation: {
       name: {
         minLength: "Длинна должна быть не меньше 3 символов",
