@@ -1,8 +1,10 @@
 export registerLayouts from './registerLayouts'
 export request from './request'
 export initStore from './initStore'
+export initUser from './initUser'
 export authModule from './auth'
 export categoriesModule from './categories'
+export menuModule from './menu'
 
 
 

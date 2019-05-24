@@ -1,6 +1,6 @@
 <template>
   <q-page class="page-padding">
-    <CategoryForm ref="form" :category="category"/>
+    <MenuItemForm ref="form" :menuItem="menuItem"/>
 
     <div class="btn-block">
       <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$tl('createBtn')" @click="save"
@@ -18,10 +18,10 @@
 
 
   export default {
-    name: 'CreateCategory',
+    name: 'CreateMenuItem',
     mixins: [Page],
     props: {
-      parentCategoryId: {
+      parentMenuItemId: {
         type: Number,
         required: false,
         default: 1
@@ -29,18 +29,21 @@
     },
     data() {
       return {
-        category: {
+        menuItem: {
+          id: 0,
+          parentId: this.parentMenuItemId,
           name: '',
           title: '',
-          description: '',
-          header: '',
-          layoutName: '',
-          sectionTypeName: 'unset',
-          isMaterialsContainer: true,
-          areaRoot: false,
-          parentId: this.parentCategoryId,
-          isHidden: false,
-          isCacheContent: false
+          subTitle: '',
+          exact: false,
+          routeName: '',
+          routeParamsJson: '',
+          cssClass: '',
+          externalUrl: '',
+          icon: '',
+          customIcon: '',
+          settingsJson: '',
+          isHidden: false
         },
         loading: false
       }
@@ -52,18 +55,20 @@
         if (form.hasError)
           return;
 
-
         this.loading = true;
+
+        if(this.menuItem.parentId === 0)
+          this.menuItem.parentId = undefined;
 
         await this.$store.dispatch('request',
           {
-            url: '/Admin/CategoriesAdmin/CreateCategory',
-            data: this.category,
+            url: '/Admin/MenuAdmin/Create',
+            data: this.menuItem,
             sendAsJson: true
           })
           .then(() => {
             this.$successNotify();
-            this.$router.push({name: 'CategoriesAdmin'});
+            this.$router.push({name: 'MenuItemsAdmin'});
           }).catch(error => {
             this.$errorNotify(error);
             this.loading = false;
@@ -72,17 +77,16 @@
     },
     beforeCreate() {
       this.$options.components.LoaderSent = require('sun').LoaderSent;
-      this.$options.components.CategoryForm = require('sun').CategoryForm;
+      this.$options.components.MenuItemForm = require('sun').MenuItemForm;
     },
     async created() {
-      this.title = this.$tl('title')
+      this.title = this.$tl('title');
     }
   };
 
 </script>
 
 <style lang="stylus" scoped>
-  @import '~quasar-variables';
 
   .btn-block {
     margin-top: $flex-gutter-md;

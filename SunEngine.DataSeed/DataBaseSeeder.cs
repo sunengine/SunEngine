@@ -56,6 +56,9 @@ namespace SunEngine.DataSeed
 
             Console.WriteLine("CategoryOperationAccesses");
             db.BulkCopy(options, dataContainer.CategoryOperationAccesses);
+            
+            Console.WriteLine("MenuItems");
+            db.BulkCopy(options, dataContainer.MenuItems);
 
             if (dataContainer.CacheSettings != null)
             {
@@ -101,7 +104,7 @@ namespace SunEngine.DataSeed
                 string[] tablesWithSequenceIds =
                 {
                     "SectionTypes", "Categories", "AspNetUsers", "Materials", "Comments", "AspNetRoles",
-                    "CategoryAccesses", "Tags"
+                    "CategoryAccesses", "Tags", "MenuItems"
                 };
 
                 foreach (string tableName in tablesWithSequenceIds)

@@ -10,7 +10,7 @@
       <div class="clear"></div>
     </div>
 
-    <CategoryItem v-if="root" @up="up" @down="down" @add="add" @edit="edit" @go="go" :category="root" class="q-mt-lg"/>
+    <CategoryItem v-if="root" @up="up" @down="down" @add="add" @edit="edit" :category="root" class="q-mt-lg"/>
 
     <LoaderWait v-else/>
 
@@ -30,9 +30,6 @@
       }
     },
     methods: {
-      go(name) {
-        this.$router.push(this.$store.getters.getCategory(name).getRoute());
-      },
       add(parentCategoryId = 1) {
         this.$router.push({name: 'CreateCategory', params: {parentCategoryId}});
       },

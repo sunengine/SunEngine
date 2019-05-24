@@ -6,6 +6,7 @@ export default {
       ok: "Да"
     },
     btn: {
+      create: "Создать",
       save: "Сохранить",
       cancel: "Отмена"
     },
@@ -28,5 +29,10 @@ export default {
   },
   MyEditor: {
     uploadImages: "Добавить изображения"
+  },
+  SectionTypes: {
+    Forum: "Форум",
+    Articles: "Статьи",
+    Blog: "Блог"
   }
 }

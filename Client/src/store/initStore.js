@@ -5,14 +5,18 @@ import {getTokens, makeUserDataFromTokens} from 'sun'
 import {store} from 'sun'
 
 
-export default async function() {
+export default async function () {
 
   console.info("%cStartInit", consoleInit);
 
-  await initUser(this);
+  if (store.state.auth.tokens)
+    await store.dispatch('getMyUserInfo');
 
   try {
     await this.dispatch('loadAllCategories');
+
+    await this.dispatch('loadAllMenuItems');
+
 
     registerLayouts(store);
 
@@ -29,20 +33,3 @@ export default async function() {
 }
 
 
-async function initUser(store) {
-  const tokens = getTokens();
-
-  store.state.auth.tokens = tokens;
-
-  if (tokens) {
-    const userData = makeUserDataFromTokens(tokens);
-    userData.isPermanentLogin = true;
-
-    store.commit('setUserData', userData);
-
-    console.info('%cUser restored from localStorage', consoleInit, userData);
-
-    await store.dispatch('getMyUserInfo').catch(() => {
-    });
-  }
-}

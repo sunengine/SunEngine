@@ -109,6 +109,11 @@ namespace SunEngine.Core.DataBase
             mp.Entity<CategoryCacheSettings>()
                 .HasTableName("CategoryCacheSettings")
                 .HasPrimaryKey(x => x.Id);
+
+            mp.Entity<MenuItem>()
+                .HasTableName("MenuItems")
+                .HasIdentity(x => x.Id)
+                .HasPrimaryKey(x => x.Id);
         }
     }
 

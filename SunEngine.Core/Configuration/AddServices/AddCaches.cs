@@ -12,14 +12,16 @@ namespace SunEngine.Core.Configuration.AddServices
 {
     public static class AddStoresExtensions
     {
-        public static void AddStores(this IServiceCollection services, DataBaseFactory dataBaseFactory)
+        public static void AddCaches(this IServiceCollection services, DataBaseFactory dataBaseFactory)
         {
-            // Add Singleton Stores
-            var userGroupStore = new RolesCache(dataBaseFactory);
+            // Add Singleton cache services
+            var rolesCache = new RolesCache(dataBaseFactory);
 
-            services.AddSingleton<IRolesCache>(userGroupStore);
+            services.AddSingleton<IRolesCache>(rolesCache);
 
             services.AddSingleton<ICategoriesCache, CategoriesCache>();
+
+            services.AddSingleton<IMenuCache, MenuCache>();
 
             services.AddSingleton<IContentCache, CategoryContentCache>();
 
@@ -34,7 +36,7 @@ namespace SunEngine.Core.Configuration.AddServices
         private static ICachePolicy GetCachePolicy(IServiceProvider provider)
         {
             var cacheOptions = provider.GetRequiredService<IOptions<CacheOptions>>();
-            if(cacheOptions == null)
+            if (cacheOptions == null)
                 throw new NotFoundServiceException("Cache policy must be added after loading settings from database");
 
             switch (cacheOptions.Value.CurrentCachePolicy)

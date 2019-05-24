@@ -18,7 +18,7 @@ namespace SunEngine.Admin.Services
 {
     public class RolesPermissionsAdminService : DbService
     {
-        private const string UserGroupsSchemaFileName = "UserGroups.schema.json";
+        private const string UserGroupsSchemaFileName = "Roles.schema.json";
         private readonly string UserGroupSchemaPath;
 
 
@@ -154,12 +154,6 @@ namespace SunEngine.Admin.Services
             db.BulkCopy(options, fromJsonLoader.categoryAccesses);
             db.UpdateSequence("CategoryAccesses","Id");
             db.BulkCopy(options, fromJsonLoader.categoryOperationAccesses);
-        }
-
-        private class UserToRoleTmp
-        {
-            public int UserId;
-            public string RoleName;
         }
     }
 }

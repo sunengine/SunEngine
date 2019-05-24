@@ -5,103 +5,112 @@
         <img src="/statics/SunEngine.svg" class="logo">
       </router-link>
     </div>
-    <q-item to='/' exact>
-      <q-item-section avatar>
-        <q-icon name="fas fa-home"/>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>Домой</q-item-label>
-      </q-item-section>
-    </q-item>
-
-    <q-item to='/news'>
-      <q-item-section avatar>
-        <q-icon name="far fa-newspaper"/>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>Активность</q-item-label>
-      </q-item-section>
-    </q-item>
-
-    <q-item to='/blog'>
-      <q-item-section avatar>
-        <q-icon name="fas fa-blog"/>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>Блог</q-item-label>
-      </q-item-section>
-    </q-item>
-
-    <q-item to='/articles'>
-      <q-item-section avatar>
-        <q-icon name="far fa-file-alt"/>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>Статьи</q-item-label>
-      </q-item-section>
-    </q-item>
-
-    <q-item to='/forum1'>
-      <q-item-section avatar>
-        <q-icon name="far fa-comments"/>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>Форум</q-item-label>
-      </q-item-section>
-    </q-item>
-
-
-    <q-expansion-item
-      icon="fas fa-puzzle-piece"
-      label="Дополнительно"
-    >
-      <q-item :to="{name: 'News2ColPage'}">
+    <MenuItem :menuItem="menuItem"  :key="menuItem.id" v-for="menuItem of menu"/>
+    <!--  <q-item to='/' exact>
         <q-item-section avatar>
-          <q-icon name="fas fa-columns"/><!--fas fa-dot-circle-->
+          <q-icon name="fas fa-home"/>
         </q-item-section>
         <q-item-section>
-          <q-item-label>Главная страница</q-item-label>
-          <q-item-label caption>Пример в 2 колонки</q-item-label>
+          <q-item-label>Домой</q-item-label>
         </q-item-section>
       </q-item>
 
-      <q-item :to="{name: 'BlogMulti'}">
+      <q-item to='/news'>
         <q-item-section avatar>
-          <q-icon name="fas fa-newspaper"/>
+          <q-icon name="far fa-newspaper"/>
         </q-item-section>
         <q-item-section>
-          <q-item-label>Блог посты</q-item-label>
-          <q-item-label caption>Из разных категорий</q-item-label>
+          <q-item-label>Активность</q-item-label>
         </q-item-section>
       </q-item>
 
-      <q-item to='/articles1'>
+      <q-item to='/blog'>
+        <q-item-section avatar>
+          <q-icon name="fas fa-blog"/>
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>Блог</q-item-label>
+        </q-item-section>
+      </q-item>
+
+      <q-item to='/articles'>
         <q-item-section avatar>
           <q-icon name="far fa-file-alt"/>
         </q-item-section>
         <q-item-section>
-          <q-item-label>Статьи 1</q-item-label>
-          <q-item-label caption>Статьи с подразделами</q-item-label>
+          <q-item-label>Статьи</q-item-label>
         </q-item-section>
       </q-item>
 
-      <q-item to='/forum2'>
+      <q-item to='/forum1'>
         <q-item-section avatar>
           <q-icon name="far fa-comments"/>
         </q-item-section>
         <q-item-section>
-          <q-item-label>Форум 2</q-item-label>
-          <q-item-label caption>2 уровня вложенности категорий</q-item-label>
+          <q-item-label>Форум</q-item-label>
         </q-item-section>
       </q-item>
 
-    </q-expansion-item>
+
+      <q-expansion-item
+        icon="fas fa-puzzle-piece"
+        label="Дополнительно"
+      >
+        <q-item :to="{name: 'News2ColPage'}">
+          <q-item-section avatar>
+            <q-icon name="fas fa-columns"/>&lt;!&ndash;fas fa-dot-circle&ndash;&gt;
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Главная страница</q-item-label>
+            <q-item-label caption>Пример в 2 колонки</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item :to="{name: 'BlogMulti'}">
+          <q-item-section avatar>
+            <q-icon name="fas fa-newspaper"/>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Блог посты</q-item-label>
+            <q-item-label caption>Из разных категорий</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item to='/articles1'>
+          <q-item-section avatar>
+            <q-icon name="far fa-file-alt"/>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Статьи 1</q-item-label>
+            <q-item-label caption>Статьи с подразделами</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item to='/forum2'>
+          <q-item-section avatar>
+            <q-icon name="far fa-comments"/>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Форум 2</q-item-label>
+            <q-item-label caption>2 уровня вложенности категорий</q-item-label>
+          </q-item-section>
+        </q-item>
+
+      </q-expansion-item>-->
   </q-list>
 </template>
 
 <script>
   export default {
     name: "MainMenu",
+    computed: {
+      menu() {
+        return this.$store.getters.getMenu("MainMenu").subMenuItems;
+      }
+    },
+    beforeCreate() {
+      this.$options.components.MenuItem = require('sun').MenuItem;
+    }
   }
 </script>
 

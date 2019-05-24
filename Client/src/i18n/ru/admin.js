@@ -1,4 +1,11 @@
 export default {
+
+  // ——— categories ————————————————————————————————————
+
+  CategoriesAdmin: {
+    title: "Админка категорий",
+    addCategoryBtn: "Добавить категорию"
+  },
   CategoryForm: {
     name: "Имя категории (eng)",
     title: "Заголовок",
@@ -28,6 +35,9 @@ export default {
       }
     }
   },
+  CategoryItem: {
+    rootCategory: "Корневая категория"
+  },
   CreateCategory: {
     title: "Добавить категорию",
     createBtn: "Создать",
@@ -45,7 +55,110 @@ export default {
     deleteDialogBtnCancel: "Отмена",
     successNotify: "Категория обновлена.\nНе забудьте перегрузить сайт для обновления."
   },
+
+  // ——— menuItems ————————————————————————————————————
+
+  CreateMenuItem: {
+    title: "Создать пункт меню",
+    createBtn: "@:Global.btn.create",
+    cancelBtn: "@:Global.btn.cancel",
+    successNotify: "Пункт меню успешно создан"
+  },
+  EditMenuItem: {
+    title: "Редактировать пункт меню",
+    saveBtn: "@:Global.btn.save",
+    cancelBtn: "@:Global.btn.cancel",
+    successNotify: "Пункт меню успешно сохранён"
+  },
+  MenuAdminItem: {
+
+  },
+  MenuItemForm: {
+    name: "Идентификатор (eng)",
+    title: "Заголовок",
+    subTitle: "Подпись заголовка",
+    parent: "Родительский элемент",
+    rootElement: "Корневой элемент",
+    url: "Ссылка, внутренняя или внешняя",
+    exact: "Подсвечивать пункт меню только при точном совпадении адреса (exact)",
+    cssClass: "Css class",
+    icon: "Иконка",
+    settingsJson: "Кастомные настройки (Json)",
+    isHidden: "Спрятать",
+    local: "Локальная ссылка",
+    external: "Внешняя ссылка",
+    urlError: "Введена некорректная ссылка",
+    validation: {
+      name: {
+        minLength: "Длинна должна быть не меньше 3 символов",
+        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.MenuItems_Name,
+        allowedChars: "Вы ввели недопустимые символы, разрешено использование только [a-zA-Z0-9_-] символов"
+      },
+      title: {
+        required: "Необходимо ввести заголовок",
+        minLength: "Длинна должна быть не меньше 3 символов",
+        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.Categories_Title,
+      },
+      subTitle: {
+        minLength: "Длинна должна быть не меньше 3 символов",
+        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.MenuItems_SubTitle,
+      },
+      cssClass: {
+        minLength: "Длинна должна быть не меньше 3 символов",
+        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.MenuItems_CssClass,
+      },
+      icon: {
+        minLength: "Длинна должна быть не меньше 3 символов",
+        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.MenuItems_Icon,
+      },
+      settingsJson: {
+        jsonFormatError: "Неверный формат Json",
+      }
+    }
+  },
+  MenuItemsAdmin: {
+    title: "Редактирование меню",
+    addMenuItemBtn: "Добавить пункт меню",
+    deleteMsg: "Удалить пункт меню?",
+    btnDeleteOk: "@:Global.dialog.ok",
+    btnDeleteCancel: "@:Global.dialog.cancel"
+  },
+
+  // ——— roles ————————————————————————————————————
+
+  ProfileRoles: {
+    roles: "Группы пользователя:",
+    addRoleBtn: "Добавить группу",
+    removeRoleBtn: "Удалить группу",
+    addRoleConfirm: "Добавить в группу '{0}'?",
+    addRoleConfirmOkBtn: "Добавить",
+    removeRoleConfirm: "Удалить из группы '{0}'?",
+    removeRoleConfirmOkBtn: "Удалить",
+  },
+  RolesPage: {
+    title: "Группы пользователей",
+    roles: "Группы",
+  },
+  RolesPermissions: {
+    title: "Загрузка Json прав для групп",
+    backupWarning: "Перед загрузкой необходимо сделать backup базы.",
+    saveToServerBtn: "Сохранить на сервер",
+    getFromServer: "Загрузить с сервера",
+    getSuccessNotify: "Данные загружены с сервера",
+    saveSuccessNotify: "Настройки групп успешно обновлены",
+    textAreaLabel: "Json файл конфигурации прав групп"
+  },
+  RoleUsers: {
+    users: "Пользователи",
+    filter: "Найти по имени",
+    noResults: "Нет результатов",
+    filterLimitReached: "Выведены первые {0} результатов"
+  },
+
+  // ——— all ————————————————————————————————————
+
   AdminMenu: {
+    menuItemsAdmin: "Меню",
     categoriesAdmin: "Категории",
     rolesPermissions: "Настройка прав",
     rolesUsers: "Группы пользователей",
@@ -74,40 +187,5 @@ export default {
         invalidValue: "Значение не может быть ниже 0",
       }
     }
-  },
-  CategoriesAdmin: {
-    title: "Админка категорий",
-    addCategoryBtn: "Добавить категорию"
-  },
-  CategoryItem: {
-    rootCategory: "Корневая категория"
-  },
-  ProfileRoles: {
-    roles: "Группы пользователя:",
-    addRoleBtn: "Добавить группу",
-    removeRoleBtn: "Удалить группу",
-    addRoleConfirm: "Добавить в группу '{0}'?",
-    addRoleConfirmOkBtn: "Добавить",
-    removeRoleConfirm: "Удалить из группы '{0}'?",
-    removeRoleConfirmOkBtn: "Удалить",
-  },
-  RolesPage: {
-    title: "Группы пользователей",
-    roles: "Группы",
-  },
-  RolesPermissions: {
-    title: "Загрузка Json прав для групп",
-    backupWarning: "Перед загрузкой необходимо сделать backup базы.",
-    saveToServerBtn: "Сохранить на сервер",
-    getFromServer: "Загрузить с сервера",
-    getSuccessNotify: "Данные загружены с сервера",
-    saveSuccessNotify: "Настройки групп успешно обновлены",
-    textAreaLabel: "Json файл конфигурации прав групп"
-  },
-  RoleUsers: {
-    users: "Пользователи",
-    filter: "Найти по имени",
-    noResults: "Нет результатов",
-    filterLimitReached: "Выведены первые {0} результатов"
   }
 }

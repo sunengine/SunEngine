@@ -30,6 +30,12 @@
         }
       },
       {
+        "Category": "Articles1",
+        "OperationKeys": {
+          "MaterialAndCommentsRead": true
+        }
+      },
+      {
         "Category": "Blog",
         "OperationKeys": {
           "MaterialAndCommentsRead": true
@@ -50,6 +56,14 @@
           "CommentEditOwn": true,
           "MaterialDeleteOwn": true,
           "CommentDeleteOwn": true
+        }
+      },
+      {
+        "Category": "Forum2",
+        "OperationKeys": {
+          "MaterialAndCommentsRead": true,
+          "MaterialWrite": true,
+          "CommentWrite": true
         }
       },
       {
@@ -76,15 +90,14 @@
         }
       },
       {
-        "Category": "Forum2",
+        "Category": "Articles",
         "OperationKeys": {
           "MaterialAndCommentsRead": true,
-          "MaterialWrite": true,
           "CommentWrite": true
         }
       },
       {
-        "Category": "Articles",
+        "Category": "Articles1",
         "OperationKeys": {
           "MaterialAndCommentsRead": true,
           "CommentWrite": true
@@ -102,9 +115,6 @@
   },
   "TestGroup1": {
     "Title": "Тестовая группа 1"
-  },
-  "TestGroup2": {
-    "Title": "Тестовая группа 2"
   },
   "Moderator": {
     "Title": "Модератор",

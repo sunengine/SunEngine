@@ -16,6 +16,8 @@ namespace SunEngine.Admin
             services.AddScoped<ICategoriesAdminPresenter, CategoriesAdminPresenter>();
             services.AddScoped<CacheSettingsPresentor>();
             services.AddScoped<IUserRolesAdminPresenter, UserRolesAdminPresenter>();
+            services.AddScoped<IMenuAdminPresenter, MenuAdminPresenter>();
+            services.AddScoped<IMenuAdminManager, MenuAdminManager>();
         }
     }
 }

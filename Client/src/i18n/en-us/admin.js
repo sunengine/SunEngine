@@ -1,4 +1,11 @@
 export default {
+
+  // ——— categories ————————————————————————————————————
+
+  CategoriesAdmin: {
+    title: "Admin page",
+    addCategoryBtn: "Add category"
+  },
   CategoryForm: {
     name: "Category name (eng)",
     title: "Title",
@@ -28,6 +35,9 @@ export default {
       }
     }
   },
+  CategoryItem: {
+    rootCategory: "Root category"
+  },
   CreateCategory: {
     title: "Create category",
     createBtn: "Create",
@@ -45,7 +55,108 @@ export default {
     deleteDialogBtnCancel: "Cancel",
     successNotify: "Category was updated.\nDon`t forget to reload the site in your browser."
   },
+
+  // ——— menuItems ————————————————————————————————————
+
+  CreateMenuItem: {
+    title: "Create menu item",
+    createBtn: "@:Global.btn.create",
+    cancelBtn: "@:Global.btn.cancel",
+    successNotify: "Menu item successfully created"
+  },
+  EditMenuItem: {
+    title: "Edit menu item",
+    saveBtn: "@:Global.btn.save",
+    cancelBtn: "@:Global.btn.cancel",
+    successNotify: "Menu item successfully edited"
+  },
+  MenuAdminItem: {},
+  MenuItemForm: {
+    name: "Identifier (eng)",
+    title: "Title",
+    subTitle: "Sub title",
+    parent: "Parent element",
+    rootElement: "Root element",
+    url: "Link internal or external",
+    exact: "Highlight menu item only for exact match",
+    cssClass: "Css class",
+    icon: "Icon",
+    settingsJson: "Custom settings (Json)",
+    isHidden: "Hide",
+    local: "Local link",
+    external: "External link",
+    urlError: "Error in link",
+    validation: {
+      name: {
+        minLength: "Minimal name length - 3",
+        maxLength: "Maximum name length - " + config.DbColumnSizes.MenuItems_Name,
+        allowedChars: "Only [a-zA-Z0-9_-] symbols allowed"
+      },
+      title: {
+        required: "Title required",
+        minLength: "Minimal title length - 3",
+        maxLength: "Maximum title length - " + config.DbColumnSizes.Categories_Title,
+      },
+      subTitle: {
+        minLength: "Minimal sub title length - 3",
+        maxLength: "Maximum sub title length - " + config.DbColumnSizes.MenuItems_SubTitle,
+      },
+      cssClass: {
+        minLength: "Minimal css class length - 3",
+        maxLength: "Maximum css class length - " + config.DbColumnSizes.MenuItems_CssClass,
+      },
+      icon: {
+        minLength: "Minimal icon length - 3",
+        maxLength: "Maximum icon length - " + config.DbColumnSizes.MenuItems_Icon,
+      },
+      settingsJson: {
+        jsonFormatError: "Invalid Json format",
+      }
+    }
+  },
+  MenuItemsAdmin: {
+    title: "Edit menu",
+    addMenuItemBtn: "Add menu item",
+    deleteMsg: "Delete menu item?",
+    btnDeleteOk: "@:Global.dialog.ok",
+    btnDeleteCancel: "@:Global.dialog.cancel"
+  },
+
+  // ——— roles ————————————————————————————————————
+
+  ProfileRoles: {
+    roles: "User groups:",
+    addRoleBtn: "Add to group",
+    removeRoleBtn: "Remove from group",
+    addRoleConfirm: "Add to group '{0}'?",
+    addRoleConfirmOkBtn: "Yes",
+    removeRoleConfirm: "Remove from group '{0}'?",
+    removeRoleConfirmOkBtn: "Remove",
+  },
+  RolesPage: {
+    title: "Groups page",
+    roles: "Groups",
+  },
+  RolesPermissions: {
+    title: "Upload group config(json)",
+    backupWarning: "Before uploading, you need to make a database backup.",
+    saveToServerBtn: "Save",
+    getFromServer: "Load from server",
+    getSuccessNotify: "Download completed successfully",
+    saveSuccessNotify: "Group settings were updated successfully",
+    textAreaLabel: "Json file of roles config"
+  },
+  RoleUsers: {
+    users: "Users",
+    filter: "Find by name",
+    noResults: "Not found",
+    filterLimitReached: "First {0} results are derived"
+  },
+
+  // ——— all ————————————————————————————————————
+
   AdminMenu: {
+    menuItemsAdmin: "Menu",
     categoriesAdmin: "Categories",
     rolesPermissions: "Permission settings",
     rolesUsers: "Groups",
@@ -74,40 +185,5 @@ export default {
         invalidValue: "Value can`t be lower 0",
       }
     }
-  },
-  CategoriesAdmin: {
-    title: "Admin page",
-    addCategoryBtn: "Add category"
-  },
-  CategoryItem: {
-    rootCategory: "Root category"
-  },
-  ProfileRoles: {
-    roles: "User groups:",
-    addRoleBtn: "Add to group",
-    removeRoleBtn: "Remove from group",
-    addRoleConfirm: "Add to group '{0}'?",
-    addRoleConfirmOkBtn: "Yes",
-    removeRoleConfirm: "Remove from group '{0}'?",
-    removeRoleConfirmOkBtn: "Remove",
-  },
-  RolesPage: {
-    title: "Groups page",
-    roles: "Groups",
-  },
-  RolesPermissions: {
-    title: "Upload group config(json)",
-    backupWarning: "Before uploading, you need to make a database backup.",
-    saveToServerBtn: "Save",
-    getFromServer: "Load from server",
-    getSuccessNotify: "Download completed successfully",
-    saveSuccessNotify: "Group settings were updated successfully",
-    textAreaLabel: "Json файл конфигурации прав групп"
-  },
-  RoleUsers: {
-    users: "Users",
-    filter: "Find by name",
-    noResults: "Not found",
-    filterLimitReached: "First {0} results are derived"
   }
 }

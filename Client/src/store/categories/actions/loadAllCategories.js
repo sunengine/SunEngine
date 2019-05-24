@@ -14,7 +14,7 @@ export default async function loadAllCategories(context, data) {
 
   return await context.dispatch('request', requestData)
     .then(response => {
-      console.info('%cGetAllCategories', consoleInit);
+      console.info('%cLoadAllCategories', consoleInit);
       context.commit('prepareAllCategories', response.data);
     });
 }

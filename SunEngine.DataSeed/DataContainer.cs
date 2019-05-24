@@ -16,7 +16,7 @@ namespace SunEngine.DataSeed
         
         private int currentSectionTypeId = 1;
 
-        private int currentCategoryId = 1;
+        private int currentCategoryId = 2;
 
         public int currentCommentId = 1;
 
@@ -28,9 +28,12 @@ namespace SunEngine.DataSeed
 
         private int operationKeyId = 1;
         
+        private int menuItemId = 2;
+        
         private DateTime commentPublishDate = DateTime.UtcNow.AddMinutes(-3);
 
         public Category RootCategory;
+        public MenuItem RootMenuItem;
         public List<SectionType> SectionTypes = new List<SectionType>(); 
         public List<Category> Categories = new List<Category>();
         public List<Comment> Comments = new List<Comment>();
@@ -41,6 +44,7 @@ namespace SunEngine.DataSeed
         public List<CategoryAccess> CategoryAccesses = new List<CategoryAccess>(); 
         public List<CategoryOperationAccess> CategoryOperationAccesses = new List<CategoryOperationAccess>();
         public List<OperationKey> OperationKeys = new List<OperationKey>();
+        public List<MenuItem> MenuItems = new List<MenuItem>();
         public CacheSettings CacheSettings = null;
 
         public Random ran = new Random();
@@ -85,6 +89,11 @@ namespace SunEngine.DataSeed
         public int NextOperationKeyId()
         {
             return operationKeyId++;
+        }
+        
+        public int NextMenuItemId()
+        {
+            return menuItemId++;
         }
 
         public int GetRandomUserId()

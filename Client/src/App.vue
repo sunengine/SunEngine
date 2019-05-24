@@ -25,6 +25,7 @@
 
   import {Layout} from 'sun'
 
+
   var app;
 
   export default {
@@ -35,6 +36,7 @@
     },
     created() {
       window.app = app = this;
+
       this.$store.dispatch('initStore');
     }
   }

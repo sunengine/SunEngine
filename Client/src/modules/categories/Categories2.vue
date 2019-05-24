@@ -37,7 +37,6 @@
 </script>
 
 <style scoped lang="stylus">
-  @import '~quasar-variables';
 
   .header {
     padding: 8px 16px;

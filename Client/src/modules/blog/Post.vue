@@ -66,8 +66,6 @@
 
 
 <style lang="stylus" scoped>
-  @import '~quasar-variables'
-  @import '~src/css/app'
 
   .avatar {
     margin-right: 12px;
@@ -79,8 +77,6 @@
   .header {
     display: flex;
     padding: 2px 0;
-    //margin-left: -16px;
-    //padding-left: 16px !important;
     color: #3a67d3 !important;
   }
 
@@ -103,13 +99,6 @@
     .q-item:first-child {
       padding-left: 0;
     }
-
-    /*.q-item, div {
-
-      padding-top: unset !important;
-      padding-bottom: unset !important;
-      height: $footer-line-height;
-    }*/
   }
 
   .post-preview {
@@ -144,6 +133,5 @@
       margin-right: 7px;
     }
   }
-
 
 </style>

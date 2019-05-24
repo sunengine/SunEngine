@@ -294,7 +294,6 @@
 </style>
 
 <style lang="stylus">
-  @import '~quasar-variables'
 
   .mat-date-color {
     color: $grey-7;

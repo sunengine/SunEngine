@@ -9,7 +9,7 @@
       <p>При регистрации можете указывать любой почтовый ящик, например <span class="hl">ooo@ooo.eml</span>.
         <br/>
         Почта будет отправляться на <a target="_blank" href="http://demo.sunengine.site:1444"><b>mailcatcher</b></a>.</p>
-      <p class="ver q-mb-xl">Версия: 1.1.7</p>
+      <p class="ver q-mb-xl">Версия: 1.2.1</p>
     </div>
   </q-page>
 </template>
@@ -26,7 +26,6 @@
 
 
 <style lang="stylus" scoped>
-  @import '~quasar-variables';
 
   h1 {
     margin: 0 0 40px;
@@ -50,4 +49,5 @@
     color: #a38167;
     font-weight: 600;
   }
+
 </style>

@@ -1,4 +1,3 @@
-
 const config = {
 
   API: 'http://localhost:5000',
@@ -28,7 +27,13 @@ const config = {
     Tags_Name: 64,
     Roles_Name: 64,
     Roles_Title: 64,
-    OperationKey_Name: 100
+    OperationKey_Name: 100,
+    MenuItems_Name: 32,
+    MenuItems_Title: 64,
+    MenuItems_SubTitle: 64,
+    MenuItems_RouteName: 64,
+    MenuItems_CssClass: 64,
+    MenuItems_Icon: 64
   },
   PasswordValidation: {
     MinLength: 6,

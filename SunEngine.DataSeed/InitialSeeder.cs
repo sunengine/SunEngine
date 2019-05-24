@@ -15,7 +15,9 @@ namespace SunEngine.DataSeed
     /// </summary>
     public class InitialSeeder
     {
-        public const string CategoriesConfigDir = "CategoriesConfig";
+        public const string CategoriesConfigDir = "Categories";
+        public const string MenusConfigDir = "Menu";
+
 
         private readonly DataContainer dataContainer;
 
@@ -48,7 +50,16 @@ namespace SunEngine.DataSeed
             
             SeedCacheSettings();
 
+            SeedMenus();
+
             return dataContainer;
+        }
+
+        private void SeedMenus()
+        {
+            var path = Path.GetFullPath(Path.Combine(configDir, MenusConfigDir));
+            MenuSeeder menuSeeder = new MenuSeeder(dataContainer,path);
+            menuSeeder.Seed();
         }
 
         private void StartConsoleLog()
@@ -80,7 +91,7 @@ namespace SunEngine.DataSeed
             {
                 Id = dataContainer.NextSectionTypeId(),
                 Name = "Articles",
-                Title = "Статьи"
+                Title = "Articles"
             };
             dataContainer.SectionTypes.Add(sectionTypeArticles);
 
@@ -88,7 +99,7 @@ namespace SunEngine.DataSeed
             {
                 Id = dataContainer.NextSectionTypeId(),
                 Name = "Forum",
-                Title = "Форум"
+                Title = "Forum"
             };
             dataContainer.SectionTypes.Add(sectionTypeForum);
 
@@ -96,7 +107,7 @@ namespace SunEngine.DataSeed
             {
                 Id = dataContainer.NextSectionTypeId(),
                 Name = "Blog",
-                Title = "Блог"
+                Title = "Blog"
             };
             dataContainer.SectionTypes.Add(sectionTypeBlog);
         }
@@ -106,8 +117,8 @@ namespace SunEngine.DataSeed
         {
             Console.WriteLine("Roles");
 
-            string pathToUserGroupsConfig = Path.GetFullPath(configDir + "/UserGroups.json");
-            string pathToUserGroupsSchema = Path.GetFullPath("Resources/UserGroups.schema.json");
+            string pathToUserGroupsConfig = Path.GetFullPath(Path.Combine(configDir,"Roles.json"));
+            string pathToUserGroupsSchema = Path.GetFullPath("Resources/Roles.schema.json");
             JsonSchema4 schema = JsonSchema4.FromFileAsync(pathToUserGroupsSchema).GetAwaiter().GetResult();
 
 
@@ -163,14 +174,13 @@ namespace SunEngine.DataSeed
 
         private void SeedRootCategory()
         {
-            int id = dataContainer.NextCategoryId();
             Category rootCategory = new Category
             {
-                Id = id,
+                Id = 1,
                 Name = Category.RootName,
                 NameNormalized = Normalizer.Normalize(Category.RootName),
-                Title = "Корень",
-                SortNumber = id
+                Title = Category.RootName,
+                SortNumber = 1
             };
             dataContainer.RootCategory = rootCategory;
             dataContainer.Categories.Add(rootCategory);
@@ -190,7 +200,7 @@ namespace SunEngine.DataSeed
 
         private void SeedCacheSettings()
         {
-            dataContainer.CacheSettings = new CacheSettings()
+            dataContainer.CacheSettings = new CacheSettings
             {
                 Id = 1,
                 CachePolicy = CachePolicy.CustomPolicy,
