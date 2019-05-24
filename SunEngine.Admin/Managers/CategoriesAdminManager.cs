@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.DataBase;
+using SunEngine.Core.Errors;
 using SunEngine.Core.Models;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
@@ -43,18 +44,13 @@ namespace SunEngine.Admin.Managers
             if (parent == null)
                 throw new ParentCategoryNotFoundByIdException(category.ParentId);
 
-            db.BeginTransaction();
-            try
+            using (db.BeginTransaction())
             {
                 int id = await db.InsertWithInt32IdentityAsync(category);
                 await db.Categories.Where(x => x.Id == id).Set(x => x.SortNumber, id).UpdateAsync();
                 db.CommitTransaction();
             }
-            catch (Exception)
-            {
-                db.RollbackTransaction();
-                throw;
-            }
+
         }
 
         private void ValidateCategory(Category category)
@@ -157,17 +153,5 @@ namespace SunEngine.Admin.Managers
         }
     }
 
-    public class ParentCategoryNotFoundByIdException : Exception
-    {
-        public ParentCategoryNotFoundByIdException(int? parentId) : base($"Parent category (id:{parentId}) not found. Can not add category without parent")
-        {
-        }
-    }
-
-    public class InvalidModelException : Exception
-    {
-        public InvalidModelException(string modelName, string propertyName, string message = "is null or empty") : base($"{modelName}.{propertyName} {message}")
-        {
-        }
-    }
+   
 }
