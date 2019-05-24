@@ -1,19 +1,28 @@
 <template>
   <div :class="{'hdn': menuItem.isHidden}">
-    <q-icon :name="menuItem.icon ? menuItem.icon: 'far fa-file'" class="q-mr-sm" color="grey-6" />
-    {{menuItem.title}}
-    <q-btn class="q-ml-sm" :disabled="!(to || menuItem.externalUrl)" type="a" :to="to" @click="goExternal"
-           icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
-    <q-btn :disabled="isFirst" @click="$emit('up',menuItem)" color="info" dense size="10px" flat
-           icon="fas fa-chevron-up"/>
-    <q-btn :disabled="isLast" @click="$emit('down',menuItem)" color="info" dense size="10px" flat
-           icon="fas fa-chevron-down"/>
-    <q-btn @click="$emit('edit',menuItem)" icon="fas fa-pencil-alt" color="info" dense size="10px" flat/>
-    <q-btn @click="$emit('changeIsHidden',menuItem)" :icon="!menuItem.isHidden ? 'far fa-eye' : 'far fa-eye-slash'"
+    <span class="item-block">
+      <span class="ud">
+        <q-btn :disabled="isFirst" @click="$emit('up',menuItem)" color="positive" dense size="10px"
+             flat
+             icon="fas fa-chevron-up"/>
+        <q-btn :disabled="isLast" @click="$emit('down',menuItem)" color="positive" dense size="10px"
+             flat
+             icon="fas fa-chevron-down"/>
+      </span>
+
+      <q-icon :name="menuItem.icon ? menuItem.icon: 'far fa-file'" class="q-ml-md" color="grey-6"/>
+      <span class="q-ml-md q-mr-lg txt">{{menuItem.title}}</span>
+
+      <q-btn @click="$emit('edit',menuItem)" icon="fas fa-pencil-alt" color="info" dense size="10px" flat/>
+      <q-btn @click="$emit('changeIsHidden',menuItem)" :icon="!menuItem.isHidden ? 'far fa-eye' : 'far fa-eye-slash'"
            :color="!menuItem.isHidden ? 'info' : 'grey-5'" dense size="10px" flat/>
-    <q-btn @click="$emit('add',menuItem)" icon="fas fa-plus" color="info" dense size="10px" flat/>
-    <q-btn @click="$emit('deleteMenuItem',menuItem)" icon="fas fa-minus" color="info" dense size="10px" flat/>
-    <span v-if="menuItem.name" class="q-pl-lg">[ {{menuItem.name}} ]</span>
+      <q-btn @click="$emit('add',menuItem)" icon="fas fa-plus" color="info" dense size="10px" flat/>
+      <q-btn @click="$emit('deleteMenuItem',menuItem)" icon="fas fa-minus" color="info" dense size="10px" flat/>
+      <q-btn :disabled="!(to || menuItem.externalUrl)" type="a" :to="to"
+           @click="goExternal"
+           icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
+      <span v-if="menuItem.name" class="txt">[ {{menuItem.name}} ]</span>
+    </span>
 
     <div v-if="menuItem.subMenuItems" class="padding-mi">
       <MenuAdminItem :menuItem="subMenuItem" :isFirst="index === 0" :isLast="index === lastIndex"
@@ -70,9 +79,27 @@
 
 <style lang="stylus" scoped>
   .hdn {
-    color: $grey-8;
-    filter: grayscale(1);
+    * {
+      color: $grey-5 !important;
+    }
+    .txt {
+      color: $grey-8 !important;
+    }
   }
+
+  .q-btn:disabled, .q-btn[disabled] {
+    color: $grey-5 !important;
+  }
+
+  /*.desktop {
+    .item-block > .ud {
+      visibility: hidden;
+    }
+
+    .item-block:hover > .ud {
+      visibility: visible;
+    }
+  }*/
 
   .padding-mi {
     padding-left: 25px;

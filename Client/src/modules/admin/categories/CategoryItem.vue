@@ -2,9 +2,9 @@
   <div>
     <span class="item-block">
       <span v-if="notRoot" class="q-mr-sm ud">
-        <q-btn :disabled="isFirst" @click="$emit('up',category)" color="info" dense size="10px" flat
+        <q-btn :disabled="isFirst" @click="$emit('up',category)" color="positive" dense size="10px" flat
                icon="fas fa-chevron-up"/>
-        <q-btn :disabled="isLast" @click="$emit('down',category)" color="info" dense size="10px" flat
+        <q-btn :disabled="isLast" @click="$emit('down',category)" color="positive" dense size="10px" flat
                icon="fas fa-chevron-down"/>
       </span>
       <span v-if="notRoot">{{category.title}}</span>
@@ -53,6 +53,10 @@
 <style lang="stylus" scoped>
   .padding-c {
     padding-left: 25px
+  }
+
+  .q-btn:disabled {
+    filter: grayscale(1);
   }
 
   .desktop {
