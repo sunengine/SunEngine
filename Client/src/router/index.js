@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import {routes} from 'sun'
 import {routeHasAccess} from 'sun'
 import {setRouter} from 'sun'
-import {store} from 'sun'
+import {consoleRequestStart, consoleGreyEnd} from 'sun'
 
 
 Vue.use(VueRouter);
@@ -30,6 +30,8 @@ export default function ({store, ssrContext}) {
 
 
   router.beforeEach((to, from, next) => {
+    if (config.Log.MoveTo)
+      console.info("%cMove to page%c" + config.SiteUrl.substring(config.SiteSchema.length) + to.path, consoleRequestStart, consoleGreyEnd, to);
 
     if (!routeHasAccess(to)) {
       router.push({name: 'Home'});

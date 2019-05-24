@@ -1,19 +1,20 @@
+import {consoleInit, consoleRequestStart} from "../../../css";
 
 export default function prepareAllMenuItems(state, allMenuItems) {
 
   let menuItemsById = {};
 
-  for(const menuItem of allMenuItems) {
+  for (const menuItem of allMenuItems) {
     menuItemsById[menuItem.id.toString()] = menuItem;
   }
 
-  for(let menuItem of allMenuItems) {
-    if(menuItem.parentId) {
+  for (let menuItem of allMenuItems) {
+    if (menuItem.parentId) {
       const parent = menuItemsById[menuItem.parentId.toString()];
-      if(!parent)
+      if (!parent)
         continue;
 
-      if(!parent.subMenuItems)
+      if (!parent.subMenuItems)
         parent.subMenuItems = [];
 
       parent.subMenuItems.push(menuItem);
@@ -23,20 +24,26 @@ export default function prepareAllMenuItems(state, allMenuItems) {
 
   state.namedMenuItems = {};
 
-  for(const menuItemId in menuItemsById) {
+  for (const menuItemId in menuItemsById) {
     const menuItem = menuItemsById[menuItemId.toString()];
 
-    if(menuItem.name) {
+    if (menuItem.name) {
       state.namedMenuItems[menuItem.name.toLowerCase()] = menuItem;
     }
   }
 
-  for(const menuItem of allMenuItems) {
-    if(menuItem.routeName) {
+  for (const menuItem of allMenuItems) {
+    if (menuItem.routeName) {
       menuItem.to = {
         name: menuItem.routeName,
         params: menuItem.routeParamsJson
       }
     }
+  }
+
+  console.info('%cMenuItems prepared', consoleInit);
+  if(config.Log.InitExtended) {
+    console.info('%cNamed', consoleRequestStart, state.namedMenuItems);
+    console.info('%cAll', consoleRequestStart, allMenuItems);
   }
 }

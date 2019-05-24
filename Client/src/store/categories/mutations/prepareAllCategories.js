@@ -1,4 +1,5 @@
 import {Category} from 'sun'
+import {consoleInit} from 'sun'
 
 export default function prepareAllCategories(state, root) {
 
@@ -13,6 +14,7 @@ export default function prepareAllCategories(state, root) {
 
   setSettingsFromJson();
 
+  console.info('%cCategories prepared', consoleInit, config.Log.InitExtended ? state.all : '');
 
   function buildStructureRecursive(category, sectionRoot = null) {
 
@@ -76,7 +78,7 @@ export default function prepareAllCategories(state, root) {
   function injectPrototype() {
     for (const catName in state.all) {
       const category = state.all[catName];
-      Object.setPrototypeOf(category,Category.prototype);
+      Object.setPrototypeOf(category, Category.prototype);
     }
   }
 }

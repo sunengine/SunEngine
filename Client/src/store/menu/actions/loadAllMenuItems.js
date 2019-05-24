@@ -14,7 +14,7 @@ export default async function loadAllMenuItems(context, data) {
 
   return await context.dispatch('request', requestData)
     .then(response => {
-      console.info('%cLoadAllMenuItems', consoleInit);
+      console.info('%cLoadAllMenuItems', consoleInit, config.Log.InitExtended ? response.data : '' );
       context.commit('prepareAllMenuItems', response.data);
     });
 }

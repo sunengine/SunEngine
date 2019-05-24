@@ -15,6 +15,6 @@ export default function initUser(store) {
 
     store.commit('setUserData', userData);
 
-    console.info('%cUser restored from localStorage', consoleInit, userData);
+    console.info('%cUser restored from localStorage', consoleInit, config.Log.InitExtended ? userData : '');
   }
 }

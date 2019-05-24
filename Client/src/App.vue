@@ -34,10 +34,12 @@
     computed: {
       ...mapState(['isInitialized', 'initializeError'])
     },
-    created() {
+    beforeCreate() {
       window.app = app = this;
-
       this.$store.dispatch('initStore');
+    },
+    created() {
+
     }
   }
 

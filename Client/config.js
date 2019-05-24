@@ -5,6 +5,12 @@ const config = {
   UploadedImages: 'http://localhost:5000/UploadImages',
   SiteName: 'SunEngine',
 
+  Log: {
+    InitExtended: false,
+    Requests: true,
+    MoveTo: true,
+  },
+
   Messages: {
     "TimeToOwnEditInMinutes": 15,
     "TimeToOwnDeleteInMinutes": 15
@@ -44,3 +50,9 @@ const config = {
     DefaultAvatar: "default-avatar.svg"
   }
 };
+
+
+if(config.SiteUrl.startsWith("http://"))
+  config.SiteSchema = "http://";
+else
+  config.SiteSchema = "https://";

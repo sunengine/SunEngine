@@ -5,6 +5,7 @@ import {blogLayout} from 'sun'
 import {forum1Layout} from 'sun'
 import {forum2Layout} from 'sun'
 import {registerLayoutsSite} from 'sun'
+import {consoleInit} from 'sun'
 
 
 export default function (store) {
@@ -16,4 +17,6 @@ export default function (store) {
   store.commit("registerLayout", forum2Layout);
 
   registerLayoutsSite(store);
+
+  console.info('%cLayouts registered', consoleInit, config.Log.InitExtended ? store.state.categories.layouts : '');
 }

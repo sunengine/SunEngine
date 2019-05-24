@@ -7,7 +7,7 @@ import {store} from 'sun'
 
 export default async function () {
 
-  console.info("%cStartInit", consoleInit);
+  console.info("%cStart init store", consoleInit);
 
   if (store.state.auth.tokens)
     await store.dispatch('getMyUserInfo');

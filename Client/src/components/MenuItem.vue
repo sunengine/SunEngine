@@ -30,7 +30,6 @@
       }
     },
     methods: {
-
       goExternal() {
         if(this.menuItem.externalUrl)
           window.open(this.menuItem.externalUrl);

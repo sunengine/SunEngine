@@ -1,8 +1,8 @@
-import { consoleInit } from 'sun'
+import {consoleInit} from 'sun'
 
 export default async function loadAllCategories(context, data) {
 
-  if(context.state.categories?.all)
+  if (context.state.categories?.all)
     return;
 
   let requestData = {
@@ -14,7 +14,7 @@ export default async function loadAllCategories(context, data) {
 
   return await context.dispatch('request', requestData)
     .then(response => {
-      console.info('%cLoadAllCategories', consoleInit);
+      console.info('%cLoadAllCategories', consoleInit, config.Log.InitExtended ? response.data : '');
       context.commit('prepareAllCategories', response.data);
     });
 }
