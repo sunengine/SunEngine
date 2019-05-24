@@ -8,7 +8,7 @@
            icon="fas fa-chevron-up"/>
     <q-btn :disabled="isLast" @click="$emit('down',menuItem)" color="info" dense size="10px" flat
            icon="fas fa-chevron-down"/>
-    <q-btn @click="" icon="fas fa-pencil-alt" color="info" dense size="10px" flat/>
+    <q-btn @click="$emit('edit',menuItem)" icon="fas fa-pencil-alt" color="info" dense size="10px" flat/>
     <q-btn @click="$emit('changeIsHidden',menuItem)" :icon="!menuItem.isHidden ? 'far fa-eye' : 'far fa-eye-slash'"
            :color="!menuItem.isHidden ? 'info' : 'grey-5'" dense size="10px" flat/>
     <q-btn @click="$emit('add',menuItem)" icon="fas fa-plus" color="info" dense size="10px" flat/>

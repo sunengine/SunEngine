@@ -10,6 +10,7 @@ namespace SunEngine.Admin.Presenters
     public interface IMenuAdminPresenter
     {
         Task<MenuItem[]> GetMenuItemsAsync();
+        Task<MenuItem> GetMenuItemAsync(int id);
     }
 
     public class MenuAdminPresenter : DbService, IMenuAdminPresenter
@@ -21,6 +22,11 @@ namespace SunEngine.Admin.Presenters
         public Task<MenuItem[]> GetMenuItemsAsync()
         {
             return db.MenuItems.OrderBy(x => x.SortNumber).ToArrayAsync();
+        }
+        
+        public Task<MenuItem> GetMenuItemAsync(int id)
+        {
+            return db.MenuItems.FirstOrDefaultAsync(x=>x.Id == id);
         }
     }
 }

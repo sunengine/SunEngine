@@ -13,7 +13,7 @@ namespace SunEngine.Admin.Controllers
         protected readonly IMenuAdminManager menuAdminManager;
         protected readonly IMenuAdminPresenter menuAdminPresenter;
         protected readonly IMenuCache menuCache;
-            
+
         public MenuAdminController(
             IMenuAdminManager menuAdminManager,
             IMenuAdminPresenter menuAdminPresenter,
@@ -24,24 +24,34 @@ namespace SunEngine.Admin.Controllers
             this.menuAdminPresenter = menuAdminPresenter;
             this.menuCache = menuCache;
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> GetMenuItems()
         {
             var menuItems = await menuAdminPresenter.GetMenuItemsAsync();
             return Ok(menuItems);
         }
-        
+
+        [HttpPost]
+        public async Task<IActionResult> GetMenuItem(int id)
+        {
+            var menuItem = await menuAdminPresenter.GetMenuItemAsync(id);
+            if (menuItem == null)
+                return BadRequest();
+            
+            return Ok(menuItem);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Up(int id)
         {
             await menuAdminManager.UpAsync(id);
             var menuItems = await menuAdminPresenter.GetMenuItemsAsync();
             menuCache.Reset();
-            
+
             return Ok(menuItems);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Down(int id)
         {
@@ -51,39 +61,39 @@ namespace SunEngine.Admin.Controllers
 
             return Ok(menuItems);
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> Update(MenuItem menuItem)
+        public async Task<IActionResult> Update([FromBody] MenuItem menuItem)
         {
             await menuAdminManager.UpdateAsync(menuItem);
             menuCache.Reset();
 
             return Ok();
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]MenuItem menuItem)
+        public async Task<IActionResult> Create([FromBody] MenuItem menuItem)
         {
             await menuAdminManager.CreateAsync(menuItem);
             menuCache.Reset();
 
             return Ok();
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> SetIsHidden(int menuItemId, bool isHidden)
+        public async Task<IActionResult> SetIsHidden(int id, bool isHidden)
         {
-            await menuAdminManager.SetIsHiddenAsync(menuItemId, isHidden);
+            await menuAdminManager.SetIsHiddenAsync(id, isHidden);
             var menuItems = await menuAdminPresenter.GetMenuItemsAsync();
             menuCache.Reset();
 
             return Ok(menuItems);
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> Delete(int menuItemId)
+        public async Task<IActionResult> Delete(int id)
         {
-            await menuAdminManager.DeleteAsync(menuItemId);
+            await menuAdminManager.DeleteAsync(id);
             var menuItems = await menuAdminPresenter.GetMenuItemsAsync();
             menuCache.Reset();
 

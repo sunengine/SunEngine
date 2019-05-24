@@ -45,7 +45,7 @@ const routes = [
   },
   {
     name: 'EditMenuItem',
-    path: '/admin/EditMenuItem/'.toLowerCase()+':menuItemId?',
+    path: '/admin/EditMenuItem/'.toLowerCase()+':menuItemId',
     components: {
       default: EditMenuItem,
       navigation: AdminPanel

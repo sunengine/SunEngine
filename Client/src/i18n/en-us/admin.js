@@ -61,10 +61,12 @@ export default {
   CreateMenuItem: {
     createBtn: "@:Global.btn.create",
     cancelBtn: "@:Global.btn.cancel",
+    successNotify: "Menu item successfully created"
   },
   EditMenuItem: {
-    createBtn: "@:Global.btn.create",
+    saveBtn: "@:Global.btn.save",
     cancelBtn: "@:Global.btn.cancel",
+    successNotify: "Menu item successfully edited"
   },
   MenuAdminItem: {},
   MenuItemForm: {

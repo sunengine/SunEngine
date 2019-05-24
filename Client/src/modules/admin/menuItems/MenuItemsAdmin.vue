@@ -10,7 +10,7 @@
       <div class="clear"></div>
     </div>
 
-    <MenuAdminItem @up="up" @down="down" @add="add" @deleteMenuItem="deleteMenuItem" @changeIsHidden="changeIsHidden" :key="menuItem.id" v-if="menuItems"
+    <MenuAdminItem @up="up" @down="down" @add="add" @edit="edit" @deleteMenuItem="deleteMenuItem" @changeIsHidden="changeIsHidden" :key="menuItem.id" v-if="menuItems"
                    :menuItem="menuItem"
                    :isFirst="index === 0" :isLast="index === lastIndex" v-for="(menuItem,index) of menuItems"/>
 
@@ -42,7 +42,7 @@
           {
             url: "/Admin/MenuAdmin/SetIsHidden",
             data: {
-              menuItemId: menuItem.id,
+              id: menuItem.id,
               isHidden: !menuItem.isHidden,
             }
           }).then((response) => {
@@ -63,12 +63,15 @@
             {
               url: "/Admin/MenuAdmin/Delete",
               data: {
-                menuItemId: menuItem.id
+                id: menuItem.id
               }
             }).then((response) => {
             this.setData(response.data);
           });
         });
+      },
+      async edit(menuItem) {
+        this.$router.push({name: 'EditMenuItem', params: {menuItemId: menuItem.id}});
       },
       async add(menuItem) {
         this.$router.push({name: 'CreateMenuItem', params: {parentMenuItemId: menuItem.id}});

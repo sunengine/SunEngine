@@ -61,13 +61,16 @@ export default {
   CreateMenuItem: {
     createBtn: "@:Global.btn.create",
     cancelBtn: "@:Global.btn.cancel",
+    successNotify: "Пункт меню успешно создан"
   },
   EditMenuItem: {
-    createBtn: "@:Global.btn.create",
+    saveBtn: "@:Global.btn.save",
     cancelBtn: "@:Global.btn.cancel",
+    successNotify: "Пункт меню успешно сохранён"
   },
-  MenuAdminItem: {},
+  MenuAdminItem: {
 
+  },
   MenuItemForm: {
     name: "Идентификатор (eng)",
     title: "Заголовок",

@@ -1,9 +1,11 @@
 <template>
   <q-page class="page-padding">
-    <MenuItemForm ref="form" :menuItem="menuItem"/>
+
+    <MenuItemForm v-if="menuItem" ref="form" :menuItem="menuItem"/>
+    <LoaderWait v-else/>
 
     <div class="btn-block">
-      <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$tl('createBtn')" @click="save"
+      <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$tl('saveBtn')" @click="save"
              color="send">
         <LoaderSent slot="loading"/>
       </q-btn>
@@ -21,48 +23,35 @@
     name: 'EditMenuItem',
     mixins: [Page],
     props: {
-      parentMenuItemId: {
+      menuItemId: {
         type: Number,
-        required: false,
-        default: 1
+        required: true
       }
     },
     data() {
       return {
-        menuItem: {
-          id: 0,
-          parentId: this.parentMenuItemId,
-          name: '',
-          title: '',
-          subTitle: '',
-          exact: false,
-          routeName: '',
-          routeParamsJson: '',
-          cssClass: '',
-          externalUrl: '',
-          icon: '',
-          customIcon: '',
-          settingsJson: '',
-          isHidden: false
-        },
+        menuItem: null,
         loading: false
       }
     },
     methods: {
       async save() {
+
         const form = this.$refs.form;
         form.validate();
+
+
         if (form.hasError)
           return;
 
         this.loading = true;
 
-        if(this.menuItem.parentId === 0)
+        if (this.menuItem.parentId === 0)
           this.menuItem.parentId = undefined;
 
         await this.$store.dispatch('request',
           {
-            url: '/Admin/MenuAdmin/Create',
+            url: '/Admin/MenuAdmin/Update',
             data: this.menuItem,
             sendAsJson: true
           })
@@ -73,14 +62,29 @@
             this.$errorNotify(error);
             this.loading = false;
           });
+      },
+      async loadData() {
+
+        await this.$store.dispatch('request',
+          {
+            url: '/Admin/MenuAdmin/GetMenuItem',
+            data: {
+              id: this.menuItemId
+            }
+          })
+          .then((response) => {
+            this.menuItem = response.data;
+          });
       }
     },
     beforeCreate() {
       this.$options.components.LoaderSent = require('sun').LoaderSent;
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
       this.$options.components.MenuItemForm = require('sun').MenuItemForm;
     },
     async created() {
-      this.title = this.$tl('title')
+      this.title = this.$tl('title');
+      await this.loadData();
     }
   };
 

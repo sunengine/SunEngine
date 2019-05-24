@@ -16,7 +16,7 @@ namespace SunEngine.Admin.Managers
         Task<ServiceResult> DownAsync(int id);
         Task CreateAsync(MenuItem menuItem);
         Task UpdateAsync(MenuItem menuItem);
-        Task<ServiceResult> SetIsHiddenAsync(int menuItemId, bool hidden);
+        Task<ServiceResult> SetIsHiddenAsync(int id, bool hidden);
         Task DeleteAsync(int menuItemId);
     }
 
@@ -95,15 +95,15 @@ namespace SunEngine.Admin.Managers
             return db.UpdateAsync(menuItem);
         }
 
-        public virtual async Task<ServiceResult> SetIsHiddenAsync(int menuItemId, bool isHidden)
+        public virtual async Task<ServiceResult> SetIsHiddenAsync(int id, bool isHidden)
         {
-            int lines = await db.MenuItems.Where(x => x.Id == menuItemId).Set(x => x.IsHidden, x => isHidden).UpdateAsync();
+            int lines = await db.MenuItems.Where(x => x.Id == id).Set(x => x.IsHidden, x => isHidden).UpdateAsync();
             return lines == 0 ? ServiceResult.BadResult() : ServiceResult.OkResult();
         }
 
-        public virtual async Task DeleteAsync(int menuItemId)
+        public virtual async Task DeleteAsync(int id)
         {
-            int lines = await db.MenuItems.Where(x => x.Id == menuItemId).DeleteAsync();
+            int lines = await db.MenuItems.Where(x => x.Id == id).DeleteAsync();
             if (lines == 0)
                 throw new Exception("No items found to delete");
         }
