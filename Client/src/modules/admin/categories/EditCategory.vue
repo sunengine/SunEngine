@@ -7,7 +7,7 @@
         <q-btn no-caps icon="fas fa-trash-alt" class="float-right" @click="tryDelete"
                :label="$tl('deleteBtn')" color="negative"/>
 
-        <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$tl('saveBtn')"
+        <q-btn icon="far fa-save" class="btn-send" no-caps :loading="loading" :label="$tl('saveBtn')"
                @click="save" color="send">
           <LoaderSent slot="loading"/>
         </q-btn>

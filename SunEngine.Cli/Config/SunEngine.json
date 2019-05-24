@@ -5,7 +5,7 @@
     "SiteName": "SunEngine"
   },
   "Dev":  {
-    "ShowExceptions": true    
+    "ShowExceptions": true
   },
   "Images": {
     "UploadDir": "UploadImages",

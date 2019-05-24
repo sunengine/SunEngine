@@ -48,8 +48,7 @@
     "Information": "TestUser1, информация о пользователе",
     "Roles": [
       "Registered",
-      "TestGroup1",
-      "TestGroup2"
+      "TestGroup1"
     ]
   }
 ]

@@ -5,7 +5,7 @@
     <LoaderWait v-else/>
 
     <div class="btn-block">
-      <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$tl('saveBtn')" @click="save"
+      <q-btn icon="far fa-save" class="btn-send" no-caps :loading="loading" :label="$tl('saveBtn')" @click="save"
              color="send">
         <LoaderSent slot="loading"/>
       </q-btn>

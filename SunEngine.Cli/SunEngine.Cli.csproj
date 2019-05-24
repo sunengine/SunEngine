@@ -11,7 +11,7 @@
         <Copyright>Dmitrii Polianin</Copyright>
         <PackageProjectUrl>https://github.com/Dmitrij-Polyanin/SunEngine</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/LICENSE.md</PackageLicenseUrl>
-        <PackageTags>forum, blog, site, cms, web engine, web, engine, asp.net core, spa, vuejs, vue</PackageTags>
+        <PackageTags>forum, blog, site, cms, web engine, web, engine, asp.net core, spa, vuejs, vue, quasar</PackageTags>
         <AssemblyName>SunEngine</AssemblyName>
     </PropertyGroup>
 
@@ -58,7 +58,7 @@
       <ProjectReference Include="..\SunEngine.Migrations\SunEngine.Migrations.csproj" />
     </ItemGroup>
 
-
+    
    
     <PropertyGroup>
         <ServerGarbageCollection>false</ServerGarbageCollection>
