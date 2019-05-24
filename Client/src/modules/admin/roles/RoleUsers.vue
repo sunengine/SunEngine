@@ -41,7 +41,7 @@
     watch: {
       'roleName': 'loadRoleUsers'
     },
-    maxUsersTake: config.Misc.AdminRoleUsersMaxUsersTake,
+    maxUsersTake: null,
     methods: {
       filterValueChanged() {
         this.timeout && clearTimeout(this.timeout);
@@ -64,6 +64,7 @@
       },
     },
     beforeCreate() {
+      this.maxUsersTake = config.Misc.AdminRoleUsersMaxUsersTake;
       this.$options.components.LoaderWait = require('sun').LoaderWait;
     },
     async created() {

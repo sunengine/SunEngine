@@ -36,7 +36,7 @@ export default function prepareAllMenuItems(state, allMenuItems) {
     if (menuItem.routeName) {
       menuItem.to = {
         name: menuItem.routeName,
-        params: menuItem.routeParamsJson
+        params: menuItem.routeParamsJson ? JSON.parse(menuItem.routeParamsJson) : undefined
       }
     }
   }
