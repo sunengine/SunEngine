@@ -59,11 +59,13 @@ export default {
   // ——— menuItems ————————————————————————————————————
 
   CreateMenuItem: {
+    title: "Создать пункт меню",
     createBtn: "@:Global.btn.create",
     cancelBtn: "@:Global.btn.cancel",
     successNotify: "Пункт меню успешно создан"
   },
   EditMenuItem: {
+    title: "Редактировать пункт меню",
     saveBtn: "@:Global.btn.save",
     cancelBtn: "@:Global.btn.cancel",
     successNotify: "Пункт меню успешно сохранён"

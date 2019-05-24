@@ -3,7 +3,7 @@
     <q-input ref="name" v-model="menuItem.name" :label="$tl('name')" :rules="rules.name"/>
     <q-input ref="title" v-model="menuItem.title" :label="$tl('title')" :rules="rules.title"/>
     <q-input ref="subTitle" v-model="menuItem.subTitle" :label="$tl('subTitle')" :rules="rules.subTitle"/>
-    <q-input ref="url" @input="urlUpdated" v-model="url" :label="$tl('url')" :rules="rules.url">
+    <q-input ref="url" class="q-mb-md" @input="urlUpdated" v-model="url" :label="$tl('url')" :rules="rules.url">
       <div slot="hint">
         <div v-if="menuItem.routeName" class="text-positive">
           [{{$tl("local")}}: RouteName={{menuItem.routeName}}
@@ -21,7 +21,6 @@
       </div>
     </q-input>
 
-    <q-checkbox ref="exact" v-model="menuItem.exact" :label="$tl('exact')"/>
 
     <q-field class="cursor-pointer" v-if="parentOptions" :label="$tl('parent')" stack-label>
       <template v-slot:control>
@@ -53,9 +52,15 @@
     <LoaderWait v-else/>
 
     <q-input ref="cssClass" v-model="menuItem.cssClass" :label="$tl('cssClass')" :rules="rules.cssClass"/>
-    <q-input ref="icon" v-model="menuItem.icon" :label="$tl('icon')" :rules="rules.icon"/>
-    <q-input ref="settingsJson" type="textarea" v-model="menuItem.settingsJson" :label="$tl('settingsJson')"
+    <q-input ref="icon" v-model="menuItem.icon" :label="$tl('icon')" :rules="rules.icon">
+      <div slot="prepend" v-if="menuItem.icon">
+        <q-icon :name="menuItem.icon"/>
+      </div>
+    </q-input>
+    <q-input ref="settingsJson" type="textarea" v-model="menuItem.settingsJson" autogrow :label="$tl('settingsJson')"
              :rules="rules.settingsJson"/>
+    <q-checkbox ref="exact" v-model="menuItem.exact" :label="$tl('exact')"/>
+    <br/>
     <q-checkbox ref="isHidden" v-model="menuItem.isHidden" :label="$tl('isHidden')"/>
   </div>
 </template>
@@ -147,6 +152,23 @@
       }
     },
     methods: {
+      getUrl() {
+        if (!this.menuItem)
+          return;
+
+        if (this.menuItem.routeName) {
+          const resolved = this.$router.resolve(
+            {
+              name: this.menuItem.routeName,
+              params: this.menuItem.routeParamsJson ? JSON.parse(this.menuItem.routeParamsJson) : undefined
+            });
+          if (resolved && resolved.href) {
+            this.url = resolved.href;
+          }
+        } else if (this.menuItem.externalUrl) {
+          this.url = this.menuItem.externalUrl;
+        }
+      },
       validate() {
         this.$refs.name.validate();
         this.$refs.title.validate();
@@ -249,6 +271,7 @@
     async created() {
       this.rules = createRules.call(this);
       await this.loadData();
+      this.getUrl();
     }
   }
 

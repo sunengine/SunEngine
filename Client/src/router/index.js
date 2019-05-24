@@ -2,8 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import {routes} from 'sun'
-import {routeHasAccess} from'sun'
+import {routeHasAccess} from 'sun'
 import {setRouter} from 'sun'
+import {store} from 'sun'
 
 
 Vue.use(VueRouter);
@@ -14,8 +15,7 @@ Vue.use(VueRouter);
  */
 
 
-
-export default function ({ store, ssrContext }) {
+export default function ({store, ssrContext}) {
 
   const router = new VueRouter({
     scrollBehavior: () => ({y: 0}),
@@ -28,13 +28,16 @@ export default function ({ store, ssrContext }) {
     base: process.env.VUE_ROUTER_BASE
   });
 
+
   router.beforeEach((to, from, next) => {
+
     if (!routeHasAccess(to)) {
       router.push({name: 'Home'});
       return;
     }
 
     next();
+
   });
 
   setRouter(router);

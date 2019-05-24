@@ -80,7 +80,7 @@
       this.$options.components.MenuItemForm = require('sun').MenuItemForm;
     },
     async created() {
-      this.title = this.$tl('title')
+      this.title = this.$tl('title');
     }
   };
 

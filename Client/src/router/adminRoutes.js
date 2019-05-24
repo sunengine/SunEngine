@@ -12,8 +12,6 @@ import {CreateMenuItem} from 'sun'
 import {EditMenuItem} from 'sun'
 
 
-
-
 const routes = [
   {
     name: 'Admin',
@@ -33,7 +31,7 @@ const routes = [
   },
   {
     name: 'CreateMenuItem',
-    path: '/admin/CreateMenuItem/'.toLowerCase()+':parentMenuItemId?',
+    path: '/admin/CreateMenuItem/'.toLowerCase() + ':parentMenuItemId?',
     components: {
       default: CreateMenuItem,
       navigation: AdminPanel
@@ -45,7 +43,7 @@ const routes = [
   },
   {
     name: 'EditMenuItem',
-    path: '/admin/EditMenuItem/'.toLowerCase()+':menuItemId',
+    path: '/admin/EditMenuItem/'.toLowerCase() + ':menuItemId',
     components: {
       default: EditMenuItem,
       navigation: AdminPanel
