@@ -6,6 +6,7 @@ import {categoriesModule as categories} from 'sun'
 import {menuModule as menu} from 'sun'
 import {request} from 'sun'
 import {initStore} from 'sun'
+import {initUser} from 'sun'
 import {setStore} from 'sun'
 
 
@@ -35,6 +36,7 @@ export default function (/* { ssrContext } */) {
   });
 
   setStore(store);
+  initUser(store);
 
   return store;
 }

@@ -4,12 +4,12 @@ export default function prepareAllMenuItems(state, allMenuItems) {
   let menuItemsById = {};
 
   for(const menuItem of allMenuItems) {
-    menuItemsById['id' + menuItem.id] = menuItem;
+    menuItemsById[menuItem.id.toString()] = menuItem;
   }
 
   for(let menuItem of allMenuItems) {
     if(menuItem.parentId) {
-      const parent = menuItemsById['id' + menuItem.parentId];
+      const parent = menuItemsById[menuItem.parentId.toString()];
       if(!parent)
         continue;
 
@@ -24,7 +24,7 @@ export default function prepareAllMenuItems(state, allMenuItems) {
   state.namedMenuItems = {};
 
   for(const menuItemId in menuItemsById) {
-    const menuItem = menuItemsById[menuItemId];
+    const menuItem = menuItemsById[menuItemId.toString()];
 
     if(menuItem.name) {
       state.namedMenuItems[menuItem.name.toLowerCase()] = menuItem;
