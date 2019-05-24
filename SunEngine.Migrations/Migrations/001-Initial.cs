@@ -18,15 +18,18 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("Name").AsString(DbColumnSizes.SectionType_Name).NotNullable()
                 .WithColumn("Title").AsString(DbColumnSizes.SectionType_Title).NotNullable();
 
+            
             Create.Table("CacheSettings")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("CachePolicy").AsInt32().NotNullable()
                 .WithColumn("InvalidateCacheTime").AsInt32().Nullable();
 
+            
             Create.Table("CategoryCacheSettings")
                 .WithColumn("Id").AsInt32().PrimaryKey().NotNullable()
                 .WithColumn("PagesAmount").AsInt32().NotNullable();
 
+            
             Create.Table("Categories")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name").AsString(DbColumnSizes.Categories_Name).NotNullable()
@@ -48,6 +51,7 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("IsHidden").AsBoolean().NotNullable()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable();
 
+            
             Create.Table("AspNetUsers")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("UserName").AsString(DbColumnSizes.Users_UserName).NotNullable()
@@ -94,8 +98,9 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("LastActivity").AsMyDateTime().NotNullable().Indexed()
                 .WithColumn("CommentsCount").AsInt32().NotNullable()
                 .WithColumn("SortNumber").AsInt32().NotNullable().Indexed()
-                .WithColumn("IsHidden").AsBoolean().NotNullable().Indexed()
-                .WithColumn("IsDeleted").AsBoolean().NotNullable().Indexed();
+                .WithColumn("IsCommentsBlocked").AsBoolean().NotNullable()
+                .WithColumn("IsHidden").AsBoolean().NotNullable()
+                .WithColumn("IsDeleted").AsBoolean().NotNullable();
 
 
             Create.Table("Comments")
@@ -107,7 +112,7 @@ namespace SunEngine.Migrations.Migrations
                 .ForeignKey("FK_Comments_AspNetUsers_AuthorId", "AspNetUsers", "Id")
                 .WithColumn("PublishDate").AsMyDateTime().NotNullable().Indexed()
                 .WithColumn("EditDate").AsMyDateTime().Nullable()
-                .WithColumn("IsDeleted").AsBoolean().Nullable().Indexed();
+                .WithColumn("IsDeleted").AsBoolean().Nullable();
 
             Create.ForeignKey("FK_Materials_Comments_LastCommentId").FromTable("Materials")
                 .ForeignColumn("LastCommentId").ToTable("Comments").PrimaryColumn("Id");
@@ -163,6 +168,7 @@ namespace SunEngine.Migrations.Migrations
                     "FK_CategoryOperationAccesses_OperationKeys_OperationKeyId", "OperationKeys", "OperationKeyId")
                 .WithColumn("Access").AsBoolean().NotNullable();
 
+            
             Create.Table("LongSessions")
                 .WithColumn("Id").AsInt64().PrimaryKey().Identity().NotNullable()
                 .WithColumn("UserId").AsInt32().NotNullable().Indexed()
@@ -171,16 +177,18 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("LongToken2").AsString(DbColumnSizes.LongSessions_LongToken2).NotNullable()
                 .WithColumn("DeviceInfo").AsMaxString().NotNullable()
                 .WithColumn("ExpirationDate").AsMyDateTime().NotNullable().Indexed();
-
+            
             Create.Index("IX_LongSessions_Main").OnTable("LongSessions")
                 .OnColumn("UserId").Ascending()
                 .OnColumn("LongToken1").Ascending()
                 .OnColumn("LongToken2").Ascending();
 
+            
             Create.Table("BlackListShortTokens")
                 .WithColumn("TokenId").AsString(DbColumnSizes.BlackListShortToken_TokenId).PrimaryKey().NotNullable()
                 .WithColumn("Expire").AsMyDateTime().Indexed().NotNullable();
 
+            
             Create.Table("MenuItems")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("ParentId").AsInt32().Nullable().ForeignKey("FK_MenuItems_MenuItems_Id", "MenuItems", "Id")

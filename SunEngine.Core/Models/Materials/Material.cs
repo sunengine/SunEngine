@@ -55,11 +55,13 @@ namespace SunEngine.Core.Models.Materials
         /// </summary>
         public int SortNumber { get; set; }
         
+        public bool IsCommentsBlocked { get; set; }
+
         public bool IsDeleted { get; set; }
         
         public bool IsHidden { get; set; }
 
-        
+
         /// <summary>
         /// Count of not deleted comments
         /// </summary>

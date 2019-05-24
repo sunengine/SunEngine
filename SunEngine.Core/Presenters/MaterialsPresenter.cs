@@ -50,6 +50,8 @@ namespace SunEngine.Core.Presenters
                     CommentsCount = x.CommentsCount,
                     Text = x.Text,
                     CategoryName = x.Category.Name,
+                    IsHidden = x.IsHidden,
+                    IsCommentsBlocked = x.IsCommentsBlocked,
                     IsDeleted = x.IsDeleted,
                     Tags = x.TagMaterials.OrderBy(y => y.Tag.Name).Select(y => y.Tag.Name).ToArray()
                 }
@@ -72,6 +74,8 @@ namespace SunEngine.Core.Presenters
         public DateTime PublishDate { get; set; }
         public DateTime? EditDate { get; set; }
         public string CategoryName { get; set; }
+        public bool IsCommentsBlocked { get; set; }
+        public bool IsHidden { get; set; }
         public bool IsDeleted { get; set; }
         public string[] Tags { get; set; }
     }

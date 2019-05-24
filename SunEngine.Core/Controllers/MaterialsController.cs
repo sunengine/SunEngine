@@ -94,7 +94,7 @@ namespace SunEngine.Core.Controllers
 
             var now = DateTime.UtcNow;
 
-            Material material = new Material
+            var material = new Material
             {
                 Title = materialData.Title,
                 Text = materialData.text,
