@@ -13,7 +13,7 @@
       <span v-if="notRoot" class="q-ml-md">
         <q-btn @click="$emit('edit',category.id)" icon="fas fa-pencil-alt" color="info" dense size="10px" flat/>
         <q-btn @click="$emit('add',category.id)" icon="fas fa-plus" color="info" dense size="10px" flat/>
-        <q-btn @click="$emit('go',category.name)" icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
+        <q-btn :to="route" icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
       </span>
 
     </span>
@@ -36,6 +36,9 @@
       isLast: Boolean
     },
     computed: {
+      route() {
+        return this.$store.getters.getCategory(this.category.name).getRoute()
+      },
       notRoot() {
         return this.category.name !== 'Root'
       },
