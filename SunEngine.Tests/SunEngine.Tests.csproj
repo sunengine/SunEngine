@@ -18,4 +18,15 @@
       <ProjectReference Include="..\SunEngine.Cli\SunEngine.Cli.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <Content Include="MailTemplates\test-template.html">
+          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="SunEngine.Tests\MailTemplates\*">
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
 </Project>
