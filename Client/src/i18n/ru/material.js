@@ -26,6 +26,8 @@ export default {
     tags: "Метки",
     selectCategory: "Выберите раздел",
     category: "Раздел: {0}",
+    hide: "Спрятать",
+    blockComments: "Запретить комментарии",
     validation: {
       name: {
         allowedChars: "Имя должно содержать только английские буквы цифры и символ '-'",

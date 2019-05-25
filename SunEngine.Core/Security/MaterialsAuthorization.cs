@@ -33,6 +33,18 @@ namespace SunEngine.Core.Security
             OperationKeys = operationKeysContainer;
         }
 
+        public bool CanHide(IReadOnlyDictionary<string, RoleCached> userGroups,
+            CategoryCached category)
+        {
+            return authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialHide);
+        }
+        
+        public bool CanBlockComments(IReadOnlyDictionary<string, RoleCached> userGroups,
+            CategoryCached category)
+        {
+            return authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialBlockCommentsAny);
+        }
+        
         public bool CanCreate(IReadOnlyDictionary<string, RoleCached> userGroups,
             CategoryCached category)
         {

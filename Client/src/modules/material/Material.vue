@@ -107,6 +107,8 @@
         return this.$store.getters.getCategory(this.categoryName);
       },
       canCommentWrite() {
+        if(this.material.isBlockComments)
+          return false;
         return this.category.categoryPersonalAccess.commentWrite;
       },
       categoryPersonalAccess() {

@@ -114,7 +114,7 @@ async function checkTokens(rez) {
       store.state.auth.tokens = null;
       removeTokens();
       store.commit('clearAllUserRelatedData');
-      await store.dispatch('getAllCategories', {skipLock: true});
+      await store.dispatch('loadAllCategories', {skipLock: true});
 
       console.info("%cTokens logout", consoleUserLogout);
     }

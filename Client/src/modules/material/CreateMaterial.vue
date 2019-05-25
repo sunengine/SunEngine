@@ -39,7 +39,9 @@
           text: "",
           description: null,
           tags: [],
-          categoryName: this.initialCategoryName
+          categoryName: this.initialCategoryName,
+          isBlockComments: false,
+          isHidden: false
         },
         loading: false
       }

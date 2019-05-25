@@ -115,7 +115,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import "~quasar-variables";
 
   .logo {
     width: 220px !important;

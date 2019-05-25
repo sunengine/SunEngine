@@ -62,7 +62,7 @@ namespace SunEngine.Core.Controllers
             if (material == null)
                 return BadRequest();
 
-            if (!commentsAuthorization.CanAdd(User.Roles, material.CategoryId))
+            if (!commentsAuthorization.CanAdd(User.Roles, material))
                 return Unauthorized();
 
             var now = DateTime.UtcNow;

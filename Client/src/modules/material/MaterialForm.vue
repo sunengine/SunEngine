@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="q-gutter-sm">
 
     <q-input v-if="canEditName" ref="name" v-model="material.name" :label="$tl('name')" :rules="rules.name">
       <template v-slot:prepend>
@@ -40,6 +40,15 @@
       </q-menu>
     </q-btn>
     <div class="error" v-if="!material.categoryName && !start">{{$tl('validation.category.required')}}</div>
+    <div>
+      <q-checkbox :toggle-indeterminate="false"
+                  v-if="canBlockComments" ref="isHidden" v-model="material.isCommentsBlocked"
+                  :label="$tl('blockComments')"/>
+    </div>
+    <div>
+      <q-checkbox :toggle-indeterminate="false" v-if="canHide" ref="isHidden" v-model="material.isHidden"
+                  :label="$tl('hide')"/>
+    </div>
 
   </div>
 </template>
@@ -101,6 +110,13 @@
       },
       canEditName() {
         return this.$store.state.auth.roles.includes("Admin") && this.category?.sectionType?.name === 'Articles';
+      },
+      canHide() {
+        debugger;
+        return this.category?.categoryPersonalAccess?.materialHide;
+      },
+      canBlockComments() {
+        return this.category?.categoryPersonalAccess?.materialBlockCommentsAny;
       },
       categoryTitle() {
         if (!this.material.categoryName) {

@@ -103,6 +103,8 @@ namespace SunEngine.Core.Controllers
                 CategoryId = category.Id,
                 AuthorId = User.UserId
             };
+            
+            
 
             var result = await SetNameAsync(material, materialData.Name);
             if (result.Failed)
@@ -112,6 +114,13 @@ namespace SunEngine.Core.Controllers
             if (isDescriptionEditable)
                 material.Description = materialData.Description;
 
+
+            if (materialData.IsHidden && materialsAuthorization.CanHide(User.Roles, category))
+                material.IsHidden = true;
+            
+            if (materialData.IsHidden && materialsAuthorization.CanBlockComments(User.Roles, category))
+                material.IsCommentsBlocked = true;
+            
             contentCache.InvalidateCache(category.Id);
 
             await materialsManager.CreateAsync(material, materialData.Tags, isDescriptionEditable);
@@ -150,6 +159,12 @@ namespace SunEngine.Core.Controllers
             bool isDescriptionEditable = newCategory.IsDescriptionEditable();
             material.Description = isDescriptionEditable ? materialData.Description : null;
 
+            if (material.IsHidden != materialData.IsHidden && materialsAuthorization.CanHide(User.Roles, newCategory))
+                material.IsHidden = materialData.IsHidden;
+            
+            if (material.IsCommentsBlocked != materialData.IsCommentsBlocked && materialsAuthorization.CanBlockComments(User.Roles, newCategory))
+                material.IsCommentsBlocked = materialData.IsCommentsBlocked;
+            
             // Если категория новая, то обновляем
             if (material.CategoryId != newCategory.Id
                 && materialsAuthorization.CanMove(User,
@@ -278,5 +293,9 @@ namespace SunEngine.Core.Controllers
         public string Tags { get; set; } = "";
         public DateTime? PublishDate { get; set; } = null;
         public int? AuthorId { get; set; } = null;
+        
+        public bool IsHidden { get; set; }
+        public bool IsCommentsBlocked { get; set; }
+
     }
 }
