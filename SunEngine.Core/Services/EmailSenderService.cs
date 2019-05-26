@@ -52,15 +52,13 @@ namespace SunEngine.Core.Services
                 SubjectEncoding = Encoding.UTF8
             };
             mailMessage.To.Add(toEmail);
-
-
+            
             if (!string.IsNullOrEmpty(htmlMessage))
             {
-                AlternateView htmlView = AlternateView.CreateAlternateViewFromString(htmlMessage);
+                var htmlView = AlternateView.CreateAlternateViewFromString(htmlMessage);
                 htmlView.ContentType = new ContentType("text/html");
                 mailMessage.AlternateViews.Add(htmlView);
             }
-
 
             using (SmtpClient client = new SmtpClient(options.Host, options.Port)
             {

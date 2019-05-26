@@ -9,34 +9,40 @@ namespace SunEngine.Core.Cache.Services
 {
     public class MailTemplatesCache : ISunMemoryCache
     {
-        private Dictionary<string, string> templates;
+        private const string MailTemplatesDir = "MailTemplates";
+        
+        
+        private Dictionary<string, string> _templates;
 
         public Dictionary<string, string> Templates
         {
             get
             {
-                if (templates == null) Initialize();
-                return templates;
+                if (_templates == null) 
+                    Initialize();
+                
+                return _templates;
             }
         }
+        
 
         // todo: add exception handling.
         public void Initialize()
         {
-            templates = new Dictionary<string, string>();
+            _templates = new Dictionary<string, string>();
 
-            DirectoryInfo directoryInfo = new DirectoryInfo("MailTemplates");
+            DirectoryInfo directoryInfo = new DirectoryInfo(MailTemplatesDir);
             foreach (FileInfo file in directoryInfo.GetFiles())
             {
                 string filePath = file.Name;
-                string fileContent = File.ReadAllText($"MailTemplates\\{file.Name}");
-                templates.Add(filePath, fileContent);
+                string fileContent = File.ReadAllText(Path.Combine(MailTemplatesDir, file.Name));
+                _templates.Add(filePath, fileContent);
             }
         }
 
         public MailContent BuildMessage(
             string templateName,
-            Dictionary<String, String> replaceDictionary
+            Dictionary<string, string> replaceDictionary
         )
         {
             MailContent mailContent = new MailContent();
@@ -57,31 +63,26 @@ namespace SunEngine.Core.Cache.Services
                 );
             }
 
-            mailContent.subject = TrimHtmlTags(
-                ParseHtmlValue(value, "Subject"),
-                "Subject"
-            );
-            mailContent.template = TrimHtmlTags(
-                ParseHtmlValue(value, "Body"),
-                "Body"
-            );
+            mailContent.subject = ParseHtmlValue(value, "Subject");
+            mailContent.template = ParseHtmlValue(value, "Body");
 
             return mailContent;
         }
 
-        public Task InitializeAsync() => throw new NotImplementedException();
-
-        public void Reset() => throw new NotImplementedException();
-
-        private static string TrimHtmlTags(string matchedString, string key)
+        public Task InitializeAsync()
         {
-            return matchedString.Trim($"</{key}>".ToCharArray()).Trim();
+            throw new NotImplementedException();
+        }
+
+        public void Reset()
+        {
+            _templates = null;
         }
 
         private static string ParseHtmlValue(string rawString, string key)
         {
             var regex = new Regex($"<{key}>(.+)?<\\/{key}>", RegexOptions.Singleline);
-            return regex.Match(rawString).Value;
+            return regex.Match(rawString).Groups[1].Value.Trim();
         }
     }
 
