@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="MailTemplates\register.html">
+        <Content Include="MailTemplates\test-register.html">
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
