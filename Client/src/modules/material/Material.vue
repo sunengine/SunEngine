@@ -10,7 +10,8 @@
       </div>
       <div class="material q-mb-lg" v-html="material.text">
       </div>
-      <div v-if="material.tags && material.tags.length > 0" class="q-mt-lg" style="text-align: center">
+      <div v-if="material.tags && material.tags.length > 0" class="q-mt-lg"
+           style="text-align: center">
         {{$tl("tags")}}
         <q-chip class="q-mx-xs" dense color="info" v-for="tag in material.tags" :key="tag">
           {{tag}}
@@ -107,7 +108,7 @@
         return this.$store.getters.getCategory(this.categoryName);
       },
       canCommentWrite() {
-        if(this.material.isCommentsBlocked)
+        if (this.material.isCommentsBlocked)
           return false;
         return this.category.categoryPersonalAccess.commentWrite;
       },
@@ -243,23 +244,21 @@
           message: deleteDialogMessage,
           ok: okBtn,
           cancel: cancelBtn
-        }).then(async () => {
+        }).onOk(async () => {
           await this.$store.dispatch("request",
             {
               url: "/Materials/Delete",
-              data:
-                {
-                  id: this.material.id
-                }
+              data: {
+                id: this.material.id,
+              }
             }).then(
             () => {
               const deleteSuccessMsg = this.$tl('deleteSuccess');
               this.$successNotify(deleteSuccessMsg);
-              this.$router.push(this.category.path);
+              this.$router.push(this.category.getRoute());
             }).catch((x) => {
             console.log("error", x)
           });
-        }).catch(() => {
         });
       },
       async commentAdded() {

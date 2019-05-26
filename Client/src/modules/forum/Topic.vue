@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div :class="['row', {'mat-hidden': topic.isHidden}, {'mat-deleted': topic.isDeleted}]">
     <div class="col-xs-12 col-sm-8">
       <q-item class="page-padding" :to='to' style="height:100%">
         <q-item-section avatar>
@@ -98,6 +98,18 @@
         padding-top: 0;
       }
     }
+  }
+
+  .mat-hidden {
+    color: silver !important;
+
+    * {
+      color: silver !important;
+    }
+  }
+
+  .mat-deleted {
+    color: maroon !important;
   }
 
 </style>

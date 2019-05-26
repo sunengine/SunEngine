@@ -53,19 +53,25 @@ namespace SunEngine.Core.Controllers
                 authorizationService.GetAllowedCategories(User.Roles, allCategories,
                     OperationKeys.MaterialAndCommentsRead);
 
-            var categoriesIds = categories.Select(x => x.Id).ToArray();
+            var categoriesIds = categories.Select(x => x.Id);
 
+            var options = new MaterialsShowOptions
+            {
+                CategoriesIds = categoriesIds,
+                Page = page, 
+                PageSize = forumOptions.NewTopicsPageSize
+            };
+            
             async Task<IPagedList<TopicInfoView>> LoadDataAsync()
             {
-                return await forumPresenter.GetNewTopics(categoriesIds,
-                    page, forumOptions.NewTopicsPageSize, forumOptions.NewTopicsMaxPages);
+                return await forumPresenter.GetNewTopics(options, forumOptions.NewTopicsMaxPages);
             }
 
             return await CacheContentAsync(categoryParent, categoriesIds, LoadDataAsync, page);
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> GetThread(string categoryName, int page = 1)
+        public virtual async Task<IActionResult> GetThread(string categoryName, int page = 1, bool showDeleted = false)
         {
             var category = categoriesCache.GetCategory(categoryName);
 
@@ -74,10 +80,23 @@ namespace SunEngine.Core.Controllers
 
             if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
                 return Unauthorized();
+            
+            var options = new MaterialsShowOptions
+            {
+                CategoryId = category.Id,
+                Page = page, 
+                PageSize = forumOptions.ThreadMaterialsPageSize
+            };
+            
+            if (authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialHide))
+                options.ShowHidden = true;
+            
+            if (showDeleted && authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialDeleteAny))
+                options.ShowDeleted = true;
 
             async Task<IPagedList<TopicInfoView>> LoadDataAsync()
             {
-                return await forumPresenter.GetThread(category.Id, page, forumOptions.ThreadMaterialsPageSize);
+                return await forumPresenter.GetThread(options);
             }
 
             return await CacheContentAsync(category, category.Id, LoadDataAsync, page);

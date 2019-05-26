@@ -6,7 +6,7 @@ namespace SunEngine.Core.Presenters
     {
         public int CategoryId;
         public IEnumerable<int> CategoriesIds;
-        public ArticlesOrderType ArticlesOrderType;
+        public OrderType orderType;
         public bool ShowHidden;
         public bool ShowDeleted;
         public int Page;

@@ -1,4 +1,8 @@
 export default {
+  Article: {
+    hidden: "спрятана",
+    deleted: "удалена"
+  },
   ArticlesMultiCatPage: {
     newArticleBtnDefault: "@:ArticlesPage.newArticleBtn"
   },

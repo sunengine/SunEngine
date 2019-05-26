@@ -98,7 +98,8 @@
             url: "/Forum/GetThread",
             data: {
               categoryName: this.categoryName,
-              page: this.currentPage
+              page: this.currentPage,
+              showDeleted: (this.$store.state.admin.showDeletedElements || this.$route.query.deleted) ? true : undefined
             }
           })
           .then(

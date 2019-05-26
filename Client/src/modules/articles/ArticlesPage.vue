@@ -77,7 +77,8 @@
             url: "/Articles/GetArticles",
             data: {
               categoryName: this.categoryName,
-              page: currentPage
+              page: currentPage,
+              showDeleted: (this.$store.state.admin.showDeletedElements || this.$route.query.deleted) ? true : undefined
             }
           })
           .then(

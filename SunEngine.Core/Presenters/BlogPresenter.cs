@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using SunEngine.Core.DataBase;
+using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils.PagedList;
 
@@ -9,10 +10,10 @@ namespace SunEngine.Core.Presenters
 {
     public interface IBlogPresenter
     {
-        Task<IPagedList<PostView>> GetPostsAsync(int categoryId, int page, int pageSize);
+        Task<IPagedList<PostView>> GetPostsAsync(MaterialsShowOptions options);
 
         Task<IPagedList<PostView>>
-            GetPostsFromMultiCategoriesAsync(int[] categoriesIds, int page, int pageSize);
+            GetPostsFromMultiCategoriesAsync(MaterialsShowOptions options);
     }
 
     public class BlogPresenter : DbService, IBlogPresenter
@@ -21,9 +22,17 @@ namespace SunEngine.Core.Presenters
         {
         }
 
-        public virtual Task<IPagedList<PostView>> GetPostsAsync(int categoryId, int page, int pageSize)
+        public virtual Task<IPagedList<PostView>> GetPostsAsync(MaterialsShowOptions options)
         {
-            return db.MaterialsNotDeleted.GetPagedListAsync(
+            IQueryable<Material> query = db.Materials;
+
+            if (!options.ShowHidden)
+                query = query.Where(x => !x.IsHidden);
+
+            if (!options.ShowDeleted)
+                query = query.Where(x => !x.IsDeleted);
+            
+            return query.GetPagedListAsync(
                 x => new PostView
                 {
                     Id = x.Id,
@@ -35,15 +44,19 @@ namespace SunEngine.Core.Presenters
                     AuthorAvatar = x.Author.Avatar,
                     PublishDate = x.PublishDate,
                     CategoryName = x.Category.Name,
-                    HasMoreText = x.Text.Length != x.Preview.Length
+                    HasMoreText = x.Text.Length != x.Preview.Length,
+                    IsCommentsBlocked = x.IsCommentsBlocked,
+                    IsHidden = x.IsHidden,
+                    IsDeleted = x.IsDeleted
                 },
-                x => x.CategoryId == categoryId,
+                x => x.CategoryId == options.CategoryId,
                 x => x.OrderByDescending(y => y.PublishDate),
-                page,
-                pageSize);
+                options.Page,
+                options.PageSize);
         }
-        
-        public virtual Task<IPagedList<PostView>> GetPostsFromMultiCategoriesAsync(int[] categoriesIds, int page, int pageSize)
+
+        public virtual Task<IPagedList<PostView>> GetPostsFromMultiCategoriesAsync(
+            MaterialsShowOptions options)
         {
             return db.MaterialsNotDeleted.GetPagedListAsync(
                 x => new PostView
@@ -58,12 +71,13 @@ namespace SunEngine.Core.Presenters
                     PublishDate = x.PublishDate,
                     CategoryName = x.Category.Name,
                     CategoryTitle = x.Category.Title,
-                    HasMoreText = x.Text.Length != x.Preview.Length
+                    HasMoreText = x.Text.Length != x.Preview.Length,
+                    IsCommentsBlocked = x.IsCommentsBlocked
                 },
-                x => categoriesIds.Contains(x.CategoryId),
+                x => options.CategoriesIds.Contains(x.CategoryId),
                 x => x.OrderByDescending(y => y.PublishDate),
-                page,
-                pageSize);
+                options.Page,
+                options.PageSize);
         }
     }
 
@@ -80,5 +94,8 @@ namespace SunEngine.Core.Presenters
         public string CategoryName { get; set; }
         public string CategoryTitle { get; set; }
         public bool HasMoreText { get; set; }
+        public bool IsCommentsBlocked { get; set; }
+        public bool IsHidden { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

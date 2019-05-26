@@ -1,7 +1,18 @@
 <template>
-  <q-item :to="to" :class="['page-padding', {'mat-hidden': article.isHidden}, {'mat-deleted': article.isDeleted}]" >
+  <q-item :to="to"
+          :class="['page-padding', {'mat-hidden': article.isHidden}, {'mat-deleted': article.isDeleted}]">
     <q-item-section>
-      <q-item-label class="my-header">{{article.title}}</q-item-label>
+      <q-item-label class="my-header">
+        <q-icon name="far fa-eye-slash" v-if="article.isHidden" class="q-mr-sm"/>
+        <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="article.isDeleted"/>
+        {{article.title}}
+        <span class="q-ml-sm" v-if="article.isHidden">
+        [{{$tl("hidden")}}]
+      </span>
+        <span class="q-ml-sm" v-if="article.isDeleted">
+        [{{$tl("deleted")}}]
+      </span>
+      </q-item-label>
       <q-item-label v-if="description" class="info-block" caption>
         <div v-html="description">
         </div>
@@ -48,7 +59,15 @@
 
 <style lang="stylus" scoped>
 
-.mat-hidden {
-  color: green !important;
-}
+  .mat-hidden {
+    color: silver !important;
+
+    * {
+      color: silver !important;
+    }
+  }
+
+  .mat-deleted {
+    color: maroon !important;
+  }
 </style>

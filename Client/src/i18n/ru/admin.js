@@ -162,7 +162,8 @@ export default {
     categoriesAdmin: "Категории",
     rolesPermissions: "Настройка прав",
     rolesUsers: "Группы пользователей",
-    cacheSettings: "Настройки кэширования"
+    cacheSettings: "Настройки кэширования",
+    deletedElements: "Удалённое"
   },
   AdminPage: {
     title: "@:AdminPanel.title"
@@ -187,5 +188,9 @@ export default {
         invalidValue: "Значение не может быть ниже 0",
       }
     }
+  },
+  DeletedElements: {
+    title: "Удалённые элементы",
+    showDeleted: "Показать удалённые элементы"
   }
 }

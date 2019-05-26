@@ -1,4 +1,8 @@
 export default {
+  Article: {
+    hidden: "hidden",
+    deleted: "deleted"
+  },
   ArticlesMultiCatPage: {
     newArticleBtnDefault: "@:ArticlesPage.newArticle"
   },

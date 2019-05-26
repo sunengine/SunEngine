@@ -21,9 +21,19 @@ namespace SunEngine.Core.Cache.Services
         private readonly IDataBaseFactory dataBaseFactory;
         private readonly IRolesCache rolesCache;
 
+        private MenuItemCached _rootMenuItem;
+        
         private IReadOnlyList<MenuItemCached> _allMenuItems;
 
-        public MenuItemCached RootMenuItem { get; private set; }
+        public MenuItemCached RootMenuItem
+        {
+            get
+            {
+                if (_rootMenuItem == null)
+                    Initialize();
+                return _rootMenuItem;
+            }
+        }
 
         public IReadOnlyList<MenuItemCached> AllMenuItems
         {
@@ -82,7 +92,7 @@ namespace SunEngine.Core.Cache.Services
 
                 _allMenuItems = allMenuItems.OrderBy(x => x.SortNumber).ToImmutableList();
 
-                RootMenuItem = _allMenuItems.First(x => x.Id == 1);
+                _rootMenuItem = _allMenuItems.First(x => x.Id == 1);
 
                 bool CheckIsVisible(MenuItem menuItem)
                 {

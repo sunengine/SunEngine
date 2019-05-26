@@ -10,6 +10,8 @@ import {RolesPage} from 'sun'
 import {CacheSettings} from 'sun'
 import {CreateMenuItem} from 'sun'
 import {EditMenuItem} from 'sun'
+import {DeletedElements} from 'sun'
+
 
 
 const routes = [
@@ -116,6 +118,14 @@ const routes = [
         props: true
       }
     ]
+  },
+  {
+    name: 'DeletedElements',
+    path: '/admin/DeletedElements'.toLowerCase(),
+    components: {
+      default: DeletedElements,
+      navigation: AdminPanel
+    }
   }
 ];
 

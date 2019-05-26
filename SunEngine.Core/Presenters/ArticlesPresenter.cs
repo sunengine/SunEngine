@@ -17,7 +17,7 @@ namespace SunEngine.Core.Presenters
 
    
 
-    public enum ArticlesOrderType
+    public enum OrderType
     {
         PublishDate = 0,
         SortNumber = 1
@@ -32,7 +32,7 @@ namespace SunEngine.Core.Presenters
         public virtual Task<IPagedList<ArticleInfoView>> GetArticlesAsync(MaterialsShowOptions options)
         {
             Func<IQueryable<Material>, IOrderedQueryable<Material>> orderBy;
-            if (options.ArticlesOrderType == ArticlesOrderType.PublishDate)
+            if (options.orderType == OrderType.PublishDate)
                 orderBy = x => x.OrderByDescending(y => y.PublishDate);
             else
                 orderBy = x => x.OrderByDescending(y => y.SortNumber);
@@ -56,7 +56,11 @@ namespace SunEngine.Core.Presenters
                     CommentsCount = x.CommentsCount,
                     AuthorName = x.Author.UserName,
                     PublishDate = x.PublishDate,
-                    CategoryName = x.Category.Name
+                    CategoryName = x.Category.Name,
+                    SortNumber = x.SortNumber,
+                    IsHidden = x.IsHidden,
+                    IsDeleted = x.IsDeleted,
+                    IsCommentsBlocked = x.IsCommentsBlocked
                 },
                 x => x.CategoryId == options.CategoryId,
                 orderBy,
@@ -86,9 +90,6 @@ namespace SunEngine.Core.Presenters
                     PublishDate = x.PublishDate,
                     CategoryName = x.Category.Name,
                     CategoryTitle = x.Category.Title,
-                    SortNumber = x.SortNumber,
-                    IsHidden = x.IsHidden,
-                    IsDeleted = x.IsDeleted,
                     IsCommentsBlocked = x.IsCommentsBlocked
                 },
                 x => options.CategoriesIds.Contains(x.CategoryId),

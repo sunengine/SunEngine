@@ -160,7 +160,8 @@ export default {
     categoriesAdmin: "Categories",
     rolesPermissions: "Permission settings",
     rolesUsers: "Groups",
-    cacheSettings: "Cache settings"
+    cacheSettings: "Cache settings",
+    deletedElements: "Deleted elements"
   },
   AdminPage: {
     title: "@:AdminPanel.title"
@@ -185,5 +186,9 @@ export default {
         invalidValue: "Value can`t be lower 0",
       }
     }
+  },
+  DeletedElements: {
+    title: "Deleted elements",
+    showDeleted: "Show deleted elements"
   }
 }
