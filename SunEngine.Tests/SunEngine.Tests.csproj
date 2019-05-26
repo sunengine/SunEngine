@@ -19,6 +19,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Content Include="MailTemplates\register.html">
+          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
         <Content Include="MailTemplates\test-template.html">
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
