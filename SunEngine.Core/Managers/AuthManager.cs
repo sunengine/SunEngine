@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -52,18 +53,21 @@ namespace SunEngine.Core.Managers
             if (user == null || !await userManager.CheckPasswordAsync(user, password))
             {
                 return UserServiceResult.BadResult(
-                    ErrorView.SoftError("UsernamePasswordInvalid", "The username or password is invalid."));
+                    ErrorView.SoftError("UsernamePasswordInvalid",
+                        "The username or password is invalid."));
             }
 
             if (!await userManager.IsEmailConfirmedAsync(user))
             {
                 return UserServiceResult.BadResult(
-                    ErrorView.SoftError("EmailNotConfirmed", "You must have a confirmed email to log in."));
+                    ErrorView.SoftError("EmailNotConfirmed",
+                        "You must have a confirmed email to log in."));
             }
 
             if (await userManager.IsUserInRoleAsync(user.Id, RoleNames.Banned))
             {
-                return UserServiceResult.BadResult(new ErrorView("UserBanned", "User is banned", ErrorType.System));
+                return UserServiceResult.BadResult(new ErrorView("UserBanned", "User is banned",
+                    ErrorType.System));
             }
 
             return UserServiceResult.OkResult(user);
@@ -82,7 +86,8 @@ namespace SunEngine.Core.Managers
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 IdentityResult result = await userManager.CreateAsync(user, model.Password);
-                await db.Users.Where(x => x.Id == user.Id).Set(x => x.Link, x => x.Id.ToString()).UpdateAsync();
+                await db.Users.Where(x => x.Id == user.Id).Set(x => x.Link, x => x.Id.ToString())
+                    .UpdateAsync();
 
                 if (!result.Succeeded)
                     return ServiceResult.BadResult(new ErrorView(result.Errors));
@@ -94,19 +99,23 @@ namespace SunEngine.Core.Managers
                     // Send email confirmation email
                     var confirmToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                    var emailConfirmUrl = globalOptions.SiteApi.AppendPathSegments("Auth", "ConfirmRegister")
+                    var emailConfirmUrl = globalOptions.SiteApi
+                        .AppendPathSegments("Auth", "ConfirmRegister")
                         .SetQueryParams(new {uid = user.Id, token = confirmToken});
 
                     try
                     {
-                        await EmailSenderService.SendEmailAsync(model.Email, "Please confirm your account",
-                            $"Please confirm your account by clicking this <a href=\"{emailConfirmUrl}\">link</a>."
+                        await EmailSenderService.SendEmailByTemplateAsync(
+                            model.Email,
+                            "register.html",
+                            new Dictionary<string, string> {{"[link]", emailConfirmUrl}}
                         );
                     }
                     catch (Exception exception)
                     {
                         return ServiceResult.BadResult(
-                            new ErrorView("EmailSendError", "Can not send email", ErrorType.System,     exception));
+                            new ErrorView("EmailSendError", "Can not send email", ErrorType.System,
+                                exception));
                     }
 
 
