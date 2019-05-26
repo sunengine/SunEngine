@@ -79,7 +79,6 @@
       async addToRoleConfirm(role) {
         this.add = false;
         const msg = this.$tl("addRoleConfirm",role.title);
-        debugger;
         const addRoleConfirmOkBtn = this.$tl("addRoleConfirmOkBtn");
         const cancelBtn = this.$t("Global.btn.cancel");
 
@@ -107,7 +106,6 @@
         })
       },
       async addToRole(role) {
-        debugger;
         await this.$store.dispatch("request",
           {
             url: "/Admin/UserRolesAdmin/AddUserToRole",

@@ -26,7 +26,6 @@ namespace SunEngine.Core.Controllers
 
         protected readonly IArticlesPresenter articlesPresenter;
 
-       
 
         public ArticlesController(
             IOptions<ArticlesOptions> articlesOptions,
@@ -45,7 +44,7 @@ namespace SunEngine.Core.Controllers
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> GetArticles(string categoryName, ArticlesOrderType sort = ArticlesOrderType.PublishDate, int page = 1)
+        public virtual async Task<IActionResult> GetArticles(string categoryName, ArticlesOrderType sort = ArticlesOrderType.PublishDate, int page = 1, bool showDeleted = false)
         {
             CategoryCached category = categoriesCache.GetCategory(categoryName);
 
@@ -55,14 +54,28 @@ namespace SunEngine.Core.Controllers
             if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
                 return Unauthorized();
 
+            var options = new MaterialsShowOptions
+            {
+                CategoryId = category.Id, 
+                ArticlesOrderType = sort, 
+                Page = page, 
+                PageSize = articlesOptions.CategoryPageSize
+            };
+
+            if (authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialHide))
+                options.ShowHidden = true;
+            
+            if (showDeleted && authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialDeleteAny))
+                options.ShowDeleted = true;
+
             async Task<IPagedList<ArticleInfoView>> LoadDataAsync()
             {
-                return await articlesPresenter.GetArticlesAsync(category.Id, sort, page, articlesOptions.CategoryPageSize);   
+                return await articlesPresenter.GetArticlesAsync(options);
             }
 
             return await CacheContentAsync(category, category.Id, LoadDataAsync, page);
         }
-        
+
         [HttpPost]
         public virtual async Task<IActionResult> GetArticlesFromMultiCategories(string categoriesNames, int page = 1)
         {
@@ -74,10 +87,15 @@ namespace SunEngine.Core.Controllers
             if (categoriesList.Count == 0)
                 return BadRequest("No categories to show");
 
-            var categoriesIds = categoriesList.Select(x => x.Id).ToArray();
-            
+            var options = new MaterialsShowOptions
+            {
+                CategoriesIds = categoriesList.Select(x => x.Id),
+                Page = page, 
+                PageSize = articlesOptions.CategoryPageSize
+            };
+           
             IPagedList<ArticleInfoView> articles =
-                await articlesPresenter.GetArticlesFromMultiCategoriesAsync(categoriesIds, page, articlesOptions.CategoryPageSize);
+                await articlesPresenter.GetArticlesFromMultiCategoriesAsync(options);
 
             return Json(articles);
         }

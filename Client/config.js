@@ -6,7 +6,7 @@ const config = {
   SiteName: 'SunEngine',
 
   Log: {
-    InitExtended: false,
+    InitExtended: true,
     Requests: true,
     MoveTo: true,
   },

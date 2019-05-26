@@ -40,7 +40,7 @@
           description: null,
           tags: [],
           categoryName: this.initialCategoryName,
-          isBlockComments: false,
+          isCommentsBlocked: false,
           isHidden: false
         },
         loading: false

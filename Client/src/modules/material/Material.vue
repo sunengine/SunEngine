@@ -107,7 +107,7 @@
         return this.$store.getters.getCategory(this.categoryName);
       },
       canCommentWrite() {
-        if(this.material.isBlockComments)
+        if(this.material.isCommentsBlocked)
           return false;
         return this.category.categoryPersonalAccess.commentWrite;
       },

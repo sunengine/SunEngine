@@ -1,20 +1,27 @@
+import { extend } from 'quasar'
+
+
 export default class Category {
   getRoute() {
     return this.route;
   }
 
   getMaterialRoute(idOrName, hash) {
+
     if(!this.route)
       return;
 
-    let route = Object.assign({}, this.getRoute());
+    let rezRoute = extend(true, {}, this.getRoute());
 
-    route.name += "-mat";
-    route.params.idOrName = idOrName.toString();
+    rezRoute.name += "-mat";
+    if(!rezRoute.params)
+      rezRoute.params = {};
+
+    rezRoute.params.idOrName = idOrName.toString();
 
     if (hash)
-      route.hash = hash;
+      rezRoute.hash = hash;
 
-    return route;
+    return rezRoute;
   }
 }

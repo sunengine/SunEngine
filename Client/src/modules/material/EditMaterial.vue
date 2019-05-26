@@ -34,6 +34,8 @@
           text: "",
           description: null,
           tags: [],
+          isHidden: false,
+          isBlockComments: false,
         },
         loading: false
       }
@@ -56,7 +58,9 @@
           categoryName: this.material.categoryName,
           title: this.material.title,
           text: this.material.text,
-          tags: this.material.tags.join(',')
+          tags: this.material.tags.join(','),
+          isHidden: this.material.isHidden,
+          isCommentsBlocked: this.material.isCommentsBlocked
         };
 
         if (this.material.name)

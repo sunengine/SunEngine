@@ -42,7 +42,7 @@
     <div class="error" v-if="!material.categoryName && !start">{{$tl('validation.category.required')}}</div>
     <div>
       <q-checkbox :toggle-indeterminate="false"
-                  v-if="canBlockComments" ref="isHidden" v-model="material.isCommentsBlocked"
+                  v-if="canBlockComments" ref="isCommentsBlocked" v-model="material.isCommentsBlocked"
                   :label="$tl('blockComments')"/>
     </div>
     <div>
@@ -112,7 +112,6 @@
         return this.$store.state.auth.roles.includes("Admin") && this.category?.sectionType?.name === 'Articles';
       },
       canHide() {
-        debugger;
         return this.category?.categoryPersonalAccess?.materialHide;
       },
       canBlockComments() {

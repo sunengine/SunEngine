@@ -1,5 +1,5 @@
 <template>
-  <q-item class="page-padding" :to="to">
+  <q-item :to="to" :class="['page-padding', {'mat-hidden': article.isHidden}, {'mat-deleted': article.isDeleted}]" >
     <q-item-section>
       <q-item-label class="my-header">{{article.title}}</q-item-label>
       <q-item-label v-if="description" class="info-block" caption>
@@ -9,7 +9,7 @@
       <q-item-label class="info-block" caption>
        <span>
         <q-icon name="far fa-user"/>
-        {{article.authorName}} &nbsp;
+          {{article.authorName}}
           </span>
         <span>
         <q-icon name="far fa-clock"/>
@@ -36,11 +36,11 @@
       description() {
         return this.article.description?.replace(/\n/g, "<br/>");
       },
-      to() {
-        return this.category.getMaterialRoute(this.article.name ?? this.article.id);
-      },
       category() {
         return this.$store.getters.getCategory(this.article.categoryName);
+      },
+      to() {
+        return this.category.getMaterialRoute(this.article.name ?? this.article.id);
       }
     }
   }
@@ -48,5 +48,7 @@
 
 <style lang="stylus" scoped>
 
-
+.mat-hidden {
+  color: green !important;
+}
 </style>

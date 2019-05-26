@@ -42,6 +42,8 @@ namespace SunEngine.Core.Managers
             var header =
                 $"<div>Вам написал: <a href='{globalOptions.SiteUrl.AppendPathSegment("user/" + from.Link)}'>{from.UserName}</a></div><br/>";
             text = sanitizer.Sanitize(header + text);
+            
+            
             string subject = $"Сообщение от {to.UserName} с сайта {globalOptions.SiteName}";
 
             return EmailSenderService.SendEmailAsync(to.Email, subject, text);

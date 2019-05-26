@@ -98,7 +98,7 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("LastActivity").AsMyDateTime().NotNullable().Indexed()
                 .WithColumn("CommentsCount").AsInt32().NotNullable()
                 .WithColumn("SortNumber").AsInt32().NotNullable().Indexed()
-                .WithColumn("IsCommentsBlocked").AsBoolean().NotNullable()
+                .WithColumn("isCommentsBlocked").AsBoolean().NotNullable()
                 .WithColumn("IsHidden").AsBoolean().NotNullable()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable();
 
