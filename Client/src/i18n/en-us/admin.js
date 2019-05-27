@@ -189,6 +189,9 @@ export default {
   },
   DeletedElements: {
     title: "Deleted elements",
-    showDeleted: "Show deleted elements"
+    showDeleted: "Show deleted elements",
+    info1: "If checked, deleted materials will shows on any single category.",
+    info2: "If append '?deleted=1' to any single category URL deleted material will shows.",
+    info3: "This function will not work on multi categories sections like 'new topics' on forum."
   }
 }

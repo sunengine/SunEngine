@@ -27,11 +27,17 @@ export default {
     category: "category:",
     edit: "Edit",
     tags: "Tags:",
-    deleteDialogTitle: "Удалить материал?",
+    deleted: "@:EditMaterial.deleted",
+    deleteDialogTitle: "@:EditMaterial.deleteDialogTitle",
     deleteDialogMessage: "",
     deleteDialogOk: "@:EditMaterial.deleteDialogOk",
     deleteDialogCancel: "@:EditMaterial.deleteDialogCancel",
-    deleteSuccess: "@:EditMaterial.deleteSuccess"
+    deleteSuccess: "@:EditMaterial.deleteSuccess",
+    restoreDialogTitle: "@:EditMaterial.restoreDialogTitle",
+    restoreDialogMessage: "",
+    restoreDialogOk: "@:EditMaterial.restoreDialogOk",
+    restoreDialogCancel: "@:EditMaterial.restoreDialogCancel",
+    restoreSuccess: "@:EditMaterial.restoreSuccess"
   },
   MaterialForm: {
     name: "Name (eng)",

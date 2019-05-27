@@ -8,10 +8,12 @@
         <span class="text-grey-7">{{$tl("category")}} </span>
         <router-link :to="category.getRoute()">{{category.title}}</router-link>
       </div>
+      <div v-if="material.isDeleted" class="text-red q-mb-md">
+        <q-chip icon="fas fa-trash" color="red" text-color="white" :label="$tl('deleted')"/>
+      </div>
       <div class="material q-mb-lg" v-html="material.text">
       </div>
-      <div v-if="material.tags && material.tags.length > 0" class="q-mt-lg"
-           style="text-align: center">
+      <div v-if="material.tags && material.tags.length > 0" class="q-mt-lg" style="text-align: center">
         {{$tl("tags")}}
         <q-chip class="q-mx-xs" dense color="info" v-for="tag in material.tags" :key="tag">
           {{tag}}
@@ -32,10 +34,16 @@
             <q-icon name="fas fa-edit" class="q-mr-xs"/>
             {{$tl("edit")}}</a>
         </div>
-        <div class="q-mr-md" v-if="canDelete">
+        <div class="q-mr-md" v-if="!material.isDeleted && canDelete">
           <a href="#" style="display: inline-flex; align-items: center;"
              @click.prevent="deleteMaterial">
             <q-icon name="fas fa-trash"/>
+          </a>
+        </div>
+        <div class="q-mr-md" v-if="material.isDeleted && canRestore">
+          <a href="#" style="display: inline-flex; align-items: center;"
+             @click.prevent="restoreMaterial">
+            <q-icon name="fas fa-trash-restore"/>
           </a>
         </div>
         <div class="mat-date-color">
@@ -43,7 +51,6 @@
           {{$formatDate(material.publishDate)}}
         </div>
       </div>
-
 
       <div class="clear"></div>
     </div>
@@ -69,7 +76,9 @@
 <script>
   import {Page} from 'sun'
   import {deleteMaterial} from 'sun'
+  import {restoreMaterial} from 'sun'
   import {canDeleteMaterial} from 'sun'
+  import {canRestoreMaterial} from 'sun'
 
 
   import {date} from 'quasar'
@@ -150,6 +159,9 @@
       },
       canDelete() {
         return canDeleteMaterial.call(this);
+      },
+      canRestore() {
+        return canRestoreMaterial.call(this);
       }
     },
     methods: {
@@ -205,6 +217,9 @@
       },
       async deleteMaterial() {
         deleteMaterial.call(this);
+      },
+      async restoreMaterial() {
+        restoreMaterial.call(this);
       },
       async commentAdded() {
         let currentPath = this.$route.fullPath;

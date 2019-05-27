@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pa-md">
-    <div v-if="material.isDeleted && canRestore" class="text-red">
+    <div v-if="material.isDeleted" class="text-red">
       <q-chip icon="fas fa-trash" color="red" text-color="white" :label="$tl('deleted')"/>
     </div>
 

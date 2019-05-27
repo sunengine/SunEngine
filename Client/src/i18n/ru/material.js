@@ -27,11 +27,17 @@ export default {
     category: "раздел:",
     edit: "Редактировать",
     tags: "Метки:",
-    deleteDialogTitle: "Удалить материал?",
-    deleteDialogMessage: "",
+    deleted: "@:EditMaterial.deleted",
+    deleteDialogTitle: "@:EditMaterial.deleteDialogTitle",
+    deleteDialogMessage: "@:EditMaterial.deleted",
     deleteDialogOk: "@:EditMaterial.deleteDialogOk",
     deleteDialogCancel: "@:EditMaterial.deleteDialogCancel",
-    deleteSuccess: "@:EditMaterial.deleteSuccess"
+    deleteSuccess: "@:EditMaterial.deleteSuccess",
+    restoreDialogTitle: "@:EditMaterial.restoreDialogTitle",
+    restoreDialogMessage: "",
+    restoreDialogOk: "@:EditMaterial.restoreDialogOk",
+    restoreDialogCancel: "@:EditMaterial.restoreDialogCancel",
+    restoreSuccess: "@:EditMaterial.restoreSuccess"
   },
   MaterialForm: {
     name: "Имя (eng)",
