@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Flurl;
@@ -39,14 +40,18 @@ namespace SunEngine.Core.Managers
 
         public virtual Task SendPrivateMessageAsync(User from, User to, string text)
         {
-            var header =
-                $"<div>Вам написал: <a href='{globalOptions.SiteUrl.AppendPathSegment("user/" + from.Link)}'>{from.UserName}</a></div><br/>";
-            text = sanitizer.Sanitize(header + text);
-            
-            
-            string subject = $"Сообщение от {to.UserName} с сайта {globalOptions.SiteName}";
-
-            return EmailSenderService.SendEmailAsync(to.Email, subject, text);
+            return EmailSenderService.SendEmailByTemplateAsync(
+                to.Email,
+                "private-message.html",
+                new Dictionary<string, string>
+                {
+                    {"[userName]", to.UserName},
+                    {"[siteName]", globalOptions.SiteName},
+                    {"[url]", globalOptions.SiteUrl.AppendPathSegment("user/" + from.Link)},
+                    {"[userName]", from.UserName},
+                    {"[message]", sanitizer.Sanitize(text)}
+                }
+            );
         }
 
         public virtual Task BanUserAsync(User who, User banned)

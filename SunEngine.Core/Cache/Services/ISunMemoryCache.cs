@@ -10,7 +10,7 @@ namespace SunEngine.Core.Cache.Services
         void Initialize();
         
         /// <summary>
-        /// Initialize (get) cache from database, async verison
+        /// Initialize (get) cache from database, async version
         /// </summary>
         Task InitializeAsync();
         

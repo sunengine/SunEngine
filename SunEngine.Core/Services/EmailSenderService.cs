@@ -1,29 +1,47 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Configuration.Options;
 
 namespace SunEngine.Core.Services
 {
     public interface IEmailSenderService
     {
-        Task SendEmailAsync(string toEmail, string subject, string htmlMessage, string textMessage = null);
+        Task SendEmailByTemplateAsync(
+            string toEmail,
+            string templateName,
+            Dictionary<string, string> replaceDictionary
+        );
     }
-    
+
     public class EmailSenderService : IEmailSenderService
     {
         private readonly EmailSenderOptions options;
+        private readonly MailTemplatesCache mailTemplatesCache;
 
         public EmailSenderService(IOptions<EmailSenderOptions> optionsAccessor)
         {
             options = optionsAccessor.Value;
+            mailTemplatesCache = new MailTemplatesCache();
         }
 
+        public async Task SendEmailByTemplateAsync(
+            string toEmail,
+            string templateName,
+            Dictionary<string, string> replaceDictionary
+        )
+        {
+            var message = mailTemplatesCache.BuildMessage(templateName, replaceDictionary);
+            await SendEmailAsync(toEmail, message.subject, message.template);
+        }
 
-        public async Task SendEmailAsync(string toEmail, string subject, string htmlMessage, string textMessage = null)
+        protected async Task SendEmailAsync(string toEmail, string subject, string htmlMessage,
+            string textMessage = null)
         {
             MailMessage mailMessage = new MailMessage
             {
@@ -34,15 +52,13 @@ namespace SunEngine.Core.Services
                 SubjectEncoding = Encoding.UTF8
             };
             mailMessage.To.Add(toEmail);
-
-
+            
             if (!string.IsNullOrEmpty(htmlMessage))
             {
-                AlternateView htmlView = AlternateView.CreateAlternateViewFromString(htmlMessage);
-                htmlView.ContentType = new System.Net.Mime.ContentType("text/html");
+                var htmlView = AlternateView.CreateAlternateViewFromString(htmlMessage);
+                htmlView.ContentType = new ContentType("text/html");
                 mailMessage.AlternateViews.Add(htmlView);
             }
-
 
             using (SmtpClient client = new SmtpClient(options.Host, options.Port)
             {
@@ -51,14 +67,7 @@ namespace SunEngine.Core.Services
                 EnableSsl = options.UseSSL
             })
             {
-                try
-                {
-                    await client.SendMailAsync(mailMessage);
-                }
-                catch(Exception e)
-                {
-                    
-                }
+                await client.SendMailAsync(mailMessage);
             }
         }
     }

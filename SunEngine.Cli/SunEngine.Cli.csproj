@@ -36,6 +36,10 @@
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <None Remove="Resources\gunnyrewritten.ttf" />
+        <Content Include="MailTemplates\*">
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
         <Content Include="Resources\gunnyrewritten.ttf">
             <CopyToPublishDirectory>Always</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>

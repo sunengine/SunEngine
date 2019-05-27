@@ -55,8 +55,10 @@ namespace SunEngine.Core.Managers
 
             try
             {
-                await EmailSenderService.SendEmailAsync(user.Email, "You can reset your password",
-                    $"Reset password by clicking this <a href=\"{resetPasswordUrl}\">link</a>."
+                await EmailSenderService.SendEmailByTemplateAsync(
+                    user.Email,
+                    "reset-password.html",
+                    new Dictionary<string, string>{{"[resetPassUrl]", resetPasswordUrl}}
                 );
             }
             catch (Exception)
@@ -95,9 +97,12 @@ namespace SunEngine.Core.Managers
 
             var updateEmailUrl = globalOptions.SiteApi.AppendPathSegments("Account", "ConfirmChangeEmail")
                 .SetQueryParam("token", emailToken);
-
-            await EmailSenderService.SendEmailAsync(email, "Confirm your email",
-                $"Confirm your email by clicking this <a href=\"{updateEmailUrl}\">link</a>.");
+            
+            await EmailSenderService.SendEmailByTemplateAsync(
+                email,
+                "email-change.html",
+                new Dictionary<string, string> {{"[link]", updateEmailUrl}}
+            );
         }
 
         public virtual bool ValidateChangeEmailToken(string token, out int userId, out string email)
