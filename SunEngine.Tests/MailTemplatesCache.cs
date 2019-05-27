@@ -20,16 +20,6 @@ namespace SunEngine.Tests
             new Core.Cache.Services.MailTemplatesCache();
 
         [Fact]
-        internal void FileContentEqualExistsTest()
-        {
-            exceptedDictionary.Add("test-template.html", "<head></head>\n");
-            Assert.Equal(
-                exceptedDictionary.ToString(),
-                mailTemplatesCache.Templates.ToString()
-            );
-        }
-
-        [Fact]
         internal void BuildMessageSubjectTest()
         {
             Assert.Equal(
@@ -45,11 +35,11 @@ namespace SunEngine.Tests
         internal void BuildMessageBodyTest()
         {
             Assert.Equal(
-                "Please confirm your account by clicking this <a href=\"google.com\">link</a>.",
+                "<div class=\"content\">Please confirm your account by clicking this <a href=\"google.com\">link</a>.</div>".Trim(),
                 mailTemplatesCache.BuildMessage(
                     "test-register.html",
                     new Dictionary<string, string> {{"[link]", "google.com"}}
-                ).template
+                ).template.Trim()
             );
         }
     }
