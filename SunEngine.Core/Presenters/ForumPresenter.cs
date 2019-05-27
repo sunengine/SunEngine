@@ -11,8 +11,8 @@ namespace SunEngine.Core.Presenters
 {
     public interface IForumPresenter
     {
-        Task<IPagedList<TopicInfoView>> GetNewTopics(MaterialsShowOptions options, int maxPages);
         Task<IPagedList<TopicInfoView>> GetThread(MaterialsShowOptions options);
+        Task<IPagedList<TopicInfoView>> GetNewTopics(MaterialsMultiCatShowOptions options, int maxPages);
     }
 
     public class ForumPresenter : DbService, IForumPresenter
@@ -21,33 +21,6 @@ namespace SunEngine.Core.Presenters
         {
         }
 
-        public virtual Task<IPagedList<TopicInfoView>> GetNewTopics(
-            MaterialsShowOptions options, int maxPages)
-        {
-            return db.MaterialsNotDeleted.GetPagedListMaxAsync(
-                x => new TopicInfoView
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    CommentsCount = x.CommentsCount,
-                    AuthorName = x.Author.UserName,
-                    AuthorAvatar = x.Author.Avatar,
-                    PublishDate = x.PublishDate,
-                    LastCommentId = x.LastCommentId,
-                    LastCommentPublishDate =
-                        x.LastCommentId.HasValue ? (DateTime?) x.LastComment.PublishDate : null,
-                    CategoryName = x.Category.Name,
-                    CategoryTitle = x.Category.Title,
-                    LastCommentAuthorName = x.LastComment.Author.UserName,
-                    LastCommentAuthorAvatar = x.LastComment.Author.Avatar,
-                    IsCommentsBlocked = x.IsCommentsBlocked
-                },
-                x => options.CategoriesIds.Contains(x.CategoryId),
-                x => x.OrderByDescending(y => y.LastActivity),
-                options.Page,
-                options.PageSize,
-                maxPages);
-        }
 
         public virtual Task<IPagedList<TopicInfoView>> GetThread(MaterialsShowOptions options)
         {
@@ -58,7 +31,7 @@ namespace SunEngine.Core.Presenters
 
             if (!options.ShowDeleted)
                 query = query.Where(x => !x.IsDeleted);
-            
+
             return query.GetPagedListAsync(
                 x => new TopicInfoView
                 {
@@ -83,10 +56,37 @@ namespace SunEngine.Core.Presenters
                 options.Page,
                 options.PageSize);
         }
+
+
+        public virtual Task<IPagedList<TopicInfoView>> GetNewTopics(MaterialsMultiCatShowOptions options, int maxPages)
+        {
+            return db.MaterialsNotDeleted.GetPagedListMaxAsync(
+                x => new TopicInfoView
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    CommentsCount = x.CommentsCount,
+                    AuthorName = x.Author.UserName,
+                    AuthorAvatar = x.Author.Avatar,
+                    PublishDate = x.PublishDate,
+                    LastCommentId = x.LastCommentId,
+                    LastCommentPublishDate = x.LastCommentId.HasValue ? (DateTime?) x.LastComment.PublishDate : null,
+                    CategoryName = x.Category.Name,
+                    CategoryTitle = x.Category.Title,
+                    LastCommentAuthorName = x.LastComment.Author.UserName,
+                    LastCommentAuthorAvatar = x.LastComment.Author.Avatar,
+                    IsCommentsBlocked = x.IsCommentsBlocked
+                },
+                x => options.CategoriesIds.Contains(x.CategoryId),
+                x => x.OrderByDescending(y => y.LastActivity),
+                options.Page,
+                options.PageSize,
+                maxPages);
+        }
     }
 
     /// <summary>
-    /// Tопик  в треде (Материал в категории)
+    /// Topic inside Thread on Client view
     /// </summary>
     public class TopicInfoView
     {

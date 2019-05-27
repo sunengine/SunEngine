@@ -13,7 +13,7 @@ namespace SunEngine.Core.Presenters
         Task<IPagedList<PostView>> GetPostsAsync(MaterialsShowOptions options);
 
         Task<IPagedList<PostView>>
-            GetPostsFromMultiCategoriesAsync(MaterialsShowOptions options);
+            GetPostsFromMultiCategoriesAsync(MaterialsMultiCatShowOptions options);
     }
 
     public class BlogPresenter : DbService, IBlogPresenter
@@ -31,7 +31,7 @@ namespace SunEngine.Core.Presenters
 
             if (!options.ShowDeleted)
                 query = query.Where(x => !x.IsDeleted);
-            
+
             return query.GetPagedListAsync(
                 x => new PostView
                 {
@@ -55,8 +55,7 @@ namespace SunEngine.Core.Presenters
                 options.PageSize);
         }
 
-        public virtual Task<IPagedList<PostView>> GetPostsFromMultiCategoriesAsync(
-            MaterialsShowOptions options)
+        public virtual Task<IPagedList<PostView>> GetPostsFromMultiCategoriesAsync(MaterialsMultiCatShowOptions options)
         {
             return db.MaterialsNotDeleted.GetPagedListAsync(
                 x => new PostView

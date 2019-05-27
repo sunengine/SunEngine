@@ -44,7 +44,8 @@ namespace SunEngine.Core.Controllers
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> GetArticles(string categoryName, OrderType sort = OrderType.PublishDate, int page = 1, bool showDeleted = false)
+        public virtual async Task<IActionResult> GetArticles(
+            string categoryName, OrderType sort = OrderType.PublishDate, int page = 1, bool showDeleted = false)
         {
             CategoryCached category = categoriesCache.GetCategory(categoryName);
 
@@ -56,15 +57,15 @@ namespace SunEngine.Core.Controllers
 
             var options = new MaterialsShowOptions
             {
-                CategoryId = category.Id, 
-                orderType = sort, 
-                Page = page, 
+                CategoryId = category.Id,
+                orderType = sort,
+                Page = page,
                 PageSize = articlesOptions.CategoryPageSize
             };
 
             if (authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialHide))
                 options.ShowHidden = true;
-            
+
             if (showDeleted && authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialDeleteAny))
                 options.ShowDeleted = true;
 
@@ -81,21 +82,20 @@ namespace SunEngine.Core.Controllers
         {
             var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(categoriesNames);
 
-            IList<CategoryCached> categoriesList = authorizationService.GetAllowedCategories(User.Roles, materialsCategoriesDic.Values,
-                OperationKeys.MaterialAndCommentsRead);
+            IList<CategoryCached> categoriesList = authorizationService.GetAllowedCategories(User.Roles,
+                materialsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);
 
             if (categoriesList.Count == 0)
                 return BadRequest("No categories to show");
 
-            var options = new MaterialsShowOptions
+            var options = new MaterialsMultiCatShowOptions()
             {
                 CategoriesIds = categoriesList.Select(x => x.Id),
-                Page = page, 
+                Page = page,
                 PageSize = articlesOptions.CategoryPageSize
             };
-           
-            IPagedList<ArticleInfoView> articles =
-                await articlesPresenter.GetArticlesFromMultiCategoriesAsync(options);
+
+            IPagedList<ArticleInfoView> articles = await articlesPresenter.GetArticlesFromMultiCategoriesAsync(options);
 
             return Json(articles);
         }

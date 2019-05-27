@@ -23,7 +23,8 @@ namespace SunEngine.Core.Controllers
         protected readonly IForumPresenter forumPresenter;
 
 
-        public ForumController(IOptions<ForumOptions> forumOptions,
+        public ForumController(
+            IOptions<ForumOptions> forumOptions,
             IAuthorizationService authorizationService,
             ICategoriesCache categoriesCache,
             IContentCache contentCache,
@@ -55,13 +56,13 @@ namespace SunEngine.Core.Controllers
 
             var categoriesIds = categories.Select(x => x.Id);
 
-            var options = new MaterialsShowOptions
+            var options = new MaterialsMultiCatShowOptions
             {
                 CategoriesIds = categoriesIds,
-                Page = page, 
+                Page = page,
                 PageSize = forumOptions.NewTopicsPageSize
             };
-            
+
             async Task<IPagedList<TopicInfoView>> LoadDataAsync()
             {
                 return await forumPresenter.GetNewTopics(options, forumOptions.NewTopicsMaxPages);
@@ -80,17 +81,17 @@ namespace SunEngine.Core.Controllers
 
             if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
                 return Unauthorized();
-            
+
             var options = new MaterialsShowOptions
             {
                 CategoryId = category.Id,
-                Page = page, 
+                Page = page,
                 PageSize = forumOptions.ThreadMaterialsPageSize
             };
-            
+
             if (authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialHide))
                 options.ShowHidden = true;
-            
+
             if (showDeleted && authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialDeleteAny))
                 options.ShowDeleted = true;
 
