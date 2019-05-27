@@ -15,6 +15,8 @@ export default {
     last: "Последнее"
   },
   Topic: {
-    lastFrom: "Последнее от"
+    lastFrom: "Последнее от",
+    hidden: "спрятан",
+    deleted: "удалён"
   }
 }

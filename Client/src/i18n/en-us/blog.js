@@ -7,6 +7,8 @@ export default {
   },
   Post: {
     commentsCount: "comments",
-    readMore: "Read more"
+    readMore: "Read more",
+    hidden: "hidden",
+    deleted: "deleted"
   }
 }

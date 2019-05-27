@@ -16,7 +16,7 @@
     "vue-i18n": "^8.11.2"
   },
   "devDependencies": {
-    "@quasar/app": "^1.0.0-rc.3",
+    "@quasar/app": "^1.0.0-rc.4",
     "babel-preset-proposals": "^0.1.0",
     "path": "^0.12.7",
     "quasar-app-extension-ide-helper": "0.0.5"

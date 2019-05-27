@@ -15,6 +15,8 @@ export default {
     last: "Last"
   },
   Topic: {
-    lastFrom: "Last from"
+    lastFrom: "Last from",
+    hidden: "hidden",
+    deleted: "deleted"
   }
 }

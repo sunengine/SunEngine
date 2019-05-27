@@ -7,11 +7,11 @@
         <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="article.isDeleted"/>
         {{article.title}}
         <span class="q-ml-sm" v-if="article.isHidden">
-        [{{$tl("hidden")}}]
-      </span>
+          [{{$tl("hidden")}}]
+        </span>
         <span class="q-ml-sm" v-if="article.isDeleted">
-        [{{$tl("deleted")}}]
-      </span>
+          [{{$tl("deleted")}}]
+        </span>
       </q-item-label>
       <q-item-label v-if="description" class="info-block" caption>
         <div v-html="description">
@@ -59,15 +59,5 @@
 
 <style lang="stylus" scoped>
 
-  .mat-hidden {
-    color: silver !important;
 
-    * {
-      color: silver !important;
-    }
-  }
-
-  .mat-deleted {
-    color: maroon !important;
-  }
 </style>

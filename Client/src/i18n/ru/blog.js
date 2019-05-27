@@ -7,6 +7,8 @@ export default {
   },
   Post: {
     commentsCount: "сообщений",
-    readMore: "Читать дальше"
+    readMore: "Читать дальше",
+    hidden: "спрятан",
+    deleted: "удалён"
   }
 }

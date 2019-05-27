@@ -147,6 +147,7 @@ a {
   background-color: #e2f8e8;
 }
 
+
 /*.q-avatar {
   @extend $shadow-2;
 }*/
@@ -295,6 +296,39 @@ page-paddings-block(size) {
 }
 
 
+.mat-hidden {
+  .my-header,.my-header * {
+    color: dimgrey !important;
+  }
+
+  * {
+    color: silver !important;
+  }
+
+  .q-avatar {
+    filter: grayscale(1)
+  }
+}
+
+.mat-deleted {
+  * {
+    color: silver !important;
+  }
+
+  .my-header,.my-header * {
+    color: maroon !important;
+  }
+
+  .q-avatar {
+    filter: grayscale(1)
+  }
+}
+
+
 // ——— Site styles ————————————————————————————————————
 
 @import '~src/site/styles';
+
+
+
+

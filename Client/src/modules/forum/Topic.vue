@@ -9,7 +9,15 @@
         </q-item-section>
         <q-item-section>
           <q-item-label class="my-header">
+            <q-icon name="far fa-eye-slash" v-if="topic.isHidden" class="q-mr-sm"/>
+            <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="topic.isDeleted"/>
             {{topic.title}}
+            <span class="q-ml-sm" v-if="topic.isHidden">
+          [{{$tl("hidden")}}]
+        </span>
+            <span class="q-ml-sm" v-if="topic.isDeleted">
+          [{{$tl("deleted")}}]
+        </span>
           </q-item-label>
           <q-item-label class="info-block" caption>
               <span>
@@ -100,16 +108,6 @@
     }
   }
 
-  .mat-hidden {
-    color: silver !important;
 
-    * {
-      color: silver !important;
-    }
-  }
-
-  .mat-deleted {
-    color: maroon !important;
-  }
 
 </style>

@@ -1,10 +1,20 @@
 <template>
-  <div>
-    <q-item :to="to" class="header page-padding">
-      <img class="avatar" :src="$imagePath(post.authorAvatar)"/>
+  <div :class="[{'mat-hidden': post.isHidden}, {'mat-deleted': post.isDeleted}]">
+    <q-item :to="to" class="header page-padding" >
+      <q-avatar class="shadow-1 avatar" size="44px">
+        <img  :src="$imagePath(post.authorAvatar)"/>
+      </q-avatar>
       <div>
         <div class="blog-title my-header">
+          <q-icon name="far fa-eye-slash" v-if="post.isHidden" class="q-mr-sm"/>
+          <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="post.isDeleted"/>
           {{post.title}}
+          <span class="q-ml-sm" v-if="post.isHidden">
+            [{{$tl("hidden")}}]
+          </span>
+          <span class="q-ml-sm" v-if="post.isDeleted">
+            [{{$tl("deleted")}}]
+          </span>
         </div>
         <div>
           <router-link :to="{name: 'User', params: {link: post.authorLink}}" class="user-link">
@@ -14,7 +24,8 @@
       </div>
     </q-item>
 
-    <div class="post-preview page-padding" v-html="post.preview"></div>
+    <div v-if="!post.isHidden && !post.isDeleted" class="post-preview page-padding"
+         v-html="post.preview"></div>
 
     <div class="date text-grey-6">
       <q-icon name="far fa-clock"/>
@@ -69,9 +80,6 @@
 
   .avatar {
     margin-right: 12px;
-    width: 44px;
-    height: 44px;
-    border-radius: 22px;
   }
 
   .header {
