@@ -9,7 +9,19 @@ export default {
     saveBtn: "@:Global.btn.save",
     cancelBtn: "@:Global.btn.cancel",
     deleteBtn: "@:Global.btn.delete",
+    restoreBtn: "Восстановить из корзины материал",
     successNotify: "Материал успешно сохранён",
+    deleted: "материал удалён",
+    deleteDialogTitle: "Удалить материал?",
+    deleteDialogMessage: "",
+    deleteDialogOk: "@:Global.dialog.ok",
+    deleteDialogCancel: "@:Global.dialog.cancel",
+    deleteSuccess: "Материал успешно удалён",
+    restoreDialogTitle: "Восстановить материал?",
+    restoreDialogMessage: "",
+    restoreDialogOk: "@:Global.dialog.ok",
+    restoreDialogCancel: "@:Global.dialog.cancel",
+    restoreSuccess: "Материал успешно восстановлен"
   },
   Material: {
     category: "раздел:",
@@ -17,9 +29,9 @@ export default {
     tags: "Метки:",
     deleteDialogTitle: "Удалить материал?",
     deleteDialogMessage: "",
-    deleteDialogOk: "@:Global.dialog.ok",
-    deleteDialogCancel: "@:Global.dialog.cancel",
-    deleteSuccess: "Материал успешно удалён"
+    deleteDialogOk: "@:EditMaterial.deleteDialogOk",
+    deleteDialogCancel: "@:EditMaterial.deleteDialogCancel",
+    deleteSuccess: "@:EditMaterial.deleteSuccess"
   },
   MaterialForm: {
     name: "Имя (eng)",

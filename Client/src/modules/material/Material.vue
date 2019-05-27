@@ -68,6 +68,9 @@
 
 <script>
   import {Page} from 'sun'
+  import {deleteMaterial} from 'sun'
+  import {canDeleteMaterial} from 'sun'
+
 
   import {date} from 'quasar'
   import {scroll} from 'quasar'
@@ -143,44 +146,11 @@
             return false;
           }
         }
-        if (category.categoryPersonalAccess.materialEditOwn) {
-          return true;
-        }
-        return false;
+        return !!category.categoryPersonalAccess.materialEditOwn;
       },
       canDelete() {
-        if (!this.material || !this.comments) {
-          return false;
-        }
-        if (!this.$store.state.auth.user) {
-          return false;
-        }
-        const category = this.$store.getters.getCategory(this.material.categoryName);
-
-        if (category.categoryPersonalAccess.materialDeleteAny) {
-          return true;
-        }
-        if (this.material.authorId !== this.$store.state.auth.user.id) {
-          return false;
-        }
-        if (!category.categoryPersonalAccess.materialDeleteOwnIfHasReplies &&
-          this.comments.length >= 1 && !this.checkLastOwn(this.comments[0])
-        ) {
-          return false;
-        }
-        if (!category.categoryPersonalAccess.materialDeleteOwnIfTimeNotExceeded) {
-          const now = new Date();
-          const publish = this.material.publishDate;
-          const til = date.addToDate(publish, {minutes: config.Materials.TimeToOwnDeleteInMinutes});
-          if (til < now) {
-            return false;
-          }
-        }
-        if (category.categoryPersonalAccess.materialDeleteOwn) {
-          return true;
-        }
-        return false;
-      },
+        return canDeleteMaterial.call(this);
+      }
     },
     methods: {
       async loadDataMaterial() {
@@ -234,31 +204,7 @@
         return true;
       },
       async deleteMaterial() {
-        const deleteDialogTitle = this.$tl('deleteDialogTitle');
-        const deleteDialogMessage = this.$tl('deleteDialogMessage');
-        const okBtn = this.$tl('deleteDialogOk');
-        const cancelBtn = this.$tl('deleteDialogCancel');
-        this.$q.dialog({
-          title: deleteDialogTitle,
-          message: deleteDialogMessage,
-          ok: okBtn,
-          cancel: cancelBtn
-        }).onOk(async () => {
-          await this.$store.dispatch("request",
-            {
-              url: "/Materials/Delete",
-              data: {
-                id: this.material.id,
-              }
-            }).then(
-            () => {
-              const deleteSuccessMsg = this.$tl('deleteSuccess');
-              this.$successNotify(deleteSuccessMsg);
-              this.$router.push(this.category.getRoute());
-            }).catch((x) => {
-            console.log("error", x)
-          });
-        });
+        deleteMaterial.call(this);
       },
       async commentAdded() {
         let currentPath = this.$route.fullPath;

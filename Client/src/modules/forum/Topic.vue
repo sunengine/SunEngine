@@ -9,15 +9,15 @@
         </q-item-section>
         <q-item-section>
           <q-item-label class="my-header">
-            <q-icon name="far fa-eye-slash" v-if="topic.isHidden" class="q-mr-sm"/>
             <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="topic.isDeleted"/>
+            <q-icon name="far fa-eye-slash" v-else-if="topic.isHidden" class="q-mr-sm"/>
             {{topic.title}}
-            <span class="q-ml-sm" v-if="topic.isHidden">
-          [{{$tl("hidden")}}]
-        </span>
             <span class="q-ml-sm" v-if="topic.isDeleted">
-          [{{$tl("deleted")}}]
-        </span>
+              [{{$tl("deleted")}}]
+            </span>
+            <span class="q-ml-sm" v-else-if="topic.isHidden">
+              [{{$tl("hidden")}}]
+            </span>
           </q-item-label>
           <q-item-label class="info-block" caption>
               <span>

@@ -9,17 +9,29 @@ export default {
     saveBtn: "@:Global.btn.save",
     cancelBtn: "@:Global.btn.cancel",
     deleteBtn: "@:Global.btn.delete",
+    restoreBtn: "Restore from trash material",
     successNotify: "Material successfully saved",
+    deleted: "material deleted",
+    deleteDialogTitle: "Delete material?",
+    deleteDialogMessage: "",
+    deleteDialogOk: "@:Global.dialog.ok",
+    deleteDialogCancel: "@:Global.dialog.cancel",
+    deleteSuccess: "Material deleted",
+    restoreDialogTitle: "Restore material?",
+    restoreDialogMessage: "",
+    restoreDialogOk: "@:Global.dialog.ok",
+    restoreDialogCancel: "@:Global.dialog.cancel",
+    restoreSuccess: "Material restored"
   },
   Material: {
     category: "category:",
     edit: "Edit",
     tags: "Tags:",
-    deleteDialogTitle: "Delete material?",
+    deleteDialogTitle: "Удалить материал?",
     deleteDialogMessage: "",
-    deleteDialogOk: "@:Global.dialog.ok",
-    deleteDialogCancel: "@:Global.dialog.cancel",
-    deleteSuccess: "Material deleted"
+    deleteDialogOk: "@:EditMaterial.deleteDialogOk",
+    deleteDialogCancel: "@:EditMaterial.deleteDialogCancel",
+    deleteSuccess: "@:EditMaterial.deleteSuccess"
   },
   MaterialForm: {
     name: "Name (eng)",

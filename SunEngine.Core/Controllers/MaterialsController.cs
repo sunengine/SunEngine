@@ -60,9 +60,9 @@ namespace SunEngine.Core.Controllers
                 return Unauthorized();
 
 
-            var materialViewModel = await materialsPresenter.GetViewModelAsync(id);
+            var materialView = await materialsPresenter.GetAsync(id);
 
-            return Json(materialViewModel);
+            return Json(materialView);
         }
 
         [NonAction]
@@ -77,7 +77,7 @@ namespace SunEngine.Core.Controllers
             if (!materialsAuthorization.CanGet(User.Roles, category))
                 return Unauthorized();
 
-            var materialViewModel = await materialsPresenter.GetViewModelAsync(name);
+            var materialViewModel = await materialsPresenter.GetAsync(name);
 
             return Json(materialViewModel);
         }

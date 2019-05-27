@@ -10,8 +10,8 @@ namespace SunEngine.Core.Presenters
 {
     public interface IMaterialsPresenter
     {
-        Task<MaterialView> GetViewModelAsync(int id);
-        Task<MaterialView> GetViewModelAsync(string name);
+        Task<MaterialView> GetAsync(int id);
+        Task<MaterialView> GetAsync(string name);
     }
 
     public class MaterialsPresenter : DbService, IMaterialsPresenter
@@ -20,19 +20,19 @@ namespace SunEngine.Core.Presenters
         {
         }
 
-        public virtual Task<MaterialView> GetViewModelAsync(int id)
+        public virtual Task<MaterialView> GetAsync(int id)
         {
             var query = db.Materials.Where(x => x.Id == id);
-            return GetViewModelAsync(query);
+            return GetAsync(query);
         }
 
-        public virtual Task<MaterialView> GetViewModelAsync(string name)
+        public virtual Task<MaterialView> GetAsync(string name)
         {
             var query = db.Materials.Where(x => x.Name == name);
-            return GetViewModelAsync(query);
+            return GetAsync(query);
         }
 
-        protected virtual Task<MaterialView> GetViewModelAsync(IQueryable<Material> query)
+        protected virtual Task<MaterialView> GetAsync(IQueryable<Material> query)
         {
             return query.Select(x =>
                 new MaterialView

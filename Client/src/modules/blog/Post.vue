@@ -6,14 +6,14 @@
       </q-avatar>
       <div>
         <div class="blog-title my-header">
-          <q-icon name="far fa-eye-slash" v-if="post.isHidden" class="q-mr-sm"/>
           <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="post.isDeleted"/>
+          <q-icon name="far fa-eye-slash" v-else-if="post.isHidden" class="q-mr-sm"/>
           {{post.title}}
-          <span class="q-ml-sm" v-if="post.isHidden">
-            [{{$tl("hidden")}}]
-          </span>
           <span class="q-ml-sm" v-if="post.isDeleted">
             [{{$tl("deleted")}}]
+          </span>
+          <span class="q-ml-sm" v-else-if="post.isHidden">
+            [{{$tl("hidden")}}]
           </span>
         </div>
         <div>

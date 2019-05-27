@@ -1,5 +1,9 @@
 <template>
   <q-page class="q-pa-md">
+    <div v-if="material.isDeleted && canRestore" class="text-red">
+      <q-chip icon="fas fa-trash" color="red" text-color="white" :label="$tl('deleted')"/>
+    </div>
+
     <MaterialForm ref="form" :material="material" :categories-nodes="categoryNodes"/>
 
     <div class="q-mt-md">
@@ -10,15 +14,27 @@
       <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$tl('cancelBtn')"
              color="warning"/>
 
-      <q-btn no-caps icon="fas fa-trash" class="float-right" @click="$router.back()" :label="$tl('deleteBtn')"
+      <q-btn v-if="!material.isDeleted && canDelete" no-caps icon="fas fa-trash" class="float-right"
+             @click="deleteMaterial" :label="$tl('deleteBtn')"
              color="negative"/>
+
+
+      <q-btn v-if="material.isDeleted && canRestore" class="float-right" no-caps icon="fas fa-trash-restore"
+             @click="restoreMaterial" :label="$tl('restoreBtn')"
+             color="warning"/>
+
     </div>
   </q-page>
 </template>
 
 <script>
   import {getWhereToMove} from 'sun'
+  import {deleteMaterial} from 'sun'
+  import {restoreMaterial} from 'sun'
+  import {canDeleteMaterial} from 'sun'
+  import {canRestoreMaterial} from 'sun'
   import {Page} from 'sun'
+
 
   export default {
     name: "EditMaterial",
@@ -46,9 +62,24 @@
     computed: {
       categoryNodes() {
         return getWhereToMove(this.$store);
-      }
+      },
+      category() {
+        return this.$store.getters.getCategory(this.material.categoryName);
+      },
+      canDelete() {
+        return canDeleteMaterial.call(this);
+      },
+      canRestore() {
+        return canRestoreMaterial.call(this);
+      },
     },
     methods: {
+      deleteMaterial() {
+        deleteMaterial.call(this);
+      },
+      restoreMaterial() {
+        restoreMaterial.call(this);
+      },
       async save() {
         this.$refs.form.start = false;
         this.$refs.form.validate();
@@ -76,14 +107,13 @@
           data: data
         }).then(() => {
           this.$successNotify();
-          this.$router.push(this.$refs.form.category.getRoute());
+          this.$router.push(this.category.getRoute());
         }).catch(error => {
           this.$errorNotify(error);
           this.loading = false;
         });
       },
-
-      async loadData() {
+      loadData() {
         this.$store.dispatch('request', {
           url: '/Materials/Get',
           data: {
@@ -91,16 +121,26 @@
           }
         }).then(response => {
           this.material = response.data;
-        })
+        });
+        this.$store.dispatch("request",
+          {
+            url: "/Comments/GetMaterialComments",
+            data:
+              {
+                materialId: this.material.id
+              }
+          }).then(response => {
+          this.comments = response.data;
+        });
       },
     },
     beforeCreate() {
       this.$options.components.MaterialForm = require('sun').MaterialForm;
       this.$options.components.LoaderSent = require('sun').LoaderSent;
     },
-    async created() {
+    created() {
       this.title = this.$tl("title");
-      await this.loadData();
+      this.loadData();
     }
   }
 </script>
