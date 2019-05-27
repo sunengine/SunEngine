@@ -42,46 +42,32 @@ namespace SunEngine.Core.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> Get(string idOrName)
         {
-            return int.TryParse(idOrName, out int id)
-                ? await GetById(id)
-                : await GetByName(idOrName);
+            if (int.TryParse(idOrName, out int id))
+                return Get(await materialsPresenter.GetAsync(id));
+            else
+                return Get(await materialsPresenter.GetAsync(idOrName));
         }
 
         [NonAction]
-        protected virtual async Task<IActionResult> GetById(int id)
+        protected virtual IActionResult Get(MaterialView materialView)
         {
-            int? categoryId = await materialsManager.GetCategoryIdAsync(id);
-            if (categoryId == null)
+            if (materialView == null)
                 return BadRequest();
 
-            var category = categoriesCache.GetCategory(categoryId.Value);
+            var category = categoriesCache.GetCategory(materialView.CategoryName);
 
             if (!materialsAuthorization.CanGet(User.Roles, category))
                 return Unauthorized();
 
+            if (materialView.IsHidden && !materialsAuthorization.CanHide(User.Roles, category))
+                return Unauthorized();
 
-            var materialView = await materialsPresenter.GetAsync(id);
+            if (materialView.IsDeleted && !materialsAuthorization.CanRestoreAsync(User, category.Id))
+                return Unauthorized();
 
             return Json(materialView);
         }
-
-        [NonAction]
-        protected virtual async Task<IActionResult> GetByName(string name)
-        {
-            int? categoryId = await materialsManager.GetCategoryIdAsync(name);
-            if (categoryId == null)
-                return BadRequest();
-
-            var category = categoriesCache.GetCategory(categoryId.Value);
-
-            if (!materialsAuthorization.CanGet(User.Roles, category))
-                return Unauthorized();
-
-            var materialViewModel = await materialsPresenter.GetAsync(name);
-
-            return Json(materialViewModel);
-        }
-
+        
         [HttpPost]
         [UserSpamProtectionFilter(TimeoutSeconds = 60)]
         public virtual async Task<IActionResult> Create(MaterialRequestModel materialData)
@@ -225,16 +211,16 @@ namespace SunEngine.Core.Controllers
             if (material == null)
                 return BadRequest();
 
-            if (!materialsAuthorization.CanRestoreAsync(User, material))
+            if (!materialsAuthorization.CanRestoreAsync(User, material.CategoryId))
                 return Unauthorized();
 
             await materialsManager.RestoreAsync(material);
-            
+
             contentCache.InvalidateCache(material.CategoryId);
 
             return Ok();
         }
-        
+
         /// <summary>
         /// Move material up in sort order inside category
         /// </summary>

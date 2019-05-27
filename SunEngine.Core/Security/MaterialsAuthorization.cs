@@ -157,9 +157,9 @@ namespace SunEngine.Core.Security
         /// <summary>
         /// Only moderator with OperationKeys.MaterialDeleteAny can restore deleted Materials
         /// </summary>
-        public bool CanRestoreAsync(SunClaimsPrincipal user, Material material)
+        public bool CanRestoreAsync(SunClaimsPrincipal user, int categoryId)
         {
-            return authorizationService.HasAccess(user.Roles, material.CategoryId, OperationKeys.MaterialDeleteAny);
+            return authorizationService.HasAccess(user.Roles, categoryId, OperationKeys.MaterialDeleteAny);
         }
 
         // В случае уже имеющегося разрешения на редактирование
