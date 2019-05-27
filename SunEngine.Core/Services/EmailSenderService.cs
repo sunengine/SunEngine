@@ -22,12 +22,14 @@ namespace SunEngine.Core.Services
     public class EmailSenderService : IEmailSenderService
     {
         private readonly EmailSenderOptions options;
-        private readonly MailTemplatesCache mailTemplatesCache;
+        private readonly IMailTemplatesCache mailTemplatesCache;
 
-        public EmailSenderService(IOptions<EmailSenderOptions> optionsAccessor)
+        public EmailSenderService(
+            IOptions<EmailSenderOptions> optionsAccessor,
+            IMailTemplatesCache mailTemplatesCache)
         {
             options = optionsAccessor.Value;
-            mailTemplatesCache = new MailTemplatesCache();
+            this.mailTemplatesCache = mailTemplatesCache;
         }
 
         public async Task SendEmailByTemplateAsync(
@@ -40,26 +42,26 @@ namespace SunEngine.Core.Services
             await SendEmailAsync(toEmail, message.subject, message.template);
         }
 
-        protected async Task SendEmailAsync(string toEmail, string subject, string htmlMessage,
-            string textMessage = null)
+        protected async Task SendEmailAsync(
+            string toEmail, string subject, string htmlMessage, string textMessage = null)
         {
             MailMessage mailMessage = new MailMessage
             {
                 From = new MailAddress(options.EmailFromAddress, options.EmailFromName),
                 Body = textMessage,
-                BodyEncoding = Encoding.UTF8,
                 Subject = subject,
+                BodyEncoding = Encoding.UTF8,
                 SubjectEncoding = Encoding.UTF8
             };
             mailMessage.To.Add(toEmail);
-            
+
             if (!string.IsNullOrEmpty(htmlMessage))
             {
                 var htmlView = AlternateView.CreateAlternateViewFromString(htmlMessage);
                 htmlView.ContentType = new ContentType("text/html");
                 mailMessage.AlternateViews.Add(htmlView);
             }
-
+            
             using (SmtpClient client = new SmtpClient(options.Host, options.Port)
             {
                 UseDefaultCredentials = false,

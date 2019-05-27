@@ -12,12 +12,12 @@ namespace SunEngine.Core.Configuration.AddServices
 {
     public static class AddStoresExtensions
     {
+        /// <summary>
+        /// Add Singleton cache services
+        /// </summary>
         public static void AddCaches(this IServiceCollection services, DataBaseFactory dataBaseFactory)
         {
-            // Add Singleton cache services
-            var rolesCache = new RolesCache(dataBaseFactory);
-
-            services.AddSingleton<IRolesCache>(rolesCache);
+            services.AddSingleton<IRolesCache>(new RolesCache(dataBaseFactory));
 
             services.AddSingleton<ICategoriesCache, CategoriesCache>();
 
@@ -28,6 +28,8 @@ namespace SunEngine.Core.Configuration.AddServices
             services.AddSingleton<CacheKeyGenerator>();
 
             services.AddSingleton<SpamProtectionCache>();
+            
+            services.AddSingleton<IMailTemplatesCache, MailTemplatesCache>();
         }
 
         // Temporary solution

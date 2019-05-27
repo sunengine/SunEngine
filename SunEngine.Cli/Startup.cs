@@ -44,7 +44,7 @@ namespace SunEngine.Cli
 
             services.AddOptions(Configuration);
             
-            DataBaseFactory dataBaseFactory = services.AddDatabase(Configuration);
+            DataBaseFactory dataBaseFactory = services.AddDatabase(Configuration);  // TODO make internal def
 
             services.AddDbOptions(dataBaseFactory);
             

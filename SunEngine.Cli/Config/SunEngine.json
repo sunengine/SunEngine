@@ -57,7 +57,10 @@
     "LongSessionsClearDays": 1
   },
   "Email": {
-    "SmtpConfig": "username:password@127.0.0.1:1025",
+    "Host": "127.0.0.1",
+    "Port": "1025",
+    "Login": "username",
+    "Password": "password",
     "EmailFromName": "SunEngine",
     "EmailFromAddress": "system@sunengine.site"
   },

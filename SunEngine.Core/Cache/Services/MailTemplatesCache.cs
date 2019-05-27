@@ -6,23 +6,47 @@ using System.Threading.Tasks;
 
 namespace SunEngine.Core.Cache.Services
 {
-    public class MailTemplatesCache : ISunMemoryCache
+    public interface IMailTemplatesCache : ISunMemoryCache
+    {
+        MailContent BuildMessage(string templateName, Dictionary<string, string> replaceDictionary);
+    }
+
+    public class MailTemplatesCache : IMailTemplatesCache
     {
         protected const string MailTemplatesDir = "MailTemplates";
 
+        protected Dictionary<string, MailContent> _templates;
 
-        protected Dictionary<string, MailContent> templates;
+        protected Dictionary<string, MailContent> Templates
+        {
+            get
+            {
+                if(_templates == null)
+                    Initialize();
+                return _templates;
+            }
+        }
+        
+        protected string _layout;
 
-        protected string layout;
+        protected string Layout
+        {
+            get
+            {
+                if(_layout == null)
+                    Initialize();
+                return _layout;
+            }
+        }
 
 
         public MailContent BuildMessage(string templateName, Dictionary<string, string> replaceDictionary)
         {
-            if (!templates.ContainsKey(templateName))
+            if (!Templates.ContainsKey(templateName))
                 throw new Exception($"Mail template {templateName} not found");
 
-            string subject = templates[templateName].subject;
-            string body = templates[templateName].template;
+            string subject = Templates[templateName].subject;
+            string body = Templates[templateName].template;
 
             foreach (var (key, value) in replaceDictionary)
             {
@@ -30,7 +54,7 @@ namespace SunEngine.Core.Cache.Services
                 body = body.Replace(key, value);
             }
 
-            body = layout.Replace("[content]", body);
+            body = Layout.Replace("[content]", body);
 
             MailContent mailContent = new MailContent
             {
@@ -44,7 +68,7 @@ namespace SunEngine.Core.Cache.Services
         // TODO: add exception handling.
         public void Initialize()
         {
-            templates = new Dictionary<string, MailContent>();
+            _templates = new Dictionary<string, MailContent>();
 
             DirectoryInfo directoryInfo = new DirectoryInfo(MailTemplatesDir);
             foreach (FileInfo file in directoryInfo.GetFiles())
@@ -53,7 +77,7 @@ namespace SunEngine.Core.Cache.Services
                 
                 if (file.Name == "layout.html")
                 {
-                    layout = fileContent;
+                    _layout = fileContent;
                     continue;
                 }
 
@@ -63,7 +87,7 @@ namespace SunEngine.Core.Cache.Services
                     template = ParseHtmlValue(fileContent, "Body")
                 };
 
-                templates.Add(file.Name, mailContent);
+                _templates.Add(file.Name, mailContent);
             }
         }
 
@@ -80,8 +104,8 @@ namespace SunEngine.Core.Cache.Services
 
         public void Reset()
         {
-            templates = null;
-            layout = null;
+            _templates = null;
+            _layout = null;
         }
     }
 
