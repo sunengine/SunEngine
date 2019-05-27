@@ -7,8 +7,11 @@
              @click="save" color="send">
         <LoaderSent slot="loading"/>
       </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$t('Global.btn.cancel')"
+      <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$tl('cancelBtn')"
              color="warning"/>
+
+      <q-btn no-caps icon="fas fa-trash" class="float-right" @click="$router.back()" :label="$tl('deleteBtn')"
+             color="negative"/>
     </div>
   </q-page>
 </template>

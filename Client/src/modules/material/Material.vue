@@ -190,8 +190,7 @@
             data: {
               idOrName: this.idOrName
             }
-          }).then(
-          response => {
+          }).then((response) => {
             this.material = response.data;
             this.title = this.material.title;
           }

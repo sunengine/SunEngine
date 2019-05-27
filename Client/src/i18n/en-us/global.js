@@ -6,8 +6,10 @@ export default {
       ok: "Ok"
     },
     btn: {
+      create: "Create",
       save: "Save",
-      cancel: "Cancel"
+      cancel: "Cancel",
+      delete: "Delete"
     },
     validation: {
       emailSig: "Incorrect email",

@@ -6,7 +6,9 @@ export default {
   },
   EditMaterial: {
     title: "Edit material",
-    saveBtn: "Save",
+    saveBtn: "@:Global.btn.save",
+    cancelBtn: "@:Global.btn.cancel",
+    deleteBtn: "@:Global.btn.delete",
     successNotify: "Material successfully saved",
   },
   Material: {

@@ -6,7 +6,9 @@ export default {
   },
   EditMaterial: {
     title: "Редактировать материал",
-    saveBtn: "Сохранить",
+    saveBtn: "@:Global.btn.save",
+    cancelBtn: "@:Global.btn.cancel",
+    deleteBtn: "@:Global.btn.delete",
     successNotify: "Материал успешно сохранён",
   },
   Material: {

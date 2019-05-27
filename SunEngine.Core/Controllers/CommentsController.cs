@@ -42,7 +42,7 @@ namespace SunEngine.Core.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> GetMaterialComments(int materialId)
         {
-            int? categoryId = await materialsManager.GetMaterialCategoryIdAsync(materialId);
+            int? categoryId = await materialsManager.GetCategoryIdAsync(materialId);
             if (!categoryId.HasValue)
                 return BadRequest();
 

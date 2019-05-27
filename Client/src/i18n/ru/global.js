@@ -8,7 +8,8 @@ export default {
     btn: {
       create: "Создать",
       save: "Сохранить",
-      cancel: "Отмена"
+      cancel: "Отмена",
+      delete: "Удалить"
     },
     validation: {
       emailSig: "Неправильная сигнатура email",
