@@ -63,7 +63,7 @@ namespace SunEngine.Core.Models.Materials
 
 
         /// <summary>
-        /// Count of not deleted comments
+        /// Count of not hidden and not deleted comments
         /// </summary>
         public int CommentsCount { get; set; }
 

@@ -16,6 +16,7 @@
         <q-btn :to="route" icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
       </span>
 
+      <span v-if="category.materialsCount" class="text-grey-8 q-ml-md"> <q-icon color="grey-5" name="far fa-file-alt"/> {{category.materialsCount}}</span>
     </span>
     <div v-if="category.subCategories" :class="[{'padding-c': notRoot}]">
       <category-item :category="sub" :isFirst="index === 0" :isLast="index === lastIndex"

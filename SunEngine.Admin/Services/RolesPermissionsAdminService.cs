@@ -74,8 +74,7 @@ namespace SunEngine.Admin.Services
             IDictionary<string, OperationKey> operationKeys =
                 await db.OperationKeys.ToDictionaryAsync(x => x.Name);
 
-
-            JsonSchema4 schema = await JsonSchema4.FromFileAsync(UserGroupSchemaPath);
+            JsonSchema schema = await JsonSchema.FromFileAsync(UserGroupSchemaPath);
 
             RolesFromJsonLoader fromJsonLoader = new RolesFromJsonLoader(categories, operationKeys, schema);
 

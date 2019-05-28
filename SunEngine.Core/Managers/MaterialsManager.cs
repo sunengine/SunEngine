@@ -209,8 +209,8 @@ namespace SunEngine.Core.Managers
 
         public virtual async Task DetectAndSetLastCommentAndCountAsync(Material material)
         {
-            var commentsQuery = db.Comments.Where(x => x.MaterialId == material.Id);
-
+            var commentsQuery = db.Comments.Where(x => x.MaterialId == material.Id && !x.IsDeleted);
+            
             var lastComment = await commentsQuery.OrderByDescending(x => x.PublishDate)
                 .FirstOrDefaultAsync();
             var lastCommentId = lastComment?.Id;

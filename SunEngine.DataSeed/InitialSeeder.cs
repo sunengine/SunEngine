@@ -119,7 +119,7 @@ namespace SunEngine.DataSeed
 
             string pathToUserGroupsConfig = Path.GetFullPath(Path.Combine(configDir,"Roles.json"));
             string pathToUserGroupsSchema = Path.GetFullPath("Resources/Roles.schema.json");
-            JsonSchema4 schema = JsonSchema4.FromFileAsync(pathToUserGroupsSchema).GetAwaiter().GetResult();
+            JsonSchema schema = JsonSchema.FromFileAsync(pathToUserGroupsSchema).GetAwaiter().GetResult();
 
 
             RolesFromJsonLoader fromJsonLoader =

@@ -19,12 +19,12 @@ namespace SunEngine.Core.Utils
 
         private readonly IDictionary<string, Category> categories;
         private readonly IDictionary<string, OperationKey> operationKeys;
-        private readonly JsonSchema4 schema;
+        private readonly JsonSchema schema;
         
         public RolesFromJsonLoader(
             IDictionary<string, Category> categories,
             IDictionary<string,OperationKey> operationKeys,
-            JsonSchema4 schema)
+            JsonSchema schema)
         {
             this.categories = categories;
             this.operationKeys = operationKeys;
