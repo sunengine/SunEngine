@@ -6,5 +6,5 @@ import setUserInfo from './setUserInfo'
 export default {
   clearAllUserRelatedData,
   setUserData,
-  setUserInfo
+  setUserInfo,
 }

@@ -1,7 +1,6 @@
 export accountRoutes from './accountRoutes'
 export adminRoutes from './adminRoutes'
 export authRoutes from './authRoutes'
-export makeRoutesFromLayouts from './makeRoutesFromLayouts'
 export miscRoutes from './miscRoutes'
 export personalRoutes from './personalRoutes'
 export pageNotFoundRoute from './pageNotFoundRoute'

@@ -113,10 +113,12 @@ async function checkTokens(rez) {
     if(tokensHeader === "expire") {
       store.state.auth.tokens = null;
       removeTokens();
+      console.info("%cTokens logout", consoleUserLogout);
+
       store.commit('clearAllUserRelatedData');
       await store.dispatch('loadAllCategories', {skipLock: true});
-
-      console.info("%cTokens logout", consoleUserLogout);
+      await store.dispatch('loadAllMenuItems');
+      store.commit('setAllRoutes');
     }
     else {
       const tokens = JSON.parse(tokensHeader);

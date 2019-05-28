@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import {Page} from 'sun'
+  import {consoleInit, Page} from 'sun'
 
   export default {
     name: "ArticlesPage",
@@ -68,6 +68,8 @@
         }
       },
       async loadData() {
+        console.info("ArticlesPage.loadData");
+
         let currentPage = this.getCurrentPage();
 
         this.title = this.category?.title;

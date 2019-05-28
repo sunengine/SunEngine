@@ -37,9 +37,6 @@
     beforeCreate() {
       window.app = app = this;
       this.$store.dispatch('initStore');
-    },
-    created() {
-
     }
   }
 

@@ -5,10 +5,8 @@ import {authModule as auth} from 'sun'
 import {categoriesModule as categories} from 'sun'
 import {menuModule as menu} from 'sun'
 import {adminModule as admin} from 'sun'
+import {rootModule as root} from 'sun'
 
-import {request} from 'sun'
-import {initStore} from 'sun'
-import {initUser} from 'sun'
 import {setStore} from 'sun'
 
 
@@ -22,14 +20,7 @@ Vue.use(Vuex);
 export default function (/* { ssrContext } */) {
 
   const store = new Vuex.Store({
-    state: {
-      isInitialized: false,
-      initializeError: false
-    },
-    actions: {
-      request,
-      initStore
-    },
+    ...root,
     modules: {
       admin,
       auth,
@@ -39,7 +30,7 @@ export default function (/* { ssrContext } */) {
   });
 
   setStore(store);
-  initUser(store);
+  store.dispatch("initUserFromLocalStorage");
 
   return store;
 }
