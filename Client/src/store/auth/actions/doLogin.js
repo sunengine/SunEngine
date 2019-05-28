@@ -20,6 +20,6 @@ export default async function doLogin(context, userData) {
     let request2 = context.dispatch('loadAllCategories');
     let request3 = context.dispatch('loadAllMenuItems');
     await Promise.all([request1, request2, request3]);
-    context.commit('setAllRoutes');
+    await context.dispatch('setAllRoutes');
   });
 }

@@ -63,9 +63,7 @@
     },
     watch: {
       'categoriesNames': 'loadData',
-      '$route.query.page': 'loadData',
-      '$store.state.categories.all': 'loadData',
-      '$store.state.auth.user': 'loadData'
+      '$route': 'loadData',
     },
     computed: {
       canPost() {
@@ -83,8 +81,7 @@
         return false;
       },
       currentPage() {
-        let page = this.$route.query?.page;
-        return page ?? 1;
+        return this.$route.query?.page ?? 1;
       }
     },
     methods: {

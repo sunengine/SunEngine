@@ -32,11 +32,6 @@ export default function ({store, ssrContext}) {
     if (config.Log.MoveTo)
       console.info("%cMove to page%c" + config.SiteUrl.substring(config.SiteSchema.length) + to.path, consoleRequestStart, consoleGreyEnd, to);
 
-    if (!routeHasAccess(to)) {
-      router.push({name: 'Home'});
-      return;
-    }
-
     next();
 
   });

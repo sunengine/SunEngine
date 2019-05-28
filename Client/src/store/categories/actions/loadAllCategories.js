@@ -2,7 +2,7 @@ import {consoleInit} from 'sun'
 
 export default async function loadAllCategories(context, data) {
 
-  if (context.state.categories?.all)
+  if (context.state.all)
     return;
 
   let requestData = {

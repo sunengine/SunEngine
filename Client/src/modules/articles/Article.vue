@@ -51,15 +51,7 @@
         return this.$store.getters.getCategory(this.article.categoryName);
       },
       to() {
-        if(!this.category)
-          return "";
-
-        const cat = this.category;
-        const route = this.category.getMaterialRoute(this.article.name ?? this.article.id);
-        const store = this.$store;
-
-        debugger;
-        return route;
+        return this.category.getMaterialRoute(this.article.name ?? this.article.id);
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
-  <q-list no-border dense v-if="subCategories">
-    <q-item :to='category.getRoute()' v-for="(category,index) in subCategories" :key="category.id">
+  <q-list no-border dense v-if="category">
+    <q-item :to='category.getRoute()' v-for="category in subCategories" :key="category.id">
       <q-item-section>
         <q-item-label>
           {{category.title}}

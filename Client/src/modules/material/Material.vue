@@ -108,9 +108,7 @@
       }
     },
     watch: {
-      'idOrName': 'loadData',
-      'categoryName': 'loadData',
-      '$store.state.auth.user': 'loadData'
+      '$route': 'loadData',
     },
     computed: {
       maxCommentNumber() {

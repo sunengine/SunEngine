@@ -73,10 +73,10 @@
     },
     computed: {
       to() {
-        return this.category.getMaterialRoute(this.topic.id);
+        return this.category?.getMaterialRoute(this.topic.id);
       },
       toLast() {
-        return this.category.getMaterialRoute(this.topic.id, '#comment-last');
+        return this.category?.getMaterialRoute(this.topic.id, '#comment-last');
       },
       category() {
         return this.$store.getters.getCategory(this.topic.categoryName);

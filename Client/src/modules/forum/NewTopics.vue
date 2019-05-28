@@ -10,7 +10,7 @@
 
     </div>
 
-    <div v-if="thread.header" class="q-mb-sm page-padding" v-html="thread.header"></div>
+    <div v-if="thread && thread.header" class="q-mb-sm page-padding" v-html="thread.header"></div>
 
     <LoaderWait v-if="!topics.items"/>
 
@@ -58,10 +58,7 @@
       }
     },
     watch: {
-      'categoryName': 'loadData',
-      '$route.query.page': 'loadData',
-      '$store.state.categories.all': "loadData",
-      '$store.state.auth.user': 'loadData'
+      '$route': 'loadData',
     },
     computed: {
       pageTitle() {
@@ -100,8 +97,7 @@
               page: this.currentPage
             }
           })
-          .then(
-            response => {
+          .then(response => {
               this.topics = response.data;
             }
           ).catch(x => {

@@ -1,7 +1,6 @@
 import {consoleInit} from 'sun'
 
 
-
 export default async function (context) {
 
   console.info("%cStart init store", consoleInit);
@@ -19,8 +18,9 @@ export default async function (context) {
     await context.dispatch('setAllRoutes');
 
     context.state.isInitialized = true;
-  } catch (x) {
-    console.error("error", x);
+
+  } catch {
+
     context.state.initializeError = true;
   }
 }

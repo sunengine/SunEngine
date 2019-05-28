@@ -3,15 +3,16 @@ import { extend } from 'quasar'
 
 export default class Category {
   getRoute() {
-    return this.route;
+    return this.route ?? undefined;
   }
 
   getMaterialRoute(idOrName, hash) {
 
-    if(!this.route)
-      return;
+    const route = this.getRoute();
+    if(!route || !route.name)
+      return undefined;
 
-    let rezRoute = extend(true, {}, this.getRoute());
+    let rezRoute = extend(true, {}, route);
 
     rezRoute.name += "-mat";
     if(!rezRoute.params)

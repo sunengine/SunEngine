@@ -1,4 +1,3 @@
-import {consoleInit} from 'sun'
 
 export default function (context) {
 

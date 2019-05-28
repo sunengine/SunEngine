@@ -10,7 +10,7 @@
         </q-item-label>
       </q-item-section>
     </q-item>
-    <component :is="categories" :categoryName="categoryName"/>
+    <component :key="componentKey" :is="categories" :categoryName="categoryName"/>
   </div>
 </template>
 
@@ -19,6 +19,11 @@
 
   export default {
     name: "ForumPanel",
+    data() {
+      return {
+        componentKey: 1
+      }
+    },
     props: {
       categories: {
         type: Object,
@@ -34,7 +39,7 @@
         return this.$store.getters.getCategory(this.categoryName);
       },
       newTopicsRoute() {
-        return this.category.getRoute();
+        return this.category?.getRoute();
       }
     }
   }

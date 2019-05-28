@@ -3,6 +3,7 @@ import Lock from 'js-lock';
 
 import {removeTokens, setTokens, parseJwt} from 'sun'
 import {store} from 'sun';
+import {app} from 'sun';
 import { consoleTokens, consoleUserLogout, consoleRequestStart, consoleRequestUrl } from 'sun'
 
 const lock = new Lock("request-lock");
@@ -111,14 +112,14 @@ async function checkTokens(rez) {
   const tokensHeader = rez.headers.tokens;
   if (tokensHeader) {
     if(tokensHeader === "expire") {
-      store.state.auth.tokens = null;
       removeTokens();
-      console.info("%cTokens logout", consoleUserLogout);
+      console.info("%cLogout", consoleUserLogout);
 
       store.commit('clearAllUserRelatedData');
       await store.dispatch('loadAllCategories', {skipLock: true});
-      await store.dispatch('loadAllMenuItems');
-      store.commit('setAllRoutes');
+      await store.dispatch('loadAllMenuItems', {skipLock: true});
+      await store.dispatch('setAllRoutes');
+      app.rerender();
     }
     else {
       const tokens = JSON.parse(tokensHeader);

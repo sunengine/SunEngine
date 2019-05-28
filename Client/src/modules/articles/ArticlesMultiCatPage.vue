@@ -14,7 +14,7 @@
 
     </div>
 
-    <ArticlesList ref="articlesList" />
+    <ArticlesList ref="articlesList"/>
 
   </q-page>
 </template>
@@ -62,14 +62,8 @@
       }
     },
     watch: {
-      'categoryName':
-        'loadData',
-      '$route':
-        'loadData',
-      "$store.state.categories.all":
-        "loadData",
-      '$store.state.auth.user':
-        'loadData'
+      'categoryName': 'loadData',
+      '$route': 'loadData'
     },
     computed: {
       canAddArticle() {

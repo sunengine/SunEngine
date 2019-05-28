@@ -37,14 +37,7 @@
       }
     },
     watch: {
-      'categoryName':
-        'loadData',
-      '$route':
-        'loadData',
-      "$store.state.categories.all":
-        "loadData",
-      '$store.state.auth.user':
-        'loadData'
+      '$route': 'loadData'
     },
     computed: {
       category() {
@@ -68,8 +61,6 @@
         }
       },
       async loadData() {
-        console.info("ArticlesPage.loadData");
-
         let currentPage = this.getCurrentPage();
 
         this.title = this.category?.title;

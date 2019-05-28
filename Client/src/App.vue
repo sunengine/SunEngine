@@ -1,6 +1,6 @@
 <template>
   <div id="q-app">
-    <Layout v-if="isInitialized"/>
+    <Layout :key="rerenderKey" v-if="isInitialized"/>
 
     <div v-else-if="!initializeError" class="loader">
       <div>
@@ -28,11 +28,22 @@
 
   var app;
 
+
   export default {
     name: 'App',
     components: {Layout},
+    data() {
+      return {
+        rerenderKey: 1
+      }
+    },
     computed: {
       ...mapState(['isInitialized', 'initializeError'])
+    },
+    methods: {
+      rerender() {
+        this.rerenderKey += 1;
+      }
     },
     beforeCreate() {
       window.app = app = this;

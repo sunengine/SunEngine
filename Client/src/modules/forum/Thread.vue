@@ -53,23 +53,21 @@
     },
     data() {
       return {
-        thread: null,
         topics: {}
       }
     },
     watch: {
-      'categoryName': 'loadData',
       '$route': 'loadData',
-      "$store.state.categories.all": "loadData",
-      '$store.state.auth.user': 'loadData',
     },
     computed: {
       canAddTopic() {
         return this.thread?.categoryPersonalAccess?.materialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;
       },
       currentPage() {
-        let page1 = this.$route.query?.page;
-        return page1 ?? 1;
+        return this.$route.query?.page ?? 1;
+      },
+      thread() {
+        return this.$store.getters.getCategory(this.categoryName);
       }
     },
     methods: {
@@ -84,15 +82,12 @@
       },
 
       async loadData() {
-        this.thread = this.$store.getters.getCategory(this.categoryName);
-
-        if (!this.thread)
-          this.$router.push({name: "Home"});
-
-        this.topics = {};
+        if(!this.thread)
+          return;
 
         this.title = this.thread.title;
 
+        this.topics = {};
         await this.$store.dispatch("request",
           {
             url: "/Forum/GetThread",
