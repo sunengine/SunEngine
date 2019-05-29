@@ -18,7 +18,5 @@ export RoleUsers from './roles/RoleUsers'
 
 
 export AdminMenu from './AdminMenu'
-export AdminPage from './AdminPage'
-export AdminPanel from './AdminPanel'
 export CacheSettings from './CacheSettings'
 export DeletedElements from './DeletedElements'

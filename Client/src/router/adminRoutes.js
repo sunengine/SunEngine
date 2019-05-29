@@ -1,5 +1,5 @@
-import {AdminPage} from 'sun'
-import {AdminPanel} from 'sun'
+import {wrapInPage} from 'sun'
+import {wrapInPanel} from 'sun'
 import {CategoriesAdmin} from 'sun'
 import {MenuItemsAdmin} from 'sun'
 import {CreateCategory} from 'sun'
@@ -11,7 +11,11 @@ import {CacheSettings} from 'sun'
 import {CreateMenuItem} from 'sun'
 import {EditMenuItem} from 'sun'
 import {DeletedElements} from 'sun'
+import {AdminMenu} from 'sun'
 
+
+const AdminPage = wrapInPage("AdminPage", AdminMenu, null, "fas fa-cog");
+const AdminPanel = wrapInPanel("AdminPage", AdminMenu, null, {name: 'Admin'}, "fas fa-cog");
 
 
 const routes = [
