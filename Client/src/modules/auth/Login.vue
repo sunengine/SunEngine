@@ -72,7 +72,7 @@
         this.submitting = true;
 
         const data = {nameOrEmail: this.nameOrEmail, password: this.password, notMyComputer: this.notMyComputer};
-        await this.$store.dispatch('doLogin', data)
+        await this.$store.dispatch('login', data)
           .then(() => {
             this.$successNotify();
             this.$router.back();

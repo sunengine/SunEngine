@@ -5,7 +5,7 @@ import {authModule as auth} from 'sun'
 import {categoriesModule as categories} from 'sun'
 import {menuModule as menu} from 'sun'
 import {adminModule as admin} from 'sun'
-import {rootModule as root} from 'sun'
+import {storeRoot} from 'sun'
 
 import {setStore} from 'sun'
 
@@ -20,7 +20,7 @@ Vue.use(Vuex);
 export default function (/* { ssrContext } */) {
 
   const store = new Vuex.Store({
-    ...root,
+    ...storeRoot,
     modules: {
       admin,
       auth,

@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <h2 class="q-title page-padding">
-      Главная страница (пример)
+      {{title}}
     </h2>
 
     <div :class="['row',{hidden: !loaded}]">
@@ -70,7 +70,7 @@
       this.mounted = true;
     },
     async created() {
-      this.title = "Главная страница (пример)";
+      this.title = this.$tl("title");
       await this.loadData();
     }
   }

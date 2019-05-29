@@ -1,11 +1,12 @@
-import doLogin from './doLogin'
-import logout from './logout'
 import getMyUserInfo from './getMyUserInfo'
 import initUserFromLocalStorage from './initUserFromLocalStorage'
+import login from './login'
+import logout from './logout'
+
 
 export default {
-  doLogin,
-  logout,
   getMyUserInfo,
-  initUserFromLocalStorage
+  initUserFromLocalStorage,
+  login,
+  logout
 }

@@ -18,6 +18,5 @@ namespace SunEngine.Core.Models
         public int SortNumber { get; set; }
         public string Icon { get; set; }
         public bool IsHidden { get; set; }
-
     }
 }

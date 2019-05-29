@@ -46,7 +46,7 @@
     </q-page-container>
 
     <q-footer bordered class="footer q-py-lg bg-yellow-1">
-      Сделано с Любовью
+      {{$tl('madeWithLove')}}
       <q-icon name="fas fa-heart" size="12px" color="hot"/>
       <a href="http://sunengine.site">Sun Engine</a>
       <q-icon class="gt-xs" name="fas fa-heart" size="12px" color="hot"/>

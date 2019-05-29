@@ -1,15 +1,15 @@
 <template>
   <q-page class="flex column middle page-padding">
-    <h1 class="text-hot">Demo</h1>
+    <h1 class="text-hot">{{$tl("demo")}}</h1>
     <div class="p1">
-      <p>Каждые несколько часов данные сбрасываются.</p>
-      <p>Пользователи: <span class="hl">User1</span>, <span class="hl">User2</span>, <span class="hl">User3</span>, <span class="hl">Moderator</span>, <span
+      <p>{{$tl("dataReset")}}</p>
+      <p>{{$tl("users")}}: <span class="hl">User1</span>, <span class="hl">User2</span>, <span class="hl">User3</span>, <span class="hl">Moderator</span>, <span
           class="hl">Admin</span></p>
-      <p>Пароль: <span class="hl">password</span></p>
-      <p>При регистрации можете указывать любой почтовый ящик, например <span class="hl">ooo@ooo.eml</span>.
+      <p>{{$tl("password")}}: <span class="hl">password</span></p>
+      <p>{{$tl("anyMailToRegister")}} <span class="hl">ooo@ooo.eml</span>.
         <br/>
-        Почта будет отправляться на <a target="_blank" href="http://demo.sunengine.site:1444"><b>mailcatcher</b></a>.</p>
-      <p class="ver q-mb-xl">Версия: 1.3.3</p>
+        {{$tl("mailSendTo")}} <a target="_blank" href="http://demo.sunengine.site:1444"><b>mailcatcher</b></a>.</p>
+      <p class="ver q-mb-xl">{{$tl("version")}}: 1.3.4</p>
     </div>
   </q-page>
 </template>

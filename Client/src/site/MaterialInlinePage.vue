@@ -1,7 +1,7 @@
 <template>
   <q-page class="page-padding">
     <h2 class="q-title">
-      Страница со встроенной статьёй
+      {{title}}
     </h2>
     <MaterialInline name="inline1"/>
   </q-page>
@@ -12,7 +12,10 @@
 
   export default {
     name: "MaterialInlinePage",
-    components: {MaterialInline}
+    components: {MaterialInline},
+    created() {
+      this.title = this.$tl('title')
+    }
   }
 </script>
 
