@@ -38,6 +38,7 @@
           exact: false,
           routeName: '',
           routeParamsJson: '',
+          roles: ["Unregistered","Registered"],
           cssClass: '',
           externalUrl: '',
           icon: '',

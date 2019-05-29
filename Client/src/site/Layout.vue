@@ -8,7 +8,7 @@
         </q-btn>
 
         <q-toolbar-title>
-          SunEngine
+          SunEngine {{$tl("demo")}}
         </q-toolbar-title>
 
         <q-btn class="q-mr-sm" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu"

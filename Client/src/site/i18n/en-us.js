@@ -1,5 +1,6 @@
 export default {
   Index: {
+    demo: "Demo",
     dataReset: "Any few hours all data resetting",
     users: "Users",
     password: "Password",
@@ -14,6 +15,7 @@ export default {
     Forum: "Forum"
   },
   Layout: {
+    demo: "- demo site",
     madeWithLove: "Made with love"
   },
   MaterialInlinePage: {

@@ -79,6 +79,7 @@ export default {
     rootElement: "Root element",
     url: "Link internal or external",
     exact: "Highlight menu item only for exact match",
+    roles: "Roles can see menu item",
     cssClass: "Css class",
     icon: "Icon",
     settingsJson: "Custom settings (Json)",

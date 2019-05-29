@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div >
     <q-input ref="name" v-model="menuItem.name" :label="$tl('name')" :rules="rules.name"/>
     <q-input ref="title" v-model="menuItem.title" :label="$tl('title')" :rules="rules.title"/>
     <q-input ref="subTitle" v-model="menuItem.subTitle" :label="$tl('subTitle')" :rules="rules.subTitle"/>
-    <q-input ref="url" class="q-mb-md" @input="urlUpdated" v-model="url" :label="$tl('url')" :rules="rules.url">
+    <q-input ref="url" class="q-mb-md"  @input="urlUpdated" v-model="url" :label="$tl('url')" :rules="rules.url">
       <div slot="hint">
         <div v-if="menuItem.routeName" class="text-positive">
           [{{$tl("local")}}: RouteName={{menuItem.routeName}}
@@ -21,8 +21,7 @@
       </div>
     </q-input>
 
-
-    <q-field class="cursor-pointer" v-if="parentOptions" :label="$tl('parent')" stack-label>
+    <q-field class="cursor-pointer q-mb-md" v-if="parentOptions" :label="$tl('parent')" stack-label>
       <template v-slot:control>
         <div tabindex="0" class="no-outline full-width">
           <q-icon :name="parentIcon" class="q-mr-xs" color="grey-7"/>
@@ -30,7 +29,7 @@
         </div>
       </template>
       <template v-slot:append>
-        <q-icon name="expand_more"></q-icon>
+        <q-icon name="arrow_drop_down"></q-icon>
       </template>
       <q-menu fit auto-close>
         <q-tree
@@ -49,6 +48,10 @@
         </q-tree>
       </q-menu>
     </q-field>
+    <LoaderWait v-else/>
+
+    <q-select v-if="allRoles" class="q-mb-md" v-model="roles" :options="allRoles" multiple use-chips stack-label
+              option-value="name" option-label="title" :label="$tl('roles')"/>
     <LoaderWait v-else/>
 
     <q-input ref="cssClass" v-model="menuItem.cssClass" :label="$tl('cssClass')" :rules="rules.cssClass"/>
@@ -120,12 +123,15 @@
         urlError: false,
         parentOptions: null,
         menuItemsById: null,
-        selectedParentMenuItem: null
+        selectedParentMenuItem: null,
+        roles: null,
+        allRoles: null
       }
     },
     rules: null,
     watch: {
-      'url': 'urlUpdated'
+      'url': 'urlUpdated',
+      'roles': 'rolesUpdated'
     },
     computed: {
       parentTitle() {
@@ -152,6 +158,9 @@
       }
     },
     methods: {
+      rolesUpdated() {
+        this.menuItem.roles = this.roles.map(x => x.name).join(",");
+      },
       getUrl() {
         if (!this.menuItem)
           return;
@@ -251,8 +260,8 @@
 
         this.parentOptions = [root];
       },
-      async loadData() {
-        await this.$store.dispatch("request",
+      loadData() {
+        this.$store.dispatch("request",
           {
             url: "/Admin/MenuAdmin/GetMenuItems",
           })
@@ -261,8 +270,22 @@
               this.prepareMenuItems(response.data);
             }
           ).catch(error => {
-            this.$errorNotify(error);
-          });
+          this.$errorNotify(error);
+        });
+        this.$store.dispatch("request",
+          {
+            url: "/Admin/UserRolesAdmin/GetAllUserRoles"
+          })
+          .then(response => {
+              this.allRoles = response.data;
+              this.allRoles.push({
+                name: "Unregistered",
+                title: "Гость"
+              });
+              const menuItemRoles = this.menuItem.roles.split(",");
+              this.roles = this.allRoles.filter(x => menuItemRoles.some(y => y === x.name));
+            }
+          );
       }
     },
     beforeCreate() {

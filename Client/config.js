@@ -3,7 +3,7 @@ const config = {
   API: 'http://localhost:5000',
   SiteUrl: "http://localhost:5005",
   UploadedImages: 'http://localhost:5000/UploadImages',
-  SiteName: 'SunEngine',
+  SiteName: 'SunEngine Demo',
 
   Log: {
     InitExtended: true,

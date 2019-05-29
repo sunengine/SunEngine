@@ -1,5 +1,6 @@
 export default {
   IndexPage: {
+    demo: "Демо",
     dataReset: "Каждые несколько часов данные сбрасываются.",
     users: "Пользователи",
     password: "Пароль",
@@ -14,6 +15,7 @@ export default {
     Forum: "Форум"
   },
   Layout: {
+    demo: "- демонстрационный сайт",
     madeWithLove: "Сделано с Любовью"
   },
   MaterialInlinePage: {
