@@ -148,6 +148,7 @@
       this.$options.components.MenuAdminItem = require('sun').MenuAdminItem;
     },
     async created() {
+      this.title = this.$tl("title");
       await this.loadData();
     }
   }

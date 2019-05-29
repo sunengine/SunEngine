@@ -77,9 +77,7 @@
               this.$refs.postsList.posts = response.data;
               this.posts = response.data;
             }
-          ).catch(x => {
-            console.log("error", x);
-          });
+          );
       }
     },
     beforeCreate() {
@@ -87,6 +85,7 @@
       this.$options.components.LoaderWait = require('sun').LoaderWait;
     },
     async created() {
+      this.title = this.category.title;
       await this.loadData()
     }
   }

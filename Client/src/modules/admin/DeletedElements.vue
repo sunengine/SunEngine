@@ -14,8 +14,11 @@
 </template>
 
 <script>
+  import {Page} from 'sun'
+
   export default {
     name: 'DeletedElements',
+    mixins: [Page],
     created() {
       this.title = this.$tl('title');
     }

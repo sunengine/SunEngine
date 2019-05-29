@@ -5,8 +5,11 @@
 </template>
 
 <script>
+  import {Page} from 'sun'
+
   export default {
     name: "SecretPage",
+    mixins: [Page],
     created() {
       this.title = this.$tl('title');
     }

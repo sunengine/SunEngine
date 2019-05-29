@@ -2,7 +2,7 @@
   <q-page>
     <div class="page-padding header-with-button">
       <h2 class="q-title">
-        {{pageTitle}}
+        {{title}}
       </h2>
       <q-btn no-caps @click="$router.push({name:'CreateMaterial',params:{categoriesNames: categoriesNames}})"
              :label="addButtonLabel"
@@ -96,8 +96,6 @@
       },
       async loadData() {
 
-        this.title = this.category?.title;
-
         await this.$store.dispatch("request",
           {
             url: "/Articles/GetArticlesFromMultiCategories",
@@ -106,13 +104,10 @@
               page: this.currentPage
             }
           })
-          .then(
-            response => {
+          .then(response => {
               this.$refs.articlesList.articles = response.data;
             }
-          ).catch(x => {
-            console.log("error", x);
-          });
+          );
       }
     },
     beforeCreate() {
@@ -120,6 +115,7 @@
       this.$options.components.ArticlesList = require('sun').ArticlesList;
     },
     async created() {
+      this.title = this.pageTitle;
       await this.loadData()
     }
   }
