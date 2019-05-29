@@ -1,4 +1,4 @@
-import {wrapInPage} from 'sun'
+import {ArticlesPage, Material, wrapInPage} from 'sun'
 import {wrapInPanel} from 'sun'
 import {CategoriesAdmin} from 'sun'
 import {MenuItemsAdmin} from 'sun'
@@ -129,6 +129,28 @@ const routes = [
     components: {
       default: DeletedElements,
       navigation: AdminPanel
+    }
+  },
+  {
+    name: 'CatView',
+    path: '/admin/CatView/'.toLowerCase() + ':categoryName',
+    components: {
+      default: ArticlesPage,
+      navigation: AdminPanel
+    },
+    props: {
+      default: true
+    }
+  },
+  {
+    name: 'CatView',
+    path: '/admin/CatView/'.toLowerCase() + ':categoryName/:idOrName',
+    components: {
+      default: Material,
+      navigation: null
+    },
+    props: {
+      default: true
     }
   }
 ];
