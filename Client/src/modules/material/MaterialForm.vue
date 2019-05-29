@@ -57,8 +57,6 @@
   import {htmlTextSizeOrHasImage} from 'sun'
   import {materialFormToolbar} from 'sun'
 
-  const editorToolbar = materialFormToolbar;
-
   function createRules() {
     return {
       name: [
@@ -95,7 +93,6 @@
         required: true
       }
     },
-    rules: null,
     data() {
       return {
         start: true
@@ -136,10 +133,9 @@
       }
     },
     beforeCreate() {
-      this.$options.components.MyEditor = require('sun').MyEditor;
-    },
-    created() {
       this.rules = createRules.call(this);
+      this.editorToolbar = materialFormToolbar;
+      this.$options.components.MyEditor = require('sun').MyEditor;
     }
   }
 </script>

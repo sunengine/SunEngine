@@ -67,7 +67,6 @@
         showPassword: false
       }
     },
-    rules: null,
     methods: {
       async save() {
 

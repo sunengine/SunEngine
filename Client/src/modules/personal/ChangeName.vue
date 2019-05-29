@@ -61,7 +61,6 @@
         submitting: false
       }
     },
-    rules: null,
     methods: {
       checkNameInDb() {
         clearTimeout(this.timeout);

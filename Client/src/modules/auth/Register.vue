@@ -124,7 +124,6 @@
         showPassword2: false
       }
     },
-    rules: null,
     methods: {
       async register() {
         this.$refs.userName.validate();

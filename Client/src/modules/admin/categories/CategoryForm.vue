@@ -120,7 +120,6 @@
         sectionTypes: null
       }
     },
-    rules: null,
     computed: {
       sectionTypeOptions() {
         return [{label: this.$tl("noTypeLabel"), value: unset}, ...this.sectionTypes?.map(x => {

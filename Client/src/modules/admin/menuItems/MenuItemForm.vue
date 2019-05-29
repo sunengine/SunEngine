@@ -128,7 +128,6 @@
         allRoles: null
       }
     },
-    rules: null,
     watch: {
       'url': 'urlUpdated',
       'roles': 'rolesUpdated'

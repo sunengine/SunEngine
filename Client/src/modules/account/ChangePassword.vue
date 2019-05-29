@@ -87,7 +87,6 @@
         showPassword2: false,
       }
     },
-    rules: null,
     methods: {
       async changePassword() {
         this.$refs.passwordOld.validate();

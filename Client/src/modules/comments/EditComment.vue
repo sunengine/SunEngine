@@ -2,7 +2,7 @@
   <div>
     <template v-if="comment">
       <MyEditor
-        :toolbar="commentEditorToolbar"
+        :toolbar="editorToolbar"
         :rules="commentRules"
         class="editor" ref="htmlEditor" v-model="comment.text"/>
       <div>
@@ -38,7 +38,6 @@
       },
       done: Function
     },
-    editorToolbar: null,
     computed: {
       commentRules() {
         return [

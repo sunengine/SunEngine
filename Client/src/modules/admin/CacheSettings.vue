@@ -60,7 +60,6 @@
         policy: null,
         loading: false,
         withoutTime: false,
-        rules: null,
         optionTypes: [
           {id: cachePolicies.Always, label: this.$tl("alwaysPolicy"), value: "AlwaysPolicy"},
           {id: cachePolicies.Never, label: this.$tl("neverPolicy"), value: "NeverPolicy"},
@@ -111,11 +110,11 @@
       }
     },
     beforeCreate() {
+      this.rules = createRules.call(this);
       this.$options.components.LoaderSent = require('sun').LoaderSent;
     },
     async created() {
       this.title = this.$tl("title");
-      this.rules = createRules.call(this);
       await this.loadCurrentPolicy();
     }
   }

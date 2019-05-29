@@ -72,7 +72,6 @@
         token: null
       }
     },
-    rules: null,
     methods: {
       async send() {
         this.$refs.email.validate();

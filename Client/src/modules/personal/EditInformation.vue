@@ -16,8 +16,6 @@
   import {Page} from 'sun'
   import {editInformationToolbar} from 'sun'
 
-  const editorToolbar = editInformationToolbar;
-
 
   export default {
     name: "EditInformation",
@@ -46,6 +44,7 @@
       }
     },
     beforeCreate() {
+      this.editorToolbar = editInformationToolbar;
       this.$options.components.LoaderWait = require('sun').LoaderWait;
       this.$options.components.MyEditor = require('sun').MyEditor;
     },
