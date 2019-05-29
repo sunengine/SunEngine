@@ -61,7 +61,6 @@
       <ProjectReference Include="..\SunEngine.DataSeed\SunEngine.DataSeed.csproj" />
       <ProjectReference Include="..\SunEngine.Migrations\SunEngine.Migrations.csproj" />
     </ItemGroup>
-
     
    
     <PropertyGroup>
