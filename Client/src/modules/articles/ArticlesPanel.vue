@@ -1,8 +1,5 @@
 <template>
-  <div>
-    <h4 class="menu-panel-title text-grey-8">
-      <QIcon name="far fa-comments" size="1.4em" class="q-mr-sm" /> {{$tl("sections")}}
-    </h4>
+  <PanelWrapper iconProp="far fa-file-alt" :titleProp="$tl('sections')">
     <q-item class="q-my-xs" exact dense :to="newArticlesRoute">
       <q-item-section>
         <q-item-label>
@@ -11,7 +8,7 @@
       </q-item-section>
     </q-item>
     <component :is="categories" :categoryName="categoryName"/>
-  </div>
+  </PanelWrapper>
 </template>
 
 <script>
@@ -36,6 +33,9 @@
       newArticlesRoute() {
         return this.category.getRoute();
       }
+    },
+    beforeCreate() {
+      this.$options.components.PanelWrapper = require('sun').PanelWrapper;
     }
   }
 </script>

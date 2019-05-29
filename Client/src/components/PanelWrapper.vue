@@ -1,5 +1,5 @@
 <template>
-  <div :key="rerenderKey">
+  <div>
     <h4 class="menu-panel-title">
       <router-link v-if="titleLink" :to="titleLink">
         <q-icon v-if="icon" :name="icon" size="1.4em" class="q-mr-sm"/>
@@ -22,14 +22,6 @@
       titleProp: String,
       titleLinkProp: Object,
       iconProp: String
-    },
-    data() {
-      return {
-        rerenderKey: 1
-      }
-    },
-    watch: {
-      '$route': () => { this.rerenderKey++; }
     },
     computed: {
       wrapComponent() {
