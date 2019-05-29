@@ -23,5 +23,8 @@ export default {
   },
   News2ColPage: {
     title: "Main page (example)"
+  },
+  SecretPage: {
+    title: "Secret Page"
   }
 }

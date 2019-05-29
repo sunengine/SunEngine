@@ -4,6 +4,7 @@ import {ActivitiesPage} from 'sun'
 import IndexPage from './IndexPage'
 import News2ColPage from './News2ColPage'
 import MaterialInlinePage from './MaterialInlinePage'
+import SecretPage from "./SecretPage";
 
 import coreRoutes from './coreRoutes'
 
@@ -59,7 +60,18 @@ const siteRoutes = [
         rolesCanAdd: ['Admin', 'Moderator']
       }
     }
-  }
+  },
+  {
+    name: 'Secret',
+    path: '/secret',
+    components: {
+      default: SecretPage,
+      navigation: null
+    },
+    meta: {
+      roles: ["Registered"]
+    }
+  },
 ];
 
 

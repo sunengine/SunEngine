@@ -1,0 +1,22 @@
+<template>
+  <q-page class="middle flex text-teal-14">
+    <h3><q-icon name="fas fa-fingerprint" /> {{title}}</h3>
+  </q-page>
+</template>
+
+<script>
+  export default {
+    name: "SecretPage",
+    created() {
+      this.title = this.$tl('title');
+    }
+  }
+</script>
+
+<style lang="stylus" scoped>
+  h3 {
+    border-radius: 12px;
+    border: 4px dashed $amber-2;
+    padding: 14px;
+  }
+</style>

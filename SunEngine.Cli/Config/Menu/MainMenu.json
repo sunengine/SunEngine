@@ -35,8 +35,17 @@
       "Icon": "far fa-comments"
     },
     {
+      //"Name": "Forum1",
+      "Title": "Секрет",
+      "SubTitle": "Только для зарегистрированных пользователей",
+      "RouteName": "Secret",
+      "Icon": "fas fa-user-secret",
+      "Roles": "Registered"
+    },
+    {
       //"Name": "Bonus",
       "Title": "Дополнительно",
+      "SubTitle": "Ещё страницы",
       "Icon": "fas fa-puzzle-piece",
       "SubMenuItems": [
         {
