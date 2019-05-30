@@ -16,10 +16,14 @@ export default async function(context, userData) {
     data.isPermanentLogin = !userData.notMyComputer;
 
     context.commit('setUserData', data);
-    const request1 = context.dispatch('loadMyUserInfo');
-    const request2 = context.dispatch('loadAllCategories');
-    const request3 = context.dispatch('loadAllMenuItems');
-    await Promise.all([request1, request2, request3]);
+
+    await Promise.all([
+      context.dispatch('loadAllCategories'),
+      context.dispatch('loadMyUserInfo')
+    ]);
+
     await context.dispatch('setAllRoutes');
+
+    await context.dispatch('loadAllMenuItems');
   });
 }
