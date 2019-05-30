@@ -1,11 +1,15 @@
 <template>
   <q-list>
-    <div class="logo-div text-center">
-      <router-link to='/'>
-        <img src="/statics/SunEngine.svg" class="logo">
-      </router-link>
+    <div class="logo-div">
+      <div class="logo text-center">
+        <router-link to='/'>
+          <h3>SunEngine</h3>
+          <h4 class="text-hot">Demo</h4>
+          <!--<img src="/statics/SunEngine.svg" class="logo">-->
+        </router-link>
+      </div>
     </div>
-    <MenuItem v-if="menu" :menuItem="menuItem"  :key="menuItem.id" v-for="menuItem of menu"/>
+    <MenuItem v-if="menu" :menuItem="menuItem" :key="menuItem.id" v-for="menuItem of menu"/>
   </q-list>
 </template>
 
@@ -25,11 +29,27 @@
 
 <style lang="stylus" scoped>
 
+  .logo-div {
+    text-align: center;
+  }
+
   .logo {
-    width: 220px !important;
-    height: 220px;
-    border-radius: 110px;
+    margin: 40px 0;
+    font-family: "BoomBoomRegular";
+    background-color: #d9eaf3;
+    border-radius: 40px;
+    padding: 22px;
+    display: inline-block;
     box-shadow: 0 0 8px 1px grey;
+
+
+    h3 {
+      margin: 0;
+    }
+
+    h4 {
+      margin: 0;
+    }
   }
 
   .q-router-link--active {
@@ -40,9 +60,7 @@
     }
   }
 
-  .logo-div {
-    margin: 20px 0 12px;
-  }
+
 
   >>> .q-item__section--avatar {
     margin: 0 !important;

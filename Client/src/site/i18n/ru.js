@@ -15,7 +15,7 @@ export default {
     Forum: "Форум"
   },
   Layout: {
-    demo: "- демонстрационный сайт",
+    demo: "- демо сайт",
     madeWithLove: "Сделано с Любовью"
   },
   MaterialInlinePage: {

@@ -8,7 +8,7 @@
         </q-btn>
 
         <q-toolbar-title class="toolbar-title">
-          SunEngine {{$tl("demo")}}
+          <router-link class="text-white" :to="{name: 'Home'}">SunEngine {{$tl("demo")}}</router-link>
         </q-toolbar-title>
 
         <q-btn class="q-mr-sm" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu"
@@ -105,7 +105,8 @@
   }
 
   .toolbar {
-    background-color: #3392FF;
+   // background-image: linear-gradient(to right, #3392ff, #00e678);
+    background-color: #3392ff;
   }
 
   .toolbar-title {
