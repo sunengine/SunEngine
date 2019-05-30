@@ -45,7 +45,7 @@ namespace SunEngine.Core.DataBase
 
         public IQueryable<Material> MaterialsVisible =>
             GetTable<Material>()
-                .Where(x => !x.IsDeleted && x.IsHidden && !x.Category.IsHidden && !x.Category.IsDeleted);
+                .Where(x => !x.IsDeleted && !x.IsHidden && !x.Category.IsHidden && !x.Category.IsDeleted);
 
         public ITable<Comment> Comments => GetTable<Comment>();
 
