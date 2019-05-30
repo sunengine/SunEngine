@@ -21,7 +21,7 @@ export default {
   ...auth,
   ...blog,
   ...comments,
-  ...errors,
+  Errors: errors,
   ...forum,
   ...global,
   ...material,
