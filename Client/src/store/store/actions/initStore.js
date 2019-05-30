@@ -7,6 +7,7 @@ export default async function(context) {
 
   try {
 
+
     const request1 = context.dispatch('loadAllCategories');
 
     const request2 = context.dispatch('loadAllMenuItems');
