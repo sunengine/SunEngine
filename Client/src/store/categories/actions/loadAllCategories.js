@@ -1,9 +1,6 @@
 import {consoleInit} from 'sun'
 
-export default async function loadAllCategories(context, data) {
-
-  if (context.state.all)
-    return;
+export default async function(context, data) {
 
   let requestData = {
     url: '/Categories/GetAllCategoriesAndAccesses'

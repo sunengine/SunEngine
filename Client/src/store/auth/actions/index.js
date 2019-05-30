@@ -1,11 +1,11 @@
-import getMyUserInfo from './getMyUserInfo'
+import loadMyUserInfo from './loadMyUserInfo'
 import initUserFromLocalStorage from './initUserFromLocalStorage'
 import login from './login'
 import logout from './logout'
 
 
 export default {
-  getMyUserInfo,
+  loadMyUserInfo,
   initUserFromLocalStorage,
   login,
   logout

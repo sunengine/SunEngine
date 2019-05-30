@@ -1,5 +1,5 @@
 
-export default async function getMyUserInfo(context) {
+export default async function(context) {
   await context.dispatch('request', {
     url: '/Personal/GetMyUserInfo',
   }).then(response => {

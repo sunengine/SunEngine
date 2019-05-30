@@ -2,9 +2,6 @@ import { consoleInit } from 'sun'
 
 export default async function loadAllMenuItems(context, data) {
 
-  if(context.state.menu?.namedMenuItems)
-    return;
-
   let requestData = {
     url: '/Menu/GetAllMenuItems'
   };
