@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import {consoleInit, Page} from 'sun'
+  import {Page} from 'sun'
 
   export default {
     name: "ArticlesPage",

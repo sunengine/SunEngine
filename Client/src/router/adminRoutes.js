@@ -143,11 +143,11 @@ const routes = [
     }
   },
   {
-    name: 'CatView',
-    path: '/admin/CatView/'.toLowerCase() + ':categoryName/:idOrName',
+    name: 'CatView-mat',
+    path: '/admin/CatView-mat/'.toLowerCase() + ':categoryName/:idOrName',
     components: {
       default: Material,
-      navigation: null
+      navigation: AdminPanel
     },
     props: {
       default: true

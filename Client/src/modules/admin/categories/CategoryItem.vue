@@ -7,12 +7,17 @@
         <q-btn :disabled="isLast" @click="$emit('down',category)" color="positive" dense size="10px" flat
                icon="fas fa-chevron-down"/>
       </span>
-      <span v-if="notRoot">{{category.title}}</span>
+      <span v-if="notRoot">
+          <router-link v-if="category.isMaterialsContainer"
+                       :to="{name:'CatView', params: {categoryName: category.name}}">{{category.title}}</router-link>
+        <template v-else>
+          {{category.title}}
+        </template>
+      </span>
       <span v-else>{{$tl("rootCategory")}}</span>
-
       <span v-if="notRoot" class="q-ml-md">
-        <q-btn @click="$emit('edit',category.id)" icon="fas fa-pencil-alt" color="info" dense size="10px" flat/>
-        <q-btn @click="$emit('add',category.id)" icon="fas fa-plus" color="info" dense size="10px" flat/>
+        <q-btn @click="$emit('edit',category.id)" icon="fas fa-wrench" color="info" dense size="10px" flat/>
+        <q-btn @click="$emit('add',category.id)" icon="fas fa-folder-plus" color="info" dense size="10px" flat/>
         <q-btn :to="route" icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
       </span>
 

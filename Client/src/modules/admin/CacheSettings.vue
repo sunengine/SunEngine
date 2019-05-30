@@ -22,7 +22,7 @@
       </div>
       <br>
       <div class="btn-block">
-        <q-btn icon="fas fa-plus" class="btn-send" :loading="loading"
+        <q-btn icon="fas fa-save" class="btn-send" :loading="loading"
                no-caps :label="$tl('saveChangesBtn')" color="send"
                @click="save">
           <LoaderSent slot="loading"/>
