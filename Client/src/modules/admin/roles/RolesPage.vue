@@ -1,8 +1,11 @@
 <template>
-  <q-page class="page-padding page-padding-top">
+  <q-page class="page-padding">
+    <h2 class="q-title">
+      {{title}}
+    </h2>
   <div class="row">
     <div v-if="roles" class="xs-col-12 col-4">
-      <div class="local-header">{{$tl("roles")}}</div>
+      <div class="local-header"><q-icon name="fas fa-users" class="q-mr-sm" /> {{$tl("roles")}}</div>
       <div class="local-content">
         <div :key="role.id" v-for="role in roles">
           <router-link :to="{name: 'RoleUsers', params: {roleName: role.name}}">{{role.title}}</router-link>

@@ -5,7 +5,7 @@
         <q-icon name="fas fa-check-circle" size="2em"/>
       </template>
       {{$tl("success")}}
-      <router-link :to="{name: 'Login'}"> {{$tl("enter")}}</router-link>
+      <a :href="$router.resolve({name: 'Login'}).href" @click.prevent="$router.push({name: 'Home'}); $router.push({name: 'Login'});"> {{$tl("enter")}}</a>
       .
     </q-banner>
     <q-banner v-else class="bg-negative text-white">

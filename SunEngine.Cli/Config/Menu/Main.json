@@ -4,38 +4,32 @@
   "Icon": "fas fa-bars",
   "SubMenuItems": [
     {
-      //"Name": "Home",
-      "Title": "Домой",
+      "Title": "Главная",
       "RouteName": "Home",
       "Exact": true,
       "Icon": "fas fa-home"
     },
     {
-      //"Name": "News",
-      "Title": "Активность",
-      "RouteName": "News",
-      "Icon": "far fa-newspaper"
-    },
-    {
-      //"Name": "Blog",
       "Title": "Блог",
       "RouteName": "blog-Blog",
       "Icon": "fas fa-blog"
     },
     {
-      //"Name": "Articles",
       "Title": "Статьи",
       "RouteName": "articles-Articles",
-      "Icon": "far fa-file-alt"
+      "Icon": "fas fa-file-alt"
     },
     {
-      //"Name": "Forum1",
       "Title": "Форум",
       "RouteName": "forum-Forum1",
-      "Icon": "far fa-comments"
+      "Icon": "fas fa-comments"
     },
     {
-      //"Name": "Forum1",
+      "Title": "Активность",
+      "RouteName": "News",
+      "Icon": "fas fa-newspaper"
+    },
+    {
       "Title": "Секрет",
       "SubTitle": "Только для зарегистрированных пользователей",
       "RouteName": "Secret",
@@ -43,38 +37,33 @@
       "Roles": "Registered"
     },
     {
-      //"Name": "Bonus",
       "Title": "Дополнительно",
       "SubTitle": "Ещё страницы",
       "Icon": "fas fa-puzzle-piece",
       "SubMenuItems": [
         {
-          //"Name": "News2ColPage",
           "Title": "Главная страница",
           "SubTitle": "Пример в две колонки",
           "RouteName": "News2ColPage",
           "Icon": "fas fa-columns"
         },
         {
-          //"Name": "BlogMulti",
           "Title": "Блог посты",
           "SubTitle": "Из разных категорий",
           "RouteName": "BlogMulti",
-          "Icon": "fas fa-newspaper"
+          "Icon": "fas fa-blog"
         },
         {
-          //"Name": "Articles1",
           "Title": "Статьи 1",
           "SubTitle": "Статьи с подразделами",
           "RouteName": "articles-Articles1",
-          "Icon": "far fa-file-alt"
+          "Icon": "fas fa-file-alt"
         },
         {
-          //"Name": "Forum 2",
           "Title": "Форум 2",
           "SubTitle": "2 уровня вложенности",
           "RouteName": "forum-Forum2",
-          "Icon": "far fa-comments"
+          "Icon": "fas fa-comments"
         }
       ]
     }

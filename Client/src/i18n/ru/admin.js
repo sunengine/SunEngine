@@ -137,7 +137,7 @@ export default {
     removeRoleConfirmOkBtn: "Удалить",
   },
   RolesPage: {
-    title: "Группы пользователей",
+    title: "Пользователи в группах",
     roles: "Группы",
   },
   RolesPermissions: {
@@ -161,9 +161,9 @@ export default {
   AdminMenu: {
     menuItemsAdmin: "Меню",
     categoriesAdmin: "Категории",
-    rolesPermissions: "Настройка прав",
-    rolesUsers: "Группы пользователей",
-    cacheSettings: "Настройки кэширования",
+    rolesPermissions: "Права групп",
+    rolesUsers: "Пользователи в группах",
+    cacheSettings: "Кэширование",
     deletedElements: "Удалённое"
   },
   AdminPage: {

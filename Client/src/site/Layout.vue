@@ -7,7 +7,7 @@
           <q-icon name="menu"/>
         </q-btn>
 
-        <q-toolbar-title>
+        <q-toolbar-title class="toolbar-title">
           SunEngine {{$tl("demo")}}
         </q-toolbar-title>
 
@@ -106,7 +106,11 @@
 
   .toolbar {
     background-color: #3392FF;
+  }
+
+  .toolbar-title {
     font-family: "BoomBoomRegular";
+    letter-spacing: 1.3px;
   }
 
   .footer {
@@ -114,7 +118,7 @@
     color: $primary;
     font-family: "BoomBoomRegular";
     font-size: 16px;
-    letter-spacing : 0.8px;
+    letter-spacing: 0.8px;
 
     span {
       color: $primary;

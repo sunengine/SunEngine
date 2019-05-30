@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="xs-col-12 col-8">
-      <div class="local-header">{{$tl("users")}}</div>
+      <div class="local-header"><q-icon name="fas fa-user" class="q-mr-sm" /> {{$tl("users")}}</div>
       <q-input outlined dense class="q-my-sm" v-model="filter" :label="$tl('filter')" @input="filterValueChanged">
         <template v-slot:prepend>
           <q-icon name="fas fa-search" size="0.75em"/>

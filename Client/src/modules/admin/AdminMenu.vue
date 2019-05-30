@@ -12,19 +12,10 @@
 
     <q-item :to="{name: 'CategoriesAdmin'}">
       <q-item-section avatar>
-        <q-icon name="far fa-folder-open"/>
+        <q-icon name="fas fa-folder-open"/>
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $tl("categoriesAdmin") }}</q-item-label>
-      </q-item-section>
-    </q-item>
-
-    <q-item :to="{name: 'RolesPermissions'}">
-      <q-item-section avatar>
-        <q-icon name="fas fa-users-cog"/>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>{{ $tl("rolesPermissions") }}</q-item-label>
       </q-item-section>
     </q-item>
 
@@ -34,6 +25,15 @@
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $tl("rolesUsers") }}</q-item-label>
+      </q-item-section>
+    </q-item>
+
+    <q-item :to="{name: 'RolesPermissions'}">
+      <q-item-section avatar>
+        <q-icon name="fas fa-users-cog"/>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $tl("rolesPermissions") }}</q-item-label>
       </q-item-section>
     </q-item>
 

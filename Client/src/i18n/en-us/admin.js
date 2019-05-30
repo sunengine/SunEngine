@@ -135,7 +135,7 @@ export default {
     removeRoleConfirmOkBtn: "Remove",
   },
   RolesPage: {
-    title: "Groups page",
+    title: "Groups",
     roles: "Groups",
   },
   RolesPermissions: {
@@ -159,7 +159,7 @@ export default {
   AdminMenu: {
     menuItemsAdmin: "Menu",
     categoriesAdmin: "Categories",
-    rolesPermissions: "Permission settings",
+    rolesPermissions: "Permission",
     rolesUsers: "Groups",
     cacheSettings: "Cache settings",
     deletedElements: "Deleted elements"
