@@ -92,6 +92,7 @@ namespace SunEngine.Admin.Managers
             {
                 int id = await db.InsertWithInt32IdentityAsync(menuItem);
                 await db.MenuItems.Where(x => x.Id == id).Set(x => x.SortNumber, x => id).UpdateAsync();
+                db.CommitTransaction();
             }
         }
 

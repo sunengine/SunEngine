@@ -104,15 +104,18 @@ namespace SunEngine.DataSeed
             var publishDate = dataContainer.IterateCommentPublishDate();
             int linesCountCurrent = ran.Next(linesCount.Min, linesCount.Max);
 
+            int id = dataContainer.NextMaterialId();
+            
             Material material = new Material
             {
-                Id = dataContainer.NextMaterialId(),
+                Id = id,
                 Title = title,
                 Text = MakeSeedText(lineElement, 8, linesCountCurrent, firstLine),
                 AuthorId = dataContainer.GetRandomUserId(),
                 CategoryId = category.Id,
                 PublishDate = publishDate,
-                LastActivity = publishDate
+                LastActivity = publishDate,
+                SortNumber = id
             };
 
             var (preview, description) = MaterialExtensions.MakePreviewAndDescription(material.Text,

@@ -19,22 +19,27 @@ namespace SunEngine.Core.Managers
         Task<Material> GetAsync(int id);
         Task CreateAsync(Material material, string tags, bool isDescriptionEditable);
         Task UpdateAsync(Material material, string tags, bool isDescriptionEditable);
+
         /// <summary>
         /// Set IsDeleted = true
         /// </summary>
         Task DeleteAsync(Material material);
+
         /// <summary>
         /// Set IsDeleted = false
         /// </summary>
         Task RestoreAsync(Material material);
+
         Task DetectAndSetLastCommentAndCountAsync(int materialId);
         Task DetectAndSetLastCommentAndCountAsync(Material material);
         bool IsNameValid(string name);
         Task<bool> IsNameInDbAsync(string name);
+
         /// <summary>
         /// Move up in sort order (SortNumber field)
         /// </summary>
         Task<ServiceResult> UpAsync(int id);
+
         /// <summary>
         /// Move down in sort order (SortNumber field)
         /// </summary>
@@ -98,8 +103,11 @@ namespace SunEngine.Core.Managers
             using (db.BeginTransaction())
             {
                 material.Id = await db.InsertWithInt32IdentityAsync(material);
-                await db.Materials.Where(x => x.Id == material.Id).Set(x => x.SortNumber, x => material.Id).UpdateAsync();
+                await db.Materials.Where(x => x.Id == material.Id).Set(x => x.SortNumber, x => material.Id)
+                    .UpdateAsync();
+
                 await tagsManager.MaterialCreateAndSetTagsAsync(material, tags);
+                db.CommitTransaction();
             }
         }
 
@@ -135,7 +143,7 @@ namespace SunEngine.Core.Managers
             await db.Materials.Where(x => x.Id == material.Id).Set(x => x.IsDeleted, false)
                 .UpdateAsync();
         }
-        
+
         public virtual bool IsNameValid(string name)
         {
             if (int.TryParse(name, out _))
@@ -213,7 +221,7 @@ namespace SunEngine.Core.Managers
         public virtual async Task DetectAndSetLastCommentAndCountAsync(Material material)
         {
             var commentsQuery = db.Comments.Where(x => x.MaterialId == material.Id && !x.IsDeleted);
-            
+
             var lastComment = await commentsQuery.OrderByDescending(x => x.PublishDate)
                 .FirstOrDefaultAsync();
             var lastCommentId = lastComment?.Id;

@@ -38,6 +38,11 @@ namespace SunEngine.Core.Security
         {
             return authorizationService.HasAccess(userGroups, categoryId, OperationKeys.MaterialAndCommentsRead);
         }
+        
+        public bool CanSeeDeletedComments(IReadOnlyDictionary<string, RoleCached> userGroups, int categoryId)
+        {
+            return authorizationService.HasAccess(userGroups, categoryId, OperationKeys.CommentDeleteAny);
+        }
 
         private bool EditOwnIfTimeNotExceededCheck(DateTime publishDate)
         {

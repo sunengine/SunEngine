@@ -49,9 +49,6 @@ namespace SunEngine.Core.DataBase
 
         public ITable<Comment> Comments => GetTable<Comment>();
 
-        public IQueryable<Comment> CommentsVisible =>
-            GetTable<Comment>().Where(x => !x.IsDeleted && !x.Material.IsDeleted && !x.Material.IsHidden && !x.Material.Category.IsDeleted && !x.Material.Category.IsHidden);
-
         public ITable<Tag> Tags => GetTable<Tag>();
         public ITable<TagSynonymGroup> TagSynonyms => GetTable<TagSynonymGroup>();
         public ITable<TagMaterial> TagMaterials => GetTable<TagMaterial>();
