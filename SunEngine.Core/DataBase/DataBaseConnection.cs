@@ -21,7 +21,8 @@ namespace SunEngine.Core.DataBase
             AddMappingSchema(mappingSchema);
         }
 
-        public DataBaseConnection(IDataProvider dataProvider, string connectionString,
+        public DataBaseConnection(
+            IDataProvider dataProvider, string connectionString,
             MappingSchema mappingSchema) : base(
             dataProvider, connectionString)
         {
@@ -42,13 +43,14 @@ namespace SunEngine.Core.DataBase
 
         public ITable<Material> Materials => GetTable<Material>();
 
-        public IQueryable<Material> MaterialsNotDeleted =>
-            GetTable<Material>().Where(x => !x.IsDeleted && !x.Category.IsDeleted);
+        public IQueryable<Material> MaterialsVisible =>
+            GetTable<Material>()
+                .Where(x => !x.IsDeleted && x.IsHidden && !x.Category.IsHidden && !x.Category.IsDeleted);
 
         public ITable<Comment> Comments => GetTable<Comment>();
 
-        public IQueryable<Comment> CommentsNotDeleted =>
-            GetTable<Comment>().Where(x => !x.IsDeleted && !x.Material.Category.IsDeleted);
+        public IQueryable<Comment> CommentsVisible =>
+            GetTable<Comment>().Where(x => !x.IsDeleted && !x.Material.IsDeleted && !x.Material.IsHidden && !x.Material.Category.IsDeleted && !x.Material.Category.IsHidden);
 
         public ITable<Tag> Tags => GetTable<Tag>();
         public ITable<TagSynonymGroup> TagSynonyms => GetTable<TagSynonymGroup>();
@@ -75,7 +77,7 @@ namespace SunEngine.Core.DataBase
 
         public ITable<MenuItem> MenuItems => GetTable<MenuItem>();
 
-        
+
         public void UpdateSequence(string tableName, string keyName)
         {
             if (IsPostgres())

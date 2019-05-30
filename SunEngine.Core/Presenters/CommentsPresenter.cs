@@ -49,7 +49,7 @@ namespace SunEngine.Core.Presenters
 
         public virtual Task<List<CommentView>> GetMaterialCommentsAsync(int materialId)
         {
-            return db.CommentsNotDeleted.Where(x => x.MaterialId == materialId)
+            return db.CommentsVisible.Where(x => x.MaterialId == materialId)
                 .OrderBy(x => x.PublishDate)
                 .Select(
                     x => new CommentView

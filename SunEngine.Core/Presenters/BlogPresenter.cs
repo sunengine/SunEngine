@@ -57,7 +57,7 @@ namespace SunEngine.Core.Presenters
 
         public virtual Task<IPagedList<PostView>> GetPostsFromMultiCategoriesAsync(MaterialsMultiCatShowOptions options)
         {
-            return db.MaterialsNotDeleted.GetPagedListAsync(
+            return db.MaterialsVisible.GetPagedListAsync(
                 x => new PostView
                 {
                     Id = x.Id,

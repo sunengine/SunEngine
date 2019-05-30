@@ -60,7 +60,7 @@ namespace SunEngine.Core.Presenters
 
         public virtual Task<IPagedList<TopicInfoView>> GetNewTopics(MaterialsMultiCatShowOptions options, int maxPages)
         {
-            return db.MaterialsNotDeleted.GetPagedListMaxAsync(
+            return db.MaterialsVisible.GetPagedListMaxAsync(
                 x => new TopicInfoView
                 {
                     Id = x.Id,

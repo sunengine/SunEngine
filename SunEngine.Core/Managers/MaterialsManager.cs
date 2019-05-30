@@ -98,7 +98,7 @@ namespace SunEngine.Core.Managers
             using (db.BeginTransaction())
             {
                 material.Id = await db.InsertWithInt32IdentityAsync(material);
-                await db.Materials.Where(x => x.Id == material.Id).UpdateAsync(x => x.SortNumber, x => material.Id);
+                await db.Materials.Where(x => x.Id == material.Id).Set(x => x.SortNumber, x => material.Id).UpdateAsync();
                 await tagsManager.MaterialCreateAndSetTagsAsync(material, tags);
             }
         }
