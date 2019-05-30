@@ -9,7 +9,7 @@
       <p>{{$tl("anyMailToRegister")}} <span class="hl">ooo@ooo.eml</span>.
         <br/>
         {{$tl("mailSendTo")}} <a target="_blank" href="http://demo.sunengine.site:1444"><b>mailcatcher</b></a>.</p>
-      <p class="ver q-mb-xl">{{$tl("version")}}: 1.3.6</p>
+      <p class="ver q-mb-xl">{{$tl("version")}}: 1.3.7</p>
     </div>
   </q-page>
 </template>

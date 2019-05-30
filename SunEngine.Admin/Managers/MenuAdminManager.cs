@@ -81,12 +81,18 @@ namespace SunEngine.Admin.Managers
             return ServiceResult.OkResult();
         }
 
-        public virtual Task CreateAsync(MenuItem menuItem)
+        public virtual async Task CreateAsync(MenuItem menuItem)
         {
             if (menuItem.ParentId == 0)
                 menuItem.ParentId = null;
+            
             menuItem.Roles = CheckAndSetRoles(menuItem.Roles);
-            return db.InsertWithIdentityAsync(menuItem);
+
+            using (db.BeginTransaction())
+            {
+                int id = await db.InsertWithInt32IdentityAsync(menuItem);
+                await db.MenuItems.Where(x => x.Id == id).UpdateAsync(x => x.SortNumber, x => id);
+            }
         }
 
         public virtual Task UpdateAsync(MenuItem menuItem)
