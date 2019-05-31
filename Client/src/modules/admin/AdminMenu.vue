@@ -1,5 +1,5 @@
 <template>
-  <q-list class="my-menu" no-border>
+  <q-list class="admin-menu my-menu" no-border>
 
     <q-item :to="{name: 'MenuItemsAdmin'}">
       <q-item-section avatar>
@@ -58,10 +58,13 @@
 </template>
 
 <script>
+
   export default {
-    name: "AdminMenu"
+    name: 'AdminMenu'
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
+
 </style>

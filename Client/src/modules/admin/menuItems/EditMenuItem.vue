@@ -1,5 +1,5 @@
 <template>
-  <q-page class="page-padding">
+  <q-page class="edit-menu-item page-padding">
 
     <MenuItemForm v-if="menuItem" ref="form" :menuItem="menuItem"/>
     <LoaderWait v-else/>
@@ -90,9 +90,12 @@
 
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
-  .btn-block {
-    margin-top: $flex-gutter-md;
+  .edit-menu-item {
+    .btn-block {
+      margin-top: $flex-gutter-md;
+    }
   }
+
 </style>

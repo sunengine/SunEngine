@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="category-item">
     <span class="item-block">
       <span v-if="notRoot" class="q-mr-sm ud">
         <q-btn :disabled="isFirst" @click="$emit('up',category)" color="positive" dense size="10px" flat
@@ -23,7 +23,7 @@
 
       <span v-if="category.materialsCount" class="text-grey-8 q-ml-md"> <q-icon color="grey-5" name="far fa-file-alt"/> {{category.materialsCount}}</span>
     </span>
-    <div v-if="category.subCategories" :class="[{'padding-c': notRoot}]">
+    <div v-if="category.subCategories" :class="[{'padding-shift': notRoot}]">
       <category-item :category="sub" :isFirst="index === 0" :isLast="index === lastIndex"
                      :key="sub.id" v-for="(sub,index) in category.subCategories" v-on="$listeners"/>
     </div>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+
   export default {
     name: 'CategoryItem',
     props: {
@@ -57,24 +58,29 @@
       return {}
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
-  .padding-c {
-    padding-left: 25px
-  }
+<style lang="stylus">
 
-  .q-btn:disabled {
-    filter: grayscale(1);
-  }
-
-  .desktop {
-    .item-block > .ud {
-      visibility: hidden;
+  .category-item {
+    .padding-shift {
+      padding-left: 25px
     }
 
-    .item-block:hover > .ud {
-      visibility: visible;
+    .q-btn:disabled {
+      filter: grayscale(1);
+    }
+
+    .desktop {
+      .item-block > .ud {
+        visibility: hidden;
+      }
+
+      .item-block:hover > .ud {
+        visibility: visible;
+      }
     }
   }
+
 </style>

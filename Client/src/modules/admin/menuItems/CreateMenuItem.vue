@@ -1,5 +1,5 @@
 <template>
-  <q-page class="page-padding">
+  <q-page class="create-menu-item page-padding">
     <MenuItemForm ref="form" :menuItem="menuItem"/>
 
     <div class="btn-block">
@@ -38,7 +38,7 @@
           exact: false,
           routeName: '',
           routeParamsJson: '',
-          roles: "Unregistered,Registered",
+          roles: 'Unregistered,Registered',
           cssClass: '',
           externalUrl: '',
           icon: '',
@@ -58,7 +58,7 @@
 
         this.loading = true;
 
-        if(this.menuItem.parentId === 0)
+        if (this.menuItem.parentId === 0)
           this.menuItem.parentId = undefined;
 
         await this.$store.dispatch('request',
@@ -87,9 +87,12 @@
 
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
-  .btn-block {
-    margin-top: $flex-gutter-md;
+  .create-menu-item {
+    .btn-block {
+      margin-top: $flex-gutter-md;
+    }
   }
+
 </style>

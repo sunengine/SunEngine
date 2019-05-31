@@ -1,7 +1,10 @@
 <template>
-  <div>
+  <div class="role-users ">
     <div class="xs-col-12 col-8">
-      <div class="local-header"><q-icon name="fas fa-user" class="q-mr-sm" /> {{$tl("users")}}</div>
+      <div class="local-header">
+        <q-icon name="fas fa-user" class="q-mr-sm"/>
+        {{$tl("users")}}
+      </div>
       <q-input outlined dense class="q-my-sm" v-model="filter" :label="$tl('filter')" @input="filterValueChanged">
         <template v-slot:prepend>
           <q-icon name="fas fa-search" size="0.75em"/>
@@ -25,7 +28,7 @@
 <script>
 
   export default {
-    name: "RoleUsers",
+    name: 'RoleUsers',
     props: {
       roleName: {
         type: String,
@@ -35,7 +38,7 @@
     data() {
       return {
         users: null,
-        filter: ""
+        filter: ''
       }
     },
     watch: {
@@ -49,9 +52,9 @@
       },
       async loadRoleUsers() {
         this.users = null;
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Admin/UserRolesAdmin/GetRoleUsers",
+            url: '/Admin/UserRolesAdmin/GetRoleUsers',
             data: {
               roleName: this.roleName,
               userNamePart: this.filter
@@ -61,7 +64,7 @@
               this.users = response.data;
             }
           );
-      },
+      }
     },
     beforeCreate() {
       this.maxUsersTake = config.Misc.AdminRoleUsersMaxUsersTake;
@@ -74,21 +77,25 @@
 
 </script>
 
-<style lang="stylus" scoped>
-  .local-header {
-    background-color: #cfd8dc;
-    padding: 10px;
+<style lang="stylus">
 
-    div {
-      margin: 2px 0;
+  .role-users {
+    .local-header {
+      background-color: #cfd8dc;
+      padding: 10px;
+
+      div {
+        margin: 2px 0;
+      }
+    }
+
+    .local-content {
+      padding: 0 10px;
+
+      div {
+        margin: 3px 0;
+      }
     }
   }
 
-  .local-content {
-    padding: 0 10px;
-
-    div {
-      margin: 3px 0;
-    }
-  }
 </style>

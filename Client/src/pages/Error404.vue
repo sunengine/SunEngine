@@ -7,7 +7,7 @@
     <p class="text-faded">
       {{$tl("info")}}
       <strong>(404)</strong></p>
-    <q-btn color="secondary" style="width:200px;" @click="$router.push('/')">
+    <q-btn color="secondary" style="width:200px;" @click="$router.back()">
       {{$tl("goBackBtn")}}
     </q-btn>
 

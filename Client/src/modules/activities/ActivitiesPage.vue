@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="activities-page">
     <h2 class="q-title page-padding">
       {{pageTitle}}
     </h2>
@@ -17,12 +17,12 @@
       materialsCategories: {
         type: String,
         required: false,
-        default: "root"
+        default: 'root'
       },
       messagesCategories: {
         type: String,
         required: false,
-        default: "root"
+        default: 'root'
       },
       activitiesNumber: {
         type: Number,
@@ -38,13 +38,13 @@
       this.$options.components.ActivitiesList = require('sun').ActivitiesList;
     },
     created() {
-      this.title  = this.pageTitle ?? this.$tl("defaultTitle");
+      this.title  = this.pageTitle ?? this.$tl('defaultTitle');
     }
   }
 </script>
 
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
 
 </style>

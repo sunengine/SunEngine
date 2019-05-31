@@ -1,5 +1,5 @@
 <template>
-  <q-page class="page-padding">
+  <q-page class="edit-category page-padding">
     <div v-if="category">
       <CategoryForm ref="form" :category="category"/>
 
@@ -24,7 +24,7 @@
   import {Page} from 'sun';
 
   export default {
-    name: "EditCategory",
+    name: 'EditCategory',
     mixins: [Page],
     props: {
       categoryId: {
@@ -41,9 +41,9 @@
     },
     methods: {
       async tryDelete() {
-        const msg = this.$tl("deleteConfirm");
-        const btnOk = this.$tl("deleteDialogBtnOk");
-        const btnCancel = this.$tl("deleteDialogBtnCancel");
+        const msg = this.$tl('deleteConfirm');
+        const btnOk = this.$tl('deleteDialogBtnOk');
+        const btnCancel = this.$tl('deleteDialogBtnCancel');
         this.$q.dialog({
           message: msg,
           ok: btnOk,
@@ -53,15 +53,15 @@
         });
       },
       delete() {
-        this.$store.dispatch("request",
+        this.$store.dispatch('request',
           {
-            url: "/Admin/CategoriesAdmin/CategoryMoveToTrash",
+            url: '/Admin/CategoriesAdmin/CategoryMoveToTrash',
             data: {
               name: this.category.name
             }
           })
           .then(() => {
-            const msg = this.$tl("deletedNotify");
+            const msg = this.$tl('deletedNotify');
             this.$q.notify({
               message: msg,
               timeout: 5000,
@@ -75,9 +75,9 @@
         });
       },
       async loadData() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Admin/CategoriesAdmin/GetCategory",
+            url: '/Admin/CategoriesAdmin/GetCategory',
             data: {
               id: this.categoryId
             }
@@ -86,9 +86,9 @@
             response => {
               this.category = response.data;
               /*if(!this.category.sectionTypeName)
-              this.category.sectionTypeName = "unset";*/
+              this.category.sectionTypeName = 'unset';*/
               if (!this.category.header)
-                this.category.header = "";
+                this.category.header = '';
               this.loading = false;
             }).catch(error => {
             this.$errorNotify(error);
@@ -103,9 +103,9 @@
 
         this.loading = true;
 
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Admin/CategoriesAdmin/UpdateCategory",
+            url: '/Admin/CategoriesAdmin/UpdateCategory',
             data: this.category,
             sendAsJson: true
           })
@@ -125,16 +125,18 @@
     },
     async created() {
       await this.loadData();
-      this.title = this.$tl("title") + ": " + this.category.title
+      this.title = this.$tl('title') + ': ' + this.category.title
     }
   };
 
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
-  .btn-block {
-    margin-top: $flex-gutter-md;
+  .edit-category {
+    .btn-block {
+      margin-top: $flex-gutter-md;
+    }
   }
 
 </style>

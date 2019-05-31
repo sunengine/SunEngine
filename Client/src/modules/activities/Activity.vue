@@ -42,7 +42,7 @@
 <script>
 
   export default {
-    name: "Activity",
+    name: 'Activity',
     props: {
       activity: {
         type: Object,
@@ -53,7 +53,7 @@
       route() {
         let route = this.category.getMaterialRoute(this.activity.materialId);
         if (this.activity.commentId)
-          route.hash = "#comment-" + this.activity.commentId;
+          route.hash = `#comment-${this.activity.commentId}`;
         return route;
       },
       category() {
@@ -61,9 +61,10 @@
       }
     }
   }
+  
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
 
 </style>

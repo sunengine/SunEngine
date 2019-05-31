@@ -1,5 +1,5 @@
 <template>
-  <q-page class="page-padding">
+  <q-page class="menu-items-admin page-padding">
 
     <div class="header-with-button">
       <h2 class="q-title">
@@ -21,7 +21,6 @@
 
 <script>
   import {Page} from 'sun'
-  import CreateMenuItem from "./CreateMenuItem";
 
   export default {
     name: "MenuItemsAdmin",
@@ -38,9 +37,9 @@
     },
     methods: {
       async changeIsHidden(menuItem) {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Admin/MenuAdmin/SetIsHidden",
+            url: '/Admin/MenuAdmin/SetIsHidden',
             data: {
               id: menuItem.id,
               isHidden: !menuItem.isHidden,
@@ -50,18 +49,18 @@
         });
       },
       async deleteMenuItem(menuItem) {
-        const deleteMsg = this.$tl("deleteMsg");
-        const btnDeleteOk = this.$tl("btnDeleteOk");
-        const btnDeleteCancel = this.$tl("btnDeleteCancel");
+        const deleteMsg = this.$tl('deleteMsg');
+        const btnDeleteOk = this.$tl('btnDeleteOk');
+        const btnDeleteCancel = this.$tl('btnDeleteCancel');
 
         this.$q.dialog({
           message: deleteMsg,
           ok: btnDeleteOk,
           cancel: btnDeleteCancel
         }).onOk(async () => {
-          await this.$store.dispatch("request",
+          await this.$store.dispatch('request',
             {
-              url: "/Admin/MenuAdmin/Delete",
+              url: '/Admin/MenuAdmin/Delete',
               data: {
                 id: menuItem.id
               }
@@ -77,9 +76,9 @@
         this.$router.push({name: 'CreateMenuItem', params: {parentMenuItemId: menuItem.id}});
       },
       async up(menuItem) {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Admin/MenuAdmin/Up",
+            url: '/Admin/MenuAdmin/Up',
             data: {
               id: menuItem.id
             }
@@ -88,9 +87,9 @@
         });
       },
       async down(menuItem) {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Admin/MenuAdmin/Down",
+            url: '/Admin/MenuAdmin/Down',
             data: {
               id: menuItem.id
             }
@@ -130,9 +129,9 @@
         this.menuItems = this.prepareMenuItems(data);
       },
       async loadData() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Admin/MenuAdmin/GetMenuItems",
+            url: '/Admin/MenuAdmin/GetMenuItems',
           })
           .then(
             response => {
@@ -148,12 +147,13 @@
       this.$options.components.MenuAdminItem = require('sun').MenuAdminItem;
     },
     async created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
       await this.loadData();
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

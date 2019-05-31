@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex middle page-padding">
+  <q-page class="change-email-result flex middle page-padding">
     <q-banner v-if="success" class="bg-positive text-white">
       <template v-slot:avatar>
         <q-icon name="fas fa-check-circle" size="2em"/>
@@ -33,6 +33,6 @@
 
 </script>
 
-<style>
+<style lang="stylus">
 
 </style>

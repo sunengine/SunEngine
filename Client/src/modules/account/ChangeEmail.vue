@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex middle page-padding">
+  <q-page class="change-email flex middle page-padding">
 
     <div v-if="!done" class="center-form">
 

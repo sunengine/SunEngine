@@ -1,5 +1,5 @@
 <template>
-  <q-page class="page-padding">
+  <q-page class="cache-settings page-padding">
     <div class="header-with-button">
       <h2 class="q-title">{{$tl("title")}}</h2>
       <div class="clear"></div>
@@ -45,14 +45,14 @@
   function createRules() {
     return {
       invalidateCacheTime: [
-        value => !!value || this.$tl("validation.invalidateCacheTime.required"),
-        value => value >= 0 || this.$tl("validation.invalidateCacheTime.invalidValue")
+        value => !!value || this.$tl('validation.invalidateCacheTime.required'),
+        value => value >= 0 || this.$tl('validation.invalidateCacheTime.invalidValue')
       ]
     }
   }
 
   export default {
-    name: "CacheSettings",
+    name: 'CacheSettings',
     mixins: [Page],
     data() {
       return {
@@ -61,17 +61,17 @@
         loading: false,
         withoutTime: false,
         optionTypes: [
-          {id: cachePolicies.Always, label: this.$tl("alwaysPolicy"), value: "AlwaysPolicy"},
-          {id: cachePolicies.Never, label: this.$tl("neverPolicy"), value: "NeverPolicy"},
-          {id: cachePolicies.Custom, label: this.$tl("customPolicy"), value: "CustomPolicy"}
+          {id: cachePolicies.Always, label: this.$tl('alwaysPolicy'), value: 'AlwaysPolicy'},
+          {id: cachePolicies.Never, label: this.$tl('neverPolicy'), value: 'NeverPolicy'},
+          {id: cachePolicies.Custom, label: this.$tl('customPolicy'), value: 'CustomPolicy'}
         ],
       };
     },
     methods: {
       async loadCurrentPolicy() {
         await this.$store
-          .dispatch("request", {
-            url: "/Admin/AdminCacheSettings/GetCurrentCacheSettings"
+          .dispatch('request', {
+            url: '/Admin/AdminCacheSettings/GetCurrentCacheSettings'
           })
           .then(res => {
             this.policy = this.OptionTypes[res.data.currentCachePolicy];
@@ -89,8 +89,8 @@
         }
 
         this.loading = true;
-        await this.$store.dispatch("request", {
-          url: "/Admin/AdminCacheSettings/ChangeCachePolicy",
+        await this.$store.dispatch('request', {
+          url: '/Admin/AdminCacheSettings/ChangeCachePolicy',
           data: {
             selectedPolicy: this.policy.id,
             invalidateCacheTime: !this.withoutTime ? this.cacheSettings.invalidateCacheTime : 0
@@ -114,12 +114,13 @@
       this.$options.components.LoaderSent = require('sun').LoaderSent;
     },
     async created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
       await this.loadCurrentPolicy();
     }
   }
 
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
+
 </style>

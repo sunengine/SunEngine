@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="panel-wrapper">
     <h4 class="menu-panel-title">
       <router-link v-if="titleLink" :to="titleLink">
         <q-icon v-if="icon" :name="icon" size="1.4em" class="q-mr-sm"/>

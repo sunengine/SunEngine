@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="category-form">
 
     <q-input ref="name" v-model="category.name" :label="$tl('name')" :rules="rules.name"/>
 
@@ -61,7 +61,7 @@
   import {adminGetAllCategories} from 'sun'
 
 
-  const unset = "unset";
+  const unset = 'unset';
 
 
   function GoDeep(category) {
@@ -93,19 +93,19 @@
   function createRules() {
     return {
       name: [
-        value => !!value || this.$tl("validation.name.required"),
-        value => value.length >= 2 || this.$tl("validation.name.minLength"),
-        value => /^[a-zA-Z0-9_-]*$/.test(value) || this.$tl("validation.name.allowedChars"),
+        value => !!value || this.$tl('validation.name.required'),
+        value => value.length >= 2 || this.$tl('validation.name.minLength'),
+        value => /^[a-zA-Z0-9_-]*$/.test(value) || this.$tl('validation.name.allowedChars'),
       ],
       title: [
-        value => !!value || this.$tl("validation.title.required"),
-        value => value.length >= 3 || this.$tl("validation.title.minLength"),
+        value => !!value || this.$tl('validation.title.required'),
+        value => value.length >= 3 || this.$tl('validation.title.minLength'),
       ],
     }
   }
 
   export default {
-    name: "CategoryForm",
+    name: 'CategoryForm',
     props: {
       category: {
         type: Object,
@@ -122,16 +122,16 @@
     },
     computed: {
       sectionTypeOptions() {
-        return [{label: this.$tl("noTypeLabel"), value: unset}, ...this.sectionTypes?.map(x => {
+        return [{label: this.$tl('noTypeLabel'), value: unset}, ...this.sectionTypes?.map(x => {
           return {
-            label: this.$t('SectionTypes.'+x.name),
+            label: this.$t('SectionTypes.' + x.name),
             value: x.name
           }
         })];
       },
       layoutOptions() {
         return Object.getOwnPropertyNames(this.$store.state.categories.layouts)
-          .filter(x => !x.startsWith("__"))
+          .filter(x => !x.startsWith('__'))
           .map(x => this.$store.state.categories.layouts[x])
           .filter(x => x.categoryType === this.category.sectionTypeName)
           .map(x => {
@@ -144,8 +144,8 @@
       },
       parentCategoryTitle() {
         if (!this.category.parentId)
-          return this.$tl("selectParent");
-        return this.$tl("parent") + this?.all?.[this.category.parentId]?.title;
+          return this.$tl('selectParent');
+        return this.$tl('parent') + this?.all?.[this.category.parentId]?.title;
       },
       where() {
         return [GoDeep(this.root)];
@@ -156,8 +156,7 @@
     },
     methods: {
       sectionTypeChanged() {
-        if(this.category.sectionTypeName !== this.category.layoutName)
-        {
+        if (this.category.sectionTypeName !== this.category.layoutName) {
           this.category.layoutName = this.layoutOptions?.[0]?.value ?? '';
         }
       },
@@ -193,9 +192,9 @@
         }
       );
 
-      await this.$store.dispatch("request",
+      await this.$store.dispatch('request',
         {
-          url: "/Admin/CategoriesAdmin/GetAllSectionTypes"
+          url: '/Admin/CategoriesAdmin/GetAllSectionTypes'
         })
         .then(response => {
             this.sectionTypes = response.data;
@@ -206,6 +205,6 @@
 
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
 </style>

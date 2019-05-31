@@ -131,10 +131,14 @@ export default {
     roles: "Группы пользователя:",
     addRoleBtn: "Добавить группу",
     removeRoleBtn: "Удалить группу",
-    addRoleConfirm: "Добавить в группу '{0}'?",
+    addRoleConfirmTitle: "",
+    addRoleConfirmMessage: "Добавить в группу '{0}'?",
     addRoleConfirmOkBtn: "Добавить",
-    removeRoleConfirm: "Удалить из группы '{0}'?",
+    addRoleConfirmCancelBtn: "@:Global.dialog.cancel",
+    removeRoleConfirmTitle: "",
+    removeRoleConfirmMessage: "Удалить из группы '{0}'?",
     removeRoleConfirmOkBtn: "Удалить",
+    removeRoleConfirmCancelBtn: "@:Global.dialog.cancel"
   },
   RolesPage: {
     title: "Пользователи в группах",

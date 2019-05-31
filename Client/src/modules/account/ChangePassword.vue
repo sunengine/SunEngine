@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex middle page-padding">
+  <q-page class="change-password flex middle page-padding">
 
     <div class="center-form">
       <q-input ref="passwordOld" v-model="passwordOld" :type="showPasswordOld ? 'text' : 'password'" :label="$tl('passwordOld')" :rules="rules.passwordOld" >
@@ -57,30 +57,30 @@
   function createRules() {
 
     const password = [
-      value => !!value || this.$tl("validation.password.required"),
-      value => value.length >= config.PasswordValidation.MinLength || this.$tl("validation.password.minLength"),
+      value => !!value || this.$tl('validation.password.required'),
+      value => value.length >= config.PasswordValidation.MinLength || this.$tl('validation.password.minLength'),
       value => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$tl("validation.password.minDifferentChars"),
     ];
 
     return {
       passwordOld: [
-        value => !!value ||  this.$tl("validation.passwordOld.required"),
+        value => !!value ||  this.$tl('validation.passwordOld.required'),
       ],
       password: password,
       password2: [...password,
-        value => this.password === this.password2 || this.$tl("validation.password2.equals")]
+        value => this.password === this.password2 || this.$tl('validation.password2.equals')]
     }
   }
 
 
   export default {
-    name: "ChangePassword",
+    name: 'ChangePassword',
     mixins: [Page],
     data: function () {
       return {
-        passwordOld: "",
-        password: "",
-        password2: "",
+        passwordOld: '',
+        password: '',
+        password2: '',
         submitting: false,
         showPasswordOld: false,
         showPassword: false,
@@ -119,7 +119,7 @@
       this.$options.components.LoaderSent = require('sun').LoaderSent;
     },
     created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
       this.rules = createRules.call(this);
     }
   }

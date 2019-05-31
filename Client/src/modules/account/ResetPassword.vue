@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex middle page-padding">
+  <q-page class="reset-password flex middle page-padding">
     <div class="center-form" v-if="!done">
 
       <q-input ref="email" v-model="email" type="email" :label="$tl('email')" :rules="rules.email">
@@ -63,11 +63,11 @@
     mixins: [Page],
     data: function () {
       return {
-        email: "",
+        email: '',
         submitting: false,
         start: true,
         done: false,
-        captchaText: "",
+        captchaText: '',
         waitToken: false,
         token: null
       }
@@ -104,20 +104,20 @@
           this.token = response.data;
           this.waitToken = false;
         }).catch(error => {
-          if (error.response.data.errors[0].code === "SpamProtection") {
+          if (error.response.data.errors[0].code === 'SpamProtection') {
             this.waitToken = true;
           }
         });
       }
     },
     async created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
       this.rules = createRules.call(this);
 
       await this.GetToken();
-
     }
   }
+
 </script>
 
 <style lang="stylus">

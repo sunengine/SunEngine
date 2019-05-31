@@ -1,9 +1,9 @@
 import {store} from 'sun'
 
 export default function adminGetAllCategories() {
-  return store.dispatch("request",
+  return store.dispatch('request',
     {
-      url: "/Admin/CategoriesAdmin/GetAllCategories"
+      url: '/Admin/CategoriesAdmin/GetAllCategories'
     })
     .then(response => {
         return {

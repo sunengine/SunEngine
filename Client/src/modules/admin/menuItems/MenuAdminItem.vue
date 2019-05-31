@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'hdn': menuItem.isHidden}">
+  <div :class="['menu-admin-item', {'hdn': menuItem.isHidden}]">
     <span class="item-block">
       <span class="ud">
         <q-btn :disabled="isFirst" @click="$emit('up',menuItem)" color="positive" dense size="10px"
@@ -34,8 +34,9 @@
 </template>
 
 <script>
+
   export default {
-    name: "MenuAdminItem",
+    name: 'MenuAdminItem',
     props: {
       menuItem: {
         type: Object,
@@ -67,42 +68,35 @@
       goExternal() {
         if (this.menuItem.externalUrl)
           window.open(this.menuItem.externalUrl);
-      },
-      remove() {
-
       }
     },
     beforeCreate() {
       this.$options.components.MenuAdminItem = require('sun').MenuAdminItem;
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
-  .hdn {
-    * {
+<style lang="stylus">
+
+  .menu-admin-item {
+    .hdn {
+      * {
+        color: $grey-5 !important;
+      }
+
+      .txt {
+        color: $grey-8 !important;
+      }
+    }
+
+    .q-btn:disabled, .q-btn[disabled] {
       color: $grey-5 !important;
     }
-    .txt {
-      color: $grey-8 !important;
+
+    .padding-mi {
+      padding-left: 25px;
     }
   }
 
-  .q-btn:disabled, .q-btn[disabled] {
-    color: $grey-5 !important;
-  }
-
-  /*.desktop {
-    .item-block > .ud {
-      visibility: hidden;
-    }
-
-    .item-block:hover > .ud {
-      visibility: visible;
-    }
-  }*/
-
-  .padding-mi {
-    padding-left: 25px;
-  }
 </style>

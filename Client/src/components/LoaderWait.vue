@@ -1,5 +1,5 @@
 <template>
-  <div style="text-align: center; color: gray;">
+  <div class="loader-wait" style="text-align: center; color: gray;">
     <q-spinner size="20px" class="q-mr-xs"/>
     {{$tl("loading")}}
   </div>

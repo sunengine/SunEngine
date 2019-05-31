@@ -50,11 +50,10 @@
           margin: 0;
         }
       }
-
     }
 
     .q-router-link--active {
-      background-color: #e5eed2;
+      background-color: #d9eaf3;
 
       .q-item__section--main {
         color: black !important;

@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div class="menu-item-form">
     <q-input ref="name" v-model="menuItem.name" :label="$tl('name')" :rules="rules.name"/>
     <q-input ref="title" v-model="menuItem.title" :label="$tl('title')" :rules="rules.title"/>
     <q-input ref="subTitle" v-model="menuItem.subTitle" :label="$tl('subTitle')" :rules="rules.subTitle"/>
@@ -72,30 +72,30 @@
   function createRules() {
     return {
       name: [
-        value => (!value || value.length >= 3) || this.$tl("validation.name.minLength"),
-        value => (!value || value.length <= config.DbColumnSizes.MenuItems_Name) || this.$tl("validation.name.maxLength"),
-        value => /^[a-zA-Z0-9_-]*$/.test(value) || this.$tl("validation.name.allowedChars"),
+        value => (!value || value.length >= 3) || this.$tl('validation.name.minLength'),
+        value => (!value || value.length <= config.DbColumnSizes.MenuItems_Name) || this.$tl('validation.name.maxLength'),
+        value => /^[a-zA-Z0-9_-]*$/.test(value) || this.$tl('validation.name.allowedChars'),
       ],
       title: [
-        value => !!value || this.$tl("validation.title.required"),
-        value => (!value || value.length >= 3) || this.$tl("validation.title.minLength"),
-        value => value.length <= config.DbColumnSizes.MenuItems_Title || this.$tl("validation.title.maxLength"),
+        value => !!value || this.$tl('validation.title.required'),
+        value => (!value || value.length >= 3) || this.$tl('validation.title.minLength'),
+        value => value.length <= config.DbColumnSizes.MenuItems_Title || this.$tl('validation.title.maxLength'),
       ],
       subTitle: [
-        value => (!value || value.length >= 3) || this.$tl("validation.subTitle.minLength"),
-        value => (!value || value.length) <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl("validation.subTitle.maxLength"),
+        value => (!value || value.length >= 3) || this.$tl('validation.subTitle.minLength'),
+        value => (!value || value.length) <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl('validation.subTitle.maxLength'),
       ],
       url: [],
       cssClass: [
-        value => (!value || value.length >= 3) || this.$tl("validation.cssClass.minLength"),
-        value => (!value || value.length) <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl("validation.cssClass.maxLength"),
+        value => (!value || value.length >= 3) || this.$tl('validation.cssClass.minLength'),
+        value => (!value || value.length) <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl('validation.cssClass.maxLength'),
       ],
       icon: [
-        value => (!value || value.length >= 3) || this.$tl("validation.icon.minLength"),
-        value => (!value || value.length) <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl("validation.icon.maxLength"),
+        value => (!value || value.length >= 3) || this.$tl('validation.icon.minLength'),
+        value => (!value || value.length) <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl('validation.icon.maxLength'),
       ],
       settingsJson: [
-        value => (!value || isJson(value)) || this.$tl("validation.settingsJson.jsonFormatError")
+        value => (!value || isJson(value)) || this.$tl('validation.settingsJson.jsonFormatError')
       ]
     }
   }
@@ -110,7 +110,7 @@
   }
 
   export default {
-    name: "MenuItemForm",
+    name: 'MenuItemForm',
     props: {
       menuItem: {
         type: Object,
@@ -136,7 +136,7 @@
       parentTitle() {
         const key = this.menuItem.parentId;
         if (!this.menuItemsById[key])
-          return "";
+          return '';
         else
           return this.menuItemsById[key].title;
       },
@@ -158,7 +158,7 @@
     },
     methods: {
       rolesUpdated() {
-        this.menuItem.roles = this.roles.map(x => x.name).join(",");
+        this.menuItem.roles = this.roles.map(x => x.name).join(',');
       },
       getUrl() {
         if (!this.menuItem)
@@ -260,9 +260,9 @@
         this.parentOptions = [root];
       },
       loadData() {
-        this.$store.dispatch("request",
+        this.$store.dispatch('request',
           {
-            url: "/Admin/MenuAdmin/GetMenuItems",
+            url: '/Admin/MenuAdmin/GetMenuItems',
           })
           .then(
             response => {
@@ -271,17 +271,17 @@
           ).catch(error => {
           this.$errorNotify(error);
         });
-        this.$store.dispatch("request",
+        this.$store.dispatch('request',
           {
-            url: "/Admin/UserRolesAdmin/GetAllUserRoles"
+            url: '/Admin/UserRolesAdmin/GetAllUserRoles'
           })
           .then(response => {
               this.allRoles = response.data;
               this.allRoles.push({
-                name: "Unregistered",
-                title: "Гость"
+                name: 'Unregistered',
+                title: 'Гость'
               });
-              const menuItemRoles = this.menuItem.roles.split(",");
+              const menuItemRoles = this.menuItem.roles.split(',');
               this.roles = this.allRoles.filter(x => menuItemRoles.some(y => y === x.name));
             }
           );
@@ -299,9 +299,13 @@
 
 </script>
 
-<style lang="stylus" scoped>
-  >>> .q-tree__node-header {
-    padding: 2px 4px !important;
-    margin: 0;
+<style lang="stylus" >
+
+  .menu-item-form {
+    .q-tree__node-header {
+      padding: 2px 4px !important;
+      margin: 0;
+    }
   }
+
 </style>

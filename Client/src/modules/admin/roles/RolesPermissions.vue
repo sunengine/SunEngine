@@ -1,5 +1,5 @@
 <template>
-  <q-page class="page-padding">
+  <q-page class="roles-permissions page-padding">
     <h2 class="q-title">{{title}}</h2>
     <div class="q-my-md alert-backup">
       <q-icon name="fas fa-exclamation-circle" size="24px" class="q-mr-sm"/>
@@ -26,7 +26,7 @@
   import {Page} from 'sun'
 
   export default {
-    name: "RolesPermissions",
+    name: 'RolesPermissions',
     mixins: [Page],
     computed: {},
     data() {
@@ -39,13 +39,13 @@
 
       async loadDataRefresh() {
         await this.loadData();
-        this.$successNotify(this.$tl("getSuccessNotify"));
+        this.$successNotify(this.$tl('getSuccessNotify'));
       },
       async loadData() {
         this.json = null;
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Admin/RolesPermissionsAdmin/GetJson"
+            url: '/Admin/RolesPermissionsAdmin/GetJson'
           })
           .then(response => {
               this.error = null;
@@ -56,16 +56,16 @@
           });
       },
       async send() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Admin/RolesPermissionsAdmin/UploadJson",
+            url: '/Admin/RolesPermissionsAdmin/UploadJson',
             data: {
               json: this.json
             }
           })
           .then(async () => {
               this.error = null;
-              this.$successNotify(this.$tl("saveSuccessNotify"));
+              this.$successNotify(this.$tl('saveSuccessNotify'));
             }
           ).catch(error => {
             this.error = error.response.data.errors[0];
@@ -77,42 +77,43 @@
       this.$options.components.LoaderWait = require('sun').LoaderWait;
     },
     async created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
       await this.loadData();
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
-  .alert-backup {
-    border-radius: 10px;
-    background-color: #eef4af;
-    border: 1px solid silver;
-    color: #ec5f00;
-    padding: 15px;
-    //font-weight: 500;
-  }
-
-  >>> .json-input {
-    font-size: 0.9em !important;
-    max-height: 600px !important;
-    min-height: 400px !important;
-    line-height: unset !important;
-  }
-
-  .json-error {
-    color: maroon;
-
-    >>> .msg {
-      font-weight: 600;
-      margin-bottom: 20px;
+  .roles-permissions {
+    .alert-backup {
+      border-radius: 10px;
+      background-color: #eef4af;
+      border: 1px solid silver;
+      color: #ec5f00;
+      padding: 15px;
     }
 
-    >>> .stack {
-      word-wrap: break-word;
+    .json-input {
+      font-size: 0.9em !important;
+      max-height: 600px !important;
+      min-height: 400px !important;
+      line-height: unset !important;
+    }
+
+    .json-error {
+      color: maroon;
+
+      .msg {
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+
+      .stack {
+        word-wrap: break-word;
+      }
     }
   }
-
 
 </style>

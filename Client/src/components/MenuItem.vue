@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="menu-item">
     <q-item v-if="(menuItem.to || menuItem.externalUrl) && !menuItem.subMenuItems" :to="to" :clickable="true"  @click.native="goExternal()" :exact="menuItem.exact">
       <q-item-section avatar v-if="menuItem.icon">
         <q-icon :name="menuItem.icon"/>
@@ -41,6 +41,6 @@
   }
 </script>
 
-<style scoped>
+<style>
 
 </style>

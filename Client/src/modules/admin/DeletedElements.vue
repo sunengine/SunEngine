@@ -1,5 +1,5 @@
 <template>
-  <q-page class="page-padding">
+  <q-page class="deleted-elements page-padding">
     <h2 class="q-title">
       <QIcon name="fas fa-trash" class="q-mr-sm" color="grey-6"/>
       {{title}}
@@ -23,13 +23,18 @@
       this.title = this.$tl('title');
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
-  .info-box1 {
-    border-radius: 6px;
-    padding: 15px;
-    margin: 10px 0;
-    border : 1px solid #d8d8d8;
+<style lang="stylus">
+
+  .deleted-elements {
+    .info-box1 {
+      border-radius: 6px;
+      padding: 15px;
+      margin: 10px 0;
+      border: 1px solid #d8d8d8;
+    }
   }
+
 </style>

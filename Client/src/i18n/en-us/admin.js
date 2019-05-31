@@ -129,10 +129,14 @@ export default {
     roles: "User groups:",
     addRoleBtn: "Add to group",
     removeRoleBtn: "Remove from group",
-    addRoleConfirm: "Add to group '{0}'?",
+    addRoleConfirmTitle: "",
+    addRoleConfirmMessage: "Add to group '{0}'?",
     addRoleConfirmOkBtn: "Yes",
-    removeRoleConfirm: "Remove from group '{0}'?",
+    addRoleConfirmCancelBtn: "@:Global.dialog.cancel",
+    removeRoleConfirmTitle: "",
+    removeRoleConfirmMessage: "Remove from group '{0}'?",
     removeRoleConfirmOkBtn: "Remove",
+    removeRoleConfirmCancelBtn: "@:Global.dialog.cancel"
   },
   RolesPage: {
     title: "Groups",

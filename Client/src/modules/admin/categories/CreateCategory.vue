@@ -1,5 +1,5 @@
 <template>
-  <q-page class="page-padding">
+  <q-page class="create-category page-padding">
     <CategoryForm ref="form" :category="category"/>
 
     <div class="btn-block">
@@ -81,9 +81,12 @@
 
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
-  .btn-block {
-    margin-top: $flex-gutter-md;
+  .create-category {
+    .btn-block {
+      margin-top: $flex-gutter-md;
+    }
   }
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <q-page class="page-padding">
+    <q-page class="page-wrapper page-padding">
       <h2 class="q-title">
         <q-icon v-if="icon" :name="icon" class="q-mr-sm" color="grey-6"/>  {{pageTitle}}
       </h2>

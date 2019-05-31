@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex middle page-padding">
+  <q-page class="reset-password-set-new flex middle page-padding">
     <div class="center-form" v-if="!done">
 
       <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'" :label="$tl('password')" :rules="rules.password">
@@ -50,21 +50,21 @@
   function createRules() {
 
     const password = [
-      value => !!value || this.$tl("validation.password.required"),
-      value => value.length >= config.PasswordValidation.MinLength || this.$tl("validation.password.minLength"),
-      value => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$tl("validation.password.minDifferentChars"),
+      value => !!value || this.$tl('validation.password.required'),
+      value => value.length >= config.PasswordValidation.MinLength || this.$tl('validation.password.minLength'),
+      value => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$tl('validation.password.minDifferentChars'),
     ];
 
     return {
       password: password,
       password2: [...password,
-        value => this.password === this.password2 || this.$tl("validation.password2.equals")]
+        value => this.password === this.password2 || this.$tl('validation.password2.equals')]
     }
   }
 
 
   export default {
-    name: "ResetPasswordSetNew",
+    name: 'ResetPasswordSetNew',
     mixins: [Page],
     data: function () {
       return {
@@ -106,7 +106,7 @@
       this.$options.components.LoaderSent = require('sun').LoaderSent;
     },
     created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
       this.rules = createRules.call(this);
     }
   }

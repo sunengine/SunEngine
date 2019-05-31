@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="activities-list">
     <template v-if="activities">
       <activity :key="activity.materialId + '-' + activity.messageId" :activity="activity"
                 v-for="activity in activities"/>
@@ -11,7 +11,7 @@
 <script>
 
   export default  {
-    name: "ActivitiesList",
+    name: 'ActivitiesList',
     props: {
       materialsCategories: {
         type: String,
@@ -34,9 +34,9 @@
     methods: {
       async loadData() {
 
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Activities/GetActivities",
+            url: '/Activities/GetActivities',
             data: {
               materialsCategories: this.materialsCategories,
               messagesCategories: this.messagesCategories,
@@ -47,9 +47,7 @@
             response => {
               this.activities = response.data;
             }
-          ).catch(x => {
-            console.log("error", x);
-          });
+          );
       }
     },
     beforeCreate() {
@@ -62,6 +60,6 @@
   }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
 </style>

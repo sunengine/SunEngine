@@ -1,5 +1,5 @@
 <template>
-  <q-page class="page-padding">
+  <q-page class="categories-admin page-padding">
 
     <div class="header-with-button">
       <h2 class="q-title">
@@ -22,7 +22,7 @@
 
 
   export default {
-    name: "CategoriesAdmin",
+    name: 'CategoriesAdmin',
     mixins: [Page],
     data() {
       return {
@@ -37,22 +37,22 @@
         this.$router.push({name: 'EditCategory', params: {categoryId}});
       },
       async up(category) {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Admin/CategoriesAdmin/CategoryUp",
+            url: '/Admin/CategoriesAdmin/CategoryUp',
             data: {name: category.name}
           })
           .then(async response => {
               await this.loadData();
             }
           ).catch(x => {
-            console.log("error", x);
+            console.log('error', x);
           });
       },
       async down(category) {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Admin/CategoriesAdmin/CategoryDown",
+            url: '/Admin/CategoriesAdmin/CategoryDown',
             data: {name: category.name}
           })
           .then(
@@ -64,9 +64,9 @@
           });
       },
       async loadData() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Admin/CategoriesAdmin/GetAllCategories",
+            url: '/Admin/CategoriesAdmin/GetAllCategories',
             data: {}
           })
           .then(
@@ -83,12 +83,13 @@
       this.$options.components.CategoryItem = require('sun').CategoryItem;
     },
     async created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
       await this.loadData();
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

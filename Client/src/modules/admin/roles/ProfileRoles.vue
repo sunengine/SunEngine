@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="profile-roles">
     <div v-if="userRoles">
       <div class="user-groups">
         <div>{{$tl("roles")}}</div>
@@ -9,20 +9,22 @@
         </div>
       </div>
       <div class="flex q-gutter-sm">
-        <q-btn style="flex-grow: 1" @click="add = true" no-caps color="positive" icon="fas fa-plus" :label="$tl('addRoleBtn')"/>
+        <q-btn style="flex-grow: 1" @click="add = true" no-caps color="positive" icon="fas fa-plus"
+               :label="$tl('addRoleBtn')"/>
 
-        <q-btn style="flex-grow: 1"  @click="remove = true" no-caps color="negative" icon="fas fa-minus"  :label="$tl('removeRoleBtn')"/>
+        <q-btn style="flex-grow: 1" @click="remove = true" no-caps color="negative" icon="fas fa-minus"
+               :label="$tl('removeRoleBtn')"/>
 
-        <q-dialog  v-model="add">
+        <q-dialog v-model="add">
 
           <q-list class="bg-white">
             <q-toolbar class="bg-positive text-white shadow-2">
               <q-toolbar-title>
-                <q-icon name="fas fa-plus" class="q-mr-sm" />
+                <q-icon name="fas fa-plus" class="q-mr-sm"/>
                 {{$tl('addRoleBtn')}}
               </q-toolbar-title>
             </q-toolbar>
-            <q-item key="role.name"  clickable @click="addToRoleConfirm(role)" v-for="role in availableRoles">
+            <q-item key="role.name" clickable @click="addToRoleConfirm(role)" v-for="role in availableRoles">
               <q-item-section>
                 <q-item-label class="text-blue">
                   {{role.title}}
@@ -32,11 +34,11 @@
           </q-list>
         </q-dialog>
 
-        <q-dialog  v-model="remove">
+        <q-dialog v-model="remove">
           <q-list class="bg-white">
             <q-toolbar class="bg-negative text-white shadow-2">
               <q-toolbar-title>
-                <q-icon name="fas fa-minus" class="q-mr-sm" />
+                <q-icon name="fas fa-minus" class="q-mr-sm"/>
                 {{$tl('removeRoleBtn')}}
               </q-toolbar-title>
             </q-toolbar>
@@ -59,7 +61,7 @@
 <script>
 
   export default {
-    name: "ProfileRoles",
+    name: 'ProfileRoles',
     props: {
       userId: {
         type: Number,
@@ -78,13 +80,15 @@
     methods: {
       async addToRoleConfirm(role) {
         this.add = false;
-        const msg = this.$tl("addRoleConfirm",role.title);
-        const addRoleConfirmOkBtn = this.$tl("addRoleConfirmOkBtn");
-        const cancelBtn = this.$t("Global.btn.cancel");
+
+        const title = this.$tl('addRoleConfirmTitle', role.title);
+        const message = this.$tl('addRoleConfirmMessage', role.title);
+        const addRoleConfirmOkBtn = this.$tl('addRoleConfirmOkBtn');
+        const cancelBtn = this.$tl('addRoleConfirmCancelBtn');
 
         this.$q.dialog({
-          //title: 'Confirm',
-          message: msg,
+          title: title,
+          message: message,
           ok: addRoleConfirmOkBtn,
           cancel: cancelBtn
         }).onOk(async () => {
@@ -93,12 +97,15 @@
       },
       async removeFromRoleConfirm(role) {
         this.remove = false;
-        const msg = this.$tl("removeRoleConfirm",role.title);
-        const removeRoleConfirmOkBtn = this.$tl("removeRoleConfirmOkBtn");
-        const cancelBtn = this.$t("Global.btn.cancel");
+
+        const title = this.$tl('removeRoleConfirmTitle', role.title);
+        const message = this.$tl('removeRoleConfirmMessage', role.title);
+        const removeRoleConfirmOkBtn = this.$tl('removeRoleConfirmOkBtn');
+        const cancelBtn = this.$tl('removeRoleConfirmCancelBtn.cancel');
+
         this.$q.dialog({
-          //title: 'Confirm',
-          message: msg,
+          title: title,
+          message: message,
           ok: removeRoleConfirmOkBtn,
           cancel: cancelBtn
         }).onOk(async () => {
@@ -106,9 +113,9 @@
         })
       },
       async addToRole(role) {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Admin/UserRolesAdmin/AddUserToRole",
+            url: '/Admin/UserRolesAdmin/AddUserToRole',
             data: {
               userId: this.userId,
               roleName: role.name
@@ -122,7 +129,7 @@
       async removeFromRole(role) {
         await this.$store.dispatch("request",
           {
-            url: "/Admin/UserRolesAdmin/RemoveUserFromRole",
+            url: '/Admin/UserRolesAdmin/RemoveUserFromRole',
             data: {
               userId: this.userId,
               roleName: role.name
@@ -134,9 +141,9 @@
           );
       },
       async loadUserRoles() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Admin/UserRolesAdmin/GetUserRoles",
+            url: '/Admin/UserRolesAdmin/GetUserRoles',
             data: {
               userId: this.userId
             }
@@ -148,9 +155,9 @@
           );
       },
       async loadAllRoles() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Admin/UserRolesAdmin/GetAllUserRoles"
+            url: '/Admin/UserRolesAdmin/GetAllUserRoles'
           })
           .then(response => {
               this.allRoles = response.data;
@@ -169,12 +176,14 @@
 
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
-  .user-groups .one-group:not(:last-child):after {
-    content: ", ";
-    color: initial;
-    font-weight: initial;
+  .profile-roles {
+    .user-groups .one-group:not(:last-child):after {
+      content: ", ";
+      color: initial;
+      font-weight: initial;
+    }
   }
 
 </style>
