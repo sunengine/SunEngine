@@ -32,7 +32,7 @@
         category: {
           name: '',
           title: '',
-          description: '',
+          subTitle: '',
           header: '',
           layoutName: '',
           sectionTypeName: 'unset',

@@ -163,10 +163,13 @@ namespace SunEngine.Admin.Controllers
         [Required, MinLength(2), RegularExpression("^[a-zA-Z-]*$")]
         public string Name { get; set; }
 
-        [Required, MinLength(3)] public string Title { get; set; }
+        [Required, MinLength(3)] 
+        
+        public string Title { get; set; }
+        public string SubTitle { get; set; }
+
         public bool IsMaterialsContainer { get; set; }
 
-        public string Description { get; set; }
 
         public string Header { get; set; }
 
@@ -194,7 +197,7 @@ namespace SunEngine.Admin.Controllers
                 Name = Name,
                 Title = Title,
                 IsMaterialsContainer = IsMaterialsContainer,
-                Description = Description,
+                SubTitle = SubTitle,
                 Header = Header,
                 LayoutName = LayoutName,
                 //AppendUrlToken = AppendUrlToken,

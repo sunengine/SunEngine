@@ -16,13 +16,15 @@ namespace SunEngine.Core.Models
         public string Name { get; set; }
 
         public string NameNormalized { get; set; }
-        
+
         //[Required, MinLength(3)] 
         /// <summary>
         /// Title for human
         /// </summary>
         public string Title { get; set; }
-        
+
+        public string SubTitle { get; set; }
+
         /// <summary>
         /// Common title of one material
         /// For example: Video, Seminar, Article...
@@ -34,8 +36,7 @@ namespace SunEngine.Core.Models
         /// </summary>
         public bool IsMaterialsContainer { get; set; }
 
-        public string Description { get; set; }
-        
+
         /// <summary>
         /// HTML description on the top of the page on Client 
         /// </summary>
@@ -56,22 +57,22 @@ namespace SunEngine.Core.Models
         public int SortNumber { get; set; }
 
         public string LayoutName { get; set; }
-        
+
         public string SettingsJson { get; set; }
-        
+
         /// <summary>
         /// Containing Materials
         /// </summary>
         public ICollection<Material> Materials { get; set; }
 
         public int? CacheSettingsId { get; set; }
-        
+
         public CategoryCacheSettings CacheSettings { get; set; }
-        
+
         public bool IsDeleted { get; set; }
 
         public bool IsHidden { get; set; }
-        
+
         public bool IsCacheContent { get; set; }
     }
 

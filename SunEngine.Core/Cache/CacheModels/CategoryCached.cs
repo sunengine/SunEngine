@@ -14,14 +14,14 @@ namespace SunEngine.Core.Cache.CacheModels
         public int Id { get; }
 
         public string Name { get; }
-        
+
         public string NameNormalized { get; }
 
         public string Title { get; }
+        
+        public string SubTitle { get; }
 
         public bool IsMaterialsContainer { get; }
-
-        public string Description { get; }
 
         public string Header { get; }
 
@@ -30,30 +30,30 @@ namespace SunEngine.Core.Cache.CacheModels
         public int? SectionTypeId { get; private set; }
 
         public SectionTypeCached SectionType { get; private set; }
-        
+
         public string SettingsJson { get; private set; }
 
         public int? ParentId { get; }
         public CategoryCached Parent { get; private set; }
-        
+
         public int? CacheSettingsId { get; set; }
-        
+
         public CategoryCacheSettings CacheSettings { get; set; }
 
         public IImmutableList<CategoryCached> SubCategories { get; private set; }
 
         public IImmutableList<CategoryCached> AllSubCategories { get; private set; }
-        
+
         protected List<CategoryCached> _subCategories { get; private set; }
 
         protected List<CategoryCached> _allSubCategories { get; private set; }
 
         public int SortNumber { get; }
-        
+
         public string LayoutName { get; private set; }
 
         public bool IsHidden { get; }
-        
+
         public bool IsCacheContent { get; private set; }
 
 
@@ -66,7 +66,7 @@ namespace SunEngine.Core.Cache.CacheModels
             NameNormalized = category.NameNormalized;
             Title = category.Title;
             IsMaterialsContainer = category.IsMaterialsContainer;
-            Description = category.Description;
+            SubTitle = category.SubTitle;
             Header = category.Header;
             SectionTypeId = category.SectionTypeId;
             SettingsJson = category.SettingsJson;
@@ -85,14 +85,14 @@ namespace SunEngine.Core.Cache.CacheModels
         {
             if (initialized)
                 return;
-            
+
             if (ParentId.HasValue && allCategories.ContainsKey(ParentId.Value))
             {
                 Parent = allCategories[ParentId.Value];
                 Parent._subCategories.Add(this);
             }
         }
-        
+
         public List<CategoryCached> Init2AllSub()
         {
             if (initialized)
@@ -109,7 +109,7 @@ namespace SunEngine.Core.Cache.CacheModels
 
             var rez = _allSubCategories.ToList();
             rez.Add(this);
-            
+
             return rez;
         }
 
@@ -135,7 +135,7 @@ namespace SunEngine.Core.Cache.CacheModels
                 category.Init4InitSectionsRoots(sectionRoot);
             }
         }
-        
+
 
         public void Init5SetListsAndBlockEditable()
         {

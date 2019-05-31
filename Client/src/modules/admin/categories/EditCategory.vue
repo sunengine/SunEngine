@@ -62,12 +62,7 @@
           })
           .then(() => {
             const msg = this.$tl('deletedNotify');
-            this.$q.notify({
-              message: msg,
-              timeout: 5000,
-              color: 'warning',
-              position: 'top'
-            });
+            this.$successNotify(msg, 'warning', 5000);
             this.$router.push({name: 'CategoriesAdmin'});
             this.loading = false;
           }).catch(error => {
@@ -85,8 +80,6 @@
           .then(
             response => {
               this.category = response.data;
-              /*if(!this.category.sectionTypeName)
-              this.category.sectionTypeName = 'unset';*/
               if (!this.category.header)
                 this.category.header = '';
               this.loading = false;

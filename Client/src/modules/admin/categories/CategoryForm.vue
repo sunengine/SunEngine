@@ -5,17 +5,14 @@
 
     <q-input ref="title" v-model="category.title" :label="$tl('title')" :rules="rules.title"/>
 
-    <q-input ref="description" v-model="category.description" autogrow type="textarea"
-             :label="$tl('shortDescription')"/>
+    <q-input ref="subTitle" v-model="category.subTitle" autogrow type="textarea"
+             :label="$tl('subTitle')"/>
 
 
     <div class="q-mt-sm text-grey-6">{{$tl('header')}}</div>
 
     <MyEditor ref="header" style="margin-bottom: 12px;" v-model="category.header"/>
 
-    <!--    <div :class="[{invisible: !(category.parentId.$invalid && !start)},'error']">
-          {{$tl('selectParent')}}
-        </div>-->
     <q-btn v-if="root" class="q-mt-md select-category" :label="parentCategoryTitle" no-caps outline
            icon="fas fa-folder">
       <q-menu>

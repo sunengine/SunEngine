@@ -5,6 +5,9 @@
         <q-item-label>
           {{category.title}}
         </q-item-label>
+        <q-item-label v-if="category.subTitle" caption="">
+          {{category.subTitle}}
+        </q-item-label>
       </q-item-section>
     </q-item>
   </q-list>

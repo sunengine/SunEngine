@@ -47,7 +47,7 @@ namespace SunEngine.Admin.Presenters
                 Name = x.Name,
                 Title = x.Title,
                 IsMaterialsContainer = x.IsMaterialsContainer,
-                Description = x.Description,
+                SubTitle = x.SubTitle,
                 Header = x.Header,
                 SectionTypeName = x.SectionType != null ? x.SectionType.Name : null,
                 SectionType = x.SectionType,
@@ -70,7 +70,7 @@ namespace SunEngine.Admin.Presenters
                     Name = x.Name,
                     Title = x.Title,
                     IsMaterialsContainer = x.IsMaterialsContainer,
-                    Description = x.Description,
+                    SubTitle = x.SubTitle,
                     Header = x.Header,
                     SectionTypeName = x.SectionType != null ? x.SectionType.Name : null,
                     SectionType = x.SectionType,
@@ -116,9 +116,9 @@ namespace SunEngine.Admin.Presenters
 
         public string Title { get; set; }
 
-        public bool IsMaterialsContainer { get; set; }
+        public string SubTitle { get; set; }
 
-        public string Description { get; set; }
+        public bool IsMaterialsContainer { get; set; }
 
         public string Header { get; set; }
 

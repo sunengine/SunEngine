@@ -9,7 +9,7 @@ export default {
   CategoryForm: {
     name: "Имя категории (eng)",
     title: "Заголовок",
-    shortDescription: "Короткое описание",
+    subTitle: "Короткое описание",
     header: "Шапка категории",
     selectParent: "Выберите родительскую категорию",
     sectionType: "Тип категории",

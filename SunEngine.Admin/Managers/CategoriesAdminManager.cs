@@ -84,7 +84,7 @@ namespace SunEngine.Admin.Managers
             category.NameNormalized = Normalizer.Normalize(category.Name);
             category.Title = categoryUpdate.Title;
             category.Header = sanitizer.Sanitize(categoryUpdate.Header);
-            category.Description = categoryUpdate.Description;
+            category.SubTitle = categoryUpdate.SubTitle;
             category.ParentId = parent.Id;
             category.IsHidden = categoryUpdate.IsHidden;
             category.IsCacheContent = categoryUpdate.IsCacheContent;

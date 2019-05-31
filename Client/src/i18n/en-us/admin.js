@@ -9,7 +9,7 @@ export default {
   CategoryForm: {
     name: "Category name (eng)",
     title: "Title",
-    shortDescription: "Short description",
+    subTitle: "Short description",
     header: "Category header",
     selectParent: "Select parent category",
     sectionType: "Category type",
