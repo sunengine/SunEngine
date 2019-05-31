@@ -18,6 +18,7 @@ namespace SunEngine.Admin
             services.AddScoped<IUserRolesAdminPresenter, UserRolesAdminPresenter>();
             services.AddScoped<IMenuAdminPresenter, MenuAdminPresenter>();
             services.AddScoped<IMenuAdminManager, MenuAdminManager>();
+            services.AddScoped<ImageCleanerAdminService>();
         }
     }
 }

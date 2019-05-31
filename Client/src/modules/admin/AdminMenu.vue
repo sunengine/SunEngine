@@ -54,6 +54,15 @@
         <q-item-label>{{ $tl("deletedElements") }}</q-item-label>
       </q-item-section>
     </q-item>
+
+    <q-item :to="{name: 'ImagesCleaner'}">
+      <q-item-section avatar>
+        <q-icon name="far fa-image"/>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $tl("imagesCleaner") }}</q-item-label>
+      </q-item-section>
+    </q-item>
   </q-list>
 </template>
 

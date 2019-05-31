@@ -4,6 +4,7 @@ import {CategoriesAdmin} from 'sun'
 import {MenuItemsAdmin} from 'sun'
 import {CreateCategory} from 'sun'
 import {EditCategory} from 'sun'
+import {ImagesCleaner} from 'sun'
 import {RolesPermissions} from 'sun'
 import {RoleUsers} from 'sun'
 import {RolesPage} from 'sun'
@@ -100,11 +101,19 @@ const routes = [
     }
   },
   {
+    name: 'ImagesCleaner',
+    path: '/admin/ImagesCleaner'.toLowerCase(),
+    components: {
+      default: ImagesCleaner,
+      navigation: AdminPanel
+    }
+  },
+  {
     name: 'RolesPermissions',
     path: '/admin/RolesPermissions'.toLowerCase(),
     components: {
       default: RolesPermissions,
-      navigation: AdminPanel
+      navigation: null
     }
   },
   {

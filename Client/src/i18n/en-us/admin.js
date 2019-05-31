@@ -162,7 +162,8 @@ export default {
     rolesPermissions: "Permission settings",
     rolesUsers: "Groups",
     cacheSettings: "Cache settings",
-    deletedElements: "Deleted elements"
+    deletedElements: "Deleted elements",
+    imagesCleaner: "Images cleaner"
   },
   AdminPage: {
     title: "@:AdminPanel.title"
@@ -194,5 +195,11 @@ export default {
     info1: "If checked, deleted materials will shows on any single category.",
     info2: "If append '?deleted=1' to any single category URL deleted material will shows.",
     info3: "This function will not work on multi categories sections like 'new topics' on forum."
+  },
+  ImagesCleaner: {
+    title: "ImagesCleaner",
+    clearBtn: "Clear",
+    refreshBtn: "Refresh",
+    clearCount: "Cleared images: "
   }
 }
