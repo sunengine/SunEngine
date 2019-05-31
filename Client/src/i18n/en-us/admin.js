@@ -49,7 +49,8 @@ export default {
     categoriesAdmin: "Categories",
     rolesPermissions: "Permission settings",
     rolesUsers: "Groups",
-    cacheSettings: "Cache settings"
+    cacheSettings: "Cache settings",
+    imagesCleaner: "Images cleaner"
   },
   AdminPage: {
     title: "@:AdminPanel.title"
@@ -81,6 +82,12 @@ export default {
   },
   CategoryItem: {
     rootCategory: "Root category"
+  },
+  ImagesCleaner: {
+    title: "ImagesCleaner",
+    clearBtn: "Clear",
+    refreshBtn: "Refresh",
+    clearCount: "Cleared images: "
   },
   ProfileRoles: {
     roles: "User groups:",

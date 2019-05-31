@@ -49,7 +49,8 @@ export default {
     categoriesAdmin: "Категории",
     rolesPermissions: "Настройка прав",
     rolesUsers: "Группы пользователей",
-    cacheSettings: "Настройки кэширования"
+    cacheSettings: "Настройки кэширования",
+    imagesCleaner: "Очистка изображений"
   },
   AdminPage: {
     title: "@:AdminPanel.title"
@@ -81,6 +82,12 @@ export default {
   },
   CategoryItem: {
     rootCategory: "Корневая категория"
+  },
+  ImagesCleaner: {
+    title: "Очистка изображений",
+    clearBtn: "Очистить",
+    refreshBtn : "Обновить",
+    clearCount: "Очищено изображений: "
   },
   ProfileRoles: {
     roles: "Группы пользователя:",
