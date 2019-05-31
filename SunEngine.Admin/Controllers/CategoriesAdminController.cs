@@ -167,7 +167,8 @@ namespace SunEngine.Admin.Controllers
         
         public string Title { get; set; }
         public string SubTitle { get; set; }
-
+        public string Icon { get; set; }
+        
         public bool IsMaterialsContainer { get; set; }
 
 
@@ -196,8 +197,9 @@ namespace SunEngine.Admin.Controllers
                 Id = Id,
                 Name = Name,
                 Title = Title,
-                IsMaterialsContainer = IsMaterialsContainer,
                 SubTitle = SubTitle,
+                Icon = Icon,
+                IsMaterialsContainer = IsMaterialsContainer,
                 Header = Header,
                 LayoutName = LayoutName,
                 //AppendUrlToken = AppendUrlToken,

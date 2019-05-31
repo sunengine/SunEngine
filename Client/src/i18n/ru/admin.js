@@ -32,6 +32,10 @@ export default {
       title: {
         required: "Введите заголовок категории",
         minLength: "Заголовок должен состоять не менее чем из 3 букв"
+      },
+      icon: {
+        minLength: "Длинна должна быть не меньше 3 символов",
+        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.Categories_Icon,
       }
     }
   },

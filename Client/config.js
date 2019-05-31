@@ -25,6 +25,7 @@ const config = {
   DbColumnSizes: {
     Categories_Name: 64,
     Categories_Title: 256,
+    Categories_Icon: 64,
     Users_UserName: 64,
     Users_Email: 64,
     Users_Link: 32,

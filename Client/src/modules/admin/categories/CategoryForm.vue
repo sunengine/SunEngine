@@ -8,6 +8,11 @@
     <q-input ref="subTitle" v-model="category.subTitle" autogrow type="textarea"
              :label="$tl('subTitle')"/>
 
+    <q-input ref="icon" v-model="category.icon" :label="$tl('icon')" :rules="rules.icon">
+      <div slot="prepend" v-if="category.icon">
+        <q-icon :name="category.icon"/>
+      </div>
+    </q-input>
 
     <div class="q-mt-sm text-grey-6">{{$tl('header')}}</div>
 
@@ -22,7 +27,6 @@
                   :selected.sync="category.parentId"
                   :nodes="where"
                   node-key="value"/>
-
         </div>
       </q-menu>
     </q-btn>
@@ -97,6 +101,10 @@
       title: [
         value => !!value || this.$tl('validation.title.required'),
         value => value.length >= 3 || this.$tl('validation.title.minLength'),
+      ],
+      icon: [
+        value => (!value || value.length >= 3) || this.$tl('validation.icon.minLength'),
+        value => (!value || value.length) <= config.DbColumnSizes.Categories_Icon || this.$tl('validation.icon.maxLength'),
       ],
     }
   }

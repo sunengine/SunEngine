@@ -33,6 +33,7 @@
           name: '',
           title: '',
           subTitle: '',
+          icon: '',
           header: '',
           layoutName: '',
           sectionTypeName: 'unset',

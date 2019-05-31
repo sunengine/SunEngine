@@ -32,7 +32,11 @@ export default {
       title: {
         required: "Enter category title",
         minLength: "Category title must contain at least 3 letters"
-      }
+      },
+      icon: {
+        minLength: "Minimal icon length - 3",
+        maxLength: "Maximum icon length - " + config.DbColumnSizes.Categories_Icon,
+      },
     }
   },
   CategoryItem: {

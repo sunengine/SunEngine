@@ -56,6 +56,7 @@ namespace SunEngine.Core.Presenters
                 Name = category.Name,
                 Title = category.Title,
                 SubTitle = category.SubTitle,
+                Icon = category.Icon,
                 Header = category.Header,
                 IsMaterialsContainer = category.IsMaterialsContainer,
                 SectionType = category.SectionType,
@@ -121,6 +122,7 @@ namespace SunEngine.Core.Presenters
         public string Name { get; set; }
         public string Title { get; set; }
         public string SubTitle { get; set; }
+        public string Icon { get; set; }
         public string Header { get; set; }
         public int SortNumber { get; set; }
         public string LayoutName { get; set; }

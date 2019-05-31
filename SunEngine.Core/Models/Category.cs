@@ -25,6 +25,8 @@ namespace SunEngine.Core.Models
 
         public string SubTitle { get; set; }
 
+        public string Icon { get; set; }
+
         /// <summary>
         /// Common title of one material
         /// For example: Video, Seminar, Article...

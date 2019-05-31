@@ -20,6 +20,8 @@ namespace SunEngine.Core.Cache.CacheModels
         public string Title { get; }
         
         public string SubTitle { get; }
+        
+        public string Icon { get; }
 
         public bool IsMaterialsContainer { get; }
 
@@ -67,6 +69,7 @@ namespace SunEngine.Core.Cache.CacheModels
             Title = category.Title;
             IsMaterialsContainer = category.IsMaterialsContainer;
             SubTitle = category.SubTitle;
+            Icon = category.Icon;
             Header = category.Header;
             SectionTypeId = category.SectionTypeId;
             SettingsJson = category.SettingsJson;
