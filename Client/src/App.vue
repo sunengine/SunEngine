@@ -54,23 +54,25 @@
   export {app};
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
-  .api-error {
-    display: flex;
-    height: 100vh;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-  }
+  #q-app {
+    .api-error {
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+    }
 
-  .loader {
-    display: flex;
-    height: 100vh;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    font-size: 1.4em;
-    color: #005d00;
+    .loader {
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+      font-size: 1.4em;
+      color: #005d00;
+    }
   }
 </style>

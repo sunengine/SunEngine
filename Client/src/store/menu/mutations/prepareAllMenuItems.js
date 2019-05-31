@@ -1,4 +1,4 @@
-import {consoleInit, consoleRequestStart} from "../../../css";
+import {consoleInit, consoleRequestStart} from 'sun'
 
 export default function prepareAllMenuItems(state, allMenuItems) {
 

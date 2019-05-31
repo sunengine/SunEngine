@@ -1,11 +1,10 @@
 export default {
   Index: {
     demo: "Demo",
-    dataReset: "Any few hours all data resetting",
+    dataReset: "Any few hours all data are resetting",
     users: "Users",
     password: "Password",
-    anyMailToRegister: "Within the registration you can choose any email, for example",
-    mailSendTo: "Mail will be sent to",
+    anyMailToRegister: "Within the registration you can choose any email, even not really exists, all mails will be caught by",
     version: "Version",
   },
   MainMenu: {
@@ -15,6 +14,7 @@ export default {
     Forum: "Forum"
   },
   Layout: {
+    madeOn: "Made on site engine",
     demo: "- demo site",
     madeWithLove: "Made with love"
   },

@@ -1,6 +1,9 @@
 <template>
-  <q-page class="middle flex text-teal-14">
-    <h3><q-icon name="fas fa-fingerprint" /> {{title}}</h3>
+  <q-page class="secret-page middle flex text-teal-14">
+    <h3>
+      <q-icon name="fas fa-fingerprint"/>
+      {{title}}
+    </h3>
   </q-page>
 </template>
 
@@ -16,10 +19,12 @@
   }
 </script>
 
-<style lang="stylus" scoped>
-  h3 {
-    border-radius: 12px;
-    border: 4px dashed $amber-2;
-    padding: 14px;
+<style lang="stylus">
+  .secret-page {
+    h3 {
+      border-radius: 12px;
+      border: 4px dashed $amber-2;
+      padding: 14px;
+    }
   }
 </style>

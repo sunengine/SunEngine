@@ -1,11 +1,10 @@
 <template>
-  <q-list>
+  <q-list class="main-menu">
     <div class="logo-div">
       <div class="logo text-center">
-        <router-link to='/'>
+        <router-link :to="{name: 'Home'}">
           <h3>SunEngine</h3>
           <h4 class="text-hot">Demo</h4>
-          <!--<img src="/statics/SunEngine.svg" class="logo">-->
         </router-link>
       </div>
     </div>
@@ -27,57 +26,57 @@
   }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
-  .logo-div {
-    text-align: center;
-  }
+  .main-menu {
 
-  .logo {
-    margin: 40px 0;
-    font-family: "BoomBoomRegular";
-    background-color: #d9eaf3;
-    border-radius: 40px;
-    padding: 22px;
-    display: inline-block;
-    box-shadow: 0 0 8px 1px grey;
+    .logo-div {
+      text-align: center;
 
+      .logo {
+        margin: 40px 0;
+        font-family: "BoomBoomRegular";
+        background-color: #d9eaf3;
+        border-radius: 40px;
+        padding: 22px;
+        display: inline-block;
+        box-shadow: 0 0 8px 1px grey;
 
-    h3 {
-      margin: 0;
+        h3 {
+          margin: 0;
+        }
+
+        h4 {
+          margin: 0;
+        }
+      }
+
     }
 
-    h4 {
-      margin: 0;
+    .q-router-link--active {
+      background-color: #e5eed2;
+
+      .q-item__section--main {
+        color: black !important;
+      }
     }
-  }
 
-  .q-router-link--active {
-    background-color: #e5eed2;
+    .q-item__section--avatar {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 60px !important;
+      color: $grey-7 !important;
+      justify-items: center !important;
+      align-items: center !important;
+    }
 
-    >>> .q-item__section--main {
+    .q-item__section--main {
+      font-size: 1.2em;
       color: black !important;
     }
+
+    .q-item__label--caption {
+      font-size: 0.8em;
+    }
   }
-
-
-
-  >>> .q-item__section--avatar {
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 60px !important;
-    color: $grey-7 !important;
-    justify-items: center !important;
-    align-items: center !important;
-  }
-
-  >>> .q-item__section--main {
-    font-size: 1.2em;
-    color: black !important;
-  }
-
-  .q-item__label--caption {
-    font-size: 0.8em;
-  }
-
 </style>

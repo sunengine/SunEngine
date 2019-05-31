@@ -1,12 +1,12 @@
 <template>
-  <q-page>
+  <q-page class="news-2-col-page">
     <h2 class="q-title page-padding">
       {{title}}
     </h2>
 
     <div :class="['row',{hidden: !loaded}]">
       <div :class="['col-xs-12','col-md-6','col1', 'pull-left', $q.screen.gt.sm ? 'hr-minus' : 'pull-right']">
-        <posts-list ref="postsList" />
+        <posts-list ref="postsList"/>
 
       </div>
       <div :class="['col-xs-12','col-md-6', 'col2', 'pull-right', {'pull-left': !$q.screen.gt.sm}]">
@@ -15,7 +15,7 @@
 
       </div>
     </div>
-    <LoaderWait v-if="!loaded" />
+    <LoaderWait v-if="!loaded"/>
   </q-page>
 </template>
 
@@ -30,7 +30,7 @@
     name: 'News2ColPage',
     components: {LoaderWait, PostsList, ActivitiesList},
     mixins: [Page],
-    data: function() {
+    data: function () {
       return {
         mounted: false
       }
@@ -54,16 +54,13 @@
             data: {
               categoriesNames: "root",
               pageSize: 6
-              //page: 1
             }
           })
           .then(
             response => {
               this.$refs.postsList.posts = response.data;
             }
-          ).catch(x => {
-            console.log("error", x);
-          });
+          );
       }
     },
     mounted() {
@@ -77,10 +74,15 @@
 </script>
 
 
-<style lang="stylus" scoped>
-  .hr-minus {
-    >>> .hr-sep {
-      margin-right: 9px;
+<style lang="stylus">
+
+  .news-2-col-page {
+    .hr-minus {
+      .posts-list {
+        .hr-sep {
+          margin-right: 9px !important;
+        }
+      }
     }
   }
 

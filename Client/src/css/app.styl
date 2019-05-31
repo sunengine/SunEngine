@@ -290,14 +290,44 @@ page-paddings-block(size) {
 // ——— Material styles ————————————————————————————————————
 
 .material, .post-preview {
-  h3, h4, h5, h6 {
-    margin: 8px 0 !important;
+  h3 {
+    font-size: 1.55rem;
+    font-weight: 500 !important;
+    line-height: 1.7rem;
+    margin: 35px 0 14px 0 !important;
+    border-bottom: 2px dashed #c1dfee; //#5ccff9;
+    padding: 0 0 8px 0;
+  }
+
+  h4 {
+    font-size: 1.35rem;
+    font-weight: 500 !important;
+    line-height: 1.4rem;
+    margin: 24px 0 10px 0 !important;
+    border-bottom: 1px dashed #c1dfee;
+    padding: 0 0 6px 0;
+  }
+
+  h5 {
+    font-size: 1.2rem;
+    font-weight: 500 !important;
+    line-height: 1.3rem;
+    margin: 16px 0 8px 0 !important;
+    padding: 0;
+  }
+
+  h6 {
+    font-size: 1.05rem;
+    font-weight: 500 !important;
+    line-height: 1.1rem;
+    margin: 10px 0 6px 0 !important;
+    padding: 0;
   }
 }
 
 
 .mat-hidden {
-  .my-header,.my-header * {
+  .my-header, .my-header * {
     color: dimgrey !important;
   }
 
@@ -315,7 +345,7 @@ page-paddings-block(size) {
     color: silver !important;
   }
 
-  .my-header,.my-header * {
+  .my-header, .my-header * {
     color: maroon !important;
   }
 

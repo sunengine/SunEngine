@@ -5,6 +5,7 @@ import articles from './articles'
 import auth from './auth'
 import blog from './blog'
 import comments from './comments'
+import components from './components'
 import errors from './errors'
 import forum from './forum'
 import global from './global'
@@ -21,6 +22,7 @@ export default {
   ...auth,
   ...blog,
   ...comments,
+  ...components,
   Errors: errors,
   ...forum,
   ...global,

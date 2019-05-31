@@ -1,13 +1,13 @@
 <template>
-    <span><q-spinner slot="loading" size="20px" class="q-mr-xs" /> Отправка...</span>
+  <span><q-spinner slot="loading" size="20px" class="q-mr-xs"/> {{$tl("sending")}}</span>
 </template>
 
 <script>
-    export default {
-        name: "LoaderSent"
-    }
+  export default {
+    name: "LoaderSent"
+  }
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

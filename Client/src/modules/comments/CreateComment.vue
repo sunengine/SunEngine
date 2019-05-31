@@ -3,7 +3,7 @@
     <MyEditor
       :toolbar="editorToolbar"
       :rules="commentRules"
-      class="editor" ref="htmlEditor" v-model="comment.text"/>
+      class="create-comment-editor" ref="htmlEditor" v-model="comment.text"/>
     <div>
       <q-btn icon="fas fa-arrow-circle-right" no-caps @click="addComment" :loading="loading"
              :label="$tl('sendBtn')" color="send">
@@ -87,10 +87,9 @@
   }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
-
-  .editor {
+  .create-comment-editor {
     margin-bottom: 7px;
   }
 

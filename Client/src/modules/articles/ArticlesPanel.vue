@@ -40,6 +40,6 @@
   }
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

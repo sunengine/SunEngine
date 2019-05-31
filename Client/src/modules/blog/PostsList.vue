@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="posts-list">
     <LoaderWait v-if="!posts.items"/>
 
     <template v-else>
@@ -9,7 +9,6 @@
           <hr class="hr-sep"/>
         </div>
       </div>
-
 
     </template>
   </div>
@@ -30,12 +29,12 @@
   }
 </script>
 
-<style lang="stylus" scoped>
-
-  .hr-sep {
-    height: 0;
-    border-top: solid #d3eecc 1px !important;
-    border-left: none;
+<style lang="stylus">
+  .posts-list {
+    .hr-sep {
+      height: 0;
+      border-top: solid #d3eecc 1px !important;
+      border-left: none;
+    }
   }
-
 </style>
