@@ -163,6 +163,19 @@
       }
     },
     methods: {
+      prepareLocalLinks() {
+        const el = this.$el.getElementsByClassName("material")[0];
+        const links = el.getElementsByTagName("a");
+        for(const link of links) {
+          if(link.href.startsWith(config.SiteUrl)) {
+            link.addEventListener('click', (e) => {
+              const url = link.href.substring(config.SiteUrl.length);
+              this.$router.push(url);
+              e.preventDefault();
+            });
+          }
+        }
+      },
       async loadDataMaterial() {
         await this.$store.dispatch("request",
           {
@@ -173,10 +186,11 @@
           }).then((response) => {
             this.material = response.data;
             this.title = this.material.title;
+            this.$nextTick( () =>{
+              this.prepareLocalLinks();
+            })
           }
-        ).catch(x => {
-          console.log("error", x);
-        });
+        );
       },
       async loadDataComments() {
         await this.$store.dispatch("request",
@@ -196,9 +210,7 @@
               }
             });
           }
-        ).catch(x => {
-          console.log("error", x);
-        });
+        );
       },
       checkLastOwn(comment) {
         if (!this.comments) {

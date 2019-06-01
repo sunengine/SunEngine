@@ -1,8 +1,8 @@
 <template>
   <div :class="[{'mat-hidden': post.isHidden}, {'mat-deleted': post.isDeleted}]">
-    <q-item :to="to" class="header page-padding" >
+    <q-item :to="to" class="header page-padding">
       <q-avatar class="shadow-1 avatar" size="44px">
-        <img  :src="$imagePath(post.authorAvatar)"/>
+        <img :src="$imagePath(post.authorAvatar)"/>
       </q-avatar>
       <div>
         <div class="blog-title my-header">
@@ -71,8 +71,27 @@
       category() {
         return this.$store.getters.getCategory(this.post.categoryName);
       }
+    },
+    methods: {
+      prepareLocalLinks() {
+        const el = this.$el.getElementsByClassName("post-preview")[0];
+        const links = el.getElementsByTagName("a");
+        for (const link of links) {
+          if (link.href.startsWith(config.SiteUrl)) {
+            link.addEventListener('click', (e) => {
+              const url = link.href.substring(config.SiteUrl.length);
+              this.$router.push(url);
+              e.preventDefault();
+            });
+          }
+        }
+      }
+    },
+    mounted() {
+      this.prepareLocalLinks();
     }
   }
+
 </script>
 
 
