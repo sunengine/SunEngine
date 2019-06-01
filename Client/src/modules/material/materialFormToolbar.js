@@ -2,9 +2,9 @@ import Vue from 'vue'
 
 export default [
   ['bold', 'italic', 'strike', 'underline'],
-  ['token', 'link', 'addImages'  ],
+  ['token', 'link', 'addImages'],
   ['hr'],
-    [
+  [
     {
       icon: Vue.prototype.$q.iconSet.editor.formatting,
       fixedLabel: true,
@@ -19,7 +19,7 @@ export default [
       list: 'no-icons',
       options: ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6', 'size-7']
     },
-      'quote'
+    'quote'
   ],
   ['unordered', 'ordered', 'outdent', 'indent',
     {
@@ -28,6 +28,6 @@ export default [
       options: ['left', 'center', 'right', 'justify']
     }
   ],
-  [ 'removeFormat'],
+  ['removeFormat'],
   ['undo', 'redo', 'fullscreen'],
 ]

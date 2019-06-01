@@ -1,6 +1,9 @@
 <template>
-  <q-list no-border dense v-if="category">
+  <q-list class="categories1" no-border dense v-if="category">
     <q-item :to='category.getRoute()' v-for="category in subCategories" :key="category.id">
+      <q-item-section v-if="category.icon" avatar>
+        <q-icon :name="category.icon"/>
+      </q-item-section>
       <q-item-section>
         <q-item-label>
           {{category.title}}
@@ -16,7 +19,7 @@
 <script>
 
   export default {
-    name: "Categories1",
+    name: 'Categories1',
     props: {
       categoryName: {
         type: String,
@@ -34,8 +37,25 @@
   }
 </script>
 
-<style scoped>
-  .q-list {
-    padding: 0 !important;
+<style lang="stylus">
+
+  .categories1 {
+    .q-list {
+      padding: 0 !important;
+    }
+
+    .q-item__section--avatar {
+      min-width: unset;
+    }
+
+    .q-item__section--side {
+      padding-right: 10px;
+    }
+
+    .q-icon {
+      font-size: 20px !important;
+      color: #a3a3a3;
+    }
   }
+
 </style>

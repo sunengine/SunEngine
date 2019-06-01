@@ -1,17 +1,27 @@
 <template>
-  <q-list no-border dense v-if="subCategories" highlight>
+  <q-list class="categories2" no-border dense v-if="subCategories" highlight>
     <template v-for="folder in subCategories">
-      <div class="header">
-        <q-item-label>
-          {{folder.title}}
-        </q-item-label>
-        <q-item-label v-if="folder.subTitle" caption>
-          {{folder.subTitle}}
-        </q-item-label>
-      </div>
+
+        <q-item class="header">
+          <q-item-section v-if="folder.icon" avatar>
+            <q-icon :name="folder.icon"/>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>
+              {{folder.title}}
+            </q-item-label>
+            <q-item-label v-if="folder.subTitle" caption>
+              {{folder.subTitle}}
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+
       <q-item :to='category.getRoute()' link multiline
               v-for="category in folder.subCategories"
               :key="category.id">
+        <q-item-section v-if="category.icon" avatar>
+          <q-icon :name="category.icon"/>
+        </q-item-section>
         <q-item-section>
           <q-item-label>
             {{category.title}}
@@ -49,20 +59,35 @@
 
 <style lang="stylus">
 
-  .header {
-    padding: 8px 16px;
-    min-height: unset;
-    font-size: unset;
-    background-color: #e7ffc1;
-    color: grey;
+  .categories2 {
+    .header {
+      padding: 8px 16px;
+      min-height: unset;
+      font-size: unset;
+      background-color: #e7ffc1;
+      color: grey;
 
-    .text-caption {
-      color: #9c9c9c;
+      .text-caption {
+        color: #9c9c9c;
+      }
     }
-  }
 
-  .q-list {
-    padding: 0 !important;
+    .q-list {
+      padding: 0 !important;
+    }
+
+    .q-item__section--avatar {
+      min-width: unset;
+    }
+
+    .q-item__section--side {
+      padding-right: 10px;
+    }
+
+    .q-icon {
+      font-size: 20px !important;
+      color: #a3a3a3;
+    }
   }
 
 </style>

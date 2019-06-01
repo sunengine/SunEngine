@@ -65,7 +65,6 @@ namespace SunEngine.Admin.Managers
                 throw new InvalidModelException(nameof(category), nameof(category.Title));
         }
 
-
         public async Task UpdateCategoryAsync(Category categoryUpdate)
         {
             if (categoryUpdate == null)

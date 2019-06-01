@@ -138,8 +138,9 @@
       this.$options.components.MyEditor = require('sun').MyEditor;
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>
