@@ -3,7 +3,7 @@
     <q-input ref="name" v-model="menuItem.name" :label="$tl('name')" :rules="rules.name"/>
     <q-input ref="title" v-model="menuItem.title" :label="$tl('title')" :rules="rules.title"/>
     <q-input ref="subTitle" v-model="menuItem.subTitle" :label="$tl('subTitle')" :rules="rules.subTitle"/>
-    <q-input ref="url" class="q-mb-md"  @input="urlUpdated" v-model="url" :label="$tl('url')" :rules="rules.url">
+    <q-input ref="url" class="q-mb-md" @input="urlUpdated" v-model="url" :label="$tl('url')" :rules="rules.url">
       <div slot="hint">
         <div v-if="menuItem.routeName" class="text-positive">
           [{{$tl("local")}}: RouteName={{menuItem.routeName}}
@@ -20,7 +20,6 @@
         </div>
       </div>
     </q-input>
-
     <q-field class="cursor-pointer q-mb-md" v-if="parentOptions" :label="$tl('parent')" stack-label>
       <template v-slot:control>
         <div tabindex="0" class="no-outline full-width">
@@ -177,6 +176,22 @@
           this.url = this.menuItem.externalUrl;
         }
       },
+      /*pull() {  TODO Needed for future release to push and pull information from route url, parse it and set menuItem.title, subTitle and icon from route page
+        if (this.menuItem?.routeParamsJson) {
+          const routeParams =  JSON.parse(this.menuItem.routeParamsJson);
+          if(routeParams.idOrName)
+            alert('mat ' + routeParams.idOrName);
+        }
+        if(/articles|forum|blog/.test(this.menuItem.routeName)) {
+          const routeParams =  JSON.parse(this.menuItem.routeParamsJson);
+          if(routeParams && routeParams.categoryName) {
+            alert('cat ' + routeParams.categoryName);
+          }
+          else {
+            alert('cat ' + this.menuItem.routeName);
+          }
+        }
+      },*/
       validate() {
         this.$refs.name.validate();
         this.$refs.title.validate();
@@ -299,7 +314,7 @@
 
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
 
   .menu-item-form {
     .q-tree__node-header {

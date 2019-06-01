@@ -2,23 +2,21 @@
   <q-list class="categories2" no-border dense v-if="subCategories" highlight>
     <template v-for="folder in subCategories">
 
-        <q-item class="header">
-          <q-item-section v-if="folder.icon" avatar>
-            <q-icon :name="folder.icon"/>
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>
-              {{folder.title}}
-            </q-item-label>
-            <q-item-label v-if="folder.subTitle" caption>
-              {{folder.subTitle}}
-            </q-item-label>
-          </q-item-section>
-        </q-item>
+      <q-item class="header">
+        <q-item-section v-if="folder.icon" avatar>
+          <q-icon :name="folder.icon"/>
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>
+            {{folder.title}}
+          </q-item-label>
+          <q-item-label v-if="folder.subTitle" caption>
+            {{folder.subTitle}}
+          </q-item-label>
+        </q-item-section>
+      </q-item>
 
-      <q-item :to='category.getRoute()' link multiline
-              v-for="category in folder.subCategories"
-              :key="category.id">
+      <q-item :to="category.getRoute()" link multiline v-for="category in folder.subCategories" :key="category.id">
         <q-item-section v-if="category.icon" avatar>
           <q-icon :name="category.icon"/>
         </q-item-section>
@@ -31,6 +29,7 @@
           </q-item-label>
         </q-item-section>
       </q-item>
+
     </template>
   </q-list>
 </template>
