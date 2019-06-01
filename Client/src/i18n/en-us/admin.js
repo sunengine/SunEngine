@@ -200,6 +200,7 @@ export default {
     title: "ImagesCleaner",
     clearBtn: "Clear",
     refreshBtn: "Refresh",
-    clearCount: "Cleared images: "
+    clearCount: "Cleared images: ",
+    emptyResult: "Folder is empty"
   }
 }

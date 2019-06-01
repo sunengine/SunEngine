@@ -6,24 +6,26 @@ using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Core.DataBase;
 using AngleSharp.Parser.Html;
+using Microsoft.Extensions.Options;
+using SunEngine.Core.Configuration.Options;
 
 namespace SunEngine.Admin.Services
 {
     public class ImageCleanerAdminService
     {
         private readonly DataBaseConnection _dataBaseConnection;
-        private readonly HtmlParser _htmlParser;
-        private string _imagesPath;
+        private readonly ImagesOptions _imagesOptions;
+        private readonly HtmlParser _htmlParser;        
 
-        public ImageCleanerAdminService(DataBaseConnection dataBaseConnection, string imagesPath = @"wwwroot/UploadImages")
+        public ImageCleanerAdminService(DataBaseConnection dataBaseConnection, IOptions<ImagesOptions> imagesOptions)
         {
             _dataBaseConnection = dataBaseConnection;
-            _htmlParser = new HtmlParser();
-            _imagesPath = imagesPath;
+            _imagesOptions = imagesOptions.Value;
+            _htmlParser = new HtmlParser();            
         }
 
         #region Public
-        
+
         public async Task<int> DeleteImagesAsync()
         {
             var imageSources = await GetImageSourcesForCleanAsync();
@@ -33,7 +35,7 @@ namespace SunEngine.Admin.Services
             {
                 try
                 {                    
-                    var absoluteImagePath = Path.Combine(_imagesPath, imageSrc);
+                    var absoluteImagePath = Path.Combine(_imagesOptions.UploadDir, imageSrc);
                     var directory = new FileInfo(absoluteImagePath).Directory;
                     File.Delete(absoluteImagePath);
                     count++;
@@ -53,7 +55,7 @@ namespace SunEngine.Admin.Services
         {
             List<string> sources = new List<string>();
             
-            var imagesInDirectory = DirectoryExtensions.GetFilesWithExcludeChildDirectory(_imagesPath, "*.*",
+            var imagesInDirectory = DirectoryExtensions.GetFilesWithExcludeChildDirectory(_imagesOptions.UploadDir, "*.*",
                 SearchOption.AllDirectories, x => !x.StartsWith("_"));
 
             var materialSources = await GetMaterialSourcesFromASharp();
@@ -65,7 +67,8 @@ namespace SunEngine.Admin.Services
 
             foreach (var imagePath in imagesInDirectory)
             {
-                var path = string.Join("\\", imagePath.Replace('/', '\\').Split('\\').Skip(2));
+                var fileInfo = new FileInfo(imagePath);
+                var path = Path.Combine(fileInfo.Directory.Name, fileInfo.Name);
 
                 if (!materialSources.Contains(path))
                     sources.Add(path);

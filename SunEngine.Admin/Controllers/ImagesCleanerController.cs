@@ -21,7 +21,7 @@ namespace SunEngine.Admin.Controllers
         {
             var imagesPath = await imageCleanerService.GetImageSourcesForCleanAsync();
                         
-            return Ok(new {Json = string.Join('\n', imagesPath)});            
+            return Ok(imagesPath);            
         }        
 
         [HttpPost]

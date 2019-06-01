@@ -202,6 +202,7 @@ export default {
     title: "Очистка изображений",
     clearBtn: "Очистить",
     refreshBtn : "Обновить",
-    clearCount: "Очищено изображений: "
+    clearCount: "Очищено изображений: ",
+    emptyResult: "Каталог пуст"
   }
 }
