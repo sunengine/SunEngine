@@ -10,6 +10,7 @@ export default {
     name: "Category name (eng)",
     title: "Title",
     subTitle: "Short description",
+    icon: "Icon",
     header: "Category header",
     selectParent: "Select parent category",
     sectionType: "Category type",

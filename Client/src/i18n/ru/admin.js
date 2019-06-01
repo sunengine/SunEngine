@@ -10,6 +10,7 @@ export default {
     name: "Имя категории (eng)",
     title: "Заголовок",
     subTitle: "Короткое описание",
+    icon: "Иконка",
     header: "Шапка категории",
     selectParent: "Выберите родительскую категорию",
     sectionType: "Тип категории",

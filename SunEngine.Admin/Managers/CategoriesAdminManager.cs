@@ -83,8 +83,9 @@ namespace SunEngine.Admin.Managers
             category.Name = categoryUpdate.Name;
             category.NameNormalized = Normalizer.Normalize(category.Name);
             category.Title = categoryUpdate.Title;
-            category.Header = sanitizer.Sanitize(categoryUpdate.Header);
             category.SubTitle = categoryUpdate.SubTitle;
+            category.Icon = categoryUpdate.Icon;
+            category.Header = sanitizer.Sanitize(categoryUpdate.Header);
             category.ParentId = parent.Id;
             category.IsHidden = categoryUpdate.IsHidden;
             category.IsCacheContent = categoryUpdate.IsCacheContent;
@@ -152,6 +153,4 @@ namespace SunEngine.Admin.Managers
             return db.Categories.Where(x => x.Name == name).Set(x => x.IsDeleted, x => true).UpdateAsync();
         }
     }
-
-   
 }
