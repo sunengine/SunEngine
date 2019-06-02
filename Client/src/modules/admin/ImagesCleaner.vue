@@ -1,5 +1,5 @@
 <template>
-  <q-page class="page-padding">
+  <q-page class="images-cleaner page-padding">
     <div class="header-with-button">
       <h2 class="q-title">{{title}}</h2>
       <q-btn icon="fas fa-trash" color="send" class="q-mr-lg" @click="clear()" no-caps
@@ -9,21 +9,22 @@
       <q-btn no-caps class="q-ml-md" color="info" icon="fas fa-sync-alt" @click="reloadImages()" :label="$tl('refreshBtn')"/>
     </div>
 
-    <q-banner rounded class="bg-amber-2">
+    <q-banner rounded class="bg-amber-2 q-mb-md">
       {{$tl("info")}}
     </q-banner>
 
-    <div v-if="imageResult != ''" class="img flex row">
-      <img v-for="image in images" :src="$imagePath(image)" height="80" width="80" class="cleanImg"/>
+    <div v-if="imageResult != ''" class="img flex row q-col-gutter-sm">
+      <img v-for="image in images" :src="$imagePath(image)" height="80" width="80" class="clean-img"/>
     </div>
   </q-page>
 </template>
 
 <script>
-import { Page } from "sun";
+import { Page } from 'sun';
+
 
 export default {
-  name: "ImagesCleaner",
+  name: 'ImagesCleaner',
   mixins: [Page],
   data() {
     return {
@@ -34,20 +35,20 @@ export default {
   },
 
   async created() {
-    this.title = this.$tl("title");
+    this.title = this.$tl('title');
     await this.loadImages();
   },
   methods: {
 
     async clear() {
       await this.$store
-        .dispatch("request", {
-          url: "/Admin/ImagesCleaner/DeleteImages",
+        .dispatch('request', {
+          url: '/Admin/ImagesCleaner/DeleteImages',
           data: {}
         })
         .then(response => {
           this.result = response.data.json;
-          this.$successNotify(this.$tl("clearCount") + this.result);
+          this.$successNotify(this.$tl('clearCount') + this.result);
           this.loadImages();
         })
         .catch(error => {
@@ -57,8 +58,8 @@ export default {
 
     async loadImages() {
       await this.$store
-        .dispatch("request", {
-          url: "/Admin/ImagesCleaner/GetAllImages",
+        .dispatch('request', {
+          url: '/Admin/ImagesCleaner/GetAllImages',
           data: {}
         })
         .then(response => {
@@ -71,16 +72,20 @@ export default {
     },
     async reloadImages(){
       await this.loadImages();
-      this.imageResult != '' ? this.$successNotify() : this.$successNotify(this.$tl("emptyResult"));
+      this.imageResult !== '' ? this.$successNotify() : this.$successNotify(this.$tl('emptyResult'));
     }
   }
-};
+}
+
 </script>
-<style lang="stylus" scoped>
-  .cleanImg{
-    padding-right : 10px;
-    object-fit: cover;
-    width: 100px;
-    height: 110px;
+<style lang="stylus">
+
+  .images-cleaner {
+    .clean-img {
+      object-fit: cover;
+      width: 100px;
+      height: 110px;
+    }
   }
+
 </style>
