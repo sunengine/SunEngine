@@ -1,9 +1,10 @@
-import {QEditor, QInnerLoading, QSpinnerGears} from "quasar";
-import ValidateMixin from "quasar/src/mixins/validate";
+import {QEditor, QInnerLoading, QSpinnerGears} from 'quasar';
+import ValidateMixin from 'quasar/src/mixins/validate';
 
+import {editorButtons} from 'sun'
 
 export default {
-  name: "MyEditor",
+  name: 'MyEditor',
   extends: QEditor,
   mixins: [ValidateMixin],
   data: function () {
@@ -30,7 +31,7 @@ export default {
       this.filesNames = [];
       this.filesNumber = 0;
       this.filesLoading = false;
-      this.$refs.file.value = "";
+      this.$refs.file.value = '';
     },
 
     getImagesHtml() {
@@ -64,9 +65,9 @@ export default {
         const formData = new FormData();
         formData.append('file', files[i]);
 
-        this.$store.dispatch("request",
+        this.$store.dispatch('request',
           {
-            url: "/UploadImages/UploadImage",
+            url: '/UploadImages/UploadImage',
             data: formData
           })
           .then(response => {
@@ -89,21 +90,22 @@ export default {
     buttonDef() {
       return {
         ...QEditor.options.computed.buttonDef.call(this),
-        addImages: {icon: 'camera_enhance', tip: this.$tl("uploadImages"), handler: this.uploadImages}
+        addImages: {icon: 'camera_enhance', tip: this.$tl('uploadImages'), handler: this.uploadImages},
+        ...editorButtons
       };
     }
   },
 
   render(h) {
-    const fileInput = h("input", {
-      ref: "file",
-      attrs: {type: "file", accept: "image/*", multiple: true},
-      style: {display: "none"},
+    const fileInput = h('input', {
+      ref: 'file',
+      attrs: {type: 'file', accept: 'image/*', multiple: true},
+      style: {display: 'none'},
       on: {change: this.handleFiles}
     });
     const editor = QEditor.options.render.call(this, h);
     const loading = h(QInnerLoading, {props: {showing: this.filesLoading}},
-      [h(QSpinnerGears, {props: {size: "60px"}, class: "text-grey-8"})]
+      [h(QSpinnerGears, {props: {size: '60px'}, class: 'text-grey-8'})]
     );
 
     const error = h('div', {
@@ -120,7 +122,7 @@ export default {
 
     const errorMessage = this.hasError && errorTransition;
 
-    return h('div', {staticClass: "relative-position"}, [editor, errorMessage, fileInput, loading]);
+    return h('div', {staticClass: 'relative-position'}, [editor, errorMessage, fileInput, loading]);
   }
 }
 

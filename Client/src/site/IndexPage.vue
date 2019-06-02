@@ -12,7 +12,7 @@
       <p>{{$tl("password")}}: <span class="hl">password</span>.</p>
       <p>{{$tl("anyMailToRegister")}} <a target="_blank" href="http://demo.sunengine.site:1444"><b>mailcatcher</b></a>.
       </p>
-      <p class="ver q-mb-xl">{{$tl("version")}}: 1.3.9</p>
+      <p class="ver q-mb-xl">{{$tl("version")}}: 1.4.0</p>
     </div>
   </q-page>
 </template>

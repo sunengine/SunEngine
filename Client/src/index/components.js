@@ -1,3 +1,4 @@
+export editorButtons from 'components/editorButtons'
 export LoaderSent from 'components/LoaderSent'
 export LoaderWait from 'components/LoaderWait'
 export MyEditor from 'components/MyEditor'
