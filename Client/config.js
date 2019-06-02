@@ -57,6 +57,8 @@ const config = {
 
 if(config.SiteUrl.startsWith("http://"))
   config.SiteSchema = "http://";
-else
+else if(config.SiteUrl.startsWith("https://"))
   config.SiteSchema = "https://";
+else
+  throw "SiteUrl in config.js have to start with 'http://' or 'https://'.";
 
