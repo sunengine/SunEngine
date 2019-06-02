@@ -8,7 +8,7 @@ import {routeHasAccess} from 'sun'
 
 export default async function (context) {
 
-  const routesPlus = await context.dispatch('makeLayoutsRoutes');
+  const routesPlus = await context.dispatch('makeRoutesFromCategories');
 
   const allRoutes = [...routes, ...routesPlus, ...pageNotFoundRoute];
 
@@ -22,6 +22,6 @@ export default async function (context) {
   router.matcher = tmpRouter.matcher;
   router.addRoutes([]);
 
-  console.info("%cRoutes registered", consoleInit, config.Log.InitExtended ? userRoutes : '');
+  console.info('%cRoutes registered', consoleInit, config.Log.InitExtended ? userRoutes : '');
 
 }

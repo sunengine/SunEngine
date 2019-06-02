@@ -96,6 +96,7 @@ module.exports = function (ctx) {
       // extractCSS: false,
       extendWebpack (cfg) {
         cfg.resolve.modules.push(path.resolve('./src'));
+        cfg.resolve.modules.push(path.resolve('./src/index'));
         cfg.resolve.modules.push(path.resolve('./src/modules'));
         cfg.resolve.modules.push(path.resolve('./src/components'));
         if(ctx.dev) {

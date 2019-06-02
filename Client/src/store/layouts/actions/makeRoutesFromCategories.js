@@ -2,8 +2,8 @@
 export default function (context) {
 
   let routes = [];
-  for (const categoryName in context.state.all) {
-    const category = context.state.all[categoryName];
+  for (const categoryName in context.rootState.categories.all) {
+    const category = context.rootState.categories.all[categoryName];
     if (category.layoutName) {
       const layout = context.getters.getLayout(category.layoutName);
 

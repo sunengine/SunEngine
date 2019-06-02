@@ -1,5 +1,5 @@
 
-export default function getLayout (state) {
+export default function(state) {
   return function(name) {
     if(!name)
       return null;

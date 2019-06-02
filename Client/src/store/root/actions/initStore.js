@@ -20,7 +20,9 @@ export default async function (context) {
 
     context.state.isInitialized = true;
 
-  } catch {
+  } catch(error) {
+
+    console.error(error);
 
     context.state.initializeError = true;
   }

@@ -1,3 +1,4 @@
+import state from 'store/auth/state'
 import loadMyUserInfo from 'store/auth/actions/loadMyUserInfo'
 import initUserFromLocalStorage from 'store/auth/actions/initUserFromLocalStorage'
 import login from 'store/auth/actions/login'

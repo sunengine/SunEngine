@@ -8,6 +8,7 @@ module.exports = {
   resolve: {
     modules: [
       path.resolve(__dirname, './src'),
+      path.resolve(__dirname, './src/index'),
       path.resolve(__dirname, './src/modules'),
       path.resolve(__dirname, './src/components')
     ]
