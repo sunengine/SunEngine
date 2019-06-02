@@ -1,0 +1,6 @@
+export ForumPanel from 'modules/forum/ForumPanel'
+export NewTopics from 'modules/forum/NewTopics'
+export Thread from 'modules/forum/Thread'
+export Topic from 'modules/forum/Topic'
+export forum1Layout from 'modules/forum/forum1Layout'
+export forum2Layout from 'modules/forum/forum2Layout'

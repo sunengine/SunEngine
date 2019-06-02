@@ -1,5 +1,0 @@
-export Login from './Login'
-export LoginRegisterMenu from './LoginRegisterMenu'
-export Register from './Register'
-export RegisterEmailResult from './RegisterEmailResult'
-export UserMenu from './UserMenu'

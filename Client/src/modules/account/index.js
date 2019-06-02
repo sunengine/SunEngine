@@ -1,6 +1,0 @@
-export ChangeEmail from './ChangeEmail'
-export ChangeEmailResult from './ChangeEmailResult'
-export ChangePassword from './ChangePassword'
-export ResetPassword from './ResetPassword'
-export ResetPasswordFailed from './ResetPasswordFailed'
-export ResetPasswordSetNew from './ResetPasswordSetNew'
