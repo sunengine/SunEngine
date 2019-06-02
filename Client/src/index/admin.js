@@ -20,3 +20,5 @@ export RoleUsers from 'modules/admin/roles/RoleUsers'
 export AdminMenu from 'modules/admin/AdminMenu'
 export CacheSettings from 'modules/admin/CacheSettings'
 export DeletedElements from 'modules/admin/DeletedElements'
+export ImagesCleaner from 'modules/admin/ImagesCleaner'
+

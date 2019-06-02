@@ -207,6 +207,7 @@ export default {
   },
   ImagesCleaner: {
     title: "ImagesCleaner",
+    info: "Lost images not using on site",
     clearBtn: "Clear",
     refreshBtn: "Refresh",
     clearCount: "Cleared images: ",

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Core.DataBase;
 using AngleSharp.Parser.Html;
+using Flurl;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using SunEngine.Core.Configuration.Options;
 
@@ -13,52 +15,33 @@ namespace SunEngine.Admin.Services
 {
     public class ImageCleanerAdminService
     {
-        private readonly DataBaseConnection _dataBaseConnection;
-        private readonly ImagesOptions _imagesOptions;
-        private readonly HtmlParser _htmlParser;        
+        private readonly DataBaseConnection dataBaseConnection;
+        private readonly string uploadDirectory;
+        private readonly string uploadUrl;
+        private readonly HtmlParser htmlParser;
 
-        public ImageCleanerAdminService(DataBaseConnection dataBaseConnection, IOptions<ImagesOptions> imagesOptions)
+        public ImageCleanerAdminService(
+            DataBaseConnection dataBaseConnection,
+            IHostingEnvironment env,
+            IOptions<ImagesOptions> imagesOptions,
+            IOptions<GlobalOptions> globalOptions)
         {
-            _dataBaseConnection = dataBaseConnection;
-            _imagesOptions = imagesOptions.Value;
-            _htmlParser = new HtmlParser();            
+            this.dataBaseConnection = dataBaseConnection;
+            uploadDirectory = Path.Combine(env.WebRootPath, imagesOptions.Value.UploadDir);
+            uploadUrl = globalOptions.Value.SiteUrl.AppendPathSegment(imagesOptions.Value.UploadDir);
+            htmlParser = new HtmlParser();
         }
 
-        #region Public
 
-        public async Task<int> DeleteImagesAsync()
-        {
-            var imageSources = await GetImageSourcesForCleanAsync();
-            int count = 0;
-
-            foreach (var imageSrc in imageSources)
-            {
-                try
-                {                    
-                    var absoluteImagePath = Path.Combine(_imagesOptions.UploadDir, imageSrc);
-                    var directory = new FileInfo(absoluteImagePath).Directory;
-                    File.Delete(absoluteImagePath);
-                    count++;
-
-                    if (directory.GetFiles().Length == 0)
-                        directory.Delete();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
-            return count;
-        }        
-        
         public async Task<List<string>> GetImageSourcesForCleanAsync()
         {
             List<string> sources = new List<string>();
-            
-            var imagesInDirectory = DirectoryExtensions.GetFilesWithExcludeChildDirectory(_imagesOptions.UploadDir, "*.*",
+
+            var imagesInDirectory = DirectoryExtensions.GetFilesWithExcludeChildDirectory(uploadDirectory, "*.*",
                 SearchOption.AllDirectories, x => !x.StartsWith("_"));
 
             var materialSources = await GetMaterialSourcesFromASharp();
+
             var msgSources = await GetMessageSourcesFromASharp();
             materialSources.Union(msgSources);
 
@@ -73,19 +56,35 @@ namespace SunEngine.Admin.Services
                 if (!materialSources.Contains(path))
                     sources.Add(path);
             }
+
             return sources;
         }
 
-        #endregion
+        public async Task<int> DeleteImagesAsync()
+        {
+            var imageSources = await GetImageSourcesForCleanAsync();
+            int count = 0;
 
-        #region Private
+            foreach (var imageSrc in imageSources)
+            {
+                var absoluteImagePath = Path.Combine(uploadDirectory, imageSrc);
+                var directory = new FileInfo(absoluteImagePath).Directory;
+                File.Delete(absoluteImagePath);
+                count++;
+
+                if (directory.GetFiles().Length == 0)
+                    directory.Delete();
+            }
+
+            return count;
+        }
 
         private Task<List<string>> GetMessageSourcesFromASharp()
         {
             var srcList = new List<string>();
-            var imageTags = _dataBaseConnection.Comments
+            var imageTags = dataBaseConnection.Comments
                 .Where(msg => msg.Text.Contains("<img", StringComparison.OrdinalIgnoreCase)).AsEnumerable()
-                .Select(  async x => await _htmlParser.ParseAsync(x.Text)).ToList();
+                .Select(async x => await htmlParser.ParseAsync(x.Text)).ToList();
 
             foreach (var tag in imageTags)
             {
@@ -98,13 +97,14 @@ namespace SunEngine.Admin.Services
         private Task<List<string>> GetMaterialSourcesFromASharp()
         {
             var srcList = new List<string>();
-            var imageTags = _dataBaseConnection.Materials
+            var imageTags = dataBaseConnection.Materials
                 .Where(msg => msg.Text.Contains("<img", StringComparison.OrdinalIgnoreCase)).AsEnumerable()
-                .Select(async x => await _htmlParser.ParseAsync(x.Text)).ToList();
+                .Select(async x => await htmlParser.ParseAsync(x.Text)).ToList();
 
             foreach (var tag in imageTags)
             {
-                srcList.AddRange(tag.Result.QuerySelectorAll("img").Select(x => x.GetAttribute("src")));
+                srcList.AddRange(
+                    tag.Result.QuerySelectorAll("img").Select(x => Get2LastSegments(x.GetAttribute("src"))));
             }
 
             return Task.FromResult(srcList);
@@ -112,13 +112,20 @@ namespace SunEngine.Admin.Services
 
         private async Task<List<string>> GetAvatarSources()
         {
-            var photos = await _dataBaseConnection.Users.Select(avatar => avatar.Photo.Substring(1).Replace('/','\\')).ToListAsync();
-            var avatars = await _dataBaseConnection.Users.Select(avatar => avatar.Avatar.Substring(1).Replace('/', '\\')).ToListAsync();
+            var photos = await dataBaseConnection.Users.Select(avatar =>
+                    avatar.Photo.Substring(1).Replace('/', Path.DirectorySeparatorChar))
+                .ToListAsync();
+            var avatars = await dataBaseConnection.Users.Select(avatar =>
+                    avatar.Avatar.Substring(1).Replace('/', Path.DirectorySeparatorChar))
+                .ToListAsync();
 
             return photos.Union(avatars).ToList();
         }
 
-        #endregion
+        private string Get2LastSegments(string url)
+        {
+            return string.Join(Path.DirectorySeparatorChar, url.Split('/').TakeLast(2));
+        }
     }
 
     public static class DirectoryExtensions
@@ -146,30 +153,32 @@ namespace SunEngine.Admin.Services
             FileInfo[] files = dir.GetFiles();
             foreach (FileInfo file in files)
             {
-                string temppath = Path.Combine(destDirName, file.Name);
-                
-                file.CopyTo(temppath, true);
+                string tempPath = Path.Combine(destDirName, file.Name);
+
+                file.CopyTo(tempPath, true);
             }
 
             // If copying subdirectories, copy them and their contents to new location.
             if (copySubDirs)
             {
-                foreach (DirectoryInfo subdir in dirs)
+                foreach (DirectoryInfo subDir in dirs)
                 {
-                    string temppath = Path.Combine(destDirName, subdir.Name);
-                    DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+                    string tempPath = Path.Combine(destDirName, subDir.Name);
+                    DirectoryCopy(subDir.FullName, tempPath, copySubDirs);
                 }
             }
         }
 
-        public static IEnumerable<string> GetFilesWithExcludeChildDirectory(string path, string searchPattern, SearchOption searchOption, Func<string,bool> expression)
+        public static IEnumerable<string> GetFilesWithExcludeChildDirectory(
+            string path, string searchPattern, SearchOption searchOption, Func<string, bool> expression)
         {
             List<string> paths = new List<string>();
             foreach (var childDir in Directory.GetDirectories(path))
             {
-                if(expression(new DirectoryInfo(childDir).Name))
+                if (expression(new DirectoryInfo(childDir).Name))
                     paths.AddRange(Directory.GetFiles(childDir, searchPattern, SearchOption.AllDirectories));
             }
+
             return paths;
         }
     }

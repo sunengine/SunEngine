@@ -209,6 +209,7 @@ export default {
   },
   ImagesCleaner: {
     title: "Очистка изображений",
+    info: "Потерянные изображения, которые не используются на сайте",
     clearBtn: "Очистить",
     refreshBtn : "Обновить",
     clearCount: "Очищено изображений: ",
