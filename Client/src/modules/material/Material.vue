@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="material">
     <div v-if="material" class="page-padding">
       <h2 class="q-title">
         {{material.title}}
@@ -11,7 +11,7 @@
       <div v-if="material.isDeleted" class="text-red q-mb-md">
         <q-chip icon="fas fa-trash" color="red" text-color="white" :label="$tl('deleted')"/>
       </div>
-      <div class="material q-mb-lg" v-html="material.text">
+      <div class="material-text q-mb-lg" v-html="material.text">
       </div>
       <div v-if="material.tags && material.tags.length > 0" class="q-mt-lg" style="text-align: center">
         {{$tl("tags")}}
@@ -55,7 +55,7 @@
       <div class="clear"></div>
     </div>
 
-    <div id="comments" v-if="material && comments" class="msgs">
+    <div id="comments" v-if="material && comments" class="comments">
       <hr class="hr-sep"/>
       <div v-for="(comment,index) in comments" :key="comment.id">
         <CommentContainer class="page-padding" :comment="comment" :checkLastOwn="checkLastOwn"
@@ -88,7 +88,7 @@
 
 
   export default {
-    name: "Material",
+    name: 'Material',
     mixins: [Page],
     props: {
       idOrName: {
@@ -164,8 +164,8 @@
     },
     methods: {
       prepareLocalLinks() {
-        const el = this.$el.getElementsByClassName("material")[0];
-        const links = el.getElementsByTagName("a");
+        const el = this.$el.getElementsByClassName('material-text')[0];
+        const links = el.getElementsByTagName('a');
         for(const link of links) {
           if(link.href.startsWith(config.SiteUrl)) {
             link.addEventListener('click', (e) => {
@@ -177,9 +177,9 @@
         }
       },
       async loadDataMaterial() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Materials/Get",
+            url: '/Materials/Get',
             data: {
               idOrName: this.idOrName
             }
@@ -193,9 +193,9 @@
         );
       },
       async loadDataComments() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Comments/GetMaterialComments",
+            url: '/Comments/GetMaterialComments',
             data:
               {
                 materialId: this.material.id
@@ -233,9 +233,9 @@
       },
       async commentAdded() {
         let currentPath = this.$route.fullPath;
-        let ind = currentPath.lastIndexOf("#");
+        let ind = currentPath.lastIndexOf('#');
         let path = currentPath.substring(0, ind);
-        window.history.pushState("", document.title, path);
+        window.history.pushState('', document.title, path);
         await this.loadData();
       },
       async loadData() {
@@ -252,27 +252,30 @@
       await this.loadData();
     }
   }
+
 </script>
 
-<style scoped>
-  .msgs {
-    margin-top: 18px;
-  }
-
-  .mat-avatar {
-    margin-right: 12px;
-  }
-</style>
 
 <style lang="stylus">
 
-  .mat-date-color {
-    color: $grey-7;
+  .material {
+    .mat-date-color {
+      color: $grey-7;
+    }
+
+    .hr-sep {
+      height: 0;
+      border-top: solid #d3eecc 1px !important;
+      border-left: none;
+    }
+
+    .mat-avatar {
+      margin-right: 12px;
+    }
+
+    .comments {
+      margin-top: 18px;
+    }
   }
 
-  .hr-sep {
-    height: 0;
-    border-top: solid #d3eecc 1px !important;
-    border-left: none;
-  }
 </style>

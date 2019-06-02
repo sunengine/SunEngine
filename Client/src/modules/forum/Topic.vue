@@ -1,5 +1,5 @@
 <template>
-  <div :class="['row', {'mat-hidden': topic.isHidden}, {'mat-deleted': topic.isDeleted}]">
+  <div :class="['topic', 'row', {'mat-hidden': topic.isHidden}, {'mat-deleted': topic.isDeleted}]">
     <div class="col-xs-12 col-sm-8">
       <q-item class="page-padding" :to='to' style="height:100%">
         <q-item-section avatar>
@@ -67,7 +67,7 @@
 <script>
 
   export default {
-    name: "Topic",
+    name: 'Topic',
     props: {
       topic: Object
     },
@@ -83,31 +83,32 @@
       }
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
-  .q-item {
-    padding-top: 8px;
-    padding-bottom: 8px;
-  }
-
-  .last-reply {
+  .topic {
     .q-item {
-      padding-left: 10px;
+      padding-top: 8px;
+      padding-bottom: 8px;
     }
-  }
 
-  @media (max-width: 576px) {
     .last-reply {
       .q-item {
-        transform: scale(0.88);
-        padding-left: 44px;
-        padding-top: 0;
+        padding-left: 10px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .last-reply {
+        .q-item {
+          transform: scale(0.88);
+          padding-left: 44px;
+          padding-top: 0;
+        }
       }
     }
   }
-
-
 
 </style>

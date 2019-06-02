@@ -1,5 +1,5 @@
 <template>
-  <div class="q-gutter-sm">
+  <div class="material-form q-gutter-sm">
 
     <q-input v-if="canEditName" ref="name" v-model="material.name" :label="$tl('name')" :rules="rules.name">
       <template v-slot:prepend>
@@ -57,6 +57,7 @@
   import {htmlTextSizeOrHasImage} from 'sun'
   import {materialFormToolbar} from 'sun'
 
+
   function createRules() {
     return {
       name: [
@@ -82,7 +83,7 @@
 
 
   export default {
-    name: "MaterialForm",
+    name: 'MaterialForm',
     props: {
       material: {
         type: Object,
@@ -106,7 +107,7 @@
         return this.category?.sectionType?.name === 'Articles';
       },
       canEditName() {
-        return this.$store.state.auth.roles.includes("Admin") && this.category?.sectionType?.name === 'Articles';
+        return this.$store.state.auth.roles.includes('Admin') && this.category?.sectionType?.name === 'Articles';
       },
       canHide() {
         return this.category?.categoryPersonalAccess?.materialHide;
@@ -116,9 +117,9 @@
       },
       categoryTitle() {
         if (!this.material.categoryName) {
-          return this.$tl("selectCategory");
+          return this.$tl('selectCategory');
         }
-        return this.$tl("category", this.category.title);
+        return this.$tl('category', this.category.title);
       },
       category() {
         return this.$store.getters.getCategory(this.material.categoryName);

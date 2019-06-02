@@ -59,3 +59,4 @@ if(config.SiteUrl.startsWith("http://"))
   config.SiteSchema = "http://";
 else
   config.SiteSchema = "https://";
+

@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="articles-page">
     <div class="page-padding header-with-button">
       <h2 class="q-title">
         {{category.title}}
@@ -19,8 +19,9 @@
 <script>
   import {Page} from 'sun'
 
+
   export default {
-    name: "ArticlesPage",
+    name: 'ArticlesPage',
     mixins: [Page],
     props: {
       categoryName: {
@@ -65,9 +66,9 @@
 
         this.title = this.category?.title;
 
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Articles/GetArticles",
+            url: '/Articles/GetArticles',
             data: {
               categoryName: this.categoryName,
               page: currentPage,
@@ -79,7 +80,7 @@
               this.$refs.articlesList.articles = response.data;
             }
           ).catch(x => {
-            console.log("error", x);
+            console.log('error', x);
           });
       }
     },
@@ -91,8 +92,9 @@
       await this.loadData()
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

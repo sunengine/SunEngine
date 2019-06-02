@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex column middle">
+  <q-page class="load-photo flex column middle">
     <img v-if="photo" width="300" :src="photo"/>
     <br/>
     <input ref="file" type="file" accept="image/*" style="display:none" @change="handleFile"/>
@@ -19,7 +19,7 @@
 
   export default {
 
-    name: "LoadPhoto",
+    name: 'LoadPhoto',
     mixins: [Page],
     data() {
       return {
@@ -47,9 +47,9 @@
         formData.append('file', this.$refs.file.files[0]);
 
         this.loading = true;
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/UploadImages/UploadUserPhoto",
+            url: '/UploadImages/UploadUserPhoto',
             data: formData
           })
           .then(async () => {
@@ -65,9 +65,9 @@
         this.$refs.file.click();
       },
       async resetAvatar() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Personal/RemoveMyAvatar"
+            url: '/Personal/RemoveMyAvatar'
           })
           .then(async () => {
               await this.$store.dispatch('getMyUserInfo');
@@ -76,8 +76,8 @@
             }
           ).catch(x => {
             this.loading = false;
-            console.log("error", x);
-            const msg = this.$t("Global.errorNotify");
+            console.log('error', x);
+            const msg = this.$t('Global.errorNotify');
             this.$q.notify({
               message: msg,
               timeout: 2000,
@@ -88,11 +88,12 @@
       }
     },
     async created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

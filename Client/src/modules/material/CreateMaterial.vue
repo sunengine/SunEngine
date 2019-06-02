@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-md">
+  <q-page class="create-material q-pa-md">
     <MaterialForm ref="form" :material="material" :categories-nodes="categoryNodes"/>
 
     <div class="q-mt-md">
@@ -17,8 +17,9 @@
   import {getWhereToAdd} from 'sun'
   import {Page} from 'sun'
 
+
   export default {
-    name: "CreateMaterial",
+    name: 'CreateMaterial',
     mixins: [Page],
     props: {
       categoriesNames: {
@@ -28,15 +29,15 @@
       initialCategoryName: {
         type: String,
         required: false,
-        default: ""
+        default: ''
       }
     },
     data() {
       return {
         material: {
           name: null,
-          title: "",
-          text: "",
+          title: '',
+          text: '',
           description: null,
           tags: [],
           categoryName: this.initialCategoryName,
@@ -89,11 +90,12 @@
       this.$options.components.LoaderSent = require('sun').LoaderSent;
     },
     created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

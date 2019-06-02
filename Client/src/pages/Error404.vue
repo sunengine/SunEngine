@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex column flex-center">
+  <q-page class="error404 flex column flex-center">
 
     <p>
       <img src="~assets/sad.svg" style="width:30vw;max-width:150px;">
@@ -17,11 +17,13 @@
 <script>
   import {Page} from 'sun'
 
+
   export default {
     name: 'Error404',
     mixins: [Page],
     created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
     }
   }
+
 </script>

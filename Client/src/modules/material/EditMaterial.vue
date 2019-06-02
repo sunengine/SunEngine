@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-md">
+  <q-page class="edit-material q-pa-md">
     <div v-if="material.isDeleted" class="text-red">
       <q-chip icon="fas fa-trash" color="red" text-color="white" :label="$tl('deleted')"/>
     </div>
@@ -37,7 +37,7 @@
 
 
   export default {
-    name: "EditMaterial",
+    name: 'EditMaterial',
     mixins: [Page],
     props: {
       id: {
@@ -49,8 +49,8 @@
       return {
         material: {
           name: null,
-          title: "",
-          text: "",
+          title: '',
+          text: '',
           description: null,
           tags: [],
           isHidden: false,
@@ -122,9 +122,9 @@
         }).then(response => {
           this.material = response.data;
         });
-        this.$store.dispatch("request",
+        this.$store.dispatch('request',
           {
-            url: "/Comments/GetMaterialComments",
+            url: '/Comments/GetMaterialComments',
             data:
               {
                 materialId: this.material.id
@@ -139,12 +139,13 @@
       this.$options.components.LoaderSent = require('sun').LoaderSent;
     },
     created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
       this.loadData();
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

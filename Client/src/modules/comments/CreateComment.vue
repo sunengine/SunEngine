@@ -1,9 +1,8 @@
 <template>
-  <div>
+  <div class="create-comment">
     <MyEditor
-      :toolbar="editorToolbar"
-      :rules="commentRules"
-      class="create-comment-editor" ref="htmlEditor" v-model="comment.text"/>
+      :toolbar="editorToolbar" :rules="commentRules"
+      class="editor" ref="htmlEditor" v-model="comment.text"/>
     <div>
       <q-btn icon="fas fa-arrow-circle-right" no-caps @click="addComment" :loading="loading"
              :label="$tl('sendBtn')" color="send">
@@ -89,8 +88,10 @@
 
 <style lang="stylus">
 
-  .create-comment-editor {
-    margin-bottom: 7px;
+  .create-comment {
+    .editor {
+      margin-bottom: 7px;
+    }
   }
 
 </style>

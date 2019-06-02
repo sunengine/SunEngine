@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="thread">
 
     <div class="header-with-button page-padding">
       <h2 class="q-title">
@@ -45,8 +45,9 @@
 <script>
   import {Page} from 'sun'
 
+
   export default {
-    name: "Thread",
+    name: 'Thread',
     mixins: [Page],
     props: {
       categoryName: String
@@ -82,15 +83,15 @@
       },
 
       async loadData() {
-        if(!this.thread)
+        if (!this.thread)
           return;
 
         this.title = this.thread.title;
 
         this.topics = {};
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Forum/GetThread",
+            url: '/Forum/GetThread',
             data: {
               categoryName: this.categoryName,
               page: this.currentPage,
@@ -102,7 +103,7 @@
               this.topics = response.data;
             }
           ).catch(x => {
-            console.log("error", x);
+            console.log('error', x);
           });
       }
     },
@@ -114,19 +115,24 @@
       await this.loadData()
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
-  .hr-sep {
-    height: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    border-top: solid #d3eecc 1px !important;
-    border-left: none;
+<style lang="stylus">
+
+  .thread {
+    .hr-sep {
+      height: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      border-top: solid #d3eecc 1px !important;
+      border-left: none;
+    }
+
+    .q-list {
+      padding: 0;
+      margin-bottom: 12px;
+    }
   }
 
-  .q-list {
-    padding: 0;
-    margin-bottom: 12px;
-  }
 </style>

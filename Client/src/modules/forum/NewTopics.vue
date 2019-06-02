@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="new-topics">
 
     <div class="header-with-button page-padding">
       <h2 class="q-title">
@@ -47,7 +47,7 @@
   import {Page} from 'sun'
 
   export default {
-    name: "NewTopics",
+    name: 'NewTopics',
     mixins: [Page],
     props: {
       categoryName: String
@@ -62,7 +62,7 @@
     },
     computed: {
       pageTitle() {
-        return `${this.$tl("titleStart")} - ${this.thread?.title}`;
+        return `${this.$tl('titleStart')} - ${this.thread?.title}`;
       },
       thread() {
         return this.$store.getters.getCategory(this.categoryName);
@@ -89,9 +89,9 @@
       async loadData() {
         this.title = this.pageTitle;
 
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Forum/GetNewTopics",
+            url: '/Forum/GetNewTopics',
             data: {
               categoryName: this.categoryName,
               page: this.currentPage
@@ -101,7 +101,7 @@
               this.topics = response.data;
             }
           ).catch(x => {
-            console.log("error", x);
+            console.log('error', x);
           });
       }
     },
@@ -113,19 +113,24 @@
       await this.loadData()
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
-  .hr-sep {
-    height: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    border-top: solid #d3eecc 1px !important;
-    border-left: none;
+<style lang="stylus">
+
+  .new-topics {
+    .hr-sep {
+      height: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      border-top: solid #d3eecc 1px !important;
+      border-left: none;
+    }
+
+    .q-list {
+      padding: 0;
+      margin-bottom: 12px;
+    }
   }
 
-  .q-list {
-    padding: 0;
-    margin-bottom: 12px;
-  }
 </style>

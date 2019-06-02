@@ -1,5 +1,5 @@
 <template>
-    <q-list class="my-menu q-py-sm">
+    <q-list class="user-menu my-menu q-py-sm">
       <q-item class="avatar-menu-item">
         <q-item-section  avatar>
           <img class="avatar" :src="userInfo.avatar"/>
@@ -56,8 +56,9 @@
 <script>
   import {mapState} from 'vuex'
 
+
   export default {
-    name: "UserMenu",
+    name: 'UserMenu',
     computed: {
       isAdmin() {
         return this.$store.state.auth.roles.some(x => x === 'Admin')
@@ -82,10 +83,10 @@
       }
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
-
+<style lang="stylus" >
 
 
 </style>

@@ -48,11 +48,11 @@
     methods: {
       async loadData() {
 
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Blog/GetPostsFromMultiCategories",
+            url: '/Blog/GetPostsFromMultiCategories',
             data: {
-              categoriesNames: "root",
+              categoriesNames: 'root',
               pageSize: 6
             }
           })
@@ -67,10 +67,11 @@
       this.mounted = true;
     },
     async created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
       await this.loadData();
     }
   }
+
 </script>
 
 

@@ -3,9 +3,11 @@
 </template>
 
 <script>
+
   export default {
-    name: "LoaderSent"
+    name: 'LoaderSent'
   }
+
 </script>
 
 <style lang="stylus">

@@ -22,11 +22,16 @@
 
 <script>
   import {mapState} from 'vuex'
+  import Vue from 'vue'
+
 
   import {Layout} from 'sun'
 
 
   var app;
+
+
+  Vue.config.devtools = config.VueDevTools;
 
 
   export default {
@@ -52,6 +57,7 @@
   }
 
   export {app};
+
 </script>
 
 <style lang="stylus">
@@ -75,4 +81,5 @@
       color: #005d00;
     }
   }
+
 </style>

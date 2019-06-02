@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex column middle page-padding">
+  <q-page class="edit-information flex column middle page-padding">
     <template v-if="userInfo">
       <div class="q-mb-lg text-grey-8">{{$tl("label")}}</div>
 
@@ -18,7 +18,7 @@
 
 
   export default {
-    name: "EditInformation",
+    name: 'EditInformation',
     mixins: [Page],
     data() {
       return {
@@ -29,9 +29,9 @@
     },
     methods: {
       async save() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Personal/SetMyProfileInformation",
+            url: '/Personal/SetMyProfileInformation',
             data: {
               html: this.userInfo.information
             }
@@ -49,23 +49,27 @@
       this.$options.components.MyEditor = require('sun').MyEditor;
     },
     async created() {
-      this.title = this.$tl("title");
-      await this.$store.dispatch("request",
+      this.title = this.$tl('title');
+      await this.$store.dispatch('request',
         {
-          url: "/Personal/GetMyProfileInformation",
+          url: '/Personal/GetMyProfileInformation',
         }).then(response => {
         this.userInfo = response.data;
       }).catch(error => {
-        console.error("error", error);
+        console.error('error', error);
       });
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
-  .send-btn {
-    width: 270px;
+  .edit-information {
+
+    .send-btn {
+      width: 270px;
+    }
   }
 
 </style>

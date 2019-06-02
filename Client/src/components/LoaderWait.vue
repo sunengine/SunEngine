@@ -6,9 +6,11 @@
 </template>
 
 <script>
+
   export default {
-    name: "LoaderWait"
+    name: 'LoaderWait'
   }
+
 </script>
 
 <style lang="stylus">

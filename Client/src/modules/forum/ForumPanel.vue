@@ -1,5 +1,5 @@
 <template>
-  <PanelWrapper iconProp="far fa-comments" :titleProp="$tl('sections')">
+  <PanelWrapper class="forum-panel" iconProp="far fa-comments" :titleProp="$tl('sections')">
     <q-item class="q-my-xs" exact dense :to="newTopicsRoute">
       <q-item-section>
         <q-item-label>
@@ -14,8 +14,9 @@
 <script>
   import {Categories1} from 'sun'
 
+
   export default {
-    name: "ForumPanel",
+    name: 'ForumPanel',
     props: {
       categories: {
         type: Object,
@@ -38,8 +39,9 @@
       this.$options.components.PanelWrapper = require('sun').PanelWrapper;
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

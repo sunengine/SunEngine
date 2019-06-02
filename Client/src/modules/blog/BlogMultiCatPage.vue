@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="blog-multi-cat-page">
     <div class="header-with-button page-padding">
       <h2 class="q-title">
         {{pageTitle}}
@@ -71,7 +71,7 @@
           if (!this.$store.state.auth.roles.some(x => this.rolesCanAdd.some(y => y === x)))
             return false;
 
-        let categories = this.categoriesNames.split(",").map(x => x.trim());
+        let categories = this.categoriesNames.split(',').map(x => x.trim());
         for (let catName of categories) {
           let cat = this.$store.getters.getCategory(catName);
           if (cat?.canSomeChildrenWriteMaterial) {
@@ -97,9 +97,9 @@
 
       async loadData() {
 
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Blog/GetPostsFromMultiCategories",
+            url: '/Blog/GetPostsFromMultiCategories',
             data: {
               categoriesNames: this.categoriesNames,
               page: this.currentPage
@@ -111,7 +111,7 @@
               this.$refs.postsList.posts = response.data;
             }
           ).catch(x => {
-            console.log("error", x);
+            console.log('error', x);
           });
       }
     },
@@ -123,10 +123,11 @@
       await this.loadData();
     }
   }
+
 </script>
 
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
 
 </style>

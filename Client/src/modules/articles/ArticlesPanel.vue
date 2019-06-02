@@ -1,5 +1,5 @@
 <template>
-  <PanelWrapper iconProp="far fa-file-alt" :titleProp="$tl('sections')">
+  <PanelWrapper class="articles-panel" iconProp="far fa-file-alt" :titleProp="$tl('sections')">
     <q-item class="q-my-xs" exact dense :to="newArticlesRoute">
       <q-item-section>
         <q-item-label>
@@ -14,8 +14,9 @@
 <script>
   import {Categories1} from 'sun'
 
+  
   export default {
-    name: "ArticlesPanel",
+    name: 'ArticlesPanel',
     props: {
       categories: {
         type: Object,
@@ -38,6 +39,7 @@
       this.$options.components.PanelWrapper = require('sun').PanelWrapper;
     }
   }
+
 </script>
 
 <style lang="stylus">

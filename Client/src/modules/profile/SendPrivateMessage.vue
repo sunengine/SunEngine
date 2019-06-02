@@ -1,5 +1,5 @@
 <template>
-  <q-page class="page-padding">
+  <q-page class="send-private-message page-padding">
     <h2 class="q-title"> {{$tl("titleStart")}}
       <q-icon name="far fa-user" color="grey-7"/>
       {{userName}}
@@ -24,8 +24,9 @@
 
   const editorToolbar = sendPrivateMessageToolbar;
 
+
   export default {
-    name: "SendPrivateMessage",
+    name: 'SendPrivateMessage',
     mixins: [Page],
     props: {
       userId: {
@@ -39,15 +40,15 @@
     },
     data() {
       return {
-        text: "",
+        text: '',
         loading: false
       }
     },
     methods: {
       async send() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Profile/SendPrivateMessage",
+            url: '/Profile/SendPrivateMessage',
             data: {
               userId: this.userId,
               text: this.text
@@ -69,11 +70,12 @@
       this.$options.components.LoaderSent = require('sun').LoaderSent;
     },
     created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

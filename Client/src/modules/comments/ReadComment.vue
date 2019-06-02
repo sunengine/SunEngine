@@ -1,11 +1,12 @@
-cd <template>
-  <div>
+cd
+<template>
+  <div class="read-comment">
     <img class="avatar msg-avatar" :src="$imagePath(comment.authorAvatar)"/>
 
     <div class="q-my-md">
       <div class="q-mb-xs" style="display: flex;">
-        <span  style="flex-grow:1">
-           <router-link :to="{name: 'User', params: {link: comment.authorLink}}" >
+        <span style="flex-grow:1">
+           <router-link :to="{name: 'User', params: {link: comment.authorLink}}">
              {{comment.authorName}}
            </router-link>
         </span> &nbsp;
@@ -28,8 +29,9 @@ cd <template>
 </template>
 
 <script>
+
   export default {
-    name: "ReadComment",
+    name: 'ReadComment',
     props: {
       comment: Object,
       canEdit: {
@@ -44,9 +46,9 @@ cd <template>
     },
     methods: {
       async moveToTrash() {
-        const deleteDialogMessage = this.$tl("deleteDialogMessage");
-        const okButtonLabel = this.$t("Global.dialog.ok");
-        const cancelButtonLabel = this.$t("Global.dialog.cancel");
+        const deleteDialogMessage = this.$tl('deleteDialogMessage');
+        const okButtonLabel = this.$t('Global.dialog.ok');
+        const cancelButtonLabel = this.$t('Global.dialog.cancel');
 
         this.$q.dialog({
           title: deleteDialogMessage,
@@ -54,16 +56,16 @@ cd <template>
           ok: okButtonLabel,
           cancel: cancelButtonLabel
         }).onOk(async () => {
-          await this.$store.dispatch("request",
+          await this.$store.dispatch('request',
             {
-              url: "/Comments/MoveToTrash",
+              url: '/Comments/MoveToTrash',
               data:
                 {
                   id: this.comment.id
                 }
             }).then(
             () => {
-              const msg = this.$tl("moveToTrashSuccess");
+              const msg = this.$tl('moveToTrashSuccess');
               this.$successNotify(msg);
               this.comment.isDeleted = true;
             }).catch(error => {
@@ -74,12 +76,16 @@ cd <template>
       },
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
-  .msg-avatar {
-    float: left;
-    margin: 2px 12px 12px 0;
+<style lang="stylus">
+
+  read-comment {
+    .msg-avatar {
+      float: left;
+      margin: 2px 12px 12px 0;
+    }
   }
 
 </style>

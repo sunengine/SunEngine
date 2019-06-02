@@ -1,5 +1,5 @@
 <template>
-  <q-page class="page-padding">
+  <q-page class="my-ban-list page-padding">
     <h2 class="q-title">{{$tl("title")}}</h2>
     <div v-if="users">
       <router-link :key="user.id" class="block q-mb-xs" style="font-weight: 600"
@@ -15,7 +15,7 @@
 
 
   export default {
-    name: "MyBanList",
+    name: 'MyBanList',
     mixins: [Page],
     data() {
       return {
@@ -24,9 +24,9 @@
     },
     methods: {
       async loadData() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Personal/GetMyBanList",
+            url: '/Personal/GetMyBanList',
           })
           .then(
             response => {
@@ -39,12 +39,13 @@
       this.$options.components.LoaderWait = require('sun').LoaderWait;
     },
     async created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
       await this.loadData();
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

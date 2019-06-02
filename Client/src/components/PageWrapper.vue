@@ -10,7 +10,7 @@
 <script>
 
   export default {
-    name: "PageWrapper",
+    name: 'PageWrapper',
     props: {
       wrapComponentProp: Object,
       pageTitleProp: String,
@@ -31,8 +31,9 @@
     pageTitleOption: null,
     iconOption: null
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

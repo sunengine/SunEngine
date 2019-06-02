@@ -18,8 +18,9 @@
 </template>
 
 <script>
+
   export default {
-    name: "MenuItem",
+    name: 'MenuItem',
     props: {
       menuItem: Object,
       required: true
@@ -39,6 +40,7 @@
       this.$options.components.MenuItem = require('sun').MenuItem;
     }
   }
+
 </script>
 
 <style>

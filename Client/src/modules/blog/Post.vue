@@ -1,5 +1,5 @@
 <template>
-  <div :class="[{'mat-hidden': post.isHidden}, {'mat-deleted': post.isDeleted}]">
+  <div :class="['post', {'mat-hidden': post.isHidden}, {'mat-deleted': post.isDeleted}]">
     <q-item :to="to" class="header page-padding">
       <q-avatar class="shadow-1 avatar" size="44px">
         <img :src="$imagePath(post.authorAvatar)"/>
@@ -24,7 +24,7 @@
       </div>
     </q-item>
 
-    <div v-if="!post.isHidden && !post.isDeleted" class="post-preview page-padding"
+    <div v-if="!post.isHidden && !post.isDeleted" class="post-text page-padding"
          v-html="post.preview"></div>
 
     <div class="date text-grey-6">
@@ -54,7 +54,7 @@
 <script>
 
   export default {
-    name: "Post",
+    name: 'Post',
     props: {
       post: {
         type: Object,
@@ -74,8 +74,8 @@
     },
     methods: {
       prepareLocalLinks() {
-        const el = this.$el.getElementsByClassName("post-preview")[0];
-        const links = el.getElementsByTagName("a");
+        const el = this.$el.getElementsByClassName('post-text')[0];
+        const links = el.getElementsByTagName('a');
         for (const link of links) {
           if (link.href.startsWith(config.SiteUrl)) {
             link.addEventListener('click', (e) => {
@@ -95,69 +95,71 @@
 </script>
 
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
-  .avatar {
-    margin-right: 12px;
-  }
+  .post {
+    .avatar {
+      margin-right: 12px;
+    }
 
-  .header {
-    display: flex;
-    padding: 2px 0;
-    color: #3a67d3 !important;
-  }
-
-  .blog-title {
-    font-weight: 600 !important;
-  }
-
-  $footer-line-height = 38px;
-
-  .footer {
-    align-items: center;
-
-    .q-item {
+    .header {
+      display: flex;
+      padding: 2px 0;
       color: #3a67d3 !important;
-      min-height: unset !important;
+    }
+
+    .blog-title {
+      font-weight: 600 !important;
+    }
+
+    $footer-line-height = 38px;
+
+    .footer {
+      align-items: center;
+
+      .q-item {
+        color: #3a67d3 !important;
+        min-height: unset !important;
+        height: $footer-line-height;
+
+      }
+
+      .q-item:first-child {
+        padding-left: 0;
+      }
+    }
+
+    .post-preview {
+
+      margin: 3px 0;
+
+      *:first-child {
+        margin-top: 0 !important;
+      }
+
+      *:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    .user-link {
+      color: $grey-6;
+
+      &:hover {
+        color: #3a67d3 !important;
+        text-decoration: underline;
+      }
+    }
+
+    .date {
+      display: flex;
+      float: right;
+      align-items: center;
       height: $footer-line-height;
 
-    }
-
-    .q-item:first-child {
-      padding-left: 0;
-    }
-  }
-
-  .post-preview {
-
-    margin: 3px 0;
-
-    >>> *:first-child {
-      margin-top: 0 !important;
-    }
-
-    >>> *:last-child {
-      margin-bottom: 0 !important;
-    }
-  }
-
-  .user-link {
-    color: $grey-6;
-
-    &:hover {
-      color: #3a67d3 !important;
-      text-decoration: underline;
-    }
-  }
-
-  .date {
-    display: flex;
-    float: right;
-    align-items: center;
-    height: $footer-line-height;
-
-    .q-icon {
-      margin-right: 7px;
+      .q-icon {
+        margin-right: 7px;
+      }
     }
   }
 

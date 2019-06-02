@@ -15,8 +15,9 @@
 </template>
 
 <script>
+
   export default {
-    name: "PanelWrapper",
+    name: 'PanelWrapper',
     props: {
       wrapComponentProp: Object,
       titleProp: String,
@@ -42,8 +43,9 @@
     titleLinkOption: null,
     iconOption: null,
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

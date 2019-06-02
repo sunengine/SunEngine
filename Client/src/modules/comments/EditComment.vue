@@ -1,10 +1,9 @@
 <template>
-  <div>
+  <div class="edit-comment">
     <template v-if="comment">
       <MyEditor
-        :toolbar="editorToolbar"
-        :rules="commentRules"
-        class="edit-comment-editor" ref="htmlEditor" v-model="comment.text"/>
+        :toolbar="editorToolbar" :rules="commentRules"
+        class="editor" ref="htmlEditor" v-model="comment.text"/>
       <div>
         <q-btn icon="fas fa-arrow-circle-right" no-caps @click="updateComment" :loading="loading"
                :label="$tl('updateBtn')" color="send">
@@ -15,7 +14,7 @@
 
       </div>
     </template>
-    <LoaderWait v-else />
+    <LoaderWait v-else/>
   </div>
 </template>
 
@@ -54,9 +53,9 @@
           return;
         }
         this.loading = true;
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Comments/Update",
+            url: '/Comments/Update',
             data: {
               Id: this.commentId,
               MaterialId: this.comment.materialId,
@@ -83,9 +82,9 @@
     },
     async created() {
 
-      await this.$store.dispatch("request",
+      await this.$store.dispatch('request',
         {
-          url: "/Comments/Get",
+          url: '/Comments/Get',
           data: {
             id: this.commentId
           }
@@ -95,12 +94,15 @@
       )
     }
   }
+
 </script>
 
 <style lang="stylus">
 
-  .edit-comment-editor {
-    margin-bottom: 7px;
+  .edit-comment {
+    .editor {
+      margin-bottom: 7px;
+    }
   }
 
 </style>

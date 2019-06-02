@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="change-link flex flex-center">
     <div class="center-form">
       <div class="text-grey-7 q-mb-lg" style="text-align: justify">
         {{$tl('linkValidationInfo')}}
@@ -21,21 +21,22 @@
   import {Page} from 'sun'
   import {store} from 'sun'
 
+
   function allowMyIdOrEmpty(id) {
     return !id || store.state.auth.user.id == id;
   }
 
   function createLinkRules() {
     return [
-      value => (value.length >= 3 || allowMyIdOrEmpty.call(this, value)) || this.$tl("validation.minLength"),  // minLength or myId
-      value => /^[a-zA-Z0-9-]*$/.test(value) || this.$tl("validation.allowedChars"), // allowed chars
-      value => (/[a-zA-Z]/.test(value) || allowMyIdOrEmpty.call(this, value)) || this.$tl("validation.numberNotAllow"), // need char or myId
-      value => !this.linkInDb || this.$tl("validation.linkInDb"), // link in db
+      value => (value.length >= 3 || allowMyIdOrEmpty.call(this, value)) || this.$tl('validation.minLength'),  // minLength or myId
+      value => /^[a-zA-Z0-9-]*$/.test(value) || this.$tl('validation.allowedChars'), // allowed chars
+      value => (/[a-zA-Z]/.test(value) || allowMyIdOrEmpty.call(this, value)) || this.$tl('validation.numberNotAllow'), // need char or myId
+      value => !this.linkInDb || this.$tl('validation.linkInDb'), // link in db
     ];
   }
 
   export default {
-    name: "ChangeLink",
+    name: 'ChangeLink',
     mixins: [Page],
     data() {
       return {
@@ -53,9 +54,9 @@
         this.timeout = setTimeout(this.checkLinkInDbDo, 500);
       },
       checkLinkInDbDo() {
-        this.$store.dispatch("request",
+        this.$store.dispatch('request',
           {
-            url: "/Personal/CheckLinkInDb",
+            url: '/Personal/CheckLinkInDb',
             data: {
               link: this.link
             }
@@ -69,16 +70,15 @@
 
         this.$refs.link.validate();
 
-        if (this.$refs.link.hasError) {
+        if (this.$refs.link.hasError)
           return;
-        }
 
 
         this.submitting = true;
 
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Personal/SetMyLink",
+            url: '/Personal/SetMyLink',
             data: {
               link: this.link
             }
@@ -100,14 +100,14 @@
       this.$options.components.LoaderSent = require('sun').LoaderSent;
     },
     async created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
 
       this.linkRules = createLinkRules.call(this);
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
-
+<style lang="stylus">
 
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="register flex flex-center">
 
     <div v-if="!done" class="center-form">
 
@@ -79,43 +79,43 @@
 
   function createRules() {
     const password = [
-      value => !!value || this.$tl("validation.password.required"),
-      value => value.length >= config.PasswordValidation.MinLength || this.$tl("validation.password.minLength"),
-      value => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$tl("validation.password.minDifferentChars"),
+      value => !!value || this.$tl('validation.password.required'),
+      value => value.length >= config.PasswordValidation.MinLength || this.$tl('validation.password.minLength'),
+      value => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$tl('validation.password.minDifferentChars'),
     ];
 
     return {
       userName: [
-        value => !!value || this.$tl("validation.userName.required"),
-        value => value.length >= 3 || this.$tl("validation.userName.minLength"),
-        value => value.length <= config.DbColumnSizes.Users_UserName || this.$tl("validation.userName.maxLength")
+        value => !!value || this.$tl('validation.userName.required'),
+        value => value.length >= 3 || this.$tl('validation.userName.minLength'),
+        value => value.length <= config.DbColumnSizes.Users_UserName || this.$tl('validation.userName.maxLength')
       ],
       email: [
-        value => !!value || this.$tl("validation.email.required"),
-        value => /.+@.+/.test(value) || this.$tl("validation.email.emailSig"),
-        value => value.length <= config.DbColumnSizes.Users_Email || this.$tl("validation.email.maxLength"),
+        value => !!value || this.$tl('validation.email.required'),
+        value => /.+@.+/.test(value) || this.$tl('validation.email.emailSig'),
+        value => value.length <= config.DbColumnSizes.Users_Email || this.$tl('validation.email.maxLength'),
       ],
       password: password,
       password2: [
         ...password,
-        value => this.password === this.password2 || this.$tl("validation.password2.equals")
+        value => this.password === this.password2 || this.$tl('validation.password2.equals')
       ],
       captcha: [
-        value => !!value || this.$t("Captcha.required"),
+        value => !!value || this.$t('Captcha.required'),
       ]
     }
   }
 
   export default {
-    name: "Register",
+    name: 'Register',
     mixins: [Page],
     data() {
       return {
-        userName: "",
-        email: "",
-        password: "",
-        password2: "",
-        captchaText: "",
+        userName: '',
+        email: '',
+        password: '',
+        password2: '',
+        captchaText: '',
         submitting: false,
         token: null,
         waitToken: false,
@@ -161,23 +161,24 @@
           this.token = response.data;
           this.waitToken = false;
         }).catch(x => {
-          if (x.response.data.errors[0].code === "SpamProtection") {
+          if (x.response.data.errors[0].code === 'SpamProtection') {
             this.waitToken = true;
           }
         });
       }
     },
     async created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
 
       this.rules = createRules.call(this);
 
       await this.GetToken();
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
 
 </style>

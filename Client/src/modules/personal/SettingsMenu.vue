@@ -1,5 +1,5 @@
 <template>
-  <q-list class="my-menu" no-border>
+  <q-list class="settings-menu my-menu" no-border>
     <q-item class="avatar-menu-item">
       <q-item-section avatar>
         <img class="on-left avatar" :src="userInfo.avatar"/>
@@ -79,8 +79,9 @@
 <script>
   import {mapState} from 'vuex';
 
+
   export default {
-    name: "SettingsMenu",
+    name: 'SettingsMenu',
     computed: {
       ...mapState({
         user: state => state.auth.user,
@@ -88,14 +89,17 @@
       })
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
-  .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
+  .settings-menu {
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+    }
   }
 
 </style>

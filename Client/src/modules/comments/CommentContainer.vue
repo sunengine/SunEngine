@@ -1,5 +1,5 @@
 <template>
-  <div :id="'comment-'+comment.id">
+  <div class="comment-container" :id="'comment-'+comment.id">
     <span v-if="isLast" id="comment-last"></span>
     <template v-if="!comment.isDeleted">
       <ReadComment @goEdit="goEdit" v-if="isReadMode" :comment="comment" :canEdit="canEdit()" :canMoveToTrash="canMoveToTrash()" />
@@ -16,7 +16,7 @@
 
 
   export default {
-    name: "CommentContainer",
+    name: 'CommentContainer',
     props: {
       comment: Object,
       categoryPersonalAccess: Object,
@@ -37,9 +37,9 @@
     methods: {
 
       async saved() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Comments/Get",
+            url: '/Comments/Get',
             data: {
               id: this.comment.id,
             }
@@ -112,8 +112,9 @@
       this.$options.components.DeletedComment = require('sun').DeletedComment;
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

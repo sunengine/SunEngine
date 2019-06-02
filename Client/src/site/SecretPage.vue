@@ -10,16 +10,19 @@
 <script>
   import {Page} from 'sun'
 
+
   export default {
-    name: "SecretPage",
+    name: 'SecretPage',
     mixins: [Page],
     created() {
       this.title = this.$tl('title');
     }
   }
+
 </script>
 
 <style lang="stylus">
+
   .secret-page {
     h3 {
       border-radius: 12px;
@@ -27,4 +30,5 @@
       padding: 14px;
     }
   }
+
 </style>

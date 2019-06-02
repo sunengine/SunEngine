@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="change-name flex flex-center">
     <div class="center-form">
       <div class="text-grey-7 q-mb-lg">
         {{$tl("nameValidationInfo")}}
@@ -38,20 +38,20 @@
   {
     return {
       passwordRules:  [
-        value => !!value || this.$tl("validation.password.required")
+        value => !!value || this.$tl('validation.password.required')
       ],
       nameRules: [
-        value => !!value || this.$tl("validation.name.required"),
-        value => value.length >= 3 || this.$tl("validation.name.minLength"),
-        value => /^[ a-zA-Zа-яА-ЯёЁ0-9-]*$/.test(value) || this.$tl("validation.name.allowedChars"),
-        value => !this.nameInDb || this.$tl("validation.name.nameInDb")
+        value => !!value || this.$tl('validation.name.required'),
+        value => value.length >= 3 || this.$tl('validation.name.minLength'),
+        value => /^[ a-zA-Zа-яА-ЯёЁ0-9-]*$/.test(value) || this.$tl('validation.name.allowedChars'),
+        value => !this.nameInDb || this.$tl('validation.name.nameInDb')
       ]
     }
   }
 
 
   export default {
-    name: "ChangeName",
+    name: 'ChangeName',
     mixins: [Page],
     data() {
       return {
@@ -69,9 +69,9 @@
       checkNameInDbServer() {
         if (this.name.toLowerCase() === this.$store.state.auth.user.name.toLowerCase())
           return;
-        this.$store.dispatch("request",
+        this.$store.dispatch('request',
           {
-            url: "/Personal/CheckNameInDb",
+            url: '/Personal/CheckNameInDb',
             data: {
               name: this.name
             }
@@ -91,9 +91,9 @@
 
         this.submitting = true;
 
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Personal/SetMyName",
+            url: '/Personal/SetMyName',
             data: {
               password: this.password,
               name: this.name,
@@ -115,13 +115,14 @@
       this.$options.components.LoaderSent = require('sun').LoaderSent;
     },
     async created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
 
       this.rules = createRules.call(this);
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
 </style>

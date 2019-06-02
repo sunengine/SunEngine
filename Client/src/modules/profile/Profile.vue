@@ -1,5 +1,5 @@
 <template>
-  <q-page class="page-padding page-padding-top">
+  <q-page class="profile page-padding page-padding-top">
     <div class="f1" v-if="user">
       <div class="img flex column">
         <img width="300" height="300" :src="$imagePath(user.photo)"/>
@@ -12,9 +12,9 @@
                  style="padding-left:10px !important; padding-right: 10px; !important" v-if="!user.noBannable"
                  icon="fas fa-ellipsis-v">
             <q-menu>
-              <q-btn no-caps v-close-popup color="negative"  v-close-overlay v-if="!user.iBannedHim" @click="ban"
+              <q-btn no-caps v-close-popup color="negative" v-close-overlay v-if="!user.iBannedHim" @click="ban"
                      icon="fas fa-ban" :label="$tl('banBtn')"/>
-              <q-btn no-caps v-close-popup color="positive"  v-close-overlay v-else @click="unBan" icon="fas fa-smile"
+              <q-btn no-caps v-close-popup color="positive" v-close-overlay v-else @click="unBan" icon="fas fa-smile"
                      :label="$tl('unBanBtn')"/>
             </q-menu>
           </q-btn>
@@ -23,9 +23,11 @@
       <div>
         <h4>{{user.name}}</h4>
         <div v-html="user.information"></div>
-         <q-expansion-item  v-if="canEditRoles" @show="showRolesAdmin" icon="fas fa-cog" :label="$tl('roles')" style="border-radius: 12px; margin-top: 30px; border: 1px solid silver" header-style="background-color: #e4e4e4">
-           <ProfileRoles class="q-pa-md"  :userId="user.id" v-if="isShowRolesAdmin" />
-         </q-expansion-item>
+        <q-expansion-item class="roles overflow-hidden" v-if="canEditRoles" @show="showRolesAdmin" icon="fas fa-cog"
+                          :label="$tl('roles')" style="border-radius: 12px; margin-top: 30px; border: 1px solid silver"
+                          header-style="background-color: #e4e4e4">
+          <ProfileRoles class="q-pa-md" :userId="user.id" v-if="isShowRolesAdmin"/>
+        </q-expansion-item>
       </div>
     </div>
     <loader-wait v-else/>
@@ -37,7 +39,7 @@
 
 
   export default {
-    name: "Profile",
+    name: 'Profile',
     mixins: [Page],
     props: {
       link: {
@@ -64,7 +66,7 @@
         return from.id !== this.user?.id;
       },
       canEditRoles() {
-        return this.$store?.state?.auth?.roles?.some(x => x === "Admin");
+        return this.$store?.state?.auth?.roles?.some(x => x === 'Admin');
       }
     },
     watch: {
@@ -75,35 +77,35 @@
         this.isShowRolesAdmin = true;
       },
       async ban() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Profile/BanUser",
+            url: '/Profile/BanUser',
             data: {
               userId: this.user.id
             }
           }).then(async response => {
           await this.loadData();
-          const msg = this.$tl("banNotify",[this.user.name]);
+          const msg = this.$tl('banNotify', [this.user.name]);
           this.$successNotify(msg);
         });
       },
       async unBan() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Profile/UnBanUser",
+            url: '/Profile/UnBanUser',
             data: {
               userId: this.user.id
             }
           }).then(async response => {
           await this.loadData();
-          const msg = this.$tl("unBanNotify",[this.user.name]);
+          const msg = this.$tl('unBanNotify', [this.user.name]);
           this.$successNotify(msg);
         });
       },
       async loadData() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Profile/GetProfile",
+            url: '/Profile/GetProfile',
             data: {
               link: this.link
             }
@@ -121,24 +123,26 @@
       await this.loadData();
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
+  .profile {
+    .f1 {
+      display: flex;
+      flex-wrap: wrap;
 
-  .f1 {
-    display: flex;
-    flex-wrap: wrap;
+      .img {
+        margin-right: 15px;
+      }
+    }
 
-    .img {
-      margin-right: 15px;
+    @media (max-width: 600px) {
+      .f1 .img {
+        text-align: center;
+      }
     }
   }
 
-  @media (max-width: 600px) {
-    .f1 .img {
-      //width: 100%;
-      text-align: center;
-    }
-  }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex column middle page-padding index-page">
+  <q-page class="index-page flex column middle page-padding">
     <h1 class="text-hot">{{$tl("demo")}}</h1>
     <div class="main-block">
       <p>{{$tl("dataReset")}}</p>
@@ -12,7 +12,7 @@
       <p>{{$tl("password")}}: <span class="hl">password</span>.</p>
       <p>{{$tl("anyMailToRegister")}} <a target="_blank" href="http://demo.sunengine.site:1444"><b>mailcatcher</b></a>.
       </p>
-      <p class="ver q-mb-xl">{{$tl("version")}}: 1.3.8</p>
+      <p class="ver q-mb-xl">{{$tl("version")}}: 1.3.9</p>
     </div>
   </q-page>
 </template>
@@ -21,10 +21,12 @@
 <script>
   import {Page} from 'sun'
 
+
   export default {
     name: 'IndexPage',
     mixins: [Page],
   }
+
 </script>
 
 

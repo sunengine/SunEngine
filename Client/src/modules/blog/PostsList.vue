@@ -15,8 +15,9 @@
 </template>
 
 <script>
+
   export default {
-    name: "PostsList",
+    name: 'PostsList',
     data() {
       return {
         posts: {}
@@ -27,9 +28,11 @@
       this.$options.components.LoaderWait = require('sun').LoaderWait;
     }
   }
+
 </script>
 
 <style lang="stylus">
+
   .posts-list {
     .hr-sep {
       height: 0;
@@ -37,4 +40,5 @@
       border-left: none;
     }
   }
+
 </style>

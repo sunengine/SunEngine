@@ -1,10 +1,11 @@
 <template>
-  <PageWrapper :pageTitleProp="$tl('title')" :wrapComponentProp="$options.components.SettingsMenu"
+  <PageWrapper class="settings-page" :pageTitleProp="$tl('title')" :wrapComponentProp="$options.components.SettingsMenu"
                iconProp="fas fa-address-card"/>
 </template>
 
 <script>
   import {Page} from 'sun'
+
 
   export default {
     name: 'SettingsPage',
@@ -17,8 +18,9 @@
       this.title = this.$tl('title') + ' ' + this.$store.state.auth.user.name;
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

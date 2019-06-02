@@ -1,5 +1,5 @@
 <template>
-  <q-page class="page-padding">
+  <q-page class="material-inline-page page-padding">
     <h2 class="q-title">
       {{title}}
     </h2>
@@ -10,13 +10,15 @@
 <script>
   import {MaterialInline} from 'sun'
 
+
   export default {
-    name: "MaterialInlinePage",
+    name: 'MaterialInlinePage',
     components: {MaterialInline},
     created() {
       this.title = this.$tl('title')
     }
   }
+
 </script>
 
 <style lang="stylus">

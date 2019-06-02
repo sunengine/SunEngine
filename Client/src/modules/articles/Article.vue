@@ -1,5 +1,5 @@
 <template>
-  <q-item :to="to"
+  <q-item class="article" :to="to"
           :class="['page-padding', {'mat-hidden': article.isHidden}, {'mat-deleted': article.isDeleted}]">
     <q-item-section>
       <q-item-label class="my-header">
@@ -57,7 +57,7 @@
   }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
 
 </style>

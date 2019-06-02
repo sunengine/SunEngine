@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="articles-list">
     <LoaderWait v-if="!articles.items"/>
 
     <template v-else>
@@ -47,6 +47,6 @@
   }
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

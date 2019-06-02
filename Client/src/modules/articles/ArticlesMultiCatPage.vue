@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="articles-multi-cat-page">
     <div class="page-padding header-with-button">
       <h2 class="q-title">
         {{title}}
@@ -20,13 +20,11 @@
 </template>
 
 <script>
-  import Vue from 'vue';
-
   import {Page} from 'sun'
 
 
   export default {
-    name: "ArticlesMultiCatPage",
+    name: 'ArticlesMultiCatPage',
     mixins: [Page],
     props: {
       pageTitle: {
@@ -71,7 +69,7 @@
           if (!this.$store.state.auth.roles.some(x => this.rolesCanAdd.some(y => y === x)))
             return false;
 
-        let categories = this.categoriesNames.split(",").map(x => x.trim());
+        let categories = this.categoriesNames.split(',').map(x => x.trim());
         for (let catName of categories) {
           let cat = this.$store.getters.getCategory(catName);
           if (cat?.canSomeChildrenWriteMaterial) {
@@ -96,9 +94,9 @@
       },
       async loadData() {
 
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Articles/GetArticlesFromMultiCategories",
+            url: '/Articles/GetArticlesFromMultiCategories',
             data: {
               categoriesNames: this.categoriesNames,
               page: this.currentPage
@@ -119,6 +117,7 @@
       await this.loadData()
     }
   }
+
 </script>
 
 <style lang="stylus">

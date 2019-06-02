@@ -1,16 +1,17 @@
 <template>
-  <q-page>
+  <q-page class="blog-page">
     <div class="header-with-button page-padding">
       <h2 class="q-title">
         {{category.title}}
       </h2>
-      <q-btn no-caps @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
+      <q-btn no-caps
+             @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
              :label="$tl('newPostBtn')"
              v-if="canAddArticle" icon="fas fa-plus" color="post"/>
     </div>
     <div v-html="category.header" v-if="category.header" class="q-mb-sm"></div>
 
-    <PostsList ref="postsList" />
+    <PostsList ref="postsList"/>
 
     <q-pagination class="page-padding q-mt-md" v-if="posts.totalPages > 1" v-model="posts.pageIndex" color="pagination"
                   :max-pages="12" :max="posts.totalPages" ellipses direction-links @input="pageChanges"/>
@@ -22,8 +23,9 @@
 <script>
   import {Page} from 'sun'
 
+
   export default {
-    name: "BlogPage",
+    name: 'BlogPage',
     mixins: [Page],
     props: {
       categoryName: String,
@@ -63,9 +65,9 @@
 
       async loadData() {
 
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Blog/GetPosts",
+            url: '/Blog/GetPosts',
             data: {
               categoryName: this.categoryName,
               page: this.currentPage,
@@ -89,8 +91,9 @@
       await this.loadData()
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
 </style>

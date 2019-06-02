@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="login flex flex-center">
 
     <div class="center-form">
 
@@ -48,8 +48,9 @@
 <script>
   import {Page} from 'sun'
 
+
   export default {
-    name: "Login",
+    name: 'Login',
     mixins: [Page],
     data() {
       return {
@@ -83,11 +84,12 @@
       }
     },
     created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

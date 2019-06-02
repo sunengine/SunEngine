@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex middle page-padding">
+  <q-page class="register-email-result flex middle page-padding">
     <q-banner v-if="success" class="bg-positive text-white">
       <template v-slot:avatar>
         <q-icon name="fas fa-check-circle" size="2em"/>
@@ -20,20 +20,22 @@
 <script>
   import {Page} from 'sun'
 
+
   export default {
-    name: "RegisterEmailResult",
+    name: 'RegisterEmailResult',
     mixins: [Page],
     computed: {
       success() {
-        return this.$route.query["result"] === "ok";
+        return this.$route.query['result'] === 'ok';
       }
     },
     created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>
