@@ -63,13 +63,37 @@
         <q-item-label>{{ $tl("imagesCleaner") }}</q-item-label>
       </q-item-section>
     </q-item>
+
+    <div class="text-grey-7 q-mt-xl text-center" v-if="version">
+     {{$tl("version")}}: {{version}}
+    </div>
   </q-list>
+
 </template>
 
 <script>
 
   export default {
-    name: 'AdminMenu'
+    name: 'AdminMenu',
+    data() {
+      return {
+        version: null
+      }
+    },
+    methods: {
+      async getVersion() {
+        await this.$store
+          .dispatch('request', {
+            url: '/Pulse/Version'
+          })
+          .then(response => {
+            this.version = response.data.version;
+          });
+      }
+    },
+    async created() {
+      await this.getVersion();
+    }
   }
 
 </script>

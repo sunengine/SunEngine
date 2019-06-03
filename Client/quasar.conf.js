@@ -60,7 +60,8 @@ module.exports = function (ctx) {
         'QTree',
         'QExpansionItem',
         'QDialog',
-        'QField'
+        'QField',
+        'QSeparator'
       ],
 
       directives: [

@@ -113,7 +113,7 @@ const routes = [
     path: '/admin/RolesPermissions'.toLowerCase(),
     components: {
       default: RolesPermissions,
-      navigation: null
+      navigation: AdminPanel
     }
   },
   {

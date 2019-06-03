@@ -174,7 +174,8 @@ export default {
     rolesUsers: "Пользователи в группах",
     cacheSettings: "Кэширование",
     imagesCleaner: "Очистка изображений",
-    deletedElements: "Удалённое"
+    deletedElements: "Удалённое",
+    version: "Версия SunEngine"
   },
   AdminPage: {
     title: "@:AdminPanel.title"
