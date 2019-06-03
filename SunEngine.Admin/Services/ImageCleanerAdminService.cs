@@ -113,10 +113,10 @@ namespace SunEngine.Admin.Services
         private async Task<List<string>> GetAvatarSources()
         {
             var photos = await dataBaseConnection.Users.Select(avatar =>
-                    avatar.Photo.Substring(1).Replace('/', Path.DirectorySeparatorChar))
+                    avatar.Photo.Replace('/', Path.DirectorySeparatorChar))
                 .ToListAsync();
             var avatars = await dataBaseConnection.Users.Select(avatar =>
-                    avatar.Avatar.Substring(1).Replace('/', Path.DirectorySeparatorChar))
+                    avatar.Avatar.Replace('/', Path.DirectorySeparatorChar))
                 .ToListAsync();
 
             return photos.Union(avatars).ToList();
