@@ -1,13 +1,13 @@
 <template>
-  <q-layout class="layout" view="lHh LpR lfr">
+  <q-layout view="lHh LpR lfr">
     <q-header class="glossy">
-      <q-toolbar class="toolbar">
+      <q-toolbar class="layout-toolbar">
 
         <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
           <q-icon name="menu"/>
         </q-btn>
 
-        <q-toolbar-title class="toolbar-title">
+        <q-toolbar-title class="layout-title">
           <router-link class="text-white" :to="{name: 'Home'}">SunEngine {{$tl("demo")}}</router-link>
         </q-toolbar-title>
 
@@ -46,7 +46,7 @@
     </q-page-container>
 
     <q-footer bordered class="bg-yellow-1">
-      <div class="footer">
+      <div class="layout-footer">
         {{$tl('madeWithLove')}}
         <q-icon name="fas fa-heart" size="12px" color="hot"/>
         <a href="http://sunengine.site">Sun Engine</a>
@@ -57,7 +57,7 @@
         <a href="https://t-do.ru/SunEngine">Telegram</a>
       </div>
       <div class="sun-engine-footer q-footer--bordered">
-       {{$tl("madeOn")}} <a href="http://sunengine.site">Sun Engine</a>
+        {{$tl("madeOn")}} <a href="http://sunengine.site">Sun Engine</a>
       </div>
     </q-footer>
   </q-layout>
@@ -97,53 +97,52 @@
 
 <style lang="stylus">
 
-  .layout {
-    .avatar {
-      width: 32px;
-      height: 32px;
-      box-shadow: 0px 0px 4px 1.5px white;
+
+  .layout-avatar {
+    width: 32px;
+    height: 32px;
+    box-shadow: 0px 0px 4px 1.5px white;
+  }
+
+  .menu-drawer {
+    background-color: #edfceb;
+  }
+
+  .layout-toolbar {
+    // background-image: linear-gradient(to right, #3392ff, #00e678);
+    background-color: #3392ff;
+  }
+
+  .layout-title {
+    font-family: "BoomBoomRegular";
+    letter-spacing: 1.3px;
+  }
+
+  .q-footer div {
+    padding: 18px 0;
+  }
+
+  .layout-footer {
+    text-align: center;
+    color: $primary;
+    font-family: "BoomBoomRegular";
+    font-size: 16px;
+    letter-spacing: 0.8px;
+
+    .q-icon {
+      margin: 0 16px;
     }
+  }
 
-    .menu-drawer {
-      background-color: #edfceb;
-    }
+  .sun-engine-footer {
+    text-align: center;
+    color: $primary;
+    font-family: "BoomBoomRegular";
+    font-size: 16px;
+    letter-spacing: 0.8px;
 
-    .toolbar {
-      // background-image: linear-gradient(to right, #3392ff, #00e678);
-      background-color: #3392ff;
-    }
-
-    .toolbar-title {
-      font-family: "BoomBoomRegular";
-      letter-spacing: 1.3px;
-    }
-
-    .q-footer div {
-      padding: 18px 0;
-    }
-
-    .footer {
-      text-align: center;
-      color: $primary;
-      font-family: "BoomBoomRegular";
-      font-size: 16px;
-      letter-spacing: 0.8px;
-
-      .q-icon {
-        margin: 0 16px;
-      }
-    }
-
-    .sun-engine-footer {
-      text-align: center;
-      color: $primary;
-      font-family: "BoomBoomRegular";
-      font-size: 16px;
-      letter-spacing: 0.8px;
-
-      .q-icon {
-        margin: 0 16px;
-      }
+    .q-icon {
+      margin: 0 16px;
     }
   }
 
