@@ -38,23 +38,24 @@ namespace SunEngine.Admin.Services
             List<string> sources = new List<string>();
 
             var imagesInDirectory = DirectoryExtensions.GetFilesWithExcludeChildDirectory(uploadDirectory, "*.*",
-                SearchOption.AllDirectories, x => !x.StartsWith("_"));
-
+                SearchOption.AllDirectories, x => !x.StartsWith("_")).Select(Get2LastSegments).ToList();
+            
             var materialSources = await GetMaterialSourcesFromASharp();
 
             var msgSources = await GetMessageSourcesFromASharp();
-            materialSources.Union(msgSources);
 
             var avatarSources = await GetAvatarSources();
-            materialSources.Union(avatarSources);
 
+            var allSources = new List<string>();
+            allSources.AddRange(materialSources);
+            allSources.AddRange(msgSources);
+            allSources.AddRange(avatarSources);
+
+            
             foreach (var imagePath in imagesInDirectory)
             {
-                var fileInfo = new FileInfo(imagePath);
-                var path = Path.Combine(fileInfo.Directory.Name, fileInfo.Name);
-
-                if (!materialSources.Contains(path))
-                    sources.Add(path);
+                if (!allSources.Contains(imagePath))
+                    sources.Add(imagePath);
             }
 
             return sources;

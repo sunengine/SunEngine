@@ -53,7 +53,7 @@
             data: formData
           })
           .then(async () => {
-              await this.$store.dispatch('getMyUserInfo');
+              await this.$store.dispatch('loadMyUserInfo');
               this.loading = false;
               this.$successNotify(this.$tl('avatarChangedSuccessNotify'));
             }
@@ -70,7 +70,7 @@
             url: '/Personal/RemoveMyAvatar'
           })
           .then(async () => {
-              await this.$store.dispatch('getMyUserInfo');
+              await this.$store.dispatch('loadMyUserInfo');
               this.loading = false;
               this.$successNotify(this.$tl('avatarDeletedSuccessNotify'));
             }
