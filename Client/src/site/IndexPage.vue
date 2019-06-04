@@ -1,6 +1,15 @@
 <template>
   <q-page class="index-page flex column middle page-padding">
-    <h1 class="text-hot">{{$tl("demo")}}</h1>
+   <!-- <div class="q-mb-lg q-mt-lg">
+      <img src="statics/SunEngine.svg" width="220" />
+    </div>-->
+    <div class="logo-div">
+      <div class="logo text-center">
+        <router-link :to="{name: 'Home'}">
+          <h3>{{$tl("demo")}}</h3>
+        </router-link>
+      </div>
+    </div>
     <div class="main-block">
       <p>{{$tl("dataReset")}}</p>
       <p>{{$tl("users")}}:
@@ -38,6 +47,8 @@
       font-family: "BoomBoomRegular";
       letter-spacing: 2px;
       text-align: center;
+      color: grey;
+      text-shadow: 1px 1px 1px black;
     }
 
     .ver {
@@ -56,6 +67,39 @@
         color: #a38167;
         font-weight: 600;
       }
+    }
+
+    .logo-div {
+      text-align: center;
+
+
+      .logo {
+
+        margin: 28px 0;
+        font-family: "BoomBoomRegular";
+        //background-color: #d9eaf3;
+        //border-radius: 120px;
+        padding: 34px 25px;
+        display: inline-block;
+        //border: 1px dotted grey;
+        //box-shadow: 0 0 2px 0px grey;
+        text-shadow: 1px 1px 5px black;
+        //text-shadow: 1px 1px 2px 0px grey;
+        //background-color: #f6fff4;
+
+        h3 {
+          color: orange;
+          margin: 0;
+          font-size: 4.8rem;
+        }
+
+        h4 {
+          color: #69d45a;
+          margin: 0;
+          font-size: 2.3rem;
+        }
+      }
+
     }
   }
 

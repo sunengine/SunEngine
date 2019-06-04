@@ -3,8 +3,8 @@
     <div class="logo-div">
       <div class="logo text-center">
         <router-link :to="{name: 'Home'}">
-          <h3>SunEngine</h3>
-          <h4 class="text-hot">Demo</h4>
+          <h3>Sun Engine</h3>
+          <h4>{{$tl("demo")}}</h4>
         </router-link>
       </div>
     </div>
@@ -33,27 +33,38 @@
     .logo-div {
       text-align: center;
 
+
       .logo {
-        margin: 40px 0;
+
+        margin: 28px 0;
         font-family: "BoomBoomRegular";
-        background-color: #d9eaf3;
-        border-radius: 40px;
-        padding: 22px;
+        //background-color: #d9eaf3;
+        border-radius: 100px;
+        padding: 34px 25px;
         display: inline-block;
-        box-shadow: 0 0 8px 1px grey;
+        border: 1px dotted grey;
+        //box-shadow: 0 0 2px 0px grey;
+        text-shadow: 1px 1px 1px black;
+        //text-shadow: 1px 1px 2px 0px grey;
+        background-color: #f6fff4;
 
         h3 {
+          color: #69d45a;
           margin: 0;
+          font-size: 2.8rem;
         }
 
         h4 {
+          color: #69d45a;
           margin: 0;
+          font-size: 2.3rem;
         }
       }
+
     }
 
     .q-router-link--active {
-      background-color: #d9eaf3;
+      background-color: #d0fccf;
 
       .q-item__section--main {
         color: black !important;

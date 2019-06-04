@@ -11,11 +11,12 @@ export default {
     Home: "Home",
     News: "News",
     Documentation: "Documentation",
-    Forum: "Forum"
+    Forum: "Forum",
+    demo: "Demo"
   },
   Layout: {
     madeOn: "Made on site engine",
-    demo: "- demo site",
+    demo: "- demo",
     madeWithLove: "Made with love"
   },
   MaterialInlinePage: {

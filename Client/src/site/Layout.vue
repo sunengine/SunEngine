@@ -1,23 +1,23 @@
 <template>
   <q-layout view="lHh LpR lfr">
-    <q-header class="glossy">
+    <q-header>
       <q-toolbar class="layout-toolbar">
 
         <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
-          <q-icon name="menu"/>
+          <q-icon name="menu" color="black"/>
         </q-btn>
 
         <q-toolbar-title class="layout-title">
-          <router-link class="text-white" :to="{name: 'Home'}">SunEngine {{$tl("demo")}}</router-link>
+          <router-link :to="{name: 'Home'}">Sun Engine {{$tl("demo")}}</router-link>
         </q-toolbar-title>
 
         <q-btn class="q-mr-sm" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu"
                v-if="rightDrawerIs">
-          <q-icon name="menu"/>
+          <q-icon name="menu" color="black"   />
         </q-btn>
 
         <q-btn v-if="userName" flat dense round>
-          <img class="avatar" :src="userAvatar"/>
+          <img class="layout-avatar avatar" :src="userAvatar"/>
           <q-menu>
             <UserMenu style="width:180px;"/>
           </q-menu>
@@ -49,12 +49,9 @@
       <div class="layout-footer">
         {{$tl('madeWithLove')}}
         <q-icon name="fas fa-heart" size="12px" color="hot"/>
-        <a href="http://sunengine.site">Sun Engine</a>
-        <q-icon class="gt-xs" name="fas fa-heart" size="12px" color="hot"/>
-        <br class="xs"/>
         <a href="https://github.com/Dmitrij-Polyanin/SunEngine">GitHub</a>
         <q-icon name="fas fa-heart" size="12px" color="hot"/>
-        <a href="https://t-do.ru/SunEngine">Telegram</a>
+        <a href="https://t.me/SunEngine">Telegram</a>
       </div>
       <div class="sun-engine-footer q-footer--bordered">
         {{$tl("madeOn")}} <a href="http://sunengine.site">Sun Engine</a>
@@ -99,27 +96,39 @@
 
 
   .layout-avatar {
-    width: 32px;
-    height: 32px;
-    box-shadow: 0px 0px 4px 1.5px white;
+    width: 32px !important;
+    height: 32px !important;
+    box-shadow: 0px 0px 4px 1.5px white !important;
   }
 
   .menu-drawer {
-    background-color: #edfceb;
+    background-color: #94e899; //d0fccf
   }
 
   .layout-toolbar {
     // background-image: linear-gradient(to right, #3392ff, #00e678);
-    background-color: #3392ff;
+    background-color: #d0fccf; // #d0fccf; //#ffcbc1; // #d0fccf;
   }
 
   .layout-title {
     font-family: "BoomBoomRegular";
-    letter-spacing: 1.3px;
+    letter-spacing: 1.4px;
+    font-size: 1.7rem;
+
+
+    a {
+      color: orange;
+      text-shadow: 0.5px 0.5px 0.5px #686569;
+    }
   }
 
+.q-header {
+    border-bottom : 1px solid #94e899;
+}
+
+
   .q-footer div {
-    padding: 18px 0;
+    padding: 15px 0;
   }
 
   .layout-footer {

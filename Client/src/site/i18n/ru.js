@@ -11,11 +11,12 @@ export default {
     Home: "Домой",
     News: "Новости",
     Documentation: "Документация",
-    Forum: "Форум"
+    Forum: "Форум",
+    demo: "Демо"
   },
   Layout: {
     madeOn: "Сделано на сайтовом движке",
-    demo: "- демо сайт",
+    demo: "- демо",
     madeWithLove: "Сделано с Любовью",
 
   },
