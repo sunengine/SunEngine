@@ -53,7 +53,19 @@ export default {
         return /(.gif|.jpg|.jpeg|.png|.svg)$/i.test(name);
       }
 
-      const files = Array.from(filesSelected).filter(x => isImage(x.name));
+      const files = [];
+      const filesRejected = [];
+
+      Array.from(filesSelected).forEach(x => {
+        if (isImage(x.name))
+          files.push(x);
+        else
+          filesRejected.push(x.name)
+      });
+
+      if (filesRejected.length)
+        console.error(`Files: ${filesRejected.map(x => `"${x}"`).join(", ")} has wrong extensions, allowed only gif,jpg,jpeg,png,svg extensions.`);
+
       if (!files.length)
         return;
 
