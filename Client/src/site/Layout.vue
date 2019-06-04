@@ -13,7 +13,7 @@
 
         <q-btn class="q-mr-sm" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu"
                v-if="rightDrawerIs">
-          <q-icon name="menu" color="black"   />
+          <q-icon name="menu" color="black"/>
         </q-btn>
 
         <q-btn v-if="userName" flat dense round>
@@ -45,7 +45,7 @@
       <router-view/>
     </q-page-container>
 
-    <q-footer bordered class="bg-yellow-1">
+    <q-footer bordered>
       <div class="layout-footer">
         {{$tl('madeWithLove')}}
         <q-icon name="fas fa-heart" size="12px" color="hot"/>
@@ -63,7 +63,7 @@
 <script>
   import MainMenu from './MainMenu'
 
-  import {mapState} from "vuex";
+  import {mapState} from 'vuex';
 
 
   export default {
@@ -94,7 +94,6 @@
 
 <style lang="stylus">
 
-
   .layout-avatar {
     width: 32px !important;
     height: 32px !important;
@@ -102,12 +101,11 @@
   }
 
   .menu-drawer {
-    background-color: #94e899; //d0fccf
+    background-color: #94e899;
   }
 
   .layout-toolbar {
-    // background-image: linear-gradient(to right, #3392ff, #00e678);
-    background-color: #d0fccf; // #d0fccf; //#ffcbc1; // #d0fccf;
+    background-color: #d0fccf;
   }
 
   .layout-title {
@@ -115,20 +113,19 @@
     letter-spacing: 1.4px;
     font-size: 1.7rem;
 
-
     a {
       color: orange;
       text-shadow: 0.5px 0.5px 0.5px #686569;
     }
   }
 
-.q-header {
-    border-bottom : 1px solid #94e899;
-}
-
+  .q-header {
+    border-bottom: 1px solid #94e899;
+  }
 
   .q-footer div {
     padding: 15px 0;
+
   }
 
   .layout-footer {
@@ -137,6 +134,7 @@
     font-family: "BoomBoomRegular";
     font-size: 16px;
     letter-spacing: 0.8px;
+    background-color: #d0fccf;
 
     .q-icon {
       margin: 0 16px;
@@ -149,6 +147,12 @@
     font-family: "BoomBoomRegular";
     font-size: 16px;
     letter-spacing: 0.8px;
+    background-color: #d0fccf;
+
+    a {
+      color: orange;
+      text-shadow: 0.5px 0.5px 0.5px #686569;
+    }
 
     .q-icon {
       margin: 0 16px;

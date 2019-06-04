@@ -45,7 +45,7 @@
           "Title": "Главная страница",
           "SubTitle": "Пример в две колонки",
           "RouteName": "News2ColPage",
-          "Icon": "fas fa-columns"
+          "Icon": "fas fa-home"
         },
         {
           "Title": "Блог посты",
