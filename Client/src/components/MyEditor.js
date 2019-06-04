@@ -35,7 +35,7 @@ export default {
     },
 
     getImagesHtml() {
-      let rez = "";
+      let rez = '';
       for (let file of this.filesNames) {
         let imagePath = this.$imagePath(file);
         rez += `<div><img class="text-img" src="${imagePath}" /></div>`
@@ -74,8 +74,8 @@ export default {
             this.filesNames[i] = response.data.fileName;
             this.oneFileDone();
           })
-          .catch(x => {
-            console.log("error", x);
+          .catch(error => {
+            console.log("error", error);
             this.oneFileDone();
           });
       }
@@ -125,11 +125,3 @@ export default {
     return h('div', {staticClass: 'relative-position'}, [editor, errorMessage, fileInput, loading]);
   }
 }
-
-/*
-* <div class="q-field__bottom absolute-bottom row items-start relative-position">
-*     <div class="q-field__messages col">
-*         <div>Field is required</div>
-*     </div>
-* </div>
-* */
