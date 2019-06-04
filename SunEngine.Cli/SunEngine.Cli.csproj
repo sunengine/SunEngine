@@ -37,7 +37,7 @@
         </Content>
         <None Remove="Resources\gunnyrewritten.ttf" />
         <Content Include="MailTemplates\*">
-            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+            <CopyToPublishDirectory>None</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <Content Include="Resources\gunnyrewritten.ttf">

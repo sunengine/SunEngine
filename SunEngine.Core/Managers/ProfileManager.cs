@@ -45,7 +45,6 @@ namespace SunEngine.Core.Managers
                 "private-message.html",
                 new Dictionary<string, string>
                 {
-                    {"[userName]", to.UserName},
                     {"[siteName]", globalOptions.SiteName},
                     {"[url]", globalOptions.SiteUrl.AppendPathSegment("user/" + from.Link)},
                     {"[userName]", from.UserName},
