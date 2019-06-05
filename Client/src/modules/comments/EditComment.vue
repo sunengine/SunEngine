@@ -5,12 +5,11 @@
         :toolbar="editorToolbar" :rules="commentRules"
         class="editor" ref="htmlEditor" v-model="comment.text"/>
       <div>
-        <q-btn icon="fas fa-arrow-circle-right" no-caps @click="updateComment" :loading="loading"
-               :label="$tl('updateBtn')" color="send">
+        <q-btn class="send-btn" icon="fas fa-arrow-circle-right" no-caps @click="updateComment" :loading="loading"
+               :label="$tl('updateBtn')">
           <LoaderSent slot="loading"/>
         </q-btn>
-        <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$emit('cancel')" :label="$tl('cancelBtn')"
-               color="warning"/>
+        <q-btn class="cancel-btn q-ml-sm" no-caps icon="fas fa-times" @click="$emit('cancel')" :label="$tl('cancelBtn')" />
 
       </div>
     </template>

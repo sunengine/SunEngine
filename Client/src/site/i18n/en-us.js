@@ -15,7 +15,7 @@ export default {
     demo: "Demo"
   },
   Layout: {
-    madeOn: "Made on site engine",
+    madeOn: "Made on engine",
     demo: "- demo",
     madeWithLove: "Made with love"
   },

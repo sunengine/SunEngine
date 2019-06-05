@@ -81,7 +81,7 @@ cd
 
 <style lang="stylus">
 
-  read-comment {
+  .read-comment {
     .msg-avatar {
       float: left;
       margin: 2px 12px 12px 0;

@@ -4,9 +4,9 @@
       <h2 class="q-title">
         {{title}}
       </h2>
-      <q-btn no-caps @click="$router.push({name:'CreateMaterial',params:{categoriesNames: categoriesNames}})"
-             :label="addButtonLabel"
-             v-if="canAddArticle" icon="fas fa-plus" color="post"/>
+      <q-btn class="post-btn" no-caps
+             @click="$router.push({name:'CreateMaterial',params:{categoriesNames: categoriesNames}})"
+             :label="addButtonLabel" v-if="canAddArticle" icon="fas fa-plus"/>
 
     </div>
 

@@ -4,5 +4,8 @@ export default {
   },
   LoaderSent: {
     sending: "Sending..."
+  },
+  SunEngineFooter: {
+    start: "Made on "
   }
 }

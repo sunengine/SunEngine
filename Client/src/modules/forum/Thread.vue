@@ -5,9 +5,9 @@
       <h2 class="q-title">
         {{thread.title}}
       </h2>
-      <q-btn no-caps
+      <q-btn no-caps class="post-btn"
              @click="$router.push({name:'CreateMaterial',params:{categoriesNames: thread.sectionRoot.name, initialCategoryName: thread.name}})"
-             :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus" color="post"/>
+             :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus" />
     </div>
 
     <div v-if="thread.header" class="q-mb-sm" v-html="thread.header"></div>

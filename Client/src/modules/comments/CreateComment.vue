@@ -4,8 +4,8 @@
       :toolbar="editorToolbar" :rules="commentRules"
       class="editor" ref="htmlEditor" v-model="comment.text"/>
     <div>
-      <q-btn icon="fas fa-arrow-circle-right" no-caps @click="addComment" :loading="loading"
-             :label="$tl('sendBtn')" color="send">
+      <q-btn class="send-btn" icon="fas fa-arrow-circle-right" no-caps @click="addComment" :loading="loading"
+             :label="$tl('sendBtn')">
         <LoaderSent slot="loading"/>
       </q-btn>
     </div>

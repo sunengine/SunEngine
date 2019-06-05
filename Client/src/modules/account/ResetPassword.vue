@@ -25,7 +25,7 @@
       </q-input>
 
 
-      <q-btn style="width:100%;" color="send" :label="$tl('resetPasswordBtn')" @click="send" :loading="submitting">
+      <q-btn style="width:100%;" class="send-btn" :label="$tl('resetPasswordBtn')" @click="send" :loading="submitting">
           <span slot="loading">
             <q-spinner class="on-left"/>  {{$t("Global.submitting")}}
           </span>

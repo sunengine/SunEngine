@@ -8,7 +8,7 @@
     <template v-if="json !== null">
       <q-input input-class="json-input" v-model="json" type="textarea" :label="$tl('textAreaLabel')"/>
       <div class="q-my-md">
-        <q-btn no-caps color="send" icon="far fa-save" @click="send" :label="$tl('saveToServerBtn')"/>
+        <q-btn no-caps class="send-btn" icon="far fa-save" @click="send" :label="$tl('saveToServerBtn')"/>
         <q-btn no-caps class="q-ml-md" color="info" icon="fas fa-sync-alt" @click="loadDataRefresh"
                :label="$tl('getFromServer')"/>
       </div>

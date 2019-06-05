@@ -4,7 +4,7 @@
       <q-toolbar class="layout-toolbar">
 
         <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
-          <q-icon name="menu" color="black"/>
+          <q-icon name="menu" class="toolbar-menu-btn"/>
         </q-btn>
 
         <q-toolbar-title class="layout-title">
@@ -13,7 +13,7 @@
 
         <q-btn class="q-mr-sm" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu"
                v-if="rightDrawerIs">
-          <q-icon name="menu" color="black"/>
+          <q-icon name="menu" class="toolbar-menu-btn"/>
         </q-btn>
 
         <q-btn v-if="userName" flat dense round>
@@ -24,7 +24,7 @@
         </q-btn>
 
         <q-btn v-else flat dense round>
-          <q-icon name="fas fa-user"/>
+          <q-icon name="fas fa-user" class="toolbar-user-btn"/>
           <q-menu>
             <LoginRegisterMenu v-close-popup/>
           </q-menu>
@@ -45,17 +45,15 @@
       <router-view/>
     </q-page-container>
 
-    <q-footer bordered>
+    <q-footer>
       <div class="layout-footer">
         {{$tl('madeWithLove')}}
-        <q-icon name="fas fa-heart" size="12px" color="hot"/>
+        <q-icon name="fas fa-heart" size="12px"/>
         <a href="https://github.com/Dmitrij-Polyanin/SunEngine">GitHub</a>
-        <q-icon name="fas fa-heart" size="12px" color="hot"/>
+        <q-icon name="fas fa-heart" size="12px"/>
         <a href="https://t.me/SunEngine">Telegram</a>
       </div>
-      <div class="sun-engine-footer q-footer--bordered">
-        {{$tl("madeOn")}} <a href="http://sunengine.site">Sun Engine</a>
-      </div>
+      <SunEngineFooter/>
     </q-footer>
   </q-layout>
 </template>
@@ -64,11 +62,12 @@
   import MainMenu from './MainMenu'
 
   import {mapState} from 'vuex';
+  import {SunEngineFooter} from 'sun'
 
 
   export default {
     name: 'Layout',
-    components: {MainMenu},
+    components: {SunEngineFooter, MainMenu},
     data() {
       return {
         leftDrawerOpen: this.$q.platform.is.desktop,
@@ -108,6 +107,14 @@
     background-color: #d0fccf;
   }
 
+  .toolbar-menu-btn {
+    color: black;
+  }
+
+  .toolbar-user-btn {
+    color: grey;
+  }
+
   .layout-title {
     font-family: "BoomBoomRegular";
     letter-spacing: 1.4px;
@@ -124,38 +131,30 @@
   }
 
   .q-footer div {
+    border-top: 1px solid #94e899;
     padding: 15px 0;
-
+    color: #3498db;
   }
 
   .layout-footer {
     text-align: center;
     color: $primary;
     font-family: "BoomBoomRegular";
-    font-size: 16px;
-    letter-spacing: 0.8px;
-    background-color: #d0fccf;
-
-    .q-icon {
-      margin: 0 16px;
-    }
-  }
-
-  .sun-engine-footer {
-    text-align: center;
-    color: $primary;
-    font-family: "BoomBoomRegular";
-    font-size: 16px;
-    letter-spacing: 0.8px;
+    font-size: 17px;
+    letter-spacing: 1px;
     background-color: #d0fccf;
 
     a {
-      color: orange;
-      text-shadow: 0.5px 0.5px 0.5px #686569;
+      color: #3498db;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     .q-icon {
       margin: 0 16px;
+      color: #4ae657;
     }
   }
 

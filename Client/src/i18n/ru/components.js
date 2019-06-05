@@ -4,5 +4,8 @@ export default {
   },
   LoaderSent: {
     sending: "Отправка..."
+  },
+  SunEngineFooter: {
+    start: "Движок сайта "
   }
 }

@@ -41,7 +41,7 @@
         </template>
       </q-input>
 
-      <q-btn no-caps class="q-mt-lg" icon="far fa-save" color="send" :label="$tl('changeBtn')" @click="changePassword"
+      <q-btn no-caps class="send-btn q-mt-lg" icon="far fa-save" :label="$tl('changeBtn')" @click="changePassword"
              :loading="submitting">
         <LoaderSent slot="loading"/>
       </q-btn>

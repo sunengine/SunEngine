@@ -5,8 +5,8 @@
       <h2 class="q-title">
         {{pageTitle}}
       </h2>
-      <q-btn no-caps @click="$router.push({name:'CreateMaterial',params:{categoriesNames: thread.name}})"
-             :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus" color="post"/>
+      <q-btn class="post-btn" no-caps @click="$router.push({name:'CreateMaterial',params:{categoriesNames: thread.name}})"
+             :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus" />
 
     </div>
 

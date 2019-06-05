@@ -105,23 +105,23 @@
     .header {
       display: flex;
       padding: 2px 0;
-      color: #3a67d3 !important;
     }
 
     .blog-title {
       font-weight: 600 !important;
+      color: $link-color !important;
     }
 
     $footer-line-height = 38px;
 
     .footer {
       align-items: center;
+      color: $link-color !important;
 
       .q-item {
-        color: #3a67d3 !important;
+
         min-height: unset !important;
         height: $footer-line-height;
-
       }
 
       .q-item:first-child {
@@ -146,7 +146,7 @@
       color: $grey-6;
 
       &:hover {
-        color: #3a67d3 !important;
+        color: $link-color !important;
         text-decoration: underline;
       }
     }

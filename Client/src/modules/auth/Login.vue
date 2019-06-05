@@ -30,7 +30,7 @@
         <q-checkbox class="text-grey-9" left-label v-model="notMyComputer" :label="$tl('doNotRemember')"/>
       </div>
 
-      <q-btn style="width:100%;" color="send" :label="$tl('enterBtn')" @click="login" :loading="submitting">
+      <q-btn style="width:100%;" class="send-btn" :label="$tl('enterBtn')" @click="login" :loading="submitting">
         <span slot="loading">
           <q-spinner class="on-left"/>  {{$tl('entering')}}
         </span>

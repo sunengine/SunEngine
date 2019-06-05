@@ -11,7 +11,7 @@
         </template>
       </q-input>
 
-      <q-input  ref="name"  color="positive" v-model="name" :label="$tl('name')"  @keyup="checkNameInDb"
+      <q-input ref="name" color="positive" v-model="name" :label="$tl('name')" @keyup="checkNameInDb"
                :rules="rules.nameRules" :after="[{
         icon: 'far fa-check-circle',
         condition: nameInDb},
@@ -21,7 +21,7 @@
         </template>
       </q-input>
 
-      <q-btn no-caps class="q-mt-lg" color="send" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
+      <q-btn no-caps class="send-btn q-mt-lg" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
              :loading="submitting">
         <LoaderSent slot="loading"/>
       </q-btn>
@@ -34,10 +34,9 @@
   import {makeUserDataFromTokens} from 'sun'
 
 
-  function createRules()
-  {
+  function createRules() {
     return {
-      passwordRules:  [
+      passwordRules: [
         value => !!value || this.$tl('validation.password.required')
       ],
       nameRules: [

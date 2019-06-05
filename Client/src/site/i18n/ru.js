@@ -15,10 +15,8 @@ export default {
     demo: "Демо"
   },
   Layout: {
-    madeOn: "Сделано на сайтовом движке",
     demo: "- демо",
     madeWithLove: "Сделано с Любовью",
-
   },
   MaterialInlinePage: {
     title: "Страница со встроенной статьёй"

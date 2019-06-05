@@ -3,11 +3,11 @@
     <MaterialForm ref="form" :material="material" :categories-nodes="categoryNodes"/>
 
     <div class="q-mt-md">
-      <q-btn icon="fas fa-arrow-circle-right" class="btn-send" no-caps :loading="loading" :label="$tl('sendBtn')"
+      <q-btn icon="fas fa-arrow-circle-right" class="send-btn" no-caps :loading="loading" :label="$tl('sendBtn')"
              @click="send" color="send">
         <LoaderSent slot="loading"/>
       </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$t('Global.btn.cancel')"
+      <q-btn no-caps icon="fas fa-times" class="q-ml-sm cancel-btn" @click="$router.back()" :label="$t('Global.btn.cancel')"
              color="warning"/>
     </div>
   </q-page>

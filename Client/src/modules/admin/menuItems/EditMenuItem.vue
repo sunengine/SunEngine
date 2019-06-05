@@ -5,11 +5,11 @@
     <LoaderWait v-else/>
 
     <div class="btn-block">
-      <q-btn icon="far fa-save" class="btn-send" no-caps :loading="loading" :label="$tl('saveBtn')" @click="save"
+      <q-btn icon="far fa-save" class="send-btn" no-caps :loading="loading" :label="$tl('saveBtn')" @click="save"
              color="send">
         <LoaderSent slot="loading"/>
       </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$tl('cancelBtn')"
+      <q-btn no-caps icon="fas fa-times" class="cancel-btn q-ml-sm" @click="$router.back()" :label="$tl('cancelBtn')"
              color="warning"/>
     </div>
   </q-page>

@@ -3,7 +3,8 @@
 
     <div v-if="!done" class="center-form">
 
-      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'"  :label="$tl('password')" :rules="rules.password">
+      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'" :label="$tl('password')"
+               :rules="rules.password">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
@@ -22,7 +23,7 @@
         </template>
       </q-input>
 
-      <q-btn no-caps class="q-mt-lg" color="send" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
+      <q-btn no-caps class="send-btn q-mt-lg" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
              :loading="submitting">
         <LoaderSent slot="loading"/>
       </q-btn>

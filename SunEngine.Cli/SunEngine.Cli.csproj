@@ -48,7 +48,7 @@
             <CopyToPublishDirectory>None</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <Content Update="wwwroot\UploadImages\default-avatar.svg">
+        <Content Update="wwwroot\UploadImages\default-avatar-pink.svg">
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>

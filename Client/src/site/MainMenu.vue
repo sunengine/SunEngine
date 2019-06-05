@@ -42,20 +42,20 @@
         border-radius: 100px;
         padding: 34px 25px;
         display: inline-block;
-        border: 1px dotted grey;
+        border: 1px solid #3498db;
         //box-shadow: 0 0 2px 0px grey;
         text-shadow: 1px 1px 1px black;
         //text-shadow: 1px 1px 2px 0px grey;
         background-color: #f6fff4;
 
         h3 {
-          color: #69d45a;
+          color: #94e899;
           margin: 0;
           font-size: 2.8rem;
         }
 
         h4 {
-          color: #69d45a;
+          color: #94e899;
           margin: 0;
           font-size: 2.3rem;
         }
@@ -75,7 +75,7 @@
       margin: 0 !important;
       padding: 0 !important;
       width: 60px !important;
-      color: $grey-7 !important;
+      color: #3498db !important; // #858585  !important;
       justify-items: center !important;
       align-items: center !important;
     }

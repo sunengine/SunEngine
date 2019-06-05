@@ -27,9 +27,9 @@ namespace SunEngine.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteImages()
         {
-            var result = await imageCleanerService.DeleteImagesAsync();
+            var imagesDeleted = await imageCleanerService.DeleteImagesAsync();
             
-            return Ok(new {Json = result.ToString()});            
+            return Ok(new {ImagesDeleted = imagesDeleted});            
         }
     }
 }

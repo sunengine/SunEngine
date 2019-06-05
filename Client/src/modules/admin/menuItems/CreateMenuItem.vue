@@ -3,11 +3,11 @@
     <MenuItemForm ref="form" :menuItem="menuItem"/>
 
     <div class="btn-block">
-      <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$tl('createBtn')" @click="save"
+      <q-btn icon="fas fa-plus" class="send-btn" no-caps :loading="loading" :label="$tl('createBtn')" @click="save"
              color="send">
         <LoaderSent slot="loading"/>
       </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$tl('cancelBtn')"
+      <q-btn no-caps icon="fas fa-times" class="q-ml-sm cancel-btn" @click="$router.back()" :label="$tl('cancelBtn')"
              color="warning"/>
     </div>
   </q-page>
