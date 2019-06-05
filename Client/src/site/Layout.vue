@@ -100,7 +100,7 @@
   }
 
   .menu-drawer {
-    background-color: #94e899;
+    background-color: $lime-color;
   }
 
   .layout-toolbar {
@@ -127,13 +127,13 @@
   }
 
   .q-header {
-    border-bottom: 1px solid #94e899;
+    border-bottom: 1px solid $title-lime;
   }
 
   .q-footer div {
-    border-top: 1px solid #94e899;
+    border-top: 1px solid $title-lime;
     padding: 15px 0;
-    color: #3498db;
+    color: $link-color;
   }
 
   .layout-footer {
@@ -145,7 +145,7 @@
     background-color: #d0fccf;
 
     a {
-      color: #3498db;
+      color: $link-color;
 
       &:hover {
         text-decoration: underline;

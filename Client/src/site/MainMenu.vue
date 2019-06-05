@@ -42,7 +42,7 @@
         border-radius: 100px;
         padding: 34px 25px;
         display: inline-block;
-        border: 1px solid #3498db;
+        border: 1px solid $link-color;
         //box-shadow: 0 0 2px 0px grey;
         text-shadow: 1px 1px 1px black;
         //text-shadow: 1px 1px 2px 0px grey;
@@ -75,7 +75,7 @@
       margin: 0 !important;
       padding: 0 !important;
       width: 60px !important;
-      color: #3498db !important; // #858585  !important;
+      color: $link-color !important; // #858585  !important;
       justify-items: center !important;
       align-items: center !important;
     }
