@@ -1,12 +1,13 @@
 import axios from 'axios'
-import Lock from 'js-lock';
+import Lock from 'js-lock'
 
+import {store as store} from 'sun'
+import {router} from 'sun'
+import {app} from 'sun'
 import {removeTokens, setTokens, parseJwt} from 'sun'
-import {store as store} from 'sun';
-import {router} from 'sun';
-import {routeCheckAccess} from 'sun';
-
+import {routeCheckAccess} from 'sun'
 import {consoleTokens, consoleUserLogout, consoleRequestStart, consoleRequestUrl} from 'sun'
+
 
 const lock = new Lock("request-lock");
 
@@ -19,7 +20,6 @@ apiAxios.interceptors.response.use(async rez => {
   return rez;
 }, async rez => {
   await checkTokens(rez.response);
-  //Vue.prototype.$errorNotify(rez);
   throw rez;
 });
 
@@ -32,6 +32,8 @@ export default async function request(context, data) {
     console.log(`%cRequest%c${url}`, consoleRequestStart, consoleRequestUrl, data);
 
   const sendAsJson = data.sendAsJson ?? false;
+
+  const tokens = store.state.auth.tokens;
 
   const headers = {};
 
@@ -58,17 +60,14 @@ export default async function request(context, data) {
   });
 
   function checkLocalTokensExpire() {
-    const tokens = store.state.auth.tokens;
     const rez = tokens && tokens.shortTokenExpiration < new Date(new Date().toUTCString());
     if (rez)
-      console.log("%cTokens expire", consoleTokens);
+      console.log('%cTokens expire', consoleTokens);
 
     return rez;
   }
 
   function makeRequest() {
-
-    const tokens = store.state.auth.tokens;
 
     if (tokens)
       headers['Authorization'] = `Bearer ${tokens.shortToken}`;
@@ -112,8 +111,11 @@ function ConvertObjectToFormData(obj) {
 
 async function checkTokens(rez) {
   const tokensHeader = rez.headers.tokens;
+
   if (tokensHeader) {
+
     if (tokensHeader === 'expire') {
+
       removeTokens();
       console.info('%cLogout', consoleUserLogout);
 
@@ -121,10 +123,14 @@ async function checkTokens(rez) {
       await store.dispatch('loadAllCategories', {skipLock: true});
       await store.dispatch('loadAllMenuItems', {skipLock: true});
       await store.dispatch('setAllRoutes');
+
       routeCheckAccess(router.currentRoute);
       router.push(router.currentRoute);
+      app.rerender();
       return;
+
     } else {
+
       const tokens = JSON.parse(tokensHeader);
       const exps = parseJwt(tokens.shortToken);
 
@@ -136,6 +142,7 @@ async function checkTokens(rez) {
       store.state.auth.tokens = tokens;
 
       console.info('%cTokens refreshed', consoleTokens);
+
     }
   }
 
