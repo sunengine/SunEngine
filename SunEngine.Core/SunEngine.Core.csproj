@@ -4,6 +4,7 @@
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <Version>1.4.6</Version>
         <PackageVersion>1.4.6</PackageVersion>
+        <LangVersion>8</LangVersion>
     </PropertyGroup>
 
 

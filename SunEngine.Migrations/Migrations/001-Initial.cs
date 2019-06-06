@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Data;
 using FluentMigrator;
-using FluentMigrator.Builders.Create.Table;
 
 namespace SunEngine.Migrations.Migrations
 {
     /// <summary>
     /// Initial migration for FluentMigrator
     /// </summary>
-    [Migration(20190427000000)]
+    [Migration(20190601000000)]
     public class Initial : Migration
     {
         public override void Up()
@@ -207,61 +206,14 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("SortNumber").AsInt32().NotNullable()
                 .WithColumn("Icon").AsString(DbColumnSizes.MenuItems_Icon).Nullable()
                 .WithColumn("IsHidden").AsBoolean().NotNullable();
+            
+            
         }
 
 
         public override void Down()
         {
             throw new NotImplementedException();
-        }
-    }
-
-    internal static class DbColumnSizes
-    {
-        public const int SectionType_Name = 32;
-        public const int SectionType_Title = 64;
-        public const int Categories_Name = 64;
-        public const int Categories_Title = 256;
-        public const int Categories_LayoutName = 32;
-        public const int Categories_MaterialTypeTitle = 32;
-        public const int Categories_Icon = 64;
-        public const int Users_UserName = 64;
-        public const int Users_Email = 64;
-        public const int Users_Link = 32;
-        public const int FileNameWithDirSize = 28;
-        public const int Materials_Name = 32;
-        public const int Materials_Title = 256;
-        public const int Materials_Description = Int32.MaxValue;
-        public const int Tags_Name = 64;
-        public const int Roles_Name = 64;
-        public const int Roles_Title = 64;
-        public const int OperationKey_Name = 100;
-        public const int LongSessions_LongToken1 = 16;
-        public const int LongSessions_LongToken2 = 16;
-        public const int BlackListShortToken_TokenId = 16;
-        public const int MenuItems_Name = 32;
-        public const int MenuItems_Title = 64;
-        public const int MenuItems_SubTitle = 64;
-        public const int MenuItems_RouteName = 64;
-        public const int MenuItems_CssClass = 64;
-        public const int MenuItems_Icon = 64;
-    }
-
-    internal static class MigratorExtensions
-    {
-        public static ICreateTableColumnOptionOrWithColumnSyntax AsMaxString(
-            this ICreateTableColumnAsTypeSyntax createTableColumnAsTypeSyntax)
-        {
-            return createTableColumnAsTypeSyntax.AsString(Int32.MaxValue);
-        }
-
-        public static ICreateTableColumnOptionOrWithColumnSyntax AsMyDateTime(
-            this ICreateTableColumnAsTypeSyntax createTableColumnAsTypeSyntax)
-        {
-            if (!DbProvider.IsPostgre)
-                return createTableColumnAsTypeSyntax.AsDateTime();
-
-            return createTableColumnAsTypeSyntax.AsCustom("TimestampTz");
         }
     }
 }
