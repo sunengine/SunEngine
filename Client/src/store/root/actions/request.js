@@ -3,8 +3,10 @@ import Lock from 'js-lock';
 
 import {removeTokens, setTokens, parseJwt} from 'sun'
 import {store as store} from 'sun';
-import {app} from 'sun';
-import { consoleTokens, consoleUserLogout, consoleRequestStart, consoleRequestUrl } from 'sun'
+import {router} from 'sun';
+import {routeCheckAccess} from 'sun';
+
+import {consoleTokens, consoleUserLogout, consoleRequestStart, consoleRequestUrl} from 'sun'
 
 const lock = new Lock("request-lock");
 
@@ -26,7 +28,7 @@ export default async function request(context, data) {
 
   const url = data.url;
 
-  if(config.Log.Requests)
+  if (config.Log.Requests)
     console.log(`%cRequest%c${url}`, consoleRequestStart, consoleRequestUrl, data);
 
   const sendAsJson = data.sendAsJson ?? false;
@@ -111,17 +113,18 @@ function ConvertObjectToFormData(obj) {
 async function checkTokens(rez) {
   const tokensHeader = rez.headers.tokens;
   if (tokensHeader) {
-    if(tokensHeader === "expire") {
+    if (tokensHeader === 'expire') {
       removeTokens();
-      console.info("%cLogout", consoleUserLogout);
+      console.info('%cLogout', consoleUserLogout);
 
       store.commit('clearAllUserRelatedData');
       await store.dispatch('loadAllCategories', {skipLock: true});
       await store.dispatch('loadAllMenuItems', {skipLock: true});
       await store.dispatch('setAllRoutes');
-      app.rerender();
-    }
-    else {
+      routeCheckAccess(router.currentRoute);
+      router.push(router.currentRoute);
+      return;
+    } else {
       const tokens = JSON.parse(tokensHeader);
       const exps = parseJwt(tokens.shortToken);
 
@@ -132,7 +135,7 @@ async function checkTokens(rez) {
 
       store.state.auth.tokens = tokens;
 
-      console.info("%cTokens refreshed", consoleTokens);
+      console.info('%cTokens refreshed', consoleTokens);
     }
   }
 
