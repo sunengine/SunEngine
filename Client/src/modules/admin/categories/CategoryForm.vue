@@ -135,9 +135,9 @@
         })];
       },
       layoutOptions() {
-        return Object.getOwnPropertyNames(this.$store.state.categories.layouts)
+        return Object.getOwnPropertyNames(this.$store.state.layouts.all)
           .filter(x => !x.startsWith('__'))
-          .map(x => this.$store.state.categories.layouts[x])
+          .map(x => this.$store.state.layouts.all[x])
           .filter(x => x.categoryType === this.category.sectionTypeName)
           .map(x => {
             return {

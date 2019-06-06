@@ -13,17 +13,19 @@
 </template>
 
 <script>
+
   export default {
-    name: "MainMenu",
+    name: 'MainMenu',
     computed: {
       menu() {
-        return this.$store.getters.getMenu("MainMenu")?.subMenuItems;
+        return this.$store.getters.getMenu('MainMenu')?.subMenuItems;
       }
     },
     beforeCreate() {
       this.$options.components.MenuItem = require('sun').MenuItem;
     }
   }
+
 </script>
 
 <style lang="stylus">
