@@ -1,6 +1,6 @@
 <template>
   <div class="material-inline" v-if="material">
-    <div v-html="material.text"></div>
+    <div class="material-text" v-html="material.text"></div>
   </div>
 </template>
 
