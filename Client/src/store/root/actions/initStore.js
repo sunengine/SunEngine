@@ -8,7 +8,7 @@ export default async function (context) {
 
   if(context.state.auth.tokens)
     await context.dispatch('loadMyUserInfo').catch(() => {
-      removeTokens();
+      removeBadTokens();
     });
 
   try {
@@ -27,5 +27,10 @@ export default async function (context) {
     console.error(error);
 
     context.state.initializeError = true;
+  }
+
+  function removeBadTokens() {
+    context.state.auth.tokens = null;
+    removeTokens();
   }
 }
