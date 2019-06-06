@@ -21,7 +21,7 @@
     </q-input>
 
 
-    <MyEditor content-class="material"
+    <MyEditor content-class="material-text"
       :toolbar="editorToolbar"
       :rules="rules.text"
       ref="htmlEditor" v-model="material.text"/>

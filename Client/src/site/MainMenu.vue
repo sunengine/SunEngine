@@ -51,13 +51,13 @@
         background-color: #f6fff4;
 
         h3 {
-          color: #94e899;
+          color: $lime-color;
           margin: 0;
           font-size: 2.8rem;
         }
 
         h4 {
-          color: #94e899;
+          color: $lime-color
           margin: 0;
           font-size: 2.3rem;
         }

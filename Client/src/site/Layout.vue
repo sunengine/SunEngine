@@ -104,7 +104,7 @@
   }
 
   .layout-toolbar {
-    background-color: #d0fccf;
+    background-color: $title-lime;
   }
 
   .toolbar-menu-btn {
@@ -127,11 +127,11 @@
   }
 
   .q-header {
-    border-bottom: 1px solid $title-lime;
+    border-bottom: 1px solid $lime-color;
   }
 
   .q-footer div {
-    border-top: 1px solid $title-lime;
+    border-top: 1px solid $lime-color;
     padding: 15px 0;
     color: $link-color;
   }

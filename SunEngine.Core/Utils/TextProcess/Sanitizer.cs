@@ -23,7 +23,7 @@ namespace SunEngine.Core.Utils.TextProcess
 
         private readonly string[] allowedCssProperties =
         {
-            "float", "margin", "indent", "padding", "color",
+            "float", "margin", "indent", "padding", "color", "text-align",
             "text-decoration", "font-size", "width", "height", "max-width"
         };
 
