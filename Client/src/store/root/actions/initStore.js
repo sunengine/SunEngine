@@ -1,3 +1,4 @@
+import {removeTokens} from 'sun'
 import {consoleInit} from 'sun'
 
 
@@ -5,12 +6,13 @@ export default async function (context) {
 
   console.info("%cStart init store", consoleInit);
 
-  try {
-    const requests = [
-      context.dispatch('loadAllCategories'),
-      context.state.auth.tokens ? context.dispatch('loadMyUserInfo'): undefined];
+  if(context.state.auth.tokens)
+    await context.dispatch('loadMyUserInfo').catch(() => {
+      removeTokens();
+    });
 
-    await Promise.all(requests);
+  try {
+    await context.dispatch('loadAllCategories');
 
     await context.dispatch('registerLayouts');
 

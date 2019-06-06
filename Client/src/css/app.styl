@@ -1,36 +1,8 @@
 // app global css
 
 
-// ——— Colors ————————————————————————————————————
 
-
-.send-btn {
-  background-color: $lime-color;
-  color: white;
-}
-
-.post-btn {
-  background-color: $lime-color;
-  color: white;
-}
-
-.cancel-btn {
-  background-color: $warning;
-  color: white;
-}
-
-.delete-btn {
-  background-color: $negative;
-  color: white;
-}
-
-.bg-pagination {
-  background-color: $lime-color !important;
-}
-
-.text-pagination {
-  color: $link-color !important;
-}
+// ——— Input ————————————————————————————————————
 
 
 $q-field-color = #00c63b;
@@ -43,22 +15,6 @@ $q-field-color = #00c63b;
   .q-field__control {
     color: $q-field-color !important;
   }
-}
-
-
-// ——— Main ————————————————————————————————————
-
-
-html {
-  //font-size: 20px;
-  color: #06000d;
-  font-family: 'Open Sans', sans-serif;
-}
-
-
-a {
-  text-decoration: none;
-  color: $link-color;
 }
 
 
@@ -127,14 +83,6 @@ a {
 }
 
 
-// ——— QItems ————————————————————————————————————
-
-
-.q-router-link--active {
-  background-color: #e2f8e8;
-}
-
-
 // ——— Page paddings ————————————————————————————————————
 
 
@@ -185,18 +133,6 @@ page-paddings-block(size) {
 // ——— Elements ————————————————————————————————————
 
 
-.menu-panel-title {
-  text-align: center;
-  margin: 0;
-  padding: 7px 0 4px 0;
-  text-transform: uppercase;
-  font-size: 0.9rem !important;
-  font-weight: bolder;
-  background-color: #f3ffdd;
-  border-bottom: 1px solid #cacaca;
-  color: $grey-8;
-}
-
 .center-form {
   width: 400px;
   display flex;
@@ -241,7 +177,7 @@ page-paddings-block(size) {
 }
 
 .error {
-  color: var(--q-color-negative);
+  color: $negative;
   font-size: 12px;
   margin-top: 4px;
 }
@@ -271,49 +207,6 @@ page-paddings-block(size) {
 
 // ——— Material styles ————————————————————————————————————
 
-
-.material-text, .post-text {
-  h3 {
-    font-size: 1.55rem;
-    font-weight: 500 !important;
-    line-height: 1.7rem;
-    margin: 35px 0 14px 0 !important;
-    border-bottom: 2px dashed #c1dfee; //#5ccff9;
-    padding: 0 0 8px 0;
-  }
-
-  h4 {
-    font-size: 1.35rem;
-    font-weight: 500 !important;
-    line-height: 1.4rem;
-    margin: 24px 0 10px 0 !important;
-    border-bottom: 1px dashed #c1dfee;
-    padding: 0 0 6px 0;
-  }
-
-  h5 {
-    font-size: 1.2rem;
-    font-weight: 500 !important;
-    line-height: 1.3rem;
-    margin: 16px 0 8px 0 !important;
-    padding: 0;
-  }
-
-  h6 {
-    font-size: 1.05rem;
-    font-weight: 500 !important;
-    line-height: 1.1rem;
-    margin: 10px 0 6px 0 !important;
-    padding: 0;
-  }
-
-  blockquote {
-    border-left: 3px solid #a6c59e !important;
-    padding: 6px 0 6px 15px;
-    background-color: #f6f6f6;
-    margin: 0 0 16px 0;
-  }
-}
 
 .mat-hidden {
   .my-header, .my-header * {

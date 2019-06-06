@@ -3,8 +3,8 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <LangVersion>latest</LangVersion>
-        <Version>1.4.5</Version>
-        <PackageVersion>1.4.5</PackageVersion>
+        <Version>1.4.6</Version>
+        <PackageVersion>1.4.6</PackageVersion>
         <Title>SunEngine</Title>
         <Authors>Dmitrii Polianin</Authors>
         <Description>Site engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>
@@ -35,11 +35,11 @@
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Resources\gunnyrewritten.ttf" />
         <Content Include="MailTemplates\*">
             <CopyToPublishDirectory>None</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+        <None Remove="Resources\gunnyrewritten.ttf" />
         <Content Include="Resources\gunnyrewritten.ttf">
             <CopyToPublishDirectory>Always</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -48,7 +48,7 @@
             <CopyToPublishDirectory>None</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <Content Update="wwwroot\UploadImages\default-avatar-pink.svg">
+        <Content Update="wwwroot\UploadImages\default-avatar.svg">
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>

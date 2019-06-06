@@ -31,15 +31,15 @@
     },
     {
       "Title": "Секрет",
-      "SubTitle": "Только для зарегистрированных пользователей",
+      "SubTitle": "Для зарегистрированных пользователей",
       "RouteName": "Secret",
       "Icon": "fas fa-user-secret",
       "Roles": "Registered"
     },
     {
-      "Title": "Дополнительно",
-      "SubTitle": "Ещё страницы",
-      "Icon": "fas fa-puzzle-piece",
+      "Title": "Дополнение",
+      "SubTitle": "Варианты страниц",
+      "Icon": "fas fa-th",
       "SubMenuItems": [
         {
           "Title": "Главная страница",

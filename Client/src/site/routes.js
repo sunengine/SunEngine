@@ -4,7 +4,7 @@ import {ActivitiesPage} from 'sun'
 import IndexPage from './IndexPage'
 import News2ColPage from './News2ColPage'
 import MaterialInlinePage from './MaterialInlinePage'
-import SecretPage from "./SecretPage";
+import SecretPage from './SecretPage'
 
 import coreRoutes from './coreRoutes'
 
@@ -20,11 +20,10 @@ const siteRoutes = [
     path: '/News'.toLowerCase(),
     components: {
       default: ActivitiesPage,
-      navigation: null
     },
     props: {
       default: {
-        pageTitle: "Активность на сайте"
+        pageTitle: 'Активность на сайте'
       }
     }
   },
@@ -33,7 +32,6 @@ const siteRoutes = [
     path: '/News2ColPage'.toLowerCase(),
     components: {
       default: News2ColPage,
-      navigation: null
     }
   },
   {
@@ -41,7 +39,6 @@ const siteRoutes = [
     path: '/MaterialInlinePage'.toLowerCase(),
     components: {
       default: MaterialInlinePage,
-      navigation: null
     }
   },
   {
@@ -49,7 +46,6 @@ const siteRoutes = [
     path: '/BlogMulti'.toLowerCase(),
     components: {
       default: BlogMultiCatPage,
-      navigation: null
     },
     props: {
       default: {

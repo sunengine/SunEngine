@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh LpR lfr">
-    <q-header>
+    <q-header class="layout-header">
       <q-toolbar class="layout-toolbar">
 
         <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
@@ -33,11 +33,11 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" bordered content-class="menu-drawer">
+    <q-drawer v-model="leftDrawerOpen" bordered content-class="main-menu-drawer">
       <MainMenu/>
     </q-drawer>
 
-    <q-drawer v-if="rightDrawerIs" bordered side="right" v-model="rightDrawerOpen">
+    <q-drawer v-if="rightDrawerIs" bordered side="right" v-model="rightDrawerOpen" content-class="side-menu-drawer">
       <router-view name="navigation"/>
     </q-drawer>
 
@@ -45,8 +45,8 @@
       <router-view/>
     </q-page-container>
 
-    <q-footer>
-      <div class="layout-footer">
+    <q-footer class="layout-footer">
+      <div>
         {{$tl('madeWithLove')}}
         <q-icon name="fas fa-heart" size="12px"/>
         <a href="https://github.com/Dmitrij-Polyanin/SunEngine">GitHub</a>
@@ -59,9 +59,10 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex';
+
   import MainMenu from './MainMenu'
 
-  import {mapState} from 'vuex';
   import {SunEngineFooter} from 'sun'
 
 
@@ -89,73 +90,9 @@
       this.$options.components.LoginRegisterMenu = require('sun').LoginRegisterMenu;
     }
   }
+
 </script>
 
 <style lang="stylus">
-
-  .layout-avatar {
-    width: 32px !important;
-    height: 32px !important;
-    box-shadow: 0px 0px 4px 1.5px white !important;
-  }
-
-  .menu-drawer {
-    background-color: $lime-color;
-  }
-
-  .layout-toolbar {
-    background-color: $title-lime;
-  }
-
-  .toolbar-menu-btn {
-    color: black;
-  }
-
-  .toolbar-user-btn {
-    color: grey;
-  }
-
-  .layout-title {
-    font-family: "BoomBoomRegular";
-    letter-spacing: 1.4px;
-    font-size: 1.7rem;
-
-    a {
-      color: orange;
-      text-shadow: 0.5px 0.5px 0.5px #686569;
-    }
-  }
-
-  .q-header {
-    border-bottom: 1px solid $lime-color;
-  }
-
-  .q-footer div {
-    border-top: 1px solid $lime-color;
-    padding: 15px 0;
-    color: $link-color;
-  }
-
-  .layout-footer {
-    text-align: center;
-    color: $primary;
-    font-family: "BoomBoomRegular";
-    font-size: 17px;
-    letter-spacing: 1px;
-    background-color: #d0fccf;
-
-    a {
-      color: $link-color;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
-    .q-icon {
-      margin: 0 16px;
-      color: #4ae657;
-    }
-  }
 
 </style>
