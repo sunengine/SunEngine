@@ -69,7 +69,7 @@ const routes = [
     },
     props: {
       default: () => {
-        return {link: store.state.auth.userInfo?.link}
+        return {link: store.state.auth.user?.link}
       }
     }
   }

@@ -10,11 +10,6 @@ namespace SunEngine.Core.Cache.Services
         void Initialize();
         
         /// <summary>
-        /// Initialize (get) cache from database, async version
-        /// </summary>
-        Task InitializeAsync();
-        
-        /// <summary>
         /// Reset to null all cache items and collections, to re obtain them on the next request
         /// </summary>
         void Reset();

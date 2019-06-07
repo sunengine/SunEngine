@@ -19,6 +19,7 @@ apiAxios.interceptors.response.use(async rez => {
   await checkTokens(rez);
   return rez;
 }, async rez => {
+  console.error(rez.response);
   await checkTokens(rez.response);
   throw rez;
 });
@@ -33,22 +34,21 @@ export default async function request(context, data) {
 
   const sendAsJson = data.sendAsJson ?? false;
 
-  const tokens = store.state.auth.tokens;
+  const tokens = store.state.auth?.tokens;
 
   const headers = {};
 
   if (data.skipLock) {
     if (checkLocalTokensExpire()) {
-      headers['LongToken1'] = tokens.longToken.token;
+      headers['LongToken1'] = tokens.longToken;
     }
     return makeRequest();
   }
 
   return lock.lock(() => {
-      const tokens = store.state.auth.tokens;
 
       if (checkLocalTokensExpire()) {
-        headers['LongToken1'] = tokens.longToken.token;
+        headers['LongToken1'] = tokens.longToken;
         return makeRequest();
       }
     }
@@ -60,7 +60,15 @@ export default async function request(context, data) {
   });
 
   function checkLocalTokensExpire() {
-    const rez = tokens && tokens.shortTokenExpiration < new Date(new Date().toUTCString());
+
+    if(!tokens)
+      return false;
+
+    const nowDate = new Date(new Date().toUTCString()).getTime();
+    const exp = tokens.shortTokenExpiration.getTime();
+
+    const rez = exp < nowDate;
+
     if (rez)
       console.log('%cTokens expire', consoleTokens);
 
@@ -97,6 +105,8 @@ export default async function request(context, data) {
   }
 }
 
+
+
 function ConvertObjectToFormData(obj) {
   const formData = new FormData();
 
@@ -131,15 +141,14 @@ async function checkTokens(rez) {
 
     } else {
 
-      const tokens = JSON.parse(tokensHeader);
-      const exps = parseJwt(tokens.shortToken);
+      const newTokens = JSON.parse(tokensHeader);
 
-      tokens.shortTokenExpiration = new Date(exps.exp * 1000);
+      newTokens.shortTokenExpiration = new Date(newTokens.shortTokenExpiration);
 
-      if (store.state.auth.isPermanentLogin)
-        setTokens(tokens);
+      store.state.auth.tokens = newTokens;
 
-      store.state.auth.tokens = tokens;
+      if(store.state.auth.isPermanentLogin);
+        setTokens(newTokens);
 
       console.info('%cTokens refreshed', consoleTokens);
 

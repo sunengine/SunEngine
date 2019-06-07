@@ -59,6 +59,9 @@ namespace SunEngine.DataSeed
             
             Console.WriteLine("MenuItems");
             db.BulkCopy(options, dataContainer.MenuItems);
+            
+            Console.WriteLine("CipherSecrets");
+            db.BulkCopy(options, dataContainer.CipherSecrets);
 
             if (dataContainer.CacheSettings != null)
             {

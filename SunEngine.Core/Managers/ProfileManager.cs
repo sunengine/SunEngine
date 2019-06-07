@@ -21,7 +21,7 @@ namespace SunEngine.Core.Managers
 
     public class ProfileManager : DbService, IProfileManager
     {
-        protected readonly IEmailSenderService EmailSenderService;
+        protected readonly IEmailSenderService emailSenderService;
         protected readonly Sanitizer sanitizer;
         protected readonly GlobalOptions globalOptions;
 
@@ -32,7 +32,7 @@ namespace SunEngine.Core.Managers
             Sanitizer sanitizer
         ) : base(db)
         {
-            this.EmailSenderService = emailSenderService;
+            this.emailSenderService = emailSenderService;
             this.sanitizer = sanitizer;
             this.globalOptions = globalOptions.Value;
         }
@@ -40,7 +40,7 @@ namespace SunEngine.Core.Managers
 
         public virtual Task SendPrivateMessageAsync(User from, User to, string text)
         {
-            return EmailSenderService.SendEmailByTemplateAsync(
+            return emailSenderService.SendEmailByTemplateAsync(
                 to.Email,
                 "private-message.html",
                 new Dictionary<string, string>

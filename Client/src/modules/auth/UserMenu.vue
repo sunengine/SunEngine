@@ -2,7 +2,7 @@
     <q-list class="user-menu my-menu q-py-sm">
       <q-item class="avatar-menu-item">
         <q-item-section  avatar>
-          <img class="avatar" :src="userInfo.avatar"/>
+          <img class="avatar" :src="user.avatar"/>
         </q-item-section>
         <q-item-section>
           <q-item-label>
@@ -10,7 +10,7 @@
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-item  :to="{name: 'User', params: {link: userInfo.link}}" v-close-popup>
+      <q-item  :to="{name: 'User', params: {link: user.link}}" v-close-popup>
         <q-item-section avatar>
           <q-icon name="fas fa-user-circle"/>
         </q-item-section>
@@ -64,8 +64,7 @@
         return this.$store.state.auth.roles.some(x => x === 'Admin')
       },
       ...mapState({
-        user: state => state.auth.user,
-        userInfo: state => state.auth.userInfo
+        user: state => state.auth.user
       })
     },
     methods: {

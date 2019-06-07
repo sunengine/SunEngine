@@ -14,7 +14,9 @@ namespace SunEngine.Core.Services
     {
         string Crypt(string cipherName, string text);
         string Decrypt(string cipherName, string text);
-        Task ChangeSecret(string name);
+        void AddCipherKey(string key);
+        Task ResetSecret(string name);
+        Task ResetAllSecrets();
     }
 
     public class CryptService : ICryptService
@@ -63,7 +65,7 @@ namespace SunEngine.Core.Services
 
             if (bytes.Length > 32)
                 bytes = new Span<byte>(bytes).Slice(0, 32).ToArray();
-            
+
             AddCipherKey(key, bytes);
         }
 
@@ -106,14 +108,33 @@ namespace SunEngine.Core.Services
             return Encoding.UTF8.GetString(result);
         }
 
-        public async Task ChangeSecret(string name)
+        public async Task ResetSecret(string name)
         {
             using (var db = dbFactory.CreateDb())
             {
                 var newSecret = Encoding.UTF8.GetString(GenerateSecurityKey());
-                int updated = await db.CipherSecrets.Where(x => x.Name == name).Set(x => x.Secret, newSecret).UpdateAsync();
-                if(updated != 1)
+                int updated = await db.CipherSecrets.Where(x => x.Name == name).Set(x => x.Secret, newSecret)
+                    .UpdateAsync();
+                if (updated != 1)
                     throw new Exception("No cipher keys updated");
+            }
+        }
+
+        public async Task ResetAllSecrets()
+        {
+            using (var db = dbFactory.CreateDb())
+            {
+                var allSecrets = db.CipherSecrets.ToArray();
+                int done = 0;
+                
+                foreach (var cipherSecret in allSecrets)
+                {
+                    cipherSecret.Secret = Encoding.UTF8.GetString(GenerateSecurityKey());
+                    done += await db.UpdateAsync(cipherSecret);
+                }
+                
+                if(done != allSecrets.Length)
+                    throw new Exception("Not all secrets updated");
             }
         }
         
@@ -126,9 +147,16 @@ namespace SunEngine.Core.Services
 
         private static byte[] GenerateSecurityKey()
         {
-            var SequrityKey = new byte[32];
-            CryptoRandomizer.CryptoProvider.GetBytes(SequrityKey);
-            return SequrityKey;
+            var securityKey = new byte[32];
+            CryptoRandomizer.CryptoProvider.GetBytes(securityKey);
+            return securityKey;
+        }
+
+        public static string GenerateSecurityKeyString()
+        {
+            return Encoding.UTF8.GetString(GenerateSecurityKey());
         }
     }
+    
+    
 }

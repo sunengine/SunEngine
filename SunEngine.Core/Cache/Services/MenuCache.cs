@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Threading.Tasks;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
@@ -11,39 +10,43 @@ namespace SunEngine.Core.Cache.Services
     public interface IMenuCache : ISunMemoryCache
     {
         IList<MenuItemCached> GetMenu(IReadOnlyDictionary<string, RoleCached> Roles);
-        IReadOnlyList<MenuItemCached> AllMenuItems { get; }
-
-        MenuItemCached RootMenuItem { get; }
     }
 
-    public class MenuCache : ISunMemoryCache, IMenuCache
+    public class MenuCache : IMenuCache
     {
+        private readonly object lockObject = new object();
+
         private readonly IDataBaseFactory dataBaseFactory;
         private readonly IRolesCache rolesCache;
-
-        private MenuItemCached _rootMenuItem;
         
+        private MenuItemCached _rootMenuItem;
         private IReadOnlyList<MenuItemCached> _allMenuItems;
 
-        public MenuItemCached RootMenuItem
+        #region Getters
+        protected MenuItemCached RootMenuItem
         {
             get
             {
-                if (_rootMenuItem == null)
-                    Initialize();
+                lock (lockObject)
+                    if (_rootMenuItem == null)
+                        Initialize();
+
                 return _rootMenuItem;
             }
         }
 
-        public IReadOnlyList<MenuItemCached> AllMenuItems
+        protected IReadOnlyList<MenuItemCached> AllMenuItems
         {
             get
             {
-                if (_allMenuItems == null)
-                    Initialize();
+                lock (lockObject)
+                    if (_allMenuItems == null)
+                        Initialize();
+
                 return _allMenuItems;
             }
         }
+        #endregion
 
         public MenuCache(
             IDataBaseFactory dataBaseFactory,
@@ -58,7 +61,8 @@ namespace SunEngine.Core.Cache.Services
         {
             var menuItems = new List<MenuItemCached> {RootMenuItem};
 
-            menuItems.AddRange(AllMenuItems.Where(menuItem => Roles.Values.Any(role => menuItem.Roles.ContainsKey(role.Id))));
+            menuItems.AddRange(AllMenuItems.Where(menuItem =>
+                Roles.Values.Any(role => menuItem.Roles.ContainsKey(role.Id))));
 
             return menuItems;
         }
@@ -84,7 +88,7 @@ namespace SunEngine.Core.Cache.Services
                     {
                         roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
                     }
-                    
+
 
                     if (CheckIsVisible(menuItem))
                         allMenuItems.Add(new MenuItemCached(menuItem, roles));
@@ -93,6 +97,7 @@ namespace SunEngine.Core.Cache.Services
                 _allMenuItems = allMenuItems.OrderBy(x => x.SortNumber).ToImmutableList();
 
                 _rootMenuItem = _allMenuItems.First(x => x.Id == 1);
+
 
                 bool CheckIsVisible(MenuItem menuItem)
                 {
@@ -110,11 +115,6 @@ namespace SunEngine.Core.Cache.Services
                     return true;
                 }
             }
-        }
-
-        public Task InitializeAsync()
-        {
-            throw new System.NotImplementedException();
         }
 
         public void Reset()

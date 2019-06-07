@@ -1,6 +1,8 @@
-import {makeUserDataFromTokens} from 'sun'
+import {setTokens} from 'sun';
 
-export default async function(context, userData) {
+export default async function (context, userData) {
+
+  context.state.isPermanentLogin = !userData.notMyComputer;
 
   await context.dispatch('request',
     {
@@ -11,19 +13,18 @@ export default async function(context, userData) {
       }
     }).then(async () => {
 
-    const data = makeUserDataFromTokens(context.state.tokens);
+    await context.dispatch('loadMyUserInfo');
 
-    data.isPermanentLogin = !userData.notMyComputer;
-
-    context.commit('setUserData', data);
-
-    await Promise.all([
-      context.dispatch('loadAllCategories'),
-      context.dispatch('loadMyUserInfo')
-    ]);
+    await context.dispatch('loadAllCategories');
 
     await context.dispatch('setAllRoutes');
 
     await context.dispatch('loadAllMenuItems');
+
+  }).catch(() => {
+
+    context.state.isPermanentLogin = null;
+
   });
+
 }

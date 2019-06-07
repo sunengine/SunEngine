@@ -31,7 +31,6 @@
 
 <script>
   import {Page} from 'sun'
-  import {makeUserDataFromTokens} from 'sun'
 
 
   function createRules() {
@@ -79,7 +78,6 @@
           this.$refs.name.validate();
         })
       },
-
       async save() {
         this.$refs.name.validate();
         this.$refs.password.validate();
@@ -97,10 +95,9 @@
               password: this.password,
               name: this.name,
             }
-          }).then(response => {
+          }).then(async (response) => {
 
-          const data = makeUserDataFromTokens(this.$store.state.auth.tokens);
-          this.$store.commit('setUserData', data);
+          await this.$store.dispatch('loadMyUserInfo');
           this.$successNotify();
           this.$router.push({name: 'Personal'});
 

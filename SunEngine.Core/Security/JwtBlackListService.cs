@@ -89,19 +89,6 @@ namespace SunEngine.Core.Security
             }
         }
 
-        public async Task InitializeAsync()
-        {
-            using (var db = dataBaseFactory.CreateDb())
-            {
-                var tokensDic = await db.BlackListShortTokens.ToDictionaryAsync(x => x.TokenId, x => x.Expire);
-                tokens = new ConcurrentDictionary<string, DateTime>();
-                foreach (var (key, value) in tokensDic)
-                {
-                    tokens.TryAdd(key, value);
-                }
-            }
-        }
-
         public void Reset()
         {
             tokens = null;

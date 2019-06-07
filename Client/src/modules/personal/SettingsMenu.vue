@@ -2,7 +2,7 @@
   <q-list class="settings-menu my-menu" no-border>
     <q-item class="avatar-menu-item">
       <q-item-section avatar>
-        <img class="on-left avatar" :src="userInfo.avatar"/>
+        <img class="on-left avatar" :src="user.avatar"/>
       </q-item-section>
       <q-item-section>
         {{user.name}}
@@ -84,8 +84,7 @@
     name: 'SettingsMenu',
     computed: {
       ...mapState({
-        user: state => state.auth.user,
-        userInfo: state => state.auth.userInfo
+        user: state => state.auth.user
       })
     }
   }

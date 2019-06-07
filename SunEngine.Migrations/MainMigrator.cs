@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Net.Sockets;
+using FluentMigrator;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,10 +51,8 @@ namespace SunEngine.Migrations
                 .ConfigureRunner(rb =>
                 {
                     rb
-                        // Select DataBaseSupport
                         .AddDb()
                         .WithGlobalConnectionString(connectionString)
-                        // Define the assembly containing the migrations
                         .ScanIn(typeof(Initial).Assembly).For.Migrations();
                 })
                 .AddLogging(lb => lb.AddFluentMigratorConsole())

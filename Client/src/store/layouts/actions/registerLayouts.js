@@ -19,5 +19,5 @@ export default function (context) {
 
   registerLayoutsSite(context);
 
-  console.info('%cLayouts registered', consoleInit, config.Log.InitExtended ? context.rootState.categories.layouts : '');
+  console.info('%cLayouts registered', consoleInit, config.Log.InitExtended ? context.rootState.layouts.all : '');
 }

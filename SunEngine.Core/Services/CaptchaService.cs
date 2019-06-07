@@ -17,17 +17,19 @@ namespace SunEngine.Core.Services
 {
     public class CaptchaService
     {
-        public const string CryptserviceName = "Captcha";
-        
+        public const string CypherName = "Captcha";
+
         private readonly TimeSpan cacheTimeout = new TimeSpan(0, 3, 0);
 
         private readonly Font font;
 
 
-        private readonly CryptService cryptService;
+        private readonly ICryptService cryptService;
 
-        
-        public CaptchaService(IOptions<CaptchaOptions> captchaOptions, CryptService cryptService)
+
+        public CaptchaService(
+            IOptions<CaptchaOptions> captchaOptions, 
+            ICryptService cryptService)
         {
             this.cryptService = cryptService;
 
@@ -47,7 +49,7 @@ namespace SunEngine.Core.Services
             };
 
             var tokenJson = JsonConvert.SerializeObject(token);
-            return cryptService.Crypt(CryptserviceName,tokenJson);
+            return cryptService.Crypt(CypherName, tokenJson);
         }
 
 
@@ -58,13 +60,13 @@ namespace SunEngine.Core.Services
 
         public string GetTextFromToken(string token)
         {
-            string json = cryptService.Decrypt(CryptserviceName,token);
+            string json = cryptService.Decrypt(CypherName, token);
             return JsonConvert.DeserializeObject<CaptchaToken>(json).Text;
         }
 
         public bool VerifyToken(string token, string text)
         {
-            string json = cryptService.Decrypt(CryptserviceName,token);
+            string json = cryptService.Decrypt(CypherName, token);
             CaptchaToken captchaToken = JsonConvert.DeserializeObject<CaptchaToken>(json);
             if (captchaToken.Expire < DateTime.UtcNow)
                 return false;
@@ -93,7 +95,7 @@ namespace SunEngine.Core.Services
                     };
 
                 PointF[] points = {new PointF(2, img.Height / 2), new PointF(img.Width - 2, img.Height / 2)};
-                
+
                 img.Mutate(ctx => ctx
                     .Fill(Rgba32.FromHex("f0f4c3")) // white background image
                     .DrawLines(Rgba32.Black, 3, points)
@@ -108,7 +110,7 @@ namespace SunEngine.Core.Services
             return ms;
         }
 
-        public class CaptchaToken
+        protected class CaptchaToken
         {
             public string Text { get; set; }
             public DateTime Expire { get; set; }

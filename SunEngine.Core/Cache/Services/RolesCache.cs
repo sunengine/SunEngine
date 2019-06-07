@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Threading.Tasks;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models.Authorization;
@@ -14,66 +13,59 @@ namespace SunEngine.Core.Cache.Services
         RoleCached GetRole(string name);
         IImmutableDictionary<string, RoleCached> AllRoles { get; }
     }
-    
+
     /// <summary>
     /// Quick access roles cache for authorization system (AuthorizationService)
     /// </summary>
     public class RolesCache : IRolesCache
     {
-        private readonly IDataBaseFactory dataBaseFactory;
+        protected readonly object lockObject = new object();
+        protected readonly IDataBaseFactory dataBaseFactory;
+
+        protected IImmutableList<OperationKeyCached> _allOperationKeys;
+        protected ImmutableDictionary<string, RoleCached> _allRoles;
+
+        #region Getters
+
+        public IImmutableList<OperationKeyCached> AllOperationKeys
+        {
+            get
+            {
+                lock (lockObject)
+                    if (_allOperationKeys == null)
+                        Initialize();
+
+                return _allOperationKeys;
+            }
+        }
+
+        public IImmutableDictionary<string, RoleCached> AllRoles
+        {
+            get
+            {
+                lock (lockObject)
+                    if (_allRoles == null)
+                        Initialize();
+
+                return _allRoles;
+            }
+        }
+
+        #endregion
 
         public RolesCache(IDataBaseFactory dataBaseFactory)
         {
             this.dataBaseFactory = dataBaseFactory;
         }
 
-        protected IImmutableList<OperationKeyCached> _allOperationKeys;
-
-        public IImmutableList<OperationKeyCached> AllOperationKeys
-        {
-            get
-            {
-                if (_allOperationKeys == null)
-                {
-                    Initialize();
-                }
-
-                return _allOperationKeys;
-            }
-        }
-
-
-        protected ImmutableDictionary<string, RoleCached> _allRoles;
-
-        public IImmutableDictionary<string, RoleCached> AllRoles
-        {
-            get
-            {
-                if (_allRoles == null)
-                {
-                    Initialize();
-                }
-
-                return _allRoles;
-            }
-        }
-
         public RoleCached GetRole(string name)
         {
-            if (_allRoles == null)
-            {
-                Initialize();
-            }
+            lock (lockObject)
+                if (_allRoles == null)
+                    Initialize();
 
-            return AllRoles.ContainsKey(name) ? AllRoles[name] : null;
+            return AllRoles.TryGetValue(name, out var ret) ? ret : null;
         }
-
-        public void Reset()
-        {
-            _allOperationKeys = null;
-            _allRoles = null;
-        }
-        
 
         public void Initialize()
         {
@@ -83,10 +75,10 @@ namespace SunEngine.Core.Cache.Services
 
                 _allOperationKeys = db.OperationKeys.Select(x => new OperationKeyCached(x)).ToImmutableList();
 
-                
+
                 var categoryAccesses = db.CategoryAccess.Select(x => new CategoryAccessTmp(x))
                     .ToDictionary(x => x.Id);
-                
+
                 foreach (CategoryOperationAccess categoryOperationAccess in db.CategoryOperationAccess.ToList())
                 {
                     categoryAccesses[categoryOperationAccess.CategoryAccessId].CategoryOperationAccesses
@@ -102,10 +94,11 @@ namespace SunEngine.Core.Cache.Services
                 _allRoles = roles.Values.ToImmutableDictionary(x => x.Name, x => new RoleCached(x));
             }
         }
-
-        public async Task InitializeAsync()
+        
+        public void Reset()
         {
-            throw new NotImplementedException();
+            _allOperationKeys = null;
+            _allRoles = null;
         }
     }
 }

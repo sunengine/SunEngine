@@ -10,7 +10,6 @@ namespace SunEngine.Migrations.Migrations
             Create.Table("CipherSecrets")
                 .WithColumn("Name").AsString(DbColumnSizes.CipherSecrets_Name).PrimaryKey().NotNullable()
                 .WithColumn("Secret").AsString(DbColumnSizes.CipherSecrets_Secret).NotNullable();
-
         }
 
         public override void Down()

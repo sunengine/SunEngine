@@ -5,6 +5,7 @@ using NJsonSchema;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Authorization;
 using SunEngine.Core.Security;
+using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
 
 namespace SunEngine.DataSeed
@@ -47,18 +48,35 @@ namespace SunEngine.DataSeed
             SeedRoles();
 
             SeedUserRoles();
-            
+
             SeedCacheSettings();
 
             SeedMenus();
 
+            SeedCipherSecrets();
+
             return dataContainer;
+        }
+
+        private void SeedCipherSecrets()
+        {
+            var names = typeof(CipherSecrets).GetFields().Select(x=>x.Name);
+
+            foreach (var name in names)
+            {
+                dataContainer.CipherSecrets.Add(
+                    new CipherSecret
+                    {
+                        Name = name,
+                        Secret = CryptService.GenerateSecurityKeyString()
+                    });
+            }
         }
 
         private void SeedMenus()
         {
             var path = Path.GetFullPath(Path.Combine(configDir, MenusConfigDir));
-            MenuSeeder menuSeeder = new MenuSeeder(dataContainer,path);
+            MenuSeeder menuSeeder = new MenuSeeder(dataContainer, path);
             menuSeeder.Seed();
         }
 
@@ -117,7 +135,7 @@ namespace SunEngine.DataSeed
         {
             Console.WriteLine("Roles");
 
-            string pathToUserGroupsConfig = Path.GetFullPath(Path.Combine(configDir,"Roles.json"));
+            string pathToUserGroupsConfig = Path.GetFullPath(Path.Combine(configDir, "Roles.json"));
             string pathToUserGroupsSchema = Path.GetFullPath("Resources/Roles.schema.json");
             JsonSchema schema = JsonSchema.FromFileAsync(pathToUserGroupsSchema).GetAwaiter().GetResult();
 

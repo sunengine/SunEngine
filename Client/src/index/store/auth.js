@@ -4,7 +4,6 @@ import initUserFromLocalStorage from 'store/auth/actions/initUserFromLocalStorag
 import login from 'store/auth/actions/login'
 import logout from 'store/auth/actions/logout'
 import clearAllUserRelatedData from 'store/auth/mutations/clearAllUserRelatedData'
-import setUserData from 'store/auth/mutations/setUserData'
 import setUserInfo from 'store/auth/mutations/setUserInfo'
 
 
@@ -19,7 +18,6 @@ export default {
   },
   mutations: {
     clearAllUserRelatedData,
-    setUserData,
     setUserInfo,
   },
 }

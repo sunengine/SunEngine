@@ -40,7 +40,7 @@
     mixins: [Page],
     data() {
       return {
-        link: this.$store.state.auth.userInfo.link,
+        link: this.$store.state.auth.user.link,
         linkInDb: false,
         submitting: false
       }
@@ -49,7 +49,7 @@
     methods: {
       checkLinkInDb() {
         clearTimeout(this.timeout);
-        if (this.link.toLowerCase() === this.$store.state.auth.userInfo.link.toLowerCase())
+        if (this.link.toLowerCase() === this.$store.state.auth.user.link.toLowerCase())
           return;
         this.timeout = setTimeout(this.checkLinkInDbDo, 500);
       },

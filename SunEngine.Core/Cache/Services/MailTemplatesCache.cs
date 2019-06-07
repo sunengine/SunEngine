@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace SunEngine.Core.Cache.Services
 {
@@ -13,32 +12,41 @@ namespace SunEngine.Core.Cache.Services
 
     public class MailTemplatesCache : IMailTemplatesCache
     {
+        protected readonly object lockObject = new object();
+
         protected const string MailTemplatesDir = "MailTemplates";
 
+
         protected Dictionary<string, MailContent> _templates;
+        protected string _layout;
+
+        #region Getters
 
         protected Dictionary<string, MailContent> Templates
         {
             get
             {
-                if(_templates == null)
-                    Initialize();
+                lock (lockObject)
+                    if (_templates == null)
+                        Initialize();
+
                 return _templates;
             }
         }
-        
-        protected string _layout;
 
         protected string Layout
         {
             get
             {
-                if(_layout == null)
-                    Initialize();
+                lock (lockObject)
+                    if (_layout == null)
+                        Initialize();
+
                 return _layout;
             }
         }
 
+        #endregion
 
         public MailContent BuildMessage(string templateName, Dictionary<string, string> replaceDictionary)
         {
@@ -58,14 +66,13 @@ namespace SunEngine.Core.Cache.Services
 
             MailContent mailContent = new MailContent
             {
-                subject = subject, 
+                subject = subject,
                 template = body
             };
 
             return mailContent;
         }
 
-        // TODO: add exception handling.
         public void Initialize()
         {
             _templates = new Dictionary<string, MailContent>();
@@ -74,7 +81,7 @@ namespace SunEngine.Core.Cache.Services
             foreach (FileInfo file in directoryInfo.GetFiles())
             {
                 string fileContent = File.ReadAllText(Path.Combine(MailTemplatesDir, file.Name));
-                
+
                 if (file.Name == "layout.html")
                 {
                     _layout = fileContent;
@@ -89,18 +96,14 @@ namespace SunEngine.Core.Cache.Services
 
                 _templates.Add(file.Name, mailContent);
             }
+            
+            string ParseHtmlValue(string rawString, string key)
+            {
+                var regex = new Regex($"<{key}>(.+)?<\\/{key}>", RegexOptions.Singleline);
+                return regex.Match(rawString).Groups[1].Value.Trim();
+            }
         }
 
-        private static string ParseHtmlValue(string rawString, string key)
-        {
-            var regex = new Regex($"<{key}>(.+)?<\\/{key}>", RegexOptions.Singleline);
-            return regex.Match(rawString).Groups[1].Value.Trim();
-        }
-
-        public Task InitializeAsync()
-        {
-            throw new NotImplementedException();
-        }
 
         public void Reset()
         {

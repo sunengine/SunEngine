@@ -73,7 +73,8 @@ module.exports = function (ctx) {
       plugins: [
         'Notify',
         'Meta',
-        'Dialog'
+        'Dialog',
+        'LocalStorage'
       ],
 
       animations: [

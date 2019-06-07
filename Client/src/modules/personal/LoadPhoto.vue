@@ -28,13 +28,13 @@
     },
     computed: {
       photo() {
-        if (this.$store && this.$store.state && this.$store.state.auth && this.$store.state.auth.userInfo.photo)
-          return this.$store.state.auth.userInfo.photo;
+        if (this.$store && this.$store.state && this.$store.state.auth && this.$store.state.auth.user.photo)
+          return this.$store.state.auth.user.photo;
         return null;
       },
       isDefault() {
-        if (this.$store && this.$store.state && this.$store.state.auth && this.$store.state.auth.userInfo.photo)
-          return this.$store.state.auth.userInfo.photo.endsWith(defaultAvatar);
+        if (this.$store && this.$store.state && this.$store.state.auth && this.$store.state.auth.user.photo)
+          return this.$store.state.auth.user.photo.endsWith(defaultAvatar);
       }
     },
     methods: {

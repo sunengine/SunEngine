@@ -54,7 +54,7 @@ namespace SunEngine.Core.Security
             async Task<AuthenticateResult> DeleteLongSessionAndLogout(long sessionId)
             {
                 await userManager.DeleteLongSessionAsync(sessionId);
-                
+
                 jwtService.MakeLogoutCookiesAndHeaders(Response);
 
                 return AuthenticateResult.NoResult();
@@ -64,6 +64,10 @@ namespace SunEngine.Core.Security
             {
                 jwtService.MakeLogoutCookiesAndHeaders(Response);
 
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\nLogout\n");
+                Console.ResetColor();
+                
                 return AuthenticateResult.NoResult();
             }
 
@@ -75,7 +79,7 @@ namespace SunEngine.Core.Security
                     return AuthenticateResult.NoResult();
 
 
-                JwtSecurityToken jwtLongToken2 = jwtService.ReadLongToken2(cookie);
+                JwtSecurityToken jwtLongToken2 = jwtService.ReadLong2Token(cookie);
                 if (jwtLongToken2 == null)
                     return Logout();
 
@@ -121,14 +125,14 @@ namespace SunEngine.Core.Security
                         return AuthenticateResult.NoResult();
 
 
-                    var claimsPrincipal =
-                        jwtService.ReadShortToken(jwtShortToken, out SecurityToken shortToken);
+                    var claimsPrincipal = jwtService.ReadShortToken(jwtShortToken);
 
                     string lat2ran_1 = jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
                     string lat2ran_2 = claimsPrincipal.Claims.First(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
 
-                    long sessionId = long.Parse(jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.SessionId).Value);
-                    
+                    long sessionId =
+                        long.Parse(jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.SessionId).Value);
+
                     if (!string.Equals(lat2ran_1, lat2ran_2))
                         return await DeleteLongSessionAndLogout(sessionId);
 

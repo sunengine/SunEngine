@@ -114,6 +114,10 @@ namespace SunEngine.Core.DataBase
                 .HasTableName("MenuItems")
                 .HasIdentity(x => x.Id)
                 .HasPrimaryKey(x => x.Id);
+
+            mp.Entity<CipherSecret>()
+                .HasTableName("CipherSecrets")
+                .HasPrimaryKey(x => x.Name);
         }
     }
 
