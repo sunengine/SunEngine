@@ -66,12 +66,11 @@ namespace SunEngine.Cli
 
             services.AddMemoryCache();
 
-            services.AddCryptServices();
-
             services.AddImagesServices();
 
             services.AddJobs();
 
+            services.AddSingleton<ICryptService, CryptService>();
             services.AddSingleton<CaptchaService>();
             services.AddSingleton<Sanitizer>();
             services.AddTransient<IEmailSenderService, EmailSenderService>();

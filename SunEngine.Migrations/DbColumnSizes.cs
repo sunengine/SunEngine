@@ -31,7 +31,7 @@ namespace SunEngine.Migrations.Migrations
         public const int MenuItems_RouteName = 64;
         public const int MenuItems_CssClass = 64;
         public const int MenuItems_Icon = 64;
-        public const int JwtSecrets_Name = 32;
-        public const int JwtSecrets_Secret = 32;
+        public const int CipherSecrets_Name = 32;
+        public const int CipherSecrets_Secret = 32;
     }
 }

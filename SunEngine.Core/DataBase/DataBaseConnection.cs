@@ -74,7 +74,9 @@ namespace SunEngine.Core.DataBase
 
         public ITable<MenuItem> MenuItems => GetTable<MenuItem>();
 
+        public ITable<CipherSecret> CipherSecrets => GetTable<CipherSecret>();
 
+        
         public void UpdateSequence(string tableName, string keyName)
         {
             if (IsPostgres())
