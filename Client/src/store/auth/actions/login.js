@@ -21,9 +21,11 @@ export default async function (context, userData) {
 
     await context.dispatch('loadAllMenuItems');
 
-  }).catch(() => {
+  }).catch((error) => {
 
     context.state.isPermanentLogin = null;
+
+    throw error;
 
   });
 

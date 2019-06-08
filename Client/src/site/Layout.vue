@@ -17,7 +17,7 @@
         </q-btn>
 
         <q-btn v-if="userName" flat dense round>
-          <img class="layout-avatar avatar" :src="userAvatar"/>
+          <img class="avatar layout-avatar" :src="userAvatar"/>
           <q-menu>
             <UserMenu style="width:180px;"/>
           </q-menu>
