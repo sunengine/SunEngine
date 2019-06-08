@@ -60,7 +60,7 @@ namespace SunEngine.DataSeed
 
         private void SeedCipherSecrets()
         {
-            var names = typeof(CipherSecrets).GetFields().Select(x=>x.Name);
+            var names = typeof(CipherSecrets).GetFields().Select(x => (string) x.GetValue(typeof(CipherSecrets)));
 
             foreach (var name in names)
             {

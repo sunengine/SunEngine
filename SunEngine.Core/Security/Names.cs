@@ -46,7 +46,7 @@ namespace SunEngine.Core.Security
     {
         public const string ShortJwt = "ShortJwt";
 
-        public const string Long2Jwt = "LongJwt";
+        public const string Long2Jwt = "Long2Jwt";
 
         public const string EmailChange = "EmailChange";
     }

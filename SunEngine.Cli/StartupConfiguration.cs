@@ -10,9 +10,9 @@ namespace SunEngine.Cli
     /// </summary>
     public class StartupConfiguration
     {
-        public const string ConfigurationArgumentName = "config:";
-        public const string DefaultConfigurationFileName = "Config";
-        public const string ConfigurationDirectoryNameEnd = ".Config";
+        public const string ConfigArgumentName = "config:";
+        public const string DefaultConfigFileName = "Config";
+        public const string ConfigDirectoryNameEnd = ".Config";
 
         public const string HelpCommand = "help";
         public const string VersionCommand = "version";
@@ -25,7 +25,7 @@ namespace SunEngine.Cli
 
 
         public string[] Arguments { get; }
-        public string ConfigurationDirectoryRoute { get; }
+        public string ConfigRootDir { get; }
         public bool PrintHelp { get; }
         public bool PrintVersion { get; }
         public bool StartServer { get; }
@@ -60,28 +60,28 @@ namespace SunEngine.Cli
             CategoryTokensToSeed = startupArguments.Where(x => x.StartsWith(SeedCommand)).ToList();
             
             var configurationDirectory = GetConfigurationDirectory(arguments);
-            ConfigurationDirectoryRoute = Path.GetFullPath(configurationDirectory);
+            ConfigRootDir = Path.GetFullPath(configurationDirectory);
         }
 
         private string GetConfigurationDirectory(IEnumerable<string> arguments)
         {
-            var configurationProperty = arguments.FirstOrDefault(x => x.StartsWith(ConfigurationArgumentName));
+            var configurationProperty = arguments.FirstOrDefault(x => x.StartsWith(ConfigArgumentName));
             if (string.IsNullOrEmpty(configurationProperty))
             {
                 Console.WriteLine("Property for configuration wasn't set. Default configuration will be used.");
-                return DefaultConfigurationFileName;
+                return DefaultConfigFileName;
             }
 
-            var configurationFileName = configurationProperty.Substring(ConfigurationArgumentName.Length).Trim();
+            var configurationFileName = configurationProperty.Substring(ConfigArgumentName.Length).Trim();
             if (string.IsNullOrEmpty(configurationFileName))
             {
                 Console.WriteLine("Property for configuration was empty or blank. Default configuration will be used.");
-                return DefaultConfigurationFileName;
+                return DefaultConfigFileName;
             }
 
-            if (!configurationFileName.Equals(DefaultConfigurationFileName) && !configurationFileName.EndsWith(ConfigurationDirectoryNameEnd))
+            if (!configurationFileName.Equals(DefaultConfigFileName) && !configurationFileName.EndsWith(ConfigDirectoryNameEnd))
             {
-                configurationFileName += ConfigurationDirectoryNameEnd;
+                configurationFileName += ConfigDirectoryNameEnd;
             }
 
             Console.WriteLine($"Configuration directory \"{configurationFileName}\" will be used.");

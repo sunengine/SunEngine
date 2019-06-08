@@ -4,12 +4,12 @@ using System.Reflection;
 
 namespace SunEngine.Cli
 {
-    public class InfoPrinter
+    public static class InfoPrinter
     {
         /// <summary>
         /// Print this info if "dotnet SunEngine.dll" starts with no commands.
         /// </summary>
-        public void PrintStartWithNoArgumentsInfo()
+        public static void PrintStartWithNoArgumentsInfo()
         {
             Console.WriteLine("Startup arguments wasn't provided. To list available commands use 'help' argument.");
         }
@@ -17,7 +17,7 @@ namespace SunEngine.Cli
         /// <summary>
         /// Print help on dotnet "dotnet SunEngine.dll help"
         /// </summary>
-        public void PrintHelp()
+        public static void PrintHelp()
         {
             var helpText = @"
 Commands:
@@ -51,7 +51,7 @@ Examples:
         /// <summary>
         /// Print version of SunEngine
         /// </summary>
-        public void PrintVersion()
+        public static void PrintVersion()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);

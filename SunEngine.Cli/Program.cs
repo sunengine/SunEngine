@@ -7,46 +7,38 @@ namespace SunEngine.Cli
 {
     public class Program
     {
-        private static InfoPrinter InfoPrinter = new InfoPrinter();
-        private static ServerStartup ServerStartup = new ServerStartup();
-        private static MainSeeder MainSeeder;
-        private static MainMigrator MainMigrator;
-
         public static void Main(string[] args)
         {
-            StartupConfiguration startupConfiguration = new StartupConfiguration(args);
-            ExitApplicationIfConfigurationIsNotValid(startupConfiguration);
-
-            MainSeeder = new MainSeeder(startupConfiguration.ConfigurationDirectoryRoute);
-            MainMigrator = new MainMigrator(startupConfiguration.ConfigurationDirectoryRoute);
-
-            if (startupConfiguration.PrintHelp)
+            StartupConfiguration config = new StartupConfiguration(args);
+            ExitApplicationIfConfigurationIsNotValid(config);
+            
+            if (config.PrintHelp)
                 InfoPrinter.PrintHelp();
 
-            else if (startupConfiguration.PrintVersion)
+            else if (config.PrintVersion)
                 InfoPrinter.PrintVersion();
 
-            else if (startupConfiguration.CheckDatabaseAvailability)
-                MainSeeder.СheckConnection();
+            else if (config.CheckDatabaseAvailability)
+                new MainSeeder(config.ConfigRootDir).СheckConnection();
 
-            else if (ShouldUpdateData(startupConfiguration))
+            else if (ShouldUpdateData(config))
             {
-                if (startupConfiguration.Migrate)
-                    MainMigrator.Migrate();
+                if (config.Migrate)
+                    new MainMigrator(config.ConfigRootDir).Migrate();
 
-                if (startupConfiguration.InitializeCoreData)
-                    MainSeeder.SeedInitialize();
+                if (config.InitializeCoreData)
+                    new MainSeeder(config.ConfigRootDir).SeedInitialize();
 
-                if (startupConfiguration.SeedWithTestData)
-                    MainSeeder.SeedAddTestData(startupConfiguration.CategoryTokensToSeed,
-                        startupConfiguration.SeedWithCategoryNames);
+                if (config.SeedWithTestData)
+                    new MainSeeder(config.ConfigRootDir).SeedAddTestData(config.CategoryTokensToSeed,
+                        config.SeedWithCategoryNames);
             }
 
-            else if (startupConfiguration.StartServer)
-                ServerStartup.RunServer(startupConfiguration);
-
+            else if (config.StartServer)
+                new ServerStartup().RunServer(config);
             else
                 InfoPrinter.PrintStartWithNoArgumentsInfo();
+            
         }
 
         private static bool ShouldUpdateData(StartupConfiguration startupConfiguration)
@@ -58,7 +50,7 @@ namespace SunEngine.Cli
 
         private static void ExitApplicationIfConfigurationIsNotValid(StartupConfiguration startupConfiguration)
         {
-            bool failed = !TestIfConfigurationDirectoryExists(startupConfiguration.ConfigurationDirectoryRoute);
+            bool failed = !TestIfConfigurationDirectoryExists(startupConfiguration.ConfigRootDir);
 
             if (failed)
                 Environment.Exit(0);
