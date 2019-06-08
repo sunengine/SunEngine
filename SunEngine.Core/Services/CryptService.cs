@@ -154,9 +154,7 @@ namespace SunEngine.Core.Services
 
         public static string GenerateSecurityKeyString()
         {
-            return Encoding.UTF8.GetString(GenerateSecurityKey());
+            return Encoding.Unicode.GetString(GenerateSecurityKey());
         }
     }
-    
-    
 }
