@@ -41,9 +41,6 @@ export default function prepareAllMenuItems(state, allMenuItems) {
     }
   }
 
-  console.info('%cMenuItems prepared', consoleInit);
-  if(config.Log.InitExtended) {
-    console.info('%cNamed', consoleRequestStart, state.namedMenuItems);
-    console.info('%cAll', consoleRequestStart, allMenuItems);
-  }
+  console.info('%cMenuItems prepared', consoleInit,config.Log.InitExtended ? {named:state.namedMenuItems, all:allMenuItems} : undefined);
+
 }
