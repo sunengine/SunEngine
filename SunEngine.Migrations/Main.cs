@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Net.Sockets;
-using FluentMigrator;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,15 +12,19 @@ namespace SunEngine.Migrations
     /// <summary>
     /// Class to migrate database or create initial structure with FluentMigrator Framework
     /// </summary>
-    public class MainMigrator
+    public class Main
     {
-        private string dbConfigFilePath;
+        private const string DataBaseConnectionFileName = "DataBaseConnection.json";
+        
+        private readonly string DataBaseConnectionFilePath;
 
-        public MainMigrator(string configDirPath)
+        
+        public Main(string configDirPath)
         {
-            dbConfigFilePath = Path.GetFullPath(Path.Combine(configDirPath, "DataBaseConnection.json"));
+            DataBaseConnectionFilePath = Path.GetFullPath(Path.Combine(configDirPath, DataBaseConnectionFileName));
         }
 
+        
         public void Migrate()
         {
             var serviceProvider = CreateServices();
@@ -38,7 +41,7 @@ namespace SunEngine.Migrations
         private IServiceProvider CreateServices()
         {
             var configuration = new ConfigurationBuilder()
-                .AddJsonFile(dbConfigFilePath, optional: false, reloadOnChange: false)
+                .AddJsonFile(DataBaseConnectionFilePath, false, false)
                 .Build();
 
             var dataBaseConfiguration = configuration.GetSection("DataBaseConnection");
@@ -77,5 +80,4 @@ namespace SunEngine.Migrations
             }
         }
     }
-    
 }

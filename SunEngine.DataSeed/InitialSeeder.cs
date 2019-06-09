@@ -20,17 +20,17 @@ namespace SunEngine.DataSeed
         public const string MenusConfigDir = "Menu";
 
 
-        private readonly DataContainer dataContainer;
+        private readonly DataContainer dataContainer = new DataContainer();
 
-        private readonly UsersJsonSeeder usersJsonSeeder;
+        private readonly UsersSeeder usersSeeder;
 
         private readonly string configDir;
+        
 
         public InitialSeeder(string configDir)
         {
             this.configDir = configDir;
-            dataContainer = new DataContainer();
-            usersJsonSeeder = new UsersJsonSeeder(dataContainer, configDir);
+            usersSeeder = new UsersSeeder(dataContainer, configDir);
         }
 
         public DataContainer Seed()
@@ -58,27 +58,6 @@ namespace SunEngine.DataSeed
             return dataContainer;
         }
 
-        private void SeedCipherSecrets()
-        {
-            var names = typeof(CipherSecrets).GetFields().Select(x => (string) x.GetValue(typeof(CipherSecrets)));
-
-            foreach (var name in names)
-            {
-                dataContainer.CipherSecrets.Add(
-                    new CipherSecret
-                    {
-                        Name = name,
-                        Secret = CryptService.GenerateSecurityKeyString()
-                    });
-            }
-        }
-
-        private void SeedMenus()
-        {
-            var path = Path.GetFullPath(Path.Combine(configDir, MenusConfigDir));
-            MenuSeeder menuSeeder = new MenuSeeder(dataContainer, path);
-            menuSeeder.Seed();
-        }
 
         private void StartConsoleLog()
         {
@@ -87,18 +66,22 @@ namespace SunEngine.DataSeed
             Console.ResetColor();
         }
 
-        private void SeedUsers()
+        private void SeedOperationKeys()
         {
-            Console.WriteLine("Users");
+            Console.WriteLine("OperationKeys");
 
-            usersJsonSeeder.SeedUsers();
-        }
+            var keys = OperationKeysContainer.GetAllOperationKeys();
 
-        private void SeedUserRoles()
-        {
-            Console.WriteLine("UsersRoles");
+            foreach (var key in keys)
+            {
+                var operationKey = new OperationKey
+                {
+                    OperationKeyId = dataContainer.NextOperationKeyId(),
+                    Name = key
+                };
 
-            usersJsonSeeder.SeedUserRoles();
+                dataContainer.OperationKeys.Add(operationKey);
+            }
         }
 
         private void SeedSectionTypes()
@@ -130,6 +113,58 @@ namespace SunEngine.DataSeed
             dataContainer.SectionTypes.Add(sectionTypeBlog);
         }
 
+        private void SeedUsers()
+        {
+            Console.WriteLine("Users");
+
+            usersSeeder.SeedUsers();
+        }
+
+        private void SeedCategories()
+        {
+            Console.WriteLine("Categories");
+
+            SeedRootCategory();
+            SeedCategoriesFromDirectory();
+            DetectCategoriesParents();
+            
+            
+            void SeedRootCategory()
+            {
+                Category rootCategory = new Category
+                {
+                    Id = 1,
+                    Name = Category.RootName,
+                    NameNormalized = Normalizer.Normalize(Category.RootName),
+                    Title = Category.RootName,
+                    SortNumber = 1
+                };
+                dataContainer.RootCategory = rootCategory;
+                dataContainer.Categories.Add(rootCategory);
+            }
+            
+            
+            void DetectCategoriesParents()
+            {
+                foreach (var category in dataContainer.Categories)
+                {
+                    if (category.ParentId.HasValue)
+                        category.Parent = dataContainer.Categories.FirstOrDefault(x => x.Id == category.ParentId.Value);
+                }
+            }
+        }
+
+        private void SeedCategoriesFromDirectory()
+        {
+            var fileNames = Directory.GetFiles(Path.GetFullPath(Path.Combine(configDir, CategoriesConfigDir)));
+
+            CategoriesSeeder categoriesSeeder =
+                new CategoriesSeeder(dataContainer);
+            foreach (var fileName in fileNames)
+            {
+                categoriesSeeder.Seed(fileName);
+            }
+        }
 
         private void SeedRoles()
         {
@@ -152,68 +187,11 @@ namespace SunEngine.DataSeed
             dataContainer.CategoryAccesses = fromJsonLoader.categoryAccesses;
             dataContainer.CategoryOperationAccesses = fromJsonLoader.categoryOperationAccesses;
         }
-
-        private void SeedOperationKeys()
+        private void SeedUserRoles()
         {
-            Console.WriteLine("OperationKeys");
+            Console.WriteLine("UsersRoles");
 
-            var keys = OperationKeysContainer.GetAllOperationKeys();
-
-            foreach (var key in keys)
-            {
-                var operationKey = new OperationKey
-                {
-                    OperationKeyId = dataContainer.NextOperationKeyId(),
-                    Name = key
-                };
-
-                dataContainer.OperationKeys.Add(operationKey);
-            }
-        }
-
-
-        private void SeedCategories()
-        {
-            Console.WriteLine("Categories");
-
-            SeedRootCategory();
-            SeedCategoriesFromDirectory();
-            DetectCategoriesParents();
-        }
-
-        private void DetectCategoriesParents()
-        {
-            foreach (var category in dataContainer.Categories)
-            {
-                if (category.ParentId.HasValue)
-                    category.Parent = dataContainer.Categories.FirstOrDefault(x => x.Id == category.ParentId.Value);
-            }
-        }
-
-        private void SeedRootCategory()
-        {
-            Category rootCategory = new Category
-            {
-                Id = 1,
-                Name = Category.RootName,
-                NameNormalized = Normalizer.Normalize(Category.RootName),
-                Title = Category.RootName,
-                SortNumber = 1
-            };
-            dataContainer.RootCategory = rootCategory;
-            dataContainer.Categories.Add(rootCategory);
-        }
-
-        private void SeedCategoriesFromDirectory()
-        {
-            var fileNames = Directory.GetFiles(Path.GetFullPath(Path.Combine(configDir, CategoriesConfigDir)));
-
-            CategoriesJsonSeeder categoriesJsonSeeder =
-                new CategoriesJsonSeeder(dataContainer);
-            foreach (var fileName in fileNames)
-            {
-                categoriesJsonSeeder.Seed(fileName);
-            }
+            usersSeeder.SeedUserRoles();
         }
 
         private void SeedCacheSettings()
@@ -225,5 +203,30 @@ namespace SunEngine.DataSeed
                 InvalidateCacheTime = 15
             };
         }
+
+        private void SeedMenus()
+        {
+            var path = Path.GetFullPath(Path.Combine(configDir, MenusConfigDir));
+            MenuSeeder menuSeeder = new MenuSeeder(dataContainer, path);
+            menuSeeder.Seed();
+        }
+
+        private void SeedCipherSecrets()
+        {
+            var names = typeof(CipherSecrets).GetFields().Select(x => (string) x.GetValue(typeof(CipherSecrets)));
+
+            foreach (var name in names)
+            {
+                dataContainer.CipherSecrets.Add(
+                    new CipherSecret
+                    {
+                        Name = name,
+                        Secret = CryptService.GenerateSecurityKeyString()
+                    });
+            }
+        }
+
+
+        
     }
 }

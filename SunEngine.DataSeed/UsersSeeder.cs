@@ -11,7 +11,7 @@ namespace SunEngine.DataSeed
     /// <summary>
     /// Seed users from json file from config dir to DataContainer
     /// </summary>
-    public class UsersJsonSeeder
+    public class UsersSeeder
     {
         private const string AllUsersDefaultPassword = "password";
 
@@ -21,7 +21,7 @@ namespace SunEngine.DataSeed
 
         private JArray usersJArray;
 
-        public UsersJsonSeeder(DataContainer dataContainer, string configDir)
+        public UsersSeeder(DataContainer dataContainer, string configDir)
         {
             this.dataContainer = dataContainer;
             this.configDir = configDir;
@@ -39,13 +39,7 @@ namespace SunEngine.DataSeed
             }
         }
 
-        public void SeedUserRoles()
-        {
-            foreach (var userJ in usersJArray)
-            {
-                SeedUserRole(userJ);
-            }
-        }
+      
 
 
         private void SeedUser(JToken usersJ)
@@ -91,7 +85,13 @@ namespace SunEngine.DataSeed
                 dataContainer.Users.Add(user);
             }
         }
-
+        public void SeedUserRoles()
+        {
+            foreach (var userJ in usersJArray)
+            {
+                SeedUserRole(userJ);
+            }
+        }
 
         private void SeedUserRole(JToken userJ)
         {

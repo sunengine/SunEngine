@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-
 namespace SunEngine.Core.Cache.Services
 {   
     public interface ISunMemoryCache

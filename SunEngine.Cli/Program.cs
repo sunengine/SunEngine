@@ -1,7 +1,5 @@
 using System;
 using System.IO;
-using SunEngine.DataSeed;
-using SunEngine.Migrations;
 
 namespace SunEngine.Cli
 {
@@ -10,46 +8,60 @@ namespace SunEngine.Cli
         public static void Main(string[] args)
         {
             StartupConfiguration config = new StartupConfiguration(args);
-            ExitApplicationIfConfigurationIsNotValid(config);
-            
-            if (config.PrintHelp)
-                InfoPrinter.PrintHelp();
 
-            else if (config.PrintVersion)
-                InfoPrinter.PrintVersion();
+            if (config.PrintHelp || config.PrintVersion)
+            {
+                if (config.PrintHelp)
+                    InfoPrinter.PrintHelp();
 
-            else if (config.CheckDatabaseAvailability)
-                new MainSeeder(config.ConfigRootDir).СheckConnection();
+                else if (config.PrintVersion)
+                    InfoPrinter.PrintVersion();
 
-            else if (ShouldUpdateData(config))
+                return;
+            }
+
+            UseConfigurationDirectory(config);
+
+            if (config.CheckDatabaseAvailability)
+                DataSeed().CheckConnection();
+
+            else if (ShouldUpdate(config))
             {
                 if (config.Migrate)
-                    new MainMigrator(config.ConfigRootDir).Migrate();
+                    Migrations().Migrate();
 
                 if (config.InitializeCoreData)
-                    new MainSeeder(config.ConfigRootDir).SeedInitialize();
+                    DataSeed().SeedInitialize();
 
                 if (config.SeedWithTestData)
-                    new MainSeeder(config.ConfigRootDir).SeedAddTestData(config.CategoryTokensToSeed,
-                        config.SeedWithCategoryNames);
+                    DataSeed().SeedAddTestData(config.CategoryTokensToSeed, config.SeedWithCategoryNames);
             }
 
             else if (config.StartServer)
                 new ServerStartup().RunServer(config);
             else
-                InfoPrinter.PrintStartWithNoArgumentsInfo();
-            
+                InfoPrinter.PrintNoArgumentsInfo();
+
+
+            Migrations.Main Migrations() => new Migrations.Main(config.ConfigRootDir);
+
+            DataSeed.Main DataSeed() => new DataSeed.Main(config.ConfigRootDir);
         }
 
-        private static bool ShouldUpdateData(StartupConfiguration startupConfiguration)
+        private static bool ShouldUpdate(StartupConfiguration startupConfiguration)
         {
             return startupConfiguration.Migrate ||
                    startupConfiguration.InitializeCoreData ||
                    startupConfiguration.SeedWithTestData;
         }
 
-        private static void ExitApplicationIfConfigurationIsNotValid(StartupConfiguration startupConfiguration)
+        /// <summary>
+        /// Detect configuration directory and exit if it is not exists
+        /// </summary>
+        private static void UseConfigurationDirectory(StartupConfiguration startupConfiguration)
         {
+            startupConfiguration.InitConfigurationDirectory();
+            
             bool failed = !TestIfConfigurationDirectoryExists(startupConfiguration.ConfigRootDir);
 
             if (failed)
@@ -61,7 +73,7 @@ namespace SunEngine.Cli
                 if (Directory.Exists(dirPath))
                     return true;
 
-                Console.WriteLine($"Configuration directory \"{dirPath}\" does not exists.");
+                Console.WriteLine($@"Configuration directory ""{dirPath}"" does not exists.");
                 return false;
             }
         }

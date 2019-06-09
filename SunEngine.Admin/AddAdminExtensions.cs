@@ -1,9 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using SunEngine.Admin.Managers;
 using SunEngine.Admin.Presenters;
 using SunEngine.Admin.Services;
-using SunEngine.Core.Configuration.Options;
 
 namespace SunEngine.Admin
 {

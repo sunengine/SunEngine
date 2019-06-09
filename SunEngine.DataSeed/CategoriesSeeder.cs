@@ -11,11 +11,11 @@ namespace SunEngine.DataSeed
     /// <summary>
     /// Seed categories from json from config directory to DataContainer
     /// </summary>
-    public class CategoriesJsonSeeder
+    public class CategoriesSeeder
     {
         private readonly DataContainer dataContainer;
 
-        public CategoriesJsonSeeder(DataContainer dataContainer)
+        public CategoriesSeeder(DataContainer dataContainer)
         {
             this.dataContainer = dataContainer;
         }
