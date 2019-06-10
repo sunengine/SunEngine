@@ -1,4 +1,8 @@
-﻿using SunEngine.Core.DataBase;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using SunEngine.Core.Configuration.Options;
+using SunEngine.Core.DataBase;
+using SunEngine.Core.Services;
 
 namespace SunEngine.Tests
 {
@@ -17,6 +21,18 @@ namespace SunEngine.Tests
         {
             LinqToDB.Common.Configuration.Linq.AllowMultipleQuery = true;
             return new DataBaseFactory(provider, connectionString, new DbMappingSchema());
+        }
+
+        public static ServiceProvider DefaultServiceProvider()
+        {
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddOptions<IOptions<CacheOptions>>();
+
+            CryptService cryptService = new CryptService();
+            cryptService.AddCryptorKey(CaptchaService.CryptserviceName);
+
+            serviceCollection.AddSingleton(cryptService);
+            return serviceCollection.BuildServiceProvider();
         }
     }
 }
