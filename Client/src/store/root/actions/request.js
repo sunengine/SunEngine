@@ -38,16 +38,17 @@ export default async function request(context, data) {
 
   if (data.skipLock) {
     if (checkLocalTokensExpire()) {
-      headers['LongToken1'] = tokens.longToken;
+
+      headers['LongToken1'] = store.state.auth.tokens.longToken;
     }
     return makeRequest();
   }
 
   return lock.lock(() => {
-      const tokens = store.state.auth.tokens;
 
       if (checkLocalTokensExpire()) {
-        headers['LongToken1'] = tokens.longToken;
+
+        headers['LongToken1'] = store.state.auth.tokens.longToken;
         return makeRequest();
       }
     }
@@ -65,12 +66,10 @@ export default async function request(context, data) {
     if (!tokens)
       return false;
 
-
     const nowDate = new Date(new Date().toUTCString()).getTime();
     const exp = tokens.shortTokenExpiration.getTime();
 
     console.log("nowDate - exp", nowDate, exp);
-
 
     const rez = exp < nowDate;
 
