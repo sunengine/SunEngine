@@ -4,7 +4,7 @@ import Lock from 'js-lock'
 import {store as store} from 'sun'
 import {router} from 'sun'
 import {app} from 'sun'
-import {removeTokens, setTokens, parseJwt} from 'sun'
+import {removeTokens, setTokens} from 'sun'
 import {routeCheckAccess} from 'sun'
 import {consoleTokens, consoleUserLogout, consoleRequestStart, consoleRequestUrl} from 'sun'
 
@@ -34,8 +34,6 @@ export default async function request(context, data) {
 
   const sendAsJson = data.sendAsJson ?? false;
 
-  const tokens = store.state.auth?.tokens;
-
   const headers = {};
 
   if (data.skipLock) {
@@ -46,6 +44,7 @@ export default async function request(context, data) {
   }
 
   return lock.lock(() => {
+      const tokens = store.state.auth.tokens;
 
       if (checkLocalTokensExpire()) {
         headers['LongToken1'] = tokens.longToken;
@@ -61,11 +60,17 @@ export default async function request(context, data) {
 
   function checkLocalTokensExpire() {
 
-    if(!tokens)
+    const tokens = store.state.auth?.tokens;
+
+    if (!tokens)
       return false;
+
 
     const nowDate = new Date(new Date().toUTCString()).getTime();
     const exp = tokens.shortTokenExpiration.getTime();
+
+    console.log("nowDate - exp", nowDate, exp);
+
 
     const rez = exp < nowDate;
 
@@ -76,6 +81,8 @@ export default async function request(context, data) {
   }
 
   function makeRequest() {
+
+    const tokens = store.state.auth?.tokens;
 
     if (tokens)
       headers['Authorization'] = `Bearer ${tokens.shortToken}`;
@@ -104,7 +111,6 @@ export default async function request(context, data) {
 
   }
 }
-
 
 
 function ConvertObjectToFormData(obj) {
@@ -147,8 +153,8 @@ async function checkTokens(rez) {
 
       store.state.auth.tokens = newTokens;
 
-      if(store.state.auth.isPermanentLogin);
-        setTokens(newTokens);
+      if (store.state.auth.isPermanentLogin) ;
+      setTokens(newTokens);
 
       console.info('%cTokens refreshed', consoleTokens);
 

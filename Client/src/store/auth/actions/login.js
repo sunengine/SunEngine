@@ -1,4 +1,3 @@
-import {setTokens} from 'sun';
 
 export default async function (context, userData) {
 
