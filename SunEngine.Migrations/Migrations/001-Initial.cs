@@ -207,7 +207,6 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("Icon").AsString(DbColumnSizes.MenuItems_Icon).Nullable()
                 .WithColumn("IsHidden").AsBoolean().NotNullable();
             
-            
         }
 
 

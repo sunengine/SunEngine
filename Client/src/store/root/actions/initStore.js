@@ -6,7 +6,7 @@ export default async function (context) {
 
   console.info("%cStart init store", consoleInit);
 
-  if(context.state.auth.tokens)
+  if(context.state.auth.longToken)
     await context.dispatch('loadMyUserInfo').catch(() => {
       removeBadTokens();
     });

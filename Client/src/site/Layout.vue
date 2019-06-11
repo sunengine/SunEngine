@@ -79,7 +79,6 @@
       rightDrawerIs: function () {
         return !!this.$route?.matched?.[0]?.components?.navigation;
       },
-
       ...mapState({
         userName: state => state.auth.user?.name,
         userAvatar: state => state.auth.user?.avatar,

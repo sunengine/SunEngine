@@ -1,7 +1,7 @@
 import {store} from 'sun';
 
 export default function clearAllUserRelatedData(state) {
-  state.tokens = null;
+  state.longToken = null;
   state.isPermanentLogin = null;
   state.user = null;
   state.roles = ['Unregistered'];

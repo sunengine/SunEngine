@@ -1,5 +1,5 @@
 export default {
-  tokens: null,
+  longToken: null,
   user: null,
   isPermanentLogin: null,
   roles: ['Unregistered']

@@ -6,7 +6,6 @@ export default {
     entering: "Заходим...",
     enterBtn: "Войти",
     forgotPassword: "Забыли пароль?",
-    doNotRemember: "Не запоминать меня",
     successNotify: "Вы зашли",
     validation: {
       nameOrEmail: {

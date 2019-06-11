@@ -26,10 +26,6 @@
       </q-input>
 
 
-      <div class="q-my-md" style="text-align: right;">
-        <q-checkbox class="text-grey-9" left-label v-model="notMyComputer" :label="$tl('doNotRemember')"/>
-      </div>
-
       <q-btn style="width:100%;" class="send-btn" :label="$tl('enterBtn')" @click="login" :loading="submitting">
         <span slot="loading">
           <q-spinner class="on-left"/>  {{$tl('entering')}}
@@ -56,7 +52,6 @@
       return {
         nameOrEmail: null,
         password: null,
-        notMyComputer: false,
         submitting: false,
         showPassword: false
       }
@@ -72,7 +67,7 @@
 
         this.submitting = true;
 
-        const data = {nameOrEmail: this.nameOrEmail, password: this.password, notMyComputer: this.notMyComputer};
+        const data = {nameOrEmail: this.nameOrEmail, password: this.password};
         await this.$store.dispatch('login', data)
           .then(() => {
             this.$successNotify();

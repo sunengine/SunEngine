@@ -4,7 +4,7 @@ import Lock from 'js-lock'
 import {store as store} from 'sun'
 import {router} from 'sun'
 import {app} from 'sun'
-import {removeTokens, setTokens} from 'sun'
+import {removeTokens, setTokens, getTokens} from 'sun'
 import {routeCheckAccess} from 'sun'
 import {consoleTokens, consoleUserLogout, consoleRequestStart, consoleRequestUrl} from 'sun'
 
@@ -39,7 +39,7 @@ export default async function request(context, data) {
   if (data.skipLock) {
     if (checkLocalTokensExpire()) {
 
-      headers['LongToken1'] = store.state.auth.tokens.longToken;
+      headers['LongToken1'] = getTokens().longToken;
     }
     return makeRequest();
   }
@@ -48,7 +48,7 @@ export default async function request(context, data) {
 
       if (checkLocalTokensExpire()) {
 
-        headers['LongToken1'] = store.state.auth.tokens.longToken;
+        headers['LongToken1'] = getTokens().longToken;
         return makeRequest();
       }
     }
@@ -61,7 +61,7 @@ export default async function request(context, data) {
 
   function checkLocalTokensExpire() {
 
-    const tokens = store.state.auth?.tokens;
+    const tokens = getTokens()?.tokens;
 
     if (!tokens)
       return false;
@@ -81,7 +81,7 @@ export default async function request(context, data) {
 
   function makeRequest() {
 
-    const tokens = store.state.auth?.tokens;
+    const tokens = getTokens();
 
     if (tokens)
       headers['Authorization'] = `Bearer ${tokens.shortToken}`;
@@ -150,9 +150,8 @@ async function checkTokens(rez) {
 
       newTokens.shortTokenExpiration = new Date(newTokens.shortTokenExpiration);
 
-      store.state.auth.tokens = newTokens;
+      store.state.auth.longToken = newTokens.longToken;
 
-      if (store.state.auth.isPermanentLogin) ;
       setTokens(newTokens);
 
       console.info('%cTokens refreshed', consoleTokens);

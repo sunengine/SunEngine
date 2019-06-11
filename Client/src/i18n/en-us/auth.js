@@ -6,7 +6,6 @@ export default {
     entering: "Sign In...",
     enterBtn: "Sign In",
     forgotPassword: "Forget password?",
-    doNotRemember: "Do not remember",
     enterSuccess: "You logged in",
     validation: {
       nameOrEmail: {

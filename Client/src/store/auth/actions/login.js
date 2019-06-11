@@ -1,8 +1,6 @@
 
 export default async function (context, userData) {
 
-  context.state.isPermanentLogin = !userData.notMyComputer;
-
   await context.dispatch('request',
     {
       url: "/Auth/Login",
@@ -20,12 +18,5 @@ export default async function (context, userData) {
 
     await context.dispatch('loadAllMenuItems');
 
-  }).catch((error) => {
-
-    context.state.isPermanentLogin = null;
-
-    throw error;
-
   });
-
 }
