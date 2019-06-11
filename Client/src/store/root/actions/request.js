@@ -36,11 +36,14 @@ export default async function request(context, data) {
 
   const headers = {};
 
+  const tokens = getTokens();
+
   if (data.skipLock) {
     if (checkLocalTokensExpire()) {
 
-      headers['LongToken1'] = getTokens().longToken;
+      headers['LongToken1'] = tokens.longToken;
     }
+
     return makeRequest();
   }
 
@@ -48,7 +51,7 @@ export default async function request(context, data) {
 
       if (checkLocalTokensExpire()) {
 
-        headers['LongToken1'] = getTokens().longToken;
+        headers['LongToken1'] = tokens.longToken;
         return makeRequest();
       }
     }
@@ -59,9 +62,9 @@ export default async function request(context, data) {
       return makeRequest();
   });
 
-  function checkLocalTokensExpire() {
 
-    const tokens = getTokens()?.tokens;
+
+  function checkLocalTokensExpire() {
 
     if (!tokens)
       return false;
@@ -80,8 +83,6 @@ export default async function request(context, data) {
   }
 
   function makeRequest() {
-
-    const tokens = getTokens();
 
     if (tokens)
       headers['Authorization'] = `Bearer ${tokens.shortToken}`;
@@ -125,6 +126,7 @@ function ConvertObjectToFormData(obj) {
 }
 
 async function checkTokens(rez) {
+
   const tokensHeader = rez.headers.tokens;
 
   if (tokensHeader) {

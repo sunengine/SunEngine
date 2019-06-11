@@ -1,6 +1,5 @@
 import state from 'store/auth/state'
 import loadMyUserInfo from 'store/auth/actions/loadMyUserInfo'
-import initUserFromLocalStorage from 'store/auth/actions/initUserFromLocalStorage'
 import login from 'store/auth/actions/login'
 import logout from 'store/auth/actions/logout'
 import clearAllUserRelatedData from 'store/auth/mutations/clearAllUserRelatedData'
@@ -12,7 +11,6 @@ export default {
   state,
   actions: {
     loadMyUserInfo,
-    initUserFromLocalStorage,
     login,
     logout
   },
