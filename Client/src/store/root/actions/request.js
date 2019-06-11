@@ -72,8 +72,6 @@ export default async function request(context, data) {
     const nowDate = new Date(new Date().toUTCString()).getTime();
     const exp = tokens.shortTokenExpiration.getTime();
 
-    console.log("nowDate - exp", nowDate, exp);
-
     const rez = exp < nowDate;
 
     if (rez)
