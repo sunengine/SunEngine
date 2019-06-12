@@ -20,8 +20,8 @@ namespace SunEngine.Core.Managers
 {
     public interface IAuthManager
     {
-        Task<UserServiceResult> LoginAsync(string nameOrEmail, string password);
-        Task<ServiceResult> RegisterAsync(NewUserArgs model);
+        Task<User> LoginAsync(string nameOrEmail, string password);
+        Task RegisterAsync(NewUserArgs model);
     }
 
     public class AuthManager : DbService, IAuthManager
@@ -46,34 +46,25 @@ namespace SunEngine.Core.Managers
         }
 
 
-        public async Task<UserServiceResult> LoginAsync(string nameOrEmail, string password)
+        public async Task<User> LoginAsync(string nameOrEmail, string password)
         {
             User user = await userManager.FindUserByNameOrEmailAsync(nameOrEmail);
 
             if (user == null || !await userManager.CheckPasswordAsync(user, password))
-            {
-                return UserServiceResult.BadResult(
-                    ErrorView.SoftError("UsernamePasswordInvalid",
-                        "The username or password is invalid."));
-            }
+                throw new SunViewException(ErrorView.SoftError("UsernamePasswordInvalid",
+                    "The username or password is invalid."));
 
             if (!await userManager.IsEmailConfirmedAsync(user))
-            {
-                return UserServiceResult.BadResult(
-                    ErrorView.SoftError("EmailNotConfirmed",
-                        "You must have a confirmed email to log in."));
-            }
+                throw new SunViewException(ErrorView.SoftError("EmailNotConfirmed",
+                    "You must have a confirmed email to log in."));
 
             if (await userManager.IsUserInRoleAsync(user.Id, RoleNames.Banned))
-            {
-                return UserServiceResult.BadResult(new ErrorView("UserBanned", "User is banned",
-                    ErrorType.System));
-            }
+                throw new SunViewException(new ErrorView("UserBanned", "User is banned", ErrorType.System));
 
-            return UserServiceResult.OkResult(user);
+            return user;
         }
 
-        public virtual async Task<ServiceResult> RegisterAsync(NewUserArgs model)
+        public virtual async Task RegisterAsync(NewUserArgs model)
         {
             var user = new User
             {
@@ -90,7 +81,7 @@ namespace SunEngine.Core.Managers
                     .UpdateAsync();
 
                 if (!result.Succeeded)
-                    return ServiceResult.BadResult(new ErrorView(result.Errors));
+                    throw new SunViewException(new ErrorView(result.Errors));
 
                 logger.LogInformation($"New user registered (id: {user.Id})");
 
@@ -113,9 +104,8 @@ namespace SunEngine.Core.Managers
                     }
                     catch (Exception exception)
                     {
-                        return ServiceResult.BadResult(
-                            new ErrorView("EmailSendError", "Can not send email", ErrorType.System,
-                                exception));
+                        throw new SunViewException(new ErrorView("EmailSendError", "Can not send email",
+                            ErrorType.System, exception));
                     }
 
 
@@ -125,8 +115,6 @@ namespace SunEngine.Core.Managers
                 logger.LogInformation($"User logged in (id: {user.Id})");
 
                 transaction.Complete();
-
-                return ServiceResult.OkResult();
             }
         }
     }

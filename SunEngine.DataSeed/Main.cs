@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net.Sockets;
 using Microsoft.Extensions.Configuration;
 using SunEngine.Core.DataBase;
-using SunEngine.Core.Exceptions.Database.Connection;
+using SunEngine.Core.Errors;
 using SunEngine.Core.Models;
 
 namespace SunEngine.DataSeed
@@ -57,13 +57,13 @@ namespace SunEngine.DataSeed
                 }
                 catch (DbException e)
                 {
-                    throw new SunDatabaseException(
+                    throw new SunDataBaseException(
                         "Exception happened in data seed process. " +
                         "Check that last migrations were done('migrate' argument).", e);
                 }
                 catch (SocketException e)
                 {
-                    throw new SunDatabaseConnectionException("The connection could not be made. " +
+                    throw new SunDataBaseException("The connection could not be made. " +
                                                              "Check the database you are trying to connect exists.", e);
                 }
             }
@@ -87,14 +87,14 @@ namespace SunEngine.DataSeed
                 }
                 catch (DbException e)
                 {
-                    throw new SunDatabaseException(
+                    throw new SunDataBaseException(
                         "Exception happened in data seed process. " +
                         "Check that last migrations were done('migrate' argument) and system initialized ('init' argument).",
                         e);
                 }
                 catch (SocketException e)
                 {
-                    throw new SunDatabaseConnectionException("The connection could not be made. " +
+                    throw new SunDataBaseException("The connection could not be made. " +
                                                              "Check the database you are trying to connect exists.", e);
                 }
             }

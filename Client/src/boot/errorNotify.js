@@ -1,5 +1,5 @@
 export default async ({app, Vue}) => {
-  Vue.prototype.$errorNotify = function (error) {
+  Vue.prototype.$errorNotify = function (error, ...values) {
 
     const errors = error?.response?.data?.errors;
     if (!errors)
@@ -10,7 +10,7 @@ export default async ({app, Vue}) => {
 
       let localizeDescription;
       if (app.i18n.te(token))
-        localizeDescription = app.i18n.t(token);
+        localizeDescription = app.i18n.t(token,values);
       else
         localizeDescription = error.description;
 
@@ -28,7 +28,7 @@ export default async ({app, Vue}) => {
 
       this.$q.notify({
         message: localizeDescription,
-        timeout: 2800,
+        timeout: 92800,
         color: color,
         position: 'top'
       });

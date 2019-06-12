@@ -43,12 +43,9 @@ namespace SunEngine.Core.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string nameOrEmail, string password)
         {
-            var result = await authManager.LoginAsync(nameOrEmail, password);
+            var user = await authManager.LoginAsync(nameOrEmail, password);
 
-            if (result.Failed)
-                return BadRequest(result.Error);
-
-            await jwtService.RenewSecurityTokensAsync(Response, result.user);
+            await jwtService.RenewSecurityTokensAsync(Response, user);
 
             return Ok();
         }
@@ -74,9 +71,7 @@ namespace SunEngine.Core.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await authManager.RegisterAsync(model);
-            if (!result.Succeeded)
-                return BadRequest(result.Error);
+            await authManager.RegisterAsync(model);
 
             return Ok();
         }

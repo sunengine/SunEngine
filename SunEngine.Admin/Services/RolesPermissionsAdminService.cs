@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using NJsonSchema;
 using SunEngine.Core.DataBase;
+using SunEngine.Core.Errors;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Authorization;
 using SunEngine.Core.Services;
@@ -119,15 +120,17 @@ namespace SunEngine.Admin.Services
 
             foreach (var group in toDelete)
             {
-                if(!await db.UserRoles.AnyAsync(x => x.RoleId == group.Id))
+                if (await db.UserRoles.AnyAsync(x => x.RoleId == group.Id))
                     errorGroups.Add(group);
             }
 
             if (errorGroups.Count > 0)
             {
                 var errorNames = string.Join(", ", errorGroups.Select(y => "'" + y.Name + "'"));
-                throw new Exception(
-                    "В этих группах есть пользователи, очистите их перед удалением: " + errorNames);
+                throw new SunViewException(
+                    new ErrorView("CanNotDeleteRolesItHasUsers",
+                        "This roles can not be deleted because it has users, remove them first.", ErrorType.Soft,
+                        errorNames));
             }
 
             toDelete.ForEach(async x => await db.DeleteAsync(x));
@@ -151,7 +154,7 @@ namespace SunEngine.Admin.Services
             };
 
             db.BulkCopy(options, fromJsonLoader.categoryAccesses);
-            db.UpdateSequence("CategoryAccesses","Id");
+            db.UpdateSequence("CategoryAccesses", "Id");
             db.BulkCopy(options, fromJsonLoader.categoryOperationAccesses);
         }
     }

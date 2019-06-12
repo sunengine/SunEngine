@@ -4,7 +4,7 @@ namespace SunEngine.Tests
 {
     internal static class DefaultInit
     {
-        private static string connectionString = "Host=localhost;Database=SunEngine;Username=postgres;Password=password";
+        private static string connectionString = "Host=localhost;Database=SunEngine;Username=postgres;Password=as3uD4531ff";
         private static string provider = "PostgreSQL.9.5";
 
         public static DataBaseConnection GetTestDataBaseConnection()

@@ -20,7 +20,7 @@ namespace SunEngine.Core.Managers
     {
         Task SendChangeEmailConfirmationMessageByEmailAsync(User user, string email);
         bool ValidateChangeEmailToken(string token, out int userId, out string email);
-        Task<ServiceResult> ResetPasswordSendEmailAsync(User user);
+        Task ResetPasswordSendEmailAsync(User user);
     }
 
     public class AccountManager : DbService, IAccountManager
@@ -47,7 +47,7 @@ namespace SunEngine.Core.Managers
             this.cryptService = cryptService;
         }
 
-        public virtual async Task<ServiceResult> ResetPasswordSendEmailAsync(User user)
+        public virtual async Task ResetPasswordSendEmailAsync(User user)
         {
             var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
 
@@ -63,12 +63,10 @@ namespace SunEngine.Core.Managers
                     new Dictionary<string, string>{{"[resetPassUrl]", resetPasswordUrl}}
                 );
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                ServiceResult.BadResult(new ErrorView ("EmailSendError","Server error. Can not send email.", ErrorType.System));
+                throw new SunViewException(new ErrorView ("EmailSendError","Server error. Can not send email.", ErrorType.System, exception));
             }
-
-            return ServiceResult.OkResult();
         }
 
         public virtual string GenerateChangeEmailToken(User user, string email)

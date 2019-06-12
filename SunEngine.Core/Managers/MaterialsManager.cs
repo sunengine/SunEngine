@@ -5,6 +5,7 @@ using LinqToDB;
 using Microsoft.Extensions.Options;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
+using SunEngine.Core.Errors;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils.TextProcess;
@@ -38,12 +39,12 @@ namespace SunEngine.Core.Managers
         /// <summary>
         /// Move up in sort order (SortNumber field)
         /// </summary>
-        Task<ServiceResult> UpAsync(int id);
+        Task UpAsync(int id);
 
         /// <summary>
         /// Move down in sort order (SortNumber field)
         /// </summary>
-        Task<ServiceResult> DownAsync(int id);
+        Task DownAsync(int id);
     }
 
     public class MaterialsManager : DbService, IMaterialsManager
@@ -156,12 +157,12 @@ namespace SunEngine.Core.Managers
             return db.Materials.AnyAsync(x => x.Name.ToLower() == name.ToLower());
         }
 
-        public async Task<ServiceResult> UpAsync(int id)
+        public async Task UpAsync(int id)
         {
             var material = await db.Materials.Where(x => !x.IsDeleted)
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (material == null)
-                return ServiceResult.BadResult();
+                throw new SunEntityNotFoundException(nameof(Material), id);
 
             var material2 = await db.Materials
                 .Where(x =>
@@ -170,7 +171,7 @@ namespace SunEngine.Core.Managers
                 .OrderBy(x => x.SortNumber).FirstOrDefaultAsync();
 
             if (material2 == null)
-                return ServiceResult.BadResult();
+                throw new SunEntityNotFoundException(nameof(Material), "Previous material not found");
 
             db.BeginTransaction();
             await db.Materials.Where(x => x.Id == material.Id)
@@ -180,16 +181,14 @@ namespace SunEngine.Core.Managers
                 .Set(x => x.SortNumber, material.SortNumber)
                 .UpdateAsync();
             db.CommitTransaction();
-
-            return ServiceResult.OkResult();
         }
 
-        public async Task<ServiceResult> DownAsync(int id)
+        public async Task DownAsync(int id)
         {
             var material = await db.Materials.Where(x => !x.IsDeleted)
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (material == null)
-                return ServiceResult.BadResult();
+                throw new SunEntityNotFoundException(nameof(Material), id);
 
             var material2 = await db.Materials
                 .Where(x =>
@@ -198,7 +197,7 @@ namespace SunEngine.Core.Managers
                 .OrderByDescending(x => x.SortNumber).FirstOrDefaultAsync();
 
             if (material2 == null)
-                return ServiceResult.BadResult();
+                throw new SunEntityNotFoundException(nameof(Material), "Next material not found");
 
             db.BeginTransaction();
             await db.Materials.Where(x => x.Id == material.Id)
@@ -208,8 +207,6 @@ namespace SunEngine.Core.Managers
                 .Set(x => x.SortNumber, material.SortNumber)
                 .UpdateAsync();
             db.CommitTransaction();
-
-            return ServiceResult.OkResult();
         }
 
         public virtual Task DetectAndSetLastCommentAndCountAsync(int materialId)

@@ -42,42 +42,42 @@ namespace SunEngine.Admin.Managers
             var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.ParentId);
 
             if (parent == null)
-                throw new ParentCategoryNotFoundByIdException(category.ParentId);
+                throw new SunParentEntityNotFoundException(nameof(Category), category.ParentId);
 
             using (db.BeginTransaction())
             {
                 int id = await db.InsertWithInt32IdentityAsync(category);
                 await db.Categories.Where(x => x.Id == id).Set(x => x.SortNumber, id).UpdateAsync();
+                category.SortNumber = category.Id = id;
                 db.CommitTransaction();
             }
-
         }
 
         private void ValidateCategory(Category category)
         {
             if (category == null)
-                throw new ArgumentNullException("Category can not be null");
+                throw new ArgumentNullException(nameof(category), "Category can not be null");
 
             if (string.IsNullOrEmpty(category.Name))
-                throw new InvalidModelException(nameof(category), nameof(category.Name));
+                throw new SunModelValidationException(nameof(category), nameof(category.Name));
 
             if (string.IsNullOrEmpty(category.Title))
-                throw new InvalidModelException(nameof(category), nameof(category.Title));
+                throw new SunModelValidationException(nameof(category), nameof(category.Title));
         }
 
         public async Task UpdateCategoryAsync(Category categoryUpdate)
         {
             if (categoryUpdate == null)
-                throw new ArgumentNullException("Category can not be null");
+                throw new ArgumentNullException(nameof(categoryUpdate));
 
             Category category = await db.Categories.FirstOrDefaultAsync(x => x.Id == categoryUpdate.Id);
             if (category == null)
-                throw new Exception("No category with " + categoryUpdate.Id + " id");
+                throw new SunEntityNotFoundException($"No category with {categoryUpdate.Id} id");
 
             var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == categoryUpdate.ParentId);
 
             if (parent == null)
-                throw new ParentCategoryNotFoundByIdException(categoryUpdate.ParentId);
+                throw new SunParentEntityNotFoundException(nameof(Category), categoryUpdate.ParentId);
 
             category.Name = categoryUpdate.Name;
             category.NameNormalized = Normalizer.Normalize(category.Name);
@@ -95,18 +95,18 @@ namespace SunEngine.Admin.Managers
             await db.UpdateAsync(category);
         }
 
-        public async Task<ServiceResult> CategoryUp(string name)
+        public async Task CategoryUp(string name)
         {
             var category = await db.Categories.FirstOrDefaultAsync(x => x.Name == name);
             if (category == null)
-                return ServiceResult.BadResult();
+                throw new SunEntityNotFoundException(nameof(Category), name, "Name");
 
             var category2 = await db.Categories
                 .Where(x => x.ParentId == category.ParentId && x.SortNumber < category.SortNumber && !x.IsDeleted)
                 .OrderByDescending(x => x.SortNumber).FirstOrDefaultAsync();
 
             if (category2 == null)
-                return ServiceResult.BadResult();
+                throw new SunEntityNotFoundException(nameof(Category), "Previous category not found");
 
             using (db.BeginTransaction())
             {
@@ -117,22 +117,20 @@ namespace SunEngine.Admin.Managers
 
                 db.CommitTransaction();
             }
-
-            return ServiceResult.OkResult();
         }
 
-        public async Task<ServiceResult> CategoryDown(string name)
+        public async Task CategoryDown(string name)
         {
             var category = await db.Categories.FirstOrDefaultAsync(x => x.Name == name);
             if (category == null)
-                return ServiceResult.BadResult();
+                throw new SunEntityNotFoundException(nameof(Category), name, "Name");
 
             var category2 = await db.Categories
                 .Where(x => x.ParentId == category.ParentId && x.SortNumber > category.SortNumber && !x.IsDeleted)
                 .OrderBy(x => x.SortNumber).FirstOrDefaultAsync();
 
             if (category2 == null)
-                return ServiceResult.BadResult();
+                throw new SunEntityNotFoundException(nameof(Category), "Next category not found");
 
             using (db.BeginTransaction())
             {
@@ -143,8 +141,6 @@ namespace SunEngine.Admin.Managers
 
                 db.CommitTransaction();
             }
-
-            return ServiceResult.OkResult();
         }
 
         public Task CategoryMoveToTrashAsync(string name)

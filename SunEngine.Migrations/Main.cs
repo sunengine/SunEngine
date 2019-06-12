@@ -4,7 +4,7 @@ using System.Net.Sockets;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SunEngine.Core.Exceptions.Database.Connection;
+using SunEngine.Core.Errors;
 using SunEngine.Migrations.Migrations;
 
 namespace SunEngine.Migrations
@@ -75,7 +75,7 @@ namespace SunEngine.Migrations
             }
             catch (SocketException e)
             {
-                throw new SunDatabaseConnectionException("The connection could not be made. " +
+                throw new SunDataBaseException("The connection could not be made. " +
                                                          "Check the database you are trying to connect exists.", e);
             }
         }

@@ -67,7 +67,7 @@ namespace SunEngine.Core.Controllers
 
             return Json(materialView);
         }
-        
+
         [HttpPost]
         [UserSpamProtectionFilter(TimeoutSeconds = 60)]
         public virtual async Task<IActionResult> Create(MaterialRequestModel materialData)
@@ -91,9 +91,7 @@ namespace SunEngine.Core.Controllers
                 AuthorId = User.UserId
             };
 
-            var result = await SetNameAsync(material, materialData.Name);
-            if (result.Failed)
-                return BadRequest(result.Error);
+            await SetNameAsync(material, materialData.Name);
 
             bool isDescriptionEditable = category.IsDescriptionEditable();
             if (isDescriptionEditable)
@@ -137,9 +135,7 @@ namespace SunEngine.Core.Controllers
             material.Text = materialData.text;
             material.EditDate = DateTime.UtcNow;
 
-            var result = await SetNameAsync(material, materialData.Name);
-            if (result.Failed)
-                return BadRequest(result.Error);
+            await SetNameAsync(material, materialData.Name);
 
             bool isDescriptionEditable = newCategory.IsDescriptionEditable();
             material.Description = isDescriptionEditable ? materialData.Description : null;
@@ -163,7 +159,7 @@ namespace SunEngine.Core.Controllers
         }
 
         [NonAction]
-        protected async Task<ServiceResult> SetNameAsync(Material material, string name)
+        protected async Task SetNameAsync(Material material, string name)
         {
             if (User.IsInRole(RoleNames.Admin))
             {
@@ -174,18 +170,16 @@ namespace SunEngine.Core.Controllers
                 else
                 {
                     if (!materialsManager.IsNameValid(name))
-                        return ServiceResult.BadResult(new ErrorView("MaterialNameNotValid", "Invalid material name",
+                        throw new SunViewException(new ErrorView("MaterialNameNotValid", "Invalid material name",
                             ErrorType.System));
 
                     if (name != material.Name && await materialsManager.IsNameInDbAsync(name))
-                        return ServiceResult.BadResult(ErrorView.SoftError("MaterialNameAlreadyUsed",
+                        throw new SunViewException(ErrorView.SoftError("MaterialNameAlreadyUsed",
                             "This material name is already used"));
 
                     material.Name = name;
                 }
             }
-
-            return ServiceResult.OkResult();
         }
 
         [HttpPost]
@@ -234,9 +228,7 @@ namespace SunEngine.Core.Controllers
             if (materialsAuthorization.CanChangeOrder(User.Roles, categoryId.Value))
                 return Unauthorized();
 
-            var result = await materialsManager.UpAsync(id);
-            if (result.Failed)
-                return BadRequest();
+            await materialsManager.UpAsync(id);
 
             contentCache.InvalidateCache(categoryId.Value);
 
@@ -256,9 +248,7 @@ namespace SunEngine.Core.Controllers
             if (materialsAuthorization.CanChangeOrder(User.Roles, categoryId.Value))
                 return Unauthorized();
 
-            var result = await materialsManager.DownAsync(id);
-            if (result.Failed)
-                return BadRequest();
+            await materialsManager.DownAsync(id);
 
             contentCache.InvalidateCache(categoryId.Value);
 

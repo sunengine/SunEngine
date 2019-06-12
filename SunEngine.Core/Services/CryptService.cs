@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Core.DataBase;
+using SunEngine.Core.Errors;
+using SunEngine.Core.Models;
 using SunEngine.Core.Utils;
 
 namespace SunEngine.Core.Services
@@ -113,10 +115,12 @@ namespace SunEngine.Core.Services
             using (var db = dbFactory.CreateDb())
             {
                 var newSecret = Encoding.UTF8.GetString(GenerateSecurityKey());
+
                 int updated = await db.CipherSecrets.Where(x => x.Name == name).Set(x => x.Secret, newSecret)
                     .UpdateAsync();
+
                 if (updated != 1)
-                    throw new Exception("No cipher keys updated");
+                    throw new SunEntityNotUpdatedException(nameof(CipherSecret), name, "Name");
             }
         }
 
@@ -126,18 +130,18 @@ namespace SunEngine.Core.Services
             {
                 var allSecrets = db.CipherSecrets.ToArray();
                 int done = 0;
-                
+
                 foreach (var cipherSecret in allSecrets)
                 {
                     cipherSecret.Secret = Encoding.UTF8.GetString(GenerateSecurityKey());
                     done += await db.UpdateAsync(cipherSecret);
                 }
-                
-                if(done != allSecrets.Length)
-                    throw new Exception("Not all secrets updated");
+
+                if (done != allSecrets.Length)
+                    throw new SunEntityNotUpdatedException(nameof(CipherSecret), "not all secrets updated");
             }
         }
-        
+
         private static byte[] GenerateIV()
         {
             var IV = new byte[16];

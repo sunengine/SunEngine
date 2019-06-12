@@ -11,16 +11,24 @@ namespace SunEngine.Core.Errors
         {
             context.Response.StatusCode = 500;
             context.Response.ContentType = "application/json";
-                    
-            var exceptionHandlerPathFeature = 
+
+            var exceptionHandlerPathFeature =
                 context.Features.Get<IExceptionHandlerPathFeature>();
 
-            if (exceptionHandlerPathFeature.Error !=null)
+            switch (exceptionHandlerPathFeature.Error)
             {
-                ErrorView errorView = ErrorView.ServerError(exceptionHandlerPathFeature.Error);
-                        
-                await context.Response.WriteAsync(WebJson.Serialize(errorView));
-            }     
-        } 
+                case null:
+                    return;
+                case SunViewException sunViewException:
+                    await context.Response.WriteAsync(WebJson.Serialize(sunViewException.ErrorView));
+                    break;
+                default:
+                {
+                    ErrorView errorView = ErrorView.ServerError(exceptionHandlerPathFeature.Error);
+                    await context.Response.WriteAsync(WebJson.Serialize(errorView));
+                    break;
+                }
+            }
+        }
     }
 }

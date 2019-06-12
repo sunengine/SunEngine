@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.DataBase;
+using SunEngine.Core.Errors;
 using SunEngine.Core.Models;
 using SunEngine.Core.Security;
 using SunEngine.Core.Services;
@@ -12,11 +13,11 @@ namespace SunEngine.Admin.Managers
 {
     public interface IMenuAdminManager
     {
-        Task<ServiceResult> UpAsync(int id);
-        Task<ServiceResult> DownAsync(int id);
+        Task UpAsync(int id);
+        Task DownAsync(int id);
         Task CreateAsync(MenuItem menuItem);
         Task UpdateAsync(MenuItem menuItem);
-        Task<ServiceResult> SetIsHiddenAsync(int id, bool hidden);
+        Task SetIsHiddenAsync(int id, bool hidden);
         Task DeleteAsync(int menuItemId);
     }
 
@@ -29,98 +30,120 @@ namespace SunEngine.Admin.Managers
             this.rolesCache = rolesCache;
         }
 
-        public virtual async Task<ServiceResult> UpAsync(int id)
+        public virtual async Task UpAsync(int id)
         {
             var menuItem = await db.MenuItems.FirstOrDefaultAsync(x => x.Id == id);
             if (menuItem == null)
-                return ServiceResult.BadResult();
+                throw new SunEntityNotFoundException(nameof(MenuItem), id);
 
             var menuItem2 = await db.MenuItems
                 .Where(x => x.ParentId == menuItem.ParentId && x.SortNumber < menuItem.SortNumber)
                 .OrderByDescending(x => x.SortNumber).FirstOrDefaultAsync();
 
             if (menuItem2 == null)
-                return ServiceResult.BadResult();
+                throw new SunEntityNotFoundException(nameof(MenuItem), id);
 
             using (db.BeginTransaction())
             {
-                await db.MenuItems.Where(x => x.Id == menuItem.Id).Set(x => x.SortNumber, menuItem2.SortNumber)
+                int rowsUpdated = 0;
+
+                rowsUpdated += await db.MenuItems.Where(x => x.Id == menuItem.Id)
+                    .Set(x => x.SortNumber, menuItem2.SortNumber)
                     .UpdateAsync();
-                await db.MenuItems.Where(x => x.Id == menuItem2.Id).Set(x => x.SortNumber, menuItem.SortNumber)
+                rowsUpdated += await db.MenuItems.Where(x => x.Id == menuItem2.Id)
+                    .Set(x => x.SortNumber, menuItem.SortNumber)
                     .UpdateAsync();
+
+                if (rowsUpdated != 2)
+                    throw new SunEntityNotUpdatedException(nameof(MenuItem), "change position of 2 MenuItems");
+
 
                 db.CommitTransaction();
             }
-
-            return ServiceResult.OkResult();
         }
 
-        public virtual async Task<ServiceResult> DownAsync(int id)
+        public virtual async Task DownAsync(int id)
         {
             var menuItem = await db.MenuItems.FirstOrDefaultAsync(x => x.Id == id);
             if (menuItem == null)
-                return ServiceResult.BadResult();
+                throw new SunEntityNotFoundException(nameof(MenuItem), id);
 
             var menuItem2 = await db.MenuItems
                 .Where(x => x.ParentId == menuItem.ParentId && x.SortNumber > menuItem.SortNumber)
                 .OrderBy(x => x.SortNumber).FirstOrDefaultAsync();
 
             if (menuItem2 == null)
-                return ServiceResult.BadResult();
+                throw new SunEntityNotFoundException(nameof(MenuItem), id);
 
             using (db.BeginTransaction())
             {
-                await db.MenuItems.Where(x => x.Id == menuItem.Id).Set(x => x.SortNumber, menuItem2.SortNumber)
+                int rowsUpdated = 0;
+
+                rowsUpdated += await db.MenuItems.Where(x => x.Id == menuItem.Id)
+                    .Set(x => x.SortNumber, menuItem2.SortNumber)
                     .UpdateAsync();
-                await db.MenuItems.Where(x => x.Id == menuItem2.Id).Set(x => x.SortNumber, menuItem.SortNumber)
+                rowsUpdated += await db.MenuItems.Where(x => x.Id == menuItem2.Id)
+                    .Set(x => x.SortNumber, menuItem.SortNumber)
                     .UpdateAsync();
+
+                if (rowsUpdated != 2)
+                    throw new SunEntityNotUpdatedException(nameof(MenuItem), "change position of 2 MenuItems");
 
                 db.CommitTransaction();
             }
-
-            return ServiceResult.OkResult();
         }
 
         public virtual async Task CreateAsync(MenuItem menuItem)
         {
             if (menuItem.ParentId == 0)
                 menuItem.ParentId = null;
-            
+
             menuItem.Roles = CheckAndSetRoles(menuItem.Roles);
 
             using (db.BeginTransaction())
             {
                 int id = await db.InsertWithInt32IdentityAsync(menuItem);
+
                 await db.MenuItems.Where(x => x.Id == id).Set(x => x.SortNumber, x => id).UpdateAsync();
+                
                 db.CommitTransaction();
             }
         }
 
-        public virtual Task UpdateAsync(MenuItem menuItem)
+        public virtual async Task UpdateAsync(MenuItem menuItem)
         {
             menuItem.Roles = CheckAndSetRoles(menuItem.Roles);
-            return db.UpdateAsync(menuItem);
+            
+            int rowsUpdated = await db.UpdateAsync(menuItem);
+            
+            if (rowsUpdated != 1)
+                throw new SunEntityNotUpdatedException(nameof(MenuItem), menuItem.Id);
         }
 
-        public virtual async Task<ServiceResult> SetIsHiddenAsync(int id, bool isHidden)
+        public virtual async Task SetIsHiddenAsync(int id, bool isHidden)
         {
-            int lines = await db.MenuItems.Where(x => x.Id == id).Set(x => x.IsHidden, x => isHidden).UpdateAsync();
-            return lines == 0 ? ServiceResult.BadResult() : ServiceResult.OkResult();
+            int rowsUpdated = await db.MenuItems.Where(x => x.Id == id).Set(x => x.IsHidden, x => isHidden).UpdateAsync();
+            
+            if (rowsUpdated == 0)
+                throw new SunEntityNotUpdatedException(nameof(MenuItem), id);
         }
 
         public virtual async Task DeleteAsync(int id)
         {
-            int lines = await db.MenuItems.Where(x => x.Id == id).DeleteAsync();
-            if (lines == 0)
-                throw new Exception("No items found to delete");
+            int rowsUpdated = await db.MenuItems.Where(x => x.Id == id).DeleteAsync();
+            
+            if (rowsUpdated == 0)
+                throw new SunEntityNotDeletedException(nameof(MenuItem), id);
         }
 
+        
         protected virtual string CheckAndSetRoles(string roles)
         {
             if (string.IsNullOrWhiteSpace(roles))
                 return string.Join(',', RoleNames.Unregistered, RoleNames.Registered);
 
-            var rolesNames = roles.Split(',').Select(x => x.Trim()).ToList().Where(x => rolesCache.AllRoles.ContainsKey(x));
+            var rolesNames = roles.Split(',').Select(x => x.Trim()).ToList()
+                .Where(x => rolesCache.AllRoles.ContainsKey(x));
             return string.Join(',', rolesNames);
         }
     }

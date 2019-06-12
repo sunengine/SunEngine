@@ -31,14 +31,7 @@ namespace SunEngine.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadJson(string json)
         {
-            try
-            {
-                await rolesPermissionsAdminService.LoadUserGroupsFromJsonAsync(json);
-            }
-            catch (Exception exception)
-            {
-                return BadRequest(new ErrorView("UploadJsonAdminError", "Error uploading json", ErrorType.System , exception));
-            }
+            await rolesPermissionsAdminService.LoadUserGroupsFromJsonAsync(json);
 
             rolesCache.Reset();
 

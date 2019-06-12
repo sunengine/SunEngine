@@ -113,9 +113,7 @@ namespace SunEngine.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CategoryUp(string name)
         {
-            var rez = await categoriesAdminManager.CategoryUp(name);
-            if (rez.Failed)
-                return BadRequest();
+            await categoriesAdminManager.CategoryUp(name);
 
             categoriesCache.Reset();
             contentCache.Reset();
@@ -126,9 +124,7 @@ namespace SunEngine.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CategoryDown(string name)
         {
-            var rez = await categoriesAdminManager.CategoryDown(name);
-            if (rez.Failed)
-                return BadRequest();
+            categoriesAdminManager.CategoryDown(name);
 
             categoriesCache.Reset();
             contentCache.Reset();
