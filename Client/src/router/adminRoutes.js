@@ -30,7 +30,7 @@ const routes = [
   },
   {
     name: 'MenuItemsAdmin',
-    path: '/admin/MenuItemsAdmin'.toLowerCase(),
+    path: '/admin/MenuItems'.toLowerCase(),
     components: {
       default: MenuItemsAdmin,
       navigation: AdminPanel
@@ -38,7 +38,7 @@ const routes = [
   },
   {
     name: 'CreateMenuItem',
-    path: '/admin/CreateMenuItem/'.toLowerCase() + ':parentMenuItemId?',
+    path: '/admin/MenuItems/Create/'.toLowerCase() + ':parentMenuItemId?',
     components: {
       default: CreateMenuItem,
       navigation: AdminPanel
@@ -50,7 +50,7 @@ const routes = [
   },
   {
     name: 'EditMenuItem',
-    path: '/admin/EditMenuItem/'.toLowerCase() + ':menuItemId',
+    path: '/admin/MenuItems/Edit/'.toLowerCase() + ':menuItemId',
     components: {
       default: EditMenuItem,
       navigation: AdminPanel
@@ -62,23 +62,15 @@ const routes = [
   },
   {
     name: 'CategoriesAdmin',
-    path: '/admin/CategoriesAdmin'.toLowerCase(),
+    path: '/admin/Categories'.toLowerCase(),
     components: {
       default: CategoriesAdmin,
       navigation: AdminPanel
     }
   },
   {
-    name: 'CacheSettings',
-    path: '/admin/CacheSettings'.toLowerCase(),
-    components: {
-      default: CacheSettings,
-      navigation: AdminPanel
-    }
-  },
-  {
     name: 'CreateCategory',
-    path: '/admin/CreateCategory/'.toLowerCase() + ':parentCategoryId?',
+    path: '/admin/Categories/Create/'.toLowerCase() + ':parentCategoryId?',
     components: {
       default: CreateCategory,
       navigation: AdminPanel
@@ -90,7 +82,7 @@ const routes = [
   },
   {
     name: 'EditCategory',
-    path: '/admin/EditCategory/'.toLowerCase() + ':categoryId',
+    path: '/admin/Categories/Edit/'.toLowerCase() + ':categoryId',
     components: {
       default: EditCategory,
       navigation: AdminPanel
@@ -131,6 +123,14 @@ const routes = [
         props: true
       }
     ]
+  },
+  {
+    name: 'CacheSettings',
+    path: '/admin/CacheSettings'.toLowerCase(),
+    components: {
+      default: CacheSettings,
+      navigation: AdminPanel
+    }
   },
   {
     name: 'DeletedElements',

@@ -168,13 +168,27 @@ export default {
   // ——— all ————————————————————————————————————
 
   AdminMenu: {
-    menuItemsAdmin: "Меню",
-    categoriesAdmin: "Категории",
+    menuItems: "Меню",
+    menuItemsCaption: "",
+    //menuItemsCaption: "Редактирование меню сайта",
+    categories: "Категории",
+    categoriesCaption: "",
+    //categoriesCaption: "Редактирование разделов сайта",
+    rolesUsers: "Группы",
+    rolesUsersCaption: "",
+    //rolesUsersCaption: "Пользователи по группам",
     rolesPermissions: "Права групп",
-    rolesUsers: "Пользователи в группах",
+    rolesPermissionsCaption: "",
+    //rolesPermissionsCaption: "Добавление, редактирование, удаление групп и их прав",
     cacheSettings: "Кэширование",
-    imagesCleaner: "Очистка изображений",
+    cacheSettingsCaption: "",
+    //cacheSettingsCaption: "Способ кэширования на сайте",
+    imagesCleaner: "Очистка",
+    imagesCleanerCaption: "",
+    //imagesCleanerCaption: "Удалить неиспользуемые изображения",
     deletedElements: "Удалённое",
+    deletedElementsCaption: "",
+    //deletedElementsCaption: "Показывать удалённые материалы и коментарии",
     version: "Версия SunEngine"
   },
   AdminPage: {

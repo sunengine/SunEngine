@@ -6,16 +6,18 @@
         <q-icon name="fas fa-bars"/>
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $tl("menuItemsAdmin") }}</q-item-label>
+        <q-item-label>{{ $tl("menuItems") }}</q-item-label>
+        <q-item-label v-if="menuItemsCaption" caption>{{menuItemsCaption}}</q-item-label>
       </q-item-section>
     </q-item>
 
     <q-item :to="{name: 'CategoriesAdmin'}">
       <q-item-section avatar>
-        <q-icon name="fas fa-folder-open"/>
+        <q-icon name="fas fa-folder"/>
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $tl("categoriesAdmin") }}</q-item-label>
+        <q-item-label>{{ $tl("categories") }}</q-item-label>
+        <q-item-label v-if="categoriesCaption" caption>{{categoriesCaption}}</q-item-label>
       </q-item-section>
     </q-item>
 
@@ -25,6 +27,7 @@
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $tl("rolesUsers") }}</q-item-label>
+        <q-item-label v-if="rolesUsersCaption" caption>{{rolesUsersCaption}}</q-item-label>
       </q-item-section>
     </q-item>
 
@@ -34,6 +37,7 @@
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $tl("rolesPermissions") }}</q-item-label>
+        <q-item-label v-if="rolesPermissionsCaption" caption>{{rolesPermissionsCaption}}</q-item-label>
       </q-item-section>
     </q-item>
 
@@ -43,6 +47,17 @@
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $tl("cacheSettings") }}</q-item-label>
+        <q-item-label v-if="cacheSettingsCaption" caption>{{cacheSettingsCaption}}</q-item-label>
+      </q-item-section>
+    </q-item>
+
+    <q-item :to="{name: 'ImagesCleaner'}">
+      <q-item-section avatar>
+        <q-icon name="fas fa-image"/>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $tl("imagesCleaner") }}</q-item-label>
+        <q-item-label v-if="imagesCleanerCaption" caption>{{imagesCleanerCaption}}</q-item-label>
       </q-item-section>
     </q-item>
 
@@ -52,20 +67,12 @@
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $tl("deletedElements") }}</q-item-label>
-      </q-item-section>
-    </q-item>
-
-    <q-item :to="{name: 'ImagesCleaner'}">
-      <q-item-section avatar>
-        <q-icon name="far fa-image"/>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>{{ $tl("imagesCleaner") }}</q-item-label>
+        <q-item-label v-if="deletedElementsCaption" caption>{{deletedElementsCaption}}</q-item-label>
       </q-item-section>
     </q-item>
 
     <div class="text-grey-7 q-mt-xl text-center" v-if="version">
-     {{$tl("version")}}: {{version}}
+      {{$tl("version")}}: {{version}}
     </div>
   </q-list>
 
@@ -79,6 +86,30 @@
       return {
         version: null
       }
+    },
+    computed: {
+      menuItemsCaption() {
+        return this.$tl("menuItemsCaption") ?? null;
+      },
+      categoriesCaption() {
+        return this.$tl("categoriesCaption") ?? null;
+      },
+      rolesUsersCaption() {
+        return this.$tl("rolesUsersCaption") ?? null;
+      },
+      rolesPermissionsCaption() {
+        return this.$tl("rolesPermissionsCaption") ?? null;
+      },
+      cacheSettingsCaption() {
+        return this.$tl("cacheSettingsCaption") ?? null;
+      },
+      imagesCleanerCaption() {
+        return this.$tl("imagesCleanerCaption") ?? null;
+      },
+      deletedElementsCaption() {
+        return this.$tl("deletedElementsCaption") ?? null;
+      }
+
     },
     methods: {
       async getVersion() {

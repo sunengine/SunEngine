@@ -74,7 +74,7 @@
             url: '/Admin/AdminCacheSettings/GetCurrentCacheSettings'
           })
           .then(res => {
-            this.policy = this.OptionTypes[res.data.currentCachePolicy];
+            this.policy = this.optionTypes[res.data.currentCachePolicy];
             this.cacheSettings = res.data;
             this.loading = false;
             if (this.cacheSettings.invalidateCacheTime === 0) this.withoutTime = true;

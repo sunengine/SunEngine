@@ -17,20 +17,12 @@
         {{$tl("goToProfile")}}
       </q-item-section>
     </q-item>
-    <q-item :to="{name:'ChangePassword'}">
+    <q-item :to="{name: 'ChangeName'}">
       <q-item-section avatar>
-        <q-icon name="fas fa-key"/>
+        <q-icon name="fas fa-user"/>
       </q-item-section>
       <q-item-section>
-        {{$tl("changePassword")}}
-      </q-item-section>
-    </q-item>
-    <q-item :to="{name:'ChangeEmail'}">
-      <q-item-section avatar>
-        <q-icon name="far fa-envelope"/>
-      </q-item-section>
-      <q-item-section>
-        {{$tl("changeEmail")}}
+        {{$tl("changeName")}}
       </q-item-section>
     </q-item>
     <q-item :to="{name:'ChangeLink'}">
@@ -41,17 +33,25 @@
         {{$tl("changeLink")}}
       </q-item-section>
     </q-item>
-    <q-item :to="{name: 'ChangeName'}">
+    <q-item :to="{name:'ChangeEmail'}">
       <q-item-section avatar>
-        <q-icon name="fas fa-user"/>
+        <q-icon name="fas fa-envelope"/>
       </q-item-section>
       <q-item-section>
-        {{$tl("changeName")}}
+        {{$tl("changeEmail")}}
+      </q-item-section>
+    </q-item>
+    <q-item :to="{name:'ChangePassword'}">
+      <q-item-section avatar>
+        <q-icon name="fas fa-key"/>
+      </q-item-section>
+      <q-item-section>
+        {{$tl("changePassword")}}
       </q-item-section>
     </q-item>
     <q-item :to="{name: 'EditInformation'}">
       <q-item-section avatar>
-        <q-icon name="far fa-edit"/>
+        <q-icon name="fas fa-edit"/>
       </q-item-section>
       <q-item-section>
         {{$tl("changeYourInformation")}}
@@ -59,7 +59,7 @@
     </q-item>
     <q-item :to="{name: 'LoadPhoto'}">
       <q-item-section avatar>
-        <q-icon name="far fa-user-circle"/>
+        <q-icon name="fas fa-image"/>
       </q-item-section>
       <q-item-section>
         {{$tl("changePhoto")}}

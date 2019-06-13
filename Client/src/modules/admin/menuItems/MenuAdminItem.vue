@@ -16,7 +16,7 @@
       <q-btn @click="$emit('edit',menuItem)" icon="fas fa-wrench" color="info" dense size="10px" flat/>
       <q-btn @click="$emit('changeIsHidden',menuItem)" :icon="!menuItem.isHidden ? 'far fa-eye' : 'far fa-eye-slash'"
            :color="!menuItem.isHidden ? 'info' : 'grey-5'" dense size="10px" flat/>
-      <q-btn @click="$emit('add',menuItem)" icon="fas fa-plus" color="info" dense size="10px" flat/>
+      <q-btn @click="$emit('add',menuItem)" icon="far fa-plus-square" color="info" dense size="10px" flat/>
       <q-btn :disabled="!(to || menuItem.externalUrl)" type="a" :to="to"
            @click="goExternal"
            icon="fas fa-arrow-right" color="info" dense size="10px" flat/>

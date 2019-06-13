@@ -5,7 +5,7 @@
       <h2 class="q-title">
         {{$tl("title")}}
       </h2>
-      <q-btn icon="fas fa-plus" class="post-btn q-mr-lg" type="a" :to="{name: 'CreateMenuItem'}" no-caps
+      <q-btn icon="far fa-plus-square" class="post-btn q-mr-lg" type="a" :to="{name: 'CreateMenuItem'}" no-caps
              :label="$tl('addMenuItemBtn')"/>
       <div class="clear"></div>
     </div>

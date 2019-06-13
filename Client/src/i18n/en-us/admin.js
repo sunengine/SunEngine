@@ -166,13 +166,20 @@ export default {
   // ——— all ————————————————————————————————————
 
   AdminMenu: {
-    menuItemsAdmin: "Menu",
-    categoriesAdmin: "Categories",
-    rolesPermissions: "Permission",
+    menuItems: "Menu",
+    menuItemsCaption: "",
+    categories: "Categories",
+    categoriesCaption: "",
     rolesUsers: "Groups",
+    rolesUsersCaption: "",
+    rolesPermissions: "Permission",
+    rolesPermissionsCaption: "",
     cacheSettings: "Cache settings",
+    cacheSettingsCaption: "",
+    imagesCleaner: "Сleaner",
+    imagesCleanerCaption: "",
     deletedElements: "Deleted elements",
-    imagesCleaner: "Images cleaner",
+    deletedElementsCaption: "",
     version: "SunEngine version"
   },
   AdminPage: {
