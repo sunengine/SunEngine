@@ -1,4 +1,4 @@
-import {consoleInit, consoleRequestStart} from 'sun'
+import {consoleInit} from 'sun'
 
 export default function prepareAllMenuItems(state, allMenuItems) {
 
@@ -36,7 +36,7 @@ export default function prepareAllMenuItems(state, allMenuItems) {
     if (menuItem.routeName) {
       menuItem.to = {
         name: menuItem.routeName,
-        params: menuItem.routeParamsJson ? JSON.parse(menuItem.routeParamsJson) : undefined
+        params: menuItem.routeParamsJson ?? undefined
       }
     }
   }

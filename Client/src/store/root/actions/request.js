@@ -150,12 +150,9 @@ async function checkTokens(rez) {
 
       newTokens.shortTokenExpiration = new Date(newTokens.shortTokenExpiration);
 
-      store.state.auth.longToken = newTokens.longToken;
-
       setTokens(newTokens);
 
       console.info('%cTokens refreshed', consoleTokens);
-
     }
   }
 

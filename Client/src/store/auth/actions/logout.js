@@ -1,6 +1,10 @@
-import {router} from 'sun'
+import {router, removeTokens} from 'sun'
 
 export default async function logout(context) {
-  router.push({name: "Home"});
-  return await context.dispatch('request', {url: '/Auth/Logout'});
+  await context.dispatch('request', {url: '/Auth/Logout'}).finally(
+    () => {
+      removeTokens();
+      router.push({name: "Home"});
+    }
+  );
 }

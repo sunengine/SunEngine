@@ -14,11 +14,9 @@ namespace SunEngine.Core.Cache.CacheModels
         public string Title { get; }
         public string SubTitle { get; }
         public string RouteName { get; }
-        public string RouteParamsJson { get; }
+        public object RouteParamsJson { get; }
         public bool Exact { get; }
-
-        [JsonIgnore] public IReadOnlyDictionary<int, RoleCached> Roles { get; }
-        public string SettingsJson { get; }
+        public object SettingsJson { get; }
         public string CssClass { get; }
         public string ExternalUrl { get; }
         public bool IsSeparator { get; }
@@ -26,6 +24,7 @@ namespace SunEngine.Core.Cache.CacheModels
         public string Icon { get; }
         public string CustomIcon { get; }
         public bool IsHidden { get; }
+        [JsonIgnore] public IReadOnlyDictionary<int, RoleCached> Roles { get; }
 
 
         public MenuItemCached(MenuItem menuItem, IReadOnlyDictionary<int, RoleCached> roles)
@@ -36,15 +35,29 @@ namespace SunEngine.Core.Cache.CacheModels
             Title = menuItem.Title;
             SubTitle = menuItem.SubTitle;
             RouteName = menuItem.RouteName;
-            RouteParamsJson = menuItem.RouteParamsJson;
+          
             Exact = menuItem.Exact;
-            SettingsJson = menuItem.SettingsJson;
             CssClass = menuItem.CssClass;
             ExternalUrl = menuItem.ExternalUrl;
             IsSeparator = menuItem.IsSeparator;
             SortNumber = menuItem.SortNumber;
             Icon = menuItem.Icon;
             IsHidden = menuItem.IsHidden;
+            
+            try
+            {
+                RouteParamsJson = JsonConvert.DeserializeObject<object>(menuItem.RouteParamsJson);
+            }
+            catch
+            {
+            }
+            try
+            {
+                SettingsJson = JsonConvert.DeserializeObject<object>(menuItem.SettingsJson);
+            }
+            catch
+            {
+            }
             
             Roles = roles;
         }

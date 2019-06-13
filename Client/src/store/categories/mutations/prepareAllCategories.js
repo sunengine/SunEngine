@@ -12,8 +12,6 @@ export default function prepareAllCategories(state, root) {
 
   injectPrototype();
 
-  setSettingsFromJson();
-
   console.info('%cCategories prepared', consoleInit, config.Log.InitExtended ? state.all : '');
 
   function buildStructureRecursive(category, sectionRoot = null) {
@@ -65,14 +63,6 @@ export default function prepareAllCategories(state, root) {
     category.canSomeChildrenWriteMaterial = has;
 
     return has;
-  }
-
-  function setSettingsFromJson() {
-    for (const cat in state.all) {
-      if (cat.settingJson) {
-        cat.settings = eval(cat.settingsJson);
-      }
-    }
   }
 
   function injectPrototype() {

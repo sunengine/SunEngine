@@ -1,4 +1,5 @@
 import {removeTokens} from 'sun'
+import {hasLongToken} from 'sun'
 import {consoleInit} from 'sun'
 
 
@@ -6,7 +7,7 @@ export default async function (context) {
 
   console.info("%cStart init store", consoleInit);
 
-  if(context.state.auth.longToken)
+  if(hasLongToken())
     await context.dispatch('loadMyUserInfo').catch(() => {
       removeBadTokens();
     });

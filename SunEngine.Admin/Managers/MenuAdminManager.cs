@@ -85,13 +85,18 @@ namespace SunEngine.Admin.Managers
                 int rowsUpdated = 0;
 
                 rowsUpdated += await db.MenuItems.Where(x => x.Id == menuItem.Id)
-                    .Set(x => x.SortNumber, menuItem2.SortNumber)
+                    .Set(x => x.SortNumber, 0)
                     .UpdateAsync();
+                
                 rowsUpdated += await db.MenuItems.Where(x => x.Id == menuItem2.Id)
                     .Set(x => x.SortNumber, menuItem.SortNumber)
                     .UpdateAsync();
+                
+                rowsUpdated += await db.MenuItems.Where(x => x.Id == menuItem.Id)
+                    .Set(x => x.SortNumber, menuItem2.SortNumber)
+                    .UpdateAsync();
 
-                if (rowsUpdated != 2)
+                if (rowsUpdated != 3)
                     throw new SunEntityNotUpdatedException(nameof(MenuItem), "change position of 2 MenuItems");
 
 
@@ -117,13 +122,18 @@ namespace SunEngine.Admin.Managers
                 int rowsUpdated = 0;
 
                 rowsUpdated += await db.MenuItems.Where(x => x.Id == menuItem.Id)
-                    .Set(x => x.SortNumber, menuItem2.SortNumber)
+                    .Set(x => x.SortNumber, 0)
                     .UpdateAsync();
+                
                 rowsUpdated += await db.MenuItems.Where(x => x.Id == menuItem2.Id)
                     .Set(x => x.SortNumber, menuItem.SortNumber)
                     .UpdateAsync();
+                
+                rowsUpdated += await db.MenuItems.Where(x => x.Id == menuItem.Id)
+                    .Set(x => x.SortNumber, menuItem2.SortNumber)
+                    .UpdateAsync();
 
-                if (rowsUpdated != 2)
+                if (rowsUpdated != 3)
                     throw new SunEntityNotUpdatedException(nameof(MenuItem), "change position of 2 MenuItems");
 
                 db.CommitTransaction();

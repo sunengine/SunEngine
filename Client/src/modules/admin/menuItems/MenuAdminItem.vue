@@ -3,11 +3,11 @@
     <span class="item-block">
       <span class="ud">
         <q-btn :disabled="isFirst" @click="$emit('up',menuItem)" color="positive" dense size="10px"
-             flat
-             icon="fas fa-chevron-up"/>
+               flat
+               icon="fas fa-chevron-up"/>
         <q-btn :disabled="isLast" @click="$emit('down',menuItem)" color="positive" dense size="10px"
-             flat
-             icon="fas fa-chevron-down"/>
+               flat
+               icon="fas fa-chevron-down"/>
       </span>
 
       <q-icon :name="menuItem.icon ? menuItem.icon: 'far fa-file'" class="q-ml-md" color="grey-6"/>
@@ -15,12 +15,13 @@
 
       <q-btn @click="$emit('edit',menuItem)" icon="fas fa-wrench" color="info" dense size="10px" flat/>
       <q-btn @click="$emit('changeIsHidden',menuItem)" :icon="!menuItem.isHidden ? 'far fa-eye' : 'far fa-eye-slash'"
-           :color="!menuItem.isHidden ? 'info' : 'grey-5'" dense size="10px" flat/>
+             :color="!menuItem.isHidden ? 'info' : 'grey-5'" dense size="10px" flat/>
       <q-btn @click="$emit('add',menuItem)" icon="far fa-plus-square" color="info" dense size="10px" flat/>
       <q-btn :disabled="!(to || menuItem.externalUrl)" type="a" :to="to"
-           @click="goExternal"
-           icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
-      <q-btn @click="$emit('deleteMenuItem',menuItem)" icon="far fa-times-circle" color="warning" dense size="10px" flat/>
+             @click="goExternal"
+             icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
+      <q-btn @click="$emit('deleteMenuItem',menuItem)" icon="far fa-times-circle" color="warning" dense size="10px"
+             flat/>
 
       <span v-if="menuItem.name" class="txt q-ml-md">[ {{menuItem.name}} ]</span>
     </span>
@@ -54,10 +55,18 @@
     computed: {
       to() {
         if (this.menuItem.routeName) {
-          return {
-            name: this.menuItem.routeName,
-            params: this.menuItem.routeParamsJson
+          let rez = {
+            name: this.menuItem.routeName
           };
+
+          if (this.menuItem.routeParamsJson) {
+            try {
+              rez.params = JSON.parse(this.menuItem.routeParamsJson);
+            } catch (e) {
+            }
+          }
+
+          return rez;
         }
       },
       lastIndex() {

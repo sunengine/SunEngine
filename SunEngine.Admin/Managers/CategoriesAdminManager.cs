@@ -121,10 +121,23 @@ namespace SunEngine.Admin.Managers
 
             using (db.BeginTransaction())
             {
-                await db.Categories.Where(x => x.Id == category.Id).Set(x => x.SortNumber, category2.SortNumber)
+                int rowsUpdated = 0;
+
+                rowsUpdated += await db.Categories.Where(x => x.Id == category.Id)
+                    .Set(x => x.SortNumber, 0)
                     .UpdateAsync();
-                await db.Categories.Where(x => x.Id == category2.Id).Set(x => x.SortNumber, category.SortNumber)
+                
+                rowsUpdated += await db.Categories.Where(x => x.Id == category2.Id)
+                    .Set(x => x.SortNumber, category.SortNumber)
                     .UpdateAsync();
+                
+                rowsUpdated += await db.Categories.Where(x => x.Id == category.Id)
+                    .Set(x => x.SortNumber, category2.SortNumber)
+                    .UpdateAsync();
+
+                if (rowsUpdated != 3)
+                    throw new SunEntityNotUpdatedException(nameof(Category), "change position of 2 Categories");
+
 
                 db.CommitTransaction();
             }
@@ -145,10 +158,23 @@ namespace SunEngine.Admin.Managers
 
             using (db.BeginTransaction())
             {
-                await db.Categories.Where(x => x.Id == category.Id).Set(x => x.SortNumber, category2.SortNumber)
+                int rowsUpdated = 0;
+
+                rowsUpdated += await db.Categories.Where(x => x.Id == category.Id)
+                    .Set(x => x.SortNumber, 0)
                     .UpdateAsync();
-                await db.Categories.Where(x => x.Id == category2.Id).Set(x => x.SortNumber, category.SortNumber)
+                
+                rowsUpdated += await db.Categories.Where(x => x.Id == category2.Id)
+                    .Set(x => x.SortNumber, category.SortNumber)
                     .UpdateAsync();
+                
+                rowsUpdated += await db.Categories.Where(x => x.Id == category.Id)
+                    .Set(x => x.SortNumber, category2.SortNumber)
+                    .UpdateAsync();
+
+                if (rowsUpdated != 3)
+                    throw new SunEntityNotUpdatedException(nameof(Category), "change position of 2 Categories");
+
 
                 db.CommitTransaction();
             }

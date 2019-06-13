@@ -10,7 +10,8 @@
       <div class="clear"></div>
     </div>
 
-    <MenuAdminItem @up="up" @down="down" @add="add" @edit="edit" @deleteMenuItem="deleteMenuItem" @changeIsHidden="changeIsHidden" :key="menuItem.id" v-if="menuItems"
+    <MenuAdminItem @up="up" @down="down" @add="add" @edit="edit" @deleteMenuItem="deleteMenuItem"
+                   @changeIsHidden="changeIsHidden" :key="menuItem.id" v-if="menuItems"
                    :menuItem="menuItem"
                    :isFirst="index === 0" :isLast="index === lastIndex" v-for="(menuItem,index) of menuItems"/>
 

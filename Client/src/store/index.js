@@ -8,8 +8,7 @@ import {adminModule as admin} from 'sun'
 import {layoutsModule as layouts} from 'sun'
 import {rootModule} from 'sun'
 import {setStore} from 'sun'
-import {getTokens} from 'sun'
-import {consoleInit} from 'sun'
+import {initLongTokenFromLocalStorage} from  'sun'
 
 
 
@@ -42,13 +41,5 @@ export default function (/* { ssrContext } */) {
 }
 
 
-function initLongTokenFromLocalStorage(store) {
-  const tokens = getTokens();
-  if (tokens) {
-    store.state.auth.longToken = tokens.longToken;
-
-    console.info('%cUser credentials found in localStorage', consoleInit);
-  }
-}
 
 

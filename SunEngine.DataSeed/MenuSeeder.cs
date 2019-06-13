@@ -22,7 +22,8 @@ namespace SunEngine.DataSeed
             {
                 Id = 1,
                 Title = "Root",
-                Name = "Root"
+                Name = "Root",
+                SortNumber = 1
             };
             dataContainer.MenuItems.Add(dataContainer.RootMenuItem);
             

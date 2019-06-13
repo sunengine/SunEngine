@@ -126,7 +126,7 @@ namespace SunEngine.Core.Presenters
         public string Header { get; set; }
         public int SortNumber { get; set; }
         public string LayoutName { get; set; }
-        public string SettingsJson { get; set; }
+        public object SettingsJson { get; set; }
         public SectionTypeCached SectionType { get; set; }
         public bool IsMaterialsContainer { get; set; }
         public bool IsHidden { get; set; }

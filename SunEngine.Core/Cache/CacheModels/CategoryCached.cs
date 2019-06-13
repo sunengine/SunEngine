@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using Newtonsoft.Json;
 using SunEngine.Core.Models;
 
 namespace SunEngine.Core.Cache.CacheModels
@@ -33,7 +34,7 @@ namespace SunEngine.Core.Cache.CacheModels
 
         public SectionTypeCached SectionType { get; private set; }
 
-        public string SettingsJson { get; private set; }
+        public object SettingsJson { get; private set; }
 
         public int? ParentId { get; }
         public CategoryCached Parent { get; private set; }
@@ -80,6 +81,16 @@ namespace SunEngine.Core.Cache.CacheModels
             LayoutName = category.LayoutName;
             IsHidden = category.IsHidden;
             IsCacheContent = category.IsCacheContent;
+            
+            try
+            {
+                SettingsJson = JsonConvert.DeserializeObject<object>(category.SettingsJson);
+            }
+            catch
+            {
+            }
+            
+            
             _subCategories = new List<CategoryCached>();
             _allSubCategories = new List<CategoryCached>();
         }

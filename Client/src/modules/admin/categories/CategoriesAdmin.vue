@@ -42,13 +42,10 @@
             url: '/Admin/CategoriesAdmin/CategoryUp',
             data: {name: category.name}
           })
-          .then(async response => {
+          .then(async () => {
               await this.loadData();
-              this.$nextTick(async () => {
-                  await this.$store.dispatch("loadAllCategories");
-                  await this.$store.dispatch("setAllRoutes");
-                }
-              );
+              this.$store.dispatch("loadAllCategories")
+                .then(() => this.$store.dispatch("setAllRoutes"));
             }
           ).catch(x => {
             console.log('error', x);
@@ -61,13 +58,10 @@
             data: {name: category.name}
           })
           .then(
-            async response => {
+            async () => {
               await this.loadData();
-              this.$nextTick(async () => {
-                  await this.$store.dispatch("loadAllCategories");
-                  await this.$store.dispatch("setAllRoutes");
-                }
-              );
+              this.$store.dispatch("loadAllCategories")
+                .then(() => this.$store.dispatch("setAllRoutes"));
             }
           ).catch(error => {
             this.$errorNotify(error);
@@ -91,8 +85,7 @@
     beforeCreate() {
       this.$options.components.LoaderWait = require('sun').LoaderWait;
       this.$options.components.CategoryItem = require('sun').CategoryItem;
-    }
-    ,
+    },
     async created() {
       this.title = this.$tl('title');
       await this.loadData();
