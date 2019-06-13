@@ -23,11 +23,9 @@ namespace SunEngine.Core.Errors
                     await context.Response.WriteAsync(WebJson.Serialize(sunViewException.ErrorView));
                     break;
                 default:
-                {
                     ErrorView errorView = ErrorView.ServerError(exceptionHandlerPathFeature.Error);
                     await context.Response.WriteAsync(WebJson.Serialize(errorView));
                     break;
-                }
             }
         }
     }

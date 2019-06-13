@@ -28,7 +28,7 @@ export default async ({app, Vue}) => {
 
       this.$q.notify({
         message: localizeDescription,
-        timeout: 92800,
+        timeout: 2800,
         color: color,
         position: 'top'
       });

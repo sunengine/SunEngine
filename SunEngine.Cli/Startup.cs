@@ -67,7 +67,7 @@ namespace SunEngine.Cli
             services.AddMemoryCache();
 
             services.AddImagesServices();
-            
+
             services.AddCiphers(dataBaseFactory);
 
             services.AddJobs();
@@ -112,7 +112,9 @@ namespace SunEngine.Cli
             }
 
             app.UseAuthentication();
+            
             app.UseExceptionHandler(errorApp => errorApp.Run(SunExceptionHandler.Handler));
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
