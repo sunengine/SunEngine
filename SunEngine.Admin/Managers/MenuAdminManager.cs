@@ -8,15 +8,16 @@ using SunEngine.Core.Errors;
 using SunEngine.Core.Models;
 using SunEngine.Core.Security;
 using SunEngine.Core.Services;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.Admin.Managers
 {
     public interface IMenuAdminManager
     {
-        Task UpAsync(int id);
-        Task DownAsync(int id);
         Task CreateAsync(MenuItem menuItem);
         Task UpdateAsync(MenuItem menuItem);
+        Task UpAsync(int id);
+        Task DownAsync(int id);
         Task SetIsHiddenAsync(int id, bool hidden);
         Task DeleteAsync(int menuItemId);
     }
@@ -28,6 +29,42 @@ namespace SunEngine.Admin.Managers
         public MenuAdminManager(IRolesCache rolesCache, DataBaseConnection db) : base(db)
         {
             this.rolesCache = rolesCache;
+        }
+        
+        public virtual async Task CreateAsync(MenuItem menuItem)
+        {
+            if (menuItem.ParentId == 0)
+                menuItem.ParentId = null;
+
+            menuItem.Name = menuItem.Name?.SetNullIfEmptyTrim();
+            menuItem.Title = menuItem.Title?.SetNullIfEmptyTrim();
+            menuItem.SubTitle = menuItem.SubTitle?.SetNullIfEmptyTrim();
+            menuItem.RouteName = menuItem.RouteName?.SetNullIfEmptyTrim();
+            menuItem.RouteParamsJson = menuItem.RouteParamsJson?.SetNullIfEmptyTrim();
+            menuItem.SettingsJson = menuItem.SettingsJson?.SetNullIfEmptyTrim();
+            menuItem.CssClass = menuItem.CssClass?.SetNullIfEmptyTrim();
+            menuItem.ExternalUrl = menuItem.ExternalUrl?.SetNullIfEmptyTrim();
+            menuItem.Icon = menuItem.Icon?.SetNullIfEmptyTrim();
+            menuItem.Roles = CheckAndSetRoles(menuItem.Roles);
+
+            using (db.BeginTransaction())
+            {
+                int id = await db.InsertWithInt32IdentityAsync(menuItem);
+
+                await db.MenuItems.Where(x => x.Id == id).Set(x => x.SortNumber, x => id).UpdateAsync();
+
+                db.CommitTransaction();
+            }
+        }
+
+        public virtual async Task UpdateAsync(MenuItem menuItem)
+        {
+            menuItem.Roles = CheckAndSetRoles(menuItem.Roles);
+
+            int rowsUpdated = await db.UpdateAsync(menuItem);
+
+            if (rowsUpdated != 1)
+                throw new SunEntityNotUpdatedException(nameof(MenuItem), menuItem.Id);
         }
 
         public virtual async Task UpAsync(int id)
@@ -93,37 +130,11 @@ namespace SunEngine.Admin.Managers
             }
         }
 
-        public virtual async Task CreateAsync(MenuItem menuItem)
-        {
-            if (menuItem.ParentId == 0)
-                menuItem.ParentId = null;
-
-            menuItem.Roles = CheckAndSetRoles(menuItem.Roles);
-
-            using (db.BeginTransaction())
-            {
-                int id = await db.InsertWithInt32IdentityAsync(menuItem);
-
-                await db.MenuItems.Where(x => x.Id == id).Set(x => x.SortNumber, x => id).UpdateAsync();
-                
-                db.CommitTransaction();
-            }
-        }
-
-        public virtual async Task UpdateAsync(MenuItem menuItem)
-        {
-            menuItem.Roles = CheckAndSetRoles(menuItem.Roles);
-            
-            int rowsUpdated = await db.UpdateAsync(menuItem);
-            
-            if (rowsUpdated != 1)
-                throw new SunEntityNotUpdatedException(nameof(MenuItem), menuItem.Id);
-        }
-
         public virtual async Task SetIsHiddenAsync(int id, bool isHidden)
         {
-            int rowsUpdated = await db.MenuItems.Where(x => x.Id == id).Set(x => x.IsHidden, x => isHidden).UpdateAsync();
-            
+            int rowsUpdated =
+                await db.MenuItems.Where(x => x.Id == id).Set(x => x.IsHidden, x => isHidden).UpdateAsync();
+
             if (rowsUpdated == 0)
                 throw new SunEntityNotUpdatedException(nameof(MenuItem), id);
         }
@@ -131,12 +142,11 @@ namespace SunEngine.Admin.Managers
         public virtual async Task DeleteAsync(int id)
         {
             int rowsUpdated = await db.MenuItems.Where(x => x.Id == id).DeleteAsync();
-            
+
             if (rowsUpdated == 0)
                 throw new SunEntityNotDeletedException(nameof(MenuItem), id);
         }
 
-        
         protected virtual string CheckAndSetRoles(string roles)
         {
             if (string.IsNullOrWhiteSpace(roles))

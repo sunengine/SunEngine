@@ -34,11 +34,21 @@ namespace SunEngine.Admin.Managers
 
         public async Task CreateCategoryAsync(Category category)
         {
+
+            category.Name = category.Name.Trim();
+            category.NameNormalized = Normalizer.Normalize(category.Name);
+            category.Title = category.Title;
+            
             ValidateCategory(category);
 
-            category.Header = sanitizer.Sanitize(category.Header);
-            category.NameNormalized = Normalizer.Normalize(category.Name);
-
+            
+            category.SubTitle = category.SubTitle;
+            category.Icon = category.Icon?.SetNullIfEmptyTrim();
+            category.SettingsJson = category.SettingsJson?.SetNullIfEmptyTrim();
+            category.LayoutName = category.LayoutName?.SetNullIfEmptyTrim();
+            category.MaterialTypeTitle = category.MaterialTypeTitle?.SetNullIfEmptyTrim();
+            category.Header = sanitizer.Sanitize(category.Header?.SetNullIfEmptyTrim());
+            
             var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.ParentId);
 
             if (parent == null)
@@ -79,19 +89,25 @@ namespace SunEngine.Admin.Managers
             if (parent == null)
                 throw new SunParentEntityNotFoundException(nameof(Category), categoryUpdate.ParentId);
 
-            category.Name = categoryUpdate.Name;
+            category.Name = categoryUpdate.Name.Trim();
             category.NameNormalized = Normalizer.Normalize(category.Name);
-            category.Title = categoryUpdate.Title;
-            category.SubTitle = categoryUpdate.SubTitle;
-            category.Icon = categoryUpdate.Icon;
-            category.Header = sanitizer.Sanitize(categoryUpdate.Header);
+            category.Title = categoryUpdate.Title?.SetNullIfEmptyTrim();
+            
+            ValidateCategory(category);
+            
+            category.SubTitle = categoryUpdate.SubTitle?.SetNullIfEmptyTrim();
+            category.Icon = categoryUpdate.Icon?.SetNullIfEmptyTrim();
+            category.MaterialTypeTitle = categoryUpdate.MaterialTypeTitle?.SetNullIfEmptyTrim();
+            category.Header = sanitizer.Sanitize(categoryUpdate.Header?.SetNullIfEmptyTrim());
+            category.SectionTypeId = categoryUpdate.SectionTypeId;
             category.ParentId = parent.Id;
+            category.LayoutName = categoryUpdate.LayoutName?.SetNullIfEmptyTrim();
+            category.SettingsJson = categoryUpdate.SettingsJson?.SetNullIfEmptyTrim();
             category.IsHidden = categoryUpdate.IsHidden;
             category.IsCacheContent = categoryUpdate.IsCacheContent;
             category.IsMaterialsContainer = categoryUpdate.IsMaterialsContainer;
-            category.SectionTypeId = categoryUpdate.SectionTypeId;
-            category.LayoutName = categoryUpdate.LayoutName;
-
+          
+            
             await db.UpdateAsync(category);
         }
 

@@ -3,7 +3,7 @@
     <CategoryForm ref="form" :category="category"/>
 
     <div class="btn-block">
-      <q-btn icon="fas fa-plus" class="btn-send" no-caps :loading="loading" :label="$tl('createBtn')" @click="save"
+      <q-btn icon="fas fa-plus" class="send-btn" no-caps :loading="loading" :label="$tl('createBtn')" @click="save"
              color="send">
         <LoaderSent slot="loading"/>
       </q-btn>
