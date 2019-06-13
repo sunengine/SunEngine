@@ -16,7 +16,7 @@
       <p>
         {{$tl("anyMailToRegister")}} <a target="_blank" href="http://demo.sunengine.site:1444"><b>mailcatcher</b></a>.
       </p>
-      <p class="ver">{{$tl("version")}}: <span class="num">1.5.2</span></p>
+      <p class="ver">{{$tl("version")}}: <span class="num">1.5.3</span></p>
     </div>
 
   </q-page>

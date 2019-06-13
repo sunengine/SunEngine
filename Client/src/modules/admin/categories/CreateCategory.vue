@@ -53,7 +53,6 @@
         if (form.hasError)
           return;
 
-
         this.loading = true;
 
         await this.$store.dispatch('request',
@@ -62,8 +61,10 @@
             data: this.category,
             sendAsJson: true
           })
-          .then(() => {
+          .then(async () => {
             this.$successNotify();
+            await this.$store.dispatch("loadAllCategories");
+            await this.$store.dispatch("setAllRoutes");
             this.$router.push({name: 'CategoriesAdmin'});
           }).catch(error => {
             this.$errorNotify(error);

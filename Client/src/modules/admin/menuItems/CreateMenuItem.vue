@@ -69,6 +69,7 @@
           })
           .then(() => {
             this.$successNotify();
+            this.$store.dispatch("loadAllMenuItems");
             this.$router.push({name: 'MenuItemsAdmin'});
           }).catch(error => {
             this.$errorNotify(error);

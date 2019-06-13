@@ -23,6 +23,7 @@
 <script>
   import {Page} from 'sun';
 
+
   export default {
     name: 'EditCategory',
     mixins: [Page],
@@ -32,7 +33,6 @@
         required: true
       }
     },
-
     data: function () {
       return {
         category: null,
@@ -102,8 +102,10 @@
             data: this.category,
             sendAsJson: true
           })
-          .then(() => {
+          .then(async () => {
             this.$successNotify();
+            await this.$store.dispatch("loadAllCategories");
+            await this.$store.dispatch("setAllRoutes");
             this.$router.push({name: 'CategoriesAdmin'});
           }).catch(error => {
             this.$errorNotify(error);

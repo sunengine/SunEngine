@@ -46,6 +46,7 @@
             }
           }).then((response) => {
           this.setData(response.data);
+          this.$store.dispatch("loadAllMenuItems");
         });
       },
       async deleteMenuItem(menuItem) {
@@ -66,6 +67,7 @@
               }
             }).then((response) => {
             this.setData(response.data);
+            this.$store.dispatch("loadAllMenuItems");
           });
         });
       },
@@ -84,6 +86,7 @@
             }
           }).then((response) => {
           this.setData(response.data);
+          this.$store.dispatch("loadAllMenuItems");
         });
       },
       async down(menuItem) {
@@ -95,6 +98,7 @@
             }
           }).then((response) => {
           this.setData(response.data);
+          this.$store.dispatch("loadAllMenuItems");
         });
       },
       prepareMenuItems(allMenuItems) {

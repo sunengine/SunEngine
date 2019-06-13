@@ -68,9 +68,7 @@ namespace SunEngine.Admin.Controllers
         public async Task<IActionResult> CreateCategory([FromBody] CategoryRequestModel categoryData)
         {
             if (!ModelState.IsValid)
-            {
                 return ValidationProblem();
-            }
 
             var sectionType = categoriesCache.AllSectionTypes.ContainsKey(categoryData.SectionTypeName)
                 ? categoriesCache.AllSectionTypes[categoryData.SectionTypeName]
@@ -124,7 +122,7 @@ namespace SunEngine.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CategoryDown(string name)
         {
-            categoriesAdminManager.CategoryDown(name);
+            await categoriesAdminManager.CategoryDown(name);
 
             categoriesCache.Reset();
             contentCache.Reset();
@@ -156,21 +154,17 @@ namespace SunEngine.Admin.Controllers
     {
         public int Id { get; set; }
 
-        [Required, MinLength(2), RegularExpression("^[a-zA-Z-]*$")]
+        [Required, MinLength(2), RegularExpression("^[a-zA-Z0-9_-]*$")]
         public string Name { get; set; }
 
-        [Required, MinLength(3)] 
-        
+        [Required, MinLength(3)]
         public string Title { get; set; }
         public string SubTitle { get; set; }
         public string Icon { get; set; }
         
         public bool IsMaterialsContainer { get; set; }
-
-
+        
         public string Header { get; set; }
-
-        public bool? AppendUrlToken { get; set; }
 
         public string SectionTypeName { get; set; }
 
@@ -198,7 +192,6 @@ namespace SunEngine.Admin.Controllers
                 IsMaterialsContainer = IsMaterialsContainer,
                 Header = Header,
                 LayoutName = LayoutName,
-                //AppendUrlToken = AppendUrlToken,
                 ParentId = ParentId,
                 SortNumber = SortNumber,
                 IsDeleted = IsDeleted,

@@ -47,7 +47,7 @@ export default {
     title: "Добавить категорию",
     createBtn: "Создать",
     cancelBtn: "@:Global.btn.cancel",
-    successNotify: "Категория добавлена.\nНе забудьте перегрузить сайт для обновления."
+    successNotify: "Категория добавлена."
   },
   EditCategory: {
     title: "Редактировать категорию",
@@ -58,7 +58,7 @@ export default {
     deleteConfirm: "Вы уверены, что хотите удалить категорию?\nВсе данные категории так же будут удалены.",
     deleteDialogBtnOk: "Удалить",
     deleteDialogBtnCancel: "Отмена",
-    successNotify: "Категория обновлена.\nНе забудьте перегрузить сайт для обновления."
+    successNotify: "Категория обновлена."
   },
 
   // ——— menuItems ————————————————————————————————————

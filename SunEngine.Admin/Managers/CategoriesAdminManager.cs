@@ -27,28 +27,23 @@ namespace SunEngine.Admin.Managers
             this.categoriesCache = categoriesCache;
         }
 
-        public Task<SectionType> GetSectionTypeByNameAsync(string name)
-        {
-            return db.SectionTypes.FirstOrDefaultAsync(x => x.Name == name);
-        }
 
         public async Task CreateCategoryAsync(Category category)
         {
-
             category.Name = category.Name.Trim();
             category.NameNormalized = Normalizer.Normalize(category.Name);
             category.Title = category.Title;
-            
+
             ValidateCategory(category);
 
-            
-            category.SubTitle = category.SubTitle;
+
+            category.SubTitle = category.SubTitle?.SetNullIfEmptyTrim();
             category.Icon = category.Icon?.SetNullIfEmptyTrim();
             category.SettingsJson = category.SettingsJson?.SetNullIfEmptyTrim();
             category.LayoutName = category.LayoutName?.SetNullIfEmptyTrim();
             category.MaterialTypeTitle = category.MaterialTypeTitle?.SetNullIfEmptyTrim();
             category.Header = sanitizer.Sanitize(category.Header?.SetNullIfEmptyTrim());
-            
+
             var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.ParentId);
 
             if (parent == null)
@@ -92,9 +87,9 @@ namespace SunEngine.Admin.Managers
             category.Name = categoryUpdate.Name.Trim();
             category.NameNormalized = Normalizer.Normalize(category.Name);
             category.Title = categoryUpdate.Title?.SetNullIfEmptyTrim();
-            
+
             ValidateCategory(category);
-            
+
             category.SubTitle = categoryUpdate.SubTitle?.SetNullIfEmptyTrim();
             category.Icon = categoryUpdate.Icon?.SetNullIfEmptyTrim();
             category.MaterialTypeTitle = categoryUpdate.MaterialTypeTitle?.SetNullIfEmptyTrim();
@@ -106,8 +101,8 @@ namespace SunEngine.Admin.Managers
             category.IsHidden = categoryUpdate.IsHidden;
             category.IsCacheContent = categoryUpdate.IsCacheContent;
             category.IsMaterialsContainer = categoryUpdate.IsMaterialsContainer;
-          
-            
+
+
             await db.UpdateAsync(category);
         }
 
@@ -162,6 +157,11 @@ namespace SunEngine.Admin.Managers
         public Task CategoryMoveToTrashAsync(string name)
         {
             return db.Categories.Where(x => x.Name == name).Set(x => x.IsDeleted, x => true).UpdateAsync();
+        }
+
+        public Task<SectionType> GetSectionTypeByNameAsync(string name)
+        {
+            return db.SectionTypes.FirstOrDefaultAsync(x => x.Name == name);
         }
     }
 }

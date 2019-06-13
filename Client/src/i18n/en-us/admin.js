@@ -47,7 +47,7 @@ export default {
     title: "Create category",
     createBtn: "Create",
     cancelBtn: "@:Global.btn.cancel",
-    successNotify: "Category was added.\nDon`t forget to reload the site in your browser."
+    successNotify: "Category was added."
   },
   EditCategory: {
     title: "Edit category",
@@ -58,7 +58,7 @@ export default {
     deleteConfirm: "You want to remove the category?",
     deleteDialogBtnOk: "Remove",
     deleteDialogBtnCancel: "Cancel",
-    successNotify: "Category was updated.\nDon`t forget to reload the site in your browser."
+    successNotify: "Category was updated."
   },
 
   // ——— menuItems ————————————————————————————————————

@@ -18,7 +18,7 @@
       <span v-if="notRoot" class="q-ml-md">
         <q-btn @click="$emit('edit',category.id)" icon="fas fa-wrench" color="info" dense size="10px" flat/>
         <q-btn @click="$emit('add',category.id)" icon="fas fa-folder-plus" color="info" dense size="10px" flat/>
-        <q-btn :to="route" icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
+        <q-btn :disabled="!route" :to="route" icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
       </span>
 
       <span v-if="category.materialsCount" class="text-grey-8 q-ml-md"> <q-icon color="grey-5" name="far fa-file-alt"/> {{category.materialsCount}}</span>
@@ -44,7 +44,7 @@
     },
     computed: {
       route() {
-        return this.$store.getters.getCategory(this.category.name).getRoute()
+        return this.$store.getters.getCategory(this.category.name)?.getRoute()
       },
       notRoot() {
         return this.category.name !== 'Root'
