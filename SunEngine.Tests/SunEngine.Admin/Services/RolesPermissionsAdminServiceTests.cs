@@ -18,12 +18,12 @@ namespace SunEngine.Tests.SunEngine.Admin.Services
         public RolesPermissionsAdminServiceTests()
         {
             dbConnection = DefaultInit.GetTestDataBaseConnection();
-            environment = new HostingEnvironment {ContentRootPath = GetUserGroupSchemaPath()};
+            environment = new HostingEnvironment {ContentRootPath = GetRolesSchemaPath()};
         }
         
 
-        private string GetUserGroupSchemaPath() => Path.Combine(GetParentDirectoryAtLevel(Directory.GetCurrentDirectory(), 4), "SunEngine.Cli");
-        private string GetUserGroupJsonPath() => Path.Combine(GetParentDirectoryAtLevel(Directory.GetCurrentDirectory(), 4), "SunEngine.Cli", "Config", "UserGroups.json");
+        private string GetRolesSchemaPath() => Path.Combine(GetParentDirectoryAtLevel(Directory.GetCurrentDirectory(), 4), "SunEngine.Cli");
+        private string GetRolesJsonPath() => Path.Combine(GetParentDirectoryAtLevel(Directory.GetCurrentDirectory(), 4), "SunEngine.Cli", "Config", "UserGroups.json");
 
         private string GetParentDirectoryAtLevel(string path, int level)
         {
@@ -37,18 +37,18 @@ namespace SunEngine.Tests.SunEngine.Admin.Services
         }
 
         [Fact]
-        public async void ShouldGetGroupJson()
+        public async void ShouldGetRolesJson()
         {
             var rolesService = new RolesPermissionsAdminService(dbConnection, environment);
 
-            Assert.NotEqual(string.Empty, await rolesService.GetGroupsJsonAsync());
+            Assert.NotEqual(string.Empty, await rolesService.GetRolesJsonAsync());
         }
 
         
         [Fact]
-        public async void ShouldLoadUserGroupsFromJson()
+        public async void ShouldLoadRolesFromJson()
         {
-            string json = File.ReadAllText(GetUserGroupJsonPath(), Encoding.Default);
+            string json = File.ReadAllText(GetRolesJsonPath(), Encoding.Default);
             var rolesService = new RolesPermissionsAdminService(dbConnection, environment);
 
             using (var transaction = dbConnection.BeginTransaction())
@@ -56,7 +56,7 @@ namespace SunEngine.Tests.SunEngine.Admin.Services
                 await dbConnection.Roles.Set(x => x.Name, "test").UpdateAsync();
                 var before = dbConnection.Roles.Select(x => x.Name).ToList();
 
-                await rolesService.LoadUserGroupsFromJsonAsync(json);
+                await rolesService.LoadRolesFromJsonAsync(json);
 
                 var after = dbConnection.Roles.Select(x => x.Name).ToList();
                 transaction.Rollback();

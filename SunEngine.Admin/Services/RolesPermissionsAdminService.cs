@@ -19,30 +19,30 @@ namespace SunEngine.Admin.Services
 {
     public class RolesPermissionsAdminService : DbService
     {
-        private const string UserGroupsSchemaFileName = "Roles.schema.json";
-        private readonly string UserGroupSchemaPath;
+        private const string RolesSchemaFileName = "Roles.schema.json";
+        private readonly string RolesSchemaPath;
 
 
         public RolesPermissionsAdminService(
             DataBaseConnection db,
             IHostingEnvironment env) : base(db)
         {
-            UserGroupSchemaPath = Path.Combine(env.ContentRootPath, "Resources", UserGroupsSchemaFileName);
+            RolesSchemaPath = Path.Combine(env.ContentRootPath, "Resources", RolesSchemaFileName);
         }
 
-        public async Task<string> GetGroupsJsonAsync()
+        public async Task<string> GetRolesJsonAsync()
         {
-            var groups = await db.Roles
+            var roles = await db.Roles
                 .LoadWith(x => x.CategoryAccesses.First().CategoryOperationAccesses.First().OperationKey)
                 .ToListAsync();
 
             var categories = await db.Categories.ToDictionaryAsync(x => x.Id, x => x);
 
-            var jObject = groups.Select(x =>
+            var jObject = roles.Select(x =>
                     new
                     {
                         Name = x.Name,
-                        Group = new
+                        Role = new
                         {
                             Title = x.Title,
                             IsSuper = x.IsSuper ? (object) true : null,
@@ -59,7 +59,7 @@ namespace SunEngine.Admin.Services
                                 : null
                         }
                     })
-                .ToDictionary(x => x.Name, x => x.Group);
+                .ToDictionary(x => x.Name, x => x.Role);
 
             JsonSerializerSettings serializerSettings = new JsonSerializerSettings
             {
@@ -68,26 +68,26 @@ namespace SunEngine.Admin.Services
             return JsonConvert.SerializeObject(jObject, Formatting.Indented, serializerSettings);
         }
 
-        public async Task LoadUserGroupsFromJsonAsync(string json)
+        public async Task LoadRolesFromJsonAsync(string json)
         {
             IDictionary<string, Category> categories =
                 await db.Categories.ToDictionaryAsync(x => x.Name);
             IDictionary<string, OperationKey> operationKeys =
                 await db.OperationKeys.ToDictionaryAsync(x => x.Name);
 
-            JsonSchema schema = await JsonSchema.FromFileAsync(UserGroupSchemaPath);
+            JsonSchema schema = await JsonSchema.FromFileAsync(RolesSchemaPath);
 
-            RolesFromJsonLoader fromJsonLoader = new RolesFromJsonLoader(categories, operationKeys, schema);
+            RolesFromJsonLoader rolesFromJsonLoader = new RolesFromJsonLoader(categories, operationKeys, schema);
 
 
-            fromJsonLoader.Seed(json);
+            rolesFromJsonLoader.Seed(json);
 
             try
             {
                 db.BeginTransaction();
-                await UpdateUserGroups(fromJsonLoader.roles);
+                await UpdateRoles(rolesFromJsonLoader.roles);
                 await ClearAccessesAsync();
-                await CopyToDb(fromJsonLoader);
+                await CopyToDb(rolesFromJsonLoader);
                 db.CommitTransaction();
             }
             catch (Exception e)
@@ -97,36 +97,36 @@ namespace SunEngine.Admin.Services
             }
         }
 
-        private async Task UpdateUserGroups(List<Role> groupsNew)
+        private async Task UpdateRoles(List<Role> rolesNew)
         {
-            var groups = await db.Roles.ToListAsync();
+            var roles = await db.Roles.ToListAsync();
 
-            var toDelete = groups
+            var toDelete = roles
                 .Where(x =>
-                    !groupsNew.Any(y => string.Equals(x.NormalizedName, y.NormalizedName))
+                    !rolesNew.Any(y => string.Equals(x.NormalizedName, y.NormalizedName))
                 )
                 .ToList();
 
-            var toInsert = groupsNew
+            var toInsert = rolesNew
                 .Where(x =>
-                    !groups.Any(y => string.Equals(x.NormalizedName, y.NormalizedName))
+                    !roles.Any(y => string.Equals(x.NormalizedName, y.NormalizedName))
                 )
                 .ToList();
 
-            var toUpdate = groupsNew.Where(x => groups.Any(y => string.Equals(x.NormalizedName, y.NormalizedName)))
+            var toUpdate = rolesNew.Where(x => roles.Any(y => string.Equals(x.NormalizedName, y.NormalizedName)))
                 .ToList();
 
-            List<Role> errorGroups = new List<Role>();
+            List<Role> errorRoles = new List<Role>();
 
-            foreach (var group in toDelete)
+            foreach (var role in toDelete)
             {
-                if (await db.UserRoles.AnyAsync(x => x.RoleId == group.Id))
-                    errorGroups.Add(group);
+                if (await db.UserRoles.AnyAsync(x => x.RoleId == role.Id))
+                    errorRoles.Add(role);
             }
 
-            if (errorGroups.Count > 0)
+            if (errorRoles.Count > 0)
             {
-                var errorNames = string.Join(", ", errorGroups.Select(y => "'" + y.Name + "'"));
+                var errorNames = string.Join(", ", errorRoles.Select(y => "'" + y.Name + "'"));
                 throw new SunViewException(
                     new ErrorView("CanNotDeleteRolesItHasUsers",
                         "This roles can not be deleted because it has users, remove them first.", ErrorType.Soft,
