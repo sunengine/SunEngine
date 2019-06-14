@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using Newtonsoft.Json;
 using SunEngine.Core.Models;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.Core.Cache.CacheModels
 {
@@ -19,9 +20,9 @@ namespace SunEngine.Core.Cache.CacheModels
         public string NameNormalized { get; }
 
         public string Title { get; }
-        
+
         public string SubTitle { get; }
-        
+
         public string Icon { get; }
 
         public bool IsMaterialsContainer { get; }
@@ -73,7 +74,7 @@ namespace SunEngine.Core.Cache.CacheModels
             Icon = category.Icon;
             Header = category.Header;
             SectionTypeId = category.SectionTypeId;
-            SettingsJson = category.SettingsJson;
+            SettingsJson = SunJson.Deserialize(category.SettingsJson);
             ParentId = category.ParentId;
             CacheSettingsId = category.CacheSettingsId;
             CacheSettings = category.CacheSettings;
@@ -81,15 +82,6 @@ namespace SunEngine.Core.Cache.CacheModels
             LayoutName = category.LayoutName;
             IsHidden = category.IsHidden;
             IsCacheContent = category.IsCacheContent;
-            
-            try
-            {
-                SettingsJson = JsonConvert.DeserializeObject<object>(category.SettingsJson);
-            }
-            catch
-            {
-            }
-            
             
             _subCategories = new List<CategoryCached>();
             _allSubCategories = new List<CategoryCached>();
@@ -99,7 +91,6 @@ namespace SunEngine.Core.Cache.CacheModels
         {
             if (initialized)
                 return;
-
             if (ParentId.HasValue && allCategories.ContainsKey(ParentId.Value))
             {
                 Parent = allCategories[ParentId.Value];
@@ -111,7 +102,6 @@ namespace SunEngine.Core.Cache.CacheModels
         {
             if (initialized)
                 return null;
-
             foreach (var category in _subCategories)
             {
                 var list = category.Init2AllSub();
@@ -123,7 +113,6 @@ namespace SunEngine.Core.Cache.CacheModels
 
             var rez = _allSubCategories.ToList();
             rez.Add(this);
-
             return rez;
         }
 
@@ -138,12 +127,10 @@ namespace SunEngine.Core.Cache.CacheModels
         {
             if (initialized)
                 return;
-
             if (SectionType != null)
                 sectionRoot = this;
 
             SectionRoot = sectionRoot;
-
             foreach (var category in _subCategories)
             {
                 category.Init4InitSectionsRoots(sectionRoot);
@@ -155,13 +142,10 @@ namespace SunEngine.Core.Cache.CacheModels
         {
             if (initialized)
                 return;
-
             AllSubCategories = _allSubCategories.ToImmutableList();
             SubCategories = _subCategories.ToImmutableList();
-
             _allSubCategories = null;
             _subCategories = null;
-
             initialized = true;
         }
 
@@ -169,10 +153,8 @@ namespace SunEngine.Core.Cache.CacheModels
         {
             if (SectionRoot == null)
                 return false;
-
             if (SectionRoot.SectionType == null)
                 throw new Exception("Impossible");
-
             return SectionRoot.SectionType.Name == SectionTypeNames.Articles;
         }
     }

@@ -20,11 +20,11 @@ namespace SunEngine.Core.Errors
                 case null:
                     return;
                 case SunViewException sunViewException:
-                    await context.Response.WriteAsync(WebJson.Serialize(sunViewException.ErrorView));
+                    await context.Response.WriteAsync(SunJson.Serialize(sunViewException.ErrorView));
                     break;
                 default:
                     ErrorView errorView = ErrorView.ServerError(exceptionHandlerPathFeature.Error);
-                    await context.Response.WriteAsync(WebJson.Serialize(errorView));
+                    await context.Response.WriteAsync(SunJson.Serialize(errorView));
                     break;
             }
         }

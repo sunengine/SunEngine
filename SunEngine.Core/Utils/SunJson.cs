@@ -6,7 +6,7 @@ using SunEngine.Core.Errors;
 
 namespace SunEngine.Core.Utils
 {
-    public static class WebJson
+    public static class SunJson
     {
         public static JsonSerializerSettings jsonSettings { get; } = new JsonSerializerSettings
         {
@@ -20,6 +20,21 @@ namespace SunEngine.Core.Utils
         public static string Serialize(object obj)
         {
             return JsonConvert.SerializeObject(obj, jsonSettings);
+        }
+        
+        public static object Deserialize(string json)
+        {
+            if (json == null)
+                return json;
+            
+            try
+            {
+                return JsonConvert.DeserializeObject<object>(json);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 

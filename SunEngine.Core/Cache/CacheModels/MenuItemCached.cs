@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using SunEngine.Core.Models;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.Core.Cache.CacheModels
 {
     public class MenuItemCached
     {
         public int Id { get; }
-        
+
         public MenuItemCached Parent { get; }
         public int? ParentId { get; }
         public string Name { get; }
@@ -35,7 +36,6 @@ namespace SunEngine.Core.Cache.CacheModels
             Title = menuItem.Title;
             SubTitle = menuItem.SubTitle;
             RouteName = menuItem.RouteName;
-          
             Exact = menuItem.Exact;
             CssClass = menuItem.CssClass;
             ExternalUrl = menuItem.ExternalUrl;
@@ -44,20 +44,8 @@ namespace SunEngine.Core.Cache.CacheModels
             Icon = menuItem.Icon;
             IsHidden = menuItem.IsHidden;
             
-            try
-            {
-                RouteParamsJson = JsonConvert.DeserializeObject<object>(menuItem.RouteParamsJson);
-            }
-            catch
-            {
-            }
-            try
-            {
-                SettingsJson = JsonConvert.DeserializeObject<object>(menuItem.SettingsJson);
-            }
-            catch
-            {
-            }
+            RouteParamsJson = SunJson.Deserialize(menuItem.RouteParamsJson);
+            SettingsJson = SunJson.Deserialize(menuItem.SettingsJson);
             
             Roles = roles;
         }

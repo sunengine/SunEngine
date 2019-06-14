@@ -108,7 +108,7 @@ namespace SunEngine.Core.Controllers
             }
 
             var content = await dataLoader();
-            json = WebJson.Serialize(content);
+            json = SunJson.Serialize(content);
             contentCache.CacheContent(key, json);
             return JsonString(json);
         }
