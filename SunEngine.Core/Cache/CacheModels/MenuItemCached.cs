@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SunEngine.Core.Models;
 using SunEngine.Core.Utils;
 
@@ -15,9 +16,9 @@ namespace SunEngine.Core.Cache.CacheModels
         public string Title { get; }
         public string SubTitle { get; }
         public string RouteName { get; }
-        public object RouteParamsJson { get; }
+        public JRaw RouteParamsJson { get; }
         public bool Exact { get; }
-        public object SettingsJson { get; }
+        public JRaw SettingsJson { get; }
         public string CssClass { get; }
         public string ExternalUrl { get; }
         public bool IsSeparator { get; }
@@ -44,8 +45,8 @@ namespace SunEngine.Core.Cache.CacheModels
             Icon = menuItem.Icon;
             IsHidden = menuItem.IsHidden;
             
-            RouteParamsJson = SunJson.Deserialize(menuItem.RouteParamsJson);
-            SettingsJson = SunJson.Deserialize(menuItem.SettingsJson);
+            RouteParamsJson = SunJson.MakeJRow(menuItem.RouteParamsJson);
+            SettingsJson = SunJson.MakeJRow(menuItem.SettingsJson);
             
             Roles = roles;
         }

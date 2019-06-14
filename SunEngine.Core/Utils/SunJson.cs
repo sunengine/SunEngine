@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using SunEngine.Core.Errors;
 
@@ -22,14 +23,14 @@ namespace SunEngine.Core.Utils
             return JsonConvert.SerializeObject(obj, jsonSettings);
         }
         
-        public static object Deserialize(string json)
+        public static JRaw MakeJRow(string json)
         {
             if (json == null)
-                return json;
-            
+                return null;
+
             try
             {
-                return JsonConvert.DeserializeObject<object>(json);
+                return new JRaw(json);
             }
             catch
             {
