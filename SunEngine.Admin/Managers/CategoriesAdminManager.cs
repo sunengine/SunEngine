@@ -39,7 +39,7 @@ namespace SunEngine.Admin.Managers
 
             category.SubTitle = category.SubTitle?.SetNullIfEmptyTrim();
             category.Icon = category.Icon?.SetNullIfEmptyTrim();
-            category.SettingsJson = category.SettingsJson?.SetNullIfEmptyTrim();
+            category.SettingsJson = category.SettingsJson?.MakeJsonText();
             category.LayoutName = category.LayoutName?.SetNullIfEmptyTrim();
             category.MaterialTypeTitle = category.MaterialTypeTitle?.SetNullIfEmptyTrim();
             category.Header = sanitizer.Sanitize(category.Header?.SetNullIfEmptyTrim());
@@ -58,17 +58,6 @@ namespace SunEngine.Admin.Managers
             }
         }
 
-        private void ValidateCategory(Category category)
-        {
-            if (category == null)
-                throw new ArgumentNullException(nameof(category), "Category can not be null");
-
-            if (string.IsNullOrEmpty(category.Name))
-                throw new SunModelValidationException(nameof(category), nameof(category.Name));
-
-            if (string.IsNullOrEmpty(category.Title))
-                throw new SunModelValidationException(nameof(category), nameof(category.Title));
-        }
 
         public async Task UpdateCategoryAsync(Category categoryUpdate)
         {
@@ -97,13 +86,25 @@ namespace SunEngine.Admin.Managers
             category.SectionTypeId = categoryUpdate.SectionTypeId;
             category.ParentId = parent.Id;
             category.LayoutName = categoryUpdate.LayoutName?.SetNullIfEmptyTrim();
-            category.SettingsJson = categoryUpdate.SettingsJson?.SetNullIfEmptyTrim();
+            category.SettingsJson = categoryUpdate.SettingsJson?.MakeJsonText();
             category.IsHidden = categoryUpdate.IsHidden;
             category.IsCacheContent = categoryUpdate.IsCacheContent;
             category.IsMaterialsContainer = categoryUpdate.IsMaterialsContainer;
 
 
             await db.UpdateAsync(category);
+        }
+
+        private void ValidateCategory(Category category)
+        {
+            if (category == null)
+                throw new ArgumentNullException(nameof(category), "Category can not be null");
+
+            if (string.IsNullOrEmpty(category.Name))
+                throw new SunModelValidationException(nameof(category), nameof(category.Name));
+
+            if (string.IsNullOrEmpty(category.Title))
+                throw new SunModelValidationException(nameof(category), nameof(category.Title));
         }
 
         public async Task CategoryUp(string name)
@@ -126,11 +127,11 @@ namespace SunEngine.Admin.Managers
                 rowsUpdated += await db.Categories.Where(x => x.Id == category.Id)
                     .Set(x => x.SortNumber, 0)
                     .UpdateAsync();
-                
+
                 rowsUpdated += await db.Categories.Where(x => x.Id == category2.Id)
                     .Set(x => x.SortNumber, category.SortNumber)
                     .UpdateAsync();
-                
+
                 rowsUpdated += await db.Categories.Where(x => x.Id == category.Id)
                     .Set(x => x.SortNumber, category2.SortNumber)
                     .UpdateAsync();
@@ -163,11 +164,11 @@ namespace SunEngine.Admin.Managers
                 rowsUpdated += await db.Categories.Where(x => x.Id == category.Id)
                     .Set(x => x.SortNumber, 0)
                     .UpdateAsync();
-                
+
                 rowsUpdated += await db.Categories.Where(x => x.Id == category2.Id)
                     .Set(x => x.SortNumber, category.SortNumber)
                     .UpdateAsync();
-                
+
                 rowsUpdated += await db.Categories.Where(x => x.Id == category.Id)
                     .Set(x => x.SortNumber, category2.SortNumber)
                     .UpdateAsync();

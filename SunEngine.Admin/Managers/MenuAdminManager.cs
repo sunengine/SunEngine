@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
@@ -35,17 +34,19 @@ namespace SunEngine.Admin.Managers
         {
             if (menuItem.ParentId == 0)
                 menuItem.ParentId = null;
+            
 
             menuItem.Name = menuItem.Name?.SetNullIfEmptyTrim();
             menuItem.Title = menuItem.Title?.SetNullIfEmptyTrim();
             menuItem.SubTitle = menuItem.SubTitle?.SetNullIfEmptyTrim();
             menuItem.RouteName = menuItem.RouteName?.SetNullIfEmptyTrim();
-            menuItem.RouteParamsJson = menuItem.RouteParamsJson?.SetNullIfEmptyTrim();
-            menuItem.SettingsJson = menuItem.SettingsJson?.SetNullIfEmptyTrim();
+            menuItem.RouteParamsJson = menuItem.RouteParamsJson?.MakeJsonText();
+            menuItem.SettingsJson = menuItem.SettingsJson?.MakeJsonText();
             menuItem.CssClass = menuItem.CssClass?.SetNullIfEmptyTrim();
             menuItem.ExternalUrl = menuItem.ExternalUrl?.SetNullIfEmptyTrim();
             menuItem.Icon = menuItem.Icon?.SetNullIfEmptyTrim();
             menuItem.Roles = CheckAndSetRoles(menuItem.Roles);
+
 
             using (db.BeginTransaction())
             {
@@ -59,8 +60,17 @@ namespace SunEngine.Admin.Managers
 
         public virtual async Task UpdateAsync(MenuItem menuItem)
         {
+            menuItem.Name = menuItem.Name?.SetNullIfEmptyTrim();
+            menuItem.Title = menuItem.Title?.SetNullIfEmptyTrim();
+            menuItem.SubTitle = menuItem.SubTitle?.SetNullIfEmptyTrim();
+            menuItem.RouteName = menuItem.RouteName?.SetNullIfEmptyTrim();
+            menuItem.RouteParamsJson = menuItem.RouteParamsJson?.MakeJsonText();
+            menuItem.SettingsJson = menuItem.SettingsJson?.MakeJsonText();
+            menuItem.CssClass = menuItem.CssClass?.SetNullIfEmptyTrim();
+            menuItem.ExternalUrl = menuItem.ExternalUrl?.SetNullIfEmptyTrim();
+            menuItem.Icon = menuItem.Icon?.SetNullIfEmptyTrim();
             menuItem.Roles = CheckAndSetRoles(menuItem.Roles);
-
+            
             int rowsUpdated = await db.UpdateAsync(menuItem);
 
             if (rowsUpdated != 1)
