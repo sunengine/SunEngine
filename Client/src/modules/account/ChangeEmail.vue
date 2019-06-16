@@ -10,7 +10,7 @@
         </template>
         <template v-slot:append>
           <q-icon
-            :name="showPassword ? 'visibility' : 'visibility_off'"
+            :name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
             class="cursor-pointer"
             @click="showPassword = !showPassword"
           />

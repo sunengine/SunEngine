@@ -31,7 +31,7 @@ namespace SunEngine.Core.Controllers
         [HttpGet] // HttpGet - For pulse and testing 
         public virtual IActionResult GetAllCategoriesAndAccesses()
         {
-            var rez = categoriesPresenter.CategoryInfoWithAccessesFromCategory(User.Roles);
+            var rez = categoriesPresenter.GetRootCategoryInfoWithAccesses(User.Roles);
             return Json(rez, jsonSerializerSettings);
         }
     }

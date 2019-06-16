@@ -5,9 +5,16 @@
         {{$tl("nameValidationInfo")}}
       </div>
 
-      <q-input ref="password" v-model="password" type="password" :label="$tl('password')" :rules="rules.passwordRules">
+      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'" :label="$tl('password')" :rules="rules.passwordRules">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
+        </template>
+        <template v-slot:append>
+          <q-icon
+            :name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
+            class="cursor-pointer"
+            @click="showPassword = !showPassword"
+          />
         </template>
       </q-input>
 
@@ -55,6 +62,7 @@
       return {
         name: this.$store.state.auth.user.name,
         password: null,
+        showPassword: false,
         nameInDb: false,
         submitting: false
       }

@@ -9,11 +9,11 @@
               :toolbar="editorToolbar"
               ref="htmlEditor" v-model="text"/>
 
-    <q-btn no-caps icon="fas fa-arrow-circle-right" class="q-mr-sm" @click="send" color="send" :loading="loading"
+    <q-btn no-caps icon="fas fa-arrow-circle-right" class="send-btn q-mr-sm" @click="send" :loading="loading"
            :label="$tl('sendBtn')">
       <loader-sent slot="loading"/>
     </q-btn>
-    <q-btn no-caps icon="fas fa-times" @click="$router.back()" color="warning" :label="$t('Global.btn.cancel')"/>
+    <q-btn no-caps icon="fas fa-times" @click="$router.back()" class="cancel-btn" :label="$t('Global.btn.cancel')"/>
   </q-page>
 </template>
 
@@ -57,7 +57,7 @@
           .then(() => {
               this.$successNotify();
               this.loading = false;
-              this.$router.$goBack();
+              this.$router.back();
             }
           ).catch(error => {
             this.$errorNotify(error);

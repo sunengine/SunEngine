@@ -4,7 +4,7 @@
       <q-toolbar class="layout-toolbar">
 
         <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
-          <q-icon name="menu" class="toolbar-menu-btn"/>
+          <q-icon name="fas fa-bars" class="toolbar-menu-btn"/>
         </q-btn>
 
         <q-toolbar-title class="layout-title">
@@ -13,7 +13,7 @@
 
         <q-btn class="q-mr-sm" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu"
                v-if="rightDrawerIs">
-          <q-icon name="menu" class="toolbar-menu-btn"/>
+          <q-icon name="fas fa-bars" class="toolbar-menu-btn"/>
         </q-btn>
 
         <q-btn v-if="userName" flat dense round>

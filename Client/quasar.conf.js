@@ -22,7 +22,7 @@ module.exports = function (ctx) {
     ],
     extras: [
       //'roboto-font',
-      'material-icons', // optional, you are not bound to it
+      //'material-icons', // optional, you are not bound to it
       // 'ionicons-v4',
       // 'mdi-v3',
        'fontawesome-v5',
@@ -83,7 +83,7 @@ module.exports = function (ctx) {
         'bounceOutUp'
       ],
 
-      // iconSet: 'ionicons-v4'
+      iconSet: 'fontawesome-v5',
       lang: 'ru' // Quasar language
     },
 

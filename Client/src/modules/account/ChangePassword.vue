@@ -8,7 +8,7 @@
         </template>
         <template v-slot:append>
           <q-icon
-            :name="showPasswordOld ? 'visibility' : 'visibility_off'"
+            :name="showPasswordOld ? 'far fa-eye' : 'far fa-eye-slash'"
             class="cursor-pointer"
             @click="showPasswordOld = !showPasswordOld"
           />
@@ -21,20 +21,20 @@
         </template>
         <template v-slot:append>
           <q-icon
-            :name="showPassword ? 'visibility' : 'visibility_off'"
+            :name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
             class="cursor-pointer"
             @click="showPassword = !showPassword"
           />
         </template>
       </q-input>
 
-      <q-input ref="password2" v-model="password2" :type="showPassword2 ? 'text' : 'password'" :label="$tl('password2')" :rules="rules.password2">
+      <q-input ref="password2"  v-model="password2" :type="showPassword2 ? 'text' : 'password'" :label="$tl('password2')" :rules="rules.password2">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
         <template v-slot:append>
           <q-icon
-            :name="showPassword2 ? 'visibility' : 'visibility_off'"
+            :name="showPassword2 ?  'far fa-eye' : 'far fa-eye-slash'"
             class="cursor-pointer"
             @click="showPassword2 = !showPassword2"
           />

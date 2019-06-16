@@ -8,10 +8,11 @@ namespace SunEngine.Core.Presenters
 {
     public interface ICategoriesPresenter
     {
-        CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(
+        CategoryInfoWithAccesses GetRootCategoryInfoWithAccesses(
             IReadOnlyDictionary<string, RoleCached> roles);
 
-        CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(CategoryCached category,
+        CategoryInfoWithAccesses GetCategoryInfoWithAccesses(
+            CategoryCached category,
             IReadOnlyDictionary<string, RoleCached> roles);
     }
 
@@ -23,7 +24,8 @@ namespace SunEngine.Core.Presenters
         protected readonly ICategoriesCache categoriesCache;
         protected readonly IRolesCache rolesCache;
 
-        public CategoriesPresenter(IRolesCache rolesCache,
+        public CategoriesPresenter(
+            IRolesCache rolesCache,
             ICategoriesCache categoriesCache,
             IAuthorizationService authorizationService,
             OperationKeysContainer operationKeysContainer)
@@ -35,20 +37,19 @@ namespace SunEngine.Core.Presenters
             this.rolesCache = rolesCache;
         }
 
-        public virtual CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(
+        public virtual CategoryInfoWithAccesses GetRootCategoryInfoWithAccesses(
             IReadOnlyDictionary<string, RoleCached> roles)
         {
-            return CategoryInfoWithAccessesFromCategory(categoriesCache.RootCategory, roles);
+            return GetCategoryInfoWithAccesses(categoriesCache.RootCategory, roles);
         }
 
-        public virtual CategoryInfoWithAccesses CategoryInfoWithAccessesFromCategory(CategoryCached category,
+        public virtual CategoryInfoWithAccesses GetCategoryInfoWithAccesses(
+            CategoryCached category,
             IReadOnlyDictionary<string, RoleCached> roles)
         {
-            if (!authorizationService.HasAccess(roles, category,
-                    OperationKeys.MaterialAndCommentsRead) && category.Id != categoriesCache.RootCategory.Id)
-            {
+            if (!authorizationService.HasAccess(roles, category, OperationKeys.MaterialAndCommentsRead) &&
+                category.Id != categoriesCache.RootCategory.Id)
                 return null;
-            }
 
             CategoryInfoWithAccesses categoryInfo = new CategoryInfoWithAccesses
             {
@@ -61,15 +62,16 @@ namespace SunEngine.Core.Presenters
                 IsMaterialsContainer = category.IsMaterialsContainer,
                 SectionType = category.SectionType,
                 SortNumber = category.SortNumber,
-                LayoutName= category.LayoutName,
-                SettingsJson =  category.SettingsJson,
+                LayoutName = category.LayoutName,
+                SettingsJson = category.SettingsJson,
                 IsHidden = category.IsHidden,
 
                 CategoryPersonalAccess = DetectPersonalAccesses(category, roles)
             };
 
 
-            if (category.SubCategories == null) return categoryInfo;
+            if (category.SubCategories == null)
+                return categoryInfo;
 
             IEnumerable<CategoryCached> where;
             if (roles.Any(x => x.Value.Name == "Admin")) // админ может видеть все категории, в том числе и скрытые
@@ -77,18 +79,16 @@ namespace SunEngine.Core.Presenters
             else
                 where = category.SubCategories.Where(x => !x.IsHidden);
 
-
-            if (!where.Any()) return categoryInfo;
+            if (!where.Any())
+                return categoryInfo;
 
             categoryInfo.SubCategories = new List<CategoryInfoWithAccesses>(category.SubCategories.Count);
 
             foreach (var child in where.OrderBy(x => x.SortNumber))
             {
-                var childInfo = CategoryInfoWithAccessesFromCategory(child, roles);
+                var childInfo = GetCategoryInfoWithAccesses(child, roles);
                 if (childInfo == null)
-                {
                     continue;
-                }
 
                 categoryInfo.SubCategories.Add(childInfo);
             }
@@ -96,25 +96,24 @@ namespace SunEngine.Core.Presenters
             return categoryInfo;
         }
 
-        protected Dictionary<string, bool> DetectPersonalAccesses(CategoryCached category,
+        protected Dictionary<string, bool> DetectPersonalAccesses(
+            CategoryCached category,
             IReadOnlyDictionary<string, RoleCached> roles)
         {
             Dictionary<string, bool> dict = new Dictionary<string, bool>(rolesCache.AllOperationKeys.Count);
 
             foreach (var operationKey in rolesCache.AllOperationKeys)
             {
-                bool allow = authorizationService.HasAccess(roles, category,
-                    operationKey.OperationKeyId);
+                bool allow = authorizationService.HasAccess(roles, category, operationKey.OperationKeyId);
 
                 if (allow)
-                {
                     dict[operationKey.Name] = true;
-                }
             }
 
             return dict;
         }
     }
+
 
     public class CategoryInfoWithAccesses
     {

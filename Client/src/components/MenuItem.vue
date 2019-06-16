@@ -9,7 +9,6 @@
         <q-item-label caption>{{menuItem.subTitle}}</q-item-label>
       </q-item-section>
     </q-item>
-
     <q-expansion-item v-if="menuItem.subMenuItems" :icon="menuItem.icon" :label="menuItem.title" :caption="menuItem.subTitle"
                       @click.native="goExternal()"  :to='to' :exact="menuItem.exact">
       <MenuItem :menuItem="subItem" :key="subItem.id" v-for="subItem of menuItem.subMenuItems"/>
