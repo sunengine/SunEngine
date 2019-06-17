@@ -74,7 +74,7 @@ namespace SunEngine.Core.Presenters
                 return categoryInfo;
 
             IEnumerable<CategoryCached> where;
-            if (roles.Any(x => x.Value.Name == "Admin")) // админ может видеть все категории, в том числе и скрытые
+            if (roles.Any(x => x.Value.Name == RoleNames.Admin)) // Admin can see all categories, including hidden
                 where = category.SubCategories;
             else
                 where = category.SubCategories.Where(x => !x.IsHidden);

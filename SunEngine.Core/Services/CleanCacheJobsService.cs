@@ -23,6 +23,7 @@ namespace SunEngine.Core.Services
         private Timer timerSpamProtectionCache;
         private Timer timerJwtBlackListService;
         private Timer timerLongSessionsClearer;
+        private Timer timerExpiredRegistrationUsersCleaner;
 
 
         public CleanCacheJobsService(
@@ -60,6 +61,16 @@ namespace SunEngine.Core.Services
                 }
             }, null, TimeSpan.Zero, TimeSpan.FromDays(schedulerOptions.LongSessionsClearDays));
 
+            timerExpiredRegistrationUsersCleaner = new Timer(_ =>
+            {
+                Console.WriteLine("OldNotRegisteredUsersClearer.CleanOldNotRegisteredUsers");
+                using (var db = dbFactory.CreateDb())
+                {
+                    ExpiredRegistrationUsersClearer.CleanExpiredRegistrationUsers(db);
+                }
+            }, null, TimeSpan.Zero, TimeSpan.FromDays(schedulerOptions.ExpiredRegistrationUsersClearDays));
+
+            
             return Task.CompletedTask;
         }
 
@@ -69,7 +80,8 @@ namespace SunEngine.Core.Services
             timerSpamProtectionCache.Dispose();
             timerJwtBlackListService.Dispose();
             timerLongSessionsClearer.Dispose();
-
+            timerExpiredRegistrationUsersCleaner.Dispose();
+            
             return Task.CompletedTask;
         }
     }
@@ -80,6 +92,15 @@ namespace SunEngine.Core.Services
         {
             var now = DateTime.UtcNow;
             db.LongSessions.Where(x => x.ExpirationDate <= now).Delete();
+        }
+    }
+    
+    public static class ExpiredRegistrationUsersClearer
+    {
+        public static void CleanExpiredRegistrationUsers(DataBaseConnection db)
+        {
+            DateTime lastLine = DateTime.UtcNow.AddDays(-5);
+            db.Users.Where(x => !x.EmailConfirmed && x.RegisteredDate < lastLine).Delete();
         }
     }
 }

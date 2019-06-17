@@ -22,7 +22,9 @@
       </div>
       <div>
         <h4>{{user.name}}</h4>
-        <div v-html="user.information"></div>
+        <div class="q-mb-lg" v-html="user.information"></div>
+        <div class="registered">{{$tl("registered")}}: {{$formatDateOnly(user.registeredDate)}}</div>
+
         <q-expansion-item class="roles overflow-hidden" v-if="canEditRoles" @show="showRolesAdmin" icon="fas fa-cog"
                           :label="$tl('roles')" style="border-radius: 12px; margin-top: 30px; border: 1px solid silver"
                           header-style="background-color: #e4e4e4">
@@ -136,6 +138,11 @@
       .img {
         margin-right: 15px;
       }
+    }
+
+    .registered {
+      font-style: italic;
+      color: $grey-8;
     }
 
     @media (max-width: 600px) {

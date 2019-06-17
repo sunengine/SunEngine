@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
@@ -76,7 +77,8 @@ namespace SunEngine.DataSeed
                     Information = ((string) usersJ["Information"])?.Replace("[n]", j.ToString()),
                     Link = ((string) usersJ["Link"])?.Replace("[n]", j.ToString()),
                     Photo = User.DefaultAvatar,
-                    Avatar = User.DefaultAvatar
+                    Avatar = User.DefaultAvatar,
+                    RegisteredDate = DateTime.UtcNow
                 };
                 if(string.IsNullOrEmpty(user.Link))
                     user.Link = user.Id.ToString();

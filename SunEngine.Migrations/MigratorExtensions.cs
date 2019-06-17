@@ -1,4 +1,5 @@
 using System;
+using FluentMigrator.Builders.Create.Column;
 using FluentMigrator.Builders.Create.Table;
 
 namespace SunEngine.Migrations.Migrations
@@ -18,6 +19,15 @@ namespace SunEngine.Migrations.Migrations
                 return createTableColumnAsTypeSyntax.AsDateTime();
 
             return createTableColumnAsTypeSyntax.AsCustom("TimestampTz");
+        }
+        
+        public static ICreateColumnOptionSyntax AsMyDateTime(
+            this ICreateColumnAsTypeOrInSchemaSyntax createColumnAsTypeOrInSchemaSyntax)
+        {
+            if (!DbProvider.IsPostgre)
+                return createColumnAsTypeOrInSchemaSyntax.AsDateTime();
+
+            return createColumnAsTypeOrInSchemaSyntax.AsCustom("TimestampTz");
         }
     }
 }

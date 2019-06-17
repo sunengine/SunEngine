@@ -51,7 +51,8 @@
   "Scheduler": {
     "SpamProtectionCacheClearMinutes": 8,
     "JwtBlackListServiceClearMinutes": 60,
-    "LongSessionsClearDays": 1
+    "LongSessionsClearDays": 1,
+    "ExpiredRegistrationUsersClearDays": 1
   },
   "Email": {
     "Host": "127.0.0.1",

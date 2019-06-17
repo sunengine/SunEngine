@@ -1,6 +1,7 @@
 export default {
   Profile: {
     roles: "Groups",
+    registered: "Registered",
     sendPrivateMessageBtn: "Private message",
     banBtn: "Ban",
     unBanBtn: "Unban",

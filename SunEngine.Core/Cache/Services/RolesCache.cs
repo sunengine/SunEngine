@@ -3,6 +3,7 @@ using System.Linq;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models.Authorization;
+using SunEngine.Core.Security;
 
 namespace SunEngine.Core.Cache.Services
 {
@@ -11,6 +12,7 @@ namespace SunEngine.Core.Cache.Services
         IImmutableList<OperationKeyCached> AllOperationKeys { get; }
         RoleCached GetRole(string name);
         IImmutableDictionary<string, RoleCached> AllRoles { get; }
+        RoleCached AdminRole { get; }
     }
 
     /// <summary>
@@ -23,7 +25,8 @@ namespace SunEngine.Core.Cache.Services
 
         protected IImmutableList<OperationKeyCached> _allOperationKeys;
         protected ImmutableDictionary<string, RoleCached> _allRoles;
-
+        protected RoleCached _adminRole;
+        
         #region Getters
 
         public IImmutableList<OperationKeyCached> AllOperationKeys
@@ -47,6 +50,18 @@ namespace SunEngine.Core.Cache.Services
                         Initialize();
 
                 return _allRoles;
+            }
+        }
+
+        public RoleCached AdminRole
+        {
+            get
+            {
+                lock (lockObject)
+                    if (_adminRole == null)
+                        Initialize();
+
+                return _adminRole;
             }
         }
 
@@ -91,6 +106,7 @@ namespace SunEngine.Core.Cache.Services
                 }
 
                 _allRoles = roles.Values.ToImmutableDictionary(x => x.Name, x => new RoleCached(x));
+                _adminRole = _allRoles[RoleNames.Admin];
             }
         }
         
@@ -98,6 +114,7 @@ namespace SunEngine.Core.Cache.Services
         {
             _allOperationKeys = null;
             _allRoles = null;
+            _adminRole = null;
         }
     }
 }

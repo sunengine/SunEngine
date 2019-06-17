@@ -1,6 +1,7 @@
 export default {
   Profile: {
     roles: "Группы",
+    registered: "Зарегистрирован",
     sendPrivateMessageBtn: "Написать пользователю",
     banBtn: "Забанить",
     unBanBtn: "Разбанить",
