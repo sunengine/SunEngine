@@ -124,7 +124,5 @@ namespace SunEngine.Core.Managers
                 new Dictionary<string, string> {{"[link]", updateEmailUrl}}
             );
         }
-
-        
     }
 }
