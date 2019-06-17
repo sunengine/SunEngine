@@ -44,7 +44,7 @@ export default {
     title: "Header",
     description: "Short description",
     tags: "Tags",
-    selectCategory: "Select category",
+    selectCategory: "Category",
     category: "Category: {0}",
     validation: {
       name: {

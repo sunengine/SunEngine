@@ -4,7 +4,7 @@ Site engine that supports forums, articles and blogs.
 
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
-Version: 1.5.7
+Version: 1.5.8
 
 Demo site: [demo.sunengine.site](http://demo.sunengine.site)    
 

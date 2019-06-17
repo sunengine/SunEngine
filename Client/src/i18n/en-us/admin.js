@@ -12,7 +12,7 @@ export default {
     subTitle: "Short description",
     icon: "Icon",
     header: "Category header",
-    selectParent: "Select parent category",
+    selectParent: "Parent category",
     sectionType: "Category type",
     deleteConfirm: "You want to remove the category?",
     parent: "Parent: ",
@@ -38,6 +38,9 @@ export default {
         minLength: "Minimal icon length - 3",
         maxLength: "Maximum icon length - " + config.DbColumnSizes.Categories_Icon,
       },
+      parent: {
+        required: "Select parent category"
+      }
     }
   },
   CategoryItem: {

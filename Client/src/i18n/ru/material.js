@@ -44,7 +44,7 @@ export default {
     title: "Заголовок",
     description: "Короткое описание",
     tags: "Метки",
-    selectCategory: "Выберите раздел",
+    selectCategory: "Раздел",
     category: "Раздел: {0}",
     hide: "Спрятать",
     blockComments: "Запретить комментарии",

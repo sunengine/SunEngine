@@ -22,9 +22,9 @@
 
 
     <MyEditor content-class="material-text"
-      :toolbar="editorToolbar"
-      :rules="rules.text"
-      ref="htmlEditor" v-model="material.text"/>
+              :toolbar="editorToolbar"
+              :rules="rules.text"
+              ref="htmlEditor" v-model="material.text"/>
 
     <q-select v-model="material.tags" use-input use-chips multiple :label="$tl('tags')"
               hide-dropdown-icon input-debounce="0" new-value-mode="add-unique">
@@ -33,13 +33,42 @@
       </template>
     </q-select>
 
-    <q-btn class="q-mt-md select-category" :label="categoryTitle" no-caps outline icon="fas fa-folder">
-      <q-menu>
-        <q-tree v-close-popup class="q-ma-sm" default-expand-all :selected.sync="material.categoryName"
-                :nodes="categoriesNodes" node-key="value"/>
+
+    <q-field class="cursor-pointer q-mb-md" :error="!material.categoryName && !start" :label="$tl('selectCategory')"
+             :stack-label="!!material.categoryName">
+      <template v-slot:control>
+        <div tabindex="0" class="no-outline full-width">
+          {{categoryTitle}}
+        </div>
+      </template>
+      <template v-slot:prepend>
+        <q-icon name="fas fa-folder" class="q-mr-xs"/>
+      </template>
+      <template v-slot:append>
+        <q-icon name="fas fa-caret-down"></q-icon>
+      </template>
+      <template v-slot:error>
+        {{$tl('validation.category.required')}}
+      </template>
+      <q-menu fit auto-close>
+        <q-tree
+          :nodes="categoriesNodes"
+          default-expand-all
+          :selected.sync="material.categoryName"
+          node-key="name"
+          label-key="title"
+        >
+          <template v-slot:default-header="prop">
+            <div style="margin:0; padding: 0;">
+              <q-icon v-if="prop.node.icon" :name="prop.node.icon" class="q-ml-sm" :color="prop.node.iconColor"
+                      size="16px"/>
+              <span class="q-ml-sm">{{prop.node.title}}</span>
+            </div>
+          </template>
+        </q-tree>
       </q-menu>
-    </q-btn>
-    <div class="error" v-if="!material.categoryName && !start">{{$tl('validation.category.required')}}</div>
+    </q-field>
+
     <div>
       <q-checkbox :toggle-indeterminate="false"
                   v-if="canBlockComments" ref="isCommentsBlocked" v-model="material.isCommentsBlocked"
@@ -116,10 +145,7 @@
         return this.category?.categoryPersonalAccess?.materialBlockCommentsAny;
       },
       categoryTitle() {
-        if (!this.material.categoryName) {
-          return this.$tl('selectCategory');
-        }
-        return this.$tl('category', this.category.title);
+        return this.category?.title;
       },
       category() {
         return this.$store.getters.getCategory(this.material.categoryName);

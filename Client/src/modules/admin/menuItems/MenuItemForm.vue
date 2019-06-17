@@ -20,6 +20,7 @@
         </div>
       </div>
     </q-input>
+
     <q-field class="cursor-pointer q-mb-md" v-if="parentOptions" :label="$tl('parent')" stack-label>
       <template v-slot:control>
         <div tabindex="0" class="no-outline full-width">
@@ -28,7 +29,7 @@
         </div>
       </template>
       <template v-slot:append>
-        <q-icon name="arrow_drop_down"></q-icon>
+        <q-icon name="fas fa-caret-down"></q-icon>
       </template>
       <q-menu fit auto-close>
         <q-tree
@@ -40,13 +41,14 @@
         >
           <template v-slot:default-header="prop">
             <div style="margin:0; padding: 0;">
-              <q-icon :name="prop.node.icon" class="q-mr-sm" color="grey-7" size="16px"/>
+              <q-icon :name="prop.node.icon" class="q-mx-sm" color="grey-7" size="16px"/>
               <span>{{prop.node.title}}</span>
             </div>
           </template>
         </q-tree>
       </q-menu>
     </q-field>
+
     <LoaderWait v-else/>
 
     <q-select v-if="allRoles" class="q-mb-md" v-model="roles" :options="allRoles" multiple use-chips stack-label

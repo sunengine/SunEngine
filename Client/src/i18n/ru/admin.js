@@ -12,7 +12,7 @@ export default {
     subTitle: "Короткое описание",
     icon: "Иконка",
     header: "Шапка категории",
-    selectParent: "Выберите родительскую категорию",
+    selectParent: "Родительская категория",
     sectionType: "Тип категории",
     deleteConfirm: "Вы уверены что хотите удалить категорию?\nВсё содержание категории также будут удалено.",
     parent: "Родитель: ",
@@ -37,6 +37,9 @@ export default {
       icon: {
         minLength: "Длинна должна быть не меньше 3 символов",
         maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.Categories_Icon,
+      },
+      parent: {
+        required: "Выберите родительскую категорию"
       }
     }
   },

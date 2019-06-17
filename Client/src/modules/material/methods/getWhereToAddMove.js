@@ -51,8 +51,8 @@ function goDeep(category) {
     children = null;
 
   const ret = {
-    label: category.title,
-    value: category.name,
+    title: category.title,
+    name: category.name,
     category: category,
     children: children,
     selectable: false

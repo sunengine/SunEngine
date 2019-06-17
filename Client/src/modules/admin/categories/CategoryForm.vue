@@ -18,18 +18,42 @@
 
     <MyEditor ref="header" style="margin-bottom: 12px;" v-model="category.header"/>
 
-    <q-btn v-if="root" class="q-mt-md select-category" :label="parentCategoryTitle" no-caps outline
-           icon="fas fa-folder">
-      <q-menu>
-        <div style="background-color: white;" class="q-pa-sm">
-          <q-tree ref="catTree" @update:selected="categorySelected" v-close-popup
-                  default-expand-all
-                  :selected.sync="category.parentId"
-                  :nodes="where"
-                  node-key="value"/>
+    <q-field class="cursor-pointer q-mb-md" :error="!category.parentId" :label="$tl('selectParent')"
+             stack-label>
+      <template v-slot:control>
+        <div tabindex="0" class="no-outline full-width">
+          {{parentCategoryTitle}}
         </div>
+      </template>
+      <template v-slot:prepend>
+        <q-icon name="fas fa-folder" class="q-mr-xs"/>
+      </template>
+      <template v-slot:append>
+        <q-icon name="fas fa-caret-down"></q-icon>
+      </template>
+      <template v-slot:error>
+        {{$tl('validation.parent.required')}}
+      </template>
+      <q-menu fit auto-close>
+        <q-tree
+          :nodes="where"
+          default-expand-all
+          :selected.sync="category.parentId"
+          node-key="id"
+          label-key="title"
+          @update:selected="categorySelected"
+        >
+          <template v-slot:default-header="prop">
+            <div style="margin:0; padding: 0;">
+              <q-icon v-if="prop.node.icon" :name="prop.node.icon" class="q-mx-sm" :color="prop.node.iconColor"
+                      size="16px"/>
+              <span>{{prop.node.title}}</span>
+            </div>
+          </template>
+        </q-tree>
       </q-menu>
-    </q-btn>
+    </q-field>
+
 
     <div class="q-mt-lg">
       <q-select emit-value map-options v-if="sectionTypes" :label="$tl('sectionType')"
@@ -80,8 +104,8 @@
     }
 
     return {
-      label: category.title,
-      value: category.id,
+      title: category.title,
+      id: category.id,
       category: category,
       children: children,
       selectable: true,
@@ -105,7 +129,7 @@
       icon: [
         value => (!value || value.length >= 3) || this.$tl('validation.icon.minLength'),
         value => (!value || value.length) <= config.DbColumnSizes.Categories_Icon || this.$tl('validation.icon.maxLength'),
-      ],
+      ]
     }
   }
 
@@ -148,29 +172,19 @@
           });
       },
       parentCategoryTitle() {
-        if (!this.category.parentId)
-          return this.$tl('selectParent');
-        return this.$tl('parent') + this?.all?.[this.category.parentId]?.title;
+        return this?.all?.[this.category.parentId]?.title;
       },
       where() {
         return [GoDeep(this.root)];
       },
       hasError() {
-        return this.$refs.name.hasError || this.$refs.title.hasError;
+        return this.$refs.name.hasError || this.$refs.title.hasError || !this.category.parentId;
       }
     },
     methods: {
       sectionTypeChanged() {
         if (this.category.sectionTypeName !== this.category.layoutName) {
           this.category.layoutName = this.layoutOptions?.[0]?.value ?? '';
-        }
-      },
-      categorySelected(key) {
-        if (!key) {
-          let pid = this.category.parentId;
-          this.$nextTick(() => {
-            this.category.parentId = pid
-          })
         }
       },
       validate() {
