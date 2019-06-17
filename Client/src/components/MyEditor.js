@@ -102,7 +102,7 @@ export default {
     buttonDef() {
       return {
         ...QEditor.options.computed.buttonDef.call(this),
-        addImages: {icon: 'far fa-image', tip: this.$tl('uploadImages'), handler: this.uploadImages},
+        addImages: {icon: 'fas fa-image', tip: this.$tl('uploadImages'), handler: this.uploadImages},
         ...editorButtons
       };
     }
