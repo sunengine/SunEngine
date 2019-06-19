@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,11 +16,10 @@ using SunEngine.Core.Utils;
 
 namespace SunEngine.Admin.Services
 {
-    public class RolesPermissionsAdminService : DbService
+    public sealed class RolesPermissionsAdminService : DbService
     {
         private const string RolesSchemaFileName = "Roles.schema.json";
         private readonly string RolesSchemaPath;
-
 
         public RolesPermissionsAdminService(
             DataBaseConnection db,
@@ -41,11 +39,11 @@ namespace SunEngine.Admin.Services
             var jObject = roles.Select(x =>
                     new
                     {
-                        Name = x.Name,
+                        x.Name,
                         Role = new
                         {
-                            Title = x.Title,
-                            IsSuper = x.IsSuper ? (object) true : null,
+                            x.Title,
+                            IsSuper = x.IsSuper ? (object)true : null,
                             Categories = x.CategoryAccesses.Count > 0
                                 ? x.CategoryAccesses.Select(y =>
                                     new
@@ -78,8 +76,6 @@ namespace SunEngine.Admin.Services
             JsonSchema schema = await JsonSchema.FromFileAsync(RolesSchemaPath);
 
             RolesFromJsonLoader rolesFromJsonLoader = new RolesFromJsonLoader(categories, operationKeys, schema);
-
-
             rolesFromJsonLoader.Seed(json);
 
             try
@@ -87,13 +83,13 @@ namespace SunEngine.Admin.Services
                 db.BeginTransaction();
                 await UpdateRoles(rolesFromJsonLoader.roles);
                 await ClearAccessesAsync();
-                await CopyToDb(rolesFromJsonLoader);
+                CopyToDb(rolesFromJsonLoader);
                 db.CommitTransaction();
             }
-            catch (Exception e)
+            catch
             {
                 db.RollbackTransaction();
-                throw e;
+                throw;
             }
         }
 
@@ -102,40 +98,35 @@ namespace SunEngine.Admin.Services
             var roles = await db.Roles.ToListAsync();
 
             var toDelete = roles
-                .Where(x =>
-                    !rolesNew.Any(y => string.Equals(x.NormalizedName, y.NormalizedName))
-                )
+                .Where(x => !rolesNew.Any(y => x.NormalizedName == y.NormalizedName))
                 .ToList();
 
             var toInsert = rolesNew
-                .Where(x =>
-                    !roles.Any(y => string.Equals(x.NormalizedName, y.NormalizedName))
-                )
+                .Where(x => !roles.Any(y => x.NormalizedName == y.NormalizedName))
                 .ToList();
 
-            var toUpdate = rolesNew.Where(x => roles.Any(y => string.Equals(x.NormalizedName, y.NormalizedName)))
+            var toUpdate = rolesNew
+                .Where(x => roles.Any(y => x.NormalizedName == y.NormalizedName))
                 .ToList();
 
             List<Role> errorRoles = new List<Role>();
 
             foreach (var role in toDelete)
-            {
                 if (await db.UserRoles.AnyAsync(x => x.RoleId == role.Id))
                     errorRoles.Add(role);
-            }
 
             if (errorRoles.Count > 0)
-            {
-                var errorNames = string.Join(", ", errorRoles.Select(y => "'" + y.Name + "'"));
                 throw new SunViewException(
                     new ErrorView("CanNotDeleteRolesItHasUsers",
                         "This roles can not be deleted because it has users, remove them first.", ErrorType.Soft,
-                        errorNames));
-            }
+                        string.Join(", ", errorRoles.Select(y => $"'{y.Name}'"))));
 
-            toDelete.ForEach(async x => await db.DeleteAsync(x));
-            toInsert.ForEach(async x => await db.InsertAsync(x));
-            toUpdate.ForEach(async x => await db.UpdateAsync(x));
+            foreach (var x in toDelete)
+                await db.DeleteAsync(x);
+            foreach (var x in toInsert)
+                await db.InsertAsync(x);
+            foreach (var x in toUpdate)
+                await db.UpdateAsync(x);
         }
 
         private async Task ClearAccessesAsync()
@@ -144,7 +135,7 @@ namespace SunEngine.Admin.Services
             await db.CategoryAccess.DeleteAsync();
         }
 
-        private async Task CopyToDb(RolesFromJsonLoader fromJsonLoader)
+        private void CopyToDb(RolesFromJsonLoader fromJsonLoader)
         {
             BulkCopyOptions options = new BulkCopyOptions
             {
