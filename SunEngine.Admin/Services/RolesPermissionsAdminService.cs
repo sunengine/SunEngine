@@ -98,11 +98,11 @@ namespace SunEngine.Admin.Services
             var roles = await db.Roles.ToListAsync();
 
             var toDelete = roles
-                .Where(x => !rolesNew.Any(y => x.NormalizedName == y.NormalizedName))
+                .Where(x => rolesNew.All(y => x.NormalizedName != y.NormalizedName))
                 .ToList();
 
             var toInsert = rolesNew
-                .Where(x => !roles.Any(y => x.NormalizedName == y.NormalizedName))
+                .Where(x => roles.All(y => x.NormalizedName != y.NormalizedName))
                 .ToList();
 
             var toUpdate = rolesNew
