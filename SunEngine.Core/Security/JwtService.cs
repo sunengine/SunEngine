@@ -31,7 +31,7 @@ namespace SunEngine.Core.Security
         private readonly ILogger logger;
         private readonly ICryptService cryptService;
         private readonly IRolesCache rolesCache;
-        
+
         public JwtService(
             DataBaseConnection db,
             SunUserManager userManager,
@@ -181,13 +181,13 @@ namespace SunEngine.Core.Security
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(jwtSecurityToken.Claims, SunJwt.Scheme);
 
-            if(jwtSecurityToken.ValidTo.Add(TokensExpiration.Delta) < DateTime.UtcNow)
+            if (jwtSecurityToken.ValidTo.Add(TokensExpiration.Delta) < DateTime.UtcNow)
                 throw new Exception("Short token expires");
-            
+
             return new ClaimsPrincipal(claimsIdentity);
         }
 
-        
+
         private string CreateLong2Token(LongSession longSession, out string lat2r)
         {
             lat2r = CryptoRandomizer.GetRandomString(10);
@@ -213,13 +213,13 @@ namespace SunEngine.Core.Security
 
             var jwtSecurityToken = new JwtSecurityToken(new JwtHeader(), JwtPayload.Deserialize(tokenDecrypted));
 
-            if(jwtSecurityToken.ValidTo.Add(TokensExpiration.Delta) < DateTime.UtcNow)
+            if (jwtSecurityToken.ValidTo.Add(TokensExpiration.Delta) < DateTime.UtcNow)
                 throw new Exception("Long2 token expires");
 
             return jwtSecurityToken;
         }
 
-        
+
         public void MakeLogoutCookiesAndHeaders(HttpResponse response)
         {
             response.Headers.Clear();

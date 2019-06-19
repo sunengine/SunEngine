@@ -39,29 +39,19 @@ export default async function request(context, data) {
   const tokens = getTokens();
 
   if (data.skipLock) {
-    if (checkLocalTokensExpire()) {
-
+    if (checkLocalTokensExpire())
       headers['LongToken1'] = tokens.longToken;
-    }
 
     return makeRequest();
   }
 
   return lock.lock(() => {
-
       if (checkLocalTokensExpire()) {
-
         headers['LongToken1'] = tokens.longToken;
         return makeRequest();
       }
     }
-  ).then(x => {
-    if (x)
-      return x;
-    else
-      return makeRequest();
-  });
-
+  ).then(x => x ? x : makeRequest());
 
 
   function checkLocalTokensExpire() {
@@ -69,8 +59,8 @@ export default async function request(context, data) {
     if (!tokens)
       return false;
 
-    const nowDate = new Date(new Date().toUTCString()).getTime();
-    const exp = tokens.shortTokenExpiration.getTime();
+    const nowDate = new Date(new Date().toUTCString());//.getTime();
+    const exp = tokens.shortTokenExpiration;//.getTime();
 
     const rez = exp < nowDate;
 

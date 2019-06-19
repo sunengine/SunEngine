@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Primitives;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Managers;
@@ -66,7 +67,7 @@ namespace SunEngine.Core.Security
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nLogout\n");
                 Console.ResetColor();
-                
+
                 return AuthenticateResult.NoResult();
             }
 
@@ -86,9 +87,8 @@ namespace SunEngine.Core.Security
 
                 SunClaimsPrincipal sunClaimsPrincipal;
 
-                if (Request.Headers.ContainsKey(Headers.LongToken1HeaderName))
+                if (Request.Headers.TryGetValue(Headers.LongToken1HeaderName, out StringValues longToken1db))
                 {
-                    string longToken1db = Request.Headers[Headers.LongToken1HeaderName];
                     int userId = int.Parse(jwtLongToken2.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
 
                     var longSessionToFind = new LongSession
