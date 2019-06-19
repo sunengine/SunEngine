@@ -35,30 +35,17 @@ namespace SunEngine.Admin.Services
 
         public async Task<List<string>> GetImageSourcesForCleanAsync()
         {
-            List<string> sources = new List<string>();
-
             var imagesInDirectory = DirectoryExtensions.GetFilesWithExcludeChildDirectory(uploadDirectory, "*.*",
-                SearchOption.AllDirectories, x => !x.StartsWith("_")).Select(Get2LastSegments).ToList();
+                "_*").Select(Get2LastSegments).ToList();
             
             var materialSources = await GetMaterialSourcesFromASharp();
-
             var msgSources = await GetMessageSourcesFromASharp();
-
             var avatarSources = await GetAvatarSources();
 
-            var allSources = new List<string>();
-            allSources.AddRange(materialSources);
-            allSources.AddRange(msgSources);
-            allSources.AddRange(avatarSources);
+            var allSources = await Task.Factory.ContinueWhenAll(new[] { GetMaterialSourcesFromASharp(), GetMessageSourcesFromASharp(), GetAvatarSources() }, tasks =>
+                new List<string>(tasks.SelectMany(t => t.Result)));
 
-            
-            foreach (var imagePath in imagesInDirectory)
-            {
-                if (!allSources.Contains(imagePath))
-                    sources.Add(imagePath);
-            }
-
-            return sources;
+            return new List<string>(imagesInDirectory.Where(imagePath => !allSources.Contains(imagePath)));
         }
 
         public async Task<int> DeleteImagesAsync()
@@ -80,38 +67,27 @@ namespace SunEngine.Admin.Services
             return count;
         }
 
-        private Task<List<string>> GetMessageSourcesFromASharp()
+        private Task<IEnumerable<string>> GetMessageSourcesFromASharp()
         {
-            var srcList = new List<string>();
             var imageTags = dataBaseConnection.Comments
                 .Where(msg => msg.Text.Contains("<img", StringComparison.OrdinalIgnoreCase)).AsEnumerable()
                 .Select(async x => await htmlParser.ParseAsync(x.Text)).ToList();
 
-            foreach (var tag in imageTags)
-            {
-                srcList.AddRange(tag.Result.QuerySelectorAll("img").Select(x => x.GetAttribute("src")));
-            }
-
-            return Task.FromResult(srcList);
+            return Task.Factory.ContinueWhenAll(imageTags.ToArray(), tasks =>
+                tasks.SelectMany(t => t.Result.QuerySelectorAll("img").Select(x => x.GetAttribute("src"))));
         }
 
-        private Task<List<string>> GetMaterialSourcesFromASharp()
+        private Task<IEnumerable<string>> GetMaterialSourcesFromASharp()
         {
-            var srcList = new List<string>();
             var imageTags = dataBaseConnection.Materials
                 .Where(msg => msg.Text.Contains("<img", StringComparison.OrdinalIgnoreCase)).AsEnumerable()
                 .Select(async x => await htmlParser.ParseAsync(x.Text)).ToList();
 
-            foreach (var tag in imageTags)
-            {
-                srcList.AddRange(
-                    tag.Result.QuerySelectorAll("img").Select(x => Get2LastSegments(x.GetAttribute("src"))));
-            }
-
-            return Task.FromResult(srcList);
+            return Task.Factory.ContinueWhenAll(imageTags.ToArray(), tasks =>
+                tasks.SelectMany(t => t.Result.QuerySelectorAll("img").Select(x => Get2LastSegments(x.GetAttribute("src")))));
         }
 
-        private async Task<List<string>> GetAvatarSources()
+        private async Task<IEnumerable<string>> GetAvatarSources()
         {
             var photos = await dataBaseConnection.Users.Select(avatar =>
                     avatar.Photo.Replace('/', Path.DirectorySeparatorChar))
@@ -125,7 +101,7 @@ namespace SunEngine.Admin.Services
 
         private string Get2LastSegments(string url)
         {
-            return string.Join(Path.DirectorySeparatorChar, url.Split('/').TakeLast(2));
+            return string.Join(Path.DirectorySeparatorChar, url.Split(Path.DirectorySeparatorChar).TakeLast(2));
         }
     }
 
@@ -171,16 +147,11 @@ namespace SunEngine.Admin.Services
         }
 
         public static IEnumerable<string> GetFilesWithExcludeChildDirectory(
-            string path, string searchPattern, SearchOption searchOption, Func<string, bool> expression)
+            string initialPathToDirectory, string fileSearchPattern, string directorySearchPattern)
         {
-            List<string> paths = new List<string>();
-            foreach (var childDir in Directory.GetDirectories(path))
-            {
-                if (expression(new DirectoryInfo(childDir).Name))
-                    paths.AddRange(Directory.GetFiles(childDir, searchPattern, SearchOption.AllDirectories));
-            }
-
-            return paths;
+            foreach (var pathToChildDirectory in Directory.GetDirectories(initialPathToDirectory, directorySearchPattern))
+                foreach (var pathToFile in Directory.GetFiles(pathToChildDirectory, fileSearchPattern, SearchOption.AllDirectories))
+                    yield return pathToFile;
         }
     }
 }
