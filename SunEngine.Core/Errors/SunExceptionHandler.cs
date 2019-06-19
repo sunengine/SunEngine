@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using SunEngine.Core.Security;
 using SunEngine.Core.Utils;
 
 namespace SunEngine.Core.Errors
@@ -12,6 +13,7 @@ namespace SunEngine.Core.Errors
             context.Response.StatusCode = 500;
             context.Response.ContentType = "application/json";
 
+            
             var exceptionHandlerPathFeature =
                 context.Features.Get<IExceptionHandlerPathFeature>();
 

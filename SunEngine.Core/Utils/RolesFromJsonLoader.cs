@@ -40,9 +40,7 @@ namespace SunEngine.Core.Utils
             var errors = schema.Validate(rolesJson);
                 
             if(errors!=null && errors.Count > 0)
-            {
                 throw new Exception(string.Join(@"\n\n\n",errors));
-            }
             
             
             int id = 0;
@@ -55,29 +53,30 @@ namespace SunEngine.Core.Utils
                 id++;
 
                 if (!((IDictionary<string, JToken>) userGroupJson).ContainsKey("Title"))
-                    throw new Exception("Can not find category title"); 
-                    
+                    throw new Exception("Can not find category title");
+
+                var roleName = jProp.Name;
                 Role role = new Role
                 {
                     Id = id,
-                    Name = jProp.Name,
+                    Name = roleName,
+                    NormalizedName = Normalizer.Normalize(roleName),
                     Title = (string) userGroupJson["Title"],
                     IsSuper = ((IDictionary<string, JToken>) userGroupJson).ContainsKey("IsSuper") && (bool) userGroupJson["IsSuper"],
                     SortNumber = id
                 };
-                role.NormalizedName = Normalizer.Normalize(role.Name);
 
                 roles.Add(role);
 
-                if (!userGroupJson.TryGetValue("Categories", out var categoriesAccessJsonList)) continue;
+                if (!userGroupJson.TryGetValue("Categories", out var categoriesAccessJsonList)) 
+                    continue;
+                
                 foreach (var categoriesAccessJson in categoriesAccessJsonList)
                 {
                     string name = (string) categoriesAccessJson["Category"];
                         
                     if (!categories.ContainsKey(name))
-                    {
                         throw new Exception("No such category: " + name);
-                    }
                         
                     Category category = categories[name];
 
@@ -89,6 +88,11 @@ namespace SunEngine.Core.Utils
                         CategoryId = category.Id,
                         RoleId = role.Id
                     };
+                    
+                    if(role.CategoryAccesses == null)
+                        role.CategoryAccesses = new List<CategoryAccess>();
+                    
+                    role.CategoryAccesses.Add(categoryAccess);
 
                     categoryAccesses.Add(categoryAccess);
 
@@ -99,14 +103,10 @@ namespace SunEngine.Core.Utils
                         string keyName = operationKeyJson.Name;
 
                         if (!role.IsSuper && allSuperKeys.Contains(keyName))
-                        {
                             throw new Exception($"Ordinary UserGroup '{role.Name}' can not contain IsSuper key '{keyName}'");
-                        }
                             
                         if (!operationKeys.ContainsKey(keyName))
-                        {
                             throw new Exception($"No such key in registered keys '{keyName}'");
-                        }
 
                         var operationKey = operationKeys[keyName];
                             

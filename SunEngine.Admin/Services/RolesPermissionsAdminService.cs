@@ -43,7 +43,7 @@ namespace SunEngine.Admin.Services
                         Role = new
                         {
                             x.Title,
-                            IsSuper = x.IsSuper ? (object)true : null,
+                            IsSuper = x.IsSuper ? (object) true : null,
                             Categories = x.CategoryAccesses.Count > 0
                                 ? x.CategoryAccesses.Select(y =>
                                     new
@@ -109,6 +109,14 @@ namespace SunEngine.Admin.Services
                 .Where(x => roles.Any(y => x.NormalizedName == y.NormalizedName))
                 .ToList();
 
+            foreach (var role in toUpdate)
+            {
+                role.Id = roles.First(x => x.NormalizedName == role.NormalizedName).Id;
+                if(role.CategoryAccesses != null)
+                    foreach (var roleCategoryAccess in role.CategoryAccesses)
+                        roleCategoryAccess.RoleId = role.Id;
+            }
+
             List<Role> errorRoles = new List<Role>();
 
             foreach (var role in toDelete)
@@ -124,7 +132,7 @@ namespace SunEngine.Admin.Services
             foreach (var x in toDelete)
                 await db.DeleteAsync(x);
             foreach (var x in toInsert)
-                await db.InsertAsync(x);
+                x.Id = await db.InsertWithInt32IdentityAsync(x);
             foreach (var x in toUpdate)
                 await db.UpdateAsync(x);
         }

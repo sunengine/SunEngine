@@ -149,7 +149,7 @@ namespace SunEngine.Core.Security
                 var authenticationTicket = new AuthenticationTicket(sunClaimsPrincipal, SunJwt.Scheme);
                 return AuthenticateResult.Success(authenticationTicket);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return Logout();
             }

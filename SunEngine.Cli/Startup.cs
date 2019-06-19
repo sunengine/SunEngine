@@ -113,7 +113,7 @@ namespace SunEngine.Cli
 
             app.UseAuthentication();
             
-            app.UseExceptionHandler(errorApp => errorApp.Run(SunExceptionHandler.Handler));
+            app.UseMiddleware<SunExceptionMiddleware>();
             
             app.UseMvc(routes =>
             {
