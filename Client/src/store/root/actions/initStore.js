@@ -9,7 +9,7 @@ export default async function (context) {
 
   if(hasLongToken())
     await context.dispatch('loadMyUserInfo').catch(() => {
-      removeBadTokens();
+      removeTokens();
     });
 
   try {
@@ -28,10 +28,5 @@ export default async function (context) {
     console.error(error);
 
     context.state.initializeError = true;
-  }
-
-  function removeBadTokens() {
-    context.state.auth.tokens = null;
-    removeTokens();
   }
 }
