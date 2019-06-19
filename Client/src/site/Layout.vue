@@ -43,7 +43,6 @@
               </q-list>
             </q-menu>
           </q-btn>
-
         </template>
 
         <q-btn v-else flat dense round>
