@@ -25,18 +25,18 @@ namespace SunEngine.Core.Errors
             }
             catch (SunViewException e)
             {
-                await context.Response.WriteAsync(SunJson.Serialize(e.ErrorView));
-                
-                context.Response.StatusCode = 500;
                 logger.LogError(e.ToString());
+                context.Response.StatusCode = 500;
+                
+                await context.Response.WriteAsync(SunJson.Serialize(e.ErrorView));
             }
             catch (Exception e)
             {
+                logger.LogError(e.ToString());
+                context.Response.StatusCode = 500;
+                
                 ErrorView errorView = ErrorView.ServerError(e);
                 await context.Response.WriteAsync(SunJson.Serialize(errorView));
-                
-                context.Response.StatusCode = 500;
-                logger.LogError(e.ToString());
             }
         }
     }

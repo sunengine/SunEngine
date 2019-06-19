@@ -44,7 +44,6 @@ namespace SunEngine.Core.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> GetPosts(string categoryName, int page = 1, bool showDeleted = false)
         {
-            throw new Exception("xxx");
             var category = categoriesCache.GetCategory(categoryName);
 
             if (category == null)
