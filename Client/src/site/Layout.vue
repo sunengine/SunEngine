@@ -16,12 +16,35 @@
           <q-icon name="fas fa-bars" class="toolbar-menu-btn"/>
         </q-btn>
 
-        <q-btn v-if="userName" flat dense round>
-          <img class="avatar layout-avatar" :src="userAvatar"/>
-          <q-menu>
+        <template v-if="userName">
+
+          <q-btn-dropdown no-caps v-if="$q.screen.gt.xs" flat class="toolbar-menu-btn">
+            <template slot="label">
+              <img class="avatar  layout-avatar q-mr-sm" :src="userAvatar"/> {{userName}}
+            </template>
             <UserMenu style="width:180px;"/>
-          </q-menu>
-        </q-btn>
+          </q-btn-dropdown>
+
+          <q-btn v-else flat dense round>
+            <img class="avatar layout-avatar" :src="userAvatar"/>
+            <q-menu>
+              <q-list class="my-menu q-py-sm">
+                <q-item class="avatar-menu-item">
+                  <q-item-section avatar>
+                    <img class="avatar layout-avatar" :src="userAvatar"/>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>
+                      {{userName}}
+                    </q-item-label>
+                  </q-item-section>
+                </q-item>
+                <UserMenu style="width:180px;"/>
+              </q-list>
+            </q-menu>
+          </q-btn>
+
+        </template>
 
         <q-btn v-else flat dense round>
           <q-icon name="fas fa-user" class="toolbar-user-btn"/>
