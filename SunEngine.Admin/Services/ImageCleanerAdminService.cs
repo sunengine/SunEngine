@@ -35,30 +35,19 @@ namespace SunEngine.Admin.Services
 
         public async Task<List<string>> GetImageSourcesForCleanAsync()
         {
-            List<string> sources = new List<string>();
-
             var imagesInDirectory = DirectoryExtensions.GetFilesWithExcludeChildDirectory(uploadDirectory, "*.*",
-                SearchOption.AllDirectories, x => !x.StartsWith("_")).Select(Get2LastSegments).ToList();
-            
-            var materialSources = await GetMaterialSourcesFromASharp();
+                x => !x.Contains("_")).Select(Get2LastSegments).ToList();
 
-            var msgSources = await GetMessageSourcesFromASharp();
+            var allSources = await Task.Factory.ContinueWhenAll(
+                new[]
+                {
+                    GetMaterialSourcesFromASharpAsync(),
+                    GetCommentsSourcesFromASharpAsync(),
+                    GetAvatarSourcesAsync()
+                }, tasks =>
+                    new List<string>(tasks.SelectMany(t => t.Result)));
 
-            var avatarSources = await GetAvatarSources();
-
-            var allSources = new List<string>();
-            allSources.AddRange(materialSources);
-            allSources.AddRange(msgSources);
-            allSources.AddRange(avatarSources);
-
-            
-            foreach (var imagePath in imagesInDirectory)
-            {
-                if (!allSources.Contains(imagePath))
-                    sources.Add(imagePath);
-            }
-
-            return sources;
+            return new List<string>(imagesInDirectory.Where(imagePath => !allSources.Contains(imagePath)));
         }
 
         public async Task<int> DeleteImagesAsync()
@@ -80,38 +69,35 @@ namespace SunEngine.Admin.Services
             return count;
         }
 
-        private Task<List<string>> GetMessageSourcesFromASharp()
+        private Task<IEnumerable<string>> GetCommentsSourcesFromASharpAsync()
         {
-            var srcList = new List<string>();
             var imageTags = dataBaseConnection.Comments
                 .Where(msg => msg.Text.Contains("<img", StringComparison.OrdinalIgnoreCase)).AsEnumerable()
-                .Select(async x => await htmlParser.ParseAsync(x.Text)).ToList();
+                .Select(x => htmlParser.ParseAsync(x.Text)).ToArray();
 
-            foreach (var tag in imageTags)
-            {
-                srcList.AddRange(tag.Result.QuerySelectorAll("img").Select(x => x.GetAttribute("src")));
-            }
+            if (imageTags.Length > 0)
+                return Task.Factory.ContinueWhenAll(imageTags, tasks =>
+                    tasks.SelectMany(t =>
+                        t.Result.QuerySelectorAll("img").Select(x => Get2LastSegments(x.GetAttribute("src")))));
 
-            return Task.FromResult(srcList);
+            return Task.FromResult(Array.Empty<string>().AsEnumerable());
         }
 
-        private Task<List<string>> GetMaterialSourcesFromASharp()
+        private Task<IEnumerable<string>> GetMaterialSourcesFromASharpAsync()
         {
-            var srcList = new List<string>();
             var imageTags = dataBaseConnection.Materials
                 .Where(msg => msg.Text.Contains("<img", StringComparison.OrdinalIgnoreCase)).AsEnumerable()
-                .Select(async x => await htmlParser.ParseAsync(x.Text)).ToList();
+                .Select(x => htmlParser.ParseAsync(x.Text)).ToArray();
 
-            foreach (var tag in imageTags)
-            {
-                srcList.AddRange(
-                    tag.Result.QuerySelectorAll("img").Select(x => Get2LastSegments(x.GetAttribute("src"))));
-            }
+            if (imageTags.Length > 0)
+                return Task.Factory.ContinueWhenAll(imageTags, tasks =>
+                    tasks.SelectMany(t =>
+                        t.Result.QuerySelectorAll("img").Select(x => Get2LastSegments(x.GetAttribute("src")))));
 
-            return Task.FromResult(srcList);
+            return Task.FromResult(Array.Empty<string>().AsEnumerable());
         }
 
-        private async Task<List<string>> GetAvatarSources()
+        private async Task<IEnumerable<string>> GetAvatarSourcesAsync()
         {
             var photos = await dataBaseConnection.Users.Select(avatar =>
                     avatar.Photo.Replace('/', Path.DirectorySeparatorChar))
@@ -125,62 +111,19 @@ namespace SunEngine.Admin.Services
 
         private string Get2LastSegments(string url)
         {
-            return string.Join(Path.DirectorySeparatorChar, url.Split('/').TakeLast(2));
+            return string.Join(Path.DirectorySeparatorChar, url.Split(Path.DirectorySeparatorChar).TakeLast(2));
         }
     }
 
     public static class DirectoryExtensions
     {
-        public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
-        {
-            // Get the subdirectories for the specified directory.
-            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
-
-            if (!dir.Exists)
-            {
-                throw new DirectoryNotFoundException(
-                    "Source directory does not exist or could not be found: "
-                    + sourceDirName);
-            }
-
-            DirectoryInfo[] dirs = dir.GetDirectories();
-            // If the destination directory doesn't exist, create it.
-            if (!Directory.Exists(destDirName))
-            {
-                Directory.CreateDirectory(destDirName);
-            }
-
-            // Get the files in the directory and copy them to the new location.
-            FileInfo[] files = dir.GetFiles();
-            foreach (FileInfo file in files)
-            {
-                string tempPath = Path.Combine(destDirName, file.Name);
-
-                file.CopyTo(tempPath, true);
-            }
-
-            // If copying subdirectories, copy them and their contents to new location.
-            if (copySubDirs)
-            {
-                foreach (DirectoryInfo subDir in dirs)
-                {
-                    string tempPath = Path.Combine(destDirName, subDir.Name);
-                    DirectoryCopy(subDir.FullName, tempPath, copySubDirs);
-                }
-            }
-        }
-
         public static IEnumerable<string> GetFilesWithExcludeChildDirectory(
-            string path, string searchPattern, SearchOption searchOption, Func<string, bool> expression)
+            string initialPathToDirectory, string fileSearchPattern, Func<string, bool> expression)
         {
-            List<string> paths = new List<string>();
-            foreach (var childDir in Directory.GetDirectories(path))
-            {
-                if (expression(new DirectoryInfo(childDir).Name))
-                    paths.AddRange(Directory.GetFiles(childDir, searchPattern, SearchOption.AllDirectories));
-            }
-
-            return paths;
+            foreach (var pathToChildDirectory in Directory.GetDirectories(initialPathToDirectory).Where(expression))
+            foreach (var pathToFile in Directory.GetFiles(pathToChildDirectory, fileSearchPattern,
+                SearchOption.AllDirectories))
+                yield return pathToFile;
         }
     }
 }
