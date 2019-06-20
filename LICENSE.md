@@ -1,5 +1,7 @@
 ## SunEngine licence, version 1.0
 
+Текст лицензии на русском: [ссылка](LICENSE.ru.md).
+
 #### Using:
 1. SunEngine allowed to use with out fee for commercial and not commercial projects.
 2. User allowed to change code of SunEngine in personal and private goals, including making projects on SunEngine basis, there is exceptions:  

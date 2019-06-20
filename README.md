@@ -6,9 +6,9 @@ Site engine that supports forums, articles and blogs.
 
 Version: 1.5.10
 
-Demo site: [demo.sunengine.site](http://demo.sunengine.site)    
+Demo site: [demo.sunengine.site](http://demo.sunengine.site). 
 
-Статья на русском: [ссылка](README.ru.md)
+Статья на русском: [ссылка](README.ru.md).
 
 ### About project
 #### Core modules
