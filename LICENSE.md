@@ -7,7 +7,7 @@
   2.2. User do not allow to change or remove banner, see part 4.  
 3. Sharing code after part 2 in any public sources do not allowed.
 
-#### "SunEngine" banner at site footer:
+#### SunEngine link block at site footer:
 4. On any changes of site footer block with "SunEngine" link have to stay:  
   4.1. All link block have to be visible to site users.  
   4.2. Code, look and placement of link block have to be unchanged.   
