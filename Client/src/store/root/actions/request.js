@@ -59,8 +59,8 @@ export default async function request(context, data) {
     if (!tokens)
       return false;
 
-    const nowDate = new Date(new Date().toUTCString());//.getTime();
-    const exp = tokens.shortTokenExpiration;//.getTime();
+    const nowDate = new Date(new Date().toUTCString());
+    const exp = tokens.shortTokenExpiration;
 
     const rez = exp < nowDate;
 

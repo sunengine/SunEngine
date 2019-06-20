@@ -1,25 +1,25 @@
-## Лицензия SunEngine, версия 1.0
+## SunEngine licence, version 1.0
 
-#### Использование:
-1. SunEngine разрешено использовать без оплаты для коммерческих и некоммерческих проектов.
-2. В личных, приватных целях, включая проекты на заказ, пользователю разрешено менять код SunEngine и производить продукты его основе, кроме исключений:  
-  2.1. Запрещено менять текст лицензии.  
-  2.2. Запрещено менять баннер, расшифровка в пункте 4.  
-3. Распространение полученного в результате пункта 2 кода в публичном виде запрещено.
+#### Using:
+1. SunEngine allowed to use with out fee for commercial and not commercial projects.
+2. User allowed to change code of SunEngine in personal and private goals, including making projects on SunEngine basis, there is exceptions:
+  2.1. User do not allow to change license text.  
+  2.2. User do not allow to change or remove banner, see part 4.  
+3. Sharing code after part 2 in any public sources do not allowed.
 
-#### Баннер "SunEngine" в футере сайта:
-4. При любых изменениях необходимо в футере сайта на всех страницах оставить баннер-ссылку на официальный сайт проекта (sunengine.site):  
-  4.1. Ссылка должна остаться видна посетителям сайта.  
-  4.2. Код, вид и расположение всего блока ссылки должены остаться неизменными.   
-  4.3. Ссылка должна остаться индексируемой для поисковых систем.   
-5. Запрет менять баннер (пункты 2.2 и 4) отменяется после оплаты на официальном сайте проекта.
+#### "SunEngine" banner at site footer:
+4. On any changes of site footer div with "SunEngine" link have to stay:  
+  4.1. All link block have to be visible to site users.  
+  4.2. Code, look and placement of link block have to be unchanged.   
+  4.3. Link have to stay indexed by search engines.   
+5. Prohibition to remove link block (parts 2.2, 4) can be removed after paying on official project site.
 
-#### Распространение SunEngine и связанного кода:
-6. SunEngine, любые части SunEngine, модули или расширения к нему подлежат распространению только через официальный магазин проекта (market.sunengine.site), и не могут быть  выложены в открытых источниках.
+#### Sharing SunEngine and related code:
+6. SunEngine, any of its parts, any modules and extensions have to be shared only from official store  (market.sunengine.site), and do not allowed to be shared in any public sources.
 
-#### Отказ от ответственности:
-7. Команда разработки SunEngine не несёт ответственности за любой ущерб или последствия, прямые или косвенные, использования SunEngine и его кода.
-8. Устанавливая или используя SunEngine вы принимаете на себя всю ответственность за любые результаты или последствия работы SunEngine.
+#### Disclaimer:
+7. Developer team of SunEngine do not take responsibility of any results, damages on injure direct or indirect after using SunEngine project or code.
+8. Installing or using SunEngine you get full responsibility of all results of this.
 
-#### Изменения лицензии:
-9. В новых и последующих версиях продукта лицензия может быть изменена без уведомления пользователей.
+#### Changing of license:
+9. In any next or new versions of SunEngine license text can be modified without user confirmation.
