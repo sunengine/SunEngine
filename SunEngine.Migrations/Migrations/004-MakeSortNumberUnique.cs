@@ -8,6 +8,7 @@ namespace SunEngine.Migrations.Migrations
         public override void Up()
         {
             Delete.Index().OnTable("Materials").OnColumn("SortNumber");
+            
             Alter.Column("SortNumber").OnTable("Materials").AsInt32().Unique().NotNullable();
             
             Alter.Column("SortNumber").OnTable("Categories").AsInt32().Unique().NotNullable();

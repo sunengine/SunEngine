@@ -43,7 +43,7 @@ namespace SunEngine.Core.Controllers
         [HttpGet]
         [HttpPost]
         [AllowAnonymous]
-        public virtual async Task<IActionResult> Version()
+        public virtual IActionResult Version()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);

@@ -58,10 +58,11 @@ namespace SunEngine.Core.DataBase
         public ITable<OperationKey> OperationKeys => GetTable<OperationKey>();
         public ITable<CategoryAccess> CategoryAccess => GetTable<CategoryAccess>();
         public ITable<CategoryOperationAccess> CategoryOperationAccess => GetTable<CategoryOperationAccess>();
-        public ITable<User> Users => GetTable<User>();
-        public ITable<Role> Roles => GetTable<Role>();
+        
+        public new ITable<User> Users => GetTable<User>();
+        public new ITable<Role> Roles => GetTable<Role>();
 
-        public ITable<UserRole> UserRoles => GetTable<UserRole>();
+        public new ITable<UserRole> UserRoles => GetTable<UserRole>();
 
         public ITable<UserBanedUnit> UserBanedUnits => GetTable<UserBanedUnit>();
 

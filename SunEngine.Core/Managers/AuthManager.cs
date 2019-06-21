@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Threading.Tasks;
 using System.Transactions;
 using Flurl;
@@ -23,12 +24,13 @@ namespace SunEngine.Core.Managers
         Task<User> LoginAsync(string nameOrEmail, string password);
         Task RegisterAsync(NewUserArgs model);
     }
+    
 
     public class AuthManager : DbService, IAuthManager
     {
         protected readonly SunUserManager userManager;
         protected readonly GlobalOptions globalOptions;
-        protected readonly IEmailSenderService EmailSenderService;
+        protected readonly IEmailSenderService emailSenderService;
         protected readonly ILogger logger;
 
 
@@ -41,7 +43,7 @@ namespace SunEngine.Core.Managers
         {
             this.userManager = userManager;
             this.globalOptions = globalOptions.Value;
-            this.EmailSenderService = emailSenderService;
+            this.emailSenderService = emailSenderService;
             logger = loggerFactory.CreateLogger<AccountController>();
         }
 
@@ -115,7 +117,7 @@ namespace SunEngine.Core.Managers
 
                 try
                 {
-                    await EmailSenderService.SendEmailByTemplateAsync(
+                    await emailSenderService.SendEmailByTemplateAsync(
                         model.Email,
                         "register.html",
                         new Dictionary<string, string> {{"[link]", emailConfirmUrl}}
