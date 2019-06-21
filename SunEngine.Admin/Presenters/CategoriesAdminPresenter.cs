@@ -10,7 +10,6 @@ namespace SunEngine.Admin.Presenters
 {
     public interface ICategoriesAdminPresenter
     {
-        Task<SectionType[]> GetAllSectionTypesAsync();
         Task<CategoryAdminView> GetCategoryAsync(int id);
         Task<CategoryAdminView> GetCategoryAsync(string name);
         Task<CategoryAdminView> GetAllCategoriesAsync();
@@ -22,20 +21,15 @@ namespace SunEngine.Admin.Presenters
         {
         }
 
-        public Task<SectionType[]> GetAllSectionTypesAsync()
-        {
-            return db.SectionTypes.OrderBy(x => x.Id).ToArrayAsync();
-        }
-
         public Task<CategoryAdminView> GetCategoryAsync(int id)
         {
-            var query = db.Categories.LoadWith(x => x.SectionType).Where(x => x.Id == id);
+            var query = db.Categories.Where(x => x.Id == id);
             return GetCategoryByQueryAsync(query);
         }
 
         public Task<CategoryAdminView> GetCategoryAsync(string name)
         {
-            var query = db.Categories.LoadWith(x => x.SectionType).Where(x => x.Name == name);
+            var query = db.Categories.Where(x => x.Name == name);
             return GetCategoryByQueryAsync(query);
         }
 
@@ -47,11 +41,10 @@ namespace SunEngine.Admin.Presenters
                 Name = x.Name,
                 Title = x.Title,
                 IsMaterialsContainer = x.IsMaterialsContainer,
+                IsMaterialsDescriptionEditable = x.IsMaterialsDescriptionEditable,
                 SubTitle = x.SubTitle,
                 Icon = x.Icon,
                 Header = x.Header,
-                SectionTypeName = x.SectionType != null ? x.SectionType.Name : null,
-                SectionType = x.SectionType,
                 LayoutName = x.LayoutName,
                 ParentId = x.ParentId,
                 SortNumber = x.SortNumber,
@@ -64,7 +57,7 @@ namespace SunEngine.Admin.Presenters
 
         public async Task<CategoryAdminView> GetAllCategoriesAsync()
         {
-            var categories = await db.Categories.LoadWith(x => x.SectionType).Where(x=>!x.IsDeleted)
+            var categories = await db.Categories.Where(x => !x.IsDeleted)
                 .OrderBy(x => x.SortNumber).Select(x => new CategoryAdminView
                 {
                     Id = x.Id,
@@ -74,9 +67,8 @@ namespace SunEngine.Admin.Presenters
                     Icon = x.Icon,
                     IsMaterialsContainer = x.IsMaterialsContainer,
                     Header = x.Header,
-                    SectionTypeName = x.SectionType != null ? x.SectionType.Name : null,
-                    SectionType = x.SectionType,
                     LayoutName = x.LayoutName,
+                    IsMaterialsDescriptionEditable = x.IsMaterialsDescriptionEditable,
                     ParentId = x.ParentId,
                     SortNumber = x.SortNumber,
                     MaterialsCount = x.Materials.Count,
@@ -95,12 +87,12 @@ namespace SunEngine.Admin.Presenters
                     continue;
                 }
 
-                if(!categories.ContainsKey(category.ParentId.Value))
+                if (!categories.ContainsKey(category.ParentId.Value))
                     continue;
 
                 var parent = categories[category.ParentId.Value];
-                
-                if (parent.SubCategories == null) 
+
+                if (parent.SubCategories == null)
                     parent.SubCategories = new List<CategoryAdminView>();
 
                 parent.SubCategories.Add(category);
@@ -126,12 +118,10 @@ namespace SunEngine.Admin.Presenters
 
         public string Header { get; set; }
 
-        public string SectionTypeName { get; set; }
-
-        public SectionType SectionType { get; set; }
-        
         public string LayoutName { get; set; }
         
+        public bool IsMaterialsDescriptionEditable { get; set; }
+
         public int? ParentId { get; set; }
 
         public IList<CategoryAdminView> SubCategories { get; set; }
@@ -143,7 +133,7 @@ namespace SunEngine.Admin.Presenters
         public bool IsDeleted { get; set; }
 
         public bool IsHidden { get; set; }
-        
+
         public bool IsCacheContent { get; set; }
     }
 }

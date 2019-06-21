@@ -39,8 +39,6 @@ namespace SunEngine.DataSeed
 
             SeedOperationKeys();
 
-            SeedSectionTypes();
-
             SeedUsers();
 
             SeedCategories();
@@ -82,35 +80,6 @@ namespace SunEngine.DataSeed
 
                 dataContainer.OperationKeys.Add(operationKey);
             }
-        }
-
-        private void SeedSectionTypes()
-        {
-            Console.WriteLine("SectionTypes");
-
-            SectionType sectionTypeArticles = new SectionType
-            {
-                Id = dataContainer.NextSectionTypeId(),
-                Name = "Articles",
-                Title = "Articles"
-            };
-            dataContainer.SectionTypes.Add(sectionTypeArticles);
-
-            SectionType sectionTypeForum = new SectionType
-            {
-                Id = dataContainer.NextSectionTypeId(),
-                Name = "Forum",
-                Title = "Forum"
-            };
-            dataContainer.SectionTypes.Add(sectionTypeForum);
-
-            SectionType sectionTypeBlog = new SectionType
-            {
-                Id = dataContainer.NextSectionTypeId(),
-                Name = "Blog",
-                Title = "Blog"
-            };
-            dataContainer.SectionTypes.Add(sectionTypeBlog);
         }
 
         private void SeedUsers()

@@ -11,17 +11,17 @@
     },
     {
       "Title": "Блог",
-      "RouteName": "blog-Blog",
+      "RouteName": "cat-Blog",
       "Icon": "fas fa-blog"
     },
     {
       "Title": "Статьи",
-      "RouteName": "articles-Articles",
+      "RouteName": "cat-Articles",
       "Icon": "fas fa-file-alt"
     },
     {
       "Title": "Форум",
-      "RouteName": "forum-Forum1",
+      "RouteName": "cat-Forum1",
       "Icon": "fas fa-comments"
     },
     {
@@ -56,13 +56,13 @@
         {
           "Title": "Статьи 1",
           "SubTitle": "Статьи с подразделами",
-          "RouteName": "articles-Articles1",
+          "RouteName": "cat-Articles1",
           "Icon": "fas fa-file-alt"
         },
         {
           "Title": "Форум 2",
           "SubTitle": "2 уровня вложенности",
-          "RouteName": "forum-Forum2",
+          "RouteName": "cat-Forum2",
           "Icon": "fas fa-comments"
         }
       ]

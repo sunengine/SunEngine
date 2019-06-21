@@ -2,9 +2,9 @@
   {
     "Name": "Articles",
     "Title": "Статьи",
-    "SectionType": "Articles",
     "LayoutName": "Articles",
     "IsMaterialsContainer": true,
+    "IsMaterialsDescriptionEditable": true,
     "MaterialTypeTitle" : "Статья"
   }
 ]

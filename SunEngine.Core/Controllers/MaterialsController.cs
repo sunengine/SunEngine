@@ -92,11 +92,9 @@ namespace SunEngine.Core.Controllers
 
             await SetNameAsync(material, materialData.Name);
 
-            bool isDescriptionEditable = category.IsDescriptionEditable();
-            if (isDescriptionEditable)
+            if (category.IsMaterialsDescriptionEditable)
                 material.Description = materialData.Description;
-
-
+            
             if (materialData.IsHidden && materialsAuthorization.CanHide(User.Roles, category))
                 material.IsHidden = true;
 
@@ -105,7 +103,8 @@ namespace SunEngine.Core.Controllers
 
             contentCache.InvalidateCache(category.Id);
 
-            await materialsManager.CreateAsync(material, materialData.Tags, isDescriptionEditable);
+            await materialsManager.CreateAsync(material, materialData.Tags, category.IsMaterialsDescriptionEditable);
+            
             return Ok();
         }
 
@@ -136,8 +135,7 @@ namespace SunEngine.Core.Controllers
 
             await SetNameAsync(material, materialData.Name);
 
-            bool isDescriptionEditable = newCategory.IsDescriptionEditable();
-            material.Description = isDescriptionEditable ? materialData.Description : null;
+            material.Description = newCategory.IsMaterialsDescriptionEditable ? materialData.Description : null;
 
             if (material.IsHidden != materialData.IsHidden && materialsAuthorization.CanHide(User.Roles, newCategory))
                 material.IsHidden = materialData.IsHidden;
@@ -153,7 +151,7 @@ namespace SunEngine.Core.Controllers
                 material.CategoryId = newCategory.Id;
             }
 
-            await materialsManager.UpdateAsync(material, materialData.Tags, isDescriptionEditable);
+            await materialsManager.UpdateAsync(material, materialData.Tags, newCategory.IsMaterialsDescriptionEditable);
             return Ok();
         }
 

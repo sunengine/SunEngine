@@ -124,9 +124,7 @@ namespace SunEngine.DataSeed
 
             material.Preview = preview;
 
-            SectionType sectionType = category.GetSectionType();
-
-            if (sectionType != null && sectionType.Name == SectionTypeNames.Articles)
+            if (category.IsMaterialsDescriptionEditable)
                 material.Description = "Описание материала: " + material.Title;
             else
                 material.Description = description;
@@ -204,23 +202,7 @@ namespace SunEngine.DataSeed
             return sb.ToString();
         }
     }
-
-    public static class CategoryExtensions
-    {
-        public static SectionType GetSectionType(this Category category)
-        {
-            Category current = category;
-            while (current != null)
-            {
-                if (current.SectionType != null)
-                    return current.SectionType;
-
-                current = current.Parent;
-            }
-
-            return null;
-        }
-    }
+    
 
     public static class MaterialExtension
     {

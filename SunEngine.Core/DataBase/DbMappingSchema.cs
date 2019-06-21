@@ -30,15 +30,10 @@ namespace SunEngine.Core.DataBase
                 .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
                 .Association(x => x.CategoryAccesses, x => x.Id, x => x.RoleId);
 
-            mp.Entity<SectionType>()
-                .HasTableName("SectionTypes")
-                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id);
-
             mp.Entity<Category>()
                 .HasTableName("Categories")
                 .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
                 .Association(x => x.Materials, x => x.Id, x => x.CategoryId)
-                .Association(x => x.SectionType, x => x.SectionTypeId, x => x.Id)
                 .Association(x => x.CacheSettings, x => x.CacheSettingsId, x => x.Id);
 
             mp.Entity<OperationKey>()

@@ -7,18 +7,17 @@ import {ArticlesPage} from 'sun'
 export default {
   name: 'Articles2',
   title: 'Articles 2',
-  categoryType: 'Articles',
 
   setCategoryRoute(category) {
     category.route = {
-      name: `articles-${category.name}`,
+      name: `cat-${category.name}`,
       params: {}
     };
 
     for(const cat0 of category.subCategories) {
       for (const cat1 of cat0.subCategories) {
         cat1.route = {
-          name: `articles-${category.name}-cat`,
+          name: `cat-${category.name}-cat`,
           params: {
             categoryName: cat1.name
           }
@@ -33,7 +32,7 @@ export default {
 
     return [
       {
-        name: `articles-${name}`,
+        name: `cat-${name}`,
         path: '/' + nameLower,
         components: {
           default: ArticlesMultiCatPage,
@@ -45,7 +44,7 @@ export default {
         },
       },
       {
-        name: `articles-${name}-cat`,
+        name: `cat-${name}-cat`,
         path: `/${nameLower}/:categoryName`,
         components: {
           default: ArticlesPage,
@@ -57,7 +56,7 @@ export default {
         }
       },
       {
-        name: `articles-${name}-cat-mat`,
+        name: `cat-${name}-cat-mat`,
         path: `/${nameLower}/:categoryName/:idOrName`,
         components: {
           default: Material,

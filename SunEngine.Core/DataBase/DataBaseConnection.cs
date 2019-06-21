@@ -53,7 +53,6 @@ namespace SunEngine.Core.DataBase
         public ITable<TagSynonymGroup> TagSynonyms => GetTable<TagSynonymGroup>();
         public ITable<TagMaterial> TagMaterials => GetTable<TagMaterial>();
 
-        public ITable<SectionType> SectionTypes => GetTable<SectionType>();
         public ITable<Category> Categories => GetTable<Category>();
 
         public ITable<OperationKey> OperationKeys => GetTable<OperationKey>();

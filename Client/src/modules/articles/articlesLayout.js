@@ -4,7 +4,6 @@ import {Material} from 'sun'
 export default {
   name: 'Articles',
   title: 'Articles',
-  categoryType: 'Articles',
 
   setCategoryRoute(category) {
     category.route = {

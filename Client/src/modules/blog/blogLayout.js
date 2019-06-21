@@ -4,11 +4,10 @@ import {Material} from 'sun'
 export default {
   name: 'Blog',
   title: 'Blog',
-  categoryType: 'Blog',
 
   setCategoryRoute(category) {
     category.route = {
-      name: `blog-${category.name}`,
+      name: `cat-${category.name}`,
       params:  {}
     }
   },
@@ -19,7 +18,7 @@ export default {
 
     return [
       {
-        name: `blog-${name}`,
+        name: `cat-${name}`,
         path: '/' + nameLower,
         components: {
           default: BlogPage,
@@ -32,7 +31,7 @@ export default {
         }
       },
       {
-        name: `blog-${name}-mat`,
+        name: `cat-${name}-mat`,
         path: `/${nameLower}/:idOrName`,
         components: {
           default: Material,

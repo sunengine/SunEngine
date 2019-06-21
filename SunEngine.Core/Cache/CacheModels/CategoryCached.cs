@@ -31,9 +31,7 @@ namespace SunEngine.Core.Cache.CacheModels
 
         public CategoryCached SectionRoot { get; private set; }
 
-        public int? SectionTypeId { get; private set; }
-
-        public SectionTypeCached SectionType { get; private set; }
+        public bool IsMaterialsDescriptionEditable { get; }
 
         public JRaw SettingsJson { get; private set; }
 
@@ -73,7 +71,7 @@ namespace SunEngine.Core.Cache.CacheModels
             SubTitle = category.SubTitle;
             Icon = category.Icon;
             Header = category.Header;
-            SectionTypeId = category.SectionTypeId;
+            IsMaterialsDescriptionEditable = category.IsMaterialsDescriptionEditable;
             SettingsJson = SunJson.MakeJRow(category.SettingsJson);
             ParentId = category.ParentId;
             CacheSettingsId = category.CacheSettingsId;
@@ -105,10 +103,9 @@ namespace SunEngine.Core.Cache.CacheModels
             foreach (var category in _subCategories)
             {
                 var list = category.Init2AllSub();
+                
                 foreach (var sub in list)
-                {
                     _allSubCategories.Add(sub);
-                }
             }
 
             var rez = _allSubCategories.ToList();
@@ -116,60 +113,31 @@ namespace SunEngine.Core.Cache.CacheModels
             return rez;
         }
 
-        public void Init3ISectionType(IReadOnlyDictionary<string, SectionTypeCached> sectionTypes)
-        {
-            if (SectionTypeId.HasValue)
-                SectionType = sectionTypes.Values.FirstOrDefault(x => x.Id == SectionTypeId.Value);
-        }
 
-
-        public void Init4InitSectionsRoots(CategoryCached sectionRoot = null)
+        public void Init3InitSectionsRoots(CategoryCached sectionRoot = null)
         {
             if (initialized)
                 return;
-            if (SectionType != null)
+            if (LayoutName != null)
                 sectionRoot = this;
 
             SectionRoot = sectionRoot;
+            
             foreach (var category in _subCategories)
-            {
-                category.Init4InitSectionsRoots(sectionRoot);
-            }
+                category.Init3InitSectionsRoots(sectionRoot);
         }
 
 
-        public void Init5SetListsAndBlockEditable()
+        public void Init4SetListsAndBlockEditable()
         {
             if (initialized)
                 return;
+            
             AllSubCategories = _allSubCategories.ToImmutableList();
             SubCategories = _subCategories.ToImmutableList();
             _allSubCategories = null;
             _subCategories = null;
             initialized = true;
-        }
-
-        public bool IsDescriptionEditable()
-        {
-            if (SectionRoot == null)
-                return false;
-            if (SectionRoot.SectionType == null)
-                throw new Exception("Impossible");
-            return SectionRoot.SectionType.Name == SectionTypeNames.Articles;
-        }
-    }
-
-    public class SectionTypeCached
-    {
-        public int Id { get; }
-        public string Name { get; }
-        public string Title { get; }
-
-        public SectionTypeCached(SectionType sectionType)
-        {
-            Id = sectionType.Id;
-            Name = sectionType.Name;
-            Title = sectionType.Title;
         }
     }
 }

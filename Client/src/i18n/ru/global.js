@@ -30,10 +30,5 @@ export default {
   },
   MyEditor: {
     uploadImages: "Добавить изображения"
-  },
-  SectionTypes: {
-    Forum: "Форум",
-    Articles: "Статьи",
-    Blog: "Блог"
   }
 }

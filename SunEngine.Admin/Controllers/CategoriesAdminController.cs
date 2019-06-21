@@ -26,14 +26,6 @@ namespace SunEngine.Admin.Controllers
             this.categoriesAdminPresenter = categoriesAdminPresenter;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> GetAllSectionTypes()
-        {
-            var sectionTypes = await categoriesAdminPresenter.GetAllSectionTypesAsync();
-
-            return Json(sectionTypes);
-        }
-
 
         [HttpPost]
         public async Task<IActionResult> GetCategory(int? id = null, string name = null)
@@ -70,12 +62,7 @@ namespace SunEngine.Admin.Controllers
             if (!ModelState.IsValid)
                 return ValidationProblem();
 
-            var sectionType = categoriesCache.AllSectionTypes.ContainsKey(categoryData.SectionTypeName)
-                ? categoriesCache.AllSectionTypes[categoryData.SectionTypeName]
-                : null;
-
             var category = categoryData.ToCategory();
-            category.SectionTypeId = sectionType?.Id;
 
             await categoriesAdminManager.CreateCategoryAsync(category);
 
@@ -89,16 +76,10 @@ namespace SunEngine.Admin.Controllers
         public async Task<IActionResult> UpdateCategory([FromBody] CategoryRequestModel categoryData)
         {
             if (!ModelState.IsValid)
-            {
                 return ValidationProblem();
-            }
 
-            var sectionType = categoriesCache.AllSectionTypes.ContainsKey(categoryData.SectionTypeName)
-                ? categoriesCache.AllSectionTypes[categoryData.SectionTypeName]
-                : null;
 
             var category = categoryData.ToCategory();
-            category.SectionTypeId = sectionType?.Id;
 
             await categoriesAdminManager.UpdateCategoryAsync(category);
 
@@ -157,18 +138,17 @@ namespace SunEngine.Admin.Controllers
         [Required, MinLength(2), RegularExpression("^[a-zA-Z0-9_-]*$")]
         public string Name { get; set; }
 
-        [Required, MinLength(3)]
-        public string Title { get; set; }
+        [Required, MinLength(3)] public string Title { get; set; }
         public string SubTitle { get; set; }
         public string Icon { get; set; }
-        
+
         public bool IsMaterialsContainer { get; set; }
-        
+
         public string Header { get; set; }
 
-        public string SectionTypeName { get; set; }
-
         public string LayoutName { get; set; }
+
+        public bool IsMaterialsDescriptionEditable { get; set; }
 
         public int ParentId { get; set; }
 
@@ -192,6 +172,7 @@ namespace SunEngine.Admin.Controllers
                 IsMaterialsContainer = IsMaterialsContainer,
                 Header = Header,
                 LayoutName = LayoutName,
+                IsMaterialsDescriptionEditable = IsMaterialsContainer && IsMaterialsDescriptionEditable,
                 ParentId = ParentId,
                 SortNumber = SortNumber,
                 IsDeleted = IsDeleted,

@@ -44,9 +44,6 @@ namespace SunEngine.Core.Models
         /// </summary>
         public string Header { get; set; }
 
-        public int? SectionTypeId { get; set; }
-        public SectionType SectionType { get; set; }
-
         public int? ParentId { get; set; }
         public Category Parent { get; set; }
 
@@ -59,6 +56,8 @@ namespace SunEngine.Core.Models
         public int SortNumber { get; set; }
 
         public string LayoutName { get; set; }
+        
+        public bool IsMaterialsDescriptionEditable { get; set; }
 
         public string SettingsJson { get; set; }
 
@@ -76,19 +75,5 @@ namespace SunEngine.Core.Models
         public bool IsHidden { get; set; }
 
         public bool IsCacheContent { get; set; }
-    }
-
-    public class SectionType
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Title { get; set; }
-    }
-
-    public static class SectionTypeNames
-    {
-        public const string Forum = "Forum";
-        public const string Blog = "Blog";
-        public const string Articles = "Articles";
     }
 }

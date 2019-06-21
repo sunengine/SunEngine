@@ -83,12 +83,12 @@ namespace SunEngine.Admin.Managers
             category.Icon = categoryUpdate.Icon?.SetNullIfEmptyTrim();
             category.MaterialTypeTitle = categoryUpdate.MaterialTypeTitle?.SetNullIfEmptyTrim();
             category.Header = sanitizer.Sanitize(categoryUpdate.Header?.SetNullIfEmptyTrim());
-            category.SectionTypeId = categoryUpdate.SectionTypeId;
             category.ParentId = parent.Id;
             category.LayoutName = categoryUpdate.LayoutName?.SetNullIfEmptyTrim();
             category.SettingsJson = categoryUpdate.SettingsJson?.MakeJsonText();
             category.IsHidden = categoryUpdate.IsHidden;
             category.IsCacheContent = categoryUpdate.IsCacheContent;
+            category.IsMaterialsDescriptionEditable = categoryUpdate.IsMaterialsDescriptionEditable;
             category.IsMaterialsContainer = categoryUpdate.IsMaterialsContainer;
 
 
@@ -184,11 +184,6 @@ namespace SunEngine.Admin.Managers
         public Task CategoryMoveToTrashAsync(string name)
         {
             return db.Categories.Where(x => x.Name == name).Set(x => x.IsDeleted, x => true).UpdateAsync();
-        }
-
-        public Task<SectionType> GetSectionTypeByNameAsync(string name)
-        {
-            return db.SectionTypes.FirstOrDefaultAsync(x => x.Name == name);
         }
     }
 }

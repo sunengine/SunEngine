@@ -5,17 +5,16 @@ import {Material} from 'sun'
 export default {
   name: 'Forum1',
   title: 'Forum 1',
-  categoryType: 'Forum',
 
   setCategoryRoute(category) {
     category.route = {
-      name: `forum-${category.name}`,
+      name: `cat-${category.name}`,
       params:  {}
     };
 
     for(const cat of category.subCategories) {
       cat.route = {
-        name: `forum-${category.name}-cat`,
+        name: `cat-${category.name}-cat`,
         params:  {
           categoryName: cat.name
         }
@@ -29,7 +28,7 @@ export default {
 
     return [
       {
-        name: `forum-${name}`,
+        name: `cat-${name}`,
         path: '/' + nameLower,
         components: {
           default: NewTopics,
@@ -41,7 +40,7 @@ export default {
         },
       },
       {
-        name: `forum-${name}-cat`,
+        name: `cat-${name}-cat`,
         path: `/${nameLower}/:categoryName`,
         components: {
           default: Thread,
@@ -53,7 +52,7 @@ export default {
         }
       },
       {
-        name: `forum-${name}-cat-mat`,
+        name: `cat-${name}-cat-mat`,
         path: `/${nameLower}/:categoryName/:idOrName`,
         components: {
           default: Material,

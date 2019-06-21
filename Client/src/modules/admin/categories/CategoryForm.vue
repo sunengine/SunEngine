@@ -1,5 +1,5 @@
 <template>
-  <div class="category-form">
+  <div class="category-form q-gutter-y-sm">
 
     <q-input ref="name" v-model="category.name" :label="$tl('name')" :rules="rules.name"/>
 
@@ -14,12 +14,11 @@
       </div>
     </q-input>
 
-    <div class="q-mt-sm text-grey-6">{{$tl('header')}}</div>
+    <div class="text-grey-6">{{$tl('header')}}</div>
 
     <MyEditor ref="header" style="margin-bottom: 12px;" v-model="category.header"/>
 
-    <q-field class="cursor-pointer q-mb-md" :error="!category.parentId" :label="$tl('selectParent')"
-             stack-label>
+    <q-field class="cursor-pointer" :error="!category.parentId" :label="$tl('selectParent')" stack-label>
       <template v-slot:control>
         <div tabindex="0" class="no-outline full-width">
           {{parentCategoryTitle}}
@@ -41,7 +40,6 @@
           :selected.sync="category.parentId"
           node-key="id"
           label-key="title"
-          @update:selected="categorySelected"
         >
           <template v-slot:default-header="prop">
             <div style="margin:0; padding: 0;">
@@ -54,31 +52,21 @@
       </q-menu>
     </q-field>
 
+    <q-select  emit-value map-options :label="$tl('layout')" v-model="category.layoutName"
+              :options="layoutOptions">
+      <q-icon slot="prepend" name="fas fa-boxes" />
+    </q-select>
 
-    <div class="q-mt-lg">
-      <q-select emit-value map-options v-if="sectionTypes" :label="$tl('sectionType')"
-                v-model="category.sectionTypeName" @input="sectionTypeChanged"
-                :options="sectionTypeOptions"/>
-      <LoaderWait v-else/>
-    </div>
+    <q-checkbox :toggle-indeterminate="false" v-model="category.isMaterialsContainer" @input="isMaterialsContainerChanged"
+                :label="$tl('isMaterialsContainerCb')"/>
 
-    <div class="q-mt-lg">
-      <q-select emit-value map-options :label="$tl('layout')" v-model="category.layoutName"
-                :options="layoutOptions"/>
-    </div>
+    <q-checkbox v-if="category.isMaterialsContainer" :toggle-indeterminate="false"
+                v-model="category.isMaterialsDescriptionEditable"
+                :label="$tl('isMaterialsDescriptionEditableCb')"/>
 
-    <div class="q-mt-lg">
-      <q-checkbox :toggle-indeterminate="false" v-model="category.isMaterialsContainer"
-                  :label="$tl('isMaterialsContainerCb')"/>
-    </div>
+    <q-checkbox :toggle-indeterminate="false" v-model="category.isCacheContent" :label="$tl('isCaching')"/>
 
-    <div class="q-my-sm">
-      <q-checkbox :toggle-indeterminate="false" v-model="category.isCacheContent" :label="$tl('isCaching')"/>
-    </div>
-
-    <div>
-      <q-checkbox :toggle-indeterminate="false" v-model="category.isHidden" :label="$tl('hideCb')"/>
-    </div>
+    <q-checkbox :toggle-indeterminate="false" v-model="category.isHidden" :label="$tl('hideCb')"/>
   </div>
 </template>
 
@@ -145,29 +133,18 @@
       return {
         root: null,
         all: null,
-        start: true,
-        sectionTypes: null
+        start: true
       }
     },
     computed: {
-      sectionTypeOptions() {
-        return [{label: this.$tl('noTypeLabel'), value: unset}, ...this.sectionTypes?.map(x => {
-          return {
-            label: this.$t('SectionTypes.' + x.name),
-            value: x.name
-          }
-        })];
-      },
       layoutOptions() {
         return Object.getOwnPropertyNames(this.$store.state.layouts.all)
           .filter(x => !x.startsWith('__'))
           .map(x => this.$store.state.layouts.all[x])
-          .filter(x => x.categoryType === this.category.sectionTypeName)
           .map(x => {
             return {
               label: x.title,
               value: x.name,
-              sectionType: x.categoryType
             }
           });
       },
@@ -182,10 +159,8 @@
       }
     },
     methods: {
-      sectionTypeChanged() {
-        if (this.category.sectionTypeName !== this.category.layoutName) {
-          this.category.layoutName = this.layoutOptions?.[0]?.value ?? '';
-        }
+      isMaterialsContainerChanged() {
+        this.category.isMaterialsDescriptionEditable = false;
       },
       validate() {
         this.$refs.name.validate();
@@ -198,10 +173,6 @@
     },
     async created() {
 
-      if (!this.category.sectionTypeName) {
-        this.category.sectionTypeName = unset;
-      }
-
       this.rules = createRules.call(this);
 
       await adminGetAllCategories().then(
@@ -210,20 +181,17 @@
           this.all = data.all;
         }
       );
-
-      await this.$store.dispatch('request',
-        {
-          url: '/Admin/CategoriesAdmin/GetAllSectionTypes'
-        })
-        .then(response => {
-            this.sectionTypes = response.data;
-          }
-        );
     }
   }
 
 </script>
 
 <style lang="stylus">
+
+  .category-form {
+    .q-checkbox {
+      display: flex;
+    }
+  }
 
 </style>

@@ -27,7 +27,6 @@ namespace SunEngine.DataSeed
         public Category RootCategory;
         public MenuItem RootMenuItem;
         
-        public List<SectionType> SectionTypes = new List<SectionType>(); 
         public List<Category> Categories = new List<Category>();
         public List<Comment> Comments = new List<Comment>();
         public List<Material> Materials = new List<Material>();

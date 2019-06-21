@@ -33,9 +33,6 @@ namespace SunEngine.DataSeed
             Console.WriteLine("Data seed Initial in DataBase:");
             Console.ResetColor();
 
-            Console.WriteLine("SectionTypes");
-            db.BulkCopy(options, dataContainer.SectionTypes);
-
             Console.WriteLine("Categories");
             db.BulkCopy(options, dataContainer.Categories);
 

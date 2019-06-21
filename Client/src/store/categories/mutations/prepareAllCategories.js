@@ -24,11 +24,9 @@ export default function prepareAllCategories(state, root) {
     state.all[category.name.toLowerCase()] = category;
 
     // Make section types
-    if (category.sectionType) {
+    if (category.layoutName) {
       sectionRoot = category;
-      //category.sectionRoot = category;
     } else if (sectionRoot) {
-      category.sectionType = sectionRoot.sectionType;
       category.sectionRoot = sectionRoot;
     }
 

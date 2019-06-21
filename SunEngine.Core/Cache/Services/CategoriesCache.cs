@@ -13,7 +13,6 @@ namespace SunEngine.Core.Cache.Services
     /// </summary>
     public interface ICategoriesCache : ISunMemoryCache
     {
-        IReadOnlyDictionary<string, SectionTypeCached> AllSectionTypes { get; }
         CategoryCached GetCategory(int id);
         CategoryCached GetCategory(string name);
         CategoryCached RootCategory { get; }
@@ -28,24 +27,11 @@ namespace SunEngine.Core.Cache.Services
         protected readonly object lockObject = new object();
         protected readonly IDataBaseFactory dataBaseFactory;
 
-        protected IReadOnlyDictionary<string, SectionTypeCached> _allSectionTypes;
         protected IReadOnlyDictionary<string, CategoryCached> _allCategoriesByName;
         protected IReadOnlyDictionary<int, CategoryCached> _allCategoriesById;
         protected CategoryCached _rootCategory;
 
         #region Getters
-
-        public IReadOnlyDictionary<string, SectionTypeCached> AllSectionTypes
-        {
-            get
-            {
-                lock (lockObject)
-                    if (_allSectionTypes == null)
-                        Initialize();
-
-                return _allSectionTypes;
-            }
-        }
 
         protected IReadOnlyDictionary<string, CategoryCached> AllCategoriesByNameByName
         {
@@ -127,9 +113,6 @@ namespace SunEngine.Core.Cache.Services
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-                _allSectionTypes = db.SectionTypes
-                    .ToImmutableDictionary(x => x.Name, x => new SectionTypeCached(x));
-
                 var categories = db.Categories.Where(x => !x.IsDeleted).Select(x => new CategoryCached(x))
                     .ToDictionary(x => x.Id);
 
@@ -140,29 +123,19 @@ namespace SunEngine.Core.Cache.Services
         protected void PrepareCategories(Dictionary<int, CategoryCached> categories)
         {
             foreach (var category in categories.Values)
-            {
                 category.Init1ParentAndSub(categories);
-            }
 
             _rootCategory = categories.Values.FirstOrDefault(x => x.Name == Category.RootName);
             if (_rootCategory == null)
                 throw new Exception($"Can not find category '{Category.RootName}' in data base.");
-
-
+            
             var categoriesList = _rootCategory.Init2AllSub();
             categoriesList.Insert(0, _rootCategory);
 
-            foreach (var category in categoriesList)
-            {
-                category.Init3ISectionType(_allSectionTypes);
-            }
-
-            _rootCategory.Init4InitSectionsRoots();
+            _rootCategory.Init3InitSectionsRoots();
 
             foreach (var category in categoriesList)
-            {
-                category.Init5SetListsAndBlockEditable();
-            }
+                category.Init4SetListsAndBlockEditable();
 
             _allCategoriesByName =
                 categoriesList.ToImmutableDictionary(x => x.NameNormalized, StringComparer.OrdinalIgnoreCase);

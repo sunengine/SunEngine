@@ -55,9 +55,7 @@ namespace SunEngine.DataSeed
             int repeatCount = 1;
             var repeat = categoryToken["Repeat"];
             if (repeat != null)
-            {
                 repeatCount = (int) repeat;
-            }
 
             for (int j = 0; j < repeatCount; j++)
             {
@@ -78,24 +76,14 @@ namespace SunEngine.DataSeed
                 };
 
                 if (categoryToken["IsMaterialsContainer"] != null)
-                {
                     category.IsMaterialsContainer = (bool) categoryToken["IsMaterialsContainer"];
-                }
 
                 if (categoryToken["LayoutName"] != null)
-                {
                     category.LayoutName = (string) categoryToken["LayoutName"];
-                }
 
-                var sectionTypeName = categoryToken["SectionType"];
-                if (sectionTypeName != null)
-                {
-                    var sectionType =
-                        dataContainer.SectionTypes.FirstOrDefault(x => x.Name == (string) sectionTypeName);
-                    category.SectionTypeId = sectionType.Id;
-                    category.SectionType = sectionType;
-                }
-
+                if (categoryToken["IsMaterialsDescriptionEditable"] != null)
+                    category.IsMaterialsDescriptionEditable = (bool) categoryToken["IsMaterialsDescriptionEditable"];
+                
 
                 dataContainer.Categories.Add(category);
 
@@ -105,9 +93,7 @@ namespace SunEngine.DataSeed
                     numbers1.AddRange(numbers);
 
                     foreach (JToken subCategoryToken in (JArray) categoryToken["SubCategories"])
-                    {
                         SeedCategory(category, subCategoryToken, numbers1, thisMaterialTypeTitle);
-                    }
                 }
 
                 numbers[0]++;

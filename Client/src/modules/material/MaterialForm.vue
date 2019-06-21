@@ -13,7 +13,7 @@
       </template>
     </q-input>
 
-    <q-input ref="description" v-if="canEditDescription" v-model="material.description" type="textarea" autogrow
+    <q-input ref="description" v-if="category.isMaterialsDescriptionEditable" v-model="material.description" type="textarea" autogrow
              :label="$tl('description')" :rules="rules.description">
       <template v-slot:prepend>
         <q-icon name="fas fa-info-circle"/>
@@ -131,9 +131,6 @@
     computed: {
       hasError() {
         return this.$refs.title.hasError || this.$refs.htmlEditor.hasError || !this.material.categoryName || this.$refs.description?.hasError || this.$refs.name?.hasError;
-      },
-      canEditDescription() {
-        return this.category?.sectionType?.name === 'Articles';
       },
       canEditName() {
         return this.$store.state.auth.roles.includes('Admin') && this.category?.sectionType?.name === 'Articles';
