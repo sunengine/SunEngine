@@ -7,7 +7,7 @@ export default {
 
   setCategoryRoute(category) {
     category.route = {
-      name: `articles-${category.name}`,
+      name: `cat-${category.name}`,
       params:  {}
     }
   },
@@ -18,7 +18,7 @@ export default {
 
     return [
       {
-        name: `articles-${name}`,
+        name: `cat-${name}`,
         path: '/' + nameLower,
         components: {
           default: ArticlesPage,
@@ -31,7 +31,7 @@ export default {
         }
       },
       {
-        name: `articles-${name}-mat`,
+        name: `cat-${name}-mat`,
         path: `/${nameLower}/:idOrName`,
         components: {
           default: Material,
