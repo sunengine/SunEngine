@@ -103,7 +103,7 @@ namespace SunEngine.DataSeed
 
                 string[] tablesWithSequenceIds =
                 {
-                    "SectionTypes", "Categories", "AspNetUsers", "Materials", "Comments", "AspNetRoles",
+                    "Categories", "AspNetUsers", "Materials", "Comments", "AspNetRoles",
                     "CategoryAccesses", "Tags", "MenuItems"
                 };
 
