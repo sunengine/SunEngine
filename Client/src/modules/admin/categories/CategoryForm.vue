@@ -1,16 +1,28 @@
 <template>
   <div class="category-form q-gutter-y-sm">
 
-    <q-input ref="name" v-model="category.name" :label="$tl('name')" :rules="rules.name"/>
+    <q-input ref="name" v-model="category.name" :label="$tl('name')" :rules="rules.name">
+      <template v-slot:prepend>
+        <q-icon name="fas fa-signature" class="q-mr-xs"/>
+      </template>
+    </q-input>
 
-    <q-input ref="title" v-model="category.title" :label="$tl('title')" :rules="rules.title"/>
+    <q-input ref="title" v-model="category.title" :label="$tl('title')" :rules="rules.title">
+      <template v-slot:prepend>
+        <q-icon name="fas fa-heading" class="q-mr-xs"/>
+      </template>
+    </q-input>
 
     <q-input ref="subTitle" v-model="category.subTitle" autogrow type="textarea"
-             :label="$tl('subTitle')"/>
+             :label="$tl('subTitle')">
+      <template v-slot:prepend>
+        <q-icon name="fas fa-info" class="q-mr-xs"/>
+      </template>
+    </q-input>
 
     <q-input ref="icon" v-model="category.icon" :label="$tl('icon')" :rules="rules.icon">
-      <div slot="prepend" v-if="category.icon">
-        <q-icon :name="category.icon"/>
+      <div slot="prepend">
+        <q-icon :name="category.icon ? category.icon : 'far fa-file'"/>
       </div>
     </q-input>
 
@@ -143,7 +155,7 @@
           .map(x => this.$store.state.layouts.all[x])
           .map(x => {
             return {
-              label: x.title,
+              label: this.$t(`LayoutNames.${x.name}`),
               value: x.name,
             }
           });

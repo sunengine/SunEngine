@@ -88,7 +88,7 @@ namespace SunEngine.Core.Controllers
             if (categoriesList.Count == 0)
                 return BadRequest("No categories to show");
 
-            var options = new MaterialsMultiCatShowOptions()
+            var options = new MaterialsMultiCatShowOptions
             {
                 CategoriesIds = categoriesList.Select(x => x.Id),
                 Page = page,

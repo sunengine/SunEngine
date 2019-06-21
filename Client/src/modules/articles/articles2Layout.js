@@ -6,7 +6,7 @@ import {ArticlesPage} from 'sun'
 
 export default {
   name: 'Articles2',
-  title: 'Articles 2',
+  title: 'Articles with 2 level subcategories',
 
   setCategoryRoute(category) {
     category.route = {

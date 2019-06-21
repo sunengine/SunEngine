@@ -32,7 +32,7 @@ const config = {
     Users_PasswordMinLength: 6,
     Materials_Name: 32,
     Materials_Title: 256,
-    Materials_Description: 256,
+    Materials_SubTitle: 256,
     Tags_Name: 64,
     Roles_Name: 64,
     Roles_Title: 64,

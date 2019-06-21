@@ -3,20 +3,21 @@
 
     <q-input v-if="canEditName" ref="name" v-model="material.name" :label="$tl('name')" :rules="rules.name">
       <template v-slot:prepend>
-        <q-icon name="fas fa-info-circle"/>
+        <q-icon name="fas fa-signature"/>
       </template>
     </q-input>
 
     <q-input ref="title" v-model="material.title" :label="$tl('title')" :rules="rules.title">
       <template v-slot:prepend>
-        <q-icon name="fas fa-info-circle"/>
+        <q-icon name="fas fa-heading"/>
       </template>
     </q-input>
 
-    <q-input ref="description" v-if="category.isMaterialsDescriptionEditable" v-model="material.description" type="textarea" autogrow
-             :label="$tl('description')" :rules="rules.description">
+    <q-input ref="description" v-if="isDescriptionEditable" v-model="material.subTitle"
+             type="textarea" autogrow
+             :label="$tl('description')" :rules="rules.subTitle">
       <template v-slot:prepend>
-        <q-icon name="fas fa-info-circle"/>
+        <q-icon name="fas fa-info"/>
       </template>
     </q-input>
 
@@ -104,8 +105,8 @@
         (value) => !!value || this.$tl('validation.text.required'),
         (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$tl('validation.text.htmlTextSizeOrHasImage'),
       ],
-      description: [
-        (value) => !value || value.length <= config.DbColumnSizes.Materials_Description || this.$tl('validation.description.maxLength'),
+      subTitle: [
+        (value) => !value || value.length <= config.DbColumnSizes.Materials_SubTitle || this.$tl('validation.subTitle.maxLength'),
       ]
     }
   }
@@ -133,7 +134,7 @@
         return this.$refs.title.hasError || this.$refs.htmlEditor.hasError || !this.material.categoryName || this.$refs.description?.hasError || this.$refs.name?.hasError;
       },
       canEditName() {
-        return this.$store.state.auth.roles.includes('Admin') && this.category?.sectionType?.name === 'Articles';
+        return this.$store.state.auth.roles.includes('Admin');
       },
       canHide() {
         return this.category?.categoryPersonalAccess?.materialHide;
@@ -146,6 +147,9 @@
       },
       category() {
         return this.$store.getters.getCategory(this.material.categoryName);
+      },
+      isDescriptionEditable() {
+        return this.category?.isMaterialsDescriptionEditable;
       }
     },
     methods: {

@@ -9,13 +9,19 @@
         <q-select
           v-model="policy"
           :label="$tl('cachePolicy')"
-          :options="optionTypes"/>
+          :options="optionTypes">
+          <q-icon slot="prepend" name="fa fa-sitemap" class="q-mr-sm" />
+        </q-select>
         <br/>
         <div v-if="policy !== null && policy.id !== 1">
           <q-input v-if="!withoutTime" ref="cacheTime" type="number"
                    v-model="cacheSettings.invalidateCacheTime"
                    :label="$tl('cacheLifetime')"
-                   :rules="rules.invalidateCacheTime"/>
+                   :rules="rules.invalidateCacheTime">
+            <template v-slot:prepend>
+              <q-icon name="fas fa-clock"  class="q-mr-sm" />
+            </template>
+          </q-input>
 
           <q-checkbox v-model="withoutTime" v-on:input="withoutTimeChanged" :label="$tl('withoutInvalidationTime')"/>
         </div>

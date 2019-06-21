@@ -4,7 +4,7 @@ import {Material} from 'sun'
 
 export default {
   name: 'Forum1',
-  title: 'Forum 1',
+  title: 'Forum with 1 level threads',
 
   setCategoryRoute(category) {
     category.route = {

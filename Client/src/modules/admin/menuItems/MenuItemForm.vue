@@ -1,9 +1,24 @@
 <template>
   <div class="menu-item-form">
-    <q-input ref="name" v-model="menuItem.name" :label="$tl('name')" :rules="rules.name"/>
-    <q-input ref="title" v-model="menuItem.title" :label="$tl('title')" :rules="rules.title"/>
-    <q-input ref="subTitle" v-model="menuItem.subTitle" :label="$tl('subTitle')" :rules="rules.subTitle"/>
+    <q-input ref="name" v-model="menuItem.name" :label="$tl('name')" :rules="rules.name">
+      <template v-slot:prepend>
+        <q-icon name="fas fa-signature" class="q-mr-xs"/>
+      </template>
+    </q-input>
+    <q-input ref="title" v-model="menuItem.title" :label="$tl('title')" :rules="rules.title">
+      <template v-slot:prepend>
+        <q-icon name="fas fa-heading" class="q-mr-xs"/>
+      </template>
+    </q-input>
+    <q-input ref="subTitle" v-model="menuItem.subTitle" :label="$tl('subTitle')" :rules="rules.subTitle">
+      <template v-slot:prepend>
+        <q-icon name="fas fa-info" class="q-mr-xs"/>
+      </template>
+    </q-input>
     <q-input ref="url" class="q-mb-md" @input="urlUpdated" v-model="url" :label="$tl('url')" :rules="rules.url">
+      <template v-slot:prepend>
+        <q-icon name="fas fa-link" class="q-mr-xs"/>
+      </template>
       <div slot="hint">
         <div v-if="menuItem.routeName" class="text-positive">
           [{{$tl("local")}}: RouteName={{menuItem.routeName}}
@@ -55,7 +70,11 @@
               option-value="name" option-label="title" :label="$tl('roles')"/>
     <LoaderWait v-else/>
 
-    <q-input ref="cssClass" v-model="menuItem.cssClass" :label="$tl('cssClass')" :rules="rules.cssClass"/>
+    <q-input ref="cssClass" v-model="menuItem.cssClass" :label="$tl('cssClass')" :rules="rules.cssClass">
+      <template v-slot:prepend>
+        <q-icon name="fab fa-css3-alt" class="q-mr-xs"/>
+      </template>
+    </q-input>
     <q-input ref="icon" v-model="menuItem.icon" :label="$tl('icon')" :rules="rules.icon">
       <div slot="prepend" v-if="menuItem.icon">
         <q-icon :name="menuItem.icon"/>
