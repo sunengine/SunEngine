@@ -9,12 +9,16 @@ export default {
   title: 'Articles with 1 level subcategories',
 
   setCategoryRoute(category) {
+    category.allowMatrialNameEdit = true;
+
     category.route = {
       name: `cat-${category.name}`,
       params: {}
     };
 
     for (const cat of category.subCategories) {
+      cat.allowMatrialNameEdit = true;
+
       cat.route = {
         name: `cat-${category.name}-cat`,
         params: {
@@ -40,6 +44,9 @@ export default {
           default: {categoriesNames: nameLower, pageTitle: category.title},
           navigation: {categories: Categories1, categoryName: name}
         },
+        meta: {
+          category: category
+        }
       },
       {
         name: `cat-${name}-cat`,
@@ -51,6 +58,9 @@ export default {
         props: {
           default: true,
           navigation: {categories: Categories1, categoryName: name}
+        },
+        meta: {
+          category: category
         }
       },
       {
@@ -65,6 +75,9 @@ export default {
             return {categoryName: route.params.categoryName, idOrName: route.params.idOrName}
           },
           navigation: {categories: Categories1, categoryName: name}
+        },
+        meta: {
+          category: category
         }
       }
     ]

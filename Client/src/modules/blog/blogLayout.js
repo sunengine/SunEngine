@@ -28,6 +28,9 @@ export default {
           default: {
             categoryName: nameLower
           }
+        },
+        meta: {
+          category: category
         }
       },
       {
@@ -44,7 +47,11 @@ export default {
               idOrName: route.params.idOrName
             }
           }
+        },
+        meta: {
+          category: category
         }
+
       }
     ]
   }

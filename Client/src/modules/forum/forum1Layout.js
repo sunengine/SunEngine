@@ -38,6 +38,9 @@ export default {
           default: {categoryName: name},
           navigation: {categories: Categories1, categoryName: name}
         },
+        meta: {
+          category: category
+        }
       },
       {
         name: `cat-${name}-cat`,
@@ -49,6 +52,9 @@ export default {
         props: {
           default: true,
           navigation: {categories: Categories1, categoryName: name}
+        },
+        meta: {
+          category: category
         }
       },
       {
@@ -63,6 +69,9 @@ export default {
             return {categoryName: route.params.categoryName, idOrName: route.params.idOrName}
           },
           navigation: {categories: Categories1, categoryName: name}
+        },
+        meta: {
+          category: category
         }
       }
     ]

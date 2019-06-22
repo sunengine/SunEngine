@@ -134,7 +134,7 @@
         return this.$refs.title.hasError || this.$refs.htmlEditor.hasError || !this.material.categoryName || this.$refs.description?.hasError || this.$refs.name?.hasError;
       },
       canEditName() {
-        return this.$store.state.auth.roles.includes('Admin');
+        return this.$store.state.auth.roles.includes('Admin') && this.category?.allowMatrialNameEdit;
       },
       canHide() {
         return this.category?.categoryPersonalAccess?.materialHide;

@@ -9,6 +9,8 @@ export default {
   title: 'Articles with 2 level subcategories',
 
   setCategoryRoute(category) {
+    category.allowMatrialNameEdit = true;
+
     category.route = {
       name: `cat-${category.name}`,
       params: {}
@@ -16,6 +18,8 @@ export default {
 
     for(const cat0 of category.subCategories) {
       for (const cat1 of cat0.subCategories) {
+        cat.allowMatrialNameEdit = true;
+
         cat1.route = {
           name: `cat-${category.name}-cat`,
           params: {
@@ -34,6 +38,7 @@ export default {
       {
         name: `cat-${name}`,
         path: '/' + nameLower,
+        category: category,
         components: {
           default: ArticlesMultiCatPage,
           navigation: ArticlesPanel
@@ -46,6 +51,7 @@ export default {
       {
         name: `cat-${name}-cat`,
         path: `/${nameLower}/:categoryName`,
+        category: category,
         components: {
           default: ArticlesPage,
           navigation: ArticlesPanel
@@ -58,6 +64,7 @@ export default {
       {
         name: `cat-${name}-cat-mat`,
         path: `/${nameLower}/:categoryName/:idOrName`,
+        category: category,
         components: {
           default: Material,
           navigation: ArticlesPanel

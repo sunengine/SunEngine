@@ -6,6 +6,8 @@ export default {
   title: 'Articles',
 
   setCategoryRoute(category) {
+    category.allowMatrialNameEdit = true;
+
     category.route = {
       name: `cat-${category.name}`,
       params:  {}
@@ -28,6 +30,9 @@ export default {
           default: {
             categoryName: nameLower
           }
+        },
+        meta: {
+          category: category
         }
       },
       {
@@ -44,6 +49,9 @@ export default {
               idOrName: route.params.idOrName
             }
           }
+        },
+        meta: {
+          category: category
         }
       }
     ]
