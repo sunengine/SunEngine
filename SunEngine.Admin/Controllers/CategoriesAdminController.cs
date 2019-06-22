@@ -144,7 +144,7 @@ namespace SunEngine.Admin.Controllers
 
         public string LayoutName { get; set; }
 
-        public bool IsMaterialsDescriptionEditable { get; set; }
+        public bool IsMaterialsSubTitleEditable { get; set; }
 
         public bool IsMaterialsNameEditable { get; set; }
         
@@ -170,7 +170,7 @@ namespace SunEngine.Admin.Controllers
                 IsMaterialsContainer = IsMaterialsContainer,
                 Header = Header,
                 LayoutName = LayoutName,
-                IsMaterialsDescriptionEditable = IsMaterialsContainer && IsMaterialsDescriptionEditable,
+                IsMaterialsSubTitleEditable = IsMaterialsContainer && IsMaterialsSubTitleEditable,
                 IsMaterialsNameEditable = IsMaterialsContainer && IsMaterialsNameEditable,
                 ParentId = ParentId,
                 SortNumber = SortNumber,

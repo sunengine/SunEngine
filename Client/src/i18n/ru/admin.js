@@ -19,7 +19,7 @@ export default {
     appendUrlTokenCb: "Добавлять в URL",
     appendUrlTokenInfo: "(использовать только если вы понимаете что это)",
     isMaterialsContainerCb: "Содержит материалы",
-    isMaterialsDescriptionEditableCb: "Возможность редактирования описания материала",
+    isMaterialsSubTitleEditableCb: "Возможность редактирования подписи заголовка материала",
     isMaterialsNameEditableCb: "Возможность редактирования имени (eng) материала (только для админа)",
     isCaching: "Кэшировать содержимое",
     cachingPageCount: "Кэшировать N страниц",

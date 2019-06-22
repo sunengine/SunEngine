@@ -41,7 +41,7 @@ namespace SunEngine.Admin.Presenters
                 Name = x.Name,
                 Title = x.Title,
                 IsMaterialsContainer = x.IsMaterialsContainer,
-                IsMaterialsDescriptionEditable = x.IsMaterialsDescriptionEditable,
+                IsMaterialsSubTitleEditable = x.IsMaterialsSubTitleEditable,
                 IsMaterialsNameEditable = x.IsMaterialsNameEditable,
                 SubTitle = x.SubTitle,
                 Icon = x.Icon,
@@ -69,7 +69,7 @@ namespace SunEngine.Admin.Presenters
                     IsMaterialsContainer = x.IsMaterialsContainer,
                     Header = x.Header,
                     LayoutName = x.LayoutName,
-                    IsMaterialsDescriptionEditable = x.IsMaterialsDescriptionEditable,
+                    IsMaterialsSubTitleEditable = x.IsMaterialsSubTitleEditable,
                     IsMaterialsNameEditable = x.IsMaterialsNameEditable,
                     ParentId = x.ParentId,
                     SortNumber = x.SortNumber,
@@ -122,7 +122,7 @@ namespace SunEngine.Admin.Presenters
 
         public string LayoutName { get; set; }
 
-        public bool IsMaterialsDescriptionEditable { get; set; }
+        public bool IsMaterialsSubTitleEditable { get; set; }
 
         public bool IsMaterialsNameEditable { get; set; }
 

@@ -1,4 +1,4 @@
-import {ArticlesPanel} from 'sun'
+import {ArticlesPanel, store} from 'sun'
 import {ArticlesMultiCatPage} from 'sun'
 import {Categories2} from 'sun'
 import {Material} from 'sun'
@@ -13,6 +13,7 @@ export default {
       name: `cat-${category.name}`,
       params: {}
     };
+
 
     for(const cat0 of category.subCategories) {
       for (const cat1 of cat0.subCategories) {

@@ -83,8 +83,8 @@ namespace SunEngine.DataSeed
                 if (categoryToken["IsMaterialsNameEditable"] != null)
                     category.IsMaterialsNameEditable = (bool) categoryToken["IsMaterialsNameEditable"];
                 
-                if (categoryToken["IsMaterialsDescriptionEditable"] != null)
-                    category.IsMaterialsDescriptionEditable = (bool) categoryToken["IsMaterialsDescriptionEditable"];
+                if (categoryToken["IsMaterialsSubTitleEditable"] != null)
+                    category.IsMaterialsSubTitleEditable = (bool) categoryToken["IsMaterialsSubTitleEditable"];
                 
 
                 dataContainer.Categories.Add(category);

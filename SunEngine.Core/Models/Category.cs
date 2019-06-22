@@ -57,7 +57,7 @@ namespace SunEngine.Core.Models
 
         public string LayoutName { get; set; }
 
-        public bool IsMaterialsDescriptionEditable { get; set; }
+        public bool IsMaterialsSubTitleEditable { get; set; }
         public bool IsMaterialsNameEditable { get; set; }
         public string SettingsJson { get; set; }
 

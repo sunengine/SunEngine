@@ -1,11 +1,13 @@
 import {ArticlesPage} from 'sun'
 import {Material} from 'sun'
 
+
 export default {
   name: 'Articles',
   title: 'Articles',
 
   setCategoryRoute(category) {
+
     category.route = {
       name: `cat-${category.name}`,
       params:  {}

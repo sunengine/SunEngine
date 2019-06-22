@@ -124,7 +124,7 @@ namespace SunEngine.DataSeed
 
             material.Preview = preview;
 
-            if (category.IsMaterialsDescriptionEditable)
+            if (category.IsMaterialsSubTitleEditable)
                 material.Description = "Описание материала: " + material.Title;
             else
                 material.Description = description;
