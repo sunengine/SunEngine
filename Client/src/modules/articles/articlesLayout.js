@@ -6,8 +6,6 @@ export default {
   title: 'Articles',
 
   setCategoryRoute(category) {
-    category.allowMatrialNameEdit = true;
-
     category.route = {
       name: `cat-${category.name}`,
       params:  {}

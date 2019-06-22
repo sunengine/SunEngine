@@ -89,6 +89,7 @@ namespace SunEngine.Admin.Managers
             category.IsHidden = categoryUpdate.IsHidden;
             category.IsCacheContent = categoryUpdate.IsCacheContent;
             category.IsMaterialsDescriptionEditable = categoryUpdate.IsMaterialsDescriptionEditable;
+            category.IsMaterialsNameEditable = categoryUpdate.IsMaterialsNameEditable;
             category.IsMaterialsContainer = categoryUpdate.IsMaterialsContainer;
 
 

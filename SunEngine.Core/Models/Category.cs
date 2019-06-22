@@ -56,9 +56,9 @@ namespace SunEngine.Core.Models
         public int SortNumber { get; set; }
 
         public string LayoutName { get; set; }
-        
-        public bool IsMaterialsDescriptionEditable { get; set; }
 
+        public bool IsMaterialsDescriptionEditable { get; set; }
+        public bool IsMaterialsNameEditable { get; set; }
         public string SettingsJson { get; set; }
 
         /// <summary>

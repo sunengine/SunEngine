@@ -63,6 +63,7 @@ namespace SunEngine.Core.Presenters
                 SortNumber = category.SortNumber,
                 LayoutName = category.LayoutName,
                 IsMaterialsDescriptionEditable = category.IsMaterialsDescriptionEditable,
+                IsMaterialsNameEditable = category.IsMaterialsNameEditable,
                 SettingsJson = category.SettingsJson,
                 IsHidden = category.IsHidden,
 
@@ -126,6 +127,7 @@ namespace SunEngine.Core.Presenters
         public int SortNumber { get; set; }
         public string LayoutName { get; set; }
         public bool IsMaterialsDescriptionEditable { get; set; }
+        public bool IsMaterialsNameEditable { get; set; }
         public object SettingsJson { get; set; }
         public bool IsMaterialsContainer { get; set; }
         public bool IsHidden { get; set; }

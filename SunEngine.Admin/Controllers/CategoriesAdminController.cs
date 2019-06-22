@@ -33,17 +33,14 @@ namespace SunEngine.Admin.Controllers
             CategoryAdminView category;
 
             if (id.HasValue)
-            {
                 category = await categoriesAdminPresenter.GetCategoryAsync(id.Value);
-            }
+            
             else if (name != null)
-            {
                 category = await categoriesAdminPresenter.GetCategoryAsync(name);
-            }
+            
             else
-            {
                 return BadRequest();
-            }
+            
 
             return Json(category);
         }
@@ -77,8 +74,7 @@ namespace SunEngine.Admin.Controllers
         {
             if (!ModelState.IsValid)
                 return ValidationProblem();
-
-
+            
             var category = categoryData.ToCategory();
 
             await categoriesAdminManager.UpdateCategoryAsync(category);
@@ -150,6 +146,8 @@ namespace SunEngine.Admin.Controllers
 
         public bool IsMaterialsDescriptionEditable { get; set; }
 
+        public bool IsMaterialsNameEditable { get; set; }
+        
         public int ParentId { get; set; }
 
         public int SortNumber { get; set; }
@@ -173,6 +171,7 @@ namespace SunEngine.Admin.Controllers
                 Header = Header,
                 LayoutName = LayoutName,
                 IsMaterialsDescriptionEditable = IsMaterialsContainer && IsMaterialsDescriptionEditable,
+                IsMaterialsNameEditable = IsMaterialsContainer && IsMaterialsNameEditable,
                 ParentId = ParentId,
                 SortNumber = SortNumber,
                 IsDeleted = IsDeleted,

@@ -9,16 +9,12 @@ export default {
   title: 'Articles with 1 level subcategories',
 
   setCategoryRoute(category) {
-    category.allowMatrialNameEdit = true;
-
     category.route = {
       name: `cat-${category.name}`,
       params: {}
     };
 
     for (const cat of category.subCategories) {
-      cat.allowMatrialNameEdit = true;
-
       cat.route = {
         name: `cat-${category.name}-cat`,
         params: {

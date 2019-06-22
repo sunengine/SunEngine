@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
 using SunEngine.Core.Models;
@@ -81,6 +80,9 @@ namespace SunEngine.DataSeed
                 if (categoryToken["LayoutName"] != null)
                     category.LayoutName = (string) categoryToken["LayoutName"];
 
+                if (categoryToken["IsMaterialsNameEditable"] != null)
+                    category.IsMaterialsNameEditable = (bool) categoryToken["IsMaterialsNameEditable"];
+                
                 if (categoryToken["IsMaterialsDescriptionEditable"] != null)
                     category.IsMaterialsDescriptionEditable = (bool) categoryToken["IsMaterialsDescriptionEditable"];
                 

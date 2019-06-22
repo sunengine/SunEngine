@@ -9,6 +9,7 @@
         "Name": "Articles1L-[n]",
         "Title": "Раздел [n]",
         "IsMaterialsContainer": true,
+        "IsMaterialsNameEditable": true,
         "IsMaterialsDescriptionEditable": true,
         "Repeat": 2
       }

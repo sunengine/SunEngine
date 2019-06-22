@@ -42,6 +42,7 @@ namespace SunEngine.Admin.Presenters
                 Title = x.Title,
                 IsMaterialsContainer = x.IsMaterialsContainer,
                 IsMaterialsDescriptionEditable = x.IsMaterialsDescriptionEditable,
+                IsMaterialsNameEditable = x.IsMaterialsNameEditable,
                 SubTitle = x.SubTitle,
                 Icon = x.Icon,
                 Header = x.Header,
@@ -69,6 +70,7 @@ namespace SunEngine.Admin.Presenters
                     Header = x.Header,
                     LayoutName = x.LayoutName,
                     IsMaterialsDescriptionEditable = x.IsMaterialsDescriptionEditable,
+                    IsMaterialsNameEditable = x.IsMaterialsNameEditable,
                     ParentId = x.ParentId,
                     SortNumber = x.SortNumber,
                     MaterialsCount = x.Materials.Count,
@@ -119,8 +121,10 @@ namespace SunEngine.Admin.Presenters
         public string Header { get; set; }
 
         public string LayoutName { get; set; }
-        
+
         public bool IsMaterialsDescriptionEditable { get; set; }
+
+        public bool IsMaterialsNameEditable { get; set; }
 
         public int? ParentId { get; set; }
 

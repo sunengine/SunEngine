@@ -73,6 +73,10 @@
                 :label="$tl('isMaterialsContainerCb')"/>
 
     <q-checkbox v-if="category.isMaterialsContainer" :toggle-indeterminate="false"
+                v-model="category.isMaterialsNameEditable"
+                :label="$tl('isMaterialsNameEditableCb')"/>
+
+    <q-checkbox v-if="category.isMaterialsContainer" :toggle-indeterminate="false"
                 v-model="category.isMaterialsDescriptionEditable"
                 :label="$tl('isMaterialsDescriptionEditableCb')"/>
 
@@ -173,6 +177,7 @@
     methods: {
       isMaterialsContainerChanged() {
         this.category.isMaterialsDescriptionEditable = false;
+        this.category.isMaterialsNameEditable = false;
       },
       validate() {
         this.$refs.name.validate();

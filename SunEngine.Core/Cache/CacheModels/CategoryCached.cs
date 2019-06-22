@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -32,15 +31,17 @@ namespace SunEngine.Core.Cache.CacheModels
         public CategoryCached SectionRoot { get; private set; }
 
         public bool IsMaterialsDescriptionEditable { get; }
+        
+        public bool IsMaterialsNameEditable { get; }
 
-        public JRaw SettingsJson { get; private set; }
+        public JRaw SettingsJson { get; }
 
         public int? ParentId { get; }
         public CategoryCached Parent { get; private set; }
 
-        public int? CacheSettingsId { get; set; }
+        public int? CacheSettingsId { get; }
 
-        public CategoryCacheSettings CacheSettings { get; set; }
+        public CategoryCacheSettings CacheSettings { get; }
 
         public IImmutableList<CategoryCached> SubCategories { get; private set; }
 
@@ -52,11 +53,11 @@ namespace SunEngine.Core.Cache.CacheModels
 
         public int SortNumber { get; }
 
-        public string LayoutName { get; private set; }
+        public string LayoutName { get; }
 
         public bool IsHidden { get; }
 
-        public bool IsCacheContent { get; private set; }
+        public bool IsCacheContent { get; }
 
 
         protected bool initialized = false;
@@ -72,6 +73,7 @@ namespace SunEngine.Core.Cache.CacheModels
             Icon = category.Icon;
             Header = category.Header;
             IsMaterialsDescriptionEditable = category.IsMaterialsDescriptionEditable;
+            IsMaterialsNameEditable = category.IsMaterialsNameEditable;
             SettingsJson = SunJson.MakeJRow(category.SettingsJson);
             ParentId = category.ParentId;
             CacheSettingsId = category.CacheSettingsId;
@@ -89,6 +91,7 @@ namespace SunEngine.Core.Cache.CacheModels
         {
             if (initialized)
                 return;
+            
             if (ParentId.HasValue && allCategories.ContainsKey(ParentId.Value))
             {
                 Parent = allCategories[ParentId.Value];

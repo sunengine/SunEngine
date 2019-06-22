@@ -5,6 +5,7 @@
     "LayoutName": "Articles",
     "IsMaterialsContainer": true,
     "IsMaterialsDescriptionEditable": true,
+    "IsMaterialsNameEditable": true,
     "MaterialTypeTitle" : "Статья"
   }
 ]

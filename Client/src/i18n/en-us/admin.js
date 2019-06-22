@@ -20,6 +20,7 @@ export default {
     appendUrlTokenInfo: "(use only if you understand what it is)",
     isMaterialsContainerCb: "Contains materials",
     isMaterialsDescriptionEditableCb: "Possibility to edit material description",
+    isMaterialsNameEditableCb: "Possibility to edit material name (eng), only for admin",
     isCaching: "Caching",
     cachingPageCount: "Cache N pages",
     noTypeLabel: "Without type",
