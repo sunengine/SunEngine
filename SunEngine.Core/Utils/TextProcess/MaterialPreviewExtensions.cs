@@ -8,23 +8,21 @@ namespace SunEngine.Core.Utils.TextProcess
 {
     public static class MaterialExtensions
     {
-        public static void MakePreviewAndDescription(this Material material, int descriptionLength, int previewLength)
+        public static void MakePreviewAndSubTitle(this Material material, int subTitleLength, int previewLength)
         {
-            var (preview, description) = MakePreviewAndDescription(material.Text, descriptionLength, previewLength);
-            material.Description = description;
-            material.Preview = preview;
+            (material.SubTitle, material.Preview) = MakePreviewAndSubTitle(material.Text, subTitleLength, previewLength);
         }
 
 
-        public static (string preview, string description) MakePreviewAndDescription(string html, int descriptionLength,
+        public static (string preview, string subTitle) MakePreviewAndSubTitle(string html, int subTitleLength,
             int previewLength)
         {
             if (html == null)
                 return (null, null);
 
-            (string preview, string description) rez;
+            (string preview, string subTitle) rez;
 
-            HtmlParser parser = new AngleSharp.Parser.Html.HtmlParser();
+            HtmlParser parser = new HtmlParser();
             var doc = parser.Parse(html);
             int currentSize = 0;
             var endText = (IText) FindTextNodePlus(doc.Body, ref currentSize, previewLength);
@@ -35,12 +33,12 @@ namespace SunEngine.Core.Utils.TextProcess
 
             if (string.IsNullOrWhiteSpace(doc.Body.TextContent))
             {
-                rez.description = null;
+                rez.subTitle = null;
             }
             else
             {
-                rez.description = doc.Body.TextContent.Substring(0,
-                                      Math.Min(descriptionLength, doc.Body.TextContent.Length))
+                rez.subTitle = doc.Body.TextContent.Substring(0,
+                                      Math.Min(subTitleLength, doc.Body.TextContent.Length))
                                   + "...";
             }
 
@@ -77,10 +75,8 @@ namespace SunEngine.Core.Utils.TextProcess
                                       "...";
                     return ell;
                 }
-                else
-                {
-                    return null;
-                }
+
+                return null;
             }
 
             foreach (var el in ell.ChildNodes)

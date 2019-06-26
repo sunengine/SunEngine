@@ -90,16 +90,16 @@ namespace SunEngine.Core.Managers
         {
             material.Text = sanitizer.Sanitize(material.Text);
 
-            var (preview, description) = MaterialExtensions.MakePreviewAndDescription(material.Text,
-                materialsOptions.DescriptionLength,
+            var (preview, subTitle) = MaterialExtensions.MakePreviewAndSubTitle(material.Text,
+                materialsOptions.SubTitleLength,
                 materialsOptions.PreviewLength);
 
             material.Preview = preview;
 
             if (isDescriptionEditable)
-                material.Description = SimpleHtmlToText.ClearTags(sanitizer.Sanitize(material.Description));
+                material.SubTitle = SimpleHtmlToText.ClearTags(sanitizer.Sanitize(material.SubTitle));
             else
-                material.Description = description;
+                material.SubTitle = subTitle;
 
             using (db.BeginTransaction())
             {
@@ -115,19 +115,18 @@ namespace SunEngine.Core.Managers
         public virtual async Task UpdateAsync(
             Material material, string tags, bool isDescriptionEditable = false)
         {
-            // TODO можно сделать совместную валидацию, санитайзинг и превью на основе одного DOM
             material.Text = sanitizer.Sanitize(material.Text);
 
-            var (preview, description) = MaterialExtensions.MakePreviewAndDescription(material.Text,
-                materialsOptions.DescriptionLength,
+            var (preview, description) = MaterialExtensions.MakePreviewAndSubTitle(material.Text,
+                materialsOptions.SubTitleLength,
                 materialsOptions.PreviewLength);
 
             material.Preview = preview;
 
             if (isDescriptionEditable)
-                material.Description = SimpleHtmlToText.ClearTags(sanitizer.Sanitize(material.Description));
+                material.SubTitle = SimpleHtmlToText.ClearTags(sanitizer.Sanitize(material.SubTitle));
             else
-                material.Description = description;
+                material.SubTitle = description;
 
             await db.UpdateAsync(material);
 

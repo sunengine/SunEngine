@@ -13,7 +13,7 @@
       </template>
     </q-input>
 
-    <q-input ref="description" v-if="isDescriptionEditable" v-model="material.subTitle"
+    <q-input ref="description" v-if="isSubTitleEditable" v-model="material.subTitle"
              type="textarea" autogrow
              :label="$tl('description')" :rules="rules.subTitle">
       <template v-slot:prepend>
@@ -148,7 +148,7 @@
       category() {
         return this.$store.getters.getCategory(this.material.categoryName);
       },
-      isDescriptionEditable() {
+      isSubTitleEditable() {
         return this.category?.isMaterialsSubTitleEditable;
       }
     },

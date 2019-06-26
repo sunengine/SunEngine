@@ -27,7 +27,7 @@
     "TimeToOwnEditInMinutes": 15,
     "TimeToOwnDeleteInMinutes": 15,
     "TimeToOwnMoveInMinutes": 15,
-    "DescriptionLength": 80,
+    "SubTitleLength": 80,
     "PreviewLength": 850
   },
   "Forum": {

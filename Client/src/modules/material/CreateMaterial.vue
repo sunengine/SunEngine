@@ -38,7 +38,7 @@
           name: null,
           title: '',
           text: '',
-          description: null,
+          subTitle: null,
           tags: [],
           categoryName: this.initialCategoryName,
           isCommentsBlocked: false,

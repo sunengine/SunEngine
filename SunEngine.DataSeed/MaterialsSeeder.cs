@@ -118,16 +118,16 @@ namespace SunEngine.DataSeed
                 SortNumber = id
             };
 
-            var (preview, description) = MaterialExtensions.MakePreviewAndDescription(material.Text,
+            var (preview, description) = MaterialExtensions.MakePreviewAndSubTitle(material.Text,
                 MaterialDescriptionLength,
                 MaterialPreviewLength);
 
             material.Preview = preview;
 
             if (category.IsMaterialsSubTitleEditable)
-                material.Description = "Описание материала: " + material.Title;
+                material.SubTitle = "Описание материала: " + material.Title;
             else
-                material.Description = description;
+                material.SubTitle = description;
 
 
             if (commentsCount > 0)

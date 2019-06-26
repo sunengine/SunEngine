@@ -39,7 +39,7 @@ namespace SunEngine.Core.Presenters
                 {
                     MaterialId = x.Id,
                     Title = x.Title,
-                    Description = x.Description,
+                    Description = x.SubTitle,
                     CategoryName = x.Category.Name,
                     PublishDate = x.PublishDate,
                     AuthorName = x.Author.UserName,
@@ -47,7 +47,7 @@ namespace SunEngine.Core.Presenters
                     AuthorAvatar = x.Author.Avatar
                 }).ToListAsync();
 
-            int descriptionSize = materialsOptions.DescriptionLength;
+            int descriptionSize = materialsOptions.SubTitleLength;
             int descriptionSizeBig = descriptionSize * 2;
 
             var commentsActivities = await db.Comments

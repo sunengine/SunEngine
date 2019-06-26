@@ -6,7 +6,7 @@ namespace SunEngine.Core.Configuration.Options
         public int TimeToOwnEditInMinutes { get;set;}
         public int TimeToOwnDeleteInMinutes { get;set;}
         public int TimeToOwnMoveInMinutes { get;set;}
-        public int DescriptionLength { get;set;}
+        public int SubTitleLength { get;set;}
         public int PreviewLength { get;set;}
     }
 }

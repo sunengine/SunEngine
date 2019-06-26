@@ -93,7 +93,7 @@ namespace SunEngine.Core.Controllers
             await SetNameAsync(material, materialData.Name);
 
             if (category.IsMaterialsSubTitleEditable)
-                material.Description = materialData.Description;
+                material.SubTitle = materialData.SubTitle;
             
             if (materialData.IsHidden && materialsAuthorization.CanHide(User.Roles, category))
                 material.IsHidden = true;
@@ -135,7 +135,7 @@ namespace SunEngine.Core.Controllers
 
             await SetNameAsync(material, materialData.Name);
 
-            material.Description = newCategory.IsMaterialsSubTitleEditable ? materialData.Description : null;
+            material.SubTitle = newCategory.IsMaterialsSubTitleEditable ? materialData.SubTitle : null;
 
             if (material.IsHidden != materialData.IsHidden && materialsAuthorization.CanHide(User.Roles, newCategory))
                 material.IsHidden = materialData.IsHidden;
@@ -265,7 +265,7 @@ namespace SunEngine.Core.Controllers
         public string Title { get; set; }
 
         [MaxLength(DbColumnSizes.Materials_Description)]
-        public string Description { get; set; }
+        public string SubTitle { get; set; }
 
         [Required] public string text { get; set; }
 

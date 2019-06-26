@@ -40,7 +40,7 @@ namespace SunEngine.Core.Presenters
                     Id = x.Id,
                     Name = x.Name,
                     Title = x.Title,
-                    Description = x.Description,
+                    SubTitle = x.SubTitle,
                     AuthorLink = x.Author.Link,
                     AuthorName = x.Author.UserName,
                     AuthorAvatar = x.Author.Avatar,
@@ -64,7 +64,7 @@ namespace SunEngine.Core.Presenters
         public string Name { get; set; }
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; }
+        public string SubTitle { get; set; }
         public string Text { get; set; }
         public string AuthorName { get; set; }
         public int AuthorId { get; set; }
