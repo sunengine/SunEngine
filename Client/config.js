@@ -5,7 +5,8 @@ const config = {
   UploadedImages: 'http://localhost:5000/UploadImages',
   SiteName: 'SunEngine Demo',
 
-  VueDevTools: true,
+  VueDevTools: true,      // Do not use on production
+  VueAppInWindow: true,   // Do not use on production
 
   Log: {
     InitExtended: true,

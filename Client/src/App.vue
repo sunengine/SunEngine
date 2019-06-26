@@ -51,7 +51,11 @@
       }
     },
     beforeCreate() {
-      window.app = app = this;
+      app = this;
+
+      if(config.VueAppInWindow)
+        window.app = this;
+
       this.$store.dispatch('initStore');
     }
   }
