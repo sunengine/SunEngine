@@ -46,7 +46,7 @@ namespace SunEngine.Core.Controllers
 
             ResizeOptions ro = new ResizeOptions
             {
-                Mode = ResizeMode.Max,
+                Mode = ResizeMode.Min,
                 Size = new Size(imagesOptions.MaxWidthPixels, imagesOptions.MaxHeightPixels),
             };
             

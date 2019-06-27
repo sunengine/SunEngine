@@ -70,8 +70,8 @@
 
         if (this.material.name)
           data.name = this.material.name;
-        if (this.material.description)
-          data.description = this.material.description;
+        if (this.material.subTitle)
+          data.subTitle = this.material.subTitle;
 
         this.$store.dispatch('request', {
           url: '/Materials/Create',

@@ -17,7 +17,7 @@ namespace SunEngine.Migrations.Migrations
         public const int FileNameWithDirSize = 28;
         public const int Materials_Name = 32;
         public const int Materials_Title = 256;
-        public const int Materials_Description = Int32.MaxValue;
+        public const int Materials_SubTitle = Int32.MaxValue;
         public const int Tags_Name = 64;
         public const int Roles_Name = 64;
         public const int Roles_Title = 64;

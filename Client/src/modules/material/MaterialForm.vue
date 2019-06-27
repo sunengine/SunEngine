@@ -156,7 +156,7 @@
       validate() {
         this.$refs.name?.validate();
         this.$refs.title.validate();
-        this.$refs.description?.validate();
+        this.$refs.subTitle?.validate();
         this.$refs.htmlEditor.validate();
       }
     },

@@ -28,7 +28,7 @@ namespace SunEngine.DataSeed
         public int MaxMaterialCount = 20;
         public int CommentsCount = 12;
         public bool TitleAppendCategoryName;
-        
+
         private const int MaterialDescriptionLength = 80;
         private const int MaterialPreviewLength = 800;
 
@@ -44,7 +44,7 @@ namespace SunEngine.DataSeed
         {
             foreach (var category in dataContainer.Categories.Where(x => x.IsMaterialsContainer))
             {
-                SeedCategoryWithMaterials(category, category.MaterialTypeTitle,TitleAppendCategoryName);
+                SeedCategoryWithMaterials(category, category.MaterialTypeTitle, TitleAppendCategoryName);
             }
         }
 
@@ -53,24 +53,27 @@ namespace SunEngine.DataSeed
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Seed test materials and comments in memory");
             Console.ResetColor();
-            
+
             SeedCategoryAndSubRec(categoryName);
         }
-        
+
         public void SeedCategoryAndSubRec(string categoryName)
         {
-            var category = dataContainer.Categories.FirstOrDefault(x=>x.NameNormalized == Normalizer.Normalize(categoryName));
-            if (category == null) 
+            var category =
+                dataContainer.Categories.FirstOrDefault(x => x.NameNormalized == Normalizer.Normalize(categoryName));
+            if (category == null)
                 throw new Exception($"No category '{categoryName}' in data base");
 
             if (category.IsMaterialsContainer)
                 SeedCategoryWithMaterials(category, category.MaterialTypeTitle, TitleAppendCategoryName);
 
-            foreach (var subCategory in dataContainer.Categories.Where(x=>x.ParentId.HasValue && x.ParentId.Value == category.Id))
+            foreach (var subCategory in dataContainer.Categories.Where(x =>
+                x.ParentId.HasValue && x.ParentId.Value == category.Id))
                 SeedCategoryAndSubRec(subCategory.Name);
         }
 
-        public void SeedCategoryWithMaterials(Category category, string titleStart = null,
+        public void SeedCategoryWithMaterials(
+            Category category, string titleStart = null,
             bool titleAppendCategoryName = false,
             int? materialsCount = null, LinesCount? linesCount = null)
         {
@@ -78,10 +81,10 @@ namespace SunEngine.DataSeed
                 materialsCount = ran.Next(MinMaterialCount, MaxMaterialCount);
             if (materialsCount == 0)
                 return;
-            
-           
+
+
             Console.WriteLine($"'{category.Name}' category with {materialsCount} mat, {CommentsCount} comm");
-            
+
             if (linesCount == null)
             {
                 linesCount = defaultLinesCount;
@@ -93,19 +96,21 @@ namespace SunEngine.DataSeed
                 if (titleAppendCategoryName)
                     title += $" ({category.Name})";
 
-                SeedMaterial(category, title, CommentsCount ,$"{titleStart ?? "Материал"} {i}, категория {category.Name}", "материал " + i,
+                SeedMaterial(category, title, CommentsCount,
+                    $"{titleStart ?? "Материал"} {i}, категория {category.Name}", "материал " + i,
                     linesCount.Value);
             }
         }
 
-        public Material SeedMaterial(Category category, string title, int commentsCount, string firstLine,
+        public Material SeedMaterial(
+            Category category, string title, int commentsCount, string firstLine,
             string lineElement, LinesCount linesCount)
         {
             var publishDate = dataContainer.IterateCommentPublishDate();
             int linesCountCurrent = ran.Next(linesCount.Min, linesCount.Max);
 
             int id = dataContainer.NextMaterialId();
-            
+
             Material material = new Material
             {
                 Id = id,
@@ -118,7 +123,8 @@ namespace SunEngine.DataSeed
                 SortNumber = id
             };
 
-            var (preview, description) = MaterialExtensions.MakePreviewAndSubTitle(material.Text,
+            var (preview, subTitle) = MaterialExtensions.MakePreviewAndSubTitle(
+                material.Text,
                 MaterialDescriptionLength,
                 MaterialPreviewLength);
 
@@ -127,7 +133,7 @@ namespace SunEngine.DataSeed
             if (category.IsMaterialsSubTitleEditable)
                 material.SubTitle = "Описание материала: " + material.Title;
             else
-                material.SubTitle = description;
+                material.SubTitle = subTitle;
 
 
             if (commentsCount > 0)
@@ -202,7 +208,7 @@ namespace SunEngine.DataSeed
             return sb.ToString();
         }
     }
-    
+
 
     public static class MaterialExtension
     {
