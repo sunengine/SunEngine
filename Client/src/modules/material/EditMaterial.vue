@@ -49,7 +49,7 @@
           name: null,
           title: '',
           text: '',
-          description: null,
+          subTitle: null,
           tags: [],
           isHidden: false,
           isBlockComments: false,

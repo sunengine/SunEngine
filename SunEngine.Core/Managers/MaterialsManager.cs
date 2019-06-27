@@ -90,7 +90,8 @@ namespace SunEngine.Core.Managers
         {
             material.Text = sanitizer.Sanitize(material.Text);
 
-            var (preview, subTitle) = MaterialExtensions.MakePreviewAndSubTitle(material.Text,
+            var (preview, subTitle) = MaterialExtensions.MakePreviewAndSubTitle(
+                material.Text,
                 materialsOptions.SubTitleLength,
                 materialsOptions.PreviewLength);
 

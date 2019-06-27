@@ -64,7 +64,7 @@ export default {
         required: "Введите текст",
         htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
       },
-      description: {
+      subTitle: {
         maxLength: "Максимально допустимая длинна " + config.DbColumnSizes.Materials_Description
       },
       category: {
