@@ -17,13 +17,13 @@
       <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
-      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.4.0" />
-      <PackageReference Include="NJsonSchema" Version="10.0.19" />
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.5.0" />
+      <PackageReference Include="NJsonSchema" Version="10.0.20" />
       <PackageReference Include="Npgsql" Version="4.0.7" />
       <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta0008" />
       <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
       <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0006" />
-      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.4.0" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
       <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
     </ItemGroup>
 
