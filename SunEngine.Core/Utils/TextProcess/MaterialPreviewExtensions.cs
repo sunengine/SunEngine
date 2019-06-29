@@ -10,11 +10,13 @@ namespace SunEngine.Core.Utils.TextProcess
     {
         public static void MakePreviewAndSubTitle(this Material material, int subTitleLength, int previewLength)
         {
-            (material.SubTitle, material.Preview) = MakePreviewAndSubTitle(material.Text, subTitleLength, previewLength);
+            (material.SubTitle, material.Preview) =
+                MakePreviewAndSubTitle(material.Text, subTitleLength, previewLength);
         }
 
 
-        public static (string preview, string subTitle) MakePreviewAndSubTitle(string html, int subTitleLength,
+        public static (string preview, string subTitle) MakePreviewAndSubTitle(
+            string html, int subTitleLength,
             int previewLength)
         {
             if (html == null)
@@ -27,32 +29,23 @@ namespace SunEngine.Core.Utils.TextProcess
             int currentSize = 0;
             var endText = (IText) FindTextNodePlus(doc.Body, ref currentSize, previewLength);
             if (endText != null)
-            {
                 ClearNext(endText);
-            }
 
             if (string.IsNullOrWhiteSpace(doc.Body.TextContent))
-            {
                 rez.subTitle = null;
-            }
+            else if (doc.Body.TextContent.Length <= subTitleLength)
+                rez.subTitle = doc.Body.TextContent.Substring(0, doc.Body.TextContent.Length);
             else
-            {
-                rez.subTitle = doc.Body.TextContent.Substring(0,
-                                      Math.Min(subTitleLength, doc.Body.TextContent.Length))
-                                  + "...";
-            }
+                rez.subTitle = doc.Body.TextContent.Substring(0, subTitleLength) + "...";
+
 
             var img1 = FindFirstBigImage(doc);
             if (img1 != null)
-            {
                 ClearNext(img1);
-            }
 
             var iframe = FindFirstIFrame(doc);
             if (iframe != null)
-            {
                 ClearNext(iframe);
-            }
 
             rez.preview = doc.Body.InnerHtml ?? null;
 
@@ -104,9 +97,7 @@ namespace SunEngine.Core.Utils.TextProcess
         private static void ClearNext(INode ell)
         {
             if (ell == null)
-            {
                 return;
-            }
 
             var cell = ell.NextSibling;
             while (cell != null)
@@ -129,9 +120,7 @@ namespace SunEngine.Core.Utils.TextProcess
             if (node.LastChild == null)
                 return null;
             if (node.LastChild.NodeType == NodeType.Text)
-            {
                 return node;
-            }
 
             return GetLastTextNode(node.LastChild);
         }

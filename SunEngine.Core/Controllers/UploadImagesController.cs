@@ -46,8 +46,8 @@ namespace SunEngine.Core.Controllers
 
             ResizeOptions ro = new ResizeOptions
             {
-                Mode = ResizeMode.Min,
-                Size = new Size(imagesOptions.MaxWidthPixels, imagesOptions.MaxHeightPixels),
+                Mode = ResizeMode.Max,
+                Size = new Size(imagesOptions.MaxWidthPixels, imagesOptions.MaxHeightPixels)
             };
             
             FileAndDir fileAndDir = await imagesService.SaveImageAsync(file, ro);
@@ -72,7 +72,7 @@ namespace SunEngine.Core.Controllers
             {
                 Position = AnchorPositionMode.Center,
                 Mode = ResizeMode.Crop,
-                Size = new Size(imagesOptions.PhotoMaxWidthPixels, imagesOptions.PhotoMaxWidthPixels),
+                Size = new Size(imagesOptions.PhotoMaxWidthPixels, imagesOptions.PhotoMaxWidthPixels)
             };
             
             FileAndDir fileAndDirPhoto = await imagesService.SaveImageAsync(file, resizeOptionsPhoto);
@@ -85,7 +85,7 @@ namespace SunEngine.Core.Controllers
             {
                 Position = AnchorPositionMode.Center,
                 Mode = ResizeMode.Crop,
-                Size = new Size(imagesOptions.AvatarSizePixels, imagesOptions.AvatarSizePixels),
+                Size = new Size(imagesOptions.AvatarSizePixels, imagesOptions.AvatarSizePixels)
             };
             FileAndDir fileAndDirAvatar = await imagesService.SaveImageAsync(file, resizeOptionsAvatar);
             if (fileAndDirAvatar == null)

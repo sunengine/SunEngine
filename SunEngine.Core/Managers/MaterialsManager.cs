@@ -18,8 +18,8 @@ namespace SunEngine.Core.Managers
         Task<int?> GetCategoryIdAsync(int materialId);
         Task<int?> GetCategoryIdAsync(string materialName);
         Task<Material> GetAsync(int id);
-        Task CreateAsync(Material material, string tags, bool isDescriptionEditable);
-        Task UpdateAsync(Material material, string tags, bool isDescriptionEditable);
+        Task CreateAsync(Material material, string tags, bool isSubTitleEditable);
+        Task UpdateAsync(Material material, string tags, bool isSubTitleEditable);
 
         /// <summary>
         /// Set IsDeleted = true
@@ -86,7 +86,7 @@ namespace SunEngine.Core.Managers
         }
 
         public virtual async Task CreateAsync(
-            Material material, string tags, bool isDescriptionEditable = false)
+            Material material, string tags, bool isSubTitleEditable = false)
         {
             material.Text = sanitizer.Sanitize(material.Text);
 
@@ -97,10 +97,9 @@ namespace SunEngine.Core.Managers
 
             material.Preview = preview;
 
-            if (isDescriptionEditable)
-                material.SubTitle = SimpleHtmlToText.ClearTags(sanitizer.Sanitize(material.SubTitle));
-            else
-                material.SubTitle = subTitle;
+            material.SubTitle = isSubTitleEditable ? 
+                SimpleHtmlToText.ClearTags(sanitizer.Sanitize(material.SubTitle)) : 
+                subTitle;
 
             using (db.BeginTransaction())
             {
@@ -114,20 +113,19 @@ namespace SunEngine.Core.Managers
         }
 
         public virtual async Task UpdateAsync(
-            Material material, string tags, bool isDescriptionEditable = false)
+            Material material, string tags, bool isSubTitleEditable = false)
         {
             material.Text = sanitizer.Sanitize(material.Text);
 
-            var (preview, description) = MaterialExtensions.MakePreviewAndSubTitle(material.Text,
+            var (preview, subTitle) = MaterialExtensions.MakePreviewAndSubTitle(material.Text,
                 materialsOptions.SubTitleLength,
                 materialsOptions.PreviewLength);
 
             material.Preview = preview;
 
-            if (isDescriptionEditable)
-                material.SubTitle = SimpleHtmlToText.ClearTags(sanitizer.Sanitize(material.SubTitle));
-            else
-                material.SubTitle = description;
+            material.SubTitle = isSubTitleEditable ? 
+                SimpleHtmlToText.ClearTags(sanitizer.Sanitize(material.SubTitle)) : 
+                subTitle;
 
             await db.UpdateAsync(material);
 

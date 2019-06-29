@@ -12,6 +12,7 @@ using SunEngine.Core.Utils.TextProcess;
 using Xunit;
 using Xunit.Sdk;
 
+
 namespace SunEngine.Tests.SunEngine.Admin.Managers
 {
     public class CategoriesAdminManagerTests
@@ -56,6 +57,7 @@ namespace SunEngine.Tests.SunEngine.Admin.Managers
         private Category DefaultCategory2 => new Category
             {Name = "TestCategory2", ParentId = 1, Title = "TestCategoryTitle2"};
 
+        
         #region Test CreateCategoryAsync
 
         [Fact]
