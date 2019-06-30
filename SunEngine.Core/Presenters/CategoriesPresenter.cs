@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Cache.Services;
+using SunEngine.Core.Models;
 using SunEngine.Core.Security;
 
 namespace SunEngine.Core.Presenters
@@ -62,7 +63,7 @@ namespace SunEngine.Core.Presenters
                 IsMaterialsContainer = category.IsMaterialsContainer,
                 SortNumber = category.SortNumber,
                 LayoutName = category.LayoutName,
-                IsMaterialsSubTitleEditable = category.IsMaterialsSubTitleEditable,
+                MaterialsSubTitleInputType = category.MaterialsSubTitleInputType,
                 IsMaterialsNameEditable = category.IsMaterialsNameEditable,
                 SettingsJson = category.SettingsJson,
                 IsHidden = category.IsHidden,
@@ -126,7 +127,7 @@ namespace SunEngine.Core.Presenters
         public string Header { get; set; }
         public int SortNumber { get; set; }
         public string LayoutName { get; set; }
-        public bool IsMaterialsSubTitleEditable { get; set; }
+        public MaterialsSubTitleInputType MaterialsSubTitleInputType { get; set; }
         public bool IsMaterialsNameEditable { get; set; }
         public object SettingsJson { get; set; }
         public bool IsMaterialsContainer { get; set; }

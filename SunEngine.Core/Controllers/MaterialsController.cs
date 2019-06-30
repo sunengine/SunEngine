@@ -8,6 +8,7 @@ using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
 using SunEngine.Core.Filters;
 using SunEngine.Core.Managers;
+using SunEngine.Core.Models;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Presenters;
 using SunEngine.Core.Security;
@@ -92,9 +93,9 @@ namespace SunEngine.Core.Controllers
 
             await SetNameAsync(material, materialData.Name);
 
-            if (category.IsMaterialsSubTitleEditable)
+            if (category.MaterialsSubTitleInputType == MaterialsSubTitleInputType.Manual)
                 material.SubTitle = materialData.SubTitle;
-            
+
             if (materialData.IsHidden && materialsAuthorization.CanHide(User.Roles, category))
                 material.IsHidden = true;
 
@@ -103,8 +104,8 @@ namespace SunEngine.Core.Controllers
 
             contentCache.InvalidateCache(category.Id);
 
-            await materialsManager.CreateAsync(material, materialData.Tags, category.IsMaterialsSubTitleEditable);
-            
+            await materialsManager.CreateAsync(material, materialData.Tags, category);
+
             return Ok();
         }
 
@@ -135,7 +136,9 @@ namespace SunEngine.Core.Controllers
 
             await SetNameAsync(material, materialData.Name);
 
-            material.SubTitle = newCategory.IsMaterialsSubTitleEditable ? materialData.SubTitle : null;
+            material.SubTitle = newCategory.MaterialsSubTitleInputType == MaterialsSubTitleInputType.Manual
+                ? materialData.SubTitle
+                : null;
 
             if (material.IsHidden != materialData.IsHidden && materialsAuthorization.CanHide(User.Roles, newCategory))
                 material.IsHidden = materialData.IsHidden;
@@ -144,14 +147,11 @@ namespace SunEngine.Core.Controllers
                 materialsAuthorization.CanBlockComments(User.Roles, newCategory))
                 material.IsCommentsBlocked = materialData.IsCommentsBlocked;
 
-            // Если категория новая, то обновляем
             if (material.CategoryId != newCategory.Id
                 && materialsAuthorization.CanMove(User, categoriesCache.GetCategory(material.CategoryId), newCategory))
-            {
                 material.CategoryId = newCategory.Id;
-            }
 
-            await materialsManager.UpdateAsync(material, materialData.Tags, newCategory.IsMaterialsSubTitleEditable);
+            await materialsManager.UpdateAsync(material, materialData.Tags, newCategory);
             return Ok();
         }
 

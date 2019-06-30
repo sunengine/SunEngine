@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography.Xml;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
 using SunEngine.Core.Models;
@@ -82,9 +84,14 @@ namespace SunEngine.DataSeed
 
                 if (categoryToken["IsMaterialsNameEditable"] != null)
                     category.IsMaterialsNameEditable = (bool) categoryToken["IsMaterialsNameEditable"];
-                
-                if (categoryToken["IsMaterialsSubTitleEditable"] != null)
-                    category.IsMaterialsSubTitleEditable = (bool) categoryToken["IsMaterialsSubTitleEditable"];
+
+                if (categoryToken["IsMaterialsGeneratePreview"] != null)
+                    category.IsMaterialsNameEditable = (bool) categoryToken["IsMaterialsGeneratePreview"];
+
+                if (categoryToken["MaterialsSubTitleCreateType"] != null)
+                    if (Enum.TryParse((string) categoryToken["MaterialsSubTitleCreateType"],
+                        out MaterialsSubTitleInputType materialsSubTitleCreateType))
+                        category.MaterialsSubTitleInputType = materialsSubTitleCreateType;
                 
 
                 dataContainer.Categories.Add(category);

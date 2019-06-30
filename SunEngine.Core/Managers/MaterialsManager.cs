@@ -1,11 +1,17 @@
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using AngleSharp.Dom.Html;
+using AngleSharp.Parser.Html;
 using LinqToDB;
 using Microsoft.Extensions.Options;
+using SunEngine.Core.Cache.CacheModels;
+using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
+using SunEngine.Core.Models;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils.TextProcess;
@@ -18,8 +24,8 @@ namespace SunEngine.Core.Managers
         Task<int?> GetCategoryIdAsync(int materialId);
         Task<int?> GetCategoryIdAsync(string materialName);
         Task<Material> GetAsync(int id);
-        Task CreateAsync(Material material, string tags, bool isSubTitleEditable);
-        Task UpdateAsync(Material material, string tags, bool isSubTitleEditable);
+        Task CreateAsync(Material material, string tags, CategoryCached category);
+        Task UpdateAsync(Material material, string tags, CategoryCached category);
 
         /// <summary>
         /// Set IsDeleted = true
@@ -52,6 +58,7 @@ namespace SunEngine.Core.Managers
         protected readonly ITagsManager tagsManager;
         protected readonly Sanitizer sanitizer;
         protected readonly MaterialsOptions materialsOptions;
+        protected readonly ICategoriesCache categoriesCache;
 
         protected readonly Regex nameValidator =
             new Regex("^[a-zA-Z0-9-]{3," + DbColumnSizes.Materials_Name + "}$");
@@ -59,12 +66,14 @@ namespace SunEngine.Core.Managers
         public MaterialsManager(
             DataBaseConnection db,
             Sanitizer sanitizer,
+            ICategoriesCache categoriesCache,
             ITagsManager tagsManager,
             IOptions<MaterialsOptions> materialsOptions) : base(db)
         {
             this.tagsManager = tagsManager;
             this.sanitizer = sanitizer;
             this.materialsOptions = materialsOptions.Value;
+            this.categoriesCache = categoriesCache;
         }
 
 
@@ -85,21 +94,27 @@ namespace SunEngine.Core.Managers
             return db.Materials.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public virtual async Task CreateAsync(
-            Material material, string tags, bool isSubTitleEditable = false)
+        public virtual async Task CreateAsync(Material material, string tags, CategoryCached category)
         {
-            material.Text = sanitizer.Sanitize(material.Text);
+            IHtmlDocument doc = new HtmlParser().Parse(material.Text);
+            
+            material.Text = sanitizer.Sanitize(doc);
+            
+            
+            if(categoriesCache.MaterialsPreviewGenerators.TryGetValue(category.MaterialsPreviewGeneratorName,out Func<IHtmlDocument,int,string> generator))
+                material.Preview = generator(doc,materialsOptions.PreviewLength);
+          
 
-            var (preview, subTitle) = MaterialExtensions.MakePreviewAndSubTitle(
-                material.Text,
-                materialsOptions.SubTitleLength,
-                materialsOptions.PreviewLength);
+            switch (category.MaterialsSubTitleInputType)
+            {
+                case MaterialsSubTitleInputType.Manual:
+                    material.SubTitle = SimpleHtmlToText.ClearTags(sanitizer.Sanitize(material.SubTitle));
+                    break;
+                case MaterialsSubTitleInputType.Auto:
+                    material.SubTitle = MakeSubTitle.Do(doc, materialsOptions.SubTitleLength);
+                    break;
+            }
 
-            material.Preview = preview;
-
-            material.SubTitle = isSubTitleEditable ? 
-                SimpleHtmlToText.ClearTags(sanitizer.Sanitize(material.SubTitle)) : 
-                subTitle;
 
             using (db.BeginTransaction())
             {
@@ -113,19 +128,35 @@ namespace SunEngine.Core.Managers
         }
 
         public virtual async Task UpdateAsync(
-            Material material, string tags, bool isSubTitleEditable = false)
+            Material material,
+            string tags,
+            CategoryCached category)
         {
-            material.Text = sanitizer.Sanitize(material.Text);
+            IHtmlDocument doc = new HtmlParser().Parse(material.Text);
+            
+            material.Text = sanitizer.Sanitize(doc);
 
-            var (preview, subTitle) = MaterialExtensions.MakePreviewAndSubTitle(material.Text,
-                materialsOptions.SubTitleLength,
-                materialsOptions.PreviewLength);
 
-            material.Preview = preview;
+            if (categoriesCache.MaterialsPreviewGenerators.TryGetValue(category.MaterialsPreviewGeneratorName,
+                out Func<IHtmlDocument, int, string> generator))
+                material.Preview = generator(doc, materialsOptions.PreviewLength);
+            else
+                material.Preview = null;
+            
 
-            material.SubTitle = isSubTitleEditable ? 
-                SimpleHtmlToText.ClearTags(sanitizer.Sanitize(material.SubTitle)) : 
-                subTitle;
+            switch (category.MaterialsSubTitleInputType)
+            {
+                case MaterialsSubTitleInputType.Manual:
+                    material.SubTitle = SimpleHtmlToText.ClearTags(sanitizer.Sanitize(material.SubTitle));
+                    break;
+                case MaterialsSubTitleInputType.Auto:
+                    material.SubTitle = MakeSubTitle.Do(doc, materialsOptions.SubTitleLength);
+                    break;
+                default:
+                    material.SubTitle = null;
+                    break;
+            }
+
 
             await db.UpdateAsync(material);
 

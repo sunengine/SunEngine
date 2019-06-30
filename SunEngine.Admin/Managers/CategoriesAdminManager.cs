@@ -43,7 +43,10 @@ namespace SunEngine.Admin.Managers
             category.LayoutName = category.LayoutName?.SetNullIfEmptyTrim();
             category.MaterialTypeTitle = category.MaterialTypeTitle?.SetNullIfEmptyTrim();
             category.Header = sanitizer.Sanitize(category.Header?.SetNullIfEmptyTrim());
-
+            if (!categoriesCache.MaterialsPreviewGenerators.ContainsKey(category.MaterialsPreviewGeneratorName))
+                category.MaterialsPreviewGeneratorName = null;
+            
+            
             var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.ParentId);
 
             if (parent == null)
@@ -88,7 +91,8 @@ namespace SunEngine.Admin.Managers
             category.SettingsJson = categoryUpdate.SettingsJson?.MakeJsonText();
             category.IsHidden = categoryUpdate.IsHidden;
             category.IsCacheContent = categoryUpdate.IsCacheContent;
-            category.IsMaterialsSubTitleEditable = categoryUpdate.IsMaterialsSubTitleEditable;
+            category.MaterialsSubTitleInputType = categoryUpdate.MaterialsSubTitleInputType;
+            category.MaterialsPreviewGeneratorName = categoryUpdate.MaterialsPreviewGeneratorName;
             category.IsMaterialsNameEditable = categoryUpdate.IsMaterialsNameEditable;
             category.IsMaterialsContainer = categoryUpdate.IsMaterialsContainer;
 

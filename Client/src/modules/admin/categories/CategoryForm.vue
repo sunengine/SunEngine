@@ -64,12 +64,13 @@
       </q-menu>
     </q-field>
 
-    <q-select  emit-value map-options :label="$tl('layout')" v-model="category.layoutName"
+    <q-select emit-value map-options :label="$tl('layout')" v-model="category.layoutName"
               :options="layoutOptions">
-      <q-icon slot="prepend" name="fas fa-boxes" />
+      <q-icon slot="prepend" name="fas fa-boxes"/>
     </q-select>
 
-    <q-checkbox :toggle-indeterminate="false" v-model="category.isMaterialsContainer" @input="isMaterialsContainerChanged"
+    <q-checkbox :toggle-indeterminate="false" v-model="category.isMaterialsContainer"
+                @input="isMaterialsContainerChanged"
                 :label="$tl('isMaterialsContainerCb')"/>
 
     <q-checkbox v-if="category.isMaterialsContainer" :toggle-indeterminate="false"
@@ -77,8 +78,13 @@
                 :label="$tl('isMaterialsNameEditableCb')"/>
 
     <q-checkbox v-if="category.isMaterialsContainer" :toggle-indeterminate="false"
-                v-model="category.isMaterialsSubTitleEditable"
-                :label="$tl('isMaterialsSubTitleEditableCb')"/>
+                v-model="category.isMaterialsGeneratePreview"
+                :label="$tl('isMaterialsGeneratePreviewCb')"/>
+
+    <q-select emit-value map-options :label="$tl('materialsSubTitleCreateType')" v-model="category.materialsSubTitleCreateType"
+              :options="materialsSubTitleCreateTypeOptions">
+      <q-icon slot="prepend" name="fas fa-boxes"/>
+    </q-select>
 
     <q-checkbox :toggle-indeterminate="false" v-model="category.isCacheContent" :label="$tl('isCaching')"/>
 
@@ -153,6 +159,25 @@
       }
     },
     computed: {
+      materialsSubTitleCreateTypeOptions() {
+        return [
+          {
+            label: "Отсутствует",
+            name: "None"
+          },
+          {
+            label: "Задавать вручную",
+            name: "Manual"
+          },
+          {
+            label: "Создавать автоматически (в 1им изображение, если есть)",
+            name: "AutoWithImage"
+          },
+          {
+            label: "Создавать автоматически (только текст)",
+            name: "AutoWithoutImage"
+          }]
+      },
       layoutOptions() {
         return Object.getOwnPropertyNames(this.$store.state.layouts.all)
           .filter(x => !x.startsWith('__'))

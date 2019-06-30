@@ -1,4 +1,6 @@
-﻿using Ganss.XSS;
+﻿using AngleSharp.Dom.Html;
+using AngleSharp.Extensions;
+using Ganss.XSS;
 
 namespace SunEngine.Core.Utils.TextProcess
 {
@@ -66,21 +68,36 @@ namespace SunEngine.Core.Utils.TextProcess
         {
             var attributeName = e.Attribute.Name.ToLower();
             var _ = SanitizerBlocksAttributes.AllowOnlyClassList(attributeName, e, allowedClasses)
-                     || SanitizerBlocksAttributes.MakeExternalLinksOpenedNewTab(attributeName, e, siteUrl);
+                    || SanitizerBlocksAttributes.MakeExternalLinksOpenedNewTab(attributeName, e, siteUrl);
         }
 
         private void ForumSanitizer_RemovingTag(object sender, RemovingTagEventArgs e)
         {
             string tagName = e.Tag.TagName.ToLower();
             var _ = SanitizerBlocksTags.CheckIframeAllowedDomens(tagName, e)
-                     || SanitizerBlocksTags.AddImgClasses(tagName, e);
+                    || SanitizerBlocksTags.AddImgClasses(tagName, e);
         }
 
         public string Sanitize(string text)
         {
-            if (string.IsNullOrWhiteSpace(text))
-                return null;
-            return htmlSanitizer.Sanitize(text);
+            return string.IsNullOrWhiteSpace(text) ? 
+                null : 
+                htmlSanitizer.Sanitize(text);
+        }
+
+        public string Sanitize(IHtmlDocument doc)
+        {
+            return doc == null ?
+                null : 
+                htmlSanitizer.SanitizeDoc(doc);
+        }
+    }
+
+    public static class SanitizerExtensions
+    {
+        public static string SanitizeDoc(this HtmlSanitizer htmlSanitizer, IHtmlDocument doc)
+        {
+            return doc.Body.ChildNodes.ToHtml(htmlSanitizer.OutputFormatter);
         }
     }
 }

@@ -1,44 +1,16 @@
-using System;
 using AngleSharp.Dom;
 using AngleSharp.Dom.Html;
-using AngleSharp.Parser.Html;
-using SunEngine.Core.Models.Materials;
 
-namespace SunEngine.Core.Utils.TextProcess
+namespace SunEngine.Core.Utils.TextProcess.PreviewsAnsSubTitle
 {
-    public static class MaterialExtensions
+    public static class MakePreview
     {
-        
-        public static void MakePreviewAndSubTitle(this Material material, int subTitleLength, int previewLength)
+        public static string MakePreviewWithFirstImage(IHtmlDocument doc, int previewLength)
         {
-            (material.SubTitle, material.Preview) =
-                MakePreviewAndSubTitle(material.Text, subTitleLength, previewLength);
-        }
-
-
-        public static (string preview, string subTitle) MakePreviewAndSubTitle(
-            string html, int subTitleLength,
-            int previewLength)
-        {
-            if (html == null)
-                return (null, null);
-
-            (string preview, string subTitle) rez;
-
-            HtmlParser parser = new HtmlParser();
-            var doc = parser.Parse(html);
             int currentSize = 0;
             var endText = (IText) FindTextNodePlus(doc.Body, ref currentSize, previewLength);
             if (endText != null)
                 ClearNext(endText);
-
-            if (string.IsNullOrWhiteSpace(doc.Body.TextContent))
-                rez.subTitle = null;
-            else if (doc.Body.TextContent.Length <= subTitleLength)
-                rez.subTitle = doc.Body.TextContent.Substring(0, doc.Body.TextContent.Length);
-            else
-                rez.subTitle = doc.Body.TextContent.Substring(0, subTitleLength) + "...";
-
 
             var img1 = FindFirstBigImage(doc);
             if (img1 != null)
@@ -48,10 +20,33 @@ namespace SunEngine.Core.Utils.TextProcess
             if (iframe != null)
                 ClearNext(iframe);
 
-            rez.preview = doc.Body.InnerHtml ?? null;
-
-            return rez;
+            return doc.Body.InnerHtml;
         }
+
+        public static string MakePreviewPlainText(IHtmlDocument doc, int previewLength)
+        {
+            if(doc.TextContent.Length < previewLength)
+                return doc.TextContent;
+            else
+                return doc.TextContent.Substring(0, previewLength) + "...";
+        }
+
+        public static string MakePreviewTextWithOutImages(IHtmlDocument doc, int previewLength)
+        {
+            int currentSize = 0;
+            var endText = (IText) FindTextNodePlus(doc.Body, ref currentSize, previewLength);
+            if (endText != null)
+                ClearNext(endText);
+
+            foreach (var element in doc.QuerySelectorAll("iframe"))
+                element.Remove();
+            
+            foreach (var htmlImageElement in doc.Images)
+                htmlImageElement.Remove();
+            
+            return doc.Body.InnerHtml;
+        }
+        
 
         private static IElement FindFirstIFrame(IHtmlDocument doc)
         {
@@ -89,6 +84,7 @@ namespace SunEngine.Core.Utils.TextProcess
             {
                 if (imgEl.Source.ToLower().Contains("emoticons")) // TODO определение смайликов
                     continue;
+                
                 return imgEl;
             }
 

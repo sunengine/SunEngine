@@ -10,6 +10,7 @@ namespace SunEngine.Migrations.Migrations
         public const int Categories_Title = 256;
         public const int Categories_LayoutName = 32;
         public const int Categories_MaterialTypeTitle = 32;
+        public const int Categories_MaterialsPreviewGeneratorName = 32;
         public const int Categories_Icon = 64;
         public const int Users_UserName = 64;
         public const int Users_Email = 64;

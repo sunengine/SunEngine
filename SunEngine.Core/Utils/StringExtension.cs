@@ -10,6 +10,11 @@ namespace SunEngine.Core.Utils
             return str == "" ? null : str;
         }
         
+        public static string SetNullIfEmpty(this string str)
+        {
+            return str == "" ? null : str;
+        }
+        
         public static string MakeJsonText(this string json)
         {
             if (json == null)

@@ -6,6 +6,7 @@ using SunEngine.Admin.Managers;
 using SunEngine.Admin.Presenters;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Models;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.Admin.Controllers
 {
@@ -143,10 +144,12 @@ namespace SunEngine.Admin.Controllers
         public string Header { get; set; }
 
         public string LayoutName { get; set; }
-
-        public bool IsMaterialsSubTitleEditable { get; set; }
-
+        
         public bool IsMaterialsNameEditable { get; set; }
+        
+        public string MaterialsPreviewGeneratorName { get; set; }
+        
+        public MaterialsSubTitleInputType MaterialsSubTitleInputType { get; set; }
         
         public int ParentId { get; set; }
 
@@ -170,8 +173,9 @@ namespace SunEngine.Admin.Controllers
                 IsMaterialsContainer = IsMaterialsContainer,
                 Header = Header,
                 LayoutName = LayoutName,
-                IsMaterialsSubTitleEditable = IsMaterialsContainer && IsMaterialsSubTitleEditable,
                 IsMaterialsNameEditable = IsMaterialsContainer && IsMaterialsNameEditable,
+                MaterialsPreviewGeneratorName = IsMaterialsContainer ?  MaterialsPreviewGeneratorName?.SetNullIfEmpty()  : null,
+                MaterialsSubTitleInputType = IsMaterialsContainer ? MaterialsSubTitleInputType : MaterialsSubTitleInputType.None,
                 ParentId = ParentId,
                 SortNumber = SortNumber,
                 IsDeleted = IsDeleted,

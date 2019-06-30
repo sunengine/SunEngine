@@ -20,6 +20,7 @@ export default {
     appendUrlTokenInfo: "(использовать только если вы понимаете что это)",
     isMaterialsContainerCb: "Содержит материалы",
     isMaterialsSubTitleEditableCb: "Возможность редактирования подписи заголовка материала",
+    isMaterialsGeneratePreviewCb: "Генерировать",
     isMaterialsNameEditableCb: "Возможность редактирования имени (eng) материала (только для админа)",
     isCaching: "Кэшировать содержимое",
     cachingPageCount: "Кэшировать N страниц",

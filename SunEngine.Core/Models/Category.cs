@@ -57,8 +57,12 @@ namespace SunEngine.Core.Models
 
         public string LayoutName { get; set; }
 
-        public bool IsMaterialsSubTitleEditable { get; set; }
         public bool IsMaterialsNameEditable { get; set; }
+        
+        public string MaterialsPreviewGeneratorName { get; set; }
+
+        public MaterialsSubTitleInputType MaterialsSubTitleInputType { get; set; }
+        
         public string SettingsJson { get; set; }
 
         /// <summary>
@@ -75,5 +79,12 @@ namespace SunEngine.Core.Models
         public bool IsHidden { get; set; }
 
         public bool IsCacheContent { get; set; }
+    }
+
+    public enum MaterialsSubTitleInputType : short
+    {
+        None = 0,
+        Manual = 1,
+        Auto = 2
     }
 }

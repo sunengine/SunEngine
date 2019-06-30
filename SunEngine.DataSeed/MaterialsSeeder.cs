@@ -29,7 +29,7 @@ namespace SunEngine.DataSeed
         public int CommentsCount = 12;
         public bool TitleAppendCategoryName;
 
-        private const int MaterialDescriptionLength = 80;
+        private const int MaterialSubTitleLength = 80;
         private const int MaterialPreviewLength = 800;
 
 
@@ -123,17 +123,27 @@ namespace SunEngine.DataSeed
                 SortNumber = id
             };
 
-            var (preview, subTitle) = MaterialExtensions.MakePreviewAndSubTitle(
-                material.Text,
-                MaterialDescriptionLength,
-                MaterialPreviewLength);
+            (string preview, string subTitle) = (null, null);
 
-            material.Preview = preview;
+            if (category.IsMaterialsGeneratePreview ||
+                category.MaterialsSubTitleInputType == MaterialsSubTitleInputType.Auto)
+                MaterialExtensions.MakePreviewAndSubTitle(
+                    material.Text,
+                    MaterialSubTitleLength,
+                    MaterialPreviewLength);
 
-            if (category.IsMaterialsSubTitleEditable)
-                material.SubTitle = "Описание материала: " + material.Title;
-            else
-                material.SubTitle = subTitle;
+            if (category.IsMaterialsGeneratePreview)
+                material.Preview = preview;
+
+            switch (category.MaterialsSubTitleInputType)
+            {
+                case MaterialsSubTitleInputType.Manual:
+                    material.SubTitle = "Описание материала: " + material.Title;
+                    break;
+                case MaterialsSubTitleInputType.Auto:
+                    material.SubTitle = subTitle;
+                    break;
+            }
 
 
             if (commentsCount > 0)

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using AngleSharp.Dom.Html;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
+using SunEngine.Core.Utils.TextProcess.PreviewsAnsSubTitle;
 
 namespace SunEngine.Core.Cache.Services
 {
@@ -17,8 +19,9 @@ namespace SunEngine.Core.Cache.Services
         CategoryCached GetCategory(string name);
         CategoryCached RootCategory { get; }
         IDictionary<string, CategoryCached> GetAllCategoriesIncludeSub(string categoriesList);
+        IDictionary<string, Func<IHtmlDocument, int, string>> MaterialsPreviewGenerators { get; }
     }
-    
+
     /// <summary>
     /// Store categories in cache to fast access for singleton service
     /// </summary>
@@ -31,7 +34,13 @@ namespace SunEngine.Core.Cache.Services
         protected IReadOnlyDictionary<int, CategoryCached> _allCategoriesById;
         protected CategoryCached _rootCategory;
 
+        protected IDictionary<string, Func<IHtmlDocument, int, string>> _materialsPreviewGenerators;
+
         #region Getters
+
+        public IDictionary<string, Func<IHtmlDocument, int, string>> MaterialsPreviewGenerators =>
+            _materialsPreviewGenerators;
+
 
         protected IReadOnlyDictionary<string, CategoryCached> AllCategoriesByNameByName
         {
@@ -108,7 +117,7 @@ namespace SunEngine.Core.Cache.Services
 
             return materialsCategoriesDic;
         }
-        
+
         public void Initialize()
         {
             using (var db = dataBaseFactory.CreateDb())
@@ -118,6 +127,13 @@ namespace SunEngine.Core.Cache.Services
 
                 PrepareCategories(categories);
             }
+
+            _materialsPreviewGenerators = new Dictionary<string, Func<IHtmlDocument, int, string>>
+            {
+                [nameof(MakePreview.MakePreviewPlainText)] = MakePreview.MakePreviewPlainText,
+                [nameof(MakePreview.MakePreviewWithFirstImage)] = MakePreview.MakePreviewWithFirstImage,
+                [nameof(MakePreview.MakePreviewTextWithOutImages)] = MakePreview.MakePreviewTextWithOutImages
+            };
         }
 
         protected void PrepareCategories(Dictionary<int, CategoryCached> categories)
@@ -128,7 +144,7 @@ namespace SunEngine.Core.Cache.Services
             _rootCategory = categories.Values.FirstOrDefault(x => x.Name == Category.RootName);
             if (_rootCategory == null)
                 throw new Exception($"Can not find category '{Category.RootName}' in data base.");
-            
+
             var categoriesList = _rootCategory.Init2AllSub();
             categoriesList.Insert(0, _rootCategory);
 
