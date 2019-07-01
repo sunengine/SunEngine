@@ -101,7 +101,7 @@
         const title = this.$tl('removeRoleConfirmTitle', role.title);
         const message = this.$tl('removeRoleConfirmMessage', role.title);
         const removeRoleConfirmOkBtn = this.$tl('removeRoleConfirmOkBtn');
-        const cancelBtn = this.$tl('removeRoleConfirmCancelBtn.cancel');
+        const cancelBtn = this.$tl('removeRoleConfirmCancelBtn');
 
         this.$q.dialog({
           title: title,

@@ -71,7 +71,7 @@ echo -e "\n${GREEN}Resetting owner of ${REMOTE_DIRECTORY_PATH} to www-data and r
 
 # Make remote folder owner to "www-data".
 # Restart systemctl site service
-ssh root@95.216.139.72 << EOF
+ssh ${REMOTE_USER}@${HOST} << EOF
   chown ${REMOTE_DIRECTORY_OWNER}:${REMOTE_DIRECTORY_OWNER} -R ${REMOTE_DIRECTORY_PATH}
   systemctl restart ${SYSTEMCTL_SERVICE_NAME}
 EOF
