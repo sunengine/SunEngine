@@ -47,6 +47,8 @@ namespace SunEngine.Cli
             DataBaseFactory dataBaseFactory = services.AddDatabase(Configuration); // TODO make internal def
 
             services.AddDbOptions(dataBaseFactory);
+            
+            services.AddSanitizerOptions();
 
             services.AddCaches(dataBaseFactory);
 
@@ -71,7 +73,6 @@ namespace SunEngine.Cli
             services.AddCiphers(dataBaseFactory);
 
             services.AddJobs();
-
 
             services.AddSingleton<CaptchaService>();
             services.AddSingleton<Sanitizer>();
