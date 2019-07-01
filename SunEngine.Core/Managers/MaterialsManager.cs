@@ -101,9 +101,8 @@ namespace SunEngine.Core.Managers
             material.Text = sanitizer.Sanitize(doc);
 
 
-            if (categoriesCache.MaterialsPreviewGenerators.TryGetValue(category.MaterialsPreviewGeneratorName,
-                out Func<IHtmlDocument, int, string> generator))
-                material.Preview = generator(doc, materialsOptions.PreviewLength);
+            var generator = categoriesCache.GetMaterialsPreviewGenerator(category.MaterialsPreviewGeneratorName);
+            material.Preview = generator(doc, materialsOptions.PreviewLength);
 
 
             switch (category.MaterialsSubTitleInputType)
@@ -138,11 +137,8 @@ namespace SunEngine.Core.Managers
             material.Text = sanitizer.Sanitize(doc);
 
 
-            if (categoriesCache.MaterialsPreviewGenerators.TryGetValue(category.MaterialsPreviewGeneratorName ?? "",
-                out Func<IHtmlDocument, int, string> generator))
-                material.Preview = generator(doc, materialsOptions.PreviewLength);
-            else
-                material.Preview = null;
+            var generator = categoriesCache.GetMaterialsPreviewGenerator(category.MaterialsPreviewGeneratorName);
+            material.Preview = generator(doc, materialsOptions.PreviewLength);
 
 
             switch (category.MaterialsSubTitleInputType)

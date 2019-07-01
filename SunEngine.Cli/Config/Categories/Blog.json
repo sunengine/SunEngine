@@ -6,5 +6,6 @@
     "IsMaterialsContainer": true,
     "MaterialLinesCount": "3-30",
     "MaterialTypeTitle" : "Пост",
+    "MaterialsPreviewGeneratorName": "HtmlFirstImage"
   }
 ]

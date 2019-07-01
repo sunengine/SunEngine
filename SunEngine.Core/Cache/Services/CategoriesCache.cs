@@ -20,6 +20,7 @@ namespace SunEngine.Core.Cache.Services
         CategoryCached RootCategory { get; }
         IDictionary<string, CategoryCached> GetAllCategoriesIncludeSub(string categoriesList);
         IDictionary<string, Func<IHtmlDocument, int, string>> MaterialsPreviewGenerators { get; }
+        Func<IHtmlDocument, int, string> GetMaterialsPreviewGenerator(string name);
     }
 
     /// <summary>
@@ -34,13 +35,19 @@ namespace SunEngine.Core.Cache.Services
         protected IReadOnlyDictionary<int, CategoryCached> _allCategoriesById;
         protected CategoryCached _rootCategory;
 
-        protected IDictionary<string, Func<IHtmlDocument, int, string>> _materialsPreviewGenerators;
+        protected IDictionary<string, Func<IHtmlDocument, int, string>> _materialsPreviewGenerators =
+            new Dictionary<string, Func<IHtmlDocument, int, string>>
+            {
+                [nameof(MakePreview.PlainText)] = MakePreview.PlainText,
+                [nameof(MakePreview.HtmlFirstImage)] = MakePreview.HtmlFirstImage,
+                [nameof(MakePreview.HtmlNoImages)] = MakePreview.HtmlNoImages
+            };
 
         #region Getters
 
         public IDictionary<string, Func<IHtmlDocument, int, string>> MaterialsPreviewGenerators =>
             _materialsPreviewGenerators;
-
+        
 
         protected IReadOnlyDictionary<string, CategoryCached> AllCategoriesByNameByName
         {
@@ -83,6 +90,16 @@ namespace SunEngine.Core.Cache.Services
         public CategoriesCache(IDataBaseFactory dataBaseFactory)
         {
             this.dataBaseFactory = dataBaseFactory;
+        }
+        
+        public Func<IHtmlDocument, int, string> GetMaterialsPreviewGenerator(string name)
+        {
+            if(name == null)
+                return MakePreview.None;
+            
+            _materialsPreviewGenerators.TryGetValue(name, out Func<IHtmlDocument, int, string> generator);
+            
+            return generator ?? MakePreview.None;
         }
 
         public CategoryCached GetCategory(int id)
@@ -127,13 +144,6 @@ namespace SunEngine.Core.Cache.Services
 
                 PrepareCategories(categories);
             }
-
-            _materialsPreviewGenerators = new Dictionary<string, Func<IHtmlDocument, int, string>>
-            {
-                [nameof(MakePreview.PlainText)] = MakePreview.PlainText,
-                [nameof(MakePreview.HtmlFirstImage)] = MakePreview.HtmlFirstImage,
-                [nameof(MakePreview.HtmlNoImages)] = MakePreview.HtmlNoImages
-            };
         }
 
         protected void PrepareCategories(Dictionary<int, CategoryCached> categories)

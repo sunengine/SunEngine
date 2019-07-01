@@ -10,7 +10,7 @@
         "Title": "Раздел [n]",
         "IsMaterialsContainer": true,
         "IsMaterialsNameEditable": true,
-        "IsMaterialsSubTitleEditable": true,
+        "MaterialsSubTitleCreateType": "Manual",
         "Repeat": 2
       }
     ]

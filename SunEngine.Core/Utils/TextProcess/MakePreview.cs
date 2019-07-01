@@ -48,6 +48,10 @@ namespace SunEngine.Core.Utils.TextProcess.PreviewsAnsSubTitle
             return doc.Body.InnerHtml;
         }
         
+        public static string None(IHtmlDocument doc, int previewLength)
+        {
+            return null;
+        }
 
         private static IElement FindFirstIFrame(IHtmlDocument doc)
         {

@@ -4,7 +4,7 @@
     "Title": "Статьи",
     "LayoutName": "Articles",
     "IsMaterialsContainer": true,
-    "IsMaterialsSubTitleEditable": true,
+    "MaterialsSubTitleCreateType": "Manual",
     "IsMaterialsNameEditable": true,
     "MaterialTypeTitle" : "Статья"
   }
