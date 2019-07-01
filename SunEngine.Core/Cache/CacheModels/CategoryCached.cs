@@ -76,6 +76,7 @@ namespace SunEngine.Core.Cache.CacheModels
             Header = category.Header;
             IsMaterialsNameEditable = category.IsMaterialsNameEditable;
             MaterialsSubTitleInputType = category.MaterialsSubTitleInputType;
+            MaterialsPreviewGeneratorName = category.MaterialsPreviewGeneratorName;
             SettingsJson = SunJson.MakeJRow(category.SettingsJson);
             ParentId = category.ParentId;
             CacheSettingsId = category.CacheSettingsId;

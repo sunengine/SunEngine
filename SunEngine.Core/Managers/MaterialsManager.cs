@@ -97,13 +97,14 @@ namespace SunEngine.Core.Managers
         public virtual async Task CreateAsync(Material material, string tags, CategoryCached category)
         {
             IHtmlDocument doc = new HtmlParser().Parse(material.Text);
-            
+
             material.Text = sanitizer.Sanitize(doc);
-            
-            
-            if(categoriesCache.MaterialsPreviewGenerators.TryGetValue(category.MaterialsPreviewGeneratorName,out Func<IHtmlDocument,int,string> generator))
-                material.Preview = generator(doc,materialsOptions.PreviewLength);
-          
+
+
+            if (categoriesCache.MaterialsPreviewGenerators.TryGetValue(category.MaterialsPreviewGeneratorName,
+                out Func<IHtmlDocument, int, string> generator))
+                material.Preview = generator(doc, materialsOptions.PreviewLength);
+
 
             switch (category.MaterialsSubTitleInputType)
             {
@@ -133,16 +134,16 @@ namespace SunEngine.Core.Managers
             CategoryCached category)
         {
             IHtmlDocument doc = new HtmlParser().Parse(material.Text);
-            
+
             material.Text = sanitizer.Sanitize(doc);
 
 
-            if (categoriesCache.MaterialsPreviewGenerators.TryGetValue(category.MaterialsPreviewGeneratorName,
+            if (categoriesCache.MaterialsPreviewGenerators.TryGetValue(category.MaterialsPreviewGeneratorName ?? "",
                 out Func<IHtmlDocument, int, string> generator))
                 material.Preview = generator(doc, materialsOptions.PreviewLength);
             else
                 material.Preview = null;
-            
+
 
             switch (category.MaterialsSubTitleInputType)
             {

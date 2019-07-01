@@ -77,13 +77,16 @@
                 v-model="category.isMaterialsNameEditable"
                 :label="$tl('isMaterialsNameEditableCb')"/>
 
-    <q-checkbox v-if="category.isMaterialsContainer" :toggle-indeterminate="false"
-                v-model="category.isMaterialsGeneratePreview"
-                :label="$tl('isMaterialsGeneratePreviewCb')"/>
+    <q-select emit-value map-options v-if="category.isMaterialsContainer" :label="$tl('materialsSubTitleInputType')"
+              v-model="category.materialsSubTitleInputType"
+              :options="materialsSubTitleInputTypeOptions">
+      <q-icon slot="prepend" name="fas fa-info"/>
+    </q-select>
 
-    <q-select emit-value map-options :label="$tl('materialsSubTitleCreateType')" v-model="category.materialsSubTitleCreateType"
-              :options="materialsSubTitleCreateTypeOptions">
-      <q-icon slot="prepend" name="fas fa-boxes"/>
+    <q-select emit-value map-options v-if="category.isMaterialsContainer" :label="$tl('materialsPreviewGeneratorName')"
+              v-model="category.materialsPreviewGeneratorName"
+              :options="materialPreviewGeneratorNamesOptions">
+      <q-icon slot="prepend" name="fas fa-sticky-note"/>
     </q-select>
 
     <q-checkbox :toggle-indeterminate="false" v-model="category.isCacheContent" :label="$tl('isCaching')"/>
@@ -155,27 +158,27 @@
       return {
         root: null,
         all: null,
-        start: true
+        start: true,
+        materialPreviewGeneratorNamesOptions: null
       }
     },
     computed: {
-      materialsSubTitleCreateTypeOptions() {
+      materialsSubTitleInputTypeOptions() {
         return [
           {
             label: "Отсутствует",
-            name: "None"
+            name: "None",
+            value: 0
           },
           {
             label: "Задавать вручную",
-            name: "Manual"
+            name: "Manual",
+            value: 1
           },
           {
-            label: "Создавать автоматически (в 1им изображение, если есть)",
-            name: "AutoWithImage"
-          },
-          {
-            label: "Создавать автоматически (только текст)",
-            name: "AutoWithoutImage"
+            label: "Создавать автоматически",
+            name: "Auto",
+            value: 2
           }]
       },
       layoutOptions() {
@@ -223,6 +226,15 @@
           this.all = data.all;
         }
       );
+
+      await this.$store.dispatch('request',
+        {
+          url: '/Admin/CategoriesAdmin/GetMaterialPreviewGeneratorNames'
+        })
+        .then(response => {
+            this.materialPreviewGeneratorNamesOptions = [{value: null, label: "None"},...response.data.map(x=>{return {value: x, label: x}})];
+          }
+        );
     }
   }
 

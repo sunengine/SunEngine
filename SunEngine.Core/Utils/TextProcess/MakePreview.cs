@@ -1,3 +1,4 @@
+using System.Linq;
 using AngleSharp.Dom;
 using AngleSharp.Dom.Html;
 
@@ -5,7 +6,7 @@ namespace SunEngine.Core.Utils.TextProcess.PreviewsAnsSubTitle
 {
     public static class MakePreview
     {
-        public static string MakePreviewWithFirstImage(IHtmlDocument doc, int previewLength)
+        public static string HtmlFirstImage(IHtmlDocument doc, int previewLength)
         {
             int currentSize = 0;
             var endText = (IText) FindTextNodePlus(doc.Body, ref currentSize, previewLength);
@@ -23,25 +24,25 @@ namespace SunEngine.Core.Utils.TextProcess.PreviewsAnsSubTitle
             return doc.Body.InnerHtml;
         }
 
-        public static string MakePreviewPlainText(IHtmlDocument doc, int previewLength)
+        public static string PlainText(IHtmlDocument doc, int previewLength)
         {
-            if(doc.TextContent.Length < previewLength)
-                return doc.TextContent;
+            if(doc.Body.InnerText.Length < previewLength)
+                return doc.Body.InnerText;
             else
-                return doc.TextContent.Substring(0, previewLength) + "...";
+                return doc.Body.InnerText.Substring(0, previewLength) + "...";
         }
 
-        public static string MakePreviewTextWithOutImages(IHtmlDocument doc, int previewLength)
+        public static string HtmlNoImages(IHtmlDocument doc, int previewLength)
         {
             int currentSize = 0;
             var endText = (IText) FindTextNodePlus(doc.Body, ref currentSize, previewLength);
             if (endText != null)
                 ClearNext(endText);
 
-            foreach (var element in doc.QuerySelectorAll("iframe"))
+            foreach (var element in doc.QuerySelectorAll("iframe").Reverse().ToArray())
                 element.Remove();
             
-            foreach (var htmlImageElement in doc.Images)
+            foreach (var htmlImageElement in doc.Images.Reverse().ToArray())
                 htmlImageElement.Remove();
             
             return doc.Body.InnerHtml;

@@ -6,10 +6,10 @@ namespace SunEngine.Core.Utils.TextProcess
     {
         public static string Do(IHtmlDocument doc, int subTitleLength)
         {
-            if(doc.TextContent.Length < subTitleLength)
-                return doc.TextContent;
+            if(doc.Body.InnerText.Length < subTitleLength)
+                return doc.Body.InnerText;
             else
-                return doc.TextContent.Substring(0, subTitleLength) + "...";
+                return doc.Body.InnerText.Substring(0, subTitleLength) + "...";
         }
     }
 }

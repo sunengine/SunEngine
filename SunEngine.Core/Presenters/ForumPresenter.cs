@@ -36,6 +36,7 @@ namespace SunEngine.Core.Presenters
                 {
                     Id = x.Id,
                     Title = x.Title,
+                    SubTitle = x.SubTitle,
                     CommentsCount = x.CommentsCount,
                     AuthorName = x.Author.UserName,
                     AuthorAvatar = x.Author.Avatar,
@@ -64,6 +65,7 @@ namespace SunEngine.Core.Presenters
                 {
                     Id = x.Id,
                     Title = x.Title,
+                    SubTitle = x.SubTitle,
                     CommentsCount = x.CommentsCount,
                     AuthorName = x.Author.UserName,
                     AuthorAvatar = x.Author.Avatar,
@@ -91,6 +93,7 @@ namespace SunEngine.Core.Presenters
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string SubTitle { get; set; }
         public string AuthorName { get; set; }
         public string AuthorAvatar { get; set; }
         public int CommentsCount { get; set; }

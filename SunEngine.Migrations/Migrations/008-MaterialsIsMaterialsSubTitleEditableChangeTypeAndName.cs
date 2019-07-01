@@ -8,7 +8,7 @@ namespace SunEngine.Migrations.Migrations
         public override void Up()
         {
             Delete.Column("IsMaterialsSubTitleEditable").FromTable("Categories");
-            Create.Column("MaterialsSubTitleCreateType").OnTable("Categories").AsInt16().NotNullable().WithDefaultValue(0);
+            Create.Column("MaterialsSubTitleInputType").OnTable("Categories").AsInt16().NotNullable().WithDefaultValue(0);
             Create.Column("MaterialsPreviewGeneratorName").OnTable("Categories").AsString(DbColumnSizes.Categories_MaterialsPreviewGeneratorName).Nullable();
         }
 

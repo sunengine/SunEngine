@@ -19,6 +19,11 @@
               [{{$tl("hidden")}}]
             </span>
           </q-item-label>
+          <q-item-label v-if="topic.subTitle" class="info-block" caption>
+            <span>
+              {{topic.subTitle}}
+            </span>
+          </q-item-label>
           <q-item-label class="info-block" caption>
               <span>
             {{topic.authorName}}

@@ -43,6 +43,7 @@ namespace SunEngine.Admin.Presenters
                 IsMaterialsContainer = x.IsMaterialsContainer,
                 IsMaterialsNameEditable = x.IsMaterialsNameEditable,
                 MaterialsSubTitleInputType = x.MaterialsSubTitleInputType,
+                MaterialsPreviewGeneratorName = x.MaterialsPreviewGeneratorName,
                 SubTitle = x.SubTitle,
                 Icon = x.Icon,
                 Header = x.Header,

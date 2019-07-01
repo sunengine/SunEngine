@@ -130,9 +130,9 @@ namespace SunEngine.Core.Cache.Services
 
             _materialsPreviewGenerators = new Dictionary<string, Func<IHtmlDocument, int, string>>
             {
-                [nameof(MakePreview.MakePreviewPlainText)] = MakePreview.MakePreviewPlainText,
-                [nameof(MakePreview.MakePreviewWithFirstImage)] = MakePreview.MakePreviewWithFirstImage,
-                [nameof(MakePreview.MakePreviewTextWithOutImages)] = MakePreview.MakePreviewTextWithOutImages
+                [nameof(MakePreview.PlainText)] = MakePreview.PlainText,
+                [nameof(MakePreview.HtmlFirstImage)] = MakePreview.HtmlFirstImage,
+                [nameof(MakePreview.HtmlNoImages)] = MakePreview.HtmlNoImages
             };
         }
 
