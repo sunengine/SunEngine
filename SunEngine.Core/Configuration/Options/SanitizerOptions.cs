@@ -2,14 +2,14 @@ namespace SunEngine.Core.Configuration.Options
 {
     public class SanitizerOptions
     {
-        public string[] AllowedTags { get; set; }
+        public string[] AllowedTags { get; }
         
-        public string[] AllowedAttributes { get; set; }
+        public string[] AllowedAttributes { get; }
         
-        public string[] AllowedClasses { get; set; }
+        public string[] AllowedClasses { get; }
         
-        public string[] AllowedCssProperties { get; set; }
+        public string[] AllowedCssProperties { get; }
         
-        public string[] AllowedVideoDomains { get; set; }
+        public string[] AllowedVideoDomains { get; }
     }
 }
