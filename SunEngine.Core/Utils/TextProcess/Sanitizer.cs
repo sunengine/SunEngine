@@ -1,55 +1,38 @@
 ﻿using AngleSharp.Dom.Html;
 using AngleSharp.Extensions;
 using Ganss.XSS;
+using SunEngine.Core.Configuration.Options;
 
 namespace SunEngine.Core.Utils.TextProcess
 {
     public class Sanitizer
     {
         private readonly HtmlSanitizer htmlSanitizer;
+        private readonly SanitizerOptions options;
         private readonly string siteUrl = "";
 
-        private readonly string[] allowedTags =
+        public Sanitizer(SanitizerOptions options)
         {
-            "a", "b", "strong", "i", "em", "blockquote", "ol", "li", "ul", "ol", "p",
-            "div", "br", "video", "audio", "source", "span", "img", "code", "pre", "font", "h3", "h4", "h5", "h6"
-        };
-
-        private readonly string[] allowedAttributes =
-        {
-            "style", "src", "controls", "autoplay", "loop", "alt",
-            "width", "height", "target", "frameborder", "allowfullscreen", "download", "controlsList", "size"
-        };
-
-        private readonly string[] allowedClasses = {"text-img"};
-
-        private readonly string[] allowedCssProperties =
-        {
-            "float", "margin", "indent", "padding", "color", "text-align",
-            "text-decoration", "font-size", "width", "height", "max-width"
-        };
-
-        public Sanitizer()
-        {
+            this.options = options;
             htmlSanitizer = new HtmlSanitizer();
 
             htmlSanitizer.AllowedTags.Clear();
 
-            foreach (string tag in allowedTags)
+            foreach (string tag in options.AllowedTags)
             {
                 htmlSanitizer.AllowedTags.Add(tag);
             }
 
             htmlSanitizer.AllowedAttributes.Clear();
 
-            foreach (string attribute in allowedAttributes)
+            foreach (string attribute in options.AllowedAttributes)
             {
                 htmlSanitizer.AllowedAttributes.Add(attribute);
             }
 
             htmlSanitizer.AllowedCssProperties.Clear();
 
-            foreach (string cssp in allowedCssProperties)
+            foreach (string cssp in options.AllowedCssProperties)
             {
                 htmlSanitizer.AllowedCssProperties.Add(cssp);
             }
@@ -67,15 +50,15 @@ namespace SunEngine.Core.Utils.TextProcess
         private void ForumSanitizer_RemovingAttribute_Forum(object s, RemovingAttributeEventArgs e)
         {
             var attributeName = e.Attribute.Name.ToLower();
-            var _ = SanitizerBlocksAttributes.AllowOnlyClassList(attributeName, e, allowedClasses)
+            var _ = SanitizerBlocksAttributes.AllowOnlyClassList(attributeName, e, options.AllowedClasses)
                     || SanitizerBlocksAttributes.MakeExternalLinksOpenedNewTab(attributeName, e, siteUrl);
         }
 
         private void ForumSanitizer_RemovingTag(object sender, RemovingTagEventArgs e)
         {
             string tagName = e.Tag.TagName.ToLower();
-            var _ = SanitizerBlocksTags.CheckIframeAllowedDomens(tagName, e)
-                    || SanitizerBlocksTags.AddImgClasses(tagName, e);
+            var _ = CheckIframeAllowedDomens(tagName, e)
+                    || AddImgClasses(tagName, e);
         }
 
         public string Sanitize(string text)
@@ -90,6 +73,39 @@ namespace SunEngine.Core.Utils.TextProcess
             return doc == null ?
                 null : 
                 htmlSanitizer.SanitizeDoc(doc);
+        }
+        
+        private bool CheckIframeAllowedDomens(string tagName, RemovingTagEventArgs e)
+        {
+            if (tagName == "iframe") // вроверяем куда ведёт iframe src, блокируем
+                // всё, кроме разрешённых сайтов
+            {
+                string src = e.Tag.GetAttribute("src").TrimStart().ToLower();
+                foreach (var allowedDomen in options.AllowedVideoDomains)
+                {
+                    if (src.StartsWith(allowedDomen))
+                    {
+                        e.Cancel = true;
+                        return true;
+                    }
+                }
+                e.Cancel = false;
+                return true;
+            }
+            return false;
+        }
+
+        private bool AddImgClasses(string tagName, RemovingTagEventArgs e)
+        {
+            if (tagName == "img") // в любую картинку добавляем img-responsive
+            {
+                if (!e.Tag.GetAttribute("src").Contains("emoticons")) // Кроме смайликов
+                {
+                    e.Tag.ClassList.Add("text-img");
+                }
+                e.Cancel = true;
+            }
+            return false;
         }
     }
 
