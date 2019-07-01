@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Core.Errors;
 using SunEngine.Migrations.Migrations;
 
+
 namespace SunEngine.Migrations
 {
     /// <summary>

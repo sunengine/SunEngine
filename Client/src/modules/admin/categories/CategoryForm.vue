@@ -232,7 +232,9 @@
           url: '/Admin/CategoriesAdmin/GetMaterialPreviewGeneratorNames'
         })
         .then(response => {
-            this.materialPreviewGeneratorNamesOptions = [{value: null, label: "None"},...response.data.map(x=>{return {value: x, label: x}})];
+            this.materialPreviewGeneratorNamesOptions = [{value: null, label: "None"}, ...response.data.map(x => {
+              return {value: x, label: x}
+            })];
           }
         );
     }

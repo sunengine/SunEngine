@@ -1,8 +1,12 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AngleSharp.Dom.Html;
+using AngleSharp.Parser.Html;
 using LinqToDB;
+using Microsoft.Extensions.Options;
 using SunEngine.Core.Cache.Services;
+using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
 using SunEngine.Core.Models;
@@ -16,15 +20,17 @@ namespace SunEngine.Admin.Managers
     {
         private readonly Sanitizer sanitizer;
         private readonly ICategoriesCache categoriesCache;
-
+        private readonly MaterialsOptions materialOptions;
 
         public CategoriesAdminManager(
             DataBaseConnection db,
+            IOptions<MaterialsOptions> materialOptions,
             ICategoriesCache categoriesCache,
             Sanitizer sanitizer) : base(db)
         {
             this.sanitizer = sanitizer;
             this.categoriesCache = categoriesCache;
+            this.materialOptions = materialOptions.Value;
         }
 
 
@@ -45,8 +51,8 @@ namespace SunEngine.Admin.Managers
             category.Header = sanitizer.Sanitize(category.Header?.SetNullIfEmptyTrim());
             if (!categoriesCache.MaterialsPreviewGenerators.ContainsKey(category.MaterialsPreviewGeneratorName))
                 category.MaterialsPreviewGeneratorName = null;
-            
-            
+
+
             var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.ParentId);
 
             if (parent == null)
@@ -92,9 +98,14 @@ namespace SunEngine.Admin.Managers
             category.IsHidden = categoryUpdate.IsHidden;
             category.IsCacheContent = categoryUpdate.IsCacheContent;
             category.MaterialsSubTitleInputType = categoryUpdate.MaterialsSubTitleInputType;
-            category.MaterialsPreviewGeneratorName = categoryUpdate.MaterialsPreviewGeneratorName;
             category.IsMaterialsNameEditable = categoryUpdate.IsMaterialsNameEditable;
             category.IsMaterialsContainer = categoryUpdate.IsMaterialsContainer;
+
+            if (category.MaterialsPreviewGeneratorName != categoryUpdate.MaterialsPreviewGeneratorName)
+            {
+                category.MaterialsPreviewGeneratorName = categoryUpdate.MaterialsPreviewGeneratorName;
+                await RemakeAllMaterialsPreviewsAsync(category);
+            }
 
 
             await db.UpdateAsync(category);
@@ -189,6 +200,25 @@ namespace SunEngine.Admin.Managers
         public Task CategoryMoveToTrashAsync(string name)
         {
             return db.Categories.Where(x => x.Name == name).Set(x => x.IsDeleted, x => true).UpdateAsync();
+        }
+
+        public async Task RemakeAllMaterialsPreviewsAsync(Category category)
+        {
+            if (category == null)
+                throw new SunEntityNotFoundException(nameof(category));
+
+            categoriesCache.MaterialsPreviewGenerators.TryGetValue(category.MaterialsPreviewGeneratorName ?? "",
+                out Func<IHtmlDocument, int, string> generator);
+
+            var materials = await db.Materials.Where(x => x.CategoryId == category.Id).ToListAsync();
+
+            foreach (var material in materials)
+            {
+                material.Preview =
+                    generator?.Invoke(new HtmlParser().Parse(material.Text), materialOptions.PreviewLength);
+                await db.Materials.Where(y => y.Id == material.Id).Set(y => y.Preview, y => material.Preview)
+                    .UpdateAsync();
+            }
         }
     }
 }

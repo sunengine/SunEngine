@@ -3,8 +3,10 @@ using System.Linq;
 using System.Reflection;
 using System.Transactions;
 using LinqToDB;
+using Microsoft.Extensions.Options;
 using SunEngine.Admin.Managers;
 using SunEngine.Core.Cache.Services;
+using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
 using SunEngine.Core.Models;
@@ -48,7 +50,9 @@ namespace SunEngine.Tests.SunEngine.Admin.Managers
             var dbFactory = DefaultInit.GetTestDataBaseFactory();
             var catCache = new CategoriesCache(dbFactory);
 
-            return new CategoriesAdminManager(dbConnection, catCache, new Sanitizer());
+            return new CategoriesAdminManager(dbConnection,
+                Options.Create(new MaterialsOptions {SubTitleLength = 100, PreviewLength = 800}), catCache,
+                new Sanitizer());
         }
 
         private Category DefaultCategory => new Category
@@ -57,7 +61,7 @@ namespace SunEngine.Tests.SunEngine.Admin.Managers
         private Category DefaultCategory2 => new Category
             {Name = "TestCategory2", ParentId = 1, Title = "TestCategoryTitle2"};
 
-        
+
         #region Test CreateCategoryAsync
 
         [Fact]

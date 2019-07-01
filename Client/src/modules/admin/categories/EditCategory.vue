@@ -14,6 +14,7 @@
 
         <q-btn no-caps icon="fas fa-times" class="cancel-btn q-ml-sm" @click="$router.back()" :label="$tl('cancelBtn')"
                color="warning"/>
+
       </div>
     </div>
     <LoaderWait v-else/>
