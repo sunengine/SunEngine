@@ -2,7 +2,7 @@ using System.Linq;
 using AngleSharp.Dom;
 using AngleSharp.Dom.Html;
 
-namespace SunEngine.Core.Utils.TextProcess.PreviewsAnsSubTitle
+namespace SunEngine.Core.Utils.TextProcess
 {
     public static class MakePreview
     {
