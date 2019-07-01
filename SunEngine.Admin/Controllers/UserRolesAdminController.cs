@@ -51,7 +51,7 @@ namespace SunEngine.Admin.Controllers
             var rez = await userManager.AddToRoleAsync(user, roleName);
             if (!rez.Succeeded) return BadRequest();
 
-            await jwtBlackListService.AddUserTokensAsync(userId);
+            await jwtBlackListService.AddAllUserTokensToBlackListAsync(userId);
             return Ok();
         }
 
@@ -62,7 +62,7 @@ namespace SunEngine.Admin.Controllers
             var rez = await userManager.RemoveFromRoleAsync(user, roleName);
             if (!rez.Succeeded) return BadRequest();
 
-            await jwtBlackListService.AddUserTokensAsync(userId);
+            await jwtBlackListService.AddAllUserTokensToBlackListAsync(userId);
             return Ok();
         }
     }

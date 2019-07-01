@@ -1,56 +1,31 @@
 <template>
-  <div>
+  <div class="material-form q-gutter-sm">
 
     <q-input v-if="canEditName" ref="name" v-model="material.name" :label="$tl('name')" :rules="rules.name">
       <template v-slot:prepend>
-        <q-icon name="fas fa-info-circle"/>
+        <q-icon name="fas fa-signature"/>
       </template>
     </q-input>
 
     <q-input ref="title" v-model="material.title" :label="$tl('title')" :rules="rules.title">
       <template v-slot:prepend>
-        <q-icon name="fas fa-info-circle"/>
+        <q-icon name="fas fa-heading"/>
       </template>
     </q-input>
 
-    <q-input ref="description" v-if="canEditDescription" v-model="material.description" type="textarea" autogrow
-             :label="$tl('description')" :rules="rules.description">
+    <q-input ref="description" v-if="isSubTitleEditable" v-model="material.subTitle"
+             type="textarea" autogrow
+             :label="$tl('description')" :rules="rules.subTitle">
       <template v-slot:prepend>
-        <q-icon name="fas fa-info-circle"/>
+        <q-icon name="fas fa-info"/>
       </template>
     </q-input>
 
 
-    <MyEditor
-      :toolbar="[
-          ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
-          ['token', 'hr', 'link', 'addImages'],
-          [
-          {
-            icon: $q.iconSet.editor.formatting,
-            list: 'no-icons',
-            options: ['p', 'h3', 'h4', 'h5', 'h6', 'code']
-          },
-          {
-            icon: $q.iconSet.editor.fontSize,
-            fixedLabel: true,
-            fixedIcon: true,
-            list: 'no-icons',
-            options: ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6', 'size-7']
-          },
-          'removeFormat'
-          ],
-          ['quote', 'unordered', 'ordered', 'outdent', 'indent',
-          {
-            icon: $q.iconSet.editor.align,
-            fixedLabel: true,
-            options: ['left', 'center', 'right', 'justify']
-          }
-          ],
-          ['undo', 'redo', 'fullscreen'],
-             ]"
-      :rules="rules.text"
-      ref="htmlEditor" v-model="material.text"/>
+    <MyEditor content-class="material-text"
+              :toolbar="editorToolbar"
+              :rules="rules.text"
+              ref="htmlEditor" v-model="material.text"/>
 
     <q-select v-model="material.tags" use-input use-chips multiple :label="$tl('tags')"
               hide-dropdown-icon input-debounce="0" new-value-mode="add-unique">
@@ -59,20 +34,59 @@
       </template>
     </q-select>
 
-    <q-btn class="q-mt-md select-category" :label="categoryTitle" no-caps outline icon="fas fa-folder">
-      <q-menu>
-        <q-tree v-close-menu class="q-ma-sm" default-expand-all :selected.sync="material.categoryName"
-                :nodes="categoriesNodes" node-key="value"/>
+
+    <q-field class="cursor-pointer q-mb-md" :error="!material.categoryName && !start" :label="$tl('selectCategory')"
+             :stack-label="!!material.categoryName">
+      <template v-slot:control>
+        <div tabindex="0" class="no-outline full-width">
+          {{categoryTitle}}
+        </div>
+      </template>
+      <template v-slot:prepend>
+        <q-icon name="fas fa-folder" class="q-mr-xs"/>
+      </template>
+      <template v-slot:append>
+        <q-icon name="fas fa-caret-down"></q-icon>
+      </template>
+      <template v-slot:error>
+        {{$tl('validation.category.required')}}
+      </template>
+      <q-menu fit auto-close>
+        <q-tree
+          :nodes="categoriesNodes"
+          default-expand-all
+          :selected.sync="material.categoryName"
+          node-key="name"
+          label-key="title"
+        >
+          <template v-slot:default-header="prop">
+            <div style="margin:0; padding: 0;">
+              <q-icon v-if="prop.node.icon" :name="prop.node.icon" class="q-ml-sm" :color="prop.node.iconColor"
+                      size="16px"/>
+              <span class="q-ml-sm">{{prop.node.title}}</span>
+            </div>
+          </template>
+        </q-tree>
       </q-menu>
-    </q-btn>
-    <div class="error" v-if="!material.categoryName && !start">{{$tl('validation.category.required')}}</div>
+    </q-field>
+
+    <div>
+      <q-checkbox :toggle-indeterminate="false"
+                  v-if="canBlockComments" ref="isCommentsBlocked" v-model="material.isCommentsBlocked"
+                  :label="$tl('blockComments')"/>
+    </div>
+    <div>
+      <q-checkbox :toggle-indeterminate="false" v-if="canHide" ref="isHidden" v-model="material.isHidden"
+                  :label="$tl('hide')"/>
+    </div>
 
   </div>
 </template>
 
 <script>
-  import MyEditor from "MyEditor";
-  import htmlTextSizeOrHasImage from "HtmlTextSizeOrHasImage.js";
+  import {htmlTextSizeOrHasImage} from 'sun'
+  import {materialFormToolbar} from 'sun'
+
 
   function createRules() {
     return {
@@ -91,16 +105,15 @@
         (value) => !!value || this.$tl('validation.text.required'),
         (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$tl('validation.text.htmlTextSizeOrHasImage'),
       ],
-      description: [
-        (value) => !value || value.length <= config.DbColumnSizes.Materials_Description || this.$tl('validation.description.maxLength'),
+      subTitle: [
+        (value) => !value || value.length <= config.DbColumnSizes.Materials_SubTitle || this.$tl('validation.subTitle.maxLength'),
       ]
     }
   }
 
 
   export default {
-    name: "MaterialForm",
-    components: {MyEditor},
+    name: 'MaterialForm',
     props: {
       material: {
         type: Object,
@@ -111,8 +124,7 @@
         required: true
       }
     },
-    rules: null,
-    data: function () {
+    data() {
       return {
         start: true
       }
@@ -121,36 +133,42 @@
       hasError() {
         return this.$refs.title.hasError || this.$refs.htmlEditor.hasError || !this.material.categoryName || this.$refs.description?.hasError || this.$refs.name?.hasError;
       },
-      canEditDescription() {
-        return this.category?.sectionType?.name === 'Articles';
-      },
       canEditName() {
-        return this.$store.state.auth.roles.includes("Admin") && this.category?.sectionType?.name === 'Articles';
+        return this.$store.state.auth.roles.includes('Admin') && this.category?.isMaterialsNameEditable;
+      },
+      canHide() {
+        return this.category?.categoryPersonalAccess?.materialHide;
+      },
+      canBlockComments() {
+        return this.category?.categoryPersonalAccess?.materialBlockCommentsAny;
       },
       categoryTitle() {
-        if (!this.material.categoryName) {
-          return this.$tl("selectCategory");
-        }
-        return this.$tl("category", this.category.title);
+        return this.category?.title;
       },
       category() {
         return this.$store.getters.getCategory(this.material.categoryName);
+      },
+      isSubTitleEditable() {
+        return this.category?.materialsSubTitleInputType === 1;
       }
     },
     methods: {
       validate() {
         this.$refs.name?.validate();
         this.$refs.title.validate();
-        this.$refs.description?.validate();
+        this.$refs.subTitle?.validate();
         this.$refs.htmlEditor.validate();
       }
     },
-    created() {
+    beforeCreate() {
       this.rules = createRules.call(this);
+      this.editorToolbar = materialFormToolbar;
+      this.$options.components.MyEditor = require('sun').MyEditor;
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

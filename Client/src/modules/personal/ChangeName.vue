@@ -1,17 +1,24 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="change-name flex flex-center">
     <div class="center-form">
       <div class="text-grey-7 q-mb-lg">
         {{$tl("nameValidationInfo")}}
       </div>
 
-      <q-input ref="password" v-model="password" type="password" :label="$tl('password')" :rules="rules.passwordRules">
+      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'" :label="$tl('password')" :rules="rules.passwordRules">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
+        <template v-slot:append>
+          <q-icon
+            :name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
+            class="cursor-pointer"
+            @click="showPassword = !showPassword"
+          />
+        </template>
       </q-input>
 
-      <q-input  ref="name"  color="positive" v-model="name" :label="$tl('name')"  @keyup="checkNameInDb"
+      <q-input ref="name" color="positive" v-model="name" :label="$tl('name')" @keyup="checkNameInDb"
                :rules="rules.nameRules" :after="[{
         icon: 'far fa-check-circle',
         condition: nameInDb},
@@ -21,7 +28,7 @@
         </template>
       </q-input>
 
-      <q-btn no-caps class="q-mt-lg" color="send" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
+      <q-btn no-caps class="send-btn q-mt-lg" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
              :loading="submitting">
         <LoaderSent slot="loading"/>
       </q-btn>
@@ -30,41 +37,36 @@
 </template>
 
 <script>
-  import Page from "Page";
-
-  import {makeUserDataFromTokens} from "tokens";
-  import LoaderSent from "LoaderSent";
+  import {Page} from 'sun'
 
 
-  function createRules()
-  {
+  function createRules() {
     return {
-      passwordRules:  [
-        value => !!value || this.$tl("validation.password.required")
+      passwordRules: [
+        value => !!value || this.$tl('validation.password.required')
       ],
       nameRules: [
-        value => !!value || this.$tl("validation.name.required"),
-        value => value.length >= 3 || this.$tl("validation.name.minLength"),
-        value => /^[ a-zA-Zа-яА-ЯёЁ0-9-]*$/.test(value) || this.$tl("validation.name.allowedChars"),
-        value => !this.nameInDb || this.$tl("validation.name.nameInDb")
+        value => !!value || this.$tl('validation.name.required'),
+        value => value.length >= 3 || this.$tl('validation.name.minLength'),
+        value => /^[ a-zA-Zа-яА-ЯёЁ0-9-]*$/.test(value) || this.$tl('validation.name.allowedChars'),
+        value => !this.nameInDb || this.$tl('validation.name.nameInDb')
       ]
     }
   }
 
 
   export default {
-    name: "ChangeName",
+    name: 'ChangeName',
     mixins: [Page],
-    components: {LoaderSent},
-    data: function () {
+    data() {
       return {
         name: this.$store.state.auth.user.name,
         password: null,
+        showPassword: false,
         nameInDb: false,
         submitting: false
       }
     },
-    rules: null,
     methods: {
       checkNameInDb() {
         clearTimeout(this.timeout);
@@ -73,9 +75,9 @@
       checkNameInDbServer() {
         if (this.name.toLowerCase() === this.$store.state.auth.user.name.toLowerCase())
           return;
-        this.$store.dispatch("request",
+        this.$store.dispatch('request',
           {
-            url: "/Personal/CheckNameInDb",
+            url: '/Personal/CheckNameInDb',
             data: {
               name: this.name
             }
@@ -84,7 +86,6 @@
           this.$refs.name.validate();
         })
       },
-
       async save() {
         this.$refs.name.validate();
         this.$refs.password.validate();
@@ -95,27 +96,17 @@
 
         this.submitting = true;
 
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Personal/SetMyName",
+            url: '/Personal/SetMyName',
             data: {
               password: this.password,
               name: this.name,
             }
-          }).then(response => {
+          }).then(async (response) => {
 
-          const data = makeUserDataFromTokens(this.$store.state.auth.tokens);
-          this.$store.commit('setUserData', data);
-
-          const msg = this.$tl("successNotify");
-          this.$q.notify({
-            message: msg,
-            timeout: 2800,
-            color: 'positive',
-            icon: 'fas fa-check-circle',
-            position: 'top'
-          });
-
+          await this.$store.dispatch('loadMyUserInfo');
+          this.$successNotify();
           this.$router.push({name: 'Personal'});
 
         }).catch(error => {
@@ -124,14 +115,18 @@
         });
       }
     },
+    beforeCreate() {
+      this.$options.components.LoaderSent = require('sun').LoaderSent;
+    },
     async created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
 
       this.rules = createRules.call(this);
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
 </style>

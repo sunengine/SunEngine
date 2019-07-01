@@ -15,14 +15,14 @@ namespace SunEngine.Tests
         public void ShouldSetConfigPathToDefaultIfPropertiesNotPassed()
         {
             StartupConfiguration startupConfiguration = new StartupConfiguration(new string[0]);
-            Assert.Equal(GetFullPath(DefaultConfigurationFileName), startupConfiguration.ConfigurationDirectoryRoute);
+            Assert.Equal(GetFullPath(DefaultConfigurationFileName), startupConfiguration.ConfigRootDir);
         }
 
         [Fact]
         public void ShouldSetConfigPathToDefaultIfConfigurationPropertyNotPassed()
         {
             StartupConfiguration startupConfiguration = new StartupConfiguration(new[] {InvalidConfigurationProperty});
-            Assert.Equal(GetFullPath(DefaultConfigurationFileName), startupConfiguration.ConfigurationDirectoryRoute);
+            Assert.Equal(GetFullPath(DefaultConfigurationFileName), startupConfiguration.ConfigRootDir);
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace SunEngine.Tests
         {
             StartupConfiguration startupConfiguration =
                 new StartupConfiguration(new[] {ValidConfigurationProperty + ""});
-            Assert.Equal(GetFullPath(DefaultConfigurationFileName), startupConfiguration.ConfigurationDirectoryRoute);
+            Assert.Equal(GetFullPath(DefaultConfigurationFileName), startupConfiguration.ConfigRootDir);
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace SunEngine.Tests
         {
             StartupConfiguration startupConfiguration =
                 new StartupConfiguration(new[] {ValidConfigurationProperty + " "});
-            Assert.Equal(GetFullPath(DefaultConfigurationFileName), startupConfiguration.ConfigurationDirectoryRoute);
+            Assert.Equal(GetFullPath(DefaultConfigurationFileName), startupConfiguration.ConfigRootDir);
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace SunEngine.Tests
         {
             StartupConfiguration startupConfiguration =
                 new StartupConfiguration(new[] {ValidConfigurationProperty + ValidConfigurationFileName});
-            Assert.Equal(GetFullPath(ValidConfigurationFileName), startupConfiguration.ConfigurationDirectoryRoute);
+            Assert.Equal(GetFullPath(ValidConfigurationFileName), startupConfiguration.ConfigRootDir);
         }
 
         [Fact]

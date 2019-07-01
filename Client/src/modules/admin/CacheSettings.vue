@@ -1,5 +1,5 @@
 <template>
-  <q-page class="page-padding">
+  <q-page class="cache-settings page-padding">
     <div class="header-with-button">
       <h2 class="q-title">{{$tl("title")}}</h2>
       <div class="clear"></div>
@@ -8,23 +8,29 @@
       <div class="q-mt-lg">
         <q-select
           v-model="policy"
-          :label="$tl('CachePolicy')"
-          :options="OptionTypes" />
-        <br />
+          :label="$tl('cachePolicy')"
+          :options="optionTypes">
+          <q-icon slot="prepend" name="fa fa-sitemap" class="q-mr-sm" />
+        </q-select>
+        <br/>
         <div v-if="policy !== null && policy.id !== 1">
-          <q-input v-if="!withoutTime" ref="cacheTime"  type="number"
-            v-model="cacheSettings.invalidateCacheTime"
-            :label="$tl('CacheLifetime')"
-            :rules="rules.invalidateCacheTime" />
+          <q-input v-if="!withoutTime" ref="cacheTime" type="number"
+                   v-model="cacheSettings.invalidateCacheTime"
+                   :label="$tl('cacheLifetime')"
+                   :rules="rules.invalidateCacheTime">
+            <template v-slot:prepend>
+              <q-icon name="fas fa-clock"  class="q-mr-sm" />
+            </template>
+          </q-input>
 
-          <q-checkbox v-model="withoutTime" v-on:input="withoutTimeChanged" :label="$tl('WithoutInvalidationTime')" />
+          <q-checkbox v-model="withoutTime" v-on:input="withoutTimeChanged" :label="$tl('withoutInvalidationTime')"/>
         </div>
       </div>
       <br>
       <div class="btn-block">
-        <q-btn icon="fas fa-plus" class="btn-send" :loading="loading"
-          no-caps :label="$tl('SaveChanges')" color="send"
-          @click="save">
+        <q-btn icon="fas fa-save" class="send-btn" :loading="loading"
+               no-caps :label="$tl('saveChangesBtn')"
+               @click="save">
           <LoaderSent slot="loading"/>
         </q-btn>
       </div>
@@ -33,98 +39,94 @@
 </template>
 
 <script>
-import Page from "Page";
-import LoaderSent from "LoaderSent";
-import { CachePolicies } from "defination";
+  import {Page} from 'sun'
 
-function createRules() {
-  return {
-    invalidateCacheTime: [
-      value => !!value || this.$tl("validation.invalidateCacheTime.required"),
-      value => value >= 0 || this.$tl("validation.invalidateCacheTime.invalidValue")
-    ]
-  }
-}
+  const cachePolicies = {
+    Always: 0,
+    Never: 1,
+    Custom: 2
+  };
 
-export default {
-  name: "CacheSettings",
-  components: {LoaderSent},
-  mixins: [Page],
-  i18nPrefix: "Admin",
-  data: function() {
+
+  function createRules() {
     return {
-      cacheSettings: null,
-      policy: null,
-      loading: false,
-      withoutTime: false,
-      rules: null,
-      OptionTypes: [
-        { id: CachePolicies.Always, label: this.$tl("AlwaysPolicy"), value: "AlwaysPolicy" },
-        { id: CachePolicies.Never, label: this.$tl("NeverPolicy"), value: "NeverPolicy" },
-        { id: CachePolicies.Custom, label: this.$tl("CustomPolicy"), value: "CustomPolicy" }
-      ],
-    };
-  },
-  methods: {
-    async loadCurrentPolicy() {
-      await this.$store
-        .dispatch("request", {
-          url: "/Admin/AdminCacheSettings/GetCurrentCacheSettings"
-        })
-        .then(res => {
-          this.policy = this.OptionTypes[res.data.currentCachePolicy];
-          this.cacheSettings = res.data;
-          this.loading = false;
-          if(this.cacheSettings.invalidateCacheTime === 0) this.withoutTime = true;
-        });
-    },
-    async save() {
-      if(this.policy.id !== CachePolicies.Never && !this.withoutTime) {
-        const cacheTime = this.$refs.cacheTime;
-        cacheTime.validate();
-        if(cacheTime.hasError)
-          return;
-      }
+      invalidateCacheTime: [
+        value => !!value || this.$tl('validation.invalidateCacheTime.required'),
+        value => value >= 0 || this.$tl('validation.invalidateCacheTime.invalidValue')
+      ]
+    }
+  }
 
-      this.loading = true;
-      await this.$store.dispatch("request", {
-        url: "/Admin/AdminCacheSettings/ChangeCachePolicy",
-        data: {
+  export default {
+    name: 'CacheSettings',
+    mixins: [Page],
+    data() {
+      return {
+        cacheSettings: null,
+        policy: null,
+        loading: false,
+        withoutTime: false,
+        optionTypes: [
+          {id: cachePolicies.Always, label: this.$tl('alwaysPolicy'), value: 'AlwaysPolicy'},
+          {id: cachePolicies.Never, label: this.$tl('neverPolicy'), value: 'NeverPolicy'},
+          {id: cachePolicies.Custom, label: this.$tl('customPolicy'), value: 'CustomPolicy'}
+        ],
+      };
+    },
+    methods: {
+      async loadCurrentPolicy() {
+        await this.$store
+          .dispatch('request', {
+            url: '/Admin/AdminCacheSettings/GetCurrentCacheSettings'
+          })
+          .then(res => {
+            this.policy = this.optionTypes[res.data.currentCachePolicy];
+            this.cacheSettings = res.data;
+            this.loading = false;
+            if (this.cacheSettings.invalidateCacheTime === 0) this.withoutTime = true;
+          });
+      },
+      async save() {
+        if (this.policy.id !== cachePolicies.Never && !this.withoutTime) {
+          const cacheTime = this.$refs.cacheTime;
+          cacheTime.validate();
+          if (cacheTime.hasError)
+            return;
+        }
+
+        this.loading = true;
+        await this.$store.dispatch('request', {
+          url: '/Admin/AdminCacheSettings/ChangeCachePolicy',
+          data: {
             selectedPolicy: this.policy.id,
             invalidateCacheTime: !this.withoutTime ? this.cacheSettings.invalidateCacheTime : 0
           },
-      })
-      .then(() => {
-        this.$q.notify({
-          message: this.$tl("successNotify"),
-          timeout: 5000,
-          color: 'positive',
-          icon: 'far fa-check-circle',
-          position: 'top'
-         });
-        this.loading = false;
-      }).catch(error => {
-          this.$q.notify({
-            message: this.$tl("error"),
-            timeout: 5000,
-            color: 'negative',
-            position: 'top'
+        })
+          .then(() => {
+            this.$successNotify();
+            this.loading = false;
+          }).catch(error => {
+            this.$errorNotify(error);
+            this.loading = false;
           });
-        this.loading = false;
-      });
+      },
+      async withoutTimeChanged(value) {
+        if (!value && this.cacheSettings.invalidateCacheTime === 0)
+          this.cacheSettings.invalidateCacheTime = 15;
+      }
     },
-    async withoutTimeChanged(value) {
-      if(!value && this.cacheSettings.invalidateCacheTime === 0)
-        this.cacheSettings.invalidateCacheTime = 15;
-    }
-  },
-  async created() {
-      this.title = this.$tl("title");
+    beforeCreate() {
       this.rules = createRules.call(this);
+      this.$options.components.LoaderSent = require('sun').LoaderSent;
+    },
+    async created() {
+      this.title = this.$tl('title');
       await this.loadCurrentPolicy();
+    }
   }
-};
+
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
+
 </style>

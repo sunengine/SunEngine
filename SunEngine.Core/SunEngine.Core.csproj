@@ -2,28 +2,29 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
+        <Version>1.7.0</Version>
+        <PackageVersion>1.7.0</PackageVersion>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
 
 
     <ItemGroup>
-      <PackageReference Include="Flurl" Version="2.8.1" />
-      <PackageReference Include="HtmlSanitizer" Version="4.0.210" />
-      <PackageReference Include="linq2db" Version="2.6.4" />
+      <PackageReference Include="Flurl" Version="2.8.2" />
+      <PackageReference Include="HtmlSanitizer" Version="4.0.217" />
+      <PackageReference Include="linq2db" Version="2.7.4" />
       <PackageReference Include="linq2db.Identity" Version="2.0.1" />
-      <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.2" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
-      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.4.0" />
-      <PackageReference Include="NJsonSchema" Version="9.13.29" />
-      <PackageReference Include="NLog" Version="4.6.2" />
-      <PackageReference Include="NLog.Config" Version="4.6.2" />
-      <PackageReference Include="Npgsql" Version="4.0.6" />
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.5.0" />
+      <PackageReference Include="NJsonSchema" Version="10.0.20" />
+      <PackageReference Include="Npgsql" Version="4.0.7" />
       <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta0008" />
       <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
       <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0006" />
-      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.4.0" />
-      <PackageReference Include="System.Runtime.Caching" Version="4.6.0-preview4.19212.13" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
+      <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
     </ItemGroup>
 
 </Project>

@@ -5,7 +5,8 @@ module.exports = {
       "babel-preset-proposals",
       {
         "optionalChaining": true,
-        "nullishCoalescingOperator": true
+        "nullishCoalescingOperator": true,
+        "exportDefaultFrom": true
       }
     ]
   ]

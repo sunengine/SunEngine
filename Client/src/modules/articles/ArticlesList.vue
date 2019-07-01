@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="articles-list">
     <LoaderWait v-if="!articles.items"/>
 
     <template v-else>
@@ -21,18 +21,14 @@
 </template>
 
 <script>
-  import LoaderWait from "LoaderWait";
-  import Article from "./Article";
 
   export default {
     name: "ArticlesList",
-    components: {LoaderWait, Article},
-    data: function () {
+    data() {
       return {
         articles: {}
       }
     },
-
     methods: {
       pageChanges(newPage) {
         if (this.currentPage !== newPage) {
@@ -43,10 +39,14 @@
           this.$router.push(req);
         }
       }
+    },
+    beforeCreate() {
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
+      this.$options.components.Article = require('sun').Article;
     }
   }
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

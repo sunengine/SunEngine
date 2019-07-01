@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex middle page-padding">
+  <q-page class="reset-password-failed flex middle page-padding">
     <q-banner rounded class="bg-negative text-white">
       <template v-slot:avatar>
         <q-icon name="fas fa-exclamation-circle" size="2em"/>
@@ -10,17 +10,18 @@
 </template>
 
 <script>
-  import Page from 'Page'
+  import {Page} from 'sun'
 
   export default {
-    name: "ResetPasswordFailed",
+    name: 'ResetPasswordFailed',
     mixins: [Page],
     created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

@@ -5,7 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="System.Runtime.Caching" Version="4.6.0-preview4.19212.13" />
+      <PackageReference Include="NJsonSchema" Version="10.0.20" />
+      <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
     </ItemGroup>
 
     <ItemGroup>

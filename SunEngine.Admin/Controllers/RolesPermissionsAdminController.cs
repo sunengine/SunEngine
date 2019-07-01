@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Services;
-using SunEngine.Core.Errors;
 
 namespace SunEngine.Admin.Controllers
 {
@@ -23,7 +22,7 @@ namespace SunEngine.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> GetJson()
         {
-            var json = await rolesPermissionsAdminService.GetGroupsJsonAsync();
+            var json = await rolesPermissionsAdminService.GetRolesJsonAsync();
 
             return Ok(new {Json = json});
         }
@@ -31,14 +30,7 @@ namespace SunEngine.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadJson(string json)
         {
-            try
-            {
-                await rolesPermissionsAdminService.LoadUserGroupsFromJsonAsync(json);
-            }
-            catch (Exception exception)
-            {
-                return BadRequest(new ErrorView("UploadJsonAdminError", "Error uploading json", ErrorType.System , exception));
-            }
+            await rolesPermissionsAdminService.LoadRolesFromJsonAsync(json);
 
             rolesCache.Reset();
 

@@ -71,7 +71,7 @@ namespace SunEngine.Core.Cache.Services
 
         public bool CacheContent(string key, object content, out string convertedContent)
         {
-            convertedContent = WebJson.Serialize(content);
+            convertedContent = SunJson.Serialize(content);
             return CacheContent(key, convertedContent);
         }
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="activities-list">
     <template v-if="activities">
       <activity :key="activity.materialId + '-' + activity.messageId" :activity="activity"
                 v-for="activity in activities"/>
@@ -9,12 +9,9 @@
 </template>
 
 <script>
-  import Activity from "./Activity";
-  import LoaderWait from "LoaderWait";
 
-  export default {
-    name: "ActivitiesList",
-    components: {LoaderWait, Activity},
+  export default  {
+    name: 'ActivitiesList',
     props: {
       materialsCategories: {
         type: String,
@@ -29,7 +26,7 @@
         required: true
       }
     },
-    data: function () {
+    data() {
       return {
         activities: null
       }
@@ -37,9 +34,9 @@
     methods: {
       async loadData() {
 
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Activities/GetActivities",
+            url: '/Activities/GetActivities',
             data: {
               materialsCategories: this.materialsCategories,
               messagesCategories: this.messagesCategories,
@@ -50,10 +47,12 @@
             response => {
               this.activities = response.data;
             }
-          ).catch(x => {
-            console.log("error", x);
-          });
+          );
       }
+    },
+    beforeCreate() {
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
+      this.$options.components.Activity = require('sun').Activity;
     },
     async created() {
       await this.loadData()
@@ -61,6 +60,6 @@
   }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
 </style>

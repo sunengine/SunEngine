@@ -48,7 +48,7 @@ namespace SunEngine.Core.Security
             return tokens.ContainsKey(shortJwtTokenId);
         }
 
-        public async Task AddUserTokensAsync(int userId)
+        public async Task AddAllUserTokensToBlackListAsync(int userId)
         {
             using (var db = dataBaseFactory.CreateDb())
             {
@@ -56,13 +56,11 @@ namespace SunEngine.Core.Security
                 DateTime exp = DateTime.UtcNow.AddMinutes(jwtOptions.ShortTokenLiveTimeMinutes + 5);
 
                 foreach (var session in sessions)
-                {
-                    Add(session.LongToken2, exp);
-                }
+                    await AddBlackListShortTokenAsync(session.LongToken2, exp);
             }
         }
 
-        private async Task Add(string long2TokenId, DateTime expired)
+        private async Task AddBlackListShortTokenAsync(string long2TokenId, DateTime expired)
         {
             using (var db = dataBaseFactory.CreateDb())
             {
@@ -82,23 +80,9 @@ namespace SunEngine.Core.Security
             {
                 var tokensDic = db.BlackListShortTokens.ToDictionary(x => x.TokenId, x => x.Expire);
                 tokens = new ConcurrentDictionary<string, DateTime>();
+                
                 foreach (var (key, value) in tokensDic)
-                {
                     tokens.TryAdd(key, value);
-                }
-            }
-        }
-
-        public async Task InitializeAsync()
-        {
-            using (var db = dataBaseFactory.CreateDb())
-            {
-                var tokensDic = await db.BlackListShortTokens.ToDictionaryAsync(x => x.TokenId, x => x.Expire);
-                tokens = new ConcurrentDictionary<string, DateTime>();
-                foreach (var (key, value) in tokensDic)
-                {
-                    tokens.TryAdd(key, value);
-                }
             }
         }
 

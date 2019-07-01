@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div :class="['topic', 'row', {'mat-hidden': topic.isHidden}, {'mat-deleted': topic.isDeleted}]">
     <div class="col-xs-12 col-sm-8">
       <q-item class="page-padding" :to='to' style="height:100%">
         <q-item-section avatar>
@@ -9,7 +9,20 @@
         </q-item-section>
         <q-item-section>
           <q-item-label class="my-header">
+            <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="topic.isDeleted"/>
+            <q-icon name="far fa-eye-slash" v-else-if="topic.isHidden" class="q-mr-sm"/>
             {{topic.title}}
+            <span class="q-ml-sm" v-if="topic.isDeleted">
+              [{{$tl("deleted")}}]
+            </span>
+            <span class="q-ml-sm" v-else-if="topic.isHidden">
+              [{{$tl("hidden")}}]
+            </span>
+          </q-item-label>
+          <q-item-label v-if="topic.subTitle" class="info-block" caption>
+            <span>
+              {{topic.subTitle}}
+            </span>
           </q-item-label>
           <q-item-label class="info-block" caption>
               <span>
@@ -33,11 +46,11 @@
     </div>
 
     <div class="last-reply col-xs-12 col-sm-4" v-if="topic.lastCommentId">
-      <q-item :to='toHash'>
+      <q-item :to='toLast'>
         <q-item-section avatar>
           <q-item-label>
             <q-avatar class="shadow-1" size="42px">
-              <img :src="$imagePath(topic.lastCommentAuthorAvatar)"  />
+              <img :src="$imagePath(topic.lastCommentAuthorAvatar)"/>
             </q-avatar>
           </q-item-label>
         </q-item-section>
@@ -59,57 +72,46 @@
 <script>
 
   export default {
-    name: "Topic",
+    name: 'Topic',
     props: {
       topic: Object
     },
     computed: {
       to() {
-        return {
-          name: `forum-${this.category.sectionRoot.name}-cat-mat`,
-          params: {
-            categoryName: this.topic.categoryName.toLowerCase(),
-            id: this.topic.id
-          }
-        };
+        return this.category?.getMaterialRoute(this.topic.id);
       },
-      toHash() {
-        return {
-          name: `forum-${this.category.sectionRoot.name}-cat-mat`,
-          params: {
-            categoryName: this.topic.categoryName.toLowerCase(),
-            id: this.topic.id
-          },
-          hash: '#comment-last'
-        };
+      toLast() {
+        return this.category?.getMaterialRoute(this.topic.id, '#comment-last');
       },
       category() {
         return this.$store.getters.getCategory(this.topic.categoryName);
       }
-
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
-  .q-item {
-    padding-top: 8px;
-    padding-bottom: 8px;
-  }
-
-  .last-reply {
+  .topic {
     .q-item {
-      padding-left: 10px;
+      padding-top: 8px;
+      padding-bottom: 8px;
     }
-  }
 
-  @media (max-width: 576px) {
     .last-reply {
       .q-item {
-        transform: scale(0.88);
-        padding-left: 44px;
-        padding-top: 0;
+        padding-left: 10px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .last-reply {
+        .q-item {
+          transform: scale(0.88);
+          padding-left: 44px;
+          padding-top: 0;
+        }
       }
     }
   }

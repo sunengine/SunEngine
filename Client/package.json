@@ -1,26 +1,25 @@
 {
   "name": "sunengine-client",
-  "version": "1.0.0",
+  "version": "1.7.0",
   "description": "SunEngine - web engine with support of blog, forum and articles functionality",
-  "productName": "SunEngine Client",
-  "author": "Okeanij <dmitrij.polyanin@gmail.com>",
+  "productName": "Sun Engine Client",
+  "author": "Dmitrij Polianin <dmitrij.polyanin@gmail.com>",
   "private": false,
   "scripts": {
     "Client dev run": "quasar dev"
   },
   "dependencies": {
-    "@quasar/extras": "^1.1.2",
-    "axios": "^0.18.0",
+    "@quasar/extras": "^1.1.4",
+    "axios": "^0.19.0",
     "js-lock": "^0.1.1",
-    "quasar": "^1.0.0-beta.21",
-    "vue-i18n": "^8.9.0"
+    "quasar": "^1.0.0-rc.5",
+    "vue-i18n": "^8.11.2"
   },
   "devDependencies": {
-    "@quasar/app": "^1.0.0-beta.22",
+    "@quasar/app": "^1.0.0-rc.7",
     "babel-preset-proposals": "^0.1.0",
     "path": "^0.12.7",
-    "quasar-app-extension-ide-helper": "0.0.5",
-    "strip-ansi": "=3.0.1"
+    "quasar-app-extension-ide-helper": "0.0.5"
   },
   "engines": {
     "node": ">= 8.9.0",
@@ -31,8 +30,5 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 10"
-  ],
-  "resolutions": {
-    "ajv": "6.8.1"
-  }
+  ]
 }

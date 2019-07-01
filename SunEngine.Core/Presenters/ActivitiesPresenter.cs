@@ -32,14 +32,14 @@ namespace SunEngine.Core.Presenters
             int[] commentsCategoriesIds, int number)
         {
             var materialsActivities = await db.Materials
-                .Where(x => materialsCategoriesIds.Contains(x.CategoryId))
+                .Where(x => materialsCategoriesIds.Contains(x.CategoryId) && !x.IsHidden && !x.IsDeleted)
                 .OrderByDescending(x => x.PublishDate)
                 .Take(number)
                 .Select(x => new ActivityView
                 {
                     MaterialId = x.Id,
                     Title = x.Title,
-                    Description = x.Description,
+                    Description = x.SubTitle,
                     CategoryName = x.Category.Name,
                     PublishDate = x.PublishDate,
                     AuthorName = x.Author.UserName,
@@ -47,11 +47,11 @@ namespace SunEngine.Core.Presenters
                     AuthorAvatar = x.Author.Avatar
                 }).ToListAsync();
 
-            int descriptionSize = materialsOptions.DescriptionLength;
+            int descriptionSize = materialsOptions.SubTitleLength;
             int descriptionSizeBig = descriptionSize * 2;
 
             var commentsActivities = await db.Comments
-                .Where(x => commentsCategoriesIds.Contains(x.Material.CategoryId))
+                .Where(x => commentsCategoriesIds.Contains(x.Material.CategoryId) && !x.IsDeleted && !x.Material.IsHidden && !x.Material.IsDeleted)
                 .OrderByDescending(x => x.PublishDate)
                 .Take(number)
                 .Select(x => new ActivityView

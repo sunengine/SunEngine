@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Core.DataBase;
+using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
 
 namespace SunEngine.Core.Presenters
@@ -13,7 +14,7 @@ namespace SunEngine.Core.Presenters
         Task<(CommentView commentViewModel, int categoryId)>
             GetCommentAsync(int commentId);
 
-        Task<List<CommentView>> GetMaterialCommentsAsync(int materialId);
+        Task<List<CommentView>> GetMaterialCommentsAsync(int materialId, bool withDeleted = false);
     }
 
     public class CommentsPresenter : DbService, ICommentsPresenter
@@ -21,7 +22,7 @@ namespace SunEngine.Core.Presenters
         public CommentsPresenter(DataBaseConnection db) : base(db)
         {
         }
-        
+
         public virtual async Task<(CommentView commentViewModel, int categoryId)>
             GetCommentAsync(int commentId)
         {
@@ -47,9 +48,14 @@ namespace SunEngine.Core.Presenters
             return (rez.commentViewModel, rez.categoryId);
         }
 
-        public virtual Task<List<CommentView>> GetMaterialCommentsAsync(int materialId)
+        public virtual Task<List<CommentView>> GetMaterialCommentsAsync(int materialId, bool withDeleted = false)
         {
-            return db.CommentsNotDeleted.Where(x => x.MaterialId == materialId)
+            IQueryable<Comment> query = db.Comments;
+
+            if (!withDeleted)
+                query = query.Where(x => !x.IsDeleted);
+
+            return query.Where(x => x.MaterialId == materialId)
                 .OrderBy(x => x.PublishDate)
                 .Select(
                     x => new CommentView
@@ -65,10 +71,8 @@ namespace SunEngine.Core.Presenters
                         IsDeleted = x.IsDeleted
                     }).ToListAsync();
         }
-
-        
     }
-    
+
     public class CommentView
     {
         public int Id { get; set; }

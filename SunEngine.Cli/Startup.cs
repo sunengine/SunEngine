@@ -43,12 +43,12 @@ namespace SunEngine.Cli
             }
 
             services.AddOptions(Configuration);
-            
-            DataBaseFactory dataBaseFactory = services.AddDatabase(Configuration);
+
+            DataBaseFactory dataBaseFactory = services.AddDatabase(Configuration); // TODO make internal def
 
             services.AddDbOptions(dataBaseFactory);
-            
-            services.AddStores(dataBaseFactory);
+
+            services.AddCaches(dataBaseFactory);
 
             services.AddCachePolicy();
 
@@ -66,11 +66,12 @@ namespace SunEngine.Cli
 
             services.AddMemoryCache();
 
-            services.AddCryptServices();
-
             services.AddImagesServices();
 
+            services.AddCiphers(dataBaseFactory);
+
             services.AddJobs();
+
 
             services.AddSingleton<CaptchaService>();
             services.AddSingleton<Sanitizer>();
@@ -111,7 +112,9 @@ namespace SunEngine.Cli
             }
 
             app.UseAuthentication();
-            app.UseExceptionHandler(errorApp => errorApp.Run(SunExceptionHandler.Handler));
+            
+            app.UseMiddleware<SunExceptionMiddleware>();
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

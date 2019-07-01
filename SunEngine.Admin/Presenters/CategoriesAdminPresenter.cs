@@ -10,7 +10,6 @@ namespace SunEngine.Admin.Presenters
 {
     public interface ICategoriesAdminPresenter
     {
-        Task<SectionType[]> GetAllSectionTypesAsync();
         Task<CategoryAdminView> GetCategoryAsync(int id);
         Task<CategoryAdminView> GetCategoryAsync(string name);
         Task<CategoryAdminView> GetAllCategoriesAsync();
@@ -22,20 +21,15 @@ namespace SunEngine.Admin.Presenters
         {
         }
 
-        public Task<SectionType[]> GetAllSectionTypesAsync()
-        {
-            return db.SectionTypes.OrderBy(x => x.Id).ToArrayAsync();
-        }
-
         public Task<CategoryAdminView> GetCategoryAsync(int id)
         {
-            var query = db.Categories.LoadWith(x => x.SectionType).Where(x => x.Id == id);
+            var query = db.Categories.Where(x => x.Id == id);
             return GetCategoryByQueryAsync(query);
         }
 
         public Task<CategoryAdminView> GetCategoryAsync(string name)
         {
-            var query = db.Categories.LoadWith(x => x.SectionType).Where(x => x.Name == name);
+            var query = db.Categories.Where(x => x.Name == name);
             return GetCategoryByQueryAsync(query);
         }
 
@@ -47,11 +41,13 @@ namespace SunEngine.Admin.Presenters
                 Name = x.Name,
                 Title = x.Title,
                 IsMaterialsContainer = x.IsMaterialsContainer,
-                Description = x.Description,
+                IsMaterialsNameEditable = x.IsMaterialsNameEditable,
+                MaterialsSubTitleInputType = x.MaterialsSubTitleInputType,
+                MaterialsPreviewGeneratorName = x.MaterialsPreviewGeneratorName,
+                SubTitle = x.SubTitle,
+                Icon = x.Icon,
                 Header = x.Header,
-                SectionTypeName = x.SectionType != null ? x.SectionType.Name : null,
-                SectionType = x.SectionType,
-                AppendUrlToken = x.AppendUrlToken,
+                LayoutName = x.LayoutName,
                 ParentId = x.ParentId,
                 SortNumber = x.SortNumber,
                 MaterialsCount = x.Materials.Count,
@@ -63,18 +59,20 @@ namespace SunEngine.Admin.Presenters
 
         public async Task<CategoryAdminView> GetAllCategoriesAsync()
         {
-            var categories = await db.Categories.LoadWith(x => x.SectionType).Where(x=>!x.IsDeleted)
+            var categories = await db.Categories.Where(x => !x.IsDeleted)
                 .OrderBy(x => x.SortNumber).Select(x => new CategoryAdminView
                 {
                     Id = x.Id,
                     Name = x.Name,
                     Title = x.Title,
+                    SubTitle = x.SubTitle,
+                    Icon = x.Icon,
                     IsMaterialsContainer = x.IsMaterialsContainer,
-                    Description = x.Description,
                     Header = x.Header,
-                    SectionTypeName = x.SectionType != null ? x.SectionType.Name : null,
-                    SectionType = x.SectionType,
-                    AppendUrlToken = x.AppendUrlToken,
+                    LayoutName = x.LayoutName,
+                    MaterialsPreviewGeneratorName = x.MaterialsPreviewGeneratorName,
+                    IsMaterialsNameEditable = x.IsMaterialsNameEditable,
+                    MaterialsSubTitleInputType = x.MaterialsSubTitleInputType,
                     ParentId = x.ParentId,
                     SortNumber = x.SortNumber,
                     MaterialsCount = x.Materials.Count,
@@ -93,8 +91,13 @@ namespace SunEngine.Admin.Presenters
                     continue;
                 }
 
+                if (!categories.ContainsKey(category.ParentId.Value))
+                    continue;
+
                 var parent = categories[category.ParentId.Value];
-                if (parent.SubCategories == null) parent.SubCategories = new List<CategoryAdminView>();
+
+                if (parent.SubCategories == null)
+                    parent.SubCategories = new List<CategoryAdminView>();
 
                 parent.SubCategories.Add(category);
             }
@@ -111,18 +114,22 @@ namespace SunEngine.Admin.Presenters
 
         public string Title { get; set; }
 
-        public bool IsMaterialsContainer { get; set; }
+        public string SubTitle { get; set; }
 
-        public string Description { get; set; }
+        public string Icon { get; set; }
+
+        public bool IsMaterialsContainer { get; set; }
 
         public string Header { get; set; }
 
-        public string SectionTypeName { get; set; }
+        public string LayoutName { get; set; }
 
-        public SectionType SectionType { get; set; }
+        public MaterialsSubTitleInputType MaterialsSubTitleInputType { get; set; }
 
-        public bool AppendUrlToken { get; set; }
+        public bool IsMaterialsNameEditable { get; set; }
 
+        public string MaterialsPreviewGeneratorName { get; set; }
+        
         public int? ParentId { get; set; }
 
         public IList<CategoryAdminView> SubCategories { get; set; }
@@ -134,7 +141,7 @@ namespace SunEngine.Admin.Presenters
         public bool IsDeleted { get; set; }
 
         public bool IsHidden { get; set; }
-        
+
         public bool IsCacheContent { get; set; }
     }
 }

@@ -21,7 +21,8 @@ namespace SunEngine.Core.Security
         private readonly DataBaseConnection db;
 
 
-        public CommentsAuthorization(IAuthorizationService authorizationService,
+        public CommentsAuthorization(
+            IAuthorizationService authorizationService,
             IOptions<CommentsOptions> commentsOptions,
             OperationKeysContainer operationKeysContainer,
             DataBaseConnection db)
@@ -33,9 +34,14 @@ namespace SunEngine.Core.Security
             this.db = db;
         }
 
-        public bool HasAccessForGetComments(IReadOnlyDictionary<string,RoleCached> userGroups, int categoryId)
+        public bool HasAccessForGetComments(IReadOnlyDictionary<string, RoleCached> userGroups, int categoryId)
         {
             return authorizationService.HasAccess(userGroups, categoryId, OperationKeys.MaterialAndCommentsRead);
+        }
+        
+        public bool CanSeeDeletedComments(IReadOnlyDictionary<string, RoleCached> userGroups, int categoryId)
+        {
+            return authorizationService.HasAccess(userGroups, categoryId, OperationKeys.CommentDeleteAny);
         }
 
         private bool EditOwnIfTimeNotExceededCheck(DateTime publishDate)
@@ -50,10 +56,9 @@ namespace SunEngine.Core.Security
 
         public async Task<bool> CanEditAsync(SunClaimsPrincipal user, Comment comment, int categoryId)
         {
-            
             var operationKeys = authorizationService.HasAccess(user.Roles, categoryId, new[]
             {
-                OperationKeys.CommentEditOwn, 
+                OperationKeys.CommentEditOwn,
                 OperationKeys.CommentEditAny,
                 OperationKeys.CommentEditOwnIfHasReplies,
                 OperationKeys.CommentEditOwnIfTimeNotExceeded
@@ -79,7 +84,7 @@ namespace SunEngine.Core.Security
                     return false;
                 }
             }
-            
+
             // Если CommentEditOwnIfTimeNotExceeded заблокировано и время редактирования истекло то блокируем
             if (!operationKeys.Contains(OperationKeys.CommentEditOwnIfTimeNotExceeded))
             {
@@ -88,16 +93,16 @@ namespace SunEngine.Core.Security
                     return false;
                 }
             }
-            
+
             // Если CommentEditOwn то разрешаем
             return operationKeys.Contains(OperationKeys.CommentEditOwn);
         }
-        
+
         public async Task<bool> CanMoveToTrashAsync(SunClaimsPrincipal user, Comment comment, int categoryId)
         {
             var operationKeys = authorizationService.HasAccess(user.Roles, categoryId, new[]
             {
-                OperationKeys.CommentDeleteOwn, 
+                OperationKeys.CommentDeleteOwn,
                 OperationKeys.CommentDeleteAny,
                 OperationKeys.CommentDeleteOwnIfHasReplies,
                 OperationKeys.CommentDeleteOwnIfTimeNotExceeded
@@ -123,7 +128,7 @@ namespace SunEngine.Core.Security
                     return false;
                 }
             }
-            
+
             // Если CommentDeleteOwnIfTimeNotExceeded заблокировано и время редактирования истекло то блокируем
             if (!operationKeys.Contains(OperationKeys.CommentDeleteOwnIfTimeNotExceeded))
             {
@@ -132,21 +137,29 @@ namespace SunEngine.Core.Security
                     return false;
                 }
             }
-            
+
             // Если CommentDeleteOwn то разрешаем
             return operationKeys.Contains(OperationKeys.CommentDeleteOwn);
         }
 
         private async Task<bool> CheckHasNotOwnAfterAsync(Comment comment)
         {
-            return await db.Comments.AnyAsync(x => x.MaterialId == comment.MaterialId && 
-                                                      x.AuthorId != comment.AuthorId &&
-                                                      x.PublishDate > comment.PublishDate);
+            return await db.Comments.AnyAsync(x => x.MaterialId == comment.MaterialId &&
+                                                   x.AuthorId != comment.AuthorId &&
+                                                   x.PublishDate > comment.PublishDate);
         }
-        
-        public bool CanAdd(IReadOnlyDictionary<string,RoleCached> userGroups,int categoryId)
+
+        public bool CanAdd(IReadOnlyDictionary<string, RoleCached> userGroups, Material material)
         {
-            return authorizationService.HasAccess(userGroups, categoryId,  OperationKeys.CommentWrite);
-        } 
+            if (material.IsCommentsBlocked)
+                return false;
+
+            return authorizationService.HasAccess(userGroups, material.CategoryId, OperationKeys.CommentWrite);
+        }
+
+        public bool CanAddIfCommentsBlocked(IReadOnlyDictionary<string, RoleCached> userGroups, int categoryId)
+        {
+            return authorizationService.HasAccess(userGroups, categoryId, OperationKeys.CommentWrite);
+        }
     }
 }

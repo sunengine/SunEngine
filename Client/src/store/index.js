@@ -1,11 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import auth from './auth'
-import request from "./request";
-import categories from "store/categories";
-import {getTokens, makeUserDataFromTokens} from "services/tokens";
-import { consoleInit } from "defination";
+import {authModule as auth} from 'sun'
+import {categoriesModule as categories} from 'sun'
+import {menuModule as menu} from 'sun'
+import {adminModule as admin} from 'sun'
+import {layoutsModule as layouts} from 'sun'
+import {rootModule} from 'sun'
+import {setStore} from 'sun'
+import {initLongTokenFromLocalStorage} from  'sun'
+
 
 
 Vue.use(Vuex);
@@ -15,57 +19,27 @@ Vue.use(Vuex);
  * directly export the Store instantiation
  */
 
-export var store;
 
 export default function (/* { ssrContext } */) {
-  store = new Vuex.Store({
-    state: {
-      isInitialized: false,
-      initializeError: false
-    },
-    actions: {
-      request,
-      async init() {
 
-        console.info("%cStartInit", consoleInit);
-
-        initUser(this);
-
-        this.state.auth.user && await this.dispatch('getMyUserInfo').catch(() => {
-        });
-
-        try {
-          !this.state.categories.all && await this.dispatch('getAllCategories');
-
-          this.state.isInitialized = true;
-        } catch (x) {
-          console.error("error", x);
-          this.state.initializeError = true;
-        }
-      },
-    },
+  const store = new Vuex.Store({
+    ...rootModule,
     modules: {
+      admin,
       auth,
-      categories
+      categories,
+      layouts,
+      menu
     }
   });
+
+  setStore(store);
+
+  initLongTokenFromLocalStorage(store);
 
   return store;
 }
 
-function initUser(store) {
-  const tokens = getTokens();
 
-  store.state.auth.tokens = tokens;
 
-  if (tokens) {
-    const userData = makeUserDataFromTokens(tokens);
-    userData.isPermanentLogin = true;
-
-    store.commit('setUserData', userData);
-
-    console.info('%cUser restored from localStorage', consoleInit, userData);
-  }
-
-}
 

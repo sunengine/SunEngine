@@ -10,8 +10,8 @@ namespace SunEngine.Core.Presenters
 {
     public interface IMaterialsPresenter
     {
-        Task<MaterialView> GetViewModelAsync(int id);
-        Task<MaterialView> GetViewModelAsync(string name);
+        Task<MaterialView> GetAsync(int id);
+        Task<MaterialView> GetAsync(string name);
     }
 
     public class MaterialsPresenter : DbService, IMaterialsPresenter
@@ -20,19 +20,19 @@ namespace SunEngine.Core.Presenters
         {
         }
 
-        public virtual Task<MaterialView> GetViewModelAsync(int id)
+        public virtual Task<MaterialView> GetAsync(int id)
         {
             var query = db.Materials.Where(x => x.Id == id);
-            return GetViewModelAsync(query);
+            return GetAsync(query);
         }
 
-        public virtual Task<MaterialView> GetViewModelAsync(string name)
+        public virtual Task<MaterialView> GetAsync(string name)
         {
             var query = db.Materials.Where(x => x.Name == name);
-            return GetViewModelAsync(query);
+            return GetAsync(query);
         }
 
-        protected virtual Task<MaterialView> GetViewModelAsync(IQueryable<Material> query)
+        protected virtual Task<MaterialView> GetAsync(IQueryable<Material> query)
         {
             return query.Select(x =>
                 new MaterialView
@@ -40,7 +40,7 @@ namespace SunEngine.Core.Presenters
                     Id = x.Id,
                     Name = x.Name,
                     Title = x.Title,
-                    Description = x.Description,
+                    SubTitle = x.SubTitle,
                     AuthorLink = x.Author.Link,
                     AuthorName = x.Author.UserName,
                     AuthorAvatar = x.Author.Avatar,
@@ -50,6 +50,8 @@ namespace SunEngine.Core.Presenters
                     CommentsCount = x.CommentsCount,
                     Text = x.Text,
                     CategoryName = x.Category.Name,
+                    IsHidden = x.IsHidden,
+                    IsCommentsBlocked = x.IsCommentsBlocked,
                     IsDeleted = x.IsDeleted,
                     Tags = x.TagMaterials.OrderBy(y => y.Tag.Name).Select(y => y.Tag.Name).ToArray()
                 }
@@ -62,7 +64,7 @@ namespace SunEngine.Core.Presenters
         public string Name { get; set; }
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; }
+        public string SubTitle { get; set; }
         public string Text { get; set; }
         public string AuthorName { get; set; }
         public int AuthorId { get; set; }
@@ -72,6 +74,8 @@ namespace SunEngine.Core.Presenters
         public DateTime PublishDate { get; set; }
         public DateTime? EditDate { get; set; }
         public string CategoryName { get; set; }
+        public bool IsCommentsBlocked { get; set; }
+        public bool IsHidden { get; set; }
         public bool IsDeleted { get; set; }
         public string[] Tags { get; set; }
     }

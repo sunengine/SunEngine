@@ -15,5 +15,7 @@ export default {
   UsernamePasswordInvalid: "Username or password are wrong",
   UserBanned: "User banned",
   MaterialNameNotValid: "Material name is invalid",
-  MaterialNameAlreadyUsed: "Material name already used"
+  MaterialNameAlreadyUsed: "Material name already used",
+  CanNotDeleteRolesItHasUsers: "Can not delete roles with users: {0}, remove users from roles first"
+
 }

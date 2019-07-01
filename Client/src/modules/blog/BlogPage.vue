@@ -1,16 +1,17 @@
 <template>
-  <q-page>
+  <q-page class="blog-page">
     <div class="header-with-button page-padding">
       <h2 class="q-title">
         {{category.title}}
       </h2>
-      <q-btn no-caps @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
+      <q-btn no-caps class="post-btn"
+             @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
              :label="$tl('newPostBtn')"
-             v-if="canAddArticle" icon="fas fa-plus" color="post"/>
+             v-if="canAddArticle" icon="fas fa-plus" />
     </div>
     <div v-html="category.header" v-if="category.header" class="q-mb-sm"></div>
 
-    <PostsList ref="postsList" />
+    <PostsList ref="postsList"/>
 
     <q-pagination class="page-padding q-mt-md" v-if="posts.totalPages > 1" v-model="posts.pageIndex" color="pagination"
                   :max-pages="12" :max="posts.totalPages" ellipses direction-links @input="pageChanges"/>
@@ -20,28 +21,24 @@
 </template>
 
 <script>
-  import LoaderWait from "LoaderWait";
-  import Page from "Page";
-  import PostsList from "./PostsList";
+  import {Page} from 'sun'
+
 
   export default {
-    name: "BlogPage",
+    name: 'BlogPage',
     mixins: [Page],
     props: {
       categoryName: String,
       required: true
     },
-    components: {PostsList, LoaderWait},
-    data: function () {
+    data() {
       return {
         posts: Object,
       }
     },
     watch: {
       'categoryName': 'loadData',
-      '$route': 'loadData',
-      '$store.state.categories.all': 'loadData',
-      '$store.state.auth.user': 'loadData'
+      '$route': 'loadData'
     },
     computed: {
       category() {
@@ -51,8 +48,7 @@
         return this.category?.categoryPersonalAccess?.materialWrite;
       },
       currentPage() {
-        let page = this.$route.query?.page;
-        return page ?? 1;
+        return this.$route.query?.page ?? 1;
       }
     },
 
@@ -69,12 +65,13 @@
 
       async loadData() {
 
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Blog/GetPosts",
+            url: '/Blog/GetPosts',
             data: {
               categoryName: this.categoryName,
-              page: this.currentPage
+              page: this.currentPage,
+              showDeleted: (this.$store.state.admin.showDeletedElements || this.$route.query.deleted) ? true : undefined
             }
           })
           .then(
@@ -82,18 +79,21 @@
               this.$refs.postsList.posts = response.data;
               this.posts = response.data;
             }
-          ).catch(x => {
-            console.log("error", x);
-          });
+          );
       }
     },
-
+    beforeCreate() {
+      this.$options.components.PostsList = require('sun').PostsList;
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
+    },
     async created() {
+      this.title = this.category.title;
       await this.loadData()
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
 </style>

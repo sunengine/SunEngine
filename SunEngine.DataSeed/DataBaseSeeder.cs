@@ -33,9 +33,6 @@ namespace SunEngine.DataSeed
             Console.WriteLine("Data seed Initial in DataBase:");
             Console.ResetColor();
 
-            Console.WriteLine("SectionTypes");
-            db.BulkCopy(options, dataContainer.SectionTypes);
-
             Console.WriteLine("Categories");
             db.BulkCopy(options, dataContainer.Categories);
 
@@ -56,6 +53,12 @@ namespace SunEngine.DataSeed
 
             Console.WriteLine("CategoryOperationAccesses");
             db.BulkCopy(options, dataContainer.CategoryOperationAccesses);
+            
+            Console.WriteLine("MenuItems");
+            db.BulkCopy(options, dataContainer.MenuItems);
+            
+            Console.WriteLine("CipherSecrets");
+            db.BulkCopy(options, dataContainer.CipherSecrets);
 
             if (dataContainer.CacheSettings != null)
             {
@@ -100,8 +103,8 @@ namespace SunEngine.DataSeed
 
                 string[] tablesWithSequenceIds =
                 {
-                    "SectionTypes", "Categories", "AspNetUsers", "Materials", "Comments", "AspNetRoles",
-                    "CategoryAccesses", "Tags"
+                    "Categories", "AspNetUsers", "Materials", "Comments", "AspNetRoles",
+                    "CategoryAccesses", "Tags", "MenuItems"
                 };
 
                 foreach (string tableName in tablesWithSequenceIds)

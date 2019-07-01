@@ -1,6 +1,6 @@
 <template>
   <div id="q-app">
-    <Layout v-if="isInitialized"/>
+    <Layout :key="rerenderKey" v-if="isInitialized"/>
 
     <div v-else-if="!initializeError" class="loader">
       <div>
@@ -21,38 +21,69 @@
 </template>
 
 <script>
-  import Layout from "site/Layout";
-  import {mapState} from 'vuex';
+  import {mapState} from 'vuex'
+  import Vue from 'vue'
+
+
+  import {Layout} from 'sun'
+
+
+  var app;
+
+
+  Vue.config.devtools = config.VueDevTools;
+
 
   export default {
     name: 'App',
     components: {Layout},
+    data() {
+      return {
+        rerenderKey: 1
+      }
+    },
     computed: {
       ...mapState(['isInitialized', 'initializeError'])
     },
-    created() {
-      this.$store.dispatch('init');
+    methods: {
+      rerender() {
+        this.rerenderKey += 1;
+      }
+    },
+    beforeCreate() {
+      app = this;
+
+      if(config.VueAppInWindow)
+        window.app = this;
+
+      this.$store.dispatch('initStore');
     }
   }
+
+  export {app};
+
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
-  .api-error {
-    display: flex;
-    height: 100vh;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
+  #q-app {
+    .api-error {
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+    }
+
+    .loader {
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+      font-size: 1.4em;
+      color: #005d00;
+    }
   }
 
-  .loader {
-    display: flex;
-    height: 100vh;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    font-size: 1.4em;
-    color: #005d00;
-  }
 </style>

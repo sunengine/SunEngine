@@ -43,12 +43,9 @@ namespace SunEngine.Core.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string nameOrEmail, string password)
         {
-            var result = await authManager.LoginAsync(nameOrEmail, password);
+            var user = await authManager.LoginAsync(nameOrEmail, password);
 
-            if (result.Failed)
-                return BadRequest(result.Error);
-
-            await jwtService.RenewSecurityTokensAsync(Response, result.user);
+            await jwtService.RenewSecurityTokensAsync(Response, user);
 
             return Ok();
         }
@@ -74,9 +71,7 @@ namespace SunEngine.Core.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await authManager.RegisterAsync(model);
-            if (!result.Succeeded)
-                return BadRequest(result.Error);
+            await authManager.RegisterAsync(model);
 
             return Ok();
         }
@@ -96,8 +91,7 @@ namespace SunEngine.Core.Controllers
                         await userManager.AddToRoleAsync(user, RoleNames.Registered);
 
                         transaction.Complete();
-                        return Redirect(Flurl.Url
-                            .Combine(globalOptions.SiteUrl, "Auth/RegisterEmailResult?result=ok").ToLower());
+                        return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "Auth/RegisterEmailResult?result=ok").ToLower());
                     }
                 }
                 catch
@@ -109,9 +103,6 @@ namespace SunEngine.Core.Controllers
             return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl,
                 "Auth/RegisterEmailResult?result=error".ToLower()));
         }
-
-
-       
     }
 
     public class NewUserArgs : CaptchaArgs

@@ -1,5 +1,4 @@
-import Vue from "vue"
-import request from "request"
+import {request} from 'sun'
 
 export default async ({Vue}) => { Vue.prototype.$request = request; }
 

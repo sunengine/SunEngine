@@ -1,42 +1,41 @@
 <template>
-  <div>
+  <div class="posts-list">
     <LoaderWait v-if="!posts.items"/>
 
     <template v-else>
-      <div>
-        <div v-for="post in posts.items" :key="post.id">
-          <Post :post="post"/>
-          <hr class="hr-sep"/>
-        </div>
+      <div v-for="post in posts.items" :key="post.id">
+        <Post :post="post"/>
+        <hr class="hr-sep"/>
       </div>
-
-
     </template>
   </div>
 </template>
 
 <script>
-  import LoaderWait from "LoaderWait";
-  import Post from "./Post";
 
   export default {
-    name: "PostsList",
-    components: {Post, LoaderWait},
-    data: function () {
+    name: 'PostsList',
+    data() {
       return {
         posts: {}
       }
     },
-
+    beforeCreate() {
+      this.$options.components.Post = require('sun').Post;
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
+    }
   }
+
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
-  .hr-sep {
-    height: 0;
-    border-top: solid #d3eecc 1px !important;
-    border-left: none;
+  .posts-list {
+    .hr-sep {
+      height: 0;
+      border-top: solid #d3eecc 1px !important;
+      border-left: none;
+    }
   }
 
 </style>

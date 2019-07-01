@@ -16,13 +16,19 @@ namespace SunEngine.Core.Managers
     public class SunUserManager : UserManager<User>
     {
         protected readonly DataBaseConnection db;
-        
-        public SunUserManager(DataBaseConnection db, IUserStore<User> store, IOptions<IdentityOptions> optionsAccessor, IPasswordHasher<User> passwordHasher, IEnumerable<IUserValidator<User>> userValidators, IEnumerable<IPasswordValidator<User>> passwordValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<User>> logger) : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
+
+        public SunUserManager(
+            DataBaseConnection db, IUserStore<User> store, IOptions<IdentityOptions> optionsAccessor,
+            IPasswordHasher<User> passwordHasher, IEnumerable<IUserValidator<User>> userValidators,
+            IEnumerable<IPasswordValidator<User>> passwordValidators, ILookupNormalizer keyNormalizer,
+            IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<User>> logger) : base(store,
+            optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services,
+            logger)
         {
             this.db = db;
             KeyNormalizer = Normalizer.Singleton;
-        }    
-        
+        }
+
         public async Task<User> FindUserByNameOrEmailAsync(string nameOrEmail)
         {
             User user;
@@ -38,7 +44,7 @@ namespace SunEngine.Core.Managers
 
             return user;
         }
-        
+
         public virtual Task ChangeEmailAsync(int userId, string email)
         {
             return db.Users.Where(x => x.Id == userId).Set(x => x.Email, email)
@@ -53,11 +59,12 @@ namespace SunEngine.Core.Managers
 
         public virtual Task<LongSession> FindLongSessionAsync(LongSession longSession)
         {
-            return db.LongSessions.FirstOrDefaultAsync(x => x.UserId == longSession.UserId &&
-                                                       x.LongToken1 == longSession.LongToken1 &&
-                                                       x.LongToken2 == longSession.LongToken2);
+            return db.LongSessions.FirstOrDefaultAsync(x =>
+                x.UserId == longSession.UserId
+                && x.LongToken1 == longSession.LongToken1
+                && x.LongToken2 == longSession.LongToken2);
         }
-        
+
         public virtual Task DeleteLongSessionAsync(long longSessionId)
         {
             return db.LongSessions.Where(x => x.Id == longSessionId).DeleteAsync();
@@ -77,7 +84,8 @@ namespace SunEngine.Core.Managers
         public override async Task<IdentityResult> AddToRoleAsync(User user, string role)
         {
             if (Normalizer.Normalize(role) == RoleNames.UnregisteredNormalized)
-                return IdentityResult.Failed(new IdentityError {Code = "Can_not_add_role_guest", Description = "Can not add guest role"});
+                return IdentityResult.Failed(new IdentityError
+                    {Code = "Can_not_add_role_guest", Description = "Can not add guest role"});
             return await base.AddToRoleAsync(user, role);
         }
     }

@@ -1,10 +1,10 @@
 <template>
-  <div :id="'comment-'+comment.id">
+  <div class="comment-container" :id="'comment-'+comment.id">
     <span v-if="isLast" id="comment-last"></span>
     <template v-if="!comment.isDeleted">
       <ReadComment @goEdit="goEdit" v-if="isReadMode" :comment="comment" :canEdit="canEdit()" :canMoveToTrash="canMoveToTrash()" />
 
-      <CreateEditComment @done="saved" @cancel="isReadMode=true" :commentId="comment.id" v-else/>
+      <EditComment @done="saved" @cancel="isReadMode=true" :commentId="comment.id" v-else/>
 
     </template>
     <DeletedComment v-else/>
@@ -12,14 +12,11 @@
 </template>
 
 <script>
-  import ReadComment from "./ReadComment";
-  import CreateEditComment from "./CreateEditComment";
-  import {date} from 'quasar';
-  import DeletedComment from "./DeletedComment";
+  import {date} from 'quasar'
+
 
   export default {
-    name: "CommentContainer",
-    components: {DeletedComment, ReadComment, CreateEditComment},
+    name: 'CommentContainer',
     props: {
       comment: Object,
       categoryPersonalAccess: Object,
@@ -32,7 +29,7 @@
         required: true
       }
     },
-    data: function () {
+    data() {
       return {
         isReadMode: true,
       }
@@ -40,9 +37,9 @@
     methods: {
 
       async saved() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Comments/Get",
+            url: '/Comments/Get',
             data: {
               id: this.comment.id,
             }
@@ -52,14 +49,11 @@
           }
           this.isReadMode = true;
         });
-
-
       },
       goEdit() {
         this.isReadMode = false;
       },
       canEdit() {
-
         if (!this.$store.state.auth.user || !this.categoryPersonalAccess) {
           return false;
         }
@@ -111,10 +105,16 @@
         }
         return false;
       }
+    },
+    beforeCreate() {
+      this.$options.components.ReadComment = require('sun').ReadComment;
+      this.$options.components.EditComment = require('sun').EditComment;
+      this.$options.components.DeletedComment = require('sun').DeletedComment;
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

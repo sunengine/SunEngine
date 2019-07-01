@@ -40,16 +40,19 @@ namespace SunEngine.Core.Controllers
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> GetMaterialComments(int materialId)
+        public virtual async Task<IActionResult> GetMaterialComments(int materialId, bool showDeleted = false)
         {
-            int? categoryId = await materialsManager.GetMaterialCategoryIdAsync(materialId);
+            int? categoryId = await materialsManager.GetCategoryIdAsync(materialId);
             if (!categoryId.HasValue)
                 return BadRequest();
 
             if (!commentsAuthorization.HasAccessForGetComments(User.Roles, categoryId.Value))
                 return Unauthorized();
 
-            var comments = await commentsPresenter.GetMaterialCommentsAsync(materialId);
+            if(showDeleted && !commentsAuthorization.CanSeeDeletedComments(User.Roles,categoryId.Value))
+                return Unauthorized();
+
+            var comments = await commentsPresenter.GetMaterialCommentsAsync(materialId, showDeleted);
 
             return Json(comments);
         }
@@ -62,7 +65,7 @@ namespace SunEngine.Core.Controllers
             if (material == null)
                 return BadRequest();
 
-            if (!commentsAuthorization.CanAdd(User.Roles, material.CategoryId))
+            if (!commentsAuthorization.CanAdd(User.Roles, material))
                 return Unauthorized();
 
             var now = DateTime.UtcNow;

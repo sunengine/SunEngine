@@ -15,12 +15,12 @@ namespace SunEngine.Core.Services
     {
         string GetAllowedExtension(string fileName);
         Task<FileAndDir> SaveImageAsync(IFormFile file, ResizeOptions resizeOptions);
-        FileAndDir SaveBitmapImage(Stream stream, ResizeOptions ro, string ext);
+        FileAndDir SaveBitmapImage(Stream stream, ResizeOptions resizeOptions, string ext);
     }
 
     public class ImagesService : IImagesService
     {
-        protected static readonly int MaxSvgSizeBytes = 40 * 1024;
+        protected const int MaxSvgSizeBytes = 40 * 1024;
 
         protected static readonly object lockObject = new object();
 
@@ -30,11 +30,11 @@ namespace SunEngine.Core.Services
 
 
         public ImagesService(
-            IOptions<ImagesOptions> imageOptions,
+            IOptions<ImagesOptions> imagesOptions,
             IImagesNamesService imagesNamesService,
             IHostingEnvironment env)
         {
-            this.imagesOptions = imageOptions.Value;
+            this.imagesOptions = imagesOptions.Value;
             this.env = env;
             this.imagesNamesService = imagesNamesService;
         }
@@ -77,7 +77,10 @@ namespace SunEngine.Core.Services
                 using (var stream = file.OpenReadStream())
                 using (Image<Rgba32> image = Image.Load(stream))
                 {
-                    image.Mutate(x => x.Resize(resizeOptions));
+                    var size = image.Size();
+                    if(size.Width > resizeOptions.Size.Width || size.Height > resizeOptions.Size.Height)
+                        image.Mutate(x => x.Resize(resizeOptions));
+                    
                     image.Save(fullFileName);
                 }
             }
@@ -85,7 +88,7 @@ namespace SunEngine.Core.Services
             return fileAndDir;
         }
 
-        public virtual FileAndDir SaveBitmapImage(Stream stream, ResizeOptions ro, string ext)
+        public virtual FileAndDir SaveBitmapImage(Stream stream, ResizeOptions resizeOptions, string ext)
         {
             using (Image<Rgba32> image = Image.Load(stream))
             {
@@ -98,7 +101,9 @@ namespace SunEngine.Core.Services
 
                 var fullFileName = Path.Combine(dirFullPath, fileAndDir.File);
 
-                image.Mutate(x => x.Resize(ro));
+                var size = image.Size();
+                if(size.Width > resizeOptions.Size.Width || size.Height > resizeOptions.Size.Height)
+                    image.Mutate(x => x.Resize(resizeOptions));
 
                 image.Save(fullFileName);
 

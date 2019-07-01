@@ -1,14 +1,17 @@
 <template>
-  <q-page>
+  <q-page class="material">
     <div v-if="material" class="page-padding">
       <h2 class="q-title">
         {{material.title}}
       </h2>
       <div v-if="category" style="margin-top: -10px;" class="q-mb-md">
         <span class="text-grey-7">{{$tl("category")}} </span>
-        <router-link :to="categoryPath">{{category.title}}</router-link>
+        <router-link :to="category.getRoute()">{{category.title}}</router-link>
       </div>
-      <div class="material q-mb-lg" v-html="material.text">
+      <div v-if="material.isDeleted" class="text-red q-mb-md">
+        <q-chip icon="fas fa-trash" color="red" text-color="white" :label="$tl('deleted')"/>
+      </div>
+      <div class="material-text q-mb-lg" v-html="material.text">
       </div>
       <div v-if="material.tags && material.tags.length > 0" class="q-mt-lg" style="text-align: center">
         {{$tl("tags")}}
@@ -31,10 +34,16 @@
             <q-icon name="fas fa-edit" class="q-mr-xs"/>
             {{$tl("edit")}}</a>
         </div>
-        <div class="q-mr-md" v-if="canDelete">
+        <div class="q-mr-md" v-if="!material.isDeleted && canDelete">
           <a href="#" style="display: inline-flex; align-items: center;"
              @click.prevent="deleteMaterial">
             <q-icon name="fas fa-trash"/>
+          </a>
+        </div>
+        <div class="q-mr-md" v-if="material.isDeleted && canRestore">
+          <a href="#" style="display: inline-flex; align-items: center;"
+             @click.prevent="restoreMaterial">
+            <q-icon name="fas fa-trash-restore"/>
           </a>
         </div>
         <div class="mat-date-color">
@@ -43,11 +52,10 @@
         </div>
       </div>
 
-
       <div class="clear"></div>
     </div>
 
-    <div id="comments" v-if="material && comments" class="msgs">
+    <div id="comments" v-if="material && comments" class="comments">
       <hr class="hr-sep"/>
       <div v-for="(comment,index) in comments" :key="comment.id">
         <CommentContainer class="page-padding" :comment="comment" :checkLastOwn="checkLastOwn"
@@ -56,7 +64,7 @@
         <hr class="hr-sep"/>
       </div>
       <div v-if="canCommentWrite">
-        <CreateEditComment class="page-padding" @done="commentAdded" :materialId="material.id"/>
+        <CreateComment class="page-padding" @done="commentAdded" :materialId="material.id"/>
       </div>
     </div>
 
@@ -66,18 +74,21 @@
 </template>
 
 <script>
-  import CommentContainer from "comments/CommentContainer";
-  import CreateEditComment from "comments/CreateEditComment";
-  import {date} from 'quasar';
-  import LoaderWait from "LoaderWait";
-  import {scroll} from 'quasar';
-  import Page from "Page";
+  import {Page} from 'sun'
+  import {deleteMaterial} from 'sun'
+  import {restoreMaterial} from 'sun'
+  import {canDeleteMaterial} from 'sun'
+  import {canRestoreMaterial} from 'sun'
+
+
+  import {date} from 'quasar'
+  import {scroll} from 'quasar'
 
   const {getScrollTarget, setScrollPosition} = scroll;
 
+
   export default {
-    name: "Material",
-    components: {CommentContainer, CreateEditComment, LoaderWait},
+    name: 'Material',
     mixins: [Page],
     props: {
       idOrName: {
@@ -89,7 +100,7 @@
         required: true
       }
     },
-    data: function () {
+    data() {
       return {
         material: null,
         comments: null,
@@ -97,9 +108,7 @@
       }
     },
     watch: {
-      'idOrName': 'loadData',
-      'categoryName': 'loadData',
-      '$store.state.auth.user': 'loadData'
+      '$route': 'loadData',
     },
     computed: {
       maxCommentNumber() {
@@ -108,10 +117,9 @@
       category() {
         return this.$store.getters.getCategory(this.categoryName);
       },
-      categoryPath() {
-        return this.category.path;
-      },
       canCommentWrite() {
+        if (this.material.isCommentsBlocked)
+          return false;
         return this.category.categoryPersonalAccess.commentWrite;
       },
       categoryPersonalAccess() {
@@ -145,67 +153,49 @@
             return false;
           }
         }
-        if (category.categoryPersonalAccess.materialEditOwn) {
-          return true;
-        }
-        return false;
+        return !!category.categoryPersonalAccess.materialEditOwn;
       },
       canDelete() {
-        if (!this.material || !this.comments) {
-          return false;
-        }
-        if (!this.$store.state.auth.user) {
-          return false;
-        }
-        const category = this.$store.getters.getCategory(this.material.categoryName);
-
-        if (category.categoryPersonalAccess.materialDeleteAny) {
-          return true;
-        }
-        if (this.material.authorId !== this.$store.state.auth.user.id) {
-          return false;
-        }
-        if (!category.categoryPersonalAccess.materialDeleteOwnIfHasReplies &&
-          this.comments.length >= 1 && !this.checkLastOwn(this.comments[0])
-        ) {
-          return false;
-        }
-        if (!category.categoryPersonalAccess.materialDeleteOwnIfTimeNotExceeded) {
-          const now = new Date();
-          const publish = this.material.publishDate;
-          const til = date.addToDate(publish, {minutes: config.Materials.TimeToOwnDeleteInMinutes});
-          if (til < now) {
-            return false;
-          }
-        }
-        if (category.categoryPersonalAccess.materialDeleteOwn) {
-          return true;
-        }
-        return false;
+        return canDeleteMaterial.call(this);
       },
+      canRestore() {
+        return canRestoreMaterial.call(this);
+      }
     },
     methods: {
+      prepareLocalLinks() {
+        const el = this.$el.getElementsByClassName('material-text')[0];
+        const links = el.getElementsByTagName('a');
+        for(const link of links) {
+          if(link.href.startsWith(config.SiteUrl)) {
+            link.addEventListener('click', (e) => {
+              const url = link.href.substring(config.SiteUrl.length);
+              this.$router.push(url);
+              e.preventDefault();
+            });
+          }
+        }
+      },
       async loadDataMaterial() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Materials/Get",
+            url: '/Materials/Get',
             data: {
               idOrName: this.idOrName
             }
-          }).then(
-          response => {
+          }).then((response) => {
             this.material = response.data;
             this.title = this.material.title;
+            this.$nextTick( () =>{
+              this.prepareLocalLinks();
+            })
           }
-        ).catch(x => {
-          console.log("error", x);
-        });
+        );
       },
-
       async loadDataComments() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Comments/GetMaterialComments",
+            url: '/Comments/GetMaterialComments',
             data:
               {
                 materialId: this.material.id
@@ -215,16 +205,13 @@
             this.comments = response.data;
             this.$nextTick(function () {
               if (this.$route.hash) {
-                let el = document.getElementById(this.$route.hash.substring(1))
-                setScrollPosition(getScrollTarget(el), el.offsetTop, 300)
+                let el = document.getElementById(this.$route.hash.substring(1));
+                setScrollPosition(getScrollTarget(el), el.offsetTop, 300);
               }
             });
           }
-        ).catch(x => {
-          console.log("error", x);
-        });
+        );
       },
-
       checkLastOwn(comment) {
         if (!this.comments) {
           return false;
@@ -238,77 +225,57 @@
         }
         return true;
       },
-
       async deleteMaterial() {
-        this.$q.dialog({
-          title: 'Удалить материал?',
-          //message: '',
-          ok: 'Да',
-          cancel: 'Отмeна'
-        }).then(async () => {
-          await this.$store.dispatch("request",
-            {
-              url: "/Materials/Delete",
-              data:
-                {
-                  id: this.material.id
-                }
-            }).then(
-            () => {
-              this.$q.notify({
-                message: `Материал успешно удалён`,
-                timeout: 2000,
-                type: 'info',
-                position: 'top'
-              });
-              this.$router.push(this.category.path);
-            }).catch((x) => {
-            console.log("error", x)
-          });
-        }).catch(() => {
-        });
+        deleteMaterial.call(this);
       },
-
+      async restoreMaterial() {
+        restoreMaterial.call(this);
+      },
       async commentAdded() {
         let currentPath = this.$route.fullPath;
-        let ind = currentPath.lastIndexOf("#");
+        let ind = currentPath.lastIndexOf('#');
         let path = currentPath.substring(0, ind);
-        window.history.pushState("", document.title, path);
+        window.history.pushState('', document.title, path);
         await this.loadData();
       },
-
       async loadData() {
         await this.loadDataMaterial();
         await this.loadDataComments();
       }
     },
-
+    beforeCreate() {
+      this.$options.components.CommentContainer = require('sun').CommentContainer;
+      this.$options.components.CreateComment = require('sun').CreateComment;
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
+    },
     async created() {
       await this.loadData();
     }
   }
+
 </script>
 
-<style scoped>
-  .msgs {
-    margin-top: 18px;
-  }
-
-  .mat-avatar {
-    margin-right: 12px;
-  }
-</style>
 
 <style lang="stylus">
-  @import '~quasar-variables'
 
-  .mat-date-color {
-    color: $grey-7;
+  .material {
+    .mat-date-color {
+      color: $grey-7;
+    }
+
+    .hr-sep {
+      height: 0;
+      border-top: solid #d3eecc 1px !important;
+      border-left: none;
+    }
+
+    .mat-avatar {
+      margin-right: 12px;
+    }
+
+    .comments {
+      margin-top: 18px;
+    }
   }
 
-  .hr-sep {
-    height: 0;
-    border-top: solid #d3eecc 1px !important;
-    border-left: none;
-  }
 </style>

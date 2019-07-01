@@ -3,23 +3,25 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <LangVersion>latest</LangVersion>
-        <Version>1.0.0</Version>
-        <PackageVersion>1.0.0</PackageVersion>
+        <Version>1.7.0</Version>
+        <PackageVersion>1.7.0</PackageVersion>
         <Title>SunEngine</Title>
         <Authors>Dmitrii Polianin</Authors>
         <Description>Site engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>
         <Copyright>Dmitrii Polianin</Copyright>
         <PackageProjectUrl>https://github.com/Dmitrij-Polyanin/SunEngine</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/LICENSE.md</PackageLicenseUrl>
-        <PackageTags>forum, blog, site, cms, web engine, web, engine, asp.net core, spa, vuejs, vue</PackageTags>
+        <PackageTags>forum, blog, site, cms, web engine, web, engine, asp.net core, spa, vuejs, vue, quasar</PackageTags>
         <AssemblyName>SunEngine</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Flurl" Version="2.8.1" />
-        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.4" />
+        <PackageReference Include="Flurl" Version="2.8.2" />
+        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.5">
+            <AllowExplicitVersion>true</AllowExplicitVersion>
+        </PackageReference>
         <PackageReference Include="System.Linq" Version="4.3.0" />
-        <PackageReference Include="System.Runtime.Caching" Version="4.6.0-preview4.19212.13" />
+        <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
     </ItemGroup>
     
     <ItemGroup>
@@ -31,13 +33,18 @@
             <CopyToPublishDirectory>None</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <Content Update="Resources\UserGroups.schema.json">
+        <Content Update="Resources\Roles.schema.json">
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+        <Content Include="MailTemplates\*">
+            <CopyToPublishDirectory>None</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
         <None Remove="Resources\gunnyrewritten.ttf" />
         <Content Include="Resources\gunnyrewritten.ttf">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <Content Update="wwwroot\UploadImages\*\*">
             <CopyToPublishDirectory>None</CopyToPublishDirectory>
@@ -47,7 +54,6 @@
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Resources\all.txt" />
     </ItemGroup>
 
 

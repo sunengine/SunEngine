@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
@@ -32,7 +33,7 @@ namespace SunEngine.Core.Presenters
 
             if (viewerUserId.HasValue)
             {
-                int adminGroupId = RolesCache.AllRoles["Admin"].Id;
+                int adminGroupId = RolesCache.AdminRole.Id;
 
                 var user = await query.Select(x =>
                     new ProfileView
@@ -42,8 +43,9 @@ namespace SunEngine.Core.Presenters
                         Information = x.Information,
                         Link = x.Link,
                         Photo = x.Photo,
+                        RegisteredDate = x.RegisteredDate,
                         NoBannable = x.Roles.Any(y => y.RoleId == adminGroupId),
-                        HeBannedMe = x.BanList.Any(y => y.UserBanedId == viewerUserId.Value),
+                        HeBannedMe = x.BanList.Any(y => y.UserBanedId == viewerUserId.Value)
                     }).FirstOrDefaultAsync();
 
                 user.IBannedHim = await db.Users.Where(y => y.Id == viewerUserId.Value)
@@ -60,6 +62,7 @@ namespace SunEngine.Core.Presenters
                     Information = x.Information,
                     Link = x.Link,
                     Photo = x.Photo,
+                    RegisteredDate = x.RegisteredDate,
                     NoBannable = true,
                     HeBannedMe = false,
                     IBannedHim = false
@@ -83,11 +86,11 @@ namespace SunEngine.Core.Presenters
         public string Link { get; set; }
 
         public string Photo { get; set; }
+        
+        public DateTime RegisteredDate { get; set; }
 
         public bool NoBannable { get; set; }
         public bool HeBannedMe { get; set; }
         public bool IBannedHim { get; set; }
-
-        //public string Avatar { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Primitives;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Managers;
@@ -54,7 +54,7 @@ namespace SunEngine.Core.Security
             async Task<AuthenticateResult> DeleteLongSessionAndLogout(long sessionId)
             {
                 await userManager.DeleteLongSessionAsync(sessionId);
-                
+
                 jwtService.MakeLogoutCookiesAndHeaders(Response);
 
                 return AuthenticateResult.NoResult();
@@ -63,6 +63,10 @@ namespace SunEngine.Core.Security
             AuthenticateResult Logout()
             {
                 jwtService.MakeLogoutCookiesAndHeaders(Response);
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\nLogout\n");
+                Console.ResetColor();
 
                 return AuthenticateResult.NoResult();
             }
@@ -75,7 +79,7 @@ namespace SunEngine.Core.Security
                     return AuthenticateResult.NoResult();
 
 
-                JwtSecurityToken jwtLongToken2 = jwtService.ReadLongToken2(cookie);
+                JwtSecurityToken jwtLongToken2 = jwtService.ReadLong2Token(cookie);
                 if (jwtLongToken2 == null)
                     return Logout();
 
@@ -83,9 +87,8 @@ namespace SunEngine.Core.Security
 
                 SunClaimsPrincipal sunClaimsPrincipal;
 
-                if (Request.Headers.ContainsKey(Headers.LongToken1HeaderName))
+                if (Request.Headers.TryGetValue(Headers.LongToken1HeaderName, out StringValues longToken1db))
                 {
-                    string longToken1db = Request.Headers[Headers.LongToken1HeaderName];
                     int userId = int.Parse(jwtLongToken2.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
 
                     var longSessionToFind = new LongSession
@@ -121,14 +124,14 @@ namespace SunEngine.Core.Security
                         return AuthenticateResult.NoResult();
 
 
-                    var claimsPrincipal =
-                        jwtService.ReadShortToken(jwtShortToken, out SecurityToken shortToken);
+                    var claimsPrincipal = jwtService.ReadShortToken(jwtShortToken);
 
                     string lat2ran_1 = jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
                     string lat2ran_2 = claimsPrincipal.Claims.First(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
 
-                    long sessionId = long.Parse(jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.SessionId).Value);
-                    
+                    long sessionId =
+                        long.Parse(jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.SessionId).Value);
+
                     if (!string.Equals(lat2ran_1, lat2ran_2))
                         return await DeleteLongSessionAndLogout(sessionId);
 
@@ -146,7 +149,7 @@ namespace SunEngine.Core.Security
                 var authenticationTicket = new AuthenticationTicket(sunClaimsPrincipal, SunJwt.Scheme);
                 return AuthenticateResult.Success(authenticationTicket);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return Logout();
             }

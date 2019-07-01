@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex middle page-padding">
+  <q-page class="reset-password flex middle page-padding">
     <div class="center-form" v-if="!done">
 
       <q-input ref="email" v-model="email" type="email" :label="$tl('email')" :rules="rules.email">
@@ -25,7 +25,7 @@
       </q-input>
 
 
-      <q-btn style="width:100%;" color="send" :label="$tl('resetPasswordBtn')" @click="send" :loading="submitting">
+      <q-btn style="width:100%;" class="send-btn" :label="$tl('resetPasswordBtn')" @click="send" :loading="submitting">
           <span slot="loading">
             <q-spinner class="on-left"/>  {{$t("Global.submitting")}}
           </span>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import Page from 'Page'
+  import {Page} from 'sun'
 
   function createRules() {
     return {
@@ -63,16 +63,15 @@
     mixins: [Page],
     data: function () {
       return {
-        email: "",
+        email: '',
         submitting: false,
         start: true,
         done: false,
-        captchaText: "",
+        captchaText: '',
         waitToken: false,
         token: null
       }
     },
-    rules: null,
     methods: {
       async send() {
         this.$refs.email.validate();
@@ -105,22 +104,22 @@
           this.token = response.data;
           this.waitToken = false;
         }).catch(error => {
-          if (error.response.data.errors[0].code === "SpamProtection") {
+          if (error.response.data.errors[0].code === 'SpamProtection') {
             this.waitToken = true;
           }
         });
       }
     },
     async created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
       this.rules = createRules.call(this);
 
       await this.GetToken();
-
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
 </style>

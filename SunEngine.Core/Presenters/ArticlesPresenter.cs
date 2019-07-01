@@ -10,14 +10,13 @@ namespace SunEngine.Core.Presenters
 {
     public interface IArticlesPresenter
     {
-        Task<IPagedList<ArticleInfoView>> GetArticlesAsync(int categoryId, ArticlesOrderType order, int page,
-            int pageSize);
+        Task<IPagedList<ArticleInfoView>> GetArticlesAsync(MaterialsShowOptions options);
 
-        Task<IPagedList<ArticleInfoView>> GetArticlesFromMultiCategoriesAsync(int[] categoriesIds, int page,
-            int pageSize);
+        Task<IPagedList<ArticleInfoView>> GetArticlesFromMultiCategoriesAsync(MaterialsMultiCatShowOptions options);
     }
 
-    public enum ArticlesOrderType
+
+    public enum OrderType
     {
         PublishDate = 0,
         SortNumber = 1
@@ -29,56 +28,66 @@ namespace SunEngine.Core.Presenters
         {
         }
 
-        public virtual Task<IPagedList<ArticleInfoView>> GetArticlesAsync(int categoryId, ArticlesOrderType order,
-            int page,
-            int pageSize)
+        public virtual Task<IPagedList<ArticleInfoView>> GetArticlesAsync(MaterialsShowOptions options)
         {
             Func<IQueryable<Material>, IOrderedQueryable<Material>> orderBy;
-            if (order == ArticlesOrderType.PublishDate)
+            if (options.orderType == OrderType.PublishDate)
                 orderBy = x => x.OrderByDescending(y => y.PublishDate);
             else
                 orderBy = x => x.OrderByDescending(y => y.SortNumber);
 
+            IQueryable<Material> query = db.Materials;
 
-            return db.MaterialsNotDeleted.GetPagedListAsync(
+            if (!options.ShowHidden)
+                query = query.Where(x => !x.IsHidden);
+
+            if (!options.ShowDeleted)
+                query = query.Where(x => !x.IsDeleted);
+
+
+            return query.GetPagedListAsync(
                 x => new ArticleInfoView
                 {
                     Id = x.Id,
                     Name = x.Name,
                     Title = x.Title,
-                    Description = x.Description,
+                    Description = x.SubTitle,
                     CommentsCount = x.CommentsCount,
                     AuthorName = x.Author.UserName,
                     PublishDate = x.PublishDate,
-                    CategoryName = x.Category.Name
+                    CategoryName = x.Category.Name,
+                    SortNumber = x.SortNumber,
+                    IsHidden = x.IsHidden,
+                    IsDeleted = x.IsDeleted,
+                    IsCommentsBlocked = x.IsCommentsBlocked
                 },
-                x => x.CategoryId == categoryId,
+                x => x.CategoryId == options.CategoryId,
                 orderBy,
-                page,
-                pageSize);
+                options.Page,
+                options.PageSize);
         }
 
-        public virtual Task<IPagedList<ArticleInfoView>> GetArticlesFromMultiCategoriesAsync(int[] categoriesIds,
-            int page, int pageSize)
+        public virtual Task<IPagedList<ArticleInfoView>> GetArticlesFromMultiCategoriesAsync(
+            MaterialsMultiCatShowOptions options)
         {
-            return db.MaterialsNotDeleted.GetPagedListAsync(
+            return db.Materials.Where(x => !x.IsDeleted && !x.IsHidden).GetPagedListAsync(
                 x => new ArticleInfoView
                 {
                     Id = x.Id,
                     Name = x.Name,
                     Title = x.Title,
-                    Description = x.Description,
+                    Description = x.SubTitle,
                     CommentsCount = x.CommentsCount,
                     AuthorName = x.Author.UserName,
                     PublishDate = x.PublishDate,
                     CategoryName = x.Category.Name,
                     CategoryTitle = x.Category.Title,
-                    SortNumber = x.SortNumber
+                    IsCommentsBlocked = x.IsCommentsBlocked
                 },
-                x => categoriesIds.Contains(x.CategoryId),
+                x => options.CategoriesIds.Contains(x.CategoryId),
                 x => x.OrderByDescending(y => y.PublishDate),
-                page,
-                pageSize);
+                options.Page,
+                options.PageSize);
         }
     }
 
@@ -94,7 +103,9 @@ namespace SunEngine.Core.Presenters
         public DateTime PublishDate { get; set; }
         public string CategoryTitle { get; set; }
         public string CategoryName { get; set; }
-
         public int SortNumber { get; set; }
+        public bool IsCommentsBlocked { get; set; }
+        public bool IsHidden { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

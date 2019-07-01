@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <h4 class="menu-panel-title text-grey-8">
-      <QIcon name="far fa-comments" size="1.4em" class="q-mr-sm" /> {{$tl("sections")}}
-    </h4>
-    <q-item class="q-my-xs" exact dense :to="newTopicsPath">
+  <PanelWrapper class="forum-panel" iconProp="far fa-comments" :titleProp="$tl('sections')">
+    <q-item class="q-my-xs" exact dense :to="newTopicsRoute">
       <q-item-section>
         <q-item-label>
           {{$tl("newTopics")}}
@@ -11,14 +8,15 @@
       </q-item-section>
     </q-item>
     <component :is="categories" :categoryName="categoryName"/>
-  </div>
+  </PanelWrapper>
 </template>
 
 <script>
-  import Categories1 from "categories/Categories1"
+  import {Categories1} from 'sun'
+
 
   export default {
-    name: "ForumPanel",
+    name: 'ForumPanel',
     props: {
       categories: {
         type: Object,
@@ -33,13 +31,17 @@
       category() {
         return this.$store.getters.getCategory(this.categoryName);
       },
-      newTopicsPath() {
-        return this.category.path;
+      newTopicsRoute() {
+        return this.category?.getRoute();
       }
+    },
+    beforeCreate() {
+      this.$options.components.PanelWrapper = require('sun').PanelWrapper;
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>
