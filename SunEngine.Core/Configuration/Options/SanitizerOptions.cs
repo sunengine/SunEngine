@@ -1,15 +1,17 @@
+using System;
+
 namespace SunEngine.Core.Configuration.Options
 {
     public class SanitizerOptions
     {
-        public string[] AllowedTags { get; }
+        public string[] AllowedTags { get; set; } = Array.Empty<string>();
         
-        public string[] AllowedAttributes { get; }
+        public string[] AllowedAttributes { get; set; } = Array.Empty<string>();
         
-        public string[] AllowedClasses { get; }
+        public string[] AllowedClasses { get; set; } = Array.Empty<string>();
         
-        public string[] AllowedCssProperties { get; }
+        public string[] AllowedCssProperties { get; set; } = Array.Empty<string>();
         
-        public string[] AllowedVideoDomains { get; }
+        public string[] AllowedVideoDomains { get; set; } = Array.Empty<string>();
     }
 }

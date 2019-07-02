@@ -1,15 +1,16 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Services;
+using SunEngine.Core.Utils.TextProcess;
 
 namespace SunEngine.Core.Configuration.AddServices
 {
-    public static class AddSanitizerOptionsExtensions
+    public static class AddSanitizerExtensions
     {
-        public static void AddSanitizerOptions(this IServiceCollection services)
+        public static void AddSanitizer(this IServiceCollection services)
         {
+            services.AddSingleton<Sanitizer>();
             services.AddSingleton<SanitizerOptionsService>();
             services.AddSingleton<SanitizerOptions>(serviceProvider =>
             {

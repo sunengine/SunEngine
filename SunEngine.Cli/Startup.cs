@@ -48,8 +48,6 @@ namespace SunEngine.Cli
 
             services.AddDbOptions(dataBaseFactory);
             
-            services.AddSanitizerOptions();
-
             services.AddCaches(dataBaseFactory);
 
             services.AddCachePolicy();
@@ -75,7 +73,7 @@ namespace SunEngine.Cli
             services.AddJobs();
 
             services.AddSingleton<CaptchaService>();
-            services.AddSingleton<Sanitizer>();
+            services.AddSanitizer();
             services.AddTransient<IEmailSenderService, EmailSenderService>();
 
             services.AddMvcCore(options =>
