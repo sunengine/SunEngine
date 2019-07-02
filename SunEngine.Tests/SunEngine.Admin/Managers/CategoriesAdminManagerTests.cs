@@ -52,7 +52,7 @@ namespace SunEngine.Tests.SunEngine.Admin.Managers
 
             return new CategoriesAdminManager(dbConnection,
                 Options.Create(new MaterialsOptions {SubTitleLength = 100, PreviewLength = 800}), catCache,
-                new Sanitizer());
+                new Sanitizer(new SanitizerOptions()));
         }
 
         private Category DefaultCategory => new Category
