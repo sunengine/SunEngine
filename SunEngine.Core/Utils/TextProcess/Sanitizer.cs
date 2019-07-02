@@ -1,10 +1,13 @@
-﻿using AngleSharp.Dom.Html;
+﻿using System;
+using System.Linq;
+using AngleSharp.Dom.Html;
 using AngleSharp.Extensions;
 using Ganss.XSS;
 using SunEngine.Core.Configuration.Options;
 
 namespace SunEngine.Core.Utils.TextProcess
 {
+    // TODO Transfer to Services
     public class Sanitizer
     {
         private readonly HtmlSanitizer htmlSanitizer;
@@ -46,12 +49,13 @@ namespace SunEngine.Core.Utils.TextProcess
             htmlSanitizer.RemovingAttribute += ForumSanitizer_RemovingAttribute_Forum;
         }
 
+        // TODO RENAME
 
         private void ForumSanitizer_RemovingAttribute_Forum(object s, RemovingAttributeEventArgs e)
         {
             var attributeName = e.Attribute.Name.ToLower();
-            var _ = SanitizerBlocksAttributes.AllowOnlyClassList(attributeName, e, options.AllowedClasses)
-                    || SanitizerBlocksAttributes.MakeExternalLinksOpenedNewTab(attributeName, e, siteUrl);
+            var _ = AllowOnlyClassList(attributeName, e, options.AllowedClasses)
+                    || MakeExternalLinksOpenedNewTab(attributeName, e, siteUrl);
         }
 
         private void ForumSanitizer_RemovingTag(object sender, RemovingTagEventArgs e)
@@ -63,18 +67,14 @@ namespace SunEngine.Core.Utils.TextProcess
 
         public string Sanitize(string text)
         {
-            return string.IsNullOrWhiteSpace(text) ? 
-                null : 
-                htmlSanitizer.Sanitize(text);
+            return string.IsNullOrWhiteSpace(text) ? null : htmlSanitizer.Sanitize(text);
         }
 
         public string Sanitize(IHtmlDocument doc)
         {
-            return doc == null ?
-                null : 
-                htmlSanitizer.SanitizeDoc(doc);
+            return doc == null ? null : htmlSanitizer.SanitizeDoc(doc);
         }
-        
+
         private bool CheckIframeAllowedDomens(string tagName, RemovingTagEventArgs e)
         {
             if (tagName == "iframe") // вроверяем куда ведёт iframe src, блокируем
@@ -89,9 +89,11 @@ namespace SunEngine.Core.Utils.TextProcess
                         return true;
                     }
                 }
+
                 e.Cancel = false;
                 return true;
             }
+
             return false;
         }
 
@@ -103,8 +105,49 @@ namespace SunEngine.Core.Utils.TextProcess
                 {
                     e.Tag.ClassList.Add("text-img");
                 }
+
                 e.Cancel = true;
             }
+
+            return false;
+        }
+
+        private static bool AllowOnlyClassList(string attributeName, RemovingAttributeEventArgs e,
+            string[] allowedClasses)
+        {
+            if (attributeName == "class")
+            {
+                e.Tag.ClassList.Remove(e.Tag.ClassList.Except(allowedClasses, StringComparer.OrdinalIgnoreCase)
+                    .ToArray());
+                e.Cancel = e.Tag.ClassList.Any();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private static bool MakeExternalLinksOpenedNewTab(string attributeName, RemovingAttributeEventArgs e,
+            string siteUrl)
+        {
+            if (attributeName == "href")
+            {
+                var href = e.Attribute.Value;
+                if (!href.StartsWith(siteUrl) &&
+                    (href.StartsWith("http") || href.StartsWith("https")
+                                             || href.StartsWith("ftp")))
+                {
+                    if (!e.Tag.Attributes.Any(x => x.Name.ToLower() == "target"))
+                    {
+                        e.Tag.SetAttribute("target", "_blank");
+                    }
+                }
+
+                e.Cancel = true;
+                return true;
+            }
+
             return false;
         }
     }
