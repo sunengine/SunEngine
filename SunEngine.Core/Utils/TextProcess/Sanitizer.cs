@@ -17,8 +17,22 @@ namespace SunEngine.Core.Utils.TextProcess
         public Sanitizer(SanitizerOptions options)
         {
             this.options = options;
-            htmlSanitizer = new HtmlSanitizer();
+            this.htmlSanitizer = new HtmlSanitizer();
+            this.ConfigureHtmlSanitizer();
+        }
 
+        public string Sanitize(string text)
+        {
+            return string.IsNullOrWhiteSpace(text) ? null : htmlSanitizer.Sanitize(text);
+        }
+
+        public string Sanitize(IHtmlDocument doc)
+        {
+            return doc == null ? null : htmlSanitizer.SanitizeDoc(doc);
+        }
+
+        private void ConfigureHtmlSanitizer()
+        {
             htmlSanitizer.AllowedTags.Clear();
 
             foreach (string tag in options.AllowedTags)
@@ -45,42 +59,16 @@ namespace SunEngine.Core.Utils.TextProcess
             htmlSanitizer.AllowedAtRules.Clear();
 
             htmlSanitizer.AllowedTags.Remove("img");
-            htmlSanitizer.RemovingTag += ForumSanitizer_RemovingTag;
-            htmlSanitizer.RemovingAttribute += ForumSanitizer_RemovingAttribute_Forum;
+            htmlSanitizer.RemovingTag += OnRemovingTag;
+            htmlSanitizer.RemovingAttribute += OnRemovingAttribute;
         }
-
-        // TODO RENAME
-
-        private void ForumSanitizer_RemovingAttribute_Forum(object s, RemovingAttributeEventArgs e)
-        {
-            var attributeName = e.Attribute.Name.ToLower();
-            var _ = AllowOnlyClassList(attributeName, e, options.AllowedClasses)
-                    || MakeExternalLinksOpenedNewTab(attributeName, e, siteUrl);
-        }
-
-        private void ForumSanitizer_RemovingTag(object sender, RemovingTagEventArgs e)
-        {
-            string tagName = e.Tag.TagName.ToLower();
-            var _ = CheckIframeAllowedDomens(tagName, e)
-                    || AddImgClasses(tagName, e);
-        }
-
-        public string Sanitize(string text)
-        {
-            return string.IsNullOrWhiteSpace(text) ? null : htmlSanitizer.Sanitize(text);
-        }
-
-        public string Sanitize(IHtmlDocument doc)
-        {
-            return doc == null ? null : htmlSanitizer.SanitizeDoc(doc);
-        }
-
+        
         private bool CheckIframeAllowedDomens(string tagName, RemovingTagEventArgs e)
         {
             if (tagName == "iframe") // вроверяем куда ведёт iframe src, блокируем
                 // всё, кроме разрешённых сайтов
             {
-                string src = e.Tag.GetAttribute("src").TrimStart().ToLower();
+                var src = e.Tag.GetAttribute("src").TrimStart().ToLower();
                 foreach (var allowedDomen in options.AllowedVideoDomains)
                 {
                     if (src.StartsWith(allowedDomen))
@@ -122,10 +110,8 @@ namespace SunEngine.Core.Utils.TextProcess
                 e.Cancel = e.Tag.ClassList.Any();
                 return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         private static bool MakeExternalLinksOpenedNewTab(string attributeName, RemovingAttributeEventArgs e,
@@ -150,6 +136,24 @@ namespace SunEngine.Core.Utils.TextProcess
 
             return false;
         }
+
+        #region EventHandlers
+
+        private void OnRemovingAttribute(object s, RemovingAttributeEventArgs e)
+        {
+            var attributeName = e.Attribute.Name.ToLower();
+            var _ = AllowOnlyClassList(attributeName, e, options.AllowedClasses)
+                    || MakeExternalLinksOpenedNewTab(attributeName, e, siteUrl);
+        }
+
+        private void OnRemovingTag(object sender, RemovingTagEventArgs e)
+        {
+            var tagName = e.Tag.TagName.ToLower();
+            var _ = CheckIframeAllowedDomens(tagName, e)
+                    || AddImgClasses(tagName, e);
+        }
+
+        #endregion
     }
 
     public static class SanitizerExtensions
