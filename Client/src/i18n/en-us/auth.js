@@ -33,7 +33,8 @@ export default {
       userName: {
         required: "Enter login",
         minLength: "Login must be at least 3 letters long",
-        maxLength: `Login must be at most not ${config.DbColumnSizes.Users_UserName} characters`
+        maxLength: `Login must be at most not ${config.DbColumnSizes.Users_UserName} characters`,
+        nameInDb: "User name is already taken"
       },
       email: {
         required: "Enter email",

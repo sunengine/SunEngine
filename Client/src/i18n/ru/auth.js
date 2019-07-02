@@ -33,7 +33,8 @@ export default {
       userName: {
         required: "Введите имя пользователя",
         minLength: "Имя пользователя должно быть не менее чем из 3 букв",
-        maxLength: `Имя пользователя должно состоять не более чем из ${config.DbColumnSizes.Users_UserName} символов`
+        maxLength: `Имя пользователя должно состоять не более чем из ${config.DbColumnSizes.Users_UserName} символов`,
+        nameInDb: "Имя занято"
       },
       email: {
         required: "Введите email",

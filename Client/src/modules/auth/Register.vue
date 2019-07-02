@@ -3,7 +3,7 @@
 
     <div v-if="!done" class="center-form">
 
-      <q-input ref="userName" v-model="userName" :label="$tl('userName')" :rules="rules.userName">
+      <q-input ref="userName" v-model="userName" :label="$tl('userName')" @keyup="checkUserNameInDb" :rules="rules.userName">
         <template v-slot:prepend>
           <q-icon name="fas fa-user"/>
         </template>
@@ -88,7 +88,8 @@
       userName: [
         value => !!value || this.$tl('validation.userName.required'),
         value => value.length >= 3 || this.$tl('validation.userName.minLength'),
-        value => value.length <= config.DbColumnSizes.Users_UserName || this.$tl('validation.userName.maxLength')
+        value => value.length <= config.DbColumnSizes.Users_UserName || this.$tl('validation.userName.maxLength'),
+        value => !this.userNameInDb || this.$tl('validation.userName.nameInDb'), // link in db
       ],
       email: [
         value => !!value || this.$tl('validation.email.required'),
@@ -121,10 +122,27 @@
         waitToken: false,
         done: false,
         showPassword: false,
-        showPassword2: false
+        showPassword2: false,
+        userNameInDb: false
       }
     },
     methods: {
+      checkUserNameInDb() {
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(this.checkUserNameInDbDo, 500);
+      },
+      checkUserNameInDbDo() {
+        this.$store.dispatch('request',
+          {
+            url: '/Auth/CheckUserNameInDb',
+            data: {
+              userName: this.userName
+            }
+          }).then(response => {
+          this.userNameInDb = response.data.yes;
+          this.$refs.userName.validate();
+        })
+      },
       async register() {
         this.$refs.userName.validate();
         this.$refs.email.validate();

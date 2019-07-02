@@ -14,6 +14,7 @@ using SunEngine.Core.Errors;
 using SunEngine.Core.Models;
 using SunEngine.Core.Security;
 using SunEngine.Core.Services;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.Core.Managers
 {
@@ -21,8 +22,9 @@ namespace SunEngine.Core.Managers
     {
         Task<User> LoginAsync(string nameOrEmail, string password);
         Task RegisterAsync(NewUserArgs model);
+        Task<bool> CheckUserNameInDbAsync(string userName);
     }
-    
+
 
     public class AuthManager : DbService, IAuthManager
     {
@@ -85,14 +87,14 @@ namespace SunEngine.Core.Managers
 
                     if (!result.Errors.Any(x => x.Code == "DuplicateEmail"))
                         throw new SunViewException(new ErrorView(result.Errors));
-                    
+
                     user = await userManager.FindByEmailAsync(model.Email);
                     if (user.EmailConfirmed)
                         throw new SunViewException(new ErrorView(result.Errors));
 
                     user.UserName = model.UserName;
                     user.PasswordHash = userManager.PasswordHasher.HashPassword(user, model.Password);
-                    
+
                     result = await userManager.UpdateAsync(user);
 
                     if (!result.Succeeded)
@@ -132,6 +134,12 @@ namespace SunEngine.Core.Managers
 
                 db.CommitTransaction();
             }
+        }
+
+        public Task<bool> CheckUserNameInDbAsync(string userName)
+        {
+            var nameNormalized = Normalizer.Normalize(userName);
+            return db.Users.AnyAsync(x => x.NormalizedUserName == nameNormalized);
         }
     }
 }
