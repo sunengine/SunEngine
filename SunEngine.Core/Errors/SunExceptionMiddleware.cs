@@ -28,7 +28,7 @@ namespace SunEngine.Core.Errors
                 logger.LogError(e.ToString());
                 context.Response.StatusCode = 500;
                 
-                await context.Response.WriteAsync(SunJson.Serialize(e.ErrorView));
+                await context.Response.WriteAsync(SunJson.Serialize(e.ErrorView ?? ErrorView.ServerError()));
             }
             catch (Exception e)
             {
