@@ -104,17 +104,17 @@ namespace SunEngine.Core.Filters
 
         public RequestFree(TimeSpan timeout)
         {
-            dateTimeTil = DateTimeOffset.Now.Add(timeout);
+            dateTimeTil = DateTimeOffset.UtcNow.Add(timeout);
         }
 
         public void UpdateDateTime(TimeSpan timeout)
         {
-            dateTimeTil = DateTimeOffset.Now.Add(timeout);
+            dateTimeTil = DateTimeOffset.UtcNow.Add(timeout);
         }
 
         public bool Working()
         {
-            return dateTimeTil >= DateTimeOffset.Now;
+            return dateTimeTil >= DateTimeOffset.UtcNow;
         }
     }
 }
