@@ -14,8 +14,8 @@ namespace SunEngine.Core.Models.Materials
         public int AuthorId { get; set; }
         public User Author { get; set; }
 
-        public DateTime PublishDate { get; set; }
-        public DateTime? EditDate { get; set; }
+        public DateTimeOffset PublishDate { get; set; }
+        public DateTimeOffset? EditDate { get; set; }
 
         public int MaterialId { get; set; }
         public Material Material { get; set; }

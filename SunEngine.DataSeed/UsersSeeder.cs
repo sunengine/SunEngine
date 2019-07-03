@@ -78,7 +78,7 @@ namespace SunEngine.DataSeed
                     Link = ((string) usersJ["Link"])?.Replace("[n]", j.ToString()),
                     Photo = User.DefaultAvatar,
                     Avatar = User.DefaultAvatar,
-                    RegisteredDate = DateTime.UtcNow
+                    RegisteredDate = DateTimeOffset.Now
                 };
                 if(string.IsNullOrEmpty(user.Link))
                     user.Link = user.Id.ToString();

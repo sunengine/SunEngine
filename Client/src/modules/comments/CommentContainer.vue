@@ -68,8 +68,8 @@
         }
         if (!this.categoryPersonalAccess.commentEditOwnIfTimeNotExceeded) {
           const now = new Date();
-          const publish = this.comment.publishDate;
-          const til = date.addToDate(publish, {minutes: config.Materials.TimeToOwnEditInMinutes});
+          const publish = new Date(this.comment.publishDate);
+          const til = date.addToDate(publish, {minutes: config.Comments.TimeToOwnEditInMinutes});
           if (til < now) {
             return false;
           }
@@ -95,7 +95,7 @@
         if (!this.categoryPersonalAccess.commentDeleteOwnIfTimeNotExceeded) {
           const now = new Date();
           const publish = this.comment.publishDate;
-          const til = date.addToDate(publish, {minutes: config.Materials.TimeToOwnDeleteInMinutes});
+          const til = date.addToDate(publish, {minutes: config.Comments.TimeToOwnDeleteInMinutes});
           if (til < now) {
             return false;
           }

@@ -87,7 +87,7 @@ namespace SunEngine.Core.Presenters
 
         public string Photo { get; set; }
         
-        public DateTime RegisteredDate { get; set; }
+        public DateTimeOffset RegisteredDate { get; set; }
 
         public bool NoBannable { get; set; }
         public bool HeBannedMe { get; set; }

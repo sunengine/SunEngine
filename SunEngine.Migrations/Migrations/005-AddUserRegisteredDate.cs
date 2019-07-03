@@ -8,7 +8,7 @@ namespace SunEngine.Migrations.Migrations
         public override void Up()
         {
             Create.Column("RegisteredDate").OnTable("AspNetUsers").AsMyDateTime()
-                .WithDefault(SystemMethods.CurrentUTCDateTime).Indexed();
+                .WithDefault(SystemMethods.CurrentDateTimeOffset).Indexed();
         }
 
         public override void Down()

@@ -1,3 +1,5 @@
+import {date} from 'quasar'
+
 export default function() {
   if (!this.material || !this.comments) {
     return false;

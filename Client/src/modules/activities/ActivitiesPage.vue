@@ -3,7 +3,7 @@
     <h2 class="q-title page-padding">
       {{pageTitle}}
     </h2>
-    <activities-list :materialsCategories="materialsCategories" :messagesCategories="messagesCategories" :activitiesNumber="30"/>
+    <activities-list :materialsCategories="materialsCategories" :commentsCategories="commentsCategories" :activitiesNumber="30"/>
   </q-page>
 </template>
 
@@ -19,7 +19,7 @@
         required: false,
         default: 'root'
       },
-      messagesCategories: {
+      commentsCategories: {
         type: String,
         required: false,
         default: 'root'

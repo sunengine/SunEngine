@@ -100,7 +100,7 @@ namespace SunEngine.Core.Presenters
         public string Description { get; set; }
         public string AuthorName { get; set; }
         public int CommentsCount { get; set; }
-        public DateTime PublishDate { get; set; }
+        public DateTimeOffset PublishDate { get; set; }
         public string CategoryTitle { get; set; }
         public string CategoryName { get; set; }
         public int SortNumber { get; set; }

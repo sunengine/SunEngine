@@ -19,7 +19,7 @@
               [{{$tl("hidden")}}]
             </span>
           </q-item-label>
-          <q-item-label v-if="topic.subTitle" class="info-block" caption>
+          <q-item-label v-if="topic.subTitle" class="sub-title info-block" caption>
             <span>
               {{topic.subTitle}}
             </span>
@@ -94,6 +94,10 @@
 <style lang="stylus">
 
   .topic {
+    .sub-title {
+      overflow: hidden;
+    }
+
     .q-item {
       padding-top: 8px;
       padding-bottom: 8px;

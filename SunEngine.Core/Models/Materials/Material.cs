@@ -45,10 +45,10 @@ namespace SunEngine.Core.Models.Materials
         /// <summary>
         /// наибольшая из дат последнего сообщения и самого материала
         /// </summary>
-        public DateTime LastActivity { get; set; }
+        public DateTimeOffset LastActivity { get; set; }
 
-        public DateTime PublishDate { get; set; }
-        public DateTime? EditDate { get; set; }
+        public DateTimeOffset PublishDate { get; set; }
+        public DateTimeOffset? EditDate { get; set; }
 
         /// <summary>
         /// Sorting number for manual ordering in Category

@@ -81,8 +81,8 @@ namespace SunEngine.Core.Presenters
         public string AuthorLink { get; set; }
         public string AuthorAvatar { get; set; }
         public string Text { get; set; }
-        public DateTime PublishDate { get; set; }
-        public DateTime? EditDate { get; set; }
+        public DateTimeOffset PublishDate { get; set; }
+        public DateTimeOffset? EditDate { get; set; }
         public bool IsDeleted { get; set; }
     }
 }

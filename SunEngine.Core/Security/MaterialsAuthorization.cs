@@ -65,19 +65,19 @@ namespace SunEngine.Core.Security
             return authorizationService.HasAccess(roles, categoryId, OperationKeys.MaterialChangeOrder);
         }
 
-        private bool EditOwnIfTimeNotExceededCheck(DateTime publishDate)
+        private bool EditOwnIfTimeNotExceededCheck(DateTimeOffset publishDate)
         {
             return DateTime.Now - publishDate <
                    new TimeSpan(0, 0, materialsOptions.TimeToOwnEditInMinutes, 0, 0);
         }
 
-        private bool DeleteOwnIfTimeNotExceededCheck(DateTime publishDate)
+        private bool DeleteOwnIfTimeNotExceededCheck(DateTimeOffset publishDate)
         {
             return DateTime.Now - publishDate <
                    new TimeSpan(0, 0, materialsOptions.TimeToOwnDeleteInMinutes, 0, 0);
         }
 
-        private bool MoveOwnIfTimeNotExceededCheck(DateTime publishDate)
+        private bool MoveOwnIfTimeNotExceededCheck(DateTimeOffset publishDate)
         {
             return DateTime.Now - publishDate <
                    new TimeSpan(0, 0, materialsOptions.TimeToOwnDeleteInMinutes, 0, 0);

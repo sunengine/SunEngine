@@ -19,7 +19,7 @@ namespace SunEngine.Core.Security
         private readonly IDataBaseFactory dataBaseFactory;
         private readonly JwtOptions jwtOptions;
 
-        private ConcurrentDictionary<string, DateTime> tokens;
+        private ConcurrentDictionary<string, DateTimeOffset> tokens;
 
         public JwtBlackListService(
             IDataBaseFactory dataBaseFactory, 
@@ -53,14 +53,14 @@ namespace SunEngine.Core.Security
             using (var db = dataBaseFactory.CreateDb())
             {
                 var sessions = await db.LongSessions.Where(x => x.UserId == userId).ToListAsync();
-                DateTime exp = DateTime.UtcNow.AddMinutes(jwtOptions.ShortTokenLiveTimeMinutes + 5);
+                DateTimeOffset exp = DateTimeOffset.Now.AddMinutes(jwtOptions.ShortTokenLiveTimeMinutes + 5);
 
                 foreach (var session in sessions)
                     await AddBlackListShortTokenAsync(session.LongToken2, exp);
             }
         }
 
-        private async Task AddBlackListShortTokenAsync(string long2TokenId, DateTime expired)
+        private async Task AddBlackListShortTokenAsync(string long2TokenId, DateTimeOffset expired)
         {
             using (var db = dataBaseFactory.CreateDb())
             {
@@ -79,7 +79,7 @@ namespace SunEngine.Core.Security
             using (var db = dataBaseFactory.CreateDb())
             {
                 var tokensDic = db.BlackListShortTokens.ToDictionary(x => x.TokenId, x => x.Expire);
-                tokens = new ConcurrentDictionary<string, DateTime>();
+                tokens = new ConcurrentDictionary<string, DateTimeOffset>();
                 
                 foreach (var (key, value) in tokensDic)
                     tokens.TryAdd(key, value);
@@ -96,7 +96,7 @@ namespace SunEngine.Core.Security
             if (tokens == null)
                 return;
             
-            DateTime now = DateTime.UtcNow;
+            DateTimeOffset now = DateTimeOffset.Now;
             int deletedNumber = 0;
             foreach (var (key, value) in tokens.ToArray())
             {

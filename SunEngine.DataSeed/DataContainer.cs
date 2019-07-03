@@ -22,7 +22,7 @@ namespace SunEngine.DataSeed
         private int currentUserGroupId = 1;
         private int operationKeyId = 1;
         private int menuItemId = 2;
-        private DateTime commentPublishDate = DateTime.UtcNow.AddMinutes(-3);
+        private DateTimeOffset commentPublishDate = DateTimeOffset.Now.AddMinutes(-3);
 
         public Category RootCategory;
         public MenuItem RootMenuItem;
@@ -65,6 +65,6 @@ namespace SunEngine.DataSeed
 
         public int GetRandomUserId() => Users[ran.Next(Users.Count)].Id;
 
-        public DateTime IterateCommentPublishDate() => commentPublishDate.AddMinutes(5);
+        public DateTimeOffset IterateCommentPublishDate() => commentPublishDate.AddMinutes(5);
     }
 }

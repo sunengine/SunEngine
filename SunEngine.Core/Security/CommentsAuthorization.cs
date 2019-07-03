@@ -44,12 +44,12 @@ namespace SunEngine.Core.Security
             return authorizationService.HasAccess(userGroups, categoryId, OperationKeys.CommentDeleteAny);
         }
 
-        private bool EditOwnIfTimeNotExceededCheck(DateTime publishDate)
+        private bool EditOwnIfTimeNotExceededCheck(DateTimeOffset publishDate)
         {
             return DateTime.Now - publishDate < new TimeSpan(0, 0, commentsOptions.TimeToOwnEditInMinutes, 0, 0);
         }
 
-        private bool DeleteOwnIfTimeNotExceededCheck(DateTime publishDate)
+        private bool DeleteOwnIfTimeNotExceededCheck(DateTimeOffset publishDate)
         {
             return DateTime.Now - publishDate < new TimeSpan(0, 0, commentsOptions.TimeToOwnDeleteInMinutes, 0, 0);
         }
@@ -80,18 +80,14 @@ namespace SunEngine.Core.Security
             if (operationKeys.Contains(OperationKeys.CommentEditOwnIfHasReplies))
             {
                 if (await CheckHasNotOwnAfterAsync(comment))
-                {
                     return false;
-                }
             }
 
             // Если CommentEditOwnIfTimeNotExceeded заблокировано и время редактирования истекло то блокируем
             if (!operationKeys.Contains(OperationKeys.CommentEditOwnIfTimeNotExceeded))
             {
                 if (!EditOwnIfTimeNotExceededCheck(comment.PublishDate))
-                {
                     return false;
-                }
             }
 
             // Если CommentEditOwn то разрешаем

@@ -79,7 +79,7 @@ namespace SunEngine.Core.Controllers
             if (!materialsAuthorization.CanCreate(User.Roles, category))
                 return Unauthorized();
 
-            var now = DateTime.UtcNow;
+            var now = DateTimeOffset.Now;
 
             var material = new Material
             {
@@ -132,8 +132,8 @@ namespace SunEngine.Core.Controllers
 
             material.Title = materialData.Title;
             material.Text = materialData.text;
-            material.EditDate = DateTime.UtcNow;
-
+            material.EditDate = DateTimeOffset.Now;
+            
             await SetNameAsync(material, materialData.Name);
 
             material.SubTitle = newCategory.MaterialsSubTitleInputType == MaterialsSubTitleInputType.Manual

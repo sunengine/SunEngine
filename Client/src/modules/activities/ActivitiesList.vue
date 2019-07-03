@@ -17,7 +17,7 @@
         type: String,
         required: false
       },
-      messagesCategories: {
+      commentsCategories: {
         type: String,
         required: false
       },
@@ -39,7 +39,7 @@
             url: '/Activities/GetActivities',
             data: {
               materialsCategories: this.materialsCategories,
-              messagesCategories: this.messagesCategories,
+              commentsCategories: this.commentsCategories,
               number: this.activitiesNumber
             }
           })

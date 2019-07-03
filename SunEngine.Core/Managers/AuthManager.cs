@@ -74,7 +74,7 @@ namespace SunEngine.Core.Managers
                 Email = model.Email,
                 Avatar = User.DefaultAvatar,
                 Photo = User.DefaultAvatar,
-                RegisteredDate = DateTime.UtcNow
+                RegisteredDate = DateTimeOffset.Now
             };
 
             using (db.BeginTransaction())

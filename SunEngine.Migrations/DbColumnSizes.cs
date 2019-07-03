@@ -1,6 +1,6 @@
 using System;
 
-namespace SunEngine.Migrations.Migrations
+namespace SunEngine.Migrations
 {
     internal static class DbColumnSizes
     {
