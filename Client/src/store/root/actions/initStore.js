@@ -9,6 +9,7 @@ export default async function (context) {
 
   if(hasLongToken())
     await context.dispatch('loadMyUserInfo').catch(() => {
+      console.error("removeTokens");
       removeTokens();
     });
 
