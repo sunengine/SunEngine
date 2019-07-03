@@ -7,8 +7,7 @@ namespace SunEngine.Migrations.Migrations
     {
         public override void Up()
         {
-            Create.Column("RegisteredDate").OnTable("AspNetUsers").AsMyDateTime()
-                .WithDefault(SystemMethods.CurrentDateTimeOffset).Indexed();
+            Create.Column("RegisteredDate").OnTable("AspNetUsers").AsMyDateTime().Indexed();
         }
 
         public override void Down()
