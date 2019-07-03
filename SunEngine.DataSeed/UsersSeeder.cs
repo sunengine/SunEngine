@@ -34,13 +34,10 @@ namespace SunEngine.DataSeed
 
             string jsonText = File.ReadAllText(fileName);
             usersJArray = JArray.Parse(jsonText);
+            
             foreach (var userJ in usersJArray)
-            {
                 SeedUser(userJ);
-            }
         }
-
-      
 
 
         private void SeedUser(JToken usersJ)
@@ -48,9 +45,7 @@ namespace SunEngine.DataSeed
             int maxNumber = 1;
             var repeat = usersJ["Repeat"];
             if (repeat != null)
-            {
                 maxNumber = (int) repeat;
-            }
 
             int startNumber = 1;
             if (usersJ["StartNumber"] != null)
@@ -90,9 +85,7 @@ namespace SunEngine.DataSeed
         public void SeedUserRoles()
         {
             foreach (var userJ in usersJArray)
-            {
                 SeedUserRole(userJ);
-            }
         }
 
         private void SeedUserRole(JToken userJ)
@@ -100,9 +93,7 @@ namespace SunEngine.DataSeed
             int maxNumber = 1;
             var repeat = userJ["Repeat"];
             if (repeat != null)
-            {
                 maxNumber = (int) repeat;
-            }
 
             int startNumber = 1;
             if (userJ["StartNumber"] != null)
