@@ -22,7 +22,7 @@ namespace SunEngine.DataSeed
         private int currentUserGroupId = 1;
         private int operationKeyId = 1;
         private int menuItemId = 2;
-        private DateTimeOffset commentPublishDate = DateTimeOffset.Now.AddMinutes(-3);
+        private DateTimeOffset commentPublishDate = DateTimeOffset.UtcNow.AddMinutes(-3);
 
         public Category RootCategory;
         public MenuItem RootMenuItem;

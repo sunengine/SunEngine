@@ -53,7 +53,7 @@ namespace SunEngine.Core.Security
             using (var db = dataBaseFactory.CreateDb())
             {
                 var sessions = await db.LongSessions.Where(x => x.UserId == userId).ToListAsync();
-                DateTimeOffset exp = DateTimeOffset.Now.AddMinutes(jwtOptions.ShortTokenLiveTimeMinutes + 5);
+                DateTimeOffset exp = DateTimeOffset.UtcNow.AddMinutes(jwtOptions.ShortTokenLiveTimeMinutes + 5);
 
                 foreach (var session in sessions)
                     await AddBlackListShortTokenAsync(session.LongToken2, exp);
@@ -96,7 +96,7 @@ namespace SunEngine.Core.Security
             if (tokens == null)
                 return;
             
-            DateTimeOffset now = DateTimeOffset.Now;
+            DateTimeOffset now = DateTimeOffset.UtcNow;
             int deletedNumber = 0;
             foreach (var (key, value) in tokens.ToArray())
             {
