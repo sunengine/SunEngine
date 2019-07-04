@@ -3,14 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Core.DataBase;
-using SunEngine.Core.Models;
 using SunEngine.Core.Services;
 
 namespace SunEngine.Core.Presenters
 {
     public interface ISearchPresenter
     {
-        Task<UserSearchInfoView[]> SearchByUsernameAsync(string searchString);
+        Task<UserSearchInfoView[]> SearchByUsernameAndLinkAsync(string searchString);
     }
     
     public class SearchPresenter : DbService, ISearchPresenter
@@ -19,16 +18,18 @@ namespace SunEngine.Core.Presenters
         {
         }
 
-        public async Task<UserSearchInfoView[]>  SearchByUsernameAsync(string searchString)
+        public async Task<UserSearchInfoView[]>  SearchByUsernameAndLinkAsync(string searchString)
         {
-            return await db.Users.Where(x => x.UserName.Contains(searchString,StringComparison.OrdinalIgnoreCase)).Select(x => new UserSearchInfoView()
+            return await db.Users.Where(x => x.UserName.Contains(searchString,StringComparison.OrdinalIgnoreCase))
+                .Where(x => x.Link.Contains(searchString,StringComparison.OrdinalIgnoreCase))
+                .Select(x => new UserSearchInfoView()
             {
                 Avatar = x.Avatar,
                 Id = x.Id,
                 Link = x.Link,
                 Name = x.UserName
             }).ToArrayAsync();
-        } 
+        }
     }
     
     public class UserSearchInfoView

@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using LinqToDB.Common;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Core.Presenters;
 
@@ -23,7 +22,11 @@ namespace SunEngine.Core.Controllers
                 return BadRequest();
             }
 
-            var users = await searchPresenter.SearchByUsernameAsync(searchString);
+            var users = await searchPresenter.SearchByUsernameAndLinkAsync(searchString);
+            if (users.Length == 0)
+            {
+                return NotFound("Users not found");
+            }
             return Ok(users);
         }
     }
