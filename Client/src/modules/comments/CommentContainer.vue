@@ -54,7 +54,6 @@
         this.isReadMode = false;
       },
       canEdit() {
-        debugger;
         if (!this.$store.state.auth.user || !this.categoryPersonalAccess) {
           return false;
         }
@@ -70,7 +69,6 @@
         if (!this.categoryPersonalAccess.commentEditOwnIfTimeNotExceeded) {
           const now = new Date();
           const publish = new Date(this.comment.publishDate);
-          debugger;
           const til = date.addToDate(publish, {minutes: config.Comments.TimeToOwnEditInMinutes});
           if (til < now) {
             return false;
