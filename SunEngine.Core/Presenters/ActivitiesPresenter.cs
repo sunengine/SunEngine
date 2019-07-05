@@ -91,7 +91,7 @@ namespace SunEngine.Core.Presenters
         public string Title { get; set; }
         public string Description { get; set; }
         public string CategoryName { get; set; }
-        public DateTimeOffset PublishDate { get; set; }
+        public DateTime PublishDate { get; set; }
         public string AuthorName { get; set; }
         public string AuthorLink { get; set; }
         public string AuthorAvatar { get; set; }

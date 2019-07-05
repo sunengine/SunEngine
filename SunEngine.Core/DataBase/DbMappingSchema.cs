@@ -1,3 +1,4 @@
+using System;
 using LinqToDB.Identity;
 using LinqToDB.Mapping;
 using SunEngine.Core.Models;
@@ -13,6 +14,8 @@ namespace SunEngine.Core.DataBase
     {
         public DbMappingSchema()
         {
+            SetConvertExpression<DateTime,DateTime>(dt => DateTime.SpecifyKind(dt, DateTimeKind.Utc));
+
             var mp = GetFluentMappingBuilder();
             mp.Entity<User>()
                 .HasTableName("AspNetUsers")

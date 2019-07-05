@@ -44,7 +44,7 @@ namespace SunEngine.Core.Services
             var token = new CaptchaToken
             {
                 Text = GenerateCaptchaText(),
-                Expire = DateTimeOffset.UtcNow.Add(cacheTimeout).DateTime,
+                Expire = DateTime.UtcNow.Add(cacheTimeout),
                 Guid = Guid.NewGuid()
             };
 
@@ -68,7 +68,7 @@ namespace SunEngine.Core.Services
         {
             string json = cryptService.Decrypt(CypherName, token);
             CaptchaToken captchaToken = JsonConvert.DeserializeObject<CaptchaToken>(json);
-            if (captchaToken.Expire < DateTimeOffset.UtcNow)
+            if (captchaToken.Expire < DateTime.UtcNow)
                 return false;
 
             return string.Equals(captchaToken.Text, text);

@@ -80,7 +80,7 @@ namespace SunEngine.Core.Managers
 
             var token = new JwtSecurityToken(
                 claims: claims.ToArray(),
-                expires: DateTimeOffset.UtcNow.AddDays(3).UtcDateTime);
+                expires: DateTime.UtcNow.AddDays(3));
             
             cryptService.Crypt(CipherSecrets.EmailChange,token.Payload.SerializeToJson());
             
@@ -98,7 +98,7 @@ namespace SunEngine.Core.Managers
                 email = jwtSecurityToken.Claims.First(x => x.Type == JwtRegisteredClaimNames.Email).Value;
                 userId = int.Parse(jwtSecurityToken.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
 
-                if (jwtSecurityToken.ValidTo.Add(TokensExpiration.Delta) < DateTimeOffset.UtcNow)
+                if (jwtSecurityToken.ValidTo.Add(TokensExpiration.Delta) < DateTime.UtcNow)
                     return false;
             }
             catch

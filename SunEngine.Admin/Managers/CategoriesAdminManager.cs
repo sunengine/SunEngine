@@ -49,7 +49,7 @@ namespace SunEngine.Admin.Managers
             category.LayoutName = category.LayoutName?.SetNullIfEmptyTrim();
             category.MaterialTypeTitle = category.MaterialTypeTitle?.SetNullIfEmptyTrim();
             category.Header = sanitizer.Sanitize(category.Header?.SetNullIfEmptyTrim());
-            if (!categoriesCache.MaterialsPreviewGenerators.ContainsKey(category.MaterialsPreviewGeneratorName))
+            if (!categoriesCache.MaterialsPreviewGenerators.ContainsKey(category.MaterialsPreviewGeneratorName ?? ""))
                 category.MaterialsPreviewGeneratorName = null;
 
 

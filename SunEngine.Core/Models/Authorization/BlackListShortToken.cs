@@ -8,6 +8,6 @@ namespace SunEngine.Core.Models.Authorization
     public class BlackListShortToken
     {
         public string TokenId { get; set; }
-        public DateTimeOffset Expire { get; set; }
+        public DateTime Expire { get; set; }
     }
 }

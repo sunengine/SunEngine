@@ -71,8 +71,8 @@ namespace SunEngine.Core.Presenters
         public string AuthorLink { get; set; }
         public string AuthorAvatar { get; set; }
         public int CommentsCount { get; set; }
-        public DateTimeOffset PublishDate { get; set; }
-        public DateTimeOffset? EditDate { get; set; }
+        public DateTime PublishDate { get; set; }
+        public DateTime? EditDate { get; set; }
         public string CategoryName { get; set; }
         public bool IsCommentsBlocked { get; set; }
         public bool IsHidden { get; set; }

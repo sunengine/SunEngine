@@ -1,3 +1,4 @@
+using System;
 using FluentMigrator;
 
 namespace SunEngine.Migrations.Migrations
@@ -7,7 +8,7 @@ namespace SunEngine.Migrations.Migrations
     {
         public override void Up()
         {
-            Create.Column("RegisteredDate").OnTable("AspNetUsers").AsMyDateTime().Indexed();
+            Create.Column("RegisteredDate").OnTable("AspNetUsers").AsDateTime().Indexed();
         }
 
         public override void Down()

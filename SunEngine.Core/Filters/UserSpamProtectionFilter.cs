@@ -100,21 +100,21 @@ namespace SunEngine.Core.Filters
 
     public class RequestFree
     {
-        private DateTimeOffset dateTimeTil;
+        private DateTime dateTimeTil;
 
         public RequestFree(TimeSpan timeout)
         {
-            dateTimeTil = DateTimeOffset.UtcNow.Add(timeout);
+            dateTimeTil = DateTime.UtcNow.Add(timeout);
         }
 
         public void UpdateDateTime(TimeSpan timeout)
         {
-            dateTimeTil = DateTimeOffset.UtcNow.Add(timeout);
+            dateTimeTil = DateTime.UtcNow.Add(timeout);
         }
 
         public bool Working()
         {
-            return dateTimeTil >= DateTimeOffset.UtcNow;
+            return dateTimeTil >= DateTime.UtcNow;
         }
     }
 }

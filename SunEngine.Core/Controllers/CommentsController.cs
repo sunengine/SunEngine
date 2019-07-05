@@ -68,7 +68,7 @@ namespace SunEngine.Core.Controllers
             if (!commentsAuthorization.CanAdd(User.Roles, material))
                 return Unauthorized();
 
-            var now = DateTimeOffset.UtcNow;
+            var now = DateTime.UtcNow;
             Comment comment = new Comment
             {
                 Material = material,
@@ -111,7 +111,7 @@ namespace SunEngine.Core.Controllers
                 return Unauthorized();
 
             comment.Text = newComment.Text;
-            comment.EditDate = DateTimeOffset.UtcNow;
+            comment.EditDate = DateTime.UtcNow;
 
             await commentsManager.UpdateAsync(comment);
 

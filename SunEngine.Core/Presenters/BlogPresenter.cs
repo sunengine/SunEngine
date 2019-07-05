@@ -89,7 +89,7 @@ namespace SunEngine.Core.Presenters
         public string AuthorAvatar { get; set; }
         public string Preview { get; set; }
         public int CommentsCount { get; set; }
-        public DateTimeOffset PublishDate { get; set; }
+        public DateTime PublishDate { get; set; }
         public string CategoryName { get; set; }
         public string CategoryTitle { get; set; }
         public bool HasMoreText { get; set; }

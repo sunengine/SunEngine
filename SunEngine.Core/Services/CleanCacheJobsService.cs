@@ -90,7 +90,7 @@ namespace SunEngine.Core.Services
     {
         public static void ClearExpiredLongSessions(DataBaseConnection db)
         {
-            var now = DateTimeOffset.UtcNow;
+            var now = DateTime.UtcNow;
             db.LongSessions.Where(x => x.ExpirationDate <= now).Delete();
         }
     }
@@ -99,7 +99,7 @@ namespace SunEngine.Core.Services
     {
         public static void CleanExpiredRegistrationUsers(DataBaseConnection db)
         {
-            DateTimeOffset lastLine = DateTimeOffset.UtcNow.AddDays(-5);
+            DateTime lastLine = DateTime.UtcNow.AddDays(-5);
             db.Users.Where(x => !x.EmailConfirmed && x.RegisteredDate < lastLine).Delete();
         }
     }

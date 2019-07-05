@@ -44,14 +44,14 @@ namespace SunEngine.Core.Security
             return authorizationService.HasAccess(userGroups, categoryId, OperationKeys.CommentDeleteAny);
         }
 
-        private bool EditOwnIfTimeNotExceededCheck(DateTimeOffset publishDate)
+        private bool EditOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
-            return DateTime.Now - publishDate < new TimeSpan(0, 0, commentsOptions.TimeToOwnEditInMinutes, 0, 0);
+            return DateTime.UtcNow - publishDate < new TimeSpan(0, 0, commentsOptions.TimeToOwnEditInMinutes, 0, 0);
         }
 
-        private bool DeleteOwnIfTimeNotExceededCheck(DateTimeOffset publishDate)
+        private bool DeleteOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
-            return DateTime.Now - publishDate < new TimeSpan(0, 0, commentsOptions.TimeToOwnDeleteInMinutes, 0, 0);
+            return DateTime.UtcNow - publishDate < new TimeSpan(0, 0, commentsOptions.TimeToOwnDeleteInMinutes, 0, 0);
         }
 
         public async Task<bool> CanEditAsync(SunClaimsPrincipal user, Comment comment, int categoryId)

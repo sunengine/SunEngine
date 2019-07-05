@@ -43,7 +43,7 @@ namespace SunEngine.Core.Presenters
                     PublishDate = x.PublishDate,
                     LastCommentId = x.LastCommentId,
                     LastCommentPublishDate =
-                        x.LastCommentId.HasValue ? (DateTimeOffset?) x.LastComment.PublishDate : null,
+                        x.LastCommentId.HasValue ? (DateTime?) x.LastComment.PublishDate : null,
                     CategoryName = x.Category.Name,
                     LastCommentAuthorName = x.LastComment.Author.UserName,
                     LastCommentAuthorAvatar = x.LastComment.Author.Avatar,
@@ -71,7 +71,7 @@ namespace SunEngine.Core.Presenters
                     AuthorAvatar = x.Author.Avatar,
                     PublishDate = x.PublishDate,
                     LastCommentId = x.LastCommentId,
-                    LastCommentPublishDate = x.LastCommentId.HasValue ? (DateTimeOffset?) x.LastComment.PublishDate : null,
+                    LastCommentPublishDate = x.LastCommentId.HasValue ? (DateTime?) x.LastComment.PublishDate : null,
                     CategoryName = x.Category.Name,
                     CategoryTitle = x.Category.Title,
                     LastCommentAuthorName = x.LastComment.Author.UserName,
@@ -97,11 +97,11 @@ namespace SunEngine.Core.Presenters
         public string AuthorName { get; set; }
         public string AuthorAvatar { get; set; }
         public int CommentsCount { get; set; }
-        public DateTimeOffset PublishDate { get; set; }
+        public DateTime PublishDate { get; set; }
         public int? LastCommentId { get; set; }
         public string LastCommentAuthorName { get; set; }
         public string LastCommentAuthorAvatar { get; set; }
-        public DateTimeOffset? LastCommentPublishDate { get; set; }
+        public DateTime? LastCommentPublishDate { get; set; }
         public string CategoryTitle { get; set; }
         public string CategoryName { get; set; }
         public bool IsCommentsBlocked { get; set; }

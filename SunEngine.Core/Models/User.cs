@@ -40,7 +40,7 @@ namespace SunEngine.Core.Models
         /// </summary>
         public string Avatar { get; set; }
 
-        public DateTimeOffset RegisteredDate { get; set; }
+        public DateTime RegisteredDate { get; set; }
 
         /// <summary>
         /// Who is banned by this user

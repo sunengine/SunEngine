@@ -65,7 +65,7 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("PhoneNumber").AsMaxString().Nullable()
                 .WithColumn("PhoneNumberConfirmed").AsBoolean().NotNullable()
                 .WithColumn("TwoFactorEnabled").AsBoolean().NotNullable()
-                .WithColumn("LockoutEnd").AsMyDateTime().Nullable()
+                .WithColumn("LockoutEnd").AsDateTime().Nullable()
                 .WithColumn("LockoutEnabled").AsBoolean().NotNullable()
                 .WithColumn("AccessFailedCount").AsInt16().NotNullable()
                 .WithColumn("Link").AsString(DbColumnSizes.Users_Link).Nullable()
@@ -92,10 +92,10 @@ namespace SunEngine.Migrations.Migrations
                 .ForeignKey("FK_Materials_Categories_CategoryId", "Categories", "Id")
                 .WithColumn("AuthorId").AsInt32().NotNullable().Indexed()
                 .ForeignKey("FK_Materials_AspNetUsers_AuthorId", "AspNetUsers", "Id")
-                .WithColumn("PublishDate").AsMyDateTime().NotNullable().Indexed()
-                .WithColumn("EditDate").AsMyDateTime().Nullable()
+                .WithColumn("PublishDate").AsDateTime().NotNullable().Indexed()
+                .WithColumn("EditDate").AsDateTime().Nullable()
                 .WithColumn("LastCommentId").AsInt32().Nullable()
-                .WithColumn("LastActivity").AsMyDateTime().NotNullable().Indexed()
+                .WithColumn("LastActivity").AsDateTime().NotNullable().Indexed()
                 .WithColumn("CommentsCount").AsInt32().NotNullable()
                 .WithColumn("SortNumber").AsInt32().NotNullable().Indexed()
                 .WithColumn("IsCommentsBlocked").AsBoolean().NotNullable()
@@ -110,8 +110,8 @@ namespace SunEngine.Migrations.Migrations
                 .ForeignKey("FK_Comments_Materials_MaterialId", "Materials", "Id").OnDelete(Rule.Cascade)
                 .WithColumn("AuthorId").AsInt32().Indexed().Nullable()
                 .ForeignKey("FK_Comments_AspNetUsers_AuthorId", "AspNetUsers", "Id")
-                .WithColumn("PublishDate").AsMyDateTime().NotNullable().Indexed()
-                .WithColumn("EditDate").AsMyDateTime().Nullable()
+                .WithColumn("PublishDate").AsDateTime().NotNullable().Indexed()
+                .WithColumn("EditDate").AsDateTime().Nullable()
                 .WithColumn("IsDeleted").AsBoolean().Nullable();
 
             Create.ForeignKey("FK_Materials_Comments_LastCommentId").FromTable("Materials")
@@ -176,7 +176,7 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("LongToken1").AsString(DbColumnSizes.LongSessions_LongToken1).NotNullable()
                 .WithColumn("LongToken2").AsString(DbColumnSizes.LongSessions_LongToken2).NotNullable()
                 .WithColumn("DeviceInfo").AsMaxString().NotNullable()
-                .WithColumn("ExpirationDate").AsMyDateTime().NotNullable().Indexed();
+                .WithColumn("ExpirationDate").AsDateTime().NotNullable().Indexed();
             
             Create.Index("IX_LongSessions_Main").OnTable("LongSessions")
                 .OnColumn("UserId").Ascending()
@@ -186,7 +186,7 @@ namespace SunEngine.Migrations.Migrations
             
             Create.Table("BlackListShortTokens")
                 .WithColumn("TokenId").AsString(DbColumnSizes.BlackListShortToken_TokenId).PrimaryKey().NotNullable()
-                .WithColumn("Expire").AsMyDateTime().Indexed().NotNullable();
+                .WithColumn("Expire").AsDateTime().Indexed().NotNullable();
 
             
             Create.Table("MenuItems")

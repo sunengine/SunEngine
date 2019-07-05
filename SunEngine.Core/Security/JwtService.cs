@@ -77,7 +77,7 @@ namespace SunEngine.Core.Security
             {
                 longSession1.LongToken1 = CryptoRandomizer.GetRandomString(LongSession.LongToken1Length);
                 longSession1.LongToken2 = CryptoRandomizer.GetRandomString(LongSession.LongToken2Length);
-                longSession1.ExpirationDate = DateTimeOffset.UtcNow.AddDays(jwtOptions.LongTokenLiveTimeDays);
+                longSession1.ExpirationDate = DateTime.UtcNow.AddDays(jwtOptions.LongTokenLiveTimeDays);
             }
 
 
@@ -155,11 +155,11 @@ namespace SunEngine.Core.Security
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
-            var expiration = DateTimeOffset.UtcNow.AddMinutes(jwtOptions.ShortTokenLiveTimeMinutes);
+            var expiration = DateTime.UtcNow.AddMinutes(jwtOptions.ShortTokenLiveTimeMinutes);
 
             var token = new JwtSecurityToken(
                 claims: claims.ToArray(),
-                expires: expiration.UtcDateTime);
+                expires: expiration);
 
             var claimsIdentity = new ClaimsIdentity(claims, "JwtShortToken");
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
@@ -168,7 +168,7 @@ namespace SunEngine.Core.Security
             {
                 ClaimsPrincipal = new SunClaimsPrincipal(claimsPrincipal, rolesCache, sessionId, lat2),
                 Token = cryptService.Crypt(CipherSecrets.ShortJwt, token.Payload.SerializeToJson()),
-                Expiration = expiration.UtcDateTime
+                Expiration = expiration
             };
         }
 
@@ -181,7 +181,7 @@ namespace SunEngine.Core.Security
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(jwtSecurityToken.Claims, SunJwt.Scheme);
 
-            if (jwtSecurityToken.ValidTo.Add(TokensExpiration.Delta) < DateTimeOffset.UtcNow)
+            if (jwtSecurityToken.ValidTo.Add(TokensExpiration.Delta) < DateTime.UtcNow)
                 throw new Exception("Short token expires");
 
             return new ClaimsPrincipal(claimsIdentity);
@@ -202,7 +202,7 @@ namespace SunEngine.Core.Security
 
             var token = new JwtSecurityToken(
                 claims: claims.ToArray(),
-                expires: longSession.ExpirationDate.UtcDateTime);
+                expires: longSession.ExpirationDate);
 
             return cryptService.Crypt(CipherSecrets.Long2Jwt, token.Payload.SerializeToJson());
         }
@@ -213,7 +213,7 @@ namespace SunEngine.Core.Security
 
             var jwtSecurityToken = new JwtSecurityToken(new JwtHeader(), JwtPayload.Deserialize(tokenDecrypted));
 
-            if (jwtSecurityToken.ValidTo.Add(TokensExpiration.Delta) < DateTimeOffset.UtcNow)
+            if (jwtSecurityToken.ValidTo.Add(TokensExpiration.Delta) < DateTime.UtcNow)
                 throw new Exception("Long2 token expires");
 
             return jwtSecurityToken;
