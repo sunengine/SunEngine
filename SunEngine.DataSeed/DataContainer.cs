@@ -65,6 +65,10 @@ namespace SunEngine.DataSeed
 
         public int GetRandomUserId() => Users[ran.Next(Users.Count)].Id;
 
-        public DateTime IterateCommentPublishDate() => commentPublishDate.AddMinutes(5);
+        public DateTime IterateCommentPublishDate()
+        {
+            commentPublishDate = commentPublishDate.AddMinutes(-3);
+            return commentPublishDate;
+        }
     }
 }
