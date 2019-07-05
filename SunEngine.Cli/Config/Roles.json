@@ -1,18 +1,12 @@
 {
-  "Banned" : {
+  "Banned": {
     "Title": "Бан"
   },
   "Unregistered": {
     "Title": "Гость",
     "Categories": [
       {
-        "Category": "Forum1",
-        "OperationKeys": {
-          "MaterialAndCommentsRead": true
-        }
-      },
-      {
-        "Category": "Forum2",
+        "Category": "Root",
         "OperationKeys": {
           "MaterialAndCommentsRead": true
         }
@@ -20,25 +14,9 @@
       {
         "Category": "OnlyForRegistered",
         "OperationKeys": {
-          "MaterialAndCommentsRead": false
-        }
-      },
-      {
-        "Category": "Articles",
-        "OperationKeys": {
-          "MaterialAndCommentsRead": true
-        }
-      },
-      {
-        "Category": "Articles1",
-        "OperationKeys": {
-          "MaterialAndCommentsRead": true
-        }
-      },
-      {
-        "Category": "Blog",
-        "OperationKeys": {
-          "MaterialAndCommentsRead": true
+          "MaterialAndCommentsRead": false,
+          "MaterialWrite": false,
+          "CommentWrite": false
         }
       }
     ]
@@ -47,9 +25,15 @@
     "Title": "Пользователь",
     "Categories": [
       {
-        "Category": "Forum1",
+        "Category": "Root",
         "OperationKeys": {
           "MaterialAndCommentsRead": true,
+          "CommentWrite": true
+        }
+      },
+      {
+        "Category": "Forum1",
+        "OperationKeys": {
           "MaterialWrite": true,
           "CommentWrite": true,
           "MaterialEditOwn": true,
@@ -61,9 +45,11 @@
       {
         "Category": "Forum2",
         "OperationKeys": {
-          "MaterialAndCommentsRead": true,
           "MaterialWrite": true,
-          "CommentWrite": true
+          "MaterialEditOwn": true,
+          "CommentEditOwn": true,
+          "MaterialDeleteOwn": true,
+          "CommentDeleteOwn": true
         }
       },
       {
@@ -74,9 +60,9 @@
         }
       },
       {
-        "Category": "NoAddMaterialsAndComments",
+        "Category": "NoAddComments",
         "OperationKeys": {
-          "MaterialWrite": false,
+          "MaterialWrite": true,
           "CommentWrite": false
         }
       },
@@ -87,28 +73,6 @@
           "CommentEditOwn": false,
           "MaterialDeleteOwn": false,
           "CommentDeleteOwn": false
-        }
-      },
-      {
-        "Category": "Articles",
-        "OperationKeys": {
-          "MaterialAndCommentsRead": true,
-          "CommentWrite": true
-        }
-      },
-      {
-        "Category": "Articles1",
-        "OperationKeys": {
-          "MaterialAndCommentsRead": true,
-          "CommentWrite": true
-        }
-      },
-      {
-        "Category": "Blog",
-        "OperationKeys": {
-          "MaterialAndCommentsRead": true,
-          "MaterialWrite": true,
-          "CommentWrite": true
         }
       }
     ]
