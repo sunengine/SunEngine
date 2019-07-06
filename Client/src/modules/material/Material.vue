@@ -79,6 +79,7 @@
   import {restoreMaterial} from 'sun'
   import {canDeleteMaterial} from 'sun'
   import {canRestoreMaterial} from 'sun'
+  import {prepareLocalLinks} from 'sun'
 
 
   import {date} from 'quasar'
@@ -164,17 +165,7 @@
     },
     methods: {
       prepareLocalLinks() {
-        const el = this.$el.getElementsByClassName('material-text')[0];
-        const links = el.getElementsByTagName('a');
-        for(const link of links) {
-          if(link.href.startsWith(config.SiteUrl)) {
-            link.addEventListener('click', (e) => {
-              const url = link.href.substring(config.SiteUrl.length);
-              this.$router.push(url);
-              e.preventDefault();
-            });
-          }
-        }
+        prepareLocalLinks(this.$el,'material-text');
       },
       async loadDataMaterial() {
         await this.$store.dispatch('request',
@@ -186,7 +177,7 @@
           }).then((response) => {
             this.material = response.data;
             this.title = this.material.title;
-            this.$nextTick( () =>{
+            this.$nextTick(() => {
               this.prepareLocalLinks();
             })
           }
@@ -196,12 +187,10 @@
         await this.$store.dispatch('request',
           {
             url: '/Comments/GetMaterialComments',
-            data:
-              {
-                materialId: this.material.id
-              }
-          }).then(
-          response => {
+            data: {
+              materialId: this.material.id
+            }
+          }).then(response => {
             this.comments = response.data;
             this.$nextTick(function () {
               if (this.$route.hash) {

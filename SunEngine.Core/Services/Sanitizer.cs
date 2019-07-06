@@ -57,8 +57,6 @@ namespace SunEngine.Core.Services
 
             htmlSanitizer.AllowedAtRules.Clear();
 
-            htmlSanitizer.AllowedTags.Remove("img");
-            
             htmlSanitizer.RemovingTag += OnRemovingTag;
             htmlSanitizer.RemovingAttribute += OnRemovingAttribute;
         }

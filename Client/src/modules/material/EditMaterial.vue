@@ -111,8 +111,8 @@
           this.loading = false;
         });
       },
-      loadData() {
-        this.$store.dispatch('request', {
+      async loadData() {
+        await this.$store.dispatch('request', {
           url: '/Materials/Get',
           data: {
             idOrName: this.id,
@@ -120,7 +120,7 @@
         }).then(response => {
           this.material = response.data;
         });
-        this.$store.dispatch('request',
+        await this.$store.dispatch('request',
           {
             url: '/Comments/GetMaterialComments',
             data:
@@ -136,9 +136,9 @@
       this.$options.components.MaterialForm = require('sun').MaterialForm;
       this.$options.components.LoaderSent = require('sun').LoaderSent;
     },
-    created() {
+    async created() {
       this.title = this.$tl('title');
-      this.loadData();
+      await this.loadData();
     }
   }
 

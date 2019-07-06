@@ -52,6 +52,8 @@
 </template>
 
 <script>
+  import {prepareLocalLinks} from 'sun'
+
 
   export default {
     name: 'Post',
@@ -74,17 +76,7 @@
     },
     methods: {
       prepareLocalLinks() {
-        const el = this.$el.getElementsByClassName('post-text')[0];
-        const links = el.getElementsByTagName('a');
-        for (const link of links) {
-          if (link.href.startsWith(config.SiteUrl)) {
-            link.addEventListener('click', (e) => {
-              const url = link.href.substring(config.SiteUrl.length);
-              this.$router.push(url);
-              e.preventDefault();
-            });
-          }
-        }
+        prepareLocalLinks(this.$el, 'post-text');
       }
     },
     mounted() {

@@ -1,4 +1,3 @@
-cd
 <template>
   <div class="read-comment">
     <img class="avatar msg-avatar" :src="$imagePath(comment.authorAvatar)"/>
@@ -20,7 +19,7 @@ cd
                     <q-icon name="far fa-clock"/> {{ $formatDate(comment.publishDate) }}
         </span>
       </div>
-      <div class="comment" v-html="comment.text">
+      <div class="comment-text" v-html="comment.text">
 
       </div>
     </div>
@@ -29,6 +28,8 @@ cd
 </template>
 
 <script>
+  import {prepareLocalLinks} from 'sun';
+
 
   export default {
     name: 'ReadComment',
@@ -45,6 +46,9 @@ cd
       goEdit: Function
     },
     methods: {
+      prepareLocalLinks() {
+        prepareLocalLinks(this.$el, 'comment-text');
+      },
       async moveToTrash() {
         const deleteDialogMessage = this.$tl('deleteDialogMessage');
         const okButtonLabel = this.$t('Global.dialog.ok');
@@ -74,6 +78,9 @@ cd
         }).onCancel(() => {
         });
       },
+    },
+    mounted() {
+      this.prepareLocalLinks();
     }
   }
 
