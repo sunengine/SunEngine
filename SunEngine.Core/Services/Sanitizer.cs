@@ -16,8 +16,8 @@ namespace SunEngine.Core.Services
         public Sanitizer(SanitizerOptions options)
         {
             this.options = options;
-            this.htmlSanitizer = new HtmlSanitizer();
-            this.ConfigureHtmlSanitizer();
+            htmlSanitizer = new HtmlSanitizer();
+            ConfigureHtmlSanitizer();
         }
 
         public string Sanitize(string text)
@@ -58,14 +58,14 @@ namespace SunEngine.Core.Services
             htmlSanitizer.AllowedAtRules.Clear();
 
             htmlSanitizer.AllowedTags.Remove("img");
+            
             htmlSanitizer.RemovingTag += OnRemovingTag;
             htmlSanitizer.RemovingAttribute += OnRemovingAttribute;
         }
-        
+
         private bool CheckIframeAllowedDomens(string tagName, RemovingTagEventArgs e)
         {
-            if (tagName == "iframe") // вроверяем куда ведёт iframe src, блокируем
-                // всё, кроме разрешённых сайтов
+            if (tagName == "iframe")
             {
                 var src = e.Tag.GetAttribute("src").TrimStart().ToLower();
                 foreach (var allowedDomen in options.AllowedVideoDomains)
@@ -84,22 +84,8 @@ namespace SunEngine.Core.Services
             return false;
         }
 
-        private bool AddImgClasses(string tagName, RemovingTagEventArgs e)
-        {
-            if (tagName == "img") // в любую картинку добавляем img-responsive
-            {
-                if (!e.Tag.GetAttribute("src").Contains("emoticons")) // Кроме смайликов
-                {
-                    e.Tag.ClassList.Add("text-img");
-                }
-
-                e.Cancel = true;
-            }
-
-            return false;
-        }
-
-        private bool AllowOnlyClassList(string attributeName, RemovingAttributeEventArgs e,
+        private bool AllowOnlyClassList(
+            string attributeName, RemovingAttributeEventArgs e,
             string[] allowedClasses)
         {
             if (attributeName == "class")
@@ -113,46 +99,17 @@ namespace SunEngine.Core.Services
             return false;
         }
 
-        private bool MakeExternalLinksOpenedNewTab(string attributeName, RemovingAttributeEventArgs e,
-            string siteUrl)
-        {
-            if (attributeName == "href")
-            {
-                var href = e.Attribute.Value;
-                if (!href.StartsWith(siteUrl) &&
-                    (href.StartsWith("http") || href.StartsWith("https")
-                                             || href.StartsWith("ftp")))
-                {
-                    if (!e.Tag.Attributes.Any(x => x.Name.ToLower() == "target"))
-                    {
-                        e.Tag.SetAttribute("target", "_blank");
-                    }
-                }
-
-                e.Cancel = true;
-                return true;
-            }
-
-            return false;
-        }
-
-        #region EventHandlers
-
         private void OnRemovingAttribute(object s, RemovingAttributeEventArgs e)
         {
             var attributeName = e.Attribute.Name.ToLower();
-            var _ = AllowOnlyClassList(attributeName, e, options.AllowedClasses)
-                    || MakeExternalLinksOpenedNewTab(attributeName, e, siteUrl);
+            AllowOnlyClassList(attributeName, e, options.AllowedClasses);
         }
 
         private void OnRemovingTag(object sender, RemovingTagEventArgs e)
         {
             var tagName = e.Tag.TagName.ToLower();
-            var _ = CheckIframeAllowedDomens(tagName, e)
-                    || AddImgClasses(tagName, e);
+            CheckIframeAllowedDomens(tagName, e);
         }
-
-        #endregion
     }
 
     public static class SanitizerExtensions
