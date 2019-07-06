@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
+using SunEngine.Core.Security;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
 using SunEngine.Core.Utils.TextProcess;
@@ -23,17 +24,21 @@ namespace SunEngine.Core.Managers
         Task<bool> CheckNameInDbAsync(string name, int userId);
         Task<bool> ValidateNameAsync(string name, int userId);
         Task RemoveAvatarAsync(int userId);
+        Task RemoveSessionsAsync(int userId, long[] sessionsIds);
     }
 
     public class PersonalManager : DbService, IPersonalManager
     {
         protected readonly Sanitizer sanitizer;
+        protected readonly JwtBlackListService jwtBlackListService;
 
         public PersonalManager(
             DataBaseConnection db,
+            JwtBlackListService jwtBlackListService,
             Sanitizer sanitizer) : base(db)
         {
             this.sanitizer = sanitizer;
+            this.jwtBlackListService = jwtBlackListService;
         }
 
         public virtual Task SetPhotoAsync(int userId, string photo)
@@ -118,6 +123,12 @@ namespace SunEngine.Core.Managers
             return db.Users.Where(x => x.Id == userId)
                 .Set(x => x.Photo, User.DefaultAvatar)
                 .Set(x => x.Avatar, User.DefaultAvatar).UpdateAsync();
+        }
+
+        public async Task RemoveSessionsAsync(int userId, long[] sessionsIds)
+        {
+            await db.LongSessions.Where(x => x.UserId == userId && sessionsIds.Contains(x.Id)).DeleteAsync();
+            await jwtBlackListService.AddUserTokensToBlackListAsync(userId, sessionsIds);
         }
     }
 }

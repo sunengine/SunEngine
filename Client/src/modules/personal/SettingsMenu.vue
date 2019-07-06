@@ -65,6 +65,14 @@
         {{$tl("changePhoto")}}
       </q-item-section>
     </q-item>
+    <q-item :to="{name: 'Sessions'}">
+      <q-item-section avatar>
+        <q-icon name="fas fa-ticket-alt"/>
+      </q-item-section>
+      <q-item-section>
+        {{$tl("sessions")}}
+      </q-item-section>
+    </q-item>
     <q-item :to="{name:'MyBanList'}">
       <q-item-section avatar>
         <q-icon name="fas fa-ban"/>

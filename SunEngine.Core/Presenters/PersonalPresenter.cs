@@ -11,6 +11,7 @@ namespace SunEngine.Core.Presenters
         Task<SunUserInfoView> GetMyUserInfoAsync(int id);
         Task<SunProfileInformationView> GetMyProfileInformationAsync(int id);
         Task<UserInfoView[]> GetBanListAsync(int userId);
+        Task<SessionInfoView[]> GetMySessionsAsync(int userId, long currentSessionId);
     }
 
     public class PersonalPresenter : DbService, IPersonalPresenter
@@ -61,6 +62,16 @@ namespace SunEngine.Core.Presenters
                     Link = x.UserBaned.Link
                 }).ToArrayAsync();
         }
+
+        public Task<SessionInfoView[]> GetMySessionsAsync(int userId, long currentSessionId)
+        {
+            return db.LongSessions.Where(x => x.UserId == userId).OrderBy(x => x.Id).Select(x => new SessionInfoView
+            {
+                Id = x.Id,
+                DeviceInfo = x.DeviceInfo,
+                IsCurrent = currentSessionId == x.Id
+            }).ToArrayAsync();
+        }
     }
 
     public class SunProfileInformationView
@@ -76,5 +87,12 @@ namespace SunEngine.Core.Presenters
         public string Photo { get; set; }
         public string Avatar { get; set; }
         public string Link { get; set; }
+    }
+
+    public class SessionInfoView
+    {
+        public long Id { get; set; }
+        public string DeviceInfo { get; set; }
+        public bool IsCurrent { get; set; }
     }
 }

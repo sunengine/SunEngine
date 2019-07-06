@@ -6,6 +6,8 @@ import {ChangeLink} from 'sun'
 import {ChangeName} from 'sun'
 import {MyBanList} from 'sun'
 import {Profile} from 'sun'
+import {Sessions} from 'sun'
+
 
 import {store} from 'sun';
 
@@ -49,6 +51,14 @@ const routes = [
     path: '/personal/EditInformation'.toLowerCase(),
     components: {
       default: EditInformation,
+      navigation: SettingsPanel
+    }
+  },
+  {
+    name: 'Sessions',
+    path: '/personal/Sessions'.toLowerCase(),
+    components: {
+      default: Sessions,
       navigation: SettingsPanel
     }
   },

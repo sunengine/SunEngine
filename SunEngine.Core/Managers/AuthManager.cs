@@ -21,6 +21,7 @@ namespace SunEngine.Core.Managers
     public interface IAuthManager
     {
         Task<User> LoginAsync(string nameOrEmail, string password);
+        Task LogoutAsync(int userId, long sessionId);
         Task RegisterAsync(NewUserArgs model);
         Task<bool> CheckUserNameInDbAsync(string userName);
     }
@@ -32,6 +33,7 @@ namespace SunEngine.Core.Managers
         protected readonly GlobalOptions globalOptions;
         protected readonly IEmailSenderService emailSenderService;
         protected readonly ILogger logger;
+        protected readonly JwtBlackListService jwtBlackListService;
 
 
         public AuthManager(
@@ -39,11 +41,13 @@ namespace SunEngine.Core.Managers
             IEmailSenderService emailSenderService,
             DataBaseConnection db,
             IOptions<GlobalOptions> globalOptions,
+            JwtBlackListService jwtBlackListService,
             ILoggerFactory loggerFactory) : base(db)
         {
             this.userManager = userManager;
             this.globalOptions = globalOptions.Value;
             this.emailSenderService = emailSenderService;
+            this.jwtBlackListService = jwtBlackListService;
             logger = loggerFactory.CreateLogger<AccountController>();
         }
 
@@ -64,6 +68,12 @@ namespace SunEngine.Core.Managers
                 throw new SunViewException(new ErrorView("UserBanned", "User is banned", ErrorType.System));
 
             return user;
+        }
+
+        public virtual async Task LogoutAsync(int userId, long sessionId)
+        {
+            await db.LongSessions.Where(x => x.UserId == userId && x.Id == sessionId).DeleteAsync();
+            await jwtBlackListService.AddUserTokensToBlackListAsync(userId, new[] {sessionId});
         }
 
         public virtual async Task RegisterAsync(NewUserArgs model)

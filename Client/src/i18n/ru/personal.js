@@ -47,6 +47,13 @@ export default {
   MyBanList: {
     title: "Забаненые пользователи"
   },
+  Sessions: {
+    title: "Сессии",
+    deviceInfo: "Устройство и браузер",
+    current: "Текущая",
+    successNotify: "Сессии успешно удалены",
+    logout: "Выйти"
+  },
   SettingsMenu: {
     goToProfile: "Просмотреть профиль",
     changeEmail: "Изменить email",
@@ -55,6 +62,7 @@ export default {
     changeName: "Изменить имя",
     changeYourInformation: "Изменить информацию о вас",
     changePhoto: "Изменить фотографию",
+    sessions: "Сессии авторизации",
     banedUsersList: "Забаненые пользователи"
   },
   SettingsPage: {

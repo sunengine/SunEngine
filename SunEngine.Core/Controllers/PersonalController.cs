@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -19,7 +20,6 @@ namespace SunEngine.Core.Controllers
         protected readonly IPersonalManager personalManager;
         protected readonly JwtService jwtService;
         protected readonly IPersonalPresenter personalPresenter;
-
 
         public PersonalController(
             IPersonalManager personalManager, 
@@ -116,5 +116,23 @@ namespace SunEngine.Core.Controllers
             return Ok(usersList);
         }
         
-    } 
+        [HttpPost]
+        public virtual async Task<IActionResult> GetMySessions()
+        {
+           
+            var sessions = await personalPresenter.GetMySessionsAsync(User.UserId, User.SessionId);
+
+            return Ok(sessions);
+        }
+        
+        [HttpPost]
+        public virtual async Task<IActionResult> RemoveMySessions(string sessions)
+        {
+            long[] sessionsIds = sessions.Split(',').Select(long.Parse).ToArray(); 
+            
+            await personalManager.RemoveSessionsAsync(User.UserId, sessionsIds);
+
+            return Ok();
+        }
+    }
 }

@@ -47,6 +47,13 @@ export default {
   MyBanList: {
     title: "Banned users"
   },
+  Sessions: {
+    title: "Sessions",
+    deviceInfo: "Device and browser info",
+    current: "Current",
+    successNotify: "Sessions successfully deleted",
+    logout: "Exit"
+},
   SettingsMenu: {
     goToProfile: "View profile",
     changeEmail: "Change email",
@@ -55,6 +62,7 @@ export default {
     changeName: "Change login",
     changeYourInformation: "Change your information",
     changePhoto: "Change avatar",
+    sessions: "Authorization sessions",
     banedUsersList: "Banned users"
   },
   SettingsPage: {

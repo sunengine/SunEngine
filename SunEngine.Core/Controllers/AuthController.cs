@@ -26,6 +26,7 @@ namespace SunEngine.Core.Controllers
         private readonly GlobalOptions globalOptions;
         private readonly IAuthManager authManager;
 
+
         public AuthController(
             DataBaseConnection db,
             JwtService jwtService,
@@ -54,15 +55,12 @@ namespace SunEngine.Core.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            int userId = User.UserId;
-            long sessionId = User.SessionId;
-            await db.LongSessions.Where(x => x.UserId == userId && x.Id == sessionId).DeleteAsync();
+            await authManager.LogoutAsync(User.UserId,User.SessionId);
 
             jwtService.MakeLogoutCookiesAndHeaders(Response);
 
             return Ok();
         }
-
 
         [HttpPost]
         [CaptchaValidationFilter]
@@ -75,7 +73,7 @@ namespace SunEngine.Core.Controllers
 
             return Ok();
         }
-        
+
         public async Task<IActionResult> CheckUserNameInDb(string userName)
         {
             return Ok(new {yes = await authManager.CheckUserNameInDbAsync(userName)});
@@ -96,7 +94,8 @@ namespace SunEngine.Core.Controllers
                         await userManager.AddToRoleAsync(user, RoleNames.Registered);
 
                         transaction.Complete();
-                        return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "Auth/RegisterEmailResult?result=ok").ToLower());
+                        return Redirect(Flurl.Url.Combine(globalOptions.SiteUrl, "Auth/RegisterEmailResult?result=ok")
+                            .ToLower());
                     }
                 }
                 catch

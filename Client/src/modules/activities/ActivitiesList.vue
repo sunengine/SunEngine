@@ -1,7 +1,7 @@
 <template>
   <div class="activities-list">
     <template v-if="activities">
-      <activity :key="activity.materialId + '-' + activity.messageId" :activity="activity"
+      <activity :key="activity.materialId + '-' + activity.commentId" :activity="activity"
                 v-for="activity in activities"/>
     </template>
     <loader-wait v-else/>

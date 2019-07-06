@@ -49,7 +49,8 @@ namespace SunEngine.Admin.Controllers
         {
             var user = await userManager.FindByIdAsync(userId);
             var rez = await userManager.AddToRoleAsync(user, roleName);
-            if (!rez.Succeeded) return BadRequest();
+            if (!rez.Succeeded) 
+                return BadRequest();
 
             await jwtBlackListService.AddAllUserTokensToBlackListAsync(userId);
             return Ok();
