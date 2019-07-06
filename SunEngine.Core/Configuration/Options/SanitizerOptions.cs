@@ -13,5 +13,7 @@ namespace SunEngine.Core.Configuration.Options
         public string[] AllowedCssProperties { get; set; } = Array.Empty<string>();
         
         public string[] AllowedVideoDomains { get; set; } = Array.Empty<string>();
+
+        public string[] AllowedImageDomains { get; set; } = Array.Empty<string>();
     }
 }
