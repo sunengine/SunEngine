@@ -5,9 +5,8 @@ using AngleSharp.Extensions;
 using Ganss.XSS;
 using SunEngine.Core.Configuration.Options;
 
-namespace SunEngine.Core.Utils.TextProcess
+namespace SunEngine.Core.Services
 {
-    // TODO Transfer to Services
     public class Sanitizer
     {
         private readonly HtmlSanitizer htmlSanitizer;
@@ -100,7 +99,7 @@ namespace SunEngine.Core.Utils.TextProcess
             return false;
         }
 
-        private static bool AllowOnlyClassList(string attributeName, RemovingAttributeEventArgs e,
+        private bool AllowOnlyClassList(string attributeName, RemovingAttributeEventArgs e,
             string[] allowedClasses)
         {
             if (attributeName == "class")
@@ -114,7 +113,7 @@ namespace SunEngine.Core.Utils.TextProcess
             return false;
         }
 
-        private static bool MakeExternalLinksOpenedNewTab(string attributeName, RemovingAttributeEventArgs e,
+        private bool MakeExternalLinksOpenedNewTab(string attributeName, RemovingAttributeEventArgs e,
             string siteUrl)
         {
             if (attributeName == "href")

@@ -27,13 +27,13 @@ namespace SunEngine.Core.Managers
 
     public class PersonalManager : DbService, IPersonalManager
     {
-        protected readonly Sanitizer sanitizer;
+        protected readonly SanitizerService sanitizerService;
 
         public PersonalManager(
             DataBaseConnection db,
-            Sanitizer sanitizer) : base(db)
+            SanitizerService sanitizerService) : base(db)
         {
-            this.sanitizer = sanitizer;
+            this.sanitizerService = sanitizerService;
         }
 
         public virtual Task SetPhotoAsync(int userId, string photo)
@@ -56,7 +56,7 @@ namespace SunEngine.Core.Managers
 
         public virtual Task SetMyProfileInformationAsync(int userId, string html)
         {
-            var htmlSanitized = sanitizer.Sanitize(html);
+            var htmlSanitized = sanitizerService.Sanitize(html);
             return db.Users.Where(x => x.Id == userId)
                 .Set(x => x.Information, htmlSanitized).UpdateAsync();
         }

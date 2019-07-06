@@ -21,20 +21,20 @@ namespace SunEngine.Core.Managers
     public class CommentsManager : DbService, ICommentsManager
     {
         protected readonly IMaterialsManager materialsManager;
-        protected readonly Sanitizer sanitizer;
+        protected readonly SanitizerService sanitizerService;
 
         public CommentsManager(
             DataBaseConnection db, 
             IMaterialsManager materialsManager,
-            Sanitizer sanitizer) : base(db)
+            SanitizerService sanitizerService) : base(db)
         {
             this.materialsManager = materialsManager;
-            this.sanitizer = sanitizer;
+            this.sanitizerService = sanitizerService;
         }
 
         public virtual async Task CreateAsync(Comment comment)
         {
-            comment.Text = sanitizer.Sanitize(comment.Text);
+            comment.Text = sanitizerService.Sanitize(comment.Text);
             comment.Id = await db.InsertWithInt32IdentityAsync(comment);
             await materialsManager.DetectAndSetLastCommentAndCountAsync(comment.MaterialId);
         }
@@ -56,7 +56,7 @@ namespace SunEngine.Core.Managers
 
         public virtual async Task UpdateAsync(Comment comment)
         {
-            comment.Text = sanitizer.Sanitize(comment.Text);
+            comment.Text = sanitizerService.Sanitize(comment.Text);
             await db.UpdateAsync(comment);
             await materialsManager.DetectAndSetLastCommentAndCountAsync(comment.MaterialId);
         }

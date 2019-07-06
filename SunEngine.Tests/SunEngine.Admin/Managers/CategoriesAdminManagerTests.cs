@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Transactions;
 using LinqToDB;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using SunEngine.Admin.Managers;
 using SunEngine.Core.Cache.Services;
@@ -10,7 +11,7 @@ using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
 using SunEngine.Core.Models;
-using SunEngine.Core.Utils.TextProcess;
+using SunEngine.Core.Services;
 using Xunit;
 using Xunit.Sdk;
 
@@ -50,9 +51,13 @@ namespace SunEngine.Tests.SunEngine.Admin.Managers
             var dbFactory = DefaultInit.GetTestDataBaseFactory();
             var catCache = new CategoriesCache(dbFactory);
 
+            /*return new CategoriesAdminManager(dbConnection,
+                Options.Create(new MaterialsOptions {SubTitleLength = 100, PreviewLength = 800}), catCache,
+                new Sanitizer(new SanitizerOptions()));*/
+            
             return new CategoriesAdminManager(dbConnection,
                 Options.Create(new MaterialsOptions {SubTitleLength = 100, PreviewLength = 800}), catCache,
-                new Sanitizer(new SanitizerOptions()));
+                new SanitizerService(new ConfigurationRoot(null)));
         }
 
         private Category DefaultCategory => new Category
