@@ -54,10 +54,8 @@ namespace SunEngine.Tests.SunEngine.Admin.Managers
             /*return new CategoriesAdminManager(dbConnection,
                 Options.Create(new MaterialsOptions {SubTitleLength = 100, PreviewLength = 800}), catCache,
                 new Sanitizer(new SanitizerOptions()));*/
-            
-            return new CategoriesAdminManager(dbConnection,
-                Options.Create(new MaterialsOptions {SubTitleLength = 100, PreviewLength = 800}), catCache,
-                new SanitizerService(new ConfigurationRoot(null)));
+
+            throw new NotSupportedException("Need moq SanitizerService");
         }
 
         private Category DefaultCategory => new Category
