@@ -1,6 +1,7 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -103,7 +104,7 @@ namespace SunEngine.Core.Security
                     if (longSession == null)
                         return Logout();
 
-                    sunClaimsPrincipal = await jwtService.RenewSecurityTokensAsync(Response, userId, longSession);
+                    sunClaimsPrincipal = await jwtService.RenewSecurityTokensAsync(Context, userId, longSession);
 
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("\nToken renews\n");

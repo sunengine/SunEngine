@@ -80,7 +80,7 @@ namespace SunEngine.Core.Controllers
 
             Response.Headers.Clear(); 
             
-            await jwtService.RenewSecurityTokensAsync(Response, user, User.SessionId);
+            await jwtService.RenewSecurityTokensAsync(HttpContext, user, User.SessionId);
 
             return Ok();
         }

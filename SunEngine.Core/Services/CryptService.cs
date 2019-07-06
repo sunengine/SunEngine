@@ -25,7 +25,7 @@ namespace SunEngine.Core.Services
     {
         private readonly Dictionary<string, byte[]> cypherSecrets = new Dictionary<string, byte[]>();
 
-        private readonly RijndaelManaged cipher;
+        private readonly Aes cipher;
 
         private readonly IDataBaseFactory dbFactory;
 
@@ -33,7 +33,7 @@ namespace SunEngine.Core.Services
         {
             this.dbFactory = dbFactory;
 
-            cipher = new RijndaelManaged
+            cipher = new AesManaged
             {
                 KeySize = 256,
                 BlockSize = 128,

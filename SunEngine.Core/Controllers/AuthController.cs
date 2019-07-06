@@ -45,7 +45,7 @@ namespace SunEngine.Core.Controllers
         {
             var user = await authManager.LoginAsync(nameOrEmail, password);
 
-            await jwtService.RenewSecurityTokensAsync(Response, user);
+            await jwtService.RenewSecurityTokensAsync(HttpContext, user);
 
             return Ok();
         }

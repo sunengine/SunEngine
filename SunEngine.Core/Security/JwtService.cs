@@ -8,6 +8,7 @@ using LinqToDB;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SunEngine.Core.Cache.Services;
@@ -54,23 +55,23 @@ namespace SunEngine.Core.Security
 
 
         public async Task<SunClaimsPrincipal> RenewSecurityTokensAsync(
-            HttpResponse response, int userId,
+            HttpContext httpContext, int userId,
             LongSession longSession = null)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Id == userId);
-            return await RenewSecurityTokensAsync(response, user, longSession);
+            return await RenewSecurityTokensAsync(httpContext, user, longSession);
         }
 
         public Task<SunClaimsPrincipal> RenewSecurityTokensAsync(
-            HttpResponse response, User user,
+            HttpContext httpContext, User user,
             long sessionId)
         {
             var longSession = db.LongSessions.FirstOrDefault(x => x.Id == sessionId);
-            return RenewSecurityTokensAsync(response, user, longSession);
+            return RenewSecurityTokensAsync(httpContext, user, longSession);
         }
 
         public async Task<SunClaimsPrincipal> RenewSecurityTokensAsync(
-            HttpResponse response, User user,
+            HttpContext httpContext, User user,
             LongSession longSession = null)
         {
             void GenerateTokens(LongSession longSession1)
@@ -83,10 +84,12 @@ namespace SunEngine.Core.Security
 
             if (longSession == null)
             {
+                httpContext.Request.Headers.TryGetValue("User-Agent", out StringValues userAgent);
+
                 longSession = new LongSession
                 {
                     UserId = user.Id,
-                    DeviceInfo = ""
+                    DeviceInfo = userAgent.ToString() ?? ""
                 };
 
                 GenerateTokens(longSession);
@@ -102,7 +105,7 @@ namespace SunEngine.Core.Security
 
             var lat2Token = CreateLong2Token(longSession, out string lat2r);
 
-            response.Cookies.Append(
+            httpContext.Response.Cookies.Append(
                 TokenClaimNames.LongToken2CoockiName,
                 lat2Token,
                 new CookieOptions
@@ -124,7 +127,7 @@ namespace SunEngine.Core.Security
                 ShortTokenExpiration = tokenAndClaimsPrincipal.Expiration
             }, jsonSerializerSettings);
 
-            response.Headers.Add(Headers.TokensHeaderName, json);
+            httpContext.Response.Headers.Add(Headers.TokensHeaderName, json);
 
             return tokenAndClaimsPrincipal.ClaimsPrincipal;
         }
