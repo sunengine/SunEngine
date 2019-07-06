@@ -147,7 +147,7 @@
         }
         if (!category.categoryPersonalAccess.materialEditOwnIfTimeNotExceeded) {
           const now = new Date();
-          const publish = this.material.publishDate;
+          const publish = new Date(this.material.publishDate);
           const til = date.addToDate(publish, {minutes: config.Materials.TimeToOwnEditInMinutes});
           if (til < now) {
             return false;

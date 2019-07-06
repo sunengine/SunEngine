@@ -9,14 +9,7 @@
         "Name": "Thread[n]",
         "Title": "Раздел [n]",
         "IsMaterialsContainer": true,
-        "Repeat": 2
-      },
-      {
-        "Name": "Thread[n]",
-        "Title": "Раздел [n]",
-        "IsMaterialsContainer": true,
-        "Repeat": 2,
-        "StartNumber": 6
+        "Repeat": 3
       },
       {
         "Name": "ThreadWithHeader",
@@ -25,23 +18,23 @@
         "Header": "<div style=\"background-color:#FFEBE3; padding:10px\">Шапка категории<br/>текст шапки, текст шапки<br/>текст шапки, текст шапки</div>"
       },
       {
+        "Name": "NoEditOwnThread",
+        "Title": "Без редактирования",
+        "IsMaterialsContainer": true
+      },
+      {
         "Name": "NoAddMaterials",
         "Title": "Без добавления материалов",
         "IsMaterialsContainer": true
       },
       {
-        "Name": "NoAddMaterialsAndComments",
-        "Title": "Без добавления полное",
+        "Name": "NoAddComments",
+        "Title": "Без добавления комментариев",
         "IsMaterialsContainer": true
       },
       {
         "Name": "OnlyForRegistered",
         "Title": "Только для зарегистрированных",
-        "IsMaterialsContainer": true
-      },
-      {
-        "Name": "NoEditOwnThread",
-        "Title": "Без редактирования своих",
         "IsMaterialsContainer": true
       }
     ]

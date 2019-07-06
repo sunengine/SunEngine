@@ -80,7 +80,7 @@ namespace SunEngine.Core.Managers
 
             var token = new JwtSecurityToken(
                 claims: claims.ToArray(),
-                expires: DateTime.Now.AddDays(3));
+                expires: DateTime.UtcNow.AddDays(3));
             
             cryptService.Crypt(CipherSecrets.EmailChange,token.Payload.SerializeToJson());
             

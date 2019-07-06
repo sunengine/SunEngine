@@ -133,7 +133,7 @@ namespace SunEngine.Core.Controllers
             material.Title = materialData.Title;
             material.Text = materialData.text;
             material.EditDate = DateTime.UtcNow;
-
+            
             await SetNameAsync(material, materialData.Name);
 
             material.SubTitle = newCategory.MaterialsSubTitleInputType == MaterialsSubTitleInputType.Manual

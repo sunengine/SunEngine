@@ -31,7 +31,7 @@ namespace SunEngine.Core.Presenters
                             Name = x.UserName,
                             Photo = x.Photo,
                             Avatar = x.Avatar,
-                            Link = x.Link,
+                            Link = x.Link
                         },
                     rolesIds = x.Roles.Select(t => t.RoleId)
                 }).FirstOrDefaultAsync();

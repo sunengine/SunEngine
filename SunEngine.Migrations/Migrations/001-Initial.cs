@@ -7,51 +7,47 @@ namespace SunEngine.Migrations.Migrations
     /// <summary>
     /// Initial migration for FluentMigrator
     /// </summary>
-    [Migration(20190601000000)]
+    [Migration(20190705000000)]
     public class Initial : Migration
     {
         public override void Up()
         {
-            Create.Table("SectionTypes")
-                .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("Name").AsString(DbColumnSizes.SectionType_Name).NotNullable()
-                .WithColumn("Title").AsString(DbColumnSizes.SectionType_Title).NotNullable();
-
-            
             Create.Table("CacheSettings")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("CachePolicy").AsInt32().NotNullable()
                 .WithColumn("InvalidateCacheTime").AsInt32().Nullable();
 
-            
+
             Create.Table("CategoryCacheSettings")
                 .WithColumn("Id").AsInt32().PrimaryKey().NotNullable()
                 .WithColumn("PagesAmount").AsInt32().NotNullable();
 
-            
+
             Create.Table("Categories")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("ParentId").AsInt32().Indexed().Nullable()
+                .ForeignKey("FK_Categories_Categories_ParentId", "Categories", "Id")
                 .WithColumn("Name").AsString(DbColumnSizes.Categories_Name).NotNullable()
-                .WithColumn("NameNormalized").AsString(DbColumnSizes.Categories_Name).NotNullable()
+                .WithColumn("NameNormalized").AsString(DbColumnSizes.Categories_Name).NotNullable().Unique()
                 .WithColumn("Title").AsString(DbColumnSizes.Categories_Title).NotNullable()
                 .WithColumn("SubTitle").AsMaxString().Nullable()
                 .WithColumn("Icon").AsString(DbColumnSizes.Categories_Icon).Nullable()
                 .WithColumn("MaterialTypeTitle").AsString(DbColumnSizes.Categories_MaterialTypeTitle).Nullable()
                 .WithColumn("Header").AsMaxString().Nullable()
-                .WithColumn("SectionTypeId").AsInt32().Nullable()
                 .WithColumn("IsMaterialsContainer").AsBoolean().NotNullable()
-                .WithColumn("ParentId").AsInt32().Indexed().Nullable()
-                .ForeignKey("FK_Categories_Categories_ParentId", "Categories", "Id")
+                .WithColumn("IsMaterialsNameEditable").AsBoolean().NotNullable().WithDefaultValue(false)
+                .WithColumn("MaterialsSubTitleInputType").AsInt16().NotNullable().WithDefaultValue(0)
+                .WithColumn("MaterialsPreviewGeneratorName").AsString(DbColumnSizes.Categories_MaterialsPreviewGeneratorName).Nullable()
                 .WithColumn("CacheSettingsId").AsInt32().Indexed().Nullable()
                 .ForeignKey("FK_Categories_CategoryCacheSettings_CacheSettingsId", "CategoryCacheSettings", "Id")
-                .WithColumn("SortNumber").AsInt32().NotNullable()
+                .WithColumn("SortNumber").AsInt32().NotNullable().Unique()
                 .WithColumn("LayoutName").AsString(DbColumnSizes.Categories_LayoutName).Nullable()
                 .WithColumn("SettingsJson").AsMaxString().Nullable()
                 .WithColumn("IsCacheContent").AsBoolean().NotNullable()
                 .WithColumn("IsHidden").AsBoolean().NotNullable()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable();
 
-            
+
             Create.Table("AspNetUsers")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("UserName").AsString(DbColumnSizes.Users_UserName).NotNullable()
@@ -65,13 +61,14 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("PhoneNumber").AsMaxString().Nullable()
                 .WithColumn("PhoneNumberConfirmed").AsBoolean().NotNullable()
                 .WithColumn("TwoFactorEnabled").AsBoolean().NotNullable()
-                .WithColumn("LockoutEnd").AsMyDateTime().Nullable()
+                .WithColumn("LockoutEnd").AsDateTime().Nullable()
                 .WithColumn("LockoutEnabled").AsBoolean().NotNullable()
                 .WithColumn("AccessFailedCount").AsInt16().NotNullable()
                 .WithColumn("Link").AsString(DbColumnSizes.Users_Link).Nullable()
                 .WithColumn("Information").AsMaxString().Nullable()
                 .WithColumn("Photo").AsString(DbColumnSizes.FileNameWithDirSize).Nullable()
-                .WithColumn("Avatar").AsString(DbColumnSizes.FileNameWithDirSize).Nullable();
+                .WithColumn("Avatar").AsString(DbColumnSizes.FileNameWithDirSize).Nullable()
+                .WithColumn("RegisteredDate").AsDateTime().Indexed();
 
 
             Create.Table("UserBanedUnit")
@@ -83,21 +80,21 @@ namespace SunEngine.Migrations.Migrations
 
             Create.Table("Materials")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("Name").AsString(DbColumnSizes.Materials_Name).Nullable().Indexed()
+                .WithColumn("Name").AsString(DbColumnSizes.Materials_Name).Nullable().Unique()
                 .WithColumn("Title").AsString(DbColumnSizes.Materials_Title).NotNullable()
-                .WithColumn("Description").AsString(DbColumnSizes.Materials_SubTitle).Nullable()
+                .WithColumn("SubTitle").AsString(DbColumnSizes.Materials_SubTitle).Nullable()
                 .WithColumn("Preview").AsMaxString().Nullable()
                 .WithColumn("Text").AsMaxString().NotNullable()
                 .WithColumn("CategoryId").AsInt32().NotNullable().Indexed()
                 .ForeignKey("FK_Materials_Categories_CategoryId", "Categories", "Id")
                 .WithColumn("AuthorId").AsInt32().NotNullable().Indexed()
                 .ForeignKey("FK_Materials_AspNetUsers_AuthorId", "AspNetUsers", "Id")
-                .WithColumn("PublishDate").AsMyDateTime().NotNullable().Indexed()
-                .WithColumn("EditDate").AsMyDateTime().Nullable()
+                .WithColumn("PublishDate").AsDateTime().NotNullable().Indexed()
+                .WithColumn("EditDate").AsDateTime().Nullable()
                 .WithColumn("LastCommentId").AsInt32().Nullable()
-                .WithColumn("LastActivity").AsMyDateTime().NotNullable().Indexed()
+                .WithColumn("LastActivity").AsDateTime().NotNullable().Indexed()
                 .WithColumn("CommentsCount").AsInt32().NotNullable()
-                .WithColumn("SortNumber").AsInt32().NotNullable().Indexed()
+                .WithColumn("SortNumber").AsInt32().NotNullable().Unique()
                 .WithColumn("IsCommentsBlocked").AsBoolean().NotNullable()
                 .WithColumn("IsHidden").AsBoolean().NotNullable()
                 .WithColumn("IsDeleted").AsBoolean().NotNullable();
@@ -110,8 +107,8 @@ namespace SunEngine.Migrations.Migrations
                 .ForeignKey("FK_Comments_Materials_MaterialId", "Materials", "Id").OnDelete(Rule.Cascade)
                 .WithColumn("AuthorId").AsInt32().Indexed().Nullable()
                 .ForeignKey("FK_Comments_AspNetUsers_AuthorId", "AspNetUsers", "Id")
-                .WithColumn("PublishDate").AsMyDateTime().NotNullable().Indexed()
-                .WithColumn("EditDate").AsMyDateTime().Nullable()
+                .WithColumn("PublishDate").AsDateTime().NotNullable().Indexed()
+                .WithColumn("EditDate").AsDateTime().Nullable()
                 .WithColumn("IsDeleted").AsBoolean().Nullable();
 
             Create.ForeignKey("FK_Materials_Comments_LastCommentId").FromTable("Materials")
@@ -168,7 +165,7 @@ namespace SunEngine.Migrations.Migrations
                     "FK_CategoryOperationAccesses_OperationKeys_OperationKeyId", "OperationKeys", "OperationKeyId")
                 .WithColumn("Access").AsBoolean().NotNullable();
 
-            
+
             Create.Table("LongSessions")
                 .WithColumn("Id").AsInt64().PrimaryKey().Identity().NotNullable()
                 .WithColumn("UserId").AsInt32().NotNullable().Indexed()
@@ -176,19 +173,19 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("LongToken1").AsString(DbColumnSizes.LongSessions_LongToken1).NotNullable()
                 .WithColumn("LongToken2").AsString(DbColumnSizes.LongSessions_LongToken2).NotNullable()
                 .WithColumn("DeviceInfo").AsMaxString().NotNullable()
-                .WithColumn("ExpirationDate").AsMyDateTime().NotNullable().Indexed();
-            
+                .WithColumn("ExpirationDate").AsDateTime().NotNullable().Indexed();
+
             Create.Index("IX_LongSessions_Main").OnTable("LongSessions")
                 .OnColumn("UserId").Ascending()
                 .OnColumn("LongToken1").Ascending()
                 .OnColumn("LongToken2").Ascending();
 
-            
+
             Create.Table("BlackListShortTokens")
                 .WithColumn("TokenId").AsString(DbColumnSizes.BlackListShortToken_TokenId).PrimaryKey().NotNullable()
-                .WithColumn("Expire").AsMyDateTime().Indexed().NotNullable();
+                .WithColumn("Expire").AsDateTime().Indexed().NotNullable();
 
-            
+
             Create.Table("MenuItems")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("ParentId").AsInt32().Nullable().ForeignKey("FK_MenuItems_MenuItems_Id", "MenuItems", "Id")
@@ -203,10 +200,13 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("CssClass").AsString(DbColumnSizes.MenuItems_CssClass).Nullable()
                 .WithColumn("ExternalUrl").AsMaxString().Nullable()
                 .WithColumn("IsSeparator").AsBoolean().NotNullable()
-                .WithColumn("SortNumber").AsInt32().NotNullable()
+                .WithColumn("SortNumber").AsInt32().NotNullable().Unique()
                 .WithColumn("Icon").AsString(DbColumnSizes.MenuItems_Icon).Nullable()
                 .WithColumn("IsHidden").AsBoolean().NotNullable();
-            
+
+            Create.Table("CipherSecrets")
+                .WithColumn("Name").AsString(DbColumnSizes.CipherSecrets_Name).PrimaryKey().NotNullable()
+                .WithColumn("Secret").AsString(DbColumnSizes.CipherSecrets_Secret).NotNullable();
         }
 
 

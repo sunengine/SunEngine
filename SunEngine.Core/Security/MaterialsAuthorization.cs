@@ -67,19 +67,19 @@ namespace SunEngine.Core.Security
 
         private bool EditOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
-            return DateTime.Now - publishDate <
+            return DateTime.UtcNow - publishDate <
                    new TimeSpan(0, 0, materialsOptions.TimeToOwnEditInMinutes, 0, 0);
         }
 
         private bool DeleteOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
-            return DateTime.Now - publishDate <
+            return DateTime.UtcNow - publishDate <
                    new TimeSpan(0, 0, materialsOptions.TimeToOwnDeleteInMinutes, 0, 0);
         }
 
         private bool MoveOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
-            return DateTime.Now - publishDate <
+            return DateTime.UtcNow - publishDate <
                    new TimeSpan(0, 0, materialsOptions.TimeToOwnDeleteInMinutes, 0, 0);
         }
 

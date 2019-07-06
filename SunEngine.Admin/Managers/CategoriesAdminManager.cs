@@ -49,7 +49,7 @@ namespace SunEngine.Admin.Managers
             category.LayoutName = category.LayoutName?.SetNullIfEmptyTrim();
             category.MaterialTypeTitle = category.MaterialTypeTitle?.SetNullIfEmptyTrim();
             category.Header = sanitizerService.Sanitize(category.Header?.SetNullIfEmptyTrim());
-            if (!categoriesCache.MaterialsPreviewGenerators.ContainsKey(category.MaterialsPreviewGeneratorName))
+            if (!categoriesCache.MaterialsPreviewGenerators.ContainsKey(category.MaterialsPreviewGeneratorName ?? ""))
                 category.MaterialsPreviewGeneratorName = null;
 
 
@@ -220,5 +220,21 @@ namespace SunEngine.Admin.Managers
                     .UpdateAsync();
             }
         }
+        
+        /*public async Task RemakeAllMaterialsSubTitleAsync(Category category)
+        {
+            if (category == null)
+                throw new SunEntityNotFoundException(nameof(category));
+
+            var materials = await db.Materials.Where(x => x.CategoryId == category.Id).ToListAsync();
+
+            foreach (var material in materials)
+            {
+                material.SubTitle =
+                    generator?.Invoke(new HtmlParser().Parse(material.Text), materialOptions.PreviewLength);
+                await db.Materials.Where(y => y.Id == material.Id).Set(y => y.Preview, y => material.Preview)
+                    .UpdateAsync();
+            }
+        }*/
     }
 }

@@ -13,7 +13,8 @@ namespace SunEngine.Core.Presenters
 {
     public interface IActivitiesPresenter
     {
-        Task<ActivityView[]> GetActivitiesAsync(int[] materialsCategoriesIds, int[] commentsCategoriesIds,
+        Task<ActivityView[]> GetActivitiesAsync(
+            int[] materialsCategoriesIds, int[] commentsCategoriesIds,
             int number);
     }
 
@@ -28,7 +29,8 @@ namespace SunEngine.Core.Presenters
             this.materialsOptions = materialsOptions.Value;
         }
 
-        public async Task<ActivityView[]> GetActivitiesAsync(int[] materialsCategoriesIds,
+        public async Task<ActivityView[]> GetActivitiesAsync(
+            int[] materialsCategoriesIds,
             int[] commentsCategoriesIds, int number)
         {
             var materialsActivities = await db.Materials
@@ -51,7 +53,8 @@ namespace SunEngine.Core.Presenters
             int descriptionSizeBig = descriptionSize * 2;
 
             var commentsActivities = await db.Comments
-                .Where(x => commentsCategoriesIds.Contains(x.Material.CategoryId) && !x.IsDeleted && !x.Material.IsHidden && !x.Material.IsDeleted)
+                .Where(x => commentsCategoriesIds.Contains(x.Material.CategoryId) && !x.IsDeleted &&
+                            !x.Material.IsHidden && !x.Material.IsDeleted)
                 .OrderByDescending(x => x.PublishDate)
                 .Take(number)
                 .Select(x => new ActivityView
@@ -59,7 +62,7 @@ namespace SunEngine.Core.Presenters
                     MaterialId = x.MaterialId,
                     CommentId = x.Id,
                     Title = x.Material.Title,
-                    Description = x.Text.Substring(0, descriptionSizeBig),
+                    Description = x.Text.Substring(0, Math.Min(x.Text.Length, descriptionSizeBig)),
                     CategoryName = x.Material.Category.Name,
                     PublishDate = x.PublishDate,
                     AuthorName = x.Author.UserName,
@@ -67,9 +70,11 @@ namespace SunEngine.Core.Presenters
                     AuthorAvatar = x.Author.Avatar
                 }).ToListAsync();
 
-            commentsActivities.ForEach(x =>
-                x.Description = SimpleHtmlToText.ClearTagsAndBreaks(x.Description)
-                    .Substring(0, Math.Min(x.Description.Length, descriptionSize)));
+            foreach (var comment in commentsActivities)
+            {
+                comment.Description = SimpleHtmlToText.ClearTagsAndBreaks(comment.Description);
+                comment.Description = comment.Description?.Substring(0, Math.Min(comment.Description.Length, descriptionSize));
+            }
 
             List<ActivityView> allActivities = new List<ActivityView>();
             allActivities.AddRange(materialsActivities);

@@ -75,6 +75,11 @@ namespace SunEngine.Core.Controllers
 
             return Ok();
         }
+        
+        public async Task<IActionResult> CheckUserNameInDb(string userName)
+        {
+            return Ok(new {yes = await authManager.CheckUserNameInDbAsync(userName)});
+        }
 
         [HttpGet]
         public async Task<IActionResult> ConfirmRegister(string uid, string token)

@@ -14,7 +14,7 @@ const config = {
     MoveTo: true,
   },
 
-  Messages: {
+  Comments: {
     "TimeToOwnEditInMinutes": 15,
     "TimeToOwnDeleteInMinutes": 15
   },

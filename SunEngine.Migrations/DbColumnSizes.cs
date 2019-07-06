@@ -1,11 +1,9 @@
 using System;
 
-namespace SunEngine.Migrations.Migrations
+namespace SunEngine.Migrations
 {
     internal static class DbColumnSizes
     {
-        public const int SectionType_Name = 32;
-        public const int SectionType_Title = 64;
         public const int Categories_Name = 64;
         public const int Categories_Title = 256;
         public const int Categories_LayoutName = 32;
