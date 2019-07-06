@@ -31,6 +31,7 @@
       "AllowedAttributes": [
         "style",
         "src",
+        "href",
         "controls",
         "autoplay",
         "loop",
@@ -45,7 +46,6 @@
         "size"
       ],
       "AllowedClasses": [
-        "text-img"
       ],
       "AllowedCssProperties": [
         "float",
