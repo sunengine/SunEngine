@@ -19,6 +19,8 @@ using SunEngine.Core.Managers;
 using SunEngine.Core.Models;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
+using UAParser;
+
 
 namespace SunEngine.Core.Security
 {
@@ -79,17 +81,16 @@ namespace SunEngine.Core.Security
                 longSession1.LongToken1 = CryptoRandomizer.GetRandomString(LongSession.LongToken1Length);
                 longSession1.LongToken2 = CryptoRandomizer.GetRandomString(LongSession.LongToken2Length);
                 longSession1.ExpirationDate = DateTime.UtcNow.AddDays(jwtOptions.LongTokenLiveTimeDays);
+                httpContext.Request.Headers.TryGetValue("User-Agent", out StringValues userAgent);
+                longSession.DeviceInfo = Parser.GetDefault()?.Parse(userAgent.ToString() ?? "")?.ToString() ?? "";
             }
 
 
             if (longSession == null)
             {
-                httpContext.Request.Headers.TryGetValue("User-Agent", out StringValues userAgent);
-
                 longSession = new LongSession
                 {
-                    UserId = user.Id,
-                    DeviceInfo = userAgent.ToString() ?? ""
+                    UserId = user.Id
                 };
 
                 GenerateTokens(longSession);
@@ -99,6 +100,7 @@ namespace SunEngine.Core.Security
             else
             {
                 GenerateTokens(longSession);
+                
                 await db.UpdateAsync(longSession);
             }
 
