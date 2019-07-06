@@ -48,7 +48,7 @@ export default {
     title: "Забаненые пользователи"
   },
   Sessions: {
-    title: "Сессии",
+    title: "Сессии авторизации",
     deviceInfo: "Устройство и браузер",
     current: "Текущая",
     successNotify: "Сессии успешно удалены",

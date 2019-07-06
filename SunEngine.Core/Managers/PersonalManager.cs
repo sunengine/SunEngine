@@ -127,8 +127,8 @@ namespace SunEngine.Core.Managers
 
         public async Task RemoveSessionsAsync(int userId, long[] sessionsIds)
         {
-            await db.LongSessions.Where(x => x.UserId == userId && sessionsIds.Contains(x.Id)).DeleteAsync();
             await jwtBlackListService.AddUserTokensToBlackListAsync(userId, sessionsIds);
+            await db.LongSessions.Where(x => x.UserId == userId && sessionsIds.Contains(x.Id)).DeleteAsync();
         }
     }
 }

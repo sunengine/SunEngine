@@ -43,8 +43,11 @@
 </template>
 
 <script>
+  import {Page} from 'sun';
+
   export default {
     name: "Sessions",
+    mixins: [Page],
     data() {
       return {
         sessions: null,

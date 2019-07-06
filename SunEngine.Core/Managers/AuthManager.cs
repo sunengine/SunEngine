@@ -72,8 +72,8 @@ namespace SunEngine.Core.Managers
 
         public virtual async Task LogoutAsync(int userId, long sessionId)
         {
-            await db.LongSessions.Where(x => x.UserId == userId && x.Id == sessionId).DeleteAsync();
             await jwtBlackListService.AddUserTokensToBlackListAsync(userId, new[] {sessionId});
+            await db.LongSessions.Where(x => x.UserId == userId && x.Id == sessionId).DeleteAsync();
         }
 
         public virtual async Task RegisterAsync(NewUserArgs model)

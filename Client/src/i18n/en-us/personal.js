@@ -48,7 +48,7 @@ export default {
     title: "Banned users"
   },
   Sessions: {
-    title: "Sessions",
+    title: "Authorization sessions",
     deviceInfo: "Device and browser info",
     current: "Current",
     successNotify: "Sessions successfully deleted",

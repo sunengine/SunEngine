@@ -55,7 +55,7 @@ namespace SunEngine.Core.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await authManager.LogoutAsync(User.UserId,User.SessionId);
+            await authManager.LogoutAsync(User.UserId, User.SessionId);
 
             jwtService.MakeLogoutCookiesAndHeaders(Response);
 

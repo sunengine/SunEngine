@@ -60,11 +60,11 @@ namespace SunEngine.Core.Security
             }
         }
         
-        public async Task AddUserTokensToBlackListAsync(int userId, long[] sessions)
+        public async Task AddUserTokensToBlackListAsync(int userId, long[] sessions00)
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-                var longSessions = await db.LongSessions.Where(x => x.UserId == userId && sessions.Contains(x.Id)).ToListAsync();
+                var longSessions = await db.LongSessions.Where(x => x.UserId == userId && sessions00.Contains(x.Id)).ToListAsync();
                 DateTime exp = DateTime.UtcNow.AddMinutes(jwtOptions.ShortTokenLiveTimeMinutes + 5);
 
                 foreach (var session in longSessions)
