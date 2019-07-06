@@ -1,0 +1,83 @@
+{
+  "Sanitizer": {
+    "Default": {
+      "AllowedTags": [
+        "a",
+        "b",
+        "strong",
+        "i",
+        "em",
+        "blockquote",
+        "ol",
+        "li",
+        "ul",
+        "ol",
+        "p",
+        "div",
+        "br",
+        "video",
+        "audio",
+        "source",
+        "span",
+        "img",
+        "code",
+        "pre",
+        "font",
+        "h3",
+        "h4",
+        "h5",
+        "h6"
+      ],
+      "AllowedAttributes": [
+        "style",
+        "src",
+        "controls",
+        "autoplay",
+        "loop",
+        "alt",
+        "width",
+        "height",
+        "target",
+        "frameborder",
+        "allowfullscreen",
+        "download",
+        "controlsList",
+        "size"
+      ],
+      "AllowedClasses": [
+        "text-img"
+      ],
+      "AllowedCssProperties": [
+        "float",
+        "margin",
+        "indent",
+        "padding",
+        "color",
+        "text-align",
+        "text-decoration",
+        "font-size",
+        "width",
+        "height",
+        "max-width"
+      ],
+      "AllowedVideoDomains": [
+        "https://www.youtube.com/",
+        "http://www.youtube.com/",
+        "https://youtube.com/",
+        "http://youtube.com/",
+        "https://youtu.be/",
+        "http://youtu.be/",
+        "//youtube.com/",
+        "//youtu.be/",
+        "//www.youtube.com/",
+        "//www.youtu.be/",
+        "https://vk.com/",
+        "http://vk.com/",
+        "//vk.com/",
+        "https://player.vimeo.com",
+        "http://player.vimeo.com",
+        "//player.vimeo.com"
+      ]
+    }
+  }
+}

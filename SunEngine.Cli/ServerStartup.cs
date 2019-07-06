@@ -28,10 +28,13 @@ namespace SunEngine.Cli
                     string dbSettingFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir, "DataBaseConnection.json"));
                     string mainSettingsFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir, "SunEngine.json"));
                     string logSettingsFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir, "LogConfig.json"));
-
+                    string sanitizerOptionsFile =
+                        Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir, "Sanitizer.json"));
+                    
                     config.AddJsonFile(logSettingsFile, false, false);
                     config.AddJsonFile(dbSettingFile, false, false);
                     config.AddJsonFile(mainSettingsFile, false, false);
+                    config.AddJsonFile(sanitizerOptionsFile, false, false);
                     config.AddCommandLine(startupConfiguration.Arguments);
                 });
     }

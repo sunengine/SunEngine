@@ -7,7 +7,6 @@ using SunEngine.Core.Models;
 using SunEngine.Core.Security;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
-using SunEngine.Core.Utils.TextProcess;
 
 namespace SunEngine.Core.Managers
 {
@@ -29,15 +28,15 @@ namespace SunEngine.Core.Managers
 
     public class PersonalManager : DbService, IPersonalManager
     {
-        protected readonly Sanitizer sanitizer;
+        protected readonly SanitizerService sanitizerService;
         protected readonly JwtBlackListService jwtBlackListService;
 
         public PersonalManager(
             DataBaseConnection db,
             JwtBlackListService jwtBlackListService,
-            Sanitizer sanitizer) : base(db)
+            SanitizerService sanitizerService) : base(db)
         {
-            this.sanitizer = sanitizer;
+            this.sanitizerService = sanitizerService;
             this.jwtBlackListService = jwtBlackListService;
         }
 
@@ -61,7 +60,7 @@ namespace SunEngine.Core.Managers
 
         public virtual Task SetMyProfileInformationAsync(int userId, string html)
         {
-            var htmlSanitized = sanitizer.Sanitize(html);
+            var htmlSanitized = sanitizerService.Sanitize(html);
             return db.Users.Where(x => x.Id == userId)
                 .Set(x => x.Information, htmlSanitized).UpdateAsync();
         }

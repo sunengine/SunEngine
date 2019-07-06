@@ -47,7 +47,7 @@ namespace SunEngine.Cli
             DataBaseFactory dataBaseFactory = services.AddDatabase(Configuration); // TODO make internal def
 
             services.AddDbOptions(dataBaseFactory);
-
+            
             services.AddCaches(dataBaseFactory);
 
             services.AddCachePolicy();
@@ -72,9 +72,8 @@ namespace SunEngine.Cli
 
             services.AddJobs();
 
-
             services.AddSingleton<CaptchaService>();
-            services.AddSingleton<Sanitizer>();
+            services.AddSanitizer();
             services.AddTransient<IEmailSenderService, EmailSenderService>();
 
             services.AddMvcCore(options =>

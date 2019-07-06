@@ -56,7 +56,7 @@ namespace SunEngine.Core.Managers
     public class MaterialsManager : DbService, IMaterialsManager
     {
         protected readonly ITagsManager tagsManager;
-        protected readonly Sanitizer sanitizer;
+        protected readonly SanitizerService sanitizerService;
         protected readonly MaterialsOptions materialsOptions;
         protected readonly ICategoriesCache categoriesCache;
 
@@ -65,13 +65,13 @@ namespace SunEngine.Core.Managers
 
         public MaterialsManager(
             DataBaseConnection db,
-            Sanitizer sanitizer,
+            SanitizerService sanitizerService,
             ICategoriesCache categoriesCache,
             ITagsManager tagsManager,
             IOptions<MaterialsOptions> materialsOptions) : base(db)
         {
             this.tagsManager = tagsManager;
-            this.sanitizer = sanitizer;
+            this.sanitizerService = sanitizerService;
             this.materialsOptions = materialsOptions.Value;
             this.categoriesCache = categoriesCache;
         }
@@ -98,7 +98,7 @@ namespace SunEngine.Core.Managers
         {
             IHtmlDocument doc = new HtmlParser().Parse(material.Text);
 
-            material.Text = sanitizer.Sanitize(doc);
+            material.Text = sanitizerService.Sanitize(doc);
 
 
             var generator = categoriesCache.GetMaterialsPreviewGenerator(category.MaterialsPreviewGeneratorName);
@@ -108,7 +108,7 @@ namespace SunEngine.Core.Managers
             switch (category.MaterialsSubTitleInputType)
             {
                 case MaterialsSubTitleInputType.Manual:
-                    material.SubTitle = SimpleHtmlToText.ClearTags(sanitizer.Sanitize(material.SubTitle));
+                    material.SubTitle = SimpleHtmlToText.ClearTags(sanitizerService.Sanitize(material.SubTitle));
                     break;
                 case MaterialsSubTitleInputType.Auto:
                     material.SubTitle = MakeSubTitle.Do(doc, materialsOptions.SubTitleLength);
@@ -134,7 +134,7 @@ namespace SunEngine.Core.Managers
         {
             IHtmlDocument doc = new HtmlParser().Parse(material.Text);
 
-            material.Text = sanitizer.Sanitize(doc);
+            material.Text = sanitizerService.Sanitize(doc);
 
 
             var generator = categoriesCache.GetMaterialsPreviewGenerator(category.MaterialsPreviewGeneratorName);
@@ -144,7 +144,7 @@ namespace SunEngine.Core.Managers
             switch (category.MaterialsSubTitleInputType)
             {
                 case MaterialsSubTitleInputType.Manual:
-                    material.SubTitle = SimpleHtmlToText.ClearTags(sanitizer.Sanitize(material.SubTitle));
+                    material.SubTitle = SimpleHtmlToText.ClearTags(sanitizerService.Sanitize(material.SubTitle));
                     break;
                 case MaterialsSubTitleInputType.Auto:
                     material.SubTitle = MakeSubTitle.Do(doc, materialsOptions.SubTitleLength);

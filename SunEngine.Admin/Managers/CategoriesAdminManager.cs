@@ -18,7 +18,7 @@ namespace SunEngine.Admin.Managers
 {
     public class CategoriesAdminManager : DbService
     {
-        private readonly Sanitizer sanitizer;
+        private readonly SanitizerService sanitizerService;
         private readonly ICategoriesCache categoriesCache;
         private readonly MaterialsOptions materialOptions;
 
@@ -26,9 +26,9 @@ namespace SunEngine.Admin.Managers
             DataBaseConnection db,
             IOptions<MaterialsOptions> materialOptions,
             ICategoriesCache categoriesCache,
-            Sanitizer sanitizer) : base(db)
+            SanitizerService sanitizerService) : base(db)
         {
-            this.sanitizer = sanitizer;
+            this.sanitizerService = sanitizerService;
             this.categoriesCache = categoriesCache;
             this.materialOptions = materialOptions.Value;
         }
@@ -48,7 +48,7 @@ namespace SunEngine.Admin.Managers
             category.SettingsJson = category.SettingsJson?.MakeJsonText();
             category.LayoutName = category.LayoutName?.SetNullIfEmptyTrim();
             category.MaterialTypeTitle = category.MaterialTypeTitle?.SetNullIfEmptyTrim();
-            category.Header = sanitizer.Sanitize(category.Header?.SetNullIfEmptyTrim());
+            category.Header = sanitizerService.Sanitize(category.Header?.SetNullIfEmptyTrim());
             if (!categoriesCache.MaterialsPreviewGenerators.ContainsKey(category.MaterialsPreviewGeneratorName ?? ""))
                 category.MaterialsPreviewGeneratorName = null;
 
@@ -91,7 +91,7 @@ namespace SunEngine.Admin.Managers
             category.SubTitle = categoryUpdate.SubTitle?.SetNullIfEmptyTrim();
             category.Icon = categoryUpdate.Icon?.SetNullIfEmptyTrim();
             category.MaterialTypeTitle = categoryUpdate.MaterialTypeTitle?.SetNullIfEmptyTrim();
-            category.Header = sanitizer.Sanitize(categoryUpdate.Header?.SetNullIfEmptyTrim());
+            category.Header = sanitizerService.Sanitize(categoryUpdate.Header?.SetNullIfEmptyTrim());
             category.ParentId = parent.Id;
             category.LayoutName = categoryUpdate.LayoutName?.SetNullIfEmptyTrim();
             category.SettingsJson = categoryUpdate.SettingsJson?.MakeJsonText();
