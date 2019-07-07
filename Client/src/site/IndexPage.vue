@@ -5,7 +5,6 @@
       <h1>
         {{$tl("demo")}}
       </h1>
-      <p>{{$tl("dataReset")}}</p>
       <p>{{$tl("users")}}:
         <span class="hl">User1</span>,
         <span class="hl">User2</span>,
@@ -13,10 +12,7 @@
         <span class="hl">Moderator</span>,
         <span class="hl">Admin</span>.</p>
       <p>{{$tl("password")}}: <span class="hl">password</span>.</p>
-      <p>
-        {{$tl("anyMailToRegister")}} <a target="_blank" href="http://demo.sunengine.site:1444"><b>mailcatcher</b></a>.
-      </p>
-      <p class="ver">{{$tl("version")}}: <span class="num">1.8.0</span></p>
+      <p class="ver">{{$tl("version")}}: <span class="num">1.8.1</span></p>
     </div>
 
   </q-page>

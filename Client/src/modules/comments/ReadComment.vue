@@ -22,6 +22,7 @@
       <div class="comment-text" v-html="comment.text">
 
       </div>
+      <div class="clear"></div>
     </div>
 
   </div>

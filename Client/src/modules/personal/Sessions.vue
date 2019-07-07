@@ -15,8 +15,10 @@
 
           </q-th>
           <q-td auto-width>
-            <q-icon name="fas fa-desktop" class="q-mr-md"/>
-            {{$tl('deviceInfo')}}
+            <q-icon name="fas fa-desktop" class="q-mr-md"/>{{$tl('deviceInfo')}}
+          </q-td>
+          <q-td auto-width>
+            <q-icon name="far fa-clock" class="q-mr-md"/>{{$tl('updateDate')}}
           </q-td>
         </q-tr>
       </template>
@@ -29,6 +31,9 @@
           <q-td auto-width>
             {{props.row.deviceInfo}}
             <q-badge class="q-ml-sm" v-if="props.row.isCurrent">{{$tl('current')}}</q-badge>
+          </q-td>
+          <q-td auto-width>
+            {{$formatDate(props.row.updateDate)}}
           </q-td>
         </q-tr>
       </template>

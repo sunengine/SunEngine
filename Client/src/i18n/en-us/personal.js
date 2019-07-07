@@ -51,6 +51,7 @@ export default {
     title: "Authorization sessions",
     deviceInfo: "Device and browser info",
     current: "Current",
+    updateDate: "Update date",
     successNotify: "Sessions successfully deleted",
     logout: "Exit"
 },

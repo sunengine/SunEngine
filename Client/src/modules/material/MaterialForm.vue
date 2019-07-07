@@ -22,10 +22,11 @@
     </q-input>
 
 
-    <MyEditor content-class="material-text"
+    <MyEditor class="material-text"
               :toolbar="editorToolbar"
               :rules="rules.text"
               ref="htmlEditor" v-model="material.text"/>
+
 
     <q-select v-model="material.tags" use-input use-chips multiple :label="$tl('tags')"
               hide-dropdown-icon input-debounce="0" new-value-mode="add-unique">

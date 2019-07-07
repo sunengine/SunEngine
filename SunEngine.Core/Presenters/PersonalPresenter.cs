@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
@@ -69,6 +70,7 @@ namespace SunEngine.Core.Presenters
             {
                 Id = x.Id,
                 DeviceInfo = x.DeviceInfo,
+                UpdateDate = x.UpdateDate,
                 IsCurrent = currentSessionId == x.Id
             }).ToArrayAsync();
         }
@@ -93,6 +95,7 @@ namespace SunEngine.Core.Presenters
     {
         public long Id { get; set; }
         public string DeviceInfo { get; set; }
+        public DateTime UpdateDate { get; set; }
         public bool IsCurrent { get; set; }
     }
 }

@@ -51,6 +51,7 @@ export default {
     title: "Сессии авторизации",
     deviceInfo: "Устройство и браузер",
     current: "Текущая",
+    updateDate: "Дата обновления",
     successNotify: "Сессии успешно удалены",
     logout: "Выйти"
   },

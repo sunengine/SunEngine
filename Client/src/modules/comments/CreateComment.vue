@@ -1,6 +1,6 @@
 <template>
   <div class="create-comment">
-    <MyEditor
+    <MyEditor content-class="material-text"
       :toolbar="editorToolbar" :rules="commentRules"
       class="editor" ref="htmlEditor" v-model="comment.text"/>
     <div>

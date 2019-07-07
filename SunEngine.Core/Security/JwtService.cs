@@ -83,8 +83,8 @@ namespace SunEngine.Core.Security
                 longSession1.ExpirationDate = DateTime.UtcNow.AddDays(jwtOptions.LongTokenLiveTimeDays);
                 httpContext.Request.Headers.TryGetValue("User-Agent", out StringValues userAgent);
                 longSession1.DeviceInfo = Parser.GetDefault()?.Parse(userAgent.ToString() ?? "")?.ToString() ?? "";
+                longSession1.UpdateDate = DateTime.UtcNow;
             }
-
 
             if (longSession == null)
             {

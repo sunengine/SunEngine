@@ -38,7 +38,7 @@ export default {
       let rez = '';
       for (let file of this.filesNames) {
         let imagePath = this.$imagePath(file);
-        rez += `<div><img class="text-img" src="${imagePath}" /></div>`
+        rez += `<div><img src="${imagePath}" /></div>`
       }
       return rez;
     },
