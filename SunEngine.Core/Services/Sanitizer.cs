@@ -106,7 +106,7 @@ namespace SunEngine.Core.Services
                 new { Tag = "iframe", Attribute = "src", AllowedDomainsList = options.AllowedVideoDomains },
                 new { Tag = "img", Attribute = "src", AllowedDomainsList = options.AllowedImageDomains }
             };
-
+            
             var tagName = e.Tag.TagName.ToLower();
             var tag = checkingTags.FirstOrDefault(x => x.Tag == tagName);
             if (tag != null)
