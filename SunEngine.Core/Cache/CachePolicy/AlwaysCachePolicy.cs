@@ -6,7 +6,7 @@ namespace SunEngine.Core.Cache.CachePolicy
     {
         public bool CanCache(CategoryCached category, int? page = null)
         {
-            return true;
+            return !page.HasValue || page == 1;
         }
     }
 }
