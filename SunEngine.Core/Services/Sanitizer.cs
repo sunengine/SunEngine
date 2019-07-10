@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AngleSharp.Dom.Html;
 using AngleSharp.Extensions;
@@ -61,24 +62,19 @@ namespace SunEngine.Core.Services
             htmlSanitizer.RemovingAttribute += OnRemovingAttribute;
         }
 
-        private bool CheckIframeAllowedDomens(string tagName, RemovingTagEventArgs e)
+        private bool CheckAllowedDomains(string attrName, IEnumerable<string> allowedDomains, RemovingTagEventArgs e)
         {
-            if (tagName == "iframe")
+            var src = e.Tag.GetAttribute(attrName).TrimStart().ToLower();
+            foreach (var allowedDomain in allowedDomains)
             {
-                var src = e.Tag.GetAttribute("src").TrimStart().ToLower();
-                foreach (var allowedDomen in options.AllowedVideoDomains)
+                if (src.StartsWith(allowedDomain))
                 {
-                    if (src.StartsWith(allowedDomen))
-                    {
-                        e.Cancel = true;
-                        return true;
-                    }
+                    e.Cancel = true;
+                    return true;
                 }
-
-                e.Cancel = false;
-                return true;
             }
 
+            e.Cancel = false;
             return false;
         }
 
@@ -105,8 +101,18 @@ namespace SunEngine.Core.Services
 
         private void OnRemovingTag(object sender, RemovingTagEventArgs e)
         {
+            var checkingTags = new[]
+            {
+                new { Tag = "iframe", Attribute = "src", AllowedDomainsList = options.AllowedVideoDomains },
+                new { Tag = "img", Attribute = "src", AllowedDomainsList = options.AllowedImageDomains }
+            };
+            
             var tagName = e.Tag.TagName.ToLower();
-            CheckIframeAllowedDomens(tagName, e);
+            var tag = checkingTags.FirstOrDefault(x => x.Tag == tagName);
+            if (tag != null)
+            {
+                CheckAllowedDomains(tag.Attribute, tag.AllowedDomainsList, e);
+            }
         }
     }
 
