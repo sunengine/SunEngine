@@ -19,10 +19,16 @@ namespace SunEngine.Core.Controllers
         [HttpPost]
         public async Task<IActionResult> SearchUsers(string searchString)
         {
-            if (string.IsNullOrEmpty(searchString)) return BadRequest();
-            
-            var users = await searchPresenter.SearchByUserNameAndLink(searchString);
-            
+            if (string.IsNullOrEmpty(searchString))
+            {
+                return BadRequest();
+            }
+
+            var users = await searchPresenter.SearchByUsernameAndLinkAsync(searchString);
+            if (users.Length == 0)
+            {
+                return NotFound("Users not found");
+            }
             return Ok(users);
         }
     }
