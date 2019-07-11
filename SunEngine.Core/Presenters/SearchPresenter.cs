@@ -9,7 +9,7 @@ namespace SunEngine.Core.Presenters
 {
     public interface ISearchPresenter
     {
-        Task<UserSearchInfoView[]> SearchByUserNameAndLink(string searchString);
+        Task<UserSearchInfoView[]> SearchByUsernameAndLink(string searchString);
     }
     
     public class SearchPresenter : DbService, ISearchPresenter
@@ -18,10 +18,10 @@ namespace SunEngine.Core.Presenters
         {
         }
 
-        public Task<UserSearchInfoView[]>  SearchByUserNameAndLink(string searchString)
+        public Task<UserSearchInfoView[]>  SearchByUsernameAndLink(string searchString)
         {
-            return db.Users.Where(x => searchString.Contains(x.UserName,StringComparison.OrdinalIgnoreCase) ||
-                                       searchString.Contains(x.Link,StringComparison.OrdinalIgnoreCase))
+            return db.Users.Where(x => x.UserName.Contains(searchString,StringComparison.OrdinalIgnoreCase)||
+                                       x.Link.Contains(searchString,StringComparison.OrdinalIgnoreCase))
                 .Select(x => new UserSearchInfoView()
             {
                 Avatar = x.Avatar,
@@ -31,7 +31,7 @@ namespace SunEngine.Core.Presenters
             }).ToArrayAsync();
         }
     }
-
+    
     public class UserSearchInfoView
     {
         public int Id { get; set; }

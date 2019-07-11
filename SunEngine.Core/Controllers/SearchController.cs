@@ -20,10 +20,8 @@ namespace SunEngine.Core.Controllers
         public async Task<IActionResult> SearchUsers(string searchString)
         {
             if (string.IsNullOrEmpty(searchString)) return BadRequest();
-            
-            var users = await searchPresenter.SearchByUserNameAndLink(searchString);
-            
-            return Ok(users);
+
+            return Ok(await searchPresenter.SearchByUsernameAndLink(searchString));
         }
     }
 }
