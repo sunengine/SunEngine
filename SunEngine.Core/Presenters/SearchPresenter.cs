@@ -9,7 +9,7 @@ namespace SunEngine.Core.Presenters
 {
     public interface ISearchPresenter
     {
-        Task<UserSearchInfoView[]> SearchByUsernameAndLink(string searchString);
+        Task<UserSearchInfoView[]> SearchByUsernameOrLink(string searchString);
     }
     
     public class SearchPresenter : DbService, ISearchPresenter
@@ -18,7 +18,7 @@ namespace SunEngine.Core.Presenters
         {
         }
 
-        public Task<UserSearchInfoView[]>  SearchByUsernameAndLink(string searchString)
+        public Task<UserSearchInfoView[]>  SearchByUsernameOrLink(string searchString)
         {
             return db.Users.Where(x => x.UserName.Contains(searchString,StringComparison.OrdinalIgnoreCase)||
                                        x.Link.Contains(searchString,StringComparison.OrdinalIgnoreCase))

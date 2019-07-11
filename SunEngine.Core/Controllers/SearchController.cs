@@ -21,7 +21,7 @@ namespace SunEngine.Core.Controllers
         {
             if (string.IsNullOrEmpty(searchString)) return BadRequest();
 
-            return Ok(await searchPresenter.SearchByUsernameAndLink(searchString));
+            return Ok(await searchPresenter.SearchByUsernameOrLink(searchString));
         }
     }
 }
