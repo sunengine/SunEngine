@@ -15,11 +15,12 @@ namespace SunEngine.Core.Controllers
             this.searchPresenter = searchPresenter;
         }
 
+        // TODO : Add check max and min searchPattern length
         [IpSpamProtectionFilter]
         [HttpPost]
         public async Task<IActionResult> SearchUsers(string searchString)
         {
-            if (string.IsNullOrEmpty(searchString)) return BadRequest();
+            if (string.IsNullOrEmpty(searchString)|| (searchString.Length<3)||(searchString.Length>20)) return BadRequest();
 
             return Ok(await searchPresenter.SearchByUsernameOrLink(searchString));
         }
