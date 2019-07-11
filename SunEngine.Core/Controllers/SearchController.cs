@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SunEngine.Core.Filters;
 using SunEngine.Core.Presenters;
 
 namespace SunEngine.Core.Controllers
@@ -14,6 +15,7 @@ namespace SunEngine.Core.Controllers
             this.searchPresenter = searchPresenter;
         }
 
+        [IpSpamProtectionFilter]
         [HttpPost]
         public async Task<IActionResult> SearchUsers(string searchString)
         {
@@ -22,7 +24,7 @@ namespace SunEngine.Core.Controllers
                 return BadRequest();
             }
 
-            var users = await searchPresenter.SearchByUsernameAndLinkAsync(searchString);
+            var users = await searchPresenter.SearchByUsernameAndLink(searchString);
             if (users.Length == 0)
             {
                 return NotFound("Users not found");
