@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
+using LinqToDB.DataProvider.MySql;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Services;
 
@@ -30,6 +31,25 @@ namespace SunEngine.Core.Presenters
                 Name = x.UserName
             }).ToArrayAsync();
         }
+
+        public Task<MaterialSearchInfoView[]> SearchByMaterials(string searchString)
+        {
+            return db.Materials.Where(x => Sql.Ext.MySql().Match(searchString, x.Title, x.Text))
+                .OrderBy(x => x.Id)
+                .Select(x => new MaterialSearchInfoView()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Text = x.Text
+                }).ToArrayAsync();
+        }
+    }
+
+    public class MaterialSearchInfoView
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Text { get; set; }
     }
     
     public class UserSearchInfoView
