@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace SunEngine.Cli
 {
@@ -51,7 +52,7 @@ namespace SunEngine.Cli
             InitializeCoreData = startupArguments.Contains(InitCommand);
             Migrate = startupArguments.Contains(MigrateCommand);
 
-            SeedWithTestData = startupArguments.Contains(SeedCommand);
+            SeedWithTestData = startupArguments.Any(x => x.StartsWith(SeedCommand));
             SeedWithCategoryNames = startupArguments.Contains(AppendCategoriesNamesCommand);
             CheckDatabaseAvailability = startupArguments.Contains(TestDatabaseConnection);
 

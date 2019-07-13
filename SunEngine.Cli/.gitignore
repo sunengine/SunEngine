@@ -1,2 +1,4 @@
 wwwroot/UploadImages/*/*
 !wwwroot/UploadImages/*
+Config/
+MailTemplates/

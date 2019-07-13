@@ -1,5 +1,8 @@
 [Ll].*
 [Ll]ocal.*
+
+config.js
+
 .quasar-ide-helper
 .quasar
 .DS_Store
