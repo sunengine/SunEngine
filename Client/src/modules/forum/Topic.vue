@@ -1,5 +1,5 @@
 <template>
-  <div :class="['topic', 'row', {'mat-hidden': topic.isHidden}, {'mat-deleted': topic.isDeleted}]">
+  <div :class="['topic', 'row', {'mat-hidden': topic.isHidden}, {'mat-deleted': topic.deletedDate}]">
     <div class="col-xs-12 col-sm-8">
       <q-item class="page-padding" :to='to' style="height:100%">
         <q-item-section avatar>
@@ -9,10 +9,10 @@
         </q-item-section>
         <q-item-section>
           <q-item-label class="my-header">
-            <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="topic.isDeleted"/>
+            <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="topic.deletedDate"/>
             <q-icon name="far fa-eye-slash" v-else-if="topic.isHidden" class="q-mr-sm"/>
             {{topic.title}}
-            <span class="q-ml-sm" v-if="topic.isDeleted">
+            <span class="q-ml-sm" v-if="topic.deletedDate">
               [{{$tl("deleted")}}]
             </span>
             <span class="q-ml-sm" v-else-if="topic.isHidden">

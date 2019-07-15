@@ -1,15 +1,15 @@
 <template>
-  <div :class="['post', {'mat-hidden': post.isHidden}, {'mat-deleted': post.isDeleted}]">
+  <div :class="['post', {'mat-hidden': post.isHidden}, {'mat-deleted': post.deletedDate}]">
     <q-item :to="to" class="header page-padding">
       <q-avatar class="shadow-1 avatar" size="44px">
         <img :src="$imagePath(post.authorAvatar)"/>
       </q-avatar>
       <div>
         <div class="blog-title my-header link">
-          <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="post.isDeleted"/>
+          <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="post.deletedDate"/>
           <q-icon name="far fa-eye-slash" v-else-if="post.isHidden" class="q-mr-sm"/>
           {{post.title}}
-          <span class="q-ml-sm" v-if="post.isDeleted">
+          <span class="q-ml-sm" v-if="post.deletedDate">
             [{{$tl("deleted")}}]
           </span>
           <span class="q-ml-sm" v-else-if="post.isHidden">
@@ -24,7 +24,7 @@
       </div>
     </q-item>
 
-    <div v-if="!post.isHidden && !post.isDeleted" class="post-text page-padding"
+    <div v-if="!post.isHidden && !post.deletedDate" class="post-text page-padding"
          v-html="post.preview"></div>
 
     <div class="date text-grey-6">

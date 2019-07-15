@@ -163,12 +163,12 @@ namespace SunEngine.Admin.Controllers
         public int ParentId { get; set; }
 
         public int SortNumber { get; set; }
-
-        public bool IsDeleted { get; set; }
-
+        
         public bool IsHidden { get; set; }
 
         public bool IsCacheContent { get; set; }
+
+        public DateTime? DeletedDate { get; set; }
 
         public Category ToCategory()
         {
@@ -187,7 +187,7 @@ namespace SunEngine.Admin.Controllers
                 MaterialsSubTitleInputType = IsMaterialsContainer ? MaterialsSubTitleInputType : MaterialsSubTitleInputType.None,
                 ParentId = ParentId,
                 SortNumber = SortNumber,
-                IsDeleted = IsDeleted,
+                DeletedDate = DeletedDate,
                 IsHidden = IsHidden,
                 IsCacheContent = IsCacheContent
             };

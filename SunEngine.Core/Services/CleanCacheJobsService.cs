@@ -15,7 +15,7 @@ namespace SunEngine.Core.Services
     public class CleanCacheJobsService : IHostedService
     {
         private readonly SpamProtectionCache spamProtectionCache;
-        private readonly JwtBlackListService jwtBlackListService;
+        private readonly JweBlackListService jweBlackListService;
         private readonly IDataBaseFactory dbFactory;
         private readonly SchedulerOptions schedulerOptions;
         
@@ -30,11 +30,11 @@ namespace SunEngine.Core.Services
             IDataBaseFactory dbFactory,
             SpamProtectionCache spamProtectionCache,
             IOptions<SchedulerOptions> schedulerOptions,
-            JwtBlackListService jwtBlackListService)
+            JweBlackListService jweBlackListService)
         {
             this.dbFactory = dbFactory;
             this.spamProtectionCache = spamProtectionCache;
-            this.jwtBlackListService = jwtBlackListService;
+            this.jweBlackListService = jweBlackListService;
             this.schedulerOptions = schedulerOptions.Value;
         }
 
@@ -49,7 +49,7 @@ namespace SunEngine.Core.Services
             timerJwtBlackListService = new Timer(_ =>
             {
                 Console.WriteLine("JwtBlackListService.RemoveExpired");
-                jwtBlackListService.RemoveExpired();
+                jweBlackListService.RemoveExpired();
             }, null, TimeSpan.Zero, TimeSpan.FromMinutes(schedulerOptions.JwtBlackListServiceClearMinutes));
 
             timerLongSessionsClearer = new Timer(_ =>

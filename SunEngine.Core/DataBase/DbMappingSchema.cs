@@ -4,6 +4,8 @@ using LinqToDB.Mapping;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Authorization;
 using SunEngine.Core.Models.Materials;
+using SunEngine.Core.Utils;
+
 
 namespace SunEngine.Core.DataBase
 {
@@ -14,8 +16,17 @@ namespace SunEngine.Core.DataBase
     {
         public DbMappingSchema()
         {
+            EntityDescriptorCreatedCallback = (schema, entityDescriptor) =>
+            {
+                entityDescriptor.TableName = entityDescriptor.TableName.ToSnakeCase();
+                
+                foreach (var entityDescriptorColumn in entityDescriptor.Columns)
+                    entityDescriptorColumn.ColumnName = entityDescriptorColumn.ColumnName.ToSnakeCase();
+            };
+            
             SetConvertExpression<DateTime,DateTime>(dt => DateTime.SpecifyKind(dt, DateTimeKind.Utc));
 
+            
             var mp = GetFluentMappingBuilder();
             mp.Entity<User>()
                 .HasTableName("AspNetUsers")
@@ -116,6 +127,8 @@ namespace SunEngine.Core.DataBase
             mp.Entity<CipherSecret>()
                 .HasTableName("CipherSecrets")
                 .HasPrimaryKey(x => x.Name);
+            
+            
         }
     }
 

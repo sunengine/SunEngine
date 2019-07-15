@@ -11,16 +11,16 @@ namespace SunEngine.Admin.Controllers
     public class UserRolesAdminController : BaseAdminController
     {
         private readonly IUserRolesAdminPresenter userRolesAdminPresenter;
-        private readonly JwtBlackListService jwtBlackListService;
+        private readonly JweBlackListService jweBlackListService;
 
         public UserRolesAdminController(
             IUserRolesAdminPresenter userRolesAdminPresenter,
-            JwtBlackListService jwtBlackListService,
+            JweBlackListService jweBlackListService,
             IRolesCache rolesCache,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.userRolesAdminPresenter = userRolesAdminPresenter;
-            this.jwtBlackListService = jwtBlackListService;
+            this.jweBlackListService = jweBlackListService;
         }
 
         [HttpPost]
@@ -52,7 +52,7 @@ namespace SunEngine.Admin.Controllers
             if (!rez.Succeeded) 
                 return BadRequest();
 
-            await jwtBlackListService.AddAllUserTokensToBlackListAsync(userId);
+            await jweBlackListService.AddAllUserTokensToBlackListAsync(userId);
             return Ok();
         }
 
@@ -63,7 +63,7 @@ namespace SunEngine.Admin.Controllers
             var rez = await userManager.RemoveFromRoleAsync(user, roleName);
             if (!rez.Succeeded) return BadRequest();
 
-            await jwtBlackListService.AddAllUserTokensToBlackListAsync(userId);
+            await jweBlackListService.AddAllUserTokensToBlackListAsync(userId);
             return Ok();
         }
     }

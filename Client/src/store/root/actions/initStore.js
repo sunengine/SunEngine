@@ -1,6 +1,6 @@
-import {removeTokens} from 'sun'
+import {consoleTokens} from 'sun'
 import {hasLongToken} from 'sun'
-import {consoleInit} from 'sun'
+import {consoleInit, removeTokens} from 'sun'
 
 
 export default async function (context) {
@@ -9,7 +9,7 @@ export default async function (context) {
 
   if(hasLongToken())
     await context.dispatch('loadMyUserInfo').catch(() => {
-      console.error("removeTokens");
+      console.error('%cTokens removed', consoleTokens);
       removeTokens();
     });
 

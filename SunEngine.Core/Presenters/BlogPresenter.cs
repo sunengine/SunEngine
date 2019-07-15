@@ -30,7 +30,7 @@ namespace SunEngine.Core.Presenters
                 query = query.Where(x => !x.IsHidden);
 
             if (!options.ShowDeleted)
-                query = query.Where(x => !x.IsDeleted);
+                query = query.Where(x => x.DeletedDate == null);
 
             return query.GetPagedListAsync(
                 x => new PostView
@@ -47,7 +47,7 @@ namespace SunEngine.Core.Presenters
                     HasMoreText = x.Text.Length != x.Preview.Length,
                     IsCommentsBlocked = x.IsCommentsBlocked,
                     IsHidden = x.IsHidden,
-                    IsDeleted = x.IsDeleted
+                    DeletedDate = x.DeletedDate
                 },
                 x => x.CategoryId == options.CategoryId,
                 x => x.OrderByDescending(y => y.PublishDate),
@@ -95,6 +95,6 @@ namespace SunEngine.Core.Presenters
         public bool HasMoreText { get; set; }
         public bool IsCommentsBlocked { get; set; }
         public bool IsHidden { get; set; }
-        public bool IsDeleted { get; set; }
+        public DateTime? DeletedDate { get; set; }
     }
 }

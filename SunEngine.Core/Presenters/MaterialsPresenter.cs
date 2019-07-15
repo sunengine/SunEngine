@@ -52,7 +52,7 @@ namespace SunEngine.Core.Presenters
                     CategoryName = x.Category.Name,
                     IsHidden = x.IsHidden,
                     IsCommentsBlocked = x.IsCommentsBlocked,
-                    IsDeleted = x.IsDeleted,
+                    DeletedDate = x.DeletedDate,
                     Tags = x.TagMaterials.OrderBy(y => y.Tag.Name).Select(y => y.Tag.Name).ToArray()
                 }
             ).FirstOrDefaultAsync();
@@ -76,7 +76,7 @@ namespace SunEngine.Core.Presenters
         public string CategoryName { get; set; }
         public bool IsCommentsBlocked { get; set; }
         public bool IsHidden { get; set; }
-        public bool IsDeleted { get; set; }
+        public DateTime? DeletedDate { get; set; }
         public string[] Tags { get; set; }
     }
 }

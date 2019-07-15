@@ -162,12 +162,12 @@ namespace SunEngine.Core.Managers
 
         public virtual async Task DeleteAsync(Material material)
         {
-            await db.Materials.Where(x => x.Id == material.Id).Set(x => x.IsDeleted, true).UpdateAsync();
+            await db.Materials.Where(x => x.Id == material.Id).Set(x => x.DeletedDate, DateTime.UtcNow).UpdateAsync();
         }
 
         public virtual async Task RestoreAsync(Material material)
         {
-            await db.Materials.Where(x => x.Id == material.Id).Set(x => x.IsDeleted, false)
+            await db.Materials.Where(x => x.Id == material.Id).Set(x => x.DeletedDate, x => null)
                 .UpdateAsync();
         }
 
@@ -185,14 +185,14 @@ namespace SunEngine.Core.Managers
 
         public async Task UpAsync(int id)
         {
-            var material = await db.Materials.Where(x => !x.IsDeleted)
+            var material = await db.Materials.Where(x => x.DeletedDate == null)
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (material == null)
                 throw new SunEntityNotFoundException(nameof(Material), id);
 
             var material2 = await db.Materials
                 .Where(x =>
-                    !x.IsDeleted && x.CategoryId == material.CategoryId &&
+                    x.DeletedDate == null && x.CategoryId == material.CategoryId &&
                     x.SortNumber > material.SortNumber)
                 .OrderBy(x => x.SortNumber).FirstOrDefaultAsync();
 
@@ -211,14 +211,14 @@ namespace SunEngine.Core.Managers
 
         public async Task DownAsync(int id)
         {
-            var material = await db.Materials.Where(x => !x.IsDeleted)
+            var material = await db.Materials.Where(x => x.DeletedDate == null)
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (material == null)
                 throw new SunEntityNotFoundException(nameof(Material), id);
 
             var material2 = await db.Materials
                 .Where(x =>
-                    !x.IsDeleted && x.CategoryId == material.CategoryId &&
+                    x.DeletedDate == null && x.CategoryId == material.CategoryId &&
                     x.SortNumber < material.SortNumber)
                 .OrderByDescending(x => x.SortNumber).FirstOrDefaultAsync();
 
@@ -243,7 +243,7 @@ namespace SunEngine.Core.Managers
 
         public virtual async Task DetectAndSetLastCommentAndCountAsync(Material material)
         {
-            var commentsQuery = db.Comments.Where(x => x.MaterialId == material.Id && !x.IsDeleted);
+            var commentsQuery = db.Comments.Where(x => x.MaterialId == material.Id && x.DeletedDate == null);
 
             var lastComment = await commentsQuery.OrderByDescending(x => x.PublishDate)
                 .FirstOrDefaultAsync();

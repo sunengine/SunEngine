@@ -25,7 +25,7 @@ namespace SunEngine.Core.Managers
 
     public class AccountManager : DbService, IAccountManager
     {
-        protected readonly JwtOptions jwtOptions;
+        protected readonly JweOptions jweOptions;
         protected readonly SunUserManager userManager;
         protected readonly GlobalOptions globalOptions;
         protected readonly ICryptService cryptService;
@@ -38,9 +38,9 @@ namespace SunEngine.Core.Managers
             DataBaseConnection db,
             ICryptService cryptService,
             IOptions<GlobalOptions> globalOptions,
-            IOptions<JwtOptions> jwtOptions) : base(db)
+            IOptions<JweOptions> jwtOptions) : base(db)
         {
-            this.jwtOptions = jwtOptions.Value;
+            this.jweOptions = jwtOptions.Value;
             this.userManager = userManager;
             this.globalOptions = globalOptions.Value;
             this.emailSenderService = emailSenderService;

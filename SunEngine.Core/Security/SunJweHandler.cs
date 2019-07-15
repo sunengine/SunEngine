@@ -23,30 +23,30 @@ namespace SunEngine.Core.Security
     /// 3 - LongToken2 (Access + Refresh token, 2 in 1), stored in cookie Long token life ~ 3 month.
     /// LongToken2 needed to verify ShortToken and LongToken1 to protect against XSS attacks.
     /// </summary>
-    public class SunJwtHandler : AuthenticationHandler<SunJwtOptions>
+    public class SunJweHandler : AuthenticationHandler<SunJwtOptions>
     {
         private readonly IRolesCache rolesCache;
-        private readonly JwtOptions jwtOptions;
-        private readonly JwtService jwtService;
+        private readonly JweOptions jweOptions;
+        private readonly JweService jweService;
         private readonly SunUserManager userManager;
-        private readonly JwtBlackListService jwtBlackListService;
+        private readonly JweBlackListService jweBlackListService;
 
-        public SunJwtHandler(
+        public SunJweHandler(
             IOptionsMonitor<SunJwtOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
             ISystemClock clock,
             IRolesCache rolesCache,
-            IOptions<JwtOptions> jwtOptions,
-            JwtService jwtService,
-            JwtBlackListService jwtBlackListService,
+            IOptions<JweOptions> jweOptions,
+            JweService jweService,
+            JweBlackListService jweBlackListService,
             SunUserManager userManager) : base(options, logger, encoder, clock)
         {
             this.rolesCache = rolesCache;
-            this.jwtOptions = jwtOptions.Value;
-            this.jwtService = jwtService;
+            this.jweOptions = jweOptions.Value;
+            this.jweService = jweService;
             this.userManager = userManager;
-            this.jwtBlackListService = jwtBlackListService;
+            this.jweBlackListService = jweBlackListService;
         }
 
 
@@ -56,14 +56,14 @@ namespace SunEngine.Core.Security
             {
                 await userManager.DeleteLongSessionAsync(sessionId);
 
-                jwtService.MakeLogoutCookiesAndHeaders(Response);
+                jweService.MakeLogoutCookiesAndHeaders(Response);
 
                 return AuthenticateResult.NoResult();
             }
 
             AuthenticateResult Logout()
             {
-                jwtService.MakeLogoutCookiesAndHeaders(Response);
+                jweService.MakeLogoutCookiesAndHeaders(Response);
 
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nLogout\n");
@@ -80,7 +80,7 @@ namespace SunEngine.Core.Security
                     return AuthenticateResult.NoResult();
 
 
-                JwtSecurityToken jwtLongToken2 = jwtService.ReadLong2Token(cookie);
+                JwtSecurityToken jwtLongToken2 = jweService.ReadLong2Token(cookie);
                 if (jwtLongToken2 == null)
                     return Logout();
 
@@ -104,7 +104,7 @@ namespace SunEngine.Core.Security
                     if (longSession == null)
                         return Logout();
 
-                    sunClaimsPrincipal = await jwtService.RenewSecurityTokensAsync(Context, userId, longSession);
+                    sunClaimsPrincipal = await jweService.RenewSecurityTokensAsync(Context, userId, longSession);
 
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("\nToken renews\n");
@@ -115,17 +115,17 @@ namespace SunEngine.Core.Security
                     string authorization = Request.Headers["Authorization"];
 
                     if (string.IsNullOrEmpty(authorization))
-                        return AuthenticateResult.NoResult();
+                        return Logout();
 
                     string jwtShortToken = null;
                     if (authorization.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
                         jwtShortToken = authorization.Substring("Bearer ".Length).Trim();
 
                     if (string.IsNullOrEmpty(jwtShortToken))
-                        return AuthenticateResult.NoResult();
+                        return Logout();
 
 
-                    var claimsPrincipal = jwtService.ReadShortToken(jwtShortToken);
+                    var claimsPrincipal = jweService.ReadShortToken(jwtShortToken);
 
                     string lat2ran_1 = jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
                     string lat2ran_2 = claimsPrincipal.Claims.First(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
@@ -141,7 +141,7 @@ namespace SunEngine.Core.Security
                     sunClaimsPrincipal = new SunClaimsPrincipal(claimsPrincipal, rolesCache, sessionId, lat2db);
                 }
 
-                if (jwtBlackListService.IsTokenInBlackList(sunClaimsPrincipal.LongToken2Db))
+                if (jweBlackListService.IsTokenInBlackList(sunClaimsPrincipal.LongToken2Db))
                     return await DeleteLongSessionAndLogout(sunClaimsPrincipal.SessionId);
 
                 if (sunClaimsPrincipal.Roles.ContainsKey(RoleNames.Banned))

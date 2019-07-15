@@ -34,7 +34,7 @@ namespace SunEngine.Core.Presenters
             int[] commentsCategoriesIds, int number)
         {
             var materialsActivities = await db.Materials
-                .Where(x => materialsCategoriesIds.Contains(x.CategoryId) && !x.IsHidden && !x.IsDeleted)
+                .Where(x => materialsCategoriesIds.Contains(x.CategoryId) && !x.IsHidden && x.DeletedDate == null)
                 .OrderByDescending(x => x.PublishDate)
                 .Take(number)
                 .Select(x => new ActivityView
@@ -53,8 +53,8 @@ namespace SunEngine.Core.Presenters
             int descriptionSizeBig = descriptionSize * 2;
 
             var commentsActivities = await db.Comments
-                .Where(x => commentsCategoriesIds.Contains(x.Material.CategoryId) && !x.IsDeleted &&
-                            !x.Material.IsHidden && !x.Material.IsDeleted)
+                .Where(x => commentsCategoriesIds.Contains(x.Material.CategoryId) && x.DeletedDate == null &&
+                            !x.Material.IsHidden && x.Material.DeletedDate == null)
                 .OrderByDescending(x => x.PublishDate)
                 .Take(number)
                 .Select(x => new ActivityView

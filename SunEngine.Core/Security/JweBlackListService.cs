@@ -14,19 +14,19 @@ namespace SunEngine.Core.Security
     /// <summary>
     /// Store for JWT black listed JWT short tokens
     /// </summary>
-    public class JwtBlackListService : ISunMemoryCache
+    public class JweBlackListService : ISunMemoryCache
     {
         private readonly IDataBaseFactory dataBaseFactory;
-        private readonly JwtOptions jwtOptions;
+        private readonly JweOptions jweOptions;
 
         private ConcurrentDictionary<string, DateTime> tokens;
 
-        public JwtBlackListService(
+        public JweBlackListService(
             IDataBaseFactory dataBaseFactory, 
-            IOptions<JwtOptions> jwtOptions)
+            IOptions<JweOptions> jweOptions)
         {
             this.dataBaseFactory = dataBaseFactory;
-            this.jwtOptions = jwtOptions.Value;
+            this.jweOptions = jweOptions.Value;
         }
 
         private int cycle = 0;
@@ -53,7 +53,7 @@ namespace SunEngine.Core.Security
             using (var db = dataBaseFactory.CreateDb())
             {
                 var sessions = await db.LongSessions.Where(x => x.UserId == userId).ToListAsync();
-                DateTime exp = DateTime.UtcNow.AddMinutes(jwtOptions.ShortTokenLiveTimeMinutes + 5);
+                DateTime exp = DateTime.UtcNow.AddMinutes(jweOptions.ShortTokenLiveTimeMinutes + 5);
 
                 foreach (var session in sessions)
                     await AddBlackListShortTokenAsync(session.LongToken2, exp);
@@ -65,7 +65,7 @@ namespace SunEngine.Core.Security
             using (var db = dataBaseFactory.CreateDb())
             {
                 var longSessions = await db.LongSessions.Where(x => x.UserId == userId && sessions00.Contains(x.Id)).ToListAsync();
-                DateTime exp = DateTime.UtcNow.AddMinutes(jwtOptions.ShortTokenLiveTimeMinutes + 5);
+                DateTime exp = DateTime.UtcNow.AddMinutes(jweOptions.ShortTokenLiveTimeMinutes + 5);
 
                 foreach (var session in longSessions)
                     await AddBlackListShortTokenAsync(session.LongToken2, exp);

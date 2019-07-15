@@ -42,7 +42,7 @@ namespace SunEngine.Core.Presenters
                 query = query.Where(x => !x.IsHidden);
 
             if (!options.ShowDeleted)
-                query = query.Where(x => !x.IsDeleted);
+                query = query.Where(x => x.DeletedDate == null);
 
 
             return query.GetPagedListAsync(
@@ -58,7 +58,7 @@ namespace SunEngine.Core.Presenters
                     CategoryName = x.Category.Name,
                     SortNumber = x.SortNumber,
                     IsHidden = x.IsHidden,
-                    IsDeleted = x.IsDeleted,
+                    DeletedDate = x.DeletedDate,
                     IsCommentsBlocked = x.IsCommentsBlocked
                 },
                 x => x.CategoryId == options.CategoryId,
@@ -70,7 +70,7 @@ namespace SunEngine.Core.Presenters
         public virtual Task<IPagedList<ArticleInfoView>> GetArticlesFromMultiCategoriesAsync(
             MaterialsMultiCatShowOptions options)
         {
-            return db.Materials.Where(x => !x.IsDeleted && !x.IsHidden).GetPagedListAsync(
+            return db.Materials.Where(x => x.DeletedDate == null && !x.IsHidden).GetPagedListAsync(
                 x => new ArticleInfoView
                 {
                     Id = x.Id,
@@ -106,6 +106,6 @@ namespace SunEngine.Core.Presenters
         public int SortNumber { get; set; }
         public bool IsCommentsBlocked { get; set; }
         public bool IsHidden { get; set; }
-        public bool IsDeleted { get; set; }
+        public DateTime? DeletedDate { get; set; }
     }
 }

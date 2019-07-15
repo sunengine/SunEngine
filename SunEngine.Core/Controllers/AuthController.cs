@@ -21,7 +21,7 @@ namespace SunEngine.Core.Controllers
     [AllowAnonymous]
     public class AuthController : BaseController
     {
-        private readonly JwtService jwtService;
+        private readonly JweService jweService;
         private readonly DataBaseConnection db;
         private readonly GlobalOptions globalOptions;
         private readonly IAuthManager authManager;
@@ -29,14 +29,14 @@ namespace SunEngine.Core.Controllers
 
         public AuthController(
             DataBaseConnection db,
-            JwtService jwtService,
+            JweService jweService,
             IAuthManager authManager,
             IOptions<GlobalOptions> globalOptions,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.globalOptions = globalOptions.Value;
             this.db = db;
-            this.jwtService = jwtService;
+            this.jweService = jweService;
             this.authManager = authManager;
         }
 
@@ -46,7 +46,7 @@ namespace SunEngine.Core.Controllers
         {
             var user = await authManager.LoginAsync(nameOrEmail, password);
 
-            await jwtService.RenewSecurityTokensAsync(HttpContext, user);
+            await jweService.RenewSecurityTokensAsync(HttpContext, user);
 
             return Ok();
         }
@@ -57,7 +57,7 @@ namespace SunEngine.Core.Controllers
         {
             await authManager.LogoutAsync(User.UserId, User.SessionId);
 
-            jwtService.MakeLogoutCookiesAndHeaders(Response);
+            jweService.MakeLogoutCookiesAndHeaders(Response);
 
             return Ok();
         }

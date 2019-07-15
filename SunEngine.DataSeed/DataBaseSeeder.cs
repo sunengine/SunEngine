@@ -3,6 +3,8 @@ using System.Linq;
 using LinqToDB;
 using LinqToDB.Data;
 using SunEngine.Core.DataBase;
+using SunEngine.Core.Utils;
+
 
 namespace SunEngine.DataSeed
 {
@@ -111,11 +113,11 @@ namespace SunEngine.DataSeed
                 {
                     //Console.WriteLine($"Renew sequence of table: '{tableName}'");
                     db.Execute(
-                        $"SELECT setval(pg_get_serial_sequence('\"{tableName}\"', 'Id'), coalesce(max(tbl.\"Id\"),0) + 1, false) FROM \"{tableName}\" as tbl;");
+                        $"SELECT setval(pg_get_serial_sequence('\"{tableName.ToSnakeCase()}\"', 'Id'), coalesce(max(tbl.\"{"Id".ToSnakeCase()}\"),0) + 1, false) FROM \"{tableName.ToSnakeCase()}\" as tbl;");
                 }
 
                 db.Execute(
-                    "SELECT setval(pg_get_serial_sequence('\"OperationKeys\"', 'OperationKeyId'), coalesce(max(tbl.\"OperationKeyId\"),0) + 1, false) FROM \"OperationKeys\" as tbl;");
+                    $"SELECT setval(pg_get_serial_sequence('\"{"OperationKeys".ToSnakeCase()}\"', '{"OperationKeyId".ToSnakeCase()}'), coalesce(max(tbl.\"{"OperationKeyId".ToSnakeCase()}\"),0) + 1, false) FROM \"{"OperationKeys".ToSnakeCase()}\" as tbl;");
             }
         }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="comment-container" :id="'comment-'+comment.id">
     <span v-if="isLast" id="comment-last"></span>
-    <template v-if="!comment.isDeleted">
+    <template v-if="!comment.deletedDate">
       <ReadComment @goEdit="goEdit" v-if="isReadMode" :comment="comment" :canEdit="canEdit()" :canMoveToTrash="canMoveToTrash()" />
 
       <EditComment @done="saved" @cancel="isReadMode=true" :commentId="comment.id" v-else/>

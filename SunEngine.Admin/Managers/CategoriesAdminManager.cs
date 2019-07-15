@@ -130,7 +130,7 @@ namespace SunEngine.Admin.Managers
                 throw new SunEntityNotFoundException(nameof(Category), name, "Name");
 
             var category2 = await db.Categories
-                .Where(x => x.ParentId == category.ParentId && x.SortNumber < category.SortNumber && !x.IsDeleted)
+                .Where(x => x.ParentId == category.ParentId && x.SortNumber < category.SortNumber && x.DeletedDate == null)
                 .OrderByDescending(x => x.SortNumber).FirstOrDefaultAsync();
 
             if (category2 == null)
@@ -167,7 +167,7 @@ namespace SunEngine.Admin.Managers
                 throw new SunEntityNotFoundException(nameof(Category), name, "Name");
 
             var category2 = await db.Categories
-                .Where(x => x.ParentId == category.ParentId && x.SortNumber > category.SortNumber && !x.IsDeleted)
+                .Where(x => x.ParentId == category.ParentId && x.SortNumber > category.SortNumber && x.DeletedDate == null)
                 .OrderBy(x => x.SortNumber).FirstOrDefaultAsync();
 
             if (category2 == null)
@@ -199,7 +199,7 @@ namespace SunEngine.Admin.Managers
 
         public Task CategoryMoveToTrashAsync(string name)
         {
-            return db.Categories.Where(x => x.Name == name).Set(x => x.IsDeleted, x => true).UpdateAsync();
+            return db.Categories.Where(x => x.Name == name).Set(x => x.DeletedDate, x => DateTime.UtcNow).UpdateAsync();
         }
 
         public async Task RemakeAllMaterialsPreviewsAsync(Category category)

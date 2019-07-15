@@ -20,6 +20,6 @@ namespace SunEngine.Core.Models.Materials
         public int MaterialId { get; set; }
         public Material Material { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public DateTime? DeletedDate { get; set; }
     }
 }

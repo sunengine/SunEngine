@@ -18,17 +18,17 @@ namespace SunEngine.Core.Controllers
     public class PersonalController : BaseController
     {
         protected readonly IPersonalManager personalManager;
-        protected readonly JwtService jwtService;
+        protected readonly JweService jweService;
         protected readonly IPersonalPresenter personalPresenter;
 
         public PersonalController(
             IPersonalManager personalManager, 
-            JwtService jwtService, 
+            JweService jweService, 
             IPersonalPresenter personalPresenter,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.personalManager = personalManager;
-            this.jwtService = jwtService;
+            this.jweService = jweService;
             this.personalPresenter = personalPresenter;
 
         }
@@ -80,7 +80,7 @@ namespace SunEngine.Core.Controllers
 
             Response.Headers.Clear(); 
             
-            await jwtService.RenewSecurityTokensAsync(HttpContext, user, User.SessionId);
+            await jweService.RenewSecurityTokensAsync(HttpContext, user, User.SessionId);
 
             return Ok();
         }

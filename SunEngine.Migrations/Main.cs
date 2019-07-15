@@ -16,7 +16,7 @@ namespace SunEngine.Migrations
     public class Main
     {
         private const string DataBaseConnectionFileName = "DataBaseConnection.json";
-        
+
         private readonly string DataBaseConnectionFilePath;
 
         

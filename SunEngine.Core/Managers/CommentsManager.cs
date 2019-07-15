@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
@@ -63,13 +64,13 @@ namespace SunEngine.Core.Managers
 
         public virtual Task MoveToTrashAsync(Comment comment)
         {
-            comment.IsDeleted = true;
+            comment.DeletedDate = DateTime.UtcNow;
             return UpdateAsync(comment);
         }
 
         public virtual Task RestoreFromTrash(Comment comment)
         {
-            comment.IsDeleted = true;
+            comment.DeletedDate = null;
             return UpdateAsync(comment);
         }
     }

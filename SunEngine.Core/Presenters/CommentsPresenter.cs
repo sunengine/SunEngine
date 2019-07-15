@@ -39,7 +39,7 @@ namespace SunEngine.Core.Presenters
                         Text = x.Text,
                         PublishDate = x.PublishDate,
                         EditDate = x.EditDate,
-                        IsDeleted = x.IsDeleted
+                        DeletedDate = x.DeletedDate
                     },
                     categoryId = x.Material.CategoryId
                 }
@@ -53,7 +53,7 @@ namespace SunEngine.Core.Presenters
             IQueryable<Comment> query = db.Comments;
 
             if (!withDeleted)
-                query = query.Where(x => !x.IsDeleted);
+                query = query.Where(x => x.DeletedDate == null);
 
             return query.Where(x => x.MaterialId == materialId)
                 .OrderBy(x => x.PublishDate)
@@ -68,7 +68,7 @@ namespace SunEngine.Core.Presenters
                         AuthorName = x.Author.UserName,
                         AuthorLink = x.Author.Link,
                         AuthorAvatar = x.Author.Avatar,
-                        IsDeleted = x.IsDeleted
+                        DeletedDate = x.DeletedDate
                     }).ToListAsync();
         }
     }
@@ -83,6 +83,6 @@ namespace SunEngine.Core.Presenters
         public string Text { get; set; }
         public DateTime PublishDate { get; set; }
         public DateTime? EditDate { get; set; }
-        public bool IsDeleted { get; set; }
+        public DateTime? DeletedDate { get; set; }
     }
 }

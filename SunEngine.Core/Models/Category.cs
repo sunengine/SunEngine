@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SunEngine.Core.Models.Materials;
 
 namespace SunEngine.Core.Models
@@ -73,12 +74,12 @@ namespace SunEngine.Core.Models
         public int? CacheSettingsId { get; set; }
 
         public CategoryCacheSettings CacheSettings { get; set; }
-
-        public bool IsDeleted { get; set; }
-
+        
         public bool IsHidden { get; set; }
 
         public bool IsCacheContent { get; set; }
+        
+        public DateTime? DeletedDate { get; set; }
     }
 
     public enum MaterialsSubTitleInputType : short

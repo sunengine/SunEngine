@@ -139,7 +139,7 @@ namespace SunEngine.Core.Cache.Services
         {
             using (var db = dataBaseFactory.CreateDb())
             {
-                var categories = db.Categories.Where(x => !x.IsDeleted).Select(x => new CategoryCached(x))
+                var categories = db.Categories.Where(x => x.DeletedDate == null).Select(x => new CategoryCached(x))
                     .ToDictionary(x => x.Id);
 
                 PrepareCategories(categories);

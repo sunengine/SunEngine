@@ -27,25 +27,25 @@ namespace SunEngine.Core.Security
     /// <summary>
     /// Functions for generating, renewing and reading Jwt tokens.
     /// </summary>
-    public class JwtService : DbService
+    public class JweService : DbService
     {
         private readonly SunUserManager userManager;
-        private readonly JwtOptions jwtOptions;
+        private readonly JweOptions jweOptions;
         private readonly ILogger logger;
         private readonly ICryptService cryptService;
         private readonly IRolesCache rolesCache;
 
-        public JwtService(
+        public JweService(
             DataBaseConnection db,
             SunUserManager userManager,
             IRolesCache rolesCache,
             ICryptService cryptService,
-            IOptions<JwtOptions> jwtOptions,
+            IOptions<JweOptions> jwtOptions,
             ILoggerFactory loggerFactory) : base(db)
         {
             this.userManager = userManager;
             this.cryptService = cryptService;
-            this.jwtOptions = jwtOptions.Value;
+            this.jweOptions = jwtOptions.Value;
             logger = loggerFactory.CreateLogger<AccountController>();
             this.rolesCache = rolesCache;
         }
@@ -80,7 +80,7 @@ namespace SunEngine.Core.Security
             {
                 longSession1.LongToken1 = CryptoRandomizer.GetRandomString(LongSession.LongToken1Length);
                 longSession1.LongToken2 = CryptoRandomizer.GetRandomString(LongSession.LongToken2Length);
-                longSession1.ExpirationDate = DateTime.UtcNow.AddDays(jwtOptions.LongTokenLiveTimeDays);
+                longSession1.ExpirationDate = DateTime.UtcNow.AddDays(jweOptions.LongTokenLiveTimeDays);
                 httpContext.Request.Headers.TryGetValue("User-Agent", out StringValues userAgent);
                 longSession1.DeviceInfo = Parser.GetDefault()?.Parse(userAgent.ToString() ?? "")?.ToString() ?? "";
                 longSession1.UpdateDate = DateTime.UtcNow;
@@ -160,7 +160,7 @@ namespace SunEngine.Core.Security
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
-            var expiration = DateTime.UtcNow.AddMinutes(jwtOptions.ShortTokenLiveTimeMinutes);
+            var expiration = DateTime.UtcNow.AddMinutes(jweOptions.ShortTokenLiveTimeMinutes);
 
             var token = new JwtSecurityToken(
                 claims: claims.ToArray(),

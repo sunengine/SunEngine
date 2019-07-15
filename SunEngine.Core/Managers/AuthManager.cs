@@ -33,7 +33,7 @@ namespace SunEngine.Core.Managers
         protected readonly GlobalOptions globalOptions;
         protected readonly IEmailSenderService emailSenderService;
         protected readonly ILogger logger;
-        protected readonly JwtBlackListService jwtBlackListService;
+        protected readonly JweBlackListService jweBlackListService;
 
 
         public AuthManager(
@@ -41,13 +41,13 @@ namespace SunEngine.Core.Managers
             IEmailSenderService emailSenderService,
             DataBaseConnection db,
             IOptions<GlobalOptions> globalOptions,
-            JwtBlackListService jwtBlackListService,
+            JweBlackListService jweBlackListService,
             ILoggerFactory loggerFactory) : base(db)
         {
             this.userManager = userManager;
             this.globalOptions = globalOptions.Value;
             this.emailSenderService = emailSenderService;
-            this.jwtBlackListService = jwtBlackListService;
+            this.jweBlackListService = jweBlackListService;
             logger = loggerFactory.CreateLogger<AccountController>();
         }
 
@@ -72,7 +72,7 @@ namespace SunEngine.Core.Managers
 
         public virtual async Task LogoutAsync(int userId, long sessionId)
         {
-            await jwtBlackListService.AddUserTokensToBlackListAsync(userId, new[] {sessionId});
+            await jweBlackListService.AddUserTokensToBlackListAsync(userId, new[] {sessionId});
             await db.LongSessions.Where(x => x.UserId == userId && x.Id == sessionId).DeleteAsync();
         }
 

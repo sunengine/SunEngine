@@ -62,7 +62,7 @@ namespace SunEngine.Core.Controllers
             if (materialView.IsHidden && !materialsAuthorization.CanHide(User.Roles, category))
                 return Unauthorized();
 
-            if (materialView.IsDeleted && !materialsAuthorization.CanRestoreAsync(User, category.Id))
+            if (materialView.DeletedDate != null && !materialsAuthorization.CanRestoreAsync(User, category.Id))
                 return Unauthorized();
 
             return Json(materialView);

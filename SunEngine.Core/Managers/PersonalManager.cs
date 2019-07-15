@@ -29,15 +29,15 @@ namespace SunEngine.Core.Managers
     public class PersonalManager : DbService, IPersonalManager
     {
         protected readonly SanitizerService sanitizerService;
-        protected readonly JwtBlackListService jwtBlackListService;
+        protected readonly JweBlackListService jweBlackListService;
 
         public PersonalManager(
             DataBaseConnection db,
-            JwtBlackListService jwtBlackListService,
+            JweBlackListService jweBlackListService,
             SanitizerService sanitizerService) : base(db)
         {
             this.sanitizerService = sanitizerService;
-            this.jwtBlackListService = jwtBlackListService;
+            this.jweBlackListService = jweBlackListService;
         }
 
         public virtual Task SetPhotoAsync(int userId, string photo)
@@ -126,7 +126,7 @@ namespace SunEngine.Core.Managers
 
         public async Task RemoveSessionsAsync(int userId, long[] sessionsIds)
         {
-            await jwtBlackListService.AddUserTokensToBlackListAsync(userId, sessionsIds);
+            await jweBlackListService.AddUserTokensToBlackListAsync(userId, sessionsIds);
             await db.LongSessions.Where(x => x.UserId == userId && sessionsIds.Contains(x.Id)).DeleteAsync();
         }
     }

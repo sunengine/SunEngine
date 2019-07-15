@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -52,14 +53,14 @@ namespace SunEngine.Admin.Presenters
                 SortNumber = x.SortNumber,
                 MaterialsCount = x.Materials.Count,
                 IsHidden = x.IsHidden,
-                IsDeleted = x.IsDeleted,
-                IsCacheContent = x.IsCacheContent
+                IsCacheContent = x.IsCacheContent,
+                DeletedDate = x.DeletedDate,
             }).FirstOrDefaultAsync();
         }
 
         public async Task<CategoryAdminView> GetAllCategoriesAsync()
         {
-            var categories = await db.Categories.Where(x => !x.IsDeleted)
+            var categories = await db.Categories.Where(x => x.DeletedDate == null)
                 .OrderBy(x => x.SortNumber).Select(x => new CategoryAdminView
                 {
                     Id = x.Id,
@@ -77,8 +78,8 @@ namespace SunEngine.Admin.Presenters
                     SortNumber = x.SortNumber,
                     MaterialsCount = x.Materials.Count,
                     IsHidden = x.IsHidden,
-                    IsDeleted = x.IsDeleted,
-                    IsCacheContent = x.IsCacheContent
+                    IsCacheContent = x.IsCacheContent,
+                    DeletedDate = x.DeletedDate
                 }).ToDictionaryAsync(x => x.Id);
 
             CategoryAdminView root = null;
@@ -137,11 +138,11 @@ namespace SunEngine.Admin.Presenters
         public int SortNumber { get; set; }
 
         public int MaterialsCount { get; set; }
-
-        public bool IsDeleted { get; set; }
-
+        
         public bool IsHidden { get; set; }
 
         public bool IsCacheContent { get; set; }
+        
+        public DateTime? DeletedDate { get; set; }
     }
 }

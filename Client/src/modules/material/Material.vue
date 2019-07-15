@@ -8,7 +8,7 @@
         <span class="text-grey-7">{{$tl("category")}} </span>
         <router-link :to="category.getRoute()">{{category.title}}</router-link>
       </div>
-      <div v-if="material.isDeleted" class="text-red q-mb-md">
+      <div v-if="material.deletedDate" class="text-red q-mb-md">
         <q-chip icon="fas fa-trash" color="red" text-color="white" :label="$tl('deleted')"/>
       </div>
       <div class="material-text q-mb-lg" v-html="material.text">
@@ -34,13 +34,13 @@
             <q-icon name="fas fa-edit" class="q-mr-xs"/>
             {{$tl("edit")}}</a>
         </div>
-        <div class="q-mr-md" v-if="!material.isDeleted && canDelete">
+        <div class="q-mr-md" v-if="!material.deletedDate && canDelete">
           <a href="#" style="display: inline-flex; align-items: center;"
              @click.prevent="deleteMaterial">
             <q-icon name="fas fa-trash"/>
           </a>
         </div>
-        <div class="q-mr-md" v-if="material.isDeleted && canRestore">
+        <div class="q-mr-md" v-if="material.deletedDate && canRestore">
           <a href="#" style="display: inline-flex; align-items: center;"
              @click.prevent="restoreMaterial">
             <q-icon name="fas fa-trash-restore"/>

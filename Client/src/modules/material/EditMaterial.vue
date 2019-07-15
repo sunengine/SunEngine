@@ -1,6 +1,6 @@
 <template>
   <q-page class="edit-material q-pa-md">
-    <div v-if="material.isDeleted" class="text-red">
+    <div v-if="material.deletedDate" class="text-red">
       <q-chip icon="fas fa-trash" color="red" text-color="white" :label="$tl('deleted')"/>
     </div>
 
@@ -13,11 +13,11 @@
       </q-btn>
       <q-btn no-caps icon="fas fa-times" class="q-ml-sm cancel-btn" @click="$router.back()" :label="$tl('cancelBtn')"/>
 
-      <q-btn v-if="!material.isDeleted && canDelete" no-caps icon="fas fa-trash" class="delete-btn float-right"
+      <q-btn v-if="!material.deletedDate && canDelete" no-caps icon="fas fa-trash" class="delete-btn float-right"
              @click="deleteMaterial" :label="$tl('deleteBtn')" />
 
 
-      <q-btn v-if="material.isDeleted && canRestore" class="float-right" no-caps icon="fas fa-trash-restore"
+      <q-btn v-if="material.deletedDate && canRestore" class="float-right" no-caps icon="fas fa-trash-restore"
              @click="restoreMaterial" :label="$tl('restoreBtn')"
              color="warning"/>
 

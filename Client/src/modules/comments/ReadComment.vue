@@ -72,7 +72,7 @@
             () => {
               const msg = this.$tl('moveToTrashSuccess');
               this.$successNotify(msg);
-              this.comment.isDeleted = true;
+              this.comment.deletedDate = new Date();
             }).catch(error => {
             this.$errorNotify(error);
           });

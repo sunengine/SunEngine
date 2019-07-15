@@ -7,6 +7,8 @@ using LinqToDB.Mapping;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Authorization;
 using SunEngine.Core.Models.Materials;
+using SunEngine.Core.Utils;
+
 
 namespace SunEngine.Core.DataBase
 {
@@ -45,7 +47,7 @@ namespace SunEngine.Core.DataBase
 
         public IQueryable<Material> MaterialsVisible =>
             GetTable<Material>()
-                .Where(x => !x.IsDeleted && !x.IsHidden && !x.Category.IsHidden && !x.Category.IsDeleted);
+                .Where(x => x.DeletedDate == null && !x.IsHidden && !x.Category.IsHidden && x.Category.DeletedDate == null);
 
         public ITable<Comment> Comments => GetTable<Comment>();
 

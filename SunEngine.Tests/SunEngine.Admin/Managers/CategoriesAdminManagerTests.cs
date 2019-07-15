@@ -294,7 +294,7 @@ namespace SunEngine.Tests.SunEngine.Admin.Managers
                 var result = dbConnection.Categories.FirstOrDefault(x => x.Name == category.Name);
 
                 Assert.NotNull(result);
-                Assert.True(result.IsDeleted);
+                Assert.True(result.DeletedDate != null);
             }
         }
 
