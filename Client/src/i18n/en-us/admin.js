@@ -181,6 +181,8 @@ export default {
     rolesPermissionsCaption: "",
     cacheSettings: "Cache settings",
     cacheSettingsCaption: "",
+    cypherSecrets: "Cypher keys",
+    cypherSecretsCaption:"",
     imagesCleaner: "Сleaner",
     imagesCleanerCaption: "",
     deletedElements: "Deleted elements",
@@ -210,6 +212,9 @@ export default {
         invalidValue: "Value can`t be lower 0",
       }
     }
+  },
+  CypherSecrets: {
+    title: "Reset cypher keys"
   },
   DeletedElements: {
     title: "Deleted elements",

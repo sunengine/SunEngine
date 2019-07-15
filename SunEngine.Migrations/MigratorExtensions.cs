@@ -56,10 +56,11 @@ namespace SunEngine.Migrations
 
     public static class StringExtension
     {
-        public static string Snake(this string str)
+        public static string s(this string str)
         {
-            return System.Text.RegularExpressions.Regex.Replace(str, "(?<=.)([A-Z])", "_$0",
-                System.Text.RegularExpressions.RegexOptions.Compiled);
+            return str;
+            //return System.Text.RegularExpressions.Regex.Replace(str, "(?<=.)([A-Z])", "_$0",
+            //    System.Text.RegularExpressions.RegexOptions.Compiled);
         }
     }
 }

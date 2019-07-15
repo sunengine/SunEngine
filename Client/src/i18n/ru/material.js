@@ -29,7 +29,7 @@ export default {
     tags: "Метки:",
     deleted: "@:EditMaterial.deleted",
     deleteDialogTitle: "@:EditMaterial.deleteDialogTitle",
-    deleteDialogMessage: "@:EditMaterial.deleted",
+    deleteDialogMessage: "",
     deleteDialogOk: "@:EditMaterial.deleteDialogOk",
     deleteDialogCancel: "@:EditMaterial.deleteDialogCancel",
     deleteSuccess: "@:EditMaterial.deleteSuccess",

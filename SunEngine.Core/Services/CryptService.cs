@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using LinqToDB;
+using SunEngine.Core.Cache.Services;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
 using SunEngine.Core.Models;
@@ -12,7 +13,7 @@ using SunEngine.Core.Utils;
 
 namespace SunEngine.Core.Services
 {
-    public interface ICryptService
+    public interface ICryptService : ISunMemoryCache
     {
         string Crypt(string cipherName, string text);
         string Decrypt(string cipherName, string text);
@@ -41,11 +42,7 @@ namespace SunEngine.Core.Services
                 Mode = CipherMode.CBC
             };
 
-            using (var db = dbFactory.CreateDb())
-            {
-                foreach (var x in db.CipherSecrets)
-                    AddCipherKey(x.Name, x.Secret);
-            }
+            Initialize();
         }
 
         public void AddCipherKey(string key)
@@ -114,7 +111,7 @@ namespace SunEngine.Core.Services
         {
             using (var db = dbFactory.CreateDb())
             {
-                var newSecret = Encoding.UTF8.GetString(GenerateSecurityKey());
+                var newSecret = GenerateSecurityKeyString();
 
                 int updated = await db.CipherSecrets.Where(x => x.Name == name).Set(x => x.Secret, newSecret)
                     .UpdateAsync();
@@ -133,7 +130,7 @@ namespace SunEngine.Core.Services
 
                 foreach (var cipherSecret in allSecrets)
                 {
-                    cipherSecret.Secret = Encoding.UTF8.GetString(GenerateSecurityKey());
+                    cipherSecret.Secret = GenerateSecurityKeyString();
                     done += await db.UpdateAsync(cipherSecret);
                 }
 
@@ -159,6 +156,21 @@ namespace SunEngine.Core.Services
         public static string GenerateSecurityKeyString()
         {
             return Encoding.Unicode.GetString(GenerateSecurityKey());
+        }
+
+        public void Initialize()
+        {
+            cypherSecrets.Clear();
+            using (var db = dbFactory.CreateDb())
+            {
+                foreach (var x in db.CipherSecrets)
+                    AddCipherKey(x.Name, x.Secret);
+            }
+        }
+
+        public void Reset()
+        {
+            Initialize();
         }
     }
 }

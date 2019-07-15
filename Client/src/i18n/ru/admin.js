@@ -188,6 +188,8 @@ export default {
     cacheSettings: "Кэширование",
     cacheSettingsCaption: "",
     //cacheSettingsCaption: "Способ кэширования на сайте",
+    cypherSecrets: "Ключи шифрования",
+    cypherSecretsCaption:"",
     imagesCleaner: "Очистка",
     imagesCleanerCaption: "",
     //imagesCleanerCaption: "Удалить неиспользуемые изображения",
@@ -219,6 +221,9 @@ export default {
         invalidValue: "Значение не может быть ниже 0",
       }
     }
+  },
+  CypherSecrets: {
+    title: "Сбросить ключи шифрования"
   },
   DeletedElements: {
     title: "Удалённые элементы",

@@ -11,6 +11,7 @@ import {RolesPage} from 'sun'
 import {CacheSettings} from 'sun'
 import {CreateMenuItem} from 'sun'
 import {EditMenuItem} from 'sun'
+import {CypherSecrets} from 'sun'
 import {DeletedElements} from 'sun'
 import {AdminMenu} from 'sun'
 
@@ -90,6 +91,14 @@ const routes = [
     props: {
       default: true,
       navigation: null
+    }
+  },
+  {
+    name: 'CypherSecrets',
+    path: '/admin/CypherSecrets'.toLowerCase(),
+    components: {
+      default: CypherSecrets,
+      navigation: AdminPanel
     }
   },
   {

@@ -7,209 +7,209 @@ namespace SunEngine.Migrations.Migrations
     /// <summary>
     /// Initial migration for FluentMigrator
     /// </summary>
-    [Migration(20190715000000)]
+    [Migration(20190705000000)]
     public class Initial : Migration
     {
         public override void Up()
         {
-            Create.Table("cache_settings")
-                .WithColumn("id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("cache_policy").AsInt32().NotNullable()
-                .WithColumn("invalidate_cache_time").AsInt32().Nullable();
+            Create.Table("CacheSettings".s())
+                .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("CachePolicy".s()).AsInt32().NotNullable()
+                .WithColumn("InvalidateCacheTime".s()).AsInt32().Nullable();
 
 
-            Create.Table("category_cache_settings")
-                .WithColumn("id").AsInt32().PrimaryKey().NotNullable()
-                .WithColumn("pages_amount").AsInt32().NotNullable();
+            Create.Table("CategoryCacheSettings".s())
+                .WithColumn("Id".s()).AsInt32().PrimaryKey().NotNullable()
+                .WithColumn("PagesAmount".s()).AsInt32().NotNullable();
 
 
-            Create.Table("categories")
-                .WithColumn("id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("parent_id").AsInt32().Indexed().Nullable()
-                .ForeignKey("categories", "id")
-                .WithColumn("name").AsString(DbColumnSizes.Categories_Name).NotNullable()
-                .WithColumn("name_normalized").AsString(DbColumnSizes.Categories_Name).NotNullable().Unique()
-                .WithColumn("title").AsString(DbColumnSizes.Categories_Title).NotNullable()
-                .WithColumn("sub_title").AsMaxString().Nullable()
-                .WithColumn("icon").AsString(DbColumnSizes.Categories_Icon).Nullable()
-                .WithColumn("material_type_title").AsString(DbColumnSizes.Categories_MaterialTypeTitle).Nullable()
-                .WithColumn("header").AsMaxString().Nullable()
-                .WithColumn("is_materials_container").AsBoolean().NotNullable()
-                .WithColumn("is_materials_name_editable").AsBoolean().NotNullable().WithDefaultValue(false)
-                .WithColumn("materials_sub_title_input_type").AsInt16().NotNullable().WithDefaultValue(0)
-                .WithColumn("materials_preview_generator_name")
-                .AsString(DbColumnSizes.Categories_MaterialsPreviewGeneratorName).Nullable()
-                .WithColumn("cache_settings_id").AsInt32().Indexed().Nullable()
-                .ForeignKey("category_cache_settings", "id")
-                .WithColumn("sort_number").AsInt32().NotNullable().Unique()
-                .WithColumn("layout_name").AsString(DbColumnSizes.Categories_LayoutName).Nullable()
-                .WithColumn("settings_json").AsMaxString().Nullable()
-                .WithColumn("is_cache_content").AsBoolean().NotNullable()
-                .WithColumn("is_hidden").AsBoolean().NotNullable()
-                .WithColumn("deleted_date").AsDateTime().Nullable();
+            Create.Table("Categories".s())
+                .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("ParentId".s()).AsInt32().Indexed().Nullable()
+                .ForeignKey("Categories".s(), "Id".s())
+                .WithColumn("Name".s()).AsString(DbColumnSizes.Categories_Name).NotNullable()
+                .WithColumn("NameNormalized".s()).AsString(DbColumnSizes.Categories_Name).NotNullable().Unique()
+                .WithColumn("Title".s()).AsString(DbColumnSizes.Categories_Title).NotNullable()
+                .WithColumn("SubTitle".s()).AsMaxString().Nullable()
+                .WithColumn("Icon".s()).AsString(DbColumnSizes.Categories_Icon).Nullable()
+                .WithColumn("MaterialTypeTitle".s()).AsString(DbColumnSizes.Categories_MaterialTypeTitle).Nullable()
+                .WithColumn("Header".s()).AsMaxString().Nullable()
+                .WithColumn("IsMaterialsContainer".s()).AsBoolean().NotNullable()
+                .WithColumn("IsMaterialsNameEditable".s()).AsBoolean().NotNullable().WithDefaultValue(false)
+                .WithColumn("MaterialsSubTitleInputType".s()).AsInt16().NotNullable().WithDefaultValue(0)
+                .WithColumn("MaterialsPreviewGeneratorName".s()).AsString(DbColumnSizes.Categories_MaterialsPreviewGeneratorName).Nullable()
+                .WithColumn("CacheSettingsId".s()).AsInt32().Indexed().Nullable()
+                .ForeignKey("CategoryCacheSettings".s(), "Id".s())
+                .WithColumn("SortNumber".s()).AsInt32().NotNullable().Unique()
+                .WithColumn("LayoutName".s()).AsString(DbColumnSizes.Categories_LayoutName).Nullable()
+                .WithColumn("SettingsJson".s()).AsMaxString().Nullable()
+                .WithColumn("IsCacheContent".s()).AsBoolean().NotNullable()
+                .WithColumn("IsHidden".s()).AsBoolean().NotNullable()
+                .WithColumn("DeletedDate".s()).AsDateTime().Nullable();
 
 
-            Create.Table("asp_net_users")
-                .WithColumn("id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("user_name").AsString(DbColumnSizes.Users_UserName).NotNullable()
-                .WithColumn("normalized_user_name").AsString(DbColumnSizes.Users_UserName).Unique().Nullable()
-                .WithColumn("email").AsString(DbColumnSizes.Users_Email).Nullable()
-                .WithColumn("normalized_email").AsString(DbColumnSizes.Users_Email).Unique().Nullable()
-                .WithColumn("email_confirmed").AsBoolean().NotNullable()
-                .WithColumn("password_hash").AsMaxString().Nullable()
-                .WithColumn("security_stamp").AsMaxString().Nullable()
-                .WithColumn("concurrency_stamp").AsMaxString().Nullable()
-                .WithColumn("phone_number").AsMaxString().Nullable()
-                .WithColumn("phone_number_confirmed").AsBoolean().NotNullable()
-                .WithColumn("two_factor_enabled").AsBoolean().NotNullable()
-                .WithColumn("lockout_end").AsDateTime().Nullable()
-                .WithColumn("lockout_enabled").AsBoolean().NotNullable()
-                .WithColumn("access_failed_count").AsInt16().NotNullable()
-                .WithColumn("link").AsString(DbColumnSizes.Users_Link).Nullable()
-                .WithColumn("information").AsMaxString().Nullable()
-                .WithColumn("photo").AsString(DbColumnSizes.FileNameWithDirSize).Nullable()
-                .WithColumn("avatar").AsString(DbColumnSizes.FileNameWithDirSize).Nullable()
-                .WithColumn("registered_date").AsDateTime().Indexed();
+            Create.Table("AspNetUsers".s())
+                .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("UserName".s()).AsString(DbColumnSizes.Users_UserName).NotNullable()
+                .WithColumn("NormalizedUserName".s()).AsString(DbColumnSizes.Users_UserName).Unique().Nullable()
+                .WithColumn("Email".s()).AsString(DbColumnSizes.Users_Email).Nullable()
+                .WithColumn("NormalizedEmail".s()).AsString(DbColumnSizes.Users_Email).Unique().Nullable()
+                .WithColumn("EmailConfirmed".s()).AsBoolean().NotNullable()
+                .WithColumn("PasswordHash".s()).AsMaxString().Nullable()
+                .WithColumn("SecurityStamp".s()).AsMaxString().Nullable()
+                .WithColumn("ConcurrencyStamp".s()).AsMaxString().Nullable()
+                .WithColumn("PhoneNumber".s()).AsMaxString().Nullable()
+                .WithColumn("PhoneNumberConfirmed".s()).AsBoolean().NotNullable()
+                .WithColumn("TwoFactorEnabled".s()).AsBoolean().NotNullable()
+                .WithColumn("LockoutEnd".s()).AsDateTime().Nullable()
+                .WithColumn("LockoutEnabled".s()).AsBoolean().NotNullable()
+                .WithColumn("AccessFailedCount".s()).AsInt16().NotNullable()
+                .WithColumn("Link".s()).AsString(DbColumnSizes.Users_Link).Nullable()
+                .WithColumn("Information".s()).AsMaxString().Nullable()
+                .WithColumn("Photo".s()).AsString(DbColumnSizes.FileNameWithDirSize).Nullable()
+                .WithColumn("Avatar".s()).AsString(DbColumnSizes.FileNameWithDirSize).Nullable()
+                .WithColumn("RegisteredDate".s()).AsDateTime().Indexed();
 
 
-            Create.Table("user_baned_unit")
-                .WithColumn("user_id").AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("asp_net_users", "id")
-                .WithColumn("user_baned_id").AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("asp_net_users", "id");
+            Create.Table("UserBanedUnit".s())
+                .WithColumn("UserId".s()).AsInt32().PrimaryKey().NotNullable().Indexed()
+                .ForeignKey("AspNetUsers".s(), "Id".s())
+                .WithColumn("UserBanedId".s()).AsInt32().PrimaryKey().NotNullable().Indexed()
+                .ForeignKey("AspNetUsers".s(), "Id".s());
 
 
-            Create.Table("materials")
-                .WithColumn("id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("name").AsString(DbColumnSizes.Materials_Name).Nullable().Unique()
-                .WithColumn("title").AsString(DbColumnSizes.Materials_Title).NotNullable()
-                .WithColumn("sub_title").AsString(DbColumnSizes.Materials_SubTitle).Nullable()
-                .WithColumn("preview").AsMaxString().Nullable()
-                .WithColumn("text").AsMaxString().NotNullable()
-                .WithColumn("category_id").AsInt32().NotNullable().Indexed()
-                .ForeignKey("categories", "id")
-                .WithColumn("author_id").AsInt32().NotNullable().Indexed()
-                .ForeignKey("asp_net_users", "id")
-                .WithColumn("publish_date").AsDateTime().NotNullable().Indexed()
-                .WithColumn("edit_date").AsDateTime().Nullable()
-                .WithColumn("last_comment_id").AsInt32().Nullable()
-                .WithColumn("last_activity").AsDateTime().NotNullable().Indexed()
-                .WithColumn("comments_count").AsInt32().NotNullable()
-                .WithColumn("sort_number").AsInt32().NotNullable().Unique()
-                .WithColumn("is_comments_blocked").AsBoolean().NotNullable()
-                .WithColumn("is_hidden").AsBoolean().NotNullable()
-                .WithColumn("deleted_date").AsDateTime().Nullable();
+            Create.Table("Materials".s())
+                .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name".s()).AsString(DbColumnSizes.Materials_Name).Nullable().Unique()
+                .WithColumn("Title".s()).AsString(DbColumnSizes.Materials_Title).NotNullable()
+                .WithColumn("SubTitle".s()).AsString(DbColumnSizes.Materials_SubTitle).Nullable()
+                .WithColumn("Preview".s()).AsMaxString().Nullable()
+                .WithColumn("Text".s()).AsMaxString().NotNullable()
+                .WithColumn("CategoryId".s()).AsInt32().NotNullable().Indexed()
+                .ForeignKey("Categories".s(), "Id".s())
+                .WithColumn("AuthorId".s()).AsInt32().NotNullable().Indexed()
+                .ForeignKey("AspNetUsers".s(), "Id".s())
+                .WithColumn("PublishDate".s()).AsDateTime().NotNullable().Indexed()
+                .WithColumn("EditDate".s()).AsDateTime().Nullable()
+                .WithColumn("LastCommentId".s()).AsInt32().Nullable()
+                .WithColumn("LastActivity".s()).AsDateTime().NotNullable().Indexed()
+                .WithColumn("CommentsCount".s()).AsInt32().NotNullable()
+                .WithColumn("SortNumber".s()).AsInt32().NotNullable().Unique()
+                .WithColumn("IsCommentsBlocked".s()).AsBoolean().NotNullable()
+                .WithColumn("IsHidden".s()).AsBoolean().NotNullable()
+                .WithColumn("DeletedDate".s()).AsDateTime().Nullable();
 
 
-            Create.Table("comments")
-                .WithColumn("id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("text").AsMaxString().NotNullable()
-                .WithColumn("material_id").AsInt32().NotNullable().Indexed()
-                .ForeignKey("materials", "id").OnDelete(Rule.Cascade)
-                .WithColumn("author_id").AsInt32().Indexed().Nullable()
-                .ForeignKey("asp_net_users", "id")
-                .WithColumn("publish_date").AsDateTime().NotNullable().Indexed()
-                .WithColumn("edit_date").AsDateTime().Nullable()
-                .WithColumn("deleted_date").AsDateTime().Nullable();
+            Create.Table("Comments".s())
+                .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Text".s()).AsMaxString().NotNullable()
+                .WithColumn("MaterialId".s()).AsInt32().NotNullable().Indexed()
+                .ForeignKey("Materials".s(), "Id".s()).OnDelete(Rule.Cascade)
+                .WithColumn("AuthorId".s()).AsInt32().Indexed().Nullable()
+                .ForeignKey("AspNetUsers".s(), "Id".s())
+                .WithColumn("PublishDate".s()).AsDateTime().NotNullable().Indexed()
+                .WithColumn("EditDate".s()).AsDateTime().Nullable()
+                .WithColumn("DeletedDate".s()).AsDateTime().Nullable();
 
-            Create.ForeignKey().FromTable("materials")
-                .ForeignColumn("last_comment_id").ToTable("comments").PrimaryColumn("id");
-
-
-            Create.Table("tags")
-                .WithColumn("id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("name").AsString(DbColumnSizes.Tags_Name).Unique().NotNullable()
-                .WithColumn("group_id").AsInt32().Nullable().Indexed();
+            Create.ForeignKey().FromTable("Materials".s())
+                .ForeignColumn("LastCommentId".s()).ToTable("Comments".s()).PrimaryColumn("Id".s());
 
 
-            Create.Table("tag_materials")
-                .WithColumn("tag_id").AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("tags", "id")
-                .WithColumn("material_id").AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("materials", "id");
+            Create.Table("Tags".s())
+                .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name".s()).AsString(DbColumnSizes.Tags_Name).Unique().NotNullable()
+                .WithColumn("GroupId".s()).AsInt32().Nullable().Indexed();
 
 
-            Create.Table("asp_net_roles")
-                .WithColumn("id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("name").AsString(DbColumnSizes.Roles_Name).Nullable()
-                .WithColumn("normalized_name").AsString(DbColumnSizes.Roles_Name).Unique().Nullable()
-                .WithColumn("concurrency_stamp").AsMaxString().Nullable()
-                .WithColumn("title").AsString(DbColumnSizes.Roles_Title).Nullable()
-                .WithColumn("sort_number").AsInt32().NotNullable()
-                .WithColumn("is_super").AsBoolean().NotNullable();
+            Create.Table("TagMaterials".s())
+                .WithColumn("TagId".s()).AsInt32().PrimaryKey().NotNullable().Indexed()
+                .ForeignKey("Tags".s(), "Id".s())
+                .WithColumn("MaterialId".s()).AsInt32().PrimaryKey().NotNullable().Indexed()
+                .ForeignKey("Materials".s(), "Id".s());
 
 
-            Create.Table("asp_net_user_roles")
-                .WithColumn("user_id").AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("asp_net_users", "id")
-                .WithColumn("role_id").AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("asp_net_roles", "id");
+            Create.Table("AspNetRoles".s())
+                .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name".s()).AsString(DbColumnSizes.Roles_Name).Nullable()
+                .WithColumn("NormalizedName".s()).AsString(DbColumnSizes.Roles_Name).Unique().Nullable()
+                .WithColumn("ConcurrencyStamp".s()).AsMaxString().Nullable()
+                .WithColumn("Title".s()).AsString(DbColumnSizes.Roles_Title).Nullable()
+                .WithColumn("SortNumber".s()).AsInt32().NotNullable()
+                .WithColumn("IsSuper".s()).AsBoolean().NotNullable();
 
 
-            Create.Table("operation_keys")
-                .WithColumn("operation_key_id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("name").AsString(DbColumnSizes.OperationKey_Name).NotNullable().Indexed();
+            Create.Table("AspNetUserRoles".s())
+                .WithColumn("UserId".s()).AsInt32().PrimaryKey().NotNullable().Indexed()
+                .ForeignKey("AspNetUsers".s(), "Id".s())
+                .WithColumn("RoleId".s()).AsInt32().PrimaryKey().NotNullable().Indexed()
+                .ForeignKey("AspNetRoles".s(), "Id".s());
 
 
-            Create.Table("category_accesses")
-                .WithColumn("id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("role_шd").AsInt32().NotNullable().Indexed()
-                .ForeignKey("asp_net_roles", "id")
-                .WithColumn("category_id").AsInt32().NotNullable().Indexed()
-                .ForeignKey("categories", "id");
+            Create.Table("OperationKeys".s())
+                .WithColumn("OperationKeyId".s()).AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name".s()).AsString(DbColumnSizes.OperationKey_Name).NotNullable().Indexed();
 
 
-            Create.Table("category_operation_accesses")
-                .WithColumn("category_access_id").AsInt32().PrimaryKey().NotNullable().Indexed().ForeignKey(
-                    "category_accesses", "id")
-                .WithColumn("operation_key_id").AsInt32().PrimaryKey().NotNullable().Indexed().ForeignKey(
-                    "operation_keys", "operation_key_id")
-                .WithColumn("access").AsBoolean().NotNullable();
+            Create.Table("CategoryAccesses".s())
+                .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("RoleId".s()).AsInt32().NotNullable().Indexed()
+                .ForeignKey("AspNetRoles".s(), "Id".s())
+                .WithColumn("CategoryId".s()).AsInt32().NotNullable().Indexed()
+                .ForeignKey("Categories".s(), "Id".s());
 
 
-            Create.Table("long_sessions")
-                .WithColumn("id").AsInt64().PrimaryKey().Identity().NotNullable()
-                .WithColumn("user_id").AsInt32().NotNullable().Indexed()
-                .ForeignKey("asp_net_users", "id")
-                .WithColumn("long_token1").AsString(DbColumnSizes.LongSessions_LongToken1).NotNullable()
-                .WithColumn("long_token2").AsString(DbColumnSizes.LongSessions_LongToken2).NotNullable()
-                .WithColumn("device_info").AsMaxString().NotNullable()
-                .WithColumn("update_Date").AsDateTime().NotNullable()
-                .WithColumn("expiration_date").AsDateTime().NotNullable().Indexed();
-
-            Create.Index().OnTable("long_sessions")
-                .OnColumn("user_id").Ascending()
-                .OnColumn("long_token1").Ascending()
-                .OnColumn("long_token2").Ascending();
+            Create.Table("CategoryOperationAccesses".s())
+                .WithColumn("CategoryAccessId".s()).AsInt32().PrimaryKey().NotNullable().Indexed()
+                .ForeignKey("CategoryAccesses".s(), "Id".s())
+                .WithColumn("OperationKeyId".s()).AsInt32().PrimaryKey().NotNullable().Indexed()
+                .ForeignKey("OperationKeys".s(), "OperationKeyId".s())
+                .WithColumn("Access".s()).AsBoolean().NotNullable();
 
 
-            Create.Table("black_list_short_tokens")
-                .WithColumn("token_id").AsString(DbColumnSizes.BlackListShortToken_TokenId).PrimaryKey().NotNullable()
-                .WithColumn("expire").AsDateTime().Indexed().NotNullable();
+            Create.Table("LongSessions".s())
+                .WithColumn("Id".s()).AsInt64().PrimaryKey().Identity().NotNullable()
+                .WithColumn("UserId".s()).AsInt32().NotNullable().Indexed()
+                .ForeignKey("AspNetUsers".s(), "Id".s())
+                .WithColumn("LongToken1".s()).AsString(DbColumnSizes.LongSessions_LongToken1).NotNullable()
+                .WithColumn("LongToken2".s()).AsString(DbColumnSizes.LongSessions_LongToken2).NotNullable()
+                .WithColumn("DeviceInfo".s()).AsMaxString().NotNullable()
+                .WithColumn("UpdateDate".s()).AsDateTime().NotNullable()
+                .WithColumn("ExpirationDate".s()).AsDateTime().NotNullable().Indexed();
+
+            Create.Index().OnTable("LongSessions".s())
+                .OnColumn("UserId".s()).Ascending()
+                .OnColumn("LongToken1".s()).Ascending()
+                .OnColumn("LongToken2".s()).Ascending();
 
 
-            Create.Table("menu_items")
-                .WithColumn("id").AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("parent_id").AsInt32().Nullable()
-                .ForeignKey("menu_items", "id")
-                .WithColumn("name").AsString(DbColumnSizes.MenuItems_Name).Nullable()
-                .WithColumn("title").AsString(DbColumnSizes.MenuItems_Title).NotNullable()
-                .WithColumn("sub_title").AsString(DbColumnSizes.MenuItems_SubTitle).Nullable()
-                .WithColumn("route_name").AsString(DbColumnSizes.MenuItems_RouteName).Nullable()
-                .WithColumn("route_params_json").AsMaxString().Nullable()
-                .WithColumn("exact").AsBoolean().NotNullable()
-                .WithColumn("roles").AsMaxString().Nullable()
-                .WithColumn("settings_json").AsMaxString().Nullable()
-                .WithColumn("css_class").AsString(DbColumnSizes.MenuItems_CssClass).Nullable()
-                .WithColumn("external_url").AsMaxString().Nullable()
-                .WithColumn("is_separator").AsBoolean().NotNullable()
-                .WithColumn("sort_number").AsInt32().NotNullable().Unique()
-                .WithColumn("icon").AsString(DbColumnSizes.MenuItems_Icon).Nullable()
-                .WithColumn("is_hidden").AsBoolean().NotNullable();
+            Create.Table("BlackListShortTokens".s())
+                .WithColumn("TokenId".s()).AsString(DbColumnSizes.BlackListShortToken_TokenId).PrimaryKey().NotNullable()
+                .WithColumn("Expire".s()).AsDateTime().Indexed().NotNullable();
 
-            Create.Table("cipher_secrets")
-                .WithColumn("name").AsString(DbColumnSizes.CipherSecrets_Name).PrimaryKey().NotNullable()
-                .WithColumn("secret").AsString(DbColumnSizes.CipherSecrets_Secret).NotNullable();
+
+            Create.Table("MenuItems".s())
+                .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("ParentId".s()).AsInt32().Nullable()
+                .ForeignKey("MenuItems".s(), "Id".s())
+                .WithColumn("Name".s()).AsString(DbColumnSizes.MenuItems_Name).Nullable()
+                .WithColumn("Title".s()).AsString(DbColumnSizes.MenuItems_Title).NotNullable()
+                .WithColumn("SubTitle".s()).AsString(DbColumnSizes.MenuItems_SubTitle).Nullable()
+                .WithColumn("RouteName".s()).AsString(DbColumnSizes.MenuItems_RouteName).Nullable()
+                .WithColumn("RouteParamsJson".s()).AsMaxString().Nullable()
+                .WithColumn("Exact".s()).AsBoolean().NotNullable()
+                .WithColumn("Roles".s()).AsMaxString().Nullable()
+                .WithColumn("SettingsJson".s()).AsMaxString().Nullable()
+                .WithColumn("CssClass".s()).AsString(DbColumnSizes.MenuItems_CssClass).Nullable()
+                .WithColumn("ExternalUrl".s()).AsMaxString().Nullable()
+                .WithColumn("IsSeparator".s()).AsBoolean().NotNullable()
+                .WithColumn("SortNumber".s()).AsInt32().NotNullable().Unique()
+                .WithColumn("Icon".s()).AsString(DbColumnSizes.MenuItems_Icon).Nullable()
+                .WithColumn("IsHidden".s()).AsBoolean().NotNullable();
+
+            
+            Create.Table("CipherSecrets".s())
+                .WithColumn("Name".s()).AsString(DbColumnSizes.CipherSecrets_Name).PrimaryKey().NotNullable()
+                .WithColumn("Secret".s()).AsString(DbColumnSizes.CipherSecrets_Secret).NotNullable();
         }
 
 

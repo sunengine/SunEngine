@@ -61,6 +61,16 @@
       </q-item-section>
     </q-item>
 
+    <q-item :to="{name: 'CypherSecrets'}">
+      <q-item-section avatar>
+        <q-icon name="fas fa-key"/>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $tl("cypherSecrets") }}</q-item-label>
+        <q-item-label v-if="cypherSecretsCaption" caption>{{cypherSecretsCaption}}</q-item-label>
+      </q-item-section>
+    </q-item>
+
     <q-item :to="{name: 'DeletedElements'}">
       <q-item-section avatar>
         <q-icon name="fas fa-trash"/>
@@ -108,8 +118,10 @@
       },
       deletedElementsCaption() {
         return this.$tl("deletedElementsCaption") ?? null;
+      },
+      cypherSecretsCaption() {
+        return this.$tl("cypherSecretsCaption") ?? null;
       }
-
     },
     methods: {
       async getVersion() {

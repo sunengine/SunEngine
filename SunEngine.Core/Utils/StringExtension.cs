@@ -46,8 +46,9 @@ namespace SunEngine.Core.Utils
 
         public static string ToSnakeCase(this string str)
         {
-            return System.Text.RegularExpressions.Regex.Replace(str, "(?<=.)([A-Z])", "_$0",
-                System.Text.RegularExpressions.RegexOptions.Compiled);
+            return str;
+            //return System.Text.RegularExpressions.Regex.Replace(str, "(?<=.)([A-Z])", "_$0",
+            //    System.Text.RegularExpressions.RegexOptions.Compiled);
         }
     }
 }
