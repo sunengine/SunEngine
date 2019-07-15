@@ -12,7 +12,7 @@
     "@quasar/extras": "^1.2.0",
     "axios": "^0.19.0",
     "js-lock": "^0.1.1",
-    "quasar": "^1.0.4",
+    "quasar": "^1.0.5",
     "vue-i18n": "^8.11.2"
   },
   "devDependencies": {
