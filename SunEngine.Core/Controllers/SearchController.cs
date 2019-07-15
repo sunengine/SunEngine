@@ -9,19 +9,25 @@ namespace SunEngine.Core.Controllers
     public class SearchController : BaseController
     {
         protected readonly ISearchPresenter searchPresenter;
-        
-        public SearchController(ISearchPresenter searchPresenter ,IServiceProvider serviceProvider) : base(serviceProvider)
+
+        public SearchController(
+            ISearchPresenter searchPresenter,
+            IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.searchPresenter = searchPresenter;
         }
 
-        [IpSpamProtectionFilter]
+        // TODO : Add check max and min searchPattern length
+        [IpAndUserSpamProtectionFilter(IpTimeoutSeconds = 15, UserTimeoutSeconds = 10)]
         [HttpPost]
         public async Task<IActionResult> SearchUsers(string searchString)
         {
-            if (string.IsNullOrEmpty(searchString)) return BadRequest();
+            if (string.IsNullOrEmpty(searchString) || searchString.Length < 3 || searchString.Length > 20)
+                return BadRequest();
 
-            return Ok(await searchPresenter.SearchByUsernameAndLink(searchString));
+            var users = await searchPresenter.SearchByUsernameOrLink(searchString);
+
+            return Ok(users);
         }
     }
 }

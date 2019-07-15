@@ -5,7 +5,7 @@
         <img :src="$imagePath(post.authorAvatar)"/>
       </q-avatar>
       <div>
-        <div class="blog-title my-header">
+        <div class="blog-title my-header link">
           <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="post.isDeleted"/>
           <q-icon name="far fa-eye-slash" v-else-if="post.isHidden" class="q-mr-sm"/>
           {{post.title}}
@@ -32,7 +32,7 @@
       <span>{{$formatDate(this.post.publishDate)}} &nbsp;</span>
     </div>
 
-    <div class="flex footer float-left ">
+    <div class="flex footer float-left link">
       <q-item class="page-padding-left" :to="toComments">
         <span :class="[{'text-grey-6': !post.commentsCount}]">
         <q-icon name="far fa-comment" class="q-mr-sm"/>

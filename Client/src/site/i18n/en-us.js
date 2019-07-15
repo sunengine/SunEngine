@@ -1,10 +1,8 @@
 export default {
   Index: {
     demo: "Demo",
-    dataReset: "Any few hours all data are resetting",
     users: "Users",
     password: "Password",
-    anyMailToRegister: "Within the registration you can choose any email, even not really exists, all mails will be caught by",
     version: "Version",
   },
   MainMenu: {

@@ -24,7 +24,7 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetAllUserRoles()
+        public async Task<IActionResult> GetAllRoles()
         {
             var groups = await userRolesAdminPresenter.GetAllRolesAsync();
             return Ok(groups);

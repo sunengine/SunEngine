@@ -6,20 +6,35 @@ using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Controllers;
 using SunEngine.Core.Errors;
+using SunEngine.Core.Security;
 
 namespace SunEngine.Core.Filters
 {
-    public class IpSpamProtectionFilter : ActionFilterAttribute
+    public class IpAndUserSpamProtectionFilter : ActionFilterAttribute
     {
         private const string CacheKeyStart = "RFIP";
+        private readonly TimeSpan AdminTimeout =  new TimeSpan(0,0,5);
+        
+        public int IpTimeoutSeconds
+        {
+            set => ipTimeout = TimeSpan.FromSeconds(value);
+            get => (int) ipTimeout.TotalSeconds;
+        }
+
+        public int UserTimeoutSeconds
+        {
+            set => userTimeout = TimeSpan.FromSeconds(value);
+            get => (int) userTimeout.TotalSeconds;
+        }
 
         public int TimeoutSeconds
         {
-            set => timeout = TimeSpan.FromSeconds(value);
-            get => (int) timeout.TotalSeconds;
+            set => ipTimeout = userTimeout = TimeSpan.FromSeconds(value);
+            get => (int) ipTimeout.TotalSeconds;
         }
 
-        protected TimeSpan timeout;
+        protected TimeSpan ipTimeout;
+        protected TimeSpan userTimeout;
 
 
         public override void OnActionExecuting(ActionExecutingContext context)
@@ -33,9 +48,12 @@ namespace SunEngine.Core.Filters
             string controllerName = actionDescriptor?.ControllerTypeInfo.FullName;
             string actionName = actionDescriptor?.ActionName;
 
-            var ip = controller.Request.HttpContext.Connection.RemoteIpAddress;
+            var user = controller.User;
 
-            string key = MakeKey(ip, controllerName, actionName);
+            var key = user.Identity.IsAuthenticated
+                ? MakeKeyUser(user.UserId, controllerName, actionName)
+                : MakeKeyIp(controller.Request.HttpContext.Connection.RemoteIpAddress, controllerName, actionName);
+
             RequestFree requestFree = spamProtectionCache.Find(key);
 
             if (requestFree != null && requestFree.Working())
@@ -52,9 +70,14 @@ namespace SunEngine.Core.Filters
             controller.ViewData[SpamProtectionFilterTransfer.ViewDataKey] = temp;
         }
 
-        private static string MakeKey(IPAddress ip, string controllerName, string actionName)
+        private static string MakeKeyIp(IPAddress ip, string controllerName, string actionName)
         {
             return $"{CacheKeyStart}-{ip}-{controllerName}-{actionName}";
+        }
+
+        private static string MakeKeyUser(int userId, string controllerName, string actionName)
+        {
+            return $"{CacheKeyStart}-{userId}-{controllerName}-{actionName}";
         }
 
         public override void OnResultExecuted(ResultExecutedContext context)
@@ -66,10 +89,19 @@ namespace SunEngine.Core.Filters
 
             var temp = (SpamProtectionFilterTransfer) controller.ViewData[SpamProtectionFilterTransfer.ViewDataKey];
 
-            if (temp.RequestFree != null)
-                temp.RequestFree.UpdateDateTime(timeout);
+            var user = controller.User;
+            TimeSpan thisTimeout;
+            if (!user.Identity.IsAuthenticated)
+                thisTimeout = ipTimeout;
+            else if (!user.IsInRole(RoleNames.Admin))
+                thisTimeout = userTimeout;
             else
-                temp.SpamProtectionCache.Add(temp.Key, new RequestFree(timeout));
+                thisTimeout = AdminTimeout;
+            
+            if (temp.RequestFree != null)
+                temp.RequestFree.UpdateDateTime(thisTimeout);
+            else
+                temp.SpamProtectionCache.Add(temp.Key, new RequestFree(thisTimeout));
         }
     }
 }
