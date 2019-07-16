@@ -7,7 +7,7 @@ namespace SunEngine.Migrations.Migrations
     {
         public override void Up()
         {
-            IfDatabase("MySql5","MySql, MariaDB")
+            IfDatabase("MySql5", "MySql", "MariaDB")
                 .Execute.Sql("ALTER TABLE `Materials` ADD FULLTEXT INDEX `TFS` (`Title`, `Text`);");
         }
 

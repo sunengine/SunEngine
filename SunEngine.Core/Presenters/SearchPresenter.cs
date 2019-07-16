@@ -4,13 +4,16 @@ using System.Threading.Tasks;
 using LinqToDB;
 using LinqToDB.DataProvider.MySql;
 using SunEngine.Core.DataBase;
+using SunEngine.Core.Errors;
 using SunEngine.Core.Services;
+using SunEngine.Core.Utils.TextProcess;
 
 namespace SunEngine.Core.Presenters
 {
     public interface ISearchPresenter
     {
         Task<UserInfoView[]> SearchByUsernameOrLink(string searchString);
+        Task<MaterialSearchInfoView[]> SearchByMaterials(string searchString);
     }
     
     public class SearchPresenter : DbService, ISearchPresenter
@@ -34,14 +37,29 @@ namespace SunEngine.Core.Presenters
 
         public Task<MaterialSearchInfoView[]> SearchByMaterials(string searchString)
         {
-            return db.Materials.Where(x => Sql.Ext.MySql().Match(searchString, x.Title, x.Text))
-                .OrderBy(x => x.Id)
-                .Select(x => new MaterialSearchInfoView()
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Text = x.Text
-                }).ToArrayAsync();
+            switch (db.NameSqlProvider)
+            {
+                case TypeSqlProvider.MySql :
+                    return db.Materials.Where(x => Sql.Ext.MySql().Match(searchString, x.Title, x.Text))
+                        .OrderBy(x => x.Id)
+                        .Select(x => new MaterialSearchInfoView()
+                        {
+                            Id = x.Id,
+                            Title = x.Title,
+                            Text = SimpleHtmlToText.ClearTags(x.Text)
+                        }).ToArrayAsync();
+                case TypeSqlProvider.PostgreSql | TypeSqlProvider.Other :
+                    return db.Materials.Where(x => x.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                                                   x.Text.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                        .Select(x => new MaterialSearchInfoView()
+                        {
+                            Id = x.Id,
+                            Title = x.Title,
+                            Text = SimpleHtmlToText.ClearTags(x.Text)
+                        }).ToArrayAsync();
+                default:
+                    throw new SunDataBaseException();
+            }
         }
     }
 
