@@ -29,5 +29,15 @@ namespace SunEngine.Core.Controllers
 
             return Ok(users);
         }
+
+        [IpAndUserSpamProtectionFilter(IpTimeoutSeconds = 15, UserTimeoutSeconds = 10)]
+        [HttpPost]
+        public async Task<IActionResult> SearchMaterials(string searchString)
+        {
+            if (string.IsNullOrEmpty(searchString) || searchString.Length < 3 || searchString.Length > 20)
+                return BadRequest();
+
+            return Ok(await searchPresenter.SearchByMaterials(searchString));
+        }
     }
 }

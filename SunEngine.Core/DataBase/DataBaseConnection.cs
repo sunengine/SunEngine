@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using LinqToDB;
 using LinqToDB.Data;
@@ -17,6 +18,18 @@ namespace SunEngine.Core.DataBase
     /// </summary>
     public class DataBaseConnection : IdentityDataConnection<User, Role, int>
     {
+        public TypeSqlProvider NameSqlProvider
+        {
+            get
+            {
+                if (DataProvider.Name.StartsWith("Postgre",StringComparison.OrdinalIgnoreCase))
+                    return TypeSqlProvider.PostgreSql;
+                else if (DataProvider.Name.StartsWith("Mysql",StringComparison.OrdinalIgnoreCase)) 
+                    return TypeSqlProvider.MySql;
+                return TypeSqlProvider.Other;
+            }
+        }
+
         public DataBaseConnection(string providerName, string connectionString, DbMappingSchema mappingSchema) : base(
             providerName, connectionString)
         {
@@ -60,7 +73,7 @@ namespace SunEngine.Core.DataBase
         public ITable<OperationKey> OperationKeys => GetTable<OperationKey>();
         public ITable<CategoryAccess> CategoryAccess => GetTable<CategoryAccess>();
         public ITable<CategoryOperationAccess> CategoryOperationAccess => GetTable<CategoryOperationAccess>();
-        
+
         public new ITable<User> Users => GetTable<User>();
         public new ITable<Role> Roles => GetTable<Role>();
 
@@ -78,7 +91,7 @@ namespace SunEngine.Core.DataBase
 
         public ITable<CipherSecret> CipherSecrets => GetTable<CipherSecret>();
 
-        
+
         public void UpdateSequence(string tableName, string keyName)
         {
             if (IsPostgres())
@@ -88,7 +101,15 @@ namespace SunEngine.Core.DataBase
 
         public bool IsPostgres()
         {
-            return DataProvider.Name.StartsWith("Postgre");
+            return NameSqlProvider == TypeSqlProvider.PostgreSql;
         }
+    }
+    
+    [Flags]
+    public enum TypeSqlProvider
+    {
+        MySql = 1,
+        PostgreSql = 2,
+        Other = 3
     }
 }
