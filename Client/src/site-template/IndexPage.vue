@@ -12,7 +12,7 @@
         <span class="hl">Moderator</span>,
         <span class="hl">Admin</span>.</p>
       <p>{{$tl("password")}}: <span class="hl">password</span>.</p>
-      <p class="ver">{{$tl("version")}}: <span class="num">1.8.5</span></p>
+      <p class="ver">{{$tl("version")}}: <span class="num">1.8.6</span></p>
     </div>
 
   </q-page>

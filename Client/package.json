@@ -1,6 +1,6 @@
 {
   "name": "sunengine-client",
-  "version": "1.8.5",
+  "version": "1.8.6",
   "description": "SunEngine - web engine with support of blog, forum and articles functionality",
   "productName": "Sun Engine Client",
   "author": "Dmitrij Polianin <dmitrij.polyanin@gmail.com>",
