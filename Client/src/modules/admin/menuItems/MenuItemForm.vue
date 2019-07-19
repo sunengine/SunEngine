@@ -309,7 +309,7 @@
         });
         this.$store.dispatch('request',
           {
-            url: '/Admin/UserRolesAdmin/GetAllUserRoles'
+            url: '/Admin/UserRolesAdmin/GetAllRoles'
           })
           .then(response => {
               this.allRoles = response.data;
