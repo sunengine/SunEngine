@@ -40,7 +40,7 @@
       async loadAllRoles() {
         await this.$store.dispatch('request',
           {
-            url: '/Admin/UserRolesAdmin/GetAllUserRoles'
+            url: '/Admin/UserRolesAdmin/GetAllRoles'
           })
           .then(response => {
               this.roles = response.data;
