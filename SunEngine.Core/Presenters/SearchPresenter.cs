@@ -37,29 +37,39 @@ namespace SunEngine.Core.Presenters
 
         public Task<MaterialSearchInfoView[]> SearchByMaterials(string searchString)
         {
-            switch (db.NameSqlProvider)
+            switch (db.DataProviderType)
             {
                 case TypeSqlProvider.MySql :
-                    return db.Materials.Where(x => Sql.Ext.MySql().Match(searchString, x.Title, x.Text))
-                        .OrderBy(x => x.Id)
-                        .Select(x => new MaterialSearchInfoView()
-                        {
-                            Id = x.Id,
-                            Title = x.Title,
-                            Text = SimpleHtmlToText.ClearTags(x.Text)
-                        }).ToArrayAsync();
+                    return searchMaterialsMySql(searchString);
                 case TypeSqlProvider.PostgreSql | TypeSqlProvider.Other :
-                    return db.Materials.Where(x => x.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
-                                                   x.Text.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-                        .Select(x => new MaterialSearchInfoView()
-                        {
-                            Id = x.Id,
-                            Title = x.Title,
-                            Text = SimpleHtmlToText.ClearTags(x.Text)
-                        }).ToArrayAsync();
+                    return searchMaterialsDefault(searchString);
                 default:
-                    throw new SunDataBaseException();
+                    throw new SunDataBaseException("Database definition error");
             }
+        }
+
+        private Task<MaterialSearchInfoView[]> searchMaterialsMySql(string searchString)
+        {
+            return db.Materials.Where(x => Sql.Ext.MySql().Match(searchString, x.Title, x.Text))
+                .OrderByDescending(x => x.Id)
+                .Select(x => new MaterialSearchInfoView()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Text = SimpleHtmlToText.ClearTags(x.Text)
+                }).ToArrayAsync();
+        }
+
+        private Task<MaterialSearchInfoView[]> searchMaterialsDefault(string searchString)
+        {
+            return db.Materials.Where(x => x.Text.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                                           x.Text.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                .Select(x => new MaterialSearchInfoView()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Text = x.Text
+                }).ToArrayAsync();
         }
     }
 
