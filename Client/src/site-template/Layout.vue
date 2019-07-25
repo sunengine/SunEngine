@@ -71,7 +71,7 @@
       <div>
         {{$tl('madeWithLove')}}
         <q-icon name="fas fa-heart" size="12px"/>
-        <a href="https://github.com/Dmitrij-Polyanin/SunEngine">GitHub</a>
+        <a href="https://github.com/sunengine/SunEngine">GitHub</a>
         <q-icon name="fas fa-heart" size="12px"/>
         <a href="https://t.me/SunEngine">Telegram</a>
       </div>
