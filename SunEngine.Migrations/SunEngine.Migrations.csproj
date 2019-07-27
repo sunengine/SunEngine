@@ -15,8 +15,8 @@
       <PackageReference Include="FluentMigrator.Runner.SQLite" Version="3.2.1" />
       <PackageReference Include="Microsoft.Data.Sqlite" Version="2.2.6" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
-      <PackageReference Include="MySql.Data" Version="8.0.16" />
-      <PackageReference Include="Npgsql" Version="4.0.7" />
+      <PackageReference Include="MySql.Data" Version="8.0.17" />
+      <PackageReference Include="Npgsql" Version="4.0.8" />
       <PackageReference Include="SQLitePCLRaw.bundle_green" Version="1.1.14" />
     </ItemGroup>
 
