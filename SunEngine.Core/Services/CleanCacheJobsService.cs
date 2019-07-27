@@ -35,6 +35,7 @@ namespace SunEngine.Core.Services
             SpamProtectionCache spamProtectionCache,
             IOptions<SchedulerOptions> schedulerOptions,
             IMaterialsVisitsCounterCache materialsVisitsCounterCache,
+            IProfilesVisitsCounterService profilesVisitsCounterService,
             JweBlackListService jweBlackListService)
         {
             this.dbFactory = dbFactory;
