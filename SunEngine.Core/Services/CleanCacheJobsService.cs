@@ -41,7 +41,7 @@ namespace SunEngine.Core.Services
             this.spamProtectionCache = spamProtectionCache;
             this.jweBlackListService = jweBlackListService;
             this.materialsVisitsCounterCache = materialsVisitsCounterCache;
-            this.materialsVisitsCounterCache = materialsVisitsCounterCache;
+            this.profilesVisitsCounterService = profilesVisitsCounterService;
             this.schedulerOptions = schedulerOptions.Value;
         }
 
