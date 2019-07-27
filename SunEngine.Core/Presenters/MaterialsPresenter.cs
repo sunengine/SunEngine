@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
+using SunEngine.Core.Cache.Services.Counters;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
@@ -12,32 +13,44 @@ namespace SunEngine.Core.Presenters
     {
         Task<MaterialView> GetAsync(int id);
         Task<MaterialView> GetAsync(string name);
+        Task<MaterialView> GetAndIterateVisitAsync(string userOrIpKey, int id);
+        Task<MaterialView> GetAndIterateVisitAsync(string userOrIpKey, string name);
     }
 
     public class MaterialsPresenter : DbService, IMaterialsPresenter
     {
-        protected readonly IVisitsCounterService visitsCounterService;
-        
+        protected readonly IMaterialsVisitsCounterCache materialsVisitsCounterCache;
+
         public MaterialsPresenter(
             DataBaseConnection db,
-            IVisitsCounterService visitsCounterService) : base(db)
+            IMaterialsVisitsCounterCache materialsVisitsCounterCache) : base(db)
         {
-            this.visitsCounterService = visitsCounterService;
+            this.materialsVisitsCounterCache = materialsVisitsCounterCache;
         }
 
-        public virtual async Task<MaterialView> GetAsync(int id)
+        public Task<MaterialView> GetAsync(int id)
         {
             var query = db.Materials.Where(x => x.Id == id);
-            var rez = await GetAsync(query);
-            rez.VisitsCount +=  visitsCounterService.CountMaterial(id);
+            return GetAsync(query);
+        }
+
+        public Task<MaterialView> GetAsync(string name)
+        {
+            var query = db.Materials.Where(x => x.Name == name);
+            return GetAsync(query);
+        }
+
+        public virtual async Task<MaterialView> GetAndIterateVisitAsync(string userOrIpKey, int id)
+        {
+            var rez = await GetAsync(id);
+            rez.VisitsCount += materialsVisitsCounterCache.CountMaterial(userOrIpKey, id);
             return rez;
         }
 
-        public virtual async Task<MaterialView> GetAsync(string name)
+        public virtual async Task<MaterialView> GetAndIterateVisitAsync(string userOrIpKey, string name)
         {
-            var query = db.Materials.Where(x => x.Name == name);
-            var rez = await GetAsync(query);
-            rez.VisitsCount +=  visitsCounterService.CountMaterial(name);
+            var rez = await GetAsync(name);
+            rez.VisitsCount += materialsVisitsCounterCache.CountMaterial(userOrIpKey, rez.Id);
             return rez;
         }
 

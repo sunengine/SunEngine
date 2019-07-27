@@ -12,6 +12,7 @@ using SunEngine.Core.Models;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Presenters;
 using SunEngine.Core.Security;
+using SunEngine.Core.Services;
 
 namespace SunEngine.Core.Controllers
 {
@@ -43,9 +44,9 @@ namespace SunEngine.Core.Controllers
         public virtual async Task<IActionResult> Get(string idOrName)
         {
             if (int.TryParse(idOrName, out int id))
-                return Get(await materialsPresenter.GetAsync(id));
+                return Get(await materialsPresenter.GetAndIterateVisitAsync(UserOrIpKey, id));
             else
-                return Get(await materialsPresenter.GetAsync(idOrName));
+                return Get(await materialsPresenter.GetAndIterateVisitAsync(UserOrIpKey, idOrName));
         }
 
         [NonAction]
@@ -64,7 +65,7 @@ namespace SunEngine.Core.Controllers
 
             if (materialView.DeletedDate != null && !materialsAuthorization.CanRestoreAsync(User, category.Id))
                 return Unauthorized();
-
+            
             return Json(materialView);
         }
 

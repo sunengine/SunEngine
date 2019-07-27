@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Core.Cache.Services;
+using SunEngine.Core.Cache.Services.Counters;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
 using SunEngine.Core.Services;
@@ -11,19 +12,33 @@ namespace SunEngine.Core.Presenters
 {
     public interface IProfilePresenter
     {
-        Task<ProfileView> GetProfileAsync(string link, int? viewerUserId);
+        Task<ProfileView> GetProfile(string link, int? viewerUserId);
+        Task<ProfileView> GetProfileAndIterateVisitAsync(string userOrIpKey, string link, int? viewerUserId);
     }
 
     public class ProfilePresenter : DbService, IProfilePresenter
     {
         protected readonly IRolesCache rolesCache;
-        
-        public ProfilePresenter(DataBaseConnection db, IRolesCache rolesCache) : base(db)
+        protected readonly IProfilesVisitsCounterService profilesVisitsCounterService;
+
+        public ProfilePresenter(
+            DataBaseConnection db,
+            IProfilesVisitsCounterService profilesVisitsCounterService,
+            IRolesCache rolesCache) : base(db)
         {
             this.rolesCache = rolesCache;
+            this.profilesVisitsCounterService = profilesVisitsCounterService;
         }
-        
-        public virtual async Task<ProfileView> GetProfileAsync(string link, int? viewerUserId)
+
+        public virtual async Task<ProfileView> GetProfileAndIterateVisitAsync(
+            string userOrIpKey, string link, int? viewerUserId)
+        {
+            ProfileView user = await GetProfile(link, viewerUserId);
+            user.ProfileVisitsCount += profilesVisitsCounterService.CountProfile(userOrIpKey, user.Id);
+            return user;
+        }
+
+        public virtual async Task<ProfileView> GetProfile(string link, int? viewerUserId)
         {
             IQueryable<User> query;
             if (int.TryParse(link, out int id))
@@ -31,13 +46,13 @@ namespace SunEngine.Core.Presenters
             else
                 query = db.Users.Where(x => x.Link == link);
 
-            await query.Set(x => x.ProfileVisitsCount, x => x.ProfileVisitsCount+1).UpdateAsync();
-            
+            ProfileView user;
+
             if (viewerUserId.HasValue)
             {
                 int adminGroupId = rolesCache.AdminRole.Id;
 
-                var user = await query.Select(x =>
+                user = await query.Select(x =>
                     new ProfileView
                     {
                         Id = x.Id,
@@ -71,12 +86,9 @@ namespace SunEngine.Core.Presenters
                     HeBannedMe = false,
                     IBannedHim = false
                 }).FirstOrDefaultAsync();
-            
-            
         }
     }
-    
-    
+
 
     public class ProfileView
     {
@@ -86,9 +98,9 @@ namespace SunEngine.Core.Presenters
         public string Link { get; set; }
 
         public string Photo { get; set; }
-        
+
         public int ProfileVisitsCount { get; set; }
-        
+
         public DateTime RegisteredDate { get; set; }
 
         public bool NoBannable { get; set; }

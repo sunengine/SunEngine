@@ -35,15 +35,14 @@ namespace SunEngine.Core.Controllers
             keyGenerator = serviceProvider.GetRequiredService<CacheKeyGenerator>();
         }
 
-        protected string ControllerName
-        {
-            get => ControllerContext.ActionDescriptor.ControllerName;
-        }
+        protected string ControllerName => ControllerContext.ActionDescriptor.ControllerName;
 
-        protected string ActionName
-        {
-            get => ControllerContext.ActionDescriptor.ActionName;
-        }
+        protected string ActionName => ControllerContext.ActionDescriptor.ActionName;
+
+        protected string UserOrIpKey =>
+            User != null
+                ? "u"+User.UserId
+                : Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
         private SunClaimsPrincipal _user;
 

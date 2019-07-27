@@ -6,6 +6,7 @@ using LinqToDB;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using SunEngine.Core.Cache.Services;
+using SunEngine.Core.Cache.Services.Counters;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Security;
@@ -18,27 +19,29 @@ namespace SunEngine.Core.Services
         private readonly JweBlackListService jweBlackListService;
         private readonly IDataBaseFactory dbFactory;
         private readonly SchedulerOptions schedulerOptions;
-        private readonly IVisitsCounterService visitsCounterService;
+        private readonly IMaterialsVisitsCounterCache materialsVisitsCounterCache;
+        private readonly IProfilesVisitsCounterService profilesVisitsCounterService;
 
 
         private Timer timerSpamProtectionCache;
         private Timer timerJwtBlackListService;
         private Timer timerLongSessionsClearer;
         private Timer timerExpiredRegistrationUsersCleaner;
-        private Timer timerVisitsCouterUpload;
+        private Timer timerCountersUpload;
 
 
         public CleanCacheJobsService(
             IDataBaseFactory dbFactory,
             SpamProtectionCache spamProtectionCache,
             IOptions<SchedulerOptions> schedulerOptions,
-            IVisitsCounterService visitsCounterService,
+            IMaterialsVisitsCounterCache materialsVisitsCounterCache,
             JweBlackListService jweBlackListService)
         {
             this.dbFactory = dbFactory;
             this.spamProtectionCache = spamProtectionCache;
             this.jweBlackListService = jweBlackListService;
-            this.visitsCounterService = visitsCounterService;
+            this.materialsVisitsCounterCache = materialsVisitsCounterCache;
+            this.materialsVisitsCounterCache = materialsVisitsCounterCache;
             this.schedulerOptions = schedulerOptions.Value;
         }
 
@@ -74,10 +77,11 @@ namespace SunEngine.Core.Services
                 }
             }, null, TimeSpan.Zero, TimeSpan.FromDays(schedulerOptions.ExpiredRegistrationUsersClearDays));
 
-            timerVisitsCouterUpload = new Timer(_ =>
+            timerCountersUpload = new Timer(_ =>
             {
-                Console.WriteLine("VisitsCounterService.UploadVisitsToDataBase");
-                visitsCounterService.UploadToDataBase();
+                Console.WriteLine("CountersUploadToDataBase");
+                materialsVisitsCounterCache.UploadToDataBase();
+                profilesVisitsCounterService.UploadToDataBase();
             }, null, TimeSpan.FromMinutes(schedulerOptions.UploadVisitsToDataBaseMinutes), TimeSpan.FromMinutes(schedulerOptions.UploadVisitsToDataBaseMinutes)); 
 
             return Task.CompletedTask;
@@ -90,7 +94,8 @@ namespace SunEngine.Core.Services
             timerJwtBlackListService.Dispose();
             timerLongSessionsClearer.Dispose();
             timerExpiredRegistrationUsersCleaner.Dispose();
-
+            timerCountersUpload.Dispose();
+            
             return Task.CompletedTask;
         }
     }
