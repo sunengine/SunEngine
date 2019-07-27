@@ -52,7 +52,8 @@
     "SpamProtectionCacheClearMinutes": 8,
     "JwtBlackListServiceClearMinutes": 60,
     "LongSessionsClearDays": 1,
-    "ExpiredRegistrationUsersClearDays": 1
+    "ExpiredRegistrationUsersClearDays": 1,
+    "UploadVisitsToDataBaseMinutes": 5
   },
   "Email": {
     "Host": "127.0.0.1",

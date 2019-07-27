@@ -78,7 +78,7 @@ namespace SunEngine.Core.Services
             {
                 Console.WriteLine("VisitsCounterService.UploadVisitsToDataBase");
                 visitsCounterService.UploadToDataBase();
-            }, null, TimeSpan.FromMinutes(schedulerOptions.UploadVisitsToDataBase), TimeSpan.FromMinutes(schedulerOptions.UploadVisitsToDataBase)); 
+            }, null, TimeSpan.FromMinutes(schedulerOptions.UploadVisitsToDataBaseMinutes), TimeSpan.FromMinutes(schedulerOptions.UploadVisitsToDataBaseMinutes)); 
 
             return Task.CompletedTask;
         }
