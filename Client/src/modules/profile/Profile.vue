@@ -1,10 +1,9 @@
 <template>
   <q-page class="profile page-padding page-padding-top">
-    <div class="f1" v-if="user">
+    <div class="container" v-if="user">
       <div class="img flex column">
         <img width="300" height="300" :src="$imagePath(user.photo)"/>
-        <div v-if="messageButtons" class="private-messages-block flex q-mt-sm"
-             style="padding-right: 2px; padding-left: 2px; align-items: center; width: 100%">
+        <div v-if="messageButtons" class="private-messages-block flex q-mt-sm">
           <q-btn no-caps class="shadow-1" color="lime-4" style="flex-grow: 1" :disable="!canPrivateMessage"
                  :to="{path: '/SendPrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}"
                  dense icon="far fa-envelope" :label="$tl('sendPrivateMessageBtn')"/>
@@ -21,9 +20,19 @@
         </div>
       </div>
       <div>
-        <h4>{{user.name}}</h4>
+        <h3>{{user.name}}</h3>
         <div class="q-mb-lg" v-html="user.information"></div>
-        <div class="registered">{{$tl("registered")}}: {{$formatDateOnly(user.registeredDate)}}</div>
+
+        <div class="footer-info">
+          <div class="registered">
+
+            {{$tl("registered")}}: {{$formatDateOnly(user.registeredDate)}}
+          </div>
+          <div class="visits">
+            <q-icon name="far fa-eye" class="q-mr-sm"/>
+            {{user.profileVisitsCount}}
+          </div>
+        </div>
 
         <q-expansion-item class="roles overflow-hidden" v-if="canEditRoles" @show="showRolesAdmin" icon="fas fa-cog"
                           :label="$tl('roles')" style="border-radius: 12px; margin-top: 30px; border: 1px solid silver"
@@ -131,23 +140,48 @@
 <style lang="stylus">
 
   .profile {
-    .f1 {
+    h3 {
+      margin: 0 0 14px 0;
+      font-size: 2.2rem;
+    }
+
+    .private-messages-block {
+      padding-right: 2px;
+      padding-left: 2px;
+      align-items: center;
+      width: 300px;
+    }
+
+    .container {
       display: flex;
-      flex-wrap: wrap;
 
       .img {
-        margin-right: 15px;
+        margin-right: 20px;
       }
     }
 
-    .registered {
+    .footer-info {
+      display: flex;
       font-style: italic;
       color: $grey-8;
+
+      div {
+        display: flex;
+        align-items: center;
+      }
+
+      .registered {
+        flex-grow: 1;
+      }
     }
 
-    @media (max-width: 600px) {
-      .f1 .img {
-        text-align: center;
+    @media (max-width: 900px) {
+      .f1 {
+        flex-direction: column;
+
+        .img {
+          align-content: center;
+        }
       }
     }
   }

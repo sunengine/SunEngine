@@ -3,8 +3,8 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <LangVersion>latest</LangVersion>
-        <Version>1.9.1</Version>
-        <PackageVersion>1.9.1</PackageVersion>
+        <Version>1.9.2</Version>
+        <PackageVersion>1.9.2</PackageVersion>
         <Title>SunEngine</Title>
         <Authors>Dmitrii Polianin</Authors>
         <Description>Site engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>

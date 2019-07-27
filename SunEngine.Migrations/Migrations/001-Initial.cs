@@ -69,8 +69,9 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("Information".s()).AsMaxString().Nullable()
                 .WithColumn("Photo".s()).AsString(DbColumnSizes.FileNameWithDirSize).Nullable()
                 .WithColumn("Avatar".s()).AsString(DbColumnSizes.FileNameWithDirSize).Nullable()
-                .WithColumn("RegisteredDate".s()).AsDateTime().Indexed();
-
+                .WithColumn("RegisteredDate".s()).AsDateTime().Indexed()
+                .WithColumn("ProfileVisitsCount".s()).AsInt32().NotNullable();
+            
 
             Create.Table("UserBanedUnit".s())
                 .WithColumn("UserId".s()).AsInt32().PrimaryKey().NotNullable().Indexed()
