@@ -18,23 +18,27 @@ namespace SunEngine.Core.Services
         private readonly JweBlackListService jweBlackListService;
         private readonly IDataBaseFactory dbFactory;
         private readonly SchedulerOptions schedulerOptions;
-        
+        private readonly IVisitsCounterService visitsCounterService;
+
 
         private Timer timerSpamProtectionCache;
         private Timer timerJwtBlackListService;
         private Timer timerLongSessionsClearer;
         private Timer timerExpiredRegistrationUsersCleaner;
+        private Timer timerVisitsCouterUpload;
 
 
         public CleanCacheJobsService(
             IDataBaseFactory dbFactory,
             SpamProtectionCache spamProtectionCache,
             IOptions<SchedulerOptions> schedulerOptions,
+            IVisitsCounterService visitsCounterService,
             JweBlackListService jweBlackListService)
         {
             this.dbFactory = dbFactory;
             this.spamProtectionCache = spamProtectionCache;
             this.jweBlackListService = jweBlackListService;
+            this.visitsCounterService = visitsCounterService;
             this.schedulerOptions = schedulerOptions.Value;
         }
 
@@ -70,7 +74,12 @@ namespace SunEngine.Core.Services
                 }
             }, null, TimeSpan.Zero, TimeSpan.FromDays(schedulerOptions.ExpiredRegistrationUsersClearDays));
 
-            
+            timerVisitsCouterUpload = new Timer(_ =>
+            {
+                Console.WriteLine("VisitsCounterService.UploadVisitsToDataBase");
+                visitsCounterService.UploadToDataBase();
+            }, null, TimeSpan.FromMinutes(schedulerOptions.UploadVisitsToDataBase), TimeSpan.FromMinutes(schedulerOptions.UploadVisitsToDataBase)); 
+
             return Task.CompletedTask;
         }
 
@@ -81,11 +90,11 @@ namespace SunEngine.Core.Services
             timerJwtBlackListService.Dispose();
             timerLongSessionsClearer.Dispose();
             timerExpiredRegistrationUsersCleaner.Dispose();
-            
+
             return Task.CompletedTask;
         }
     }
-    
+
     public static class LongSessionsClearer
     {
         public static void ClearExpiredLongSessions(DataBaseConnection db)
@@ -94,7 +103,7 @@ namespace SunEngine.Core.Services
             db.LongSessions.Where(x => x.ExpirationDate <= now).Delete();
         }
     }
-    
+
     public static class ExpiredRegistrationUsersClearer
     {
         public static void CleanExpiredRegistrationUsers(DataBaseConnection db)

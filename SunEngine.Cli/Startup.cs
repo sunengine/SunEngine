@@ -74,6 +74,9 @@ namespace SunEngine.Cli
 
             services.AddSingleton<CaptchaService>();
             services.AddSanitizer();
+            
+            services.AddSingleton<IVisitsCounterService,VisitsCounterService>();
+
             services.AddTransient<IEmailSenderService, EmailSenderService>();
 
             services.AddMvcCore(options =>

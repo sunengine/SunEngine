@@ -16,20 +16,29 @@ namespace SunEngine.Core.Presenters
 
     public class MaterialsPresenter : DbService, IMaterialsPresenter
     {
-        public MaterialsPresenter(DataBaseConnection db) : base(db)
+        protected readonly IVisitsCounterService visitsCounterService;
+        
+        public MaterialsPresenter(
+            DataBaseConnection db,
+            IVisitsCounterService visitsCounterService) : base(db)
         {
+            this.visitsCounterService = visitsCounterService;
         }
 
-        public virtual Task<MaterialView> GetAsync(int id)
+        public virtual async Task<MaterialView> GetAsync(int id)
         {
             var query = db.Materials.Where(x => x.Id == id);
-            return GetAsync(query);
+            var rez = await GetAsync(query);
+            rez.VisitsCount +=  visitsCounterService.CountMaterial(id);
+            return rez;
         }
 
-        public virtual Task<MaterialView> GetAsync(string name)
+        public virtual async Task<MaterialView> GetAsync(string name)
         {
             var query = db.Materials.Where(x => x.Name == name);
-            return GetAsync(query);
+            var rez = await GetAsync(query);
+            rez.VisitsCount +=  visitsCounterService.CountMaterial(name);
+            return rez;
         }
 
         protected virtual Task<MaterialView> GetAsync(IQueryable<Material> query)
@@ -53,7 +62,8 @@ namespace SunEngine.Core.Presenters
                     IsHidden = x.IsHidden,
                     IsCommentsBlocked = x.IsCommentsBlocked,
                     DeletedDate = x.DeletedDate,
-                    Tags = x.TagMaterials.OrderBy(y => y.Tag.Name).Select(y => y.Tag.Name).ToArray()
+                    Tags = x.TagMaterials.OrderBy(y => y.Tag.Name).Select(y => y.Tag.Name).ToArray(),
+                    VisitsCount = x.VisitsCount
                 }
             ).FirstOrDefaultAsync();
         }
@@ -78,5 +88,6 @@ namespace SunEngine.Core.Presenters
         public bool IsHidden { get; set; }
         public DateTime? DeletedDate { get; set; }
         public string[] Tags { get; set; }
+        public int VisitsCount { get; set; }
     }
 }

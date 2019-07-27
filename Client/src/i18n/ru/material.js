@@ -27,6 +27,7 @@ export default {
     category: "раздел:",
     edit: "Редактировать",
     tags: "Метки:",
+    visitsCount: "просмотры",
     deleted: "@:EditMaterial.deleted",
     deleteDialogTitle: "@:EditMaterial.deleteDialogTitle",
     deleteDialogMessage: "",

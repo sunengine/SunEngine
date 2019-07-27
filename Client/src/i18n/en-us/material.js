@@ -27,6 +27,7 @@ export default {
     category: "category:",
     edit: "Edit",
     tags: "Tags:",
+    visitsCount: "views",
     deleted: "@:EditMaterial.deleted",
     deleteDialogTitle: "@:EditMaterial.deleteDialogTitle",
     deleteDialogMessage: "",

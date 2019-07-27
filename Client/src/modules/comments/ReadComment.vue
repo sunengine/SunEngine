@@ -15,8 +15,8 @@
         <span v-if="canMoveToTrash" class=" q-mr-md">
                     <a href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash"/></a>
         </span>
-        <span class="mat-date-color">
-                    <q-icon name="far fa-clock"/> {{ $formatDate(comment.publishDate) }}
+        <span class="mat-date">
+                    <q-icon name="far fa-clock" class="q-mr-xs"/> {{ $formatDate(comment.publishDate) }}
         </span>
       </div>
       <div class="comment-text" v-html="comment.text">
@@ -93,6 +93,10 @@
     .msg-avatar {
       float: left;
       margin: 2px 12px 12px 0;
+    }
+
+    .mat-date {
+      color: $grey-7;
     }
   }
 

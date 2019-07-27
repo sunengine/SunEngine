@@ -46,11 +46,16 @@
             <q-icon name="fas fa-trash-restore"/>
           </a>
         </div>
-        <div class="mat-date-color">
-          <q-icon name="far fa-clock"/>
+        <div class="visits info-block-footer-mat q-mr-md">
+          <q-icon name="far fa-eye" class="q-mr-xs"/>
+          {{material.visitsCount}}
+        </div>
+        <div class="mat-date info-block-footer-mat">
+          <q-icon name="far fa-clock" class="q-mr-xs"/>
           {{$formatDate(material.publishDate)}}
         </div>
       </div>
+
 
       <div class="clear"></div>
     </div>
@@ -165,7 +170,7 @@
     },
     methods: {
       prepareLocalLinks() {
-        prepareLocalLinks(this.$el,'material-text');
+        prepareLocalLinks(this.$el, 'material-text');
       },
       async loadDataMaterial() {
         await this.$store.dispatch('request',
@@ -248,8 +253,14 @@
 <style lang="stylus">
 
   .material {
-    .mat-date-color {
+    .info-block-footer-mat {
       color: $grey-7;
+    }
+
+    .mat-date {
+    }
+
+    .visits {
     }
 
     .hr-sep {
