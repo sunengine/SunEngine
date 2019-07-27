@@ -13,19 +13,12 @@ namespace SunEngine.Core.Presenters
     {
         Task<MaterialView> GetAsync(int id);
         Task<MaterialView> GetAsync(string name);
-        Task<MaterialView> GetAndIterateVisitAsync(string userOrIpKey, int id);
-        Task<MaterialView> GetAndIterateVisitAsync(string userOrIpKey, string name);
     }
 
     public class MaterialsPresenter : DbService, IMaterialsPresenter
     {
-        protected readonly IMaterialsVisitsCounterCache materialsVisitsCounterCache;
-
-        public MaterialsPresenter(
-            DataBaseConnection db,
-            IMaterialsVisitsCounterCache materialsVisitsCounterCache) : base(db)
+        public MaterialsPresenter(DataBaseConnection db) : base(db)
         {
-            this.materialsVisitsCounterCache = materialsVisitsCounterCache;
         }
 
         public Task<MaterialView> GetAsync(int id)
@@ -38,20 +31,6 @@ namespace SunEngine.Core.Presenters
         {
             var query = db.Materials.Where(x => x.Name == name);
             return GetAsync(query);
-        }
-
-        public virtual async Task<MaterialView> GetAndIterateVisitAsync(string userOrIpKey, int id)
-        {
-            var rez = await GetAsync(id);
-            rez.VisitsCount += materialsVisitsCounterCache.CountMaterial(userOrIpKey, id);
-            return rez;
-        }
-
-        public virtual async Task<MaterialView> GetAndIterateVisitAsync(string userOrIpKey, string name)
-        {
-            var rez = await GetAsync(name);
-            rez.VisitsCount += materialsVisitsCounterCache.CountMaterial(userOrIpKey, rez.Id);
-            return rez;
         }
 
         protected virtual Task<MaterialView> GetAsync(IQueryable<Material> query)

@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SunEngine.Core.Cache.Services.Counters;
 using SunEngine.Core.Filters;
 using SunEngine.Core.Managers;
 using SunEngine.Core.Models;
@@ -18,14 +19,17 @@ namespace SunEngine.Core.Controllers
     {
         protected readonly IProfileManager profileManager;
         protected readonly IProfilePresenter profilePresenter;
+        protected readonly IProfilesVisitsCounterService profilesVisitsCounterService;
 
         public ProfileController(
             IProfileManager profileManager,
             IProfilePresenter profilePresenter,
+            IProfilesVisitsCounterService profilesVisitsCounterService,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.profileManager = profileManager;
             this.profilePresenter = profilePresenter;
+            this.profilesVisitsCounterService = profilesVisitsCounterService;
         }
 
         [HttpPost]
@@ -33,11 +37,13 @@ namespace SunEngine.Core.Controllers
         {
             int? userId = User?.UserId;
 
-            var rez = await profilePresenter.GetProfileAndIterateVisitAsync(UserOrIpKey, link, userId);
-            if (rez == null)
+            ProfileView profileView = await profilePresenter.GetProfileAsync(link, userId);
+            if (profileView == null)
                 return NotFound();
 
-            return Json(rez);
+            profileView.ProfileVisitsCount += profilesVisitsCounterService.CountProfile(UserOrIpKey, profileView.Id);
+
+            return Json(profileView);
         }
 
         [HttpPost]

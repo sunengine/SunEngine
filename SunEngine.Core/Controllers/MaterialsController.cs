@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Core.Cache.Services;
+using SunEngine.Core.Cache.Services.Counters;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
 using SunEngine.Core.Filters;
@@ -12,7 +13,6 @@ using SunEngine.Core.Models;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Presenters;
 using SunEngine.Core.Security;
-using SunEngine.Core.Services;
 
 namespace SunEngine.Core.Controllers
 {
@@ -26,27 +26,30 @@ namespace SunEngine.Core.Controllers
         protected readonly ICategoriesCache categoriesCache;
         protected readonly IMaterialsManager materialsManager;
         protected readonly IMaterialsPresenter materialsPresenter;
-
+        protected readonly IMaterialsVisitsCounterCache materialsVisitsCounterCache;
+        
         public MaterialsController(
             MaterialsAuthorization materialsAuthorization,
             ICategoriesCache categoriesCache,
             IMaterialsManager materialsManager,
             IMaterialsPresenter materialsPresenter,
+            IMaterialsVisitsCounterCache materialsVisitsCounterCache,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.materialsAuthorization = materialsAuthorization;
             this.categoriesCache = categoriesCache;
             this.materialsManager = materialsManager;
             this.materialsPresenter = materialsPresenter;
+            this.materialsVisitsCounterCache = materialsVisitsCounterCache;
         }
 
         [HttpPost]
         public virtual async Task<IActionResult> Get(string idOrName)
         {
             if (int.TryParse(idOrName, out int id))
-                return Get(await materialsPresenter.GetAndIterateVisitAsync(UserOrIpKey, id));
+                return Get(await materialsPresenter.GetAsync(id));
             else
-                return Get(await materialsPresenter.GetAndIterateVisitAsync(UserOrIpKey, idOrName));
+                return Get(await materialsPresenter.GetAsync(idOrName));
         }
 
         [NonAction]
@@ -65,6 +68,8 @@ namespace SunEngine.Core.Controllers
 
             if (materialView.DeletedDate != null && !materialsAuthorization.CanRestoreAsync(User, category.Id))
                 return Unauthorized();
+
+            materialView.VisitsCount += materialsVisitsCounterCache.CountMaterial(UserOrIpKey, materialView.Id);
             
             return Json(materialView);
         }

@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Core.Cache.Services;
-using SunEngine.Core.Cache.Services.Counters;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
 using SunEngine.Core.Services;
@@ -12,33 +11,22 @@ namespace SunEngine.Core.Presenters
 {
     public interface IProfilePresenter
     {
-        Task<ProfileView> GetProfile(string link, int? viewerUserId);
-        Task<ProfileView> GetProfileAndIterateVisitAsync(string userOrIpKey, string link, int? viewerUserId);
+        Task<ProfileView> GetProfileAsync(string link, int? viewerUserId);
     }
 
     public class ProfilePresenter : DbService, IProfilePresenter
     {
         protected readonly IRolesCache rolesCache;
-        protected readonly IProfilesVisitsCounterService profilesVisitsCounterService;
 
         public ProfilePresenter(
             DataBaseConnection db,
-            IProfilesVisitsCounterService profilesVisitsCounterService,
             IRolesCache rolesCache) : base(db)
         {
             this.rolesCache = rolesCache;
-            this.profilesVisitsCounterService = profilesVisitsCounterService;
         }
 
-        public virtual async Task<ProfileView> GetProfileAndIterateVisitAsync(
-            string userOrIpKey, string link, int? viewerUserId)
-        {
-            ProfileView user = await GetProfile(link, viewerUserId);
-            user.ProfileVisitsCount += profilesVisitsCounterService.CountProfile(userOrIpKey, user.Id);
-            return user;
-        }
 
-        public virtual async Task<ProfileView> GetProfile(string link, int? viewerUserId)
+        public virtual async Task<ProfileView> GetProfileAsync(string link, int? viewerUserId)
         {
             IQueryable<User> query;
             if (int.TryParse(link, out int id))
@@ -46,13 +34,12 @@ namespace SunEngine.Core.Presenters
             else
                 query = db.Users.Where(x => x.Link == link);
 
-            ProfileView user;
 
             if (viewerUserId.HasValue)
             {
                 int adminGroupId = rolesCache.AdminRole.Id;
 
-                user = await query.Select(x =>
+                ProfileView user = await query.Select(x =>
                     new ProfileView
                     {
                         Id = x.Id,
