@@ -50,7 +50,7 @@ namespace SunEngine.Admin.Services
             return new List<string>(imagesInDirectory.Where(imagePath => !allSources.Contains(imagePath)));
         }
 
-        public async Task<int> DeleteImagesAsync()
+        public async ValueTask<int> DeleteImagesAsync()
         {
             var imageSources = await GetImageSourcesForCleanAsync();
             int count = 0;
