@@ -47,8 +47,7 @@ namespace SunEngine.Core.DataBase
             mp.Entity<Category>()
                 .HasTableName("Categories")
                 .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
-                .Association(x => x.Materials, x => x.Id, x => x.CategoryId)
-                .Association(x => x.CacheSettings, x => x.CacheSettingsId, x => x.Id);
+                .Association(x => x.Materials, x => x.Id, x => x.CategoryId);
 
             mp.Entity<OperationKey>()
                 .HasTableName("OperationKeys")
@@ -113,10 +112,6 @@ namespace SunEngine.Core.DataBase
             mp.Entity<CacheSettings>()
                 .HasTableName("CacheSettings")
                 .HasIdentity(x => x.Id)
-                .HasPrimaryKey(x => x.Id);
-
-            mp.Entity<CategoryCacheSettings>()
-                .HasTableName("CategoryCacheSettings")
                 .HasPrimaryKey(x => x.Id);
 
             mp.Entity<MenuItem>()
