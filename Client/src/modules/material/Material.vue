@@ -62,7 +62,7 @@
       <div class="clear"></div>
     </div>
 
-    <div id="comments" v-if="material && comments" class="comments">
+    <div id="comments" v-if="material && comments && comments.length > 0" class="comments">
       <hr class="hr-sep"/>
       <div v-for="(comment,index) in comments" :key="comment.id">
         <CommentContainer class="page-padding" :comment="comment" :checkLastOwn="checkLastOwn"
