@@ -89,6 +89,9 @@
 </template>
 
 <script>
+  import {isJson} from 'sun';
+
+
   function createRules() {
     return {
       name: [
@@ -120,14 +123,7 @@
     }
   }
 
-  function isJson(str) {
-    try {
-      JSON.parse(str);
-    } catch {
-      return false;
-    }
-    return true;
-  }
+
 
   export default {
     name: 'MenuItemForm',

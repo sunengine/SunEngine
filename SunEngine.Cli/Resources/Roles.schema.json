@@ -60,7 +60,7 @@
                 "type": "object",
                 "title": "Operationkeys",
                 "patternProperties": {
-                  "MaterialAndCommentsRead|MaterialWrite|MaterialEditOwn|MaterialEditOwnIfTimeNotExceeded|MaterialEditOwnIfHasReplies|MaterialDeleteOwn|MaterialDeleteOwnIfTimeNotExceeded|MaterialDeleteOwnIfHasReplies|CommentWrite|CommentEditOwn|CommentEditOwnIfTimeNotExceeded|CommentEditOwnIfHasReplies|CommentDeleteOwn|CommentDeleteOwnIfTimeNotExceeded|CommentDeleteOwnIfHasReplies|MaterialEditAny|MaterialDeleteAny|MaterialChangeOrder|MaterialHide|MaterialBlockCommentsAny|CommentEditAny|CommentDeleteAny": {
+                  "MaterialAndCommentsRead|MaterialWrite|MaterialEditOwn|MaterialEditOwnIfTimeNotExceeded|MaterialEditOwnIfHasReplies|MaterialDeleteOwn|MaterialDeleteOwnIfTimeNotExceeded|MaterialDeleteOwnIfHasReplies|CommentWrite|CommentEditOwn|CommentEditOwnIfTimeNotExceeded|CommentEditOwnIfHasReplies|CommentDeleteOwn|CommentDeleteOwnIfTimeNotExceeded|CommentDeleteOwnIfHasReplies|MaterialEditSettingsJson|MaterialEditAny|MaterialDeleteAny|MaterialChangeOrder|MaterialHide|MaterialBlockCommentsAny|CommentEditAny|CommentDeleteAny": {
                     "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/OperationKey",
                     "type": "boolean",
                     "title": "Operation Key",

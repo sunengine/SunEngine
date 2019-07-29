@@ -39,6 +39,7 @@
           title: '',
           text: '',
           subTitle: null,
+          settingsJson: null,
           tags: [],
           categoryName: this.initialCategoryName,
           isCommentsBlocked: false,
@@ -65,6 +66,7 @@
           categoryName: this.material.categoryName,
           title: this.material.title,
           text: this.material.text,
+          settingsJson: this.material.settingsJson,
           tags: this.material.tags.join(',')
         };
 

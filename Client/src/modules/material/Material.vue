@@ -58,7 +58,6 @@
         </div>
       </div>
 
-
       <div class="clear"></div>
     </div>
 
@@ -126,19 +125,24 @@
         return this.$store.getters.getCategory(this.categoryName);
       },
       showTitle() {
-        return this.category && !this.category.settingsJson?.hideTitle;
+        return this.category
+          && !(this.category.settingsJson?.hideTitle || this.material.settingsJson?.hideTitle);
       },
       showCategory() {
-        return this.category && !this.category.settingsJson?.hideCategory;
+        return this.category
+          && !(this.category.settingsJson?.hideCategory || this.material.settingsJson?.hideCategory);
       },
       showDate() {
-        return this.category && (this.canEdit || !this.category.settingsJson?.hideFooter);
+        return this.category
+          && (this.canEdit || !(this.category.settingsJson?.hideFooter || this.material.settingsJson?.hideFooter));
       },
       showVisitsCount() {
-        return this.category && (this.canEdit || !this.category.settingsJson?.hideFooter);
+        return this.category
+          && (this.canEdit || !(this.category.settingsJson?.hideFooter || this.material.settingsJson?.hideFooter));
       },
       showUser() {
-        return this.category && (this.canEdit || !this.category.settingsJson?.hideFooter);
+        return this.category
+          && (this.canEdit || !(this.category.settingsJson?.hideFooter || this.material.settingsJson?.hideFooter));
       },
       canCommentWrite() {
         if (this.material.isCommentsBlocked)
@@ -198,6 +202,13 @@
             }
           }).then((response) => {
             this.material = response.data;
+            if(this.material.settingsJson) {
+              try {
+                this.material.settingsJson = JSON.parse(this.material.settingsJson);
+              } catch (e) {
+
+              }
+            }
             this.title = this.material.title;
             this.$nextTick(() => {
               this.prepareLocalLinks();

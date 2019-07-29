@@ -50,6 +50,7 @@
           title: '',
           text: '',
           subTitle: null,
+          settingsJson: null,
           tags: [],
           isHidden: false,
           isBlockComments: false,
@@ -90,6 +91,7 @@
           categoryName: this.material.categoryName,
           title: this.material.title,
           text: this.material.text,
+          settingsJson: this.material.settingsJson,
           tags: this.material.tags.join(','),
           isHidden: this.material.isHidden,
           isCommentsBlocked: this.material.isCommentsBlocked

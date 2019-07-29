@@ -100,6 +100,7 @@
 
 <script>
   import {adminGetAllCategories} from 'sun'
+  import {isJson} from 'sun';
 
 
   const unset = 'unset';
@@ -150,15 +151,6 @@
         value => (!value || isJson(value)) || this.$tl('validation.settingsJson.jsonFormatError')
       ]
     }
-  }
-
-  function isJson(str) {
-    try {
-      JSON.parse(str);
-    } catch {
-      return false;
-    }
-    return true;
   }
 
 

@@ -14,6 +14,7 @@ using SunEngine.Core.Errors;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
+using SunEngine.Core.Utils;
 using SunEngine.Core.Utils.TextProcess;
 
 
@@ -99,7 +100,7 @@ namespace SunEngine.Core.Managers
             IHtmlDocument doc = new HtmlParser().Parse(material.Text);
 
             material.Text = sanitizerService.Sanitize(doc);
-
+            material.SettingsJson = material.SettingsJson?.MakeJsonText();
 
             var generator = categoriesCache.GetMaterialsPreviewGenerator(category.MaterialsPreviewGeneratorName);
             material.Preview = generator(doc, materialsOptions.PreviewLength);
@@ -135,7 +136,7 @@ namespace SunEngine.Core.Managers
             IHtmlDocument doc = new HtmlParser().Parse(material.Text);
 
             material.Text = sanitizerService.Sanitize(doc);
-
+            material.SettingsJson = material.SettingsJson?.MakeJsonText();
 
             var generator = categoriesCache.GetMaterialsPreviewGenerator(category.MaterialsPreviewGeneratorName);
             material.Preview = generator(doc, materialsOptions.PreviewLength);
@@ -173,14 +174,12 @@ namespace SunEngine.Core.Managers
 
         public virtual bool IsNameValid(string name)
         {
-            if (int.TryParse(name, out _))
-                return false;
-            return nameValidator.IsMatch(name);
+            return !int.TryParse(name, out _) && nameValidator.IsMatch(name);
         }
 
         public virtual Task<bool> IsNameInDbAsync(string name)
         {
-            return db.Materials.AnyAsync(x => x.Name.ToLower() == name.ToLower());
+            return db.Materials.AnyAsync(x => string.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public async ValueTask UpAsync(int id)
@@ -237,16 +236,14 @@ namespace SunEngine.Core.Managers
 
         public virtual Task DetectAndSetLastCommentAndCountAsync(int materialId)
         {
-            return DetectAndSetLastCommentAndCountAsync(
-                db.Materials.FirstOrDefault(x => x.Id == materialId));
+            return DetectAndSetLastCommentAndCountAsync(db.Materials.FirstOrDefault(x => x.Id == materialId));
         }
 
         public virtual async Task DetectAndSetLastCommentAndCountAsync(Material material)
         {
             var commentsQuery = db.Comments.Where(x => x.MaterialId == material.Id && x.DeletedDate == null);
 
-            var lastComment = await commentsQuery.OrderByDescending(x => x.PublishDate)
-                .FirstOrDefaultAsync();
+            var lastComment = await commentsQuery.OrderByDescending(x => x.PublishDate).FirstOrDefaultAsync();
             var lastCommentId = lastComment?.Id;
             var lastActivity = lastComment?.PublishDate ?? material.PublishDate;
 
