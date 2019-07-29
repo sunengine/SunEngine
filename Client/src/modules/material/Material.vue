@@ -1,10 +1,12 @@
 <template>
   <q-page class="material">
     <div v-if="material" class="page-padding">
-      <h2 class="q-title">
+      <h2 v-if="showTitle" class="q-title">
         {{material.title}}
       </h2>
-      <div v-if="category" style="margin-top: -10px;" class="q-mb-md">
+      <div v-else class="page-padding-top"></div>
+
+      <div v-if="showCategory" style="margin-top: -10px;" class="q-mb-md">
         <span class="text-grey-7">{{$tl("category")}} </span>
         <router-link :to="category.getRoute()">{{category.title}}</router-link>
       </div>
@@ -20,7 +22,7 @@
         </q-chip>
       </div>
       <div class="q-py-sm text-grey-8 flex" style="align-items: center">
-        <div class="q-mr-md">
+        <div v-if="showUser" class="q-mr-md">
           <router-link :to="{name: 'User', params: {link: material.authorLink}}">
             <img class="avatar mat-avatar" :src="$imagePath(material.authorAvatar)"/>{{material.authorName}}
           </router-link>
@@ -46,11 +48,11 @@
             <q-icon name="fas fa-trash-restore"/>
           </a>
         </div>
-        <div class="visits footer-info-block q-mr-md">
+        <div v-if="showVisitsCount" class="visits footer-info-block q-mr-md">
           <q-icon name="far fa-eye" class="q-mr-xs"/>
           {{material.visitsCount}}
         </div>
-        <div class="mat-date footer-info-block">
+        <div v-if="showDate" class="mat-date footer-info-block">
           <q-icon name="far fa-clock" class="q-mr-xs"/>
           {{$formatDate(material.publishDate)}}
         </div>
@@ -122,6 +124,21 @@
       },
       category() {
         return this.$store.getters.getCategory(this.categoryName);
+      },
+      showTitle() {
+        return this.category && !this.category.settingsJson?.hideTitle;
+      },
+      showCategory() {
+        return this.category && !this.category.settingsJson?.hideCategory;
+      },
+      showDate() {
+        return this.category && (this.canEdit || !this.category.settingsJson?.hideFooter);
+      },
+      showVisitsCount() {
+        return this.category && (this.canEdit || !this.category.settingsJson?.hideFooter);
+      },
+      showUser() {
+        return this.category && (this.canEdit || !this.category.settingsJson?.hideFooter);
       },
       canCommentWrite() {
         if (this.material.isCommentsBlocked)

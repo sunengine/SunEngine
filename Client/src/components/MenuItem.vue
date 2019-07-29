@@ -10,9 +10,9 @@
         <q-item-label caption>{{menuItem.subTitle}}</q-item-label>
       </q-item-section>
     </q-item>
-    <q-expansion-item :expand-separator="expandSeparator" v-if="menuItem.subMenuItems" :icon="menuItem.icon"
+    <q-expansion-item ref="exp" :expand-separator="expandSeparator" v-if="menuItem.subMenuItems" :icon="menuItem.icon"
                       :label="menuItem.title" :caption="menuItem.subTitle"
-                      @click.native="goExternal()" :to='to' :exact="menuItem.exact">
+                      @click.native="click" :to='to' :exact="menuItem.exact">
       <MenuItem :menuItem="subItem" :key="subItem.id" v-for="subItem of menuItem.subMenuItems"/>
     </q-expansion-item>
   </div>
@@ -35,6 +35,14 @@
       }
     },
     methods: {
+      click() {
+       this.expandOnClick();
+       this.goExternal();
+      },
+      expandOnClick() {
+        if (this.menuItem.settingsJson?.expandOnClick)
+          this.$refs.exp.show();
+      },
       goExternal() {
         if (this.menuItem.externalUrl)
           window.open(this.menuItem.externalUrl);

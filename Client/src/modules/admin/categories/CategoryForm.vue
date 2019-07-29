@@ -69,6 +69,9 @@
       <q-icon slot="prepend" name="fas fa-boxes"/>
     </q-select>
 
+    <q-input ref="settingsJson" type="textarea" v-model="category.settingsJson" autogrow :label="$tl('settingsJson')"
+             :rules="rules.settingsJson"/>
+
     <q-checkbox :toggle-indeterminate="false" v-model="category.isMaterialsContainer"
                 @input="isMaterialsContainerChanged"
                 :label="$tl('isMaterialsContainerCb')"/>
@@ -142,9 +145,22 @@
       icon: [
         value => (!value || value.length >= 3) || this.$tl('validation.icon.minLength'),
         value => (!value || value.length) <= config.DbColumnSizes.Categories_Icon || this.$tl('validation.icon.maxLength'),
+      ],
+      settingsJson: [
+        value => (!value || isJson(value)) || this.$tl('validation.settingsJson.jsonFormatError')
       ]
     }
   }
+
+  function isJson(str) {
+    try {
+      JSON.parse(str);
+    } catch {
+      return false;
+    }
+    return true;
+  }
+
 
   export default {
     name: 'CategoryForm',

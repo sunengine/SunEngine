@@ -164,6 +164,8 @@ namespace SunEngine.Admin.Controllers
 
         public int SortNumber { get; set; }
         
+        public string SettingsJson { get; set; }
+
         public bool IsHidden { get; set; }
 
         public bool IsCacheContent { get; set; }
@@ -189,7 +191,8 @@ namespace SunEngine.Admin.Controllers
                 SortNumber = SortNumber,
                 DeletedDate = DeletedDate,
                 IsHidden = IsHidden,
-                IsCacheContent = IsCacheContent
+                IsCacheContent = IsCacheContent,
+                SettingsJson = SettingsJson?.MakeJsonText()
             };
         }
     }

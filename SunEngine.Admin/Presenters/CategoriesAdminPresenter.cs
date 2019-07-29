@@ -55,6 +55,7 @@ namespace SunEngine.Admin.Presenters
                 IsHidden = x.IsHidden,
                 IsCacheContent = x.IsCacheContent,
                 DeletedDate = x.DeletedDate,
+                SettingsJson = x.SettingsJson
             }).FirstOrDefaultAsync();
         }
 
@@ -79,7 +80,8 @@ namespace SunEngine.Admin.Presenters
                     MaterialsCount = x.Materials.Count,
                     IsHidden = x.IsHidden,
                     IsCacheContent = x.IsCacheContent,
-                    DeletedDate = x.DeletedDate
+                    DeletedDate = x.DeletedDate,
+                    SettingsJson = x.SettingsJson
                 }).ToDictionaryAsync(x => x.Id);
 
             CategoryAdminView root = null;
@@ -144,5 +146,7 @@ namespace SunEngine.Admin.Presenters
         public bool IsCacheContent { get; set; }
         
         public DateTime? DeletedDate { get; set; }
+        
+        public string SettingsJson { get; set; }
     }
 }

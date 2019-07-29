@@ -16,6 +16,7 @@ export default {
     deleteConfirm: "You want to remove the category?",
     parent: "Parent: ",
     hideCb: "Hide",
+    settingsJson: "Json settings",
     appendUrlTokenCb: "Add to URL",
     appendUrlTokenInfo: "(use only if you understand what it is)",
     isMaterialsContainerCb: "Contains materials",
@@ -42,6 +43,9 @@ export default {
       },
       parent: {
         required: "Select parent category"
+      },
+      settingsJson: {
+        jsonFormatError: "Invalid Json format",
       }
     }
   },
