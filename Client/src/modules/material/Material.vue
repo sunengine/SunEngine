@@ -170,7 +170,7 @@
     },
     methods: {
       prepareLocalLinks() {
-        prepareLocalLinks(this.$el, 'material-text');
+        prepareLocalLinks.call(this, this.$el, 'material-text');
       },
       async loadDataMaterial() {
         await this.$store.dispatch('request',

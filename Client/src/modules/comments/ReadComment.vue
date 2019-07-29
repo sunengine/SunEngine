@@ -48,7 +48,7 @@
     },
     methods: {
       prepareLocalLinks() {
-        prepareLocalLinks(this.$el, 'comment-text');
+        prepareLocalLinks.call(this, this.$el, 'comment-text');
       },
       async moveToTrash() {
         const deleteDialogMessage = this.$tl('deleteDialogMessage');
