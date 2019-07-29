@@ -11,10 +11,10 @@ namespace SunEngine.Core.Managers
 {
     public interface ITagsManager
     {
-        Task<IList<Tag>> InsertTags(string tags);
-        Task<IList<Tag>> InsertTags(IList<string> tags);
-        Task MaterialCreateAndSetTagsAsync(Material material, string tags);
-        Task MaterialSetTags(Material material, IEnumerable<Tag> tags);
+        ValueTask<IList<Tag>> InsertTags(string tags);
+        ValueTask<IList<Tag>> InsertTags(IList<string> tags);
+        ValueTask MaterialCreateAndSetTagsAsync(Material material, string tags);
+        ValueTask MaterialSetTags(Material material, IEnumerable<Tag> tags);
     }
 
     public class TagsManager : DbService, ITagsManager
@@ -24,7 +24,7 @@ namespace SunEngine.Core.Managers
             
         }
         
-        public virtual async Task<IList<Tag>> InsertTags(string tags)
+        public virtual async ValueTask<IList<Tag>> InsertTags(string tags)
         {
             if (tags == null)
             {
@@ -36,7 +36,7 @@ namespace SunEngine.Core.Managers
             return await InsertTags(tagsList);
         }
 
-        public virtual async Task<IList<Tag>> InsertTags(IList<string> tags)
+        public virtual async ValueTask<IList<Tag>> InsertTags(IList<string> tags)
         {
             if(tags == null)
             {
@@ -63,13 +63,13 @@ namespace SunEngine.Core.Managers
             return tagsResult;
         }
         
-        public virtual async Task MaterialCreateAndSetTagsAsync(Material material, string tags)
+        public virtual async ValueTask MaterialCreateAndSetTagsAsync(Material material, string tags)
         {
             var tagsList = await InsertTags(tags);
             await MaterialSetTags(material,tagsList);
         }
 
-        public virtual async Task MaterialSetTags(Material material, IEnumerable<Tag> tags)
+        public virtual async ValueTask MaterialSetTags(Material material, IEnumerable<Tag> tags)
         {
             // TODO make auto delete unused tags
             await db.TagMaterials.Where(x => x.MaterialId == material.Id).DeleteAsync();

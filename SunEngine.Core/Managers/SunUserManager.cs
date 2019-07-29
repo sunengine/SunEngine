@@ -29,7 +29,7 @@ namespace SunEngine.Core.Managers
             KeyNormalizer = Normalizer.Singleton;
         }
 
-        public async Task<User> FindUserByNameOrEmailAsync(string nameOrEmail)
+        public async ValueTask<User> FindUserByNameOrEmailAsync(string nameOrEmail)
         {
             User user;
             if (EmailValidator.IsValid(nameOrEmail))

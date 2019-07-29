@@ -34,7 +34,7 @@ namespace SunEngine.Core.Controllers
         [HttpGet]
         [HttpPost]
         [AllowAnonymous]
-        public virtual async Task<IActionResult> PulseDb()
+        public virtual async ValueTask<IActionResult> PulseDb()
         {
             bool anyRole = await db.Roles.AnyAsync();
             return Ok(new {db_Roles_AnyAsync = anyRole});
