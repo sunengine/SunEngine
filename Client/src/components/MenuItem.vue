@@ -13,7 +13,8 @@
     <q-expansion-item ref="exp" :expand-separator="expandSeparator" v-if="menuItem.subMenuItems" :icon="menuItem.icon"
                       :label="menuItem.title" :caption="menuItem.subTitle"
                       @click.native="click" :to='to' :exact="menuItem.exact">
-      <MenuItem :menuItem="subItem" :key="subItem.id" v-for="subItem of menuItem.subMenuItems"/>
+      <MenuItem :menuItem="subItem" ref="cim" :key="subItem.id"
+                v-for="subItem of menuItem.subMenuItems"/>
     </q-expansion-item>
   </div>
 </template>
@@ -23,8 +24,18 @@
   export default {
     name: 'MenuItem',
     props: {
-      menuItem: Object,
-      required: true
+      menuItem: {
+        type: Object,
+        required: true,
+      }
+    },
+    data() {
+      return {
+        parentMenuItem: null
+      }
+    },
+    watch: {
+      '$route': 'checkOpen'
     },
     computed: {
       to() {
@@ -36,8 +47,8 @@
     },
     methods: {
       click() {
-       this.expandOnClick();
-       this.goExternal();
+        this.expandOnClick();
+        this.goExternal();
       },
       expandOnClick() {
         if (this.menuItem.settingsJson?.expandOnClick)
@@ -46,7 +57,25 @@
       goExternal() {
         if (this.menuItem.externalUrl)
           window.open(this.menuItem.externalUrl);
+      },
+      checkOpen() {
+        if (this.parentMenuItem && this.menuItem.to) {
+          if (this.menuItem.path !== '/' && this.$route.path.startsWith(this.menuItem.path)) {
+            let par = this.parentMenuItem;
+            while(par) {
+              par.$refs.exp.value = true;
+              par = par.parentMenuItem;
+            }
+          }
+        }
       }
+    },
+    mounted() {
+      if (this.menuItem.subMenuItems)
+        for (const smi of this.$refs['cim'])
+          smi.parentMenuItem = this;
+
+      this.$nextTick(() => this.checkOpen());
     },
     beforeCreate() {
       this.$options.components.MenuItem = require('sun').MenuItem;

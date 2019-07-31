@@ -1,4 +1,5 @@
 import {consoleInit} from 'sun'
+import {router} from 'sun'
 
 export default function prepareAllMenuItems(state, allMenuItems) {
 
@@ -37,7 +38,8 @@ export default function prepareAllMenuItems(state, allMenuItems) {
       menuItem.to = {
         name: menuItem.routeName,
         params: menuItem.routeParamsJson ?? undefined
-      }
+      };
+      menuItem.path = router.resolve(menuItem.to).href;
     }
   }
 
