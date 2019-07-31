@@ -71,7 +71,7 @@ To run the project you need to install:
 6. Run client `quasar dev` — browser will be opened.
 
 ### Contacts
-- [Dmitrij Polianin](https://github.com/Dmitrij-Polyanin)
-- Skype: [dmitrij.polyanin](skype:dmitrij.polyanin?chat)
-- Telegram: [@okeanij](tg://resolve?domain=Okeanij)
-- Project's Telegram group: [@SunEngine](tg://resolve?domain=SunEngine)
+- Dmitrij Polianin
+- Skype: dmitrij.polyanin
+- Telegram: [@okeanij](https://t.me/Okeanij)
+- Project's Telegram group: [@SunEngine](https://t.me/SunEngine)
