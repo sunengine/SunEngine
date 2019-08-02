@@ -23,6 +23,10 @@
     a {
       color: orange;
       text-shadow: 0.5px 0.5px 0.5px #686569;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     .q-icon {

@@ -30,7 +30,7 @@
         <div style="flex-grow: 1">
 
         </div>
-        <div class="q-mr-md" v-if="canEdit">
+        <div class="q-mr-md edit-btn-block" v-if="canEdit">
           <a href="#" style="display: inline-flex; align-items: center;"
              @click.prevent="$router.push({name: 'EditMaterial', params: {id: material.id}})">
             <q-icon name="fas fa-edit" class="q-mr-xs"/>
@@ -48,11 +48,11 @@
             <q-icon name="fas fa-trash-restore"/>
           </a>
         </div>
-        <div v-if="showVisitsCount" class="visits footer-info-block q-mr-md">
+        <div v-if="showVisitsCount" class="visits date-info-block q-mr-md">
           <q-icon name="far fa-eye" class="q-mr-xs"/>
           {{material.visitsCount}}
         </div>
-        <div v-if="showDate" class="mat-date footer-info-block">
+        <div v-if="showDate" class="mat-date date-info-block">
           <q-icon name="far fa-clock" class="q-mr-xs"/>
           {{$formatDate(material.publishDate)}}
         </div>
@@ -202,7 +202,7 @@
             }
           }).then((response) => {
             this.material = response.data;
-            if(this.material.settingsJson) {
+            if (this.material.settingsJson) {
               try {
                 this.material.settingsJson = JSON.parse(this.material.settingsJson);
               } catch (e) {
@@ -281,10 +281,6 @@
 <style lang="stylus">
 
   .material {
-    .footer-info-block {
-      color: $grey-7;
-    }
-
     .hr-sep {
       height: 0;
       border-top: solid #d3eecc 1px !important;
@@ -300,7 +296,7 @@
     }
 
     .q-chip {
-      background-color : #e5fbe3;
+      background-color: #e5fbe3;
     }
   }
 
