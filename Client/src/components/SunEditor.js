@@ -4,7 +4,7 @@ import ValidateMixin from 'quasar/src/mixins/validate';
 import {editorButtons} from 'sun'
 
 export default {
-  name: 'MyEditor',
+  name: 'SunEditor',
   extends: QEditor,
   mixins: [ValidateMixin],
   data: function () {
@@ -134,6 +134,6 @@ export default {
 
     const errorMessage = this.hasError && errorTransition;
 
-    return h('div', {staticClass: 'relative-position'}, [editor, errorMessage, fileInput, loading]);
+    return h('div', {staticClass: 'relative-position sun-editor'}, [editor, errorMessage, fileInput, loading]);
   }
 }

@@ -66,7 +66,6 @@
           categoryName: this.material.categoryName,
           title: this.material.title,
           text: this.material.text,
-          settingsJson: this.material.settingsJson,
           tags: this.material.tags.join(',')
         };
 
@@ -74,6 +73,8 @@
           data.name = this.material.name;
         if (this.material.subTitle)
           data.subTitle = this.material.subTitle;
+        if (this.material.settingsJson)
+          data.settingsJson = this.material.settingsJson;
 
         this.$store.dispatch('request', {
           url: '/Materials/Create',

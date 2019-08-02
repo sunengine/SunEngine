@@ -3,7 +3,7 @@
     <template v-if="userInfo">
       <div class="q-mb-lg text-grey-8">{{$tl("label")}}</div>
 
-      <MyEditor class="q-mb-sm" style="max-width: 100%;"
+      <SunEditor class="q-mb-sm" style="max-width: 100%;"
                 :toolbar="editorToolbar"
                 ref="htmlEditor" v-model="userInfo.information"/>
       <q-btn no-caps class="send-btn" icon="far fa-save" :label="$tl('save')" @click="save"/>
@@ -46,7 +46,7 @@
     beforeCreate() {
       this.editorToolbar = editInformationToolbar;
       this.$options.components.LoaderWait = require('sun').LoaderWait;
-      this.$options.components.MyEditor = require('sun').MyEditor;
+      this.$options.components.SunEditor = require('sun').SunEditor;
     },
     async created() {
       this.title = this.$tl('title');

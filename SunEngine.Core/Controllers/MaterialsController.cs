@@ -161,7 +161,7 @@ namespace SunEngine.Core.Controllers
                 material.CategoryId = newCategory.Id;
 
             material.SettingsJson = materialsAuthorization.CanEditSettingsJson(User.Roles, newCategory) 
-                ? materialData.SettingsJson 
+                ? materialData.SettingsJson
                 : null;
             
             await materialsManager.UpdateAsync(material, materialData.Tags, newCategory);

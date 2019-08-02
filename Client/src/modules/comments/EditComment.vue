@@ -1,7 +1,7 @@
 <template>
   <div class="edit-comment">
     <template v-if="comment">
-      <MyEditor content-class="material-text"
+      <SunEditor content-class="material-text"
         :toolbar="editorToolbar" :rules="commentRules"
         class="editor" ref="htmlEditor" v-model="comment.text"/>
       <div>
@@ -77,7 +77,7 @@
       this.editorToolbar = commentEditorToolbar;
       this.$options.components.LoaderSent = require('sun').LoaderSent;
       this.$options.components.LoaderWait = require('sun').LoaderWait;
-      this.$options.components.MyEditor = require('sun').MyEditor;
+      this.$options.components.SunEditor = require('sun').SunEditor;
     },
     async created() {
 

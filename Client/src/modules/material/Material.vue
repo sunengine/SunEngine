@@ -17,7 +17,7 @@
       </div>
       <div v-if="material.tags && material.tags.length > 0" class="q-mt-lg" style="text-align: center">
         {{$tl("tags")}}
-        <q-chip class="q-mx-xs" dense color="info" v-for="tag in material.tags" :key="tag">
+        <q-chip class="q-mx-xs" dense v-for="tag in material.tags" :key="tag">
           {{tag}}
         </q-chip>
       </div>
@@ -297,6 +297,10 @@
 
     .comments {
       margin-top: 18px;
+    }
+
+    .q-chip {
+      background-color : #e5fbe3;
     }
   }
 

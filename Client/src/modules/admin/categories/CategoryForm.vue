@@ -28,7 +28,7 @@
 
     <div class="text-grey-6">{{$tl('header')}}</div>
 
-    <MyEditor ref="header" style="margin-bottom: 12px;" v-model="category.header"/>
+    <SunEditor ref="header" style="margin-bottom: 12px;" v-model="category.header"/>
 
     <q-field class="cursor-pointer" :error="!category.parentId" :label="$tl('selectParent')" stack-label>
       <template v-slot:control>
@@ -222,7 +222,7 @@
     },
     beforeCreate() {
       this.$options.components.LoaderWait = require('sun').LoaderWait;
-      this.$options.components.MyEditor = require('sun').MyEditor;
+      this.$options.components.SunEditor = require('sun').SunEditor;
     },
     async created() {
 

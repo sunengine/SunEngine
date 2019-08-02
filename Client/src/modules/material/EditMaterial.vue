@@ -8,13 +8,13 @@
 
     <div class="q-mt-md">
       <q-btn icon="fas fa-arrow-circle-right" class="send-btn" no-caps :loading="loading" :label="$tl('saveBtn')"
-             @click="save" >
+             @click="save">
         <LoaderSent slot="loading"/>
       </q-btn>
       <q-btn no-caps icon="fas fa-times" class="q-ml-sm cancel-btn" @click="$router.back()" :label="$tl('cancelBtn')"/>
 
       <q-btn v-if="!material.deletedDate && canDelete" no-caps icon="fas fa-trash" class="delete-btn float-right"
-             @click="deleteMaterial" :label="$tl('deleteBtn')" />
+             @click="deleteMaterial" :label="$tl('deleteBtn')"/>
 
 
       <q-btn v-if="material.deletedDate && canRestore" class="float-right" no-caps icon="fas fa-trash-restore"
@@ -91,7 +91,6 @@
           categoryName: this.material.categoryName,
           title: this.material.title,
           text: this.material.text,
-          settingsJson: this.material.settingsJson,
           tags: this.material.tags.join(','),
           isHidden: this.material.isHidden,
           isCommentsBlocked: this.material.isCommentsBlocked
@@ -101,6 +100,8 @@
           data.name = this.material.name;
         if (this.material.subTitle)
           data.subTitle = this.material.subTitle;
+        if (this.material.settingsJson)
+          data.settingsJson = this.material.settingsJson;
 
         await this.$store.dispatch('request', {
           url: '/Materials/Update',

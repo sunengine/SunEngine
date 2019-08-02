@@ -22,7 +22,7 @@
     </q-input>
 
 
-    <MyEditor class="material-text"
+    <SunEditor class="material-text"
               :toolbar="editorToolbar"
               :rules="rules.text"
               ref="htmlEditor" v-model="material.text"/>
@@ -175,7 +175,7 @@
     beforeCreate() {
       this.rules = createRules.call(this);
       this.editorToolbar = materialFormToolbar;
-      this.$options.components.MyEditor = require('sun').MyEditor;
+      this.$options.components.SunEditor = require('sun').SunEditor;
     }
   }
 
