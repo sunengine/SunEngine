@@ -1,7 +1,7 @@
 <template>
   <div :class="['post', {'mat-hidden': post.isHidden}, {'mat-deleted': post.deletedDate}]">
     <q-item :to="to" class="header page-padding">
-      <q-avatar class="shadow-1 avatar" size="38px">
+      <q-avatar class="shadow-1 avatar" size="40px">
         <img :src="$imagePath(post.authorAvatar)"/>
       </q-avatar>
       <div>
