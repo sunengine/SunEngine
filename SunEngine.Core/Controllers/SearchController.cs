@@ -18,8 +18,8 @@ namespace SunEngine.Core.Controllers
         }
 
         // TODO : Add check max and min searchPattern length
-        [IpAndUserSpamProtectionFilter(IpTimeoutSeconds = 15, UserTimeoutSeconds = 10)]
         [HttpPost]
+        [IpAndUserSpamProtectionFilter(IpTimeoutSeconds = 15, UserTimeoutSeconds = 10)]
         public async Task<IActionResult> SearchUsers(string searchString)
         {
             if (string.IsNullOrEmpty(searchString) || searchString.Length < 3 || searchString.Length > 20)
@@ -30,8 +30,8 @@ namespace SunEngine.Core.Controllers
             return Ok(users);
         }
 
-        [IpAndUserSpamProtectionFilter(IpTimeoutSeconds = 15, UserTimeoutSeconds = 10)]
         [HttpPost]
+        [IpAndUserSpamProtectionFilter(IpTimeoutSeconds = 15, UserTimeoutSeconds = 10)]
         public async Task<IActionResult> SearchMaterials(string searchString)
         {
             if (string.IsNullOrEmpty(searchString) || searchString.Length < 3 || searchString.Length > 20)

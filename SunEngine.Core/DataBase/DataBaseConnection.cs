@@ -8,7 +8,6 @@ using LinqToDB.Mapping;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Authorization;
 using SunEngine.Core.Models.Materials;
-using SunEngine.Core.Utils;
 
 
 namespace SunEngine.Core.DataBase
@@ -18,18 +17,6 @@ namespace SunEngine.Core.DataBase
     /// </summary>
     public class DataBaseConnection : IdentityDataConnection<User, Role, int>
     {
-        public TypeSqlProvider NameSqlProvider
-        {
-            get
-            {
-                if (DataProvider.Name.StartsWith("Postgre",StringComparison.OrdinalIgnoreCase))
-                    return TypeSqlProvider.PostgreSql;
-                else if (DataProvider.Name.StartsWith("Mysql",StringComparison.OrdinalIgnoreCase)) 
-                    return TypeSqlProvider.MySql;
-                return TypeSqlProvider.Other;
-            }
-        }
-
         public DataBaseConnection(string providerName, string connectionString, DbMappingSchema mappingSchema) : base(
             providerName, connectionString)
         {
@@ -101,12 +88,25 @@ namespace SunEngine.Core.DataBase
 
         public bool IsPostgres()
         {
-            return NameSqlProvider == TypeSqlProvider.PostgreSql;
+            return SqlProviderName == SqlProviderType.PostgreSql;
+        }
+        
+        public SqlProviderType SqlProviderName
+        {
+            get
+            {
+                if (DataProvider.Name.StartsWith("Mysql", StringComparison.OrdinalIgnoreCase))
+                    return SqlProviderType.MySql;
+                else if (DataProvider.Name.StartsWith("Postgre", StringComparison.OrdinalIgnoreCase))
+                    return SqlProviderType.PostgreSql;
+                return SqlProviderType.Other;
+            }
         }
     }
     
-    [Flags]
-    public enum TypeSqlProvider
+    
+
+    public enum SqlProviderType
     {
         MySql = 1,
         PostgreSql = 2,
