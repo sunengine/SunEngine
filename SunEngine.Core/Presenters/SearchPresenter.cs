@@ -15,6 +15,11 @@ namespace SunEngine.Core.Presenters
         Task<UserInfoView[]> SearchByUsernameOrLink(string searchString);
         Task<MaterialSearchInfoView[]> SearchByMaterials(string searchString);
     }
+
+    interface ISqlSearchRequest
+    {
+        UserInfoView[] SearchRequser(string searchString);
+    }
     
     public class SearchPresenter : DbService, ISearchPresenter
     {
@@ -37,11 +42,11 @@ namespace SunEngine.Core.Presenters
 
         public Task<MaterialSearchInfoView[]> SearchByMaterials(string searchString)
         {
-            switch (db.DataProviderType)
+            switch (db.SqlProviderName)
             {
-                case TypeSqlProvider.MySql :
+                case SqlProviderType.MySql :
                     return searchMaterialsMySql(searchString);
-                case TypeSqlProvider.PostgreSql | TypeSqlProvider.Other :
+                case SqlProviderType.PostgreSql | SqlProviderType.Other :
                     return searchMaterialsDefault(searchString);
                 default:
                     throw new SunDataBaseException("Database definition error");
@@ -64,6 +69,7 @@ namespace SunEngine.Core.Presenters
         {
             return db.Materials.Where(x => x.Text.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
                                            x.Text.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                .OrderByDescending(x => x.Id)
                 .Select(x => new MaterialSearchInfoView()
                 {
                     Id = x.Id,

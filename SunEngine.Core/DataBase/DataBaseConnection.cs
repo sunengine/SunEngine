@@ -88,23 +88,25 @@ namespace SunEngine.Core.DataBase
 
         public bool IsPostgres()
         {
-            return DataProviderType == TypeSqlProvider.PostgreSql;
+            return SqlProviderName == SqlProviderType.PostgreSql;
         }
         
-        public TypeSqlProvider DataProviderType
+        public SqlProviderType SqlProviderName
         {
             get
             {
                 if (DataProvider.Name.StartsWith("Mysql", StringComparison.OrdinalIgnoreCase))
-                    return TypeSqlProvider.MySql;
+                    return SqlProviderType.MySql;
                 else if (DataProvider.Name.StartsWith("Postgre", StringComparison.OrdinalIgnoreCase))
-                    return TypeSqlProvider.PostgreSql;
-                return TypeSqlProvider.Other;
+                    return SqlProviderType.PostgreSql;
+                return SqlProviderType.Other;
             }
         }
     }
+    
+    
 
-    public enum TypeSqlProvider
+    public enum SqlProviderType
     {
         MySql = 1,
         PostgreSql = 2,
