@@ -50,7 +50,7 @@
       ],
       email: [
         value => !!value || this.$tl("validation.email.required"),
-        value => /.+@.+/.test(value) || this.$tl("validation.email.emailSig")
+        value => /[^@]+@[^@]+/.test(value) || this.$tl("validation.email.emailSig")
       ],
     }
   }

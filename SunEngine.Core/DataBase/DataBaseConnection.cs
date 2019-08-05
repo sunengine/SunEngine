@@ -78,6 +78,8 @@ namespace SunEngine.Core.DataBase
 
         public ITable<CipherSecret> CipherSecrets => GetTable<CipherSecret>();
 
+        public ITable<Component> Components => GetTable<Component>();
+
         
         public void UpdateSequence(string tableName, string keyName)
         {

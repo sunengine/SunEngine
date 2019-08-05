@@ -61,12 +61,12 @@ namespace SunEngine.Core.Security
                 return AuthenticateResult.NoResult();
             }
 
-            AuthenticateResult Logout()
+            AuthenticateResult Logout(string msg)
             {
                 jweService.MakeLogoutCookiesAndHeaders(Response);
 
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\nLogout\n");
+                Console.WriteLine($"\nLogout: {msg}\n");
                 Console.ResetColor();
 
                 return AuthenticateResult.NoResult();
@@ -82,7 +82,7 @@ namespace SunEngine.Core.Security
 
                 JwtSecurityToken jwtLongToken2 = jweService.ReadLong2Token(cookie);
                 if (jwtLongToken2 == null)
-                    return Logout();
+                    return Logout("No Long2 cookie token");
 
                 var longToken2db = jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.LongToken2Db).Value;
 
@@ -102,7 +102,7 @@ namespace SunEngine.Core.Security
                     var longSession = await userManager.FindLongSessionAsync(longSessionToFind);
 
                     if (longSession == null)
-                        return Logout();
+                        return Logout("Session not found");
 
                     sunClaimsPrincipal = await jweService.RenewSecurityTokensAsync(Context, userId, longSession);
 
@@ -115,14 +115,14 @@ namespace SunEngine.Core.Security
                     string authorization = Request.Headers["Authorization"];
 
                     if (string.IsNullOrEmpty(authorization))
-                        return Logout();
+                        return Logout("No Authorization header");
 
                     string jwtShortToken = null;
                     if (authorization.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
                         jwtShortToken = authorization.Substring("Bearer ".Length).Trim();
 
                     if (string.IsNullOrEmpty(jwtShortToken))
-                        return Logout();
+                        return Logout("No Bearer in Authorization header");
 
 
                     var claimsPrincipal = jweService.ReadShortToken(jwtShortToken);
@@ -150,9 +150,9 @@ namespace SunEngine.Core.Security
                 var authenticationTicket = new AuthenticationTicket(sunClaimsPrincipal, SunJwt.Scheme);
                 return AuthenticateResult.Success(authenticationTicket);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return Logout();
+                return Logout("Error " + e);
             }
         }
     }

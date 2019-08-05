@@ -17,7 +17,7 @@ namespace SunEngine.Core.Cache.Services.Counters
     {
         protected const string SpamProtectionKeyStart = "VISP";
 
-        protected readonly TimeSpan SpamProtectionTimeInterval = TimeSpan.FromMinutes(1);
+        protected readonly TimeSpan SpamProtectionTimeInterval = TimeSpan.FromMinutes(20);
 
         protected readonly object lockObject = new object();
 
@@ -68,24 +68,31 @@ namespace SunEngine.Core.Cache.Services.Counters
 
         protected void UploadIdVisitsToDataBase()
         {
-            if (visits.Count == 0)
-                return;
-
             lock (lockObject)
+            {
+                if (visits.Count == 0)
+                    return;
+
                 using (var db = dbFactory.CreateDb())
-                using (TempTable<VisitsById> visitsByIdTempTable = new TempTable<VisitsById>(db,
-                    visits.Select(x => new VisitsById {Id = x.Key, Visits = x.Value}).ToArray()))
                 {
+                    var vss = visits.Select(x => new VisitsById {Id = x.Key, Visits = x.Value});
+                    
                     db.BeginTransaction();
+                    
+                    using (TempTable<VisitsById> visitsByIdTempTable = new TempTable<VisitsById>(db, vss))
+                    {
+                        db.Users.Where(x => visitsByIdTempTable.Any(y => y.Id == x.Id))
+                            .Set(x => x.ProfileVisitsCount,
+                                x => x.ProfileVisitsCount +
+                                     visitsByIdTempTable.FirstOrDefault(y => y.Id == x.Id).Visits)
+                            .Update();
 
-                    db.Users.Where(x => visitsByIdTempTable.Any(y => y.Id == x.Id))
-                        .Set(x => x.ProfileVisitsCount,
-                            x => x.ProfileVisitsCount + visitsByIdTempTable.FirstOrDefault(y => y.Id == x.Id).Visits)
-                        .Update();
-
-                    visits.Clear();
+                        visits.Clear();
+                    }
+                    
                     db.CommitTransaction();
                 }
+            }
         }
 
         protected class VisitsById

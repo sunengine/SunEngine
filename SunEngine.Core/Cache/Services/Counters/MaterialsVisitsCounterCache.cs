@@ -18,8 +18,8 @@ namespace SunEngine.Core.Cache.Services.Counters
     {
         protected const string SpamProtectionKeyStart = "VISM";
 
-        protected readonly TimeSpan SpamProtectionTimeInterval = TimeSpan.FromMinutes(1);
-        
+        protected readonly TimeSpan SpamProtectionTimeInterval = TimeSpan.FromMinutes(20);
+
         protected readonly object lockObject = new object();
 
         protected readonly ConcurrentDictionary<int, int> visits = new ConcurrentDictionary<int, int>();
@@ -53,7 +53,7 @@ namespace SunEngine.Core.Cache.Services.Counters
                 }
 
                 spamProtectionCache.AddOrUpdate(key, new RequestFree(SpamProtectionTimeInterval));
-                
+
 
                 if (visits.TryGetValue(materialId, out int materialVisits))
                     return visits[materialId] = materialVisits + 1;
@@ -69,24 +69,31 @@ namespace SunEngine.Core.Cache.Services.Counters
 
         protected void UploadIdVisitsToDataBase()
         {
-            if (visits.Count == 0)
-                return;
-
             lock (lockObject)
+            {
+                if (visits.Count == 0)
+                    return;
+
                 using (var db = dbFactory.CreateDb())
-                using (TempTable<VisitsById> visitsByIdTempTable = new TempTable<VisitsById>(db,
-                    visits.Select(x => new VisitsById {Id = x.Key, Visits = x.Value}).ToArray()))
                 {
+                    var vss = visits.Select(x => new VisitsById {Id = x.Key, Visits = x.Value});
+                    
                     db.BeginTransaction();
 
-                    db.Materials.Where(x => visitsByIdTempTable.Any(y => y.Id == x.Id))
-                        .Set(x => x.VisitsCount,
-                            x => x.VisitsCount + visitsByIdTempTable.FirstOrDefault(y => y.Id == x.Id).Visits)
-                        .Update();
+                    using (TempTable<VisitsById> visitsByIdTempTable = new TempTable<VisitsById>(db,vss))
+                    {
 
-                    visits.Clear();
+                        db.Materials.Where(x => visitsByIdTempTable.Any(y => y.Id == x.Id))
+                            .Set(x => x.VisitsCount,
+                                x => x.VisitsCount + visitsByIdTempTable.FirstOrDefault(y => y.Id == x.Id).Visits)
+                            .Update();
+
+                        visits.Clear();
+                    }
+                    
                     db.CommitTransaction();
                 }
+            }
         }
 
         protected class VisitsById
