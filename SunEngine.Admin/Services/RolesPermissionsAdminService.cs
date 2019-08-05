@@ -28,7 +28,7 @@ namespace SunEngine.Admin.Services
             RolesSchemaPath = Path.Combine(env.ContentRootPath, "Resources", RolesSchemaFileName);
         }
 
-        public async Task<string> GetRolesJsonAsync()
+        public async ValueTask<string> GetRolesJsonAsync()
         {
             var roles = await db.Roles
                 .LoadWith(x => x.CategoryAccesses.First().CategoryOperationAccesses.First().OperationKey)

@@ -28,7 +28,7 @@
 
     <div class="text-grey-6">{{$tl('header')}}</div>
 
-    <MyEditor ref="header" style="margin-bottom: 12px;" v-model="category.header"/>
+    <SunEditor ref="header" style="margin-bottom: 12px;" v-model="category.header"/>
 
     <q-field class="cursor-pointer" :error="!category.parentId" :label="$tl('selectParent')" stack-label>
       <template v-slot:control>
@@ -69,6 +69,9 @@
       <q-icon slot="prepend" name="fas fa-boxes"/>
     </q-select>
 
+    <q-input ref="settingsJson" type="textarea" v-model="category.settingsJson" autogrow :label="$tl('settingsJson')"
+             :rules="rules.settingsJson"/>
+
     <q-checkbox :toggle-indeterminate="false" v-model="category.isMaterialsContainer"
                 @input="isMaterialsContainerChanged"
                 :label="$tl('isMaterialsContainerCb')"/>
@@ -97,6 +100,7 @@
 
 <script>
   import {adminGetAllCategories} from 'sun'
+  import {isJson} from 'sun';
 
 
   const unset = 'unset';
@@ -142,9 +146,13 @@
       icon: [
         value => (!value || value.length >= 3) || this.$tl('validation.icon.minLength'),
         value => (!value || value.length) <= config.DbColumnSizes.Categories_Icon || this.$tl('validation.icon.maxLength'),
+      ],
+      settingsJson: [
+        value => (!value || isJson(value)) || this.$tl('validation.settingsJson.jsonFormatError')
       ]
     }
   }
+
 
   export default {
     name: 'CategoryForm',
@@ -214,7 +222,7 @@
     },
     beforeCreate() {
       this.$options.components.LoaderWait = require('sun').LoaderWait;
-      this.$options.components.MyEditor = require('sun').MyEditor;
+      this.$options.components.SunEditor = require('sun').SunEditor;
     },
     async created() {
 

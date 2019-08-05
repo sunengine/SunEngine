@@ -1,6 +1,7 @@
 export apiPath from 'utils/apiPath'
 export buildPath from 'utils/buildPath'
 export imagePath from 'utils/imagePath'
+export isJson from 'utils/isJson'
 export prepareLocalLinks from 'utils/prepareLocalLinks.js'
 export htmlTextSizeOrHasImage from 'utils/htmlTextSizeOrHasImage'
 export routeHasAccess from 'utils/routeHasAccess'

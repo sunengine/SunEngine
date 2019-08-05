@@ -22,7 +22,7 @@
     </q-input>
 
 
-    <MyEditor class="material-text"
+    <SunEditor class="material-text"
               :toolbar="editorToolbar"
               :rules="rules.text"
               ref="htmlEditor" v-model="material.text"/>
@@ -36,7 +36,7 @@
     </q-select>
 
 
-    <q-field class="cursor-pointer q-mb-md" :error="!material.categoryName && !start" :label="$tl('selectCategory')"
+    <q-field class="cursor-pointer" :error="!material.categoryName && !start" :label="$tl('selectCategory')"
              :stack-label="!!material.categoryName">
       <template v-slot:control>
         <div tabindex="0" class="no-outline full-width">
@@ -71,6 +71,9 @@
       </q-menu>
     </q-field>
 
+    <q-input ref="settingsJson" type="textarea" v-model="material.settingsJson" autogrow :label="$tl('settingsJson')"
+             :rules="rules.settingsJson"/>
+
     <div>
       <q-checkbox :toggle-indeterminate="false"
                   v-if="canBlockComments" ref="isCommentsBlocked" v-model="material.isCommentsBlocked"
@@ -87,6 +90,7 @@
 <script>
   import {htmlTextSizeOrHasImage} from 'sun'
   import {materialFormToolbar} from 'sun'
+  import {isJson} from 'sun'
 
 
   function createRules() {
@@ -108,6 +112,9 @@
       ],
       subTitle: [
         (value) => !value || value.length <= config.DbColumnSizes.Materials_SubTitle || this.$tl('validation.subTitle.maxLength'),
+      ],
+      settingsJson: [
+        value => (!value || isJson(value)) || this.$tl('validation.settingsJson.jsonFormatError')
       ]
     }
   }
@@ -140,6 +147,9 @@
       canHide() {
         return this.category?.categoryPersonalAccess?.materialHide;
       },
+      canEditSettingsJson() {
+        return this.category?.categoryPersonalAccess?.materialEditSettingsJson;
+      },
       canBlockComments() {
         return this.category?.categoryPersonalAccess?.materialBlockCommentsAny;
       },
@@ -159,12 +169,13 @@
         this.$refs.title.validate();
         this.$refs.subTitle?.validate();
         this.$refs.htmlEditor.validate();
+        this.$refs.settingsJson.validate();
       }
     },
     beforeCreate() {
       this.rules = createRules.call(this);
       this.editorToolbar = materialFormToolbar;
-      this.$options.components.MyEditor = require('sun').MyEditor;
+      this.$options.components.SunEditor = require('sun').SunEditor;
     }
   }
 

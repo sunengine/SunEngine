@@ -98,6 +98,7 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("CommentsCount".s()).AsInt32().NotNullable()
                 .WithColumn("SortNumber".s()).AsInt32().NotNullable().Unique()
                 .WithColumn("IsCommentsBlocked".s()).AsBoolean().NotNullable()
+                .WithColumn("SettingsJson".s()).AsMaxString().Nullable()
                 .WithColumn("VisitsCount".s()).AsInt32().NotNullable()
                 .WithColumn("IsHidden".s()).AsBoolean().NotNullable()
                 .WithColumn("DeletedDate".s()).AsDateTime().Nullable();

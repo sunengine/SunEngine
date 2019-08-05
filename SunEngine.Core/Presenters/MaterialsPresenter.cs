@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
-using SunEngine.Core.Cache.Services.Counters;
+using Newtonsoft.Json.Linq;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
@@ -55,7 +55,8 @@ namespace SunEngine.Core.Presenters
                     IsCommentsBlocked = x.IsCommentsBlocked,
                     DeletedDate = x.DeletedDate,
                     Tags = x.TagMaterials.OrderBy(y => y.Tag.Name).Select(y => y.Tag.Name).ToArray(),
-                    VisitsCount = x.VisitsCount
+                    VisitsCount = x.VisitsCount,
+                    SettingsJson = x.SettingsJson
                 }
             ).FirstOrDefaultAsync();
         }
@@ -81,5 +82,6 @@ namespace SunEngine.Core.Presenters
         public DateTime? DeletedDate { get; set; }
         public string[] Tags { get; set; }
         public int VisitsCount { get; set; }
+        public string SettingsJson { get; set; }
     }
 }

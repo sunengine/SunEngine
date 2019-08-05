@@ -69,6 +69,8 @@ namespace SunEngine.Core.Models.Materials
         [Association(ThisKey = "Id", OtherKey = "MaterialId")]
         public virtual ICollection<TagMaterial> TagMaterials { get; set; }
         
+        public string SettingsJson { get; set; } 
+        
         public int VisitsCount { get; set; }
     }
 }

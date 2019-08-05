@@ -224,7 +224,7 @@ namespace SunEngine.Tests.SunEngine.Admin.Managers
             }
         }
 
-        [Theory]
+        /*[Theory]
         [InlineData("fakeCategory")]
         [InlineData("Root")]
         public async void ShouldReturnBadResultWhenCategoryUp(string name)
@@ -235,7 +235,7 @@ namespace SunEngine.Tests.SunEngine.Admin.Managers
                     () => categoryAdminManager.CategoryUp(name)
                 );
             }
-        }
+        }*/
 
         #endregion
 
@@ -265,7 +265,7 @@ namespace SunEngine.Tests.SunEngine.Admin.Managers
             }
         }
 
-        [Theory]
+        /*[Theory]
         [InlineData("fakeCategory")]
         public async void ShouldReturnBadResultWhenCategoryDown(string name)
         {
@@ -275,7 +275,7 @@ namespace SunEngine.Tests.SunEngine.Admin.Managers
                     () => categoryAdminManager.CategoryDown(name)
                 );
             }
-        }
+        }*/
 
         #endregion
 

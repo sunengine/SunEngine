@@ -16,6 +16,7 @@ export default {
     deleteConfirm: "Вы уверены что хотите удалить категорию?\nВсё содержание категории также будут удалено.",
     parent: "Родитель: ",
     hideCb: "Спрятать",
+    settingsJson: "Json настройки",
     appendUrlTokenCb: "Добавлять в URL",
     appendUrlTokenInfo: "(использовать только если вы понимаете что это)",
     isMaterialsContainerCb: "Содержит материалы",
@@ -42,6 +43,9 @@ export default {
       },
       parent: {
         required: "Выберите родительскую категорию"
+      },
+      settingsJson: {
+        jsonFormatError: "Неверный формат Json",
       }
     }
   },

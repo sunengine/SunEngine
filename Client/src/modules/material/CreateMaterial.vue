@@ -39,6 +39,7 @@
           title: '',
           text: '',
           subTitle: null,
+          settingsJson: null,
           tags: [],
           categoryName: this.initialCategoryName,
           isCommentsBlocked: false,
@@ -72,6 +73,8 @@
           data.name = this.material.name;
         if (this.material.subTitle)
           data.subTitle = this.material.subTitle;
+        if (this.material.settingsJson)
+          data.settingsJson = this.material.settingsJson;
 
         this.$store.dispatch('request', {
           url: '/Materials/Create',

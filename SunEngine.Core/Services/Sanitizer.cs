@@ -12,7 +12,6 @@ namespace SunEngine.Core.Services
     {
         private readonly HtmlSanitizer htmlSanitizer;
         private readonly SanitizerOptions options;
-        private readonly string siteUrl = "";
 
         public Sanitizer(SanitizerOptions options)
         {
@@ -36,23 +35,17 @@ namespace SunEngine.Core.Services
             htmlSanitizer.AllowedTags.Clear();
 
             foreach (string tag in options.AllowedTags)
-            {
                 htmlSanitizer.AllowedTags.Add(tag);
-            }
 
             htmlSanitizer.AllowedAttributes.Clear();
 
             foreach (string attribute in options.AllowedAttributes)
-            {
                 htmlSanitizer.AllowedAttributes.Add(attribute);
-            }
 
             htmlSanitizer.AllowedCssProperties.Clear();
 
             foreach (string cssp in options.AllowedCssProperties)
-            {
                 htmlSanitizer.AllowedCssProperties.Add(cssp);
-            }
 
             htmlSanitizer.AllowedSchemes.Add("mailto");
 
@@ -66,13 +59,8 @@ namespace SunEngine.Core.Services
         {
             var src = e.Tag.GetAttribute(attrName).TrimStart().ToLower();
             foreach (var allowedDomain in allowedDomains)
-            {
                 if (src.StartsWith(allowedDomain))
-                {
-                    e.Cancel = true;
-                    return true;
-                }
-            }
+                    return e.Cancel = true;
 
             e.Cancel = false;
             return false;
@@ -109,10 +97,9 @@ namespace SunEngine.Core.Services
             
             var tagName = e.Tag.TagName.ToLower();
             var tag = checkingTags.FirstOrDefault(x => x.Tag == tagName);
+            
             if (tag != null)
-            {
                 CheckAllowedDomains(tag.Attribute, tag.AllowedDomainsList, e);
-            }
         }
     }
 

@@ -3,19 +3,19 @@
     <img class="avatar msg-avatar" :src="$imagePath(comment.authorAvatar)"/>
 
     <div class="q-my-md">
-      <div class="q-mb-xs" style="display: flex;">
+      <div class="q-mb-xs flex">
         <span style="flex-grow:1">
            <router-link :to="{name: 'User', params: {link: comment.authorLink}}">
              {{comment.authorName}}
            </router-link>
         </span> &nbsp;
-        <span v-if="canEdit" class=" q-mr-md">
+        <span v-if="canEdit" class="edit-btn-block q-mr-md">
                     <a href="#" @click.prevent="$emit('goEdit')"><q-icon name="fas fa-edit"/> {{$tl("edit")}}</a>
         </span>
-        <span v-if="canMoveToTrash" class=" q-mr-md">
+        <span v-if="canMoveToTrash" class="edit-btn-block q-mr-md">
                     <a href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash"/></a>
         </span>
-        <span class="mat-date">
+        <span class="date-info-block">
                     <q-icon name="far fa-clock" class="q-mr-xs"/> {{ $formatDate(comment.publishDate) }}
         </span>
       </div>
@@ -48,7 +48,7 @@
     },
     methods: {
       prepareLocalLinks() {
-        prepareLocalLinks(this.$el, 'comment-text');
+        prepareLocalLinks.call(this, this.$el, 'comment-text');
       },
       async moveToTrash() {
         const deleteDialogMessage = this.$tl('deleteDialogMessage');
@@ -93,10 +93,6 @@
     .msg-avatar {
       float: left;
       margin: 2px 12px 12px 0;
-    }
-
-    .mat-date {
-      color: $grey-7;
     }
   }
 

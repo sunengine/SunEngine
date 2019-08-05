@@ -14,6 +14,7 @@ using SunEngine.Core.Errors;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
+using SunEngine.Core.Utils;
 using SunEngine.Core.Utils.TextProcess;
 
 
@@ -21,11 +22,11 @@ namespace SunEngine.Core.Managers
 {
     public interface IMaterialsManager
     {
-        Task<int?> GetCategoryIdAsync(int materialId);
-        Task<int?> GetCategoryIdAsync(string materialName);
+        ValueTask<int?> GetCategoryIdAsync(int materialId);
+        ValueTask<int?> GetCategoryIdAsync(string materialName);
         Task<Material> GetAsync(int id);
-        Task CreateAsync(Material material, string tags, CategoryCached category);
-        Task UpdateAsync(Material material, string tags, CategoryCached category);
+        ValueTask CreateAsync(Material material, string tags, CategoryCached category);
+        ValueTask UpdateAsync(Material material, string tags, CategoryCached category);
 
         /// <summary>
         /// Set IsDeleted = true
@@ -45,12 +46,12 @@ namespace SunEngine.Core.Managers
         /// <summary>
         /// Move up in sort order (SortNumber field)
         /// </summary>
-        Task UpAsync(int id);
+        ValueTask UpAsync(int id);
 
         /// <summary>
         /// Move down in sort order (SortNumber field)
         /// </summary>
-        Task DownAsync(int id);
+        ValueTask DownAsync(int id);
     }
 
     public class MaterialsManager : DbService, IMaterialsManager
@@ -77,13 +78,13 @@ namespace SunEngine.Core.Managers
         }
 
 
-        public virtual async Task<int?> GetCategoryIdAsync(int materialId)
+        public virtual async ValueTask<int?> GetCategoryIdAsync(int materialId)
         {
             return await db.Materials.Where(x => x.Id == materialId).Select(x => x.Category.Id)
                 .FirstOrDefaultAsync();
         }
 
-        public virtual async Task<int?> GetCategoryIdAsync(string materialName)
+        public virtual async ValueTask<int?> GetCategoryIdAsync(string materialName)
         {
             return await db.Materials.Where(x => x.Name == materialName).Select(x => x.Category.Id)
                 .FirstOrDefaultAsync();
@@ -94,12 +95,12 @@ namespace SunEngine.Core.Managers
             return db.Materials.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public virtual async Task CreateAsync(Material material, string tags, CategoryCached category)
+        public virtual async ValueTask CreateAsync(Material material, string tags, CategoryCached category)
         {
             IHtmlDocument doc = new HtmlParser().Parse(material.Text);
 
             material.Text = sanitizerService.Sanitize(doc);
-
+            material.SettingsJson = material.SettingsJson?.MakeJsonText();
 
             var generator = categoriesCache.GetMaterialsPreviewGenerator(category.MaterialsPreviewGeneratorName);
             material.Preview = generator(doc, materialsOptions.PreviewLength);
@@ -127,7 +128,7 @@ namespace SunEngine.Core.Managers
             }
         }
 
-        public virtual async Task UpdateAsync(
+        public virtual async ValueTask UpdateAsync(
             Material material,
             string tags,
             CategoryCached category)
@@ -135,7 +136,7 @@ namespace SunEngine.Core.Managers
             IHtmlDocument doc = new HtmlParser().Parse(material.Text);
 
             material.Text = sanitizerService.Sanitize(doc);
-
+            material.SettingsJson = material.SettingsJson?.MakeJsonText();
 
             var generator = categoriesCache.GetMaterialsPreviewGenerator(category.MaterialsPreviewGeneratorName);
             material.Preview = generator(doc, materialsOptions.PreviewLength);
@@ -160,30 +161,28 @@ namespace SunEngine.Core.Managers
             await tagsManager.MaterialCreateAndSetTagsAsync(material, tags);
         }
 
-        public virtual async Task DeleteAsync(Material material)
+        public virtual Task DeleteAsync(Material material)
         {
-            await db.Materials.Where(x => x.Id == material.Id).Set(x => x.DeletedDate, DateTime.UtcNow).UpdateAsync();
+            return db.Materials.Where(x => x.Id == material.Id).Set(x => x.DeletedDate, DateTime.UtcNow).UpdateAsync();
         }
 
-        public virtual async Task RestoreAsync(Material material)
+        public virtual Task RestoreAsync(Material material)
         {
-            await db.Materials.Where(x => x.Id == material.Id).Set(x => x.DeletedDate, x => null)
+            return db.Materials.Where(x => x.Id == material.Id).Set(x => x.DeletedDate, x => null)
                 .UpdateAsync();
         }
 
         public virtual bool IsNameValid(string name)
         {
-            if (int.TryParse(name, out _))
-                return false;
-            return nameValidator.IsMatch(name);
+            return !int.TryParse(name, out _) && nameValidator.IsMatch(name);
         }
 
         public virtual Task<bool> IsNameInDbAsync(string name)
         {
-            return db.Materials.AnyAsync(x => x.Name.ToLower() == name.ToLower());
+            return db.Materials.AnyAsync(x => string.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase));
         }
 
-        public async Task UpAsync(int id)
+        public async ValueTask UpAsync(int id)
         {
             var material = await db.Materials.Where(x => x.DeletedDate == null)
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -209,7 +208,7 @@ namespace SunEngine.Core.Managers
             db.CommitTransaction();
         }
 
-        public async Task DownAsync(int id)
+        public async ValueTask DownAsync(int id)
         {
             var material = await db.Materials.Where(x => x.DeletedDate == null)
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -237,16 +236,14 @@ namespace SunEngine.Core.Managers
 
         public virtual Task DetectAndSetLastCommentAndCountAsync(int materialId)
         {
-            return DetectAndSetLastCommentAndCountAsync(
-                db.Materials.FirstOrDefault(x => x.Id == materialId));
+            return DetectAndSetLastCommentAndCountAsync(db.Materials.FirstOrDefault(x => x.Id == materialId));
         }
 
         public virtual async Task DetectAndSetLastCommentAndCountAsync(Material material)
         {
             var commentsQuery = db.Comments.Where(x => x.MaterialId == material.Id && x.DeletedDate == null);
 
-            var lastComment = await commentsQuery.OrderByDescending(x => x.PublishDate)
-                .FirstOrDefaultAsync();
+            var lastComment = await commentsQuery.OrderByDescending(x => x.PublishDate).FirstOrDefaultAsync();
             var lastCommentId = lastComment?.Id;
             var lastActivity = lastComment?.PublishDate ?? material.PublishDate;
 

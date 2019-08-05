@@ -33,7 +33,7 @@
   .posts-list {
     .hr-sep {
       height: 0;
-      border-top: solid #d3eecc 1px !important;
+      border-top: dashed #d3eecc 1px !important;
       border-left: none;
     }
   }

@@ -30,7 +30,7 @@ namespace SunEngine.Admin.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> GetCategory(int? id = null, string name = null)
+        public async ValueTask<IActionResult> GetCategory(int? id = null, string name = null)
         {
             CategoryAdminView category;
 
@@ -48,7 +48,7 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetAllCategories()
+        public async ValueTask<IActionResult> GetAllCategories()
         {
             var root = await categoriesAdminPresenter.GetAllCategoriesAsync();
 
@@ -64,7 +64,7 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCategory([FromBody] CategoryRequestModel categoryData)
+        public async ValueTask<IActionResult> CreateCategory([FromBody] CategoryRequestModel categoryData)
         {
             if (!ModelState.IsValid)
                 return ValidationProblem();
@@ -80,7 +80,7 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateCategory([FromBody] CategoryRequestModel categoryData)
+        public async ValueTask<IActionResult> UpdateCategory([FromBody] CategoryRequestModel categoryData)
         {
             if (!ModelState.IsValid)
                 return ValidationProblem();
@@ -96,7 +96,7 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CategoryUp(string name)
+        public async ValueTask<IActionResult> CategoryUp(string name)
         {
             await categoriesAdminManager.CategoryUp(name);
 
@@ -107,7 +107,7 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CategoryDown(string name)
+        public async ValueTask<IActionResult> CategoryDown(string name)
         {
             await categoriesAdminManager.CategoryDown(name);
 
@@ -118,7 +118,7 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CategoryMoveToTrash(string name)
+        public async ValueTask<IActionResult> CategoryMoveToTrash(string name)
         {
             await categoriesAdminManager.CategoryMoveToTrashAsync(name);
 
@@ -164,6 +164,8 @@ namespace SunEngine.Admin.Controllers
 
         public int SortNumber { get; set; }
         
+        public string SettingsJson { get; set; }
+
         public bool IsHidden { get; set; }
 
         public bool IsCacheContent { get; set; }
@@ -189,7 +191,8 @@ namespace SunEngine.Admin.Controllers
                 SortNumber = SortNumber,
                 DeletedDate = DeletedDate,
                 IsHidden = IsHidden,
-                IsCacheContent = IsCacheContent
+                IsCacheContent = IsCacheContent,
+                SettingsJson = SettingsJson?.MakeJsonText()
             };
         }
     }

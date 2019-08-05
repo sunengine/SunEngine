@@ -47,6 +47,7 @@ export default {
     tags: "Tags",
     selectCategory: "Category",
     category: "Category: {0}",
+    settingsJson: "Json settings",
     validation: {
       name: {
         allowedChars: "Name must be contain only english letters, numbers and character '-'",
@@ -68,6 +69,9 @@ export default {
       },
       category: {
         required: "Selected category"
+      },
+      settingsJson: {
+        jsonFormatError: "Invalid Json format",
       }
     }
   }

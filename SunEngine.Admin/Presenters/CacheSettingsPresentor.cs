@@ -13,7 +13,7 @@ namespace SunEngine.Admin.Presenters
         {
         }
 
-        public async Task<CacheSettings> GetCacheSettings()
+        public async ValueTask<CacheSettings> GetCacheSettings()
         {
             return await db.CacheSettings.OrderBy(x => x.Id).FirstOrDefaultAsync();
         }

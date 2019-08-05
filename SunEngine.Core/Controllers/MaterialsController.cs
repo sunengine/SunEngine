@@ -107,6 +107,9 @@ namespace SunEngine.Core.Controllers
 
             if (materialData.IsHidden && materialsAuthorization.CanBlockComments(User.Roles, category))
                 material.IsCommentsBlocked = true;
+            
+            if (materialsAuthorization.CanEditSettingsJson(User.Roles, category))
+                material.SettingsJson = materialData.SettingsJson;
 
             contentCache.InvalidateCache(category.Id);
 
@@ -157,6 +160,10 @@ namespace SunEngine.Core.Controllers
                 && materialsAuthorization.CanMove(User, categoriesCache.GetCategory(material.CategoryId), newCategory))
                 material.CategoryId = newCategory.Id;
 
+            material.SettingsJson = materialsAuthorization.CanEditSettingsJson(User.Roles, newCategory) 
+                ? materialData.SettingsJson
+                : null;
+            
             await materialsManager.UpdateAsync(material, materialData.Tags, newCategory);
             return Ok();
         }
@@ -281,5 +288,7 @@ namespace SunEngine.Core.Controllers
 
         public bool IsHidden { get; set; }
         public bool IsCommentsBlocked { get; set; }
+        
+        public string SettingsJson { get; set; }
     }
 }

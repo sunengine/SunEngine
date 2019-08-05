@@ -4,7 +4,7 @@
 
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
-Версия: 1.9.4
+Версия: 1.10.4
 
 Демо: [demo.sunengine.site](http://demo.sunengine.site)    
 
@@ -81,6 +81,7 @@ SunEngine можно запустить на Windows, Linux и macOS.
 6. Запустить клиент `quasar dev` — откроется браузер с сайтом.
 
 ### Контакты  
-- Дмитрий Полянин  
-- Telegram: [@okeanij](https://t.me/Okeanij)    
-- Группа в Telegram: [@SunEngine](https://t.me/SunEngine)
+- [Дмитрий Полянин](https://github.com/Dmitrij-Polyanin)
+- Skype: [dmitrij.polyanin](skype:dmitrij.polyanin?chat)
+- Telegram: [@okeanij](tg://resolve?domain=Okeanij)
+- Группа в Telegram: [@SunEngine](tg://resolve?domain=SunEngine)

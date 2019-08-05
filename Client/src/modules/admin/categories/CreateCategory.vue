@@ -36,6 +36,7 @@
           icon: '',
           header: '',
           layoutName: '',
+          settingsJson: '',
           sectionTypeName: 'unset',
           isMaterialsContainer: true,
           isMaterialsNameEditable: false,
