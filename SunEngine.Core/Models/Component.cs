@@ -9,6 +9,8 @@ namespace SunEngine.Core.Models
         public string Type { get; set; }
         
         public string Roles { get; set; }
+        
+        public bool IsCacheData { get; set; }
 
         public string ServerSettingsJson { get; set; }
         

@@ -15,12 +15,15 @@ namespace SunEngine.Core.Cache.CacheModels
         public string Type { get; }
 
         public object Data { get; }
+        
+        public bool IsCacheData { get; }
 
         public ComponentServerCached(Component component, Type type)
         {
             Id = component.Id;
             Name = component.Name;
             Type = component.Type;
+            IsCacheData = component.IsCacheData;
             Data = JsonConvert.DeserializeObject(component.ServerSettingsJson, type);
         }
     }

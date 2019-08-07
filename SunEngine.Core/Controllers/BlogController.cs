@@ -78,11 +78,7 @@ namespace SunEngine.Core.Controllers
             return await CacheContentAsync(category, category.Id, LoadDataAsync, page);
         }
 
-        public class PostsComponentData
-        {
-            public string CategoriesNames { get; set; }
-            public int PageSize { get; set; }
-        }
+        
 
         [HttpPost]
         public virtual async Task<IActionResult> GetPostsFromMultiCategories(string componentName, int page = 1)
@@ -101,6 +97,8 @@ namespace SunEngine.Core.Controllers
             if (categoriesList.Count == 0)
                 return BadRequest("No categories to show");
 
+            var categoriesIds = categoriesList.Select(x => x.Id);
+            
             var options = new MaterialsMultiCatShowOptions
             {
                 CategoriesIds = categoriesList.Select(x => x.Id),
@@ -108,17 +106,19 @@ namespace SunEngine.Core.Controllers
                 PageSize = pd.PageSize
             };
 
-            var rez = await blogPresenter.GetPostsFromMultiCategoriesAsync(options);
-
-            return Json(rez);
-
-            /*async Task<IPagedList<PostViewModel>> LoadDataAsync()
+            async Task<IPagedList<PostView>> LoadDataAsync()
             {
-               return await blogPresenter.GetPostsFromMultiCategoriesAsync(categoriesIds, page, blogOptions.PostsPageSize);
+               return await blogPresenter.GetPostsFromMultiCategoriesAsync(options);
             }
 
             var blogCategory = categoriesCache.GetCategory(categoriesNames);
-            return await CacheContentAsync(blogCategory, categoriesIds, LoadDataAsync);*/
+            return await CacheContentAsync(blogCategory, categoriesIds, LoadDataAsync);
+        }
+        
+        public class PostsComponentData
+        {
+            public string CategoriesNames { get; set; }
+            public int PageSize { get; set; }
         }
     }
 }

@@ -80,6 +80,13 @@ namespace SunEngine.Core.Controllers
             return Content(json, "application/json", Encoding.UTF8);
         }
 
+        public async Task<IActionResult> CacheContentAsync<T>(ComponentServerCached component, IEnumerable<int> categoryIds,
+            Func<Task<T>> dataLoader, int? page = null)
+        {
+            var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryIds);
+            return await CacheContentAsync(component, key, dataLoader, page);
+        }
+        
         public async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, IEnumerable<int> categoryIds,
             Func<Task<T>> dataLoader, int? page = null)
         {
@@ -96,6 +103,25 @@ namespace SunEngine.Core.Controllers
             var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryId);
             return await CacheContentAsync(category, key, dataLoader, page);
         }
+        
+        /*protected async Task<IActionResult> CacheContentAsync<T>(
+            CategoryCached category, 
+            string key,
+            Func<Task<T>> dataLoader,
+            int? page)
+        {
+            if (!cachePolicy.CanCache(category, page))
+                return Json(await dataLoader());
+
+            string json;
+            if (!string.IsNullOrEmpty(json = contentCache.GetContent(key)))
+                return JsonString(json);
+
+            var content = await dataLoader();
+            json = SunJson.Serialize(content);
+            contentCache.CacheContent(key, json);
+            return JsonString(json);
+        }*/
 
         protected async Task<IActionResult> CacheContentAsync<T>(
             CategoryCached category, 
