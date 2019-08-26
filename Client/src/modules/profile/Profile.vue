@@ -1,10 +1,9 @@
 <template>
-  <q-page class="page-padding page-padding-top">
-    <div class="f1" v-if="user">
+  <q-page class="profile page-padding page-padding-top">
+    <div class="container" v-if="user">
       <div class="img flex column">
         <img width="300" height="300" :src="$imagePath(user.photo)"/>
-        <div v-if="messageButtons" class="private-messages-block flex q-mt-sm"
-             style="padding-right: 2px; padding-left: 2px; align-items: center; width: 100%">
+        <div v-if="messageButtons" class="private-messages-block flex q-mt-sm">
           <q-btn no-caps class="shadow-1" color="lime-4" style="flex-grow: 1" :disable="!canPrivateMessage"
                  :to="{path: '/SendPrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}"
                  dense icon="far fa-envelope" :label="$tl('sendPrivateMessageBtn')"/>
@@ -12,20 +11,34 @@
                  style="padding-left:10px !important; padding-right: 10px; !important" v-if="!user.noBannable"
                  icon="fas fa-ellipsis-v">
             <q-menu>
-              <q-btn no-caps v-close-menu color="negative"  v-close-overlay v-if="!user.iBannedHim" @click="ban"
+              <q-btn no-caps v-close-popup color="negative" v-close-overlay v-if="!user.iBannedHim" @click="ban"
                      icon="fas fa-ban" :label="$tl('banBtn')"/>
-              <q-btn no-caps v-close-menu color="positive"  v-close-overlay v-else @click="unBan" icon="fas fa-smile"
+              <q-btn no-caps v-close-popup color="positive" v-close-overlay v-else @click="unBan" icon="fas fa-smile"
                      :label="$tl('unBanBtn')"/>
             </q-menu>
           </q-btn>
         </div>
       </div>
       <div>
-        <h4>{{user.name}}</h4>
-        <div v-html="user.information"></div>
-         <q-expansion-item  v-if="canEditRoles" @show="showRolesAdmin" icon="fas fa-cog" label="Группы" style="border-radius: 12px; margin-top: 30px; border: 1px solid silver" header-style="background-color: #e4e4e4">
-           <ProfileRoles class="q-pa-md"  :userId="user.id" v-if="isShowRolesAdmin" />
-         </q-expansion-item>
+        <h3>{{user.name}}</h3>
+        <div class="q-mb-lg" v-html="user.information"></div>
+
+        <div class="footer-info">
+          <div class="registered">
+
+            {{$tl("registered")}}: {{$formatDateOnly(user.registeredDate)}}
+          </div>
+          <div class="visits">
+            <q-icon name="far fa-eye" class="q-mr-sm"/>
+            {{user.profileVisitsCount}}
+          </div>
+        </div>
+
+        <q-expansion-item class="roles overflow-hidden" v-if="canEditRoles" @show="showRolesAdmin" icon="fas fa-cog"
+                          :label="$tl('roles')" style="border-radius: 12px; margin-top: 30px; border: 1px solid silver"
+                          header-style="background-color: #e4e4e4">
+          <ProfileRoles class="q-pa-md" :userId="user.id" v-if="isShowRolesAdmin"/>
+        </q-expansion-item>
       </div>
     </div>
     <loader-wait v-else/>
@@ -33,21 +46,19 @@
 </template>
 
 <script>
-  import LoaderWait from "LoaderWait";
-  import Page from "Page";
-  import ProfileRoles from "admin/ProfileRoles";
+  import {Page} from 'sun'
+
 
   export default {
-    name: "Profile",
+    name: 'Profile',
     mixins: [Page],
-    components: {ProfileRoles, LoaderWait},
     props: {
       link: {
         type: String,
         required: true
       }
     },
-    data: function () {
+    data() {
       return {
         user: null,
         isShowRolesAdmin: false
@@ -66,7 +77,7 @@
         return from.id !== this.user?.id;
       },
       canEditRoles() {
-        return this.$store?.state?.auth?.roles?.some(x => x === "Admin");
+        return this.$store?.state?.auth?.roles?.some(x => x === 'Admin');
       }
     },
     watch: {
@@ -77,35 +88,35 @@
         this.isShowRolesAdmin = true;
       },
       async ban() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Profile/BanUser",
+            url: '/Profile/BanUser',
             data: {
               userId: this.user.id
             }
           }).then(async response => {
           await this.loadData();
-          const msg = this.$tl("banNotify",[this.user.name]);
+          const msg = this.$tl('banNotify', [this.user.name]);
           this.$successNotify(msg);
         });
       },
       async unBan() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Profile/UnBanUser",
+            url: '/Profile/UnBanUser',
             data: {
               userId: this.user.id
             }
           }).then(async response => {
           await this.loadData();
-          const msg = this.$tl("unBanNotify",[this.user.name]);
+          const msg = this.$tl('unBanNotify', [this.user.name]);
           this.$successNotify(msg);
         });
       },
       async loadData() {
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Profile/GetProfile",
+            url: '/Profile/GetProfile',
             data: {
               link: this.link
             }
@@ -115,28 +126,64 @@
         });
       }
     },
+    beforeCreate() {
+      this.$options.components.ProfileRoles = require('sun').ProfileRoles;
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
+    },
     async created() {
       await this.loadData();
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
+  .profile {
+    h3 {
+      margin: 0 0 14px 0;
+      font-size: 2.2rem;
+    }
 
-  .f1 {
-    display: flex;
-    flex-wrap: wrap;
+    .private-messages-block {
+      padding-right: 2px;
+      padding-left: 2px;
+      align-items: center;
+      width: 300px;
+    }
 
-    .img {
-      margin-right: 15px;
+    .container {
+      display: flex;
+
+      .img {
+        margin-right: 20px;
+      }
+    }
+
+    .footer-info {
+      display: flex;
+      font-style: italic;
+      color: $grey-8;
+
+      div {
+        display: flex;
+        align-items: center;
+      }
+
+      .registered {
+        flex-grow: 1;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .f1 {
+        flex-direction: column;
+
+        .img {
+          align-content: center;
+        }
+      }
     }
   }
 
-  @media (max-width: 600px) {
-    .f1 .img {
-      //width: 100%;
-      text-align: center;
-    }
-  }
 </style>

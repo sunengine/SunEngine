@@ -17,6 +17,7 @@ namespace SunEngine.Core.Models
         public string LongToken1 { get; set; }
         public string LongToken2 { get; set; }
         public DateTime ExpirationDate { get; set; }
+        public DateTime UpdateDate { get; set; }
         public string DeviceInfo { get; set; }
     }
 }

@@ -1,28 +1,26 @@
 <template>
-  <q-page class="q-pa-md">
+  <q-page class="create-material q-pa-md">
     <MaterialForm ref="form" :material="material" :categories-nodes="categoryNodes"/>
 
     <div class="q-mt-md">
-      <q-btn icon="fas fa-arrow-circle-right" class="btn-send" no-caps :loading="loading" :label="$tl('sendBtn')"
+      <q-btn icon="fas fa-arrow-circle-right" class="send-btn" no-caps :loading="loading" :label="$tl('sendBtn')"
              @click="send" color="send">
         <LoaderSent slot="loading"/>
       </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="q-ml-sm" @click="$router.back()" :label="$t('Global.btn.cancel')"
+      <q-btn no-caps icon="fas fa-times" class="q-ml-sm cancel-btn" @click="$router.back()" :label="$t('Global.btn.cancel')"
              color="warning"/>
     </div>
   </q-page>
 </template>
 
 <script>
-  import MaterialForm from "./MaterialForm";
-  import {GetWhereToAdd} from "./GetWhereToAddMove";
-  import Page from "Page";
-  import LoaderSent from "LoaderSent";
+  import {getWhereToAdd} from 'sun'
+  import {Page} from 'sun'
+
 
   export default {
-    name: "CreateMaterial",
+    name: 'CreateMaterial',
     mixins: [Page],
-    components: {MaterialForm, LoaderSent},
     props: {
       categoriesNames: {
         type: String,
@@ -31,27 +29,29 @@
       initialCategoryName: {
         type: String,
         required: false,
-        default: ""
+        default: ''
       }
     },
-    data: function () {
+    data() {
       return {
         material: {
           name: null,
-          title: "",
-          text: "",
-          description: null,
+          title: '',
+          text: '',
+          subTitle: null,
+          settingsJson: null,
           tags: [],
-          categoryName: this.initialCategoryName
+          categoryName: this.initialCategoryName,
+          isCommentsBlocked: false,
+          isHidden: false
         },
-        //initialCategory: null,
         loading: false
       }
     },
     computed: {
       categoryNodes() {
-        return GetWhereToAdd(this.$store, this.categoriesNames);
-      },
+        return getWhereToAdd(this.$store, this.categoriesNames);
+      }
     },
     methods: {
       send() {
@@ -71,27 +71,34 @@
 
         if (this.material.name)
           data.name = this.material.name;
-        if (this.material.description)
-          data.description = this.material.description;
+        if (this.material.subTitle)
+          data.subTitle = this.material.subTitle;
+        if (this.material.settingsJson)
+          data.settingsJson = this.material.settingsJson;
 
         this.$store.dispatch('request', {
           url: '/Materials/Create',
           data: data
         }).then(() => {
           this.$successNotify();
-          this.$router.push(this.$refs.form.category.path);
+          this.$router.push(this.$refs.form.category.getRoute());
         }).catch(error => {
           this.$errorNotify(error);
           this.loading = false;
         });
       }
     },
+    beforeCreate() {
+      this.$options.components.MaterialForm = require('sun').MaterialForm;
+      this.$options.components.LoaderSent = require('sun').LoaderSent;
+    },
     created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

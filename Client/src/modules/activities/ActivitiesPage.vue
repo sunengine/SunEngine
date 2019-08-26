@@ -1,30 +1,28 @@
 <template>
-  <q-page>
+  <q-page class="activities-page">
     <h2 class="q-title page-padding">
       {{pageTitle}}
     </h2>
-    <activities-list :materialsCategories="materialsCategories" :messagesCategories="messagesCategories" :activitiesNumber="30"/>
+    <activities-list :materialsCategories="materialsCategories" :commentsCategories="commentsCategories" :activitiesNumber="30"/>
   </q-page>
 </template>
 
 <script>
-  import Page from "Page";
-  import ActivitiesList from "activities/ActivitiesList";
+  import {Page} from 'sun'
 
   export default {
     name: 'ActivitiesPage',
-    components: {ActivitiesList},
     mixins: [Page],
     props: {
       materialsCategories: {
         type: String,
         required: false,
-        default: "root"
+        default: 'root'
       },
-      messagesCategories: {
+      commentsCategories: {
         type: String,
         required: false,
-        default: "root"
+        default: 'root'
       },
       activitiesNumber: {
         type: Number,
@@ -36,15 +34,17 @@
         required: false,
       }
     },
+    beforeCreate() {
+      this.$options.components.ActivitiesList = require('sun').ActivitiesList;
+    },
     created() {
-      this.title  = this.pageTitle ?? this.$tl("defaultTitle");
+      this.title  = this.pageTitle ?? this.$tl('defaultTitle');
     }
   }
 </script>
 
 
-<style lang="stylus" scoped>
-
+<style lang="stylus">
 
 
 </style>

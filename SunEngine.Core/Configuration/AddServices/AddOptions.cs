@@ -11,7 +11,7 @@ namespace SunEngine.Core.Configuration.AddServices
             services.AddOptions();
             services.Configure<GlobalOptions>(configuration.GetSection("Global"));
             services.Configure<EmailSenderOptions>(configuration.GetSection("Email"));
-            services.Configure<JwtOptions>(configuration.GetSection("Jwt"));
+            services.Configure<JweOptions>(configuration.GetSection("Jwt"));
             services.Configure<BlogOptions>(configuration.GetSection("Blog"));
             services.Configure<ArticlesOptions>(configuration.GetSection("Articles"));
             services.Configure<ForumOptions>(configuration.GetSection("Forum"));

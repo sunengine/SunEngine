@@ -13,7 +13,8 @@ namespace SunEngine.Core.Presenters
 {
     public interface IActivitiesPresenter
     {
-        Task<ActivityView[]> GetActivitiesAsync(int[] materialsCategoriesIds, int[] commentsCategoriesIds,
+        Task<ActivityView[]> GetActivitiesAsync(
+            int[] materialsCategoriesIds, int[] commentsCategoriesIds,
             int number);
     }
 
@@ -28,30 +29,32 @@ namespace SunEngine.Core.Presenters
             this.materialsOptions = materialsOptions.Value;
         }
 
-        public async Task<ActivityView[]> GetActivitiesAsync(int[] materialsCategoriesIds,
+        public async Task<ActivityView[]> GetActivitiesAsync(
+            int[] materialsCategoriesIds,
             int[] commentsCategoriesIds, int number)
         {
             var materialsActivities = await db.Materials
-                .Where(x => materialsCategoriesIds.Contains(x.CategoryId))
+                .Where(x => materialsCategoriesIds.Contains(x.CategoryId) && !x.IsHidden && x.DeletedDate == null)
                 .OrderByDescending(x => x.PublishDate)
                 .Take(number)
                 .Select(x => new ActivityView
                 {
                     MaterialId = x.Id,
                     Title = x.Title,
-                    Description = x.Description,
-                    CategoryName = x.Category.NameNormalized,
+                    Description = x.SubTitle,
+                    CategoryName = x.Category.Name,
                     PublishDate = x.PublishDate,
                     AuthorName = x.Author.UserName,
                     AuthorLink = x.Author.Link,
                     AuthorAvatar = x.Author.Avatar
                 }).ToListAsync();
 
-            int descriptionSize = materialsOptions.DescriptionLength;
+            int descriptionSize = materialsOptions.SubTitleLength;
             int descriptionSizeBig = descriptionSize * 2;
 
             var commentsActivities = await db.Comments
-                .Where(x => commentsCategoriesIds.Contains(x.Material.CategoryId))
+                .Where(x => commentsCategoriesIds.Contains(x.Material.CategoryId) && x.DeletedDate == null &&
+                            !x.Material.IsHidden && x.Material.DeletedDate == null)
                 .OrderByDescending(x => x.PublishDate)
                 .Take(number)
                 .Select(x => new ActivityView
@@ -59,17 +62,19 @@ namespace SunEngine.Core.Presenters
                     MaterialId = x.MaterialId,
                     CommentId = x.Id,
                     Title = x.Material.Title,
-                    Description = x.Text.Substring(0, descriptionSizeBig),
-                    CategoryName = x.Material.Category.NameNormalized,
+                    Description = x.Text.Substring(0, Math.Min(x.Text.Length, descriptionSizeBig)),
+                    CategoryName = x.Material.Category.Name,
                     PublishDate = x.PublishDate,
                     AuthorName = x.Author.UserName,
                     AuthorLink = x.Author.Link,
                     AuthorAvatar = x.Author.Avatar
                 }).ToListAsync();
 
-            commentsActivities.ForEach(x =>
-                x.Description = SimpleHtmlToText.ClearTagsAndBreaks(x.Description)
-                    .Substring(0, Math.Min(x.Description.Length, descriptionSize)));
+            foreach (var comment in commentsActivities)
+            {
+                comment.Description = SimpleHtmlToText.ClearTagsAndBreaks(comment.Description);
+                comment.Description = comment.Description?.Substring(0, Math.Min(comment.Description.Length, descriptionSize));
+            }
 
             List<ActivityView> allActivities = new List<ActivityView>();
             allActivities.AddRange(materialsActivities);

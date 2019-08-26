@@ -4,14 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Core.Cache.Services;
+using SunEngine.Core.Cache.Services.Counters;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
 using SunEngine.Core.Filters;
 using SunEngine.Core.Managers;
+using SunEngine.Core.Models;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Presenters;
 using SunEngine.Core.Security;
-using SunEngine.Core.Services;
 
 namespace SunEngine.Core.Controllers
 {
@@ -25,61 +26,53 @@ namespace SunEngine.Core.Controllers
         protected readonly ICategoriesCache categoriesCache;
         protected readonly IMaterialsManager materialsManager;
         protected readonly IMaterialsPresenter materialsPresenter;
-
+        protected readonly IMaterialsVisitsCounterCache materialsVisitsCounterCache;
+        
         public MaterialsController(
             MaterialsAuthorization materialsAuthorization,
             ICategoriesCache categoriesCache,
             IMaterialsManager materialsManager,
             IMaterialsPresenter materialsPresenter,
+            IMaterialsVisitsCounterCache materialsVisitsCounterCache,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.materialsAuthorization = materialsAuthorization;
             this.categoriesCache = categoriesCache;
             this.materialsManager = materialsManager;
             this.materialsPresenter = materialsPresenter;
+            this.materialsVisitsCounterCache = materialsVisitsCounterCache;
         }
 
+        [HttpPost]
         public virtual async Task<IActionResult> Get(string idOrName)
         {
-            return int.TryParse(idOrName, out int id)
-                ? await GetById(id)
-                : await GetByName(idOrName);
+            if (int.TryParse(idOrName, out int id))
+                return Get(await materialsPresenter.GetAsync(id));
+            else
+                return Get(await materialsPresenter.GetAsync(idOrName));
         }
 
-        public virtual async Task<IActionResult> GetById(int id)
+        [NonAction]
+        protected virtual IActionResult Get(MaterialView materialView)
         {
-            int? categoryId = await materialsManager.GetMaterialCategoryIdAsync(id);
-            if (categoryId == null)
+            if (materialView == null)
                 return BadRequest();
 
-            var category = categoriesCache.GetCategory(categoryId.Value);
+            var category = categoriesCache.GetCategory(materialView.CategoryName);
 
             if (!materialsAuthorization.CanGet(User.Roles, category))
                 return Unauthorized();
 
-
-            var materialViewModel = await materialsPresenter.GetViewModelAsync(id);
-
-            return Json(materialViewModel);
-        }
-
-        public virtual async Task<IActionResult> GetByName(string name)
-        {
-            int? categoryId = await materialsManager.GetMaterialCategoryIdAsync(name);
-            if (categoryId == null)
-                return BadRequest();
-
-            var category = categoriesCache.GetCategory(categoryId.Value);
-
-            if (!materialsAuthorization.CanGet(User.Roles, category))
+            if (materialView.IsHidden && !materialsAuthorization.CanHide(User.Roles, category))
                 return Unauthorized();
 
+            if (materialView.DeletedDate != null && !materialsAuthorization.CanRestoreAsync(User, category.Id))
+                return Unauthorized();
 
-            var materialViewModel = await materialsPresenter.GetViewModelAsync(name);
-
-            return Json(materialViewModel);
+            materialView.VisitsCount += materialsVisitsCounterCache.CountMaterial(UserOrIpKey, materialView.Id);
+            
+            return Json(materialView);
         }
-
 
         [HttpPost]
         [UserSpamProtectionFilter(TimeoutSeconds = 60)]
@@ -94,7 +87,7 @@ namespace SunEngine.Core.Controllers
 
             var now = DateTime.UtcNow;
 
-            Material material = new Material
+            var material = new Material
             {
                 Title = materialData.Title,
                 Text = materialData.text,
@@ -104,17 +97,24 @@ namespace SunEngine.Core.Controllers
                 AuthorId = User.UserId
             };
 
-            var result = await SetNameAsync(material, materialData.Name);
-            if (result.Failed)
-                return BadRequest(result.Error);
+            await SetNameAsync(material, materialData.Name);
 
-            bool isDescriptionEditable = category.IsDescriptionEditable();
-            if (isDescriptionEditable)
-                material.Description = materialData.Description;
+            if (category.MaterialsSubTitleInputType == MaterialsSubTitleInputType.Manual)
+                material.SubTitle = materialData.SubTitle;
+
+            if (materialData.IsHidden && materialsAuthorization.CanHide(User.Roles, category))
+                material.IsHidden = true;
+
+            if (materialData.IsHidden && materialsAuthorization.CanBlockComments(User.Roles, category))
+                material.IsCommentsBlocked = true;
+            
+            if (materialsAuthorization.CanEditSettingsJson(User.Roles, category))
+                material.SettingsJson = materialData.SettingsJson;
 
             contentCache.InvalidateCache(category.Id);
 
-            await materialsManager.CreateAsync(material, materialData.Tags, isDescriptionEditable);
+            await materialsManager.CreateAsync(material, materialData.Tags, category);
+
             return Ok();
         }
 
@@ -142,28 +142,34 @@ namespace SunEngine.Core.Controllers
             material.Title = materialData.Title;
             material.Text = materialData.text;
             material.EditDate = DateTime.UtcNow;
+            
+            await SetNameAsync(material, materialData.Name);
 
-            var result = await SetNameAsync(material, materialData.Name);
-            if (result.Failed)
-                return BadRequest(result.Error);
+            material.SubTitle = newCategory.MaterialsSubTitleInputType == MaterialsSubTitleInputType.Manual
+                ? materialData.SubTitle
+                : null;
 
-            bool isDescriptionEditable = newCategory.IsDescriptionEditable();
-            material.Description = isDescriptionEditable ? materialData.Description : null;
+            if (material.IsHidden != materialData.IsHidden && materialsAuthorization.CanHide(User.Roles, newCategory))
+                material.IsHidden = materialData.IsHidden;
 
-            // Если категория новая, то обновляем
+            if (material.IsCommentsBlocked != materialData.IsCommentsBlocked &&
+                materialsAuthorization.CanBlockComments(User.Roles, newCategory))
+                material.IsCommentsBlocked = materialData.IsCommentsBlocked;
+
             if (material.CategoryId != newCategory.Id
-                && materialsAuthorization.CanMove(User,
-                    categoriesCache.GetCategory(material.CategoryId),
-                    newCategory))
-            {
+                && materialsAuthorization.CanMove(User, categoriesCache.GetCategory(material.CategoryId), newCategory))
                 material.CategoryId = newCategory.Id;
-            }
 
-            await materialsManager.UpdateAsync(material, materialData.Tags, isDescriptionEditable);
+            material.SettingsJson = materialsAuthorization.CanEditSettingsJson(User.Roles, newCategory) 
+                ? materialData.SettingsJson
+                : null;
+            
+            await materialsManager.UpdateAsync(material, materialData.Tags, newCategory);
             return Ok();
         }
 
-        protected async Task<ServiceResult> SetNameAsync(Material material, string name)
+        [NonAction]
+        protected async Task SetNameAsync(Material material, string name)
         {
             if (User.IsInRole(RoleNames.Admin))
             {
@@ -174,17 +180,16 @@ namespace SunEngine.Core.Controllers
                 else
                 {
                     if (!materialsManager.IsNameValid(name))
-                        return ServiceResult.BadResult(new ErrorView("MaterialNameNotValid", "Invalid material name", ErrorType.System));
+                        throw new SunViewException(new ErrorView("MaterialNameNotValid", "Invalid material name",
+                            ErrorType.System));
 
-                    if (name != material.Name && await materialsManager.IsNameInDb(name))
-                        return ServiceResult.BadResult(ErrorView.SoftError("MaterialNameAlreadyUsed",
+                    if (name != material.Name && await materialsManager.IsNameInDbAsync(name))
+                        throw new SunViewException(ErrorView.SoftError("MaterialNameAlreadyUsed",
                             "This material name is already used"));
 
                     material.Name = name;
                 }
             }
-
-            return ServiceResult.OkResult();
         }
 
         [HttpPost]
@@ -194,12 +199,29 @@ namespace SunEngine.Core.Controllers
             if (material == null)
                 return BadRequest();
 
-            if (!await materialsAuthorization.CanMoveToTrashAsync(User, material))
+            if (!await materialsAuthorization.CanDeleteAsync(User, material))
                 return Unauthorized();
 
             contentCache.InvalidateCache(material.CategoryId);
 
-            await materialsManager.MoveToTrashAsync(material);
+            await materialsManager.DeleteAsync(material);
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Restore(int id)
+        {
+            Material material = await materialsManager.GetAsync(id);
+            if (material == null)
+                return BadRequest();
+
+            if (!materialsAuthorization.CanRestoreAsync(User, material.CategoryId))
+                return Unauthorized();
+
+            await materialsManager.RestoreAsync(material);
+
+            contentCache.InvalidateCache(material.CategoryId);
+
             return Ok();
         }
 
@@ -207,18 +229,18 @@ namespace SunEngine.Core.Controllers
         /// Move material up in sort order inside category
         /// </summary>
         [HttpPost]
-        public virtual async Task<IActionResult> MaterialUp(int id)
+        public virtual async Task<IActionResult> Up(int id)
         {
-            int? categoryId = await materialsManager.GetMaterialCategoryIdAsync(id);
+            int? categoryId = await materialsManager.GetCategoryIdAsync(id);
             if (!categoryId.HasValue)
                 return BadRequest();
 
             if (materialsAuthorization.CanChangeOrder(User.Roles, categoryId.Value))
                 return Unauthorized();
-            
-            var result = await materialsManager.MaterialUpAsync(id);
-            if (result.Failed)
-                return BadRequest();
+
+            await materialsManager.UpAsync(id);
+
+            contentCache.InvalidateCache(categoryId.Value);
 
             return Ok();
         }
@@ -227,36 +249,21 @@ namespace SunEngine.Core.Controllers
         /// Move material down in sort order inside category
         /// </summary>
         [HttpPost]
-        public virtual async Task<IActionResult> MaterialDown(int id)
+        public virtual async Task<IActionResult> Down(int id)
         {
-            int? categoryId = await materialsManager.GetMaterialCategoryIdAsync(id);
+            int? categoryId = await materialsManager.GetCategoryIdAsync(id);
             if (!categoryId.HasValue)
                 return BadRequest();
 
             if (materialsAuthorization.CanChangeOrder(User.Roles, categoryId.Value))
                 return Unauthorized();
 
-            var result = await materialsManager.MaterialDownAsync(id);
-            if (result.Failed)
-                return BadRequest();
+            await materialsManager.DownAsync(id);
+
+            contentCache.InvalidateCache(categoryId.Value);
 
             return Ok();
         }
-
-        /*[HttpPost]
-        public async Task<IActionResult> Restore(int id)
-        {
-            Material material = await _materialsRepository.FindAsync(id);
-            if (material == null)
-                return BadRequest();
-
-            if (!_materialsAuthorization.CanDelete(User, material))
-                return Unauthorized();
-
-            await _materialsRepository.RestoreFromTrashAsync(material);
-
-            return Ok();
-        }*/
     }
 
     public class MaterialRequestModel
@@ -271,12 +278,17 @@ namespace SunEngine.Core.Controllers
         public string Title { get; set; }
 
         [MaxLength(DbColumnSizes.Materials_Description)]
-        public string Description { get; set; }
+        public string SubTitle { get; set; }
 
         [Required] public string text { get; set; }
 
         public string Tags { get; set; } = "";
         public DateTime? PublishDate { get; set; } = null;
         public int? AuthorId { get; set; } = null;
+
+        public bool IsHidden { get; set; }
+        public bool IsCommentsBlocked { get; set; }
+        
+        public string SettingsJson { get; set; }
     }
 }

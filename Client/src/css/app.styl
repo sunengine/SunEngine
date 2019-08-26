@@ -1,45 +1,8 @@
 // app global css
-@import '~quasar-variables'
-@import '/statics/fonts/BoomBoomRegular.css';
 
 
-// ——— Colors ————————————————————————————————————
+// ——— Input ————————————————————————————————————
 
-
-$link-color = #3a67d3;
-
-
-.bg-send {
-  background-color: #5ee22f !important;
-}
-
-.text-send {
-  color: #5ee22f !important;
-}
-
-.bg-post {
-  background-color: #5ee22f !important;
-}
-
-.text-post {
-  color: #5ee22f !important;
-}
-
-.bg-pagination {
-  background-color: #66f532 !important;
-}
-
-.text-pagination {
-  color: #26a69a !important;
-}
-
-.text-hot {
-  color: #ff7700;
-}
-
-.bg-hot {
-  background-color: #ff7700;
-}
 
 $q-field-color = #00c63b;
 
@@ -51,22 +14,6 @@ $q-field-color = #00c63b;
   .q-field__control {
     color: $q-field-color !important;
   }
-}
-
-
-// ——— Main ————————————————————————————————————
-
-
-html {
-  //font-size: 20px;
-  color: #06000d;
-  font-family: 'Open Sans', sans-serif;
-}
-
-
-a {
-  text-decoration: none;
-  color: $link-color
 }
 
 
@@ -135,25 +82,6 @@ a {
 }
 
 
-// ——— QItems ————————————————————————————————————
-
-.q-item {
-  .my-header {
-    //color: $link-color;
-    //font-weight: 500;
-    //font-size: 1.1em;
-  }
-}
-
-.q-router-link--active {
-  background-color: #e2f8e8;
-}
-
-/*.q-avatar {
-  @extend $shadow-2;
-}*/
-
-
 // ——— Page paddings ————————————————————————————————————
 
 
@@ -204,18 +132,6 @@ page-paddings-block(size) {
 // ——— Elements ————————————————————————————————————
 
 
-.menu-panel-title {
-  text-align: center;
-  margin: 0;
-  padding: 7px 0 4px 0;
-  text-transform: uppercase;
-  font-size: 0.9rem !important;
-  font-weight: bolder;
-  background-color: #f3ffdd;
-  border-bottom: 1px solid #cacaca;
-  color: $grey-8;
-}
-
 .center-form {
   width: 400px;
   display flex;
@@ -237,13 +153,6 @@ page-paddings-block(size) {
   color: $negative;
 }
 
-.q-editor__toolbar {
-  .q-btn {
-    font-size: 0.85em !important;
-    margin: 3px !important;
-  }
-}
-
 .info-block {
   display: flex;
 
@@ -254,21 +163,47 @@ page-paddings-block(size) {
     align-items: center;
 
     .q-icon {
-      margin-right: 5px;
+      margin-right: 6px;
+
+      &:before {
+        padding-top: 2px !important;
+      }
+    }
+
+  }
+}
+
+.date-info-block {
+  color: $grey-7;
+
+  .q-icon {
+    margin-right: 6px;
+
+    &:before {
+      padding-bottom: 2px !important;
+    }
+  }
+}
+
+.edit-btn-block {
+  .q-icon {
+    margin-right: 6px;
+
+    &:before {
+      padding-bottom: 2px !important;
     }
   }
 }
 
 .error {
-  color: var(--q-color-negative);
+  color: $negative;
   font-size: 12px;
   margin-top: 4px;
 }
 
-.text-img {
-  max-width: 100%;
+.q-notification__message {
+  white-space: pre-wrap;
 }
-
 
 // ——— Extras ————————————————————————————————————
 
@@ -288,10 +223,60 @@ page-paddings-block(size) {
 }
 
 
+// ——— Fixes ————————————————————————————————————
+
+
+.q-expansion-item--standard.q-expansion-item--expanded .q-expansion-item__border {
+  opacity: 1 !important;
+}
+
+
 // ——— Material styles ————————————————————————————————————
 
-.material, .post-preview {
-  h3, h4, h5, h6 {
-    margin: 8px 0 !important;
+
+.mat-hidden {
+  .my-header, .my-header * {
+    color: dimgrey !important;
+  }
+
+  * {
+    color: silver !important;
+  }
+
+  .q-avatar {
+    filter: grayscale(1)
   }
 }
+
+.mat-deleted {
+  * {
+    color: silver !important;
+  }
+
+  .my-header, .my-header * {
+    color: maroon !important;
+  }
+
+  .q-avatar {
+    filter: grayscale(1)
+  }
+}
+
+
+// ——— Material styles ————————————————————————————————————
+
+
+.material-text, .post-text, .comment-text {
+  img {
+    max-width: 100%;
+  }
+}
+
+
+// ——— Site styles ————————————————————————————————————
+
+@import '~src/site/styles';
+
+
+
+

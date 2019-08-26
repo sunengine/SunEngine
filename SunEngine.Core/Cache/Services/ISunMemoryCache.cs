@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-
 namespace SunEngine.Core.Cache.Services
 {   
     public interface ISunMemoryCache
@@ -8,11 +6,6 @@ namespace SunEngine.Core.Cache.Services
         /// Initialize (get) cache from database
         /// </summary>
         void Initialize();
-        
-        /// <summary>
-        /// Initialize (get) cache from database, async verison
-        /// </summary>
-        Task InitializeAsync();
         
         /// <summary>
         /// Reset to null all cache items and collections, to re obtain them on the next request

@@ -22,7 +22,7 @@ namespace SunEngine.Core.Security
 
         public MaterialsAuthorization(
             IAuthorizationService authorizationService,
-            IOptions<MaterialsOptions> materialsOptions, 
+            IOptions<MaterialsOptions> materialsOptions,
             OperationKeysContainer operationKeysContainer,
             DataBaseConnection db)
         {
@@ -33,10 +33,33 @@ namespace SunEngine.Core.Security
             OperationKeys = operationKeysContainer;
         }
 
-        public bool CanCreate(IReadOnlyDictionary<string, RoleCached> userGroups,
+        public bool CanHide(
+            IReadOnlyDictionary<string, RoleCached> userGroups,
             CategoryCached category)
         {
-            return category.IsMaterialsContainer && authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialWrite);
+            return authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialHide);
+        }
+
+        public bool CanBlockComments(
+            IReadOnlyDictionary<string, RoleCached> userGroups,
+            CategoryCached category)
+        {
+            return authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialBlockCommentsAny);
+        }
+
+        public bool CanEditSettingsJson(
+            IReadOnlyDictionary<string, RoleCached> userGroups,
+            CategoryCached category)
+        {
+            return authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialEditSettingsJson);
+        }
+
+        public bool CanCreate(
+            IReadOnlyDictionary<string, RoleCached> userGroups,
+            CategoryCached category)
+        {
+            return category.IsMaterialsContainer &&
+                   authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialWrite);
         }
 
         public bool CanGet(IReadOnlyDictionary<string, RoleCached> roles, CategoryCached category)
@@ -51,19 +74,19 @@ namespace SunEngine.Core.Security
 
         private bool EditOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
-            return DateTime.Now - publishDate <
+            return DateTime.UtcNow - publishDate <
                    new TimeSpan(0, 0, materialsOptions.TimeToOwnEditInMinutes, 0, 0);
         }
 
         private bool DeleteOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
-            return DateTime.Now - publishDate <
+            return DateTime.UtcNow - publishDate <
                    new TimeSpan(0, 0, materialsOptions.TimeToOwnDeleteInMinutes, 0, 0);
         }
 
         private bool MoveOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
-            return DateTime.Now - publishDate <
+            return DateTime.UtcNow - publishDate <
                    new TimeSpan(0, 0, materialsOptions.TimeToOwnDeleteInMinutes, 0, 0);
         }
 
@@ -105,7 +128,7 @@ namespace SunEngine.Core.Security
             return operationKeys.Contains(OperationKeys.MaterialEditOwn);
         }
 
-        public async Task<bool> CanMoveToTrashAsync(SunClaimsPrincipal user, Material material)
+        public async Task<bool> CanDeleteAsync(SunClaimsPrincipal user, Material material)
         {
             var operationKeys =
                 authorizationService.HasAccess(user.Roles, material.CategoryId, new[]
@@ -136,6 +159,14 @@ namespace SunEngine.Core.Security
 
             // Если MaterialEditOwn то разрешаем
             return operationKeys.Contains(OperationKeys.MaterialDeleteOwn);
+        }
+
+        /// <summary>
+        /// Only moderator with OperationKeys.MaterialDeleteAny can restore deleted Materials
+        /// </summary>
+        public bool CanRestoreAsync(SunClaimsPrincipal user, int categoryId)
+        {
+            return authorizationService.HasAccess(user.Roles, categoryId, OperationKeys.MaterialDeleteAny);
         }
 
         // В случае уже имеющегося разрешения на редактирование

@@ -1,4 +1,4 @@
-import buildPath from "services/buildPath"
+import {buildPath} from 'sun'
 
 export default async ({ Vue }) => {
   Vue.prototype.$buildPath = buildPath;

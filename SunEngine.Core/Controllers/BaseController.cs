@@ -35,15 +35,14 @@ namespace SunEngine.Core.Controllers
             keyGenerator = serviceProvider.GetRequiredService<CacheKeyGenerator>();
         }
 
-        protected string ControllerName
-        {
-            get => ControllerContext.ActionDescriptor.ControllerName;
-        }
+        protected string ControllerName => ControllerContext.ActionDescriptor.ControllerName;
 
-        protected string ActionName
-        {
-            get => ControllerContext.ActionDescriptor.ActionName;
-        }
+        protected string ActionName => ControllerContext.ActionDescriptor.ActionName;
+
+        protected string UserOrIpKey =>
+            User != null
+                ? "u"+User.UserId
+                : Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
         private SunClaimsPrincipal _user;
 
@@ -82,33 +81,37 @@ namespace SunEngine.Core.Controllers
         }
 
         public async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, IEnumerable<int> categoryIds,
-            Func<Task<T>> dataLoader, int page = 0)
+            Func<Task<T>> dataLoader, int? page = null)
         {
             var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryIds);
-            return await CacheContentAsync(category, key, dataLoader);
+            return await CacheContentAsync(category, key, dataLoader, page);
         }
 
-        public async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, int categoryId,
-            Func<Task<T>> dataLoader, int page = 0)
+        public async Task<IActionResult> CacheContentAsync<T>(
+            CategoryCached category, 
+            int categoryId,
+            Func<Task<T>> dataLoader, 
+            int? page = null)
         {
             var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryId);
-            return await CacheContentAsync(category, key, dataLoader);
+            return await CacheContentAsync(category, key, dataLoader, page);
         }
 
-        protected async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, string key,
-            Func<Task<T>> dataLoader)
+        protected async Task<IActionResult> CacheContentAsync<T>(
+            CategoryCached category, 
+            string key,
+            Func<Task<T>> dataLoader,
+            int? page)
         {
-            if (!cachePolicy.CanCache(category))
+            if (!cachePolicy.CanCache(category, page))
                 return Json(await dataLoader());
 
             string json;
             if (!string.IsNullOrEmpty(json = contentCache.GetContent(key)))
-            {
                 return JsonString(json);
-            }
 
             var content = await dataLoader();
-            json = WebJson.Serialize(content);
+            json = SunJson.Serialize(content);
             contentCache.CacheContent(key, json);
             return JsonString(json);
         }

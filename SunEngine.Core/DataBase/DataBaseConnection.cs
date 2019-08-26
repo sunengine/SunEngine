@@ -7,6 +7,8 @@ using LinqToDB.Mapping;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Authorization;
 using SunEngine.Core.Models.Materials;
+using SunEngine.Core.Utils;
+
 
 namespace SunEngine.Core.DataBase
 {
@@ -21,7 +23,8 @@ namespace SunEngine.Core.DataBase
             AddMappingSchema(mappingSchema);
         }
 
-        public DataBaseConnection(IDataProvider dataProvider, string connectionString,
+        public DataBaseConnection(
+            IDataProvider dataProvider, string connectionString,
             MappingSchema mappingSchema) : base(
             dataProvider, connectionString)
         {
@@ -42,28 +45,26 @@ namespace SunEngine.Core.DataBase
 
         public ITable<Material> Materials => GetTable<Material>();
 
-        public IQueryable<Material> MaterialsNotDeleted =>
-            GetTable<Material>().Where(x => !x.IsDeleted && !x.Category.IsDeleted);
+        public IQueryable<Material> MaterialsVisible =>
+            GetTable<Material>()
+                .Where(x => x.DeletedDate == null && !x.IsHidden && !x.Category.IsHidden && x.Category.DeletedDate == null);
 
         public ITable<Comment> Comments => GetTable<Comment>();
-
-        public IQueryable<Comment> CommentsNotDeleted =>
-            GetTable<Comment>().Where(x => !x.IsDeleted && !x.Material.Category.IsDeleted);
 
         public ITable<Tag> Tags => GetTable<Tag>();
         public ITable<TagSynonymGroup> TagSynonyms => GetTable<TagSynonymGroup>();
         public ITable<TagMaterial> TagMaterials => GetTable<TagMaterial>();
 
-        public ITable<SectionType> SectionTypes => GetTable<SectionType>();
         public ITable<Category> Categories => GetTable<Category>();
 
         public ITable<OperationKey> OperationKeys => GetTable<OperationKey>();
         public ITable<CategoryAccess> CategoryAccess => GetTable<CategoryAccess>();
         public ITable<CategoryOperationAccess> CategoryOperationAccess => GetTable<CategoryOperationAccess>();
-        public ITable<User> Users => GetTable<User>();
-        public ITable<Role> Roles => GetTable<Role>();
+        
+        public new ITable<User> Users => GetTable<User>();
+        public new ITable<Role> Roles => GetTable<Role>();
 
-        public ITable<UserRole> UserRoles => GetTable<UserRole>();
+        public new ITable<UserRole> UserRoles => GetTable<UserRole>();
 
         public ITable<UserBanedUnit> UserBanedUnits => GetTable<UserBanedUnit>();
 
@@ -73,7 +74,11 @@ namespace SunEngine.Core.DataBase
 
         public ITable<CacheSettings> CacheSettings => GetTable<CacheSettings>();
 
+        public ITable<MenuItem> MenuItems => GetTable<MenuItem>();
 
+        public ITable<CipherSecret> CipherSecrets => GetTable<CipherSecret>();
+
+        
         public void UpdateSequence(string tableName, string keyName)
         {
             if (IsPostgres())

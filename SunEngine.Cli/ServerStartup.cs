@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -14,17 +13,10 @@ namespace SunEngine.Cli
                 
             IHostingEnvironment env = (IHostingEnvironment) webHost.Services.GetService(typeof(IHostingEnvironment));
             IConfiguration conf = (IConfiguration) webHost.Services.GetService(typeof(IConfiguration));
-
-            // TODO refactor this behaviour. Startup commands should not behave differently based on environment. 
-            if (startupConfiguration.StartServer || env.IsDevelopment())
-            {
-                Startup.SetExceptionsMode(env, conf);
-                webHost.Run();
-            }
-            else
-            {
-                Console.WriteLine("Startup arguments wasn't provided. To list available commands use 'help' argument.");
-            }
+         
+            InfoPrinter.PrintVersion();
+            Startup.SetExceptionsMode(env, conf);
+            webHost.Run();
         }
 
         private IWebHostBuilder CreateWebHostBuilder(StartupConfiguration startupConfiguration) =>
@@ -33,13 +25,16 @@ namespace SunEngine.Cli
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
-                    string dbSettingFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigurationDirectoryRoute, "DataBaseConnection.json"));
-                    string mainSettingsFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigurationDirectoryRoute, "SunEngine.json"));
-                    string logSettingsFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigurationDirectoryRoute, "LogConfig.json"));
-
+                    string dbSettingFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir, "DataBaseConnection.json"));
+                    string mainSettingsFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir, "SunEngine.json"));
+                    string logSettingsFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir, "LogConfig.json"));
+                    string sanitizerOptionsFile =
+                        Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir, "Sanitizer.json"));
+                    
                     config.AddJsonFile(logSettingsFile, false, false);
                     config.AddJsonFile(dbSettingFile, false, false);
                     config.AddJsonFile(mainSettingsFile, false, false);
+                    config.AddJsonFile(sanitizerOptionsFile, false, false);
                     config.AddCommandLine(startupConfiguration.Arguments);
                 });
     }

@@ -11,20 +11,20 @@ namespace SunEngine.Admin.Controllers
     public class UserRolesAdminController : BaseAdminController
     {
         private readonly IUserRolesAdminPresenter userRolesAdminPresenter;
-        private readonly JwtBlackListService jwtBlackListService;
+        private readonly JweBlackListService jweBlackListService;
 
         public UserRolesAdminController(
             IUserRolesAdminPresenter userRolesAdminPresenter,
-            JwtBlackListService jwtBlackListService,
+            JweBlackListService jweBlackListService,
             IRolesCache rolesCache,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.userRolesAdminPresenter = userRolesAdminPresenter;
-            this.jwtBlackListService = jwtBlackListService;
+            this.jweBlackListService = jweBlackListService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetAllUserRoles()
+        public async Task<IActionResult> GetAllRoles()
         {
             var groups = await userRolesAdminPresenter.GetAllRolesAsync();
             return Ok(groups);
@@ -49,9 +49,10 @@ namespace SunEngine.Admin.Controllers
         {
             var user = await userManager.FindByIdAsync(userId);
             var rez = await userManager.AddToRoleAsync(user, roleName);
-            if (!rez.Succeeded) return BadRequest();
+            if (!rez.Succeeded) 
+                return BadRequest();
 
-            await jwtBlackListService.AddUserTokensAsync(userId);
+            await jweBlackListService.AddAllUserTokensToBlackListAsync(userId);
             return Ok();
         }
 
@@ -62,7 +63,7 @@ namespace SunEngine.Admin.Controllers
             var rez = await userManager.RemoveFromRoleAsync(user, roleName);
             if (!rez.Succeeded) return BadRequest();
 
-            await jwtBlackListService.AddUserTokensAsync(userId);
+            await jweBlackListService.AddAllUserTokensToBlackListAsync(userId);
             return Ok();
         }
     }

@@ -16,6 +16,7 @@ namespace SunEngine.Core.Configuration.AddServices
             services.AddScoped<IProfilePresenter, ProfilePresenter>();
             services.AddScoped<ICategoriesPresenter, CategoriesPresenter>();
             services.AddScoped<IActivitiesPresenter, ActivitiesPresenter>();
+            services.AddScoped<ISearchPresenter, SearchPresenter>();
         }
     }
 }

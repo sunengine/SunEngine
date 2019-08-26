@@ -1,0 +1,77 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://sunengine.site/UserGroups.schema.json/UserGroup",
+  "type": "object",
+  "title": "User Groups Schema",
+  "additionalProperties": false,
+  "patternProperties": {
+    "^.{3,}$": {
+      "$id": "#/items",
+      "type": "object",
+      "title": "The User Group",
+      "additionalProperties": false,
+      "required": [
+        "Title"
+      ],
+      "properties": {
+        "Title": {
+          "$id": "#/items/properties/Title",
+          "type": "string",
+          "title": "Title of the group",
+          "examples": [
+            "Moderator"
+          ],
+          "pattern": "^([a-zA-Zа-яА-ЯёЁ0-9 -]{3,})$"
+        },
+        "IsSuper": {
+          "$id": "#/items/properties/IsSuper",
+          "type": "boolean",
+          "title": "Is Super Group",
+          "examples": [
+            true
+          ]
+        },
+        "Categories": {
+          "$id": "#/items/properties/Categories",
+          "type": "array",
+          "title": "Categories rights of the group",
+          "default": null,
+          "items": {
+            "$id": "#/items/properties/Categories/items",
+            "type": "object",
+            "title": "The Items Schema",
+            "required": [
+              "Category",
+              "OperationKeys"
+            ],
+            "properties": {
+              "Category": {
+                "$id": "#/items/properties/Categories/items/properties/Category",
+                "type": "string",
+                "title": "Category name",
+                "examples": [
+                  "Forum"
+                ],
+                "pattern": "^([a-zA-Z0-9-]{3,})$"
+              },
+              "OperationKeys": {
+                "$id": "#/items/properties/Categories/items/properties/OperationKeys",
+                "type": "object",
+                "title": "Operationkeys",
+                "patternProperties": {
+                  "MaterialAndCommentsRead|MaterialWrite|MaterialEditOwn|MaterialEditOwnIfTimeNotExceeded|MaterialEditOwnIfHasReplies|MaterialDeleteOwn|MaterialDeleteOwnIfTimeNotExceeded|MaterialDeleteOwnIfHasReplies|CommentWrite|CommentEditOwn|CommentEditOwnIfTimeNotExceeded|CommentEditOwnIfHasReplies|CommentDeleteOwn|CommentDeleteOwnIfTimeNotExceeded|CommentDeleteOwnIfHasReplies|MaterialEditSettingsJson|MaterialEditAny|MaterialDeleteAny|MaterialChangeOrder|MaterialHide|MaterialBlockCommentsAny|CommentEditAny|CommentDeleteAny": {
+                    "$id": "#/items/properties/Categories/items/properties/OperationKeys/properties/OperationKey",
+                    "type": "boolean",
+                    "title": "Operation Key",
+                    "default": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

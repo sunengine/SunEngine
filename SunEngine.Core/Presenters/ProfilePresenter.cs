@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
@@ -15,13 +16,16 @@ namespace SunEngine.Core.Presenters
 
     public class ProfilePresenter : DbService, IProfilePresenter
     {
-        protected readonly IRolesCache RolesCache;
-        
-        public ProfilePresenter(DataBaseConnection db, IRolesCache rolesCache) : base(db)
+        protected readonly IRolesCache rolesCache;
+
+        public ProfilePresenter(
+            DataBaseConnection db,
+            IRolesCache rolesCache) : base(db)
         {
-            this.RolesCache = rolesCache;
+            this.rolesCache = rolesCache;
         }
-        
+
+
         public virtual async Task<ProfileView> GetProfileAsync(string link, int? viewerUserId)
         {
             IQueryable<User> query;
@@ -30,11 +34,12 @@ namespace SunEngine.Core.Presenters
             else
                 query = db.Users.Where(x => x.Link == link);
 
+
             if (viewerUserId.HasValue)
             {
-                int adminGroupId = RolesCache.AllRoles["Admin"].Id;
+                int adminGroupId = rolesCache.AdminRole.Id;
 
-                var user = await query.Select(x =>
+                ProfileView user = await query.Select(x =>
                     new ProfileView
                     {
                         Id = x.Id,
@@ -42,8 +47,10 @@ namespace SunEngine.Core.Presenters
                         Information = x.Information,
                         Link = x.Link,
                         Photo = x.Photo,
+                        RegisteredDate = x.RegisteredDate,
+                        ProfileVisitsCount = x.ProfileVisitsCount,
                         NoBannable = x.Roles.Any(y => y.RoleId == adminGroupId),
-                        HeBannedMe = x.BanList.Any(y => y.UserBanedId == viewerUserId.Value),
+                        HeBannedMe = x.BanList.Any(y => y.UserBanedId == viewerUserId.Value)
                     }).FirstOrDefaultAsync();
 
                 user.IBannedHim = await db.Users.Where(y => y.Id == viewerUserId.Value)
@@ -60,20 +67,15 @@ namespace SunEngine.Core.Presenters
                     Information = x.Information,
                     Link = x.Link,
                     Photo = x.Photo,
+                    RegisteredDate = x.RegisteredDate,
+                    ProfileVisitsCount = x.ProfileVisitsCount,
                     NoBannable = true,
                     HeBannedMe = false,
                     IBannedHim = false
                 }).FirstOrDefaultAsync();
         }
     }
-    
-    public class UserInfoView
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Link { get; set; }
-        public string Avatar { get; set; }
-    }
+
 
     public class ProfileView
     {
@@ -84,10 +86,12 @@ namespace SunEngine.Core.Presenters
 
         public string Photo { get; set; }
 
+        public int ProfileVisitsCount { get; set; }
+
+        public DateTime RegisteredDate { get; set; }
+
         public bool NoBannable { get; set; }
         public bool HeBannedMe { get; set; }
         public bool IBannedHim { get; set; }
-
-        //public string Avatar { get; set; }
     }
 }

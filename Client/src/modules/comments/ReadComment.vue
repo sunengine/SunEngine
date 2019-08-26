@@ -1,35 +1,39 @@
-cd <template>
-  <div>
+<template>
+  <div class="read-comment">
     <img class="avatar msg-avatar" :src="$imagePath(comment.authorAvatar)"/>
 
     <div class="q-my-md">
-      <div class="q-mb-xs" style="display: flex;">
-        <span  style="flex-grow:1">
-           <router-link :to="'/user/'+comment.authorLink">
+      <div class="q-mb-xs flex">
+        <span style="flex-grow:1">
+           <router-link :to="{name: 'User', params: {link: comment.authorLink}}">
              {{comment.authorName}}
            </router-link>
         </span> &nbsp;
-        <span v-if="canEdit" class=" q-mr-md">
+        <span v-if="canEdit" class="edit-btn-block q-mr-md">
                     <a href="#" @click.prevent="$emit('goEdit')"><q-icon name="fas fa-edit"/> {{$tl("edit")}}</a>
         </span>
-        <span v-if="canMoveToTrash" class=" q-mr-md">
+        <span v-if="canMoveToTrash" class="edit-btn-block q-mr-md">
                     <a href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash"/></a>
         </span>
-        <span class="mat-date-color">
-                    <q-icon name="far fa-clock"/> {{ $formatDate(comment.publishDate) }}
+        <span class="date-info-block">
+                    <q-icon name="far fa-clock" class="q-mr-xs"/> {{ $formatDate(comment.publishDate) }}
         </span>
       </div>
-      <div class="comment" v-html="comment.text">
+      <div class="comment-text" v-html="comment.text">
 
       </div>
+      <div class="clear"></div>
     </div>
 
   </div>
 </template>
 
 <script>
+  import {prepareLocalLinks} from 'sun';
+
+
   export default {
-    name: "ReadComment",
+    name: 'ReadComment',
     props: {
       comment: Object,
       canEdit: {
@@ -43,10 +47,13 @@ cd <template>
       goEdit: Function
     },
     methods: {
+      prepareLocalLinks() {
+        prepareLocalLinks.call(this, this.$el, 'comment-text');
+      },
       async moveToTrash() {
-        const deleteDialogMessage = this.$tl("deleteDialogMessage");
-        const okButtonLabel = this.$t("Global.dialog.ok");
-        const cancelButtonLabel = this.$t("Global.dialog.cancel");
+        const deleteDialogMessage = this.$tl('deleteDialogMessage');
+        const okButtonLabel = this.$t('Global.dialog.ok');
+        const cancelButtonLabel = this.$t('Global.dialog.cancel');
 
         this.$q.dialog({
           title: deleteDialogMessage,
@@ -54,30 +61,39 @@ cd <template>
           ok: okButtonLabel,
           cancel: cancelButtonLabel
         }).onOk(async () => {
-          await this.$store.dispatch("request",
+          await this.$store.dispatch('request',
             {
-              url: "/Comments/MoveToTrash",
+              url: '/Comments/MoveToTrash',
               data:
                 {
                   id: this.comment.id
                 }
             }).then(
             () => {
-              this.comment.isDeleted = true;
+              const msg = this.$tl('moveToTrashSuccess');
+              this.$successNotify(msg);
+              this.comment.deletedDate = new Date();
             }).catch(error => {
             this.$errorNotify(error);
           });
         }).onCancel(() => {
         });
       },
+    },
+    mounted() {
+      this.prepareLocalLinks();
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
-  .msg-avatar {
-    float: left;
-    margin: 2px 12px 12px 0;
+<style lang="stylus">
+
+  .read-comment {
+    .msg-avatar {
+      float: left;
+      margin: 2px 12px 12px 0;
+    }
   }
 
 </style>

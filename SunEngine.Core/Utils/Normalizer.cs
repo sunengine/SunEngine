@@ -6,6 +6,7 @@ namespace SunEngine.Core.Utils
     {
         public static readonly NormalizerLowercase Singleton = new NormalizerLowercase();
 
+
         public static string Normalize(string key)
         {
             return Singleton.Normalize(key);

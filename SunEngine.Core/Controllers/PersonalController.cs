@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -17,18 +18,17 @@ namespace SunEngine.Core.Controllers
     public class PersonalController : BaseController
     {
         protected readonly IPersonalManager personalManager;
-        protected readonly JwtService jwtService;
+        protected readonly JweService jweService;
         protected readonly IPersonalPresenter personalPresenter;
-
 
         public PersonalController(
             IPersonalManager personalManager, 
-            JwtService jwtService, 
+            JweService jweService, 
             IPersonalPresenter personalPresenter,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.personalManager = personalManager;
-            this.jwtService = jwtService;
+            this.jweService = jweService;
             this.personalPresenter = personalPresenter;
 
         }
@@ -80,7 +80,7 @@ namespace SunEngine.Core.Controllers
 
             Response.Headers.Clear(); 
             
-            await jwtService.RenewSecurityTokensAsync(Response, user, User.SessionId);
+            await jweService.RenewSecurityTokensAsync(HttpContext, user, User.SessionId);
 
             return Ok();
         }
@@ -116,5 +116,23 @@ namespace SunEngine.Core.Controllers
             return Ok(usersList);
         }
         
-    } 
+        [HttpPost]
+        public virtual async Task<IActionResult> GetMySessions()
+        {
+           
+            var sessions = await personalPresenter.GetMySessionsAsync(User.UserId, User.SessionId);
+
+            return Ok(sessions);
+        }
+        
+        [HttpPost]
+        public virtual async Task<IActionResult> RemoveMySessions(string sessions)
+        {
+            long[] sessionsIds = sessions.Split(',').Select(long.Parse).ToArray(); 
+            
+            await personalManager.RemoveSessionsAsync(User.UserId, sessionsIds);
+
+            return Ok();
+        }
+    }
 }

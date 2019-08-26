@@ -1,11 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Managers;
 using SunEngine.Admin.Presenters;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Models;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.Admin.Controllers
 {
@@ -26,68 +28,48 @@ namespace SunEngine.Admin.Controllers
             this.categoriesAdminPresenter = categoriesAdminPresenter;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> GetAllSectionTypes()
-        {
-            var sectionTypes = await categoriesAdminPresenter.GetAllSectionTypesAsync();
-
-            return Json(sectionTypes);
-        }
-
 
         [HttpPost]
-        public async Task<IActionResult> GetCategory(int? id = null, string name = null)
+        public async ValueTask<IActionResult> GetCategory(int? id = null, string name = null)
         {
             CategoryAdminView category;
 
             if (id.HasValue)
-            {
                 category = await categoriesAdminPresenter.GetCategoryAsync(id.Value);
-            }
+            
             else if (name != null)
-            {
                 category = await categoriesAdminPresenter.GetCategoryAsync(name);
-            }
+            
             else
-            {
                 return BadRequest();
-            }
+            
 
             return Json(category);
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetAllCategories()
+        public async ValueTask<IActionResult> GetAllCategories()
         {
             var root = await categoriesAdminPresenter.GetAllCategoriesAsync();
 
             return Json(root);
         }
+        
+        [HttpPost]
+        public IActionResult GetMaterialPreviewGeneratorNames()
+        {
+            var names = categoriesCache.MaterialsPreviewGenerators.Keys.ToArray();
+
+            return Json(names);
+        }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCategory([FromBody] CategoryRequestModel categoryData)
+        public async ValueTask<IActionResult> CreateCategory([FromBody] CategoryRequestModel categoryData)
         {
             if (!ModelState.IsValid)
-            {
                 return ValidationProblem();
-            }
-
-            var sectionType = categoriesCache.AllSectionTypes.ContainsKey(categoryData.SectionTypeName)
-                ? categoriesCache.AllSectionTypes[categoryData.SectionTypeName]
-                : null;
 
             var category = categoryData.ToCategory();
-            category.SectionTypeId = sectionType?.Id;
-
-            if (!categoryData.AppendUrlToken.HasValue)
-            {
-                if (sectionType != null)
-                    category.AppendUrlToken = true;                
-            }
-            else
-            {
-                category.AppendUrlToken = categoryData.AppendUrlToken.Value;
-            }
 
             await categoriesAdminManager.CreateCategoryAsync(category);
 
@@ -98,29 +80,12 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateCategory([FromBody] CategoryRequestModel categoryData)
+        public async ValueTask<IActionResult> UpdateCategory([FromBody] CategoryRequestModel categoryData)
         {
             if (!ModelState.IsValid)
-            {
                 return ValidationProblem();
-            }
-
-            var sectionType = categoriesCache.AllSectionTypes.ContainsKey(categoryData.SectionTypeName)
-                ? categoriesCache.AllSectionTypes[categoryData.SectionTypeName]
-                : null;
-
+            
             var category = categoryData.ToCategory();
-            category.SectionTypeId = sectionType?.Id;
-
-            if (!categoryData.AppendUrlToken.HasValue)
-            {
-                if (sectionType != null)
-                    category.AppendUrlToken = true;
-            }
-            else
-            {
-                category.AppendUrlToken = categoryData.AppendUrlToken.Value;
-            }
 
             await categoriesAdminManager.UpdateCategoryAsync(category);
 
@@ -131,11 +96,9 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CategoryUp(string name)
+        public async ValueTask<IActionResult> CategoryUp(string name)
         {
-            var rez = await categoriesAdminManager.CategoryUp(name);
-            if (rez.Failed)
-                return BadRequest();
+            await categoriesAdminManager.CategoryUp(name);
 
             categoriesCache.Reset();
             contentCache.Reset();
@@ -144,20 +107,18 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CategoryDown(string name)
+        public async ValueTask<IActionResult> CategoryDown(string name)
         {
-            var rez = await categoriesAdminManager.CategoryDown(name);
-            if (rez.Failed)
-                return BadRequest();
+            await categoriesAdminManager.CategoryDown(name);
 
             categoriesCache.Reset();
             contentCache.Reset();
 
             return Ok();
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> CategoryMoveToTrash(string name)
+        public async ValueTask<IActionResult> CategoryMoveToTrash(string name)
         {
             await categoriesAdminManager.CategoryMoveToTrashAsync(name);
 
@@ -180,30 +141,36 @@ namespace SunEngine.Admin.Controllers
     {
         public int Id { get; set; }
 
-        [Required, MinLength(2), RegularExpression("^[a-zA-Z-]*$")]
+        [Required, MinLength(2), RegularExpression("^[a-zA-Z0-9_-]*$")]
         public string Name { get; set; }
 
-        [Required, MinLength(3)] 
-        public string Title { get; set; }
-        public bool IsMaterialsContainer { get; set; }
+        [Required, MinLength(3)] public string Title { get; set; }
+        public string SubTitle { get; set; }
+        public string Icon { get; set; }
 
-        public string Description { get; set; }
+        public bool IsMaterialsContainer { get; set; }
 
         public string Header { get; set; }
 
-        public bool? AppendUrlToken { get; set; }
-
-        public string SectionTypeName { get; set; }
-
+        public string LayoutName { get; set; }
+        
+        public bool IsMaterialsNameEditable { get; set; }
+        
+        public string MaterialsPreviewGeneratorName { get; set; }
+        
+        public MaterialsSubTitleInputType MaterialsSubTitleInputType { get; set; }
+        
         public int ParentId { get; set; }
 
         public int SortNumber { get; set; }
-
-        public bool IsDeleted { get; set; }
+        
+        public string SettingsJson { get; set; }
 
         public bool IsHidden { get; set; }
-        
+
         public bool IsCacheContent { get; set; }
+
+        public DateTime? DeletedDate { get; set; }
 
         public Category ToCategory()
         {
@@ -212,15 +179,20 @@ namespace SunEngine.Admin.Controllers
                 Id = Id,
                 Name = Name,
                 Title = Title,
+                SubTitle = SubTitle,
+                Icon = Icon,
                 IsMaterialsContainer = IsMaterialsContainer,
-                Description = Description,
                 Header = Header,
-                //AppendUrlToken = AppendUrlToken,
+                LayoutName = LayoutName,
+                IsMaterialsNameEditable = IsMaterialsContainer && IsMaterialsNameEditable,
+                MaterialsPreviewGeneratorName = IsMaterialsContainer ?  MaterialsPreviewGeneratorName?.SetNullIfEmpty()  : null,
+                MaterialsSubTitleInputType = IsMaterialsContainer ? MaterialsSubTitleInputType : MaterialsSubTitleInputType.None,
                 ParentId = ParentId,
                 SortNumber = SortNumber,
-                IsDeleted = IsDeleted,
+                DeletedDate = DeletedDate,
                 IsHidden = IsHidden,
-                IsCacheContent = IsCacheContent
+                IsCacheContent = IsCacheContent,
+                SettingsJson = SettingsJson?.MakeJsonText()
             };
         }
     }

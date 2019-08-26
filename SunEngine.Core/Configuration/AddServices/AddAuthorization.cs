@@ -13,9 +13,9 @@ namespace SunEngine.Core.Configuration.AddServices
             services.AddScoped<MaterialsAuthorization>();
             services.AddScoped<CommentsAuthorization>();
         
-            services.AddScoped<JwtService>();
+            services.AddScoped<JweService>();
             
-            services.AddSingleton<JwtBlackListService>();
+            services.AddSingleton<JweBlackListService>();
         }
     }
 }

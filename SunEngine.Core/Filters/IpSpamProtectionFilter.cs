@@ -29,7 +29,6 @@ namespace SunEngine.Core.Filters
 
             BaseController controller = (BaseController) context.Controller;
 
-
             var actionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
             string controllerName = actionDescriptor?.ControllerTypeInfo.FullName;
             string actionName = actionDescriptor?.ActionName;
@@ -40,11 +39,8 @@ namespace SunEngine.Core.Filters
             RequestFree requestFree = spamProtectionCache.Find(key);
 
             if (requestFree != null && requestFree.Working())
-            {
                 context.Result =
-                    controller.BadRequest(
-                        ErrorView.SoftError("SpamProtection", "To rapid requests does not allowed"));
-            }
+                    controller.BadRequest(ErrorView.SoftError("SpamProtection", "To rapid requests does not allowed"));
 
             SpamProtectionFilterTransfer temp = new SpamProtectionFilterTransfer
             {
@@ -58,7 +54,7 @@ namespace SunEngine.Core.Filters
 
         private static string MakeKey(IPAddress ip, string controllerName, string actionName)
         {
-            return CacheKeyStart + "-" + ip + "-" + controllerName + "-" + actionName;
+            return $"{CacheKeyStart}-{ip}-{controllerName}-{actionName}";
         }
 
         public override void OnResultExecuted(ResultExecutedContext context)
@@ -71,14 +67,9 @@ namespace SunEngine.Core.Filters
             var temp = (SpamProtectionFilterTransfer) controller.ViewData[SpamProtectionFilterTransfer.ViewDataKey];
 
             if (temp.RequestFree != null)
-            {
                 temp.RequestFree.UpdateDateTime(timeout);
-            }
             else
-            {
-                var requestFree = new RequestFree(timeout);
-                temp.SpamProtectionCache.Add(temp.Key, requestFree);
-            }
+                temp.SpamProtectionCache.Add(temp.Key, new RequestFree(timeout));
         }
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AngleSharp.Dom.Html;
+using AngleSharp.Parser.Html;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Utils;
@@ -28,49 +30,66 @@ namespace SunEngine.DataSeed
         public int MaxMaterialCount = 20;
         public int CommentsCount = 12;
         public bool TitleAppendCategoryName;
-        
-        private const int MaterialDescriptionLength = 80;
+
+        private const int MaterialSubTitleLength = 80;
         private const int MaterialPreviewLength = 800;
 
 
         private readonly LinesCount defaultLinesCount = new LinesCount {Min = 4, Max = 30};
+
+        
+        private readonly Dictionary<string, Func<IHtmlDocument, int, string>> MaterialPreviewGenerators =
+            new Dictionary<string, Func<IHtmlDocument, int, string>>
+            {
+                [nameof(MakePreview.PlainText)] = MakePreview.PlainText,
+                [nameof(MakePreview.HtmlFirstImage)] = MakePreview.HtmlFirstImage,
+                [nameof(MakePreview.HtmlNoImages)] = MakePreview.HtmlNoImages
+            };
+
 
         public MaterialsSeeder(DataContainer dataContainer)
         {
             this.dataContainer = dataContainer;
         }
 
-        public void Seed()
+        /*public void Seed()
         {
             foreach (var category in dataContainer.Categories.Where(x => x.IsMaterialsContainer))
             {
-                SeedCategoryWithMaterials(category, category.MaterialTypeTitle,TitleAppendCategoryName);
+                SeedCategoryWithMaterials(category, category.MaterialTypeTitle, TitleAppendCategoryName);
             }
-        }
+        }*/
 
         public void SeedCategoryAndSub(string categoryName)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Seed test materials and comments in memory");
             Console.ResetColor();
-            
+
             SeedCategoryAndSubRec(categoryName);
         }
-        
+
         public void SeedCategoryAndSubRec(string categoryName)
         {
-            var category = dataContainer.Categories.FirstOrDefault(x=>x.NameNormalized == Normalizer.Normalize(categoryName));
-            if (category == null) 
+            var category =
+                dataContainer.Categories.FirstOrDefault(x => x.NameNormalized == Normalizer.Normalize(categoryName));
+            if (category == null)
                 throw new Exception($"No category '{categoryName}' in data base");
 
-            if (category.IsMaterialsContainer)
-                SeedCategoryWithMaterials(category, category.MaterialTypeTitle, TitleAppendCategoryName);
+            MaterialPreviewGenerators.TryGetValue(category.MaterialsPreviewGeneratorName ?? "",
+                out Func<IHtmlDocument, int, string> generator);
 
-            foreach (var subCategory in dataContainer.Categories.Where(x=>x.ParentId.HasValue && x.ParentId.Value == category.Id))
+
+            if (category.IsMaterialsContainer)
+                SeedCategoryWithMaterials(category, generator, category.MaterialTypeTitle, TitleAppendCategoryName);
+
+            foreach (var subCategory in dataContainer.Categories.Where(x =>
+                x.ParentId.HasValue && x.ParentId.Value == category.Id))
                 SeedCategoryAndSubRec(subCategory.Name);
         }
 
-        public void SeedCategoryWithMaterials(Category category, string titleStart = null,
+        public void SeedCategoryWithMaterials(
+            Category category, Func<IHtmlDocument, int, string> previewGenerator, string titleStart = null,
             bool titleAppendCategoryName = false,
             int? materialsCount = null, LinesCount? linesCount = null)
         {
@@ -78,14 +97,12 @@ namespace SunEngine.DataSeed
                 materialsCount = ran.Next(MinMaterialCount, MaxMaterialCount);
             if (materialsCount == 0)
                 return;
-            
-           
+
+
             Console.WriteLine($"'{category.Name}' category with {materialsCount} mat, {CommentsCount} comm");
-            
+
             if (linesCount == null)
-            {
                 linesCount = defaultLinesCount;
-            }
 
             for (int i = 1; i <= materialsCount; i++)
             {
@@ -93,40 +110,52 @@ namespace SunEngine.DataSeed
                 if (titleAppendCategoryName)
                     title += $" ({category.Name})";
 
-                SeedMaterial(category, title, CommentsCount ,$"{titleStart ?? "Материал"} {i}, категория {category.Name}", "материал " + i,
+                SeedMaterial(category, previewGenerator, title, CommentsCount,
+                    $"{titleStart ?? "Материал"} {i}, категория {category.Name}", "материал " + i,
                     linesCount.Value);
             }
         }
 
-        public Material SeedMaterial(Category category, string title, int commentsCount, string firstLine,
+        public Material SeedMaterial(
+            Category category, Func<IHtmlDocument, int, string> previewGenerator, string title, int commentsCount,
+            string firstLine,
             string lineElement, LinesCount linesCount)
         {
             var publishDate = dataContainer.IterateCommentPublishDate();
             int linesCountCurrent = ran.Next(linesCount.Min, linesCount.Max);
 
+            int id = dataContainer.NextMaterialId();
+
             Material material = new Material
             {
-                Id = dataContainer.NextMaterialId(),
+                Id = id,
                 Title = title,
                 Text = MakeSeedText(lineElement, 8, linesCountCurrent, firstLine),
                 AuthorId = dataContainer.GetRandomUserId(),
                 CategoryId = category.Id,
                 PublishDate = publishDate,
-                LastActivity = publishDate
+                LastActivity = publishDate,
+                SortNumber = id
             };
 
-            var (preview, description) = MaterialExtensions.MakePreviewAndDescription(material.Text,
-                MaterialDescriptionLength,
-                MaterialPreviewLength);
+            IHtmlDocument doc = null;
+            if (previewGenerator != null)
+            {
+                doc = new HtmlParser().Parse(material.Text);
+                material.Preview = previewGenerator(doc, MaterialPreviewLength);
+            }
 
-            material.Preview = preview;
 
-            SectionType sectionType = category.GetSectionType();
-
-            if (sectionType != null && sectionType.Name == SectionTypeNames.Articles)
-                material.Description = "Описание материала: " + material.Title;
-            else
-                material.Description = description;
+            switch (category.MaterialsSubTitleInputType)
+            {
+                case MaterialsSubTitleInputType.Manual:
+                    material.SubTitle = "Описание материала: " + material.Title;
+                    break;
+                case MaterialsSubTitleInputType.Auto:
+                    material.SubTitle = MakeSubTitle.Do(doc ?? new HtmlParser().Parse(material.Text),
+                        MaterialSubTitleLength);
+                    break;
+            }
 
 
             if (commentsCount > 0)
@@ -178,9 +207,7 @@ namespace SunEngine.DataSeed
         {
             StringBuilder sb = new StringBuilder();
             if (firstLine != null)
-            {
                 sb.AppendLine($"<p>{firstLine}</p>");
-            }
 
             for (int i = 0; i < lines; i += 3)
             {
@@ -202,22 +229,6 @@ namespace SunEngine.DataSeed
         }
     }
 
-    public static class CategoryExtensions
-    {
-        public static SectionType GetSectionType(this Category category)
-        {
-            Category current = category;
-            while (current != null)
-            {
-                if (current.SectionType != null)
-                    return current.SectionType;
-
-                current = current.Parent;
-            }
-
-            return null;
-        }
-    }
 
     public static class MaterialExtension
     {

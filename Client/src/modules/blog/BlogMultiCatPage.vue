@@ -1,12 +1,12 @@
 <template>
-  <q-page>
+  <q-page class="blog-multi-cat-page">
     <div class="header-with-button page-padding">
       <h2 class="q-title">
         {{pageTitle}}
       </h2>
-      <q-btn v-if="canPost" no-caps
+      <q-btn v-if="canPost" no-caps class="post-btn"
              @click="$router.push( {name:'CreateMaterial',params:{categoriesNames: categoriesNames}})"
-             :label="addButtonLabel" icon="fas fa-plus" color="post"/>
+             :label="addButtonLabel" icon="fas fa-plus" />
     </div>
 
     <div v-if="caption" class="page-padding q-mb-lg text-grey-9" style="margin-top: -14px" v-html="caption"></div>
@@ -23,12 +23,13 @@
 </template>
 
 <script>
-  import Page from "Page";
-  import PostsList from "./PostsList";
+  import Vue from 'vue';
+
+  import {Page} from 'sun'
+
 
   export default {
     name: 'BlogMultiCatPage',
-    components: {PostsList},
     mixins: [Page],
     props: {
       categoriesNames: {
@@ -38,7 +39,9 @@
       addButtonLabel: {
         type: String,
         required: false,
-        default: "Добавить текст"
+        default() {
+          return Vue.prototype.$tl('newPostBtnDefault')
+        }
       },
       pageTitle: {
         type: String,
@@ -53,16 +56,14 @@
         required: false
       }
     },
-    data: function () {
+    data() {
       return {
         posts: null
       }
     },
     watch: {
       'categoriesNames': 'loadData',
-      '$route.query.page': 'loadData',
-      '$store.state.categories.all': 'loadData',
-      '$store.state.auth.user': 'loadData'
+      '$route': 'loadData',
     },
     computed: {
       canPost() {
@@ -70,7 +71,7 @@
           if (!this.$store.state.auth.roles.some(x => this.rolesCanAdd.some(y => y === x)))
             return false;
 
-        let categories = this.categoriesNames.split(",").map(x => x.trim());
+        let categories = this.categoriesNames.split(',').map(x => x.trim());
         for (let catName of categories) {
           let cat = this.$store.getters.getCategory(catName);
           if (cat?.canSomeChildrenWriteMaterial) {
@@ -80,8 +81,7 @@
         return false;
       },
       currentPage() {
-        let page = this.$route.query?.page;
-        return page ?? 1;
+        return this.$route.query?.page ?? 1;
       }
     },
     methods: {
@@ -97,9 +97,9 @@
 
       async loadData() {
 
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Blog/GetPostsFromMultiCategories",
+            url: '/Blog/GetPostsFromMultiCategories',
             data: {
               categoriesNames: this.categoriesNames,
               page: this.currentPage
@@ -111,19 +111,23 @@
               this.$refs.postsList.posts = response.data;
             }
           ).catch(x => {
-            console.log("error", x);
+            console.log('error', x);
           });
       }
+    },
+    beforeCreate() {
+      this.$options.components.PostsList = require('sun').PostsList;
     },
     async created() {
       this.title = this.pageTitle;
       await this.loadData();
     }
   }
+
 </script>
 
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
 
 </style>

@@ -3,6 +3,8 @@ using System.Linq;
 using LinqToDB;
 using LinqToDB.Data;
 using SunEngine.Core.DataBase;
+using SunEngine.Core.Utils;
+
 
 namespace SunEngine.DataSeed
 {
@@ -33,9 +35,6 @@ namespace SunEngine.DataSeed
             Console.WriteLine("Data seed Initial in DataBase:");
             Console.ResetColor();
 
-            Console.WriteLine("SectionTypes");
-            db.BulkCopy(options, dataContainer.SectionTypes);
-
             Console.WriteLine("Categories");
             db.BulkCopy(options, dataContainer.Categories);
 
@@ -56,6 +55,12 @@ namespace SunEngine.DataSeed
 
             Console.WriteLine("CategoryOperationAccesses");
             db.BulkCopy(options, dataContainer.CategoryOperationAccesses);
+            
+            Console.WriteLine("MenuItems");
+            db.BulkCopy(options, dataContainer.MenuItems);
+            
+            Console.WriteLine("CipherSecrets");
+            db.BulkCopy(options, dataContainer.CipherSecrets);
 
             if (dataContainer.CacheSettings != null)
             {
@@ -100,19 +105,19 @@ namespace SunEngine.DataSeed
 
                 string[] tablesWithSequenceIds =
                 {
-                    "SectionTypes", "Categories", "AspNetUsers", "Materials", "Comments", "AspNetRoles",
-                    "CategoryAccesses", "Tags"
+                    "Categories", "AspNetUsers", "Materials", "Comments", "AspNetRoles",
+                    "CategoryAccesses", "Tags", "MenuItems"
                 };
 
                 foreach (string tableName in tablesWithSequenceIds)
                 {
                     //Console.WriteLine($"Renew sequence of table: '{tableName}'");
                     db.Execute(
-                        $"SELECT setval(pg_get_serial_sequence('\"{tableName}\"', 'Id'), coalesce(max(tbl.\"Id\"),0) + 1, false) FROM \"{tableName}\" as tbl;");
+                        $"SELECT setval(pg_get_serial_sequence('\"{tableName.ToSnakeCase()}\"', 'Id'), coalesce(max(tbl.\"{"Id".ToSnakeCase()}\"),0) + 1, false) FROM \"{tableName.ToSnakeCase()}\" as tbl;");
                 }
 
                 db.Execute(
-                    "SELECT setval(pg_get_serial_sequence('\"OperationKeys\"', 'OperationKeyId'), coalesce(max(tbl.\"OperationKeyId\"),0) + 1, false) FROM \"OperationKeys\" as tbl;");
+                    $"SELECT setval(pg_get_serial_sequence('\"{"OperationKeys".ToSnakeCase()}\"', '{"OperationKeyId".ToSnakeCase()}'), coalesce(max(tbl.\"{"OperationKeyId".ToSnakeCase()}\"),0) + 1, false) FROM \"{"OperationKeys".ToSnakeCase()}\" as tbl;");
             }
         }
 

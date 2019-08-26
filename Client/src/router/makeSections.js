@@ -1,16 +1,17 @@
-import Material from 'material/Material';
-import Thread from 'forum/Thread';
-import NewTopics from 'forum/NewTopics';
-import ArticlesPage from 'articles/ArticlesPage';
-import ForumPanel from 'forum/ForumPanel';
-import BlogPage from "blog/BlogPage";
-import Categories1 from "categories/Categories1";
+import {Material} from 'sun'
+import {Thread} from 'sun'
+import {NewTopics} from 'sun'
+import {ArticlesPage} from 'sun'
+import {ForumPanel} from 'sun'
+import {BlogPage} from 'sun'
+import {Categories1} from 'sun'
+
 
 export function makeForumSection(name, categoriesPanel) {
   let nameLower = name.toLowerCase();
   return [
     {
-      name: name,
+      name: `forum-${name}`,
       path: '/' + nameLower,
       components: {
         default: NewTopics,
@@ -22,6 +23,7 @@ export function makeForumSection(name, categoriesPanel) {
       },
     },
     {
+      name: `forum-${name}-cat`,
       path: `/${nameLower}/:categoryName`,
       components: {
         default: Thread,
@@ -33,6 +35,7 @@ export function makeForumSection(name, categoriesPanel) {
       }
     },
     {
+      name: `forum-${name}-cat-mat`,
       path: `/${nameLower}/:categoryName/:id`,
       components: {
         default: Material,
@@ -53,7 +56,7 @@ export function makeArticlesSection(name) {
   let nameLower = name.toLowerCase();
   return [
     {
-      name: name,
+      name: `articles-${name}`,
       path: '/' + nameLower,
       components: {
         default: ArticlesPage,
@@ -66,6 +69,7 @@ export function makeArticlesSection(name) {
       }
     },
     {
+      name: `articles-${name}-mat`,
       path: `/${nameLower}/:idOrName`,
       components: {
         default: Material,
@@ -87,7 +91,7 @@ export function makeArticlesSectionWithMenu(name) {
   let nameLower = name.toLowerCase();
   return [
     {
-      name: name,
+      name: `articles-${name}`,
       path: '/' + nameLower,
       components: {
         default: ArticlesPage,
@@ -100,6 +104,7 @@ export function makeArticlesSectionWithMenu(name) {
       }
     },
     {
+      name: `articles-${name}-mat`,
       path: `/${nameLower}/:idOrName`,
       components: {
         default: Material,
@@ -122,7 +127,7 @@ export function makeBlogSection(name) {
   let nameLower = name.toLowerCase();
   return [
     {
-      name: name,
+      name: `blog-${name}`,
       path: '/' + nameLower,
       components: {
         default: BlogPage,
@@ -135,6 +140,7 @@ export function makeBlogSection(name) {
       }
     },
     {
+      name:  `blog-${name}-mat`,
       path: `/${nameLower}/:id`,
       components: {
         default: Material,

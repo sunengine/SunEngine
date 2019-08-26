@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Flurl;
@@ -20,31 +21,36 @@ namespace SunEngine.Core.Managers
 
     public class ProfileManager : DbService, IProfileManager
     {
-        protected readonly IEmailSenderService EmailSenderService;
-        protected readonly Sanitizer sanitizer;
+        protected readonly IEmailSenderService emailSenderService;
+        protected readonly SanitizerService sanitizerService;
         protected readonly GlobalOptions globalOptions;
 
         public ProfileManager(
             DataBaseConnection db,
             IEmailSenderService emailSenderService,
             IOptions<GlobalOptions> globalOptions,
-            Sanitizer sanitizer
+            SanitizerService sanitizerService
         ) : base(db)
         {
-            this.EmailSenderService = emailSenderService;
-            this.sanitizer = sanitizer;
+            this.emailSenderService = emailSenderService;
+            this.sanitizerService = sanitizerService;
             this.globalOptions = globalOptions.Value;
         }
 
 
         public virtual Task SendPrivateMessageAsync(User from, User to, string text)
         {
-            var header =
-                $"<div>Вам написал: <a href='{globalOptions.SiteUrl.AppendPathSegment("user/" + from.Link)}'>{from.UserName}</a></div><br/>";
-            text = sanitizer.Sanitize(header + text);
-            string subject = $"Сообщение от {to.UserName} с сайта {globalOptions.SiteName}";
-
-            return EmailSenderService.SendEmailAsync(to.Email, subject, text);
+            return emailSenderService.SendEmailByTemplateAsync(
+                to.Email,
+                "private-message.html",
+                new Dictionary<string, string>
+                {
+                    {"[siteName]", globalOptions.SiteName},
+                    {"[url]", globalOptions.SiteUrl.AppendPathSegment("user/" + from.Link)},
+                    {"[userName]", from.UserName},
+                    {"[message]", sanitizerService.Sanitize(text)}
+                }
+            );
         }
 
         public virtual Task BanUserAsync(User who, User banned)

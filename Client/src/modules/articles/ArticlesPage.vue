@@ -1,28 +1,27 @@
 <template>
-  <q-page>
+  <q-page class="articles-page">
     <div class="page-padding header-with-button">
       <h2 class="q-title">
         {{category.title}}
       </h2>
-      <q-btn no-caps @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
-             label="Новая статья"
-             v-if="canAddArticle" icon="fas fa-plus" color="post"/>
+      <q-btn no-caps class="post-btn"
+             @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
+             :label="$tl('newArticleBtn')" v-if="canAddArticle" icon="fas fa-plus" />
 
     </div>
     <div v-if="category.header" class="q-mb-sm page-padding" v-html="category.header"></div>
 
-    <ArticlesList ref="articlesList" />
+    <ArticlesList ref="articlesList"/>
 
   </q-page>
 </template>
 
 <script>
-  import LoaderWait from "LoaderWait";
-  import Page from "Page";
-  import ArticlesList from "./ArticlesList";
+  import {Page} from 'sun'
+
 
   export default {
-    name: "ArticlesPage",
+    name: 'ArticlesPage',
     mixins: [Page],
     props: {
       categoryName: {
@@ -30,10 +29,7 @@
         required: true
       }
     },
-    components: {
-      ArticlesList, LoaderWait
-    },
-    data: function () {
+    data() {
       return {
         articles: {
           pagesCount: null,
@@ -42,14 +38,7 @@
       }
     },
     watch: {
-      'categoryName':
-        'loadData',
-      '$route':
-        'loadData',
-      "$store.state.categories.all":
-        "loadData",
-      '$store.state.auth.user':
-        'loadData'
+      '$route': 'loadData'
     },
     computed: {
       category() {
@@ -77,12 +66,13 @@
 
         this.title = this.category?.title;
 
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Articles/GetArticles",
+            url: '/Articles/GetArticles',
             data: {
               categoryName: this.categoryName,
-              page: currentPage
+              page: currentPage,
+              showDeleted: (this.$store.state.admin.showDeletedElements || this.$route.query.deleted) ? true : undefined
             }
           })
           .then(
@@ -90,16 +80,21 @@
               this.$refs.articlesList.articles = response.data;
             }
           ).catch(x => {
-            console.log("error", x);
+            console.log('error', x);
           });
       }
+    },
+    beforeCreate() {
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
+      this.$options.components.ArticlesList = require('sun').ArticlesList;
     },
     async created() {
       await this.loadData()
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

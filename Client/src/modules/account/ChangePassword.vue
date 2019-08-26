@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex middle page-padding">
+  <q-page class="change-password flex middle page-padding">
 
     <div class="center-form">
       <q-input ref="passwordOld" v-model="passwordOld" :type="showPasswordOld ? 'text' : 'password'" :label="$tl('passwordOld')" :rules="rules.passwordOld" >
@@ -8,7 +8,7 @@
         </template>
         <template v-slot:append>
           <q-icon
-            :name="showPasswordOld ? 'visibility' : 'visibility_off'"
+            :name="showPasswordOld ? 'far fa-eye' : 'far fa-eye-slash'"
             class="cursor-pointer"
             @click="showPasswordOld = !showPasswordOld"
           />
@@ -21,27 +21,27 @@
         </template>
         <template v-slot:append>
           <q-icon
-            :name="showPassword ? 'visibility' : 'visibility_off'"
+            :name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
             class="cursor-pointer"
             @click="showPassword = !showPassword"
           />
         </template>
       </q-input>
 
-      <q-input ref="password2" v-model="password2" :type="showPassword2 ? 'text' : 'password'" :label="$tl('password2')" :rules="rules.password2">
+      <q-input ref="password2"  v-model="password2" :type="showPassword2 ? 'text' : 'password'" :label="$tl('password2')" :rules="rules.password2">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
         <template v-slot:append>
           <q-icon
-            :name="showPassword2 ? 'visibility' : 'visibility_off'"
+            :name="showPassword2 ?  'far fa-eye' : 'far fa-eye-slash'"
             class="cursor-pointer"
             @click="showPassword2 = !showPassword2"
           />
         </template>
       </q-input>
 
-      <q-btn no-caps class="q-mt-lg" icon="far fa-save" color="send" :label="$tl('changeBtn')" @click="changePassword"
+      <q-btn no-caps class="send-btn q-mt-lg" icon="far fa-save" :label="$tl('changeBtn')" @click="changePassword"
              :loading="submitting">
         <LoaderSent slot="loading"/>
       </q-btn>
@@ -51,45 +51,42 @@
 </template>
 
 <script>
-  import Page from "Page";
-  import LoaderSent from "LoaderSent";
+  import {Page} from 'sun'
 
 
   function createRules() {
 
     const password = [
-      value => !!value || this.$tl("validation.password.required"),
-      value => value.length >= config.PasswordValidation.MinLength || this.$tl("validation.password.minLength"),
+      value => !!value || this.$tl('validation.password.required'),
+      value => value.length >= config.PasswordValidation.MinLength || this.$tl('validation.password.minLength'),
       value => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$tl("validation.password.minDifferentChars"),
     ];
 
     return {
       passwordOld: [
-        value => !!value ||  this.$tl("validation.passwordOld.required"),
+        value => !!value ||  this.$tl('validation.passwordOld.required'),
       ],
       password: password,
       password2: [...password,
-        value => this.password === this.password2 || this.$tl("validation.password2.equals")]
+        value => this.password === this.password2 || this.$tl('validation.password2.equals')]
     }
   }
 
 
   export default {
-    name: "ChangePassword",
-    components: {LoaderSent},
+    name: 'ChangePassword',
     mixins: [Page],
     data: function () {
       return {
-        passwordOld: "",
-        password: "",
-        password2: "",
+        passwordOld: '',
+        password: '',
+        password2: '',
         submitting: false,
         showPasswordOld: false,
         showPassword: false,
         showPassword2: false,
       }
     },
-    rules: null,
     methods: {
       async changePassword() {
         this.$refs.passwordOld.validate();
@@ -118,14 +115,17 @@
         });
       }
     },
+    beforeCreate() {
+      this.$options.components.LoaderSent = require('sun').LoaderSent;
+    },
     created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
       this.rules = createRules.call(this);
     }
   }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
 
 </style>

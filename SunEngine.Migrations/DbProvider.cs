@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using FluentMigrator.Runner;
 
 namespace SunEngine.Migrations
@@ -13,36 +14,28 @@ namespace SunEngine.Migrations
         {
             Name = name;
 
-            if (name.StartsWith("Postgre"))
-            {
-                IsPostgre = true;
-            }
+            IsPostgre = name.StartsWith("Postgre", StringComparison.OrdinalIgnoreCase);
         }
 
         public static IMigrationRunnerBuilder AddDb(this IMigrationRunnerBuilder rb)
         {
-            if (string.Equals(Name, "Sqlite", StringComparison.OrdinalIgnoreCase))
-                rb.AddSQLite();
-            else if (Name.Equals("Postgres", StringComparison.OrdinalIgnoreCase))
-                rb.AddPostgres();
-            else if (Name.Equals("MySql", StringComparison.OrdinalIgnoreCase))
-                rb.AddMySql5();
-            else if (Name.Equals("MySql4", StringComparison.OrdinalIgnoreCase))
-                rb.AddMySql4();
-            else if (Name.Equals("MySql5", StringComparison.OrdinalIgnoreCase))
-                rb.AddMySql5();
-            else if (Name.Equals("SqlServer", StringComparison.OrdinalIgnoreCase))
-                rb.AddSqlServer();
-            else if (Name.Equals("SqlServer2012", StringComparison.OrdinalIgnoreCase))
-                rb.AddSqlServer2012();
-            else if (Name.Equals("SqlServer2014", StringComparison.OrdinalIgnoreCase))
-                rb.AddSqlServer2014();
-            else if (Name.Equals("SqlServer2016", StringComparison.OrdinalIgnoreCase))
-                rb.AddSqlServer2016();
-            else
-                throw new Exception("Not supported provider name: " + Name);
+            var addDbFunctions = new Dictionary<string, Func<IMigrationRunnerBuilder>>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["SqLite"] = rb.AddSQLite,
+                ["Postgres"] = rb.AddPostgres,
+                ["MySql"] = rb.AddMySql5,
+                ["MySql4"] = rb.AddMySql4,
+                ["MySql5"] = rb.AddMySql5,
+                ["SqlServer"] = rb.AddSqlServer,
+                ["SqlServer2012"] = rb.AddSqlServer2012,
+                ["SqlServer2014"] = rb.AddSqlServer2014,
+                ["SqlServer2016"] = rb.AddSqlServer2016
+            };
 
-            return rb;
+            if (addDbFunctions.TryGetValue(Name, out var addDbFunc))
+                return addDbFunc();
+
+            throw new Exception("Not supported provider name: " + Name);
         }
     }
 }

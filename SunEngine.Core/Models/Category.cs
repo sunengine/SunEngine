@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SunEngine.Core.Models.Materials;
 
 namespace SunEngine.Core.Models
@@ -16,13 +17,17 @@ namespace SunEngine.Core.Models
         public string Name { get; set; }
 
         public string NameNormalized { get; set; }
-        
+
         //[Required, MinLength(3)] 
         /// <summary>
         /// Title for human
         /// </summary>
         public string Title { get; set; }
-        
+
+        public string SubTitle { get; set; }
+
+        public string Icon { get; set; }
+
         /// <summary>
         /// Common title of one material
         /// For example: Video, Seminar, Article...
@@ -34,17 +39,11 @@ namespace SunEngine.Core.Models
         /// </summary>
         public bool IsMaterialsContainer { get; set; }
 
-        public string Description { get; set; }
-        
+
         /// <summary>
         /// HTML description on the top of the page on Client 
         /// </summary>
         public string Header { get; set; }
-
-        public bool AppendUrlToken { get; set; }
-        
-        public int? SectionTypeId { get; set; }
-        public SectionType SectionType { get; set; }
 
         public int? ParentId { get; set; }
         public Category Parent { get; set; }
@@ -57,33 +56,36 @@ namespace SunEngine.Core.Models
         /// </summary>
         public int SortNumber { get; set; }
 
+        public string LayoutName { get; set; }
+
+        public bool IsMaterialsNameEditable { get; set; }
+        
+        public string MaterialsPreviewGeneratorName { get; set; }
+
+        public MaterialsSubTitleInputType MaterialsSubTitleInputType { get; set; }
+        
+        public string SettingsJson { get; set; }
+
         /// <summary>
         /// Containing Materials
         /// </summary>
         public ICollection<Material> Materials { get; set; }
 
         public int? CacheSettingsId { get; set; }
-        
+
         public CategoryCacheSettings CacheSettings { get; set; }
         
-        public bool IsDeleted { get; set; }
-
         public bool IsHidden { get; set; }
-        
+
         public bool IsCacheContent { get; set; }
+        
+        public DateTime? DeletedDate { get; set; }
     }
 
-    public class SectionType
+    public enum MaterialsSubTitleInputType : short
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Title { get; set; }
-    }
-
-    public static class SectionTypeNames
-    {
-        public const string Forum = "Forum";
-        public const string Blog = "Blog";
-        public const string Articles = "Articles";
+        None = 0,
+        Manual = 1,
+        Auto = 2
     }
 }

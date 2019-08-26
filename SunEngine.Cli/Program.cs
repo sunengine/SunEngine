@@ -1,49 +1,81 @@
-using SunEngine.DataSeed;
-using SunEngine.Migrations;
+using System;
+using System.IO;
 
 namespace SunEngine.Cli
 {
     public class Program
     {
-        private static readonly InfoPrinter InfoPrinter = new InfoPrinter();
-        private static readonly ServerStartup ServerStartup = new ServerStartup();
-
         public static void Main(string[] args)
         {
-            StartupConfiguration startupConfiguration = new StartupConfiguration(args);
+            StartupConfiguration config = new StartupConfiguration(args);
 
-            if (startupConfiguration.PrintHelp)
-                InfoPrinter.PrintHelp();
-
-            else if (startupConfiguration.PrintVersion)
-                InfoPrinter.PrintVersion();
-
-            else if (ShouldUpdateData(startupConfiguration))
+            if (config.PrintHelp || config.PrintVersion)
             {
-                if (startupConfiguration.Migrate)
-                    new MainMigrator(startupConfiguration.ConfigurationDirectoryRoute).Migrate();
+                if (config.PrintHelp)
+                    InfoPrinter.PrintHelp();
 
-                if (startupConfiguration.InitializeCoreData)
-                    new MainSeeder(startupConfiguration.ConfigurationDirectoryRoute).SeedInitialize();
+                else if (config.PrintVersion)
+                    InfoPrinter.PrintVersion();
 
-                if (startupConfiguration.SeedWithTestData)
-                    new MainSeeder(startupConfiguration.ConfigurationDirectoryRoute)
-                        .SeedAddTestData(startupConfiguration.CategoryTokensToSeed,
-                            startupConfiguration.SeedWithCategoryNames);
+                return;
             }
+
+            UseConfigurationDirectory(config);
+
+            if (config.CheckDatabaseAvailability)
+                DataSeed().CheckConnection();
+
+            else if (ShouldUpdate(config))
+            {
+                if (config.Migrate)
+                    Migrations().Migrate();
+
+                if (config.InitializeCoreData)
+                    DataSeed().SeedInitialize();
+
+                if (config.SeedWithTestData)
+                    DataSeed().SeedAddTestData(config.CategoryTokensToSeed, config.SeedWithCategoryNames);
+            }
+
+            else if (config.StartServer)
+                new ServerStartup().RunServer(config);
             else
-            {
-                ServerStartup.RunServer(startupConfiguration);    
-            }
-            
+                InfoPrinter.PrintNoArgumentsInfo();
+
+
+            Migrations.Main Migrations() => new Migrations.Main(config.ConfigRootDir);
+
+            DataSeed.Main DataSeed() => new DataSeed.Main(config.ConfigRootDir);
         }
 
-        private static bool ShouldUpdateData(StartupConfiguration startupConfiguration)
+        private static bool ShouldUpdate(StartupConfiguration startupConfiguration)
         {
             return startupConfiguration.Migrate ||
                    startupConfiguration.InitializeCoreData ||
                    startupConfiguration.SeedWithTestData;
         }
+
+        /// <summary>
+        /// Detect configuration directory and exit if it is not exists
+        /// </summary>
+        private static void UseConfigurationDirectory(StartupConfiguration startupConfiguration)
+        {
+            startupConfiguration.InitConfigurationDirectory();
+            
+            bool failed = !TestIfConfigurationDirectoryExists(startupConfiguration.ConfigRootDir);
+
+            if (failed)
+                Environment.Exit(0);
+
+
+            bool TestIfConfigurationDirectoryExists(string dirPath)
+            {
+                if (Directory.Exists(dirPath))
+                    return true;
+
+                Console.WriteLine($@"Configuration directory ""{dirPath}"" does not exists.");
+                return false;
+            }
+        }
     }
-    
 }

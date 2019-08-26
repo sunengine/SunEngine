@@ -10,7 +10,6 @@ module.exports = function (ctx) {
     boot: [
       'i18n',
       'axios',
-      'globalApp',
       'apiPath',
       'buildPath',
       'imagePath',
@@ -23,7 +22,7 @@ module.exports = function (ctx) {
     ],
     extras: [
       //'roboto-font',
-      'material-icons', // optional, you are not bound to it
+      //'material-icons', // optional, you are not bound to it
       // 'ionicons-v4',
       // 'mdi-v3',
        'fontawesome-v5',
@@ -42,6 +41,8 @@ module.exports = function (ctx) {
         'QToolbar',
         'QToolbarTitle',
         'QBtn',
+        'QBadge',
+        'QBtnDropdown',
         'QIcon',
         'QList',
         'QItem',
@@ -61,19 +62,25 @@ module.exports = function (ctx) {
         'QTree',
         'QExpansionItem',
         'QDialog',
-        'QField'
+        'QField',
+        'QSeparator',
+        'QTable',
+        'QTh',
+        'QTr',
+        'QTd'
       ],
 
       directives: [
         'Ripple',
-        'CloseMenu'
+        'ClosePopup'
       ],
 
       // Quasar plugins
       plugins: [
         'Notify',
         'Meta',
-        'Dialog'
+        'Dialog',
+        'LocalStorage'
       ],
 
       animations: [
@@ -81,7 +88,7 @@ module.exports = function (ctx) {
         'bounceOutUp'
       ],
 
-      // iconSet: 'ionicons-v4'
+      iconSet: 'fontawesome-v5',
       lang: 'ru' // Quasar language
     },
 
@@ -97,9 +104,13 @@ module.exports = function (ctx) {
       // extractCSS: false,
       extendWebpack (cfg) {
         cfg.resolve.modules.push(path.resolve('./src'));
+        cfg.resolve.modules.push(path.resolve('./src/index'));
         cfg.resolve.modules.push(path.resolve('./src/modules'));
         cfg.resolve.modules.push(path.resolve('./src/components'));
-        cfg.resolve.modules.push(path.resolve('./src/services'));
+
+        const htmlWebpackPlugin = cfg.plugins.find(x=> x.constructor.name === "HtmlWebpackPlugin");
+        htmlWebpackPlugin.options.configUId = Math.random().toString(36).substring(7);
+
         if(ctx.dev) {
           cfg.plugins.push( new CopyWebpackPlugin([{from: 'config.js', to:'config.js'}]));
         }

@@ -1,9 +1,9 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="register flex flex-center">
 
     <div v-if="!done" class="center-form">
 
-      <q-input ref="userName" v-model="userName" :label="$tl('userName')" :rules="rules.userName">
+      <q-input ref="userName" v-model="userName" :label="$tl('userName')" @keyup="checkUserNameInDb" :rules="rules.userName">
         <template v-slot:prepend>
           <q-icon name="fas fa-user"/>
         </template>
@@ -21,7 +21,7 @@
         </template>
         <template v-slot:append>
           <q-icon
-            :name="showPassword ? 'visibility' : 'visibility_off'"
+            :name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
             class="cursor-pointer"
             @click="showPassword = !showPassword"
           />
@@ -34,7 +34,7 @@
         </template>
         <template v-slot:append>
           <q-icon
-            :name="showPassword2 ? 'visibility' : 'visibility_off'"
+            :name="showPassword2 ? 'far fa-eye' : 'far fa-eye-slash'"
             class="cursor-pointer"
             @click="showPassword2 = !showPassword2"
           />
@@ -57,7 +57,7 @@
       </q-input>
 
 
-      <q-btn style="width:100%;" color="send" :label="$tl('registerBtn')" @click="register" :loading="submitting">
+      <q-btn style="width:100%;" class="send-btn" :label="$tl('registerBtn')" @click="register" :loading="submitting">
         <span slot="loading">
           <q-spinner class="on-left"/>  {{$tl('registering')}}
         </span>
@@ -74,60 +74,75 @@
 </template>
 
 <script>
-  import LoaderSent from "LoaderSent";
-  import Page from "Page";
+  import {Page} from 'sun'
 
 
   function createRules() {
     const password = [
-      value => !!value || this.$tl("validation.password.required"),
-      value => value.length >= config.PasswordValidation.MinLength || this.$tl("validation.password.minLength"),
-      value => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$tl("validation.password.minDifferentChars"),
+      value => !!value || this.$tl('validation.password.required'),
+      value => value.length >= config.PasswordValidation.MinLength || this.$tl('validation.password.minLength'),
+      value => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$tl('validation.password.minDifferentChars'),
     ];
 
     return {
       userName: [
-        value => !!value || this.$tl("validation.userName.required"),
-        value => value.length >= 3 || this.$tl("validation.userName.minLength"),
-        value => value.length <= config.DbColumnSizes.Users_UserName || this.$tl("validation.userName.maxLength")
+        value => !!value || this.$tl('validation.userName.required'),
+        value => value.length >= 3 || this.$tl('validation.userName.minLength'),
+        value => value.length <= config.DbColumnSizes.Users_UserName || this.$tl('validation.userName.maxLength'),
+        value => !this.userNameInDb || this.$tl('validation.userName.nameInDb'), // link in db
       ],
       email: [
-        value => !!value || this.$tl("validation.email.required"),
-        value => /.+@.+/.test(value) || this.$tl("validation.email.emailSig"),
-        value => value.length <= config.DbColumnSizes.Users_Email || this.$tl("validation.email.maxLength"),
+        value => !!value || this.$tl('validation.email.required'),
+        value => /.+@.+/.test(value) || this.$tl('validation.email.emailSig'),
+        value => value.length <= config.DbColumnSizes.Users_Email || this.$tl('validation.email.maxLength'),
       ],
       password: password,
       password2: [
         ...password,
-        value => this.password === this.password2 || this.$tl("validation.password2.equals")
+        value => this.password === this.password2 || this.$tl('validation.password2.equals')
       ],
       captcha: [
-        value => !!value || this.$t("Captcha.required"),
+        value => !!value || this.$t('Captcha.required'),
       ]
     }
   }
 
   export default {
-    name: "Register",
-    components: {LoaderSent},
+    name: 'Register',
     mixins: [Page],
-    data: function () {
+    data() {
       return {
-        userName: "",
-        email: "",
-        password: "",
-        password2: "",
-        captchaText: "",
+        userName: '',
+        email: '',
+        password: '',
+        password2: '',
+        captchaText: '',
         submitting: false,
         token: null,
         waitToken: false,
         done: false,
         showPassword: false,
-        showPassword2: false
+        showPassword2: false,
+        userNameInDb: false
       }
     },
-    rules: null,
     methods: {
+      checkUserNameInDb() {
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(this.checkUserNameInDbDo, 500);
+      },
+      checkUserNameInDbDo() {
+        this.$store.dispatch('request',
+          {
+            url: '/Auth/CheckUserNameInDb',
+            data: {
+              userName: this.userName
+            }
+          }).then(response => {
+          this.userNameInDb = response.data.yes;
+          this.$refs.userName.validate();
+        })
+      },
       async register() {
         this.$refs.userName.validate();
         this.$refs.email.validate();
@@ -164,23 +179,24 @@
           this.token = response.data;
           this.waitToken = false;
         }).catch(x => {
-          if (x.response.data.errors[0].code === "SpamProtection") {
+          if (x.response.data.errors[0].code === 'SpamProtection') {
             this.waitToken = true;
           }
         });
       }
     },
     async created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
 
       this.rules = createRules.call(this);
 
       await this.GetToken();
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
 
 </style>

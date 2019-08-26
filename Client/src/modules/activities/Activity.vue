@@ -1,6 +1,6 @@
 <template>
   <div class="activity">
-    <q-item :to='path' class="page-padding">
+    <q-item :to="route" class="page-padding">
       <q-item-section>
         <q-item-label class="my-header">
           {{activity.title}}
@@ -42,7 +42,7 @@
 <script>
 
   export default {
-    name: "Activity",
+    name: 'Activity',
     props: {
       activity: {
         type: Object,
@@ -50,21 +50,21 @@
       }
     },
     computed: {
-      path() {
-        let path = this.category.path + "/" + this.activity.materialId;
+      route() {
+        let route = this.category.getMaterialRoute(this.activity.materialId);
         if (this.activity.commentId)
-          path += "#comment-" + this.activity.commentId;
-        return path;
+          route.hash = `#comment-${this.activity.commentId}`;
+        return route;
       },
       category() {
         return this.$store.getters.getCategory(this.activity.categoryName);
       }
     }
   }
+  
 </script>
 
-<style lang="stylus" scoped>
-
+<style lang="stylus">
 
 
 </style>

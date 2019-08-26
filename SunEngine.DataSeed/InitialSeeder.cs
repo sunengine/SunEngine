@@ -5,6 +5,7 @@ using NJsonSchema;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Authorization;
 using SunEngine.Core.Security;
+using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
 
 namespace SunEngine.DataSeed
@@ -15,19 +16,21 @@ namespace SunEngine.DataSeed
     /// </summary>
     public class InitialSeeder
     {
-        public const string CategoriesConfigDir = "CategoriesConfig";
+        public const string CategoriesConfigDir = "Categories";
+        public const string MenusConfigDir = "Menu";
 
-        private readonly DataContainer dataContainer;
 
-        private readonly UsersJsonSeeder usersJsonSeeder;
+        private readonly DataContainer dataContainer = new DataContainer();
+
+        private readonly UsersSeeder usersSeeder;
 
         private readonly string configDir;
+        
 
         public InitialSeeder(string configDir)
         {
             this.configDir = configDir;
-            dataContainer = new DataContainer();
-            usersJsonSeeder = new UsersJsonSeeder(dataContainer, configDir);
+            usersSeeder = new UsersSeeder(dataContainer, configDir);
         }
 
         public DataContainer Seed()
@@ -36,8 +39,6 @@ namespace SunEngine.DataSeed
 
             SeedOperationKeys();
 
-            SeedSectionTypes();
-
             SeedUsers();
 
             SeedCategories();
@@ -45,83 +46,22 @@ namespace SunEngine.DataSeed
             SeedRoles();
 
             SeedUserRoles();
-            
+
             SeedCacheSettings();
+
+            SeedMenus();
+
+            SeedCipherSecrets();
 
             return dataContainer;
         }
+
 
         private void StartConsoleLog()
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Data seed in memory:");
             Console.ResetColor();
-        }
-
-        private void SeedUsers()
-        {
-            Console.WriteLine("Users");
-
-            usersJsonSeeder.SeedUsers();
-        }
-
-        private void SeedUserRoles()
-        {
-            Console.WriteLine("UsersRoles");
-
-            usersJsonSeeder.SeedUserRoles();
-        }
-
-        private void SeedSectionTypes()
-        {
-            Console.WriteLine("SectionTypes");
-
-            SectionType sectionTypeArticles = new SectionType
-            {
-                Id = dataContainer.NextSectionTypeId(),
-                Name = "Articles",
-                Title = "Статьи"
-            };
-            dataContainer.SectionTypes.Add(sectionTypeArticles);
-
-            SectionType sectionTypeForum = new SectionType
-            {
-                Id = dataContainer.NextSectionTypeId(),
-                Name = "Forum",
-                Title = "Форум"
-            };
-            dataContainer.SectionTypes.Add(sectionTypeForum);
-
-            SectionType sectionTypeBlog = new SectionType
-            {
-                Id = dataContainer.NextSectionTypeId(),
-                Name = "Blog",
-                Title = "Блог"
-            };
-            dataContainer.SectionTypes.Add(sectionTypeBlog);
-        }
-
-
-        private void SeedRoles()
-        {
-            Console.WriteLine("Roles");
-
-            string pathToUserGroupsConfig = Path.GetFullPath(configDir + "/UserGroups.json");
-            string pathToUserGroupsSchema = Path.GetFullPath("Resources/UserGroups.schema.json");
-            JsonSchema4 schema = JsonSchema4.FromFileAsync(pathToUserGroupsSchema).GetAwaiter().GetResult();
-
-
-            RolesFromJsonLoader fromJsonLoader =
-                new RolesFromJsonLoader(dataContainer.Categories.ToDictionary(x => x.Name),
-                    dataContainer.OperationKeys.ToDictionary(x => x.Name), schema);
-
-            var json = File.ReadAllText(pathToUserGroupsConfig);
-
-            fromJsonLoader.Seed(json);
-
-            dataContainer.Roles = fromJsonLoader.roles;
-            dataContainer.CategoryAccesses = fromJsonLoader.categoryAccesses;
-            dataContainer.CategoryOperationAccesses = fromJsonLoader.categoryOperationAccesses;
         }
 
         private void SeedOperationKeys()
@@ -142,6 +82,12 @@ namespace SunEngine.DataSeed
             }
         }
 
+        private void SeedUsers()
+        {
+            Console.WriteLine("Users");
+
+            usersSeeder.SeedUsers();
+        }
 
         private void SeedCategories()
         {
@@ -150,52 +96,106 @@ namespace SunEngine.DataSeed
             SeedRootCategory();
             SeedCategoriesFromDirectory();
             DetectCategoriesParents();
-        }
-
-        private void DetectCategoriesParents()
-        {
-            foreach (var category in dataContainer.Categories)
+            
+            
+            void SeedRootCategory()
             {
-                if (category.ParentId.HasValue)
-                    category.Parent = dataContainer.Categories.FirstOrDefault(x => x.Id == category.ParentId.Value);
+                Category rootCategory = new Category
+                {
+                    Id = 1,
+                    Name = Category.RootName,
+                    NameNormalized = Normalizer.Normalize(Category.RootName),
+                    Title = Category.RootName,
+                    SortNumber = 1
+                };
+                dataContainer.RootCategory = rootCategory;
+                dataContainer.Categories.Add(rootCategory);
             }
-        }
-
-        private void SeedRootCategory()
-        {
-            int id = dataContainer.NextCategoryId();
-            Category rootCategory = new Category
+            
+            
+            void DetectCategoriesParents()
             {
-                Id = id,
-                Name = Category.RootName,
-                NameNormalized = Normalizer.Normalize(Category.RootName),
-                Title = "Корень",
-                SortNumber = id
-            };
-            dataContainer.RootCategory = rootCategory;
-            dataContainer.Categories.Add(rootCategory);
+                foreach (var category in dataContainer.Categories)
+                {
+                    if (category.ParentId.HasValue)
+                        category.Parent = dataContainer.Categories.FirstOrDefault(x => x.Id == category.ParentId.Value);
+                }
+            }
         }
 
         private void SeedCategoriesFromDirectory()
         {
             var fileNames = Directory.GetFiles(Path.GetFullPath(Path.Combine(configDir, CategoriesConfigDir)));
 
-            CategoriesJsonSeeder categoriesJsonSeeder =
-                new CategoriesJsonSeeder(dataContainer);
+            CategoriesSeeder categoriesSeeder =
+                new CategoriesSeeder(dataContainer);
             foreach (var fileName in fileNames)
             {
-                categoriesJsonSeeder.Seed(fileName);
+                categoriesSeeder.Seed(fileName);
             }
+        }
+
+        private void SeedRoles()
+        {
+            Console.WriteLine("Roles");
+
+            string pathToUserGroupsConfig = Path.GetFullPath(Path.Combine(configDir, "Roles.json"));
+            string pathToUserGroupsSchema = Path.GetFullPath("Resources/Roles.schema.json");
+            JsonSchema schema = JsonSchema.FromFileAsync(pathToUserGroupsSchema).GetAwaiter().GetResult();
+
+
+            RolesFromJsonLoader fromJsonLoader =
+                new RolesFromJsonLoader(dataContainer.Categories.ToDictionary(x => x.Name),
+                    dataContainer.OperationKeys.ToDictionary(x => x.Name), schema);
+
+            var json = File.ReadAllText(pathToUserGroupsConfig);
+
+            fromJsonLoader.Seed(json);
+
+            dataContainer.Roles = fromJsonLoader.roles;
+            dataContainer.CategoryAccesses = fromJsonLoader.categoryAccesses;
+            dataContainer.CategoryOperationAccesses = fromJsonLoader.categoryOperationAccesses;
+        }
+        private void SeedUserRoles()
+        {
+            Console.WriteLine("UsersRoles");
+
+            usersSeeder.SeedUserRoles();
         }
 
         private void SeedCacheSettings()
         {
-            dataContainer.CacheSettings = new CacheSettings()
+            dataContainer.CacheSettings = new CacheSettings
             {
                 Id = 1,
                 CachePolicy = CachePolicy.CustomPolicy,
                 InvalidateCacheTime = 15
             };
         }
+
+        private void SeedMenus()
+        {
+            var path = Path.GetFullPath(Path.Combine(configDir, MenusConfigDir));
+            MenuSeeder menuSeeder = new MenuSeeder(dataContainer, path);
+            menuSeeder.Seed();
+        }
+
+        private void SeedCipherSecrets()
+        {
+            var names = typeof(CipherSecrets).GetFields().Select(x => (string) x.GetValue(typeof(CipherSecrets)));
+
+            foreach (var name in names)
+            {
+                dataContainer.CipherSecrets.Add(
+                    new CipherSecret
+                    {
+                        Name = name,
+                        Secret = CryptService.GenerateSecurityKeyString()
+                    });
+            }
+        }
+
+
+        
     }
 }

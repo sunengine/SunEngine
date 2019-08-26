@@ -1,16 +1,16 @@
 <template>
-  <q-page>
+  <q-page class="new-topics">
 
     <div class="header-with-button page-padding">
       <h2 class="q-title">
-        {{localTitle}}
+        {{pageTitle}}
       </h2>
-      <q-btn no-caps @click="$router.push({name:'CreateMaterial',params:{categoriesNames: thread.name}})"
-             :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus" color="post"/>
+      <q-btn class="post-btn" no-caps @click="$router.push({name:'CreateMaterial',params:{categoriesNames: thread.name}})"
+             :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus" />
 
     </div>
 
-    <div v-if="thread.header" class="q-mb-sm page-padding" v-html="thread.header"></div>
+    <div v-if="thread && thread.header" class="q-mb-sm page-padding" v-html="thread.header"></div>
 
     <LoaderWait v-if="!topics.items"/>
 
@@ -35,7 +35,7 @@
         </div>
       </q-list>
 
-      <q-pagination  v-if="topics.totalPages > 1" v-model="topics.pageIndex" color="pagination"
+      <q-pagination v-if="topics.totalPages > 1" v-model="topics.pageIndex" color="pagination"
                     :max-pages="12" :max="topics.totalPages" ellipses direction-links @input="pageChanges"/>
     </div>
   </q-page>
@@ -43,31 +43,26 @@
 </template>
 
 <script>
-  import Topic from './Topic'
-  import LoaderWait from "LoaderWait";
-  import Page from "Page";
+
+  import {Page} from 'sun'
 
   export default {
-    name: "NewTopics",
+    name: 'NewTopics',
     mixins: [Page],
     props: {
       categoryName: String
     },
-    components: {LoaderWait, Topic},
-    data: function () {
+    data() {
       return {
         topics: {},
       }
     },
     watch: {
-      'categoryName': 'loadData',
-      '$route.query.page': 'loadData',
-      '$store.state.categories.all': "loadData",
-      '$store.state.auth.user': 'loadData'
+      '$route': 'loadData',
     },
     computed: {
-      localTitle() {
-        return `${this.$tl("titleStart")} - ${this.thread?.title}`;
+      pageTitle() {
+        return `${this.$tl('titleStart')} - ${this.thread?.title}`;
       },
       thread() {
         return this.$store.getters.getCategory(this.categoryName);
@@ -76,8 +71,7 @@
         return this.thread?.categoryPersonalAccess?.materialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;
       },
       currentPage() {
-        let page1 = this.$route.query?.page;
-        return page1 ?? 1;
+        return this.$route.query?.page ?? 1;
       }
     },
 
@@ -93,43 +87,50 @@
       },
 
       async loadData() {
-        this.title = this.localTitle;
+        this.title = this.pageTitle;
 
-        await this.$store.dispatch("request",
+        await this.$store.dispatch('request',
           {
-            url: "/Forum/GetNewTopics",
+            url: '/Forum/GetNewTopics',
             data: {
               categoryName: this.categoryName,
               page: this.currentPage
             }
           })
-          .then(
-            response => {
+          .then(response => {
               this.topics = response.data;
             }
           ).catch(x => {
-            console.log("error", x);
+            console.log('error', x);
           });
       }
     },
-
+    beforeCreate() {
+      this.$options.components.Topic = require('sun').Topic;
+      this.$options.components.LoaderWait = require('sun').LoaderWait;
+    },
     async created() {
       await this.loadData()
     }
   }
+
 </script>
 
-<style lang="stylus" scoped>
-  .hr-sep {
-    height: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    border-top: solid #d3eecc 1px !important;
-    border-left: none;
+<style lang="stylus">
+
+  .new-topics {
+    .hr-sep {
+      height: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      border-top: solid #d3eecc 1px !important;
+      border-left: none;
+    }
+
+    .q-list {
+      padding: 0;
+      margin-bottom: 12px;
+    }
   }
 
-  .q-list {
-    padding: 0;
-    margin-bottom: 12px;
-  }
 </style>

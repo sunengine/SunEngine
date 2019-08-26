@@ -1,15 +1,16 @@
 <template>
-  <q-page class="flex middle page-padding">
+  <q-page class="change-email flex middle page-padding">
 
     <div v-if="!done" class="center-form">
 
-      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'"  :label="$tl('password')" :rules="rules.password">
+      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'" :label="$tl('password')"
+               :rules="rules.password">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
         <template v-slot:append>
           <q-icon
-            :name="showPassword ? 'visibility' : 'visibility_off'"
+            :name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
             class="cursor-pointer"
             @click="showPassword = !showPassword"
           />
@@ -22,7 +23,7 @@
         </template>
       </q-input>
 
-      <q-btn no-caps class="q-mt-lg" color="send" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
+      <q-btn no-caps class="send-btn q-mt-lg" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
              :loading="submitting">
         <LoaderSent slot="loading"/>
       </q-btn>
@@ -39,8 +40,7 @@
 </template>
 
 <script>
-  import Page from "Page";
-  import LoaderSent from "LoaderSent";
+  import {Page} from 'sun';
 
 
   function createRules() {
@@ -58,7 +58,6 @@
 
   export default {
     name: "ChangeEmail",
-    components: {LoaderSent},
     mixins: [Page],
     data: function () {
       return {
@@ -69,7 +68,6 @@
         showPassword: false
       }
     },
-    rules: null,
     methods: {
       async save() {
 
@@ -97,6 +95,9 @@
         });
       }
     },
+    beforeCreate() {
+      this.$options.components.LoaderSent = require('sun').LoaderSent;
+    },
     async created() {
       this.title = this.$tl("title");
       this.rules = createRules.call(this);
@@ -104,6 +105,6 @@
   }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
 </style>

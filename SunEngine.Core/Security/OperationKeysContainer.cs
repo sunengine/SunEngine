@@ -30,7 +30,7 @@ namespace SunEngine.Core.Security
 
 
         public int MaterialAndCommentsRead { get; private set; }
-        
+
         public int MaterialWrite { get; private set; }
         public int MaterialEditOwn { get; private set; }
         public int MaterialEditOwnIfTimeNotExceeded { get; private set; }
@@ -50,20 +50,16 @@ namespace SunEngine.Core.Security
 
 
         // For Moderator +
+        
+        [IsSuper] public int MaterialEditSettingsJson { get; private set; }
+        [IsSuper] public int MaterialEditAny { get; private set; }
+        [IsSuper] public int MaterialDeleteAny { get; private set; }
+        [IsSuper] public int MaterialChangeOrder { get; private set; }
+        [IsSuper] public int MaterialHide { get; private set; }
+        [IsSuper] public int MaterialBlockCommentsAny { get; private set; }
+        [IsSuper] public int CommentEditAny { get; private set; }
+        [IsSuper] public int CommentDeleteAny { get; private set; }
 
-        [IsSuper] 
-        public int MaterialEditAny { get; private set; }
-        [IsSuper] 
-        public int MaterialDeleteAny { get; private set; }
-        [IsSuper] 
-        public int MaterialChangeOrder { get; private set; }
-        
-        [IsSuper] 
-        public int CommentEditAny { get; private set; }
-        [IsSuper] 
-        public int CommentDeleteAny { get; private set; }
-        
-        
 
         public static IList<string> GetAllOperationKeys()
         {
@@ -85,6 +81,5 @@ namespace SunEngine.Core.Security
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class IsSuperAttribute : Attribute
     {
-        
     }
 }

@@ -12,7 +12,7 @@ namespace SunEngine.Core.Configuration.AddServices
                     options.DefaultAuthenticateScheme = SunJwt.Scheme;
                     options.DefaultChallengeScheme = SunJwt.Scheme;
                 })
-                .AddScheme<SunJwtOptions, SunJwtHandler>(SunJwt.Scheme, SunJwt.Scheme, options => { });
+                .AddScheme<SunJwtOptions, SunJweHandler>(SunJwt.Scheme, SunJwt.Scheme, options => { });
         }
     }
 }

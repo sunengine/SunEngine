@@ -1,9 +1,0 @@
-[
-  {
-    "Name": "Blog",
-    "Title": "Блог",
-    "SectionType": "Blog",
-    "IsMaterialsContainer": true,
-    "MaterialTypeTitle" : "Пост"
-  }
-]

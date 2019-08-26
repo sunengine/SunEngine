@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Core.DataBase;
+using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
 
 namespace SunEngine.Core.Presenters
@@ -13,7 +14,7 @@ namespace SunEngine.Core.Presenters
         Task<(CommentView commentViewModel, int categoryId)>
             GetCommentAsync(int commentId);
 
-        Task<List<CommentView>> GetMaterialCommentsAsync(int materialId);
+        Task<List<CommentView>> GetMaterialCommentsAsync(int materialId, bool withDeleted = false);
     }
 
     public class CommentsPresenter : DbService, ICommentsPresenter
@@ -21,7 +22,7 @@ namespace SunEngine.Core.Presenters
         public CommentsPresenter(DataBaseConnection db) : base(db)
         {
         }
-        
+
         public virtual async Task<(CommentView commentViewModel, int categoryId)>
             GetCommentAsync(int commentId)
         {
@@ -38,7 +39,7 @@ namespace SunEngine.Core.Presenters
                         Text = x.Text,
                         PublishDate = x.PublishDate,
                         EditDate = x.EditDate,
-                        IsDeleted = x.IsDeleted
+                        DeletedDate = x.DeletedDate
                     },
                     categoryId = x.Material.CategoryId
                 }
@@ -47,9 +48,14 @@ namespace SunEngine.Core.Presenters
             return (rez.commentViewModel, rez.categoryId);
         }
 
-        public virtual Task<List<CommentView>> GetMaterialCommentsAsync(int materialId)
+        public virtual Task<List<CommentView>> GetMaterialCommentsAsync(int materialId, bool withDeleted = false)
         {
-            return db.CommentsNotDeleted.Where(x => x.MaterialId == materialId)
+            IQueryable<Comment> query = db.Comments;
+
+            if (!withDeleted)
+                query = query.Where(x => x.DeletedDate == null);
+
+            return query.Where(x => x.MaterialId == materialId)
                 .OrderBy(x => x.PublishDate)
                 .Select(
                     x => new CommentView
@@ -62,13 +68,11 @@ namespace SunEngine.Core.Presenters
                         AuthorName = x.Author.UserName,
                         AuthorLink = x.Author.Link,
                         AuthorAvatar = x.Author.Avatar,
-                        IsDeleted = x.IsDeleted
+                        DeletedDate = x.DeletedDate
                     }).ToListAsync();
         }
-
-        
     }
-    
+
     public class CommentView
     {
         public int Id { get; set; }
@@ -79,6 +83,6 @@ namespace SunEngine.Core.Presenters
         public string Text { get; set; }
         public DateTime PublishDate { get; set; }
         public DateTime? EditDate { get; set; }
-        public bool IsDeleted { get; set; }
+        public DateTime? DeletedDate { get; set; }
     }
 }

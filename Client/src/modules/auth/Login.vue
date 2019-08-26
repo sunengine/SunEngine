@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="login flex flex-center">
 
     <div class="center-form">
 
@@ -18,7 +18,7 @@
         </template>
         <template v-slot:append>
           <q-icon
-            :name="showPassword ? 'visibility' : 'visibility_off'"
+            :name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
             class="cursor-pointer"
             @click="showPassword = !showPassword"
           />
@@ -26,11 +26,7 @@
       </q-input>
 
 
-      <div class="q-my-md" style="text-align: right;">
-        <q-checkbox class="text-grey-9" left-label v-model="notMyComputer" :label="$tl('notMyComputer')"/>
-      </div>
-
-      <q-btn style="width:100%;" color="send" :label="$tl('enterBtn')" @click="login" :loading="submitting">
+      <q-btn style="width:100%;" class="send-btn" :label="$tl('enterBtn')" @click="login" :loading="submitting">
         <span slot="loading">
           <q-spinner class="on-left"/>  {{$tl('entering')}}
         </span>
@@ -46,16 +42,16 @@
 </template>
 
 <script>
-  import Page from "Page";
+  import {Page} from 'sun'
+
 
   export default {
-    name: "Login",
+    name: 'Login',
     mixins: [Page],
-    data: function () {
+    data() {
       return {
         nameOrEmail: null,
         password: null,
-        notMyComputer: false,
         submitting: false,
         showPassword: false
       }
@@ -71,8 +67,8 @@
 
         this.submitting = true;
 
-        const data = {nameOrEmail: this.nameOrEmail, password: this.password, notMyComputer: this.notMyComputer};
-        await this.$store.dispatch('doLogin', data)
+        const data = {nameOrEmail: this.nameOrEmail, password: this.password};
+        await this.$store.dispatch('login', data)
           .then(() => {
             this.$successNotify();
             this.$router.back();
@@ -83,11 +79,12 @@
       }
     },
     created() {
-      this.title = this.$tl("title");
+      this.title = this.$tl('title');
     }
   }
+
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

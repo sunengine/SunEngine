@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using Flurl;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
 using SunEngine.Core.Models;
+using SunEngine.Core.Security;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
 
@@ -21,31 +20,34 @@ namespace SunEngine.Core.Managers
     {
         Task SendChangeEmailConfirmationMessageByEmailAsync(User user, string email);
         bool ValidateChangeEmailToken(string token, out int userId, out string email);
-        Task<ServiceResult> ResetPasswordSendEmailAsync(User user);
+        Task ResetPasswordSendEmailAsync(User user);
     }
 
     public class AccountManager : DbService, IAccountManager
     {
-        protected readonly JwtOptions jwtOptions;
+        protected readonly JweOptions jweOptions;
         protected readonly SunUserManager userManager;
         protected readonly GlobalOptions globalOptions;
-        protected readonly IEmailSenderService EmailSenderService;
+        protected readonly ICryptService cryptService;
+        protected readonly IEmailSenderService emailSenderService;
 
 
         public AccountManager(
             SunUserManager userManager,
             IEmailSenderService emailSenderService,
             DataBaseConnection db,
+            ICryptService cryptService,
             IOptions<GlobalOptions> globalOptions,
-            IOptions<JwtOptions> jwtOptions) : base(db)
+            IOptions<JweOptions> jwtOptions) : base(db)
         {
-            this.jwtOptions = jwtOptions.Value;
+            this.jweOptions = jwtOptions.Value;
             this.userManager = userManager;
             this.globalOptions = globalOptions.Value;
-            this.EmailSenderService = emailSenderService;
+            this.emailSenderService = emailSenderService;
+            this.cryptService = cryptService;
         }
 
-        public virtual async Task<ServiceResult> ResetPasswordSendEmailAsync(User user)
+        public virtual async Task ResetPasswordSendEmailAsync(User user)
         {
             var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
 
@@ -55,23 +57,20 @@ namespace SunEngine.Core.Managers
 
             try
             {
-                await EmailSenderService.SendEmailAsync(user.Email, "You can reset your password",
-                    $"Reset password by clicking this <a href=\"{resetPasswordUrl}\">link</a>."
+                await emailSenderService.SendEmailByTemplateAsync(
+                    user.Email,
+                    "reset-password.html",
+                    new Dictionary<string, string>{{"[resetPassUrl]", resetPasswordUrl}}
                 );
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                ServiceResult.BadResult(new ErrorView ("EmailSendError","Server error. Can not send email.", ErrorType.System));
+                throw new SunViewException(new ErrorView ("EmailSendError","Server error. Can not send email.", ErrorType.System, exception));
             }
-
-            return ServiceResult.OkResult();
         }
 
         public virtual string GenerateChangeEmailToken(User user, string email)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKeyEmailChange));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -80,13 +79,36 @@ namespace SunEngine.Core.Managers
             };
 
             var token = new JwtSecurityToken(
-                issuer: jwtOptions.Issuer,
-                audience: jwtOptions.Issuer,
                 claims: claims.ToArray(),
-                expires: DateTime.Now.AddDays(3),
-                signingCredentials: credentials);
-
+                expires: DateTime.UtcNow.AddDays(3));
+            
+            cryptService.Crypt(CipherSecrets.EmailChange,token.Payload.SerializeToJson());
+            
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+        
+        public virtual bool ValidateChangeEmailToken(string token, out int userId, out string email)
+        {
+            try
+            {
+                var tokenDecrypted = cryptService.Decrypt(CipherSecrets.EmailChange, token);
+
+                var jwtSecurityToken = new JwtSecurityToken(new JwtHeader(), JwtPayload.Deserialize(tokenDecrypted));
+
+                email = jwtSecurityToken.Claims.First(x => x.Type == JwtRegisteredClaimNames.Email).Value;
+                userId = int.Parse(jwtSecurityToken.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+
+                if (jwtSecurityToken.ValidTo.Add(TokensExpiration.Delta) < DateTime.UtcNow)
+                    return false;
+            }
+            catch
+            {
+                email = null;
+                userId = 0;
+                return false;
+            }
+
+            return true;
         }
 
         public virtual async Task SendChangeEmailConfirmationMessageByEmailAsync(User user, string email)
@@ -95,38 +117,12 @@ namespace SunEngine.Core.Managers
 
             var updateEmailUrl = globalOptions.SiteApi.AppendPathSegments("Account", "ConfirmChangeEmail")
                 .SetQueryParam("token", emailToken);
-
-            await EmailSenderService.SendEmailAsync(email, "Confirm your email",
-                $"Confirm your email by clicking this <a href=\"{updateEmailUrl}\">link</a>.");
-        }
-
-        public virtual bool ValidateChangeEmailToken(string token, out int userId, out string email)
-        {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKeyEmailChange));
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var validationParameters = new TokenValidationParameters
-            {
-                ValidateLifetime = true,
-                ValidateAudience = true,
-                ValidateIssuer = true,
-                ValidIssuer = jwtOptions.Issuer,
-                ValidAudience = jwtOptions.Issuer,
-                IssuerSigningKey = key
-            };
-
-            var securityToken = tokenHandler.ValidateToken(token, validationParameters, out _);
-            if (securityToken == null)
-            {
-                userId = 0;
-                email = null;
-                return false;
-            }
-
-            var jwt = tokenHandler.ReadJwtToken(token);
-            email = jwt.Claims.First(x => x.Type == JwtRegisteredClaimNames.Email).Value;
-            userId = int.Parse(jwt.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-            return true;
+            
+            await emailSenderService.SendEmailByTemplateAsync(
+                email,
+                "email-change.html",
+                new Dictionary<string, string> {{"[link]", updateEmailUrl}}
+            );
         }
     }
 }

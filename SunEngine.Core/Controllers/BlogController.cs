@@ -42,19 +42,34 @@ namespace SunEngine.Core.Controllers
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> GetPosts(string categoryName, int page = 1)
+        public virtual async Task<IActionResult> GetPosts(string categoryName, int page = 1, bool showDeleted = false)
         {
             var category = categoriesCache.GetCategory(categoryName);
 
             if (category == null)
                 return BadRequest();
 
+            
             if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
                 return Unauthorized();
 
+            
+            var options = new MaterialsShowOptions
+            {
+                CategoryId = category.Id, 
+                Page = page, 
+                PageSize = blogOptions.PostsPageSize
+            };
+
+            if (authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialHide))
+                options.ShowHidden = true;
+            
+            if (showDeleted && authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialDeleteAny))
+                options.ShowDeleted = true;
+            
             async Task<IPagedList<PostView>> LoadDataAsync()
             {
-                return await blogPresenter.GetPostsAsync(category.Id, page, blogOptions.PostsPageSize);
+                return await blogPresenter.GetPostsAsync(options);
             }
 
             return await CacheContentAsync(category, category.Id, LoadDataAsync, page);
@@ -72,12 +87,14 @@ namespace SunEngine.Core.Controllers
             if (categoriesList.Count == 0)
                 return BadRequest("No categories to show");
 
-            
-            
-            var categoriesIds = categoriesList.Select(x => x.Id).ToArray();
+            var options = new MaterialsMultiCatShowOptions
+            {
+                CategoriesIds = categoriesList.Select(x => x.Id),
+                Page = page, 
+                PageSize = pageSize ?? blogOptions.PostsPageSize
+            };
 
-            var rez = await blogPresenter.GetPostsFromMultiCategoriesAsync(categoriesIds, page,
-                pageSize ?? blogOptions.PostsPageSize);
+            var rez = await blogPresenter.GetPostsFromMultiCategoriesAsync(options);
 
             return Json(rez);
 

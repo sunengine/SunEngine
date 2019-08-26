@@ -14,7 +14,7 @@
    viewBox="0 0 118.85716 118.97641"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.3 (5aff6ba, 2018-11-25)"
+   inkscape:version="0.92.4 (33fec40, 2019-01-16)"
    sodipodi:docname="default-avatar.svg">
   <defs
      id="defs2" />
@@ -26,7 +26,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.96190995"
-     inkscape:cx="-43.898681"
+     inkscape:cx="82.601144"
      inkscape:cy="238.6089"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -36,7 +36,7 @@
      inkscape:window-width="1366"
      inkscape:window-height="740"
      inkscape:window-x="0"
-     inkscape:window-y="28"
+     inkscape:window-y="0"
      inkscape:window-maximized="1">
     <sodipodi:guide
        position="26.25646,1.8207813e-06"
@@ -62,7 +62,7 @@
      id="layer1"
      transform="translate(-26.217215,-12.522375)">
     <rect
-       style="fill:#fff5e9;fill-opacity:1;stroke:none;stroke-width:0.23304135;stroke-opacity:1"
+       style="fill:#92d3ff;fill-opacity:1;stroke:none;stroke-width:0.23304135;stroke-opacity:1"
        id="rect4547"
        width="118.85716"
        height="118.97642"

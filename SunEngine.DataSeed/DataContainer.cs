@@ -12,26 +12,21 @@ namespace SunEngine.DataSeed
     /// </summary>
     public class DataContainer
     {
-        private int currentUserId = 1;
-        
-        private int currentSectionTypeId = 1;
-
-        private int currentCategoryId = 1;
-
         public int currentCommentId = 1;
-
         public int currentMaterialId = 1;
-
-        private int currentCategoryAccessId = 1;
-
-        private int currentUserGroupId = 1;
-
-        private int operationKeyId = 1;
         
+        private int currentUserId = 1;
+        private int currentSectionTypeId = 1;
+        private int currentCategoryId = 2;
+        private int currentCategoryAccessId = 1;
+        private int currentUserGroupId = 1;
+        private int operationKeyId = 1;
+        private int menuItemId = 2;
         private DateTime commentPublishDate = DateTime.UtcNow.AddMinutes(-3);
 
         public Category RootCategory;
-        public List<SectionType> SectionTypes = new List<SectionType>(); 
+        public MenuItem RootMenuItem;
+        
         public List<Category> Categories = new List<Category>();
         public List<Comment> Comments = new List<Comment>();
         public List<Material> Materials = new List<Material>();
@@ -41,60 +36,38 @@ namespace SunEngine.DataSeed
         public List<CategoryAccess> CategoryAccesses = new List<CategoryAccess>(); 
         public List<CategoryOperationAccess> CategoryOperationAccesses = new List<CategoryOperationAccess>();
         public List<OperationKey> OperationKeys = new List<OperationKey>();
+        public List<MenuItem> MenuItems = new List<MenuItem>();
+        public List<CipherSecret> CipherSecrets = new List<CipherSecret>();
+
         public CacheSettings CacheSettings = null;
 
         public Random ran = new Random();
         
-        public int NextSectionTypeId()
-        {
-            return currentSectionTypeId++;
-        }
-        
-        public int NextCategoryId()
-        {
-            return currentCategoryId++;
-        }
+        public int NextSectionTypeId() => currentSectionTypeId++;
+
+        public int NextCategoryId() => currentCategoryId++;
 
         public int MaxUserId => currentUserId;
 
-        public int NextUserId()
-        {
-            return currentUserId++;
-        }
+        public int NextUserId() => currentUserId++;
 
-        public int NextCommentId()
-        {
-            return currentCommentId++;
-        }
+        public int NextCommentId() => currentCommentId++;
+            
+        public int NextMaterialId() => currentMaterialId++;
+        
+        public int NextCategoryAccessId() => currentCategoryAccessId++;
 
-        public int NextMaterialId()
-        {
-            return currentMaterialId++;
-        }
+        public int NextUserGroupId() => currentUserGroupId++;
         
-        public int NextCategoryAccessId()
-        {
-            return currentCategoryAccessId++;
-        }
-        
-        public int NextUserGroupId()
-        {
-            return currentUserGroupId++;
-        }
-        
-        public int NextOperationKeyId()
-        {
-            return operationKeyId++;
-        }
+        public int NextOperationKeyId() => operationKeyId++;
 
-        public int GetRandomUserId()
-        {
-            return Users[ran.Next(Users.Count)].Id;
-        }
-        
+        public int NextMenuItemId() => menuItemId++;
+
+        public int GetRandomUserId() => Users[ran.Next(Users.Count)].Id;
+
         public DateTime IterateCommentPublishDate()
         {
-            commentPublishDate = commentPublishDate.AddMinutes(-5);
+            commentPublishDate = commentPublishDate.AddMinutes(-3);
             return commentPublishDate;
         }
     }
