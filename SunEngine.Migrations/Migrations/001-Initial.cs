@@ -211,6 +211,14 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("Icon".s()).AsString(DbColumnSizes.MenuItems_Icon).Nullable()
                 .WithColumn("IsHidden".s()).AsBoolean().NotNullable();
 
+            Create.Table("Components".s())
+                .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name".s()).AsString(DbColumnSizes.Components_Name).NotNullable()
+                .WithColumn("Type".s()).AsString(DbColumnSizes.Components_Type).NotNullable()
+                .WithColumn("Roles".s()).AsString().NotNullable()
+                .WithColumn("IsCacheData".s()).AsBoolean()
+                .WithColumn("ServerSettingsJson".s()).AsMaxString()
+                .WithColumn("ClientSettingsJson".s()).AsMaxString();
 
             Create.Table("CipherSecrets".s())
                 .WithColumn("Name".s()).AsString(DbColumnSizes.CipherSecrets_Name).PrimaryKey().NotNullable()

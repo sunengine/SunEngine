@@ -78,8 +78,6 @@ namespace SunEngine.Core.Controllers
             return await CacheContentAsync(category, category.Id, LoadDataAsync, page);
         }
 
-        
-
         [HttpPost]
         public virtual async Task<IActionResult> GetPostsFromMultiCategories(string componentName, int page = 1)
         {
@@ -87,9 +85,9 @@ namespace SunEngine.Core.Controllers
             if (component == null)
                 return BadRequest($"No component {componentName} found in cache");
 
-            PostsComponentData pd = component.Data as PostsComponentData;
+            PostsComponentData componentData = component.Data as PostsComponentData;
 
-            var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(pd.CategoriesNames);
+            var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(componentData.CategoriesNames);
 
             IList<CategoryCached> categoriesList = authorizationService.GetAllowedCategories(User.Roles,
                 materialsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);
@@ -103,7 +101,7 @@ namespace SunEngine.Core.Controllers
             {
                 CategoriesIds = categoriesList.Select(x => x.Id),
                 Page = page,
-                PageSize = pd.PageSize
+                PageSize = componentData.PageSize
             };
 
             async Task<IPagedList<PostView>> LoadDataAsync()
@@ -111,8 +109,8 @@ namespace SunEngine.Core.Controllers
                return await blogPresenter.GetPostsFromMultiCategoriesAsync(options);
             }
 
-            var blogCategory = categoriesCache.GetCategory(categoriesNames);
-            return await CacheContentAsync(blogCategory, categoriesIds, LoadDataAsync);
+            return Ok(await LoadDataAsync());
+            //return await CacheContentAsync(component, categoriesIds, LoadDataAsync);
         }
         
         public class PostsComponentData

@@ -123,6 +123,9 @@ namespace SunEngine.Core.DataBase
                 .HasTableName("CipherSecrets")
                 .HasPrimaryKey(x => x.Name);
             
+            mp.Entity<Component>()
+                .HasTableName("Components")
+                .HasPrimaryKey(x => x.Id);
             
         }
     }
