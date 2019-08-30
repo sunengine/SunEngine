@@ -70,6 +70,13 @@ export default {
     successNotify: "Category was updated."
   },
 
+  // ——— components ———————————————————————————————————
+
+  ComponentsAdmin: {
+    title: "Components",
+    addComponentBtn: "Add component"
+  },
+
   // ——— menuItems ————————————————————————————————————
 
   CreateMenuItem: {
@@ -179,6 +186,8 @@ export default {
     menuItemsCaption: "",
     categories: "Categories",
     categoriesCaption: "",
+    components: "Components",
+    componentsCaption: "",
     rolesUsers: "Groups",
     rolesUsersCaption: "",
     rolesPermissions: "Permission",

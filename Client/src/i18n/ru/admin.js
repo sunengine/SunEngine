@@ -45,7 +45,7 @@ export default {
         required: "Выберите родительскую категорию"
       },
       settingsJson: {
-        jsonFormatError: "Неверный формат Json",
+        jsonFormatError: "@:Global.validation.validation",
       }
     }
   },
@@ -70,6 +70,37 @@ export default {
     successNotify: "Категория обновлена."
   },
 
+  // ——— components ———————————————————————————————————
+
+
+  ComponentForm: {
+    name: "Имя (eng)",
+    type: "Тип",
+    isCacheData: "Кешировать",
+    serverSettingsJson: "Серверные настройки JSON",
+    clientSettingsJson: "Клиентские настройки JSON",
+    validation: {
+      name: {
+        minLength: "Длинна должна быть не меньше 3 символов",
+        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.Components_Name,
+        allowedChars: "Имя (eng) должно состоять из символов `a-z`, `A-Z`, `0-9`, `-`, `_`"
+      },
+      jsonFormatError: "@:Global.validation.validation",
+    }
+  },
+  ComponentsAdmin: {
+    title: "Компоненты",
+    addComponentBtn: "Добавить компонент"
+  },
+  CreateComponent: {
+    title: "Задать компонент",
+    createBtn: "@:Global.btn.create",
+    cancelBtn: "@:Global.btn.cancel"
+  },
+  EditComponent: {
+    title: "Изменить компонент",
+  },
+
   // ——— menuItems ————————————————————————————————————
 
   CreateMenuItem: {
@@ -84,9 +115,7 @@ export default {
     cancelBtn: "@:Global.btn.cancel",
     successNotify: "Пункт меню успешно сохранён"
   },
-  MenuAdminItem: {
-
-  },
+  MenuAdminItem: {},
   MenuItemForm: {
     name: "Идентификатор (eng)",
     title: "Заголовок",
@@ -127,7 +156,7 @@ export default {
         maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.MenuItems_Icon,
       },
       settingsJson: {
-        jsonFormatError: "Неверный формат Json",
+        jsonFormatError: "@:Global.validation.validation"
       }
     }
   },
@@ -183,6 +212,8 @@ export default {
     categories: "Категории",
     categoriesCaption: "",
     //categoriesCaption: "Редактирование разделов сайта",
+    components: "Компоненты",
+    componentsCaption: "",
     rolesUsers: "Группы",
     rolesUsersCaption: "",
     //rolesUsersCaption: "Пользователи по группам",
@@ -193,7 +224,7 @@ export default {
     cacheSettingsCaption: "",
     //cacheSettingsCaption: "Способ кэширования на сайте",
     cypherSecrets: "Ключи шифрования",
-    cypherSecretsCaption:"",
+    cypherSecretsCaption: "",
     imagesCleaner: "Очистка",
     imagesCleanerCaption: "",
     //imagesCleanerCaption: "Удалить неиспользуемые изображения",
@@ -240,7 +271,7 @@ export default {
     title: "Очистка изображений",
     info: "Потерянные изображения, которые не используются на сайте",
     clearBtn: "Очистить",
-    refreshBtn : "Обновить",
+    refreshBtn: "Обновить",
     clearCount: "Очищено изображений: ",
     emptyResult: "Каталог пуст"
   }

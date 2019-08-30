@@ -4,28 +4,33 @@
       <h2 class="q-title">
         {{$tl("title")}}
       </h2>
-      <q-btn icon="far fa-plus-square" class="post-btn q-mr-lg" type="a" :to="{name: 'CreateComponent'}" no-caps
+      <q-btn icon="fas fa-plus" class="post-btn q-mr-lg" type="a" :to="{name: 'CreateComponent'}" no-caps
              :label="$tl('addComponentBtn')"/>
       <div class="clear"></div>
     </div>
 
-    <div v-if="components">
-      <div v-for="component in component">
-        <router-link :to="{name: 'EditComponent', props: {name: component.name}}">{{component.title}}
-          [{{component.name}}]
+    <div class="components" v-if="components">
+      <div v-for="component in components">
+        <router-link :to="{name: 'EditComponent', props: {name: component.name}}">
+          <q-icon name="fas fa-cube" class="q-mr-xs"/>
+          {{component.name}}
+          <span class="text-grey-7 q-ml-sm">
+            [{{component.type}}]
+          </span>
         </router-link>
       </div>
-      <!-- <ComponentItem :component="component" v-for="component in components" />-->
     </div>
     <LoaderWait v-else/>
   </q-page>
 </template>
 
 <script>
+    import {Page} from 'sun';
+
 
     export default {
         name: "ComponentsAdmin",
-        components: {ComponentItem, LoaderWait},
+        mixins: [Page],
         data() {
             return {
                 components: null
@@ -33,7 +38,7 @@
         },
         methods: {
             loadData() {
-                this.$store.dispatch('request', {url: '/Admin/MenuAdmin/GetMenuItems',})
+                this.$store.dispatch('request', {url: '/Admin/ComponentsAdmin/GetAllComponents',})
                     .then(response => {
                         this.components = response.data;
                     })
@@ -41,7 +46,6 @@
         },
         beforeCreate() {
             this.$options.components.LoaderWait = require('sun').LoaderWait;
-            this.$options.components.ComponentItem = require('sun').ComponentItem;
         },
         created() {
             this.title = this.$tl('title');
@@ -54,7 +58,9 @@
 <style lang="stylus">
 
   .components-admin {
-
+    .components {
+      font-size: 1.15em;
+    }
   }
 
 </style>

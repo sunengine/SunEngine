@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Core.DataBase;
@@ -19,7 +20,7 @@ namespace SunEngine.Admin.Presenters
 
         public Task<Component[]> GetComponentsAsync()
         {
-            return db.Components.ToArrayAsync();
+            return db.Components.OrderBy(x=>x.Name).ToArrayAsync();
         }
     }
 }

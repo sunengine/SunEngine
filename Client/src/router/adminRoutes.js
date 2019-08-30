@@ -14,6 +14,8 @@ import {EditMenuItem} from 'sun'
 import {CypherSecrets} from 'sun'
 import {DeletedElements} from 'sun'
 import {AdminMenu} from 'sun'
+import {ComponentsAdmin} from 'sun'
+import {CreateComponent} from 'sun'
 
 
 const AdminPage = wrapInPage("AdminPage", AdminMenu, null, "fas fa-cog");
@@ -132,6 +134,22 @@ const routes = [
         props: true
       }
     ]
+  },
+  {
+    name: 'ComponentsAdmin',
+    path: '/admin/components'.toLowerCase(),
+    components: {
+      default: ComponentsAdmin,
+      navigation: AdminPanel
+    }
+  },
+  {
+    name: 'CreateComponent',
+    path: '/admin/components/CreateComponent'.toLowerCase(),
+    components: {
+      default: CreateComponent,
+      navigation: AdminPanel
+    }
   },
   {
     name: 'CacheSettings',

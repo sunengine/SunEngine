@@ -21,6 +21,16 @@
       </q-item-section>
     </q-item>
 
+    <q-item :to="{name: 'ComponentsAdmin'}">
+      <q-item-section avatar>
+        <q-icon name="fas fa-network-wired"/>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $tl("components") }}</q-item-label>
+        <q-item-label v-if="componentsCaption" caption>{{componentsCaption}}</q-item-label>
+      </q-item-section>
+    </q-item>
+
     <q-item :to="{name: 'RolesPage'}">
       <q-item-section avatar>
         <q-icon name="fas fa-users"/>
@@ -90,54 +100,57 @@
 
 <script>
 
-  export default {
-    name: 'AdminMenu',
-    data() {
-      return {
-        version: null
-      }
-    },
-    computed: {
-      menuItemsCaption() {
-        return this.$tl("menuItemsCaption") ?? null;
-      },
-      categoriesCaption() {
-        return this.$tl("categoriesCaption") ?? null;
-      },
-      rolesUsersCaption() {
-        return this.$tl("rolesUsersCaption") ?? null;
-      },
-      rolesPermissionsCaption() {
-        return this.$tl("rolesPermissionsCaption") ?? null;
-      },
-      cacheSettingsCaption() {
-        return this.$tl("cacheSettingsCaption") ?? null;
-      },
-      imagesCleanerCaption() {
-        return this.$tl("imagesCleanerCaption") ?? null;
-      },
-      deletedElementsCaption() {
-        return this.$tl("deletedElementsCaption") ?? null;
-      },
-      cypherSecretsCaption() {
-        return this.$tl("cypherSecretsCaption") ?? null;
-      }
-    },
-    methods: {
-      async getVersion() {
-        await this.$store
-          .dispatch('request', {
-            url: '/Pulse/Version'
-          })
-          .then(response => {
-            this.version = response.data.version;
-          });
-      }
-    },
-    async created() {
-      await this.getVersion();
+    export default {
+        name: 'AdminMenu',
+        data() {
+            return {
+                version: null
+            }
+        },
+        computed: {
+            menuItemsCaption() {
+                return this.$tl("menuItemsCaption") ?? null;
+            },
+            categoriesCaption() {
+                return this.$tl("categoriesCaption") ?? null;
+            },
+            componentsCaption() {
+                return this.$tl("cypherSecretsCaption") ?? null;
+            },
+            rolesUsersCaption() {
+                return this.$tl("rolesUsersCaption") ?? null;
+            },
+            rolesPermissionsCaption() {
+                return this.$tl("rolesPermissionsCaption") ?? null;
+            },
+            cacheSettingsCaption() {
+                return this.$tl("cacheSettingsCaption") ?? null;
+            },
+            imagesCleanerCaption() {
+                return this.$tl("imagesCleanerCaption") ?? null;
+            },
+            deletedElementsCaption() {
+                return this.$tl("deletedElementsCaption") ?? null;
+            },
+            cypherSecretsCaption() {
+                return this.$tl("cypherSecretsCaption") ?? null;
+            }
+        },
+        methods: {
+            async getVersion() {
+                await this.$store
+                    .dispatch('request', {
+                        url: '/Pulse/Version'
+                    })
+                    .then(response => {
+                        this.version = response.data.version;
+                    });
+            }
+        },
+        async created() {
+            await this.getVersion();
+        }
     }
-  }
 
 </script>
 

@@ -6,7 +6,6 @@ export CreateCategory from 'admin/categories/CreateCategory'
 export EditCategory from 'admin/categories/EditCategory'
 
 export ComponentForm from 'admin/components/ComponentForm'
-export ComponentItem from 'admin/components/ComponentItem'
 export ComponentsAdmin from 'admin/components/ComponentsAdmin'
 export CreateComponent from 'admin/components/CreateComponent'
 export EditComponent from 'admin/components/EditComponent'
