@@ -1,8 +1,10 @@
 using System.Threading.Tasks;
 using LinqToDB;
+using SunEngine.Core.Cache.Services;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
 using SunEngine.Core.Services;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.Admin.Managers
 {
@@ -13,13 +15,22 @@ namespace SunEngine.Admin.Managers
 
     public class ComponentsAdminManager : DbService, IComponentsAdminManager
     {
-        public ComponentsAdminManager(DataBaseConnection db) : base(db)
+        protected readonly IRolesCache rolesCache;
+        
+        public ComponentsAdminManager(
+            IRolesCache rolesCache,
+            DataBaseConnection db) : base(db)
         {
+            this.rolesCache = rolesCache;
         }
         
         public Task CreateComponent(Component component)
         {
-            return db.InsertAsync(component);
+            component.ClientSettingsJson = component.ClientSettingsJson?.MakeJsonTextNotNull();
+            component.ServerSettingsJson = component.ServerSettingsJson?.MakeJsonTextNotNull();
+            component.Roles = rolesCache.CheckAndSetRoles(component.Roles);
+            
+            return db.InsertWithIdentityAsync(component);
         }
     }
 }

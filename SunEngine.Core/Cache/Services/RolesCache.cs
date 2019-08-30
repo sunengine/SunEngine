@@ -13,6 +13,7 @@ namespace SunEngine.Core.Cache.Services
         RoleCached GetRole(string name);
         IImmutableDictionary<string, RoleCached> AllRoles { get; }
         RoleCached AdminRole { get; }
+        string CheckAndSetRoles(string roles);
     }
 
     /// <summary>
@@ -79,6 +80,16 @@ namespace SunEngine.Core.Cache.Services
                     Initialize();
 
             return AllRoles.TryGetValue(name, out var ret) ? ret : null;
+        }
+        
+        public virtual string CheckAndSetRoles(string roles)
+        {
+            if (string.IsNullOrWhiteSpace(roles))
+                return string.Join(',', RoleNames.Unregistered, RoleNames.Registered);
+
+            var rolesNames = roles.Split(',').Select(x => x.Trim()).ToList()
+                .Where(x => AllRoles.ContainsKey(x));
+            return string.Join(',', rolesNames);
         }
 
         public void Initialize()

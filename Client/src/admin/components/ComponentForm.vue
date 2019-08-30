@@ -6,16 +6,22 @@
       </template>
     </q-input>
 
-    <q-select class="q-mb-lg" emit-value map-options :label="$tl('type')" v-model="component.type"
-              :options="['Posts','Activities']">
-      <q-icon slot="prepend" name="fas fa-boxes"/>
+    <q-select ref="type" class="q-mb-lg" emit-value map-options :label="$tl('type')" :rules="rules.type" v-model="component.type"
+              :options="componentTypes" option-value="name" option-label="title">
+      <q-icon slot="prepend" name="fas fa-cube"/>
     </q-select>
 
-    <q-input ref="serverSettingsJson" type="textarea" v-model="component.serverSettingsJson" autogrow :label="$tl('serverSettingsJson')"
+    <q-input ref="serverSettingsJson" type="textarea" v-model="component.serverSettingsJson" autogrow
+             :label="$tl('serverSettingsJson')"
              :rules="rules.serverSettingsJson"/>
 
-    <q-input ref="clientSettingsJson" type="textarea" v-model="component.clientSettingsJson" autogrow :label="$tl('clientSettingsJson')"
+    <q-input ref="clientSettingsJson" type="textarea" v-model="component.clientSettingsJson" autogrow
+             :label="$tl('clientSettingsJson')"
              :rules="rules.clientSettingsJson"/>
+
+    <q-select v-if="allRoles" class="q-mb-md" v-model="roles" :options="allRoles" multiple use-chips stack-label
+              option-value="name" option-label="title" :label="$tl('roles')"/>
+    <LoaderWait v-else/>
 
     <q-checkbox ref="isCacheData" v-model="component.isCacheData" :label="$tl('isCacheData')"/>
   </div>
@@ -28,9 +34,13 @@
     function createRules() {
         return {
             name: [
+                value => !!value || this.$tl('validation.name.required'),
                 value => (!value || value.length >= 3) || this.$tl('validation.name.minLength'),
                 value => (!value || value.length <= config.DbColumnSizes.MenuItems_Name) || this.$tl('validation.name.maxLength'),
                 value => /^[a-zA-Z0-9_-]*$/.test(value) || this.$tl('validation.name.allowedChars'),
+            ],
+            type: [
+                value => !!value || this.$tl('validation.type.required'),
             ],
             serverSettingsJson: [
                 value => (!value || isJson(value)) || this.$tl('validation.jsonFormatError')
@@ -49,8 +59,59 @@
                 required: true
             }
         },
+        data() {
+            return {
+                allRoles: null,
+                roles: null
+            }
+        },
+        watch: {
+            'roles': 'rolesUpdated'
+        },
+        computed: {
+            hasError() {
+                return this.$refs.name.hasError ||  this.$refs.type.hasError || this.$refs.serverSettingsJson.hasError || this.$refs.clientSettingsJson.hasError;
+            },
+            componentTypes() {
+                return [
+                    {
+                        name: 'Posts', title: 'Posts'
+                    },
+                    {
+                        name: 'Activities', title: 'Activities'
+                    }]
+            }
+        },
+        methods: {
+            rolesUpdated() {
+                this.component.roles = this.roles.map(x => x.name).join(',');
+            },
+            validate() {
+                this.$refs.name.validate();
+                this.$refs.type.validate();
+                this.$refs.serverSettingsJson.validate();
+                this.$refs.clientSettingsJson.validate();
+            },
+            loadRoles() {
+                this.$store.dispatch('request',
+                    {
+                        url: '/Admin/UserRolesAdmin/GetAllRoles'
+                    })
+                    .then(response => {
+                            this.allRoles = response.data;
+                            this.allRoles.push({
+                                name: 'Unregistered',
+                                title: 'Гость'
+                            });
+                            const componentRoles = this.component.roles.split(',');
+                            this.roles = this.allRoles.filter(x => componentRoles.some(y => y === x.name));
+                        }
+                    );
+            }
+        },
         created() {
             this.rules = createRules.call(this);
+            this.loadRoles();
         }
     }
 </script>

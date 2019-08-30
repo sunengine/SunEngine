@@ -31,6 +31,24 @@ namespace SunEngine.Core.Utils
             return null;
         }
 
+        public static string NullJson => "{}";
+        
+        public static string MakeJsonTextNotNull(this string json)
+        {
+            if (json == null)
+                return NullJson;
+
+            json = json.Trim();
+
+            if (json == "")
+                return NullJson;
+
+            if (ValidateJson(json))
+                return json;
+
+            return NullJson;
+        }
+
         public static bool ValidateJson(this string json)
         {
             try

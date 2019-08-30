@@ -3,7 +3,7 @@
     <h2 class="q-title">
       {{title}}
     </h2>
-    <ComponentForm class="q-mb-xl" :component="component" />
+    <ComponentForm ref="form" class="q-mb-xl" :component="component"/>
     <q-btn icon="fas fa-plus" class="send-btn" no-caps :loading="loading" :label="$tl('createBtn')" @click="save"
            color="send">
       <LoaderSent slot="loading"/>
@@ -21,16 +21,17 @@
         name: "CreateComponent",
         mixins: [Page],
         data() {
-          return {
-              component: {
-                  name: '',
-                  type: '',
-                  isCacheData: false,
-                  clientSettingsJson: null,
-                  serverSettingsJson: null
-              },
-              loading: false
-          }
+            return {
+                component: {
+                    name: '',
+                    type: '',
+                    roles: 'Unregistered,Registered',
+                    isCacheData: false,
+                    clientSettingsJson: '{}',
+                    serverSettingsJson: '{}'
+                },
+                loading: false
+            }
         },
         methods: {
             save() {
@@ -49,10 +50,11 @@
                     })
                     .then(async () => {
                         this.$successNotify();
+                        this.$router.push({name: 'ComponentsAdmin'});
                     }).catch(error => {
-                        this.$errorNotify(error);
-                        this.loading = false;
-                    });
+                    this.$errorNotify(error);
+                    this.loading = false;
+                });
             }
         },
         beforeCreate() {

@@ -29,7 +29,7 @@ namespace SunEngine.Admin.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> AddComponent(Component component)
+        public async Task<IActionResult> AddComponent([FromBody]Component component)
         {
             await componentsAdminManager.CreateComponent(component);
             return Ok();

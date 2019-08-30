@@ -79,11 +79,16 @@ export default {
     isCacheData: "Кешировать",
     serverSettingsJson: "Серверные настройки JSON",
     clientSettingsJson: "Клиентские настройки JSON",
+    roles: "Роли которым доступен компонент",
     validation: {
       name: {
+        required: "Введите имя (eng)",
         minLength: "Длинна должна быть не меньше 3 символов",
         maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.Components_Name,
         allowedChars: "Имя (eng) должно состоять из символов `a-z`, `A-Z`, `0-9`, `-`, `_`"
+      },
+      type: {
+        required: "Выберите тип",
       },
       jsonFormatError: "@:Global.validation.validation",
     }

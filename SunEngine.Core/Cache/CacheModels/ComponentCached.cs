@@ -8,8 +8,6 @@ namespace SunEngine.Core.Cache.CacheModels
 {
     public class ComponentServerCached
     {
-        public int Id { get; }
-
         public string Name { get; }
 
         public string Type { get; }
@@ -20,7 +18,6 @@ namespace SunEngine.Core.Cache.CacheModels
 
         public ComponentServerCached(Component component, Type type)
         {
-            Id = component.Id;
             Name = component.Name;
             Type = component.Type;
             IsCacheData = component.IsCacheData;
@@ -30,8 +27,6 @@ namespace SunEngine.Core.Cache.CacheModels
 
     public class ComponentClientCached
     {
-        public int Id { get; }
-
         public string Name { get; }
 
         public string Type { get; }
@@ -40,7 +35,6 @@ namespace SunEngine.Core.Cache.CacheModels
 
         public ComponentClientCached(Component component)
         {
-            Id = component.Id;
             Name = component.Name;
             Type = component.Type;
             Settings = SunJson.MakeJRow(component.ClientSettingsJson);

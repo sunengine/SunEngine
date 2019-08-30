@@ -212,8 +212,7 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("IsHidden".s()).AsBoolean().NotNullable();
 
             Create.Table("Components".s())
-                .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn("Name".s()).AsString(DbColumnSizes.Components_Name).NotNullable()
+                .WithColumn("Name".s()).AsString(DbColumnSizes.Components_Name).PrimaryKey().NotNullable()
                 .WithColumn("Type".s()).AsString(DbColumnSizes.Components_Type).NotNullable()
                 .WithColumn("Roles".s()).AsString().NotNullable()
                 .WithColumn("IsCacheData".s()).AsBoolean()
