@@ -12,6 +12,7 @@ namespace SunEngine.Core.Cache.Services
     {
         ComponentServerCached GetComponentServerCached(string name);
         Dictionary<string, ComponentClientCached> ClientComponents { get; }
+        Dictionary<string, Type> ComponentsDataTypes { get; }
     }
 
     public class ComponentsCache : IComponentsCache
@@ -19,6 +20,14 @@ namespace SunEngine.Core.Cache.Services
         private readonly object lockObject = new object();
 
         private readonly IDataBaseFactory dataBaseFactory;
+
+        protected Dictionary<string, Type> _componentsDataTypes = new Dictionary<string, Type>()
+        {
+            ["Posts"] = typeof(PostsComponentData),
+            ["Activities"] = null
+        };
+
+        public Dictionary<string, Type> ComponentsDataTypes => _componentsDataTypes;
 
         protected Dictionary<string, ComponentServerCached> serverComponents;
         protected Dictionary<string, ComponentClientCached> clientComponents;
@@ -73,8 +82,7 @@ namespace SunEngine.Core.Cache.Services
                     var components = db.Components.ToList();
 
                     serverComponents = components.ToDictionary(x => x.Name,
-                        x => new ComponentServerCached(x,
-                            Type.GetType("SunEngine.Core.Controllers." + x.Type + "ComponentData,SunEngine.Core"))
+                        x => new ComponentServerCached(x, ComponentsDataTypes[x.Type])
                     );
                     clientComponents = components.ToDictionary(x => x.Name, x => new ComponentClientCached(x));
                 }

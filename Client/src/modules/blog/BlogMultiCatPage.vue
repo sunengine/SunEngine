@@ -2,7 +2,7 @@
   <q-page class="blog-multi-cat-page">
     <div class="header-with-button page-padding">
       <h2 class="q-title">
-        {{pageTitle}}
+        {{title}}
       </h2>
       <q-btn v-if="canPost" no-caps class="post-btn"
              @click="$router.push( {name:'CreateMaterial',params:{categoriesNames: categoriesNames}})"
@@ -21,8 +21,6 @@
 </template>
 
 <script>
-    import Vue from 'vue'
-
     import {Page} from 'sun'
 
 
@@ -37,8 +35,7 @@
         },
         data() {
             return {
-                posts: null,
-                component: null
+                posts: null
             }
         },
         watch: {
@@ -47,7 +44,7 @@
         },
         computed: {
             canPost() {
-                if (this.rolesCanAdd)
+                /*if (this.rolesCanAdd)
                     if (!this.$store.state.auth.roles.some(x => this.rolesCanAdd.some(y => y === x)))
                         return false;
 
@@ -57,11 +54,14 @@
                     if (cat?.canSomeChildrenWriteMaterial) {
                         return true;
                     }
-                }
+                }*/
                 return false;
             },
             currentPage() {
                 return this.$route.query?.page ?? 1;
+            },
+            component() {
+                return this.$store.getters.getComponent(this.componentName);
             }
         },
         methods: {
@@ -97,7 +97,7 @@
             this.$options.components.PostsList = require('sun').PostsList;
         },
         async created() {
-            this.title = this.pageTitle;
+            this.title = this.component.settings.title;
             await this.loadData();
         }
     }
@@ -107,5 +107,8 @@
 
 <style lang="stylus">
 
+  .blog-multi-cat-page {
+
+  }
 
 </style>
