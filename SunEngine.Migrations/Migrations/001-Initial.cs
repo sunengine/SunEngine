@@ -212,12 +212,13 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("IsHidden".s()).AsBoolean().NotNullable();
 
             Create.Table("Components".s())
-                .WithColumn("Name".s()).AsString(DbColumnSizes.Components_Name).PrimaryKey().NotNullable()
+                .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name".s()).AsString(DbColumnSizes.Components_Name).NotNullable().Unique()
                 .WithColumn("Type".s()).AsString(DbColumnSizes.Components_Type).NotNullable()
                 .WithColumn("Roles".s()).AsString().NotNullable()
-                .WithColumn("IsCacheData".s()).AsBoolean()
-                .WithColumn("ServerSettingsJson".s()).AsMaxString()
-                .WithColumn("ClientSettingsJson".s()).AsMaxString();
+                .WithColumn("IsCacheData".s()).AsBoolean().NotNullable()
+                .WithColumn("ServerSettingsJson".s()).AsMaxString().NotNullable()
+                .WithColumn("ClientSettingsJson".s()).AsMaxString().NotNullable();
 
             Create.Table("CipherSecrets".s())
                 .WithColumn("Name".s()).AsString(DbColumnSizes.CipherSecrets_Name).PrimaryKey().NotNullable()

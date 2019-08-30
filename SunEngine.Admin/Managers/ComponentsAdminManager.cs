@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Core.Cache.Services;
@@ -10,7 +11,9 @@ namespace SunEngine.Admin.Managers
 {
     public interface IComponentsAdminManager
     {
-        Task CreateComponent(Component component);
+        Task CreateComponentAsync(Component component);
+        Task UpdateComponentAsync(Component component);
+        Task DeleteComponentAsync(int componentId);
     }
 
     public class ComponentsAdminManager : DbService, IComponentsAdminManager
@@ -24,13 +27,27 @@ namespace SunEngine.Admin.Managers
             this.rolesCache = rolesCache;
         }
         
-        public Task CreateComponent(Component component)
+        public Task CreateComponentAsync(Component component)
         {
             component.ClientSettingsJson = component.ClientSettingsJson?.MakeJsonTextNotNull();
             component.ServerSettingsJson = component.ServerSettingsJson?.MakeJsonTextNotNull();
             component.Roles = rolesCache.CheckAndSetRoles(component.Roles);
             
             return db.InsertWithIdentityAsync(component);
+        }
+        
+        public Task UpdateComponentAsync(Component component)
+        {
+            component.ClientSettingsJson = component.ClientSettingsJson?.MakeJsonTextNotNull();
+            component.ServerSettingsJson = component.ServerSettingsJson?.MakeJsonTextNotNull();
+            component.Roles = rolesCache.CheckAndSetRoles(component.Roles);
+            
+            return db.UpdateAsync(component);
+        }
+        
+        public Task DeleteComponentAsync(int componentId)
+        {
+            return db.Components.Where(x => x.Id == componentId).DeleteAsync();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
@@ -10,6 +11,7 @@ namespace SunEngine.Admin.Presenters
     public interface IComponentsAdminPresenter
     {
         Task<Component[]> GetComponentsAsync();
+        Task<Component> GetComponentAsync(string name);
     }
 
     public class ComponentsAdminPresenter : DbService, IComponentsAdminPresenter
@@ -20,7 +22,12 @@ namespace SunEngine.Admin.Presenters
 
         public Task<Component[]> GetComponentsAsync()
         {
-            return db.Components.OrderBy(x=>x.Name).ToArrayAsync();
+            return db.Components.OrderBy(x => x.Name).ToArrayAsync();
+        }
+
+        public Task<Component> GetComponentAsync(string name)
+        {
+            return db.Components.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
         }
     }
 }

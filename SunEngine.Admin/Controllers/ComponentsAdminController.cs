@@ -29,9 +29,23 @@ namespace SunEngine.Admin.Controllers
         }
         
         [HttpPost]
+        public async Task<IActionResult> GetComponent(string name)
+        {
+            var component = await componentsAdminPresenter.GetComponentAsync(name);
+            return Ok(component);
+        }
+        
+        [HttpPost]
         public async Task<IActionResult> AddComponent([FromBody]Component component)
         {
-            await componentsAdminManager.CreateComponent(component);
+            await componentsAdminManager.CreateComponentAsync(component);
+            return Ok();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> UpdateComponent([FromBody]Component component)
+        {
+            await componentsAdminManager.CreateComponentAsync(component);
             return Ok();
         }
     }

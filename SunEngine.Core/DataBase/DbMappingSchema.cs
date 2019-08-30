@@ -125,7 +125,8 @@ namespace SunEngine.Core.DataBase
             
             mp.Entity<Component>()
                 .HasTableName("Components")
-                .HasPrimaryKey(x => x.Name);
+                .HasIdentity(x => x.Id)
+                .HasPrimaryKey(x => x.Id);
             
         }
     }

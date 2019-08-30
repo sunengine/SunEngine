@@ -11,7 +11,7 @@
 
     <div class="components" v-if="components">
       <div v-for="component in components">
-        <router-link :to="{name: 'EditComponent', props: {name: component.name}}">
+        <router-link :to="{name: 'EditComponent', params: {name: component.name}}">
           <q-icon name="fas fa-cube" class="q-mr-xs"/>
           {{component.name}}
           <span class="text-grey-7 q-ml-sm">
