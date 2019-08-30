@@ -8,9 +8,10 @@ import {routeHasAccess} from 'sun'
 
 export default async function (context) {
 
-  const routesPlus = await context.dispatch('makeRoutesFromCategories');
+  const routesFromCategories = await context.dispatch('makeRoutesFromCategories');
+  const routesFromComponents = await context.dispatch('makeRoutesFromComponents');
 
-  const allRoutes = [...routes, ...routesPlus, ...pageNotFoundRoute];
+  const allRoutes = [...routes, ...routesFromCategories, ...routesFromComponents, ...pageNotFoundRoute];
 
   const userRoutes = allRoutes.filter(x => routeHasAccess(x));
 

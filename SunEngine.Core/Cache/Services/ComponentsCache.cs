@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using SunEngine.Core.Cache.CacheModels;
+using SunEngine.Core.Controllers;
 using SunEngine.Core.DataBase;
 
 namespace SunEngine.Core.Cache.Services
@@ -9,6 +11,7 @@ namespace SunEngine.Core.Cache.Services
     public interface IComponentsCache : ISunMemoryCache
     {
         ComponentServerCached GetComponentServerCached(string name);
+        Dictionary<string, ComponentClientCached> ClientComponents { get; }
     }
 
     public class ComponentsCache : IComponentsCache
@@ -33,7 +36,7 @@ namespace SunEngine.Core.Cache.Services
             }
         }
 
-        protected Dictionary<string, ComponentClientCached> ClientComponents
+        public Dictionary<string, ComponentClientCached> ClientComponents
         {
             get
             {
@@ -56,7 +59,6 @@ namespace SunEngine.Core.Cache.Services
             }
         }
 
-
         public ComponentsCache(IDataBaseFactory dataBaseFactory)
         {
             this.dataBaseFactory = dataBaseFactory;
@@ -69,9 +71,10 @@ namespace SunEngine.Core.Cache.Services
                 using (var db = dataBaseFactory.CreateDb())
                 {
                     var components = db.Components.ToList();
-                    
+
                     serverComponents = components.ToDictionary(x => x.Name,
-                        x => new ComponentServerCached(x, Type.GetType(x.Type + "ComponentData"))
+                        x => new ComponentServerCached(x,
+                            Type.GetType("SunEngine.Core.Controllers." + x.Type + "ComponentData,SunEngine.Core"))
                     );
                     clientComponents = components.ToDictionary(x => x.Name, x => new ComponentClientCached(x));
                 }

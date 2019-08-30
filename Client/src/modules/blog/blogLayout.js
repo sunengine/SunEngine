@@ -51,7 +51,6 @@ export default {
         meta: {
           category: category
         }
-
       }
     ]
   }

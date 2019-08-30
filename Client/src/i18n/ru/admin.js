@@ -105,7 +105,8 @@ export default {
   EditComponent: {
     title: "Изменить компонент",
     saveBtn: "@:Global.btn.save",
-    cancelBtn: "@:Global.btn.cancel"
+    cancelBtn: "@:Global.btn.cancel",
+    deleteBtn: "@:Global.btn.delete"
   },
 
   // ——— menuItems ————————————————————————————————————

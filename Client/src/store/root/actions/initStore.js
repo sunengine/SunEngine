@@ -13,10 +13,16 @@ export default async function (context) {
       removeTokens();
     });
 
+
+
   try {
     await context.dispatch('loadAllCategories');
 
-    await context.dispatch('registerLayouts');
+    await context.dispatch('registerAllLayouts');
+
+    await context.dispatch('registerAllComponentsTypes');
+
+    await context.dispatch('loadAllComponents');
 
     await context.dispatch('setAllRoutes');
 

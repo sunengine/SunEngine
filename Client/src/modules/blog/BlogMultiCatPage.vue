@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import Vue from 'vue';
+    import Vue from 'vue'
 
     import {Page} from 'sun'
 
@@ -30,33 +30,15 @@
         name: 'BlogMultiCatPage',
         mixins: [Page],
         props: {
-            categoriesNames: {
+            componentName: {
                 type: String,
                 required: true,
-            },
-            addButtonLabel: {
-                type: String,
-                required: false,
-                default() {
-                    return Vue.prototype.$tl('newPostBtnDefault')
-                }
-            },
-            pageTitle: {
-                type: String,
-                required: true
-            },
-            caption: {
-                type: String,
-                required: false
-            },
-            rolesCanAdd: {
-                type: Array,
-                required: false
             }
         },
         data() {
             return {
-                posts: null
+                posts: null,
+                component: null
             }
         },
         watch: {
@@ -92,14 +74,12 @@
                     this.$router.push(req);
                 }
             },
-
             async loadData() {
-
                 await this.$store.dispatch('request',
                     {
                         url: '/Blog/GetPostsFromMultiCategories',
                         data: {
-                            componentName: 'Blog0',
+                            componentName: this.componentName,
                             page: this.currentPage
                         }
                     })

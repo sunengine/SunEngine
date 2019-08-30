@@ -112,11 +112,11 @@ namespace SunEngine.Core.Controllers
             return Ok(await LoadDataAsync());
             //return await CacheContentAsync(component, categoriesIds, LoadDataAsync);
         }
-        
-        public class PostsComponentData
-        {
-            public string CategoriesNames { get; set; }
-            public int PageSize { get; set; }
-        }
+    }
+    
+    public class PostsComponentData
+    {
+        public string CategoriesNames { get; set; }
+        public int PageSize { get; set; }
     }
 }
