@@ -60,6 +60,31 @@
                     this.loading = false;
                 });
             },
+            removeComponent() {
+                const deleteMsg = this.$tl('deleteMsg');
+                const btnDeleteOk = this.$tl('btnDeleteOk');
+                const btnDeleteCancel = this.$tl('btnDeleteCancel');
+
+                this.$q.dialog({
+                    message: deleteMsg,
+                    ok: btnDeleteOk,
+                    cancel: btnDeleteCancel
+                }).onOk(() =>
+                    this.$store.dispatch('request',
+                        {
+                            url: '/Admin/ComponentsAdmin/DeleteComponent',
+                            data: {
+                                componentId: this.component.id
+                            }
+                        })
+                        .then(() => {
+                            this.$successNotify(null, "warning");
+                            this.$router.push({name: 'ComponentsAdmin'});
+                        }).catch(error => {
+                        this.$errorNotify(error);
+                        this.loading = false;
+                    }));
+            },
             loadData() {
                 this.$store.dispatch('request',
                     {

@@ -72,9 +72,43 @@ export default {
 
   // ——— components ———————————————————————————————————
 
+  ComponentForm: {
+    name: "Name (eng)",
+    type: "Type",
+    isCacheData: "Cache data",
+    serverSettingsJson: "Server settings JSON",
+    clientSettingsJson: "Client settings JSON",
+    roles: "Roles to access",
+    validation: {
+      name: {
+        required: "Enter name (eng)",
+        minLength:  "Minimum component name length is 3",
+        maxLength: "Maximum component name length is " + config.DbColumnSizes.Components_Name + "letters",
+        allowedChars: "The name (eng) must consist of the characters `a-z`, `A-Z`, `0-9`, `-`, `_`"
+      },
+      type: {
+        required: "Select type",
+      },
+      jsonFormatError: "@:Global.validation.validation",
+    }
+  },
   ComponentsAdmin: {
     title: "Components",
     addComponentBtn: "Add component"
+  },
+  CreateComponent: {
+    title: "Set component",
+    createBtn: "@:Global.btn.create",
+    cancelBtn: "@:Global.btn.cancel"
+  },
+  EditComponent: {
+    title: "Update component",
+    saveBtn: "@:Global.btn.save",
+    cancelBtn: "@:Global.btn.cancel",
+    deleteBtn: "@:Global.btn.delete",
+    deleteMsg: "Remove component?",
+    btnDeleteOk: "@:Global.dialog.ok",
+    btnDeleteCancel: "@:Global.dialog.cancel"
   },
 
   // ——— menuItems ————————————————————————————————————

@@ -5,7 +5,7 @@
         {{title}}
       </h2>
       <q-btn v-if="canPost" no-caps class="post-btn"
-             @click="$router.push( {name:'CreateMaterial',params:{categoriesNames: categoriesNames}})"
+             @click="$router.push( {name:'CreateMaterial',params:{categoriesNames: component.settings.categoriesNames}})"
              :label="addButtonLabel" icon="fas fa-plus"/>
     </div>
 
@@ -65,7 +65,7 @@
                 return false;
             },
             addButtonLabel() {
-                return this.component.settings.addButtonLabel;
+                return this.component.settings.addButtonLabel ?? this.$tl("addButtonLabel");
             },
             currentPage() {
                 return this.$route.query?.page ?? 1;

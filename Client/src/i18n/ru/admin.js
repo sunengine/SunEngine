@@ -72,7 +72,6 @@ export default {
 
   // ——— components ———————————————————————————————————
 
-
   ComponentForm: {
     name: "Имя (eng)",
     type: "Тип",
@@ -96,8 +95,6 @@ export default {
   ComponentsAdmin: {
     title: "Компоненты",
     addComponentBtn: "Добавить компонент",
-    type: "Тип",
-    link: "Ссылка"
   },
   CreateComponent: {
     title: "Задать компонент",
@@ -108,7 +105,10 @@ export default {
     title: "Изменить компонент",
     saveBtn: "@:Global.btn.save",
     cancelBtn: "@:Global.btn.cancel",
-    deleteBtn: "@:Global.btn.delete"
+    deleteBtn: "@:Global.btn.delete",
+    deleteMsg: "Удалить компонент?",
+    btnDeleteOk: "@:Global.dialog.ok",
+    btnDeleteCancel: "@:Global.dialog.cancel"
   },
 
   // ——— menuItems ————————————————————————————————————
