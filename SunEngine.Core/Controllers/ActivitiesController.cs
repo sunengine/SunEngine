@@ -35,6 +35,7 @@ namespace SunEngine.Core.Controllers
             this.categoriesCache = categoriesCache;
             this.authorizationService = authorizationService;
             this.activitiesPresenter = activitiesPresenter;
+            this.componentsCache = componentsCache;
         }
 
         public async Task<IActionResult> GetActivities(string componentName)
@@ -54,23 +55,27 @@ namespace SunEngine.Core.Controllers
             var commentsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(componentData.commentsCategories);
 
             IList<CategoryCached> commentsCategoriesList = authorizationService.GetAllowedCategories(User.Roles,
-                commentsCategoriesDic.Values,OperationKeys.MaterialAndCommentsRead);
+                commentsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);
 
 
             int[] materialsCategoriesIds = materialsCategoriesList.Select(x => x.Id).ToArray();
             int[] commentsCategoriesIds = commentsCategoriesList.Select(x => x.Id).ToArray();
 
             int number = componentData.number;
-            
+
             if (number > MaxActivitiesInQuery)
                 number = MaxActivitiesInQuery;
 
             async Task<ActivityView[]> LoadDataAsync()
             {
-                return await activitiesPresenter.GetActivitiesAsync(materialsCategoriesIds, commentsCategoriesIds,number);
+                return await activitiesPresenter.GetActivitiesAsync(materialsCategoriesIds, commentsCategoriesIds,
+                    number);
             }
 
-            return await CacheContentAsync(component, LoadDataAsync);
+            return await CacheContentAsync(
+                component, 
+                materialsCategoriesIds.Union(commentsCategoriesIds),
+                LoadDataAsync);
         }
     }
 

@@ -1,50 +1,42 @@
 <template>
   <q-page class="activities-page">
     <h2 class="q-title page-padding">
-      {{pageTitle}}
+      {{title}}
     </h2>
-    <activities-list :materialsCategories="materialsCategories" :commentsCategories="commentsCategories" :activitiesNumber="30"/>
+    <activities-list :componentName="componentName" />
   </q-page>
 </template>
 
 <script>
-  import {Page} from 'sun'
+    import {Page} from 'sun'
 
-  export default {
-    name: 'ActivitiesPage',
-    mixins: [Page],
-    props: {
-      materialsCategories: {
-        type: String,
-        required: false,
-        default: 'root'
-      },
-      commentsCategories: {
-        type: String,
-        required: false,
-        default: 'root'
-      },
-      activitiesNumber: {
-        type: Number,
-        required: false,
-        default: 30
-      },
-      pageTitle: {
-        type: String,
-        required: false,
-      }
-    },
-    beforeCreate() {
-      this.$options.components.ActivitiesList = require('sun').ActivitiesList;
-    },
-    created() {
-      this.title  = this.pageTitle ?? this.$tl('defaultTitle');
+    export default {
+        name: 'ActivitiesPage',
+        mixins: [Page],
+        props: {
+            componentName: {
+                type: String,
+                required: true
+            }
+        },
+        computed: {
+            component() {
+                return this.$store.getters.getComponent(this.componentName);
+            }
+        },
+        beforeCreate() {
+            this.$options.components.ActivitiesList = require('sun').ActivitiesList;
+        },
+        created() {
+            this.title = this.component.settings.title ?? this.$tl('defaultTitle');
+        }
     }
-  }
 </script>
-
 
 <style lang="stylus">
 
+  .activities-page {
+
+  }
 
 </style>

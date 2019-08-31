@@ -96,7 +96,7 @@ namespace SunEngine.Core.Controllers
                 return BadRequest("No categories to show");
 
             var categoriesIds = categoriesList.Select(x => x.Id);
-            
+
             var options = new MaterialsMultiCatShowOptions
             {
                 CategoriesIds = categoriesList.Select(x => x.Id),
@@ -107,13 +107,13 @@ namespace SunEngine.Core.Controllers
 
             async Task<IPagedList<PostView>> LoadDataAsync()
             {
-               return await blogPresenter.GetPostsFromMultiCategoriesAsync(options);
+                return await blogPresenter.GetPostsFromMultiCategoriesAsync(options);
             }
 
-            return await CacheContentAsync(component, LoadDataAsync, page);
+            return await CacheContentAsync(component, categoriesIds, LoadDataAsync, page);
         }
     }
-    
+
     public class PostsComponentData
     {
         public string CategoriesNames { get; set; }
