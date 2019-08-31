@@ -19,7 +19,8 @@ namespace SunEngine.DataSeed
         public const string CategoriesConfigDir = "Categories";
         public const string MenusConfigDir = "Menu";
         public const string ComponentsConfigDir = "Components";
-        
+        public const string MaterialsConfigDir = "Materials";
+
 
         private readonly DataContainer dataContainer = new DataContainer();
 
@@ -43,6 +44,8 @@ namespace SunEngine.DataSeed
             SeedUsers();
 
             SeedCategories();
+
+            SeedMaterialsFromDir();
 
             SeedRoles();
 
@@ -92,6 +95,13 @@ namespace SunEngine.DataSeed
             usersSeeder.SeedUsers();
         }
 
+        private void SeedMaterialsFromDir()
+        {
+            var path = Path.GetFullPath(Path.Combine(configDir, MaterialsConfigDir));
+            MaterialsSeederFromDir seedMaterialsFromDir = new MaterialsSeederFromDir(dataContainer, path);
+            seedMaterialsFromDir.Seed();
+        }
+
         private void SeedCategories()
         {
             Console.WriteLine("Categories");
@@ -99,7 +109,6 @@ namespace SunEngine.DataSeed
             SeedRootCategory();
             SeedCategoriesFromDirectory();
             DetectCategoriesParents();
-
 
             void SeedRootCategory()
             {

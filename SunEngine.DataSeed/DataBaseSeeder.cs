@@ -40,6 +40,9 @@ namespace SunEngine.DataSeed
 
             Console.WriteLine("Users");
             db.BulkCopy(options, dataContainer.Users);
+            
+            Console.WriteLine("Materials");
+            db.BulkCopy(options, dataContainer.Materials);
            
             Console.WriteLine("Roles");
             db.BulkCopy(options, dataContainer.Roles);
