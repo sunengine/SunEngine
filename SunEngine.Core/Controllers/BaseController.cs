@@ -107,7 +107,7 @@ namespace SunEngine.Core.Controllers
         public async Task<IActionResult> CacheContentAsync<T>(
             ComponentServerCached component,
             Func<Task<T>> dataLoader,
-            int? page)
+            int? page = null)
         {
             if (!cachePolicy.CanCache(component, page))
                 return Json(await dataLoader());

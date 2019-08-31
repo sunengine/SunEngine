@@ -23,7 +23,7 @@ namespace SunEngine.Core.Cache.Services
         protected Dictionary<string, Type> _componentsDataTypes = new Dictionary<string, Type>()
         {
             ["Posts"] = typeof(PostsComponentData),
-            ["Activities"] = null
+            ["Activities"] = typeof(ActivitiesComponentData)
         };
 
         public Dictionary<string, Type> ComponentsDataTypes => _componentsDataTypes;
