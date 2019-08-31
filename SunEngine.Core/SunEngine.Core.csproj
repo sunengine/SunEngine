@@ -18,8 +18,8 @@
       <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
       <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.5.0" />
-      <PackageReference Include="NJsonSchema" Version="10.0.20" />
-      <PackageReference Include="Npgsql" Version="4.0.8" />
+      <PackageReference Include="NJsonSchema" Version="10.0.23" />
+      <PackageReference Include="Npgsql" Version="4.0.9" />
       <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta0008" />
       <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
       <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0006" />

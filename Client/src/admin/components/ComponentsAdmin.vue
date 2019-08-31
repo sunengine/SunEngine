@@ -14,10 +14,17 @@
         <router-link :to="{name: 'EditComponent', params: {name: component.name}}">
           <q-icon name="fas fa-cube" class="q-mr-xs"/>
           {{component.name}}
-          <span class="text-grey-7 q-ml-sm">
-            [{{component.type}}]
+          <span class="text-grey-7 q-ml-md">
+            {{$tl("type")}}: {{component.type}}
           </span>
         </router-link>
+        <span class="text-grey-7 q-ml-xl">
+          {{$tl("link")}}:
+          <input class="text-grey-7" style="border: 0;"  type="text" onclick="event.stopPropagation(); event.preventDefault()"
+               :value="siteUrl+'/'+component.name"/>
+        </span>
+
+
       </div>
     </div>
     <LoaderWait v-else/>
@@ -42,6 +49,11 @@
                     .then(response => {
                         this.components = response.data;
                     })
+            }
+        },
+        computed: {
+            siteUrl() {
+              return config.SiteUrl;
             }
         },
         beforeCreate() {

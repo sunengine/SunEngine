@@ -15,5 +15,10 @@ namespace SunEngine.Core.Cache.Services
         {
             return $"{controllerName}-{actionName}-{page}:,{id},";
         }
+        
+        public string ContentGenerateKey(string componentName, int? page)
+        {
+            return $"{componentName}-{page}";
+        }
     }
 }

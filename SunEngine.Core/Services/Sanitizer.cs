@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AngleSharp;
 using AngleSharp.Dom.Html;
 using AngleSharp.Extensions;
 using Ganss.XSS;
@@ -12,7 +13,8 @@ namespace SunEngine.Core.Services
     {
         private readonly HtmlSanitizer htmlSanitizer;
         private readonly SanitizerOptions options;
-
+        public static readonly IMarkupFormatter OutputFormatter = HtmlSanitizer.DefaultOutputFormatter;
+    
         public Sanitizer(SanitizerOptions options)
         {
             this.options = options;
@@ -107,7 +109,7 @@ namespace SunEngine.Core.Services
     {
         public static string SanitizeDoc(this HtmlSanitizer htmlSanitizer, IHtmlDocument doc)
         {
-            return doc.Body.ChildNodes.ToHtml(htmlSanitizer.OutputFormatter);
+            return doc.Body.ChildNodes.ToHtml(Sanitizer.OutputFormatter);
         }
     }
 }

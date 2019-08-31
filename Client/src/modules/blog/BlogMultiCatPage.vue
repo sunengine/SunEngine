@@ -9,7 +9,9 @@
              :label="addButtonLabel" icon="fas fa-plus"/>
     </div>
 
-    <div v-if="caption" class="page-padding q-mb-lg text-grey-9" style="margin-top: -14px" v-html="caption"></div>
+    <div v-if="component.settings.subTitle" class="page-padding q-mb-lg text-grey-9" style="margin-top: -14px">{{component.settings.subTitle}}</div>
+
+    <div v-if="component.settings.header" class="q-mb-lg text-grey-9" style="margin-top: -14px" v-html="component.settings.header"></div>
 
     <PostsList ref="postsList"/>
 

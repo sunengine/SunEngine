@@ -101,7 +101,8 @@ namespace SunEngine.Core.Controllers
             {
                 CategoriesIds = categoriesList.Select(x => x.Id),
                 Page = page,
-                PageSize = componentData.PageSize
+                PageSize = componentData.PageSize,
+                PreviewSize = componentData.PreviewSize
             };
 
             async Task<IPagedList<PostView>> LoadDataAsync()
@@ -109,14 +110,14 @@ namespace SunEngine.Core.Controllers
                return await blogPresenter.GetPostsFromMultiCategoriesAsync(options);
             }
 
-            return Ok(await LoadDataAsync());
-            //return await CacheContentAsync(component, categoriesIds, LoadDataAsync);
+            return await CacheContentAsync(component, LoadDataAsync, page);
         }
     }
     
     public class PostsComponentData
     {
         public string CategoriesNames { get; set; }
+        public int PreviewSize { get; set; }
         public int PageSize { get; set; }
     }
 }

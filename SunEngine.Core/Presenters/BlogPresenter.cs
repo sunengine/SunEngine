@@ -1,10 +1,12 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AngleSharp.Parser.Html;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils.PagedList;
+using SunEngine.Core.Utils.TextProcess;
 
 namespace SunEngine.Core.Presenters
 {
@@ -55,14 +57,15 @@ namespace SunEngine.Core.Presenters
                 options.PageSize);
         }
 
-        public virtual Task<IPagedList<PostView>> GetPostsFromMultiCategoriesAsync(MaterialsMultiCatShowOptions options)
+        public virtual async Task<IPagedList<PostView>> GetPostsFromMultiCategoriesAsync(
+            MaterialsMultiCatShowOptions options)
         {
-            return db.MaterialsVisible.GetPagedListAsync(
+            var rez = await db.MaterialsVisible.GetPagedListAsync(
                 x => new PostView
                 {
                     Id = x.Id,
                     Title = x.Title,
-                    Preview = x.Preview,
+                    Preview = x.Text,
                     CommentsCount = x.CommentsCount,
                     AuthorName = x.Author.UserName,
                     AuthorLink = x.Author.Link,
@@ -70,13 +73,22 @@ namespace SunEngine.Core.Presenters
                     PublishDate = x.PublishDate,
                     CategoryName = x.Category.Name,
                     CategoryTitle = x.Category.Title,
-                    HasMoreText = x.Text.Length != x.Preview.Length,
                     IsCommentsBlocked = x.IsCommentsBlocked
                 },
                 x => options.CategoriesIds.Contains(x.CategoryId),
                 x => x.OrderByDescending(y => y.PublishDate),
                 options.Page,
                 options.PageSize);
+
+            foreach (var postView in rez.Items)
+            {
+                var textLength = postView.Preview.Length;
+                postView.Preview =
+                    MakePreview.HtmlFirstImage(new HtmlParser().Parse(postView.Preview), options.PreviewSize);
+                postView.HasMoreText = postView.Preview.Length != textLength;
+            }
+
+            return rez;
         }
     }
 

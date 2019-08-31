@@ -3,7 +3,7 @@
     <h2 class="q-title">
       {{title}}
     </h2>
-    <ComponentForm v-if="component" ref="form" class="q-mb-xl" :component="component"/>
+    <ComponentForm :editMode="true" v-if="component" ref="form" class="q-mb-xl" :component="component"/>
     <LoaderWait v-else/>
     <q-btn icon="far fa-save" class="send-btn" no-caps :loading="loading" :label="$tl('saveBtn')" @click="save"
            color="send">

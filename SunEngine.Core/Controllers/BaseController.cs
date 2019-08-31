@@ -103,16 +103,17 @@ namespace SunEngine.Core.Controllers
             var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryId);
             return await CacheContentAsync(category, key, dataLoader, page);
         }
-        
-        /*protected async Task<IActionResult> CacheContentAsync<T>(
-            ComponentServerCached component, 
-            string key,
+
+        public async Task<IActionResult> CacheContentAsync<T>(
+            ComponentServerCached component,
             Func<Task<T>> dataLoader,
             int? page)
         {
-            if (!cachePolicy.CanCache(category, page))
+            if (!cachePolicy.CanCache(component, page))
                 return Json(await dataLoader());
 
+            var key = keyGenerator.ContentGenerateKey(component.Name, page);
+            
             string json;
             if (!string.IsNullOrEmpty(json = contentCache.GetContent(key)))
                 return JsonString(json);
@@ -121,7 +122,7 @@ namespace SunEngine.Core.Controllers
             json = SunJson.Serialize(content);
             contentCache.CacheContent(key, json);
             return JsonString(json);
-        }*/
+        }
 
         protected async Task<IActionResult> CacheContentAsync<T>(
             CategoryCached category, 
@@ -148,6 +149,4 @@ namespace SunEngine.Core.Controllers
             base.Dispose(disposing);
         }
     }
-
-    
 }

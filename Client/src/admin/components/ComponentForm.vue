@@ -6,7 +6,7 @@
       </template>
     </q-input>
 
-    <q-select ref="type" class="q-mb-lg" emit-value map-options :label="$tl('type')" :rules="rules.type" v-model="component.type"
+    <q-select ref="type" :disable="editMode" class="q-mb-lg" emit-value map-options :label="$tl('type')" :rules="rules.type" v-model="component.type"
               :options="componentTypes" option-value="name" option-label="title">
       <q-icon slot="prepend" name="fas fa-cube"/>
     </q-select>
@@ -57,6 +57,11 @@
             component: {
                 type: Object,
                 required: true
+            },
+            editMode: {
+                type: Boolean,
+                required: false,
+                default: false
             }
         },
         data() {
@@ -108,6 +113,9 @@
                         }
                     );
             }
+        },
+        beforeCreate() {
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
         },
         created() {
             this.rules = createRules.call(this);

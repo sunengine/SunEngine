@@ -103,7 +103,14 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("IsHidden".s()).AsBoolean().NotNullable()
                 .WithColumn("DeletedDate".s()).AsDateTime().Nullable();
 
+            
+            /*Create.Table("MaterialPreviews".s())
+                .WithColumn("MaterialId".s()).AsInt32().NotNullable()
+                .ForeignKey("fkPreviewsMaterials".s(),"Materials".s(),"Id".s()).OnDelete(Rule.Cascade)
+                .WithColumn("ComponentId".s()).AsInt32().NotNullable()
+                .WithColumn("Text".s()).AsMaxString().NotNullable();*/
 
+            
             Create.Table("Comments".s())
                 .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Text".s()).AsMaxString().NotNullable()
@@ -115,6 +122,7 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("EditDate".s()).AsDateTime().Nullable()
                 .WithColumn("DeletedDate".s()).AsDateTime().Nullable();
 
+            
             Create.ForeignKey("fkMaterialsLastComment".s()).FromTable("Materials".s())
                 .ForeignColumn("LastCommentId".s()).ToTable("Comments".s()).PrimaryColumn("Id".s());
 

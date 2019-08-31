@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Controllers;
 using SunEngine.Core.DataBase;
@@ -81,10 +80,25 @@ namespace SunEngine.Core.Cache.Services
                 {
                     var components = db.Components.ToList();
 
-                    serverComponents = components.ToDictionary(x => x.Name,
-                        x => new ComponentServerCached(x, ComponentsDataTypes[x.Type])
-                    );
-                    clientComponents = components.ToDictionary(x => x.Name, x => new ComponentClientCached(x));
+                    serverComponents =
+                        new Dictionary<string, ComponentServerCached>(components.Count,
+                            StringComparer.OrdinalIgnoreCase);
+
+                    foreach (var component in components)
+                    {
+                        try
+                        {
+                            serverComponents[component.Name] =
+                                new ComponentServerCached(component, ComponentsDataTypes[component.Type]);
+                        }
+                        catch
+                        {
+                            // ignored
+                        }
+                    }
+
+                    clientComponents = components.ToDictionary(x => x.Name, x => new ComponentClientCached(x),
+                        StringComparer.OrdinalIgnoreCase);
                 }
             }
         }

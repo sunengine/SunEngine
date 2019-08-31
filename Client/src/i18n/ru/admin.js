@@ -95,7 +95,9 @@ export default {
   },
   ComponentsAdmin: {
     title: "Компоненты",
-    addComponentBtn: "Добавить компонент"
+    addComponentBtn: "Добавить компонент",
+    type: "Тип",
+    link: "Ссылка"
   },
   CreateComponent: {
     title: "Задать компонент",
