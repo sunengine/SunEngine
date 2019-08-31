@@ -176,7 +176,7 @@
     }
 
     @media (max-width: 900px) {
-      .f1 {
+      .container {
         flex-direction: column;
 
         .img {

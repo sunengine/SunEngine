@@ -50,6 +50,8 @@
                     })
                     .then(async () => {
                         this.$successNotify();
+                        await this.$store.dispatch("loadAllComponents");
+                        await this.$store.dispatch('setAllRoutes');
                         this.$router.push({name: 'ComponentsAdmin'});
                     }).catch(error => {
                     this.$errorNotify(error);

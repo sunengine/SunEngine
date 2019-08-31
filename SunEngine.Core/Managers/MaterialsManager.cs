@@ -179,7 +179,7 @@ namespace SunEngine.Core.Managers
 
         public virtual Task<bool> IsNameInDbAsync(string name)
         {
-            return db.Materials.AnyAsync(x => string.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase));
+            return db.Materials.AnyAsync(x => x.Name.ToLower() == name.ToLower());
         }
 
         public async ValueTask UpAsync(int id)

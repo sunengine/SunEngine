@@ -11,20 +11,13 @@
 
     <div class="components" v-if="components">
       <div v-for="component in components">
-        <router-link :to="{name: 'EditComponent', params: {name: component.name}}">
           <q-icon name="fas fa-cube" class="q-mr-xs"/>
           {{component.name}}
-          <span class="text-grey-7 q-ml-md">
-            {{$tl("type")}}: {{component.type}}
-          </span>
-        </router-link>
-        <span class="text-grey-7 q-ml-xl">
-          {{$tl("link")}}:
-          <input class="text-grey-7" style="border: 0;"  type="text" onclick="event.stopPropagation(); event.preventDefault()"
-               :value="siteUrl+'/'+component.name"/>
-        </span>
+        <q-btn color="info" class="q-ml-sm" dense size="10px" flat icon="fas fa-wrench" :to="{name: 'EditComponent', params: {name: component.name}}" />
 
+        <q-btn color="info" dense size="10px" flat icon="fas fa-arrow-right" :to="'/'+component.name" />
 
+        <span class="q-ml-lg text-grey-7">[{{component.type}}]</span>
       </div>
     </div>
     <LoaderWait v-else/>
@@ -49,11 +42,6 @@
                     .then(response => {
                         this.components = response.data;
                     })
-            }
-        },
-        computed: {
-            siteUrl() {
-              return config.SiteUrl;
             }
         },
         beforeCreate() {

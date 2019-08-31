@@ -9,9 +9,12 @@
              :label="addButtonLabel" icon="fas fa-plus"/>
     </div>
 
-    <div v-if="component.settings.subTitle" class="page-padding q-mb-lg text-grey-9" style="margin-top: -14px">{{component.settings.subTitle}}</div>
+    <div v-if="component.settings.subTitle" class="page-padding q-mb-lg text-grey-9" style="margin-top: -14px">
+      {{component.settings.subTitle}}
+    </div>
 
-    <div v-if="component.settings.header" class="q-mb-lg text-grey-9" style="margin-top: -14px" v-html="component.settings.header"></div>
+    <div v-if="component.settings.header" class="q-mb-lg text-grey-9" style="margin-top: -14px"
+         v-html="component.settings.header"></div>
 
     <PostsList ref="postsList"/>
 
@@ -41,23 +44,28 @@
             }
         },
         watch: {
-            'categoriesNames': 'loadData',
+            'componentName': 'loadData',
             '$route': 'loadData',
         },
         computed: {
             canPost() {
-                /*if (this.rolesCanAdd)
-                    if (!this.$store.state.auth.roles.some(x => this.rolesCanAdd.some(y => y === x)))
+                if (this.component.settings.rolesCanAdd) {
+                    const rolesCanAdd = this.component.settings.rolesCanAdd.split(",");
+                    if (!this.$store.state.auth.roles.some(x => rolesCanAdd.some(y => y === x)))
                         return false;
+                }
 
-                let categories = this.categoriesNames.split(',').map(x => x.trim());
+                let categories = this.component.settings.categoriesNames.split(',').map(x => x.trim());
                 for (let catName of categories) {
                     let cat = this.$store.getters.getCategory(catName);
                     if (cat?.canSomeChildrenWriteMaterial) {
                         return true;
                     }
-                }*/
+                }
                 return false;
+            },
+            addButtonLabel() {
+                return this.component.settings.addButtonLabel;
             },
             currentPage() {
                 return this.$route.query?.page ?? 1;

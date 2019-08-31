@@ -51,7 +51,7 @@
         this.goExternal();
       },
       expandOnClick() {
-        if (this.menuItem.settingsJson?.expandOnClick)
+        if (this.to && this.menuItem.settingsJson?.expandOnClick)
           this.$refs.exp.show();
       },
       goExternal() {

@@ -171,6 +171,9 @@ namespace SunEngine.Core.Controllers
         [NonAction]
         protected async Task SetNameAsync(Material material, string name)
         {
+            if (material.Name == name)
+                return;
+            
             if (User.IsInRole(RoleNames.Admin))
             {
                 if (string.IsNullOrWhiteSpace(name))
@@ -183,7 +186,7 @@ namespace SunEngine.Core.Controllers
                         throw new SunViewException(new ErrorView("MaterialNameNotValid", "Invalid material name",
                             ErrorType.System));
 
-                    if (name != material.Name && await materialsManager.IsNameInDbAsync(name))
+                    if (await materialsManager.IsNameInDbAsync(name))
                         throw new SunViewException(ErrorView.SoftError("MaterialNameAlreadyUsed",
                             "This material name is already used"));
 
