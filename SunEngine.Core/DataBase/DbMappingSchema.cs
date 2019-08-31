@@ -101,8 +101,7 @@ namespace SunEngine.Core.DataBase
 
             mp.Entity<LongSession>()
                 .HasTableName("LongSessions")
-                .HasIdentity(x => x.Id)
-                .HasPrimaryKey(x => x.Id)
+                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id)
                 .Association(x => x.User, x => x.UserId, x => x.Id);
 
             mp.Entity<BlackListShortToken>()
@@ -111,13 +110,11 @@ namespace SunEngine.Core.DataBase
 
             mp.Entity<CacheSettings>()
                 .HasTableName("CacheSettings")
-                .HasIdentity(x => x.Id)
-                .HasPrimaryKey(x => x.Id);
+                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id);
 
             mp.Entity<MenuItem>()
                 .HasTableName("MenuItems")
-                .HasIdentity(x => x.Id)
-                .HasPrimaryKey(x => x.Id);
+                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id);
 
             mp.Entity<CipherSecret>()
                 .HasTableName("CipherSecrets")
@@ -125,8 +122,7 @@ namespace SunEngine.Core.DataBase
             
             mp.Entity<Component>()
                 .HasTableName("Components")
-                .HasIdentity(x => x.Id)
-                .HasPrimaryKey(x => x.Id);
+                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id);
             
         }
     }

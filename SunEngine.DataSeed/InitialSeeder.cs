@@ -18,14 +18,15 @@ namespace SunEngine.DataSeed
     {
         public const string CategoriesConfigDir = "Categories";
         public const string MenusConfigDir = "Menu";
-
+        public const string ComponentsConfigDir = "Components";
+        
 
         private readonly DataContainer dataContainer = new DataContainer();
 
         private readonly UsersSeeder usersSeeder;
 
         private readonly string configDir;
-        
+
 
         public InitialSeeder(string configDir)
         {
@@ -50,9 +51,11 @@ namespace SunEngine.DataSeed
             SeedCacheSettings();
 
             SeedMenus();
+            
+            SeedComponents();
 
             SeedCipherSecrets();
-
+            
             return dataContainer;
         }
 
@@ -96,8 +99,8 @@ namespace SunEngine.DataSeed
             SeedRootCategory();
             SeedCategoriesFromDirectory();
             DetectCategoriesParents();
-            
-            
+
+
             void SeedRootCategory()
             {
                 Category rootCategory = new Category
@@ -111,8 +114,8 @@ namespace SunEngine.DataSeed
                 dataContainer.RootCategory = rootCategory;
                 dataContainer.Categories.Add(rootCategory);
             }
-            
-            
+
+
             void DetectCategoriesParents()
             {
                 foreach (var category in dataContainer.Categories)
@@ -156,6 +159,7 @@ namespace SunEngine.DataSeed
             dataContainer.CategoryAccesses = fromJsonLoader.categoryAccesses;
             dataContainer.CategoryOperationAccesses = fromJsonLoader.categoryOperationAccesses;
         }
+
         private void SeedUserRoles()
         {
             Console.WriteLine("UsersRoles");
@@ -195,7 +199,11 @@ namespace SunEngine.DataSeed
             }
         }
 
-
-        
+        private void SeedComponents()
+        {
+            var path = Path.GetFullPath(Path.Combine(configDir, ComponentsConfigDir));
+            ComponentsSeeder componentsSeeder = new ComponentsSeeder(dataContainer, path);
+            componentsSeeder.Seed();
+        }
     }
 }

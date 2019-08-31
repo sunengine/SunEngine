@@ -6,20 +6,20 @@ export default {
 
   getServerTemplate() {
     return {
-      categoriesNames: "Root",
-      previewSize: 800,
-      pageSize: 12
+      CategoriesNames: "Root",
+      PreviewSize: 800,
+      PageSize: 12
     }
   },
 
   getClientTemplate() {
     return {
-      title: "Posts",
-      subTitle: null,
-      header: null,
-      categoriesNames: "Root",
-      rolesCanAdd: null,
-      addButtonLabel: null
+      Title: "Posts",
+      SubTitle: null,
+      Header: null,
+      CategoriesNames: "Root",
+      RolesCanAdd: null,
+      AddButtonLabel: null
     }
   },
 

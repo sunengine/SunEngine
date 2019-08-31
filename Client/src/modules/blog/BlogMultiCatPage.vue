@@ -5,16 +5,16 @@
         {{title}}
       </h2>
       <q-btn v-if="canPost" no-caps class="post-btn"
-             @click="$router.push( {name:'CreateMaterial',params:{categoriesNames: component.settings.categoriesNames}})"
+             @click="$router.push( {name:'CreateMaterial',params:{categoriesNames: component.settings.CategoriesNames}})"
              :label="addButtonLabel" icon="fas fa-plus"/>
     </div>
 
-    <div v-if="component.settings.subTitle" class="page-padding q-mb-lg text-grey-9" style="margin-top: -14px">
-      {{component.settings.subTitle}}
+    <div v-if="component.settings.SubTitle" class="page-padding q-mb-lg text-grey-9" style="margin-top: -14px">
+      {{component.settings.SubTitle}}
     </div>
 
-    <div v-if="component.settings.header" class="q-mb-lg text-grey-9" style="margin-top: -14px"
-         v-html="component.settings.header"></div>
+    <div v-if="component.settings.Header" class="q-mb-lg text-grey-9" style="margin-top: -14px"
+         v-html="component.settings.Header"></div>
 
     <PostsList ref="postsList"/>
 
@@ -49,26 +49,25 @@
         },
         computed: {
             canPost() {
-                if(!this.component.settings.categoriesNames)
+                if(!this.component.settings.CategoriesNames)
                     return false;
 
-                if (this.component.settings.rolesCanAdd) {
-                    const rolesCanAdd = this.component.settings.rolesCanAdd.split(",");
+                if (this.component.settings.RolesCanAdd) {
+                    const rolesCanAdd = this.component.settings.RolesCanAdd.split(",");
                     if (!this.$store.state.auth.roles.some(x => rolesCanAdd.some(y => y === x)))
                         return false;
                 }
 
-                let categories = this.component.settings.categoriesNames.split(',').map(x => x.trim());
+                let categories = this.component.settings.CategoriesNames.split(',').map(x => x.trim());
                 for (let catName of categories) {
                     let cat = this.$store.getters.getCategory(catName);
-                    if (cat?.canSomeChildrenWriteMaterial) {
+                    if (cat?.canSomeChildrenWriteMaterial)
                         return true;
-                    }
                 }
                 return false;
             },
             addButtonLabel() {
-                return this.component.settings.addButtonLabel ?? this.$tl("addButtonLabel");
+                return this.component.settings.AddButtonLabel ?? this.$tl("addButtonLabel");
             },
             currentPage() {
                 return this.$route.query?.page ?? 1;
@@ -81,9 +80,9 @@
             pageChanges(newPage) {
                 if (this.currentPage !== newPage) {
                     let req = {path: this.$route.path};
-                    if (newPage !== 1) {
+                    if (newPage !== 1)
                         req.query = {page: newPage};
-                    }
+
                     this.$router.push(req);
                 }
             },
@@ -110,7 +109,7 @@
             this.$options.components.PostsList = require('sun').PostsList;
         },
         async created() {
-            this.title = this.component.settings.title;
+            this.title = this.component.settings.Title;
             await this.loadData();
         }
     }

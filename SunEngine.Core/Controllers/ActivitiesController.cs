@@ -40,7 +40,7 @@ namespace SunEngine.Core.Controllers
 
         public async Task<IActionResult> GetActivities(string componentName)
         {
-            var component = componentsCache.GetComponentServerCached(componentName);
+            var component = componentsCache.GetComponentServerCached(componentName, User.Roles);
             if (component == null)
                 return BadRequest($"No component {componentName} found in cache");
 

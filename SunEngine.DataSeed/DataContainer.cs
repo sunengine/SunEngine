@@ -18,6 +18,7 @@ namespace SunEngine.DataSeed
         private int currentUserId = 1;
         private int currentSectionTypeId = 1;
         private int currentCategoryId = 2;
+        private int currentComponentId = 1;
         private int currentCategoryAccessId = 1;
         private int currentUserGroupId = 1;
         private int operationKeyId = 1;
@@ -28,6 +29,7 @@ namespace SunEngine.DataSeed
         public MenuItem RootMenuItem;
         
         public List<Category> Categories = new List<Category>();
+        public List<Component> Components = new List<Component>();
         public List<Comment> Comments = new List<Comment>();
         public List<Material> Materials = new List<Material>();
         public List<User> Users = new List<User>();
@@ -46,6 +48,8 @@ namespace SunEngine.DataSeed
         public int NextSectionTypeId() => currentSectionTypeId++;
 
         public int NextCategoryId() => currentCategoryId++;
+
+        public int NextComponentId() => currentComponentId++;
 
         public int MaxUserId => currentUserId;
 

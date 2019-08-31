@@ -81,7 +81,7 @@ namespace SunEngine.Core.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> GetPostsFromMultiCategories(string componentName, int page = 1)
         {
-            var component = componentsCache.GetComponentServerCached(componentName);
+            var component = componentsCache.GetComponentServerCached(componentName, User.Roles);
             if (component == null)
                 return BadRequest($"No component {componentName} found in cache");
 

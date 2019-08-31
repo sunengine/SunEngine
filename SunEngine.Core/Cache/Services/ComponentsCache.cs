@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
+using AngleSharp.Services.Default;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Controllers;
 using SunEngine.Core.DataBase;
@@ -9,8 +11,8 @@ namespace SunEngine.Core.Cache.Services
 {
     public interface IComponentsCache : ISunMemoryCache
     {
-        ComponentServerCached GetComponentServerCached(string name);
-        Dictionary<string, ComponentClientCached> ClientComponents { get; }
+        ComponentServerCached GetComponentServerCached(string name, IReadOnlyDictionary<string, RoleCached> roles);
+        IEnumerable<ComponentClientCached> GetClientComponents(IReadOnlyDictionary<string, RoleCached> roles);
         Dictionary<string, Type> ComponentsDataTypes { get; }
     }
 
@@ -19,6 +21,7 @@ namespace SunEngine.Core.Cache.Services
         private readonly object lockObject = new object();
 
         private readonly IDataBaseFactory dataBaseFactory;
+        private readonly IRolesCache rolesCache;
 
         protected Dictionary<string, Type> _componentsDataTypes = new Dictionary<string, Type>()
         {
@@ -26,12 +29,17 @@ namespace SunEngine.Core.Cache.Services
             ["Activities"] = typeof(ActivitiesComponentData)
         };
 
+        public IEnumerable<ComponentClientCached> GetClientComponents(IReadOnlyDictionary<string, RoleCached> Roles)
+        {
+            return ClientComponents.Where(comp => Roles.Values.Any(role => comp.Roles.ContainsKey(role.Id))).ToArray();
+        }
+
         public Dictionary<string, Type> ComponentsDataTypes => _componentsDataTypes;
 
-        protected Dictionary<string, ComponentServerCached> serverComponents;
-        protected Dictionary<string, ComponentClientCached> clientComponents;
+        protected IReadOnlyDictionary<string, ComponentServerCached> serverComponents;
+        protected IReadOnlyList<ComponentClientCached> clientComponents;
 
-        protected Dictionary<string, ComponentServerCached> ServerComponents
+        protected IReadOnlyDictionary<string, ComponentServerCached> ServerComponents
         {
             get
             {
@@ -44,7 +52,7 @@ namespace SunEngine.Core.Cache.Services
             }
         }
 
-        public Dictionary<string, ComponentClientCached> ClientComponents
+        public IReadOnlyList<ComponentClientCached> ClientComponents
         {
             get
             {
@@ -57,18 +65,23 @@ namespace SunEngine.Core.Cache.Services
             }
         }
 
-        public ComponentServerCached GetComponentServerCached(string name)
+        public ComponentServerCached GetComponentServerCached(
+            string name, IReadOnlyDictionary<string, RoleCached> roles)
         {
             lock (lockObject)
             {
-                return ServerComponents.TryGetValue(name, out ComponentServerCached componentServerCached)
-                    ? componentServerCached
-                    : null;
+                if (ServerComponents.TryGetValue(name, out ComponentServerCached componentServerCached))
+                    if (componentServerCached.Roles.Any(x =>
+                        roles.Keys.Any(role => String.Equals(x.Value.Name, role, StringComparison.OrdinalIgnoreCase))))
+                        return componentServerCached;
+
+                return null;
             }
         }
 
-        public ComponentsCache(IDataBaseFactory dataBaseFactory)
+        public ComponentsCache(IDataBaseFactory dataBaseFactory, IRolesCache rolesCache)
         {
+            this.rolesCache = rolesCache;
             this.dataBaseFactory = dataBaseFactory;
         }
 
@@ -80,25 +93,42 @@ namespace SunEngine.Core.Cache.Services
                 {
                     var components = db.Components.ToList();
 
-                    serverComponents =
-                        new Dictionary<string, ComponentServerCached>(components.Count,
-                            StringComparer.OrdinalIgnoreCase);
+                    Dictionary<string, ComponentServerCached> serverComponentsTmp =
+                        new Dictionary<string, ComponentServerCached>(components.Count);
+
+                    List<ComponentClientCached> clientComponentsTmp = new List<ComponentClientCached>();
 
                     foreach (var component in components)
                     {
                         try
                         {
-                            serverComponents[component.Name] =
-                                new ComponentServerCached(component, ComponentsDataTypes[component.Type]);
+                            ImmutableDictionary<int, RoleCached> roles;
+                            if (component.Roles != null)
+                            {
+                                roles = component.Roles.Split(',')
+                                    .Select(x => rolesCache.GetRole(x))
+                                    .ToDictionary(x => x.Id, x => x)
+                                    .ToImmutableDictionary();
+                            }
+                            else
+                            {
+                                roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
+                            }
+
+                            serverComponentsTmp[component.Name] =
+                                new ComponentServerCached(component, ComponentsDataTypes[component.Type], roles);
+
+                            clientComponentsTmp.Add(new ComponentClientCached(component, roles));
+
+                            serverComponents = serverComponentsTmp.ToImmutableDictionary(StringComparer.OrdinalIgnoreCase);
+
+                            clientComponents = clientComponentsTmp.ToImmutableList();
                         }
                         catch
                         {
                             // ignored
                         }
                     }
-
-                    clientComponents = components.ToDictionary(x => x.Name, x => new ComponentClientCached(x),
-                        StringComparer.OrdinalIgnoreCase);
                 }
             }
         }

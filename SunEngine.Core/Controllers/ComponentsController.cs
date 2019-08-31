@@ -18,7 +18,7 @@ namespace SunEngine.Core.Controllers
         [HttpPost]
         public IActionResult GetAllComponents()
         {
-            var rez = componentsCache.ClientComponents.Values;
+            var rez = componentsCache.GetClientComponents(User.Roles);
             return Ok(rez);
         }
     }

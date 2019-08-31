@@ -6,15 +6,15 @@ export default {
 
   getServerTemplate() {
     return {
-      materialsCategories: "Root",
-      commentsCategories: "Root",
-      number: 25
+      MaterialsCategories: "Root",
+      CommentsCategories: "Root",
+      Number: 25
     }
   },
 
   getClientTemplate() {
     return {
-      title: "Activities"
+      Title: "Activities"
     }
   },
 
