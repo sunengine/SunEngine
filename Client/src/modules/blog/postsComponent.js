@@ -4,6 +4,25 @@ export default {
   name: 'Posts',
   title: 'Posts',
 
+  getServerTemplate() {
+    return {
+      categoriesNames: "Root",
+      previewSize: 800,
+      pageSize: 12
+    }
+  },
+
+  getClientTemplate() {
+    return {
+      title: "Posts",
+      subTitle: null,
+      header: null,
+      categoriesNames: "Root",
+      rolesCanAdd: null,
+      addButtonLabel: null
+    }
+  },
+
   getRoutes(component) {
     const name = component.name;
     const nameLower = name.toLowerCase();

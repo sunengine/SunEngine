@@ -4,6 +4,20 @@ export default {
   name: 'Activities',
   title: 'Activities',
 
+  getServerTemplate() {
+    return {
+      materialsCategories: "Root",
+      commentsCategories: "Root",
+      number: 25
+    }
+  },
+
+  getClientTemplate() {
+    return {
+      title: "Activities"
+    }
+  },
+
   getRoutes(component) {
     const name = component.name;
     const nameLower = name.toLowerCase();

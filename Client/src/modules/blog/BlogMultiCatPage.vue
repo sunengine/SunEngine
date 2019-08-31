@@ -49,6 +49,9 @@
         },
         computed: {
             canPost() {
+                if(!this.component.settings.categoriesNames)
+                    return false;
+
                 if (this.component.settings.rolesCanAdd) {
                     const rolesCanAdd = this.component.settings.rolesCanAdd.split(",");
                     if (!this.$store.state.auth.roles.some(x => rolesCanAdd.some(y => y === x)))

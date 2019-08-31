@@ -14,7 +14,7 @@ export default async function(context,  data) {
       console.info('%cLoadAllComponents', consoleInit, config.Log.InitExtended ? response.data : '');
       context.state.allComponents = {};
       for(const comp of response.data) {
-        context.state.allComponents[comp.name] = comp;
+        context.state.allComponents[comp.name.toLowerCase()] = comp;
       }
     });
 }

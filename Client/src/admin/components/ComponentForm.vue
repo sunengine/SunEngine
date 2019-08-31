@@ -6,7 +6,8 @@
       </template>
     </q-input>
 
-    <q-select ref="type" :disable="editMode" class="q-mb-lg" emit-value map-options :label="$tl('type')" :rules="rules.type" v-model="component.type"
+    <q-select ref="type" :disable="editMode" class="q-mb-lg" emit-value map-options
+              :label="$tl('type')" :rules="rules.type" v-model="component.type"
               :options="componentTypes" option-value="name" option-label="title">
       <q-icon slot="prepend" name="fas fa-cube"/>
     </q-select>
@@ -71,23 +72,23 @@
             }
         },
         watch: {
-            'roles': 'rolesUpdated'
+            'roles': 'rolesUpdated',
+            'component.type': 'typeChanges'
         },
         computed: {
             hasError() {
-                return this.$refs.name.hasError ||  this.$refs.type.hasError || this.$refs.serverSettingsJson.hasError || this.$refs.clientSettingsJson.hasError;
+                return this.$refs.name.hasError || this.$refs.type.hasError || this.$refs.serverSettingsJson.hasError || this.$refs.clientSettingsJson.hasError;
             },
             componentTypes() {
-                return [
-                    {
-                        name: 'Posts', title: 'Posts'
-                    },
-                    {
-                        name: 'Activities', title: 'Activities'
-                    }]
+                return Object.values(this.$store.state.components.componentsTypes);
             }
         },
         methods: {
+            typeChanges() {
+                const type = this.$store.getters.getComponentType(this.component.type);
+                this.component.serverSettingsJson = JSON.stringify(type.getServerTemplate(), null, 2);
+                this.component.clientSettingsJson = JSON.stringify(type.getClientTemplate(), null, 2);
+            },
             rolesUpdated() {
                 this.component.roles = this.roles.map(x => x.name).join(',');
             },

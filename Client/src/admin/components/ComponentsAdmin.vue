@@ -15,7 +15,7 @@
           {{component.name}}
         <q-btn color="info" class="q-ml-sm" dense size="10px" flat icon="fas fa-wrench" :to="{name: 'EditComponent', params: {name: component.name}}" />
 
-        <q-btn color="info" dense size="10px" flat icon="fas fa-arrow-right" :to="'/'+component.name" />
+        <q-btn color="info" dense size="10px" flat icon="fas fa-arrow-right" :to="'/'+component.name.toLowerCase()" />
 
         <span class="q-ml-lg text-grey-7">[{{component.type}}]</span>
       </div>
