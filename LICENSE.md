@@ -21,7 +21,7 @@ All rights to the SunEngine project code belong to the author of the project.
 5. The author of the contribution to the code has the right to use his code at his discretion, without restrictions.
 6. A copy of the code received in the SunEngine repository is donated to the author of SunEngine and can be used by him at his discretion without restrictions.
 ### Disclaimer:
-7. The SunEngine code is provided as is without any warranty or obligation from SunEngine author or SunEngine team.
-8. The SunEngine team is not responsible for any consequences of its use (including possible damage), direct or indirect, when using SunEngine or its code.
+7. The SunEngine code provided as is without any warranty or obligation by SunEngine author or SunEngine team.
+8. The SunEngine team is not responsible for any consequences of its use (including damage possible), direct or indirect, when using SunEngine or it's code.
 
  

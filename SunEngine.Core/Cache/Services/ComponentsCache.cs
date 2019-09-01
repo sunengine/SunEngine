@@ -119,16 +119,16 @@ namespace SunEngine.Core.Cache.Services
                                 new ComponentServerCached(component, ComponentsDataTypes[component.Type], roles);
 
                             clientComponentsTmp.Add(new ComponentClientCached(component, roles));
-
-                            serverComponents = serverComponentsTmp.ToImmutableDictionary(StringComparer.OrdinalIgnoreCase);
-
-                            clientComponents = clientComponentsTmp.ToImmutableList();
                         }
                         catch
                         {
                             // ignored
                         }
                     }
+                    
+                    serverComponents = serverComponentsTmp.ToImmutableDictionary(StringComparer.OrdinalIgnoreCase);
+
+                    clientComponents = clientComponentsTmp.ToImmutableList();
                 }
             }
         }
