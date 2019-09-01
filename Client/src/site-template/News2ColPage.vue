@@ -10,8 +10,7 @@
 
       </div>
       <div :class="['col-xs-12','col-md-6', 'col2', 'pull-right', {'pull-left': !$q.screen.gt.sm}]">
-        <activities-list ref="activitiesList" materialsCategories="root" commentsCategories="root"
-                         :activitiesNumber="30"/>
+        <activities-list ref="activitiesList" componentName="Activities"/>
 
       </div>
     </div>
@@ -20,57 +19,57 @@
 </template>
 
 <script>
-  import {Page} from 'sun'
-  import {ActivitiesList} from 'sun'
-  import {PostsList} from 'sun'
-  import {LoaderWait} from 'sun'
+    import {Page} from 'sun'
+    import {ActivitiesList} from 'sun'
+    import {PostsList} from 'sun'
+    import {LoaderWait} from 'sun'
 
 
-  export default {
-    name: 'News2ColPage',
-    components: {LoaderWait, PostsList, ActivitiesList},
-    mixins: [Page],
-    data: function () {
-      return {
-        mounted: false
-      }
-    },
-    watch: {
-      '$route.query.page': 'loadData'
-    },
-    computed: {
-      loaded() {
-        if (!this.mounted)
-          return;
-        return this.$refs?.postsList?.posts && this.$refs?.activitiesList?.activities;
-      }
-    },
-    methods: {
-      async loadData() {
-
-        await this.$store.dispatch('request',
-          {
-            url: '/Blog/GetPostsFromMultiCategories',
-            data: {
-              categoriesNames: 'root',
-              pageSize: 6
+    export default {
+        name: 'News2ColPage',
+        components: {LoaderWait, PostsList, ActivitiesList},
+        mixins: [Page],
+        data: function () {
+            return {
+                mounted: false
             }
-          })
-          .then(
-            response => {
-              this.$refs.postsList.posts = response.data;
+        },
+        watch: {
+            '$route.query.page': 'loadData'
+        },
+        computed: {
+            loaded() {
+                if (!this.mounted)
+                    return;
+                return this.$refs?.postsList?.posts && this.$refs?.activitiesList?.activities;
             }
-          );
-      }
-    },
-    mounted() {
-      this.mounted = true;
-    },
-    async created() {
-      this.title = this.$tl('title');
-      await this.loadData();
+        },
+        methods: {
+            async loadData() {
+
+                await this.$store.dispatch('request',
+                    {
+                        url: '/Blog/GetPostsFromMultiCategories',
+                        data: {
+                            componentName: 'Posts',
+                            page: 1
+                        }
+                    })
+                    .then(
+                        response => {
+                            this.$refs.postsList.posts = response.data;
+                        }
+                    );
+            }
+        },
+        mounted() {
+            this.mounted = true;
+        },
+        async created() {
+            this.title = this.$tl('title');
+            await this.loadData();
+        }
     }
-  }
 
 </script>
 

@@ -2,22 +2,26 @@
   <q-page class="material-inline-page ">
     <div class="pan">
     </div>
-    <h2 class="q-title page-padding">
+    <h2 class="q-title page-padding text-center">
       {{title}}
     </h2>
-    <MaterialInline class="page-padding" name="inline1"/>
+    <MaterialInline @loaded="loaded" ref="inline" class="page-padding" name="inline1"/>
   </q-page>
 </template>
 
 <script>
     import {MaterialInline} from 'sun'
+    import {Page} from 'sun'
 
 
     export default {
         name: 'MaterialInlinePage',
+        mixins: [Page],
         components: {MaterialInline},
-        created() {
-            this.title = this.$tl('title')
+        methods: {
+            loaded() {
+                this.title = this.$refs.inline.material.title;
+            }
         }
     }
 

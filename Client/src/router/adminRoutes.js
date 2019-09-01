@@ -193,7 +193,7 @@ const routes = [
   },
   {
     name: 'CatView-mat',
-    path: '/admin/CatView-mat/'.toLowerCase() + ':categoryName/:idOrName',
+    path: '/admin/CatView/'.toLowerCase() + ':categoryName/:idOrName',
     components: {
       default: Material,
       navigation: AdminPanel

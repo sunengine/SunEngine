@@ -1,23 +1,25 @@
-## Лицензия SunEngine
-**Версия 1.2**  
-Автор проекта: Дмитрий Полянин (с)  
-Все права на код проекта SunEngine принадлежат автору проекта.
-### Использование в личных целях:
-1. SunEngine разрешено использовать без оплаты для коммерческих и некоммерческих проектов.
-2. В личных, приватных целях, включая проекты на заказ, пользователю разрешено менять код SunEngine и производить продукты его основе, кроме исключений:  
-    2.1. Запрещено менять лицензию.  
-    2.2. Запрещено менять баннер, расшифровка в пункте 3.  
-### Баннер "SunEngine" в футере сайта:
-3. При любых изменениях необходимо в футере сайта на всех страницах оставить баннер-ссылку на официальный сайт проекта (sunengine.site):  
-   3.1. Ссылка должна остаться видна посетителям сайта.  
-   3.2. Код, вид и расположение всего блока ссылки должны остаться неизменными.  
-   3.3. Ссылка должна остаться индексируемой для поисковых систем.  
-### Распространение SunEngine и связанного кода:
-4. SunEngine и любой связный код разрешено распространять через открытые источники при согласии автора проекта и запрещено без согласия автора проекта.
-### Права на код полученный в проект через commits, pull requests, или другими способами:
-5. Автор вклада в код имеет право использовать свой авторский код на своё усмотрению, без ограничений.
-6. Копия кода поступающего в репозиторий SunEngine передаётся в дар автору проекта и может быть использована им на своё усмотрение без ограничений.
-### Отказ от ответственности:
-7. Код SunEngine предоставляется как есть без каких-либо гарантий или обязательств со стороны автора проекта или команды SunEngine.
-8. Команда разработки SunEngine не несёт ответственности за любые последствия его использования (включая возможный ущерб), прямые или косвенные, при использования SunEngine и его кода.
+## SunEngine Licence
+**Version 1.2**  
+[Русская версия](LICENSE.RU.md).
+Project author: Dmitrij Polianin
+All rights to the SunEngine project code belong to the author of the project.
+### Personal use:
+1. SunEngine allowed to use with out fee for commercial and not commercial projects.
+2. User allowed to change code of SunEngine in personal and private goals, including making projects on SunEngine basis, there is exceptions:  
+  2.1. User do not allow to change license text.  
+  2.2. User do not allow to change or remove banner, see part 3.  
+### SunEngine link block at site footer:
+3. On any changes of site footer block with "SunEngine" link have to stay:  
+  3.1. All link block have to be visible to site users.  
+  3.2. Code, look and placement of link block have to be unchanged.   
+  3.3. Link have to stay indexed by search engines.   
+### Sharing SunEngine and related code:
+4. SunEngine and all related code can be shared in public only with author of SunEngine acceptance, and disallowed with out it.
+### Rights to the code received in the project through commits, pull requests, or in other ways:
+5. The author of the contribution to the code has the right to use his code at his discretion, without restrictions.
+6. A copy of the code received in the SunEngine repository is donated to the author of SunEngine and can be used by him at his discretion without restrictions.
+### Disclaimer:
+7. The SunEngine code is provided as is without any warranty or obligation from SunEngine author or SunEngine team.
+8. The SunEngine team is not responsible for any consequences of its use (including possible damage), direct or indirect, when using SunEngine or its code.
+
  
