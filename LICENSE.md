@@ -1,8 +1,8 @@
 ## SunEngine Licence
 **Version 1.2**  
-[Русская версия](LICENSE.RU.md).
-Project author: Dmitrij Polianin
-All rights to the SunEngine project code belong to the author of the project.
+[Русская версия](LICENSE.RU.md).  
+Project author: Dmitrij Polianin  
+All rights to the SunEngine project code belong to the author of the project.  
 ### Personal use:
 1. SunEngine allowed to use with out fee for commercial and not commercial projects.
 2. User allowed to change code of SunEngine in personal and private goals, including making projects on SunEngine basis, there is exceptions:  
