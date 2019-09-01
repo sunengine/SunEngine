@@ -8,7 +8,7 @@ Version: 1.11.2
 
 Demo site: [demo.sunengine.site](http://demo.sunengine.site). 
 
-Статья на русском: [ссылка](README.RU.md).
+[Текст на русском](README.RU.md).
 
 ### About project
 #### Core modules

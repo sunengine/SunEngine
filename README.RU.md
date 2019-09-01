@@ -8,6 +8,8 @@
 
 Демо: [demo.sunengine.site](http://demo.sunengine.site)    
 
+[English text](README.md).
+
 ### О проекте
 #### Core модули:
 - Статьи
