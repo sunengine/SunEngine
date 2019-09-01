@@ -9,7 +9,6 @@ $title-lime = #d0fccf
 
 
 html {
-  //font-size: 20px;
   color: #06000d;
   font-family: 'Open Sans', sans-serif;
 }
@@ -18,6 +17,10 @@ html {
 a,.link  {
   text-decoration: none;
   color: $link-color;
+
+  &:hover {
+    color: #2472b3;
+  }
 }
 
 
@@ -237,14 +240,6 @@ a,.link  {
     border-top: 1px solid $lime-color;
     padding: 15px 0;
     color: $link-color;
-  }
-
-  a {
-    color: $link-color;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 
   .q-icon {

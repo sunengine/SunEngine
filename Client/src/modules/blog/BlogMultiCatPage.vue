@@ -16,11 +16,7 @@
     <div v-if="component.settings.Header" class="q-mb-lg text-grey-9" style="margin-top: -14px"
          v-html="component.settings.Header"></div>
 
-    <PostsList ref="postsList"/>
-
-    <q-pagination class="page-padding q-mt-md" v-if="posts && posts.totalPages > 1" v-model="posts.pageIndex"
-                  color="pagination"
-                  :max-pages="12" :max="posts.totalPages" ellipses direction-links @input="pageChanges"/>
+    <PostsMultiCat :componentName="componentName" />
 
   </q-page>
 </template>
@@ -36,11 +32,6 @@
             componentName: {
                 type: String,
                 required: true,
-            }
-        },
-        data() {
-            return {
-                posts: null
             }
         },
         watch: {
@@ -85,32 +76,13 @@
 
                     this.$router.push(req);
                 }
-            },
-            async loadData() {
-                await this.$store.dispatch('request',
-                    {
-                        url: '/Blog/GetPostsFromMultiCategories',
-                        data: {
-                            componentName: this.componentName,
-                            page: this.currentPage
-                        }
-                    })
-                    .then(
-                        response => {
-                            this.posts = response.data;
-                            this.$refs.postsList.posts = response.data;
-                        }
-                    ).catch(x => {
-                        console.log('error', x);
-                    });
             }
         },
         beforeCreate() {
-            this.$options.components.PostsList = require('sun').PostsList;
+            this.$options.components.PostsMultiCat = require('sun').PostsMultiCat;
         },
         async created() {
             this.title = this.component.settings.Title;
-            await this.loadData();
         }
     }
 

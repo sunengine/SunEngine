@@ -30,6 +30,7 @@
           }).then(
           response => {
             this.material = response.data;
+            this.$emit("loaded");
           }
         ).catch(x => {
           console.log('error', x);

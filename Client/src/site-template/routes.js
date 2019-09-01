@@ -16,18 +16,6 @@ const siteRoutes = [
     component: IndexPage
   },
   {
-    name: 'News',
-    path: '/News'.toLowerCase(),
-    components: {
-      default: ActivitiesPage,
-    },
-    props: {
-      default: {
-        pageTitle: 'Активность на сайте'
-      }
-    }
-  },
-  {
     name: 'News2ColPage',
     path: '/News2ColPage'.toLowerCase(),
     components: {
@@ -39,22 +27,6 @@ const siteRoutes = [
     path: '/MaterialInlinePage'.toLowerCase(),
     components: {
       default: MaterialInlinePage,
-    }
-  },
-  {
-    name: 'BlogMulti',
-    path: '/BlogMulti'.toLowerCase(),
-    components: {
-      default: BlogMultiCatPage,
-    },
-    props: {
-      default: {
-        pageTitle: 'Новые материалы',
-        categoriesNames: 'Forum1,Articles,Blog'.toLowerCase(),
-        addButtonLabel: 'Добавить материал',
-        caption: 'Посты в виде блога из категорий: Forum, Articles, Blog',
-        rolesCanAdd: ['Admin', 'Moderator']
-      }
     }
   },
   {
