@@ -1,7 +1,6 @@
 [Ll].*
 [Ll]ocal.*
-*-template.*
-*-template/
+
 
 config.js
 
