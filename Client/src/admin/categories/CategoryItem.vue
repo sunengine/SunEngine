@@ -16,8 +16,10 @@
       </span>
       <span v-else>{{$tl("rootCategory")}}</span>
       <span v-if="notRoot" class="q-ml-md">
-        <q-btn @click="$emit('edit',category.id)" icon="fas fa-wrench" color="info" dense size="10px" flat/>
-        <q-btn @click="$emit('add',category.id)" icon="fas fa-folder-plus" color="info" dense size="10px" flat/>
+        <q-btn :to="{name: 'EditCategory', params: {categoryId:category.id}}" icon="fas fa-wrench" color="info" dense
+               size="10px" flat/>
+        <q-btn :to="{name: 'CreateCategory', params: {parentCategoryId: category.id}}" icon="fas fa-folder-plus"
+               color="info" dense size="10px" flat/>
         <q-btn :disabled="!route" :to="route" icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
       </span>
 
@@ -32,32 +34,32 @@
 
 <script>
 
-  export default {
-    name: 'CategoryItem',
-    props: {
-      category: {
-        type: Object,
-        required: true
-      },
-      isFirst: Boolean,
-      isLast: Boolean
-    },
-    computed: {
-      route() {
-        return this.$store.getters.getCategory(this.category.name)?.getRoute()
-      },
-      notRoot() {
-        return this.category.name !== 'Root'
-      },
-      lastIndex() {
-        return this.category.subCategories.length - 1;
-      }
-    },
-    methods: {},
-    data: function () {
-      return {}
+    export default {
+        name: 'CategoryItem',
+        props: {
+            category: {
+                type: Object,
+                required: true
+            },
+            isFirst: Boolean,
+            isLast: Boolean
+        },
+        computed: {
+            route() {
+                return this.$store.getters.getCategory(this.category.name)?.getRoute()
+            },
+            notRoot() {
+                return this.category.name !== 'Root'
+            },
+            lastIndex() {
+                return this.category.subCategories.length - 1;
+            }
+        },
+        methods: {},
+        data: function () {
+            return {}
+        }
     }
-  }
 
 </script>
 

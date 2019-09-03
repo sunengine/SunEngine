@@ -5,7 +5,7 @@
       <h2 class="q-title">
         {{$tl("title")}}
       </h2>
-      <q-btn icon="fas fa-folder-plus" class="post-btn q-mr-lg" @click="add()" no-caps
+      <q-btn icon="fas fa-folder-plus" class="post-btn q-mr-lg" type="a" :to="{name: 'CreateCategory', params: {parentCategoryId: 1}}" no-caps
              :label="$tl('addCategoryBtn')"/>
       <div class="clear"></div>
     </div>
@@ -30,12 +30,6 @@
       }
     },
     methods: {
-      add(parentCategoryId = 1) {
-        this.$router.push({name: 'CreateCategory', params: {parentCategoryId}});
-      },
-      edit(categoryId) {
-        this.$router.push({name: 'EditCategory', params: {categoryId}});
-      },
       async up(category) {
         await this.$store.dispatch('request',
           {

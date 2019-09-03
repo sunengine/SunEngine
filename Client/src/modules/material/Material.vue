@@ -69,12 +69,14 @@
                           :isLast="index === maxCommentNumber"/>
         <hr class="hr-sep"/>
       </div>
-      <div v-if="canCommentWrite">
-        <CreateComment class="page-padding" @done="commentAdded" :materialId="material.id"/>
-      </div>
+
     </div>
 
     <LoaderWait v-if="!material || !comments"/>
+
+    <div class="write-comment q-mt-md" v-if="canCommentWrite">
+      <CreateComment class="page-padding" @done="commentAdded" :materialId="material.id"/>
+    </div>
   </q-page>
 
 </template>
