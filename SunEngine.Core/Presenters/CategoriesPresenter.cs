@@ -11,10 +11,6 @@ namespace SunEngine.Core.Presenters
     {
         CategoryInfoWithAccesses GetRootCategoryInfoWithAccesses(
             IReadOnlyDictionary<string, RoleCached> roles);
-
-        CategoryInfoWithAccesses GetCategoryInfoWithAccesses(
-            CategoryCached category,
-            IReadOnlyDictionary<string, RoleCached> roles);
     }
 
     public class CategoriesPresenter : ICategoriesPresenter
@@ -25,6 +21,7 @@ namespace SunEngine.Core.Presenters
         protected readonly ICategoriesCache categoriesCache;
         protected readonly IRolesCache rolesCache;
 
+        
         public CategoriesPresenter(
             IRolesCache rolesCache,
             ICategoriesCache categoriesCache,

@@ -4,6 +4,9 @@ using SunEngine.Core.Cache.Services;
 
 namespace SunEngine.Core.Controllers
 {
+    /// <summary>
+    /// Get cached component data controller
+    /// </summary>
     public class ComponentsController : BaseController
     {
         protected readonly IComponentsCache componentsCache;

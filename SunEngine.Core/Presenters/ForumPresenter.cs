@@ -10,8 +10,8 @@ namespace SunEngine.Core.Presenters
 {
     public interface IForumPresenter
     {
-        Task<IPagedList<TopicInfoView>> GetThread(MaterialsShowOptions options);
-        Task<IPagedList<TopicInfoView>> GetNewTopics(MaterialsMultiCatShowOptions options, int maxPages);
+        Task<IPagedList<TopicInfoView>> GetThreadAsync(MaterialsShowOptions options);
+        Task<IPagedList<TopicInfoView>> GetNewTopicsAsync(MaterialsMultiCatShowOptions options, int maxPages);
     }
 
     public class ForumPresenter : DbService, IForumPresenter
@@ -21,7 +21,7 @@ namespace SunEngine.Core.Presenters
         }
 
 
-        public virtual Task<IPagedList<TopicInfoView>> GetThread(MaterialsShowOptions options)
+        public virtual Task<IPagedList<TopicInfoView>> GetThreadAsync(MaterialsShowOptions options)
         {
             IQueryable<Material> query = db.Materials;
 
@@ -58,7 +58,7 @@ namespace SunEngine.Core.Presenters
         }
 
 
-        public virtual Task<IPagedList<TopicInfoView>> GetNewTopics(MaterialsMultiCatShowOptions options, int maxPages)
+        public virtual Task<IPagedList<TopicInfoView>> GetNewTopicsAsync(MaterialsMultiCatShowOptions options, int maxPages)
         {
             return db.MaterialsVisible.GetPagedListMaxAsync(
                 x => new TopicInfoView

@@ -14,7 +14,8 @@ namespace SunEngine.Core.Presenters
     public interface IActivitiesPresenter
     {
         Task<ActivityView[]> GetActivitiesAsync(
-            int[] materialsCategoriesIds, int[] commentsCategoriesIds,
+            int[] materialsCategoriesIds, 
+            int[] commentsCategoriesIds,
             int number);
     }
 
@@ -31,7 +32,8 @@ namespace SunEngine.Core.Presenters
 
         public async Task<ActivityView[]> GetActivitiesAsync(
             int[] materialsCategoriesIds,
-            int[] commentsCategoriesIds, int number)
+            int[] commentsCategoriesIds, 
+            int number)
         {
             var materialsActivities = await db.Materials
                 .Where(x => materialsCategoriesIds.Contains(x.CategoryId) && !x.IsHidden && x.DeletedDate == null)

@@ -9,7 +9,13 @@ namespace SunEngine.Core.Cache.Services.Counters
 {
     public interface IProfilesVisitsCounterService
     {
+        /// <summary>
+        /// Add 1 and return cached value.
+        /// </summary>
         int CountProfile(string userOrIpKey, int userId);
+        /// <summary>
+        /// Upload cached values to data base
+        /// </summary>
         void UploadToDataBase();
     }
 
@@ -21,6 +27,10 @@ namespace SunEngine.Core.Cache.Services.Counters
 
         protected readonly object lockObject = new object();
 
+        /// <summary>
+        /// Dictionary of cached visits contains only new visits.
+        /// To get full count you need to sum base value from database and this value.
+        /// </summary>
         protected readonly ConcurrentDictionary<int, int> visits = new ConcurrentDictionary<int, int>();
 
         protected readonly IDataBaseFactory dbFactory;

@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using AngleSharp.Dom.Html;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
-using SunEngine.Core.Utils.TextProcess;
 
 namespace SunEngine.Core.Cache.Services
 {

@@ -16,15 +16,16 @@ namespace SunEngine.Core.Presenters
     {
         Task<IPagedList<PostView>> GetPostsAsync(MaterialsShowOptions options);
 
-        Task<IPagedList<PostView>>
-            GetPostsFromMultiCategoriesAsync(MaterialsMultiCatShowOptions options);
+        Task<IPagedList<PostView>> GetPostsFromMultiCategoriesAsync(MaterialsMultiCatShowOptions options);
     }
 
     public class BlogPresenter : DbService, IBlogPresenter
     {
         protected readonly BlogOptions blogOptions;
 
-        public BlogPresenter(DataBaseConnection db, IOptions<BlogOptions> blogOptions) : base(db)
+        public BlogPresenter(
+            DataBaseConnection db, 
+            IOptions<BlogOptions> blogOptions) : base(db)
         {
             this.blogOptions = blogOptions.Value;
         }
