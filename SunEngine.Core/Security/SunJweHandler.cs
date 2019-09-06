@@ -1,7 +1,6 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Net.Http;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -14,14 +13,16 @@ using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Managers;
 using SunEngine.Core.Models;
 
+
 namespace SunEngine.Core.Security
 {
     /// <summary>
-    /// Jwt validation handler with system of 3 tokens
+    /// Jwe validation handler with system of 3 tokens
     /// 1 - ShortToken (Access token), stored in client JS or localStorage Short token life approximate 5 minutes to 2 days
     /// 2 - LongToken1 (Refresh token), stored in client JS or localStorage. Long token life ~ 3 month.
     /// 3 - LongToken2 (Access + Refresh token, 2 in 1), stored in cookie Long token life ~ 3 month.
     /// LongToken2 needed to verify ShortToken and LongToken1 to protect against XSS attacks.
+    /// lat2ran_1 and lat2ran_2 - random token have to be equal in ShortToken and LongToken2 to verify that no one is substituted.
     /// </summary>
     public class SunJweHandler : AuthenticationHandler<SunJweOptions>
     {
@@ -96,7 +97,6 @@ namespace SunEngine.Core.Security
 
                 return AuthenticateResult.Success(new AuthenticationTicket(sunClaimsPrincipal, SunJwe.Scheme));
 
-                
 
                 async Task<string> CompareLongTokens()
                 {
@@ -182,6 +182,6 @@ namespace SunEngine.Core.Security
 
     public static class SunJwe
     {
-        public const string Scheme = "MyScheme";
+        public const string Scheme = "SunScheme";
     }
 }
