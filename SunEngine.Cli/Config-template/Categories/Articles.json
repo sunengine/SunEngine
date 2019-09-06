@@ -1,0 +1,11 @@
+﻿[
+  {
+    "Name": "Articles",
+    "Title": "Статьи",
+    "LayoutName": "Articles",
+    "IsMaterialsContainer": true,
+    "MaterialsSubTitleCreateType": "Manual",
+    "IsMaterialsNameEditable": true,
+    "MaterialTypeTitle" : "Статья"
+  }
+]

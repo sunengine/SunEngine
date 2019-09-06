@@ -27,8 +27,7 @@
     "TimeToOwnEditInMinutes": 15,
     "TimeToOwnDeleteInMinutes": 15,
     "TimeToOwnMoveInMinutes": 15,
-    "SubTitleLength": 80,
-    "PreviewLength": 850
+    "SubTitleLength": 80
   },
   "Forum": {
     "ThreadMaterialsPageSize": 5,
@@ -39,13 +38,14 @@
     "CategoryPageSize": 8
   },
   "Blog": {
-    "PostsPageSize": 8
+    "PostsPageSize": 8,
+    "PreviewLength": 850
   },
   "Captcha": {
   },
-  "Jwt": {
+  "Jwe": {
     "LongTokenLiveTimeDays": 90,
-    "ShortTokenLiveTimeMinutes": 30,
+    "ShortTokenLiveTimeMinutes": 1,
     "Issuer": "SunEngine Asp.net Core"
   },
   "Scheduler": {

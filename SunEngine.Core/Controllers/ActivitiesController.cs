@@ -46,13 +46,13 @@ namespace SunEngine.Core.Controllers
 
             ActivitiesComponentData componentData = component.Data as ActivitiesComponentData;
 
-            var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(componentData.materialsCategories);
+            var materialsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(componentData.materialsCategories);
 
             IList<CategoryCached> materialsCategoriesList = authorizationService.GetAllowedCategories(User.Roles,
                 materialsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);
 
 
-            var commentsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(componentData.commentsCategories);
+            var commentsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(componentData.commentsCategories);
 
             IList<CategoryCached> commentsCategoriesList = authorizationService.GetAllowedCategories(User.Roles,
                 commentsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);

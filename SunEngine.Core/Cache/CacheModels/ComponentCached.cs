@@ -31,6 +31,7 @@ namespace SunEngine.Core.Cache.CacheModels
             Data = JsonConvert.DeserializeObject(component.ServerSettingsJson, type);
         }
     }
+    
 
     public class ComponentClientCached
     {
@@ -42,7 +43,8 @@ namespace SunEngine.Core.Cache.CacheModels
 
         public JRaw Settings { get; }
         
-        [JsonIgnore] public IReadOnlyDictionary<int, RoleCached> Roles { get; }
+        [JsonIgnore] 
+        public IReadOnlyDictionary<int, RoleCached> Roles { get; }
 
         public ComponentClientCached(Component component, IReadOnlyDictionary<int, RoleCached> roles)
         {

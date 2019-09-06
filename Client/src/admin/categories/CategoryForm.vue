@@ -86,12 +86,6 @@
       <q-icon slot="prepend" name="fas fa-info"/>
     </q-select>
 
-    <q-select emit-value map-options v-if="category.isMaterialsContainer" :label="$tl('materialsPreviewGeneratorName')"
-              v-model="category.materialsPreviewGeneratorName"
-              :options="materialPreviewGeneratorNamesOptions">
-      <q-icon slot="prepend" name="fas fa-sticky-note"/>
-    </q-select>
-
     <q-checkbox :toggle-indeterminate="false" v-model="category.isCacheContent" :label="$tl('isCaching')"/>
 
     <q-checkbox :toggle-indeterminate="false" v-model="category.isHidden" :label="$tl('hideCb')"/>
@@ -99,154 +93,145 @@
 </template>
 
 <script>
-  import {adminGetAllCategories} from 'sun'
-  import {isJson} from 'sun';
+    import {adminGetAllCategories} from 'sun'
+    import {isJson} from 'sun';
 
 
-  const unset = 'unset';
+    const unset = 'unset';
 
 
-  function GoDeep(category) {
+    function GoDeep(category) {
 
-    if (!category)
-      return;
+        if (!category)
+            return;
 
-    let children;
-    if (category.subCategories) {
-      children = [];
-      for (let child of category.subCategories) {
-        let one = GoDeep(child);
-        if (one) children.push(one);
-      }
-    }
-
-    return {
-      title: category.title,
-      id: category.id,
-      category: category,
-      children: children,
-      selectable: true,
-      icon: 'fas fa-folder',
-      iconColor: 'green-5'
-    };
-  }
-
-
-  function createRules() {
-    return {
-      name: [
-        value => !!value || this.$tl('validation.name.required'),
-        value => value.length >= 2 || this.$tl('validation.name.minLength'),
-        value => /^[a-zA-Z0-9_-]*$/.test(value) || this.$tl('validation.name.allowedChars'),
-      ],
-      title: [
-        value => !!value || this.$tl('validation.title.required'),
-        value => value.length >= 3 || this.$tl('validation.title.minLength'),
-      ],
-      icon: [
-        value => (!value || value.length >= 3) || this.$tl('validation.icon.minLength'),
-        value => (!value || value.length) <= config.DbColumnSizes.Categories_Icon || this.$tl('validation.icon.maxLength'),
-      ],
-      settingsJson: [
-        value => (!value || isJson(value)) || this.$tl('validation.settingsJson.jsonFormatError')
-      ]
-    }
-  }
-
-
-  export default {
-    name: 'CategoryForm',
-    props: {
-      category: {
-        type: Object,
-        required: true,
-      },
-    },
-    data: function () {
-      return {
-        root: null,
-        all: null,
-        start: true,
-        materialPreviewGeneratorNamesOptions: null
-      }
-    },
-    computed: {
-      materialsSubTitleInputTypeOptions() {
-        return [
-          {
-            label: "Отсутствует",
-            name: "None",
-            value: 0
-          },
-          {
-            label: "Задавать вручную",
-            name: "Manual",
-            value: 1
-          },
-          {
-            label: "Создавать автоматически",
-            name: "Auto",
-            value: 2
-          }]
-      },
-      layoutOptions() {
-        return Object.getOwnPropertyNames(this.$store.state.layouts.all)
-          .filter(x => !x.startsWith('__'))
-          .map(x => this.$store.state.layouts.all[x])
-          .map(x => {
-            return {
-              label: this.$t(`LayoutNames.${x.name}`),
-              value: x.name,
+        let children;
+        if (category.subCategories) {
+            children = [];
+            for (let child of category.subCategories) {
+                let one = GoDeep(child);
+                if (one) children.push(one);
             }
-          });
-      },
-      parentCategoryTitle() {
-        return this?.all?.[this.category.parentId]?.title;
-      },
-      where() {
-        return [GoDeep(this.root)];
-      },
-      hasError() {
-        return this.$refs.name.hasError || this.$refs.title.hasError || !this.category.parentId;
-      }
-    },
-    methods: {
-      isMaterialsContainerChanged() {
-        this.category.isMaterialsSubTitleEditable = false;
-        this.category.isMaterialsNameEditable = false;
-      },
-      validate() {
-        this.$refs.name.validate();
-        this.$refs.title.validate();
-      }
-    },
-    beforeCreate() {
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
-      this.$options.components.SunEditor = require('sun').SunEditor;
-    },
-    async created() {
-
-      this.rules = createRules.call(this);
-
-      await adminGetAllCategories().then(
-        data => {
-          this.root = data.root;
-          this.all = data.all;
         }
-      );
 
-      await this.$store.dispatch('request',
-        {
-          url: '/Admin/CategoriesAdmin/GetMaterialPreviewGeneratorNames'
-        })
-        .then(response => {
-            this.materialPreviewGeneratorNamesOptions = [{value: null, label: "None"}, ...response.data.map(x => {
-              return {value: x, label: x}
-            })];
-          }
-        );
+        return {
+            title: category.title,
+            id: category.id,
+            category: category,
+            children: children,
+            selectable: true,
+            icon: 'fas fa-folder',
+            iconColor: 'green-5'
+        };
     }
-  }
+
+
+    function createRules() {
+        return {
+            name: [
+                value => !!value || this.$tl('validation.name.required'),
+                value => value.length >= 2 || this.$tl('validation.name.minLength'),
+                value => /^[a-zA-Z0-9_-]*$/.test(value) || this.$tl('validation.name.allowedChars'),
+            ],
+            title: [
+                value => !!value || this.$tl('validation.title.required'),
+                value => value.length >= 3 || this.$tl('validation.title.minLength'),
+            ],
+            icon: [
+                value => (!value || value.length >= 3) || this.$tl('validation.icon.minLength'),
+                value => (!value || value.length) <= config.DbColumnSizes.Categories_Icon || this.$tl('validation.icon.maxLength'),
+            ],
+            settingsJson: [
+                value => (!value || isJson(value)) || this.$tl('validation.settingsJson.jsonFormatError')
+            ]
+        }
+    }
+
+
+    export default {
+        name: 'CategoryForm',
+        props: {
+            category: {
+                type: Object,
+                required: true,
+            },
+        },
+        data: function () {
+            return {
+                root: null,
+                all: null,
+                start: true,
+            }
+        },
+        computed: {
+            materialsSubTitleInputTypeOptions() {
+                return [
+                    {
+                        label: "Отсутствует",
+                        name: "None",
+                        value: 0
+                    },
+                    {
+                        label: "Задавать вручную",
+                        name: "Manual",
+                        value: 1
+                    },
+                    {
+                        label: "Создавать автоматически",
+                        name: "Auto",
+                        value: 2
+                    }]
+            },
+            layoutOptions() {
+                return Object.getOwnPropertyNames(this.$store.state.layouts.all)
+                    .filter(x => !x.startsWith('__'))
+                    .map(x => this.$store.state.layouts.all[x])
+                    .map(x => {
+                        return {
+                            label: this.$t(`LayoutNames.${x.name}`),
+                            value: x.name,
+                        }
+                    });
+            },
+            parentCategoryTitle() {
+                return this?.all?.[this.category.parentId]?.title;
+            },
+            where() {
+                return [GoDeep(this.root)];
+            },
+            hasError() {
+                return this.$refs.name.hasError || this.$refs.title.hasError || !this.category.parentId;
+            }
+        },
+        methods: {
+            isMaterialsContainerChanged() {
+                this.category.isMaterialsSubTitleEditable = false;
+                this.category.isMaterialsNameEditable = false;
+            },
+            validate() {
+                this.$refs.name.validate();
+                this.$refs.title.validate();
+            },
+            getAllCategories() {
+                adminGetAllCategories().then(
+                    data => {
+                        this.root = data.root;
+                        this.all = data.all;
+                    }
+                );
+            }
+        },
+        beforeCreate() {
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
+            this.$options.components.SunEditor = require('sun').SunEditor;
+        },
+
+
+        async created() {
+            this.rules = createRules.call(this);
+            this.getAllCategories();
+        }
+    }
 
 </script>
 

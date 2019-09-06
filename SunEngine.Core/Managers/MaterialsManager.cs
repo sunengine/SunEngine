@@ -102,10 +102,6 @@ namespace SunEngine.Core.Managers
             material.Text = sanitizerService.Sanitize(doc);
             material.SettingsJson = material.SettingsJson?.MakeJsonText();
 
-            var generator = categoriesCache.GetMaterialsPreviewGenerator(category.MaterialsPreviewGeneratorName);
-            material.Preview = generator(doc, materialsOptions.PreviewLength);
-
-
             switch (category.MaterialsSubTitleInputType)
             {
                 case MaterialsSubTitleInputType.Manual:
@@ -137,9 +133,6 @@ namespace SunEngine.Core.Managers
 
             material.Text = sanitizerService.Sanitize(doc);
             material.SettingsJson = material.SettingsJson?.MakeJsonText();
-
-            var generator = categoriesCache.GetMaterialsPreviewGenerator(category.MaterialsPreviewGeneratorName);
-            material.Preview = generator(doc, materialsOptions.PreviewLength);
 
 
             switch (category.MaterialsSubTitleInputType)

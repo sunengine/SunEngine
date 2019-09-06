@@ -28,16 +28,19 @@ namespace SunEngine.Core.Cache.Services
             ["Posts"] = typeof(PostsComponentData),
             ["Activities"] = typeof(ActivitiesComponentData)
         };
+        
 
         public IEnumerable<ComponentClientCached> GetClientComponents(IReadOnlyDictionary<string, RoleCached> Roles)
         {
             return ClientComponents.Where(comp => Roles.Values.Any(role => comp.Roles.ContainsKey(role.Id))).ToArray();
         }
 
-        public Dictionary<string, Type> ComponentsDataTypes => _componentsDataTypes;
-
         protected IReadOnlyDictionary<string, ComponentServerCached> serverComponents;
         protected IReadOnlyList<ComponentClientCached> clientComponents;
+
+        #region Getters
+        
+        public Dictionary<string, Type> ComponentsDataTypes => _componentsDataTypes;
 
         protected IReadOnlyDictionary<string, ComponentServerCached> ServerComponents
         {
@@ -64,6 +67,8 @@ namespace SunEngine.Core.Cache.Services
                 }
             }
         }
+        
+        #endregion
 
         public ComponentServerCached GetComponentServerCached(
             string name, IReadOnlyDictionary<string, RoleCached> roles)

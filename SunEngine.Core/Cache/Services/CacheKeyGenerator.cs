@@ -5,11 +5,14 @@ namespace SunEngine.Core.Cache.Services
 {
     public class CacheKeyGenerator
     {
-        public string ContentGenerateKey(string controllerName, string actionName, IEnumerable<int> ids, int? page)
+        public string ContentGenerateKey(
+            string controllerName, string actionName, IEnumerable<int> categoriesIds, int? page)
         {
-            return ids == null || !ids.Any()
-                ? null
-                : $"{controllerName}-{actionName}-{page}:,{string.Join(',', ids.OrderBy(x => x).Distinct())},";
+            if (categoriesIds == null || !categoriesIds.Any())
+                return null;
+
+            return
+                $"{controllerName}-{actionName}-{page}:,{string.Join(',', categoriesIds.OrderBy(x => x).Distinct())},";
         }
 
         public string ContentGenerateKey(string controllerName, string actionName, int? page, int id)
@@ -22,9 +25,12 @@ namespace SunEngine.Core.Cache.Services
             return $"{componentName}-{page}";
         }
 
-        public string ContentGenerateKey(string componentName, IEnumerable<int> ids, int? page)
+        public string ContentGenerateKey(string componentName, IEnumerable<int> categoriesIds, int? page)
         {
-            return $"{componentName}-{page}:,{string.Join(',', ids.OrderBy(x => x).Distinct())},";
+            if (categoriesIds == null || !categoriesIds.Any())
+                return null;
+
+            return $"{componentName}-{page}:,{string.Join(',', categoriesIds.OrderBy(x => x).Distinct())},";
         }
     }
 }

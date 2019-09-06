@@ -80,7 +80,7 @@ namespace SunEngine.Core.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> GetArticlesFromMultiCategories(string categoriesNames, int page = 1)
         {
-            var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(categoriesNames);
+            var materialsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(categoriesNames);
 
             IList<CategoryCached> categoriesList = authorizationService.GetAllowedCategories(User.Roles,
                 materialsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);

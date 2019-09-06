@@ -18,9 +18,12 @@ namespace SunEngine.Core.Cache.Services
         CategoryCached GetCategory(int id);
         CategoryCached GetCategory(string name);
         CategoryCached RootCategory { get; }
-        IDictionary<string, CategoryCached> GetAllCategoriesIncludeSub(string categoriesList);
-        IDictionary<string, Func<IHtmlDocument, int, string>> MaterialsPreviewGenerators { get; }
-        Func<IHtmlDocument, int, string> GetMaterialsPreviewGenerator(string name);
+        
+       /// <summary>
+       /// Get full list categories and all children categories 
+       /// </summary>
+       /// <param name="categoriesList">Comma separated list on categories names</param>
+       IDictionary<string, CategoryCached> GetAllCategoriesWithChildren(string categoriesList);
     }
 
     /// <summary>
@@ -34,20 +37,8 @@ namespace SunEngine.Core.Cache.Services
         protected IReadOnlyDictionary<string, CategoryCached> _allCategoriesByName;
         protected IReadOnlyDictionary<int, CategoryCached> _allCategoriesById;
         protected CategoryCached _rootCategory;
-
-        protected IDictionary<string, Func<IHtmlDocument, int, string>> _materialsPreviewGenerators =
-            new Dictionary<string, Func<IHtmlDocument, int, string>>
-            {
-                [nameof(MakePreview.PlainText)] = MakePreview.PlainText,
-                [nameof(MakePreview.HtmlFirstImage)] = MakePreview.HtmlFirstImage,
-                [nameof(MakePreview.HtmlNoImages)] = MakePreview.HtmlNoImages
-            };
-
-        #region Getters
-
-        public IDictionary<string, Func<IHtmlDocument, int, string>> MaterialsPreviewGenerators =>
-            _materialsPreviewGenerators;
         
+        #region Getters
 
         protected IReadOnlyDictionary<string, CategoryCached> AllCategoriesByNameByName
         {
@@ -91,16 +82,6 @@ namespace SunEngine.Core.Cache.Services
         {
             this.dataBaseFactory = dataBaseFactory;
         }
-        
-        public Func<IHtmlDocument, int, string> GetMaterialsPreviewGenerator(string name)
-        {
-            if(name == null)
-                return MakePreview.None;
-            
-            _materialsPreviewGenerators.TryGetValue(name, out Func<IHtmlDocument, int, string> generator);
-            
-            return generator ?? MakePreview.None;
-        }
 
         public CategoryCached GetCategory(int id)
         {
@@ -112,7 +93,7 @@ namespace SunEngine.Core.Cache.Services
             return AllCategoriesByNameByName[name];
         }
 
-        public IDictionary<string, CategoryCached> GetAllCategoriesIncludeSub(string categoriesList)
+        public IDictionary<string, CategoryCached> GetAllCategoriesWithChildren(string categoriesList)
         {
             Dictionary<string, CategoryCached> materialsCategoriesDic = new Dictionary<string, CategoryCached>();
 

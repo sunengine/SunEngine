@@ -8,14 +8,6 @@ namespace SunEngine.Core.Utils.TextProcess
 {
     public static class MaterialExtensions
     {
-        
-        public static void MakePreviewAndSubTitle(this Material material, int subTitleLength, int previewLength)
-        {
-            (material.SubTitle, material.Preview) =
-                MakePreviewAndSubTitle(material.Text, subTitleLength, previewLength);
-        }
-
-
         public static (string preview, string subTitle) MakePreviewAndSubTitle(
             string html, int subTitleLength,
             int previewLength)

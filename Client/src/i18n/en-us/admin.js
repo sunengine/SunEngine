@@ -21,7 +21,6 @@ export default {
     appendUrlTokenInfo: "(use only if you understand what it is)",
     isMaterialsContainerCb: "Contains materials",
     materialsSubTitleInputType: "Material sub title input type",
-    materialsPreviewGeneratorName: "Material preview generator name",
     isMaterialsNameEditableCb: "Possibility to edit material name (eng), only for admin",
     isCaching: "Caching",
     cachingPageCount: "Cache N pages",

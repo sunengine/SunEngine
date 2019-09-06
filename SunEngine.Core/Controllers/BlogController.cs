@@ -87,7 +87,7 @@ namespace SunEngine.Core.Controllers
 
             PostsComponentData componentData = component.Data as PostsComponentData;
 
-            var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(componentData.CategoriesNames);
+            var materialsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(componentData.CategoriesNames);
 
             IList<CategoryCached> categoriesList = authorizationService.GetAllowedCategories(User.Roles,
                 materialsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);

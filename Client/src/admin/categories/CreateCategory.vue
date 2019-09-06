@@ -41,7 +41,6 @@
           isMaterialsContainer: true,
           isMaterialsNameEditable: false,
           materialsSubTitleInputType: 'none',
-          materialsPreviewGeneratorName: null,
           areaRoot: false,
           parentId: this.parentCategoryId,
           isHidden: false,

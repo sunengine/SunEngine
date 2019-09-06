@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AngleSharp.Parser.Html;
+using Microsoft.Extensions.Options;
+using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
@@ -20,11 +22,14 @@ namespace SunEngine.Core.Presenters
 
     public class BlogPresenter : DbService, IBlogPresenter
     {
-        public BlogPresenter(DataBaseConnection db) : base(db)
+        protected readonly BlogOptions blogOptions;
+
+        public BlogPresenter(DataBaseConnection db, IOptions<BlogOptions> blogOptions) : base(db)
         {
+            this.blogOptions = blogOptions.Value;
         }
 
-        public virtual Task<IPagedList<PostView>> GetPostsAsync(MaterialsShowOptions options)
+        public virtual async Task<IPagedList<PostView>> GetPostsAsync(MaterialsShowOptions options)
         {
             IQueryable<Material> query = db.Materials;
 
@@ -34,19 +39,18 @@ namespace SunEngine.Core.Presenters
             if (!options.ShowDeleted)
                 query = query.Where(x => x.DeletedDate == null);
 
-            return query.GetPagedListAsync(
+            var rez = await query.GetPagedListAsync(
                 x => new PostView
                 {
                     Id = x.Id,
                     Title = x.Title,
-                    Preview = x.Preview,
+                    Preview = x.Text,
                     CommentsCount = x.CommentsCount,
                     AuthorName = x.Author.UserName,
                     AuthorLink = x.Author.Link,
                     AuthorAvatar = x.Author.Avatar,
                     PublishDate = x.PublishDate,
                     CategoryName = x.Category.Name,
-                    HasMoreText = x.Text.Length != x.Preview.Length,
                     IsCommentsBlocked = x.IsCommentsBlocked,
                     IsHidden = x.IsHidden,
                     DeletedDate = x.DeletedDate
@@ -55,6 +59,16 @@ namespace SunEngine.Core.Presenters
                 x => x.OrderByDescending(y => y.PublishDate),
                 options.Page,
                 options.PageSize);
+
+            foreach (var postView in rez.Items)
+            {
+                var textLength = postView.Preview.Length;
+                postView.Preview =
+                    MakePreview.HtmlFirstImage(new HtmlParser().Parse(postView.Preview), blogOptions.PreviewLength);
+                postView.HasMoreText = postView.Preview.Length != textLength;
+            }
+
+            return rez;
         }
 
         public virtual async Task<IPagedList<PostView>> GetPostsFromMultiCategoriesAsync(

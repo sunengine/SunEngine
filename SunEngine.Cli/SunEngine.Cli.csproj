@@ -73,6 +73,8 @@
       <_ContentIncludedByDefault Remove="Config-template\Categories\Forum2.json" />
       <_ContentIncludedByDefault Remove="Config-template\Materials\info1.json" />
       <_ContentIncludedByDefault Remove="Config-template\Menu\Main.json" />
+      <_ContentIncludedByDefault Remove="Config-template\Materials\inline1.json" />
+      <_ContentIncludedByDefault Remove="Config-template\Categories\SiteTexts.json" />
     </ItemGroup>
     
    

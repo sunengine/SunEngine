@@ -85,7 +85,6 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("Name".s()).AsString(DbColumnSizes.Materials_Name).Nullable().Unique()
                 .WithColumn("Title".s()).AsString(DbColumnSizes.Materials_Title).NotNullable()
                 .WithColumn("SubTitle".s()).AsString(DbColumnSizes.Materials_SubTitle).Nullable()
-                .WithColumn("Preview".s()).AsMaxString().Nullable()
                 .WithColumn("Text".s()).AsMaxString().NotNullable()
                 .WithColumn("CategoryId".s()).AsInt32().NotNullable().Indexed()
                 .ForeignKey("fkMaterialsCategories".s(), "Categories".s(), "Id".s())

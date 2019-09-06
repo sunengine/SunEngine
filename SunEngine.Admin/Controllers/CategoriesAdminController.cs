@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Managers;
@@ -8,6 +7,7 @@ using SunEngine.Admin.Presenters;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Models;
 using SunEngine.Core.Utils;
+
 
 namespace SunEngine.Admin.Controllers
 {
@@ -27,7 +27,6 @@ namespace SunEngine.Admin.Controllers
             this.categoriesAdminManager = categoriesAdminManager;
             this.categoriesAdminPresenter = categoriesAdminPresenter;
         }
-
 
         [HttpPost]
         public async ValueTask<IActionResult> GetCategory(int? id = null, string name = null)
@@ -53,14 +52,6 @@ namespace SunEngine.Admin.Controllers
             var root = await categoriesAdminPresenter.GetAllCategoriesAsync();
 
             return Json(root);
-        }
-        
-        [HttpPost]
-        public IActionResult GetMaterialPreviewGeneratorNames()
-        {
-            var names = categoriesCache.MaterialsPreviewGenerators.Keys.ToArray();
-
-            return Json(names);
         }
 
         [HttpPost]
