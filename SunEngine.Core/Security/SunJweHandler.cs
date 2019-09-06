@@ -23,7 +23,7 @@ namespace SunEngine.Core.Security
     /// 3 - LongToken2 (Access + Refresh token, 2 in 1), stored in cookie Long token life ~ 3 month.
     /// LongToken2 needed to verify ShortToken and LongToken1 to protect against XSS attacks.
     /// </summary>
-    public class SunJweHandler : AuthenticationHandler<SunJwtOptions>
+    public class SunJweHandler : AuthenticationHandler<SunJweOptions>
     {
         private readonly IRolesCache rolesCache;
         private readonly JweOptions jweOptions;
@@ -32,19 +32,19 @@ namespace SunEngine.Core.Security
         private readonly JweBlackListService jweBlackListService;
 
         public SunJweHandler(
-            IOptionsMonitor<SunJwtOptions> options,
+            IOptionsMonitor<SunJweOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
             ISystemClock clock,
             IRolesCache rolesCache,
-            IOptions<JweOptions> jweOptions,
             JweService jweService,
+            IOptions<JweOptions> jweOptions,
             JweBlackListService jweBlackListService,
             SunUserManager userManager) : base(options, logger, encoder, clock)
         {
             this.rolesCache = rolesCache;
-            this.jweOptions = jweOptions.Value;
             this.jweService = jweService;
+            this.jweOptions = jweOptions.Value;
             this.userManager = userManager;
             this.jweBlackListService = jweBlackListService;
         }
@@ -52,26 +52,6 @@ namespace SunEngine.Core.Security
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            async Task<AuthenticateResult> DeleteLongSessionAndLogout(long sessionId)
-            {
-                await userManager.DeleteLongSessionAsync(sessionId);
-
-                jweService.MakeLogoutCookiesAndHeaders(Response);
-
-                return AuthenticateResult.NoResult();
-            }
-
-            AuthenticateResult Logout(string msg)
-            {
-                jweService.MakeLogoutCookiesAndHeaders(Response);
-
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\nLogout: {msg}\n");
-                Console.ResetColor();
-
-                return AuthenticateResult.NoResult();
-            }
-
             try
             {
                 var cookie = Request.Cookies[TokenClaimNames.LongToken2CoockiName];
@@ -84,45 +64,78 @@ namespace SunEngine.Core.Security
                 if (jwtLongToken2 == null)
                     return Logout("No Long2 cookie token");
 
-                var longToken2db = jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.LongToken2Db).Value;
+                var longToken2dbId = jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.LongToken2Db).Value;
 
-                SunClaimsPrincipal sunClaimsPrincipal;
+                SunClaimsPrincipal sunClaimsPrincipal = null;
 
-                if (Request.Headers.TryGetValue(Headers.LongToken1HeaderName, out StringValues longToken1db))
+                string error;
+
+                if (Request.Headers.TryGetValue(Headers.LongToken1HeaderName, out StringValues longToken1dbId))
+                {
+                    error = await CompareLongTokens();
+                }
+                else
+                {
+                    error = await CheckShortToken();
+                }
+
+                if (error != null)
+                    return Logout(error);
+
+                if (jweBlackListService.IsTokenInBlackList(sunClaimsPrincipal.LongToken2Db))
+                {
+                    await userManager.DeleteLongSessionAsync(sunClaimsPrincipal.SessionId);
+                    return Logout("Blacklisted");
+                }
+
+                if (sunClaimsPrincipal.Roles.ContainsKey(RoleNames.Banned))
+                {
+                    await userManager.DeleteLongSessionAsync(sunClaimsPrincipal.SessionId);
+                    return Logout("Banned");
+                }
+
+                return AuthenticateResult.Success(new AuthenticationTicket(sunClaimsPrincipal, SunJwe.Scheme));
+
+                
+
+                async Task<string> CompareLongTokens()
                 {
                     int userId = int.Parse(jwtLongToken2.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
 
                     var longSessionToFind = new LongSession
                     {
                         UserId = userId,
-                        LongToken1 = longToken1db,
-                        LongToken2 = longToken2db
+                        LongToken1 = longToken1dbId,
+                        LongToken2 = longToken2dbId
                     };
 
                     var longSession = await userManager.FindLongSessionAsync(longSessionToFind);
 
                     if (longSession == null)
-                        return Logout("Session not found");
+                        return "Session not found";
 
                     sunClaimsPrincipal = await jweService.RenewSecurityTokensAsync(Context, userId, longSession);
 
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("\nToken renews\n");
                     Console.ResetColor();
+
+                    return null;
                 }
-                else
+
+                async Task<string> CheckShortToken()
                 {
                     string authorization = Request.Headers["Authorization"];
 
                     if (string.IsNullOrEmpty(authorization))
-                        return Logout("No Authorization header");
+                        return "No Authorization header";
 
                     string jwtShortToken = null;
                     if (authorization.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
                         jwtShortToken = authorization.Substring("Bearer ".Length).Trim();
 
                     if (string.IsNullOrEmpty(jwtShortToken))
-                        return Logout("No Bearer in Authorization header");
+                        return "No Bearer in Authorization header";
 
 
                     var claimsPrincipal = jweService.ReadShortToken(jwtShortToken);
@@ -134,34 +147,40 @@ namespace SunEngine.Core.Security
                         long.Parse(jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.SessionId).Value);
 
                     if (!string.Equals(lat2ran_1, lat2ran_2))
-                        return await DeleteLongSessionAndLogout(sessionId);
+                    {
+                        await userManager.DeleteLongSessionAsync(sessionId);
+                        return "lat2ran_1 != lat2ran_2";
+                    }
 
-                    string lat2db = jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.LongToken2Db).Value;
+                    sunClaimsPrincipal = new SunClaimsPrincipal(claimsPrincipal, rolesCache, sessionId, longToken2dbId);
 
-                    sunClaimsPrincipal = new SunClaimsPrincipal(claimsPrincipal, rolesCache, sessionId, lat2db);
+                    return null;
                 }
-
-                if (jweBlackListService.IsTokenInBlackList(sunClaimsPrincipal.LongToken2Db))
-                    return await DeleteLongSessionAndLogout(sunClaimsPrincipal.SessionId);
-
-                if (sunClaimsPrincipal.Roles.ContainsKey(RoleNames.Banned))
-                    return await DeleteLongSessionAndLogout(sunClaimsPrincipal.SessionId);
-
-                var authenticationTicket = new AuthenticationTicket(sunClaimsPrincipal, SunJwt.Scheme);
-                return AuthenticateResult.Success(authenticationTicket);
             }
             catch (Exception e)
             {
                 return Logout("Error " + e);
             }
+
+
+            AuthenticateResult Logout(string msg)
+            {
+                jweService.MakeLogoutCookiesAndHeaders(Response);
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\nLogout: {msg}\n");
+                Console.ResetColor();
+
+                return AuthenticateResult.NoResult();
+            }
         }
     }
 
-    public class SunJwtOptions : AuthenticationSchemeOptions
+    public class SunJweOptions : AuthenticationSchemeOptions
     {
     }
 
-    public static class SunJwt
+    public static class SunJwe
     {
         public const string Scheme = "MyScheme";
     }

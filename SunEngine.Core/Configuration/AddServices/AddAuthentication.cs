@@ -9,10 +9,10 @@ namespace SunEngine.Core.Configuration.AddServices
         {
             services.AddAuthentication(options =>
                 {
-                    options.DefaultAuthenticateScheme = SunJwt.Scheme;
-                    options.DefaultChallengeScheme = SunJwt.Scheme;
+                    options.DefaultAuthenticateScheme = SunJwe.Scheme;
+                    options.DefaultChallengeScheme = SunJwe.Scheme;
                 })
-                .AddScheme<SunJwtOptions, SunJweHandler>(SunJwt.Scheme, SunJwt.Scheme, options => { });
+                .AddScheme<SunJweOptions, SunJweHandler>(SunJwe.Scheme, SunJwe.Scheme, options => { });
         }
     }
 }
