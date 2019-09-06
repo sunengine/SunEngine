@@ -22,7 +22,8 @@ namespace SunEngine.Core.Security
     /// 2 - LongToken1 (Refresh token), stored in client JS or localStorage. Long token life ~ 3 month.
     /// 3 - LongToken2 (Access + Refresh token, 2 in 1), stored in cookie Long token life ~ 3 month.
     /// LongToken2 needed to verify ShortToken and LongToken1 to protect against XSS attacks.
-    /// lat2ran_1 and lat2ran_2 - random token have to be equal in ShortToken and LongToken2 to verify that no one is substituted.
+    /// LongToken2Ran (longToken2Ran_1 and longToken2Ran_2) -
+    /// random token have to be equal in ShortToken and LongToken2 to verify that no one is substituted.
     /// </summary>
     public class SunJweHandler : AuthenticationHandler<SunJweOptions>
     {
@@ -140,13 +141,13 @@ namespace SunEngine.Core.Security
 
                     var claimsPrincipal = jweService.ReadShortToken(jwtShortToken);
 
-                    string lat2ran_1 = jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
-                    string lat2ran_2 = claimsPrincipal.Claims.First(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
+                    string longToken2Ran_1 = jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
+                    string longToken2Ran_2 = claimsPrincipal.Claims.First(x => x.Type == TokenClaimNames.LongToken2Ran).Value;
 
                     long sessionId =
                         long.Parse(jwtLongToken2.Claims.First(x => x.Type == TokenClaimNames.SessionId).Value);
 
-                    if (!string.Equals(lat2ran_1, lat2ran_2))
+                    if (!string.Equals(longToken2Ran_1, longToken2Ran_2))
                     {
                         await userManager.DeleteLongSessionAsync(sessionId);
                         return "lat2ran_1 != lat2ran_2";
