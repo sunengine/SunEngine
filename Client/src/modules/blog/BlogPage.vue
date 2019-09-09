@@ -22,11 +22,12 @@
 
 <script>
     import {Page} from 'sun'
+    import {Pagination} from 'sun'
 
 
     export default {
         name: 'BlogPage',
-        mixins: [Page],
+        mixins: [Page, Pagination],
         props: {
             categoryName: String,
             required: true
@@ -46,23 +47,9 @@
             },
             canAddArticle() {
                 return this.category?.categoryPersonalAccess?.materialWrite;
-            },
-            currentPage() {
-                return this.$route.query?.page ?? 1;
             }
         },
-
         methods: {
-            pageChanges(newPage) {
-                if (this.currentPage !== newPage) {
-                    let req = {path: this.$route.path};
-                    if (newPage !== 1) {
-                        req.query = {page: newPage};
-                    }
-                    this.$router.push(req);
-                }
-            },
-
             async loadData() {
                 await this.$request(
                     this.$Api.Blog.GetPosts,

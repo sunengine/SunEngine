@@ -45,5 +45,9 @@ export default {
   },
   Captcha: {
     GetCaptchaKey: 'GetCaptchaKey'
+  },
+  Articles: {
+    GetArticles: 'GetArticles',
+    GetArticlesFromMultiCategories: 'GetArticlesFromMultiCategories'
   }
 }

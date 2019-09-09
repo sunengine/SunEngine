@@ -44,11 +44,12 @@
 
 <script>
     import {Page} from 'sun'
+    import {Pagination} from 'sun'
 
 
     export default {
         name: 'Thread',
-        mixins: [Page],
+        mixins: [Page, Pagination],
         props: {
             categoryName: String
         },
@@ -64,24 +65,11 @@
             canAddTopic() {
                 return this.thread?.categoryPersonalAccess?.materialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;
             },
-            currentPage() {
-                return this.$route.query?.page ?? 1;
-            },
             thread() {
                 return this.$store.getters.getCategory(this.categoryName);
             }
         },
         methods: {
-            pageChanges(newPage) {
-                if (this.currentPage !== newPage) {
-                    let req = {path: this.$route.path};
-                    if (newPage !== 1) {
-                        req.query = {page: newPage};
-                    }
-                    this.$router.push(req);
-                }
-            },
-
             async loadData() {
                 if (!this.thread)
                     return;

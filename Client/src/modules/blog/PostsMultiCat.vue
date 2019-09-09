@@ -11,11 +11,12 @@
 
 <script>
     import {Page} from 'sun'
+    import {Pagination} from 'sun'
 
 
     export default {
         name: 'PostsMultiCat',
-        mixins: [Page],
+        mixins: [Page, Pagination],
         props: {
             componentName: {
                 type: String,
@@ -32,23 +33,11 @@
             '$route': 'loadData',
         },
         computed: {
-            currentPage() {
-                return this.$route.query?.page ?? 1;
-            },
             component() {
                 return this.$store.getters.getComponent(this.componentName);
             }
         },
         methods: {
-            pageChanges(newPage) {
-                if (this.currentPage !== newPage) {
-                    let req = {path: this.$route.path};
-                    if (newPage !== 1)
-                        req.query = {page: newPage};
-
-                    this.$router.push(req);
-                }
-            },
             loadData() {
                 this.$request(
                     this.$Api.Blog.GetPostsFromMultiCategories,

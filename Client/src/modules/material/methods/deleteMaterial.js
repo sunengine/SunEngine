@@ -8,8 +8,8 @@ export default function () {
     message: deleteDialogMessage,
     ok: okBtn,
     cancel: cancelBtn
-  }).onOk(async () => {
-    await this.$request(
+  }).onOk(() => {
+    this.$request(
       this.$Api.Materials.Delete,
       {
         id: this.material.id,
