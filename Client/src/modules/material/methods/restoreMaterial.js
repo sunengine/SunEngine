@@ -9,13 +9,12 @@ export default function () {
     ok: okBtn,
     cancel: cancelBtn
   }).onOk(async () => {
-    await this.$store.dispatch("request",
+    await this.$request(
+      this.$Api.Materials.Restore,
       {
-        url: "/Materials/Restore",
-        data: {
-          id: this.material.id,
-        }
-      }).then(
+        id: this.material.id,
+      }
+    ).then(
       () => {
         const restoreSuccessMsg = this.$tl('restoreSuccess');
         this.$successNotify(restoreSuccessMsg);

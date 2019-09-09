@@ -5,8 +5,9 @@
       <h2 class="q-title">
         {{pageTitle}}
       </h2>
-      <q-btn class="post-btn" no-caps @click="$router.push({name:'CreateMaterial',params:{categoriesNames: thread.name}})"
-             :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus" />
+      <q-btn class="post-btn" no-caps
+             @click="$router.push({name:'CreateMaterial',params:{categoriesNames: thread.name}})"
+             :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus"/>
 
     </div>
 
@@ -44,75 +45,74 @@
 
 <script>
 
-  import {Page} from 'sun'
+    import {Page} from 'sun'
 
-  export default {
-    name: 'NewTopics',
-    mixins: [Page],
-    props: {
-      categoryName: String
-    },
-    data() {
-      return {
-        topics: {},
-      }
-    },
-    watch: {
-      '$route': 'loadData',
-    },
-    computed: {
-      pageTitle() {
-        return `${this.$tl('titleStart')} - ${this.thread?.title}`;
-      },
-      thread() {
-        return this.$store.getters.getCategory(this.categoryName);
-      },
-      canAddTopic() {
-        return this.thread?.categoryPersonalAccess?.materialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;
-      },
-      currentPage() {
-        return this.$route.query?.page ?? 1;
-      }
-    },
+    export default {
+        name: 'NewTopics',
+        mixins: [Page],
+        props: {
+            categoryName: String
+        },
+        data() {
+            return {
+                topics: {},
+            }
+        },
+        watch: {
+            '$route': 'loadData',
+        },
+        computed: {
+            pageTitle() {
+                return `${this.$tl('titleStart')} - ${this.thread?.title}`;
+            },
+            thread() {
+                return this.$store.getters.getCategory(this.categoryName);
+            },
+            canAddTopic() {
+                return this.thread?.categoryPersonalAccess?.materialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;
+            },
+            currentPage() {
+                return this.$route.query?.page ?? 1;
+            }
+        },
 
-    methods: {
-      pageChanges(newPage) {
-        if (this.currentPage !== newPage) {
-          let req = {path: this.$route.path};
-          if (newPage !== 1) {
-            req.query = {page: newPage};
-          }
-          this.$router.push(req);
+        methods: {
+            pageChanges(newPage) {
+                if (this.currentPage !== newPage) {
+                    let req = {path: this.$route.path};
+                    if (newPage !== 1)
+                        req.query = {page: newPage};
+
+                    this.$router.push(req);
+                }
+            },
+
+            async loadData() {
+                this.title = this.pageTitle;
+
+                await this.$request(
+                    this.$Api.Forum.GetNewTopics,
+                    {
+                        categoryName: this.categoryName,
+                        page: this.currentPage
+                    }
+                ).then(response => {
+                        this.topics = response.data;
+                    }
+                ).catch(x => {
+                    console.log('error', x);
+                });
+            }
+        },
+        beforeCreate() {
+            this.$options.components.Topic = require('sun').Topic;
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
         }
-      },
-
-      async loadData() {
-        this.title = this.pageTitle;
-
-        await this.$store.dispatch('request',
-          {
-            url: '/Forum/GetNewTopics',
-            data: {
-              categoryName: this.categoryName,
-              page: this.currentPage
-            }
-          })
-          .then(response => {
-              this.topics = response.data;
-            }
-          ).catch(x => {
-            console.log('error', x);
-          });
-      }
-    },
-    beforeCreate() {
-      this.$options.components.Topic = require('sun').Topic;
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
-    },
-    async created() {
-      await this.loadData()
+        ,
+        async created() {
+            await this.loadData()
+        }
     }
-  }
 
 </script>
 

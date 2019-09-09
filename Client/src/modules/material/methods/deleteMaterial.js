@@ -9,13 +9,12 @@ export default function () {
     ok: okBtn,
     cancel: cancelBtn
   }).onOk(async () => {
-    await this.$store.dispatch("request",
+    await this.$request(
+      this.$Api.Materials.Delete,
       {
-        url: "/Materials/Delete",
-        data: {
-          id: this.material.id,
-        }
-      }).then(
+        id: this.material.id,
+      }
+    ).then(
       () => {
         const deleteSuccessMsg = this.$tl('deleteSuccess');
         this.$successNotify(deleteSuccessMsg);

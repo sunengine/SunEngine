@@ -11,38 +11,36 @@
 </template>
 
 <script>
-  import {Page} from 'sun'
+    import {Page} from 'sun'
 
 
-  export default {
-    name: 'MyBanList',
-    mixins: [Page],
-    data() {
-      return {
-        users: null
-      }
-    },
-    methods: {
-      async loadData() {
-        await this.$store.dispatch('request',
-          {
-            url: '/Personal/GetMyBanList',
-          })
-          .then(
-            response => {
-              this.users = response.data;
+    export default {
+        name: 'MyBanList',
+        mixins: [Page],
+        data() {
+            return {
+                users: null
             }
-          )
-      }
-    },
-    beforeCreate() {
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
-    },
-    async created() {
-      this.title = this.$tl('title');
-      await this.loadData();
+        },
+        methods: {
+            loadData() {
+                this.$request(
+                    this.$Api.Personal.GetMyBanList
+                ).then(
+                    response => {
+                        this.users = response.data;
+                    }
+                )
+            }
+        },
+        beforeCreate() {
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
+        },
+        created() {
+            this.title = this.$tl('title');
+            this.loadData();
+        }
     }
-  }
 
 </script>
 

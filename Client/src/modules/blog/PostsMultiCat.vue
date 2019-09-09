@@ -50,22 +50,20 @@
                 }
             },
             loadData() {
-                this.$store.dispatch('request',
+                this.$request(
+                    this.$Api.Blog.GetPostsFromMultiCategories,
                     {
-                        url: '/Blog/GetPostsFromMultiCategories',
-                        data: {
-                            componentName: this.componentName,
-                            page: this.currentPage
-                        }
-                    })
-                    .then(
-                        response => {
-                            this.posts = response.data;
-                            this.$refs.postsList.posts = response.data;
-                        }
-                    ).catch(x => {
-                        console.log('error', x);
-                    });
+                        componentName: this.componentName,
+                        page: this.currentPage
+
+                    }).then(
+                    response => {
+                        this.posts = response.data;
+                        this.$refs.postsList.posts = response.data;
+                    }
+                ).catch(x => {
+                    console.log('error', x);
+                });
             }
         },
         beforeCreate() {

@@ -42,46 +42,46 @@
 </template>
 
 <script>
-  import {Page} from 'sun'
+    import {Page} from 'sun'
 
 
-  export default {
-    name: 'Login',
-    mixins: [Page],
-    data() {
-      return {
-        nameOrEmail: null,
-        password: null,
-        submitting: false,
-        showPassword: false
-      }
-    },
-    methods: {
-      async login() {
-        this.$refs.nameOrEmail.validate();
-        this.$refs.password.validate();
+    export default {
+        name: 'Login',
+        mixins: [Page],
+        data() {
+            return {
+                nameOrEmail: null,
+                password: null,
+                submitting: false,
+                showPassword: false
+            }
+        },
+        methods: {
+            async login() {
+                this.$refs.nameOrEmail.validate();
+                this.$refs.password.validate();
 
-        if (this.$refs.nameOrEmail.hasError || this.$refs.password.hasError) {
-          return;
+                if (this.$refs.nameOrEmail.hasError || this.$refs.password.hasError)
+                    return;
+
+                this.submitting = true;
+
+                await this.$store.dispatch('login', {
+                    nameOrEmail: this.nameOrEmail,
+                    password: this.password
+                }).then(() => {
+                    this.$successNotify();
+                    this.$router.back();
+                }).catch(error => {
+                    this.submitting = false;
+                    this.$errorNotify(error);
+                });
+            }
+        },
+        created() {
+            this.title = this.$tl('title');
         }
-
-        this.submitting = true;
-
-        const data = {nameOrEmail: this.nameOrEmail, password: this.password};
-        await this.$store.dispatch('login', data)
-          .then(() => {
-            this.$successNotify();
-            this.$router.back();
-          }).catch(error => {
-            this.submitting = false;
-            this.$errorNotify(error);
-          });
-      }
-    },
-    created() {
-      this.title = this.$tl('title');
     }
-  }
 
 </script>
 
