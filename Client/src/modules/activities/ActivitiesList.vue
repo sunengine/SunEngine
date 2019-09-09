@@ -29,13 +29,11 @@
             }
         },
         methods: {
-            async loadData() {
-                await this.$store.dispatch('request',
+            loadData() {
+                this.$request(
+                    this.$Api.Activities.GetActivities,
                     {
-                        url: '/Activities/GetActivities',
-                        data: {
-                            componentName: this.componentName
-                        }
+                        componentName: this.componentName
                     })
                     .then(
                         response => {

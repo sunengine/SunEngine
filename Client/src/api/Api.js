@@ -10,44 +10,47 @@ export default {
     SendPrivateMessage: '/Profile/SendPrivateMessage'
   },
   Personal: {
-    SetMyLink: 'Personal/SetMyLink',
-    SetMyName: 'Personal/SetMyName',
-    SetMyProfileInformation: 'Personal/SetMyProfileInformation',
-    GetMyProfileInformation: 'Personal/GetMyProfileInformation',
-    RemoveMyAvatar: 'Personal/RemoveMyAvatar',
-    GetMyBanList: 'Personal/GetMyBanList',
-    GetMySessions: 'Personal/GetMySessions',
-    RemoveMySessions: 'Personal/RemoveMySessions'
+    SetMyLink: '/Personal/SetMyLink',
+    SetMyName: '/Personal/SetMyName',
+    SetMyProfileInformation: '/Personal/SetMyProfileInformation',
+    GetMyProfileInformation: '/Personal/GetMyProfileInformation',
+    RemoveMyAvatar: '/Personal/RemoveMyAvatar',
+    GetMyBanList: '/Personal/GetMyBanList',
+    GetMySessions: '/Personal/GetMySessions',
+    RemoveMySessions: '/Personal/RemoveMySessions'
   },
   UploadImages: {
-    UploadUserPhoto: 'UploadImages/UploadUserPhoto',
+    UploadUserPhoto: '/UploadImages/UploadUserPhoto',
   },
   Materials: {
-    Get: 'Get',
-    Update: 'Update',
-    Create: 'Create',
-    Restore: 'Restore',
-    Delete: 'Delete'
+    Get: '/Materials/Get',
+    Update: '/Materials/Update',
+    Create: '/Materials/Create',
+    Restore: '/Materials/Restore',
+    Delete: '/Materials/Delete'
   },
   Comments: {
-    GetMaterialComments: 'GetMaterialComments',
-    MoveToTrash: 'MoveToTrash',
-    Update: 'Update',
-    Get: 'Get'
+    GetMaterialComments: '/Comments/GetMaterialComments',
+    MoveToTrash: '/Comments/MoveToTrash',
+    Update: '/Comments/Update',
+    Get: '/Comments/Get'
   },
   Forum: {
-    GetThread: 'GetThread',
-    GetNewTopics: 'GetNewTopics'
+    GetThread: '/Forum/GetThread',
+    GetNewTopics: '/Forum/GetNewTopics'
   },
   Auth: {
-    Register: 'Register',
-    CheckUserNameInDb: 'CheckUserNameInDb'
+    Register: '/Auth/Register',
+    CheckUserNameInDb: '/Auth/CheckUserNameInDb'
   },
   Captcha: {
-    GetCaptchaKey: 'GetCaptchaKey'
+    GetCaptchaKey: '/Captcha/GetCaptchaKey'
   },
   Articles: {
-    GetArticles: 'GetArticles',
-    GetArticlesFromMultiCategories: 'GetArticlesFromMultiCategories'
+    GetArticles: '/Articles/GetArticles',
+    GetArticlesFromMultiCategories: '/Articles/GetArticlesFromMultiCategories'
+  },
+  Activities: {
+    GetActivities: '/Activities/GetActivities'
   }
 }

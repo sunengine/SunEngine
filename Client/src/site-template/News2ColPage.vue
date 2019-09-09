@@ -6,7 +6,7 @@
 
     <div :class="['row',{hidden: !loaded}]">
       <div :class="['col-xs-12','col-md-6','col1', 'pull-left', $q.screen.gt.sm ? 'hr-minus' : 'pull-right']">
-        <posts-list ref="postsList"/>
+        <PostsMultiCat ref="postsList" component-name="Posts"/>
 
       </div>
       <div :class="['col-xs-12','col-md-6', 'col2', 'pull-right', {'pull-left': !$q.screen.gt.sm}]">
@@ -23,11 +23,12 @@
     import {ActivitiesList} from 'sun'
     import {PostsList} from 'sun'
     import {LoaderWait} from 'sun'
+    import PostsMultiCat from "../modules/blog/PostsMultiCat";
 
 
     export default {
         name: 'News2ColPage',
-        components: {LoaderWait, PostsList, ActivitiesList},
+        components: {PostsMultiCat, LoaderWait, PostsList, ActivitiesList},
         mixins: [Page],
         data: function () {
             return {
@@ -44,30 +45,11 @@
                 return this.$refs?.postsList?.posts && this.$refs?.activitiesList?.activities;
             }
         },
-        methods: {
-            async loadData() {
-
-                await this.$store.dispatch('request',
-                    {
-                        url: '/Blog/GetPostsFromMultiCategories',
-                        data: {
-                            componentName: 'Posts',
-                            page: 1
-                        }
-                    })
-                    .then(
-                        response => {
-                            this.$refs.postsList.posts = response.data;
-                        }
-                    );
-            }
-        },
         mounted() {
             this.mounted = true;
         },
-        async created() {
+        created() {
             this.title = this.$tl('title');
-            await this.loadData();
         }
     }
 

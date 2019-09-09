@@ -1,13 +1,15 @@
 <template>
   <div class="posts-list">
-    <LoaderWait v-if="!posts.items"/>
 
-    <template v-else>
+    <template v-if="posts.items">
       <div v-for="post in posts.items" :key="post.id">
         <Post :post="post"/>
         <hr class="hr-sep"/>
       </div>
     </template>
+
+    <LoaderWait v-else />
+
   </div>
 </template>
 
@@ -15,10 +17,11 @@
 
   export default {
     name: 'PostsList',
-    data() {
-      return {
-        posts: {}
-      }
+    props: {
+        posts: {
+            type: Object,
+            required: true
+        }
     },
     beforeCreate() {
       this.$options.components.Post = require('sun').Post;

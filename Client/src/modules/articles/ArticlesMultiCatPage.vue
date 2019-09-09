@@ -14,8 +14,7 @@
 
     </div>
 
-    <ArticlesList ref="articlesList"/>
-    <LoaderWait v-else/>
+    <ArticlesList :articles="articles" />
 
     <q-pagination class="page-padding q-mt-md" v-if="articles.totalPages > 1"
                   v-model="articles.pageIndex"
@@ -94,13 +93,12 @@
                         page: this.currentPage
                     })
                     .then(response => {
-                            this.$refs.articlesList.articles = response.data;
+                            this.articles = response.data;
                         }
                     );
             }
         },
         beforeCreate() {
-            this.$options.components.LoaderWait = require('sun').LoaderWait;
             this.$options.components.ArticlesList = require('sun').ArticlesList;
         },
         created() {

@@ -11,7 +11,7 @@
     </div>
     <div v-html="category.header" v-if="category.header" class="q-mb-sm"></div>
 
-    <PostsList ref="postsList"/>
+    <PostsList :posts="posts" />
 
     <q-pagination class="page-padding q-mt-md" v-if="posts.totalPages > 1" v-model="posts.pageIndex" color="pagination"
                   :max-pages="12" :max="posts.totalPages" ellipses direction-links @input="pageChanges"/>
@@ -50,8 +50,8 @@
             }
         },
         methods: {
-            async loadData() {
-                await this.$request(
+            loadData() {
+                this.$request(
                     this.$Api.Blog.GetPosts,
                     {
                         categoryName: this.categoryName,
@@ -60,7 +60,6 @@
                     }
                 ).then(
                     response => {
-                        this.$refs.postsList.posts = response.data;
                         this.posts = response.data;
                     }
                 );

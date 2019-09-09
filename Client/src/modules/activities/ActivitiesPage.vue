@@ -3,7 +3,7 @@
     <h2 class="q-title page-padding">
       {{title}}
     </h2>
-    <activities-list :componentName="componentName" />
+    <activities-list :componentName="componentName"/>
   </q-page>
 </template>
 

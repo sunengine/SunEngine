@@ -1,8 +1,9 @@
 <template>
   <div class="articles-list">
-    <q-list no-border>
+    <q-list v-if="articles" no-border>
       <Article :article="article" v-for="article in articles.items" :key="article.id"/>
     </q-list>
+    <LoaderWait v-else />
   </div>
 </template>
 
@@ -18,6 +19,7 @@
         },
         beforeCreate() {
             this.$options.components.Article = require('sun').Article;
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
         }
     }
 </script>
