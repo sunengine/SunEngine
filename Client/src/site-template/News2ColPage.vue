@@ -23,7 +23,7 @@
     import {ActivitiesList} from 'sun'
     import {PostsList} from 'sun'
     import {LoaderWait} from 'sun'
-    import PostsMultiCat from "../modules/blog/PostsMultiCat";
+    import {PostsMultiCat} from 'sun'
 
 
     export default {

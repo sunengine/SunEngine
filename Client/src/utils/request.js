@@ -25,20 +25,16 @@ apiAxios.interceptors.response.use(async rez => {
 });
 
 
-export default async function(url, data) {
+export default async function(url, body, sendAsJson = false, skipLock = false) {
 
-
-  debugger;
   if (config.Log.Requests)
-    console.log(`%cRequest%c${url}`, consoleRequestStart, consoleRequestUrl, data);
-
-  const sendAsJson = data.sendAsJson ?? false;
+    console.log(`%cRequest%c${url}`, consoleRequestStart, consoleRequestUrl, body);
 
   const headers = {};
 
   const tokens = getTokens();
 
-  if (data.skipLock) {
+  if (skipLock) {
     if (checkLocalTokensExpire())
       headers['LongToken1'] = tokens.longToken;
 
@@ -77,8 +73,6 @@ export default async function(url, data) {
     if (tokens)
       headers['Authorization'] = `Bearer ${tokens.shortToken}`;
 
-    let body = data;
-
     if (body) {
       if ((typeof body === 'object')) {
         if (body instanceof FormData) {
@@ -89,9 +83,8 @@ export default async function(url, data) {
           headers['Content-Type'] = 'application/json';
           body = JSON.stringify(body);
         }
-      } else {
+      } else
         headers['Content-Type'] = 'application/x-www-form-urlencoded';
-      }
     }
 
     return apiAxios.post(url, body,
