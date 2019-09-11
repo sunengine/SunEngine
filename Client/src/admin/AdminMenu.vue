@@ -141,8 +141,7 @@
                 await this.$store
                     .dispatch('request', {
                         url: '/Pulse/Version'
-                    })
-                    .then(response => {
+                    }).then(response => {
                         this.version = response.data.version;
                     });
             }

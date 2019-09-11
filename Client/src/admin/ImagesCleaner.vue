@@ -20,63 +20,54 @@
 </template>
 
 <script>
-  import {Page} from 'sun';
+    import {Page} from 'sun';
 
 
-  export default {
-    name: 'ImagesCleaner',
-    mixins: [Page],
-    data() {
-      return {
-        imagesDeleted: null,
-        images: null
-      }
-    },
+    export default {
+        name: 'ImagesCleaner',
+        mixins: [Page],
+        data() {
+            return {
+                imagesDeleted: null,
+                images: null
+            }
+        },
 
-    async created() {
-      this.title = this.$tl('title');
-      await this.loadImages();
-    },
-    methods: {
+        async created() {
+            this.title = this.$tl('title');
+            await this.loadImages();
+        },
+        methods: {
+            async clear() {
+                await this.$request(
+                    this.$AdminApi.ImagesCleaner.DeleteImages
+                ).then(response => {
+                    this.imagesDeleted = response.data.imagesDeleted;
+                    this.$successNotify(this.$tl('clearCount') + this.imagesDeleted);
+                    this.loadImages();
+                }).catch(error => {
+                    this.$errorNotify(error)
+                });
+            },
 
-      async clear() {
-        await this.$store
-          .dispatch('request', {
-            url: '/Admin/ImagesCleaner/DeleteImages',
-            data: {}
-          })
-          .then(response => {
-            this.imagesDeleted = response.data.imagesDeleted;
-            this.$successNotify(this.$tl('clearCount') + this.imagesDeleted);
-            this.loadImages();
-          })
-          .catch(error => {
-            this.$errorNotify(error);
-          });
-      },
-
-      async loadImages() {
-        await this.$store
-          .dispatch('request', {
-            url: '/Admin/ImagesCleaner/GetAllImages',
-            data: {}
-          })
-          .then(response => {
-            if (response.data.length !== 0)
-              this.images = response.data;
-            else
-              this.images = null;
-          })
-          .catch(error => {
-            this.$errorNotify(error);
-          });
-      },
-      async reloadImages() {
-        await this.loadImages();
-        this.images ? this.$successNotify() : this.$successNotify(this.$tl('emptyResult'));
-      }
+            async loadImages() {
+                await this.$request(
+                    this.$AdminApi.ImagesCleaner.GetAllImages
+                ).then(response => {
+                    if (response.data.length !== 0)
+                        this.images = response.data;
+                    else
+                        this.images = null;
+                }).catch(error => {
+                    this.$errorNotify(error)
+                });
+            },
+            async reloadImages() {
+                await this.loadImages();
+                this.images ? this.$successNotify() : this.$successNotify(this.$tl('emptyResult'));
+            }
+        }
     }
-  }
 
 </script>
 <style lang="stylus">

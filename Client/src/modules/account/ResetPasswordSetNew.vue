@@ -2,7 +2,8 @@
   <q-page class="reset-password-set-new flex middle page-padding">
     <div class="center-form" v-if="!done">
 
-      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'" :label="$tl('password')" :rules="rules.password">
+      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'" :label="$tl('password')"
+               :rules="rules.password">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
@@ -15,7 +16,8 @@
         </template>
       </q-input>
 
-      <q-input ref="password2" v-model="password2" :type="showPassword2 ? 'text' : 'password'" :label="$tl('password2')" :rules="rules.password2">
+      <q-input ref="password2" v-model="password2" :type="showPassword2 ? 'text' : 'password'" :label="$tl('password2')"
+               :rules="rules.password2">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
         </template>
@@ -28,7 +30,8 @@
         </template>
       </q-input>
 
-      <q-btn style="width:100%;"  class="q-mt-md" color="send" :label="$tl('saveBtn')" @click="changePassword" :loading="submitting">
+      <q-btn style="width:100%;" class="q-mt-md" color="send" :label="$tl('saveBtn')" @click="changePassword"
+             :loading="submitting">
         <LoaderSent slot="loading"/>
       </q-btn>
     </div>
@@ -44,72 +47,70 @@
 </template>
 
 <script>
-  import {Page} from 'sun'
+    import {Page} from 'sun'
 
 
-  function createRules() {
+    function createRules() {
 
-    const password = [
-      value => !!value || this.$tl('validation.password.required'),
-      value => value.length >= config.PasswordValidation.MinLength || this.$tl('validation.password.minLength'),
-      value => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$tl('validation.password.minDifferentChars'),
-    ];
+        const password = [
+            value => !!value || this.$tl('validation.password.required'),
+            value => value.length >= config.PasswordValidation.MinLength || this.$tl('validation.password.minLength'),
+            value => [...new Set(value.split(''))].length >= config.PasswordValidation.MinDifferentChars || this.$tl('validation.password.minDifferentChars'),
+        ];
 
-    return {
-      password: password,
-      password2: [...password,
-        value => this.password === this.password2 || this.$tl('validation.password2.equals')]
-    }
-  }
-
-
-  export default {
-    name: 'ResetPasswordSetNew',
-    mixins: [Page],
-    data: function () {
-      return {
-        password: "",
-        password2: "",
-        submitting: false,
-        done: false,
-        showPassword: false,
-        showPassword2: false,
-      }
-    },
-    methods: {
-      async changePassword() {
-        this.$refs.password.validate();
-        this.$refs.password2.validate();
-
-        if (this.$refs.password.hasError || this.$refs.password2.hasError) {
-          return;
+        return {
+            password: password,
+            password2: [...password,
+                value => this.password === this.password2 || this.$tl('validation.password2.equals')]
         }
-
-        this.submitting = true;
-
-        await this.$store.dispatch('request', {
-          url: '/Account/ResetPasswordSetNew',
-          data: {
-            uid: this.$route.query.uid,
-            token: this.$route.query.token,
-            newPassword: this.password
-          }
-        }).then( () => {
-          this.done = true;
-        }).catch(error => {
-          this.$errorNotify(error.response.data);
-          this.submitting = false;
-        });
-      }
-    },
-    beforeCreate() {
-      this.$options.components.LoaderSent = require('sun').LoaderSent;
-    },
-    created() {
-      this.title = this.$tl('title');
-      this.rules = createRules.call(this);
     }
-  }
+
+
+    export default {
+        name: 'ResetPasswordSetNew',
+        mixins: [Page],
+        data: function () {
+            return {
+                password: "",
+                password2: "",
+                submitting: false,
+                done: false,
+                showPassword: false,
+                showPassword2: false,
+            }
+        },
+        methods: {
+            changePassword() {
+                this.$refs.password.validate();
+                this.$refs.password2.validate();
+
+                if (this.$refs.password.hasError || this.$refs.password2.hasError)
+                    return;
+
+                this.submitting = true;
+
+                this.$request(
+                    this.$Api.Account.ResetPasswordSetNew,
+                    {
+                        uid: this.$route.query.uid,
+                        token: this.$route.query.token,
+                        newPassword: this.password
+                    }).then(() => {
+                    this.done = true;
+                }).catch(error => {
+                    this.$errorNotify(error.response.data);
+                    this.submitting = false;
+                });
+            }
+        },
+        beforeCreate() {
+            this.$options.components.LoaderSent = require('sun').LoaderSent;
+        },
+        created() {
+            this.title = this.$tl('title');
+            this.rules = createRules.call(this);
+        }
+    }
 </script>
 
 <style lang="stylus">

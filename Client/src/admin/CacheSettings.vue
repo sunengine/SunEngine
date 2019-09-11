@@ -10,7 +10,7 @@
           v-model="policy"
           :label="$tl('cachePolicy')"
           :options="optionTypes">
-          <q-icon slot="prepend" name="fa fa-sitemap" class="q-mr-sm" />
+          <q-icon slot="prepend" name="fa fa-sitemap" class="q-mr-sm"/>
         </q-select>
         <br/>
         <div v-if="policy !== null && policy.id !== 1">
@@ -19,7 +19,7 @@
                    :label="$tl('cacheLifetime')"
                    :rules="rules.invalidateCacheTime">
             <template v-slot:prepend>
-              <q-icon name="fas fa-clock"  class="q-mr-sm" />
+              <q-icon name="fas fa-clock" class="q-mr-sm"/>
             </template>
           </q-input>
 
@@ -39,91 +39,87 @@
 </template>
 
 <script>
-  import {Page} from 'sun'
+    import {Page} from 'sun'
 
-  const cachePolicies = {
-    Always: 0,
-    Never: 1,
-    Custom: 2
-  };
+    const cachePolicies = {
+        Always: 0,
+        Never: 1,
+        Custom: 2
+    };
 
 
-  function createRules() {
-    return {
-      invalidateCacheTime: [
-        value => !!value || this.$tl('validation.invalidateCacheTime.required'),
-        value => value >= 0 || this.$tl('validation.invalidateCacheTime.invalidValue')
-      ]
-    }
-  }
-
-  export default {
-    name: 'CacheSettings',
-    mixins: [Page],
-    data() {
-      return {
-        cacheSettings: null,
-        policy: null,
-        loading: false,
-        withoutTime: false,
-        optionTypes: [
-          {id: cachePolicies.Always, label: this.$tl('alwaysPolicy'), value: 'AlwaysPolicy'},
-          {id: cachePolicies.Never, label: this.$tl('neverPolicy'), value: 'NeverPolicy'},
-          {id: cachePolicies.Custom, label: this.$tl('customPolicy'), value: 'CustomPolicy'}
-        ],
-      };
-    },
-    methods: {
-      async loadCurrentPolicy() {
-        await this.$store
-          .dispatch('request', {
-            url: '/Admin/AdminCacheSettings/GetCurrentCacheSettings'
-          })
-          .then(res => {
-            this.policy = this.optionTypes[res.data.currentCachePolicy];
-            this.cacheSettings = res.data;
-            this.loading = false;
-            if (this.cacheSettings.invalidateCacheTime === 0) this.withoutTime = true;
-          });
-      },
-      async save() {
-        if (this.policy.id !== cachePolicies.Never && !this.withoutTime) {
-          const cacheTime = this.$refs.cacheTime;
-          cacheTime.validate();
-          if (cacheTime.hasError)
-            return;
+    function createRules() {
+        return {
+            invalidateCacheTime: [
+                value => !!value || this.$tl('validation.invalidateCacheTime.required'),
+                value => value >= 0 || this.$tl('validation.invalidateCacheTime.invalidValue')
+            ]
         }
-
-        this.loading = true;
-        await this.$store.dispatch('request', {
-          url: '/Admin/AdminCacheSettings/ChangeCachePolicy',
-          data: {
-            selectedPolicy: this.policy.id,
-            invalidateCacheTime: !this.withoutTime ? this.cacheSettings.invalidateCacheTime : 0
-          },
-        })
-          .then(() => {
-            this.$successNotify();
-            this.loading = false;
-          }).catch(error => {
-            this.$errorNotify(error);
-            this.loading = false;
-          });
-      },
-      async withoutTimeChanged(value) {
-        if (!value && this.cacheSettings.invalidateCacheTime === 0)
-          this.cacheSettings.invalidateCacheTime = 15;
-      }
-    },
-    beforeCreate() {
-      this.rules = createRules.call(this);
-      this.$options.components.LoaderSent = require('sun').LoaderSent;
-    },
-    async created() {
-      this.title = this.$tl('title');
-      await this.loadCurrentPolicy();
     }
-  }
+
+    export default {
+        name: 'CacheSettings',
+        mixins: [Page],
+        data() {
+            return {
+                cacheSettings: null,
+                policy: null,
+                loading: false,
+                withoutTime: false,
+                optionTypes: [
+                    {id: cachePolicies.Always, label: this.$tl('alwaysPolicy'), value: 'AlwaysPolicy'},
+                    {id: cachePolicies.Never, label: this.$tl('neverPolicy'), value: 'NeverPolicy'},
+                    {id: cachePolicies.Custom, label: this.$tl('customPolicy'), value: 'CustomPolicy'}
+                ],
+            };
+        },
+        methods: {
+            async loadCurrentPolicy() {
+                await this.$request(
+                    this.$AdminApi.AdminCacheSettings.GetCurrentCacheSettings
+                ).then(res => {
+                    this.policy = this.optionTypes[res.data.currentCachePolicy];
+                    this.cacheSettings = res.data;
+                    this.loading = false;
+                    if (this.cacheSettings.invalidateCacheTime === 0) this.withoutTime = true;
+                });
+            },
+            async save() {
+                if (this.policy.id !== cachePolicies.Never && !this.withoutTime) {
+                    const cacheTime = this.$refs.cacheTime;
+                    cacheTime.validate();
+                    if (cacheTime.hasError)
+                        return;
+                }
+
+                this.loading = true;
+                await this.$request(
+                    this.$AdminApi.AdminCacheSettings.ChangeCachePolicy,
+                    {
+                        selectedPolicy: this.policy.id,
+                        invalidateCacheTime: !this.withoutTime ? this.cacheSettings.invalidateCacheTime : 0
+                    }).then(() => {
+                    this.$successNotify();
+                    this.loading = false;
+                }).catch(error => {
+                    this.$errorNotify(error);
+                    this.loading = false;
+                });
+            },
+            async withoutTimeChanged(value) {
+                if (!value && this.cacheSettings.invalidateCacheTime === 0)
+                    this.cacheSettings.invalidateCacheTime = 15;
+            }
+        },
+        beforeCreate() {
+            this.rules = createRules.call(this);
+            this.$options.components.LoaderSent = require('sun').LoaderSent;
+        },
+        async created() {
+            this.title = this.$tl('title');
+            await this.loadCurrentPolicy();
+        }
+    }
 
 </script>
 

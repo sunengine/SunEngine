@@ -52,5 +52,10 @@ export default {
   },
   Activities: {
     GetActivities: '/Activities/GetActivities'
+  },
+  Account: {
+    ChangeEmail: '/Account/ChangeEmail',
+    ChangePassword: '/Account/ChangePassword',
+    ResetPasswordSetNew: '/Account/ResetPasswordSetNew'
   }
 }

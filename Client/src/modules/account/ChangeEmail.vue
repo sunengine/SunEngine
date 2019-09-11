@@ -40,69 +40,67 @@
 </template>
 
 <script>
-  import {Page} from 'sun';
+    import {Page} from 'sun';
 
 
-  function createRules() {
-    return {
-      password: [
-        value => !!value || this.$tl("validation.password.required")
-      ],
-      email: [
-        value => !!value || this.$tl("validation.email.required"),
-        value => /[^@]+@[^@]+/.test(value) || this.$tl("validation.email.emailSig")
-      ],
-    }
-  }
-
-
-  export default {
-    name: "ChangeEmail",
-    mixins: [Page],
-    data: function () {
-      return {
-        email: "",
-        password: "",
-        submitting: false,
-        done: false,
-        showPassword: false
-      }
-    },
-    methods: {
-      async save() {
-
-        this.$refs.email.validate();
-        this.$refs.password.validate();
-
-        if (this.$refs.email.hasError || this.$refs.password.hasError) {
-          return;
+    function createRules() {
+        return {
+            password: [
+                value => !!value || this.$tl("validation.password.required")
+            ],
+            email: [
+                value => !!value || this.$tl("validation.email.required"),
+                value => /[^@]+@[^@]+/.test(value) || this.$tl("validation.email.emailSig")
+            ],
         }
-
-        this.submitting = true;
-
-        await this.$store.dispatch("request",
-          {
-            url: "/Account/ChangeEmail",
-            data: {
-              password: this.password,
-              email: this.email,
-            }
-          }).then(() => {
-          this.done = true;
-        }).catch(error => {
-          this.submitting = false;
-          this.$errorNotify(error);
-        });
-      }
-    },
-    beforeCreate() {
-      this.$options.components.LoaderSent = require('sun').LoaderSent;
-    },
-    async created() {
-      this.title = this.$tl("title");
-      this.rules = createRules.call(this);
     }
-  }
+
+
+    export default {
+        name: "ChangeEmail",
+        mixins: [Page],
+        data: function () {
+            return {
+                email: "",
+                password: "",
+                submitting: false,
+                done: false,
+                showPassword: false
+            }
+        },
+        methods: {
+            async save() {
+
+                this.$refs.email.validate();
+                this.$refs.password.validate();
+
+                if (this.$refs.email.hasError || this.$refs.password.hasError)
+                    return;
+
+
+                this.submitting = true;
+
+                await this.$request(
+                    this.$Api.Account.ChangeEmail,
+                    {
+                        password: this.password,
+                        email: this.email,
+                    }).then(() => {
+                    this.done = true;
+                }).catch(error => {
+                    this.submitting = false;
+                    this.$errorNotify(error);
+                });
+            }
+        },
+        beforeCreate() {
+            this.$options.components.LoaderSent = require('sun').LoaderSent;
+        },
+        async created() {
+            this.title = this.$tl("title");
+            this.rules = createRules.call(this);
+        }
+    }
 </script>
 
 <style lang="stylus">

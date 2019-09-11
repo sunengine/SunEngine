@@ -25,37 +25,34 @@
 
 <script>
 
-  import {Page} from 'sun'
+    import {Page} from 'sun'
 
-  export default {
-    name: 'RolesPage',
-    mixins: [Page],
-    data() {
-      return {
-        roles: null,
-        currentRole: null,
-      }
-    },
-    methods: {
-      async loadAllRoles() {
-        await this.$store.dispatch('request',
-          {
-            url: '/Admin/UserRolesAdmin/GetAllRoles'
-          })
-          .then(response => {
-              this.roles = response.data;
+    export default {
+        name: 'RolesPage',
+        mixins: [Page],
+        data() {
+            return {
+                roles: null,
+                currentRole: null,
             }
-          );
-      }
-    },
-    beforeCreate() {
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
-    },
-    async created() {
-      this.title = this.$tl('title');
-      await this.loadAllRoles();
+        },
+        methods: {
+            loadAllRoles() {
+                this.$request(
+                    this.$AdminApi.UserRolesAdmin.GetAllRoles
+                ).then(response => {
+                    this.roles = response.data;
+                });
+            }
+        },
+        beforeCreate() {
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
+        },
+        created() {
+            this.title = this.$tl('title');
+            this.loadAllRoles();
+        }
     }
-  }
 
 </script>
 

@@ -28,3 +28,6 @@ export CypherSecrets from 'admin/CypherSecrets'
 export DeletedElements from 'admin/DeletedElements'
 export ImagesCleaner from 'admin/ImagesCleaner'
 
+
+export AdminApi from 'admin/adminApi'
+

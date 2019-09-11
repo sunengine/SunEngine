@@ -60,119 +60,107 @@
 
 <script>
 
-  export default {
-    name: 'ProfileRoles',
-    props: {
-      userId: {
-        type: Number,
-        required: true
-      }
-    },
-    data() {
-      return {
-        allRoles: null,
-        userRoles: null,
-        availableRoles: null,
-        add: false,
-        remove: false
-      }
-    },
-    methods: {
-      async addToRoleConfirm(role) {
-        this.add = false;
+    export default {
+        name: 'ProfileRoles',
+        props: {
+            userId: {
+                type: Number,
+                required: true
+            }
+        },
+        data() {
+            return {
+                allRoles: null,
+                userRoles: null,
+                availableRoles: null,
+                add: false,
+                remove: false
+            }
+        },
+        methods: {
+            async addToRoleConfirm(role) {
+                this.add = false;
 
-        const title = this.$tl('addRoleConfirmTitle', role.title);
-        const message = this.$tl('addRoleConfirmMessage', role.title);
-        const addRoleConfirmOkBtn = this.$tl('addRoleConfirmOkBtn');
-        const cancelBtn = this.$tl('addRoleConfirmCancelBtn');
+                const title = this.$tl('addRoleConfirmTitle', role.title);
+                const message = this.$tl('addRoleConfirmMessage', role.title);
+                const addRoleConfirmOkBtn = this.$tl('addRoleConfirmOkBtn');
+                const cancelBtn = this.$tl('addRoleConfirmCancelBtn');
 
-        this.$q.dialog({
-          title: title,
-          message: message,
-          ok: addRoleConfirmOkBtn,
-          cancel: cancelBtn
-        }).onOk(async () => {
-          await this.addToRole(role);
-        })
-      },
-      async removeFromRoleConfirm(role) {
-        this.remove = false;
+                this.$q.dialog({
+                    title: title,
+                    message: message,
+                    ok: addRoleConfirmOkBtn,
+                    cancel: cancelBtn
+                }).onOk(async () => {
+                    await this.addToRole(role);
+                })
+            },
+            removeFromRoleConfirm(role) {
+                this.remove = false;
 
-        const title = this.$tl('removeRoleConfirmTitle', role.title);
-        const message = this.$tl('removeRoleConfirmMessage', role.title);
-        const removeRoleConfirmOkBtn = this.$tl('removeRoleConfirmOkBtn');
-        const cancelBtn = this.$tl('removeRoleConfirmCancelBtn');
+                const title = this.$tl('removeRoleConfirmTitle', role.title);
+                const message = this.$tl('removeRoleConfirmMessage', role.title);
+                const removeRoleConfirmOkBtn = this.$tl('removeRoleConfirmOkBtn');
+                const cancelBtn = this.$tl('removeRoleConfirmCancelBtn');
 
-        this.$q.dialog({
-          title: title,
-          message: message,
-          ok: removeRoleConfirmOkBtn,
-          cancel: cancelBtn
-        }).onOk(async () => {
-          await this.removeFromRole(role);
-        })
-      },
-      async addToRole(role) {
-        await this.$store.dispatch('request',
-          {
-            url: '/Admin/UserRolesAdmin/AddUserToRole',
-            data: {
-              userId: this.userId,
-              roleName: role.name
+                this.$q.dialog({
+                    title: title,
+                    message: message,
+                    ok: removeRoleConfirmOkBtn,
+                    cancel: cancelBtn
+                }).onOk(() => {
+                    this.removeFromRole(role)
+                })
+            },
+            addToRole(role) {
+                this.$request(
+                    this.$AdminApi.UserRolesAdmin.AddUserToRole,
+                    {
+                        userId: this.userId,
+                        roleName: role.name
+                    }).then(() => {
+                    this.loadUserRoles()
+                });
+            },
+            removeFromRole(role) {
+                this.$request(
+                    this.$AdminApi.UserRolesAdmin.RemoveUserFromRole,
+                    {
+                        userId: this.userId,
+                        roleName: role.name
+                    }).then(() => {
+                    this.loadUserRoles();
+                });
+            },
+            async loadUserRoles() {
+                await this.$request(
+                    this.$AdminApi.UserRolesAdmin.GetRoleUsers,
+                    {
+                        userId: this.userId
+                    }).then(response => {
+                        this.userRoles = response.data;
+                        this.availableRoles = this.allRoles.filter(x => !this.userRoles.some(y => y.name === x.name));
+                    }
+                );
+            },
+            async loadAllRoles() {
+                await this.$store.dispatch('request',
+                    {
+                        url: '/Admin/UserRolesAdmin/GetAllRoles'
+                    })
+                    .then(response => {
+                        this.allRoles = response.data;
+                    });
             }
-          })
-          .then(async () => {
-              await this.loadUserRoles();
-            }
-          );
-      },
-      async removeFromRole(role) {
-        await this.$store.dispatch("request",
-          {
-            url: '/Admin/UserRolesAdmin/RemoveUserFromRole',
-            data: {
-              userId: this.userId,
-              roleName: role.name
-            }
-          })
-          .then(async () => {
-              await this.loadUserRoles();
-            }
-          );
-      },
-      async loadUserRoles() {
-        await this.$store.dispatch('request',
-          {
-            url: '/Admin/UserRolesAdmin/GetUserRoles',
-            data: {
-              userId: this.userId
-            }
-          })
-          .then(response => {
-              this.userRoles = response.data;
-              this.availableRoles = this.allRoles.filter(x => !this.userRoles.some(y => y.name === x.name));
-            }
-          );
-      },
-      async loadAllRoles() {
-        await this.$store.dispatch('request',
-          {
-            url: '/Admin/UserRolesAdmin/GetAllRoles'
-          })
-          .then(response => {
-              this.allRoles = response.data;
-            }
-          );
-      }
-    },
-    beforeCreate() {
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
-    },
-    async created() {
-      await this.loadAllRoles();
-      await this.loadUserRoles();
+        },
+        beforeCreate() {
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
+        },
+        async created() {
+            await this.loadAllRoles();
+            await this.loadUserRoles();
+        }
     }
-  }
 
 </script>
 

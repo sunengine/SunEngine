@@ -27,53 +27,50 @@
 
 <script>
 
-  export default {
-    name: 'RoleUsers',
-    props: {
-      roleName: {
-        type: String,
-        required: true
-      }
-    },
-    data() {
-      return {
-        users: null,
-        filter: ''
-      }
-    },
-    watch: {
-      'roleName': 'loadRoleUsers'
-    },
-    maxUsersTake: null,
-    methods: {
-      filterValueChanged() {
-        this.timeout && clearTimeout(this.timeout);
-        this.timeout = setTimeout(this.loadRoleUsers, 600);
-      },
-      async loadRoleUsers() {
-        this.users = null;
-        await this.$store.dispatch('request',
-          {
-            url: '/Admin/UserRolesAdmin/GetRoleUsers',
-            data: {
-              roleName: this.roleName,
-              userNamePart: this.filter
+    export default {
+        name: 'RoleUsers',
+        props: {
+            roleName: {
+                type: String,
+                required: true
             }
-          })
-          .then(response => {
-              this.users = response.data;
+        },
+        data() {
+            return {
+                users: null,
+                filter: ''
             }
-          );
-      }
-    },
-    beforeCreate() {
-      this.maxUsersTake = config.Misc.AdminRoleUsersMaxUsersTake;
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
-    },
-    async created() {
-      await this.loadRoleUsers();
+        },
+        watch: {
+            'roleName': 'loadRoleUsers'
+        },
+        maxUsersTake: null,
+        methods: {
+            filterValueChanged() {
+                this.timeout && clearTimeout(this.timeout);
+                this.timeout = setTimeout(this.loadRoleUsers, 600);
+            },
+            async loadRoleUsers() {
+                this.users = null;
+                await this.$request(
+                    this.$AdminApi.UserRolesAdmin.GetRoleUsers,
+                    {
+                        roleName: this.roleName,
+                        userNamePart: this.filter
+                    }).then(response => {
+                        this.users = response.data;
+                    }
+                );
+            }
+        },
+        beforeCreate() {
+            this.maxUsersTake = config.Misc.AdminRoleUsersMaxUsersTake;
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
+        },
+        async created() {
+            await this.loadRoleUsers();
+        }
     }
-  }
 
 </script>
 

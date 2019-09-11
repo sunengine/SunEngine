@@ -23,64 +23,59 @@
 </template>
 
 <script>
-  import {Page} from 'sun'
+    import {Page} from 'sun'
 
-  export default {
-    name: 'RolesPermissions',
-    mixins: [Page],
-    computed: {},
-    data() {
-      return {
-        json: null,
-        error: null
-      }
-    },
-    methods: {
+    export default {
+        name: 'RolesPermissions',
+        mixins: [Page],
+        computed: {},
+        data() {
+            return {
+                json: null,
+                error: null
+            }
+        },
+        methods: {
 
-      async loadDataRefresh() {
-        await this.loadData();
-        this.$successNotify(this.$tl('getSuccessNotify'));
-      },
-      async loadData() {
-        this.json = null;
-        await this.$store.dispatch('request',
-          {
-            url: '/Admin/RolesPermissionsAdmin/GetJson'
-          })
-          .then(response => {
-              this.error = null;
-              this.json = response.data.json
+            async loadDataRefresh() {
+                await this.loadData();
+                this.$successNotify(this.$tl('getSuccessNotify'));
+            },
+            async loadData() {
+                this.json = null;
+                await this.$request(
+                    this.$AdminApi.RolesPermissionsAdmin.UploadJson
+                ).then(response => {
+                        this.error = null;
+                        this.json = response.data.json
+                    }
+                ).catch(error => {
+                    this.$errorNotify(error)
+                });
+            },
+            async send() {
+                await this.$request(
+                    this.$AdminApi.RolesPermissionsAdmin.UploadJson,
+                    {
+                        json: this.json
+                    }).then(async () => {
+                        this.error = null;
+                        this.$successNotify(this.$tl('saveSuccessNotify'));
+                    }
+                ).catch(error => {
+                    this.error = error.response.data.errors[0];
+                    this.$errorNotify(error, this.error.message);
+                });
             }
-          ).catch(error => {
-            this.$errorNotify(error);
-          });
-      },
-      async send() {
-        await this.$store.dispatch('request',
-          {
-            url: '/Admin/RolesPermissionsAdmin/UploadJson',
-            data: {
-              json: this.json
-            }
-          })
-          .then(async () => {
-              this.error = null;
-              this.$successNotify(this.$tl('saveSuccessNotify'));
-            }
-          ).catch(error => {
-            this.error = error.response.data.errors[0];
-            this.$errorNotify(error, this.error.message);
-          });
-      }
-    },
-    beforeCreate() {
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
-    },
-    async created() {
-      this.title = this.$tl('title');
-      await this.loadData();
+        },
+        beforeCreate() {
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
+        },
+        async created() {
+            this.title = this.$tl('title');
+            await this.loadData();
+        }
     }
-  }
 
 </script>
 

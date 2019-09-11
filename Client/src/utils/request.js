@@ -99,11 +99,9 @@ export default async function(url, body, sendAsJson = false, skipLock = false) {
 function ConvertObjectToFormData(obj) {
   const formData = new FormData();
 
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
+  for (const key in obj)
+    if (obj.hasOwnProperty(key))
       formData.append(key, obj[key]);
-    }
-  }
 
   return formData;
 }

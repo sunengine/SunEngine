@@ -13,50 +13,41 @@
 
 <script>
 
-  export default {
-    name: "CypherSecrets",
-    methods: {
-      shortJwt() {
-        this.$store
-          .dispatch('request', {
-            url: '/Admin/CypherSecretsAdmin/ResetCypher',
-            data: {
-              name: 'ShortJwt'
+    export default {
+        name: "CypherSecrets",
+        methods: {
+            shortJwt() {
+                this.$request(
+                    this.$AdminApi.CypherSecretsAdmin.ResetCypher,
+                    {
+                        name: 'ShortJwt'
+                    }).then(() => {
+                    this.$successNotify();
+                });
+            },
+            long2Jwt() {
+                this.$request(
+                    this.$AdminApi.CypherSecretsAdmin.ResetCypher,
+                    {
+                        name: 'Long2Jwt'
+                    }).then(() => {
+                    this.$successNotify();
+                });
+            },
+            emailChange() {
+                this.$request(
+                    this.$AdminApi.CypherSecretsAdmin.ResetCypher,
+                    {
+                        name: 'EmailChange'
+                    }).then(() => {
+                    this.$successNotify();
+                });
             }
-          })
-          .then(() => {
-            this.$successNotify();
-          });
-      },
-      long2Jwt() {
-        this.$store
-          .dispatch('request', {
-            url: '/Admin/CypherSecretsAdmin/ResetCypher',
-            data: {
-              name: 'Long2Jwt'
-            }
-          })
-          .then(() => {
-            this.$successNotify();
-          });
-      },
-      emailChange() {
-        this.$store
-          .dispatch('request', {
-            url: '/Admin/CypherSecretsAdmin/ResetCypher',
-            data: {
-              name: 'EmailChange'
-            }
-          })
-          .then(() => {
-            this.$successNotify();
-          });
-      }
-    },
-    created() {
-      this.title = this.$tl('title');
+        },
+        created() {
+            this.title = this.$tl('title');
+        }
     }
-  }
 
 </script>
 
