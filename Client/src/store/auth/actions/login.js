@@ -8,7 +8,7 @@ export default function (context, userData) {
     {
       nameOrEmail: userData.nameOrEmail,
       password: userData.password,
-      skipLock: userData.skipLock
+      skipLock: userData?.skipLock
     }
   ).then(async () => {
     await context.dispatch('loadMyUserInfo');
