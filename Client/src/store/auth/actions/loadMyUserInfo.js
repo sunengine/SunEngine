@@ -6,7 +6,7 @@ export default function (context, data) {
   request(
     Api.Personal.GetMyUserInfo,
     {
-      skipLock: data.skipLock
+      skipLock: data?.skipLock
     }).then(response => {
     context.commit('setUserInfo', response.data);
   });

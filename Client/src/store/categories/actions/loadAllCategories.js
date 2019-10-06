@@ -8,7 +8,7 @@ export default function (context, data) {
   return request(
     Api.Categories.GetAllCategoriesAndAccesses,
     {
-      skipLock: data.skipLock
+      skipLock: data?.skipLock
     }
   ).then(response => {
     console.info('%cLoadAllCategories', consoleInit, config.Log.InitExtended ? response.data : '');
