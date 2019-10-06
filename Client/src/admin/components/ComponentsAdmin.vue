@@ -11,11 +11,12 @@
 
     <div class="components" v-if="components">
       <div v-for="component in components">
-          <q-icon name="fas fa-cube" class="q-mr-xs"/>
-          {{component.name}}
-        <q-btn color="info" class="q-ml-sm" dense size="10px" flat icon="fas fa-wrench" :to="{name: 'EditComponent', params: {name: component.name}}" />
+        <q-icon name="fas fa-cube" class="q-mr-xs"/>
+        {{component.name}}
+        <q-btn color="info" class="q-ml-sm" dense size="10px" flat icon="fas fa-wrench"
+               :to="{name: 'EditComponent', params: {name: component.name}}"/>
 
-        <q-btn color="info" dense size="10px" flat icon="fas fa-arrow-right" :to="'/'+component.name.toLowerCase()" />
+        <q-btn color="info" dense size="10px" flat icon="fas fa-arrow-right" :to="'/'+component.name.toLowerCase()"/>
 
         <span class="q-ml-lg text-grey-7">[{{component.type}}]</span>
       </div>
@@ -38,10 +39,11 @@
         },
         methods: {
             loadData() {
-                this.$store.dispatch('request', {url: '/Admin/ComponentsAdmin/GetAllComponents',})
-                    .then(response => {
-                        this.components = response.data;
-                    })
+                this.$request(
+                    this.$AdminApi.ComponentsAdmin.GetAllComponents
+                ).then(response => {
+                    this.components = response.data;
+                })
             }
         },
         beforeCreate() {

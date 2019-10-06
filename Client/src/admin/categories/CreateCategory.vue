@@ -14,75 +14,73 @@
 </template>
 
 <script>
-  import {Page} from 'sun'
+    import {Page} from 'sun'
 
 
-  export default {
-    name: 'CreateCategory',
-    mixins: [Page],
-    props: {
-      parentCategoryId: {
-        type: Number,
-        required: false,
-        default: 1
-      }
-    },
-    data() {
-      return {
-        category: {
-          name: '',
-          title: '',
-          subTitle: '',
-          icon: '',
-          header: '',
-          layoutName: '',
-          settingsJson: '',
-          sectionTypeName: 'unset',
-          isMaterialsContainer: true,
-          isMaterialsNameEditable: false,
-          materialsSubTitleInputType: 'none',
-          areaRoot: false,
-          parentId: this.parentCategoryId,
-          isHidden: false,
-          isCacheContent: false
+    export default {
+        name: 'CreateCategory',
+        mixins: [Page],
+        props: {
+            parentCategoryId: {
+                type: Number,
+                required: false,
+                default: 1
+            }
         },
-        loading: false
-      }
-    },
-    methods: {
-      async save() {
-        const form = this.$refs.form;
-        form.validate();
-        if (form.hasError)
-          return;
+        data() {
+            return {
+                category: {
+                    name: '',
+                    title: '',
+                    subTitle: '',
+                    icon: '',
+                    header: '',
+                    layoutName: '',
+                    settingsJson: '',
+                    sectionTypeName: 'unset',
+                    isMaterialsContainer: true,
+                    isMaterialsNameEditable: false,
+                    materialsSubTitleInputType: 'none',
+                    areaRoot: false,
+                    parentId: this.parentCategoryId,
+                    isHidden: false,
+                    isCacheContent: false
+                },
+                loading: false
+            }
+        },
+        methods: {
+            save() {
+                const form = this.$refs.form;
+                form.validate();
+                if (form.hasError)
+                    return;
 
-        this.loading = true;
+                this.loading = true;
 
-        await this.$store.dispatch('request',
-          {
-            url: '/Admin/CategoriesAdmin/CreateCategory',
-            data: this.category,
-            sendAsJson: true
-          })
-          .then(async () => {
-            this.$successNotify();
-            await this.$store.dispatch("loadAllCategories");
-            await this.$store.dispatch("setAllRoutes");
-            this.$router.push({name: 'CategoriesAdmin'});
-          }).catch(error => {
-            this.$errorNotify(error);
-            this.loading = false;
-          });
-      }
-    },
-    beforeCreate() {
-      this.$options.components.LoaderSent = require('sun').LoaderSent;
-      this.$options.components.CategoryForm = require('sun').CategoryForm;
-    },
-    async created() {
-      this.title = this.$tl('title')
-    }
-  };
+                this.$request(
+                    this.$AdminApi.CategoriesAdmin.CreateCategory,
+                    this.category,
+                    true
+                ).then(async () => {
+                    this.$successNotify();
+                    await this.$store.dispatch("loadAllCategories");
+                    await this.$store.dispatch("setAllRoutes");
+                    this.$router.push({name: 'CategoriesAdmin'});
+                }).catch(error => {
+                    this.$errorNotify(error);
+                    this.loading = false;
+                });
+            }
+        },
+        beforeCreate() {
+            this.$options.components.LoaderSent = require('sun').LoaderSent;
+            this.$options.components.CategoryForm = require('sun').CategoryForm;
+        },
+        async created() {
+            this.title = this.$tl('title')
+        }
+    };
 
 </script>
 

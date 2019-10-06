@@ -18,7 +18,7 @@
 
 
     export default {
-        name: "CreateComponent",
+        name: 'CreateComponent',
         mixins: [Page],
         data() {
             return {
@@ -42,18 +42,16 @@
 
                 this.loading = true;
 
-                this.$store.dispatch('request',
-                    {
-                        url: '/Admin/ComponentsAdmin/AddComponent',
-                        data: this.component,
-                        sendAsJson: true
-                    })
-                    .then(async () => {
-                        this.$successNotify();
-                        await this.$store.dispatch("loadAllComponents");
-                        await this.$store.dispatch('setAllRoutes');
-                        this.$router.push({name: 'ComponentsAdmin'});
-                    }).catch(error => {
+                this.$request(
+                    this.$AdminApi.ComponentsAdmin.AddComponent,
+                    this.component,
+                    true
+                ).then(async () => {
+                    this.$successNotify();
+                    await this.$store.dispatch('loadAllComponents');
+                    await this.$store.dispatch('setAllRoutes');
+                    this.$router.push({name: 'ComponentsAdmin'});
+                }).catch(error => {
                     this.$errorNotify(error);
                     this.loading = false;
                 });

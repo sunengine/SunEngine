@@ -44,18 +44,16 @@
 
                 this.loading = true;
 
-                this.$store.dispatch('request',
-                    {
-                        url: '/Admin/ComponentsAdmin/UpdateComponent',
-                        data: this.component,
-                        sendAsJson: true
-                    })
-                    .then(async () => {
-                        this.$successNotify();
-                        await this.$store.dispatch("loadAllComponents");
-                        await this.$store.dispatch('setAllRoutes');
-                        this.$router.push({name: 'ComponentsAdmin'});
-                    }).catch(error => {
+                this.$request(
+                    this.$AdminApi.ComponentsAdmin.UpdateComponent,
+                    this.component,
+                    true
+                ).then(async () => {
+                    this.$successNotify();
+                    await this.$store.dispatch("loadAllComponents");
+                    await this.$store.dispatch('setAllRoutes');
+                    this.$router.push({name: 'ComponentsAdmin'});
+                }).catch(error => {
                     this.$errorNotify(error);
                     this.loading = false;
                 });
@@ -70,32 +68,27 @@
                     ok: btnDeleteOk,
                     cancel: btnDeleteCancel
                 }).onOk(() =>
-                    this.$store.dispatch('request',
+                    this.$request(
+                        this.$AdminApi.ComponentsAdmin.DeleteComponent,
                         {
-                            url: '/Admin/ComponentsAdmin/DeleteComponent',
-                            data: {
-                                componentId: this.component.id
-                            }
-                        })
-                        .then(() => {
-                            this.$successNotify(null, "warning");
-                            this.$router.push({name: 'ComponentsAdmin'});
-                        }).catch(error => {
+                            componentId: this.component.id
+                        }).then(() => {
+                        this.$successNotify(null, "warning");
+                        this.$router.push({name: 'ComponentsAdmin'});
+                    }).catch(error => {
                         this.$errorNotify(error);
                         this.loading = false;
                     }));
             },
             loadData() {
-                this.$store.dispatch('request',
+                this.$request(
+                    this.$AdminApi.ComponentsAdmin.GetComponent,
                     {
-                        url: '/Admin/ComponentsAdmin/GetComponent',
-                        data: {
-                            name: this.name
-                        }
-                    })
-                    .then(response => {
-                        this.component = response.data;
-                    });
+                        name: this.name
+                    }
+                ).then(response => {
+                    this.component = response.data;
+                });
             }
         },
         beforeCreate() {

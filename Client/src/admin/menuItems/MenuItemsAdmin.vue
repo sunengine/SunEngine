@@ -21,141 +21,133 @@
 </template>
 
 <script>
-  import {Page} from 'sun'
+    import {Page} from 'sun'
 
-  export default {
-    name: "MenuItemsAdmin",
-    mixins: [Page],
-    data() {
-      return {
-        menuItems: null,
-      }
-    },
-    computed: {
-      lastIndex() {
-        return this.menuItems.length - 1;
-      }
-    },
-    methods: {
-      async changeIsHidden(menuItem) {
-        await this.$store.dispatch('request',
-          {
-            url: '/Admin/MenuAdmin/SetIsHidden',
-            data: {
-              id: menuItem.id,
-              isHidden: !menuItem.isHidden,
+    export default {
+        name: "MenuItemsAdmin",
+        mixins: [Page],
+        data() {
+            return {
+                menuItems: null,
             }
-          }).then((response) => {
-          this.setData(response.data);
-          this.$store.dispatch("loadAllMenuItems");
-        });
-      },
-      async deleteMenuItem(menuItem) {
-        const deleteMsg = this.$tl('deleteMsg');
-        const btnDeleteOk = this.$tl('btnDeleteOk');
-        const btnDeleteCancel = this.$tl('btnDeleteCancel');
+        },
+        computed: {
+            lastIndex() {
+                return this.menuItems.length - 1;
+            }
+        },
+        methods: {
+            async changeIsHidden(menuItem) {
+                await this.$request(
+                    this.$AdminApi.MenuAdmin.SetIsHidden,
+                    {
+                        id: menuItem.id,
+                        isHidden: !menuItem.isHidden,
+                    }).then((response) => {
+                    this.setData(response.data);
+                    this.$store.dispatch("loadAllMenuItems");
+                });
+            },
+            async deleteMenuItem(menuItem) {
+                const deleteMsg = this.$tl('deleteMsg');
+                const btnDeleteOk = this.$tl('btnDeleteOk');
+                const btnDeleteCancel = this.$tl('btnDeleteCancel');
 
-        this.$q.dialog({
-          message: deleteMsg,
-          ok: btnDeleteOk,
-          cancel: btnDeleteCancel
-        }).onOk(async () => {
-          await this.$store.dispatch('request',
-            {
-              url: '/Admin/MenuAdmin/Delete',
-              data: {
-                id: menuItem.id
-              }
-            }).then((response) => {
-            this.setData(response.data);
-            this.$store.dispatch("loadAllMenuItems");
-          });
-        });
-      },
-      async edit(menuItem) {
-        this.$router.push({name: 'EditMenuItem', params: {menuItemId: menuItem.id}});
-      },
-      async add(menuItem) {
-        this.$router.push({name: 'CreateMenuItem', params: {parentMenuItemId: menuItem.id}});
-      },
-      async up(menuItem) {
-        await this.$store.dispatch('request',
-          {
-            url: '/Admin/MenuAdmin/Up',
-            data: {
-              id: menuItem.id
-            }
-          }).then((response) => {
-          this.setData(response.data);
-          this.$store.dispatch("loadAllMenuItems");
-        });
-      },
-      async down(menuItem) {
-        await this.$store.dispatch('request',
-          {
-            url: '/Admin/MenuAdmin/Down',
-            data: {
-              id: menuItem.id
-            }
-          }).then((response) => {
-          this.setData(response.data);
-          this.$store.dispatch("loadAllMenuItems");
-        });
-      },
-      prepareMenuItems(allMenuItems) {
-        let menuItemsById = {};
+                this.$q.dialog({
+                    message: deleteMsg,
+                    ok: btnDeleteOk,
+                    cancel: btnDeleteCancel
+                }).onOk(async () => {
+                    await this.$request(
+                        this.$AdminApi.MenuAdmin.Delete,
+                        {
+                            id: menuItem.id
+                        }
+                    ).then((response) => {
+                        this.setData(response.data);
+                        this.$store.dispatch("loadAllMenuItems");
+                    });
+                });
+            },
+            async edit(menuItem) {
+                this.$router.push({name: 'EditMenuItem', params: {menuItemId: menuItem.id}});
+            },
+            async add(menuItem) {
+                this.$router.push({name: 'CreateMenuItem', params: {parentMenuItemId: menuItem.id}});
+            },
+            async up(menuItem) {
+                await this.$request(
+                    this.$AdminApi.MenuAdmin.Up,
+                    {
+                        id: menuItem.id
+                    }).then((response) => {
+                    this.setData(response.data);
+                    this.$store.dispatch("loadAllMenuItems");
+                });
+            },
+            async down(menuItem) {
+                await this.$request(
+                    this.$AdminApi.MenuAdmin.Down,
+                    {
+                        id: menuItem.id
 
-        for (const menuItem of allMenuItems) {
-          menuItemsById[menuItem.id.toString()] = menuItem;
+                    }).then((response) => {
+                    this.setData(response.data);
+                    this.$store.dispatch("loadAllMenuItems");
+                });
+            },
+            prepareMenuItems(allMenuItems) {
+                let menuItemsById = {};
+
+                for (const menuItem of allMenuItems) {
+                    menuItemsById[menuItem.id.toString()] = menuItem;
+                }
+
+                let root;
+
+                for (let menuItem of allMenuItems) {
+                    if (menuItem.parentId) {
+                        const parent = menuItemsById[menuItem.parentId.toString()];
+                        if (!parent)
+                            continue;
+
+                        if (!parent.subMenuItems)
+                            parent.subMenuItems = [];
+
+                        parent.subMenuItems.push(menuItem);
+                        menuItem.parent = parent;
+
+                    } else {
+                        root = menuItem;
+                    }
+                }
+
+                return root.subMenuItems;
+            },
+            setData(data) {
+                this.menuItems = this.prepareMenuItems(data);
+            },
+            async loadData() {
+                await this.$request(
+                    this.$AdminApi.MenuAdmin.GetMenuItems
+                ).then(
+                    response => {
+                        this.setData(response.data);
+                    }
+                ).catch(error => {
+                    this.$errorNotify(error);
+                });
+            }
+        },
+        beforeCreate() {
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
+            this.$options.components.MenuAdminItem = require('sun').MenuAdminItem;
+        },
+        async created() {
+            this.title = this.$tl('title');
+            await this.loadData();
         }
-
-        let root;
-
-        for (let menuItem of allMenuItems) {
-          if (menuItem.parentId) {
-            const parent = menuItemsById[menuItem.parentId.toString()];
-            if (!parent)
-              continue;
-
-            if (!parent.subMenuItems)
-              parent.subMenuItems = [];
-
-            parent.subMenuItems.push(menuItem);
-            menuItem.parent = parent;
-
-          } else {
-            root = menuItem;
-          }
-        }
-
-        return root.subMenuItems;
-      },
-      setData(data) {
-        this.menuItems = this.prepareMenuItems(data);
-      },
-      async loadData() {
-        await this.$store.dispatch('request',
-          {
-            url: '/Admin/MenuAdmin/GetMenuItems',
-          })
-          .then(
-            response => {
-              this.setData(response.data);
-            }
-          ).catch(error => {
-            this.$errorNotify(error);
-          });
-      }
-    },
-    beforeCreate() {
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
-      this.$options.components.MenuAdminItem = require('sun').MenuAdminItem;
-    },
-    async created() {
-      this.title = this.$tl('title');
-      await this.loadData();
     }
-  }
 
 </script>
 

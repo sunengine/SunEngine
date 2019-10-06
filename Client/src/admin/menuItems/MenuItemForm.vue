@@ -89,245 +89,240 @@
 </template>
 
 <script>
-  import {isJson} from 'sun';
+    import {isJson} from 'sun';
 
 
-  function createRules() {
-    return {
-      name: [
-        value => (!value || value.length >= 3) || this.$tl('validation.name.minLength'),
-        value => (!value || value.length <= config.DbColumnSizes.MenuItems_Name) || this.$tl('validation.name.maxLength'),
-        value => /^[a-zA-Z0-9_-]*$/.test(value) || this.$tl('validation.name.allowedChars'),
-      ],
-      title: [
-        value => !!value || this.$tl('validation.title.required'),
-        value => (!value || value.length >= 3) || this.$tl('validation.title.minLength'),
-        value => value.length <= config.DbColumnSizes.MenuItems_Title || this.$tl('validation.title.maxLength'),
-      ],
-      subTitle: [
-        value => (!value || value.length >= 3) || this.$tl('validation.subTitle.minLength'),
-        value => (!value || value.length) <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl('validation.subTitle.maxLength'),
-      ],
-      url: [],
-      cssClass: [
-        value => (!value || value.length >= 3) || this.$tl('validation.cssClass.minLength'),
-        value => (!value || value.length) <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl('validation.cssClass.maxLength'),
-      ],
-      icon: [
-        value => (!value || value.length >= 3) || this.$tl('validation.icon.minLength'),
-        value => (!value || value.length) <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl('validation.icon.maxLength'),
-      ],
-      settingsJson: [
-        value => (!value || isJson(value)) || this.$tl('validation.settingsJson.jsonFormatError')
-      ]
+    function createRules() {
+        return {
+            name: [
+                value => (!value || value.length >= 3) || this.$tl('validation.name.minLength'),
+                value => (!value || value.length <= config.DbColumnSizes.MenuItems_Name) || this.$tl('validation.name.maxLength'),
+                value => /^[a-zA-Z0-9_-]*$/.test(value) || this.$tl('validation.name.allowedChars'),
+            ],
+            title: [
+                value => !!value || this.$tl('validation.title.required'),
+                value => (!value || value.length >= 3) || this.$tl('validation.title.minLength'),
+                value => value.length <= config.DbColumnSizes.MenuItems_Title || this.$tl('validation.title.maxLength'),
+            ],
+            subTitle: [
+                value => (!value || value.length >= 3) || this.$tl('validation.subTitle.minLength'),
+                value => (!value || value.length) <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl('validation.subTitle.maxLength'),
+            ],
+            url: [],
+            cssClass: [
+                value => (!value || value.length >= 3) || this.$tl('validation.cssClass.minLength'),
+                value => (!value || value.length) <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl('validation.cssClass.maxLength'),
+            ],
+            icon: [
+                value => (!value || value.length >= 3) || this.$tl('validation.icon.minLength'),
+                value => (!value || value.length) <= config.DbColumnSizes.MenuItems_SubTitle || this.$tl('validation.icon.maxLength'),
+            ],
+            settingsJson: [
+                value => (!value || isJson(value)) || this.$tl('validation.settingsJson.jsonFormatError')
+            ]
+        }
     }
-  }
 
 
-
-  export default {
-    name: 'MenuItemForm',
-    props: {
-      menuItem: {
-        type: Object,
-        required: true
-      }
-    },
-    data() {
-      return {
-        url: '',
-        urlError: false,
-        parentOptions: null,
-        menuItemsById: null,
-        selectedParentMenuItem: null,
-        roles: null,
-        allRoles: null
-      }
-    },
-    watch: {
-      'url': 'urlUpdated',
-      'roles': 'rolesUpdated'
-    },
-    computed: {
-      parentTitle() {
-        const key = this.menuItem.parentId;
-        if (!this.menuItemsById[key])
-          return '';
-        else
-          return this.menuItemsById[key].title;
-      },
-      parentIcon() {
-        const key = this.menuItem.parentId;
-        if (!this.menuItemsById[key])
-          return null;
-        else
-          return this.menuItemsById[key].icon;
-      },
-      hasError() {
-        return this.$refs.name.hasError ||
-          this.$refs.title.hasError ||
-          this.$refs.subTitle.hasError ||
-          this.$refs.cssClass.hasError ||
-          this.$refs.icon.hasError ||
-          this.$refs.settingsJson.hasError;
-      }
-    },
-    methods: {
-      rolesUpdated() {
-        this.menuItem.roles = this.roles.map(x => x.name).join(',');
-      },
-      getUrl() {
-        if (!this.menuItem)
-          return;
-
-        if (this.menuItem.routeName) {
-          const resolved = this.$router.resolve(
-            {
-              name: this.menuItem.routeName,
-              params: this.menuItem.routeParamsJson ? JSON.parse(this.menuItem.routeParamsJson) : undefined
-            });
-          if (resolved && resolved.href) {
-            this.url = resolved.href;
-          }
-        } else if (this.menuItem.externalUrl) {
-          this.url = this.menuItem.externalUrl;
-        }
-      },
-      /*pull() {  TODO Needed for future release to push and pull information from route url, parse it and set menuItem.title, subTitle and icon from route page
-        if (this.menuItem?.routeParamsJson) {
-          const routeParams =  JSON.parse(this.menuItem.routeParamsJson);
-          if(routeParams.idOrName)
-            alert('mat ' + routeParams.idOrName);
-        }
-        if(/articles|forum|blog/.test(this.menuItem.routeName)) {
-          const routeParams =  JSON.parse(this.menuItem.routeParamsJson);
-          if(routeParams && routeParams.categoryName) {
-            alert('cat ' + routeParams.categoryName);
-          }
-          else {
-            alert('cat ' + this.menuItem.routeName);
-          }
-        }
-      },*/
-      validate() {
-        this.$refs.name.validate();
-        this.$refs.title.validate();
-        this.$refs.subTitle.validate();
-        this.$refs.cssClass.validate();
-        this.$refs.icon.validate();
-        this.$refs.settingsJson.validate();
-      },
-      urlUpdated() {
-
-        const resolve = function resolve(url) {
-          if (!url) {
-            this.menuItem.routeName = '';
-            this.menuItem.routeParamsJson = '';
-            this.menuItem.externalUrl = '';
-            this.urlError = false;
-            return;
-          }
-
-          const resolved = this.$router.resolve(url);
-
-          if (resolved && resolved.route && resolved.route.name) {
-            this.menuItem.routeName = resolved.route.name;
-            this.menuItem.routeParamsJson = JSON.stringify(resolved.route.params);
-            if (this.menuItem.routeParamsJson === '{}') {
-              this.menuItem.routeParamsJson = null;
+    export default {
+        name: 'MenuItemForm',
+        props: {
+            menuItem: {
+                type: Object,
+                required: true
             }
-            this.menuItem.externalUrl = '';
-            this.urlError = false;
-          } else {
-            this.menuItem.routeName = '';
-            this.menuItem.routeParamsJson = '';
-            this.menuItem.externalUrl = '';
-            this.urlError = true;
-          }
-        }.bind(this);
-
-        if (this.url.startsWith(config.SiteUrl)) {
-          const lastPart = this.url.substring(config.SiteUrl.length);
-          resolve(lastPart);
-        } else if (this.url.startsWith('http://') || this.url.startsWith('https://')) {
-          this.menuItem.routeName = '';
-          this.menuItem.routeParamsJson = '';
-          this.menuItem.externalUrl = this.url;
-          this.urlError = false;
-        } else {
-          resolve(this.url);
-        }
-      },
-      prepareMenuItems(allMenuItems) {
-
-        this.menuItemsById = {};
-
-        for (const menuItem of allMenuItems) {
-          this.menuItemsById[menuItem.id.toString()] = menuItem;
-
-        }
-
-        let root;
-
-        for (let menuItem of allMenuItems) {
-          if (menuItem.parentId) {
-            const parent = this.menuItemsById[menuItem.parentId.toString()];
-            if (!parent)
-              continue;
-
-            if (!parent.children)
-              parent.children = [];
-
-            parent.children.push(menuItem);
-            menuItem.parent = parent;
-
-            if (!menuItem.icon)
-              menuItem.icon = 'far fa-file';
-          } else {
-            root = menuItem;
-            root.icon = 'fas fa-dot-circle';
-          }
-        }
-
-        this.parentOptions = [root];
-      },
-      loadData() {
-        this.$store.dispatch('request',
-          {
-            url: '/Admin/MenuAdmin/GetMenuItems',
-          })
-          .then(
-            response => {
-              this.prepareMenuItems(response.data);
+        },
+        data() {
+            return {
+                url: '',
+                urlError: false,
+                parentOptions: null,
+                menuItemsById: null,
+                selectedParentMenuItem: null,
+                roles: null,
+                allRoles: null
             }
-          ).catch(error => {
-          this.$errorNotify(error);
-        });
-        this.$store.dispatch('request',
-          {
-            url: '/Admin/UserRolesAdmin/GetAllRoles'
-          })
-          .then(response => {
-              this.allRoles = response.data;
-              this.allRoles.push({
-                name: 'Unregistered',
-                title: 'Гость'
-              });
-              const menuItemRoles = this.menuItem.roles.split(',');
-              this.roles = this.allRoles.filter(x => menuItemRoles.some(y => y === x.name));
+        },
+        watch: {
+            'url': 'urlUpdated',
+            'roles': 'rolesUpdated'
+        },
+        computed: {
+            parentTitle() {
+                const key = this.menuItem.parentId;
+                if (!this.menuItemsById[key])
+                    return '';
+                else
+                    return this.menuItemsById[key].title;
+            },
+            parentIcon() {
+                const key = this.menuItem.parentId;
+                if (!this.menuItemsById[key])
+                    return null;
+                else
+                    return this.menuItemsById[key].icon;
+            },
+            hasError() {
+                return this.$refs.name.hasError ||
+                    this.$refs.title.hasError ||
+                    this.$refs.subTitle.hasError ||
+                    this.$refs.cssClass.hasError ||
+                    this.$refs.icon.hasError ||
+                    this.$refs.settingsJson.hasError;
             }
-          );
-      }
-    },
-    beforeCreate() {
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
-    },
-    async created() {
-      this.rules = createRules.call(this);
-      await this.loadData();
-      this.getUrl();
+        },
+        methods: {
+            rolesUpdated() {
+                this.menuItem.roles = this.roles.map(x => x.name).join(',');
+            },
+            getUrl() {
+                if (!this.menuItem)
+                    return;
+
+                if (this.menuItem.routeName) {
+                    const resolved = this.$router.resolve(
+                        {
+                            name: this.menuItem.routeName,
+                            params: this.menuItem.routeParamsJson ? JSON.parse(this.menuItem.routeParamsJson) : undefined
+                        });
+                    if (resolved && resolved.href) {
+                        this.url = resolved.href;
+                    }
+                } else if (this.menuItem.externalUrl) {
+                    this.url = this.menuItem.externalUrl;
+                }
+            },
+            /*pull() {  TODO Needed for future release to push and pull information from route url, parse it and set menuItem.title, subTitle and icon from route page
+              if (this.menuItem?.routeParamsJson) {
+                const routeParams =  JSON.parse(this.menuItem.routeParamsJson);
+                if(routeParams.idOrName)
+                  alert('mat ' + routeParams.idOrName);
+              }
+              if(/articles|forum|blog/.test(this.menuItem.routeName)) {
+                const routeParams =  JSON.parse(this.menuItem.routeParamsJson);
+                if(routeParams && routeParams.categoryName) {
+                  alert('cat ' + routeParams.categoryName);
+                }
+                else {
+                  alert('cat ' + this.menuItem.routeName);
+                }
+              }
+            },*/
+            validate() {
+                this.$refs.name.validate();
+                this.$refs.title.validate();
+                this.$refs.subTitle.validate();
+                this.$refs.cssClass.validate();
+                this.$refs.icon.validate();
+                this.$refs.settingsJson.validate();
+            },
+            urlUpdated() {
+
+                const resolve = function resolve(url) {
+                    if (!url) {
+                        this.menuItem.routeName = '';
+                        this.menuItem.routeParamsJson = '';
+                        this.menuItem.externalUrl = '';
+                        this.urlError = false;
+                        return;
+                    }
+
+                    const resolved = this.$router.resolve(url);
+
+                    if (resolved && resolved.route && resolved.route.name) {
+                        this.menuItem.routeName = resolved.route.name;
+                        this.menuItem.routeParamsJson = JSON.stringify(resolved.route.params);
+                        if (this.menuItem.routeParamsJson === '{}') {
+                            this.menuItem.routeParamsJson = null;
+                        }
+                        this.menuItem.externalUrl = '';
+                        this.urlError = false;
+                    } else {
+                        this.menuItem.routeName = '';
+                        this.menuItem.routeParamsJson = '';
+                        this.menuItem.externalUrl = '';
+                        this.urlError = true;
+                    }
+                }.bind(this);
+
+                if (this.url.startsWith(config.SiteUrl)) {
+                    const lastPart = this.url.substring(config.SiteUrl.length);
+                    resolve(lastPart);
+                } else if (this.url.startsWith('http://') || this.url.startsWith('https://')) {
+                    this.menuItem.routeName = '';
+                    this.menuItem.routeParamsJson = '';
+                    this.menuItem.externalUrl = this.url;
+                    this.urlError = false;
+                } else {
+                    resolve(this.url);
+                }
+            },
+            prepareMenuItems(allMenuItems) {
+
+                this.menuItemsById = {};
+
+                for (const menuItem of allMenuItems) {
+                    this.menuItemsById[menuItem.id.toString()] = menuItem;
+
+                }
+
+                let root;
+
+                for (let menuItem of allMenuItems) {
+                    if (menuItem.parentId) {
+                        const parent = this.menuItemsById[menuItem.parentId.toString()];
+                        if (!parent)
+                            continue;
+
+                        if (!parent.children)
+                            parent.children = [];
+
+                        parent.children.push(menuItem);
+                        menuItem.parent = parent;
+
+                        if (!menuItem.icon)
+                            menuItem.icon = 'far fa-file';
+                    } else {
+                        root = menuItem;
+                        root.icon = 'fas fa-dot-circle';
+                    }
+                }
+
+                this.parentOptions = [root];
+            },
+            loadData() {
+                this.$request(
+                    this.$AdminApi.MenuAdmin.GetMenuItems
+                ).then(
+                    response => {
+                        this.prepareMenuItems(response.data);
+                    }
+                ).catch(error => {
+                    this.$errorNotify(error);
+                });
+                this.$request(
+                    this.$AdminApi.UserRolesAdmin.GetAllRoles
+                ).then(response => {
+                        this.allRoles = response.data;
+                        this.allRoles.push({
+                            name: 'Unregistered',
+                            title: 'Гость'
+                        });
+                        const menuItemRoles = this.menuItem.roles.split(',');
+                        this.roles = this.allRoles.filter(x => menuItemRoles.some(y => y === x.name));
+                    }
+                );
+            }
+        },
+        beforeCreate() {
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
+        },
+        async created() {
+            this.rules = createRules.call(this);
+            await this.loadData();
+            this.getUrl();
+        }
     }
-  }
 
 </script>
 

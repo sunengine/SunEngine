@@ -22,108 +22,101 @@
 </template>
 
 <script>
-  import {Page} from 'sun';
+    import {Page} from 'sun';
 
 
-  export default {
-    name: 'EditCategory',
-    mixins: [Page],
-    props: {
-      categoryId: {
-        type: Number,
-        required: true
-      }
-    },
-    data: function () {
-      return {
-        category: null,
-        loading: false
-      }
-    },
-    methods: {
-      async tryDelete() {
-        const msg = this.$tl('deleteConfirm');
-        const btnOk = this.$tl('deleteDialogBtnOk');
-        const btnCancel = this.$tl('deleteDialogBtnCancel');
-        this.$q.dialog({
-          message: msg,
-          ok: btnOk,
-          cancel: btnCancel
-        }).onOk(() => {
-          this.delete();
-        });
-      },
-      delete() {
-        this.$store.dispatch('request',
-          {
-            url: '/Admin/CategoriesAdmin/CategoryMoveToTrash',
-            data: {
-              name: this.category.name
+    export default {
+        name: 'EditCategory',
+        mixins: [Page],
+        props: {
+            categoryId: {
+                type: Number,
+                required: true
             }
-          })
-          .then(() => {
-            const msg = this.$tl('deletedNotify');
-            this.$successNotify(msg, 'warning', 5000);
-            this.$router.push({name: 'CategoriesAdmin'});
-            this.loading = false;
-          }).catch(error => {
-          this.$errorNotify(error);
-        });
-      },
-      async loadData() {
-        await this.$store.dispatch('request',
-          {
-            url: '/Admin/CategoriesAdmin/GetCategory',
-            data: {
-              id: this.categoryId
+        },
+        data: function () {
+            return {
+                category: null,
+                loading: false
             }
-          })
-          .then(
-            response => {
-              this.category = response.data;
-              if (!this.category.header)
-                this.category.header = '';
-              this.loading = false;
-            }).catch(error => {
-            this.$errorNotify(error);
-          });
-      },
-      async save() {
-        const form = this.$refs.form;
-        form.validate();
-        if (form.hasError)
-          return;
+        },
+        methods: {
+            async tryDelete() {
+                const msg = this.$tl('deleteConfirm');
+                const btnOk = this.$tl('deleteDialogBtnOk');
+                const btnCancel = this.$tl('deleteDialogBtnCancel');
+                this.$q.dialog({
+                    message: msg,
+                    ok: btnOk,
+                    cancel: btnCancel
+                }).onOk(() => {
+                    this.delete();
+                });
+            },
+            delete() {
+                this.$request(
+                    this.$AdminApi.CategoriesAdmin.CategoryMoveToTrash,
+                    {
+                        name: this.category.name
+                    }
+                ).then(() => {
+                    const msg = this.$tl('deletedNotify');
+                    this.$successNotify(msg, 'warning', 5000);
+                    this.$router.push({name: 'CategoriesAdmin'});
+                    this.loading = false;
+                }).catch(error => {
+                    this.$errorNotify(error);
+                });
+            },
+            async loadData() {
+                await this.$request(
+                    this.$AdminApi.CategoriesAdmin.GetCategory,
+                    {
+                        id: this.categoryId
+                    }
+                ).then(
+                    response => {
+                        this.category = response.data;
+                        if (!this.category.header)
+                            this.category.header = '';
+                        this.loading = false;
+                    }).catch(error => {
+                    this.$errorNotify(error);
+                });
+            },
+            save() {
+                const form = this.$refs.form;
+                form.validate();
+                if (form.hasError)
+                    return;
 
+                this.loading = true;
 
-        this.loading = true;
-
-        await this.$store.dispatch('request',
-          {
-            url: '/Admin/CategoriesAdmin/UpdateCategory',
-            data: this.category,
-            sendAsJson: true
-          })
-          .then(async () => {
-            this.$successNotify();
-            await this.$store.dispatch("loadAllCategories");
-            await this.$store.dispatch("setAllRoutes");
-            this.$router.push({name: 'CategoriesAdmin'});
-          }).catch(error => {
-            this.$errorNotify(error);
-            this.loading = false;
-          });
-      }
-    },
-    beforeCreate() {
-      this.$options.components.CategoryForm = require('sun').CategoryForm;
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
-      this.$options.components.LoaderSent = require('sun').LoaderSent;
-    },
-    async created() {
-      await this.loadData();
-      this.title = this.$tl('title') + ': ' + this.category.title
-    }
-  };
+                this.$request(
+                    this.$AdminApi.CategoriesAdmin.UpdateCategory,
+                    this.category,
+                    true
+                ).then(async () => {
+                    this.$successNotify();
+                    await this.$store.dispatch("loadAllCategories");
+                    await this.$store.dispatch("setAllRoutes");
+                    this.$router.push({name: 'CategoriesAdmin'});
+                }).catch(error => {
+                    this.$errorNotify(error);
+                    this.loading = false;
+                });
+            }
+        },
+        beforeCreate() {
+            this.$options.components.CategoryForm = require('sun').CategoryForm;
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
+            this.$options.components.LoaderSent = require('sun').LoaderSent;
+        },
+        async created() {
+            await this.loadData();
+            this.title = this.$tl('title') + ': ' + this.category.title
+        }
+    };
 
 </script>
 

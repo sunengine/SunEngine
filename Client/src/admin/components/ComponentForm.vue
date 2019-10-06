@@ -53,7 +53,7 @@
     }
 
     export default {
-        name: "ComponentForm",
+        name: 'ComponentForm',
         props: {
             component: {
                 type: Object,
@@ -99,20 +99,18 @@
                 this.$refs.clientSettingsJson.validate();
             },
             loadRoles() {
-                this.$store.dispatch('request',
-                    {
-                        url: '/Admin/UserRolesAdmin/GetAllRoles'
-                    })
-                    .then(response => {
-                            this.allRoles = response.data;
-                            this.allRoles.push({
-                                name: 'Unregistered',
-                                title: 'Гость'
-                            });
-                            const componentRoles = this.component.roles.split(',');
-                            this.roles = this.allRoles.filter(x => componentRoles.some(y => y === x.name));
-                        }
-                    );
+                this.$request(
+                    this.$AdminApi.UserRolesAdmin.GetAllRoles
+                ).then(response => {
+                        this.allRoles = response.data;
+                        this.allRoles.push({
+                            name: 'Unregistered',
+                            title: 'Гость'
+                        });
+                        const componentRoles = this.component.roles.split(',');
+                        this.roles = this.allRoles.filter(x => componentRoles.some(y => y === x.name));
+                    }
+                );
             }
         },
         beforeCreate() {
