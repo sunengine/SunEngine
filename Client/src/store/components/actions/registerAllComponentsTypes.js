@@ -9,7 +9,7 @@ export default function (context) {
   context.commit('registerComponentType', postsComponent);
   context.commit('registerComponentType', activitiesComponent);
 
-   registerComponentsSite(context);
+  registerComponentsSite(context);
 
   console.info('%cComponents registered', consoleInit, config.Log.InitExtended ? context.state.allComponents : '');
 }

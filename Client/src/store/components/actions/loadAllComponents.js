@@ -1,20 +1,19 @@
 import {consoleInit} from 'sun'
+import {request} from 'sun'
+import {Api} from 'sun'
 
-export default async function(context,  data) {
+export default function (context, data) {
 
-  let requestData = {
-    url: '/Components/GetAllComponents'
-  };
-
-  if (data?.skipLock)
-    requestData.skipLock = true;
-
-  return await context.dispatch('request', requestData)
-    .then(response => {
-      console.info('%cLoadAllComponents', consoleInit, config.Log.InitExtended ? response.data : '');
-      context.state.allComponents = {};
-      for(const comp of response.data) {
-        context.state.allComponents[comp.name.toLowerCase()] = comp;
-      }
-    });
+  return request(
+    Api.Components.GetAllComponents,
+    {
+      skipLock: true
+    }
+  ).then(response => {
+    console.info('%cLoadAllComponents', consoleInit, config.Log.InitExtended ? response.data : '');
+    context.state.allComponents = {};
+    for (const comp of response.data) {
+      context.state.allComponents[comp.name.toLowerCase()] = comp;
+    }
+  });
 }

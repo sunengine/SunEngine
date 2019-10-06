@@ -1,7 +1,7 @@
 export default {
   Blog: {
     GetPosts: '/Blog/GetPosts',
-    GetPostsFromMultiCategories: "/Blog/GetPostsFromMultiCategories"
+    GetPostsFromMultiCategories: '/Blog/GetPostsFromMultiCategories'
   },
   Profile: {
     BanUser: '/Profile/BanUser',
@@ -17,7 +17,8 @@ export default {
     RemoveMyAvatar: '/Personal/RemoveMyAvatar',
     GetMyBanList: '/Personal/GetMyBanList',
     GetMySessions: '/Personal/GetMySessions',
-    RemoveMySessions: '/Personal/RemoveMySessions'
+    RemoveMySessions: '/Personal/RemoveMySessions',
+    GetMyUserInfo: '/Personal/GetMyUserInfo'
   },
   UploadImages: {
     UploadUserPhoto: '/UploadImages/UploadUserPhoto',
@@ -40,6 +41,8 @@ export default {
     GetNewTopics: '/Forum/GetNewTopics'
   },
   Auth: {
+    Login: '/Auth/Login',
+    Logout: '/Auth/Logout',
     Register: '/Auth/Register',
     CheckUserNameInDb: '/Auth/CheckUserNameInDb'
   },
@@ -57,5 +60,14 @@ export default {
     ChangeEmail: '/Account/ChangeEmail',
     ChangePassword: '/Account/ChangePassword',
     ResetPasswordSetNew: '/Account/ResetPasswordSetNew'
-  }
+  },
+  Menu: {
+    GetAllMenuItems: '/Menu/GetAllMenuItems',
+  },
+  Components: {
+    GetAllComponents: '/Components/GetAllComponents'
+  },
+  Categories: {
+    GetAllCategoriesAndAccesses: '/Categories/GetAllCategoriesAndAccesses'
+  },
 }
