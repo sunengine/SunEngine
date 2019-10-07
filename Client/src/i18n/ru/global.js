@@ -17,7 +17,9 @@ export default {
     },
     errorNotify: "Ошибка",
     successNotify: "Операция выполнена успешно",
-    submitting: "Отправляю данные..."
+    submitting: "Отправляю данные...",
+    apiError: "Ошибка Api",
+    refresh: "Перегрузить"
   },
   App: {
     loading: "Загрузка...",

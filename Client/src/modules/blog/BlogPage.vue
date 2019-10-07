@@ -11,9 +11,11 @@
     </div>
     <div v-html="category.header" v-if="category.header" class="q-mb-sm"></div>
 
-    <PostsList :posts="posts" />
+    <PostsList v-if="posts" :posts="posts"/>
 
-    <q-pagination class="page-padding q-mt-md" v-if="posts.totalPages > 1" v-model="posts.pageIndex" color="pagination"
+    <LoaderWait v-else />
+
+    <q-pagination class="page-padding q-mt-md" v-if="posts && posts.totalPages > 1" v-model="posts.pageIndex" color="pagination"
                   :max-pages="12" :max="posts.totalPages" ellipses direction-links @input="pageChanges"/>
 
 
@@ -34,7 +36,7 @@
         },
         data() {
             return {
-                posts: Object,
+                posts: null,
             }
         },
         watch: {
@@ -58,11 +60,9 @@
                         page: this.currentPage,
                         showDeleted: (this.$store.state.admin.showDeletedElements || this.$route.query.deleted) ? true : undefined
                     }
-                ).then(
-                    response => {
-                        this.posts = response.data;
-                    }
-                );
+                ).then(response => {
+                    this.posts = response.data;
+                });
             }
         },
         beforeCreate() {

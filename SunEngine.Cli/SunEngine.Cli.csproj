@@ -3,8 +3,8 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <LangVersion>latest</LangVersion>
-        <Version>1.11.5</Version>
-        <PackageVersion>1.11.5</PackageVersion>
+        <Version>1.12.1</Version>
+        <PackageVersion>1.12.1</PackageVersion>
         <Title>SunEngine</Title>
         <Authors>Dmitrii Polianin</Authors>
         <Description>Site engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>
@@ -21,7 +21,7 @@
             <AllowExplicitVersion>true</AllowExplicitVersion>
         </PackageReference>
         <PackageReference Include="System.Linq" Version="4.3.0" />
-        <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
+        <PackageReference Include="System.Runtime.Caching" Version="4.6.0" />
     </ItemGroup>
     
     <ItemGroup>

@@ -10,57 +10,64 @@
     </div>
 
     <div v-else-if="initializeError" class="api-error">
-      <q-banner rounded class="bg-negative text-white shadow-3">
-        <template v-slot:avatar>
-          <q-icon name="fas fa-exclamation-triangle" size="1.6em"/>
-        </template>
-       {{$tl('canNotConnectApi')}}
-      </q-banner>
+      <p>
+        <img src="/statics/sad.svg" style="width:30vw;max-width:150px;">
+      </p>
+      <p class="error-info">
+        {{$tl('canNotConnectApi')}}
+      </p>
+      <q-btn  icon="fa fa-sync-alt" color="grey" @click="refresh" flat no-caps :label="$t('Global.refresh')"></q-btn>
+
     </div>
   </div>
 </template>
 
 <script>
-  import {mapState} from 'vuex'
-  import Vue from 'vue'
+    import {mapState} from 'vuex'
+    import Vue from 'vue'
 
 
-  import {Layout} from 'sun'
+    import {Layout} from 'sun'
 
 
-  var app;
+    var app;
 
 
-  Vue.config.devtools = config.VueDevTools;
+    Vue.config.devtools = config.VueDevTools;
 
 
-  export default {
-    name: 'App',
-    components: {Layout},
-    data() {
-      return {
-        rerenderKey: 1
-      }
-    },
-    computed: {
-      ...mapState(['isInitialized', 'initializeError'])
-    },
-    methods: {
-      rerender() {
-        this.rerenderKey += 1;
-      }
-    },
-    beforeCreate() {
-      app = this;
+    export default {
+        name: 'App',
+        components: {Layout},
+        data() {
+            return {
+                rerenderKey: 1
+            }
+        },
+        computed: {
+            ...mapState(['isInitialized', 'initializeError'])
+        },
+        methods: {
+            rerender() {
+                this.rerenderKey += 1;
+            },
+            refresh() {
+                this.$store.state.initializeError = false;
+                this.$store.dispatch('initStore');
+            }
+        },
 
-      if(config.VueAppInWindow)
-        window.app = this;
+        beforeCreate() {
+            app = this;
 
-      this.$store.dispatch('initStore');
+            if (config.VueAppInWindow)
+                window.app = this;
+
+            this.$store.dispatch('initStore');
+        }
     }
-  }
 
-  export {app};
+    export {app};
 
 </script>
 
@@ -73,6 +80,10 @@
       align-items: center;
       align-content: center;
       justify-content: center;
+      flex-direction: column;
+      font-size: 1.2rem;
+      color: grey;
+      font-weight : 400;
     }
 
     .loader {

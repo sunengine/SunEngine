@@ -115,6 +115,8 @@ namespace SunEngine.Core.Controllers
 
             await materialsManager.CreateAsync(material, materialData.Tags, category);
 
+            contentCache.InvalidateCache(category.Id);
+            
             return Ok();
         }
 
@@ -165,6 +167,9 @@ namespace SunEngine.Core.Controllers
                 : null;
             
             await materialsManager.UpdateAsync(material, materialData.Tags, newCategory);
+            
+            contentCache.InvalidateCache(material.CategoryId);
+
             return Ok();
         }
 
@@ -208,6 +213,9 @@ namespace SunEngine.Core.Controllers
             contentCache.InvalidateCache(material.CategoryId);
 
             await materialsManager.DeleteAsync(material);
+            
+            contentCache.InvalidateCache(material.CategoryId);
+
             return Ok();
         }
 

@@ -7,12 +7,12 @@ export default async function (context) {
 
   console.info("%cStart init store", consoleInit);
 
-  if(hasLongToken())
+  if (hasLongToken()) {
     await context.dispatch('loadMyUserInfo').catch(() => {
       console.error('%cTokens removed', consoleTokens);
       removeTokens();
     });
-
+  }
 
 
   try {
@@ -30,7 +30,7 @@ export default async function (context) {
 
     context.state.isInitialized = true;
 
-  } catch(error) {
+  } catch (error) {
 
     console.error(error);
 

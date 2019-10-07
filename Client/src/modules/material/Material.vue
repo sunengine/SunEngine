@@ -92,12 +92,14 @@
 
     import {date} from 'quasar'
     import {scroll} from 'quasar'
+    import LoaderWait from "../../components/LoaderWait";
 
     const {getScrollTarget, setScrollPosition} = scroll;
 
 
     export default {
         name: 'Material',
+        components: {LoaderWait},
         mixins: [Page],
         props: {
             idOrName: {
@@ -147,7 +149,7 @@
                     && (this.canEdit || !(this.category.settingsJson?.hideFooter || this.material.settingsJson?.hideFooter));
             },
             canCommentWrite() {
-                if (this.material.isCommentsBlocked)
+                if (!this.material || this.material.isCommentsBlocked)
                     return false;
                 return this.category.categoryPersonalAccess.commentWrite;
             },

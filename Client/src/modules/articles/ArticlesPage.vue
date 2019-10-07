@@ -14,6 +14,7 @@
 
     <ArticlesList v-if="articles" :articles="articles" />
 
+    <LoaderWait v-else />
 
     <q-pagination class="page-padding q-mt-md" v-if="articles && articles.totalPages > 1"
                   v-model="articles.pageIndex"

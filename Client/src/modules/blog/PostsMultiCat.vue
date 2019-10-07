@@ -1,6 +1,6 @@
 <template>
   <div class="posts-multi-cat">
-    <PostsList :posts="posts"/>
+    <PostsList v-if="posts" :posts="posts"/>
 
     <q-pagination class="page-padding q-mt-md" v-if="posts && posts.totalPages > 1" v-model="posts.pageIndex"
                   color="pagination"

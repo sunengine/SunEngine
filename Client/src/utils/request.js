@@ -20,6 +20,12 @@ apiAxios.interceptors.response.use(async rez => {
   return rez;
 }, async rez => {
   console.error(rez.response);
+  app.$q.notify({
+    message: app.$t('Global.apiError'),
+    timeout: 1800,
+    color: 'negative',
+    position: 'bottom-right'
+  });
   await checkTokens(rez.response);
   throw rez;
 });

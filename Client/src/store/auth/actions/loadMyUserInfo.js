@@ -3,7 +3,7 @@ import {Api} from 'sun'
 
 export default function (context, data) {
 
-  request(
+  return request(
     Api.Personal.GetMyUserInfo,
     {
       skipLock: data?.skipLock
