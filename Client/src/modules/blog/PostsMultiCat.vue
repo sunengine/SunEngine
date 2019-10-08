@@ -2,7 +2,7 @@
   <div class="posts-multi-cat">
     <PostsList v-if="posts" :posts="posts"/>
 
-    <LoaderWait ref="loaderWait" v-else/>
+    <Loader ref="loaderWait" v-else/>
 
     <q-pagination class="page-padding q-mt-md" v-if="posts && posts.totalPages > 1" v-model="posts.pageIndex"
                   color="pagination"
@@ -41,17 +41,17 @@
         },
         methods: {
             loadData() {
-                this.$request(
-                    this.$Api.Blog.GetPostsFromMultiCategories,
+                this.$request(this.$Api.Blog.GetPostsFromMultiCategories,
                     {
                         componentName: this.componentName,
                         page: this.currentPage
 
-                    }).then(response => {
+                    }
+                ).then(response => {
                     this.posts = response.data;
                     this.$refs.postsList.posts = response.data;
                 }).catch(x => {
-                    this.$refs.loaderWait.fail()
+                    this.$refs.loader.fail()
                 })
             }
         },

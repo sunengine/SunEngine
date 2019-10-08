@@ -90,15 +90,14 @@
         },
         methods: {
             loadData() {
-                this.$request(
-                    this.$Api.Articles.GetArticlesFromMultiCategories,
+                this.$request(this.$Api.Articles.GetArticlesFromMultiCategories,
                     {
                         categoriesNames: this.categoriesNames,
                         page: this.currentPage
-                    }).then(response => {
-                        this.articles = response.data;
                     }
-                ).catch(x => {
+                ).then(response => {
+                    this.articles = response.data;
+                }).catch(x => {
                     this.$refs.loader.fail()
                 });
             }

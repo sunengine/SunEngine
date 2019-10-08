@@ -77,20 +77,18 @@
                 this.title = this.thread.title;
 
                 this.topics = {};
-                await this.$request(
-                    this.$Api.Forum.GetThread,
+                await this.$request(this.$Api.Forum.GetThread,
                     {
                         categoryName: this.categoryName,
                         page: this.currentPage,
                         showDeleted: (this.$store.state.admin.showDeletedElements || this.$route.query.deleted) ? true : undefined
-                    })
-                    .then(
-                        response => {
-                            this.topics = response.data;
-                        }
-                    ).catch(x => {
-                       this.$refs.loader.fail();
-                    });
+                    }
+                ).then(response => {
+                        this.topics = response.data;
+                    }
+                ).catch(x => {
+                    this.$refs.loader.fail();
+                });
             }
         },
         beforeCreate() {

@@ -13,9 +13,10 @@
 
     <PostsList v-if="posts" :posts="posts"/>
 
-    <LoaderWait ref="loaderWait" v-else />
+    <LoaderWait ref="loader" v-else/>
 
-    <q-pagination class="page-padding q-mt-md" v-if="posts && posts.totalPages > 1" v-model="posts.pageIndex" color="pagination"
+    <q-pagination class="page-padding q-mt-md" v-if="posts && posts.totalPages > 1" v-model="posts.pageIndex"
+                  color="pagination"
                   :max-pages="12" :max="posts.totalPages" ellipses direction-links @input="pageChanges"/>
 
 
@@ -53,8 +54,7 @@
         },
         methods: {
             loadData() {
-                this.$request(
-                    this.$Api.Blog.GetPosts,
+                this.$request(this.$Api.Blog.GetPosts,
                     {
                         categoryName: this.categoryName,
                         page: this.currentPage,
@@ -62,8 +62,8 @@
                     }
                 ).then(response => {
                     this.posts = response.data;
-                }).catch(x=> {
-                    this.$refs.loaderWait.fail();
+                }).catch(x => {
+                    this.$refs.loader.fail();
                 });
             }
         },

@@ -14,7 +14,7 @@
 
     <ArticlesList v-if="articles" :articles="articles"/>
 
-    <LoaderWait ref="loaderWait" v-else/>
+    <LoaderWait ref="loader" v-else/>
 
     <q-pagination class="page-padding q-mt-md" v-if="articles && articles.totalPages > 1"
                   v-model="articles.pageIndex"
@@ -61,8 +61,7 @@
             loadData() {
                 this.title = this.category?.title;
 
-                this.$request(
-                    this.$Api.Articles.GetArticles,
+                this.$request(this.$Api.Articles.GetArticles,
                     {
                         categoryName: this.categoryName,
                         page: this.currentPage,
@@ -71,7 +70,7 @@
                 ).then(response => {
                     this.articles = response.data;
                 }).catch(x => {
-                    this.$refs.loaderWait.fail();
+                    this.$refs.loader.fail();
                 });
             }
         },

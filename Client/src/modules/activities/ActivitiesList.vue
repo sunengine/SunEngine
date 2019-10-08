@@ -30,16 +30,14 @@
         },
         methods: {
             loadData() {
-                this.$request(
-                    this.$Api.Activities.GetActivities,
+                this.$request(this.$Api.Activities.GetActivities,
                     {
                         componentName: this.componentName
-                    })
-                    .then(                        response => {
-                            this.activities = response.data;
-                        }
-                    ).catch(x=> {
-                        this.$refs.loader.fail();
+                    }
+                ).then(response => {
+                    this.activities = response.data;
+                }).catch(x => {
+                    this.$refs.loader.fail();
                 })
             }
         },
