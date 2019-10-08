@@ -6,15 +6,15 @@
       </h2>
       <q-btn no-caps class="post-btn"
              @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
-             :label="$tl('newArticleBtn')" v-if="canAddArticle" icon="fas fa-plus"/>
+             :label="$tl('newArticleBtn')" v-if="articles && canAddArticle" icon="fas fa-plus"/>
 
     </div>
     <div v-if="category.header" class="q-mb-sm page-padding" v-html="category.header"></div>
 
 
-    <ArticlesList v-if="articles" :articles="articles" />
+    <ArticlesList v-if="articles" :articles="articles"/>
 
-    <LoaderWait v-else />
+    <LoaderWait ref="loaderWait" v-else/>
 
     <q-pagination class="page-padding q-mt-md" v-if="articles && articles.totalPages > 1"
                   v-model="articles.pageIndex"
@@ -68,12 +68,10 @@
                         page: this.currentPage,
                         showDeleted: (this.$store.state.admin.showDeletedElements || this.$route.query.deleted) ? true : undefined
                     }
-                ).then(
-                    response => {
-                        this.articles = response.data;
-                    }
-                ).catch(x => {
-                    console.log('error', x)
+                ).then(response => {
+                    this.articles = response.data;
+                }).catch(x => {
+                    this.$refs.loaderWait.fail();
                 });
             }
         },

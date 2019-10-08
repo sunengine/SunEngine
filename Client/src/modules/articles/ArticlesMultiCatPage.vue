@@ -14,9 +14,11 @@
 
     </div>
 
-    <ArticlesList :articles="articles" />
+    <ArticlesList v-if="articles" :articles="articles"/>
 
-    <q-pagination class="page-padding q-mt-md" v-if="articles.totalPages > 1"
+    <LoaderWait ref="loader" v-else/>
+
+    <q-pagination class="page-padding q-mt-md" v-if="articles && articles.totalPages > 1"
                   v-model="articles.pageIndex"
                   color="pagination"
                   :max-pages="12"
@@ -30,10 +32,12 @@
 <script>
     import {Page} from 'sun'
     import {Pagination} from 'sun'
+    import LoaderWait from "../../components/LoaderWait";
 
 
     export default {
         name: 'ArticlesMultiCatPage',
+        components: {LoaderWait},
         mixins: [Page, Pagination],
         props: {
             pageTitle: {
@@ -91,15 +95,17 @@
                     {
                         categoriesNames: this.categoriesNames,
                         page: this.currentPage
-                    })
-                    .then(response => {
-                            this.articles = response.data;
-                        }
-                    );
+                    }).then(response => {
+                        this.articles = response.data;
+                    }
+                ).catch(x => {
+                    this.$refs.loader.fail()
+                });
             }
         },
         beforeCreate() {
             this.$options.components.ArticlesList = require('sun').ArticlesList;
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
         },
         created() {
             this.title = this.pageTitle;

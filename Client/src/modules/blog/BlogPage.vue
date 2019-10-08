@@ -7,13 +7,13 @@
       <q-btn no-caps class="post-btn"
              @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
              :label="$tl('newPostBtn')"
-             v-if="canAddArticle" icon="fas fa-plus"/>
+             v-if="posts && canAddArticle" icon="fas fa-plus"/>
     </div>
     <div v-html="category.header" v-if="category.header" class="q-mb-sm"></div>
 
     <PostsList v-if="posts" :posts="posts"/>
 
-    <LoaderWait v-else />
+    <LoaderWait ref="loaderWait" v-else />
 
     <q-pagination class="page-padding q-mt-md" v-if="posts && posts.totalPages > 1" v-model="posts.pageIndex" color="pagination"
                   :max-pages="12" :max="posts.totalPages" ellipses direction-links @input="pageChanges"/>
@@ -62,6 +62,8 @@
                     }
                 ).then(response => {
                     this.posts = response.data;
+                }).catch(x=> {
+                    this.$refs.loaderWait.fail();
                 });
             }
         },

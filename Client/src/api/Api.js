@@ -70,4 +70,7 @@ export default {
   Categories: {
     GetAllCategoriesAndAccesses: '/Categories/GetAllCategoriesAndAccesses'
   },
+  Pulse: {
+    Version: '/Pulse/Version'
+  }
 }

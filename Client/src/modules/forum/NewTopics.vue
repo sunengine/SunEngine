@@ -13,7 +13,7 @@
 
     <div v-if="thread && thread.header" class="q-mb-sm page-padding" v-html="thread.header"></div>
 
-    <LoaderWait v-if="!topics.items"/>
+    <LoaderWait ref="loader" v-if="!topics.items"/>
 
     <div class="q-mt-sm" v-else>
       <div class="margin-back bg-grey-2 gt-xs text-grey-6">
@@ -88,7 +88,7 @@
                         this.topics = response.data;
                     }
                 ).catch(x => {
-                    console.log('error', x);
+                    this.$refs.loader.fail();
                 });
             }
         },

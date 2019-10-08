@@ -2,6 +2,8 @@
   <div class="posts-multi-cat">
     <PostsList v-if="posts" :posts="posts"/>
 
+    <LoaderWait ref="loaderWait" v-else/>
+
     <q-pagination class="page-padding q-mt-md" v-if="posts && posts.totalPages > 1" v-model="posts.pageIndex"
                   color="pagination"
                   :max-pages="12" :max="posts.totalPages" ellipses direction-links @input="pageChanges"/>
@@ -45,18 +47,17 @@
                         componentName: this.componentName,
                         page: this.currentPage
 
-                    }).then(
-                    response => {
-                        this.posts = response.data;
-                        this.$refs.postsList.posts = response.data;
-                    }
-                ).catch(x => {
-                    console.log('error', x);
-                });
+                    }).then(response => {
+                    this.posts = response.data;
+                    this.$refs.postsList.posts = response.data;
+                }).catch(x => {
+                    this.$refs.loaderWait.fail()
+                })
             }
         },
         beforeCreate() {
             this.$options.components.PostsList = require('sun').PostsList;
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
         },
         created() {
             this.loadData();

@@ -8,8 +8,6 @@
       </div>
     </template>
 
-    <LoaderWait v-else />
-
   </div>
 </template>
 
@@ -25,7 +23,6 @@
     },
     beforeCreate() {
       this.$options.components.Post = require('sun').Post;
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
     }
   }
 

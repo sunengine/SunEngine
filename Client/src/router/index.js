@@ -8,7 +8,6 @@ import {setRouter} from 'sun'
 import {consoleRequestStart, consoleGreyEnd, consoleTokens} from 'sun'
 
 
-
 Vue.use(VueRouter);
 
 /*
@@ -30,35 +29,38 @@ export default function ({store, ssrContext}) {
     base: process.env.VUE_ROUTER_BASE
   });
 
-  router.beforeEach(async (to, from, next) => {
+/*  router.beforeEach(async (to, from, next) => {
     if (config.Log.MoveTo)
       console.info("%cMove to page%c" + config.SiteUrl.substring(config.SiteSchema.length) + to.path, consoleRequestStart, consoleGreyEnd, to);
 
-    if (checkTokensUpdated()) {
-      console.info('%cReload user credentials', consoleTokens);
-
-      store.commit('clearAllUserRelatedData');
-
-      const tokens = getTokens();
-      store.state.auth.longToken = tokens?.longToken;
-
-      if(store.state.auth.longToken)
-        await store.dispatch('loadMyUserInfo');
-
-      await store.dispatch('loadAllCategories');
-      await store.dispatch('loadAllMenuItems');
-      await store.dispatch('setAllRoutes');
-    }
-
+   // await checkUserUpdated();
 
     next();
-
-  });
+  });*/
 
   setRouter(router);
 
   return router;
-}
 
+
+  async function checkUserUpdated() {
+    if(!checkTokensUpdated())
+      return;
+
+    console.info('%cReload user credentials', consoleTokens);
+
+    store.commit('clearAllUserRelatedData');
+
+    const tokens = getTokens();
+    store.state.auth.longToken = tokens?.longToken;
+
+    if (store.state.auth.longToken)
+      await store.dispatch('loadMyUserInfo');
+
+    await store.dispatch('loadAllCategories');
+    await store.dispatch('loadAllMenuItems');
+    await store.dispatch('setAllRoutes');
+  }
+}
 
 

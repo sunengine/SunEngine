@@ -4,7 +4,7 @@
       <activity :key="activity.materialId + '-' + activity.commentId" :activity="activity"
                 v-for="activity in activities"/>
     </template>
-    <loader-wait v-else/>
+    <loader-wait ref="loader" v-else/>
   </div>
 </template>
 
@@ -35,11 +35,12 @@
                     {
                         componentName: this.componentName
                     })
-                    .then(
-                        response => {
+                    .then(                        response => {
                             this.activities = response.data;
                         }
-                    );
+                    ).catch(x=> {
+                        this.$refs.loader.fail();
+                })
             }
         },
         beforeCreate() {

@@ -137,17 +137,16 @@
             }
         },
         methods: {
-            async getVersion() {
-                await this.$store
-                    .dispatch('request', {
-                        url: '/Pulse/Version'
-                    }).then(response => {
-                        this.version = response.data.version;
-                    });
+            getVersion() {
+                this.$request(
+                    this.$Api.Pulse.Version
+                ).then(response => {
+                    this.version = response.data.version;
+                });
             }
         },
-        async created() {
-            await this.getVersion();
+        created() {
+            this.getVersion();
         }
     }
 
