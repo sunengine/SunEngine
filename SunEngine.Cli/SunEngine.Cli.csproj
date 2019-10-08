@@ -6,7 +6,7 @@
         <Version>1.12.1</Version>
         <PackageVersion>1.12.1</PackageVersion>
         <Title>SunEngine</Title>
-        <Authors>Dmitrii Polianin</Authors>
+        <Authors>Dimitrij Polianin</Authors>
         <Description>Site engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>
         <Copyright>Dmitrii Polianin</Copyright>
         <PackageProjectUrl>https://github.com/Dmitrij-Polyanin/SunEngine</PackageProjectUrl>

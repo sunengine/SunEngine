@@ -3,7 +3,7 @@
   "version": "1.12.1",
   "description": "SunEngine - web engine with support of blog, forum and articles functionality",
   "productName": "Sun Engine Client",
-  "author": "Dmitrij Polianin <dmitrij.polyanin@gmail.com>",
+  "author": "Dimitrij Polianin <dmitrij.polyanin@gmail.com>",
   "private": false,
   "scripts": {
     "Client dev run": "quasar dev"
