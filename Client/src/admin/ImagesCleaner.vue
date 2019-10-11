@@ -33,9 +33,8 @@
             }
         },
         methods: {
-            async clear() {
-                await this.$request(
-                    this.$AdminApi.ImagesCleaner.DeleteImages
+            clear() {
+                this.$request(this.$AdminApi.ImagesCleaner.DeleteImages
                 ).then(response => {
                     this.imagesDeleted = response.data.imagesDeleted;
                     this.$successNotify(this.$tl('clearCount') + this.imagesDeleted);
@@ -45,9 +44,8 @@
                 });
             },
 
-            async loadImages() {
-                await this.$request(
-                    this.$AdminApi.ImagesCleaner.GetAllImages
+            loadImages() {
+                this.$request(this.$AdminApi.ImagesCleaner.GetAllImages
                 ).then(response => {
                     if (response.data.length !== 0)
                         this.images = response.data;

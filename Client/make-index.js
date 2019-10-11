@@ -15,17 +15,18 @@ const arr = glob.sync(pattern);
 
 proccess(arr);
 
-text += "export * from 'src/store-index'\n";
-text += "export * from 'src/router/routerInstance'\n";
-text += "export * from 'src/store/storeInstance'\n";
-text += "export {app} from 'src/App'\n";
+text +=
+`export * from 'src/store-index'
+export * from 'src/router/routerInstance'
+export * from 'src/store/storeInstance'
+export {app} from 'src/App'`;
 
 
 fs.writeFile('./src/sun.js', text, function (err) {
   if (err) {
     return console.log(err);
   }
-  console.log('\x1b[32m','\n☼☼☀ Index generated successfully! ☀☼☼\n');
+  console.log("\n☼☼☀ \x1b[32m\x1b[1mIndex generated successfully \x1b[0m => \x1b[33m '/src/sun.js'\x1b[0m ☀☼☼\n");
 });
 
 

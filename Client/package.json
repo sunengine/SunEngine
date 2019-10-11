@@ -6,7 +6,8 @@
   "author": "Dimitrij Polianin",
   "private": false,
   "scripts": {
-    "Client dev run": "quasar dev"
+    "dev run": "quasar dev",
+    "make index": "node make-index "
   },
   "dependencies": {
     "@quasar/extras": "^1.3.2",

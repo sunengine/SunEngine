@@ -1,5 +1,5 @@
 import {ArticlesPage, Material} from 'sun'
-import {wrapInPage,wrapInPanel} from 'components/wrapers'
+import {wrapInPage,wrapInPanel} from 'sun'
 import {CategoriesAdmin} from 'sun'
 import {MenuItemsAdmin} from 'sun'
 import {CreateCategory} from 'sun'

@@ -17,9 +17,6 @@
     import {Page} from 'sun'
 
 
-    console.log("PageAdmin", Page);
-
-
     export default {
         name: 'DeletedElements',
         mixins: [Page],
