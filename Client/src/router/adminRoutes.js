@@ -205,13 +205,12 @@ const routes = [
 ];
 
 
-for (let rote of routes) {
-  if (!rote.meta) {
+for (const rote of routes)
+  if (!rote.meta)
     rote.meta = {
       roles: ["Admin"]
     };
-  }
-}
+
 
 
 export default routes;

@@ -33,51 +33,7 @@ module.exports = function (ctx) {
 
     // framework: 'all', // --- includes everything; for dev only!
     framework: {
-      components: [
-        'QLayout',
-        'QHeader',
-        'QFooter',
-        'QDrawer',
-        'QPageContainer',
-        'QPage',
-        'QToolbar',
-        'QToolbarTitle',
-        'QBtn',
-        'QBadge',
-        'QBtnDropdown',
-        'QIcon',
-        'QList',
-        'QItem',
-        'QItemSection',
-        'QItemLabel',
-        'QMenu',
-        'QInput',
-        'QCheckbox',
-        'QSpinner',
-        'QSpinnerGears',
-        'QBanner',
-        'QPagination',
-        'QEditor',
-        'QSelect',
-        'QChip',
-        'QAvatar',
-        'QTree',
-        'QExpansionItem',
-        'QDialog',
-        'QField',
-        'QSeparator',
-        'QTable',
-        'QTh',
-        'QTr',
-        'QTd'
-      ],
-
-      directives: [
-        'Ripple',
-        'ClosePopup'
-      ],
-
-      // all: 'auto',
+      all: 'auto',
 
       // Quasar plugins
       plugins: [
