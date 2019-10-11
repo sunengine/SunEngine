@@ -21,7 +21,6 @@ export default async function (context) {
   });
 
   router.matcher = tmpRouter.matcher;
-  router.addRoutes([]);
 
   console.info('%cRoutes registered', consoleInit, config.Log.InitExtended ? userRoutes : '');
 

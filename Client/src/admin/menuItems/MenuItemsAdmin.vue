@@ -37,18 +37,18 @@
             }
         },
         methods: {
-            async changeIsHidden(menuItem) {
-                await this.$request(
-                    this.$AdminApi.MenuAdmin.SetIsHidden,
+            changeIsHidden(menuItem) {
+                this.$request(this.$AdminApi.MenuAdmin.SetIsHidden,
                     {
                         id: menuItem.id,
                         isHidden: !menuItem.isHidden,
-                    }).then((response) => {
+                    }
+                ).then((response) => {
                     this.setData(response.data);
                     this.$store.dispatch("loadAllMenuItems");
                 });
             },
-            async deleteMenuItem(menuItem) {
+            deleteMenuItem(menuItem) {
                 const deleteMsg = this.$tl('deleteMsg');
                 const btnDeleteOk = this.$tl('btnDeleteOk');
                 const btnDeleteCancel = this.$tl('btnDeleteCancel');
@@ -69,29 +69,29 @@
                     });
                 });
             },
-            async edit(menuItem) {
+            edit(menuItem) {
                 this.$router.push({name: 'EditMenuItem', params: {menuItemId: menuItem.id}});
             },
-            async add(menuItem) {
+            add(menuItem) {
                 this.$router.push({name: 'CreateMenuItem', params: {parentMenuItemId: menuItem.id}});
             },
-            async up(menuItem) {
-                await this.$request(
-                    this.$AdminApi.MenuAdmin.Up,
+            up(menuItem) {
+                this.$request(this.$AdminApi.MenuAdmin.Up,
                     {
                         id: menuItem.id
-                    }).then((response) => {
+                    }
+                ).then((response) => {
                     this.setData(response.data);
                     this.$store.dispatch("loadAllMenuItems");
                 });
             },
-            async down(menuItem) {
-                await this.$request(
-                    this.$AdminApi.MenuAdmin.Down,
+            down(menuItem) {
+                this.$request(this.$AdminApi.MenuAdmin.Down,
                     {
                         id: menuItem.id
 
-                    }).then((response) => {
+                    }
+                ).then((response) => {
                     this.setData(response.data);
                     this.$store.dispatch("loadAllMenuItems");
                 });
@@ -99,9 +99,9 @@
             prepareMenuItems(allMenuItems) {
                 let menuItemsById = {};
 
-                for (const menuItem of allMenuItems) {
+                for (const menuItem of allMenuItems)
                     menuItemsById[menuItem.id.toString()] = menuItem;
-                }
+
 
                 let root;
 
@@ -127,14 +127,11 @@
             setData(data) {
                 this.menuItems = this.prepareMenuItems(data);
             },
-            async loadData() {
-                await this.$request(
-                    this.$AdminApi.MenuAdmin.GetMenuItems
-                ).then(
-                    response => {
-                        this.setData(response.data);
-                    }
-                ).catch(error => {
+            loadData() {
+                this.$request(this.$AdminApi.MenuAdmin.GetMenuItems
+                ).then(response => {
+                    this.setData(response.data);
+                }).catch(error => {
                     this.$errorNotify(error);
                 });
             }
@@ -143,9 +140,9 @@
             this.$options.components.LoaderWait = require('sun').LoaderWait;
             this.$options.components.MenuAdminItem = require('sun').MenuAdminItem;
         },
-        async created() {
+        created() {
             this.title = this.$tl('title');
-            await this.loadData();
+            this.loadData();
         }
     }
 

@@ -29,23 +29,12 @@ export default function ({store, ssrContext}) {
     base: process.env.VUE_ROUTER_BASE
   });
 
-/*  router.beforeEach(async (to, from, next) => {
+  router.beforeEach(async (to, from, next) => {
     if (config.Log.MoveTo)
       console.info("%cMove to page%c" + config.SiteUrl.substring(config.SiteSchema.length) + to.path, consoleRequestStart, consoleGreyEnd, to);
 
-   // await checkUserUpdated();
-
-    next();
-  });*/
-
-  setRouter(router);
-
-  return router;
-
-
-  async function checkUserUpdated() {
-    if(!checkTokensUpdated())
-      return;
+    if (!checkTokensUpdated())
+      return next();
 
     console.info('%cReload user credentials', consoleTokens);
 
@@ -60,7 +49,15 @@ export default function ({store, ssrContext}) {
     await store.dispatch('loadAllCategories');
     await store.dispatch('loadAllMenuItems');
     await store.dispatch('setAllRoutes');
-  }
+
+    return next();
+  });
+
+  setRouter(router);
+
+  return router;
+
+
 }
 
 

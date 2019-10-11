@@ -14,15 +14,19 @@
 </template>
 
 <script>
-  import {Page} from 'sun'
+    import {Page} from 'sun'
 
-  export default {
-    name: 'DeletedElements',
-    mixins: [Page],
-    created() {
-      this.title = this.$tl('title');
+
+    console.log("PageAdmin", Page);
+
+
+    export default {
+        name: 'DeletedElements',
+        mixins: [Page],
+        created() {
+            this.title = this.$tl('title');
+        }
     }
-  }
 
 </script>
 

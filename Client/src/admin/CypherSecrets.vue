@@ -17,31 +17,26 @@
         name: "CypherSecrets",
         methods: {
             shortJwt() {
-                this.$request(
-                    this.$AdminApi.CypherSecretsAdmin.ResetCypher,
+                this.$request(this.$AdminApi.CypherSecretsAdmin.ResetCypher,
                     {
                         name: 'ShortJwt'
-                    }).then(() => {
-                    this.$successNotify();
-                });
+                    }
+                ).then(_ => this.$successNotify()
+                );
             },
             long2Jwt() {
-                this.$request(
-                    this.$AdminApi.CypherSecretsAdmin.ResetCypher,
+                this.$request(this.$AdminApi.CypherSecretsAdmin.ResetCypher,
                     {
                         name: 'Long2Jwt'
-                    }).then(() => {
-                    this.$successNotify();
-                });
+                    }
+                ).then(_ => this.$successNotify())
             },
             emailChange() {
-                this.$request(
-                    this.$AdminApi.CypherSecretsAdmin.ResetCypher,
+                this.$request(this.$AdminApi.CypherSecretsAdmin.ResetCypher,
                     {
                         name: 'EmailChange'
-                    }).then(() => {
-                    this.$successNotify();
-                });
+                    }
+                ).then(_ => this.$successNotify())
             }
         },
         created() {

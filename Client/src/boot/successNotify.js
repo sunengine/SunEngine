@@ -1,4 +1,5 @@
 export default async ({app, Vue}) => {
+
   Vue.prototype.$successNotify = function (msg, color = 'positive', timeout = 2800) {
 
     if (!msg) {

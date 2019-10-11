@@ -47,8 +47,7 @@
                 if (this.menuItem.parentId === 0)
                     this.menuItem.parentId = undefined;
 
-                this.$request(
-                    this.$AdminApi.MenuAdmin.Update,
+                this.$request(this.$AdminApi.MenuAdmin.Update,
                     this.menuItem,
                     true
                 ).then(() => {
@@ -61,11 +60,11 @@
                 });
             },
             loadData() {
-                this.$request(
-                    this.$AdminApi.MenuAdmin.GetMenuItem,
+                this.$request(this.$AdminApi.MenuAdmin.GetMenuItem,
                     {
                         id: this.menuItemId
-                    }).then((response) => {
+                    }
+                ).then((response) => {
                     this.menuItem = response.data;
                 });
             }

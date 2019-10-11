@@ -1,14 +1,18 @@
-
 export default {
   data() {
     return {
-      title: "_",
+      title: " ",
+    }
+  },
+  methods: {
+    setTitle(title) {
+      this.title = title;
     }
   },
   meta() {
     return {
       title: this.title,
-      titleTemplate: title => title === "_" ? config.SiteName :  `${title} - ${config.SiteName}`
+      titleTemplate: title => title === " " ? config.SiteName : `${title} - ${config.SiteName}`
     }
   }
 }

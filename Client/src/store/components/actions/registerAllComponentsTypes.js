@@ -11,5 +11,5 @@ export default function (context) {
 
   registerComponentsSite(context);
 
-  console.info('%cComponents registered', consoleInit, config.Log.InitExtended ? context.state.allComponents : '');
+  console.info('%cComponents types registered', consoleInit, config.Log.InitExtended ? context.state.componentsTypes : '');
 }

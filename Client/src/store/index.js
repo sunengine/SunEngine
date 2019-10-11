@@ -9,9 +9,7 @@ import {adminModule as admin} from 'sun'
 import {layoutsModule as layouts} from 'sun'
 import {rootModule} from 'sun'
 import {setStore} from 'sun'
-import {initLongTokenFromLocalStorage} from  'sun'
-import {request} from 'sun'
-
+import {initLongTokenFromLocalStorage} from 'sun'
 
 
 Vue.use(Vuex);
@@ -39,6 +37,8 @@ export default function (/* { ssrContext } */) {
   setStore(store);
 
   initLongTokenFromLocalStorage(store);
+
+  store.dispatch('initStore');
 
   return store;
 }

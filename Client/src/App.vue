@@ -2,6 +2,7 @@
   <div id="q-app">
     <Layout :key="rerenderKey" v-if="isInitialized"/>
 
+
     <div v-else-if="!initializeError" class="loader">
       <div>
         <q-spinner-gears size="40px" class="q-mr-sm"/>
@@ -16,7 +17,7 @@
       <p class="error-info">
         {{$tl('canNotConnectApi')}}
       </p>
-      <q-btn  icon="fa fa-sync-alt" color="grey" @click="refresh" flat no-caps :label="$t('Global.refresh')"></q-btn>
+      <q-btn icon="fa fa-sync-alt" color="grey" @click="refresh" flat no-caps :label="$t('Global.refresh')"></q-btn>
 
     </div>
   </div>
@@ -25,10 +26,7 @@
 <script>
     import {mapState} from 'vuex'
     import Vue from 'vue'
-
-
     import {Layout} from 'sun'
-
 
     var app;
 
@@ -62,8 +60,6 @@
 
             if (config.VueAppInWindow)
                 window.app = this;
-
-            this.$store.dispatch('initStore');
         }
     }
 
@@ -83,7 +79,7 @@
       flex-direction: column;
       font-size: 1.2rem;
       color: grey;
-      font-weight : 400;
+      font-weight: 400;
     }
 
     .loader {

@@ -35,12 +35,12 @@ export default async function(url, body, sendAsJson = false, skipLock = false) {
 
   if(body?.sendAsJson) {
     sendAsJson = body.sendAsJson;
-    delete body.sendAsJson;
+  //  delete body.sendAsJson;
   }
 
   if(body?.skipLock) {
     skipLock = body.skipLock;
-    delete body.skipLock;
+  //  delete body.skipLock;
   }
 
   if (config.Log.Requests)

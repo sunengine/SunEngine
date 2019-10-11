@@ -8,10 +8,11 @@ export default async function (context) {
   console.info("%cStart init store", consoleInit);
 
   if (hasLongToken()) {
-    await context.dispatch('loadMyUserInfo').catch(() => {
-      console.error('%cTokens removed', consoleTokens);
-      removeTokens();
-    });
+    await context.dispatch('loadMyUserInfo')
+      .catch(() => {
+        console.error('%cTokens removed', consoleTokens);
+        removeTokens();
+      });
   }
 
 

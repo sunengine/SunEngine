@@ -33,7 +33,51 @@ module.exports = function (ctx) {
 
     // framework: 'all', // --- includes everything; for dev only!
     framework: {
-      all: 'auto',
+      components: [
+        'QLayout',
+        'QHeader',
+        'QFooter',
+        'QDrawer',
+        'QPageContainer',
+        'QPage',
+        'QToolbar',
+        'QToolbarTitle',
+        'QBtn',
+        'QBadge',
+        'QBtnDropdown',
+        'QIcon',
+        'QList',
+        'QItem',
+        'QItemSection',
+        'QItemLabel',
+        'QMenu',
+        'QInput',
+        'QCheckbox',
+        'QSpinner',
+        'QSpinnerGears',
+        'QBanner',
+        'QPagination',
+        'QEditor',
+        'QSelect',
+        'QChip',
+        'QAvatar',
+        'QTree',
+        'QExpansionItem',
+        'QDialog',
+        'QField',
+        'QSeparator',
+        'QTable',
+        'QTh',
+        'QTr',
+        'QTd'
+      ],
+
+      directives: [
+        'Ripple',
+        'ClosePopup'
+      ],
+
+      // all: 'auto',
 
       // Quasar plugins
       plugins: [
@@ -63,10 +107,15 @@ module.exports = function (ctx) {
       // analyze: true,
       // extractCSS: false,
       extendWebpack(cfg) {
+        cfg.resolve.alias.aaa = path.resolve('./src/aaa.js');
+
         cfg.resolve.modules.push(path.resolve('./src'));
         cfg.resolve.modules.push(path.resolve('./src/index'));
         cfg.resolve.modules.push(path.resolve('./src/modules'));
         cfg.resolve.modules.push(path.resolve('./src/components'));
+        cfg.resolve.modules.push(path.resolve('./src/admin'));
+        cfg.resolve.modules.push(path.resolve('./src/api'));
+        cfg.resolve.modules.push(path.resolve('./src/mixins'));
 
         const htmlWebpackPlugin = cfg.plugins.find(x => x.constructor.name === "HtmlWebpackPlugin");
         htmlWebpackPlugin.options.configUId = Math.random().toString(36).substring(7);

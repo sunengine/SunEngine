@@ -1,4 +1,4 @@
-import {Api} from 'sun'
+import {get} from 'sun'
 import {AdminApi} from 'sun'
 
 

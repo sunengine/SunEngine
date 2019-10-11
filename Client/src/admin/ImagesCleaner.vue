@@ -32,11 +32,6 @@
                 images: null
             }
         },
-
-        async created() {
-            this.title = this.$tl('title');
-            await this.loadImages();
-        },
         methods: {
             async clear() {
                 await this.$request(
@@ -66,7 +61,11 @@
                 await this.loadImages();
                 this.images ? this.$successNotify() : this.$successNotify(this.$tl('emptyResult'));
             }
-        }
+        },
+        created() {
+            this.title = this.$tl('title');
+            this.loadImages();
+        },
     }
 
 </script>

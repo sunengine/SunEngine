@@ -24,9 +24,7 @@
 </template>
 
 <script>
-    import {Page} from 'sun'
-    import {Pagination} from 'sun'
-
+    import {Page, Pagination} from 'mixins'
 
     export default {
         name: 'BlogPage',
@@ -68,8 +66,8 @@
             }
         },
         beforeCreate() {
-            this.$options.components.PostsList = require('sun').PostsList;
-            this.$options.components.LoaderWait = require('sun').LoaderWait;
+            this.$options.components.PostsList = require('sun0').default.PostsList;
+            this.$options.components.LoaderWait = require('sun0').default.LoaderWait;
         },
         async created() {
             this.title = this.category.title;
