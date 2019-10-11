@@ -107,7 +107,7 @@ module.exports = function (ctx) {
       // analyze: true,
       // extractCSS: false,
       extendWebpack(cfg) {
-        cfg.resolve.alias.aaa = path.resolve('./src/aaa.js');
+        cfg.resolve.alias.sun = path.resolve('./src/sun.js');
 
         cfg.resolve.modules.push(path.resolve('./src'));
         cfg.resolve.modules.push(path.resolve('./src/index'));

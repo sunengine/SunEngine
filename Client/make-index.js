@@ -2,8 +2,9 @@ const glob = require('glob');
 const fs = require('fs');
 
 
-const excludeDirs = ["i18n", "index", "site-template", "boot"];
-//const excludePaths = ["i18n", "index", "site-template", "boot"];
+const dirs = ['api', 'admin', 'classes', 'components', 'mixins', 'modules', 'pages', 'router', 'store', 'utils','site'];
+const excludePaths = ['src/router/index.js', 'src/site/i18n'];
+
 
 
 const pattern = 'src/**/*.@(js|vue)';
@@ -14,32 +15,45 @@ const arr = glob.sync(pattern);
 
 proccess(arr);
 
-fs.writeFile("./src/sun.js", text, function (err) {
+text += "export * from 'src/store-index'\n";
+text += "export * from 'src/router/routerInstance'\n";
+text += "export * from 'src/store/storeInstance'\n";
+text += "export {app} from 'src/App'\n";
+
+
+fs.writeFile('./src/sun.js', text, function (err) {
   if (err) {
     return console.log(err);
   }
-  console.log("Index generated successfully!");
+  console.log('\x1b[32m','\n☼☼☀ Index generated successfully! ☀☼☼\n');
 });
-
 
 
 function proccess(arr) {
   for (const path of arr) {
-    let name = filePathToComponentName(path);
+    const name = filePathToComponentName(path);
     if (!name)
       continue;
 
-    text += `export ${name} from '${path}'\n`;
+    const fileText = fs.readFileSync(path, 'utf8');
+
+    if(/export( )+(?!default)/.test(fileText))
+      text += `export * from '${path}'\n`;
+    if(/export( )+default/.test(fileText))
+      text += `export ${name} from '${path}'\n`;
   }
 }
 
 
 function filePathToComponentName(name) {
 
+  if (excludePaths.some(x=> name.startsWith(x)))
+    return;
+
   let arr = name.replace('\\', '/').split('/');
   if (arr.length <= 1)
     return;
-  if (excludeDirs.includes(arr[1]))
+  if (!dirs.includes(arr[1]))
     return;
 
   const fileName = arr[arr.length - 1];

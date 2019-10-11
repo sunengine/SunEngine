@@ -23,7 +23,7 @@ export function wrapInPage(name, wrapComponent, title, icon) {
   pageWrapper.pageTitleOption = title;
   pageWrapper.wrapComponentOption = wrapComponent;
   pageWrapper.iconOption = icon;
-  
+
   pageWrapper.mixins = [Page];
   pageWrapper.created = function () {
     this.title = this.pageTitle;

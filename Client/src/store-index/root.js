@@ -1,10 +1,10 @@
-import state from 'store/root/state'
+import rootState from 'store/root/rootState'
 import initStore from 'store/root/actions/initStore'
 import setAllRoutes from 'store/root/actions/setAllRoutes'
 
 
 export default {
-  state,
+  state: rootState,
   actions: {
     initStore,
     setAllRoutes

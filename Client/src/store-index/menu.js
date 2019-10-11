@@ -1,11 +1,11 @@
-import state from 'store/menu/state'
+import menuState from 'store/menu/menuState'
 import loadAllMenuItems from 'store/menu/actions/loadAllMenuItems'
 import getMenu from 'store/menu/getters/getMenu'
 import prepareAllMenuItems from 'store/menu/mutations/prepareAllMenuItems'
 
 
 export default {
-  state,
+  state: menuState,
   actions: {
     loadAllMenuItems
   },

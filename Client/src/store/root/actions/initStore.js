@@ -1,6 +1,7 @@
 import {consoleTokens} from 'sun'
 import {hasLongToken} from 'sun'
-import {consoleInit, removeTokens} from 'sun'
+import {consoleInit} from 'sun'
+import {removeTokens} from 'sun'
 
 
 export default async function (context) {

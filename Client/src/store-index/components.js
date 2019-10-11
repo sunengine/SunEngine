@@ -1,4 +1,4 @@
-import state from 'store/components/state'
+import componentsState from 'store/components/componentsState'
 import loadAllComponents from 'store/components/actions/loadAllComponents'
 import makeRoutesFromComponents from 'store/components/actions/makeRoutesFromComponents'
 import registerAllComponentsTypes from 'store/components/actions/registerAllComponentsTypes'
@@ -8,7 +8,7 @@ import registerComponentType from 'store/components/mutations/registerComponentT
 
 
 export default {
-  state,
+  state: componentsState,
   actions: {
     loadAllComponents,
     makeRoutesFromComponents,
