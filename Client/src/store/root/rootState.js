@@ -1,4 +1,5 @@
 export default {
   isInitialized: false,
-  initializeError: false
+  initializeError: false,
+  initializedPromise: null
 }

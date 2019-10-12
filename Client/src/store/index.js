@@ -38,7 +38,7 @@ export default function (/* { ssrContext } */) {
 
   initLongTokenFromLocalStorage(store);
 
-  store.dispatch('initStore');
+  store.state.initializedPromise = store.dispatch('initStore');
 
   return store;
 }

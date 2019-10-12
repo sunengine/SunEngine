@@ -30,11 +30,24 @@ export default function ({store, ssrContext}) {
   });
 
   router.beforeEach(async (to, from, next) => {
+
+    await store.state.initializedPromise;
+
     if (config.Log.MoveTo)
       console.info("%cMove to page%c" + config.SiteUrl.substring(config.SiteSchema.length) + to.path, consoleRequestStart, consoleGreyEnd, to);
 
+    await checkUserCredentialsAndReloadIfNew();
+
+    return next();
+  });
+
+  setRouter(router);
+
+  return router;
+
+  async function checkUserCredentialsAndReloadIfNew() {
     if (!checkTokensUpdated())
-      return next();
+      return;
 
     console.info('%cReload user credentials', consoleTokens);
 
@@ -49,15 +62,7 @@ export default function ({store, ssrContext}) {
     await store.dispatch('loadAllCategories');
     await store.dispatch('loadAllMenuItems');
     await store.dispatch('setAllRoutes');
-
-    return next();
-  });
-
-  setRouter(router);
-
-  return router;
-
-
+  }
 }
 
 
