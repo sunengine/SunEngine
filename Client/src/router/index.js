@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import {getTokens} from 'sun'
 import {checkTokensUpdated} from 'sun'
 import {setRouter} from 'sun'
+import {app} from 'sun'
 
 import {consoleRequestStart, consoleGreyEnd, consoleTokens} from 'sun'
 
@@ -31,14 +32,18 @@ export default function ({store, ssrContext}) {
 
   router.beforeEach(async (to, from, next) => {
 
-    await store.state.initializedPromise;
+    if(!store.state.isInitialized) {
+      await store.state.initializedPromise;
+      app.$nextTick(_ => router.push(to) );
+      return;
+    }
 
     if (config.Log.MoveTo)
       console.info("%cMove to page%c" + config.SiteUrl.substring(config.SiteSchema.length) + to.path, consoleRequestStart, consoleGreyEnd, to);
 
     await checkUserCredentialsAndReloadIfNew();
 
-    return next();
+    next();
   });
 
   setRouter(router);

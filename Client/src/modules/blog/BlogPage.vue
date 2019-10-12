@@ -24,11 +24,11 @@
 </template>
 
 <script>
-    import {Page, Pagination} from 'sun'
+    //import {Page, Pagination} from 'sun'
 
     export default {
         name: 'BlogPage',
-        mixins: [Page, Pagination],
+       // mixins: [Page, Pagination],
         props: {
             categoryName: String,
             required: true
@@ -51,8 +51,8 @@
             }
         },
         methods: {
-            loadData() {
-                this.$request(this.$Api.Blog.GetPosts,
+            async loadData() {
+                await this.$request(this.$Api.Blog.GetPosts,
                     {
                         categoryName: this.categoryName,
                         page: this.currentPage,
@@ -61,6 +61,7 @@
                 ).then(response => {
                     this.posts = response.data;
                 }).catch(x => {
+                    console.error(x);
                     this.$refs.loader.fail();
                 });
             }

@@ -64,9 +64,9 @@ module.exports = function (ctx) {
       // extractCSS: false,
       extendWebpack(cfg) {
         cfg.resolve.alias.sun = path.resolve('./src/sun.js');
+        cfg.resolve.alias.mixins = path.resolve('./src/mixins/mixins.js');
 
         cfg.resolve.modules.push(path.resolve('./src'));
-        cfg.resolve.modules.push(path.resolve('./src/admin'));
 
         const htmlWebpackPlugin = cfg.plugins.find(x => x.constructor.name === "HtmlWebpackPlugin");
         htmlWebpackPlugin.options.configUId = Math.random().toString(36).substring(7);
