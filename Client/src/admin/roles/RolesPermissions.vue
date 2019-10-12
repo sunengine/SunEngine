@@ -23,7 +23,7 @@
 </template>
 
 <script>
-    import {Page} from 'sun'
+    import {Page} from 'mixins'
 
     export default {
         name: 'RolesPermissions',
@@ -44,7 +44,7 @@
             async loadData() {
                 this.json = null;
                 await this.$request(
-                    this.$AdminApi.RolesPermissionsAdmin.UploadJson
+                    this.$AdminApi.RolesPermissionsAdmin.GetJson
                 ).then(response => {
                         this.error = null;
                         this.json = response.data.json

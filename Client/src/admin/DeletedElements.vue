@@ -14,7 +14,7 @@
 </template>
 
 <script>
-    import {Page} from 'mixins/Page'
+    import {Page} from 'mixins'
 
 
     export default {

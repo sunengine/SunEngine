@@ -39,7 +39,7 @@
 </template>
 
 <script>
-    import {Page} from 'sun'
+    import {Page} from 'mixins'
 
     const cachePolicies = {
         Always: 0,

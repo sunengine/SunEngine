@@ -16,7 +16,7 @@
 
 <script>
     import {getWhereToAdd} from 'sun'
-    import {Page} from 'sun'
+    import {Page} from 'mixins'
 
 
     export default {

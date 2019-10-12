@@ -24,11 +24,11 @@
 </template>
 
 <script>
-    //import {Page, Pagination} from 'sun'
+    import {Page, Pagination} from 'mixins'
 
     export default {
         name: 'BlogPage',
-       // mixins: [Page, Pagination],
+        mixins: [Page, Pagination],
         props: {
             categoryName: String,
             required: true

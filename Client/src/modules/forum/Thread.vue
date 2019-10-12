@@ -43,8 +43,8 @@
 </template>
 
 <script>
-    import {Page} from 'sun'
-    import {Pagination} from 'sun'
+    import {Page} from 'mixins'
+    import {Pagination} from 'mixins'
 
 
     export default {

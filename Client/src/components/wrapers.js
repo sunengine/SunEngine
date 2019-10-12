@@ -1,6 +1,6 @@
 import {PanelWrapper} from 'sun'
 import {PageWrapper} from 'sun'
-import {Page} from 'sun'
+import {Page} from 'mixins'
 import {extend} from 'quasar'
 
 

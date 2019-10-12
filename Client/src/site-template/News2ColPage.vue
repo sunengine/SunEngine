@@ -19,7 +19,7 @@
 </template>
 
 <script>
-    import {Page} from 'sun'
+    import {Page} from 'mixins'
     import {ActivitiesList} from 'sun'
     import {PostsList} from 'sun'
     import {LoaderWait} from 'sun'

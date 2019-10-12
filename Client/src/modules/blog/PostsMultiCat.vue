@@ -2,7 +2,7 @@
   <div class="posts-multi-cat">
     <PostsList v-if="posts" :posts="posts"/>
 
-    <Loader ref="loaderWait" v-else/>
+    <LoaderWait ref="loader" v-else/>
 
     <q-pagination class="page-padding q-mt-md" v-if="posts && posts.totalPages > 1" v-model="posts.pageIndex"
                   color="pagination"
@@ -12,8 +12,8 @@
 </template>
 
 <script>
-    import {Page} from 'sun'
-    import {Pagination} from 'sun'
+    import {Page} from 'mixins'
+    import {Pagination} from 'mixins'
 
 
     export default {
@@ -45,19 +45,17 @@
                     {
                         componentName: this.componentName,
                         page: this.currentPage
-
                     }
                 ).then(response => {
                     this.posts = response.data;
-                    this.$refs.postsList.posts = response.data;
                 }).catch(x => {
                     this.$refs.loader.fail()
                 })
             }
         },
         beforeCreate() {
-            this.$options.components.PostsList = require('sun').PostsList;
             this.$options.components.LoaderWait = require('sun').LoaderWait;
+            this.$options.components.PostsList = require('sun').PostsList;
         },
         created() {
             this.loadData();

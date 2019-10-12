@@ -31,7 +31,7 @@
     import {restoreMaterial} from 'sun'
     import {canDeleteMaterial} from 'sun'
     import {canRestoreMaterial} from 'sun'
-    import {Page} from 'sun'
+    import {Page} from 'mixins'
 
 
     export default {
