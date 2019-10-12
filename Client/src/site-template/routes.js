@@ -1,12 +1,8 @@
-import {BlogMultiCatPage} from 'sun'
-import {ActivitiesPage} from 'sun'
-
-import IndexPage from './IndexPage'
-import News2ColPage from './News2ColPage'
-import MaterialInlinePage from './MaterialInlinePage'
-import SecretPage from './SecretPage'
-
-import coreRoutes from './coreRoutes'
+import {IndexPage} from 'sun'
+import {News2ColPage} from 'sun'
+import {MaterialInlinePage} from 'sun'
+import {SecretPage} from 'sun'
+import {coreRoutes} from 'sun'
 
 
 const siteRoutes = [

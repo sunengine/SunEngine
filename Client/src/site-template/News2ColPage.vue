@@ -20,15 +20,9 @@
 
 <script>
     import {Page} from 'mixins'
-    import {ActivitiesList} from 'sun'
-    import {PostsList} from 'sun'
-    import {LoaderWait} from 'sun'
-    import {PostsMultiCat} from 'sun'
-
 
     export default {
         name: 'News2ColPage',
-        components: {PostsMultiCat, LoaderWait, PostsList, ActivitiesList},
         mixins: [Page],
         data: function () {
             return {
@@ -47,6 +41,12 @@
         },
         mounted() {
             this.mounted = true;
+        },
+        beforeCreate() {
+            this.$options.components.ActivitiesList = require('sun').ActivitiesList;
+            this.$options.components.PostsList = require('sun').PostsList;
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
+            this.$options.components.PostsMultiCat = require('sun').PostsMultiCat;
         },
         created() {
             this.title = this.$tl('title');
