@@ -2,27 +2,26 @@ const glob = require('glob');
 const fs = require('fs');
 
 
-const dirs = ['api', 'admin', 'classes', 'components', 'mixins', 'modules', 'pages', 'router', 'store', 'utils','site'];
-const excludePaths = ['src/router/index.js', 'src/site/i18n'];
+const dirs = ['api', 'admin', 'classes', 'components', 'mixins', 'modules', 'pages', 'router', 'store', 'utils'];
+const excludePaths = ['src/router/index.js'];
 
 
+const patternAll = 'src/**/*.@(js|vue)';
+const patternSite = 'src/site/**/*.@(js|vue)';
 
-const pattern = 'src/**/*.@(js|vue)';
+const ind = indexDic();
 
-var text = "";
-
-const arr = glob.sync(pattern);
-
-proccess(arr);
-
-text +=
-`export * from 'src/store-index'
-export * from 'src/router/routerInstance'
-export * from 'src/store/storeInstance'
-export {app} from 'src/App'`;
+proccess(glob.sync(patternAll), dirs, excludePaths);
+proccess(glob.sync(patternSite), ['site'], ['src/site/i18n']);
 
 
-fs.writeFile('./src/sun.js', text, function (err) {
+ind.addLine("store-index", "export * from 'src/store-index'");
+ind.addLine("routerInstance", "export * from 'src/router/routerInstance'");
+ind.addLine("storeInstance", "export * from 'src/store/storeInstance'");
+ind.addLine("App", "export {app} from 'src/App'");
+
+
+fs.writeFile('./src/sun.js', ind.makeText(), function (err) {
   if (err) {
     return console.log(err);
   }
@@ -30,25 +29,25 @@ fs.writeFile('./src/sun.js', text, function (err) {
 });
 
 
-function proccess(arr) {
+function proccess(arr, dirs, excludePaths) {
+
   for (const path of arr) {
-    const name = filePathToComponentName(path);
+    const name = filePathToComponentName(path, dirs, excludePaths);
     if (!name)
       continue;
 
     const fileText = fs.readFileSync(path, 'utf8');
 
-    if(/export( )+(?!default)/.test(fileText))
-      text += `export * from '${path}'\n`;
-    if(/export( )+default/.test(fileText))
-      text += `export ${name} from '${path}'\n`;
+    if (/export( )+(?!default)/.test(fileText))
+      ind.addLine(name, `export * from '${path}'`);
+    if (/export( )+default/.test(fileText))
+      ind.addLine(name, `export ${name} from '${path}'`);
   }
 }
 
 
-function filePathToComponentName(name) {
-
-  if (excludePaths.some(x=> name.startsWith(x)))
+function filePathToComponentName(name, dirs, excludePaths) {
+  if (excludePaths.some(x => name.startsWith(x)))
     return;
 
   let arr = name.replace('\\', '/').split('/');
@@ -65,3 +64,36 @@ function filePathToComponentName(name) {
   const rez = arr.join('.');
   return rez;
 }
+
+function indexDic() {
+  return {
+
+    dic: {},
+    number: 1,
+
+    addLine(compName, line) {
+      this.dic[compName] =
+        {
+          line: line,
+          number: this.number++
+        };
+    },
+
+    makeText() {
+      let text = "";
+      let arr = [];
+      for (const key in this.dic) {
+        arr.push(this.dic[key]);
+      }
+
+      arr = arr.sort((a, b) => a.number - b.number);
+
+      for (const obj of arr) {
+        text += obj.line + "\n";
+      }
+
+      return text;
+    }
+  }
+}
+

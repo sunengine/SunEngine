@@ -31,6 +31,7 @@ export default {
     Delete: '/Materials/Delete'
   },
   Comments: {
+    Create: '/Comments/Create',
     GetMaterialComments: '/Comments/GetMaterialComments',
     MoveToTrash: '/Comments/MoveToTrash',
     Update: '/Comments/Update',
