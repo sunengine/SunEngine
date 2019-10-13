@@ -13,7 +13,6 @@ using SunEngine.Core.Errors;
 using SunEngine.Core.Security;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
-using SunEngine.Core.Utils.TextProcess;
 
 namespace SunEngine.Cli
 {
@@ -86,12 +85,19 @@ namespace SunEngine.Cli
                 })
                 .AddApiExplorer()
                 .AddAuthorization()
+/*
                 .AddJsonFormatters(options =>
                 {
                     options.ContractResolver = SunJsonContractResolver.Instance;
                     options.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                 })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+*/
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ContractResolver = SunJsonContractResolver.Instance;
+                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
 
