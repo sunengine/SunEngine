@@ -32,12 +32,10 @@
 <script>
     import {Page} from 'mixins'
     import {Pagination} from 'mixins'
-    import LoaderWait from "../../components/LoaderWait";
 
 
     export default {
         name: 'ArticlesMultiCatPage',
-        components: {LoaderWait},
         mixins: [Page, Pagination],
         props: {
             pageTitle: {
