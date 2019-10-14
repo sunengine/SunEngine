@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using SunEngine.Admin;
 using SunEngine.Core.Configuration.AddServices;
@@ -18,7 +19,7 @@ namespace SunEngine.Cli
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
             CurrentEnvironment = env;
@@ -26,7 +27,7 @@ namespace SunEngine.Cli
 
         private IConfiguration Configuration { get; }
 
-        private IHostingEnvironment CurrentEnvironment { get; }
+        private IWebHostEnvironment CurrentEnvironment { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -97,6 +98,9 @@ namespace SunEngine.Cli
                     options.SerializerSettings.ContractResolver = SunJsonContractResolver.Instance;
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                 })
+                .AddJsonOptions(options =>
+                {
+                })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
@@ -137,7 +141,7 @@ namespace SunEngine.Cli
         }
 
 
-        public static void SetExceptionsMode(IHostingEnvironment env, IConfiguration conf)
+        public static void SetExceptionsMode(IWebHostEnvironment env, IConfiguration conf)
         {
             void ShowExceptions()
             {
