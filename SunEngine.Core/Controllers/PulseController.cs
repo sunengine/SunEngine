@@ -51,6 +51,9 @@ namespace SunEngine.Core.Controllers
             return Ok(new {version});
         }
 
+        [HttpGet]
+        [HttpPost]
+        [AllowAnonymous]
         public virtual IActionResult DotnetVersion()
         {
             return Ok(AppContext.TargetFrameworkName);
