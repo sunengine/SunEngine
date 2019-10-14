@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -80,6 +79,8 @@ namespace SunEngine.Cli
 
             services.AddTransient<IEmailSenderService, EmailSenderService>();
 
+            services.AddControllers();
+
             services.AddMvcCore(options =>
                 {
                     // Add filters here
@@ -97,11 +98,7 @@ namespace SunEngine.Cli
                 {
                     options.SerializerSettings.ContractResolver = SunJsonContractResolver.Instance;
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                })
-                .AddJsonOptions(options =>
-                {
-                })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                });
         }
 
 
@@ -128,7 +125,8 @@ namespace SunEngine.Cli
             
             app.UseMiddleware<SunExceptionMiddleware>();
             
-            app.UseMvc(routes =>
+
+/*             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "areaRoute",
@@ -137,6 +135,14 @@ namespace SunEngine.Cli
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}");
+            });
+ */
+            app.UseRouting();
+            
+            app.UseEndpoints(endPoints =>
+            {
+                endPoints.MapControllerRoute("areaRoute","{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endPoints.MapControllerRoute("default", "{controller}/{action}");
             });
         }
 
