@@ -9,15 +9,20 @@ namespace SunEngine.Core.Utils
 
         public static string Normalize(string key)
         {
-            return Singleton.Normalize(key);
+            return Singleton.NormalizeName(key);
         }
     }
 
     public class NormalizerLowercase : ILookupNormalizer
     {
-        public string Normalize(string key)
+        public string NormalizeEmail(string email)
         {
-            return key.ToLower();
+            throw new System.NotImplementedException();
+        }
+
+        public string NormalizeName(string name)
+        {
+            return name.ToLower();
         }
     }
 }
