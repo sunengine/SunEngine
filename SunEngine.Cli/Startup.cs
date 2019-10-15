@@ -76,29 +76,19 @@ namespace SunEngine.Cli
             services.AddSingleton<CaptchaService>();
             services.AddSanitizer();
             
-
             services.AddTransient<IEmailSenderService, EmailSenderService>();
-
-            services.AddControllers();
-
+            
             services.AddMvcCore(options =>
                 {
                     // Add filters here
                 })
                 .AddApiExplorer()
                 .AddAuthorization()
-/*
-                .AddJsonFormatters(options =>
-                {
-                    options.ContractResolver = SunJsonContractResolver.Instance;
-                    options.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                })
-*/
                 .AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.ContractResolver = SunJsonContractResolver.Instance;
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                });
+                });;
         }
 
 
@@ -121,27 +111,13 @@ namespace SunEngine.Cli
                         .WithExposedHeaders(Headers.TokensHeaderName));
             }
 
-            app.UseAuthentication();
-            
-            app.UseMiddleware<SunExceptionMiddleware>();
-            
-
-/*             app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "areaRoute",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action}");
-            });
- */
             app.UseRouting();
-            
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseMiddleware<SunExceptionMiddleware>();
             app.UseEndpoints(endPoints =>
             {
-                endPoints.MapControllerRoute("areaRoute","{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endPoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endPoints.MapControllerRoute("default", "{controller}/{action}");
             });
         }
