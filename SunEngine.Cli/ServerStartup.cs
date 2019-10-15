@@ -45,7 +45,7 @@ namespace SunEngine.Cli
             {
                 builder.UseKestrel();
                 builder.UseStartup<Startup>();
-                builder.ConfigureAppConfiguration((builder, config) => 
+                builder.ConfigureAppConfiguration((builderContext, config) => 
                 {
                     string dbSettingFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir, "DataBaseConnection.json"));
                     string mainSettingsFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir, "SunEngine.json"));
