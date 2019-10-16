@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using LinqToDB;
 using LinqToDB.Data;
@@ -7,7 +8,6 @@ using LinqToDB.Mapping;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Authorization;
 using SunEngine.Core.Models.Materials;
-using SunEngine.Core.Utils;
 
 
 namespace SunEngine.Core.DataBase
@@ -60,7 +60,7 @@ namespace SunEngine.Core.DataBase
         public ITable<OperationKey> OperationKeys => GetTable<OperationKey>();
         public ITable<CategoryAccess> CategoryAccess => GetTable<CategoryAccess>();
         public ITable<CategoryOperationAccess> CategoryOperationAccess => GetTable<CategoryOperationAccess>();
-        
+
         public new ITable<User> Users => GetTable<User>();
         public new ITable<Role> Roles => GetTable<Role>();
 
@@ -80,7 +80,6 @@ namespace SunEngine.Core.DataBase
 
         public ITable<Component> Components => GetTable<Component>();
 
-        
         public void UpdateSequence(string tableName, string keyName)
         {
             if (IsPostgres())
@@ -90,7 +89,28 @@ namespace SunEngine.Core.DataBase
 
         public bool IsPostgres()
         {
-            return DataProvider.Name.StartsWith("Postgre");
+            return SqlProviderName == SqlProviderType.PostgreSql;
         }
+        
+        public SqlProviderType SqlProviderName
+        {
+            get
+            {
+                if (DataProvider.Name.StartsWith("Mysql", StringComparison.OrdinalIgnoreCase))
+                    return SqlProviderType.MySql;
+                else if (DataProvider.Name.StartsWith("Postgre", StringComparison.OrdinalIgnoreCase))
+                    return SqlProviderType.PostgreSql;
+                return SqlProviderType.Other;
+            }
+        }
+    }
+    
+    
+
+    public enum SqlProviderType
+    {
+        MySql = 1,
+        PostgreSql = 2,
+        Other = 3
     }
 }
