@@ -69,11 +69,9 @@
 
     <q-footer class="layout-footer">
       <div>
-        {{$tl('madeWithLove')}}
-        <q-icon name="fas fa-heart" size="12px"/>
-        <a href="https://github.com/Dmitrij-Polyanin/SunEngine">GitHub</a>
-        <q-icon name="fas fa-heart" size="12px"/>
-        <a href="https://t.me/SunEngine">Telegram</a>
+        <LinksMenu :menuItem="footerMenuItem">
+          <q-icon name="fas fa-heart" size="12px"/>
+        </LinksMenu>
       </div>
       <SunEngineFooter/>
     </q-footer>
@@ -81,36 +79,37 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex';
-
-  import MainMenu from './MainMenu'
-
-  import {SunEngineFooter} from 'sun'
+    import {mapState} from 'vuex';
 
 
-  export default {
-    name: 'Layout',
-    components: {SunEngineFooter, MainMenu},
-    data() {
-      return {
-        leftDrawerOpen: this.$q.platform.is.desktop,
-        rightDrawerOpen: this.$q.platform.is.desktop,
-      }
-    },
-    computed: {
-      rightDrawerIs: function () {
-        return !!this.$route?.matched?.[0]?.components?.navigation;
-      },
-      ...mapState({
-        userName: state => state.auth.user?.name,
-        userAvatar: state => state.auth.user?.avatar,
-      })
-    },
-    beforeCreate() {
-      this.$options.components.UserMenu = require('sun').UserMenu;
-      this.$options.components.LoginRegisterMenu = require('sun').LoginRegisterMenu;
+    export default {
+        name: 'Layout',
+        data() {
+            return {
+                leftDrawerOpen: this.$q.platform.is.desktop,
+                rightDrawerOpen: this.$q.platform.is.desktop,
+            }
+        },
+        computed: {
+            rightDrawerIs: function () {
+                return !!this.$route?.matched?.[0]?.components?.navigation;
+            },
+            footerMenuItem() {
+                return this.$store.getters.getMenu('FooterMenu');
+            },
+            ...mapState({
+                userName: state => state.auth.user?.name,
+                userAvatar: state => state.auth.user?.avatar,
+            })
+        },
+        beforeCreate() {
+            this.$options.components.UserMenu = require('sun').UserMenu;
+            this.$options.components.LoginRegisterMenu = require('sun').LoginRegisterMenu;
+            this.$options.components.MainMenu = require('sun').MainMenu;
+            this.$options.components.SunEngineFooter = require('sun').SunEngineFooter;
+            this.$options.components.LinksMenu = require('sun').LinksMenu;
+        }
     }
-  }
 
 </script>
 

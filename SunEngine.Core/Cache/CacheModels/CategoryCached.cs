@@ -41,10 +41,6 @@ namespace SunEngine.Core.Cache.CacheModels
         public int? ParentId { get; }
         public CategoryCached Parent { get; private set; }
 
-        public int? CacheSettingsId { get; }
-
-        public CategoryCacheSettings CacheSettings { get; }
-
         public IImmutableList<CategoryCached> SubCategories { get; private set; }
 
         public IImmutableList<CategoryCached> AllSubCategories { get; private set; }
@@ -79,8 +75,6 @@ namespace SunEngine.Core.Cache.CacheModels
             MaterialsPreviewGeneratorName = category.MaterialsPreviewGeneratorName;
             SettingsJson = SunJson.MakeJRow(category.SettingsJson);
             ParentId = category.ParentId;
-            CacheSettingsId = category.CacheSettingsId;
-            CacheSettings = category.CacheSettings;
             SortNumber = category.SortNumber;
             LayoutName = category.LayoutName;
             IsHidden = category.IsHidden;

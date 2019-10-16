@@ -1,22 +1,30 @@
 import {consoleTokens} from 'sun'
 import {hasLongToken} from 'sun'
-import {consoleInit, removeTokens} from 'sun'
+import {consoleInit} from 'sun'
+import {removeTokens} from 'sun'
 
 
 export default async function (context) {
 
   console.info("%cStart init store", consoleInit);
 
-  if(hasLongToken())
-    await context.dispatch('loadMyUserInfo').catch(() => {
-      console.error('%cTokens removed', consoleTokens);
-      removeTokens();
-    });
+  if (hasLongToken()) {
+    await context.dispatch('loadMyUserInfo')
+      .catch(() => {
+        console.error('%cTokens removed', consoleTokens);
+        removeTokens();
+      });
+  }
+
 
   try {
     await context.dispatch('loadAllCategories');
 
-    await context.dispatch('registerLayouts');
+    await context.dispatch('registerAllLayouts');
+
+    await context.dispatch('registerAllComponentsTypes');
+
+    await context.dispatch('loadAllComponents');
 
     await context.dispatch('setAllRoutes');
 
@@ -24,7 +32,7 @@ export default async function (context) {
 
     context.state.isInitialized = true;
 
-  } catch(error) {
+  } catch (error) {
 
     console.error(error);
 

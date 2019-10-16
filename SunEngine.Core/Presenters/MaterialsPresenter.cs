@@ -20,13 +20,13 @@ namespace SunEngine.Core.Presenters
         {
         }
 
-        public virtual Task<MaterialView> GetAsync(int id)
+        public Task<MaterialView> GetAsync(int id)
         {
             var query = db.Materials.Where(x => x.Id == id);
             return GetAsync(query);
         }
 
-        public virtual Task<MaterialView> GetAsync(string name)
+        public Task<MaterialView> GetAsync(string name)
         {
             var query = db.Materials.Where(x => x.Name == name);
             return GetAsync(query);
@@ -53,7 +53,9 @@ namespace SunEngine.Core.Presenters
                     IsHidden = x.IsHidden,
                     IsCommentsBlocked = x.IsCommentsBlocked,
                     DeletedDate = x.DeletedDate,
-                    Tags = x.TagMaterials.OrderBy(y => y.Tag.Name).Select(y => y.Tag.Name).ToArray()
+                    Tags = x.TagMaterials.OrderBy(y => y.Tag.Name).Select(y => y.Tag.Name).ToArray(),
+                    VisitsCount = x.VisitsCount,
+                    SettingsJson = x.SettingsJson
                 }
             ).FirstOrDefaultAsync();
         }
@@ -78,5 +80,7 @@ namespace SunEngine.Core.Presenters
         public bool IsHidden { get; set; }
         public DateTime? DeletedDate { get; set; }
         public string[] Tags { get; set; }
+        public int VisitsCount { get; set; }
+        public string SettingsJson { get; set; }
     }
 }

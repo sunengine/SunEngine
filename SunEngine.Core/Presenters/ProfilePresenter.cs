@@ -16,13 +16,16 @@ namespace SunEngine.Core.Presenters
 
     public class ProfilePresenter : DbService, IProfilePresenter
     {
-        protected readonly IRolesCache RolesCache;
-        
-        public ProfilePresenter(DataBaseConnection db, IRolesCache rolesCache) : base(db)
+        protected readonly IRolesCache rolesCache;
+
+        public ProfilePresenter(
+            DataBaseConnection db,
+            IRolesCache rolesCache) : base(db)
         {
-            this.RolesCache = rolesCache;
+            this.rolesCache = rolesCache;
         }
-        
+
+
         public virtual async Task<ProfileView> GetProfileAsync(string link, int? viewerUserId)
         {
             IQueryable<User> query;
@@ -31,11 +34,12 @@ namespace SunEngine.Core.Presenters
             else
                 query = db.Users.Where(x => x.Link == link);
 
+
             if (viewerUserId.HasValue)
             {
-                int adminGroupId = RolesCache.AdminRole.Id;
+                int adminGroupId = rolesCache.AdminRole.Id;
 
-                var user = await query.Select(x =>
+                ProfileView user = await query.Select(x =>
                     new ProfileView
                     {
                         Id = x.Id,
@@ -44,6 +48,7 @@ namespace SunEngine.Core.Presenters
                         Link = x.Link,
                         Photo = x.Photo,
                         RegisteredDate = x.RegisteredDate,
+                        ProfileVisitsCount = x.ProfileVisitsCount,
                         NoBannable = x.Roles.Any(y => y.RoleId == adminGroupId),
                         HeBannedMe = x.BanList.Any(y => y.UserBanedId == viewerUserId.Value)
                     }).FirstOrDefaultAsync();
@@ -63,14 +68,14 @@ namespace SunEngine.Core.Presenters
                     Link = x.Link,
                     Photo = x.Photo,
                     RegisteredDate = x.RegisteredDate,
+                    ProfileVisitsCount = x.ProfileVisitsCount,
                     NoBannable = true,
                     HeBannedMe = false,
                     IBannedHim = false
                 }).FirstOrDefaultAsync();
         }
     }
-    
-    
+
 
     public class ProfileView
     {
@@ -80,7 +85,9 @@ namespace SunEngine.Core.Presenters
         public string Link { get; set; }
 
         public string Photo { get; set; }
-        
+
+        public int ProfileVisitsCount { get; set; }
+
         public DateTime RegisteredDate { get; set; }
 
         public bool NoBannable { get; set; }

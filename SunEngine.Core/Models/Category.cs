@@ -73,8 +73,6 @@ namespace SunEngine.Core.Models
 
         public int? CacheSettingsId { get; set; }
 
-        public CategoryCacheSettings CacheSettings { get; set; }
-        
         public bool IsHidden { get; set; }
 
         public bool IsCacheContent { get; set; }

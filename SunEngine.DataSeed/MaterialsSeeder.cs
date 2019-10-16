@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AngleSharp.Dom.Html;
+using AngleSharp.Extensions;
 using AngleSharp.Parser.Html;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Materials;
+using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
 using SunEngine.Core.Utils.TextProcess;
 
@@ -32,19 +34,10 @@ namespace SunEngine.DataSeed
         public bool TitleAppendCategoryName;
 
         private const int MaterialSubTitleLength = 80;
-        private const int MaterialPreviewLength = 800;
 
 
         private readonly LinesCount defaultLinesCount = new LinesCount {Min = 4, Max = 30};
-
         
-        private readonly Dictionary<string, Func<IHtmlDocument, int, string>> MaterialPreviewGenerators =
-            new Dictionary<string, Func<IHtmlDocument, int, string>>
-            {
-                [nameof(MakePreview.PlainText)] = MakePreview.PlainText,
-                [nameof(MakePreview.HtmlFirstImage)] = MakePreview.HtmlFirstImage,
-                [nameof(MakePreview.HtmlNoImages)] = MakePreview.HtmlNoImages
-            };
 
 
         public MaterialsSeeder(DataContainer dataContainer)
@@ -76,12 +69,9 @@ namespace SunEngine.DataSeed
             if (category == null)
                 throw new Exception($"No category '{categoryName}' in data base");
 
-            MaterialPreviewGenerators.TryGetValue(category.MaterialsPreviewGeneratorName ?? "",
-                out Func<IHtmlDocument, int, string> generator);
-
 
             if (category.IsMaterialsContainer)
-                SeedCategoryWithMaterials(category, generator, category.MaterialTypeTitle, TitleAppendCategoryName);
+                SeedCategoryWithMaterials(category, category.MaterialTypeTitle, TitleAppendCategoryName);
 
             foreach (var subCategory in dataContainer.Categories.Where(x =>
                 x.ParentId.HasValue && x.ParentId.Value == category.Id))
@@ -89,9 +79,11 @@ namespace SunEngine.DataSeed
         }
 
         public void SeedCategoryWithMaterials(
-            Category category, Func<IHtmlDocument, int, string> previewGenerator, string titleStart = null,
+            Category category, 
+            string titleStart = null,
             bool titleAppendCategoryName = false,
-            int? materialsCount = null, LinesCount? linesCount = null)
+            int? materialsCount = null, 
+            LinesCount? linesCount = null)
         {
             if (materialsCount == null)
                 materialsCount = ran.Next(MinMaterialCount, MaxMaterialCount);
@@ -110,14 +102,16 @@ namespace SunEngine.DataSeed
                 if (titleAppendCategoryName)
                     title += $" ({category.Name})";
 
-                SeedMaterial(category, previewGenerator, title, CommentsCount,
+                SeedMaterial(category, title, CommentsCount,
                     $"{titleStart ?? "Материал"} {i}, категория {category.Name}", "материал " + i,
                     linesCount.Value);
             }
         }
 
         public Material SeedMaterial(
-            Category category, Func<IHtmlDocument, int, string> previewGenerator, string title, int commentsCount,
+            Category category, 
+            string title, 
+            int commentsCount,
             string firstLine,
             string lineElement, LinesCount linesCount)
         {
@@ -138,21 +132,13 @@ namespace SunEngine.DataSeed
                 SortNumber = id
             };
 
-            IHtmlDocument doc = null;
-            if (previewGenerator != null)
-            {
-                doc = new HtmlParser().Parse(material.Text);
-                material.Preview = previewGenerator(doc, MaterialPreviewLength);
-            }
-
-
             switch (category.MaterialsSubTitleInputType)
             {
                 case MaterialsSubTitleInputType.Manual:
                     material.SubTitle = "Описание материала: " + material.Title;
                     break;
                 case MaterialsSubTitleInputType.Auto:
-                    material.SubTitle = MakeSubTitle.Do(doc ?? new HtmlParser().Parse(material.Text),
+                    material.SubTitle = MakeSubTitle.Do(new HtmlParser().Parse(material.Text),
                         MaterialSubTitleLength);
                     break;
             }
@@ -225,7 +211,7 @@ namespace SunEngine.DataSeed
                 sb.Append("</p>\n");
             }
 
-            return sb.ToString();
+            return new HtmlParser().Parse(sb.ToString()).Body.ChildNodes.ToHtml(Sanitizer.OutputFormatter);
         }
     }
 

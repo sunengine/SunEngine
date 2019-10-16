@@ -40,12 +40,12 @@ namespace SunEngine.Core.Security
             SunUserManager userManager,
             IRolesCache rolesCache,
             ICryptService cryptService,
-            IOptions<JweOptions> jwtOptions,
+            IOptions<JweOptions> jweOptions,
             ILoggerFactory loggerFactory) : base(db)
         {
             this.userManager = userManager;
             this.cryptService = cryptService;
-            this.jweOptions = jwtOptions.Value;
+            this.jweOptions = jweOptions.Value;
             logger = loggerFactory.CreateLogger<AccountController>();
             this.rolesCache = rolesCache;
         }
@@ -57,7 +57,8 @@ namespace SunEngine.Core.Security
 
 
         public async Task<SunClaimsPrincipal> RenewSecurityTokensAsync(
-            HttpContext httpContext, int userId,
+            HttpContext httpContext,
+            int userId,
             LongSession longSession = null)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Id == userId);
@@ -65,7 +66,8 @@ namespace SunEngine.Core.Security
         }
 
         public Task<SunClaimsPrincipal> RenewSecurityTokensAsync(
-            HttpContext httpContext, User user,
+            HttpContext httpContext,
+            User user,
             long sessionId)
         {
             var longSession = db.LongSessions.FirstOrDefault(x => x.Id == sessionId);
@@ -73,7 +75,8 @@ namespace SunEngine.Core.Security
         }
 
         public async Task<SunClaimsPrincipal> RenewSecurityTokensAsync(
-            HttpContext httpContext, User user,
+            HttpContext httpContext,
+            User user,
             LongSession longSession = null)
         {
             void GenerateTokens(LongSession longSession1)
@@ -100,7 +103,7 @@ namespace SunEngine.Core.Security
             else
             {
                 GenerateTokens(longSession);
-                
+
                 await db.UpdateAsync(longSession);
             }
 
@@ -134,16 +137,11 @@ namespace SunEngine.Core.Security
             return tokenAndClaimsPrincipal.ClaimsPrincipal;
         }
 
-
-        private class TokenAndClaimsPrincipal
-        {
-            public string Token;
-            public SunClaimsPrincipal ClaimsPrincipal;
-            public DateTime Expiration;
-        }
-
         private async Task<TokenAndClaimsPrincipal> CreateShortTokenAsync(
-            User user, string lat2r, string lat2, long sessionId)
+            User user,
+            string lat2r,
+            string lat2,
+            long sessionId)
         {
             List<Claim> claims = new List<Claim>
             {
@@ -184,7 +182,7 @@ namespace SunEngine.Core.Security
             JwtSecurityToken jwtSecurityToken =
                 new JwtSecurityToken(new JwtHeader(), JwtPayload.Deserialize(tokenDecrypted));
 
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(jwtSecurityToken.Claims, SunJwt.Scheme);
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(jwtSecurityToken.Claims, SunJwe.Scheme);
 
             if (jwtSecurityToken.ValidTo.Add(TokensExpiration.Delta) < DateTime.UtcNow)
                 throw new Exception("Short token expires");
@@ -224,7 +222,6 @@ namespace SunEngine.Core.Security
             return jwtSecurityToken;
         }
 
-
         public void MakeLogoutCookiesAndHeaders(HttpResponse response)
         {
             response.Headers.Clear();
@@ -238,6 +235,14 @@ namespace SunEngine.Core.Security
                 });
 
             response.Headers.Add(Headers.TokensHeaderName, Headers.TokensExpireValue);
+        }
+
+
+        private class TokenAndClaimsPrincipal
+        {
+            public string Token;
+            public SunClaimsPrincipal ClaimsPrincipal;
+            public DateTime Expiration;
         }
     }
 }

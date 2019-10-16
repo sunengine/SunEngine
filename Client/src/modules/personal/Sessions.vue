@@ -15,10 +15,12 @@
 
           </q-th>
           <q-td auto-width>
-            <q-icon name="fas fa-desktop" class="q-mr-md"/>{{$tl('deviceInfo')}}
+            <q-icon name="fas fa-desktop" class="q-mr-md"/>
+            {{$tl('deviceInfo')}}
           </q-td>
           <q-td auto-width>
-            <q-icon name="far fa-clock" class="q-mr-md"/>{{$tl('updateDate')}}
+            <q-icon name="far fa-clock" class="q-mr-md"/>
+            {{$tl('updateDate')}}
           </q-td>
         </q-tr>
       </template>
@@ -48,60 +50,64 @@
 </template>
 
 <script>
-  import {Page} from 'sun';
+    import {Page} from 'mixins';
 
-  export default {
-    name: "Sessions",
-    mixins: [Page],
-    data() {
-      return {
-        sessions: null,
-        selected: []
-      }
-    },
-    computed: {
-      columns() {
-        return [
-          //{name: 'Id',  align: 'left', label: 'Id', field: 'id', sortable: false},
-          {name: 'deviceInfo', align: 'left', label: this.$tl('deviceInfo'), field: 'deviceInfo', sortable: false}
-        ]
-      }
-    },
-    methods: {
-      deleteSessions() {
-        let sessions = this.selected.filter(x => !x.isCurrent);
-        if (sessions.length === 0)
-          return;
-
-        this.$store.dispatch('request',
-          {
-            url: '/Personal/RemoveMySessions',
-            data: {
-              sessions: sessions.map(x => x.id).join(",")
+    export default {
+        name: "Sessions",
+        mixins: [Page],
+        data() {
+            return {
+                sessions: null,
+                selected: []
             }
-          }).then(response => {
-          this.$successNotify(null, 'warning');
-          this.selected = [];
-          this.loadData();
-        });
-      },
-      loadData() {
-        this.$store.dispatch('request',
-          {
-            url: '/Personal/GetMySessions'
-          }).then(response => {
-          this.sessions = response.data;
-        });
-      }
-    },
-    beforeCreate() {
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
-    },
-    created() {
-      this.title = this.$tl('title');
-      this.loadData();
+        },
+        computed: {
+            columns() {
+                return [
+                    //{name: 'Id',  align: 'left', label: 'Id', field: 'id', sortable: false},
+                    {
+                        name: 'deviceInfo',
+                        align: 'left',
+                        label: this.$tl('deviceInfo'),
+                        field: 'deviceInfo',
+                        sortable: false
+                    }
+                ]
+            }
+        },
+        methods: {
+            deleteSessions() {
+                let sessions = this.selected.filter(x => !x.isCurrent);
+                if (sessions.length === 0)
+                    return;
+
+                this.$request(
+                    this.$Api.Personal.RemoveMySessions,
+                    {
+                        sessions: sessions.map(x => x.id).join(",")
+                    }
+                ).then((response) => {
+                    this.$successNotify(null, 'warning');
+                    this.selected = [];
+                    this.loadData();
+                });
+            },
+            loadData() {
+                this.$request(
+                    this.$Api.Personal.GetMySessions
+                ).then(response => {
+                    this.sessions = response.data;
+                });
+            }
+        },
+        beforeCreate() {
+            this.$options.components.LoaderWait = require('sun').LoaderWait
+        },
+        created() {
+            this.title = this.$tl('title');
+            this.loadData();
+        }
     }
-  }
 </script>
 
 <style lang="stylus">

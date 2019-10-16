@@ -4,11 +4,11 @@ Site engine that supports forums, articles and blogs.
 
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
-Version: 1.8.6
+Version: 1.13.2
 
 Demo site: [demo.sunengine.site](http://demo.sunengine.site). 
 
-Статья на русском: [ссылка](README.ru.md).
+[Текст на русском](README.RU.md).
 
 ### About project
 #### Core modules

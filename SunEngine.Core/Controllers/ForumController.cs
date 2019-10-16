@@ -65,7 +65,7 @@ namespace SunEngine.Core.Controllers
 
             async Task<IPagedList<TopicInfoView>> LoadDataAsync()
             {
-                return await forumPresenter.GetNewTopics(options, forumOptions.NewTopicsMaxPages);
+                return await forumPresenter.GetNewTopicsAsync(options, forumOptions.NewTopicsMaxPages);
             }
 
             return await CacheContentAsync(categoryParent, categoriesIds, LoadDataAsync, page);
@@ -97,7 +97,7 @@ namespace SunEngine.Core.Controllers
 
             async Task<IPagedList<TopicInfoView>> LoadDataAsync()
             {
-                return await forumPresenter.GetThread(options);
+                return await forumPresenter.GetThreadAsync(options);
             }
 
             return await CacheContentAsync(category, category.Id, LoadDataAsync, page);

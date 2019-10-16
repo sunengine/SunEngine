@@ -3,10 +3,10 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <LangVersion>latest</LangVersion>
-        <Version>1.8.6</Version>
-        <PackageVersion>1.8.6</PackageVersion>
+        <Version>1.13.2</Version>
+        <PackageVersion>1.13.2</PackageVersion>
         <Title>SunEngine</Title>
-        <Authors>Dmitrii Polianin</Authors>
+        <Authors>Dimitrij Polianin</Authors>
         <Description>Site engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>
         <Copyright>Dmitrii Polianin</Copyright>
         <PackageProjectUrl>https://github.com/Dmitrij-Polyanin/SunEngine</PackageProjectUrl>
@@ -21,7 +21,7 @@
             <AllowExplicitVersion>true</AllowExplicitVersion>
         </PackageReference>
         <PackageReference Include="System.Linq" Version="4.3.0" />
-        <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
+        <PackageReference Include="System.Runtime.Caching" Version="4.6.0" />
     </ItemGroup>
     
     <ItemGroup>
@@ -62,6 +62,19 @@
       <ProjectReference Include="..\SunEngine.Core\SunEngine.Core.csproj" />
       <ProjectReference Include="..\SunEngine.DataSeed\SunEngine.DataSeed.csproj" />
       <ProjectReference Include="..\SunEngine.Migrations\SunEngine.Migrations.csproj" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Config-template\Categories\Articles.json" />
+      <_ContentIncludedByDefault Remove="Config-template\Categories\Articles1.json" />
+      <_ContentIncludedByDefault Remove="Config-template\Categories\Blog.json" />
+      <_ContentIncludedByDefault Remove="Config-template\Categories\Forum1.json" />
+      <_ContentIncludedByDefault Remove="Config-template\Categories\Forum2.json" />
+      <_ContentIncludedByDefault Remove="Config-template\Materials\info1.json" />
+      <_ContentIncludedByDefault Remove="Config-template\Menu\Main.json" />
+      <_ContentIncludedByDefault Remove="Config-template\Materials\inline1.json" />
+      <_ContentIncludedByDefault Remove="Config-template\Categories\SiteTexts.json" />
     </ItemGroup>
     
    

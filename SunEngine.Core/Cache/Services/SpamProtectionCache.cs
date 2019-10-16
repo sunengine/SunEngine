@@ -20,9 +20,19 @@ namespace SunEngine.Core.Cache.Services
             return requestFree;
         }
 
+        public bool HasWorkingKey(string key)
+        {
+            return Requests.TryGetValue(key, out var requestFree) && requestFree.Working();
+        }
+
         public bool Add(string key, RequestFree requestFree)
         {
             return Requests.TryAdd(key, requestFree);
+        }
+
+        public void AddOrUpdate(string key, RequestFree requestFree)
+        {
+            Requests[key] = requestFree;
         }
 
         public void RemoveExpired()

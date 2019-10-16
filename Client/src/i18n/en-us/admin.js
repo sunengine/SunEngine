@@ -16,11 +16,11 @@ export default {
     deleteConfirm: "You want to remove the category?",
     parent: "Parent: ",
     hideCb: "Hide",
+    settingsJson: "Json settings",
     appendUrlTokenCb: "Add to URL",
     appendUrlTokenInfo: "(use only if you understand what it is)",
     isMaterialsContainerCb: "Contains materials",
     materialsSubTitleInputType: "Material sub title input type",
-    materialsPreviewGeneratorName: "Material preview generator name",
     isMaterialsNameEditableCb: "Possibility to edit material name (eng), only for admin",
     isCaching: "Caching",
     cachingPageCount: "Cache N pages",
@@ -42,6 +42,9 @@ export default {
       },
       parent: {
         required: "Select parent category"
+      },
+      settingsJson: {
+        jsonFormatError: "Invalid Json format",
       }
     }
   },
@@ -64,6 +67,47 @@ export default {
     deleteDialogBtnOk: "Remove",
     deleteDialogBtnCancel: "Cancel",
     successNotify: "Category was updated."
+  },
+
+  // ——— components ———————————————————————————————————
+
+  ComponentForm: {
+    name: "Name (eng)",
+    type: "Type",
+    isCacheData: "Cache data",
+    serverSettingsJson: "Server settings JSON",
+    clientSettingsJson: "Client settings JSON",
+    roles: "Roles to access",
+    validation: {
+      name: {
+        required: "Enter name (eng)",
+        minLength:  "Minimum component name length is 3",
+        maxLength: "Maximum component name length is " + config.DbColumnSizes.Components_Name + "letters",
+        allowedChars: "The name (eng) must consist of the characters `a-z`, `A-Z`, `0-9`, `-`, `_`"
+      },
+      type: {
+        required: "Select type",
+      },
+      jsonFormatError: "@:Global.validation.validation",
+    }
+  },
+  ComponentsAdmin: {
+    title: "Components",
+    addComponentBtn: "Add component"
+  },
+  CreateComponent: {
+    title: "Set component",
+    createBtn: "@:Global.btn.create",
+    cancelBtn: "@:Global.btn.cancel"
+  },
+  EditComponent: {
+    title: "Update component",
+    saveBtn: "@:Global.btn.save",
+    cancelBtn: "@:Global.btn.cancel",
+    deleteBtn: "@:Global.btn.delete",
+    deleteMsg: "Remove component?",
+    btnDeleteOk: "@:Global.dialog.ok",
+    btnDeleteCancel: "@:Global.dialog.cancel"
   },
 
   // ——— menuItems ————————————————————————————————————
@@ -175,6 +219,8 @@ export default {
     menuItemsCaption: "",
     categories: "Categories",
     categoriesCaption: "",
+    components: "Components",
+    componentsCaption: "",
     rolesUsers: "Groups",
     rolesUsersCaption: "",
     rolesPermissions: "Permission",

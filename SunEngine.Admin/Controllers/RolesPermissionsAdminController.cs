@@ -20,7 +20,7 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetJson()
+        public async ValueTask<IActionResult> GetJson()
         {
             var json = await rolesPermissionsAdminService.GetRolesJsonAsync();
 
@@ -28,7 +28,7 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadJson(string json)
+        public async ValueTask<IActionResult> UploadJson(string json)
         {
             await rolesPermissionsAdminService.LoadRolesFromJsonAsync(json);
 

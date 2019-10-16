@@ -26,7 +26,7 @@ namespace SunEngine.Migrations.Migrations
             Create.Table("Categories".s())
                 .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("ParentId".s()).AsInt32().Indexed().Nullable()
-                .ForeignKey("Categories".s(), "Id".s())
+                .ForeignKey("fkCategoriesCategories".s(), "Categories".s(), "Id".s())
                 .WithColumn("Name".s()).AsString(DbColumnSizes.Categories_Name).NotNullable()
                 .WithColumn("NameNormalized".s()).AsString(DbColumnSizes.Categories_Name).NotNullable().Unique()
                 .WithColumn("Title".s()).AsString(DbColumnSizes.Categories_Title).NotNullable()
@@ -37,9 +37,10 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("IsMaterialsContainer".s()).AsBoolean().NotNullable()
                 .WithColumn("IsMaterialsNameEditable".s()).AsBoolean().NotNullable().WithDefaultValue(false)
                 .WithColumn("MaterialsSubTitleInputType".s()).AsInt16().NotNullable().WithDefaultValue(0)
-                .WithColumn("MaterialsPreviewGeneratorName".s()).AsString(DbColumnSizes.Categories_MaterialsPreviewGeneratorName).Nullable()
+                .WithColumn("MaterialsPreviewGeneratorName".s())
+                .AsString(DbColumnSizes.Categories_MaterialsPreviewGeneratorName).Nullable()
                 .WithColumn("CacheSettingsId".s()).AsInt32().Indexed().Nullable()
-                .ForeignKey("CategoryCacheSettings".s(), "Id".s())
+                .ForeignKey("fkCategoriesCacheSettings".s(), "CategoryCacheSettings".s(), "Id".s())
                 .WithColumn("SortNumber".s()).AsInt32().NotNullable().Unique()
                 .WithColumn("LayoutName".s()).AsString(DbColumnSizes.Categories_LayoutName).Nullable()
                 .WithColumn("SettingsJson".s()).AsMaxString().Nullable()
@@ -68,14 +69,15 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("Information".s()).AsMaxString().Nullable()
                 .WithColumn("Photo".s()).AsString(DbColumnSizes.FileNameWithDirSize).Nullable()
                 .WithColumn("Avatar".s()).AsString(DbColumnSizes.FileNameWithDirSize).Nullable()
-                .WithColumn("RegisteredDate".s()).AsDateTime().Indexed();
+                .WithColumn("RegisteredDate".s()).AsDateTime().Indexed()
+                .WithColumn("ProfileVisitsCount".s()).AsInt32().NotNullable();
 
 
             Create.Table("UserBanedUnit".s())
                 .WithColumn("UserId".s()).AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("AspNetUsers".s(), "Id".s())
+                .ForeignKey("fkUserBanedUnitUsers".s(), "AspNetUsers".s(), "Id".s())
                 .WithColumn("UserBanedId".s()).AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("AspNetUsers".s(), "Id".s());
+                .ForeignKey("fkUserBanedUnitUsersBaned".s(), "AspNetUsers".s(), "Id".s());
 
 
             Create.Table("Materials".s())
@@ -83,12 +85,11 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("Name".s()).AsString(DbColumnSizes.Materials_Name).Nullable().Unique()
                 .WithColumn("Title".s()).AsString(DbColumnSizes.Materials_Title).NotNullable()
                 .WithColumn("SubTitle".s()).AsString(DbColumnSizes.Materials_SubTitle).Nullable()
-                .WithColumn("Preview".s()).AsMaxString().Nullable()
                 .WithColumn("Text".s()).AsMaxString().NotNullable()
                 .WithColumn("CategoryId".s()).AsInt32().NotNullable().Indexed()
-                .ForeignKey("Categories".s(), "Id".s())
+                .ForeignKey("fkMaterialsCategories".s(), "Categories".s(), "Id".s())
                 .WithColumn("AuthorId".s()).AsInt32().NotNullable().Indexed()
-                .ForeignKey("AspNetUsers".s(), "Id".s())
+                .ForeignKey("fkMaterialsUsers".s(), "AspNetUsers".s(), "Id".s())
                 .WithColumn("PublishDate".s()).AsDateTime().NotNullable().Indexed()
                 .WithColumn("EditDate".s()).AsDateTime().Nullable()
                 .WithColumn("LastCommentId".s()).AsInt32().Nullable()
@@ -96,22 +97,32 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("CommentsCount".s()).AsInt32().NotNullable()
                 .WithColumn("SortNumber".s()).AsInt32().NotNullable().Unique()
                 .WithColumn("IsCommentsBlocked".s()).AsBoolean().NotNullable()
+                .WithColumn("SettingsJson".s()).AsMaxString().Nullable()
+                .WithColumn("VisitsCount".s()).AsInt32().NotNullable()
                 .WithColumn("IsHidden".s()).AsBoolean().NotNullable()
                 .WithColumn("DeletedDate".s()).AsDateTime().Nullable();
 
+            
+            /*Create.Table("MaterialPreviews".s())
+                .WithColumn("MaterialId".s()).AsInt32().NotNullable()
+                .ForeignKey("fkPreviewsMaterials".s(),"Materials".s(),"Id".s()).OnDelete(Rule.Cascade)
+                .WithColumn("ComponentId".s()).AsInt32().NotNullable()
+                .WithColumn("Text".s()).AsMaxString().NotNullable();*/
 
+            
             Create.Table("Comments".s())
                 .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Text".s()).AsMaxString().NotNullable()
                 .WithColumn("MaterialId".s()).AsInt32().NotNullable().Indexed()
-                .ForeignKey("Materials".s(), "Id".s()).OnDelete(Rule.Cascade)
+                .ForeignKey("fkCommentsMaterials".s(), "Materials".s(), "Id".s()).OnDelete(Rule.Cascade)
                 .WithColumn("AuthorId".s()).AsInt32().Indexed().Nullable()
-                .ForeignKey("AspNetUsers".s(), "Id".s())
+                .ForeignKey("fkCommentsUsers".s(), "AspNetUsers".s(), "Id".s())
                 .WithColumn("PublishDate".s()).AsDateTime().NotNullable().Indexed()
                 .WithColumn("EditDate".s()).AsDateTime().Nullable()
                 .WithColumn("DeletedDate".s()).AsDateTime().Nullable();
 
-            Create.ForeignKey().FromTable("Materials".s())
+            
+            Create.ForeignKey("fkMaterialsLastComment".s()).FromTable("Materials".s())
                 .ForeignColumn("LastCommentId".s()).ToTable("Comments".s()).PrimaryColumn("Id".s());
 
 
@@ -123,9 +134,9 @@ namespace SunEngine.Migrations.Migrations
 
             Create.Table("TagMaterials".s())
                 .WithColumn("TagId".s()).AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("Tags".s(), "Id".s())
+                .ForeignKey("fkTagMaterialsTags".s(), "Tags".s(), "Id".s())
                 .WithColumn("MaterialId".s()).AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("Materials".s(), "Id".s());
+                .ForeignKey("fkTagMaterialsTagMaterials".s(), "Materials".s(), "Id".s());
 
 
             Create.Table("AspNetRoles".s())
@@ -140,9 +151,9 @@ namespace SunEngine.Migrations.Migrations
 
             Create.Table("AspNetUserRoles".s())
                 .WithColumn("UserId".s()).AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("AspNetUsers".s(), "Id".s())
+                .ForeignKey("fkUserRolesUsers".s(), "AspNetUsers".s(), "Id".s())
                 .WithColumn("RoleId".s()).AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("AspNetRoles".s(), "Id".s());
+                .ForeignKey("fkUserRolesRoles".s(), "AspNetRoles".s(), "Id".s());
 
 
             Create.Table("OperationKeys".s())
@@ -153,44 +164,45 @@ namespace SunEngine.Migrations.Migrations
             Create.Table("CategoryAccesses".s())
                 .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("RoleId".s()).AsInt32().NotNullable().Indexed()
-                .ForeignKey("AspNetRoles".s(), "Id".s())
+                .ForeignKey("fkCategoryAccessesRoles".s(), "AspNetRoles".s(), "Id".s())
                 .WithColumn("CategoryId".s()).AsInt32().NotNullable().Indexed()
-                .ForeignKey("Categories".s(), "Id".s());
+                .ForeignKey("fkCategoryAccessesRoleCategories".s(), "Categories".s(), "Id".s());
 
 
             Create.Table("CategoryOperationAccesses".s())
                 .WithColumn("CategoryAccessId".s()).AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("CategoryAccesses".s(), "Id".s())
+                .ForeignKey("fkCategoryOperationAccessesCategoryAccesses".s(), "CategoryAccesses".s(), "Id".s())
                 .WithColumn("OperationKeyId".s()).AsInt32().PrimaryKey().NotNullable().Indexed()
-                .ForeignKey("OperationKeys".s(), "OperationKeyId".s())
+                .ForeignKey("fkCategoryOperationAccessesOperationKeys".s(), "OperationKeys".s(), "OperationKeyId".s())
                 .WithColumn("Access".s()).AsBoolean().NotNullable();
 
 
             Create.Table("LongSessions".s())
                 .WithColumn("Id".s()).AsInt64().PrimaryKey().Identity().NotNullable()
                 .WithColumn("UserId".s()).AsInt32().NotNullable().Indexed()
-                .ForeignKey("AspNetUsers".s(), "Id".s())
+                .ForeignKey("fkLongSessionsUsers".s(), "AspNetUsers".s(), "Id".s())
                 .WithColumn("LongToken1".s()).AsString(DbColumnSizes.LongSessions_LongToken1).NotNullable()
                 .WithColumn("LongToken2".s()).AsString(DbColumnSizes.LongSessions_LongToken2).NotNullable()
                 .WithColumn("DeviceInfo".s()).AsMaxString().NotNullable()
                 .WithColumn("UpdateDate".s()).AsDateTime().NotNullable()
                 .WithColumn("ExpirationDate".s()).AsDateTime().NotNullable().Indexed();
 
-            Create.Index().OnTable("LongSessions".s())
+            Create.Index("ixLongSessionsUserLongToken1LongToken2").OnTable("LongSessions".s())
                 .OnColumn("UserId".s()).Ascending()
                 .OnColumn("LongToken1".s()).Ascending()
                 .OnColumn("LongToken2".s()).Ascending();
 
 
             Create.Table("BlackListShortTokens".s())
-                .WithColumn("TokenId".s()).AsString(DbColumnSizes.BlackListShortToken_TokenId).PrimaryKey().NotNullable()
+                .WithColumn("TokenId".s()).AsString(DbColumnSizes.BlackListShortToken_TokenId).PrimaryKey()
+                .NotNullable()
                 .WithColumn("Expire".s()).AsDateTime().Indexed().NotNullable();
 
 
             Create.Table("MenuItems".s())
                 .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("ParentId".s()).AsInt32().Nullable()
-                .ForeignKey("MenuItems".s(), "Id".s())
+                .ForeignKey("fkMenuItemsMenuItems".s(), "MenuItems".s(), "Id".s())
                 .WithColumn("Name".s()).AsString(DbColumnSizes.MenuItems_Name).Nullable()
                 .WithColumn("Title".s()).AsString(DbColumnSizes.MenuItems_Title).NotNullable()
                 .WithColumn("SubTitle".s()).AsString(DbColumnSizes.MenuItems_SubTitle).Nullable()
@@ -206,7 +218,15 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("Icon".s()).AsString(DbColumnSizes.MenuItems_Icon).Nullable()
                 .WithColumn("IsHidden".s()).AsBoolean().NotNullable();
 
-            
+            Create.Table("Components".s())
+                .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
+                .WithColumn("Name".s()).AsString(DbColumnSizes.Components_Name).NotNullable().Unique()
+                .WithColumn("Type".s()).AsString(DbColumnSizes.Components_Type).NotNullable()
+                .WithColumn("Roles".s()).AsString().NotNullable()
+                .WithColumn("IsCacheData".s()).AsBoolean().NotNullable()
+                .WithColumn("ServerSettingsJson".s()).AsMaxString().NotNullable()
+                .WithColumn("ClientSettingsJson".s()).AsMaxString().NotNullable();
+
             Create.Table("CipherSecrets".s())
                 .WithColumn("Name".s()).AsString(DbColumnSizes.CipherSecrets_Name).PrimaryKey().NotNullable()
                 .WithColumn("Secret".s()).AsString(DbColumnSizes.CipherSecrets_Secret).NotNullable();

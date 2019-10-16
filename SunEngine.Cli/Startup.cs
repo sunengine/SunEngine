@@ -70,10 +70,14 @@ namespace SunEngine.Cli
 
             services.AddCiphers(dataBaseFactory);
 
+            services.AddCounters();
+            
             services.AddJobs();
 
             services.AddSingleton<CaptchaService>();
             services.AddSanitizer();
+            
+
             services.AddTransient<IEmailSenderService, EmailSenderService>();
 
             services.AddMvcCore(options =>

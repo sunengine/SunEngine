@@ -27,6 +27,7 @@ export default {
     category: "раздел:",
     edit: "Редактировать",
     tags: "Метки:",
+    visitsCount: "просмотры",
     deleted: "@:EditMaterial.deleted",
     deleteDialogTitle: "@:EditMaterial.deleteDialogTitle",
     deleteDialogMessage: "",
@@ -48,6 +49,7 @@ export default {
     category: "Раздел: {0}",
     hide: "Спрятать",
     blockComments: "Запретить комментарии",
+    settingsJson: "Json настройки",
     validation: {
       name: {
         allowedChars: "Имя должно содержать только английские буквы цифры и символ '-'",
@@ -69,6 +71,9 @@ export default {
       },
       category: {
         required: "Выберите раздел"
+      },
+      settingsJson: {
+        jsonFormatError: "Неверный формат Json",
       }
     }
   }

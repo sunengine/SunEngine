@@ -1,5 +1,5 @@
 import {buildPath} from 'sun'
 
-export default async ({ Vue }) => {
+export default ({ Vue }) => {
   Vue.prototype.$buildPath = buildPath;
 }

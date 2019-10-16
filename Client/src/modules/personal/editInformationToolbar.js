@@ -17,15 +17,16 @@ export default [
       list: 'no-icons',
       options: ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6', 'size-7']
     },
+    'quote',
     'removeFormat'
   ],
-  ['quote', 'unordered', 'ordered', 'outdent', 'indent',
-
+  ['unordered', 'ordered', 'outdent', 'indent',
     {
       icon: Vue.prototype.$q.iconSet.editor.align,
       fixedLabel: true,
       options: ['left', 'center', 'right', 'justify']
     }
   ],
-  ['undo', 'redo', 'fullscreen'],
+  ['undo', 'redo'],
+  [ 'viewsource', 'fullscreen'],
 ]

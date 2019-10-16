@@ -1,6 +1,6 @@
 export default {
   BlogMultiCatPage: {
-    newPostBtnDefault: "@:BlogPage.newPostBtn"
+    addButtonLabel: "Новый материал"
   },
   BlogPage: {
     newPostBtn: "Новый пост"

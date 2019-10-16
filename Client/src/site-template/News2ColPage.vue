@@ -6,12 +6,11 @@
 
     <div :class="['row',{hidden: !loaded}]">
       <div :class="['col-xs-12','col-md-6','col1', 'pull-left', $q.screen.gt.sm ? 'hr-minus' : 'pull-right']">
-        <posts-list ref="postsList"/>
+        <PostsMultiCat ref="postsList" component-name="Posts"/>
 
       </div>
       <div :class="['col-xs-12','col-md-6', 'col2', 'pull-right', {'pull-left': !$q.screen.gt.sm}]">
-        <activities-list ref="activitiesList" materialsCategories="root" commentsCategories="root"
-                         :activitiesNumber="30"/>
+        <activities-list ref="activitiesList" componentName="Activities"/>
 
       </div>
     </div>
@@ -20,57 +19,39 @@
 </template>
 
 <script>
-  import {Page} from 'sun'
-  import {ActivitiesList} from 'sun'
-  import {PostsList} from 'sun'
-  import {LoaderWait} from 'sun'
+    import {Page} from 'mixins'
 
-
-  export default {
-    name: 'News2ColPage',
-    components: {LoaderWait, PostsList, ActivitiesList},
-    mixins: [Page],
-    data: function () {
-      return {
-        mounted: false
-      }
-    },
-    watch: {
-      '$route.query.page': 'loadData'
-    },
-    computed: {
-      loaded() {
-        if (!this.mounted)
-          return;
-        return this.$refs?.postsList?.posts && this.$refs?.activitiesList?.activities;
-      }
-    },
-    methods: {
-      async loadData() {
-
-        await this.$store.dispatch('request',
-          {
-            url: '/Blog/GetPostsFromMultiCategories',
-            data: {
-              categoriesNames: 'root',
-              pageSize: 6
+    export default {
+        name: 'News2ColPage',
+        mixins: [Page],
+        data: function () {
+            return {
+                mounted: false
             }
-          })
-          .then(
-            response => {
-              this.$refs.postsList.posts = response.data;
+        },
+        watch: {
+            '$route.query.page': 'loadData'
+        },
+        computed: {
+            loaded() {
+                if (!this.mounted)
+                    return;
+                return this.$refs?.postsList?.posts && this.$refs?.activitiesList?.activities;
             }
-          );
-      }
-    },
-    mounted() {
-      this.mounted = true;
-    },
-    async created() {
-      this.title = this.$tl('title');
-      await this.loadData();
+        },
+        mounted() {
+            this.mounted = true;
+        },
+        beforeCreate() {
+            this.$options.components.ActivitiesList = require('sun').ActivitiesList;
+            this.$options.components.PostsList = require('sun').PostsList;
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
+            this.$options.components.PostsMultiCat = require('sun').PostsMultiCat;
+        },
+        created() {
+            this.title = this.$tl('title');
+        }
     }
-  }
 
 </script>
 

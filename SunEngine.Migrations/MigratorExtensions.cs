@@ -15,43 +15,6 @@ namespace SunEngine.Migrations
         {
             return createTableColumnAsTypeSyntax.AsString(Int32.MaxValue);
         }
-
-        /*public static ICreateTableWithColumnOrSchemaOrDescriptionSyntax SunTable(this ICreateExpressionRoot createExpressionRoot, string tableName)
-        {
-            return createExpressionRoot.Table(tableName.ToSnakeCase());
-        }
-        
-        public static ICreateTableColumnAsTypeSyntax WithSunColumn(
-            this ICreateTableWithColumnOrSchemaOrDescriptionSyntax createTableColumn, string columnName)
-        {
-            return createTableColumn.WithColumn(columnName.ToSnakeCase());
-        }
-
-        public static ICreateTableColumnAsTypeSyntax WithSunColumn(
-            this ICreateTableColumnOptionOrWithColumnSyntax createTableColumn, string columnName)
-        {
-            return createTableColumn.WithColumn(columnName.ToSnakeCase());
-        }
-
-        public static IAlterTableColumnAsTypeSyntax AddSunColumn(
-            this IAlterTableAddColumnOrAlterColumnOrSchemaOrDescriptionSyntax table, string columnName)
-        {
-            return table.AddColumn(columnName.ToSnakeCase());
-        }
-
-        public static TNextFk ForeignSunKey<TNext, TNextFk>(
-            this IColumnOptionSyntax<TNext, TNextFk> columnOptionSyntax,
-            string foreignKeyName, string primaryTableName, string primaryColumnName) where TNext : IFluentSyntax
-            where TNextFk : IFluentSyntax
-        {
-            return columnOptionSyntax.ForeignKey(foreignKeyName.ToLower(), primaryTableName.ToSnakeCase(),
-                primaryColumnName.ToSnakeCase());
-        }
-
-        public static ICreateForeignKeyFromTableSyntax SunForeignKey(this ICreateExpressionRoot createExpressionRoot, string name)
-        {
-            return createExpressionRoot.ForeignKey(name.ToLower());
-        }*/
     }
 
     public static class StringExtension

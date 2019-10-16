@@ -11,8 +11,7 @@ namespace SunEngine.Core.Presenters
 {
     public interface ICommentsPresenter
     {
-        Task<(CommentView commentViewModel, int categoryId)>
-            GetCommentAsync(int commentId);
+        Task<(CommentView commentViewModel, int categoryId)> GetCommentAsync(int commentId);
 
         Task<List<CommentView>> GetMaterialCommentsAsync(int materialId, bool withDeleted = false);
     }

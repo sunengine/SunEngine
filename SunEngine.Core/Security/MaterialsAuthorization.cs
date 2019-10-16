@@ -47,6 +47,13 @@ namespace SunEngine.Core.Security
             return authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialBlockCommentsAny);
         }
 
+        public bool CanEditSettingsJson(
+            IReadOnlyDictionary<string, RoleCached> userGroups,
+            CategoryCached category)
+        {
+            return authorizationService.HasAccess(userGroups, category, OperationKeys.MaterialEditSettingsJson);
+        }
+
         public bool CanCreate(
             IReadOnlyDictionary<string, RoleCached> userGroups,
             CategoryCached category)

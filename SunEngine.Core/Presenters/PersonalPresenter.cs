@@ -11,7 +11,7 @@ namespace SunEngine.Core.Presenters
     {
         Task<SunUserInfoView> GetMyUserInfoAsync(int id);
         Task<SunProfileInformationView> GetMyProfileInformationAsync(int id);
-        Task<UserInfoView[]> GetBanListAsync(int userId);
+        Task<UserInfoView[]> GetMyBanListAsync(int userId);
         Task<SessionInfoView[]> GetMySessionsAsync(int userId, long currentSessionId);
     }
 
@@ -53,7 +53,7 @@ namespace SunEngine.Core.Presenters
                 }).FirstOrDefaultAsync();
         }
 
-        public virtual Task<UserInfoView[]> GetBanListAsync(int userId)
+        public virtual Task<UserInfoView[]> GetMyBanListAsync(int userId)
         {
             return db.UserBanedUnits.Where(x => x.UserId == userId).OrderBy(x => x.UserBaned.UserName).Select(x =>
                 new UserInfoView

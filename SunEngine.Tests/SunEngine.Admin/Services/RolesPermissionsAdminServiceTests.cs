@@ -44,7 +44,6 @@ namespace SunEngine.Tests.SunEngine.Admin.Services
             Assert.NotEqual(string.Empty, await rolesService.GetRolesJsonAsync());
         }
 
-        
         [Fact]
         public async void ShouldLoadRolesFromJson()
         {

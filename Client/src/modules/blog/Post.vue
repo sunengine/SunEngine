@@ -1,7 +1,7 @@
 <template>
   <div :class="['post', {'mat-hidden': post.isHidden}, {'mat-deleted': post.deletedDate}]">
     <q-item :to="to" class="header page-padding">
-      <q-avatar class="shadow-1 avatar" size="44px">
+      <q-avatar class="shadow-1 avatar" size="40px">
         <img :src="$imagePath(post.authorAvatar)"/>
       </q-avatar>
       <div>
@@ -32,17 +32,17 @@
       <span>{{$formatDate(this.post.publishDate)}} &nbsp;</span>
     </div>
 
-    <div class="flex footer float-left link">
-      <q-item class="page-padding-left" :to="toComments">
+    <div class="flex footer float-left">
+      <q-item class="page-padding-left comments link" :to="toComments">
         <span :class="[{'text-grey-6': !post.commentsCount}]">
         <q-icon name="far fa-comment" class="q-mr-sm"/>
         {{post.commentsCount}} {{$tl('commentsCount')}}
         </span>
       </q-item>
-      <q-item :to="to" v-if="post.hasMoreText">
+      <q-item class="link" :to="to" v-if="post.hasMoreText">
         <span>
           {{$tl('readMore')}}
-          <q-icon name="fas fa-arrow-right"/>
+          <q-icon name="fas fa-arrow-right" class="q-ml-xs"/>
         </span>
       </q-item>
 
@@ -111,7 +111,6 @@
       color: $link-color !important;
 
       .q-item {
-
         min-height: unset !important;
         height: $footer-line-height;
       }
@@ -119,11 +118,19 @@
       .q-item:first-child {
         padding-left: 0;
       }
+
+      .comments {
+        .q-icon {
+          &:before {
+            padding-bottom: 2px !important;
+          }
+        }
+      }
     }
 
-    .post-preview {
+    .post-text {
 
-      margin: 3px 0;
+      margin: 8px 0;
 
       *:first-child {
         margin-top: 0 !important;
@@ -150,7 +157,11 @@
       height: $footer-line-height;
 
       .q-icon {
-        margin-right: 7px;
+        margin-right: 8px;
+
+        &:before {
+          padding-top: 1px !important;
+        }
       }
     }
   }

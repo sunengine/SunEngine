@@ -8,19 +8,17 @@ export default function () {
     message: restoreDialogMessage,
     ok: okBtn,
     cancel: cancelBtn
-  }).onOk(async () => {
-    await this.$store.dispatch("request",
+  }).onOk(() => {
+    this.$request(
+      this.$Api.Materials.Restore,
       {
-        url: "/Materials/Restore",
-        data: {
-          id: this.material.id,
-        }
-      }).then(
-      () => {
-        const restoreSuccessMsg = this.$tl('restoreSuccess');
-        this.$successNotify(restoreSuccessMsg);
-        this.$router.push(this.category.getRoute());
-      }).catch((x) => {
+        id: this.material.id
+      }
+    ).then(() => {
+      const restoreSuccessMsg = this.$tl('restoreSuccess');
+      this.$successNotify(restoreSuccessMsg);
+      this.$router.push(this.category.getRoute());
+    }).catch((x) => {
       console.log("error", x)
     });
   });

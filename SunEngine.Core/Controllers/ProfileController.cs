@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SunEngine.Core.Cache.Services.Counters;
 using SunEngine.Core.Filters;
 using SunEngine.Core.Managers;
 using SunEngine.Core.Models;
@@ -18,40 +19,45 @@ namespace SunEngine.Core.Controllers
     {
         protected readonly IProfileManager profileManager;
         protected readonly IProfilePresenter profilePresenter;
-        
+        protected readonly IProfilesVisitsCounterService profilesVisitsCounterService;
+
         public ProfileController(
             IProfileManager profileManager,
             IProfilePresenter profilePresenter,
+            IProfilesVisitsCounterService profilesVisitsCounterService,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.profileManager = profileManager;
             this.profilePresenter = profilePresenter;
+            this.profilesVisitsCounterService = profilesVisitsCounterService;
         }
-        
+
         [HttpPost]
         public virtual async Task<IActionResult> GetProfile(string link)
         {
             int? userId = User?.UserId;
-            
-            var rez = await profilePresenter.GetProfileAsync(link, userId);
-            if (rez == null)
+
+            ProfileView profileView = await profilePresenter.GetProfileAsync(link, userId);
+            if (profileView == null)
                 return NotFound();
 
-            return Json(rez);
+            profileView.ProfileVisitsCount += profilesVisitsCounterService.CountProfile(UserOrIpKey, profileView.Id);
+
+            return Json(profileView);
         }
 
         [HttpPost]
         [UserSpamProtectionFilter(TimeoutSeconds = 60)]
         [Authorize(Roles = RoleNames.Registered)]
-        public virtual async Task<IActionResult> SendPrivateMessage(string userId,string text)
+        public virtual async Task<IActionResult> SendPrivateMessage(string userId, string text)
         {
             var userTo = await userManager.FindByIdAsync(userId);
             if (userTo == null)
                 return BadRequest();
 
-            var userFrom =  await GetUserAsync();
-            
-            await profileManager.SendPrivateMessageAsync(userFrom, userTo ,text);
+            var userFrom = await GetUserAsync();
+
+            await profileManager.SendPrivateMessageAsync(userFrom, userTo, text);
 
             return Ok();
         }
@@ -68,12 +74,12 @@ namespace SunEngine.Core.Controllers
                 return BadRequest();
 
             var user = await GetUserAsync();
-            
-            await profileManager.BanUserAsync(user,userBan);
+
+            await profileManager.BanUserAsync(user, userBan);
 
             return Ok();
         }
-        
+
         [HttpPost]
         [Authorize(Roles = RoleNames.Registered)]
         public virtual async Task<IActionResult> UnBanUser(string userId)
@@ -81,15 +87,13 @@ namespace SunEngine.Core.Controllers
             User userUnBan = await userManager.FindByIdAsync(userId);
             if (userUnBan == null)
                 return BadRequest();
-           
+
             var user = await GetUserAsync();
-            
-            await profileManager.UnBanUserAsync(user,userUnBan);
+
+            await profileManager.UnBanUserAsync(user, userUnBan);
 
             return Ok();
         }
-        
-        
     }
 }
 

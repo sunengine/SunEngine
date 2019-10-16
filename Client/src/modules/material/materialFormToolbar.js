@@ -19,7 +19,8 @@ export default [
       list: 'no-icons',
       options: ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6', 'size-7']
     },
-    'quote'
+    'quote',
+    'removeFormat'
   ],
   ['unordered', 'ordered', 'outdent', 'indent',
     {
@@ -28,6 +29,6 @@ export default [
       options: ['left', 'center', 'right', 'justify']
     }
   ],
-  ['removeFormat'],
-  ['undo', 'redo', 'fullscreen'],
+  ['undo', 'redo'],
+  [ 'viewsource', 'fullscreen'],
 ]

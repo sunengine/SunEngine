@@ -3,20 +3,20 @@
     <img class="avatar msg-avatar" :src="$imagePath(comment.authorAvatar)"/>
 
     <div class="q-my-md">
-      <div class="q-mb-xs" style="display: flex;">
+      <div class="q-mb-xs flex">
         <span style="flex-grow:1">
            <router-link :to="{name: 'User', params: {link: comment.authorLink}}">
              {{comment.authorName}}
            </router-link>
         </span> &nbsp;
-        <span v-if="canEdit" class=" q-mr-md">
+        <span v-if="canEdit" class="edit-btn-block q-mr-md">
                     <a href="#" @click.prevent="$emit('goEdit')"><q-icon name="fas fa-edit"/> {{$tl("edit")}}</a>
         </span>
-        <span v-if="canMoveToTrash" class=" q-mr-md">
+        <span v-if="canMoveToTrash" class="edit-btn-block q-mr-md">
                     <a href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash"/></a>
         </span>
-        <span class="mat-date-color">
-                    <q-icon name="far fa-clock"/> {{ $formatDate(comment.publishDate) }}
+        <span class="date-info-block">
+                    <q-icon name="far fa-clock" class="q-mr-xs"/> {{ $formatDate(comment.publishDate) }}
         </span>
       </div>
       <div class="comment-text" v-html="comment.text">
@@ -29,61 +29,57 @@
 </template>
 
 <script>
-  import {prepareLocalLinks} from 'sun';
+    import {prepareLocalLinks} from 'sun';
 
 
-  export default {
-    name: 'ReadComment',
-    props: {
-      comment: Object,
-      canEdit: {
-        type: Boolean,
-        default: false
-      },
-      canMoveToTrash: {
-        type: Boolean,
-        default: false
-      },
-      goEdit: Function
-    },
-    methods: {
-      prepareLocalLinks() {
-        prepareLocalLinks(this.$el, 'comment-text');
-      },
-      async moveToTrash() {
-        const deleteDialogMessage = this.$tl('deleteDialogMessage');
-        const okButtonLabel = this.$t('Global.dialog.ok');
-        const cancelButtonLabel = this.$t('Global.dialog.cancel');
+    export default {
+        name: 'ReadComment',
+        props: {
+            comment: Object,
+            canEdit: {
+                type: Boolean,
+                default: false
+            },
+            canMoveToTrash: {
+                type: Boolean,
+                default: false
+            },
+            goEdit: Function
+        },
+        methods: {
+            prepareLocalLinks() {
+                prepareLocalLinks.call(this, this.$el, 'comment-text');
+            },
+            async moveToTrash() {
+                const deleteDialogMessage = this.$tl('deleteDialogMessage');
+                const okButtonLabel = this.$t('Global.dialog.ok');
+                const cancelButtonLabel = this.$t('Global.dialog.cancel');
 
-        this.$q.dialog({
-          title: deleteDialogMessage,
-          //message: deleteDialogMessage,
-          ok: okButtonLabel,
-          cancel: cancelButtonLabel
-        }).onOk(async () => {
-          await this.$store.dispatch('request',
-            {
-              url: '/Comments/MoveToTrash',
-              data:
-                {
-                  id: this.comment.id
-                }
-            }).then(
-            () => {
-              const msg = this.$tl('moveToTrashSuccess');
-              this.$successNotify(msg);
-              this.comment.deletedDate = new Date();
-            }).catch(error => {
-            this.$errorNotify(error);
-          });
-        }).onCancel(() => {
-        });
-      },
-    },
-    mounted() {
-      this.prepareLocalLinks();
+                this.$q.dialog({
+                    title: deleteDialogMessage,
+                    //message: deleteDialogMessage,
+                    ok: okButtonLabel,
+                    cancel: cancelButtonLabel
+                }).onOk(async () => {
+                    await this.$request(
+                        this.$Api.Comments.MoveToTrash,
+                        {
+                            id: this.comment.id
+                        }).then(
+                        () => {
+                            const msg = this.$tl('moveToTrashSuccess');
+                            this.$successNotify(msg);
+                            this.comment.deletedDate = new Date();
+                        }).catch(error => {
+                        this.$errorNotify(error)
+                    });
+                })
+            },
+        },
+        mounted() {
+            this.prepareLocalLinks()
+        }
     }
-  }
 
 </script>
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Core.Cache.Services;
+using SunEngine.Core.Cache.Services.Counters;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
 using SunEngine.Core.Filters;
@@ -25,18 +26,21 @@ namespace SunEngine.Core.Controllers
         protected readonly ICategoriesCache categoriesCache;
         protected readonly IMaterialsManager materialsManager;
         protected readonly IMaterialsPresenter materialsPresenter;
-
+        protected readonly IMaterialsVisitsCounterCache materialsVisitsCounterCache;
+        
         public MaterialsController(
             MaterialsAuthorization materialsAuthorization,
             ICategoriesCache categoriesCache,
             IMaterialsManager materialsManager,
             IMaterialsPresenter materialsPresenter,
+            IMaterialsVisitsCounterCache materialsVisitsCounterCache,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.materialsAuthorization = materialsAuthorization;
             this.categoriesCache = categoriesCache;
             this.materialsManager = materialsManager;
             this.materialsPresenter = materialsPresenter;
+            this.materialsVisitsCounterCache = materialsVisitsCounterCache;
         }
 
         [HttpPost]
@@ -65,6 +69,8 @@ namespace SunEngine.Core.Controllers
             if (materialView.DeletedDate != null && !materialsAuthorization.CanRestoreAsync(User, category.Id))
                 return Unauthorized();
 
+            materialView.VisitsCount += materialsVisitsCounterCache.CountMaterial(UserOrIpKey, materialView.Id);
+            
             return Json(materialView);
         }
 
@@ -101,11 +107,16 @@ namespace SunEngine.Core.Controllers
 
             if (materialData.IsHidden && materialsAuthorization.CanBlockComments(User.Roles, category))
                 material.IsCommentsBlocked = true;
+            
+            if (materialsAuthorization.CanEditSettingsJson(User.Roles, category))
+                material.SettingsJson = materialData.SettingsJson;
 
             contentCache.InvalidateCache(category.Id);
 
             await materialsManager.CreateAsync(material, materialData.Tags, category);
 
+            contentCache.InvalidateCache(category.Id);
+            
             return Ok();
         }
 
@@ -151,13 +162,23 @@ namespace SunEngine.Core.Controllers
                 && materialsAuthorization.CanMove(User, categoriesCache.GetCategory(material.CategoryId), newCategory))
                 material.CategoryId = newCategory.Id;
 
+            material.SettingsJson = materialsAuthorization.CanEditSettingsJson(User.Roles, newCategory) 
+                ? materialData.SettingsJson
+                : null;
+            
             await materialsManager.UpdateAsync(material, materialData.Tags, newCategory);
+            
+            contentCache.InvalidateCache(material.CategoryId);
+
             return Ok();
         }
 
         [NonAction]
         protected async Task SetNameAsync(Material material, string name)
         {
+            if (material.Name == name)
+                return;
+            
             if (User.IsInRole(RoleNames.Admin))
             {
                 if (string.IsNullOrWhiteSpace(name))
@@ -170,7 +191,7 @@ namespace SunEngine.Core.Controllers
                         throw new SunViewException(new ErrorView("MaterialNameNotValid", "Invalid material name",
                             ErrorType.System));
 
-                    if (name != material.Name && await materialsManager.IsNameInDbAsync(name))
+                    if (await materialsManager.IsNameInDbAsync(name))
                         throw new SunViewException(ErrorView.SoftError("MaterialNameAlreadyUsed",
                             "This material name is already used"));
 
@@ -192,6 +213,9 @@ namespace SunEngine.Core.Controllers
             contentCache.InvalidateCache(material.CategoryId);
 
             await materialsManager.DeleteAsync(material);
+            
+            contentCache.InvalidateCache(material.CategoryId);
+
             return Ok();
         }
 
@@ -275,5 +299,7 @@ namespace SunEngine.Core.Controllers
 
         public bool IsHidden { get; set; }
         public bool IsCommentsBlocked { get; set; }
+        
+        public string SettingsJson { get; set; }
     }
 }
