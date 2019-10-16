@@ -26,13 +26,13 @@ namespace SunEngine.Core.Services
 
         protected readonly IImagesNamesService imagesNamesService;
         protected readonly ImagesOptions imagesOptions;
-        protected readonly IHostingEnvironment env;
+        protected readonly IWebHostEnvironment env;
 
 
         public ImagesService(
             IOptions<ImagesOptions> imagesOptions,
             IImagesNamesService imagesNamesService,
-            IHostingEnvironment env)
+            IWebHostEnvironment env)
         {
             this.imagesOptions = imagesOptions.Value;
             this.env = env;

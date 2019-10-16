@@ -22,7 +22,7 @@ namespace SunEngine.Admin.Services
 
         public ImageCleanerAdminService(
             DataBaseConnection dataBaseConnection,
-            IHostingEnvironment env,
+            IWebHostEnvironment env,
             IOptions<ImagesOptions> imagesOptions,
             IOptions<GlobalOptions> globalOptions)
         {
