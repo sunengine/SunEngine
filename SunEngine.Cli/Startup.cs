@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using SunEngine.Admin;
 using SunEngine.Core.Configuration.AddServices;
@@ -13,13 +13,12 @@ using SunEngine.Core.Errors;
 using SunEngine.Core.Security;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
-using SunEngine.Core.Utils.TextProcess;
 
 namespace SunEngine.Cli
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
             CurrentEnvironment = env;
@@ -27,7 +26,7 @@ namespace SunEngine.Cli
 
         private IConfiguration Configuration { get; }
 
-        private IHostingEnvironment CurrentEnvironment { get; }
+        private IWebHostEnvironment CurrentEnvironment { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -77,21 +76,19 @@ namespace SunEngine.Cli
             services.AddSingleton<CaptchaService>();
             services.AddSanitizer();
             
-
             services.AddTransient<IEmailSenderService, EmailSenderService>();
-
+            
             services.AddMvcCore(options =>
                 {
                     // Add filters here
                 })
                 .AddApiExplorer()
                 .AddAuthorization()
-                .AddJsonFormatters(options =>
+                .AddNewtonsoftJson(options =>
                 {
-                    options.ContractResolver = SunJsonContractResolver.Instance;
-                    options.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                    options.SerializerSettings.ContractResolver = SunJsonContractResolver.Instance;
+                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                });;
         }
 
 
@@ -114,24 +111,19 @@ namespace SunEngine.Cli
                         .WithExposedHeaders(Headers.TokensHeaderName));
             }
 
+            app.UseRouting();
             app.UseAuthentication();
-            
+            app.UseAuthorization();
             app.UseMiddleware<SunExceptionMiddleware>();
-            
-            app.UseMvc(routes =>
+            app.UseEndpoints(endPoints =>
             {
-                routes.MapRoute(
-                    name: "areaRoute",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action}");
+                endPoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endPoints.MapControllerRoute("default", "{controller}/{action}");
             });
         }
 
 
-        public static void SetExceptionsMode(IHostingEnvironment env, IConfiguration conf)
+        public static void SetExceptionsMode(IWebHostEnvironment env, IConfiguration conf)
         {
             void ShowExceptions()
             {
