@@ -36,11 +36,10 @@ export default function ({store, ssrContext}) {
       store.state.initializedPromise.then(_ => app.$nextTick(_ => router.push(to)));
       return;
     }
+    await checkUserCredentialsAndReloadIfNew();
 
     if (config.Log.MoveTo)
       console.info("%cMove to page%c" + config.SiteUrl.substring(config.SiteSchema.length) + to.path, consoleRequestStart, consoleGreyEnd, to);
-
-    await checkUserCredentialsAndReloadIfNew();
 
     next();
   });
