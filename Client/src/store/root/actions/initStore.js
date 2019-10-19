@@ -8,6 +8,9 @@ export default async function (context) {
 
   console.info("%cStart init store", consoleInit);
 
+  context.state.isInitialized = false;
+  context.state.initializeError = false;
+
   if (hasLongToken()) {
     await context.dispatch('loadMyUserInfo')
       .catch(() => {
@@ -31,11 +34,13 @@ export default async function (context) {
     await context.dispatch('loadAllMenuItems');
 
     context.state.isInitialized = true;
+    context.state.initializeError = false;
 
   } catch (error) {
 
     console.error(error);
 
     context.state.initializeError = true;
+    context.state.isInitialized = false;
   }
 }

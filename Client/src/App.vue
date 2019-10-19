@@ -50,8 +50,10 @@
                 this.rerenderKey += 1;
             },
             refresh() {
-                this.$store.state.initializeError = false;
-                this.$store.dispatch('initStore');
+                this.$store.state.initializedPromise = this.$store.dispatch('initStore');
+                this.$store.state.initializedPromise.then(_ =>
+                   this.$router.push(this.$router.currentRoute)
+                )
             }
         },
 
