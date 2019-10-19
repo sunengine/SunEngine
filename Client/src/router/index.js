@@ -32,10 +32,15 @@ export default function ({store, ssrContext}) {
 
   router.beforeEach(async (to, from, next) => {
 
-    if (!store.state.isInitialized) {
-      store.state.initializedPromise.then(_ => app.$nextTick(_ => router.push(to)));
+    if (store.state.initializedPromise) {
+      store.state.initializedPromise.then(_ => {
+        store.state.initializedPromise = null;
+        app.$nextTick(_ => router.push(to));
+        }
+      );
       return;
     }
+
     await checkUserCredentialsAndReloadIfNew();
 
     if (config.Log.MoveTo)
