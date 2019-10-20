@@ -8,5 +8,8 @@ export default {
   },
   SunEngineFooter: {
     start: "Made on "
+  },
+  SunEditor: {
+    uploadImages: "Upload images"
   }
 }

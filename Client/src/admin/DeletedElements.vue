@@ -5,7 +5,7 @@
     </h2>
     <q-checkbox :toggle-indeterminate="false" v-model="$store.state.admin.showDeletedElements">
       {{$tl("showDeleted")}}
-      <QIcon name="fas fa-trash" class="q-ml-sm" color="grey-6"/>
+      <q-icon name="fas fa-trash" class="q-ml-sm" color="grey-6"/>
     </q-checkbox>
     <div class="info-box1">{{$tl("info1")}}</div>
     <div class="info-box1">{{$tl("info2")}}</div>

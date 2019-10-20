@@ -11,7 +11,7 @@
       <div class="clear"></div>
     </div>
 
-    <CategoryItem v-if="root" @up="up" @down="down" @add="add" @edit="edit" :category="root" class="q-mt-lg"/>
+    <CategoryItem v-if="root" @up="up" @down="down" :category="root" class="q-mt-lg"/>
 
     <LoaderWait v-else/>
 

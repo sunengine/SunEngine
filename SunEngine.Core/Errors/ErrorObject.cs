@@ -13,15 +13,17 @@ namespace SunEngine.Core.Errors
     
     public class ErrorObject
     {
-        public string Code { get; }
+        public string Code { get; set; }
 
-        public string Description { get; }
+        public string Description { get; set; }
 
-        public string Message { get; }
+        public string Message { get; set; }
 
-        public string StackTrace { get; }
+        public string StackTrace  { get; set; }
 
-        public ErrorType Type { get; }
+        public ErrorType Type { get; set; }
+        
+        public int ResponseCode { get; set; }
 
         public ErrorObject(string code, string description, ErrorType type)
         {

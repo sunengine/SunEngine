@@ -8,5 +8,8 @@ export default {
   },
   SunEngineFooter: {
     start: "Движок сайта "
+  },
+  SunEditor: {
+    uploadImages: "Загрузить картинки"
   }
 }
