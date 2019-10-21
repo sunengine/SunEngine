@@ -229,7 +229,7 @@ namespace SunEngine.Migrations.Migrations
 
             Create.Table("CipherSecrets".s())
                 .WithColumn("Name".s()).AsString(DbColumnSizes.CipherSecrets_Name).PrimaryKey().NotNullable()
-                .WithColumn("Secret".s()).AsString(DbColumnSizes.CipherSecrets_Secret).NotNullable();
+                .WithColumn("Secret".s()).AsBinary(DbColumnSizes.CipherSecrets_Secret).NotNullable();
         }
 
 

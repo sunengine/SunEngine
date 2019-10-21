@@ -55,19 +55,6 @@ namespace SunEngine.Core.Services
             cypherSecrets.Add(key, securityKey);
         }
 
-        public void AddCipherKey(string key, string securityKey)
-        {
-            byte[] bytes = Encoding.UTF8.GetBytes(securityKey);
-
-            if (bytes.Length < 32)
-                throw new Exception("Cipher key have to be 32 bytes length");
-
-            if (bytes.Length > 32)
-                bytes = new Span<byte>(bytes).Slice(0, 32).ToArray();
-
-            AddCipherKey(key, bytes);
-        }
-
         private static string ToUrlSafeBase64(byte[] input)
         {
             return Convert.ToBase64String(input).Replace("+", "-").Replace("/", "_");
@@ -111,7 +98,7 @@ namespace SunEngine.Core.Services
         {
             using (var db = dbFactory.CreateDb())
             {
-                var newSecret = GenerateSecurityKeyString();
+                var newSecret = GenerateSecurityKey();
 
                 int updated = await db.CipherSecrets.Where(x => x.Name == name).Set(x => x.Secret, newSecret)
                     .UpdateAsync();
@@ -130,7 +117,7 @@ namespace SunEngine.Core.Services
 
                 foreach (var cipherSecret in allSecrets)
                 {
-                    cipherSecret.Secret = GenerateSecurityKeyString();
+                    cipherSecret.Secret = GenerateSecurityKey();
                     done += await db.UpdateAsync(cipherSecret);
                 }
 
@@ -146,16 +133,11 @@ namespace SunEngine.Core.Services
             return IV;
         }
 
-        private static byte[] GenerateSecurityKey()
+        public static byte[] GenerateSecurityKey()
         {
             var securityKey = new byte[32];
             CryptoRandomizer.CryptoProvider.GetBytes(securityKey);
             return securityKey;
-        }
-
-        public static string GenerateSecurityKeyString()
-        {
-            return Encoding.Unicode.GetString(GenerateSecurityKey());
         }
 
         public void Initialize()
