@@ -69,211 +69,210 @@
                           :isLast="index === maxCommentNumber"/>
         <hr class="hr-sep"/>
       </div>
-      <div v-if="canCommentWrite">
-        <CreateComment class="page-padding" @done="commentAdded" :materialId="material.id"/>
-      </div>
+
     </div>
 
     <LoaderWait v-if="!material || !comments"/>
+
+    <div class="write-comment q-mt-md" v-if="canCommentWrite">
+      <CreateComment class="page-padding" @done="commentAdded" :materialId="material.id"/>
+    </div>
   </q-page>
 
 </template>
 
 <script>
-  import {Page} from 'sun'
-  import {deleteMaterial} from 'sun'
-  import {restoreMaterial} from 'sun'
-  import {canDeleteMaterial} from 'sun'
-  import {canRestoreMaterial} from 'sun'
-  import {prepareLocalLinks} from 'sun'
+    import {Page} from 'mixins'
+    import {deleteMaterial} from 'sun'
+    import {restoreMaterial} from 'sun'
+    import {canDeleteMaterial} from 'sun'
+    import {canRestoreMaterial} from 'sun'
+    import {prepareLocalLinks} from 'sun'
 
 
-  import {date} from 'quasar'
-  import {scroll} from 'quasar'
+    import {date} from 'quasar'
+    import {scroll} from 'quasar'
+    import LoaderWait from "../../components/LoaderWait";
 
-  const {getScrollTarget, setScrollPosition} = scroll;
+    const {getScrollTarget, setScrollPosition} = scroll;
 
 
-  export default {
-    name: 'Material',
-    mixins: [Page],
-    props: {
-      idOrName: {
-        type: String,
-        required: true
-      },
-      categoryName: {
-        type: String,
-        required: true
-      }
-    },
-    data() {
-      return {
-        material: null,
-        comments: null,
-        page: null,
-      }
-    },
-    watch: {
-      '$route': 'loadData',
-    },
-    computed: {
-      maxCommentNumber() {
-        return this.comments.length - 1;
-      },
-      category() {
-        return this.$store.getters.getCategory(this.categoryName);
-      },
-      showTitle() {
-        return this.category
-          && !(this.category.settingsJson?.hideTitle || this.material.settingsJson?.hideTitle);
-      },
-      showCategory() {
-        return this.category
-          && !(this.category.settingsJson?.hideCategory || this.material.settingsJson?.hideCategory);
-      },
-      showDate() {
-        return this.category
-          && (this.canEdit || !(this.category.settingsJson?.hideFooter || this.material.settingsJson?.hideFooter));
-      },
-      showVisitsCount() {
-        return this.category
-          && (this.canEdit || !(this.category.settingsJson?.hideFooter || this.material.settingsJson?.hideFooter));
-      },
-      showUser() {
-        return this.category
-          && (this.canEdit || !(this.category.settingsJson?.hideFooter || this.material.settingsJson?.hideFooter));
-      },
-      canCommentWrite() {
-        if (this.material.isCommentsBlocked)
-          return false;
-        return this.category.categoryPersonalAccess.commentWrite;
-      },
-      categoryPersonalAccess() {
-        return this.category.categoryPersonalAccess;
-      },
-      canEdit() {
-        if (!this.material || !this.comments) {
-          return false;
-        }
-        if (!this.$store.state.auth.user) {
-          return false;
-        }
-        const category = this.$store.getters.getCategory(this.material.categoryName);
-
-        if (category.categoryPersonalAccess.materialEditAny) {
-          return true;
-        }
-        if (this.material.authorId !== this.$store.state.auth.user.id) {
-          return false;
-        }
-        if (!category.categoryPersonalAccess.materialEditOwnIfHasReplies &&
-          this.comments.length >= 1 && !this.checkLastOwn(this.comments[0])
-        ) {
-          return false;
-        }
-        if (!category.categoryPersonalAccess.materialEditOwnIfTimeNotExceeded) {
-          const now = new Date();
-          const publish = new Date(this.material.publishDate);
-          const til = date.addToDate(publish, {minutes: config.Materials.TimeToOwnEditInMinutes});
-          if (til < now) {
-            return false;
-          }
-        }
-        return !!category.categoryPersonalAccess.materialEditOwn;
-      },
-      canDelete() {
-        return canDeleteMaterial.call(this);
-      },
-      canRestore() {
-        return canRestoreMaterial.call(this);
-      }
-    },
-    methods: {
-      prepareLocalLinks() {
-        prepareLocalLinks.call(this, this.$el, 'material-text');
-      },
-      async loadDataMaterial() {
-        await this.$store.dispatch('request',
-          {
-            url: '/Materials/Get',
-            data: {
-              idOrName: this.idOrName
+    export default {
+        name: 'Material',
+        components: {LoaderWait},
+        mixins: [Page],
+        props: {
+            idOrName: {
+                type: String,
+                required: true
+            },
+            categoryName: {
+                type: String,
+                required: true
             }
-          }).then((response) => {
-            this.material = response.data;
-            if (this.material.settingsJson) {
-              try {
-                this.material.settingsJson = JSON.parse(this.material.settingsJson);
-              } catch (e) {
+        },
+        data() {
+            return {
+                material: null,
+                comments: null,
+                page: null,
+            }
+        },
+        watch: {
+            '$route': 'loadData',
+        },
+        computed: {
+            maxCommentNumber() {
+                return this.comments.length - 1;
+            },
+            category() {
+                return this.$store.getters.getCategory(this.categoryName);
+            },
+            showTitle() {
+                return this.category
+                    && !(this.category.settingsJson?.hideTitle || this.material.settingsJson?.hideTitle);
+            },
+            showCategory() {
+                return this.category
+                    && !(this.category.settingsJson?.hideCategory || this.material.settingsJson?.hideCategory);
+            },
+            showDate() {
+                return this.category
+                    && (this.canEdit || !(this.category.settingsJson?.hideFooter || this.material.settingsJson?.hideFooter));
+            },
+            showVisitsCount() {
+                return this.category
+                    && (this.canEdit || !(this.category.settingsJson?.hideFooter || this.material.settingsJson?.hideFooter));
+            },
+            showUser() {
+                return this.category
+                    && (this.canEdit || !(this.category.settingsJson?.hideFooter || this.material.settingsJson?.hideFooter));
+            },
+            canCommentWrite() {
+                if (!this.material || this.material.isCommentsBlocked)
+                    return false;
+                return this.category.categoryPersonalAccess.commentWrite;
+            },
+            categoryPersonalAccess() {
+                return this.category.categoryPersonalAccess;
+            },
+            canEdit() {
+                if (!this.material || !this.comments) {
+                    return false;
+                }
+                if (!this.$store.state.auth.user) {
+                    return false;
+                }
+                const category = this.$store.getters.getCategory(this.material.categoryName);
 
-              }
+                if (category.categoryPersonalAccess.materialEditAny) {
+                    return true;
+                }
+                if (this.material.authorId !== this.$store.state.auth.user.id) {
+                    return false;
+                }
+                if (!category.categoryPersonalAccess.materialEditOwnIfHasReplies &&
+                    this.comments.length >= 1 && !this.checkLastOwn(this.comments[0])
+                ) {
+                    return false;
+                }
+                if (!category.categoryPersonalAccess.materialEditOwnIfTimeNotExceeded) {
+                    const now = new Date();
+                    const publish = new Date(this.material.publishDate);
+                    const til = date.addToDate(publish, {minutes: config.Materials.TimeToOwnEditInMinutes});
+                    if (til < now) {
+                        return false;
+                    }
+                }
+                return !!category.categoryPersonalAccess.materialEditOwn;
+            },
+            canDelete() {
+                return canDeleteMaterial.call(this);
+            },
+            canRestore() {
+                return canRestoreMaterial.call(this);
             }
-            this.title = this.material.title;
-            this.$nextTick(() => {
-              this.prepareLocalLinks();
-            })
-          }
-        );
-      },
-      async loadDataComments() {
-        await this.$store.dispatch('request',
-          {
-            url: '/Comments/GetMaterialComments',
-            data: {
-              materialId: this.material.id
+        },
+        methods: {
+            prepareLocalLinks() {
+                prepareLocalLinks.call(this, this.$el, 'material-text');
+            },
+            async loadDataMaterial() {
+                await this.$request(
+                    this.$Api.Materials.Get,
+                    {
+                        idOrName: this.idOrName
+                    }).then((response) => {
+                        this.material = response.data;
+                        if (this.material.settingsJson) {
+                            try {
+                                this.material.settingsJson = JSON.parse(this.material.settingsJson);
+                            } catch (e) {
+
+                            }
+                        }
+                        this.title = this.material.title;
+                        this.$nextTick(() => {
+                            this.prepareLocalLinks();
+                        })
+                    }
+                );
+            },
+            async loadDataComments() {
+                await this.$request(
+                    this.$Api.Comments.GetMaterialComments,
+                    {
+                        materialId: this.material.id
+                    }).then(response => {
+                        this.comments = response.data;
+                        this.$nextTick(function () {
+                            if (this.$route.hash) {
+                                const el = document.getElementById(this.$route.hash.substring(1));
+                                setScrollPosition(getScrollTarget(el), el.offsetTop, 300);
+                            }
+                        });
+                    }
+                );
+            },
+            checkLastOwn(comment) {
+                if (!this.comments)
+                    return false;
+
+                let userId = this.$store.state.auth.user.id;
+                let ind = this.comments.indexOf(comment);
+                for (let i = ind; i < this.comments.length; i++) {
+                    if (this.comments[i].authorId !== userId)
+                        return false;
+                }
+                return true;
+            },
+            async deleteMaterial() {
+                deleteMaterial.call(this);
+            },
+            async restoreMaterial() {
+                restoreMaterial.call(this);
+            },
+            async commentAdded() {
+                let currentPath = this.$route.fullPath;
+                let ind = currentPath.lastIndexOf('#');
+                let path = currentPath.substring(0, ind);
+                window.history.pushState('', document.title, path);
+                await this.loadData();
+            },
+            async loadData() {
+                await this.loadDataMaterial();
+                await this.loadDataComments();
             }
-          }).then(response => {
-            this.comments = response.data;
-            this.$nextTick(function () {
-              if (this.$route.hash) {
-                let el = document.getElementById(this.$route.hash.substring(1));
-                setScrollPosition(getScrollTarget(el), el.offsetTop, 300);
-              }
-            });
-          }
-        );
-      },
-      checkLastOwn(comment) {
-        if (!this.comments) {
-          return false;
+        },
+        beforeCreate() {
+            this.$options.components.CommentContainer = require('sun').CommentContainer;
+            this.$options.components.CreateComment = require('sun').CreateComment;
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
+        },
+        async created() {
+            await this.loadData();
         }
-        let userId = this.$store.state.auth.user.id;
-        let ind = this.comments.indexOf(comment);
-        for (let i = ind; i < this.comments.length; i++) {
-          if (this.comments[i].authorId !== userId) {
-            return false;
-          }
-        }
-        return true;
-      },
-      async deleteMaterial() {
-        deleteMaterial.call(this);
-      },
-      async restoreMaterial() {
-        restoreMaterial.call(this);
-      },
-      async commentAdded() {
-        let currentPath = this.$route.fullPath;
-        let ind = currentPath.lastIndexOf('#');
-        let path = currentPath.substring(0, ind);
-        window.history.pushState('', document.title, path);
-        await this.loadData();
-      },
-      async loadData() {
-        await this.loadDataMaterial();
-        await this.loadDataComments();
-      }
-    },
-    beforeCreate() {
-      this.$options.components.CommentContainer = require('sun').CommentContainer;
-      this.$options.components.CreateComment = require('sun').CreateComment;
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
-    },
-    async created() {
-      await this.loadData();
     }
-  }
 
 </script>
 

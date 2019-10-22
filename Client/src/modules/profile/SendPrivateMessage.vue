@@ -5,9 +5,7 @@
       {{userName}}
     </h2>
 
-    <q-editor class="q-mb-md"
-              :toolbar="editorToolbar"
-              ref="htmlEditor" v-model="text"/>
+    <q-editor class="q-mb-md" :toolbar="editorToolbar" ref="htmlEditor" v-model="text"/>
 
     <q-btn no-caps icon="fas fa-arrow-circle-right" class="send-btn q-mr-sm" @click="send" :loading="loading"
            :label="$tl('sendBtn')">
@@ -19,60 +17,57 @@
 
 
 <script>
-  import {Page} from 'sun'
-  import {sendPrivateMessageToolbar} from 'sun'
+    import {Page} from 'mixins'
+    import {sendPrivateMessageToolbar} from 'sun'
 
-  const editorToolbar = sendPrivateMessageToolbar;
+    const editorToolbar = sendPrivateMessageToolbar;
 
 
-  export default {
-    name: 'SendPrivateMessage',
-    mixins: [Page],
-    props: {
-      userId: {
-        type: String,
-        required: true
-      },
-      userName: {
-        type: String,
-        required: true
-      }
-    },
-    data() {
-      return {
-        text: '',
-        loading: false
-      }
-    },
-    methods: {
-      async send() {
-        await this.$store.dispatch('request',
-          {
-            url: '/Profile/SendPrivateMessage',
-            data: {
-              userId: this.userId,
-              text: this.text
+    export default {
+        name: 'SendPrivateMessage',
+        mixins: [Page],
+        props: {
+            userId: {
+                type: String,
+                required: true
+            },
+            userName: {
+                type: String,
+                required: true
             }
-          })
-          .then(() => {
-              this.$successNotify();
-              this.loading = false;
-              this.$router.back();
+        },
+        data() {
+            return {
+                text: '',
+                loading: false
             }
-          ).catch(error => {
-            this.$errorNotify(error);
-            this.loading = false;
-          });
-
-      }
-    },
-    beforeCreate() {
-      this.$options.components.LoaderSent = require('sun').LoaderSent;
-    },
-    created() {
-      this.title = this.$tl('title');
+        },
+        methods: {
+            send() {
+                this.$request(
+                    this.$Api.Profile.SendPrivateMessage,
+                    {
+                        userId: this.userId,
+                        text: this.text
+                    })
+                    .then(() => {
+                            this.$successNotify();
+                            this.loading = false;
+                            this.$router.back();
+                        }
+                    ).catch(error => {
+                    this.$errorNotify(error);
+                    this.loading = false;
+                })
+            }
+        },
+        beforeCreate() {
+            this.$options.components.LoaderSent = require('sun').LoaderSent
+        },
+        created() {
+            this.title = this.$tl('title')
+        }
     }
-  }
 
 </script>
 

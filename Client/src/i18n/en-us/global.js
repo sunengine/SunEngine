@@ -15,7 +15,10 @@ export default {
       emailSig: "Incorrect email",
     },
     errorNotify: "Error",
-    submitting: "Sending..."
+    submitting: "Sending...",
+    successNotify: "Operation success",
+    apiError: "Api error",
+    refresh: "Refresh"
   },
   App: {
     loading: "Loading...",

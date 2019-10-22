@@ -18,5 +18,6 @@ namespace SunEngine.Core.Presenters
         public OrderType orderType;
         public int Page;
         public int PageSize;
+        public int PreviewSize;
     }
 }

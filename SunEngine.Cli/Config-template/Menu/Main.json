@@ -26,7 +26,7 @@
     },
     {
       "Title": "Активность",
-      "RouteName": "News",
+      "RouteName": "comp-Activities",
       "Icon": "fas fa-newspaper"
     },
     {
@@ -50,7 +50,7 @@
         {
           "Title": "Блог посты",
           "SubTitle": "Из разных категорий",
-          "RouteName": "BlogMulti",
+          "RouteName": "comp-Posts",
           "Icon": "fas fa-blog"
         },
         {
@@ -64,6 +64,12 @@
           "SubTitle": "2 уровня вложенности",
           "RouteName": "cat-Forum2",
           "Icon": "fas fa-comments"
+        },
+        {
+          "Title": "Встроенная статья",
+          "SubTitle": "Статья внутри страницы",
+          "RouteName": "MaterialInlinePage",
+          "Icon": "fas fa-leaf"
         }
       ]
     }

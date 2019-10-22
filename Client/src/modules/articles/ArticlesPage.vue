@@ -6,92 +6,82 @@
       </h2>
       <q-btn no-caps class="post-btn"
              @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
-             :label="$tl('newArticleBtn')" v-if="canAddArticle" icon="fas fa-plus" />
+             :label="$tl('newArticleBtn')" v-if="articles && canAddArticle" icon="fas fa-plus"/>
 
     </div>
     <div v-if="category.header" class="q-mb-sm page-padding" v-html="category.header"></div>
 
-    <ArticlesList ref="articlesList"/>
 
+    <ArticlesList v-if="articles" :articles="articles"/>
+
+    <LoaderWait ref="loader" v-else/>
+
+    <q-pagination class="page-padding q-mt-md" v-if="articles && articles.totalPages > 1"
+                  v-model="articles.pageIndex"
+                  color="pagination"
+                  :max-pages="12"
+                  :max="articles.totalPages"
+                  ellipses
+                  direction-links
+                  @input="pageChanges"/>
   </q-page>
 </template>
 
 <script>
-  import {Page} from 'sun'
+    import {Page} from 'mixins'
+    import {Pagination} from 'mixins'
 
 
-  export default {
-    name: 'ArticlesPage',
-    mixins: [Page],
-    props: {
-      categoryName: {
-        type: String,
-        required: true
-      }
-    },
-    data() {
-      return {
-        articles: {
-          pagesCount: null,
-          items: null
-        }
-      }
-    },
-    watch: {
-      '$route': 'loadData'
-    },
-    computed: {
-      category() {
-        return this.$store.getters.getCategory(this.categoryName);
-      },
-      canAddArticle() {
-        return this.category?.categoryPersonalAccess?.materialWrite;
-      }
-    },
-    methods: {
-      getCurrentPage() {
-        return this.$route.query?.page ?? 1;
-      },
-      pageChanges(newPage) {
-        if (this.getCurrentPage() !== newPage) {
-          let req = {path: this.$route.path};
-          if (newPage !== 1) {
-            req.query = {page: newPage};
-          }
-          this.$router.push(req);
-        }
-      },
-      async loadData() {
-        let currentPage = this.getCurrentPage();
-
-        this.title = this.category?.title;
-
-        await this.$store.dispatch('request',
-          {
-            url: '/Articles/GetArticles',
-            data: {
-              categoryName: this.categoryName,
-              page: currentPage,
-              showDeleted: (this.$store.state.admin.showDeletedElements || this.$route.query.deleted) ? true : undefined
+    export default {
+        name: 'ArticlesPage',
+        mixins: [Page, Pagination],
+        props: {
+            categoryName: {
+                type: String,
+                required: true
             }
-          })
-          .then(
-            response => {
-              this.$refs.articlesList.articles = response.data;
+        },
+        data() {
+            return {
+                articles: null
             }
-          ).catch(x => {
-            console.log('error', x);
-          });
-      }
-    },
-    beforeCreate() {
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
-      this.$options.components.ArticlesList = require('sun').ArticlesList;
-    },
-    async created() {
-      await this.loadData()
+        },
+        watch: {
+            '$route': 'loadData'
+        },
+        computed: {
+            category() {
+                return this.$store.getters.getCategory(this.categoryName);
+            },
+            canAddArticle() {
+                return this.category?.categoryPersonalAccess?.materialWrite;
+            }
+        },
+        methods: {
+            loadData() {
+                this.title = this.category?.title;
+
+                this.$request(this.$Api.Articles.GetArticles,
+                    {
+                        categoryName: this.categoryName,
+                        page: this.currentPage,
+                        showDeleted: (this.$store.state.admin.showDeletedElements || this.$route.query.deleted) ? true : undefined
+                    }
+                ).then(response => {
+                    this.articles = response.data;
+                }).catch(x => {
+                    this.$refs.loader.fail();
+                });
+            }
+        },
+        beforeCreate() {
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
+            this.$options.components.ArticlesList = require('sun').ArticlesList;
+        },
+        created() {
+            this.loadData()
+        }
     }
-  }
 
 </script>
 

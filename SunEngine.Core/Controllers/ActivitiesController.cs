@@ -15,50 +15,74 @@ namespace SunEngine.Core.Controllers
     /// </summary>
     public class ActivitiesController : BaseController
     {
-        protected const int MaxActivitiesInQuery = 50;
+        protected const int MaxActivitiesInQuery = 300;
 
         protected readonly OperationKeysContainer OperationKeys;
         protected readonly IAuthorizationService authorizationService;
         protected readonly ICategoriesCache categoriesCache;
         protected readonly IActivitiesPresenter activitiesPresenter;
+        protected readonly IComponentsCache componentsCache;
 
         public ActivitiesController(
             OperationKeysContainer operationKeysContainer,
             ICategoriesCache categoriesCache,
             IAuthorizationService authorizationService,
             IActivitiesPresenter activitiesPresenter,
+            IComponentsCache componentsCache,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             OperationKeys = operationKeysContainer;
             this.categoriesCache = categoriesCache;
             this.authorizationService = authorizationService;
             this.activitiesPresenter = activitiesPresenter;
+            this.componentsCache = componentsCache;
         }
 
-        public async Task<IActionResult> GetActivities(string materialsCategories, string commentsCategories,
-            int number)
+        public async Task<IActionResult> GetActivities(string componentName)
         {
-            var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(materialsCategories);
+            var component = componentsCache.GetComponentServerCached(componentName, User.Roles);
+            if (component == null)
+                return BadRequest($"No component {componentName} found in cache");
 
-            IList<CategoryCached> materialsCategoriesList = authorizationService.GetAllowedCategories(User.Roles, materialsCategoriesDic.Values,
-                OperationKeys.MaterialAndCommentsRead);
-            
-            
-            var commentsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(commentsCategories);
+            ActivitiesComponentData componentData = component.Data as ActivitiesComponentData;
 
-            IList<CategoryCached> commentsCategoriesList = authorizationService.GetAllowedCategories(User.Roles, commentsCategoriesDic.Values,
-                OperationKeys.MaterialAndCommentsRead);
+            var materialsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(componentData.materialsCategories);
+
+            IList<CategoryCached> materialsCategoriesList = authorizationService.GetAllowedCategories(User.Roles,
+                materialsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);
+
+
+            var commentsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(componentData.commentsCategories);
+
+            IList<CategoryCached> commentsCategoriesList = authorizationService.GetAllowedCategories(User.Roles,
+                commentsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);
 
 
             int[] materialsCategoriesIds = materialsCategoriesList.Select(x => x.Id).ToArray();
             int[] commentsCategoriesIds = commentsCategoriesList.Select(x => x.Id).ToArray();
 
+            int number = componentData.number;
+
             if (number > MaxActivitiesInQuery)
                 number = MaxActivitiesInQuery;
 
-            var rez = await activitiesPresenter.GetActivitiesAsync(materialsCategoriesIds, commentsCategoriesIds,
-                number);
-            return Ok(rez);
+            async Task<ActivityView[]> LoadDataAsync()
+            {
+                return await activitiesPresenter.GetActivitiesAsync(materialsCategoriesIds, commentsCategoriesIds,
+                    number);
+            }
+
+            return await CacheContentAsync(
+                component, 
+                materialsCategoriesIds.Union(commentsCategoriesIds),
+                LoadDataAsync);
         }
+    }
+
+    public class ActivitiesComponentData
+    {
+        public string materialsCategories { get; set; }
+        public string commentsCategories { get; set; }
+        public int number { get; set; }
     }
 }

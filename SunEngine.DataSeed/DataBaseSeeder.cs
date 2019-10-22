@@ -40,6 +40,9 @@ namespace SunEngine.DataSeed
 
             Console.WriteLine("Users");
             db.BulkCopy(options, dataContainer.Users);
+            
+            Console.WriteLine("Materials");
+            db.BulkCopy(options, dataContainer.Materials);
            
             Console.WriteLine("Roles");
             db.BulkCopy(options, dataContainer.Roles);
@@ -59,8 +62,12 @@ namespace SunEngine.DataSeed
             Console.WriteLine("MenuItems");
             db.BulkCopy(options, dataContainer.MenuItems);
             
+            Console.WriteLine("Components");
+            db.BulkCopy(options, dataContainer.Components);
+            
             Console.WriteLine("CipherSecrets");
             db.BulkCopy(options, dataContainer.CipherSecrets);
+            
 
             if (dataContainer.CacheSettings != null)
             {
@@ -106,7 +113,7 @@ namespace SunEngine.DataSeed
                 string[] tablesWithSequenceIds =
                 {
                     "Categories", "AspNetUsers", "Materials", "Comments", "AspNetRoles",
-                    "CategoryAccesses", "Tags", "MenuItems"
+                    "CategoryAccesses", "Tags", "MenuItems", "Components"
                 };
 
                 foreach (string tableName in tablesWithSequenceIds)

@@ -41,7 +41,7 @@ namespace SunEngine.Core.Controllers
 
         protected string UserOrIpKey =>
             User != null
-                ? "u"+User.UserId
+                ? "u" + User.UserId
                 : Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
         private SunClaimsPrincipal _user;
@@ -69,7 +69,7 @@ namespace SunEngine.Core.Controllers
         {
             return base.BadRequest(ErrorView.BadRequest());
         }
-        
+
         public Task<User> GetUserAsync()
         {
             return userManager.FindByIdAsync(User.UserId.ToString());
@@ -80,17 +80,25 @@ namespace SunEngine.Core.Controllers
             return Content(json, "application/json", Encoding.UTF8);
         }
 
-        public async Task<IActionResult> CacheContentAsync<T>(CategoryCached category, IEnumerable<int> categoryIds,
+        /*public async Task<IActionResult> CacheContentAsync<T>(ComponentServerCached component, IEnumerable<int> categoryIds,
             Func<Task<T>> dataLoader, int? page = null)
         {
             var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryIds);
+            return await CacheContentAsync(component, key, dataLoader, page);
+        }*/
+
+        public async Task<IActionResult> CacheContentAsync<T>(
+            CategoryCached category, IEnumerable<int> categoryIds,
+            Func<Task<T>> dataLoader, int? page = null)
+        {
+            var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, categoryIds, page);
             return await CacheContentAsync(category, key, dataLoader, page);
         }
 
         public async Task<IActionResult> CacheContentAsync<T>(
-            CategoryCached category, 
+            CategoryCached category,
             int categoryId,
-            Func<Task<T>> dataLoader, 
+            Func<Task<T>> dataLoader,
             int? page = null)
         {
             var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryId);
@@ -98,7 +106,7 @@ namespace SunEngine.Core.Controllers
         }
 
         protected async Task<IActionResult> CacheContentAsync<T>(
-            CategoryCached category, 
+            CategoryCached category,
             string key,
             Func<Task<T>> dataLoader,
             int? page)
@@ -116,12 +124,31 @@ namespace SunEngine.Core.Controllers
             return JsonString(json);
         }
 
+        public async Task<IActionResult> CacheContentAsync<T>(
+            ComponentServerCached component,
+            IEnumerable<int> categoryIds,
+            Func<Task<T>> dataLoader,
+            int? page = null)
+        {
+            if (!cachePolicy.CanCache(component, page))
+                return Json(await dataLoader());
+
+            var key = keyGenerator.ContentGenerateKey(component.Name, categoryIds, page);
+
+            string json;
+            if (!string.IsNullOrEmpty(json = contentCache.GetContent(key)))
+                return JsonString(json);
+
+            var content = await dataLoader();
+            json = SunJson.Serialize(content);
+            contentCache.CacheContent(key, json);
+            return JsonString(json);
+        }
+
         protected override void Dispose(bool disposing)
         {
             userManager.Dispose();
             base.Dispose(disposing);
         }
     }
-
-    
 }

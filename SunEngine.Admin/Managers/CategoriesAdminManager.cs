@@ -49,8 +49,6 @@ namespace SunEngine.Admin.Managers
             category.LayoutName = category.LayoutName?.SetNullIfEmptyTrim();
             category.MaterialTypeTitle = category.MaterialTypeTitle?.SetNullIfEmptyTrim();
             category.Header = sanitizerService.Sanitize(category.Header?.SetNullIfEmptyTrim());
-            if (!categoriesCache.MaterialsPreviewGenerators.ContainsKey(category.MaterialsPreviewGeneratorName ?? ""))
-                category.MaterialsPreviewGeneratorName = null;
 
 
             var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == category.ParentId);
@@ -100,13 +98,7 @@ namespace SunEngine.Admin.Managers
             category.MaterialsSubTitleInputType = categoryUpdate.MaterialsSubTitleInputType;
             category.IsMaterialsNameEditable = categoryUpdate.IsMaterialsNameEditable;
             category.IsMaterialsContainer = categoryUpdate.IsMaterialsContainer;
-
-            if (category.MaterialsPreviewGeneratorName != categoryUpdate.MaterialsPreviewGeneratorName)
-            {
-                category.MaterialsPreviewGeneratorName = categoryUpdate.MaterialsPreviewGeneratorName;
-                await RemakeAllMaterialsPreviewsAsync(category);
-            }
-
+            
 
             await db.UpdateAsync(category);
         }
@@ -202,25 +194,6 @@ namespace SunEngine.Admin.Managers
             return db.Categories.Where(x => x.Name == name).Set(x => x.DeletedDate, x => DateTime.UtcNow).UpdateAsync();
         }
 
-        public async ValueTask RemakeAllMaterialsPreviewsAsync(Category category)
-        {
-            if (category == null)
-                throw new SunEntityNotFoundException(nameof(category));
-
-            categoriesCache.MaterialsPreviewGenerators.TryGetValue(category.MaterialsPreviewGeneratorName ?? "",
-                out Func<IHtmlDocument, int, string> generator);
-
-            var materials = await db.Materials.Where(x => x.CategoryId == category.Id).ToListAsync();
-
-            foreach (var material in materials)
-            {
-                material.Preview =
-                    generator?.Invoke(new HtmlParser().Parse(material.Text), materialOptions.PreviewLength);
-                await db.Materials.Where(y => y.Id == material.Id).Set(y => y.Preview, y => material.Preview)
-                    .UpdateAsync();
-            }
-        }
-        
         /*public async Task RemakeAllMaterialsSubTitleAsync(Category category)
         {
             if (category == null)

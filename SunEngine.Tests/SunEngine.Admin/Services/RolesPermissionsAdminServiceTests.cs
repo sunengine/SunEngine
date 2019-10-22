@@ -3,7 +3,6 @@ using System.Linq;
 using System.Text;
 using LinqToDB;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Internal;
 using SunEngine.Admin.Services;
 using SunEngine.Core.DataBase;
 using Xunit;
@@ -44,7 +43,6 @@ namespace SunEngine.Tests.SunEngine.Admin.Services
             Assert.NotEqual(string.Empty, await rolesService.GetRolesJsonAsync());
         }
 
-        
         [Fact]
         public async void ShouldLoadRolesFromJson()
         {

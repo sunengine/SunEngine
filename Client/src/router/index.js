@@ -4,9 +4,9 @@ import VueRouter from 'vue-router'
 import {getTokens} from 'sun'
 import {checkTokensUpdated} from 'sun'
 import {setRouter} from 'sun'
+import {app} from 'sun'
 
 import {consoleRequestStart, consoleGreyEnd, consoleTokens} from 'sun'
-
 
 
 Vue.use(VueRouter);
@@ -31,34 +31,46 @@ export default function ({store, ssrContext}) {
   });
 
   router.beforeEach(async (to, from, next) => {
+
+    if (store.state.initializedPromise) {
+      store.state.initializedPromise.then(_ => {
+        store.state.initializedPromise = null;
+        app.$nextTick(_ => router.push(to));
+        }
+      );
+      return;
+    }
+
+    await checkUserCredentialsAndReloadIfNew();
+
     if (config.Log.MoveTo)
       console.info("%cMove to page%c" + config.SiteUrl.substring(config.SiteSchema.length) + to.path, consoleRequestStart, consoleGreyEnd, to);
 
-    if (checkTokensUpdated()) {
-      console.info('%cReload user credentials', consoleTokens);
-
-      store.commit('clearAllUserRelatedData');
-
-      const tokens = getTokens();
-      store.state.auth.longToken = tokens?.longToken;
-
-      if(store.state.auth.longToken)
-        await store.dispatch('loadMyUserInfo');
-
-      await store.dispatch('loadAllCategories');
-      await store.dispatch('loadAllMenuItems');
-      await store.dispatch('setAllRoutes');
-    }
-
-
     next();
-
   });
 
   setRouter(router);
 
   return router;
-}
 
+  async function checkUserCredentialsAndReloadIfNew() {
+    if (!checkTokensUpdated())
+      return;
+
+    console.info('%cReload user credentials', consoleTokens);
+
+    store.commit('clearAllUserRelatedData');
+
+    const tokens = getTokens();
+    store.state.auth.longToken = tokens?.longToken;
+
+    if (store.state.auth.longToken)
+      await store.dispatch('loadMyUserInfo');
+
+    await store.dispatch('loadAllCategories');
+    await store.dispatch('loadAllMenuItems');
+    await store.dispatch('setAllRoutes');
+  }
+}
 
 

@@ -1,10 +1,16 @@
-import {router, removeTokens} from 'sun'
+import {router} from 'sun'
+import {removeTokens} from 'sun'
+import {Api} from 'sun'
+import {request} from 'sun'
 
-export default async function logout(context) {
-  await context.dispatch('request', {url: '/Auth/Logout'}).finally(
+
+export default function() {
+  request(
+    Api.Auth.Logout
+  ).finally(
     () => {
       removeTokens();
-      router.push({name: "Home"});
+      router.push({name: 'Home'});
     }
   );
 }

@@ -22,7 +22,9 @@ namespace SunEngine.Core.Configuration.AddServices
             services.AddSingleton<ICategoriesCache, CategoriesCache>();
 
             services.AddSingleton<IMenuCache, MenuCache>();
-
+            
+            services.AddSingleton<IComponentsCache, ComponentsCache>();
+            
             services.AddSingleton<IContentCache, CategoryContentCache>();
 
             services.AddSingleton<CacheKeyGenerator>();

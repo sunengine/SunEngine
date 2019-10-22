@@ -1,22 +1,19 @@
+import {request} from 'sun'
+import {Api} from 'sun'
 
-export default async function (context, userData) {
+export default function (context, userData) {
 
-  await context.dispatch('request',
+  request(
+    Api.Auth.Login,
     {
-      url: "/Auth/Login",
-      data: {
-        nameOrEmail: userData.nameOrEmail,
-        password: userData.password
-      }
-    }).then(async () => {
-
+      nameOrEmail: userData.nameOrEmail,
+      password: userData.password,
+      skipLock: userData?.skipLock
+    }
+  ).then(async () => {
     await context.dispatch('loadMyUserInfo');
-
     await context.dispatch('loadAllCategories');
-
     await context.dispatch('setAllRoutes');
-
     await context.dispatch('loadAllMenuItems');
-
   });
 }

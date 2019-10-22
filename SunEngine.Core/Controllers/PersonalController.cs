@@ -111,7 +111,7 @@ namespace SunEngine.Core.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> GetMyBanList()
         {
-            var usersList = await personalPresenter.GetBanListAsync(User.UserId);
+            var usersList = await personalPresenter.GetMyBanListAsync(User.UserId);
 
             return Ok(usersList);
         }

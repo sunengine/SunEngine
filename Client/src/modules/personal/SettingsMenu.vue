@@ -1,14 +1,8 @@
 <template>
   <q-list class="settings-menu my-menu" no-border>
-    <q-item class="avatar-menu-item">
-      <q-item-section avatar>
-        <img class="on-left avatar" :src="user.avatar"/>
-      </q-item-section>
-      <q-item-section>
-        {{user.name}}
-      </q-item-section>
-      <!--<q-icon name="far fa-user" size="16px" class="on-left"/>-->
-    </q-item>
+    <div class="avatar-block">
+      <img class="on-left avatar" :src="user.avatar"/> {{user.name}}
+    </div>
     <q-item :to="{name: 'ProfileInSettings'}">
       <q-item-section avatar>
         <q-icon name="fas fa-user-circle"/>
@@ -85,17 +79,17 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex';
+    import {mapState} from 'vuex';
 
 
-  export default {
-    name: 'SettingsMenu',
-    computed: {
-      ...mapState({
-        user: state => state.auth.user
-      })
+    export default {
+        name: 'SettingsMenu',
+        computed: {
+            ...mapState({
+                user: state => state.auth.user
+            })
+        }
     }
-  }
 
 </script>
 
@@ -103,9 +97,14 @@
 
   .settings-menu {
     .avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 20px;
+      width: 32px;
+      height: 32px;
+      border-radius: 16px;
+    }
+
+    .avatar-block {
+     // text-align: center;
+      padding: 15px;
     }
   }
 

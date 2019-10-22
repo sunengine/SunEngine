@@ -1,8 +1,13 @@
-export default async function (context) {
+import {request} from 'sun'
+import {Api} from 'sun'
 
-  await context.dispatch('request', {
-    url: '/Personal/GetMyUserInfo',
-  }).then(response => {
+export default function (context, data) {
+
+  return request(
+    Api.Personal.GetMyUserInfo,
+    {
+      skipLock: data?.skipLock
+    }).then(response => {
     context.commit('setUserInfo', response.data);
   });
 }

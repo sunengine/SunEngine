@@ -24,13 +24,15 @@ namespace SunEngine.Core.Controllers
         protected readonly ICategoriesCache categoriesCache;
         protected readonly IAuthorizationService authorizationService;
         protected readonly IBlogPresenter blogPresenter;
+        protected readonly IComponentsCache componentsCache;
 
-
-        public BlogController(IOptions<BlogOptions> blogOptions,
+        public BlogController(
+            IOptions<BlogOptions> blogOptions,
             IAuthorizationService authorizationService,
             ICategoriesCache categoriesCache,
             OperationKeysContainer operationKeysContainer,
             IBlogPresenter blogPresenter,
+            IComponentsCache componentsCache,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             OperationKeys = operationKeysContainer;
@@ -39,6 +41,7 @@ namespace SunEngine.Core.Controllers
             this.authorizationService = authorizationService;
             this.categoriesCache = categoriesCache;
             this.blogPresenter = blogPresenter;
+            this.componentsCache = componentsCache;
         }
 
         [HttpPost]
@@ -49,24 +52,24 @@ namespace SunEngine.Core.Controllers
             if (category == null)
                 return BadRequest();
 
-            
+
             if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
                 return Unauthorized();
 
-            
+
             var options = new MaterialsShowOptions
             {
-                CategoryId = category.Id, 
-                Page = page, 
+                CategoryId = category.Id,
+                Page = page,
                 PageSize = blogOptions.PostsPageSize
             };
 
             if (authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialHide))
                 options.ShowHidden = true;
-            
+
             if (showDeleted && authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialDeleteAny))
                 options.ShowDeleted = true;
-            
+
             async Task<IPagedList<PostView>> LoadDataAsync()
             {
                 return await blogPresenter.GetPostsAsync(options);
@@ -76,10 +79,15 @@ namespace SunEngine.Core.Controllers
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> GetPostsFromMultiCategories(string categoriesNames,
-            int page = 1, int? pageSize = null)
+        public virtual async Task<IActionResult> GetPostsFromMultiCategories(string componentName, int page = 1)
         {
-            var materialsCategoriesDic = categoriesCache.GetAllCategoriesIncludeSub(categoriesNames);
+            var component = componentsCache.GetComponentServerCached(componentName, User.Roles);
+            if (component == null)
+                return BadRequest($"No component {componentName} found in cache");
+
+            PostsComponentData componentData = component.Data as PostsComponentData;
+
+            var materialsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(componentData.CategoriesNames);
 
             IList<CategoryCached> categoriesList = authorizationService.GetAllowedCategories(User.Roles,
                 materialsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);
@@ -87,24 +95,29 @@ namespace SunEngine.Core.Controllers
             if (categoriesList.Count == 0)
                 return BadRequest("No categories to show");
 
+            var categoriesIds = categoriesList.Select(x => x.Id);
+
             var options = new MaterialsMultiCatShowOptions
             {
                 CategoriesIds = categoriesList.Select(x => x.Id),
-                Page = page, 
-                PageSize = pageSize ?? blogOptions.PostsPageSize
+                Page = page,
+                PageSize = componentData.PageSize,
+                PreviewSize = componentData.PreviewSize
             };
 
-            var rez = await blogPresenter.GetPostsFromMultiCategoriesAsync(options);
-
-            return Json(rez);
-
-            /*async Task<IPagedList<PostViewModel>> LoadDataAsync()
+            async Task<IPagedList<PostView>> LoadDataAsync()
             {
-               return await blogPresenter.GetPostsFromMultiCategoriesAsync(categoriesIds, page, blogOptions.PostsPageSize);
+                return await blogPresenter.GetPostsFromMultiCategoriesAsync(options);
             }
 
-            var blogCategory = categoriesCache.GetCategory(categoriesNames);
-            return await CacheContentAsync(blogCategory, categoriesIds, LoadDataAsync);*/
+            return await CacheContentAsync(component, categoriesIds, LoadDataAsync, page);
         }
+    }
+
+    public class PostsComponentData
+    {
+        public string CategoriesNames { get; set; }
+        public int PreviewSize { get; set; }
+        public int PageSize { get; set; }
     }
 }

@@ -46,94 +46,91 @@
 </template>
 
 <script>
-  import {Page} from 'sun'
+    import {Page} from 'mixins'
 
 
-  export default {
-    name: 'Profile',
-    mixins: [Page],
-    props: {
-      link: {
-        type: String,
-        required: true
-      }
-    },
-    data() {
-      return {
-        user: null,
-        isShowRolesAdmin: false
-      }
-    },
-    computed: {
-      canPrivateMessage() {
-        const from = this.$store?.state?.auth?.user;
-        if (!from) return false;
-        if (this.user.heBannedMe || this.user.iBannedHim) return false;
-        return from.id !== this.user?.id;
-      },
-      messageButtons() {
-        const from = this.$store?.state?.auth?.user;
-        if (!from) return false;
-        return from.id !== this.user?.id;
-      },
-      canEditRoles() {
-        return this.$store?.state?.auth?.roles?.some(x => x === 'Admin');
-      }
-    },
-    watch: {
-      'link': 'loadData'
-    },
-    methods: {
-      showRolesAdmin() {
-        this.isShowRolesAdmin = true;
-      },
-      async ban() {
-        await this.$store.dispatch('request',
-          {
-            url: '/Profile/BanUser',
-            data: {
-              userId: this.user.id
+    export default {
+        name: 'Profile',
+        mixins: [Page],
+        props: {
+            link: {
+                type: String,
+                required: true
             }
-          }).then(async response => {
-          await this.loadData();
-          const msg = this.$tl('banNotify', [this.user.name]);
-          this.$successNotify(msg);
-        });
-      },
-      async unBan() {
-        await this.$store.dispatch('request',
-          {
-            url: '/Profile/UnBanUser',
-            data: {
-              userId: this.user.id
+        },
+        data() {
+            return {
+                user: null,
+                isShowRolesAdmin: false
             }
-          }).then(async response => {
-          await this.loadData();
-          const msg = this.$tl('unBanNotify', [this.user.name]);
-          this.$successNotify(msg);
-        });
-      },
-      async loadData() {
-        await this.$store.dispatch('request',
-          {
-            url: '/Profile/GetProfile',
-            data: {
-              link: this.link
+        },
+        computed: {
+            canPrivateMessage() {
+                const from = this.$store?.state?.auth?.user;
+                if (!from) return false;
+                if (this.user.heBannedMe || this.user.iBannedHim) return false;
+                return from.id !== this.user?.id;
+            },
+            messageButtons() {
+                const from = this.$store?.state?.auth?.user;
+                if (!from) return false;
+                return from.id !== this.user?.id;
+            },
+            canEditRoles() {
+                return this.$store?.state?.auth?.roles?.some(x => x === 'Admin');
             }
-          }).then(response => {
-          this.user = response.data;
-          this.title = this.user.name;
-        });
-      }
-    },
-    beforeCreate() {
-      this.$options.components.ProfileRoles = require('sun').ProfileRoles;
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
-    },
-    async created() {
-      await this.loadData();
+        },
+        watch: {
+            'link': 'loadData'
+        },
+        methods: {
+            showRolesAdmin() {
+                this.isShowRolesAdmin = true;
+            },
+            ban() {
+                this.$request(
+                    this.$Api.Profile.BanUser,
+                    {
+                        userId: this.user.id
+                    }
+                ).then(async response => {
+                    await this.loadData();
+                    const msg = this.$tl('banNotify', [this.user.name]);
+                    this.$successNotify(msg);
+                });
+            },
+            unBan() {
+                this.$request(
+                    this.$Api.Profile.UnBanUser,
+                    {
+                        userId: this.user.id
+                    }
+                ).then(async response => {
+                    await this.loadData();
+                    const msg = this.$tl('unBanNotify', [this.user.name]);
+                    this.$successNotify(msg);
+                });
+            },
+            async loadData() {
+                await this.$request(
+                    this.$Api.Profile.GetProfile,
+                    {
+                        link: this.link
+                    }
+                ).then(response => {
+                    this.user = response.data;
+                    this.title = this.user.name;
+                });
+            }
+        },
+        beforeCreate() {
+            this.$options.components.ProfileRoles = require('sun').ProfileRoles;
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
+        },
+        created() {
+            this.loadData();
+        }
     }
-  }
 
 </script>
 
@@ -176,7 +173,7 @@
     }
 
     @media (max-width: 900px) {
-      .f1 {
+      .container {
         flex-direction: column;
 
         .img {

@@ -45,7 +45,7 @@ namespace SunEngine.Admin.Managers
             menuItem.CssClass = menuItem.CssClass?.SetNullIfEmptyTrim();
             menuItem.ExternalUrl = menuItem.ExternalUrl?.SetNullIfEmptyTrim();
             menuItem.Icon = menuItem.Icon?.SetNullIfEmptyTrim();
-            menuItem.Roles = CheckAndSetRoles(menuItem.Roles);
+            menuItem.Roles = rolesCache.CheckAndSetRoles(menuItem.Roles);
 
 
             using (db.BeginTransaction())
@@ -69,7 +69,7 @@ namespace SunEngine.Admin.Managers
             menuItem.CssClass = menuItem.CssClass?.SetNullIfEmptyTrim();
             menuItem.ExternalUrl = menuItem.ExternalUrl?.SetNullIfEmptyTrim();
             menuItem.Icon = menuItem.Icon?.SetNullIfEmptyTrim();
-            menuItem.Roles = CheckAndSetRoles(menuItem.Roles);
+            menuItem.Roles = rolesCache.CheckAndSetRoles(menuItem.Roles);
             
             int rowsUpdated = await db.UpdateAsync(menuItem);
 
@@ -167,14 +167,6 @@ namespace SunEngine.Admin.Managers
                 throw new SunEntityNotDeletedException(nameof(MenuItem), id);
         }
 
-        protected virtual string CheckAndSetRoles(string roles)
-        {
-            if (string.IsNullOrWhiteSpace(roles))
-                return string.Join(',', RoleNames.Unregistered, RoleNames.Registered);
-
-            var rolesNames = roles.Split(',').Select(x => x.Trim()).ToList()
-                .Where(x => rolesCache.AllRoles.ContainsKey(x));
-            return string.Join(',', rolesNames);
-        }
+      
     }
 }

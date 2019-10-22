@@ -1,6 +1,8 @@
 using System.Linq;
 using AngleSharp.Dom;
 using AngleSharp.Dom.Html;
+using AngleSharp.Extensions;
+using SunEngine.Core.Services;
 
 namespace SunEngine.Core.Utils.TextProcess
 {
@@ -21,15 +23,15 @@ namespace SunEngine.Core.Utils.TextProcess
             if (iframe != null)
                 ClearNext(iframe);
 
-            return doc.Body.InnerHtml;
+            return doc.Body.ChildNodes.ToHtml(Sanitizer.OutputFormatter);
         }
 
         public static string PlainText(IHtmlDocument doc, int previewLength)
         {
             if(doc.Body.InnerText.Length < previewLength)
                 return doc.Body.InnerText;
-            else
-                return doc.Body.InnerText.Substring(0, previewLength) + "...";
+
+            return doc.Body.InnerText.Substring(0, previewLength) + "...";
         }
 
         public static string HtmlNoImages(IHtmlDocument doc, int previewLength)

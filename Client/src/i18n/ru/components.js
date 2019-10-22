@@ -1,6 +1,7 @@
 export default {
   LoaderWait: {
-    loading: "Загрузка..."
+    loading: "Загрузка...",
+    loadError: "Ошибка загрузки данных"
   },
   LoaderSent: {
     sending: "Отправка..."

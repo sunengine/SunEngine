@@ -21,66 +21,69 @@
 
 <script>
 
-  export default {
-    name: 'MenuItem',
-    props: {
-      menuItem: {
-        type: Object,
-        required: true,
-      }
-    },
-    data() {
-      return {
-        parentMenuItem: null
-      }
-    },
-    watch: {
-      '$route': 'checkOpen'
-    },
-    computed: {
-      to() {
-        return this.menuItem.to;
-      },
-      expandSeparator() {
-        return this.menuItem.settingsJson?.expandSeparator;
-      }
-    },
-    methods: {
-      click() {
-        this.expandOnClick();
-        this.goExternal();
-      },
-      expandOnClick() {
-        if (this.menuItem.settingsJson?.expandOnClick)
-          this.$refs.exp.show();
-      },
-      goExternal() {
-        if (this.menuItem.externalUrl)
-          window.open(this.menuItem.externalUrl);
-      },
-      checkOpen() {
-        if (this.parentMenuItem && this.menuItem.to) {
-          if (this.menuItem.path !== '/' && this.$route.path.startsWith(this.menuItem.path)) {
-            let par = this.parentMenuItem;
-            while(par) {
-              par.$refs.exp.value = true;
-              par = par.parentMenuItem;
+    export default {
+        name: 'MenuItem',
+        props: {
+            menuItem: {
+                type: Object,
+                required: true,
             }
-          }
-        }
-      }
-    },
-    mounted() {
-      if (this.menuItem.subMenuItems)
-        for (const smi of this.$refs['cim'])
-          smi.parentMenuItem = this;
+        },
+        data() {
+            return {
+                parentMenuItem: null
+            }
+        },
+        watch: {
+            '$route': 'checkOpen'
+        },
+        computed: {
+            to() {
+                return this.menuItem.to;
+            },
+            expandSeparator() {
+                return this.menuItem.settingsJson?.expandSeparator;
+            }
+        },
+        methods: {
+            click() {
+                this.expandOnClick();
+                this.goExternal();
+            },
+            expandOnClick() {
+                if (this.to && this.menuItem.settingsJson?.expandOnClick)
+                    this.$refs.exp.show();
+            },
+            goExternal() {
+                if (this.menuItem.externalUrl)
+                    window.open(this.menuItem.externalUrl);
+            },
+            checkOpen() {
+                if (this.parentMenuItem && this.menuItem.to) {
+                    if (this.menuItem.path !== '/' && this.$route.path.startsWith(this.menuItem.path)) {
+                        let par = this.parentMenuItem;
+                        while (par) {
+                            par.open();
+                            par = par.parentMenuItem;
+                        }
+                    }
+                }
+            },
+            open() {
+                this.$refs.exp.show();
+            }
+        },
+        mounted() {
+            if (this.menuItem.subMenuItems)
+                for (const smi of this.$refs['cim'])
+                    smi.parentMenuItem = this;
 
-      this.$nextTick(() => this.checkOpen());
-    },
-    beforeCreate() {
-      this.$options.components.MenuItem = require('sun').MenuItem;
+            this.$nextTick(() => this.checkOpen());
+        },
+        beforeCreate() {
+            this.$options.components.MenuItem = require('sun').MenuItem;
+        }
     }
-  }
 
 </script>
 

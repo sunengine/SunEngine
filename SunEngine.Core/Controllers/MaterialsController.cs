@@ -115,6 +115,8 @@ namespace SunEngine.Core.Controllers
 
             await materialsManager.CreateAsync(material, materialData.Tags, category);
 
+            contentCache.InvalidateCache(category.Id);
+            
             return Ok();
         }
 
@@ -165,12 +167,18 @@ namespace SunEngine.Core.Controllers
                 : null;
             
             await materialsManager.UpdateAsync(material, materialData.Tags, newCategory);
+            
+            contentCache.InvalidateCache(material.CategoryId);
+
             return Ok();
         }
 
         [NonAction]
         protected async Task SetNameAsync(Material material, string name)
         {
+            if (material.Name == name)
+                return;
+            
             if (User.IsInRole(RoleNames.Admin))
             {
                 if (string.IsNullOrWhiteSpace(name))
@@ -183,7 +191,7 @@ namespace SunEngine.Core.Controllers
                         throw new SunViewException(new ErrorView("MaterialNameNotValid", "Invalid material name",
                             ErrorType.System));
 
-                    if (name != material.Name && await materialsManager.IsNameInDbAsync(name))
+                    if (await materialsManager.IsNameInDbAsync(name))
                         throw new SunViewException(ErrorView.SoftError("MaterialNameAlreadyUsed",
                             "This material name is already used"));
 
@@ -205,6 +213,9 @@ namespace SunEngine.Core.Controllers
             contentCache.InvalidateCache(material.CategoryId);
 
             await materialsManager.DeleteAsync(material);
+            
+            contentCache.InvalidateCache(material.CategoryId);
+
             return Ok();
         }
 
