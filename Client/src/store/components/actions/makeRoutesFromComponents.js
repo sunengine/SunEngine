@@ -1,8 +1,8 @@
 export default function (context) {
 
   let routes = [];
-  for (const componentName in context.state.allComponents) {
-    const component = context.state.allComponents[componentName];
+
+  for (const component of Object.values(context.state.allComponents)) {
     const componentType = context.getters.getComponentType(component.type);
     routes.push(...componentType.getRoutes(component));
   }

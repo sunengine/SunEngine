@@ -1,5 +1,5 @@
 <template>
-  <div class="category-form q-gutter-y-sm">
+  <div class="category-form">
 
     <q-input ref="name" v-model="category.name" :label="$tl('name')" :rules="rules.name">
       <template v-slot:prepend>
@@ -13,24 +13,25 @@
       </template>
     </q-input>
 
-    <q-input ref="subTitle" v-model="category.subTitle" autogrow type="textarea"
+    <q-input bottom-slots ref="subTitle" v-model="category.subTitle" autogrow type="textarea"
              :label="$tl('subTitle')">
       <template v-slot:prepend>
         <q-icon name="fas fa-info" class="q-mr-xs"/>
       </template>
+
     </q-input>
 
     <q-input ref="icon" v-model="category.icon" :label="$tl('icon')" :rules="rules.icon">
-      <div slot="prepend">
-        <q-icon :name="category.icon ? category.icon : 'far fa-file'"/>
-      </div>
+      <template slot="prepend">
+        <q-icon  class="q-mr-xs" :name="category.icon ? category.icon : 'far fa-file'"/>
+      </template>
     </q-input>
 
     <div class="text-grey-6">{{$tl('header')}}</div>
 
     <SunEditor ref="header" style="margin-bottom: 12px;" v-model="category.header"/>
 
-    <q-field class="cursor-pointer" :error="!category.parentId" :label="$tl('selectParent')" stack-label>
+    <q-field  class="cursor-pointer" :error="!category.parentId" :label="$tl('selectParent')" stack-label>
       <template v-slot:control>
         <div tabindex="0" class="no-outline full-width">
           {{parentCategoryTitle}}
@@ -64,7 +65,7 @@
       </q-menu>
     </q-field>
 
-    <q-select emit-value map-options :label="$tl('layout')" v-model="category.layoutName"
+    <q-select bottom-slots emit-value map-options :label="$tl('layout')" v-model="category.layoutName"
               :options="layoutOptions">
       <q-icon slot="prepend" name="fas fa-boxes"/>
     </q-select>
@@ -76,11 +77,11 @@
                 @input="isMaterialsContainerChanged"
                 :label="$tl('isMaterialsContainerCb')"/>
 
-    <q-checkbox v-if="category.isMaterialsContainer" :toggle-indeterminate="false"
+    <q-checkbox  v-if="category.isMaterialsContainer" :toggle-indeterminate="false"
                 v-model="category.isMaterialsNameEditable"
                 :label="$tl('isMaterialsNameEditableCb')"/>
 
-    <q-select emit-value map-options v-if="category.isMaterialsContainer" :label="$tl('materialsSubTitleInputType')"
+    <q-select bottom-slots emit-value map-options v-if="category.isMaterialsContainer" :label="$tl('materialsSubTitleInputType')"
               v-model="category.materialsSubTitleInputType"
               :options="materialsSubTitleInputTypeOptions">
       <q-icon slot="prepend" name="fas fa-info"/>

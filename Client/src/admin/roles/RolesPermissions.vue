@@ -1,15 +1,11 @@
 <template>
   <q-page class="roles-permissions page-padding">
     <h2 class="q-title">{{title}}</h2>
-    <div class="q-my-md alert-backup">
-      <q-icon name="fas fa-exclamation-circle" size="24px" class="q-mr-sm"/>
-      {{$tl("backupWarning")}}
-    </div>
-    <template v-if="json !== null">
+    <div class="q-col-gutter-md" v-if="json !== null">
       <q-input input-class="json-input" v-model="json" type="textarea" :label="$tl('textAreaLabel')"/>
-      <div class="q-my-md">
+      <div class="q-gutter-md">
         <q-btn no-caps class="send-btn" icon="far fa-save" @click="send" :label="$tl('saveToServerBtn')"/>
-        <q-btn no-caps class="q-ml-md" color="info" icon="fas fa-sync-alt" @click="loadDataRefresh"
+        <q-btn no-caps  color="info" icon="fas fa-sync-alt" @click="loadDataRefresh"
                :label="$tl('getFromServer')"/>
       </div>
       <div class="json-error" v-if="error">
@@ -17,7 +13,7 @@
         <div class="msg" v-html="error.message"></div>
         <div class="stack" style="max-height: 600px; overflow-y: scroll;" v-html="error.text"></div>
       </div>
-    </template>
+    </div>
     <LoaderWait v-else/>
   </q-page>
 </template>
