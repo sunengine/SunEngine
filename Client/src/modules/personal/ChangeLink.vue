@@ -55,13 +55,11 @@
                 this.timeout = setTimeout(this.checkLinkInDbDo, 500);
             },
             checkLinkInDbDo() {
-                this.$store.dispatch('request',
+                this.$request(this.$Api.Personal.CheckLinkInDb,
                     {
-                        url: '/Personal/CheckLinkInDb',
-                        data: {
-                            link: this.link
-                        }
-                    }).then(response => {
+                        link: this.link
+                    }
+                ).then(response => {
                     this.linkInDb = response.data.yes;
                     this.$refs.link.validate();
                 })
@@ -75,15 +73,14 @@
 
                 this.submitting = true;
 
-                this.$request(
-                    this.$Api.Personal.SetMyLink,
+                this.$request(this.$Api.Personal.SetMyLink,
                     {
                         link: this.link
-                    }).then(response => {
+                    }
+                ).then(response => {
                     this.$store.commit('setUserInfo', response.data);
                     this.$successNotify();
                     this.$router.push({name: 'Personal'});
-
                 }).catch(error => {
                     this.$errorNotify(error);
                     this.submitting = false;

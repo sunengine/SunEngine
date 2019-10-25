@@ -17,8 +17,9 @@
       <p class="error-info">
         {{$tl('canNotConnectApi')}}
       </p>
-      <q-btn icon="fa fa-sync-alt" color="grey" @click="refresh" flat no-caps :label="$t('Global.refresh')"></q-btn>
-
+      <a href="#" @click="refresh" class="refresh-btn">
+        <q-icon name="fa fa-sync-alt" class="q-mr-xs"/>
+        {{$t('Global.refresh')}}</a>
     </div>
   </div>
 </template>
@@ -52,7 +53,7 @@
             refresh() {
                 this.$store.state.initializedPromise = this.$store.dispatch('initStore');
                 this.$store.state.initializedPromise.then(_ =>
-                   this.$router.push(this.$router.currentRoute)
+                    this.$router.push(this.$router.currentRoute)
                 )
             }
         },
@@ -93,6 +94,19 @@
       font-size: 1.4em;
       color: #005d00;
     }
-  }
 
+    .refresh-btn {
+      font-size: 1.1rem;
+      color: grey;
+      padding: 10px 25px;
+      vertical-align: middle;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: $grey-4;
+        transition: 0.2s;
+      }
+    }
+
+  }
 </style>

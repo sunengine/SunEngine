@@ -64,10 +64,8 @@ export default function prepareAllCategories(state, root) {
   }
 
   function injectPrototype() {
-    for (const catName in state.all) {
-      const category = state.all[catName];
+    for (const category of Object.values(state.all))
       Object.setPrototypeOf(category, Category.prototype);
-    }
   }
 }
 

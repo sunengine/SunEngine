@@ -25,13 +25,10 @@ export default function prepareAllMenuItems(state, allMenuItems) {
 
   state.namedMenuItems = {};
 
-  for (const menuItemId in menuItemsById) {
-    const menuItem = menuItemsById[menuItemId.toString()];
-
-    if (menuItem.name) {
+  for (const menuItem of Object.values(menuItemsById))
+    if (menuItem.name)
       state.namedMenuItems[menuItem.name.toLowerCase()] = menuItem;
-    }
-  }
+
 
   for (const menuItem of allMenuItems) {
     if (menuItem.routeName) {

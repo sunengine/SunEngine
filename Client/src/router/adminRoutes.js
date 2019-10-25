@@ -92,7 +92,11 @@ const routes = [
       navigation: AdminPanel
     },
     props: {
-      default: true,
+      default: (route) => {
+        return {
+          categoryId: +route.params.categoryId
+        }
+      },
       navigation: null
     }
   },

@@ -1,10 +1,10 @@
 import {store} from 'sun'
+import {request} from 'sun'
+import {AdminApi} from 'sun'
 
 export default function adminGetAllCategories() {
-  return store.dispatch('request',
-    {
-      url: '/Admin/CategoriesAdmin/GetAllCategories'
-    }).then(response => {
+  return request(AdminApi.CategoriesAdmin.GetAllCategories)
+    .then(response => {
       return {
         root: response.data,
         all: findAll(response.data, {})

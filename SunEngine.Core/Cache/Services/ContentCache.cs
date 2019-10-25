@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
@@ -22,7 +23,8 @@ namespace SunEngine.Core.Cache.Services
         private ICategoriesCache categoriesCache;
         private IMemoryCache memoryCache;
         private IOptions<CacheOptions> cacheOptions;
-        private List<string> recordsKeyList = new List<string>();
+        private ConcurrentDictionary<string, bool> recordsKeys = new ConcurrentDictionary<string, bool>();
+        private static object syncObject = new object();
 
         public CategoryContentCache(ICategoriesCache categoriesCache,
             IMemoryCache memoryCache,
@@ -52,20 +54,20 @@ namespace SunEngine.Core.Cache.Services
                     invalidateCacheTime = int.MaxValue;
             }
 
-            var options = new MemoryCacheEntryOptions()
+            var options = new MemoryCacheEntryOptions
             {
                 AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(invalidateCacheTime),
                 PostEvictionCallbacks =
                 {
-                    new PostEvictionCallbackRegistration()
+                    new PostEvictionCallbackRegistration
                     {
                         EvictionCallback = OnCacheRecordExpire
                     }
                 }
             };
-            
+
             memoryCache.Set(key, content, options);
-            recordsKeyList.Add(key);
+            recordsKeys.TryAdd(key, true);
             return true;
         }
 
@@ -77,11 +79,12 @@ namespace SunEngine.Core.Cache.Services
 
         public void InvalidateCache(int categoryId)
         {
-            foreach (var key in recordsKeyList)
-            {
+            foreach (var key in recordsKeys.Keys)
                 if (key.Contains($",{categoryId},"))
+                {
                     memoryCache.Remove(key);
-            }
+                    recordsKeys.TryRemove(key, out _);
+                }
         }
 
         public void InvalidateCache(string categoryName)
@@ -95,7 +98,12 @@ namespace SunEngine.Core.Cache.Services
 
         public void Reset()
         {
-            recordsKeyList.ForEach(x => memoryCache.Remove(x));
+            foreach (var recordsKey in recordsKeys.Keys)
+            {
+                memoryCache.Remove(recordsKey);
+            }
+
+            recordsKeys.Clear();
         }
 
         private int? GetCategoryId(string categoryName)
@@ -108,7 +116,7 @@ namespace SunEngine.Core.Cache.Services
             EvictionReason reason,
             object state)
         {
-            recordsKeyList.Remove((string) key);
+            recordsKeys.TryRemove((string) key, out _);
         }
     }
 }

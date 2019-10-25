@@ -77,19 +77,15 @@ export default {
         const formData = new FormData();
         formData.append('file', files[i]);
 
-        this.$store.dispatch('request',
-          {
-            url: '/UploadImages/UploadImage',
-            data: formData
-          })
-          .then(response => {
-            this.filesNames[i] = response.data.fileName;
-            this.oneFileDone();
-          })
-          .catch(error => {
-            console.log("error", error);
-            this.oneFileDone();
-          });
+        this.$request(this.$Api.UploadImages.UploadImage,
+          formData
+        ).then(response => {
+          this.filesNames[i] = response.data.fileName;
+          this.oneFileDone();
+        }).catch(error => {
+          console.log("error", error);
+          this.oneFileDone();
+        });
       }
     },
 

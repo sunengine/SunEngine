@@ -12,6 +12,11 @@ namespace SunEngine.Core.Errors
         {
         }
 
+        public ErrorView(ErrorObject error)
+        {
+            Errors.Add(error);
+        }
+        
         public ErrorView(string code, string description, ErrorType type)
         {
             ErrorObject errorObject = new ErrorObject(code, description, type);

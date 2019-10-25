@@ -11,6 +11,7 @@ export default {
   },
   Personal: {
     SetMyLink: '/Personal/SetMyLink',
+    CheckLinkInDb: '/Personal/CheckLinkInDb',
     SetMyName: '/Personal/SetMyName',
     SetMyProfileInformation: '/Personal/SetMyProfileInformation',
     GetMyProfileInformation: '/Personal/GetMyProfileInformation',
@@ -18,9 +19,10 @@ export default {
     GetMyBanList: '/Personal/GetMyBanList',
     GetMySessions: '/Personal/GetMySessions',
     RemoveMySessions: '/Personal/RemoveMySessions',
-    GetMyUserInfo: '/Personal/GetMyUserInfo'
+    GetMyUserInfo: '/Personal/GetMyUserInfo',
   },
   UploadImages: {
+    UploadImage: '/UploadImages/UploadImage',
     UploadUserPhoto: '/UploadImages/UploadUserPhoto',
   },
   Materials: {
