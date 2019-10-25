@@ -22,6 +22,7 @@ export default {
     GetMyUserInfo: '/Personal/GetMyUserInfo',
   },
   UploadImages: {
+    UploadImage: '/UploadImages/UploadImage',
     UploadUserPhoto: '/UploadImages/UploadUserPhoto',
   },
   Materials: {
