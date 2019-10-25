@@ -24,7 +24,7 @@
           {{tag}}
         </q-chip>
       </div>
-      <div class="material__footer q-py-sm text-grey-8 flex align-center">
+      <div class="material__footer q-gutter-x-lg q-py-sm flex align-center">
 
         <div v-if="showUser" class="material__author q-mr-md">
           <router-link :to="{name: 'User', params: {link: material.authorLink}}">
@@ -34,27 +34,27 @@
 
         <div class="grow"></div>
 
-        <div class="material-edit-btn edit-btn-block q-mr-md" v-if="canEdit">
+        <div class="material-edit-btn edit-btn-block" v-if="canEdit">
           <a href="#" @click.prevent="$router.push({name: 'EditMaterial', params: {id: material.id}})">
             <q-icon name="fas fa-edit" class="q-mr-xs"/>
             {{$tl("edit")}}</a>
         </div>
 
-        <div class="q-mr-lg" v-if="!material.deletedDate && canDelete">
-          <a href="#" style="display: inline-flex; align-items: center;"
+        <div v-if="!material.deletedDate && canDelete" class="z-info-block">
+          <a href="#"
              @click.prevent="deleteMaterial">
             <q-icon name="fas fa-trash"/>
           </a>
         </div>
 
-        <div class="q-mr-md" v-if="material.deletedDate && canRestore">
-          <a href="#" style="display: inline-flex; align-items: center;"
+        <div v-if="material.deletedDate && canRestore" class="z-info-block">
+          <a href="#"
              @click.prevent="restoreMaterial">
             <q-icon name="fas fa-trash-restore"/>
           </a>
         </div>
 
-        <div v-if="showVisitsCount" class="material__visits z-info-block q-mr-md">
+        <div v-if="showVisitsCount" class="material__visits z-info-block">
           <q-icon name="far fa-eye" class="q-mr-xs"/>
           {{material.visitsCount}}
         </div>
@@ -81,7 +81,7 @@
 
     <LoaderWait v-if="!material || !comments"/>
 
-    <div class="write-comment q-mt-md" v-if="canCommentWrite">
+    <div class="material__write-comment q-mt-md" v-if="canCommentWrite">
       <CreateComment class="page-padding" @done="commentAdded" :materialId="material.id"/>
     </div>
   </q-page>
