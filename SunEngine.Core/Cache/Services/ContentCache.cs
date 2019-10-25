@@ -23,7 +23,7 @@ namespace SunEngine.Core.Cache.Services
         private ICategoriesCache categoriesCache;
         private IMemoryCache memoryCache;
         private IOptions<CacheOptions> cacheOptions;
-        private ConcurrentDictionary<string, bool> recordsKeys = new ConcurrentDictionary<string, bool>();
+        private Dictionary<string, bool> recordsKeys = new Dictionary<string, bool>();
         private static object syncObject = new object();
 
         public CategoryContentCache(ICategoriesCache categoriesCache,
@@ -66,8 +66,12 @@ namespace SunEngine.Core.Cache.Services
                 }
             };
 
-            memoryCache.Set(key, content, options);
-            recordsKeys.TryAdd(key, true);
+            lock (syncObject)
+            {
+                memoryCache.Set(key, content, options);
+                recordsKeys.TryAdd(key, true);
+            }
+
             return true;
         }
 
@@ -79,12 +83,13 @@ namespace SunEngine.Core.Cache.Services
 
         public void InvalidateCache(int categoryId)
         {
-            foreach (var key in recordsKeys.Keys)
-                if (key.Contains($",{categoryId},"))
-                {
-                    memoryCache.Remove(key);
-                    recordsKeys.TryRemove(key, out _);
-                }
+            lock (syncObject)
+                foreach (var key in recordsKeys.Keys)
+                    if (key.Contains($",{categoryId},"))
+                    {
+                        memoryCache.Remove(key);
+                        recordsKeys.Remove(key, out _);
+                    }
         }
 
         public void InvalidateCache(string categoryName)
@@ -98,12 +103,13 @@ namespace SunEngine.Core.Cache.Services
 
         public void Reset()
         {
-            foreach (var recordsKey in recordsKeys.Keys)
+            lock (syncObject)
             {
-                memoryCache.Remove(recordsKey);
-            }
+                foreach (var recordsKey in recordsKeys.Keys)
+                    memoryCache.Remove(recordsKey);
 
-            recordsKeys.Clear();
+                recordsKeys.Clear();
+            }
         }
 
         private int? GetCategoryId(string categoryName)
@@ -116,7 +122,8 @@ namespace SunEngine.Core.Cache.Services
             EvictionReason reason,
             object state)
         {
-            recordsKeys.TryRemove((string) key, out _);
+            lock (syncObject)
+                recordsKeys.Remove((string) key, out _);
         }
     }
 }

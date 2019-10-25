@@ -3,7 +3,7 @@ import {Api} from 'sun'
 
 export default function (context, userData) {
 
-  request(
+  return request(
     Api.Auth.Login,
     {
       nameOrEmail: userData.nameOrEmail,

@@ -14,6 +14,7 @@ namespace SunEngine.Core.Cache.Services.Counters
         /// Add 1 and return cached value.
         /// </summary>
         int CountMaterial(string userOrIpKey, int materialId);
+
         /// <summary>
         /// Upload cached values to data base
         /// </summary>
@@ -84,25 +85,23 @@ namespace SunEngine.Core.Cache.Services.Counters
                 if (visits.Count == 0)
                     return;
 
-                using (var db = dbFactory.CreateDb())
+                using var db = dbFactory.CreateDb();
+
+                var vss = visits.Select(x => new VisitsById {Id = x.Key, Visits = x.Value});
+
+                db.BeginTransaction();
+
+                using (TempTable<VisitsById> visitsByIdTempTable = new TempTable<VisitsById>(db, vss))
                 {
-                    var vss = visits.Select(x => new VisitsById {Id = x.Key, Visits = x.Value});
-                    
-                    db.BeginTransaction();
+                    db.Materials.Where(x => visitsByIdTempTable.Any(y => y.Id == x.Id))
+                        .Set(x => x.VisitsCount,
+                            x => x.VisitsCount + visitsByIdTempTable.FirstOrDefault(y => y.Id == x.Id).Visits)
+                        .Update();
 
-                    using (TempTable<VisitsById> visitsByIdTempTable = new TempTable<VisitsById>(db,vss))
-                    {
-
-                        db.Materials.Where(x => visitsByIdTempTable.Any(y => y.Id == x.Id))
-                            .Set(x => x.VisitsCount,
-                                x => x.VisitsCount + visitsByIdTempTable.FirstOrDefault(y => y.Id == x.Id).Visits)
-                            .Update();
-
-                        visits.Clear();
-                    }
-                    
-                    db.CommitTransaction();
+                    visits.Clear();
                 }
+
+                db.CommitTransaction();
             }
         }
 

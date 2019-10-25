@@ -18,11 +18,12 @@ namespace SunEngine.Core.Cache.Services
 
         private readonly IDataBaseFactory dataBaseFactory;
         private readonly IRolesCache rolesCache;
-        
+
         private MenuItemCached _rootMenuItem;
         private IReadOnlyList<MenuItemCached> _allMenuItems;
 
         #region Getters
+
         protected MenuItemCached RootMenuItem
         {
             get
@@ -46,6 +47,7 @@ namespace SunEngine.Core.Cache.Services
                 return _allMenuItems;
             }
         }
+
         #endregion
 
         public MenuCache(
@@ -69,51 +71,50 @@ namespace SunEngine.Core.Cache.Services
 
         public void Initialize()
         {
-            using (var db = dataBaseFactory.CreateDb())
+            using var db = dataBaseFactory.CreateDb();
+
+            var menuItems = db.MenuItems.Where(x => !x.IsHidden).ToDictionary(x => x.Id, x => x);
+            var allMenuItems = new List<MenuItemCached>(menuItems.Count);
+
+            foreach (var menuItem in menuItems.Values)
             {
-                var menuItems = db.MenuItems.Where(x => !x.IsHidden).ToDictionary(x => x.Id, x => x);
-                var allMenuItems = new List<MenuItemCached>(menuItems.Count);
-
-                foreach (var menuItem in menuItems.Values)
+                ImmutableDictionary<int, RoleCached> roles;
+                if (menuItem.Roles != null)
                 {
-                    ImmutableDictionary<int, RoleCached> roles;
-                    if (menuItem.Roles != null)
-                    {
-                        roles = menuItem.Roles.Split(',')
-                            .Select(x => rolesCache.GetRole(x))
-                            .ToDictionary(x => x.Id, x => x)
-                            .ToImmutableDictionary();
-                    }
-                    else
-                    {
-                        roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
-                    }
-
-
-                    if (CheckIsVisible(menuItem))
-                        allMenuItems.Add(new MenuItemCached(menuItem, roles));
+                    roles = menuItem.Roles.Split(',')
+                        .Select(x => rolesCache.GetRole(x))
+                        .ToDictionary(x => x.Id, x => x)
+                        .ToImmutableDictionary();
+                }
+                else
+                {
+                    roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
                 }
 
-                _allMenuItems = allMenuItems.OrderBy(x => x.SortNumber).ToImmutableList();
 
-                _rootMenuItem = _allMenuItems.First(x => x.Id == 1);
+                if (CheckIsVisible(menuItem))
+                    allMenuItems.Add(new MenuItemCached(menuItem, roles));
+            }
+
+            _allMenuItems = allMenuItems.OrderBy(x => x.SortNumber).ToImmutableList();
+
+            _rootMenuItem = _allMenuItems.First(x => x.Id == 1);
 
 
-                bool CheckIsVisible(MenuItem menuItem)
+            bool CheckIsVisible(MenuItem menuItem)
+            {
+                if (menuItem.IsHidden)
+                    return false;
+
+                if (menuItem.ParentId.HasValue)
                 {
-                    if (menuItem.IsHidden)
+                    if (!menuItems.ContainsKey(menuItem.ParentId.Value))
                         return false;
 
-                    if (menuItem.ParentId.HasValue)
-                    {
-                        if (!menuItems.ContainsKey(menuItem.ParentId.Value))
-                            return false;
-
-                        return CheckIsVisible(menuItems[menuItem.ParentId.Value]);
-                    }
-
-                    return true;
+                    return CheckIsVisible(menuItems[menuItem.ParentId.Value]);
                 }
+
+                return true;
             }
         }
 

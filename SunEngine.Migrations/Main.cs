@@ -19,21 +19,20 @@ namespace SunEngine.Migrations
 
         private readonly string DataBaseConnectionFilePath;
 
-        
+
         public Main(string configDirPath)
         {
             DataBaseConnectionFilePath = Path.GetFullPath(Path.Combine(configDirPath, DataBaseConnectionFileName));
         }
 
-        
+
         public void Migrate()
         {
             var serviceProvider = CreateServices();
 
-            using (var scope = serviceProvider.CreateScope())
-            {
-                UpdateDatabase(scope.ServiceProvider);
-            }
+            using var scope = serviceProvider.CreateScope();
+
+            UpdateDatabase(scope.ServiceProvider);
         }
 
         /// <summary>
@@ -77,7 +76,7 @@ namespace SunEngine.Migrations
             catch (SocketException e)
             {
                 throw new SunDataBaseException("The connection could not be made. " +
-                                                         "Check the database you are trying to connect exists.", e);
+                                               "Check the database you are trying to connect exists.", e);
             }
         }
     }
