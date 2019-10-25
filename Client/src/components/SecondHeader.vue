@@ -25,8 +25,7 @@ export default {
           secondHeader.style.top = height;
           secondHeader.style.zIndex = 1;           
           
-          var qPage = document.getElementById("page-container");  
-          console.log(qPage, height);  
+          var qPage = document.getElementById("page-container");             
           qPage.style.paddingTop = parseInt(height) + "px";
         },
         setRightPadding :function(){
