@@ -63,7 +63,7 @@ namespace SunEngine.Core.Services
                 throw new Exception("Cipher key have to be 32 bytes length");
 
             if (bytes.Length > 32)
-                bytes = new Span<byte>(bytes).Slice(0, 32).ToArray();
+                bytes = bytes[..32];
 
             AddCipherKey(key, bytes);
         }
