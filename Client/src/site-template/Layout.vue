@@ -54,7 +54,8 @@
 
       </q-toolbar>
     </q-header>
-
+    <SecondHeader v-bind:watchObject="rightDrawerIs"/>
+    
     <q-drawer v-model="leftDrawerOpen" bordered content-class="main-menu-drawer">
       <MainMenu/>
     </q-drawer>
@@ -64,6 +65,7 @@
     </q-drawer>
 
     <q-page-container>
+      <div id="page-container"></div>
       <router-view/>
     </q-page-container>
 
@@ -108,6 +110,7 @@
             this.$options.components.MainMenu = require('sun').MainMenu;
             this.$options.components.SunEngineFooter = require('sun').SunEngineFooter;
             this.$options.components.LinksMenu = require('sun').LinksMenu;
+            this.$options.components.SecondHeader = require('sun').SecondHeader;
         }
     }
 
