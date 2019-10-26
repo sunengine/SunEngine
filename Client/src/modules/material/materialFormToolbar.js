@@ -30,5 +30,5 @@ export default [
     }
   ],
   ['undo', 'redo'],
-  [ 'viewsource', 'fullscreen'],
+  ['viewsource', 'fullscreen'],
 ]

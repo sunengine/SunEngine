@@ -1,6 +1,6 @@
 <template>
   <div class="material-inline" v-if="material">
-    <div class="material-text" v-html="material.text"></div>
+    <div class="material-inline__text" v-html="material.text"></div>
   </div>
 </template>
 
@@ -21,11 +21,11 @@
         },
         methods: {
             loadMaterial() {
-                this.$request(
-                    this.$Api.Materials.Get,
+                this.$request(this.$Api.Materials.Get,
                     {
                         idOrName: this.name
-                    }).then(
+                    }
+                ).then(
                     response => {
                         this.material = response.data;
                         this.$emit("loaded");

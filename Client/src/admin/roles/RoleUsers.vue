@@ -53,7 +53,7 @@
             async loadRoleUsers() {
                 this.users = null;
                 await this.$request(
-                    this.$AdminApi.UserRolesAdmin.GetRoleUsers,
+                    this.$AdminApi.UserRolesAdmin.GetUserRoles,
                     {
                         roleName: this.roleName,
                         userNamePart: this.filter

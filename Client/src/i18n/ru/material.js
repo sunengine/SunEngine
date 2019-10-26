@@ -43,7 +43,7 @@ export default {
   MaterialForm: {
     name: "Имя (eng)",
     title: "Заголовок",
-    description: "Короткое описание",
+    subTitle: "Короткое описание",
     tags: "Метки",
     selectCategory: "Раздел",
     category: "Раздел: {0}",
@@ -67,7 +67,7 @@ export default {
         htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
       },
       subTitle: {
-        maxLength: "Максимально допустимая длинна " + config.DbColumnSizes.Materials_Description
+        maxLength: "Максимально допустимая длинна " + config.DbColumnSizes.Materials_SubTitle
       },
       category: {
         required: "Выберите раздел"

@@ -78,7 +78,7 @@
             }
         },
         methods: {
-            async addToRoleConfirm(role) {
+            addToRoleConfirm(role) {
                 this.add = false;
 
                 const title = this.$tl('addRoleConfirmTitle', role.title);
@@ -113,41 +113,41 @@
                 })
             },
             addToRole(role) {
-                this.$request(
+                return this.$request(
                     this.$AdminApi.UserRolesAdmin.AddUserToRole,
                     {
                         userId: this.userId,
                         roleName: role.name
-                    }).then(() => {
+                    }
+                ).then(() => {
                     this.loadUserRoles()
                 });
             },
             removeFromRole(role) {
-                this.$request(
+                return this.$request(
                     this.$AdminApi.UserRolesAdmin.RemoveUserFromRole,
                     {
                         userId: this.userId,
                         roleName: role.name
-                    }).then(() => {
+                    }
+                ).then(() => {
                     this.loadUserRoles();
                 });
             },
-            async loadUserRoles() {
-                await this.$request(
-                    this.$AdminApi.UserRolesAdmin.GetRoleUsers,
+            loadUserRoles() {
+                return this.$request(
+                    this.$AdminApi.UserRolesAdmin.GetUserRoles,
                     {
                         userId: this.userId
-                    }).then(response => {
+                    }
+                ).then(response => {
                         this.userRoles = response.data;
                         this.availableRoles = this.allRoles.filter(x => !this.userRoles.some(y => y.name === x.name));
                     }
                 );
             },
-            async loadAllRoles() {
-                await this.$store.dispatch('request',
-                    {
-                        url: '/Admin/UserRolesAdmin/GetAllRoles'
-                    })
+            loadAllRoles() {
+                return this.$request(this.$AdminApi.UserRolesAdmin.GetAllRoles)
                     .then(response => {
                         this.allRoles = response.data;
                     });

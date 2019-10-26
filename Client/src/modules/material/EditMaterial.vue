@@ -1,23 +1,23 @@
 <template>
   <q-page class="edit-material q-pa-md">
-    <div v-if="material.deletedDate" class="text-red">
+    <div v-if="material.deletedDate" class="edit-material__delete-date text-red">
       <q-chip icon="fas fa-trash" color="red" text-color="white" :label="$tl('deleted')"/>
     </div>
 
-    <MaterialForm ref="form" :material="material" :categories-nodes="categoryNodes"/>
+    <MaterialForm class="edit-material__material-form" ref="form" :material="material" :categories-nodes="categoryNodes"/>
 
-    <div class="q-mt-md">
-      <q-btn icon="fas fa-arrow-circle-right" class="send-btn" no-caps :loading="loading" :label="$tl('saveBtn')"
+    <div class="edit-material__btn-block q-mt-md">
+      <q-btn icon="fas fa-arrow-circle-right" class="edit-material__save-btn send-btn" no-caps :loading="loading" :label="$tl('saveBtn')"
              @click="save">
         <LoaderSent slot="loading"/>
       </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="q-ml-sm cancel-btn" @click="$router.back()" :label="$tl('cancelBtn')"/>
+      <q-btn no-caps icon="fas fa-times" class="edit-material__cancel-btn  cancel-btn q-ml-sm" @click="$router.back()" :label="$tl('cancelBtn')"/>
 
-      <q-btn v-if="!material.deletedDate && canDelete" no-caps icon="fas fa-trash" class="delete-btn float-right"
+      <q-btn v-if="!material.deletedDate && canDelete" no-caps icon="fas fa-trash" class="edit-material__delete-btn delete-btn float-right"
              @click="deleteMaterial" :label="$tl('deleteBtn')"/>
 
 
-      <q-btn v-if="material.deletedDate && canRestore" class="float-right" no-caps icon="fas fa-trash-restore"
+      <q-btn v-if="material.deletedDate && canRestore" class="edit-material__restore-btn float-right" no-caps icon="fas fa-trash-restore"
              @click="restoreMaterial" :label="$tl('restoreBtn')"
              color="warning"/>
 
