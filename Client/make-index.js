@@ -1,6 +1,6 @@
 /**
  *  Index maker script
- *  Version: 1.0
+ *  Version: 1.0.1
  *
  *  This script makes index file "/src/sun,js" from all project
  *
