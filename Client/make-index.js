@@ -26,9 +26,10 @@ const patternSite = 'src/site/**/*.@(js|vue)';
 const ind = indexDic();
 
 proccess(glob.sync(patternAll), dirs, excludePaths);
-proccess(glob.sync(patternSite), ['site'], ['src/site/i18n']);
+proccess(glob.sync(patternSite), ['site'], ['src/site/i18n','src/site/routes.js']);
 
 
+ind.addLine("routes", "export routes from 'src/site/routes.js'");
 ind.addLine("store-index", "export * from 'src/store-index'");
 ind.addLine("routerInstance", "export * from 'src/router/routerInstance'");
 ind.addLine("storeInstance", "export * from 'src/store/storeInstance'");
@@ -36,9 +37,9 @@ ind.addLine("App", "export {app} from 'src/App'");
 
 
 fs.writeFile('./src/sun.js', ind.makeText(), function (err) {
-  if (err) {
+  if (err)
     return console.log(err);
-  }
+
   console.log("\n☼☼☀ \x1b[32m\x1b[1mIndex file generated successfully \x1b[0m => \x1b[33m '/src/sun.js'\x1b[0m ☀☼☼\n");
 });
 

@@ -1,5 +1,7 @@
 <template>
+
   <q-page class="material">
+
     <div v-if="material" class="page-padding">
       <h2 v-if="showTitle" class="header-title">
         {{material.title}}
@@ -24,6 +26,7 @@
           {{tag}}
         </q-chip>
       </div>
+
       <div class="material__footer q-gutter-x-lg q-py-sm flex align-center">
 
         <div v-if="showUser" class="material__author q-mr-md">
@@ -48,8 +51,7 @@
         </div>
 
         <div v-if="material.deletedDate && canRestore" class="z-info-block">
-          <a href="#"
-             @click.prevent="restoreMaterial">
+          <a href="#" @click.prevent="restoreMaterial">
             <q-icon name="fas fa-trash-restore"/>
           </a>
         </div>
@@ -62,6 +64,7 @@
           <q-icon name="far fa-clock" class="q-mr-xs"/>
           {{$formatDate(material.publishDate)}}
         </div>
+
       </div>
 
       <div class="clear"></div>
@@ -84,6 +87,7 @@
     <div class="material__write-comment q-mt-md" v-if="canCommentWrite">
       <CreateComment class="page-padding" @done="commentAdded" :materialId="material.id"/>
     </div>
+
   </q-page>
 
 </template>
