@@ -1,6 +1,6 @@
 /**
  *  Index maker script
- *  Version: 1.0.1
+ *  Version: 1.0.2
  *
  *  This script makes index file "/src/sun,js" from all project
  *
@@ -53,10 +53,11 @@ function proccess(arr, dirs, excludePaths) {
 
     const fileText = fs.readFileSync(path, 'utf8');
 
-    if (/export( )+(?!default)/.test(fileText))
-      ind.addLine(name, `export * from '${path}'`);
     if (/export( )+default/.test(fileText))
-      ind.addLine(name, `export ${name} from '${path}'`);
+      ind.addLine(`${name}`, `export ${name} from '${path}'`);
+    if (/export( )+(?!default)/.test(fileText))
+      ind.addLine(`${name}-star`, `export * from '${path}'`);
+
   }
 }
 

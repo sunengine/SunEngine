@@ -12,7 +12,13 @@
     <div v-if="category.header" class="q-mb-sm page-padding" v-html="category.header"></div>
 
 
-    <ArticlesList v-if="articles" :articles="articles"/>
+    <ArticlesList v-if="articles" :articles="articles">
+     <!-- <div class="articles-list">
+        <q-list v-if="articles" no-border>
+          <Article :article="article" v-for="article in articles.items" :key="article.id"/>
+        </q-list>
+      </div>-->
+    </ArticlesList>
 
     <LoaderWait ref="loader" v-else/>
 

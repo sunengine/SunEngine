@@ -5,6 +5,7 @@ import {getThreadTopics} from 'sun'
 import {getNewTopics} from 'sun'
 import {app} from 'sun'
 
+
 export default {
   name: 'Forum1',
   title: 'Forum with 1 level threads',
