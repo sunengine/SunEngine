@@ -1,5 +1,5 @@
 <template>
-  <div class="material-form q-gutter-y-sm">
+  <div class="material-form q-gutter-y-xs">
 
     <q-input class="material-form__name" v-if="canEditName" ref="name" v-model="material.name" :label="$tl('name')"
              :rules="rules.name">
@@ -15,7 +15,7 @@
       </template>-->
     </q-input>
 
-    <q-input class="material-form__sub-title" ref="subTitle" v-if="isSubTitleEditable" v-model="material.subTitle"
+    <q-input class="material-form__sub-title q-mb-sm" ref="subTitle" v-if="isSubTitleEditable" v-model="material.subTitle"
              type="textarea" autogrow
              :label="$tl('subTitle')" :rules="rules.subTitle">
      <!-- <template v-slot:prepend>
@@ -24,13 +24,13 @@
     </q-input>
 
 
-    <SunEditor class="material-form__text-editor"
+    <SunEditor bottomSlots class="material-form__text-editor"
                :toolbar="editorToolbar"
                :rules="rules.text"
                ref="htmlEditor" v-model="material.text"/>
 
 
-    <q-select class="material-form__tags" v-model="material.tags" use-input use-chips multiple :label="$tl('tags')"
+    <q-select class="material-form__tags" v-model="material.tags" bottom-slots use-input use-chips multiple :label="$tl('tags')"
               hide-dropdown-icon input-debounce="0" new-value-mode="add-unique">
       <template v-slot:prepend>
         <q-icon name="fas fa-tags"/>

@@ -2,7 +2,7 @@
   <div class="comment-container" :id="'comment-'+comment.id">
     <span v-if="isLast" id="comment-last"></span>
     <template v-if="!comment.deletedDate">
-      <ReadComment @goEdit="goEdit" v-if="isReadMode" :comment="comment" :canEdit="canEdit()"
+      <Comment @goEdit="goEdit" v-if="isReadMode" :comment="comment" :canEdit="canEdit()"
                    :canMoveToTrash="canMoveToTrash()"/>
 
       <EditComment @done="saved" @cancel="isReadMode=true" :commentId="comment.id" v-else/>
@@ -105,7 +105,7 @@
             }
         },
         beforeCreate() {
-            this.$options.components.ReadComment = require('sun').ReadComment;
+            this.$options.components.Comment = require('sun').Comment;
             this.$options.components.EditComment = require('sun').EditComment;
             this.$options.components.DeletedComment = require('sun').DeletedComment;
         }

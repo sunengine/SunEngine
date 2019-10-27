@@ -6,7 +6,7 @@
       <SunEditor class="edit-information__editor q-mb-sm"
                  :toolbar="editorToolbar"
                  ref="htmlEditor" v-model="userInfo.information"/>
-      <q-btn no-caps class="edit-information__send-btn send-btn" icon="far fa-save" :label="$tl('save')" @click="save"/>
+      <q-btn no-caps class="send-btn" icon="far fa-save" :label="$tl('save')" @click="save"/>
     </template>
     <LoaderWait v-else/>
   </q-page>

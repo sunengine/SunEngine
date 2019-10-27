@@ -4,22 +4,24 @@
       <q-chip icon="fas fa-trash" color="red" text-color="white" :label="$tl('deleted')"/>
     </div>
 
-    <MaterialForm class="edit-material__material-form" ref="form" :material="material" :categories-nodes="categoryNodes"/>
+    <MaterialForm class="edit-material__material-form" ref="form" :material="material"
+                  :categories-nodes="categoryNodes"/>
 
-    <div class="edit-material__btn-block q-mt-md">
-      <q-btn icon="fas fa-arrow-circle-right" class="edit-material__save-btn send-btn" no-caps :loading="loading" :label="$tl('saveBtn')"
+    <div class="edit-material__btn-block flex q-gutter-md q-mt-lg">
+      <q-btn icon="fas fa-arrow-circle-right" class="send-btn" no-caps :loading="loading" :label="$tl('saveBtn')"
              @click="save">
         <LoaderSent slot="loading"/>
       </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="edit-material__cancel-btn  cancel-btn q-ml-sm" @click="$router.back()" :label="$tl('cancelBtn')"/>
 
-      <q-btn v-if="!material.deletedDate && canDelete" no-caps icon="fas fa-trash" class="edit-material__delete-btn delete-btn float-right"
+      <q-btn no-caps icon="fas fa-times" class="cancel-btn" @click="$router.back()" :label="$tl('cancelBtn')"/>
+
+      <span class="grow"></span>
+
+      <q-btn v-if="!material.deletedDate && canDelete" no-caps icon="fas fa-trash" class="delete-btn"
              @click="deleteMaterial" :label="$tl('deleteBtn')"/>
 
-
-      <q-btn v-if="material.deletedDate && canRestore" class="edit-material__restore-btn float-right" no-caps icon="fas fa-trash-restore"
-             @click="restoreMaterial" :label="$tl('restoreBtn')"
-             color="warning"/>
+      <q-btn v-if="material.deletedDate && canRestore" class="restore-btn" no-caps
+             icon="fas fa-trash-restore" @click="restoreMaterial" :label="$tl('restoreBtn')"/>
 
     </div>
   </q-page>
@@ -55,6 +57,7 @@
                     isHidden: false,
                     isBlockComments: false,
                 },
+                comments: null,
                 loading: false
             }
         },
@@ -135,9 +138,9 @@
             this.$options.components.MaterialForm = require('sun').MaterialForm;
             this.$options.components.LoaderSent = require('sun').LoaderSent;
         },
-        async created() {
+        created() {
             this.title = this.$tl('title');
-            await this.loadData();
+            this.loadData();
         }
     }
 

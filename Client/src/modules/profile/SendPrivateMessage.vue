@@ -7,12 +7,12 @@
 
     <q-editor class="send-private-message__editor q-mb-md" :toolbar="editorToolbar" ref="htmlEditor" v-model="text"/>
 
-    <q-btn no-caps icon="fas fa-arrow-circle-right" class="send-private-message__send-btn send-btn q-mr-sm"
+    <q-btn no-caps icon="fas fa-arrow-circle-right" class="send-btn q-mr-sm"
            @click="send" :loading="loading"
            :label="$tl('sendBtn')">
       <loader-sent slot="loading"/>
     </q-btn>
-    <q-btn no-caps icon="fas fa-times" @click="$router.back()" class="send-private-message__cancel-btn cancel-btn"
+    <q-btn no-caps icon="fas fa-times" @click="$router.back()" class="cancel-btn"
            :label="$t('Global.btn.cancel')"/>
   </q-page>
 </template>

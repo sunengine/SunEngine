@@ -7,6 +7,9 @@ export default {
   name: 'SunEditor',
   extends: QEditor,
   mixins: [ValidateMixin],
+  props: {
+    bottomSlots: Boolean
+  },
   data: function () {
     return {
       filesNumber: 0,
@@ -116,20 +119,25 @@ export default {
       [h(QSpinnerGears, {props: {size: '60px'}, class: 'text-grey-8'})]
     );
 
-    const error = h('div', {
-      staticClass: 'error',
-      key: 'q--slot-error'
-    }, this.computedErrorMessage);
+    let bottom = h('div', {staticClass: this.bottomSlots && 'sun-editor__bottom-slots'}, [createError.call(this)]);
 
-    const errorTransition = h('transition', {
-      staticClass: '',
-      props: {
-        name: 'q-transition--field-message',
+    return h('div', {staticClass: 'relative-position sun-editor'}, [editor, bottom, fileInput, loading]);
+
+    function createError() {
+      if (this.hasError) {
+        const errorDiv = h('div', {
+          staticClass: 'error',
+          key: 'q--slot-error'
+        }, this.computedErrorMessage);
+
+        return h('transition', {
+          staticClass: '',
+          props: {
+            name: 'q-transition--field-message',
+          }
+        }, [errorDiv]);
       }
-    }, [error]);
-
-    const errorMessage = this.hasError && errorTransition;
-
-    return h('div', {staticClass: 'relative-position sun-editor'}, [editor, errorMessage, fileInput, loading]);
+      return undefined;
+    }
   }
 }

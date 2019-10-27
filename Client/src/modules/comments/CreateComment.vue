@@ -2,7 +2,7 @@
   <div class="create-comment">
     <SunEditor content-class="material-text"
                :toolbar="editorToolbar" :rules="commentRules"
-               class="editor" ref="htmlEditor" v-model="comment.text"/>
+               class="create-comment__editor" ref="htmlEditor" v-model="comment.text"/>
     <div>
       <q-btn class="send-btn" icon="fas fa-arrow-circle-right" no-caps @click="addComment" :loading="loading"
              :label="$tl('sendBtn')">
@@ -87,10 +87,8 @@
 
 <style lang="stylus">
 
-  .create-comment {
-    .editor {
-      margin-bottom: 7px;
-    }
+  .create-comment__editor {
+    margin-bottom: 7px;
   }
 
 </style>
