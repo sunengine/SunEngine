@@ -1,6 +1,9 @@
-import {ForumPanel, NewTopics, Thread} from 'sun'
+import {ForumPanel, Thread} from 'sun'
 import {Categories1} from 'sun'
 import {Material} from 'sun'
+import {getThreadTopics} from 'sun'
+import {getNewTopics} from 'sun'
+import {app} from 'sun'
 
 export default {
   name: 'Forum1',
@@ -9,13 +12,13 @@ export default {
   setCategoryRoute(category) {
     category.route = {
       name: `cat-${category.name}`,
-      params:  {}
+      params: {}
     };
 
-    for(const cat of category.subCategories) {
+    for (const cat of category.subCategories) {
       cat.route = {
         name: `cat-${category.name}-cat`,
-        params:  {
+        params: {
           categoryName: cat.name
         }
       }
@@ -31,11 +34,15 @@ export default {
         name: `cat-${name}`,
         path: '/' + nameLower,
         components: {
-          default: NewTopics,
+          default: Thread,
           navigation: ForumPanel
         },
         props: {
-          default: {categoryName: name},
+          default: {
+            categoryName: name,
+            loadTopics: getNewTopics,
+            pageTitle: category.title + app.$t("Thread.titlePartNewTopics")
+          },
           navigation: {categories: Categories1, categoryName: name}
         },
         meta: {
@@ -50,7 +57,12 @@ export default {
           navigation: ForumPanel
         },
         props: {
-          default: true,
+          default: (route) => {
+            return {
+              categoryName: route.params.categoryName,
+              loadTopics: getThreadTopics
+            }
+          },
           navigation: {categories: Categories1, categoryName: name}
         },
         meta: {

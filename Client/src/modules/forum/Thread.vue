@@ -3,7 +3,7 @@
 
     <div class="header-with-button page-padding">
       <h2 class="q-title">
-        {{thread.title}}
+        {{thisTitle}}
       </h2>
       <q-btn no-caps class="thread__post-btn post-btn"
              @click="$router.push({name:'CreateMaterial',params:{categoriesNames: thread.sectionRoot.name, initialCategoryName: thread.name}})"
@@ -16,8 +16,6 @@
 
     <div class="q-mt-sm" v-else>
       <div class="thread__table-header margin-back bg-grey-2 gt-xs text-grey-6 ">
-
-        <ThreadTableHeader/>
 
         <hr class="thread__sep"/>
 
@@ -56,7 +54,18 @@
         name: 'Thread',
         mixins: [Page, Pagination],
         props: {
-            categoryName: String
+            categoryName: {
+                type: String,
+                required: true,
+            },
+            loadTopics: {
+                type: Function,
+                required: true,
+            },
+            pageTitle: {
+                type: String,
+                required: false
+            }
         },
         data() {
             return {
@@ -64,9 +73,12 @@
             }
         },
         watch: {
-            '$route': 'loadData',
+            '$route': 'loadData'
         },
         computed: {
+            thisTitle() {
+                return this.pageTitle ?? this.thread.title;
+            },
             canAddTopic() {
                 return this.thread?.categoryPersonalAccess?.materialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;
             },
@@ -74,39 +86,35 @@
                 return this.$store.getters.getCategory(this.categoryName);
             }
         },
-        methods: {
-            async loadData() {
-                if (!this.thread)
-                    return;
-
-                this.title = this.thread.title;
-
-                this.topics = {};
-                await this.$request(this.$Api.Forum.GetThread,
-                    {
-                        categoryName: this.categoryName,
-                        page: this.currentPage,
-                        showDeleted: (this.$store.state.admin.showDeletedElements || this.$route.query.deleted) ? true : undefined
-                    }
-                ).then(response => {
-                    this.topics = response.data;
-                }).catch(x => {
-                    this.$refs.loader.fail();
-                });
-            }
-        },
         beforeCreate() {
             this.$options.components.Topic = require('sun').Topic;
             this.$options.components.LoaderWait = require('sun').LoaderWait;
-            this.$options.components.ThreadTableHeader = require('sun').ThreadTableHeader;
         },
-        async created() {
-            await this.loadData()
+        methods: {
+            loadData() {
+                this.loadTopics.call(this)
+            }
+        },
+        created() {
+            this.loadData()
         }
     }
 
 </script>
 
 <style lang="stylus">
+
+  .thread__sep {
+    height: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-top: solid #d3eecc 1px !important;
+    border-left: none;
+  }
+
+  .thread__list {
+    padding: 0;
+    margin-bottom: 12px;
+  }
 
 </style>

@@ -1,4 +1,4 @@
-import {Thread} from 'sun'
+import {getThreadTopics, Thread} from 'sun'
 import {Material} from 'sun'
 
 export default {
@@ -26,7 +26,8 @@ export default {
         },
         props: {
           default: {
-            categoryName: nameLower
+            categoryName: name,
+            loadTopics: getThreadTopics
           }
         },
         meta: {
