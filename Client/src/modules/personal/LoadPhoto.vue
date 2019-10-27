@@ -1,12 +1,12 @@
 <template>
   <q-page class="load-photo flex column middle">
-    <img v-if="photo" width="300" :src="photo"/>
+    <img class="load-photo__photo" v-if="photo" width="300" :src="photo"/>
     <br/>
-    <input ref="file" type="file" accept="image/*" style="display:none" @change="handleFile"/>
-    <q-btn no-caps class="send-btn q-mb-xl" :loading="loading" icon="far fa-user-circle"
+    <input ref="file" type="file" accept="image/*" class="hidden" @change="handleFile"/>
+    <q-btn no-caps class="load-photo__send-btn send-btn q-mb-xl" :loading="loading" icon="far fa-user-circle"
            :label="$tl('uploadNewPhotoBtn')"
            @click="upload"/>
-    <q-btn no-caps v-if="!isDefault && !loading" class="delete-btn" icon="fas fa-trash-alt" :label="$tl('resetBtn')"
+    <q-btn no-caps v-if="!isDefault && !loading" class="load-photo__delete-btn delete-btn" icon="fas fa-trash-alt" :label="$tl('resetBtn')"
            @click="resetAvatar"/>
   </q-page>
 </template>

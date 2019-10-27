@@ -8,7 +8,7 @@
         <q-item-label class="word-break" caption>
           {{activity.description}}
         </q-item-label>
-        <q-item-label class="info-block" caption>
+        <q-item-label class="material-header-info-block" caption>
           <template v-if="!activity.commentId">
             <span>
               <q-icon name="far fa-file-alt"/>
@@ -61,7 +61,7 @@
       }
     }
   }
-  
+
 </script>
 
 <style lang="stylus">

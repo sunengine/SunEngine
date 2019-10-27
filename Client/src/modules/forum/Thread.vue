@@ -5,7 +5,7 @@
       <h2 class="q-title">
         {{thread.title}}
       </h2>
-      <q-btn no-caps class="post-btn"
+      <q-btn no-caps class="thread__post-btn post-btn"
              @click="$router.push({name:'CreateMaterial',params:{categoriesNames: thread.sectionRoot.name, initialCategoryName: thread.name}})"
              :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus"/>
     </div>
@@ -15,8 +15,12 @@
     <LoaderWait ref="loader" v-if="!topics.items"/>
 
     <div class="q-mt-sm" v-else>
-      <div class="margin-back bg-grey-2 gt-xs text-grey-6">
-        <hr class="hr-sep"/>
+      <div class="thread__table-header margin-back bg-grey-2 gt-xs text-grey-6 ">
+
+        <ThreadTableHeader/>
+
+        <hr class="thread__sep"/>
+
         <div class="row">
           <div class="col-xs-12 col-sm-8" style="padding: 2px 0px 2px 76px; ">
             {{$tl("topic")}}
@@ -27,11 +31,12 @@
         </div>
       </div>
 
-      <q-list no-border>
-        <hr class="hr-sep margin-back"/>
+      <q-list class="thread__list" no-border>
+        <hr class="thread__sep margin-back"/>
+
         <div class="margin-back" v-for="topic in topics.items" :key="topic.id">
           <Topic :topic="topic"/>
-          <hr class="hr-sep"/>
+          <hr class="thread__sep"/>
         </div>
       </q-list>
 
@@ -93,6 +98,7 @@
         beforeCreate() {
             this.$options.components.Topic = require('sun').Topic;
             this.$options.components.LoaderWait = require('sun').LoaderWait;
+            this.$options.components.ThreadTableHeader = require('sun').ThreadTableHeader;
         },
         async created() {
             await this.loadData()
@@ -102,20 +108,5 @@
 </script>
 
 <style lang="stylus">
-
-  .thread {
-    .hr-sep {
-      height: 0;
-      margin-top: 0;
-      margin-bottom: 0;
-      border-top: solid #d3eecc 1px !important;
-      border-left: none;
-    }
-
-    .q-list {
-      padding: 0;
-      margin-bottom: 12px;
-    }
-  }
 
 </style>

@@ -153,37 +153,6 @@ page-paddings-block(size) {
   color: $negative;
 }
 
-.info-block {
-  display: flex;
-
-  span {
-    display: inline-flex;
-    margin-right: 10px;
-    white-space: nowrap;
-    align-items: center;
-
-    .q-icon {
-      margin-right: 6px;
-
-      &:before {
-        padding-top: 2px !important;
-      }
-    }
-
-  }
-}
-
-.z-info-block {
-  color: $grey-7;
-
-  .q-icon {
-
-    &:before {
-      padding-bottom: 2px !important;
-    }
-  }
-}
-
 .edit-btn-block {
   a {
     display: inline-flex; align-items: center;
@@ -207,6 +176,7 @@ page-paddings-block(size) {
 .q-notification__message {
   white-space: pre-wrap;
 }
+
 
 // ——— Extras ————————————————————————————————————
 
@@ -245,8 +215,8 @@ page-paddings-block(size) {
 // ——— Material styles ————————————————————————————————————
 
 
-.mat-hidden {
-  .my-header, .my-header * {
+.material-hidden {
+  .material__hidden-deleted-header, .material__hidden-deleted-header * {
     color: dimgrey !important;
   }
 
@@ -259,12 +229,12 @@ page-paddings-block(size) {
   }
 }
 
-.mat-deleted {
+.material-deleted {
   * {
     color: silver !important;
   }
 
-  .my-header, .my-header * {
+  .material__hidden-deleted-header, .material__hidden-deleted-header * {
     color: maroon !important;
   }
 
@@ -273,9 +243,34 @@ page-paddings-block(size) {
   }
 }
 
+.material-footer-info-block {
+  color: $grey-7;
 
-// ——— Material styles ————————————————————————————————————
+  .q-icon {
+    &:before {
+      padding-bottom: 2px !important;
+    }
+  }
+}
 
+.material-header-info-block {
+  display: flex;
+
+  span {
+    display: inline-flex;
+    margin-right: 10px;
+    white-space: nowrap;
+    align-items: center;
+
+    .q-icon {
+      margin-right: 6px;
+
+      &:before {
+        padding-top: 2px !important;
+      }
+    }
+  }
+}
 
 .material__text, .post-text, .comment-text {
   img {
@@ -287,6 +282,7 @@ page-paddings-block(size) {
 // ——— Site styles ————————————————————————————————————
 
 @import '~src/site/styles';
+@import '~src/modules/forum/thread.styl';
 
 
 

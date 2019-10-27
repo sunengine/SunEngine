@@ -1,8 +1,8 @@
 <template>
   <q-page class="my-ban-list page-padding">
-    <h2 class="q-title">{{$tl("title")}}</h2>
+    <h2 class="header-title">{{$tl("title")}}</h2>
     <div v-if="users">
-      <router-link :key="user.id" class="block q-mb-xs" style="font-weight: 600"
+      <router-link :key="user.id" class="my-ban-list__user-link block q-mb-xs"
                    :to="{name:'User', params: {link: user.link}}" v-for="user in users">{{user.name}}
       </router-link>
     </div>
@@ -45,5 +45,9 @@
 </script>
 
 <style lang="stylus">
+
+  .my-ban-list__user-link {
+    font-weight: 600;
+  }
 
 </style>

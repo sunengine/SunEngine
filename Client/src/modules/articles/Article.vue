@@ -13,11 +13,11 @@
           [{{$tl("hidden")}}]
         </span>
       </q-item-label>
-      <q-item-label v-if="description" class="info-block" caption>
+      <q-item-label v-if="description" class="material-header-info-block" caption>
         <div v-html="description">
         </div>
       </q-item-label>
-      <q-item-label class="info-block" caption>
+      <q-item-label class="material-header-info-block" caption>
        <span>
         <q-icon name="far fa-user"/>
           {{article.authorName}}

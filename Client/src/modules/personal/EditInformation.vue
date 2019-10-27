@@ -1,12 +1,12 @@
 <template>
   <q-page class="edit-information flex column middle page-padding">
     <template v-if="userInfo">
-      <div class="q-mb-lg text-grey-8">{{$tl("label")}}</div>
+      <div class="edit-information__label q-mb-lg text-grey-8">{{$tl("label")}}</div>
 
-      <SunEditor class="q-mb-sm" style="max-width: 100%;"
+      <SunEditor class="edit-information__editor q-mb-sm"
                  :toolbar="editorToolbar"
                  ref="htmlEditor" v-model="userInfo.information"/>
-      <q-btn no-caps class="send-btn" icon="far fa-save" :label="$tl('save')" @click="save"/>
+      <q-btn no-caps class="edit-information__send-btn send-btn" icon="far fa-save" :label="$tl('save')" @click="save"/>
     </template>
     <LoaderWait v-else/>
   </q-page>
@@ -63,11 +63,8 @@
 
 <style lang="stylus">
 
-  .edit-information {
-
-    .send-btn {
-      width: 270px;
-    }
+  .edit-information__send-btn {
+    width: 270px;
   }
 
 </style>

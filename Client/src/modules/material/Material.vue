@@ -43,24 +43,23 @@
             {{$tl("edit")}}</a>
         </div>
 
-        <div v-if="!material.deletedDate && canDelete" class="z-info-block">
-          <a href="#"
-             @click.prevent="deleteMaterial">
+        <div v-if="!material.deletedDate && canDelete" class="material-footer-info-block">
+          <a href="#" @click.prevent="deleteMaterial">
             <q-icon name="fas fa-trash"/>
           </a>
         </div>
 
-        <div v-if="material.deletedDate && canRestore" class="z-info-block">
+        <div v-if="material.deletedDate && canRestore" class="material-footer-info-block">
           <a href="#" @click.prevent="restoreMaterial">
             <q-icon name="fas fa-trash-restore"/>
           </a>
         </div>
 
-        <div v-if="showVisitsCount" class="material__visits z-info-block">
+        <div v-if="showVisitsCount" class="material__visits material-footer-info-block">
           <q-icon name="far fa-eye" class="q-mr-xs"/>
           {{material.visitsCount}}
         </div>
-        <div v-if="showDate" class="material__date z-info-block">
+        <div v-if="showDate" class="material__date material-footer-info-block">
           <q-icon name="far fa-clock" class="q-mr-xs"/>
           {{$formatDate(material.publishDate)}}
         </div>

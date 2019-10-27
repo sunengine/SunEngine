@@ -8,7 +8,6 @@
       <q-btn class="post-btn" no-caps
              @click="$router.push({name:'CreateMaterial',params:{categoriesNames: thread.name}})"
              :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus"/>
-
     </div>
 
     <div v-if="thread && thread.header" class="q-mb-sm page-padding" v-html="thread.header"></div>
@@ -16,20 +15,11 @@
     <LoaderWait ref="loader" v-if="!topics.items"/>
 
     <div class="q-mt-sm" v-else>
-      <div class="margin-back bg-grey-2 gt-xs text-grey-6">
-        <hr class="hr-sep"/>
-        <div class="row">
-          <div class="col-xs-12 col-sm-8" style="padding: 2px 0px 2px 76px; ">
-            {{$tl("topic")}}
-          </div>
-          <div class="col-xs-12 col-sm-2" style="padding: 2px 0px 2px 60px;">
-            {{$tl("last")}}
-          </div>
-        </div>
-      </div>
 
-      <q-list no-border>
-        <hr class="hr-sep margin-back"/>
+      <ThreadTableHeader/>
+
+      <q-list class="thread__list" no-border>
+        <hr class="thread__sep margin-back"/>
         <div class="margin-back" v-for="topic in topics.items" :key="topic.id">
           <Topic :topic="topic"/>
           <hr class="hr-sep"/>
@@ -47,9 +37,11 @@
 
     import {Page} from 'mixins'
     import {Pagination} from 'mixins'
+    import ThreadTableHeader from "src/modules/forum/ThreadTableHeader";
 
     export default {
         name: 'NewTopics',
+        components: {ThreadTableHeader},
         mixins: [Page, Pagination],
         props: {
             categoryName: String
@@ -93,8 +85,8 @@
         beforeCreate() {
             this.$options.components.Topic = require('sun').Topic;
             this.$options.components.LoaderWait = require('sun').LoaderWait;
-        }
-        ,
+            this.$options.components.ThreadTableHeader = require('sun').ThreadTableHeader;
+        },
         async created() {
             await this.loadData()
         }
@@ -103,20 +95,5 @@
 </script>
 
 <style lang="stylus">
-
-  .new-topics {
-    .hr-sep {
-      height: 0;
-      margin-top: 0;
-      margin-bottom: 0;
-      border-top: solid #d3eecc 1px !important;
-      border-left: none;
-    }
-
-    .q-list {
-      padding: 0;
-      margin-bottom: 12px;
-    }
-  }
 
 </style>

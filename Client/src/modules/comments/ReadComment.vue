@@ -4,7 +4,7 @@
 
     <div class="q-my-md">
       <div class="q-mb-xs flex">
-        <span style="flex-grow:1">
+        <span class="grow">
            <router-link :to="{name: 'User', params: {link: comment.authorLink}}">
              {{comment.authorName}}
            </router-link>
@@ -15,7 +15,7 @@
         <span v-if="canMoveToTrash" class="edit-btn-block q-mr-md">
                     <a href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash"/></a>
         </span>
-        <span class="date-info-block">
+        <span class="material-footer-info-block">
                     <q-icon name="far fa-clock" class="q-mr-xs"/> {{ $formatDate(comment.publishDate) }}
         </span>
       </div>
