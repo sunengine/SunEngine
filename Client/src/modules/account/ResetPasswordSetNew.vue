@@ -2,7 +2,7 @@
   <q-page class="reset-password-set-new flex middle page-padding">
     <div class="center-form" v-if="!done">
 
-      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'" :label="$tl('password')"
+      <q-input class="reset-password-set-new__password" ref="password" v-model="password" :type="showPassword ? 'text' : 'password'" :label="$tl('password')"
                :rules="rules.password">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
@@ -16,7 +16,7 @@
         </template>
       </q-input>
 
-      <q-input ref="password2" v-model="password2" :type="showPassword2 ? 'text' : 'password'" :label="$tl('password2')"
+      <q-input class="reset-password-set-new__password2" ref="password2" v-model="password2" :type="showPassword2 ? 'text' : 'password'" :label="$tl('password2')"
                :rules="rules.password2">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
@@ -30,12 +30,13 @@
         </template>
       </q-input>
 
-      <q-btn style="width:100%;" class="q-mt-md" color="send" :label="$tl('saveBtn')" @click="changePassword"
+      <q-btn class="q-mt-md width100" color="send" :label="$tl('saveBtn')" @click="changePassword"
              :loading="submitting">
         <LoaderSent slot="loading"/>
       </q-btn>
     </div>
-    <q-banner v-else class="bg-positive text-white">
+
+    <q-banner v-else class="reset-password-set-new__banner-success bg-positive text-white">
       <template v-slot:avatar>
         <q-icon name="fas fa-key" size="2em"/>
       </template>
@@ -43,6 +44,7 @@
       <router-link :to="{name: 'Login'}">{{$tl("enter")}}</router-link>
       .
     </q-banner>
+
   </q-page>
 </template>
 

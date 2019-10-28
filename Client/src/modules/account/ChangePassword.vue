@@ -2,7 +2,9 @@
   <q-page class="change-password flex middle page-padding">
 
     <div class="center-form">
-      <q-input ref="passwordOld" v-model="passwordOld" :type="showPasswordOld ? 'text' : 'password'"
+
+      <q-input class="change-password__password-old" ref="passwordOld" v-model="passwordOld"
+               :type="showPasswordOld ? 'text' : 'password'"
                :label="$tl('passwordOld')" :rules="rules.passwordOld">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
@@ -16,7 +18,8 @@
         </template>
       </q-input>
 
-      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'" :label="$tl('password')"
+      <q-input class="change-password__password1" ref="password" v-model="password"
+               :type="showPassword ? 'text' : 'password'" :label="$tl('password')"
                :rules="rules.password">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
@@ -30,7 +33,8 @@
         </template>
       </q-input>
 
-      <q-input ref="password2" v-model="password2" :type="showPassword2 ? 'text' : 'password'" :label="$tl('password2')"
+      <q-input class="change-password__password2" ref="password2" v-model="password2"
+               :type="showPassword2 ? 'text' : 'password'" :label="$tl('password2')"
                :rules="rules.password2">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
