@@ -1,21 +1,21 @@
 <template>
-  <div class="menu-item-form">
-    <q-input ref="name" v-model="menuItem.name" :label="$tl('name')" :rules="rules.name">
+  <div class="menu-item-form q-gutter-y-md">
+    <q-input class="menu-item-form__name" ref="name" v-model="menuItem.name" :label="$tl('name')" :rules="rules.name">
       <template v-slot:prepend>
         <q-icon name="fas fa-signature" class="q-mr-xs"/>
       </template>
     </q-input>
-    <q-input ref="title" v-model="menuItem.title" :label="$tl('title')" :rules="rules.title">
+    <q-input class="menu-item-form__title" ref="title" v-model="menuItem.title" :label="$tl('title')" :rules="rules.title">
       <template v-slot:prepend>
         <q-icon name="fas fa-heading" class="q-mr-xs"/>
       </template>
     </q-input>
-    <q-input ref="subTitle" v-model="menuItem.subTitle" :label="$tl('subTitle')" :rules="rules.subTitle">
+    <q-input class="menu-item-form__sub-title" ref="subTitle" v-model="menuItem.subTitle" :label="$tl('subTitle')" :rules="rules.subTitle">
       <template v-slot:prepend>
         <q-icon name="fas fa-info" class="q-mr-xs"/>
       </template>
     </q-input>
-    <q-input ref="url" class="q-mb-md" @input="urlUpdated" v-model="url" :label="$tl('url')" :rules="rules.url">
+    <q-input bottom-slots class="menu-item-form__url" ref="url" @input="urlUpdated" v-model="url" :label="$tl('url')" :rules="rules.url">
       <template v-slot:prepend>
         <q-icon name="fas fa-link" class="q-mr-xs"/>
       </template>
@@ -36,7 +36,7 @@
       </div>
     </q-input>
 
-    <q-field class="cursor-pointer q-mb-md" v-if="parentOptions" :label="$tl('parent')" stack-label>
+    <q-field bottom-slots class="menu-item-form__parent cursor-pointer" v-if="parentOptions" :label="$tl('parent')" stack-label>
       <template v-slot:control>
         <div tabindex="0" class="no-outline full-width">
           <q-icon :name="parentIcon" class="q-mr-xs" color="grey-7"/>
@@ -66,25 +66,25 @@
 
     <LoaderWait v-else/>
 
-    <q-select v-if="allRoles" class="q-mb-md" v-model="roles" :options="allRoles" multiple use-chips stack-label
+    <q-select  v-if="allRoles" class="menu-item-form__roles" v-model="roles" :options="allRoles" multiple use-chips stack-label
               option-value="name" option-label="title" :label="$tl('roles')"/>
     <LoaderWait v-else/>
 
-    <q-input ref="cssClass" v-model="menuItem.cssClass" :label="$tl('cssClass')" :rules="rules.cssClass">
+    <q-input class="menu-item-form__css-class" ref="cssClass" v-model="menuItem.cssClass" :label="$tl('cssClass')" :rules="rules.cssClass">
       <template v-slot:prepend>
         <q-icon name="fab fa-css3-alt" class="q-mr-xs"/>
       </template>
     </q-input>
-    <q-input ref="icon" v-model="menuItem.icon" :label="$tl('icon')" :rules="rules.icon">
+    <q-input class="menu-item-form__icon" ref="icon" v-model="menuItem.icon" :label="$tl('icon')" :rules="rules.icon">
       <div slot="prepend" v-if="menuItem.icon">
         <q-icon :name="menuItem.icon"/>
       </div>
     </q-input>
-    <q-input ref="settingsJson" type="textarea" v-model="menuItem.settingsJson" autogrow :label="$tl('settingsJson')"
+    <q-input class="menu-item-form__settings-json" ref="settingsJson" type="textarea" v-model="menuItem.settingsJson" autogrow :label="$tl('settingsJson')"
              :rules="rules.settingsJson"/>
-    <q-checkbox ref="exact" v-model="menuItem.exact" :label="$tl('exact')"/>
+    <q-checkbox class="menu-item-form__exact" ref="exact" v-model="menuItem.exact" :label="$tl('exact')"/>
     <br/>
-    <q-checkbox ref="isHidden" v-model="menuItem.isHidden" :label="$tl('isHidden')"/>
+    <q-checkbox class="menu-item-form__is-hidden" ref="isHidden" v-model="menuItem.isHidden" :label="$tl('isHidden')"/>
   </div>
 </template>
 

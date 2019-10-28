@@ -1,30 +1,34 @@
 <template>
-  <div class="component-form q-gutter-sm">
-    <q-input ref="name" v-model="component.name" :label="$tl('name')" :rules="rules.name">
+  <div class="component-form q-gutter-xs">
+    <q-input class="component-form__name" ref="name" v-model="component.name" :label="$tl('name')" :rules="rules.name">
       <template v-slot:prepend>
         <q-icon name="fas fa-signature" class="q-mr-xs"/>
       </template>
     </q-input>
 
-    <q-select ref="type" :disable="editMode" class="q-mb-lg" emit-value map-options
+    <q-select class="component-form__type" ref="type" :disable="editMode" emit-value map-options
               :label="$tl('type')" :rules="rules.type" v-model="component.type"
               :options="componentTypes" option-value="name" option-label="title">
       <q-icon slot="prepend" name="fas fa-cube"/>
     </q-select>
 
-    <q-input ref="serverSettingsJson" type="textarea" v-model="component.serverSettingsJson" autogrow
+    <q-input class="component-form__server-settings-json" ref="serverSettingsJson" type="textarea"
+             v-model="component.serverSettingsJson" autogrow
              :label="$tl('serverSettingsJson')"
              :rules="rules.serverSettingsJson"/>
 
-    <q-input ref="clientSettingsJson" type="textarea" v-model="component.clientSettingsJson" autogrow
+    <q-input class="component-form__client-settings-json" ref="clientSettingsJson" type="textarea"
+             v-model="component.clientSettingsJson" autogrow
              :label="$tl('clientSettingsJson')"
              :rules="rules.clientSettingsJson"/>
 
-    <q-select v-if="allRoles" class="q-mb-md" v-model="roles" :options="allRoles" multiple use-chips stack-label
+    <q-select bottom-slots v-if="allRoles" class="component-form__title" v-model="roles" :options="allRoles" multiple
+              use-chips stack-label
               option-value="name" option-label="title" :label="$tl('roles')"/>
     <LoaderWait v-else/>
 
-    <q-checkbox ref="isCacheData" v-model="component.isCacheData" :label="$tl('isCacheData')"/>
+    <q-checkbox class="component-form__is-cache-data" ref="isCacheData" v-model="component.isCacheData"
+                :label="$tl('isCacheData')"/>
   </div>
 </template>
 

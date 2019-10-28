@@ -3,12 +3,10 @@
     <CategoryForm ref="form" :category="category"/>
 
     <div class="create-category__btn-block q-gutter-x-sm">
-      <q-btn icon="fas fa-plus" class="send-btn" no-caps :loading="loading" :label="$tl('createBtn')" @click="save"
-             color="send">
+      <q-btn class="send-btn" icon="fas fa-plus" no-caps :loading="loading" :label="$tl('createBtn')" @click="save">
         <LoaderSent slot="loading"/>
       </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="cancel-btn" @click="$router.back()" :label="$tl('cancelBtn')"
-             color="warning"/>
+      <q-btn class="cancel-btn" no-caps icon="fas fa-times" @click="$router.back()" :label="$tl('cancelBtn')"/>
     </div>
   </q-page>
 </template>
