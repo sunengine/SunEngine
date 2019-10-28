@@ -1,26 +1,30 @@
 <template>
-  <div class="role-users ">
+  <div class="role-users">
     <div class="xs-col-12 col-8">
-      <div class="local-header">
+      <div class="role-users__header">
         <q-icon name="fas fa-user" class="q-mr-sm"/>
         {{$tl("users")}}
       </div>
-      <q-input outlined dense class="q-my-sm" v-model="filter" :label="$tl('filter')" @input="filterValueChanged">
+
+      <q-input class="role-users__filter q-my-sm" outlined dense v-model="filter" :label="$tl('filter')"
+               @input="filterValueChanged">
         <template v-slot:prepend>
           <q-icon name="fas fa-search" size="0.75em"/>
         </template>
       </q-input>
 
-      <div v-if="users" class="local-content">
-        <div :key="user.id" v-for="user in users">
-          <router-link :to="`/user/${user.link}`">{{user.name}}</router-link>
+      <div v-if="users" class="role-users__list">
+        <div class="role-users__user" :key="user.id" v-for="user in users">
+          <router-link class="role-users__user-link" :to="`/user/${user.link}`">{{user.name}}</router-link>
         </div>
-        <div v-if="users.length === 0" style="color: gray;">{{$tl("noResults")}}</div>
-        <div v-if="users.length === maxUsersTake" style="color: gray;">{{$tl("filterLimitReached",maxUsersTake)}}</div>
+        <div v-if="users.length === 0" class="text-grey">{{$tl("noResults")}}</div>
+        <div v-if="users.length === maxUsersTake" class="text-grey">{{$tl("filterLimitReached",maxUsersTake)}}</div>
       </div>
+
       <div v-else class="xs-col-12 col-8">
-        <loader-wait/>
+        <LoaderWait/>
       </div>
+
     </div>
   </div>
 </template>
@@ -53,7 +57,7 @@
             async loadRoleUsers() {
                 this.users = null;
                 await this.$request(
-                    this.$AdminApi.UserRolesAdmin.GetRoleUsers,
+                    this.$AdminApi.UserRolesAdmin.GetUserRoles,
                     {
                         roleName: this.roleName,
                         userNamePart: this.filter
@@ -76,23 +80,18 @@
 
 <style lang="stylus">
 
-  .role-users {
-    .local-header {
-      background-color: #cfd8dc;
-      padding: 10px;
 
-      div {
-        margin: 2px 0;
-      }
-    }
+  .role-users__header {
+    background-color: #cfd8dc;
+    padding: 10px;
+  }
 
-    .local-content {
-      padding: 0 10px;
+  .role-users__list {
+    padding: 0 10px;
+  }
 
-      div {
-        margin: 3px 0;
-      }
-    }
+  .role-users_user-div {
+    margin: 3px 0;
   }
 
 </style>

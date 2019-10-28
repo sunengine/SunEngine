@@ -1,5 +1,5 @@
 <template>
-  <q-list class="admin-menu my-menu" no-border>
+  <q-list class="admin-menu sun-second-menu" no-border>
 
     <q-item :to="{name: 'MenuItemsAdmin'}">
       <q-item-section avatar>
@@ -91,9 +91,10 @@
       </q-item-section>
     </q-item>
 
-    <div class="text-grey-7 q-mt-xl text-center" v-if="version">
+    <div class="admin-menu__version text-grey-7 q-mt-xl text-center" v-if="version">
       {{$tl("version")}}: {{version}}
     </div>
+
   </q-list>
 
 </template>

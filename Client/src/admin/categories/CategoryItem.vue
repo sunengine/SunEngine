@@ -1,7 +1,7 @@
 <template>
   <div class="category-item">
-    <span class="item-block">
-      <span v-if="notRoot" class="q-mr-sm ud">
+    <span class="category-item__item-block">
+      <span v-if="notRoot" class="q-mr-sm category-item__up-down">
         <q-btn :disabled="isFirst" @click="$emit('up',category)" color="positive" dense size="10px" flat
                icon="fas fa-chevron-up"/>
         <q-btn :disabled="isLast" @click="$emit('down',category)" color="positive" dense size="10px" flat
@@ -16,16 +16,16 @@
       </span>
       <span v-else>{{$tl("rootCategory")}}</span>
       <span v-if="notRoot" class="q-ml-md">
-        <q-btn :to="{name: 'EditCategory', params: {categoryId:category.id}}" icon="fas fa-wrench" color="info" dense
+        <q-btn class="category-item__btn-edit" :to="{name: 'EditCategory', params: {categoryId:category.id}}" icon="fas fa-wrench" color="info" dense
                size="10px" flat/>
-        <q-btn :to="{name: 'CreateCategory', params: {parentCategoryId: category.id}}" icon="fas fa-folder-plus"
+        <q-btn class="category-item__btn-create" :to="{name: 'CreateCategory', params: {parentCategoryId: category.id}}" icon="fas fa-folder-plus"
                color="info" dense size="10px" flat/>
-        <q-btn :disabled="!route" :to="route" icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
+        <q-btn class="category-item__btn-to-route" :disabled="!route" :to="route" icon="fas fa-arrow-right" color="info" dense size="10px" flat/>
       </span>
 
-      <span v-if="category.materialsCount" class="text-grey-8 q-ml-md"> <q-icon color="grey-5" name="far fa-file-alt"/> {{category.materialsCount}}</span>
+      <span class="category-item__materails-count text-grey-8 q-ml-md" v-if="category.materialsCount"> <q-icon color="grey-5" name="far fa-file-alt"/> {{category.materialsCount}}</span>
     </span>
-    <div v-if="category.subCategories" :class="[{'padding-shift': notRoot}]">
+    <div  class="category-item__sub-categories-block" v-if="category.subCategories" :class="[{'padding-shift': notRoot}]">
       <category-item :category="sub" :isFirst="index === 0" :isLast="index === lastIndex"
                      :key="sub.id" v-for="(sub,index) in category.subCategories" v-on="$listeners"/>
     </div>
@@ -75,11 +75,11 @@
     }
 
     .desktop {
-      .item-block > .ud {
+      .category-item__item-block > .category-item__up-down {
         visibility: hidden;
       }
 
-      .item-block:hover > .ud {
+      .category-item__item-block:hover > .category-item__up-down {
         visibility: visible;
       }
     }

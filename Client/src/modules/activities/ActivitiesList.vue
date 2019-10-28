@@ -1,10 +1,10 @@
 <template>
   <div class="activities-list">
     <template v-if="activities">
-      <activity :key="activity.materialId + '-' + activity.commentId" :activity="activity"
+      <Activity :key="activity.materialId + '-' + activity.commentId" :activity="activity"
                 v-for="activity in activities"/>
     </template>
-    <loader-wait ref="loader" v-else/>
+    <LoaderWait ref="loader" v-else/>
   </div>
 </template>
 

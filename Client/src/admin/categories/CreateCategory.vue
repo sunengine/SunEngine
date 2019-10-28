@@ -2,13 +2,11 @@
   <q-page class="create-category page-padding">
     <CategoryForm ref="form" :category="category"/>
 
-    <div class="btn-block">
-      <q-btn icon="fas fa-plus" class="send-btn" no-caps :loading="loading" :label="$tl('createBtn')" @click="save"
-             color="send">
+    <div class="create-category__btn-block q-gutter-x-sm">
+      <q-btn class="send-btn" icon="fas fa-plus" no-caps :loading="loading" :label="$tl('createBtn')" @click="save">
         <LoaderSent slot="loading"/>
       </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="cancel-btn q-ml-sm" @click="$router.back()" :label="$tl('cancelBtn')"
-             color="warning"/>
+      <q-btn class="cancel-btn" no-caps icon="fas fa-times" @click="$router.back()" :label="$tl('cancelBtn')"/>
     </div>
   </q-page>
 </template>
@@ -86,10 +84,8 @@
 
 <style lang="stylus">
 
-  .create-category {
-    .btn-block {
-      margin-top: $flex-gutter-md;
-    }
+  .create-category__btn-block {
+    margin-top: $flex-gutter-lg;
   }
 
 </style>

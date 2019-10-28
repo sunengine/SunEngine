@@ -1,13 +1,15 @@
 <template>
   <q-page class="create-material q-pa-md">
-    <MaterialForm ref="form" :material="material" :categories-nodes="categoryNodes"/>
+    <MaterialForm ref="form" class="create-material__material-form" :material="material"
+                  :categories-nodes="categoryNodes"/>
 
-    <div class="q-mt-md">
-      <q-btn icon="fas fa-arrow-circle-right" class="send-btn" no-caps :loading="loading" :label="$tl('sendBtn')"
+    <div class="create-material__btn-block q-mt-md">
+      <q-btn icon="fas fa-arrow-circle-right" class="send-btn" no-caps :loading="loading"
+             :label="$tl('sendBtn')"
              @click="send" color="send">
         <LoaderSent slot="loading"/>
       </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="q-ml-sm cancel-btn" @click="$router.back()"
+      <q-btn no-caps icon="fas fa-times" class="cancel-btn q-ml-sm" @click="$router.back()"
              :label="$t('Global.btn.cancel')"
              color="warning"/>
     </div>

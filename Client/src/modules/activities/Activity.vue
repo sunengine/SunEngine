@@ -2,13 +2,13 @@
   <div class="activity">
     <q-item :to="route" class="page-padding">
       <q-item-section>
-        <q-item-label class="my-header">
+        <q-item-label class="activity__title">
           {{activity.title}}
         </q-item-label>
-        <q-item-label class="word-break" caption>
+        <q-item-label class="activity__description word-break" caption>
           {{activity.description}}
         </q-item-label>
-        <q-item-label class="info-block" caption>
+        <q-item-label class="material-header-info-block" caption>
           <template v-if="!activity.commentId">
             <span>
               <q-icon name="far fa-file-alt"/>
@@ -61,7 +61,7 @@
       }
     }
   }
-  
+
 </script>
 
 <style lang="stylus">

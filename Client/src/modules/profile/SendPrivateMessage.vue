@@ -1,17 +1,18 @@
 <template>
   <q-page class="send-private-message page-padding">
-    <h2 class="q-title"> {{$tl("titleStart")}}
+    <h2 class="page-title"> {{$tl("titleStart")}}
       <q-icon name="far fa-user" color="grey-7"/>
       {{userName}}
     </h2>
 
-    <q-editor class="q-mb-md" :toolbar="editorToolbar" ref="htmlEditor" v-model="text"/>
+    <q-editor class="send-private-message__editor q-mb-md" :toolbar="editorToolbar" ref="htmlEditor" v-model="text"/>
 
-    <q-btn no-caps icon="fas fa-arrow-circle-right" class="send-btn q-mr-sm" @click="send" :loading="loading"
-           :label="$tl('sendBtn')">
+    <q-btn class="send-btn q-mr-sm" no-caps icon="fas fa-arrow-circle-right"
+           @click="send" :loading="loading" :label="$tl('sendBtn')">
       <loader-sent slot="loading"/>
     </q-btn>
-    <q-btn no-caps icon="fas fa-times" @click="$router.back()" class="cancel-btn" :label="$t('Global.btn.cancel')"/>
+    <q-btn class="cancel-btn" no-caps icon="fas fa-times" @click="$router.back()"
+           :label="$t('Global.btn.cancel')"/>
   </q-page>
 </template>
 
@@ -49,13 +50,13 @@
                     {
                         userId: this.userId,
                         text: this.text
-                    })
-                    .then(() => {
-                            this.$successNotify();
-                            this.loading = false;
-                            this.$router.back();
-                        }
-                    ).catch(error => {
+                    }
+                ).then(_ => {
+                        this.$successNotify();
+                        this.loading = false;
+                        this.$router.back();
+                    }
+                ).catch(error => {
                     this.$errorNotify(error);
                     this.loading = false;
                 })

@@ -1,7 +1,7 @@
 <template>
   <q-page class="articles-page">
-    <div class="page-padding header-with-button">
-      <h2 class="q-title">
+    <div class="page-padding page-title-block">
+      <h2 class="page-title">
         {{category.title}}
       </h2>
       <q-btn no-caps class="post-btn"

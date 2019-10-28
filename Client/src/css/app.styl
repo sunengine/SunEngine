@@ -20,7 +20,7 @@ $q-field-color = #00c63b;
 // ——— Title ————————————————————————————————————
 
 
-.q-title {
+.page-title {
   padding: $flex-gutter-md 0;
   font-size: 1.3rem;
   line-height: unset;
@@ -28,20 +28,22 @@ $q-field-color = #00c63b;
   margin: 0;
 }
 
-.header-with-button {
+.page-title-block {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   padding-top: $flex-gutter-md !important;
   padding-bottom: $flex-gutter-md !important;
 
-  .q-title {
+  .page-title {
     flex-grow: 1;
     padding: 0 !important;
+    margin: 3px 0;
   }
 
-  button {
+  .q-btn {
     flex-grow: 0;
+    margin: 3px 0;
   }
 }
 
@@ -49,7 +51,7 @@ $q-field-color = #00c63b;
 // ——— Menus ————————————————————————————————————
 
 
-.my-menu {
+.sun-second-menu {
 
   .q-item {
     min-height: 40px;
@@ -153,41 +155,14 @@ page-paddings-block(size) {
   color: $negative;
 }
 
-.info-block {
-  display: flex;
-
-  span {
-    display: inline-flex;
-    margin-right: 10px;
-    white-space: nowrap;
-    align-items: center;
-
-    .q-icon {
-      margin-right: 6px;
-
-      &:before {
-        padding-top: 2px !important;
-      }
-    }
-
-  }
-}
-
-.date-info-block {
-  color: $grey-7;
-
-  .q-icon {
-    margin-right: 6px;
-
-    &:before {
-      padding-bottom: 2px !important;
-    }
-  }
-}
-
 .edit-btn-block {
+  a {
+    display: inline-flex;
+    align-items: center;
+  }
+
   .q-icon {
-    margin-right: 6px;
+    margin-right: 8px;
 
     &:before {
       padding-bottom: 2px !important;
@@ -198,12 +173,17 @@ page-paddings-block(size) {
 .error {
   color: $negative;
   font-size: 12px;
-  margin-top: 4px;
+  padding: 4px 0;
+}
+
+.sun-editor__bottom-slots {
+  height: 18px;
 }
 
 .q-notification__message {
   white-space: pre-wrap;
 }
+
 
 // ——— Extras ————————————————————————————————————
 
@@ -222,6 +202,18 @@ page-paddings-block(size) {
   align-items: center;
 }
 
+.align-center {
+  align-items: center;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.width100 {
+  width: 100%;
+}
+
 
 // ——— Fixes ————————————————————————————————————
 
@@ -234,8 +226,8 @@ page-paddings-block(size) {
 // ——— Material styles ————————————————————————————————————
 
 
-.mat-hidden {
-  .my-header, .my-header * {
+.material-hidden {
+  .material__hidden-deleted-header, .material__hidden-deleted-header * {
     color: dimgrey !important;
   }
 
@@ -248,12 +240,12 @@ page-paddings-block(size) {
   }
 }
 
-.mat-deleted {
+.material-deleted {
   * {
     color: silver !important;
   }
 
-  .my-header, .my-header * {
+  .material__hidden-deleted-header, .material__hidden-deleted-header * {
     color: maroon !important;
   }
 
@@ -262,21 +254,53 @@ page-paddings-block(size) {
   }
 }
 
+.material-footer-info-block {
+  color: $grey-7;
 
-// ——— Material styles ————————————————————————————————————
+  .q-icon {
+    &:before {
+      padding-bottom: 2px !important;
+    }
+  }
+}
 
+.material-header-info-block {
+  display: flex;
 
-.material-text, .post-text, .comment-text {
+  span {
+    display: inline-flex;
+    margin-right: 10px;
+    white-space: nowrap;
+    align-items: center;
+
+    .q-icon {
+      margin-right: 6px;
+
+      &:before {
+        padding-top: 2px !important;
+      }
+    }
+  }
+}
+
+.material__text, .post__text, .comment__text {
   img {
     max-width: 100%;
   }
 }
 
 
+// ——— Captcha ——————————————————————————————————————————
+
+.captcha-block {
+  padding: 10px 10px 10px 44px;
+  border-radius: 5px;
+  background-color: #f0f4c3;
+}
+
 // ——— Site styles ————————————————————————————————————
 
 @import '~src/site/styles';
-
 
 
 

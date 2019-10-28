@@ -1,15 +1,15 @@
 <template>
   <q-page class="create-menu-item page-padding">
+
     <MenuItemForm ref="form" :menuItem="menuItem"/>
 
-    <div class="btn-block">
-      <q-btn icon="fas fa-plus" class="send-btn" no-caps :loading="loading" :label="$tl('createBtn')" @click="save"
-             color="send">
+    <div class="btn-block q-gutter-md">
+      <q-btn class="send-btn" icon="fas fa-plus"  no-caps :loading="loading" :label="$tl('createBtn')" @click="save">
         <LoaderSent slot="loading"/>
       </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="q-ml-sm cancel-btn" @click="$router.back()" :label="$tl('cancelBtn')"
-             color="warning"/>
+      <q-btn  class="cancel-btn" no-caps icon="fas fa-times" @click="$router.back()" :label="$tl('cancelBtn')" />
     </div>
+
   </q-page>
 </template>
 

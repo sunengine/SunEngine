@@ -1,5 +1,5 @@
 <template>
-  <div class="loader-wait" style="text-align: center; color: gray;">
+  <div class="loader-wait">
     <template v-if="!failed">
       <q-spinner size="20px" class="q-mr-xs"/>
       {{$tl("loading")}}
@@ -30,7 +30,11 @@
 </script>
 
 <style lang="stylus">
+
   .loader-wait {
     font-size: 1.05rem;
+    text-align: center;
+    color: gray;
   }
+
 </style>

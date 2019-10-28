@@ -43,7 +43,7 @@ export default {
   MaterialForm: {
     name: "Name (eng)",
     title: "Header",
-    description: "Short description",
+    subTitle: "Short description",
     tags: "Tags",
     selectCategory: "Category",
     category: "Category: {0}",
@@ -64,8 +64,8 @@ export default {
         required: "Enter text",
         htmlTextSizeOrHasImage: "Minimal text length - 5",
       },
-      description: {
-        maxLength: "Maximal length " + config.DbColumnSizes.Materials_Description
+      subTitle: {
+        maxLength: "Maximal length " + config.DbColumnSizes.Materials_SubTitle
       },
       category: {
         required: "Selected category"

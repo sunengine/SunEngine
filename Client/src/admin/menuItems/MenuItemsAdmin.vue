@@ -1,18 +1,16 @@
 <template>
   <q-page class="menu-items-admin page-padding">
 
-    <div class="header-with-button">
-      <h2 class="q-title">
+    <div class="page-title-block">
+      <h2 class="page-title">
         {{$tl("title")}}
       </h2>
       <q-btn icon="far fa-plus-square" class="post-btn q-mr-lg" type="a" :to="{name: 'CreateMenuItem'}" no-caps
              :label="$tl('addMenuItemBtn')"/>
-      <div class="clear"></div>
     </div>
 
     <MenuAdminItem @up="up" @down="down" @add="add" @edit="edit" @deleteMenuItem="deleteMenuItem"
-                   @changeIsHidden="changeIsHidden" :key="menuItem.id" v-if="menuItems"
-                   :menuItem="menuItem"
+                   @changeIsHidden="changeIsHidden" :key="menuItem.id" v-if="menuItems" :menuItem="menuItem"
                    :isFirst="index === 0" :isLast="index === lastIndex" v-for="(menuItem,index) of menuItems"/>
 
     <LoaderWait v-else/>

@@ -1,11 +1,12 @@
 <template>
   <q-page class="change-name flex flex-center">
     <div class="center-form">
-      <div class="text-grey-7 q-mb-lg">
+      <div class="change-name__info text-grey-7 q-mb-lg">
         {{$tl("nameValidationInfo")}}
       </div>
 
-      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'" :label="$tl('password')"
+      <q-input class="change-name__password" ref="password" v-model="password"
+               :type="showPassword ? 'text' : 'password'" :label="$tl('password')"
                :rules="rules.passwordRules">
         <template v-slot:prepend>
           <q-icon name="fas fa-key"/>
@@ -19,7 +20,8 @@
         </template>
       </q-input>
 
-      <q-input ref="name" color="positive" v-model="name" :label="$tl('name')" @keyup="checkNameInDb"
+      <q-input class="change-name__name" ref="name" color="positive" v-model="name" :label="$tl('name')"
+               @keyup="checkNameInDb"
                :rules="rules.nameRules" :after="[{
         icon: 'far fa-check-circle',
         condition: nameInDb},
@@ -29,7 +31,7 @@
         </template>
       </q-input>
 
-      <q-btn no-caps class="send-btn q-mt-lg" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
+      <q-btn no-caps class="change-send send-btn q-mt-lg" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
              :loading="submitting">
         <LoaderSent slot="loading"/>
       </q-btn>
@@ -76,13 +78,11 @@
             checkNameInDbServer() {
                 if (this.name.toLowerCase() === this.$store.state.auth.user.name.toLowerCase())
                     return;
-                this.$store.dispatch('request',
+                this.$request(this.$Api.Personal.CheckLinkInDb,
                     {
-                        url: '/Personal/CheckNameInDb',
-                        data: {
-                            name: this.name
-                        }
-                    }).then(response => {
+                        name: this.name
+                    }
+                ).then(response => {
                     this.nameInDb = response.data.yes;
                     this.$refs.name.validate();
                 })
@@ -91,9 +91,8 @@
                 this.$refs.name.validate();
                 this.$refs.password.validate();
 
-                if (this.$refs.name.hasError || this.$refs.password.hasError) {
+                if (this.$refs.name.hasError || this.$refs.password.hasError)
                     return;
-                }
 
                 this.submitting = true;
 
@@ -102,12 +101,11 @@
                     {
                         password: this.password,
                         name: this.name,
-                    }).then(async (response) => {
-
+                    }
+                ).then(async (response) => {
                     await this.$store.dispatch('loadMyUserInfo');
                     this.$successNotify();
                     this.$router.push({name: 'Personal'});
-
                 }).catch(error => {
                     this.$errorNotify(error);
                     this.submitting = false;
@@ -119,7 +117,6 @@
         },
         async created() {
             this.title = this.$tl('title');
-
             this.rules = createRules.call(this);
         }
     }

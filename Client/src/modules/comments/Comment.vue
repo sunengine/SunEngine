@@ -1,25 +1,27 @@
 <template>
-  <div class="read-comment">
-    <img class="avatar msg-avatar" :src="$imagePath(comment.authorAvatar)"/>
+  <div class="comment">
+    <img class="comment_avatar avatar" :src="$imagePath(comment.authorAvatar)"/>
 
     <div class="q-my-md">
       <div class="q-mb-xs flex">
-        <span style="flex-grow:1">
-           <router-link :to="{name: 'User', params: {link: comment.authorLink}}">
-             {{comment.authorName}}
-           </router-link>
-        </span> &nbsp;
-        <span v-if="canEdit" class="edit-btn-block q-mr-md">
-                    <a href="#" @click.prevent="$emit('goEdit')"><q-icon name="fas fa-edit"/> {{$tl("edit")}}</a>
-        </span>
-        <span v-if="canMoveToTrash" class="edit-btn-block q-mr-md">
-                    <a href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash"/></a>
-        </span>
-        <span class="date-info-block">
-                    <q-icon name="far fa-clock" class="q-mr-xs"/> {{ $formatDate(comment.publishDate) }}
-        </span>
+        <div class="grow">
+          <router-link :to="{name: 'User', params: {link: comment.authorLink}}">
+            {{comment.authorName}}
+          </router-link>
+        </div>
+        <div class="edit-btn-block q-gutter-x-md">
+          <span v-if="canEdit">
+            <a href="#" @click.prevent="$emit('goEdit')"><q-icon name="fas fa-edit"/> {{$tl("edit")}}</a>
+          </span>
+          <span v-if="canMoveToTrash">
+            <a href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash"/></a>
+          </span>
+          <span>
+            <q-icon name="far fa-clock" class="q-mr-xs"/> {{ $formatDate(comment.publishDate) }}
+          </span>
+        </div>
       </div>
-      <div class="comment-text" v-html="comment.text">
+      <div class="comment__text" v-html="comment.text">
 
       </div>
       <div class="clear"></div>
@@ -33,7 +35,7 @@
 
 
     export default {
-        name: 'ReadComment',
+        name: 'Comment',
         props: {
             comment: Object,
             canEdit: {
@@ -48,9 +50,9 @@
         },
         methods: {
             prepareLocalLinks() {
-                prepareLocalLinks.call(this, this.$el, 'comment-text');
+                prepareLocalLinks.call(this, this.$el, 'comment__text');
             },
-            async moveToTrash() {
+            moveToTrash() {
                 const deleteDialogMessage = this.$tl('deleteDialogMessage');
                 const okButtonLabel = this.$t('Global.dialog.ok');
                 const cancelButtonLabel = this.$t('Global.dialog.cancel');
@@ -85,11 +87,9 @@
 
 <style lang="stylus">
 
-  .read-comment {
-    .msg-avatar {
-      float: left;
-      margin: 2px 12px 12px 0;
-    }
+  .comment_avatar {
+    float: left;
+    margin: 2px 12px 12px 0;
   }
 
 </style>

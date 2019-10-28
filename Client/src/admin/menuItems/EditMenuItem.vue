@@ -4,14 +4,13 @@
     <MenuItemForm v-if="menuItem" ref="form" :menuItem="menuItem"/>
     <LoaderWait v-else/>
 
-    <div class="btn-block">
-      <q-btn icon="far fa-save" class="send-btn" no-caps :loading="loading" :label="$tl('saveBtn')" @click="save"
-             color="send">
+    <div class="btn-block q-gutter-md">
+      <q-btn icon="far fa-save" class="send-btn" no-caps :loading="loading" :label="$tl('saveBtn')" @click="save"            >
         <LoaderSent slot="loading"/>
       </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="cancel-btn q-ml-sm" @click="$router.back()" :label="$tl('cancelBtn')"
-             color="warning"/>
+      <q-btn no-caps icon="fas fa-times" class="cancel-btn" @click="$router.back()" :label="$tl('cancelBtn')"            />
     </div>
+
   </q-page>
 </template>
 

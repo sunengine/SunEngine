@@ -1,82 +1,93 @@
 <template>
+
   <q-page class="material">
+
     <div v-if="material" class="page-padding">
-      <h2 v-if="showTitle" class="q-title">
+      <h2 v-if="showTitle" class="page-title">
         {{material.title}}
       </h2>
+
       <div v-else class="page-padding-top"></div>
 
-      <div v-if="showCategory" style="margin-top: -10px;" class="q-mb-md">
-        <span class="text-grey-7">{{$tl("category")}} </span>
+      <div class="material__category q-mb-md" v-if="showCategory">
+        <span class="material__category-label text-grey-7">{{$tl("category")}} </span>
         <router-link :to="category.getRoute()">{{category.title}}</router-link>
       </div>
+
       <div v-if="material.deletedDate" class="text-red q-mb-md">
         <q-chip icon="fas fa-trash" color="red" text-color="white" :label="$tl('deleted')"/>
       </div>
-      <div class="material-text q-mb-lg" v-html="material.text">
+
+      <div class="material__text q-mb-lg" v-html="material.text">
       </div>
-      <div v-if="material.tags && material.tags.length > 0" class="q-mt-lg" style="text-align: center">
+
+      <div v-if="material.tags && material.tags.length > 0" class="material__tags q-mt-lg">
         {{$tl("tags")}}
         <q-chip class="q-mx-xs" dense v-for="tag in material.tags" :key="tag">
           {{tag}}
         </q-chip>
       </div>
-      <div class="q-py-sm text-grey-8 flex" style="align-items: center">
-        <div v-if="showUser" class="q-mr-md">
+
+      <div class="material__footer q-gutter-x-lg q-py-sm flex align-center">
+
+        <div v-if="showUser" class="material__author q-mr-md">
           <router-link :to="{name: 'User', params: {link: material.authorLink}}">
-            <img class="avatar mat-avatar" :src="$imagePath(material.authorAvatar)"/>{{material.authorName}}
+            <img class="avatar material__avatar" :src="$imagePath(material.authorAvatar)"/>{{material.authorName}}
           </router-link>
         </div>
-        <div style="flex-grow: 1">
 
-        </div>
-        <div class="q-mr-md edit-btn-block" v-if="canEdit">
-          <a href="#" style="display: inline-flex; align-items: center;"
-             @click.prevent="$router.push({name: 'EditMaterial', params: {id: material.id}})">
+        <div class="grow"></div>
+
+        <div class="material-edit-btn edit-btn-block" v-if="canEdit">
+          <a href="#" @click.prevent="$router.push({name: 'EditMaterial', params: {id: material.id}})">
             <q-icon name="fas fa-edit" class="q-mr-xs"/>
             {{$tl("edit")}}</a>
         </div>
-        <div class="q-mr-lg" v-if="!material.deletedDate && canDelete">
-          <a href="#" style="display: inline-flex; align-items: center;"
-             @click.prevent="deleteMaterial">
+
+        <div v-if="!material.deletedDate && canDelete" class="material-footer-info-block">
+          <a href="#" @click.prevent="deleteMaterial">
             <q-icon name="fas fa-trash"/>
           </a>
         </div>
-        <div class="q-mr-md" v-if="material.deletedDate && canRestore">
-          <a href="#" style="display: inline-flex; align-items: center;"
-             @click.prevent="restoreMaterial">
+
+        <div v-if="material.deletedDate && canRestore" class="material-footer-info-block">
+          <a href="#" @click.prevent="restoreMaterial">
             <q-icon name="fas fa-trash-restore"/>
           </a>
         </div>
-        <div v-if="showVisitsCount" class="visits date-info-block q-mr-md">
+
+        <div v-if="showVisitsCount" class="material__visits material-footer-info-block">
           <q-icon name="far fa-eye" class="q-mr-xs"/>
           {{material.visitsCount}}
         </div>
-        <div v-if="showDate" class="mat-date date-info-block">
+        <div v-if="showDate" class="material__date material-footer-info-block">
           <q-icon name="far fa-clock" class="q-mr-xs"/>
           {{$formatDate(material.publishDate)}}
         </div>
+
       </div>
 
       <div class="clear"></div>
     </div>
 
-    <div id="comments" v-if="material && comments && comments.length > 0" class="comments">
-      <hr class="hr-sep"/>
+    <div id="material-comments" v-if="material && comments && comments.length > 0" class="material__comments">
+
+      <hr class="material__comments-sep"/>
+
       <div v-for="(comment,index) in comments" :key="comment.id">
         <CommentContainer class="page-padding" :comment="comment" :checkLastOwn="checkLastOwn"
                           :categoryPersonalAccess="categoryPersonalAccess"
                           :isLast="index === maxCommentNumber"/>
-        <hr class="hr-sep"/>
+        <hr class="material__comments-sep"/>
       </div>
-
     </div>
 
     <LoaderWait v-if="!material || !comments"/>
 
-    <div class="write-comment q-mt-md" v-if="canCommentWrite">
+    <div class="material__write-comment q-mt-md" v-if="canCommentWrite">
       <CreateComment class="page-padding" @done="commentAdded" :materialId="material.id"/>
     </div>
+
   </q-page>
 
 </template>
@@ -195,7 +206,7 @@
         },
         methods: {
             prepareLocalLinks() {
-                prepareLocalLinks.call(this, this.$el, 'material-text');
+                prepareLocalLinks.call(this, this.$el, 'material__text');
             },
             async loadDataMaterial() {
                 await this.$request(
@@ -280,23 +291,31 @@
 <style lang="stylus">
 
   .material {
-    .hr-sep {
-      height: 0;
-      border-top: solid #d3eecc 1px !important;
-      border-left: none;
-    }
-
-    .mat-avatar {
-      margin-right: 12px;
-    }
-
-    .comments {
-      margin-top: 18px;
-    }
-
     .q-chip {
       background-color: #e5fbe3;
     }
+  }
+
+  .material__comments {
+    margin-top: 18px;
+  }
+
+  .material__comments-sep {
+    height: 0;
+    border-top: solid #d3eecc 1px !important;
+    border-left: none;
+  }
+
+  .material__avatar {
+    margin-right: 12px;
+  }
+
+  .material__category {
+    margin-top: -10px;
+  }
+
+  .material__tags {
+    text-align: center
   }
 
 </style>

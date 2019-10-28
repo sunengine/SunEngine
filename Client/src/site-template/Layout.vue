@@ -28,7 +28,7 @@
           <q-btn v-else flat dense round>
             <img class="avatar layout-avatar" :src="userAvatar"/>
             <q-menu>
-              <q-list class="my-menu q-py-sm">
+              <q-list class="sun-second-menu q-py-sm">
                 <q-item class="avatar-menu-item">
                   <q-item-section avatar>
                     <img class="avatar layout-avatar" :src="userAvatar"/>

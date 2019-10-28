@@ -1,6 +1,6 @@
 /**
  *  Index maker script
- *  Version: 1.0
+ *  Version: 1.0.2
  *
  *  This script makes index file "/src/sun,js" from all project
  *
@@ -26,9 +26,10 @@ const patternSite = 'src/site/**/*.@(js|vue)';
 const ind = indexDic();
 
 proccess(glob.sync(patternAll), dirs, excludePaths);
-proccess(glob.sync(patternSite), ['site'], ['src/site/i18n']);
+proccess(glob.sync(patternSite), ['site'], ['src/site/i18n','src/site/routes.js']);
 
 
+ind.addLine("routes", "export routes from 'src/site/routes.js'");
 ind.addLine("store-index", "export * from 'src/store-index'");
 ind.addLine("routerInstance", "export * from 'src/router/routerInstance'");
 ind.addLine("storeInstance", "export * from 'src/store/storeInstance'");
@@ -36,9 +37,9 @@ ind.addLine("App", "export {app} from 'src/App'");
 
 
 fs.writeFile('./src/sun.js', ind.makeText(), function (err) {
-  if (err) {
+  if (err)
     return console.log(err);
-  }
+
   console.log("\n☼☼☀ \x1b[32m\x1b[1mIndex file generated successfully \x1b[0m => \x1b[33m '/src/sun.js'\x1b[0m ☀☼☼\n");
 });
 
@@ -52,10 +53,11 @@ function proccess(arr, dirs, excludePaths) {
 
     const fileText = fs.readFileSync(path, 'utf8');
 
-    if (/export( )+(?!default)/.test(fileText))
-      ind.addLine(name, `export * from '${path}'`);
     if (/export( )+default/.test(fileText))
-      ind.addLine(name, `export ${name} from '${path}'`);
+      ind.addLine(`${name}`, `export ${name} from '${path}'`);
+    if (/export( )+(?!default)/.test(fileText))
+      ind.addLine(`${name}-star`, `export * from '${path}'`);
+
   }
 }
 
