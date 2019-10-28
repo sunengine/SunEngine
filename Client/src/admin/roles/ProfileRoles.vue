@@ -2,21 +2,24 @@
   <div class="profile-roles">
 
     <div v-if="userRoles">
-      <div class="user-groups">
-        <div>{{$tl("roles")}}</div>
-        <div class="q-my-md" style="background-color: #f7fbc9; padding: 10px;">
-        <span class="one-group" v-for="role in userRoles"
-              :class="'group-'+role.name.toLowerCase()">{{role.title}}</span>
+
+      <div class="profile-roles__user-groups">
+        <div class="profile-roles__roles-title">{{$tl("roles")}}</div>
+
+        <div class="profile-roles__roles-block q-my-md">
+          <span class="profile-roles__group" v-for="role in userRoles"
+                :class="'group-'+role.name.toLowerCase()">{{role.title}}</span>
         </div>
       </div>
-      <div class="flex q-gutter-sm">
-        <q-btn style="flex-grow: 1" @click="add = true" no-caps color="positive" icon="fas fa-plus"
+
+      <div class="flex q-gutter-md">
+        <q-btn class="grow" @click="add = true" no-caps color="positive" icon="fas fa-plus"
                :label="$tl('addRoleBtn')"/>
 
-        <q-btn style="flex-grow: 1" @click="remove = true" no-caps color="negative" icon="fas fa-minus"
+        <q-btn class="grow" @click="remove = true" no-caps color="negative" icon="fas fa-minus"
                :label="$tl('removeRoleBtn')"/>
 
-        <q-dialog v-model="add">
+        <q-dialog class="profile-roles__dialog-add" v-model="add">
 
           <q-list class="bg-white">
             <q-toolbar class="bg-positive text-white shadow-2">
@@ -35,7 +38,7 @@
           </q-list>
         </q-dialog>
 
-        <q-dialog v-model="remove">
+        <q-dialog class="profile-roles__dialog-remove" v-model="remove">
           <q-list class="bg-white">
             <q-toolbar class="bg-negative text-white shadow-2">
               <q-toolbar-title>
@@ -55,7 +58,9 @@
 
       </div>
     </div>
+
     <LoaderWait v-else/>
+
   </div>
 
 </template>
@@ -168,12 +173,15 @@
 
 <style lang="stylus">
 
-  .profile-roles {
-    .user-groups .one-group:not(:last-child):after {
-      content: ", ";
-      color: initial;
-      font-weight: initial;
-    }
+  .profile-roles__user-groups .profile-roles__group:not(:last-child):after {
+    content: ", ";
+    color: initial;
+    font-weight: initial;
+  }
+
+  .profile-roles__roles-block {
+    background-color: #f7fbc9;
+    padding: 10px;
   }
 
 </style>

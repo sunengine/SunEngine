@@ -1,20 +1,27 @@
 <template>
   <q-page class="roles-permissions page-padding">
+
     <h2 class="page-title">{{title}}</h2>
-    <div class="q-col-gutter-md" v-if="json !== null">
-      <q-input input-class="json-input" v-model="json" type="textarea" :label="$tl('textAreaLabel')"/>
-      <div class="q-gutter-md">
+
+    <div class="q-gutter-y-lg" v-if="json !== null">
+      <q-input input-class="roles-permissions__json-input" v-model="json" type="textarea"
+               :label="$tl('textAreaLabel')"/>
+
+      <div class="roles-permissions__btn-block q-gutter-x-md">
         <q-btn no-caps class="send-btn" icon="far fa-save" @click="send" :label="$tl('saveToServerBtn')"/>
-        <q-btn no-caps  color="info" icon="fas fa-sync-alt" @click="loadDataRefresh"
+        <q-btn no-caps class="refresh-btn" color="info" icon="fas fa-sync-alt" @click="loadDataRefresh"
                :label="$tl('getFromServer')"/>
       </div>
-      <div class="json-error" v-if="error">
-        <q-icon name="fas "/>
-        <div class="msg" v-html="error.message"></div>
-        <div class="stack" style="max-height: 600px; overflow-y: scroll;" v-html="error.text"></div>
+
+      <div class="roles-permissions__json-error" v-if="error">
+        <q-icon name="fas fa-exclamation-triangle" size="24px" class="q-mr-md q-mt-xs float-left"/>
+        <div class="roles-permissions__message" v-html="error.message"></div>
+        <div class="roles-permissions__stack" v-html="error.text"></div>
       </div>
     </div>
+
     <LoaderWait v-else/>
+
   </q-page>
 </template>
 
@@ -32,14 +39,13 @@
             }
         },
         methods: {
-
             async loadDataRefresh() {
                 await this.loadData();
                 this.$successNotify(this.$tl('getSuccessNotify'));
             },
-            async loadData() {
+            loadData() {
                 this.json = null;
-                await this.$request(
+                this.$request(
                     this.$AdminApi.RolesPermissionsAdmin.GetJson
                 ).then(response => {
                         this.error = null;
@@ -49,8 +55,8 @@
                     this.$errorNotify(error)
                 });
             },
-            async send() {
-                await this.$request(
+            send() {
+                this.$request(
                     this.$AdminApi.RolesPermissionsAdmin.UploadJson,
                     {
                         json: this.json
@@ -77,34 +83,37 @@
 
 <style lang="stylus">
 
-  .roles-permissions {
-    .alert-backup {
-      border-radius: 10px;
-      background-color: #eef4af;
-      border: 1px solid silver;
-      color: #ec5f00;
-      padding: 15px;
-    }
+  .roles-permissions__alert-backup {
+    border-radius: 10px;
+    background-color: #eef4af;
+    border: 1px solid silver;
+    color: #ec5f00;
+    padding: 15px;
+  }
 
-    .json-input {
-      font-size: 0.9em !important;
-      max-height: 600px !important;
-      min-height: 400px !important;
-      line-height: unset !important;
-    }
+  .roles-permissions__json-input {
+    font-size: 0.9em !important;
+    max-height: 600px !important;
+    min-height: 400px !important;
+    line-height: unset !important;
+  }
 
-    .json-error {
-      color: maroon;
+  .roles-permissions__json-error {
+    color: #bd0000;
+    border-radius: 5px;
+    border: 1px solid silver;
+    background-color: #edf6ff;
+    padding: 12px;
+  }
 
-      .msg {
-        font-weight: 600;
-        margin-bottom: 20px;
-      }
+  .roles-permissions__message {
+    font-weight: 600;
+  }
 
-      .stack {
-        word-wrap: break-word;
-      }
-    }
+  .roles-permissions__stack {
+    word-wrap: break-word;
+    max-height: 600px;
+    overflow-y: scroll;
   }
 
 </style>
