@@ -1,5 +1,5 @@
 <template>
-  <q-list class="settings-menu my-menu" no-border>
+  <q-list class="settings-menu sun-second-menu" no-border>
     <div class="settings-menu__avatar-block">
       <img class="on-left settings-menu__avatar" :src="user.avatar"/> {{user.name}}
     </div>

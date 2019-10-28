@@ -1,5 +1,5 @@
 <template>
-  <q-list class="login-register-menu my-menu q-py-sm">
+  <q-list class="login-register-menu sun-second-menu q-py-sm">
     <q-item :to="{name:'Login'}">
       <q-item-section avatar>
         <q-icon name="fas fa-sign-in-alt"/>

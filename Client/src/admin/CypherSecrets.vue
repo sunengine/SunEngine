@@ -1,13 +1,19 @@
 <template>
-  <q-page class="page-padding">
+  <q-page class="cypher-secrets page-padding">
+
     <h2 class="page-title">
       {{title}}
     </h2>
-    <div class=" q-gutter-md">
-      <q-btn no-caps icon="fas fa-key" @click="shortJwt" color="warning" label="ShortJwt"/>
-      <q-btn no-caps icon="fas fa-key" @click="long2Jwt" color="warning" label="Long2Jwt"/>
-      <q-btn no-caps icon="fas fa-key" @click="emailChange" color="warning" label="EmailChange"/>
+
+    <div class="cypher-secrets__btn-block q-gutter-md q-mt-sm">
+      <q-btn class="cypher-secrets__short-jwt" no-caps icon="fas fa-key" @click="shortJwt" color="warning"
+             label="ShortJwt"/>
+      <q-btn class="cypher-secrets__short-long-2jwt" no-caps icon="fas fa-key" @click="long2Jwt" color="warning"
+             label="Long2Jwt"/>
+      <q-btn class="cypher-secrets__short-email-change" no-caps icon="fas fa-key" @click="emailChange" color="warning"
+             label="EmailChange"/>
     </div>
+
   </q-page>
 </template>
 

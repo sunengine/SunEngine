@@ -1,20 +1,22 @@
 <template>
   <q-page class="images-cleaner page-padding">
-    <div class="page-title-block">
-      <h2 class="page-title">{{title}}</h2>
-      <q-btn icon="fas fa-trash" class="send-btn q-mr-lg" :disable="!images" @click="clear()" no-caps
-             :label="$tl('clearBtn')"/>
 
-      <q-btn no-caps class="q-ml-md" color="info" icon="fas fa-sync-alt" @click="reloadImages()"
-             :label="$tl('refreshBtn')"/>
-    </div>
+    <h2 class="page-title">{{title}}</h2>
 
     <q-banner rounded class="bg-amber-2 q-mb-md">
       {{$tl("info")}}
     </q-banner>
 
-    <div v-if="images" class="img flex row q-col-gutter-sm">
-      <img v-for="image in images" :src="$imagePath(image)" height="80" width="80" class="clean-img"/>
+    <div class="images-cleaner__btn-block q-gutter-md q-mb-xl">
+      <q-btn icon="fas fa-trash" class="send-btn" :disable="!images" @click="clear()" no-caps
+             :label="$tl('clearBtn')"/>
+
+      <q-btn no-caps class="refresh-btn q-ml" color="info" icon="fas fa-sync-alt" @click="reloadImages()"
+             :label="$tl('refreshBtn')"/>
+    </div>
+
+    <div v-if="images" class="images-cleaner__img-block img flex row q-col-gutter-sm">
+      <img v-for="image in images" :src="$imagePath(image)" height="80" width="80" class="images-cleaner__clean-img"/>
     </div>
   </q-page>
 </template>
@@ -69,12 +71,10 @@
 </script>
 <style lang="stylus">
 
-  .images-cleaner {
-    .clean-img {
-      object-fit: cover;
-      width: 100px;
-      height: 110px;
-    }
+  .images-cleaner__clean-img {
+    object-fit: cover;
+    width: 100px;
+    height: 110px;
   }
 
 </style>

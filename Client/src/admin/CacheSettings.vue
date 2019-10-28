@@ -1,33 +1,30 @@
 <template>
-  <q-page class="cache-settings page-padding">
-    <div class="page-title-block">
-      <h2 class="page-title">{{$tl("title")}}</h2>
-      <div class="clear"></div>
-    </div>
-    <div>
-      <div class="q-mt-lg">
-        <q-select
-          v-model="policy"
-          :label="$tl('cachePolicy')"
-          :options="optionTypes">
-          <q-icon slot="prepend" name="fa fa-sitemap" class="q-mr-sm"/>
-        </q-select>
-        <br/>
-        <div v-if="policy !== null && policy.id !== 1">
-          <q-input v-if="!withoutTime" ref="cacheTime" type="number"
-                   v-model="cacheSettings.invalidateCacheTime"
-                   :label="$tl('cacheLifetime')"
-                   :rules="rules.invalidateCacheTime">
-            <template v-slot:prepend>
-              <q-icon name="fas fa-clock" class="q-mr-sm"/>
-            </template>
-          </q-input>
+  <q-page class="cache-settings page-padding ">
 
-          <q-checkbox v-model="withoutTime" v-on:input="withoutTimeChanged" :label="$tl('withoutInvalidationTime')"/>
-        </div>
+    <h2 class="page-title">{{$tl("title")}}</h2>
+
+    <div class="q-gutter-y-md">
+      <q-select class="cache-settings__cache-policy" v-model="policy" :label="$tl('cachePolicy')"
+                :options="optionTypes">
+        <q-icon slot="prepend" name="fa fa-sitemap" class="q-mr-sm"/>
+      </q-select>
+
+      <div v-if="policy !== null && policy.id !== 1">
+        <q-input v-if="!withoutTime" class="cache-settings__time" ref="cacheTime" type="number"
+                 v-model="cacheSettings.invalidateCacheTime"
+                 :label="$tl('cacheLifetime')"
+                 :rules="rules.invalidateCacheTime">
+          <template v-slot:prepend>
+            <q-icon name="fas fa-clock" class="q-mr-sm"/>
+          </template>
+        </q-input>
+
+        <q-checkbox class="cache-settings__without-time" v-model="withoutTime" v-on:input="withoutTimeChanged"
+                    :label="$tl('withoutInvalidationTime')"/>
+
       </div>
-      <br>
-      <div class="btn-block">
+
+      <div class="btn-block q-mt-xl">
         <q-btn icon="fas fa-save" class="send-btn" :loading="loading"
                no-caps :label="$tl('saveChangesBtn')"
                @click="save">
@@ -35,6 +32,7 @@
         </q-btn>
       </div>
     </div>
+
   </q-page>
 </template>
 

@@ -1,5 +1,6 @@
 <template>
   <div class="profile-roles">
+
     <div v-if="userRoles">
       <div class="user-groups">
         <div>{{$tl("roles")}}</div>
@@ -56,6 +57,7 @@
     </div>
     <LoaderWait v-else/>
   </div>
+
 </template>
 
 <script>

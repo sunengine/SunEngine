@@ -1,5 +1,5 @@
 <template>
-  <div class="user-menu my-menu">
+  <div class="user-menu sun-second-menu">
     <q-item :to="{name: 'User', params: {link: user.link}}" v-close-popup>
       <q-item-section avatar>
         <q-icon name="fas fa-user-circle"/>
