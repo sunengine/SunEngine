@@ -20,7 +20,7 @@ $q-field-color = #00c63b;
 // ——— Title ————————————————————————————————————
 
 
-.q-title, .header-title {
+.page-title {
   padding: $flex-gutter-md 0;
   font-size: 1.3rem;
   line-height: unset;
@@ -28,20 +28,22 @@ $q-field-color = #00c63b;
   margin: 0;
 }
 
-.header-with-button {
+.page-title-block {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   padding-top: $flex-gutter-md !important;
   padding-bottom: $flex-gutter-md !important;
 
-  .q-title {
+  .page-title {
     flex-grow: 1;
     padding: 0 !important;
+    margin: 3px 0;
   }
 
-  button {
+  .q-btn {
     flex-grow: 0;
+    margin: 3px 0;
   }
 }
 

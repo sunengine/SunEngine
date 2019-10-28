@@ -1,19 +1,19 @@
 <template>
-  <div class="category-form">
+  <div class="category-form q-gutter-y-xs">
 
-    <q-input ref="name" v-model="category.name" :label="$tl('name')" :rules="rules.name">
+    <q-input class="category-form__name" ref="name" v-model="category.name" :label="$tl('name')" :rules="rules.name">
       <template v-slot:prepend>
         <q-icon name="fas fa-signature" class="q-mr-xs"/>
       </template>
     </q-input>
 
-    <q-input ref="title" v-model="category.title" :label="$tl('title')" :rules="rules.title">
+    <q-input class="category-form__title" ref="title" v-model="category.title" :label="$tl('title')" :rules="rules.title">
       <template v-slot:prepend>
         <q-icon name="fas fa-heading" class="q-mr-xs"/>
       </template>
     </q-input>
 
-    <q-input bottom-slots ref="subTitle" v-model="category.subTitle" autogrow type="textarea"
+    <q-input class="category-form__sub-title" bottom-slots ref="subTitle" v-model="category.subTitle" autogrow type="textarea"
              :label="$tl('subTitle')">
       <template v-slot:prepend>
         <q-icon name="fas fa-info" class="q-mr-xs"/>
@@ -21,17 +21,17 @@
 
     </q-input>
 
-    <q-input ref="icon" v-model="category.icon" :label="$tl('icon')" :rules="rules.icon">
+    <q-input class="category-form__icon" ref="icon" v-model="category.icon" :label="$tl('icon')" :rules="rules.icon">
       <template slot="prepend">
         <q-icon  class="q-mr-xs" :name="category.icon ? category.icon : 'far fa-file'"/>
       </template>
     </q-input>
 
-    <div class="text-grey-6">{{$tl('header')}}</div>
+    <div class="category-form__ header text-grey-6">{{$tl('header')}}</div>
 
-    <SunEditor ref="header" style="margin-bottom: 12px;" v-model="category.header"/>
+    <SunEditor bottom-slots class="category-form__editor" ref="header" v-model="category.header"/>
 
-    <q-field  class="cursor-pointer" :error="!category.parentId" :label="$tl('selectParent')" stack-label>
+    <q-field  class="category-form__parent cursor-pointer" :error="!category.parentId" :label="$tl('selectParent')" stack-label>
       <template v-slot:control>
         <div tabindex="0" class="no-outline full-width">
           {{parentCategoryTitle}}
@@ -70,14 +70,14 @@
       <q-icon slot="prepend" name="fas fa-boxes"/>
     </q-select>
 
-    <q-input ref="settingsJson" type="textarea" v-model="category.settingsJson" autogrow :label="$tl('settingsJson')"
+    <q-input  class="category-form__settings-json" ref="settingsJson" type="textarea" v-model="category.settingsJson" autogrow :label="$tl('settingsJson')"
              :rules="rules.settingsJson"/>
 
-    <q-checkbox :toggle-indeterminate="false" v-model="category.isMaterialsContainer"
+    <q-checkbox  class="category-form__is-material-container" :toggle-indeterminate="false" v-model="category.isMaterialsContainer"
                 @input="isMaterialsContainerChanged"
                 :label="$tl('isMaterialsContainerCb')"/>
 
-    <q-checkbox  v-if="category.isMaterialsContainer" :toggle-indeterminate="false"
+    <q-checkbox class="category-form__is-material-names" v-if="category.isMaterialsContainer" :toggle-indeterminate="false"
                 v-model="category.isMaterialsNameEditable"
                 :label="$tl('isMaterialsNameEditableCb')"/>
 
@@ -87,9 +87,9 @@
       <q-icon slot="prepend" name="fas fa-info"/>
     </q-select>
 
-    <q-checkbox :toggle-indeterminate="false" v-model="category.isCacheContent" :label="$tl('isCaching')"/>
+    <q-checkbox class="category-form__is-cache" :toggle-indeterminate="false" v-model="category.isCacheContent" :label="$tl('isCaching')"/>
 
-    <q-checkbox :toggle-indeterminate="false" v-model="category.isHidden" :label="$tl('hideCb')"/>
+    <q-checkbox class="category-form__is-hidden" :toggle-indeterminate="false" v-model="category.isHidden" :label="$tl('hideCb')"/>
   </div>
 </template>
 

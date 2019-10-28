@@ -1,7 +1,7 @@
 <template>
   <q-page class="components-admin page-padding">
-    <div class="header-with-button">
-      <h2 class="q-title">
+    <div class="page-title-block">
+      <h2 class="page-title">
         {{$tl("title")}}
       </h2>
       <q-btn icon="fas fa-plus" class="post-btn q-mr-lg" type="a" :to="{name: 'CreateComponent'}" no-caps

@@ -1,6 +1,6 @@
 <template>
   <q-page class="my-ban-list page-padding">
-    <h2 class="header-title">{{$tl("title")}}</h2>
+    <h2 class="page-title">{{$tl("title")}}</h2>
     <div v-if="users">
       <router-link :key="user.id" class="my-ban-list__user-link block q-mb-xs"
                    :to="{name:'User', params: {link: user.link}}" v-for="user in users">{{user.name}}

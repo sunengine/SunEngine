@@ -1,6 +1,6 @@
 <template>
   <q-page class="deleted-elements page-padding">
-    <h2 class="q-title">
+    <h2 class="page-title">
       {{title}}
     </h2>
     <q-checkbox :toggle-indeterminate="false" v-model="$store.state.admin.showDeletedElements">

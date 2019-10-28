@@ -1,6 +1,6 @@
 <template>
   <q-page class="roles-permissions page-padding">
-    <h2 class="q-title">{{title}}</h2>
+    <h2 class="page-title">{{title}}</h2>
     <div class="q-col-gutter-md" v-if="json !== null">
       <q-input input-class="json-input" v-model="json" type="textarea" :label="$tl('textAreaLabel')"/>
       <div class="q-gutter-md">

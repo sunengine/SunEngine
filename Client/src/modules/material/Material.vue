@@ -3,9 +3,10 @@
   <q-page class="material">
 
     <div v-if="material" class="page-padding">
-      <h2 v-if="showTitle" class="header-title">
+      <h2 v-if="showTitle" class="page-title">
         {{material.title}}
       </h2>
+
       <div v-else class="page-padding-top"></div>
 
       <div class="material__category q-mb-md" v-if="showCategory">

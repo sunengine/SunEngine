@@ -2,7 +2,7 @@
   <q-page class="material-inline-page ">
     <div class="pan">
     </div>
-    <h2 class="q-title page-padding text-center">
+    <h2 class="page-title page-padding text-center">
       {{title}}
     </h2>
     <MaterialInline @loaded="loaded" ref="inline" class="page-padding" name="inline1"/>

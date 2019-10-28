@@ -1,7 +1,7 @@
 <template>
   <q-page class="cache-settings page-padding">
-    <div class="header-with-button">
-      <h2 class="q-title">{{$tl("title")}}</h2>
+    <div class="page-title-block">
+      <h2 class="page-title">{{$tl("title")}}</h2>
       <div class="clear"></div>
     </div>
     <div>

@@ -2,15 +2,15 @@
   <div :class="['menu-item', menuItem.cssClass ? menuItem.cssClass : undefined]">
     <q-item v-if="(menuItem.to || menuItem.externalUrl) && !menuItem.subMenuItems" :to="to" :clickable="true"
             @click.native="goExternal()" :exact="menuItem.exact">
-      <q-item-section avatar v-if="menuItem.icon">
-        <q-icon :name="menuItem.icon"/>
+      <q-item-section class="menu-item__icon-section" avatar v-if="menuItem.icon">
+        <q-icon class="menu-item__icon" :name="menuItem.icon"/>
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{menuItem.title}}</q-item-label>
-        <q-item-label caption>{{menuItem.subTitle}}</q-item-label>
+        <q-item-label class="menu-item__title">{{menuItem.title}}</q-item-label>
+        <q-item-label class="menu-item__sub-title" caption>{{menuItem.subTitle}}</q-item-label>
       </q-item-section>
     </q-item>
-    <q-expansion-item ref="exp" :expand-separator="expandSeparator" v-if="menuItem.subMenuItems" :icon="menuItem.icon"
+    <q-expansion-item class="menu-item__expansion-block" ref="exp" :expand-separator="expandSeparator" v-if="menuItem.subMenuItems" :icon="menuItem.icon"
                       :label="menuItem.title" :caption="menuItem.subTitle"
                       @click.native="click" :to='to' :exact="menuItem.exact">
       <MenuItem :menuItem="subItem" ref="cim" :key="subItem.id"

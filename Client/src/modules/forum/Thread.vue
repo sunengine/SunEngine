@@ -1,8 +1,8 @@
 <template>
   <q-page class="thread">
 
-    <div class="header-with-button page-padding">
-      <h2 class="q-title">
+    <div class="page-title-block page-padding">
+      <h2 class="page-title">
         {{thisTitle}}
       </h2>
       <q-btn no-caps class="thread__post-btn post-btn"

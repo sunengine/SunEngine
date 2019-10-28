@@ -1,7 +1,7 @@
 <template>
   <q-page class="images-cleaner page-padding">
-    <div class="header-with-button">
-      <h2 class="q-title">{{title}}</h2>
+    <div class="page-title-block">
+      <h2 class="page-title">{{title}}</h2>
       <q-btn icon="fas fa-trash" class="send-btn q-mr-lg" :disable="!images" @click="clear()" no-caps
              :label="$tl('clearBtn')"/>
 

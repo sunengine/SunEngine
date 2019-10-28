@@ -1,6 +1,6 @@
 <template>
   <q-page class="page-padding">
-    <h2 class="q-title">
+    <h2 class="page-title">
       {{title}}
     </h2>
     <ComponentForm ref="form" class="q-mb-xl" :component="component"/>

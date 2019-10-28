@@ -121,7 +121,7 @@ export default {
 
     let bottom = h('div', {staticClass: this.bottomSlots && 'sun-editor__bottom-slots'}, [createError.call(this)]);
 
-    return h('div', {staticClass: 'relative-position sun-editor'}, [editor, bottom, fileInput, loading]);
+    return h('div', {staticClass: 'sun-editor relative-position'}, [editor, bottom, fileInput, loading]);
 
     function createError() {
       if (this.hasError) {
