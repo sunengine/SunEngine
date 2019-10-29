@@ -6,8 +6,9 @@ import {RegisterEmailResult} from 'sun'
 const routes = [
   {
     name: 'Login',
-    path: '/auth/login',
+    path: '/auth/login/:ret?',
     component: Login,
+    props: true
   },
   {
     name: 'Register',
