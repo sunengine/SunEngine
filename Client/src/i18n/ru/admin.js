@@ -240,7 +240,11 @@ export default {
     deletedElements: "Удалённое",
     deletedElementsCaption: "",
     //deletedElementsCaption: "Показывать удалённые материалы и коментарии",
-    version: "Версия SunEngine"
+    version: "Версия SunEngine",
+    resetCache: "Сбросить кеш",
+    resetCacheCaption: "",
+    //resetCacheCaption: "Сбросить весь кеш на сервере",
+    resetCacheSuccess: "Кеш сброшен успешно"
   },
   AdminPage: {
     title: "@:AdminPanel.title"

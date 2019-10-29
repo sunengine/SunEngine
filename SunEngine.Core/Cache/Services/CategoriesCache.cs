@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using LinqToDB.Common;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
@@ -95,7 +96,8 @@ namespace SunEngine.Core.Cache.Services
         {
             Dictionary<string, CategoryCached> materialsCategoriesDic = new Dictionary<string, CategoryCached>();
 
-            if (categoriesList == null) return materialsCategoriesDic;
+            if (categoriesList.IsNullOrEmpty()) 
+                return materialsCategoriesDic;
 
             var categoriesNames = categoriesList.Split(',').Select(x => x.Trim());
             foreach (var name in categoriesNames)

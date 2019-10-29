@@ -45,5 +45,8 @@ export default {
     CreateCategory: '/Admin/CategoriesAdmin/CreateCategory',
     CategoryMoveToTrash: '/Admin/CategoriesAdmin/CategoryMoveToTrash',
     GetCategory: '/Admin/CategoriesAdmin/GetCategory'
+  },
+  CacheAdmin: {
+    ResetAllCache: '/Admin/CacheAdmin/ResetAllCache'
   }
 }

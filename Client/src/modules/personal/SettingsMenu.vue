@@ -1,7 +1,7 @@
 <template>
   <q-list class="settings-menu sun-second-menu" no-border>
-    <div class="settings-menu__avatar-block">
-      <img class="on-left settings-menu__avatar" :src="user.avatar"/> {{user.name}}
+    <div class="settings-menu__avatar-block flex align-center">
+      <img class="settings-menu__avatar on-left" :src="user.avatar"/> <span>{{user.name}}</span>
     </div>
     <q-item :to="{name: 'ProfileInSettings'}">
       <q-item-section avatar>
@@ -99,11 +99,10 @@
     padding: 15px;
   }
 
-  avatar {
+  .settings-menu__avatar {
     width: 32px;
     height: 32px;
     border-radius: 16px;
   }
-
 
 </style>
