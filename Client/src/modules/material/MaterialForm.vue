@@ -24,7 +24,7 @@
     </q-input>
 
 
-    <SunEditor bottomSlots class="material-form__text-editor"
+    <SunEditor bottomSlots class="material-form__text-editor"  content-class="material__text"
                :toolbar="editorToolbar"
                :rules="rules.text"
                ref="htmlEditor" v-model="material.text"/>

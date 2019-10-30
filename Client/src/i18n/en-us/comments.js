@@ -17,7 +17,7 @@ export default {
   DeletedComment: {
     label: "Comment deleted"
   },
-  ReadComment: {
+  Comment: {
     edit: "edit",
     deleteDialogMessage: "Remove message?"
   }
