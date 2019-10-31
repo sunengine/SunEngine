@@ -13,7 +13,10 @@
 export default {
     name: "SecondHeader",
     props:{
-      watchObject : Boolean      
+      //TODO: left drawer check
+      //TODO: if first hide, second too
+      
+      rightDrawerOpen : Boolean         
     },
     methods:{
         addSecondHeader : function() {
@@ -34,24 +37,29 @@ export default {
           
           var secHeader = document.getElementById("secondHeader");                            
           secHeader.style.paddingRight = width;
-        }
+        },
+        checkRightDrawer : function(){
+            if(this.rightDrawerOpen){
+              this.setRightPadding();
+            }
+            else{
+              document.getElementById("secondHeader").style.paddingRight = "";
+            }  
+        }      
     },
 
     mounted(){
 
       this.addSecondHeader();
-      
-    },
-
-    watch : {
-      watchObject : function(){        
-
-        if(this.watchObject){          
-            this.setRightPadding();
+       if(this.rightDrawerOpen){
+           this.setRightPadding();
         }
-        else{
-            document.getElementById("secondHeader").style.paddingRight = "";
-       }        
+    },
+    
+
+    watch : {     
+      rightDrawerOpen : function(){
+        this.checkRightDrawer();   
       }
     }
 }
