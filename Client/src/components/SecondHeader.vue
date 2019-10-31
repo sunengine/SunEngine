@@ -16,7 +16,8 @@ export default {
       //TODO: left drawer check
       //TODO: if first hide, second too
       
-      rightDrawerOpen : Boolean         
+      rightDrawerOpen : Boolean,
+      rightDrawerIs : Boolean      
     },
     methods:{
         addSecondHeader : function() {
@@ -38,7 +39,14 @@ export default {
           var secHeader = document.getElementById("secondHeader");                            
           secHeader.style.paddingRight = width;
         },
-        checkRightDrawer : function(){
+        checkRightDrawer : function(){   
+          
+            if(!this.rightDrawerIs)
+            {
+              document.getElementById("secondHeader").style.paddingRight = "";
+              return;
+            }
+
             if(this.rightDrawerOpen){
               this.setRightPadding();
             }
@@ -49,18 +57,17 @@ export default {
     },
 
     mounted(){
-
-      this.addSecondHeader();
-       if(this.rightDrawerOpen){
-           this.setRightPadding();
-        }
-    },
-    
+      this.addSecondHeader();         
+      this.checkRightDrawer();  
+    },    
 
     watch : {     
       rightDrawerOpen : function(){
-        this.checkRightDrawer();   
-      }
+        this.checkRightDrawer();           
+      },
+      rightDrawerIs : function(){
+        this.checkRightDrawer();
+      }    
     }
 }
 
