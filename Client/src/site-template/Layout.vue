@@ -54,7 +54,7 @@
 
       </q-toolbar>
     </q-header>
-    <SecondHeader v-bind:watchObject="rightDrawerIs"/>
+    <SecondHeader :rightDrawerOpen="rightDrawerOpen" :rightDrawerIs="rightDrawerIs"/>
     
     <q-drawer v-model="leftDrawerOpen" bordered content-class="main-menu-drawer">
       <MainMenu/>
