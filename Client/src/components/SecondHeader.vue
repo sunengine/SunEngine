@@ -12,12 +12,9 @@
 
 export default {
     name: "SecondHeader",
-    props:{
-      //TODO: left drawer check
-      //TODO: if first hide, second too
-      
+    props:{          
       rightDrawerOpen : Boolean,
-      rightDrawerIs : Boolean      
+      rightDrawerIs : Boolean
     },
     methods:{
         addSecondHeader : function() {
@@ -39,20 +36,25 @@ export default {
           var secHeader = document.getElementById("secondHeader");                            
           secHeader.style.paddingRight = width;
         },
-        checkRightDrawer : function(){   
-          
-            if(!this.rightDrawerIs)
-            {
-              document.getElementById("secondHeader").style.paddingRight = "";
+        checkRightDrawer : function(){        
+            
+            if(!this.rightDrawerIs){
+              document.getElementById("secondHeader").style.paddingRight = "";              
               return;
-            }
+            }            
 
-            if(this.rightDrawerOpen){
-              this.setRightPadding();
+            if(this.rightDrawerOpen){   
+
+              if(document.getElementsByTagName("footer")[0].getAttribute("style").right){
+                document.getElementById("secondHeader").style.paddingRight = "";
+              }
+              else
+                this.setRightPadding();
+                               
             }
             else{
               document.getElementById("secondHeader").style.paddingRight = "";
-            }  
+            }                       
         }      
     },
 
@@ -67,7 +69,7 @@ export default {
       },
       rightDrawerIs : function(){
         this.checkRightDrawer();
-      }    
+      }
     }
 }
 
