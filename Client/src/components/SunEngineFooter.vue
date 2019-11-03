@@ -1,6 +1,6 @@
 <template>
   <div class="sun-engine-footer">
-    {{$tl("start")}} - <a href="http://sunengine.site">Sun Engine</a>
+    {{$tl("start")}} &nbsp;–&nbsp; <a href="https://sunengine.site">Sun Engine</a>
   </div>
 </template>
 
