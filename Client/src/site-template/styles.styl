@@ -1,15 +1,25 @@
-@import '/statics/fonts/BoomBoomRegular.css';
-
-$link-color = #3498db
-$lime-color = #94e899
-$title-lime = #d0fccf
+$text-color =  #06000d;
+$link-color = #3498db;
+$menu-color = unset;
+$menu-icon-color = unset;
+$menu-link-color = unset;
+$header-background-color = #24c7ff;
+$header-text-color = white;
+$header-border-color = #cbcbcb;
+$header-menu-icon-color = white;
+$header-user-color = white;
+$footer-background-color = #d4f0ff;
+$footer-text-color = #3498db;
+$footer-link-color = #3498db;
+$footer-border-color = #cbcbcb;
+$panel-header-background = #ededed;
 
 
 // ——— Main ——————————————————————————————————————
 
 
 html {
-  color: #06000d;
+  color: $text-color;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -23,18 +33,22 @@ a, .link {
   }
 }
 
+.q-router-link--active {
+  background-color: #e2f8e8;
+}
 
-// ——— Colors ————————————————————————————————————
+
+// ——— Buttons ————————————————————————————————————
 
 
 .send-btn {
-  background-color: #5ee22f;
+  background-color: #54e288;
   color: white;
 }
 
 .post-btn {
-  background-color: $lime-color;
-  color: white;
+  background-color: #c4f0ff;
+  color: grey;
 
   &:hover {
     color: white;
@@ -52,11 +66,142 @@ a, .link {
 }
 
 .bg-pagination {
-  background-color: $lime-color !important;
+  background-color: $header-background-color !important;
 }
 
 .text-pagination {
   color: $link-color !important;
+}
+
+
+// ——— Layout ————————————————————————————————————
+
+
+.layout__header {
+  border-bottom: 1px solid $header-border-color;
+}
+
+.layout__toolbar {
+  background-color: $header-background-color;
+}
+
+.layout__title {
+  font-family: "Jomolhari";
+  letter-spacing: 1.4px;
+  font-size: 1.4rem;
+  font-weight: bold;
+
+  a {
+    color: $header-text-color;
+    //text-shadow:  0px 0px 6px white, 0px 0px 6px white, 0px 0px 6px white;
+  }
+}
+
+.main-menu-drawer {
+  background-color: $menu-color;
+}
+
+.side-menu-drawer {
+}
+
+.layout__toolbar__menu-btn {
+  color: $header-menu-icon-color;
+}
+
+.layout__toolbar__user-btn {
+  color: $header-user-color;
+}
+
+.layout__user-avatar {
+  width: 32px !important;
+  height: 32px !important;
+  box-shadow: 0px 0px 4px 1.5px white !important;
+}
+
+
+.layout__footer {
+  text-align: center;
+  color: $footer-text-color;
+  font-weight: bold;
+  letter-spacing: 1px;
+  background-color: $footer-background-color;
+  padding: 18px 0;
+  border-top: 1px solid $footer-border-color;
+
+  a {
+    color: $footer-link-color;
+  }
+
+  .links-menu__separator  {
+    .q-icon {
+        margin: 0 16px;
+        color: #ffa500;
+      }
+  }
+}
+
+.layout__footer-line {
+  margin: 12px 0;
+}
+
+// ——— MainMenu ——————————————————————————————————
+
+
+.main-menu__logo-div {
+  padding: 15px 0 22px 0;
+  text-align: center;
+}
+
+.main-menu__logo-img {
+  width: 204px;
+  height: 204px;
+  border-radius: 102px;
+  box-shadow: 0 0 8px 1px grey
+}
+
+.main-menu {
+
+  .q-router-link--active {
+    background-color: #d0fccf;
+
+    .q-item__section--main {
+      color: black !important;
+    }
+  }
+
+  .q-item__section--avatar {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 60px !important;
+    color: $link-color !important;
+    justify-items: center !important;
+    align-items: center !important;
+  }
+
+  .q-item__section--main {
+    font-size: 1.2em;
+    color: black !important;
+  }
+
+  .q-item__label--caption {
+    font-size: 0.8em;
+  }
+}
+
+
+// ——— Panel ————————————————————————————————————
+
+
+.panel-wrapper__header {
+  text-align: center;
+  margin: 0;
+  padding: 7px 0 4px 0;
+  text-transform: uppercase;
+  font-size: 0.9rem !important;
+  font-weight: bolder;
+  background-color: $panel-header-background;
+  border-bottom: 1px solid #f1f1f1;
+  color: $grey-8;
 }
 
 
@@ -105,151 +250,4 @@ a, .link {
     margin: 0 0 16px 0;
   }
 }
-
-
-// ——— QItems ————————————————————————————————————
-
-
-.q-router-link--active {
-  background-color: #e2f8e8;
-}
-
-
-.menu-panel-title {
-  text-align: center;
-  margin: 0;
-  padding: 7px 0 4px 0;
-  text-transform: uppercase;
-  font-size: 0.9rem !important;
-  font-weight: bolder;
-  background-color: #f3ffdd;
-  border-bottom: 1px solid #cacaca;
-  color: $grey-8;
-}
-
-
-// ——— MainMenu ——————————————————————————————————
-
-
-.main-menu {
-
-  .logo-div {
-    text-align: center;
-
-    .logo {
-      margin: 28px 0;
-      font-family: "BoomBoomRegular";
-      border-radius: 100px;
-      padding: 34px 25px;
-      display: inline-block;
-      border: 1px solid $link-color;
-      text-shadow: 1px 1px 1px black;
-      background-color: #f6fff4;
-
-      h3 {
-        color: $lime-color;
-        margin: 0;
-        font-size: 2.8rem;
-      }
-
-      h4 {
-        color: $lime-color
-        margin: 0;
-        font-size: 2.3rem;
-      }
-    }
-  }
-
-  .q-router-link--active {
-    background-color: #d0fccf;
-
-    .q-item__section--main {
-      color: black !important;
-    }
-  }
-
-  .q-item__section--avatar {
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 60px !important;
-    color: $link-color !important;
-    justify-items: center !important;
-    align-items: center !important;
-  }
-
-  .q-item__section--main {
-    font-size: 1.2em;
-    color: black !important;
-  }
-
-  .q-item__label--caption {
-    font-size: 0.8em;
-  }
-}
-
-
-// ——— Layout ————————————————————————————————————
-
-
-.layout-avatar {
-  width: 32px !important;
-  height: 32px !important;
-  box-shadow: 0px 0px 4px 1.5px white !important;
-}
-
-.layout-header {
-  border-bottom: 1px solid $lime-color;
-}
-
-.main-menu-drawer {
-  background-color: $lime-color;
-}
-
-.side-menu-drawer {
-
-}
-
-.layout-toolbar {
-  background-color: $title-lime;
-}
-
-.toolbar-menu-btn {
-  color: black;
-}
-
-.toolbar-user-btn {
-  color: grey;
-}
-
-.layout-title {
-  font-family: "BoomBoomRegular";
-  letter-spacing: 1.4px;
-  font-size: 1.7rem;
-
-  a {
-    color: orange;
-    text-shadow: 0.5px 0.5px 0.5px #686569;
-  }
-}
-
-.layout-footer {
-  text-align: center;
-  color: $primary;
-  font-family: "BoomBoomRegular";
-  font-size: 17px;
-  letter-spacing: 1px;
-  background-color: #d0fccf;
-
-  div {
-    border-top: 1px solid $lime-color;
-    padding: 15px 0;
-    color: $link-color;
-  }
-
-  .q-icon {
-    margin: 0 16px;
-    color: #4ae657;
-  }
-}
-
 

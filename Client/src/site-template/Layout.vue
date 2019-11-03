@@ -1,32 +1,32 @@
 <template>
-  <q-layout view="lHh LpR lfr">
-    <q-header class="layout-header">
-      <q-toolbar class="layout-toolbar">
+  <q-layout class="layout" view="lHh LpR lfr">
+    <q-header class="layout__header">
+      <q-toolbar  class="layout__toolbar">
 
         <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
-          <q-icon name="fas fa-bars" class="toolbar-menu-btn"/>
+          <q-icon name="fas fa-bars" class="layout__toolbar__menu-btn"/>
         </q-btn>
 
-        <q-toolbar-title class="layout-title">
-          <router-link :to="{name: 'Home'}">Sun Engine {{$tl("demo")}}</router-link>
+        <q-toolbar-title class="layout__title">
+          <router-link :to="{name: 'Home'}">{{$tl("title")}}</router-link>
         </q-toolbar-title>
 
         <q-btn class="q-mr-sm" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu"
                v-if="rightDrawerIs">
-          <q-icon name="fas fa-bars" class="toolbar-menu-btn"/>
+          <q-icon name="fas fa-bars" class="layout__toolbar__menu-btn"/>
         </q-btn>
 
         <template v-if="userName">
 
-          <q-btn-dropdown no-caps v-if="$q.screen.gt.xs" flat class="toolbar-menu-btn">
+          <q-btn-dropdown no-caps v-if="$q.screen.gt.xs" flat class="layout__toolbar__user-btn">
             <template slot="label">
-              <img class="avatar  layout-avatar q-mr-sm" :src="userAvatar"/> {{userName}}
+              <img class="avatar  layout__user-avatar q-mr-sm" :src="userAvatar"/> {{userName}}
             </template>
             <UserMenu style="width:180px;"/>
           </q-btn-dropdown>
 
           <q-btn v-else flat dense round>
-            <img class="avatar layout-avatar" :src="userAvatar"/>
+            <img class="avatar layout__user-avatar" :src="userAvatar"/>
             <q-menu>
               <q-list class="sun-second-menu q-py-sm">
                 <q-item class="avatar-menu-item">
@@ -67,13 +67,11 @@
       <router-view/>
     </q-page-container>
 
-    <q-footer class="layout-footer">
-      <div>
-        <LinksMenu :menuItem="footerMenuItem">
-          <q-icon name="fas fa-heart" size="12px"/>
-        </LinksMenu>
-      </div>
-      <SunEngineFooter/>
+    <q-footer class="layout__footer">
+      <LinksMenu class="layout__footer-line" :menuItem="footerMenuItem">
+        <q-icon name="fas fa-heart" size="12px"/>
+      </LinksMenu>
+      <SunEngineFooter class="layout__footer-line"/>
     </q-footer>
   </q-layout>
 </template>
