@@ -1,7 +1,7 @@
 <template>
   <div class="edit-comment">
     <template v-if="comment">
-      <SunEditor content-class="material-text"
+      <SunEditor content-class="comment__text"
                  :toolbar="editorToolbar" :rules="commentRules"
                  class="editor" ref="htmlEditor" v-model="comment.text"/>
       <div>
