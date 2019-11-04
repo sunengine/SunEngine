@@ -1,73 +1,77 @@
 <template>
-  <q-page class="index-page flex middle">
-
-    <div class="main-block">
-      <h1>
+  <q-page class="index-page middle flex flex-center">
+    <div>
+      <h1 class="index-page__demo-header">
         {{$tl("demo")}}
       </h1>
-      <p>{{$tl("users")}}:
-        <span class="hl">User1</span>,
-        <span class="hl">User2</span>,
-        <span class="hl">User3</span>,
-        <span class="hl">Moderator</span>,
-        <span class="hl">Admin</span>.</p>
-      <p>{{$tl("password")}}: <span class="hl">password</span>.</p>
-      <p class="ver">{{$tl("version")}}: <span class="num">1.15.0</span></p>
+      <div class="index-page__info-block">
+        <p>{{$tl("users")}}:
+          <span class="hl">User1</span>,
+          <span class="hl">User2</span>,
+          <span class="hl">User3</span>,
+          <span class="hl">Moderator</span>,
+          <span class="hl">Admin</span>.</p>
+        <p>{{$tl("password")}}: <span class="hl">password</span>.</p>
+        <p class="index-page__version">{{$tl("version")}}: <span class="num">1.15.5</span></p>
+      </div>
     </div>
-
   </q-page>
 </template>
 
 
 <script>
-  import {Page} from 'mixins'
+    import {Page} from 'mixins'
 
 
-  export default {
-    name: 'IndexPage',
-    mixins: [Page],
-  }
+    export default {
+        name: 'IndexPage',
+        mixins: [Page],
+    }
 
 </script>
 
 
-<style lang="stylus">
+<style lang="scss">
 
   .index-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0 !important;
+  }
 
-    padding: 0 !important;
+  .index-page__demo-header {
+    margin: 0 0 40px;
+    font-size: 6em;
+    font-family: "Jomolhari";
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    line-heigh: 0;
+    text-align: center;
+    color: #00acef;
+    text-shadow: 1px 1px 5px #b1b1b1;
+  }
 
-    h1 {
-      margin: 0 0 40px;
-      font-family: "BoomBoomRegular";
-      letter-spacing: 2px;
+  .index-page__info-block {
+    font-weight: 500;
+    font-size: 1.2em;
+    max-width: 600px;
+
+    p {
       text-align: center;
-      color: orange;
-      text-shadow: 1px 1px 5px black;
+      color: #616161;
     }
 
-    .ver {
-      color: $primary;
-
-      .num {
-        font-weight: 600;
-        color: #330f53;
-      }
+    .hl {
+      font-weight: 600;
+      color: #a38167;
     }
+  }
 
-    .main-block {
-      font-weight: 500;
-      font-size: 1.15em;
-      max-width: 600px;
-
-      p {
-        text-align: center;
-        color: #616161;
-      }
-
-      .hl {
-        color: #a38167;
-      }
+  .index-page__version {
+    .num {
+      font-weight: 600;
+      color: #330f53;
     }
   }
 

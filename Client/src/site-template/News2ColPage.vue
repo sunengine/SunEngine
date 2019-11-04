@@ -1,6 +1,6 @@
 <template>
   <q-page class="news-2-col-page">
-    <h2 class="page-title page-padding">
+    <h2 class="q-title page-padding">
       {{title}}
     </h2>
 
@@ -56,7 +56,7 @@
 </script>
 
 
-<style lang="stylus">
+<style lang="scss">
 
   .news-2-col-page {
     .hr-minus {

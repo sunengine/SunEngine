@@ -44,7 +44,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .my-ban-list__user-link {
     font-weight: 600;

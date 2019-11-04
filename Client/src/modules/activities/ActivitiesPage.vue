@@ -33,7 +33,7 @@
     }
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .activities-page {
 

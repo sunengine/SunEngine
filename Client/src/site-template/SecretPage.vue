@@ -1,6 +1,6 @@
 <template>
-  <q-page class="secret-page middle flex text-teal-14">
-    <h3>
+  <q-page class="secret-page middle flex">
+    <h3 class="secret-page__header">
       <q-icon name="fas fa-fingerprint"/>
       {{title}}
     </h3>
@@ -8,27 +8,26 @@
 </template>
 
 <script>
-  import {Page} from 'mixins'
+    import {Page} from 'mixins'
 
 
-  export default {
-    name: 'SecretPage',
-    mixins: [Page],
-    created() {
-      this.title = this.$tl('title');
+    export default {
+        name: 'SecretPage',
+        mixins: [Page],
+        created() {
+            this.title = this.$tl('title');
+        }
     }
-  }
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
-  .secret-page {
-    h3 {
-      border-radius: 12px;
-      border: 4px dashed $amber-2;
-      padding: 14px;
-    }
+  .secret-page__header {
+    border-radius: 12px;
+    border: 4px dashed $amber-3;
+    padding: 14px;
+    color: $header-background-color;
   }
 
 </style>

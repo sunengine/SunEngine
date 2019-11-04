@@ -40,5 +40,10 @@ namespace SunEngine.Core.Cache.Services
             var removeList = Requests.Where(x => !x.Value.Working()).Select(x => x.Key).ToList();
             removeList.ForEach(x => Requests.TryRemove(x, out _));
         }
+
+        public void Reset()
+        {
+            Requests.Clear();
+        }
     }
 }

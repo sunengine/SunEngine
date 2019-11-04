@@ -1,12 +1,9 @@
 <template>
   <q-list class="main-menu">
-    <div class="logo-div">
-      <div class="logo text-center">
+    <div class="main-menu__logo-div">
         <router-link :to="{name: 'Home'}">
-          <h3>Sun Engine</h3>
-          <h4>{{$tl("demo")}}</h4>
+          <img class="main-menu__logo-img" src="/statics/SunEngine.svg" />
         </router-link>
-      </div>
     </div>
     <MenuItem v-if="menu" :menuItem="menuItem" :key="menuItem.id" v-for="menuItem of menu"/>
   </q-list>
@@ -28,6 +25,6 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
 </style>

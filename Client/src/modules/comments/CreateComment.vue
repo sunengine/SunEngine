@@ -85,7 +85,7 @@
     }
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .create-comment__editor {
     margin-bottom: 7px;

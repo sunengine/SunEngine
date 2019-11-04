@@ -1,6 +1,6 @@
 <template>
-  <div class="sun-engine-footer q-footer--bordered">
-    {{$tl("start")}} - <a href="http://sunengine.site">Sun Engine</a>
+  <div class="sun-engine-footer">
+    {{$tl("start")}} &nbsp;–&nbsp; <a href="https://sunengine.site">Sun Engine</a>
   </div>
 </template>
 
@@ -10,15 +10,10 @@
   }
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .sun-engine-footer {
     text-align: center;
-    color: $primary;
-    font-family: "BoomBoomRegular";
-    font-size: 17px;
-    letter-spacing: 1px;
-    background-color: #d0fccf;
 
     a {
       color: orange;

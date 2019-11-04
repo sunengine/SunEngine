@@ -127,7 +127,7 @@
     }
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .component-form {
 

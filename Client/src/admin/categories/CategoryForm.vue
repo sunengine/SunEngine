@@ -236,7 +236,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .category-form {
     .q-checkbox {

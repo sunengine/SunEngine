@@ -92,7 +92,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .menu-admin-item-hidden {
     * {

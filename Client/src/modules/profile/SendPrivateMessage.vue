@@ -72,6 +72,6 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
 </style>

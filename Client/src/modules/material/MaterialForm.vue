@@ -24,7 +24,7 @@
     </q-input>
 
 
-    <SunEditor bottomSlots class="material-form__text-editor"
+    <SunEditor bottomSlots class="material-form__text-editor"  content-class="material__text"
                :toolbar="editorToolbar"
                :rules="rules.text"
                ref="htmlEditor" v-model="material.text"/>
@@ -187,7 +187,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .material-form__menu-item {
     margin: 0;

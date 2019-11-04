@@ -1,6 +1,6 @@
 <template>
   <q-list class="login-register-menu sun-second-menu q-py-sm">
-    <q-item :to="{name:'Login'}">
+    <q-item :to="{name:'Login', params: {ret: ret}}">
       <q-item-section avatar>
         <q-icon name="fas fa-sign-in-alt"/>
       </q-item-section>
@@ -22,11 +22,16 @@
 <script>
 
   export default {
-    name: 'LoginRegisterMenu'
+    name: 'LoginRegisterMenu',
+     computed: {
+        ret() {
+            return this.$route.path;
+        }
+      }
   }
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
 </style>

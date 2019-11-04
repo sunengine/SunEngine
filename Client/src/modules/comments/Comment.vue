@@ -1,6 +1,6 @@
 <template>
   <div class="comment">
-    <img class="comment_avatar avatar" :src="$imagePath(comment.authorAvatar)"/>
+    <img class="comment__avatar avatar" :src="$imagePath(comment.authorAvatar)"/>
 
     <div class="q-my-md">
       <div class="q-mb-xs flex">
@@ -85,9 +85,11 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
-  .comment_avatar {
+  .comment__avatar {
+    width: 42px !important;
+    height: 42px !important;
     float: left;
     margin: 2px 12px 12px 0;
   }

@@ -37,12 +37,12 @@ export default async function(url, body, sendAsJson = false, skipLock = false) {
 
   if(body?.sendAsJson) {
     sendAsJson = body.sendAsJson;
-  //  delete body.sendAsJson;
+    delete body.sendAsJson;
   }
 
   if(body?.skipLock) {
     skipLock = body.skipLock;
-  //  delete body.skipLock;
+    delete body.skipLock;
   }
 
   if (config.Log.Requests)
@@ -53,8 +53,9 @@ export default async function(url, body, sendAsJson = false, skipLock = false) {
   const tokens = getTokens();
 
   if (skipLock) {
-    if (checkLocalTokensExpire())
+    if (checkLocalTokensExpire()) {
       headers['LongToken1'] = tokens.longToken;
+    }
 
     return makeRequest();
   }

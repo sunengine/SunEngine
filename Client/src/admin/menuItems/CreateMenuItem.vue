@@ -85,7 +85,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .create-menu-item {
     .btn-block {

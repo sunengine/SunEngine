@@ -65,7 +65,7 @@
 </script>
 
 
-<style lang="stylus">
+<style lang="scss">
 
   .blog-multi-cat-page {
 

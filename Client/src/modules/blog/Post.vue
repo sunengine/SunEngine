@@ -24,12 +24,11 @@
       </div>
     </q-item>
 
-    <div v-if="!post.isHidden && !post.deletedDate" class="post-text page-padding"
-         v-html="post.preview"></div>
+    <div v-if="!post.isHidden && !post.deletedDate" class="post__text page-padding" v-html="post.preview"></div>
 
-    <div class="date text-grey-6">
+    <div class="date page-padding text-grey-6">
       <q-icon name="far fa-clock"/>
-      <span>{{$formatDate(this.post.publishDate)}} &nbsp;</span>
+      <span>{{$formatDate(this.post.publishDate)}}</span>
     </div>
 
     <div class="flex footer float-left">
@@ -52,42 +51,42 @@
 </template>
 
 <script>
-  import {prepareLocalLinks} from 'sun'
+    import {prepareLocalLinks} from 'sun'
 
 
-  export default {
-    name: 'Post',
-    props: {
-      post: {
-        type: Object,
-        required: true
-      }
-    },
-    computed: {
-      to() {
-        return this.category.getMaterialRoute(this.post.id);
-      },
-      toComments() {
-        return this.category.getMaterialRoute(this.post.id, '#comments');
-      },
-      category() {
-        return this.$store.getters.getCategory(this.post.categoryName);
-      }
-    },
-    methods: {
-      prepareLocalLinks() {
-        prepareLocalLinks(this.$el, 'post-text');
-      }
-    },
-    mounted() {
-      this.prepareLocalLinks();
+    export default {
+        name: 'Post',
+        props: {
+            post: {
+                type: Object,
+                required: true
+            }
+        },
+        computed: {
+            to() {
+                return this.category.getMaterialRoute(this.post.id);
+            },
+            toComments() {
+                return this.category.getMaterialRoute(this.post.id, '#comments');
+            },
+            category() {
+                return this.$store.getters.getCategory(this.post.categoryName);
+            }
+        },
+        methods: {
+            prepareLocalLinks() {
+                prepareLocalLinks(this.$el, 'post__text');
+            }
+        },
+        mounted() {
+            this.prepareLocalLinks();
+        }
     }
-  }
 
 </script>
 
 
-<style lang="stylus">
+<style lang="scss">
 
   .post {
     .avatar {
@@ -104,7 +103,7 @@
       color: $link-color !important;
     }
 
-    $footer-line-height = 38px;
+    $footer-line-height : 38px;
 
     .footer {
       align-items: center;

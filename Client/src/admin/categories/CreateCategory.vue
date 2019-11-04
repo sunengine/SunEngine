@@ -82,7 +82,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .create-category__btn-block {
     margin-top: $flex-gutter-lg;

@@ -233,7 +233,10 @@ export default {
     imagesCleanerCaption: "",
     deletedElements: "Deleted elements",
     deletedElementsCaption: "",
-    version: "SunEngine version"
+    version: "SunEngine version",
+    resetCache: "Reset cache",
+    resetCacheCaption: "",
+    resetCacheSuccess: "Cache succesfully reseted"
   },
   AdminPage: {
     title: "@:AdminPanel.title"

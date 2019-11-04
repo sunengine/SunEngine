@@ -78,7 +78,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
 
   .role-users__header {

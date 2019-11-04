@@ -28,7 +28,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .posts-list {
     .hr-sep {

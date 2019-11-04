@@ -30,7 +30,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .deleted-elements__info-box {
     border-radius: 6px;

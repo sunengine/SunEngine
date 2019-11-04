@@ -4,7 +4,7 @@
 // ——— Input ————————————————————————————————————
 
 
-$q-field-color = #00c63b;
+$q-field-color: #00c63b;
 
 .q-field--focused {
   .q-field__label {
@@ -76,7 +76,7 @@ $q-field-color = #00c63b;
     .avatar {
       margin-left: -6px;
       margin-right: 11px;
-      border-radius: 16px
+      border-radius: 16px;
       width: 32px;
       height: 32px;
     }
@@ -92,42 +92,43 @@ $q-field-color = #00c63b;
 }
 
 
-$paddings = (12px 18px 24px)
+$paddings: (12px 18px 24px);
 
-page-paddings-block(size) {
+@mixin page-paddings-block($size) {
   .page-padding {
-    padding-right: size !important;
-    padding-left: size !important;
+    padding-right: $size !important;
+    padding-left: $size !important;
   }
 
   .page-padding-right {
-    padding-right: size !important;
+    padding-right: $size !important;
   }
 
   .page-padding-left {
-    padding-left: size !important;
+    padding-left: $size !important;
   }
 
   .page-margin {
-    margin-right: size !important;
-    margin-left: size !important;
+    margin-right: $size !important;
+    margin-left: $size !important;
   }
 
   .page-padding-top {
-    padding-top: size !important;
+    padding-top: $size !important;
   }
+
 }
 
-@media ( max-width: 599px ) {
-  page-paddings-block($paddings[0])
+@media (max-width: 599px) {
+  @include page-paddings-block(nth($paddings,1));
 }
 
-@media ( min-width: 600px ) and ( max-width: 1023px ) {
-  page-paddings-block($paddings[1])
+@media (min-width: 600px) and (max-width: 1023px) {
+  @include page-paddings-block(nth($paddings,2))
 }
 
-@media ( min-width: 1024px ) {
-  page-paddings-block($paddings[2])
+@media (min-width: 1024px) {
+  @include page-paddings-block(nth($paddings,3))
 }
 
 
@@ -136,7 +137,7 @@ page-paddings-block(size) {
 
 .center-form {
   width: 400px;
-  display flex;
+  display: flex;
   flex-direction: column;
   justify-content: stretch;
 }
@@ -204,6 +205,10 @@ page-paddings-block(size) {
 
 .align-center {
   align-items: center;
+}
+
+.align-middle {
+  vertical-align: middle;
 }
 
 .grow {
@@ -292,15 +297,18 @@ page-paddings-block(size) {
 
 // ——— Captcha ——————————————————————————————————————————
 
+
 .captcha-block {
   padding: 10px 10px 10px 44px;
   border-radius: 5px;
   background-color: #f0f4c3;
 }
 
+
 // ——— Site styles ————————————————————————————————————
 
-@import '~src/site/styles';
+
+@import '../site/styles.scss';
 
 
 

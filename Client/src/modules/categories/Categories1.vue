@@ -37,7 +37,7 @@
     }
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .categories1 {
     padding: 0 !important;

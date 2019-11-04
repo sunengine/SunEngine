@@ -1,18 +1,3 @@
-$text-color =  #06000d;
-$link-color = #3498db;
-$menu-color = unset;
-$menu-icon-color = unset;
-$menu-link-color = unset;
-$header-background-color = #24c7ff;
-$header-text-color = white;
-$header-border-color = #cbcbcb;
-$header-menu-icon-color = white;
-$header-user-color = white;
-$footer-background-color = #d4f0ff;
-$footer-text-color = #3498db;
-$footer-link-color = #3498db;
-$footer-border-color = #cbcbcb;
-$panel-header-background = #ededed;
 
 
 // ——— Main ——————————————————————————————————————
@@ -34,7 +19,7 @@ a, .link {
 }
 
 .q-router-link--active {
-  background-color: #e2f8e8;
+  background-color: $footer-background-color;
 }
 
 
@@ -132,17 +117,18 @@ a, .link {
     color: $footer-link-color;
   }
 
-  .links-menu__separator  {
+  .links-menu__separator {
     .q-icon {
-        margin: 0 16px;
-        color: #ffa500;
-      }
+      margin: 0 16px;
+      color: #ffa500;
+    }
   }
 }
 
 .layout__footer-line {
   margin: 12px 0;
 }
+
 
 // ——— MainMenu ——————————————————————————————————
 
@@ -162,7 +148,7 @@ a, .link {
 .main-menu {
 
   .q-router-link--active {
-    background-color: #d0fccf;
+    background-color: $footer-background-color;
 
     .q-item__section--main {
       color: black !important;
@@ -173,7 +159,7 @@ a, .link {
     margin: 0 !important;
     padding: 0 !important;
     width: 60px !important;
-    color: $link-color !important;
+    color: $menu-icon-color !important;
     justify-items: center !important;
     align-items: center !important;
   }
@@ -201,7 +187,7 @@ a, .link {
   font-weight: bolder;
   background-color: $panel-header-background;
   border-bottom: 1px solid #f1f1f1;
-  color: $grey-8;
+  color: $panel-header-color;
 }
 
 

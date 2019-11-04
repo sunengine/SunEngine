@@ -61,7 +61,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .roles-page__header {
     background-color: #cfd8dc;

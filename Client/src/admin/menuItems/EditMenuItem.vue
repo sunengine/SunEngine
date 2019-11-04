@@ -81,7 +81,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .edit-menu-item {
     .btn-block {

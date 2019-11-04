@@ -1,6 +1,6 @@
 export default {
   Index: {
-    demo: "Demo",
+    demo: "SunEngine",
     users: "Users",
     password: "Password",
     version: "Version",
@@ -13,7 +13,7 @@ export default {
     demo: "Demo"
   },
   Layout: {
-    demo: "- demo",
+    title: "SunEngine Demo",
     madeWithLove: "Made with love"
   },
   MaterialInlinePage: {

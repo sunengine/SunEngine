@@ -17,7 +17,7 @@ export default {
   DeletedComment: {
     label: "Сообщение удалено"
   },
-  ReadComment: {
+  Comment: {
     edit: "редактировать",
     deleteDialogMessage: "Удалить сообщение?",
     moveToTrashSuccess: "Комментарий удалён"

@@ -58,7 +58,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .components-admin {
     .components {

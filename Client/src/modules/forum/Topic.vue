@@ -94,7 +94,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .topic__last-reply {
     .q-item {

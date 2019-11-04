@@ -288,7 +288,7 @@
 </script>
 
 
-<style lang="stylus">
+<style lang="scss">
 
   .material {
     .q-chip {
@@ -307,6 +307,8 @@
   }
 
   .material__avatar {
+    width: 42px !important;
+    height: 42px !important;
     margin-right: 12px;
   }
 

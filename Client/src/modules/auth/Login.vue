@@ -3,34 +3,39 @@
 
     <div class="center-form">
 
-      <q-input ref="nameOrEmail" v-model="nameOrEmail" :label="$tl('nameOrEmail')"
-               :rules="[(value) => !!value || $tl('validation.nameOrEmail.required')]">
-        <template v-slot:prepend>
-          <q-icon name="fas fa-user"/>
-        </template>
-      </q-input>
+      <q-form @submit="login">
+        <q-input ref="nameOrEmail" v-model="nameOrEmail" :label="$tl('nameOrEmail')"
+                 :rules="[(value) => !!value || $tl('validation.nameOrEmail.required')]">
+          <template v-slot:prepend>
+            <q-icon name="fas fa-user"/>
+          </template>
+        </q-input>
 
-      <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'" @keyup.enter="login"
-               :label="$tl('password')"
-               :rules="[(value) => !!value || $tl('validation.password.required')]">
-        <template v-slot:prepend>
-          <q-icon name="fas fa-key"/>
-        </template>
-        <template v-slot:append>
-          <q-icon
-            :name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
-            class="cursor-pointer"
-            @click="showPassword = !showPassword"
-          />
-        </template>
-      </q-input>
+        <q-input ref="password" v-model="password" :type="showPassword ? 'text' : 'password'" @keyup.enter="login"
+                 :label="$tl('password')"
+                 :rules="[(value) => !!value || $tl('validation.password.required')]">
+          <template v-slot:prepend>
+            <q-icon name="fas fa-key"/>
+          </template>
+          <template v-slot:append>
+            <q-icon
+              :name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
+              class="cursor-pointer"
+              @click="showPassword = !showPassword"
+            />
+          </template>
+        </q-input>
 
 
-      <q-btn style="width:100%;" class="send-btn" :label="$tl('enterBtn')" @click="login" :loading="submitting">
-        <span slot="loading">
-          <q-spinner class="on-left"/>  {{$tl('entering')}}
-        </span>
-      </q-btn>
+        <q-btn type="submit" style="width:100%;" class="send-btn" :label="$tl('enterBtn')"
+               :loading="submitting">
+          <span slot="loading">
+            <q-spinner class="on-left"/>  {{$tl('entering')}}
+          </span>
+        </q-btn>
+
+      </q-form>
+
 
       <router-link class="text-center q-mt-lg" :to="{name:'ResetPassword'}">
         <q-icon class="q-mr-sm" name="far fa-question-circle"/>
@@ -48,6 +53,12 @@
     export default {
         name: 'Login',
         mixins: [Page],
+        props: {
+          ret: {
+              type: String,
+              required: false
+          }
+        },
         data() {
             return {
                 nameOrEmail: null,
@@ -57,7 +68,7 @@
             }
         },
         methods: {
-            login() {
+            async login() {
                 this.$refs.nameOrEmail.validate();
                 this.$refs.password.validate();
 
@@ -66,16 +77,22 @@
 
                 this.submitting = true;
 
-                this.$store.dispatch('login', {
+                await this.$store.dispatch('login', {
                     nameOrEmail: this.nameOrEmail,
                     password: this.password
                 }).then(() => {
                     this.$successNotify();
-                    this.$router.back();
+
+                    if (this.ret)
+                        this.$router.replace(this.ret);
+                    else
+                        this.$router.replace('/');
+
                 }).catch(error => {
                     this.submitting = false;
                     this.$errorNotify(error);
                 });
+
             }
         },
         created() {
@@ -85,6 +102,6 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
 </style>
