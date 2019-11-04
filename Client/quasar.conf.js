@@ -21,7 +21,6 @@ module.exports = function (ctx) {
     ],
     css: [
       'app.scss',
-      //'../site/styles.scss'
     ],
     extras: [
       //'roboto-font',
