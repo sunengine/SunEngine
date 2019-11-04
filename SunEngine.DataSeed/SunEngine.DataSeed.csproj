@@ -8,7 +8,6 @@
     <ItemGroup>
         <PackageReference Include="linq2db" Version="2.9.3" />
         <PackageReference Include="linq2db.Identity" Version="2.0.1" />
-        <PackageReference Include="Microsoft.Data.Sqlite" Version="3.0.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0" />
         <PackageReference Include="MySql.Data" Version="8.0.18" />
         <PackageReference Include="NJsonSchema" Version="10.0.27" />
