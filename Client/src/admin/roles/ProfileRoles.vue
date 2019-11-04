@@ -171,7 +171,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .profile-roles__user-groups .profile-roles__group:not(:last-child):after {
     content: ", ";

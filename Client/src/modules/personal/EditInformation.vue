@@ -61,7 +61,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .edit-information__send-btn {
     width: 270px;

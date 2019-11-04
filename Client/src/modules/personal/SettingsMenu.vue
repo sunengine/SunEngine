@@ -93,7 +93,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .settings-menu__avatar-block {
     padding: 15px;

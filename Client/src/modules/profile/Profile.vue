@@ -137,7 +137,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .profile__container {
     display: flex;

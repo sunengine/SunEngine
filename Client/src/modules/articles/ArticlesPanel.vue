@@ -14,7 +14,7 @@
 <script>
   import {Categories1} from 'sun'
 
-  
+
   export default {
     name: 'ArticlesPanel',
     props: {
@@ -42,6 +42,6 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
 </style>

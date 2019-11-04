@@ -110,7 +110,7 @@
     }
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .sessions__current {
     background-color: #efffec;

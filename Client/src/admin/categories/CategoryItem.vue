@@ -63,7 +63,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .category-item {
     .padding-shift {

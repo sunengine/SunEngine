@@ -102,7 +102,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .thread__sep {
     height: 0;

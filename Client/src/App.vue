@@ -67,7 +67,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .app__api-error {
     display: flex;

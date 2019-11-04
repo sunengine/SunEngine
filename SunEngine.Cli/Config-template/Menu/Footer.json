@@ -1,0 +1,19 @@
+{
+  "Name": "FooterMenu",
+  "Title": "Footer menu",
+  "Icon": "fas fa-bars",
+  "SubMenuItems": [
+    {
+      "Title": "Сделано с Любовью"
+    },
+    {
+      "Title": "GitHub",
+      "ExternalUrl": "https://github.com/sunengine/SunEngine"
+    },
+    {
+      "Title": "Telegram",
+      "ExternalUrl": "https://t.me/SunEngine"
+    }
+  ]
+}
+

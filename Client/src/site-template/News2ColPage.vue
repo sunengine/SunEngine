@@ -56,7 +56,7 @@
 </script>
 
 
-<style lang="stylus">
+<style lang="scss">
 
   .news-2-col-page {
     .hr-minus {

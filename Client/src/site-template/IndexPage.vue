@@ -1,19 +1,20 @@
 <template>
-  <q-page class="index-page middle">
-    <h1 class="index-page__demo-header">
-      {{$tl("demo")}}
-    </h1>
-    <div class="index-page__info-block">
-      <p>{{$tl("users")}}:
-        <span class="hl">User1</span>,
-        <span class="hl">User2</span>,
-        <span class="hl">User3</span>,
-        <span class="hl">Moderator</span>,
-        <span class="hl">Admin</span>.</p>
-      <p>{{$tl("password")}}: <span class="hl">password</span>.</p>
-      <p class="index-page__version">{{$tl("version")}}: <span class="num">1.15.4</span></p>
+  <q-page class="index-page middle flex flex-center">
+    <div>
+      <h1 class="index-page__demo-header">
+        {{$tl("demo")}}
+      </h1>
+      <div class="index-page__info-block">
+        <p>{{$tl("users")}}:
+          <span class="hl">User1</span>,
+          <span class="hl">User2</span>,
+          <span class="hl">User3</span>,
+          <span class="hl">Moderator</span>,
+          <span class="hl">Admin</span>.</p>
+        <p>{{$tl("password")}}: <span class="hl">password</span>.</p>
+        <p class="index-page__version">{{$tl("version")}}: <span class="num">1.15.5</span></p>
+      </div>
     </div>
-
   </q-page>
 </template>
 
@@ -30,12 +31,13 @@
 </script>
 
 
-<style lang="stylus">
+<style lang="scss">
 
   .index-page {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 0 !important;
   }
 
   .index-page__demo-header {
@@ -67,8 +69,6 @@
   }
 
   .index-page__version {
-    color: $primary;
-
     .num {
       font-weight: 600;
       color: #330f53;

@@ -69,7 +69,7 @@
     }
 
 </script>
-<style lang="stylus">
+<style lang="scss">
 
   .images-cleaner__clean-img {
     object-fit: cover;

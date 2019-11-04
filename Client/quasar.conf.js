@@ -20,7 +20,8 @@ module.exports = function (ctx) {
       'api'
     ],
     css: [
-      'app.styl'
+      'app.scss',
+      //'../site/styles.scss'
     ],
     extras: [
       //'roboto-font',

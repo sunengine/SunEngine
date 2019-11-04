@@ -29,7 +29,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .loader-wait {
     font-size: 1.05rem;

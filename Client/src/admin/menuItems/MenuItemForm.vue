@@ -326,7 +326,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .menu-item-form {
     .q-tree__node-header {

@@ -187,7 +187,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .material-form__menu-item {
     margin: 0;

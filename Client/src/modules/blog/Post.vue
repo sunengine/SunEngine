@@ -86,7 +86,7 @@
 </script>
 
 
-<style lang="stylus">
+<style lang="scss">
 
   .post {
     .avatar {
@@ -103,7 +103,7 @@
       color: $link-color !important;
     }
 
-    $footer-line-height = 38px;
+    $footer-line-height : 38px;
 
     .footer {
       align-items: center;

@@ -30,13 +30,6 @@
       "Icon": "fas fa-newspaper"
     },
     {
-      "Title": "Секрет",
-      "SubTitle": "Для зарегистрированных пользователей",
-      "RouteName": "Secret",
-      "Icon": "fas fa-user-secret",
-      "Roles": "Registered"
-    },
-    {
       "Title": "Дополнение",
       "SubTitle": "Варианты страниц",
       "Icon": "fas fa-th",
@@ -46,6 +39,13 @@
           "SubTitle": "Пример в две колонки",
           "RouteName": "News2ColPage",
           "Icon": "fas fa-home"
+        },
+        {
+          "Title": "Секрет",
+          "SubTitle": "Для зарегистрированных пользователей",
+          "RouteName": "Secret",
+          "Icon": "fas fa-user-secret",
+          "Roles": "Registered"
         },
         {
           "Title": "Блог посты",

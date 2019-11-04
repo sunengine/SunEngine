@@ -25,7 +25,7 @@
     }
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .links-menu {
     a:hover {

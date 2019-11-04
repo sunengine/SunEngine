@@ -81,7 +81,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .roles-permissions__alert-backup {
     border-radius: 10px;

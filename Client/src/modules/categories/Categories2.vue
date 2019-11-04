@@ -56,7 +56,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
     .categories2__header {
       padding: 8px 16px;

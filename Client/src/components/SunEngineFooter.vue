@@ -10,7 +10,7 @@
   }
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
   .sun-engine-footer {
     text-align: center;
