@@ -45,7 +45,7 @@
   },
   "Jwe": {
     "LongTokenLiveTimeDays": 90,
-    "ShortTokenLiveTimeMinutes": 1,
+    "ShortTokenLiveTimeMinutes": 20,
     "Issuer": "SunEngine Asp.net Core"
   },
   "Scheduler": {
