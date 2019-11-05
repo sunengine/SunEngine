@@ -82,11 +82,6 @@
       <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test3\styles.scss" />
       <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test3\variables.scss" />
     </ItemGroup>
-
-
-    <ItemGroup>
-      <Folder Include="wwwroot\statics\skin" />
-    </ItemGroup>
     
    
     <PropertyGroup>

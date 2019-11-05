@@ -5,7 +5,7 @@
       <h2 class="page-title">
         {{title}}
       </h2>
-      <q-btn no-caps icon="fas fa-cloud-upload-alt" @click="showUploadDialog" class="send-btn q-mb-lg"
+      <q-btn no-caps icon="fas fa-cloud-upload-alt" @click="showUploadDialog" class="post-btn q-mb-lg"
              :label="$tl('upload')"/>
     </div>
 
@@ -17,10 +17,14 @@
             {{skin}}
           </q-item-section>
           <q-item-section avatar>
-            <q-btn no-caps @click="changeSkin(skin)" class="send-btn" icon-right="fas fa-play" :label="$tl('set')"/>
+            <q-banner rounded class="bg-info"   v-if="skin === current">
+              Current <q-icon size="24px" class="q-ml-sm" name="fas fa-check"/>
+            </q-banner>
+            <q-btn v-if="skin !== current" no-caps @click="changeSkin(skin)" class="send-btn skins-admin__send-btn" icon-right="fas fa-play"
+                   :label="$tl('set')"/>
           </q-item-section>
           <q-item-section avatar>
-            <q-btn no-caps @click="deleteSkin(skin)" class="delete-btn" icon="fas fa-ban"/>
+            <q-btn v-if="skin !== current" no-caps @click="deleteSkin(skin)" class="delete-btn" icon="fas fa-ban"/>
           </q-item-section>
         </q-item>
       </q-list>
@@ -37,7 +41,8 @@
         mixins: [Page],
         data() {
             return {
-                skins: null
+                skins: null,
+                current: null
             }
         },
         methods: {
@@ -82,12 +87,14 @@
                     }
                 ).then(_ => {
                     this.$successNotify();
+                    this.getAllSkins();
                 });
             },
             getAllSkins() {
                 this.$request(this.$AdminApi.SkinsAdmin.GetAllSkins)
                     .then(response => {
-                        this.skins = response.data
+                        this.skins = response.data.all;
+                        this.current = response.data.current;
                     });
             }
         },
