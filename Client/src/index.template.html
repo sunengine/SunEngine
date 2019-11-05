@@ -7,6 +7,7 @@
     <meta name="description" content="<%= htmlWebpackPlugin.options.productDescription %>">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
+
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width<% if (htmlWebpackPlugin.options.ctx.mode.cordova || htmlWebpackPlugin.options.ctx.mode.capacitor) { %>, viewport-fit=cover<% } %>">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic" rel="stylesheet" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Jomolhari&display=swap" rel="stylesheet">
@@ -14,6 +15,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="statics/icons/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="statics/icons/favicon-32x32.png">
     <script type="text/javascript" src="/config.js?<%= htmlWebpackPlugin.options.configUId %>"></script>
+    <link href="/statics/skin/styles.css" rel="stylesheet">
 
   </head>
   <body>
