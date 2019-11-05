@@ -42,6 +42,16 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
+        public IActionResult DeleteSkin(string name)
+        {
+            var selectedSkinPath = Path.Combine(env.WebRootPath,  "statics", "skins", name);
+            
+            Directory.Delete(selectedSkinPath,true);
+
+            return Ok();
+        }
+
+        [HttpPost]
         public IActionResult ChangeSkin(string name)
         {
             var currentSkinPath = Path.Combine(env.WebRootPath,  "statics", "skin");

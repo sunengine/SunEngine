@@ -294,6 +294,11 @@ export default {
   SkinsAdmin: {
     title: "Админка скинов",
     upload: "Загрузить скин",
-    set: "Установить"
+    uploadSuccessNotify: "Скин успешно загружен",
+    deleteSuccessNotify: "Скин успешно удалён",
+    set: "Установить",
+    deleteMsg: "Удалить скин?",
+    btnDeleteOk: "@:Global.dialog.yes",
+    btnDeleteCancel: "@:Global.dialog.cancel"
   }
 }

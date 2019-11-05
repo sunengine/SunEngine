@@ -52,6 +52,7 @@ export default {
   SkinsAdmin: {
     GetAllSkins: '/Admin/SkinsAdmin/GetAllSkins',
     UploadSkin: '/Admin/SkinsAdmin/UploadSkin',
-    ChangeSkin: '/Admin/SkinsAdmin/ChangeSkin'
+    ChangeSkin: '/Admin/SkinsAdmin/ChangeSkin',
+    DeleteSkin: '/Admin/SkinsAdmin/DeleteSkin'
   }
 }

@@ -285,6 +285,11 @@ export default {
   SkinsAdmin: {
     title: "Skins admin",
     upload: "Upload skin",
-    set: "Set"
+    uploadSuccessNotify: "Skin uploaded successfully",
+    deleteSuccessNotify: "Skin deleted successfully",
+    set: "Set",
+    deleteMsg: "Delete skin?",
+    btnDeleteOk: "@:Global.dialog.yes",
+    btnDeleteCancel: "@:Global.dialog.cancel"
   }
 }

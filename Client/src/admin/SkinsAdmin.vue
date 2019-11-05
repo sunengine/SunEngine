@@ -20,7 +20,7 @@
             <q-btn no-caps @click="changeSkin(skin)" class="send-btn" icon-right="fas fa-play" :label="$tl('set')"/>
           </q-item-section>
           <q-item-section avatar>
-            <q-btn no-caps @click="changeSkin(skin)" class="delete-btn" icon="fas fa-ban"/>
+            <q-btn no-caps @click="deleteSkin(skin)" class="delete-btn" icon="fas fa-ban"/>
           </q-item-section>
         </q-item>
       </q-list>
@@ -51,7 +51,28 @@
                 this.$request(this.$AdminApi.SkinsAdmin.UploadSkin,
                     formData
                 ).then(response => {
-                    this.$successNotify();
+                    this.$successNotify(this.$tl("uploadSuccessNotify"));
+                    this.getAllSkins();
+                });
+            },
+            deleteSkin(name) {
+                const deleteMsg = this.$tl('deleteMsg');
+                const btnDeleteOk = this.$tl('btnDeleteOk');
+                const btnDeleteCancel = this.$tl('btnDeleteCancel');
+
+                this.$q.dialog({
+                    message: deleteMsg,
+                    ok: btnDeleteOk,
+                    cancel: btnDeleteCancel
+                }).onOk(() => {
+                    this.$request(this.$AdminApi.SkinsAdmin.DeleteSkin,
+                        {
+                            name: name
+                        }
+                    ).then(_ => {
+                        this.$successNotify(this.$tl("deleteSuccessNotify"));
+                        this.getAllSkins();
+                    });
                 });
             },
             changeSkin(name) {
@@ -59,7 +80,7 @@
                     {
                         name: name
                     }
-                ).then(response => {
+                ).then(_ => {
                     this.$successNotify();
                 });
             },
