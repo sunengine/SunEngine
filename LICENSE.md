@@ -7,7 +7,7 @@ Project author: Dmitrij Polianin
 All rights to the SunEngine project code belong to the author of the project.  
 ### Personal use:
 1. SunEngine allowed to use with out fee for commercial and not commercial projects.
-2. User allowed to change code of SunEngine in personal and private goals, including making projects on SunEngine basis, there is exceptions:  
+2. User allowed to change code of SunEngine in personal goals, including making projects on SunEngine basis, there is exceptions:  
   2.1. User is not allowed to change license text.  
   2.2. User is not allowed to change or remove banner, see part 3.  
 ### SunEngine link block at site footer:

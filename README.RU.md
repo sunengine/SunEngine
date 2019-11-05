@@ -27,7 +27,7 @@
 #### Ключевые технологии:
 В проекте используются современные и красивые технологии.
 
-- Asp.Net Core 2.2
+- Asp.Net Core 3.0
 - Linq2db — доступ к базе данных.
 - FluentMigrator — миграции.
 - VueJs — SPA клиентская часть.
@@ -68,22 +68,25 @@
 SunEngine можно запустить на Windows, Linux и macOS.  
   
 Для запуска проекта необходимо установить:
-- [.NET Core 2.2 + ASP.NET Core Runtimes](https://dotnet.microsoft.com/download/dotnet-core/2.2)
+- [.NET Core 3.0 + ASP.NET Core Runtimes](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 - [NodeJs](https://nodejs.org/en/download/)
 - [Npm](https://www.npmjs.com/) (устанавливается сам при установке NodeJs)
 - [Quasar CLI](https://quasar.dev/quasar-cli/installation) `npm install -g @quasar/cli`
 
 ### Запуск для разработки
 #### Запуск из консоли
-1. Зайти в папку `SunEngine/SunEngine.Cli`.
-2. Заполнить базу SQLite начальными данными `dotnet run migrate init seed` (если не сделано).
-3. Запустить сервер `dotnet run server`.
-4. Зайти в папку `SunEngine/Client`.
-5. Установить npm модули `npm install` (если не сделано).
-6. Запустить клиент `quasar dev` — откроется браузер с сайтом.
+1. Скачать код проекта с официального репозитория https://github.com/sunengine/SunEngine (если не сделано)
+2. Переименовть файлы и папки с суффиксом `-template`, удалив этот суффикс. (если не сделано)
+3. Зайти в папку `SunEngine/SunEngine.Cli`.
+4. Создать базу данных с названим SunEngine в выбранной СУБД. (если не сделано)
+5. В файле `SunEngine/SunEngine.Cli/Config/DataBaseConnection.json` прописать имя провайдера и строку подключения.
+6. Заполнить базу данных начальными данными `dotnet run migrate init seed` (если не сделано).
+7. Запустить сервер `dotnet run server`.
+8. Зайти в папку `SunEngine/Client`.
+9. Установить npm модули `npm install` (если не сделано).
+10. Запустить клиент `quasar dev` — откроется браузер с сайтом.
 
 ### Контакты  
 - [Дмитрий Полянин](https://github.com/Dmitrij-Polyanin)
-- Skype: [dmitrij.polyanin](skype:dmitrij.polyanin?chat)
 - Telegram: [@okeanij](tg://resolve?domain=Okeanij)
 - Группа в Telegram: [@SunEngine](tg://resolve?domain=SunEngine)

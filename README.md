@@ -27,7 +27,7 @@ Demo site: [demo.sunengine.site](http://demo.sunengine.site).
 #### Key technologies
 The project uses modern and beautiful technologies.
 
-- Asp.Net Core 2.2
+- Asp.Net Core 3.0
 - Linq2db — database framework.
 - FluentMigrator — database migrations.
 - VueJs — SPA-based client side.
@@ -56,22 +56,25 @@ The project uses modern and beautiful technologies.
 SunEngine can be launched on Windows, Linux and macOS.
   
 To run the project you need to install:
-- [.NET Core 2.2 + ASP.NET Core Runtimes](https://dotnet.microsoft.com/download/dotnet-core/2.2)
+- [.NET Core 3.0 + ASP.NET Core Runtimes](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 - [NodeJs](https://nodejs.org/en/download/)
 - [Npm](https://www.npmjs.com/) (will already be installed along with NodeJs)
 - [Quasar CLI](https://quasar.dev/quasar-cli/installation) `npm install -g @quasar/cli`
 
 ### Launch for development
 #### Launch from console
-1. Go to folder `SunEngine/SunEngine.Cli`.
-2. Fill SQLite database with initial data `dotnet run migrate init seed` (if not done yet).
-3. Run server `dotnet run server`.
-4. Go to folder `SunEngine/Client`.
-5. Install npm modules `npm install` (if not done yet).
-6. Run client `quasar dev` — browser will be opened.
+1. Download the project code from the official repository https://github.com/sunengine/SunEngine (if not done)
+2. Rename files and folders with the suffix `-template`, and remove this suffix. (if not done)
+3. Go to folder `SunEngine/SunEngine.Cli`.
+4. Create a database `SunEngine` in the selected DBMS. (if not done)
+5. Register the provider name and connection string in the file `SunEngine/SunEngine.Cli/Config/DataBaseConnection.json`.
+6. Fill the database with initial data `dotnet run migrate init seed` (if not done).
+7. Run server `dotnet run server`.
+8. Go to folder `SunEngine/Client`.
+9. Install npm modules `npm install` (if not done yet).
+10. Run client `quasar dev` — browser will be opened.
 
 ### Contacts
 - Dmitrij Polianin
-- Skype: dmitrij.polyanin
 - Telegram: [@okeanij](https://t.me/Okeanij)
 - Project's Telegram group: [@SunEngine](https://t.me/SunEngine)
