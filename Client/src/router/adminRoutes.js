@@ -17,6 +17,7 @@ import {AdminMenu} from 'sun'
 import {ComponentsAdmin} from 'sun'
 import {CreateComponent} from 'sun'
 import {EditComponent} from 'sun'
+import {SkinsAdmin} from 'sun'
 
 
 const AdminPage = wrapInPage("AdminPage", AdminMenu, null, "fas fa-cog");
@@ -98,6 +99,14 @@ const routes = [
         }
       },
       navigation: null
+    }
+  },
+  {
+    name: 'SkinsAdmin',
+    path: '/admin/Skins'.toLowerCase(),
+    components: {
+      default: SkinsAdmin,
+      navigation: AdminPanel
     }
   },
   {

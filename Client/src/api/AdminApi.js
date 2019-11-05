@@ -48,5 +48,10 @@ export default {
   },
   CacheAdmin: {
     ResetAllCache: '/Admin/CacheAdmin/ResetAllCache'
+  },
+  SkinsAdmin: {
+    GetAllSkins: '/Admin/SkinsAdmin/GetAllSkins',
+    UploadSkin: '/Admin/SkinsAdmin/UploadSkin',
+    ChangeSkin: '/Admin/SkinsAdmin/ChangeSkin'
   }
 }

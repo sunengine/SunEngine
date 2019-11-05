@@ -67,3 +67,5 @@ else if(config.SiteUrl.startsWith("https://"))
 else
   throw "SiteUrl in config.js have to start with 'http://' or 'https://'.";
 
+
+document.writeln(`<link href="${config.API}/statics/skin/styles.css" rel="stylesheet">`);

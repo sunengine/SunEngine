@@ -1,23 +1,23 @@
-@import "../../../node_modules/quasar/src/css/variables.sass";
-@import "../../css/quasar.variables";
+@import "../variables.sass";
+@import "../quasar.variables";
 @import "variables.scss";
 
 
 // ——— Main ——————————————————————————————————————
-
+ 
 
 html {
   color: $text-color !important;
   font-family: 'Open Sans', sans-serif;
-}
-
+} 
+ 
 
 a, .link {
   text-decoration: none;
   color: $link-color;
 
   &:hover {
-    color: #2472b3;
+    color: #2472b3; 
   }
 }
 
@@ -31,7 +31,7 @@ a, .link {
 
 .send-btn {
   background-color: #54e288 !important;
-  color: white;
+  color: white !important;
 }
 
 .post-btn {
@@ -41,16 +41,16 @@ a, .link {
   &:hover {
     color: white !important;
   }
-}
+} 
 
 .cancel-btn {
   background-color: $warning !important;
-  color: white;
+  color: white !important;
 }
 
 .delete-btn {
   background-color: $negative !important;
-  color: white;
+  color: white !important;
 }
 
 .bg-pagination {

@@ -221,6 +221,8 @@ export default {
     categoriesCaption: "",
     components: "Components",
     componentsCaption: "",
+    skins: "Skins",
+    skinsCaption: "",
     rolesUsers: "Groups",
     rolesUsersCaption: "",
     rolesPermissions: "Permission",
@@ -279,5 +281,10 @@ export default {
     refreshBtn: "Refresh",
     clearCount: "Cleared images: ",
     emptyResult: "Folder is empty"
+  },
+  SkinsAdmin: {
+    title: "Skins admin",
+    upload: "Upload skin",
+    set: "Set"
   }
 }

@@ -30,6 +30,15 @@
         <q-item-label v-if="componentsCaption" caption>{{componentsCaption}}</q-item-label>
       </q-item-section>
     </q-item>
+    <q-item :to="{name: 'SkinsAdmin'}">
+      <q-item-section avatar>
+        <q-icon name="fas fa-user-astronaut"/>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $tl("skins") }}</q-item-label>
+        <q-item-label v-if="skinsCaption" caption>{{skinsCaption}}</q-item-label>
+      </q-item-section>
+    </q-item>
 
     <q-item :to="{name: 'RolesPage'}">
       <q-item-section avatar>
@@ -127,6 +136,9 @@
             },
             componentsCaption() {
                 return this.$tl("cypherSecretsCaption") ?? null;
+            },
+            skinsCaption() {
+                return this.$tl("skinsCaption") ?? null;
             },
             rolesUsersCaption() {
                 return this.$tl("rolesUsersCaption") ?? null;

@@ -223,6 +223,9 @@ export default {
     //categoriesCaption: "Редактирование разделов сайта",
     components: "Компоненты",
     componentsCaption: "",
+    skins: "Скины",
+    skinsCaption: "",
+    //skinsCaption: "Изменение скинов",
     rolesUsers: "Группы",
     rolesUsersCaption: "",
     //rolesUsersCaption: "Пользователи по группам",
@@ -287,5 +290,10 @@ export default {
     refreshBtn: "Обновить",
     clearCount: "Очищено изображений: ",
     emptyResult: "Каталог пуст"
+  },
+  SkinsAdmin: {
+    title: "Админка скинов",
+    upload: "Загрузить скин",
+    set: "Установить"
   }
 }

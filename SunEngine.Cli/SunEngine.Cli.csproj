@@ -73,6 +73,19 @@
       <_ContentIncludedByDefault Remove="Config-template\Menu\Main.json" />
       <_ContentIncludedByDefault Remove="Config-template\Materials\inline1.json" />
       <_ContentIncludedByDefault Remove="Config-template\Categories\SiteTexts.json" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test1\styles.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test1\styles.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test1\styles.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test1\variables.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test3\styles.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test3\styles.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test3\styles.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test3\variables.scss" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Folder Include="wwwroot\statics\skin" />
     </ItemGroup>
     
    
