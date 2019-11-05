@@ -1,8 +1,6 @@
-using System;
 using AngleSharp.Dom;
 using AngleSharp.Dom.Html;
 using AngleSharp.Parser.Html;
-using SunEngine.Core.Models.Materials;
 
 namespace SunEngine.Core.Utils.TextProcess
 {

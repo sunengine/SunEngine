@@ -5,7 +5,6 @@ using LinqToDB;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
-using SunEngine.Core.Utils.TextProcess;
 
 namespace SunEngine.Core.Managers
 {

@@ -1,10 +1,5 @@
 using System;
-using FluentMigrator.Builders;
-using FluentMigrator.Builders.Alter.Table;
-using FluentMigrator.Builders.Create;
-using FluentMigrator.Builders.Create.ForeignKey;
 using FluentMigrator.Builders.Create.Table;
-using FluentMigrator.Infrastructure;
 
 namespace SunEngine.Migrations
 {

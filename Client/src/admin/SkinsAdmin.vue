@@ -24,7 +24,7 @@
                    :label="$tl('set')"/>
           </q-item-section>
           <q-item-section avatar>
-            <q-btn v-if="skin !== current" no-caps @click="deleteSkin(skin)" class="delete-btn" icon="fas fa-ban"/>
+            <q-btn v-if="skin !== current" no-caps @click="deleteSkin(skin)" class="delete-btn" icon="fas fa-trash-alt"/>
           </q-item-section>
         </q-item>
       </q-list>

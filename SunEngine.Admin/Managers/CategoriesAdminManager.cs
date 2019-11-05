@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using AngleSharp.Dom.Html;
-using AngleSharp.Parser.Html;
 using LinqToDB;
 using Microsoft.Extensions.Options;
 using SunEngine.Core.Cache.Services;
@@ -12,7 +10,6 @@ using SunEngine.Core.Errors;
 using SunEngine.Core.Models;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
-using SunEngine.Core.Utils.TextProcess;
 
 namespace SunEngine.Admin.Managers
 {
