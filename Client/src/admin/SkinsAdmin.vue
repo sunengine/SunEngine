@@ -15,23 +15,23 @@
     <div v-if="skins">
       <q-list>
         <q-item :key="skin" v-for="skin of skins">
+
           <q-item-section class="skins-admin__skin-name">
             {{skin}}
           </q-item-section>
           <q-item-section avatar>
-            <q-icon name="fas fa-search" >
+            <q-icon name="fas fa-search">
               <q-tooltip>
                 <img :src="$buildPath(skinsDir,skin,'preview.png')" width="600"/>
               </q-tooltip>
             </q-icon>
-
           </q-item-section>
-          <q-item-section avatar>
-            <q-banner rounded class="skins-admin__current-skin bg-info q-btn q-btn--no-uppercase cursor-inherit" dense
+          <q-item-section class="skins-admin__set-skin" avatar>
+            <q-banner rounded class="skins-admin__current-skin bg-info q-btn q-btn--no-uppercase cursor-inherit width100  text-center" dense
                       v-if="skin === current">
               {{$tl("current")}}
             </q-banner>
-            <q-btn v-if="skin !== current" no-caps @click="changeSkin(skin)" class="send-btn skins-admin__send-btn"
+            <q-btn v-if="skin !== current" no-caps @click="changeSkin(skin)" class="send-btn skins-admin__send-btn width100"
                    :label="$tl('set')"/>
           </q-item-section>
           <q-item-section avatar>
@@ -131,6 +131,10 @@
   .skins-admin__skin-name {
     font-weight: 600;
     font-size: 1.2em;
+  }
+
+  .skins-admin__set-skin {
+    width: 150px;
   }
 
 </style>
