@@ -81,6 +81,19 @@
       <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test3\styles.css.map" />
       <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test3\styles.scss" />
       <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test3\variables.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\Default\styles.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\Default\styles.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\Default\styles.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\Default\variables.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\MyTestSkin2\styles.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\MyTestSkin2\styles.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\MyTestSkin2\styles.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\MyTestSkin2\variables.scss" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Folder Include="wwwroot\statics\skins" />
     </ItemGroup>
     
    
