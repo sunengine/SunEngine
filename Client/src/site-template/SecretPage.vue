@@ -27,7 +27,7 @@
     border-radius: 12px;
     border: 4px dashed $amber-3;
     padding: 14px;
-    color: $header-background-color;
+    color: $light-blue-6;
   }
 
 </style>

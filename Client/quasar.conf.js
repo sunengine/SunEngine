@@ -74,6 +74,10 @@ module.exports = function (ctx) {
         if (ctx.dev) {
           cfg.plugins.push(new CopyWebpackPlugin([{from: 'config.js', to: 'config.js'}]));
         }
+      },
+
+      env: {
+        PACKAGE_JSON: JSON.stringify(require('./package'))
       }
     },
 

@@ -1,6 +1,5 @@
 export default {
   IndexPage: {
-    demo: "SunEngine",
     users: "Пользователи",
     password: "Пароль",
     version: "Версия"

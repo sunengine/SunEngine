@@ -1,6 +1,5 @@
 export default {
   Index: {
-    demo: "SunEngine",
     users: "Users",
     password: "Password",
     version: "Version",

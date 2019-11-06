@@ -2,7 +2,9 @@
   <q-page class="index-page middle flex flex-center">
     <div>
       <h1 class="index-page__demo-header">
-        {{$tl("demo")}}
+        Sun
+        <wbr/>
+        Engine
       </h1>
       <div class="index-page__info-block">
         <p>{{$tl("users")}}:
@@ -12,7 +14,7 @@
           <span class="hl">Moderator</span>,
           <span class="hl">Admin</span>.</p>
         <p>{{$tl("password")}}: <span class="hl">password</span>.</p>
-        <p class="index-page__version">{{$tl("version")}}: <span class="num">1.16.4</span></p>
+        <p class="index-page__version">{{$tl("version")}}: <span class="num">{{version}}</span></p>
       </div>
     </div>
   </q-page>
@@ -26,6 +28,11 @@
     export default {
         name: 'IndexPage',
         mixins: [Page],
+        computed: {
+            version() {
+                return process.env.PACKAGE_JSON.version;
+            }
+        }
     }
 
 </script>
