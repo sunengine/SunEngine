@@ -293,6 +293,7 @@ export default {
   },
   SkinsAdmin: {
     title: "Админка скинов",
+    current: "Текущая",
     upload: "Загрузить скин",
     uploadSuccessNotify: "Скин успешно загружен",
     deleteSuccessNotify: "Скин успешно удалён",

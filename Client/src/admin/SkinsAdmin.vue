@@ -5,26 +5,28 @@
       <h2 class="page-title">
         {{title}}
       </h2>
-      <q-btn no-caps icon="fas fa-cloud-upload-alt" @click="showUploadDialog" class="post-btn q-mb-lg"
+      <q-btn no-caps icon="fas fa-cloud-upload-alt" @click="showUploadDialog" class="skins-admin__post-btn post-btn q-mb-lg"
              :label="$tl('upload')"/>
     </div>
 
-    <input type="file" @change="uploadSkin" class="hidden" ref="file"/>
+    <input type="file" @change="uploadSkin" class="hidden" accept=".zip" ref="file"/>
+
     <div v-if="skins">
       <q-list>
-        <q-item v-for="skin of skins">
+        <q-item :key="skin" v-for="skin of skins">
           <q-item-section class="skins-admin__skin-name">
             {{skin}}
           </q-item-section>
           <q-item-section avatar>
-            <q-banner rounded class="bg-info"   v-if="skin === current">
-              Current <q-icon size="24px" class="q-ml-sm" name="fas fa-check"/>
+            <q-banner rounded class="skins-admin__current-skin bg-info q-btn q-btn--no-uppercase cursor-inherit" dense v-if="skin === current">
+              {{$tl("current")}}
             </q-banner>
-            <q-btn v-if="skin !== current" no-caps @click="changeSkin(skin)" class="send-btn skins-admin__send-btn" icon-right="fas fa-play"
+            <q-btn v-if="skin !== current" no-caps @click="changeSkin(skin)" class="send-btn skins-admin__send-btn"
                    :label="$tl('set')"/>
           </q-item-section>
           <q-item-section avatar>
-            <q-btn v-if="skin !== current" no-caps @click="deleteSkin(skin)" class="delete-btn" icon="fas fa-trash-alt"/>
+            <q-btn v-if="skin !== current" no-caps @click="deleteSkin(skin)" flat dense class="skins-admin__delete-btn text-negative"
+                   icon="fas fa-trash-alt"/>
           </q-item-section>
         </q-item>
       </q-list>

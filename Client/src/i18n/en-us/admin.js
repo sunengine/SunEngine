@@ -284,6 +284,7 @@ export default {
   },
   SkinsAdmin: {
     title: "Skins admin",
+    current: "Current",
     upload: "Upload skin",
     uploadSuccessNotify: "Skin uploaded successfully",
     deleteSuccessNotify: "Skin deleted successfully",
