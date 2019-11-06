@@ -69,7 +69,7 @@ module.exports = function (ctx) {
         cfg.resolve.modules.push(path.resolve('./src'));
 
         const htmlWebpackPlugin = cfg.plugins.find(x => x.constructor.name === "HtmlWebpackPlugin");
-        htmlWebpackPlugin.options.configUId = Math.random().toString(36).substring(7);
+        htmlWebpackPlugin.options.configUId = Math.floor( Math.random() * 1000000).toString();
 
         if (ctx.dev) {
           cfg.plugins.push(new CopyWebpackPlugin([{from: 'config.js', to: 'config.js'}]));

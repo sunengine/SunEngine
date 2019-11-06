@@ -1,6 +1,9 @@
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using SunEngine.Core.Errors;
 
@@ -8,17 +11,20 @@ namespace SunEngine.Admin.Services
 {
     public class SkinsAdminService
     {
+        protected readonly string WwwRootPath;
         protected readonly string AllSkinsPath;
         protected readonly string CurrentSkinPath;
         protected readonly string SkinNamePath;
+        protected readonly IWebHostEnvironment env;
 
-
-        public SkinsAdminService(IHostEnvironment env)
+        public SkinsAdminService(IWebHostEnvironment env)
         {
-            var basePath = Path.Combine(env.ContentRootPath, "wwwroot", "statics");
-            AllSkinsPath = Path.Combine(basePath, "skins");
-            CurrentSkinPath = Path.Combine(basePath, "skin");
-            SkinNamePath = Path.Combine(basePath, "skin", "name.txt");
+            this.env = env;
+            WwwRootPath = Path.Combine(env.ContentRootPath, "wwwroot");
+            var staticsPath = Path.Combine(WwwRootPath, "statics");
+            AllSkinsPath = Path.Combine(staticsPath, "skins");
+            CurrentSkinPath = Path.Combine(staticsPath, "skin");
+            SkinNamePath = Path.Combine(staticsPath, "skin", "name.txt");
         }
 
         public void UploadSkin(string fileName, Stream fileStream)
@@ -53,6 +59,22 @@ namespace SunEngine.Admin.Services
             CopyDir(selectedSkinPath, CurrentSkinPath);
 
             System.IO.File.WriteAllText(SkinNamePath, name);
+
+            if (env.IsProduction())
+            {
+                var ran = new Random();
+                var configJsPath = Path.Combine(WwwRootPath, "config.js");
+                var text = System.IO.File.ReadAllText(configJsPath);
+                Regex reg1 = new Regex("skinver=\\d+\"");
+                text = reg1.Replace(text, $"skinver={ran.Next()}\"");
+                System.IO.File.WriteAllText(configJsPath, text);
+                
+                var indexHtmlPath = Path.Combine(WwwRootPath, "index.html");
+                text = System.IO.File.ReadAllText(indexHtmlPath);
+                Regex reg2 = new Regex("configver=\\d+\"");
+                text = reg2.Replace(text, $" configver={ran.Next()}\"");
+                System.IO.File.WriteAllText(indexHtmlPath, text);
+            }
         }
 
         public object GetAllSkins()

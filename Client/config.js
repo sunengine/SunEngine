@@ -69,4 +69,4 @@ else
   throw "SiteUrl in config.js have to start with 'http://' or 'https://'.";
 
 
-document.writeln(`<link href="${config.Skin}" rel="stylesheet">`);
+document.writeln(`<link href="${config.Skin}?skinver=111111" rel="stylesheet">`);
