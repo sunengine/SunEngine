@@ -40,7 +40,12 @@ namespace SunEngine.Admin.Services
 
             // TODO need to check archive for security
 
-            zipArchive.ExtractToDirectory(AllSkinsPath, true);
+            var skinDirPath = Path.Combine(AllSkinsPath, fileName);
+            
+            Directory.Delete(skinDirPath,true);
+            Directory.CreateDirectory(skinDirPath);
+            
+            zipArchive.ExtractToDirectory(skinDirPath, true);
         }
 
         public void DeleteSkin(string name)
