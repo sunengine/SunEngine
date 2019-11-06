@@ -127,7 +127,7 @@
     text-align: center;
     font-family: "Roboto";
     //font-weight: 600;
-    font-size: 1.42em;
+    font-size: 1.30em;
     letter-spacing: 0.1px;
     padding: 4px !important;
     background-color: rgba(0, 0, 0, 0.15);
