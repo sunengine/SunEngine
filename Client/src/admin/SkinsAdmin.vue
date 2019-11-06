@@ -12,35 +12,30 @@
 
     <input type="file" @change="uploadSkin" class="hidden" accept=".zip" ref="file"/>
 
-    <div v-if="skins">
-      <q-list>
-        <q-item :key="skin" v-for="skin of skins">
+    <div v-if="skins" class="row q-gutter-lg">
+      <q-card class="skins-admin__card" v-for="skin in skins">
+        <q-img :src="$buildPath(skinsDir,skin,'preview.png')" class="skins-admin__skin-img"/>
 
-          <q-item-section class="skins-admin__skin-name">
-            {{skin}}
-          </q-item-section>
-          <q-item-section avatar>
-            <q-icon name="fas fa-search">
-              <q-tooltip>
-                <img :src="$buildPath(skinsDir,skin,'preview.png')" width="600"/>
-              </q-tooltip>
-            </q-icon>
-          </q-item-section>
-          <q-item-section class="skins-admin__set-skin" avatar>
-            <q-banner rounded class="skins-admin__current-skin bg-info q-btn q-btn--no-uppercase cursor-inherit width100  text-center" dense
-                      v-if="skin === current">
-              {{$tl("current")}}
-            </q-banner>
-            <q-btn v-if="skin !== current" no-caps @click="changeSkin(skin)" class="send-btn skins-admin__send-btn width100"
-                   :label="$tl('set')"/>
-          </q-item-section>
-          <q-item-section avatar>
-            <q-btn v-if="skin !== current" no-caps @click="deleteSkin(skin)" flat dense
-                   class="skins-admin__delete-btn text-negative"
-                   icon="fas fa-trash-alt"/>
-          </q-item-section>
-        </q-item>
-      </q-list>
+        <q-card-section class="skins-admin__skin-name">
+          {{skin}}
+        </q-card-section>
+
+        <q-card-actions align="around">
+          <q-btn v-if="skin === current" class="skins-admin__current-btn" flat no-caps disable :label="$tl('current')"
+                 icon="fas fa-check"/>
+
+          <q-btn flat v-if="skin !== current" no-caps @click="changeSkin(skin)" icon="fas fa-play"
+                 class="skins-admin__send-btn" :label="$tl('set')"/>
+
+          <q-btn flat icon="fas fa-search" class="skins-admin__preview-btn">
+            <q-tooltip>
+              <img :src="$buildPath(skinsDir,skin,'preview.png')" width="600"/>
+            </q-tooltip>
+          </q-btn>
+          <q-btn v-if="skin !== current" class="skins-admin__delete-btn" no-caps @click="deleteSkin(skin)" flat
+                 icon="fas fa-trash-alt"/>
+        </q-card-actions>
+      </q-card>
     </div>
     <LoaderWait v-else/>
   </q-page>
@@ -129,12 +124,39 @@
 <style lang="scss">
 
   .skins-admin__skin-name {
-    font-weight: 600;
-    font-size: 1.2em;
+    text-align: center;
+    font-family: "Roboto";
+    //font-weight: 600;
+    font-size: 1.42em;
+    letter-spacing: 0.1px;
+    padding: 4px !important;
+    background-color: rgba(0, 0, 0, 0.15);
+    color: $grey-8;
   }
 
-  .skins-admin__set-skin {
-    width: 150px;
+  .skins-admin__card {
+    width: 330px;
   }
+
+  .skins-admin__delete-btn, .skins-admin__preview-btn {
+    .q-icon {
+      color: $grey-8;
+    }
+  }
+
+  .skins-admin__current-btn {
+    .q-icon {
+      color: $green-5;
+    }
+  }
+
+  .skins-admin__send-btn {
+    background-color: $green-1;
+    // color: white;
+    .q-icon {
+      color: $green-5;
+    }
+  }
+
 
 </style>

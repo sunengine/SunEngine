@@ -3,8 +3,8 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.0</TargetFramework>
         <LangVersion>latest</LangVersion>
-        <Version>1.16.6</Version>
-        <PackageVersion>1.16.6</PackageVersion>
+        <Version>1.16.7</Version>
+        <PackageVersion>1.16.7</PackageVersion>
         <Title>SunEngine</Title>
         <Authors>Dimitrij Polianin</Authors>
         <Description>Site engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>
@@ -97,6 +97,12 @@
       <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin\styles.css.map" />
       <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin\styles.scss" />
       <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin\variables.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin2\preview.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin2\readme.md" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin2\styles.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin2\styles.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin2\styles.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin2\variables.scss" />
     </ItemGroup>
     
    
