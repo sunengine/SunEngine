@@ -80,7 +80,7 @@ namespace SunEngine.Admin.Services
         public object GetAllSkins()
         {
             var skinsPaths = Directory.GetDirectories(AllSkinsPath);
-            var skins = skinsPaths.Select(Path.GetFileName).ToArray();
+            var skins = skinsPaths.Select(Path.GetFileName).OrderBy(x=>x).ToArray();
 
             var nameFilePath = Path.Combine(CurrentSkinPath, "name.txt");
             var currentSkin = System.IO.File.ReadAllText(nameFilePath);

@@ -3,8 +3,8 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.0</TargetFramework>
         <LangVersion>latest</LangVersion>
-        <Version>1.16.4</Version>
-        <PackageVersion>1.16.4</PackageVersion>
+        <Version>1.16.5</Version>
+        <PackageVersion>1.16.5</PackageVersion>
         <Title>SunEngine</Title>
         <Authors>Dimitrij Polianin</Authors>
         <Description>Site engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>
@@ -89,11 +89,14 @@
       <_ContentIncludedByDefault Remove="wwwroot\statics\skins\MyTestSkin2\styles.css.map" />
       <_ContentIncludedByDefault Remove="wwwroot\statics\skins\MyTestSkin2\styles.scss" />
       <_ContentIncludedByDefault Remove="wwwroot\statics\skins\MyTestSkin2\variables.scss" />
-    </ItemGroup>
-
-
-    <ItemGroup>
-      <Folder Include="wwwroot\statics\skins" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\Default\preview.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\Default\readme.md" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin\preview.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin\readme.md" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin\styles.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin\styles.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin\styles.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin\variables.scss" />
     </ItemGroup>
     
    
