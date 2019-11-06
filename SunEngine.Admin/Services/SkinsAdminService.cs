@@ -42,7 +42,8 @@ namespace SunEngine.Admin.Services
 
             var skinDirPath = Path.Combine(AllSkinsPath, name);
             
-            Directory.Delete(skinDirPath,true);
+            if(Directory.Exists(skinDirPath))
+                Directory.Delete(skinDirPath,true);
             Directory.CreateDirectory(skinDirPath);
             
             zipArchive.ExtractToDirectory(skinDirPath, true);
