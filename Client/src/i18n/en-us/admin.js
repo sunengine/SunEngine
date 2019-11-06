@@ -285,6 +285,11 @@ export default {
   SkinsAdmin: {
     title: "Skins admin",
     current: "Current",
+    author: "Author: ",
+    contacts: "Contacts: ",
+    description: "Description: ",
+    link: "Link to source.",
+    version: "Version: ",
     upload: "Upload skin",
     uploadSuccessNotify: "Skin uploaded successfully",
     deleteSuccessNotify: "Skin deleted successfully",

@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using SunEngine.Core.Errors;
 
 namespace SunEngine.Admin.Services
@@ -37,15 +40,19 @@ namespace SunEngine.Admin.Services
                     ErrorType.System));
 
             var zipArchive = new ZipArchive(fileStream);
-
+            var zipEntry = zipArchive.GetEntry("info.json");
+            var jsonString = new StreamReader(zipEntry.Open()).ReadToEnd();
+            
+            SkinInfo skinInfo = JsonConvert.DeserializeObject<SkinInfo>(jsonString);
+            
             // TODO need to check archive for security
 
-            var skinDirPath = Path.Combine(AllSkinsPath, name);
-            
-            if(Directory.Exists(skinDirPath))
-                Directory.Delete(skinDirPath,true);
+            var skinDirPath = Path.Combine(AllSkinsPath, skinInfo.Name);
+
+            if (Directory.Exists(skinDirPath))
+                Directory.Delete(skinDirPath, true);
             Directory.CreateDirectory(skinDirPath);
-            
+
             zipArchive.ExtractToDirectory(skinDirPath, true);
         }
 
@@ -74,7 +81,7 @@ namespace SunEngine.Admin.Services
                 Regex reg1 = new Regex("skinver=\\d+\"");
                 text = reg1.Replace(text, $"skinver={ran.Next()}\"");
                 System.IO.File.WriteAllText(configJsPath, text);
-                
+
                 var indexHtmlPath = Path.Combine(WwwRootPath, "index.html");
                 text = System.IO.File.ReadAllText(indexHtmlPath);
                 Regex reg2 = new Regex("configver=\\d+\"");
@@ -83,15 +90,45 @@ namespace SunEngine.Admin.Services
             }
         }
 
-        public object GetAllSkins()
+        public List<SkinInfo> GetAllSkins()
         {
             var skinsPaths = Directory.GetDirectories(AllSkinsPath);
-            var skins = skinsPaths.Select(Path.GetFileName).OrderBy(x=>x).ToArray();
+            var skins = skinsPaths.Select(Path.GetFileName).OrderBy(x => x).ToArray();
 
             var nameFilePath = Path.Combine(CurrentSkinPath, "name.txt");
             var currentSkin = System.IO.File.ReadAllText(nameFilePath);
 
-            return new {current = currentSkin, all = skins};
+            var skinsInfos = new List<SkinInfo>();
+            
+            foreach (var skin in skins)
+            {
+                try
+                {
+                    var jsonInfo = System.IO.File.ReadAllText(Path.Combine(AllSkinsPath, skin, "info.json"));
+                    SkinInfo skinInfo = JsonConvert.DeserializeObject<SkinInfo>(jsonInfo);
+                    if (skinInfo.Name == currentSkin)
+                        skinInfo.Current = true;
+
+                    skinsInfos.Add(skinInfo);
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
+            }
+
+            return skinsInfos;
+        }
+
+        public class SkinInfo
+        {
+            public string Name { get; set; }
+            public string Author { get; set; }
+            public string[] Contacts { get; set; }
+            public int Version { get; set; }
+            public string SourceUrl { get; set; }
+            public string Description { get; set; }
+            public bool Current { get; set; }
         }
 
 

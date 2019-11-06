@@ -13,26 +13,54 @@
     <input type="file" @change="uploadSkin" class="hidden" accept=".zip" ref="file"/>
 
     <div v-if="skins" class="row q-gutter-lg">
-      <q-card class="skins-admin__card" v-for="skin in skins">
-        <q-img :src="$buildPath(skinsDir,skin,'preview.png')" class="skins-admin__skin-img"/>
+      <q-card :key="skin.name" class="skins-admin__card" v-for="skin in skins">
 
+        <div style="height:172px">
+          <q-img :class="{hidden: skin.showInfo}" :src="$buildPath(skinsDir,skin.name,'preview.png')"
+                 class="skins-admin__skin-img"/>
+          <q-card-section :class="{hidden: !skin.showInfo}">
+            <div> {{$tl("author")}} {{skin.author}}</div>
+
+            <div v-if="skin.contacts">
+              {{$tl("contacts")}}
+              <span :key="index" v-for="(contact,index) of skin.contacts">
+                <a v-if="contact.startsWith('http')" :href="contact">{{contact}}</a>
+                <template v-else>
+                  {{contact}}
+                </template>
+                <template v-if="index != skin.contacts.length-1">, </template>
+              </span>
+            </div>
+            <div>
+              {{$tl("version")}} {{skin.version}}
+            </div>
+            <div>
+              <a target="_blank" :href="skin.sourceUrl">{{$tl("link")}}</a>
+            </div>
+            <div>
+              {{$tl("description")}} {{skin.description}}
+            </div>
+          </q-card-section>
+        </div>
         <q-card-section class="skins-admin__skin-name">
-          {{skin}}
+          {{skin.name}}
         </q-card-section>
 
         <q-card-actions align="around">
-          <q-btn v-if="skin === current" class="skins-admin__current-btn" flat no-caps disable :label="$tl('current')"
+          <q-btn v-if="skin.current" class="skins-admin__current-btn" flat no-caps disable :label="$tl('current')"
                  icon="fas fa-check"/>
 
-          <q-btn flat v-if="skin !== current" no-caps @click="changeSkin(skin)" icon="fas fa-play"
+          <q-btn flat v-if="!skin.current" no-caps @click="changeSkin(skin.name)" icon="fas fa-play"
                  class="skins-admin__send-btn" :label="$tl('set')"/>
 
           <q-btn flat icon="fas fa-search" class="skins-admin__preview-btn">
             <q-tooltip>
-              <img :src="$buildPath(skinsDir,skin,'preview.png')" width="600"/>
+              <img :src="$buildPath(skinsDir,skin.name,'preview.png')" width="600"/>
             </q-tooltip>
           </q-btn>
-          <q-btn v-if="skin !== current" class="skins-admin__delete-btn" no-caps @click="deleteSkin(skin)" flat
+          <q-btn class="skins-admin__delete-btn" no-caps @click="showSkinInfo(skin)" flat
+                 icon="fas fa-info"/>
+          <q-btn v-if="!skin.current" class="skins-admin__info-btn" no-caps @click="deleteSkin(skin.name)" flat
                  icon="fas fa-trash-alt"/>
         </q-card-actions>
       </q-card>
@@ -49,8 +77,7 @@
         mixins: [Page],
         data() {
             return {
-                skins: null,
-                current: null
+                skins: null
             }
         },
         computed: {
@@ -70,6 +97,7 @@
                     formData
                 ).then(response => {
                     this.$successNotify(this.$tl("uploadSuccessNotify"));
+                    this.$refs.file.value = "";
                     this.getAllSkins();
                 });
             },
@@ -106,9 +134,13 @@
             getAllSkins() {
                 this.$request(this.$AdminApi.SkinsAdmin.GetAllSkins)
                     .then(response => {
-                        this.skins = response.data.all;
-                        this.current = response.data.current;
+                        for (const skin of response.data)
+                            skin.showInfo = false;
+                        this.skins = response.data;
                     });
+            },
+            showSkinInfo(skin) {
+                skin.showInfo = !!!skin.showInfo;
             }
         },
         beforeCreate() {
