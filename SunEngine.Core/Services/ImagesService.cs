@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SunEngine.Core.Configuration.Options;
 
@@ -75,7 +74,7 @@ namespace SunEngine.Core.Services
             else
             {
                 using (var stream = file.OpenReadStream())
-                using (Image<Rgba32> image = Image.Load(stream))
+                using (var image = Image.Load(stream))
                 {
                     var size = image.Size();
                     if(size.Width > resizeOptions.Size.Width || size.Height > resizeOptions.Size.Height)
@@ -90,7 +89,7 @@ namespace SunEngine.Core.Services
 
         public virtual FileAndDir SaveBitmapImage(Stream stream, ResizeOptions resizeOptions, string ext)
         {
-            using (Image<Rgba32> image = Image.Load(stream))
+            using (var image = Image.Load(stream))
             {
                 var fileAndDir = imagesNamesService.GetNewImageNameAndDir(ext);
                 var dirFullPath = Path.Combine(env.WebRootPath, imagesOptions.UploadDir, fileAndDir.Dir);

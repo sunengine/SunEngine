@@ -15,13 +15,18 @@
     <div v-if="skins" class="row q-gutter-lg">
       <q-card :key="skin.name" class="skins-admin__card" v-for="skin in skins">
 
-        <div style="height:172px">
+        <div style="height:172px; overflow-y: auto">
           <q-img :class="{hidden: skin.showInfo}" :src="$buildPath(skinsDir,skin.name,'preview.png')"
                  class="skins-admin__skin-img"/>
           <q-card-section :class="{hidden: !skin.showInfo}">
-            <div> {{$tl("author")}} {{skin.author}}</div>
-
-            <div v-if="skin.contacts">
+            <div> {{$tl("author")}}
+              <a v-if="skin.contacts" href="#" @click.prevent.stop="skin.showContacts = !skin.showContacts"> {{skin.author}}</a>
+              <span v-else>
+              {{skin.author}}
+                </span>
+            </div>
+            <q-slide-transition>
+            <div v-if="skin.contacts && skin.showContacts">
               {{$tl("contacts")}}
               <span :key="index" v-for="(contact,index) of skin.contacts">
                 <a v-if="contact.startsWith('http')" :href="contact">{{contact}}</a>
@@ -31,13 +36,14 @@
                 <template v-if="index != skin.contacts.length-1">, </template>
               </span>
             </div>
+            </q-slide-transition>
             <div>
               {{$tl("version")}} {{skin.version}}
             </div>
             <div>
               <a target="_blank" :href="skin.sourceUrl">{{$tl("link")}}</a>
             </div>
-            <div>
+            <div v-if="skin.description">
               {{$tl("description")}} {{skin.description}}
             </div>
           </q-card-section>
@@ -134,8 +140,10 @@
             getAllSkins() {
                 this.$request(this.$AdminApi.SkinsAdmin.GetAllSkins)
                     .then(response => {
-                        for (const skin of response.data)
+                        for (const skin of response.data) {
                             skin.showInfo = false;
+                            skin.showContacts = false;
+                        }
                         this.skins = response.data;
                     });
             },

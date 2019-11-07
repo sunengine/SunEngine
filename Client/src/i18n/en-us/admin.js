@@ -3,7 +3,7 @@ export default {
   // ——— categories ————————————————————————————————————
 
   CategoriesAdmin: {
-    title: "Admin page",
+    title: "Categories admin",
     addCategoryBtn: "Add category"
   },
   CategoryForm: {
@@ -92,7 +92,7 @@ export default {
     }
   },
   ComponentsAdmin: {
-    title: "Components",
+    title: "Components admin",
     addComponentBtn: "Add component"
   },
   CreateComponent: {
@@ -170,7 +170,7 @@ export default {
     }
   },
   MenuItemsAdmin: {
-    title: "Edit menu",
+    title: "Menu editor",
     addMenuItemBtn: "Add menu item",
     deleteMsg: "Delete menu item?",
     btnDeleteOk: "@:Global.dialog.ok",
@@ -231,7 +231,7 @@ export default {
     cacheSettingsCaption: "",
     cypherSecrets: "Cypher keys",
     cypherSecretsCaption:"",
-    imagesCleaner: "Сleaner",
+    imagesCleaner: "Disk cleaner",
     imagesCleanerCaption: "",
     deletedElements: "Deleted elements",
     deletedElementsCaption: "",
@@ -275,12 +275,12 @@ export default {
     info3: "This function will not work on multi categories sections like 'new topics' on forum."
   },
   ImagesCleaner: {
-    title: "ImagesCleaner",
+    title: "Disk cleaner",
     info: "Lost images not using on site",
-    clearBtn: "Clear",
-    refreshBtn: "Refresh",
+    clearBtn: "Delete lost images",
+    refreshBtn: "Refresh lost images list",
     clearCount: "Cleared images: ",
-    emptyResult: "Folder is empty"
+    emptyResult: "Lost images not found"
   },
   SkinsAdmin: {
     title: "Skins admin",

@@ -18,6 +18,9 @@
     <div v-if="images" class="images-cleaner__img-block img flex row q-col-gutter-sm">
       <img v-for="image in images" :src="$imagePath(image)" height="80" width="80" class="images-cleaner__clean-img"/>
     </div>
+    <q-banner class="images-cleaner__empty-result bg-grey-3" v-else>
+      {{$tl("emptyResult")}}
+    </q-banner>
   </q-page>
 </template>
 
@@ -76,5 +79,10 @@
     width: 100px;
     height: 110px;
   }
+
+  /*.images-cleaner__send-btn {
+    background-color: $info;
+    color: white;
+  }*/
 
 </style>

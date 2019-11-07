@@ -92,7 +92,7 @@ export default {
     }
   },
   ComponentsAdmin: {
-    title: "Компоненты",
+    title: "Админка компонентов",
     addComponentBtn: "Добавить компонент",
   },
   CreateComponent: {
@@ -197,13 +197,12 @@ export default {
     roles: "Группы",
   },
   RolesPermissions: {
-    title: "Загрузка Json прав для групп",
-    backupWarning: "Перед загрузкой необходимо сделать backup базы.",
+    title: "Установка разрешений групп",
     saveToServerBtn: "Сохранить на сервер",
     getFromServer: "Загрузить с сервера",
     getSuccessNotify: "Данные загружены с сервера",
     saveSuccessNotify: "Настройки групп успешно обновлены",
-    textAreaLabel: "Json файл конфигурации прав групп"
+    textAreaLabel: "Json конфигурация"
   },
   RoleUsers: {
     users: "Пользователи",
@@ -223,13 +222,13 @@ export default {
     //categoriesCaption: "Редактирование разделов сайта",
     components: "Компоненты",
     componentsCaption: "",
-    skins: "Скины",
+    skins: "Темы оформления",
     skinsCaption: "",
-    //skinsCaption: "Изменение скинов",
-    rolesUsers: "Группы",
+    //skinsCaption: "Добавление, установка, удаление",
+    rolesUsers: "Группы пользователей",
     rolesUsersCaption: "",
     //rolesUsersCaption: "Пользователи по группам",
-    rolesPermissions: "Права групп",
+    rolesPermissions: "Разрешения групп",
     rolesPermissionsCaption: "",
     //rolesPermissionsCaption: "Добавление, редактирование, удаление групп и их прав",
     cacheSettings: "Кэширование",
@@ -237,7 +236,7 @@ export default {
     //cacheSettingsCaption: "Способ кэширования на сайте",
     cypherSecrets: "Ключи шифрования",
     cypherSecretsCaption: "",
-    imagesCleaner: "Очистка",
+    imagesCleaner: "Очистка диска",
     imagesCleanerCaption: "",
     //imagesCleanerCaption: "Удалить неиспользуемые изображения",
     deletedElements: "Удалённое",
@@ -284,26 +283,26 @@ export default {
     info3: "Функция не предусмотрена для разделов, где выводятся сразу несколько категорий, например 'новые сообщения' на форуме."
   },
   ImagesCleaner: {
-    title: "Очистка изображений",
-    info: "Потерянные изображения, которые не используются на сайте",
-    clearBtn: "Очистить",
-    refreshBtn: "Обновить",
+    title: "Очистка диска",
+    info: "Потерянные изображения, которые были загружены, но не используются.",
+    clearBtn: "Удалить потерянные изображения",
+    refreshBtn: "Обновить список",
     clearCount: "Очищено изображений: ",
-    emptyResult: "Каталог пуст"
+    emptyResult: "Потерянные изображения отсутсвуют"
   },
   SkinsAdmin: {
-    title: "Админка скинов",
+    title: "Темы оформления",
     current: "Текущая",
     author: "Автор: ",
     contacts: "Контакты: ",
     description: "Описание: ",
     link: "Ссылка на источник.",
     version: "Версия: ",
-    upload: "Загрузить скин",
-    uploadSuccessNotify: "Скин успешно загружен",
-    deleteSuccessNotify: "Скин успешно удалён",
+    upload: "Загрузить тему",
+    uploadSuccessNotify: "Тема успешно загружена",
+    deleteSuccessNotify: "Тема успешно удалён",
     set: "Установить",
-    deleteMsg: "Удалить скин?",
+    deleteMsg: "Удалить тему?",
     btnDeleteOk: "@:Global.dialog.yes",
     btnDeleteCancel: "@:Global.dialog.cancel"
   }
