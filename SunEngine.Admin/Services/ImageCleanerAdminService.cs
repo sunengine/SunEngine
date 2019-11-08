@@ -27,8 +27,8 @@ namespace SunEngine.Admin.Services
             IOptions<GlobalOptions> globalOptions)
         {
             this.dataBaseConnection = dataBaseConnection;
-            uploadDirectory = Path.Combine(env.WebRootPath, imagesOptions.Value.UploadDir);
-            uploadUrl = globalOptions.Value.SiteUrl.AppendPathSegment(imagesOptions.Value.UploadDir);
+            uploadDirectory = Path.Combine(env.WebRootPath, imagesOptions.Value.ImagesUploadDir);
+            uploadUrl = globalOptions.Value.SiteUrl.AppendPathSegment(imagesOptions.Value.ImagesUploadDir);
             htmlParser = new HtmlParser();
         }
 

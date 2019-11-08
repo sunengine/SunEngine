@@ -7,33 +7,39 @@ using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Errors;
+using SunEngine.Core.Services;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.Admin.Services
 {
     public class SkinsAdminService
     {
-        protected readonly string WwwRootPath;
-        protected readonly string AllSkinsPath;
-        protected readonly string CurrentSkinPath;
-        protected readonly string SkinNamePath;
-        protected readonly IWebHostEnvironment env;
+        public readonly string WwwRootPath;
+        public readonly string AllSkinsPath;
+        public readonly string CurrentSkinPath;
+        public readonly string SkinNamePath;
+        public readonly IWebHostEnvironment env;
+        public readonly IPathService pathService;
 
-        public SkinsAdminService(IWebHostEnvironment env)
+        public SkinsAdminService(
+            IPathService pathService,
+            IOptions<SkinsOptions> skinsOptions,
+            IWebHostEnvironment env)
         {
             this.env = env;
-            WwwRootPath = Path.Combine(env.ContentRootPath, "wwwroot");
-            var staticsPath = Path.Combine(WwwRootPath, "statics");
-            AllSkinsPath = Path.Combine(staticsPath, "skins");
-            CurrentSkinPath = Path.Combine(staticsPath, "skin");
-            SkinNamePath = Path.Combine(staticsPath, "skin", "name.txt");
+
+            AllSkinsPath = pathService.MakePath(skinsOptions.Value.AllSkinsDir);
+            CurrentSkinPath = pathService.MakePath(skinsOptions.Value.CurrentSkinDir);
+            SkinNamePath = Path.Combine(AllSkinsPath, "name.txt");
         }
 
         public void UploadSkin(string fileName, Stream fileStream)
         {
             var extension = Path.GetExtension(fileName);
-            var name = Path.GetFileNameWithoutExtension(fileName);
 
             if (extension != ".zip")
                 throw new SunViewException(new ErrorView("NotValidSkinFileNotZip", "Skin file has to be .zip",
@@ -41,10 +47,14 @@ namespace SunEngine.Admin.Services
 
             var zipArchive = new ZipArchive(fileStream);
             var zipEntry = zipArchive.GetEntry("info.json");
+            if(zipEntry == null)
+                throw new SunViewException(new ErrorView("SkinFileNotContainInfoJson", "Skin archive do not contain info.json file",
+                    ErrorType.System));
+            
             var jsonString = new StreamReader(zipEntry.Open()).ReadToEnd();
-            
+
             SkinInfo skinInfo = JsonConvert.DeserializeObject<SkinInfo>(jsonString);
-            
+
             // TODO need to check archive for security
 
             var skinDirPath = Path.Combine(AllSkinsPath, skinInfo.Name);
@@ -58,13 +68,16 @@ namespace SunEngine.Admin.Services
 
         public void DeleteSkin(string name)
         {
-            var pathToDelete = Path.Combine(AllSkinsPath, name);
+            var secureSkinName = PathUtils.ClearPathToken(name);
+            var pathToDelete = Path.Combine(AllSkinsPath, secureSkinName);
             Directory.Delete(pathToDelete, true);
         }
 
         public void ChangeSkin(string name)
         {
-            var selectedSkinPath = Path.Combine(AllSkinsPath, name);
+            var secureSkinName = PathUtils.ClearPathToken(name);
+
+            var selectedSkinPath = Path.Combine(AllSkinsPath, secureSkinName);
 
             Directory.Delete(CurrentSkinPath, true);
             Directory.CreateDirectory(CurrentSkinPath);
@@ -77,16 +90,16 @@ namespace SunEngine.Admin.Services
             {
                 var ran = new Random();
                 var configJsPath = Path.Combine(WwwRootPath, "config.js");
-                var text = System.IO.File.ReadAllText(configJsPath);
+                var text = File.ReadAllText(configJsPath);
                 Regex reg1 = new Regex("skinver=\\d+\"");
                 text = reg1.Replace(text, $"skinver={ran.Next()}\"");
-                System.IO.File.WriteAllText(configJsPath, text);
+                File.WriteAllText(configJsPath, text);
 
                 var indexHtmlPath = Path.Combine(WwwRootPath, "index.html");
-                text = System.IO.File.ReadAllText(indexHtmlPath);
+                text = File.ReadAllText(indexHtmlPath);
                 Regex reg2 = new Regex("configver=\\d+\"");
                 text = reg2.Replace(text, $" configver={ran.Next()}\"");
-                System.IO.File.WriteAllText(indexHtmlPath, text);
+                File.WriteAllText(indexHtmlPath, text);
             }
         }
 
@@ -95,11 +108,10 @@ namespace SunEngine.Admin.Services
             var skinsPaths = Directory.GetDirectories(AllSkinsPath);
             var skins = skinsPaths.Select(Path.GetFileName).OrderBy(x => x).ToArray();
 
-            var nameFilePath = Path.Combine(CurrentSkinPath, "name.txt");
-            var currentSkin = System.IO.File.ReadAllText(nameFilePath);
+            var currentSkin = System.IO.File.ReadAllText(SkinNamePath);
 
             var skinsInfos = new List<SkinInfo>();
-            
+
             foreach (var skin in skins)
             {
                 try

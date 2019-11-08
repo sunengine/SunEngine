@@ -123,6 +123,10 @@ namespace SunEngine.Core.DataBase
             mp.Entity<Component>()
                 .HasTableName("Components")
                 .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id);
+          
+            mp.Entity<ConfigurationItem>()
+                .HasTableName("ConfigurationItems")
+                .HasPrimaryKey(x => x.Name);
             
         }
     }

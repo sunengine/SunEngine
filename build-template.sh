@@ -23,18 +23,14 @@
 
 
 
-#   ******* VARIABLES ************************
+#   ******* VARIABLES **************************
+
 
 # Project name. For info only.
 PROJECT_NAME="Sun Engine"    # replace with you project name
 
-# Paths
-# any path can be set to any custom value
-
 # Path to SunEngine solution directory
 SOLUTION_PATH=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )    # Now set to current path
-# Can be any path, for example 
-# SOLUTION_PATH="$HOME/projects/MySite"
 
 # Path to build folder
 BUILD_PATH="$SOLUTION_PATH/build"
@@ -42,7 +38,11 @@ BUILD_PATH="$SOLUTION_PATH/build"
 # Path to client folder
 CLIENT_PATH="$SOLUTION_PATH/Client"
 
-#   *******************************************
+
+
+#   ************************************************
+
+
 
 
 

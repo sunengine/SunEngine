@@ -4,8 +4,7 @@ const config = {
   SiteUrl: "http://localhost:5005",
   UploadedImages: 'http://localhost:5000/UploadImages',
   SiteName: 'SunEngine Demo',
-  Skin: 'http://localhost:5000/statics/skin/styles.css',  // Do not change last part "statics/skin/styles.css"
-  SkinsDir: 'http://localhost:5000/statics/skins/',
+  Skin: 'http://localhost:5000/CurrentSkin/styles.css',  // Do not change last part "statics/skin/styles.css"
 
   OpenExternalLinksAtNewTab: true,
 

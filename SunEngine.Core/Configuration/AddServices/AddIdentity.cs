@@ -9,7 +9,7 @@ namespace SunEngine.Core.Configuration.AddServices
 {
     public static class AddIdentityExtensions
     {
-        public static void AddIdentity(this IServiceCollection services, DataBaseFactory dataBaseFactory)
+        public static void AddIdentity(this IServiceCollection services, IDataBaseFactory dataBaseFactory)
         {
             services.AddIdentity<User, Role>(
                     options =>

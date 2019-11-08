@@ -43,16 +43,7 @@ namespace SunEngine.Core.Configuration.Options
 
         public string SiteName { get; set; }
 
-        public bool ShowExceptions { get; set; }
-
-        /* public string WwwRootDir { get; set; }
-        public string WwwRootDirPath => Path.Combine(System.IO.Directory.GetCurrentDirectory(), WwwRootDir);
-        public string StaticsDir { get; set; }
-        public string StaticsDirPath => Path.Combine(System.IO.Directory.GetCurrentDirectory(), WwwRootDir, StaticsDir);
-        public string AllSkinsDir { get; set; }
-        public string AllSkinsDirPath => Path.Combine(System.IO.Directory.GetCurrentDirectory(), WwwRootDir, StaticsDir, AllSkinsDir);
-        public string CurrentSkinDir { get; set; }        
-        public string CurrentSkinDirPath => Path.Combine(System.IO.Directory.GetCurrentDirectory(), WwwRootDir, StaticsDir, CurrentSkinDir);*/
+        public string WwwRootDir { get; set; }
 
     }
 }

@@ -26,6 +26,7 @@
 
 #   ******* VARIABLES ***********************************
 
+
 # Project name. For info only.
 PROJECT_NAME="Sun Engine"    # replace with you project name
 
@@ -47,7 +48,11 @@ REMOTE_DIRECTORY_OWNER="www-data"
 # systemctl service name to restart after upload
 SYSTEMCTL_SERVICE_NAME="mysite_systemctl_service_name"
 
-#   *****************************************************
+
+
+#   ******************************************************
+
+
 
 
 

@@ -1,7 +1,11 @@
 using System;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Services;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.Admin.Controllers
 {
@@ -46,6 +50,15 @@ namespace SunEngine.Admin.Controllers
             var allSkins = skinsAdminService.GetAllSkins();
             
             return Json(allSkins);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetSkinPreview(string name)
+        {
+            Response.ContentType = "image/png";
+            string previewPath = Path.Combine(skinsAdminService.AllSkinsPath, PathUtils.ClearPathToken(name), "preview.png");
+            return new FileStreamResult(System.IO.File.OpenRead(previewPath), "image/png");
         }
     }
 }

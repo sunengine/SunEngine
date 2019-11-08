@@ -3,16 +3,18 @@ using SunEngine.Core.Security;
 
 namespace SunEngine.Core.Configuration.AddServices
 {
-    public static class AddAuthenticationExtensions
+    public static class AddSunAuthenticationExtensions
     {
-        public static void AddAuthentication(this IServiceCollection services)
+        public static IServiceCollection AddSunAuthentication(this IServiceCollection services)
         {
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = SunJwe.Scheme;
                     options.DefaultChallengeScheme = SunJwe.Scheme;
-                })
-                .AddScheme<SunJweOptions, SunJweHandler>(SunJwe.Scheme, SunJwe.Scheme, options => { });
+                }
+            ).AddScheme<SunJweOptions, SunJweHandler>(SunJwe.Scheme, SunJwe.Scheme, options => { });
+
+            return services;
         }
     }
 }

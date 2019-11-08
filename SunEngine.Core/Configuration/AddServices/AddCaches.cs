@@ -15,7 +15,7 @@ namespace SunEngine.Core.Configuration.AddServices
         /// <summary>
         /// Add Singleton cache services
         /// </summary>
-        public static void AddCaches(this IServiceCollection services, DataBaseFactory dataBaseFactory)
+        public static void AddCaches(this IServiceCollection services, IDataBaseFactory dataBaseFactory)
         {
             services.AddSingleton<IRolesCache>(new RolesCache(dataBaseFactory));
 

@@ -30,7 +30,7 @@
         </template>
       </q-input>
 
-      <q-btn class="q-mt-md width100" color="send" :label="$tl('saveBtn')" @click="changePassword"
+      <q-btn class="q-mt-md full-width" color="send" :label="$tl('saveBtn')" @click="changePassword"
              :loading="submitting">
         <LoaderSent slot="loading"/>
       </q-btn>

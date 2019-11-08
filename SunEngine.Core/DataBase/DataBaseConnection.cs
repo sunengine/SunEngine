@@ -79,6 +79,9 @@ namespace SunEngine.Core.DataBase
         public ITable<CipherSecret> CipherSecrets => GetTable<CipherSecret>();
 
         public ITable<Component> Components => GetTable<Component>();
+        
+        public ITable<ConfigurationItem> ConfigurationItems => GetTable<ConfigurationItem>();
+        
 
         public void UpdateSequence(string tableName, string keyName)
         {

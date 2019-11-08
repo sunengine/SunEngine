@@ -8,10 +8,10 @@
         <Title>SunEngine</Title>
         <Authors>Dimitrij Polianin</Authors>
         <Description>Site engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>
-        <Copyright>Dmitrii Polianin</Copyright>
+        <Copyright>Dimitrij Polianin</Copyright>
         <PackageProjectUrl>https://github.com/Dmitrij-Polyanin/SunEngine</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/LICENSE.md</PackageLicenseUrl>
-        <PackageTags>forum, blog, site, cms, web engine, web, engine, asp.net core, spa, vuejs, vue, quasar</PackageTags>
+        <PackageTags>forum, blog, site, cms, web engine, asp.net core, spa, vuejs, vue, quasar</PackageTags>
         <AssemblyName>SunEngine</AssemblyName>
     </PropertyGroup>
 
@@ -35,11 +35,14 @@
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <Content Include="MailTemplates\*">
+        <Content Update="AllSkins\**">
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Update="MailTemplates\*">
             <CopyToPublishDirectory>None</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Resources\gunnyrewritten.ttf" />
         <Content Include="Resources\gunnyrewritten.ttf">
             <CopyToPublishDirectory>Always</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -48,7 +51,7 @@
             <CopyToPublishDirectory>None</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <Content Update="wwwroot\UploadImages\default-avatar-blue.svg">
+        <Content Update="wwwroot\UploadImages\default-avatar.svg">
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
@@ -61,50 +64,7 @@
       <ProjectReference Include="..\SunEngine.DataSeed\SunEngine.DataSeed.csproj" />
       <ProjectReference Include="..\SunEngine.Migrations\SunEngine.Migrations.csproj" />
     </ItemGroup>
-
-
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="Config-template\Categories\Articles.json" />
-      <_ContentIncludedByDefault Remove="Config-template\Categories\Articles1.json" />
-      <_ContentIncludedByDefault Remove="Config-template\Categories\Blog.json" />
-      <_ContentIncludedByDefault Remove="Config-template\Categories\Forum1.json" />
-      <_ContentIncludedByDefault Remove="Config-template\Categories\Forum2.json" />
-      <_ContentIncludedByDefault Remove="Config-template\Materials\info1.json" />
-      <_ContentIncludedByDefault Remove="Config-template\Menu\Main.json" />
-      <_ContentIncludedByDefault Remove="Config-template\Materials\inline1.json" />
-      <_ContentIncludedByDefault Remove="Config-template\Categories\SiteTexts.json" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test1\styles.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test1\styles.css.map" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test1\styles.scss" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test1\variables.scss" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test3\styles.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test3\styles.css.map" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test3\styles.scss" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\test3\variables.scss" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\Default\styles.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\Default\styles.css.map" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\Default\styles.scss" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\Default\variables.scss" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\MyTestSkin2\styles.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\MyTestSkin2\styles.css.map" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\MyTestSkin2\styles.scss" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\MyTestSkin2\variables.scss" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\Default\preview.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\Default\readme.md" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin\preview.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin\readme.md" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin\styles.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin\styles.css.map" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin\styles.scss" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin\variables.scss" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin2\preview.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin2\readme.md" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin2\styles.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin2\styles.css.map" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin2\styles.scss" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin2\variables.scss" />
-      <_ContentIncludedByDefault Remove="wwwroot\statics\skins\TestSkin2\info.json" />
-    </ItemGroup>
+    
     
    
     <PropertyGroup>

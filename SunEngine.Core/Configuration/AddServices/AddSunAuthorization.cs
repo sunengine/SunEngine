@@ -3,9 +3,9 @@ using SunEngine.Core.Security;
 
 namespace SunEngine.Core.Configuration.AddServices
 {
-    public static class AddAuthorizationExtensions
+    public static class AddSunAuthorizationExtensions
     {
-        public static void AddAuthorization(this IServiceCollection services)
+        public static IServiceCollection AddSunAuthorization(this IServiceCollection services)
         {
             services.AddSingleton<OperationKeysContainer>();
             services.AddSingleton<IAuthorizationService, AuthorizationService>();
@@ -16,6 +16,8 @@ namespace SunEngine.Core.Configuration.AddServices
             services.AddScoped<JweService>();
             
             services.AddSingleton<JweBlackListService>();
+
+            return services;
         }
     }
 }

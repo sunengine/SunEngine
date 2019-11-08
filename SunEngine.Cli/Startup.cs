@@ -43,19 +43,19 @@ namespace SunEngine.Cli
 
             services.AddOptions(Configuration);
 
-            DataBaseFactory dataBaseFactory = services.AddDatabase(Configuration); // TODO make internal def
+            services.AddDatabase(Configuration, out var dataBaseFactory);
 
             services.AddDbOptions(dataBaseFactory);
-            
+
             services.AddCaches(dataBaseFactory);
 
             services.AddCachePolicy();
 
             services.AddIdentity(dataBaseFactory);
 
-            AddAuthenticationExtensions.AddAuthentication(services);
+            services.AddSunAuthentication();
 
-            AddAuthorizationExtensions.AddAuthorization(services);
+            services.AddSunAuthorization();
 
             services.AddManagers();
 
@@ -70,14 +70,17 @@ namespace SunEngine.Cli
             services.AddCiphers(dataBaseFactory);
 
             services.AddCounters();
-            
+
             services.AddJobs();
 
             services.AddSingleton<CaptchaService>();
             services.AddSanitizer();
-            
+
             services.AddTransient<IEmailSenderService, EmailSenderService>();
-            
+
+            services.AddSingleton<IPathService, PathService>();
+
+
             services.AddMvcCore(options =>
                 {
                     // Add filters here
@@ -88,7 +91,8 @@ namespace SunEngine.Cli
                 {
                     options.SerializerSettings.ContractResolver = SunJsonContractResolver.Instance;
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                });;
+                });
+            ;
         }
 
 

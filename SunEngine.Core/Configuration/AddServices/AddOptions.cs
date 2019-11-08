@@ -21,6 +21,7 @@ namespace SunEngine.Core.Configuration.AddServices
             services.Configure<DataBaseConnectionOptions>(configuration.GetSection("DataBaseConnection"));
             services.Configure<CaptchaOptions>(configuration.GetSection("Captcha"));
             services.Configure<SchedulerOptions>(configuration.GetSection("Scheduler"));
+            services.Configure<SkinsOptions>(configuration.GetSection("Skins"));
         }
     }
 }

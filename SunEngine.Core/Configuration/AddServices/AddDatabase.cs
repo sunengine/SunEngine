@@ -7,23 +7,18 @@ namespace SunEngine.Core.Configuration.AddServices
 {
     public static class AddDatabaseExtensions
     {
-        public static DataBaseFactory AddDatabase(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration, out IDataBaseFactory dataBaseFactory)
         {
             LinqToDB.Common.Configuration.Linq.AllowMultipleQuery = true;
 
-            var dataBaseConfiguration = configuration.GetSection("DataBaseConnection");
-            var providerName = dataBaseConfiguration["Linq2dbProvider"];
-            var connectionString = dataBaseConfiguration["ConnectionString"];
-            var dataProvider = DataConnection.GetDataProvider(providerName, connectionString);
-            DbMappingSchema mappingSchema = new DbMappingSchema();
+            var dbFactory = DataBaseFactory.DefaultDataBaseFactory;
 
-            services.AddScoped(x => new DataBaseConnection(dataProvider, connectionString, mappingSchema));
+            services.AddSingleton<IDataBaseFactory>(dbFactory);
+            services.AddScoped(x => dbFactory.CreateDb());
 
-            var dataBaseFactory = new DataBaseFactory(dataProvider, connectionString, mappingSchema);
+            dataBaseFactory = dbFactory;
             
-            services.AddSingleton<IDataBaseFactory>(dataBaseFactory);
-
-            return dataBaseFactory;
+            return services;
         }
     }
 }

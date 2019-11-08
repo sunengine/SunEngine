@@ -166,11 +166,11 @@ namespace SunEngine.Core.Security
 
             AuthenticateResult Logout(string msg)
             {
-                jweService.MakeLogoutCookiesAndHeaders(Response);
+                /*jweService.MakeLogoutCookiesAndHeaders(Response);
 
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"\nLogout: {msg}\n");
-                Console.ResetColor();
+                Console.ResetColor();*/
 
                 return AuthenticateResult.NoResult();
             }

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# 
+#
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunEngine.Cli", "SunEngine.Cli\SunEngine.Cli.csproj", "{53A2CC52-D50E-47EE-8347-598E902244FF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunEngine.Migrations", "SunEngine.Migrations\SunEngine.Migrations.csproj", "{AB2AB63D-9F01-4F17-AF2D-A522395C5BC6}"
@@ -11,13 +11,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunEngine.Core", "SunEngine
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunEngine.Admin", "SunEngine.Admin\SunEngine.Admin.csproj", "{07C6B121-79B4-4830-9164-25F414F9BC79}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{D1004C9C-A90D-4B08-958F-230A9F39E9CB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{D1004C9C-A90D-4B08-958F-230A9F39E9CB}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 		README.RU.md = README.RU.md
 		LICENSE.md = LICENSE.md
 		LICENSE.RU.md = LICENSE.RU.md
 		.gitignore = .gitignore
+		build-template.sh = build-template.sh
+		publish-template.sh = publish-template.sh
 	EndProjectSection
 EndProject
 Global

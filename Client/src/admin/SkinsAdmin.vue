@@ -16,26 +16,37 @@
       <q-card :key="skin.name" class="skins-admin__card" v-for="skin in skins">
 
         <div style="height:172px; overflow-y: auto">
-          <q-img :class="{hidden: skin.showInfo}" :src="$buildPath(skinsDir,skin.name,'preview.png')"
-                 class="skins-admin__skin-img"/>
+          <q-img :class="{hidden: skin.showInfo}"
+                 :src="$apiPath($AdminApi.SkinsAdmin.GetSkinPreview)+`?name=${skin.name}`"
+                 class="skins-admin__skin-img">
+            <div class="skins-admin__preview-btn absolute-bottom-right">
+              <q-icon name="fas fa-search" size="20px">
+
+              </q-icon>
+              <q-tooltip anchor="center middle" self="center middle">
+                <img :src="$apiPath($AdminApi.SkinsAdmin.GetSkinPreview)+`?name=${skin.name}`" width="800"/>
+              </q-tooltip>
+            </div>
+          </q-img>
           <q-card-section :class="{hidden: !skin.showInfo}">
             <div> {{$tl("author")}}
-              <a v-if="skin.contacts" href="#" @click.prevent.stop="skin.showContacts = !skin.showContacts"> {{skin.author}}</a>
+              <a v-if="skin.contacts" href="#" @click.prevent.stop="skin.showContacts = !skin.showContacts">
+                {{skin.author}}</a>
               <span v-else>
               {{skin.author}}
                 </span>
             </div>
             <q-slide-transition>
-            <div v-if="skin.contacts && skin.showContacts">
-              {{$tl("contacts")}}
-              <span :key="index" v-for="(contact,index) of skin.contacts">
+              <div v-if="skin.contacts && skin.showContacts">
+                {{$tl("contacts")}}
+                <span :key="index" v-for="(contact,index) of skin.contacts">
                 <a v-if="contact.startsWith('http')" :href="contact">{{contact}}</a>
                 <template v-else>
                   {{contact}}
                 </template>
                 <template v-if="index != skin.contacts.length-1">, </template>
               </span>
-            </div>
+              </div>
             </q-slide-transition>
             <div>
               {{$tl("version")}} {{skin.version}}
@@ -59,11 +70,7 @@
           <q-btn flat v-if="!skin.current" no-caps @click="changeSkin(skin.name)" icon="fas fa-play"
                  class="skins-admin__send-btn" :label="$tl('set')"/>
 
-          <q-btn flat icon="fas fa-search" class="skins-admin__preview-btn">
-            <q-tooltip>
-              <img :src="$buildPath(skinsDir,skin.name,'preview.png')" width="600"/>
-            </q-tooltip>
-          </q-btn>
+
           <q-btn class="skins-admin__delete-btn" no-caps @click="showSkinInfo(skin)" flat
                  icon="fas fa-info"/>
           <q-btn v-if="!skin.current" class="skins-admin__info-btn" no-caps @click="deleteSkin(skin.name)" flat
@@ -195,6 +202,16 @@
     // color: white;
     .q-icon {
       color: $green-5;
+    }
+  }
+
+  .skins-admin__preview-btn {
+    background-color: rgba(0, 0, 0, 0.22) !important;
+    border-radius: 6px 0px 0px 0px;
+
+    padding: 10px !important;
+    .q-icon {
+      color: white;
     }
   }
 
