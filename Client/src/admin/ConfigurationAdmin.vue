@@ -46,12 +46,16 @@
                     );
             },
             uploadConfiguration() {
-                this.$request(this.$AdminApi.ConfigurationAdmin.UploadConfiguration,
-                    {}
-                ).then(response => {
-                        this.configurationItems = response.data;
-                    }
-                );
+                const data = new FormData();
+
+                for (const ci of this.configurationItems)
+                    data.append(ci.name, ci.value);
+
+                this.$request(this.$AdminApi.ConfigurationAdmin.UploadConfiguration, data)
+                    .then( _ => {
+                        this.$successNotify();
+                        }
+                    );
             }
         },
         beforeCreate() {
