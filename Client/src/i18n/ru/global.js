@@ -9,7 +9,8 @@ export default {
       create: "Создать",
       save: "Сохранить",
       cancel: "Отмена",
-      delete: "Удалить"
+      delete: "Удалить",
+      reset: "Сбросить"
     },
     validation: {
       emailSig: "Неправильная сигнатура email",

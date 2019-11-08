@@ -277,6 +277,9 @@ export default {
   },
   ConfigurationAdmin: {
     title: "Конфигурация сайта",
+    resetBtn: "@:Global.btn.reset",
+    cancelBtn: "@:Global.btn.cancel",
+    saveBtn: "@:Global.btn.save"
   },
   CypherSecrets: {
     title: "Сбросить ключи шифрования"

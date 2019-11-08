@@ -268,6 +268,9 @@ export default {
   },
   ConfigurationAdmin: {
     title: "Site configuration",
+    resetBtn: "@:Global.btn.reset",
+    cancelBtn: "@:Global.btn.cancel",
+    saveBtn: "@:Global.btn.save"
   },
   CypherSecrets: {
     title: "Reset cypher keys"

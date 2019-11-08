@@ -71,6 +71,11 @@
       <_ContentIncludedByDefault Remove="Config-template\Components\Posts.json" />
       <_ContentIncludedByDefault Remove="Config-template\Materials\inline1.json" />
     </ItemGroup>
+
+
+    <ItemGroup>
+      <Folder Include="wwwroot\CurrentSkin" />
+    </ItemGroup>
     
     
    

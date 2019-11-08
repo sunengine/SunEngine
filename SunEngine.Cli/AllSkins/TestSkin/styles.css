@@ -33,6 +33,16 @@ a:hover, .link:hover {
   color: white !important;
 }
 
+.refresh-btn {
+  background-color: #31CCEC !important;
+  color: white !important;
+}
+
+.reset-btn {
+  background-color: #31CCEC !important;
+  color: white !important;
+}
+
 .delete-btn {
   background-color: #C10015 !important;
   color: white !important;

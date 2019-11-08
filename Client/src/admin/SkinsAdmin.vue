@@ -85,6 +85,7 @@
 <script>
     import {Page} from 'mixins';
 
+
     export default {
         name: "SkinsAdmin",
         mixins: [Page],
