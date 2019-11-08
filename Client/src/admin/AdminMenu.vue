@@ -70,6 +70,16 @@
       </q-item-section>
     </q-item>
 
+    <q-item :to="{name: 'ConfigurationAdmin'}">
+      <q-item-section avatar>
+        <q-icon name="fas fa-tools"/>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $tl("configuration") }}</q-item-label>
+        <q-item-label v-if="configurationCaption" caption>{{configurationCaption}}</q-item-label>
+      </q-item-section>
+    </q-item>
+
     <q-item :to="{name: 'ImagesCleaner'}">
       <q-item-section avatar>
         <q-icon name="fas fa-image"/>
@@ -148,6 +158,9 @@
             },
             cacheSettingsCaption() {
                 return this.$tl("cacheSettingsCaption") ?? null;
+            },
+            configurationCaption() {
+                return this.$tl("configurationCaption") ?? null;
             },
             imagesCleanerCaption() {
                 return this.$tl("imagesCleanerCaption") ?? null;

@@ -4,7 +4,7 @@ const config = {
   SiteUrl: "http://localhost:5005",
   UploadedImages: 'http://localhost:5000/UploadImages',
   SiteName: 'SunEngine Demo',
-  Skin: 'http://localhost:5000/statics/skin/styles.css',  // Do not change last part "statics/skin/styles.css"
+  Skin: 'http://localhost:5000/CurrentSkin/styles.css',  // Do not change last part "statics/skin/styles.css"
 
   OpenExternalLinksAtNewTab: true,
 
@@ -69,4 +69,4 @@ else
   throw "SiteUrl in config.js have to start with 'http://' or 'https://'.";
 
 
-document.writeln(`<link href="${config.Skin}" rel="stylesheet">`);
+document.writeln(`<link href="${config.Skin}?skinver=111111" rel="stylesheet">`);

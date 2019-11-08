@@ -229,6 +229,8 @@ export default {
     rolesPermissionsCaption: "",
     cacheSettings: "Cache settings",
     cacheSettingsCaption: "",
+    configuration: "Configuration",
+    configurationCaption: "",
     cypherSecrets: "Cypher keys",
     cypherSecretsCaption:"",
     imagesCleaner: "Disk cleaner",
@@ -263,6 +265,9 @@ export default {
         invalidValue: "Value can`t be lower 0",
       }
     }
+  },
+  ConfigurationAdmin: {
+    title: "Site configuration",
   },
   CypherSecrets: {
     title: "Reset cypher keys"

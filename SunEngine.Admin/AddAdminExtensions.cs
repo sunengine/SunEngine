@@ -11,15 +11,19 @@ namespace SunEngine.Admin
         {
             services.AddScoped<CacheSettingsManager>();
             services.AddScoped<CategoriesAdminManager>();
-            services.AddScoped<RolesPermissionsAdminService>();
+            services.AddScoped<IConfigurationManager,ConfigurationManager>();
+            services.AddScoped<IMenuAdminManager, MenuAdminManager>();
+            services.AddScoped<IComponentsAdminManager, ComponentsAdminManager>();
+            
             services.AddScoped<IUserRolesAdminPresenter, UserRolesAdminPresenter>();
             services.AddScoped<ICategoriesAdminPresenter, CategoriesAdminPresenter>();
             services.AddScoped<CacheSettingsPresentor>();
             services.AddScoped<IUserRolesAdminPresenter, UserRolesAdminPresenter>();
             services.AddScoped<IMenuAdminPresenter, MenuAdminPresenter>();
-            services.AddScoped<IMenuAdminManager, MenuAdminManager>();
             services.AddScoped<IComponentsAdminPresenter, ComponentsAdminPresenter>();
-            services.AddScoped<IComponentsAdminManager, ComponentsAdminManager>();
+            services.AddScoped<IConfigurationPresenter, ConfigurationPresenter>();
+
+            services.AddScoped<RolesPermissionsAdminService>();
             services.AddScoped<ImageCleanerAdminService>();
             services.AddScoped<SkinsAdminService>();
         }

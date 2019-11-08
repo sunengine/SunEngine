@@ -56,5 +56,9 @@ export default {
     UploadSkin: '/Admin/SkinsAdmin/UploadSkin',
     ChangeSkin: '/Admin/SkinsAdmin/ChangeSkin',
     DeleteSkin: '/Admin/SkinsAdmin/DeleteSkin'
+  },
+  ConfigurationAdmin: {
+    UploadConfiguration: '/Admin/ConfigurationAdmin/UploadConfiguration',
+    LoadConfiguration: '/Admin/ConfigurationAdmin/LoadConfiguration',
   }
 }

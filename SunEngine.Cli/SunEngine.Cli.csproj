@@ -64,6 +64,13 @@
       <ProjectReference Include="..\SunEngine.DataSeed\SunEngine.DataSeed.csproj" />
       <ProjectReference Include="..\SunEngine.Migrations\SunEngine.Migrations.csproj" />
     </ItemGroup>
+
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Config-template\Components\Activities.json" />
+      <_ContentIncludedByDefault Remove="Config-template\Components\Posts.json" />
+      <_ContentIncludedByDefault Remove="Config-template\Materials\inline1.json" />
+    </ItemGroup>
     
     
    

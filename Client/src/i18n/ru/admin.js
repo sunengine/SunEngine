@@ -233,6 +233,9 @@ export default {
     //rolesPermissionsCaption: "Добавление, редактирование, удаление групп и их прав",
     cacheSettings: "Кэширование",
     cacheSettingsCaption: "",
+    configuration: "Конфигурация",
+    configurationCaption: "",
+    //configurationCaption: "Конфигурация",
     //cacheSettingsCaption: "Способ кэширования на сайте",
     cypherSecrets: "Ключи шифрования",
     cypherSecretsCaption: "",
@@ -271,6 +274,9 @@ export default {
         invalidValue: "Значение не может быть ниже 0",
       }
     }
+  },
+  ConfigurationAdmin: {
+    title: "Конфигурация сайта",
   },
   CypherSecrets: {
     title: "Сбросить ключи шифрования"

@@ -18,6 +18,7 @@ import {ComponentsAdmin} from 'sun'
 import {CreateComponent} from 'sun'
 import {EditComponent} from 'sun'
 import {SkinsAdmin} from 'sun'
+import {ConfigurationAdmin} from 'sun'
 
 
 const AdminPage = wrapInPage("AdminPage", AdminMenu, null, "fas fa-cog");
@@ -190,6 +191,14 @@ const routes = [
     path: '/admin/DeletedElements'.toLowerCase(),
     components: {
       default: DeletedElements,
+      navigation: AdminPanel
+    }
+  },
+  {
+    name: 'ConfigurationAdmin',
+    path: '/admin/Configuration'.toLowerCase(),
+    components: {
+      default: ConfigurationAdmin,
       navigation: AdminPanel
     }
   },
