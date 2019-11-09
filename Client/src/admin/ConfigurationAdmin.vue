@@ -1,25 +1,32 @@
 <template>
-  <q-page class="configuration-admin page-padding">
-    <h2 class="page-title">
+  <q-page class="configuration-admin">
+    <h2 class="page-title  page-padding">
       {{title}}
     </h2>
 
-    <table v-if="configurationItems">
-      <tr v-for="cItem of configurationItems">
-        <td>{{cItem.name}}</td>
-        <td>
-          <q-input dense class="inline-block full-width" v-if="cItem.type === 'Number' ||cItem.type === 'String' "
-                   :type="cItem.type === 'Number' ? 'number' : 'text'" v-model="cItem.value"/>
-          <q-checkbox v-else class="inline-block" v-model="cItem.value"/>
-        </td>
-      </tr>
+    <div v-if="configurationItems">
+      <q-table hide-header hide-bottom :pagination="{rowsPerPage :0 }"
+               :data="configurationItems"
+               :columns="columns"
+               row-key="name"
+      >
+        <template v-slot:body="props">
+          <q-tr :props="props">
+            <q-td  class="configuration-admin__name-column">{{props.row.name }}</q-td>
+            <q-td >
+              <q-checkbox v-if="props.row.type === 'Boolean'" v-model="props.row.value"/>
+              <q-input dense v-else :type="getTypeType(props.row.type)" v-model="props.row.value"/>
+            </q-td>
+          </q-tr>
+        </template>
+      </q-table>
 
-      <div class="configuration-admin__btn-block flex q-mt-lg q-gutter-md">
+      <div class="configuration-admin__btn-block  page-padding flex q-mt-lg q-gutter-md">
         <q-btn class="send-btn" @click="uploadConfiguration" no-caps icon="fas fa-save" :label="$tl('saveBtn')"/>
         <div class="grow"></div>
-        <q-btn class="reset-btn" @click="loadConfiguration" no-caps icon="fas fa-sync-alt" :label="$tl('resetBtn')"/>
+        <q-btn class="reset-btn" @click="resetConfiguration" no-caps icon="fas fa-sync-alt" :label="$tl('resetBtn')"/>
       </div>
-    </table>
+    </div>
     <LoaderWait v-else/>
 
   </q-page>
@@ -37,9 +44,33 @@
                 configurationItems: null
             }
         },
+        computed: {
+            columns() {
+                return [
+                    {name: 'name', label: 'Name', field: 'name', classes: 'configuration-admin__name-column'},
+                    {name: 'value', label: 'Value', field: 'value'}
+                ]
+            }
+        },
         methods: {
+            getTypeType(type) {
+                switch (type) {
+                    case 'String':
+                        return 'text';
+                    case 'LongString':
+                        return 'textarea';
+                    case 'Number':
+                        return 'number';
+                }
+            },
+            resetConfiguration() {
+                this.loadConfiguration()
+                    .then(_ => {
+                        this.$successNotify(this.$tl('resetSuccessNotify'));
+                    });
+            },
             loadConfiguration() {
-                this.$request(this.$AdminApi.ConfigurationAdmin.LoadConfiguration)
+               return this.$request(this.$AdminApi.ConfigurationAdmin.LoadConfiguration)
                     .then(response => {
                             this.configurationItems = response.data;
                         }
@@ -52,8 +83,9 @@
                     data.append(ci.name, ci.value);
 
                 this.$request(this.$AdminApi.ConfigurationAdmin.UploadConfiguration, data)
-                    .then( _ => {
-                        this.$successNotify();
+                    .then(_ => {
+                            this.$successNotify();
+                            this.loadConfiguration();
                         }
                     );
             }
@@ -68,6 +100,10 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss">
+
+  .configuration-admin__name-column {
+    width: 150px !important;
+  }
 
 </style>

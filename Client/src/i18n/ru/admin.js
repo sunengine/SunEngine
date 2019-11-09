@@ -277,7 +277,9 @@ export default {
   },
   ConfigurationAdmin: {
     title: "Конфигурация сайта",
-    resetBtn: "@:Global.btn.reset",
+    successNotify: "Значения конфигурации успешно сохранены",
+    resetSuccessNotify: "Значения конфигурации перезагружены с сервера",
+    resetBtn: "Перезагрузить с сервера",
     cancelBtn: "@:Global.btn.cancel",
     saveBtn: "@:Global.btn.save"
   },

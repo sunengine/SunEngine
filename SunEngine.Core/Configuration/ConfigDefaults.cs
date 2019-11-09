@@ -6,6 +6,9 @@ namespace SunEngine.Core.Configuration
     {
         public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>()
         {
+            ["AAA"] = new LongString("xxx"),
+            ["AAA2"] = new LongString("yyyyyyyyyyyyy"),
+
             ["Global:SiteName"] = "SunEngine Demo",
 
             ["Dev:ShowExceptions"] = false,
@@ -55,5 +58,14 @@ namespace SunEngine.Core.Configuration
             ["Email:EmailFromName"] = "SunEngine Demo",
             ["Email:EmailFromAddress"] = "SunEngine@demo.com",
         };
+    }
+
+    public class LongString
+    {
+        public string Value { get; set; }
+        public LongString(string value)
+        {
+            Value = value;
+        }
     }
 }

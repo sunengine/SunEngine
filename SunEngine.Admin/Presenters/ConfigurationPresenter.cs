@@ -35,6 +35,7 @@ namespace SunEngine.Admin.Presenters
     public enum TypeName
     {
         String,
+        LongString,
         Number,
         Boolean,
         Strange
@@ -65,6 +66,7 @@ namespace SunEngine.Admin.Presenters
                 case TypeName.Boolean:
                     return bool.Parse(value);
                 case TypeName.String:
+                case TypeName.LongString:
                 case TypeName.Strange:
                 default:
                     return value;
@@ -86,6 +88,8 @@ namespace SunEngine.Admin.Presenters
                 case "String":
                 case "string":
                     return TypeName.String;
+                case "LongString":
+                    return TypeName.LongString;
                 default:
                     return TypeName.Strange;
             }

@@ -54,7 +54,7 @@ namespace SunEngine.Admin.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetSkinPreview(string name)
+        public IActionResult GetSkinPreview(string name)
         {
             Response.ContentType = "image/png";
             string previewPath = Path.Combine(skinsAdminService.AllSkinsPath, PathUtils.ClearPathToken(name), "preview.png");

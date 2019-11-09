@@ -268,7 +268,9 @@ export default {
   },
   ConfigurationAdmin: {
     title: "Site configuration",
-    resetBtn: "@:Global.btn.reset",
+    successNotify: "Configuration values successfully saved",
+    resetSuccessNotify: "Configuration values reloaded from server",
+    resetBtn: "Reload from server",
     cancelBtn: "@:Global.btn.cancel",
     saveBtn: "@:Global.btn.save"
   },
