@@ -8,7 +8,7 @@ namespace SunEngine.Core.Configuration
         public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>()
         {
             ["AAA:Test1"] = (LongString) "Test data 1",
-            ["AAA:Test2"] = (LongString) string.Join(" ", Enumerable.Repeat("test data", 10)),
+            ["AAA:Test2"] = (LongString) string.Join(" ", Enumerable.Repeat("test data", 30)),
 
             ["Global:SiteName"] = "SunEngine Demo",
 

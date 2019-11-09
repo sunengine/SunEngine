@@ -1,73 +1,26 @@
+/*
+ Use ~ in path to use application folder or @ to use wwwroot folder, or use absolute paths
+ */
+
 {
   "Global": {
-    "SiteUrl": "http://localhost:5005",
-    "SiteApi": "http://localhost:5000",
-    "SiteName": "SunEngine"
-  },
-  "Dev":  {
-    "ShowExceptions": true
-  },
-  "Images": {
-    "UploadDir": "UploadImages",
-    "MaxWidthPixels": 1200,
-    "MaxHeightPixels": 800,
-    "PhotoMaxWidthPixels": 500,
-    "PhotoMaxHeightPixels": 500,
-    "AvatarSizePixels": 300,
-    "AllowSvgUpload":true,
-    "ImageRequestSizeLimitBytes": 10485760,
-    "DoResize": true
-  },
-  "Comments": {
-    "TimeToOwnEditInMinutes": 15,
-    "TimeToOwnDeleteInMinutes": 15
-  },
-  "Materials": {
-    "CommentsPageSize": 5,
-    "TimeToOwnEditInMinutes": 15,
-    "TimeToOwnDeleteInMinutes": 15,
-    "TimeToOwnMoveInMinutes": 15,
-    "SubTitleLength": 80
-  },
-  "Forum": {
-    "ThreadMaterialsPageSize": 5,
-    "NewTopicsPageSize": 5,
-    "NewTopicsMaxPages": 8
-  },
-  "Articles": {
-    "CategoryPageSize": 8
-  },
-  "Blog": {
-    "PostsPageSize": 8,
-    "PreviewLength": 850
-  },
-  "Captcha": {
-  },
-  "Jwe": {
-    "LongTokenLiveTimeDays": 90,
-    "ShortTokenLiveTimeMinutes": 20,
-    "Issuer": "SunEngine Asp.net Core"
-  },
-  "Scheduler": {
-    "SpamProtectionCacheClearMinutes": 8,
-    "JwtBlackListServiceClearMinutes": 60,
-    "LongSessionsClearDays": 1,
-    "ExpiredRegistrationUsersClearDays": 1,
-    "UploadVisitsToDataBaseMinutes": 5
-  },
-  "Email": {
-    "Host": "127.0.0.1",
-    "Port": "1025",
-    "Login": "username",
-    "Password": "password",
-    "EmailFromName": "SunEngine",
-    "EmailFromAddress": "system@sunengine.site"
+    "WwwRootDir": "~wwwroot",
+    "SiteUrl": "http://localhost:5005",  // url of web part
+    "SiteApi": "http://localhost:5000"   // url of server api part
   },
   "Kestrel": {
     "EndPoints": {
       "Http": {
-        "Url": "http://localhost:5000"
+        "Url": "http://localhost:5000"   // kestrel server api path
       }
     }
+  },
+  "Skins": {
+    "CurrentSkinDir": "@CurrentSkin",
+    "AllSkinsDir": "~AllSkins"
+  },
+  "Images": {
+    "ImagesUploadDir": "@UploadImages",
+    "ImagesUploadUrl": "http://localhost:5005/UploadImages"
   }
 }

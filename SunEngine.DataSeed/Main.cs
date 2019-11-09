@@ -30,9 +30,9 @@ namespace SunEngine.DataSeed
 
         public Main(string configDirectoryPath = "Config")
         {
-            this.configDirectoryPath = configDirectoryPath;
+            this.configDirectoryPath = Path.GetFullPath(configDirectoryPath);
             initDirPath = Path.GetFullPath(Path.Combine(configDirectoryPath, InitDir));
-            string dbSettingsFile = Path.Combine(initDirPath, DataBaseConnectionFileName);
+            string dbSettingsFile = Path.Combine(this.configDirectoryPath, DataBaseConnectionFileName);
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(dbSettingsFile, false, true)
                 .Build();
