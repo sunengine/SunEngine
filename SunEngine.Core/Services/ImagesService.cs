@@ -24,18 +24,18 @@ namespace SunEngine.Core.Services
         protected static readonly object lockObject = new object();
 
         protected readonly IImagesNamesService imagesNamesService;
-        protected readonly IOptionsSnapshot<ImagesOptions> imagesOptions;
+        protected readonly IOptionsMonitor<ImagesOptions> imagesOptions;
         protected readonly string UploadImagesDir;
 
 
         public ImagesService(
-            IOptionsSnapshot<ImagesOptions> imagesOptions,
+            IOptionsMonitor<ImagesOptions> imagesOptions,
             IPathService pathService,
             IImagesNamesService imagesNamesService)
         {
             this.imagesOptions = imagesOptions;
             this.imagesNamesService = imagesNamesService;
-            UploadImagesDir = pathService.MakePath(this.imagesOptions.Value.ImagesUploadDir);
+            UploadImagesDir = pathService.MakePath(this.imagesOptions.CurrentValue.ImagesUploadDir);
         }
 
         public virtual string GetAllowedExtension(string fileName)
@@ -49,9 +49,9 @@ namespace SunEngine.Core.Services
                 case ".png":
                     return ext;
                 case ".gif":
-                    return imagesOptions.Value.AllowGifUpload ? ext : null;
+                    return imagesOptions.CurrentValue.AllowGifUpload ? ext : null;
                 case ".svg":
-                    return imagesOptions.Value.AllowSvgUpload ? ext : null;
+                    return imagesOptions.CurrentValue.AllowSvgUpload ? ext : null;
             }
 
             return null;

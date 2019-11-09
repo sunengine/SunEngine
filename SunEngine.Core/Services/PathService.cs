@@ -17,11 +17,11 @@ namespace SunEngine.Core.Services
         
         
         public PathService(
-            IOptionsSnapshot<GlobalOptions> globalOptions,
+            IOptionsMonitor<GlobalOptions> globalOptions,
             IWebHostEnvironment env)
         {
             ApplicationDir = env.ContentRootPath;
-            WwwRootDir = MakePath(globalOptions.Value.WwwRootDir);
+            WwwRootDir = MakePath(globalOptions.CurrentValue.WwwRootDir);
         }
         
         public string MakePath(string token)

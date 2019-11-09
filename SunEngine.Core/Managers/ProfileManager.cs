@@ -22,12 +22,12 @@ namespace SunEngine.Core.Managers
     {
         protected readonly IEmailSenderService emailSenderService;
         protected readonly SanitizerService sanitizerService;
-        protected readonly  IOptionsSnapshot<GlobalOptions> globalOptions;
+        protected readonly  IOptionsMonitor<GlobalOptions> globalOptions;
 
         public ProfileManager(
             DataBaseConnection db,
             IEmailSenderService emailSenderService,
-            IOptionsSnapshot<GlobalOptions> globalOptions,
+            IOptionsMonitor<GlobalOptions> globalOptions,
             SanitizerService sanitizerService
         ) : base(db)
         {
@@ -44,8 +44,8 @@ namespace SunEngine.Core.Managers
                 "private-message.html",
                 new Dictionary<string, string>
                 {
-                    {"[siteName]", globalOptions.Value.SiteName},
-                    {"[url]", globalOptions.Value.SiteUrl.AppendPathSegment("user/" + from.Link)},
+                    {"[siteName]", globalOptions.CurrentValue.SiteName},
+                    {"[url]", globalOptions.CurrentValue.SiteUrl.AppendPathSegment("user/" + from.Link)},
                     {"[userName]", from.UserName},
                     {"[message]", sanitizerService.Sanitize(text)}
                 }

@@ -20,14 +20,14 @@ namespace SunEngine.Core.Controllers
     {
         protected readonly OperationKeysContainer OperationKeys;
 
-        protected readonly IOptionsSnapshot<BlogOptions> blogOptions;
+        protected readonly IOptionsMonitor<BlogOptions> blogOptions;
         protected readonly ICategoriesCache categoriesCache;
         protected readonly IAuthorizationService authorizationService;
         protected readonly IBlogPresenter blogPresenter;
         protected readonly IComponentsCache componentsCache;
 
         public BlogController(
-            IOptionsSnapshot<BlogOptions> blogOptions,
+            IOptionsMonitor<BlogOptions> blogOptions,
             IAuthorizationService authorizationService,
             ICategoriesCache categoriesCache,
             OperationKeysContainer operationKeysContainer,
@@ -61,7 +61,7 @@ namespace SunEngine.Core.Controllers
             {
                 CategoryId = category.Id,
                 Page = page,
-                PageSize = blogOptions.Value.PostsPageSize
+                PageSize = blogOptions.CurrentValue.PostsPageSize
             };
 
             if (authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialHide))

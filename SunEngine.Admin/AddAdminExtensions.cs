@@ -27,8 +27,6 @@ namespace SunEngine.Admin
             services.AddScoped<RolesPermissionsAdminService>();
             services.AddScoped<ImageCleanerAdminService>();
             services.AddScoped<SkinsAdminService>();
-            
-            services.AddSingleton(ConfigDbProvider.DefaultConfigDbProvider);
         }
     }
 }

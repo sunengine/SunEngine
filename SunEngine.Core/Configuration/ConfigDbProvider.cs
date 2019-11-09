@@ -34,6 +34,7 @@ namespace SunEngine.Core.Configuration
                 Data.Add(item.Name, item.Value);
         }
 
+
         private static void EnsureItems(DataBaseConnection db)
         {
             var allItemsDic = db.ConfigurationItems.ToList().ToDictionary(x => x.Name, x => x);

@@ -58,7 +58,7 @@ namespace SunEngine.Core.Managers
     {
         protected readonly ITagsManager tagsManager;
         protected readonly SanitizerService sanitizerService;
-        protected readonly  IOptionsSnapshot<MaterialsOptions> materialsOptions;
+        protected readonly  IOptionsMonitor<MaterialsOptions> materialsOptions;
         protected readonly ICategoriesCache categoriesCache;
 
         protected readonly Regex nameValidator =
@@ -69,7 +69,7 @@ namespace SunEngine.Core.Managers
             SanitizerService sanitizerService,
             ICategoriesCache categoriesCache,
             ITagsManager tagsManager,
-            IOptionsSnapshot<MaterialsOptions> materialsOptions) : base(db)
+            IOptionsMonitor<MaterialsOptions> materialsOptions) : base(db)
         {
             this.tagsManager = tagsManager;
             this.sanitizerService = sanitizerService;
@@ -108,7 +108,7 @@ namespace SunEngine.Core.Managers
                     material.SubTitle = SimpleHtmlToText.ClearTags(sanitizerService.Sanitize(material.SubTitle));
                     break;
                 case MaterialsSubTitleInputType.Auto:
-                    material.SubTitle = MakeSubTitle.Do(doc, materialsOptions.Value.SubTitleLength);
+                    material.SubTitle = MakeSubTitle.Do(doc, materialsOptions.CurrentValue.SubTitleLength);
                     break;
             }
 
@@ -141,7 +141,7 @@ namespace SunEngine.Core.Managers
                     material.SubTitle = SimpleHtmlToText.ClearTags(sanitizerService.Sanitize(material.SubTitle));
                     break;
                 case MaterialsSubTitleInputType.Auto:
-                    material.SubTitle = MakeSubTitle.Do(doc, materialsOptions.Value.SubTitleLength);
+                    material.SubTitle = MakeSubTitle.Do(doc, materialsOptions.CurrentValue.SubTitleLength);
                     break;
                 default:
                     material.SubTitle = null;

@@ -19,12 +19,12 @@ namespace SunEngine.Core.Controllers
     /// </summary>
     public class AccountController : BaseController
     {
-        private readonly IOptionsSnapshot<GlobalOptions> globalOptions;
+        private readonly IOptionsMonitor<GlobalOptions> globalOptions;
         private readonly IAccountManager accountManager;
 
         public AccountController(
             IAccountManager accountManager,
-            IOptionsSnapshot<GlobalOptions> globalOptions,
+            IOptionsMonitor<GlobalOptions> globalOptions,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.globalOptions = globalOptions;
@@ -55,15 +55,15 @@ namespace SunEngine.Core.Controllers
         {
             var user = await userManager.FindByIdAsync(uid);
             if (user == null)
-                return Redirect(Flurl.Url.Combine(globalOptions.Value.SiteUrl, "Account/ResetPasswordFailed".ToLower()));
+                return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl, "Account/ResetPasswordFailed".ToLower()));
 
             if (await userManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider, "ResetPassword", token))
             {
-                return Redirect(Flurl.Url.Combine(globalOptions.Value.SiteUrl, "Account/ResetPasswordSetNew".ToLower())
+                return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl, "Account/ResetPasswordSetNew".ToLower())
                     .SetQueryParams(new {uid = uid, token = token}));
             }
 
-            return Redirect(Flurl.Url.Combine(globalOptions.Value.SiteUrl, "Account/ResetPasswordFailed".ToLower()));
+            return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl, "Account/ResetPasswordFailed".ToLower()));
         }
 
         [AllowAnonymous]
@@ -119,11 +119,11 @@ namespace SunEngine.Core.Controllers
                 return Error();
             }
 
-            return Redirect(Flurl.Url.Combine(globalOptions.Value.SiteUrl, "Account/ChangeEmailResult?result=ok".ToLower()));
+            return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl, "Account/ChangeEmailResult?result=ok".ToLower()));
 
             IActionResult Error()
             {
-                return Redirect(Flurl.Url.Combine(globalOptions.Value.SiteUrl, "Account/ChangeEmailResult?result=error")
+                return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl, "Account/ChangeEmailResult?result=error")
                     .ToLower());
             }
         }

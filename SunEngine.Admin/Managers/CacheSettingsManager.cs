@@ -14,10 +14,10 @@ namespace SunEngine.Admin.Managers
 {
     public class CacheSettingsManager : DbService
     {
-        private IOptionsSnapshot<CacheOptions> cacheOptions;
+        private IOptionsMonitor<CacheOptions> cacheOptions;
         private IContentCache contentCache;
         
-        public CacheSettingsManager(IOptionsSnapshot<CacheOptions> cacheOptions, 
+        public CacheSettingsManager(IOptionsMonitor<CacheOptions> cacheOptions, 
             IContentCache contentCache, DataBaseConnection db) : base(db)
         {
             this.cacheOptions = cacheOptions;
@@ -32,7 +32,7 @@ namespace SunEngine.Admin.Managers
             if (cacheSettings.CachePolicy == CachePolicy.NeverPolicy) 
                 cacheSettings.InvalidateCacheTime = null;
             
-            cacheOptions.Value.UpdateOptions(cacheSettings);
+            cacheOptions.CurrentValue.UpdateOptions(cacheSettings);
             
             var currentSettings = await db.CacheSettings.OrderBy(x => x.Id).FirstOrDefaultAsync();
             if (currentSettings == null)

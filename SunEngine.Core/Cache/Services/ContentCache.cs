@@ -21,13 +21,13 @@ namespace SunEngine.Core.Cache.Services
     {
         private ICategoriesCache categoriesCache;
         private IMemoryCache memoryCache;
-        private IOptionsSnapshot<CacheOptions> cacheOptions;
+        private IOptionsMonitor<CacheOptions> cacheOptions;
         private Dictionary<string, bool> recordsKeys = new Dictionary<string, bool>();
         private static object syncObject = new object();
 
         public CategoryContentCache(ICategoriesCache categoriesCache,
             IMemoryCache memoryCache,
-            IOptionsSnapshot<CacheOptions> cacheOptions)
+            IOptionsMonitor<CacheOptions> cacheOptions)
         {
             this.categoriesCache = categoriesCache;
             this.memoryCache = memoryCache;
@@ -46,9 +46,9 @@ namespace SunEngine.Core.Cache.Services
                 return false;
 
             var invalidateCacheTime = 15;
-            if (cacheOptions.Value.InvalidateCacheTime.HasValue)
+            if (cacheOptions.CurrentValue.InvalidateCacheTime.HasValue)
             {
-                invalidateCacheTime = cacheOptions.Value.InvalidateCacheTime.Value;
+                invalidateCacheTime = cacheOptions.CurrentValue.InvalidateCacheTime.Value;
                 if (invalidateCacheTime == 0)
                     invalidateCacheTime = int.MaxValue;
             }

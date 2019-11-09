@@ -25,9 +25,9 @@ namespace SunEngine.Core.Managers
 
     public class AccountManager : DbService, IAccountManager
     {
-        protected readonly IOptionsSnapshot<JweOptions> jweOptions;
+        protected readonly IOptionsMonitor<JweOptions> jweOptions;
         protected readonly SunUserManager userManager;
-        protected readonly IOptionsSnapshot<GlobalOptions> globalOptions;
+        protected readonly IOptionsMonitor<GlobalOptions> globalOptions;
         protected readonly ICryptService cryptService;
         protected readonly IEmailSenderService emailSenderService;
 
@@ -37,8 +37,8 @@ namespace SunEngine.Core.Managers
             IEmailSenderService emailSenderService,
             DataBaseConnection db,
             ICryptService cryptService,
-            IOptionsSnapshot<GlobalOptions> globalOptions,
-            IOptionsSnapshot<JweOptions> jwtOptions) : base(db)
+            IOptionsMonitor<GlobalOptions> globalOptions,
+            IOptionsMonitor<JweOptions> jwtOptions) : base(db)
         {
             this.jweOptions = jwtOptions;
             this.userManager = userManager;
@@ -51,7 +51,7 @@ namespace SunEngine.Core.Managers
         {
             var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
 
-            var resetPasswordUrl = globalOptions.Value.SiteApi
+            var resetPasswordUrl = globalOptions.CurrentValue.SiteApi
                 .AppendPathSegments("Account", "ResetPasswordShowClientDialog")
                 .SetQueryParams(new {uid = user.Id, token = resetToken});
 
@@ -115,7 +115,7 @@ namespace SunEngine.Core.Managers
         {
             var emailToken = GenerateChangeEmailToken(user, email);
 
-            var updateEmailUrl = globalOptions.Value.SiteApi.AppendPathSegments("Account", "ConfirmChangeEmail")
+            var updateEmailUrl = globalOptions.CurrentValue.SiteApi.AppendPathSegments("Account", "ConfirmChangeEmail")
                 .SetQueryParam("token", emailToken);
             
             await emailSenderService.SendEmailByTemplateAsync(

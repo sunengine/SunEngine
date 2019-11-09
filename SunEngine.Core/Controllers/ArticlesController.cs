@@ -20,7 +20,7 @@ namespace SunEngine.Core.Controllers
     {
         protected readonly OperationKeysContainer OperationKeys;
 
-        protected readonly IOptionsSnapshot<ArticlesOptions> articlesOptions;
+        protected readonly IOptionsMonitor<ArticlesOptions> articlesOptions;
         protected readonly ICategoriesCache categoriesCache;
         protected readonly IAuthorizationService authorizationService;
 
@@ -28,7 +28,7 @@ namespace SunEngine.Core.Controllers
 
 
         public ArticlesController(
-            IOptionsSnapshot<ArticlesOptions> articlesOptions,
+            IOptionsMonitor<ArticlesOptions> articlesOptions,
             IAuthorizationService authorizationService,
             ICategoriesCache categoriesCache,
             OperationKeysContainer operationKeysContainer,
@@ -60,7 +60,7 @@ namespace SunEngine.Core.Controllers
                 CategoryId = category.Id,
                 orderType = sort,
                 Page = page,
-                PageSize = articlesOptions.Value.CategoryPageSize
+                PageSize = articlesOptions.CurrentValue.CategoryPageSize
             };
 
             if (authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialHide))
@@ -92,7 +92,7 @@ namespace SunEngine.Core.Controllers
             {
                 CategoriesIds = categoriesList.Select(x => x.Id),
                 Page = page,
-                PageSize = articlesOptions.Value.CategoryPageSize
+                PageSize = articlesOptions.CurrentValue.CategoryPageSize
             };
 
             IPagedList<ArticleInfoView> articles = await articlesPresenter.GetArticlesFromMultiCategoriesAsync(options);

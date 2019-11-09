@@ -21,11 +21,11 @@ namespace SunEngine.Core.Services
 
     public class EmailSenderService : IEmailSenderService
     {
-        private readonly IOptionsSnapshot<EmailSenderOptions> emailSenderOptions;
+        private readonly IOptionsMonitor<EmailSenderOptions> emailSenderOptions;
         private readonly IMailTemplatesCache mailTemplatesCache;
 
         public EmailSenderService(
-            IOptionsSnapshot<EmailSenderOptions> emailSenderOptions,
+            IOptionsMonitor<EmailSenderOptions> emailSenderOptions,
             IMailTemplatesCache mailTemplatesCache)
         {
             this.emailSenderOptions = emailSenderOptions;
@@ -47,7 +47,7 @@ namespace SunEngine.Core.Services
         {
             MailMessage mailMessage = new MailMessage
             {
-                From = new MailAddress(emailSenderOptions.Value.EmailFromAddress, emailSenderOptions.Value.EmailFromName),
+                From = new MailAddress(emailSenderOptions.CurrentValue.EmailFromAddress, emailSenderOptions.CurrentValue.EmailFromName),
                 Body = textMessage,
                 Subject = subject,
                 BodyEncoding = Encoding.UTF8,
@@ -62,11 +62,11 @@ namespace SunEngine.Core.Services
                 mailMessage.AlternateViews.Add(htmlView);
             }
             
-            using (SmtpClient client = new SmtpClient(emailSenderOptions.Value.Host, emailSenderOptions.Value.Port)
+            using (SmtpClient client = new SmtpClient(emailSenderOptions.CurrentValue.Host, emailSenderOptions.CurrentValue.Port)
             {
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(emailSenderOptions.Value.Login, emailSenderOptions.Value.Password),
-                EnableSsl = emailSenderOptions.Value.UseSSL
+                Credentials = new NetworkCredential(emailSenderOptions.CurrentValue.Login, emailSenderOptions.CurrentValue.Password),
+                EnableSsl = emailSenderOptions.CurrentValue.UseSSL
             })
             {
                 await client.SendMailAsync(mailMessage);

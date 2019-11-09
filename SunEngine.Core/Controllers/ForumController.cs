@@ -17,14 +17,14 @@ namespace SunEngine.Core.Controllers
     public class ForumController : BaseController
     {
         protected readonly OperationKeysContainer OperationKeys;
-        protected readonly IOptionsSnapshot<ForumOptions> forumOptions;
+        protected readonly IOptionsMonitor<ForumOptions> forumOptions;
         protected readonly ICategoriesCache categoriesCache;
         protected readonly IAuthorizationService authorizationService;
         protected readonly IForumPresenter forumPresenter;
 
 
         public ForumController(
-            IOptionsSnapshot<ForumOptions> forumOptions,
+            IOptionsMonitor<ForumOptions> forumOptions,
             IAuthorizationService authorizationService,
             ICategoriesCache categoriesCache,
             IContentCache contentCache,
@@ -60,12 +60,12 @@ namespace SunEngine.Core.Controllers
             {
                 CategoriesIds = categoriesIds,
                 Page = page,
-                PageSize = forumOptions.Value.NewTopicsPageSize
+                PageSize = forumOptions.CurrentValue.NewTopicsPageSize
             };
 
             async Task<IPagedList<TopicInfoView>> LoadDataAsync()
             {
-                return await forumPresenter.GetNewTopicsAsync(options, forumOptions.Value.NewTopicsMaxPages);
+                return await forumPresenter.GetNewTopicsAsync(options, forumOptions.CurrentValue.NewTopicsMaxPages);
             }
 
             return await CacheContentAsync(categoryParent, categoriesIds, LoadDataAsync, page);
@@ -86,7 +86,7 @@ namespace SunEngine.Core.Controllers
             {
                 CategoryId = category.Id,
                 Page = page,
-                PageSize = forumOptions.Value.ThreadMaterialsPageSize
+                PageSize = forumOptions.CurrentValue.ThreadMaterialsPageSize
             };
 
             if (authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialHide))

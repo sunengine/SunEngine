@@ -26,13 +26,13 @@ namespace SunEngine.Admin.Services
 
         public SkinsAdminService(
             IPathService pathService,
-            IOptionsSnapshot<SkinsOptions> skinsOptions,
+            IOptionsMonitor<SkinsOptions> skinsOptions,
             IWebHostEnvironment env)
         {
             this.env = env;
 
-            AllSkinsPath = pathService.MakePath(skinsOptions.Value.AllSkinsDir);
-            CurrentSkinPath = pathService.MakePath(skinsOptions.Value.CurrentSkinDir);
+            AllSkinsPath = pathService.MakePath(skinsOptions.CurrentValue.AllSkinsDir);
+            CurrentSkinPath = pathService.MakePath(skinsOptions.CurrentValue.CurrentSkinDir);
             SkinNamePath = Path.Combine(AllSkinsPath, "name.txt");
         }
 

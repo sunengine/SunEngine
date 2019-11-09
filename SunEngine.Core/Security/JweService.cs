@@ -30,7 +30,7 @@ namespace SunEngine.Core.Security
     public class JweService : DbService
     {
         private readonly SunUserManager userManager;
-        private readonly IOptionsSnapshot<JweOptions> jweOptions;
+        private readonly IOptionsMonitor<JweOptions> jweOptions;
         private readonly ILogger logger;
         private readonly ICryptService cryptService;
         private readonly IRolesCache rolesCache;
@@ -40,7 +40,7 @@ namespace SunEngine.Core.Security
             SunUserManager userManager,
             IRolesCache rolesCache,
             ICryptService cryptService,
-            IOptionsSnapshot<JweOptions> jweOptions,
+            IOptionsMonitor<JweOptions> jweOptions,
             ILoggerFactory loggerFactory) : base(db)
         {
             this.userManager = userManager;
@@ -83,7 +83,7 @@ namespace SunEngine.Core.Security
             {
                 longSession1.LongToken1 = CryptoRandomizer.GetRandomString(LongSession.LongToken1Length);
                 longSession1.LongToken2 = CryptoRandomizer.GetRandomString(LongSession.LongToken2Length);
-                longSession1.ExpirationDate = DateTime.UtcNow.AddDays(jweOptions.Value.LongTokenLiveTimeDays);
+                longSession1.ExpirationDate = DateTime.UtcNow.AddDays(jweOptions.CurrentValue.LongTokenLiveTimeDays);
                 httpContext.Request.Headers.TryGetValue("User-Agent", out var userAgent);
                 longSession1.DeviceInfo = Parser.GetDefault()?.Parse(userAgent.ToString() ?? "")?.ToString() ?? "";
                 longSession1.UpdateDate = DateTime.UtcNow;
@@ -156,7 +156,7 @@ namespace SunEngine.Core.Security
             foreach (var role in roleNames)
                 claims.Add(new Claim(ClaimTypes.Role, role));
 
-            var expiration = DateTime.UtcNow.AddMinutes(jweOptions.Value.ShortTokenLiveTimeMinutes);
+            var expiration = DateTime.UtcNow.AddMinutes(jweOptions.CurrentValue.ShortTokenLiveTimeMinutes);
 
             var token = new JwtSecurityToken(
                 claims: claims.ToArray(),

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using SunEngine.Admin.Managers;
 using SunEngine.Admin.Presenters;
 using SunEngine.Core.Configuration;
@@ -14,14 +15,14 @@ namespace SunEngine.Admin.Controllers
     {
         protected readonly IConfigurationManager configurationManager;
         protected readonly IConfigurationPresenter configurationPresenter;
-        protected readonly ConfigDbProvider configDbProvider;
+        protected readonly IConfigurationRoot configurationRoot;
         public ConfigurationAdminController(
             IConfigurationManager configurationManager,
             IConfigurationPresenter configurationPresenter,
-            ConfigDbProvider configDbProvider,
+            IConfigurationRoot configurationRoot,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            this.configDbProvider = configDbProvider;
+            this.configurationRoot = configurationRoot;
             this.configurationManager = configurationManager;
             this.configurationPresenter = configurationPresenter;
         }
@@ -36,7 +37,7 @@ namespace SunEngine.Admin.Controllers
             }).ToList();
             
             configurationManager.UploadConfigurationItems(items);
-            configDbProvider.Load();
+            configurationRoot.Reload();
             
             return Ok();
         }

@@ -21,7 +21,7 @@ namespace SunEngine.Core.Controllers
     {
         private readonly JweService jweService;
         private readonly DataBaseConnection db;
-        private readonly  IOptionsSnapshot<GlobalOptions> globalOptions;
+        private readonly  IOptionsMonitor<GlobalOptions> globalOptions;
         private readonly IAuthManager authManager;
 
 
@@ -29,7 +29,7 @@ namespace SunEngine.Core.Controllers
             DataBaseConnection db,
             JweService jweService,
             IAuthManager authManager,
-            IOptionsSnapshot<GlobalOptions> globalOptions,
+            IOptionsMonitor<GlobalOptions> globalOptions,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.globalOptions = globalOptions;
@@ -92,7 +92,7 @@ namespace SunEngine.Core.Controllers
                         await userManager.AddToRoleAsync(user, RoleNames.Registered);
 
                         transaction.Complete();
-                        return Redirect(Flurl.Url.Combine(globalOptions.Value.SiteUrl, "Auth/RegisterEmailResult?result=ok")
+                        return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl, "Auth/RegisterEmailResult?result=ok")
                             .ToLower());
                     }
                 }
@@ -102,7 +102,7 @@ namespace SunEngine.Core.Controllers
                 }
             }
 
-            return Redirect(Flurl.Url.Combine(globalOptions.Value.SiteUrl,
+            return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl,
                 "Auth/RegisterEmailResult?result=error".ToLower()));
         }
     }

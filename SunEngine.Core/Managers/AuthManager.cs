@@ -30,7 +30,7 @@ namespace SunEngine.Core.Managers
     public class AuthManager : DbService, IAuthManager
     {
         protected readonly SunUserManager userManager;
-        protected readonly  IOptionsSnapshot<GlobalOptions> globalOptions;
+        protected readonly  IOptionsMonitor<GlobalOptions> globalOptions;
         protected readonly IEmailSenderService emailSenderService;
         protected readonly ILogger logger;
         protected readonly JweBlackListService jweBlackListService;
@@ -40,7 +40,7 @@ namespace SunEngine.Core.Managers
             SunUserManager userManager,
             IEmailSenderService emailSenderService,
             DataBaseConnection db,
-            IOptionsSnapshot<GlobalOptions> globalOptions,
+            IOptionsMonitor<GlobalOptions> globalOptions,
             JweBlackListService jweBlackListService,
             ILoggerFactory loggerFactory) : base(db)
         {
@@ -121,7 +121,7 @@ namespace SunEngine.Core.Managers
                 // Send email confirmation email
                 var confirmToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                var emailConfirmUrl = globalOptions.Value.SiteApi
+                var emailConfirmUrl = globalOptions.CurrentValue.SiteApi
                     .AppendPathSegments("Auth", "ConfirmRegister")
                     .SetQueryParams(new {uid = user.Id, token = confirmToken});
 

@@ -17,12 +17,12 @@ namespace SunEngine.Core.Security
     {
         private readonly OperationKeysContainer OperationKeys;
         private readonly IAuthorizationService authorizationService;
-        private readonly IOptionsSnapshot<MaterialsOptions> materialsOptions;
+        private readonly IOptionsMonitor<MaterialsOptions> materialsOptions;
         private readonly DataBaseConnection db;
 
         public MaterialsAuthorization(
             IAuthorizationService authorizationService,
-            IOptionsSnapshot<MaterialsOptions> materialsOptions,
+            IOptionsMonitor<MaterialsOptions> materialsOptions,
             OperationKeysContainer operationKeysContainer,
             DataBaseConnection db)
         {
@@ -75,19 +75,19 @@ namespace SunEngine.Core.Security
         private bool EditOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
             return DateTime.UtcNow - publishDate <
-                   new TimeSpan(0, 0, materialsOptions.Value.TimeToOwnEditInMinutes, 0, 0);
+                   new TimeSpan(0, 0, materialsOptions.CurrentValue.TimeToOwnEditInMinutes, 0, 0);
         }
 
         private bool DeleteOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
             return DateTime.UtcNow - publishDate <
-                   new TimeSpan(0, 0, materialsOptions.Value.TimeToOwnDeleteInMinutes, 0, 0);
+                   new TimeSpan(0, 0, materialsOptions.CurrentValue.TimeToOwnDeleteInMinutes, 0, 0);
         }
 
         private bool MoveOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
             return DateTime.UtcNow - publishDate <
-                   new TimeSpan(0, 0, materialsOptions.Value.TimeToOwnDeleteInMinutes, 0, 0);
+                   new TimeSpan(0, 0, materialsOptions.CurrentValue.TimeToOwnDeleteInMinutes, 0, 0);
         }
 
         public bool CanEdit(SunClaimsPrincipal user, Material material)

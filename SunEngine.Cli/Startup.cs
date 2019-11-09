@@ -19,6 +19,7 @@ namespace SunEngine.Cli
 {
     public class Startup
     {
+        
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
@@ -80,6 +81,8 @@ namespace SunEngine.Cli
             services.AddTransient<IEmailSenderService, EmailSenderService>();
 
             services.AddSingleton<IPathService, PathService>();
+
+            services.AddSingleton((IConfigurationRoot)Configuration);
             
             services.AddMvcCore(options =>
                 {
