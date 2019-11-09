@@ -6,8 +6,8 @@ namespace SunEngine.Core.Configuration
     {
         public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>()
         {
-            ["AAA"] = new LongString("xxx"),
-            ["AAA2"] = new LongString("yyyyyyyyyyyyy"),
+            ["AAA:Test1"] = new LongString("xxx"),
+            ["AAA:Test2"] = new LongString("yyyyyyyyyyyyy"),
 
             ["Global:SiteName"] = "SunEngine Demo",
 

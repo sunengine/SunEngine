@@ -48,6 +48,9 @@ namespace SunEngine.Admin.Managers
                             continue;
                         TryAdd();
                         break;
+                    case "LongString":
+                        TryAdd();
+                        break;
                     case "String":
                     case "string":
                         TryAdd();
