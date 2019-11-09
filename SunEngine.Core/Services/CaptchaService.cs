@@ -26,7 +26,7 @@ namespace SunEngine.Core.Services
         private readonly ICryptService cryptService;
         
         public CaptchaService(
-            IOptions<CaptchaOptions> captchaOptions,
+            IOptionsSnapshot<CaptchaOptions> captchaOptions,
             ICryptService cryptService)
         {
             this.cryptService = cryptService;

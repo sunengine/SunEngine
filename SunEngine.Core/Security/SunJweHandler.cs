@@ -28,7 +28,6 @@ namespace SunEngine.Core.Security
     public class SunJweHandler : AuthenticationHandler<SunJweOptions>
     {
         private readonly IRolesCache rolesCache;
-        private readonly JweOptions jweOptions;
         private readonly JweService jweService;
         private readonly SunUserManager userManager;
         private readonly JweBlackListService jweBlackListService;
@@ -40,13 +39,11 @@ namespace SunEngine.Core.Security
             ISystemClock clock,
             IRolesCache rolesCache,
             JweService jweService,
-            IOptions<JweOptions> jweOptions,
             JweBlackListService jweBlackListService,
             SunUserManager userManager) : base(options, logger, encoder, clock)
         {
             this.rolesCache = rolesCache;
             this.jweService = jweService;
-            this.jweOptions = jweOptions.Value;
             this.userManager = userManager;
             this.jweBlackListService = jweBlackListService;
         }

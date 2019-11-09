@@ -58,7 +58,7 @@ namespace SunEngine.Core.Managers
     {
         protected readonly ITagsManager tagsManager;
         protected readonly SanitizerService sanitizerService;
-        protected readonly MaterialsOptions materialsOptions;
+        protected readonly  IOptionsSnapshot<MaterialsOptions> materialsOptions;
         protected readonly ICategoriesCache categoriesCache;
 
         protected readonly Regex nameValidator =
@@ -69,11 +69,11 @@ namespace SunEngine.Core.Managers
             SanitizerService sanitizerService,
             ICategoriesCache categoriesCache,
             ITagsManager tagsManager,
-            IOptions<MaterialsOptions> materialsOptions) : base(db)
+            IOptionsSnapshot<MaterialsOptions> materialsOptions) : base(db)
         {
             this.tagsManager = tagsManager;
             this.sanitizerService = sanitizerService;
-            this.materialsOptions = materialsOptions.Value;
+            this.materialsOptions = materialsOptions;
             this.categoriesCache = categoriesCache;
         }
 
@@ -108,7 +108,7 @@ namespace SunEngine.Core.Managers
                     material.SubTitle = SimpleHtmlToText.ClearTags(sanitizerService.Sanitize(material.SubTitle));
                     break;
                 case MaterialsSubTitleInputType.Auto:
-                    material.SubTitle = MakeSubTitle.Do(doc, materialsOptions.SubTitleLength);
+                    material.SubTitle = MakeSubTitle.Do(doc, materialsOptions.Value.SubTitleLength);
                     break;
             }
 
@@ -141,7 +141,7 @@ namespace SunEngine.Core.Managers
                     material.SubTitle = SimpleHtmlToText.ClearTags(sanitizerService.Sanitize(material.SubTitle));
                     break;
                 case MaterialsSubTitleInputType.Auto:
-                    material.SubTitle = MakeSubTitle.Do(doc, materialsOptions.SubTitleLength);
+                    material.SubTitle = MakeSubTitle.Do(doc, materialsOptions.Value.SubTitleLength);
                     break;
                 default:
                     material.SubTitle = null;

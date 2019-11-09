@@ -18,7 +18,7 @@ namespace SunEngine.Core.Services
         private readonly SpamProtectionCache spamProtectionCache;
         private readonly JweBlackListService jweBlackListService;
         private readonly IDataBaseFactory dbFactory;
-        private readonly SchedulerOptions schedulerOptions;
+        private readonly  IOptionsSnapshot<SchedulerOptions> schedulerOptions;
         private readonly IMaterialsVisitsCounterCache materialsVisitsCounterCache;
         private readonly IProfilesVisitsCounterService profilesVisitsCounterService;
 
@@ -33,7 +33,7 @@ namespace SunEngine.Core.Services
         public CleanCacheJobsService(
             IDataBaseFactory dbFactory,
             SpamProtectionCache spamProtectionCache,
-            IOptions<SchedulerOptions> schedulerOptions,
+            IOptionsSnapshot<SchedulerOptions> schedulerOptions,
             IMaterialsVisitsCounterCache materialsVisitsCounterCache,
             IProfilesVisitsCounterService profilesVisitsCounterService,
             JweBlackListService jweBlackListService)
@@ -43,7 +43,7 @@ namespace SunEngine.Core.Services
             this.jweBlackListService = jweBlackListService;
             this.materialsVisitsCounterCache = materialsVisitsCounterCache;
             this.profilesVisitsCounterService = profilesVisitsCounterService;
-            this.schedulerOptions = schedulerOptions.Value;
+            this.schedulerOptions = schedulerOptions;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -52,13 +52,13 @@ namespace SunEngine.Core.Services
             {
                 Console.WriteLine("SpamProtectionCache.RemoveExpired");
                 spamProtectionCache.RemoveExpired();
-            }, null, TimeSpan.Zero, TimeSpan.FromMinutes(schedulerOptions.SpamProtectionCacheClearMinutes));
+            }, null, TimeSpan.Zero, TimeSpan.FromMinutes(schedulerOptions.Value.SpamProtectionCacheClearMinutes));
 
             timerJwtBlackListService = new Timer(_ =>
             {
                 Console.WriteLine("JwtBlackListService.RemoveExpired");
                 jweBlackListService.RemoveExpired();
-            }, null, TimeSpan.Zero, TimeSpan.FromMinutes(schedulerOptions.JwtBlackListServiceClearMinutes));
+            }, null, TimeSpan.Zero, TimeSpan.FromMinutes(schedulerOptions.Value.JwtBlackListServiceClearMinutes));
 
             timerLongSessionsClearer = new Timer(_ =>
             {
@@ -67,7 +67,7 @@ namespace SunEngine.Core.Services
                 {
                     LongSessionsClearer.ClearExpiredLongSessions(db);
                 }
-            }, null, TimeSpan.Zero, TimeSpan.FromDays(schedulerOptions.LongSessionsClearDays));
+            }, null, TimeSpan.Zero, TimeSpan.FromDays(schedulerOptions.Value.LongSessionsClearDays));
 
             timerExpiredRegistrationUsersCleaner = new Timer(_ =>
             {
@@ -76,14 +76,14 @@ namespace SunEngine.Core.Services
                 {
                     ExpiredRegistrationUsersClearer.CleanExpiredRegistrationUsers(db);
                 }
-            }, null, TimeSpan.Zero, TimeSpan.FromDays(schedulerOptions.ExpiredRegistrationUsersClearDays));
+            }, null, TimeSpan.Zero, TimeSpan.FromDays(schedulerOptions.Value.ExpiredRegistrationUsersClearDays));
 
             timerCountersUpload = new Timer(_ =>
             {
                 Console.WriteLine("CountersUploadToDataBase");
                 materialsVisitsCounterCache.UploadToDataBase();
                 profilesVisitsCounterService.UploadToDataBase();
-            }, null, TimeSpan.FromMinutes(schedulerOptions.UploadVisitsToDataBaseMinutes), TimeSpan.FromMinutes(schedulerOptions.UploadVisitsToDataBaseMinutes)); 
+            }, null, TimeSpan.FromMinutes(schedulerOptions.Value.UploadVisitsToDataBaseMinutes), TimeSpan.FromMinutes(schedulerOptions.Value.UploadVisitsToDataBaseMinutes)); 
 
             return Task.CompletedTask;
         }

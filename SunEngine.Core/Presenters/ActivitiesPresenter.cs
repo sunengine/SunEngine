@@ -21,13 +21,13 @@ namespace SunEngine.Core.Presenters
 
     public class ActivitiesPresenter : DbService, IActivitiesPresenter
     {
-        protected readonly MaterialsOptions materialsOptions;
+        protected readonly  IOptionsSnapshot<MaterialsOptions> materialsOptions;
 
         public ActivitiesPresenter(
-            IOptions<MaterialsOptions> materialsOptions,
+            IOptionsSnapshot<MaterialsOptions> materialsOptions,
             DataBaseConnection db) : base(db)
         {
-            this.materialsOptions = materialsOptions.Value;
+            this.materialsOptions = materialsOptions;
         }
 
         public async Task<ActivityView[]> GetActivitiesAsync(
@@ -51,7 +51,7 @@ namespace SunEngine.Core.Presenters
                     AuthorAvatar = x.Author.Avatar
                 }).ToListAsync();
 
-            int descriptionSize = materialsOptions.SubTitleLength;
+            int descriptionSize = materialsOptions.Value.SubTitleLength;
             int descriptionSizeBig = descriptionSize * 2;
 
             var commentsActivities = await db.Comments

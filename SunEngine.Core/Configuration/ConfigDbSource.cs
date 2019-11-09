@@ -7,15 +7,17 @@ namespace SunEngine.Core.Configuration
     public class ConfigDbSource : IConfigurationSource
     {
         protected readonly IDataBaseFactory dataBaseFactory;
+        protected ConfigDbProvider configDbProvider;
 
-        public ConfigDbSource(IDataBaseFactory dataBaseFactory)
+        public ConfigDbSource(ConfigDbProvider configDbProvider, IDataBaseFactory dataBaseFactory)
         {
             this.dataBaseFactory = dataBaseFactory;
+            this.configDbProvider = configDbProvider;
         }
 
         public IConfigurationProvider Build(IConfigurationBuilder builder)
         {
-            return new ConfigDbProvider(dataBaseFactory);
+            return configDbProvider;
         }
     }
 }

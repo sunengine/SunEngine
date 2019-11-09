@@ -17,14 +17,14 @@ namespace SunEngine.Core.Controllers
     public class ForumController : BaseController
     {
         protected readonly OperationKeysContainer OperationKeys;
-        protected readonly ForumOptions forumOptions;
+        protected readonly IOptionsSnapshot<ForumOptions> forumOptions;
         protected readonly ICategoriesCache categoriesCache;
         protected readonly IAuthorizationService authorizationService;
         protected readonly IForumPresenter forumPresenter;
 
 
         public ForumController(
-            IOptions<ForumOptions> forumOptions,
+            IOptionsSnapshot<ForumOptions> forumOptions,
             IAuthorizationService authorizationService,
             ICategoriesCache categoriesCache,
             IContentCache contentCache,
@@ -35,7 +35,7 @@ namespace SunEngine.Core.Controllers
             OperationKeys = operationKeysContainer;
 
             this.forumPresenter = forumPresenter;
-            this.forumOptions = forumOptions.Value;
+            this.forumOptions = forumOptions;
             this.authorizationService = authorizationService;
             this.categoriesCache = categoriesCache;
         }
@@ -60,12 +60,12 @@ namespace SunEngine.Core.Controllers
             {
                 CategoriesIds = categoriesIds,
                 Page = page,
-                PageSize = forumOptions.NewTopicsPageSize
+                PageSize = forumOptions.Value.NewTopicsPageSize
             };
 
             async Task<IPagedList<TopicInfoView>> LoadDataAsync()
             {
-                return await forumPresenter.GetNewTopicsAsync(options, forumOptions.NewTopicsMaxPages);
+                return await forumPresenter.GetNewTopicsAsync(options, forumOptions.Value.NewTopicsMaxPages);
             }
 
             return await CacheContentAsync(categoryParent, categoriesIds, LoadDataAsync, page);
@@ -86,7 +86,7 @@ namespace SunEngine.Core.Controllers
             {
                 CategoryId = category.Id,
                 Page = page,
-                PageSize = forumOptions.ThreadMaterialsPageSize
+                PageSize = forumOptions.Value.ThreadMaterialsPageSize
             };
 
             if (authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialHide))

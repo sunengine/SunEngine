@@ -17,20 +17,20 @@ namespace SunEngine.Core.Security
     {
         private readonly OperationKeysContainer OperationKeys;
         private readonly IAuthorizationService authorizationService;
-        private readonly CommentsOptions commentsOptions;
+        private readonly  IOptionsSnapshot<CommentsOptions> commentsOptions;
         private readonly DataBaseConnection db;
 
 
         public CommentsAuthorization(
             IAuthorizationService authorizationService,
-            IOptions<CommentsOptions> commentsOptions,
+            IOptionsSnapshot<CommentsOptions> commentsOptions,
             OperationKeysContainer operationKeysContainer,
             DataBaseConnection db)
         {
             OperationKeys = operationKeysContainer;
 
             this.authorizationService = authorizationService;
-            this.commentsOptions = commentsOptions.Value;
+            this.commentsOptions = commentsOptions;
             this.db = db;
         }
 
@@ -46,12 +46,12 @@ namespace SunEngine.Core.Security
 
         private bool EditOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
-            return DateTime.UtcNow - publishDate < new TimeSpan(0, 0, commentsOptions.TimeToOwnEditInMinutes, 0, 0);
+            return DateTime.UtcNow - publishDate < new TimeSpan(0, 0, commentsOptions.Value.TimeToOwnEditInMinutes, 0, 0);
         }
 
         private bool DeleteOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
-            return DateTime.UtcNow - publishDate < new TimeSpan(0, 0, commentsOptions.TimeToOwnDeleteInMinutes, 0, 0);
+            return DateTime.UtcNow - publishDate < new TimeSpan(0, 0, commentsOptions.Value.TimeToOwnDeleteInMinutes, 0, 0);
         }
 
         public async Task<bool> CanEditAsync(SunClaimsPrincipal user, Comment comment, int categoryId)

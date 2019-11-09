@@ -23,11 +23,10 @@ namespace SunEngine.Admin.Services
         public readonly string CurrentSkinPath;
         public readonly string SkinNamePath;
         public readonly IWebHostEnvironment env;
-        public readonly IPathService pathService;
 
         public SkinsAdminService(
             IPathService pathService,
-            IOptions<SkinsOptions> skinsOptions,
+            IOptionsSnapshot<SkinsOptions> skinsOptions,
             IWebHostEnvironment env)
         {
             this.env = env;

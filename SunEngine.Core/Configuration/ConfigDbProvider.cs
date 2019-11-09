@@ -11,6 +11,8 @@ namespace SunEngine.Core.Configuration
 {
     public class ConfigDbProvider : ConfigurationProvider
     {
+        public static ConfigDbProvider DefaultConfigDbProvider;
+        
         protected readonly IDataBaseFactory dataBaseFactory;
 
         public ConfigDbProvider(IDataBaseFactory dataBaseFactory)
@@ -31,7 +33,7 @@ namespace SunEngine.Core.Configuration
             foreach (var item in items)
                 Data.Add(item.Name, item.Value);
         }
-        
+
         private static void EnsureItems(DataBaseConnection db)
         {
             var allItemsDic = db.ConfigurationItems.ToList().ToDictionary(x => x.Name, x => x);

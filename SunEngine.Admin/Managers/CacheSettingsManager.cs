@@ -14,10 +14,10 @@ namespace SunEngine.Admin.Managers
 {
     public class CacheSettingsManager : DbService
     {
-        private IOptions<CacheOptions> cacheOptions;
+        private IOptionsSnapshot<CacheOptions> cacheOptions;
         private IContentCache contentCache;
         
-        public CacheSettingsManager(IOptions<CacheOptions> cacheOptions, 
+        public CacheSettingsManager(IOptionsSnapshot<CacheOptions> cacheOptions, 
             IContentCache contentCache, DataBaseConnection db) : base(db)
         {
             this.cacheOptions = cacheOptions;

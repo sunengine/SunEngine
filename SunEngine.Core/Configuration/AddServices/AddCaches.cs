@@ -39,7 +39,7 @@ namespace SunEngine.Core.Configuration.AddServices
 
         private static ICachePolicy GetCachePolicy(IServiceProvider provider)
         {
-            var cacheOptions = provider.GetRequiredService<IOptions<CacheOptions>>();
+            var cacheOptions = provider.GetRequiredService<IOptionsSnapshot<CacheOptions>>();
             if (cacheOptions == null)
                 throw new NotFoundServiceException("Cache policy must be added after loading settings from database");
 

@@ -17,7 +17,7 @@ namespace SunEngine.Core.Services
         
         
         public PathService(
-            IOptions<GlobalOptions> globalOptions,
+            IOptionsSnapshot<GlobalOptions> globalOptions,
             IWebHostEnvironment env)
         {
             ApplicationDir = env.ContentRootPath;

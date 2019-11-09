@@ -21,13 +21,13 @@ namespace SunEngine.Core.Cache.Services
     {
         private ICategoriesCache categoriesCache;
         private IMemoryCache memoryCache;
-        private IOptions<CacheOptions> cacheOptions;
+        private IOptionsSnapshot<CacheOptions> cacheOptions;
         private Dictionary<string, bool> recordsKeys = new Dictionary<string, bool>();
         private static object syncObject = new object();
 
         public CategoryContentCache(ICategoriesCache categoriesCache,
             IMemoryCache memoryCache,
-            IOptions<CacheOptions> cacheOptions)
+            IOptionsSnapshot<CacheOptions> cacheOptions)
         {
             this.categoriesCache = categoriesCache;
             this.memoryCache = memoryCache;

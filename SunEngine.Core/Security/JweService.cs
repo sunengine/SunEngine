@@ -30,7 +30,7 @@ namespace SunEngine.Core.Security
     public class JweService : DbService
     {
         private readonly SunUserManager userManager;
-        private readonly JweOptions jweOptions;
+        private readonly IOptionsSnapshot<JweOptions> jweOptions;
         private readonly ILogger logger;
         private readonly ICryptService cryptService;
         private readonly IRolesCache rolesCache;
@@ -40,12 +40,12 @@ namespace SunEngine.Core.Security
             SunUserManager userManager,
             IRolesCache rolesCache,
             ICryptService cryptService,
-            IOptions<JweOptions> jweOptions,
+            IOptionsSnapshot<JweOptions> jweOptions,
             ILoggerFactory loggerFactory) : base(db)
         {
             this.userManager = userManager;
             this.cryptService = cryptService;
-            this.jweOptions = jweOptions.Value;
+            this.jweOptions = jweOptions;
             logger = loggerFactory.CreateLogger<AccountController>();
             this.rolesCache = rolesCache;
         }
@@ -83,8 +83,8 @@ namespace SunEngine.Core.Security
             {
                 longSession1.LongToken1 = CryptoRandomizer.GetRandomString(LongSession.LongToken1Length);
                 longSession1.LongToken2 = CryptoRandomizer.GetRandomString(LongSession.LongToken2Length);
-                longSession1.ExpirationDate = DateTime.UtcNow.AddDays(jweOptions.LongTokenLiveTimeDays);
-                httpContext.Request.Headers.TryGetValue("User-Agent", out StringValues userAgent);
+                longSession1.ExpirationDate = DateTime.UtcNow.AddDays(jweOptions.Value.LongTokenLiveTimeDays);
+                httpContext.Request.Headers.TryGetValue("User-Agent", out var userAgent);
                 longSession1.DeviceInfo = Parser.GetDefault()?.Parse(userAgent.ToString() ?? "")?.ToString() ?? "";
                 longSession1.UpdateDate = DateTime.UtcNow;
             }
@@ -154,11 +154,9 @@ namespace SunEngine.Core.Security
             var roleNames = await userManager.GetRolesAsync(user);
 
             foreach (var role in roleNames)
-            {
                 claims.Add(new Claim(ClaimTypes.Role, role));
-            }
 
-            var expiration = DateTime.UtcNow.AddMinutes(jweOptions.ShortTokenLiveTimeMinutes);
+            var expiration = DateTime.UtcNow.AddMinutes(jweOptions.Value.ShortTokenLiveTimeMinutes);
 
             var token = new JwtSecurityToken(
                 claims: claims.ToArray(),

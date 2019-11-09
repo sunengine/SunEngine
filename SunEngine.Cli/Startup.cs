@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using SunEngine.Admin;
+using SunEngine.Core.Configuration;
 using SunEngine.Core.Configuration.AddServices;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
@@ -79,8 +80,7 @@ namespace SunEngine.Cli
             services.AddTransient<IEmailSenderService, EmailSenderService>();
 
             services.AddSingleton<IPathService, PathService>();
-
-
+            
             services.AddMvcCore(options =>
                 {
                     // Add filters here

@@ -53,7 +53,9 @@ namespace SunEngine.Cli
                         DataBaseFactory.DefaultDataBaseFactory = new DataBaseFactory(linq2dbProvider, connectionString,
                             new DbMappingSchema());
 
-                        config.Add(new ConfigDbSource(DataBaseFactory.DefaultDataBaseFactory));
+                        ConfigDbProvider.DefaultConfigDbProvider = new ConfigDbProvider(DataBaseFactory.DefaultDataBaseFactory);
+                        
+                        config.Add(new ConfigDbSource(ConfigDbProvider.DefaultConfigDbProvider , DataBaseFactory.DefaultDataBaseFactory));
 
                         config.AddCommandLine(startupConfiguration.Arguments);
                     });

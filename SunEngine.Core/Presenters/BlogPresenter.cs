@@ -21,13 +21,13 @@ namespace SunEngine.Core.Presenters
 
     public class BlogPresenter : DbService, IBlogPresenter
     {
-        protected readonly BlogOptions blogOptions;
+        protected readonly  IOptionsSnapshot<BlogOptions> blogOptions;
 
         public BlogPresenter(
             DataBaseConnection db, 
-            IOptions<BlogOptions> blogOptions) : base(db)
+            IOptionsSnapshot<BlogOptions> blogOptions) : base(db)
         {
-            this.blogOptions = blogOptions.Value;
+            this.blogOptions = blogOptions;
         }
 
         public virtual async Task<IPagedList<PostView>> GetPostsAsync(MaterialsShowOptions options)
@@ -65,7 +65,7 @@ namespace SunEngine.Core.Presenters
             {
                 var textLength = postView.Preview.Length;
                 postView.Preview =
-                    MakePreview.HtmlFirstImage(new HtmlParser().Parse(postView.Preview), blogOptions.PreviewLength);
+                    MakePreview.HtmlFirstImage(new HtmlParser().Parse(postView.Preview), blogOptions.Value.PreviewLength);
                 postView.HasMoreText = postView.Preview.Length != textLength;
             }
 

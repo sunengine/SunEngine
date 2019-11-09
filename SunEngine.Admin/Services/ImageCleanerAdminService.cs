@@ -20,8 +20,8 @@ namespace SunEngine.Admin.Services
 
         public ImageCleanerAdminService(
             DataBaseConnection dataBaseConnection,
-            IOptions<ImagesOptions> imagesOptions,
-            IOptions<GlobalOptions> globalOptions,
+            IOptionsSnapshot<ImagesOptions> imagesOptions,
+            IOptionsSnapshot<GlobalOptions> globalOptions,
             IPathService pathService)
         {
             this.dataBaseConnection = dataBaseConnection;

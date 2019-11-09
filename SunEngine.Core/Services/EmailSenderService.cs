@@ -21,14 +21,14 @@ namespace SunEngine.Core.Services
 
     public class EmailSenderService : IEmailSenderService
     {
-        private readonly EmailSenderOptions options;
+        private readonly IOptionsSnapshot<EmailSenderOptions> emailSenderOptions;
         private readonly IMailTemplatesCache mailTemplatesCache;
 
         public EmailSenderService(
-            IOptions<EmailSenderOptions> optionsAccessor,
+            IOptionsSnapshot<EmailSenderOptions> emailSenderOptions,
             IMailTemplatesCache mailTemplatesCache)
         {
-            options = optionsAccessor.Value;
+            this.emailSenderOptions = emailSenderOptions;
             this.mailTemplatesCache = mailTemplatesCache;
         }
 
@@ -47,7 +47,7 @@ namespace SunEngine.Core.Services
         {
             MailMessage mailMessage = new MailMessage
             {
-                From = new MailAddress(options.EmailFromAddress, options.EmailFromName),
+                From = new MailAddress(emailSenderOptions.Value.EmailFromAddress, emailSenderOptions.Value.EmailFromName),
                 Body = textMessage,
                 Subject = subject,
                 BodyEncoding = Encoding.UTF8,
@@ -62,11 +62,11 @@ namespace SunEngine.Core.Services
                 mailMessage.AlternateViews.Add(htmlView);
             }
             
-            using (SmtpClient client = new SmtpClient(options.Host, options.Port)
+            using (SmtpClient client = new SmtpClient(emailSenderOptions.Value.Host, emailSenderOptions.Value.Port)
             {
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(options.Login, options.Password),
-                EnableSsl = options.UseSSL
+                Credentials = new NetworkCredential(emailSenderOptions.Value.Login, emailSenderOptions.Value.Password),
+                EnableSsl = emailSenderOptions.Value.UseSSL
             })
             {
                 await client.SendMailAsync(mailMessage);

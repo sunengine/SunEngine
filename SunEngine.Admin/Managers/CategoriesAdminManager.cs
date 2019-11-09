@@ -16,18 +16,12 @@ namespace SunEngine.Admin.Managers
     public class CategoriesAdminManager : DbService
     {
         private readonly SanitizerService sanitizerService;
-        private readonly ICategoriesCache categoriesCache;
-        private readonly MaterialsOptions materialOptions;
 
         public CategoriesAdminManager(
             DataBaseConnection db,
-            IOptions<MaterialsOptions> materialOptions,
-            ICategoriesCache categoriesCache,
             SanitizerService sanitizerService) : base(db)
         {
             this.sanitizerService = sanitizerService;
-            this.categoriesCache = categoriesCache;
-            this.materialOptions = materialOptions.Value;
         }
 
 

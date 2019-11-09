@@ -17,17 +17,17 @@ namespace SunEngine.Core.Security
     {
         private readonly OperationKeysContainer OperationKeys;
         private readonly IAuthorizationService authorizationService;
-        private readonly MaterialsOptions materialsOptions;
+        private readonly IOptionsSnapshot<MaterialsOptions> materialsOptions;
         private readonly DataBaseConnection db;
 
         public MaterialsAuthorization(
             IAuthorizationService authorizationService,
-            IOptions<MaterialsOptions> materialsOptions,
+            IOptionsSnapshot<MaterialsOptions> materialsOptions,
             OperationKeysContainer operationKeysContainer,
             DataBaseConnection db)
         {
             this.authorizationService = authorizationService;
-            this.materialsOptions = materialsOptions.Value;
+            this.materialsOptions = materialsOptions;
             this.db = db;
 
             OperationKeys = operationKeysContainer;
@@ -75,19 +75,19 @@ namespace SunEngine.Core.Security
         private bool EditOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
             return DateTime.UtcNow - publishDate <
-                   new TimeSpan(0, 0, materialsOptions.TimeToOwnEditInMinutes, 0, 0);
+                   new TimeSpan(0, 0, materialsOptions.Value.TimeToOwnEditInMinutes, 0, 0);
         }
 
         private bool DeleteOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
             return DateTime.UtcNow - publishDate <
-                   new TimeSpan(0, 0, materialsOptions.TimeToOwnDeleteInMinutes, 0, 0);
+                   new TimeSpan(0, 0, materialsOptions.Value.TimeToOwnDeleteInMinutes, 0, 0);
         }
 
         private bool MoveOwnIfTimeNotExceededCheck(DateTime publishDate)
         {
             return DateTime.UtcNow - publishDate <
-                   new TimeSpan(0, 0, materialsOptions.TimeToOwnDeleteInMinutes, 0, 0);
+                   new TimeSpan(0, 0, materialsOptions.Value.TimeToOwnDeleteInMinutes, 0, 0);
         }
 
         public bool CanEdit(SunClaimsPrincipal user, Material material)

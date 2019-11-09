@@ -25,9 +25,9 @@ namespace SunEngine.Core.Managers
 
     public class AccountManager : DbService, IAccountManager
     {
-        protected readonly JweOptions jweOptions;
+        protected readonly IOptionsSnapshot<JweOptions> jweOptions;
         protected readonly SunUserManager userManager;
-        protected readonly GlobalOptions globalOptions;
+        protected readonly IOptionsSnapshot<GlobalOptions> globalOptions;
         protected readonly ICryptService cryptService;
         protected readonly IEmailSenderService emailSenderService;
 
@@ -37,12 +37,12 @@ namespace SunEngine.Core.Managers
             IEmailSenderService emailSenderService,
             DataBaseConnection db,
             ICryptService cryptService,
-            IOptions<GlobalOptions> globalOptions,
-            IOptions<JweOptions> jwtOptions) : base(db)
+            IOptionsSnapshot<GlobalOptions> globalOptions,
+            IOptionsSnapshot<JweOptions> jwtOptions) : base(db)
         {
-            this.jweOptions = jwtOptions.Value;
+            this.jweOptions = jwtOptions;
             this.userManager = userManager;
-            this.globalOptions = globalOptions.Value;
+            this.globalOptions = globalOptions;
             this.emailSenderService = emailSenderService;
             this.cryptService = cryptService;
         }
@@ -51,7 +51,7 @@ namespace SunEngine.Core.Managers
         {
             var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
 
-            var resetPasswordUrl = globalOptions.SiteApi
+            var resetPasswordUrl = globalOptions.Value.SiteApi
                 .AppendPathSegments("Account", "ResetPasswordShowClientDialog")
                 .SetQueryParams(new {uid = user.Id, token = resetToken});
 
@@ -115,7 +115,7 @@ namespace SunEngine.Core.Managers
         {
             var emailToken = GenerateChangeEmailToken(user, email);
 
-            var updateEmailUrl = globalOptions.SiteApi.AppendPathSegments("Account", "ConfirmChangeEmail")
+            var updateEmailUrl = globalOptions.Value.SiteApi.AppendPathSegments("Account", "ConfirmChangeEmail")
                 .SetQueryParam("token", emailToken);
             
             await emailSenderService.SendEmailByTemplateAsync(
