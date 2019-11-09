@@ -122,7 +122,11 @@ export default {
     title: "Edit menu item",
     saveBtn: "@:Global.btn.save",
     cancelBtn: "@:Global.btn.cancel",
-    successNotify: "Menu item successfully edited"
+    deleteBtn: "Delete menu item",
+    successNotify: "Menu item successfully edited",
+    deleteMsg: "Delete menu item?",
+    btnDeleteOk:  "@:Global.dialog.ok",
+    btnDeleteCancel: "@:Global.dialog.cancel",
   },
   MenuAdminItem: {},
   MenuItemForm: {

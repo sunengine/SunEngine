@@ -13,7 +13,7 @@
 
         <div class="grow"></div>
 
-        <q-btn no-caps class="delete-btn" icon="fas fa-trash-alt" @click="tryDelete" :label="$tl('deleteBtn')"/>
+        <q-btn no-caps class="delete-btn" icon="far fa-times-circle" @click="tryDelete" :label="$tl('deleteBtn')"/>
 
       </div>
     </div>

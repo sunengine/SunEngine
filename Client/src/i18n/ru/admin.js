@@ -122,7 +122,11 @@ export default {
     title: "Редактировать пункт меню",
     saveBtn: "@:Global.btn.save",
     cancelBtn: "@:Global.btn.cancel",
-    successNotify: "Пункт меню успешно сохранён"
+    deleteBtn: "Удалить пункт меню",
+    successNotify: "Пункт меню успешно сохранён",
+    deleteMsg: "Удалить пункт меню?",
+    btnDeleteOk:  "@:Global.dialog.ok",
+    btnDeleteCancel: "@:Global.dialog.cancel",
   },
   MenuAdminItem: {},
   MenuItemForm: {

@@ -42,7 +42,7 @@
         methods: {
             async loadDataRefresh() {
                 await this.loadData();
-                this.$successNotify(this.$tl('getSuccessNotify'));
+                this.$successNotify(this.$tl('getSuccessNotify'),'info');
             },
             loadData() {
                 this.json = null;

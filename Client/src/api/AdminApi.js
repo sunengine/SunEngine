@@ -52,7 +52,6 @@ export default {
   SkinsAdmin: {
     GetAllSkins: '/Admin/SkinsAdmin/GetAllSkins',
     GetSkinPreview: '/Admin/SkinsAdmin/GetSkinPreview',
-    //GetSkinInfo: '/Admin/SkinsAdmin/GetSkinInfo',
     UploadSkin: '/Admin/SkinsAdmin/UploadSkin',
     ChangeSkin: '/Admin/SkinsAdmin/ChangeSkin',
     DeleteSkin: '/Admin/SkinsAdmin/DeleteSkin'
@@ -60,5 +59,6 @@ export default {
   ConfigurationAdmin: {
     UploadConfiguration: '/Admin/ConfigurationAdmin/UploadConfiguration',
     LoadConfiguration: '/Admin/ConfigurationAdmin/LoadConfiguration',
+    GetEnums: '/Admin/ConfigurationAdmin/GetEnums'
   }
 }

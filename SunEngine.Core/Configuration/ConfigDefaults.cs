@@ -5,10 +5,20 @@ namespace SunEngine.Core.Configuration
 {
     public static class ConfigDefaults
     {
+        public enum BBB1
+        {
+            Hi1,
+            Hi2,
+            Hi3
+        }
+        
         public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>()
         {
             ["AAA:Test1"] = (LongString) "Test data 1",
             ["AAA:Test2"] = (LongString) string.Join(" ", Enumerable.Repeat("test data", 30)),
+            
+            ["BBB:Enum1"] = BBB1.Hi2,
+            ["BBB:Enum2"] = BBB1.Hi3,
 
             ["Global:SiteName"] = "SunEngine Demo",
 

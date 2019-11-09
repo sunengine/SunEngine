@@ -18,6 +18,7 @@
             <td class="configuration-admin__name-column">{{item.name}}</td>
             <td class="configuration-admin__value-column">
               <q-checkbox v-if="item.item.type === 'Boolean'" v-model="item.item.value"/>
+              <q-select v-else-if="item.item.type === 'Enum'" :options="enums[item.item.enumName]" v-model="item.item.value" />
               <q-input dense v-else :type="getTypeType(item.item.type)" v-model="item.item.value"/>
             </td>
           </tr>
@@ -26,7 +27,12 @@
       </table>
 
       <div class="configuration-admin__btn-block flex q-mt-lg q-gutter-md">
-        <q-btn class="send-btn" @click="uploadConfiguration" no-caps icon="fas fa-save" :label="$tl('saveBtn')"/>
+        <q-btn class="send-btn" @click="uploadConfiguration" no-caps icon="fas fa-save" :loading="loading"
+               :label="$tl('saveBtn')">
+          <template v-slot:loading>
+            <LoaderSent/>
+          </template>
+        </q-btn>
         <div class="grow"></div>
         <q-btn class="reset-btn" @click="resetConfiguration" no-caps icon="fas fa-sync-alt" :label="$tl('resetBtn')"/>
       </div>
@@ -47,7 +53,9 @@
         data() {
             return {
                 configurationGroups: null,
-                configurationItems: null
+                configurationItems: null,
+                enums: null,
+                loading: false
             }
         },
         methods: {
@@ -61,10 +69,20 @@
                         return 'number';
                 }
             },
+            getEnum(name) {
+              return this.enums[name];
+            },
+            getEnums() {
+                return this.$request(this.$AdminApi.ConfigurationAdmin.GetEnums)
+                    .then(response => {
+                            this.enums = response.data;
+                        }
+                    );
+            },
             resetConfiguration() {
-                this.loadConfiguration()
+                return this.loadConfiguration()
                     .then(_ => {
-                        this.$successNotify(this.$tl('resetSuccessNotify'));
+                        this.$successNotify(this.$tl('resetSuccessNotify'), "info");
                     });
             },
             loadConfiguration() {
@@ -117,9 +135,12 @@
                 for (const ci of this.configurationItems)
                     data.append(ci.name, ci.value);
 
-                this.$request(this.$AdminApi.ConfigurationAdmin.UploadConfiguration, data)
+                this.loading = true;
+
+                return this.$request(this.$AdminApi.ConfigurationAdmin.UploadConfiguration, data)
                     .then(_ => {
                             this.$successNotify();
+                            this.loading = false;
                             this.loadConfiguration();
                         }
                     );
@@ -127,10 +148,12 @@
         },
         beforeCreate() {
             this.$options.components.LoaderWait = require('sun').LoaderWait;
+            this.$options.components.LoaderSent = require('sun').LoaderSent;
         },
-        created() {
+        async created() {
             this.title = this.$tl("title");
-            this.loadConfiguration();
+            await this.getEnums();
+            await this.loadConfiguration();
         }
     }
 </script>
@@ -166,6 +189,7 @@
     textarea {
       height: 70px;
     }
+
     padding-right: 3px;
   }
 

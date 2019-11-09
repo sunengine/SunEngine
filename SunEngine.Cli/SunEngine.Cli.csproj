@@ -55,9 +55,12 @@
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+        <Content Update="wwwroot\CurrentSkin\**">
+            <CopyToPublishDirectory>None</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
-
-
+    
     <ItemGroup>
       <ProjectReference Include="..\SunEngine.Admin\SunEngine.Admin.csproj" />
       <ProjectReference Include="..\SunEngine.Core\SunEngine.Core.csproj" />
@@ -66,16 +69,7 @@
     </ItemGroup>
 
 
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="Config-template\Components\Activities.json" />
-      <_ContentIncludedByDefault Remove="Config-template\Components\Posts.json" />
-      <_ContentIncludedByDefault Remove="Config-template\Materials\inline1.json" />
-    </ItemGroup>
 
-
-    <ItemGroup>
-      <Folder Include="wwwroot\CurrentSkin" />
-    </ItemGroup>
     
     
    
