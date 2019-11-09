@@ -203,7 +203,7 @@ namespace SunEngine.DataSeed
                     new CipherSecret
                     {
                         Name = name,
-                        Secret = CryptService.GenerateSecurityKeyString()
+                        Secret = CryptService.GenerateSecurityKey()
                     });
             }
         }
