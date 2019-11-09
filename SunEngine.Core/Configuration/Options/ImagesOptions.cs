@@ -4,6 +4,8 @@ namespace SunEngine.Core.Configuration.Options
     {
         public string ImagesUploadDir { get; set; }
         
+        public string ImagesUploadUrl { get; set; }
+
         public bool DoResize { get; set; }
         public int MaxWidthPixels { get; set; }
         public int MaxHeightPixels { get; set; }

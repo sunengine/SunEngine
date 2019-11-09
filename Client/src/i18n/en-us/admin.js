@@ -200,7 +200,7 @@ export default {
     title: "Upload group config(json)",
     backupWarning: "Before uploading, you need to make a database backup.",
     saveToServerBtn: "Save",
-    getFromServer: "Load from server",
+    getFromServer: "Reload from server",
     getSuccessNotify: "Download completed successfully",
     saveSuccessNotify: "Group settings were updated successfully",
     textAreaLabel: "Json file of roles config"

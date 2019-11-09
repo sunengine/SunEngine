@@ -104,7 +104,7 @@ export default {
     title: "Изменить компонент",
     saveBtn: "@:Global.btn.save",
     cancelBtn: "@:Global.btn.cancel",
-    deleteBtn: "@:Global.btn.delete",
+    deleteBtn: "Удалить компонент",
     deleteMsg: "Удалить компонент?",
     btnDeleteOk: "@:Global.dialog.ok",
     btnDeleteCancel: "@:Global.dialog.cancel"
@@ -199,7 +199,7 @@ export default {
   RolesPermissions: {
     title: "Установка разрешений групп",
     saveToServerBtn: "Сохранить на сервер",
-    getFromServer: "Загрузить с сервера",
+    getFromServer: "Перезагрузить с сервера",
     getSuccessNotify: "Данные загружены с сервера",
     saveSuccessNotify: "Настройки групп успешно обновлены",
     textAreaLabel: "Json конфигурация"

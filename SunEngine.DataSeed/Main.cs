@@ -20,8 +20,9 @@ namespace SunEngine.DataSeed
     {
         private const string DataBaseConnectionFileName = "DataBaseConnection.json";
         public const string SeedCommand = "seed";
-
-
+        private const string InitDir = "Init";
+        
+        private readonly string initDirPath;
         private readonly string providerName;
         private readonly string connectionString;
         private readonly string configDirectoryPath;
@@ -30,7 +31,8 @@ namespace SunEngine.DataSeed
         public Main(string configDirectoryPath = "Config")
         {
             this.configDirectoryPath = configDirectoryPath;
-            string dbSettingsFile = Path.GetFullPath(Path.Combine(configDirectoryPath, DataBaseConnectionFileName));
+            initDirPath = Path.GetFullPath(Path.Combine(configDirectoryPath, InitDir));
+            string dbSettingsFile = Path.Combine(initDirPath, DataBaseConnectionFileName);
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile(dbSettingsFile, false, true)
                 .Build();
@@ -46,26 +48,25 @@ namespace SunEngine.DataSeed
         /// </summary>
         public void SeedInitialize()
         {
-            using (var db = new DataBaseConnection(providerName, connectionString))
-            {
-                var dataContainer = new InitialSeeder(configDirectoryPath).Seed();
-                var databaseSeeder = new DataBaseSeeder(db, dataContainer);
+            using var db = new DataBaseConnection(providerName, connectionString);
+            
+            var dataContainer = new InitialSeeder(initDirPath).Seed();
+            var databaseSeeder = new DataBaseSeeder(db, dataContainer);
 
-                try
-                {
-                    databaseSeeder.SeedInitial();
-                }
-                catch (DbException e)
-                {
-                    throw new SunDataBaseException(
-                        "Exception happened in data seed process. " +
-                        "Check that last migrations were done('migrate' argument).", e);
-                }
-                catch (SocketException e)
-                {
-                    throw new SunDataBaseException("The connection could not be made. " +
-                                                             "Check the database you are trying to connect exists.", e);
-                }
+            try
+            {
+                databaseSeeder.SeedInitial();
+            }
+            catch (DbException e)
+            {
+                throw new SunDataBaseException(
+                    "Exception happened in data seed process. " +
+                    "Check that last migrations were done('migrate' argument).", e);
+            }
+            catch (SocketException e)
+            {
+                throw new SunDataBaseException("The connection could not be made. " +
+                                               "Check the database you are trying to connect exists.", e);
             }
         }
 

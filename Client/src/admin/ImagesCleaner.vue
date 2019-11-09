@@ -7,10 +7,10 @@
       {{$tl("info")}}
     </q-banner>
 
-    <div class="images-cleaner__btn-block q-gutter-md q-mb-xl">
+    <div class="images-cleaner__btn-block q-gutter-md flex q-mb-xl">
       <q-btn icon="fas fa-trash" class="send-btn" :disable="!images" @click="clear()" no-caps
              :label="$tl('clearBtn')"/>
-
+      <div class="grow"></div>
       <q-btn no-caps class="refresh-btn q-ml" color="info" icon="fas fa-sync-alt" @click="reloadImages()"
              :label="$tl('refreshBtn')"/>
     </div>

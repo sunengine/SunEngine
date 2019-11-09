@@ -7,8 +7,9 @@
       <q-input input-class="roles-permissions__json-input" v-model="json" type="textarea"
                :label="$tl('textAreaLabel')"/>
 
-      <div class="roles-permissions__btn-block q-gutter-x-md">
+      <div class="roles-permissions__btn-block flex q-gutter-md">
         <q-btn no-caps class="send-btn" icon="far fa-save" @click="send" :label="$tl('saveToServerBtn')"/>
+        <div class="grow"></div>
         <q-btn no-caps class="refresh-btn" color="info" icon="fas fa-sync-alt" @click="loadDataRefresh"
                :label="$tl('getFromServer')"/>
       </div>

@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Core.DataBase;
 using AngleSharp.Parser.Html;
-using Flurl;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using SunEngine.Core.Configuration.Options;
+using SunEngine.Core.Services;
 
 namespace SunEngine.Admin.Services
 {
@@ -17,18 +16,16 @@ namespace SunEngine.Admin.Services
     {
         private readonly DataBaseConnection dataBaseConnection;
         private readonly string uploadDirectory;
-        private readonly string uploadUrl;
         private readonly HtmlParser htmlParser;
 
         public ImageCleanerAdminService(
             DataBaseConnection dataBaseConnection,
-            IWebHostEnvironment env,
             IOptions<ImagesOptions> imagesOptions,
-            IOptions<GlobalOptions> globalOptions)
+            IOptions<GlobalOptions> globalOptions,
+            IPathService pathService)
         {
             this.dataBaseConnection = dataBaseConnection;
-            uploadDirectory = Path.Combine(env.WebRootPath, imagesOptions.Value.ImagesUploadDir);
-            uploadUrl = globalOptions.Value.SiteUrl.AppendPathSegment(imagesOptions.Value.ImagesUploadDir);
+            uploadDirectory = pathService.MakePath(imagesOptions.Value.ImagesUploadDir);
             htmlParser = new HtmlParser();
         }
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SunEngine.Core.Configuration
 {
@@ -6,8 +7,8 @@ namespace SunEngine.Core.Configuration
     {
         public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>()
         {
-            ["AAA:Test1"] = new LongString("xxx"),
-            ["AAA:Test2"] = new LongString("yyyyyyyyyyyyy"),
+            ["AAA:Test1"] = (LongString) "Test data 1",
+            ["AAA:Test2"] = (LongString) string.Join(" ", Enumerable.Repeat("test data", 10)),
 
             ["Global:SiteName"] = "SunEngine Demo",
 
@@ -52,7 +53,7 @@ namespace SunEngine.Core.Configuration
             ["Scheduler:UploadVisitsToDataBaseMinutes"] = 5,
 
             ["Email:Host"] = "127.0.0.1",
-            ["Email:Port"] = "1025",
+            ["Email:Port"] = 1025,
             ["Email:Login"] = "username",
             ["Email:Password"] = "password",
             ["Email:EmailFromName"] = "SunEngine Demo",
@@ -63,9 +64,25 @@ namespace SunEngine.Core.Configuration
     public class LongString
     {
         public string Value { get; set; }
+
+        public static implicit operator LongString(string str)
+        {
+            return new LongString(str);
+        }
+
+        public static explicit operator string(LongString str)
+        {
+            return str.ToString();
+        }
+
         public LongString(string value)
         {
             Value = value;
+        }
+
+        public override string ToString()
+        {
+            return Value;
         }
     }
 }
