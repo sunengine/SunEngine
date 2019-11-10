@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -23,10 +24,14 @@ namespace SunEngine.Admin.Services
         public readonly string CurrentSkinPath;
         public readonly string SkinNamePath;
         public readonly IWebHostEnvironment env;
-
+ 
+        private readonly int MaxArchiveSize;
+        private readonly int MaxExtractArchiveSize;
+        
         public SkinsAdminService(
             IPathService pathService,
             IOptionsMonitor<SkinsOptions> skinsOptions,
+            IOptionsMonitor<FileLoadingOptions> fileLoadingOptions,
             IWebHostEnvironment env)
         {
             this.env = env;
@@ -34,14 +39,22 @@ namespace SunEngine.Admin.Services
             AllSkinsPath = pathService.MakePath(skinsOptions.CurrentValue.AllSkinsDir);
             CurrentSkinPath = pathService.MakePath(skinsOptions.CurrentValue.CurrentSkinDir);
             SkinNamePath = Path.Combine(AllSkinsPath, "name.txt");
+            MaxArchiveSize = fileLoadingOptions.CurrentValue.MaxArchiveSize * 1024;
+            MaxExtractArchiveSize = fileLoadingOptions.CurrentValue.MaxExtractArchiveSize * 1024;
         }
 
-        public void UploadSkin(string fileName, Stream fileStream)
+        public void UploadSkin(IFormFile file)
         {
+            var fileName = file.FileName;
+            var fileStream = file.OpenReadStream();
             var extension = Path.GetExtension(fileName);
 
             if (extension != ".zip")
                 throw new SunViewException(new ErrorView("NotValidSkinFileNotZip", "Skin file has to be .zip",
+                    ErrorType.System));
+            
+            if(file.Length > MaxArchiveSize)
+                throw new SunViewException(new ErrorView("VeryBigFile", $"Max file size {MaxArchiveSize}Kb",
                     ErrorType.System));
 
             var zipArchive = new ZipArchive(fileStream);
@@ -49,13 +62,15 @@ namespace SunEngine.Admin.Services
             if(zipEntry == null)
                 throw new SunViewException(new ErrorView("SkinFileNotContainInfoJson", "Skin archive do not contain info.json file",
                     ErrorType.System));
-            
+
+            if (zipArchive.Entries.Sum(entry => entry.Length) > MaxExtractArchiveSize)
+            {
+                throw new SunViewException(new ErrorView("VeryBigExtractArchive", $"Max extract archive size {MaxExtractArchiveSize}Kb",
+                    ErrorType.System));
+            }
+
             var jsonString = new StreamReader(zipEntry.Open()).ReadToEnd();
-
-            SkinInfo skinInfo = JsonConvert.DeserializeObject<SkinInfo>(jsonString);
-
-            // TODO need to check archive for security
-
+            var skinInfo = JsonConvert.DeserializeObject<SkinInfo>(jsonString);
             var skinDirPath = Path.Combine(AllSkinsPath, skinInfo.Name);
 
             if (Directory.Exists(skinDirPath))

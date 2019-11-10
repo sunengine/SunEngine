@@ -23,7 +23,7 @@ namespace SunEngine.Admin.Controllers
         [HttpPost]
         public IActionResult UploadSkin(IFormFile file)
         {
-            skinsAdminService.UploadSkin(file.FileName, file.OpenReadStream());
+            skinsAdminService.UploadSkin(file);
 
             return Ok();
         }

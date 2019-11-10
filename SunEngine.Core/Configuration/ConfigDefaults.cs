@@ -58,6 +58,9 @@ namespace SunEngine.Core.Configuration
             ["Email:Password"] = "password",
             ["Email:EmailFromName"] = "SunEngine Demo",
             ["Email:EmailFromAddress"] = "SunEngine@demo.com",
+            
+            ["FileLoading:MaxArchiveSize"] = 20 * 1024,
+            ["FileLoading:MaxExtractArchiveSize"] = 60 * 1024,
         };
     }
 
