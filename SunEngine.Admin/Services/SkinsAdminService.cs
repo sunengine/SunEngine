@@ -71,7 +71,7 @@ namespace SunEngine.Admin.Services
 
             var jsonString = new StreamReader(zipEntry.Open()).ReadToEnd();
             var skinInfo = JsonConvert.DeserializeObject<SkinInfo>(jsonString);
-            var skinDirPath = Path.Combine(AllSkinsPath, skinInfo.Name);
+            var skinDirPath = Path.Combine(AllSkinsPath, PathUtils.ClearPathToken(skinInfo.Name));
 
             if (Directory.Exists(skinDirPath))
                 Directory.Delete(skinDirPath, true);
