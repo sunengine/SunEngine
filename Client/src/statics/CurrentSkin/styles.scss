@@ -1,24 +1,23 @@
-﻿@import "../quasar.variables";
-@import "../quasar.site.variables";
+﻿@import "quasar.variables";
+@import "quasar.site.variables";
 
 $text-color: #06000d;
 $link-color: #3498db;
 
-$header-bg-color: #FFBA51;
+$header-bg-color: #24c7ff;
 $header-text-color: white;
 $header-border-color: #cbcbcb;
 $header-menu-icon-color: white;
 $header-user-color: white;
 
-$main-menu-bg-color: #dbd8e6;
+$main-menu-bg-color: unset;
 $main-menu-icon-color: $link-color;
-$main-menu-link-color: black;
-$main-menu-active-link-text-color: white;
-$main-menu-active-link-bg-color: #FFBA51;
-$main-menu-active-link-icon-color: white;
+$main-menu-link-color: unset;
+$main-menu-active-link-text-color: unset;
+$main-menu-active-link-bg-color: #d4f0ff;
+$main-menu-active-link-icon-color: unset;
 
-
-$side-panel-header-bg-color: #dbd8e6;
+$side-panel-header-bg-color: #c3edda;
 $side-panel-header-text-color: #666666;
 $side-panel-header-link-color: #666666;
 $side-panel-header-icon-color: unset;
@@ -29,14 +28,15 @@ $side-panel-menu-active-link-text-color: white;
 $side-panel-menu-active-link-icon-color: white;
 $side-panel-menu-active-link-bg-color: #FFBA51;
 
-$footer-background-color: lighten($header-bg-color, 15%);
+$footer-background-color: #d4f0ff;
 $footer-text-color: #3498db;
 $footer-link-color: #3498db;
+$footer-separator-icon-color: #ffa500;
 $footer-border-color: #cbcbcb;
-$footer-separator-icon-color: #7e73a5;
 
-$post-btn-bg-color: #dbd8e6;
-$post-btn-text-color: black;
+
+$post-btn-bg-color: #c4f0ff;
+$post-btn-text-color: grey;
 $send-btn-bg-color: #54e288;
 $send-btn-text-color: white;
 $cancel-btn-bg-color: $warning;
@@ -314,11 +314,11 @@ a, .link {
 }
 
 .index-page__header {
-  color: #7e73a5 !important;
+  color: #00acef !important;
 }
 
 .index-page__info-block-accent {
-  color: #ca913b;
+  color: #a38167;
 }
 
 .layout__footer-line {
@@ -330,5 +330,5 @@ a, .link {
 }
 
 .sun-engine-footer__link {
-  color: #c26a84 !important;
+  color: orange !important;
 }

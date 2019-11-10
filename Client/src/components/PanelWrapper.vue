@@ -1,12 +1,12 @@
 <template>
-  <div class="panel-wrapper">
-    <h4 class="panel-wrapper__header">
-      <router-link class="panel-wrapper__header-link" v-if="titleLink" :to="titleLink">
-        <q-icon v-if="icon" :name="icon" size="1.4em" class="panel-wrapper__header__icon q-mr-sm"/>
+  <div class="side-panel">
+    <h4 class="side-panel__header">
+      <router-link class="side-panel__header-link" v-if="titleLink" :to="titleLink">
+        <q-icon v-if="icon" :name="icon" size="1.4em" class="side-panel__header-icon q-mr-sm"/>
         {{title}}
       </router-link>
       <template v-else>
-        <q-icon v-if="icon" :name="icon" size="1.4em" class="panel-wrapper__header__icon q-mr-sm"/> {{title}}
+        <q-icon v-if="icon" :name="icon" size="1.4em" class="side-panel__header-icon q-mr-sm"/> {{title}}
       </template>
     </h4>
     <component v-if="wrapComponent" :is="wrapComponent"/>

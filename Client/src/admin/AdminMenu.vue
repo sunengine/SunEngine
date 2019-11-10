@@ -30,6 +30,17 @@
         <q-item-label v-if="componentsCaption" caption>{{componentsCaption}}</q-item-label>
       </q-item-section>
     </q-item>
+
+    <q-item :to="{name: 'ConfigurationAdmin'}">
+      <q-item-section avatar>
+        <q-icon name="fas fa-tools"/>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $tl("configuration") }}</q-item-label>
+        <q-item-label v-if="configurationCaption" caption>{{configurationCaption}}</q-item-label>
+      </q-item-section>
+    </q-item>
+
     <q-item :to="{name: 'SkinsAdmin'}">
       <q-item-section avatar>
         <q-icon name="fas fa-user-astronaut"/>
@@ -42,7 +53,7 @@
 
     <q-item :to="{name: 'RolesPage'}">
       <q-item-section avatar>
-        <q-icon name="fas fa-users"/>
+        <q-icon name="fas fa-user-friends"/>
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $tl("rolesUsers") }}</q-item-label>
@@ -52,7 +63,7 @@
 
     <q-item :to="{name: 'RolesPermissions'}">
       <q-item-section avatar>
-        <q-icon name="fas fa-users-cog"/>
+        <q-icon name="fas fa-user-shield"/>
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $tl("rolesPermissions") }}</q-item-label>
@@ -67,16 +78,6 @@
       <q-item-section>
         <q-item-label>{{ $tl("cacheSettings") }}</q-item-label>
         <q-item-label v-if="cacheSettingsCaption" caption>{{cacheSettingsCaption}}</q-item-label>
-      </q-item-section>
-    </q-item>
-
-    <q-item :to="{name: 'ConfigurationAdmin'}">
-      <q-item-section avatar>
-        <q-icon name="fas fa-tools"/>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>{{ $tl("configuration") }}</q-item-label>
-        <q-item-label v-if="configurationCaption" caption>{{configurationCaption}}</q-item-label>
       </q-item-section>
     </q-item>
 

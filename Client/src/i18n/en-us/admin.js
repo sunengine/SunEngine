@@ -291,6 +291,7 @@ export default {
   ImagesCleaner: {
     title: "Disk cleaner",
     info: "Lost images not using on site",
+    working: "Clearing",
     clearBtn: "Delete lost images",
     refreshBtn: "Refresh lost images list",
     clearCount: "Cleared images: ",

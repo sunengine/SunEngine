@@ -36,6 +36,7 @@
         ];
     }
 
+
     export default {
         name: 'ChangeLink',
         mixins: [Page],
@@ -47,6 +48,9 @@
             }
         },
         linkRules: null,
+        computed: {
+           // ...locals
+        },
         methods: {
             checkLinkInDb() {
                 clearTimeout(this.timeout);
@@ -96,7 +100,7 @@
         created() {
             this.title = this.$tl('title');
 
-            this.linkRules = createLinkRules.call(this)
+            this.linkRules = createLinkRules.call(this);
         }
     }
 

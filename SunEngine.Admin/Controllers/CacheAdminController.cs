@@ -1,5 +1,7 @@
 using System;
+using AngleSharp;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using SunEngine.Core.Cache.Services;
 
 namespace SunEngine.Admin.Controllers
@@ -9,29 +11,25 @@ namespace SunEngine.Admin.Controllers
         protected readonly IComponentsCache componentsCache;
         protected readonly ICategoriesCache categoriesCache;
         protected readonly IMenuCache menuCache;
-        //protected readonly IRolesCache rolesCache;
-        //protected readonly IContentCache contentCache;
         protected readonly SpamProtectionCache spamProtectionCache;
         protected readonly IMailTemplatesCache mailTemplatesCache;
-
+        protected readonly IConfigurationRoot configurationRoot;
 
         public CacheAdminController(
             IComponentsCache componentsCache,
             ICategoriesCache categoriesCache,
             IMenuCache menuCache,
-            //IRolesCache rolesCache,
-            //IContentCache contentCache,
             SpamProtectionCache spamProtectionCache,
             IMailTemplatesCache mailTemplatesCache,
+            IConfigurationRoot configurationRoot,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.componentsCache = componentsCache;
             this.categoriesCache = categoriesCache;
             this.menuCache = menuCache;
-            //this.rolesCache = rolesCache;
-            //this.contentCache = contentCache;
             this.spamProtectionCache = spamProtectionCache;
             this.mailTemplatesCache = mailTemplatesCache;
+            this.configurationRoot = configurationRoot;
         }
 
         public IActionResult ResetAllCache()
@@ -43,6 +41,7 @@ namespace SunEngine.Admin.Controllers
             contentCache.Reset();
             spamProtectionCache.Reset();
             mailTemplatesCache.Reset();
+            configurationRoot.Reload();
 
             return Ok();
         }

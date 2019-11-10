@@ -26,6 +26,7 @@
 <script>
     import {Page, Pagination} from 'mixins'
 
+
     export default {
         name: 'BlogPage',
         mixins: [Page, Pagination],

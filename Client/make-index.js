@@ -1,15 +1,17 @@
-/**
- *  Index maker script
- *  Version: 1.0.2
- *
- *  This script makes index file "/src/sun,js" from all project
- *
- *  How it works?
- *  It parses all directories from cons "dirs", excluding pathes started with "excludePaths"
- *  and make index file from all '.js' and '.vue' components.
- *  Then it goes to '/src/site' directory and overrides entries.
- *  Made by: Dimitrij Polianin
- **/
+/***********************************************************************************************
+ *                                                                                             *
+ *  Index maker script                                                                         *
+ *  Version: 1.0.2                                                                             *
+ *                                                                                             *
+ *  This script makes index file "/src/sun,js" from all project                                *
+ *                                                                                             *
+ *  It parses all directories from cons "dirs", excluding pathes started with "excludePaths"   *
+ *  and make index file from all '.js' and '.vue' components.                                  *
+ *  Then it goes to '/src/site' directory and overrides entries.                               *
+ *  Made by: Dimitrij Polianin                                                                 *
+ *                                                                                             *
+ ***********************************************************************************************/
+
 
 
 const glob = require('glob');

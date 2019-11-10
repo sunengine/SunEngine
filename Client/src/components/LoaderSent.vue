@@ -1,12 +1,16 @@
 <template>
-  <span class="loader-sent"><q-spinner slot="loading" size="20px" class="q-mr-xs"/> {{$tl("sending")}}</span>
+  <span class="loader-sent"><q-spinner slot="loading" size="20px" class="q-mr-xs"/>
+    <slot>
+      {{$tl("sending")}}
+    </slot>
+  </span>
 </template>
 
 <script>
 
-  export default {
-    name: 'LoaderSent'
-  }
+    export default {
+        name: 'LoaderSent'
+    }
 
 </script>
 

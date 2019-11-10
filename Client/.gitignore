@@ -11,6 +11,7 @@ config.js
 node_modules
 /build
 /dist
+/src/statics/CurrentSkin
 /src-cordova/node_modules
 /src-cordova/platforms
 /src-cordova/plugins
