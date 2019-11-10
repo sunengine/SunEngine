@@ -47,7 +47,7 @@ namespace SunEngine.Core.Controllers
             ResizeOptions ro = new ResizeOptions
             {
                 Mode = ResizeMode.Max,
-                Size = new Size(imagesOptions.CurrentValue.MaxWidthPixels, imagesOptions.CurrentValue.MaxHeightPixels)
+                Size = new Size(imagesOptions.CurrentValue.ResizeMaxWidthPixels, imagesOptions.CurrentValue.ResizeMaxHeightPixels)
             };
             
             FileAndDir fileAndDir = await imagesService.SaveImageAsync(file, ro);

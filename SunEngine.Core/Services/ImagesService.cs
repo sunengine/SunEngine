@@ -47,6 +47,17 @@ namespace SunEngine.Core.Services
 
             if (ext == ".svg" && file.Length >= MaxSvgSizeBytes)
                 throw new Exception($"Svg max size is {MaxSvgSizeBytes / 1024} kb");
+            else
+            {
+                await using var stream = file.OpenReadStream();
+                if(!IsAllowedImageFormat(Image.DetectFormat(stream).Name))
+                    throw new Exception("Not allowed image format");
+
+                var imageInfo = Image.Identify(stream);
+                if(imageInfo.Width > imagesOptions.MaxImageWidth ||
+                   imageInfo.Height > imagesOptions.MaxImageHeight)
+                    throw new Exception("Very big image");
+            }
 
             var fileAndDir = imagesNamesService.GetNewImageNameAndDir(ext);
             var dirFullPath = Path.Combine(UploadImagesDir, fileAndDir.Dir);
@@ -110,6 +121,15 @@ namespace SunEngine.Core.Services
                 allowedExtensions.Add(".svg");
 
             return allowedExtensions.FirstOrDefault(x => x == ext);
+        }
+
+        private bool IsAllowedImageFormat(string imageFormat)
+        {
+            var allowedFormats = new List<string> { "JPEG", "PNG" };
+            if(imagesOptions.AllowGifUpload)
+                allowedFormats.Add("GIF");
+
+            return allowedFormats.Contains(imageFormat);
         }
     }
 }
