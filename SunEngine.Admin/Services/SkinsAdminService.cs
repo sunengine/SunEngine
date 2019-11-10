@@ -83,7 +83,7 @@ namespace SunEngine.Admin.Services
 
             CopyDir(selectedSkinPath, CurrentSkinPath);
 
-            System.IO.File.WriteAllText(SkinNamePath, name);
+            System.IO.File.WriteAllText(SkinNamePath, secureSkinName);
 
             if (env.IsProduction())
             {
