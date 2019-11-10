@@ -24,9 +24,9 @@ $side-panel-header-icon-color: unset;
 $side-panel-menu-bg-color: unset;
 $side-panel-menu-link-color: black;
 $side-panel-menu-icon-color: $link-color;
-$side-panel-menu-active-link-text-color: white;
-$side-panel-menu-active-link-icon-color: white;
-$side-panel-menu-active-link-bg-color: #FFBA51;
+$side-panel-menu-active-link-text-color: $link-color;;
+$side-panel-menu-active-link-icon-color: black;
+$side-panel-menu-active-link-bg-color: #d4f0ff;
 
 $footer-background-color: #d4f0ff;
 $footer-text-color: #3498db;

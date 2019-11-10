@@ -164,13 +164,13 @@ a:hover, .link:hover {
 }
 
 .side-panel .q-router-link--active {
-  background-color: #FFBA51 !important;
+  background-color: #d4f0ff !important;
 }
 .side-panel .q-router-link--active .q-item__section--main {
-  color: white !important;
+  color: #3498db !important;
 }
 .side-panel .q-router-link--active .q-item__section--avatar {
-  color: white !important;
+  color: black !important;
 }
 
 .material-text h3, .post-text h3, .comment-text h3 {
