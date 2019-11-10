@@ -78,7 +78,8 @@ namespace SunEngine.Admin.Services
 
             var selectedSkinPath = Path.Combine(AllSkinsPath, secureSkinName);
 
-            Directory.Delete(CurrentSkinPath, true);
+            if(Directory.Exists(CurrentSkinPath))
+                Directory.Delete(CurrentSkinPath, true);
             Directory.CreateDirectory(CurrentSkinPath);
 
             CopyDir(selectedSkinPath, CurrentSkinPath);

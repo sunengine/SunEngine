@@ -1,70 +1,108 @@
-@import "../variables.sass";
 @import "../quasar.variables";
-@import "variables.scss";
+@import "../quasar.site.variables";
+
+$text-color: #06000d;
+$link-color: #3498db;
+
+$header-bg-color: #24c7ff;
+$header-text-color: white;
+$header-border-color: #cbcbcb;
+$header-menu-icon-color: white;
+$header-user-color: white;
+
+$main-menu-bg-color: unset;
+$main-menu-icon-color: $link-color;
+$main-menu-link-color: unset;
+$main-menu-active-link-text-color: unset;
+$main-menu-active-link-bg-color: #d4f0ff;
+$main-menu-active-link-icon-color: unset;
+
+$side-panel-header-bg-color: #c3edda;
+$side-panel-header-text-color: #666666;
+$side-panel-header-link-color: #666666;
+$side-panel-header-icon-color: unset;
+$side-panel-menu-bg-color: unset;
+$side-panel-menu-link-color: black;
+$side-panel-menu-icon-color: $link-color;
+$side-panel-menu-active-link-text-color: white;
+$side-panel-menu-active-link-icon-color: white;
+$side-panel-menu-active-link-bg-color: #FFBA51;
+
+$footer-background-color: #d4f0ff;
+$footer-text-color: #3498db;
+$footer-link-color: #3498db;
+$footer-separator-icon-color: #ffa500;
+$footer-border-color: #cbcbcb;
+
+
+$post-btn-bg-color: #c4f0ff;
+$post-btn-text-color: grey;
+$send-btn-bg-color: #54e288;
+$send-btn-text-color: white;
+$cancel-btn-bg-color: $warning;
+$cancel-btn-text-color: white;
+$refresh-btn-bg-color: $info;
+$refresh-btn-text-color: white;
+$reset-btn-bg-color: $info;
+$reset-btn-text-color: white;
+$delete-btn-bg-color: $negative;
+$delete-btn-text-color: white;
 
 
 // ——— Main ——————————————————————————————————————
-   
-  
+
+
 html {
   color: $text-color !important;
   font-family: 'Open Sans', sans-serif;
-} 
- 
+}
+
 
 a, .link {
   text-decoration: none;
   color: $link-color;
 
   &:hover {
-    color: #2472b3; 
+    color: #2472b3;
   }
 }
 
-.q-router-link--active {
-  background-color: $footer-background-color !important;
-}
 
- 
 // ——— Buttons ————————————————————————————————————
 
 
 .send-btn {
-  background-color: #54e288 !important;
-  color: white !important;
+  background-color: $send-btn-bg-color !important;
+  color: $send-btn-text-color !important;
 }
 
 .post-btn {
-  background-color: #c4f0ff !important;
-  color: grey;
-
-  &:hover {
-    color: white !important;
-  }
-} 
+  background-color: $post-btn-bg-color !important;
+  color: $post-btn-text-color !important;
+}
 
 .cancel-btn {
-  background-color: $warning !important;
-  color: white !important;
+  background-color: $cancel-btn-bg-color !important;
+  color: $cancel-btn-text-color !important;
 }
 
 .refresh-btn {
-  background-color: $info !important;
-  color: white !important;
+  background-color: $refresh-btn-bg-color !important;
+  color: $refresh-btn-text-color !important;
 }
 
 .reset-btn {
-  background-color: $info !important; 
-  color: white !important;
+  background-color: $reset-btn-bg-color !important;
+  color: $reset-btn-text-color !important;
 }
 
 .delete-btn {
-  background-color: $negative !important;
-  color: white !important;
+  background-color: $delete-btn-bg-color !important;
+  color: $delete-btn-text-color !important;
 }
 
 .bg-pagination {
-  background-color: $header-background-color !important;
+  background-color: $header-bg-color !important;
 }
 
 .text-pagination {
@@ -80,9 +118,9 @@ a, .link {
 }
 
 .layout__toolbar {
-  background-color: $header-background-color;
+  background-color: $header-bg-color;
 }
- 
+
 .layout__title {
   font-family: "Jomolhari";
   letter-spacing: 1.4px;
@@ -96,7 +134,7 @@ a, .link {
 }
 
 .main-menu-drawer {
-  background-color: $menu-color;
+  background-color: $main-menu-bg-color;
 }
 
 .side-menu-drawer {
@@ -143,7 +181,7 @@ a, .link {
 }
 
 
-// ——— MainMenu ——————————————————————————————————
+// ——— Main Menu ——————————————————————————————————
 
 
 .main-menu__logo-div {
@@ -161,10 +199,14 @@ a, .link {
 .main-menu {
 
   .q-router-link--active {
-    background-color: $footer-background-color;
+    background-color: $main-menu-active-link-bg-color !important;
 
     .q-item__section--main {
-      color: black !important;
+      color: $main-menu-active-link-text-color !important;
+    }
+
+    .q-item__section--avatar {
+      color: $main-menu-active-link-icon-color !important;
     }
   }
 
@@ -172,14 +214,14 @@ a, .link {
     margin: 0 !important;
     padding: 0 !important;
     width: 60px !important;
-    color: $menu-icon-color !important;
+    color: $main-menu-icon-color !important;
     justify-items: center !important;
     align-items: center !important;
   }
 
   .q-item__section--main {
     font-size: 1.2em;
-    color: black !important;
+    color: $main-menu-link-color !important;
   }
 
   .q-item__label--caption {
@@ -188,21 +230,42 @@ a, .link {
 }
 
 
-// ——— Panel ————————————————————————————————————
+// ——— Side Panel ————————————————————————————————————
 
 
-.panel-wrapper__header {
+.side-panel__header {
   text-align: center;
   margin: 0;
   padding: 7px 0 4px 0;
   text-transform: uppercase;
   font-size: 0.9rem !important;
   font-weight: bolder;
-  background-color: $panel-header-background;
+  background-color: $side-panel-header-bg-color;
   border-bottom: 1px solid #f1f1f1;
-  color: $panel-header-color;
+  color: $side-panel-header-text-color;
 }
 
+.side-panel__header-link {
+  color: $side-panel-header-link-color;
+}
+
+.side-panel__header-icon { 
+  color: $side-panel-header-icon-color;
+}
+
+.side-panel {
+  .q-router-link--active {
+    background-color: $side-panel-menu-active-link-bg-color !important;
+
+    .q-item__section--main {
+      color: $side-panel-menu-active-link-text-color !important;
+    }
+
+    .q-item__section--avatar {
+      color: $side-panel-menu-active-link-icon-color !important;
+    }
+  }
+}
 
 // ——— Material styles ———————————————————————————
 
@@ -250,3 +313,22 @@ a, .link {
   }
 }
 
+.index-page__header {
+  color: #00acef !important;
+}
+
+.index-page__info-block-accent {
+  color: #a38167;
+}
+
+.layout__footer-line {
+
+}
+
+.footer__separator-icon {
+  color: $footer-separator-icon-color !important;
+}
+
+.sun-engine-footer__link {
+  color: orange !important;
+}

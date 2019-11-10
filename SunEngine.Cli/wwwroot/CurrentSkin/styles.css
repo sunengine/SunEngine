@@ -17,8 +17,8 @@ a:hover, .link:hover {
 }
 
 .post-btn {
-  background-color: #dbd8e6 !important;
-  color: black !important;
+  background-color: #c4f0ff !important;
+  color: grey !important;
 }
 
 .cancel-btn {
@@ -42,7 +42,7 @@ a:hover, .link:hover {
 }
 
 .bg-pagination {
-  background-color: #FFBA51 !important;
+  background-color: #24c7ff !important;
 }
 
 .text-pagination {
@@ -54,7 +54,7 @@ a:hover, .link:hover {
 }
 
 .layout__toolbar {
-  background-color: #FFBA51;
+  background-color: #24c7ff;
 }
 
 .layout__title {
@@ -68,7 +68,7 @@ a:hover, .link:hover {
 }
 
 .main-menu-drawer {
-  background-color: #dbd8e6;
+  background-color: unset;
 }
 
 .layout__toolbar__menu-btn {
@@ -90,7 +90,7 @@ a:hover, .link:hover {
   color: #3498db !important;
   font-weight: bold;
   letter-spacing: 1px;
-  background-color: #ffd89e !important;
+  background-color: #d4f0ff !important;
   padding: 18px 0;
   border-top: 1px solid #cbcbcb;
 }
@@ -119,13 +119,13 @@ a:hover, .link:hover {
 }
 
 .main-menu .q-router-link--active {
-  background-color: #FFBA51 !important;
+  background-color: #d4f0ff !important;
 }
 .main-menu .q-router-link--active .q-item__section--main {
-  color: white !important;
+  color: unset !important;
 }
 .main-menu .q-router-link--active .q-item__section--avatar {
-  color: white !important;
+  color: unset !important;
 }
 .main-menu .q-item__section--avatar {
   margin: 0 !important;
@@ -137,7 +137,7 @@ a:hover, .link:hover {
 }
 .main-menu .q-item__section--main {
   font-size: 1.2em;
-  color: black !important;
+  color: unset !important;
 }
 .main-menu .q-item__label--caption {
   font-size: 0.8em;
@@ -150,7 +150,7 @@ a:hover, .link:hover {
   text-transform: uppercase;
   font-size: 0.9rem !important;
   font-weight: bolder;
-  background-color: #dbd8e6;
+  background-color: #c3edda;
   border-bottom: 1px solid #f1f1f1;
   color: #666666;
 }
@@ -211,19 +211,19 @@ a:hover, .link:hover {
 }
 
 .index-page__header {
-  color: #7e73a5 !important;
+  color: #00acef !important;
 }
 
 .index-page__info-block-accent {
-  color: #ca913b;
+  color: #a38167;
 }
 
 .footer__separator-icon {
-  color: #7e73a5 !important;
+  color: #ffa500 !important;
 }
 
 .sun-engine-footer__link {
-  color: #c26a84 !important;
+  color: orange !important;
 }
 
 /*# sourceMappingURL=styles.css.map */
