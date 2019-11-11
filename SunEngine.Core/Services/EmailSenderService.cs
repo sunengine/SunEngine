@@ -61,16 +61,14 @@ namespace SunEngine.Core.Services
                 htmlView.ContentType = new ContentType("text/html");
                 mailMessage.AlternateViews.Add(htmlView);
             }
-            
-            using (SmtpClient client = new SmtpClient(emailSenderOptions.CurrentValue.Host, emailSenderOptions.CurrentValue.Port)
+
+            using SmtpClient client = new SmtpClient(emailSenderOptions.CurrentValue.Host, emailSenderOptions.CurrentValue.Port)
             {
                 UseDefaultCredentials = false,
                 Credentials = new NetworkCredential(emailSenderOptions.CurrentValue.Login, emailSenderOptions.CurrentValue.Password),
                 EnableSsl = emailSenderOptions.CurrentValue.UseSSL
-            })
-            {
-                await client.SendMailAsync(mailMessage);
-            }
+            };
+            await client.SendMailAsync(mailMessage);
         }
     }
 }

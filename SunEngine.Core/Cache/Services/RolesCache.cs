@@ -94,31 +94,29 @@ namespace SunEngine.Core.Cache.Services
 
         public void Initialize()
         {
-            using (var db = dataBaseFactory.CreateDb())
+            using var db = dataBaseFactory.CreateDb();
+            var roles = db.Roles.Select(x => new RoleTmp(x)).ToDictionary(x => x.Id);
+
+            _allOperationKeys = db.OperationKeys.Select(x => new OperationKeyCached(x)).ToImmutableList();
+
+
+            var categoryAccesses = db.CategoryAccess.Select(x => new CategoryAccessTmp(x))
+                .ToDictionary(x => x.Id);
+
+            foreach (CategoryOperationAccess categoryOperationAccess in db.CategoryOperationAccess.ToList())
             {
-                var roles = db.Roles.Select(x => new RoleTmp(x)).ToDictionary(x => x.Id);
-
-                _allOperationKeys = db.OperationKeys.Select(x => new OperationKeyCached(x)).ToImmutableList();
-
-
-                var categoryAccesses = db.CategoryAccess.Select(x => new CategoryAccessTmp(x))
-                    .ToDictionary(x => x.Id);
-
-                foreach (CategoryOperationAccess categoryOperationAccess in db.CategoryOperationAccess.ToList())
-                {
-                    categoryAccesses[categoryOperationAccess.CategoryAccessId].CategoryOperationAccesses
-                        .Add(categoryOperationAccess.OperationKeyId, categoryOperationAccess.Access);
-                }
-
-                foreach (var categoryAccess in categoryAccesses.Values)
-                {
-                    roles[categoryAccess.RoleId].CategoryAccesses
-                        .Add(categoryAccess);
-                }
-
-                _allRoles = roles.Values.ToImmutableDictionary(x => x.Name, x => new RoleCached(x));
-                _adminRole = _allRoles[RoleNames.Admin];
+                categoryAccesses[categoryOperationAccess.CategoryAccessId].CategoryOperationAccesses
+                    .Add(categoryOperationAccess.OperationKeyId, categoryOperationAccess.Access);
             }
+
+            foreach (var categoryAccess in categoryAccesses.Values)
+            {
+                roles[categoryAccess.RoleId].CategoryAccesses
+                    .Add(categoryAccess);
+            }
+
+            _allRoles = roles.Values.ToImmutableDictionary(x => x.Name, x => new RoleCached(x));
+            _adminRole = _allRoles[RoleNames.Admin];
         }
         
         public void Reset()

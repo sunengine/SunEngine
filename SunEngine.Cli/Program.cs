@@ -4,7 +4,7 @@ using System.IO;
 
 namespace SunEngine.Cli
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
@@ -24,7 +24,7 @@ namespace SunEngine.Cli
             UseConfigurationDirectory(config);
 
             if (config.CheckDatabaseAvailability)
-                DataSeed().CheckConnection();
+                DataSeed().PrintDbConnectionAvailability();
 
             else if (ShouldUpdate(config))
             {
@@ -66,7 +66,7 @@ namespace SunEngine.Cli
             bool failed = !TestIfConfigurationDirectoryExists(startupConfiguration.ConfigRootDir);
 
             if (failed)
-                Environment.Exit(0);
+                Environment.Exit(1);
 
 
             bool TestIfConfigurationDirectoryExists(string dirPath)

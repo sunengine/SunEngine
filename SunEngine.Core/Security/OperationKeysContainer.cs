@@ -16,15 +16,13 @@ namespace SunEngine.Core.Security
     {
         public OperationKeysContainer(IDataBaseFactory dbFactory)
         {
-            using (DataBaseConnection db = dbFactory.CreateDb())
-            {
-                Dictionary<string, int> dictionary = db.OperationKeys
-                    .ToDictionary(x => x.Name, x => x.OperationKeyId);
+            using DataBaseConnection db = dbFactory.CreateDb();
+            Dictionary<string, int> dictionary = db.OperationKeys
+                .ToDictionary(x => x.Name, x => x.OperationKeyId);
 
-                foreach (var propertyInfo in typeof(OperationKeysContainer).GetProperties())
-                {
-                    propertyInfo.SetValue(this, dictionary[propertyInfo.Name]);
-                }
+            foreach (var propertyInfo in typeof(OperationKeysContainer).GetProperties())
+            {
+                propertyInfo.SetValue(this, dictionary[propertyInfo.Name]);
             }
         }
 

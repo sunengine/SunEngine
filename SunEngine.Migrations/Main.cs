@@ -52,7 +52,7 @@ namespace SunEngine.Migrations
             var providerName = dataBaseConfiguration["FluentMigratorProvider"];
             DbProvider.Initialize(providerName);
             var connectionString = dataBaseConfiguration["ConnectionString"];
-            CheckDbConnectionIsOkOrExit(connectionString);
+            CheckDbConnectionAndExitIfFailed(connectionString);
 
             return new ServiceCollection()
                 .AddFluentMigratorCore()
@@ -77,7 +77,7 @@ namespace SunEngine.Migrations
             runner.MigrateUp();
         }
 
-        private static void CheckDbConnectionIsOkOrExit(string connectionString)
+        private static void CheckDbConnectionAndExitIfFailed(string connectionString)
         {
             switch (DbProvider.ProviderType)
             {
@@ -120,7 +120,7 @@ namespace SunEngine.Migrations
                 Console.WriteLine("Connection error.\nCheck if database exists and connection string correct.");
                 Console.ResetColor();
                 Console.WriteLine();
-                Environment.Exit(Environment.ExitCode);
+                Environment.Exit(1);
             }
         }
     }

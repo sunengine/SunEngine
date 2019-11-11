@@ -63,19 +63,15 @@ namespace SunEngine.Core.Services
             timerLongSessionsClearer = new Timer(_ =>
             {
                 Console.WriteLine("LongSessionsClearer.ClearExpiredLongSessions");
-                using (var db = dbFactory.CreateDb())
-                {
-                    LongSessionsClearer.ClearExpiredLongSessions(db);
-                }
+                using var db = dbFactory.CreateDb();
+                LongSessionsClearer.ClearExpiredLongSessions(db);
             }, null, TimeSpan.Zero, TimeSpan.FromDays(schedulerOptions.CurrentValue.LongSessionsClearDays));
 
             timerExpiredRegistrationUsersCleaner = new Timer(_ =>
             {
                 Console.WriteLine("OldNotRegisteredUsersClearer.CleanOldNotRegisteredUsers");
-                using (var db = dbFactory.CreateDb())
-                {
-                    ExpiredRegistrationUsersClearer.CleanExpiredRegistrationUsers(db);
-                }
+                using var db = dbFactory.CreateDb();
+                ExpiredRegistrationUsersClearer.CleanExpiredRegistrationUsers(db);
             }, null, TimeSpan.Zero, TimeSpan.FromDays(schedulerOptions.CurrentValue.ExpiredRegistrationUsersClearDays));
 
             timerCountersUpload = new Timer(_ =>

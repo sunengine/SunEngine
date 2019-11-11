@@ -11,7 +11,7 @@ config.js
 node_modules
 /build
 /dist
-/src/statics/CurrentSkin
+/src/statics/CurrentSkin  # Skin for development
 /src-cordova/node_modules
 /src-cordova/platforms
 /src-cordova/plugins
@@ -19,6 +19,7 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+yarn.lock
 package-lock.json
 
 # Editor directories and files

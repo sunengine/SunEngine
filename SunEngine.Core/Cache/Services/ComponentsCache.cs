@@ -93,47 +93,45 @@ namespace SunEngine.Core.Cache.Services
         {
             lock (lockObject)
             {
-                using (var db = dataBaseFactory.CreateDb())
+                using var db = dataBaseFactory.CreateDb();
+                var components = db.Components.ToList();
+
+                Dictionary<string, ComponentServerCached> serverComponentsTmp =
+                    new Dictionary<string, ComponentServerCached>(components.Count);
+
+                List<ComponentClientCached> clientComponentsTmp = new List<ComponentClientCached>();
+
+                foreach (var component in components)
                 {
-                    var components = db.Components.ToList();
-
-                    Dictionary<string, ComponentServerCached> serverComponentsTmp =
-                        new Dictionary<string, ComponentServerCached>(components.Count);
-
-                    List<ComponentClientCached> clientComponentsTmp = new List<ComponentClientCached>();
-
-                    foreach (var component in components)
+                    try
                     {
-                        try
+                        ImmutableDictionary<int, RoleCached> roles;
+                        if (component.Roles != null)
                         {
-                            ImmutableDictionary<int, RoleCached> roles;
-                            if (component.Roles != null)
-                            {
-                                roles = component.Roles.Split(',')
-                                    .Select(x => rolesCache.GetRole(x))
-                                    .ToDictionary(x => x.Id, x => x)
-                                    .ToImmutableDictionary();
-                            }
-                            else
-                            {
-                                roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
-                            }
-
-                            serverComponentsTmp[component.Name] =
-                                new ComponentServerCached(component, ComponentsDataTypes[component.Type], roles);
-
-                            clientComponentsTmp.Add(new ComponentClientCached(component, roles));
+                            roles = component.Roles.Split(',')
+                                .Select(x => rolesCache.GetRole(x))
+                                .ToDictionary(x => x.Id, x => x)
+                                .ToImmutableDictionary();
                         }
-                        catch
+                        else
                         {
-                            // ignored
+                            roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
                         }
+
+                        serverComponentsTmp[component.Name] =
+                            new ComponentServerCached(component, ComponentsDataTypes[component.Type], roles);
+
+                        clientComponentsTmp.Add(new ComponentClientCached(component, roles));
                     }
-                    
-                    serverComponents = serverComponentsTmp.ToImmutableDictionary(StringComparer.OrdinalIgnoreCase);
-
-                    clientComponents = clientComponentsTmp.ToImmutableList();
+                    catch
+                    {
+                        // ignored
+                    }
                 }
+                    
+                serverComponents = serverComponentsTmp.ToImmutableDictionary(StringComparer.OrdinalIgnoreCase);
+
+                clientComponents = clientComponentsTmp.ToImmutableList();
             }
         }
 
