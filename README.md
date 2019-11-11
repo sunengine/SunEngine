@@ -75,6 +75,6 @@ To run the project you need to install:
 10. Run client `quasar dev` — browser will be opened.
 
 ### Contacts
-- Dmitrij Polianin
+- [Dimitrij Polianin](https://sunengine.site/user/okeanij)
 - Telegram: [@okeanij](https://t.me/Okeanij)
 - Project's Telegram group: [@SunEngine](https://t.me/SunEngine)

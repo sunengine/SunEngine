@@ -87,6 +87,6 @@ SunEngine можно запустить на Windows, Linux и macOS.
 10. Запустить клиент `quasar dev` — откроется браузер с сайтом.
 
 ### Контакты  
-- [Дмитрий Полянин](https://github.com/Dmitrij-Polyanin)
+- [Димитрий Полянин](https://sunengine.site/user/okeanij)
 - Telegram: [@okeanij](tg://resolve?domain=Okeanij)
 - Группа в Telegram: [@SunEngine](tg://resolve?domain=SunEngine)
