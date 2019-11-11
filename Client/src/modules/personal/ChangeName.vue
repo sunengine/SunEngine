@@ -1,40 +1,48 @@
 <template>
-  <q-page class="change-name flex flex-center">
-    <div class="center-form">
-      <div class="change-name__info text-grey-7 q-mb-lg">
-        {{$tl("nameValidationInfo")}}
-      </div>
+  <q-page class="change-name flex column">
 
-      <q-input class="change-name__password" ref="password" v-model="password"
-               :type="showPassword ? 'text' : 'password'" :label="$tl('password')"
-               :rules="rules.passwordRules">
-        <template v-slot:prepend>
-          <q-icon name="fas fa-key"/>
-        </template>
-        <template v-slot:append>
-          <q-icon
-            :name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
-            class="cursor-pointer"
-            @click="showPassword = !showPassword"
-          />
-        </template>
-      </q-input>
+    <h2 class="page-title text-center">
+      {{title}}
+    </h2>
 
-      <q-input class="change-name__name" ref="name" color="positive" v-model="name" :label="$tl('name')"
-               @keyup="checkNameInDb"
-               :rules="rules.nameRules" :after="[{
+    <div class="flex flex-center grow">
+      <div class="center-form">
+
+        <div class="change-name__info text-grey-7 q-mb-lg">
+          {{$tl("nameValidationInfo")}}
+        </div>
+
+        <q-input class="change-name__password" ref="password" v-model="password"
+                 :type="showPassword ? 'text' : 'password'" :label="$tl('password')"
+                 :rules="rules.passwordRules">
+          <template v-slot:prepend>
+            <q-icon name="fas fa-key"/>
+          </template>
+          <template v-slot:append>
+            <q-icon
+              :name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
+              class="cursor-pointer"
+              @click="showPassword = !showPassword"
+            />
+          </template>
+        </q-input>
+
+        <q-input class="change-name__name" ref="name" color="positive" v-model="name" :label="$tl('name')"
+                 @keyup="checkNameInDb"
+                 :rules="rules.nameRules" :after="[{
         icon: 'far fa-check-circle',
         condition: nameInDb},
         ]">
-        <template v-slot:prepend>
-          <q-icon name="fas fa-user"/>
-        </template>
-      </q-input>
+          <template v-slot:prepend>
+            <q-icon name="fas fa-user"/>
+          </template>
+        </q-input>
 
-      <q-btn no-caps class="change-send send-btn q-mt-lg" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
-             :loading="submitting">
-        <LoaderSent slot="loading"/>
-      </q-btn>
+        <q-btn no-caps class="change-send send-btn q-mt-lg" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
+               :loading="submitting">
+          <LoaderSent slot="loading"/>
+        </q-btn>
+      </div>
     </div>
   </q-page>
 </template>

@@ -121,7 +121,7 @@
       </q-item-section>
     </q-item>
 
-    <div class="admin-menu__version text-grey-7 q-mt-xl text-center" v-if="version">
+    <div class="admin-menu__version text-grey-7 q-mt-lg text-center" v-if="version">
       {{$tl("version")}}: {{version}}
     </div>
 

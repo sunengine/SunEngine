@@ -1,6 +1,6 @@
 export default {
   ChangeLink: {
-    title: "Редактировать Link пользователя",
+    title: "Изменить link пользователя",
     successNotify: "Link отредактирован",
     link: "Link",
     linkValidationInfo: "Link должен состоять не менее чем из 3 символов 'a-z', 'A-Z', '-', '0-9'. И содержать хотя бы одну букву.",
@@ -32,7 +32,7 @@ export default {
     }
   },
   EditInformation: {
-    title: "Редактировать информацию о себе",
+    title: "Изменить информацию о себе",
     label: "Информация о вас на странице вашего профиля.",
     successNotify: "Информация успешно сохранена",
     save: "@:Global.btn.save"

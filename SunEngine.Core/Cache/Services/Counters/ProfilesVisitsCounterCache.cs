@@ -88,7 +88,9 @@ namespace SunEngine.Core.Cache.Services.Counters
                     
                 db.BeginTransaction();
 
+                db.DropTable<VisitsById>(throwExceptionIfNotExists: false);
                 using TempTable<VisitsById> visitsByIdTempTable = new TempTable<VisitsById>(db, vss);
+                
                 db.Users.Where(x => visitsByIdTempTable.Any(y => y.Id == x.Id))
                     .Set(x => x.ProfileVisitsCount,
                         x => x.ProfileVisitsCount +

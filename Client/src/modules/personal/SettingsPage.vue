@@ -1,6 +1,5 @@
 <template>
-  <PageWrapper class="settings-page" :pageTitleProp="$tl('title')" :wrapComponentProp="$options.components.SettingsMenu"
-               iconProp="fas fa-address-card"/>
+  <PageWrapper class="settings-page" :pageTitleProp="$tl('title')" :wrapComponentProp="$options.components.SettingsMenu"/>
 </template>
 
 <script>

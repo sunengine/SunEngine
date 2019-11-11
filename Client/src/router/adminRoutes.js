@@ -21,7 +21,7 @@ import {SkinsAdmin} from 'sun'
 import {ConfigurationAdmin} from 'sun'
 
 
-const AdminPage = wrapInPage("AdminPage", AdminMenu, null, "fas fa-cog");
+const AdminPage = wrapInPage("AdminPage", AdminMenu, null);
 const AdminPanel = wrapInPanel("AdminPage", AdminMenu, null, {name: 'Admin'}, "fas fa-cog");
 
 
