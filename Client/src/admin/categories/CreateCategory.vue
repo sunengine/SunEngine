@@ -1,5 +1,9 @@
 <template>
   <q-page class="create-category page-padding">
+    <h2 class="page-title">
+      {{title}}
+    </h2>
+
     <CategoryForm ref="form" :category="category"/>
 
     <div class="create-category__btn-block q-gutter-x-sm">

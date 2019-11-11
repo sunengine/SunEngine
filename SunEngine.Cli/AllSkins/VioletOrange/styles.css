@@ -97,13 +97,18 @@ a:hover, .link:hover {
 .layout__footer a {
   color: #3498db;
 }
-.layout__footer .links-menu__separator .q-icon {
-  margin: 0 16px;
-  color: #ffa500;
-}
 
 .layout__footer-line {
   margin: 12px 0;
+}
+
+.sun-engine-footer__link {
+  color: #c26a84 !important;
+}
+
+.layout__footer-separator-icon {
+  margin: 0 16px;
+  color: #7e73a5 !important;
 }
 
 .main-menu__logo-div {
@@ -216,14 +221,6 @@ a:hover, .link:hover {
 
 .index-page__info-block-accent {
   color: #ca913b;
-}
-
-.footer__separator-icon {
-  color: #7e73a5 !important;
-}
-
-.sun-engine-footer__link {
-  color: #c26a84 !important;
 }
 
 /*# sourceMappingURL=styles.css.map */

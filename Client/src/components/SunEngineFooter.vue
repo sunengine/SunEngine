@@ -1,3 +1,9 @@
+/*
+   Do not remove this component from the layout.
+   This component is the part of SunEngine user license - https://github.com/sunengine/SunEngine/blob/master/LICENSE.md
+*/
+
+
 <template>
   <div class="sun-engine-footer">
     {{$tl("start")}} &nbsp;–&nbsp; <a class="sun-engine-footer__link" href="https://sunengine.site">Sun Engine</a>

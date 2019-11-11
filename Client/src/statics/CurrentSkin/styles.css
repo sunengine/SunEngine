@@ -106,6 +106,14 @@ a:hover, .link:hover {
   margin: 12px 0;
 }
 
+.layout__footer-separator-icon {
+  color: #ffa500 !important;
+}
+
+.sun-engine-footer__link {
+  color: orange !important;
+}
+
 .main-menu__logo-div {
   padding: 22px 0 30px 0;
   text-align: center;
@@ -216,14 +224,6 @@ a:hover, .link:hover {
 
 .index-page__info-block-accent {
   color: #a38167;
-}
-
-.footer__separator-icon {
-  color: #ffa500 !important;
-}
-
-.sun-engine-footer__link {
-  color: orange !important;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -1,7 +1,7 @@
 [Ll].*
 [Ll]ocal.*
 
-
+/src/statics/CurrentSkin  # Skin for development
 config.js
 
 .quasar-ide-helper
@@ -11,7 +11,6 @@ config.js
 node_modules
 /build
 /dist
-/src/statics/CurrentSkin  # Skin for development
 /src-cordova/node_modules
 /src-cordova/platforms
 /src-cordova/plugins

@@ -34,7 +34,6 @@ $footer-link-color: #3498db;
 $footer-separator-icon-color: #ffa500;
 $footer-border-color: #cbcbcb;
 
-
 $post-btn-bg-color: #c4f0ff;
 $post-btn-text-color: grey;
 $send-btn-bg-color: #54e288;
@@ -48,9 +47,11 @@ $reset-btn-text-color: white;
 $delete-btn-bg-color: $negative;
 $delete-btn-text-color: white;
 
+$material-heading-underline-color: #c1dfee;
+$blockquote-left-line-color: #a6c59e;
+
 
 // ——— Main ——————————————————————————————————————
-
 
 html {
   color: $text-color !important;
@@ -69,7 +70,6 @@ a, .link {
 
 
 // ——— Buttons ————————————————————————————————————
-
 
 .send-btn {
   background-color: $send-btn-bg-color !important;
@@ -111,7 +111,6 @@ a, .link {
 
 
 // ——— Layout ————————————————————————————————————
-
 
 .layout__header {
   border-bottom: 1px solid $header-border-color;
@@ -167,22 +166,25 @@ a, .link {
   a {
     color: $footer-link-color;
   }
-
-  .links-menu__separator {
-    .q-icon {
-      margin: 0 16px;
-      color: #ffa500;
-    }
-  }
 }
 
 .layout__footer-line {
   margin: 12px 0;
 }
 
+.sun-engine-footer__link {
+  color: orange !important;
+}
+
+.layout__footer-separator-icon {
+  margin: 0 16px;
+  color: $footer-separator-icon-color !important;
+}
+
+
+
 
 // ——— Main Menu ——————————————————————————————————
-
 
 .main-menu__logo-div {
   padding: 22px 0 30px 0;
@@ -197,7 +199,6 @@ a, .link {
 }
 
 .main-menu {
-
   .q-router-link--active {
     background-color: $main-menu-active-link-bg-color !important;
 
@@ -231,7 +232,6 @@ a, .link {
 
 
 // ——— Side Panel ————————————————————————————————————
-
 
 .side-panel__header {
   text-align: center;
@@ -267,8 +267,8 @@ a, .link {
   }
 }
 
-// ——— Material styles ———————————————————————————
 
+// ——— Material styles ———————————————————————————
 
 .material-text, .post-text, .comment-text {
   h3 {
@@ -276,7 +276,7 @@ a, .link {
     font-weight: 500 !important;
     line-height: 1.7rem;
     margin: 35px 0 14px 0 !important;
-    border-bottom: 2px dashed #c1dfee;
+    border-bottom: 2px dashed $material-heading-underline-color;
     padding: 0 0 8px 0;
   }
 
@@ -285,7 +285,7 @@ a, .link {
     font-weight: 500 !important;
     line-height: 1.4rem;
     margin: 24px 0 10px 0 !important;
-    border-bottom: 1px dashed #c1dfee;
+    border-bottom: 1px dashed $material-heading-underline-color;
     padding: 0 0 6px 0;
   }
 
@@ -306,12 +306,15 @@ a, .link {
   }
 
   blockquote {
-    border-left: 3px solid #a6c59e !important;
+    border-left: 3px solid $blockquote-left-line-color !important;
     padding: 6px 0 6px 15px;
     background-color: #f6f6f6;
     margin: 0 0 16px 0;
   }
 }
+
+
+// ——— Index Page ———————————————————————————
 
 .index-page__header {
   color: #00acef !important;
@@ -321,14 +324,3 @@ a, .link {
   color: #a38167;
 }
 
-.layout__footer-line {
-
-}
-
-.footer__separator-icon {
-  color: $footer-separator-icon-color !important;
-}
-
-.sun-engine-footer__link {
-  color: orange !important;
-}

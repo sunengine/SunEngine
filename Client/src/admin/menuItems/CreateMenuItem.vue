@@ -1,5 +1,8 @@
 <template>
   <q-page class="create-menu-item page-padding">
+    <h2 class="page-title">
+      {{title}}
+    </h2>
 
     <MenuItemForm ref="form" :menuItem="menuItem"/>
 
