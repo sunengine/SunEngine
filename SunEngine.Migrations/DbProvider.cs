@@ -4,17 +4,35 @@ using FluentMigrator.Runner;
 
 namespace SunEngine.Migrations
 {
+    public enum DbProviderType
+    {
+        Undefined,
+        Postgres,
+        MySql,
+        MsSql
+    }
     public static class DbProvider
     {
         public static string Name { get; private set; }
-
-        public static bool IsPostgre { get; private set; }
+        public static DbProviderType ProviderType { get; private set; }
+        public static bool IsPostgres => ProviderType == DbProviderType.Postgres;
+        public static bool IsMySql => ProviderType == DbProviderType.MySql;
+        public static bool IsMsSql => ProviderType == DbProviderType.MsSql;
 
         public static void Initialize(string name)
         {
             Name = name;
 
-            IsPostgre = name.StartsWith("Postgre", StringComparison.OrdinalIgnoreCase);
+            var nameLower = Name.ToLower();
+            
+            if (nameLower.StartsWith("postgres"))
+                ProviderType = DbProviderType.Postgres;
+            
+            else if (nameLower.StartsWith("mysql"))
+                ProviderType = DbProviderType.MySql;
+            
+            else if (nameLower.StartsWith("sqlserver"))
+                ProviderType = DbProviderType.MsSql;
         }
 
         public static IMigrationRunnerBuilder AddDb(this IMigrationRunnerBuilder rb)

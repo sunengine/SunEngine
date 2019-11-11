@@ -149,21 +149,24 @@ namespace SunEngine.DataSeed
             try
             {
                 using var db = new DataBaseConnection(providerName, connectionString);
-                Console.WriteLine();
+                using var cmd = db.CreateCommand();
+                cmd.CommandText ="SELECT 100";
+                int num = (int)cmd.ExecuteScalar();
                 Console.WriteLine($"DataBAse Connection State: '{db.Connection.State}'");
+                Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
                 Console.WriteLine("Database is available.");
-                Console.WriteLine();
                 Console.ResetColor();
+                Console.WriteLine();
                 return true;
             }
             catch (Exception exception)
             {
                 Console.WriteLine();
                 Console.WriteLine(exception);
+                Console.WriteLine();
+                Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine();
-                Console.WriteLine();
                 Console.WriteLine("Database is unavailable.");
                 Console.ResetColor();
                 Console.WriteLine();
