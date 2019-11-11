@@ -309,6 +309,7 @@ export default {
   SkinsAdmin: {
     title: "Темы оформления",
     current: "Текущая",
+    info: "Темы оформления и документация по созданию тем - ",
     author: "Автор: ",
     contacts: "Контакты: ",
     description: "Описание: ",

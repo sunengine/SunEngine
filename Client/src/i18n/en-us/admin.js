@@ -300,6 +300,7 @@ export default {
   SkinsAdmin: {
     title: "Skins admin",
     current: "Current",
+    info: "Skins collection and documentation to create own skin - ",
     author: "Author: ",
     contacts: "Contacts: ",
     description: "Description: ",

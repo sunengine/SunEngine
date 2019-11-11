@@ -1,7 +1,7 @@
 [Ll].*
 [Ll]ocal.*
 
-/src/statics/CurrentSkin  # Skin for development
+/src/statics/CurrentSkin
 config.js
 
 .quasar-ide-helper

@@ -83,6 +83,11 @@
       </q-card>
     </div>
     <LoaderWait v-else/>
+
+    <q-banner class="skins-admin__info shadow-1 q-mt-xl">
+      {{$tl("info")}}
+      <a class="skins-admin__info-link" href="https://github.com/sunengine/SunEngine.Skins" target="_blank">https://github.com/sunengine/SunEngine.Skins</a>
+    </q-banner>
   </q-page>
 </template>
 
@@ -96,7 +101,7 @@
         data() {
             return {
                 skins: null,
-                loading : false
+                loading: false
             }
         },
         computed: {
@@ -231,5 +236,10 @@
     }
   }
 
+  .skins-admin__info {
+    margin-top: 100px;
+    background-color: $grey-3;
+    border: 1px solid #e6e6e6;
+  }
 
 </style>
