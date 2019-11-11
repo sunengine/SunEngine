@@ -39,24 +39,5 @@ namespace SunEngine.Core.Controllers
             bool anyRole = await db.Roles.AnyAsync();
             return Ok(new {db_Roles_AnyAsync = anyRole});
         }
-        
-        [HttpGet]
-        [HttpPost]
-        [AllowAnonymous]
-        public virtual IActionResult Version()
-        {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
-            string version = fileVersionInfo.ProductVersion;
-            return Ok(new {version});
-        }
-
-        [HttpGet]
-        [HttpPost]
-        [AllowAnonymous]
-        public virtual IActionResult DotnetVersion()
-        {
-            return Ok(AppContext.TargetFrameworkName);
-        }
     }
 }

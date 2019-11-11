@@ -19,19 +19,19 @@ import {CreateComponent} from 'sun'
 import {EditComponent} from 'sun'
 import {SkinsAdmin} from 'sun'
 import {ConfigurationAdmin} from 'sun'
+import {AdminInformation} from 'sun'
 
 
-const AdminPage = wrapInPage("AdminPage", AdminMenu, null);
-const AdminPanel = wrapInPanel("AdminPage", AdminMenu, null, {name: 'Admin'}, "fas fa-cog");
+const AdminPanel = wrapInPanel("AdminPanel", AdminMenu, null, undefined, "fas fa-cog");
 
 
 const routes = [
   {
-    name: 'Admin',
+    name: 'AdminInformation',
     path: '/admin',
     components: {
-      default: AdminPage,
-      navigation: null,
+      default: AdminInformation,
+      navigation: AdminPanel,
     }
   },
   {

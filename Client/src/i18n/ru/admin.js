@@ -218,6 +218,9 @@ export default {
   // ——— all ————————————————————————————————————
 
   AdminMenu: {
+    adminPage: "Информация",
+    adminPageCaption: "",
+   // adminPageCaption: "Информация о сервере",
     menuItems: "Меню",
     menuItemsCaption: "",
     //menuItemsCaption: "Редактирование меню сайта",
@@ -255,8 +258,19 @@ export default {
     //resetCacheCaption: "Сбросить весь кеш на сервере",
     resetCacheSuccess: "Кеш сброшен успешно"
   },
-  AdminPage: {
-    title: "@:AdminPanel.title"
+  AdminInformation: {
+    title: "Информация",
+    serverName: "Имя сервера",
+    serverVersion: "Версия сервера",
+    serverRepository: "Репозиторий сервера",
+    sunEngineVersion: "Версия SunEngine",
+    dotNetVersion: "Версия DotNet",
+    maintainer: "Хранитель сайта",
+    maintainerContacts: "Контакты хранителя",
+    description: "Описание",
+    sunEngineRepository: "Репозиторий SunEngine",
+    sunEngineSkinsRepository: "Репозиторий тем оформления",
+    additionalData: "Дополнительная информация"
   },
   AdminPanel: {
     title: "Админка"

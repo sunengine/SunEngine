@@ -1,6 +1,16 @@
 <template>
   <q-list class="admin-menu sun-second-menu" no-border>
 
+    <q-item exact :to="{name: 'AdminInformation'}">
+      <q-item-section avatar>
+        <q-icon name="fas fa-info"/>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $tl("adminPage") }}</q-item-label>
+        <q-item-label v-if="adminPageCaption" caption>{{adminPageCaption}}</q-item-label>
+      </q-item-section>
+    </q-item>
+
     <q-item :to="{name: 'MenuItemsAdmin'}">
       <q-item-section avatar>
         <q-icon name="fas fa-bars"/>
@@ -121,10 +131,6 @@
       </q-item-section>
     </q-item>
 
-    <div class="admin-menu__version text-grey-7 q-mt-lg text-center" v-if="version">
-      {{$tl("version")}}: {{version}}
-    </div>
-
   </q-list>
 
 </template>
@@ -133,11 +139,6 @@
 
     export default {
         name: 'AdminMenu',
-        data() {
-            return {
-                version: null
-            }
-        },
         computed: {
             menuItemsCaption() {
                 return this.$tl("menuItemsCaption") ?? null;
@@ -177,13 +178,6 @@
             }
         },
         methods: {
-            getVersion() {
-                this.$request(
-                    this.$Api.Pulse.Version
-                ).then(response => {
-                    this.version = response.data.version;
-                });
-            },
             resetCache() {
                 this.$request(
                     this.$AdminApi.CacheAdmin.ResetAllCache
@@ -191,9 +185,6 @@
                     this.$successNotify(this.$tl('resetCacheSuccess'));
                 });
             }
-        },
-        created() {
-            this.getVersion();
         }
     }
 
