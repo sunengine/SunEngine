@@ -20,7 +20,7 @@ export default {
     appendUrlTokenCb: "Add to URL",
     appendUrlTokenInfo: "(use only if you understand what it is)",
     isMaterialsContainerCb: "Contains materials",
-    materialsSubTitleInputType: "Material sub title input type",
+    isMaterialsSubTitleEditableCb: "Possibility to edit material sub title",
     isMaterialsNameEditableCb: "Possibility to edit material name (eng), only for admin",
     isCaching: "Caching",
     cachingPageCount: "Cache N pages",

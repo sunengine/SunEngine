@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.IO;
 using System.Linq;
@@ -21,12 +22,12 @@ namespace SunEngine.DataSeed
         private const string DataBaseConnectionFileName = "DataBaseConnection.json";
         public const string SeedCommand = "seed";
         private const string InitDir = "Init";
-        
+
         private readonly string initDirPath;
         private readonly string providerName;
         private readonly string connectionString;
         private readonly string configDirectoryPath;
-        
+
 
         public Main(string configDirectoryPath = "Config")
         {
@@ -49,7 +50,7 @@ namespace SunEngine.DataSeed
         public void SeedInitialize()
         {
             using var db = new DataBaseConnection(providerName, connectionString);
-            
+
             var dataContainer = new InitialSeeder(initDirPath).Seed();
             var databaseSeeder = new DataBaseSeeder(db, dataContainer);
 
@@ -96,7 +97,7 @@ namespace SunEngine.DataSeed
                 catch (SocketException e)
                 {
                     throw new SunDataBaseException("The connection could not be made. " +
-                                                             "Check the database you are trying to connect exists.", e);
+                                                   "Check the database you are trying to connect exists.", e);
                 }
             }
 
@@ -145,28 +146,28 @@ namespace SunEngine.DataSeed
         /// </summary>
         public bool CheckConnection()
         {
-            using (var db = new DataBaseConnection(providerName, connectionString))
+            try
             {
-                try
-                {
-                    db.Connection.Open();
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    Console.WriteLine("Database is available.");
-                    Console.ResetColor();
-                    return true;
-                }
-                catch (Exception exception)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Database is unavailable.");
-                    Console.ResetColor();
-                    Console.WriteLine(exception);
-                    return false;
-                }
-                finally
-                {
-                    db.Connection.Close();
-                }
+                using var db = new DataBaseConnection(providerName, connectionString);
+                Console.WriteLine();
+                Console.WriteLine($"DataBAse Connection State: '{db.Connection.State}'");
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine("Database is available.");
+                Console.WriteLine();
+                Console.ResetColor();
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine();
+                Console.WriteLine(exception);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("Database is unavailable.");
+                Console.ResetColor();
+                Console.WriteLine();
+                return false;
             }
         }
     }

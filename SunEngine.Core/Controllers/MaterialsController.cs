@@ -99,7 +99,7 @@ namespace SunEngine.Core.Controllers
 
             await SetNameAsync(material, materialData.Name);
 
-            if (category.MaterialsSubTitleInputType == MaterialsSubTitleInputType.Manual)
+            if (category.IsMaterialsSubTitleEditable)
                 material.SubTitle = materialData.SubTitle;
 
             if (materialData.IsHidden && materialsAuthorization.CanHide(User.Roles, category))
@@ -147,9 +147,10 @@ namespace SunEngine.Core.Controllers
             
             await SetNameAsync(material, materialData.Name);
 
-            material.SubTitle = newCategory.MaterialsSubTitleInputType == MaterialsSubTitleInputType.Manual
-                ? materialData.SubTitle
-                : null;
+            if (newCategory.IsMaterialsSubTitleEditable)
+                material.SubTitle = materialData.SubTitle;
+            else
+                material.SubTitle = null;
 
             if (material.IsHidden != materialData.IsHidden && materialsAuthorization.CanHide(User.Roles, newCategory))
                 material.IsHidden = materialData.IsHidden;

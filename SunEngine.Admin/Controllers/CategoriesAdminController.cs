@@ -149,7 +149,7 @@ namespace SunEngine.Admin.Controllers
         
         public string MaterialsPreviewGeneratorName { get; set; }
         
-        public MaterialsSubTitleInputType MaterialsSubTitleInputType { get; set; }
+        public bool IsMaterialsSubTitleEditable { get; set; }
         
         public int ParentId { get; set; }
 
@@ -177,7 +177,7 @@ namespace SunEngine.Admin.Controllers
                 LayoutName = LayoutName,
                 IsMaterialsNameEditable = IsMaterialsContainer && IsMaterialsNameEditable,
                 MaterialsPreviewGeneratorName = IsMaterialsContainer ?  MaterialsPreviewGeneratorName?.SetNullIfEmpty()  : null,
-                MaterialsSubTitleInputType = IsMaterialsContainer ? MaterialsSubTitleInputType : MaterialsSubTitleInputType.None,
+                IsMaterialsSubTitleEditable = IsMaterialsContainer && IsMaterialsSubTitleEditable,
                 ParentId = ParentId,
                 SortNumber = SortNumber,
                 DeletedDate = DeletedDate,

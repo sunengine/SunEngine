@@ -19,7 +19,6 @@
                   color="pagination"
                   :max-pages="12" :max="posts.totalPages" ellipses direction-links @input="pageChanges"/>
 
-
   </q-page>
 </template>
 

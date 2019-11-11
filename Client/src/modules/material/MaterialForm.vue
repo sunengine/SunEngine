@@ -166,7 +166,7 @@
                 return this.$store.getters.getCategory(this.material.categoryName);
             },
             isSubTitleEditable() {
-                return this.category?.materialsSubTitleInputType === 1;
+                return this.category?.isMaterialsSubTitleEditable;
             }
         },
         methods: {

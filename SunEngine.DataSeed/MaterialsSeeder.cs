@@ -130,25 +130,10 @@ namespace SunEngine.DataSeed
                 LastActivity = publishDate,
                 SortNumber = id
             };
-
-            switch (category.MaterialsSubTitleInputType)
-            {
-                case MaterialsSubTitleInputType.Manual:
-                    material.SubTitle = "Описание материала: " + material.Title;
-                    break;
-                case MaterialsSubTitleInputType.Auto:
-                    material.SubTitle = MakeSubTitle.Do(new HtmlParser().Parse(material.Text),
-                        MaterialSubTitleLength);
-                    break;
-            }
-
-
+            
             if (commentsCount > 0)
             {
-                IList<Comment> comments = MakeComments(material, commentsCount);
-
-                //Comment last = comments.OrderByDescending(x=>x.PublishDate).First();
-                //material.SetLastComment(last);
+                var comments = MakeComments(material, commentsCount);
 
                 material.LastActivity = comments.OrderByDescending(x => x.PublishDate).First().PublishDate;
                 material.CommentsCount = comments.Count;
@@ -163,11 +148,11 @@ namespace SunEngine.DataSeed
 
         public IList<Comment> MakeComments(Material material, int commentsCount)
         {
-            List<Comment> addedComments = new List<Comment>();
+            var addedComments = new List<Comment>();
 
             for (int i = 1; i <= CommentsCount; i++)
             {
-                Comment comment = new Comment
+                var comment = new Comment
                 {
                     Id = dataContainer.NextCommentId(),
                     Text = "",

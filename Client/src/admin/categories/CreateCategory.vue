@@ -38,7 +38,7 @@
                     sectionTypeName: 'unset',
                     isMaterialsContainer: true,
                     isMaterialsNameEditable: false,
-                    materialsSubTitleInputType: 'none',
+                    isMaterialsSubTitleEditable: false,
                     areaRoot: false,
                     parentId: this.parentCategoryId,
                     isHidden: false,

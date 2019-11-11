@@ -86,7 +86,7 @@ namespace SunEngine.Admin.Managers
             category.SettingsJson = categoryUpdate.SettingsJson?.MakeJsonText();
             category.IsHidden = categoryUpdate.IsHidden;
             category.IsCacheContent = categoryUpdate.IsCacheContent;
-            category.MaterialsSubTitleInputType = categoryUpdate.MaterialsSubTitleInputType;
+            category.IsMaterialsSubTitleEditable = categoryUpdate.IsMaterialsSubTitleEditable;
             category.IsMaterialsNameEditable = categoryUpdate.IsMaterialsNameEditable;
             category.IsMaterialsContainer = categoryUpdate.IsMaterialsContainer;
             
