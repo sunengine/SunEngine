@@ -20,7 +20,8 @@ apiAxios.interceptors.response.use(async rez => {
   return rez;
 }, async rez => {
   console.error(rez.response);
-  if(!rez.response.data || !rez.response.data.errors  || rez.response.data.errors.some(x=>x.type === "System")) {
+  if(rez.response.status !== 401 &&
+    (!rez.response.data || !rez.response.data.errors  || rez.response.data.errors.some(x=>x.type === "System"))) {
     app.$q.notify({
       message: app.$t('Global.apiError'),
       timeout: 1800,

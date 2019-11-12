@@ -1,4 +1,4 @@
-import {request} from 'sun'
+import {consoleTokens, removeTokens, request} from 'sun'
 import {Api} from 'sun'
 
 export default function (context, data) {
@@ -9,5 +9,8 @@ export default function (context, data) {
       skipLock: data?.skipLock
     }).then(response => {
     context.commit('setUserInfo', response.data);
+  }).catch(() => {
+    console.error('%cTokens removed', consoleTokens);
+    removeTokens();
   });
 }

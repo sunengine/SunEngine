@@ -74,6 +74,7 @@ export default {
     GetAllCategoriesAndAccesses: '/Categories/GetAllCategoriesAndAccesses'
   },
   Pulse: {
-    Version: '/Pulse/Version'
+    Version: '/Pulse/Version',
+    PulseException: '/Pulse/PulseException'
   }
 }
