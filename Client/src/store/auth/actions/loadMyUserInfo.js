@@ -1,9 +1,7 @@
 import {consoleTokens, removeTokens, request} from 'sun'
 import {Api} from 'sun'
-import {showErrorsNotify} from 'sun'
 
 export default function (context, data) {
-
 
   return request(
     Api.Personal.GetMyUserInfo,
