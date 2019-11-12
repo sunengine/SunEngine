@@ -22,6 +22,7 @@ namespace SunEngine.Admin.Services
         public readonly string WwwRootPath;
         public readonly string AllSkinsPath;
         public readonly string CurrentSkinPath;
+        public readonly string SkinNamePath;
         public readonly IWebHostEnvironment env;
  
         private readonly int MaxArchiveSize;
