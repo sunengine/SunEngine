@@ -14,7 +14,7 @@ namespace SunEngine.Core.Security
     /// <summary>
     /// Store for JWT black listed JWT short tokens
     /// </summary>
-    public class JweBlackListService : ISunMemoryCache
+    public class JweBlackListService
     {
         private readonly IDataBaseFactory dataBaseFactory;
         private readonly IOptionsMonitor<JweOptions> jweOptions;
@@ -88,11 +88,6 @@ namespace SunEngine.Core.Security
                 
             foreach (var (key, value) in tokensDic)
                 tokens.TryAdd(key, value);
-        }
-
-        public void Reset()
-        {
-            tokens = null;
         }
 
         public void RemoveExpired()

@@ -47,7 +47,7 @@ namespace SunEngine.Admin.Controllers
         {
             await menuAdminManager.UpAsync(id);
             var menuItems = await menuAdminPresenter.GetMenuItemsAsync();
-            menuCache.Reset();
+            menuCache.Initialize();
 
             return Ok(menuItems);
         }
@@ -57,7 +57,7 @@ namespace SunEngine.Admin.Controllers
         {
             await menuAdminManager.DownAsync(id);
             var menuItems = await menuAdminPresenter.GetMenuItemsAsync();
-            menuCache.Reset();
+            menuCache.Initialize();
 
             return Ok(menuItems);
         }
@@ -66,7 +66,7 @@ namespace SunEngine.Admin.Controllers
         public async Task<IActionResult> Update([FromBody] MenuItem menuItem)
         {
             await menuAdminManager.UpdateAsync(menuItem);
-            menuCache.Reset();
+            menuCache.Initialize();
 
             return Ok();
         }
@@ -75,7 +75,7 @@ namespace SunEngine.Admin.Controllers
         public async Task<IActionResult> Create([FromBody] MenuItem menuItem)
         {
             await menuAdminManager.CreateAsync(menuItem);
-            menuCache.Reset();
+            menuCache.Initialize();
 
             return Ok();
         }
@@ -85,7 +85,7 @@ namespace SunEngine.Admin.Controllers
         {
             await menuAdminManager.SetIsHiddenAsync(id, isHidden);
             var menuItems = await menuAdminPresenter.GetMenuItemsAsync();
-            menuCache.Reset();
+            menuCache.Initialize();
 
             return Ok(menuItems);
         }
@@ -95,7 +95,7 @@ namespace SunEngine.Admin.Controllers
         {
             await menuAdminManager.DeleteAsync(id);
             var menuItems = await menuAdminPresenter.GetMenuItemsAsync();
-            menuCache.Reset();
+            menuCache.Initialize();
 
             return Ok(menuItems);
         }

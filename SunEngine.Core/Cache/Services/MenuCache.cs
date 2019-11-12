@@ -7,48 +7,24 @@ using SunEngine.Core.Models;
 
 namespace SunEngine.Core.Cache.Services
 {
-    public interface IMenuCache : ISunMemoryCache
+    public interface IMenuCache 
     {
         IList<MenuItemCached> GetMenu(IReadOnlyDictionary<string, RoleCached> Roles);
+        MenuItemCached RootMenuItem { get; }
+        IReadOnlyList<MenuItemCached> AllMenuItems { get;  }
+        void Initialize();
     }
 
     public class MenuCache : IMenuCache
     {
         private readonly object lockObject = new object();
 
-        private readonly IDataBaseFactory dataBaseFactory;
-        private readonly IRolesCache rolesCache;
+        protected readonly IDataBaseFactory dataBaseFactory;
+        protected readonly IRolesCache rolesCache;
 
-        private MenuItemCached _rootMenuItem;
-        private IReadOnlyList<MenuItemCached> _allMenuItems;
+        public MenuItemCached RootMenuItem { get; protected set; }
+        public IReadOnlyList<MenuItemCached> AllMenuItems { get; protected set; }
 
-        #region Getters
-
-        protected MenuItemCached RootMenuItem
-        {
-            get
-            {
-                lock (lockObject)
-                    if (_rootMenuItem == null)
-                        Initialize();
-
-                return _rootMenuItem;
-            }
-        }
-
-        protected IReadOnlyList<MenuItemCached> AllMenuItems
-        {
-            get
-            {
-                lock (lockObject)
-                    if (_allMenuItems == null)
-                        Initialize();
-
-                return _allMenuItems;
-            }
-        }
-
-        #endregion
 
         public MenuCache(
             IDataBaseFactory dataBaseFactory,
@@ -56,6 +32,7 @@ namespace SunEngine.Core.Cache.Services
         {
             this.dataBaseFactory = dataBaseFactory;
             this.rolesCache = rolesCache;
+            Initialize();
         }
 
 
@@ -96,9 +73,9 @@ namespace SunEngine.Core.Cache.Services
                     allMenuItems.Add(new MenuItemCached(menuItem, roles));
             }
 
-            _allMenuItems = allMenuItems.OrderBy(x => x.SortNumber).ToImmutableList();
+            AllMenuItems = allMenuItems.OrderBy(x => x.SortNumber).ToImmutableList();
 
-            _rootMenuItem = _allMenuItems.First(x => x.Id == 1);
+            RootMenuItem = AllMenuItems.First(x => x.Id == 1);
 
 
             bool CheckIsVisible(MenuItem menuItem)
@@ -116,11 +93,6 @@ namespace SunEngine.Core.Cache.Services
 
                 return true;
             }
-        }
-
-        public void Reset()
-        {
-            _allMenuItems = null;
         }
     }
 }

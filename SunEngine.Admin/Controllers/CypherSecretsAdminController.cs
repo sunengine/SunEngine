@@ -21,7 +21,7 @@ namespace SunEngine.Admin.Controllers
         {
             await cryptService.ResetSecret(name);
 
-            cryptService.Reset();
+            cryptService.Initialize();
             
             return Ok();
         }

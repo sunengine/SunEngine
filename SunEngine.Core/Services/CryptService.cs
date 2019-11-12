@@ -13,13 +13,14 @@ using SunEngine.Core.Utils;
 
 namespace SunEngine.Core.Services
 {
-    public interface ICryptService : ISunMemoryCache
+    public interface ICryptService 
     {
         string Crypt(string cipherName, string text);
         string Decrypt(string cipherName, string text);
         void AddCipherKey(string key);
         Task ResetSecret(string name);
         Task ResetAllSecrets();
+        void Initialize();
     }
 
     public class CryptService : ICryptService
@@ -142,11 +143,6 @@ namespace SunEngine.Core.Services
             using var db = dbFactory.CreateDb();
             foreach (var x in db.CipherSecrets)
                 AddCipherKey(x.Name, x.Secret);
-        }
-
-        public void Reset()
-        {
-            Initialize();
         }
     }
 }

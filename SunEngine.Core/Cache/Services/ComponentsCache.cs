@@ -8,11 +8,12 @@ using SunEngine.Core.DataBase;
 
 namespace SunEngine.Core.Cache.Services
 {
-    public interface IComponentsCache : ISunMemoryCache
+    public interface IComponentsCache
     {
         ComponentServerCached GetComponentServerCached(string name, IReadOnlyDictionary<string, RoleCached> roles);
         IEnumerable<ComponentClientCached> GetClientComponents(IReadOnlyDictionary<string, RoleCached> roles);
         Dictionary<string, Type> ComponentsDataTypes { get; }
+        void Initialize();
     }
 
     public class ComponentsCache : IComponentsCache
@@ -22,71 +23,37 @@ namespace SunEngine.Core.Cache.Services
         private readonly IDataBaseFactory dataBaseFactory;
         private readonly IRolesCache rolesCache;
 
-        protected Dictionary<string, Type> _componentsDataTypes = new Dictionary<string, Type>()
+        public Dictionary<string, Type> ComponentsDataTypes { get; private set; } = new Dictionary<string, Type>()
         {
             ["Posts"] = typeof(PostsComponentData),
             ["Activities"] = typeof(ActivitiesComponentData)
         };
-        
+
+        public IReadOnlyDictionary<string, ComponentServerCached> ServerComponents { get; private set; }
+        public IReadOnlyList<ComponentClientCached> ClientComponents { get; private set; }
+
 
         public IEnumerable<ComponentClientCached> GetClientComponents(IReadOnlyDictionary<string, RoleCached> Roles)
         {
             return ClientComponents.Where(comp => Roles.Values.Any(role => comp.Roles.ContainsKey(role.Id))).ToArray();
         }
 
-        protected IReadOnlyDictionary<string, ComponentServerCached> serverComponents;
-        protected IReadOnlyList<ComponentClientCached> clientComponents;
-
-        #region Getters
-        
-        public Dictionary<string, Type> ComponentsDataTypes => _componentsDataTypes;
-
-        protected IReadOnlyDictionary<string, ComponentServerCached> ServerComponents
-        {
-            get
-            {
-                lock (lockObject)
-                {
-                    if (serverComponents == null)
-                        Initialize();
-                    return serverComponents;
-                }
-            }
-        }
-
-        public IReadOnlyList<ComponentClientCached> ClientComponents
-        {
-            get
-            {
-                lock (lockObject)
-                {
-                    if (clientComponents == null)
-                        Initialize();
-                    return clientComponents;
-                }
-            }
-        }
-        
-        #endregion
-
         public ComponentServerCached GetComponentServerCached(
             string name, IReadOnlyDictionary<string, RoleCached> roles)
         {
-            lock (lockObject)
-            {
-                if (ServerComponents.TryGetValue(name, out ComponentServerCached componentServerCached))
-                    if (componentServerCached.Roles.Any(x =>
-                        roles.Keys.Any(role => String.Equals(x.Value.Name, role, StringComparison.OrdinalIgnoreCase))))
-                        return componentServerCached;
+            if (ServerComponents.TryGetValue(name, out ComponentServerCached componentServerCached))
+                if (componentServerCached.Roles.Any(x =>
+                    roles.Keys.Any(role => String.Equals(x.Value.Name, role, StringComparison.OrdinalIgnoreCase))))
+                    return componentServerCached;
 
-                return null;
-            }
+            return null;
         }
 
         public ComponentsCache(IDataBaseFactory dataBaseFactory, IRolesCache rolesCache)
         {
             this.rolesCache = rolesCache;
             this.dataBaseFactory = dataBaseFactory;
+            Initialize();
         }
 
         public void Initialize()
@@ -128,19 +95,10 @@ namespace SunEngine.Core.Cache.Services
                         // ignored
                     }
                 }
-                    
-                serverComponents = serverComponentsTmp.ToImmutableDictionary(StringComparer.OrdinalIgnoreCase);
 
-                clientComponents = clientComponentsTmp.ToImmutableList();
-            }
-        }
+                ServerComponents = serverComponentsTmp.ToImmutableDictionary(StringComparer.OrdinalIgnoreCase);
 
-        public void Reset()
-        {
-            lock (lockObject)
-            {
-                serverComponents = null;
-                clientComponents = null;
+                ClientComponents = clientComponentsTmp.ToImmutableList();
             }
         }
     }

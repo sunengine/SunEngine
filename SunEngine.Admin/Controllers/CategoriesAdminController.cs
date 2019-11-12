@@ -64,7 +64,7 @@ namespace SunEngine.Admin.Controllers
 
             await categoriesAdminManager.CreateCategoryAsync(category);
 
-            categoriesCache.Reset();
+            categoriesCache.Initialize();
             contentCache.Reset();
 
             return Ok();
@@ -80,7 +80,7 @@ namespace SunEngine.Admin.Controllers
 
             await categoriesAdminManager.UpdateCategoryAsync(category);
 
-            categoriesCache.Reset();
+            categoriesCache.Initialize();
             contentCache.Reset();
 
             return Ok();
@@ -91,7 +91,7 @@ namespace SunEngine.Admin.Controllers
         {
             await categoriesAdminManager.CategoryUp(name);
 
-            categoriesCache.Reset();
+            categoriesCache.Initialize();
             contentCache.Reset();
 
             return Ok();
@@ -102,7 +102,7 @@ namespace SunEngine.Admin.Controllers
         {
             await categoriesAdminManager.CategoryDown(name);
 
-            categoriesCache.Reset();
+            categoriesCache.Initialize();
             contentCache.Reset();
 
             return Ok();
@@ -113,7 +113,7 @@ namespace SunEngine.Admin.Controllers
         {
             await categoriesAdminManager.CategoryMoveToTrashAsync(name);
 
-            categoriesCache.Reset();
+            categoriesCache.Initialize();
             contentCache.Reset();
 
             return Ok();
@@ -122,7 +122,7 @@ namespace SunEngine.Admin.Controllers
         [HttpPost]
         public IActionResult ResetCache()
         {
-            categoriesCache.Reset();
+            categoriesCache.Initialize();
             contentCache.Reset();
             return Ok();
         }

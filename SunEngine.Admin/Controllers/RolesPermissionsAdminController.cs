@@ -32,7 +32,7 @@ namespace SunEngine.Admin.Controllers
         {
             await rolesPermissionsAdminService.LoadRolesFromJsonAsync(json);
 
-            rolesCache.Reset();
+            rolesCache.Initialize();
 
             return Ok();
         }

@@ -39,7 +39,7 @@ namespace SunEngine.Core.Services
         )
         {
             var message = mailTemplatesCache.BuildMessage(templateName, replaceDictionary);
-            await SendEmailAsync(toEmail, message.subject, message.template);
+            await SendEmailAsync(toEmail, message.Subject, message.Template);
         }
 
         protected async Task SendEmailAsync(
