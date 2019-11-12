@@ -1,19 +1,28 @@
 <template>
-  <q-page class="change-link flex flex-center">
-    <div class="center-form">
-      <div class="text-grey-7 q-mb-lg" style="text-align: justify">
-        {{$tl('linkValidationInfo')}}
+  <q-page class="change-link flex column">
+
+    <h2 class="page-title text-center">
+      {{title}}
+    </h2>
+
+    <div class="flex flex-center grow">
+      <div class="center-form">
+
+        <div class="text-grey-7 q-mb-lg" style="text-align: justify">
+          {{$tl('linkValidationInfo')}}
+        </div>
+        <q-input ref="link" v-model="link" :label="$tl('link')"
+                 @keyup="checkLinkInDb" :rules="linkRules">
+          <template v-slot:prepend>
+            <q-icon name="fas fa-link"/>
+          </template>
+        </q-input>
+        <q-btn no-caps class="q-mt-lg send-btn" icon="far fa-save"
+               :label="$tl('saveBtn')" @click="save" :loading="submitting">
+          <LoaderSent slot="loading"/>
+        </q-btn>
+
       </div>
-      <q-input ref="link" v-model="link" :label="$tl('link')"
-               @keyup="checkLinkInDb" :rules="linkRules">
-        <template v-slot:prepend>
-          <q-icon name="fas fa-link"/>
-        </template>
-      </q-input>
-      <q-btn no-caps class="q-mt-lg send-btn" icon="far fa-save"
-             :label="$tl('saveBtn')" @click="save" :loading="submitting">
-        <LoaderSent slot="loading"/>
-      </q-btn>
     </div>
   </q-page>
 </template>
@@ -36,6 +45,7 @@
         ];
     }
 
+
     export default {
         name: 'ChangeLink',
         mixins: [Page],
@@ -47,6 +57,9 @@
             }
         },
         linkRules: null,
+        computed: {
+            // ...locals
+        },
         methods: {
             checkLinkInDb() {
                 clearTimeout(this.timeout);
@@ -96,7 +109,7 @@
         created() {
             this.title = this.$tl('title');
 
-            this.linkRules = createLinkRules.call(this)
+            this.linkRules = createLinkRules.call(this);
         }
     }
 

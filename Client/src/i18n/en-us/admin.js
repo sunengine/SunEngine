@@ -20,7 +20,7 @@ export default {
     appendUrlTokenCb: "Add to URL",
     appendUrlTokenInfo: "(use only if you understand what it is)",
     isMaterialsContainerCb: "Contains materials",
-    materialsSubTitleInputType: "Material sub title input type",
+    isMaterialsSubTitleEditableCb: "Possibility to edit material sub title",
     isMaterialsNameEditableCb: "Possibility to edit material name (eng), only for admin",
     isCaching: "Caching",
     cachingPageCount: "Cache N pages",
@@ -122,7 +122,11 @@ export default {
     title: "Edit menu item",
     saveBtn: "@:Global.btn.save",
     cancelBtn: "@:Global.btn.cancel",
-    successNotify: "Menu item successfully edited"
+    deleteBtn: "Delete menu item",
+    successNotify: "Menu item successfully edited",
+    deleteMsg: "Delete menu item?",
+    btnDeleteOk:  "@:Global.dialog.ok",
+    btnDeleteCancel: "@:Global.dialog.cancel",
   },
   MenuAdminItem: {},
   MenuItemForm: {
@@ -215,6 +219,8 @@ export default {
   // ——— all ————————————————————————————————————
 
   AdminMenu: {
+    adminPage: "Information",
+    adminPageCaption: "",
     menuItems: "Menu",
     menuItemsCaption: "",
     categories: "Categories",
@@ -287,6 +293,7 @@ export default {
   ImagesCleaner: {
     title: "Disk cleaner",
     info: "Lost images not using on site",
+    working: "Clearing",
     clearBtn: "Delete lost images",
     refreshBtn: "Refresh lost images list",
     clearCount: "Cleared images: ",
@@ -295,6 +302,7 @@ export default {
   SkinsAdmin: {
     title: "Skins admin",
     current: "Current",
+    info: "Skins collection and documentation to create own skin - ",
     author: "Author: ",
     contacts: "Contacts: ",
     description: "Description: ",

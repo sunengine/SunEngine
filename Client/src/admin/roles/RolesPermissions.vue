@@ -8,7 +8,9 @@
                :label="$tl('textAreaLabel')"/>
 
       <div class="roles-permissions__btn-block flex q-gutter-md">
-        <q-btn no-caps class="send-btn" icon="far fa-save" @click="send" :label="$tl('saveToServerBtn')"/>
+        <q-btn no-caps class="send-btn" icon="far fa-save" @click="send" :loading="loading" :label="$tl('saveToServerBtn')">
+          <LoaderSent slot="loading"/>
+        </q-btn>
         <div class="grow"></div>
         <q-btn no-caps class="refresh-btn" color="info" icon="fas fa-sync-alt" @click="loadDataRefresh"
                :label="$tl('getFromServer')"/>
@@ -36,13 +38,14 @@
         data() {
             return {
                 json: null,
-                error: null
+                error: null,
+                loading: false
             }
         },
         methods: {
             async loadDataRefresh() {
                 await this.loadData();
-                this.$successNotify(this.$tl('getSuccessNotify'));
+                this.$successNotify(this.$tl('getSuccessNotify'), 'info');
             },
             loadData() {
                 this.json = null;
@@ -57,22 +60,27 @@
                 });
             },
             send() {
+                this.loading = true;
                 this.$request(
                     this.$AdminApi.RolesPermissionsAdmin.UploadJson,
                     {
                         json: this.json
-                    }).then(async () => {
+                    }
+                ).then(async () => {
                         this.error = null;
                         this.$successNotify(this.$tl('saveSuccessNotify'));
                     }
                 ).catch(error => {
                     this.error = error.response.data.errors[0];
                     this.$errorNotify(error, this.error.message);
+                }).finally(_ => {
+                    this.loading = false;
                 });
             }
         },
         beforeCreate() {
             this.$options.components.LoaderWait = require('sun').LoaderWait;
+            this.$options.components.LoaderSent = require('sun').LoaderSent;
         },
         async created() {
             this.title = this.$tl('title');

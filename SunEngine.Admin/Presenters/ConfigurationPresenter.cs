@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LinqToDB;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using SunEngine.Core.Configuration;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Services;
@@ -15,6 +16,7 @@ namespace SunEngine.Admin.Presenters
     public interface IConfigurationPresenter
     {
         Task<IEnumerable<ConfigurationItemView>> LoadConfigurationAsync();
+        Dictionary<string, IEnumerable<string>> GetEnums();
     }
 
 
@@ -27,7 +29,27 @@ namespace SunEngine.Admin.Presenters
         public async Task<IEnumerable<ConfigurationItemView>> LoadConfigurationAsync()
         {
             var items = await db.ConfigurationItems.OrderBy(x => x.Name).ToListAsync();
-            return items.Select(x => new ConfigurationItemView(x.Name,x.Value)).ToList();
+            return items.Select(x => new ConfigurationItemView(x.Name, x.Value)).ToList();
+        }
+
+        public Dictionary<string, IEnumerable<string>> GetEnums()
+        {
+            var enums = new Dictionary<string, Type>();
+
+            foreach (var configurationItem in ConfigDefaults.ConfigurationItems)
+            {
+                var type = configurationItem.Value.GetType();
+                if (type.IsEnum && !enums.ContainsKey(type.Name))
+                    enums[type.Name] = type;
+            }
+
+            var rez = new Dictionary<string, IEnumerable<string>>();
+            foreach (var (name, enum1) in enums)
+            {
+                rez.Add(name, enum1.GetEnumNames());
+            }
+
+            return rez;
         }
     }
 
@@ -38,6 +60,7 @@ namespace SunEngine.Admin.Presenters
         LongString,
         Number,
         Boolean,
+        Enum,
         Strange
     }
 
@@ -46,18 +69,22 @@ namespace SunEngine.Admin.Presenters
         public string Name { get; set; }
         public object Value { get; set; }
         public TypeName Type { get; set; }
+        public string EnumName { get; set; }
 
         public ConfigurationItemView(string name, string value)
         {
             Name = name;
 
-            if (ConfigDefaults.ConfigurationItems.ContainsKey(name))
-                Type = GetTypeName(ConfigDefaults.ConfigurationItems[name].GetType().Name);
+            if (!ConfigDefaults.ConfigurationItems.ContainsKey(name))
+                return;
 
-            Value = GetTypeObject(Type, value);
+            Type = GetTypeName(ConfigDefaults.ConfigurationItems[name].GetType(), out string enumName);
+            this.EnumName = enumName;
+
+            Value = GetTypeObject(Type, name, value);
         }
 
-        protected object GetTypeObject(TypeName typeName, string value)
+        protected object GetTypeObject(TypeName typeName, string name, string value)
         {
             switch (typeName)
             {
@@ -65,6 +92,10 @@ namespace SunEngine.Admin.Presenters
                     return int.Parse(value);
                 case TypeName.Boolean:
                     return bool.Parse(value);
+                case TypeName.Enum:
+                    var type = ConfigDefaults.ConfigurationItems[name].GetType();
+                    var obj = Enum.Parse(type, value);
+                    return Enum.GetName(type, obj);
                 case TypeName.String:
                 case TypeName.LongString:
                 case TypeName.Strange:
@@ -73,26 +104,26 @@ namespace SunEngine.Admin.Presenters
             }
         }
 
-        protected TypeName GetTypeName(string name)
+        protected TypeName GetTypeName(Type type, out string enumName)
         {
-            var nameLastToken = name.Split(".")[^1];
-            switch (nameLastToken)
+            var nameLastToken = type.Name.Split(".")[^1];
+
+            if (type.IsEnum)
             {
-                case "Int64":
-                case "Int32":
-                case "int":
-                    return TypeName.Number;
-                case "Boolean":
-                case "bool":
-                    return TypeName.Boolean;
-                case "String":
-                case "string":
-                    return TypeName.String;
-                case "LongString":
-                    return TypeName.LongString;
-                default:
-                    return TypeName.Strange;
+                enumName = nameLastToken;
+                return TypeName.Enum;
             }
+
+            enumName = null;
+
+            return nameLastToken switch
+            {
+                { } x when new[] {"Int64", "Int32", "int"}.Contains(x) => TypeName.Number,
+                { } x when new[] {"Boolean", "bool"}.Contains(x) => TypeName.Boolean,
+                { } x when new[] {"String", "string"}.Contains(x) => TypeName.String,
+                { } x when x == "LongString" => TypeName.LongString,
+                { } => TypeName.Strange
+            };
         }
     }
 }

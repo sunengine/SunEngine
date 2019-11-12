@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -36,8 +37,10 @@ namespace SunEngine.Cli
                     {
                         string dbSettingFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir,
                             "DataBaseConnection.json"));
-                        string mainSettingsFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir, "SunEngine.json"));
-                        string logSettingsFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir, "LogConfig.json"));
+                        string mainSettingsFile =
+                            Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir, "SunEngine.json"));
+                        string logSettingsFile =
+                            Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir, "LogConfig.json"));
                         //string sanitizerOptionsFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir, "Sanitizer.json"));
 
                         config.AddJsonFile(logSettingsFile, false, false);
@@ -53,9 +56,16 @@ namespace SunEngine.Cli
                         DataBaseFactory.DefaultDataBaseFactory = new DataBaseFactory(linq2dbProvider, connectionString,
                             new DbMappingSchema());
 
-                        ConfigDbProvider.DefaultConfigDbProvider = new ConfigDbProvider(DataBaseFactory.DefaultDataBaseFactory);
-                        
-                        config.Add(new ConfigDbSource(ConfigDbProvider.DefaultConfigDbProvider , DataBaseFactory.DefaultDataBaseFactory));
+                        ConfigDbProvider.DefaultConfigDbProvider =
+                            new ConfigDbProvider(DataBaseFactory.DefaultDataBaseFactory);
+
+                        config.Add(new ConfigDbSource(ConfigDbProvider.DefaultConfigDbProvider,
+                            DataBaseFactory.DefaultDataBaseFactory));
+
+                        config.AddInMemoryCollection(new List<KeyValuePair<string, string>>()
+                        {
+                            new KeyValuePair<string, string>("Global:ConfigRootDir",  Path.GetFullPath(startupConfiguration.ConfigRootDir))
+                        });
 
                         config.AddCommandLine(startupConfiguration.Arguments);
                     });

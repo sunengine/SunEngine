@@ -44,7 +44,7 @@ namespace SunEngine.Admin.Controllers
         {
             await componentsAdminManager.CreateComponentAsync(component);
             
-            componentsCache.Reset();
+            componentsCache.Initialize();
 
             return Ok();
         }
@@ -54,7 +54,7 @@ namespace SunEngine.Admin.Controllers
         {
             await componentsAdminManager.UpdateComponentAsync(component);
             
-            componentsCache.Reset();
+            componentsCache.Initialize();
 
             return Ok();
         }
@@ -64,7 +64,7 @@ namespace SunEngine.Admin.Controllers
         {
             await componentsAdminManager.DeleteComponentAsync(componentId);
             
-            componentsCache.Reset();
+            componentsCache.Initialize();
 
             return Ok();
         }

@@ -6,8 +6,10 @@
         {{title}}
       </h2>
       <q-btn no-caps icon="fas fa-cloud-upload-alt" @click="showUploadDialog"
-             class="skins-admin__post-btn post-btn q-mb-lg"
-             :label="$tl('upload')"/>
+             class="skins-admin__post-btn post-btn q-mb-lg" :loading="loading"
+             :label="$tl('upload')">
+        <LoaderSent slot="loading"/>
+      </q-btn>
     </div>
 
     <input type="file" @change="uploadSkin" class="hidden" accept=".zip" ref="file"/>
@@ -64,12 +66,14 @@
         </q-card-section>
 
         <q-card-actions align="around">
-          <q-btn v-if="skin.current" class="skins-admin__current-btn" flat no-caps disable :label="$tl('current')"
-                 icon="fas fa-check"/>
+          <q-btn v-if="skin.current" class="skins-admin__current-btn" flat no-caps disable
+                 :label="$tl('current')" icon="fas fa-check"/>
 
-          <q-btn flat v-if="!skin.current" no-caps @click="changeSkin(skin.name)" icon="fas fa-play"
-                 class="skins-admin__send-btn" :label="$tl('set')"/>
-
+          <q-btn flat v-if="!skin.current" :loading="skin.loading" no-caps @click="changeSkin(skin.name)"
+                 icon="fas fa-play"
+                 class="skins-admin__send-btn" :label="$tl('set')">
+            <LoaderSent slot="loading"/>
+          </q-btn>
 
           <q-btn class="skins-admin__delete-btn" no-caps @click="showSkinInfo(skin)" flat
                  icon="fas fa-info"/>
@@ -79,6 +83,11 @@
       </q-card>
     </div>
     <LoaderWait v-else/>
+
+    <q-banner class="skins-admin__info shadow-1 q-mt-xl">
+      {{$tl("info")}}
+      <a class="skins-admin__info-link" href="https://github.com/sunengine/SunEngine.Skins" target="_blank">https://github.com/sunengine/SunEngine.Skins</a>
+    </q-banner>
   </q-page>
 </template>
 
@@ -91,7 +100,8 @@
         mixins: [Page],
         data() {
             return {
-                skins: null
+                skins: null,
+                loading: false
             }
         },
         computed: {
@@ -104,6 +114,7 @@
                 this.$refs.file.click();
             },
             uploadSkin() {
+                this.loading = true;
                 const file = this.$refs.file.files[0];
                 const formData = new FormData();
                 formData.append('file', file);
@@ -113,6 +124,8 @@
                     this.$successNotify(this.$tl("uploadSuccessNotify"));
                     this.$refs.file.value = "";
                     this.getAllSkins();
+                }).finally(_ => {
+                    this.loading = false;
                 });
             },
             deleteSkin(name) {
@@ -136,6 +149,8 @@
                 });
             },
             changeSkin(name) {
+                this.skins.find(x => x.name === name).loading = true;
+
                 this.$request(this.$AdminApi.SkinsAdmin.ChangeSkin,
                     {
                         name: name
@@ -143,6 +158,8 @@
                 ).then(_ => {
                     this.$successNotify();
                     this.getAllSkins();
+                }).finally(_ => {
+                    this.skins.find(x => x.name === name).loading = false;
                 });
             },
             getAllSkins() {
@@ -151,6 +168,7 @@
                         for (const skin of response.data) {
                             skin.showInfo = false;
                             skin.showContacts = false;
+                            skin.loading = false;
                         }
                         this.skins = response.data;
                     });
@@ -161,6 +179,7 @@
         },
         beforeCreate() {
             this.$options.components.LoaderWait = require('sun').LoaderWait;
+            this.$options.components.LoaderSent = require('sun').LoaderSent;
         },
         created() {
             this.title = this.$tl('title');
@@ -211,10 +230,16 @@
     border-radius: 6px 0px 0px 0px;
 
     padding: 10px !important;
+
     .q-icon {
       color: white;
     }
   }
 
+  .skins-admin__info {
+    margin-top: 100px;
+    background-color: $grey-3;
+    border: 1px solid #e6e6e6;
+  }
 
 </style>

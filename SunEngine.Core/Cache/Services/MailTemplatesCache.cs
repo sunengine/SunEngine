@@ -5,9 +5,10 @@ using System.Text.RegularExpressions;
 
 namespace SunEngine.Core.Cache.Services
 {
-    public interface IMailTemplatesCache : ISunMemoryCache
+    public interface IMailTemplatesCache 
     {
         MailContent BuildMessage(string templateName, Dictionary<string, string> replaceDictionary);
+        void Initialize();
     }
 
     public class MailTemplatesCache : IMailTemplatesCache
@@ -17,44 +18,21 @@ namespace SunEngine.Core.Cache.Services
         protected const string MailTemplatesDir = "MailTemplates";
 
 
-        protected Dictionary<string, MailContent> _templates;
-        protected string _layout;
+        public Dictionary<string, MailContent> Templates { get; protected set; }
+        public string Layout { get; protected set; }
 
-        #region Getters
-
-        protected Dictionary<string, MailContent> Templates
+        public MailTemplatesCache()
         {
-            get
-            {
-                lock (lockObject)
-                    if (_templates == null)
-                        Initialize();
-
-                return _templates;
-            }
+            Initialize();
         }
-
-        protected string Layout
-        {
-            get
-            {
-                lock (lockObject)
-                    if (_layout == null)
-                        Initialize();
-
-                return _layout;
-            }
-        }
-
-        #endregion
-
+        
         public MailContent BuildMessage(string templateName, Dictionary<string, string> replaceDictionary)
         {
             if (!Templates.ContainsKey(templateName))
                 throw new Exception($"Mail template {templateName} not found");
 
-            string subject = Templates[templateName].subject;
-            string body = Templates[templateName].template;
+            string subject = Templates[templateName].Subject;
+            string body = Templates[templateName].Template;
 
             foreach (var (key, value) in replaceDictionary)
             {
@@ -66,8 +44,8 @@ namespace SunEngine.Core.Cache.Services
 
             MailContent mailContent = new MailContent
             {
-                subject = subject,
-                template = body
+                Subject = subject,
+                Template = body
             };
 
             return mailContent;
@@ -75,7 +53,7 @@ namespace SunEngine.Core.Cache.Services
 
         public void Initialize()
         {
-            _templates = new Dictionary<string, MailContent>();
+            Templates = new Dictionary<string, MailContent>();
 
             DirectoryInfo directoryInfo = new DirectoryInfo(MailTemplatesDir);
             foreach (FileInfo file in directoryInfo.GetFiles())
@@ -84,17 +62,17 @@ namespace SunEngine.Core.Cache.Services
 
                 if (file.Name == "layout.html")
                 {
-                    _layout = fileContent;
+                    Layout = fileContent;
                     continue;
                 }
 
                 MailContent mailContent = new MailContent
                 {
-                    subject = ParseHtmlValue(fileContent, "Subject"),
-                    template = ParseHtmlValue(fileContent, "Body")
+                    Subject = ParseHtmlValue(fileContent, "Subject"),
+                    Template = ParseHtmlValue(fileContent, "Body")
                 };
 
-                _templates.Add(file.Name, mailContent);
+                Templates.Add(file.Name, mailContent);
             }
             
             string ParseHtmlValue(string rawString, string key)
@@ -104,17 +82,11 @@ namespace SunEngine.Core.Cache.Services
             }
         }
 
-
-        public void Reset()
-        {
-            _templates = null;
-            _layout = null;
-        }
     }
 
     public class MailContent
     {
-        public string subject = "null";
-        public string template = "null";
+        public string Subject = "null";
+        public string Template = "null";
     }
 }

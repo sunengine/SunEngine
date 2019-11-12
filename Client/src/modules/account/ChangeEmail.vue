@@ -1,39 +1,48 @@
 <template>
-  <q-page class="change-email flex middle page-padding">
+  <q-page class="change-email flex column">
 
-    <div v-if="!done" class="center-form">
+    <h2 class="page-title text-center">
+      {{title}}
+    </h2>
 
-      <q-input class="change-email__password" ref="password" v-model="password" :type="showPassword ? 'text' : 'password'"
-               :label="$tl('password')" :rules="rules.password">
-        <template v-slot:prepend>
-          <q-icon name="fas fa-key"/>
+    <div class="flex flex-center grow">
+
+      <div v-if="!done" class="center-form">
+
+        <q-input class="change-email__password" ref="password" v-model="password"
+                 :type="showPassword ? 'text' : 'password'"
+                 :label="$tl('password')" :rules="rules.password">
+          <template v-slot:prepend>
+            <q-icon name="fas fa-key"/>
+          </template>
+          <template v-slot:append>
+            <q-icon :name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'" class="cursor-pointer"
+                    @click="showPassword = !showPassword"/>
+          </template>
+        </q-input>
+
+        <q-input class="change-email__email" ref="email" v-model="email" type="email" :label="$tl('newEmail')"
+                 :rules="rules.email">
+          <template v-slot:prepend>
+            <q-icon name="fas fa-envelope"/>
+          </template>
+        </q-input>
+
+        <q-btn no-caps class="send-btn q-mt-lg" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
+               :loading="submitting">
+          <LoaderSent slot="loading"/>
+        </q-btn>
+
+      </div>
+
+      <q-banner v-else class="change-email__success-notify bg-positive text-white">
+        <template v-slot:avatar>
+          <q-icon name="far fa-envelope" size="2em"/>
         </template>
-        <template v-slot:append>
-          <q-icon :name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'" class="cursor-pointer"
-                  @click="showPassword = !showPassword"/>
-        </template>
-      </q-input>
-
-      <q-input class="change-email__email" ref="email" v-model="email" type="email" :label="$tl('newEmail')" :rules="rules.email">
-        <template v-slot:prepend>
-          <q-icon name="fas fa-envelope"/>
-        </template>
-      </q-input>
-
-      <q-btn no-caps class="send-btn q-mt-lg" icon="far fa-save" :label="$tl('saveBtn')" @click="save"
-             :loading="submitting">
-        <LoaderSent slot="loading"/>
-      </q-btn>
+        {{$tl('successNotify')}}
+      </q-banner>
 
     </div>
-
-    <q-banner v-else class="change-email__success-notify bg-positive text-white">
-      <template v-slot:avatar>
-        <q-icon name="far fa-envelope" size="2em"/>
-      </template>
-      {{$tl('successNotify')}}
-    </q-banner>
-
   </q-page>
 </template>
 

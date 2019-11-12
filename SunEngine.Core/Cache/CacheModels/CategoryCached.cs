@@ -34,7 +34,7 @@ namespace SunEngine.Core.Cache.CacheModels
         
         public string MaterialsPreviewGeneratorName { get; }
         
-        public MaterialsSubTitleInputType MaterialsSubTitleInputType { get; }
+        public bool IsMaterialsSubTitleEditable { get; }
 
         public JRaw SettingsJson { get; }
 
@@ -71,7 +71,7 @@ namespace SunEngine.Core.Cache.CacheModels
             Icon = category.Icon;
             Header = category.Header;
             IsMaterialsNameEditable = category.IsMaterialsNameEditable;
-            MaterialsSubTitleInputType = category.MaterialsSubTitleInputType;
+            IsMaterialsSubTitleEditable = category.IsMaterialsSubTitleEditable;
             MaterialsPreviewGeneratorName = category.MaterialsPreviewGeneratorName;
             SettingsJson = SunJson.MakeJRow(category.SettingsJson);
             ParentId = category.ParentId;

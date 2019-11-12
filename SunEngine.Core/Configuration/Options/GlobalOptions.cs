@@ -45,5 +45,6 @@ namespace SunEngine.Core.Configuration.Options
 
         public string WwwRootDir { get; set; }
 
+        public string ConfigRootDir { get; set; }
     }
 }

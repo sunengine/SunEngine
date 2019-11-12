@@ -5,6 +5,7 @@ const config = {
   UploadedImages: 'http://localhost:5000/UploadImages',
   SiteName: 'SunEngine Demo',
   Skin: 'http://localhost:5000/CurrentSkin/styles.css',  // Do not change last part "statics/skin/styles.css"
+  //Skin: 'http://localhost:5005/statics/CurrentSkin/styles.css',  // For development purposes
 
   OpenExternalLinksAtNewTab: true,
 

@@ -20,7 +20,7 @@ export default {
     appendUrlTokenCb: "Добавлять в URL",
     appendUrlTokenInfo: "(использовать только если вы понимаете что это)",
     isMaterialsContainerCb: "Содержит материалы",
-    materialsSubTitleInputType: "Установка подписи заголовка материала",
+    isMaterialsSubTitleEditableCb: "Возможность редактирования подписи заголовка материала",
     isMaterialsNameEditableCb: "Возможность редактирования имени (eng) материала (только для админа)",
     isCaching: "Кэшировать содержимое",
     cachingPageCount: "Кэшировать N страниц",
@@ -122,7 +122,11 @@ export default {
     title: "Редактировать пункт меню",
     saveBtn: "@:Global.btn.save",
     cancelBtn: "@:Global.btn.cancel",
-    successNotify: "Пункт меню успешно сохранён"
+    deleteBtn: "Удалить пункт меню",
+    successNotify: "Пункт меню успешно сохранён",
+    deleteMsg: "Удалить пункт меню?",
+    btnDeleteOk:  "@:Global.dialog.ok",
+    btnDeleteCancel: "@:Global.dialog.cancel",
   },
   MenuAdminItem: {},
   MenuItemForm: {
@@ -214,6 +218,9 @@ export default {
   // ——— all ————————————————————————————————————
 
   AdminMenu: {
+    adminPage: "Информация",
+    adminPageCaption: "",
+   // adminPageCaption: "Информация о сервере",
     menuItems: "Меню",
     menuItemsCaption: "",
     //menuItemsCaption: "Редактирование меню сайта",
@@ -251,8 +258,19 @@ export default {
     //resetCacheCaption: "Сбросить весь кеш на сервере",
     resetCacheSuccess: "Кеш сброшен успешно"
   },
-  AdminPage: {
-    title: "@:AdminPanel.title"
+  AdminInformation: {
+    title: "Информация",
+    serverName: "Имя сервера",
+    serverVersion: "Версия сервера",
+    serverRepository: "Репозиторий сервера",
+    sunEngineVersion: "Версия SunEngine",
+    dotNetVersion: "Версия DotNet",
+    maintainer: "Хранитель сайта",
+    maintainerContacts: "Контакты хранителя",
+    description: "Описание",
+    sunEngineRepository: "Репозиторий SunEngine",
+    sunEngineSkinsRepository: "Репозиторий тем оформления",
+    additionalData: "Дополнительная информация"
   },
   AdminPanel: {
     title: "Админка"
@@ -296,6 +314,7 @@ export default {
   ImagesCleaner: {
     title: "Очистка диска",
     info: "Потерянные изображения, которые были загружены, но не используются.",
+    working: "Очистка",
     clearBtn: "Удалить потерянные изображения",
     refreshBtn: "Обновить список",
     clearCount: "Очищено изображений: ",
@@ -304,6 +323,7 @@ export default {
   SkinsAdmin: {
     title: "Темы оформления",
     current: "Текущая",
+    info: "Темы оформления и документация по созданию тем - ",
     author: "Автор: ",
     contacts: "Контакты: ",
     description: "Описание: ",

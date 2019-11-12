@@ -22,7 +22,7 @@ export default {
   },
   MenuAdmin: {
     Create: 'Admin/MenuAdmin/Create',
-    Update:  'Admin/MenuAdmin/Update',
+    Update: 'Admin/MenuAdmin/Update',
     SetIsHidden: '/Admin/MenuAdmin/SetIsHidden',
     Delete: '/Admin/MenuAdmin/Delete',
     Up: 'Admin/MenuAdmin/Up',
@@ -33,8 +33,8 @@ export default {
   ComponentsAdmin: {
     AddComponent: '/Admin/ComponentsAdmin/AddComponent',
     UpdateComponent: '/Admin/ComponentsAdmin/UpdateComponent',
-    DeleteComponent:  '/Admin/ComponentsAdmin/DeleteComponent',
-    GetAllComponents:  '/Admin/ComponentsAdmin/GetAllComponents',
+    DeleteComponent: '/Admin/ComponentsAdmin/DeleteComponent',
+    GetAllComponents: '/Admin/ComponentsAdmin/GetAllComponents',
     GetComponent: '/Admin/ComponentsAdmin/GetComponent',
   },
   CategoriesAdmin: {
@@ -52,7 +52,6 @@ export default {
   SkinsAdmin: {
     GetAllSkins: '/Admin/SkinsAdmin/GetAllSkins',
     GetSkinPreview: '/Admin/SkinsAdmin/GetSkinPreview',
-    //GetSkinInfo: '/Admin/SkinsAdmin/GetSkinInfo',
     UploadSkin: '/Admin/SkinsAdmin/UploadSkin',
     ChangeSkin: '/Admin/SkinsAdmin/ChangeSkin',
     DeleteSkin: '/Admin/SkinsAdmin/DeleteSkin'
@@ -60,5 +59,11 @@ export default {
   ConfigurationAdmin: {
     UploadConfiguration: '/Admin/ConfigurationAdmin/UploadConfiguration',
     LoadConfiguration: '/Admin/ConfigurationAdmin/LoadConfiguration',
+    GetEnums: '/Admin/ConfigurationAdmin/GetEnums'
+  },
+  ServerInfoAdmin: {
+    Version: '/Admin/ServerInfoAdmin/Version',
+    DotnetVersion: '/Admin/ServerInfoAdmin/DotnetVersion',
+    GetServerInfo: '/Admin/ServerInfoAdmin/GetServerInfo'
   }
 }

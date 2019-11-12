@@ -62,7 +62,7 @@ namespace SunEngine.Core.Models
         
         public string MaterialsPreviewGeneratorName { get; set; }
 
-        public MaterialsSubTitleInputType MaterialsSubTitleInputType { get; set; }
+        public bool IsMaterialsSubTitleEditable { get; set; }
         
         public string SettingsJson { get; set; }
 

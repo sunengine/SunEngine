@@ -81,11 +81,7 @@
                 v-model="category.isMaterialsNameEditable"
                 :label="$tl('isMaterialsNameEditableCb')"/>
 
-    <q-select bottom-slots emit-value map-options v-if="category.isMaterialsContainer" :label="$tl('materialsSubTitleInputType')"
-              v-model="category.materialsSubTitleInputType"
-              :options="materialsSubTitleInputTypeOptions">
-      <q-icon slot="prepend" name="fas fa-info"/>
-    </q-select>
+    <q-checkbox class="category-form__is-sub-title-editable" :toggle-indeterminate="false" v-model="category.isMaterialsSubTitleEditable" :label="$tl('isMaterialsSubTitleEditableCb')"/>
 
     <q-checkbox class="category-form__is-cache" :toggle-indeterminate="false" v-model="category.isCacheContent" :label="$tl('isCaching')"/>
 

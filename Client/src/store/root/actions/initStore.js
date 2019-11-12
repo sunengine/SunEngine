@@ -12,12 +12,7 @@ export default async function (context) {
   context.state.initializeState = InitializeState.Running;
 
   if (hasLongToken())
-    await context.dispatch('loadMyUserInfo')
-      .catch(() => {
-        console.error('%cTokens removed', consoleTokens);
-        removeTokens();
-      });
-
+    await context.dispatch('loadMyUserInfo');
 
   try {
     await context.dispatch('loadAllCategories');

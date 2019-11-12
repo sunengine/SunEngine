@@ -43,20 +43,9 @@ namespace SunEngine.Core.Controllers
         [HttpGet]
         [HttpPost]
         [AllowAnonymous]
-        public virtual IActionResult Version()
+        public virtual IActionResult PulseException()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
-            string version = fileVersionInfo.ProductVersion;
-            return Ok(new {version});
-        }
-
-        [HttpGet]
-        [HttpPost]
-        [AllowAnonymous]
-        public virtual IActionResult DotnetVersion()
-        {
-            return Ok(AppContext.TargetFrameworkName);
+           throw new Exception("Pulse exception");
         }
     }
 }

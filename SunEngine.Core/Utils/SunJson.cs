@@ -15,7 +15,7 @@ namespace SunEngine.Core.Utils
             MissingMemberHandling = MissingMemberHandling.Ignore,
             MaxDepth = 32,
             TypeNameHandling = TypeNameHandling.None,
-            NullValueHandling = NullValueHandling.Ignore
+            NullValueHandling = NullValueHandling.Ignore, 
         };
 
         public static string Serialize(object obj)

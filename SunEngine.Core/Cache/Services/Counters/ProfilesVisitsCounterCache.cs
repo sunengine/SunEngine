@@ -83,25 +83,23 @@ namespace SunEngine.Core.Cache.Services.Counters
                 if (visits.Count == 0)
                     return;
 
-                using (var db = dbFactory.CreateDb())
-                {
-                    var vss = visits.Select(x => new VisitsById {Id = x.Key, Visits = x.Value});
+                using var db = dbFactory.CreateDb();
+                var vss = visits.Select(x => new VisitsById {Id = x.Key, Visits = x.Value});
                     
-                    db.BeginTransaction();
-                    
-                    using (TempTable<VisitsById> visitsByIdTempTable = new TempTable<VisitsById>(db, vss))
-                    {
-                        db.Users.Where(x => visitsByIdTempTable.Any(y => y.Id == x.Id))
-                            .Set(x => x.ProfileVisitsCount,
-                                x => x.ProfileVisitsCount +
-                                     visitsByIdTempTable.FirstOrDefault(y => y.Id == x.Id).Visits)
-                            .Update();
+                db.BeginTransaction();
 
-                        visits.Clear();
-                    }
-                    
-                    db.CommitTransaction();
-                }
+                db.DropTable<VisitsById>(throwExceptionIfNotExists: false);
+                using TempTable<VisitsById> visitsByIdTempTable = new TempTable<VisitsById>(db, vss);
+                
+                db.Users.Where(x => visitsByIdTempTable.Any(y => y.Id == x.Id))
+                    .Set(x => x.ProfileVisitsCount,
+                        x => x.ProfileVisitsCount +
+                             visitsByIdTempTable.FirstOrDefault(y => y.Id == x.Id).Visits)
+                    .Update();
+
+                visits.Clear();
+
+                db.CommitTransaction();
             }
         }
 

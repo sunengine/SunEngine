@@ -57,9 +57,15 @@
 
         beforeCreate() {
             app = this;
-
-            if (config.VueAppInWindow)
+            if (config.VueAppInWindow) {
                 window.app = this;
+            }
+        },
+
+        created() {
+            if (config.VueAppInWindow) {
+                window.pulseException = () => this.$request(this.$Api.Pulse.PulseException);
+            }
         }
     }
 

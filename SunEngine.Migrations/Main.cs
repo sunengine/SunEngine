@@ -1,9 +1,13 @@
 using System;
+using System.Data.SqlClient;
 using System.IO;
+using System.Net.Mime;
 using System.Net.Sockets;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MySql.Data.MySqlClient;
+using Npgsql;
 using SunEngine.Core.Errors;
 using SunEngine.Migrations.Migrations;
 
@@ -48,6 +52,7 @@ namespace SunEngine.Migrations
             var providerName = dataBaseConfiguration["FluentMigratorProvider"];
             DbProvider.Initialize(providerName);
             var connectionString = dataBaseConfiguration["ConnectionString"];
+            CheckDbConnectionAndExitIfFailed(connectionString);
 
             return new ServiceCollection()
                 .AddFluentMigratorCore()
@@ -69,14 +74,53 @@ namespace SunEngine.Migrations
         {
             var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
 
-            try
+            runner.MigrateUp();
+        }
+
+        private static void CheckDbConnectionAndExitIfFailed(string connectionString)
+        {
+            switch (DbProvider.ProviderType)
             {
-                runner.MigrateUp();
+                case DbProviderType.Postgres:
+                    try
+                    {
+                        using var connection = new NpgsqlConnection(connectionString);
+                        using var cmd = new NpgsqlCommand("SELECT 1", connection);
+                        connection.Open();
+                        cmd.ExecuteScalar();
+                    }
+                    catch (Exception e)
+                    {
+                        Error(e);
+                    }
+
+                    break;
+                case DbProviderType.MySql:
+                    try
+                    {
+                        using var connection = new MySqlConnection(connectionString);
+                        using var cmd = new MySqlCommand("SELECT 1", connection);
+                        connection.Open();
+                        cmd.ExecuteScalar();
+                    }
+                    catch (Exception e)
+                    {
+                        Error(e);
+                    }
+
+                    break;
             }
-            catch (SocketException e)
+
+            void Error(Exception e)
             {
-                throw new SunDataBaseException("The connection could not be made. " +
-                                               "Check the database you are trying to connect exists.", e);
+                Console.WriteLine();
+                Console.WriteLine(e);
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Connection error.\nCheck if database exists and connection string correct.");
+                Console.ResetColor();
+                Console.WriteLine();
+                Environment.Exit(1);
             }
         }
     }

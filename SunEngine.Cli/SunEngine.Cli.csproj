@@ -3,8 +3,8 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.0</TargetFramework>
         <LangVersion>latest</LangVersion>
-        <Version>1.17.1</Version>
-        <PackageVersion>1.17.1</PackageVersion>
+        <Version>1.18.2</Version>
+        <PackageVersion>1.18.2</PackageVersion>
         <Title>SunEngine</Title>
         <Authors>Dimitrij Polianin</Authors>
         <Description>Site engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>
@@ -55,9 +55,12 @@
           <CopyToPublishDirectory>Always</CopyToPublishDirectory>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+        <Content Update="wwwroot\CurrentSkin\**">
+            <CopyToPublishDirectory>None</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
-
-
+    
     <ItemGroup>
       <ProjectReference Include="..\SunEngine.Admin\SunEngine.Admin.csproj" />
       <ProjectReference Include="..\SunEngine.Core\SunEngine.Core.csproj" />
@@ -66,16 +69,7 @@
     </ItemGroup>
 
 
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="Config-template\Components\Activities.json" />
-      <_ContentIncludedByDefault Remove="Config-template\Components\Posts.json" />
-      <_ContentIncludedByDefault Remove="Config-template\Materials\inline1.json" />
-    </ItemGroup>
 
-
-    <ItemGroup>
-      <Folder Include="wwwroot\CurrentSkin" />
-    </ItemGroup>
     
     
    

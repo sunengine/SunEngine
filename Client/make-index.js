@@ -1,15 +1,17 @@
-/**
- *  Index maker script
- *  Version: 1.0.2
- *
- *  This script makes index file "/src/sun,js" from all project
- *
- *  How it works?
- *  It parses all directories from cons "dirs", excluding pathes started with "excludePaths"
- *  and make index file from all '.js' and '.vue' components.
- *  Then it goes to '/src/site' directory and overrides entries.
- *  Made by: Dimitrij Polianin
- **/
+/***********************************************************************************************
+ *                                                                                             *
+ *  Index maker script                                                                         *
+ *  Version: 1.0.3                                                                             *
+ *                                                                                             *
+ *  This script makes index file "/src/sun,js" from all project                                *
+ *                                                                                             *
+ *  It parses all directories from cons "dirs", excluding pathes started with "excludePaths"   *
+ *  and make index file from all '.js' and '.vue' components.                                  *
+ *  Then it goes to '/src/site' directory and overrides entries.                               *
+ *  Made by:   Dimitrij Polianin                                                                 *
+ *                                                                                             *
+ ***********************************************************************************************/
+
 
 
 const glob = require('glob');
@@ -77,8 +79,7 @@ function filePathToComponentName(name, dirs, excludePaths) {
   arr = fileName.split('.');
   arr.pop();
 
-  const rez = arr.join('.');
-  return rez;
+  return arr.join('.');
 }
 
 function indexDic() {
@@ -96,17 +97,15 @@ function indexDic() {
     },
 
     makeText() {
-      let text = "";
+      let text = '';
       let arr = [];
-      for (const key in this.dic) {
+      for (const key in this.dic)
         arr.push(this.dic[key]);
-      }
 
       arr = arr.sort((a, b) => a.number - b.number);
 
-      for (const obj of arr) {
-        text += obj.line + "\n";
-      }
+      for (const obj of arr)
+        text += obj.line + '\n';
 
       return text;
     }

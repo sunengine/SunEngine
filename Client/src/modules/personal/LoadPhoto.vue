@@ -1,5 +1,9 @@
 <template>
-  <q-page class="load-photo flex column middle">
+  <q-page class="load-photo flex column middle page-padding">
+    <h2 class="page-title">
+      {{title}}
+    </h2>
+
     <img class="load-photo__photo" v-if="photo" width="300" :src="photo"/>
     <br/>
     <input ref="file" type="file" accept="image/*" class="hidden" @change="handleFile"/>

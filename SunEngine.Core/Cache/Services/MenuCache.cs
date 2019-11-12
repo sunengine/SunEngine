@@ -7,48 +7,24 @@ using SunEngine.Core.Models;
 
 namespace SunEngine.Core.Cache.Services
 {
-    public interface IMenuCache : ISunMemoryCache
+    public interface IMenuCache 
     {
         IList<MenuItemCached> GetMenu(IReadOnlyDictionary<string, RoleCached> Roles);
+        MenuItemCached RootMenuItem { get; }
+        IReadOnlyList<MenuItemCached> AllMenuItems { get;  }
+        void Initialize();
     }
 
     public class MenuCache : IMenuCache
     {
         private readonly object lockObject = new object();
 
-        private readonly IDataBaseFactory dataBaseFactory;
-        private readonly IRolesCache rolesCache;
+        protected readonly IDataBaseFactory dataBaseFactory;
+        protected readonly IRolesCache rolesCache;
 
-        private MenuItemCached _rootMenuItem;
-        private IReadOnlyList<MenuItemCached> _allMenuItems;
+        public MenuItemCached RootMenuItem { get; protected set; }
+        public IReadOnlyList<MenuItemCached> AllMenuItems { get; protected set; }
 
-        #region Getters
-
-        protected MenuItemCached RootMenuItem
-        {
-            get
-            {
-                lock (lockObject)
-                    if (_rootMenuItem == null)
-                        Initialize();
-
-                return _rootMenuItem;
-            }
-        }
-
-        protected IReadOnlyList<MenuItemCached> AllMenuItems
-        {
-            get
-            {
-                lock (lockObject)
-                    if (_allMenuItems == null)
-                        Initialize();
-
-                return _allMenuItems;
-            }
-        }
-
-        #endregion
 
         public MenuCache(
             IDataBaseFactory dataBaseFactory,
@@ -56,15 +32,16 @@ namespace SunEngine.Core.Cache.Services
         {
             this.dataBaseFactory = dataBaseFactory;
             this.rolesCache = rolesCache;
+            Initialize();
         }
 
 
-        public IList<MenuItemCached> GetMenu(IReadOnlyDictionary<string, RoleCached> Roles)
+        public IList<MenuItemCached> GetMenu(IReadOnlyDictionary<string, RoleCached> roles)
         {
             var menuItems = new List<MenuItemCached> {RootMenuItem};
 
             menuItems.AddRange(AllMenuItems.Where(menuItem =>
-                Roles.Values.Any(role => menuItem.Roles.ContainsKey(role.Id))));
+                roles.Values.Any(role => menuItem.Roles.ContainsKey(role.Id))));
 
             return menuItems;
         }
@@ -80,47 +57,39 @@ namespace SunEngine.Core.Cache.Services
             {
                 ImmutableDictionary<int, RoleCached> roles;
                 if (menuItem.Roles != null)
-                {
                     roles = menuItem.Roles.Split(',')
                         .Select(x => rolesCache.GetRole(x))
                         .ToDictionary(x => x.Id, x => x)
                         .ToImmutableDictionary();
-                }
                 else
-                {
                     roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
-                }
 
 
                 if (CheckIsVisible(menuItem))
                     allMenuItems.Add(new MenuItemCached(menuItem, roles));
             }
 
-            _allMenuItems = allMenuItems.OrderBy(x => x.SortNumber).ToImmutableList();
+            AllMenuItems = allMenuItems.OrderBy(x => x.SortNumber).ToImmutableList();
 
-            _rootMenuItem = _allMenuItems.First(x => x.Id == 1);
+            RootMenuItem = AllMenuItems.First(x => x.Id == 1);
 
 
             bool CheckIsVisible(MenuItem menuItem)
             {
-                if (menuItem.IsHidden)
-                    return false;
-
-                if (menuItem.ParentId.HasValue)
+                while (true)
                 {
-                    if (!menuItems.ContainsKey(menuItem.ParentId.Value))
+                    if (menuItem.IsHidden) 
                         return false;
 
-                    return CheckIsVisible(menuItems[menuItem.ParentId.Value]);
+                    if (!menuItem.ParentId.HasValue) 
+                        return true;
+                    
+                    if (!menuItems.ContainsKey(menuItem.ParentId.Value)) 
+                        return false;
+
+                    menuItem = menuItems[menuItem.ParentId.Value];
                 }
-
-                return true;
             }
-        }
-
-        public void Reset()
-        {
-            _allMenuItems = null;
         }
     }
 }

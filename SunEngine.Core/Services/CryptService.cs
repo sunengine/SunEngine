@@ -13,13 +13,14 @@ using SunEngine.Core.Utils;
 
 namespace SunEngine.Core.Services
 {
-    public interface ICryptService : ISunMemoryCache
+    public interface ICryptService 
     {
         string Crypt(string cipherName, string text);
         string Decrypt(string cipherName, string text);
         void AddCipherKey(string key);
         Task ResetSecret(string name);
         Task ResetAllSecrets();
+        void Initialize();
     }
 
     public class CryptService : ICryptService
@@ -96,34 +97,30 @@ namespace SunEngine.Core.Services
 
         public async Task ResetSecret(string name)
         {
-            using (var db = dbFactory.CreateDb())
-            {
-                var newSecret = GenerateSecurityKey();
+            using var db = dbFactory.CreateDb();
+            var newSecret = GenerateSecurityKey();
 
-                int updated = await db.CipherSecrets.Where(x => x.Name == name).Set(x => x.Secret, newSecret)
-                    .UpdateAsync();
+            int updated = await db.CipherSecrets.Where(x => x.Name == name).Set(x => x.Secret, newSecret)
+                .UpdateAsync();
 
-                if (updated != 1)
-                    throw new SunEntityNotUpdatedException(nameof(CipherSecret), name, "Name");
-            }
+            if (updated != 1)
+                throw new SunEntityNotUpdatedException(nameof(CipherSecret), name, "Name");
         }
 
         public async Task ResetAllSecrets()
         {
-            using (var db = dbFactory.CreateDb())
+            using var db = dbFactory.CreateDb();
+            var allSecrets = db.CipherSecrets.ToArray();
+            int done = 0;
+
+            foreach (var cipherSecret in allSecrets)
             {
-                var allSecrets = db.CipherSecrets.ToArray();
-                int done = 0;
-
-                foreach (var cipherSecret in allSecrets)
-                {
-                    cipherSecret.Secret = GenerateSecurityKey();
-                    done += await db.UpdateAsync(cipherSecret);
-                }
-
-                if (done != allSecrets.Length)
-                    throw new SunEntityNotUpdatedException(nameof(CipherSecret), "not all secrets updated");
+                cipherSecret.Secret = GenerateSecurityKey();
+                done += await db.UpdateAsync(cipherSecret);
             }
+
+            if (done != allSecrets.Length)
+                throw new SunEntityNotUpdatedException(nameof(CipherSecret), "not all secrets updated");
         }
 
         private static byte[] GenerateIV()
@@ -143,16 +140,9 @@ namespace SunEngine.Core.Services
         public void Initialize()
         {
             cypherSecrets.Clear();
-            using (var db = dbFactory.CreateDb())
-            {
-                foreach (var x in db.CipherSecrets)
-                    AddCipherKey(x.Name, x.Secret);
-            }
-        }
-
-        public void Reset()
-        {
-            Initialize();
+            using var db = dbFactory.CreateDb();
+            foreach (var x in db.CipherSecrets)
+                AddCipherKey(x.Name, x.Secret);
         }
     }
 }

@@ -4,7 +4,7 @@ Site engine that supports forums, articles and blogs.
 
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
-Version: 1.17.1
+Version: 1.18.2
 
 Demo site: [demo.sunengine.site](http://demo.sunengine.site). 
 
@@ -75,6 +75,6 @@ To run the project you need to install:
 10. Run client `quasar dev` — browser will be opened.
 
 ### Contacts
-- Dmitrij Polianin
+- [Dimitrij Polianin](https://sunengine.site/user/okeanij)
 - Telegram: [@okeanij](https://t.me/Okeanij)
 - Project's Telegram group: [@SunEngine](https://t.me/SunEngine)

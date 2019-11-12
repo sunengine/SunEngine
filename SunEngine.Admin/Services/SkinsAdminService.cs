@@ -22,7 +22,6 @@ namespace SunEngine.Admin.Services
         public readonly string WwwRootPath;
         public readonly string AllSkinsPath;
         public readonly string CurrentSkinPath;
-        public readonly string SkinNamePath;
         public readonly IWebHostEnvironment env;
  
         private readonly int MaxArchiveSize;
@@ -72,8 +71,9 @@ namespace SunEngine.Admin.Services
 
             var zipArchive = new ZipArchive(fileStream);
             var zipEntry = zipArchive.GetEntry("info.json");
-            if(zipEntry == null)
-                throw new SunViewException(new ErrorView("SkinFileNotContainInfoJson", "Skin archive do not contain info.json file",
+            if (zipEntry == null)
+                throw new SunViewException(new ErrorView("SkinFileNotContainInfoJson",
+                    "Skin archive do not contain info.json file",
                     ErrorType.System));
 
             if (zipArchive.Entries.Sum(entry => entry.Length) > MaxExtractArchiveSize)
@@ -120,7 +120,8 @@ namespace SunEngine.Admin.Services
 
             var selectedSkinPath = Path.Combine(AllSkinsPath, secureSkinName);
 
-            Directory.Delete(CurrentSkinPath, true);
+            if (Directory.Exists(CurrentSkinPath))
+                Directory.Delete(CurrentSkinPath, true);
             Directory.CreateDirectory(CurrentSkinPath);
 
             CopyDir(selectedSkinPath, CurrentSkinPath);
@@ -134,13 +135,11 @@ namespace SunEngine.Admin.Services
                 var text = File.ReadAllText(configJsPath);
                 Regex reg1 = new Regex("skinver=\\d+\"");
                 text = reg1.Replace(text, $"skinver={ran.Next()}\"");
-                File.WriteAllText(configJsPath, text);
 
                 var indexHtmlPath = Path.Combine(WwwRootPath, "index.html");
                 text = File.ReadAllText(indexHtmlPath);
                 Regex reg2 = new Regex("configver=\\d+\"");
                 text = reg2.Replace(text, $" configver={ran.Next()}\"");
-                File.WriteAllText(indexHtmlPath, text);
             }
         }
 
@@ -149,7 +148,9 @@ namespace SunEngine.Admin.Services
             var skinsPaths = Directory.GetDirectories(AllSkinsPath);
             var skins = skinsPaths.Select(Path.GetFileName).OrderBy(x => x).ToArray();
 
-            var currentSkin = System.IO.File.ReadAllText(SkinNamePath);
+            SkinInfo currentSkinInfo = JsonConvert.DeserializeObject<SkinInfo>(
+                File.ReadAllText(Path.Combine(CurrentSkinPath, "info.json")));
+            
 
             var skinsInfos = new List<SkinInfo>();
 
@@ -159,7 +160,7 @@ namespace SunEngine.Admin.Services
                 {
                     var jsonInfo = System.IO.File.ReadAllText(Path.Combine(AllSkinsPath, skin, "info.json"));
                     SkinInfo skinInfo = JsonConvert.DeserializeObject<SkinInfo>(jsonInfo);
-                    if (skinInfo.Name == currentSkin)
+                    if (skinInfo.Name == currentSkinInfo.Name)
                         skinInfo.Current = true;
 
                     skinsInfos.Add(skinInfo);

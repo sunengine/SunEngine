@@ -87,10 +87,8 @@ namespace SunEngine.DataSeed
                 if (categoryToken["MaterialsPreviewGeneratorName"] != null)
                     category.MaterialsPreviewGeneratorName = (string) categoryToken["MaterialsPreviewGeneratorName"];
 
-                if (categoryToken["MaterialsSubTitleCreateType"] != null)
-                    if (Enum.TryParse((string) categoryToken["MaterialsSubTitleCreateType"],
-                        out MaterialsSubTitleInputType materialsSubTitleCreateType))
-                        category.MaterialsSubTitleInputType = materialsSubTitleCreateType;
+                if (categoryToken["IsMaterialsSubTitleEditable"] != null)
+                    category.IsMaterialsSubTitleEditable = (bool) categoryToken["IsMaterialsSubTitleEditable"];
                 
 
                 dataContainer.Categories.Add(category);

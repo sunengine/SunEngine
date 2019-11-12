@@ -27,11 +27,28 @@ namespace SunEngine.Admin.Managers
             Dictionary<string, string> allItems = db.ConfigurationItems.ToDictionary(x => x.Name, x => x.Value);
             List<ConfigurationItem> itemsToUpdate = new List<ConfigurationItem>();
 
+            var enums = new Dictionary<string, Type>();
+
+            foreach (var configurationItem in ConfigDefaults.ConfigurationItems)
+            {
+                var type = configurationItem.Value.GetType();
+                if (type.IsEnum && !enums.ContainsKey(type.Name))
+                    enums[type.Name] = type;
+            }
+
             foreach (var configurationItem in configurationItems)
             {
                 if (!ConfigDefaults.ConfigurationItems.TryGetValue(configurationItem.Name, out object value))
                     continue;
 
+                if (value.GetType().IsEnum)
+                {
+                    var enumType = value.GetType();
+                    if (Enum.TryParse(enumType, configurationItem.Value, out _))
+                        TryAdd();
+
+                    continue;
+                }
 
                 switch (value.GetType().Name.Split(".")[^1])
                 {

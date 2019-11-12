@@ -5,8 +5,11 @@ const config = {
   UploadedImages: 'http://localhost:5000/UploadImages',
   SiteName: 'SunEngine Demo',
   Skin: 'http://localhost:5000/CurrentSkin/styles.css',  // Do not change last part "statics/skin/styles.css"
+  //Skin: 'http://localhost:5005/statics/CurrentSkin/styles.css',  // Do not change last part "statics/skin/styles.css"
 
   OpenExternalLinksAtNewTab: true,
+
+  UseExternalStyle: false,
 
   VueDevTools: true,      // Do not use on production
   VueAppInWindow: true,   // Do not use on production
@@ -70,3 +73,4 @@ else
 
 
 document.writeln(`<link href="${config.Skin}?skinver=111111" rel="stylesheet">`);
+

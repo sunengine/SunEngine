@@ -1,13 +1,18 @@
 <template>
-  <q-page class="edit-information flex column middle page-padding">
+  <q-page class="edit-information page-padding">
+    <h2 class="page-title">
+      {{title}}
+    </h2>
+
     <template v-if="userInfo">
       <div class="edit-information__label q-mb-lg text-grey-8">{{$tl("label")}}</div>
 
-      <SunEditor class="edit-information__editor q-mb-sm"
+      <SunEditor class="edit-information__editor q-mb-lg"
                  :toolbar="editorToolbar"
                  ref="htmlEditor" v-model="userInfo.information"/>
       <q-btn no-caps class="send-btn" icon="far fa-save" :label="$tl('save')" @click="save"/>
     </template>
+
     <LoaderWait v-else/>
   </q-page>
 </template>
