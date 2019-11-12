@@ -28,6 +28,19 @@ namespace SunEngine.Admin.Services
         private readonly int MaxArchiveSize;
         private readonly int MaxExtractArchiveSize;
         
+        private readonly List<string> requiredFiles = new List<string>()
+        {
+            "styles.css",
+            "preview.png",
+            "readme.md"
+        };
+        
+        private readonly List<string> allowedExtensions = new List<string>()
+        {
+            ".scss", ".sass", ".css", ".map", ".png", ".jpg", ".jpeg", ".gif",
+            ".svg", ".woff", ".woff2", ".ttf", ".otf", ".json", ".md"
+        };
+        
         public SkinsAdminService(
             IPathService pathService,
             IOptionsMonitor<SkinsOptions> skinsOptions,
@@ -68,6 +81,20 @@ namespace SunEngine.Admin.Services
                 throw new SunViewException(new ErrorView("VeryBigExtractArchive", $"Max extract archive size {MaxExtractArchiveSize}Kb",
                     ErrorType.System));
             }
+
+            var fileNames = zipArchive.Entries.Select(x => x.Name); 
+            var missingFiles = requiredFiles.Where(x => !fileNames.Contains(x)).ToList();
+            if (missingFiles.Count > 0)
+            {
+                var strMissingFiles = missingFiles.Aggregate((x, y) => $"{x}, {y}");
+                throw new SunViewException(new ErrorView("MissingRequiredFiles", $"Missing required files: {strMissingFiles}",
+                    ErrorType.System));
+            }
+
+            var hasDisallowedFile = zipArchive.Entries.All(entry => allowedExtensions.Contains(Path.GetExtension(entry.FullName)));
+            if (!hasDisallowedFile)
+                throw new SunViewException(new ErrorView("HasDisallowedFile", "",
+                    ErrorType.System));
 
             var jsonString = new StreamReader(zipEntry.Open()).ReadToEnd();
             var skinInfo = JsonConvert.DeserializeObject<SkinInfo>(jsonString);
