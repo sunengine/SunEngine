@@ -36,12 +36,12 @@ namespace SunEngine.Core.Cache.Services
         }
 
 
-        public IList<MenuItemCached> GetMenu(IReadOnlyDictionary<string, RoleCached> Roles)
+        public IList<MenuItemCached> GetMenu(IReadOnlyDictionary<string, RoleCached> roles)
         {
             var menuItems = new List<MenuItemCached> {RootMenuItem};
 
             menuItems.AddRange(AllMenuItems.Where(menuItem =>
-                Roles.Values.Any(role => menuItem.Roles.ContainsKey(role.Id))));
+                roles.Values.Any(role => menuItem.Roles.ContainsKey(role.Id))));
 
             return menuItems;
         }
@@ -57,16 +57,12 @@ namespace SunEngine.Core.Cache.Services
             {
                 ImmutableDictionary<int, RoleCached> roles;
                 if (menuItem.Roles != null)
-                {
                     roles = menuItem.Roles.Split(',')
                         .Select(x => rolesCache.GetRole(x))
                         .ToDictionary(x => x.Id, x => x)
                         .ToImmutableDictionary();
-                }
                 else
-                {
                     roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
-                }
 
 
                 if (CheckIsVisible(menuItem))
@@ -80,18 +76,19 @@ namespace SunEngine.Core.Cache.Services
 
             bool CheckIsVisible(MenuItem menuItem)
             {
-                if (menuItem.IsHidden)
-                    return false;
-
-                if (menuItem.ParentId.HasValue)
+                while (true)
                 {
-                    if (!menuItems.ContainsKey(menuItem.ParentId.Value))
+                    if (menuItem.IsHidden) 
                         return false;
 
-                    return CheckIsVisible(menuItems[menuItem.ParentId.Value]);
-                }
+                    if (!menuItem.ParentId.HasValue) 
+                        return true;
+                    
+                    if (!menuItems.ContainsKey(menuItem.ParentId.Value)) 
+                        return false;
 
-                return true;
+                    menuItem = menuItems[menuItem.ParentId.Value];
+                }
             }
         }
     }
