@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Utils;
 
 namespace SunEngine.Core.Errors
@@ -27,16 +28,19 @@ namespace SunEngine.Core.Errors
             {
                 logger.LogError(e.ToString());
                 context.Response.StatusCode = 500;
-                
-                await context.Response.WriteAsync(SunJson.Serialize(e.ErrorView ?? ErrorView.ServerError()));
+
+                if (e.ErrorList != null)
+                    await context.Response.WriteAsync(SunJson.Serialize(e.ErrorList));
+                else
+                    await context.Response.WriteAsync(SunJson.Serialize(Errors.ServerError()));
             }
             catch (Exception e)
             {
                 logger.LogError(e.ToString());
                 context.Response.StatusCode = 500;
                 
-                ErrorView errorView = ErrorView.ServerError(e);
-                await context.Response.WriteAsync(SunJson.Serialize(errorView));
+                var error = Errors.ServerError(e);
+                await context.Response.WriteAsync(SunJson.Serialize(error));
             }
         }
     }

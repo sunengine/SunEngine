@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Errors;
+using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
 
@@ -39,13 +40,13 @@ namespace SunEngine.Admin.Services
             var extension = Path.GetExtension(fileName);
 
             if (extension != ".zip")
-                throw new SunViewException(new ErrorView("NotValidSkinFileNotZip", "Skin file has to be .zip",
+                throw new SunViewException(new ErrorList("NotValidSkinFileNotZip", "Skin file has to be .zip",
                     ErrorType.System));
 
             var zipArchive = new ZipArchive(fileStream);
             var zipEntry = zipArchive.GetEntry("info.json");
             if (zipEntry == null)
-                throw new SunViewException(new ErrorView("SkinFileNotContainInfoJson",
+                throw new SunViewException(new ErrorList("SkinFileNotContainInfoJson",
                     "Skin archive do not contain info.json file",
                     ErrorType.System));
 

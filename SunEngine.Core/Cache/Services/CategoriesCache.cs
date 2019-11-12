@@ -12,7 +12,7 @@ namespace SunEngine.Core.Cache.Services
     /// <summary>
     /// Store categories in cache to fast access for singleton service
     /// </summary>
-    public interface ICategoriesCache 
+    public interface ICategoriesCache
     {
         CategoryCached GetCategory(int id);
         CategoryCached GetCategory(string name);
@@ -80,7 +80,7 @@ namespace SunEngine.Core.Cache.Services
             using var db = dataBaseFactory.CreateDb();
             var categories = db.Categories.Where(x => x.DeletedDate == null).Select(x => new CategoryCached(x))
                 .ToDictionary(x => x.Id);
-            
+
             foreach (var category in categories.Values)
                 category.Init1ParentAndSub(categories);
 

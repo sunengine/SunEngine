@@ -5,8 +5,8 @@ using SunEngine.Admin.Managers;
 using SunEngine.Admin.Presenters;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Errors;
+using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Models;
-using SunEngine.Core.Utils.CustomExceptions;
 
 namespace SunEngine.Admin.Controllers
 {
@@ -34,7 +34,7 @@ namespace SunEngine.Admin.Controllers
         public async Task<IActionResult> ChangeCachePolicy(CachePolicy selectedPolicy, int? invalidateCacheTime = null)
         {
             if (selectedPolicy != CachePolicy.NeverPolicy && invalidateCacheTime == null)
-                return BadRequest(ErrorView.ValidationError());
+                return BadRequest(Errors.ValidationError());
 
             try
             {
@@ -48,11 +48,11 @@ namespace SunEngine.Admin.Controllers
             }
             catch (ArgumentOutOfRangeException)
             {
-                return BadRequest(ErrorView.ValidationError());
+                return BadRequest(Errors.ValidationError());
             }
             catch (NotFoundDataException)
             {
-                return BadRequest(ErrorView.ServerError());
+                return BadRequest(Errors.ServerError());
             }
         }
     }

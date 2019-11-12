@@ -11,7 +11,7 @@ namespace SunEngine.Core.Errors
         Soft = 1
     }
     
-    public class ErrorObject
+    public class Error
     {
         public string Code { get; set; }
 
@@ -25,14 +25,19 @@ namespace SunEngine.Core.Errors
         
         public int ResponseCode { get; set; }
 
-        public ErrorObject(string code, string description, ErrorType type)
+        public Error()
+        {
+            
+        }
+        
+        public Error(string code, string description, ErrorType type)
         {
             Code = code;
             Description = description;
             Type = type;
         }
         
-        public ErrorObject(string code, string description, ErrorType type, string message)
+        public Error(string code, string description, ErrorType type, string message)
         {
             Code = code;
             Description = description;
@@ -40,7 +45,7 @@ namespace SunEngine.Core.Errors
             Message = message;
         }
 
-        public ErrorObject(string code, string description, ErrorType type, Exception exception)
+        public Error(string code, string description, ErrorType type, Exception exception)
         {
             Code = code;
             Description = description;
@@ -48,6 +53,8 @@ namespace SunEngine.Core.Errors
             Message = exception.Message;
             StackTrace = exception.StackTrace;
         }
+        
+        
         
     }
 }

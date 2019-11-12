@@ -40,7 +40,7 @@ namespace SunEngine.Core.Filters
 
             if (requestFree != null && requestFree.Working())
                 context.Result =
-                    controller.BadRequest(ErrorView.SoftError("SpamProtection", "To rapid requests does not allowed"));
+                    controller.BadRequest(ErrorList.SoftError("SpamProtection", "To rapid requests does not allowed"));
 
             SpamProtectionFilterTransfer temp = new SpamProtectionFilterTransfer
             {

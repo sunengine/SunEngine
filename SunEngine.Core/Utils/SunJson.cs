@@ -49,11 +49,11 @@ namespace SunEngine.Core.Utils
         {
             JsonProperty property = base.CreateProperty(member, memberSerialization);
 
-            if (property.DeclaringType == typeof(ErrorObject))
+            if (property.DeclaringType == typeof(Error))
             {
                 if (string.Equals(property.PropertyName, "Message", StringComparison.OrdinalIgnoreCase))
                     property.ShouldSerialize =
-                        instance => ShowExceptions || (instance as ErrorObject).StackTrace == null;
+                        instance => ShowExceptions || (instance as Error).StackTrace == null;
 
                 if (string.Equals(property.PropertyName, "StackTrace", StringComparison.OrdinalIgnoreCase))
                     property.ShouldSerialize = instance => ShowExceptions;

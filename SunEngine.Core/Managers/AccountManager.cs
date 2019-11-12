@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
+using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Models;
 using SunEngine.Core.Security;
 using SunEngine.Core.Services;
@@ -65,7 +66,7 @@ namespace SunEngine.Core.Managers
             }
             catch (Exception exception)
             {
-                throw new SunViewException(new ErrorView ("EmailSendError","Server error. Can not send email.", ErrorType.System, exception));
+                throw new SunViewException(new ErrorList ("EmailSendError","Server error. Can not send email.", ErrorType.System, exception));
             }
         }
 

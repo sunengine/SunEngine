@@ -7,6 +7,7 @@ using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
+using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Models;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils;

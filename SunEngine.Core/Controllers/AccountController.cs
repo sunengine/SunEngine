@@ -38,7 +38,7 @@ namespace SunEngine.Core.Controllers
         {
             User user = await userManager.FindByEmailAsync(model.Email);
             if (user == null)
-                return BadRequest(new ErrorView("UserWithThisEmailNotFound", "User with this email not found.",
+                return BadRequest(new ErrorList("UserWithThisEmailNotFound", "User with this email not found.",
                     ErrorType.System));
 
             await accountManager.ResetPasswordSendEmailAsync(user);
@@ -75,7 +75,7 @@ namespace SunEngine.Core.Controllers
             if (result.Succeeded)
                 return Ok();
 
-            return BadRequest(ErrorView.ServerError());
+            return BadRequest(Errors.Errors.ServerError());
         }
 
         [HttpPost]
@@ -85,15 +85,15 @@ namespace SunEngine.Core.Controllers
             email = email.Trim();
 
             if (!EmailValidator.IsValid(email))
-                return BadRequest(ErrorView.SoftError("EmailInvalid", "Email not valid"));
+                return BadRequest(ErrorList.SoftError("EmailInvalid", "Email not valid"));
 
             var user = await GetUserAsync();
 
             if (!await userManager.CheckPasswordAsync(user, password))
-                return BadRequest(ErrorView.SoftError("PasswordInvalid", "Password not valid"));
+                return BadRequest(ErrorList.SoftError("PasswordInvalid", "Password not valid"));
 
             if (await userManager.CheckEmailInDbAsync(email, user.Id))
-                return BadRequest(ErrorView.SoftError("EmailAlreadyTaken", "Email already registered"));
+                return BadRequest(ErrorList.SoftError("EmailAlreadyTaken", "Email already registered"));
 
             await accountManager.SendChangeEmailConfirmationMessageByEmailAsync(user, email);
 
@@ -138,7 +138,7 @@ namespace SunEngine.Core.Controllers
             if (result.Succeeded)
                 return Ok();
 
-            return BadRequest(new ErrorView(result.Errors));
+            return BadRequest(new ErrorList(result.Errors));
         }
     }
 }

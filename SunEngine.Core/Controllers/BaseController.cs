@@ -62,12 +62,12 @@ namespace SunEngine.Core.Controllers
 
         public new UnauthorizedObjectResult Unauthorized()
         {
-            return base.Unauthorized(ErrorView.Unauthorized());
+            return base.Unauthorized(Errors.Errors.Unauthorized());
         }
 
         public new BadRequestObjectResult BadRequest()
         {
-            return base.BadRequest(ErrorView.BadRequest());
+            return base.BadRequest(Errors.Errors.BadRequest());
         }
 
         public Task<User> GetUserAsync()

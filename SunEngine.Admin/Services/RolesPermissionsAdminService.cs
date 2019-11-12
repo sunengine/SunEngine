@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using NJsonSchema;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
+using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Authorization;
 using SunEngine.Core.Services;
@@ -125,7 +126,7 @@ namespace SunEngine.Admin.Services
 
             if (errorRoles.Count > 0)
                 throw new SunViewException(
-                    new ErrorView("CanNotDeleteRolesItHasUsers",
+                    new ErrorList("CanNotDeleteRolesItHasUsers",
                         "This roles can not be deleted because it has users, remove them first.", ErrorType.Soft,
                         string.Join(", ", errorRoles.Select(y => $"'{y.Name}'"))));
 

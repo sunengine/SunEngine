@@ -1,6 +1,6 @@
 using System;
 
-namespace SunEngine.Core.Utils.CustomExceptions
+namespace SunEngine.Core.Errors.Exceptions
 {
     public class NotFoundServiceException : Exception
     {

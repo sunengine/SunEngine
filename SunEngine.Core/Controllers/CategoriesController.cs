@@ -28,7 +28,6 @@ namespace SunEngine.Core.Controllers
         }
 
         [HttpPost]
-        [HttpGet] // HttpGet - For pulse and testing 
         public virtual IActionResult GetAllCategoriesAndAccesses()
         {
             var rez = categoriesPresenter.GetRootCategoryInfoWithAccesses(User.Roles);
