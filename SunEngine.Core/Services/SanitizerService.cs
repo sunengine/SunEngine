@@ -11,6 +11,7 @@ namespace SunEngine.Core.Services
         private const string DefaultCategory = "Default";
 
         private readonly IConfiguration configuration;
+
         private readonly Dictionary<string, Sanitizer> optionCategories
             = new Dictionary<string, Sanitizer>();
 
@@ -24,13 +25,13 @@ namespace SunEngine.Core.Services
         {
             return FindSanitizer(sanitizerName);
         }
-        
+
         public string Sanitize(IHtmlDocument doc, string sanitizerName = DefaultCategory)
         {
             var sanitizer = FindSanitizer(sanitizerName);
             return sanitizer.Sanitize(doc);
         }
-        
+
         public string Sanitize(string text, string sanitizerName = DefaultCategory)
         {
             var sanitizer = FindSanitizer(sanitizerName);
@@ -41,20 +42,18 @@ namespace SunEngine.Core.Services
         {
             if (optionCategories.ContainsKey(sanitizerName))
                 return optionCategories[sanitizerName];
-            
+
             throw new SunException($"Not found sanitizer with name \"{sanitizerName}\"");
         }
 
         private void LoadOptions()
         {
-            var sections = configuration.GetSection("Sanitizer").GetChildren();
-            foreach (var section in sections)
-            {
-                var key = section.Key;
-                var sanitizerOptions = section.Get<SanitizerOptions>();
-                var sanitizer = new Sanitizer(sanitizerOptions);
-                optionCategories.Add(key, sanitizer);
-            }
+            var section = configuration.GetSection("Sanitizer");
+
+            var key = DefaultCategory;
+            var sanitizerOptions = section.Get<SanitizerOptions>();
+            var sanitizer = new Sanitizer(sanitizerOptions);
+            optionCategories.Add(key, sanitizer);
         }
     }
 }

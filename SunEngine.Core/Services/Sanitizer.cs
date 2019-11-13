@@ -36,17 +36,17 @@ namespace SunEngine.Core.Services
         {
             htmlSanitizer.AllowedTags.Clear();
 
-            foreach (string tag in options.AllowedTags)
+            foreach (string tag in options.AllowedTagsArr)
                 htmlSanitizer.AllowedTags.Add(tag);
 
             htmlSanitizer.AllowedAttributes.Clear();
 
-            foreach (string attribute in options.AllowedAttributes)
+            foreach (string attribute in options.AllowedAttributesArr)
                 htmlSanitizer.AllowedAttributes.Add(attribute);
 
             htmlSanitizer.AllowedCssProperties.Clear();
 
-            foreach (string cssp in options.AllowedCssProperties)
+            foreach (string cssp in options.AllowedCssPropertiesArr)
                 htmlSanitizer.AllowedCssProperties.Add(cssp);
 
             htmlSanitizer.AllowedSchemes.Add("mailto");
@@ -86,15 +86,15 @@ namespace SunEngine.Core.Services
         private void OnRemovingAttribute(object s, RemovingAttributeEventArgs e)
         {
             var attributeName = e.Attribute.Name.ToLower();
-            AllowOnlyClassList(attributeName, e, options.AllowedClasses);
+            AllowOnlyClassList(attributeName, e, options.AllowedClassesArr);
         }
 
         private void OnRemovingTag(object sender, RemovingTagEventArgs e)
         {
             var checkingTags = new[]
             {
-                new { Tag = "iframe", Attribute = "src", AllowedDomainsList = options.AllowedVideoDomains },
-                new { Tag = "img", Attribute = "src", AllowedDomainsList = options.AllowedImageDomains }
+                new { Tag = "iframe", Attribute = "src", AllowedDomainsList = options.AllowedVideoDomainsArr },
+                new { Tag = "img", Attribute = "src", AllowedDomainsList = options.AllowedImageDomainsArr }
             };
             
             var tagName = e.Tag.TagName.ToLower();
