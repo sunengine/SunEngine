@@ -84,14 +84,14 @@
                 }
 
                 this.submitting = true;
-                this.$store.dispatch('request', {
-                    url: '/Account/ResetPasswordSendEmail',
-                    data: {
+                this.$request(this.$Api.Account.ResetPasswordSendEmail,
+                    {
                         Email: this.email,
                         CaptchaToken: this.token,
                         CaptchaText: this.captchaText
+
                     }
-                }).then(() => {
+                ).then(() => {
                     this.done = true;
                     this.submitting = false;
                 }).catch(error => {

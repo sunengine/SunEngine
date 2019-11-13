@@ -29,18 +29,8 @@ namespace SunEngine.Core.Errors
             {
                 logger.LogError(e.ToString());
                 context.Response.StatusCode = 500;
-                
-                await context.Response.WriteAsync(SunJson.Serialize(e.Error));
-            }
-            catch (SunListException e)
-            {
-                logger.LogError(e.ToString());
-                context.Response.StatusCode = 500;
 
-                if (e.ErrorList != null)
-                    await context.Response.WriteAsync(SunJson.Serialize(e.ErrorList));
-                else
-                    await context.Response.WriteAsync(SunJson.Serialize(Errors.ServerError()));
+                await context.Response.WriteAsync(SunJson.Serialize(e.Error));
             }
             catch (Exception e)
             {

@@ -11,6 +11,7 @@ export default {
     ChangeCachePolicy: '/Admin/AdminCacheSettings/ChangeCachePolicy',
   },
   UserRolesAdmin: {
+    GetRoleUsers:  '/Admin/UserRolesAdmin/GetRoleUsers',
     GetUserRoles: '/Admin/UserRolesAdmin/GetUserRoles',
     RemoveUserFromRole: '/Admin/UserRolesAdmin/RemoveUserFromRole',
     AddUserToRole: '/Admin/UserRolesAdmin/AddUserToRole',

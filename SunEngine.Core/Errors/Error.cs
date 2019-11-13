@@ -22,14 +22,14 @@ namespace SunEngine.Core.Errors
 
         public ErrorType Type { get; set; }
         
+        
         public int ResponseCode { get; set; }
 
         public Error()
         {
-            
         }
         
-        public Error(string code, string description, ErrorType type)
+        public Error(string code, string description, ErrorType type = ErrorType.System)
         {
             Code = code;
             Description = description;
@@ -52,8 +52,5 @@ namespace SunEngine.Core.Errors
             Message = exception.Message;
             StackTrace = exception.StackTrace;
         }
-        
-        
-        
     }
 }

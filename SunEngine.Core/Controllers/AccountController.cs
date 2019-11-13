@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Flurl;
 using Microsoft.AspNetCore.Authorization;
@@ -38,8 +39,8 @@ namespace SunEngine.Core.Controllers
         {
             User user = await userManager.FindByEmailAsync(model.Email);
             if (user == null)
-                return BadRequest(new ErrorList("UserWithThisEmailNotFound", "User with this email not found.",
-                    ErrorType.System));
+                return BadRequest(new Error("UserWithThisEmailNotFound", "User with this email not found.",
+                    ErrorType.Soft));
 
             await accountManager.ResetPasswordSendEmailAsync(user);
 
@@ -55,15 +56,18 @@ namespace SunEngine.Core.Controllers
         {
             var user = await userManager.FindByIdAsync(uid);
             if (user == null)
-                return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl, "Account/ResetPasswordFailed".ToLower()));
+                return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl,
+                    "Account/ResetPasswordFailed".ToLower()));
 
             if (await userManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider, "ResetPassword", token))
             {
-                return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl, "Account/ResetPasswordSetNew".ToLower())
+                return Redirect(Flurl.Url
+                    .Combine(globalOptions.CurrentValue.SiteUrl, "Account/ResetPasswordSetNew".ToLower())
                     .SetQueryParams(new {uid = uid, token = token}));
             }
 
-            return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl, "Account/ResetPasswordFailed".ToLower()));
+            return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl,
+                "Account/ResetPasswordFailed".ToLower()));
         }
 
         [AllowAnonymous]
@@ -85,15 +89,15 @@ namespace SunEngine.Core.Controllers
             email = email.Trim();
 
             if (!EmailValidator.IsValid(email))
-                return BadRequest(ErrorList.SoftError("EmailInvalid", "Email not valid"));
+                return BadRequest(new Error("EmailInvalid", "Email not valid", ErrorType.Soft));
 
             var user = await GetUserAsync();
 
             if (!await userManager.CheckPasswordAsync(user, password))
-                return BadRequest(ErrorList.SoftError("PasswordInvalid", "Password not valid"));
+                return BadRequest(new Error("PasswordInvalid", "Password not valid", ErrorType.Soft));
 
             if (await userManager.CheckEmailInDbAsync(email, user.Id))
-                return BadRequest(ErrorList.SoftError("EmailAlreadyTaken", "Email already registered"));
+                return BadRequest(new Error("EmailAlreadyTaken", "Email already registered", ErrorType.Soft));
 
             await accountManager.SendChangeEmailConfirmationMessageByEmailAsync(user, email);
 
@@ -119,11 +123,13 @@ namespace SunEngine.Core.Controllers
                 return Error();
             }
 
-            return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl, "Account/ChangeEmailResult?result=ok".ToLower()));
+            return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl,
+                "Account/ChangeEmailResult?result=ok".ToLower()));
 
             IActionResult Error()
             {
-                return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl, "Account/ChangeEmailResult?result=error")
+                return Redirect(Flurl.Url
+                    .Combine(globalOptions.CurrentValue.SiteUrl, "Account/ChangeEmailResult?result=error")
                     .ToLower());
             }
         }
@@ -138,7 +144,9 @@ namespace SunEngine.Core.Controllers
             if (result.Succeeded)
                 return Ok();
 
-            return BadRequest(new ErrorList(result.Errors));
+            var error = result.Errors.FirstOrDefault();
+
+            return BadRequest(new Error(error.Code, error.Description, ErrorType.System));
         }
     }
 }

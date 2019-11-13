@@ -4,25 +4,24 @@ namespace SunEngine.Core.Utils
 {
     public static class Normalizer
     {
-        public static readonly NormalizerLowercase Singleton = new NormalizerLowercase();
-
-
         public static string Normalize(string key)
         {
-            return Singleton.NormalizeName(key);
+            return key.ToLower();
         }
     }
 
-    public class NormalizerLowercase : ILookupNormalizer
+    public class NormalizerLookup : ILookupNormalizer
     {
+        public static NormalizerLookup Instance = new NormalizerLookup();
+        
         public string NormalizeEmail(string email)
         {
-            throw new System.NotImplementedException();
+            return Normalizer.Normalize(email);
         }
 
         public string NormalizeName(string name)
         {
-            return name.ToLower();
+            return Normalizer.Normalize(name);
         }
     }
 }

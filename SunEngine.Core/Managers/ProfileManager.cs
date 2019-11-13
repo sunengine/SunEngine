@@ -45,7 +45,7 @@ namespace SunEngine.Core.Managers
                 new Dictionary<string, string>
                 {
                     {"[siteName]", globalOptions.CurrentValue.SiteName},
-                    {"[url]", globalOptions.CurrentValue.SiteUrl.AppendPathSegment("user/" + from.Link)},
+                    {"[url]", globalOptions.CurrentValue.SiteUrl.AppendPathSegment("user/" + (from.Link ?? from.Id.ToString()))},
                     {"[userName]", from.UserName},
                     {"[message]", sanitizerService.Sanitize(text)}
                 }

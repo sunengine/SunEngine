@@ -62,7 +62,8 @@ export default {
   Account: {
     ChangeEmail: '/Account/ChangeEmail',
     ChangePassword: '/Account/ChangePassword',
-    ResetPasswordSetNew: '/Account/ResetPasswordSetNew'
+    ResetPasswordSetNew: '/Account/ResetPasswordSetNew',
+    ResetPasswordSendEmail:  '/Account/ResetPasswordSendEmail'
   },
   Menu: {
     GetAllMenuItems: '/Menu/GetAllMenuItems',

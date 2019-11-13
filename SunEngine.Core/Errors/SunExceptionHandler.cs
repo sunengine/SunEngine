@@ -21,9 +21,6 @@ namespace SunEngine.Core.Errors
             {
                 case null:
                     return;
-                case SunListException sunViewException:
-                    await context.Response.WriteAsync(SunJson.Serialize(sunViewException.ErrorList));
-                    break;
                 default:
                     var error = Errors.ServerError(exceptionHandlerPathFeature.Error);
                     await context.Response.WriteAsync(SunJson.Serialize(error));

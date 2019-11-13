@@ -57,7 +57,7 @@ namespace SunEngine.Core.Controllers
             link = (link+"").Trim();
             
             if (!await personalManager.ValidateLinkAsync(User.UserId,link))
-                return BadRequest(new ErrorList ("LinkInvalid","Link validation error", ErrorType.System));
+                return BadRequest(new Error ("LinkInvalid","Link validation error"));
 
             await personalManager.SetMyLinkAsync(User.UserId, link);
 
@@ -69,12 +69,12 @@ namespace SunEngine.Core.Controllers
         {
             var user = await GetUserAsync();
             if (!await userManager.CheckPasswordAsync(user, password))
-                return BadRequest(new ErrorList ("PasswordInvalid","Wrong password", ErrorType.System));
+                return BadRequest(new Error ("PasswordInvalid","Wrong password"));
 
             name = Regex.Replace(name.Trim()," {2,}","");
 
             if (!await personalManager.ValidateNameAsync(name,user.Id))
-                return BadRequest(new ErrorList ("NameInvalid","Validation error", ErrorType.System));
+                return BadRequest(new Error ("NameInvalid","Validation error"));
 
             await personalManager.SetMyNameAsync(user, name);
 

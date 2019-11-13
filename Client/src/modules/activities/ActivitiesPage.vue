@@ -28,7 +28,6 @@
             this.$options.components.ActivitiesList = require('sun').ActivitiesList;
         },
         created() {
-            debugger;
             this.title = this.component.settings.Title ?? this.$tl('defaultTitle');
         }
     }

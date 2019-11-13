@@ -64,7 +64,8 @@
                 this.$request(
                     this.$AdminApi.RolesPermissionsAdmin.UploadJson,
                     {
-                        json: this.json
+                        json: this.json,
+                        blockErrorsNotifications: true
                     }
                 ).then(() => {
                         this.error = null;
@@ -72,7 +73,6 @@
                     }
                 ).catch(error => {
                     this.error = error.response.data;
-                    debugger;
                     this.$errorNotify(error, this.error.message);
                 }).finally(_ => {
                     this.loading = false;

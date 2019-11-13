@@ -8,10 +8,10 @@ namespace SunEngine.Core.Utils
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
-        
+
         public static string Serialize(object obj)
         {
-            return JsonSerializer.Serialize(obj);
+            return JsonSerializer.Serialize(obj, DefaultJsonSerializerOptions);
         }
 
         public static JsonElement? MakeJElement(string str)

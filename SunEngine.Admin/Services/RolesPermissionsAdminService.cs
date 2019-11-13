@@ -139,8 +139,8 @@ namespace SunEngine.Admin.Services
                     errorRoles.Add(role);
 
             if (errorRoles.Count > 0)
-                throw new SunListException(
-                    new ErrorList("CanNotDeleteRolesItHasUsers",
+                throw new SunErrorException(
+                    new Error("CanNotDeleteRolesItHasUsers",
                         "This roles can not be deleted because it has users, remove them first.", ErrorType.Soft,
                         string.Join(", ", errorRoles.Select(y => $"'{y.Name}'"))));
 

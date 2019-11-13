@@ -30,7 +30,7 @@ namespace SunEngine.Core.Managers
             passwordValidators, keyNormalizer, errors, services, logger)
         {
             this.db = db;
-            KeyNormalizer = Normalizer.Singleton;
+            KeyNormalizer = NormalizerLookup.Instance;
         }
 
         public async ValueTask<User> FindUserByNameOrEmailAsync(string nameOrEmail)

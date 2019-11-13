@@ -61,12 +61,13 @@ namespace SunEngine.Core.Managers
                 await emailSenderService.SendEmailByTemplateAsync(
                     user.Email,
                     "reset-password.html",
-                    new Dictionary<string, string>{{"[resetPassUrl]", resetPasswordUrl}}
+                    new Dictionary<string, string> {{"[resetPassUrl]", resetPasswordUrl}}
                 );
             }
             catch (Exception exception)
             {
-                throw new SunListException(new ErrorList ("EmailSendError","Server error. Can not send email.", ErrorType.System, exception));
+                throw new SunErrorException(new Error("EmailSendError", "Server error. Can not send email.",
+                    ErrorType.System, exception));
             }
         }
 
@@ -82,12 +83,12 @@ namespace SunEngine.Core.Managers
             var token = new JwtSecurityToken(
                 claims: claims.ToArray(),
                 expires: DateTime.UtcNow.AddDays(3));
-            
-            cryptService.Crypt(CipherSecrets.EmailChange,token.Payload.SerializeToJson());
-            
+
+            cryptService.Crypt(CipherSecrets.EmailChange, token.Payload.SerializeToJson());
+
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-        
+
         public virtual bool ValidateChangeEmailToken(string token, out int userId, out string email)
         {
             try
@@ -118,7 +119,7 @@ namespace SunEngine.Core.Managers
 
             var updateEmailUrl = globalOptions.CurrentValue.SiteApi.AppendPathSegments("Account", "ConfirmChangeEmail")
                 .SetQueryParam("token", emailToken);
-            
+
             await emailSenderService.SendEmailByTemplateAsync(
                 email,
                 "email-change.html",

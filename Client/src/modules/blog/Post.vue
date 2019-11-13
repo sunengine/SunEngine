@@ -76,7 +76,7 @@
         },
         methods: {
             prepareLocalLinks() {
-                prepareLocalLinks(this.$el, 'post__text');
+                prepareLocalLinks.call(this, this.$el, 'post__text');
             }
         },
         mounted() {

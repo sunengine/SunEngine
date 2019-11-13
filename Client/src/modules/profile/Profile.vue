@@ -8,13 +8,11 @@
                  :to="{path: '/SendPrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}"
                  dense icon="far fa-envelope" :label="$tl('sendPrivateMessageBtn')"/>
           <q-btn :color="!user.iBannedHim ? 'lime-4' : 'negative'" class="profile__bun-btn shadow-1 q-ml-sm" dense
-
-                 v-if="!user.noBannable"
-                 icon="fas fa-ellipsis-v">
+                 v-if="!user.noBannable" icon="fas fa-ellipsis-v">
             <q-menu>
-              <q-btn no-caps v-close-popup color="negative" v-close-overlay v-if="!user.iBannedHim" @click="ban"
-                     icon="fas fa-ban" :label="$tl('banBtn')"/>
-              <q-btn no-caps v-close-popup color="positive" v-close-overlay v-else @click="unBan" icon="fas fa-smile"
+              <q-btn no-caps v-close-popup color="negative" v-if="!user.iBannedHim" @click="ban" icon="fas fa-ban"
+                     :label="$tl('banBtn')"/>
+              <q-btn no-caps v-close-popup color="positive" v-else @click="unBan" icon="fas fa-smile"
                      :label="$tl('unBanBtn')"/>
             </q-menu>
           </q-btn>
@@ -34,7 +32,6 @@
             {{user.profileVisitsCount}}
           </div>
         </div>
-
         <q-expansion-item class="profile__expansion-item-roles overflow-hidden" v-if="canEditRoles"
                           @show="showRolesAdmin"
                           icon="fas fa-cog"

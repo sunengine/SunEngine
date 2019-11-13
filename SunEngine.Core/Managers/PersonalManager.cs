@@ -81,7 +81,7 @@ namespace SunEngine.Core.Managers
         {
             user.UserName = name;
             return db.Users.Where(x => x.Id == user.Id)
-                .Set(x => x.UserName, name).Set(x => x.NormalizedUserName, Normalizer.Singleton.NormalizeName(name))
+                .Set(x => x.UserName, name).Set(x => x.NormalizedUserName, Normalizer.Normalize(name))
                 .UpdateAsync();
         }
 

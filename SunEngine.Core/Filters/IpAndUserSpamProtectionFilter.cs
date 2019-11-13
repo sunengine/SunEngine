@@ -13,8 +13,8 @@ namespace SunEngine.Core.Filters
     public class IpAndUserSpamProtectionFilter : ActionFilterAttribute
     {
         private const string CacheKeyStart = "RFIP";
-        private readonly TimeSpan AdminTimeout =  new TimeSpan(0,0,5);
-        
+        private readonly TimeSpan AdminTimeout = new TimeSpan(0, 0, 5);
+
         public int IpTimeoutSeconds
         {
             set => ipTimeout = TimeSpan.FromSeconds(value);
@@ -58,7 +58,8 @@ namespace SunEngine.Core.Filters
 
             if (requestFree != null && requestFree.Working())
                 context.Result =
-                    controller.BadRequest(ErrorList.SoftError("SpamProtection", "To rapid requests does not allowed"));
+                    controller.BadRequest(new Error("SpamProtection", "To rapid requests does not allowed",
+                        ErrorType.Soft));
 
             SpamProtectionFilterTransfer temp = new SpamProtectionFilterTransfer
             {
@@ -97,7 +98,7 @@ namespace SunEngine.Core.Filters
                 thisTimeout = userTimeout;
             else
                 thisTimeout = AdminTimeout;
-            
+
             if (temp.RequestFree != null)
                 temp.RequestFree.UpdateDateTime(thisTimeout);
             else
