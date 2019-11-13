@@ -5,29 +5,20 @@ namespace SunEngine.Core.Configuration.Options
 {
     public class SanitizerOptions
     {
-        public string AllowedTags { get; set; } 
-        
-        public string AllowedAttributes { get; set; } 
-        
-        public string AllowedClasses { get; set; } 
-        
-        public string AllowedCssProperties { get; set; } 
-        
-        public string AllowedVideoDomains { get; set; } 
-
+        public string AllowedTags { get; set; }
+        public string AllowedAttributes { get; set; }
+        public string AllowedClasses { get; set; }
+        public string AllowedCssProperties { get; set; }
+        public string AllowedVideoDomains { get; set; }
         public string AllowedImageDomains { get; set; }
 
+        
 
         protected string[] _allowedTags;
-
         protected string[] _allowedAttributes;
-
         protected string[] _allowedClasses;
-
         protected string[] _allowedCssProperties;
-
         protected string[] _allowedVideoDomains;
-
         protected string[] _allowedImageDomains;
 
 

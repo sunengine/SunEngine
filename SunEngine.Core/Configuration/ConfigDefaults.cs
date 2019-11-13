@@ -5,15 +5,17 @@ namespace SunEngine.Core.Configuration
 {
     public static class ConfigDefaults
     {
-        public enum BBB1
+        public enum Test
         {
-            Hi1,
-            Hi2,
-            Hi3
+            TestValue1,
+            TestValue2,
+            TestValue3
         }
         
         public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>()
         {
+            ["Test:Test1"] = Test.TestValue2,
+            
             ["Sanitizer:AllowedTags"] = (LongString)"a,b,strong,i,em,blockquote,ol,li,ul,ol,p,div,br,video,audio,source,span,img,code,pre,font,h3,h4,h5,h6",
             ["Sanitizer:AllowedAttributes"] = (LongString)"style,src,href,controls,autoplay,loop,alt,width,height,target,frameborder,allowfullscreen,download,controlsList,size",
             ["Sanitizer:AllowedClasses"] = (LongString)"float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width",
