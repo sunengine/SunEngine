@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
@@ -11,7 +13,6 @@ namespace SunEngine.Core.Services
 {
     public interface IImagesService
     {
-        string GetAllowedExtension(string fileName);
         Task<FileAndDir> SaveImageAsync(IFormFile file, ResizeOptions resizeOptions);
         FileAndDir SaveBitmapImage(Stream stream, ResizeOptions resizeOptions, string ext);
     }
@@ -23,7 +24,7 @@ namespace SunEngine.Core.Services
         protected static readonly object lockObject = new object();
 
         protected readonly IImagesNamesService imagesNamesService;
-        protected readonly IOptionsMonitor<ImagesOptions> imagesOptions;
+        protected readonly ImagesOptions imagesOptions;
         protected readonly string UploadImagesDir;
 
 
@@ -32,28 +33,9 @@ namespace SunEngine.Core.Services
             IPathService pathService,
             IImagesNamesService imagesNamesService)
         {
-            this.imagesOptions = imagesOptions;
+            this.imagesOptions = imagesOptions.CurrentValue;
             this.imagesNamesService = imagesNamesService;
-            UploadImagesDir = pathService.MakePath(this.imagesOptions.CurrentValue.ImagesUploadDir);
-        }
-
-        public virtual string GetAllowedExtension(string fileName)
-        {
-            string ext = Path.GetExtension(fileName).ToLower();
-            switch (ext)
-            {
-                case ".jpeg":
-                    return ".jpg";
-                case ".jpg":
-                case ".png":
-                    return ext;
-                case ".gif":
-                    return imagesOptions.CurrentValue.AllowGifUpload ? ext : null;
-                case ".svg":
-                    return imagesOptions.CurrentValue.AllowSvgUpload ? ext : null;
-            }
-
-            return null;
+            UploadImagesDir = pathService.MakePath(this.imagesOptions.ImagesUploadDir);
         }
 
         public virtual async Task<FileAndDir> SaveImageAsync(IFormFile file, ResizeOptions resizeOptions)
@@ -64,6 +46,17 @@ namespace SunEngine.Core.Services
 
             if (ext == ".svg" && file.Length >= MaxSvgSizeBytes)
                 throw new Exception($"Svg max size is {MaxSvgSizeBytes / 1024} kb");
+            else
+            {
+                await using var stream = file.OpenReadStream();
+                if(!IsAllowedImageFormat(Image.DetectFormat(stream).Name))
+                    throw new Exception("Not allowed image format");
+
+                var imageInfo = Image.Identify(stream);
+                if(imageInfo.Width > imagesOptions.MaxImageWidth ||
+                   imageInfo.Height > imagesOptions.MaxImageHeight)
+                    throw new Exception("Very big image");
+            }
 
             var fileAndDir = imagesNamesService.GetNewImageNameAndDir(ext);
             var dirFullPath = Path.Combine(UploadImagesDir, fileAndDir.Dir);
@@ -112,6 +105,30 @@ namespace SunEngine.Core.Services
             image.Save(fullFileName);
 
             return fileAndDir;
+        }
+        
+        private string GetAllowedExtension(string fileName)
+        {
+            var ext = Path.GetExtension(fileName).ToLower();
+            ext = ext == ".jpeg" ? ".jpg" : ext;
+            
+            var allowedExtensions = new List<string> { ".jpg", ".png" };
+            if(imagesOptions.AllowGifUpload)
+                allowedExtensions.Add(".gif");
+            
+            if(imagesOptions.AllowSvgUpload)
+                allowedExtensions.Add(".svg");
+
+            return allowedExtensions.FirstOrDefault(x => x == ext);
+        }
+
+        private bool IsAllowedImageFormat(string imageFormat)
+        {
+            var allowedFormats = new List<string> { "JPEG", "PNG" };
+            if(imagesOptions.AllowGifUpload)
+                allowedFormats.Add("GIF");
+
+            return allowedFormats.Contains(imageFormat);
         }
     }
 }

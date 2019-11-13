@@ -7,8 +7,10 @@ namespace SunEngine.Core.Configuration.Options
         public string ImagesUploadUrl { get; set; }
 
         public bool DoResize { get; set; }
-        public int MaxWidthPixels { get; set; }
-        public int MaxHeightPixels { get; set; }
+        public int MaxImageWidth { get; set; }
+        public int MaxImageHeight { get; set; }
+        public int ResizeMaxWidthPixels { get; set; }
+        public int ResizeMaxHeightPixels { get; set; }
         public int PhotoMaxWidthPixels { get; set; }
         public int PhotoMaxHeightPixels { get; set; }
         public int AvatarSizePixels { get; set; }

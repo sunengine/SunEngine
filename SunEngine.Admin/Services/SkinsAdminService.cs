@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Errors;
-using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
-using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace SunEngine.Admin.Services
 {
@@ -22,41 +22,84 @@ namespace SunEngine.Admin.Services
         public readonly string WwwRootPath;
         public readonly string AllSkinsPath;
         public readonly string CurrentSkinPath;
-        public readonly IHostingEnvironment env;
-
+        public readonly string SkinNamePath;
+        public readonly IWebHostEnvironment env;
+ 
+        private readonly int MaxArchiveSize;
+        private readonly int MaxExtractArchiveSize;
+        
+        private readonly List<string> requiredFiles = new List<string>()
+        {
+            "styles.css",
+            "preview.png",
+            "readme.md"
+        };
+        
+        private readonly List<string> allowedExtensions = new List<string>()
+        {
+            ".scss", ".sass", ".css", ".map", ".png", ".jpg", ".jpeg", ".gif",
+            ".svg", ".woff", ".woff2", ".ttf", ".otf", ".json", ".md"
+        };
+        
         public SkinsAdminService(
             IPathService pathService,
             IOptionsMonitor<SkinsOptions> skinsOptions,
-           IHostingEnvironment  env)
+            IOptionsMonitor<FileLoadingOptions> fileLoadingOptions,
+            IWebHostEnvironment env)
         {
             this.env = env;
 
             AllSkinsPath = pathService.MakePath(skinsOptions.CurrentValue.AllSkinsDir);
             CurrentSkinPath = pathService.MakePath(skinsOptions.CurrentValue.CurrentSkinDir);
+            SkinNamePath = Path.Combine(AllSkinsPath, "name.txt");
+            MaxArchiveSize = fileLoadingOptions.CurrentValue.MaxArchiveSize * 1024;
+            MaxExtractArchiveSize = fileLoadingOptions.CurrentValue.MaxExtractArchiveSize * 1024;
         }
 
-        public void UploadSkin(string fileName, Stream fileStream)
+        public void UploadSkin(IFormFile file)
         {
+            var fileName = file.FileName;
+            var fileStream = file.OpenReadStream();
             var extension = Path.GetExtension(fileName);
 
             if (extension != ".zip")
-                throw new SunListException(new ErrorList("NotValidSkinFileNotZip", "Skin file has to be .zip",
+                throw new SunViewException(new ErrorView("NotValidSkinFileNotZip", "Skin file has to be .zip",
+                    ErrorType.System));
+            
+            if(file.Length > MaxArchiveSize)
+                throw new SunViewException(new ErrorView("VeryBigFile", $"Max file size {MaxArchiveSize}Kb",
                     ErrorType.System));
 
             var zipArchive = new ZipArchive(fileStream);
             var zipEntry = zipArchive.GetEntry("info.json");
             if (zipEntry == null)
-                throw new SunListException(new ErrorList("SkinFileNotContainInfoJson",
+                throw new SunViewException(new ErrorView("SkinFileNotContainInfoJson",
                     "Skin archive do not contain info.json file",
                     ErrorType.System));
 
+            if (zipArchive.Entries.Sum(entry => entry.Length) > MaxExtractArchiveSize)
+            {
+                throw new SunViewException(new ErrorView("VeryBigExtractArchive", $"Max extract archive size {MaxExtractArchiveSize}Kb",
+                    ErrorType.System));
+            }
+
+            var fileNames = zipArchive.Entries.Select(x => x.Name); 
+            var missingFiles = requiredFiles.Where(x => !fileNames.Contains(x)).ToList();
+            if (missingFiles.Count > 0)
+            {
+                var strMissingFiles = missingFiles.Aggregate((x, y) => $"{x}, {y}");
+                throw new SunViewException(new ErrorView("MissingRequiredFiles", $"Missing required files: {strMissingFiles}",
+                    ErrorType.System));
+            }
+
+            var hasDisallowedFile = zipArchive.Entries.All(entry => allowedExtensions.Contains(Path.GetExtension(entry.FullName)));
+            if (!hasDisallowedFile)
+                throw new SunViewException(new ErrorView("HasDisallowedFile", "",
+                    ErrorType.System));
+
             var jsonString = new StreamReader(zipEntry.Open()).ReadToEnd();
-
-            SkinInfo skinInfo = JsonConvert.DeserializeObject<SkinInfo>(jsonString);
-
-            // TODO need to check archive for security
-
-            var skinDirPath = Path.Combine(AllSkinsPath, skinInfo.Name);
+            var skinInfo = JsonConvert.DeserializeObject<SkinInfo>(jsonString);
+            var skinDirPath = Path.Combine(AllSkinsPath, PathUtils.ClearPathToken(skinInfo.Name));
 
             if (Directory.Exists(skinDirPath))
                 Directory.Delete(skinDirPath, true);
@@ -83,6 +126,8 @@ namespace SunEngine.Admin.Services
             Directory.CreateDirectory(CurrentSkinPath);
 
             CopyDir(selectedSkinPath, CurrentSkinPath);
+
+            System.IO.File.WriteAllText(SkinNamePath, secureSkinName);
 
             if (env.IsProduction())
             {

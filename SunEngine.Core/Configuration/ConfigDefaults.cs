@@ -24,8 +24,10 @@ namespace SunEngine.Core.Configuration
 
             ["Dev:ShowExceptions"] = false,
 
-            ["Images:MaxWidthPixels"] = 1200,
-            ["Images:MaxHeightPixels"] = 800,
+            ["Images:MaxImageWidth"] = 3600,
+            ["Images:MaxImageHeight"] = 2025,
+            ["Images:ResizeMaxWidthPixels"] = 1200,
+            ["Images:ResizeMaxHeightPixels"] = 800,
             ["Images:PhotoMaxWidthPixels"] = 500,
             ["Images:PhotoMaxHeightPixels"] = 500,
             ["Images:AvatarSizePixels"] = 300,
@@ -68,6 +70,9 @@ namespace SunEngine.Core.Configuration
             ["Email:Password"] = "password",
             ["Email:EmailFromName"] = "SunEngine Demo",
             ["Email:EmailFromAddress"] = "SunEngine@demo.com",
+            
+            ["FileLoading:MaxArchiveSize"] = 20 * 1024,
+            ["FileLoading:MaxExtractArchiveSize"] = 60 * 1024,
         };
     }
 
