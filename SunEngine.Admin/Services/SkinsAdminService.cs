@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Errors;
+using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace SunEngine.Admin.Services
 {
@@ -23,7 +23,7 @@ namespace SunEngine.Admin.Services
         public readonly string AllSkinsPath;
         public readonly string CurrentSkinPath;
         public readonly string SkinNamePath;
-        public readonly IWebHostEnvironment env;
+        public readonly IHostingEnvironment env;
  
         private readonly int MaxArchiveSize;
         private readonly int MaxExtractArchiveSize;
@@ -45,7 +45,7 @@ namespace SunEngine.Admin.Services
             IPathService pathService,
             IOptionsMonitor<SkinsOptions> skinsOptions,
             IOptionsMonitor<FileLoadingOptions> fileLoadingOptions,
-            IWebHostEnvironment env)
+            IHostingEnvironment env)
         {
             this.env = env;
 
@@ -63,23 +63,23 @@ namespace SunEngine.Admin.Services
             var extension = Path.GetExtension(fileName);
 
             if (extension != ".zip")
-                throw new SunViewException(new ErrorView("NotValidSkinFileNotZip", "Skin file has to be .zip",
+                throw new SunErrorException(new Error("NotValidSkinFileNotZip", "Skin file has to be .zip",
                     ErrorType.System));
             
             if(file.Length > MaxArchiveSize)
-                throw new SunViewException(new ErrorView("VeryBigFile", $"Max file size {MaxArchiveSize}Kb",
+                throw new SunErrorException(new Error("VeryBigFile", $"Max file size {MaxArchiveSize}Kb",
                     ErrorType.System));
 
             var zipArchive = new ZipArchive(fileStream);
             var zipEntry = zipArchive.GetEntry("info.json");
             if (zipEntry == null)
-                throw new SunViewException(new ErrorView("SkinFileNotContainInfoJson",
+                throw new SunErrorException(new Error("SkinFileNotContainInfoJson",
                     "Skin archive do not contain info.json file",
                     ErrorType.System));
 
             if (zipArchive.Entries.Sum(entry => entry.Length) > MaxExtractArchiveSize)
             {
-                throw new SunViewException(new ErrorView("VeryBigExtractArchive", $"Max extract archive size {MaxExtractArchiveSize}Kb",
+                throw new SunErrorException(new Error("VeryBigExtractArchive", $"Max extract archive size {MaxExtractArchiveSize}Kb",
                     ErrorType.System));
             }
 
@@ -88,13 +88,13 @@ namespace SunEngine.Admin.Services
             if (missingFiles.Count > 0)
             {
                 var strMissingFiles = missingFiles.Aggregate((x, y) => $"{x}, {y}");
-                throw new SunViewException(new ErrorView("MissingRequiredFiles", $"Missing required files: {strMissingFiles}",
+                throw new SunErrorException(new Error("MissingRequiredFiles", $"Missing required files: {strMissingFiles}",
                     ErrorType.System));
             }
 
             var hasDisallowedFile = zipArchive.Entries.All(entry => allowedExtensions.Contains(Path.GetExtension(entry.FullName)));
             if (!hasDisallowedFile)
-                throw new SunViewException(new ErrorView("HasDisallowedFile", "",
+                throw new SunErrorException(new Error("HasDisallowedFile", "",
                     ErrorType.System));
 
             var jsonString = new StreamReader(zipEntry.Open()).ReadToEnd();
@@ -127,7 +127,7 @@ namespace SunEngine.Admin.Services
 
             CopyDir(selectedSkinPath, CurrentSkinPath);
 
-            System.IO.File.WriteAllText(SkinNamePath, secureSkinName);
+            File.WriteAllText(SkinNamePath, secureSkinName);
 
             if (env.IsProduction())
             {
