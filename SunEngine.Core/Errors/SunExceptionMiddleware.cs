@@ -15,7 +15,8 @@ namespace SunEngine.Core.Errors
         public SunExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
         {
             this.next = next ?? throw new ArgumentNullException(nameof(next));
-            logger = loggerFactory?.CreateLogger<SunExceptionMiddleware>() ?? throw new ArgumentNullException(nameof(loggerFactory));
+            logger = loggerFactory?.CreateLogger<SunExceptionMiddleware>() ??
+                     throw new ArgumentNullException(nameof(loggerFactory));
         }
 
         public async Task Invoke(HttpContext context)
@@ -24,7 +25,14 @@ namespace SunEngine.Core.Errors
             {
                 await next(context);
             }
-            catch (SunViewException e)
+            catch (SunErrorException e)
+            {
+                logger.LogError(e.ToString());
+                context.Response.StatusCode = 500;
+                
+                await context.Response.WriteAsync(SunJson.Serialize(e.Error));
+            }
+            catch (SunListException e)
             {
                 logger.LogError(e.ToString());
                 context.Response.StatusCode = 500;
@@ -38,7 +46,7 @@ namespace SunEngine.Core.Errors
             {
                 logger.LogError(e.ToString());
                 context.Response.StatusCode = 500;
-                
+
                 var error = Errors.ServerError(e);
                 await context.Response.WriteAsync(SunJson.Serialize(error));
             }

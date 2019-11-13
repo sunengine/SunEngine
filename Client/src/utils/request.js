@@ -152,14 +152,16 @@ async function checkTokens(rez) {
       console.info('%cLogout', consoleUserLogout);
 
       store.commit('clearAllUserRelatedData');
-      await store.dispatch('loadAllCategories', {skipLock: true});
-      await store.dispatch('loadAllMenuItems', {skipLock: true});
+      await store.dispatch('loadAllCategories',  {skipLock: true});
+      await store.dispatch('registerAllLayouts');
+      await store.dispatch('loadAllComponents', {skipLock: true});
       await store.dispatch('setAllRoutes');
-
-      routeCheckAccess(router.currentRoute);
-      router.push(router.currentRoute);
-      app.rerender();
-      return;
+      await store.dispatch('loadAllMenuItems',  {skipLock: true});
+      if(routeCheckAccess(router.currentRoute)) {
+        router.push(router.currentRoute);
+        app.rerender();
+        return rez;
+      }
 
     } else {
 

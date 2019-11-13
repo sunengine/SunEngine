@@ -219,8 +219,8 @@ export default {
   // ——— all ————————————————————————————————————
 
   AdminMenu: {
-    adminPage: "Information",
-    adminPageCaption: "",
+    adminInformation: "Information",
+    adminInformationCaption: "",
     menuItems: "Menu",
     menuItemsCaption: "",
     categories: "Categories",

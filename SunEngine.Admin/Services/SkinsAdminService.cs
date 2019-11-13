@@ -40,13 +40,13 @@ namespace SunEngine.Admin.Services
             var extension = Path.GetExtension(fileName);
 
             if (extension != ".zip")
-                throw new SunViewException(new ErrorList("NotValidSkinFileNotZip", "Skin file has to be .zip",
+                throw new SunListException(new ErrorList("NotValidSkinFileNotZip", "Skin file has to be .zip",
                     ErrorType.System));
 
             var zipArchive = new ZipArchive(fileStream);
             var zipEntry = zipArchive.GetEntry("info.json");
             if (zipEntry == null)
-                throw new SunViewException(new ErrorList("SkinFileNotContainInfoJson",
+                throw new SunListException(new ErrorList("SkinFileNotContainInfoJson",
                     "Skin archive do not contain info.json file",
                     ErrorType.System));
 

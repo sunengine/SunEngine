@@ -190,11 +190,11 @@ namespace SunEngine.Core.Controllers
                 else
                 {
                     if (!materialsManager.IsNameValid(name))
-                        throw new SunViewException(new ErrorList("MaterialNameNotValid", "Invalid material name",
+                        throw new SunListException(new ErrorList("MaterialNameNotValid", "Invalid material name",
                             ErrorType.System));
 
                     if (await materialsManager.IsNameInDbAsync(name))
-                        throw new SunViewException(ErrorList.SoftError("MaterialNameAlreadyUsed",
+                        throw new SunListException(ErrorList.SoftError("MaterialNameAlreadyUsed",
                             "This material name is already used"));
 
                     material.Name = name;

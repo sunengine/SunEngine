@@ -3,17 +3,17 @@
     <h2 class="page-title ">
       {{title}}
     </h2>
-    <q-markup-table>
+    <q-markup-table >
       <tbody>
-      <tr v-if="serverInfo.Name">
+      <tr v-if="serverInfo && serverInfo.Name">
         <td>{{$tl("serverName")}}</td>
         <td>{{serverInfo.Name}}</td>
       </tr>
-      <tr v-if="serverInfo.ServerVersion">
+      <tr v-if="serverInfo && serverInfo.ServerVersion">
         <td>{{$tl("serverVersion")}}</td>
         <td>{{serverInfo.ServerVersion}}</td>
       </tr>
-      <tr v-if="serverInfo.ServerRepository">
+      <tr v-if="serverInfo && serverInfo.ServerRepository">
         <td>{{$tl("serverRepository")}}</td>
         <td><a :href="serverInfo.ServerRepository" target="_blank">{{serverInfo.ServerRepository}}</a></td>
       </tr>
@@ -25,11 +25,11 @@
         <td>{{$tl("dotNetVersion")}}</td>
         <td>{{dotNetVersion}}</td>
       </tr>
-      <tr v-if="serverInfo.Maintainer">
+      <tr v-if="serverInfo && serverInfo.Maintainer">
         <td>{{$tl("maintainer")}}</td>
         <td>{{serverInfo.Maintainer}}</td>
       </tr>
-      <tr v-if="serverInfo.MaintainerContacts && serverInfo.MaintainerContacts.length > 0 ">
+      <tr v-if="serverInfo && serverInfo.MaintainerContacts && serverInfo.MaintainerContacts.length > 0 ">
         <td>{{$tl("maintainerContacts")}}</td>
         <td class="q-gutter-y-xs">
           <div v-for="contact of serverInfo.MaintainerContacts">
@@ -38,7 +38,7 @@
           </div>
         </td>
       </tr>
-      <tr v-if="serverInfo.Description">
+      <tr v-if="serverInfo && serverInfo.Description">
         <td>{{$tl("description")}}</td>
         <td>{{serverInfo.Description}}</td>
       </tr>

@@ -4,9 +4,9 @@ import {Api} from 'sun'
 import {request} from 'sun'
 
 
-export default function() {
+export default function () {
   request(
-    Api.Auth.Logout
+    Api.Auth.Logout, undefined, undefined, undefined, true
   ).finally(
     () => {
       removeTokens();

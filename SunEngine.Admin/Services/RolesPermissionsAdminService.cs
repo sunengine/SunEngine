@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -76,8 +77,21 @@ namespace SunEngine.Admin.Services
 
             JsonSchema schema = await JsonSchema.FromFileAsync(RolesSchemaPath);
 
-            RolesFromJsonLoader rolesFromJsonLoader = new RolesFromJsonLoader(categories, operationKeys, schema);
-            rolesFromJsonLoader.Seed(json);
+            RolesFromJsonLoader rolesFromJsonLoader;
+            try
+            {
+                rolesFromJsonLoader = new RolesFromJsonLoader(categories, operationKeys, schema);
+                rolesFromJsonLoader.Seed(json);
+            }
+            catch(Exception e)
+            {
+                throw new SunErrorException(new Error
+                {
+                    Code = "PermissionsJsonUploadParseError",
+                    Description = "Error in parsing uploaded json",
+                    Message = e.Message,
+                });
+            }
 
             try
             {
@@ -125,7 +139,7 @@ namespace SunEngine.Admin.Services
                     errorRoles.Add(role);
 
             if (errorRoles.Count > 0)
-                throw new SunViewException(
+                throw new SunListException(
                     new ErrorList("CanNotDeleteRolesItHasUsers",
                         "This roles can not be deleted because it has users, remove them first.", ErrorType.Soft,
                         string.Join(", ", errorRoles.Select(y => $"'{y.Name}'"))));

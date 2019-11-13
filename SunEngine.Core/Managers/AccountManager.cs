@@ -66,7 +66,7 @@ namespace SunEngine.Core.Managers
             }
             catch (Exception exception)
             {
-                throw new SunViewException(new ErrorList ("EmailSendError","Server error. Can not send email.", ErrorType.System, exception));
+                throw new SunListException(new ErrorList ("EmailSendError","Server error. Can not send email.", ErrorType.System, exception));
             }
         }
 

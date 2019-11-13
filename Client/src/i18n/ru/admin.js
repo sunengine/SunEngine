@@ -218,9 +218,9 @@ export default {
   // ——— all ————————————————————————————————————
 
   AdminMenu: {
-    adminPage: "Информация",
-    adminPageCaption: "",
-   // adminPageCaption: "Информация о сервере",
+    adminInformation: "Информация",
+    adminInformationCaption: "",
+    //adminInformationCaption: "Информация о сервере",
     menuItems: "Меню",
     menuItemsCaption: "",
     //menuItemsCaption: "Редактирование меню сайта",

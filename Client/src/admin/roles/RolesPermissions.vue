@@ -18,8 +18,8 @@
 
       <div class="roles-permissions__json-error" v-if="error">
         <q-icon name="fas fa-exclamation-triangle" size="24px" class="q-mr-md q-mt-xs float-left"/>
-        <div class="roles-permissions__message" v-html="error.message"></div>
-        <div class="roles-permissions__stack" v-html="error.text"></div>
+        <div class="roles-permissions__message" v-if="error.message">{{error.message}}</div>
+        <div class="roles-permissions__stack" v-if="error.text">{{error.text}}</div>
       </div>
     </div>
 
@@ -66,12 +66,13 @@
                     {
                         json: this.json
                     }
-                ).then(async () => {
+                ).then(() => {
                         this.error = null;
                         this.$successNotify(this.$tl('saveSuccessNotify'));
                     }
                 ).catch(error => {
-                    this.error = error.response.data.errors[0];
+                    this.error = error.response.data;
+                    debugger;
                     this.$errorNotify(error, this.error.message);
                 }).finally(_ => {
                     this.loading = false;
@@ -82,9 +83,9 @@
             this.$options.components.LoaderWait = require('sun').LoaderWait;
             this.$options.components.LoaderSent = require('sun').LoaderSent;
         },
-        async created() {
+        created() {
             this.title = this.$tl('title');
-            await this.loadData();
+            this.loadData();
         }
     }
 

@@ -6,8 +6,8 @@
         <q-icon name="fas fa-info"/>
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $tl("adminPage") }}</q-item-label>
-        <q-item-label v-if="adminPageCaption" caption>{{adminPageCaption}}</q-item-label>
+        <q-item-label>{{ $tl("adminInformation") }}</q-item-label>
+        <q-item-label v-if="adminInformationCaption" caption>{{adminInformationCaption}}</q-item-label>
       </q-item-section>
     </q-item>
 
@@ -140,6 +140,9 @@
     export default {
         name: 'AdminMenu',
         computed: {
+            adminInformationCaption() {
+                return this.$tl("adminInformationCaption") ?? null;
+            },
             menuItemsCaption() {
                 return this.$tl("menuItemsCaption") ?? null;
             },

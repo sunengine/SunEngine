@@ -95,7 +95,6 @@ namespace SunEngine.Cli
                     options.SerializerSettings.ContractResolver = SunJsonContractResolver.Instance;
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                 });
-            ;
         }
 
 
