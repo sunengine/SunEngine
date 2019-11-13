@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 using LinqToDB;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Controllers;
@@ -49,11 +47,6 @@ namespace SunEngine.Core.Security
             logger = loggerFactory.CreateLogger<AccountController>();
             this.rolesCache = rolesCache;
         }
-
-        private readonly JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
-        {
-            ContractResolver = new CamelCasePropertyNamesContractResolver()
-        };
 
 
         public async Task<SunClaimsPrincipal> RenewSecurityTokensAsync(
@@ -125,12 +118,12 @@ namespace SunEngine.Core.Security
             TokenAndClaimsPrincipal tokenAndClaimsPrincipal =
                 await CreateShortTokenAsync(user, lat2r, longSession.LongToken2, longSession.Id);
 
-            string json = JsonConvert.SerializeObject(new
+            string json = JsonSerializer.Serialize(new
             {
                 LongToken = longSession.LongToken1,
                 ShortToken = tokenAndClaimsPrincipal.Token,
                 ShortTokenExpiration = tokenAndClaimsPrincipal.Expiration
-            }, jsonSerializerSettings);
+            }, SunJson.DefaultJsonSerializerOptions);
 
             httpContext.Response.Headers.Add(Headers.TokensHeaderName, json);
 

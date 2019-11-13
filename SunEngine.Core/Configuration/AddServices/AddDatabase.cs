@@ -1,4 +1,3 @@
-using LinqToDB.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Core.DataBase;

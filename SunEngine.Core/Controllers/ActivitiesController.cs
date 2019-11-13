@@ -46,13 +46,13 @@ namespace SunEngine.Core.Controllers
 
             ActivitiesComponentData componentData = component.Data as ActivitiesComponentData;
 
-            var materialsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(componentData.materialsCategories);
+            var materialsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(componentData.MaterialsCategories);
 
             IList<CategoryCached> materialsCategoriesList = authorizationService.GetAllowedCategories(User.Roles,
                 materialsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);
 
 
-            var commentsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(componentData.commentsCategories);
+            var commentsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(componentData.CommentsCategories);
 
             IList<CategoryCached> commentsCategoriesList = authorizationService.GetAllowedCategories(User.Roles,
                 commentsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);
@@ -61,7 +61,7 @@ namespace SunEngine.Core.Controllers
             int[] materialsCategoriesIds = materialsCategoriesList.Select(x => x.Id).ToArray();
             int[] commentsCategoriesIds = commentsCategoriesList.Select(x => x.Id).ToArray();
 
-            int number = componentData.number;
+            int number = componentData.Number;
 
             if (number > MaxActivitiesInQuery)
                 number = MaxActivitiesInQuery;
@@ -81,8 +81,8 @@ namespace SunEngine.Core.Controllers
 
     public class ActivitiesComponentData
     {
-        public string materialsCategories { get; set; }
-        public string commentsCategories { get; set; }
-        public int number { get; set; }
+        public string MaterialsCategories { get; set; }
+        public string CommentsCategories { get; set; }
+        public int Number { get; set; }
     }
 }

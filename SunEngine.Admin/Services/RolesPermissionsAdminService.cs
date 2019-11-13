@@ -25,7 +25,7 @@ namespace SunEngine.Admin.Services
 
         public RolesPermissionsAdminService(
             DataBaseConnection db,
-            IWebHostEnvironment env) : base(db)
+            IHostingEnvironment env) : base(db)
         {
             RolesSchemaPath = Path.Combine(env.ContentRootPath, "Resources", RolesSchemaFileName);
         }

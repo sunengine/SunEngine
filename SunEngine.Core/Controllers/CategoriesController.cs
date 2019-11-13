@@ -1,7 +1,5 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using SunEngine.Core.Presenters;
 
 namespace SunEngine.Core.Controllers
@@ -12,13 +10,6 @@ namespace SunEngine.Core.Controllers
     public class CategoriesController : BaseController
     {
         protected readonly ICategoriesPresenter categoriesPresenter;
-
-        private readonly JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
-        {
-            NullValueHandling = NullValueHandling.Ignore,
-            ContractResolver =  new CamelCasePropertyNamesContractResolver()
-        };
-
 
         public CategoriesController(
             ICategoriesPresenter categoriesPresenter,
@@ -31,7 +22,7 @@ namespace SunEngine.Core.Controllers
         public virtual IActionResult GetAllCategoriesAndAccesses()
         {
             var rez = categoriesPresenter.GetRootCategoryInfoWithAccesses(User.Roles);
-            return Json(rez, jsonSerializerSettings);
+            return Json(rez);
         }
     }
 }

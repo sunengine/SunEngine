@@ -1,65 +1,24 @@
-using System;
-using System.Reflection;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
-using SunEngine.Core.Errors;
+using System.Text.Json;
 
 namespace SunEngine.Core.Utils
 {
     public static class SunJson
     {
-        public static JsonSerializerSettings jsonSettings { get; } = new JsonSerializerSettings
+        public static JsonSerializerOptions DefaultJsonSerializerOptions = new JsonSerializerOptions
         {
-            ContractResolver = SunJsonContractResolver.Instance,
-            MissingMemberHandling = MissingMemberHandling.Ignore,
-            MaxDepth = 32,
-            TypeNameHandling = TypeNameHandling.None,
-            NullValueHandling = NullValueHandling.Ignore, 
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
-
+        
         public static string Serialize(object obj)
         {
-            return JsonConvert.SerializeObject(obj, jsonSettings);
+            return JsonSerializer.Serialize(obj);
         }
-        
-        public static JRaw MakeJRow(string json)
+
+        public static JsonElement? MakeJElement(string str)
         {
-            if (json == null)
-                return null;
-
-            try
-            {
-                return new JRaw(json);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-    }
-
-    public class SunJsonContractResolver : CamelCasePropertyNamesContractResolver
-    {
-        public static readonly SunJsonContractResolver Instance = new SunJsonContractResolver();
-
-        public static bool ShowExceptions = false;
-
-        protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
-        {
-            JsonProperty property = base.CreateProperty(member, memberSerialization);
-
-            if (property.DeclaringType == typeof(Error))
-            {
-                if (string.Equals(property.PropertyName, "Message", StringComparison.OrdinalIgnoreCase))
-                    property.ShouldSerialize =
-                        instance => ShowExceptions || (instance as Error).StackTrace == null;
-
-                if (string.Equals(property.PropertyName, "StackTrace", StringComparison.OrdinalIgnoreCase))
-                    property.ShouldSerialize = instance => ShowExceptions;
-            }
-
-            return property;
+            if (str != null)
+                return JsonDocument.Parse(str).RootElement;
+            return null;
         }
     }
 }

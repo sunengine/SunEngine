@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using SunEngine.Core.Configuration.Options;
@@ -21,7 +20,7 @@ namespace SunEngine.Core.Services
 
         public PathService(
             IOptionsMonitor<GlobalOptions> globalOptions,
-            IWebHostEnvironment env)
+            IHostingEnvironment env)
         {
             ApplicationDir = env.ContentRootPath;
             WwwRootDir = MakePath(globalOptions.CurrentValue.WwwRootDir);

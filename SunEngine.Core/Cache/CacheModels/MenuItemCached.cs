@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using SunEngine.Core.Models;
 using SunEngine.Core.Utils;
 
@@ -16,9 +16,9 @@ namespace SunEngine.Core.Cache.CacheModels
         public string Title { get; }
         public string SubTitle { get; }
         public string RouteName { get; }
-        public JRaw RouteParamsJson { get; }
+        public JsonElement? RouteParamsJson { get; }
         public bool Exact { get; }
-        public JRaw SettingsJson { get; }
+        public JsonElement? SettingsJson { get; }
         public string CssClass { get; }
         public string ExternalUrl { get; }
         public bool IsSeparator { get; }
@@ -26,7 +26,8 @@ namespace SunEngine.Core.Cache.CacheModels
         public string Icon { get; }
         public string CustomIcon { get; }
         public bool IsHidden { get; }
-        [JsonIgnore] public IReadOnlyDictionary<int, RoleCached> Roles { get; }
+        [JsonIgnore] 
+        public IReadOnlyDictionary<int, RoleCached> Roles { get; }
 
 
         public MenuItemCached(MenuItem menuItem, IReadOnlyDictionary<int, RoleCached> roles)
@@ -45,8 +46,8 @@ namespace SunEngine.Core.Cache.CacheModels
             Icon = menuItem.Icon;
             IsHidden = menuItem.IsHidden;
             
-            RouteParamsJson = SunJson.MakeJRow(menuItem.RouteParamsJson);
-            SettingsJson = SunJson.MakeJRow(menuItem.SettingsJson);
+            RouteParamsJson = SunJson.MakeJElement(menuItem.RouteParamsJson);
+            SettingsJson = SunJson.MakeJElement(menuItem.SettingsJson);
             
             Roles = roles;
         }

@@ -55,7 +55,7 @@ export default function prepareAllCategories(state, root) {
           has = true;
 
 
-    if (category.categoryPersonalAccess?.materialWrite)
+    if (category.categoryPersonalAccess?.MaterialWrite)
       has = true;
 
     category.canSomeChildrenWriteMaterial = has;

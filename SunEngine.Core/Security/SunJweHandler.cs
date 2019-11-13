@@ -10,7 +10,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 using SunEngine.Core.Cache.Services;
-using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Managers;
 using SunEngine.Core.Models;
 

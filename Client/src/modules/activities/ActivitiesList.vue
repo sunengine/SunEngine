@@ -30,6 +30,7 @@
         },
         methods: {
             loadData() {
+                debugger;
                 this.$request(this.$Api.Activities.GetActivities,
                     {
                         componentName: this.componentName

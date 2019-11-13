@@ -58,7 +58,7 @@ function goDeep(category) {
     selectable: false
   };
 
-  if (category.categoryPersonalAccess?.materialWrite) {
+  if (category.categoryPersonalAccess?.MaterialWrite) {
     if (category.isMaterialsContainer) { // writable
       ret.icon = 'fas fa-folder';
       ret.iconColor = 'green-5';

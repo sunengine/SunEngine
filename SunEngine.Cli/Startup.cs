@@ -1,19 +1,15 @@
-﻿using System;
+﻿using System.Text.Json;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
 using SunEngine.Admin;
-using SunEngine.Core.Configuration;
 using SunEngine.Core.Configuration.AddServices;
-using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
 using SunEngine.Core.Security;
 using SunEngine.Core.Services;
-using SunEngine.Core.Utils;
 
 namespace SunEngine.Cli
 {
@@ -82,19 +78,26 @@ namespace SunEngine.Cli
 
             services.AddSingleton<IPathService, PathService>();
 
-            services.AddSingleton((IConfigurationRoot)Configuration);
-            
+            services.AddSingleton((IConfigurationRoot) Configuration);
+
             services.AddMvcCore(options =>
                 {
                     // Add filters here
                 })
                 .AddApiExplorer()
                 .AddAuthorization()
-                .AddNewtonsoftJson(options =>
+                .AddJsonOptions(options =>
                 {
-                    options.SerializerSettings.ContractResolver = SunJsonContractResolver.Instance;
-                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                });
+                    options.JsonSerializerOptions.WriteIndented = false;
+                    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                }
+        );
+
+        /*.AddNewtonsoftJson(options =>
+        {
+            options.SerializerSettings.ContractResolver = SunJsonContractResolver.Instance;
+            options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+        });*/
         }
 
 
@@ -133,8 +136,8 @@ namespace SunEngine.Cli
         {
             void ShowExceptions()
             {
-                Console.WriteLine("ShowExceptions mode");
-                SunJsonContractResolver.ShowExceptions = true;
+                //Console.WriteLine("ShowExceptions mode");
+                //SunJsonContractResolver.ShowExceptions = true;
             }
 
             if (bool.TryParse(conf["Dev:ShowExceptions"], out bool showExceptions))

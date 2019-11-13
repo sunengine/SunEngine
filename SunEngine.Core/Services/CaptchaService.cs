@@ -1,8 +1,8 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
@@ -46,7 +46,7 @@ namespace SunEngine.Core.Services
                 Guid = Guid.NewGuid()
             };
 
-            var tokenJson = JsonConvert.SerializeObject(token);
+            var tokenJson = JsonSerializer.Serialize(token);
             return cryptService.Crypt(CypherName, tokenJson);
         }
 
@@ -59,13 +59,13 @@ namespace SunEngine.Core.Services
         public string GetTextFromToken(string token)
         {
             string json = cryptService.Decrypt(CypherName, token);
-            return JsonConvert.DeserializeObject<CaptchaToken>(json).Text;
+            return JsonSerializer.Deserialize<CaptchaToken>(json).Text;
         }
 
         public bool VerifyToken(string token, string text)
         {
             string json = cryptService.Decrypt(CypherName, token);
-            CaptchaToken captchaToken = JsonConvert.DeserializeObject<CaptchaToken>(json);
+            CaptchaToken captchaToken = JsonSerializer.Deserialize<CaptchaToken>(json);
             if (captchaToken.Expire < DateTime.UtcNow)
                 return false;
 

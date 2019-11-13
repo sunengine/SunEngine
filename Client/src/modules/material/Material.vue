@@ -162,7 +162,7 @@
             canCommentWrite() {
                 if (!this.material || this.material.isCommentsBlocked)
                     return false;
-                return this.category.categoryPersonalAccess.commentWrite;
+                return this.category.categoryPersonalAccess.CommentWrite;
             },
             categoryPersonalAccess() {
                 return this.category.categoryPersonalAccess;
@@ -176,18 +176,18 @@
                 }
                 const category = this.$store.getters.getCategory(this.material.categoryName);
 
-                if (category.categoryPersonalAccess.materialEditAny) {
+                if (category.categoryPersonalAccess.MaterialEditAny) {
                     return true;
                 }
                 if (this.material.authorId !== this.$store.state.auth.user.id) {
                     return false;
                 }
-                if (!category.categoryPersonalAccess.materialEditOwnIfHasReplies &&
+                if (!category.categoryPersonalAccess.MaterialEditOwnIfHasReplies &&
                     this.comments.length >= 1 && !this.checkLastOwn(this.comments[0])
                 ) {
                     return false;
                 }
-                if (!category.categoryPersonalAccess.materialEditOwnIfTimeNotExceeded) {
+                if (!category.categoryPersonalAccess.MaterialEditOwnIfTimeNotExceeded) {
                     const now = new Date();
                     const publish = new Date(this.material.publishDate);
                     const til = date.addToDate(publish, {minutes: config.Materials.TimeToOwnEditInMinutes});
@@ -195,7 +195,7 @@
                         return false;
                     }
                 }
-                return !!category.categoryPersonalAccess.materialEditOwn;
+                return !!category.categoryPersonalAccess.MaterialEditOwn;
             },
             canDelete() {
                 return canDeleteMaterial.call(this);

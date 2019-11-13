@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using AngleSharp.Dom.Html;
 using Microsoft.Extensions.Configuration;
 using SunEngine.Core.Configuration.Options;
-using SunEngine.Core.Errors;
 using SunEngine.Core.Errors.Exceptions;
 
 namespace SunEngine.Core.Services

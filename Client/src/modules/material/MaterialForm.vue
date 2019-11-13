@@ -151,13 +151,13 @@
                 return this.$store.state.auth.roles.includes('Admin') && this.category?.isMaterialsNameEditable;
             },
             canHide() {
-                return this.category?.categoryPersonalAccess?.materialHide;
+                return this.category?.categoryPersonalAccess?.MaterialHide;
             },
             canEditSettingsJson() {
-                return this.category?.categoryPersonalAccess?.materialEditSettingsJson;
+                return this.category?.categoryPersonalAccess?.MaterialEditSettingsJson;
             },
             canBlockComments() {
-                return this.category?.categoryPersonalAccess?.materialBlockCommentsAny;
+                return this.category?.categoryPersonalAccess?.MaterialBlockCommentsAny;
             },
             categoryTitle() {
                 return this.category?.title;

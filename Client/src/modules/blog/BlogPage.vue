@@ -47,7 +47,7 @@
                 return this.$store.getters.getCategory(this.categoryName);
             },
             canAddArticle() {
-                return this.category?.categoryPersonalAccess?.materialWrite;
+                return this.category?.categoryPersonalAccess?.MaterialWrite;
             }
         },
         methods: {

@@ -10,7 +10,6 @@ using SunEngine.Core.Errors;
 using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Filters;
 using SunEngine.Core.Managers;
-using SunEngine.Core.Models;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Presenters;
 using SunEngine.Core.Security;

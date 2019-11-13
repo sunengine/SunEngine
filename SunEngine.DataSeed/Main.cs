@@ -1,13 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
 using System.IO;
 using System.Linq;
-using System.Net.Sockets;
 using Microsoft.Extensions.Configuration;
 using SunEngine.Core.DataBase;
-using SunEngine.Core.Errors;
 using SunEngine.Core.Models;
 
 namespace SunEngine.DataSeed

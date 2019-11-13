@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using LinqToDB;
 using LinqToDB.DataProvider.MySql;
 using SunEngine.Core.DataBase;
-using SunEngine.Core.Errors;
 using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils.TextProcess;

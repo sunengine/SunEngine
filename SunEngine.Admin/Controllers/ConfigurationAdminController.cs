@@ -1,31 +1,16 @@
 using System;
 using System.Linq;
-using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using SunEngine.Admin.Managers;
 using SunEngine.Admin.Presenters;
-using SunEngine.Core.Configuration;
 using SunEngine.Core.Models;
 
 namespace SunEngine.Admin.Controllers
 {
     public class ConfigurationAdminController : BaseAdminController
     {
-        protected static JsonSerializerSettings EnumsJsonSerializerSettings = new JsonSerializerSettings
-        {
-            ContractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new DefaultNamingStrategy()
-                {
-                    OverrideSpecifiedNames = false
-                }
-            },
-        };
-        
         protected readonly IConfigurationManager configurationManager;
         protected readonly IConfigurationPresenter configurationPresenter;
         protected readonly IConfigurationRoot configurationRoot;
@@ -69,7 +54,7 @@ namespace SunEngine.Admin.Controllers
         {
             var items = configurationPresenter.GetEnums();
 
-            return Json(items, EnumsJsonSerializerSettings);
+            return Json(items);
         }
     }
 }

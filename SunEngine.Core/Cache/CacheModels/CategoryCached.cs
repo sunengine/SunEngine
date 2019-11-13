@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
 using SunEngine.Core.Models;
 using SunEngine.Core.Utils;
 
@@ -36,7 +36,7 @@ namespace SunEngine.Core.Cache.CacheModels
         
         public bool IsMaterialsSubTitleEditable { get; }
 
-        public JRaw SettingsJson { get; }
+        public JsonElement? SettingsJson { get; }
 
         public int? ParentId { get; }
         public CategoryCached Parent { get; private set; }
@@ -73,7 +73,7 @@ namespace SunEngine.Core.Cache.CacheModels
             IsMaterialsNameEditable = category.IsMaterialsNameEditable;
             IsMaterialsSubTitleEditable = category.IsMaterialsSubTitleEditable;
             MaterialsPreviewGeneratorName = category.MaterialsPreviewGeneratorName;
-            SettingsJson = SunJson.MakeJRow(category.SettingsJson);
+            SettingsJson = SunJson.MakeJElement(category.SettingsJson);
             ParentId = category.ParentId;
             SortNumber = category.SortNumber;
             LayoutName = category.LayoutName;

@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Cache.Services;
-using SunEngine.Core.Models;
 using SunEngine.Core.Security;
 
 namespace SunEngine.Core.Presenters
@@ -62,7 +61,7 @@ namespace SunEngine.Core.Presenters
                 LayoutName = category.LayoutName,
                 IsMaterialsSubTitleEditable = category.IsMaterialsSubTitleEditable,
                 IsMaterialsNameEditable = category.IsMaterialsNameEditable,
-                SettingsJson = category.SettingsJson,
+               // SettingsJson = category.SettingsJson,
                 IsHidden = category.IsHidden,
 
                 CategoryPersonalAccess = DetectPersonalAccesses(category, roles)

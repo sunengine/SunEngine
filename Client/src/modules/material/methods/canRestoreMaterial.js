@@ -1,3 +1,3 @@
 export default function() {
-  return this.category.categoryPersonalAccess.materialDeleteAny;
+  return this.category.categoryPersonalAccess.MaterialDeleteAny;
 }

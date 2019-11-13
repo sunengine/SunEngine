@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
@@ -14,6 +13,7 @@ using SunEngine.Core.Errors;
 using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace SunEngine.Admin.Services
 {
@@ -22,12 +22,12 @@ namespace SunEngine.Admin.Services
         public readonly string WwwRootPath;
         public readonly string AllSkinsPath;
         public readonly string CurrentSkinPath;
-        public readonly IWebHostEnvironment env;
+        public readonly IHostingEnvironment env;
 
         public SkinsAdminService(
             IPathService pathService,
             IOptionsMonitor<SkinsOptions> skinsOptions,
-            IWebHostEnvironment env)
+           IHostingEnvironment  env)
         {
             this.env = env;
 

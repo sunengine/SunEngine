@@ -1,14 +1,10 @@
 using System;
-using System.Data.SqlClient;
 using System.IO;
-using System.Net.Mime;
-using System.Net.Sockets;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MySql.Data.MySqlClient;
 using Npgsql;
-using SunEngine.Core.Errors;
 using SunEngine.Migrations.Migrations;
 
 

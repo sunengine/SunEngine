@@ -1,4 +1,4 @@
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 namespace SunEngine.Core.Utils
 {
@@ -53,7 +53,7 @@ namespace SunEngine.Core.Utils
         {
             try
             {
-                JToken.Parse(json);
+                JsonDocument.Parse(json);
                 return true;
             }
             catch

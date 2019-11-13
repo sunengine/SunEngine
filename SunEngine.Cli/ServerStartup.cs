@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.AspNetCore;
+using System.Text.Json;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using SunEngine.Core.Configuration;
 using SunEngine.Core.DataBase;
 
@@ -21,7 +19,7 @@ namespace SunEngine.Cli
             IConfiguration conf = (IConfiguration) webHost.Services.GetService(typeof(IConfiguration));
 
             InfoPrinter.PrintVersion();
-            Startup.SetExceptionsMode(env, conf);
+            //Startup.SetExceptionsMode(env, conf);
             webHost.Run();
         }
 
@@ -48,10 +46,11 @@ namespace SunEngine.Cli
                         config.AddJsonFile(mainSettingsFile, false, false);
                         //config.AddJsonFile(sanitizerOptionsFile, false, false);
 
-                        var dataBaseConnectionObject = JObject.Parse(File.ReadAllText(dbSettingFile));
-                        var dataBaseConnectionVars = dataBaseConnectionObject["DataBaseConnection"];
-                        var linq2dbProvider = dataBaseConnectionVars["Linq2dbProvider"].ToString();
-                        var connectionString = dataBaseConnectionVars["ConnectionString"].ToString();
+                       
+                        var dataBaseConnectionObject = JsonDocument.Parse(File.ReadAllText(dbSettingFile));
+                        var dataBaseConnectionVars = dataBaseConnectionObject.RootElement.GetProperty("DataBaseConnection");
+                        var linq2dbProvider = dataBaseConnectionVars.GetProperty("Linq2dbProvider").GetString();
+                        var connectionString = dataBaseConnectionVars.GetProperty("ConnectionString").GetString();
 
                         DataBaseFactory.DefaultDataBaseFactory = new DataBaseFactory(linq2dbProvider, connectionString,
                             new DbMappingSchema());
