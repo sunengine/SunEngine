@@ -177,7 +177,7 @@
                     this.token = response.data;
                     this.waitToken = false;
                 }).catch(x => {
-                    if (x.response.data.errors[0].code === 'SpamProtection')
+                    if (x.response.data.code === 'SpamProtection')
                         this.waitToken = true;
                 });
             }

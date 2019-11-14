@@ -75,13 +75,13 @@
             }
         },
         methods: {
-            async send() {
+            send() {
                 this.$refs.email.validate();
                 this.$refs.captchaText.validate();
 
-                if (this.$refs.email.hasError || this.$refs.captchaText.hasError) {
+                if (this.$refs.email.hasError || this.$refs.captchaText.hasError)
                     return;
-                }
+
 
                 this.submitting = true;
                 this.$request(this.$Api.Account.ResetPasswordSendEmail,
@@ -89,7 +89,6 @@
                         Email: this.email,
                         CaptchaToken: this.token,
                         CaptchaText: this.captchaText
-
                     }
                 ).then(() => {
                     this.done = true;
@@ -105,17 +104,17 @@
                         this.token = response.data;
                         this.waitToken = false;
                     }).catch(error => {
-                    if (error.response.data.errors[0].code === 'SpamProtection') {
+                    if (error.response.data.code === 'SpamProtection') {
                         this.waitToken = true;
                     }
                 });
             }
         },
-        async created() {
+        created() {
             this.title = this.$tl('title');
             this.rules = createRules.call(this);
 
-            await this.GetToken();
+            this.GetToken();
         }
     }
 
