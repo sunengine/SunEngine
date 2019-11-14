@@ -22,25 +22,24 @@ namespace SunEngine.Admin.Services
         public readonly string WwwRootPath;
         public readonly string AllSkinsPath;
         public readonly string CurrentSkinPath;
-        public readonly string SkinNamePath;
         public readonly IHostingEnvironment env;
- 
+
         private readonly int MaxArchiveSize;
         private readonly int MaxExtractArchiveSize;
-        
+
         private readonly List<string> requiredFiles = new List<string>()
         {
             "styles.css",
             "preview.png",
             "readme.md"
         };
-        
+
         private readonly List<string> allowedExtensions = new List<string>()
         {
             ".scss", ".sass", ".css", ".map", ".png", ".jpg", ".jpeg", ".gif",
             ".svg", ".woff", ".woff2", ".ttf", ".otf", ".json", ".md"
         };
-        
+
         public SkinsAdminService(
             IPathService pathService,
             IOptionsMonitor<SkinsOptions> skinsOptions,
@@ -51,9 +50,9 @@ namespace SunEngine.Admin.Services
 
             AllSkinsPath = pathService.MakePath(skinsOptions.CurrentValue.AllSkinsDir);
             CurrentSkinPath = pathService.MakePath(skinsOptions.CurrentValue.CurrentSkinDir);
-            SkinNamePath = Path.Combine(AllSkinsPath, "name.txt");
             MaxArchiveSize = fileLoadingOptions.CurrentValue.MaxArchiveSize * 1024;
             MaxExtractArchiveSize = fileLoadingOptions.CurrentValue.MaxExtractArchiveSize * 1024;
+            WwwRootPath = pathService.WwwRootDir;
         }
 
         public void UploadSkin(IFormFile file)
@@ -65,8 +64,8 @@ namespace SunEngine.Admin.Services
             if (extension != ".zip")
                 throw new SunErrorException(new Error("NotValidSkinFileNotZip", "Skin file has to be .zip",
                     ErrorType.System));
-            
-            if(file.Length > MaxArchiveSize)
+
+            if (file.Length > MaxArchiveSize)
                 throw new SunErrorException(new Error("VeryBigFile", $"Max file size {MaxArchiveSize}Kb",
                     ErrorType.System));
 
@@ -79,23 +78,24 @@ namespace SunEngine.Admin.Services
 
             if (zipArchive.Entries.Sum(entry => entry.Length) > MaxExtractArchiveSize)
             {
-                throw new SunErrorException(new Error("VeryBigExtractArchive", $"Max extract archive size {MaxExtractArchiveSize}Kb",
+                throw new SunErrorException(new Error("VeryBigExtractArchive",
+                    $"Max extract archive size {MaxExtractArchiveSize}Kb",
                     ErrorType.System));
             }
 
-            var fileNames = zipArchive.Entries.Select(x => x.Name); 
+            var fileNames = zipArchive.Entries.Select(x => x.Name);
             var missingFiles = requiredFiles.Where(x => !fileNames.Contains(x)).ToList();
             if (missingFiles.Count > 0)
             {
                 var strMissingFiles = missingFiles.Aggregate((x, y) => $"{x}, {y}");
-                throw new SunErrorException(new Error("MissingRequiredFiles", $"Missing required files: {strMissingFiles}",
-                    ErrorType.System));
+                throw new SunErrorException(new Error("MissingRequiredFiles",
+                    $"Missing required files: {strMissingFiles}"));
             }
 
-            var hasDisallowedFile = zipArchive.Entries.All(entry => allowedExtensions.Contains(Path.GetExtension(entry.FullName)));
+            var hasDisallowedFile =
+                zipArchive.Entries.All(entry => allowedExtensions.Contains(Path.GetExtension(entry.FullName)));
             if (!hasDisallowedFile)
-                throw new SunErrorException(new Error("HasDisallowedFile", "",
-                    ErrorType.System));
+                throw new SunErrorException(new Error("HasDisallowedFile", ""));
 
             var jsonString = new StreamReader(zipEntry.Open()).ReadToEnd();
             var skinInfo = JsonConvert.DeserializeObject<SkinInfo>(jsonString);
@@ -127,8 +127,6 @@ namespace SunEngine.Admin.Services
 
             CopyDir(selectedSkinPath, CurrentSkinPath);
 
-            File.WriteAllText(SkinNamePath, secureSkinName);
-
             if (env.IsProduction())
             {
                 var ran = new Random();
@@ -136,11 +134,13 @@ namespace SunEngine.Admin.Services
                 var text = File.ReadAllText(configJsPath);
                 Regex reg1 = new Regex("skinver=\\d+\"");
                 text = reg1.Replace(text, $"skinver={ran.Next()}\"");
-
+                File.WriteAllText(configJsPath,text);
+                
                 var indexHtmlPath = Path.Combine(WwwRootPath, "index.html");
                 text = File.ReadAllText(indexHtmlPath);
                 Regex reg2 = new Regex("configver=\\d+\"");
                 text = reg2.Replace(text, $" configver={ran.Next()}\"");
+                File.WriteAllText(indexHtmlPath,text);
             }
         }
 
@@ -149,9 +149,24 @@ namespace SunEngine.Admin.Services
             var skinsPaths = Directory.GetDirectories(AllSkinsPath);
             var skins = skinsPaths.Select(Path.GetFileName).OrderBy(x => x).ToArray();
 
-            SkinInfo currentSkinInfo = JsonConvert.DeserializeObject<SkinInfo>(
-                File.ReadAllText(Path.Combine(CurrentSkinPath, "info.json")));
-            
+            var currentSkinInfoJsonPath = Path.Combine(CurrentSkinPath, "info.json");
+
+            string currentSkinName = null;
+
+            if (File.Exists(currentSkinInfoJsonPath))
+            {
+                try
+                {
+                    SkinInfo currentSkinInfo = JsonConvert.DeserializeObject<SkinInfo>(
+                        File.ReadAllText(currentSkinInfoJsonPath));
+                    currentSkinName = currentSkinInfo.Name;
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+
 
             var skinsInfos = new List<SkinInfo>();
 
@@ -161,7 +176,7 @@ namespace SunEngine.Admin.Services
                 {
                     var jsonInfo = System.IO.File.ReadAllText(Path.Combine(AllSkinsPath, skin, "info.json"));
                     SkinInfo skinInfo = JsonConvert.DeserializeObject<SkinInfo>(jsonInfo);
-                    if (skinInfo.Name == currentSkinInfo.Name)
+                    if (skinInfo.Name == currentSkinName)
                         skinInfo.Current = true;
 
                     skinsInfos.Add(skinInfo);

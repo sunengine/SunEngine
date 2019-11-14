@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
@@ -60,6 +61,7 @@ namespace SunEngine.DataSeed
             {
                 int id = dataContainer.NextCategoryId();
                 string name = PrepareText((string) categoryToken["Name"], numbers);
+
                 string thisMaterialTypeTitle = (string) categoryToken["MaterialTypeTitle"] ?? instanceTitle;
 
                 Category category = new Category

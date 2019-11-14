@@ -66,7 +66,7 @@
         </q-card-section>
 
         <q-card-actions align="around">
-          <q-btn v-if="skin.current" class="skins-admin__current-btn" flat no-caps disable
+          <q-btn  v-if="skin.current" class="skins-admin__current-btn" flat no-caps
                  :label="$tl('current')" icon="fas fa-check"/>
 
           <q-btn flat v-if="!skin.current" :loading="skin.loading" no-caps @click="changeSkin(skin.name)"

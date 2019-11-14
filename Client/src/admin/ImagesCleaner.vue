@@ -8,9 +8,9 @@
     </q-banner>
 
     <div class="images-cleaner__btn-block q-gutter-md flex q-mb-xl">
-      <q-btn icon="fas fa-trash" class="send-btn"  :loading="loading" :disable="!images" @click="clear()" no-caps
+      <q-btn :v-if="images" icon="fas fa-trash" class="send-btn" :loading="loading" @click="clear()" no-caps
              :label="$tl('clearBtn')">
-        <LoaderSent  slot="loading">
+        <LoaderSent slot="loading">
           {{$tl("working")}}
         </LoaderSent>
       </q-btn>
