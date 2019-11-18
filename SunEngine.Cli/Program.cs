@@ -24,7 +24,10 @@ namespace SunEngine.Cli
             UseConfigurationDirectory(config);
 
             if (config.CheckDatabaseAvailability)
-                DataSeed().PrintDbConnectionAvailability();
+            {
+                if (!DataSeed().PrintDbConnectionAvailability())
+                    Environment.Exit(1);
+            }
 
             else if (ShouldUpdate(config))
             {

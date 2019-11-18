@@ -16,5 +16,4 @@ const config = {
     Requests: true,         // Do not use on production
     MoveTo: true,           // Do not use on production
   }
-
 };

@@ -41,7 +41,7 @@
             name: [
                 value => !!value || this.$tl('validation.name.required'),
                 value => (!value || value.length >= 3) || this.$tl('validation.name.minLength'),
-                value => (!value || value.length <= config.DbColumnSizes.MenuItems_Name) || this.$tl('validation.name.maxLength'),
+                value => (!value || value.length <= variables.DbColumnSizes.MenuItems_Name) || this.$tl('validation.name.maxLength'),
                 value => /^[a-zA-Z0-9_-]*$/.test(value) || this.$tl('validation.name.allowedChars'),
             ],
             type: [

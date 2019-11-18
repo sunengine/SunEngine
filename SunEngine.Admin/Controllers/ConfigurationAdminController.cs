@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SunEngine.Admin.Managers;
 using SunEngine.Admin.Presenters;
+using SunEngine.Admin.Services;
 using SunEngine.Core.Models;
 
 namespace SunEngine.Admin.Controllers
@@ -14,15 +16,18 @@ namespace SunEngine.Admin.Controllers
         protected readonly IConfigurationManager configurationManager;
         protected readonly IConfigurationPresenter configurationPresenter;
         protected readonly IConfigurationRoot configurationRoot;
+        protected readonly ConfigurationAdminService configurationAdminService;
 
         public ConfigurationAdminController(
             IConfigurationManager configurationManager,
+            ConfigurationAdminService configurationAdminService,
             IConfigurationPresenter configurationPresenter,
             IConfigurationRoot configurationRoot,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.configurationRoot = configurationRoot;
             this.configurationManager = configurationManager;
+            this.configurationAdminService = configurationAdminService;
             this.configurationPresenter = configurationPresenter;
         }
 
@@ -36,6 +41,7 @@ namespace SunEngine.Admin.Controllers
             }).ToList();
 
             configurationManager.UploadConfigurationItems(items);
+            configurationAdminService.UpdateClientScripts();
             configurationRoot.Reload();
 
             return Ok();

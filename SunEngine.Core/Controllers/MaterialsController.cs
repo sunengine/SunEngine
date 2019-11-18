@@ -288,7 +288,7 @@ namespace SunEngine.Core.Controllers
         [MaxLength(DbColumnSizes.Materials_Title)]
         public string Title { get; set; }
 
-        [MaxLength(DbColumnSizes.Materials_Description)]
+        [MaxLength(DbColumnSizes.Materials_SubTitle)]
         public string SubTitle { get; set; }
 
         [Required] public string text { get; set; }

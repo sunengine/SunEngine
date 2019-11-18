@@ -136,7 +136,7 @@
             ],
             icon: [
                 value => (!value || value.length >= 3) || this.$tl('validation.icon.minLength'),
-                value => (!value || value.length) <= config.DbColumnSizes.Categories_Icon || this.$tl('validation.icon.maxLength'),
+                value => (!value || value.length) <= variables.DbColumnSizes.Categories_Icon || this.$tl('validation.icon.maxLength'),
             ],
             settingsJson: [
                 value => (!value || isJson(value)) || this.$tl('validation.settingsJson.jsonFormatError')

@@ -15,7 +15,6 @@ namespace SunEngine.Cli
 {
     public class Startup
     {
-        
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
@@ -34,10 +33,9 @@ namespace SunEngine.Cli
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            if (CurrentEnvironment.IsDevelopment())
-            {
+            var origins = Configuration.GetValue<string>("Cors:Origins");
+            if (!string.IsNullOrEmpty(origins))
                 services.AddCors();
-            }
 
             services.AddOptions(Configuration);
 
@@ -87,17 +85,17 @@ namespace SunEngine.Cli
                 .AddApiExplorer()
                 .AddAuthorization()
                 .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.WriteIndented = false;
-                    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-                }
-        );
+                    {
+                        options.JsonSerializerOptions.WriteIndented = false;
+                        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                    }
+                );
 
-        /*.AddNewtonsoftJson(options =>
-        {
-            options.SerializerSettings.ContractResolver = SunJsonContractResolver.Instance;
-            options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-        });*/
+            /*.AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ContractResolver = SunJsonContractResolver.Instance;
+                options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+            });*/
         }
 
 
@@ -105,20 +103,24 @@ namespace SunEngine.Cli
         {
             if (!CurrentEnvironment.IsDevelopment())
                 app.UseHsts();
-
-            // app.UseFileServer();
+            
+            app.UseFileServer();
 
             app.UseCookiePolicy();
 
-            if (CurrentEnvironment.IsDevelopment())
-            {
+            var origins = Configuration.GetValue<string>("Cors:Origins").Split(",");
+
+            if (Configuration.GetValue<bool>("FileServer"))
                 app.UseStaticFiles();
 
+            if (origins != null && origins.Length >= 1)
+            {
                 app.UseCors(builder =>
-                    builder.WithOrigins("http://localhost:5005")
+                    builder.WithOrigins(origins)
                         .AllowCredentials().AllowAnyHeader().AllowAnyMethod()
                         .WithExposedHeaders(Headers.TokensHeaderName));
             }
+
 
             app.UseRouting();
             app.UseAuthentication();

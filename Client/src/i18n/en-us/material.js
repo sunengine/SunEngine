@@ -53,19 +53,19 @@ export default {
         allowedChars: "Name must be contain only english letters, numbers and character '-'",
         numberNotAllowed: "Material name can`t be number",
         minLength: "Minimal name length - 3",
-        maxLength: `Maximal name length - ${config.DbColumnSizes.Materials_Name}`,
+        maxLength: `Maximal name length - ${variables.DbColumnSizes.Materials_Name}`,
       },
       title: {
         required: "Enter header",
         minLength: "Minimal header length - 3",
-        maxLength: `Maximal header length - ${config.DbColumnSizes.Materials_Title}`,
+        maxLength: `Maximal header length - ${variables.DbColumnSizes.Materials_Title}`,
       },
       text: {
         required: "Enter text",
         htmlTextSizeOrHasImage: "Minimal text length - 5",
       },
       subTitle: {
-        maxLength: "Maximal length " + config.DbColumnSizes.Materials_SubTitle
+        maxLength: "Maximal length " + variables.DbColumnSizes.Materials_SubTitle
       },
       category: {
         required: "Selected category"

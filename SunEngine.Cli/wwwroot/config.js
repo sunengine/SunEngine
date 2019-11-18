@@ -3,21 +3,27 @@ const config = {
   API: 'http://localhost:5000',
   SiteUrl: "http://localhost:5005",
   UploadedImages: 'http://localhost:5000/UploadImages',
-  SiteName: 'SunEngine Demo',
-  Skin: 'http://localhost:5000/CurrentSkin/styles.css',  // Do not change last part "statics/skin/styles.css"
-  //Skin: 'http://localhost:5005/statics/CurrentSkin/styles.css',  // For development purposes
+  Skin: 'http://localhost:5000/CurrentSkin/styles.css',
+  //Skin: 'http://localhost:5005/statics/CurrentSkin/styles.css', // use to skin dev and place skin in statics/CurrentSkin
 
   OpenExternalLinksAtNewTab: true,
 
-  VueDevTools: true,      // Do not use on production
-  VueAppInWindow: true,   // Do not use on production
+  VueDevTools: true,        // Do not use on production
+  VueAppInWindow: true,     // Do not use on production
 
   Log: {
-    InitExtended: true,   // Do not use on production
-    Requests: true,       // Do not use on production
-    MoveTo: true,         // Do not use on production
+    InitExtended: true,     // Do not use on production
+    Requests: true,         // Do not use on production
+    MoveTo: true,           // Do not use on production
   },
 
+
+
+
+
+  Global: {
+    SiteName: 'SunEngine Demo',
+  },
   Comments: {
     "TimeToOwnEditInMinutes": 15,
     "TimeToOwnDeleteInMinutes": 15
@@ -27,6 +33,12 @@ const config = {
     "TimeToOwnDeleteInMinutes": 15,
     "TimeToOwnMoveInMinutes": 15,
   },
+  PasswordValidation: {
+    MinLength: 6,
+    MinDifferentChars: 2
+  },
+  // auto-end
+
   DbColumnSizes: {
     Categories_Name: 64,
     Categories_Title: 256,
@@ -51,23 +63,8 @@ const config = {
     Components_Name: 32,
     Components_Type: 32
   },
-  PasswordValidation: {
-    MinLength: 6,
-    MinDifferentChars: 2
-  },
   Misc: {
     AdminRoleUsersMaxUsersTake: 40,
     DefaultAvatar: "default-avatar.svg"
-  }
+  },
 };
-
-
-if(config.SiteUrl.startsWith("http://"))
-  config.SiteSchema = "http://";
-else if(config.SiteUrl.startsWith("https://"))
-  config.SiteSchema = "https://";
-else
-  throw "SiteUrl in config.js have to start with 'http://' or 'https://'.";
-
-
-document.writeln(`<link href="${config.Skin}?skinver=111111" rel="stylesheet">`);

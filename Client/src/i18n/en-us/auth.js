@@ -33,18 +33,18 @@ export default {
       userName: {
         required: "Enter login",
         minLength: "Login must be at least 3 letters long",
-        maxLength: `Login must be at most not ${config.DbColumnSizes.Users_UserName} characters`,
+        maxLength: `Login must be at most not ${variables.DbColumnSizes.Users_UserName} characters`,
         nameInDb: "User name is already taken"
       },
       email: {
         required: "Enter email",
         emailSig: "@:Global.validation.emailSig",
-        maxLength: `Email must be at most not ${config.DbColumnSizes.Users_Email} characters`
+        maxLength: `Email must be at most not ${variables.DbColumnSizes.Users_Email} characters`
       },
       password: {
         required: "Enter password",
-        minLength: `Password must be at least ${config.PasswordValidation.MinLength} characters`,
-        minDifferentChars: `Password must contain at least ${config.PasswordValidation.MinDifferentChars} different characters`
+        minLength: `Password must be at least ${variables.PasswordValidation.MinLength} characters`,
+        minDifferentChars: `Password must contain at least ${variables.PasswordValidation.MinDifferentChars} different characters`
       },
       password2: {
         equals: "Passwords must match"

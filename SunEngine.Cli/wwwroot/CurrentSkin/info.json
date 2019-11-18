@@ -1,11 +1,11 @@
 ﻿{
-  "Name": "Default",
-  "Author": "Dimitrij Polianin",
+  "Name": "VioletOrange",
+  "Author": "Dimitrij Polianin and Rostislav Kozlenko",
   "Contacts": [
     "https://t.me/Okeanij",
-    "https://sunengine.site/user/okeanij"
+    "https://t.me/Solpi1"
   ],
   "Version": 1,
-  "SourceUrl": "https://github.com/sunengine/SunEngine.Skins/tree/master/Default",
-  "Description": "Default SunEngine skin. Thanks to Rostislav and Ilja for help!"
+  "SourceUrl": "https://github.com/sunengine/SunEngine.Skins/tree/master/VioletOrange",
+  "Description": "Light violet orange theme."
 }

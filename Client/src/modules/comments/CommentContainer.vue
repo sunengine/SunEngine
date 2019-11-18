@@ -68,7 +68,7 @@
                 if (!this.categoryPersonalAccess.CommentEditOwnIfTimeNotExceeded) {
                     const now = new Date();
                     const publish = new Date(this.comment.publishDate);
-                    const til = date.addToDate(publish, {minutes: config.Comments.TimeToOwnEditInMinutes});
+                    const til = date.addToDate(publish, {minutes: variables.Comments.TimeToOwnEditInMinutes});
                     if (til < now)
                         return false;
 
@@ -94,7 +94,7 @@
                 if (!this.categoryPersonalAccess.CommentDeleteOwnIfTimeNotExceeded) {
                     const now = new Date();
                     const publish = this.comment.publishDate;
-                    const til = date.addToDate(publish, {minutes: config.Comments.TimeToOwnDeleteInMinutes});
+                    const til = date.addToDate(publish, {minutes: variables.Comments.TimeToOwnDeleteInMinutes});
                     if (til < now)
                         return false;
                 }

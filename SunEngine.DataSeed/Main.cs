@@ -126,7 +126,7 @@ namespace SunEngine.DataSeed
             Environment.Exit(1);
         }
 
-        public void PrintDbConnectionAvailability()
+        public bool PrintDbConnectionAvailability()
         {
             if (CheckDataBaseConnection(out Exception exception))
             {
@@ -135,6 +135,7 @@ namespace SunEngine.DataSeed
                 Console.WriteLine("Database is available.");
                 Console.ResetColor();
                 Console.WriteLine();
+                return true;
             }
             else
             {
@@ -146,6 +147,7 @@ namespace SunEngine.DataSeed
                 Console.WriteLine("Database is unavailable.");
                 Console.ResetColor();
                 Console.WriteLine();
+                return false;
             }
         }
 

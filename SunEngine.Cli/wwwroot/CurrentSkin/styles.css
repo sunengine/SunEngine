@@ -17,8 +17,8 @@ a:hover, .link:hover {
 }
 
 .post-btn {
-  background-color: #c4f0ff !important;
-  color: grey !important;
+  background-color: #dbd8e6 !important;
+  color: black !important;
 }
 
 .cancel-btn {
@@ -42,7 +42,7 @@ a:hover, .link:hover {
 }
 
 .bg-pagination {
-  background-color: #24c7ff !important;
+  background-color: #FFBA51 !important;
 }
 
 .text-pagination {
@@ -54,7 +54,7 @@ a:hover, .link:hover {
 }
 
 .layout__toolbar {
-  background-color: #24c7ff;
+  background-color: #FFBA51;
 }
 
 .layout__title {
@@ -68,7 +68,7 @@ a:hover, .link:hover {
 }
 
 .main-menu-drawer {
-  background-color: unset;
+  background-color: #dbd8e6;
 }
 
 .layout__toolbar__menu-btn {
@@ -90,7 +90,7 @@ a:hover, .link:hover {
   color: #3498db !important;
   font-weight: bold;
   letter-spacing: 1px;
-  background-color: #d4f0ff !important;
+  background-color: #ffd89e !important;
   padding: 18px 0;
   border-top: 1px solid #cbcbcb;
 }
@@ -103,12 +103,12 @@ a:hover, .link:hover {
 }
 
 .sun-engine-footer__link {
-  color: orange !important;
+  color: #c26a84 !important;
 }
 
 .layout__footer-separator-icon {
   margin: 0 16px;
-  color: #ffa500 !important;
+  color: #7e73a5 !important;
 }
 
 .main-menu__logo-div {
@@ -124,13 +124,13 @@ a:hover, .link:hover {
 }
 
 .main-menu .q-router-link--active {
-  background-color: #d4f0ff !important;
+  background-color: #FFBA51 !important;
 }
 .main-menu .q-router-link--active .q-item__section--main {
-  color: unset !important;
+  color: white !important;
 }
 .main-menu .q-router-link--active .q-item__section--avatar {
-  color: unset !important;
+  color: white !important;
 }
 .main-menu .q-item__section--avatar {
   margin: 0 !important;
@@ -142,7 +142,7 @@ a:hover, .link:hover {
 }
 .main-menu .q-item__section--main {
   font-size: 1.2em;
-  color: unset !important;
+  color: black !important;
 }
 .main-menu .q-item__label--caption {
   font-size: 0.8em;
@@ -155,7 +155,7 @@ a:hover, .link:hover {
   text-transform: uppercase;
   font-size: 0.9rem !important;
   font-weight: bolder;
-  background-color: #c3edda;
+  background-color: #dbd8e6;
   border-bottom: 1px solid #f1f1f1;
   color: #666666;
 }
@@ -169,13 +169,13 @@ a:hover, .link:hover {
 }
 
 .side-panel .q-router-link--active {
-  background-color: #d4f0ff !important;
+  background-color: #FFBA51 !important;
 }
 .side-panel .q-router-link--active .q-item__section--main {
-  color: #3498db !important;
+  color: white !important;
 }
 .side-panel .q-router-link--active .q-item__section--avatar {
-  color: black !important;
+  color: white !important;
 }
 
 .material-text h3, .post-text h3, .comment-text h3 {
@@ -216,11 +216,11 @@ a:hover, .link:hover {
 }
 
 .index-page__header {
-  color: #00acef !important;
+  color: #7e73a5 !important;
 }
 
 .index-page__info-block-accent {
-  color: #a38167;
+  color: #ca913b;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -19,7 +19,7 @@
     import {Page} from 'mixins';
 
 
-    const defaultAvatar = config.Misc.DefaultAvatar;
+    const defaultAvatar = variables.Misc.DefaultAvatar;
 
     export default {
 

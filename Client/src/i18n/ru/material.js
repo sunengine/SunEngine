@@ -55,19 +55,19 @@ export default {
         allowedChars: "Имя должно содержать только английские буквы цифры и символ '-'",
         numberNotAllowed: "Имя материала не может быть числом",
         minLength: "Минимальная длинна имени - 3",
-        maxLength: `Максимальная длинна имени - ${config.DbColumnSizes.Materials_Name}`,
+        maxLength: `Максимальная длинна имени - ${variables.DbColumnSizes.Materials_Name}`,
       },
       title: {
         required: "Введите заголовок",
         minLength: "Минимальная длинна заголовка - 3",
-        maxLength: `Максимальная длинна заголовка - ${config.DbColumnSizes.Materials_Title}`,
+        maxLength: `Максимальная длинна заголовка - ${variables.DbColumnSizes.Materials_Title}`,
       },
       text: {
         required: "Введите текст",
         htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
       },
       subTitle: {
-        maxLength: "Максимально допустимая длинна " + config.DbColumnSizes.Materials_SubTitle
+        maxLength: "Максимально допустимая длинна " + variables.DbColumnSizes.Materials_SubTitle
       },
       category: {
         required: "Выберите раздел"

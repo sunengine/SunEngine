@@ -20,7 +20,7 @@ export default function () {
   if (!this.category.categoryPersonalAccess.MaterialDeleteOwnIfTimeNotExceeded) {
     const now = new Date();
     const publish = this.material.publishDate;
-    const til = date.addToDate(publish, {minutes: config.Materials.TimeToOwnDeleteInMinutes});
+    const til = date.addToDate(publish, {minutes: variables.Materials.TimeToOwnDeleteInMinutes});
     if (til < now)
       return false;
 

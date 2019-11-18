@@ -1,8 +1,7 @@
-# Default SunEngine Skin
+﻿# VioletOrange Skin
 **Version 1.0**
 
-Made by Dimitrij Polianin.
+Made by Dimitrij Polianin and Rostislav Kozlenko.
 
-Thanks for assistance to Rostislav and Ilja.
 
-![Default](https://github.com/sunengine/SunEngine.Skins/blob/master/Default/preview.png)
+![Default](https://github.com/sunengine/SunEngine.Skins/blob/master/VioletOrange/preview.png)

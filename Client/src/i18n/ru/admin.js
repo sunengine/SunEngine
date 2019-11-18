@@ -38,7 +38,7 @@ export default {
       },
       icon: {
         minLength: "Длинна должна быть не меньше 3 символов",
-        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.Categories_Icon,
+        maxLength: "Максимальная длинна должна быть не более " + variables.DbColumnSizes.Categories_Icon,
       },
       parent: {
         required: "Выберите родительскую категорию"
@@ -82,7 +82,7 @@ export default {
       name: {
         required: "Введите имя (eng)",
         minLength: "Длинна должна быть не меньше 3 символов",
-        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.Components_Name,
+        maxLength: "Максимальная длинна должна быть не более " + variables.DbColumnSizes.Components_Name,
         allowedChars: "Имя (eng) должно состоять из символов `a-z`, `A-Z`, `0-9`, `-`, `_`"
       },
       type: {
@@ -148,25 +148,25 @@ export default {
     validation: {
       name: {
         minLength: "Длинна должна быть не меньше 3 символов",
-        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.MenuItems_Name,
+        maxLength: "Максимальная длинна должна быть не более " + variables.DbColumnSizes.MenuItems_Name,
         allowedChars: "Вы ввели недопустимые символы, разрешено использование только [a-zA-Z0-9_-] символов"
       },
       title: {
         required: "Необходимо ввести заголовок",
         minLength: "Длинна должна быть не меньше 3 символов",
-        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.Categories_Title,
+        maxLength: "Максимальная длинна должна быть не более " + variables.DbColumnSizes.Categories_Title,
       },
       subTitle: {
         minLength: "Длинна должна быть не меньше 3 символов",
-        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.MenuItems_SubTitle,
+        maxLength: "Максимальная длинна должна быть не более " + variables.DbColumnSizes.MenuItems_SubTitle,
       },
       cssClass: {
         minLength: "Длинна должна быть не меньше 3 символов",
-        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.MenuItems_CssClass,
+        maxLength: "Максимальная длинна должна быть не более " + variables.DbColumnSizes.MenuItems_CssClass,
       },
       icon: {
         minLength: "Длинна должна быть не меньше 3 символов",
-        maxLength: "Максимальная длинна должна быть не более " + config.DbColumnSizes.MenuItems_Icon,
+        maxLength: "Максимальная длинна должна быть не более " + variables.DbColumnSizes.MenuItems_Icon,
       },
       settingsJson: {
         jsonFormatError: "@:Global.validation.validation"
@@ -242,7 +242,7 @@ export default {
     cacheSettingsCaption: "",
     configuration: "Конфигурация",
     configurationCaption: "",
-    //configurationCaption: "Конфигурация",
+    //variablesurationCaption: "Конфигурация",
     //cacheSettingsCaption: "Способ кэширования на сайте",
     cypherSecrets: "Ключи шифрования",
     cypherSecretsCaption: "",
@@ -293,7 +293,7 @@ export default {
       }
     }
   },
-  ConfigurationAdmin: {
+  variablesurationAdmin: {
     title: "Конфигурация сайта",
     successNotify: "Значения конфигурации успешно сохранены",
     resetSuccessNotify: "Значения конфигурации перезагружены с сервера",
