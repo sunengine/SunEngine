@@ -201,13 +201,13 @@ export default {
     roles: "Groups",
   },
   RolesPermissions: {
-    title: "Upload group variables(json)",
+    title: "Upload group permissions (json)",
     backupWarning: "Before uploading, you need to make a database backup.",
     saveToServerBtn: "Save",
     getFromServer: "Reload from server",
     getSuccessNotify: "Download completed successfully",
     saveSuccessNotify: "Group settings were updated successfully",
-    textAreaLabel: "Json file of roles variables"
+    textAreaLabel: "Json file of roles permissions"
   },
   RoleUsers: {
     users: "Users",
@@ -235,7 +235,7 @@ export default {
     rolesPermissionsCaption: "",
     cacheSettings: "Cache settings",
     cacheSettingsCaption: "",
-    configuration: "variablesuration",
+    configuration: "Configuration",
     configurationCaption: "",
     cypherSecrets: "Cypher keys",
     cypherSecretsCaption:"",
@@ -272,10 +272,10 @@ export default {
       }
     }
   },
-  variablesurationAdmin: {
-    title: "Site variablesuration",
-    successNotify: "variablesuration values successfully saved",
-    resetSuccessNotify: "variablesuration values reloaded from server",
+ConfigurationAdmin: {
+    title: "Site configuration",
+    successNotify: "Configuration values successfully saved",
+    resetSuccessNotify: "Configuration values reloaded from server",
     resetBtn: "Reload from server",
     cancelBtn: "@:Global.btn.cancel",
     saveBtn: "@:Global.btn.save"

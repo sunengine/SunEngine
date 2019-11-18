@@ -242,7 +242,7 @@ export default {
     cacheSettingsCaption: "",
     configuration: "Конфигурация",
     configurationCaption: "",
-    //variablesurationCaption: "Конфигурация",
+    //configurationCaption: "Конфигурация",
     //cacheSettingsCaption: "Способ кэширования на сайте",
     cypherSecrets: "Ключи шифрования",
     cypherSecretsCaption: "",
@@ -293,7 +293,7 @@ export default {
       }
     }
   },
-  variablesurationAdmin: {
+  ConfigurationAdmin: {
     title: "Конфигурация сайта",
     successNotify: "Значения конфигурации успешно сохранены",
     resetSuccessNotify: "Значения конфигурации перезагружены с сервера",
