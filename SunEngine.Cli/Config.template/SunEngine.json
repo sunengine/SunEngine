@@ -5,16 +5,23 @@
 {
   "Global": {
     "WwwRootDir": "~wwwroot",
-    "SiteUrl": "http://localhost:5005",  // url of web part
-    "SiteApi": "http://localhost:5000"   // url of server api part
+    "SiteUrl": "http://localhost:5005",
+    // url of web part
+    "SiteApi": "http://localhost:5000"
+    // url of server api part
   },
   "Kestrel": {
     "EndPoints": {
       "Http": {
-        "Url": "http://localhost:5000"   // kestrel server api path
+        "Url": "http://localhost:5000"
+        // kestrel server api path
       }
     }
   },
+  "Cors": {
+    "Origins": "http://localhost:5005"
+  },
+  "FileServer": false,
   "Skins": {
     "CurrentSkinDir": "@CurrentSkin",
     "AllSkinsDir": "~AllSkins"
