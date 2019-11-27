@@ -10,7 +10,7 @@ namespace SunEngine.Core.Services
     public interface IPathService
     {
         string MakePath(string token);
-        string GetPath(string name);
+        string GetPath(string dirName);
         string Combine(string dirName, params string[] args);
 
         string WwwRootDir { get; }
@@ -78,16 +78,16 @@ namespace SunEngine.Core.Services
         public string MakePath(string token)
         {
             if (token.StartsWith(AppDirPrefix))
-                return Make(ApplicationDir, SplitToken(token.Substring(AppDirPrefix.Length + 1)));
+                return Combine(ApplicationDir, Split(token.Substring(AppDirPrefix.Length + 1)));
             if (token.StartsWith(WwwRootDirPrefix))
-                return Make(WwwRootDir, SplitToken(token.Substring(WwwRootDirPrefix.Length + 1)));
+                return Combine(WwwRootDir, Split(token.Substring(WwwRootDirPrefix.Length + 1)));
             if (token.StartsWith(ConfigDirPrefix))
-                return Make(ConfigDir, SplitToken(token.Substring(ConfigDirPrefix.Length + 1)));
+                return Combine(ConfigDir, Split(token.Substring(ConfigDirPrefix.Length + 1)));
 
             return token;
 
-            string[] SplitToken(string tkn) =>  tkn.Split('\\', '/');
-            string Make(string start, string[] next) =>  System.IO.Path.Combine(start, System.IO.Path.Combine(next));
+            string[] Split(string tkn) => tkn.Split('\\', '/');
+            string Combine(string start, string[] next) => System.IO.Path.Combine(start, System.IO.Path.Combine(next));
         }
     }
 }
