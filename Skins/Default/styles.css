@@ -1,0 +1,226 @@
+html {
+  color: #06000d !important;
+  font-family: "Open Sans", sans-serif;
+}
+
+a, .link {
+  text-decoration: none;
+  color: #3498db;
+}
+a:hover, .link:hover {
+  color: #2472b3;
+}
+
+.send-btn {
+  background-color: #54e288 !important;
+  color: white !important;
+}
+
+.post-btn {
+  background-color: #c4f0ff !important;
+  color: grey !important;
+}
+
+.cancel-btn {
+  background-color: #F2C037 !important;
+  color: white !important;
+}
+
+.refresh-btn {
+  background-color: #31CCEC !important;
+  color: white !important;
+}
+
+.reset-btn {
+  background-color: #31CCEC !important;
+  color: white !important;
+}
+
+.delete-btn {
+  background-color: #C10015 !important;
+  color: white !important;
+}
+
+.bg-pagination {
+  background-color: #24c7ff !important;
+}
+
+.text-pagination {
+  color: #3498db !important;
+}
+
+.layout__header {
+  border-bottom: 1px solid #cbcbcb;
+}
+
+.layout__toolbar {
+  background-color: #24c7ff;
+}
+
+.layout__title {
+  font-family: "Jomolhari";
+  letter-spacing: 1.4px;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+.layout__title a {
+  color: white;
+}
+
+.main-menu-drawer {
+  background-color: unset;
+}
+
+.layout__toolbar__menu-btn {
+  color: white;
+}
+
+.layout__toolbar__user-btn {
+  color: white;
+}
+
+.layout__user-avatar {
+  width: 32px !important;
+  height: 32px !important;
+  box-shadow: 0px 0px 4px 1.5px white !important;
+}
+
+.layout__footer {
+  text-align: center;
+  color: #3498db !important;
+  font-weight: bold;
+  letter-spacing: 1px;
+  background-color: #d4f0ff !important;
+  padding: 18px 0;
+  border-top: 1px solid #cbcbcb;
+}
+.layout__footer a {
+  color: #3498db;
+}
+
+.layout__footer-line {
+  margin: 12px 0;
+}
+
+.sun-engine-footer__link {
+  color: orange !important;
+}
+
+.layout__footer-separator-icon {
+  margin: 0 16px;
+  color: #ffa500 !important;
+}
+
+.main-menu__logo-div {
+  padding: 22px 0 30px 0;
+  text-align: center;
+}
+
+.main-menu__logo-img {
+  width: 204px;
+  height: 204px;
+  border-radius: 102px;
+  box-shadow: 0 0 8px 1px grey;
+}
+
+.main-menu .q-router-link--active {
+  background-color: #d4f0ff !important;
+}
+.main-menu .q-router-link--active .q-item__section--main {
+  color: unset !important;
+}
+.main-menu .q-router-link--active .q-item__section--avatar {
+  color: unset !important;
+}
+.main-menu .q-item__section--avatar {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 60px !important;
+  color: #3498db !important;
+  justify-items: center !important;
+  align-items: center !important;
+}
+.main-menu .q-item__section--main {
+  font-size: 1.2em;
+  color: unset !important;
+}
+.main-menu .q-item__label--caption {
+  font-size: 0.8em;
+}
+
+.side-panel__header {
+  text-align: center;
+  margin: 0;
+  padding: 7px 0 4px 0;
+  text-transform: uppercase;
+  font-size: 0.9rem !important;
+  font-weight: bolder;
+  background-color: #c3edda;
+  border-bottom: 1px solid #f1f1f1;
+  color: #666666;
+}
+
+.side-panel__header-link {
+  color: #666666;
+}
+
+.side-panel__header-icon {
+  color: unset;
+}
+
+.side-panel .q-router-link--active {
+  background-color: #d4f0ff !important;
+}
+.side-panel .q-router-link--active .q-item__section--main {
+  color: #3498db !important;
+}
+.side-panel .q-router-link--active .q-item__section--avatar {
+  color: black !important;
+}
+
+.material-text h3, .post-text h3, .comment-text h3 {
+  font-size: 1.55rem;
+  font-weight: 500 !important;
+  line-height: 1.7rem;
+  margin: 35px 0 14px 0 !important;
+  border-bottom: 2px dashed #c1dfee;
+  padding: 0 0 8px 0;
+}
+.material-text h4, .post-text h4, .comment-text h4 {
+  font-size: 1.35rem;
+  font-weight: 500 !important;
+  line-height: 1.4rem;
+  margin: 24px 0 10px 0 !important;
+  border-bottom: 1px dashed #c1dfee;
+  padding: 0 0 6px 0;
+}
+.material-text h5, .post-text h5, .comment-text h5 {
+  font-size: 1.2rem;
+  font-weight: 500 !important;
+  line-height: 1.3rem;
+  margin: 16px 0 8px 0 !important;
+  padding: 0;
+}
+.material-text h6, .post-text h6, .comment-text h6 {
+  font-size: 1.05rem;
+  font-weight: 500 !important;
+  line-height: 1.1rem;
+  margin: 10px 0 6px 0 !important;
+  padding: 0;
+}
+.material-text blockquote, .post-text blockquote, .comment-text blockquote {
+  border-left: 3px solid #a6c59e !important;
+  padding: 6px 0 6px 15px;
+  background-color: #f6f6f6;
+  margin: 0 0 16px 0;
+}
+
+.index-page__header {
+  color: #00acef !important;
+}
+
+.index-page__info-block-accent {
+  color: #a38167;
+}
+
+/*# sourceMappingURL=styles.css.map */

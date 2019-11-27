@@ -1,0 +1,28 @@
+/*
+ Use ~ in path to use application folder or @ to use wwwroot folder, or use absolute paths
+ */
+{
+  "Global": {
+    "SiteUrl": "http://localhost:5005",
+    "SiteApi": "http://localhost:5000",
+    "ImagesUploadUrl": "http://localhost:5005/UploadImages",
+	
+	"WwwRootDir": "%app%/wwwroot",
+	"ImagesUploadDir": "%wwwroot%/UploadImages",
+	"MailTemplates": "%config%/MailTemplates",
+	"CurrentSkinDir": "%wwwroot%/CurrentSkin",
+    "AllSkinsDir": "%app%/Skins"
+  },
+
+  "Kestrel": {
+    "EndPoints": {
+      "Http": {
+        "Url": "http://localhost:5000"
+      }
+    }
+  },
+  "Cors": {
+    "Origins": "http://localhost:5005"
+  },
+  "FileServer": false,
+}

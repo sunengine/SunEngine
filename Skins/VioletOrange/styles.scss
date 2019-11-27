@@ -1,0 +1,323 @@
+﻿@import "../quasar.variables";
+@import "../quasar.site.variables";
+
+$text-color: #06000d;
+$link-color: #3498db;
+
+$header-bg-color: #FFBA51;
+$header-text-color: white;
+$header-border-color: #cbcbcb;
+$header-menu-icon-color: white;
+$header-user-color: white;
+
+$main-menu-bg-color: #dbd8e6;
+$main-menu-icon-color: $link-color;
+$main-menu-link-color: black;
+$main-menu-active-link-text-color: white;
+$main-menu-active-link-bg-color: #FFBA51;
+$main-menu-active-link-icon-color: white;
+
+$side-panel-header-bg-color: #dbd8e6;
+$side-panel-header-text-color: #666666;
+$side-panel-header-link-color: #666666;
+$side-panel-header-icon-color: unset;
+$side-panel-menu-bg-color: unset;
+$side-panel-menu-link-color: black;
+$side-panel-menu-icon-color: $link-color;
+$side-panel-menu-active-link-text-color: white;
+$side-panel-menu-active-link-icon-color: white;
+$side-panel-menu-active-link-bg-color: #FFBA51;
+
+$footer-background-color: lighten($header-bg-color, 15%);
+$footer-text-color: #3498db;
+$footer-link-color: #3498db;
+$footer-separator-icon-color: #7e73a5;
+$footer-border-color: #cbcbcb;
+
+$post-btn-bg-color: #dbd8e6;
+$post-btn-text-color: black;
+$send-btn-bg-color: #54e288;
+$send-btn-text-color: white;
+$cancel-btn-bg-color: $warning;
+$cancel-btn-text-color: white;
+$refresh-btn-bg-color: $info;
+$refresh-btn-text-color: white;
+$reset-btn-bg-color: $info;
+$reset-btn-text-color: white;
+$delete-btn-bg-color: $negative;
+$delete-btn-text-color: white;
+
+$material-heading-underline-color: #c1dfee;
+$blockquote-left-line-color: #a6c59e;
+
+
+// ——— Main ——————————————————————————————————————
+
+html {
+  color: $text-color !important;
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+a, .link {
+  text-decoration: none;
+  color: $link-color;
+
+  &:hover {
+    color: #2472b3;
+  }
+}
+
+
+// ——— Buttons ————————————————————————————————————
+
+.send-btn {
+  background-color: $send-btn-bg-color !important;
+  color: $send-btn-text-color !important;
+}
+
+.post-btn {
+  background-color: $post-btn-bg-color !important;
+  color: $post-btn-text-color !important;
+}
+
+.cancel-btn {
+  background-color: $cancel-btn-bg-color !important;
+  color: $cancel-btn-text-color !important;
+}
+
+.refresh-btn {
+  background-color: $refresh-btn-bg-color !important;
+  color: $refresh-btn-text-color !important;
+}
+
+.reset-btn {
+  background-color: $reset-btn-bg-color !important;
+  color: $reset-btn-text-color !important;
+}
+
+.delete-btn {
+  background-color: $delete-btn-bg-color !important;
+  color: $delete-btn-text-color !important;
+}
+
+.bg-pagination {
+  background-color: $header-bg-color !important;
+}
+
+.text-pagination {
+  color: $link-color !important;
+}
+
+
+// ——— Layout ————————————————————————————————————
+
+.layout__header {
+  border-bottom: 1px solid $header-border-color;
+}
+
+.layout__toolbar {
+  background-color: $header-bg-color;
+}
+
+.layout__title {
+  font-family: "Jomolhari";
+  letter-spacing: 1.4px;
+  font-size: 1.4rem;
+  font-weight: bold;
+
+  a {
+    color: $header-text-color;
+    //text-shadow:  0px 0px 6px white, 0px 0px 6px white, 0px 0px 6px white;
+  }
+}
+
+.main-menu-drawer {
+  background-color: $main-menu-bg-color;
+}
+
+.side-menu-drawer {
+}
+
+.layout__toolbar__menu-btn {
+  color: $header-menu-icon-color;
+}
+
+.layout__toolbar__user-btn {
+  color: $header-user-color;
+}
+
+.layout__user-avatar {
+  width: 32px !important;
+  height: 32px !important;
+  box-shadow: 0px 0px 4px 1.5px white !important;
+}
+
+.layout__footer {
+  text-align: center;
+  color: $footer-text-color !important;
+  font-weight: bold;
+  letter-spacing: 1px;
+  background-color: $footer-background-color !important;
+  padding: 18px 0;
+  border-top: 1px solid $footer-border-color;
+
+  a {
+    color: $footer-link-color;
+  }
+}
+
+.layout__footer-line {
+  margin: 12px 0;
+}
+
+.sun-engine-footer__link {
+  color: #c26a84 !important;
+}
+
+.layout__footer-separator-icon {
+  margin: 0 16px;
+  color: $footer-separator-icon-color !important;
+}
+
+
+// ——— Main Menu ——————————————————————————————————
+
+.main-menu__logo-div {
+  padding: 22px 0 30px 0;
+  text-align: center;
+}
+
+.main-menu__logo-img {
+  width: 204px;
+  height: 204px;
+  border-radius: 102px;
+  box-shadow: 0 0 8px 1px grey
+}
+
+.main-menu {
+  .q-router-link--active {
+    background-color: $main-menu-active-link-bg-color !important;
+
+    .q-item__section--main {
+      color: $main-menu-active-link-text-color !important;
+    }
+
+    .q-item__section--avatar {
+      color: $main-menu-active-link-icon-color !important;
+    }
+  }
+
+  .q-item__section--avatar {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 60px !important;
+    color: $main-menu-icon-color !important;
+    justify-items: center !important;
+    align-items: center !important;
+  }
+
+  .q-item__section--main {
+    font-size: 1.2em;
+    color: $main-menu-link-color !important;
+  }
+
+  .q-item__label--caption {
+    font-size: 0.8em;
+  }
+}
+
+
+// ——— Side Panel ————————————————————————————————————
+
+.side-panel__header {
+  text-align: center;
+  margin: 0;
+  padding: 7px 0 4px 0;
+  text-transform: uppercase;
+  font-size: 0.9rem !important;
+  font-weight: bolder;
+  background-color: $side-panel-header-bg-color;
+  border-bottom: 1px solid #f1f1f1;
+  color: $side-panel-header-text-color;
+}
+
+.side-panel__header-link {
+  color: $side-panel-header-link-color;
+}
+
+.side-panel__header-icon {
+  color: $side-panel-header-icon-color;
+}
+
+.side-panel {
+  .q-router-link--active {
+    background-color: $side-panel-menu-active-link-bg-color !important;
+
+    .q-item__section--main {
+      color: $side-panel-menu-active-link-text-color !important;
+    }
+
+    .q-item__section--avatar {
+      color: $side-panel-menu-active-link-icon-color !important;
+    }
+  }
+}
+
+
+// ——— Material styles ———————————————————————————
+
+.material-text, .post-text, .comment-text {
+  h3 {
+    font-size: 1.55rem;
+    font-weight: 500 !important;
+    line-height: 1.7rem;
+    margin: 35px 0 14px 0 !important;
+    border-bottom: 2px dashed $material-heading-underline-color;
+    padding: 0 0 8px 0;
+  }
+
+  h4 {
+    font-size: 1.35rem;
+    font-weight: 500 !important;
+    line-height: 1.4rem;
+    margin: 24px 0 10px 0 !important;
+    border-bottom: 1px dashed $material-heading-underline-color;
+    padding: 0 0 6px 0;
+  }
+
+  h5 {
+    font-size: 1.2rem;
+    font-weight: 500 !important;
+    line-height: 1.3rem;
+    margin: 16px 0 8px 0 !important;
+    padding: 0;
+  }
+
+  h6 {
+    font-size: 1.05rem;
+    font-weight: 500 !important;
+    line-height: 1.1rem;
+    margin: 10px 0 6px 0 !important;
+    padding: 0;
+  }
+
+  blockquote {
+    border-left: 3px solid $blockquote-left-line-color !important;
+    padding: 6px 0 6px 15px;
+    background-color: #f6f6f6;
+    margin: 0 0 16px 0;
+  }
+}
+
+ 
+// ——— Index Page ———————————————————————————
+
+.index-page__header {
+  color: #7e73a5  !important;
+}
+
+.index-page__info-block-accent {
+  color: #ca913b;
+}
+
