@@ -60,6 +60,7 @@
                         this.$successNotify(this.$tl('avatarChangedSuccessNotify'));
                     }
                 ).catch(error => {
+                    this.loading = false;
                     this.$errorNotify(error);
                 });
             },

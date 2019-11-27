@@ -4,7 +4,7 @@
       <q-item class="topic__main-block page-padding" :to='to'>
         <q-item-section avatar>
           <q-avatar class="shadow-1" size="42px">
-            <img :src="$imagePath(topic.authorAvatar)"/>
+            <img :src="$avatarPath(topic.authorAvatar)"/>
           </q-avatar>
         </q-item-section>
         <q-item-section>

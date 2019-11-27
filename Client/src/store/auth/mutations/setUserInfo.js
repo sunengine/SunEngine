@@ -1,12 +1,12 @@
 import Vue from 'vue'
 
 
-import {imagePath} from 'sun'
+import {avatarPath} from 'sun'
 
 export default function (state, data) {
 
-  data.photo = imagePath(data.photo);
-  data.avatar = imagePath(data.avatar);
+  data.photo = avatarPath(data.photo);
+  data.avatar = avatarPath(data.avatar);
 
   Vue.set(state, 'roles' , data.roles);
 

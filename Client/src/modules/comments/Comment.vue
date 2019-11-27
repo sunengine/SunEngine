@@ -1,6 +1,6 @@
 <template>
   <div class="comment">
-    <img class="comment__avatar avatar" :src="$imagePath(comment.authorAvatar)"/>
+    <img class="comment__avatar avatar" :src="$avatarPath(comment.authorAvatar)"/>
 
     <div class="q-my-md">
       <div class="q-mb-xs flex">

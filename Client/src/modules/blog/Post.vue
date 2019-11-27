@@ -2,7 +2,7 @@
   <div :class="['post', {'mat-hidden': post.isHidden}, {'mat-deleted': post.deletedDate}]">
     <q-item :to="to" class="header page-padding">
       <q-avatar class="shadow-1 avatar" size="40px">
-        <img :src="$imagePath(post.authorAvatar)"/>
+        <img :src="$avatarPath(post.authorAvatar)"/>
       </q-avatar>
       <div>
         <div class="blog-title my-header link">

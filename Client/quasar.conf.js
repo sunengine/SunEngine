@@ -13,6 +13,7 @@ module.exports = function (ctx) {
       'apiPath',
       'buildPath',
       'imagePath',
+      'avatarPath',
       'formatDate',
       'successNotify',
       'errorNotify',

@@ -32,7 +32,7 @@
 
         <div v-if="showUser" class="material__author q-mr-md">
           <router-link :to="{name: 'User', params: {link: material.authorLink}}">
-            <img class="avatar material__avatar" :src="$imagePath(material.authorAvatar)"/>{{material.authorName}}
+            <img class="avatar material__avatar" :src="$avatarPath(material.authorAvatar)"/>{{material.authorName}}
           </router-link>
         </div>
 
