@@ -54,6 +54,8 @@ namespace SunEngine.Core.Configuration.Options
         
         public string MailTemplatesDir { get; set; }
         
+        public string ResourcesDir { get; set; }
+        
         public bool FileServer { get; set; }
     }
 }

@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using LinqToDB;
 using LinqToDB.Data;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using NJsonSchema;
+using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
 using SunEngine.Core.Errors.Exceptions;
@@ -25,9 +27,11 @@ namespace SunEngine.Admin.Services
 
         public RolesPermissionsAdminService(
             DataBaseConnection db,
-            IHostingEnvironment env) : base(db)
+            IPathService pathService,
+            IOptionsMonitor<GlobalOptions> globalOptions) : base(db)
         {
-            RolesSchemaPath = Path.Combine(env.ContentRootPath, "Resources", RolesSchemaFileName);
+            RolesSchemaPath = Path.Combine(pathService.MakePath(globalOptions.CurrentValue.ResourcesDir),
+                RolesSchemaFileName);
         }
 
         public async ValueTask<string> GetRolesJsonAsync()
@@ -83,7 +87,7 @@ namespace SunEngine.Admin.Services
                 rolesFromJsonLoader = new RolesFromJsonLoader(categories, operationKeys, schema);
                 rolesFromJsonLoader.Seed(json);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new SunErrorException(new Error
                 {
@@ -127,7 +131,7 @@ namespace SunEngine.Admin.Services
             foreach (var role in toUpdate)
             {
                 role.Id = roles.First(x => x.NormalizedName == role.NormalizedName).Id;
-                if(role.CategoryAccesses != null)
+                if (role.CategoryAccesses != null)
                     foreach (var roleCategoryAccess in role.CategoryAccesses)
                         roleCategoryAccess.RoleId = role.Id;
             }

@@ -24,16 +24,18 @@ namespace SunEngine.Core.Services
         private readonly Font font;
 
         private readonly ICryptService cryptService;
-        
+
         public CaptchaService(
-            IOptionsMonitor<CaptchaOptions> captchaOptions,
+            //IOptionsMonitor<CaptchaOptions> captchaOptions,
+            IOptionsMonitor<GlobalOptions> globalOptions,
+            IPathService pathService,
             ICryptService cryptService)
         {
             this.cryptService = cryptService;
-
             // Init Font (font name: Gunny Rewritten)
             FontCollection fontCollection = new FontCollection();
-            fontCollection.Install(Path.GetFullPath("Resources/gunnyrewritten.ttf"));
+            var resourcesDir = pathService.MakePath(globalOptions.CurrentValue.ResourcesDir);
+            fontCollection.Install(Path.Combine(resourcesDir, "gunnyrewritten.ttf"));
             font = fontCollection.Families.First().CreateFont(46);
         }
 
