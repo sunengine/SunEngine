@@ -27,11 +27,9 @@ namespace SunEngine.Admin.Services
 
         public RolesPermissionsAdminService(
             DataBaseConnection db,
-            IPathService pathService,
-            IOptionsMonitor<GlobalOptions> globalOptions) : base(db)
+            IPathService pathService) : base(db)
         {
-            RolesSchemaPath = Path.Combine(pathService.MakePath(globalOptions.CurrentValue.ResourcesDir),
-                RolesSchemaFileName);
+            RolesSchemaPath = pathService.Combine(PathNames.ResourcesDirName, RolesSchemaFileName);
         }
 
         public async ValueTask<string> GetRolesJsonAsync()

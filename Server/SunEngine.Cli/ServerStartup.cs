@@ -88,10 +88,12 @@ namespace SunEngine.Cli
                             JsonDocument.Parse(
                                 File.ReadAllText(Path.Combine(startupConfiguration.ConfigRootDir, "SunEngine.json")),
                                 jOptions);
-                        var globalSection = sunEngineJsonDocument.RootElement.GetProperty("Global");
-                        var wwwRootDir = globalSection.GetProperty("WwwRootDir").GetString();
 
-                        if (globalSection.GetProperty("FileServer").GetBoolean())
+                        var wwwRootDir = sunEngineJsonDocument.RootElement.GetProperty("Dirs").GetProperty("WwwRoot")
+                            .GetString();
+
+                        if (sunEngineJsonDocument.RootElement.GetProperty("Global").GetProperty("FileServer")
+                            .GetBoolean())
                         {
                             if (wwwRootDir.StartsWith("%app%"))
                                 wwwRootDir = Path.GetFullPath(wwwRootDir.Substring("%app%".Length + 1));

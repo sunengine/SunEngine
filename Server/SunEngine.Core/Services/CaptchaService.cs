@@ -27,14 +27,13 @@ namespace SunEngine.Core.Services
 
         public CaptchaService(
             //IOptionsMonitor<CaptchaOptions> captchaOptions,
-            IOptionsMonitor<GlobalOptions> globalOptions,
             IPathService pathService,
             ICryptService cryptService)
         {
             this.cryptService = cryptService;
             // Init Font (font name: Gunny Rewritten)
             FontCollection fontCollection = new FontCollection();
-            var resourcesDir = pathService.MakePath(globalOptions.CurrentValue.ResourcesDir);
+            var resourcesDir = pathService.GetPath(PathNames.ResourcesDirName);
             fontCollection.Install(Path.Combine(resourcesDir, "gunnyrewritten.ttf"));
             font = fontCollection.Families.First().CreateFont(46);
         }

@@ -30,14 +30,12 @@ namespace SunEngine.Core.Services
 
         public ImagesService(
             IOptionsMonitor<ImagesOptions> imagesOptions,
-            IOptionsMonitor<GlobalOptions> globalOptions,
-
             IPathService pathService,
             IImagesNamesService imagesNamesService)
         {
             this.imagesOptions = imagesOptions.CurrentValue;
             this.imagesNamesService = imagesNamesService;
-            UploadImagesDir = pathService.MakePath(globalOptions.CurrentValue.ImagesUploadDir);
+            UploadImagesDir = pathService.GetPath(PathNames.UploadImagesDirName);
         }
 
         public virtual async Task<FileAndDir> SaveImageAsync(IFormFile file, ResizeOptions resizeOptions)

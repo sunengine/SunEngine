@@ -25,7 +25,7 @@ namespace SunEngine.Core.Cache.Services
 
         public MailTemplatesCache(IPathService pathService, IOptionsMonitor<GlobalOptions> globalOptions)
         {
-            MailTemplatesDir = pathService.MakePath(globalOptions.CurrentValue.MailTemplatesDir);
+            MailTemplatesDir = pathService.GetPath(PathNames.MailTemplatesDirName);
             if (!Directory.Exists(MailTemplatesDir))
                 Directory.CreateDirectory(MailTemplatesDir);
             SiteName = globalOptions.CurrentValue.SiteName;

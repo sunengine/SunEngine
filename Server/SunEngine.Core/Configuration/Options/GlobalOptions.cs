@@ -40,22 +40,8 @@ namespace SunEngine.Core.Configuration.Options
 
         public string SiteName { get; set; }
 
-        public string WwwRootDir { get; set; }
-
-        public string ConfigRootDir { get; set; }
-        
-        public string ImagesUploadDir { get; set; }
-        
         public string ImagesUploadUrl { get; set; }
-        
-        public string AllSkinsDir { get; set; }
-        
-        public string CurrentSkinDir { get; set; }
-        
-        public string MailTemplatesDir { get; set; }
-        
-        public string ResourcesDir { get; set; }
-        
+
         public bool FileServer { get; set; }
     }
 }

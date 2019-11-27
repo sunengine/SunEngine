@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SunEngine.Core.Configuration.Options;
+using SunEngine.Core.Services;
 
 namespace SunEngine.Admin.Controllers
 {
@@ -14,10 +15,10 @@ namespace SunEngine.Admin.Controllers
         private readonly string ServerInfoJsonFilePath;
 
         public ServerInfoAdminController(
-            IOptionsMonitor<GlobalOptions> globalOptions,
+            IPathService pathService,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            ServerInfoJsonFilePath = Path.Combine(globalOptions.CurrentValue.ConfigRootDir, "ServerInfo.json");
+            pathService.Combine(PathNames.ConfigDirName, "ServerInfo.json");
         }
 
         [HttpPost]

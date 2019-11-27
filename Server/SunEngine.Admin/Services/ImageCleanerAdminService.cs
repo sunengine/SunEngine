@@ -20,11 +20,10 @@ namespace SunEngine.Admin.Services
 
         public ImageCleanerAdminService(
             DataBaseConnection dataBaseConnection,
-            IOptionsMonitor<GlobalOptions> globalOptions,
             IPathService pathService)
         {
             this.dataBaseConnection = dataBaseConnection;
-            uploadDirectory = pathService.MakePath(globalOptions.CurrentValue.ImagesUploadDir);
+            uploadDirectory = pathService.GetPath(PathNames.UploadImagesDirName);
             htmlParser = new HtmlParser();
         }
 

@@ -42,14 +42,13 @@ namespace SunEngine.Admin.Services
 
         public SkinsAdminService(
             IPathService pathService,
-            IOptionsMonitor<GlobalOptions> globalOptions,
             IOptionsMonitor<FileLoadingOptions> fileLoadingOptions,
             IHostingEnvironment env)
         {
             this.env = env;
 
-            AllSkinsPath = pathService.MakePath(globalOptions.CurrentValue.AllSkinsDir);
-            CurrentSkinPath = pathService.MakePath(globalOptions.CurrentValue.CurrentSkinDir);
+            AllSkinsPath = pathService.GetPath(PathNames.AllSkinsDirName);
+            CurrentSkinPath = pathService.GetPath(PathNames.CurrentSkinDirName);
             MaxArchiveSize = fileLoadingOptions.CurrentValue.MaxArchiveSize * 1024;
             MaxExtractArchiveSize = fileLoadingOptions.CurrentValue.MaxExtractArchiveSize * 1024;
             WwwRootPath = pathService.WwwRootDir;
