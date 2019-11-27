@@ -1,11 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using SixLabors.Shapes;
-using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Errors.Exceptions;
 
 namespace SunEngine.Core.Services
@@ -55,7 +52,7 @@ namespace SunEngine.Core.Services
             dic.Remove(PathNames.WwwRootDirName);
             ConfigDir = MakePath(PathNames.ConfigDirName);
             dic.Remove(PathNames.ConfigDirName);
-            
+
             foreach (var (key, value) in dic)
                 Pathes.Add(key, MakePath(value));
         }
@@ -81,13 +78,16 @@ namespace SunEngine.Core.Services
         public string MakePath(string token)
         {
             if (token.StartsWith(AppDirPrefix))
-                return System.IO.Path.Combine(ApplicationDir, token.Substring(AppDirPrefix.Length + 1));
+                return Make(ApplicationDir, SplitToken(token.Substring(AppDirPrefix.Length + 1)));
             if (token.StartsWith(WwwRootDirPrefix))
-                return System.IO.Path.Combine(WwwRootDir, token.Substring(WwwRootDirPrefix.Length + 1));
+                return Make(WwwRootDir, SplitToken(token.Substring(WwwRootDirPrefix.Length + 1)));
             if (token.StartsWith(ConfigDirPrefix))
-                return System.IO.Path.Combine(ConfigDir, token.Substring(ConfigDirPrefix.Length + 1));
+                return Make(ConfigDir, SplitToken(token.Substring(ConfigDirPrefix.Length + 1)));
 
             return token;
+
+            string[] SplitToken(string tkn) =>  tkn.Split('\\', '/');
+            string Make(string start, string[] next) =>  System.IO.Path.Combine(start, System.IO.Path.Combine(next));
         }
     }
 }

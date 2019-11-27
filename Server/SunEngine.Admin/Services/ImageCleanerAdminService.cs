@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Core.DataBase;
 using AngleSharp.Parser.Html;
-using Microsoft.Extensions.Options;
-using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Services;
 
 namespace SunEngine.Admin.Services

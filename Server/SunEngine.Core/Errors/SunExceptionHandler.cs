@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Utils;
 
 namespace SunEngine.Core.Errors

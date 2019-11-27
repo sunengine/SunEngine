@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using SixLabors.Shapes;
 using SunEngine.Admin;
 using SunEngine.Core.Configuration.AddServices;
 using SunEngine.Core.Configuration.Options;

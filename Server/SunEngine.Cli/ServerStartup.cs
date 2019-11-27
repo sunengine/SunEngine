@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Mime;
-using System.Reflection;
 using System.Text.Json;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
