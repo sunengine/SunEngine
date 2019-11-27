@@ -11,7 +11,7 @@
 	"WwwRootDir": "%app%/wwwroot",
 	"ImagesUploadDir": "%wwwroot%/UploadImages",
 	"MailTemplates": "%config%/MailTemplates",
-	"CurrentSkinDir": "%wwwroot%/CurrentSkin",
+	"CurrentSkinDir": "%wwwroot%/Skin",
     "AllSkinsDir": "%app%/Skins",
 	"FileServer": true
   },

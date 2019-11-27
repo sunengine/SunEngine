@@ -18,8 +18,9 @@
 
 #   How it works:
 #   1. Clear build folder
-#   1. Publish server to build folder
-#   2. Publish client to build folder
+#   2. Publish server to build folder
+#   3. Publish client to build folder in wwwroot
+#   4. Publish data (Resources, Skins)
 
 
 
@@ -27,10 +28,10 @@
 
 
 # Project name. For info only. Replace with you project name.
-PROJECT_NAME="SunEngine"   
+PROJECT_NAME="Demo SunEngine"
 
-# Path to SunEngine root directory. Now set to current path.
-SOLUTION_PATH=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+# Path to SunEngine root directory.
+PROJECT_ROOT="/path/to/project/root"
 
 
 #   ************************************************
@@ -42,13 +43,13 @@ SOLUTION_PATH=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 
 
 # Path to build folder
-BUILD_PATH="$SOLUTION_PATH/build"
+BUILD_PATH="$PROJECT_ROOT/build"
 
 # Path to server folder
-SERVER_PATH="$SOLUTION_PATH/Server"
+SERVER_PATH="$PROJECT_ROOT/Server"
 
 # Path to client folder
-CLIENT_PATH="$SOLUTION_PATH/Client"
+CLIENT_PATH="$PROJECT_ROOT/Client"
 
 
 # Define console colors
@@ -56,28 +57,38 @@ GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
 
-echo -e "\n${GREEN}Publishing to directory ${PROJECT_NAME} project$ ${NC}\n"
+echo -e "\n${GREEN}Publishing \"${PROJECT_NAME}\" project. ${NC}\n"
 
 
-cd "$SOLUTION_PATH"
+cd "$PROJECT_ROOT"
 
 
-echo -e "\n${GREEN}Clearing build ${NC}\n"
+echo -e "${GREEN}Clearing build ${NC}\n"
 rm -r "$BUILD_PATH"
 mkdir "$BUILD_PATH"
- 
 
-echo -e "\n${GREEN}Publish build ${PROJECT_NAME} ${NC}\n"
+
+echo -e "${GREEN}Publish build ${PROJECT_NAME} ${NC}\n"
 dotnet publish -c Release "$SERVER_PATH/SunEngine.Cli" -o "$BUILD_PATH/Server" -v m
 
 
-echo -e "\n${GREEN}Building Client ${NC}\n"
+echo -e "${GREEN}Building Client ${NC}\n"
 cd "$CLIENT_PATH"
 quasar build
 
 
-echo  -e "\n${GREEN}Copying Client to wwwroot directory ${NC}\n"
-cp -r "$CLIENT_PATH/dist/spa/." "$BUILD_PATH/Client"
+echo  -e "${GREEN}Copying Client to wwwroot directory ${NC}\n"
+cp -r "$CLIENT_PATH/dist/spa/." "$BUILD_PATH/wwwroot"
 
-echo  -e "\n${GREEN}Clearing dist directory ${NC}\n"
+echo  -e "${GREEN}Clearing dist directory ${NC}\n"
 rm -rf "$CLIENT_PATH/dist"
+
+echo  -e "${GREEN}Copying Resources to build directory ${NC}\n"
+cp -r "$PROJECT_ROOT/Resources/." "$BUILD_PATH/Resources"
+
+echo  -e "${GREEN}Copying Skins to build directory ${NC}\n"
+cp -r "$PROJECT_ROOT/Skins/." "$BUILD_PATH/Skins"
+
+echo  -e "${GREEN}Creating UploadImages and CurrentSkin directory ${NC}\n"
+mkdir "$BUILD_PATH/wwwroot/UploadImages"
+mkdir "$BUILD_PATH/wwwroot/Skin"

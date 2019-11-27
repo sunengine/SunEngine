@@ -50,7 +50,6 @@ namespace SunEngine.Core.Services
             return cryptService.Crypt(CypherName, tokenJson);
         }
 
-
         private string GenerateCaptchaText()
         {
             return CryptoRandomizer.GetRandomInt(10000, 999999).ToString();

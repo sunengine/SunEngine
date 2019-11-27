@@ -17,6 +17,7 @@ namespace SunEngine.Core.Cache.Services
 
     public class MailTemplatesCache : IMailTemplatesCache
     {
+        protected readonly string SiteName;
         protected readonly string MailTemplatesDir;
 
         public Dictionary<string, MailContent> Templates { get; protected set; }
@@ -27,6 +28,7 @@ namespace SunEngine.Core.Cache.Services
             MailTemplatesDir = pathService.MakePath(globalOptions.CurrentValue.ImagesUploadDir);
             if (!Directory.Exists(MailTemplatesDir))
                 Directory.CreateDirectory(MailTemplatesDir);
+            SiteName = globalOptions.CurrentValue.SiteName;
             Initialize();
         }
 
@@ -63,10 +65,10 @@ namespace SunEngine.Core.Cache.Services
             foreach (FileInfo file in directoryInfo.GetFiles())
             {
                 string fileContent = File.ReadAllText(Path.Combine(MailTemplatesDir, file.Name));
-
+                
                 if (file.Name == "layout.html")
                 {
-                    Layout = fileContent;
+                    Layout = fileContent.Replace("[sitename]", SiteName);
                     continue;
                 }
 

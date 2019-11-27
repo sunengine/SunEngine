@@ -27,30 +27,15 @@
       <ProjectReference Include="..\SunEngine.DataSeed\SunEngine.DataSeed.csproj" />
       <ProjectReference Include="..\SunEngine.Migrations\SunEngine.Migrations.csproj" />
     </ItemGroup>
-    
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\CurrentSkin\info.json" />
-      <_ContentIncludedByDefault Remove="wwwroot\CurrentSkin\preview.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\CurrentSkin\readme.md" />
-      <_ContentIncludedByDefault Remove="wwwroot\CurrentSkin\styles.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\CurrentSkin\styles.css.map" />
-      <_ContentIncludedByDefault Remove="wwwroot\CurrentSkin\styles.scss" />
-    </ItemGroup>
    
     <PropertyGroup>
         <ServerGarbageCollection>false</ServerGarbageCollection>
     </PropertyGroup>
     
-   
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
       <OutputPath>..\..\bin\debug\</OutputPath>
     </PropertyGroup>
-
-
-
     
-    
-   
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
       <OutputPath>..\..\bin\release\</OutputPath>
     </PropertyGroup>
