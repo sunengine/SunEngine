@@ -52,6 +52,8 @@ namespace SunEngine.Core.Configuration.Options
         
         public string CurrentSkinDir { get; set; }
         
+        public string MailTemplatesDir { get; set; }
+        
         public bool FileServer { get; set; }
     }
 }
