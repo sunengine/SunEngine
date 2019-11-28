@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SunEngine.Admin.Managers;
@@ -16,14 +17,17 @@ namespace SunEngine.Admin.Controllers
         protected readonly IConfigurationPresenter configurationPresenter;
         protected readonly IConfigurationRoot configurationRoot;
         protected readonly ConfigurationAdminService configurationAdminService;
+        protected readonly IHostingEnvironment env;
 
         public ConfigurationAdminController(
             IConfigurationManager configurationManager,
             ConfigurationAdminService configurationAdminService,
             IConfigurationPresenter configurationPresenter,
             IConfigurationRoot configurationRoot,
+            IHostingEnvironment env,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
+            this.env = env;
             this.configurationRoot = configurationRoot;
             this.configurationManager = configurationManager;
             this.configurationAdminService = configurationAdminService;
@@ -40,7 +44,9 @@ namespace SunEngine.Admin.Controllers
             }).ToList();
 
             configurationManager.UploadConfigurationItems(items);
-            configurationAdminService.UpdateClientScripts();
+            if (env.IsProduction())
+                configurationAdminService.UpdateClientScripts();
+            
             configurationRoot.Reload();
 
             return Ok();

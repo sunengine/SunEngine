@@ -129,7 +129,7 @@ namespace SunEngine.Admin.Services
             if (env.IsProduction())
             {
                 var ran = new Random();
-                var configJsPath = Path.Combine(WwwRootPath, "variables.js");
+                var configJsPath = Path.Combine(WwwRootPath, "config.js");
                 var text = File.ReadAllText(configJsPath);
                 Regex reg1 = new Regex("skinver=\\d+\"");
                 text = reg1.Replace(text, $"skinver={ran.Next()}\"");
@@ -137,8 +137,8 @@ namespace SunEngine.Admin.Services
                 
                 var indexHtmlPath = Path.Combine(WwwRootPath, "index.html");
                 text = File.ReadAllText(indexHtmlPath);
-                Regex reg2 = new Regex("variablesver=\\d+\"");
-                text = reg2.Replace(text, $"variablesver={ran.Next()}\"");
+                Regex reg2 = new Regex("configver=\\d+\"");
+                text = reg2.Replace(text, $"configver={ran.Next()}\"");
                 File.WriteAllText(indexHtmlPath,text);
             }
         }

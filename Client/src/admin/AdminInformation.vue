@@ -65,8 +65,12 @@
 </template>
 
 <script>
+    import {Page} from 'mixins'
+
+
     export default {
         name: "AdminInformation",
+        mixins: [Page],
         data() {
             return {
                 serverInfo: null,

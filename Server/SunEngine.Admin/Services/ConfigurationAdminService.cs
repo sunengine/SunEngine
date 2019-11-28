@@ -4,7 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using AngleSharp;
+using Flurl.Util;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using SunEngine.Admin.Presenters;
 using SunEngine.Core.Configuration;
 using SunEngine.Core.DataBase;
@@ -16,46 +19,49 @@ namespace SunEngine.Admin.Services
     public class ConfigurationAdminService : DbService
     {
         protected string WwwRootPath { get; }
-        protected IHostingEnvironment env { get; }
+        protected IConfigurationRoot configurationRoot { get; }
 
         public ConfigurationAdminService(
             DataBaseConnection db,
             IPathService pathService,
-            IHostingEnvironment env) : base(db)
+            IConfigurationRoot configurationRoot) : base(db)
         {
-            this.env = env;
+            this.configurationRoot = configurationRoot;
             WwwRootPath = pathService.WwwRootDir;
         }
 
         public void UpdateClientScripts()
         {
-            var list = new List<string>()
+            var itemsToSaveDic = new Dictionary<string, Type>()
             {
-                "Global:SiteName",
-                "Global:SiteApi",
-                "Global:SiteUrl",
-                "Global:UploadImagesUrl",
-                "Global:CurrentSkinUrl",
-                "Client:OpenExternalLinksAtNewTab",
-                "Client:VueDevTools",
-                "Client:VueAppInWindow",
-                "Client:LogInitExtended",
-                "Client:LogRequests",
-                "Client:LogMoveTo",
-                "Comments:TimeToOwnEditInMinutes",
-                "Comments:TimeToOwnDeleteInMinutes",
-                "Materials:CommentsPageSize",
-                "Materials:TimeToOwnEditInMinutes",
-                "Materials:TimeToOwnDeleteInMinutes",
+                ["Global:SiteName"] = typeof(string),
+                ["Global:SiteApi"] = typeof(string),
+                ["Global:SiteUrl"] = typeof(string),
+                ["Global:UploadImagesUrl"] = typeof(string),
+                ["Global:CurrentSkinUrl"] = typeof(string),
+
+                ["Client:OpenExternalLinksAtNewTab"] = typeof(bool),
+                ["Client:VueDevTools"] = typeof(bool),
+                ["Client:VueAppInWindow"] = typeof(bool),
+                ["Client:LogInitExtended"] = typeof(bool),
+                ["Client:LogRequests"] = typeof(bool),
+                ["Client:LogMoveTo"] = typeof(bool),
+
+                ["Comments:TimeToOwnEditInMinutes"] = typeof(int),
+                ["Comments:TimeToOwnDeleteInMinutes"] = typeof(int),
+
+                ["Materials:CommentsPageSize"] = typeof(int),
+                ["Materials:TimeToOwnEditInMinutes"] = typeof(int),
+                ["Materials:TimeToOwnDeleteInMinutes"] = typeof(int),
             };
 
-            var values = db.ConfigurationItems.Where(x => list.Contains(x.Name))
-                .Select(x => new ConfigurationConfigItemView(x));
 
             var rez = new Dictionary<string, object>();
-            foreach (var itemView in values)
+            foreach (var (key, type) in itemsToSaveDic)
             {
-                string[] tokens = itemView.Name.Split(":");
+                var value = configurationRoot.GetValue(type, key);
+
+                string[] tokens = key.Split(":");
 
                 Dictionary<string, object> current = rez;
                 for (int i = 0; i < tokens.Length - 1; i++)
@@ -66,7 +72,7 @@ namespace SunEngine.Admin.Services
                     current = (Dictionary<string, object>) current[tokens[i]];
                 }
 
-                current[tokens[^1]] = itemView.Value;
+                current[tokens[^1]] = value;
             }
 
 
@@ -76,103 +82,27 @@ namespace SunEngine.Admin.Services
                 AllowTrailingCommas = true,
             });
 
-            var variablesJsPath = Path.Combine(WwwRootPath, "variables.js");
+            var configJsPath = Path.Combine(WwwRootPath, "config.js");
 
             json = json.Substring(1, json.Length - 2) + ",";
 
-            var variablesJs = File.ReadAllText(variablesJsPath);
-            variablesJs = Regex.Replace(variablesJs, "//( *?)auto-start(.*?)//( *?)auto-end",
+            var configJs = File.ReadAllText(configJsPath);
+            configJs = Regex.Replace(configJs, "//( *?)auto-start(.*?)//( *?)auto-end",
                 $"// auto-start\n{json}\n // auto-end", RegexOptions.Singleline);
-            File.WriteAllText(variablesJsPath, variablesJs);
+            File.WriteAllText(configJsPath, configJs);
 
             UpdateVersion();
         }
 
         public void UpdateVersion()
         {
-            if (env.IsProduction())
-            {
-                var ran = new Random();
-                
-                var indexHtmlPath = Path.Combine(WwwRootPath, "index.html");
-                string text = File.ReadAllText(indexHtmlPath);
-                Regex reg2 = new Regex("configver=\\d+\"");
-                text = reg2.Replace(text, $"configver={ran.Next()}\"");
-                File.WriteAllText(indexHtmlPath, text);
-            }
-        }
-    }
+            var ran = new Random();
 
-    public class ConfigurationConfigItemView
-    {
-        public string Name { get; }
-        public object Value { get; }
-
-        public ConfigurationConfigItemView(string name, string value)
-        {
-            Name = name;
-
-            if (!ConfigDefaults.ConfigurationItems.ContainsKey(name))
-                return;
-
-            var type = GetTypeName(ConfigDefaults.ConfigurationItems[name].GetType(), out string enumName);
-
-            Value = GetTypeObject(type, name, value);
-        }
-
-        public ConfigurationConfigItemView(ConfigurationItem ci)
-        {
-            Name = ci.Name;
-
-            if (!ConfigDefaults.ConfigurationItems.ContainsKey(Name))
-                return;
-
-            var type = GetTypeName(ConfigDefaults.ConfigurationItems[Name].GetType(), out string enumName);
-
-            Value = GetTypeObject(type, Name, ci.Value);
-        }
-
-
-        protected object GetTypeObject(TypeName typeName, string name, string value)
-        {
-            switch (typeName)
-            {
-                case TypeName.Number:
-                    return int.Parse(value);
-                case TypeName.Boolean:
-                    return bool.Parse(value);
-                case TypeName.Enum:
-                    var type = ConfigDefaults.ConfigurationItems[name].GetType();
-                    var obj = Enum.Parse(type, value);
-                    return Enum.GetName(type, obj);
-                case TypeName.String:
-                case TypeName.LongString:
-                case TypeName.Strange:
-                default:
-                    return value;
-            }
-        }
-
-        protected TypeName GetTypeName(Type type, out string enumName)
-        {
-            var nameLastToken = type.Name.Split(".")[^1];
-
-            if (type.IsEnum)
-            {
-                enumName = nameLastToken;
-                return TypeName.Enum;
-            }
-
-            enumName = null;
-
-            return nameLastToken switch
-            {
-                { } x when new[] {"Int64", "Int32", "int"}.Contains(x) => TypeName.Number,
-                { } x when new[] {"Boolean", "bool"}.Contains(x) => TypeName.Boolean,
-                { } x when new[] {"String", "string"}.Contains(x) => TypeName.String,
-                { } x when x == "LongString" => TypeName.LongString,
-                { } => TypeName.Strange
-            };
+            var indexHtmlPath = Path.Combine(WwwRootPath, "index.html");
+            string text = File.ReadAllText(indexHtmlPath);
+            Regex reg2 = new Regex("configver=\\d+\"");
+            text = reg2.Replace(text, $"configver={ran.Next()}\"");
+            File.WriteAllText(indexHtmlPath, text);
         }
     }
 }

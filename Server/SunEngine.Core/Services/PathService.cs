@@ -51,12 +51,10 @@ namespace SunEngine.Core.Services
             if(!dic.TryGetValue(PathNames.WwwRootDirName, out string wwwRootDirToken))
                 throw new SunException($"No {PathNames.WwwRootDirName} in config Global section");
             WwwRootDir = MakePath(wwwRootDirToken);
-            dic.Remove(PathNames.WwwRootDirName);
             
             if(!dic.TryGetValue(PathNames.ConfigDirName, out string configToken))
                 throw new SunException($"No {PathNames.ConfigDirName} in config Global section");
             ConfigDir = MakePath(configToken);
-            dic.Remove(PathNames.ConfigDirName);
 
             foreach (var (key, value) in dic)
                 Pathes.Add(key, MakePath(value));

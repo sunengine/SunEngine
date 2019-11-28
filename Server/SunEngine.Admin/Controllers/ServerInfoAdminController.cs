@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace SunEngine.Admin.Controllers
             IPathService pathService,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            pathService.Combine(PathNames.ConfigDirName, "ServerInfo.json");
+            ServerInfoJsonFilePath = Path.Combine(pathService.ConfigDir, "ServerInfo.json");
         }
 
         [HttpPost]
