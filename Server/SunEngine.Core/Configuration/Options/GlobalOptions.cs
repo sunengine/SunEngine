@@ -40,8 +40,9 @@ namespace SunEngine.Core.Configuration.Options
 
         public string SiteName { get; set; }
 
-        public string ImagesUploadUrl { get; set; }
+        public string UploadImagesUrl { get; set; }
 
+        public string CurrentSkinUrl { get; set; }
         public bool FileServer { get; set; }
     }
 }

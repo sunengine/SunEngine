@@ -74,7 +74,6 @@ module.exports = function (ctx) {
 
         if (ctx.dev) {
           cfg.plugins.push(new CopyWebpackPlugin([{from: 'config.js', to: 'config.js'}]));
-          cfg.plugins.push(new CopyWebpackPlugin([{from: 'variables.js', to: 'variables.js'}]));
         }
       },
 

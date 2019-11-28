@@ -43,8 +43,8 @@ export default function ({store, ssrContext}) {
 
     await checkUserCredentialsAndReloadIfNew();
 
-    if (config.Log.MoveTo)
-      console.info("%cMove to page%c" + config.SiteUrl.substring(config.SiteSchema.length) + to.path, consoleRequestStart, consoleGreyEnd, to);
+    if (config.Client.LogMoveTo)
+      console.info("%cMove to page%c" + config.Global.SiteUrl.substring(config.Global.SiteSchema.length) + to.path, consoleRequestStart, consoleGreyEnd, to);
 
     next();
   });

@@ -105,19 +105,19 @@
                 (value) => !value || /^[a-zA-Z0-9-]+$/.test(value) || this.$tl('validation.name.allowedChars'),
                 (value) => !value || !/^[0-9]+$/.test(value) || this.$tl('validation.name.numberNotAllowed'),
                 (value) => !value || value.length >= 3 || this.$tl('validation.name.minLength'),
-                (value) => !value || value.length <= variables.DbColumnSizes.Materials_Name || this.$tl('validation.name.maxLength'),
+                (value) => !value || value.length <= config.DbColumnSizes.Materials_Name || this.$tl('validation.name.maxLength'),
             ],
             title: [
                 (value) => !!value || this.$tl('validation.title.required'),
                 (value) => value.length >= 3 || this.$tl('validation.title.minLength'),
-                (value) => value.length <= variables.DbColumnSizes.Categories_Title || this.$tl('validation.title.maxLength'),
+                (value) => value.length <= config.DbColumnSizes.Categories_Title || this.$tl('validation.title.maxLength'),
             ],
             text: [
                 (value) => !!value || this.$tl('validation.text.required'),
                 (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$tl('validation.text.htmlTextSizeOrHasImage'),
             ],
             subTitle: [
-                (value) => !value || value.length <= variables.DbColumnSizes.Materials_SubTitle || this.$tl('validation.subTitle.maxLength'),
+                (value) => !value || value.length <= config.DbColumnSizes.Materials_SubTitle || this.$tl('validation.subTitle.maxLength'),
             ],
             settingsJson: [
                 value => (!value || isJson(value)) || this.$tl('validation.settingsJson.jsonFormatError')

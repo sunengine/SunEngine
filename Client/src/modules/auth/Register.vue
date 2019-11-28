@@ -89,13 +89,13 @@
             userName: [
                 value => !!value || this.$tl('validation.userName.required'),
                 value => value.length >= 3 || this.$tl('validation.userName.minLength'),
-                value => value.length <= variables.DbColumnSizes.Users_UserName || this.$tl('validation.userName.maxLength'),
+                value => value.length <= config.DbColumnSizes.Users_UserName || this.$tl('validation.userName.maxLength'),
                 value => !this.userNameInDb || this.$tl('validation.userName.nameInDb'), // link in db
             ],
             email: [
                 value => !!value || this.$tl('validation.email.required'),
                 value => /.+@.+/.test(value) || this.$tl('validation.email.emailSig'),
-                value => value.length <= variables.DbColumnSizes.Users_Email || this.$tl('validation.email.maxLength'),
+                value => value.length <= config.DbColumnSizes.Users_Email || this.$tl('validation.email.maxLength'),
             ],
             password: password,
             password2: [

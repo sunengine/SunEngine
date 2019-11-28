@@ -40,6 +40,6 @@ export default function prepareAllMenuItems(state, allMenuItems) {
     }
   }
 
-  console.info('%cMenuItems prepared', consoleInit,config.Log.InitExtended ? {named:state.namedMenuItems, all:allMenuItems} : undefined);
+  console.info('%cMenuItems prepared', consoleInit,config.Client.LogInitExtended ? {named:state.namedMenuItems, all:allMenuItems} : undefined);
 
 }

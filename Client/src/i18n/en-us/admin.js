@@ -38,7 +38,7 @@ export default {
       },
       icon: {
         minLength: "Minimal icon length - 3",
-        maxLength: "Maximum icon length - " + variables.DbColumnSizes.Categories_Icon,
+        maxLength: "Maximum icon length - " + config.DbColumnSizes.Categories_Icon,
       },
       parent: {
         required: "Select parent category"
@@ -82,7 +82,7 @@ export default {
       name: {
         required: "Enter name (eng)",
         minLength:  "Minimum component name length is 3",
-        maxLength: "Maximum component name length is " + variables.DbColumnSizes.Components_Name + "letters",
+        maxLength: "Maximum component name length is " + config.DbColumnSizes.Components_Name + "letters",
         allowedChars: "The name (eng) must consist of the characters `a-z`, `A-Z`, `0-9`, `-`, `_`"
       },
       type: {
@@ -148,25 +148,25 @@ export default {
     validation: {
       name: {
         minLength: "Minimal name length - 3",
-        maxLength: "Maximum name length - " + variables.DbColumnSizes.MenuItems_Name,
+        maxLength: "Maximum name length - " + config.DbColumnSizes.MenuItems_Name,
         allowedChars: "Only [a-zA-Z0-9_-] symbols allowed"
       },
       title: {
         required: "Title required",
         minLength: "Minimal title length - 3",
-        maxLength: "Maximum title length - " + variables.DbColumnSizes.Categories_Title,
+        maxLength: "Maximum title length - " + config.DbColumnSizes.Categories_Title,
       },
       subTitle: {
         minLength: "Minimal sub title length - 3",
-        maxLength: "Maximum sub title length - " + variables.DbColumnSizes.MenuItems_SubTitle,
+        maxLength: "Maximum sub title length - " + config.DbColumnSizes.MenuItems_SubTitle,
       },
       cssClass: {
         minLength: "Minimal css class length - 3",
-        maxLength: "Maximum css class length - " + variables.DbColumnSizes.MenuItems_CssClass,
+        maxLength: "Maximum css class length - " + config.DbColumnSizes.MenuItems_CssClass,
       },
       icon: {
         minLength: "Minimal icon length - 3",
-        maxLength: "Maximum icon length - " + variables.DbColumnSizes.MenuItems_Icon,
+        maxLength: "Maximum icon length - " + config.DbColumnSizes.MenuItems_Icon,
       },
       settingsJson: {
         jsonFormatError: "Invalid Json format",

@@ -12,7 +12,7 @@ import {consoleTokens, consoleUserLogout, consoleRequestStart, consoleRequestUrl
 const lock = new Lock('request-lock');
 
 
-const apiAxios = axios.create({baseURL: config.API, withCredentials: process.env.DEV});
+const apiAxios = axios.create({baseURL: config.Global.SiteApi, withCredentials: process.env.DEV});
 
 
 apiAxios.interceptors.response.use(async rez => {
@@ -66,7 +66,7 @@ export default async function (url, body, sendAsJson = false, skipLock = false, 
     delete body.skipLock;
   }
 
-  if (config.Log.Requests)
+  if (config.Client.LogRequests)
     console.log(`%cRequest%c${url}`, consoleRequestStart, consoleRequestUrl, body);
 
   const headers = {};

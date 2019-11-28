@@ -13,7 +13,7 @@ export default function (ell, className) {
         this.$router.push(url);
       });
     } else {
-      if (config.OpenExternalLinksAtNewTab)
+      if (config.Client.OpenExternalLinksAtNewTab)
         link.setAttribute("target", "_blank");
     }
   }

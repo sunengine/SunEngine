@@ -32,6 +32,16 @@ namespace SunEngine.Admin.Services
             var list = new List<string>()
             {
                 "Global:SiteName",
+                "Global:SiteApi",
+                "Global:SiteUrl",
+                "Global:UploadImagesUrl",
+                "Global:CurrentSkinUrl",
+                "Client:OpenExternalLinksAtNewTab",
+                "Client:VueDevTools",
+                "Client:VueAppInWindow",
+                "Client:LogInitExtended",
+                "Client:LogRequests",
+                "Client:LogMoveTo",
                 "Comments:TimeToOwnEditInMinutes",
                 "Comments:TimeToOwnDeleteInMinutes",
                 "Materials:CommentsPageSize",
@@ -88,8 +98,6 @@ namespace SunEngine.Admin.Services
                 string text = File.ReadAllText(indexHtmlPath);
                 Regex reg2 = new Regex("configver=\\d+\"");
                 text = reg2.Replace(text, $"configver={ran.Next()}\"");
-                Regex reg3 = new Regex("variablesver=\\d+\"");
-                text = reg3.Replace(text, $"variablesver={ran.Next()}\"");
                 File.WriteAllText(indexHtmlPath, text);
             }
         }
@@ -97,8 +105,8 @@ namespace SunEngine.Admin.Services
 
     public class ConfigurationConfigItemView
     {
-        public string Name { get; set; }
-        public object Value { get; set; }
+        public string Name { get; }
+        public object Value { get; }
 
         public ConfigurationConfigItemView(string name, string value)
         {

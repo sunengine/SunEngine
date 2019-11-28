@@ -72,7 +72,7 @@ namespace SunEngine.Cli
 
                         config.AddInMemoryCollection(new List<KeyValuePair<string, string>>()
                         {
-                            new KeyValuePair<string, string>("Global:ConfigRootDir",
+                            new KeyValuePair<string, string>("Dirs:Config",
                                 Path.GetFullPath(startupConfiguration.ConfigRootDir))
                         });
 

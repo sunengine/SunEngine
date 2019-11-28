@@ -48,9 +48,14 @@ namespace SunEngine.Core.Services
             var dirsSection = configuration.GetSection("Dirs");
             var dic = dirsSection.GetChildren().ToDictionary(x => x.Key, x => x.Value);
 
-            WwwRootDir = MakePath(PathNames.WwwRootDirName);
+            if(!dic.TryGetValue(PathNames.WwwRootDirName, out string wwwRootDirToken))
+                throw new SunException($"No {PathNames.WwwRootDirName} in config Global section");
+            WwwRootDir = MakePath(wwwRootDirToken);
             dic.Remove(PathNames.WwwRootDirName);
-            ConfigDir = MakePath(PathNames.ConfigDirName);
+            
+            if(!dic.TryGetValue(PathNames.ConfigDirName, out string configToken))
+                throw new SunException($"No {PathNames.ConfigDirName} in config Global section");
+            ConfigDir = MakePath(configToken);
             dic.Remove(PathNames.ConfigDirName);
 
             foreach (var (key, value) in dic)
