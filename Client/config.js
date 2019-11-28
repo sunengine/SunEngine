@@ -3,7 +3,7 @@ const config = {
   API: 'http://localhost:5000',
   SiteUrl: "http://localhost:5005",
   UploadedImages: 'http://localhost:5000/UploadImages',
-  Skin: 'http://localhost:5000/CurrentSkin/styles.css',
+  Skin: 'http://localhost:5000/Skin/styles.css',
   //Skin: 'http://localhost:5005/statics/CurrentSkin/styles.css', // use to skin dev and place skin in statics/CurrentSkin
 
   OpenExternalLinksAtNewTab: true,
