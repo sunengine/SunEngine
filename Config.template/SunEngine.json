@@ -1,19 +1,26 @@
-/*
- Use ~ in path to use application folder or @ to use wwwroot folder, or use absolute paths
- */
+/**
+ *   %app% - Application Root path. Set to auto to make auto search in parent 4 level.
+ *   %wwwroot% - wwwroot path
+ *   %config% - config dir path
+ **/
 {
   "Global": {
+   // "SiteName": "SunEngine Demo 11",
     "SiteUrl": "http://localhost:5005",
     "SiteApi": "http://localhost:5000",
-    "ImagesUploadUrl": "http://localhost:5005/UploadImages",
-	
-	"WwwRootDir": "%app%/wwwroot",
-	"ImagesUploadDir": "%wwwroot%/UploadImages",
-	"MailTemplates": "%config%/MailTemplates",
-	"CurrentSkinDir": "%wwwroot%/CurrentSkin",
-    "AllSkinsDir": "%app%/Skins"
+    "UploadImagesUrl": "http://localhost:5005/UploadImages",
+    "CurrentSkinUrl": "http://localhost:5005/Skin/styles.css",
+    "FileServer": true
   },
-
+  "Dirs": {
+    "ApplicationRoot": "auto",
+    "WwwRoot": "%app%/bin/wwwroot",
+    "UploadImages": "%wwwroot%/UploadImages",
+    "MailTemplates": "%config%/MailTemplates",
+    "CurrentSkin": "%wwwroot%/Skin",
+    "AllSkins": "%app%/Data/Skins",
+    "Resources": "%app%/Data/Resources"
+  },
   "Kestrel": {
     "EndPoints": {
       "Http": {
@@ -24,5 +31,12 @@
   "Cors": {
     "Origins": "http://localhost:5005"
   },
-  "FileServer": false,
+  "Client": {
+    "OpenExternalLinksAtNewTab": true,
+    "VueDevTools": true,
+    "VueAppInWindow": true,
+    "LogInitExtended": true,
+    "LogRequests": true,
+    "LogMoveTo": true
+  }
 }
