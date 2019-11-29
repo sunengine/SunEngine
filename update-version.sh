@@ -16,4 +16,4 @@ sed -i "s/Версия: $prev/Версия: $new/g" ./README.RU.md
 
 
 
- 
+
