@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using SixLabors.Shapes;
 using SunEngine.Core.Errors.Exceptions;
+using Path = System.IO.Path;
 
 namespace SunEngine.Core.Services
 {
@@ -20,6 +23,7 @@ namespace SunEngine.Core.Services
 
     public static class PathNames
     {
+        public const string ApplicationRootName = "ApplicationRoot";
         public const string WwwRootDirName = "WwwRoot";
         public const string ConfigDirName = "Config";
         public const string ResourcesDirName = "Resources";
@@ -38,26 +42,50 @@ namespace SunEngine.Core.Services
         protected Dictionary<string, string> Pathes;
 
         public PathService(
-            IConfigurationRoot configuration,
-            IHostingEnvironment env)
+            IConfigurationRoot configuration)
         {
-            ApplicationDir = env.ContentRootPath;
-
             Pathes = new Dictionary<string, string>();
 
             var dirsSection = configuration.GetSection("Dirs");
             var dic = dirsSection.GetChildren().ToDictionary(x => x.Key, x => x.Value);
 
-            if(!dic.TryGetValue(PathNames.WwwRootDirName, out string wwwRootDirToken))
+            if (!dic.TryGetValue(PathNames.ApplicationRootName, out string applicationRootToken))
+                throw new SunException($"No {PathNames.ApplicationRootName} in config Global section");
+            if (applicationRootToken == "auto")
+                ApplicationDir = SearchApplicationRootDir();
+            else
+                ApplicationDir = applicationRootToken;
+
+            if (!dic.TryGetValue(PathNames.WwwRootDirName, out string wwwRootDirToken))
                 throw new SunException($"No {PathNames.WwwRootDirName} in config Global section");
             WwwRootDir = MakePath(wwwRootDirToken);
-            
-            if(!dic.TryGetValue(PathNames.ConfigDirName, out string configToken))
+
+            if (!dic.TryGetValue(PathNames.ConfigDirName, out string configToken))
                 throw new SunException($"No {PathNames.ConfigDirName} in config Global section");
             ConfigDir = MakePath(configToken);
 
             foreach (var (key, value) in dic)
                 Pathes.Add(key, MakePath(value));
+        }
+
+        protected string SearchApplicationRootDir()
+        {             
+            List<string> dirTokens = Directory.GetCurrentDirectory().Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).ToList();
+            for (int i = 0; i < 3; i++)
+            {
+                var currentPath = string.Join(Path.DirectorySeparatorChar, dirTokens);
+                if (CheckDir(currentPath))
+                    return currentPath;
+
+                if (dirTokens.Count >= 2)
+                    dirTokens.RemoveAt(dirTokens.Count - 1);
+                else
+                    break;
+            }
+
+            throw new SunException("Can not find Application root directory");
+
+            bool CheckDir(string path) => File.Exists(Path.Combine(path, "Data", "Resources", "Roles.schema.json"));
         }
 
         private const string WwwRootDirPrefix = "%wwwroot%";

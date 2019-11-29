@@ -3,7 +3,7 @@
     <h2 class="page-title ">
       {{title}}
     </h2>
-    <q-markup-table >
+    <q-markup-table>
       <tbody>
       <tr v-if="serverInfo && serverInfo.Name">
         <td>{{$tl("serverName")}}</td>
@@ -24,6 +24,14 @@
       <tr v-if="dotNetVersion">
         <td>{{$tl("dotNetVersion")}}</td>
         <td>{{dotNetVersion}}</td>
+      </tr>
+      <tr v-if="clientName">
+        <td>{{$tl("clientName")}}</td>
+        <td>{{clientName}}</td>
+      </tr>
+      <tr v-if="clientVersion">
+        <td>{{$tl("clientVersion")}}</td>
+        <td>{{clientVersion}}</td>
       </tr>
       <tr v-if="serverInfo && serverInfo.Maintainer">
         <td>{{$tl("maintainer")}}</td>
@@ -82,13 +90,13 @@
             additionalData() {
                 const {Name, ServerVersion, Maintainer, MaintainerContacts, Description, ServerRepository, ...rez} = {...this.serverInfo};
                 return rez;
+            },
+            clientVersion() {
+                return process.env.PACKAGE_JSON.version;
+            },
+            clientName() {
+                return process.env.PACKAGE_JSON.name;
             }
-            /* clentVersion() {
-                 return process.env.PACKAGE_JSON.version;
-             },
-             clentName() {
-                 return process.env.PACKAGE_JSON.version;
-             }*/
         },
         methods: {
             getServerInfo() {

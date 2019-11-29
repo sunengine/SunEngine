@@ -264,6 +264,8 @@ export default {
     serverVersion: "Версия сервера",
     serverRepository: "Репозиторий сервера",
     sunEngineVersion: "Версия SunEngine",
+    clientName: "Имя клиента",
+    clientVersion: "Версия клиента",
     dotNetVersion: "Версия DotNet",
     maintainer: "Хранитель сайта",
     maintainerContacts: "Контакты хранителя",

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using SunEngine.Core.Errors.Exceptions;
 using Path = System.IO.Path;
 
 namespace SunEngine.Cli
@@ -66,22 +67,23 @@ namespace SunEngine.Cli
             var configurationArg = Arguments.FirstOrDefault(x => x.StartsWith(configArgPrefix));
             if (string.IsNullOrEmpty(configurationArg))
             {
-                var configDir = Path.GetFullPath(DefaultConfigFileName);
-                Console.WriteLine($@"Using configuration directory ""{configDir}"".");
-                TestIfConfigurationDirectoryExists(configDir);
-                ConfigRootDir = configDir;
-                return;
+                ConfigRootDir = FindDefaultConfigPath();
+            }
+            else
+            {
+                var configurationDirectory = configurationArg.Substring(configArgPrefix.Length).Trim();
+
+                var dirName = Path.GetFileName(configurationDirectory);
+                if (!dirName.Equals(DefaultConfigFileName) &&
+                    !dirName.EndsWith(ConfigDirectoryNameEnd))
+                    configurationDirectory += ConfigDirectoryNameEnd;
+
+                TestIfConfigurationDirectoryExists(configurationDirectory);
+                ConfigRootDir = Path.GetFullPath(configurationDirectory);
             }
 
-            var configurationDirectory = configurationArg.Substring(configArgPrefix.Length).Trim();
+            Console.WriteLine($@"Using configuration directory ""{ConfigRootDir}"".");
 
-            if (!configurationDirectory.Equals(DefaultConfigFileName) &&
-                !configurationDirectory.EndsWith(ConfigDirectoryNameEnd))
-                configurationDirectory += ConfigDirectoryNameEnd;
-            
-            TestIfConfigurationDirectoryExists(configurationDirectory);
-            Console.WriteLine($@"Using configuration directory ""{configurationDirectory}"".");
-            ConfigRootDir = Path.GetFullPath(configurationDirectory);
 
             void TestIfConfigurationDirectoryExists(string dirPath)
             {
@@ -90,6 +92,26 @@ namespace SunEngine.Cli
 
                 Console.WriteLine($@"Configuration directory ""{dirPath}"" does not exists.");
                 Environment.Exit(1);
+            }
+
+            string FindDefaultConfigPath()
+            {
+                List<string> dirTokens = Directory.GetCurrentDirectory().Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).ToList();
+                for (int i = 0; i < 3; i++)
+                {
+                    var currentPath = string.Join(Path.DirectorySeparatorChar, dirTokens);
+                    if (CheckDir(currentPath))
+                        return Path.Combine(currentPath, DefaultConfigFileName);
+                    if (dirTokens.Count >= 2)
+                        dirTokens.RemoveAt(dirTokens.Count - 1);
+                    else
+                        break;
+                }
+
+                throw new SunException("Can not find Config directory");
+
+                bool CheckDir(string path) => File.Exists(Path.Combine(path, DefaultConfigFileName,
+                    "SunEngine.json"));
             }
         }
     }

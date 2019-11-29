@@ -53,7 +53,7 @@
         <q-item-section avatar>
           <q-item-label>
             <q-avatar class="shadow-1" size="42px">
-              <img :src="$imagePath(topic.lastCommentAuthorAvatar)"/>
+              <img :src="$avatarPath(topic.lastCommentAuthorAvatar)"/>
             </q-avatar>
           </q-item-label>
         </q-item-section>

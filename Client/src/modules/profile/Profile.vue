@@ -2,7 +2,7 @@
   <q-page class="profile page-padding page-padding-top">
     <div class="profile__container" v-if="user">
       <div class="profile__img-block flex column">
-        <img class="profile__photo" width="300" height="300" :src="$imagePath(user.photo)"/>
+        <img class="profile__photo" width="300" height="300" :src="$avatarPath(user.photo)"/>
         <div v-if="messageButtons" class="profile__private-messages-block flex q-mt-sm">
           <q-btn no-caps class="shadow-1 grow" color="lime-4" :disable="!canPrivateMessage"
                  :to="{path: '/SendPrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}"
