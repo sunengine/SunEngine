@@ -88,7 +88,3 @@ cp -r "$PROJECT_ROOT/Resources/." "$BUILD_PATH/Resources"
 
 echo  -e "${GREEN}Copying Skins to build directory ${NC}\n"
 cp -r "$PROJECT_ROOT/Skins/." "$BUILD_PATH/Skins"
-
-echo  -e "${GREEN}Creating UploadImages and CurrentSkin directory ${NC}\n"
-mkdir "$BUILD_PATH/wwwroot/UploadImages"
-mkdir "$BUILD_PATH/wwwroot/Skin"
