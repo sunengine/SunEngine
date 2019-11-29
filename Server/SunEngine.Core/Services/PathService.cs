@@ -38,8 +38,7 @@ namespace SunEngine.Core.Services
 
         protected Dictionary<string, string> Pathes;
 
-        public PathService(
-            IConfigurationRoot configuration)
+        public PathService(IConfiguration configuration)
         {
             Pathes = new Dictionary<string, string>();
 
@@ -66,8 +65,9 @@ namespace SunEngine.Core.Services
         }
 
         public static string SearchApplicationRootDir()
-        {             
-            List<string> dirTokens = Directory.GetCurrentDirectory().Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).ToList();
+        {
+            List<string> dirTokens = Directory.GetCurrentDirectory()
+                .Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).ToList();
             for (int i = 0; i < 3; i++)
             {
                 var currentPath = string.Join(Path.DirectorySeparatorChar, dirTokens);

@@ -30,11 +30,11 @@ namespace SunEngine.DataSeed
 
         public void SeedUsers()
         {
-            string fileName = Path.GetFullPath(Path.Combine(configDir, "Users.json"));
+            string fileName = Path.Combine(configDir, "Init", "Users.json");
 
             string jsonText = File.ReadAllText(fileName);
             usersJArray = JArray.Parse(jsonText);
-            
+
             foreach (var userJ in usersJArray)
                 SeedUser(userJ);
         }
@@ -50,19 +50,19 @@ namespace SunEngine.DataSeed
             int startNumber = 1;
             if (usersJ["StartNumber"] != null)
             {
-                startNumber = int.Parse((string)usersJ["StartNumber"]);
+                startNumber = int.Parse((string) usersJ["StartNumber"]);
                 maxNumber += startNumber - 1;
             }
-            
+
             for (int j = startNumber; j <= maxNumber; j++)
             {
                 string name = ((string) usersJ["UserName"]).Replace("[n]", j.ToString());
-                
+
                 User user = new User
                 {
                     Id = dataContainer.NextUserId(),
-                    Email =  usersJ["Email"] != null 
-                        ? ((string) usersJ["Email"]).Replace("[n]", j.ToString()) 
+                    Email = usersJ["Email"] != null
+                        ? ((string) usersJ["Email"]).Replace("[n]", j.ToString())
                         : name + "@email.email",
                     UserName = name,
                     EmailConfirmed = true,
@@ -73,13 +73,14 @@ namespace SunEngine.DataSeed
                     Link = ((string) usersJ["Link"])?.Replace("[n]", j.ToString()),
                     RegisteredDate = DateTime.UtcNow
                 };
-                if(string.IsNullOrEmpty(user.Link))
+                if (string.IsNullOrEmpty(user.Link))
                     user.Link = user.Id.ToString();
-                
+
                 MakeNormalizedUserFields(user);
                 dataContainer.Users.Add(user);
             }
         }
+
         public void SeedUserRoles()
         {
             foreach (var userJ in usersJArray)
@@ -96,7 +97,7 @@ namespace SunEngine.DataSeed
             int startNumber = 1;
             if (userJ["StartNumber"] != null)
             {
-                startNumber = int.Parse((string)userJ["StartNumber"]);
+                startNumber = int.Parse((string) userJ["StartNumber"]);
                 maxNumber += startNumber - 1;
             }
 

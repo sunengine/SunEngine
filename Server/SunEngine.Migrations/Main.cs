@@ -22,7 +22,7 @@ namespace SunEngine.Migrations
 
         public Main(string configDirPath)
         {
-            DataBaseConnectionFilePath = Path.GetFullPath(Path.Combine(configDirPath, DataBaseConnectionFileName));
+            DataBaseConnectionFilePath = Path.Combine(configDirPath, DataBaseConnectionFileName);
         }
 
 

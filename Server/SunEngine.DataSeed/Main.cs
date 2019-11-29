@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.Extensions.Configuration;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
+using SunEngine.Core.Services;
 
 namespace SunEngine.DataSeed
 {
@@ -16,7 +17,9 @@ namespace SunEngine.DataSeed
     public class Main
     {
         private const string DataBaseConnectionFileName = "DataBaseConnection.json";
-        public const string SeedCommand = "seed";
+        private const string SunEngineJsonFileName = "SunEngine.json";
+
+        private const string SeedCommand = "seed";
         private const string InitDir = "Init";
 
         private readonly string initDirPath;
@@ -24,14 +27,22 @@ namespace SunEngine.DataSeed
         private readonly string connectionString;
         private readonly string configDirectoryPath;
 
+        private readonly IConfiguration configuration;
 
-        public Main(string configDirectoryPath = "Config")
+        public Main(string configDirectoryPath)
         {
-            this.configDirectoryPath = Path.GetFullPath(configDirectoryPath);
-            initDirPath = Path.GetFullPath(Path.Combine(configDirectoryPath, InitDir));
+            this.configDirectoryPath = configDirectoryPath;
+            initDirPath = Path.Combine(configDirectoryPath, InitDir);
             string dbSettingsFile = Path.Combine(this.configDirectoryPath, DataBaseConnectionFileName);
-            var configuration = new ConfigurationBuilder()
+            string sunEngineJsonFile = Path.Combine(this.configDirectoryPath, SunEngineJsonFileName);
+
+            configuration = new ConfigurationBuilder()
                 .AddJsonFile(dbSettingsFile, false, true)
+                .AddJsonFile(sunEngineJsonFile, false, true)
+                .AddInMemoryCollection(new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("Dirs:Config", configDirectoryPath)
+                })
                 .Build();
 
             var dataBaseConfiguration = configuration.GetSection("DataBaseConnection");
@@ -46,10 +57,10 @@ namespace SunEngine.DataSeed
         public void SeedInitialize()
         {
             CheckDbConnectionAndExitIfFailed();
-            
+
             using var db = new DataBaseConnection(providerName, connectionString);
 
-            var dataContainer = new InitialSeeder(initDirPath).Seed();
+            var dataContainer = new InitialSeeder(new PathService(configuration)).Seed();
             var databaseSeeder = new DataBaseSeeder(db, dataContainer);
 
 
@@ -62,19 +73,19 @@ namespace SunEngine.DataSeed
         public void SeedAddTestData(IList<string> catTokens, bool titleAppendCategoryName = false)
         {
             CheckDbConnectionAndExitIfFailed();
-            
+
             const string seedCommandDots = SeedCommand + ":";
             if (catTokens.Contains(SeedCommand))
                 catTokens[catTokens.IndexOf(SeedCommand)] = seedCommandDots + Category.RootName;
             catTokens = catTokens.Select(x => x.Substring(seedCommandDots.Length)).ToList();
 
-            using DataBaseConnection db = new DataBaseConnection(providerName, connectionString);
-
-            SeedTestData(db);
+            SeedTestData();
 
 
-            void SeedTestData(DataBaseConnection db)
+            void SeedTestData()
             {
+                using var db = new DataBaseConnection(providerName, connectionString);
+
                 var dataContainer = new DataContainer
                 {
                     Categories = db.Categories.ToList(),
@@ -115,7 +126,7 @@ namespace SunEngine.DataSeed
         {
             if (CheckDataBaseConnection(out Exception e))
                 return;
-            
+
             Console.WriteLine();
             Console.WriteLine(e);
             Console.WriteLine();
@@ -161,7 +172,7 @@ namespace SunEngine.DataSeed
                 using var cmd = db.CreateCommand();
                 cmd.CommandText = "SELECT 100";
                 int num = (int) cmd.ExecuteScalar();
-            
+
                 return true;
             }
             catch (Exception e)

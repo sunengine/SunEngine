@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
@@ -99,10 +100,12 @@ namespace SunEngine.Cli
                             if (wwwRootDir.StartsWith("%app%"))
                             {
                                 var wwwRootDirTokens = wwwRootDir.Substring("%app%".Length + 1).Split('\\', '/');
-                                var tokens = new List<string>(wwwRootDirTokens.Length + 1)
-                                    {PathService.SearchApplicationRootDir()};
-                                tokens.AddRange(wwwRootDirTokens);
-                                wwwRootDir = Path.Combine(tokens.ToArray());
+
+                                string[] tokens = new string[wwwRootDirTokens.Length + 1];
+                                tokens[0] = PathService.SearchApplicationRootDir();
+                                wwwRootDirTokens.CopyTo(tokens,1);
+    
+                                wwwRootDir = Path.Combine(tokens);
                             }
 
                             builder.UseWebRoot(wwwRootDir);
