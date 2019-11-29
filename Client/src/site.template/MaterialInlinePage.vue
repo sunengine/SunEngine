@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="material-inline-page ">
     <div class="pan">
     </div>

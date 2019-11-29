@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="secret-page middle flex">
     <h3 class="secret-page__header">
       <q-icon name="fas fa-fingerprint"/>

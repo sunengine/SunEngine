@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-layout class="layout" view="lHh LpR lfr">
     <q-header class="layout__header">
       <q-toolbar  class="layout__toolbar">
@@ -68,10 +68,14 @@
     </q-page-container>
 
     <q-footer class="layout__footer">
-      <LinksMenu class="layout__footer-line" :menuItem="footerMenuItem">
-        <q-icon name="fas fa-heart" size="12px"/>
+      <LinksMenu v-if="footerMenuItem" class="layout__footer-line" :menuItem="footerMenuItem">
+        <q-icon name="fas fa-heart" class="layout__footer-separator-icon" size="12px"/>
       </LinksMenu>
+
+      <!-- Do not remove this component from the layout. -->
+      <!-- This component is the part of SunEngine user license - https://github.com/sunengine/SunEngine/blob/master/LICENSE.md . -->
       <SunEngineFooter class="layout__footer-line"/>
+
     </q-footer>
   </q-layout>
 </template>

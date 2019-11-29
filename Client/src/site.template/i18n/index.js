@@ -1,4 +1,4 @@
-import enUs from 'i18n/en-us'
+﻿import enUs from 'i18n/en-us'
 import ru from 'i18n/ru'
 import enUsSite from './en-us'
 import ruSite from './ru'

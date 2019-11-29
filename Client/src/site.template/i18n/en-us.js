@@ -1,5 +1,5 @@
-export default {
-  Index: {
+﻿export default {
+  IndexPage: {
     users: "Users",
     password: "Password",
     version: "Version",

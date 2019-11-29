@@ -1,19 +1,17 @@
-<template>
+﻿<template>
   <q-page class="index-page middle flex flex-center">
     <div>
-      <h1 class="index-page__demo-header">
-        Sun
-        <wbr/>
-        Engine
+      <h1 class="index-page__header index-page__demo-header">
+        SunEngine
       </h1>
       <div class="index-page__info-block">
         <p>{{$tl("users")}}:
-          <span class="hl">User1</span>,
-          <span class="hl">User2</span>,
-          <span class="hl">User3</span>,
-          <span class="hl">Moderator</span>,
-          <span class="hl">Admin</span>.</p>
-        <p>{{$tl("password")}}: <span class="hl">password</span>.</p>
+          <span class="index-page__info-block-accent">User1</span>,
+          <span class="index-page__info-block-accent">User2</span>,
+          <span class="index-page__info-block-accent">User3</span>,
+          <span class="index-page__info-block-accent">Moderator</span>,
+          <span class="index-page__info-block-accent">Admin</span>.</p>
+        <p>{{$tl("password")}}: <span class="index-page__info-block-accent">password</span>.</p>
         <p class="index-page__version">{{$tl("version")}}: <span class="num">{{version}}</span></p>
       </div>
     </div>
@@ -68,11 +66,11 @@
       text-align: center;
       color: #616161;
     }
+  }
 
-    .hl {
-      font-weight: 600;
-      color: #a38167;
-    }
+  .index-page__info-block-accent {
+    font-weight: 600;
+    color: #a38167;
   }
 
   .index-page__version {

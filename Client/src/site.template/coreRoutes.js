@@ -1,4 +1,4 @@
-import {authRoutes} from 'sun'
+﻿import {authRoutes} from 'sun'
 import {accountRoutes} from 'sun'
 import {miscRoutes} from 'sun'
 import {personalRoutes} from 'sun'

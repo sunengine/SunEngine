@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-list class="main-menu">
     <div class="main-menu__logo-div">
         <router-link :to="{name: 'Home'}">
