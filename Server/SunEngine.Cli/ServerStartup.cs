@@ -20,6 +20,10 @@ namespace SunEngine.Cli
 
             InfoPrinter.PrintVersion();
             Startup.SetExceptionsMode(env, conf);
+            
+            InfrastructurePreparer ip = new InfrastructurePreparer((IConfigurationRoot)conf);
+            ip.CheckOrCreateCurrentSkin();
+            ip.UpdateClientConfigJs();
 
             webHost.Run();
         }

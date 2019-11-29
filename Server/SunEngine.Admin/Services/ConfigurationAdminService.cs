@@ -1,30 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using AngleSharp;
-using Flurl.Util;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using SunEngine.Admin.Presenters;
-using SunEngine.Core.Configuration;
 using SunEngine.Core.DataBase;
-using SunEngine.Core.Models;
 using SunEngine.Core.Services;
 
 namespace SunEngine.Admin.Services
 {
-    public class ConfigurationAdminService : DbService
+    public class ConfigurationAdminService
     {
         protected string WwwRootPath { get; }
         protected IConfigurationRoot configurationRoot { get; }
 
         public ConfigurationAdminService(
-            DataBaseConnection db,
             IPathService pathService,
-            IConfigurationRoot configurationRoot) : base(db)
+            IConfigurationRoot configurationRoot)
         {
             this.configurationRoot = configurationRoot;
             WwwRootPath = pathService.WwwRootDir;

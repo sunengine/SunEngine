@@ -251,6 +251,24 @@ export default {
   AdminPage: {
     title: "@:AdminPanel.title"
   },
+  AdminInformation: {
+    title: "Information",
+    serverName: "Server name",
+    serverVersion: "Server version",
+    serverRepository: "Server repository",
+    sunEngineVersion: "SunEngine version",
+    clientName: "Client name",
+    clientVersion: "Client version",
+    dotNetVersion: "DotNet version",
+    quasarVersion: "Quasar version",
+    vueJsVersion: "VueJS version",
+    maintainer: "Site maintainer",
+    maintainerContacts: "Maintainer contacts",
+    description: "Description",
+    sunEngineRepository: "SunEngine repository",
+    sunEngineSkinsRepository: "SunEngine skins repository",
+    additionalData: "Additional data"
+  },
   AdminPanel: {
     title: "Admin panel"
   },

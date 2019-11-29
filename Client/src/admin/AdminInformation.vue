@@ -21,10 +21,6 @@
         <td>{{$tl("sunEngineVersion")}}</td>
         <td>{{sunEngineVersion}}</td>
       </tr>
-      <tr v-if="dotNetVersion">
-        <td>{{$tl("dotNetVersion")}}</td>
-        <td>{{dotNetVersion}}</td>
-      </tr>
       <tr v-if="clientName">
         <td>{{$tl("clientName")}}</td>
         <td>{{clientName}}</td>
@@ -32,6 +28,18 @@
       <tr v-if="clientVersion">
         <td>{{$tl("clientVersion")}}</td>
         <td>{{clientVersion}}</td>
+      </tr>
+      <tr v-if="dotNetVersion">
+        <td>{{$tl("dotNetVersion")}}</td>
+        <td>{{dotNetVersion}}</td>
+      </tr>
+      <tr v-if="quasarVersion">
+        <td>{{$tl("quasarVersion")}}</td>
+        <td>{{quasarVersion}}</td>
+      </tr>
+      <tr v-if="vueJsVersion">
+        <td>{{$tl("vueJsVersion")}}</td>
+        <td>{{vueJsVersion}}</td>
       </tr>
       <tr v-if="serverInfo && serverInfo.Maintainer">
         <td>{{$tl("maintainer")}}</td>
@@ -74,6 +82,7 @@
 
 <script>
     import {Page} from 'mixins'
+    import Vue from 'vue'
 
 
     export default {
@@ -96,7 +105,14 @@
             },
             clientName() {
                 return process.env.PACKAGE_JSON.name;
+            },
+            quasarVersion() {
+                return this.$q.version;
+            },
+            vueJsVersion() {
+                return Vue.version;
             }
+
         },
         methods: {
             getServerInfo() {

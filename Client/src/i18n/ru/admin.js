@@ -267,6 +267,8 @@ export default {
     clientName: "Имя клиента",
     clientVersion: "Версия клиента",
     dotNetVersion: "Версия DotNet",
+    quasarVersion: "Версия Quasar",
+    vueJsVersion: "Версия VueJS",
     maintainer: "Хранитель сайта",
     maintainerContacts: "Контакты хранителя",
     description: "Описание",
