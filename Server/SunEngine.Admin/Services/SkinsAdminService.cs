@@ -124,7 +124,7 @@ namespace SunEngine.Admin.Services
                 Directory.Delete(CurrentSkinPath, true);
             Directory.CreateDirectory(CurrentSkinPath);
 
-            CopyDir(selectedSkinPath, CurrentSkinPath);
+            CopyDir.Copy(selectedSkinPath, CurrentSkinPath);
 
             if (env.IsProduction())
             {
@@ -198,18 +198,6 @@ namespace SunEngine.Admin.Services
             public string SourceUrl { get; set; }
             public string Description { get; set; }
             public bool Current { get; set; }
-        }
-
-
-        protected void CopyDir(string fromPath, string toPath)
-        {
-            foreach (string dirPath in Directory.GetDirectories(fromPath, "*",
-                SearchOption.AllDirectories))
-                Directory.CreateDirectory(dirPath.Replace(fromPath, toPath));
-
-            foreach (string newPath in Directory.GetFiles(fromPath, "*.*",
-                SearchOption.AllDirectories))
-                System.IO.File.Copy(newPath, newPath.Replace(fromPath, toPath), true);
         }
     }
 }

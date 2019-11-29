@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using SunEngine.Core.Configuration;
 using SunEngine.Core.DataBase;
+using SunEngine.Core.Services;
 
 namespace SunEngine.Cli
 {
@@ -20,10 +21,8 @@ namespace SunEngine.Cli
 
             InfoPrinter.PrintVersion();
             Startup.SetExceptionsMode(env, conf);
-            
-            InfrastructurePreparer ip = new InfrastructurePreparer((IConfigurationRoot)conf);
-            ip.CheckOrCreateCurrentSkin();
-            ip.UpdateClientConfigJs();
+
+            new InfrastructurePreparer((IConfigurationRoot) conf).DoAll();
 
             webHost.Run();
         }
@@ -98,7 +97,13 @@ namespace SunEngine.Cli
                             .GetBoolean())
                         {
                             if (wwwRootDir.StartsWith("%app%"))
-                                wwwRootDir = Path.GetFullPath(wwwRootDir.Substring("%app%".Length + 1));
+                            {
+                                var wwwRootDirTokens = wwwRootDir.Substring("%app%".Length + 1).Split('\\', '/');
+                                var tokens = new List<string>(wwwRootDirTokens.Length + 1)
+                                    {PathService.SearchApplicationRootDir()};
+                                tokens.AddRange(wwwRootDirTokens);
+                                wwwRootDir = Path.Combine(tokens.ToArray());
+                            }
 
                             builder.UseWebRoot(wwwRootDir);
                         }

@@ -65,7 +65,7 @@ namespace SunEngine.Core.Services
                 Pathes.Add(key, MakePath(value));
         }
 
-        protected string SearchApplicationRootDir()
+        public static string SearchApplicationRootDir()
         {             
             List<string> dirTokens = Directory.GetCurrentDirectory().Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).ToList();
             for (int i = 0; i < 3; i++)
