@@ -47,6 +47,8 @@ export default {
     tags: "Tags",
     selectCategory: "Category",
     category: "Category: {0}",
+    hide: "Hide",
+    blockComments: "Block comments",
     settingsJson: "Json settings",
     validation: {
       name: {

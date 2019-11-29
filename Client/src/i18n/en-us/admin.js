@@ -96,7 +96,7 @@ export default {
     addComponentBtn: "Add component"
   },
   CreateComponent: {
-    title: "Set component",
+    title: "Create component",
     createBtn: "@:Global.btn.create",
     cancelBtn: "@:Global.btn.cancel"
   },
