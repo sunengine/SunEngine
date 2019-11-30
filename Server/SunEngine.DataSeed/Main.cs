@@ -12,7 +12,7 @@ namespace SunEngine.DataSeed
     /// <summary>
     /// Class to seed database with initial data with 2 modes
     /// "init" (SeedInitialize) - seed roles, users, categories
-    /// "seed" (SeedAddTestData) - seed test materials and comments 
+    /// "seed" (SeedAddTestData) - seed test materials and comments
     /// </summary>
     public class Main
     {
@@ -171,7 +171,7 @@ namespace SunEngine.DataSeed
                 using var db = new DataBaseConnection(providerName, connectionString);
                 using var cmd = db.CreateCommand();
                 cmd.CommandText = "SELECT 100";
-                int num = (int) cmd.ExecuteScalar();
+                cmd.ExecuteScalar();
 
                 return true;
             }

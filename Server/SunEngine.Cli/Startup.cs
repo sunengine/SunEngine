@@ -106,7 +106,7 @@ namespace SunEngine.Cli
 
             app.UseCookiePolicy();
 
-            var origins = Configuration.GetValue<string>("Cors:Origins").Split(",");
+            var origins = Configuration.GetValue<string>("Cors:Origins")?.Split(",");
 
 
             if (origins != null && origins.Length >= 1)
