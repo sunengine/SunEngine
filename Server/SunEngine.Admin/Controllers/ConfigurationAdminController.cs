@@ -44,10 +44,11 @@ namespace SunEngine.Admin.Controllers
             }).ToList();
 
             configurationManager.UploadConfigurationItems(items);
+
+            configurationRoot.Reload();
+
             if (env.IsProduction())
                 configurationAdminService.UpdateClientScripts();
-            
-            configurationRoot.Reload();
 
             return Ok();
         }

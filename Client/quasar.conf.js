@@ -71,10 +71,6 @@ module.exports = function (ctx) {
 
         const htmlWebpackPlugin = cfg.plugins.find(x => x.constructor.name === "HtmlWebpackPlugin");
         htmlWebpackPlugin.options.configUId = Math.floor( Math.random() * 1000000).toString();
-
-        if (ctx.dev) {
-          cfg.plugins.push(new CopyWebpackPlugin([{from: 'config.js', to: 'config.js'}]));
-        }
       },
 
       env: {
