@@ -34,12 +34,6 @@ PROJECT_NAME="Demo SunEngine"
 PROJECT_ROOT="/path/to/project/root"
 
 
-#   ************************************************
-
-
-
-
-
 
 
 # Path to build folder
@@ -50,6 +44,10 @@ SERVER_PATH="$PROJECT_ROOT/Server"
 
 # Path to client folder
 CLIENT_PATH="$PROJECT_ROOT/Client"
+
+
+
+#   ************************************************
 
 
 # Define console colors

@@ -61,25 +61,21 @@ namespace SunEngine.Admin.Services
       var extension = Path.GetExtension(fileName);
 
       if (extension != ".zip")
-        throw new SunErrorException(new Error("NotValidSkinFileNotZip", "Skin file has to be .zip",
-          ErrorType.System));
+        throw new SunErrorException(new Error("NotValidSkinFileNotZip", "Skin file has to be .zip"));
 
       if (file.Length > MaxArchiveSize)
-        throw new SunErrorException(new Error("VeryBigFile", $"Max file size {MaxArchiveSize}Kb",
-          ErrorType.System));
+        throw new SunErrorException(new Error("VeryBigFile", $"Max file size {MaxArchiveSize}Kb"));
 
       var zipArchive = new ZipArchive(fileStream);
       var zipEntry = zipArchive.GetEntry("info.json");
       if (zipEntry == null)
         throw new SunErrorException(new Error("SkinFileNotContainInfoJson",
-          "Skin archive do not contain info.json file",
-          ErrorType.System));
+          "Skin archive do not contain info.json file"));
 
       if (zipArchive.Entries.Sum(entry => entry.Length) > MaxExtractArchiveSize)
       {
         throw new SunErrorException(new Error("VeryBigExtractArchive",
-          $"Max extract archive size {MaxExtractArchiveSize}Kb",
-          ErrorType.System));
+          $"Max extract archive size {MaxExtractArchiveSize}Kb"));
       }
 
       var fileNames = zipArchive.Entries.Select(x => x.Name);

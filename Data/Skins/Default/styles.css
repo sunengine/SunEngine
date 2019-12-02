@@ -178,7 +178,7 @@ a:hover, .link:hover {
   color: black !important;
 }
 
-.material-text h3, .post-text h3, .comment-text h3 {
+.material__text h3, .post__text h3, .comment__text h3 {
   font-size: 1.55rem;
   font-weight: 500 !important;
   line-height: 1.7rem;
@@ -186,7 +186,7 @@ a:hover, .link:hover {
   border-bottom: 2px dashed #c1dfee;
   padding: 0 0 8px 0;
 }
-.material-text h4, .post-text h4, .comment-text h4 {
+.material__text h4, .post__text h4, .comment__text h4 {
   font-size: 1.35rem;
   font-weight: 500 !important;
   line-height: 1.4rem;
@@ -194,21 +194,21 @@ a:hover, .link:hover {
   border-bottom: 1px dashed #c1dfee;
   padding: 0 0 6px 0;
 }
-.material-text h5, .post-text h5, .comment-text h5 {
+.material__text h5, .post__text h5, .comment__text h5 {
   font-size: 1.2rem;
   font-weight: 500 !important;
   line-height: 1.3rem;
   margin: 16px 0 8px 0 !important;
   padding: 0;
 }
-.material-text h6, .post-text h6, .comment-text h6 {
+.material__text h6, .post__text h6, .comment__text h6 {
   font-size: 1.05rem;
   font-weight: 500 !important;
   line-height: 1.1rem;
   margin: 10px 0 6px 0 !important;
   padding: 0;
 }
-.material-text blockquote, .post-text blockquote, .comment-text blockquote {
+.material__text blockquote, .post__text blockquote, .comment__text blockquote {
   border-left: 3px solid #a6c59e !important;
   padding: 6px 0 6px 15px;
   background-color: #f6f6f6;
