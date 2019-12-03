@@ -49,7 +49,7 @@
         <td>{{$tl("maintainerContacts")}}</td>
         <td class="q-gutter-y-xs">
           <div v-for="contact of serverInfo.MaintainerContacts">
-            <a :href="contact" target="_blank" v-if="contact.startsWith('http')">{{contact}}</a>
+            <a class="link" :href="contact" target="_blank" v-if="contact.startsWith('http')">{{contact}}</a>
             <span v-else>{{contact}}</span>
           </div>
         </td>
@@ -66,12 +66,12 @@
       </template>
       <tr>
         <td>{{$tl("sunEngineRepository")}}</td>
-        <td><a href="https://github.com/sunengine/SunEngine" target="_blank">https://github.com/sunengine/SunEngine</a>
+        <td><a class="link" href="https://github.com/sunengine/SunEngine" target="_blank">https://github.com/sunengine/SunEngine</a>
         </td>
       </tr>
       <tr>
         <td>{{$tl("sunEngineSkinsRepository")}}</td>
-        <td><a href="https://github.com/sunengine/SunEngine.Skins" target="_blank">https://github.com/sunengine/SunEngine.Skins</a>
+        <td><a class="link" href="https://github.com/sunengine/SunEngine.Skins" target="_blank">https://github.com/sunengine/SunEngine.Skins</a>
         </td>
       </tr>
       </tbody>

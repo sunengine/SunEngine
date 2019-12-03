@@ -101,7 +101,6 @@
   }
 
   .menu-admin-item__text {
-    color: $grey-8 !important;
   }
 
   .menu-admin-item {

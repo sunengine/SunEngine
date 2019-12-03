@@ -32,7 +32,7 @@
           </q-img>
           <q-card-section :class="{hidden: !skin.showInfo}">
             <div> {{$tl("author")}}
-              <a v-if="skin.contacts" href="#" @click.prevent.stop="skin.showContacts = !skin.showContacts">
+              <a class="link" v-if="skin.contacts" href="#" @click.prevent.stop="skin.showContacts = !skin.showContacts">
                 {{skin.author}}</a>
               <span v-else>
               {{skin.author}}
@@ -42,7 +42,7 @@
               <div v-if="skin.contacts && skin.showContacts">
                 {{$tl("contacts")}}
                 <span :key="index" v-for="(contact,index) of skin.contacts">
-                <a v-if="contact.startsWith('http')" :href="contact">{{contact}}</a>
+                <a v-if="contact.startsWith('http')" :href="contact" class="link">{{contact}}</a>
                 <template v-else>
                   {{contact}}
                 </template>
@@ -53,8 +53,8 @@
             <div>
               {{$tl("version")}} {{skin.version}}
             </div>
-            <div>
-              <a target="_blank" :href="skin.sourceUrl">{{$tl("link")}}</a>
+            <div v-if="skin.sourceUrl">
+              <a class="link" target="_blank" :href="skin.sourceUrl">{{$tl("link")}}</a>
             </div>
             <div v-if="skin.description">
               {{$tl("description")}} {{skin.description}}
@@ -66,7 +66,7 @@
         </q-card-section>
 
         <q-card-actions align="around">
-          <q-btn  v-if="skin.current" class="skins-admin__current-btn" flat no-caps
+          <q-btn v-if="skin.current" class="skins-admin__current-btn" flat no-caps
                  :label="$tl('current')" icon="fas fa-check"/>
 
           <q-btn flat v-if="!skin.current" :loading="skin.loading" no-caps @click="changeSkin(skin.name)"
@@ -86,7 +86,7 @@
 
     <q-banner class="skins-admin__info shadow-1 q-mt-xl">
       {{$tl("info")}}
-      <a class="skins-admin__info-link" href="https://github.com/sunengine/SunEngine.Skins" target="_blank">https://github.com/sunengine/SunEngine.Skins</a>
+      <a class="skins-admin__info-link link" href="https://github.com/sunengine/SunEngine.Skins" target="_blank">https://github.com/sunengine/SunEngine.Skins</a>
     </q-banner>
   </q-page>
 </template>

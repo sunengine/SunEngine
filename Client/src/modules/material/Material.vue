@@ -31,7 +31,7 @@
       <div class="material__footer q-gutter-x-lg q-py-sm flex align-center">
 
         <div v-if="showUser" class="material__author q-mr-md">
-          <router-link :to="{name: 'User', params: {link: material.authorLink}}">
+          <router-link class="link" :to="{name: 'User', params: {link: material.authorLink}}">
             <img class="avatar material__avatar" :src="$avatarPath(material.authorAvatar)"/>{{material.authorName}}
           </router-link>
         </div>
@@ -39,19 +39,19 @@
         <div class="grow"></div>
 
         <div class="material-edit-btn edit-btn-block" v-if="canEdit">
-          <a href="#" @click.prevent="$router.push({name: 'EditMaterial', params: {id: material.id}})">
+          <a class="link" href="#" @click.prevent="$router.push({name: 'EditMaterial', params: {id: material.id}})">
             <q-icon name="fas fa-edit" class="q-mr-xs"/>
             {{$tl("edit")}}</a>
         </div>
 
         <div v-if="!material.deletedDate && canDelete" class="material-footer-info-block">
-          <a href="#" @click.prevent="deleteMaterial">
+          <a class="link" href="#" @click.prevent="deleteMaterial">
             <q-icon name="fas fa-trash"/>
           </a>
         </div>
 
         <div v-if="material.deletedDate && canRestore" class="material-footer-info-block">
-          <a href="#" @click.prevent="restoreMaterial">
+          <a class="link" href="#" @click.prevent="restoreMaterial">
             <q-icon name="fas fa-trash-restore"/>
           </a>
         </div>

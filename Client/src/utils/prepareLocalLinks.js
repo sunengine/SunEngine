@@ -4,6 +4,7 @@ export default function (ell, className) {
   const links = el.getElementsByTagName('a');
 
   for (const link of links) {
+    link.classList.add("link");
     if (link.href.startsWith(config.Global.SiteUrl)) {
       link.addEventListener('click', (e) => {
         e.preventDefault();

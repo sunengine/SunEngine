@@ -10,9 +10,7 @@
       <span v-if="notRoot">
           <router-link v-if="category.isMaterialsContainer"
                        :to="{name:'CatView', params: {categoryName: category.name}}">{{category.title}}</router-link>
-        <template v-else>
-          {{category.title}}
-        </template>
+        <template v-else>{{category.title}}</template>
       </span>
       <span v-else>{{$tl("rootCategory")}}</span>
       <span v-if="notRoot" class="q-ml-md">
