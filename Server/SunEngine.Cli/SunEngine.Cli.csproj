@@ -17,7 +17,7 @@
     <ItemGroup>
         <PackageReference Include="Flurl" Version="2.8.2" />
         <PackageReference Include="System.Linq" Version="4.3.0" />
-        <PackageReference Include="System.Runtime.Caching" Version="4.6.0" />
+        <PackageReference Include="System.Runtime.Caching" Version="4.7.0" />
     </ItemGroup>
     
     <ItemGroup>

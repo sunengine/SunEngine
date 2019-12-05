@@ -1,25 +1,22 @@
-<template>
-  <q-page class="skins-admin q-page page-padding">
+﻿<template>
+  <div class="skins-admin">
 
-    <div class="page-title-block">
-      <h2 class="page-title">
-        {{title}}
-      </h2>
-      <q-btn no-caps icon="fas fa-cloud-upload-alt" @click="showUploadDialog"
-             class="skins-admin__post-btn post-btn q-mb-lg" :loading="loading"
-             :label="$tl('upload')">
-        <LoaderSent slot="loading"/>
-      </q-btn>
+    <div class="flex flex-center">
+    <q-btn no-caps icon="fas fa-cloud-upload-alt" @click="showUploadDialog"
+           class="skins-admin__post-btn post-btn q-mb-lg" :loading="loading"
+           :label="$tl('upload')">
+      <LoaderSent slot="loading"/>
+    </q-btn>
     </div>
 
     <input type="file" @change="uploadSkin" class="hidden" accept=".zip" ref="file"/>
 
+
     <div v-if="skins" class="row q-gutter-lg">
       <q-card :key="skin.name" class="skins-admin__card" v-for="skin in skins">
-
-        <div style="height:172px; overflow-y: auto">
+        <div class="skins-admin__card-image-section">
           <q-img :class="{hidden: skin.showInfo}"
-                 :src="`/statics/Skins/?name=${skin.name}`"
+                 :src="$apiPath($AdminApi.SkinsAdmin.GetSkinPreview)+`?name=${skin.name}`"
                  class="skins-admin__skin-img">
             <div class="skins-admin__preview-btn absolute-bottom-right">
               <q-icon name="fas fa-search" size="20px">
@@ -32,7 +29,8 @@
           </q-img>
           <q-card-section :class="{hidden: !skin.showInfo}">
             <div> {{$tl("author")}}
-              <a class="link" v-if="skin.contacts" href="#" @click.prevent.stop="skin.showContacts = !skin.showContacts">
+              <a class="link" v-if="skin.contacts" href="#"
+                 @click.prevent.stop="skin.showContacts = !skin.showContacts">
                 {{skin.author}}</a>
               <span v-else>
               {{skin.author}}
@@ -88,7 +86,7 @@
       {{$tl("info")}}
       <a class="skins-admin__info-link link" href="https://github.com/sunengine/SunEngine.Skins" target="_blank">https://github.com/sunengine/SunEngine.Skins</a>
     </q-banner>
-  </q-page>
+  </div>
 </template>
 
 <script>
@@ -193,12 +191,17 @@
   .skins-admin__skin-name {
     text-align: center;
     font-family: "Roboto";
-    //font-weight: 600;
+    font-weight: 600;
     font-size: 1.30em;
     letter-spacing: 0.1px;
     padding: 4px !important;
     background-color: rgba(0, 0, 0, 0.15);
     color: $grey-8;
+  }
+
+  .skins-admin__card-image-section {
+    height: 172px;
+    overflow-y: auto
   }
 
   .skins-admin__card {
