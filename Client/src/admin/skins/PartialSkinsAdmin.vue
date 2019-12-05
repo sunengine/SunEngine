@@ -133,9 +133,7 @@
 <style lang="scss">
 
   .partial-skins-admin__on {
-    background-color: $green-2;
-
-
+    background-color: $green-1;
   }
 
   .partial-skins-admin__off {
@@ -143,6 +141,5 @@
       background-color: $green-1;
     }
   }
-
 
 </style>
