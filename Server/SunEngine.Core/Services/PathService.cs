@@ -25,6 +25,7 @@ namespace SunEngine.Core.Services
         public const string ConfigDirName = "Config";
         public const string ResourcesDirName = "Resources";
         public const string SkinsDirName = "Skins";
+        public const string PartialSkinsDirName = "PartialSkins";
         public const string UploadImagesDirName = "UploadImages";
         public const string MailTemplatesDirName = "MailTemplates";
     }

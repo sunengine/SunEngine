@@ -94,7 +94,7 @@
 
 
     export default {
-        name: "SkinsAdmin",
+        name: "MainSkinsAdmin",
         mixins: [Page],
         data() {
             return {

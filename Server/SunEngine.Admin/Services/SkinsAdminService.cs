@@ -24,17 +24,23 @@ namespace SunEngine.Admin.Services
   {
     public readonly string WwwRootPath;
     public readonly string SkinsPath;
+    public readonly string PartialSkinsPath;
 
     private readonly int MaxArchiveSize;
     private readonly int MaxExtractArchiveSize;
 
     protected readonly ConfigurationAdminService configurationAdminService;
 
-    private readonly List<string> requiredFiles = new List<string>()
+    private readonly List<string> requiredFilesMain = new List<string>()
     {
       "styles.css",
       "preview.png",
       "readme.md"
+    };
+
+    private readonly List<string> requiredFilesPartial = new List<string>()
+    {
+      "styles.css",
     };
 
     private readonly List<string> allowedExtensions = new List<string>()
@@ -51,12 +57,13 @@ namespace SunEngine.Admin.Services
     {
       this.configurationAdminService = configurationAdminService;
       SkinsPath = pathService.GetPath(PathNames.SkinsDirName);
+      PartialSkinsPath = pathService.GetPath(PathNames.PartialSkinsDirName);
       MaxArchiveSize = fileLoadingOptions.CurrentValue.MaxArchiveSize * 1024;
       MaxExtractArchiveSize = fileLoadingOptions.CurrentValue.MaxExtractArchiveSize * 1024;
       WwwRootPath = pathService.WwwRootDir;
     }
 
-    public void UploadSkin(IFormFile file)
+    public void UploadSkin(IFormFile file, SkinType skinType)
     {
       var fileName = file.FileName;
       var fileStream = file.OpenReadStream();
@@ -81,7 +88,8 @@ namespace SunEngine.Admin.Services
       }
 
       var fileNames = zipArchive.Entries.Select(x => x.Name);
-      var missingFiles = requiredFiles.Where(x => !fileNames.Contains(x)).ToList();
+      var missingFiles = (skinType == SkinType.Main ? requiredFilesMain : requiredFilesPartial)
+        .Where(x => !fileNames.Contains(x)).ToList();
       if (missingFiles.Count > 0)
       {
         var strMissingFiles = missingFiles.Aggregate((x, y) => $"{x}, {y}");
@@ -96,7 +104,8 @@ namespace SunEngine.Admin.Services
 
       var jsonString = new StreamReader(zipEntry.Open()).ReadToEnd();
       var skinInfo = JsonConvert.DeserializeObject<SkinInfo>(jsonString);
-      var skinDirPath = Path.Combine(SkinsPath, PathUtils.ClearPathToken(skinInfo.Name));
+      var skinDirPath = Path.Combine(skinType == SkinType.Main ? SkinsPath : PartialSkinsPath,
+        PathUtils.ClearPathToken(skinInfo.Name));
 
       if (Directory.Exists(skinDirPath))
         Directory.Delete(skinDirPath, true);
@@ -105,10 +114,10 @@ namespace SunEngine.Admin.Services
       zipArchive.ExtractToDirectory(skinDirPath, true);
     }
 
-    public void DeleteSkin(string name)
+    public void DeleteSkin(string name, SkinType skinType)
     {
       var secureSkinName = PathUtils.ClearPathToken(name);
-      var pathToDelete = Path.Combine(SkinsPath, secureSkinName);
+      var pathToDelete = Path.Combine(skinType == SkinType.Main ? SkinsPath : PartialSkinsPath, secureSkinName);
       Directory.Delete(pathToDelete, true);
     }
 
@@ -127,12 +136,43 @@ namespace SunEngine.Admin.Services
       configurationAdminService.UpdateClientScripts();
     }
 
-    public List<SkinInfo> GetAllSkins()
+    public void EnablePartialSkin(string name, bool enable)
     {
-      var skinsPaths = Directory.GetDirectories(SkinsPath);
+      var secureSkinName = PathUtils.ClearPathToken(name);
+
+      var selectedSkinPath = Path.Combine(PartialSkinsPath, secureSkinName);
+
+      if (!Directory.Exists(selectedSkinPath))
+        throw new SunException($"No skin {secureSkinName} in skins directory");
+
+      var names = db.ConfigurationItems.Single(x => x.Name == "Skins:PartialSkinsNames").Value.Split(",")
+        .Select(x => x.Trim()).ToList();
+      if (enable)
+      {
+        names.Add(secureSkinName);
+        names = names.Distinct().ToList();
+      }
+      else
+        names.Remove(secureSkinName);
+
+      var namesString = string.Join(",", names);
+      db.ConfigurationItems.Where(x => x.Name == "Skins:PartialSkinsNames").Set(x => x.Value, x => namesString)
+        .Update();
+
+      configurationAdminService.ReloadConfigurationOptions();
+      configurationAdminService.UpdateClientScripts();
+    }
+
+    public List<SkinInfo> GetAllSkins(SkinType skinType)
+    {
+      var skinsPaths = Directory.GetDirectories(skinType == SkinType.Main ? SkinsPath : PartialSkinsPath);
       var skins = skinsPaths.Select(Path.GetFileName).OrderBy(x => x).ToArray();
 
-      string currentSkinName = db.ConfigurationItems.FirstOrDefault(x => x.Name == "Skins:CurrentSkinName")?.Value;
+      List<string> selectedSkinsNames =
+        skinType == SkinType.Main
+          ? new List<string> {db.ConfigurationItems.Single(x => x.Name == "Skins:CurrentSkinName").Value}
+          : db.ConfigurationItems.Single(x => x.Name == "Skins:PartialSkinsNames").Value.Split(",")
+            .Select(x => x.Trim()).ToList();
 
       var skinsInfos = new List<SkinInfo>();
 
@@ -140,9 +180,10 @@ namespace SunEngine.Admin.Services
       {
         try
         {
-          var jsonInfo = File.ReadAllText(Path.Combine(SkinsPath, skin, "info.json"));
+          var jsonInfo = File.ReadAllText(Path.Combine(skinType == SkinType.Main ? SkinsPath : PartialSkinsPath, skin,
+            "info.json"));
           SkinInfo skinInfo = JsonConvert.DeserializeObject<SkinInfo>(jsonInfo);
-          if (skinInfo.Name == currentSkinName)
+          if (selectedSkinsNames.Contains(skinInfo.Name))
             skinInfo.Current = true;
 
           skinsInfos.Add(skinInfo);
@@ -154,6 +195,12 @@ namespace SunEngine.Admin.Services
       }
 
       return skinsInfos;
+    }
+
+    public enum SkinType
+    {
+      Main = 0,
+      Partial = 1
     }
 
     public class SkinInfo

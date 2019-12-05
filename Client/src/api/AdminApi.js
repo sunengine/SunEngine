@@ -52,10 +52,14 @@ export default {
   },
   SkinsAdmin: {
     GetAllSkins: '/Admin/SkinsAdmin/GetAllSkins',
+    GetAllPartialSkins: '/Admin/SkinsAdmin/GetAllPartialSkins',
     GetSkinPreview: '/Admin/SkinsAdmin/GetSkinPreview',
     UploadSkin: '/Admin/SkinsAdmin/UploadSkin',
+    UploadPartialSkin: '/Admin/SkinsAdmin/UploadPartialSkin',
     ChangeSkin: '/Admin/SkinsAdmin/ChangeSkin',
-    DeleteSkin: '/Admin/SkinsAdmin/DeleteSkin'
+    DeleteSkin: '/Admin/SkinsAdmin/DeleteSkin',
+    DeletePartialSkin: '/Admin/SkinsAdmin/DeletePartialSkin',
+    EnablePartialSkin: '/Admin/SkinsAdmin/EnablePartialSkin'
   },
   ConfigurationAdmin: {
     UploadConfiguration: '/Admin/ConfigurationAdmin/UploadConfiguration',

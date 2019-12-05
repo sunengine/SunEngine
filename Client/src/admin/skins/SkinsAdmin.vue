@@ -1,32 +1,18 @@
 ﻿<template>
-  <q-page class="skins-admin">
-    <h2 class="page-title page-padding">
+  <q-page class="skins-admin page-padding">
+    <h2 class="page-title">
       {{title}}
     </h2>
-    <div class="page-padding">
-      <q-tabs v-model="tab"  class="bg-grey-2"  align="justify" inline-label>
-        <q-tab name="skins" icon="fas fa-user-astronaut" label="Основные темы">
-        </q-tab>
-        <q-tab name="partial-skins" icon="fas fa-puzzle-piece" label="Дополнительные темы">
-        </q-tab>
+    <div>
+      <q-tabs  class="bg-grey-2" align="justify" inline-label>
+        <q-route-tab :to="{name: 'MainSkinsAdmin'}" no-caps name="skins" icon="fas fa-user-astronaut" :label="$tl('mainSkins')"/>
+        <q-route-tab :to="{name: 'PartialSkinsAdmin'}" no-caps name="partial-skins" icon="fas fa-puzzle-piece" :label="$tl('partialSkins')"/>
       </q-tabs>
     </div>
 
     <div class="q-mb-xl"></div>
 
-    <q-tab-panels class="page-padding"
-      v-model="tab"
-      animated
-      transition-prev="jump-up"
-      transition-next="jump-up"
-    >
-      <q-tab-panel class="skins-admin__tabs-panel" name="skins">
-        <MainSkinsAdmin/>
-      </q-tab-panel>
-      <q-tab-panel class="skins-admin__tabs-panel" name="partial-skins">
-        <PartialSkinsAdmin/>
-      </q-tab-panel>
-    </q-tab-panels>
+    <router-view />
 
   </q-page>
 </template>

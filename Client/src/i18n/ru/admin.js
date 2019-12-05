@@ -125,7 +125,7 @@ export default {
     deleteBtn: "Удалить пункт меню",
     successNotify: "Пункт меню успешно сохранён",
     deleteMsg: "Удалить пункт меню?",
-    btnDeleteOk:  "@:Global.dialog.ok",
+    btnDeleteOk: "@:Global.dialog.ok",
     btnDeleteCancel: "@:Global.dialog.cancel",
   },
   MenuAdminItem: {},
@@ -326,6 +326,11 @@ export default {
   },
   SkinsAdmin: {
     title: "Темы оформления",
+    mainSkins: "Основные темы",
+    partialSkins: "Дополнительные темы"
+  },
+  MainSkinsAdmin: {
+    title: "Основные темы оформления",
     current: "Текущая",
     info: "Темы оформления и документация по созданию тем - ",
     author: "Автор: ",
@@ -340,5 +345,14 @@ export default {
     deleteMsg: "Удалить тему?",
     btnDeleteOk: "@:Global.dialog.yes",
     btnDeleteCancel: "@:Global.dialog.cancel"
+  },
+  PartialSkinsAdmin: {
+    title: "Дополнительные темы оформления",
+    onBtn: "Включить",
+    offBtn: "Выключить",
+    deleteMsg: "Удалить тему?",
+    btnDeleteOk: "@:Global.dialog.yes",
+    btnDeleteCancel: "@:Global.dialog.cancel",
+    upload: "Загрузить дополнительную тему",
   }
 }
