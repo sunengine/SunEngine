@@ -15,16 +15,16 @@ namespace SunEngine.Core.Configuration
         {
             ["Test:Test1"] = Test.TestValue2,
 
+            ["Global:SiteName"] = "SunEngine Demo",
+
+            ["Dev:ShowExceptions"] = false,
+
             ["Sanitizer:AllowedTags"] = (LongString)"a,b,strong,i,em,blockquote,ol,li,ul,ol,p,div,br,video,audio,source,span,img,code,pre,font,h3,h4,h5,h6",
             ["Sanitizer:AllowedAttributes"] = (LongString)"style,src,href,controls,autoplay,loop,alt,width,height,target,frameborder,allowfullscreen,download,controlsList,size",
             ["Sanitizer:AllowedClasses"] = (LongString)"float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width",
             ["Sanitizer:AllowedCssProperties"] = (LongString)"float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width",
             ["Sanitizer:AllowedVideoDomains"] = (LongString)"https://www.youtube.com/,http://www.youtube.com/,https://youtube.com/,http://youtube.com/,https://youtu.be/,http://youtu.be/,//youtube.com/,//youtu.be/,//www.youtube.com/,//www.youtu.be/,https://vk.com/,http://vk.com/,//vk.com/,https://player.vimeo.com,http://player.vimeo.com,//player.vimeo.com",
             ["Sanitizer:AllowedImageDomains"] = (LongString)"",
-
-            ["Global:SiteName"] = "SunEngine Demo",
-
-            ["Dev:ShowExceptions"] = false,
 
             ["Images:MaxImageWidth"] = 3600,
             ["Images:MaxImageHeight"] = 2025,
@@ -65,6 +65,7 @@ namespace SunEngine.Core.Configuration
             ["Scheduler:LongSessionsClearDays"] = 1,
             ["Scheduler:ExpiredRegistrationUsersClearDays"] = 1,
             ["Scheduler:UploadVisitsToDataBaseMinutes"] = 5,
+            ["Scheduler:LogJobs"] = false,
 
             ["Email:Host"] = "127.0.0.1",
             ["Email:Port"] = 1025,
