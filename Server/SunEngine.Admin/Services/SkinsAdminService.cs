@@ -4,11 +4,14 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text.RegularExpressions;
+using LinqToDB;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SunEngine.Core.Configuration.Options;
+using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
 using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Services;
@@ -17,15 +20,15 @@ using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace SunEngine.Admin.Services
 {
-  public class SkinsAdminService
+  public class SkinsAdminService : DbService
   {
     public readonly string WwwRootPath;
-    public readonly string AllSkinsPath;
-    public readonly string CurrentSkinPath;
-    public readonly IHostingEnvironment env;
+    public readonly string SkinsPath;
 
     private readonly int MaxArchiveSize;
     private readonly int MaxExtractArchiveSize;
+
+    protected readonly ConfigurationAdminService configurationAdminService;
 
     private readonly List<string> requiredFiles = new List<string>()
     {
@@ -43,12 +46,11 @@ namespace SunEngine.Admin.Services
     public SkinsAdminService(
       IPathService pathService,
       IOptionsMonitor<FileLoadingOptions> fileLoadingOptions,
-      IHostingEnvironment env)
+      ConfigurationAdminService configurationAdminService,
+      DataBaseConnection db) : base(db)
     {
-      this.env = env;
-
-      AllSkinsPath = pathService.GetPath(PathNames.AllSkinsDirName);
-      CurrentSkinPath = pathService.GetPath(PathNames.CurrentSkinDirName);
+      this.configurationAdminService = configurationAdminService;
+      SkinsPath = pathService.GetPath(PathNames.SkinsDirName);
       MaxArchiveSize = fileLoadingOptions.CurrentValue.MaxArchiveSize * 1024;
       MaxExtractArchiveSize = fileLoadingOptions.CurrentValue.MaxExtractArchiveSize * 1024;
       WwwRootPath = pathService.WwwRootDir;
@@ -94,7 +96,7 @@ namespace SunEngine.Admin.Services
 
       var jsonString = new StreamReader(zipEntry.Open()).ReadToEnd();
       var skinInfo = JsonConvert.DeserializeObject<SkinInfo>(jsonString);
-      var skinDirPath = Path.Combine(AllSkinsPath, PathUtils.ClearPathToken(skinInfo.Name));
+      var skinDirPath = Path.Combine(SkinsPath, PathUtils.ClearPathToken(skinInfo.Name));
 
       if (Directory.Exists(skinDirPath))
         Directory.Delete(skinDirPath, true);
@@ -106,7 +108,7 @@ namespace SunEngine.Admin.Services
     public void DeleteSkin(string name)
     {
       var secureSkinName = PathUtils.ClearPathToken(name);
-      var pathToDelete = Path.Combine(AllSkinsPath, secureSkinName);
+      var pathToDelete = Path.Combine(SkinsPath, secureSkinName);
       Directory.Delete(pathToDelete, true);
     }
 
@@ -114,54 +116,23 @@ namespace SunEngine.Admin.Services
     {
       var secureSkinName = PathUtils.ClearPathToken(name);
 
-      var selectedSkinPath = Path.Combine(AllSkinsPath, secureSkinName);
+      var selectedSkinPath = Path.Combine(SkinsPath, secureSkinName);
 
-      if (Directory.Exists(CurrentSkinPath))
-        Directory.Delete(CurrentSkinPath, true);
-      Directory.CreateDirectory(CurrentSkinPath);
+      if (!Directory.Exists(selectedSkinPath))
+        throw new SunException($"No skin {secureSkinName} in skins directory");
 
-      CopyDir.Copy(selectedSkinPath, CurrentSkinPath);
+      db.ConfigurationItems.Where(x => x.Name == "Skins:CurrentSkinName").Set(x => x.Value, secureSkinName).Update();
 
-      if (env.IsProduction())
-      {
-        var ran = new Random();
-        var configJsPath = Path.Combine(WwwRootPath, "statics", "config.js");
-        var text = File.ReadAllText(configJsPath);
-        Regex reg1 = new Regex("skinver=\\d+\"");
-        text = reg1.Replace(text, $"skinver={ran.Next()}\"");
-        File.WriteAllText(configJsPath, text);
-
-        var indexHtmlPath = Path.Combine(WwwRootPath, "index.html");
-        text = File.ReadAllText(indexHtmlPath);
-        Regex reg2 = new Regex("configver=\\d+\"");
-        text = reg2.Replace(text, $"configver={ran.Next()}\"");
-        File.WriteAllText(indexHtmlPath, text);
-      }
+      configurationAdminService.ReloadConfigurationOptions();
+      configurationAdminService.UpdateClientScripts();
     }
 
     public List<SkinInfo> GetAllSkins()
     {
-      var skinsPaths = Directory.GetDirectories(AllSkinsPath);
+      var skinsPaths = Directory.GetDirectories(SkinsPath);
       var skins = skinsPaths.Select(Path.GetFileName).OrderBy(x => x).ToArray();
 
-      var currentSkinInfoJsonPath = Path.Combine(CurrentSkinPath, "info.json");
-
-      string currentSkinName = null;
-
-      if (File.Exists(currentSkinInfoJsonPath))
-      {
-        try
-        {
-          SkinInfo currentSkinInfo = JsonConvert.DeserializeObject<SkinInfo>(
-            File.ReadAllText(currentSkinInfoJsonPath));
-          currentSkinName = currentSkinInfo.Name;
-        }
-        catch
-        {
-          // ignored
-        }
-      }
-
+      string currentSkinName = db.ConfigurationItems.FirstOrDefault(x => x.Name == "Skins:CurrentSkinName")?.Value;
 
       var skinsInfos = new List<SkinInfo>();
 
@@ -169,7 +140,7 @@ namespace SunEngine.Admin.Services
       {
         try
         {
-          var jsonInfo = System.IO.File.ReadAllText(Path.Combine(AllSkinsPath, skin, "info.json"));
+          var jsonInfo = File.ReadAllText(Path.Combine(SkinsPath, skin, "info.json"));
           SkinInfo skinInfo = JsonConvert.DeserializeObject<SkinInfo>(jsonInfo);
           if (skinInfo.Name == currentSkinName)
             skinInfo.Current = true;

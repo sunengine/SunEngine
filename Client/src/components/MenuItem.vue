@@ -2,8 +2,8 @@
   <div :class="['menu-item', menuItem.cssClass ? menuItem.cssClass : undefined]">
     <q-item v-if="(menuItem.to || menuItem.externalUrl) && !menuItem.subMenuItems" :to="to" :clickable="true"
             @click.native="goExternal()" :exact="menuItem.exact">
-      <q-item-section class="menu-item__icon-section" avatar v-if="menuItem.icon">
-        <q-icon class="menu-item__icon" :name="menuItem.icon"/>
+      <q-item-section class="menu-item__icon-section" avatar >
+        <q-icon v-if="menuItem.icon" class="menu-item__icon" :name="menuItem.icon"/>
       </q-item-section>
       <q-item-section>
         <q-item-label class="menu-item__title">{{menuItem.title}}</q-item-label>

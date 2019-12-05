@@ -19,7 +19,7 @@
 
         <div style="height:172px; overflow-y: auto">
           <q-img :class="{hidden: skin.showInfo}"
-                 :src="$apiPath($AdminApi.SkinsAdmin.GetSkinPreview)+`?name=${skin.name}`"
+                 :src="`/statics/Skins/?name=${skin.name}`"
                  class="skins-admin__skin-img">
             <div class="skins-admin__preview-btn absolute-bottom-right">
               <q-icon name="fas fa-search" size="20px">

@@ -24,8 +24,7 @@ namespace SunEngine.Core.Services
         public const string WwwRootDirName = "WwwRoot";
         public const string ConfigDirName = "Config";
         public const string ResourcesDirName = "Resources";
-        public const string AllSkinsDirName = "AllSkins";
-        public const string CurrentSkinDirName = "CurrentSkin";
+        public const string SkinsDirName = "Skins";
         public const string UploadImagesDirName = "UploadImages";
         public const string MailTemplatesDirName = "MailTemplates";
     }

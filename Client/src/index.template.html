@@ -14,9 +14,11 @@
     <!--<link rel="icon" href="statics/SunEngine.svg" type="image/x-icon">-->
     <link rel="icon" type="image/png" sizes="16x16" href="statics/icons/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="statics/icons/favicon-32x32.png">
-    <script type="text/javascript" src="/statics/config.js?configver=<%= htmlWebpackPlugin.options.configUId %>"></script>
+    <script type="text/javascript">
+      document.writeln(`<script type='text/javascript' src='/statics/config.js?r=${new Date().getTime()}'><\/script>`);
+    </script>
   </head>
-  <body class="skin-default">
+  <body>
     <!-- DO NOT touch the following DIV -->
     <div id="q-app"></div>
   </body>

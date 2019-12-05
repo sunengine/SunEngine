@@ -47,17 +47,8 @@ namespace SunEngine.Admin.Controllers
         public IActionResult GetAllSkins()
         {
             var allSkins = skinsAdminService.GetAllSkins();
-            
-            return Json(allSkins);
-        }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult GetSkinPreview(string name)
-        {
-            Response.ContentType = "image/png";
-            string previewPath = Path.Combine(skinsAdminService.AllSkinsPath, PathUtils.ClearPathToken(name), "preview.png");
-            return new FileStreamResult(System.IO.File.OpenRead(previewPath), "image/png");
+            return Json(allSkins);
         }
     }
 }

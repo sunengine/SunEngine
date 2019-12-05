@@ -21,6 +21,11 @@ namespace SunEngine.Admin.Services
       WwwRootPath = pathService.WwwRootDir;
     }
 
+    public void ReloadConfigurationOptions()
+    {
+      configurationRoot.Reload();
+    }
+
     public void UpdateClientScripts()
     {
       var itemsToSaveDic = new Dictionary<string, Type>()
@@ -44,6 +49,9 @@ namespace SunEngine.Admin.Services
         ["Materials:CommentsPageSize"] = typeof(int),
         ["Materials:TimeToOwnEditInMinutes"] = typeof(int),
         ["Materials:TimeToOwnDeleteInMinutes"] = typeof(int),
+
+        ["Skins:CurrentSkinName"] = typeof(string),
+        ["Skins:PartialSkinsNames"] = typeof(string)
       };
 
 
@@ -81,11 +89,9 @@ namespace SunEngine.Admin.Services
       configJs = Regex.Replace(configJs, "//( *?)auto-start(.*?)//( *?)auto-end",
         $"// auto-start\n{json}\n // auto-end", RegexOptions.Singleline);
       File.WriteAllText(configJsPath, configJs);
-
-      UpdateVersion();
     }
 
-    public void UpdateVersion()
+    /*public void UpdateVersion()
     {
       var ran = new Random();
 
@@ -94,6 +100,6 @@ namespace SunEngine.Admin.Services
       Regex reg2 = new Regex("configver=\\d+\"");
       text = reg2.Replace(text, $"configver={ran.Next()}\"");
       File.WriteAllText(indexHtmlPath, text);
-    }
+    }*/
   }
 }

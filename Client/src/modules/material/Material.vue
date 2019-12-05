@@ -11,7 +11,7 @@
 
       <div class="material__category q-mb-md" v-if="showCategory">
         <span class="material__category-label text-grey-7">{{$tl("category")}} </span>
-        <router-link :to="category.getRoute()">{{category.title}}</router-link>
+        <router-link class="link" :to="category.getRoute()">{{category.title}}</router-link>
       </div>
 
       <div v-if="material.deletedDate" class="text-red q-mb-md">
@@ -76,8 +76,7 @@
 
       <div v-for="(comment,index) in comments" :key="comment.id">
         <CommentContainer class="page-padding" :comment="comment" :checkLastOwn="checkLastOwn"
-                          :categoryPersonalAccess="categoryPersonalAccess"
-                          :isLast="index === maxCommentNumber"/>
+                          :categoryPersonalAccess="categoryPersonalAccess" :isLast="index === maxCommentNumber"/>
         <hr class="material__comments-sep"/>
       </div>
     </div>
