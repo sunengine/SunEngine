@@ -87,14 +87,5 @@ namespace SunEngine.Admin.Controllers
 
       return Json(allSkins);
     }
-
-    [HttpGet]
-    [AllowAnonymous]
-    public IActionResult GetSkinPreview(string name)
-    {
-      Response.ContentType = "image/png";
-      string previewPath = Path.Combine(skinsAdminService.SkinsPath, PathUtils.ClearPathToken(name), "preview.png");
-      return new FileStreamResult(System.IO.File.OpenRead(previewPath), "image/png");
-    }
   }
 }

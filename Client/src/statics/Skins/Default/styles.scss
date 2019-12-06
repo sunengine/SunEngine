@@ -179,18 +179,6 @@ $blockquote-left-line-color: #a6c59e;
 
   // ——— Main Menu ——————————————————————————————————
 
-  .main-menu__logo-div {
-    padding: 22px 0 30px 0;
-    text-align: center;
-  }
-
-  .main-menu__logo-img {
-    width: 204px;
-    height: 204px;
-    border-radius: 102px;
-    box-shadow: 0 0 8px 1px grey
-  }
-
   .main-menu {
     .q-router-link--active {
       background-color: $main-menu-active-link-bg-color;

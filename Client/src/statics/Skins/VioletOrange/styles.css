@@ -88,16 +88,6 @@
   margin: 0 16px;
   color: #7e73a5;
 }
-.skin-violet-orange .main-menu__logo-div {
-  padding: 22px 0 30px 0;
-  text-align: center;
-}
-.skin-violet-orange .main-menu__logo-img {
-  width: 204px;
-  height: 204px;
-  border-radius: 102px;
-  box-shadow: 0 0 8px 1px grey;
-}
 .skin-violet-orange .main-menu .q-router-link--active {
   background-color: #FFBA51;
 }

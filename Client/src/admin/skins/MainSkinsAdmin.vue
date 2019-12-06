@@ -2,11 +2,11 @@
   <div class="skins-admin">
 
     <div class="flex flex-center">
-    <q-btn no-caps icon="fas fa-cloud-upload-alt" @click="showUploadDialog"
-           class="skins-admin__post-btn post-btn q-mb-lg" :loading="loading"
-           :label="$tl('upload')">
-      <LoaderSent slot="loading"/>
-    </q-btn>
+      <q-btn no-caps icon="fas fa-cloud-upload-alt" @click="showUploadDialog"
+             class="skins-admin__post-btn post-btn q-mb-lg" :loading="loading"
+             :label="$tl('upload')">
+        <LoaderSent slot="loading"/>
+      </q-btn>
     </div>
 
     <input type="file" @change="uploadSkin" class="hidden" accept=".zip" ref="file"/>
@@ -16,14 +16,14 @@
       <q-card :key="skin.name" class="skins-admin__card" v-for="skin in skins">
         <div class="skins-admin__card-image-section">
           <q-img :class="{hidden: skin.showInfo}"
-                 :src="$apiPath($AdminApi.SkinsAdmin.GetSkinPreview)+`?name=${skin.name}`"
+                 :src="skinImgUrl(skin.name)"
                  class="skins-admin__skin-img">
             <div class="skins-admin__preview-btn absolute-bottom-right">
               <q-icon name="fas fa-search" size="20px">
 
               </q-icon>
               <q-tooltip anchor="center middle" self="center middle">
-                <img :src="$apiPath($AdminApi.SkinsAdmin.GetSkinPreview)+`?name=${skin.name}`" width="800"/>
+                <img :src="skinImgUrl(skin.name)" width="800"/>
               </q-tooltip>
             </div>
           </q-img>
@@ -59,8 +59,8 @@
             </div>
           </q-card-section>
         </div>
-        <q-card-section class="skins-admin__skin-name">
-          {{skin.name}}
+        <q-card-section class="skins-admin__skin-name h6">
+            {{skin.name}}
         </q-card-section>
 
         <q-card-actions align="around">
@@ -102,12 +102,10 @@
                 loading: false
             }
         },
-        computed: {
-            skinsDir() {
-                return config.SkinsDir;
-            }
-        },
         methods: {
+            skinImgUrl(skinName) {
+                return this.$buildPath(config.Global.SkinsUrl, skinName, 'preview.png');
+            },
             showUploadDialog() {
                 this.$refs.file.click();
             },
@@ -189,14 +187,14 @@
 <style lang="scss">
 
   .skins-admin__skin-name {
+    //font-family: "Open Sans", sans-serif;
     text-align: center;
-    font-family: "Roboto";
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1.30em;
     letter-spacing: 0.1px;
-    padding: 4px !important;
+    padding: 8px !important;
     background-color: rgba(0, 0, 0, 0.15);
-    color: $grey-8;
+    color: $grey-9;
   }
 
   .skins-admin__card-image-section {

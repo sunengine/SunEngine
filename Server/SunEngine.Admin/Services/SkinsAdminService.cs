@@ -46,7 +46,7 @@ namespace SunEngine.Admin.Services
     private readonly List<string> allowedExtensions = new List<string>()
     {
       ".scss", ".sass", ".css", ".map", ".png", ".jpg", ".jpeg", ".gif",
-      ".svg", ".woff", ".woff2", ".ttf", ".otf", ".json", ".md"
+      ".svg", ".eot", ",otf", ".ttf", ".woff", ".woff2", ".json", ".md"
     };
 
     public SkinsAdminService(
@@ -120,12 +120,13 @@ namespace SunEngine.Admin.Services
 
       if (skinType == SkinType.Main)
       {
-        if(db.ConfigurationItems.Single(x => x.Name == "Skins:CurrentSkinName").Value == name)
+        if (db.ConfigurationItems.Single(x => x.Name == "Skins:CurrentSkinName").Value == name)
           throw new SunException("Can not delete current skin");
       }
       else
       {
-        if(db.ConfigurationItems.Single(x => x.Name == "Skins:PartialSkinsNames").Value.Split(",").Select(x=>x.Trim()).Contains(name))
+        if (db.ConfigurationItems.Single(x => x.Name == "Skins:PartialSkinsNames").Value.Split(",")
+          .Select(x => x.Trim()).Contains(name))
           throw new SunException("Can not delete enabled partial skin");
       }
 

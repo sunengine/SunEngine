@@ -86,16 +86,6 @@
   margin: 0 16px;
   color: #ffa500;
 }
-.skin-default .main-menu__logo-div {
-  padding: 22px 0 30px 0;
-  text-align: center;
-}
-.skin-default .main-menu__logo-img {
-  width: 204px;
-  height: 204px;
-  border-radius: 102px;
-  box-shadow: 0 0 8px 1px grey;
-}
 .skin-default .main-menu .q-router-link--active {
   background-color: #d4f0ff;
 }

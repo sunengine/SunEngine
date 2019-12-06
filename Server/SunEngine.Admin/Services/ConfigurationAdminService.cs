@@ -34,7 +34,8 @@ namespace SunEngine.Admin.Services
         ["Global:SiteApi"] = typeof(string),
         ["Global:SiteUrl"] = typeof(string),
         ["Global:UploadImagesUrl"] = typeof(string),
-        ["Global:CurrentSkinUrl"] = typeof(string),
+        ["Global:SkinsUrl"] = typeof(string),
+        ["Global:PartialsSkinsUrl"] = typeof(string),
 
         ["Client:OpenExternalLinksAtNewTab"] = typeof(bool),
         ["Client:VueDevTools"] = typeof(bool),
@@ -42,16 +43,6 @@ namespace SunEngine.Admin.Services
         ["Client:LogInitExtended"] = typeof(bool),
         ["Client:LogRequests"] = typeof(bool),
         ["Client:LogMoveTo"] = typeof(bool),
-
-        /*["Comments:TimeToOwnEditInMinutes"] = typeof(int),
-        ["Comments:TimeToOwnDeleteInMinutes"] = typeof(int),
-
-        ["Materials:CommentsPageSize"] = typeof(int),
-        ["Materials:TimeToOwnEditInMinutes"] = typeof(int),
-        ["Materials:TimeToOwnDeleteInMinutes"] = typeof(int),
-
-        ["Skins:CurrentSkinName"] = typeof(string),
-        ["Skins:PartialSkinsNames"] = typeof(string)*/
       };
 
 

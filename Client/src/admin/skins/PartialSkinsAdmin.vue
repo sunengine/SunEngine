@@ -13,7 +13,7 @@
 
     <q-markup-table v-if="pSkins">
       <tbody>
-      <q-tr v-for="pSkin of pSkins" :class="pSkin.current ? 'partial-skins-admin__on' : 'partial-skins-admin__off'">
+      <q-tr :key="pSkin.name" v-for="pSkin of pSkins" :class="pSkin.current ? 'partial-skins-admin__on' : 'partial-skins-admin__off'">
         <q-td>{{pSkin.name}}</q-td>
         <q-td>
           <q-icon color="positive" v-if="pSkin.current" size="24px" name="fas fa-check-circle"/>
