@@ -43,7 +43,7 @@ namespace SunEngine.Admin.Services
         ["Client:LogRequests"] = typeof(bool),
         ["Client:LogMoveTo"] = typeof(bool),
 
-        ["Comments:TimeToOwnEditInMinutes"] = typeof(int),
+        /*["Comments:TimeToOwnEditInMinutes"] = typeof(int),
         ["Comments:TimeToOwnDeleteInMinutes"] = typeof(int),
 
         ["Materials:CommentsPageSize"] = typeof(int),
@@ -51,7 +51,7 @@ namespace SunEngine.Admin.Services
         ["Materials:TimeToOwnDeleteInMinutes"] = typeof(int),
 
         ["Skins:CurrentSkinName"] = typeof(string),
-        ["Skins:PartialSkinsNames"] = typeof(string)
+        ["Skins:PartialSkinsNames"] = typeof(string)*/
       };
 
 

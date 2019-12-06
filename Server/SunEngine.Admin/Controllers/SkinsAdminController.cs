@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Services;
+using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Utils;
 
 namespace SunEngine.Admin.Controllers
@@ -11,11 +12,14 @@ namespace SunEngine.Admin.Controllers
   public class SkinsAdminController : BaseAdminController
   {
     private readonly SkinsAdminService skinsAdminService;
+    private readonly IDynamicConfigCache dynamicConfigCache;
 
     public SkinsAdminController(
       SkinsAdminService skinsAdminService,
+      IDynamicConfigCache dynamicConfigCache,
       IServiceProvider serviceProvider) : base(serviceProvider)
     {
+      this.dynamicConfigCache = dynamicConfigCache;
       this.skinsAdminService = skinsAdminService;
     }
 
@@ -30,6 +34,7 @@ namespace SunEngine.Admin.Controllers
     public IActionResult EnablePartialSkin(string name, bool enable)
     {
       skinsAdminService.EnablePartialSkin(name, enable);
+      dynamicConfigCache.Initialize();
 
       return Ok();
     }
@@ -62,6 +67,7 @@ namespace SunEngine.Admin.Controllers
     public IActionResult ChangeSkin(string name)
     {
       skinsAdminService.ChangeSkin(name);
+      dynamicConfigCache.Initialize();
 
       return Ok();
     }

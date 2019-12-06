@@ -25,7 +25,7 @@
                  :label="pSkin.current ? $tl('offBtn') : $tl('onBtn')"/>
         </q-td>
         <q-td>
-          <q-btn flat dense @click="deletePartialSkin(pSkin.name)" icon="fas fa-trash-alt"/>
+          <q-btn :disable="pSkin.current" flat dense @click="deletePartialSkin(pSkin.name)" icon="fas fa-trash-alt"/>
         </q-td>
       </q-tr>
       </tbody>

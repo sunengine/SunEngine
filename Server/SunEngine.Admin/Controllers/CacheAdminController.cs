@@ -13,6 +13,7 @@ namespace SunEngine.Admin.Controllers
         protected readonly SpamProtectionCache spamProtectionCache;
         protected readonly IMailTemplatesCache mailTemplatesCache;
         protected readonly IConfigurationRoot configurationRoot;
+        protected readonly IDynamicConfigCache dynamicConfigCache;
 
         public CacheAdminController(
             IComponentsCache componentsCache,
@@ -21,6 +22,7 @@ namespace SunEngine.Admin.Controllers
             SpamProtectionCache spamProtectionCache,
             IMailTemplatesCache mailTemplatesCache,
             IConfigurationRoot configurationRoot,
+            IDynamicConfigCache dynamicConfigCache,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.componentsCache = componentsCache;
@@ -29,6 +31,7 @@ namespace SunEngine.Admin.Controllers
             this.spamProtectionCache = spamProtectionCache;
             this.mailTemplatesCache = mailTemplatesCache;
             this.configurationRoot = configurationRoot;
+            this.dynamicConfigCache = dynamicConfigCache;
         }
 
         public IActionResult ResetAllCache()
@@ -40,6 +43,7 @@ namespace SunEngine.Admin.Controllers
             contentCache.Reset();
             spamProtectionCache.Reset();
             mailTemplatesCache.Initialize();
+            dynamicConfigCache.Initialize();
             configurationRoot.Reload();
 
             return Ok();

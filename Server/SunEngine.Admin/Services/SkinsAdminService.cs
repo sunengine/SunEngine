@@ -117,6 +117,18 @@ namespace SunEngine.Admin.Services
     public void DeleteSkin(string name, SkinType skinType)
     {
       var secureSkinName = PathUtils.ClearPathToken(name);
+
+      if (skinType == SkinType.Main)
+      {
+        if(db.ConfigurationItems.Single(x => x.Name == "Skins:CurrentSkinName").Value == name)
+          throw new SunException("Can not delete current skin");
+      }
+      else
+      {
+        if(db.ConfigurationItems.Single(x => x.Name == "Skins:PartialSkinsNames").Value.Split(",").Select(x=>x.Trim()).Contains(name))
+          throw new SunException("Can not delete enabled partial skin");
+      }
+
       var pathToDelete = Path.Combine(skinType == SkinType.Main ? SkinsPath : PartialSkinsPath, secureSkinName);
       Directory.Delete(pathToDelete, true);
     }
@@ -147,6 +159,9 @@ namespace SunEngine.Admin.Services
 
       var names = db.ConfigurationItems.Single(x => x.Name == "Skins:PartialSkinsNames").Value.Split(",")
         .Select(x => x.Trim()).ToList();
+
+      names.Remove("");
+
       if (enable)
       {
         names.Add(secureSkinName);

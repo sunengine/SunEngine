@@ -3,6 +3,7 @@ import {hasLongToken} from 'sun'
 import {consoleInit} from 'sun'
 import {removeTokens} from 'sun'
 import {InitializeState} from 'sun'
+import {getDynamicConfig} from 'sun'
 
 
 export default async function (context) {
@@ -11,10 +12,12 @@ export default async function (context) {
 
   context.state.initializeState = InitializeState.Running;
 
-  if (hasLongToken())
-    await context.dispatch('loadMyUserInfo');
-
   try {
+    await getDynamicConfig();
+
+    if (hasLongToken())
+      await context.dispatch('loadMyUserInfo');
+
     await context.dispatch('loadAllCategories');
 
     await context.dispatch('registerAllLayouts');

@@ -77,5 +77,8 @@ export default {
   Pulse: {
     Version: '/Pulse/Version',
     PulseException: '/Pulse/PulseException'
+  },
+  Configuration: {
+    GetDynamicConfig: '/Configuration/GetDynamicConfig',
   }
 }
