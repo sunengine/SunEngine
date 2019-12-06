@@ -47,8 +47,18 @@ $reset-btn-text-color: white;
 $delete-btn-bg-color: $negative;
 $delete-btn-text-color: white;
 
-$material-heading-underline-color: #c1dfee;
+$pagination-bg: $header-bg-color;
+$pagination-text: $link-color;
+
+$material-h-underline-color: #c1dfee;
 $blockquote-left-line-color: #a6c59e;
+$blockquote-text-color: unset;
+$blockquote-bg-color: unset;
+
+$index-page-header-color: #7e73a5;
+$index-page-accent-color: #ca913b;
+$sun-engine-footer-link-color: #7e73a5;
+
 
 
 .skin-violet-orange {
@@ -104,11 +114,11 @@ $blockquote-left-line-color: #a6c59e;
   }
 
   .bg-pagination {
-    background-color: $header-bg-color;
+    background-color: $pagination-bg;
   }
 
   .text-pagination {
-    color: $link-color;
+    color: $pagination-text;
   }
 
 
@@ -176,6 +186,9 @@ $blockquote-left-line-color: #a6c59e;
     color: $footer-separator-icon-color;
   }
 
+  .sun-engine-footer__link {
+    color: $sun-engine-footer-link-color;
+  }
 
   // ——— Main Menu ——————————————————————————————————
 
@@ -257,7 +270,7 @@ $blockquote-left-line-color: #a6c59e;
       font-weight: 500;
       line-height: 1.7rem;
       margin: 35px 0 14px 0;
-      border-bottom: 2px dashed $material-heading-underline-color;
+      border-bottom: 2px dashed $material-h-underline-color;
       padding: 0 0 8px 0;
     }
 
@@ -266,7 +279,7 @@ $blockquote-left-line-color: #a6c59e;
       font-weight: 500;
       line-height: 1.4rem;
       margin: 24px 0 10px 0;
-      border-bottom: 1px dashed $material-heading-underline-color;
+      border-bottom: 1px dashed $material-h-underline-color;
       padding: 0 0 6px 0;
     }
 
@@ -289,7 +302,8 @@ $blockquote-left-line-color: #a6c59e;
     blockquote {
       border-left: 3px solid $blockquote-left-line-color;
       padding: 6px 0 6px 15px;
-      background-color: #f6f6f6;
+      background-color: $blockquote-bg-color;
+      color: $blockquote-text-color;
       margin: 0 0 16px 0;
     }
   }
@@ -298,14 +312,11 @@ $blockquote-left-line-color: #a6c59e;
   // ——— Index Page ———————————————————————————
 
   .index-page__header {
-    color: #7e73a5 !important;
+    color: $index-page-header-color;
   }
 
   .index-page__info-block-accent {
-    color: #ca913b;
+    color: $index-page-accent-color;
   }
 
-  .sun-engine-footer__link {
-    color: #7e73a5;
-  }
 }

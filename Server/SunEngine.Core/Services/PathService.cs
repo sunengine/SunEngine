@@ -82,7 +82,7 @@ namespace SunEngine.Core.Services
 
             throw new SunException("Can not find Application root directory");
 
-            bool CheckDir(string path) => File.Exists(Path.Combine(path, "Data", "Resources", "Roles.schema.json"));
+            bool CheckDir(string path) => File.Exists(Path.Combine(path, ".SunEngineRoot"));
         }
 
         private const string WwwRootDirPrefix = "%wwwroot%";

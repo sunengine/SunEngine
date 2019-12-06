@@ -81,8 +81,8 @@ cp -r "$CLIENT_PATH/dist/spa/." "$BUILD_PATH/wwwroot"
 echo  -e "${GREEN}Clearing dist directory ${NC}\n"
 rm -rf "$CLIENT_PATH/dist"
 
-echo  -e "${GREEN}Copying Resources to build directory ${NC}\n"
+echo  -e "${GREEN}Copying Data to build directory ${NC}\n"
 cp -r "$PROJECT_ROOT/Resources/." "$BUILD_PATH/Resources"
 
-echo  -e "${GREEN}Copying Skins to build directory ${NC}\n"
-cp -r "$PROJECT_ROOT/Skins/." "$BUILD_PATH/Skins"
+echo  -e "${GREEN}Copying .SunEngineRoot file ${NC}\n"
+cp  "$PROJECT_ROOT/.SunEngineRoot" "$BUILD_PATH/.SunEngineRoot"

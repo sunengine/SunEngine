@@ -65,7 +65,7 @@
 .skin-default .layout__user-avatar {
   width: 32px;
   height: 32px;
-  box-shadow: 0px 0px 4px 1.5px white;
+  box-shadow: 0 0 4px 1.5px white;
 }
 .skin-default .layout__footer {
   text-align: center;
@@ -85,6 +85,9 @@
 .skin-default .layout__footer-separator-icon {
   margin: 0 16px;
   color: #ffa500;
+}
+.skin-default .sun-engine-footer__link {
+  color: orange;
 }
 .skin-default .main-menu .q-router-link--active {
   background-color: #d4f0ff;
@@ -172,7 +175,8 @@
 .skin-default .material__text blockquote, .skin-default .post__text blockquote, .skin-default .comment__text blockquote {
   border-left: 3px solid #a6c59e;
   padding: 6px 0 6px 15px;
-  background-color: #f6f6f6;
+  background-color: unset;
+  color: unset;
   margin: 0 0 16px 0;
 }
 .skin-default .index-page__header {
@@ -180,9 +184,6 @@
 }
 .skin-default .index-page__info-block-accent {
   color: #a38167;
-}
-.skin-default .sun-engine-footer__link {
-  color: orange;
 }
 
 /*# sourceMappingURL=styles.css.map */

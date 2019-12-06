@@ -88,6 +88,9 @@
   margin: 0 16px;
   color: #7e73a5;
 }
+.skin-violet-orange .sun-engine-footer__link {
+  color: #7e73a5;
+}
 .skin-violet-orange .main-menu .q-router-link--active {
   background-color: #FFBA51;
 }
@@ -171,17 +174,15 @@
 .skin-violet-orange .material__text blockquote, .skin-violet-orange .post__text blockquote, .skin-violet-orange .comment__text blockquote {
   border-left: 3px solid #a6c59e;
   padding: 6px 0 6px 15px;
-  background-color: #f6f6f6;
+  background-color: unset;
+  color: unset;
   margin: 0 0 16px 0;
 }
 .skin-violet-orange .index-page__header {
-  color: #7e73a5 !important;
+  color: #7e73a5;
 }
 .skin-violet-orange .index-page__info-block-accent {
   color: #ca913b;
-}
-.skin-violet-orange .sun-engine-footer__link {
-  color: #7e73a5;
 }
 
 /*# sourceMappingURL=styles.css.map */
