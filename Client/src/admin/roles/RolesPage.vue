@@ -13,7 +13,7 @@
 
         <div class="roles-page__list">
           <div class="roles-page__role" :key="role.id" v-for="role in roles">
-            <router-link class="roles-page__role-link" :to="{name: 'RoleUsers', params: {roleName: role.name}}">{{role.title}}</router-link>
+            <router-link class="roles-page__role-link link" :to="{name: 'RoleUsers', params: {roleName: role.name}}">{{role.title}}</router-link>
           </div>
         </div>
 

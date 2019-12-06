@@ -11,11 +11,14 @@
         <template v-slot:prepend>
           <q-icon name="fas fa-search" size="0.75em"/>
         </template>
+        <template v-slot:append>
+          <q-icon name="fas fa-times" @click="() => {filter = ''; filterValueChanged()}" class="cursor-pointer"/>
+        </template>
       </q-input>
 
       <div v-if="users" class="role-users__list">
         <div class="role-users__user" :key="user.id" v-for="user in users">
-          <router-link class="role-users__user-link" :to="`/user/${user.link}`">{{user.name}}</router-link>
+          <router-link class="role-users__user-link link" :to="`/user/${user.link}`">{{user.name}}</router-link>
         </div>
         <div v-if="users.length === 0" class="text-grey">{{$tl("noResults")}}</div>
         <div v-if="users.length === maxUsersTake" class="text-grey">{{$tl("filterLimitReached",maxUsersTake)}}</div>

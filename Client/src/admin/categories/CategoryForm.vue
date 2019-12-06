@@ -160,6 +160,13 @@
                 start: true,
             }
         },
+        watch: {
+            'category.parentId': function (newVal, oldVal) {
+                if (!newVal || this.category.id === this.category.parentId) {
+                    this.category.parentId = oldVal
+                }
+            }
+        },
         computed: {
             materialsSubTitleInputTypeOptions() {
                 return [

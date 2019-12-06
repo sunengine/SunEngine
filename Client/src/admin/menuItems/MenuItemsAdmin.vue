@@ -115,8 +115,10 @@
                         parent.subMenuItems.push(menuItem);
                         menuItem.parent = parent;
 
-                    } else {
+                    } else if(menuItem.name === 'Root') {
                         root = menuItem;
+                    }  else {
+
                     }
                 }
 

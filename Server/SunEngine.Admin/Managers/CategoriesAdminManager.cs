@@ -63,6 +63,9 @@ namespace SunEngine.Admin.Managers
             if (category == null)
                 throw new SunEntityNotFoundException($"No category with {categoryUpdate.Id} id");
 
+            if(categoryUpdate.Id == categoryUpdate.ParentId)
+              throw new SunEntityNotUpdatedException(nameof(Category),"Can not set item as self parent");
+
             var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == categoryUpdate.ParentId);
 
             if (parent == null)
@@ -86,7 +89,7 @@ namespace SunEngine.Admin.Managers
             category.IsMaterialsSubTitleEditable = categoryUpdate.IsMaterialsSubTitleEditable;
             category.IsMaterialsNameEditable = categoryUpdate.IsMaterialsNameEditable;
             category.IsMaterialsContainer = categoryUpdate.IsMaterialsContainer;
-            
+
 
             await db.UpdateAsync(category);
         }

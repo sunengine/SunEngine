@@ -145,8 +145,14 @@
         },
         watch: {
             'url': 'urlUpdated',
-            'roles': 'rolesUpdated'
+            'roles': 'rolesUpdated',
+            'menuItem.parentId': function (newVal, oldVal) {
+                if (!newVal || this.menuItem.id === this.menuItem.parentId) {
+                    this.menuItem.parentId = oldVal
+                }
+            }
         },
+
         computed: {
             parentTitle() {
                 const key = this.menuItem.parentId;
