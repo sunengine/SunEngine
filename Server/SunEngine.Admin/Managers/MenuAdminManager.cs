@@ -32,7 +32,7 @@ namespace SunEngine.Admin.Managers
     public virtual async Task CreateAsync(MenuItem menuItem)
     {
       if (menuItem.ParentId == 0)
-        menuItem.ParentId = null;
+        throw new SunEntityNotUpdatedException(nameof(MenuItem), "Can not create menu item when parentId == null");
 
 
       menuItem.Name = menuItem.Name?.SetNullIfEmptyTrim();

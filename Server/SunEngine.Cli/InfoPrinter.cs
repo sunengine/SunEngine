@@ -11,10 +11,10 @@ namespace SunEngine.Cli
         /// </summary>
         public static void PrintNoArgumentsInfo()
         {
-            Console.WriteLine(@"Startup arguments wasn't provided. To list available commands use ""help"" argument.");
+            Console.WriteLine(@"Valid startup arguments wasn't provided. To list available commands use ""help"" argument.");
         }
 
-       
+
         /// <summary>
         /// Print help on dotnet "dotnet SunEngine.dll help"
         /// </summary>

@@ -21,6 +21,12 @@ namespace SunEngine.Cli
                 return;
             }
 
+            if (config.CheckNoArguments())
+            {
+              InfoPrinter.PrintNoArgumentsInfo();
+              return;
+            }
+
             config.InitConfigurationDirectory();
 
             if (config.CheckDatabaseAvailability)
