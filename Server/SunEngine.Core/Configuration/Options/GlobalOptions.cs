@@ -44,7 +44,7 @@ namespace SunEngine.Core.Configuration.Options
 
     public string SkinsUrl { get; set; }
 
-    public string PartialsSkinsUrl { get; set; }
+    public string PartialSkinsUrl { get; set; }
     public bool FileServer { get; set; }
   }
 }

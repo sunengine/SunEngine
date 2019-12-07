@@ -35,7 +35,7 @@ namespace SunEngine.Admin.Services
         ["Global:SiteUrl"] = typeof(string),
         ["Global:UploadImagesUrl"] = typeof(string),
         ["Global:SkinsUrl"] = typeof(string),
-        ["Global:PartialsSkinsUrl"] = typeof(string),
+        ["Global:PartialSkinsUrl"] = typeof(string),
 
         ["Client:OpenExternalLinksAtNewTab"] = typeof(bool),
         ["Client:VueDevTools"] = typeof(bool),

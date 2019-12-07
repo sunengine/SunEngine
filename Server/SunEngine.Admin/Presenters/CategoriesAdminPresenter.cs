@@ -44,7 +44,6 @@ namespace SunEngine.Admin.Presenters
                 IsMaterialsContainer = x.IsMaterialsContainer,
                 IsMaterialsNameEditable = x.IsMaterialsNameEditable,
                 IsMaterialsSubTitleEditable = x.IsMaterialsSubTitleEditable,
-                MaterialsPreviewGeneratorName = x.MaterialsPreviewGeneratorName,
                 SubTitle = x.SubTitle,
                 Icon = x.Icon,
                 Header = x.Header,
@@ -72,7 +71,6 @@ namespace SunEngine.Admin.Presenters
                     IsMaterialsContainer = x.IsMaterialsContainer,
                     Header = x.Header,
                     LayoutName = x.LayoutName,
-                    MaterialsPreviewGeneratorName = x.MaterialsPreviewGeneratorName,
                     IsMaterialsNameEditable = x.IsMaterialsNameEditable,
                     IsMaterialsSubTitleEditable = x.IsMaterialsSubTitleEditable,
                     ParentId = x.ParentId,
@@ -131,8 +129,6 @@ namespace SunEngine.Admin.Presenters
 
         public bool IsMaterialsNameEditable { get; set; }
 
-        public string MaterialsPreviewGeneratorName { get; set; }
-        
         public int? ParentId { get; set; }
 
         public IList<CategoryAdminView> SubCategories { get; set; }
@@ -140,13 +136,13 @@ namespace SunEngine.Admin.Presenters
         public int SortNumber { get; set; }
 
         public int MaterialsCount { get; set; }
-        
+
         public bool IsHidden { get; set; }
 
         public bool IsCacheContent { get; set; }
-        
+
         public DateTime? DeletedDate { get; set; }
-        
+
         public string SettingsJson { get; set; }
     }
 }

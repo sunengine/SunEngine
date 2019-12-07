@@ -110,14 +110,14 @@
             title: [
                 (value) => !!value || this.$tl('validation.title.required'),
                 (value) => value.length >= 3 || this.$tl('validation.title.minLength'),
-                (value) => value.length <= config.DbColumnSizes.Categories_Title || this.$tl('validation.title.maxLength'),
+                (value) => value.length <= config.DbColumnSizes.Materials_Title || this.$tl('validation.title.maxLength'),
+            ],
+            subTitle: [
+                (value) => !value || value.length <= config.DbColumnSizes.Materials_SubTitle || this.$tl('validation.subTitle.maxLength'),
             ],
             text: [
                 (value) => !!value || this.$tl('validation.text.required'),
                 (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$tl('validation.text.htmlTextSizeOrHasImage'),
-            ],
-            subTitle: [
-                (value) => !value || value.length <= config.DbColumnSizes.Materials_SubTitle || this.$tl('validation.subTitle.maxLength'),
             ],
             settingsJson: [
                 value => (!value || isJson(value)) || this.$tl('validation.settingsJson.jsonFormatError')

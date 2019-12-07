@@ -20,7 +20,7 @@ export default {
     appendUrlTokenCb: "Add to URL",
     appendUrlTokenInfo: "(use only if you understand what it is)",
     isMaterialsContainerCb: "Contains materials",
-    isMaterialsSubTitleEditableCb: "Possibility to edit material sub title",
+    isMaterialsSubTitleEditableCb: "Possibility to edit material subtitle",
     isMaterialsNameEditableCb: "Possibility to edit material name (eng), only for admin",
     isCaching: "Caching",
     cachingPageCount: "Cache N pages",
@@ -30,11 +30,16 @@ export default {
       name: {
         required: "Enter category name (eng)",
         minLength: "Name (eng) must be at least 2 letters",
+        maxLength: `Имя (eng) must contain max ${config.DbColumnSizes.Categories_Name} chars`,
         allowedChars: "The name (eng) must consist of the characters `a-z`, `A-Z`, `0-9`, `-`"
       },
       title: {
         required: "Enter category title",
-        minLength: "Category title must contain at least 3 letters"
+        minLength: "Category title must contain at least 3 letters",
+        maxLength: `Title must contain max ${config.DbColumnSizes.Categories_Title} letter`,
+      },
+      subTitle: {
+        maxLength: `Subtitle must contain max ${config.DbColumnSizes.Categories_SubTitle} letter`,
       },
       icon: {
         minLength: "Minimal icon length - 3",
@@ -82,7 +87,7 @@ export default {
       name: {
         required: "Enter name (eng)",
         minLength:  "Minimum component name length is 3",
-        maxLength: "Maximum component name length is " + config.DbColumnSizes.Components_Name + "letters",
+        maxLength: "Maximum component name length is " + config.DbColumnSizes.Components_Name + " chars",
         allowedChars: "The name (eng) must consist of the characters `a-z`, `A-Z`, `0-9`, `-`, `_`"
       },
       type: {
@@ -130,9 +135,9 @@ export default {
   },
   MenuAdminItem: {},
   MenuItemForm: {
-    name: "Identifier (eng)",
+    name: "Name (eng)",
     title: "Title",
-    subTitle: "Sub title",
+    subTitle: "Subtitle",
     parent: "Parent element",
     rootElement: "Root element",
     url: "Link internal or external",
@@ -157,8 +162,8 @@ export default {
         maxLength: "Maximum title length - " + config.DbColumnSizes.Categories_Title,
       },
       subTitle: {
-        minLength: "Minimal sub title length - 3",
-        maxLength: "Maximum sub title length - " + config.DbColumnSizes.MenuItems_SubTitle,
+        minLength: "Minimal subtitle length - 3",
+        maxLength: "Maximum subtitle length - " + config.DbColumnSizes.MenuItems_SubTitle,
       },
       cssClass: {
         minLength: "Minimal css class length - 3",
@@ -319,6 +324,11 @@ ConfigurationAdmin: {
   },
   SkinsAdmin: {
     title: "Skins admin",
+    mainSkins: "Main skins",
+    partialSkins: "Partial skins"
+  },
+  MainSkinsAdmin: {
+    title: "Skins admin",
     current: "Current",
     info: "Skins collection and documentation to create own skin - ",
     author: "Author: ",
@@ -333,5 +343,14 @@ ConfigurationAdmin: {
     deleteMsg: "Delete skin?",
     btnDeleteOk: "@:Global.dialog.yes",
     btnDeleteCancel: "@:Global.dialog.cancel"
+  },
+  PartialSkinsAdmin: {
+    title: "Partial skins",
+    onBtn: "Enable",
+    offBtn: "Disable",
+    deleteMsg: "Delete partial skin?",
+    btnDeleteOk: "@:Global.dialog.yes",
+    btnDeleteCancel: "@:Global.dialog.cancel",
+    upload: "Upload partial skin",
   }
 }

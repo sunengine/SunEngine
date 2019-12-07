@@ -18,7 +18,7 @@ namespace SunEngine.Core.Models
 
         public string NameNormalized { get; set; }
 
-        //[Required, MinLength(3)] 
+        //[Required, MinLength(3)]
         /// <summary>
         /// Title for human
         /// </summary>
@@ -41,7 +41,7 @@ namespace SunEngine.Core.Models
 
 
         /// <summary>
-        /// HTML description on the top of the page on Client 
+        /// HTML description on the top of the page on Client
         /// </summary>
         public string Header { get; set; }
 
@@ -59,11 +59,9 @@ namespace SunEngine.Core.Models
         public string LayoutName { get; set; }
 
         public bool IsMaterialsNameEditable { get; set; }
-        
-        public string MaterialsPreviewGeneratorName { get; set; }
 
         public bool IsMaterialsSubTitleEditable { get; set; }
-        
+
         public string SettingsJson { get; set; }
 
         /// <summary>
@@ -76,7 +74,7 @@ namespace SunEngine.Core.Models
         public bool IsHidden { get; set; }
 
         public bool IsCacheContent { get; set; }
-        
+
         public DateTime? DeletedDate { get; set; }
     }
 

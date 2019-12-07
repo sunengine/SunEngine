@@ -30,15 +30,13 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("Name".s()).AsString(DbColumnSizes.Categories_Name).NotNullable()
                 .WithColumn("NameNormalized".s()).AsString(DbColumnSizes.Categories_Name).NotNullable().Unique()
                 .WithColumn("Title".s()).AsString(DbColumnSizes.Categories_Title).NotNullable()
-                .WithColumn("SubTitle".s()).AsMaxString().Nullable()
+                .WithColumn("SubTitle".s()).AsString(DbColumnSizes.Categories_SubTitle).Nullable()
                 .WithColumn("Icon".s()).AsString(DbColumnSizes.Categories_Icon).Nullable()
                 .WithColumn("MaterialTypeTitle".s()).AsString(DbColumnSizes.Categories_MaterialTypeTitle).Nullable()
                 .WithColumn("Header".s()).AsMaxString().Nullable()
                 .WithColumn("IsMaterialsContainer".s()).AsBoolean().NotNullable()
                 .WithColumn("IsMaterialsNameEditable".s()).AsBoolean().NotNullable().WithDefaultValue(false)
                 .WithColumn("MaterialsSubTitleInputType".s()).AsInt16().NotNullable().WithDefaultValue(0)
-                .WithColumn("MaterialsPreviewGeneratorName".s())
-                .AsString(DbColumnSizes.Categories_MaterialsPreviewGeneratorName).Nullable()
                 .WithColumn("CacheSettingsId".s()).AsInt32().Indexed().Nullable()
                 .ForeignKey("fkCategoriesCacheSettings".s(), "CategoryCacheSettings".s(), "Id".s())
                 .WithColumn("SortNumber".s()).AsInt32().NotNullable().Unique()
@@ -102,14 +100,14 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("IsHidden".s()).AsBoolean().NotNullable()
                 .WithColumn("DeletedDate".s()).AsDateTime().Nullable();
 
-            
+
             /*Create.Table("MaterialPreviews".s())
                 .WithColumn("MaterialId".s()).AsInt32().NotNullable()
                 .ForeignKey("fkPreviewsMaterials".s(),"Materials".s(),"Id".s()).OnDelete(Rule.Cascade)
                 .WithColumn("ComponentId".s()).AsInt32().NotNullable()
                 .WithColumn("Text".s()).AsMaxString().NotNullable();*/
 
-            
+
             Create.Table("Comments".s())
                 .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Text".s()).AsMaxString().NotNullable()
@@ -121,7 +119,7 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("EditDate".s()).AsDateTime().Nullable()
                 .WithColumn("DeletedDate".s()).AsDateTime().Nullable();
 
-            
+
             Create.ForeignKey("fkMaterialsLastComment".s()).FromTable("Materials".s())
                 .ForeignColumn("LastCommentId".s()).ToTable("Comments".s()).PrimaryColumn("Id".s());
 

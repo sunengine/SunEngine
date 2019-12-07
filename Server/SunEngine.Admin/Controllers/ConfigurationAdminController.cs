@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using SunEngine.Admin.Managers;
 using SunEngine.Admin.Presenters;
 using SunEngine.Admin.Services;
+using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Models;
 
 namespace SunEngine.Admin.Controllers
@@ -18,16 +19,18 @@ namespace SunEngine.Admin.Controllers
         protected readonly IConfigurationRoot configurationRoot;
         protected readonly ConfigurationAdminService configurationAdminService;
         protected readonly IHostingEnvironment env;
-
+        protected readonly IDynamicConfigCache dynamicConfigCache;
         public ConfigurationAdminController(
             IConfigurationManager configurationManager,
             ConfigurationAdminService configurationAdminService,
             IConfigurationPresenter configurationPresenter,
             IConfigurationRoot configurationRoot,
+            IDynamicConfigCache dynamicConfigCache,
             IHostingEnvironment env,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.env = env;
+            this.dynamicConfigCache = dynamicConfigCache;
             this.configurationRoot = configurationRoot;
             this.configurationManager = configurationManager;
             this.configurationAdminService = configurationAdminService;
@@ -46,6 +49,8 @@ namespace SunEngine.Admin.Controllers
             configurationManager.UploadConfigurationItems(items);
 
             configurationRoot.Reload();
+
+            dynamicConfigCache.Initialize();
 
             if (env.IsProduction())
                 configurationAdminService.UpdateClientScripts();

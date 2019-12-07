@@ -1,20 +1,11 @@
 <template>
   <div class="menu-item-form q-gutter-y-md">
-    <q-input class="menu-item-form__name" ref="name" v-model="menuItem.name" :label="$tl('name')" :rules="rules.name">
-      <template v-slot:prepend>
-        <q-icon name="fas fa-signature" class="q-mr-xs"/>
-      </template>
-    </q-input>
-    <q-input class="menu-item-form__title" ref="title" v-model="menuItem.title" :label="$tl('title')" :rules="rules.title">
-      <template v-slot:prepend>
-        <q-icon name="fas fa-heading" class="q-mr-xs"/>
-      </template>
-    </q-input>
-    <q-input class="menu-item-form__sub-title" ref="subTitle" v-model="menuItem.subTitle" :label="$tl('subTitle')" :rules="rules.subTitle">
-      <template v-slot:prepend>
-        <q-icon name="fas fa-info" class="q-mr-xs"/>
-      </template>
-    </q-input>
+    <q-input class="menu-item-form__name" ref="name" v-model="menuItem.name" :label="$tl('name')" :rules="rules.name"/>
+
+    <q-input class="menu-item-form__title" ref="title" v-model="menuItem.title" :label="$tl('title')" :rules="rules.title"/>
+
+    <q-input class="menu-item-form__sub-title" type="textarea" autogrow ref="subTitle" v-model="menuItem.subTitle" :label="$tl('subTitle')" :rules="rules.subTitle"/>
+
     <q-input bottom-slots class="menu-item-form__url" ref="url" @input="urlUpdated" v-model="url" :label="$tl('url')" :rules="rules.url">
       <template v-slot:prepend>
         <q-icon name="fas fa-link" class="q-mr-xs"/>

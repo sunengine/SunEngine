@@ -27,6 +27,8 @@ namespace SunEngine.Core.Cache.Services
     {
       var itemsToSaveDic = new Dictionary<string, Type>()
       {
+        ["Global:SiteName"] = typeof(string),
+
         ["Comments:TimeToOwnEditInMinutes"] = typeof(int),
         ["Comments:TimeToOwnDeleteInMinutes"] = typeof(int),
 
