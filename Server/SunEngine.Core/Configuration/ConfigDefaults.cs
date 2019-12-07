@@ -4,18 +4,17 @@ namespace SunEngine.Core.Configuration
 {
     public static class ConfigDefaults
     {
-        public enum Test
+        public enum Locale
         {
-            TestValue1,
-            TestValue2,
-            TestValue3
+          Russian,
+          English,
         }
 
         public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>()
         {
-            ["Test:Test1"] = Test.TestValue2,
-
             ["Global:SiteName"] = "SunEngine Demo",
+            ["Global:SiteSubTitle"] = "",
+            ["Global:Locale"] = Locale.Russian,
 
             ["Dev:ShowExceptions"] = false,
 

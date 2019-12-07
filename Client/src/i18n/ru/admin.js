@@ -304,6 +304,8 @@ export default {
   },
   ConfigurationAdmin: {
     title: "Конфигурация сайта",
+    filter: "Фильтр",
+    noResults: "Ничего не найдено",
     successNotify: "Значения конфигурации успешно сохранены",
     resetSuccessNotify: "Значения конфигурации перезагружены с сервера",
     resetBtn: "Перезагрузить с сервера",

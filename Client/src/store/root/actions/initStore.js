@@ -4,6 +4,7 @@ import {consoleInit} from 'sun'
 import {removeTokens} from 'sun'
 import {InitializeState} from 'sun'
 import {getDynamicConfig} from 'sun'
+import {app} from 'sun'
 
 
 export default async function (context) {
@@ -14,6 +15,13 @@ export default async function (context) {
 
   try {
     await getDynamicConfig();
+
+    const locales = {
+      Russian: "ru",
+      English: "en-us"
+    };
+
+    app.$i18n.locale = locales[config.Global.Locale];
 
     if (hasLongToken())
       await context.dispatch('loadMyUserInfo');

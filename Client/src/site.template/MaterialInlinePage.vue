@@ -1,6 +1,6 @@
 ﻿<template>
   <q-page class="material-inline-page ">
-    <div class="pan">
+    <div class="material-inline-page__pan">
     </div>
     <h2 class="q-title page-padding text-center">
       {{title}}
@@ -29,13 +29,10 @@
 
 <style lang="scss">
 
-  .material-inline-page {
-    .pan {
-      background-image: url('/statics/panorama.jpg');
-      height: 270px;
-      background-size: cover;
-      background-position: center;
-    }
+  .material-inline-page__pan {
+    background-image: url('/statics/svg1.svg');
+    height: 200px;
+    background-size: 38%;
   }
 
 </style>

@@ -46,12 +46,23 @@
 .skin-green-deep .layout__toolbar {
   background-color: #69da2b;
 }
-.skin-green-deep .layout__title, .skin-green-deep .layout__title-link {
+.skin-green-deep .layout__title-block {
   font-family: "Jomolhari";
+}
+.skin-green-deep .layout__title {
   letter-spacing: 1.4px;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+  line-height: 92%;
+  color: white;
+}
+.skin-green-deep .layout__sub-title {
+  letter-spacing: 1.4px;
+  font-size: 1rem;
   font-weight: bold;
   color: white;
+  line-height: 92%;
+  font-variant: all-petite-caps;
 }
 .skin-green-deep .main-menu-drawer {
   background-color: unset;

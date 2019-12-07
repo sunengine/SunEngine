@@ -12,7 +12,6 @@
     demo: "Demo"
   },
   Layout: {
-    title: "SunEngine Demo",
     madeWithLove: "Made with love"
   },
   MaterialInlinePage: {

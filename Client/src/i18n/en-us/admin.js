@@ -86,7 +86,7 @@ export default {
     validation: {
       name: {
         required: "Enter name (eng)",
-        minLength:  "Minimum component name length is 3",
+        minLength: "Minimum component name length is 3",
         maxLength: "Maximum component name length is " + config.DbColumnSizes.Components_Name + " chars",
         allowedChars: "The name (eng) must consist of the characters `a-z`, `A-Z`, `0-9`, `-`, `_`"
       },
@@ -130,7 +130,7 @@ export default {
     deleteBtn: "Delete menu item",
     successNotify: "Menu item successfully edited",
     deleteMsg: "Delete menu item?",
-    btnDeleteOk:  "@:Global.dialog.ok",
+    btnDeleteOk: "@:Global.dialog.ok",
     btnDeleteCancel: "@:Global.dialog.cancel",
   },
   MenuAdminItem: {},
@@ -243,7 +243,7 @@ export default {
     configuration: "Configuration",
     configurationCaption: "",
     cypherSecrets: "Cypher keys",
-    cypherSecretsCaption:"",
+    cypherSecretsCaption: "",
     imagesCleaner: "Disk cleaner",
     imagesCleanerCaption: "",
     deletedElements: "Deleted elements",
@@ -295,8 +295,10 @@ export default {
       }
     }
   },
-ConfigurationAdmin: {
+  ConfigurationAdmin: {
     title: "Site configuration",
+    filter: "Filter",
+    noResults: "Nothing found",
     successNotify: "Configuration values successfully saved",
     resetSuccessNotify: "Configuration values reloaded from server",
     resetBtn: "Reload from server",

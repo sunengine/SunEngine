@@ -1,14 +1,19 @@
 ﻿<template>
   <q-layout class="layout" view="lHh LpR lfr">
     <q-header class="layout__header">
-      <q-toolbar  class="layout__toolbar">
+      <q-toolbar class="layout__toolbar">
 
         <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
           <q-icon name="fas fa-bars" class="layout__toolbar__menu-btn"/>
         </q-btn>
 
-        <q-toolbar-title class="layout__title">
-          <router-link :to="{name: 'Home'}">{{$tl("title")}}</router-link>
+        <q-toolbar-title class="layout__title-block">
+          <router-link class="layout__title-link block" :to="{name: 'Home'}">
+            <div class="layout__title">{{siteTitle}}</div>
+            <div class="layout__sub-title" v-if="siteSubTitle">{{siteSubTitle}}</div>
+          </router-link>
+
+
         </q-toolbar-title>
 
         <q-btn class="q-mr-sm" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu"
@@ -68,7 +73,8 @@
     </q-page-container>
 
     <q-footer class="layout__footer">
-      <LinksMenu v-if="footerMenuItem" class="layout__footer-line" :menuItem="footerMenuItem">
+      <LinksMenu v-if="footerMenuItem" class="layout__footer-line" linkClasses="layout__footer-link"
+                 :menuItem="footerMenuItem">
         <q-icon name="fas fa-heart" class="layout__footer-separator-icon" size="12px"/>
       </LinksMenu>
 
@@ -93,6 +99,12 @@
             }
         },
         computed: {
+            siteTitle() {
+                return config.Global.SiteName;
+            },
+            siteSubTitle() {
+                return config.Global.SiteSubTitle;
+            },
             rightDrawerIs: function () {
                 return !!this.$route?.matched?.[0]?.components?.navigation;
             },

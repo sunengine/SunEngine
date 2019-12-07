@@ -31,6 +31,7 @@ namespace SunEngine.Admin.Services
       var itemsToSaveDic = new Dictionary<string, Type>()
       {
         ["Global:SiteName"] = typeof(string),
+        ["Global:Locale"] = typeof(string),
         ["Global:SiteApi"] = typeof(string),
         ["Global:SiteUrl"] = typeof(string),
         ["Global:UploadImagesUrl"] = typeof(string),
