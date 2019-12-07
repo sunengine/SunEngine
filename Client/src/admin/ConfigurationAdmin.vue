@@ -42,7 +42,6 @@
         </tbody>
 
 
-
       </q-markup-table>
 
 
@@ -65,6 +64,7 @@
 
 <script>
     import {Page} from 'mixins';
+    //import {getDynamicConfig} from 'sun';
 
 
     export default {
@@ -113,7 +113,7 @@
             buildTable() {
                 const visibleItems = this.filter ? this.configurationItems.filter(x => x.name.toLowerCase().includes(this.filter.toLowerCase())) : this.configurationItems;
 
-                if(!visibleItems || visibleItems.length === 0) {
+                if (!visibleItems || visibleItems.length === 0) {
                     this.configurationGroups = null;
                     return;
                 }

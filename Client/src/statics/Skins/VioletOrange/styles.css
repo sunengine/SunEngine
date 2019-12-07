@@ -52,7 +52,6 @@
   letter-spacing: 1.4px;
   font-size: 1.6rem;
   font-weight: bold;
-  line-height: 92%;
   color: white;
 }
 .skin-violet-orange .layout__sub-title {
@@ -60,7 +59,7 @@
   font-size: 1rem;
   font-weight: bold;
   color: white;
-  line-height: 92%;
+  margin-top: -10px;
   font-variant: all-petite-caps;
 }
 .skin-violet-orange .main-menu-drawer {

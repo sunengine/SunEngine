@@ -25,8 +25,20 @@ namespace SunEngine.Admin.Presenters
 
     public async Task<IEnumerable<ConfigurationItemView>> LoadConfigurationAsync()
     {
-      var items = await db.ConfigurationItems.OrderBy(x => x.Name).ToListAsync();
-      return items.Select(x => new ConfigurationItemView(x.Name, x.Value)).ToList();
+      var items = await db.ConfigurationItems.OrderBy(x=>x.Name).ToListAsync();
+      var rez = new List<ConfigurationItemView>();
+
+      foreach (var name in ConfigDefaults.ConfigurationGroupsOrder)
+        foreach (var item in items.Where(x=>x.Name.StartsWith(name + ":")))
+          rez.Add(new ConfigurationItemView(item.Name, item.Value));
+
+      foreach (var item in items)
+      {
+        if(!rez.Exists(x=>x.Name == item.Name))
+          rez.Add(new ConfigurationItemView(item.Name, item.Value));
+      }
+
+      return rez;
     }
 
     public Dictionary<string, IEnumerable<string>> GetEnums()

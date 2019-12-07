@@ -142,7 +142,6 @@ $sun-engine-footer-link-color: orange;
     letter-spacing: 1.4px;
     font-size: 1.6rem;
     font-weight: bold;
-    line-height: 92%;
     color: $header-title-text-color;
   }
 
@@ -151,7 +150,7 @@ $sun-engine-footer-link-color: orange;
     font-size: 1rem;
     font-weight: bold;
     color: $header-sub-title-text-color;
-    line-height: 92%;
+    margin-top: -10px;
     font-variant: all-petite-caps;
   }
 

@@ -14,7 +14,6 @@ export function getDynamicConfig() {
         }
       }
 
-      configFreeze();
       initSkins();
     })
 }
