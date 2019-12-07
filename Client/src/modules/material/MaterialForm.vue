@@ -74,7 +74,7 @@
       </q-menu>
     </q-field>
 
-    <q-input class="material-form__settings-json" ref="settingsJson" type="textarea" v-model="material.settingsJson"
+    <q-input class="material-form__settings-json" v-if="canEditSettingsJson" ref="settingsJson" type="textarea" v-model="material.settingsJson"
              autogrow :label="$tl('settingsJson')"
              :rules="rules.settingsJson"/>
 
@@ -143,6 +143,13 @@
                 start: true
             }
         },
+        watch: {
+            'material.categoryName': function (newVal, oldVal) {
+                if (!newVal) {
+                    this.material.categoryName = oldVal
+                }
+            }
+        },
         computed: {
             hasError() {
                 return this.$refs.title.hasError || this.$refs.htmlEditor.hasError || !this.material.categoryName || this.$refs.description?.hasError || this.$refs.name?.hasError;
@@ -175,7 +182,7 @@
                 this.$refs.title.validate();
                 this.$refs.subTitle?.validate();
                 this.$refs.htmlEditor.validate();
-                this.$refs.settingsJson.validate();
+                this.$refs.settingsJson?.validate();
             }
         },
         beforeCreate() {
