@@ -5,5 +5,6 @@
       "lastQuasarVersion": "1.5.5",
       "lastIdeHelperVersion": "1.0.0-alpha.3"
     }
-  }
+  },
+  "@quasar/qiconpicker": {}
 }

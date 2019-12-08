@@ -1,38 +1,33 @@
 <template>
   <div class="role-users">
-    <div class="xs-col-12 col-8">
-      <div class="role-users__header">
-        <q-icon name="fas fa-user" class="q-mr-sm"/>
-        {{$tl("users")}}
-      </div>
-
-      <q-input class="role-users__filter q-my-sm" outlined dense v-model="filter" :label="$tl('filter')"
-               @input="filterValueChanged">
-        <template v-slot:prepend>
-          <q-icon name="fas fa-search" size="0.75em"/>
-        </template>
-        <template v-slot:append>
-          <q-icon name="fas fa-times" @click="() => {filter = ''; filterValueChanged()}" class="cursor-pointer"/>
-        </template>
-      </q-input>
-
-      <div v-if="users" class="role-users__list">
-        <div class="role-users__user" :key="user.id" v-for="user in users">
-          <router-link class="role-users__user-link link" :to="`/user/${user.link}`">{{user.name}}</router-link>
-        </div>
-        <div v-if="users.length === 0" class="text-grey">{{$tl("noResults")}}</div>
-        <div v-if="users.length === maxUsersTake" class="text-grey">{{$tl("filterLimitReached",maxUsersTake)}}</div>
-      </div>
-
-      <div v-else class="xs-col-12 col-8">
-        <LoaderWait/>
-      </div>
-
+    <div class="role-users__header">
+      <q-icon name="fas fa-user" class="q-mr-sm"/>
+      {{$tl("users")}}
     </div>
+
+    <q-input class="role-users__filter q-my-sm" outlined dense v-model="filter" :label="$tl('filter')" clearable>
+      <template v-slot:prepend>
+        <q-icon name="fas fa-search" size="0.75em"/>
+      </template>
+    </q-input>
+
+    <div v-if="users" class="role-users__list">
+      <div class="role-users__user" :key="user.id" v-for="user in users">
+        <router-link class="role-users__user-link link" :to="`/user/${user.link}`">{{user.name}}</router-link>
+      </div>
+      <div v-if="users.length === 0" class="text-grey">{{$tl("noResults")}}</div>
+      <div v-if="users.length === maxUsersTake" class="text-grey">{{$tl("filterLimitReached",maxUsersTake)}}</div>
+    </div>
+
+    <div v-else>
+      <LoaderWait/>
+    </div>
+
   </div>
 </template>
 
 <script>
+    import {throttle} from 'quasar'
 
     export default {
         name: 'RoleUsers',
@@ -45,37 +40,41 @@
         data() {
             return {
                 users: null,
-                filter: ''
+                filter: null
             }
         },
         watch: {
-            'roleName': 'loadRoleUsers'
+            'roleName': 'loadRoleUsers',
+            'filter': 'loadRoleUsersThrottle'
         },
         maxUsersTake: null,
         methods: {
-            filterValueChanged() {
+            loadRoleUsersThrottle() {
                 this.timeout && clearTimeout(this.timeout);
                 this.timeout = setTimeout(this.loadRoleUsers, 600);
             },
-            async loadRoleUsers() {
+            loadRoleUsers() {
                 this.users = null;
-                await this.$request(
+
+                this.$request(
                     this.$AdminApi.UserRolesAdmin.GetRoleUsers,
                     {
                         roleName: this.roleName,
                         userNamePart: this.filter
                     }).then(response => {
-                        this.users = response.data;
-                    }
-                );
+                    this.users = response.data;
+                });
             }
         },
         beforeCreate() {
             this.maxUsersTake = config.Misc.AdminRoleUsersMaxUsersTake;
             this.$options.components.LoaderWait = require('sun').LoaderWait;
         },
-        async created() {
-            await this.loadRoleUsers();
+        created() {
+            this.loadRoleUsers();
+        },
+        beforeDestroy() {
+            this.timeout && clearTimeout(this.timeout);
         }
     }
 

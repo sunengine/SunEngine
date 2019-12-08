@@ -4,12 +4,9 @@
       <h2 class="page-title">
         {{title}}
       </h2>
-      <q-input dense v-model="filter" :placeholder="$tl('filter')">
+      <q-input dense v-model="filter" :placeholder="$tl('filter')" clearable>
         <template v-slot:before>
           <q-icon name="fa fa-search"/>
-        </template>
-        <template v-slot:append>
-          <q-btn round dense flat icon="fa fa-times" @click="filter = ''"/>
         </template>
       </q-input>
     </div>

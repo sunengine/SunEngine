@@ -5,12 +5,35 @@
 
     <q-input class="category-form__title" ref="title" v-model="category.title" :label="$tl('title')" :rules="rules.title"/>
 
-    <q-input class="category-form__sub-title"  bottom-slots ref="subTitle" v-model="category.subTitle" autogrow type="textarea"
+    <q-input class="category-form__sub-title" clearable  bottom-slots ref="subTitle" v-model="category.subTitle" autogrow type="textarea"
              :label="$tl('subTitle')" :rules="rules.subTitle" />
 
-    <q-input class="category-form__icon" ref="icon" v-model="category.icon" :label="$tl('icon')" :rules="rules.icon">
-      <template slot="prepend">
-        <q-icon  class="q-mr-xs" :name="category.icon ? category.icon : 'far fa-file'"/>
+    <q-input v-model="category.icon" label="Icon" clearable>
+      <template v-slot:prepend v-if="category.icon">
+        <q-icon :name="category.icon" color="positive">
+
+        </q-icon>
+      </template>
+      <template v-slot:append>
+        <q-icon name="fas fa-icons" class="cursor-pointer">
+          <q-popup-proxy v-model="showIconPicker">
+            <div class="q-pa-sm">
+              <q-input dense class="q-mb-md" v-model="iconFilter" placeholder="Filter" clearable>
+                <template v-slot:prepend>
+                  <q-icon name="fas fa-search"/>
+                </template>
+              </q-input>
+              <q-icon-picker
+                v-model="category.icon"
+                :filter="iconFilter"
+                icon-set="fontawesome-v5"
+                tooltips
+                :pagination.sync="pagination"
+                style="height: 300px; width: 300px; background-color: white;"
+              />
+            </div>
+          </q-popup-proxy>
+        </q-icon>
       </template>
     </q-input>
 
@@ -57,7 +80,7 @@
       <q-icon slot="prepend" name="fas fa-boxes"/>
     </q-select>
 
-    <q-input  class="category-form__settings-json" ref="settingsJson" type="textarea" v-model="category.settingsJson" autogrow :label="$tl('settingsJson')"
+    <q-input clearable  class="category-form__settings-json" ref="settingsJson" type="textarea" v-model="category.settingsJson" autogrow :label="$tl('settingsJson')"
              :rules="rules.settingsJson"/>
 
     <q-checkbox  class="category-form__is-material-container" :toggle-indeterminate="false" v-model="category.isMaterialsContainer"
@@ -150,6 +173,12 @@
                 root: null,
                 all: null,
                 start: true,
+                showIconPicker: false,
+                iconFilter: null,
+                pagination: {
+                    itemsPerPage: 35,
+                    page: 0
+                }
             }
         },
         watch: {

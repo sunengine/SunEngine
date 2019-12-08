@@ -49,7 +49,7 @@ export default {
         required: "Выберите родительскую категорию"
       },
       settingsJson: {
-        jsonFormatError: "@:Global.validation.validation",
+        jsonFormatError: "@:Global.validation.jsonFormatError",
       }
     }
   },

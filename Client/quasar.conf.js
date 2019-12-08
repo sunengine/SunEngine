@@ -18,7 +18,8 @@ module.exports = function (ctx) {
       'successNotify',
       'errorNotify',
       'request',
-      'api'
+      'api',
+      'iconPicker'
     ],
     css: [
       'app.scss',

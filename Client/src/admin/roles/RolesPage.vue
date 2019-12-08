@@ -5,25 +5,25 @@
     </h2>
 
     <div class="row">
-      <div v-if="roles" class="xs-col-12 col-4">
+      <div class="col-4">
+        <template v-if="roles">
         <div class="roles-page__header">
           <q-icon name="fas fa-users" class="q-mr-sm"/>
           {{$tl("roles")}}
         </div>
 
-        <div class="roles-page__list">
+        <div class="roles-page__list m1">
           <div class="roles-page__role" :key="role.id" v-for="role in roles">
             <router-link class="roles-page__role-link link" :to="{name: 'RoleUsers', params: {roleName: role.name}}">{{role.title}}</router-link>
           </div>
         </div>
-
+        </template>
+        <div v-else>
+          <LoaderWait/>
+        </div>
       </div>
 
-      <div v-else class="xs-col-12 col-4">
-        <LoaderWait/>
-      </div>
-
-      <router-view class="roles-page__router-view"></router-view>
+      <router-view class="roles-page__router-view col-8"></router-view>
     </div>
   </q-page>
 </template>
@@ -69,7 +69,7 @@
   }
 
   .roles-page__list {
-    padding: 10px 0;
+  //  padding: 10px 0;
 
     .router-link-exact-active {
       background: #e1e1e1;
@@ -87,7 +87,10 @@
   }
 
   .roles-page__router-view {
-    margin-left: 6px;
+  }
+
+  .m1 {
+    padding-right: 16px;
   }
 
 </style>

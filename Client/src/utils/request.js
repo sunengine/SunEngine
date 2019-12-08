@@ -54,17 +54,21 @@ export default async function (url, body, sendAsJson = false, skipLock = false, 
     delete body.sendAsJson;
   }
 
-
   if (body?.blockErrorsNotifications) {
     blockErrorsNotifications = body.blockErrorsNotifications;
     delete body.blockErrorsNotifications;
   }
 
-
   if (body?.skipLock) {
     skipLock = body.skipLock;
     delete body.skipLock;
   }
+
+  if(body)
+    for (const [key, value] of Object.entries(body))
+      if (!value)
+        delete body[key];
+
 
   if (config.Client.LogRequests)
     console.log(`%cRequest%c${url}`, consoleRequestStart, consoleRequestUrl, body);
