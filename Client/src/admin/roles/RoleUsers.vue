@@ -27,7 +27,6 @@
 </template>
 
 <script>
-    import {throttle} from 'quasar'
 
     export default {
         name: 'RoleUsers',
@@ -43,16 +42,8 @@
                 filter: null
             }
         },
-        watch: {
-            'roleName': 'loadRoleUsers',
-            'filter': 'loadRoleUsersThrottle'
-        },
         maxUsersTake: null,
         methods: {
-            loadRoleUsersThrottle() {
-                this.timeout && clearTimeout(this.timeout);
-                this.timeout = setTimeout(this.loadRoleUsers, 600);
-            },
             loadRoleUsers() {
                 this.users = null;
 
@@ -72,9 +63,9 @@
         },
         created() {
             this.loadRoleUsers();
-        },
-        beforeDestroy() {
-            this.timeout && clearTimeout(this.timeout);
+            this.$watch('roleName', this.loadRoleUsers);
+            this.loadRoleUsers = this.$throttle(this.loadRoleUsers);
+            this.$watch('filter', this.loadRoleUsers);
         }
     }
 

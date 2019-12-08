@@ -19,7 +19,8 @@ module.exports = function (ctx) {
       'errorNotify',
       'request',
       'api',
-      'iconPicker'
+      'iconPicker',
+      'throttle'
     ],
     css: [
       'app.scss',

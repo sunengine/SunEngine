@@ -12,6 +12,7 @@ export default {
   Personal: {
     SetMyLink: '/Personal/SetMyLink',
     CheckLinkInDb: '/Personal/CheckLinkInDb',
+    CheckNameInDb: '/Personal/CheckNameInDb',
     SetMyName: '/Personal/SetMyName',
     SetMyProfileInformation: '/Personal/SetMyProfileInformation',
     GetMyProfileInformation: '/Personal/GetMyProfileInformation',
