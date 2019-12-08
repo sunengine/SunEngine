@@ -5,7 +5,7 @@
       {{$tl("users")}}
     </div>
 
-    <q-input class="role-users__filter q-my-sm" outlined dense v-model="filter" :label="$tl('filter')" clearable>
+    <q-input class="role-users__filter q-my-md" outlined dense v-model="filter" :label="$tl('filter')" clearable>
       <template v-slot:prepend>
         <q-icon name="fas fa-search" size="0.75em"/>
       </template>
@@ -73,9 +73,8 @@
 
 <style lang="scss">
 
-
   .role-users__header {
-    background-color: #cfd8dc;
+    background-color: $grey-4;
     padding: 10px;
   }
 

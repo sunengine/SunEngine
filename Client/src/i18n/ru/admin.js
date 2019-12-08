@@ -4,7 +4,8 @@ export default {
 
   CategoriesAdmin: {
     title: "Админка категорий",
-    addCategoryBtn: "Добавить категорию"
+    addCategoryBtn: "Добавить категорию",
+    showInfo: "Информация о категориях"
   },
   CategoryForm: {
     name: "Имя (eng)",
@@ -54,7 +55,7 @@ export default {
     }
   },
   CategoryItem: {
-    rootCategory: "Корневая категория"
+    rootCategory: "Корневая категория",
   },
   CreateCategory: {
     title: "Добавить категорию",
@@ -215,7 +216,7 @@ export default {
   },
   RoleUsers: {
     users: "Пользователи",
-    filter: "Найти по имени",
+    filter: "Фильтр",
     noResults: "Нет результатов",
     filterLimitReached: "Выведены первые {0} результатов"
   },

@@ -9,7 +9,9 @@
              :to="{name: 'CreateCategory', params: {parentCategoryId: 1}}" no-caps :label="$tl('addCategoryBtn')"/>
     </div>
 
-    <CategoryItem v-if="root" @up="up" @down="down" :category="root" class="q-mt-lg"/>
+    <q-checkbox class="q-mb-md" v-model="showInfo" :label="$tl('showInfo')" />
+
+    <CategoryItem v-if="root" @up="up" @down="down" :category="root" :showInfo="showInfo" />
 
     <LoaderWait v-else/>
 
@@ -25,7 +27,8 @@
         mixins: [Page],
         data() {
             return {
-                root: null
+                root: null,
+                showInfo: false
             }
         },
         methods: {

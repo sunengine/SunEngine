@@ -11,7 +11,7 @@
 
     <div class="components-admin__components" v-if="components">
       <div v-for="component in components">
-        <q-icon name="fas fa-cube" class="q-mr-xs"/> {{component.name}}
+        <q-icon name="fas fa-cube" color="grey-6" class="q-mr-sm"/> {{component.name}}
 
         <q-btn color="info" class="components-admin__btn-edit q-ml-sm" dense size="10px" flat icon="fas fa-wrench"
                :to="{name: 'EditComponent', params: {name: component.name}}"/>

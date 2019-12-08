@@ -4,7 +4,8 @@ export default {
 
   CategoriesAdmin: {
     title: "Categories admin",
-    addCategoryBtn: "Add category"
+    addCategoryBtn: "Add category",
+    showInfo: "Information about categories"
   },
   CategoryForm: {
     name: "Name (eng)",
@@ -216,7 +217,7 @@ export default {
   },
   RoleUsers: {
     users: "Users",
-    filter: "Find by name",
+    filter: "Filter",
     noResults: "Not found",
     filterLimitReached: "First {0} results are derived"
   },
