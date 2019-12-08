@@ -5,25 +5,27 @@
     </h2>
 
     <div class="row">
-      <div class="col-4">
+      <div class="col-xs-12 col-sm-4">
         <template v-if="roles">
-        <div class="roles-page__header">
-          <q-icon name="fas fa-users" class="q-mr-sm"/>
-          {{$tl("roles")}}
-        </div>
-
-        <div class="roles-page__list m1">
-          <div class="roles-page__role" :key="role.id" v-for="role in roles">
-            <router-link class="roles-page__role-link link" :to="{name: 'RoleUsers', params: {roleName: role.name}}">{{role.title}}</router-link>
+          <div class="roles-page__header">
+            <q-icon name="fas fa-users" class="q-mr-sm"/>
+            {{$tl("roles")}}
           </div>
-        </div>
+
+          <div class="roles-page__list">
+            <div class="roles-page__role" :key="role.id" v-for="role in roles">
+              <router-link class="roles-page__role-link link" :to="{name: 'RoleUsers', params: {roleName: role.name}}">
+                {{role.title}}
+              </router-link>
+            </div>
+          </div>
         </template>
         <div v-else>
           <LoaderWait/>
         </div>
       </div>
 
-      <router-view class="roles-page__router-view col-8"></router-view>
+      <router-view class="roles-page__router-view col-xs-12 col-sm-8"></router-view>
     </div>
   </q-page>
 </template>
@@ -69,11 +71,10 @@
   }
 
   .roles-page__list {
-  //  padding: 10px 0;
+    padding-right: 16px;
 
     .router-link-exact-active {
       background: #e1e1e1;
-      border-radius: 6px;
     }
   }
 
@@ -87,10 +88,6 @@
   }
 
   .roles-page__router-view {
-  }
-
-  .m1 {
-    padding-right: 16px;
   }
 
 </style>

@@ -87,4 +87,8 @@
     margin: 3px 0;
   }
 
+  .role-users__user {
+    margin: 0 0 3px 0;
+  }
+
 </style>
