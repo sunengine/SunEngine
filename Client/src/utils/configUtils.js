@@ -1,5 +1,6 @@
 ﻿import {request} from 'sun'
 import {Api} from 'sun'
+import {buildPath} from 'sun'
 
 
 export function getDynamicConfig() {
@@ -27,17 +28,17 @@ export function configFreeze() {
 export function initSkins() {
   const camelToSnakeCase = str => str.replace(/([A-Z])/g, " $1").trim().split(' ').join('-').toLowerCase();
 
-  const pSkins = config.Skins.PartialSkinsNames.split(",").map(x => x.trim());
-
   const skinEl = document.createElement("link");
   skinEl.setAttribute("rel", "stylesheet");
-  skinEl.setAttribute("href", `/statics/Skins/${config.Skins.CurrentSkinName}/styles.css`);
+  skinEl.setAttribute("href", buildPath(config.Global.SkinsUrl, config.Skins.CurrentSkinName, 'styles.css'));
   document.head.appendChild(skinEl);
 
+  const pSkins = config.Skins.PartialSkinsNames.split(",").map(x => x.trim()).filter(x => x);
   for (const pSkin of pSkins) {
     const pSkinEl = document.createElement("link");
     pSkinEl.setAttribute("rel", "stylesheet");
-    pSkinEl.setAttribute("href", `/statics/PartialSkins/${pSkin}/styles.css`);
+
+    pSkinEl.setAttribute("href", buildPath(config.Global.PartialSkinsUrl, pSkin, 'styles.css'));
     document.head.appendChild(pSkinEl);
   }
 
