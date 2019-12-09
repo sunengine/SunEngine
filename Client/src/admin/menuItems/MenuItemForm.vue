@@ -72,7 +72,7 @@
         <q-icon name="fab fa-css3-alt" class="q-mr-xs"/>
       </template>
     </q-input>
-    <q-input v-model="menuItem.icon" label="Icon" clearable>
+    <q-input ref="icon" v-model="menuItem.icon" label="Icon" clearable>
       <template v-slot:prepend v-if="menuItem.icon">
         <q-icon :name="menuItem.icon" color="positive">
 
