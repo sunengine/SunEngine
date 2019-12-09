@@ -12,8 +12,6 @@
             <div class="layout__title">{{siteTitle}}</div>
             <div class="layout__sub-title" v-if="siteSubTitle">{{siteSubTitle}}</div>
           </router-link>
-
-
         </q-toolbar-title>
 
         <q-btn class="q-mr-sm" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu"
