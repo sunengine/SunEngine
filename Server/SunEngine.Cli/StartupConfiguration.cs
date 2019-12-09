@@ -78,7 +78,9 @@ namespace SunEngine.Cli
       {
         var configurationDirectory = configurationArg.Substring(configArgPrefix.Length).Trim();
 
-        if (!configurationArg.EndsWith(ConfigDirectoryNameEnd))
+        if (!configurationArg.EndsWith(ConfigDirectoryNameEnd)
+            && !configurationArg.EndsWith( Path.DirectorySeparatorChar + DefaultConfigDirName)
+            && !configurationArg.EndsWith( Path.AltDirectorySeparatorChar + DefaultConfigDirName))
           configurationDirectory += ConfigDirectoryNameEnd;
 
         if (!configurationArg.Contains("..") && !configurationArg.Contains(Path.DirectorySeparatorChar) &&
