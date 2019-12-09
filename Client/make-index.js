@@ -33,8 +33,7 @@ proccess(glob.sync(patternSite), ['site'], ['src/site/i18n','src/site/routes.js'
 
 ind.addLine("routes", "export routes from 'src/site/routes.js'");
 ind.addLine("store-index", "export * from 'src/store-index'");
-ind.addLine("routerInstance", "export * from 'src/router/routerInstance'");
-ind.addLine("storeInstance", "export * from 'src/store/storeInstance'");
+ind.addLine("router", "export {router} from 'src/router/index.js'");
 ind.addLine("App", "export {app} from 'src/App'");
 
 

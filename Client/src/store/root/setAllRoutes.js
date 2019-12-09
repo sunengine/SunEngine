@@ -5,7 +5,7 @@ import {routes} from 'sun'
 import {pageNotFoundRoute} from 'sun'
 import {routeHasAccess} from 'sun'
 
-
+// Action
 export default async function (context) {
 
   const routesFromCategories = await context.dispatch('makeRoutesFromCategories');
