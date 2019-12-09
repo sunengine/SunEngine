@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="component-form q-gutter-xs">
     <q-input class="component-form__name" ref="name" v-model="component.name" :label="$tl('name')" :rules="rules.name"/>
 

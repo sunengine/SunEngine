@@ -1,4 +1,4 @@
-﻿<template>
+﻿﻿<template>
   <div class="skins-admin">
 
     <div class="flex flex-center">

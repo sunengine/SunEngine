@@ -10,7 +10,7 @@ namespace SunEngine.Admin.Services
 {
   public class ConfigurationAdminService
   {
-    protected string WwwRootPath { get; }
+    protected IPathService pathService { get; }
     protected IConfigurationRoot configurationRoot { get; }
 
     public ConfigurationAdminService(
@@ -18,7 +18,7 @@ namespace SunEngine.Admin.Services
       IConfigurationRoot configurationRoot)
     {
       this.configurationRoot = configurationRoot;
-      WwwRootPath = pathService.WwwRootDir;
+      this.pathService = pathService;
     }
 
     public void ReloadConfigurationOptions()
@@ -73,7 +73,7 @@ namespace SunEngine.Admin.Services
         AllowTrailingCommas = true,
       });
 
-      var configJsPath = Path.Combine(WwwRootPath, "statics", "config.js");
+      var configJsPath = pathService.Combine(PathNames.WwwRootDirName, "statics", "config.js");
 
       json = json.Substring(1, json.Length - 2) + ",";
 

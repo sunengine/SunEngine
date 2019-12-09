@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="components-admin page-padding">
 
     <div class="page-title-block">

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="change-name flex column">
 
     <h2 class="page-title text-center">

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="activities-list">
     <template v-if="activities">
       <Activity :key="activity.materialId + '-' + activity.commentId" :activity="activity"

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="activity">
     <q-item :to="route" class="page-padding">
       <q-item-section>

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div :class="['topic', 'row', {'material-hidden': topic.isHidden}, {'material-deleted': topic.deletedDate}]">
     <div class="col-xs-12 col-sm-8">
       <q-item class="topic__main-block page-padding" :to='to'>

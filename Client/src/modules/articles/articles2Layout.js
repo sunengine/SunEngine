@@ -1,4 +1,4 @@
-import {ArticlesPanel, store} from 'sun'
+﻿import {ArticlesPanel, store} from 'sun'
 import {ArticlesMultiCatPage} from 'sun'
 import {Categories2} from 'sun'
 import {Material} from 'sun'

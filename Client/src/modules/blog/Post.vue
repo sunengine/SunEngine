@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div :class="['post', {'mat-hidden': post.isHidden}, {'mat-deleted': post.deletedDate}]">
     <q-item :to="to" class="header page-padding">
       <q-avatar class="shadow-1 avatar" size="40px">

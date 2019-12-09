@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageWrapper class="settings-page" :pageTitleProp="$tl('title')" :wrapComponentProp="$options.components.SettingsMenu"/>
 </template>
 

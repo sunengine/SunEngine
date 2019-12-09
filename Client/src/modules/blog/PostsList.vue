@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="posts-list">
 
     <template v-if="posts.items">

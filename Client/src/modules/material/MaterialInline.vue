@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="material-inline" v-if="material">
     <div class="material-inline__text" v-html="material.text"></div>
   </div>

@@ -1,4 +1,4 @@
-import {getThreadTopics, Thread} from 'sun'
+﻿import {getThreadTopics, Thread} from 'sun'
 import {Material} from 'sun'
 
 export default {

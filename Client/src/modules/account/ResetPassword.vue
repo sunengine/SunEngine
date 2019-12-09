@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="reset-password flex middle page-padding">
     <div class="center-form q-gutter-y-sm" v-if="!done">
 

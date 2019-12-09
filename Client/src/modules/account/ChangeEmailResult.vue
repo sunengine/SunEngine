@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="change-email-result flex middle page-padding">
     <q-banner v-if="success" class="change-email-result__success-banner bg-positive text-white">
       <template v-slot:avatar>

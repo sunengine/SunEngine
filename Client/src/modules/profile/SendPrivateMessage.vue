@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="send-private-message page-padding">
     <h2 class="page-title"> {{$tl("titleStart")}}
       <q-icon name="far fa-user" color="grey-7"/>

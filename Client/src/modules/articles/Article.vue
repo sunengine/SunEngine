@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-item class="article" :to="to"
           :class="['page-padding', {'mat-hidden': article.isHidden}, {'mat-deleted': article.deletedDate}]">
     <q-item-section>

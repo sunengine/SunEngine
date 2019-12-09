@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="comment-container" :id="'comment-'+comment.id">
     <span v-if="isLast" id="comment-last"></span>
     <template v-if="!comment.deletedDate">

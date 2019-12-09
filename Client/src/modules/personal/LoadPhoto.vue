@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="load-photo flex column middle page-padding">
     <h2 class="page-title">
       {{title}}

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="roles-page page-padding">
     <h2 class="page-title">
       {{title}}

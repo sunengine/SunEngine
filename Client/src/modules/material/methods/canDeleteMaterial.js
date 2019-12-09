@@ -1,4 +1,4 @@
-import {date} from 'quasar'
+﻿import {date} from 'quasar'
 
 export default function () {
   if (!this.material || !this.comments)

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="comment">
     <img class="comment__avatar avatar" :src="$avatarPath(comment.authorAvatar)"/>
 

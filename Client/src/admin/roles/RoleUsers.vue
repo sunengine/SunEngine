@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="role-users">
     <div class="role-users__header">
       <q-icon name="fas fa-user" class="q-mr-sm"/>

@@ -1,5 +1,5 @@
-<template>
-  <PanelWrapper class="forum-panel" iconProp="far fa-comments" :titleProp="$tl('sections')">
+﻿<template>
+  <PanelWrapper class="forum-panel"  :titleProp="$tl('sections')">
     <q-item class="q-my-xs" exact dense :to="newTopicsRoute">
       <q-item-section>
         <q-item-label>

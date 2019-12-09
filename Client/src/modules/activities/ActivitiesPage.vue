@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="activities-page">
     <h2 class="page-title page-padding">
       {{title}}

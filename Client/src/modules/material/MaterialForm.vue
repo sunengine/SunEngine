@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="material-form q-gutter-y-xs">
 
     <q-input class="material-form__name" v-if="canEditName" ref="name" v-model="material.name" :label="$tl('name')"

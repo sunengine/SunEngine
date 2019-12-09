@@ -1,4 +1,4 @@
-export default function () {
+﻿export default function () {
   const restoreDialogTitle = this.$tl('restoreDialogTitle');
   const restoreDialogMessage = this.$tl('restoreDialogMessage');
   const okBtn = this.$tl('restoreDialogOk');

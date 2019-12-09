@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="menu-item-form q-gutter-y-md">
     <q-input class="menu-item-form__name" ref="name" clearable v-model="menuItem.name" :label="$tl('name')" :rules="rules.name"/>
 

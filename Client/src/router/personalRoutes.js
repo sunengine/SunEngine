@@ -33,6 +33,9 @@ const routes = [
   {
     name: 'Personal',
     path: '/personal',
+    redirect: {
+      name: 'ProfileInSettings'
+    },
     components: {
       default: SettingsPage,
       navigation: null

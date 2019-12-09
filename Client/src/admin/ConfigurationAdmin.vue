@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="configuration-admin page-padding">
     <div class="page-title-block">
       <h2 class="page-title">

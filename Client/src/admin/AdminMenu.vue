@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-list class="admin-menu sun-second-menu" no-border>
 
     <q-item exact :to="{name: 'AdminInformation'}">

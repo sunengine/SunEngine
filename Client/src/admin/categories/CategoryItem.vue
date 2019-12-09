@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="category-item">
     <span class="category-item__item-block" v-if="notRoot">
       <span class="q-mr-sm category-item__up-down">

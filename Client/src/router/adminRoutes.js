@@ -24,7 +24,7 @@ import {ConfigurationAdmin} from 'sun'
 import {AdminInformation} from 'sun'
 
 
-const AdminPanel = wrapInPanel("AdminPanel", AdminMenu, null, undefined, "fas fa-cog");
+const AdminPanel = wrapInPanel("AdminPanel", AdminMenu);
 
 
 const routes = [

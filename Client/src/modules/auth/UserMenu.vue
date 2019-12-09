@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="user-menu sun-second-menu">
     <q-item :to="{name: 'User', params: {link: user.link}}" v-close-popup>
       <q-item-section avatar>

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="register flex flex-center">
 
     <div v-if="!done" class="center-form">

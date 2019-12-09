@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="edit-category page-padding">
     <h2 class="page-title">
       {{$tl('title')}}
