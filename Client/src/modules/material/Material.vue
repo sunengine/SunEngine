@@ -40,13 +40,12 @@
 
         <div class="material-edit-btn edit-btn-block" v-if="canEdit">
           <a class="link" href="#" @click.prevent="$router.push({name: 'EditMaterial', params: {id: material.id}})">
-            <q-icon name="fas fa-edit" class="q-mr-xs"/>
             {{$tl("edit")}}</a>
         </div>
 
         <div v-if="!material.deletedDate && canDelete" class="material-footer-info-block">
           <a class="link" href="#" @click.prevent="deleteMaterial">
-            <q-icon name="fas fa-trash"/>
+            <q-icon name="fas fa-trash-alt"/>
           </a>
         </div>
 

@@ -1,5 +1,5 @@
 ﻿<template>
-  <div class="comment">
+  <div :id="'comment-'+comment.id" class="comment">
     <img class="comment__avatar avatar" :src="$avatarPath(comment.authorAvatar)"/>
 
     <div class="q-my-md">
@@ -11,13 +11,17 @@
         </div>
         <div class="edit-btn-block q-gutter-x-md">
           <span v-if="canEdit">
-            <a class="link" href="#" @click.prevent="$emit('goEdit')"><q-icon name="fas fa-edit"/> {{$tl("edit")}}</a>
+            <a class="link" href="#" @click.prevent="$emit('goEdit')">{{$tl("edit")}}</a>
           </span>
           <span v-if="canMoveToTrash">
-            <a class="link" href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash"/></a>
+            <a class="link" href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash-alt"/></a>
           </span>
           <span>
-            <q-icon name="far fa-clock" class="q-mr-xs"/> {{ $formatDate(comment.publishDate) }}
+              <q-icon name="far fa-clock" class="q-mr-xs"/> {{ $formatDate(comment.publishDate) }}
+
+          </span>
+          <span>
+            <a class="link" :href=" $route.path + '#comment-' + comment.id">#</a>
           </span>
         </div>
       </div>
