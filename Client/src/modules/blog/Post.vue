@@ -33,17 +33,16 @@
 
     <div class="flex footer float-left">
 
-      <q-item v-if="canCommentWrite" class="page-padding-left post__comments-link" :to="toComments">
-        <span :class="[{'text-grey-6': !post.commentsCount}]">
-        <q-icon name="far fa-comment" class="q-mr-sm"/>
-        {{post.commentsCount}} {{$tl('commentsCount')}}
+      <q-item v-if="post.hasMoreText" :class="{'post__read-more-link': true, 'page-padding-left': true}" :to="to">
+        <span>
+          <q-icon name="far fa-file-alt" size="16px" left/>{{$tl('readMore')}}
         </span>
       </q-item>
 
-      <q-item :class="{'post__read-more-link': true, 'page-padding-left': !canCommentWrite}" :to="to" v-if="post.hasMoreText">
-        <span>
-          {{$tl('readMore')}}
-          <q-icon name="fas fa-arrow-right" class="q-ml-xs"/>
+      <q-item v-if="canCommentWrite" :class="{'page-padding-left': !post.hasMoreText,  'post__comments-link': true}"
+              :to="toComments">
+        <span :class="[{'text-grey-6': !post.commentsCount}]">
+          <q-icon name="far fa-comment" left/>{{post.commentsCount}} {{$tl('commentsCount')}}
         </span>
       </q-item>
 
@@ -54,7 +53,6 @@
 
 <script>
     import {prepareLocalLinks} from 'sun'
-
 
 
     export default {
@@ -111,7 +109,7 @@
       color: $link-color !important;
     }
 
-    $footer-line-height : 38px;
+    $footer-line-height: 38px;
 
     .footer {
       align-items: center;

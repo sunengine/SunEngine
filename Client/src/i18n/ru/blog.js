@@ -6,7 +6,7 @@ export default {
     newPostBtn: "Новый пост"
   },
   Post: {
-    commentsCount: "сообщений",
+    commentsCount: "комментариев",
     readMore: "Читать дальше",
     hidden: "спрятан",
     deleted: "удалён"
