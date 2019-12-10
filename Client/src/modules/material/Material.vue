@@ -21,14 +21,14 @@
       <div class="material__text q-mb-lg" v-html="material.text">
       </div>
 
-      <div v-if="material.tags && material.tags.length > 0" class="material__tags q-mt-lg">
+      <div v-if="showFooter && material.tags && material.tags.length > 0" class="material__tags q-mt-lg">
         {{$tl("tags")}}
         <q-chip class="q-mx-xs" dense v-for="tag in material.tags" :key="tag">
           {{tag}}
         </q-chip>
       </div>
 
-      <div class="material__footer q-gutter-x-lg q-py-sm flex align-center">
+      <div v-if="showFooter" class="material__footer q-gutter-x-lg q-py-sm flex align-center">
 
         <div v-if="showUser" class="material__author q-mr-md">
           <router-link class="link" :to="{name: 'User', params: {link: material.authorLink}}">
@@ -142,21 +142,26 @@
                     && !(this.category.settingsJson?.hideTitle || this.material.settingsJson?.hideTitle);
             },
             showCategory() {
-                debugger;
                 return this.category
                     && !(this.category.settingsJson?.hideCategory || this.material.settingsJson?.hideCategory);
             },
             showDate() {
-                return this.category
-                    && (this.canEdit || !(this.category.settingsJson?.hideFooter || this.material.settingsJson?.hideFooter));
+                return this.category && (this.showFooter || this.canEdit);
             },
             showVisitsCount() {
-                return this.category
-                    && (this.canEdit || !(this.category.settingsJson?.hideFooter || this.material.settingsJson?.hideFooter));
+                return this.category && (this.showFooter || this.canEdit);
             },
             showUser() {
-                return this.category
-                    && (this.canEdit || !(this.category.settingsJson?.hideFooter || this.material.settingsJson?.hideFooter));
+                return this.category && (this.showFooter || this.canEdit);
+            },
+            showFooter() {
+                if (!this.category)
+                    return false;
+
+                if (this.category.categoryPersonalAccess.MaterialEditAny)
+                    return true;
+
+                return !(this.category.settingsJson?.hideFooter || this.material.settingsJson?.hideFooter);
             },
             canCommentWrite() {
                 if (!this.material || this.material.isCommentsBlocked)
@@ -173,6 +178,7 @@
                 if (!this.$store.state.auth.user) {
                     return false;
                 }
+
                 const category = this.$store.getters.getCategory(this.material.categoryName);
 
                 if (category.categoryPersonalAccess.MaterialEditAny) {

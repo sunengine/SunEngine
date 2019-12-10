@@ -23,7 +23,6 @@ namespace SunEngine.Core.Configuration
       "Blog",
       "Articles",
       "Forum",
-      "Images",
       "Jwe",
       "FileLoading",
       "Skins"
@@ -32,7 +31,8 @@ namespace SunEngine.Core.Configuration
     public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>()
     {
       ["Global:SiteName"] = "SunEngine Demo",
-      ["Global:SiteSubTitle"] = "",
+      ["Global:SiteTitle"] = "SunEngine",
+      ["Global:SiteSubTitle"] = "Demo",
       ["Global:Locale"] = Locale.Russian,
 
       ["Dev:ShowExceptions"] = false,
@@ -99,11 +99,10 @@ namespace SunEngine.Core.Configuration
       ["Email:EmailFromName"] = "SunEngine Demo",
       ["Email:EmailFromAddress"] = "SunEngine@demo.com",
 
-      ["FileLoading:MaxArchiveSize"] = 20 * 1024,
-      ["FileLoading:MaxExtractArchiveSize"] = 60 * 1024,
-
       ["Skins:CurrentSkinName"] = "Default",
-      ["Skins:PartialSkinsNames"] = "Test1",
+      ["Skins:PartialSkinsNames"] = "Branding",
+      ["Skins:MaxArchiveSizeKb"] = 20 * 1024,
+      ["Skins:MaxExtractArchiveSizeKb"] = 60 * 1024,
     };
   }
 

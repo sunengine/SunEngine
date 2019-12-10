@@ -16,9 +16,8 @@
           <span v-if="canMoveToTrash">
             <a class="link" href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash-alt"/></a>
           </span>
-          <span>
+          <span class="material-footer-info-block">
               <q-icon name="far fa-clock" class="q-mr-xs"/> {{ $formatDate(comment.publishDate) }}
-
           </span>
           <span>
             <a class="link" :href=" $route.path + '#comment-' + comment.id">#</a>

@@ -12,7 +12,7 @@
     </div>
 
     <div v-if="configurationItems">
-      <q-markup-table>
+      <q-markup-table wrap-cells>
         <tbody v-if="configurationGroups">
         <template v-for="group of configurationGroups">
           <tr class="configuration-admin__group-header-tr">
@@ -21,7 +21,9 @@
             </td>
           </tr>
           <tr v-for="item of group.items">
-            <td class="configuration-admin__name-column">{{item.name}}</td>
+            <td class="configuration-admin__name-column">
+              {{getItemName(item)}}
+            </td>
             <td class="configuration-admin__value-column">
               <q-checkbox dense v-if="item.item.type === 'Boolean'" v-model="item.item.value"/>
               <q-select dense v-else-if="item.item.type === 'Enum'" :options="enums[item.item.enumName]"
@@ -35,12 +37,8 @@
         <tr>
           <td>{{$tl('noResults')}}</td>
         </tr>
-
         </tbody>
-
-
       </q-markup-table>
-
 
       <div class="configuration-admin__btn-block flex q-mt-lg q-gutter-md">
         <q-btn class="send-btn" @click="uploadConfiguration" no-caps icon="fas fa-save" :loading="loading"
@@ -81,6 +79,13 @@
             'filter': 'buildTable'
         },
         methods: {
+            getItemName(item) {
+                const key = this.$options.name + ".items." + item.fullName;
+                if (this.$te(key) && this.$t(key))
+                    return this.$t(key);
+                else
+                    return item.name;
+            },
             getTypeType(type) {
                 switch (type) {
                     case 'String':
@@ -121,6 +126,7 @@
                     name: toks0[0],
                     items: [{
                         name: toks0[1],
+                        fullName: visibleItems[0].name,
                         item: visibleItems[0]
                     }]
                 }];
@@ -131,6 +137,7 @@
 
                     const newItem = {
                         name: toks2[1],
+                        fullName: currentValue.name,
                         item: currentValue
                     };
 

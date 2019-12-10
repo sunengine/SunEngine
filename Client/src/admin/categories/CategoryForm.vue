@@ -80,7 +80,7 @@
       <q-icon slot="prepend" name="fas fa-boxes"/>
     </q-select>
 
-    <q-input clearable  class="category-form__settings-json" ref="settingsJson" type="textarea" v-model="category.settingsJson" autogrow :label="$tl('settingsJson')"
+    <q-input clearable class="category-form__settings-json" ref="settingsJson" type="textarea" v-model="category.settingsJson" autogrow :label="$tl('settingsJson')"
              :rules="rules.settingsJson"/>
 
     <q-checkbox  class="category-form__is-material-container" :toggle-indeterminate="false" v-model="category.isMaterialsContainer"

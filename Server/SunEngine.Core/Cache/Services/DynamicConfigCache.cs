@@ -28,6 +28,7 @@ namespace SunEngine.Core.Cache.Services
       var itemsToSaveDic = new Dictionary<string, Type>()
       {
         ["Global:SiteName"] = typeof(string),
+        ["Global:SiteTitle"] = typeof(string),
         ["Global:SiteSubTitle"] = typeof(string),
         ["Global:Locale"] = typeof(string),
 

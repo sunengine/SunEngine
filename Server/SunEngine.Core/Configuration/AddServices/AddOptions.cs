@@ -22,7 +22,7 @@ namespace SunEngine.Core.Configuration.AddServices
             services.Configure<CaptchaOptions>(configuration.GetSection("Captcha"));
             services.Configure<SchedulerOptions>(configuration.GetSection("Scheduler"));
             services.Configure<GlobalOptions>(configuration.GetSection("Skins"));
-            services.Configure<FileLoadingOptions>(configuration.GetSection("FileLoading"));
+            services.Configure<SkinsOptions>(configuration.GetSection("FileLoading"));
             services.Configure<DevOptions>(configuration.GetSection("DevO"));
         }
     }
