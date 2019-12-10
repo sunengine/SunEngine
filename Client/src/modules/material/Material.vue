@@ -143,6 +143,7 @@
                     && !(this.category.settingsJson?.hideTitle || this.material.settingsJson?.hideTitle);
             },
             showCategory() {
+                debugger;
                 return this.category
                     && !(this.category.settingsJson?.hideCategory || this.material.settingsJson?.hideCategory);
             },
