@@ -19,6 +19,8 @@ export default {
   },
   Comment: {
     edit: "Edit",
-    deleteDialogMessage: "Remove message?"
+    deleteDialogMessage: "Remove message?",
+    moveToTrashSuccess: "Moved to trash success",
+    linkCopied: "Link to comment copied to buffer"
   }
 }

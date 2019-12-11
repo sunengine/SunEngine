@@ -14,7 +14,6 @@
 
 <script>
     import {htmlTextSizeOrHasImage} from 'sun'
-    import {commentEditorToolbar} from 'sun'
 
 
     export default {

@@ -97,7 +97,6 @@
 
 <script>
     import {htmlTextSizeOrHasImage} from 'sun'
-    import {materialFormToolbar} from 'sun'
     import {isJson} from 'sun'
 
 
@@ -189,7 +188,7 @@
         },
         beforeCreate() {
             this.rules = createRules.call(this);
-            this.editorToolbar = materialFormToolbar;
+            this.editorToolbar = JSON.parse(config.Editor.MaterialToolbar);
             this.$options.components.SunEditor = require('sun').SunEditor;
         }
     }

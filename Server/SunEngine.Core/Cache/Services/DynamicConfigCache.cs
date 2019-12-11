@@ -40,7 +40,12 @@ namespace SunEngine.Core.Cache.Services
         ["Materials:TimeToOwnDeleteInMinutes"] = typeof(int),
 
         ["Skins:CurrentSkinName"] = typeof(string),
-        ["Skins:PartialSkinsNames"] = typeof(string)
+        ["Skins:PartialSkinsNames"] = typeof(string),
+
+        ["Editor:MaterialToolbar"] = typeof(string),
+        ["Editor:CommentToolbar"] = typeof(string),
+        ["Editor:UserInformationToolbar"] = typeof(string),
+
       };
 
 

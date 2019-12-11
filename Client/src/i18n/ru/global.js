@@ -14,7 +14,7 @@ export default {
     },
     validation: {
       emailSig: "Неправильная сигнатура email",
-      jsonFormatError: "Неверный формат Json",
+      jsonFormatError: "Ошибка валидации Json",
     },
     errorNotify: "Ошибка",
     successNotify: "Операция выполнена успешно",

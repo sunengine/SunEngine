@@ -28,7 +28,7 @@
               <q-checkbox dense v-if="item.item.type === 'Boolean'" v-model="item.item.value"/>
               <q-select dense v-else-if="item.item.type === 'Enum'" :options="enums[item.item.enumName]"
                         v-model="item.item.value"/>
-              <q-input dense v-else :type="getTypeType(item.item.type)" v-model="item.item.value"/>
+              <q-input dense v-else :type="getTypeType(item.item.type)" :rules="item.item.type === 'JsonString' ? rules : null" v-model="item.item.value"/>
             </td>
           </tr>
         </template>
@@ -59,8 +59,13 @@
 
 <script>
     import {Page} from 'mixins';
-    //import {getDynamicConfig} from 'sun';
+    import {isJson} from 'sun';
 
+    function createRules() {
+        return [
+            (value) => isJson(value) || this.$t('Global.validation.jsonFormatError'),
+        ]
+    }
 
     export default {
         name: "ConfigurationAdmin",
@@ -91,6 +96,8 @@
                     case 'String':
                         return 'text';
                     case 'LongString':
+                        return 'textarea';
+                    case 'JsonString':
                         return 'textarea';
                     case 'Number':
                         return 'number';
@@ -192,6 +199,7 @@
         },
         async created() {
             this.title = this.$tl("title");
+            this.rules = createRules.call(this);
             await this.getEnums();
             await this.loadConfiguration();
         }

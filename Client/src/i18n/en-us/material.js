@@ -73,7 +73,7 @@ export default {
         required: "Selected category"
       },
       settingsJson: {
-        jsonFormatError: "Invalid Json format",
+        jsonFormatError: "@:Global.validation.jsonFormatError",
       }
     }
   }

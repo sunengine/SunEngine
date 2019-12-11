@@ -17,6 +17,7 @@ namespace SunEngine.Core.Configuration
       "Images",
       "Sanitizer",
       "Email",
+      "Editor",
       "Scheduler",
       "Materials",
       "Comments",
@@ -103,6 +104,95 @@ namespace SunEngine.Core.Configuration
       ["Skins:PartialSkinsNames"] = "Branding",
       ["Skins:MaxArchiveSizeKb"] = 20 * 1024,
       ["Skins:MaxExtractArchiveSizeKb"] = 60 * 1024,
+
+      #region EditorToolbars
+      ["Editor:MaterialToolbar"] = (JsonString)@"[
+	    ['bold', 'italic', 'strike', 'underline'],
+      ['token', 'link', 'addImages'],
+      ['hr'],
+      [{
+      'icon': 'fas fa-heading',
+      'fixedLabel': true,
+      'fixedIcon': true,
+      'list': 'no-icons',
+      'options': ['p', 'h3', 'h4', 'h5', 'h6', 'code']
+    },
+    {
+      'icon': 'fas fa-text-height',
+      'fixedLabel': true,
+      'fixedIcon': true,
+      'list': 'no-icons',
+      'options': ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6', 'size-7']
+    },
+    'quote',
+    'removeFormat'
+    ],
+    ['unordered', 'ordered', 'outdent', 'indent',
+    {
+      'icon': 'fas fa-align-center',
+      'fixedLabel': true,
+      'options': ['left', 'center', 'right', 'justify']
+    }
+    ],
+    ['undo', 'redo'],
+    ['viewsource', 'fullscreen']
+    ]",
+
+      ["Editor:UserInformationToolbar"] =  (JsonString)@"[
+  ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
+  ['token', 'hr', 'link', 'addImages'],
+  [
+    {
+      'icon': 'fas fa-heading',
+      'fixedLabel': true,
+      'list': 'no-icons',
+      'options': ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'code']
+    },
+    {
+      'icon':  'fas fa-text-height',
+      'fixedLabel': true,
+      'fixedIcon': true,
+      'list': 'no-icons',
+      'options': ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6', 'size-7']
+    },
+    'quote',
+    'removeFormat'
+  ],
+  ['unordered', 'ordered', 'outdent', 'indent',
+    {
+      'icon': 'fas fa-align-center',
+      'fixedLabel': true,
+      'options': ['left', 'center', 'right', 'justify']
+    }
+  ],
+  ['undo', 'redo'],
+  [ 'viewsource', 'fullscreen']
+]",
+      ["Editor:CommentToolbar"] =  (JsonString)@"[
+  ['bold', 'italic', 'strike', 'underline'],
+  ['token', 'hr', 'link', 'addImages'],
+  [
+    {
+      'icon': 'fas fa-heading',
+      'fixedLabel': true,
+      'list': 'no-icons',
+      'options': ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'code']
+    },
+    {
+      'icon': 'fas fa-text-height',
+      'fixedLabel': true,
+      'fixedIcon': true,
+      'list': 'no-icons',
+      'options': ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6', 'size-7']
+    },
+    'quote',
+    'removeFormat'
+  ],
+  ['unordered', 'ordered'],
+  ['undo', 'redo'],
+  ['viewsource', 'fullscreen']
+]"
+      #endregion
     };
   }
 
@@ -123,6 +213,31 @@ namespace SunEngine.Core.Configuration
     public LongString(string value)
     {
       Value = value;
+    }
+
+    public override string ToString()
+    {
+      return Value;
+    }
+  }
+
+  public class JsonString
+  {
+    public string Value { get; set; }
+
+    public static implicit operator JsonString(string str)
+    {
+      return new JsonString(str.Replace("'","\""));
+    }
+
+    public static explicit operator string(JsonString str)
+    {
+      return str.ToString();
+    }
+
+    public JsonString(string value)
+    {
+      Value = value.Replace("'","\"");
     }
 
     public override string ToString()

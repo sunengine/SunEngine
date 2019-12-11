@@ -68,6 +68,9 @@ namespace SunEngine.Admin.Managers
           case "LongString":
             TryAdd();
             break;
+          case "JsonString":
+            TryAdd();
+            break;
           case "String":
           case "string":
             TryAdd();

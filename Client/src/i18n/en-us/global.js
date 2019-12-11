@@ -13,6 +13,7 @@ export default {
     },
     validation: {
       emailSig: "Incorrect email",
+      jsonFormatError: "Json validation error"
     },
     errorNotify: "Error",
     submitting: "Sending...",
