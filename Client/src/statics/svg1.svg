@@ -1,0 +1,809 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="800px" height="800px" shape-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" version="1.1">
+  <rect x="0px" y="0px" width="800px" height="800px" style="fill:yellow;" />
+  <rect x="0px" y="0px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="0px" y="40px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="0px" y="80px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="0px" y="120px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="0px" y="160px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="0px" y="200px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="0px" y="240px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="0px" y="280px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="0px" y="320px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="0px" y="360px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="0px" y="400px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="0px" y="440px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="0px" y="480px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="0px" y="520px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="0px" y="560px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="0px" y="600px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="0px" y="640px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="0px" y="680px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="0px" y="720px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="0px" y="760px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="0px" y="800px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="40px" y="0px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="40px" y="40px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="40px" y="80px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="40px" y="120px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="40px" y="160px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="40px" y="200px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="40px" y="240px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="40px" y="280px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="40px" y="320px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="40px" y="360px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="40px" y="400px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="40px" y="440px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="40px" y="480px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="40px" y="520px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="40px" y="560px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="40px" y="600px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="40px" y="640px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="40px" y="680px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="40px" y="720px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="40px" y="760px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="40px" y="800px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="80px" y="0px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="80px" y="40px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="80px" y="80px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="80px" y="120px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="80px" y="160px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="80px" y="200px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="80px" y="240px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="80px" y="280px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="80px" y="320px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="80px" y="360px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="80px" y="400px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="80px" y="440px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="80px" y="480px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="80px" y="520px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="80px" y="560px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="80px" y="600px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="80px" y="640px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="80px" y="680px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="80px" y="720px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="80px" y="760px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="80px" y="800px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="120px" y="0px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="120px" y="40px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="120px" y="80px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="120px" y="120px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="120px" y="160px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="120px" y="200px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="120px" y="240px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="120px" y="280px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="120px" y="320px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="120px" y="360px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="120px" y="400px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="120px" y="440px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="120px" y="480px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="120px" y="520px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="120px" y="560px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="120px" y="600px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="120px" y="640px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="120px" y="680px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="120px" y="720px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="120px" y="760px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="120px" y="800px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="160px" y="0px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="160px" y="40px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="160px" y="80px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="160px" y="120px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="160px" y="160px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="160px" y="200px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="160px" y="240px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="160px" y="280px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="160px" y="320px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="160px" y="360px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="160px" y="400px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="160px" y="440px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="160px" y="480px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="160px" y="520px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="160px" y="560px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="160px" y="600px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="160px" y="640px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="160px" y="680px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="160px" y="720px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="160px" y="760px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="160px" y="800px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="200px" y="0px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="200px" y="40px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="200px" y="80px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="200px" y="120px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="200px" y="160px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="200px" y="200px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="200px" y="240px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="200px" y="280px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="200px" y="320px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="200px" y="360px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="200px" y="400px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="200px" y="440px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="200px" y="480px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="200px" y="520px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="200px" y="560px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="200px" y="600px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="200px" y="640px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="200px" y="680px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="200px" y="720px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="200px" y="760px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="200px" y="800px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="240px" y="0px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="240px" y="40px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="240px" y="80px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="240px" y="120px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="240px" y="160px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="240px" y="200px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="240px" y="240px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="240px" y="280px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="240px" y="320px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="240px" y="360px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="240px" y="400px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="240px" y="440px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="240px" y="480px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="240px" y="520px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="240px" y="560px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="240px" y="600px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="240px" y="640px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="240px" y="680px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="240px" y="720px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="240px" y="760px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="240px" y="800px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="280px" y="0px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="280px" y="40px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="280px" y="80px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="280px" y="120px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="280px" y="160px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="280px" y="200px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="280px" y="240px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="280px" y="280px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="280px" y="320px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="280px" y="360px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="280px" y="400px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="280px" y="440px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="280px" y="480px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="280px" y="520px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="280px" y="560px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="280px" y="600px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="280px" y="640px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="280px" y="680px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="280px" y="720px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="280px" y="760px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="280px" y="800px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="320px" y="0px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="320px" y="40px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="320px" y="80px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="320px" y="120px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="320px" y="160px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="320px" y="200px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="320px" y="240px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="320px" y="280px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="320px" y="320px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="320px" y="360px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="320px" y="400px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="320px" y="440px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="320px" y="480px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="320px" y="520px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="320px" y="560px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="320px" y="600px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="320px" y="640px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="320px" y="680px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="320px" y="720px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="320px" y="760px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="320px" y="800px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="360px" y="0px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="360px" y="40px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="360px" y="80px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="360px" y="120px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="360px" y="160px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="360px" y="200px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="360px" y="240px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="360px" y="280px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="360px" y="320px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="360px" y="360px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="360px" y="400px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="360px" y="440px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="360px" y="480px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="360px" y="520px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="360px" y="560px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="360px" y="600px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="360px" y="640px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="360px" y="680px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="360px" y="720px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="360px" y="760px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="360px" y="800px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="400px" y="0px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="400px" y="40px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="400px" y="80px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="400px" y="120px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="400px" y="160px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="400px" y="200px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="400px" y="240px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="400px" y="280px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="400px" y="320px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="400px" y="360px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="400px" y="400px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="400px" y="440px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="400px" y="480px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="400px" y="520px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="400px" y="560px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="400px" y="600px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="400px" y="640px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="400px" y="680px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="400px" y="720px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="400px" y="760px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="400px" y="800px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="440px" y="0px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="440px" y="40px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="440px" y="80px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="440px" y="120px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="440px" y="160px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="440px" y="200px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="440px" y="240px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="440px" y="280px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="440px" y="320px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="440px" y="360px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="440px" y="400px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="440px" y="440px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="440px" y="480px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="440px" y="520px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="440px" y="560px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="440px" y="600px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="440px" y="640px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="440px" y="680px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="440px" y="720px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="440px" y="760px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="440px" y="800px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="480px" y="0px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="480px" y="40px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="480px" y="80px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="480px" y="120px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="480px" y="160px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="480px" y="200px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="480px" y="240px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="480px" y="280px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="480px" y="320px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="480px" y="360px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="480px" y="400px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="480px" y="440px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="480px" y="480px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="480px" y="520px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="480px" y="560px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="480px" y="600px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="480px" y="640px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="480px" y="680px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="480px" y="720px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="480px" y="760px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="480px" y="800px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="520px" y="0px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="520px" y="40px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="520px" y="80px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="520px" y="120px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="520px" y="160px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="520px" y="200px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="520px" y="240px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="520px" y="280px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="520px" y="320px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="520px" y="360px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="520px" y="400px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="520px" y="440px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="520px" y="480px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="520px" y="520px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="520px" y="560px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="520px" y="600px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="520px" y="640px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="520px" y="680px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="520px" y="720px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="520px" y="760px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="520px" y="800px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="560px" y="0px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="560px" y="40px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="560px" y="80px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="560px" y="120px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="560px" y="160px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="560px" y="200px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="560px" y="240px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="560px" y="280px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="560px" y="320px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="560px" y="360px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="560px" y="400px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="560px" y="440px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="560px" y="480px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="560px" y="520px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="560px" y="560px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="560px" y="600px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="560px" y="640px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="560px" y="680px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="560px" y="720px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="560px" y="760px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="560px" y="800px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="600px" y="0px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="600px" y="40px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="600px" y="80px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="600px" y="120px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="600px" y="160px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="600px" y="200px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="600px" y="240px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="600px" y="280px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="600px" y="320px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="600px" y="360px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="600px" y="400px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="600px" y="440px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="600px" y="480px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="600px" y="520px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="600px" y="560px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="600px" y="600px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="600px" y="640px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="600px" y="680px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="600px" y="720px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="600px" y="760px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="600px" y="800px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="640px" y="0px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="640px" y="40px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="640px" y="80px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="640px" y="120px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="640px" y="160px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="640px" y="200px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="640px" y="240px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="640px" y="280px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="640px" y="320px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="640px" y="360px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="640px" y="400px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="640px" y="440px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="640px" y="480px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="640px" y="520px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="640px" y="560px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="640px" y="600px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="640px" y="640px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="640px" y="680px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="640px" y="720px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="640px" y="760px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="640px" y="800px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="680px" y="0px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="680px" y="40px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="680px" y="80px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="680px" y="120px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="680px" y="160px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="680px" y="200px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="680px" y="240px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="680px" y="280px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="680px" y="320px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="680px" y="360px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="680px" y="400px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="680px" y="440px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="680px" y="480px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="680px" y="520px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="680px" y="560px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="680px" y="600px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="680px" y="640px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="680px" y="680px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="680px" y="720px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="680px" y="760px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="680px" y="800px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="720px" y="0px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="720px" y="40px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="720px" y="80px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="720px" y="120px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="720px" y="160px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="720px" y="200px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="720px" y="240px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="720px" y="280px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="720px" y="320px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="720px" y="360px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="720px" y="400px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="720px" y="440px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="720px" y="480px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="720px" y="520px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="720px" y="560px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="720px" y="600px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="720px" y="640px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="720px" y="680px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="720px" y="720px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="720px" y="760px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="720px" y="800px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="760px" y="0px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="760px" y="40px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="760px" y="80px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="760px" y="120px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="760px" y="160px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="760px" y="200px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="760px" y="240px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="760px" y="280px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="760px" y="320px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="760px" y="360px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="760px" y="400px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="760px" y="440px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="760px" y="480px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="760px" y="520px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="760px" y="560px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="760px" y="600px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="760px" y="640px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="760px" y="680px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="760px" y="720px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="760px" y="760px" width="40px" height="40px" style="fill:#FFF0C2;stroke:none;" />
+  <rect x="760px" y="800px" width="40px" height="40px" style="fill:#FFB9C2;stroke:none;" />
+  <rect x="800px" y="0px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="800px" y="40px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="800px" y="80px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="800px" y="120px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="800px" y="160px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="800px" y="200px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="800px" y="240px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="800px" y="280px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="800px" y="320px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="800px" y="360px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="800px" y="400px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="800px" y="440px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="800px" y="480px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="800px" y="520px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="800px" y="560px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="800px" y="600px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="800px" y="640px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="800px" y="680px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="800px" y="720px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <rect x="800px" y="760px" width="40px" height="40px" style="fill:#FFCBC2;stroke:none;" />
+  <rect x="800px" y="800px" width="40px" height="40px" style="fill:#FFDDC2;stroke:none;" />
+  <circle cx="0px" cy="0px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="0px" cy="80px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="0px" cy="160px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="0px" cy="240px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="0px" cy="320px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="0px" cy="400px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="0px" cy="480px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="0px" cy="560px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="0px" cy="640px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="0px" cy="720px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="0px" cy="800px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="80px" cy="0px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="80px" cy="80px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="80px" cy="160px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="80px" cy="240px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="80px" cy="320px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="80px" cy="400px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="80px" cy="480px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="80px" cy="560px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="80px" cy="640px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="80px" cy="720px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="80px" cy="800px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="160px" cy="0px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="160px" cy="80px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="160px" cy="160px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="160px" cy="240px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="160px" cy="320px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="160px" cy="400px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="160px" cy="480px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="160px" cy="560px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="160px" cy="640px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="160px" cy="720px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="160px" cy="800px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="240px" cy="0px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="240px" cy="80px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="240px" cy="160px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="240px" cy="240px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="240px" cy="320px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="240px" cy="400px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="240px" cy="480px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="240px" cy="560px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="240px" cy="640px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="240px" cy="720px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="240px" cy="800px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="320px" cy="0px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="320px" cy="80px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="320px" cy="160px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="320px" cy="240px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="320px" cy="320px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="320px" cy="400px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="320px" cy="480px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="320px" cy="560px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="320px" cy="640px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="320px" cy="720px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="320px" cy="800px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="400px" cy="0px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="400px" cy="80px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="400px" cy="160px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="400px" cy="240px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="400px" cy="320px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="400px" cy="400px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="400px" cy="480px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="400px" cy="560px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="400px" cy="640px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="400px" cy="720px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="400px" cy="800px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="480px" cy="0px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="480px" cy="80px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="480px" cy="160px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="480px" cy="240px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="480px" cy="320px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="480px" cy="400px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="480px" cy="480px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="480px" cy="560px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="480px" cy="640px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="480px" cy="720px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="480px" cy="800px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="560px" cy="0px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="560px" cy="80px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="560px" cy="160px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="560px" cy="240px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="560px" cy="320px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="560px" cy="400px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="560px" cy="480px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="560px" cy="560px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="560px" cy="640px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="560px" cy="720px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="560px" cy="800px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="640px" cy="0px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="640px" cy="80px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="640px" cy="160px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="640px" cy="240px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="640px" cy="320px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="640px" cy="400px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="640px" cy="480px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="640px" cy="560px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="640px" cy="640px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="640px" cy="720px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="640px" cy="800px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="720px" cy="0px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="720px" cy="80px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="720px" cy="160px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="720px" cy="240px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="720px" cy="320px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="720px" cy="400px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="720px" cy="480px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="720px" cy="560px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="720px" cy="640px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="720px" cy="720px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="720px" cy="800px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="800px" cy="0px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="800px" cy="80px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="800px" cy="160px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="800px" cy="240px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="800px" cy="320px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="800px" cy="400px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="800px" cy="480px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="800px" cy="560px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="800px" cy="640px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="800px" cy="720px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="800px" cy="800px" r="18px" stroke-width="2" style="fill:#C2D1FF;stroke:#B85300;" />
+  <circle cx="0px" cy="0px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="0px" cy="80px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="0px" cy="160px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="0px" cy="240px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="0px" cy="320px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="0px" cy="400px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="0px" cy="480px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="0px" cy="560px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="0px" cy="640px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="0px" cy="720px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="0px" cy="800px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="80px" cy="0px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="80px" cy="80px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="80px" cy="160px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="80px" cy="240px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="80px" cy="320px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="80px" cy="400px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="80px" cy="480px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="80px" cy="560px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="80px" cy="640px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="80px" cy="720px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="80px" cy="800px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="160px" cy="0px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="160px" cy="80px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="160px" cy="160px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="160px" cy="240px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="160px" cy="320px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="160px" cy="400px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="160px" cy="480px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="160px" cy="560px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="160px" cy="640px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="160px" cy="720px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="160px" cy="800px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="240px" cy="0px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="240px" cy="80px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="240px" cy="160px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="240px" cy="240px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="240px" cy="320px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="240px" cy="400px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="240px" cy="480px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="240px" cy="560px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="240px" cy="640px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="240px" cy="720px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="240px" cy="800px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="320px" cy="0px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="320px" cy="80px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="320px" cy="160px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="320px" cy="240px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="320px" cy="320px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="320px" cy="400px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="320px" cy="480px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="320px" cy="560px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="320px" cy="640px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="320px" cy="720px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="320px" cy="800px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="400px" cy="0px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="400px" cy="80px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="400px" cy="160px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="400px" cy="240px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="400px" cy="320px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="400px" cy="400px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="400px" cy="480px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="400px" cy="560px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="400px" cy="640px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="400px" cy="720px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="400px" cy="800px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="480px" cy="0px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="480px" cy="80px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="480px" cy="160px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="480px" cy="240px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="480px" cy="320px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="480px" cy="400px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="480px" cy="480px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="480px" cy="560px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="480px" cy="640px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="480px" cy="720px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="480px" cy="800px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="560px" cy="0px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="560px" cy="80px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="560px" cy="160px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="560px" cy="240px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="560px" cy="320px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="560px" cy="400px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="560px" cy="480px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="560px" cy="560px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="560px" cy="640px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="560px" cy="720px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="560px" cy="800px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="640px" cy="0px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="640px" cy="80px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="640px" cy="160px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="640px" cy="240px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="640px" cy="320px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="640px" cy="400px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="640px" cy="480px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="640px" cy="560px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="640px" cy="640px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="640px" cy="720px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="640px" cy="800px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="720px" cy="0px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="720px" cy="80px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="720px" cy="160px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="720px" cy="240px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="720px" cy="320px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="720px" cy="400px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="720px" cy="480px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="720px" cy="560px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="720px" cy="640px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="720px" cy="720px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="720px" cy="800px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="800px" cy="0px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="800px" cy="80px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="800px" cy="160px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="800px" cy="240px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="800px" cy="320px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="800px" cy="400px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="800px" cy="480px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="800px" cy="560px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="800px" cy="640px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="800px" cy="720px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <circle cx="800px" cy="800px" r="11px" stroke-width="2" style="fill:#C2F6FF;stroke:#B85300;" />
+  <path d="M60 40 L40 60 L20 40 L40 20 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M60 120 L40 140 L20 120 L40 100 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M60 200 L40 220 L20 200 L40 180 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M60 280 L40 300 L20 280 L40 260 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M60 360 L40 380 L20 360 L40 340 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M60 440 L40 460 L20 440 L40 420 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M60 520 L40 540 L20 520 L40 500 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M60 600 L40 620 L20 600 L40 580 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M60 680 L40 700 L20 680 L40 660 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M60 760 L40 780 L20 760 L40 740 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M60 840 L40 860 L20 840 L40 820 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M140 40 L120 60 L100 40 L120 20 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M140 120 L120 140 L100 120 L120 100 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M140 200 L120 220 L100 200 L120 180 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M140 280 L120 300 L100 280 L120 260 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M140 360 L120 380 L100 360 L120 340 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M140 440 L120 460 L100 440 L120 420 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M140 520 L120 540 L100 520 L120 500 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M140 600 L120 620 L100 600 L120 580 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M140 680 L120 700 L100 680 L120 660 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M140 760 L120 780 L100 760 L120 740 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M140 840 L120 860 L100 840 L120 820 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M220 40 L200 60 L180 40 L200 20 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M220 120 L200 140 L180 120 L200 100 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M220 200 L200 220 L180 200 L200 180 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M220 280 L200 300 L180 280 L200 260 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M220 360 L200 380 L180 360 L200 340 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M220 440 L200 460 L180 440 L200 420 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M220 520 L200 540 L180 520 L200 500 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M220 600 L200 620 L180 600 L200 580 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M220 680 L200 700 L180 680 L200 660 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M220 760 L200 780 L180 760 L200 740 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M220 840 L200 860 L180 840 L200 820 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M300 40 L280 60 L260 40 L280 20 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M300 120 L280 140 L260 120 L280 100 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M300 200 L280 220 L260 200 L280 180 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M300 280 L280 300 L260 280 L280 260 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M300 360 L280 380 L260 360 L280 340 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M300 440 L280 460 L260 440 L280 420 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M300 520 L280 540 L260 520 L280 500 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M300 600 L280 620 L260 600 L280 580 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M300 680 L280 700 L260 680 L280 660 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M300 760 L280 780 L260 760 L280 740 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M300 840 L280 860 L260 840 L280 820 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M380 40 L360 60 L340 40 L360 20 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M380 120 L360 140 L340 120 L360 100 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M380 200 L360 220 L340 200 L360 180 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M380 280 L360 300 L340 280 L360 260 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M380 360 L360 380 L340 360 L360 340 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M380 440 L360 460 L340 440 L360 420 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M380 520 L360 540 L340 520 L360 500 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M380 600 L360 620 L340 600 L360 580 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M380 680 L360 700 L340 680 L360 660 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M380 760 L360 780 L340 760 L360 740 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M380 840 L360 860 L340 840 L360 820 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M460 40 L440 60 L420 40 L440 20 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M460 120 L440 140 L420 120 L440 100 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M460 200 L440 220 L420 200 L440 180 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M460 280 L440 300 L420 280 L440 260 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M460 360 L440 380 L420 360 L440 340 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M460 440 L440 460 L420 440 L440 420 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M460 520 L440 540 L420 520 L440 500 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M460 600 L440 620 L420 600 L440 580 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M460 680 L440 700 L420 680 L440 660 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M460 760 L440 780 L420 760 L440 740 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M460 840 L440 860 L420 840 L440 820 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M540 40 L520 60 L500 40 L520 20 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M540 120 L520 140 L500 120 L520 100 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M540 200 L520 220 L500 200 L520 180 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M540 280 L520 300 L500 280 L520 260 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M540 360 L520 380 L500 360 L520 340 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M540 440 L520 460 L500 440 L520 420 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M540 520 L520 540 L500 520 L520 500 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M540 600 L520 620 L500 600 L520 580 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M540 680 L520 700 L500 680 L520 660 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M540 760 L520 780 L500 760 L520 740 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M540 840 L520 860 L500 840 L520 820 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M620 40 L600 60 L580 40 L600 20 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M620 120 L600 140 L580 120 L600 100 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M620 200 L600 220 L580 200 L600 180 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M620 280 L600 300 L580 280 L600 260 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M620 360 L600 380 L580 360 L600 340 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M620 440 L600 460 L580 440 L600 420 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M620 520 L600 540 L580 520 L600 500 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M620 600 L600 620 L580 600 L600 580 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M620 680 L600 700 L580 680 L600 660 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M620 760 L600 780 L580 760 L600 740 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M620 840 L600 860 L580 840 L600 820 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M700 40 L680 60 L660 40 L680 20 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M700 120 L680 140 L660 120 L680 100 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M700 200 L680 220 L660 200 L680 180 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M700 280 L680 300 L660 280 L680 260 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M700 360 L680 380 L660 360 L680 340 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M700 440 L680 460 L660 440 L680 420 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M700 520 L680 540 L660 520 L680 500 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M700 600 L680 620 L660 600 L680 580 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M700 680 L680 700 L660 680 L680 660 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M700 760 L680 780 L660 760 L680 740 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M700 840 L680 860 L660 840 L680 820 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M780 40 L760 60 L740 40 L760 20 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M780 120 L760 140 L740 120 L760 100 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M780 200 L760 220 L740 200 L760 180 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M780 280 L760 300 L740 280 L760 260 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M780 360 L760 380 L740 360 L760 340 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M780 440 L760 460 L740 440 L760 420 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M780 520 L760 540 L740 520 L760 500 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M780 600 L760 620 L740 600 L760 580 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M780 680 L760 700 L740 680 L760 660 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M780 760 L760 780 L740 760 L760 740 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M780 840 L760 860 L740 840 L760 820 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M860 40 L840 60 L820 40 L840 20 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M860 120 L840 140 L820 120 L840 100 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M860 200 L840 220 L820 200 L840 180 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M860 280 L840 300 L820 280 L840 260 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M860 360 L840 380 L820 360 L840 340 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M860 440 L840 460 L820 440 L840 420 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M860 520 L840 540 L820 520 L840 500 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M860 600 L840 620 L820 600 L840 580 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M860 680 L840 700 L820 680 L840 660 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M860 760 L840 780 L820 760 L840 740 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+  <path d="M860 840 L840 860 L820 840 L840 820 z" stroke-width="2" style="fill:#C5C2FF;stroke:#B85300;" />
+</svg>

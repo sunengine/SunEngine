@@ -1,10 +1,10 @@
-<template>
+﻿<template>
   <div :class="['topic', 'row', {'material-hidden': topic.isHidden}, {'material-deleted': topic.deletedDate}]">
     <div class="col-xs-12 col-sm-8">
       <q-item class="topic__main-block page-padding" :to='to'>
         <q-item-section avatar>
           <q-avatar class="shadow-1" size="42px">
-            <img :src="$imagePath(topic.authorAvatar)"/>
+            <img :src="$avatarPath(topic.authorAvatar)"/>
           </q-avatar>
         </q-item-section>
         <q-item-section>
@@ -53,7 +53,7 @@
         <q-item-section avatar>
           <q-item-label>
             <q-avatar class="shadow-1" size="42px">
-              <img :src="$imagePath(topic.lastCommentAuthorAvatar)"/>
+              <img :src="$avatarPath(topic.lastCommentAuthorAvatar)"/>
             </q-avatar>
           </q-item-label>
         </q-item-section>

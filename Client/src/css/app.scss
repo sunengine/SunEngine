@@ -1,6 +1,14 @@
 // app global css
 
 
+a {
+  text-decoration: none;
+}
+
+body {
+  //font-family: "Open Sans", sans-serif;
+}
+
 // ——— Input ————————————————————————————————————
 
 
@@ -300,12 +308,4 @@ $paddings: (12px 18px 24px);
   border-radius: 5px;
   background-color: #f0f4c3;
 }
-
-
-// ——— Site styles ————————————————————————————————————
-
-
-//@import '../site/styles.scss';
-
-
 

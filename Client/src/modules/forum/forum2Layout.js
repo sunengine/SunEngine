@@ -1,4 +1,4 @@
-import {ForumPanel, getNewTopics, getThreadTopics, Thread} from 'sun'
+﻿import {ForumPanel, getNewTopics, getThreadTopics, Thread} from 'sun'
 import {Categories2} from 'sun'
 import {Material} from 'sun'
 import {app} from 'sun'

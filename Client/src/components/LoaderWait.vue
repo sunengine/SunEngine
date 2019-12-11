@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="loader-wait">
     <template v-if="!failed">
       <q-spinner size="20px" class="q-mr-xs"/>

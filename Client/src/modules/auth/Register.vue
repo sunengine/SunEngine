@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="register flex flex-center">
 
     <div v-if="!done" class="center-form">
@@ -22,10 +22,8 @@
           <q-icon name="fas fa-key"/>
         </template>
         <template v-slot:append>
-          <q-icon
-            :name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
-            class="cursor-pointer"
-            @click="showPassword = !showPassword"
+          <q-icon             :name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
+            class="cursor-pointer"            @click="showPassword = !showPassword"
           />
         </template>
       </q-input>
@@ -179,7 +177,7 @@
                     this.token = response.data;
                     this.waitToken = false;
                 }).catch(x => {
-                    if (x.response.data.errors[0].code === 'SpamProtection')
+                    if (x.response.data.code === 'SpamProtection')
                         this.waitToken = true;
                 });
             }

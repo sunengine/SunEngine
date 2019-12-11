@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="images-cleaner page-padding">
 
     <h2 class="page-title">{{title}}</h2>
@@ -8,13 +8,13 @@
     </q-banner>
 
     <div class="images-cleaner__btn-block q-gutter-md flex q-mb-xl">
-      <q-btn icon="fas fa-trash" class="send-btn"  :loading="loading" :disable="!images" @click="clear()" no-caps
+      <q-btn v-if="images" icon="fas fa-trash" class="send-btn" :loading="loading" @click="clear()" no-caps
              :label="$tl('clearBtn')">
-        <LoaderSent  slot="loading">
+        <LoaderSent slot="loading">
           {{$tl("working")}}
         </LoaderSent>
       </q-btn>
-      <div class="grow"></div>
+      <q-space/>
       <q-btn no-caps class="refresh-btn q-ml" color="info" icon="fas fa-sync-alt" @click="reloadImages()"
              :label="$tl('refreshBtn')"/>
     </div>

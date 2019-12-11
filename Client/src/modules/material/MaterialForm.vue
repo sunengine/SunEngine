@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="material-form q-gutter-y-xs">
 
     <q-input class="material-form__name" v-if="canEditName" ref="name" v-model="material.name" :label="$tl('name')"
@@ -74,7 +74,7 @@
       </q-menu>
     </q-field>
 
-    <q-input class="material-form__settings-json" ref="settingsJson" type="textarea" v-model="material.settingsJson"
+    <q-input class="material-form__settings-json" v-if="canEditSettingsJson" ref="settingsJson" type="textarea" v-model="material.settingsJson"
              autogrow :label="$tl('settingsJson')"
              :rules="rules.settingsJson"/>
 
@@ -110,14 +110,14 @@
             title: [
                 (value) => !!value || this.$tl('validation.title.required'),
                 (value) => value.length >= 3 || this.$tl('validation.title.minLength'),
-                (value) => value.length <= config.DbColumnSizes.Categories_Title || this.$tl('validation.title.maxLength'),
+                (value) => value.length <= config.DbColumnSizes.Materials_Title || this.$tl('validation.title.maxLength'),
+            ],
+            subTitle: [
+                (value) => !value || value.length <= config.DbColumnSizes.Materials_SubTitle || this.$tl('validation.subTitle.maxLength'),
             ],
             text: [
                 (value) => !!value || this.$tl('validation.text.required'),
                 (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$tl('validation.text.htmlTextSizeOrHasImage'),
-            ],
-            subTitle: [
-                (value) => !value || value.length <= config.DbColumnSizes.Materials_SubTitle || this.$tl('validation.subTitle.maxLength'),
             ],
             settingsJson: [
                 value => (!value || isJson(value)) || this.$tl('validation.settingsJson.jsonFormatError')
@@ -143,6 +143,13 @@
                 start: true
             }
         },
+        watch: {
+            'material.categoryName': function (newVal, oldVal) {
+                if (!newVal) {
+                    this.material.categoryName = oldVal
+                }
+            }
+        },
         computed: {
             hasError() {
                 return this.$refs.title.hasError || this.$refs.htmlEditor.hasError || !this.material.categoryName || this.$refs.description?.hasError || this.$refs.name?.hasError;
@@ -151,13 +158,13 @@
                 return this.$store.state.auth.roles.includes('Admin') && this.category?.isMaterialsNameEditable;
             },
             canHide() {
-                return this.category?.categoryPersonalAccess?.materialHide;
+                return this.category?.categoryPersonalAccess?.MaterialHide;
             },
             canEditSettingsJson() {
-                return this.category?.categoryPersonalAccess?.materialEditSettingsJson;
+                return this.category?.categoryPersonalAccess?.MaterialEditSettingsJson;
             },
             canBlockComments() {
-                return this.category?.categoryPersonalAccess?.materialBlockCommentsAny;
+                return this.category?.categoryPersonalAccess?.MaterialBlockCommentsAny;
             },
             categoryTitle() {
                 return this.category?.title;
@@ -175,7 +182,7 @@
                 this.$refs.title.validate();
                 this.$refs.subTitle?.validate();
                 this.$refs.htmlEditor.validate();
-                this.$refs.settingsJson.validate();
+                this.$refs.settingsJson?.validate();
             }
         },
         beforeCreate() {

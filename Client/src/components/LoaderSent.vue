@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <span class="loader-sent"><q-spinner slot="loading" size="20px" class="q-mr-xs"/>
     <slot>
       {{$tl("sending")}}

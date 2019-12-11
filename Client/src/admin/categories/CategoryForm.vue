@@ -1,29 +1,39 @@
-<template>
+﻿<template>
   <div class="category-form q-gutter-y-xs">
 
-    <q-input class="category-form__name" ref="name" v-model="category.name" :label="$tl('name')" :rules="rules.name">
-      <template v-slot:prepend>
-        <q-icon name="fas fa-signature" class="q-mr-xs"/>
+    <q-input class="category-form__name" ref="name" v-model="category.name" :label="$tl('name')" :rules="rules.name"/>
+
+    <q-input class="category-form__title" ref="title" v-model="category.title" :label="$tl('title')" :rules="rules.title"/>
+
+    <q-input class="category-form__sub-title" clearable  bottom-slots ref="subTitle" v-model="category.subTitle" autogrow type="textarea"
+             :label="$tl('subTitle')" :rules="rules.subTitle" />
+
+    <q-input v-model="category.icon" label="Icon" clearable>
+      <template v-slot:prepend v-if="category.icon">
+        <q-icon :name="category.icon" color="positive">
+
+        </q-icon>
       </template>
-    </q-input>
-
-    <q-input class="category-form__title" ref="title" v-model="category.title" :label="$tl('title')" :rules="rules.title">
-      <template v-slot:prepend>
-        <q-icon name="fas fa-heading" class="q-mr-xs"/>
-      </template>
-    </q-input>
-
-    <q-input class="category-form__sub-title" bottom-slots ref="subTitle" v-model="category.subTitle" autogrow type="textarea"
-             :label="$tl('subTitle')">
-      <template v-slot:prepend>
-        <q-icon name="fas fa-info" class="q-mr-xs"/>
-      </template>
-
-    </q-input>
-
-    <q-input class="category-form__icon" ref="icon" v-model="category.icon" :label="$tl('icon')" :rules="rules.icon">
-      <template slot="prepend">
-        <q-icon  class="q-mr-xs" :name="category.icon ? category.icon : 'far fa-file'"/>
+      <template v-slot:append>
+        <q-icon name="fas fa-icons" class="cursor-pointer">
+          <q-popup-proxy v-model="showIconPicker">
+            <div class="q-pa-sm">
+              <q-input dense class="q-mb-md" v-model="iconFilter" placeholder="Filter" clearable>
+                <template v-slot:prepend>
+                  <q-icon name="fas fa-search"/>
+                </template>
+              </q-input>
+              <q-icon-picker
+                v-model="category.icon"
+                :filter="iconFilter"
+                icon-set="fontawesome-v5"
+                tooltips
+                :pagination.sync="pagination"
+                style="height: 300px; width: 300px; background-color: white;"
+              />
+            </div>
+          </q-popup-proxy>
+        </q-icon>
       </template>
     </q-input>
 
@@ -70,7 +80,7 @@
       <q-icon slot="prepend" name="fas fa-boxes"/>
     </q-select>
 
-    <q-input  class="category-form__settings-json" ref="settingsJson" type="textarea" v-model="category.settingsJson" autogrow :label="$tl('settingsJson')"
+    <q-input clearable  class="category-form__settings-json" ref="settingsJson" type="textarea" v-model="category.settingsJson" autogrow :label="$tl('settingsJson')"
              :rules="rules.settingsJson"/>
 
     <q-checkbox  class="category-form__is-material-container" :toggle-indeterminate="false" v-model="category.isMaterialsContainer"
@@ -128,11 +138,16 @@
             name: [
                 value => !!value || this.$tl('validation.name.required'),
                 value => value.length >= 2 || this.$tl('validation.name.minLength'),
+                value => value.length <= config.DbColumnSizes.Categories_Name || this.$tl('validation.name.maxLength'),
                 value => /^[a-zA-Z0-9_-]*$/.test(value) || this.$tl('validation.name.allowedChars'),
             ],
             title: [
                 value => !!value || this.$tl('validation.title.required'),
                 value => value.length >= 3 || this.$tl('validation.title.minLength'),
+                value => value.length <= config.DbColumnSizes.Categories_Title || this.$tl('validation.title.maxLength'),
+            ],
+            subTitle: [
+                value => value.length <= config.DbColumnSizes.Categories_SubTitle || this.$tl('validation.subTitle.maxLength'),
             ],
             icon: [
                 value => (!value || value.length >= 3) || this.$tl('validation.icon.minLength'),
@@ -158,6 +173,19 @@
                 root: null,
                 all: null,
                 start: true,
+                showIconPicker: false,
+                iconFilter: null,
+                pagination: {
+                    itemsPerPage: 35,
+                    page: 0
+                }
+            }
+        },
+        watch: {
+            'category.parentId': function (newVal, oldVal) {
+                if (!newVal || this.category.id === this.category.parentId) {
+                    this.category.parentId = oldVal
+                }
             }
         },
         computed: {

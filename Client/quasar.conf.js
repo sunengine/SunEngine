@@ -1,7 +1,7 @@
 // Configuration for your app
 
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = function (ctx) {
   return {
@@ -13,11 +13,14 @@ module.exports = function (ctx) {
       'apiPath',
       'buildPath',
       'imagePath',
+      'avatarPath',
       'formatDate',
       'successNotify',
       'errorNotify',
       'request',
-      'api'
+      'api',
+      'iconPicker',
+      'throttle'
     ],
     css: [
       'app.scss',
@@ -70,10 +73,6 @@ module.exports = function (ctx) {
 
         const htmlWebpackPlugin = cfg.plugins.find(x => x.constructor.name === "HtmlWebpackPlugin");
         htmlWebpackPlugin.options.configUId = Math.floor( Math.random() * 1000000).toString();
-
-        if (ctx.dev) {
-          cfg.plugins.push(new CopyWebpackPlugin([{from: 'config.js', to: 'config.js'}]));
-        }
       },
 
       env: {

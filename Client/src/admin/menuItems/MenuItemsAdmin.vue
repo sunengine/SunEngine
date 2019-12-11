@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="menu-items-admin page-padding">
 
     <div class="page-title-block">
@@ -115,8 +115,10 @@
                         parent.subMenuItems.push(menuItem);
                         menuItem.parent = parent;
 
-                    } else {
+                    } else if(menuItem.name === 'Root') {
                         root = menuItem;
+                    }  else {
+
                     }
                 }
 

@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 
 import {getTokens} from 'sun'
 import {checkTokensUpdated} from 'sun'
-import {setRouter} from 'sun'
 import {app} from 'sun'
 
 import {consoleRequestStart, consoleGreyEnd, consoleTokens} from 'sun'
@@ -16,10 +15,11 @@ Vue.use(VueRouter);
  * directly export the Router instantiation
  */
 
+let router;
 
 export default function ({store, ssrContext}) {
 
-  const router = new VueRouter({
+  router = new VueRouter({
     scrollBehavior: () => ({y: 0}),
     routes: [],
 
@@ -43,13 +43,11 @@ export default function ({store, ssrContext}) {
 
     await checkUserCredentialsAndReloadIfNew();
 
-    if (config.Log.MoveTo)
-      console.info("%cMove to page%c" + config.SiteUrl.substring(config.SiteSchema.length) + to.path, consoleRequestStart, consoleGreyEnd, to);
+    if (config.Client.LogMoveTo)
+      console.info("%cMove to page%c" + config.Global.SiteUrl.substring(config.Global.SiteSchema.length) + to.path, consoleRequestStart, consoleGreyEnd, to);
 
     next();
   });
-
-  setRouter(router);
 
   return router;
 
@@ -73,4 +71,4 @@ export default function ({store, ssrContext}) {
   }
 }
 
-
+export {router}

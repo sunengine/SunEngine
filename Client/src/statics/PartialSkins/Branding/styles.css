@@ -1,0 +1,15 @@
+.partial-skin-branding .main-menu__logo-div {
+  padding: 22px 0 30px 0;
+  text-align: center;
+}
+.partial-skin-branding .main-menu__logo-img {
+  background-image: url(SunEngine.svg);
+  background-position: center;
+  background-size: contain;
+  width: 204px;
+  height: 204px;
+  border-radius: 102px;
+  box-shadow: 0 0 8px 1px grey;
+}
+
+/*# sourceMappingURL=styles.css.map */

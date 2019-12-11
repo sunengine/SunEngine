@@ -12,7 +12,7 @@ export default {
   meta() {
     return {
       title: this.title,
-      titleTemplate: title => title === " " ? config.SiteName : `${title} - ${config.SiteName}`
+      titleTemplate: title => title === " " ? config.Global.SiteName : `${title} - ${config.Global.SiteName}`
     }
   }
 }

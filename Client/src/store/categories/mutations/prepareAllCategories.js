@@ -12,7 +12,7 @@ export default function prepareAllCategories(state, root) {
 
   injectPrototype();
 
-  console.info('%cCategories prepared', consoleInit, config.Log.InitExtended ? state.all : '');
+  console.info('%cCategories prepared', consoleInit, config.Client.LogInitExtended ? state.all : '');
 
   function buildStructureRecursive(category, sectionRoot = null) {
 
@@ -55,7 +55,7 @@ export default function prepareAllCategories(state, root) {
           has = true;
 
 
-    if (category.categoryPersonalAccess?.materialWrite)
+    if (category.categoryPersonalAccess?.MaterialWrite)
       has = true;
 
     category.canSomeChildrenWriteMaterial = has;

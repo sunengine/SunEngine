@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="change-link flex column">
 
     <h2 class="page-title text-center">
@@ -8,11 +8,11 @@
     <div class="flex flex-center grow">
       <div class="center-form">
 
-        <div class="text-grey-7 q-mb-lg" style="text-align: justify">
+        <div class="text-grey-7 q-mb-lg text-justify">
           {{$tl('linkValidationInfo')}}
         </div>
         <q-input ref="link" v-model="link" :label="$tl('link')"
-                 @keyup="checkLinkInDb" :rules="linkRules">
+                 :rules="rules">
           <template v-slot:prepend>
             <q-icon name="fas fa-link"/>
           </template>
@@ -36,7 +36,7 @@
         return !id || store.state.auth.user.id == id;
     }
 
-    function createLinkRules() {
+    function createRules() {
         return [
             value => (value.length >= 3 || allowMyIdOrEmpty.call(this, value)) || this.$tl('validation.minLength'),  // minLength or myId
             value => /^[a-zA-Z0-9-]*$/.test(value) || this.$tl('validation.allowedChars'), // allowed chars
@@ -56,18 +56,9 @@
                 submitting: false
             }
         },
-        linkRules: null,
-        computed: {
-            // ...locals
-        },
+        rules: null,
         methods: {
             checkLinkInDb() {
-                clearTimeout(this.timeout);
-                if (this.link.toLowerCase() === this.$store.state.auth.user.link.toLowerCase())
-                    return;
-                this.timeout = setTimeout(this.checkLinkInDbDo, 500);
-            },
-            checkLinkInDbDo() {
                 this.$request(this.$Api.Personal.CheckLinkInDb,
                     {
                         link: this.link
@@ -77,7 +68,6 @@
                     this.$refs.link.validate();
                 })
             },
-
             save() {
                 this.$refs.link.validate();
 
@@ -109,7 +99,11 @@
         created() {
             this.title = this.$tl('title');
 
-            this.linkRules = createLinkRules.call(this);
+            this.rules = createRules.call(this);
+
+            this.checkLinkInDb = this.$throttle(this.checkLinkInDb);
+
+            this.$watch('link', this.checkLinkInDb);
         }
     }
 

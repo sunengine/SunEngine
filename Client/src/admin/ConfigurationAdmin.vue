@@ -1,12 +1,19 @@
-<template>
+﻿<template>
   <q-page class="configuration-admin page-padding">
-    <h2 class="page-title ">
-      {{title}}
-    </h2>
+    <div class="page-title-block">
+      <h2 class="page-title">
+        {{title}}
+      </h2>
+      <q-input dense v-model="filter" :placeholder="$tl('filter')" clearable>
+        <template v-slot:before>
+          <q-icon name="fa fa-search"/>
+        </template>
+      </q-input>
+    </div>
 
-    <div v-if="configurationGroups">
+    <div v-if="configurationItems">
       <q-markup-table>
-        <tbody>
+        <tbody v-if="configurationGroups">
         <template v-for="group of configurationGroups">
           <tr class="configuration-admin__group-header-tr">
             <td colspan="2" class="configuration-admin__group-header-td">
@@ -24,6 +31,14 @@
           </tr>
         </template>
         </tbody>
+        <tbody v-else>
+        <tr>
+          <td>{{$tl('noResults')}}</td>
+        </tr>
+
+        </tbody>
+
+
       </q-markup-table>
 
 
@@ -46,6 +61,7 @@
 
 <script>
     import {Page} from 'mixins';
+    //import {getDynamicConfig} from 'sun';
 
 
     export default {
@@ -53,11 +69,16 @@
         mixins: [Page],
         data() {
             return {
+                filter: '',
                 configurationGroups: null,
                 configurationItems: null,
+                tokens: null,
                 enums: null,
                 loading: false
             }
+        },
+        watch: {
+            'filter': 'buildTable'
         },
         methods: {
             getTypeType(type) {
@@ -86,47 +107,58 @@
                         this.$successNotify(this.$tl('resetSuccessNotify'), "info");
                     });
             },
+            buildTable() {
+                const visibleItems = this.filter ? this.configurationItems.filter(x => x.name.toLowerCase().includes(this.filter.toLowerCase())) : this.configurationItems;
+
+                if (!visibleItems || visibleItems.length === 0) {
+                    this.configurationGroups = null;
+                    return;
+                }
+
+                const toks0 = GetTokens(visibleItems[0].name);
+
+                const groups = [{
+                    name: toks0[0],
+                    items: [{
+                        name: toks0[1],
+                        item: visibleItems[0]
+                    }]
+                }];
+
+                visibleItems.reduce(function (previousValue, currentValue, index, array) {
+                    const toks1 = GetTokens(previousValue.name);
+                    const toks2 = GetTokens(currentValue.name);
+
+                    const newItem = {
+                        name: toks2[1],
+                        item: currentValue
+                    };
+
+                    if (toks1[0] === toks2[0]) {
+                        groups[groups.length - 1].items.push(newItem);
+                    } else {
+                        groups.push({
+                            name: toks2[0],
+                            items: [newItem]
+                        });
+                    }
+
+                    return currentValue;
+                });
+
+                this.configurationGroups = groups;
+
+                function GetTokens(name) {
+                    let arr = name.split(":");
+                    return [arr[0], arr.splice(1).join(":")];
+                }
+
+            },
             loadConfiguration() {
                 return this.$request(this.$AdminApi.ConfigurationAdmin.LoadConfiguration)
                     .then(response => {
-                            const toks0 = GetTokens(response.data[0].name);
-
-                            const groups = [{
-                                name: toks0[0],
-                                items: [{
-                                    name: toks0[1],
-                                    item: response.data[0]
-                                }]
-                            }];
-
-                            response.data.reduce(function (previousValue, currentValue, index, array) {
-                                const toks1 = GetTokens(previousValue.name);
-                                const toks2 = GetTokens(currentValue.name);
-
-                                const newItem = {
-                                    name: toks2[1],
-                                    item: currentValue
-                                };
-
-                                if (toks1[0] === toks2[0]) {
-                                    groups[groups.length - 1].items.push(newItem);
-                                } else {
-                                    groups.push({
-                                        name: toks2[0],
-                                        items: [newItem]
-                                    });
-                                }
-
-                                return currentValue;
-                            });
-
-                            function GetTokens(name) {
-                                let arr = name.split(":");
-                                return [arr[0], arr.splice(1).join(":")];
-                            }
-
                             this.configurationItems = response.data;
-                            this.configurationGroups = groups;
+                            this.buildTable();
                         }
                     );
             },

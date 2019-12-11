@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="blog-page">
     <div class="page-title-block page-padding">
       <h2 class="page-title">
@@ -47,7 +47,7 @@
                 return this.$store.getters.getCategory(this.categoryName);
             },
             canAddArticle() {
-                return this.category?.categoryPersonalAccess?.materialWrite;
+                return this.category?.categoryPersonalAccess?.MaterialWrite;
             }
         },
         methods: {

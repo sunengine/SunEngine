@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="side-panel">
     <h4 class="side-panel__header">
       <router-link class="side-panel__header-link" v-if="titleLink" :to="titleLink">

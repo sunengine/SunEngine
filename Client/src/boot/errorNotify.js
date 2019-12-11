@@ -1,8 +1,10 @@
 export default async ({app, Vue}) => {
   Vue.prototype.$errorNotify = function (error, ...values) {
 
-    const errors = error?.response?.data?.errors;
+    let errors = error?.response?.data?.errors;
     if (!errors)
+      errors = [error?.response?.data];
+    if(!errors)
       return;
 
     for (const error of errors) {

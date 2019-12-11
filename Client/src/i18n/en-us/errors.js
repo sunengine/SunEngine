@@ -16,6 +16,6 @@ export default {
   UserBanned: "User banned",
   MaterialNameNotValid: "Material name is invalid",
   MaterialNameAlreadyUsed: "Material name already used",
-  CanNotDeleteRolesItHasUsers: "Can not delete roles with users: {0}, remove users from roles first"
-
+  CanNotDeleteRolesItHasUsers: "Can not delete roles with users: {0}, remove users from roles first",
+  PermissionsJsonUploadParseError: "Parsing of json data error"
 }

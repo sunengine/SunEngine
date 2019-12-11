@@ -1,4 +1,4 @@
-<template>
+﻿<template>
 
   <q-page class="material">
 
@@ -11,7 +11,7 @@
 
       <div class="material__category q-mb-md" v-if="showCategory">
         <span class="material__category-label text-grey-7">{{$tl("category")}} </span>
-        <router-link :to="category.getRoute()">{{category.title}}</router-link>
+        <router-link class="link" :to="category.getRoute()">{{category.title}}</router-link>
       </div>
 
       <div v-if="material.deletedDate" class="text-red q-mb-md">
@@ -31,27 +31,27 @@
       <div class="material__footer q-gutter-x-lg q-py-sm flex align-center">
 
         <div v-if="showUser" class="material__author q-mr-md">
-          <router-link :to="{name: 'User', params: {link: material.authorLink}}">
-            <img class="avatar material__avatar" :src="$imagePath(material.authorAvatar)"/>{{material.authorName}}
+          <router-link class="link" :to="{name: 'User', params: {link: material.authorLink}}">
+            <img class="avatar material__avatar" :src="$avatarPath(material.authorAvatar)"/>{{material.authorName}}
           </router-link>
         </div>
 
         <div class="grow"></div>
 
         <div class="material-edit-btn edit-btn-block" v-if="canEdit">
-          <a href="#" @click.prevent="$router.push({name: 'EditMaterial', params: {id: material.id}})">
+          <a class="link" href="#" @click.prevent="$router.push({name: 'EditMaterial', params: {id: material.id}})">
             <q-icon name="fas fa-edit" class="q-mr-xs"/>
             {{$tl("edit")}}</a>
         </div>
 
         <div v-if="!material.deletedDate && canDelete" class="material-footer-info-block">
-          <a href="#" @click.prevent="deleteMaterial">
+          <a class="link" href="#" @click.prevent="deleteMaterial">
             <q-icon name="fas fa-trash"/>
           </a>
         </div>
 
         <div v-if="material.deletedDate && canRestore" class="material-footer-info-block">
-          <a href="#" @click.prevent="restoreMaterial">
+          <a class="link" href="#" @click.prevent="restoreMaterial">
             <q-icon name="fas fa-trash-restore"/>
           </a>
         </div>
@@ -76,8 +76,7 @@
 
       <div v-for="(comment,index) in comments" :key="comment.id">
         <CommentContainer class="page-padding" :comment="comment" :checkLastOwn="checkLastOwn"
-                          :categoryPersonalAccess="categoryPersonalAccess"
-                          :isLast="index === maxCommentNumber"/>
+                          :categoryPersonalAccess="categoryPersonalAccess" :isLast="index === maxCommentNumber"/>
         <hr class="material__comments-sep"/>
       </div>
     </div>
@@ -162,7 +161,7 @@
             canCommentWrite() {
                 if (!this.material || this.material.isCommentsBlocked)
                     return false;
-                return this.category.categoryPersonalAccess.commentWrite;
+                return this.category.categoryPersonalAccess.CommentWrite;
             },
             categoryPersonalAccess() {
                 return this.category.categoryPersonalAccess;
@@ -176,18 +175,18 @@
                 }
                 const category = this.$store.getters.getCategory(this.material.categoryName);
 
-                if (category.categoryPersonalAccess.materialEditAny) {
+                if (category.categoryPersonalAccess.MaterialEditAny) {
                     return true;
                 }
                 if (this.material.authorId !== this.$store.state.auth.user.id) {
                     return false;
                 }
-                if (!category.categoryPersonalAccess.materialEditOwnIfHasReplies &&
+                if (!category.categoryPersonalAccess.MaterialEditOwnIfHasReplies &&
                     this.comments.length >= 1 && !this.checkLastOwn(this.comments[0])
                 ) {
                     return false;
                 }
-                if (!category.categoryPersonalAccess.materialEditOwnIfTimeNotExceeded) {
+                if (!category.categoryPersonalAccess.MaterialEditOwnIfTimeNotExceeded) {
                     const now = new Date();
                     const publish = new Date(this.material.publishDate);
                     const til = date.addToDate(publish, {minutes: config.Materials.TimeToOwnEditInMinutes});
@@ -195,7 +194,7 @@
                         return false;
                     }
                 }
-                return !!category.categoryPersonalAccess.materialEditOwn;
+                return !!category.categoryPersonalAccess.MaterialEditOwn;
             },
             canDelete() {
                 return canDeleteMaterial.call(this);

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="thread">
 
     <div class="page-title-block page-padding">
@@ -80,7 +80,7 @@
                 return this.pageTitle ?? this.thread.title;
             },
             canAddTopic() {
-                return this.thread?.categoryPersonalAccess?.materialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;
+                return this.thread?.categoryPersonalAccess?.MaterialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;
             },
             thread() {
                 return this.$store.getters.getCategory(this.categoryName);

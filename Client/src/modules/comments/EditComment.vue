@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="edit-comment">
     <template v-if="comment">
       <SunEditor content-class="comment__text"

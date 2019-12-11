@@ -1,5 +1,5 @@
 import {ArticlesPage, Material} from 'sun'
-import {wrapInPage,wrapInPanel} from 'sun'
+import {wrapInPage, wrapInPanel} from 'sun'
 import {CategoriesAdmin} from 'sun'
 import {MenuItemsAdmin} from 'sun'
 import {CreateCategory} from 'sun'
@@ -18,11 +18,13 @@ import {ComponentsAdmin} from 'sun'
 import {CreateComponent} from 'sun'
 import {EditComponent} from 'sun'
 import {SkinsAdmin} from 'sun'
+import {MainSkinsAdmin} from 'sun'
+import {PartialSkinsAdmin} from 'sun'
 import {ConfigurationAdmin} from 'sun'
 import {AdminInformation} from 'sun'
 
 
-const AdminPanel = wrapInPanel("AdminPanel", AdminMenu, null, undefined, "fas fa-cog");
+const AdminPanel = wrapInPanel("AdminPanel", AdminMenu);
 
 
 const routes = [
@@ -108,7 +110,26 @@ const routes = [
     components: {
       default: SkinsAdmin,
       navigation: AdminPanel
-    }
+    },
+    redirect: {name: 'MainSkinsAdmin'},
+    children: [
+      {
+        name: 'MainSkinsAdmin',
+        path: 'Main'.toLowerCase(),
+        components: {
+          default: MainSkinsAdmin,
+          navigation: AdminPanel
+        }
+      },
+      {
+        name: 'PartialSkinsAdmin',
+        path: 'Partial'.toLowerCase(),
+        components: {
+          default: PartialSkinsAdmin,
+          navigation: AdminPanel
+        }
+      },
+    ]
   },
   {
     name: 'CypherSecrets',
@@ -232,7 +253,6 @@ for (const rote of routes)
     rote.meta = {
       roles: ["Admin"]
     };
-
 
 
 export default routes;

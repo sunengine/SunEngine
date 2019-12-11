@@ -4,12 +4,13 @@ export default {
 
   CategoriesAdmin: {
     title: "Админка категорий",
-    addCategoryBtn: "Добавить категорию"
+    addCategoryBtn: "Добавить категорию",
+    showInfo: "Информация о категориях"
   },
   CategoryForm: {
     name: "Имя (eng)",
     title: "Заголовок",
-    subTitle: "Подпись заголовка",
+    subTitle: "Подзаголовок",
     icon: "Иконка",
     header: "Шапка",
     selectParent: "Родительская категория",
@@ -20,7 +21,7 @@ export default {
     appendUrlTokenCb: "Добавлять в URL",
     appendUrlTokenInfo: "(использовать только если вы понимаете что это)",
     isMaterialsContainerCb: "Содержит материалы",
-    isMaterialsSubTitleEditableCb: "Возможность редактирования подписи заголовка материала",
+    isMaterialsSubTitleEditableCb: "Возможность редактирования подзаголовка материала",
     isMaterialsNameEditableCb: "Возможность редактирования имени (eng) материала (только для админа)",
     isCaching: "Кэшировать содержимое",
     cachingPageCount: "Кэшировать N страниц",
@@ -30,11 +31,16 @@ export default {
       name: {
         required: "Введите имя (eng) категории",
         minLength: "Имя (eng) должно быть не менее чем из 2 букв",
-        allowedChars: "Имя (eng) должно состоять из символов `a-z`, `A-Z`, `0-9`, `-`"
+        allowedChars: "Имя (eng) должно состоять из символов `a-z`, `A-Z`, `0-9`, `-`",
+        maxLength: `Имя (eng) должено состоять не более чем из ${config.DbColumnSizes.Categories_Name} символов`,
       },
       title: {
         required: "Введите заголовок категории",
-        minLength: "Заголовок должен состоять не менее чем из 3 букв"
+        minLength: "Заголовок должен состоять не менее чем из 3 букв",
+        maxLength: `Заголовок должен состоять не более чем из ${config.DbColumnSizes.Categories_Title} букв`,
+      },
+      subTitle: {
+        maxLength: `Подзаголовок должен состоять не более чем из ${config.DbColumnSizes.Categories_SubTitle} букв`,
       },
       icon: {
         minLength: "Длинна должна быть не меньше 3 символов",
@@ -44,12 +50,12 @@ export default {
         required: "Выберите родительскую категорию"
       },
       settingsJson: {
-        jsonFormatError: "@:Global.validation.validation",
+        jsonFormatError: "@:Global.validation.jsonFormatError",
       }
     }
   },
   CategoryItem: {
-    rootCategory: "Корневая категория"
+    rootCategory: "Корневая категория",
   },
   CreateCategory: {
     title: "Добавить категорию",
@@ -125,14 +131,14 @@ export default {
     deleteBtn: "Удалить пункт меню",
     successNotify: "Пункт меню успешно сохранён",
     deleteMsg: "Удалить пункт меню?",
-    btnDeleteOk:  "@:Global.dialog.ok",
+    btnDeleteOk: "@:Global.dialog.ok",
     btnDeleteCancel: "@:Global.dialog.cancel",
   },
   MenuAdminItem: {},
   MenuItemForm: {
     name: "Идентификатор (eng)",
     title: "Заголовок",
-    subTitle: "Подпись заголовка",
+    subTitle: "Подзаголовок",
     parent: "Родительский элемент",
     rootElement: "Корневой элемент",
     url: "Ссылка, внутренняя или внешняя",
@@ -210,7 +216,7 @@ export default {
   },
   RoleUsers: {
     users: "Пользователи",
-    filter: "Найти по имени",
+    filter: "Фильтр",
     noResults: "Нет результатов",
     filterLimitReached: "Выведены первые {0} результатов"
   },
@@ -218,9 +224,9 @@ export default {
   // ——— all ————————————————————————————————————
 
   AdminMenu: {
-    adminPage: "Информация",
-    adminPageCaption: "",
-   // adminPageCaption: "Информация о сервере",
+    adminInformation: "Информация",
+    adminInformationCaption: "",
+    //adminInformationCaption: "Информация о сервере",
     menuItems: "Меню",
     menuItemsCaption: "",
     //menuItemsCaption: "Редактирование меню сайта",
@@ -264,7 +270,11 @@ export default {
     serverVersion: "Версия сервера",
     serverRepository: "Репозиторий сервера",
     sunEngineVersion: "Версия SunEngine",
+    clientName: "Имя клиента",
+    clientVersion: "Версия клиента",
     dotNetVersion: "Версия DotNet",
+    quasarVersion: "Версия Quasar",
+    vueJsVersion: "Версия VueJS",
     maintainer: "Хранитель сайта",
     maintainerContacts: "Контакты хранителя",
     description: "Описание",
@@ -295,6 +305,8 @@ export default {
   },
   ConfigurationAdmin: {
     title: "Конфигурация сайта",
+    filter: "Фильтр",
+    noResults: "Ничего не найдено",
     successNotify: "Значения конфигурации успешно сохранены",
     resetSuccessNotify: "Значения конфигурации перезагружены с сервера",
     resetBtn: "Перезагрузить с сервера",
@@ -322,6 +334,11 @@ export default {
   },
   SkinsAdmin: {
     title: "Темы оформления",
+    mainSkins: "Основные темы",
+    partialSkins: "Дополнительные темы"
+  },
+  MainSkinsAdmin: {
+    title: "Основные темы оформления",
     current: "Текущая",
     info: "Темы оформления и документация по созданию тем - ",
     author: "Автор: ",
@@ -336,5 +353,14 @@ export default {
     deleteMsg: "Удалить тему?",
     btnDeleteOk: "@:Global.dialog.yes",
     btnDeleteCancel: "@:Global.dialog.cancel"
+  },
+  PartialSkinsAdmin: {
+    title: "Дополнительные темы оформления",
+    onBtn: "Включить",
+    offBtn: "Выключить",
+    deleteMsg: "Удалить тему?",
+    btnDeleteOk: "@:Global.dialog.yes",
+    btnDeleteCancel: "@:Global.dialog.cancel",
+    upload: "Загрузить дополнительную тему",
   }
 }

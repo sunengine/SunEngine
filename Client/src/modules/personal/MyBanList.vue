@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="my-ban-list page-padding">
     <h2 class="page-title">{{$tl("title")}}</h2>
     <div v-if="users">

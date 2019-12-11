@@ -1,4 +1,4 @@
-export default function() {
+﻿export default function() {
 
   this.$request(this.$Api.Forum.GetNewTopics,
     {

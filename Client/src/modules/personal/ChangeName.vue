@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="change-name flex column">
 
     <h2 class="page-title text-center">
@@ -28,7 +28,6 @@
         </q-input>
 
         <q-input class="change-name__name" ref="name" color="positive" v-model="name" :label="$tl('name')"
-                 @keyup="checkNameInDb"
                  :rules="rules.nameRules" :after="[{
         icon: 'far fa-check-circle',
         condition: nameInDb},
@@ -80,13 +79,9 @@
         },
         methods: {
             checkNameInDb() {
-                clearTimeout(this.timeout);
-                this.timeout = setTimeout(this.checkNameInDbServer, 500);
-            },
-            checkNameInDbServer() {
                 if (this.name.toLowerCase() === this.$store.state.auth.user.name.toLowerCase())
                     return;
-                this.$request(this.$Api.Personal.CheckLinkInDb,
+                this.$request(this.$Api.Personal.CheckNameInDb,
                     {
                         name: this.name
                     }
@@ -123,9 +118,11 @@
         beforeCreate() {
             this.$options.components.LoaderSent = require('sun').LoaderSent
         },
-        async created() {
+        created() {
             this.title = this.$tl('title');
             this.rules = createRules.call(this);
+            this.checkNameInDb = this.$throttle(this.checkNameInDb);
+            this.$watch('name', this.checkNameInDb);
         }
     }
 

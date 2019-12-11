@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="create-comment">
     <SunEditor content-class="material-text"
                :toolbar="editorToolbar" :rules="commentRules"

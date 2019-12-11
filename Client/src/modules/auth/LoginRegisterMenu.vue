@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-list class="login-register-menu sun-second-menu q-py-sm">
     <q-item :to="{name:'Login', params: {ret: ret}}">
       <q-item-section avatar>

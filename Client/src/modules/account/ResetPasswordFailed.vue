@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="reset-password-failed flex middle page-padding">
     <q-banner rounded class="bg-negative text-white">
       <template v-slot:avatar>

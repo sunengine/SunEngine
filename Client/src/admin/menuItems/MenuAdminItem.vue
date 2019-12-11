@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div :class="['menu-admin-item', {'menu-admin-item-hidden': menuItem.isHidden}]">
     <span class="item-block">
       <span class="menu-admin-item__up-down">
@@ -94,19 +94,19 @@
 
 <style lang="scss">
 
-  .menu-admin-item-hidden {
-    * {
-      color: $grey-5 !important;
-    }
+  .menu-admin-item__text {
+
   }
 
-  .menu-admin-item__text {
-    color: $grey-8 !important;
+  .menu-admin-item-hidden {
+    * {
+      color: $grey-5;
+    }
   }
 
   .menu-admin-item {
     .q-btn:disabled, .q-btn[disabled] {
-      color: $grey-5 !important;
+      color: $grey-5;
     }
 
     .padding-mi {

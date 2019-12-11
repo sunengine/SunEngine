@@ -30,7 +30,7 @@ function GoDeep(category) {
 
   let ret;
 
-  if (category?.categoryPersonalAccess?.materialWrite) {
+  if (category?.categoryPersonalAccess?.MaterialWrite) {
     if (category.isMaterialsContainer) { // writable
       ret = {
         label: category.title,

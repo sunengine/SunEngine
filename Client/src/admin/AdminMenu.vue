@@ -1,13 +1,23 @@
-<template>
+﻿<template>
   <q-list class="admin-menu sun-second-menu" no-border>
 
     <q-item exact :to="{name: 'AdminInformation'}">
       <q-item-section avatar>
-        <q-icon name="fas fa-info"/>
+        <q-icon name="fas fa-info-circle"/>
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $tl("adminPage") }}</q-item-label>
-        <q-item-label v-if="adminPageCaption" caption>{{adminPageCaption}}</q-item-label>
+        <q-item-label>{{ $tl("adminInformation") }}</q-item-label>
+        <q-item-label v-if="adminInformationCaption" caption>{{adminInformationCaption}}</q-item-label>
+      </q-item-section>
+    </q-item>
+
+    <q-item :to="{name: 'ConfigurationAdmin'}">
+      <q-item-section avatar>
+        <q-icon name="fas fa-sliders-h"/>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $tl("configuration") }}</q-item-label>
+        <q-item-label v-if="configurationCaption" caption>{{configurationCaption}}</q-item-label>
       </q-item-section>
     </q-item>
 
@@ -33,21 +43,11 @@
 
     <q-item :to="{name: 'ComponentsAdmin'}">
       <q-item-section avatar>
-        <q-icon name="fas fa-network-wired"/>
+        <q-icon name="fas fa-cube"/>
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $tl("components") }}</q-item-label>
         <q-item-label v-if="componentsCaption" caption>{{componentsCaption}}</q-item-label>
-      </q-item-section>
-    </q-item>
-
-    <q-item :to="{name: 'ConfigurationAdmin'}">
-      <q-item-section avatar>
-        <q-icon name="fas fa-tools"/>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>{{ $tl("configuration") }}</q-item-label>
-        <q-item-label v-if="configurationCaption" caption>{{configurationCaption}}</q-item-label>
       </q-item-section>
     </q-item>
 
@@ -140,6 +140,9 @@
     export default {
         name: 'AdminMenu',
         computed: {
+            adminInformationCaption() {
+                return this.$tl("adminInformationCaption") ?? null;
+            },
             menuItemsCaption() {
                 return this.$tl("menuItemsCaption") ?? null;
             },

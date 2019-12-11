@@ -1,20 +1,18 @@
-<template>
+﻿<template>
   <q-page class="profile page-padding page-padding-top">
     <div class="profile__container" v-if="user">
       <div class="profile__img-block flex column">
-        <img class="profile__photo" width="300" height="300" :src="$imagePath(user.photo)"/>
+        <img class="profile__photo" width="300" height="300" :src="$avatarPath(user.photo)"/>
         <div v-if="messageButtons" class="profile__private-messages-block flex q-mt-sm">
           <q-btn no-caps class="shadow-1 grow" color="lime-4" :disable="!canPrivateMessage"
                  :to="{path: '/SendPrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}"
                  dense icon="far fa-envelope" :label="$tl('sendPrivateMessageBtn')"/>
           <q-btn :color="!user.iBannedHim ? 'lime-4' : 'negative'" class="profile__bun-btn shadow-1 q-ml-sm" dense
-
-                 v-if="!user.noBannable"
-                 icon="fas fa-ellipsis-v">
+                 v-if="!user.noBannable" icon="fas fa-ellipsis-v">
             <q-menu>
-              <q-btn no-caps v-close-popup color="negative" v-close-overlay v-if="!user.iBannedHim" @click="ban"
-                     icon="fas fa-ban" :label="$tl('banBtn')"/>
-              <q-btn no-caps v-close-popup color="positive" v-close-overlay v-else @click="unBan" icon="fas fa-smile"
+              <q-btn no-caps v-close-popup color="negative" v-if="!user.iBannedHim" @click="ban" icon="fas fa-ban"
+                     :label="$tl('banBtn')"/>
+              <q-btn no-caps v-close-popup color="positive" v-else @click="unBan" icon="fas fa-smile"
                      :label="$tl('unBanBtn')"/>
             </q-menu>
           </q-btn>
@@ -34,7 +32,6 @@
             {{user.profileVisitsCount}}
           </div>
         </div>
-
         <q-expansion-item class="profile__expansion-item-roles overflow-hidden" v-if="canEditRoles"
                           @show="showRolesAdmin"
                           icon="fas fa-cog"

@@ -4,7 +4,8 @@ export default {
 
   CategoriesAdmin: {
     title: "Categories admin",
-    addCategoryBtn: "Add category"
+    addCategoryBtn: "Add category",
+    showInfo: "Information about categories"
   },
   CategoryForm: {
     name: "Name (eng)",
@@ -20,7 +21,7 @@ export default {
     appendUrlTokenCb: "Add to URL",
     appendUrlTokenInfo: "(use only if you understand what it is)",
     isMaterialsContainerCb: "Contains materials",
-    isMaterialsSubTitleEditableCb: "Possibility to edit material sub title",
+    isMaterialsSubTitleEditableCb: "Possibility to edit material subtitle",
     isMaterialsNameEditableCb: "Possibility to edit material name (eng), only for admin",
     isCaching: "Caching",
     cachingPageCount: "Cache N pages",
@@ -30,11 +31,16 @@ export default {
       name: {
         required: "Enter category name (eng)",
         minLength: "Name (eng) must be at least 2 letters",
+        maxLength: `Имя (eng) must contain max ${config.DbColumnSizes.Categories_Name} chars`,
         allowedChars: "The name (eng) must consist of the characters `a-z`, `A-Z`, `0-9`, `-`"
       },
       title: {
         required: "Enter category title",
-        minLength: "Category title must contain at least 3 letters"
+        minLength: "Category title must contain at least 3 letters",
+        maxLength: `Title must contain max ${config.DbColumnSizes.Categories_Title} letter`,
+      },
+      subTitle: {
+        maxLength: `Subtitle must contain max ${config.DbColumnSizes.Categories_SubTitle} letter`,
       },
       icon: {
         minLength: "Minimal icon length - 3",
@@ -81,8 +87,8 @@ export default {
     validation: {
       name: {
         required: "Enter name (eng)",
-        minLength:  "Minimum component name length is 3",
-        maxLength: "Maximum component name length is " + config.DbColumnSizes.Components_Name + "letters",
+        minLength: "Minimum component name length is 3",
+        maxLength: "Maximum component name length is " + config.DbColumnSizes.Components_Name + " chars",
         allowedChars: "The name (eng) must consist of the characters `a-z`, `A-Z`, `0-9`, `-`, `_`"
       },
       type: {
@@ -96,7 +102,7 @@ export default {
     addComponentBtn: "Add component"
   },
   CreateComponent: {
-    title: "Set component",
+    title: "Create component",
     createBtn: "@:Global.btn.create",
     cancelBtn: "@:Global.btn.cancel"
   },
@@ -125,14 +131,14 @@ export default {
     deleteBtn: "Delete menu item",
     successNotify: "Menu item successfully edited",
     deleteMsg: "Delete menu item?",
-    btnDeleteOk:  "@:Global.dialog.ok",
+    btnDeleteOk: "@:Global.dialog.ok",
     btnDeleteCancel: "@:Global.dialog.cancel",
   },
   MenuAdminItem: {},
   MenuItemForm: {
-    name: "Identifier (eng)",
+    name: "Name (eng)",
     title: "Title",
-    subTitle: "Sub title",
+    subTitle: "Subtitle",
     parent: "Parent element",
     rootElement: "Root element",
     url: "Link internal or external",
@@ -157,8 +163,8 @@ export default {
         maxLength: "Maximum title length - " + config.DbColumnSizes.Categories_Title,
       },
       subTitle: {
-        minLength: "Minimal sub title length - 3",
-        maxLength: "Maximum sub title length - " + config.DbColumnSizes.MenuItems_SubTitle,
+        minLength: "Minimal subtitle length - 3",
+        maxLength: "Maximum subtitle length - " + config.DbColumnSizes.MenuItems_SubTitle,
       },
       cssClass: {
         minLength: "Minimal css class length - 3",
@@ -201,17 +207,17 @@ export default {
     roles: "Groups",
   },
   RolesPermissions: {
-    title: "Upload group config(json)",
+    title: "Upload group permissions (json)",
     backupWarning: "Before uploading, you need to make a database backup.",
     saveToServerBtn: "Save",
     getFromServer: "Reload from server",
     getSuccessNotify: "Download completed successfully",
     saveSuccessNotify: "Group settings were updated successfully",
-    textAreaLabel: "Json file of roles config"
+    textAreaLabel: "Json file of roles permissions"
   },
   RoleUsers: {
     users: "Users",
-    filter: "Find by name",
+    filter: "Filter",
     noResults: "Not found",
     filterLimitReached: "First {0} results are derived"
   },
@@ -219,8 +225,8 @@ export default {
   // ——— all ————————————————————————————————————
 
   AdminMenu: {
-    adminPage: "Information",
-    adminPageCaption: "",
+    adminInformation: "Information",
+    adminInformationCaption: "",
     menuItems: "Menu",
     menuItemsCaption: "",
     categories: "Categories",
@@ -238,7 +244,7 @@ export default {
     configuration: "Configuration",
     configurationCaption: "",
     cypherSecrets: "Cypher keys",
-    cypherSecretsCaption:"",
+    cypherSecretsCaption: "",
     imagesCleaner: "Disk cleaner",
     imagesCleanerCaption: "",
     deletedElements: "Deleted elements",
@@ -250,6 +256,24 @@ export default {
   },
   AdminPage: {
     title: "@:AdminPanel.title"
+  },
+  AdminInformation: {
+    title: "Information",
+    serverName: "Server name",
+    serverVersion: "Server version",
+    serverRepository: "Server repository",
+    sunEngineVersion: "SunEngine version",
+    clientName: "Client name",
+    clientVersion: "Client version",
+    dotNetVersion: "DotNet version",
+    quasarVersion: "Quasar version",
+    vueJsVersion: "VueJS version",
+    maintainer: "Site maintainer",
+    maintainerContacts: "Maintainer contacts",
+    description: "Description",
+    sunEngineRepository: "SunEngine repository",
+    sunEngineSkinsRepository: "SunEngine skins repository",
+    additionalData: "Additional data"
   },
   AdminPanel: {
     title: "Admin panel"
@@ -274,6 +298,8 @@ export default {
   },
   ConfigurationAdmin: {
     title: "Site configuration",
+    filter: "Filter",
+    noResults: "Nothing found",
     successNotify: "Configuration values successfully saved",
     resetSuccessNotify: "Configuration values reloaded from server",
     resetBtn: "Reload from server",
@@ -301,6 +327,11 @@ export default {
   },
   SkinsAdmin: {
     title: "Skins admin",
+    mainSkins: "Main skins",
+    partialSkins: "Partial skins"
+  },
+  MainSkinsAdmin: {
+    title: "Skins admin",
     current: "Current",
     info: "Skins collection and documentation to create own skin - ",
     author: "Author: ",
@@ -315,5 +346,14 @@ export default {
     deleteMsg: "Delete skin?",
     btnDeleteOk: "@:Global.dialog.yes",
     btnDeleteCancel: "@:Global.dialog.cancel"
+  },
+  PartialSkinsAdmin: {
+    title: "Partial skins",
+    onBtn: "Enable",
+    offBtn: "Disable",
+    deleteMsg: "Delete partial skin?",
+    btnDeleteOk: "@:Global.dialog.yes",
+    btnDeleteCancel: "@:Global.dialog.cancel",
+    upload: "Upload partial skin",
   }
 }

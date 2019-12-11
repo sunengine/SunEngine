@@ -14,5 +14,5 @@ export default function (context, data) {
   }).catch(() => {
     console.error('%cTokens removed', consoleTokens);
     removeTokens();
-  })
+  }).finally(() => {})
 }

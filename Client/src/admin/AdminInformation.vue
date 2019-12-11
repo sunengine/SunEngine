@@ -1,19 +1,19 @@
-<template>
+﻿<template>
   <q-page class="admin-page page-padding">
     <h2 class="page-title ">
       {{title}}
     </h2>
     <q-markup-table>
       <tbody>
-      <tr v-if="serverInfo.Name">
+      <tr v-if="serverInfo && serverInfo.Name">
         <td>{{$tl("serverName")}}</td>
         <td>{{serverInfo.Name}}</td>
       </tr>
-      <tr v-if="serverInfo.ServerVersion">
+      <tr v-if="serverInfo && serverInfo.ServerVersion">
         <td>{{$tl("serverVersion")}}</td>
         <td>{{serverInfo.ServerVersion}}</td>
       </tr>
-      <tr v-if="serverInfo.ServerRepository">
+      <tr v-if="serverInfo && serverInfo.ServerRepository">
         <td>{{$tl("serverRepository")}}</td>
         <td><a :href="serverInfo.ServerRepository" target="_blank">{{serverInfo.ServerRepository}}</a></td>
       </tr>
@@ -21,24 +21,40 @@
         <td>{{$tl("sunEngineVersion")}}</td>
         <td>{{sunEngineVersion}}</td>
       </tr>
+      <tr v-if="clientName">
+        <td>{{$tl("clientName")}}</td>
+        <td>{{clientName}}</td>
+      </tr>
+      <tr v-if="clientVersion">
+        <td>{{$tl("clientVersion")}}</td>
+        <td>{{clientVersion}}</td>
+      </tr>
       <tr v-if="dotNetVersion">
         <td>{{$tl("dotNetVersion")}}</td>
         <td>{{dotNetVersion}}</td>
       </tr>
-      <tr v-if="serverInfo.Maintainer">
+      <tr v-if="quasarVersion">
+        <td>{{$tl("quasarVersion")}}</td>
+        <td>{{quasarVersion}}</td>
+      </tr>
+      <tr v-if="vueJsVersion">
+        <td>{{$tl("vueJsVersion")}}</td>
+        <td>{{vueJsVersion}}</td>
+      </tr>
+      <tr v-if="serverInfo && serverInfo.Maintainer">
         <td>{{$tl("maintainer")}}</td>
         <td>{{serverInfo.Maintainer}}</td>
       </tr>
-      <tr v-if="serverInfo.MaintainerContacts && serverInfo.MaintainerContacts.length > 0 ">
+      <tr v-if="serverInfo && serverInfo.MaintainerContacts && serverInfo.MaintainerContacts.length > 0 ">
         <td>{{$tl("maintainerContacts")}}</td>
         <td class="q-gutter-y-xs">
           <div v-for="contact of serverInfo.MaintainerContacts">
-            <a :href="contact" target="_blank" v-if="contact.startsWith('http')">{{contact}}</a>
+            <a class="link" :href="contact" target="_blank" v-if="contact.startsWith('http')">{{contact}}</a>
             <span v-else>{{contact}}</span>
           </div>
         </td>
       </tr>
-      <tr v-if="serverInfo.Description">
+      <tr v-if="serverInfo && serverInfo.Description">
         <td>{{$tl("description")}}</td>
         <td>{{serverInfo.Description}}</td>
       </tr>
@@ -50,12 +66,12 @@
       </template>
       <tr>
         <td>{{$tl("sunEngineRepository")}}</td>
-        <td><a href="https://github.com/sunengine/SunEngine" target="_blank">https://github.com/sunengine/SunEngine</a>
+        <td><a class="link" href="https://github.com/sunengine/SunEngine" target="_blank">https://github.com/sunengine/SunEngine</a>
         </td>
       </tr>
       <tr>
         <td>{{$tl("sunEngineSkinsRepository")}}</td>
-        <td><a href="https://github.com/sunengine/SunEngine.Skins" target="_blank">https://github.com/sunengine/SunEngine.Skins</a>
+        <td><a class="link" href="https://github.com/sunengine/SunEngine.Skins" target="_blank">https://github.com/sunengine/SunEngine.Skins</a>
         </td>
       </tr>
       </tbody>
@@ -65,8 +81,13 @@
 </template>
 
 <script>
+    import {Page} from 'mixins'
+    import Vue from 'vue'
+
+
     export default {
         name: "AdminInformation",
+        mixins: [Page],
         data() {
             return {
                 serverInfo: null,
@@ -78,13 +99,20 @@
             additionalData() {
                 const {Name, ServerVersion, Maintainer, MaintainerContacts, Description, ServerRepository, ...rez} = {...this.serverInfo};
                 return rez;
+            },
+            clientVersion() {
+                return process.env.PACKAGE_JSON.version;
+            },
+            clientName() {
+                return process.env.PACKAGE_JSON.name;
+            },
+            quasarVersion() {
+                return this.$q.version;
+            },
+            vueJsVersion() {
+                return Vue.version;
             }
-            /* clentVersion() {
-                 return process.env.PACKAGE_JSON.version;
-             },
-             clentName() {
-                 return process.env.PACKAGE_JSON.version;
-             }*/
+
         },
         methods: {
             getServerInfo() {

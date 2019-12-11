@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="sessions">
     <q-table v-if="sessions" :rows-per-page-options="[0]" @selection="updateSelected"
              :title="title"

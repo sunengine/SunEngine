@@ -1,9 +1,9 @@
-<template>
+﻿<template>
   <q-page class="activities-page">
     <h2 class="page-title page-padding">
       {{title}}
     </h2>
-    <activities-list :componentName="componentName"/>
+    <ActivitiesList :componentName="componentName"/>
   </q-page>
 </template>
 
@@ -28,7 +28,7 @@
             this.$options.components.ActivitiesList = require('sun').ActivitiesList;
         },
         created() {
-            this.title = this.component.settings.title ?? this.$tl('defaultTitle');
+            this.title = this.component.settings.Title ?? this.$tl('defaultTitle');
         }
     }
 </script>

@@ -1,4 +1,4 @@
-import {ActivitiesPage} from 'sun'
+﻿import {ActivitiesPage} from 'sun'
 
 export default {
   name: 'Activities',

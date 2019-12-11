@@ -1,20 +1,20 @@
-<template>
+﻿<template>
   <div class="comment">
-    <img class="comment__avatar avatar" :src="$imagePath(comment.authorAvatar)"/>
+    <img class="comment__avatar avatar" :src="$avatarPath(comment.authorAvatar)"/>
 
     <div class="q-my-md">
       <div class="q-mb-xs flex">
         <div class="grow">
-          <router-link :to="{name: 'User', params: {link: comment.authorLink}}">
+          <router-link class="link" :to="{name: 'User', params: {link: comment.authorLink}}">
             {{comment.authorName}}
           </router-link>
         </div>
         <div class="edit-btn-block q-gutter-x-md">
           <span v-if="canEdit">
-            <a href="#" @click.prevent="$emit('goEdit')"><q-icon name="fas fa-edit"/> {{$tl("edit")}}</a>
+            <a class="link" href="#" @click.prevent="$emit('goEdit')"><q-icon name="fas fa-edit"/> {{$tl("edit")}}</a>
           </span>
           <span v-if="canMoveToTrash">
-            <a href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash"/></a>
+            <a class="link" href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash"/></a>
           </span>
           <span>
             <q-icon name="far fa-clock" class="q-mr-xs"/> {{ $formatDate(comment.publishDate) }}

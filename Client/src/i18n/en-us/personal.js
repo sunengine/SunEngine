@@ -61,7 +61,7 @@ export default {
     changePassword: "Change password",
     changeLink: "Change link",
     changeName: "Change login",
-    changeYourInformation: "Change your information",
+    changeYourInformation: "Change information about you",
     changePhoto: "Change avatar",
     sessions: "Authorization sessions",
     banedUsersList: "Banned users"

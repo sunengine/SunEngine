@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="reset-password flex middle page-padding">
     <div class="center-form q-gutter-y-sm" v-if="!done">
 
@@ -75,23 +75,22 @@
             }
         },
         methods: {
-            async send() {
+            send() {
                 this.$refs.email.validate();
                 this.$refs.captchaText.validate();
 
-                if (this.$refs.email.hasError || this.$refs.captchaText.hasError) {
+                if (this.$refs.email.hasError || this.$refs.captchaText.hasError)
                     return;
-                }
+
 
                 this.submitting = true;
-                this.$store.dispatch('request', {
-                    url: '/Account/ResetPasswordSendEmail',
-                    data: {
+                this.$request(this.$Api.Account.ResetPasswordSendEmail,
+                    {
                         Email: this.email,
                         CaptchaToken: this.token,
                         CaptchaText: this.captchaText
                     }
-                }).then(() => {
+                ).then(() => {
                     this.done = true;
                     this.submitting = false;
                 }).catch(error => {
@@ -105,17 +104,17 @@
                         this.token = response.data;
                         this.waitToken = false;
                     }).catch(error => {
-                    if (error.response.data.errors[0].code === 'SpamProtection') {
+                    if (error.response.data.code === 'SpamProtection') {
                         this.waitToken = true;
                     }
                 });
             }
         },
-        async created() {
+        created() {
             this.title = this.$tl('title');
             this.rules = createRules.call(this);
 
-            await this.GetToken();
+            this.GetToken();
         }
     }
 

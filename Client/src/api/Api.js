@@ -12,6 +12,7 @@ export default {
   Personal: {
     SetMyLink: '/Personal/SetMyLink',
     CheckLinkInDb: '/Personal/CheckLinkInDb',
+    CheckNameInDb: '/Personal/CheckNameInDb',
     SetMyName: '/Personal/SetMyName',
     SetMyProfileInformation: '/Personal/SetMyProfileInformation',
     GetMyProfileInformation: '/Personal/GetMyProfileInformation',
@@ -62,7 +63,8 @@ export default {
   Account: {
     ChangeEmail: '/Account/ChangeEmail',
     ChangePassword: '/Account/ChangePassword',
-    ResetPasswordSetNew: '/Account/ResetPasswordSetNew'
+    ResetPasswordSetNew: '/Account/ResetPasswordSetNew',
+    ResetPasswordSendEmail:  '/Account/ResetPasswordSendEmail'
   },
   Menu: {
     GetAllMenuItems: '/Menu/GetAllMenuItems',
@@ -76,5 +78,8 @@ export default {
   Pulse: {
     Version: '/Pulse/Version',
     PulseException: '/Pulse/PulseException'
+  },
+  Configuration: {
+    GetDynamicConfig: '/Configuration/GetDynamicConfig',
   }
 }

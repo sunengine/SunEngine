@@ -12,7 +12,7 @@ import {consoleTokens, consoleUserLogout, consoleRequestStart, consoleRequestUrl
 const lock = new Lock('request-lock');
 
 
-const apiAxios = axios.create({baseURL: config.API, withCredentials: process.env.DEV});
+const apiAxios = axios.create({baseURL: config.Global.SiteApi, withCredentials: process.env.DEV});
 
 
 apiAxios.interceptors.response.use(async rez => {
@@ -20,17 +20,23 @@ apiAxios.interceptors.response.use(async rez => {
 
   return rez;
 }, async rez => {
-  console.error(rez.response);
-
-  if (!rez.config.blockErrorsNotifications)
-    if (!rez.response.data || !rez.response.data.errors || rez.response.data.errors.some(x => x.type === 'System')) {
+  if (!rez.config.blockErrorsNotifications) {
+    if (!rez.response.data || rez.response.data.type === 'System') {
       app.$q.notify({
         message: app.$t('Global.apiError'),
         timeout: 1800,
         color: 'negative',
         position: 'bottom-right'
       });
+    } else {
+      app.$q.notify({
+        message: app.$t('Errors.' + rez.response.data),
+        timeout: 2200,
+        color: 'warning',
+        position: 'top-center'
+      });
     }
+  }
   await checkTokens(rez.response);
   throw rez;
 });
@@ -48,19 +54,23 @@ export default async function (url, body, sendAsJson = false, skipLock = false, 
     delete body.sendAsJson;
   }
 
-
   if (body?.blockErrorsNotifications) {
     blockErrorsNotifications = body.blockErrorsNotifications;
     delete body.blockErrorsNotifications;
   }
-
 
   if (body?.skipLock) {
     skipLock = body.skipLock;
     delete body.skipLock;
   }
 
-  if (config.Log.Requests)
+  if(body)
+    for (const [key, value] of Object.entries(body))
+      if (!value)
+        delete body[key];
+
+
+  if (config.Client.LogRequests)
     console.log(`%cRequest%c${url}`, consoleRequestStart, consoleRequestUrl, body);
 
   const headers = {};
@@ -153,13 +163,15 @@ async function checkTokens(rez) {
 
       store.commit('clearAllUserRelatedData');
       await store.dispatch('loadAllCategories', {skipLock: true});
-      await store.dispatch('loadAllMenuItems', {skipLock: true});
+      await store.dispatch('registerAllLayouts');
+      await store.dispatch('loadAllComponents', {skipLock: true});
       await store.dispatch('setAllRoutes');
-
-      routeCheckAccess(router.currentRoute);
-      router.push(router.currentRoute);
-      app.rerender();
-      return;
+      await store.dispatch('loadAllMenuItems', {skipLock: true});
+      if (routeCheckAccess(router.currentRoute)) {
+        router.push(router.currentRoute);
+        app.rerender();
+        return rez;
+      }
 
     } else {
 

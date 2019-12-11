@@ -1,0 +1,6 @@
+.partial-skin-gradient-button .post-btn {
+  background-image: linear-gradient(to right, red, green, blue);
+  color: white;
+}
+
+/*# sourceMappingURL=styles.css.map */

@@ -16,5 +16,6 @@ export default {
   UserBanned: "Пользователь забанен",
   MaterialNameNotValid: "Имя материала задано неверно",
   MaterialNameAlreadyUsed: "Имя материала уже есть в базе, выберите другое имя",
-  CanNotDeleteRolesItHasUsers: "Невозможно удалить роли в которых есть пользователи: {0}.\nСначала необходимо удалить пользователей из ролей."
+  CanNotDeleteRolesItHasUsers: "Невозможно удалить роли в которых есть пользователи: {0}.\nСначала необходимо удалить пользователей из ролей.",
+  PermissionsJsonUploadParseError: "Ошибка парсинга Json данных"
 }

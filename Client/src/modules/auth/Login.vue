@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="login flex flex-center">
 
     <div class="center-form">
