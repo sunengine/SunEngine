@@ -20,7 +20,7 @@
               <q-icon name="far fa-clock" class="q-mr-xs"/> {{ $formatDate(comment.publishDate) }}
           </span>
           <span>
-            <a class="link" :href=" $route.path + '#comment-' + comment.id">#</a>
+            <a class="link" @click="linkToClipboard" :href="$route.path + '#comment-' + comment.id">#</a>
           </span>
         </div>
       </div>
@@ -35,6 +35,7 @@
 
 <script>
     import {prepareLocalLinks} from 'sun';
+    import {copyToClipboard} from 'quasar'
 
 
     export default {
@@ -52,6 +53,12 @@
             goEdit: Function
         },
         methods: {
+            linkToClipboard(e) {
+                this.$nextTick(() =>
+                    copyToClipboard(window.location.href)
+                        .then(() => this.$successNotify(this.$tl("linkCopied"))
+                        ));
+            },
             prepareLocalLinks() {
                 prepareLocalLinks.call(this, this.$el, 'comment__text');
             },

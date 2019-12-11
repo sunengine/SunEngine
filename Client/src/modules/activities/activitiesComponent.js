@@ -14,7 +14,8 @@ export default {
 
   getClientTemplate() {
     return {
-      Title: "Activities"
+      Title: "Activities",
+      SubTitle: null,
     }
   },
 

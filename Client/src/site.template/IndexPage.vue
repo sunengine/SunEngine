@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <q-page class="index-page middle flex flex-center">
     <div>
       <h1 class="index-page__header index-page__demo-header">
