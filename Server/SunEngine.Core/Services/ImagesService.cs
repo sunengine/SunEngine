@@ -24,7 +24,7 @@ namespace SunEngine.Core.Services
         protected static readonly object lockObject = new object();
 
         protected readonly IImagesNamesService imagesNamesService;
-        protected readonly ImagesOptions imagesOptions;
+        protected readonly IOptionsMonitor<ImagesOptions> imagesOptions;
         protected readonly string UploadImagesDir;
 
 
@@ -33,7 +33,7 @@ namespace SunEngine.Core.Services
             IPathService pathService,
             IImagesNamesService imagesNamesService)
         {
-            this.imagesOptions = imagesOptions.CurrentValue;
+            this.imagesOptions = imagesOptions;
             this.imagesNamesService = imagesNamesService;
             UploadImagesDir = pathService.GetPath(PathNames.UploadImagesDirName);
         }
@@ -53,8 +53,8 @@ namespace SunEngine.Core.Services
                     throw new Exception("Not allowed image format");
 
                 var imageInfo = Image.Identify(stream);
-                if (imageInfo.Width > imagesOptions.MaxImageWidth ||
-                    imageInfo.Height > imagesOptions.MaxImageHeight)
+                if (imageInfo.Width > imagesOptions.CurrentValue.MaxImageWidth ||
+                    imageInfo.Height > imagesOptions.CurrentValue.MaxImageHeight)
                     throw new Exception("Very big image");
             }
 
@@ -113,10 +113,10 @@ namespace SunEngine.Core.Services
             ext = ext == ".jpeg" ? ".jpg" : ext;
 
             var allowedExtensions = new List<string> {".jpg", ".png"};
-            if (imagesOptions.AllowGifUpload)
+            if (imagesOptions.CurrentValue.AllowGifUpload)
                 allowedExtensions.Add(".gif");
 
-            if (imagesOptions.AllowSvgUpload)
+            if (imagesOptions.CurrentValue.AllowSvgUpload)
                 allowedExtensions.Add(".svg");
 
             return allowedExtensions.FirstOrDefault(x => x == ext);
@@ -125,7 +125,7 @@ namespace SunEngine.Core.Services
         private bool IsAllowedImageFormat(string imageFormat)
         {
             var allowedFormats = new List<string> {"JPEG", "PNG"};
-            if (imagesOptions.AllowGifUpload)
+            if (imagesOptions.CurrentValue.AllowGifUpload)
                 allowedFormats.Add("GIF");
 
             return allowedFormats.Contains(imageFormat);
