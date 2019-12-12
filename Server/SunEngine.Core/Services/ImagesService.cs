@@ -49,12 +49,12 @@ namespace SunEngine.Core.Services
             else
             {
                 await using var stream = file.OpenReadStream();
-                if(!IsAllowedImageFormat(Image.DetectFormat(stream).Name))
+                if (!IsAllowedImageFormat(Image.DetectFormat(stream).Name))
                     throw new Exception("Not allowed image format");
 
                 var imageInfo = Image.Identify(stream);
-                if(imageInfo.Width > imagesOptions.MaxImageWidth ||
-                   imageInfo.Height > imagesOptions.MaxImageHeight)
+                if (imageInfo.Width > imagesOptions.MaxImageWidth ||
+                    imageInfo.Height > imagesOptions.MaxImageHeight)
                     throw new Exception("Very big image");
             }
 
@@ -76,9 +76,9 @@ namespace SunEngine.Core.Services
                 await using var stream = file.OpenReadStream();
                 using var image = Image.Load(stream);
                 var (width, height) = image.Size();
-                if(width > resizeOptions.Size.Width || height > resizeOptions.Size.Height)
+                if (width > resizeOptions.Size.Width || height > resizeOptions.Size.Height)
                     image.Mutate(x => x.Resize(resizeOptions));
-                    
+
                 image.Save(fullFileName);
             }
 
@@ -88,7 +88,7 @@ namespace SunEngine.Core.Services
         public virtual FileAndDir SaveBitmapImage(Stream stream, ResizeOptions resizeOptions, string ext)
         {
             using var image = Image.Load(stream);
-            
+
             var fileAndDir = imagesNamesService.GetNewImageNameAndDir(ext);
             var dirFullPath = Path.Combine(UploadImagesDir, fileAndDir.Dir);
 
@@ -99,24 +99,24 @@ namespace SunEngine.Core.Services
             var fullFileName = Path.Combine(dirFullPath, fileAndDir.File);
 
             var (width, height) = image.Size();
-            if(width > resizeOptions.Size.Width || height > resizeOptions.Size.Height)
+            if (width > resizeOptions.Size.Width || height > resizeOptions.Size.Height)
                 image.Mutate(x => x.Resize(resizeOptions));
 
             image.Save(fullFileName);
 
             return fileAndDir;
         }
-        
+
         private string GetAllowedExtension(string fileName)
         {
             var ext = Path.GetExtension(fileName).ToLower();
             ext = ext == ".jpeg" ? ".jpg" : ext;
-            
-            var allowedExtensions = new List<string> { ".jpg", ".png" };
-            if(imagesOptions.AllowGifUpload)
+
+            var allowedExtensions = new List<string> {".jpg", ".png"};
+            if (imagesOptions.AllowGifUpload)
                 allowedExtensions.Add(".gif");
-            
-            if(imagesOptions.AllowSvgUpload)
+
+            if (imagesOptions.AllowSvgUpload)
                 allowedExtensions.Add(".svg");
 
             return allowedExtensions.FirstOrDefault(x => x == ext);
@@ -124,8 +124,8 @@ namespace SunEngine.Core.Services
 
         private bool IsAllowedImageFormat(string imageFormat)
         {
-            var allowedFormats = new List<string> { "JPEG", "PNG" };
-            if(imagesOptions.AllowGifUpload)
+            var allowedFormats = new List<string> {"JPEG", "PNG"};
+            if (imagesOptions.AllowGifUpload)
                 allowedFormats.Add("GIF");
 
             return allowedFormats.Contains(imageFormat);

@@ -21,7 +21,7 @@ namespace SunEngine.Core.Controllers
     {
         private readonly JweService jweService;
         private readonly DataBaseConnection db;
-        private readonly  IOptionsMonitor<GlobalOptions> globalOptions;
+        private readonly IOptionsMonitor<GlobalOptions> globalOptions;
         private readonly IAuthManager authManager;
 
 
@@ -92,7 +92,8 @@ namespace SunEngine.Core.Controllers
                         await userManager.AddToRoleAsync(user, RoleNames.Registered);
 
                         transaction.Complete();
-                        return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl, "Auth/RegisterEmailResult?result=ok")
+                        return Redirect(Flurl.Url
+                            .Combine(globalOptions.CurrentValue.SiteUrl, "Auth/RegisterEmailResult?result=ok")
                             .ToLower());
                     }
                 }

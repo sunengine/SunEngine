@@ -13,7 +13,7 @@ namespace SunEngine.Admin.Controllers
         protected readonly IComponentsAdminPresenter componentsAdminPresenter;
         protected readonly IComponentsAdminManager componentsAdminManager;
         protected readonly IComponentsCache componentsCache;
-        
+
         public ComponentsAdminController(
             IComponentsAdminPresenter componentsAdminPresenter,
             IComponentsAdminManager componentsAdminManager,
@@ -24,46 +24,46 @@ namespace SunEngine.Admin.Controllers
             this.componentsAdminManager = componentsAdminManager;
             this.componentsCache = componentsCache;
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> GetAllComponents()
         {
             var rez = await componentsAdminPresenter.GetComponentsAsync();
             return Ok(rez);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> GetComponent(string name)
         {
             var component = await componentsAdminPresenter.GetComponentAsync(name);
             return Ok(component);
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> AddComponent([FromBody]Component component)
+        public async Task<IActionResult> AddComponent([FromBody] Component component)
         {
             await componentsAdminManager.CreateComponentAsync(component);
-            
+
             componentsCache.Initialize();
 
             return Ok();
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> UpdateComponent([FromBody]Component component)
+        public async Task<IActionResult> UpdateComponent([FromBody] Component component)
         {
             await componentsAdminManager.UpdateComponentAsync(component);
-            
+
             componentsCache.Initialize();
 
             return Ok();
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> DeleteComponent(int componentId)
         {
             await componentsAdminManager.DeleteComponentAsync(componentId);
-            
+
             componentsCache.Initialize();
 
             return Ok();

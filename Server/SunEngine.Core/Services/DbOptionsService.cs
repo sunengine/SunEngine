@@ -10,6 +10,6 @@ namespace SunEngine.Core.Services
 
         public DbOptionsService(DataBaseConnection db) => this.db = db;
 
-        public CacheSettings GetCacheSettings() => db.CacheSettings.OrderBy(x => x.Id).FirstOrDefault();   
+        public CacheSettings GetCacheSettings() => db.CacheSettings.OrderBy(x => x.Id).FirstOrDefault();
     }
 }

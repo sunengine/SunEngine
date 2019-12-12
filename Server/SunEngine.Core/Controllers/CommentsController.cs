@@ -49,7 +49,7 @@ namespace SunEngine.Core.Controllers
             if (!commentsAuthorization.HasAccessForGetComments(User.Roles, categoryId.Value))
                 return Unauthorized();
 
-            if(showDeleted && !commentsAuthorization.CanSeeDeletedComments(User.Roles,categoryId.Value))
+            if (showDeleted && !commentsAuthorization.CanSeeDeletedComments(User.Roles, categoryId.Value))
                 return Unauthorized();
 
             var comments = await commentsPresenter.GetMaterialCommentsAsync(materialId, showDeleted);

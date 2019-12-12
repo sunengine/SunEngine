@@ -14,7 +14,7 @@ namespace SunEngine.Admin.Controllers
     {
         private CacheSettingsManager cacheSettingsManager;
         private CacheSettingsPresentor cacheSettingsPresentor;
-        
+
         public AdminCacheSettingsController(CacheSettingsManager cacheSettingsManager,
             CacheSettingsPresentor cacheSettingsPresentor, IServiceProvider serviceProvider)
             : base(serviceProvider)

@@ -16,8 +16,8 @@ namespace SunEngine.Core.Utils.PagedList
             int pageSize = 20) where TEntity : class
         {
             IQueryable<TEntity> query1 = query;
-            
-            
+
+
             if (predicate != null)
             {
                 query1 = query1.Where(predicate);
@@ -30,8 +30,8 @@ namespace SunEngine.Core.Utils.PagedList
 
             return query1.Select(selector).ToPagedListAsync(pageIndex, pageSize, 1);
         }
-        
-        public static Task<IPagedList<TResult>> GetPagedListMaxAsync<TResult, TEntity>(this IQueryable<TEntity> query, 
+
+        public static Task<IPagedList<TResult>> GetPagedListMaxAsync<TResult, TEntity>(this IQueryable<TEntity> query,
             Expression<Func<TEntity, TResult>> selector,
             Expression<Func<TEntity, bool>> predicate = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
@@ -57,17 +57,19 @@ namespace SunEngine.Core.Utils.PagedList
             {
                 query1 = query1.Take(maxPages * pageSize);
             }
-            
-            
+
+
             return query1.Select(selector).ToPagedListAsync(pageIndex, pageSize, 1);
         }
-        
-        
-        public static async Task<IPagedList<T>> ToPagedListAsync<T>(this IQueryable<T> source, int pageIndex, int pageSize, int indexFrom = 0)
+
+
+        public static async Task<IPagedList<T>> ToPagedListAsync<T>(this IQueryable<T> source, int pageIndex,
+            int pageSize, int indexFrom = 0)
         {
             if (indexFrom > pageIndex)
             {
-                throw new ArgumentException($"indexFrom: {indexFrom} > pageIndex: {pageIndex}, must indexFrom <= pageIndex");
+                throw new ArgumentException(
+                    $"indexFrom: {indexFrom} > pageIndex: {pageIndex}, must indexFrom <= pageIndex");
             }
 
             var count = await source.CountAsync();
@@ -81,13 +83,13 @@ namespace SunEngine.Core.Utils.PagedList
                 IndexFrom = indexFrom,
                 TotalCount = count,
                 Items = items,
-                TotalPages = (int)Math.Ceiling(count / (double)pageSize)
+                TotalPages = (int) Math.Ceiling(count / (double) pageSize)
             };
 
             return pagedList;
         }
     }
-    
+
     /*public static class TableExtensions
     {
         public static Task<IPagedList<TResult>> GetPagedListAsync<TResult, TEntity>(this ITable<TEntity> table, Expression<Func<TEntity, TResult>> selector,

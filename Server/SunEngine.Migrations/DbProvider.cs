@@ -11,6 +11,7 @@ namespace SunEngine.Migrations
         MySql,
         MsSql
     }
+
     public static class DbProvider
     {
         public static string Name { get; private set; }
@@ -24,13 +25,13 @@ namespace SunEngine.Migrations
             Name = name;
 
             var nameLower = Name.ToLower();
-            
+
             if (nameLower.StartsWith("postgres"))
                 ProviderType = DbProviderType.Postgres;
-            
+
             else if (nameLower.StartsWith("mysql"))
                 ProviderType = DbProviderType.MySql;
-            
+
             else if (nameLower.StartsWith("sqlserver"))
                 ProviderType = DbProviderType.MsSql;
         }

@@ -20,33 +20,33 @@ namespace SunEngine.Core.Presenters
     {
         UserInfoView[] SearchRequser(string searchString);
     }
-    
+
     public class SearchPresenter : DbService, ISearchPresenter
     {
         public SearchPresenter(DataBaseConnection db) : base(db)
         {
         }
 
-        public Task<UserInfoView[]>  SearchByUsernameOrLink(string searchString)
+        public Task<UserInfoView[]> SearchByUsernameOrLink(string searchString)
         {
-            return db.Users.Where(x => x.UserName.Contains(searchString,StringComparison.OrdinalIgnoreCase)||
-                                       x.Link.Contains(searchString,StringComparison.OrdinalIgnoreCase))
+            return db.Users.Where(x => x.UserName.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                                       x.Link.Contains(searchString, StringComparison.OrdinalIgnoreCase))
                 .Select(x => new UserInfoView
-            {
-                Avatar = x.Avatar,
-                Id = x.Id,
-                Link = x.Link,
-                Name = x.UserName
-            }).ToArrayAsync();
+                {
+                    Avatar = x.Avatar,
+                    Id = x.Id,
+                    Link = x.Link,
+                    Name = x.UserName
+                }).ToArrayAsync();
         }
 
         public Task<MaterialSearchInfoView[]> SearchByMaterials(string searchString)
         {
             switch (db.SqlProviderName)
             {
-                case SqlProviderType.MySql :
+                case SqlProviderType.MySql:
                     return searchMaterialsMySql(searchString);
-                case SqlProviderType.PostgreSql | SqlProviderType.Other :
+                case SqlProviderType.PostgreSql | SqlProviderType.Other:
                     return searchMaterialsDefault(searchString);
                 default:
                     throw new SunDataBaseException("Database definition error");
@@ -85,7 +85,7 @@ namespace SunEngine.Core.Presenters
         public string Title { get; set; }
         public string Text { get; set; }
     }
-    
+
     public class UserInfoView
     {
         public int Id { get; set; }

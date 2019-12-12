@@ -11,10 +11,10 @@ namespace SunEngine.Admin
         {
             services.AddScoped<CacheSettingsManager>();
             services.AddScoped<CategoriesAdminManager>();
-            services.AddScoped<IConfigurationManager,ConfigurationManager>();
+            services.AddScoped<IConfigurationManager, ConfigurationManager>();
             services.AddScoped<IMenuAdminManager, MenuAdminManager>();
             services.AddScoped<IComponentsAdminManager, ComponentsAdminManager>();
-            
+
             services.AddScoped<IUserRolesAdminPresenter, UserRolesAdminPresenter>();
             services.AddScoped<ICategoriesAdminPresenter, CategoriesAdminPresenter>();
             services.AddScoped<CacheSettingsPresentor>();

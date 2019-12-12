@@ -21,7 +21,7 @@ namespace SunEngine.Core.Controllers
         }
 
         [AllowAnonymous]
-        [IpSpamProtectionFilter(TimeoutSeconds=20)]
+        [IpSpamProtectionFilter(TimeoutSeconds = 20)]
         public virtual IActionResult GetCaptchaKey()
         {
             var token = captchaService.MakeCryptedCaptchaToken();

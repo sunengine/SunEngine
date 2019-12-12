@@ -13,7 +13,7 @@ namespace SunEngine.Core.DataBase
     public class DataBaseFactory : IDataBaseFactory
     {
         public static DataBaseFactory DefaultDataBaseFactory;
-        
+
         private readonly string connectionString;
         private readonly IDataProvider dataProvider;
         private readonly DbMappingSchema mappingSchema;

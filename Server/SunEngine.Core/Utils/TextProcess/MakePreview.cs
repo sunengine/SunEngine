@@ -28,7 +28,7 @@ namespace SunEngine.Core.Utils.TextProcess
 
         public static string PlainText(IHtmlDocument doc, int previewLength)
         {
-            if(doc.Body.InnerText.Length < previewLength)
+            if (doc.Body.InnerText.Length < previewLength)
                 return doc.Body.InnerText;
 
             return doc.Body.InnerText.Substring(0, previewLength) + "...";
@@ -43,13 +43,13 @@ namespace SunEngine.Core.Utils.TextProcess
 
             foreach (var element in doc.QuerySelectorAll("iframe").Reverse().ToArray())
                 element.Remove();
-            
+
             foreach (var htmlImageElement in doc.Images.Reverse().ToArray())
                 htmlImageElement.Remove();
-            
+
             return doc.Body.InnerHtml;
         }
-        
+
         public static string None(IHtmlDocument doc, int previewLength)
         {
             return null;
@@ -91,7 +91,7 @@ namespace SunEngine.Core.Utils.TextProcess
             {
                 if (imgEl.Source.ToLower().Contains("emoticons")) // TODO определение смайликов
                     continue;
-                
+
                 return imgEl;
             }
 

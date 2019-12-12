@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SunEngine.Core.Utils
 {
-    public  static class EmailValidator
+    public static class EmailValidator
     {
         public static bool IsValid(string email)
         {

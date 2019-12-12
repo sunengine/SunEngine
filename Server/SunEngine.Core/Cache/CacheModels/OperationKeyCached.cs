@@ -7,9 +7,9 @@ namespace SunEngine.Core.Cache.CacheModels
     /// </summary>
     public class OperationKeyCached
     {
-        public int OperationKeyId { get;  }
-        public string Name { get;  }
-        
+        public int OperationKeyId { get; }
+        public string Name { get; }
+
         public OperationKeyCached(OperationKey operationKey)
         {
             OperationKeyId = operationKey.OperationKeyId;

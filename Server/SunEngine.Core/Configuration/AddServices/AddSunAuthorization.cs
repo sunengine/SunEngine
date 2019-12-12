@@ -9,12 +9,12 @@ namespace SunEngine.Core.Configuration.AddServices
         {
             services.AddSingleton<OperationKeysContainer>();
             services.AddSingleton<IAuthorizationService, AuthorizationService>();
-        
+
             services.AddScoped<MaterialsAuthorization>();
             services.AddScoped<CommentsAuthorization>();
-        
+
             services.AddScoped<JweService>();
-            
+
             services.AddSingleton<JweBlackListService>();
 
             return services;

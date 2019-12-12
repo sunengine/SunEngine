@@ -11,7 +11,7 @@ namespace SunEngine.Core.Presenters
         public bool ShowHidden;
         public bool ShowDeleted;
     }
-    
+
     public class MaterialsMultiCatShowOptions
     {
         public IEnumerable<int> CategoriesIds;

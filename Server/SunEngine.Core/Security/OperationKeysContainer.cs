@@ -48,7 +48,7 @@ namespace SunEngine.Core.Security
 
 
         // For Moderator +
-        
+
         [IsSuper] public int MaterialEditSettingsJson { get; private set; }
         [IsSuper] public int MaterialEditAny { get; private set; }
         [IsSuper] public int MaterialDeleteAny { get; private set; }

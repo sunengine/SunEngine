@@ -11,8 +11,8 @@ namespace SunEngine.Core.Controllers
     public class MenuController : BaseController
     {
         protected readonly IMenuCache menuCache;
-        
-        
+
+
         public MenuController(
             IMenuCache menuCache,
             IServiceProvider serviceProvider) : base(serviceProvider)

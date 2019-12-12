@@ -2,7 +2,7 @@
 
 Site engine that supports forums, articles and blogs.
 
-<img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/Client/src/statics/SunEngine.svg" width="250" alt="SunEngine Logo" />
+<img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
 Version: 2.0.0-beta.18
 

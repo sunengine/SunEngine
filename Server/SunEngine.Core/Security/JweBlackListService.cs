@@ -21,7 +21,7 @@ namespace SunEngine.Core.Security
         private ConcurrentDictionary<string, DateTime> tokens;
 
         public JweBlackListService(
-            IDataBaseFactory dataBaseFactory, 
+            IDataBaseFactory dataBaseFactory,
             IOptionsMonitor<JweOptions> jweOptions)
         {
             this.dataBaseFactory = dataBaseFactory;
@@ -56,11 +56,12 @@ namespace SunEngine.Core.Security
             foreach (var session in sessions)
                 await AddBlackListShortTokenAsync(session.LongToken2, exp);
         }
-        
+
         public async Task AddUserTokensToBlackListAsync(int userId, long[] sessions00)
         {
             using var db = dataBaseFactory.CreateDb();
-            var longSessions = await db.LongSessions.Where(x => x.UserId == userId && sessions00.Contains(x.Id)).ToListAsync();
+            var longSessions = await db.LongSessions.Where(x => x.UserId == userId && sessions00.Contains(x.Id))
+                .ToListAsync();
             DateTime exp = DateTime.UtcNow.AddMinutes(jweOptions.CurrentValue.ShortTokenLiveTimeMinutes + 5);
 
             foreach (var session in longSessions)
@@ -84,7 +85,7 @@ namespace SunEngine.Core.Security
             using var db = dataBaseFactory.CreateDb();
             var tokensDic = db.BlackListShortTokens.ToDictionary(x => x.TokenId, x => x.Expire);
             tokens = new ConcurrentDictionary<string, DateTime>();
-                
+
             foreach (var (key, value) in tokensDic)
                 tokens.TryAdd(key, value);
         }
@@ -93,7 +94,7 @@ namespace SunEngine.Core.Security
         {
             if (tokens == null)
                 return;
-            
+
             DateTime now = DateTime.UtcNow;
             int deletedNumber = 0;
             foreach (var (key, value) in tokens.ToArray())

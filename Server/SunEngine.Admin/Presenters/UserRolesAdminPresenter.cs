@@ -19,15 +19,15 @@ namespace SunEngine.Admin.Presenters
     public class UserRolesAdminPresenter : DbService, IUserRolesAdminPresenter
     {
         private const int MaxUsersTake = 40;
-        
-        
+
+
         public UserRolesAdminPresenter(DataBaseConnection db) : base(db)
         {
         }
 
         public Task<RoleView[]> GetAllRolesAsync()
         {
-            return db.Roles.Where(x=>x.NormalizedName !=  RoleNames.UnregisteredNormalized).Select(x => new RoleView
+            return db.Roles.Where(x => x.NormalizedName != RoleNames.UnregisteredNormalized).Select(x => new RoleView
             {
                 Name = x.Name,
                 Title = x.Title,

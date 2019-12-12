@@ -11,7 +11,6 @@ namespace SunEngine.Core.Configuration.Options
         public string AllowedVideoDomains { get; set; }
         public string AllowedImageDomains { get; set; }
 
-        
 
         protected string[] _allowedTags;
         protected string[] _allowedAttributes;
@@ -26,52 +25,57 @@ namespace SunEngine.Core.Configuration.Options
             get
             {
                 if (_allowedTags == null)
-                    _allowedTags = AllowedTags.Split(",").Select(x=>x.Trim()).ToArray();
+                    _allowedTags = AllowedTags.Split(",").Select(x => x.Trim()).ToArray();
                 return _allowedTags;
             }
         }
 
-        public string[] AllowedAttributesArr    {
+        public string[] AllowedAttributesArr
+        {
             get
             {
                 if (_allowedAttributes == null)
-                    _allowedAttributes = AllowedAttributes.Split(",").Select(x=>x.Trim()).ToArray();
+                    _allowedAttributes = AllowedAttributes.Split(",").Select(x => x.Trim()).ToArray();
                 return _allowedAttributes;
             }
         }
-        
-        public string[] AllowedClassesArr    {
+
+        public string[] AllowedClassesArr
+        {
             get
             {
                 if (_allowedClasses == null)
-                    _allowedClasses = AllowedClasses.Split(",").Select(x=>x.Trim()).ToArray();
+                    _allowedClasses = AllowedClasses.Split(",").Select(x => x.Trim()).ToArray();
                 return _allowedClasses;
             }
         }
-        
-        public string[] AllowedCssPropertiesArr   {
+
+        public string[] AllowedCssPropertiesArr
+        {
             get
             {
                 if (_allowedCssProperties == null)
-                    _allowedCssProperties = AllowedCssProperties.Split(",").Select(x=>x.Trim()).ToArray();
+                    _allowedCssProperties = AllowedCssProperties.Split(",").Select(x => x.Trim()).ToArray();
                 return _allowedCssProperties;
             }
         }
-        
-        public string[] AllowedVideoDomainsArr    {
+
+        public string[] AllowedVideoDomainsArr
+        {
             get
             {
                 if (_allowedVideoDomains == null)
-                    _allowedVideoDomains = AllowedVideoDomains.Split(",").Select(x=>x.Trim()).ToArray();
+                    _allowedVideoDomains = AllowedVideoDomains.Split(",").Select(x => x.Trim()).ToArray();
                 return _allowedVideoDomains;
             }
         }
 
-        public string[] AllowedImageDomainsArr    {
+        public string[] AllowedImageDomainsArr
+        {
             get
             {
                 if (_allowedImageDomains == null)
-                    _allowedImageDomains = AllowedImageDomains.Split(",").Select(x=>x.Trim()).ToArray();
+                    _allowedImageDomains = AllowedImageDomains.Split(",").Select(x => x.Trim()).ToArray();
                 return _allowedImageDomains;
             }
         }

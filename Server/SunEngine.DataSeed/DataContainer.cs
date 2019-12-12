@@ -14,7 +14,7 @@ namespace SunEngine.DataSeed
     {
         public int currentCommentId = 1;
         public int currentMaterialId = 1;
-        
+
         private int currentUserId = 1;
         private int currentSectionTypeId = 1;
         private int currentCategoryId = 2;
@@ -27,7 +27,7 @@ namespace SunEngine.DataSeed
 
         public Category RootCategory;
         public MenuItem RootMenuItem;
-        
+
         public List<Category> Categories = new List<Category>();
         public List<Component> Components = new List<Component>();
         public List<Comment> Comments = new List<Comment>();
@@ -35,7 +35,7 @@ namespace SunEngine.DataSeed
         public List<User> Users = new List<User>();
         public List<Role> Roles = new List<Role>();
         public List<UserRole> UserRoles = new List<UserRole>();
-        public List<CategoryAccess> CategoryAccesses = new List<CategoryAccess>(); 
+        public List<CategoryAccess> CategoryAccesses = new List<CategoryAccess>();
         public List<CategoryOperationAccess> CategoryOperationAccesses = new List<CategoryOperationAccess>();
         public List<OperationKey> OperationKeys = new List<OperationKey>();
         public List<MenuItem> MenuItems = new List<MenuItem>();
@@ -44,7 +44,7 @@ namespace SunEngine.DataSeed
         public CacheSettings CacheSettings = null;
 
         public Random ran = new Random();
-        
+
         public int NextSectionTypeId() => currentSectionTypeId++;
 
         public int NextCategoryId() => currentCategoryId++;
@@ -56,13 +56,13 @@ namespace SunEngine.DataSeed
         public int NextUserId() => currentUserId++;
 
         public int NextCommentId() => currentCommentId++;
-            
+
         public int NextMaterialId() => currentMaterialId++;
-        
+
         public int NextCategoryAccessId() => currentCategoryAccessId++;
 
         public int NextUserGroupId() => currentUserGroupId++;
-        
+
         public int NextOperationKeyId() => operationKeyId++;
 
         public int NextMenuItemId() => menuItemId++;

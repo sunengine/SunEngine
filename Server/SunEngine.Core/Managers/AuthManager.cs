@@ -100,7 +100,7 @@ namespace SunEngine.Core.Managers
                     user = await userManager.FindByEmailAsync(model.Email);
                     if (user.EmailConfirmed)
                         throw new SunErrorException(new Error(error.Code, error.Description, ErrorType.System));
-                    
+
                     user.UserName = model.UserName;
                     user.PasswordHash = userManager.PasswordHasher.HashPassword(user, model.Password);
 

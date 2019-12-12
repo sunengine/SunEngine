@@ -16,8 +16,8 @@ namespace SunEngine.Admin.Managers
     {
         private IOptionsMonitor<CacheOptions> cacheOptions;
         private IContentCache contentCache;
-        
-        public CacheSettingsManager(IOptionsMonitor<CacheOptions> cacheOptions, 
+
+        public CacheSettingsManager(IOptionsMonitor<CacheOptions> cacheOptions,
             IContentCache contentCache, DataBaseConnection db) : base(db)
         {
             this.cacheOptions = cacheOptions;
@@ -26,22 +26,22 @@ namespace SunEngine.Admin.Managers
 
         public async Task UpdateCachePolicy(CacheSettings cacheSettings)
         {
-            if(!Enum.IsDefined(typeof(CachePolicy), cacheSettings.CachePolicy))
+            if (!Enum.IsDefined(typeof(CachePolicy), cacheSettings.CachePolicy))
                 throw new ArgumentOutOfRangeException(nameof(cacheSettings.CachePolicy), "Unknown cache policy type");
 
-            if (cacheSettings.CachePolicy == CachePolicy.NeverPolicy) 
+            if (cacheSettings.CachePolicy == CachePolicy.NeverPolicy)
                 cacheSettings.InvalidateCacheTime = null;
-            
+
             cacheOptions.CurrentValue.UpdateOptions(cacheSettings);
-            
+
             var currentSettings = await db.CacheSettings.OrderBy(x => x.Id).FirstOrDefaultAsync();
             if (currentSettings == null)
                 throw new NotFoundDataException("Can`t find cache settings");
-            
+
             currentSettings.CachePolicy = cacheSettings.CachePolicy;
             currentSettings.InvalidateCacheTime = cacheSettings.InvalidateCacheTime;
             await db.UpdateAsync(currentSettings);
-            
+
             contentCache.Reset();
         }
     }
