@@ -1,3 +1,6 @@
+
+# Variables to build script
+
 PROJECT_NAME="SunEngine"
 PROJECT_ROOT="auto"
 SERVER_PATH="${PROJECT_ROOT}/Server"
@@ -7,6 +10,7 @@ BUILD_PATH="${PROJECT_ROOT}/build"
 NPM_UTIL="yarn"
 
 #Font
+
 RED='\e[0;31m'
 GREEN='\e[0;32m'
 BLUE='\e[0;34m'

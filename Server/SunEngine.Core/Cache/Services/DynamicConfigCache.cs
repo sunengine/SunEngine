@@ -46,6 +46,7 @@ namespace SunEngine.Core.Cache.Services
         ["Editor:CommentToolbar"] = typeof(string),
         ["Editor:UserInformationToolbar"] = typeof(string),
 
+        ["Images:ImageRequestSizeLimitBytes"] = typeof(int)
       };
 
 

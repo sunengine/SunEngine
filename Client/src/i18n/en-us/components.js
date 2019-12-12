@@ -10,6 +10,6 @@ export default {
     start: "Made on "
   },
   SunEditor: {
-    uploadImages: "Upload images"
+    uploadImages: "Upload images",
   }
 }

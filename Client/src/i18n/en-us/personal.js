@@ -39,13 +39,17 @@ export default {
   },
   LoadPhoto: {
     title: "Change user`s avatar",
+    maxPhotoSize: "Max photo size:",
+    fileSizeLimit: "File size is too big",
     resetBtn: "Reset user`s avatar",
     uploadNewPhotoBtn: "Upload avatar",
     avatarDeletedSuccessNotify: "Avatar was deleted",
     avatarChangedSuccessNotify: "Avatar was changed"
   },
   MyBanList: {
-    title: "Banned users"
+    title: "Banned users",
+    subTitle: "This users can not send you private messages",
+    voidResult: "No users found in black list"
   },
   Sessions: {
     title: "Authorization sessions",
@@ -64,7 +68,7 @@ export default {
     changeYourInformation: "Change information about you",
     changePhoto: "Change avatar",
     sessions: "Authorization sessions",
-    banedUsersList: "Banned users"
+    banedUsersList: "Black list users"
   },
   SettingsPage: {
     title: "Account"

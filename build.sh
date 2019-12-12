@@ -2,13 +2,13 @@
 
 #   ***************************************
 #   *                                     *
-#   *  BuildProject Script for SunEngine  *
-#   *         Script version: 4           *
+#   *     Build Script for SunEngine      *
+#   *        Script version: 1.4          *
 #   *                                     *
 #   ***************************************
 
 
-#Include global variables
+#Include variables
 source SUNENGINE
 
 
@@ -54,7 +54,7 @@ echo -e "\n${GREEN}Deleting old build ${NC}"
 rm -r "$BUILD_PATH"
 mkdir "$BUILD_PATH"
 
-
+# dotnet build
 if [ dotnet > /dev/null ]; then
 {
     echo -e "\n${GREEN}Building server ${NC}\n"
@@ -82,16 +82,18 @@ fi
 
 #check on available quasar
 if [ ! quasar > /dev/null ]; then
-    echo -e "\n${RED} Quasar not install please install by command\n${BLUE} npm install -g @quasar/cli "
+    echo -e "\n${RED} Quasar not install please install by command\n${BLUE} npm install -g @quasar/cli ${NC}"
     exit 1
 fi
 
 echo -e "\n${GREEN}Building Quasar ${NC}\n"
 
+# quasar build
 if  ! quasar build; then
     exit 1
 fi
 
+# copy dirs and files
 
 echo  -e "\n${GREEN}Copying Client to wwwroot directory ${NC}"
 cp -r "$CLIENT_PATH/dist/spa/." "$BUILD_PATH/wwwroot"
