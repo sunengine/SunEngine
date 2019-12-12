@@ -21,7 +21,7 @@ namespace SunEngine.Core.Controllers
         }
 
         [AllowAnonymous]
-        [IpSpamProtectionFilter(TimeoutSeconds=20)]
+        [IpSpamProtectionFilter(TimeoutSeconds=5, AllowedRequestCount=4, RestrictSeconds=60)]
         public virtual IActionResult GetCaptchaKey()
         {
             var token = captchaService.MakeCryptedCaptchaToken();
@@ -30,6 +30,7 @@ namespace SunEngine.Core.Controllers
 
         [AllowAnonymous]
         [Produces("image/jpeg")]
+        [IpSpamProtectionFilter(TimeoutSeconds=5, AllowedRequestCount=4, RestrictSeconds=60)]
         public virtual FileStreamResult CaptchaImage(string token)
         {
             var text = captchaService.GetTextFromToken(token);
