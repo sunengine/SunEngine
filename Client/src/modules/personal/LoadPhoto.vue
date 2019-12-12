@@ -5,7 +5,7 @@
     </h2>
 
     <img class="load-photo__photo q-mb-xs" v-if="photo" width="300" :src="photo"/>
-    <q-banner dense rounded class="bg-grey-1">
+    <q-banner dense rounded class="bg-grey-1 text-grey-9">
       {{$tl("maxPhotoSize")}} {{photoSize}} {{$t("Global.units.megabytes")}}
     </q-banner>
     <br/>
