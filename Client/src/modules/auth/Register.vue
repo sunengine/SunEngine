@@ -168,6 +168,10 @@
                 }).catch(error => {
                     this.$errorNotify(error);
                     this.submitting = false;
+                    
+                    if(error?.response?.data?.code === 'CaptchaValidationError') {
+                      this.GetToken();
+                    }
                 });
             },
             async GetToken() {

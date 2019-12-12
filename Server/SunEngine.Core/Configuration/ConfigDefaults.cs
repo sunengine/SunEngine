@@ -26,7 +26,8 @@ namespace SunEngine.Core.Configuration
       "Images",
       "Jwe",
       "FileLoading",
-      "Skins"
+      "Skins",
+      "Captcha"
     };
 
     public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>()
@@ -104,6 +105,8 @@ namespace SunEngine.Core.Configuration
 
       ["Skins:CurrentSkinName"] = "Default",
       ["Skins:PartialSkinsNames"] = "Test1",
+      
+      ["Captcha:CaptchaTimeoutSeconds"] = 180
     };
   }
 

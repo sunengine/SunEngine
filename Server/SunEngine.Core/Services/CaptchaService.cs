@@ -7,6 +7,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
+using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Utils;
 using Path = System.IO.Path;
 using PointF = SixLabors.Primitives.PointF;
@@ -17,18 +18,14 @@ namespace SunEngine.Core.Services
     {
         public const string CypherName = "Captcha";
 
-        private readonly TimeSpan cacheTimeout = new TimeSpan(0, 3, 0);
-
         private readonly Font font;
-
-        private readonly ICryptService cryptService;
+        private readonly CaptchaCacheService captchaCacheService;
 
         public CaptchaService(
-            //IOptionsMonitor<CaptchaOptions> captchaOptions,
             IPathService pathService,
-            ICryptService cryptService)
+            CaptchaCacheService captchaCacheService)
         {
-            this.cryptService = cryptService;
+            this.captchaCacheService = captchaCacheService;
             // Init Font (font name: Gunny Rewritten)
             FontCollection fontCollection = new FontCollection();
             var resourcesDir = pathService.GetPath(PathNames.ResourcesDirName);
@@ -36,17 +33,13 @@ namespace SunEngine.Core.Services
             font = fontCollection.Families.First().CreateFont(46);
         }
 
-        public string MakeCryptedCaptchaToken()
+        public string MakeCaptchaToken()
         {
-            var token = new CaptchaToken
-            {
-                Text = GenerateCaptchaText(),
-                Expire = DateTime.UtcNow.Add(cacheTimeout),
-                Guid = Guid.NewGuid()
-            };
+            var token = CryptoRandomizer.GetRandomString(64);
+            var answer = GenerateCaptchaText();
 
-            var tokenJson = JsonSerializer.Serialize(token);
-            return cryptService.Crypt(CypherName, tokenJson);
+            captchaCacheService.Cache(token, answer);
+            return token;
         }
 
         private string GenerateCaptchaText()
@@ -54,20 +47,23 @@ namespace SunEngine.Core.Services
             return CryptoRandomizer.GetRandomInt(10000, 999999).ToString();
         }
 
-        public string GetTextFromToken(string token)
+        public string GetAnswerByToken(string token)
         {
-            string json = cryptService.Decrypt(CypherName, token);
-            return JsonSerializer.Deserialize<CaptchaToken>(json).Text;
+            return captchaCacheService.GetCaptchaAnswer(token);
         }
 
         public bool VerifyToken(string token, string text)
         {
-            string json = cryptService.Decrypt(CypherName, token);
-            CaptchaToken captchaToken = JsonSerializer.Deserialize<CaptchaToken>(json);
-            if (captchaToken.Expire < DateTime.UtcNow)
+            if (string.IsNullOrEmpty(token) ||
+                string.IsNullOrEmpty(text))
                 return false;
 
-            return string.Equals(captchaToken.Text, text);
+            var answer = captchaCacheService.GetCaptchaAnswer(token);
+            if (string.IsNullOrEmpty(answer))
+                return false;
+            
+            captchaCacheService.InvalidateToken(token);
+            return string.Equals(answer, text);
         }
 
         public MemoryStream MakeCaptchaImage(string text)
@@ -104,13 +100,6 @@ namespace SunEngine.Core.Services
 
             ms.Seek(0, SeekOrigin.Begin);
             return ms;
-        }
-
-        protected class CaptchaToken
-        {
-            public string Text { get; set; }
-            public DateTime Expire { get; set; }
-            public Guid Guid { get; set; }
         }
     }
 }
