@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SunEngine.Core.Configuration.Options;
+using SunEngine.Core.Errors.Exceptions;
 
 namespace SunEngine.Core.Services
 {
@@ -42,20 +43,20 @@ namespace SunEngine.Core.Services
         {
             var ext = GetAllowedExtension(file.FileName);
             if (ext == null)
-                throw new Exception($"Not allowed extension");
+                throw new SunException($"Not allowed extension");
 
             if (ext == ".svg" && file.Length >= MaxSvgSizeBytes)
-                throw new Exception($"Svg max size is {MaxSvgSizeBytes / 1024} kb");
+                throw new SunException($"Svg max size is {MaxSvgSizeBytes / 1024} kb");
             else
             {
                 await using var stream = file.OpenReadStream();
                 if (!IsAllowedImageFormat(Image.DetectFormat(stream).Name))
-                    throw new Exception("Not allowed image format");
+                    throw new SunException("Not allowed image format");
 
                 var imageInfo = Image.Identify(stream);
                 if (imageInfo.Width > imagesOptions.CurrentValue.MaxImageWidth ||
                     imageInfo.Height > imagesOptions.CurrentValue.MaxImageHeight)
-                    throw new Exception("Very big image");
+                    throw new SunException($"Very big image. Max image height, width is {imagesOptions.CurrentValue.MaxImageHeight}, {imagesOptions.CurrentValue.MaxImageWidth}");
             }
 
             var fileAndDir = imagesNamesService.GetNewImageNameAndDir(ext);
