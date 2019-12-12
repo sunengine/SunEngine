@@ -91,26 +91,6 @@
       </q-item-section>
     </q-item>
 
-    <q-item :to="{name: 'ImagesCleaner'}">
-      <q-item-section avatar>
-        <q-icon name="fas fa-image"/>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>{{ $tl("imagesCleaner") }}</q-item-label>
-        <q-item-label v-if="imagesCleanerCaption" caption>{{imagesCleanerCaption}}</q-item-label>
-      </q-item-section>
-    </q-item>
-
-    <q-item :to="{name: 'CypherSecrets'}">
-      <q-item-section avatar>
-        <q-icon name="fas fa-key"/>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>{{ $tl("cypherSecrets") }}</q-item-label>
-        <q-item-label v-if="cypherSecretsCaption" caption>{{cypherSecretsCaption}}</q-item-label>
-      </q-item-section>
-    </q-item>
-
     <q-item :to="{name: 'DeletedElements'}">
       <q-item-section avatar>
         <q-icon name="fas fa-trash"/>
@@ -123,13 +103,35 @@
 
     <q-item clickable @click="resetCache" >
       <q-item-section avatar>
-        <q-icon name="fas fa-sync-alt"/>
+        <q-icon color="info" name="fas fa-sync-alt"/>
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $tl("resetCache") }}</q-item-label>
         <q-item-label v-if="deletedElementsCaption" caption>{{deletedElementsCaption}}</q-item-label>
       </q-item-section>
     </q-item>
+
+    <q-expansion-item :label="$tl('systemTools')" expand-separator :caption="systemToolsCaption" icon="fas fa-tools">
+      <q-item :to="{name: 'ImagesCleaner'}">
+        <q-item-section avatar>
+          <q-icon name="fas fa-broom"/>
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>{{ $tl("imagesCleaner") }}</q-item-label>
+          <q-item-label v-if="imagesCleanerCaption" caption>{{imagesCleanerCaption}}</q-item-label>
+        </q-item-section>
+      </q-item>
+
+      <q-item :to="{name: 'CypherSecrets'}">
+        <q-item-section avatar>
+          <q-icon name="fas fa-key"/>
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>{{ $tl("cypherSecrets") }}</q-item-label>
+          <q-item-label v-if="cypherSecretsCaption" caption>{{cypherSecretsCaption}}</q-item-label>
+        </q-item-section>
+      </q-item>
+    </q-expansion-item>
 
   </q-list>
 
@@ -166,6 +168,9 @@
             },
             configurationCaption() {
                 return this.$tl("configurationCaption") ?? null;
+            },
+            systemToolsCaption() {
+                return this.$tl("systemToolsCaption") ?? null;
             },
             imagesCleanerCaption() {
                 return this.$tl("imagesCleanerCaption") ?? null;

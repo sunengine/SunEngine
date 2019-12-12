@@ -11,7 +11,7 @@
         "IsMaterialsContainer": true,
         "IsMaterialsNameEditable": true,
         "MaterialsSubTitleCreateType": "Manual",
-        "Repeat": 2
+        "Repeat": 4
       }
     ]
   }

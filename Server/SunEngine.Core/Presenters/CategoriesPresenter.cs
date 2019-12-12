@@ -20,7 +20,7 @@ namespace SunEngine.Core.Presenters
         protected readonly ICategoriesCache categoriesCache;
         protected readonly IRolesCache rolesCache;
 
-        
+
         public CategoriesPresenter(
             IRolesCache rolesCache,
             ICategoriesCache categoriesCache,
@@ -61,7 +61,7 @@ namespace SunEngine.Core.Presenters
                 LayoutName = category.LayoutName,
                 IsMaterialsSubTitleEditable = category.IsMaterialsSubTitleEditable,
                 IsMaterialsNameEditable = category.IsMaterialsNameEditable,
-               // SettingsJson = category.SettingsJson,
+                SettingsJson = category.SettingsJson,
                 IsHidden = category.IsHidden,
 
                 CategoryPersonalAccess = DetectPersonalAccesses(category, roles)

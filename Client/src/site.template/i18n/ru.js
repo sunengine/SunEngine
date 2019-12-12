@@ -1,4 +1,4 @@
-﻿export default {
+export default {
   IndexPage: {
     users: "Пользователи",
     password: "Пароль",

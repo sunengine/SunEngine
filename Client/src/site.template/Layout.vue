@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <q-layout class="layout" view="lHh LpR lfr">
     <q-header class="layout__header">
       <q-toolbar class="layout__toolbar">
@@ -13,11 +13,6 @@
             <div class="layout__sub-title" v-if="siteSubTitle">{{siteSubTitle}}</div>
           </router-link>
         </q-toolbar-title>
-
-        <q-btn class="q-mr-sm" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu"
-               v-if="rightDrawerIs">
-          <q-icon name="fas fa-bars" class="layout__toolbar__menu-btn"/>
-        </q-btn>
 
         <template v-if="userName">
 
@@ -53,6 +48,11 @@
           <q-menu>
             <LoginRegisterMenu v-close-popup/>
           </q-menu>
+        </q-btn>
+
+        <q-btn class="q-mr-sm" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu"
+               v-if="rightDrawerIs">
+          <q-icon name="far fa-clipboard" class="layout__toolbar__menu-btn"/>
         </q-btn>
 
       </q-toolbar>
@@ -98,7 +98,7 @@
         },
         computed: {
             siteTitle() {
-                return config.Global.SiteName;
+                return config.Global.SiteTitle;
             },
             siteSubTitle() {
                 return config.Global.SiteSubTitle;

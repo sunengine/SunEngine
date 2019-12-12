@@ -20,7 +20,6 @@
 
 <script>
     import {htmlTextSizeOrHasImage} from 'sun'
-    import {commentEditorToolbar} from 'sun'
 
     export default {
         name: 'EditComment',
@@ -73,7 +72,7 @@
             }
         },
         beforeCreate() {
-            this.editorToolbar = commentEditorToolbar;
+            this.editorToolbar = JSON.parse(config.Editor.CommentToolbar);
             this.$options.components.LoaderSent = require('sun').LoaderSent;
             this.$options.components.LoaderWait = require('sun').LoaderWait;
             this.$options.components.SunEditor = require('sun').SunEditor;

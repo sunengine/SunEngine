@@ -13,6 +13,8 @@ export default {
     },
     validation: {
       emailSig: "Incorrect email",
+      jsonFormatError: "Json validation error",
+      fileSizeLimit: "File '{fileName}' is to big. MAx file size is {maxSize} megabytes."
     },
     errorNotify: "Error",
     submitting: "Sending...",

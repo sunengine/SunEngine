@@ -50,7 +50,7 @@ export default {
         required: "Select parent category"
       },
       settingsJson: {
-        jsonFormatError: "Invalid Json format",
+        jsonFormatError: "@:Global.validation.jsonFormatError",
       }
     }
   },
@@ -175,7 +175,7 @@ export default {
         maxLength: "Maximum icon length - " + config.DbColumnSizes.MenuItems_Icon,
       },
       settingsJson: {
-        jsonFormatError: "Invalid Json format",
+        jsonFormatError: "@:Global.validation.jsonFormatError",
       }
     }
   },
@@ -304,7 +304,64 @@ export default {
     resetSuccessNotify: "Configuration values reloaded from server",
     resetBtn: "Reload from server",
     cancelBtn: "@:Global.btn.cancel",
-    saveBtn: "@:Global.btn.save"
+    saveBtn: "@:Global.btn.save",
+    items: {
+      'Global:Locale': 'Interface language',
+      'Global:SiteName': 'Site name',
+      'Global:SiteTitle': 'Site title',
+      'Global:SiteSubTitle': 'Site subtitle',
+      'Dev:ShowExceptions': 'Show exceptions',
+      'Images:AllowGifUpload': 'Allow "gif" images upload',
+      'Images:AllowSvgUpload': 'Allow "svg" images upload',
+      'Images:AvatarSizePixels': 'Avatar size in pixels (square avatar)',
+      'Images:ImageRequestSizeLimitBytes': 'Maximum image size in bytes',
+      'Images:MaxImageHeight': 'Check: maximum image height before compression in px',
+      'Images:MaxImageWidth': 'Check: maximum image width before compression in px',
+      'Images:PhotoMaxHeightPixels': 'The height of the user\'s photo after px compression',
+      'Images:PhotoMaxWidthPixels': 'Width of the user\'s photo after px compression',
+      'Images:ResizeMaxHeightPixels': 'Image height after px compression',
+      'Images:ResizeMaxWidthPixels': 'Image width after px compression',
+      'Sanitizer:AllowedAttributes': 'Allowed html attributes',
+      'Sanitizer:AllowedClasses': 'Allowed html classes',
+      'Sanitizer:AllowedCssProperties': 'Allowed css properties',
+      'Sanitizer:AllowedImageDomains': 'Allowed images domains',
+      'Sanitizer:AllowedTags': 'Allowed html tags',
+      'Sanitizer:AllowedVideoDomains': 'Allowed video domains',
+      'Email:EmailFromAddress': 'Email address From',
+      'Email:EmailFromName': 'Message from',
+      'Email:Host': 'Host',
+      'Email:Login': 'Login',
+      'Email:Password': 'Password',
+      'Email:Port': 'Port',
+      'Editor:MaterialToolbar': 'Material editor toolbar',
+      'Editor:CommentToolbar': 'Comment editor toolbar',
+      'Editor:UserInformationToolbar': 'Personal information editor toolbar',
+      'Scheduler:ExpiredRegistrationUsersClearDays': 'Interval for cleaning up users who did not confirm registration in days',
+      'Scheduler:JwtBlackListServiceClearMinutes': 'Jwe blacklist cleanup interval in minutes',
+      'Scheduler:LogJobs': 'Log tasks on the server',
+      'Scheduler:LongSessionsClearDays': 'Interval to clear expired sessions in days',
+      'Scheduler:SpamProtectionCacheClearMinutes': 'Interval for clearing the anti-spam cache in minutes',
+      'Scheduler:UploadVisitsToDataBaseMinutes': 'Interval to upload visits cache to database',
+      'Materials:CommentsPageSize': 'Number of comments per page',
+      'Materials:SubTitleLength': 'Subtitle length',
+      'Materials:TimeToOwnDeleteInMinutes': 'The time during which you can delete your messages in minutes',
+      'Materials:TimeToOwnEditInMinutes': 'The time during which you can edit your messages in minutes',
+      'Materials:TimeToOwnMoveInMinutes': 'The time during which you can move your messages in minutes',
+      'Comments:TimeToOwnDeleteInMinutes': 'Time during which you can delete your comments in minutes',
+      'Comments:TimeToOwnEditInMinutes': 'Time during which you can edit your comments in minutes',
+      'Blog:PostsPageSize': 'Post page size',
+      'Blog:PreviewLength': 'Long thumbnails in symbols',
+      'Articles:CategoryPageSize': 'Number of articles on page',
+      'Forum:NewTopicsMaxPages': 'Maximum number of pages in the new topics tab',
+      'Forum:NewTopicsPageSize': 'The number of topics in the new topics tab',
+      'Jwe:Issuer': '',
+      'Jwe:LongTokenLiveTimeDays': 'Duration of the session in days refresh token life',
+      'Jwe:ShortTokenLiveTimeMinutes': 'Access token lifetime',
+      'Skins:CurrentSkinName': 'Main theme',
+      'Skins:PartialSkinsNames': 'Additional themes',
+      'Skins:MaxArchiveSizeKb': 'Check: maximum archive size in kb',
+      'Skins:MaxExtractArchiveSizeKb': 'Check: maximum archive size after unzipping in kb'
+    }
   },
   CypherSecrets: {
     title: "Reset cypher keys"

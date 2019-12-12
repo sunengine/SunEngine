@@ -9,8 +9,8 @@
     "PageSize": 12
   },
   "ClientSettingsJson": {
-    "Title": "Posts",
-    "SubTitle": null,
+    "Title": "Лента новостей",
+    "SubTitle": "Из разных категорий",
     "Header": null,
     "CategoriesNames": "Root",
     "RolesCanAdd": null,

@@ -28,6 +28,7 @@ namespace SunEngine.Core.Cache.Services
       var itemsToSaveDic = new Dictionary<string, Type>()
       {
         ["Global:SiteName"] = typeof(string),
+        ["Global:SiteTitle"] = typeof(string),
         ["Global:SiteSubTitle"] = typeof(string),
         ["Global:Locale"] = typeof(string),
 
@@ -39,7 +40,13 @@ namespace SunEngine.Core.Cache.Services
         ["Materials:TimeToOwnDeleteInMinutes"] = typeof(int),
 
         ["Skins:CurrentSkinName"] = typeof(string),
-        ["Skins:PartialSkinsNames"] = typeof(string)
+        ["Skins:PartialSkinsNames"] = typeof(string),
+
+        ["Editor:MaterialToolbar"] = typeof(string),
+        ["Editor:CommentToolbar"] = typeof(string),
+        ["Editor:UserInformationToolbar"] = typeof(string),
+
+        ["Images:ImageRequestSizeLimitBytes"] = typeof(int)
       };
 
 

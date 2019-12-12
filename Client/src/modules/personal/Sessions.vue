@@ -1,45 +1,41 @@
 ﻿<template>
   <q-page class="sessions">
-    <q-table v-if="sessions" :rows-per-page-options="[0]" @selection="updateSelected"
-             :title="title"
-             :data="sessions"
-             :columns="columns"
-             row-key="id"
-             selection="multiple" hide-bottom
-             :selected.sync="selected"
-    >
 
-      <template v-slot:header="props">
-        <q-tr :props="props">
-          <q-th auto-width class="text-center">
+    <h2 class="page-title page-padding">{{$tl("title")}}</h2>
 
-          </q-th>
-          <q-td auto-width>
-            <q-icon name="fas fa-desktop" class="q-mr-md"/>
-            {{$tl('deviceInfo')}}
-          </q-td>
-          <q-td auto-width>
-            <q-icon name="far fa-clock" class="q-mr-md"/>
-            {{$tl('updateDate')}}
-          </q-td>
-        </q-tr>
-      </template>
 
-      <template v-slot:body="props">
-        <q-tr :props="props" :class="{sessions__current: props.row.isCurrent}">
-          <q-td auto-width class="text-center">
-            <q-checkbox v-if="!props.row.isCurrent" v-model="props.selected"/>
-          </q-td>
-          <q-td auto-width>
-            {{props.row.deviceInfo}}
-            <q-badge class="q-ml-sm" v-if="props.row.isCurrent">{{$tl('current')}}</q-badge>
-          </q-td>
-          <q-td auto-width>
-            {{$formatDate(props.row.updateDate)}}
-          </q-td>
-        </q-tr>
-      </template>
-    </q-table>
+    <q-markup-table v-if="sessions">
+      <thead>
+      <tr>
+        <th>
+          <q-checkbox v-model="all" @input="(e) => allChecked(e)"/>
+        </th>
+        <th class="text-left">
+          <q-icon left name="fas fa-desktop"/>
+          {{$tl('deviceInfo')}}
+        </th>
+        <th class="text-left">
+          <q-icon left name="far fa-clock"/>
+          {{$tl('updateDate')}}
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="session of sessions">
+        <td class="text-center">
+          <q-checkbox :toggle-indeterminate="false" v-if="!session.isCurrent" v-model="session.selected"/>
+          <q-badge class="q-ml-sm" v-else>{{$tl('current')}}</q-badge>
+        </td>
+        <td>
+          {{session.deviceInfo}}
+        </td>
+        <td>
+          {{$formatDate(session.updateDate)}}
+        </td>
+      </tr>
+      </tbody>
+    </q-markup-table>
+
     <LoaderWait v-else/>
 
     <div class="text-center">
@@ -57,25 +53,46 @@
         mixins: [Page],
         data() {
             return {
-                sessions: null,
-                selected: []
+                sessions: null
             }
         },
         computed: {
-            columns() {
-                return [
-                    //{name: 'Id',  align: 'left', label: 'Id', field: 'id', sortable: false},
+            all() {
+                let tr = 0;
+                let fl = 0;
+                for (const session of this.sessions) {
+                    if (!session.isCurrent)
                     {
-                        name: 'deviceInfo',
-                        align: 'left',
-                        label: this.$tl('deviceInfo'),
-                        field: 'deviceInfo',
-                        sortable: false
+                        if(session.selected)
+                            tr ++;
+                        else
+                            fl ++;
                     }
-                ]
-            }
+                }
+                if(tr > 0 && fl > 0)
+                    return null;
+                else if(tr > 0)
+                    return true;
+                else
+                    return false;
+            },
+            selected() {
+                return this.sessions.filter(x => x.selected);
+            },
         },
         methods: {
+            allChecked(e) {
+                if (e) {
+                    for (const session of this.sessions) {
+                        if (!session.isCurrent)
+                            session.selected = true;
+                    }
+                } else {
+                    for (const session of this.sessions) {
+                        session.selected = false;
+                    }
+                }
+            },
             deleteSessions() {
                 let sessions = this.selected.filter(x => !x.isCurrent);
                 if (sessions.length === 0)
@@ -91,11 +108,15 @@
                     this.selected = [];
                     this.loadData();
                 });
-            },
+            }
+            ,
             loadData() {
                 this.$request(
                     this.$Api.Personal.GetMySessions
                 ).then(response => {
+                    for (const session of response.data)
+                        session.selected = false;
+
                     this.sessions = response.data;
                 });
             }

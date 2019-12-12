@@ -4,19 +4,24 @@
       {{title}}
     </h2>
 
-    <img class="load-photo__photo" v-if="photo" width="300" :src="photo"/>
+    <img class="load-photo__photo q-mb-xs" v-if="photo" width="300" :src="photo"/>
+    <q-banner dense rounded class="bg-grey-1 text-grey-9">
+      {{$tl("maxPhotoSize")}} {{photoSize}} {{$t("Global.units.megabytes")}}
+    </q-banner>
     <br/>
     <input ref="file" type="file" accept="image/*" class="hidden" @change="handleFile"/>
     <q-btn no-caps class="load-photo__send-btn send-btn q-mb-xl" :loading="loading" icon="far fa-user-circle"
            :label="$tl('uploadNewPhotoBtn')"
            @click="upload"/>
-    <q-btn no-caps v-if="!isDefault && !loading" class="load-photo__delete-btn delete-btn" icon="fas fa-trash-alt" :label="$tl('resetBtn')"
+    <q-btn no-caps v-if="!isDefault && !loading" class="load-photo__delete-btn delete-btn" icon="fas fa-trash-alt"
+           :label="$tl('resetBtn')"
            @click="resetAvatar"/>
   </q-page>
 </template>
 
 <script>
     import {Page} from 'mixins';
+    import {validateFileSize} from 'sun'
 
 
     const defaultAvatar = config.Misc.DefaultAvatar;
@@ -31,6 +36,9 @@
             }
         },
         computed: {
+            photoSize() {
+                return Math.floor(config.Images.ImageRequestSizeLimitBytes / 1048576, 2);
+            },
             photo() {
                 if (this.$store && this.$store.state && this.$store.state.auth && this.$store.state.auth.user.photo)
                     return this.$store.state.auth.user.photo;
@@ -46,8 +54,15 @@
                 if (!this.$refs.file.files.length)
                     return;
 
-                let formData = new FormData();
-                formData.append('file', this.$refs.file.files[0]);
+                const file = this.$refs.file.files[0];
+
+                if (!validateFileSize(file)) {
+                    this.$refs.file.value = '';
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append('file', file);
 
                 this.loading = true;
 
@@ -61,7 +76,6 @@
                     }
                 ).catch(error => {
                     this.loading = false;
-                    this.$errorNotify(error);
                 });
             },
             upload() {
@@ -77,7 +91,6 @@
                     }
                 ).catch(x => {
                     this.loading = false;
-                    console.log('error', x);
                     const msg = this.$t('Global.errorNotify');
                     this.$q.notify({
                         message: msg,

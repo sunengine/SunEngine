@@ -3,6 +3,10 @@
     <h2 class="page-title page-padding">
       {{title}}
     </h2>
+    <div v-if="component.settings.SubTitle" class="page-padding page-sub-title">
+      {{component.settings.SubTitle}}
+    </div>
+
     <ActivitiesList :componentName="componentName"/>
   </q-page>
 </template>

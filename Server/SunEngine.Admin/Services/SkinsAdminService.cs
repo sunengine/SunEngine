@@ -51,15 +51,15 @@ namespace SunEngine.Admin.Services
 
     public SkinsAdminService(
       IPathService pathService,
-      IOptionsMonitor<FileLoadingOptions> fileLoadingOptions,
+      IOptionsMonitor<SkinsOptions> fileLoadingOptions,
       ConfigurationAdminService configurationAdminService,
       DataBaseConnection db) : base(db)
     {
       this.configurationAdminService = configurationAdminService;
       SkinsPath = pathService.GetPath(PathNames.SkinsDirName);
       PartialSkinsPath = pathService.GetPath(PathNames.PartialSkinsDirName);
-      MaxArchiveSize = fileLoadingOptions.CurrentValue.MaxArchiveSize * 1024;
-      MaxExtractArchiveSize = fileLoadingOptions.CurrentValue.MaxExtractArchiveSize * 1024;
+      MaxArchiveSize = fileLoadingOptions.CurrentValue.MaxArchiveSizeKb * 1024;
+      MaxExtractArchiveSize = fileLoadingOptions.CurrentValue.MaxExtractArchiveSizeKb * 1024;
       WwwRootPath = pathService.WwwRootDir;
     }
 

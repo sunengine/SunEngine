@@ -55,6 +55,12 @@ $q-field-color: #00c63b;
   }
 }
 
+.page-sub-title {
+  margin-top: -14px;
+  margin-bottom: 20px;
+  color: $grey-9;
+}
+
 
 // ——— Menus ————————————————————————————————————
 
@@ -164,29 +170,10 @@ $paddings: (12px 18px 24px);
   color: $negative;
 }
 
-.edit-btn-block {
-  a {
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .q-icon {
-    margin-right: 8px;
-
-    &:before {
-      padding-bottom: 2px !important;
-    }
-  }
-}
-
 .error {
   color: $negative;
   font-size: 12px;
   padding: 4px 0;
-}
-
-.sun-editor__bottom-slots {
-  height: 18px;
 }
 
 .q-notification__message {
