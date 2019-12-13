@@ -18,7 +18,8 @@ export default {
     title: "Page with inline material"
   },
   News2ColPage: {
-    title: "Main page (example)"
+    title: "Main page",
+    subTitle: "Example"
   },
   SecretPage: {
     title: "Secret Page"
