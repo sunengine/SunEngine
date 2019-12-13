@@ -68,7 +68,7 @@ namespace SunEngine.Core.Services
         {
             List<string> dirTokens = Directory.GetCurrentDirectory()
                 .Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).ToList();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 var currentPath = string.Join(Path.DirectorySeparatorChar, dirTokens);
                 if (CheckDir(currentPath))
