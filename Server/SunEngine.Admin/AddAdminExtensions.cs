@@ -9,7 +9,6 @@ namespace SunEngine.Admin
     {
         public static void AddAdmin(this IServiceCollection services)
         {
-            services.AddScoped<CacheSettingsManager>();
             services.AddScoped<CategoriesAdminManager>();
             services.AddScoped<IConfigurationManager, ConfigurationManager>();
             services.AddScoped<IMenuAdminManager, MenuAdminManager>();
@@ -17,7 +16,6 @@ namespace SunEngine.Admin
 
             services.AddScoped<IUserRolesAdminPresenter, UserRolesAdminPresenter>();
             services.AddScoped<ICategoriesAdminPresenter, CategoriesAdminPresenter>();
-            services.AddScoped<CacheSettingsPresentor>();
             services.AddScoped<IUserRolesAdminPresenter, UserRolesAdminPresenter>();
             services.AddScoped<IMenuAdminPresenter, MenuAdminPresenter>();
             services.AddScoped<IComponentsAdminPresenter, ComponentsAdminPresenter>();

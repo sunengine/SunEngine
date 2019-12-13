@@ -55,8 +55,6 @@ namespace SunEngine.DataSeed
 
             SeedUserRoles();
 
-            SeedCacheSettings();
-
             SeedMenus();
 
             SeedComponents();
@@ -181,16 +179,6 @@ namespace SunEngine.DataSeed
             Console.WriteLine("UsersRoles");
 
             usersSeeder.SeedUserRoles();
-        }
-
-        private void SeedCacheSettings()
-        {
-            dataContainer.CacheSettings = new CacheSettings
-            {
-                Id = 1,
-                CachePolicy = CachePolicy.CustomPolicy,
-                InvalidateCacheTime = 15
-            };
         }
 
         private void SeedMenus()

@@ -1,6 +1,5 @@
 export AdminInformation from 'src/admin/AdminInformation.vue'
 export AdminMenu from 'src/admin/AdminMenu.vue'
-export CacheSettings from 'src/admin/CacheSettings.vue'
 export adminGetAllCategories from 'src/admin/categories/adminGetAllCategories.js'
 export CategoriesAdmin from 'src/admin/categories/CategoriesAdmin.vue'
 export CategoryForm from 'src/admin/categories/CategoryForm.vue'

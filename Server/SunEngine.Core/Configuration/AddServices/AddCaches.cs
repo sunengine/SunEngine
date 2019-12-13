@@ -33,8 +33,7 @@ namespace SunEngine.Core.Configuration.AddServices
 
             services.AddSingleton<IMailTemplatesCache, MailTemplatesCache>();
         }
-
-        // Temporary solution
+        
         public static void AddCachePolicy(this IServiceCollection services) => services.AddScoped(GetCachePolicy);
 
         private static ICachePolicy GetCachePolicy(IServiceProvider provider)

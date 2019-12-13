@@ -239,8 +239,6 @@ export default {
     rolesUsersCaption: "",
     rolesPermissions: "Permission",
     rolesPermissionsCaption: "",
-    cacheSettings: "Cache settings",
-    cacheSettingsCaption: "",
     configuration: "Configuration",
     configurationCaption: "",
     cypherSecrets: "Cypher keys",
@@ -277,24 +275,6 @@ export default {
   },
   AdminPanel: {
     title: "Admin panel"
-  },
-  CacheSettings: {
-    title: "Cache settings",
-    cachePolicy: "Cache policy",
-    alwaysPolicy: "Always cache",
-    neverPolicy: "Never cache",
-    customPolicy: "Custom cache",
-    cacheLifetime: "Cache record lifetime",
-    saveChangesBtn: "Save changes",
-    withoutInvalidationTime: "No time limit",
-    successNotify: "Cache policy changed",
-    error: "Server error",
-    validation: {
-      invalidateCacheTime: {
-        required: "Require input",
-        invalidValue: "Value can`t be lower 0",
-      }
-    }
   },
   ConfigurationAdmin: {
     title: "Site configuration",
@@ -360,7 +340,12 @@ export default {
       'Skins:CurrentSkinName': 'Main theme',
       'Skins:PartialSkinsNames': 'Additional themes',
       'Skins:MaxArchiveSizeKb': 'Check: maximum archive size in kb',
-      'Skins:MaxExtractArchiveSizeKb': 'Check: maximum archive size after unzipping in kb'
+      'Skins:MaxExtractArchiveSizeKb': 'Check: maximum archive size after unzipping in kb',
+      'Cache:CurrentCachePolicy': 'Cache policy',
+      'Cache:InvalidateCacheTime': 'Retention time of cache entry'
+    },
+    tooltips: {
+      'Cache:InvalidateCacheTime': 'This option is not used by all policies. Values of 0 or lower are interpreted as requiring permanent storage of cache entry.'
     }
   },
   CypherSecrets: {

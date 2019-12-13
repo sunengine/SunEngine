@@ -68,13 +68,6 @@ namespace SunEngine.DataSeed
             Console.WriteLine("CipherSecrets");
             db.BulkCopy(options, dataContainer.CipherSecrets);
 
-
-            if (dataContainer.CacheSettings != null)
-            {
-                Console.WriteLine("Cache Settings");
-                db.Insert(dataContainer.CacheSettings);
-            }
-
             RunDbCpecificCode();
 
             return this;

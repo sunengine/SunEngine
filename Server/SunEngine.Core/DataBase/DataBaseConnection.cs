@@ -73,8 +73,6 @@ namespace SunEngine.Core.DataBase
 
         public ITable<BlackListShortToken> BlackListShortTokens => GetTable<BlackListShortToken>();
 
-        public ITable<CacheSettings> CacheSettings => GetTable<CacheSettings>();
-
         public ITable<MenuItem> MenuItems => GetTable<MenuItem>();
 
         public ITable<CipherSecret> CipherSecrets => GetTable<CipherSecret>();

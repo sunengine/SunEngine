@@ -45,8 +45,6 @@ namespace SunEngine.Cli
 
             services.AddDatabase(Configuration, out var dataBaseFactory);
 
-            services.AddDbOptions(dataBaseFactory);
-
             services.AddCaches(dataBaseFactory);
 
             services.AddCachePolicy();

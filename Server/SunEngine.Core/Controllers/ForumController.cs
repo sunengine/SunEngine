@@ -27,7 +27,6 @@ namespace SunEngine.Core.Controllers
             IOptionsMonitor<ForumOptions> forumOptions,
             IAuthorizationService authorizationService,
             ICategoriesCache categoriesCache,
-            IContentCache contentCache,
             OperationKeysContainer operationKeysContainer,
             IForumPresenter forumPresenter,
             IServiceProvider serviceProvider) : base(serviceProvider)
