@@ -68,7 +68,7 @@ else
 fi
 
 
-echo -e "${GREEN}Building Client ${NC}\n"
+echo -e "\n${GREEN}Building Client ${NC}\n"
 
 cd "$CLIENT_PATH"
 
@@ -109,7 +109,6 @@ cp -r "$PROJECT_ROOT/Resources/." "$BUILD_PATH/Resources"
 
 echo  -e "${GREEN}Copying .SunEngineRoot file ${NC}"
 cp  "$PROJECT_ROOT"/.SunEngineRoot "$BUILD_PATH"/.SunEngineRoot
-
 
 
 echo  -e "\n${GREEN}All done! ${NC}\n"
