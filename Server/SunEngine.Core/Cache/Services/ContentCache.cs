@@ -45,13 +45,9 @@ namespace SunEngine.Core.Cache.Services
                 || string.IsNullOrEmpty(content))
                 return false;
 
-            var invalidateCacheTime = 15;
-            if (cacheOptions.CurrentValue.InvalidateCacheTime.HasValue)
-            {
-                invalidateCacheTime = cacheOptions.CurrentValue.InvalidateCacheTime.Value;
-                if (invalidateCacheTime == 0)
-                    invalidateCacheTime = int.MaxValue;
-            }
+            var invalidateCacheTime = cacheOptions.CurrentValue.InvalidateCacheTime;
+            if (invalidateCacheTime <= 0)
+                invalidateCacheTime = int.MaxValue;
 
             var options = new MemoryCacheEntryOptions
             {

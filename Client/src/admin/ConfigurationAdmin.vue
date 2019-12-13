@@ -22,7 +22,16 @@
           </tr>
           <tr v-for="item of group.items">
             <td class="configuration-admin__name-column">
-              {{getItemName(item)}}
+              <div class="flex no-wrap align-center">
+                <div class="grow">{{getItemName(item)}}</div>
+                <div v-if="hasItemTooltip(item)">
+                  <q-icon name="far fa-question-circle" class="text-blue" size="xs" right>
+                    <q-tooltip anchor="bottom middle" self="top middle" max-width="200px">
+                      {{getItemTooltip(item)}}
+                    </q-tooltip>
+                </q-icon>
+                </div>
+              </div>
             </td>
             <td class="configuration-admin__value-column">
               <q-checkbox dense v-if="item.item.type === 'Boolean'" v-model="item.item.value"/>
@@ -90,6 +99,17 @@
                     return this.$t(key);
                 else
                     return item.name;
+            },
+            getItemTooltip(item) {
+              const key = this.$options.name + ".tooltips." + item.fullName;
+              if (this.$te(key) && this.$t(key))
+                return this.$t(key);
+              else
+                return null;
+            },
+            hasItemTooltip(item) {
+              const key = this.$options.name + ".tooltips." + item.fullName;
+              return !!this.$te(key) && this.$t(key);
             },
             getTypeType(type) {
                 switch (type) {

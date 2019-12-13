@@ -108,10 +108,6 @@ namespace SunEngine.Core.DataBase
                 .HasTableName("BlackListShortTokens")
                 .HasPrimaryKey(x => x.TokenId);
 
-            mp.Entity<CacheSettings>()
-                .HasTableName("CacheSettings")
-                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id);
-
             mp.Entity<MenuItem>()
                 .HasTableName("MenuItems")
                 .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id);

@@ -244,12 +244,9 @@ export default {
     rolesPermissions: "Разрешения групп",
     rolesPermissionsCaption: "",
     //rolesPermissionsCaption: "Добавление, редактирование, удаление групп и их прав",
-    cacheSettings: "Кэширование",
-    cacheSettingsCaption: "",
     configuration: "Конфигурация",
     configurationCaption: "",
     //configurationCaption: "Конфигурация",
-    //cacheSettingsCaption: "Способ кэширования на сайте",
     systemTools: "Утилиты",
     systemToolsCaption: "",
     cypherSecrets: "Ключи шифрования",
@@ -286,24 +283,6 @@ export default {
   },
   AdminPanel: {
     title: "Админка"
-  },
-  CacheSettings: {
-    title: "Настройки кэширования",
-    cachePolicy: "Политика кэширования",
-    alwaysPolicy: "Всегда кэшировать",
-    neverPolicy: "Никогда не кэшировать",
-    customPolicy: "Настриваемая политика",
-    cacheLifetime: "Время хранения записи",
-    saveChangesBtn: "Сохранить настройки",
-    withoutInvalidationTime: "Без ограничения по времени",
-    successNotify: "Политика кэширования изменена",
-    error: "Произошла ошибка",
-    validation: {
-      invalidateCacheTime: {
-        required: "Поле должно быть заполнено",
-        invalidValue: "Значение не может быть ниже 0",
-      }
-    }
   },
   ConfigurationAdmin: {
     title: "Конфигурация сайта",
@@ -369,7 +348,12 @@ export default {
       'Skins:CurrentSkinName': 'Основная тема',
       'Skins:PartialSkinsNames': 'Дополнительные темы',
       'Skins:MaxArchiveSizeKb': 'Проверка темы: максимальный размер файла архива в кб',
-      'Skins:MaxExtractArchiveSizeKb': 'Проверка темы: максимальный размер архива после разархивации в кб'
+      'Skins:MaxExtractArchiveSizeKb': 'Проверка темы: максимальный размер архива после разархивации в кб',
+      'Cache:CurrentCachePolicy': 'Политика кэширования',
+      'Cache:InvalidateCacheTime': 'Время хранения кэш-записи'
+    },
+    tooltips: {
+      'Cache:InvalidateCacheTime': 'Этот параметр используется не всеми политиками. Значения ниже 0 интерпретируются как необходимость постоянного хранения записей.'
     }
   },
   CypherSecrets: {

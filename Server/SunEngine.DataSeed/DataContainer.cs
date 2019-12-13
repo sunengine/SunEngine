@@ -41,8 +41,6 @@ namespace SunEngine.DataSeed
         public List<MenuItem> MenuItems = new List<MenuItem>();
         public List<CipherSecret> CipherSecrets = new List<CipherSecret>();
 
-        public CacheSettings CacheSettings = null;
-
         public Random ran = new Random();
 
         public int NextSectionTypeId() => currentSectionTypeId++;

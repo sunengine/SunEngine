@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SunEngine.Core.Models;
 
 namespace SunEngine.Core.Configuration
 {
@@ -14,20 +15,21 @@ namespace SunEngine.Core.Configuration
         {
             "Global",
             "Dev",
+            "Cache",
             "Images",
             "Sanitizer",
             "Email",
             "Editor",
-            "Scheduler",
             "Materials",
             "Comments",
             "Blog",
             "Articles",
             "Forum",
+            "Captcha",
+            "Scheduler",
             "Jwe",
-            "FileLoading",
             "Skins",
-            "Captcha"
+
         };
 
         public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>()
@@ -107,6 +109,9 @@ namespace SunEngine.Core.Configuration
             ["Skins:PartialSkinsNames"] = "Branding",
             ["Skins:MaxArchiveSizeKb"] = 20 * 1024,
             ["Skins:MaxExtractArchiveSizeKb"] = 60 * 1024,
+
+            ["Cache:CurrentCachePolicy"] = CachePolicy.AlwaysPolicy,
+            ["Cache:InvalidateCacheTime"] = 15,
 
             ["Captcha:CaptchaTimeoutSeconds"] = 180,
 

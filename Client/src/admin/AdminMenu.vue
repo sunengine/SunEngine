@@ -81,16 +81,6 @@
       </q-item-section>
     </q-item>
 
-    <q-item :to="{name: 'CacheSettings'}">
-      <q-item-section avatar>
-        <q-icon name="fa fa-sitemap"/>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>{{ $tl("cacheSettings") }}</q-item-label>
-        <q-item-label v-if="cacheSettingsCaption" caption>{{cacheSettingsCaption}}</q-item-label>
-      </q-item-section>
-    </q-item>
-
     <q-item :to="{name: 'DeletedElements'}">
       <q-item-section avatar>
         <q-icon name="fas fa-trash"/>
@@ -162,9 +152,6 @@
             },
             rolesPermissionsCaption() {
                 return this.$tl("rolesPermissionsCaption") ?? null;
-            },
-            cacheSettingsCaption() {
-                return this.$tl("cacheSettingsCaption") ?? null;
             },
             configurationCaption() {
                 return this.$tl("configurationCaption") ?? null;
