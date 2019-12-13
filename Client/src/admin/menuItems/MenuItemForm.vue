@@ -281,7 +281,7 @@
                     }
                 }.bind(this);
 
-                if (this.url.startsWith(config.SiteUrl)) {
+                if (this.url.startsWith(config.Global.SiteUrl)) {
                     const lastPart = this.url.substring(config.SiteUrl.length);
                     resolve(lastPart);
                 } else if (this.url.startsWith('http://') || this.url.startsWith('https://')) {
