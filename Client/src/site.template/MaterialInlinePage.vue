@@ -1,11 +1,11 @@
-﻿<template>
+<template>
   <q-page class="material-inline-page ">
-    <div class="pan">
+    <div class="material-inline-page__pan">
     </div>
     <h2 class="q-title page-padding text-center">
       {{title}}
     </h2>
-    <MaterialInline @loaded="loaded" ref="inline" class="page-padding" name="inline1"/>
+    <MaterialInline @loaded="loaded" ref="inline" class="page-padding material-inline-page__material" name="inline1"/>
   </q-page>
 </template>
 
@@ -29,13 +29,14 @@
 
 <style lang="scss">
 
-  .material-inline-page {
-    .pan {
-      background-image: url('/statics/panorama.jpg');
-      height: 270px;
-      background-size: cover;
-      background-position: center;
-    }
+  .material-inline-page__pan {
+    background-image: url('/statics/svg1.svg');
+    height: 200px;
+    background-size: 38%;
+  }
+
+  .material-inline-page__material {
+    text-align: center;
   }
 
 </style>

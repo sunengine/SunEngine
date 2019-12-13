@@ -8,7 +8,9 @@ namespace SunEngine.Core.Managers
 {
     public class SunRoleManager : RoleManager<Role>
     {
-        public SunRoleManager(IRoleStore<Role> store, IEnumerable<IRoleValidator<Role>> roleValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, ILogger<RoleManager<Role>> logger) : base(store, roleValidators, keyNormalizer, errors, logger)
+        public SunRoleManager(IRoleStore<Role> store, IEnumerable<IRoleValidator<Role>> roleValidators,
+            ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, ILogger<RoleManager<Role>> logger) : base(
+            store, roleValidators, keyNormalizer, errors, logger)
         {
             KeyNormalizer = NormalizerLookup.Instance;
         }

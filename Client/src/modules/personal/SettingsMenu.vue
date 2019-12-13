@@ -1,11 +1,11 @@
-<template>
+﻿<template>
   <q-list class="settings-menu sun-second-menu" no-border>
     <div class="settings-menu__avatar-block flex align-center">
       <img class="settings-menu__avatar on-left" :src="user.avatar"/> <span>{{user.name}}</span>
     </div>
     <q-item :to="{name: 'ProfileInSettings'}">
       <q-item-section avatar>
-        <q-icon name="fas fa-user-circle"/>
+        <q-icon name="fas fa-address-card"/>
       </q-item-section>
       <q-item-section>
         {{$tl("goToProfile")}}
@@ -21,7 +21,7 @@
     </q-item>
     <q-item :to="{name: 'EditInformation'}">
       <q-item-section avatar>
-        <q-icon name="fas fa-info"/>
+        <q-icon name="fas fa-info-circle"/>
       </q-item-section>
       <q-item-section>
         {{$tl("changeYourInformation")}}
@@ -37,7 +37,7 @@
     </q-item>
     <q-item :to="{name: 'LoadPhoto'}">
       <q-item-section avatar>
-        <q-icon name="fas fa-image"/>
+        <q-icon name="fas fa-portrait"/>
       </q-item-section>
       <q-item-section>
         {{$tl("changePhoto")}}

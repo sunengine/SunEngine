@@ -1,0 +1,18 @@
+# Variables to publish script
+
+PROJECT_NAME="SunEngine Demo"
+LOCAL_BUILD_PATH="/path/to/local/build"
+REMOTE_USER="username"
+REMOTE_HOST="111.111.111.111"
+REMOTE_DIRECTORY="/remote/dir/path"
+REMOTE_DIRECTORY_OWNER="www-data"
+REMOTE_DIRECTORY_GROUP="www-data"
+REMOTE_SYSTEMD_SERVICE_NAME="demo.sunengine.site"
+
+# Fonts
+
+RED='\e[0;31m'
+GREEN='\e[0;32m'
+BLUE='\e[0;34m'
+NC='\e[0m'
+BOLD='\e[1m'

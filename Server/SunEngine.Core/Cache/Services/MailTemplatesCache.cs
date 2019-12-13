@@ -64,7 +64,7 @@ namespace SunEngine.Core.Cache.Services
             foreach (FileInfo file in directoryInfo.GetFiles())
             {
                 string fileContent = File.ReadAllText(Path.Combine(MailTemplatesDir, file.Name));
-                
+
                 if (file.Name == "layout.html")
                 {
                     Layout = fileContent.Replace("[sitename]", SiteName);

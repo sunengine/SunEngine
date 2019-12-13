@@ -1,4 +1,4 @@
-export function getWhereToMove(store) {
+﻿export function getWhereToMove(store) {
   const rez = goDeep(store.state.categories.root);
   return [...rez.children];
 }

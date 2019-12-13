@@ -19,16 +19,16 @@ namespace SunEngine.Admin.Controllers
         public async Task<IActionResult> GetAllImages()
         {
             var imagesPath = await imageCleanerService.GetImageSourcesForCleanAsync();
-                        
-            return Ok(imagesPath);            
-        }        
+
+            return Ok(imagesPath);
+        }
 
         [HttpPost]
         public async Task<IActionResult> DeleteImages()
         {
             var imagesDeleted = await imageCleanerService.DeleteImagesAsync();
-            
-            return Ok(new {ImagesDeleted = imagesDeleted});            
+
+            return Ok(new {ImagesDeleted = imagesDeleted});
         }
     }
 }

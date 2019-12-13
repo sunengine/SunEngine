@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div :class="['post', {'mat-hidden': post.isHidden}, {'mat-deleted': post.deletedDate}]">
     <q-item :to="to" class="header page-padding">
       <q-avatar class="shadow-1 avatar" size="40px">
@@ -32,16 +32,17 @@
     </div>
 
     <div class="flex footer float-left">
-      <q-item class="page-padding-left post__comments-link" :to="toComments">
-        <span :class="[{'text-grey-6': !post.commentsCount}]">
-        <q-icon name="far fa-comment" class="q-mr-sm"/>
-        {{post.commentsCount}} {{$tl('commentsCount')}}
+
+      <q-item v-if="post.hasMoreText" :class="{'post__read-more-link': true, 'page-padding-left': true}" :to="to">
+        <span>
+          <q-icon name="far fa-file-alt" size="16px" left/>{{$tl('readMore')}}
         </span>
       </q-item>
-      <q-item class="post__read-more-link" :to="to" v-if="post.hasMoreText">
-        <span>
-          {{$tl('readMore')}}
-          <q-icon name="fas fa-arrow-right" class="q-ml-xs"/>
+
+      <q-item v-if="canCommentWrite" :class="{'page-padding-left': !post.hasMoreText,  'post__comments-link': true}"
+              :to="toComments">
+        <span :class="[{'text-grey-6': !post.commentsCount}]">
+          <q-icon name="far fa-comment" left/>{{post.commentsCount}} {{$tl('commentsCount')}}
         </span>
       </q-item>
 
@@ -52,7 +53,6 @@
 
 <script>
     import {prepareLocalLinks} from 'sun'
-
 
 
     export default {
@@ -69,6 +69,11 @@
             },
             toComments() {
                 return this.category.getMaterialRoute(this.post.id, '#comments');
+            },
+            canCommentWrite() {
+                if (this.post.isCommentsBlocked)
+                    return false;
+                return this.category.categoryPersonalAccess.CommentWrite;
             },
             category() {
                 return this.$store.getters.getCategory(this.post.categoryName);
@@ -104,7 +109,7 @@
       color: $link-color !important;
     }
 
-    $footer-line-height : 38px;
+    $footer-line-height: 38px;
 
     .footer {
       align-items: center;

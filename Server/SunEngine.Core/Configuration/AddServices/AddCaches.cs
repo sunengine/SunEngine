@@ -22,19 +22,20 @@ namespace SunEngine.Core.Configuration.AddServices
             services.AddSingleton<ICategoriesCache, CategoriesCache>();
 
             services.AddSingleton<IMenuCache, MenuCache>();
-            
+
             services.AddSingleton<IComponentsCache, ComponentsCache>();
-            
+
             services.AddSingleton<IContentCache, CategoryContentCache>();
 
             services.AddSingleton<CacheKeyGenerator>();
 
             services.AddSingleton<SpamProtectionCache>();
-            
-            services.AddSingleton<IMailTemplatesCache, MailTemplatesCache>();
-        }
 
-        // Temporary solution
+            services.AddSingleton<IMailTemplatesCache, MailTemplatesCache>();
+
+            services.AddSingleton<CaptchaCacheService>();
+        }
+        
         public static void AddCachePolicy(this IServiceCollection services) => services.AddScoped(GetCachePolicy);
 
         private static ICachePolicy GetCachePolicy(IServiceProvider provider)

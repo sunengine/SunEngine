@@ -35,13 +35,13 @@ namespace SunEngine.Admin.Controllers
 
             if (id.HasValue)
                 category = await categoriesAdminPresenter.GetCategoryAsync(id.Value);
-            
+
             else if (name != null)
                 category = await categoriesAdminPresenter.GetCategoryAsync(name);
-            
+
             else
                 return BadRequest();
-            
+
 
             return Json(category);
         }
@@ -75,7 +75,7 @@ namespace SunEngine.Admin.Controllers
         {
             if (!ModelState.IsValid)
                 return ValidationProblem();
-            
+
             var category = categoryData.ToCategory();
 
             await categoriesAdminManager.UpdateCategoryAsync(category);
@@ -144,17 +144,17 @@ namespace SunEngine.Admin.Controllers
         public string Header { get; set; }
 
         public string LayoutName { get; set; }
-        
+
         public bool IsMaterialsNameEditable { get; set; }
-        
+
         public string MaterialsPreviewGeneratorName { get; set; }
-        
+
         public bool IsMaterialsSubTitleEditable { get; set; }
-        
+
         public int ParentId { get; set; }
 
         public int SortNumber { get; set; }
-        
+
         public string SettingsJson { get; set; }
 
         public bool IsHidden { get; set; }
@@ -176,7 +176,6 @@ namespace SunEngine.Admin.Controllers
                 Header = Header,
                 LayoutName = LayoutName,
                 IsMaterialsNameEditable = IsMaterialsContainer && IsMaterialsNameEditable,
-                MaterialsPreviewGeneratorName = IsMaterialsContainer ?  MaterialsPreviewGeneratorName?.SetNullIfEmpty()  : null,
                 IsMaterialsSubTitleEditable = IsMaterialsContainer && IsMaterialsSubTitleEditable,
                 ParentId = ParentId,
                 SortNumber = SortNumber,

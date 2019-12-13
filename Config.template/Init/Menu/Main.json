@@ -25,13 +25,12 @@
       "Icon": "fas fa-comments"
     },
     {
-      "Title": "Активность",
+      "Title": "Лента активности",
       "RouteName": "comp-Activities",
-      "Icon": "fas fa-newspaper"
+      "Icon": "fas fa-dot-circle"
     },
     {
-      "Title": "Дополнение",
-      "SubTitle": "Варианты страниц",
+      "Title": "Примеры страниц",
       "Icon": "fas fa-th",
       "SubMenuItems": [
         {
@@ -41,17 +40,10 @@
           "Icon": "fas fa-home"
         },
         {
-          "Title": "Секрет",
-          "SubTitle": "Для зарегистрированных пользователей",
-          "RouteName": "Secret",
-          "Icon": "fas fa-user-secret",
-          "Roles": "Registered"
-        },
-        {
-          "Title": "Блог посты",
+          "Title": "Лента новостей",
           "SubTitle": "Из разных категорий",
           "RouteName": "comp-Posts",
-          "Icon": "fas fa-blog"
+          "Icon": "fas fa-newspaper"
         },
         {
           "Title": "Статьи 1",
@@ -70,8 +62,15 @@
           "SubTitle": "Статья внутри страницы",
           "RouteName": "MaterialInlinePage",
           "Icon": "fas fa-leaf"
+        },
+        {
+          "Title": "Секрет",
+          "SubTitle": "Скрытая страница",
+          "RouteName": "Secret",
+          "Icon": "fas fa-user-secret",
+          "Roles": "Registered"
         }
       ]
     }
   ]
-} 
+}

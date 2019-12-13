@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-list class="categories categories2" no-border dense v-if="subCategories" highlight>
     <template v-for="folder in subCategories">
 

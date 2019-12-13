@@ -63,8 +63,8 @@ namespace SunEngine.Admin.Managers
             if (category == null)
                 throw new SunEntityNotFoundException($"No category with {categoryUpdate.Id} id");
 
-            if(categoryUpdate.Id == categoryUpdate.ParentId)
-              throw new SunEntityNotUpdatedException(nameof(Category),"Can not set item as self parent");
+            if (categoryUpdate.Id == categoryUpdate.ParentId)
+                throw new SunEntityNotUpdatedException(nameof(Category), "Can not set item as self parent");
 
             var parent = await db.Categories.FirstOrDefaultAsync(x => x.Id == categoryUpdate.ParentId);
 
@@ -113,7 +113,8 @@ namespace SunEngine.Admin.Managers
                 throw new SunEntityNotFoundException(nameof(Category), name, "Name");
 
             var category2 = await db.Categories
-                .Where(x => x.ParentId == category.ParentId && x.SortNumber < category.SortNumber && x.DeletedDate == null)
+                .Where(x => x.ParentId == category.ParentId && x.SortNumber < category.SortNumber &&
+                            x.DeletedDate == null)
                 .OrderByDescending(x => x.SortNumber).FirstOrDefaultAsync();
 
             if (category2 == null)
@@ -150,7 +151,8 @@ namespace SunEngine.Admin.Managers
                 throw new SunEntityNotFoundException(nameof(Category), name, "Name");
 
             var category2 = await db.Categories
-                .Where(x => x.ParentId == category.ParentId && x.SortNumber > category.SortNumber && x.DeletedDate == null)
+                .Where(x => x.ParentId == category.ParentId && x.SortNumber > category.SortNumber &&
+                            x.DeletedDate == null)
                 .OrderBy(x => x.SortNumber).FirstOrDefaultAsync();
 
             if (category2 == null)

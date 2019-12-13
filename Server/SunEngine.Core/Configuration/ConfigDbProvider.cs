@@ -11,7 +11,7 @@ namespace SunEngine.Core.Configuration
     public class ConfigDbProvider : ConfigurationProvider
     {
         public static ConfigDbProvider DefaultConfigDbProvider;
-        
+
         protected readonly IDataBaseFactory dataBaseFactory;
 
         public ConfigDbProvider(IDataBaseFactory dataBaseFactory)
@@ -52,7 +52,7 @@ namespace SunEngine.Core.Configuration
 
             db.BulkCopy(itemsToAdd);
         }
-        
+
         private static void DeleteLostItems(DataBaseConnection db)
         {
             var allItems = db.ConfigurationItems.Select(x => x.Name).ToList();

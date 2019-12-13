@@ -13,6 +13,7 @@ namespace SunEngine.Core.Cache.Services.Counters
         /// Add 1 and return cached value.
         /// </summary>
         int CountProfile(string userOrIpKey, int userId);
+
         /// <summary>
         /// Upload cached values to data base
         /// </summary>
@@ -85,12 +86,12 @@ namespace SunEngine.Core.Cache.Services.Counters
 
                 using var db = dbFactory.CreateDb();
                 var vss = visits.Select(x => new VisitsById {Id = x.Key, Visits = x.Value});
-                    
+
                 db.BeginTransaction();
 
                 db.DropTable<VisitsById>(throwExceptionIfNotExists: false);
                 using TempTable<VisitsById> visitsByIdTempTable = new TempTable<VisitsById>(db, vss);
-                
+
                 db.Users.Where(x => visitsByIdTempTable.Any(y => y.Id == x.Id))
                     .Set(x => x.ProfileVisitsCount,
                         x => x.ProfileVisitsCount +

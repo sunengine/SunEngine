@@ -27,18 +27,16 @@ namespace SunEngine.Core.Cache.Services
         public IImmutableList<OperationKeyCached> AllOperationKeys { get; protected set; }
         public IImmutableDictionary<string, RoleCached> AllRoles { get; protected set; }
         public RoleCached AdminRole { get; protected set; }
-        
+
 
         public RolesCache(IDataBaseFactory dataBaseFactory)
         {
             this.dataBaseFactory = dataBaseFactory;
+            Initialize();
         }
 
         public RoleCached GetRole(string name)
         {
-            if (AllRoles == null)
-                Initialize();
-
             return AllRoles.TryGetValue(name, out var ret) ? ret : null;
         }
 

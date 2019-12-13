@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="profile page-padding page-padding-top">
     <div class="profile__container" v-if="user">
       <div class="profile__img-block flex column">

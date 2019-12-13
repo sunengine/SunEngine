@@ -1,4 +1,4 @@
-﻿import {IndexPage} from 'sun'
+import {IndexPage} from 'sun'
 import {News2ColPage} from 'sun'
 import {MaterialInlinePage} from 'sun'
 import {SecretPage} from 'sun'

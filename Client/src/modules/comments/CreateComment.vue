@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="create-comment">
     <SunEditor content-class="material-text"
                :toolbar="editorToolbar" :rules="commentRules"
@@ -14,7 +14,6 @@
 
 <script>
     import {htmlTextSizeOrHasImage} from 'sun'
-    import {commentEditorToolbar} from 'sun'
 
 
     export default {
@@ -78,7 +77,7 @@
             }
         },
         beforeCreate() {
-            this.editorToolbar = commentEditorToolbar;
+            this.editorToolbar = JSON.parse(config.Editor.CommentToolbar);
             this.$options.components.LoaderSent = require('sun').LoaderSent;
             this.$options.components.SunEditor = require('sun').SunEditor;
         }

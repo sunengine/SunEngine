@@ -21,10 +21,10 @@ namespace SunEngine.Core.Presenters
 
     public class BlogPresenter : DbService, IBlogPresenter
     {
-        protected readonly  IOptionsMonitor<BlogOptions> blogOptions;
+        protected readonly IOptionsMonitor<BlogOptions> blogOptions;
 
         public BlogPresenter(
-            DataBaseConnection db, 
+            DataBaseConnection db,
             IOptionsMonitor<BlogOptions> blogOptions) : base(db)
         {
             this.blogOptions = blogOptions;
@@ -65,7 +65,8 @@ namespace SunEngine.Core.Presenters
             {
                 var textLength = postView.Preview.Length;
                 postView.Preview =
-                    MakePreview.HtmlFirstImage(new HtmlParser().Parse(postView.Preview), blogOptions.CurrentValue.PreviewLength);
+                    MakePreview.HtmlFirstImage(new HtmlParser().Parse(postView.Preview),
+                        blogOptions.CurrentValue.PreviewLength);
                 postView.HasMoreText = postView.Preview.Length != textLength;
             }
 

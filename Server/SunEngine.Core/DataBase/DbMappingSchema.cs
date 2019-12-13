@@ -19,14 +19,14 @@ namespace SunEngine.Core.DataBase
             EntityDescriptorCreatedCallback = (schema, entityDescriptor) =>
             {
                 entityDescriptor.TableName = entityDescriptor.TableName.ToSnakeCase();
-                
+
                 foreach (var entityDescriptorColumn in entityDescriptor.Columns)
                     entityDescriptorColumn.ColumnName = entityDescriptorColumn.ColumnName.ToSnakeCase();
             };
-            
-            SetConvertExpression<DateTime,DateTime>(dt => DateTime.SpecifyKind(dt, DateTimeKind.Utc));
 
-            
+            SetConvertExpression<DateTime, DateTime>(dt => DateTime.SpecifyKind(dt, DateTimeKind.Utc));
+
+
             var mp = GetFluentMappingBuilder();
             mp.Entity<User>()
                 .HasTableName("AspNetUsers")
@@ -108,10 +108,6 @@ namespace SunEngine.Core.DataBase
                 .HasTableName("BlackListShortTokens")
                 .HasPrimaryKey(x => x.TokenId);
 
-            mp.Entity<CacheSettings>()
-                .HasTableName("CacheSettings")
-                .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id);
-
             mp.Entity<MenuItem>()
                 .HasTableName("MenuItems")
                 .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id);
@@ -119,15 +115,14 @@ namespace SunEngine.Core.DataBase
             mp.Entity<CipherSecret>()
                 .HasTableName("CipherSecrets")
                 .HasPrimaryKey(x => x.Name);
-            
+
             mp.Entity<Component>()
                 .HasTableName("Components")
                 .HasIdentity(x => x.Id).HasPrimaryKey(x => x.Id);
-          
+
             mp.Entity<ConfigurationItem>()
                 .HasTableName("ConfigurationItems")
                 .HasPrimaryKey(x => x.Name);
-            
         }
     }
 
@@ -135,15 +130,15 @@ namespace SunEngine.Core.DataBase
     {
         public const int Categories_Name = 64;
         public const int Categories_Title = 256;
+        public const int Categories_SubTitle = Int32.MaxValue;
         public const int Categories_LayoutName = 32;
         public const int Categories_MaterialTypeTitle = 32;
-        public const int Categories_MaterialsPreviewGeneratorName = 32;
         public const int Categories_Icon = 64;
         public const int Users_UserName = 64;
         public const int Users_Email = 64;
-        public const int Users_Link = 32;
+        public const int Users_Link = 64;
         public const int FileNameWithDirSize = 28;
-        public const int Materials_Name = 32;
+        public const int Materials_Name = 64;
         public const int Materials_Title = 256;
         public const int Materials_SubTitle = Int32.MaxValue;
         public const int Tags_Name = 64;
@@ -153,15 +148,15 @@ namespace SunEngine.Core.DataBase
         public const int LongSessions_LongToken1 = 16;
         public const int LongSessions_LongToken2 = 16;
         public const int BlackListShortToken_TokenId = 16;
-        public const int MenuItems_Name = 32;
-        public const int MenuItems_Title = 64;
-        public const int MenuItems_SubTitle = 64;
+        public const int MenuItems_Name = 64;
+        public const int MenuItems_Title = 256;
+        public const int MenuItems_SubTitle = Int32.MaxValue;
         public const int MenuItems_RouteName = 64;
         public const int MenuItems_CssClass = 64;
         public const int MenuItems_Icon = 64;
         public const int CipherSecrets_Name = 32;
         public const int CipherSecrets_Secret = 32;
-        public const int Components_Name = 32;
+        public const int Components_Name = 64;
         public const int Components_Type = 32;
     }
 }

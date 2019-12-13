@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="deleted-elements page-padding">
 
     <h2 class="page-title">

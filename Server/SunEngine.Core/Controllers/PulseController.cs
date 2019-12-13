@@ -37,13 +37,13 @@ namespace SunEngine.Core.Controllers
             bool anyRole = await db.Roles.AnyAsync();
             return Ok(new {db_Roles_AnyAsync = anyRole});
         }
-        
+
         [HttpGet]
         [HttpPost]
         [AllowAnonymous]
         public virtual IActionResult PulseException()
         {
-           throw new Exception("Pulse exception");
+            throw new Exception("Pulse exception");
         }
     }
 }

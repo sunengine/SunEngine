@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div :class="['menu-admin-item', {'menu-admin-item-hidden': menuItem.isHidden}]">
     <span class="item-block">
       <span class="menu-admin-item__up-down">

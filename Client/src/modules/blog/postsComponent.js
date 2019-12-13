@@ -1,4 +1,4 @@
-import {BlogMultiCatPage} from 'sun'
+﻿import {BlogMultiCatPage} from 'sun'
 
 export default {
   name: 'Posts',

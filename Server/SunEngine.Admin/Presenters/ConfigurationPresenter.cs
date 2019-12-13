@@ -26,7 +26,19 @@ namespace SunEngine.Admin.Presenters
         public async Task<IEnumerable<ConfigurationItemView>> LoadConfigurationAsync()
         {
             var items = await db.ConfigurationItems.OrderBy(x => x.Name).ToListAsync();
-            return items.Select(x => new ConfigurationItemView(x.Name, x.Value)).ToList();
+            var rez = new List<ConfigurationItemView>();
+
+            foreach (var name in ConfigDefaults.ConfigurationGroupsOrder)
+            foreach (var item in items.Where(x => x.Name.StartsWith(name + ":")))
+                rez.Add(new ConfigurationItemView(item.Name, item.Value));
+
+            foreach (var item in items)
+            {
+                if (!rez.Exists(x => x.Name == item.Name))
+                    rez.Add(new ConfigurationItemView(item.Name, item.Value));
+            }
+
+            return rez;
         }
 
         public Dictionary<string, IEnumerable<string>> GetEnums()
@@ -55,6 +67,7 @@ namespace SunEngine.Admin.Presenters
     {
         String,
         LongString,
+        JsonString,
         Number,
         Boolean,
         Enum,
@@ -95,6 +108,7 @@ namespace SunEngine.Admin.Presenters
                     return Enum.GetName(type, obj);
                 case TypeName.String:
                 case TypeName.LongString:
+                case TypeName.JsonString:
                 case TypeName.Strange:
                 default:
                     return value;
@@ -119,6 +133,7 @@ namespace SunEngine.Admin.Presenters
                 { } x when new[] {"Boolean", "bool"}.Contains(x) => TypeName.Boolean,
                 { } x when new[] {"String", "string"}.Contains(x) => TypeName.String,
                 { } x when x == "LongString" => TypeName.LongString,
+                { } x when x == "JsonString" => TypeName.JsonString,
                 { } => TypeName.Strange
             };
         }

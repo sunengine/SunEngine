@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="posts-multi-cat">
     <PostsList v-if="posts" :posts="posts"/>
 

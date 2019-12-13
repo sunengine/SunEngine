@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="images-cleaner page-padding">
 
     <h2 class="page-title">{{title}}</h2>

@@ -1,6 +1,5 @@
-<template>
-  <PanelWrapper class="settings-panel" :titleProp="$tl('title')" :wrapComponentProp="$options.components.SettingsMenu"
-                :titleLinkProp="{name: 'Personal'}" iconProp="fas fa-address-card"/>
+﻿<template>
+  <PanelWrapper class="settings-panel" :titleProp="$tl('title')" :wrapComponentProp="$options.components.SettingsMenu"/>
 </template>
 
 <script>

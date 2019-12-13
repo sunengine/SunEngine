@@ -5,7 +5,8 @@ $text-color: #06000d;
 $link-color: #3498db;
 
 $header-bg-color: #FFBA51;
-$header-text-color: white;
+$header-title-text-color: white;
+$header-sub-title-text-color: white;
 $header-border-color: #cbcbcb;
 $header-menu-icon-color: white;
 $header-user-color: white;
@@ -132,12 +133,24 @@ $sun-engine-footer-link-color: #7e73a5;
     background-color: $header-bg-color;
   }
 
-  .layout__title, .layout__title-link {
+  .layout__title-block {
     font-family: "Jomolhari";
+  }
+
+  .layout__title {
     letter-spacing: 1.4px;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: bold;
-    color: $header-text-color;
+    color: $header-title-text-color;
+  }
+
+  .layout__sub-title {
+    letter-spacing: 1.4px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: $header-sub-title-text-color;
+    margin-top: -10px;
+    font-variant: all-petite-caps;
   }
 
   .main-menu-drawer {

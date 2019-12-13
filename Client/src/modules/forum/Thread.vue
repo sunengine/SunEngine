@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="thread">
 
     <div class="page-title-block page-padding">

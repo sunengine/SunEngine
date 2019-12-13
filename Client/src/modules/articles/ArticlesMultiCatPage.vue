@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="articles-multi-cat-page">
     <div class="page-padding page-title-block">
       <h2 class="page-title">

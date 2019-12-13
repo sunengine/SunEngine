@@ -12,7 +12,7 @@ namespace SunEngine.Core.Errors
             context.Response.StatusCode = 500;
             context.Response.ContentType = "application/json";
 
-            
+
             var exceptionHandlerPathFeature =
                 context.Features.Get<IExceptionHandlerPathFeature>();
 

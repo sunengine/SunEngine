@@ -1,10 +1,6 @@
-<template>
+﻿<template>
   <div class="component-form q-gutter-xs">
-    <q-input class="component-form__name" ref="name" v-model="component.name" :label="$tl('name')" :rules="rules.name">
-      <template v-slot:prepend>
-        <q-icon name="fas fa-signature" class="q-mr-xs"/>
-      </template>
-    </q-input>
+    <q-input class="component-form__name" ref="name" v-model="component.name" :label="$tl('name')" :rules="rules.name"/>
 
     <q-select class="component-form__type" ref="type" :disable="editMode" emit-value map-options
               :label="$tl('type')" :rules="rules.type" v-model="component.type"

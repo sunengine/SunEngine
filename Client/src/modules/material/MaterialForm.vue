@@ -1,36 +1,38 @@
-<template>
+﻿<template>
   <div class="material-form q-gutter-y-xs">
 
     <q-input class="material-form__name" v-if="canEditName" ref="name" v-model="material.name" :label="$tl('name')"
              :rules="rules.name">
-    <!--  <template v-slot:prepend>
-        <q-icon name="fas fa-signature"/>
-      </template>-->
+      <!--  <template v-slot:prepend>
+          <q-icon name="fas fa-signature"/>
+        </template>-->
     </q-input>
 
     <q-input class="material-form__title" ref="title" v-model="material.title" :label="$tl('title')"
              :rules="rules.title">
-     <!-- <template v-slot:prepend>
-        <q-icon name="fas fa-heading"/>
-      </template>-->
+      <!-- <template v-slot:prepend>
+         <q-icon name="fas fa-heading"/>
+       </template>-->
     </q-input>
 
-    <q-input class="material-form__sub-title q-mb-sm" ref="subTitle" v-if="isSubTitleEditable" v-model="material.subTitle"
+    <q-input class="material-form__sub-title q-mb-sm" ref="subTitle" v-if="isSubTitleEditable"
+             v-model="material.subTitle"
              type="textarea" autogrow
              :label="$tl('subTitle')" :rules="rules.subTitle">
-     <!-- <template v-slot:prepend>
-        <q-icon name="fas fa-info"/>
-      </template>-->
+      <!-- <template v-slot:prepend>
+         <q-icon name="fas fa-info"/>
+       </template>-->
     </q-input>
 
 
-    <SunEditor bottomSlots class="material-form__text-editor"  content-class="material__text"
+    <SunEditor bottomSlots class="material-form__text-editor" content-class="material__text"
                :toolbar="editorToolbar"
                :rules="rules.text"
                ref="htmlEditor" v-model="material.text"/>
 
 
-    <q-select class="material-form__tags" v-model="material.tags" bottom-slots use-input use-chips multiple :label="$tl('tags')"
+    <q-select class="material-form__tags" v-model="material.tags" bottom-slots use-input use-chips multiple
+              :label="$tl('tags')"
               hide-dropdown-icon input-debounce="0" new-value-mode="add-unique">
       <template v-slot:prepend>
         <q-icon name="fas fa-tags"/>
@@ -74,8 +76,8 @@
       </q-menu>
     </q-field>
 
-    <q-input class="material-form__settings-json" ref="settingsJson" type="textarea" v-model="material.settingsJson"
-             autogrow :label="$tl('settingsJson')"
+    <q-input class="material-form__settings-json" v-if="canEditSettingsJson" ref="settingsJson" type="textarea"
+             v-model="material.settingsJson" clearable autogrow :label="$tl('settingsJson')"
              :rules="rules.settingsJson"/>
 
     <div class="material-form__block-comments">
@@ -95,7 +97,6 @@
 
 <script>
     import {htmlTextSizeOrHasImage} from 'sun'
-    import {materialFormToolbar} from 'sun'
     import {isJson} from 'sun'
 
 
@@ -110,14 +111,14 @@
             title: [
                 (value) => !!value || this.$tl('validation.title.required'),
                 (value) => value.length >= 3 || this.$tl('validation.title.minLength'),
-                (value) => value.length <= config.DbColumnSizes.Categories_Title || this.$tl('validation.title.maxLength'),
+                (value) => value.length <= config.DbColumnSizes.Materials_Title || this.$tl('validation.title.maxLength'),
+            ],
+            subTitle: [
+                (value) => !value || value.length <= config.DbColumnSizes.Materials_SubTitle || this.$tl('validation.subTitle.maxLength'),
             ],
             text: [
                 (value) => !!value || this.$tl('validation.text.required'),
                 (value) => htmlTextSizeOrHasImage(this.$refs?.htmlEditor?.$refs?.content, 5) || this.$tl('validation.text.htmlTextSizeOrHasImage'),
-            ],
-            subTitle: [
-                (value) => !value || value.length <= config.DbColumnSizes.Materials_SubTitle || this.$tl('validation.subTitle.maxLength'),
             ],
             settingsJson: [
                 value => (!value || isJson(value)) || this.$tl('validation.settingsJson.jsonFormatError')
@@ -141,6 +142,13 @@
         data() {
             return {
                 start: true
+            }
+        },
+        watch: {
+            'material.categoryName': function (newVal, oldVal) {
+                if (!newVal) {
+                    this.material.categoryName = oldVal
+                }
             }
         },
         computed: {
@@ -175,12 +183,12 @@
                 this.$refs.title.validate();
                 this.$refs.subTitle?.validate();
                 this.$refs.htmlEditor.validate();
-                this.$refs.settingsJson.validate();
+                this.$refs.settingsJson?.validate();
             }
         },
         beforeCreate() {
             this.rules = createRules.call(this);
-            this.editorToolbar = materialFormToolbar;
+            this.editorToolbar = JSON.parse(config.Editor.MaterialToolbar);
             this.$options.components.SunEditor = require('sun').SunEditor;
         }
     }

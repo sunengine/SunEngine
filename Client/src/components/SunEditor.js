@@ -1,7 +1,8 @@
-import {QEditor, QInnerLoading, QSpinnerGears} from 'quasar';
+﻿import {QEditor, QInnerLoading, QSpinnerGears} from 'quasar';
 import ValidateMixin from 'quasar/src/mixins/validate';
 
 import {editorButtons} from 'sun'
+import {validateFileSize} from 'sun'
 
 export default {
   name: 'SunEditor',
@@ -73,12 +74,22 @@ export default {
         return;
 
       this.filesNumber = files.length;
-      this.filesLoading = true;
+
 
       for (let i = 0; i < files.length; i++) {
 
+        const file = files[i];
+
+        if (!validateFileSize(file)) {
+          console.warn("File size too big: " + file.name);
+          this.filesNumber--;
+          continue;
+        }
+
+        this.filesLoading = true;
+
         const formData = new FormData();
-        formData.append('file', files[i]);
+        formData.append('file', file);
 
         this.$request(this.$Api.UploadImages.UploadImage,
           formData

@@ -23,10 +23,10 @@ namespace SunEngine.Admin.Presenters
         {
             return db.MenuItems.OrderBy(x => x.SortNumber).ToArrayAsync();
         }
-        
+
         public Task<MenuItem> GetMenuItemAsync(int id)
         {
-            return db.MenuItems.FirstOrDefaultAsync(x=>x.Id == id);
+            return db.MenuItems.FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

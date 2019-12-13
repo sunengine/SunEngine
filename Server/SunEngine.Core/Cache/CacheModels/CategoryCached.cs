@@ -31,9 +31,7 @@ namespace SunEngine.Core.Cache.CacheModels
         public CategoryCached SectionRoot { get; private set; }
 
         public bool IsMaterialsNameEditable { get; }
-        
-        public string MaterialsPreviewGeneratorName { get; }
-        
+
         public bool IsMaterialsSubTitleEditable { get; }
 
         public JsonElement? SettingsJson { get; }
@@ -72,7 +70,6 @@ namespace SunEngine.Core.Cache.CacheModels
             Header = category.Header;
             IsMaterialsNameEditable = category.IsMaterialsNameEditable;
             IsMaterialsSubTitleEditable = category.IsMaterialsSubTitleEditable;
-            MaterialsPreviewGeneratorName = category.MaterialsPreviewGeneratorName;
             SettingsJson = SunJson.MakeJElement(category.SettingsJson);
             ParentId = category.ParentId;
             SortNumber = category.SortNumber;
@@ -88,7 +85,7 @@ namespace SunEngine.Core.Cache.CacheModels
         {
             if (initialized)
                 return;
-            
+
             if (ParentId.HasValue && allCategories.ContainsKey(ParentId.Value))
             {
                 Parent = allCategories[ParentId.Value];
@@ -103,7 +100,7 @@ namespace SunEngine.Core.Cache.CacheModels
             foreach (var category in _subCategories)
             {
                 var list = category.Init2AllSub();
-                
+
                 foreach (var sub in list)
                     _allSubCategories.Add(sub);
             }
@@ -122,7 +119,7 @@ namespace SunEngine.Core.Cache.CacheModels
                 sectionRoot = this;
 
             SectionRoot = sectionRoot;
-            
+
             foreach (var category in _subCategories)
                 category.Init3InitSectionsRoots(sectionRoot);
         }
@@ -132,7 +129,7 @@ namespace SunEngine.Core.Cache.CacheModels
         {
             if (initialized)
                 return;
-            
+
             AllSubCategories = _allSubCategories.ToImmutableList();
             SubCategories = _subCategories.ToImmutableList();
             _allSubCategories = null;

@@ -57,7 +57,7 @@ namespace SunEngine.Core.Managers
     {
         protected readonly ITagsManager tagsManager;
         protected readonly SanitizerService sanitizerService;
-        protected readonly  IOptionsMonitor<MaterialsOptions> materialsOptions;
+        protected readonly IOptionsMonitor<MaterialsOptions> materialsOptions;
         protected readonly ICategoriesCache categoriesCache;
 
         protected readonly Regex nameValidator =
@@ -102,7 +102,7 @@ namespace SunEngine.Core.Managers
             material.SettingsJson = material.SettingsJson?.MakeJsonText();
 
             if (category.IsMaterialsSubTitleEditable)
-                    material.SubTitle = SimpleHtmlToText.ClearTags(sanitizerService.Sanitize(material.SubTitle));
+                material.SubTitle = SimpleHtmlToText.ClearTags(sanitizerService.Sanitize(material.SubTitle));
 
 
             using (db.BeginTransaction())

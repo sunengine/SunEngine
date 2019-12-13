@@ -15,15 +15,17 @@ namespace SunEngine.Core.Models.Materials
         /// Title for human
         /// </summary>
         public string Title { get; set; }
+
         /// <summary>
         /// For easy linking purposes
         /// </summary>
         public string Name { get; set; }
+
         /// <summary>
         /// Short description for Article info
         /// </summary>
         public string SubTitle { get; set; }
-        
+
         public string Text { get; set; }
 
         public int? AuthorId { get; set; }
@@ -50,11 +52,11 @@ namespace SunEngine.Core.Models.Materials
         /// Sorting number for manual ordering in Category
         /// </summary>
         public int SortNumber { get; set; }
-        
+
         public bool IsCommentsBlocked { get; set; }
-        
+
         public bool IsHidden { get; set; }
-        
+
         /// <summary>
         /// Count of not hidden and not deleted comments
         /// </summary>
@@ -64,9 +66,9 @@ namespace SunEngine.Core.Models.Materials
 
         [Association(ThisKey = "Id", OtherKey = "MaterialId")]
         public virtual ICollection<TagMaterial> TagMaterials { get; set; }
-        
-        public string SettingsJson { get; set; } 
-        
+
+        public string SettingsJson { get; set; }
+
         public int VisitsCount { get; set; }
     }
 }

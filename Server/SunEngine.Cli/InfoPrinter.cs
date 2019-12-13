@@ -11,7 +11,8 @@ namespace SunEngine.Cli
         /// </summary>
         public static void PrintNoArgumentsInfo()
         {
-            Console.WriteLine(@"Valid startup arguments wasn't provided. To list available commands use ""help"" argument.");
+            Console.WriteLine(
+                @"Valid startup arguments wasn't provided. To list available commands use ""help"" argument.");
         }
 
 

@@ -53,7 +53,7 @@ function GoDeep(category) {
   }
 
   if(!ret && children)
-    ret = {children: children}
+    ret = {children: children};
 
   return ret;
 }

@@ -4,12 +4,13 @@ export default {
 
   CategoriesAdmin: {
     title: "Админка категорий",
-    addCategoryBtn: "Добавить категорию"
+    addCategoryBtn: "Добавить категорию",
+    showInfo: "Информация о категориях"
   },
   CategoryForm: {
     name: "Имя (eng)",
     title: "Заголовок",
-    subTitle: "Подпись заголовка",
+    subTitle: "Подзаголовок",
     icon: "Иконка",
     header: "Шапка",
     selectParent: "Родительская категория",
@@ -20,7 +21,7 @@ export default {
     appendUrlTokenCb: "Добавлять в URL",
     appendUrlTokenInfo: "(использовать только если вы понимаете что это)",
     isMaterialsContainerCb: "Содержит материалы",
-    isMaterialsSubTitleEditableCb: "Возможность редактирования подписи заголовка материала",
+    isMaterialsSubTitleEditableCb: "Возможность редактирования подзаголовка материала",
     isMaterialsNameEditableCb: "Возможность редактирования имени (eng) материала (только для админа)",
     isCaching: "Кэшировать содержимое",
     cachingPageCount: "Кэшировать N страниц",
@@ -30,11 +31,16 @@ export default {
       name: {
         required: "Введите имя (eng) категории",
         minLength: "Имя (eng) должно быть не менее чем из 2 букв",
-        allowedChars: "Имя (eng) должно состоять из символов `a-z`, `A-Z`, `0-9`, `-`"
+        allowedChars: "Имя (eng) должно состоять из символов `a-z`, `A-Z`, `0-9`, `-`",
+        maxLength: `Имя (eng) должено состоять не более чем из ${config.DbColumnSizes.Categories_Name} символов`,
       },
       title: {
         required: "Введите заголовок категории",
-        minLength: "Заголовок должен состоять не менее чем из 3 букв"
+        minLength: "Заголовок должен состоять не менее чем из 3 букв",
+        maxLength: `Заголовок должен состоять не более чем из ${config.DbColumnSizes.Categories_Title} букв`,
+      },
+      subTitle: {
+        maxLength: `Подзаголовок должен состоять не более чем из ${config.DbColumnSizes.Categories_SubTitle} букв`,
       },
       icon: {
         minLength: "Длинна должна быть не меньше 3 символов",
@@ -44,12 +50,12 @@ export default {
         required: "Выберите родительскую категорию"
       },
       settingsJson: {
-        jsonFormatError: "@:Global.validation.validation",
+        jsonFormatError: "@:Global.validation.jsonFormatError",
       }
     }
   },
   CategoryItem: {
-    rootCategory: "Корневая категория"
+    rootCategory: "Корневая категория",
   },
   CreateCategory: {
     title: "Добавить категорию",
@@ -132,7 +138,7 @@ export default {
   MenuItemForm: {
     name: "Идентификатор (eng)",
     title: "Заголовок",
-    subTitle: "Подпись заголовка",
+    subTitle: "Подзаголовок",
     parent: "Родительский элемент",
     rootElement: "Корневой элемент",
     url: "Ссылка, внутренняя или внешняя",
@@ -210,7 +216,7 @@ export default {
   },
   RoleUsers: {
     users: "Пользователи",
-    filter: "Найти по имени",
+    filter: "Фильтр",
     noResults: "Нет результатов",
     filterLimitReached: "Выведены первые {0} результатов"
   },
@@ -238,12 +244,11 @@ export default {
     rolesPermissions: "Разрешения групп",
     rolesPermissionsCaption: "",
     //rolesPermissionsCaption: "Добавление, редактирование, удаление групп и их прав",
-    cacheSettings: "Кэширование",
-    cacheSettingsCaption: "",
     configuration: "Конфигурация",
     configurationCaption: "",
     //configurationCaption: "Конфигурация",
-    //cacheSettingsCaption: "Способ кэширования на сайте",
+    systemTools: "Утилиты",
+    systemToolsCaption: "",
     cypherSecrets: "Ключи шифрования",
     cypherSecretsCaption: "",
     imagesCleaner: "Очистка диска",
@@ -279,31 +284,77 @@ export default {
   AdminPanel: {
     title: "Админка"
   },
-  CacheSettings: {
-    title: "Настройки кэширования",
-    cachePolicy: "Политика кэширования",
-    alwaysPolicy: "Всегда кэшировать",
-    neverPolicy: "Никогда не кэшировать",
-    customPolicy: "Настриваемая политика",
-    cacheLifetime: "Время хранения записи",
-    saveChangesBtn: "Сохранить настройки",
-    withoutInvalidationTime: "Без ограничения по времени",
-    successNotify: "Политика кэширования изменена",
-    error: "Произошла ошибка",
-    validation: {
-      invalidateCacheTime: {
-        required: "Поле должно быть заполнено",
-        invalidValue: "Значение не может быть ниже 0",
-      }
-    }
-  },
   ConfigurationAdmin: {
     title: "Конфигурация сайта",
+    filter: "Фильтр",
+    noResults: "Ничего не найдено",
     successNotify: "Значения конфигурации успешно сохранены",
     resetSuccessNotify: "Значения конфигурации перезагружены с сервера",
     resetBtn: "Перезагрузить с сервера",
     cancelBtn: "@:Global.btn.cancel",
-    saveBtn: "@:Global.btn.save"
+    saveBtn: "@:Global.btn.save",
+    items: {
+      'Global:Locale': 'Язык интерфейса',
+      'Global:SiteName': 'Имя сайта',
+      'Global:SiteTitle': 'Заголовок сайта',
+      'Global:SiteSubTitle': 'Подзаголовок сайта',
+      'Dev:ShowExceptions': 'Показывать исключения в логах',
+      'Images:AllowGifUpload': 'Разрешить загрузку "gif" изображений',
+      'Images:AllowSvgUpload': 'Разрешить загрузку "svg" изображений',
+      'Images:AvatarSizePixels': 'Сторона квадрата аватары в пикселях',
+      'Images:ImageRequestSizeLimitBytes': 'Максимальный размер изображения в байтах',
+      'Images:MaxImageHeight': 'Проверка: максимальная высота изображения до сжатия в px',
+      'Images:MaxImageWidth': 'Проверка: максимальная ширина изображения до сжатия в px',
+      'Images:PhotoMaxHeightPixels': 'Высота фотографии пользователя после сжатия px',
+      'Images:PhotoMaxWidthPixels': 'Ширина фотографии пользователя после сжатия px',
+      'Images:ResizeMaxHeightPixels': 'Высота изображения после сжатия px',
+      'Images:ResizeMaxWidthPixels': 'Ширина изображения после сжатия px',
+      'Sanitizer:AllowedAttributes': 'Разрешённые аттрибуты html',
+      'Sanitizer:AllowedClasses': 'Разрешённые классы html',
+      'Sanitizer:AllowedCssProperties': 'Разрешённые свойства css',
+      'Sanitizer:AllowedImageDomains': 'Разрешённые домены для изображений',
+      'Sanitizer:AllowedTags': 'Разрешённые теги html',
+      'Sanitizer:AllowedVideoDomains': 'Разрешённые домены для видео',
+      'Email:EmailFromAddress': 'Почтовый адрес от',
+      'Email:EmailFromName': 'Сообщение от имени',
+      'Email:Host': 'Хост',
+      'Email:Login': 'Логин',
+      'Email:Password': 'Пароль',
+      'Email:Port': 'Порт',
+      'Editor:MaterialToolbar': 'Тулбар редактирования материала',
+      'Editor:CommentToolbar': 'Тулбар редактирования комментария',
+      'Editor:UserInformationToolbar': 'Тулбар редактирования личной информации',
+      'Scheduler:ExpiredRegistrationUsersClearDays': 'Интервал очистки не подтвердивших регистрацию пользователей в днях',
+      'Scheduler:JwtBlackListServiceClearMinutes': 'Интервал очистки чёрного списка Jwe в минутах',
+      'Scheduler:LogJobs': 'Логировать задачи на сервере',
+      'Scheduler:LongSessionsClearDays': 'Интервал очистки истёкших сессий в днях',
+      'Scheduler:SpamProtectionCacheClearMinutes': 'Интервал очистки кеша защиты от спама в минутах',
+      'Scheduler:UploadVisitsToDataBaseMinutes': 'Интервал заливки кеша посещений материала на сервер в минутах',
+      'Materials:CommentsPageSize': 'Количество комментариев на странице',
+      'Materials:SubTitleLength': 'Длинна подзаголовка',
+      'Materials:TimeToOwnDeleteInMinutes': 'Время в течении которого можно удалять свои сообщения в минутах',
+      'Materials:TimeToOwnEditInMinutes': 'Время в течении которого можно редактировать свои сообщения в минутах',
+      'Materials:TimeToOwnMoveInMinutes': 'Время в течении которого можно перемещать свои сообщения в минутах',
+      'Comments:TimeToOwnDeleteInMinutes': 'Время в течении которого можно удалять свои комментарии в минутах',
+      'Comments:TimeToOwnEditInMinutes': 'Время в течении которого можно редактировать свои комментарии в минутах',
+      'Blog:PostsPageSize': 'Размер страницы постов',
+      'Blog:PreviewLength': 'Длинна превьюшки в символах',
+      'Articles:CategoryPageSize': 'Количество статей на странице',
+      'Forum:NewTopicsMaxPages': 'Максимальное количетсво страниц на вкладке новых тем',
+      'Forum:NewTopicsPageSize': 'Количество тем на вкладке новых тем',
+      'Jwe:Issuer': '',
+      'Jwe:LongTokenLiveTimeDays': 'Длительность сессии в днях refresh token life',
+      'Jwe:ShortTokenLiveTimeMinutes': 'Длительность жизни access токена',
+      'Skins:CurrentSkinName': 'Основная тема',
+      'Skins:PartialSkinsNames': 'Дополнительные темы',
+      'Skins:MaxArchiveSizeKb': 'Проверка темы: максимальный размер файла архива в кб',
+      'Skins:MaxExtractArchiveSizeKb': 'Проверка темы: максимальный размер архива после разархивации в кб',
+      'Cache:CurrentCachePolicy': 'Политика кэширования',
+      'Cache:InvalidateCacheTime': 'Время хранения кэш-записи'
+    },
+    tooltips: {
+      'Cache:InvalidateCacheTime': 'Этот параметр используется не всеми политиками. Значения ниже 0 интерпретируются как необходимость постоянного хранения записей.'
+    }
   },
   CypherSecrets: {
     title: "Сбросить ключи шифрования"

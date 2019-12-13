@@ -21,16 +21,15 @@ namespace SunEngine.Core.Managers
     {
         public TagsManager(DataBaseConnection db) : base(db)
         {
-            
         }
-        
+
         public virtual async ValueTask<IList<Tag>> InsertTags(string tags)
         {
             if (tags == null)
             {
                 tags = "";
             }
-            
+
             var tagsList = tags.Split(',');
 
             return await InsertTags(tagsList);
@@ -38,17 +37,17 @@ namespace SunEngine.Core.Managers
 
         public virtual async ValueTask<IList<Tag>> InsertTags(IList<string> tags)
         {
-            if(tags == null)
+            if (tags == null)
             {
                 return new List<Tag>();
             }
 
-            tags = tags.Select(x=>x.Trim().TrimStart('#').ToLower()).Distinct().ToList();
+            tags = tags.Select(x => x.Trim().TrimStart('#').ToLower()).Distinct().ToList();
             tags.Remove("");
 
             List<string> tagsToInsert = tags.ToList();
             var tagsResult = await db.Tags.Where(x => tags.Contains(x.Name)).ToListAsync();
-            tagsResult.ForEach(x=>tagsToInsert.Remove(x.Name));
+            tagsResult.ForEach(x => tagsToInsert.Remove(x.Name));
 
             foreach (var tagName in tagsToInsert)
             {
@@ -62,11 +61,11 @@ namespace SunEngine.Core.Managers
 
             return tagsResult;
         }
-        
+
         public virtual async ValueTask MaterialCreateAndSetTagsAsync(Material material, string tags)
         {
             var tagsList = await InsertTags(tags);
-            await MaterialSetTags(material,tagsList);
+            await MaterialSetTags(material, tagsList);
         }
 
         public virtual async ValueTask MaterialSetTags(Material material, IEnumerable<Tag> tags)

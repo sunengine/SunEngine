@@ -42,8 +42,8 @@ export default {
   },
   MaterialForm: {
     name: "Name (eng)",
-    title: "Header",
-    subTitle: "Short description",
+    title: "Title",
+    subTitle: "Subtitle",
     tags: "Tags",
     selectCategory: "Category",
     category: "Category: {0}",
@@ -58,7 +58,7 @@ export default {
         maxLength: `Maximal name length - ${config.DbColumnSizes.Materials_Name}`,
       },
       title: {
-        required: "Enter header",
+        required: "Enter title",
         minLength: "Minimal header length - 3",
         maxLength: `Maximal header length - ${config.DbColumnSizes.Materials_Title}`,
       },
@@ -73,7 +73,7 @@ export default {
         required: "Selected category"
       },
       settingsJson: {
-        jsonFormatError: "Invalid Json format",
+        jsonFormatError: "@:Global.validation.jsonFormatError",
       }
     }
   }

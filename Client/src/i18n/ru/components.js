@@ -10,6 +10,6 @@ export default {
     start: "Движок сайта "
   },
   SunEditor: {
-    uploadImages: "Загрузить картинки"
+    uploadImages: "Загрузить картинки",
   }
 }

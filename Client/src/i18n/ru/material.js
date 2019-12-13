@@ -43,7 +43,7 @@ export default {
   MaterialForm: {
     name: "Имя (eng)",
     title: "Заголовок",
-    subTitle: "Короткое описание",
+    subTitle: "Подзаголовок",
     tags: "Метки",
     selectCategory: "Раздел",
     category: "Раздел: {0}",

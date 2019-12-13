@@ -23,8 +23,8 @@ namespace SunEngine.Cli
 
             if (config.CheckNoArguments())
             {
-              InfoPrinter.PrintNoArgumentsInfo();
-              return;
+                InfoPrinter.PrintNoArgumentsInfo();
+                return;
             }
 
             config.InitConfigurationDirectory();

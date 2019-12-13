@@ -36,6 +36,8 @@ namespace SunEngine.Admin.Managers
 
             foreach (var configurationItem in configurationItems)
             {
+                configurationItem.Value = configurationItem.Value?.Trim();
+
                 if (!ConfigDefaults.ConfigurationItems.TryGetValue(configurationItem.Name, out object value))
                     continue;
 
@@ -64,6 +66,9 @@ namespace SunEngine.Admin.Managers
                         TryAdd();
                         break;
                     case "LongString":
+                        TryAdd();
+                        break;
+                    case "JsonString":
                         TryAdd();
                         break;
                     case "String":

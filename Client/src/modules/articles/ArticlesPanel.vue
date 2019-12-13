@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PanelWrapper class="articles-panel" iconProp="far fa-file-alt" :titleProp="$tl('sections')">
     <q-item class="q-my-xs" exact dense :to="newArticlesRoute">
       <q-item-section>

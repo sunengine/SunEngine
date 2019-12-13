@@ -18,8 +18,9 @@ export default {
     label: "Сообщение удалено"
   },
   Comment: {
-    edit: "редактировать",
+    edit: "Редактировать",
     deleteDialogMessage: "Удалить сообщение?",
-    moveToTrashSuccess: "Комментарий удалён"
+    moveToTrashSuccess: "Комментарий удалён",
+    linkCopied: "Ссылка на коментарий скопирована в буфер обмена"
   }
 }

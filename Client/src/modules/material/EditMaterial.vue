@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="edit-material q-pa-md">
     <div v-if="material.deletedDate" class="edit-material__delete-date text-red">
       <q-chip icon="fas fa-trash" color="red" text-color="white" :label="$tl('deleted')"/>

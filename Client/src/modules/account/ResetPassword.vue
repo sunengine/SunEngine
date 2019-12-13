@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="reset-password flex middle page-padding">
     <div class="center-form q-gutter-y-sm" v-if="!done">
 
@@ -96,6 +96,10 @@
                 }).catch(error => {
                     this.$errorNotify(error);
                     this.submitting = false;
+
+                    if (error?.response?.data?.code === 'CaptchaValidationError') {
+                        this.GetToken();
+                    }
                 });
             },
             GetToken() {
@@ -104,7 +108,7 @@
                         this.token = response.data;
                         this.waitToken = false;
                     }).catch(error => {
-                    if (error.response.data.code === 'SpamProtection') {
+                    if (error?.response?.data?.code === 'SpamProtection') {
                         this.waitToken = true;
                     }
                 });

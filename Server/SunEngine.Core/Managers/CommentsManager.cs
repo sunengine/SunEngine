@@ -24,7 +24,7 @@ namespace SunEngine.Core.Managers
         protected readonly SanitizerService sanitizerService;
 
         public CommentsManager(
-            DataBaseConnection db, 
+            DataBaseConnection db,
             IMaterialsManager materialsManager,
             SanitizerService sanitizerService) : base(db)
         {

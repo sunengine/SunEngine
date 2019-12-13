@@ -8,7 +8,6 @@ import {ImagesCleaner} from 'sun'
 import {RolesPermissions} from 'sun'
 import {RoleUsers} from 'sun'
 import {RolesPage} from 'sun'
-import {CacheSettings} from 'sun'
 import {CreateMenuItem} from 'sun'
 import {EditMenuItem} from 'sun'
 import {CypherSecrets} from 'sun'
@@ -24,7 +23,7 @@ import {ConfigurationAdmin} from 'sun'
 import {AdminInformation} from 'sun'
 
 
-const AdminPanel = wrapInPanel("AdminPanel", AdminMenu, null, undefined, "fas fa-cog");
+const AdminPanel = wrapInPanel("AdminPanel", AdminMenu);
 
 
 const routes = [
@@ -197,14 +196,6 @@ const routes = [
     props: {
       default: true,
       navigation: null
-    }
-  },
-  {
-    name: 'CacheSettings',
-    path: '/admin/CacheSettings'.toLowerCase(),
-    components: {
-      default: CacheSettings,
-      navigation: AdminPanel
     }
   },
   {

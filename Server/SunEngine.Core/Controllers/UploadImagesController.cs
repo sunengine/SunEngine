@@ -19,7 +19,7 @@ namespace SunEngine.Core.Controllers
     public class UploadImagesController : BaseController
     {
         protected readonly IImagesService imagesService;
-        protected readonly  IOptionsMonitor<ImagesOptions> imagesOptions;
+        protected readonly IOptionsMonitor<ImagesOptions> imagesOptions;
         protected readonly IPersonalManager personalManager;
 
         public UploadImagesController(
@@ -47,11 +47,12 @@ namespace SunEngine.Core.Controllers
             ResizeOptions ro = new ResizeOptions
             {
                 Mode = ResizeMode.Max,
-                Size = new Size(imagesOptions.CurrentValue.ResizeMaxWidthPixels, imagesOptions.CurrentValue.ResizeMaxHeightPixels)
+                Size = new Size(imagesOptions.CurrentValue.ResizeMaxWidthPixels,
+                    imagesOptions.CurrentValue.ResizeMaxHeightPixels)
             };
-            
+
             FileAndDir fileAndDir = await imagesService.SaveImageAsync(file, ro);
-            
+
             if (fileAndDir == null)
                 return BadRequest();
 
@@ -72,11 +73,12 @@ namespace SunEngine.Core.Controllers
             {
                 Position = AnchorPositionMode.Center,
                 Mode = ResizeMode.Crop,
-                Size = new Size(imagesOptions.CurrentValue.PhotoMaxWidthPixels, imagesOptions.CurrentValue.PhotoMaxWidthPixels)
+                Size = new Size(imagesOptions.CurrentValue.PhotoMaxWidthPixels,
+                    imagesOptions.CurrentValue.PhotoMaxWidthPixels)
             };
-            
+
             FileAndDir fileAndDirPhoto = await imagesService.SaveImageAsync(file, resizeOptionsPhoto);
-            
+
             if (fileAndDirPhoto == null)
                 return BadRequest();
 
@@ -85,7 +87,8 @@ namespace SunEngine.Core.Controllers
             {
                 Position = AnchorPositionMode.Center,
                 Mode = ResizeMode.Crop,
-                Size = new Size(imagesOptions.CurrentValue.AvatarSizePixels, imagesOptions.CurrentValue.AvatarSizePixels)
+                Size = new Size(imagesOptions.CurrentValue.AvatarSizePixels,
+                    imagesOptions.CurrentValue.AvatarSizePixels)
             };
             FileAndDir fileAndDirAvatar = await imagesService.SaveImageAsync(file, resizeOptionsAvatar);
             if (fileAndDirAvatar == null)

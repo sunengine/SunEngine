@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="profile-roles">
 
     <div v-if="userRoles">

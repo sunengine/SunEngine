@@ -1,4 +1,4 @@
-export default function () {
+﻿export default function () {
   const deleteDialogTitle = this.$tl('deleteDialogTitle');
   const deleteDialogMessage = this.$tl('deleteDialogMessage');
   const okBtn = this.$tl('deleteDialogOk');

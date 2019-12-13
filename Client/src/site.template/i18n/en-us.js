@@ -1,4 +1,4 @@
-﻿export default {
+export default {
   IndexPage: {
     users: "Users",
     password: "Password",
@@ -12,14 +12,14 @@
     demo: "Demo"
   },
   Layout: {
-    title: "SunEngine Demo",
     madeWithLove: "Made with love"
   },
   MaterialInlinePage: {
     title: "Page with inline material"
   },
   News2ColPage: {
-    title: "Main page (example)"
+    title: "Main page",
+    subTitle: "Example"
   },
   SecretPage: {
     title: "Secret Page"

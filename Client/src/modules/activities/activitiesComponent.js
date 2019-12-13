@@ -1,4 +1,4 @@
-import {ActivitiesPage} from 'sun'
+﻿import {ActivitiesPage} from 'sun'
 
 export default {
   name: 'Activities',
@@ -14,7 +14,8 @@ export default {
 
   getClientTemplate() {
     return {
-      Title: "Activities"
+      Title: "Activities",
+      SubTitle: null,
     }
   },
 

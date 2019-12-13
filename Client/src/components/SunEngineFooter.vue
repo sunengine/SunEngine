@@ -1,4 +1,4 @@
-/*
+﻿/*
    Do not remove this component from the layout.
    This component is the part of SunEngine user license - https://github.com/sunengine/SunEngine/blob/master/LICENSE.md
 */

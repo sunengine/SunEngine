@@ -1,6 +1,6 @@
 import rootState from 'store/root/rootState'
-import initStore from 'store/root/actions/initStore'
-import setAllRoutes from 'store/root/actions/setAllRoutes'
+import initStore from 'store/initStore'
+import setAllRoutes from 'store/root/setAllRoutes'
 import {isInitialized,initializeError} from 'store/root/getters'
 
 

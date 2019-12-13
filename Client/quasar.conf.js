@@ -18,7 +18,9 @@ module.exports = function (ctx) {
       'successNotify',
       'errorNotify',
       'request',
-      'api'
+      'api',
+      'iconPicker',
+      'throttle'
     ],
     css: [
       'app.scss',
@@ -161,4 +163,4 @@ module.exports = function (ctx) {
       }
     }
   }
-}
+};

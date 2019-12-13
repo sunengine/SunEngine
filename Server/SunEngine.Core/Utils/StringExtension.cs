@@ -32,7 +32,7 @@ namespace SunEngine.Core.Utils
         }
 
         public static string NullJson => "{}";
-        
+
         public static string MakeJsonTextNotNull(this string json)
         {
             if (json == null)

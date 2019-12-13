@@ -5,64 +5,75 @@ using Microsoft.Extensions.Configuration;
 
 namespace SunEngine.Core.Cache.Services
 {
-  public interface IDynamicConfigCache
-  {
-    void Initialize();
-    string DynamicConfigCacheJson { get; }
-  }
-
-  public class DynamicConfigCache : IDynamicConfigCache
-  {
-    protected IConfigurationRoot configurationRoot { get; }
-
-    public string DynamicConfigCacheJson { get; private set; }
-
-    public DynamicConfigCache(IConfigurationRoot configurationRoot)
+    public interface IDynamicConfigCache
     {
-      this.configurationRoot = configurationRoot;
-      Initialize();
+        void Initialize();
+        string DynamicConfigCacheJson { get; }
     }
 
-    public void Initialize()
+    public class DynamicConfigCache : IDynamicConfigCache
     {
-      var itemsToSaveDic = new Dictionary<string, Type>()
-      {
-        ["Comments:TimeToOwnEditInMinutes"] = typeof(int),
-        ["Comments:TimeToOwnDeleteInMinutes"] = typeof(int),
+        protected IConfigurationRoot configurationRoot { get; }
 
-        ["Materials:CommentsPageSize"] = typeof(int),
-        ["Materials:TimeToOwnEditInMinutes"] = typeof(int),
-        ["Materials:TimeToOwnDeleteInMinutes"] = typeof(int),
+        public string DynamicConfigCacheJson { get; private set; }
 
-        ["Skins:CurrentSkinName"] = typeof(string),
-        ["Skins:PartialSkinsNames"] = typeof(string)
-      };
-
-
-      var rez = new Dictionary<string, object>();
-      foreach (var (key, type) in itemsToSaveDic)
-      {
-        var value = configurationRoot.GetValue(type, key);
-
-        string[] tokens = key.Split(":");
-
-        Dictionary<string, object> current = rez;
-        for (int i = 0; i < tokens.Length - 1; i++)
+        public DynamicConfigCache(IConfigurationRoot configurationRoot)
         {
-          if (!current.ContainsKey(tokens[i]))
-            current[tokens[i]] = new Dictionary<string, object>();
-
-          current = (Dictionary<string, object>) current[tokens[i]];
+            this.configurationRoot = configurationRoot;
+            Initialize();
         }
 
-        current[tokens[^1]] = value;
-      }
+        public void Initialize()
+        {
+            var itemsToSaveDic = new Dictionary<string, Type>()
+            {
+                ["Global:SiteName"] = typeof(string),
+                ["Global:SiteTitle"] = typeof(string),
+                ["Global:SiteSubTitle"] = typeof(string),
+                ["Global:Locale"] = typeof(string),
 
-      DynamicConfigCacheJson = JsonSerializer.Serialize(rez, new JsonSerializerOptions
-      {
-        WriteIndented = true,
-        AllowTrailingCommas = true,
-      });
+                ["Comments:TimeToOwnEditInMinutes"] = typeof(int),
+                ["Comments:TimeToOwnDeleteInMinutes"] = typeof(int),
+
+                ["Materials:CommentsPageSize"] = typeof(int),
+                ["Materials:TimeToOwnEditInMinutes"] = typeof(int),
+                ["Materials:TimeToOwnDeleteInMinutes"] = typeof(int),
+
+                ["Skins:CurrentSkinName"] = typeof(string),
+                ["Skins:PartialSkinsNames"] = typeof(string),
+
+                ["Editor:MaterialToolbar"] = typeof(string),
+                ["Editor:CommentToolbar"] = typeof(string),
+                ["Editor:UserInformationToolbar"] = typeof(string),
+
+                ["Images:ImageRequestSizeLimitBytes"] = typeof(int)
+            };
+
+
+            var rez = new Dictionary<string, object>();
+            foreach (var (key, type) in itemsToSaveDic)
+            {
+                var value = configurationRoot.GetValue(type, key);
+
+                string[] tokens = key.Split(":");
+
+                Dictionary<string, object> current = rez;
+                for (int i = 0; i < tokens.Length - 1; i++)
+                {
+                    if (!current.ContainsKey(tokens[i]))
+                        current[tokens[i]] = new Dictionary<string, object>();
+
+                    current = (Dictionary<string, object>) current[tokens[i]];
+                }
+
+                current[tokens[^1]] = value;
+            }
+
+            DynamicConfigCacheJson = JsonSerializer.Serialize(rez, new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                AllowTrailingCommas = true,
+            });
+        }
     }
-  }
 }

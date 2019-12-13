@@ -6,10 +6,6 @@ export default {
   CypherSecretsAdmin: {
     ResetCypher: '/Admin/CypherSecretsAdmin/ResetCypher',
   },
-  AdminCacheSettings: {
-    GetCurrentCacheSettings: '/Admin/AdminCacheSettings/GetCurrentCacheSettings',
-    ChangeCachePolicy: '/Admin/AdminCacheSettings/ChangeCachePolicy',
-  },
   UserRolesAdmin: {
     GetRoleUsers:  '/Admin/UserRolesAdmin/GetRoleUsers',
     GetUserRoles: '/Admin/UserRolesAdmin/GetUserRoles',

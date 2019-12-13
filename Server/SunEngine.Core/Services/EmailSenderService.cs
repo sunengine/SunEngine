@@ -47,7 +47,8 @@ namespace SunEngine.Core.Services
         {
             MailMessage mailMessage = new MailMessage
             {
-                From = new MailAddress(emailSenderOptions.CurrentValue.EmailFromAddress, emailSenderOptions.CurrentValue.EmailFromName),
+                From = new MailAddress(emailSenderOptions.CurrentValue.EmailFromAddress,
+                    emailSenderOptions.CurrentValue.EmailFromName),
                 Body = textMessage,
                 Subject = subject,
                 BodyEncoding = Encoding.UTF8,
@@ -62,12 +63,14 @@ namespace SunEngine.Core.Services
                 mailMessage.AlternateViews.Add(htmlView);
             }
 
-            using SmtpClient client = new SmtpClient(emailSenderOptions.CurrentValue.Host, emailSenderOptions.CurrentValue.Port)
-            {
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(emailSenderOptions.CurrentValue.Login, emailSenderOptions.CurrentValue.Password),
-                EnableSsl = emailSenderOptions.CurrentValue.UseSSL
-            };
+            using SmtpClient client =
+                new SmtpClient(emailSenderOptions.CurrentValue.Host, emailSenderOptions.CurrentValue.Port)
+                {
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(emailSenderOptions.CurrentValue.Login,
+                        emailSenderOptions.CurrentValue.Password),
+                    EnableSsl = emailSenderOptions.CurrentValue.UseSSL
+                };
             await client.SendMailAsync(mailMessage);
         }
     }

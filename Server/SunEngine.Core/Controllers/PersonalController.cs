@@ -22,15 +22,14 @@ namespace SunEngine.Core.Controllers
         protected readonly IPersonalPresenter personalPresenter;
 
         public PersonalController(
-            IPersonalManager personalManager, 
-            JweService jweService, 
+            IPersonalManager personalManager,
+            JweService jweService,
             IPersonalPresenter personalPresenter,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.personalManager = personalManager;
             this.jweService = jweService;
             this.personalPresenter = personalPresenter;
-
         }
 
         [HttpPost]
@@ -54,10 +53,10 @@ namespace SunEngine.Core.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> SetMyLink(string link)
         {
-            link = (link+"").Trim();
-            
-            if (!await personalManager.ValidateLinkAsync(User.UserId,link))
-                return BadRequest(new Error ("LinkInvalid","Link validation error"));
+            link = (link + "").Trim();
+
+            if (!await personalManager.ValidateLinkAsync(User.UserId, link))
+                return BadRequest(new Error("LinkInvalid", "Link validation error"));
 
             await personalManager.SetMyLinkAsync(User.UserId, link);
 
@@ -69,17 +68,17 @@ namespace SunEngine.Core.Controllers
         {
             var user = await GetUserAsync();
             if (!await userManager.CheckPasswordAsync(user, password))
-                return BadRequest(new Error ("PasswordInvalid","Wrong password"));
+                return BadRequest(new Error("PasswordInvalid", "Wrong password"));
 
-            name = Regex.Replace(name.Trim()," {2,}","");
+            name = Regex.Replace(name.Trim(), " {2,}", "");
 
-            if (!await personalManager.ValidateNameAsync(name,user.Id))
-                return BadRequest(new Error ("NameInvalid","Validation error"));
+            if (!await personalManager.ValidateNameAsync(name, user.Id))
+                return BadRequest(new Error("NameInvalid", "Validation error"));
 
             await personalManager.SetMyNameAsync(user, name);
 
-            Response.Headers.Clear(); 
-            
+            Response.Headers.Clear();
+
             await jweService.RenewSecurityTokensAsync(HttpContext, user, User.SessionId);
 
             return Ok();
@@ -88,26 +87,28 @@ namespace SunEngine.Core.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> CheckNameInDb(string name)
         {
-            return Ok(new {
-                yes = await personalManager.CheckNameInDbAsync(name,User.UserId)
+            return Ok(new
+            {
+                yes = await personalManager.CheckNameInDbAsync(name, User.UserId)
             });
         }
 
         [HttpPost]
         public virtual async Task<IActionResult> CheckLinkInDb(string link)
         {
-            return Ok(new {
-                yes = await personalManager.CheckLinkInDbAsync(link,User.UserId)
+            return Ok(new
+            {
+                yes = await personalManager.CheckLinkInDbAsync(link, User.UserId)
             });
         }
-        
+
         [HttpPost]
         public virtual async Task<IActionResult> RemoveMyAvatar()
         {
             await personalManager.RemoveAvatarAsync(User.UserId);
             return Ok();
         }
-        
+
         [HttpPost]
         public virtual async Task<IActionResult> GetMyBanList()
         {
@@ -115,21 +116,20 @@ namespace SunEngine.Core.Controllers
 
             return Ok(usersList);
         }
-        
+
         [HttpPost]
         public virtual async Task<IActionResult> GetMySessions()
         {
-           
             var sessions = await personalPresenter.GetMySessionsAsync(User.UserId, User.SessionId);
 
             return Ok(sessions);
         }
-        
+
         [HttpPost]
         public virtual async Task<IActionResult> RemoveMySessions(string sessions)
         {
-            long[] sessionsIds = sessions.Split(',').Select(long.Parse).ToArray(); 
-            
+            long[] sessionsIds = sessions.Split(',').Select(long.Parse).ToArray();
+
             await personalManager.RemoveSessionsAsync(User.UserId, sessionsIds);
 
             return Ok();

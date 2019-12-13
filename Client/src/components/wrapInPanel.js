@@ -1,4 +1,4 @@
-import {extend} from 'quasar'
+﻿import {extend} from 'quasar'
 import {PanelWrapper} from 'sun'
 
 export default function(name, wrapComponent, title, titleLink, icon) {

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="create-material q-pa-md">
     <MaterialForm ref="form" class="create-material__material-form" :material="material"
                   :categories-nodes="categoryNodes"/>
@@ -36,6 +36,15 @@
             }
         },
         data() {
+            const getInitialCategoryName = () => {
+                if (this.initialCategoryName) {
+                    const category = this.$store.getters.getCategory(this.initialCategoryName);
+                    if (category && category.isMaterialsContainer && category.categoryPersonalAccess?.MaterialWrite)
+                       return this.initialCategoryName;
+                }
+                return null;
+            };
+
             return {
                 material: {
                     name: null,
@@ -44,7 +53,7 @@
                     subTitle: null,
                     settingsJson: null,
                     tags: [],
-                    categoryName: this.initialCategoryName,
+                    categoryName: getInitialCategoryName(),
                     isCommentsBlocked: false,
                     isHidden: false
                 },

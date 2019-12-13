@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="edit-menu-item page-padding">
     <h2 class="page-title">
       {{title}}

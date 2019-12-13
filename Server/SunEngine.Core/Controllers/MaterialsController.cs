@@ -27,7 +27,7 @@ namespace SunEngine.Core.Controllers
         protected readonly IMaterialsManager materialsManager;
         protected readonly IMaterialsPresenter materialsPresenter;
         protected readonly IMaterialsVisitsCounterCache materialsVisitsCounterCache;
-        
+
         public MaterialsController(
             MaterialsAuthorization materialsAuthorization,
             ICategoriesCache categoriesCache,
@@ -70,7 +70,7 @@ namespace SunEngine.Core.Controllers
                 return Unauthorized();
 
             materialView.VisitsCount += materialsVisitsCounterCache.CountMaterial(UserOrIpKey, materialView.Id);
-            
+
             return Json(materialView);
         }
 
@@ -107,7 +107,7 @@ namespace SunEngine.Core.Controllers
 
             if (materialData.IsHidden && materialsAuthorization.CanBlockComments(User.Roles, category))
                 material.IsCommentsBlocked = true;
-            
+
             if (materialsAuthorization.CanEditSettingsJson(User.Roles, category))
                 material.SettingsJson = materialData.SettingsJson;
 
@@ -116,7 +116,7 @@ namespace SunEngine.Core.Controllers
             await materialsManager.CreateAsync(material, materialData.Tags, category);
 
             contentCache.InvalidateCache(category.Id);
-            
+
             return Ok();
         }
 
@@ -144,7 +144,7 @@ namespace SunEngine.Core.Controllers
             material.Title = materialData.Title;
             material.Text = materialData.text;
             material.EditDate = DateTime.UtcNow;
-            
+
             await SetNameAsync(material, materialData.Name);
 
             if (newCategory.IsMaterialsSubTitleEditable)
@@ -163,12 +163,12 @@ namespace SunEngine.Core.Controllers
                 && materialsAuthorization.CanMove(User, categoriesCache.GetCategory(material.CategoryId), newCategory))
                 material.CategoryId = newCategory.Id;
 
-            material.SettingsJson = materialsAuthorization.CanEditSettingsJson(User.Roles, newCategory) 
+            material.SettingsJson = materialsAuthorization.CanEditSettingsJson(User.Roles, newCategory)
                 ? materialData.SettingsJson
                 : null;
-            
+
             await materialsManager.UpdateAsync(material, materialData.Tags, newCategory);
-            
+
             contentCache.InvalidateCache(material.CategoryId);
 
             return Ok();
@@ -179,7 +179,7 @@ namespace SunEngine.Core.Controllers
         {
             if (material.Name == name)
                 return;
-            
+
             if (User.IsInRole(RoleNames.Admin))
             {
                 if (string.IsNullOrWhiteSpace(name))
@@ -213,7 +213,7 @@ namespace SunEngine.Core.Controllers
             contentCache.InvalidateCache(material.CategoryId);
 
             await materialsManager.DeleteAsync(material);
-            
+
             contentCache.InvalidateCache(material.CategoryId);
 
             return Ok();
@@ -299,7 +299,7 @@ namespace SunEngine.Core.Controllers
 
         public bool IsHidden { get; set; }
         public bool IsCommentsBlocked { get; set; }
-        
+
         public string SettingsJson { get; set; }
     }
 }

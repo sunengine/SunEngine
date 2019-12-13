@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="register flex flex-center">
 
     <div v-if="!done" class="center-form">
@@ -168,6 +168,10 @@
                 }).catch(error => {
                     this.$errorNotify(error);
                     this.submitting = false;
+                    
+                    if(error?.response?.data?.code === 'CaptchaValidationError') {
+                      this.GetToken();
+                    }
                 });
             },
             async GetToken() {

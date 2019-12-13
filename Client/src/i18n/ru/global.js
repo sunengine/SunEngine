@@ -14,7 +14,11 @@ export default {
     },
     validation: {
       emailSig: "Неправильная сигнатура email",
-      jsonFormatError: "Неверный формат Json",
+      jsonFormatError: "Ошибка валидации Json",
+      fileSizeLimit: "Файл '{fileName}' слишком большого размера. Максимально допустимый размер файла {maxSize} мегабайта."
+    },
+    units: {
+      megabytes: "мегабайт"
     },
     errorNotify: "Ошибка",
     successNotify: "Операция выполнена успешно",

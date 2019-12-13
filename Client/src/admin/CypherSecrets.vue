@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="cypher-secrets page-padding">
 
     <h2 class="page-title">

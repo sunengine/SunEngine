@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-list class="categories categories1" no-border dense v-if="category">
     <q-item :to='category.getRoute()' v-for="category in subCategories" :key="category.id">
       <q-item-section v-if="category.icon" avatar>

@@ -1,4 +1,4 @@
-import {BlogPage} from 'sun'
+﻿import {BlogPage} from 'sun'
 import {Material} from 'sun'
 
 export default {

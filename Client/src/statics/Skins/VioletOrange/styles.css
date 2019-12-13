@@ -45,12 +45,22 @@
 .skin-violet-orange .layout__toolbar {
   background-color: #FFBA51;
 }
-.skin-violet-orange .layout__title, .skin-violet-orange .layout__title-link {
+.skin-violet-orange .layout__title-block {
   font-family: "Jomolhari";
+}
+.skin-violet-orange .layout__title {
   letter-spacing: 1.4px;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: bold;
   color: white;
+}
+.skin-violet-orange .layout__sub-title {
+  letter-spacing: 1.4px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  margin-top: -10px;
+  font-variant: all-petite-caps;
 }
 .skin-violet-orange .main-menu-drawer {
   background-color: #dbd8e6;

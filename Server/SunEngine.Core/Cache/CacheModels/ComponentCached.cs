@@ -15,9 +15,9 @@ namespace SunEngine.Core.Cache.CacheModels
         public string Type { get; }
 
         public object Data { get; }
-        
+
         public bool IsCacheData { get; }
-        
+
         public IReadOnlyDictionary<int, RoleCached> Roles { get; }
 
         public ComponentServerCached(Component component, Type type, IReadOnlyDictionary<int, RoleCached> roles)
@@ -26,11 +26,11 @@ namespace SunEngine.Core.Cache.CacheModels
             Name = component.Name;
             Type = component.Type;
             IsCacheData = component.IsCacheData;
-            Roles = roles; 
-            Data =  JsonSerializer.Deserialize(component.ServerSettingsJson, type);
+            Roles = roles;
+            Data = JsonSerializer.Deserialize(component.ServerSettingsJson, type);
         }
     }
-    
+
 
     public class ComponentClientCached
     {
@@ -41,8 +41,8 @@ namespace SunEngine.Core.Cache.CacheModels
         public string Type { get; }
 
         public JsonElement? Settings { get; }
-        
-        [System.Text.Json.Serialization.JsonIgnore] 
+
+        [System.Text.Json.Serialization.JsonIgnore]
         public IReadOnlyDictionary<int, RoleCached> Roles { get; }
 
         public ComponentClientCached(Component component, IReadOnlyDictionary<int, RoleCached> roles)

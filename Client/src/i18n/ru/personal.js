@@ -39,13 +39,17 @@ export default {
   },
   LoadPhoto: {
     title: "Изменить фотографию пользователя",
+    maxPhotoSize: "Максимальный размер изображения:",
+    fileSizeLimit: "Вы выбрали файл слишком большого размера",
     resetBtn: "Сбросить фотографию",
     uploadNewPhotoBtn: "Выбрать фотографию",
     avatarDeletedSuccessNotify: "Аватар успешно удалён",
     avatarChangedSuccessNotify: "Аватар успешно обновлён"
   },
   MyBanList: {
-    title: "Забаненые пользователи"
+    title: "Чёрный список пользователей",
+    subTitle: "Эти пользователи не могут писать вам в личку",
+    voidResult: "Список пуст"
   },
   Sessions: {
     title: "Сессии авторизации",
@@ -64,7 +68,7 @@ export default {
     changeYourInformation: "Изменить информацию о вас",
     changePhoto: "Изменить фотографию",
     sessions: "Сессии авторизации",
-    banedUsersList: "Забаненые пользователи"
+    banedUsersList: "Чёрный список пользователей"
   },
   SettingsPage: {
     title: "Личный кабинет"

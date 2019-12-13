@@ -4,7 +4,8 @@ export default {
 
   CategoriesAdmin: {
     title: "Categories admin",
-    addCategoryBtn: "Add category"
+    addCategoryBtn: "Add category",
+    showInfo: "Information about categories"
   },
   CategoryForm: {
     name: "Name (eng)",
@@ -20,7 +21,7 @@ export default {
     appendUrlTokenCb: "Add to URL",
     appendUrlTokenInfo: "(use only if you understand what it is)",
     isMaterialsContainerCb: "Contains materials",
-    isMaterialsSubTitleEditableCb: "Possibility to edit material sub title",
+    isMaterialsSubTitleEditableCb: "Possibility to edit material subtitle",
     isMaterialsNameEditableCb: "Possibility to edit material name (eng), only for admin",
     isCaching: "Caching",
     cachingPageCount: "Cache N pages",
@@ -30,11 +31,16 @@ export default {
       name: {
         required: "Enter category name (eng)",
         minLength: "Name (eng) must be at least 2 letters",
+        maxLength: `Имя (eng) must contain max ${config.DbColumnSizes.Categories_Name} chars`,
         allowedChars: "The name (eng) must consist of the characters `a-z`, `A-Z`, `0-9`, `-`"
       },
       title: {
         required: "Enter category title",
-        minLength: "Category title must contain at least 3 letters"
+        minLength: "Category title must contain at least 3 letters",
+        maxLength: `Title must contain max ${config.DbColumnSizes.Categories_Title} letter`,
+      },
+      subTitle: {
+        maxLength: `Subtitle must contain max ${config.DbColumnSizes.Categories_SubTitle} letter`,
       },
       icon: {
         minLength: "Minimal icon length - 3",
@@ -44,7 +50,7 @@ export default {
         required: "Select parent category"
       },
       settingsJson: {
-        jsonFormatError: "Invalid Json format",
+        jsonFormatError: "@:Global.validation.jsonFormatError",
       }
     }
   },
@@ -81,8 +87,8 @@ export default {
     validation: {
       name: {
         required: "Enter name (eng)",
-        minLength:  "Minimum component name length is 3",
-        maxLength: "Maximum component name length is " + config.DbColumnSizes.Components_Name + "letters",
+        minLength: "Minimum component name length is 3",
+        maxLength: "Maximum component name length is " + config.DbColumnSizes.Components_Name + " chars",
         allowedChars: "The name (eng) must consist of the characters `a-z`, `A-Z`, `0-9`, `-`, `_`"
       },
       type: {
@@ -125,14 +131,14 @@ export default {
     deleteBtn: "Delete menu item",
     successNotify: "Menu item successfully edited",
     deleteMsg: "Delete menu item?",
-    btnDeleteOk:  "@:Global.dialog.ok",
+    btnDeleteOk: "@:Global.dialog.ok",
     btnDeleteCancel: "@:Global.dialog.cancel",
   },
   MenuAdminItem: {},
   MenuItemForm: {
-    name: "Identifier (eng)",
+    name: "Name (eng)",
     title: "Title",
-    subTitle: "Sub title",
+    subTitle: "Subtitle",
     parent: "Parent element",
     rootElement: "Root element",
     url: "Link internal or external",
@@ -157,8 +163,8 @@ export default {
         maxLength: "Maximum title length - " + config.DbColumnSizes.Categories_Title,
       },
       subTitle: {
-        minLength: "Minimal sub title length - 3",
-        maxLength: "Maximum sub title length - " + config.DbColumnSizes.MenuItems_SubTitle,
+        minLength: "Minimal subtitle length - 3",
+        maxLength: "Maximum subtitle length - " + config.DbColumnSizes.MenuItems_SubTitle,
       },
       cssClass: {
         minLength: "Minimal css class length - 3",
@@ -169,7 +175,7 @@ export default {
         maxLength: "Maximum icon length - " + config.DbColumnSizes.MenuItems_Icon,
       },
       settingsJson: {
-        jsonFormatError: "Invalid Json format",
+        jsonFormatError: "@:Global.validation.jsonFormatError",
       }
     }
   },
@@ -211,7 +217,7 @@ export default {
   },
   RoleUsers: {
     users: "Users",
-    filter: "Find by name",
+    filter: "Filter",
     noResults: "Not found",
     filterLimitReached: "First {0} results are derived"
   },
@@ -233,12 +239,10 @@ export default {
     rolesUsersCaption: "",
     rolesPermissions: "Permission",
     rolesPermissionsCaption: "",
-    cacheSettings: "Cache settings",
-    cacheSettingsCaption: "",
     configuration: "Configuration",
     configurationCaption: "",
     cypherSecrets: "Cypher keys",
-    cypherSecretsCaption:"",
+    cypherSecretsCaption: "",
     imagesCleaner: "Disk cleaner",
     imagesCleanerCaption: "",
     deletedElements: "Deleted elements",
@@ -272,31 +276,77 @@ export default {
   AdminPanel: {
     title: "Admin panel"
   },
-  CacheSettings: {
-    title: "Cache settings",
-    cachePolicy: "Cache policy",
-    alwaysPolicy: "Always cache",
-    neverPolicy: "Never cache",
-    customPolicy: "Custom cache",
-    cacheLifetime: "Cache record lifetime",
-    saveChangesBtn: "Save changes",
-    withoutInvalidationTime: "No time limit",
-    successNotify: "Cache policy changed",
-    error: "Server error",
-    validation: {
-      invalidateCacheTime: {
-        required: "Require input",
-        invalidValue: "Value can`t be lower 0",
-      }
-    }
-  },
-ConfigurationAdmin: {
+  ConfigurationAdmin: {
     title: "Site configuration",
+    filter: "Filter",
+    noResults: "Nothing found",
     successNotify: "Configuration values successfully saved",
     resetSuccessNotify: "Configuration values reloaded from server",
     resetBtn: "Reload from server",
     cancelBtn: "@:Global.btn.cancel",
-    saveBtn: "@:Global.btn.save"
+    saveBtn: "@:Global.btn.save",
+    items: {
+      'Global:Locale': 'Interface language',
+      'Global:SiteName': 'Site name',
+      'Global:SiteTitle': 'Site title',
+      'Global:SiteSubTitle': 'Site subtitle',
+      'Dev:ShowExceptions': 'Show exceptions',
+      'Images:AllowGifUpload': 'Allow "gif" images upload',
+      'Images:AllowSvgUpload': 'Allow "svg" images upload',
+      'Images:AvatarSizePixels': 'Avatar size in pixels (square avatar)',
+      'Images:ImageRequestSizeLimitBytes': 'Maximum image size in bytes',
+      'Images:MaxImageHeight': 'Check: maximum image height before compression in px',
+      'Images:MaxImageWidth': 'Check: maximum image width before compression in px',
+      'Images:PhotoMaxHeightPixels': 'The height of the user\'s photo after px compression',
+      'Images:PhotoMaxWidthPixels': 'Width of the user\'s photo after px compression',
+      'Images:ResizeMaxHeightPixels': 'Image height after px compression',
+      'Images:ResizeMaxWidthPixels': 'Image width after px compression',
+      'Sanitizer:AllowedAttributes': 'Allowed html attributes',
+      'Sanitizer:AllowedClasses': 'Allowed html classes',
+      'Sanitizer:AllowedCssProperties': 'Allowed css properties',
+      'Sanitizer:AllowedImageDomains': 'Allowed images domains',
+      'Sanitizer:AllowedTags': 'Allowed html tags',
+      'Sanitizer:AllowedVideoDomains': 'Allowed video domains',
+      'Email:EmailFromAddress': 'Email address From',
+      'Email:EmailFromName': 'Message from',
+      'Email:Host': 'Host',
+      'Email:Login': 'Login',
+      'Email:Password': 'Password',
+      'Email:Port': 'Port',
+      'Editor:MaterialToolbar': 'Material editor toolbar',
+      'Editor:CommentToolbar': 'Comment editor toolbar',
+      'Editor:UserInformationToolbar': 'Personal information editor toolbar',
+      'Scheduler:ExpiredRegistrationUsersClearDays': 'Interval for cleaning up users who did not confirm registration in days',
+      'Scheduler:JwtBlackListServiceClearMinutes': 'Jwe blacklist cleanup interval in minutes',
+      'Scheduler:LogJobs': 'Log tasks on the server',
+      'Scheduler:LongSessionsClearDays': 'Interval to clear expired sessions in days',
+      'Scheduler:SpamProtectionCacheClearMinutes': 'Interval for clearing the anti-spam cache in minutes',
+      'Scheduler:UploadVisitsToDataBaseMinutes': 'Interval to upload visits cache to database',
+      'Materials:CommentsPageSize': 'Number of comments per page',
+      'Materials:SubTitleLength': 'Subtitle length',
+      'Materials:TimeToOwnDeleteInMinutes': 'The time during which you can delete your messages in minutes',
+      'Materials:TimeToOwnEditInMinutes': 'The time during which you can edit your messages in minutes',
+      'Materials:TimeToOwnMoveInMinutes': 'The time during which you can move your messages in minutes',
+      'Comments:TimeToOwnDeleteInMinutes': 'Time during which you can delete your comments in minutes',
+      'Comments:TimeToOwnEditInMinutes': 'Time during which you can edit your comments in minutes',
+      'Blog:PostsPageSize': 'Post page size',
+      'Blog:PreviewLength': 'Long thumbnails in symbols',
+      'Articles:CategoryPageSize': 'Number of articles on page',
+      'Forum:NewTopicsMaxPages': 'Maximum number of pages in the new topics tab',
+      'Forum:NewTopicsPageSize': 'The number of topics in the new topics tab',
+      'Jwe:Issuer': '',
+      'Jwe:LongTokenLiveTimeDays': 'Duration of the session in days refresh token life',
+      'Jwe:ShortTokenLiveTimeMinutes': 'Access token lifetime',
+      'Skins:CurrentSkinName': 'Main theme',
+      'Skins:PartialSkinsNames': 'Additional themes',
+      'Skins:MaxArchiveSizeKb': 'Check: maximum archive size in kb',
+      'Skins:MaxExtractArchiveSizeKb': 'Check: maximum archive size after unzipping in kb',
+      'Cache:CurrentCachePolicy': 'Cache policy',
+      'Cache:InvalidateCacheTime': 'Retention time of cache entry'
+    },
+    tooltips: {
+      'Cache:InvalidateCacheTime': 'This option is not used by all policies. Values of 0 or lower are interpreted as requiring permanent storage of cache entry.'
+    }
   },
   CypherSecrets: {
     title: "Reset cypher keys"
@@ -319,6 +369,11 @@ ConfigurationAdmin: {
   },
   SkinsAdmin: {
     title: "Skins admin",
+    mainSkins: "Main skins",
+    partialSkins: "Partial skins"
+  },
+  MainSkinsAdmin: {
+    title: "Skins admin",
     current: "Current",
     info: "Skins collection and documentation to create own skin - ",
     author: "Author: ",
@@ -333,5 +388,14 @@ ConfigurationAdmin: {
     deleteMsg: "Delete skin?",
     btnDeleteOk: "@:Global.dialog.yes",
     btnDeleteCancel: "@:Global.dialog.cancel"
+  },
+  PartialSkinsAdmin: {
+    title: "Partial skins",
+    onBtn: "Enable",
+    offBtn: "Disable",
+    deleteMsg: "Delete partial skin?",
+    btnDeleteOk: "@:Global.dialog.yes",
+    btnDeleteCancel: "@:Global.dialog.cancel",
+    upload: "Upload partial skin",
   }
 }

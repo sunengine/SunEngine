@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="create-category page-padding">
     <h2 class="page-title">
       {{title}}

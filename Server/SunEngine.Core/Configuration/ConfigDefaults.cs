@@ -1,33 +1,65 @@
 using System.Collections.Generic;
+using SunEngine.Core.Configuration.Options;
 
 namespace SunEngine.Core.Configuration
 {
     public static class ConfigDefaults
     {
-        public enum Test
+        public enum Locale
         {
-            TestValue1,
-            TestValue2,
-            TestValue3
+            Russian,
+            English,
         }
+
+        public static readonly List<string> ConfigurationGroupsOrder = new List<string>()
+        {
+            "Global",
+            "Dev",
+            "Cache",
+            "Images",
+            "Sanitizer",
+            "Email",
+            "Editor",
+            "Materials",
+            "Comments",
+            "Blog",
+            "Articles",
+            "Forum",
+            "Captcha",
+            "Scheduler",
+            "Jwe",
+            "Skins",
+
+        };
 
         public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>()
         {
-            ["Test:Test1"] = Test.TestValue2,
-
             ["Global:SiteName"] = "SunEngine Demo",
+            ["Global:SiteTitle"] = "SunEngine",
+            ["Global:SiteSubTitle"] = "Demo",
+            ["Global:Locale"] = Locale.Russian,
 
             ["Dev:ShowExceptions"] = false,
 
-            ["Sanitizer:AllowedTags"] = (LongString)"a,b,strong,i,em,blockquote,ol,li,ul,ol,p,div,br,video,audio,source,span,img,code,pre,font,h3,h4,h5,h6",
-            ["Sanitizer:AllowedAttributes"] = (LongString)"style,src,href,controls,autoplay,loop,alt,width,height,target,frameborder,allowfullscreen,download,controlsList,size",
-            ["Sanitizer:AllowedClasses"] = (LongString)"float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width",
-            ["Sanitizer:AllowedCssProperties"] = (LongString)"float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width",
-            ["Sanitizer:AllowedVideoDomains"] = (LongString)"https://www.youtube.com/,http://www.youtube.com/,https://youtube.com/,http://youtube.com/,https://youtu.be/,http://youtu.be/,//youtube.com/,//youtu.be/,//www.youtube.com/,//www.youtu.be/,https://vk.com/,http://vk.com/,//vk.com/,https://player.vimeo.com,http://player.vimeo.com,//player.vimeo.com",
-            ["Sanitizer:AllowedImageDomains"] = (LongString)"",
+            ["Sanitizer:AllowedTags"] =
+                (LongString)
+                "a,b,strong,i,em,blockquote,ol,li,ul,ol,p,div,br,video,audio,source,span,img,code,pre,font,h3,h4,h5,h6",
+            ["Sanitizer:AllowedAttributes"] =
+                (LongString)
+                "style,src,href,controls,autoplay,loop,alt,width,height,target,frameborder,allowfullscreen,download,controlsList,size",
+            ["Sanitizer:AllowedClasses"] =
+                (LongString)
+                "float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width",
+            ["Sanitizer:AllowedCssProperties"] =
+                (LongString)
+                "float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width",
+            ["Sanitizer:AllowedVideoDomains"] =
+                (LongString)
+                "https://www.youtube.com/,http://www.youtube.com/,https://youtube.com/,http://youtube.com/,https://youtu.be/,http://youtu.be/,//youtube.com/,//youtu.be/,//www.youtube.com/,//www.youtu.be/,https://vk.com/,http://vk.com/,//vk.com/,https://player.vimeo.com,http://player.vimeo.com,//player.vimeo.com",
+            ["Sanitizer:AllowedImageDomains"] = (LongString) "",
 
-            ["Images:MaxImageWidth"] = 3600,
-            ["Images:MaxImageHeight"] = 2025,
+            ["Images:MaxImageWidth"] = 6000,
+            ["Images:MaxImageHeight"] = 4000,
             ["Images:ResizeMaxWidthPixels"] = 1200,
             ["Images:ResizeMaxHeightPixels"] = 800,
             ["Images:PhotoMaxWidthPixels"] = 500,
@@ -36,7 +68,6 @@ namespace SunEngine.Core.Configuration
             ["Images:AllowGifUpload"] = true,
             ["Images:AllowSvgUpload"] = true,
             ["Images:ImageRequestSizeLimitBytes"] = 10485760,
-            ["Images:DoResize"] = true,
 
             ["Comments:TimeToOwnEditInMinutes"] = 15,
             ["Comments:TimeToOwnDeleteInMinutes"] = 15,
@@ -74,11 +105,104 @@ namespace SunEngine.Core.Configuration
             ["Email:EmailFromName"] = "SunEngine Demo",
             ["Email:EmailFromAddress"] = "SunEngine@demo.com",
 
-            ["FileLoading:MaxArchiveSize"] = 20 * 1024,
-            ["FileLoading:MaxExtractArchiveSize"] = 60 * 1024,
-
             ["Skins:CurrentSkinName"] = "Default",
-            ["Skins:PartialSkinsNames"] = "Test1",
+            ["Skins:PartialSkinsNames"] = "Branding",
+            ["Skins:MaxArchiveSizeKb"] = 20 * 1024,
+            ["Skins:MaxExtractArchiveSizeKb"] = 60 * 1024,
+
+            ["Cache:CurrentCachePolicy"] = CachePolicy.AlwaysPolicy,
+            ["Cache:InvalidateCacheTime"] = 15,
+
+            ["Captcha:CaptchaTimeoutSeconds"] = 180,
+
+            #region EditorToolbars
+            ["Editor:MaterialToolbar"] = (JsonString) @"[
+	          ['bold', 'italic', 'strike', 'underline'],
+              ['token', 'link', 'addImages'],
+              ['hr'],
+              [{
+              'icon': 'fas fa-heading',
+              'fixedLabel': true,
+              'fixedIcon': true,
+              'list': 'no-icons',
+              'options': ['p', 'h3', 'h4', 'h5', 'h6', 'code']
+            },
+            {
+              'icon': 'fas fa-text-height',
+              'fixedLabel': true,
+              'fixedIcon': true,
+              'list': 'no-icons',
+              'options': ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6', 'size-7']
+            },
+            'quote',
+            'removeFormat'
+            ],
+            ['unordered', 'ordered', 'outdent', 'indent',
+            {
+              'icon': 'fas fa-align-center',
+              'fixedLabel': true,
+              'options': ['left', 'center', 'right', 'justify']
+            }
+            ],
+            ['undo', 'redo'],
+            ['viewsource', 'fullscreen']
+            ]",
+
+            ["Editor:UserInformationToolbar"] = (JsonString) @"[
+              ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
+              ['token', 'hr', 'link', 'addImages'],
+              [
+                {
+                  'icon': 'fas fa-heading',
+                  'fixedLabel': true,
+                  'list': 'no-icons',
+                  'options': ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'code']
+                },
+                {
+                  'icon':  'fas fa-text-height',
+                  'fixedLabel': true,
+                  'fixedIcon': true,
+                  'list': 'no-icons',
+                  'options': ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6', 'size-7']
+                },
+                'quote',
+                'removeFormat'
+              ],
+              ['unordered', 'ordered', 'outdent', 'indent',
+                {
+                  'icon': 'fas fa-align-center',
+                  'fixedLabel': true,
+                  'options': ['left', 'center', 'right', 'justify']
+                }
+              ],
+              ['undo', 'redo'],
+              [ 'viewsource', 'fullscreen']
+            ]",
+                        ["Editor:CommentToolbar"] = (JsonString) @"[
+              ['bold', 'italic', 'strike', 'underline'],
+              ['token', 'hr', 'link', 'addImages'],
+              [
+                {
+                  'icon': 'fas fa-heading',
+                  'fixedLabel': true,
+                  'list': 'no-icons',
+                  'options': ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'code']
+                },
+                {
+                  'icon': 'fas fa-text-height',
+                  'fixedLabel': true,
+                  'fixedIcon': true,
+                  'list': 'no-icons',
+                  'options': ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6', 'size-7']
+                },
+                'quote',
+                'removeFormat'
+              ],
+              ['unordered', 'ordered'],
+              ['undo', 'redo'],
+              ['viewsource', 'fullscreen']
+            ]"
+            #endregion
         };
     }
 
@@ -99,6 +223,31 @@ namespace SunEngine.Core.Configuration
         public LongString(string value)
         {
             Value = value;
+        }
+
+        public override string ToString()
+        {
+            return Value;
+        }
+    }
+
+    public class JsonString
+    {
+        public string Value { get; set; }
+
+        public static implicit operator JsonString(string str)
+        {
+            return new JsonString(str.Replace("'", "\""));
+        }
+
+        public static explicit operator string(JsonString str)
+        {
+            return str.ToString();
+        }
+
+        public JsonString(string value)
+        {
+            Value = value.Replace("'", "\"");
         }
 
         public override string ToString()

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="edit-information page-padding">
     <h2 class="page-title">
       {{title}}
@@ -19,7 +19,6 @@
 
 <script>
     import {Page} from 'mixins'
-    import {editInformationToolbar} from 'sun'
 
 
     export default {
@@ -48,7 +47,7 @@
             }
         },
         beforeCreate() {
-            this.editorToolbar = editInformationToolbar;
+            this.editorToolbar = JSON.parse(config.Editor.UserInformationToolbar);
             this.$options.components.LoaderWait = require('sun').LoaderWait;
             this.$options.components.SunEditor = require('sun').SunEditor;
         },

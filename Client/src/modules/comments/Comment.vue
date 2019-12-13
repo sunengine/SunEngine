@@ -1,5 +1,5 @@
-<template>
-  <div class="comment">
+﻿<template>
+  <div :id="'comment-'+comment.id" class="comment">
     <img class="comment__avatar avatar" :src="$avatarPath(comment.authorAvatar)"/>
 
     <div class="q-my-md">
@@ -11,13 +11,16 @@
         </div>
         <div class="edit-btn-block q-gutter-x-md">
           <span v-if="canEdit">
-            <a class="link" href="#" @click.prevent="$emit('goEdit')"><q-icon name="fas fa-edit"/> {{$tl("edit")}}</a>
+            <a class="link" href="#" @click.prevent="$emit('goEdit')">{{$tl("edit")}}</a>
           </span>
           <span v-if="canMoveToTrash">
-            <a class="link" href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash"/></a>
+            <a class="link" href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash-alt"/></a>
+          </span>
+          <span class="material-footer-info-block">
+              <q-icon name="far fa-clock" class="q-mr-xs"/> {{ $formatDate(comment.publishDate) }}
           </span>
           <span>
-            <q-icon name="far fa-clock" class="q-mr-xs"/> {{ $formatDate(comment.publishDate) }}
+            <a class="link" @click="linkToClipboard" :href="$route.path + '#comment-' + comment.id">#</a>
           </span>
         </div>
       </div>
@@ -32,6 +35,7 @@
 
 <script>
     import {prepareLocalLinks} from 'sun';
+    import {copyToClipboard} from 'quasar'
 
 
     export default {
@@ -49,6 +53,12 @@
             goEdit: Function
         },
         methods: {
+            linkToClipboard(e) {
+                this.$nextTick(() =>
+                    copyToClipboard(window.location.href)
+                        .then(() => this.$successNotify(this.$tl("linkCopied"))
+                        ));
+            },
             prepareLocalLinks() {
                 prepareLocalLinks.call(this, this.$el, 'comment__text');
             },
