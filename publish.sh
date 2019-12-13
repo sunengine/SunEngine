@@ -58,7 +58,7 @@ ssh ${REMOTE_USER}@${REMOTE_HOST} << EOF
  echo  -e "\n${GREEN}Restarting ${REMOTE_SYSTEMD_SERVICE_NAME} ${NC}\n"
  systemctl --output=verbose restart ${REMOTE_SYSTEMD_SERVICE_NAME}
 
- sleep 5;
+ sleep 10;
 
  echo  -e "\n${GREEN}nginx journal: ${NC}\n"
  journalctl -u nginx --lines=10 --no-pager
