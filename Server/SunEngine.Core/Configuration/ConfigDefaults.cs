@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using SunEngine.Core.Models;
+using SunEngine.Core.Configuration.Options;
 
 namespace SunEngine.Core.Configuration
 {
