@@ -10,7 +10,7 @@ using SunEngine.Core.Security;
 
 namespace SunEngine.Core.Filters
 {
-  public class UserSpamProtectionFilter : SpamProtectionFilter
+  public class UserSpamProtectionFilter : SpamProtectionFilterBase
   {
     private readonly TimeSpan AdminTimeout = new TimeSpan(0, 0, 5);
     protected override string CacheKey => "RFUSER";

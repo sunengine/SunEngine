@@ -9,7 +9,7 @@ using SunEngine.Core.Errors;
 
 namespace SunEngine.Core.Filters
 {
-  public abstract class SpamProtectionFilter : ActionFilterAttribute
+  public abstract class SpamProtectionFilterBase : ActionFilterAttribute
   {
     public int TimeoutSeconds
     {

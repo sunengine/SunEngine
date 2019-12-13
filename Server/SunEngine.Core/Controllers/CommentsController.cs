@@ -11,7 +11,7 @@ using IAuthorizationService = SunEngine.Core.Security.IAuthorizationService;
 namespace SunEngine.Core.Controllers
 {
     /// <summary>
-    /// Material comments CRUD controller 
+    /// Material comments CRUD controller
     /// </summary>
     public class CommentsController : BaseController
     {

@@ -9,7 +9,7 @@ using SunEngine.Core.Errors;
 
 namespace SunEngine.Core.Filters
 {
-    public class IpSpamProtectionFilter : SpamProtectionFilter
+    public class IpSpamProtectionFilter : SpamProtectionFilterBase
     {
       protected override string CacheKey => "RFIP";
 
