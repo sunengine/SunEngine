@@ -1,17 +1,11 @@
-<template>
-  <q-list class="settings-menu my-menu" no-border>
-    <q-item class="avatar-menu-item">
-      <q-item-section avatar>
-        <img class="on-left avatar" :src="user.avatar"/>
-      </q-item-section>
-      <q-item-section>
-        {{user.name}}
-      </q-item-section>
-      <!--<q-icon name="far fa-user" size="16px" class="on-left"/>-->
-    </q-item>
+﻿<template>
+  <q-list class="settings-menu sun-second-menu" no-border>
+    <div class="settings-menu__avatar-block flex align-center">
+      <img class="settings-menu__avatar on-left" :src="user.avatar"/> <span>{{user.name}}</span>
+    </div>
     <q-item :to="{name: 'ProfileInSettings'}">
       <q-item-section avatar>
-        <q-icon name="fas fa-user-circle"/>
+        <q-icon name="fas fa-address-card"/>
       </q-item-section>
       <q-item-section>
         {{$tl("goToProfile")}}
@@ -25,12 +19,28 @@
         {{$tl("changeName")}}
       </q-item-section>
     </q-item>
+    <q-item :to="{name: 'EditInformation'}">
+      <q-item-section avatar>
+        <q-icon name="fas fa-info-circle"/>
+      </q-item-section>
+      <q-item-section>
+        {{$tl("changeYourInformation")}}
+      </q-item-section>
+    </q-item>
     <q-item :to="{name:'ChangeLink'}">
       <q-item-section avatar>
         <q-icon name="fas fa-link"/>
       </q-item-section>
       <q-item-section>
         {{$tl("changeLink")}}
+      </q-item-section>
+    </q-item>
+    <q-item :to="{name: 'LoadPhoto'}">
+      <q-item-section avatar>
+        <q-icon name="fas fa-portrait"/>
+      </q-item-section>
+      <q-item-section>
+        {{$tl("changePhoto")}}
       </q-item-section>
     </q-item>
     <q-item :to="{name:'ChangeEmail'}">
@@ -47,22 +57,6 @@
       </q-item-section>
       <q-item-section>
         {{$tl("changePassword")}}
-      </q-item-section>
-    </q-item>
-    <q-item :to="{name: 'EditInformation'}">
-      <q-item-section avatar>
-        <q-icon name="fas fa-edit"/>
-      </q-item-section>
-      <q-item-section>
-        {{$tl("changeYourInformation")}}
-      </q-item-section>
-    </q-item>
-    <q-item :to="{name: 'LoadPhoto'}">
-      <q-item-section avatar>
-        <q-icon name="fas fa-image"/>
-      </q-item-section>
-      <q-item-section>
-        {{$tl("changePhoto")}}
       </q-item-section>
     </q-item>
     <q-item :to="{name: 'Sessions'}">
@@ -85,28 +79,30 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex';
+    import {mapState} from 'vuex';
 
 
-  export default {
-    name: 'SettingsMenu',
-    computed: {
-      ...mapState({
-        user: state => state.auth.user
-      })
+    export default {
+        name: 'SettingsMenu',
+        computed: {
+            ...mapState({
+                user: state => state.auth.user
+            })
+        }
     }
-  }
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
-  .settings-menu {
-    .avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 20px;
-    }
+  .settings-menu__avatar-block {
+    padding: 15px;
+  }
+
+  .settings-menu__avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
   }
 
 </style>

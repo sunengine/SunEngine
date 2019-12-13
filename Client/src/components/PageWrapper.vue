@@ -1,6 +1,6 @@
-<template>
+﻿<template>
     <q-page class="page-wrapper page-padding">
-      <h2 class="q-title">
+      <h2 class="page-title">
         <q-icon v-if="icon" :name="icon" class="q-mr-sm" color="grey-6"/>  {{pageTitle}}
       </h2>
       <component v-if="wrapComponent" :is="wrapComponent"/>
@@ -34,6 +34,6 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
 </style>

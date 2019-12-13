@@ -1,0 +1,19 @@
+{
+  "Name": "Posts",
+  "Type": "Posts",
+  "IsCacheData": false,
+  "Roles": "Unregistered,Registered",
+  "ServerSettingsJson": {
+    "CategoriesNames": "Root",
+    "PreviewSize": 800,
+    "PageSize": 12
+  },
+  "ClientSettingsJson": {
+    "Title": "Лента новостей",
+    "SubTitle": "Из разных категорий",
+    "Header": null,
+    "CategoriesNames": "Root",
+    "RolesCanAdd": null,
+    "AddButtonLabel": null
+  }
+}

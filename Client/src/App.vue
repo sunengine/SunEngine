@@ -1,88 +1,117 @@
 <template>
-  <div id="q-app">
+  <div id="q-app" class="app">
     <Layout :key="rerenderKey" v-if="isInitialized"/>
 
-    <div v-else-if="!initializeError" class="loader">
+    <div v-else-if="!initializeError" class="app__loader">
       <div>
         <q-spinner-gears size="40px" class="q-mr-sm"/>
         {{$tl('loading')}}
       </div>
     </div>
 
-    <div v-else-if="initializeError" class="api-error">
-      <q-banner rounded class="bg-negative text-white shadow-3">
-        <template v-slot:avatar>
-          <q-icon name="fas fa-exclamation-triangle" size="1.6em"/>
-        </template>
-       {{$tl('canNotConnectApi')}}
-      </q-banner>
+    <div v-else-if="initializeError" class="app__api-error">
+      <p>
+        <img class="app__img-sad" src="/statics/sad.svg">
+      </p>
+      <p class="app__error-info">
+        {{$tl('canNotConnectApi')}}
+      </p>
+      <a class="app__refresh-btn" href="#" @click="refresh">
+        <q-icon name="fa fa-sync-alt" class="q-mr-xs"/>
+        {{$t('Global.refresh')}}</a>
     </div>
   </div>
 </template>
 
 <script>
-  import {mapState} from 'vuex'
-  import Vue from 'vue'
+    import {mapGetters} from 'vuex'
+    import Vue from 'vue'
+    import {Layout} from 'sun'
 
+    var app;
 
-  import {Layout} from 'sun'
+    Vue.config.devtools = config.VueDevTools;
 
+    export default {
+        name: 'App',
+        components: {Layout},
+        data() {
+            return {
+                rerenderKey: 1
+            }
+        },
+        computed: {
+            ...mapGetters(['isInitialized', 'initializeError'])
+        },
+        methods: {
+            rerender() {
+                this.rerenderKey += 1;
+            },
+            refresh() {
+                this.$store.state.initializedPromise = this.$store.dispatch('initStore');
+                this.$store.state.initializedPromise.then(_ =>
+                    this.$router.push(this.$router.currentRoute)
+                )
+            }
+        },
 
-  var app;
+        beforeCreate() {
+            app = this;
+            if (config.Client.VueAppInWindow) {
+                window.app = this;
+            }
+        },
 
-
-  Vue.config.devtools = config.VueDevTools;
-
-
-  export default {
-    name: 'App',
-    components: {Layout},
-    data() {
-      return {
-        rerenderKey: 1
-      }
-    },
-    computed: {
-      ...mapState(['isInitialized', 'initializeError'])
-    },
-    methods: {
-      rerender() {
-        this.rerenderKey += 1;
-      }
-    },
-    beforeCreate() {
-      app = this;
-
-      if(config.VueAppInWindow)
-        window.app = this;
-
-      this.$store.dispatch('initStore');
+        created() {
+            if (config.Client.VueAppInWindow) {
+                window.pulseException = () => this.$request(this.$Api.Pulse.PulseException);
+            }
+        }
     }
-  }
 
-  export {app};
+    export {app};
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
-  #q-app {
-    .api-error {
-      display: flex;
-      height: 100vh;
-      align-items: center;
-      align-content: center;
-      justify-content: center;
-    }
+  .app__api-error {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 1.2rem;
+    color: grey;
+    font-weight: 400;
+  }
 
-    .loader {
-      display: flex;
-      height: 100vh;
-      align-items: center;
-      align-content: center;
-      justify-content: center;
-      font-size: 1.4em;
-      color: #005d00;
+  .app__loader {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    font-size: 1.4em;
+    color: #005d00;
+  }
+
+  .app__img-sad {
+    width: 30vw;
+    max-width: 150px;
+  }
+
+  .app__refresh-btn {
+    font-size: 1.1rem;
+    color: grey;
+    padding: 10px 25px;
+    vertical-align: middle;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: $grey-4;
+      transition: 0.2s;
     }
   }
 

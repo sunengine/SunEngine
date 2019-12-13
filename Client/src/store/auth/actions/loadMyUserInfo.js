@@ -1,8 +1,18 @@
-export default async function (context) {
+import {consoleTokens, removeTokens, request} from 'sun'
+import {Api} from 'sun'
 
-  await context.dispatch('request', {
-    url: '/Personal/GetMyUserInfo',
-  }).then(response => {
+export default function (context, data) {
+
+  return request(
+    Api.Personal.GetMyUserInfo,
+    {
+      skipLock: data?.skipLock,
+      showErrorsNotifications: false,
+      blockErrorsNotifications: true
+    }).then(response => {
     context.commit('setUserInfo', response.data);
-  });
+  }).catch(() => {
+    console.error('%cTokens removed', consoleTokens);
+    removeTokens();
+  }).finally(() => {})
 }

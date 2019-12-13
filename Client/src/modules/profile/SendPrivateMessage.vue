@@ -1,81 +1,76 @@
-<template>
+﻿<template>
   <q-page class="send-private-message page-padding">
-    <h2 class="q-title"> {{$tl("titleStart")}}
+    <h2 class="page-title"> {{$tl("titleStart")}}
       <q-icon name="far fa-user" color="grey-7"/>
       {{userName}}
     </h2>
 
-    <q-editor class="q-mb-md"
-              :toolbar="editorToolbar"
-              ref="htmlEditor" v-model="text"/>
+    <q-editor class="send-private-message__editor q-mb-md" :toolbar="sendPrivateMessageToolbar" ref="htmlEditor" v-model="text"/>
 
-    <q-btn no-caps icon="fas fa-arrow-circle-right" class="send-btn q-mr-sm" @click="send" :loading="loading"
+    <q-btn class="send-btn q-mr-sm" no-caps icon="fas fa-arrow-circle-right" @click="send" :loading="loading"
            :label="$tl('sendBtn')">
-      <loader-sent slot="loading"/>
+      <LoaderSent slot="loading"/>
     </q-btn>
-    <q-btn no-caps icon="fas fa-times" @click="$router.back()" class="cancel-btn" :label="$t('Global.btn.cancel')"/>
+    <q-btn class="cancel-btn" no-caps icon="fas fa-times" @click="$router.back()"
+           :label="$t('Global.btn.cancel')"/>
   </q-page>
 </template>
 
 
 <script>
-  import {Page} from 'sun'
-  import {sendPrivateMessageToolbar} from 'sun'
-
-  const editorToolbar = sendPrivateMessageToolbar;
+    import {Page} from 'mixins'
+    import {sendPrivateMessageToolbar} from 'sun'
 
 
-  export default {
-    name: 'SendPrivateMessage',
-    mixins: [Page],
-    props: {
-      userId: {
-        type: String,
-        required: true
-      },
-      userName: {
-        type: String,
-        required: true
-      }
-    },
-    data() {
-      return {
-        text: '',
-        loading: false
-      }
-    },
-    methods: {
-      async send() {
-        await this.$store.dispatch('request',
-          {
-            url: '/Profile/SendPrivateMessage',
-            data: {
-              userId: this.userId,
-              text: this.text
+    export default {
+        name: 'SendPrivateMessage',
+        mixins: [Page],
+        props: {
+            userId: {
+                type: Number,
+                required: true
+            },
+            userName: {
+                type: String,
+                required: true
             }
-          })
-          .then(() => {
-              this.$successNotify();
-              this.loading = false;
-              this.$router.back();
+        },
+        data() {
+            return {
+                text: '',
+                loading: false
             }
-          ).catch(error => {
-            this.$errorNotify(error);
-            this.loading = false;
-          });
-
-      }
-    },
-    beforeCreate() {
-      this.$options.components.LoaderSent = require('sun').LoaderSent;
-    },
-    created() {
-      this.title = this.$tl('title');
+        },
+        methods: {
+            send() {
+                this.$request(
+                    this.$Api.Profile.SendPrivateMessage,
+                    {
+                        userId: this.userId,
+                        text: this.text
+                    }
+                ).then(_ => {
+                        this.$successNotify();
+                        this.loading = false;
+                        this.$router.back();
+                    }
+                ).catch(error => {
+                    this.$errorNotify(error);
+                    this.loading = false;
+                })
+            }
+        },
+        beforeCreate() {
+            this.$options.components.LoaderSent = require('sun').LoaderSent
+        },
+        created() {
+            this.title = this.$tl('title');
+            this.sendPrivateMessageToolbar = sendPrivateMessageToolbar;
+        }
     }
-  }
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
 </style>

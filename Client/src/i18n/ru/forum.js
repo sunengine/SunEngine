@@ -3,13 +3,8 @@ export default {
     newTopics: "Новые сообщения",
     sections: "Разделы"
   },
-  NewTopics: {
-    titleStart: "Новые темы",
-    newTopicBtn: "@:Thread.newTopicBtn",
-    topic: "@:Thread.topic",
-    last: "@:Thread.last"
-  },
   Thread: {
+    titlePartNewTopics: " - новые темы",
     newTopicBtn: "Новая тема",
     topic: "Тема",
     last: "Последнее"

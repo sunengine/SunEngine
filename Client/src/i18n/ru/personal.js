@@ -1,6 +1,6 @@
 export default {
   ChangeLink: {
-    title: "Редактировать Link пользователя",
+    title: "Изменить link пользователя",
     successNotify: "Link отредактирован",
     link: "Link",
     linkValidationInfo: "Link должен состоять не менее чем из 3 символов 'a-z', 'A-Z', '-', '0-9'. И содержать хотя бы одну букву.",
@@ -32,25 +32,30 @@ export default {
     }
   },
   EditInformation: {
-    title: "Редактировать информацию о себе",
+    title: "Изменить информацию о себе",
     label: "Информация о вас на странице вашего профиля.",
     successNotify: "Информация успешно сохранена",
     save: "@:Global.btn.save"
   },
   LoadPhoto: {
     title: "Изменить фотографию пользователя",
+    maxPhotoSize: "Максимальный размер изображения:",
+    fileSizeLimit: "Вы выбрали файл слишком большого размера",
     resetBtn: "Сбросить фотографию",
     uploadNewPhotoBtn: "Выбрать фотографию",
     avatarDeletedSuccessNotify: "Аватар успешно удалён",
     avatarChangedSuccessNotify: "Аватар успешно обновлён"
   },
   MyBanList: {
-    title: "Забаненые пользователи"
+    title: "Чёрный список пользователей",
+    subTitle: "Эти пользователи не могут писать вам в личку",
+    voidResult: "Список пуст"
   },
   Sessions: {
     title: "Сессии авторизации",
     deviceInfo: "Устройство и браузер",
     current: "Текущая",
+    updateDate: "Дата обновления",
     successNotify: "Сессии успешно удалены",
     logout: "Выйти"
   },
@@ -63,7 +68,7 @@ export default {
     changeYourInformation: "Изменить информацию о вас",
     changePhoto: "Изменить фотографию",
     sessions: "Сессии авторизации",
-    banedUsersList: "Забаненые пользователи"
+    banedUsersList: "Чёрный список пользователей"
   },
   SettingsPage: {
     title: "Личный кабинет"

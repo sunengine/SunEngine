@@ -1,5 +1,5 @@
-import {ArticlesPage, Material, wrapInPage} from 'sun'
-import {wrapInPanel} from 'sun'
+import {ArticlesPage, Material} from 'sun'
+import {wrapInPage, wrapInPanel} from 'sun'
 import {CategoriesAdmin} from 'sun'
 import {MenuItemsAdmin} from 'sun'
 import {CreateCategory} from 'sun'
@@ -11,21 +11,29 @@ import {RolesPage} from 'sun'
 import {CacheSettings} from 'sun'
 import {CreateMenuItem} from 'sun'
 import {EditMenuItem} from 'sun'
+import {CypherSecrets} from 'sun'
 import {DeletedElements} from 'sun'
 import {AdminMenu} from 'sun'
+import {ComponentsAdmin} from 'sun'
+import {CreateComponent} from 'sun'
+import {EditComponent} from 'sun'
+import {SkinsAdmin} from 'sun'
+import {MainSkinsAdmin} from 'sun'
+import {PartialSkinsAdmin} from 'sun'
+import {ConfigurationAdmin} from 'sun'
+import {AdminInformation} from 'sun'
 
 
-const AdminPage = wrapInPage("AdminPage", AdminMenu, null, "fas fa-cog");
-const AdminPanel = wrapInPanel("AdminPage", AdminMenu, null, {name: 'Admin'}, "fas fa-cog");
+const AdminPanel = wrapInPanel("AdminPanel", AdminMenu);
 
 
 const routes = [
   {
-    name: 'Admin',
+    name: 'AdminInformation',
     path: '/admin',
     components: {
-      default: AdminPage,
-      navigation: null,
+      default: AdminInformation,
+      navigation: AdminPanel,
     }
   },
   {
@@ -88,8 +96,47 @@ const routes = [
       navigation: AdminPanel
     },
     props: {
-      default: true,
+      default: (route) => {
+        return {
+          categoryId: +route.params.categoryId
+        }
+      },
       navigation: null
+    }
+  },
+  {
+    name: 'SkinsAdmin',
+    path: '/admin/Skins'.toLowerCase(),
+    components: {
+      default: SkinsAdmin,
+      navigation: AdminPanel
+    },
+    redirect: {name: 'MainSkinsAdmin'},
+    children: [
+      {
+        name: 'MainSkinsAdmin',
+        path: 'Main'.toLowerCase(),
+        components: {
+          default: MainSkinsAdmin,
+          navigation: AdminPanel
+        }
+      },
+      {
+        name: 'PartialSkinsAdmin',
+        path: 'Partial'.toLowerCase(),
+        components: {
+          default: PartialSkinsAdmin,
+          navigation: AdminPanel
+        }
+      },
+    ]
+  },
+  {
+    name: 'CypherSecrets',
+    path: '/admin/CypherSecrets'.toLowerCase(),
+    components: {
+      default: CypherSecrets,
+      navigation: AdminPanel
     }
   },
   {
@@ -125,6 +172,34 @@ const routes = [
     ]
   },
   {
+    name: 'ComponentsAdmin',
+    path: '/admin/components'.toLowerCase(),
+    components: {
+      default: ComponentsAdmin,
+      navigation: AdminPanel
+    }
+  },
+  {
+    name: 'CreateComponent',
+    path: '/admin/components/CreateComponent'.toLowerCase(),
+    components: {
+      default: CreateComponent,
+      navigation: AdminPanel
+    }
+  },
+  {
+    name: 'EditComponent',
+    path: '/admin/components/EditComponent/:name'.toLowerCase(),
+    components: {
+      default: EditComponent,
+      navigation: AdminPanel
+    },
+    props: {
+      default: true,
+      navigation: null
+    }
+  },
+  {
     name: 'CacheSettings',
     path: '/admin/CacheSettings'.toLowerCase(),
     components: {
@@ -141,6 +216,14 @@ const routes = [
     }
   },
   {
+    name: 'ConfigurationAdmin',
+    path: '/admin/Configuration'.toLowerCase(),
+    components: {
+      default: ConfigurationAdmin,
+      navigation: AdminPanel
+    }
+  },
+  {
     name: 'CatView',
     path: '/admin/CatView/'.toLowerCase() + ':categoryName',
     components: {
@@ -153,7 +236,7 @@ const routes = [
   },
   {
     name: 'CatView-mat',
-    path: '/admin/CatView-mat/'.toLowerCase() + ':categoryName/:idOrName',
+    path: '/admin/CatView/'.toLowerCase() + ':categoryName/:idOrName',
     components: {
       default: Material,
       navigation: AdminPanel
@@ -165,13 +248,11 @@ const routes = [
 ];
 
 
-for (let rote of routes) {
-  if (!rote.meta) {
+for (const rote of routes)
+  if (!rote.meta)
     rote.meta = {
       roles: ["Admin"]
     };
-  }
-}
 
 
 export default routes;

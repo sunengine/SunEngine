@@ -6,4 +6,6 @@ export default function clearAllUserRelatedData(state) {
   store.state.categories.root = null;
   store.state.categories.all = null;
   store.state.menu.namedMenuItems = null;
+  store.state.components.allComponents = null;
+  store.state.admin.showDeletedElements = false;
 }

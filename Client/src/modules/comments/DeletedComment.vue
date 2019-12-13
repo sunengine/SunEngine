@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="deleted-comment q-ml-lg text-grey-8">
     {{$tl("label")}}
   </div>
@@ -12,6 +12,6 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
 </style>

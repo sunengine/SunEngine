@@ -1,8 +1,8 @@
-<template>
-  <q-list class="categories2" no-border dense v-if="subCategories" highlight>
+﻿<template>
+  <q-list class="categories categories2" no-border dense v-if="subCategories" highlight>
     <template v-for="folder in subCategories">
 
-      <q-item class="header">
+      <q-item class="categories2__header">
         <q-item-section v-if="folder.icon" avatar>
           <q-icon :name="folder.icon"/>
         </q-item-section>
@@ -56,10 +56,9 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
-  .categories2 {
-    .header {
+    .categories2__header {
       padding: 8px 16px;
       min-height: unset;
       font-size: unset;
@@ -71,22 +70,21 @@
       }
     }
 
-    .q-list {
+    .categories2 {
       padding: 0 !important;
-    }
 
-    .q-item__section--avatar {
-      min-width: unset;
-    }
+      .q-item__section--avatar {
+        min-width: unset;
+      }
 
-    .q-item__section--side {
-      padding-right: 10px;
-    }
+      .q-item__section--side {
+        padding-right: 10px;
+      }
 
-    .q-icon {
-      font-size: 20px !important;
-      color: #a3a3a3;
+      .q-icon {
+        font-size: 20px !important;
+        color: #a3a3a3;
+      }
     }
-  }
 
 </style>

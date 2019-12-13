@@ -1,7 +1,7 @@
 // Configuration for your app
 
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = function (ctx) {
   return {
@@ -13,67 +13,30 @@ module.exports = function (ctx) {
       'apiPath',
       'buildPath',
       'imagePath',
+      'avatarPath',
       'formatDate',
       'successNotify',
-      'errorNotify'
+      'errorNotify',
+      'request',
+      'api',
+      'iconPicker',
+      'throttle'
     ],
     css: [
-      'app.styl'
+      'app.scss',
     ],
     extras: [
+      'fontawesome-v5',
       //'roboto-font',
       //'material-icons', // optional, you are not bound to it
-      // 'ionicons-v4',
-      // 'mdi-v3',
-       'fontawesome-v5',
-      // 'eva-icons'
+      //'ionicons-v4',
+      //'mdi-v3',
+      //'eva-icons'
     ],
 
     // framework: 'all', // --- includes everything; for dev only!
     framework: {
-      components: [
-        'QLayout',
-        'QHeader',
-        'QFooter',
-        'QDrawer',
-        'QPageContainer',
-        'QPage',
-        'QToolbar',
-        'QToolbarTitle',
-        'QBtn',
-        'QBadge',
-        'QBtnDropdown',
-        'QIcon',
-        'QList',
-        'QItem',
-        'QItemSection',
-        'QItemLabel',
-        'QMenu',
-        'QInput',
-        'QCheckbox',
-        'QSpinner',
-        'QSpinnerGears',
-        'QBanner',
-        'QPagination',
-        'QEditor',
-        'QSelect',
-        'QChip',
-        'QAvatar',
-        'QTree',
-        'QExpansionItem',
-        'QDialog',
-        'QField',
-        'QSeparator',
-        'QTable',
-        'QTh',
-        'QTr',
-        'QTd'
-      ],
-
-      directives: [
-        'Ripple',
-        'ClosePopup'
-      ],
+      all: 'auto',
 
       // Quasar plugins
       plugins: [
@@ -102,18 +65,18 @@ module.exports = function (ctx) {
       // gzip: true,
       // analyze: true,
       // extractCSS: false,
-      extendWebpack (cfg) {
+      extendWebpack(cfg) {
+        cfg.resolve.alias.sun = path.resolve('./src/sun.js');
+        cfg.resolve.alias.mixins = path.resolve('./src/mixins/mixins.js');
+
         cfg.resolve.modules.push(path.resolve('./src'));
-        cfg.resolve.modules.push(path.resolve('./src/index'));
-        cfg.resolve.modules.push(path.resolve('./src/modules'));
-        cfg.resolve.modules.push(path.resolve('./src/components'));
 
-        const htmlWebpackPlugin = cfg.plugins.find(x=> x.constructor.name === "HtmlWebpackPlugin");
-        htmlWebpackPlugin.options.configUId = Math.random().toString(36).substring(7);
+        const htmlWebpackPlugin = cfg.plugins.find(x => x.constructor.name === "HtmlWebpackPlugin");
+        htmlWebpackPlugin.options.configUId = Math.floor( Math.random() * 1000000).toString();
+      },
 
-        if(ctx.dev) {
-          cfg.plugins.push( new CopyWebpackPlugin([{from: 'config.js', to:'config.js'}]));
-        }
+      env: {
+        PACKAGE_JSON: JSON.stringify(require('./package'))
       }
     },
 
@@ -178,7 +141,7 @@ module.exports = function (ctx) {
 
     electron: {
       // bundler: 'builder', // or 'packager'
-      extendWebpack (cfg) {
+      extendWebpack(cfg) {
         // do something with Electron process Webpack cfg
       },
       packager: {
@@ -200,4 +163,4 @@ module.exports = function (ctx) {
       }
     }
   }
-}
+};

@@ -1,22 +1,24 @@
-<template>
+﻿<template>
   <q-page class="thread">
 
-    <div class="header-with-button page-padding">
-      <h2 class="q-title">
-        {{thread.title}}
+    <div class="page-title-block page-padding">
+      <h2 class="page-title">
+        {{thisTitle}}
       </h2>
-      <q-btn no-caps class="post-btn"
+      <q-btn no-caps class="thread__post-btn post-btn"
              @click="$router.push({name:'CreateMaterial',params:{categoriesNames: thread.sectionRoot.name, initialCategoryName: thread.name}})"
-             :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus" />
+             :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus"/>
     </div>
 
     <div v-if="thread.header" class="q-mb-sm" v-html="thread.header"></div>
 
-    <LoaderWait v-if="!topics.items"/>
+    <LoaderWait ref="loader" v-if="!topics.items"/>
 
     <div class="q-mt-sm" v-else>
-      <div class="margin-back bg-grey-2 gt-xs text-grey-6">
-        <hr class="hr-sep"/>
+      <div class="thread__table-header margin-back bg-grey-2 gt-xs text-grey-6 ">
+
+        <hr class="thread__sep"/>
+
         <div class="row">
           <div class="col-xs-12 col-sm-8" style="padding: 2px 0px 2px 76px; ">
             {{$tl("topic")}}
@@ -27,11 +29,12 @@
         </div>
       </div>
 
-      <q-list no-border>
-        <hr class="hr-sep margin-back"/>
+      <q-list class="thread__list" no-border>
+        <hr class="thread__sep margin-back"/>
+
         <div class="margin-back" v-for="topic in topics.items" :key="topic.id">
           <Topic :topic="topic"/>
-          <hr class="hr-sep"/>
+          <hr class="thread__sep"/>
         </div>
       </q-list>
 
@@ -43,96 +46,75 @@
 </template>
 
 <script>
-  import {Page} from 'sun'
+    import {Page} from 'mixins'
+    import {Pagination} from 'mixins'
 
 
-  export default {
-    name: 'Thread',
-    mixins: [Page],
-    props: {
-      categoryName: String
-    },
-    data() {
-      return {
-        topics: {}
-      }
-    },
-    watch: {
-      '$route': 'loadData',
-    },
-    computed: {
-      canAddTopic() {
-        return this.thread?.categoryPersonalAccess?.materialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;
-      },
-      currentPage() {
-        return this.$route.query?.page ?? 1;
-      },
-      thread() {
-        return this.$store.getters.getCategory(this.categoryName);
-      }
-    },
-    methods: {
-      pageChanges(newPage) {
-        if (this.currentPage !== newPage) {
-          let req = {path: this.$route.path};
-          if (newPage !== 1) {
-            req.query = {page: newPage};
-          }
-          this.$router.push(req);
+    export default {
+        name: 'Thread',
+        mixins: [Page, Pagination],
+        props: {
+            categoryName: {
+                type: String,
+                required: true,
+            },
+            loadTopics: {
+                type: Function,
+                required: true,
+            },
+            pageTitle: {
+                type: String,
+                required: false
+            }
+        },
+        data() {
+            return {
+                topics: {}
+            }
+        },
+        watch: {
+            '$route': 'loadData'
+        },
+        computed: {
+            thisTitle() {
+                return this.pageTitle ?? this.thread.title;
+            },
+            canAddTopic() {
+                return this.thread?.categoryPersonalAccess?.MaterialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;
+            },
+            thread() {
+                return this.$store.getters.getCategory(this.categoryName);
+            }
+        },
+        beforeCreate() {
+            this.$options.components.Topic = require('sun').Topic;
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
+        },
+        methods: {
+            loadData() {
+                this.loadTopics.call(this)
+            }
+        },
+        created() {
+            this.loadData()
         }
-      },
-
-      async loadData() {
-        if (!this.thread)
-          return;
-
-        this.title = this.thread.title;
-
-        this.topics = {};
-        await this.$store.dispatch('request',
-          {
-            url: '/Forum/GetThread',
-            data: {
-              categoryName: this.categoryName,
-              page: this.currentPage,
-              showDeleted: (this.$store.state.admin.showDeletedElements || this.$route.query.deleted) ? true : undefined
-            }
-          })
-          .then(
-            response => {
-              this.topics = response.data;
-            }
-          ).catch(x => {
-            console.log('error', x);
-          });
-      }
-    },
-    beforeCreate() {
-      this.$options.components.Topic = require('sun').Topic;
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
-    },
-    async created() {
-      await this.loadData()
     }
-  }
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
-  .thread {
-    .hr-sep {
-      height: 0;
-      margin-top: 0;
-      margin-bottom: 0;
-      border-top: solid #d3eecc 1px !important;
-      border-left: none;
-    }
+  .thread__sep {
+    height: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-top: solid #d3eecc 1px !important;
+    border-left: none;
+  }
 
-    .q-list {
-      padding: 0;
-      margin-bottom: 12px;
-    }
+  .thread__list {
+    padding: 0;
+    margin-bottom: 12px;
   }
 
 </style>

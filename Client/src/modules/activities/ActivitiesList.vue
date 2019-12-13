@@ -1,65 +1,57 @@
-<template>
+﻿<template>
   <div class="activities-list">
     <template v-if="activities">
-      <activity :key="activity.materialId + '-' + activity.commentId" :activity="activity"
+      <Activity :key="activity.materialId + '-' + activity.commentId" :activity="activity"
                 v-for="activity in activities"/>
     </template>
-    <loader-wait v-else/>
+    <LoaderWait ref="loader" v-else/>
   </div>
 </template>
 
 <script>
 
-  export default  {
-    name: 'ActivitiesList',
-    props: {
-      materialsCategories: {
-        type: String,
-        required: false
-      },
-      commentsCategories: {
-        type: String,
-        required: false
-      },
-      activitiesNumber: {
-        type: Number,
-        required: true
-      }
-    },
-    data() {
-      return {
-        activities: null
-      }
-    },
-    methods: {
-      async loadData() {
-
-        await this.$store.dispatch('request',
-          {
-            url: '/Activities/GetActivities',
-            data: {
-              materialsCategories: this.materialsCategories,
-              commentsCategories: this.commentsCategories,
-              number: this.activitiesNumber
+    export default {
+        name: 'ActivitiesList',
+        props: {
+            componentName: {
+                type: String,
+                required: true
             }
-          })
-          .then(
-            response => {
-              this.activities = response.data;
+        },
+        data() {
+            return {
+                activities: null
             }
-          );
-      }
-    },
-    beforeCreate() {
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
-      this.$options.components.Activity = require('sun').Activity;
-    },
-    async created() {
-      await this.loadData()
+        },
+        computed: {
+            component() {
+                return this.$store.getters.getComponent(this.componentName);
+            }
+        },
+        methods: {
+            loadData() {
+                this.$request(this.$Api.Activities.GetActivities,
+                    {
+                        componentName: this.componentName
+                    }
+                ).then(response => {
+                    this.activities = response.data;
+                }).catch(x => {
+                    this.$refs.loader.fail();
+                })
+            }
+        },
+        beforeCreate() {
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
+            this.$options.components.Activity = require('sun').Activity;
+        },
+        async created() {
+            await this.loadData()
+        }
     }
-  }
+
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
 </style>

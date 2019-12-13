@@ -4,7 +4,6 @@ import messages from 'site/i18n'
 export default async ({app, Vue}) => {
   Vue.use(VueI18n);
 
-  // Set i18n instance on app
   app.i18n = new VueI18n({
     locale: 'ru',
     fallbackLocale: 'en-us',
@@ -12,10 +11,10 @@ export default async ({app, Vue}) => {
   });
 
   Vue.prototype.$tl = function (key, ...values) {
-    return this.$t(this.$options.name + '.' + key, values);
+    return this.$t(this.$options.name + '.' + key, ...values);
   };
 
   Vue.prototype.$tle = function (key, ...values) {
-    return this.$te(this.$options.name + '.' + key, values);
+    return this.$te(this.$options.name + '.' + key, ...values);
   };
 }

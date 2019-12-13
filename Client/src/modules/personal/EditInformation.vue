@@ -1,75 +1,74 @@
-<template>
-  <q-page class="edit-information flex column middle page-padding">
-    <template v-if="userInfo">
-      <div class="q-mb-lg text-grey-8">{{$tl("label")}}</div>
+﻿<template>
+  <q-page class="edit-information page-padding">
+    <h2 class="page-title">
+      {{title}}
+    </h2>
 
-      <MyEditor class="q-mb-sm" style="max-width: 100%;"
-                :toolbar="editorToolbar"
-                ref="htmlEditor" v-model="userInfo.information"/>
+    <template v-if="userInfo">
+      <div class="edit-information__label q-mb-lg text-grey-8">{{$tl("label")}}</div>
+
+      <SunEditor class="edit-information__editor q-mb-lg"
+                 :toolbar="editorToolbar"
+                 ref="htmlEditor" v-model="userInfo.information"/>
       <q-btn no-caps class="send-btn" icon="far fa-save" :label="$tl('save')" @click="save"/>
     </template>
+
     <LoaderWait v-else/>
   </q-page>
 </template>
 
 <script>
-  import {Page} from 'sun'
-  import {editInformationToolbar} from 'sun'
+    import {Page} from 'mixins'
 
 
-  export default {
-    name: 'EditInformation',
-    mixins: [Page],
-    data() {
-      return {
-        userInfo: {
-          information: null,
-        }
-      }
-    },
-    methods: {
-      async save() {
-        await this.$store.dispatch('request',
-          {
-            url: '/Personal/SetMyProfileInformation',
-            data: {
-              html: this.userInfo.information
+    export default {
+        name: 'EditInformation',
+        mixins: [Page],
+        data() {
+            return {
+                userInfo: {
+                    information: null,
+                }
             }
-          }).then(() => {
-          this.$router.push({name: 'Personal'});
-          this.$successNotify();
-        }).catch(error => {
-          this.$errorNotify(error);
-        });
-      }
-    },
-    beforeCreate() {
-      this.editorToolbar = editInformationToolbar;
-      this.$options.components.LoaderWait = require('sun').LoaderWait;
-      this.$options.components.MyEditor = require('sun').MyEditor;
-    },
-    async created() {
-      this.title = this.$tl('title');
-      await this.$store.dispatch('request',
-        {
-          url: '/Personal/GetMyProfileInformation',
-        }).then(response => {
-        this.userInfo = response.data;
-      }).catch(error => {
-        console.error('error', error);
-      });
+        },
+        methods: {
+            save() {
+                this.$request(
+                    this.$Api.Personal.SetMyProfileInformation,
+                    {
+                        html: this.userInfo.information
+                    }
+                ).then(() => {
+                    this.$router.push({name: 'Personal'});
+                    this.$successNotify();
+                }).catch(error => {
+                    this.$errorNotify(error)
+                });
+            }
+        },
+        beforeCreate() {
+            this.editorToolbar = JSON.parse(config.Editor.UserInformationToolbar);
+            this.$options.components.LoaderWait = require('sun').LoaderWait;
+            this.$options.components.SunEditor = require('sun').SunEditor;
+        },
+        created() {
+            this.title = this.$tl('title');
+            this.$request(
+                this.$Api.Personal.GetMyProfileInformation
+            ).then(response => {
+                this.userInfo = response.data;
+            }).catch(error => {
+                console.error('error', error)
+            });
+        }
     }
-  }
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
-  .edit-information {
-
-    .send-btn {
-      width: 270px;
-    }
+  .edit-information__send-btn {
+    width: 270px;
   }
 
 </style>

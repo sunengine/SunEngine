@@ -9,14 +9,22 @@ export default {
       create: "Создать",
       save: "Сохранить",
       cancel: "Отмена",
-      delete: "Удалить"
+      delete: "Удалить",
+      reset: "Сбросить"
     },
     validation: {
       emailSig: "Неправильная сигнатура email",
+      jsonFormatError: "Ошибка валидации Json",
+      fileSizeLimit: "Файл '{fileName}' слишком большого размера. Максимально допустимый размер файла {maxSize} мегабайта."
+    },
+    units: {
+      megabytes: "мегабайт"
     },
     errorNotify: "Ошибка",
     successNotify: "Операция выполнена успешно",
-    submitting: "Отправляю данные..."
+    submitting: "Отправляю данные...",
+    apiError: "Ошибка Api",
+    refresh: "Перегрузить"
   },
   App: {
     loading: "Загрузка...",

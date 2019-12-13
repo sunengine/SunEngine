@@ -1,4 +1,4 @@
-export default function () {
+﻿export default function () {
   const deleteDialogTitle = this.$tl('deleteDialogTitle');
   const deleteDialogMessage = this.$tl('deleteDialogMessage');
   const okBtn = this.$tl('deleteDialogOk');
@@ -8,14 +8,13 @@ export default function () {
     message: deleteDialogMessage,
     ok: okBtn,
     cancel: cancelBtn
-  }).onOk(async () => {
-    await this.$store.dispatch("request",
+  }).onOk(() => {
+    this.$request(
+      this.$Api.Materials.Delete,
       {
-        url: "/Materials/Delete",
-        data: {
-          id: this.material.id,
-        }
-      }).then(
+        id: this.material.id,
+      }
+    ).then(
       () => {
         const deleteSuccessMsg = this.$tl('deleteSuccess');
         this.$successNotify(deleteSuccessMsg);

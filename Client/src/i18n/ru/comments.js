@@ -17,9 +17,10 @@ export default {
   DeletedComment: {
     label: "Сообщение удалено"
   },
-  ReadComment: {
-    edit: "редактировать",
+  Comment: {
+    edit: "Редактировать",
     deleteDialogMessage: "Удалить сообщение?",
-    moveToTrashSuccess: "Комментарий удалён"
+    moveToTrashSuccess: "Комментарий удалён",
+    linkCopied: "Ссылка на коментарий скопирована в буфер обмена"
   }
 }

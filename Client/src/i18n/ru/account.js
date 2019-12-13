@@ -1,6 +1,6 @@
 export default {
   ChangeEmail: {
-    title: "Редактировать email пользователя",
+    title: "Изменить email пользователя",
     successNotify: "Сообщение с ссылкой для подтверждения email отправлено по почте",
     password: "Ваш пароль",
     newEmail: "Новый email",

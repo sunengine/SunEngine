@@ -1,3 +1,10 @@
 {
-  "ide-helper": {}
+  "ide-helper": {
+    "addToGitIgnore": true,
+    "__internal": {
+      "lastQuasarVersion": "1.5.9",
+      "lastIdeHelperVersion": "1.0.0-alpha.3"
+    }
+  },
+  "@quasar/qiconpicker": {}
 }

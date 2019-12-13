@@ -27,9 +27,10 @@ export default {
     category: "раздел:",
     edit: "Редактировать",
     tags: "Метки:",
+    visitsCount: "просмотры",
     deleted: "@:EditMaterial.deleted",
     deleteDialogTitle: "@:EditMaterial.deleteDialogTitle",
-    deleteDialogMessage: "@:EditMaterial.deleted",
+    deleteDialogMessage: "",
     deleteDialogOk: "@:EditMaterial.deleteDialogOk",
     deleteDialogCancel: "@:EditMaterial.deleteDialogCancel",
     deleteSuccess: "@:EditMaterial.deleteSuccess",
@@ -42,12 +43,13 @@ export default {
   MaterialForm: {
     name: "Имя (eng)",
     title: "Заголовок",
-    description: "Короткое описание",
+    subTitle: "Подзаголовок",
     tags: "Метки",
     selectCategory: "Раздел",
     category: "Раздел: {0}",
     hide: "Спрятать",
     blockComments: "Запретить комментарии",
+    settingsJson: "Json настройки",
     validation: {
       name: {
         allowedChars: "Имя должно содержать только английские буквы цифры и символ '-'",
@@ -65,10 +67,13 @@ export default {
         htmlTextSizeOrHasImage: "Минимальная длинна текста - 5",
       },
       subTitle: {
-        maxLength: "Максимально допустимая длинна " + config.DbColumnSizes.Materials_Description
+        maxLength: "Максимально допустимая длинна " + config.DbColumnSizes.Materials_SubTitle
       },
       category: {
         required: "Выберите раздел"
+      },
+      settingsJson: {
+        jsonFormatError: "Неверный формат Json",
       }
     }
   }

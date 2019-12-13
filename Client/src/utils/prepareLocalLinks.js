@@ -1,15 +1,18 @@
+
 export default function (ell, className) {
   const el = ell.getElementsByClassName(className)[0];
   const links = el.getElementsByTagName('a');
+
   for (const link of links) {
-    if (link.href.startsWith(config.SiteUrl)) {
+    link.classList.add("link");
+    if (link.href.startsWith(config.Global.SiteUrl)) {
       link.addEventListener('click', (e) => {
-        const url = link.href.substring(config.SiteUrl.length);
-        this.$router.push(url);
         e.preventDefault();
+        const url = link.href.substring(config.Global.SiteUrl.length);
+        this.$router.push(url);
       });
     } else {
-      if (config.OpenExternalLinksAtNewTab)
+      if (config.Client.OpenExternalLinksAtNewTab)
         link.setAttribute("target", "_blank");
     }
   }

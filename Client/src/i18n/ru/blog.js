@@ -1,12 +1,12 @@
 export default {
   BlogMultiCatPage: {
-    newPostBtnDefault: "@:BlogPage.newPostBtn"
+    addButtonLabel: "Новый материал"
   },
   BlogPage: {
     newPostBtn: "Новый пост"
   },
   Post: {
-    commentsCount: "сообщений",
+    commentsCount: "комментариев",
     readMore: "Читать дальше",
     hidden: "спрятан",
     deleted: "удалён"

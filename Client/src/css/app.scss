@@ -1,0 +1,298 @@
+// app global css
+
+
+a {
+  text-decoration: none;
+}
+
+body {
+  //font-family: "Open Sans", sans-serif;
+}
+
+// ——— Input ————————————————————————————————————
+
+
+$q-field-color: #00c63b;
+
+.q-field--focused {
+  .q-field__label {
+    color: $q-field-color !important;
+  }
+
+  .q-field__control {
+    color: $q-field-color !important;
+  }
+}
+
+
+// ——— Title ————————————————————————————————————
+
+
+.page-title {
+  padding: $flex-gutter-md 0;
+  font-size: 1.3rem;
+  line-height: unset;
+  font-weight: 500;
+  margin: 0;
+}
+
+.page-title-block {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-top: $flex-gutter-md !important;
+  padding-bottom: $flex-gutter-md !important;
+
+  .page-title {
+    flex-grow: 1;
+    padding: 0 !important;
+    margin: 3px 0;
+  }
+
+  .q-btn {
+    flex-grow: 0;
+    margin: 3px 0;
+  }
+}
+
+.page-sub-title {
+  margin-top: -14px;
+  margin-bottom: 20px;
+  color: $grey-9;
+}
+
+
+// ——— Menus ————————————————————————————————————
+
+
+.sun-second-menu {
+
+  .q-item {
+    min-height: 40px;
+  }
+
+  .q-item__section--avatar {
+    width: 28px !important;
+    min-width: unset !important;
+    padding: 0 !important;
+    margin: 0 !important;
+
+    .q-icon {
+      font-size: 16px !important;
+    }
+  }
+
+  .avatar-menu-item {
+    .q-item__section--avatar {
+      width: 40px !important;
+    }
+
+    .avatar {
+      margin-left: -6px;
+      margin-right: 11px;
+      border-radius: 16px;
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+
+
+// ——— Page paddings ————————————————————————————————————
+
+
+.q-page {
+  padding-bottom: $flex-gutter-xl !important;
+}
+
+
+$paddings: (12px 18px 24px);
+
+@mixin page-paddings-block($size) {
+  .page-padding {
+    padding-right: $size !important;
+    padding-left: $size !important;
+  }
+
+  .page-padding-right {
+    padding-right: $size !important;
+  }
+
+  .page-padding-left {
+    padding-left: $size !important;
+  }
+
+  .page-margin {
+    margin-right: $size !important;
+    margin-left: $size !important;
+  }
+
+  .page-padding-top {
+    padding-top: $size !important;
+  }
+
+}
+
+@media (max-width: 599px) {
+  @include page-paddings-block(nth($paddings,1));
+}
+
+@media (min-width: 600px) and (max-width: 1023px) {
+  @include page-paddings-block(nth($paddings,2))
+}
+
+@media (min-width: 1024px) {
+  @include page-paddings-block(nth($paddings,3))
+}
+
+
+// ——— Elements ————————————————————————————————————
+
+
+.center-form {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+.select-category {
+  border: 1px solid rgba(0, 0, 0, 0.54) !important;
+  font-weight: normal;
+
+  .q-icon {
+    color: rgba(0, 0, 0, 0.54) !important;
+  }
+}
+
+.captcha-wait-msg {
+  font-size: 0.8em;
+  color: $negative;
+}
+
+.error {
+  color: $negative;
+  font-size: 12px;
+  padding: 4px 0;
+}
+
+.q-notification__message {
+  white-space: pre-wrap;
+}
+
+
+// ——— Extras ————————————————————————————————————
+
+
+.clear {
+  clear: both;
+}
+
+.word-break {
+  word-break: break-all;
+}
+
+.middle {
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-middle {
+  vertical-align: middle;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+
+
+// ——— Fixes ————————————————————————————————————
+
+
+.q-expansion-item--standard.q-expansion-item--expanded .q-expansion-item__border {
+  opacity: 1 !important;
+}
+
+
+// ——— Material styles ————————————————————————————————————
+
+
+.material-hidden {
+  .material__hidden-deleted-header, .material__hidden-deleted-header * {
+    color: dimgrey !important;
+  }
+
+  * {
+    color: silver !important;
+  }
+
+  .q-avatar {
+    filter: grayscale(1)
+  }
+}
+
+.material-deleted {
+  * {
+    color: silver !important;
+  }
+
+  .material__hidden-deleted-header, .material__hidden-deleted-header * {
+    color: maroon !important;
+  }
+
+  .q-avatar {
+    filter: grayscale(1)
+  }
+}
+
+.material-footer-info-block {
+  color: $grey-7;
+
+  .q-icon {
+    &:before {
+      padding-bottom: 2px !important;
+    }
+  }
+}
+
+.material-header-info-block {
+  display: flex;
+
+  span {
+    display: inline-flex;
+    margin-right: 10px;
+    white-space: nowrap;
+    align-items: center;
+
+    .q-icon {
+      margin-right: 6px;
+
+      &:before {
+        padding-top: 2px !important;
+      }
+    }
+  }
+}
+
+.material__text, .post__text, .comment__text {
+  img {
+    max-width: 100%;
+  }
+}
+
+
+// ——— Captcha ——————————————————————————————————————————
+
+
+.captcha-block {
+  padding: 10px 10px 10px 44px;
+  border-radius: 5px;
+  background-color: #f0f4c3;
+}
+

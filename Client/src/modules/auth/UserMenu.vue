@@ -1,5 +1,5 @@
-<template>
-  <div class="user-menu my-menu">
+﻿<template>
+  <div class="user-menu sun-second-menu">
     <q-item :to="{name: 'User', params: {link: user.link}}" v-close-popup>
       <q-item-section avatar>
         <q-icon name="fas fa-user-circle"/>
@@ -20,7 +20,7 @@
         </q-item-label>
       </q-item-section>
     </q-item>
-    <q-item v-if="isAdmin" :to="{name: 'Admin'}" v-close-popup>
+    <q-item v-if="isAdmin" :to="{name: 'AdminInformation'}" v-close-popup>
       <q-item-section avatar>
         <q-icon name="fas fa-cog"/>
       </q-item-section>
@@ -75,7 +75,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
 
 </style>

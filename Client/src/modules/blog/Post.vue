@@ -1,15 +1,15 @@
-<template>
-  <div :class="['post', {'mat-hidden': post.isHidden}, {'mat-deleted': post.isDeleted}]">
+﻿<template>
+  <div :class="['post', {'mat-hidden': post.isHidden}, {'mat-deleted': post.deletedDate}]">
     <q-item :to="to" class="header page-padding">
-      <q-avatar class="shadow-1 avatar" size="44px">
-        <img :src="$imagePath(post.authorAvatar)"/>
+      <q-avatar class="shadow-1 avatar" size="40px">
+        <img :src="$avatarPath(post.authorAvatar)"/>
       </q-avatar>
       <div>
         <div class="blog-title my-header">
-          <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="post.isDeleted"/>
+          <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="post.deletedDate"/>
           <q-icon name="far fa-eye-slash" v-else-if="post.isHidden" class="q-mr-sm"/>
           {{post.title}}
-          <span class="q-ml-sm" v-if="post.isDeleted">
+          <span class="q-ml-sm" v-if="post.deletedDate">
             [{{$tl("deleted")}}]
           </span>
           <span class="q-ml-sm" v-else-if="post.isHidden">
@@ -24,25 +24,25 @@
       </div>
     </q-item>
 
-    <div v-if="!post.isHidden && !post.isDeleted" class="post-text page-padding"
-         v-html="post.preview"></div>
+    <div v-if="!post.isHidden && !post.deletedDate" class="post__text page-padding" v-html="post.preview"></div>
 
-    <div class="date text-grey-6">
+    <div class="date page-padding text-grey-6">
       <q-icon name="far fa-clock"/>
-      <span>{{$formatDate(this.post.publishDate)}} &nbsp;</span>
+      <span>{{$formatDate(this.post.publishDate)}}</span>
     </div>
 
-    <div class="flex footer float-left ">
-      <q-item class="page-padding-left" :to="toComments">
-        <span :class="[{'text-grey-6': !post.commentsCount}]">
-        <q-icon name="far fa-comment" class="q-mr-sm"/>
-        {{post.commentsCount}} {{$tl('commentsCount')}}
+    <div class="flex footer float-left">
+
+      <q-item v-if="post.hasMoreText" :class="{'post__read-more-link': true, 'page-padding-left': true}" :to="to">
+        <span>
+          <q-icon name="far fa-file-alt" size="16px" left/>{{$tl('readMore')}}
         </span>
       </q-item>
-      <q-item :to="to" v-if="post.hasMoreText">
-        <span>
-          {{$tl('readMore')}}
-          <q-icon name="fas fa-arrow-right"/>
+
+      <q-item v-if="canCommentWrite" :class="{'page-padding-left': !post.hasMoreText,  'post__comments-link': true}"
+              :to="toComments">
+        <span :class="[{'text-grey-6': !post.commentsCount}]">
+          <q-icon name="far fa-comment" left/>{{post.commentsCount}} {{$tl('commentsCount')}}
         </span>
       </q-item>
 
@@ -52,42 +52,47 @@
 </template>
 
 <script>
-  import {prepareLocalLinks} from 'sun'
+    import {prepareLocalLinks} from 'sun'
 
 
-  export default {
-    name: 'Post',
-    props: {
-      post: {
-        type: Object,
-        required: true
-      }
-    },
-    computed: {
-      to() {
-        return this.category.getMaterialRoute(this.post.id);
-      },
-      toComments() {
-        return this.category.getMaterialRoute(this.post.id, '#comments');
-      },
-      category() {
-        return this.$store.getters.getCategory(this.post.categoryName);
-      }
-    },
-    methods: {
-      prepareLocalLinks() {
-        prepareLocalLinks(this.$el, 'post-text');
-      }
-    },
-    mounted() {
-      this.prepareLocalLinks();
+    export default {
+        name: 'Post',
+        props: {
+            post: {
+                type: Object,
+                required: true
+            }
+        },
+        computed: {
+            to() {
+                return this.category.getMaterialRoute(this.post.id);
+            },
+            toComments() {
+                return this.category.getMaterialRoute(this.post.id, '#comments');
+            },
+            canCommentWrite() {
+                if (this.post.isCommentsBlocked)
+                    return false;
+                return this.category.categoryPersonalAccess.CommentWrite;
+            },
+            category() {
+                return this.$store.getters.getCategory(this.post.categoryName);
+            }
+        },
+        methods: {
+            prepareLocalLinks() {
+                prepareLocalLinks.call(this, this.$el, 'post__text');
+            }
+        },
+        mounted() {
+            this.prepareLocalLinks();
+        }
     }
-  }
 
 </script>
 
 
-<style lang="stylus">
+<style lang="scss">
 
   .post {
     .avatar {
@@ -104,14 +109,13 @@
       color: $link-color !important;
     }
 
-    $footer-line-height = 38px;
+    $footer-line-height: 38px;
 
     .footer {
       align-items: center;
       color: $link-color !important;
 
       .q-item {
-
         min-height: unset !important;
         height: $footer-line-height;
       }
@@ -119,11 +123,19 @@
       .q-item:first-child {
         padding-left: 0;
       }
+
+      .comments {
+        .q-icon {
+          &:before {
+            padding-bottom: 2px !important;
+          }
+        }
+      }
     }
 
-    .post-preview {
+    .post-text {
 
-      margin: 3px 0;
+      margin: 8px 0;
 
       *:first-child {
         margin-top: 0 !important;
@@ -150,7 +162,11 @@
       height: $footer-line-height;
 
       .q-icon {
-        margin-right: 7px;
+        margin-right: 8px;
+
+        &:before {
+          padding-top: 1px !important;
+        }
       }
     }
   }

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="register-email-result flex middle page-padding">
     <q-banner v-if="success" class="bg-positive text-white">
       <template v-slot:avatar>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import {Page} from 'sun'
+  import {Page} from 'mixins'
 
 
   export default {
@@ -36,6 +36,6 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
 </style>

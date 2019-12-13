@@ -17,8 +17,10 @@ export default {
   DeletedComment: {
     label: "Comment deleted"
   },
-  ReadComment: {
-    edit: "edit",
-    deleteDialogMessage: "Remove message?"
+  Comment: {
+    edit: "Edit",
+    deleteDialogMessage: "Remove message?",
+    moveToTrashSuccess: "Moved to trash success",
+    linkCopied: "Link to comment copied to buffer"
   }
 }

@@ -1,4 +1,4 @@
-export function getWhereToMove(store) {
+﻿export function getWhereToMove(store) {
   const rez = goDeep(store.state.categories.root);
   return [...rez.children];
 }
@@ -58,7 +58,7 @@ function goDeep(category) {
     selectable: false
   };
 
-  if (category.categoryPersonalAccess?.materialWrite) {
+  if (category.categoryPersonalAccess?.MaterialWrite) {
     if (category.isMaterialsContainer) { // writable
       ret.icon = 'fas fa-folder';
       ret.iconColor = 'green-5';

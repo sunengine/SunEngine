@@ -27,6 +27,7 @@ export default {
     category: "category:",
     edit: "Edit",
     tags: "Tags:",
+    visitsCount: "views",
     deleted: "@:EditMaterial.deleted",
     deleteDialogTitle: "@:EditMaterial.deleteDialogTitle",
     deleteDialogMessage: "",
@@ -41,11 +42,14 @@ export default {
   },
   MaterialForm: {
     name: "Name (eng)",
-    title: "Header",
-    description: "Short description",
+    title: "Title",
+    subTitle: "Subtitle",
     tags: "Tags",
     selectCategory: "Category",
     category: "Category: {0}",
+    hide: "Hide",
+    blockComments: "Block comments",
+    settingsJson: "Json settings",
     validation: {
       name: {
         allowedChars: "Name must be contain only english letters, numbers and character '-'",
@@ -54,7 +58,7 @@ export default {
         maxLength: `Maximal name length - ${config.DbColumnSizes.Materials_Name}`,
       },
       title: {
-        required: "Enter header",
+        required: "Enter title",
         minLength: "Minimal header length - 3",
         maxLength: `Maximal header length - ${config.DbColumnSizes.Materials_Title}`,
       },
@@ -62,11 +66,14 @@ export default {
         required: "Enter text",
         htmlTextSizeOrHasImage: "Minimal text length - 5",
       },
-      description: {
-        maxLength: "Maximal length " + config.DbColumnSizes.Materials_Description
+      subTitle: {
+        maxLength: "Maximal length " + config.DbColumnSizes.Materials_SubTitle
       },
       category: {
         required: "Selected category"
+      },
+      settingsJson: {
+        jsonFormatError: "@:Global.validation.jsonFormatError",
       }
     }
   }

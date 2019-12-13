@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <q-page class="reset-password-failed flex middle page-padding">
     <q-banner rounded class="bg-negative text-white">
       <template v-slot:avatar>
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import {Page} from 'sun'
+  import {Page} from 'mixins'
 
   export default {
     name: 'ResetPasswordFailed',
@@ -22,6 +22,6 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 
 </style>
