@@ -3,6 +3,9 @@
     <h2 class="page-title page-padding">
       {{title}}
     </h2>
+    <div v-if="subTitle" class="page-sub-title page-padding" >
+      {{subTitle}}
+    </div>
 
     <div :class="['row',{hidden: !loaded}]">
       <div :class="['col-xs-12','col-md-6','col1', 'pull-left', $q.screen.gt.sm ? 'hr-minus' : 'pull-right']">
@@ -33,6 +36,9 @@
             '$route.query.page': 'loadData'
         },
         computed: {
+            subTitle() {
+                return this.$tle('subTitle') ? this.$tl('subTitle') : null;
+            },
             loaded() {
                 if (!this.mounted)
                     return;

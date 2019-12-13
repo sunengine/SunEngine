@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SunEngine.Core.Configuration.Options;
+using SunEngine.Core.Errors.Exceptions;
 
 namespace SunEngine.Core.Services
 {
@@ -24,7 +25,7 @@ namespace SunEngine.Core.Services
         protected static readonly object lockObject = new object();
 
         protected readonly IImagesNamesService imagesNamesService;
-        protected readonly ImagesOptions imagesOptions;
+        protected readonly IOptionsMonitor<ImagesOptions> imagesOptions;
         protected readonly string UploadImagesDir;
 
 
@@ -33,7 +34,7 @@ namespace SunEngine.Core.Services
             IPathService pathService,
             IImagesNamesService imagesNamesService)
         {
-            this.imagesOptions = imagesOptions.CurrentValue;
+            this.imagesOptions = imagesOptions;
             this.imagesNamesService = imagesNamesService;
             UploadImagesDir = pathService.GetPath(PathNames.UploadImagesDirName);
         }
@@ -42,20 +43,20 @@ namespace SunEngine.Core.Services
         {
             var ext = GetAllowedExtension(file.FileName);
             if (ext == null)
-                throw new Exception($"Not allowed extension");
+                throw new SunException($"Not allowed extension");
 
             if (ext == ".svg" && file.Length >= MaxSvgSizeBytes)
-                throw new Exception($"Svg max size is {MaxSvgSizeBytes / 1024} kb");
+                throw new SunException($"Svg max size is {MaxSvgSizeBytes / 1024} kb");
             else
             {
                 await using var stream = file.OpenReadStream();
                 if (!IsAllowedImageFormat(Image.DetectFormat(stream).Name))
-                    throw new Exception("Not allowed image format");
+                    throw new SunException("Not allowed image format");
 
                 var imageInfo = Image.Identify(stream);
-                if (imageInfo.Width > imagesOptions.MaxImageWidth ||
-                    imageInfo.Height > imagesOptions.MaxImageHeight)
-                    throw new Exception("Very big image");
+                if (imageInfo.Width > imagesOptions.CurrentValue.MaxImageWidth ||
+                    imageInfo.Height > imagesOptions.CurrentValue.MaxImageHeight)
+                    throw new SunException($"Very big image. Max image height, width is {imagesOptions.CurrentValue.MaxImageHeight}, {imagesOptions.CurrentValue.MaxImageWidth}");
             }
 
             var fileAndDir = imagesNamesService.GetNewImageNameAndDir(ext);
@@ -113,10 +114,10 @@ namespace SunEngine.Core.Services
             ext = ext == ".jpeg" ? ".jpg" : ext;
 
             var allowedExtensions = new List<string> {".jpg", ".png"};
-            if (imagesOptions.AllowGifUpload)
+            if (imagesOptions.CurrentValue.AllowGifUpload)
                 allowedExtensions.Add(".gif");
 
-            if (imagesOptions.AllowSvgUpload)
+            if (imagesOptions.CurrentValue.AllowSvgUpload)
                 allowedExtensions.Add(".svg");
 
             return allowedExtensions.FirstOrDefault(x => x == ext);
@@ -125,7 +126,7 @@ namespace SunEngine.Core.Services
         private bool IsAllowedImageFormat(string imageFormat)
         {
             var allowedFormats = new List<string> {"JPEG", "PNG"};
-            if (imagesOptions.AllowGifUpload)
+            if (imagesOptions.CurrentValue.AllowGifUpload)
                 allowedFormats.Add("GIF");
 
             return allowedFormats.Contains(imageFormat);

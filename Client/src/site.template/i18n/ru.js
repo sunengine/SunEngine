@@ -18,7 +18,8 @@ export default {
     title: "Страница со встроенной статьёй"
   },
   News2ColPage: {
-    title: "Главная страница (пример)"
+    title: "Главная страница",
+    subTitle: "Пример"
   },
   SecretPage: {
     title: "Секретная страница"

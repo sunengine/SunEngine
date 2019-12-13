@@ -5,7 +5,7 @@
     <h2 class="q-title page-padding text-center">
       {{title}}
     </h2>
-    <MaterialInline @loaded="loaded" ref="inline" class="page-padding" name="inline1"/>
+    <MaterialInline @loaded="loaded" ref="inline" class="page-padding material-inline-page__material" name="inline1"/>
   </q-page>
 </template>
 
@@ -33,6 +33,10 @@
     background-image: url('/statics/svg1.svg');
     height: 200px;
     background-size: 38%;
+  }
+
+  .material-inline-page__material {
+    text-align: center;
   }
 
 </style>
