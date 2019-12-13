@@ -40,6 +40,7 @@ namespace SunEngine.Core.Controllers
 
 
         [HttpPost]
+        [IpSpamProtectionFilter(TimeoutSeconds=5, AllowedRequestCount=4, RestrictSeconds=30)]
         public async Task<IActionResult> Login(string nameOrEmail, string password)
         {
             var user = await authManager.LoginAsync(nameOrEmail, password);
@@ -72,6 +73,7 @@ namespace SunEngine.Core.Controllers
             return Ok();
         }
 
+        [IpSpamProtectionFilter(TimeoutSeconds=5, AllowedRequestCount=3)]
         public async Task<IActionResult> CheckUserNameInDb(string userName)
         {
             return Ok(new {yes = await authManager.CheckUserNameInDbAsync(userName)});

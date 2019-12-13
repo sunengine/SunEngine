@@ -12,7 +12,7 @@ using SunEngine.Core.Security;
 namespace SunEngine.Core.Controllers
 {
     /// <summary>
-    /// User profile controller for "/user/userLink" 
+    /// User profile controller for "/user/userLink"
     /// Get profile, send private message, (un)ban user
     /// </summary>
     public class ProfileController : BaseController

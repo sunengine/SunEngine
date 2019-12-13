@@ -32,6 +32,8 @@ namespace SunEngine.Core.Configuration.AddServices
             services.AddSingleton<SpamProtectionCache>();
 
             services.AddSingleton<IMailTemplatesCache, MailTemplatesCache>();
+
+            services.AddSingleton<CaptchaCacheService>();
         }
 
         // Temporary solution

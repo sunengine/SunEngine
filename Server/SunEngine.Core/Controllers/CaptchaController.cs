@@ -21,18 +21,19 @@ namespace SunEngine.Core.Controllers
         }
 
         [AllowAnonymous]
-        [IpSpamProtectionFilter(TimeoutSeconds = 20)]
+        [IpSpamProtectionFilter(TimeoutSeconds=5, AllowedRequestCount=4, RestrictSeconds=60)]
         public virtual IActionResult GetCaptchaKey()
         {
-            var token = captchaService.MakeCryptedCaptchaToken();
+            var token = captchaService.MakeCaptchaToken();
             return Content(token);
         }
 
         [AllowAnonymous]
         [Produces("image/jpeg")]
+        [IpSpamProtectionFilter(TimeoutSeconds=5, AllowedRequestCount=4, RestrictSeconds=60)]
         public virtual FileStreamResult CaptchaImage(string token)
         {
-            var text = captchaService.GetTextFromToken(token);
+            var text = captchaService.GetAnswerByToken(token);
             var captcha = captchaService.MakeCaptchaImage(text);
 
             return File(captcha, "image/jpeg");
