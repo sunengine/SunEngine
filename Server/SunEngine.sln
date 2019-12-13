@@ -11,6 +11,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunEngine.Core", "SunEngine
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunEngine.Admin", "SunEngine.Admin\SunEngine.Admin.csproj", "{07C6B121-79B4-4830-9164-25F414F9BC79}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{CCB81843-5C70-458F-A65A-B60BA3AEBF7E}"
+ProjectSection(SolutionItems) = preProject
+	..\build.sh = ..\build.sh
+	..\BUILDV = ..\BUILDV
+	..\.gitignore = ..\.gitignore
+	..\.editorconfig = ..\.editorconfig
+	..\LICENSE.md = ..\LICENSE.md
+	..\LICENSE.RU.md = ..\LICENSE.RU.md
+	..\PUBLISH.template = ..\PUBLISH.template
+	..\publish.sh = ..\publish.sh
+	..\README.md = ..\README.md
+	..\README.RU.md = ..\README.RU.md
+	..\update-version.sh = ..\update-version.sh
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
