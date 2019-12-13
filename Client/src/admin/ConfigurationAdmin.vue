@@ -22,9 +22,9 @@
           </tr>
           <tr v-for="item of group.items">
             <td class="configuration-admin__name-column">
-              <div class="flex no-wrap">
+              <div class="flex no-wrap align-center">
                 <div class="grow">{{getItemName(item)}}</div>
-                <div>
+                <div v-if="hasItemTooltip(item)">
                   <q-icon name="far fa-question-circle" class="text-blue" size="xs" right>
                     <q-tooltip anchor="bottom middle" self="top middle" max-width="200px">
                       {{getItemTooltip(item)}}
