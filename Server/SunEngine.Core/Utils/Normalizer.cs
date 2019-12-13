@@ -13,7 +13,7 @@ namespace SunEngine.Core.Utils
     public class NormalizerLookup : ILookupNormalizer
     {
         public static NormalizerLookup Instance = new NormalizerLookup();
-        
+
         public string NormalizeEmail(string email)
         {
             return Normalizer.Normalize(email);

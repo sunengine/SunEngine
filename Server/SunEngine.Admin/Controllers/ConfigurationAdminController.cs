@@ -20,6 +20,7 @@ namespace SunEngine.Admin.Controllers
         protected readonly ConfigurationAdminService configurationAdminService;
         protected readonly IHostingEnvironment env;
         protected readonly IDynamicConfigCache dynamicConfigCache;
+
         public ConfigurationAdminController(
             IConfigurationManager configurationManager,
             ConfigurationAdminService configurationAdminService,

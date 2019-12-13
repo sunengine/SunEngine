@@ -24,7 +24,7 @@ namespace SunEngine.Core.DataBase
                     entityDescriptorColumn.ColumnName = entityDescriptorColumn.ColumnName.ToSnakeCase();
             };
 
-            SetConvertExpression<DateTime,DateTime>(dt => DateTime.SpecifyKind(dt, DateTimeKind.Utc));
+            SetConvertExpression<DateTime, DateTime>(dt => DateTime.SpecifyKind(dt, DateTimeKind.Utc));
 
 
             var mp = GetFluentMappingBuilder();
@@ -127,7 +127,6 @@ namespace SunEngine.Core.DataBase
             mp.Entity<ConfigurationItem>()
                 .HasTableName("ConfigurationItems")
                 .HasPrimaryKey(x => x.Name);
-
         }
     }
 

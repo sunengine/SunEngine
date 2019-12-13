@@ -10,7 +10,7 @@ namespace SunEngine.Core.Models
     {
         public const int LongToken1Length = 16;
         public const int LongToken2Length = 16;
-        
+
         public long Id { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }

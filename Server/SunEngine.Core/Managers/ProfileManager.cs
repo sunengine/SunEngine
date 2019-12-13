@@ -22,7 +22,7 @@ namespace SunEngine.Core.Managers
     {
         protected readonly IEmailSenderService emailSenderService;
         protected readonly SanitizerService sanitizerService;
-        protected readonly  IOptionsMonitor<GlobalOptions> globalOptions;
+        protected readonly IOptionsMonitor<GlobalOptions> globalOptions;
 
         public ProfileManager(
             DataBaseConnection db,
@@ -45,7 +45,11 @@ namespace SunEngine.Core.Managers
                 new Dictionary<string, string>
                 {
                     {"[siteName]", globalOptions.CurrentValue.SiteName},
-                    {"[url]", globalOptions.CurrentValue.SiteUrl.AppendPathSegment("user/" + (from.Link ?? from.Id.ToString()))},
+                    {
+                        "[url]",
+                        globalOptions.CurrentValue.SiteUrl.AppendPathSegment(
+                            "user/" + (from.Link ?? from.Id.ToString()))
+                    },
                     {"[userName]", from.UserName},
                     {"[message]", sanitizerService.Sanitize(text)}
                 }

@@ -14,17 +14,18 @@ namespace SunEngine.Core.Security
         public string LongToken2Db { get; }
         public IReadOnlyDictionary<string, RoleCached> Roles { get; }
 
-        public SunClaimsPrincipal(ClaimsPrincipal user, IRolesCache rolesCache, long sessionId = 0, string longToken2Db = null) : base(user)
+        public SunClaimsPrincipal(ClaimsPrincipal user, IRolesCache rolesCache, long sessionId = 0,
+            string longToken2Db = null) : base(user)
         {
             this.SessionId = sessionId;
             this.LongToken2Db = longToken2Db;
-            
+
             if (Identity.IsAuthenticated)
                 UserId = int.Parse(this.FindFirstValue(ClaimTypes.NameIdentifier));
-            
+
             Roles = GetUserRoles(rolesCache);
         }
-        
+
         private IReadOnlyDictionary<string, RoleCached> GetUserRoles(IRolesCache rolesCache)
         {
             if (!Identity.IsAuthenticated)
@@ -39,7 +40,7 @@ namespace SunEngine.Core.Security
             var allGroups = rolesCache.AllRoles;
 
 
-            var dictionaryBuilder = ImmutableDictionary.CreateBuilder<string,RoleCached>();
+            var dictionaryBuilder = ImmutableDictionary.CreateBuilder<string, RoleCached>();
 
             var registeredGroup = rolesCache.GetRole(RoleNames.Registered);
             dictionaryBuilder.Add(registeredGroup.Name, registeredGroup);

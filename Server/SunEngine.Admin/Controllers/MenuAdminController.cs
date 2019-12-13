@@ -38,7 +38,7 @@ namespace SunEngine.Admin.Controllers
             var menuItem = await menuAdminPresenter.GetMenuItemAsync(id);
             if (menuItem == null)
                 return BadRequest();
-            
+
             return Ok(menuItem);
         }
 

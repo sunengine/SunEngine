@@ -7,11 +7,11 @@ using SunEngine.Core.Models;
 
 namespace SunEngine.Core.Cache.Services
 {
-    public interface IMenuCache 
+    public interface IMenuCache
     {
         IList<MenuItemCached> GetMenu(IReadOnlyDictionary<string, RoleCached> Roles);
         MenuItemCached RootMenuItem { get; }
-        IReadOnlyList<MenuItemCached> AllMenuItems { get;  }
+        IReadOnlyList<MenuItemCached> AllMenuItems { get; }
         void Initialize();
     }
 
@@ -78,13 +78,13 @@ namespace SunEngine.Core.Cache.Services
             {
                 while (true)
                 {
-                    if (menuItem.IsHidden) 
+                    if (menuItem.IsHidden)
                         return false;
 
-                    if (!menuItem.ParentId.HasValue) 
+                    if (!menuItem.ParentId.HasValue)
                         return true;
-                    
-                    if (!menuItems.ContainsKey(menuItem.ParentId.Value)) 
+
+                    if (!menuItems.ContainsKey(menuItem.ParentId.Value))
                         return false;
 
                     menuItem = menuItems[menuItem.ParentId.Value];

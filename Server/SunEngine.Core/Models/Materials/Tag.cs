@@ -15,7 +15,7 @@ namespace SunEngine.Core.Models.Materials
 
         //public ICollection<TagMaterial> TagMaterials { get; set; }
     }
-    
+
     public class TagSynonymGroup
     {
         public int Id { get; set; }

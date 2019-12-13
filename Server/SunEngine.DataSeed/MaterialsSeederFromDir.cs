@@ -41,26 +41,26 @@ namespace SunEngine.DataSeed
             material.Id = dataContainer.NextMaterialId();
             material.Name = name;
             material.Title = (string) jObject["Title"];
-            
+
             if (jObject.TryGetValue("SubTitle", out JToken subTitle))
-                material.SubTitle = (string)subTitle;
+                material.SubTitle = (string) subTitle;
             if (jObject.TryGetValue("Author", out JToken authorJT))
             {
-                 User author = dataContainer.Users.FirstOrDefault(x => x.UserName == (string)authorJT);
-                 material.AuthorId = author.Id;
+                User author = dataContainer.Users.FirstOrDefault(x => x.UserName == (string) authorJT);
+                material.AuthorId = author.Id;
             }
 
             string categoryName = (string) jObject["Category"];
             var category = dataContainer.Categories.FirstOrDefault(x =>
                 String.Equals(x.Name, categoryName, StringComparison.OrdinalIgnoreCase));
             material.CategoryId = category.Id;
-            
+
             material.Text = new HtmlParser().Parse(html).Body.ChildNodes.ToHtml(Sanitizer.OutputFormatter);
-            
+
             material.PublishDate = DateTime.UtcNow;
             material.SortNumber = material.Id;
             material.LastActivity = material.PublishDate;
-            
+
             dataContainer.Materials.Add(material);
         }
     }

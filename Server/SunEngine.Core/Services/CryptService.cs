@@ -12,7 +12,7 @@ using SunEngine.Core.Utils;
 
 namespace SunEngine.Core.Services
 {
-    public interface ICryptService 
+    public interface ICryptService
     {
         string Crypt(string cipherName, string text);
         string Decrypt(string cipherName, string text);

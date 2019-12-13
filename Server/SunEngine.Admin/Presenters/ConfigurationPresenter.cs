@@ -10,132 +10,132 @@ using SunEngine.Core.Services;
 
 namespace SunEngine.Admin.Presenters
 {
-  public interface IConfigurationPresenter
-  {
-    Task<IEnumerable<ConfigurationItemView>> LoadConfigurationAsync();
-    Dictionary<string, IEnumerable<string>> GetEnums();
-  }
-
-
-  public class ConfigurationPresenter : DbService, IConfigurationPresenter
-  {
-    public ConfigurationPresenter(DataBaseConnection db) : base(db)
+    public interface IConfigurationPresenter
     {
+        Task<IEnumerable<ConfigurationItemView>> LoadConfigurationAsync();
+        Dictionary<string, IEnumerable<string>> GetEnums();
     }
 
-    public async Task<IEnumerable<ConfigurationItemView>> LoadConfigurationAsync()
+
+    public class ConfigurationPresenter : DbService, IConfigurationPresenter
     {
-      var items = await db.ConfigurationItems.OrderBy(x=>x.Name).ToListAsync();
-      var rez = new List<ConfigurationItemView>();
+        public ConfigurationPresenter(DataBaseConnection db) : base(db)
+        {
+        }
 
-      foreach (var name in ConfigDefaults.ConfigurationGroupsOrder)
-        foreach (var item in items.Where(x=>x.Name.StartsWith(name + ":")))
-          rez.Add(new ConfigurationItemView(item.Name, item.Value));
+        public async Task<IEnumerable<ConfigurationItemView>> LoadConfigurationAsync()
+        {
+            var items = await db.ConfigurationItems.OrderBy(x => x.Name).ToListAsync();
+            var rez = new List<ConfigurationItemView>();
 
-      foreach (var item in items)
-      {
-        if(!rez.Exists(x=>x.Name == item.Name))
-          rez.Add(new ConfigurationItemView(item.Name, item.Value));
-      }
+            foreach (var name in ConfigDefaults.ConfigurationGroupsOrder)
+            foreach (var item in items.Where(x => x.Name.StartsWith(name + ":")))
+                rez.Add(new ConfigurationItemView(item.Name, item.Value));
 
-      return rez;
+            foreach (var item in items)
+            {
+                if (!rez.Exists(x => x.Name == item.Name))
+                    rez.Add(new ConfigurationItemView(item.Name, item.Value));
+            }
+
+            return rez;
+        }
+
+        public Dictionary<string, IEnumerable<string>> GetEnums()
+        {
+            var enums = new Dictionary<string, Type>();
+
+            foreach (var configurationItem in ConfigDefaults.ConfigurationItems)
+            {
+                var type = configurationItem.Value.GetType();
+                if (type.IsEnum && !enums.ContainsKey(type.Name))
+                    enums[type.Name] = type;
+            }
+
+            var rez = new Dictionary<string, IEnumerable<string>>();
+            foreach (var (name, enum1) in enums)
+            {
+                rez.Add(name, enum1.GetEnumNames());
+            }
+
+            return rez;
+        }
     }
 
-    public Dictionary<string, IEnumerable<string>> GetEnums()
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum TypeName
     {
-      var enums = new Dictionary<string, Type>();
-
-      foreach (var configurationItem in ConfigDefaults.ConfigurationItems)
-      {
-        var type = configurationItem.Value.GetType();
-        if (type.IsEnum && !enums.ContainsKey(type.Name))
-          enums[type.Name] = type;
-      }
-
-      var rez = new Dictionary<string, IEnumerable<string>>();
-      foreach (var (name, enum1) in enums)
-      {
-        rez.Add(name, enum1.GetEnumNames());
-      }
-
-      return rez;
-    }
-  }
-
-  [JsonConverter(typeof(JsonStringEnumConverter))]
-  public enum TypeName
-  {
-    String,
-    LongString,
-    JsonString,
-    Number,
-    Boolean,
-    Enum,
-    Strange
-  }
-
-  public class ConfigurationItemView
-  {
-    public string Name { get; set; }
-    public object Value { get; set; }
-    public TypeName Type { get; set; }
-    public string EnumName { get; set; }
-
-    public ConfigurationItemView(string name, string value)
-    {
-      Name = name;
-
-      if (!ConfigDefaults.ConfigurationItems.ContainsKey(name))
-        return;
-
-      Type = GetTypeName(ConfigDefaults.ConfigurationItems[name].GetType(), out string enumName);
-      this.EnumName = enumName;
-
-      Value = GetTypeObject(Type, name, value);
+        String,
+        LongString,
+        JsonString,
+        Number,
+        Boolean,
+        Enum,
+        Strange
     }
 
-    protected object GetTypeObject(TypeName typeName, string name, string value)
+    public class ConfigurationItemView
     {
-      switch (typeName)
-      {
-        case TypeName.Number:
-          return int.Parse(value);
-        case TypeName.Boolean:
-          return bool.Parse(value);
-        case TypeName.Enum:
-          var type = ConfigDefaults.ConfigurationItems[name].GetType();
-          var obj = Enum.Parse(type, value);
-          return Enum.GetName(type, obj);
-        case TypeName.String:
-        case TypeName.LongString:
-        case TypeName.JsonString:
-        case TypeName.Strange:
-        default:
-          return value;
-      }
+        public string Name { get; set; }
+        public object Value { get; set; }
+        public TypeName Type { get; set; }
+        public string EnumName { get; set; }
+
+        public ConfigurationItemView(string name, string value)
+        {
+            Name = name;
+
+            if (!ConfigDefaults.ConfigurationItems.ContainsKey(name))
+                return;
+
+            Type = GetTypeName(ConfigDefaults.ConfigurationItems[name].GetType(), out string enumName);
+            this.EnumName = enumName;
+
+            Value = GetTypeObject(Type, name, value);
+        }
+
+        protected object GetTypeObject(TypeName typeName, string name, string value)
+        {
+            switch (typeName)
+            {
+                case TypeName.Number:
+                    return int.Parse(value);
+                case TypeName.Boolean:
+                    return bool.Parse(value);
+                case TypeName.Enum:
+                    var type = ConfigDefaults.ConfigurationItems[name].GetType();
+                    var obj = Enum.Parse(type, value);
+                    return Enum.GetName(type, obj);
+                case TypeName.String:
+                case TypeName.LongString:
+                case TypeName.JsonString:
+                case TypeName.Strange:
+                default:
+                    return value;
+            }
+        }
+
+        protected TypeName GetTypeName(Type type, out string enumName)
+        {
+            var nameLastToken = type.Name.Split(".")[^1];
+
+            if (type.IsEnum)
+            {
+                enumName = nameLastToken;
+                return TypeName.Enum;
+            }
+
+            enumName = null;
+
+            return nameLastToken switch
+            {
+                { } x when new[] {"Int64", "Int32", "int"}.Contains(x) => TypeName.Number,
+                { } x when new[] {"Boolean", "bool"}.Contains(x) => TypeName.Boolean,
+                { } x when new[] {"String", "string"}.Contains(x) => TypeName.String,
+                { } x when x == "LongString" => TypeName.LongString,
+                { } x when x == "JsonString" => TypeName.JsonString,
+                { } => TypeName.Strange
+            };
+        }
     }
-
-    protected TypeName GetTypeName(Type type, out string enumName)
-    {
-      var nameLastToken = type.Name.Split(".")[^1];
-
-      if (type.IsEnum)
-      {
-        enumName = nameLastToken;
-        return TypeName.Enum;
-      }
-
-      enumName = null;
-
-      return nameLastToken switch
-      {
-        { } x when new[] {"Int64", "Int32", "int"}.Contains(x) => TypeName.Number,
-        { } x when new[] {"Boolean", "bool"}.Contains(x) => TypeName.Boolean,
-        { } x when new[] {"String", "string"}.Contains(x) => TypeName.String,
-        { } x when x == "LongString" => TypeName.LongString,
-        { } x when x == "JsonString" => TypeName.JsonString,
-        { } => TypeName.Strange
-      };
-    }
-  }
 }

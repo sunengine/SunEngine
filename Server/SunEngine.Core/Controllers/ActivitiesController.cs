@@ -46,7 +46,8 @@ namespace SunEngine.Core.Controllers
 
             ActivitiesComponentData componentData = component.Data as ActivitiesComponentData;
 
-            var materialsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(componentData.MaterialsCategories);
+            var materialsCategoriesDic =
+                categoriesCache.GetAllCategoriesWithChildren(componentData.MaterialsCategories);
 
             IList<CategoryCached> materialsCategoriesList = authorizationService.GetAllowedCategories(User.Roles,
                 materialsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);
@@ -73,7 +74,7 @@ namespace SunEngine.Core.Controllers
             }
 
             return await CacheContentAsync(
-                component, 
+                component,
                 materialsCategoriesIds.Union(commentsCategoriesIds),
                 LoadDataAsync);
         }

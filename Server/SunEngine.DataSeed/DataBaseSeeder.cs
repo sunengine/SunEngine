@@ -40,10 +40,10 @@ namespace SunEngine.DataSeed
 
             Console.WriteLine("Users");
             db.BulkCopy(options, dataContainer.Users);
-            
+
             Console.WriteLine("Materials");
             db.BulkCopy(options, dataContainer.Materials);
-           
+
             Console.WriteLine("Roles");
             db.BulkCopy(options, dataContainer.Roles);
 
@@ -58,16 +58,16 @@ namespace SunEngine.DataSeed
 
             Console.WriteLine("CategoryOperationAccesses");
             db.BulkCopy(options, dataContainer.CategoryOperationAccesses);
-            
+
             Console.WriteLine("MenuItems");
             db.BulkCopy(options, dataContainer.MenuItems);
-            
+
             Console.WriteLine("Components");
             db.BulkCopy(options, dataContainer.Components);
-            
+
             Console.WriteLine("CipherSecrets");
             db.BulkCopy(options, dataContainer.CipherSecrets);
-            
+
 
             if (dataContainer.CacheSettings != null)
             {
@@ -79,7 +79,7 @@ namespace SunEngine.DataSeed
 
             return this;
         }
-        
+
         public DataBaseSeeder SeedMaterials()
         {
             BulkCopyOptions options = new BulkCopyOptions

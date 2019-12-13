@@ -47,7 +47,8 @@ namespace SunEngine.Core.DataBase
 
         public IQueryable<Material> MaterialsVisible =>
             GetTable<Material>()
-                .Where(x => x.DeletedDate == null && !x.IsHidden && !x.Category.IsHidden && x.Category.DeletedDate == null);
+                .Where(x => x.DeletedDate == null && !x.IsHidden && !x.Category.IsHidden &&
+                            x.Category.DeletedDate == null);
 
         public ITable<Comment> Comments => GetTable<Comment>();
 
@@ -79,9 +80,9 @@ namespace SunEngine.Core.DataBase
         public ITable<CipherSecret> CipherSecrets => GetTable<CipherSecret>();
 
         public ITable<Component> Components => GetTable<Component>();
-        
+
         public ITable<ConfigurationItem> ConfigurationItems => GetTable<ConfigurationItem>();
-        
+
 
         public void UpdateSequence(string tableName, string keyName)
         {
@@ -94,7 +95,7 @@ namespace SunEngine.Core.DataBase
         {
             return SqlProviderName == SqlProviderType.PostgreSql;
         }
-        
+
         public SqlProviderType SqlProviderName
         {
             get
@@ -107,8 +108,7 @@ namespace SunEngine.Core.DataBase
             }
         }
     }
-    
-    
+
 
     public enum SqlProviderType
     {

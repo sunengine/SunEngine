@@ -103,8 +103,8 @@ namespace SunEngine.Cli
 
                                 string[] tokens = new string[wwwRootDirTokens.Length + 1];
                                 tokens[0] = PathService.SearchApplicationRootDir();
-                                wwwRootDirTokens.CopyTo(tokens,1);
-    
+                                wwwRootDirTokens.CopyTo(tokens, 1);
+
                                 wwwRootDir = Path.Combine(tokens);
                             }
 

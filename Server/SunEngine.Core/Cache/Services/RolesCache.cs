@@ -37,7 +37,7 @@ namespace SunEngine.Core.Cache.Services
 
         public RoleCached GetRole(string name)
         {
-          return AllRoles.TryGetValue(name, out var ret) ? ret : null;
+            return AllRoles.TryGetValue(name, out var ret) ? ret : null;
         }
 
         public virtual string CheckAndSetRoles(string roles)

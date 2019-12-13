@@ -7,7 +7,6 @@ using SunEngine.Core.Security;
 
 namespace SunEngine.Admin.Controllers
 {
-
     public class UserRolesAdminController : BaseAdminController
     {
         private readonly IUserRolesAdminPresenter userRolesAdminPresenter;
@@ -49,7 +48,7 @@ namespace SunEngine.Admin.Controllers
         {
             var user = await userManager.FindByIdAsync(userId);
             var rez = await userManager.AddToRoleAsync(user, roleName);
-            if (!rez.Succeeded) 
+            if (!rez.Succeeded)
                 return BadRequest();
 
             await jweBlackListService.AddAllUserTokensToBlackListAsync(userId);

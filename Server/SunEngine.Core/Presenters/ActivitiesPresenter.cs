@@ -14,14 +14,14 @@ namespace SunEngine.Core.Presenters
     public interface IActivitiesPresenter
     {
         Task<ActivityView[]> GetActivitiesAsync(
-            int[] materialsCategoriesIds, 
+            int[] materialsCategoriesIds,
             int[] commentsCategoriesIds,
             int number);
     }
 
     public class ActivitiesPresenter : DbService, IActivitiesPresenter
     {
-        protected readonly  IOptionsMonitor<MaterialsOptions> materialsOptions;
+        protected readonly IOptionsMonitor<MaterialsOptions> materialsOptions;
 
         public ActivitiesPresenter(
             IOptionsMonitor<MaterialsOptions> materialsOptions,
@@ -32,7 +32,7 @@ namespace SunEngine.Core.Presenters
 
         public async Task<ActivityView[]> GetActivitiesAsync(
             int[] materialsCategoriesIds,
-            int[] commentsCategoriesIds, 
+            int[] commentsCategoriesIds,
             int number)
         {
             var materialsActivities = await db.Materials
@@ -75,7 +75,8 @@ namespace SunEngine.Core.Presenters
             foreach (var comment in commentsActivities)
             {
                 comment.Description = SimpleHtmlToText.ClearTagsAndBreaks(comment.Description);
-                comment.Description = comment.Description?.Substring(0, Math.Min(comment.Description.Length, descriptionSize));
+                comment.Description =
+                    comment.Description?.Substring(0, Math.Min(comment.Description.Length, descriptionSize));
             }
 
             List<ActivityView> allActivities = new List<ActivityView>();

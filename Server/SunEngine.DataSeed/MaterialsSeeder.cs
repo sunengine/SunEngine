@@ -35,7 +35,6 @@ namespace SunEngine.DataSeed
 
 
         private readonly LinesCount defaultLinesCount = new LinesCount {Min = 4, Max = 30};
-        
 
 
         public MaterialsSeeder(DataContainer dataContainer)
@@ -77,10 +76,10 @@ namespace SunEngine.DataSeed
         }
 
         public void SeedCategoryWithMaterials(
-            Category category, 
+            Category category,
             string titleStart = null,
             bool titleAppendCategoryName = false,
-            int? materialsCount = null, 
+            int? materialsCount = null,
             LinesCount? linesCount = null)
         {
             if (materialsCount == null)
@@ -107,8 +106,8 @@ namespace SunEngine.DataSeed
         }
 
         public Material SeedMaterial(
-            Category category, 
-            string title, 
+            Category category,
+            string title,
             int commentsCount,
             string firstLine,
             string lineElement, LinesCount linesCount)
@@ -129,7 +128,7 @@ namespace SunEngine.DataSeed
                 LastActivity = publishDate,
                 SortNumber = id
             };
-            
+
             if (commentsCount > 0)
             {
                 var comments = MakeComments(material, commentsCount);

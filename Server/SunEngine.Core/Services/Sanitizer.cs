@@ -14,7 +14,7 @@ namespace SunEngine.Core.Services
         private readonly HtmlSanitizer htmlSanitizer;
         private readonly SanitizerOptions options;
         public static readonly IMarkupFormatter OutputFormatter = HtmlSanitizer.DefaultOutputFormatter;
-    
+
         public Sanitizer(SanitizerOptions options)
         {
             this.options = options;
@@ -93,13 +93,13 @@ namespace SunEngine.Core.Services
         {
             var checkingTags = new[]
             {
-                new { Tag = "iframe", Attribute = "src", AllowedDomainsList = options.AllowedVideoDomainsArr },
-                new { Tag = "img", Attribute = "src", AllowedDomainsList = options.AllowedImageDomainsArr }
+                new {Tag = "iframe", Attribute = "src", AllowedDomainsList = options.AllowedVideoDomainsArr},
+                new {Tag = "img", Attribute = "src", AllowedDomainsList = options.AllowedImageDomainsArr}
             };
-            
+
             var tagName = e.Tag.TagName.ToLower();
             var tag = checkingTags.FirstOrDefault(x => x.Tag == tagName);
-            
+
             if (tag != null)
                 CheckAllowedDomains(tag.Attribute, tag.AllowedDomainsList, e);
         }

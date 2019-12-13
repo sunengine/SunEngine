@@ -26,8 +26,7 @@ namespace SunEngine.Core.Cache.CacheModels
         public string Icon { get; }
         public string CustomIcon { get; }
         public bool IsHidden { get; }
-        [JsonIgnore] 
-        public IReadOnlyDictionary<int, RoleCached> Roles { get; }
+        [JsonIgnore] public IReadOnlyDictionary<int, RoleCached> Roles { get; }
 
 
         public MenuItemCached(MenuItem menuItem, IReadOnlyDictionary<int, RoleCached> roles)
@@ -45,10 +44,10 @@ namespace SunEngine.Core.Cache.CacheModels
             SortNumber = menuItem.SortNumber;
             Icon = menuItem.Icon;
             IsHidden = menuItem.IsHidden;
-            
+
             RouteParamsJson = SunJson.MakeJElement(menuItem.RouteParamsJson);
             SettingsJson = SunJson.MakeJElement(menuItem.SettingsJson);
-            
+
             Roles = roles;
         }
     }

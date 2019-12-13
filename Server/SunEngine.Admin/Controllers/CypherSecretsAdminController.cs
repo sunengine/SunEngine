@@ -7,8 +7,8 @@ namespace SunEngine.Admin.Controllers
 {
     public class CypherSecretsAdminController : BaseAdminController
     {
-        protected readonly ICryptService cryptService; 
-        
+        protected readonly ICryptService cryptService;
+
         public CypherSecretsAdminController(
             ICryptService cryptService,
             IServiceProvider serviceProvider) : base(serviceProvider)
@@ -22,7 +22,7 @@ namespace SunEngine.Admin.Controllers
             await cryptService.ResetSecret(name);
 
             cryptService.Initialize();
-            
+
             return Ok();
         }
     }

@@ -26,7 +26,7 @@ namespace SunEngine.DataSeed
                 SortNumber = 1
             };
             dataContainer.MenuItems.Add(dataContainer.RootMenuItem);
-            
+
             var files = Directory.GetFiles(configDir);
             foreach (var file in files)
             {
@@ -43,52 +43,52 @@ namespace SunEngine.DataSeed
 
             menuItem.Id = dataContainer.NextMenuItemId();
             menuItem.SortNumber = menuItem.Id;
-            
+
             if (jObject.ContainsKey("Name"))
-                menuItem.Name = (string)jObject["Name"];
-            
-            menuItem.Title = (string)jObject["Title"];
-            
+                menuItem.Name = (string) jObject["Name"];
+
+            menuItem.Title = (string) jObject["Title"];
+
             if (jObject.ContainsKey("SubTitle"))
-                menuItem.SubTitle = (string)jObject["SubTitle"];
-            
+                menuItem.SubTitle = (string) jObject["SubTitle"];
+
             if (jObject.ContainsKey("RouteName"))
-                menuItem.RouteName = (string)jObject["RouteName"];
-            
+                menuItem.RouteName = (string) jObject["RouteName"];
+
             if (jObject.ContainsKey("RouteParams"))
-                menuItem.RouteParamsJson = (string)jObject["RouteParams"];
-            
+                menuItem.RouteParamsJson = (string) jObject["RouteParams"];
+
             if (jObject.ContainsKey("Exact"))
-                menuItem.Exact = (bool)jObject["Exact"];
-            
+                menuItem.Exact = (bool) jObject["Exact"];
+
             if (jObject.ContainsKey("IsSeparator"))
                 menuItem.IsSeparator = (bool) jObject["IsSeparator"];
-            
+
             if (jObject.ContainsKey("CssClass"))
                 menuItem.CssClass = (string) jObject["CssClass"];
-            
+
             if (jObject.ContainsKey("SettingsJson"))
                 menuItem.SettingsJson = (string) jObject["Settings"];
-            
+
             if (jObject.ContainsKey("Icon"))
                 menuItem.Icon = (string) jObject["Icon"];
-            
+
             if (jObject.ContainsKey("ExternalUrl"))
                 menuItem.ExternalUrl = (string) jObject["ExternalUrl"];
-            
+
             if (jObject.ContainsKey("IsHidden"))
                 menuItem.IsHidden = (bool) jObject["IsHidden"];
 
             if (jObject.ContainsKey("Roles"))
                 menuItem.Roles = (string) jObject["Roles"];
             else
-                menuItem.Roles = string.Join(',', RoleNames.Unregistered, RoleNames.Registered); 
-            
+                menuItem.Roles = string.Join(',', RoleNames.Unregistered, RoleNames.Registered);
+
             dataContainer.MenuItems.Add(menuItem);
 
             if (jObject.ContainsKey("SubMenuItems"))
             {
-                JArray jSubMenuItems = (JArray)jObject["SubMenuItems"];
+                JArray jSubMenuItems = (JArray) jObject["SubMenuItems"];
                 foreach (JObject jSubMenuItem in jSubMenuItems)
                 {
                     var subMenuItem = SeedMenuItem(jSubMenuItem);

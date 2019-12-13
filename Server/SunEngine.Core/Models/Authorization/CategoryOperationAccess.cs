@@ -7,7 +7,7 @@
     {
         public int CategoryAccessId { get; set; }
         public CategoryAccess CategoryAccess { get; set; }
-        
+
         public int OperationKeyId { get; set; }
         public OperationKey OperationKey { get; set; }
 
