@@ -22,12 +22,16 @@
           </tr>
           <tr v-for="item of group.items">
             <td class="configuration-admin__name-column">
-              {{getItemName(item)}}
-              <q-icon v-if="hasItemTooltip(item)" name="far fa-question-circle" class="text-blue" size="xs">
-                <q-tooltip anchor="bottom middle" self="top middle" max-width="200px">
-                  {{getItemTooltip(item)}}
-                </q-tooltip>
-              </q-icon>
+              <div class="flex no-wrap">
+                <div class="grow">{{getItemName(item)}}</div>
+                <div>
+                  <q-icon name="far fa-question-circle" class="text-blue" size="xs" right>
+                    <q-tooltip anchor="bottom middle" self="top middle" max-width="200px">
+                      {{getItemTooltip(item)}}
+                    </q-tooltip>
+                </q-icon>
+                </div>
+              </div>
             </td>
             <td class="configuration-admin__value-column">
               <q-checkbox dense v-if="item.item.type === 'Boolean'" v-model="item.item.value"/>
