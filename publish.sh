@@ -40,14 +40,11 @@ echo -e "${GREEN}REMOTE_SYSTEMD_SERVICE_NAME = ${REMOTE_SYSTEMD_SERVICE_NAME} ${
 
 echo  -e "\n${GREEN}Syncing build ${NC}\n"
 
-echo rsync -arvzhe ssh --progress --stats  --exclude 'Config'  --chown=$REMOTE_DIRECTORY_OWNER:$REMOTE_DIRECTORY_GROUP  $LOCAL_BUILD_PATH/. -a $REMOTE_USER@$REMOTE_HOST:$REMOTE_DIRECTORY
-
 rsync -arvzhe ssh --progress --stats  --exclude 'Config'  --chown=$REMOTE_DIRECTORY_OWNER:$REMOTE_DIRECTORY_GROUP  $LOCAL_BUILD_PATH/. -a $REMOTE_USER@$REMOTE_HOST:$REMOTE_DIRECTORY
 
 echo  -e "\n${GREEN}Syncing Config ignore-existing ${NC}\n"
 
 rsync -arvzhe ssh --progress --stats --ignore-existing   --chown=$REMOTE_DIRECTORY_OWNER:$REMOTE_DIRECTORY_GROUP  $LOCAL_BUILD_PATH/Config/. -a $REMOTE_USER@$REMOTE_HOST:$REMOTE_DIRECTORY/Config
-
 
 echo  -e "\n${GREEN}Restarting systemd service and reload nginx ${NC}\n"
 

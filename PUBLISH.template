@@ -9,7 +9,7 @@ REMOTE_DIRECTORY_OWNER="www-data"
 REMOTE_DIRECTORY_GROUP="www-data"
 REMOTE_SYSTEMD_SERVICE_NAME="demo.sunengine.site"
 
-#Font
+# Fonts
 
 RED='\e[0;31m'
 GREEN='\e[0;32m'
