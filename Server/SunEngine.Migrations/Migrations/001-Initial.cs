@@ -36,7 +36,7 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("Header".s()).AsMaxString().Nullable()
                 .WithColumn("IsMaterialsContainer".s()).AsBoolean().NotNullable()
                 .WithColumn("IsMaterialsNameEditable".s()).AsBoolean().NotNullable().WithDefaultValue(false)
-                .WithColumn("MaterialsSubTitleInputType".s()).AsInt16().NotNullable().WithDefaultValue(0)
+                .WithColumn("IsMaterialsSubTitleEditable".s()).AsBoolean().NotNullable()
                 .WithColumn("CacheSettingsId".s()).AsInt32().Indexed().Nullable()
                 .ForeignKey("fkCategoriesCacheSettings".s(), "CategoryCacheSettings".s(), "Id".s())
                 .WithColumn("SortNumber".s()).AsInt32().NotNullable().Unique()
@@ -216,6 +216,7 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("Icon".s()).AsString(DbColumnSizes.MenuItems_Icon).Nullable()
                 .WithColumn("IsHidden".s()).AsBoolean().NotNullable();
 
+
             Create.Table("Components".s())
                 .WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
                 .WithColumn("Name".s()).AsString(DbColumnSizes.Components_Name).NotNullable().Unique()
@@ -225,9 +226,19 @@ namespace SunEngine.Migrations.Migrations
                 .WithColumn("ServerSettingsJson".s()).AsMaxString().NotNullable()
                 .WithColumn("ClientSettingsJson".s()).AsMaxString().NotNullable();
 
+
             Create.Table("CipherSecrets".s())
                 .WithColumn("Name".s()).AsString(DbColumnSizes.CipherSecrets_Name).PrimaryKey().NotNullable()
                 .WithColumn("Secret".s()).AsBinary(DbColumnSizes.CipherSecrets_Secret).NotNullable();
+
+
+            Create.Table("ConfigurationItems".s())
+                .WithColumn("Name".s()).AsMaxString().PrimaryKey().NotNullable()
+                .WithColumn("Value".s()).AsMaxString().NotNullable();
+
+
+            IfDatabase("MySql5", "MySql", "MariaDB")
+                .Execute.Sql("ALTER TABLE `Materials` ADD FULLTEXT INDEX `TFS` (`Title`, `Text`);");
         }
 
 
