@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Core.DataBase;
+using SunEngine.Core.Models.Materials;
 
 namespace SunEngine.Admin.Services
 {
@@ -11,18 +12,19 @@ namespace SunEngine.Admin.Services
 
         Task DeleteComment(int idComment);
 
-        Task DeleteAllDeleteMaterials();
+        Task DeleteAllMarkedMaterials();
 
-        Task DeleteAllDeleteComments();
+        Task DeleteAllMarkedComments();
     }
 
     public class CleanerManager : ICleanerManager
     {
         private readonly DataBaseConnection db;
 
-        private async Task DeleteIndex(int id)
+        private async Task DeleteIndex(Material m)
         {
-            await db.Materials.Where(x => x.Id == id).Set(x => x.LastCommentId, () => null).UpdateAsync();
+            db.Materials.Set(m => m.LastCommentId, () => null);
+            //await db.Materials.Where(x => x.Id == id).Set(x => x.LastCommentId, () => null).UpdateAsync();
         }
 
         public CleanerManager(
@@ -56,19 +58,28 @@ namespace SunEngine.Admin.Services
             await db.DeleteAsync(comment);
         }
 
-        public async Task DeleteAllDeleteMaterials()
+        public async Task DeleteAllMarkedMaterials()
         {
-            var materials = db.Materials.Where(x => x.DeletedDate != null).AsQueryable();
+            using (await db.BeginTransactionAsync())
+            {
+                var materials = db.Materials.Where(x => x.DeletedDate != null).AsQueryable();
 
-            foreach (var m in materials)
-                await DeleteIndex(m.Id);
+                foreach (var m in materials)
+                {
+                    await DeleteIndex(m);
+                }
 
-            await materials.Select(x => x.Comments).DeleteAsync();
+                await materials.Select(x => x.Comments).DeleteAsync();
 
-            await materials.DeleteAsync();
+                await materials.DeleteAsync();
+
+                var comments = db.Comments.Where(x => x.DeletedDate != null).AsQueryable();
+                await comments.DeleteAsync();
+                await db.CommitTransactionAsync();
+            }
         }
 
-        public async Task DeleteAllDeleteComments()
+        public async Task DeleteAllMarkedComments()
         {
             await db.Comments.Where(x => x.DeletedDate != null).DeleteAsync();
         }

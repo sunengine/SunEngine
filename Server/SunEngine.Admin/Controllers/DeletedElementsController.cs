@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Services;
@@ -16,9 +16,9 @@ namespace SunEngine.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteAllMaterials()
+        public async Task<IActionResult> DeleteAllMarkedMaterials()
         {
-            await cleanerManager.DeleteAllDeleteMaterials();
+            await cleanerManager.DeleteAllMarkedMaterials();
             return Ok();
         }
     }

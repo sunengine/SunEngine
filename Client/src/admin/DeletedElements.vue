@@ -13,6 +13,8 @@
     <div class="deleted-elements__info-box">{{$tl("info1")}}</div>
     <div class="deleted-elements__info-box">{{$tl("info2")}}</div>
     <div class="deleted-elements__info-box">{{$tl("info3")}}</div>
+
+    <q-btn color="primary" label="Удалить все помеченные комментарии" @click="deleteAllMarkedComments()" />
   </q-page>
 </template>
 
@@ -25,6 +27,17 @@
         mixins: [Page],
         created() {
             this.title = this.$tl('title');
+        },
+        methods: {
+          deleteAllMarkedComments() {
+            this.$request(this.$AdminApi.DeletedElements.DeleteAllMarkedComments)
+            .then(() => {
+              this.$successNotify('Success!')
+            })
+            .catch((err) => {
+              this.$errorNotify(err)
+            })
+          }
         }
     }
 

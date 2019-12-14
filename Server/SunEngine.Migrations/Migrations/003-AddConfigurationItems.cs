@@ -9,7 +9,7 @@ namespace SunEngine.Migrations.Migrations
         {
             Create.Table("ConfigurationItems".s())
                 .WithColumn("Name".s()).AsString().PrimaryKey().NotNullable()
-                .WithColumn("Value".s()).AsString().NotNullable();
+                .WithColumn("Value".s()).AsMaxString().NotNullable();
         }
 
         public override void Down()
