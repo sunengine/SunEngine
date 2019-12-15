@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
@@ -71,7 +72,14 @@ namespace SunEngine.Core.Services
                         emailSenderOptions.CurrentValue.Password),
                     EnableSsl = emailSenderOptions.CurrentValue.UseSSL
                 };
-            await client.SendMailAsync(mailMessage);
+            try
+            {
+                await client.SendMailAsync(mailMessage);
+            }
+            catch (Exception e)
+            {
+
+            }
         }
     }
 }

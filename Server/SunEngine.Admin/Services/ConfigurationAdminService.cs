@@ -4,6 +4,8 @@ using System.IO;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Services;
 
 namespace SunEngine.Admin.Services
@@ -12,6 +14,7 @@ namespace SunEngine.Admin.Services
     {
         protected IPathService pathService { get; }
         protected IConfigurationRoot configurationRoot { get; }
+        protected  IOptionsMonitor<GlobalOptions> globalOptions { get; }
 
         public ConfigurationAdminService(
             IPathService pathService,
@@ -28,6 +31,10 @@ namespace SunEngine.Admin.Services
 
         public void UpdateClientScripts()
         {
+            if(!bool.TryParse(configurationRoot.GetSection("Global")["UpdateClientScriptsOnConfigChanges"], out bool update)
+               || update == false)
+                return;
+
             var itemsToSaveDic = new Dictionary<string, Type>()
             {
                 ["Global:SiteName"] = typeof(string),
@@ -37,13 +44,9 @@ namespace SunEngine.Admin.Services
                 ["Global:UploadImagesUrl"] = typeof(string),
                 ["Global:SkinsUrl"] = typeof(string),
                 ["Global:PartialSkinsUrl"] = typeof(string),
-
-                ["Client:OpenExternalLinksAtNewTab"] = typeof(bool),
-                ["Client:VueDevTools"] = typeof(bool),
-                ["Client:VueAppInWindow"] = typeof(bool),
-                ["Client:LogInitExtended"] = typeof(bool),
-                ["Client:LogRequests"] = typeof(bool),
-                ["Client:LogMoveTo"] = typeof(bool),
+                ["Dev:LogInitExtended"] = typeof(bool),
+                ["Dev:LogRequests"] = typeof(bool),
+                ["Dev:LogMoveTo"] = typeof(bool),
             };
 
 
@@ -81,17 +84,19 @@ namespace SunEngine.Admin.Services
             configJs = Regex.Replace(configJs, "//( *?)auto-start(.*?)//( *?)auto-end",
                 $"// auto-start\n{json}\n // auto-end", RegexOptions.Singleline);
             File.WriteAllText(configJsPath, configJs);
+
+            UpdateScriptsVersion();
         }
 
-        /*public void UpdateVersion()
+        protected void UpdateScriptsVersion()
         {
           var ran = new Random();
-    
-          var indexHtmlPath = Path.Combine(WwwRootPath, "index.html");
+
+          var indexHtmlPath = pathService.Combine(PathNames.WwwRootDirName, "index.html");
           string text = File.ReadAllText(indexHtmlPath);
-          Regex reg2 = new Regex("configver=\\d+\"");
-          text = reg2.Replace(text, $"configver={ran.Next()}\"");
+          Regex reg = new Regex("configver=\\d+\"");
+          text = reg.Replace(text, $"configver={ran.Next()}\"");
           File.WriteAllText(indexHtmlPath, text);
-        }*/
+        }
     }
 }

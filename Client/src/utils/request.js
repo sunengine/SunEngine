@@ -70,7 +70,7 @@ export default async function (url, body, sendAsJson = false, skipLock = false, 
         delete body[key];
 
 
-  if (config.Client.LogRequests)
+  if (config.Dev.LogRequests)
     console.log(`%cRequest%c${url}`, consoleRequestStart, consoleRequestUrl, body);
 
   const headers = {};

@@ -9,7 +9,7 @@ export default function (context) {
       skipLock: true
     }
   ).then(response => {
-    console.info('%cLoadAllComponents', consoleInit, config.Client.LogInitExtended ? response.data : '');
+    console.info('%cLoadAllComponents', consoleInit, config.Dev.LogInitExtended ? response.data : '');
     context.state.allComponents = {};
 
     for (const comp of response.data)

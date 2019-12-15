@@ -23,7 +23,6 @@ namespace SunEngine.Core.Configuration.AddServices
             services.Configure<SchedulerOptions>(configuration.GetSection("Scheduler"));
             services.Configure<GlobalOptions>(configuration.GetSection("Skins"));
             services.Configure<SkinsOptions>(configuration.GetSection("FileLoading"));
-            services.Configure<DevOptions>(configuration.GetSection("DevO"));
             services.Configure<CacheOptions>(configuration.GetSection("Cache"));
         }
     }

@@ -53,8 +53,7 @@ namespace SunEngine.Admin.Controllers
 
             dynamicConfigCache.Initialize();
 
-            if (env.IsProduction())
-                configurationAdminService.UpdateClientScripts();
+            configurationAdminService.UpdateClientScripts();
 
             return Ok();
         }

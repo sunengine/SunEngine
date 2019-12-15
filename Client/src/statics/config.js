@@ -13,12 +13,7 @@ const config = {
     SkinsUrl: 'http://localhost:5005/statics/Skins',
     PartialSkinsUrl: 'http://localhost:5005/statics/PartialSkins',
   },
-  Client: {
-    OpenExternalLinksAtNewTab: true,
-
-    VueDevTools: true,
-    VueAppInWindow: true,
-
+  Dev: {
     LogInitExtended: true,
     LogRequests: true,
     LogMoveTo: true,

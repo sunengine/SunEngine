@@ -31,6 +31,14 @@ namespace SunEngine.Core.Cache.Services
                 ["Global:SiteTitle"] = typeof(string),
                 ["Global:SiteSubTitle"] = typeof(string),
                 ["Global:Locale"] = typeof(string),
+                ["Global:UpdateClientScriptsOnConfigChanges"] = typeof(string),
+                ["Global:OpenExternalLinksAtNewTab"]  = typeof(bool),
+
+                ["Dev:VueDevTools"] = typeof(bool),
+                ["Dev:VueAppInWindow"] =  typeof(bool),
+                ["Dev:LogInitExtended"] =  typeof(bool),
+                ["Dev:LogRequests"] =  typeof(bool),
+                ["Dev:LogMoveTo"] =  typeof(bool),
 
                 ["Comments:TimeToOwnEditInMinutes"] = typeof(int),
                 ["Comments:TimeToOwnDeleteInMinutes"] = typeof(int),

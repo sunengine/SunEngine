@@ -22,6 +22,6 @@ export default async function (context) {
 
   router.matcher = tmpRouter.matcher;
 
-  console.info('%cRoutes registered', consoleInit, config.Client.LogInitExtended ? userRoutes : '');
+  console.info('%cRoutes registered', consoleInit, config.Dev.LogInitExtended ? userRoutes : '');
 
 }

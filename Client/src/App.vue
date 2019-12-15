@@ -43,6 +43,14 @@
         computed: {
             ...mapGetters(['isInitialized', 'initializeError'])
         },
+        watch: {
+            'isInitialized'() {
+                if (this.isInitialized && config.Dev.VueAppInWindow) {
+                    window.app = this;
+                    window.pulseException = () => this.$request(this.$Api.Pulse.PulseException);
+                }
+            }
+        },
         methods: {
             rerender() {
                 this.rerenderKey += 1;
@@ -57,15 +65,6 @@
 
         beforeCreate() {
             app = this;
-            if (config.Client.VueAppInWindow) {
-                window.app = this;
-            }
-        },
-
-        created() {
-            if (config.Client.VueAppInWindow) {
-                window.pulseException = () => this.$request(this.$Api.Pulse.PulseException);
-            }
         }
     }
 

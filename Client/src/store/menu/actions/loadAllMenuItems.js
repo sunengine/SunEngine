@@ -11,7 +11,7 @@ export default function (context, data) {
       skipLock: data?.skipLock
     }
   ).then(response => {
-    console.info('%cLoadAllMenuItems', consoleInit, config.Client.LogInitExtended ? response.data : '');
+    console.info('%cLoadAllMenuItems', consoleInit, config.Dev.LogInitExtended ? response.data : '');
     context.commit('prepareAllMenuItems', response.data);
   });
 }

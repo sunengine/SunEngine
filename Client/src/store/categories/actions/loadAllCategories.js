@@ -11,7 +11,7 @@ export default function (context, data) {
       skipLock: data?.skipLock
     }
   ).then(response => {
-    console.info('%cLoadAllCategories', consoleInit, config.Client.LogInitExtended ? response.data : '');
+    console.info('%cLoadAllCategories', consoleInit, config.Dev.LogInitExtended ? response.data : '');
     context.commit('prepareAllCategories', response.data);
   });
 }

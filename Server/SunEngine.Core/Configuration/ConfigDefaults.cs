@@ -29,17 +29,23 @@ namespace SunEngine.Core.Configuration
             "Scheduler",
             "Jwe",
             "Skins",
-
         };
 
         public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>()
         {
-            ["Global:SiteName"] = "SunEngine Demo",
+            ["Global:SiteName"] = "SunEngine",
             ["Global:SiteTitle"] = "SunEngine",
             ["Global:SiteSubTitle"] = "Demo",
             ["Global:Locale"] = Locale.Russian,
+            ["Global:OpenExternalLinksAtNewTab"] = true,
 
             ["Dev:ShowExceptions"] = false,
+            ["Dev:VueDevTools"] = false,
+            ["Dev:VueAppInWindow"] = false,
+            ["Dev:LogInitExtended"] = false,
+            ["Dev:LogRequests"] = false,
+            ["Dev:LogMoveTo"] = false,
+
 
             ["Sanitizer:AllowedTags"] =
                 (LongString)
@@ -104,6 +110,7 @@ namespace SunEngine.Core.Configuration
             ["Email:Password"] = "password",
             ["Email:EmailFromName"] = "SunEngine Demo",
             ["Email:EmailFromAddress"] = "SunEngine@demo.com",
+            ["Email:UseSSL"] = true,
 
             ["Skins:CurrentSkinName"] = "Default",
             ["Skins:PartialSkinsNames"] = "Branding",
