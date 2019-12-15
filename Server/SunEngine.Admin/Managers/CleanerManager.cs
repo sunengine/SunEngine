@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
@@ -8,13 +9,11 @@ namespace SunEngine.Admin.Services
 {
     public interface ICleanerManager
     {
-        Task DeleteMaterial(int idMaterial);
+        Task DeleteMaterial(Material material);
 
-        Task DeleteComment(int idComment);
+        Task DeleteComment(Comment comment);
 
         Task DeleteAllMarkedMaterials();
-
-        Task DeleteAllMarkedComments();
     }
 
     public class CleanerManager : ICleanerManager
@@ -24,7 +23,6 @@ namespace SunEngine.Admin.Services
         private async Task DeleteIndex(Material m)
         {
             db.Materials.Set(m => m.LastCommentId, () => null);
-            //await db.Materials.Where(x => x.Id == id).Set(x => x.LastCommentId, () => null).UpdateAsync();
         }
 
         public CleanerManager(
@@ -33,29 +31,31 @@ namespace SunEngine.Admin.Services
             db = dataBaseConnection;
         }
 
-        public async Task DeleteMaterial(int idMaterial)
+        public async Task DeleteMaterial(Material material)
         {
-            var material = db.Materials.Where(x => x.Id == idMaterial);
+            throw new NotImplementedException();
+            //var material = db.Materials.Where(x => x.Id == idMaterial);
 
-            await material.Select(x => x.Comments).DeleteAsync();
-            await material.DeleteAsync();
+            //await material.Select(x => x.Comments).DeleteAsync();
+            //await material.DeleteAsync();
         }
 
-        public async Task DeleteComment(int idComment)
+        public async Task DeleteComment(Comment comment)
         {
-            var comment = db.Comments.Where(x => x.Id == idComment).ElementAt(0);
-            var material = comment.Material;
+            throw new NotImplementedException();
+            //var comment = db.Comments.Where(x => x.Id == idComment).ElementAt(0);
+            //var material = comment.Material;
 
-            if (material.LastCommentId == comment.Id)
-            {
-                var newLastComment = material.Comments.OrderBy(x => x.PublishDate).Last();
-                material.LastCommentId = newLastComment.Id;
-                material.LastComment = newLastComment;
+            //if (material.LastCommentId == comment.Id)
+            //{
+            //    var newLastComment = material.Comments.OrderBy(x => x.PublishDate).Last();
+            //    material.LastCommentId = newLastComment.Id;
+            //    material.LastComment = newLastComment;
 
-                await db.UpdateAsync(material);
-            }
+            //    await db.UpdateAsync(material);
+            //}
 
-            await db.DeleteAsync(comment);
+            //await db.DeleteAsync(comment);
         }
 
         public async Task DeleteAllMarkedMaterials()
@@ -77,11 +77,6 @@ namespace SunEngine.Admin.Services
                 await comments.DeleteAsync();
                 await db.CommitTransactionAsync();
             }
-        }
-
-        public async Task DeleteAllMarkedComments()
-        {
-            await db.Comments.Where(x => x.DeletedDate != null).DeleteAsync();
         }
     }
 }

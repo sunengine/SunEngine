@@ -14,7 +14,9 @@
     <div class="deleted-elements__info-box">{{$tl("info2")}}</div>
     <div class="deleted-elements__info-box">{{$tl("info3")}}</div>
 
-    <q-btn color="primary" label="Удалить все помеченные комментарии" @click="deleteAllMarkedComments()" />
+    <q-btn color="primary" icon="fas fa-trash" :label="$tl('btnDeleteAllMarkedComments')" :loading="loading" @click="deleteAllMarkedComments()">
+      <LoaderSent slot="loading"/>    
+    </q-btn>
   </q-page>
 </template>
 
@@ -25,20 +27,31 @@
     export default {
         name: 'DeletedElements',
         mixins: [Page],
+        data(){
+          return {
+            loading: false
+          }
+        },
+        beforeCreate() {
+          this.$options.components.LoaderSent = require('sun').LoaderSent
+        },
         created() {
             this.title = this.$tl('title');
         },
         methods: {
           deleteAllMarkedComments() {
+            this.loading = true
             this.$request(this.$AdminApi.DeletedElements.DeleteAllMarkedComments)
             .then(() => {
+              this.loading = false
               this.$successNotify('Success!')
             })
             .catch((err) => {
+              this.loading = false
               this.$errorNotify(err)
             })
           }
-        }
+        },
     }
 
 </script>
