@@ -1,9 +1,7 @@
 <template>
   <q-page class="index-page middle flex flex-center">
     <div>
-      <h1 class="index-page__header index-page__demo-header">
-        SunEngine
-      </h1>
+      <h1 class="index-page__header index-page__demo-header">Sun<wbr/>Engine</h1>
       <div class="index-page__info-block">
         <p>{{$tl("users")}}:
           <span class="index-page__info-block-accent">User1</span>,
