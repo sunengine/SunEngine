@@ -25,6 +25,7 @@ namespace SunEngine.Admin
             services.AddScoped<ImageCleanerAdminService>();
             services.AddScoped<SkinsAdminService>();
             services.AddScoped<ConfigurationAdminService>();
+            services.AddScoped<ICleanerManager,CleanerManager>();
         }
     }
 }
