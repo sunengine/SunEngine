@@ -110,6 +110,7 @@ namespace SunEngine.Core.Security
                 {
                     Path = "/",
                     HttpOnly = true,
+                    Secure = true,
                     IsEssential = true,
                     Expires = longSession.ExpirationDate
                 }
