@@ -357,7 +357,8 @@ export default {
     info1: "If checked, deleted materials will shows on any single category.",
     info2: "If append '?deleted=1' to any single category URL deleted material will shows.",
     info3: "This function will not work on multi categories sections like 'new topics' on forum.",
-    btnDeleteAllMarkedComments: "Clean database from deleted materials"
+    btnDeleteAllMarkedComments: "Clean database from deleted materials",
+    deleteSuccess: "Success clean \nMaterials: {materialsCount}\nComments: {commentsCount}"
   },
   ImagesCleaner: {
     title: "Disk cleaner",

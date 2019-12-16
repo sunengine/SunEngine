@@ -14,7 +14,7 @@
     <div class="deleted-elements__info-box">{{$tl("info2")}}</div>
     <div class="deleted-elements__info-box">{{$tl("info3")}}</div>
 
-    <q-btn color="primary" icon="fas fa-trash" :label="$tl('btnDeleteAllMarkedComments')" :loading="loading" @click="deleteAllMarkedComments()">
+    <q-btn color="primary" no-caps icon="fas fa-trash" :label="$tl('btnDeleteAllMarkedComments')" :loading="loading" @click="deleteAllMarkedComments()">
       <LoaderSent slot="loading"/>    
     </q-btn>
   </q-page>
@@ -42,10 +42,15 @@
           deleteAllMarkedComments() {
             this.loading = true
             this.$request(this.$AdminApi.DeletedElements.DeleteAllMarkedComments)
-            .then(() => {
+            .then((response) => {
               this.loading = false
-              this.$successNotify('Success!')
-            })
+              const deletedCounts =
+              { 
+                materialsCount: response.data.deletedMaterials,
+                commentsCount: response.data.deletedComments
+              }
+              this.$successNotify(this.$tl('deleteSuccess', deletedCounts))
+              })
             .catch((err) => {
               this.loading = false
               this.$errorNotify(err)

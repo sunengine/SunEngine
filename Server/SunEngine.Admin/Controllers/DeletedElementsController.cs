@@ -18,8 +18,8 @@ namespace SunEngine.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteAllMarkedMaterials()
         {
-            await cleanerManager.DeleteAllMarkedMaterials();
-            return Ok();
+            var deleted =  await cleanerManager.DeleteAllMarkedMaterials();
+            return Ok(deleted);
         }
     }
 }
