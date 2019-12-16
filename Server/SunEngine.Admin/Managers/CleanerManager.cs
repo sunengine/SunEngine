@@ -13,17 +13,12 @@ namespace SunEngine.Admin.Services
 
         Task DeleteComment(Comment comment);
 
-        Task DeleteAllMarkedMaterials();
+        Task<DeletedCleanerCount> DeleteAllMarkedMaterials();
     }
 
     public class CleanerManager : ICleanerManager
     {
         private readonly DataBaseConnection db;
-
-        private async Task DeleteIndex(Material m)
-        {
-            db.Materials.Set(m => m.LastCommentId, () => null);
-        }
 
         public CleanerManager(
             DataBaseConnection dataBaseConnection)
@@ -34,49 +29,39 @@ namespace SunEngine.Admin.Services
         public async Task DeleteMaterial(Material material)
         {
             throw new NotImplementedException();
-            //var material = db.Materials.Where(x => x.Id == idMaterial);
-
-            //await material.Select(x => x.Comments).DeleteAsync();
-            //await material.DeleteAsync();
         }
 
         public async Task DeleteComment(Comment comment)
         {
             throw new NotImplementedException();
-            //var comment = db.Comments.Where(x => x.Id == idComment).ElementAt(0);
-            //var material = comment.Material;
-
-            //if (material.LastCommentId == comment.Id)
-            //{
-            //    var newLastComment = material.Comments.OrderBy(x => x.PublishDate).Last();
-            //    material.LastCommentId = newLastComment.Id;
-            //    material.LastComment = newLastComment;
-
-            //    await db.UpdateAsync(material);
-            //}
-
-            //await db.DeleteAsync(comment);
         }
 
-        public async Task DeleteAllMarkedMaterials()
+        public async Task<DeletedCleanerCount> DeleteAllMarkedMaterials()
         {
+            int deletedMaterialCount = 0;
+            int deletedCommentCount = 0;
+
             using (await db.BeginTransactionAsync())
             {
-                var materials = db.Materials.Where(x => x.DeletedDate != null).AsQueryable();
+                var materials = db.Materials.Where(x => x.DeletedDate != null);
 
-                foreach (var m in materials)
-                {
-                    await DeleteIndex(m);
-                }
+                await materials.Set(x => x.LastCommentId, (x) => null).UpdateAsync();
 
-                await materials.Select(x => x.Comments).DeleteAsync();
+                deletedCommentCount += await db.Comments.Where(x => x.Material.DeletedDate != null).DeleteAsync();
+                deletedMaterialCount += await materials.DeleteAsync();
 
-                await materials.DeleteAsync();
-
-                var comments = db.Comments.Where(x => x.DeletedDate != null).AsQueryable();
-                await comments.DeleteAsync();
+                deletedCommentCount += await db.Comments.Where(x => x.DeletedDate != null).AsQueryable().DeleteAsync();
                 await db.CommitTransactionAsync();
             }
+
+            return new DeletedCleanerCount { DeletedMaterials = deletedMaterialCount, DeletedComments = deletedCommentCount };
         }
+    }
+
+    public class DeletedCleanerCount
+    {
+        public int DeletedMaterials { get; set; }
+
+        public int DeletedComments { get; set; }
     }
 }
