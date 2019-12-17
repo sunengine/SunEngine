@@ -48,6 +48,5 @@ namespace SunEngine.Core.Configuration.Options
         public bool FileServer { get; set; }
 
         public bool UpdateClientFilesOnConfigChanges { get; set; }
-
     }
 }

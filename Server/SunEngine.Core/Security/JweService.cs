@@ -110,7 +110,7 @@ namespace SunEngine.Core.Security
                 {
                     Path = "/",
                     HttpOnly = true,
-                    Secure = true,
+                    Secure = jweOptions.CurrentValue.SecureAuthCookie,
                     IsEssential = true,
                     Expires = longSession.ExpirationDate
                 }
