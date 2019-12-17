@@ -66,5 +66,8 @@ export default {
     Version: '/Admin/ServerInfoAdmin/Version',
     DotnetVersion: '/Admin/ServerInfoAdmin/DotnetVersion',
     GetServerInfo: '/Admin/ServerInfoAdmin/GetServerInfo'
+  },
+  DeletedElements: {
+    DeleteAllMarkedComments: '/Admin/DeletedElements/DeleteAllMarkedMaterials'
   }
 }
