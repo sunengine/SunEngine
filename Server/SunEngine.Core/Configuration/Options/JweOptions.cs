@@ -5,6 +5,5 @@
         public string Issuer { get; set; }
         public int LongTokenLiveTimeDays { get; set; }
         public int ShortTokenLiveTimeMinutes { get; set; }
-        public bool SecureAuthCookie { get; set; }
     }
 }
