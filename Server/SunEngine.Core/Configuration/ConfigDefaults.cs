@@ -84,11 +84,11 @@ namespace SunEngine.Core.Configuration
             ["Materials:TimeToOwnMoveInMinutes"] = 15,
             ["Materials:SubTitleLength"] = 80,
 
-            ["Forum:ThreadMaterialsPageSize"] = 5,
-            ["Forum:NewTopicsPageSize"] = 5,
-            ["Forum:NewTopicsMaxPages"] = 8,
+            ["Forum:ThreadMaterialsPageSize"] = 12,
+            ["Forum:NewTopicsPageSize"] = 15,
+            ["Forum:NewTopicsMaxPages"] = 10,
 
-            ["Articles:CategoryPageSize"] = 8,
+            ["Articles:CategoryPageSize"] = 12,
 
             ["Blog:PostsPageSize"] = 8,
             ["Blog:PreviewLength"] = 850,

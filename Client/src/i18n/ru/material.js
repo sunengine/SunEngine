@@ -44,7 +44,7 @@ export default {
     name: "Имя (eng)",
     title: "Заголовок",
     subTitle: "Подзаголовок",
-    tags: "Метки",
+    tags: "Теги",
     selectCategory: "Раздел",
     category: "Раздел: {0}",
     hide: "Спрятать",
