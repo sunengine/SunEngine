@@ -10,7 +10,8 @@ export default function () {
   ).finally(
     () => {
       removeTokens();
-      router.push({name: 'Home'});
+      if(router.currentRoute.name !== "Home")
+        router.push({name: 'Home'});
     }
   );
 }

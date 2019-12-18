@@ -68,7 +68,7 @@
             }
         },
         methods: {
-            async login() {
+            login() {
                 this.$refs.nameOrEmail.validate();
                 this.$refs.password.validate();
 
@@ -77,17 +77,9 @@
 
                 this.submitting = true;
 
-                await this.$store.dispatch('login', {
+                this.$store.dispatch('login', {
                     nameOrEmail: this.nameOrEmail,
                     password: this.password
-                }).then(() => {
-                    this.$successNotify();
-
-                    if (this.ret)
-                        this.$router.replace(this.ret);
-                    else
-                        this.$router.replace('/');
-
                 }).catch(error => {
                     this.submitting = false;
                     this.$errorNotify(error);

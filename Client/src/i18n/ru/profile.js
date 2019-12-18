@@ -11,9 +11,9 @@ export default {
   },
   SendPrivateMessage: {
     title: "Написать личное сообщение",
-    titleStart: "Написать",
+    titleStart: "Написать пользователю",
     sendBtn: "Отправить",
-    successNotify: "Сообщение успешно отправлено пользователю {0}",
+    successNotify: "Сообщение успешно отправлено.",
     sendErrorNotify: "Сообщение не отправлено. Ошибка на сервере.",
     sendSpamProtectionNotify: "Нельзя так часто отправлять личные сообщения. Необходимо подождать.",
   }

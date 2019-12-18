@@ -1,8 +1,9 @@
 ﻿<template>
   <q-page class="send-private-message page-padding">
     <h2 class="page-title"> {{$tl("titleStart")}}
-      <q-icon name="far fa-user" color="grey-7"/>
+     <router-link :to="{name: 'User', params: {link: userLink}}" class="link q-ml-sm"> <q-icon name="far fa-user" />
       {{userName}}
+     </router-link>
     </h2>
 
     <q-editor class="send-private-message__editor q-mb-md" :toolbar="sendPrivateMessageToolbar" ref="htmlEditor" v-model="text"/>
@@ -31,6 +32,10 @@
                 required: true
             },
             userName: {
+                type: String,
+                required: true
+            },
+            userLink: {
                 type: String,
                 required: true
             }

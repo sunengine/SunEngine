@@ -12,8 +12,8 @@ export default {
   SendPrivateMessage: {
     title: "Private message",
     titleStart: "Write private message",
-    sendBtn: "Send",
-    successNotify: "Message is successfully sent to the user {0}",
+    sendBtn: "Send to user",
+    successNotify: "Message is successfully sent.",
     sendErrorNotify: "Message sending failed. Server error.",
     sendSpamProtectionNotify: "You can't send private messages that often. Please, wait.",
   },

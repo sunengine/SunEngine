@@ -4,10 +4,10 @@
       <div class="profile__img-block flex column">
         <img class="profile__photo" width="300" height="300" :src="$avatarPath(user.photo)"/>
         <div v-if="messageButtons" class="profile__private-messages-block flex q-mt-sm">
-          <q-btn no-caps class="shadow-1 grow" color="lime-4" :disable="!canPrivateMessage"
-                 :to="{path: '/SendPrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name }}"
+          <q-btn no-caps class="shadow-1 grow" color="info" :disable="!canPrivateMessage"
+                 :to="{path: '/SendPrivateMessage'.toLowerCase(), query: {userId: user.id, userName: user.name, userLink:user.link }}"
                  dense icon="far fa-envelope" :label="$tl('sendPrivateMessageBtn')"/>
-          <q-btn :color="!user.iBannedHim ? 'lime-4' : 'negative'" class="profile__bun-btn shadow-1 q-ml-sm" dense
+          <q-btn :color="!user.iBannedHim ? 'info' : 'negative'" class="profile__bun-btn shadow-1 q-ml-sm" dense
                  v-if="!user.noBannable" icon="fas fa-ellipsis-v">
             <q-menu>
               <q-btn no-caps v-close-popup color="negative" v-if="!user.iBannedHim" @click="ban" icon="fas fa-ban"

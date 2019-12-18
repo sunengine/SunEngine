@@ -59,11 +59,11 @@
     },
     methods: {
       logout() {
-        const logoutNotifyMessage = this.$tl('logoutNotify');
+        const logoutNotify = this.$tl('logoutNotify');
         this.$store.dispatch('logout')
           .then(() => {
             this.$q.notify({
-              message: logoutNotifyMessage,
+              message: logoutNotify,
               timeout: 2000,
               color: 'info',
               position: 'top'
