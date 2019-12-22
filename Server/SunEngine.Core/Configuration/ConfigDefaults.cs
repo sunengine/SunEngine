@@ -186,7 +186,7 @@ namespace SunEngine.Core.Configuration
               ['undo', 'redo'],
               [ 'viewsource', 'fullscreen']
             ]",
-                        ["Editor:CommentToolbar"] = (JsonString) @"[
+            ["Editor:CommentToolbar"] = (JsonString) @"[
               ['bold', 'italic', 'strike', 'underline'],
               ['token', 'hr', 'link', 'addImages'],
               [
@@ -209,7 +209,13 @@ namespace SunEngine.Core.Configuration
               ['unordered', 'ordered'],
               ['undo', 'redo'],
               ['viewsource', 'fullscreen']
-            ]"
+            ]",
+            ["SendPrivateMessageToolbar"] = (JsonString)@"[[
+                ['bold', 'italic', 'strike', 'underline'],
+                ['token', 'hr' ],
+                ['quote', 'unordered', 'ordered' ],
+                ['undo', 'redo','fullscreen'],
+            ]]"
             #endregion
         };
     }

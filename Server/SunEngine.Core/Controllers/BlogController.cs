@@ -75,6 +75,9 @@ namespace SunEngine.Core.Controllers
                 return await blogPresenter.GetPostsAsync(options);
             }
 
+            if (showDeleted)
+                return Ok(await LoadDataAsync());
+
             return await CacheContentAsync(category, category.Id, LoadDataAsync, page);
         }
 

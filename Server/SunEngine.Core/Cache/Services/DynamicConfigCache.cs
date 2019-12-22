@@ -54,6 +54,7 @@ namespace SunEngine.Core.Cache.Services
                 ["Editor:MaterialToolbar"] = typeof(string),
                 ["Editor:CommentToolbar"] = typeof(string),
                 ["Editor:UserInformationToolbar"] = typeof(string),
+                ["Editor:SendPrivateMessageToolbar"] = typeof(string),
 
                 ["Images:ImageRequestSizeLimitBytes"] = typeof(int)
             };

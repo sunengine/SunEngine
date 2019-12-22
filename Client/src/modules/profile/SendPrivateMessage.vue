@@ -20,7 +20,6 @@
 
 <script>
     import {Page} from 'mixins'
-    import {sendPrivateMessageToolbar} from 'sun'
 
 
     export default {
@@ -70,7 +69,7 @@
         },
         created() {
             this.title = this.$tl('title');
-            this.sendPrivateMessageToolbar = sendPrivateMessageToolbar;
+            this.sendPrivateMessageToolbar =  JSON.parse(config.Editor.SendPrivateMessageToolbar);
         }
     }
 

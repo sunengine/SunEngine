@@ -69,10 +69,14 @@ namespace SunEngine.Core.Controllers
             if (showDeleted && authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialDeleteAny))
                 options.ShowDeleted = true;
 
+
             async Task<IPagedList<ArticleInfoView>> LoadDataAsync()
             {
                 return await articlesPresenter.GetArticlesAsync(options);
             }
+
+            if (showDeleted)
+                return Ok(await LoadDataAsync());
 
             return await CacheContentAsync(category, category.Id, LoadDataAsync, page);
         }

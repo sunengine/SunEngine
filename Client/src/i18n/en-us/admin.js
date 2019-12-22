@@ -324,6 +324,7 @@ export default {
             'Editor:MaterialToolbar': 'Material editor toolbar',
             'Editor:CommentToolbar': 'Comment editor toolbar',
             'Editor:UserInformationToolbar': 'Personal information editor toolbar',
+            'Editor:SendPrivateMessageToolbar': 'Send private message toolbar',
             'Scheduler:ExpiredRegistrationUsersClearDays': 'Interval for cleaning up users who did not confirm registration in days',
             'Scheduler:JwtBlackListServiceClearMinutes': 'Jwe blacklist cleanup interval in minutes',
             'Scheduler:LogJobs': 'Log tasks on the server',
