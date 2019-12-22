@@ -4,13 +4,13 @@
       <span class="menu-admin-item__up-down">
         <q-btn class="menu-admin-item__btn-up" :disabled="isFirst" @click="$emit('up',menuItem)" color="positive" dense
                size="10px" flat icon="fas fa-chevron-up">
-            <q-tooltip delay="1000">
+          <q-tooltip :delay="1000">
                {{$tl('moveUpBtnTooltip')}}
             </q-tooltip>
         </q-btn>
         <q-btn class="menu-admin-item__btn-down" :disabled="isLast" @click="$emit('down',menuItem)" color="positive"
                dense size="10px" flat icon="fas fa-chevron-down">
-            <q-tooltip delay="1000">
+          <q-tooltip :delay="1000">
                {{$tl('moveDownBtnTooltip')}}
             </q-tooltip>
         </q-btn>
@@ -21,34 +21,34 @@
 
       <q-btn class="menu-admin-item__btn-edit" @click="$emit('edit',menuItem)" icon="fas fa-wrench" color="info" dense
              size="10px" flat>
-          <q-tooltip delay="1000">
+          <q-tooltip :delay="1000">
               {{$tl('editBtnTooltip')}}
           </q-tooltip>
       </q-btn>
       <q-btn class="menu-admin-item__btn-change-is-hidden" @click="$emit('changeIsHidden',menuItem)"
              :icon="!menuItem.isHidden ? 'far fa-eye' : 'far fa-eye-slash'"
              :color="!menuItem.isHidden ? 'info' : 'grey-5'" dense size="10px" flat>
-          <q-tooltip delay="1000">
+          <q-tooltip :delay="1000">
               {{$tl('changeIsHiddenBtnTooltip')}}
           </q-tooltip>
       </q-btn>
       <q-btn class="menu-admin-item__btn-add" @click="$emit('add',menuItem)" icon="far fa-plus-square" color="info"
              dense size="10px" flat>
-          <q-tooltip delay="1000">
+          <q-tooltip :delay="1000">
               {{$tl('addSubMenuItemBtnTooltip')}}
           </q-tooltip>
       </q-btn>
       <q-btn class="menu-admin-item__btn-to" :disabled="!(to || menuItem.externalUrl)" type="a" :to="to"
              @click="goExternal" icon="fas fa-arrow-right"
              color="info" dense size="10px" flat>
-          <q-tooltip delay="1000">
+          <q-tooltip :delay="1000">
               {{$tl('goToBtnTooltip')}}
           </q-tooltip>
       </q-btn>
       <q-btn class="menu-admin-item__btn-delete" @click="$emit('deleteMenuItem',menuItem)" icon="far fa-times-circle"
              color="warning" dense size="10px"
              flat>
-              <q-tooltip delay="1000">
+          <q-tooltip :delay="1000">
                {{$tl('deleteBtnTooltip')}}
            </q-tooltip>
       </q-btn>

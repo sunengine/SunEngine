@@ -4,42 +4,42 @@
             <h2 class="page-title">
                 {{title}}
             </h2>
-            <q-input dense v-model="filter" :placeholder="$tl('filter')" clearable>
+            <q-input dense v-model="filter" @input="doFilter" :placeholder="$tl('filter')" clearable>
                 <template v-slot:before>
                     <q-icon name="fa fa-search"/>
                 </template>
             </q-input>
         </div>
 
-        <div v-if="configurationItems">
+        <div v-if="configurationGroups">
             <q-markup-table wrap-cells>
-                <tbody v-if="configurationGroups">
-                <template v-for="group of configurationGroups">
+                <tbody v-if="configurationGroupsFiltered">
+                <template v-for="group of configurationGroupsFiltered">
                     <tr class="configuration-admin__group-header-tr">
-                        <td colspan="2" class="configuration-admin__group-header-td">
-                            {{getGroupTitle(group)}}
-                            <div class="caption text-grey-7" v-html="getGroupSubTitle(group)"></div>
+                        <td colspan="2" class="configuration-admin__group-header-td q-gutter-y-sm">
+                            <div class="configuration-admin__group-title">{{group.localTitle}}</div>
+                            <div class="configuration-admin__group-sub-title" v-html="group.localSubTitle"></div>
                         </td>
                     </tr>
                     <tr v-for="item of group.items">
                         <td class="configuration-admin__name-column">
                             <div class="flex no-wrap align-center">
-                                <div class="grow">{{getItemName(item)}}</div>
-                                <div v-if="hasItemTooltip(item)">
+                                <div class="grow">{{item.localTitle}}</div>
+                                <div v-if="item.localSubTitle">
                                     <q-icon name="far fa-question-circle" class="text-blue" size="xs" right>
                                         <q-tooltip anchor="bottom middle" self="top middle" max-width="200px">
-                                            {{getItemTooltip(item)}}
+                                            {{item.localSubTitle}}
                                         </q-tooltip>
                                     </q-icon>
                                 </div>
                             </div>
                         </td>
                         <td class="configuration-admin__value-column">
-                            <q-checkbox dense v-if="item.item.type === 'Boolean'" v-model="item.item.value"/>
-                            <q-select dense v-else-if="item.item.type === 'Enum'" :options="enums[item.item.enumName]"
-                                      v-model="item.item.value"/>
-                            <q-input dense v-else :type="getTypeType(item.item.type)"
-                                     :rules="item.item.type === 'JsonString' ? rules : null" v-model="item.item.value"/>
+                            <q-checkbox dense v-if="item.type === 'Boolean'" v-model="item.value"/>
+                            <q-select dense v-else-if="item.type === 'Enum'" :options="enums[item.enumName]"
+                                      v-model="item.value"/>
+                            <q-input dense v-else :type="getTypeType(item.type)"
+                                     :rules="item.type === 'JsonString' ? rules : null" v-model="item.value"/>
                         </td>
                     </tr>
                 </template>
@@ -80,13 +80,13 @@
     }
 
     export default {
-        name: "ConfigurationAdmin",
+        name: 'ConfigurationAdmin',
         mixins: [Page],
         data() {
             return {
                 filter: '',
                 configurationGroups: null,
-                configurationItems: null,
+                configurationGroupsFiltered: null,
                 tokens: null,
                 enums: null,
                 loading: false
@@ -95,38 +95,63 @@
         watch: {
             'filter': 'buildTable'
         },
+        computed: {
+            filterLowerCase() {
+                return this.filter.toLowerCase();
+            }
+        },
         methods: {
-            getItemName(item) {
-                const key = this.$options.name + ".items." + item.fullName;
+            filterItems() {
+                if (!this.filter)
+                    this.configurationGroupsFiltered = this.configurationGroups;
+
+                const rez = [];
+                for (const group of this.configurationGroups) {
+                    if (group.filterStr.includes(this.filterLowerCase)) {
+                        rez.push(group);
+                        continue;
+                    }
+
+                    const {items, ...grp} = group;
+                    grp.items = [];
+
+                    for (const item of group.items)
+                        if (item.filterStr.includes(this.filterLowerCase))
+                            grp.items.push(item);
+
+                    if (grp.items.length > 0)
+                        rez.push(grp);
+                }
+
+                this.configurationGroupsFiltered = rez.length > 0 ? rez : null;
+            },
+            getItemTitle(item) {
+                const key = this.$options.name + '.items.' + item.name;
                 if (this.$te(key) && this.$t(key))
                     return this.$t(key);
                 else
                     return item.name;
             },
+            getItemSubTitle(item) {
+                const key = this.$options.name + '.tooltips.' + item.name;
+                if (this.$te(key) && this.$t(key))
+                    return this.$t(key);
+                else
+                    return null;
+            },
             getGroupTitle(group) {
-                const key = this.$options.name + ".groupTitles." + group.name;
+                const key = this.$options.name + '.groupTitles.' + group.name;
                 if (this.$te(key) && this.$t(key))
                     return this.$t(key);
                 else
                     return group.name;
             },
             getGroupSubTitle(group) {
-                const key = this.$options.name + ".groupSubTitles." + group.name;
+                const key = this.$options.name + '.groupSubTitles.' + group.name;
                 if (this.$te(key) && this.$t(key))
                     return this.$t(key).replace(/((http:\/\/|https:\/\/)[^\s]+?)(\s|$)/ig, '<a href="$1" target="_blank">$1</a>');
                 else
                     return null;
-            },
-            getItemTooltip(item) {
-                const key = this.$options.name + ".tooltips." + item.fullName;
-                if (this.$te(key) && this.$t(key))
-                    return this.$t(key);
-                else
-                    return null;
-            },
-            hasItemTooltip(item) {
-                const key = this.$options.name + ".tooltips." + item.fullName;
-                return !!this.$te(key) && this.$t(key);
             },
             getTypeType(type) {
                 switch (type) {
@@ -156,60 +181,76 @@
                         this.$successNotify(this.$tl('resetSuccessNotify'), "info");
                     });
             },
-            buildTable() {
-                const visibleItems = this.filter ? this.configurationItems.filter(x => x.name.toLowerCase().includes(this.filter.toLowerCase())) : this.configurationItems;
-
-                if (!visibleItems || visibleItems.length === 0) {
-                    this.configurationGroups = null;
-                    return;
+            buildTable(items) {
+                function GetTokens(name) {
+                    let arr = name.split(":");
+                    return [arr[0], arr.splice(1).join(":")];
                 }
 
-                const toks0 = GetTokens(visibleItems[0].name);
+                const MakeGroupTitles = (group) => {
+                    group.localTitle = this.getGroupTitle(group);
+                    group.localSubTitle = this.getGroupSubTitle(group);
+                    group.filterStr = (group.name + " ! " + group.localTitle + " ! " + group.localSubTitle).toLocaleLowerCase();
+                };
+
+                const MakeItemTitles = (item) => {
+                    item.localTitle = this.getItemTitle(item);
+                    item.localSubTitle = this.getItemSubTitle(item);
+                    item.filterStr = (item.name + " ! " + item.localTitle + " ! " + item.localSubTitle).toLocaleLowerCase();
+                };
+
+
+                const toks0 = GetTokens(items[0].name);
+
+                const newItem = {
+                    shortName: toks0[1],
+                    ...items[0]
+                };
+                MakeItemTitles(newItem);
 
                 const groups = [{
                     name: toks0[0],
-                    items: [{
-                        name: toks0[1],
-                        fullName: visibleItems[0].name,
-                        item: visibleItems[0]
-                    }]
+                    items: [newItem]
                 }];
+                MakeGroupTitles(groups[0]);
 
-                visibleItems.reduce(function (previousValue, currentValue, index, array) {
+                newItem.group = groups[0];
+
+                items.reduce((previousValue, currentValue, index, array) => {
                     const toks1 = GetTokens(previousValue.name);
                     const toks2 = GetTokens(currentValue.name);
 
                     const newItem = {
-                        name: toks2[1],
-                        fullName: currentValue.name,
-                        item: currentValue
+                        shortName: toks2[1],
+                        ...currentValue
                     };
+                    MakeItemTitles(newItem);
 
                     if (toks1[0] === toks2[0]) {
                         groups[groups.length - 1].items.push(newItem);
                     } else {
-                        groups.push({
+                        const newGroup = {
                             name: toks2[0],
+                            fullName: currentValue.name,
                             items: [newItem]
-                        });
+                        };
+                        MakeGroupTitles(newGroup);
+
+                        groups.push(newGroup);
                     }
 
                     return currentValue;
                 });
 
                 this.configurationGroups = groups;
-
-                function GetTokens(name) {
-                    let arr = name.split(":");
-                    return [arr[0], arr.splice(1).join(":")];
-                }
-
+            },
+            doFilter() {
+                this.filterItems();
             },
             loadConfiguration() {
                 return this.$request(this.$AdminApi.ConfigurationAdmin.LoadConfiguration)
                     .then(response => {
-                            this.configurationItems = response.data;
-                            this.buildTable();
+                            this.buildTable(response.data);
                         }
                     );
             },
@@ -235,10 +276,12 @@
             this.$options.components.LoaderSent = require('sun').LoaderSent;
         },
         async created() {
+            this.filterItems = this.$throttle(this.filterItems, 1000);
             this.title = this.$tl("title");
             this.rules = createRules.call(this);
             await this.getEnums();
             await this.loadConfiguration();
+            this.doFilter();
         }
     }
 </script>
@@ -254,10 +297,18 @@
     }
 
     .configuration-admin__group-header-td {
-        padding: 0px !important;
+        padding: 7px !important;
         text-align: center;
         background-color: $grey-3 !important;
+    }
+
+    .configuration-admin__group-title {
         font-size: 1.15em;
+    }
+
+    .configuration-admin__group-sub-title {
+        color: $grey-7;
+        font-size: 1em;
     }
 
     .configuration-admin__name-column {

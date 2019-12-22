@@ -1,7 +1,6 @@
 ﻿import {QEditor, QInnerLoading, QSpinnerGears} from 'quasar';
 import ValidateMixin from 'quasar/src/mixins/validate';
 
-import {editorButtons} from 'sun'
 import {validateFileSize} from 'sun'
 
 export default {
@@ -112,8 +111,7 @@ export default {
     buttonDef() {
       return {
         ...QEditor.options.computed.buttonDef.call(this),
-        addImages: {icon: 'fas fa-image', tip: this.$tl('uploadImages'), handler: this.uploadImages},
-        ...editorButtons
+        addImages: {icon: 'fas fa-image', tip: this.$tl('uploadImages'), handler: this.uploadImages}
       };
     }
   },

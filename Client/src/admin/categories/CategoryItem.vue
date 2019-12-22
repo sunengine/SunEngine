@@ -1,14 +1,16 @@
 ﻿<template>
-  <div class="category-item">
+    <div class="category-item">
     <span class="category-item__item-block" v-if="notRoot">
       <span class="q-mr-sm category-item__up-down">
-        <q-btn :disabled="isFirst" @click="$emit('up',category)" color="positive" dense size="10px" flat               icon="fas fa-chevron-up">
-             <q-tooltip delay="1000">
+        <q-btn :disabled="isFirst" @click="$emit('up',category)" color="positive" dense size="10px" flat
+               icon="fas fa-chevron-up">
+            <q-tooltip :delay="1000">
                {{$tl('moveUpBtnTooltip')}}
             </q-tooltip>
         </q-btn>
-        <q-btn :disabled="isLast" @click="$emit('down',category)" color="positive" dense size="10px" flat               icon="fas fa-chevron-down">
-             <q-tooltip delay="1000">
+        <q-btn :disabled="isLast" @click="$emit('down',category)" color="positive" dense size="10px" flat
+               icon="fas fa-chevron-down">
+            <q-tooltip :delay="1000">
                {{$tl('moveDownBtnTooltip')}}
             </q-tooltip>
         </q-btn>
@@ -16,7 +18,7 @@
       <span>
           <router-link v-if="category.isMaterialsContainer"
                        :to="{name:'CatView', params: {categoryName: category.name}}">{{category.title}}
-               <q-tooltip delay="1000">
+            <q-tooltip :delay="1000">
                {{$tl('showCategoryBtnTooltip')}}
             </q-tooltip>
           </router-link>
@@ -24,20 +26,20 @@
       </span>
       <span class="q-ml-md">
         <q-btn class="category-item__btn-edit" :to="{name: 'EditCategory', params: {categoryId:category.id}}"
-               icon="fas fa-wrench" color="info" dense               size="10px" flat>
-              <q-tooltip delay="1000">
+               icon="fas fa-wrench" color="info" dense size="10px" flat>
+            <q-tooltip :delay="1000">
                {{$tl('editBtnTooltip')}}
             </q-tooltip>
         </q-btn>
         <q-btn class="category-item__btn-create" :to="{name: 'CreateCategory', params: {parentCategoryId: category.id}}"
-               icon="fas fa-folder-plus"               color="info" dense size="10px" flat>
-             <q-tooltip delay="1000">
+               icon="fas fa-folder-plus" color="info" dense size="10px" flat>
+            <q-tooltip :delay="1000">
                {{$tl('createSubCategoryBtnTooltip')}}
             </q-tooltip>
         </q-btn>
         <q-btn class="category-item__btn-to-route" :disabled="!route" :to="route" icon="fas fa-arrow-right" color="info"
                dense size="10px" flat>
-             <q-tooltip delay="1000">
+            <q-tooltip :delay="1000">
                {{$tl('moveToBtnTooltip')}}
             </q-tooltip>
         </q-btn>
@@ -46,14 +48,14 @@
       <span v-if="showInfo" class="category-item__category-name text-grey-7 q-ml-md">{{category.name}}</span>
 
       <span v-if="showInfo && category.materialsCount" class="category-item__materails-count text-grey-8 q-ml-md"> <q-icon
-        color="grey-5" name="far fa-file-alt"/> {{category.materialsCount}}</span>
+          color="grey-5" name="far fa-file-alt"/> {{category.materialsCount}}</span>
     </span>
-    <div class="category-item__sub-categories-block" v-if="category.subCategories"
-         :class="[{'padding-shift': notRoot}]">
-      <category-item :showInfo="showInfo" :category="sub" :isFirst="index === 0" :isLast="index === lastIndex"
-                     :key="sub.id" v-for="(sub,index) in category.subCategories" v-on="$listeners"/>
+        <div class="category-item__sub-categories-block" v-if="category.subCategories"
+             :class="[{'padding-shift': notRoot}]">
+            <category-item :showInfo="showInfo" :category="sub" :isFirst="index === 0" :isLast="index === lastIndex"
+                           :key="sub.id" v-for="(sub,index) in category.subCategories" v-on="$listeners"/>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -94,24 +96,24 @@
 
 <style lang="scss">
 
-  .category-item {
-    .padding-shift {
-      padding-left: 25px
-    }
+    .category-item {
+        .padding-shift {
+            padding-left: 25px
+        }
 
-    .q-btn:disabled {
-      filter: grayscale(1);
-    }
+        .q-btn:disabled {
+            filter: grayscale(1);
+        }
 
-    .desktop {
-      .category-item__item-block > .category-item__up-down {
-        visibility: hidden;
-      }
+        .desktop {
+            .category-item__item-block > .category-item__up-down {
+                visibility: hidden;
+            }
 
-      .category-item__item-block:hover > .category-item__up-down {
-        visibility: visible;
-      }
+            .category-item__item-block:hover > .category-item__up-down {
+                visibility: visible;
+            }
+        }
     }
-  }
 
 </style>
