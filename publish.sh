@@ -3,7 +3,7 @@
 #   *****************************************************
 #   *                                                   *
 #   *   Publish to Ubuntu Server script for SunEngine   *
-#   *               Script version: 4                   *
+#   *              Script version: 4.1                  *
 #   *                                                   *
 #   *****************************************************
 

@@ -8,7 +8,7 @@ CONFIG_PATH="${PROJECT_ROOT}/Config"
 BUILD_PATH="${PROJECT_ROOT}/build"
 NPM_UTIL="yarn"
 
-#Font
+# Font
 
 RED='\e[0;31m'
 GREEN='\e[0;32m'
