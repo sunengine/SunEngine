@@ -56,6 +56,12 @@ export default {
     },
     CategoryItem: {
         rootCategory: "Корневая категория",
+        moveUpBtnTooltip: "Переместить вверх",
+        moveDownBtnTooltip: "Переместить вниз",
+        editBtnTooltip: "Редактировать",
+        createSubCategoryBtnTooltip: "Создать подкатегорию",
+        moveToBtnTooltip: "Перейти к категории",
+        showCategoryBtnTooltip: "Просмотреть категорию в админке"
     },
     CreateCategory: {
         title: "Добавить категорию",
@@ -134,7 +140,15 @@ export default {
         btnDeleteOk: "@:Global.dialog.ok",
         btnDeleteCancel: "@:Global.dialog.cancel",
     },
-    MenuAdminItem: {},
+    MenuAdminItem: {
+        moveUpBtnTooltip: "Переместить вверх",
+        moveDownBtnTooltip: "Переместить вниз",
+        editBtnTooltip: "Редактировать",
+        changeIsHiddenBtnTooltip: "Спрятать / Показать",
+        addSubMenuItemBtnTooltip: "Добавить дочерний элемент",
+        goToBtnTooltip: "Перейти по ссылке",
+        deleteBtnTooltip: "Удалить"
+    },
     MenuItemForm: {
         name: "Идентификатор (eng)",
         title: "Заголовок",
@@ -296,6 +310,7 @@ export default {
         items: {
             'Global:Locale': 'Язык интерфейса',
             'Global:SiteName': 'Имя сайта',
+            'Global:PageTitleTemplate': 'Шаблон заголовка (title) страниц сайта в браузере',
             'Global:SiteTitle': 'Заголовок сайта',
             'Global:SiteSubTitle': 'Подзаголовок сайта',
             'Global:OpenExternalLinksAtNewTab': 'Открывать внешние ссылки в новом окне',
@@ -309,8 +324,8 @@ export default {
             'Images:AllowSvgUpload': 'Разрешить загрузку "svg" изображений',
             'Images:AvatarSizePixels': 'Сторона квадрата аватары в пикселях',
             'Images:ImageRequestSizeLimitBytes': 'Максимальный размер изображения в байтах',
-            'Images:MaxImageHeight': 'Проверка: максимальная высота изображения до сжатия в px',
-            'Images:MaxImageWidth': 'Проверка: максимальная ширина изображения до сжатия в px',
+            'Images:MaxImageHeight': 'Максимальная высота изображения до сжатия в px',
+            'Images:MaxImageWidth': 'Максимальная ширина изображения до сжатия в px',
             'Images:PhotoMaxHeightPixels': 'Высота фотографии пользователя после сжатия px',
             'Images:PhotoMaxWidthPixels': 'Ширина фотографии пользователя после сжатия px',
             'Images:ResizeMaxHeightPixels': 'Высота изображения после сжатия px',
@@ -349,17 +364,20 @@ export default {
             'Articles:CategoryPageSize': 'Количество статей на странице',
             'Forum:NewTopicsMaxPages': 'Максимальное количетсво страниц на вкладке новых тем',
             'Forum:NewTopicsPageSize': 'Количество тем на вкладке новых тем',
-            'Jwe:Issuer': '',
+            'Jwe:Issuer': 'Эмитент (Issuer)',
             'Jwe:LongTokenLiveTimeDays': 'Длительность сессии в днях refresh token life',
-            'Jwe:ShortTokenLiveTimeMinutes': 'Длительность жизни access токена',
+            'Jwe:ShortTokenLiveTimeMinutes': 'Длительность жизни access токена в минутах',
             'Skins:CurrentSkinName': 'Основная тема',
             'Skins:PartialSkinsNames': 'Дополнительные темы',
-            'Skins:MaxArchiveSizeKb': 'Проверка темы: максимальный размер файла архива в кб',
-            'Skins:MaxExtractArchiveSizeKb': 'Проверка темы: максимальный размер архива после разархивации в кб',
+            'Skins:MaxArchiveSizeKb': 'Максимальный размер файла архива в кб',
+            'Skins:MaxExtractArchiveSizeKb': 'Максимальный размер архива после разархивации в кб',
             'Cache:CurrentCachePolicy': 'Политика кэширования',
             'Cache:InvalidateCacheTime': 'Время хранения кэш-записи'
         },
         tooltips: {
+            'Global:PageTitleTemplate': 'Для подстановки использовать {pageTitle} и {siteName}.',
+            'Images:MaxImageHeight': 'Проверка при заливки изображения на сервер.',
+            'Images:MaxImageWidth': 'Проверка при заливки изображения на сервер.',
             'Cache:InvalidateCacheTime': 'Этот параметр используется не всеми политиками. Значения ниже 0 интерпретируются как необходимость постоянного хранения записей.',
             'Dev:LogInitExtended': 'В консоле браузера',
             'Dev:LogMoveTo': 'В консоле браузера',
@@ -367,7 +385,9 @@ export default {
             'Dev:VueAppInWindow': 'В консоле браузера',
             'Global:OpenExternalLinksAtNewTab': 'В материалах, комментариях, постах',
             'Skins:CurrentSkinName': 'Устанавливается через админку тем.',
-            'Skins:PartialSkinsNames': 'Устанавливается через админку тем. Список через запятую.'
+            'Skins:PartialSkinsNames': 'Устанавливается через админку тем. Список через запятую.',
+            'Skins:MaxArchiveSizeKb': 'Проверка темы на при заливки на сервер',
+            'Skins:MaxExtractArchiveSizeKb': 'Проверка темы на при заливки на сервер'
         }
     },
     CypherSecrets: {

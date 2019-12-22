@@ -216,7 +216,7 @@ const routes = [
   },
   {
     name: 'CatView',
-    path: '/admin/CatView/'.toLowerCase() + ':categoryName',
+    path: '/admin/Categories/View/'.toLowerCase() + ':categoryName',
     components: {
       default: ArticlesPage,
       navigation: AdminPanel
@@ -227,7 +227,7 @@ const routes = [
   },
   {
     name: 'CatView-mat',
-    path: '/admin/CatView/'.toLowerCase() + ':categoryName/:idOrName',
+    path: '/admin/Categories/View/'.toLowerCase() + ':categoryName/:idOrName',
     components: {
       default: Material,
       navigation: AdminPanel

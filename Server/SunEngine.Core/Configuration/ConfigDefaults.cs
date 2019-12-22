@@ -36,6 +36,7 @@ namespace SunEngine.Core.Configuration
             ["Global:SiteName"] = "SunEngine",
             ["Global:SiteTitle"] = "SunEngine",
             ["Global:SiteSubTitle"] = "Demo",
+            ["Global:PageTitleTemplate"] = "{pageTitle} - {siteName}",
             ["Global:Locale"] = Locale.Russian,
             ["Global:OpenExternalLinksAtNewTab"] = true,
 

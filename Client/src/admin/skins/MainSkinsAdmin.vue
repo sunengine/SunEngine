@@ -82,7 +82,7 @@
     </div>
     <LoaderWait v-else/>
 
-    <q-banner class="skins-admin__info shadow-1 q-mt-xl">
+    <q-banner rounded class="skins-admin__info shadow-1 q-mt-xl">
       {{$tl("info")}}
       <a class="skins-admin__info-link link" href="https://github.com/sunengine/SunEngine.Skins" target="_blank">https://github.com/sunengine/SunEngine.Skins</a>
     </q-banner>
@@ -239,7 +239,7 @@
 
   .skins-admin__info {
     margin-top: 100px;
-    background-color: $grey-3;
+    background-color: $grey-2;
     border: 1px solid #e6e6e6;
   }
 

@@ -2,25 +2,45 @@
   <div class="category-item">
     <span class="category-item__item-block" v-if="notRoot">
       <span class="q-mr-sm category-item__up-down">
-        <q-btn :disabled="isFirst" @click="$emit('up',category)" color="positive" dense size="10px" flat
-               icon="fas fa-chevron-up"/>
-        <q-btn :disabled="isLast" @click="$emit('down',category)" color="positive" dense size="10px" flat
-               icon="fas fa-chevron-down"/>
+        <q-btn :disabled="isFirst" @click="$emit('up',category)" color="positive" dense size="10px" flat               icon="fas fa-chevron-up">
+             <q-tooltip delay="1000">
+               {{$tl('moveUpBtnTooltip')}}
+            </q-tooltip>
+        </q-btn>
+        <q-btn :disabled="isLast" @click="$emit('down',category)" color="positive" dense size="10px" flat               icon="fas fa-chevron-down">
+             <q-tooltip delay="1000">
+               {{$tl('moveDownBtnTooltip')}}
+            </q-tooltip>
+        </q-btn>
       </span>
       <span>
           <router-link v-if="category.isMaterialsContainer"
-                       :to="{name:'CatView', params: {categoryName: category.name}}">{{category.title}}</router-link>
+                       :to="{name:'CatView', params: {categoryName: category.name}}">{{category.title}}
+               <q-tooltip delay="1000">
+               {{$tl('showCategoryBtnTooltip')}}
+            </q-tooltip>
+          </router-link>
         <template v-else>{{category.title}}</template>
       </span>
       <span class="q-ml-md">
         <q-btn class="category-item__btn-edit" :to="{name: 'EditCategory', params: {categoryId:category.id}}"
-               icon="fas fa-wrench" color="info" dense
-               size="10px" flat/>
+               icon="fas fa-wrench" color="info" dense               size="10px" flat>
+              <q-tooltip delay="1000">
+               {{$tl('editBtnTooltip')}}
+            </q-tooltip>
+        </q-btn>
         <q-btn class="category-item__btn-create" :to="{name: 'CreateCategory', params: {parentCategoryId: category.id}}"
-               icon="fas fa-folder-plus"
-               color="info" dense size="10px" flat/>
+               icon="fas fa-folder-plus"               color="info" dense size="10px" flat>
+             <q-tooltip delay="1000">
+               {{$tl('createSubCategoryBtnTooltip')}}
+            </q-tooltip>
+        </q-btn>
         <q-btn class="category-item__btn-to-route" :disabled="!route" :to="route" icon="fas fa-arrow-right" color="info"
-               dense size="10px" flat/>
+               dense size="10px" flat>
+             <q-tooltip delay="1000">
+               {{$tl('moveToBtnTooltip')}}
+            </q-tooltip>
+        </q-btn>
       </span>
 
       <span v-if="showInfo" class="category-item__category-name text-grey-7 q-ml-md">{{category.name}}</span>

@@ -30,6 +30,7 @@ namespace SunEngine.Core.Cache.Services
                 ["Global:SiteName"] = typeof(string),
                 ["Global:SiteTitle"] = typeof(string),
                 ["Global:SiteSubTitle"] = typeof(string),
+                ["Global:PageTitleTemplate"] = typeof(string),
                 ["Global:Locale"] = typeof(string),
                 ["Global:UpdateClientScriptsOnConfigChanges"] = typeof(string),
                 ["Global:OpenExternalLinksAtNewTab"]  = typeof(bool),

@@ -27,7 +27,7 @@ if [ $PROJECT_ROOT == "auto" ]; then
   if [ $machine == "Cygwin" ]; then
     PROJECT_ROOT="$(cygpath -w $PWD)"
   else
-    PROJECT_ROOT="$(PWD)"
+    PROJECT_ROOT="${PWD}"
   fi
 
   SERVER_PATH="${SERVER_PATH/auto/$PROJECT_ROOT}"

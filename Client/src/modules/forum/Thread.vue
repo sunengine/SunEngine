@@ -92,11 +92,12 @@
         },
         methods: {
             loadData() {
-                this.loadTopics.call(this)
+                this.loadTopics.call(this);
+                this.title = this.thisTitle;
             }
         },
         created() {
-            this.loadData()
+            this.loadData();
         }
     }
 
