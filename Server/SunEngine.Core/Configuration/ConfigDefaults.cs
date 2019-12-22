@@ -210,12 +210,12 @@ namespace SunEngine.Core.Configuration
               ['undo', 'redo'],
               ['viewsource', 'fullscreen']
             ]",
-            ["SendPrivateMessageToolbar"] = (JsonString)@"[[
+            ["Editor:SendPrivateMessageToolbar"] = (JsonString)@"[
                 ['bold', 'italic', 'strike', 'underline'],
                 ['token', 'hr' ],
                 ['quote', 'unordered', 'ordered' ],
-                ['undo', 'redo','fullscreen'],
-            ]]"
+                ['undo', 'redo','fullscreen']
+            ]"
             #endregion
         };
     }

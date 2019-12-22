@@ -1,69 +1,72 @@
 ﻿<template>
-  <q-page class="configuration-admin page-padding">
-    <div class="page-title-block">
-      <h2 class="page-title">
-        {{title}}
-      </h2>
-      <q-input dense v-model="filter" :placeholder="$tl('filter')" clearable>
-        <template v-slot:before>
-          <q-icon name="fa fa-search"/>
-        </template>
-      </q-input>
-    </div>
+    <q-page class="configuration-admin page-padding">
+        <div class="page-title-block">
+            <h2 class="page-title">
+                {{title}}
+            </h2>
+            <q-input dense v-model="filter" :placeholder="$tl('filter')" clearable>
+                <template v-slot:before>
+                    <q-icon name="fa fa-search"/>
+                </template>
+            </q-input>
+        </div>
 
-    <div v-if="configurationItems">
-      <q-markup-table wrap-cells>
-        <tbody v-if="configurationGroups">
-        <template v-for="group of configurationGroups">
-          <tr class="configuration-admin__group-header-tr">
-            <td colspan="2" class="configuration-admin__group-header-td">
-              {{group.name}}
-            </td>
-          </tr>
-          <tr v-for="item of group.items">
-            <td class="configuration-admin__name-column">
-              <div class="flex no-wrap align-center">
-                <div class="grow">{{getItemName(item)}}</div>
-                <div v-if="hasItemTooltip(item)">
-                  <q-icon name="far fa-question-circle" class="text-blue" size="xs" right>
-                    <q-tooltip anchor="bottom middle" self="top middle" max-width="200px">
-                      {{getItemTooltip(item)}}
-                    </q-tooltip>
-                </q-icon>
-                </div>
-              </div>
-            </td>
-            <td class="configuration-admin__value-column">
-              <q-checkbox dense v-if="item.item.type === 'Boolean'" v-model="item.item.value"/>
-              <q-select dense v-else-if="item.item.type === 'Enum'" :options="enums[item.item.enumName]"
-                        v-model="item.item.value"/>
-              <q-input dense v-else :type="getTypeType(item.item.type)" :rules="item.item.type === 'JsonString' ? rules : null" v-model="item.item.value"/>
-            </td>
-          </tr>
-        </template>
-        </tbody>
-        <tbody v-else>
-        <tr>
-          <td>{{$tl('noResults')}}</td>
-        </tr>
-        </tbody>
-      </q-markup-table>
+        <div v-if="configurationItems">
+            <q-markup-table wrap-cells>
+                <tbody v-if="configurationGroups">
+                <template v-for="group of configurationGroups">
+                    <tr class="configuration-admin__group-header-tr">
+                        <td colspan="2" class="configuration-admin__group-header-td">
+                            {{getGroupTitle(group)}}
+                            <div class="caption text-grey-7" v-html="getGroupSubTitle(group)"></div>
+                        </td>
+                    </tr>
+                    <tr v-for="item of group.items">
+                        <td class="configuration-admin__name-column">
+                            <div class="flex no-wrap align-center">
+                                <div class="grow">{{getItemName(item)}}</div>
+                                <div v-if="hasItemTooltip(item)">
+                                    <q-icon name="far fa-question-circle" class="text-blue" size="xs" right>
+                                        <q-tooltip anchor="bottom middle" self="top middle" max-width="200px">
+                                            {{getItemTooltip(item)}}
+                                        </q-tooltip>
+                                    </q-icon>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="configuration-admin__value-column">
+                            <q-checkbox dense v-if="item.item.type === 'Boolean'" v-model="item.item.value"/>
+                            <q-select dense v-else-if="item.item.type === 'Enum'" :options="enums[item.item.enumName]"
+                                      v-model="item.item.value"/>
+                            <q-input dense v-else :type="getTypeType(item.item.type)"
+                                     :rules="item.item.type === 'JsonString' ? rules : null" v-model="item.item.value"/>
+                        </td>
+                    </tr>
+                </template>
+                </tbody>
+                <tbody v-else>
+                <tr>
+                    <td>{{$tl('noResults')}}</td>
+                </tr>
+                </tbody>
+            </q-markup-table>
 
-      <div class="configuration-admin__btn-block flex q-mt-lg q-gutter-md">
-        <q-btn class="send-btn" @click="uploadConfiguration" no-caps icon="fas fa-save" :loading="loading"
-               :label="$tl('saveBtn')">
-          <template v-slot:loading>
-            <LoaderSent/>
-          </template>
-        </q-btn>
-        <div class="grow"></div>
-        <q-btn class="reset-btn" @click="resetConfiguration" no-caps icon="fas fa-sync-alt" :label="$tl('resetBtn')"/>
-      </div>
-    </div>
+            <div class="configuration-admin__btn-block flex q-mt-lg q-gutter-md">
+                <q-btn class="send-btn" @click="uploadConfiguration" no-caps icon="fas fa-save" :loading="loading"
+                       :label="$tl('saveBtn')">
+                    <template v-slot:loading>
+                        <LoaderSent/>
+                    </template>
+                </q-btn>
+                <div class="grow"></div>
+                <q-btn class="reset-btn" @click="resetConfiguration" no-caps icon="fas fa-sync-alt"
+                       :label="$tl('resetBtn')"/>
+            </div>
+        </div>
 
-    <LoaderWait v-else/>
+        <LoaderWait v-else/>
 
-  </q-page>
+    </q-page>
 </template>
 
 <script>
@@ -100,16 +103,30 @@
                 else
                     return item.name;
             },
+            getGroupTitle(group) {
+                const key = this.$options.name + ".groupTitles." + group.name;
+                if (this.$te(key) && this.$t(key))
+                    return this.$t(key);
+                else
+                    return group.name;
+            },
+            getGroupSubTitle(group) {
+                const key = this.$options.name + ".groupSubTitles." + group.name;
+                if (this.$te(key) && this.$t(key))
+                    return this.$t(key).replace(/((http:\/\/|https:\/\/)[^\s]+?)(\s|$)/ig, '<a href="$1" target="_blank">$1</a>');
+                else
+                    return null;
+            },
             getItemTooltip(item) {
-              const key = this.$options.name + ".tooltips." + item.fullName;
-              if (this.$te(key) && this.$t(key))
-                return this.$t(key);
-              else
-                return null;
+                const key = this.$options.name + ".tooltips." + item.fullName;
+                if (this.$te(key) && this.$t(key))
+                    return this.$t(key);
+                else
+                    return null;
             },
             hasItemTooltip(item) {
-              const key = this.$options.name + ".tooltips." + item.fullName;
-              return !!this.$te(key) && this.$t(key);
+                const key = this.$options.name + ".tooltips." + item.fullName;
+                return !!this.$te(key) && this.$t(key);
             },
             getTypeType(type) {
                 switch (type) {
@@ -228,29 +245,29 @@
 
 <style lang="scss">
 
-  .configuration-admin__table {
-    width: 100%;
-  }
-
-  .configuration-admin__group-header-tr {
-
-  }
-
-  .configuration-admin__group-header-td {
-    padding: 0px !important;
-    text-align: center;
-    background-color: $grey-3 !important;
-    font-size: 1.15em;
-  }
-
-  .configuration-admin__name-column {
-    width: 150px !important;
-  }
-
-  .configuration-admin__value-column {
-    textarea {
-      height: 70px;
+    .configuration-admin__table {
+        width: 100%;
     }
-  }
+
+    .configuration-admin__group-header-tr {
+
+    }
+
+    .configuration-admin__group-header-td {
+        padding: 0px !important;
+        text-align: center;
+        background-color: $grey-3 !important;
+        font-size: 1.15em;
+    }
+
+    .configuration-admin__name-column {
+        width: 150px !important;
+    }
+
+    .configuration-admin__value-column {
+        textarea {
+            height: 70px;
+        }
+    }
 
 </style>
