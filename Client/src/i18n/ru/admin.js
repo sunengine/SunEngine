@@ -326,7 +326,7 @@ export default {
             'Skins': 'Темы оформления',
         },
         groupSubTitles: {
-            'Editor': 'Документация по созданию тулбара на сайте Quasar - https://quasar.dev/vue-components/editor'
+            'Editor': 'Примеры тулбара на сайте Quasar - https://quasar.dev/vue-components/editor'
         },
         items: {
             'Global:Locale': 'Язык интерфейса',
@@ -402,15 +402,15 @@ export default {
             'Images:MaxImageHeight': 'Проверка при заливки изображения на сервер.',
             'Images:MaxImageWidth': 'Проверка при заливки изображения на сервер.',
             'Cache:InvalidateCacheTime': 'Этот параметр используется не всеми политиками. Значения ниже 0 интерпретируются как необходимость постоянного хранения записей.',
-            'Dev:LogInitExtended': 'В консоле браузера',
-            'Dev:LogMoveTo': 'В консоле браузера',
-            'Dev:LogRequests': 'В консоле браузера',
-            'Dev:VueAppInWindow': 'В консоле браузера',
+            'Dev:LogInitExtended': 'В консоле браузера.',
+            'Dev:LogMoveTo': 'В консоле браузера.',
+            'Dev:LogRequests': 'В консоле браузера.',
+            'Dev:VueAppInWindow': 'В консоле браузера.',
             'Global:OpenExternalLinksAtNewTab': 'В материалах, комментариях, постах',
             'Skins:CurrentSkinName': 'Устанавливается через админку тем.',
             'Skins:PartialSkinsNames': 'Устанавливается через админку тем. Список через запятую.',
-            'Skins:MaxArchiveSizeKb': 'Проверка темы на при заливки на сервер',
-            'Skins:MaxExtractArchiveSizeKb': 'Проверка темы на при заливки на сервер'
+            'Skins:MaxArchiveSizeKb': 'Проверка темы на при заливки на сервер.',
+            'Skins:MaxExtractArchiveSizeKb': 'Проверка темы на при заливки на сервер.'
         }
     },
     CypherSecrets: {

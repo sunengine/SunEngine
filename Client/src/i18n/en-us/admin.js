@@ -293,6 +293,27 @@ export default {
         resetBtn: "Reload from server",
         cancelBtn: "@:Global.btn.cancel",
         saveBtn: "@:Global.btn.save",
+        groupTitles: {
+            'Editor': 'Editor',
+            'Global': 'Global',
+            'Dev': 'Development',
+            'Cache': 'Cache',
+            'Images': 'Images',
+            'Sanitizer': 'Sanitize HTML',
+            'Email': 'Email',
+            'Scheduler': 'Functions scheduler',
+            'Materials': 'Materials',
+            'Comments': 'Comments',
+            'Forum': 'Forum',
+            'Articles': 'Articles',
+            'Captcha': 'Captcha. Check if real user.',
+            'Blog': 'Blog',
+            'Jwe': 'Jwe security',
+            'Skins': 'Skins',
+        },
+        groupSubTitles: {
+            'Editor': 'Toolbar examples on Quasar site - https://quasar.dev/vue-components/editor'
+        },
         items: {
             'Global:Locale': 'Interface language',
             'Global:SiteName': 'Site name',
@@ -321,6 +342,7 @@ export default {
             'Email:Login': 'Login',
             'Email:Password': 'Password',
             'Email:Port': 'Port',
+            'Captcha:CaptchaTimeoutSeconds': 'Captcha tries interval in seconds',
             'Editor:MaterialToolbar': 'Material editor toolbar',
             'Editor:CommentToolbar': 'Comment editor toolbar',
             'Editor:UserInformationToolbar': 'Personal information editor toolbar',
@@ -354,7 +376,19 @@ export default {
             'Cache:InvalidateCacheTime': 'Retention time of cache entry'
         },
         tooltips: {
-            'Cache:InvalidateCacheTime': 'This option is not used by all policies. Values of 0 or lower are interpreted as requiring permanent storage of cache entry.'
+            'Cache:InvalidateCacheTime': 'This option is not used by all policies. Values of 0 or lower are interpreted as requiring permanent storage of cache entry.',
+            'Global:PageTitleTemplate': 'Use tokens {pageTitle} and {siteName} for replace parts.',
+            'Images:MaxImageHeight': 'Check when upload to server.',
+            'Images:MaxImageWidth':  'Check when upload to server.',
+            'Dev:LogInitExtended': 'In browser console',
+            'Dev:LogMoveTo': 'In browser console',
+            'Dev:LogRequests': 'In browser console',
+            'Dev:VueAppInWindow': 'In browser console',
+            'Global:OpenExternalLinksAtNewTab': 'In meterials, comments and posts.',
+            'Skins:CurrentSkinName': 'Set from skins admin.',
+            'Skins:PartialSkinsNames': 'Set from skins admin. Comma separated list.',
+            'Skins:MaxArchiveSizeKb': 'Skin check when uploading on server.',
+            'Skins:MaxExtractArchiveSizeKb': 'Skin check when uploading on server.'
         }
     },
     CypherSecrets: {
