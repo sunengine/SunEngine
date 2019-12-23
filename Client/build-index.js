@@ -41,7 +41,7 @@ fs.writeFile('./src/sun.js', ind.makeText(), function (err) {
   if (err)
     return console.log(err);
 
-  console.log("\n☼☼☀ \x1b[32m\x1b[1mIndex file generated successfully \x1b[0m => \x1b[33m '/src/sun.js'\x1b[0m ☀☼☼\n");
+  console.log("\n\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m\"/src/sun.js\"   \x1b[33m☼☼☼\x1b[0m\n");
 });
 
 
