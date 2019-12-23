@@ -4,9 +4,12 @@ Site engine that supports forums, articles and blogs.
 
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
-Version: 2.0.0-rc.9
+<img src="https://img.shields.io/static/v1?label=Version&message=2.0.0-rc.9&color=green">
 
-Demo site: [demo.sunengine.site](http://demo.sunengine.site). 
+<a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=blue"></a>
+
+
+Demo site: [demo.sunengine.site](http://demo.sunengine.site).
 
 [Текст на русском](README.RU.md).
 
@@ -54,7 +57,7 @@ The project uses modern and beautiful technologies.
 
 ### Launch prerequisites
 SunEngine can be launched on Windows, Linux and macOS.
-  
+
 To run the project you need to install:
 - [.NET Core 3.0 + ASP.NET Core Runtimes](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 - [NodeJs](https://nodejs.org/en/download/)

@@ -4,9 +4,11 @@
 
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
-Версия: 2.0.0-rc.9
+<img src="https://img.shields.io/static/v1?label=Версия&message=2.0.0-rc.9&color=green">
 
-Демо: [demo.sunengine.site](http://demo.sunengine.site)    
+<a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=blue"></a>
+
+Демо: [demo.sunengine.site](http://demo.sunengine.site)
 
 [English text](README.md).
 
@@ -35,7 +37,7 @@
 - База данных — любая совместимая с Linq2db и FluentMigrator.
 
 #### Быстрая работа (quick & fast)
-- Быстрый доступ к данным на основе linq2db.  
+- Быстрый доступ к данным на основе linq2db.
 - Одностраничное приложение грузит только то, что нужно, без лишних запросов (SPA).
 - Эффективное кэширование.
 
@@ -65,8 +67,8 @@
 * Системы безопасности требуют всесторонней проверки и тестирования.
 
 ### Требования для запуска
-SunEngine можно запустить на Windows, Linux и macOS.  
-  
+SunEngine можно запустить на Windows, Linux и macOS.
+
 Для запуска проекта необходимо установить:
 - [.NET Core 3.0 + ASP.NET Core Runtimes](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 - [NodeJs](https://nodejs.org/en/download/)
@@ -86,7 +88,7 @@ SunEngine можно запустить на Windows, Linux и macOS.
 9. Установить npm модули `npm install` (если не сделано).
 10. Запустить клиент `quasar dev` — откроется браузер с сайтом.
 
-### Контакты  
+### Контакты
 - [Димитрий Полянин](https://sunengine.site/user/okeanij)
 - Telegram: [@okeanij](tg://resolve?domain=Okeanij)
 - Группа в Telegram: [@SunEngine](tg://resolve?domain=SunEngine)
