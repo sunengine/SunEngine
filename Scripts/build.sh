@@ -3,13 +3,14 @@
 #   ***************************************
 #   *                                     *
 #   *     Build Script for SunEngine      *
-#   *        Script version: 1.5          *
+#   *        Script version: 2.1          *
 #   *                                     *
 #   ***************************************
 
 
-#Include variables
-source BUILDV
+# Include variables
+source BUILD
+
 
 
 # Set folders paths
@@ -24,11 +25,28 @@ esac
 
 if [ $PROJECT_ROOT == "auto" ]; then
   {
+  
+  checkRoot()
+  {
+    ! [ -f $PWD/.SunEngineRoot ]
+  }
+
+
+  if checkRoot; then
+    cd ..
+  fi 
+
+  if checkRoot; then
+    echo -e "\n${RED} Project root directory not found (detecting .SunEngineRoot file)."
+    exit 1
+  fi
+
   if [ $machine == "Cygwin" ]; then
     PROJECT_ROOT="$(cygpath -w $PWD)"
   else
     PROJECT_ROOT="${PWD}"
   fi
+
 
   SERVER_PATH="${SERVER_PATH/auto/$PROJECT_ROOT}"
   CLIENT_PATH="${CLIENT_PATH/auto/$PROJECT_ROOT}"
@@ -49,6 +67,14 @@ echo -e "${GREEN}BUILD_PATH = ${BUILD_PATH} ${NC}"
 
 
 cd "$PROJECT_ROOT"
+
+
+# detecting directory exists
+if  [ ! -d "$CONFIG_PATH" ]; then 
+  echo -e "\n${GREEN}Creating Config directory from Config.template ${NC}"
+  cp -r "$PROJECT_ROOT/Config.template" "$CONFIG_PATH"
+fi
+
 
 echo -e "\n${GREEN}Deleting old build ${NC}"
 rm -r "$BUILD_PATH"
@@ -112,3 +138,5 @@ cp  "$PROJECT_ROOT"/.SunEngineRoot "$BUILD_PATH"/.SunEngineRoot
 
 
 echo  -e "\n${GREEN}All done! ${NC}\n"
+
+
