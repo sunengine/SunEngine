@@ -64,9 +64,6 @@
                 })
             }
         },
-        beforeCreate() {
-            this.$options.components.LoaderSent = require('sun').LoaderSent
-        },
         created() {
             this.title = this.$tl('title');
             this.sendPrivateMessageToolbar =  JSON.parse(config.Editor.SendPrivateMessageToolbar);

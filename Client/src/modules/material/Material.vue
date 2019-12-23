@@ -283,7 +283,6 @@
         beforeCreate() {
             this.$options.components.CommentContainer = require('sun').CommentContainer;
             this.$options.components.CreateComment = require('sun').CreateComment;
-            this.$options.components.LoaderWait = require('sun').LoaderWait;
         },
         async created() {
             await this.loadData();

@@ -125,7 +125,6 @@
         },
         beforeCreate() {
             this.$options.components.ProfileRoles = require('sun').ProfileRoles;
-            this.$options.components.LoaderWait = require('sun').LoaderWait;
         },
         created() {
             this.loadData();

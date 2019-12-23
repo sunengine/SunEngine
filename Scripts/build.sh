@@ -69,7 +69,7 @@ echo -e "${GREEN}BUILD_PATH = ${BUILD_PATH} ${NC}"
 cd "$PROJECT_ROOT"
 
 
-# detecting directory exists
+# check Config directory exists
 if  [ ! -d "$CONFIG_PATH" ]; then 
   echo -e "\n${GREEN}Creating Config directory from Config.template ${NC}"
   cp -r "$PROJECT_ROOT/Config.template" "$CONFIG_PATH"
@@ -101,12 +101,13 @@ cd "$CLIENT_PATH"
 # install node_modules
 $NPM_UTIL install
 
+# check Client/src/site exists
 if [ ! -d "$CLIENT_PATH/src/site" ]; then
   echo -e "${GREEN}Copying $CLIENT_PATH/src/site.template => $CLIENT_PATH/src/site ${NC}\n"
   cp -r $CLIENT_PATH/src/site.template $CLIENT_PATH/src/site
 fi
 
-#check on available quasar
+# check on available quasar
 if [ ! quasar > /dev/null ]; then
     echo -e "\n${RED} Quasar not install please install by command\n${BLUE} npm install -g @quasar/cli ${NC}"
     exit 1

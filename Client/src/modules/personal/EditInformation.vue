@@ -48,7 +48,6 @@
         },
         beforeCreate() {
             this.editorToolbar = JSON.parse(config.Editor.UserInformationToolbar);
-            this.$options.components.LoaderWait = require('sun').LoaderWait;
             this.$options.components.SunEditor = require('sun').SunEditor;
         },
         created() {

@@ -102,7 +102,6 @@
         },
         beforeCreate() {
             this.$options.components.MaterialForm = require('sun').MaterialForm;
-            this.$options.components.LoaderSent = require('sun').LoaderSent;
         },
         created() {
             this.title = this.$tl('title');

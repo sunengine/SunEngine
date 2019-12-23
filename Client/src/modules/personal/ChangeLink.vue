@@ -93,9 +93,6 @@
         beforeDestroy() {
             clearTimeout(this.timeout)
         },
-        beforeCreate() {
-            this.$options.components.LoaderSent = require('sun').LoaderSent
-        },
         created() {
             this.title = this.$tl('title');
 

@@ -121,9 +121,6 @@
                 });
             }
         },
-        beforeCreate() {
-            this.$options.components.LoaderWait = require('sun').LoaderWait
-        },
         created() {
             this.title = this.$tl('title');
             this.loadData();

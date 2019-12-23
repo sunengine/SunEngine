@@ -88,7 +88,6 @@
         },
         beforeCreate() {
             this.$options.components.Topic = require('sun').Topic;
-            this.$options.components.LoaderWait = require('sun').LoaderWait;
         },
         methods: {
             loadData() {

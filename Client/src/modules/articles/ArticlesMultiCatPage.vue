@@ -102,7 +102,6 @@
         },
         beforeCreate() {
             this.$options.components.ArticlesList = require('sun').ArticlesList;
-            this.$options.components.LoaderWait = require('sun').LoaderWait;
         },
         created() {
             this.title = this.pageTitle;

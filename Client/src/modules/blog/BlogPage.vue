@@ -68,7 +68,6 @@
         },
         beforeCreate() {
             this.$options.components.PostsList = require('sun').PostsList;
-            this.$options.components.LoaderWait = require('sun').LoaderWait;
         },
         async created() {
             this.title = this.category.title;

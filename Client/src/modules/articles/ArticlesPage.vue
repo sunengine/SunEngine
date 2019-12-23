@@ -75,7 +75,6 @@
             }
         },
         beforeCreate() {
-            this.$options.components.LoaderWait = require('sun').LoaderWait;
             this.$options.components.ArticlesList = require('sun').ArticlesList;
         },
         created() {

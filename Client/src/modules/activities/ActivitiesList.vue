@@ -42,7 +42,6 @@
             }
         },
         beforeCreate() {
-            this.$options.components.LoaderWait = require('sun').LoaderWait;
             this.$options.components.Activity = require('sun').Activity;
         },
         async created() {

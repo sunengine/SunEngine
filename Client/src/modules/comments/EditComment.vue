@@ -73,8 +73,6 @@
         },
         beforeCreate() {
             this.editorToolbar = JSON.parse(config.Editor.CommentToolbar);
-            this.$options.components.LoaderSent = require('sun').LoaderSent;
-            this.$options.components.LoaderWait = require('sun').LoaderWait;
             this.$options.components.SunEditor = require('sun').SunEditor;
         },
         async created() {
