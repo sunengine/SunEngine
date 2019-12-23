@@ -1,10 +1,8 @@
 ﻿# SunEngine
 
-Движок для сайтов с возможностями форума, статей и блогов.
+Движок для сайтов с функциональностью форума, статей и блогов.
 
-<img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="250" alt="SunEngine Logo" />
-
-<img src="https://img.shields.io/static/v1?label=Версия&message=2.0.0-rc.9&color=green">
+<img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="250" alt="SunEngine Logo" /> <img src="https://img.shields.io/static/v1?label=Версия&message=2.0.0-rc.9&color=green">
 
 <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=blue"></a>
 
