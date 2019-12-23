@@ -4,10 +4,10 @@ Site engine with support of blog, forum and articles functionality.
 
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
-<img src="https://img.shields.io/static/v1?label=Version&message=2.0.0-rc.9&color=green"> <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=blue"></a>
+<img src="https://img.shields.io/static/v1?label=Version&message=2.0.0-rc.9&color=green">   <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Demo&message=demo.sunengine.site&color=blue"></a>
+   <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=blue"></a>
 
 
-Demo site: [demo.sunengine.site](http://demo.sunengine.site).
 
 [Текст на русском](README.RU.md).
 
