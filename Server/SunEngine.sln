@@ -13,17 +13,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunEngine.Admin", "SunEngin
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{CCB81843-5C70-458F-A65A-B60BA3AEBF7E}"
 ProjectSection(SolutionItems) = preProject
-	..\build.sh = ..\build.sh
-	..\BUILDV = ..\BUILDV
 	..\.gitignore = ..\.gitignore
 	..\.editorconfig = ..\.editorconfig
 	..\LICENSE.md = ..\LICENSE.md
 	..\LICENSE.RU.md = ..\LICENSE.RU.md
-	..\PUBLISH.template = ..\PUBLISH.template
-	..\publish.sh = ..\publish.sh
 	..\README.md = ..\README.md
 	..\README.RU.md = ..\README.RU.md
-	..\update-version.sh = ..\update-version.sh
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{55FB3255-F4FF-40F3-862F-DD89574ABB9A}"
+ProjectSection(SolutionItems) = preProject
+	..\Scripts\BUILD = ..\Scripts\BUILD
+	..\Scripts\build.sh = ..\Scripts\build.sh
+	..\Scripts\PUBLISH = ..\Scripts\PUBLISH
+	..\Scripts\publish.sh = ..\Scripts\publish.sh
+	..\Scripts\PUBLISH.template = ..\Scripts\PUBLISH.template
+	..\Scripts\update-version.sh = ..\Scripts\update-version.sh
 EndProjectSection
 EndProject
 Global
@@ -54,5 +59,6 @@ Global
 		{07C6B121-79B4-4830-9164-25F414F9BC79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{55FB3255-F4FF-40F3-862F-DD89574ABB9A} = {CCB81843-5C70-458F-A65A-B60BA3AEBF7E}
 	EndGlobalSection
 EndGlobal
