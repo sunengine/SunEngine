@@ -1,6 +1,8 @@
 [Ll].*
 [Ll]ocal.*
 
+webpack.config.js
+
 
 .quasar-ide-helper
 .quasar
@@ -26,5 +28,3 @@ package-lock.json
 *.ntvs*
 *.njsproj
 *.sln
-
-webpack.config.js

@@ -1,16 +1,16 @@
-/***********************************************************************************************
- *                                                                                             *
- *  Index maker script                                                                         *
- *  Version: 1.0.3                                                                             *
- *                                                                                             *
- *  This script makes index file "/src/sun,js" from all project                                *
- *                                                                                             *
- *  It parses all directories from cons "dirs", excluding pathes started with "excludePaths"   *
- *  and make index file from all '.js' and '.vue' components.                                  *
- *  Then it goes to '/src/site' directory and overrides entries.                               *
- *  Made by:   Dimitrij Polianin                                                                 *
- *                                                                                             *
- ***********************************************************************************************/
+/****************************************************************************************
+ *                                                                                      *
+ *    Index maker script                                                                *
+ *    Version: 1.0.3                                                                    *
+ *                                                                                      *
+ *    This script makes index file "/src/sun.js"                                        *
+ *                                                                                      *
+ *    1. Parse all directories from const "dirs",                                       *
+ *    excluding paths started with const "excludePaths"                                 *
+ *    2. Make index from all '.js' and '.vue' components.                               *
+ *    3. Overrides same entries from '/src/site' directory making its prefer default    *
+ *                                                                                      *
+ ****************************************************************************************/
 
 
 
