@@ -2,7 +2,7 @@
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="250" alt="SunEngine Logo" />
 </p>
 
-<h3 align="center" style="color:grey">Site engine with support of blog, forum and articles functionality.</h3>
+<blockquote align="center">Site engine with support of blog, forum and articles functionality.</blockquote>
 
 # SunEngine
 
