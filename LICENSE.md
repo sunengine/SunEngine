@@ -24,7 +24,7 @@ Personal and private use of the project means that the developer makes the proje
 5. The author of the contribution to the code has the right to use his code at his discretion, without restrictions.
 6. A copy of the code received in the SunEngine repository is donated to the author of SunEngine and can be used by him at his discretion without restrictions.
 ### Disclaimer:
-7. The SunEngine code provided as is without any warranty or obligation by SunEngine author or SunEngine team.
-8. The SunEngine team is not responsible for any consequences of its use (including damage possible), direct or indirect, when using SunEngine or it's code.
+7. The SunEngine code provided as is without any warranty or obligation by SunEngine author or team.
+8. The SunEngine author and team is not responsible for any consequences of its use (including damage possible), direct or indirect, when using SunEngine or it's code.
 
  
