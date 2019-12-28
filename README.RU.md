@@ -1,6 +1,6 @@
 ﻿<h1 align="center">SunEngine</h1>
 <p align="center">
-<img src="https://img.shields.io/static/v1?label=Version&message=v2.0.0-rc.9&color=green">   <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Demo&message=demo.sunengine.site&color=informational"></a>                <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=success"></a>     <a href="README.md"><img src="https://img.shields.io/static/v1?label=Readme&message=English&color=informational"></a>
+<img src="https://img.shields.io/static/v1?label=Version&message=v2.0.0-rc.9&color=9cf">   <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Demo&message=demo.sunengine.site&color=informational"></a>                <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=success"></a>     <a href="README.md"><img src="https://img.shields.io/static/v1?label=Readme&message=English&color=informational"></a>
 </p>
 <p align="center">
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="250" alt="SunEngine Logo" />
