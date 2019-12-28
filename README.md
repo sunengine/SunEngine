@@ -2,13 +2,13 @@
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="250" alt="SunEngine Logo" />
 </p>
 
-<blockquote align="center">Site engine with support of blog, forum and articles functionality.</blockquote>
+<h4 align="center">Site engine with support of blog, forum and articles functionality.</h5>
 
 # SunEngine
 
 <img src="https://img.shields.io/static/v1?label=Version&message=v2.0.0-rc.9&color=green">   <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Demo&message=demo.sunengine.site&color=yellow"></a>                <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=success"></a>     <a href="README.RU.md"><img src="https://img.shields.io/static/v1?label=Readme&message=Russian&color=informational"></a>
 
-### About project
+### About
 #### Core modules
 - Articles
 - Forum
