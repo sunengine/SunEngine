@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="250" alt="SunEngine Logo" />
+<img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="300" alt="SunEngine Logo" />
 </p>
 
 <h3 align="center">Site engine with support of blog, forum and articles functionality.</h3>
