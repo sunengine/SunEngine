@@ -4,74 +4,79 @@
 
 <h3 align="center">Site engine with support of blog, forum and articles functionality.</h3>
 
-# SunEngine &nbsp;&nbsp;  <img src="https://img.shields.io/static/v1?label=Version&message=v2.0.0-rc.9&color=green">   <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Demo&message=demo.sunengine.site&color=yellow"></a>                <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=success"></a>     <a href="README.RU.md"><img src="https://img.shields.io/static/v1?label=Readme&message=Russian&color=informational"></a>
+# SunEngine
+
+<img src="https://img.shields.io/static/v1?label=Version&message=v2.0.0-rc.9&color=green"> <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Site (Ru)&message=sunengine.site&color=yellow"></a> <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Demo&message=demo.sunengine.site&color=yellow"></a>  <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=success"></a>     <a href="README.md"><img src="https://img.shields.io/static/v1?label=Readme&message=English&color=informational"></a>
 
 
 ### About
-#### Core modules
-- Articles
-- Forum
-- Blogs
+#### Features:
+ - Ability to create blog
+ - Create a forum with sections
+ - Create articles and articles sections
+ - Ability to comment on any materials on the site
+ - Creating a user profile on the site
+ - User’s personal account with the ability to edit user information and personal data
+ - Administration through the admin panel
+ - Ability to create and modify skins for the site, a choice of [already done skins] (https://github.com/sunengine/SunEngine.Skins).
 
-#### Friendly interface
-- Single-page application with a beautiful interface.
-- Works on personal computers, tablets and mobile phones.
+#### Thoughtful and friendly interface
+- A one-page application with a modern and beautiful interface.
+- Works on personal computers, tablets, mobile phones.
+- In the future, possibility to compile as a native application of Android, iOS, Windows and Linux.
 
-#### Made with love ❤
-- Beautiful code that we constantly improve.
-- We are open to new ideas for improving code and architecture.
+### Key Features
+#### Fast & fast
+ - A one-page application loads only what you need, without unnecessary requests (SPA).
+ - Quick access to data based on linq2db.
+ - Efficient and custom caching.
 
-#### Key technologies
-The project uses modern and beautiful technologies.
+#### Flexible role settings
+ - The ability to flexibly configure the rights of user groups for each section of the site.
 
-- Asp.Net Core 3.1
-- Linq2db — database framework.
-- FluentMigrator — database migrations.
-- VueJs — SPA-based client side.
-- Quasar Framework — vue components.
-- Database — any compatible with Linq2db and FluentMigrator.
+#### Functional Admin
+ - With the ability to create
+   - Blogs
+   - Forums
+   - Article sections
+   - Creating subsections
+ - Interactive editing of the site menu, as well as additional menus
+ - Choice of basic and additional skins
+ - User groups and changing their rights
+ - Creating site events feed components
+ - And other features ...
 
-#### Performance
-- Fast data access based on linq2db.
-- Single-page application loads only necessary data, without extra requests.
-- Efficient caching.
+### Technical features
+#### Security
+ - Developed taking into account the latest technologies of privacy and security.
+ - An innovative authorization system based on three tokens to protect against interception of authorization data, as well as XSS and CSRF attacks.
+ - AES encryption to protect authorization tokens.
+ - Cleaning messages on the server from malicious scripts.
+ - HTTPS secure protocol.
+ - Protection against flood requests
+  - Filters against duplicate publication requests.
+  - Captcha in critical areas.
+ - Defense mechanisms against many malicious types of attacks.
 
-#### Flexible configuration of user role rights
-- Opportunity for each section — site's category — set different access rights for different groups of users.
+#### Technology
+The project uses modern technology.
+ - Asp.Net Core 3.1
+ - VueJs - SPA client part
+ - Quasar Framework - Material Design VueJs components
+ - Postgres - database (in the future, support for other SQL subd)
+ - Linq2db ORM - database access
 
-#### Admin panel
-- Edit site sections — categories.
-- Edit site menu.
-- Edit user roles.
-- Customize caching.
+#### Hosting
+ - Linux or Windows server
 
-#### Deployment
-- Works on Windows, Linux and macOS.
-- Compatible with most relational databases.
+##### Quality code and architecture.
 
-### Launch prerequisites
-SunEngine can be launched on Windows, Linux and macOS.
+##### Made with love ❤
 
-To run the project you need to install:
-- [DotNet Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-- [NodeJs](https://nodejs.org/en/download/)
-- [Npm](https://www.npmjs.com/) (will already be installed along with NodeJs)
-- [Quasar CLI](https://quasar.dev/quasar-cli/installation) `npm install -g @quasar/cli`
+##### [Project Development Plan (Russian)](https://sunengine.site/texts/roadmap).
 
-### Launch for development
-#### Launch from console
-1. Download the project code from the official repository https://github.com/sunengine/SunEngine (if not done)
-2. Rename files and folders with the suffix `-template`, and remove this suffix. (if not done)
-3. Go to folder `SunEngine/SunEngine.Cli`.
-4. Create a database `SunEngine` in the selected DBMS. (if not done)
-5. Register the provider name and connection string in the file `SunEngine/SunEngine.Cli/Config/DataBaseConnection.json`.
-6. Fill the database with initial data `dotnet run migrate init seed` (if not done).
-7. Run server `dotnet run server`.
-8. Go to folder `SunEngine/Client`.
-9. Install npm modules `npm install` (if not done yet).
-10. Run client `quasar dev` — browser will be opened.
+##### [Installation Guide for Ubuntu 18.04 Server (Russian)](https://sunengine.site/install/14)
 
-### Contacts
-- [Dimitrij Polianin](https://sunengine.site/user/okeanij)
-- Telegram: [@okeanij](https://t.me/Okeanij)
-- Project's Telegram group: [@SunEngine](https://t.me/SunEngine)
+#### Contacts
+ - Telegram Dimitry Polyanin: [@Okeanij](https://t.me/Okeanij)
+ - Group in Telegram: [@SunEngine](https://t.me/SunEngine)
