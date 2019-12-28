@@ -44,7 +44,9 @@ namespace SunEngine.Admin.Services
                 ["Global:UploadImagesUrl"] = typeof(string),
                 ["Global:SkinsUrl"] = typeof(string),
                 ["Global:PartialSkinsUrl"] = typeof(string),
+                
                 ["Dev:LogInitExtended"] = typeof(bool),
+                ["Dev:VueDevTools"] = typeof(bool),
                 ["Dev:LogRequests"] = typeof(bool),
                 ["Dev:LogMoveTo"] = typeof(bool),
             };
