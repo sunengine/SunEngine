@@ -30,7 +30,7 @@
  - In the future, possibility to compile as a native application of Android, iOS, Windows and Linux.  
 
 ### Key Features
-#### Fast & fast
+#### Quick and fast
  - A one-page application loads only what you need, without unnecessary requests (SPA).      
  - Quick access to data based on linq2db.   
  - Efficient and custom caching.  
