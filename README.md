@@ -82,5 +82,5 @@ The project based on modern technology.
 ##### [Installation Guide for Ubuntu 18.04 Server (Russian)](https://sunengine.site/install/14)
 
 ### Contacts
- - Telegram Dimitry Polyanin: [@Okeanij](https://t.me/Okeanij)  
+ - Telegram Dimitrij Polianin: [@Okeanij](https://t.me/Okeanij)  
  - Group on Telegram: [@SunEngine](https://t.me/SunEngine)  
