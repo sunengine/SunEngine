@@ -4,7 +4,7 @@
 > Site engine with support of blog, forum and articles functionality.
 
 
-<div style="display:block;text-align:center"><img align="center" src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="250" alt="SunEngine Logo" /></div>
+<div style="display:block;text-align:center"><img style="display:block;text-align:center" align="center" src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="250" alt="SunEngine Logo" /></div>
 
 ### About project
 #### Core modules
