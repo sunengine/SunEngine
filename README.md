@@ -72,14 +72,13 @@ The project based on modern technology.
 
 #### Hosting
  - Linux or Windows server  
- - Bash scripts to build, deploy and update
+ - Bash scripts to build, deploy and update  
+ - [Installation Guide for Ubuntu 18.04 Server (Russian)](https://sunengine.site/install/14)    
 
 ### Additionally
-
  - Made with love ❤  
  - Quality code and architecture.  
- - [Road map (Russian)](https://sunengine.site/texts/roadmap).  
- - [Installation Guide for Ubuntu 18.04 Server (Russian)](https://sunengine.site/install/14)  
+ - [Road map (Russian)](https://sunengine.site/texts/roadmap).    
 
 ### Contacts
  - Telegram Dimitrij Polianin: [@Okeanij](https://t.me/Okeanij)    
