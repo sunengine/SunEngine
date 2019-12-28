@@ -12,7 +12,7 @@ All rights to the SunEngine project code belong to the author of the project.
   2.1. It is forbidden to change the license.  
   2.2. It is forbidden to change the banner, the transcript is in paragraph 3.  
 Updated code allowed to be used without payment for commercial and non-commercial projects.  
-(***) Personal and private use of the project means that the developer makes the project for himself or for the customer, without mass and/or open replication.  
+(*️) Personal and private use of the project means that the developer makes the project for himself or for the customer, without mass and/or open replication.  
 ### SunEngine link block at site footer:
 3. On any changes of site footer block with "SunEngine" link have to stay:  
   3.1. All link block have to be visible to site users.  
