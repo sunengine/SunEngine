@@ -62,8 +62,8 @@
    - Captcha on critical areas.  
  - Defense mechanisms against many malicious attack types.  
 
-#### Technology
-The project based on modern technology.  
+#### Technologies used
+The project based on modern front edge technologies:
  - Asp.Net Core 3.1  
  - VueJs - SPA client part  
  - Quasar Framework - Material Design VueJs components  
