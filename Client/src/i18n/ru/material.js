@@ -24,7 +24,7 @@ export default {
     restoreSuccess: "Материал успешно восстановлен"
   },
   Material: {
-    category: "раздел:",
+    category: "Раздел:",
     edit: "Редактировать",
     tags: "Метки:",
     visitsCount: "просмотры",

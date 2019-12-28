@@ -1,11 +1,11 @@
 # SunEngine
 
-Site engine with support of blog, forum and articles functionality.
-
-<img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="250" alt="SunEngine Logo" />
+_Site engine with support of blog, forum and articles functionality._
 
 <img src="https://img.shields.io/static/v1?label=Version&message=2.0.0-rc.9&color=green">   <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Demo&message=demo.sunengine.site&color=informational"></a>
    <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=informational"></a>     <a href="README.RU.md"><img src="https://img.shields.io/static/v1?label=Russian&message=readme&color=informational"></a>
+
+<img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="250" alt="SunEngine Logo" />
 
 ### About project
 #### Core modules
@@ -24,7 +24,7 @@ Site engine with support of blog, forum and articles functionality.
 #### Key technologies
 The project uses modern and beautiful technologies.
 
-- Asp.Net Core 3.0
+- Asp.Net Core 3.1
 - Linq2db — database framework.
 - FluentMigrator — database migrations.
 - VueJs — SPA-based client side.
@@ -53,7 +53,7 @@ The project uses modern and beautiful technologies.
 SunEngine can be launched on Windows, Linux and macOS.
 
 To run the project you need to install:
-- [.NET Core 3.0 + ASP.NET Core Runtimes](https://dotnet.microsoft.com/download/dotnet-core/3.0)
+- [DotNet Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 - [NodeJs](https://nodejs.org/en/download/)
 - [Npm](https://www.npmjs.com/) (will already be installed along with NodeJs)
 - [Quasar CLI](https://quasar.dev/quasar-cli/installation) `npm install -g @quasar/cli`

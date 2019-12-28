@@ -62,7 +62,6 @@
                 )
             }
         },
-
         beforeCreate() {
             app = this;
         }

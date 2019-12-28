@@ -6,9 +6,9 @@
  *    This script makes index file "/src/sun.js"                                        *
  *                                                                                      *
  *    1. Parse all directories from const "dirs",                                       *
- *    excluding paths started with const "excludePaths"                                 *
+ *    excluding paths started with const "excludePaths".                                *
  *    2. Make index from all '.js' and '.vue' components.                               *
- *    3. Overrides same entries from '/src/site' directory making its prefer default    *
+ *    3. Overrides same entries from '/src/site' directory making its prefer default.   *
  *                                                                                      *
  ****************************************************************************************/
 

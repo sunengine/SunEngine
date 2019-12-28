@@ -25,11 +25,10 @@
 #### Ключевые технологии:
 В проекте используются современные и красивые технологии.
 
-- Asp.Net Core 3.0
-- Linq2db — доступ к базе данных.
-- FluentMigrator — миграции.
+- Asp.Net Core 3.1
 - VueJs — SPA клиентская часть.
 - Quasar Framework — компоненты vue.
+- Linq2db — доступ к базе данных.
 - База данных — любая совместимая с Linq2db и FluentMigrator.
 
 #### Быстрая работа (quick & fast)
@@ -66,7 +65,7 @@
 SunEngine можно запустить на Windows, Linux и macOS.
 
 Для запуска проекта необходимо установить:
-- [.NET Core 3.0 + ASP.NET Core Runtimes](https://dotnet.microsoft.com/download/dotnet-core/3.0)
+- [DotNet Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 - [NodeJs](https://nodejs.org/en/download/)
 - [Npm](https://www.npmjs.com/) (устанавливается сам при установке NodeJs)
 - [Quasar CLI](https://quasar.dev/quasar-cli/installation) `npm install -g @quasar/cli`

@@ -11,13 +11,15 @@
         <div class="text-grey-7 q-mb-lg text-justify">
           {{$tl('linkValidationInfo')}}
         </div>
+
         <q-input ref="link" v-model="link" :label="$tl('link')"
                  :rules="rules">
           <template v-slot:prepend>
             <q-icon name="fas fa-link"/>
           </template>
         </q-input>
-        <q-btn no-caps class="q-mt-lg send-btn" icon="far fa-save"
+
+        <q-btn no-caps class="q-mt-lg send-btn block full-width" icon="far fa-save"
                :label="$tl('saveBtn')" @click="save" :loading="submitting">
           <LoaderSent slot="loading"/>
         </q-btn>

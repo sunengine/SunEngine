@@ -24,7 +24,7 @@ export default {
     restoreSuccess: "Material restored"
   },
   Material: {
-    category: "category:",
+    category: "Category:",
     edit: "Edit",
     tags: "Tags:",
     visitsCount: "views",
