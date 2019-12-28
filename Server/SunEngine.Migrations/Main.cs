@@ -70,7 +70,10 @@ namespace SunEngine.Migrations
         {
             var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
 
-            runner.MigrateUp();
+            if(runner.HasMigrationsToApplyUp())
+                runner.MigrateUp();
+            else
+                Console.WriteLine("No migration needed.");
         }
 
         private static void CheckDbConnectionAndExitIfFailed(string connectionString)

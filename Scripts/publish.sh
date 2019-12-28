@@ -49,6 +49,10 @@ rsync -arvzhe ssh --progress --stats --ignore-existing   --chown=$REMOTE_DIRECTO
 echo  -e "\n${GREEN}Restarting systemd service and reload nginx ${NC}\n"
 
 ssh ${REMOTE_USER}@${REMOTE_HOST} << EOF
+ echo  -e "\n${GREEN}Migrating to new version ${NC}\n"
+ cd ${REMOTE_DIRECTORY}/Server
+ dotnet SunEngine.dll migrate
+
  echo  -e "\n${GREEN}Reloading nginx ${NC}\n"
  systemctl --output=verbose reload nginx
 
