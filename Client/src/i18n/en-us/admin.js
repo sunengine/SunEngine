@@ -384,6 +384,7 @@ export default {
             'Dev:LogMoveTo': 'In browser console',
             'Dev:LogRequests': 'In browser console',
             'Dev:VueAppInWindow': 'In browser console',
+            'Dev:VueDevTools': 'After change needed to clean site cache and reload page (ctrl + f5) with closed DevTools',
             'Global:OpenExternalLinksAtNewTab': 'In meterials, comments and posts.',
             'Skins:CurrentSkinName': 'Set from skins admin.',
             'Skins:PartialSkinsNames': 'Set from skins admin. Comma separated list.',

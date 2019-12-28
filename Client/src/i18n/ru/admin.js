@@ -406,6 +406,7 @@ export default {
             'Dev:LogMoveTo': 'В консоле браузера.',
             'Dev:LogRequests': 'В консоле браузера.',
             'Dev:VueAppInWindow': 'В консоле браузера.',
+            'Dev:VueDevTools': 'После изменения настроек необходимо сбросить кеш и перезагрузить страницу (ctrl + f5) с закрытым DevTools',
             'Global:OpenExternalLinksAtNewTab': 'В материалах, комментариях, постах',
             'Skins:CurrentSkinName': 'Устанавливается через админку тем.',
             'Skins:PartialSkinsNames': 'Устанавливается через админку тем. Список через запятую.',
