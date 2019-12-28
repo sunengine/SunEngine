@@ -21,7 +21,8 @@ module.exports = function (ctx) {
             'api',
             'iconPicker',
             'components',
-            'throttle'
+            'throttle',
+            'vueDevTools'
         ],
         css: [
             'app.scss',

@@ -30,8 +30,6 @@
 
     var app;
 
-    Vue.config.devtools = config.VueDevTools;
-
     export default {
         name: 'App',
         components: {Layout},
