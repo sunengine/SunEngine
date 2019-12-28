@@ -5,8 +5,9 @@
 <img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="250" alt="SunEngine Logo" />
 </p>
 
-> Site engine with support of blog, forum and articles functionality.
-
+<p align="center">
+**Site engine with support of blog, forum and articles functionality.**
+</p>
 
 ### About project
 #### Core modules
