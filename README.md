@@ -6,7 +6,7 @@
 
 # SunEngine
 
-<img src="https://img.shields.io/static/v1?label=Version&message=v2.0.0-rc.9&color=green"> <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Site (Ru)&message=sunengine.site&color=yellow"></a> <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Demo&message=demo.sunengine.site&color=yellow"></a>  <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=success"></a>     <a href="README.RU.md"><img src="https://img.shields.io/static/v1?label=Readme&message=Russian&color=informational"></a>
+<img src="https://img.shields.io/static/v1?label=Version&message=v2.0.0-rc.9&color=green"> <a href="https://sunengine.site"><img src="https://img.shields.io/static/v1?label=Site%20(Ru)&message=sunengine.site&color=yellow"></a> <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Demo&message=demo.sunengine.site&color=yellow"></a>  <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=success"></a>     <a href="README.RU.md"><img src="https://img.shields.io/static/v1?label=Readme&message=Russian&color=informational"></a>
 
 
 ### About
@@ -18,7 +18,7 @@
  - Creating a user profile on the site  
  - User’s personal account with the ability to edit user information and personal data  
  - Administration through the admin panel  
- - Ability to create and modify skins for the site, a choice of [already done skins] (https://github.com/sunengine/SunEngine.Skins).  
+ - Ability to create and modify skins for the site, a choice of [already done skins](https://github.com/sunengine/SunEngine.Skins).  
 
 #### Thoughtful and friendly interface
  - A one-page application with a modern and beautiful interface.  
