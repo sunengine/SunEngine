@@ -257,8 +257,9 @@
             uploadConfiguration() {
                 const data = new FormData();
 
-                for (const ci of this.configurationItems)
-                    data.append(ci.name, ci.value);
+                for (const group of this.configurationGroups)
+                    for (const ci of group.items)
+                        data.append(ci.name, ci.value);
 
                 this.loading = true;
 

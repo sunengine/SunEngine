@@ -8,7 +8,7 @@ export default {
         showInfo: "Информация о категориях"
     },
     CategoryForm: {
-        name: "Имя (eng)",
+        name: "Именной идентификатор (eng)",
         title: "Заголовок",
         subTitle: "Подзаголовок",
         icon: "Иконка",

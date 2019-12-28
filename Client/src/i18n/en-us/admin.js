@@ -8,7 +8,7 @@ export default {
         showInfo: "Information about categories"
     },
     CategoryForm: {
-        name: "Name (eng)",
+        name: "Id name (eng)",
         title: "Title",
         subTitle: "Subtitle",
         icon: "Icon",
