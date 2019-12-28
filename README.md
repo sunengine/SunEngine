@@ -1,10 +1,12 @@
-# SunEngine &nbsp;&nbsp;&nbsp; <img src="https://img.shields.io/static/v1?label=Version&message=2.0.0-rc.9&color=green">   <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Demo&message=demo.sunengine.site&color=informational"></a>                <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=informational"></a>     <a href="README.RU.md"><img src="https://img.shields.io/static/v1?label=Russian&message=readme&color=informational"></a>
+# SunEngine &nbsp;&nbsp;&nbsp; <img src="https://img.shields.io/static/v1?label=Version&message=2.0.0-rc.9&color=green">   <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Demo&message=demo.sunengine.site&color=informational"></a>                <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=green"></a>     <a href="README.RU.md"><img src="https://img.shields.io/static/v1?label=Russian&message=readme&color=informational"></a>
 
 
 > Site engine with support of blog, forum and articles functionality.
 
 
-<div style="display:block;text-align:center"><img style="display:block;text-align:center" align="center" src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="250" alt="SunEngine Logo" /></div>
+<p align="center">
+<img src="https://github.com/Dmitrij-Polyanin/SunEngine/blob/master/SunEngine.svg" width="250" alt="SunEngine Logo" />
+</p>
 
 ### About project
 #### Core modules
