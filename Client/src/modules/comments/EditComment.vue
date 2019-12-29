@@ -75,8 +75,8 @@
             this.editorToolbar = JSON.parse(config.Editor.CommentToolbar);
             this.$options.components.SunEditor = require('sun').SunEditor;
         },
-        async created() {
-            await this.$request(
+        created() {
+            this.$request(
                 this.$Api.Comments.Get,
                 {
                     id: this.commentId
