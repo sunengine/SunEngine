@@ -1,5 +1,5 @@
 ﻿<template>
-  <q-page class="login flex flex-center">
+  <q-page class="login flex flex-center page-padding">
 
     <div class="center-form">
 

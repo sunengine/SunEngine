@@ -1,5 +1,5 @@
 ﻿<template>
-  <q-page class="register flex flex-center">
+  <q-page class="register flex flex-center page-padding">
 
     <div v-if="!done" class="center-form">
 
@@ -168,7 +168,7 @@
                 }).catch(error => {
                     this.$errorNotify(error);
                     this.submitting = false;
-                    
+
                     if(error?.response?.data?.code === 'CaptchaValidationError') {
                       this.GetToken();
                     }
