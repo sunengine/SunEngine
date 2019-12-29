@@ -13,7 +13,7 @@
 <a href="README.RU.md"><img src="https://img.shields.io/static/v1?label=Readme&message=Russian&color=informational"></a>
 
 ## About
-### Features:
+### Features
  - Ability to create blog  
  - Create a forum with sections   
  - Create articles and articles sections  
