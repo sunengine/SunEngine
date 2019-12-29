@@ -96,8 +96,8 @@
             addToRoleConfirm(role) {
                 this.add = false;
 
-                const title = this.$tl('addRoleConfirmTitle', role.title);
-                const message = this.$tl('addRoleConfirmMessage', role.title);
+                const title = this.$tl('addRoleConfirmTitle', {roleName: role.title});
+                const message = this.$tl('addRoleConfirmMessage', {roleName: role.title});
                 const addRoleConfirmOkBtn = this.$tl('addRoleConfirmOkBtn');
                 const cancelBtn = this.$tl('addRoleConfirmCancelBtn');
 
@@ -113,8 +113,8 @@
             removeFromRoleConfirm(role) {
                 this.remove = false;
 
-                const title = this.$tl('removeRoleConfirmTitle', role.title);
-                const message = this.$tl('removeRoleConfirmMessage', role.title);
+                const title = this.$tl('removeRoleConfirmTitle', {roleName: role.title});
+                const message = this.$tl('removeRoleConfirmMessage', {roleName: role.title});
                 const removeRoleConfirmOkBtn = this.$tl('removeRoleConfirmOkBtn');
                 const cancelBtn = this.$tl('removeRoleConfirmCancelBtn');
 
@@ -167,9 +167,6 @@
                         this.allRoles = response.data;
                     });
             }
-        },
-        beforeCreate() {
-            this.$options.components.LoaderWait = require('sun').LoaderWait;
         },
         async created() {
             await this.loadAllRoles();

@@ -228,12 +228,12 @@ $paddings: (12px 18px 24px);
 
 
 .material-hidden {
-    .material__hidden-deleted-header, .material__hidden-deleted-header * {
-        color: dimgrey !important;
-    }
-
     * {
         color: silver !important;
+    }
+
+    .material-header {
+        color: $grey-7 !important;
     }
 
     .q-avatar {

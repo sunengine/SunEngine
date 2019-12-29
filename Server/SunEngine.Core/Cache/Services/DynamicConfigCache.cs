@@ -35,6 +35,7 @@ namespace SunEngine.Core.Cache.Services
                 ["Global:UpdateClientScriptsOnConfigChanges"] = typeof(string),
                 ["Global:OpenExternalLinksAtNewTab"]  = typeof(bool),
 
+                ["Dev:ShowExceptions"] = typeof(bool),
                 ["Dev:VueDevTools"] = typeof(bool),
                 ["Dev:VueAppInWindow"] =  typeof(bool),
                 ["Dev:LogInitExtended"] =  typeof(bool),

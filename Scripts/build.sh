@@ -8,9 +8,21 @@
 #   ***************************************
 
 
-# Include variables
-source BUILD
+# Fonts
+RED='\e[0;31m'
+GREEN='\e[0;32m'
+BLUE='\e[0;34m'
+NC='\e[0m'
+BOLD='\e[1m'
 
+
+#Include variables
+if [ -z "$1" ]; then
+    source BUILD
+else
+    echo -e "\n${GREEN}Variables source \"$1\" ${NC}"
+    source $1
+fi
 
 
 # Set folders paths

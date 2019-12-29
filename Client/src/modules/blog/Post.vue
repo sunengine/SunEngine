@@ -1,11 +1,11 @@
 ﻿<template>
-  <div :class="['post', {'mat-hidden': post.isHidden}, {'mat-deleted': post.deletedDate}]">
+  <div :class="['post', {'material-hidden': post.isHidden}, {'material-deleted': post.deletedDate}]">
     <q-item :to="to" class="header page-padding">
       <q-avatar class="shadow-1 avatar" size="40px">
         <img :src="$avatarPath(post.authorAvatar)"/>
       </q-avatar>
       <div>
-        <div class="blog-title my-header">
+        <div class="blog-title material-header">
           <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="post.deletedDate"/>
           <q-icon name="far fa-eye-slash" v-else-if="post.isHidden" class="q-mr-sm"/>
           {{post.title}}
@@ -105,8 +105,8 @@
     }
 
     .blog-title {
-      font-weight: 600 !important;
-      color: $link-color !important;
+      font-weight: 600;
+      color: $link-color;
     }
 
     $footer-line-height: 38px;

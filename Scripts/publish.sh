@@ -7,11 +7,21 @@
 #   *                                                   *
 #   *****************************************************
 
+# Fonts
+RED='\e[0;31m'
+GREEN='\e[0;32m'
+BLUE='\e[0;34m'
+NC='\e[0m'
+BOLD='\e[1m'
 
 
 #Include variables
-source PUBLISH
-
+if [ -z "$1" ]; then
+    source PUBLISH
+else
+    echo -e "\n${GREEN}Variables source \"$1\" ${NC}"
+    source $1
+fi
 
 # Set folders paths
 unameOut="$(uname -s)"
@@ -49,9 +59,15 @@ rsync -arvzhe ssh --progress --stats --ignore-existing   --chown=$REMOTE_DIRECTO
 echo  -e "\n${GREEN}Restarting systemd service and reload nginx ${NC}\n"
 
 ssh ${REMOTE_USER}@${REMOTE_HOST} << EOF
- echo  -e "\n${GREEN}Migrating to new version ${NC}\n"
+
  cd ${REMOTE_DIRECTORY}/Server
- dotnet SunEngine.dll migrate
+ if  dotnet SunEngine.dll test-db-con; then
+ {
+    echo  -e "\n${GREEN}Migrating to new version ${NC}\n"
+    dotnet SunEngine.dll migrate
+ }
+ fi
+
 
  echo  -e "\n${GREEN}Reloading nginx ${NC}\n"
  systemctl --output=verbose reload nginx
@@ -59,8 +75,8 @@ ssh ${REMOTE_USER}@${REMOTE_HOST} << EOF
  echo  -e "\n${GREEN}Restarting ${REMOTE_SYSTEMD_SERVICE_NAME} ${NC}\n"
  systemctl --output=verbose restart ${REMOTE_SYSTEMD_SERVICE_NAME}
 
- echo  -e "\n${GREEN}Sleeping 10 seconds ${NC}\n"
- sleep 10;
+ echo  -e "\n${GREEN}Sleeping 8 seconds ${NC}\n"
+ sleep 8
 
  echo  -e "\n${GREEN}nginx journal: ${NC}\n"
  journalctl -u nginx --lines=10 --no-pager

@@ -1,8 +1,8 @@
 ﻿<template>
   <q-item class="article" :to="to"
-          :class="['page-padding', {'mat-hidden': article.isHidden}, {'mat-deleted': article.deletedDate}]">
+          :class="['page-padding', {'material-hidden': article.isHidden}, {'material-deleted': article.deletedDate}]">
     <q-item-section>
-      <q-item-label class="my-header">
+      <q-item-label class="material-header">
         <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="article.deletedDate"/>
         <q-icon name="far fa-eye-slash" v-else-if="article.isHidden" class="q-mr-sm"/>
         {{article.title}}

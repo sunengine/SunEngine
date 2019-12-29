@@ -8,9 +8,9 @@
     "scripts": {
         "dev run": "quasar dev",
         "rebuild sun.js": "node build-index",
-        "build": "cd Scripts/ && bash build.sh",
-        "publish": "cd Scripts/ && bash publish.sh",
-        "build & publish": "cd Scripts/ && bash build.sh && bash publish.sh"
+        "build": "cd ../Scripts && bash build.sh",
+        "publish": "cd ../Scripts && bash publish.sh",
+        "build & publish": "cd ../Scripts && bash build.sh && bash publish.sh"
     },
     "dependencies": {
         "@quasar/extras": "^1.3.3",

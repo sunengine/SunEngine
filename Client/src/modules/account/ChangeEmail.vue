@@ -1,5 +1,5 @@
 ﻿<template>
-  <q-page class="change-email flex column">
+  <q-page class="change-email flex column page-padding">
 
     <h2 class="page-title text-center">
       {{title}}

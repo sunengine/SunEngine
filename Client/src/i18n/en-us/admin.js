@@ -202,11 +202,11 @@ export default {
         addRoleBtn: "Add to group",
         removeRoleBtn: "Remove from group",
         addRoleConfirmTitle: "",
-        addRoleConfirmMessage: "Add to group '{0}'?",
+        addRoleConfirmMessage: "Add to group '{roleName}'?",
         addRoleConfirmOkBtn: "Yes",
         addRoleConfirmCancelBtn: "@:Global.dialog.cancel",
         removeRoleConfirmTitle: "",
-        removeRoleConfirmMessage: "Remove from group '{0}'?",
+        removeRoleConfirmMessage: "Remove from group '{roleName}'?",
         removeRoleConfirmOkBtn: "Remove",
         removeRoleConfirmCancelBtn: "@:Global.dialog.cancel"
     },

@@ -8,7 +8,7 @@
           </q-avatar>
         </q-item-section>
         <q-item-section>
-          <q-item-label class="material__hidden-deleted-header">
+          <q-item-label class="material-header">
 
             <q-icon name="fas fa-trash" color="maroon" class="q-mr-xs" v-if="topic.deletedDate"/>
             <q-icon name="far fa-eye-slash" v-else-if="topic.isHidden" class="q-mr-xs"/>

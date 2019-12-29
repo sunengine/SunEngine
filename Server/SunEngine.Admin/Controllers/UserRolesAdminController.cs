@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Presenters;
 using SunEngine.Core.Cache.Services;
+using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Security;
 
 namespace SunEngine.Admin.Controllers
@@ -47,6 +48,10 @@ namespace SunEngine.Admin.Controllers
         public async Task<IActionResult> AddUserToRole(int userId, string roleName)
         {
             var user = await userManager.FindByIdAsync(userId);
+
+            if (User.IsInRole(RoleNames.Admin) && RoleNames.Banned == roleName)
+                throw new SunException("Impossible to ban admin role");
+            
             var rez = await userManager.AddToRoleAsync(user, roleName);
             if (!rez.Succeeded)
                 return BadRequest();

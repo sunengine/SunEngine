@@ -208,11 +208,11 @@ export default {
         addRoleBtn: "Добавить группу",
         removeRoleBtn: "Удалить группу",
         addRoleConfirmTitle: "",
-        addRoleConfirmMessage: "Добавить в группу '{0}'?",
+        addRoleConfirmMessage: "Добавить в группу '{roleName}'?",
         addRoleConfirmOkBtn: "Добавить",
         addRoleConfirmCancelBtn: "@:Global.dialog.cancel",
         removeRoleConfirmTitle: "",
-        removeRoleConfirmMessage: "Удалить из группы '{0}'?",
+        removeRoleConfirmMessage: "Удалить из группы '{roleName}'?",
         removeRoleConfirmOkBtn: "Удалить",
         removeRoleConfirmCancelBtn: "@:Global.dialog.cancel"
     },

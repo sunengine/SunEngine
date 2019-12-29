@@ -1,5 +1,5 @@
 ﻿<template>
-  <q-page class="change-password flex column">
+  <q-page class="change-password flex column page-padding">
 
     <h2 class="page-title text-center">
       {{title}}
