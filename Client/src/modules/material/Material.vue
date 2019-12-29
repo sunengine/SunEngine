@@ -284,8 +284,8 @@
             this.$options.components.CommentContainer = require('sun').CommentContainer;
             this.$options.components.CreateComment = require('sun').CreateComment;
         },
-        async created() {
-            await this.loadData();
+        created() {
+            this.loadData();
         }
     }
 

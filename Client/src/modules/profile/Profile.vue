@@ -20,7 +20,7 @@
       </div>
       <div>
         <h3 class="profile__user-name">{{user.name}}</h3>
-        <div class="q-mb-lg" v-html="user.information"></div>
+        <div class="profile__text q-mb-lg" v-html="user.information"></div>
 
         <div class="profile__footer-info">
           <div class="profile__registered grow">
@@ -47,7 +47,7 @@
 
 <script>
     import {Page} from 'mixins'
-
+    import {prepareLocalLinks} from 'sun'
 
     export default {
         name: 'Profile',
@@ -84,6 +84,9 @@
             'link': 'loadData'
         },
         methods: {
+            prepareLocalLinks() {
+                prepareLocalLinks.call(this, this.$el, 'profile__text');
+            },
             showRolesAdmin() {
                 this.isShowRolesAdmin = true;
             },
@@ -120,6 +123,9 @@
                 ).then(response => {
                     this.user = response.data;
                     this.title = this.user.name;
+                    this.$nextTick(() => {
+                        this.prepareLocalLinks();
+                    });
                 });
             }
         },

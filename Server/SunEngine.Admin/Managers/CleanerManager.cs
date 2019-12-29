@@ -26,12 +26,12 @@ namespace SunEngine.Admin.Services
             db = dataBaseConnection;
         }
 
-        public async Task DeleteMaterial(Material material)
+        public Task DeleteMaterial(Material material)
         {
             throw new NotImplementedException();
         }
 
-        public async Task DeleteComment(Comment comment)
+        public Task DeleteComment(Comment comment)
         {
             throw new NotImplementedException();
         }
