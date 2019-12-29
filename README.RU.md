@@ -10,7 +10,6 @@
 <a href="https://sunengine.site"><img src="https://img.shields.io/static/v1?label=%D0%A1%D0%B0%D0%B9%D1%82&message=sunengine.site&color=yellow"></a> 
 <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=%D0%94%D0%B5%D0%BC%D0%BE&message=demo.sunengine.site&color=yellow"></a>
 <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=success"></a>
-<a href="https://good-labs.github.io/greater-good-affirmation"><img src="https://good-labs.github.io/greater-good-affirmation/assets/images/badge.svg" /></a>
 <a href="README.md"><img src="https://img.shields.io/static/v1?label=Readme&message=English&color=informational"></a>
 
 
