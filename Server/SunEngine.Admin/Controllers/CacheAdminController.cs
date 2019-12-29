@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SunEngine.Core.Cache.Services;
+using SunEngine.Core.Services;
 
 namespace SunEngine.Admin.Controllers
 {
@@ -14,6 +15,7 @@ namespace SunEngine.Admin.Controllers
         protected readonly IMailTemplatesCache mailTemplatesCache;
         protected readonly IConfigurationRoot configurationRoot;
         protected readonly IDynamicConfigCache dynamicConfigCache;
+        protected readonly SanitizerService sanitizerService;
 
         public CacheAdminController(
             IComponentsCache componentsCache,
@@ -23,6 +25,7 @@ namespace SunEngine.Admin.Controllers
             IMailTemplatesCache mailTemplatesCache,
             IConfigurationRoot configurationRoot,
             IDynamicConfigCache dynamicConfigCache,
+            SanitizerService sanitizerService,
             IServiceProvider serviceProvider) : base(serviceProvider)
         {
             this.componentsCache = componentsCache;
@@ -32,6 +35,7 @@ namespace SunEngine.Admin.Controllers
             this.mailTemplatesCache = mailTemplatesCache;
             this.configurationRoot = configurationRoot;
             this.dynamicConfigCache = dynamicConfigCache;
+            this.sanitizerService = sanitizerService;
         }
 
         public IActionResult ResetAllCache()
@@ -45,6 +49,7 @@ namespace SunEngine.Admin.Controllers
             mailTemplatesCache.Initialize();
             dynamicConfigCache.Initialize();
             configurationRoot.Reload();
+            sanitizerService.Initialize();
 
             return Ok();
         }

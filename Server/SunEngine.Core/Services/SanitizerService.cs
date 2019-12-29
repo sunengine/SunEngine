@@ -12,13 +12,12 @@ namespace SunEngine.Core.Services
 
         private readonly IConfiguration configuration;
 
-        private readonly Dictionary<string, Sanitizer> optionCategories
-            = new Dictionary<string, Sanitizer>();
+        private Dictionary<string, Sanitizer> optionCategories = new Dictionary<string, Sanitizer>();
 
         public SanitizerService(IConfiguration configuration)
         {
             this.configuration = configuration;
-            LoadOptions();
+            Initialize();
         }
 
         public Sanitizer GetSanitizer(string sanitizerName = DefaultCategory)
@@ -46,8 +45,10 @@ namespace SunEngine.Core.Services
             throw new SunException($"Not found sanitizer with name \"{sanitizerName}\"");
         }
 
-        private void LoadOptions()
+        public void Initialize()
         {
+            optionCategories.Clear();
+            
             var section = configuration.GetSection("Sanitizer");
 
             var key = DefaultCategory;
