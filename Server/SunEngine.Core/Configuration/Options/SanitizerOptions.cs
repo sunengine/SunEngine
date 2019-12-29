@@ -10,6 +10,7 @@ namespace SunEngine.Core.Configuration.Options
         public string AllowedCssProperties { get; set; }
         public string AllowedVideoDomains { get; set; }
         public string AllowedImageDomains { get; set; }
+        public string AllowedSchemes { get; set; }
 
 
         protected string[] _allowedTags;
@@ -18,6 +19,7 @@ namespace SunEngine.Core.Configuration.Options
         protected string[] _allowedCssProperties;
         protected string[] _allowedVideoDomains;
         protected string[] _allowedImageDomains;
+        protected string[] _allowedSchemes;
 
 
         public string[] AllowedTagsArr
@@ -79,5 +81,17 @@ namespace SunEngine.Core.Configuration.Options
                 return _allowedImageDomains;
             }
         }
+        
+        public string[] AllowedSchemesArr
+        {
+            get
+            {
+                if (_allowedSchemes == null)
+                    _allowedSchemes = AllowedSchemes.Split(",").Select(x => x.Trim()).ToArray();
+                return _allowedSchemes;
+            }
+        }
+        
+        
     }
 }

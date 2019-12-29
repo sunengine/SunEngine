@@ -64,6 +64,7 @@ namespace SunEngine.Core.Configuration
                 (LongString)
                 "https://www.youtube.com/,http://www.youtube.com/,https://youtube.com/,http://youtube.com/,https://youtu.be/,http://youtu.be/,//youtube.com/,//youtu.be/,//www.youtube.com/,//www.youtu.be/,https://vk.com/,http://vk.com/,//vk.com/,https://player.vimeo.com,http://player.vimeo.com,//player.vimeo.com",
             ["Sanitizer:AllowedImageDomains"] = (LongString) "",
+            ["Sanitizer:AllowedSchemes"] = (LongString) "",
 
             ["Images:MaxImageWidth"] = 6000,
             ["Images:MaxImageHeight"] = 4000,

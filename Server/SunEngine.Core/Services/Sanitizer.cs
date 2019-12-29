@@ -49,7 +49,8 @@ namespace SunEngine.Core.Services
             foreach (string cssp in options.AllowedCssPropertiesArr)
                 htmlSanitizer.AllowedCssProperties.Add(cssp);
 
-            htmlSanitizer.AllowedSchemes.Add("mailto");
+            foreach (string schema in options.AllowedSchemesArr)
+                htmlSanitizer.AllowedSchemes.Add(schema);
 
             htmlSanitizer.AllowedAtRules.Clear();
 

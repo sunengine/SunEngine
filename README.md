@@ -50,6 +50,14 @@
  - And other features...  
 
 ## Technical features
+### Technologies used
+The project based on modern front edge technologies:
+ - Asp.Net Core 3.1  
+ - VueJs - SPA client part  
+ - Quasar Framework - Material Design VueJs components  
+ - PostgreSQL - database (in the future, other SQL db engines)  
+ - Linq2db ORM - database access  
+ 
 ### Security
  - Developed using latest technologies of privacy and security.  
  - An innovative authorization system based on three tokens to protect against interception of authorization data, from XSS and CSRF attacks.  
@@ -60,14 +68,6 @@
    - Filters against duplicate publication requests.  
    - Captcha on critical areas.  
  - Defense mechanisms against many malicious attack types.  
-
-### Technologies used
-The project based on modern front edge technologies:
- - Asp.Net Core 3.1  
- - VueJs - SPA client part  
- - Quasar Framework - Material Design VueJs components  
- - PostgreSQL - database (in the future, other SQL db engines)  
- - Linq2db ORM - database access  
 
 ### Hosting
  - Linux or Windows server  

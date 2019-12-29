@@ -376,20 +376,21 @@ export default {
             'Cache:InvalidateCacheTime': 'Retention time of cache entry'
         },
         tooltips: {
-            'Cache:InvalidateCacheTime': 'This option is not used by all policies. Values of 0 or lower are interpreted as requiring permanent storage of cache entry.',
             'Global:PageTitleTemplate': 'Use tokens {pageTitle} and {siteName} for replace parts.',
+            'Global:OpenExternalLinksAtNewTab': 'In meterials, comments and posts.',
             'Images:MaxImageHeight': 'Check when upload to server.',
             'Images:MaxImageWidth':  'Check when upload to server.',
+            'Sanitizer:AllowedSchemes': 'Example: mailto,skype',
             'Dev:LogInitExtended': 'In browser console',
             'Dev:LogMoveTo': 'In browser console',
             'Dev:LogRequests': 'In browser console',
             'Dev:VueAppInWindow': 'In browser console',
             'Dev:VueDevTools': 'After change needed to clean site cache and reload page (ctrl + f5) with closed DevTools',
-            'Global:OpenExternalLinksAtNewTab': 'In meterials, comments and posts.',
             'Skins:CurrentSkinName': 'Set from skins admin.',
             'Skins:PartialSkinsNames': 'Set from skins admin. Comma separated list.',
             'Skins:MaxArchiveSizeKb': 'Skin check when uploading on server.',
-            'Skins:MaxExtractArchiveSizeKb': 'Skin check when uploading on server.'
+            'Skins:MaxExtractArchiveSizeKb': 'Skin check when uploading on server.',
+            'Cache:InvalidateCacheTime': 'This option is not used by all policies. Values of 0 or lower are interpreted as requiring permanent storage of cache entry.',
         }
     },
     CypherSecrets: {
