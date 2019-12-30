@@ -39,7 +39,7 @@
         </span>
       </q-item>
 
-      <q-item v-if="canCommentWrite" :class="{'page-padding-left': !post.hasMoreText,  'post__comments-link': true}"
+      <q-item v-if="post.commentsCount" :class="{'page-padding-left': !post.hasMoreText,  'post__comments-link': true}"
               :to="toComments">
         <span :class="[{'text-grey-6': !post.commentsCount}]">
           <q-icon name="far fa-comment" left/>{{post.commentsCount}} {{$tl('commentsCount')}}
@@ -68,7 +68,7 @@
                 return this.category.getMaterialRoute(this.post.id);
             },
             toComments() {
-                return this.category.getMaterialRoute(this.post.id, '#comments');
+                return this.category.getMaterialRoute(this.post.id, '#material-comments');
             },
             canCommentWrite() {
                 if (this.post.isCommentsBlocked)

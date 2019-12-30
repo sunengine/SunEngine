@@ -1,5 +1,5 @@
 ﻿<template>
-    <div :class="['menu-admin-item', {'menu-admin-item-hidden': menuItem.isHidden}]">
+    <div :class="['menu-admin-item', {'menu-admin-item--hidden': menuItem.isHidden}]">
     <span class="item-block">
       <span class="menu-admin-item__up-down">
         <q-btn class="menu-admin-item__btn-up" :disabled="isFirst" @click="$emit('up',menuItem)" color="positive" dense
@@ -123,7 +123,7 @@
 
     }
 
-    .menu-admin-item-hidden {
+    .menu-admin-item--hidden {
         * {
             color: $grey-5;
         }

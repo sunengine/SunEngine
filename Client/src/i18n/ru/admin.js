@@ -326,7 +326,8 @@ export default {
             'Skins': 'Темы оформления',
         },
         groupSubTitles: {
-            'Editor': 'Примеры тулбара на сайте Quasar - https://quasar.dev/vue-components/editor'
+            'Editor': 'Примеры тулбара на сайте Quasar - https://quasar.dev/vue-components/editor',
+            'Sanitizer': 'При публикации все HTML тексты сайта (материалы, комментарии и др.) очищаются от вредоносных скриптов и всего что не входит в разрешённые списки.',
         },
         items: {
             'Global:Locale': 'Язык интерфейса',

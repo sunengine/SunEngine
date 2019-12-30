@@ -1,5 +1,6 @@
-﻿<template>
-    <div class="category-item">
+﻿﻿
+<template>
+    <div :class="['category-item', {'category-item--hidden': category.isHidden}]">
     <span class="category-item__item-block" v-if="notRoot">
       <span class="q-mr-sm category-item__up-down">
         <q-btn :disabled="isFirst" @click="$emit('up',category)" color="positive" dense size="10px" flat
@@ -16,7 +17,7 @@
         </q-btn>
       </span>
       <span>
-          <router-link v-if="category.isMaterialsContainer"
+          <router-link class="link" v-if="category.isMaterialsContainer"
                        :to="{name:'CatView', params: {categoryName: category.name}}">{{category.title}}
             <q-tooltip :delay="1000">
                {{$tl('showCategoryBtnTooltip')}}
@@ -24,6 +25,7 @@
           </router-link>
         <template v-else>{{category.title}}</template>
       </span>
+      <q-icon class="q-ml-sm text-grey-5" v-if="category.isHidden" name="fas fa-eye-slash" />
       <span class="q-ml-md">
         <q-btn class="category-item__btn-edit" :to="{name: 'EditCategory', params: {categoryId:category.id}}"
                icon="fas fa-wrench" color="info" dense size="10px" flat>
@@ -101,7 +103,7 @@
             padding-left: 25px
         }
 
-        .q-btn:disabled {
+        .q-btn:disabled, .q-btn[disabled] {
             filter: grayscale(1);
         }
 
@@ -113,6 +115,14 @@
             .category-item__item-block:hover > .category-item__up-down {
                 visibility: visible;
             }
+        }
+    }
+
+    .category-item--hidden {
+        filter: grayscale(0.75);
+
+        * {
+            color: $grey-5;
         }
     }
 

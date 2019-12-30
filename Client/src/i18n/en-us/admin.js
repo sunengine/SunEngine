@@ -312,7 +312,8 @@ export default {
             'Skins': 'Skins',
         },
         groupSubTitles: {
-            'Editor': 'Toolbar examples on Quasar site - https://quasar.dev/vue-components/editor'
+            'Editor': 'Toolbar examples on Quasar site - https://quasar.dev/vue-components/editor',
+            'Sanitizer': 'When publish all HTML site texts (materials, comments and others) were cleaning against harmful scripts and all html elements except allowed in lists.',
         },
         items: {
             'Global:Locale': 'Interface language',
