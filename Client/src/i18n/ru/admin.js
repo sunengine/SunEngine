@@ -304,7 +304,8 @@ export default {
         noResults: "Ничего не найдено",
         successNotify: "Значения конфигурации успешно сохранены",
         resetSuccessNotify: "Значения конфигурации перезагружены с сервера",
-        resetBtn: "Перезагрузить с сервера",
+        resetBtn: "Сбросить",
+        resetBtnTooltip: "Сбросить введённые сейчас данные и перегрузить с сервера",
         cancelBtn: "@:Global.btn.cancel",
         saveBtn: "@:Global.btn.save",
         groupTitles: {
@@ -327,7 +328,7 @@ export default {
         },
         groupSubTitles: {
             'Editor': 'Примеры тулбара на сайте Quasar - https://quasar.dev/vue-components/editor',
-            'Sanitizer': 'При публикации все HTML тексты сайта (материалы, комментарии и др.) очищаются от вредоносных скриптов и всего что не входит в разрешённые списки.',
+            'Sanitizer': 'При публикации все html тексты (материалы, комментарии и др.) очищаются от вредоносных скриптов и всего что не входит в разрешённые списки.',
         },
         items: {
             'Global:Locale': 'Язык интерфейса',
@@ -389,8 +390,9 @@ export default {
             'Articles:CategoryPageSize': 'Количество статей на странице',
             'Forum:NewTopicsMaxPages': 'Максимальное количетсво страниц на вкладке новых тем',
             'Forum:NewTopicsPageSize': 'Количество тем на вкладке новых тем',
+            'Forum:ThreadMaterialsPageSize': 'Количество тем на вкладке раздела',
             'Jwe:Issuer': 'Эмитент (Issuer)',
-            'Jwe:LongTokenLiveTimeDays': 'Длительность сессии в днях refresh token life',
+            'Jwe:LongTokenLiveTimeDays': 'Длительность сессии в днях',
             'Jwe:ShortTokenLiveTimeMinutes': 'Длительность жизни access токена в минутах',
             'Skins:CurrentSkinName': 'Основная тема',
             'Skins:PartialSkinsNames': 'Дополнительные темы',

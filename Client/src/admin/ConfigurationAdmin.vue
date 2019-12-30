@@ -51,17 +51,26 @@
                 </tbody>
             </q-markup-table>
 
-            <div class="configuration-admin__btn-block flex q-mt-lg q-gutter-md">
+            <q-page-sticky position="bottom-left" :offset="[34,12]">
                 <q-btn class="send-btn" @click="uploadConfiguration" no-caps icon="fas fa-save" :loading="loading"
                        :label="$tl('saveBtn')">
                     <template v-slot:loading>
                         <LoaderSent/>
                     </template>
                 </q-btn>
-                <div class="grow"></div>
-                <q-btn class="reset-btn" @click="resetConfiguration" no-caps icon="fas fa-sync-alt"
-                       :label="$tl('resetBtn')"/>
-            </div>
+            </q-page-sticky>
+            <q-page-sticky position="bottom-right" :offset="[34,12]">
+                <q-btn class="reset-btn q-mr-md" @click="resetConfiguration" no-caps icon="fas fa-sync-alt"
+                       :label="$tl('resetBtn')">
+                    <q-tooltip :delay="800">
+                        {{$tl('resetBtnTooltip')}}
+                    </q-tooltip>
+                </q-btn>
+            <q-btn class="cancel-btn" @click="$router.back()" no-caps icon="fas fa-times"
+                   :label="$tl('cancelBtn')"/>
+            </q-page-sticky>
+
+            <br/>
         </div>
 
         <LoaderWait v-else/>
