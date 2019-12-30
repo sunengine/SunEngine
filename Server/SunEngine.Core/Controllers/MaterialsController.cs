@@ -111,8 +111,6 @@ namespace SunEngine.Core.Controllers
             if (materialsAuthorization.CanEditSettingsJson(User.Roles, category))
                 material.SettingsJson = materialData.SettingsJson;
 
-            contentCache.InvalidateCache(category.Id);
-
             await materialsManager.CreateAsync(material, materialData.Tags, category);
 
             contentCache.InvalidateCache(category.Id);
@@ -147,10 +145,7 @@ namespace SunEngine.Core.Controllers
 
             await SetNameAsync(material, materialData.Name);
 
-            if (newCategory.IsMaterialsSubTitleEditable)
-                material.SubTitle = materialData.SubTitle;
-            else
-                material.SubTitle = null;
+            material.SubTitle = newCategory.IsMaterialsSubTitleEditable ? materialData.SubTitle : null;
 
             if (material.IsHidden != materialData.IsHidden && materialsAuthorization.CanHide(User.Roles, newCategory))
                 material.IsHidden = materialData.IsHidden;
@@ -161,7 +156,10 @@ namespace SunEngine.Core.Controllers
 
             if (material.CategoryId != newCategory.Id
                 && materialsAuthorization.CanMove(User, categoriesCache.GetCategory(material.CategoryId), newCategory))
+            {
+                contentCache.InvalidateCache(material.CategoryId);
                 material.CategoryId = newCategory.Id;
+            }
 
             material.SettingsJson = materialsAuthorization.CanEditSettingsJson(User.Roles, newCategory)
                 ? materialData.SettingsJson
