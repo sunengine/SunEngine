@@ -20,11 +20,12 @@ namespace SunEngine.Cli
             IWebHostEnvironment env = (IWebHostEnvironment) webHost.Services.GetService(typeof(IWebHostEnvironment));
             IConfiguration conf = (IConfiguration) webHost.Services.GetService(typeof(IConfiguration));
 
-            InfoPrinter.PrintVersion();
             Startup.SetExceptionsMode(env, conf);
 
             new InfrastructurePreparer((IConfigurationRoot) conf).DoAll();
 
+            Console.WriteLine();
+            
             webHost.Run();
         }
 

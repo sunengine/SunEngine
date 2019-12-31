@@ -76,9 +76,9 @@ namespace SunEngine.Core.Services
             {
                 await client.SendMailAsync(mailMessage);
             }
-            catch (Exception e)
+            catch
             {
-
+                // ignored
             }
         }
     }

@@ -8,6 +8,8 @@ namespace SunEngine.Cli
     {
         public static void Main(string[] args)
         {
+            InfoPrinter.PrintStart();
+            
             StartupConfiguration config = new StartupConfiguration(args);
 
             if (config.PrintHelp || config.PrintVersion)

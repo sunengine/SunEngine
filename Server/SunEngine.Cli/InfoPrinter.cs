@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace SunEngine.Cli
 {
@@ -11,10 +12,40 @@ namespace SunEngine.Cli
         /// </summary>
         public static void PrintNoArgumentsInfo()
         {
-            Console.WriteLine(
-                @"Valid startup arguments wasn't provided. To list available commands use ""help"" argument.");
+            Console.WriteLine("Valid startup arguments wasn't provided. To list available commands use \"help\" argument.\n");
         }
 
+        public static void PrintStart()
+        {
+            PrintSunEngineLogo();
+            PrintVersion2();
+            Console.WriteLine();
+        }
+        
+        public static void PrintSunEngineLogo()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine(@"
+     ______             ______                         
+    /  ____)           |  ____)            (_)           
+   (  (___  _   _ ____ | |___   ____   ____ _ ____  _____ 
+    \___  \| | | |  _ \|  ___) |  _ \ / _  | |  _ \| ___ |
+    ____)  ) |_| | | | | |_____| | | ( (_| | | | | | ____|
+   (______/|____/|_| |_|_______)_| |_|\___ |_|_| |_|_____)
+                                     (_____|");
+            
+            Console.ResetColor();
+        }
+        
+        public static void PrintVersion2()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+            string version = fileVersionInfo.ProductVersion;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine($"           Version: {version}");
+            Console.ResetColor();
+        }
 
         /// <summary>
         /// Print help on dotnet "dotnet SunEngine.dll help"

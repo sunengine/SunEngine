@@ -6,7 +6,7 @@
 
 <template>
   <div class="sun-engine-footer">
-    {{$tl("start")}} &nbsp;–&nbsp; <a class="sun-engine-footer__link" href="https://sunengine.site">Sun Engine</a>
+    {{$tl("start")}} &nbsp;–&nbsp; <a class="sun-engine-footer__link" href="https://sunengine.site">SunEngine</a>
   </div>
 </template>
 
