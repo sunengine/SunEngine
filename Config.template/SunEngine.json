@@ -12,7 +12,7 @@
         "SkinsUrl": "http://localhost:5005/statics/Skins",
         "PartialSkinsUrl": "http://localhost:5005/statics/PartialSkins",
         "FileServer": true,
-        "UpdateClientScriptsOnConfigChanges": true,
+        "UpdateClientScriptsOnConfigChanges": true
     },
     "Dirs": {
         "ApplicationRoot": "auto",
