@@ -134,7 +134,7 @@ namespace SunEngine.Cli
         {
             void ShowExceptions()
             {
-                Console.WriteLine("ShowExceptions mode: true");
+                Console.WriteLine("Show exceptions mode: True");
                 ErrorsMode.ShowErrors = true;
             }
 

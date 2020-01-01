@@ -96,7 +96,8 @@ namespace SunEngine.Cli
                 }
             }
 
-            Console.WriteLine($@"Using configuration directory ""{ConfigRootDir}"".");
+            Console.WriteLine("Using config directory:");
+            Console.WriteLine("  -> "+ConfigRootDir);
 
 
             string FindConfigPath(string name)

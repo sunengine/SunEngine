@@ -12,38 +12,31 @@ namespace SunEngine.Cli
         /// </summary>
         public static void PrintNoArgumentsInfo()
         {
-            Console.WriteLine("Valid startup arguments wasn't provided. To list available commands use \"help\" argument.\n");
+            Console.WriteLine("Valid startup arguments was not provided.\nTo list available arguments run with 'help' command.\n> dotnet SunEngine.dll help\n");
         }
 
         public static void PrintStart()
         {
             PrintSunEngineLogo();
-            PrintVersion2();
             Console.WriteLine();
         }
         
         public static void PrintSunEngineLogo()
         {
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine(@"
-     ______             ______                         
-    /  ____)           |  ____)            (_)           
-   (  (___  _   _ ____ | |___   ____   ____ _ ____  _____ 
-    \___  \| | | |  _ \|  ___) |  _ \ / _  | |  _ \| ___ |
-    ____)  ) |_| | | | | |_____| | | ( (_| | | | | | ____|
-   (______/|____/|_| |_|_______)_| |_|\___ |_|_| |_|_____)
-                                     (_____|");
-            
-            Console.ResetColor();
-        }
-        
-        public static void PrintVersion2()
-        {
             Assembly assembly = Assembly.GetExecutingAssembly();
             FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
-            string version = fileVersionInfo.ProductVersion;
+            string v = fileVersionInfo.ProductVersion;
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine($"           Version: {version}");
+            Console.WriteLine($@"
+    ______                _____                         
+   /  ____)              |  ___)               (o)           
+  (  (___   _   _  ____  | |___   ____    ____  _  ____   ____ 
+   \___  \ | | | ||  _ \ |  ___) |  _ \  / _  || ||  _ \ |  __)
+   ____)  )| |_| || | | || |____ | | | |( (_| || || | | || |__)
+  (______/ |_____/|_| |_||______)|_| |_| \___ ||_||_| |_||_____)
+                                          __| |
+            Version: {v,-6}              (____| ".TrimStart('\n'));
+            
             Console.ResetColor();
         }
 
@@ -54,31 +47,30 @@ namespace SunEngine.Cli
         {
             const int padding = -36;
             string helpText = $@"
-Commands:
-    {StartupConfiguration.ServerCommand,padding} host server api with kestrel
-    {StartupConfiguration.ConfigArgumentName + ":<Path>",padding} path to config directory, if none ""Config"" is default, "".Config"" suffix at the end of the path can be skipped
-    {StartupConfiguration.MigrateCommand,padding} make initial database table structure and migrations in existing database
-    {StartupConfiguration.InitCommand,padding} initialize users, roles and categories tables from config directory
-    {StartupConfiguration.TestDatabaseConnection,padding} check is data base connection is working                     
-    {StartupConfiguration.VersionCommand,padding} print SunEngine version
-    {StartupConfiguration.HelpCommand,padding} show this help   
+  Commands
+     {StartupConfiguration.ServerCommand,padding} Host server api with kestrel
+     {StartupConfiguration.ConfigArgumentName + ":<Path>",padding} Path to config directory, if none ""Config"" is default, "".Config"" suffix at the end of the path can be skipped
+     {StartupConfiguration.MigrateCommand,padding} Make initial database table structure and migrations in existing database
+     {StartupConfiguration.InitCommand,padding} Initialize users, roles and categories tables from config directory
+     {StartupConfiguration.TestDatabaseConnection,padding} Check is data base connection is working                     
+     {StartupConfiguration.VersionCommand,padding} Print SunEngine version
+     {StartupConfiguration.HelpCommand,padding} Show this help   
     
-Seed test data commands:    
-    {StartupConfiguration.SeedCommand}:<CategoryName>:<MaterialsCount>:<CommentsCount>      
-    {"",padding} seed category and all subcategories with materials and comments
-    {"",padding} MaterialsCount and CommentsCount - default if skipped
-    {"",padding} example - seed:SomeCategory:20:10
+  Seed test data commands    
+     {StartupConfiguration.SeedCommand}:<CategoryName>:<MaterialsCount>:<CommentsCount>      
+     {"",padding} Seed category and all subcategories with materials and comments
+     {"",padding} MaterialsCount and CommentsCount - default if skipped
+     {"",padding} Example - seed:SomeCategory:20:10
                                 
-    {StartupConfiguration.AppendCategoriesNamesCommand,padding} add category name to material titles on ""{StartupConfiguration.SeedCommand}""
+     {StartupConfiguration.AppendCategoriesNamesCommand,padding} Add category name to material titles on ""{StartupConfiguration.SeedCommand}""
 
-Examples:
-    dotnet SunEngine.dll {StartupConfiguration.ServerCommand}
-    dotnet SunEngine.dll {StartupConfiguration.ServerCommand} {StartupConfiguration.ConfigArgumentName}:local.MySite
-    dotnet SunEngine.dll {StartupConfiguration.MigrateCommand} {StartupConfiguration.InitCommand} {StartupConfiguration.SeedCommand}
-    dotnet SunEngine.dll {StartupConfiguration.MigrateCommand} {StartupConfiguration.InitCommand} {StartupConfiguration.SeedCommand} {StartupConfiguration.ConfigArgumentName}:local.MySite
-    dotnet SunEngine.dll {StartupConfiguration.SeedCommand}:Forum:10:10
+  Examples
+     dotnet SunEngine.dll {StartupConfiguration.ServerCommand}
+     dotnet SunEngine.dll {StartupConfiguration.ServerCommand} {StartupConfiguration.ConfigArgumentName}:local.MySite
+     dotnet SunEngine.dll {StartupConfiguration.MigrateCommand} {StartupConfiguration.InitCommand} {StartupConfiguration.SeedCommand}
+     dotnet SunEngine.dll {StartupConfiguration.MigrateCommand} {StartupConfiguration.InitCommand} {StartupConfiguration.SeedCommand} {StartupConfiguration.ConfigArgumentName}:local.MySite
+     dotnet SunEngine.dll {StartupConfiguration.SeedCommand}:Forum:10:10
 ";
-
 
             Console.WriteLine(helpText);
         }
