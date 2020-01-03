@@ -10,7 +10,7 @@
                    :to="{name:'User', params: {link: user.link}}" v-for="user in users">{{user.name}}
       </router-link>
       </template>
-      <q-banner rounded class="bg-grey-2 text-grey-8">
+      <q-banner v-else rounded class="bg-grey-2 text-grey-8">
         {{$tl("voidResult")}}
       </q-banner>
     </div>
