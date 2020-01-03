@@ -57,7 +57,7 @@
                 e.preventDefault();
                 const link = window.location.href.split("#")[0] + '#comment-' + this.comment.id;
                 copyToClipboard(link)
-                    .then(() => this.$nextTick(() => this.$successNotify(this.$tl("linkCopied"))))
+                    .then(() =>  this.$successNotify(this.$tl("linkCopied")))
                     .catch(() => this.$router.push(link));
                 return false;
             },
