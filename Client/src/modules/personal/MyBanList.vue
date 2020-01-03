@@ -6,7 +6,7 @@
     </div>
     <div v-if="users">
       <template v-if="users.length > 0">
-      <router-link :key="user.id" class="my-ban-list__user-link block q-mb-xs"
+      <router-link :key="user.id" class="my-ban-list__user-link link block q-mb-xs"
                    :to="{name:'User', params: {link: user.link}}" v-for="user in users">{{user.name}}
       </router-link>
       </template>
