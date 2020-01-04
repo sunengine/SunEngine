@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json.Linq;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Authorization;
+using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
 
 namespace SunEngine.DataSeed
@@ -18,6 +19,8 @@ namespace SunEngine.DataSeed
 
         private readonly DataContainer dataContainer;
         private readonly string configDir;
+        private readonly string configSeedAvatarsDir;
+
         private readonly PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
 
         private JArray usersJArray;
@@ -26,12 +29,12 @@ namespace SunEngine.DataSeed
         {
             this.dataContainer = dataContainer;
             this.configDir = configDir;
+            configSeedAvatarsDir = Path.Combine(configDir, "Init", "SeedAvatars");
         }
 
         public void SeedUsers()
         {
             string fileName = Path.Combine(configDir, "Init", "Users.json");
-
             string jsonText = File.ReadAllText(fileName);
             usersJArray = JArray.Parse(jsonText);
 
@@ -57,6 +60,12 @@ namespace SunEngine.DataSeed
             for (int j = startNumber; j <= maxNumber; j++)
             {
                 string name = ((string) usersJ["UserName"]).Replace("[n]", j.ToString());
+
+                string avatarPath = Path.Combine(this.configSeedAvatarsDir, name + ".jpg");
+                if (File.Exists(avatarPath))
+                {
+                    
+                }
 
                 User user = new User
                 {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
@@ -21,6 +22,11 @@ namespace SunEngine.DataSeed
 
         private const string SeedCommand = "seed";
         private const string InitDir = "Init";
+
+        private const string DevDataTemplatesDirName = "DevDataTemplates";
+        private const string FishParagraphs = "fish-paragraphs.html";
+        private const string FishTitles = "fish-titles.html";
+
 
         private readonly string initDirPath;
         private readonly string providerName;
@@ -94,7 +100,17 @@ namespace SunEngine.DataSeed
                     currentCommentId = db.Comments.Any() ? db.Comments.Max(x => x.Id) + 1 : 1
                 };
 
-                var materialsSeeder = new MaterialsSeeder(dataContainer);
+                var titlesPath = Path.Combine(this.configDirectoryPath, InitDir, DevDataTemplatesDirName, FishTitles);
+                var paragraphsPath = Path.Combine(this.configDirectoryPath, InitDir, DevDataTemplatesDirName,
+                    FishParagraphs);
+                var titles = Regex.Matches(File.ReadAllText(titlesPath), "<h1>(.*?)</h1>", RegexOptions.Singleline)
+                    .Select(x => x.Groups[1].Value).ToList();
+                var paragraphs = Regex
+                    .Matches(File.ReadAllText(paragraphsPath), "<p>(.*?)</p>", RegexOptions.Singleline)
+                    .Select(x => x.Groups[1].Value).ToList();
+
+
+                var materialsSeeder = new MaterialsSeeder(dataContainer, titles, paragraphs);
 
                 foreach (var catToken in catTokens)
                 {

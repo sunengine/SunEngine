@@ -16,7 +16,7 @@ namespace SunEngine.DataSeed
     /// </summary>
     public class MaterialsSeeder
     {
-        public struct LinesCount
+        public struct ParagraphsCount
         {
             public int Min;
             public int Max;
@@ -33,13 +33,18 @@ namespace SunEngine.DataSeed
 
         private const int MaterialSubTitleLength = 80;
 
+        protected List<string> titles;
+        protected List<string> paragraphs;
 
-        private readonly LinesCount defaultLinesCount = new LinesCount {Min = 4, Max = 30};
+        private readonly ParagraphsCount defaultMaterialParagraphsCount = new ParagraphsCount {Min = 2, Max = 8};
+        private readonly ParagraphsCount defaultCommentsParagraphsCount = new ParagraphsCount {Min = 1, Max = 2};
 
 
-        public MaterialsSeeder(DataContainer dataContainer)
+        public MaterialsSeeder(DataContainer dataContainer, List<string> titles, List<string> paragraphs)
         {
             this.dataContainer = dataContainer;
+            this.titles = titles;
+            this.paragraphs = paragraphs;
         }
 
         /*public void Seed()
@@ -68,7 +73,7 @@ namespace SunEngine.DataSeed
 
 
             if (category.IsMaterialsContainer)
-                SeedCategoryWithMaterials(category, category.MaterialTypeTitle, TitleAppendCategoryName);
+                SeedCategoryWithMaterials(category, TitleAppendCategoryName);
 
             foreach (var subCategory in dataContainer.Categories.Where(x =>
                 x.ParentId.HasValue && x.ParentId.Value == category.Id))
@@ -77,10 +82,10 @@ namespace SunEngine.DataSeed
 
         public void SeedCategoryWithMaterials(
             Category category,
-            string titleStart = null,
             bool titleAppendCategoryName = false,
             int? materialsCount = null,
-            LinesCount? linesCount = null)
+            ParagraphsCount? materialParagraphsCount = null,
+            ParagraphsCount? commentParagraphsCount = null)
         {
             if (materialsCount == null)
                 materialsCount = ran.Next(MinMaterialCount, MaxMaterialCount);
@@ -90,30 +95,46 @@ namespace SunEngine.DataSeed
 
             Console.WriteLine($"'{category.Name}' category with {materialsCount} mat, {CommentsCount} comm");
 
-            if (linesCount == null)
-                linesCount = defaultLinesCount;
+            if (materialParagraphsCount == null)
+                materialParagraphsCount = defaultMaterialParagraphsCount;
+
+            if (commentParagraphsCount == null)
+                commentParagraphsCount = defaultCommentsParagraphsCount;
 
             for (int i = 1; i <= materialsCount; i++)
             {
-                var title = titleStart != null ? titleStart + " " + i : $"Материал {i}";
+                var title = GetRandomTitle();
                 if (titleAppendCategoryName)
                     title += $" ({category.Name})";
 
-                SeedMaterial(category, title, CommentsCount,
-                    $"{titleStart ?? "Материал"} {i}, категория {category.Name}", "материал " + i,
-                    linesCount.Value);
+                SeedMaterial(category, title, CommentsCount, materialParagraphsCount.Value,
+                    commentParagraphsCount.Value);
             }
+        }
+
+        public string GetRandomTitle()
+        {
+            return titles[ran.Next(0, this.titles.Count - 1)];
+        }
+
+        public string GetRandomText(int minParagraphs, int maxParagraphs)
+        {
+            StringBuilder sb = new StringBuilder();
+            int paragraphsCount = ran.Next(minParagraphs, maxParagraphs + 1);
+            for (int i = 0; i < paragraphsCount; i++)
+            {
+                sb.AppendLine($"<p>{paragraphs[ran.Next(0, this.paragraphs.Count - 1)]}</p>");
+            }
+
+            return sb.ToString();
         }
 
         public Material SeedMaterial(
             Category category,
             string title,
-            int commentsCount,
-            string firstLine,
-            string lineElement, LinesCount linesCount)
+            int commentsCount, ParagraphsCount materialParagraphsCount, ParagraphsCount commentsParagraphsCount)
         {
             var publishDate = dataContainer.IterateCommentPublishDate();
-            int linesCountCurrent = ran.Next(linesCount.Min, linesCount.Max);
 
             int id = dataContainer.NextMaterialId();
 
@@ -121,7 +142,7 @@ namespace SunEngine.DataSeed
             {
                 Id = id,
                 Title = title,
-                Text = MakeSeedText(lineElement, 8, linesCountCurrent, firstLine),
+                Text = GetRandomText(materialParagraphsCount.Min, materialParagraphsCount.Max),
                 AuthorId = dataContainer.GetRandomUserId(),
                 CategoryId = category.Id,
                 PublishDate = publishDate,
@@ -131,7 +152,7 @@ namespace SunEngine.DataSeed
 
             if (commentsCount > 0)
             {
-                var comments = MakeComments(material, commentsCount);
+                var comments = MakeComments(material, commentsCount, commentsParagraphsCount);
 
                 material.LastActivity = comments.OrderByDescending(x => x.PublishDate).First().PublishDate;
                 material.CommentsCount = comments.Count;
@@ -144,7 +165,8 @@ namespace SunEngine.DataSeed
             return material;
         }
 
-        public IList<Comment> MakeComments(Material material, int commentsCount)
+        public IList<Comment> MakeComments(Material material, int commentsCount,
+            ParagraphsCount commentsParagraphsCount)
         {
             var addedComments = new List<Comment>();
 
@@ -153,16 +175,13 @@ namespace SunEngine.DataSeed
                 var comment = new Comment
                 {
                     Id = dataContainer.NextCommentId(),
-                    Text = "",
+                    Text = GetRandomText(commentsParagraphsCount.Min, commentsParagraphsCount.Max),
                     PublishDate = dataContainer.IterateCommentPublishDate(),
                     MaterialId = material.Id,
                     AuthorId = dataContainer.GetRandomUserId()
                 };
 
                 dataContainer.IterateCommentPublishDate();
-
-                comment.Text = MakeSeedText("комментарий " + i, 8, 4,
-                    $"Комментарий: {comment.Id}, материал {material.Id}");
 
                 addedComments.Add(comment);
             }
