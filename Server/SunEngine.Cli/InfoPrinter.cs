@@ -28,14 +28,14 @@ namespace SunEngine.Cli
             string v = fileVersionInfo.ProductVersion;
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine($@"
-    ______                _____                         
-   /  ____)              |  ___)               (o)           
+    _____                 _____                         
+   /  ___)               |  ___)               (o)           
   (  (___   _   _  ____  | |___   ____    ____  _  ____   ____ 
    \___  \ | | | ||  _ \ |  ___) |  _ \  / _  || ||  _ \ |  __)
    ____)  )| |_| || | | || |____ | | | |( (_| || || | | || |__)
-  (______/ |_____/|_| |_||______)|_| |_| \___ ||_||_| |_||_____)
-                                          __| |
-            Version: {v,-6}              (____| ".TrimStart('\n'));
+  (______/ |_____/|_| |_||______)|_| |_| \___ ||_||_| |_||____)
+                                          __| | 
+            Version: {v,-6}              (____/ ".TrimStart('\n'));
             
             Console.ResetColor();
         }

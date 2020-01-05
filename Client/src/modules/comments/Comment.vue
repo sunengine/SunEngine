@@ -106,4 +106,10 @@
         margin: 2px 12px 12px 0;
     }
 
+    .comment__text {
+        text-align: justify;
+        font-size: 20px;
+        font-weight: 300;
+    }
+
 </style>

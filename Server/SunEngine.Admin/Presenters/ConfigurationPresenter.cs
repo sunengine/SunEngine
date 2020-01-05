@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using LinqToDB;
+using Namotion.Reflection;
 using SunEngine.Core.Configuration;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Services;
@@ -25,18 +26,14 @@ namespace SunEngine.Admin.Presenters
 
         public async Task<IEnumerable<ConfigurationItemView>> LoadConfigurationAsync()
         {
-            var items = await db.ConfigurationItems.OrderBy(x => x.Name).ToListAsync();
+            var items = await db.ConfigurationItems.OrderBy(x => x.Name).ToDictionaryAsync(x=>x.Name,x=>x.Value);
+            var order = ConfigDefaults.ConfigurationItems.Select(item => item.Key).ToList();
+
             var rez = new List<ConfigurationItemView>();
-
-            foreach (var name in ConfigDefaults.ConfigurationGroupsOrder)
-            foreach (var item in items.Where(x => x.Name.StartsWith(name + ":")))
-                rez.Add(new ConfigurationItemView(item.Name, item.Value));
-
-            foreach (var item in items)
-            {
-                if (!rez.Exists(x => x.Name == item.Name))
-                    rez.Add(new ConfigurationItemView(item.Name, item.Value));
-            }
+            
+            foreach (var name in order)
+                if(items.TryGetValue(name,out string value))
+                    rez.Add(new ConfigurationItemView(name, value));
 
             return rez;
         }

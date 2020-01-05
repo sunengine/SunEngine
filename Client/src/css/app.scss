@@ -30,9 +30,9 @@ $q-field-color: #00c63b;
 
 .page-title {
     padding: $flex-gutter-md 0;
-    font-size: 1.3rem;
-    line-height: unset;
-    font-weight: 500;
+    font-size:42px;
+    line-height: 48px;
+    font-weight: 200;
     margin: 0;
 }
 
@@ -100,6 +100,9 @@ $q-field-color: #00c63b;
 
 // ——— Page paddings ————————————————————————————————————
 
+.inner-container {
+    max-width: 750px;
+}
 
 .q-page {
     padding-bottom: $flex-gutter-xl !important;
