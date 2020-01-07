@@ -5,11 +5,11 @@ using SunEngine.Core.Models.Materials;
 namespace SunEngine.Core.Models
 {
     /// <summary>
-    /// Container for materials of any type or for Categories
+    /// Container of materials (any type) or other categories
     /// </summary>
     public class Category
     {
-        public const string RootName = "Root";
+        public const string RootCategoryName = "Root";
 
         public int Id { get; set; }
 
@@ -18,6 +18,21 @@ namespace SunEngine.Core.Models
         /// Name id to browser routes and to find material by name feature
         /// </summary>
         public string Name { get; set; }
+        
+        /// <summary>
+        /// Url navigation token 
+        /// </summary>
+        public string Token { get; set; }
+
+        /// <summary>
+        /// If true all children categories would have Token in their path's like ".../ThisCategoryToken/ChildrenCategoryToken"
+        /// </summary>
+        public bool AppendTokenToSubCatsPath { get; set; }
+        
+        /// <summary>
+        /// This will be url to show this category (for breadcrumbs and other cases), if category will have custom vue page.
+        /// </summary>
+        public string CustomUrl { get; set; }
 
         public string NameNormalized { get; set; }
 
@@ -32,6 +47,9 @@ namespace SunEngine.Core.Models
         /// </summary>
         public string SubTitle { get; set; }
 
+        /// <summary>
+        /// Visual icon of this category to show on client in some cases
+        /// </summary>
         public string Icon { get; set; }
 
         /// <summary>
@@ -88,6 +106,9 @@ namespace SunEngine.Core.Models
 
         public int? CacheSettingsId { get; set; }
 
+        /// <summary>
+        /// Visual hide this category and all it's materials to all except admin
+        /// </summary>
         public bool IsHidden { get; set; }
 
         /// <summary>

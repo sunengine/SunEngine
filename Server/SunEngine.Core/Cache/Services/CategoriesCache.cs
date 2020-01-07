@@ -84,9 +84,9 @@ namespace SunEngine.Core.Cache.Services
             foreach (var category in categories.Values)
                 category.Init1ParentAndSub(categories);
 
-            RootCategory = categories.Values.FirstOrDefault(x => x.Name == Category.RootName);
+            RootCategory = categories.Values.FirstOrDefault(x => x.Name == Category.RootCategoryName);
             if (RootCategory == null)
-                throw new Exception($"Can not find category '{Category.RootName}' in data base.");
+                throw new Exception($"Can not find category '{Category.RootCategoryName}' in data base.");
 
             var categoriesList = RootCategory.Init2AllSub();
             categoriesList.Insert(0, RootCategory);

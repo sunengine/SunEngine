@@ -5,6 +5,8 @@ namespace SunEngine.Migrations
     internal static class DbColumnSizes
     {
         public const int Categories_Name = 64;
+        public const int Categories_Token = 64;
+        public const int Categories_CustomUrl = Int32.MaxValue;
         public const int Categories_Title = 256;
         public const int Categories_SubTitle = Int32.MaxValue;
         public const int Categories_LayoutName = 32;

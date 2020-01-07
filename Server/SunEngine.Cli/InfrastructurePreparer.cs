@@ -24,11 +24,11 @@ namespace SunEngine.Cli
 
         public void DoAll()
         {
-            CreateUploadImagesDirIfNotExists();
-            UpdateClientConfigJs();
+            EnsureUploadImagesDirCreated();
+            UpdateConfigJsOnClientDir();
         }
 
-        public void CreateUploadImagesDirIfNotExists()
+        public void EnsureUploadImagesDirCreated()
         {
             var uploadImagesPath = pathService.GetPath(PathNames.UploadImagesDirName);
             if (!Directory.Exists(uploadImagesPath))
@@ -38,7 +38,7 @@ namespace SunEngine.Cli
         /// <summary>
         /// Update config.js on client '/wwwroot/statics/config.js' to actual config values
         /// </summary>
-        public void UpdateClientConfigJs()
+        public void UpdateConfigJsOnClientDir()
         {
             new ConfigurationAdminService(pathService, configuration).UpdateClientScripts();
         }

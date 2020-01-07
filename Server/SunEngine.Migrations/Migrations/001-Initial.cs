@@ -5,7 +5,7 @@ using FluentMigrator;
 namespace SunEngine.Migrations.Migrations
 {
     /// <summary>
-    /// Initial migration for FluentMigrator
+    /// Initial migration
     /// </summary>
     [Migration(20190705000000)]
     public class Initial : Migration

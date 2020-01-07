@@ -82,7 +82,7 @@ namespace SunEngine.DataSeed
 
             const string seedCommandDots = SeedCommand + ":";
             if (catTokens.Contains(SeedCommand))
-                catTokens[catTokens.IndexOf(SeedCommand)] = seedCommandDots + Category.RootName;
+                catTokens[catTokens.IndexOf(SeedCommand)] = seedCommandDots + Category.RootCategoryName;
             catTokens = catTokens.Select(x => x.Substring(seedCommandDots.Length)).ToList();
 
             SeedTestData();

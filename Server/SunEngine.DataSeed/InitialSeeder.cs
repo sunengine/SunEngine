@@ -117,9 +117,9 @@ namespace SunEngine.DataSeed
                 Category rootCategory = new Category
                 {
                     Id = 1,
-                    Name = Category.RootName,
-                    NameNormalized = Normalizer.Normalize(Category.RootName),
-                    Title = Category.RootName,
+                    Name = Category.RootCategoryName,
+                    NameNormalized = Normalizer.Normalize(Category.RootCategoryName),
+                    Title = Category.RootCategoryName,
                     SortNumber = 1
                 };
                 dataContainer.RootCategory = rootCategory;
