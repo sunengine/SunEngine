@@ -40,6 +40,7 @@ namespace SunEngine.Cli
         public List<string> CategoryTokensToSeed { get; }
 
         public bool CheckDatabaseAvailability { get; }
+        
 
         public StartupConfiguration(string[] arguments)
         {
@@ -61,11 +62,9 @@ namespace SunEngine.Cli
             CategoryTokensToSeed = startupArguments.Where(x => x.StartsWith(SeedCommand)).ToList();
         }
 
-        public bool CheckNoArguments()
-        {
-            return Arguments == null || Arguments.Length == 0;
-        }
+        public bool CheckNoArguments() => Arguments == null || Arguments.Length == 0;
 
+        // Detect configuration directory and exit if it is not found
         public void InitConfigurationDirectory()
         {
             const string configArgPrefix = ConfigArgumentName + ":";

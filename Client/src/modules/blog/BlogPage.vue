@@ -1,25 +1,28 @@
 ﻿<template>
-  <q-page class="blog-page">
-    <div class="page-title-block page-padding">
-      <h2 class="page-title">
-        {{category.title}}
-      </h2>
-      <q-btn no-caps class="post-btn"
-             @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
-             :label="$tl('newPostBtn')"
-             v-if="posts && canAddArticle" icon="fas fa-plus"/>
-    </div>
-    <div v-html="category.header" v-if="category.header" class="q-mb-sm"></div>
+    <q-page class="blog-page flex flex-center">
+        <div class="inner-container">
 
-    <PostsList v-if="posts" :posts="posts"/>
+            <div class="page-title-block page-padding">
+                <h2 class="page-title">
+                    {{category.title}}
+                </h2>
+                <q-btn no-caps class="post-btn"
+                       @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
+                       :label="$tl('newPostBtn')"
+                       v-if="posts && canAddArticle" icon="fas fa-plus"/>
+            </div>
+            <div v-html="category.header" v-if="category.header" class="q-mb-sm"></div>
 
-    <LoaderWait ref="loader" v-else/>
+            <PostsList v-if="posts" :posts="posts"/>
 
-    <q-pagination class="page-padding q-mt-md" v-if="posts && posts.totalPages > 1" v-model="posts.pageIndex"
-                  color="pagination"
-                  :max-pages="12" :max="posts.totalPages" ellipses direction-links @input="pageChanges"/>
+            <LoaderWait ref="loader" v-else/>
 
-  </q-page>
+            <q-pagination class="page-padding q-mt-md" v-if="posts && posts.totalPages > 1" v-model="posts.pageIndex"
+                          color="pagination"
+                          :max-pages="12" :max="posts.totalPages" ellipses direction-links @input="pageChanges"/>
+
+        </div>
+    </q-page>
 </template>
 
 <script>

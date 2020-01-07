@@ -5,38 +5,39 @@ using System.Runtime.CompilerServices;
 
 namespace SunEngine.Cli
 {
+    /// <summary>
+    /// Class to print SunEngine information
+    /// </summary>
     public static class InfoPrinter
     {
         /// <summary>
-        /// Print this info if "dotnet SunEngine.dll" starts with no arguments.
+        /// Print warning message if "dotnet SunEngine.dll" starts with no valid arguments.
         /// </summary>
         public static void PrintNoArgumentsInfo()
         {
-            Console.WriteLine("Valid startup arguments was not provided.\nTo list available arguments run with 'help' command.\n> dotnet SunEngine.dll help\n");
+            Console.WriteLine(
+                "Valid startup arguments was not provided.\nTo list available arguments run with 'help' command.\n> dotnet SunEngine.dll help\n");
         }
 
-        public static void PrintStart()
-        {
-            PrintSunEngineLogo();
-            Console.WriteLine();
-        }
-        
-        public static void PrintSunEngineLogo()
+        /// <summary>
+        /// Print SunEngine logo 
+        /// </summary>
+        public static void PrintLogoAndVersion()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
             string v = fileVersionInfo.ProductVersion;
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine($@"
-    _____                 _____                         
-   /  ___)               |  ___)               (o)           
+    _____                 _____
+   /  ___)               |  ___)               (o)
   (  (___   _   _  ____  | |___   ____    ____  _  ____   ____ 
    \___  \ | | | ||  _ \ |  ___) |  _ \  / _  || ||  _ \ |  __)
    ____)  )| |_| || | | || |____ | | | |( (_| || || | | || |__)
-  (______/ |_____/|_| |_||______)|_| |_| \___ ||_||_| |_||____)
-                                          __| | 
-            Version: {v,-6}              (____/ ".TrimStart('\n'));
-            
+  (______/ |_____/|_| |_||______)|_| |_| \__  ||_||_| |_||____)
+                                          __| |
+            Version: {v,-6}              (____/".TrimStart('\n') + "\n");
+
             Console.ResetColor();
         }
 
@@ -76,7 +77,7 @@ namespace SunEngine.Cli
         }
 
         /// <summary>
-        /// Print version of SunEngine
+        /// Print SunEngine version
         /// </summary>
         public static void PrintVersion()
         {

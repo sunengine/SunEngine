@@ -61,6 +61,14 @@ $q-field-color: #00c63b;
     color: $grey-9;
 }
 
+// ——— Buttons ————————————————————————————————————
+
+.post-btn {
+    .q-icon {
+        font-size: 1.2em;
+    }
+}
+
 
 // ——— Menus ————————————————————————————————————
 
@@ -229,6 +237,10 @@ $paddings: (12px 18px 24px);
 
 // ——— Material styles ————————————————————————————————————
 
+.material-header {
+    font-size: 18px;
+    font-weight: 300;
+}
 
 .material-hidden {
     * {

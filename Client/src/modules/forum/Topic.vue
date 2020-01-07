@@ -1,5 +1,5 @@
 ﻿<template>
-  <div :class="['topic', 'row', {'material-hidden': topic.isHidden}, {'material-deleted': topic.deletedDate}]">
+  <div :class="['topic', 'row', 'items-stretch', {'material-hidden': topic.isHidden}, {'material-deleted': topic.deletedDate}]">
     <div class="col-xs-12 col-sm-8">
       <q-item class="topic__main-block page-padding" :to='to'>
         <q-item-section avatar>
@@ -14,7 +14,7 @@
             <q-icon name="far fa-eye-slash" v-else-if="topic.isHidden" class="q-mr-xs"/>
 
             {{topic.title}}
-            <span class="q-ml-sm" v-if="topic.deletedDate">
+            <span class="q-ml-sm " v-if="topic.deletedDate">
               [{{$tl("deleted")}}]
             </span>
             <span class="q-ml-sm" v-else-if="topic.isHidden">
@@ -49,7 +49,7 @@
     </div>
 
     <div class="topic__last-reply col-xs-12 col-sm-4" v-if="topic.lastCommentId">
-      <q-item :to='toLast'>
+      <q-item :to='toLast' class="full-height">
         <q-item-section avatar>
           <q-item-label>
             <q-avatar class="shadow-1" size="42px">
@@ -124,8 +124,8 @@
 
   .topic {
     .q-item {
-      padding-top: 8px;
-      padding-bottom: 8px;
+        padding-top:18px;
+        padding-bottom: 18px;
     }
   }
 

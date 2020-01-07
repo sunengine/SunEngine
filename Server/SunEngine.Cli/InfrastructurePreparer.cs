@@ -7,6 +7,9 @@ using SunEngine.Core.Utils;
 
 namespace SunEngine.Cli
 {
+    /// <summary>
+    /// Class to prepare directory and files site structure
+    /// </summary>
     public class InfrastructurePreparer
     {
         protected readonly IPathService pathService;
@@ -21,17 +24,20 @@ namespace SunEngine.Cli
 
         public void DoAll()
         {
-            CheckOrCreateUploadImages();
+            CreateUploadImagesDirIfNotExists();
             UpdateClientConfigJs();
         }
 
-        public void CheckOrCreateUploadImages()
+        public void CreateUploadImagesDirIfNotExists()
         {
             var uploadImagesPath = pathService.GetPath(PathNames.UploadImagesDirName);
             if (!Directory.Exists(uploadImagesPath))
                 Directory.CreateDirectory(uploadImagesPath);
         }
 
+        /// <summary>
+        /// Update config.js on client '/wwwroot/statics/config.js' to actual config values
+        /// </summary>
         public void UpdateClientConfigJs()
         {
             new ConfigurationAdminService(pathService, configuration).UpdateClientScripts();

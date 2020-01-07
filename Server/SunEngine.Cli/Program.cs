@@ -6,9 +6,12 @@ namespace SunEngine.Cli
 {
     public static class Program
     {
+        /// <summary>
+        /// Entry point of CLI
+        /// </summary>
         public static void Main(string[] args)
         {
-            InfoPrinter.PrintStart();
+            InfoPrinter.PrintLogoAndVersion();
             
             StartupConfiguration config = new StartupConfiguration(args);
 
@@ -60,32 +63,12 @@ namespace SunEngine.Cli
             DataSeed.Main DataSeed() => new DataSeed.Main(config.ConfigRootDir);
         }
 
+        // Detect if there is on of the update database command
         private static bool ShouldUpdate(StartupConfiguration startupConfiguration)
         {
             return startupConfiguration.Migrate ||
                    startupConfiguration.InitializeCoreData ||
                    startupConfiguration.SeedWithTestData;
-        }
-
-        /// <summary>
-        /// Detect configuration directory and exit if it is not exists
-        /// </summary>
-        private static void UseConfigurationDirectory(StartupConfiguration startupConfiguration)
-        {
-            bool failed = !TestIfConfigurationDirectoryExists(startupConfiguration.ConfigRootDir);
-
-            if (failed)
-                Environment.Exit(1);
-
-
-            bool TestIfConfigurationDirectoryExists(string dirPath)
-            {
-                if (Directory.Exists(dirPath))
-                    return true;
-
-                Console.WriteLine($@"Configuration directory ""{dirPath}"" does not exists.");
-                return false;
-            }
         }
     }
 }
