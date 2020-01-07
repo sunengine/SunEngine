@@ -14,6 +14,9 @@ namespace SunEngine.Core.Models
         public int Id { get; set; }
 
         //[Required, MinLength(2), RegularExpression("^[a-zA-Z-]*$")]
+        /// <summary>
+        /// Name id to browser routes and to find material by name feature
+        /// </summary>
         public string Name { get; set; }
 
         public string NameNormalized { get; set; }
@@ -24,6 +27,9 @@ namespace SunEngine.Core.Models
         /// </summary>
         public string Title { get; set; }
 
+        /// <summary>
+        /// Sub title for human
+        /// </summary>
         public string SubTitle { get; set; }
 
         public string Icon { get; set; }
@@ -39,13 +45,15 @@ namespace SunEngine.Core.Models
         /// </summary>
         public bool IsMaterialsContainer { get; set; }
 
-
         /// <summary>
         /// HTML description on the top of the page on Client
         /// </summary>
         public string Header { get; set; }
 
         public int? ParentId { get; set; }
+        /// <summary>
+        /// Parent category
+        /// </summary>
         public Category Parent { get; set; }
 
         [LinqToDB.Mapping.Association(ThisKey = "Id", OtherKey = "ParentId")]
@@ -58,10 +66,19 @@ namespace SunEngine.Core.Models
 
         public string LayoutName { get; set; }
 
+        /// <summary>
+        /// Allow admin to edit material name
+        /// </summary>
         public bool IsMaterialsNameEditable { get; set; }
 
+        /// <summary>
+        /// Allow users to edit subtitle
+        /// </summary>
         public bool IsMaterialsSubTitleEditable { get; set; }
 
+        /// <summary>
+        /// Setting json string to use on client to allow some visual or behavior settings apply
+        /// </summary>
         public string SettingsJson { get; set; }
 
         /// <summary>
@@ -73,15 +90,14 @@ namespace SunEngine.Core.Models
 
         public bool IsHidden { get; set; }
 
+        /// <summary>
+        /// If true engine will cache category list if config cache policy set to Custom
+        /// </summary>
         public bool IsCacheContent { get; set; }
 
+        /// <summary>
+        /// If set material was deleted with this date
+        /// </summary>
         public DateTime? DeletedDate { get; set; }
-    }
-
-    public enum MaterialsSubTitleInputType : short
-    {
-        None = 0,
-        Manual = 1,
-        Auto = 2
     }
 }
