@@ -82,19 +82,21 @@ namespace SunEngine.Core.Cache.Services
                 .ToDictionary(x => x.Id);
 
             foreach (var category in categories.Values)
-                category.Init1ParentAndSub(categories);
+                category.Init1_ParentAndSub(categories);
 
             RootCategory = categories.Values.FirstOrDefault(x => x.Name == Category.RootCategoryName);
             if (RootCategory == null)
                 throw new Exception($"Can not find category '{Category.RootCategoryName}' in data base.");
 
-            var categoriesList = RootCategory.Init2AllSub();
+            var categoriesList = RootCategory.Init2_AllSub();
             categoriesList.Insert(0, RootCategory);
 
-            RootCategory.Init3InitSectionsRoots();
+            RootCategory.Init3_UrlPaths();
+            
+            RootCategory.Init4_InitSectionsRoots();
 
             foreach (var category in categoriesList)
-                category.Init4SetListsAndBlockEditable();
+                category.Init5_SetListsAndFreeze();
 
             AllCategoriesByName =
                 categoriesList.ToImmutableDictionary(x => x.NameNormalized, StringComparer.OrdinalIgnoreCase);

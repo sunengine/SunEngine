@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Text.Json;
+using Flurl;
 using SunEngine.Core.Models;
 using SunEngine.Core.Utils;
 
@@ -16,6 +17,13 @@ namespace SunEngine.Core.Cache.CacheModels
 
         public string Name { get; }
 
+        public string Token { get; }
+
+        public bool AppendTokenToSubCatsPath { get; }
+
+        public string UrlPath { get; private set; } = "";
+
+        public string CustomUrl { get; }
         public string NameNormalized { get; }
 
         public string Title { get; }
@@ -63,6 +71,9 @@ namespace SunEngine.Core.Cache.CacheModels
             Id = category.Id;
             Name = category.Name;
             NameNormalized = category.NameNormalized;
+            Token = category.Token ?? category.Name;
+            AppendTokenToSubCatsPath = category.AppendTokenToSubCatsPath;
+            CustomUrl = category.CustomUrl;
             Title = category.Title;
             IsMaterialsContainer = category.IsMaterialsContainer;
             SubTitle = category.SubTitle;
@@ -81,7 +92,7 @@ namespace SunEngine.Core.Cache.CacheModels
             _allSubCategories = new List<CategoryCached>();
         }
 
-        public void Init1ParentAndSub(Dictionary<int, CategoryCached> allCategories)
+        public void Init1_ParentAndSub(Dictionary<int, CategoryCached> allCategories)
         {
             if (initialized)
                 return;
@@ -93,13 +104,13 @@ namespace SunEngine.Core.Cache.CacheModels
             }
         }
 
-        public List<CategoryCached> Init2AllSub()
+        public List<CategoryCached> Init2_AllSub()
         {
             if (initialized)
                 return null;
             foreach (var category in _subCategories)
             {
-                var list = category.Init2AllSub();
+                var list = category.Init2_AllSub();
 
                 foreach (var sub in list)
                     _allSubCategories.Add(sub);
@@ -110,22 +121,37 @@ namespace SunEngine.Core.Cache.CacheModels
             return rez;
         }
 
+        public void Init3_UrlPaths()
+        {
+            if (!AppendTokenToSubCatsPath) 
+                return;
 
-        public void Init3InitSectionsRoots(CategoryCached sectionRoot = null)
+            UrlPath = UrlPath.AppendPathSegment(Token);
+
+            foreach (var subCategory in _subCategories)
+            {
+                subCategory.UrlPath = subCategory.UrlPath.AppendPathSegment(Token);
+                subCategory.Init3_UrlPaths();
+            }
+        }
+
+
+        public void Init4_InitSectionsRoots(CategoryCached sectionRoot = null)
         {
             if (initialized)
                 return;
+            
             if (LayoutName != null)
                 sectionRoot = this;
 
             SectionRoot = sectionRoot;
 
             foreach (var category in _subCategories)
-                category.Init3InitSectionsRoots(sectionRoot);
+                category.Init4_InitSectionsRoots(sectionRoot);
         }
 
 
-        public void Init4SetListsAndBlockEditable()
+        public void Init5_SetListsAndFreeze()
         {
             if (initialized)
                 return;
