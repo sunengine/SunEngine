@@ -28,11 +28,6 @@ namespace SunEngine.Core.Models
         /// If true all children categories would have Token in their path's like ".../ThisCategoryToken/ChildrenCategoryToken"
         /// </summary>
         public bool AppendTokenToSubCatsPath { get; set; }
-        
-        /// <summary>
-        /// This will be url to show this category (for breadcrumbs and other cases), if category will have custom vue page.
-        /// </summary>
-        public string CustomUrl { get; set; }
 
         public string NameNormalized { get; set; }
 

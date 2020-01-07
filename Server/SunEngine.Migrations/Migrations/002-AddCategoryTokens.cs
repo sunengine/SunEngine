@@ -11,9 +11,7 @@ namespace SunEngine.Migrations.Migrations
             Create.Column("Token".s()).OnTable("Categories".s())
                 .AsString(DbColumnSizes.Categories_Token).Nullable();
             Create.Column("AppendTokenToSubCatsPath".s()).OnTable("Categories".s())
-                .AsBoolean().NotNullable();
-            Create.Column("CustomUrl".s()).OnTable("Categories".s())
-                .AsString(DbColumnSizes.Categories_CustomUrl).Nullable();
+                .AsBoolean().NotNullable().WithDefaultValue(false);
         }
 
         public override void Down()

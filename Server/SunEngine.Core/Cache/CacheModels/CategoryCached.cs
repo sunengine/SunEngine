@@ -23,7 +23,6 @@ namespace SunEngine.Core.Cache.CacheModels
 
         public string UrlPath { get; private set; } = "";
 
-        public string CustomUrl { get; }
         public string NameNormalized { get; }
 
         public string Title { get; }
@@ -71,9 +70,8 @@ namespace SunEngine.Core.Cache.CacheModels
             Id = category.Id;
             Name = category.Name;
             NameNormalized = category.NameNormalized;
-            Token = category.Token ?? category.Name;
+            Token = category.Token ?? category.Name.ToLower();
             AppendTokenToSubCatsPath = category.AppendTokenToSubCatsPath;
-            CustomUrl = category.CustomUrl;
             Title = category.Title;
             IsMaterialsContainer = category.IsMaterialsContainer;
             SubTitle = category.SubTitle;
@@ -123,16 +121,14 @@ namespace SunEngine.Core.Cache.CacheModels
 
         public void Init3_UrlPaths()
         {
-            if (!AppendTokenToSubCatsPath) 
-                return;
-
-            UrlPath = UrlPath.AppendPathSegment(Token);
+            if (AppendTokenToSubCatsPath)
+                foreach (var subCategory in _subCategories)
+                    subCategory.UrlPath = subCategory.UrlPath.AppendPathSegment(Token);
 
             foreach (var subCategory in _subCategories)
-            {
-                subCategory.UrlPath = subCategory.UrlPath.AppendPathSegment(Token);
                 subCategory.Init3_UrlPaths();
-            }
+
+            UrlPath = UrlPath.AppendPathSegment(Token);
         }
 
 

@@ -17,11 +17,12 @@ export default {
   getRoutes(category) {
     const name = category.name;
     const nameLower = name.toLowerCase();
+    const pathBegin =  '/' + category.urlPath;
 
     return [
       {
         name: `cat-${name}`,
-        path: '/' + nameLower,
+        path: pathBegin,
         components: {
           default: ArticlesPage,
           navigation: null
@@ -37,7 +38,7 @@ export default {
       },
       {
         name: `cat-${name}-mat`,
-        path: `/${nameLower}/:idOrName`,
+        path: `/${pathBegin}/:idOrName`,
         components: {
           default: Material,
           navigation: null

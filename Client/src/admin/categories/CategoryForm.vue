@@ -1,102 +1,121 @@
 ﻿<template>
-  <div class="category-form q-gutter-y-xs">
+    <div class="category-form q-gutter-y-xs">
 
-    <q-input class="category-form__name" ref="name" v-model="category.name" :label="$tl('name')" :rules="rules.name"/>
+        <q-input class="category-form__name" ref="name" v-model="category.name" :label="$tl('name')"
+                 :rules="rules.name"/>
 
-    <q-input class="category-form__title" ref="title" v-model="category.title" :label="$tl('title')" :rules="rules.title"/>
+        <q-input class="category-form__title" ref="title" v-model="category.title" :label="$tl('title')"
+                 :rules="rules.title"/>
 
-    <q-input class="category-form__sub-title" clearable  bottom-slots ref="subTitle" v-model="category.subTitle" autogrow type="textarea"
-             :label="$tl('subTitle')" :rules="rules.subTitle" />
+        <q-input class="category-form__sub-title" clearable bottom-slots ref="subTitle" v-model="category.subTitle"
+                 autogrow type="textarea"
+                 :label="$tl('subTitle')" :rules="rules.subTitle"/>
 
-    <q-input v-model="category.icon" label="Icon" clearable>
-      <template v-slot:prepend v-if="category.icon">
-        <q-icon :name="category.icon" color="positive">
+        <q-input class="category-form__token" ref="token" v-model="category.token" :label="$tl('token')"
+                 :rules="rules.token"/>
 
-        </q-icon>
-      </template>
-      <template v-slot:append>
-        <q-icon name="fas fa-icons" class="cursor-pointer">
-          <q-popup-proxy v-model="showIconPicker">
-            <div class="q-pa-sm">
-              <q-input dense class="q-mb-md" v-model="iconFilter" placeholder="Filter" clearable>
-                <template v-slot:prepend>
-                  <q-icon name="fas fa-search"/>
-                </template>
-              </q-input>
-              <q-icon-picker
-                v-model="category.icon"
-                :filter="iconFilter"
-                icon-set="fontawesome-v5"
-                tooltips
-                :pagination.sync="pagination"
-                style="height: 300px; width: 300px; background-color: white;"
-              />
-            </div>
-          </q-popup-proxy>
-        </q-icon>
-      </template>
-    </q-input>
+        <q-checkbox class="category-form__append-token-to-sub-cats-path"
+                    :toggle-indeterminate="false"
+                    v-model="category.appendTokenToSubCatsPath"
+                    :label="$tl('appendTokenToSubCatsPath')"/>
 
-    <div class="category-form__ header text-grey-6">{{$tl('header')}}</div>
+        <q-input v-model="category.icon" label="Icon" clearable>
+            <template v-slot:prepend v-if="category.icon">
+                <q-icon :name="category.icon" color="positive">
 
-    <SunEditor bottom-slots class="category-form__editor" ref="header" v-model="category.header"/>
+                </q-icon>
+            </template>
+            <template v-slot:append>
+                <q-icon name="fas fa-icons" class="cursor-pointer">
+                    <q-popup-proxy v-model="showIconPicker">
+                        <div class="q-pa-sm">
+                            <q-input dense class="q-mb-md" v-model="iconFilter" placeholder="Filter" clearable>
+                                <template v-slot:prepend>
+                                    <q-icon name="fas fa-search"/>
+                                </template>
+                            </q-input>
+                            <q-icon-picker
+                                v-model="category.icon"
+                                :filter="iconFilter"
+                                icon-set="fontawesome-v5"
+                                tooltips
+                                :pagination.sync="pagination"
+                                style="height: 300px; width: 300px; background-color: white;"
+                            />
+                        </div>
+                    </q-popup-proxy>
+                </q-icon>
+            </template>
+        </q-input>
 
-    <q-field  class="category-form__parent cursor-pointer" :error="!category.parentId" :label="$tl('selectParent')" stack-label>
-      <template v-slot:control>
-        <div tabindex="0" class="no-outline full-width">
-          {{parentCategoryTitle}}
-        </div>
-      </template>
-      <template v-slot:prepend>
-        <q-icon name="fas fa-folder" class="q-mr-xs"/>
-      </template>
-      <template v-slot:append>
-        <q-icon name="fas fa-caret-down"></q-icon>
-      </template>
-      <template v-slot:error>
-        {{$tl('validation.parent.required')}}
-      </template>
-      <q-menu fit auto-close>
-        <q-tree
-          :nodes="where"
-          default-expand-all
-          :selected.sync="category.parentId"
-          node-key="id"
-          label-key="title"
-        >
-          <template v-slot:default-header="prop">
-            <div style="margin:0; padding: 0;">
-              <q-icon v-if="prop.node.icon" :name="prop.node.icon" class="q-mx-sm" :color="prop.node.iconColor"
-                      size="16px"/>
-              <span>{{prop.node.title}}</span>
-            </div>
-          </template>
-        </q-tree>
-      </q-menu>
-    </q-field>
+        <div class="category-form__ header text-grey-6">{{$tl('header')}}</div>
 
-    <q-select bottom-slots emit-value map-options :label="$tl('layout')" v-model="category.layoutName"
-              :options="layoutOptions">
-      <q-icon slot="prepend" name="fas fa-boxes"/>
-    </q-select>
+        <SunEditor bottom-slots class="category-form__editor" ref="header" v-model="category.header"/>
 
-    <q-input clearable class="category-form__settings-json" ref="settingsJson" type="textarea" v-model="category.settingsJson" autogrow :label="$tl('settingsJson')"
-             :rules="rules.settingsJson"/>
+        <q-field class="category-form__parent cursor-pointer" :error="!category.parentId" :label="$tl('selectParent')"
+                 stack-label>
+            <template v-slot:control>
+                <div tabindex="0" class="no-outline full-width">
+                    {{parentCategoryTitle}}
+                </div>
+            </template>
+            <template v-slot:prepend>
+                <q-icon name="fas fa-folder" class="q-mr-xs"/>
+            </template>
+            <template v-slot:append>
+                <q-icon name="fas fa-caret-down"></q-icon>
+            </template>
+            <template v-slot:error>
+                {{$tl('validation.parent.required')}}
+            </template>
+            <q-menu fit auto-close>
+                <q-tree
+                    :nodes="where"
+                    default-expand-all
+                    :selected.sync="category.parentId"
+                    node-key="id"
+                    label-key="title"
+                >
+                    <template v-slot:default-header="prop">
+                        <div style="margin:0; padding: 0;">
+                            <q-icon v-if="prop.node.icon" :name="prop.node.icon" class="q-mx-sm"
+                                    :color="prop.node.iconColor"
+                                    size="16px"/>
+                            <span>{{prop.node.title}}</span>
+                        </div>
+                    </template>
+                </q-tree>
+            </q-menu>
+        </q-field>
 
-    <q-checkbox  class="category-form__is-material-container" :toggle-indeterminate="false" v-model="category.isMaterialsContainer"
-                @input="isMaterialsContainerChanged"
-                :label="$tl('isMaterialsContainerCb')"/>
+        <q-select bottom-slots emit-value map-options :label="$tl('layout')" v-model="category.layoutName"
+                  :options="layoutOptions">
+            <q-icon slot="prepend" name="fas fa-boxes"/>
+        </q-select>
 
-    <q-checkbox class="category-form__is-material-names" v-if="category.isMaterialsContainer" :toggle-indeterminate="false"
-                v-model="category.isMaterialsNameEditable"
-                :label="$tl('isMaterialsNameEditableCb')"/>
+        <q-input clearable class="category-form__settings-json" ref="settingsJson" type="textarea"
+                 v-model="category.settingsJson" autogrow :label="$tl('settingsJson')"
+                 :rules="rules.settingsJson"/>
 
-    <q-checkbox class="category-form__is-sub-title-editable" :toggle-indeterminate="false" v-model="category.isMaterialsSubTitleEditable" :label="$tl('isMaterialsSubTitleEditableCb')"/>
+        <q-checkbox class="category-form__is-material-container" :toggle-indeterminate="false"
+                    v-model="category.isMaterialsContainer"
+                    @input="isMaterialsContainerChanged"
+                    :label="$tl('isMaterialsContainerCb')"/>
 
-    <q-checkbox class="category-form__is-cache" :toggle-indeterminate="false" v-model="category.isCacheContent" :label="$tl('isCaching')"/>
+        <q-checkbox class="category-form__is-material-names" v-if="category.isMaterialsContainer"
+                    :toggle-indeterminate="false"
+                    v-model="category.isMaterialsNameEditable"
+                    :label="$tl('isMaterialsNameEditableCb')"/>
 
-    <q-checkbox class="category-form__is-hidden" :toggle-indeterminate="false" v-model="category.isHidden" :label="$tl('hideCb')"/>
-  </div>
+        <q-checkbox class="category-form__is-sub-title-editable" :toggle-indeterminate="false"
+                    v-model="category.isMaterialsSubTitleEditable" :label="$tl('isMaterialsSubTitleEditableCb')"/>
+
+        <q-checkbox class="category-form__is-cache" :toggle-indeterminate="false" v-model="category.isCacheContent"
+                    :label="$tl('isCaching')"/>
+
+        <q-checkbox class="category-form__is-hidden" :toggle-indeterminate="false" v-model="category.isHidden"
+                    :label="$tl('hideCb')"/>
+    </div>
 </template>
 
 <script>
@@ -140,6 +159,10 @@
                 value => value.length >= 2 || this.$tl('validation.name.minLength'),
                 value => value.length <= config.DbColumnSizes.Categories_Name || this.$tl('validation.name.maxLength'),
                 value => /^[a-zA-Z0-9_-]*$/.test(value) || this.$tl('validation.name.allowedChars'),
+            ],
+            token: [
+                value => value.length <= config.DbColumnSizes.Categories_Name || this.$tl('validation.token.maxLength'),
+                value => /^[a-zA-Z0-9-]*$/.test(value) || this.$tl('validation.token.allowedChars'),
             ],
             title: [
                 value => !!value || this.$tl('validation.title.required'),
@@ -235,6 +258,7 @@
             },
             validate() {
                 this.$refs.name.validate();
+                this.$refs.token.validate();
                 this.$refs.title.validate();
             },
             getAllCategories() {
@@ -262,10 +286,10 @@
 
 <style lang="scss">
 
-  .category-form {
-    .q-checkbox {
-      display: flex;
+    .category-form {
+        .q-checkbox {
+            display: flex;
+        }
     }
-  }
 
 </style>

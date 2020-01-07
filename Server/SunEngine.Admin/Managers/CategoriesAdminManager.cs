@@ -26,11 +26,10 @@ namespace SunEngine.Admin.Managers
         {
             category.Name = category.Name.Trim();
             category.NameNormalized = Normalizer.Normalize(category.Name);
-            category.Title = category.Title;
 
             ValidateCategory(category);
 
-
+            category.Token = category.Token?.SetNullIfEmptyTrim();
             category.SubTitle = category.SubTitle?.SetNullIfEmptyTrim();
             category.Icon = category.Icon?.SetNullIfEmptyTrim();
             category.SettingsJson = category.SettingsJson?.MakeJsonText();
@@ -77,6 +76,8 @@ namespace SunEngine.Admin.Managers
 
             ValidateCategory(category);
 
+            category.Token = categoryUpdate.Token?.SetNullIfEmptyTrim();
+            category.AppendTokenToSubCatsPath = categoryUpdate.AppendTokenToSubCatsPath;
             category.SubTitle = categoryUpdate.SubTitle?.SetNullIfEmptyTrim();
             category.Icon = categoryUpdate.Icon?.SetNullIfEmptyTrim();
             category.MaterialTypeTitle = categoryUpdate.MaterialTypeTitle?.SetNullIfEmptyTrim();

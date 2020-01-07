@@ -10,6 +10,8 @@ export default {
     CategoryForm: {
         name: "Именной идентификатор (eng)",
         title: "Заголовок",
+        token: "Токен URL",
+        appendTokenToSubCatsPath: "Добавлять токен в дочерние категории",
         subTitle: "Подзаголовок",
         icon: "Иконка",
         header: "Шапка",
@@ -33,6 +35,10 @@ export default {
                 minLength: "Имя (eng) должно быть не менее чем из 2 букв",
                 allowedChars: "Имя (eng) должно состоять из символов `a-z`, `A-Z`, `0-9`, `-`",
                 maxLength: `Имя (eng) должено состоять не более чем из ${config.DbColumnSizes.Categories_Name} символов`,
+            },
+            token: {
+                allowedChars: "Токен URL должен состоять из символов `a-z`, `A-Z`, `0-9`, `-`",
+                maxLength: `Токен URL должен состоять не более чем из ${config.DbColumnSizes.Categories_Token} символов`,
             },
             title: {
                 required: "Введите заголовок категории",

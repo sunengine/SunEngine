@@ -33,6 +33,7 @@
             return {
                 category: {
                     name: '',
+                    token: '',
                     title: '',
                     subTitle: '',
                     icon: '',
@@ -46,7 +47,8 @@
                     areaRoot: false,
                     parentId: this.parentCategoryId,
                     isHidden: false,
-                    isCacheContent: false
+                    isCacheContent: false,
+                    appendTokenToSubCatsPath: false
                 },
                 loading: false
             }

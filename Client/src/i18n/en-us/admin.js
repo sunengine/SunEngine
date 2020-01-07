@@ -11,6 +11,8 @@ export default {
         name: "Id name (eng)",
         title: "Title",
         subTitle: "Subtitle",
+        token: "URL token",
+        appendTokenToSubCatsPath: "Append token to sub categories path's",
         icon: "Icon",
         header: "Header",
         selectParent: "Parent category",
@@ -33,6 +35,10 @@ export default {
                 minLength: "Name (eng) must be at least 2 letters",
                 maxLength: `Имя (eng) must contain max ${config.DbColumnSizes.Categories_Name} chars`,
                 allowedChars: "The name (eng) must consist of the characters `a-z`, `A-Z`, `0-9`, `-`"
+            },
+            token: {
+                allowedChars: "URL token must consist of the characters `a-z`, `A-Z`, `0-9`, `-`",
+                maxLength: `URL token must contain max ${config.DbColumnSizes.Categories_Token} chars`,
             },
             title: {
                 required: "Enter category title",
