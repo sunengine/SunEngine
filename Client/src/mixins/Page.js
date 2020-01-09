@@ -2,8 +2,7 @@ export default {
     data() {
         return {
             title: " ",
-            mounted1: false
-            //  category: null,
+            mounted: false
             //  centered: false
         }
     },
@@ -13,11 +12,11 @@ export default {
         }
     },
     mounted() {
-        this.mounted1 = true;
+        this.mounted = true;
     },
     watch: {
-        'mounted1': function () {
-            this.$store.state.mounted = this.mounted1;
+        'mounted': function () {
+            this.$store.state.mounted = this.mounted;
         }
     },
     beforeCreate() {
