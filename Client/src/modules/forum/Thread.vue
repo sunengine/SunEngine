@@ -6,11 +6,11 @@
         {{thisTitle}}
       </h2>
       <q-btn no-caps class="thread__post-btn post-btn"
-             @click="$router.push({name:'CreateMaterial',params:{categoriesNames: thread.sectionRoot.name, initialCategoryName: thread.name}})"
+             @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.sectionRoot.name, initialCategoryName: category.name}})"
              :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus"/>
     </div>
 
-    <div v-if="thread.header" class="q-mb-sm" v-html="thread.header"></div>
+    <div v-if="category.header" class="q-mb-sm" v-html="category.header"></div>
 
     <LoaderWait ref="loader" v-if="!topics.items"/>
 
@@ -77,13 +77,13 @@
         },
         computed: {
             thisTitle() {
-                return this.pageTitle ?? this.thread.title;
+                return this.pageTitle ?? this.category.title;
             },
             canAddTopic() {
-                return this.thread?.categoryPersonalAccess?.MaterialWrite; // || this.thread?.categoryPersonalAccess?.MaterialWriteWithModeration;
+                return this.category?.categoryPersonalAccess?.MaterialWrite; // || this.category?.categoryPersonalAccess?.MaterialWriteWithModeration;
             },
-            thread() {
-                return this.$store.getters.getCategory(this.categoryName);
+            category() {
+                return this.$store.state.currentCategory = this.$store.getters.getCategory(this.categoryName);
             }
         },
         beforeCreate() {

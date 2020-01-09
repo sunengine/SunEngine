@@ -8,11 +8,6 @@
 
             <div v-else class="page-padding-top"></div>
 
-            <div class="material__category q-mb-md" v-if="showCategory">
-                <span class="material__category-label text-grey-7">{{$tl("category")}} </span>
-                <router-link class="link" :to="category.getRoute()">{{category.title}}</router-link>
-            </div>
-
             <div v-if="material.deletedDate" class="text-red q-mb-md">
                 <q-chip icon="fas fa-trash" color="red" text-color="white" :label="$tl('deleted')"/>
             </div>
@@ -135,7 +130,7 @@
                 return this.comments.length - 1;
             },
             category() {
-                return this.$store.getters.getCategory(this.categoryName);
+                return this.$store.state.currentCategory = this.$store.getters.getCategory(this.categoryName);
             },
             showTitle() {
                 return this.category
@@ -296,8 +291,6 @@
 <style lang="scss">
 
     .material {
-
-
         .q-chip {
             background-color: #e5fbe3;
         }
@@ -317,10 +310,6 @@
         width: 42px !important;
         height: 42px !important;
         margin-right: 12px;
-    }
-
-    .material__category {
-        margin-top: -10px;
     }
 
     .material__tags {
