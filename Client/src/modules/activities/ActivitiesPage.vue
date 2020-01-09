@@ -29,6 +29,7 @@
             }
         },
         beforeCreate() {
+            this.$options.centered = true;
             this.$options.components.ActivitiesList = require('sun').ActivitiesList;
         },
         created() {

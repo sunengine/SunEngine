@@ -1,27 +1,24 @@
 ﻿<template>
-    <q-page class="blog-page flex flex-center">
-        <div class="inner-container">
-
-            <div class="page-title-block page-padding">
-                <h2 class="page-title">
-                    {{category.title}}
-                </h2>
-                <q-btn no-caps class="post-btn"
-                       @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
-                       :label="$tl('newPostBtn')"
-                       v-if="posts && canAddArticle" icon="fas fa-plus"/>
-            </div>
-            <div v-html="category.header" v-if="category.header" class="q-mb-sm"></div>
-
-            <PostsList v-if="posts" :posts="posts"/>
-
-            <LoaderWait ref="loader" v-else/>
-
-            <q-pagination class="page-padding q-mt-md" v-if="posts && posts.totalPages > 1" v-model="posts.pageIndex"
-                          color="pagination"
-                          :max-pages="12" :max="posts.totalPages" ellipses direction-links @input="pageChanges"/>
-
+    <q-page class="blog-page">
+        <div class="page-title-block page-padding">
+            <h2 class="page-title">
+                {{category.title}}
+            </h2>
+            <q-btn no-caps class="post-btn"
+                   @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
+                   :label="$tl('newPostBtn')"
+                   v-if="posts && canAddArticle" icon="fas fa-plus"/>
         </div>
+        <div v-html="category.header" v-if="category.header" class="q-mb-sm"></div>
+
+        <PostsList v-if="posts" :posts="posts"/>
+
+        <LoaderWait ref="loader" v-else/>
+
+        <q-pagination class="page-padding q-mt-md" v-if="posts && posts.totalPages > 1" v-model="posts.pageIndex"
+                      color="pagination"
+                      :max-pages="12" :max="posts.totalPages" ellipses direction-links @input="pageChanges"/>
+
     </q-page>
 </template>
 
@@ -70,6 +67,7 @@
             }
         },
         beforeCreate() {
+            this.$options.centered = true;
             this.$options.components.PostsList = require('sun').PostsList;
         },
         async created() {

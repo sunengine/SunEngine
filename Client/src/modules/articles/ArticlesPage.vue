@@ -75,6 +75,7 @@
             }
         },
         beforeCreate() {
+            this.$options.centered = true;
             this.$options.components.ArticlesList = require('sun').ArticlesList;
         },
         created() {

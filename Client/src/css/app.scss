@@ -108,8 +108,14 @@ $q-field-color: #00c63b;
 
 // ——— Page paddings ————————————————————————————————————
 
-.inner-container {
-    max-width: 750px;
+.center-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    * {
+        max-width: 750px;
+    }
 }
 
 .q-page {

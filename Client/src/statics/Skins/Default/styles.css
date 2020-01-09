@@ -1,6 +1,5 @@
 .skin-default html {
   color: #06000d;
-  font-family: "Open Sans", sans-serif;
 }
 .skin-default .link {
   text-decoration: none;
@@ -45,9 +44,6 @@
 }
 .skin-default .layout__toolbar {
   background-color: #24c7ff;
-}
-.skin-default .layout__title-block {
-  font-family: "Jomolhari";
 }
 .skin-default .layout__title {
   letter-spacing: 1.4px;

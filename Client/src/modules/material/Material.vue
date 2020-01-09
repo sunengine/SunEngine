@@ -1,92 +1,90 @@
 ﻿<template>
 
-    <q-page class="material flex flex-center">
-        <div class="inner-container">
-            <div v-if="material" class="page-padding ">
-                <h2 v-if="showTitle" class="page-title">
-                    {{material.title}}
-                </h2>
+    <q-page class="material">
+        <div v-if="material" class="page-padding ">
+            <h2 v-if="showTitle" class="page-title">
+                {{material.title}}
+            </h2>
 
-                <div v-else class="page-padding-top"></div>
+            <div v-else class="page-padding-top"></div>
 
-                <div class="material__category q-mb-md" v-if="showCategory">
-                    <span class="material__category-label text-grey-7">{{$tl("category")}} </span>
-                    <router-link class="link" :to="category.getRoute()">{{category.title}}</router-link>
-                </div>
-
-                <div v-if="material.deletedDate" class="text-red q-mb-md">
-                    <q-chip icon="fas fa-trash" color="red" text-color="white" :label="$tl('deleted')"/>
-                </div>
-
-                <div class="material__text q-mb-lg" v-html="material.text">
-                </div>
-
-                <div v-if="showFooter && material.tags && material.tags.length > 0" class="material__tags q-mt-lg">
-                    {{$tl("tags")}}
-                    <q-chip class="q-mx-xs" dense v-for="tag in material.tags" :key="tag">
-                        {{tag}}
-                    </q-chip>
-                </div>
-
-                <div v-if="showFooter" class="material__footer q-gutter-x-lg q-py-sm flex align-center">
-
-                    <div v-if="showUser" class="material__author q-mr-md">
-                        <router-link class="link" :to="{name: 'User', params: {link: material.authorLink}}">
-                            <img class="avatar material__avatar" :src="$avatarPath(material.authorAvatar)"/>{{material.authorName}}
-                        </router-link>
-                    </div>
-
-                    <div class="grow"></div>
-
-                    <div class="material-edit-btn edit-btn-block" v-if="canEdit">
-                        <a class="link" href="#"
-                           @click.prevent="$router.push({name: 'EditMaterial', params: {id: material.id}})">
-                            {{$tl("edit")}}</a>
-                    </div>
-
-                    <div v-if="!material.deletedDate && canDelete" class="material-footer-info-block">
-                        <a class="link" href="#" @click.prevent="deleteMaterial">
-                            <q-icon name="fas fa-trash-alt"/>
-                        </a>
-                    </div>
-
-                    <div v-if="material.deletedDate && canRestore" class="material-footer-info-block">
-                        <a class="link" href="#" @click.prevent="restoreMaterial">
-                            <q-icon name="fas fa-trash-restore"/>
-                        </a>
-                    </div>
-
-                    <div v-if="showVisitsCount" class="material__visits material-footer-info-block">
-                        <q-icon name="far fa-eye" class="q-mr-xs"/>
-                        {{material.visitsCount}}
-                    </div>
-                    <div v-if="showDate" class="material__date material-footer-info-block">
-                        <q-icon name="far fa-clock" class="q-mr-xs"/>
-                        {{$formatDate(material.publishDate)}}
-                    </div>
-
-                </div>
-
-                <div class="clear"></div>
+            <div class="material__category q-mb-md" v-if="showCategory">
+                <span class="material__category-label text-grey-7">{{$tl("category")}} </span>
+                <router-link class="link" :to="category.getRoute()">{{category.title}}</router-link>
             </div>
 
-            <div id="material-comments" v-if="material && comments && comments.length > 0" class="material__comments">
+            <div v-if="material.deletedDate" class="text-red q-mb-md">
+                <q-chip icon="fas fa-trash" color="red" text-color="white" :label="$tl('deleted')"/>
+            </div>
 
+            <div class="material__text q-mb-lg" v-html="material.text">
+            </div>
+
+            <div v-if="showFooter && material.tags && material.tags.length > 0" class="material__tags q-mt-lg">
+                {{$tl("tags")}}
+                <q-chip class="q-mx-xs" dense v-for="tag in material.tags" :key="tag">
+                    {{tag}}
+                </q-chip>
+            </div>
+
+            <div v-if="showFooter" class="material__footer q-gutter-x-lg q-py-sm flex align-center">
+
+                <div v-if="showUser" class="material__author q-mr-md">
+                    <router-link class="link" :to="{name: 'User', params: {link: material.authorLink}}">
+                        <img class="avatar material__avatar" :src="$avatarPath(material.authorAvatar)"/>{{material.authorName}}
+                    </router-link>
+                </div>
+
+                <div class="grow"></div>
+
+                <div class="material-edit-btn edit-btn-block" v-if="canEdit">
+                    <a class="link" href="#"
+                       @click.prevent="$router.push({name: 'EditMaterial', params: {id: material.id}})">
+                        {{$tl("edit")}}</a>
+                </div>
+
+                <div v-if="!material.deletedDate && canDelete" class="material-footer-info-block">
+                    <a class="link" href="#" @click.prevent="deleteMaterial">
+                        <q-icon name="fas fa-trash-alt"/>
+                    </a>
+                </div>
+
+                <div v-if="material.deletedDate && canRestore" class="material-footer-info-block">
+                    <a class="link" href="#" @click.prevent="restoreMaterial">
+                        <q-icon name="fas fa-trash-restore"/>
+                    </a>
+                </div>
+
+                <div v-if="showVisitsCount" class="material__visits material-footer-info-block">
+                    <q-icon name="far fa-eye" class="q-mr-xs"/>
+                    {{material.visitsCount}}
+                </div>
+                <div v-if="showDate" class="material__date material-footer-info-block">
+                    <q-icon name="far fa-clock" class="q-mr-xs"/>
+                    {{$formatDate(material.publishDate)}}
+                </div>
+
+            </div>
+
+            <div class="clear"></div>
+        </div>
+
+        <div id="material-comments" v-if="material && comments && comments.length > 0" class="material__comments">
+
+            <hr class="material__comments-sep"/>
+
+            <div v-for="(comment,index) in comments" :key="comment.id">
+                <CommentContainer class="page-padding" :comment="comment" :checkLastOwn="checkLastOwn"
+                                  :categoryPersonalAccess="categoryPersonalAccess"
+                                  :isLast="index === maxCommentNumber"/>
                 <hr class="material__comments-sep"/>
-
-                <div v-for="(comment,index) in comments" :key="comment.id">
-                    <CommentContainer class="page-padding" :comment="comment" :checkLastOwn="checkLastOwn"
-                                      :categoryPersonalAccess="categoryPersonalAccess"
-                                      :isLast="index === maxCommentNumber"/>
-                    <hr class="material__comments-sep"/>
-                </div>
             </div>
+        </div>
 
-            <LoaderWait v-if="!material || !comments"/>
+        <LoaderWait v-if="!material || !comments"/>
 
-            <div class="material__write-comment q-mt-md" v-if="canCommentWrite">
-                <CreateComment class="page-padding" @done="commentAdded" :materialId="material.id"/>
-            </div>
+        <div class="material__write-comment q-mt-md" v-if="canCommentWrite">
+            <CreateComment class="page-padding" @done="commentAdded" :materialId="material.id"/>
         </div>
     </q-page>
 
@@ -283,6 +281,7 @@
             }
         },
         beforeCreate() {
+            this.$options.centered = true;
             this.$options.components.CommentContainer = require('sun').CommentContainer;
             this.$options.components.CreateComment = require('sun').CreateComment;
         },

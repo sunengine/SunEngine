@@ -87,6 +87,7 @@
             }
         },
         beforeCreate() {
+            this.$options.centered = true;
             this.$options.components.Topic = require('sun').Topic;
         },
         methods: {

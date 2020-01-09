@@ -79,9 +79,10 @@
             }
         },
         beforeCreate() {
+            this.$options.centered = true;
             this.$options.components.PostsMultiCat = require('sun').PostsMultiCat;
         },
-        async created() {
+        created() {
             this.title = this.component.settings.Title;
         }
     }
