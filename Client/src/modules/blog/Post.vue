@@ -103,8 +103,6 @@
 <style lang="scss">
 
     .post {
-        padding-bottom: 20px;
-        padding-top: 40px;
 
         .avatar {
             margin-right: 12px;

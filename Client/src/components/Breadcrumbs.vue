@@ -2,7 +2,7 @@
     <div class="breadcrumbs">
         <q-breadcrumbs v-if="category" class="text-grey" active-color="purple">
             <q-breadcrumbs-el :key="cat.id" :exact="true" v-for="cat of breadCrumbsCategories"
-                              :class="{'breadcrumbs--no-route' : !cat.route}" :to="cat.route"
+                              :class="cat.route ? 'breadcrumbs--route' : 'breadcrumbs--no-route'" :to="cat.route"
                               :label="cat.title"/>
         </q-breadcrumbs>
     </div>
@@ -52,6 +52,10 @@
 </script>
 
 <style lang="scss">
+
+    .breadcrumbs--route {
+        color: #00acc1;
+    }
 
     .breadcrumbs--no-route {
         color: $grey-6;

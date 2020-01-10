@@ -321,9 +321,5 @@
         text-align: center
     }
 
-    .material__text {
-        text-align: justify;
-        font-size: 20px;
-        font-weight: 300;
-    }
+
 </style>
