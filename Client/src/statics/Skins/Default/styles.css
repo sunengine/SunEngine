@@ -148,6 +148,11 @@
 .skin-default .side-panel .q-router-link--active .q-item__section--avatar {
   color: black;
 }
+.skin-default .material__text, .skin-default .post__text, .skin-default .comment__text {
+  text-align: justify;
+  font-size: 18px;
+  font-weight: 300;
+}
 .skin-default .material__text h3, .skin-default .post__text h3, .skin-default .comment__text h3 {
   font-size: 1.55rem;
   font-weight: 500;
