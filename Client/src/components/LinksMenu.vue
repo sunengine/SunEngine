@@ -1,17 +1,17 @@
 ﻿<template>
-  <span class="links-menu">
-    <template v-if="menuItem.subMenuItems" v-for="(subItem,index) of menuItem.subMenuItems">
-      <router-link :class="classes" v-if="subItem.to" :to="subItem.to">{{subItem.title}}</router-link>
-      <a :class="classes" :href="subItem.externalUrl" target="_blank"
-         v-else-if="subItem.externalUrl">{{subItem.title}}</a>
-      <span v-else>{{subItem.title}}</span>
-      <span class="links-menu__separator mi1">
-        <slot v-if="index !== menuItem.subMenuItems.length-1">
-
-        </slot>
-      </span>
-    </template>
-  </span>
+    <nav>
+        <span class="links-menu">
+            <template v-if="menuItem.subMenuItems" v-for="(subItem,index) of menuItem.subMenuItems">
+                <router-link :class="classes" v-if="subItem.to" :to="subItem.to">{{subItem.title}}</router-link>
+                <a :class="classes" :href="subItem.externalUrl" target="_blank"            v-else-if="subItem.externalUrl">{{subItem.title}}</a>
+                <span v-else>{{subItem.title}}</span>
+                <span class="links-menu__separator mi1">
+                    <slot v-if="index !== menuItem.subMenuItems.length-1">
+                    </slot>
+                </span>
+            </template>
+        </span>
+    </nav>
 </template>
 
 <script>

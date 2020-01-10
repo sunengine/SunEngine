@@ -1,8 +1,8 @@
 <template>
     <q-page class="news-2-col-page">
-        <h2 class="page-title page-padding ">
+        <h1 class="page-title page-padding ">
             {{title}}
-        </h2>
+        </h1>
         <div v-if="subTitle" class="page-sub-title page-padding">
             {{subTitle}}
         </div>

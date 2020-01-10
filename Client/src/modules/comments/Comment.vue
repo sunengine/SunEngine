@@ -1,36 +1,39 @@
 ﻿<template>
-    <div :id="'comment-'+comment.id" class="comment">
-        <img class="comment__avatar avatar" :src="$avatarPath(comment.authorAvatar)"/>
+    <section>
+        <article>
+            <div :id="'comment-'+comment.id" class="comment">
+                <img class="comment__avatar avatar" :src="$avatarPath(comment.authorAvatar)"/>
 
-        <div class="q-my-md">
-            <div class="q-mb-xs flex">
-                <div class="grow">
-                    <router-link class="link" :to="{name: 'User', params: {link: comment.authorLink}}">
-                        {{comment.authorName}}
-                    </router-link>
-                </div>
-                <div class="edit-btn-block q-gutter-x-md">
+                <div class="q-my-md">
+                    <div class="q-mb-xs flex">
+                        <div class="grow">
+                            <router-link class="link" :to="{name: 'User', params: {link: comment.authorLink}}">
+                                {{comment.authorName}}
+                            </router-link>
+                        </div>
+                        <div class="edit-btn-block q-gutter-x-md">
           <span v-if="canEdit">
             <a class="link" href="#" @click.prevent="$emit('goEdit')">{{$tl("edit")}}</a>
           </span>
-                    <span v-if="canMoveToTrash">
+                            <span v-if="canMoveToTrash">
             <a class="link" href="#" @click.prevent="moveToTrash"><q-icon name="fas fa-trash-alt"/></a>
           </span>
-                    <span class="material-footer-info-block">
+                            <span class="material-footer-info-block">
               <q-icon name="far fa-clock" class="q-mr-xs"/> {{ $formatDate(comment.publishDate) }}
           </span>
-                    <span>
+                            <span>
             <a class="link" @click="linkToClipboard" :href="$route.path + '#comment-' + comment.id">#</a>
           </span>
+                        </div>
+                    </div>
+                    <div class="comment__text" v-html="comment.text">
+
+                    </div>
+                    <div class="clear"></div>
                 </div>
             </div>
-            <div class="comment__text" v-html="comment.text">
-
-            </div>
-            <div class="clear"></div>
-        </div>
-
-    </div>
+        </article>
+    </section>
 </template>
 
 <script>
@@ -57,7 +60,7 @@
                 e.preventDefault();
                 const link = window.location.href.split("#")[0] + '#comment-' + this.comment.id;
                 copyToClipboard(link)
-                    .then(() =>  this.$successNotify(this.$tl("linkCopied")))
+                    .then(() => this.$successNotify(this.$tl("linkCopied")))
                     .catch(() => this.$router.push(link));
                 return false;
             },

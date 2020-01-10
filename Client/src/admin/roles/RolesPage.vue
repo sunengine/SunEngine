@@ -1,8 +1,8 @@
 ﻿<template>
   <q-page class="roles-page page-padding">
-    <h2 class="page-title">
+    <h1 class="page-title">
       {{title}}
-    </h2>
+    </h1>
 
     <div class="row">
       <div class="col-xs-12 col-sm-4">

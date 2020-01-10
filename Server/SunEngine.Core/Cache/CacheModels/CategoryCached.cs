@@ -20,6 +20,8 @@ namespace SunEngine.Core.Cache.CacheModels
         public string Token { get; }
 
         public bool AppendTokenToSubCatsPath { get; }
+        
+        public bool ShowInBreadcrumbs { get; }
 
         public string UrlPath { get; private set; } = "";
 
@@ -72,6 +74,7 @@ namespace SunEngine.Core.Cache.CacheModels
             NameNormalized = category.NameNormalized;
             Token = category.Token ?? category.Name.ToLower();
             AppendTokenToSubCatsPath = category.AppendTokenToSubCatsPath;
+            ShowInBreadcrumbs = category.ShowInBreadcrumbs;
             Title = category.Title;
             IsMaterialsContainer = category.IsMaterialsContainer;
             SubTitle = category.SubTitle;

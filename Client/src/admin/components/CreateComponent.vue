@@ -1,8 +1,8 @@
 ﻿<template>
   <q-page class="create-component page-padding">
-    <h2 class="page-title">
+    <h1 class="page-title">
       {{title}}
-    </h2>
+    </h1>
 
     <ComponentForm ref="form" :component="component"/>
 

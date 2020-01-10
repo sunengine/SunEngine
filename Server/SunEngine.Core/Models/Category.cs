@@ -28,6 +28,11 @@ namespace SunEngine.Core.Models
         /// If true all children categories would have Token in their path's like ".../ThisCategoryToken/ChildrenCategoryToken"
         /// </summary>
         public bool AppendTokenToSubCatsPath { get; set; }
+        
+        /// <summary>
+        /// Show category link in breadcrumbs line if true
+        /// </summary>
+        public bool ShowInBreadcrumbs { get; set; }
 
         public string NameNormalized { get; set; }
 

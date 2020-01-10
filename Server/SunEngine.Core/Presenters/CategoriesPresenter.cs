@@ -53,6 +53,7 @@ namespace SunEngine.Core.Presenters
                 Id = category.Id,
                 Name = category.Name,
                 UrlPath = category.UrlPath,
+                ShowInBreadcrumbs = category.ShowInBreadcrumbs,
                 Title = category.Title,
                 SubTitle = category.SubTitle,
                 Icon = category.Icon,
@@ -119,6 +120,7 @@ namespace SunEngine.Core.Presenters
         public int Id { get; set; }
         public string Name { get; set; }
         public string UrlPath { get; set; }
+        public bool ShowInBreadcrumbs { get; set; }
         public string Title { get; set; }
         public string SubTitle { get; set; }
         public string Icon { get; set; }

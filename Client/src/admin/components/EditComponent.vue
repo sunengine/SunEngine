@@ -1,8 +1,8 @@
 ﻿<template>
   <q-page class="edit-component page-padding">
-    <h2 class="page-title">
+    <h1 class="page-title">
       {{title}}
-    </h2>
+    </h1>
 
     <ComponentForm :editMode="true" v-if="component" ref="form" class="q-mb-xl" :component="component"/>
     <LoaderWait v-else/>

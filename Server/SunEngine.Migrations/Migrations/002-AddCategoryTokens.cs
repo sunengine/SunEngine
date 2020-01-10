@@ -12,6 +12,8 @@ namespace SunEngine.Migrations.Migrations
                 .AsString(DbColumnSizes.Categories_Token).Nullable();
             Create.Column("AppendTokenToSubCatsPath".s()).OnTable("Categories".s())
                 .AsBoolean().NotNullable().WithDefaultValue(false);
+            Create.Column("ShowInBreadcrumbs".s()).OnTable("Categories".s())
+                .AsBoolean().NotNullable().WithDefaultValue(true);
         }
 
         public override void Down()

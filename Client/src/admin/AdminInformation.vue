@@ -1,8 +1,8 @@
 ﻿<template>
   <q-page class="admin-page page-padding">
-    <h2 class="page-title ">
+    <h1 class="page-title ">
       {{title}}
-    </h2>
+    </h1>
     <q-markup-table>
       <tbody>
       <tr v-if="serverInfo && serverInfo.Name">

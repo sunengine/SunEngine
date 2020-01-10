@@ -2,9 +2,9 @@
   <q-page class="categories-admin page-padding">
 
     <div class="page-title-block">
-      <h2 class="page-title">
+      <h1 class="page-title">
         {{$tl("title")}}
-      </h2>
+      </h1>
       <q-btn icon="fas fa-folder-plus" class="post-btn q-mr-lg" type="a"
              :to="{name: 'CreateCategory', params: {parentCategoryId: 1}}" no-caps :label="$tl('addCategoryBtn')"/>
     </div>

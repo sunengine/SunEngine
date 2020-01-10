@@ -1,8 +1,8 @@
 ﻿<template>
   <q-page class="load-photo flex column middle page-padding">
-    <h2 class="page-title">
+    <h1 class="page-title">
       {{title}}
-    </h2>
+    </h1>
 
     <img class="load-photo__photo q-mb-xs" v-if="photo" width="300" :src="photo"/>
     <q-banner dense rounded class="bg-grey-1 text-grey-9">

@@ -1,8 +1,8 @@
 ﻿<template>
   <q-page class="activities-page">
-    <h2 class="page-title page-padding">
+    <h1 class="page-title page-padding">
       {{title}}
-    </h2>
+    </h1>
     <div v-if="component.settings.SubTitle" class="page-padding page-sub-title">
       {{component.settings.SubTitle}}
     </div>

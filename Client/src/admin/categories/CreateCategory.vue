@@ -1,8 +1,8 @@
 ﻿<template>
   <q-page class="create-category page-padding">
-    <h2 class="page-title">
+    <h1 class="page-title">
       {{title}}
-    </h2>
+    </h1>
 
     <CategoryForm ref="form" :category="category"/>
 
@@ -48,7 +48,8 @@
                     parentId: this.parentCategoryId,
                     isHidden: false,
                     isCacheContent: false,
-                    appendTokenToSubCatsPath: false
+                    appendTokenToSubCatsPath: false,
+                    showInBreadcrumbs: true
                 },
                 loading: false
             }

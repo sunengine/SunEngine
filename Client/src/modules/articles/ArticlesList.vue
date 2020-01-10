@@ -1,9 +1,9 @@
 ﻿<template>
-  <div class="articles-list">
-    <q-list v-if="articles" no-border>
-      <Article :article="article" v-for="article in articles.items" :key="article.id"/>
-    </q-list>
-  </div>
+    <div class="articles-list">
+        <q-list v-if="articles" no-border>
+            <Article :article="article" v-for="article in articles.items" :key="article.id"/>
+        </q-list>
+    </div>
 </template>
 
 <script>

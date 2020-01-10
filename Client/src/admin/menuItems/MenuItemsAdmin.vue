@@ -2,9 +2,9 @@
   <q-page class="menu-items-admin page-padding">
 
     <div class="page-title-block">
-      <h2 class="page-title">
+      <h1 class="page-title">
         {{$tl("title")}}
-      </h2>
+      </h1>
       <q-btn icon="far fa-plus-square" class="post-btn q-mr-lg" type="a" :to="{name: 'CreateMenuItem'}" no-caps
              :label="$tl('addMenuItemBtn')"/>
     </div>

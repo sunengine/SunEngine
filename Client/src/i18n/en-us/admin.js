@@ -13,6 +13,7 @@ export default {
         subTitle: "Subtitle",
         token: "URL token",
         appendTokenToSubCatsPath: "Append token to sub categories path's",
+        showInBreadcrumbs: "Show in breadcrumbs",
         icon: "Icon",
         header: "Header",
         selectParent: "Parent category",

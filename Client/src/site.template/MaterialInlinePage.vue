@@ -2,9 +2,9 @@
   <q-page class="material-inline-page ">
     <div class="material-inline-page__pan">
     </div>
-    <h2 class="q-title page-padding text-center">
+    <h1 class="q-title page-padding text-center">
       {{title}}
-    </h2>
+    </h1>
     <MaterialInline @loaded="loaded" ref="inline" class="page-padding material-inline-page__material" name="inline1"/>
   </q-page>
 </template>

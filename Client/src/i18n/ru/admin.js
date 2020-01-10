@@ -12,6 +12,7 @@ export default {
         title: "Заголовок",
         token: "Токен URL",
         appendTokenToSubCatsPath: "Добавлять токен в дочерние категории",
+        showInBreadcrumbs: "Показать в строке пути (breadcrumbs)",
         subTitle: "Подзаголовок",
         icon: "Иконка",
         header: "Шапка",

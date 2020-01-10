@@ -1,9 +1,9 @@
 ﻿<template>
     <q-page class="blog-page">
         <div class="page-title-block page-padding">
-            <h2 class="page-title">
+            <h1 class="page-title">
                 {{category.title}}
-            </h2>
+            </h1>
             <q-btn no-caps class="post-btn"
                    @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
                    :label="$tl('newPostBtn')"

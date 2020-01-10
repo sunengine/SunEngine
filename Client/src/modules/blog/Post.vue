@@ -1,55 +1,62 @@
 ﻿<template>
-    <div :class="['post', {'material-hidden': post.isHidden}, {'material-deleted': post.deletedDate}]">
-        <q-item :to="to" class="header page-padding">
-            <q-avatar class="shadow-1 avatar" size="40px">
-                <img :src="$avatarPath(post.authorAvatar)"/>
-            </q-avatar>
-            <div>
-                <div class="blog-title material-header">
-                    <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="post.deletedDate"/>
-                    <q-icon name="far fa-eye-slash" v-else-if="post.isHidden" class="q-mr-sm"/>
-                    {{post.title}}
-                    <span class="q-ml-sm" v-if="post.deletedDate">
+    <section>
+        <div :class="['post', {'material-hidden': post.isHidden}, {'material-deleted': post.deletedDate}]">
+            <header>
+                <q-item :to="to" class="header page-padding">
+                    <q-avatar class="shadow-1 avatar" size="40px">
+                        <img :src="$avatarPath(post.authorAvatar)"/>
+                    </q-avatar>
+                    <div>
+                        <div class="blog-title material-header">
+                            <q-icon name="fas fa-trash" color="maroon" class="q-mr-sm" v-if="post.deletedDate"/>
+                            <q-icon name="far fa-eye-slash" v-else-if="post.isHidden" class="q-mr-sm"/>
+                            {{post.title}}
+                            <span class="q-ml-sm" v-if="post.deletedDate">
             [{{$tl("deleted")}}]
           </span>
-                    <span class="q-ml-sm" v-else-if="post.isHidden">
+                            <span class="q-ml-sm" v-else-if="post.isHidden">
             [{{$tl("hidden")}}]
           </span>
+                        </div>
+                        <div>
+                            <router-link :to="{name: 'User', params: {link: post.authorLink}}" class="user-link">
+                                {{post.authorName}}
+                            </router-link>
+                        </div>
+                    </div>
+                </q-item>
+            </header>
+
+            <div v-if="!post.isHidden && !post.deletedDate" class="post__text page-padding" v-html="post.preview"></div>
+
+            <footer>
+                <div class="date page-padding text-grey-6">
+                    <q-icon name="far fa-clock"/>
+                    <span>{{$formatDate(this.post.publishDate)}}</span>
                 </div>
-                <div>
-                    <router-link :to="{name: 'User', params: {link: post.authorLink}}" class="user-link">
-                        {{post.authorName}}
-                    </router-link>
-                </div>
-            </div>
-        </q-item>
 
-        <div v-if="!post.isHidden && !post.deletedDate" class="post__text page-padding" v-html="post.preview"></div>
+                <div class="flex footer float-left">
 
-        <div class="date page-padding text-grey-6">
-            <q-icon name="far fa-clock"/>
-            <span>{{$formatDate(this.post.publishDate)}}</span>
-        </div>
-
-        <div class="flex footer float-left">
-
-            <q-item v-if="post.hasMoreText" :class="{'post__read-more-link': true, 'page-padding-left': true}" :to="to">
+                    <q-item v-if="post.hasMoreText" :class="{'post__read-more-link': true, 'page-padding-left': true}"
+                            :to="to">
         <span>
           <q-icon name="far fa-file-alt" size="16px" left/>{{$tl('readMore')}}
         </span>
-            </q-item>
+                    </q-item>
 
-            <q-item v-if="post.commentsCount"
-                    :class="{'page-padding-left': !post.hasMoreText,  'post__comments-link': true}"
-                    :to="toComments">
+                    <q-item v-if="post.commentsCount"
+                            :class="{'page-padding-left': !post.hasMoreText,  'post__comments-link': true}"
+                            :to="toComments">
         <span :class="[{'text-grey-6': !post.commentsCount}]">
           <q-icon name="far fa-comment" left/>{{post.commentsCount}} {{$tl('commentsCount')}}
         </span>
-            </q-item>
+                    </q-item>
 
+                </div>
+            </footer>
+            <div class="clear"></div>
         </div>
-        <div class="clear"></div>
-    </div>
+    </section>
 </template>
 
 <script>

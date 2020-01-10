@@ -1,7 +1,7 @@
 ﻿<template>
   <q-page class="images-cleaner page-padding">
 
-    <h2 class="page-title">{{title}}</h2>
+    <h1 class="page-title">{{title}}</h1>
 
     <q-banner rounded class="bg-amber-2 q-mb-md">
       {{$tl("info")}}

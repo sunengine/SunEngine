@@ -1,9 +1,9 @@
 ﻿<template>
   <q-page class="deleted-elements page-padding">
 
-    <h2 class="page-title">
+    <h1 class="page-title">
       {{title}}
-    </h2>
+    </h1>
 
     <q-checkbox class="deleted-elements__show-deleted" :toggle-indeterminate="false" v-model="$store.state.admin.showDeletedElements">
       {{$tl("showDeleted")}}
@@ -15,7 +15,7 @@
     <div class="deleted-elements__info-box">{{$tl("info3")}}</div>
 
     <q-btn color="primary" no-caps icon="fas fa-trash" :label="$tl('btnDeleteAllMarkedComments')" :loading="loading" @click="deleteAllMarkedComments()">
-      <LoaderSent slot="loading"/>    
+      <LoaderSent slot="loading"/>
     </q-btn>
   </q-page>
 </template>
@@ -45,7 +45,7 @@
             .then((response) => {
               this.loading = false
               const deletedCounts =
-              { 
+              {
                 materialsCount: response.data.deletedMaterials,
                 commentsCount: response.data.deletedComments
               }

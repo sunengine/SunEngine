@@ -1,9 +1,9 @@
 ﻿<template>
   <q-page class="cypher-secrets page-padding">
 
-    <h2 class="page-title">
+    <h1 class="page-title">
       {{title}}
-    </h2>
+    </h1>
 
     <div class="cypher-secrets__btn-block q-gutter-md q-mt-sm">
       <q-btn class="cypher-secrets__short-jwt" no-caps icon="fas fa-key" @click="shortJwt" color="warning"

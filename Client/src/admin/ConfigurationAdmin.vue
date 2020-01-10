@@ -1,9 +1,9 @@
 ﻿<template>
     <q-page class="configuration-admin page-padding">
         <div class="page-title-block">
-            <h2 class="page-title">
+            <h1 class="page-title">
                 {{title}}
-            </h2>
+            </h1>
             <q-input dense v-model="filter" @input="doFilter" :placeholder="$tl('filter')" clearable>
                 <template v-slot:before>
                     <q-icon name="fa fa-search"/>

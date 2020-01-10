@@ -42,6 +42,7 @@ namespace SunEngine.Admin.Presenters
                 Name = x.Name,
                 Token = x.Token,
                 AppendTokenToSubCatsPath = x.AppendTokenToSubCatsPath,
+                ShowInBreadcrumbs = x.ShowInBreadcrumbs,
                 Title = x.Title,
                 IsMaterialsContainer = x.IsMaterialsContainer,
                 IsMaterialsNameEditable = x.IsMaterialsNameEditable,
@@ -69,6 +70,7 @@ namespace SunEngine.Admin.Presenters
                     Name = x.Name,
                     Token = x.Token,
                     AppendTokenToSubCatsPath = x.AppendTokenToSubCatsPath,
+                    ShowInBreadcrumbs = x.ShowInBreadcrumbs,
                     Title = x.Title,
                     SubTitle = x.SubTitle,
                     Icon = x.Icon,
@@ -120,6 +122,8 @@ namespace SunEngine.Admin.Presenters
         public string Token { get; set; }
 
         public bool AppendTokenToSubCatsPath { get; set; }
+        
+        public bool ShowInBreadcrumbs { get; set; }
         
         public string Title { get; set; }
 

@@ -2,9 +2,9 @@
   <q-page class="thread">
 
     <div class="page-title-block page-padding">
-      <h2 class="page-title">
+      <h1 class="page-title">
         {{thisTitle}}
-      </h2>
+      </h1>
       <q-btn no-caps class="thread__post-btn post-btn"
              @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.sectionRoot.name, initialCategoryName: category.name}})"
              :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus"/>

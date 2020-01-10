@@ -1,7 +1,7 @@
 ﻿<template>
   <q-page class="sessions">
 
-    <h2 class="page-title page-padding">{{$tl("title")}}</h2>
+    <h1 class="page-title page-padding">{{$tl("title")}}</h1>
 
 
     <q-markup-table v-if="sessions">

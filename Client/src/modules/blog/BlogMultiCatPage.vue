@@ -1,9 +1,9 @@
 ﻿<template>
   <q-page class="blog-multi-cat-page">
     <div class="page-title-block page-padding">
-      <h2 class="page-title">
+      <h1 class="page-title">
         {{title}}
-      </h2>
+      </h1>
       <q-btn v-if="canPost" no-caps class="post-btn"
              @click="$router.push( {name:'CreateMaterial',params:{categoriesNames: component.settings.CategoriesNames}})"
              :label="addButtonLabel" icon="fas fa-plus"/>

@@ -23,7 +23,7 @@ namespace SunEngine.DataSeed
         private const string SeedCommand = "seed";
         private const string InitDir = "Init";
 
-        private const string DevDataTemplatesDirName = "DevDataTemplates";
+        private const string SeedTemplates = "SeedTemplates";
         private const string FishParagraphs = "fish-paragraphs.html";
         private const string FishTitles = "fish-titles.html";
 
@@ -100,8 +100,8 @@ namespace SunEngine.DataSeed
                     currentCommentId = db.Comments.Any() ? db.Comments.Max(x => x.Id) + 1 : 1
                 };
 
-                var titlesPath = Path.Combine(this.configDirectoryPath, InitDir, DevDataTemplatesDirName, FishTitles);
-                var paragraphsPath = Path.Combine(this.configDirectoryPath, InitDir, DevDataTemplatesDirName,
+                var titlesPath = Path.Combine(this.configDirectoryPath, InitDir, SeedTemplates, FishTitles);
+                var paragraphsPath = Path.Combine(this.configDirectoryPath, InitDir, SeedTemplates,
                     FishParagraphs);
                 var titles = Regex.Matches(File.ReadAllText(titlesPath), "<h1>(.*?)</h1>", RegexOptions.Singleline)
                     .Select(x => x.Groups[1].Value).ToList();

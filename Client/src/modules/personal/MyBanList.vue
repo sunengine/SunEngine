@@ -1,6 +1,6 @@
 ﻿<template>
   <q-page class="my-ban-list page-padding">
-    <h2 class="page-title">{{$tl("title")}}</h2>
+    <h1 class="page-title">{{$tl("title")}}</h1>
     <div v-if="$tle('subTitle')" class="page-sub-title">
       {{$tl('subTitle')}}
     </div>

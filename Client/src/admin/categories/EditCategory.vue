@@ -1,8 +1,8 @@
 ﻿<template>
   <q-page class="edit-category page-padding">
-    <h2 class="page-title">
+    <h1 class="page-title">
       {{$tl('title')}}
-    </h2>
+    </h1>
 
     <div v-if="category">
       <CategoryForm ref="form" :category="category"/>

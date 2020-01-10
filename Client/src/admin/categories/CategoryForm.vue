@@ -11,13 +11,18 @@
                  autogrow type="textarea"
                  :label="$tl('subTitle')" :rules="rules.subTitle"/>
 
-        <q-input class="category-form__token" ref="token" v-model="category.token" :label="$tl('token')"
+        <q-input class="category-form__token" clearable ref="token" v-model="category.token" :label="$tl('token')"
                  :rules="rules.token"/>
 
         <q-checkbox class="category-form__append-token-to-sub-cats-path"
                     :toggle-indeterminate="false"
                     v-model="category.appendTokenToSubCatsPath"
                     :label="$tl('appendTokenToSubCatsPath')"/>
+
+        <q-checkbox class="category-form__show-in-breadcrumbs"
+                    :toggle-indeterminate="false"
+                    v-model="category.showInBreadcrumbs"
+                    :label="$tl('showInBreadcrumbs')"/>
 
         <q-input v-model="category.icon" label="Icon" clearable>
             <template v-slot:prepend v-if="category.icon">
@@ -161,7 +166,7 @@
                 value => /^[a-zA-Z0-9_-]*$/.test(value) || this.$tl('validation.name.allowedChars'),
             ],
             token: [
-                value => value.length <= config.DbColumnSizes.Categories_Name || this.$tl('validation.token.maxLength'),
+                value => (!value || value.length <= config.DbColumnSizes.Categories_Name) || this.$tl('validation.token.maxLength'),
                 value => /^[a-zA-Z0-9-]*$/.test(value) || this.$tl('validation.token.allowedChars'),
             ],
             title: [

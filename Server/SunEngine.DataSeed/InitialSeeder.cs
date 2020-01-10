@@ -120,7 +120,8 @@ namespace SunEngine.DataSeed
                     Name = Category.RootCategoryName,
                     NameNormalized = Normalizer.Normalize(Category.RootCategoryName),
                     Title = Category.RootCategoryName,
-                    SortNumber = 1
+                    SortNumber = 1,
+                    ShowInBreadcrumbs = true
                 };
                 dataContainer.RootCategory = rootCategory;
                 dataContainer.Categories.Add(rootCategory);

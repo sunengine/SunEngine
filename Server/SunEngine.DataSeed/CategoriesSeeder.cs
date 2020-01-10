@@ -77,17 +77,26 @@ namespace SunEngine.DataSeed
 
                 if (categoryToken["IsMaterialsContainer"] != null)
                     category.IsMaterialsContainer = (bool) categoryToken["IsMaterialsContainer"];
+                
+                
 
                 if (categoryToken["LayoutName"] != null)
                     category.LayoutName = (string) categoryToken["LayoutName"];
+                
+                if (categoryToken["Token"] != null)
+                    category.Token = (string) categoryToken["Token"];
 
                 if (categoryToken["IsMaterialsNameEditable"] != null)
                     category.IsMaterialsNameEditable = (bool) categoryToken["IsMaterialsNameEditable"];
+                
+                if (categoryToken["AppendTokenToSubCatsPath"] != null)
+                    category.AppendTokenToSubCatsPath = (bool) categoryToken["AppendTokenToSubCatsPath"];
 
-                if (categoryToken["IsMaterialsSubTitleEditable"] != null)
-                    category.IsMaterialsSubTitleEditable = (bool) categoryToken["IsMaterialsSubTitleEditable"];
-
-
+                if (categoryToken["ShowInBreadcrumbs"] != null)
+                    category.ShowInBreadcrumbs = (bool) categoryToken["ShowInBreadcrumbs"];
+                else
+                    category.ShowInBreadcrumbs = true;
+                
                 dataContainer.Categories.Add(category);
 
                 if (categoryToken["SubCategories"] != null)

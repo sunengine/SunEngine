@@ -1,8 +1,8 @@
 ﻿<template>
   <q-page class="edit-information page-padding">
-    <h2 class="page-title">
+    <h1 class="page-title">
       {{title}}
-    </h2>
+    </h1>
 
     <template v-if="userInfo">
       <div class="edit-information__label q-mb-lg text-grey-8">{{$tl("label")}}</div>

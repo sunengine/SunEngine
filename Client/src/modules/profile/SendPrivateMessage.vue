@@ -1,10 +1,10 @@
 ﻿<template>
   <q-page class="send-private-message page-padding">
-    <h2 class="page-title"> {{$tl("titleStart")}}
+    <h1 class="page-title"> {{$tl("titleStart")}}
      <router-link :to="{name: 'User', params: {link: userLink}}" class="link q-ml-sm"> <q-icon name="far fa-user" />
       {{userName}}
      </router-link>
-    </h2>
+    </h1>
 
     <q-editor class="send-private-message__editor q-mb-md" :toolbar="sendPrivateMessageToolbar" ref="htmlEditor" v-model="text"/>
 

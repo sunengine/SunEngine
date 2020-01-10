@@ -2,9 +2,9 @@
   <q-page class="components-admin page-padding">
 
     <div class="page-title-block">
-      <h2 class="page-title">
+      <h1 class="page-title">
         {{$tl("title")}}
-      </h2>
+      </h1>
       <q-btn icon="fas fa-plus" class="post-btn q-mr-lg" type="a" :to="{name: 'CreateComponent'}" no-caps
              :label="$tl('addComponentBtn')"/>
     </div>

@@ -78,6 +78,7 @@ namespace SunEngine.Admin.Managers
 
             category.Token = categoryUpdate.Token?.SetNullIfEmptyTrim();
             category.AppendTokenToSubCatsPath = categoryUpdate.AppendTokenToSubCatsPath;
+            category.ShowInBreadcrumbs = categoryUpdate.ShowInBreadcrumbs;
             category.SubTitle = categoryUpdate.SubTitle?.SetNullIfEmptyTrim();
             category.Icon = categoryUpdate.Icon?.SetNullIfEmptyTrim();
             category.MaterialTypeTitle = categoryUpdate.MaterialTypeTitle?.SetNullIfEmptyTrim();

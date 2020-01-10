@@ -1,8 +1,8 @@
 ﻿﻿<template>
   <q-page class="skins-admin page-padding">
-    <h2 class="page-title">
+    <h1 class="page-title">
       {{title}}
-    </h2>
+    </h1>
     <div>
       <q-tabs  class="bg-grey-2" align="justify" inline-label>
         <q-route-tab :to="{name: 'MainSkinsAdmin'}" no-caps name="skins" icon="fas fa-user-astronaut" :label="$tl('mainSkins')"/>

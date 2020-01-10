@@ -134,33 +134,23 @@ namespace SunEngine.Admin.Controllers
 
         [Required, MinLength(2), RegularExpression("^[a-zA-Z0-9_-]*$")]
         public string Name { get; set; }
+        public string Token { get; set; }
+        public bool AppendTokenToSubCatsPath { get; set; }
+        public bool ShowInBreadcrumbs { get; set; }
 
         [Required, MinLength(3)] public string Title { get; set; }
         public string SubTitle { get; set; }
         public string Icon { get; set; }
-
         public bool IsMaterialsContainer { get; set; }
-
         public string Header { get; set; }
-
         public string LayoutName { get; set; }
-
         public bool IsMaterialsNameEditable { get; set; }
-
-        public string MaterialsPreviewGeneratorName { get; set; }
-
         public bool IsMaterialsSubTitleEditable { get; set; }
-
         public int ParentId { get; set; }
-
         public int SortNumber { get; set; }
-
         public string SettingsJson { get; set; }
-
         public bool IsHidden { get; set; }
-
         public bool IsCacheContent { get; set; }
-
         public DateTime? DeletedDate { get; set; }
 
         public Category ToCategory()
@@ -169,6 +159,9 @@ namespace SunEngine.Admin.Controllers
             {
                 Id = Id,
                 Name = Name,
+                Token = Token,
+                AppendTokenToSubCatsPath = AppendTokenToSubCatsPath,
+                ShowInBreadcrumbs = ShowInBreadcrumbs,
                 Title = Title,
                 SubTitle = SubTitle,
                 Icon = Icon,
