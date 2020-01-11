@@ -58,7 +58,10 @@ $q-field-color: #00c63b;
 .page-sub-title {
     margin-top: -14px;
     margin-bottom: 20px;
-    color: $grey-9;
+    color: $grey-7;
+    font-style: italic;
+    border-left: 4px solid silver;
+    padding: 4px 0 4px 20px;
 }
 
 // ——— Buttons ————————————————————————————————————

@@ -6,6 +6,9 @@
                     <h1 v-if="showTitle" class="page-title">
                         {{material.title}}
                     </h1>
+                    <div v-if="material.subTitle" class="page-sub-title ">
+                        {{material.subTitle}}
+                    </div>
 
                     <div v-else class="page-padding-top"></div>
 

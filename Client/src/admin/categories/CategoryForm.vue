@@ -11,19 +11,6 @@
                  autogrow type="textarea"
                  :label="$tl('subTitle')" :rules="rules.subTitle"/>
 
-        <q-input class="category-form__token" clearable ref="token" v-model="category.token" :label="$tl('token')"
-                 :rules="rules.token"/>
-
-        <q-checkbox class="category-form__append-token-to-sub-cats-path"
-                    :toggle-indeterminate="false"
-                    v-model="category.appendTokenToSubCatsPath"
-                    :label="$tl('appendTokenToSubCatsPath')"/>
-
-        <q-checkbox class="category-form__show-in-breadcrumbs"
-                    :toggle-indeterminate="false"
-                    v-model="category.showInBreadcrumbs"
-                    :label="$tl('showInBreadcrumbs')"/>
-
         <q-input v-model="category.icon" label="Icon" clearable>
             <template v-slot:prepend v-if="category.icon">
                 <q-icon :name="category.icon" color="positive">
@@ -101,6 +88,19 @@
         <q-input clearable class="category-form__settings-json" ref="settingsJson" type="textarea"
                  v-model="category.settingsJson" autogrow :label="$tl('settingsJson')"
                  :rules="rules.settingsJson"/>
+
+        <q-input class="category-form__token" clearable ref="token" v-model="category.token" :label="$tl('token')"
+                 :rules="rules.token"/>
+
+        <q-checkbox class="category-form__append-token-to-sub-cats-path"
+                    :toggle-indeterminate="false"
+                    v-model="category.appendTokenToSubCatsPath"
+                    :label="$tl('appendTokenToSubCatsPath')"/>
+
+        <q-checkbox class="category-form__show-in-breadcrumbs"
+                    :toggle-indeterminate="false"
+                    v-model="category.showInBreadcrumbs"
+                    :label="$tl('showInBreadcrumbs')"/>
 
         <q-checkbox class="category-form__is-material-container" :toggle-indeterminate="false"
                     v-model="category.isMaterialsContainer"

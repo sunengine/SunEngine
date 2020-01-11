@@ -1,14 +1,16 @@
 ﻿<template>
-  <q-page class="activities-page">
-    <h1 class="page-title page-padding">
-      {{title}}
-    </h1>
-    <div v-if="component.settings.SubTitle" class="page-padding page-sub-title">
-      {{component.settings.SubTitle}}
-    </div>
+    <q-page class="activities-page">
+        <h1 class="page-title page-padding">
+            {{title}}
+        </h1>
+        <div class="page-padding" v-if="component.settings.SubTitle">
+            <div class="page-sub-title">
+                {{component.settings.SubTitle}}
+            </div>
+        </div>
 
-    <ActivitiesList :componentName="componentName"/>
-  </q-page>
+        <ActivitiesList :componentName="componentName"/>
+    </q-page>
 </template>
 
 <script>
@@ -40,8 +42,8 @@
 
 <style lang="scss">
 
-  .activities-page {
+    .activities-page {
 
-  }
+    }
 
 </style>

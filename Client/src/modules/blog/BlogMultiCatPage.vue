@@ -1,24 +1,26 @@
 ﻿<template>
-  <q-page class="blog-multi-cat-page">
-    <div class="page-title-block page-padding">
-      <h1 class="page-title">
-        {{title}}
-      </h1>
-      <q-btn v-if="canPost" no-caps class="post-btn"
-             @click="$router.push( {name:'CreateMaterial',params:{categoriesNames: component.settings.CategoriesNames}})"
-             :label="addButtonLabel" icon="fas fa-plus"/>
-    </div>
+    <q-page class="blog-multi-cat-page">
+        <div class="page-title-block page-padding">
+            <h1 class="page-title">
+                {{title}}
+            </h1>
+            <q-btn v-if="canPost" no-caps class="post-btn"
+                   @click="$router.push( {name:'CreateMaterial',params:{categoriesNames: component.settings.CategoriesNames}})"
+                   :label="addButtonLabel" icon="fas fa-plus"/>
+        </div>
 
-    <div v-if="component.settings.SubTitle" class="page-padding page-sub-title">
-      {{component.settings.SubTitle}}
-    </div>
+        <div class="page-padding">
+            <div v-if="component.settings.SubTitle" class="page-sub-title">
+                {{component.settings.SubTitle}}
+            </div>
+        </div>
 
-    <div v-if="component.settings.Header" class="q-mb-lg text-grey-9" style="margin-top: -14px"
-         v-html="component.settings.Header"></div>
+        <div v-if="component.settings.Header" class="q-mb-lg text-grey-9" style="margin-top: -14px"
+             v-html="component.settings.Header"></div>
 
-    <PostsMultiCat :componentName="componentName" />
+        <PostsMultiCat :componentName="componentName"/>
 
-  </q-page>
+    </q-page>
 </template>
 
 <script>
@@ -40,7 +42,7 @@
         },
         computed: {
             canPost() {
-                if(!this.component.settings.CategoriesNames)
+                if (!this.component.settings.CategoriesNames)
                     return false;
 
                 if (this.component.settings.RolesCanAdd) {
@@ -92,8 +94,8 @@
 
 <style lang="scss">
 
-  .blog-multi-cat-page {
+    .blog-multi-cat-page {
 
-  }
+    }
 
 </style>

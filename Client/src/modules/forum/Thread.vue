@@ -9,7 +9,11 @@
                    @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.sectionRoot.name, initialCategoryName: category.name}})"
                    :label="$tl('newTopicBtn')" v-if="canAddTopic" icon="fas fa-plus"/>
         </div>
-
+        <div class="page-padding" v-if="category.subTitle">
+            <div class="page-sub-title">
+                {{category.subTitle}}
+            </div>
+        </div>
         <div v-if="category.header" class="q-mb-sm" v-html="category.header"></div>
 
         <LoaderWait ref="loader" v-if="!topics.items"/>

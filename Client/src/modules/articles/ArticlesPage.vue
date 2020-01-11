@@ -1,30 +1,34 @@
 ﻿<template>
-  <q-page class="articles-page">
-    <div class="page-padding page-title-block">
-      <h1 class="page-title">
-        {{category.title}}
-      </h1>
-      <q-btn no-caps class="post-btn"
-             @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
-             :label="$tl('newArticleBtn')" v-if="articles && canAddArticle" icon="fas fa-plus"/>
+    <q-page class="articles-page">
+        <div class="page-padding page-title-block">
+            <h1 class="page-title">
+                {{category.title}}
+            </h1>
+            <q-btn no-caps class="post-btn"
+                   @click="$router.push({name:'CreateMaterial',params:{categoriesNames: category.name, initialCategoryName: category.name}})"
+                   :label="$tl('newArticleBtn')" v-if="articles && canAddArticle" icon="fas fa-plus"/>
+        </div>
+        <div class="page-padding" v-if="category.subTitle">
+            <div class="page-sub-title">
+                {{category.subTitle}}
+            </div>
+        </div>
+        <div v-if="category.header" class="q-mb-sm page-padding" v-html="category.header"></div>
 
-    </div>
-    <div v-if="category.header" class="q-mb-sm page-padding" v-html="category.header"></div>
 
+        <ArticlesList v-if="articles" :articles="articles"/>
 
-    <ArticlesList v-if="articles" :articles="articles"/>
+        <LoaderWait ref="loader" v-else/>
 
-    <LoaderWait ref="loader" v-else/>
-
-    <q-pagination class="page-padding q-mt-md" v-if="articles && articles.totalPages > 1"
-                  v-model="articles.pageIndex"
-                  color="pagination"
-                  :max-pages="12"
-                  :max="articles.totalPages"
-                  ellipses
-                  direction-links
-                  @input="pageChanges"/>
-  </q-page>
+        <q-pagination class="page-padding q-mt-md" v-if="articles && articles.totalPages > 1"
+                      v-model="articles.pageIndex"
+                      color="pagination"
+                      :max-pages="12"
+                      :max="articles.totalPages"
+                      ellipses
+                      direction-links
+                      @input="pageChanges"/>
+    </q-page>
 </template>
 
 <script>

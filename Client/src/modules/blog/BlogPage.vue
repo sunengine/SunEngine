@@ -9,6 +9,12 @@
                    :label="$tl('newPostBtn')"
                    v-if="posts && canAddArticle" icon="fas fa-plus"/>
         </div>
+        <div class="page-padding" v-if="category.subTitle">
+            <div class="page-sub-title">
+               {{category.subTitle}}
+            </div>
+        </div>
+
         <div v-html="category.header" v-if="category.header" class="q-mb-sm"></div>
 
         <PostsList v-if="posts" :posts="posts"/>
