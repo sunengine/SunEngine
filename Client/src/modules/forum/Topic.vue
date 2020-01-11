@@ -37,7 +37,9 @@
             </span>
             <span>
             <q-icon name="far fa-clock"/>
-            {{$formatDate(this.topic.publishDate)}}
+                  <time :datetime="$formatToSemTime(topic.publishDate)">
+            {{$formatDate(topic.publishDate)}}
+                  </time>
               </span>
             <span v-if="topic.commentsCount > 0">
               <q-icon name="far fa-comment"/>

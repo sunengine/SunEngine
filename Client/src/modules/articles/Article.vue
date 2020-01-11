@@ -12,19 +12,21 @@
                 <span class="q-ml-sm" v-else-if="article.isHidden">
           [{{$tl("hidden")}}]
         </span>
-         </q-item-label>
+            </q-item-label>
             <q-item-label v-if="description" class="material-header-info-block" caption>
                 <div v-html="description">
                 </div>
-         </q-item-label>
-         <q-item-label class="material-header-info-block" caption>
-       <span >
-        <q-icon name="far fa-user"/>
+            </q-item-label>
+            <q-item-label class="material-header-info-block" caption>
+       <span>
+          <q-icon name="far fa-user"/>
           {{article.authorName}}
           </span>
                 <span>
         <q-icon name="far fa-clock"/>
-          {{$formatDate(this.article.publishDate)}}
+          <time :datetime="$formatToSemTime(article.publishDate)">
+            {{$formatDate(article.publishDate)}}
+          </time>
         </span>
                 <span v-if="article.commentsCount > 0">
           <q-icon name="far fa-comment"/>
@@ -60,7 +62,7 @@
 <style lang="scss">
 
     .article {
-        padding-top:18px;
+        padding-top: 18px;
         padding-bottom: 18px;
     }
 

@@ -27,8 +27,9 @@
                             </router-link>
                             <q-space/>
                             <div class="post__date text-grey-6">
-                                <!--<q-icon name="far fa-clock"/>-->
-                                <span>{{$formatDate(this.post.publishDate)}}</span>
+                                <time :datetime="$formatToSemTime(post.publishDate)">
+                                    <span>{{$formatDate(post.publishDate)}}</span>
+                                </time>
                             </div>
                         </div>
                     </q-item-section>
@@ -132,14 +133,6 @@
     .post__date {
         display: flex;
         align-items: center;
-
-     /*   .q-icon {
-            margin-right: 8px;
-
-            &:before {
-                padding-top: 1px !important;
-            }
-        }*/
     }
 
     .post__footer {

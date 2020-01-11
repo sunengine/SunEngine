@@ -59,7 +59,9 @@
                         </div>
                         <div v-if="showDate" class="material__date material-footer-info-block">
                             <q-icon name="far fa-clock" class="q-mr-xs"/>
-                            {{$formatDate(material.publishDate)}}
+                            <time :datetime="$formatToSemTime(material.publishDate)">
+                                {{$formatDate(material.publishDate)}}
+                            </time>
                         </div>
 
                     </div>
