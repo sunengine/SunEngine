@@ -1,6 +1,5 @@
 ﻿<template>
     <q-page class="roles-permissions page-padding">
-
         <h1 class="page-title">{{title}}</h1>
 
         <div class="q-gutter-y-lg" v-if="json !== null">

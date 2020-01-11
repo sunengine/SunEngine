@@ -1,21 +1,20 @@
 ﻿<template>
-  <q-page class="menu-items-admin page-padding">
+    <q-page class="menu-items-admin page-padding">
+        <div class="page-title-block">
+            <h1 class="page-title">
+                {{$tl("title")}}
+            </h1>
+            <q-btn icon="far fa-plus-square" class="post-btn q-mr-lg" type="a" :to="{name: 'CreateMenuItem'}" no-caps
+                   :label="$tl('addMenuItemBtn')"/>
+        </div>
 
-    <div class="page-title-block">
-      <h1 class="page-title">
-        {{$tl("title")}}
-      </h1>
-      <q-btn icon="far fa-plus-square" class="post-btn q-mr-lg" type="a" :to="{name: 'CreateMenuItem'}" no-caps
-             :label="$tl('addMenuItemBtn')"/>
-    </div>
+        <MenuAdminItem @up="up" @down="down" @add="add" @edit="edit" @deleteMenuItem="deleteMenuItem"
+                       @changeIsHidden="changeIsHidden" :key="menuItem.id" v-if="menuItems" :menuItem="menuItem"
+                       :isFirst="index === 0" :isLast="index === lastIndex" v-for="(menuItem,index) of menuItems"/>
 
-    <MenuAdminItem @up="up" @down="down" @add="add" @edit="edit" @deleteMenuItem="deleteMenuItem"
-                   @changeIsHidden="changeIsHidden" :key="menuItem.id" v-if="menuItems" :menuItem="menuItem"
-                   :isFirst="index === 0" :isLast="index === lastIndex" v-for="(menuItem,index) of menuItems"/>
+        <LoaderWait v-else/>
 
-    <LoaderWait v-else/>
-
-  </q-page>
+    </q-page>
 </template>
 
 <script>
@@ -115,9 +114,9 @@
                         parent.subMenuItems.push(menuItem);
                         menuItem.parent = parent;
 
-                    } else if(menuItem.name === 'Root') {
+                    } else if (menuItem.name === 'Root') {
                         root = menuItem;
-                    }  else {
+                    } else {
 
                     }
                 }

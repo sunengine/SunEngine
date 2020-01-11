@@ -1,75 +1,77 @@
 ﻿<template>
-  <div class="profile-roles">
+    <div class="profile-roles">
 
-    <div v-if="userRoles">
+        <div v-if="userRoles">
 
-      <div class="profile-roles__user-groups">
-        <div class="profile-roles__roles-title">{{$tl("roles")}}</div>
+            <div class="profile-roles__user-groups">
+                <div class="profile-roles__roles-title">{{$tl("roles")}}</div>
 
-        <div class="profile-roles__roles-block q-my-md">
-          <span class="profile-roles__group" v-for="role in userRoles"
-                :class="'group-'+role.name.toLowerCase()">{{role.title}}</span>
+                <div class="profile-roles__roles-block q-my-md">
+                    <span class="profile-roles__group" v-for="role in userRoles"
+                          :class="'group-'+role.name.toLowerCase()">{{role.title}}</span>
+                </div>
+            </div>
+
+            <div class="flex q-gutter-md">
+                <q-btn class="grow" @click="add = true" no-caps color="positive" icon="fas fa-plus"
+                       :label="$tl('addRoleBtn')"/>
+
+                <q-btn class="grow" @click="remove = true" no-caps color="negative" icon="fas fa-minus"
+                       :label="$tl('removeRoleBtn')"/>
+
+                <q-dialog class="profile-roles__dialog-add" v-model="add">
+                    <div class="bg-white">
+                        <q-list>
+                            <q-toolbar class="bg-positive text-white shadow-2">
+                                <q-toolbar-title>
+                                    <q-icon name="fas fa-plus" class="q-mr-sm"/>
+                                    {{$tl('addRoleBtn')}}
+                                </q-toolbar-title>
+                            </q-toolbar>
+                            <q-item :key="role.name" clickable @click="addToRoleConfirm(role)"
+                                    v-for="role in availableRoles">
+                                <q-item-section>
+                                    <q-item-label class="text-blue">
+                                        {{role.title}}
+                                    </q-item-label>
+                                </q-item-section>
+                            </q-item>
+                        </q-list>
+                        <div v-close-popup class="text-center q-my-md">
+                            <q-btn flat v-close-popup class="self-center cancel-btn" :label="$t('Global.btn.cancel')"/>
+                        </div>
+                    </div>
+                </q-dialog>
+
+                <q-dialog class="profile-roles__dialog-remove" v-model="remove">
+                    <div class="bg-white">
+                        <q-list>
+                            <q-toolbar class="bg-negative text-white shadow-2">
+                                <q-toolbar-title>
+                                    <q-icon name="fas fa-minus" class="q-mr-sm"/>
+                                    {{$tl('removeRoleBtn')}}
+                                </q-toolbar-title>
+                            </q-toolbar>
+                            <q-item :key="role.name" clickable @click="removeFromRoleConfirm(role)"
+                                    v-for="role in userRoles">
+                                <q-item-section>
+                                    <q-item-label>
+                                        {{role.title}}
+                                    </q-item-label>
+                                </q-item-section>
+                            </q-item>
+                        </q-list>
+                        <div v-close-popup class="text-center q-my-md">
+                            <q-btn flat v-close-popup class="self-center cancel-btn" :label="$t('Global.btn.cancel')"/>
+                        </div>
+                    </div>
+                </q-dialog>
+            </div>
         </div>
-      </div>
 
-      <div class="flex q-gutter-md">
-        <q-btn class="grow" @click="add = true" no-caps color="positive" icon="fas fa-plus"
-               :label="$tl('addRoleBtn')"/>
+        <LoaderWait v-else/>
 
-        <q-btn class="grow" @click="remove = true" no-caps color="negative" icon="fas fa-minus"
-               :label="$tl('removeRoleBtn')"/>
-
-        <q-dialog class="profile-roles__dialog-add" v-model="add">
-          <div class="bg-white">
-            <q-list>
-              <q-toolbar class="bg-positive text-white shadow-2">
-                <q-toolbar-title>
-                  <q-icon name="fas fa-plus" class="q-mr-sm"/>
-                  {{$tl('addRoleBtn')}}
-                </q-toolbar-title>
-              </q-toolbar>
-              <q-item :key="role.name" clickable @click="addToRoleConfirm(role)" v-for="role in availableRoles">
-                <q-item-section>
-                  <q-item-label class="text-blue">
-                    {{role.title}}
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
-            </q-list>
-            <div v-close-popup class="text-center q-my-md">
-              <q-btn flat  v-close-popup class="self-center cancel-btn" :label="$t('Global.btn.cancel')"/>
-            </div>
-          </div>
-        </q-dialog>
-
-        <q-dialog class="profile-roles__dialog-remove" v-model="remove">
-          <div class="bg-white">
-            <q-list>
-              <q-toolbar class="bg-negative text-white shadow-2">
-                <q-toolbar-title>
-                  <q-icon name="fas fa-minus" class="q-mr-sm"/>
-                  {{$tl('removeRoleBtn')}}
-                </q-toolbar-title>
-              </q-toolbar>
-              <q-item :key="role.name" clickable @click="removeFromRoleConfirm(role)" v-for="role in userRoles">
-                <q-item-section>
-                  <q-item-label>
-                    {{role.title}}
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
-            </q-list>
-            <div v-close-popup class="text-center q-my-md">
-              <q-btn flat v-close-popup class="self-center cancel-btn" :label="$t('Global.btn.cancel')"/>
-            </div>
-          </div>
-        </q-dialog>
-      </div>
     </div>
-
-    <LoaderWait v-else/>
-
-  </div>
 
 </template>
 
@@ -178,15 +180,15 @@
 
 <style lang="scss">
 
-  .profile-roles__user-groups .profile-roles__group:not(:last-child):after {
-    content: ", ";
-    color: initial;
-    font-weight: initial;
-  }
+    .profile-roles__user-groups .profile-roles__group:not(:last-child):after {
+        content: ", ";
+        color: initial;
+        font-weight: initial;
+    }
 
-  .profile-roles__roles-block {
-    background-color: #f7fbc9;
-    padding: 10px;
-  }
+    .profile-roles__roles-block {
+        background-color: #f7fbc9;
+        padding: 10px;
+    }
 
 </style>

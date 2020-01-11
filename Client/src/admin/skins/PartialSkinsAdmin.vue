@@ -1,39 +1,42 @@
-﻿﻿<template>
-  <div class="partial-skins-admin">
+﻿﻿
+<template>
+    <div class="partial-skins-admin">
 
-    <div class="flex flex-center">
-      <q-btn no-caps icon="fas fa-cloud-upload-alt" @click="showUploadDialog"
-             class="skins-admin__post-btn post-btn q-mb-lg" :loading="loading"
-             :label="$tl('upload')">
-        <LoaderSent slot="loading"/>
-      </q-btn>
+        <div class="flex flex-center">
+            <q-btn no-caps icon="fas fa-cloud-upload-alt" @click="showUploadDialog"
+                   class="skins-admin__post-btn post-btn q-mb-lg" :loading="loading"
+                   :label="$tl('upload')">
+                <LoaderSent slot="loading"/>
+            </q-btn>
+        </div>
+
+        <input type="file" @change="uploadPartialSkin" class="hidden" accept=".zip" ref="file"/>
+
+        <q-markup-table v-if="pSkins">
+            <tbody>
+            <q-tr :key="pSkin.name" v-for="pSkin of pSkins"
+                  :class="pSkin.current ? 'partial-skins-admin__on' : 'partial-skins-admin__off'">
+                <q-td>{{pSkin.name}}</q-td>
+                <q-td>
+                    <q-icon color="positive" v-if="pSkin.current" size="24px" name="fas fa-check-circle"/>
+                </q-td>
+                <q-td>{{pSkin.description}}</q-td>
+                <q-td>
+                    <q-btn no-caps class="partial-skins-admin__enable-btn" flat dense @click="enablePartialSkin(pSkin)"
+                           :icon="!pSkin.current ? 'fa fa-plus': 'fa fa-minus'"
+                           :color="!pSkin.current ? 'positive' : 'negative'"
+                           :label="pSkin.current ? $tl('offBtn') : $tl('onBtn')"/>
+                </q-td>
+                <q-td>
+                    <q-btn :disable="pSkin.current" flat dense @click="deletePartialSkin(pSkin.name)"
+                           icon="fas fa-trash-alt"/>
+                </q-td>
+            </q-tr>
+            </tbody>
+        </q-markup-table>
+
+        <LoaderWait v-else/>
     </div>
-
-    <input type="file" @change="uploadPartialSkin" class="hidden" accept=".zip" ref="file"/>
-
-    <q-markup-table v-if="pSkins">
-      <tbody>
-      <q-tr :key="pSkin.name" v-for="pSkin of pSkins" :class="pSkin.current ? 'partial-skins-admin__on' : 'partial-skins-admin__off'">
-        <q-td>{{pSkin.name}}</q-td>
-        <q-td>
-          <q-icon color="positive" v-if="pSkin.current" size="24px" name="fas fa-check-circle"/>
-        </q-td>
-        <q-td>{{pSkin.description}}</q-td>
-        <q-td>
-          <q-btn no-caps class="partial-skins-admin__enable-btn" flat dense @click="enablePartialSkin(pSkin)"
-                 :icon="!pSkin.current ? 'fa fa-plus': 'fa fa-minus'" :color="!pSkin.current ? 'positive' : 'negative'"
-                 :label="pSkin.current ? $tl('offBtn') : $tl('onBtn')"/>
-        </q-td>
-        <q-td>
-          <q-btn :disable="pSkin.current" flat dense @click="deletePartialSkin(pSkin.name)" icon="fas fa-trash-alt"/>
-        </q-td>
-      </q-tr>
-      </tbody>
-    </q-markup-table>
-
-
-    <LoaderWait v-else/>
-  </div>
 </template>
 
 <script>
@@ -132,14 +135,14 @@
 
 <style lang="scss">
 
-  .partial-skins-admin__on {
-    background-color: $green-1;
-  }
-
-  .partial-skins-admin__off {
-    .partial-skins-admin__enable-btn {
-      background-color: $green-1;
+    .partial-skins-admin__on {
+        background-color: $green-1;
     }
-  }
+
+    .partial-skins-admin__off {
+        .partial-skins-admin__enable-btn {
+            background-color: $green-1;
+        }
+    }
 
 </style>

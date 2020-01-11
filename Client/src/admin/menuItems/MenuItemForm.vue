@@ -58,13 +58,11 @@
         <LoaderWait v-else/>
 
         <q-select v-if="allRoles" class="menu-item-form__roles" v-model="roles" :options="allRoles" multiple use-chips
-                  stack-label
-                  option-value="name" option-label="title" :label="$tl('roles')"/>
+                  stack-label option-value="name" option-label="title" :label="$tl('roles')"/>
         <LoaderWait v-else/>
 
         <q-input class="menu-item-form__css-class" ref="cssClass" clearable v-model="menuItem.cssClass"
-                 :label="$tl('cssClass')"
-                 :rules="rules.cssClass">
+                 :label="$tl('cssClass')" :rules="rules.cssClass">
             <template v-slot:prepend>
                 <q-icon name="fab fa-css3-alt" class="q-mr-xs"/>
             </template>
@@ -72,9 +70,7 @@
 
         <q-input ref="icon" v-model="menuItem.icon" label="Icon" clearable>
             <template v-slot:prepend v-if="menuItem.icon">
-                <q-icon :name="menuItem.icon" color="positive">
-
-                </q-icon>
+                <q-icon :name="menuItem.icon" color="positive"/>
             </template>
             <template v-slot:append>
                 <q-icon name="fas fa-icons" class="cursor-pointer">
@@ -85,14 +81,9 @@
                                     <q-icon name="fas fa-search"/>
                                 </template>
                             </q-input>
-                            <q-icon-picker
-                                v-model="menuItem.icon"
-                                :filter="iconFilter"
-                                icon-set="fontawesome-v5"
-                                tooltips
-                                :pagination.sync="pagination"
-                                style="height: 300px; width: 300px; background-color: white;"
-                            />
+                            <q-icon-picker v-model="menuItem.icon" :filter="iconFilter" icon-set="fontawesome-v5"
+                                           tooltips :pagination.sync="pagination"
+                                           style="height: 300px; width: 300px; background-color: white;"/>
                         </div>
                     </q-popup-proxy>
                 </q-icon>
