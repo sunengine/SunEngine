@@ -6,12 +6,12 @@
 
                 <div class="q-my-md">
                     <div class="q-mb-xs flex">
-                        <div class="grow">
-                            <router-link class="link user-link"
-                                         :to="{name: 'User', params: {link: comment.authorLink}}">
-                                {{comment.authorName}}
-                            </router-link>
-                        </div>
+
+                        <router-link class="link user-link"
+                                     :to="{name: 'User', params: {link: comment.authorLink}}">
+                            {{comment.authorName}}
+                        </router-link>
+                        <q-space/>
                         <div class="edit-btn-block q-gutter-x-lg q-mb-sm">
           <span v-if="canEdit">
             <a class="link" href="#" @click.prevent="$emit('goEdit')">{{$tl("edit")}}</a>

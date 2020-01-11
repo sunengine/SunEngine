@@ -5,7 +5,7 @@
       {{title}}
     </h1>
 
-    <div class="flex flex-center grow">
+    <div class="flex flex-center grow" >
       <div class="center-form">
 
         <q-input class="change-password__password-old" ref="passwordOld" v-model="passwordOld"

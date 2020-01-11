@@ -15,7 +15,7 @@
 
         <q-btn no-caps icon="fas fa-times" class="cancel-btn" @click="$router.back()" :label="$tl('cancelBtn')"/>
 
-        <div class="grow"></div>
+        <q-space />
 
         <q-btn no-caps class="delete-btn" icon="far fa-times-circle" @click="tryDelete" :label="$tl('deleteBtn')"/>
 

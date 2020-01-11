@@ -10,6 +10,6 @@ export default ({Vue}) => {
     };
 
     Vue.prototype.$formatToSemTime = function (date) {
-        return dateutil.formatDate(date, 'YYYY-MM-DD');
+        return dateutil.formatDate(date, 'YYYY-MM-DDTHH:MM');
     };
 }
