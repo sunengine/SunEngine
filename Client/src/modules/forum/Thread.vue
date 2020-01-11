@@ -14,7 +14,9 @@
                 {{category.subTitle}}
             </div>
         </div>
-        <div v-if="category.header" class="q-mb-sm" v-html="category.header"></div>
+        <div class="page-padding" v-if="category.header">
+            <div v-if="category.header" class="category-header" v-html="category.header"></div>
+        </div>
 
         <LoaderWait ref="loader" v-if="!topics.items"/>
 

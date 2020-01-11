@@ -13,8 +13,9 @@
                 {{category.subTitle}}
             </div>
         </div>
-        <div v-if="category.header" class="q-mb-sm page-padding" v-html="category.header"></div>
-
+        <div class="page-padding" v-if="category.header">
+            <div v-if="category.header" class="category-header" v-html="category.header"></div>
+        </div>
 
         <ArticlesList v-if="articles" :articles="articles"/>
 

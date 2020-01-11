@@ -4,9 +4,8 @@
             <h1 class="page-title">
                 {{title}}
             </h1>
-            <q-btn v-if="canPost" no-caps class="post-btn"
-                   @click="$router.push( {name:'CreateMaterial',params:{categoriesNames: component.settings.CategoriesNames}})"
-                   :label="addButtonLabel" icon="fas fa-plus"/>
+            <q-btn v-if="canPost" no-caps class="post-btn" :label="addButtonLabel" icon="fas fa-plus"
+                   @click="$router.push( {name:'CreateMaterial',params:{categoriesNames: component.settings.CategoriesNames}})"/>
         </div>
 
         <div class="page-padding">
@@ -15,7 +14,7 @@
             </div>
         </div>
 
-        <div v-if="component.settings.Header" class="q-mb-lg text-grey-9" style="margin-top: -14px"
+        <div v-if="component.settings.Header" class="q-mb-lg text-grey-9"
              v-html="component.settings.Header"></div>
 
         <PostsMultiCat :componentName="componentName"/>

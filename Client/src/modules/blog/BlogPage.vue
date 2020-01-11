@@ -14,8 +14,9 @@
                {{category.subTitle}}
             </div>
         </div>
-
-        <div v-html="category.header" v-if="category.header" class="q-mb-sm"></div>
+        <div class="page-padding" v-if="category.header">
+            <div v-html="category.header" v-if="category.header" class="category-header"></div>
+        </div>
 
         <PostsList v-if="posts" :posts="posts"/>
 
