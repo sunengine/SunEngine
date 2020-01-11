@@ -1,87 +1,98 @@
 <template>
-  <q-layout class="layout" view="lHh LpR lfr">
-    <q-header class="layout__header">
-      <q-toolbar class="layout__toolbar">
+    <q-layout class="layout" view="lHh LpR lfr">
+        <header>
+            <q-header class="layout__header">
+                <q-toolbar class="layout__toolbar">
 
-        <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
-          <q-icon name="fas fa-bars" class="layout__toolbar__menu-btn"/>
-        </q-btn>
+                    <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
+                        <q-icon name="fas fa-bars" class="layout__toolbar__menu-btn"/>
+                    </q-btn>
 
-        <q-toolbar-title class="layout__title-block">
-          <router-link class="layout__title-link block" :to="{name: 'Home'}">
-            <div class="layout__title">{{siteTitle}}</div>
-            <div class="layout__sub-title" v-if="siteSubTitle">{{siteSubTitle}}</div>
-          </router-link>
-        </q-toolbar-title>
+                    <q-toolbar-title class="layout__title-block">
+                        <router-link class="layout__title-link block" :to="{name: 'Home'}">
+                            <div class="layout__title">{{siteTitle}}</div>
+                            <div class="layout__sub-title" v-if="siteSubTitle">{{siteSubTitle}}</div>
+                        </router-link>
+                    </q-toolbar-title>
 
-        <template v-if="userName">
+                    <template v-if="userName">
 
-          <q-btn-dropdown no-caps v-if="$q.screen.gt.xs" flat class="layout__toolbar__user-btn">
-            <template slot="label">
-              <img class="avatar  layout__user-avatar q-mr-sm" :src="userAvatar"/> {{userName}}
-            </template>
-            <UserMenu style="width:180px;"/>
-          </q-btn-dropdown>
+                        <q-btn-dropdown no-caps v-if="$q.screen.gt.xs" flat class="layout__toolbar__user-btn">
+                            <template slot="label">
+                                <img class="avatar  layout__user-avatar q-mr-sm" :src="userAvatar"/> {{userName}}
+                            </template>
+                            <UserMenu style="width:180px;"/>
+                        </q-btn-dropdown>
 
-          <q-btn v-else flat dense round>
-            <img class="avatar layout__user-avatar" :src="userAvatar"/>
-            <q-menu>
-              <q-list class="sun-second-menu q-py-sm">
-                <q-item class="avatar-menu-item">
-                  <q-item-section avatar>
-                    <img class="avatar layout-avatar" :src="userAvatar"/>
-                  </q-item-section>
-                  <q-item-section>
-                    <q-item-label>
-                      {{userName}}
-                    </q-item-label>
-                  </q-item-section>
-                </q-item>
-                <UserMenu style="width:180px;"/>
-              </q-list>
-            </q-menu>
-          </q-btn>
-        </template>
+                        <q-btn v-else flat dense round>
+                            <img class="avatar layout__user-avatar" :src="userAvatar"/>
+                            <q-menu>
+                                <q-list class="sun-second-menu q-py-sm">
+                                    <q-item class="avatar-menu-item">
+                                        <q-item-section avatar>
+                                            <img class="avatar layout-avatar" :src="userAvatar"/>
+                                        </q-item-section>
+                                        <q-item-section>
+                                            <q-item-label>
+                                                {{userName}}
+                                            </q-item-label>
+                                        </q-item-section>
+                                    </q-item>
+                                    <UserMenu style="width:180px;"/>
+                                </q-list>
+                            </q-menu>
+                        </q-btn>
+                    </template>
 
-        <q-btn v-else flat dense round>
-          <q-icon name="fas fa-user" class="toolbar-user-btn"/>
-          <q-menu>
-            <LoginRegisterMenu v-close-popup/>
-          </q-menu>
-        </q-btn>
+                    <q-btn v-else flat dense round>
+                        <q-icon name="fas fa-user" class="toolbar-user-btn"/>
+                        <q-menu>
+                            <LoginRegisterMenu v-close-popup/>
+                        </q-menu>
+                    </q-btn>
 
-        <q-btn class="q-mr-sm" flat dense round @click="rightDrawerOpen = !rightDrawerOpen" aria-label="Menu"
-               v-if="rightDrawerIs">
-          <q-icon name="far fa-clipboard" class="layout__toolbar__menu-btn"/>
-        </q-btn>
+                    <q-btn class="q-mr-sm" flat dense round @click="rightDrawerOpen = !rightDrawerOpen"
+                           aria-label="Menu"
+                           v-if="rightDrawerIs">
+                        <q-icon name="far fa-clipboard" class="layout__toolbar__menu-btn"/>
+                    </q-btn>
 
-      </q-toolbar>
-    </q-header>
+                </q-toolbar>
+            </q-header>
+        </header>
 
-    <q-drawer v-model="leftDrawerOpen" bordered content-class="main-menu-drawer">
-      <MainMenu/>
-    </q-drawer>
+        <q-drawer v-model="leftDrawerOpen" bordered content-class="main-menu-drawer">
+            <MainMenu/>
+        </q-drawer>
 
-    <q-drawer v-if="rightDrawerIs" bordered side="right" v-model="rightDrawerOpen" content-class="side-menu-drawer">
-      <router-view name="navigation"/>
-    </q-drawer>
+        <q-drawer v-if="rightDrawerIs" bordered side="right" v-model="rightDrawerOpen" content-class="side-menu-drawer">
+            <router-view name="navigation"/>
+        </q-drawer>
 
-    <q-page-container>
-      <router-view/>
-    </q-page-container>
+        <q-page-container>
+            <q-toolbar v-if="!hideBreadcrumbs" class="page-padding">
+                <Breadcrumbs :category="category"  :pageTitle="pageTitle" />
+            </q-toolbar>
+            <div :class="{'center-container': centered}">
+                <main>
+                    <router-view ref="rv"/>
+                </main>
+            </div>
+        </q-page-container>
 
-    <q-footer class="layout__footer">
-      <LinksMenu v-if="footerMenuItem" class="layout__footer-line" linkClasses="layout__footer-link"
-                 :menuItem="footerMenuItem">
-        <q-icon name="fas fa-heart" class="layout__footer-separator-icon" size="12px"/>
-      </LinksMenu>
+        <footer>
+            <q-footer class="layout__footer">
+                <LinksMenu v-if="footerMenuItem" class="layout__footer-line" linkClasses="layout__footer-link"
+                           :menuItem="footerMenuItem">
+                    <q-icon name="fas fa-heart" class="layout__footer-separator-icon" size="12px"/>
+                </LinksMenu>
 
-      <!-- Do not remove this component from the layout. -->
-      <!-- This component is the part of SunEngine user license - https://github.com/sunengine/SunEngine/blob/master/LICENSE.md . -->
-      <SunEngineFooter class="layout__footer-line"/>
-
-    </q-footer>
-  </q-layout>
+                <!-- Do not remove this component from the layout. -->
+                <!-- This component is the part of SunEngine user license - https://github.com/sunengine/SunEngine/blob/master/LICENSE.md . -->
+                <SunEngineFooter class="layout__footer-line"/>
+            </q-footer>
+        </footer>
+    </q-layout>
 </template>
 
 <script>
@@ -94,11 +105,28 @@
             return {
                 leftDrawerOpen: this.$q.platform.is.desktop,
                 rightDrawerOpen: this.$q.platform.is.desktop,
+                centered: false
+            }
+        },
+        watch: {
+            '$route': function () {
+                this.$nextTick(() => {
+                    this.centered = this.$refs?.rv?.$options?.centered;
+                });
             }
         },
         computed: {
             siteTitle() {
                 return config.Global.SiteTitle;
+            },
+            pageTitle() {
+              return this.$store.state.currentPage?.title;
+            },
+            hideBreadcrumbs() {
+              return this.$store.state.currentPage?.hideBreadcrumbs;
+            },
+            category() {
+                return this.$store.state.currentCategory;
             },
             siteSubTitle() {
                 return config.Global.SiteSubTitle;
@@ -115,6 +143,7 @@
             })
         },
         beforeCreate() {
+            this.$options.components.Breadcrumbs = require('sun').Breadcrumbs;
             this.$options.components.UserMenu = require('sun').UserMenu;
             this.$options.components.LoginRegisterMenu = require('sun').LoginRegisterMenu;
             this.$options.components.MainMenu = require('sun').MainMenu;
@@ -126,5 +155,6 @@
 </script>
 
 <style lang="scss">
+
 
 </style>

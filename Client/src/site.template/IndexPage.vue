@@ -1,34 +1,19 @@
 <template>
   <q-page class="index-page middle flex flex-center">
-    <div>
-      <h1 class="index-page__header index-page__demo-header">Sun<wbr/>Engine</h1>
-      <div class="index-page__info-block">
-        <p>{{$tl("users")}}:
-          <span class="index-page__info-block-accent">User1</span>,
-          <span class="index-page__info-block-accent">User2</span>,
-          <span class="index-page__info-block-accent">User3</span>,
-          <span class="index-page__info-block-accent">Moderator</span>,
-          <span class="index-page__info-block-accent">Admin</span>.</p>
-        <p>{{$tl("password")}}: <span class="index-page__info-block-accent">password</span>.</p>
-        <p class="index-page__version">{{$tl("version")}}: <span class="num">{{version}}</span></p>
-      </div>
-    </div>
+      <MaterialInline  name="index-page"/>
   </q-page>
 </template>
 
 
 <script>
     import {Page} from 'mixins'
+    import {MaterialInline} from 'sun'
 
 
     export default {
         name: 'IndexPage',
         mixins: [Page],
-        computed: {
-            version() {
-                return process.env.PACKAGE_JSON.version;
-            }
-        }
+        components: {MaterialInline}
     }
 
 </script>
@@ -45,11 +30,9 @@
 
   .index-page__demo-header {
     margin: 0 0 40px;
-    font-size: 6em;
-    font-family: "Jomolhari";
+    font-size: 100px;
     font-weight: bold;
     letter-spacing: 0.08em;
-    line-heigh: 0;
     text-align: center;
     color: #00acef;
     text-shadow: 1px 1px 5px #b1b1b1;
