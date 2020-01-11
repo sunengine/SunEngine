@@ -1,28 +1,31 @@
 ﻿<template>
-  <q-page class="edit-category page-padding">
-    <h1 class="page-title">
-      {{$tl('title')}}
-    </h1>
+    <q-page class="edit-category page-padding">
+        <h1 class="page-title">
+            {{$tl('title')}}
+        </h1>
 
-    <div v-if="category">
-      <CategoryForm ref="form" :category="category"/>
+        <template v-if="category">
+            <CategoryForm ref="form" :category="category"/>
 
-      <div class="edit-category__btn-block q-mt-md q-gutter-md flex">
+            <div class="edit-category__btn-block q-mt-md q-gutter-md flex">
 
-        <q-btn icon="far fa-save" class="send-btn" no-caps :loading="loading" :label="$tl('saveBtn')" @click="save">
-          <LoaderSent slot="loading"/>
-        </q-btn>
+                <q-btn icon="far fa-save" class="send-btn" no-caps :loading="loading" :label="$tl('saveBtn')"
+                       @click="save">
+                    <LoaderSent slot="loading"/>
+                </q-btn>
 
-        <q-btn no-caps icon="fas fa-times" class="cancel-btn" @click="$router.back()" :label="$tl('cancelBtn')"/>
+                <q-btn no-caps icon="fas fa-times" class="cancel-btn" @click="$router.back()"
+                       :label="$tl('cancelBtn')"/>
 
-        <q-space />
+                <q-space/>
 
-        <q-btn no-caps class="delete-btn" icon="far fa-times-circle" @click="tryDelete" :label="$tl('deleteBtn')"/>
+                <q-btn no-caps class="delete-btn" icon="far fa-times-circle" @click="tryDelete"
+                       :label="$tl('deleteBtn')"/>
 
-      </div>
-    </div>
-    <LoaderWait v-else/>
-  </q-page>
+            </div>
+        </template>
+        <LoaderWait v-else/>
+    </q-page>
 </template>
 
 <script>

@@ -1,31 +1,30 @@
 ﻿<template>
-  <div class="component-form q-gutter-xs">
-    <q-input class="component-form__name" ref="name" v-model="component.name" :label="$tl('name')" :rules="rules.name"/>
+    <div class="component-form q-gutter-xs">
+        <q-input class="component-form__name" ref="name" v-model="component.name" :label="$tl('name')"
+                 :rules="rules.name"/>
 
-    <q-select class="component-form__type" ref="type" :disable="editMode" emit-value map-options
-              :label="$tl('type')" :rules="rules.type" v-model="component.type"
-              :options="componentTypes" option-value="name" option-label="title">
-      <q-icon slot="prepend" name="fas fa-cube"/>
-    </q-select>
+        <q-select class="component-form__type" ref="type" :disable="editMode" emit-value map-options
+                  :label="$tl('type')" :rules="rules.type" v-model="component.type"
+                  :options="componentTypes" option-value="name" option-label="title">
+            <q-icon slot="prepend" name="fas fa-cube"/>
+        </q-select>
 
-    <q-input class="component-form__server-settings-json" ref="serverSettingsJson" type="textarea"
-             v-model="component.serverSettingsJson" autogrow
-             :label="$tl('serverSettingsJson')"
-             :rules="rules.serverSettingsJson"/>
+        <q-input class="component-form__server-settings-json" ref="serverSettingsJson" type="textarea"
+                 v-model="component.serverSettingsJson" autogrow :label="$tl('serverSettingsJson')"
+                 :rules="rules.serverSettingsJson"/>
 
-    <q-input class="component-form__client-settings-json" ref="clientSettingsJson" type="textarea"
-             v-model="component.clientSettingsJson" autogrow
-             :label="$tl('clientSettingsJson')"
-             :rules="rules.clientSettingsJson"/>
+        <q-input class="component-form__client-settings-json" ref="clientSettingsJson" type="textarea"
+                 v-model="component.clientSettingsJson" autogrow :label="$tl('clientSettingsJson')"
+                 :rules="rules.clientSettingsJson"/>
 
-    <q-select bottom-slots v-if="allRoles" class="component-form__title" v-model="roles" :options="allRoles" multiple
-              use-chips stack-label
-              option-value="name" option-label="title" :label="$tl('roles')"/>
-    <LoaderWait v-else/>
+        <q-select bottom-slots v-if="allRoles" class="component-form__title" v-model="roles" :options="allRoles"
+                  multiple use-chips stack-label option-value="name" option-label="title" :label="$tl('roles')"/>
 
-    <q-checkbox class="component-form__is-cache-data" ref="isCacheData" v-model="component.isCacheData"
-                :label="$tl('isCacheData')"/>
-  </div>
+        <LoaderWait v-else/>
+
+        <q-checkbox class="component-form__is-cache-data" ref="isCacheData" v-model="component.isCacheData"
+                    :label="$tl('isCacheData')"/>
+    </div>
 </template>
 
 <script>
@@ -125,8 +124,8 @@
 
 <style lang="scss">
 
-  .component-form {
+    .component-form {
 
-  }
+    }
 
 </style>

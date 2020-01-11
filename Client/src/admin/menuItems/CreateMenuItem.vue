@@ -1,19 +1,20 @@
 ﻿<template>
-  <q-page class="create-menu-item page-padding">
-    <h1 class="page-title">
-      {{title}}
-    </h1>
+    <q-page class="create-menu-item page-padding">
+        <h1 class="page-title">
+            {{title}}
+        </h1>
 
-    <MenuItemForm ref="form" :menuItem="menuItem"/>
+        <MenuItemForm ref="form" :menuItem="menuItem"/>
 
-    <div class="btn-block q-gutter-md">
-      <q-btn class="send-btn" icon="fas fa-plus"  no-caps :loading="loading" :label="$tl('createBtn')" @click="save">
-        <LoaderSent slot="loading"/>
-      </q-btn>
-      <q-btn  class="cancel-btn" no-caps icon="fas fa-times" @click="$router.back()" :label="$tl('cancelBtn')" />
-    </div>
+        <div class="btn-block q-gutter-md">
+            <q-btn class="send-btn" icon="fas fa-plus" no-caps :loading="loading" :label="$tl('createBtn')"
+                   @click="save">
+                <LoaderSent slot="loading"/>
+            </q-btn>
+            <q-btn class="cancel-btn" no-caps icon="fas fa-times" @click="$router.back()" :label="$tl('cancelBtn')"/>
+        </div>
 
-  </q-page>
+    </q-page>
 </template>
 
 <script>
@@ -67,11 +68,11 @@
                 this.$request(
                     this.$AdminApi.MenuAdmin.Create,
                     this.menuItem,
-                    true)                    .then(() => {
-                        this.$successNotify();
-                        this.$store.dispatch("loadAllMenuItems");
-                        this.$router.push({name: 'MenuItemsAdmin'});
-                    }).catch(error => {
+                    true).then(() => {
+                    this.$successNotify();
+                    this.$store.dispatch("loadAllMenuItems");
+                    this.$router.push({name: 'MenuItemsAdmin'});
+                }).catch(error => {
                     this.$errorNotify(error);
                     this.loading = false;
                 });
@@ -90,10 +91,10 @@
 
 <style lang="scss">
 
-  .create-menu-item {
-    .btn-block {
-      margin-top: $flex-gutter-md;
+    .create-menu-item {
+        .btn-block {
+            margin-top: $flex-gutter-md;
+        }
     }
-  }
 
 </style>

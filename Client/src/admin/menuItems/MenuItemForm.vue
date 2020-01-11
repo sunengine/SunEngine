@@ -1,112 +1,114 @@
 ﻿<template>
-  <div class="menu-item-form q-gutter-y-md">
-    <q-input class="menu-item-form__name" ref="name" clearable v-model="menuItem.name" :label="$tl('name')" :rules="rules.name"/>
+    <div class="menu-item-form q-gutter-y-md">
+        <q-input class="menu-item-form__name" ref="name" clearable v-model="menuItem.name" :label="$tl('name')"
+                 :rules="rules.name"/>
 
-    <q-input class="menu-item-form__title" ref="title" v-model="menuItem.title" :label="$tl('title')"
-             :rules="rules.title"/>
+        <q-input class="menu-item-form__title" ref="title" v-model="menuItem.title" :label="$tl('title')"
+                 :rules="rules.title"/>
 
-    <q-input class="menu-item-form__sub-title" type="textarea" clearable autogrow ref="subTitle" v-model="menuItem.subTitle"
-             :label="$tl('subTitle')" :rules="rules.subTitle"/>
+        <q-input class="menu-item-form__sub-title" type="textarea" clearable autogrow ref="subTitle"
+                 v-model="menuItem.subTitle" :label="$tl('subTitle')" :rules="rules.subTitle"/>
 
-    <q-input bottom-slots clearable class="menu-item-form__url" ref="url" @input="urlUpdated" v-model="url" :label="$tl('url')"
-             :rules="rules.url">
-      <template v-slot:prepend>
-        <q-icon name="fas fa-link" class="q-mr-xs"/>
-      </template>
-      <div slot="hint">
-        <div v-if="menuItem.routeName" class="text-positive">
-          [{{$tl("local")}}: RouteName={{menuItem.routeName}}
-          <template v-if="menuItem.routeParamsJson">
-            Params={{menuItem.routeParamsJson}}
-          </template>
-          ]
-        </div>
-        <div v-else-if="menuItem.externalUrl" class="text-positive">
-          [{{$tl("external")}}]
-        </div>
-        <div v-else-if="urlError" class="text-red-8">
-          [{{$tl("urlError")}}]
-        </div>
-      </div>
-    </q-input>
-
-    <q-field bottom-slots class="menu-item-form__parent cursor-pointer" v-if="parentOptions" :label="$tl('parent')"
-             stack-label>
-      <template v-slot:control>
-        <div tabindex="0" class="no-outline full-width">
-          <q-icon :name="parentIcon" class="q-mr-xs" color="grey-7"/>
-          {{parentTitle}}
-        </div>
-      </template>
-      <template v-slot:append>
-        <q-icon name="fas fa-caret-down"></q-icon>
-      </template>
-      <q-menu fit auto-close>
-        <q-tree
-          :nodes="parentOptions"
-          default-expand-all
-          :selected.sync="menuItem.parentId"
-          node-key="id"
-          label-key="title"
-        >
-          <template v-slot:default-header="prop">
-            <div style="margin:0; padding: 0;">
-              <q-icon :name="prop.node.icon" class="q-mx-sm" color="grey-7" size="16px"/>
-              <span>{{prop.node.title}}</span>
+        <q-input bottom-slots clearable class="menu-item-form__url" ref="url" @input="urlUpdated" v-model="url"
+                 :label="$tl('url')" :rules="rules.url">
+            <template v-slot:prepend>
+                <q-icon name="fas fa-link" class="q-mr-xs"/>
+            </template>
+            <div slot="hint">
+                <div v-if="menuItem.routeName" class="text-positive">
+                    [{{$tl("local")}}: RouteName={{menuItem.routeName}}
+                    <template v-if="menuItem.routeParamsJson">
+                        Params={{menuItem.routeParamsJson}}
+                    </template>
+                    ]
+                </div>
+                <div v-else-if="menuItem.externalUrl" class="text-positive">
+                    [{{$tl("external")}}]
+                </div>
+                <div v-else-if="urlError" class="text-red-8">
+                    [{{$tl("urlError")}}]
+                </div>
             </div>
-          </template>
-        </q-tree>
-      </q-menu>
-    </q-field>
+        </q-input>
 
-    <LoaderWait v-else/>
+        <q-field bottom-slots class="menu-item-form__parent cursor-pointer" v-if="parentOptions" :label="$tl('parent')"
+                 stack-label>
+            <template v-slot:control>
+                <div tabindex="0" class="no-outline full-width">
+                    <q-icon :name="parentIcon" class="q-mr-xs" color="grey-7"/>
+                    {{parentTitle}}
+                </div>
+            </template>
+            <template v-slot:append>
+                <q-icon name="fas fa-caret-down"></q-icon>
+            </template>
+            <q-menu fit auto-close>
+                <q-tree :nodes="parentOptions" default-expand-all :selected.sync="menuItem.parentId" node-key="id"
+                        label-key="title">
+                    <template v-slot:default-header="prop">
+                        <div style="margin:0; padding: 0;">
+                            <q-icon :name="prop.node.icon" class="q-mx-sm" color="grey-7" size="16px"/>
+                            <span>{{prop.node.title}}</span>
+                        </div>
+                    </template>
+                </q-tree>
+            </q-menu>
+        </q-field>
 
-    <q-select v-if="allRoles" class="menu-item-form__roles" v-model="roles" :options="allRoles" multiple use-chips
-              stack-label
-              option-value="name" option-label="title" :label="$tl('roles')"/>
-    <LoaderWait v-else/>
+        <LoaderWait v-else/>
 
-    <q-input class="menu-item-form__css-class" ref="cssClass" clearable v-model="menuItem.cssClass" :label="$tl('cssClass')"
-             :rules="rules.cssClass">
-      <template v-slot:prepend>
-        <q-icon name="fab fa-css3-alt" class="q-mr-xs"/>
-      </template>
-    </q-input>
-    <q-input ref="icon" v-model="menuItem.icon" label="Icon" clearable>
-      <template v-slot:prepend v-if="menuItem.icon">
-        <q-icon :name="menuItem.icon" color="positive">
+        <q-select v-if="allRoles" class="menu-item-form__roles" v-model="roles" :options="allRoles" multiple use-chips
+                  stack-label
+                  option-value="name" option-label="title" :label="$tl('roles')"/>
+        <LoaderWait v-else/>
 
-        </q-icon>
-      </template>
-      <template v-slot:append>
-        <q-icon name="fas fa-icons" class="cursor-pointer">
-          <q-popup-proxy v-model="showIconPicker">
-            <div class="q-pa-sm">
-              <q-input dense class="q-mb-md" v-model="iconFilter" placeholder="Filter" clearable>
-                <template v-slot:prepend>
-                  <q-icon name="fas fa-search"/>
-                </template>
-              </q-input>
-              <q-icon-picker
-                v-model="menuItem.icon"
-                :filter="iconFilter"
-                icon-set="fontawesome-v5"
-                tooltips
-                :pagination.sync="pagination"
-                style="height: 300px; width: 300px; background-color: white;"
-              />
-            </div>
-          </q-popup-proxy>
-        </q-icon>
-      </template>
-    </q-input>
-    <q-input clearable class="menu-item-form__settings-json" ref="settingsJson" type="textarea" v-model="menuItem.settingsJson"
-             autogrow :label="$tl('settingsJson')"
-             :rules="rules.settingsJson"/>
-    <q-checkbox class="menu-item-form__exact" ref="exact" v-model="menuItem.exact" :label="$tl('exact')"/>
-    <br/>
-    <q-checkbox class="menu-item-form__is-hidden" ref="isHidden" v-model="menuItem.isHidden" :label="$tl('isHidden')"/>
-  </div>
+        <q-input class="menu-item-form__css-class" ref="cssClass" clearable v-model="menuItem.cssClass"
+                 :label="$tl('cssClass')"
+                 :rules="rules.cssClass">
+            <template v-slot:prepend>
+                <q-icon name="fab fa-css3-alt" class="q-mr-xs"/>
+            </template>
+        </q-input>
+
+        <q-input ref="icon" v-model="menuItem.icon" label="Icon" clearable>
+            <template v-slot:prepend v-if="menuItem.icon">
+                <q-icon :name="menuItem.icon" color="positive">
+
+                </q-icon>
+            </template>
+            <template v-slot:append>
+                <q-icon name="fas fa-icons" class="cursor-pointer">
+                    <q-popup-proxy v-model="showIconPicker">
+                        <div class="q-pa-sm">
+                            <q-input dense class="q-mb-md" v-model="iconFilter" placeholder="Filter" clearable>
+                                <template v-slot:prepend>
+                                    <q-icon name="fas fa-search"/>
+                                </template>
+                            </q-input>
+                            <q-icon-picker
+                                v-model="menuItem.icon"
+                                :filter="iconFilter"
+                                icon-set="fontawesome-v5"
+                                tooltips
+                                :pagination.sync="pagination"
+                                style="height: 300px; width: 300px; background-color: white;"
+                            />
+                        </div>
+                    </q-popup-proxy>
+                </q-icon>
+            </template>
+        </q-input>
+
+        <q-input clearable class="menu-item-form__settings-json" ref="settingsJson" type="textarea"
+                 v-model="menuItem.settingsJson" autogrow :label="$tl('settingsJson')" :rules="rules.settingsJson"/>
+
+        <q-checkbox class="menu-item-form__exact" ref="exact" v-model="menuItem.exact" :label="$tl('exact')"/>
+
+        <br/>
+
+        <q-checkbox class="menu-item-form__is-hidden" ref="isHidden" v-model="menuItem.isHidden"
+                    :label="$tl('isHidden')"/>
+    </div>
 </template>
 
 <script>
@@ -364,11 +366,11 @@
 
 <style lang="scss">
 
-  .menu-item-form {
-    .q-tree__node-header {
-      padding: 2px 4px !important;
-      margin: 0;
+    .menu-item-form {
+        .q-tree__node-header {
+            padding: 2px 4px !important;
+            margin: 0;
+        }
     }
-  }
 
 </style>

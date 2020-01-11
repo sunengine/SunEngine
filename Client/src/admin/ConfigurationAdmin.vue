@@ -25,7 +25,7 @@
                         <td class="configuration-admin__name-column">
                             <div class="flex no-wrap align-center">
                                 <div>{{item.localTitle}}</div>
-                                <q-space />
+                                <q-space/>
                                 <div v-if="item.localSubTitle">
                                     <q-icon name="far fa-question-circle" class="text-blue" size="xs" right>
                                         <q-tooltip anchor="bottom middle" self="top middle" max-width="200px">
@@ -67,8 +67,8 @@
                         {{$tl('resetBtnTooltip')}}
                     </q-tooltip>
                 </q-btn>
-            <q-btn class="cancel-btn" @click="$router.back()" no-caps icon="fas fa-times"
-                   :label="$tl('cancelBtn')"/>
+                <q-btn class="cancel-btn" @click="$router.back()" no-caps icon="fas fa-times"
+                       :label="$tl('cancelBtn')"/>
             </q-page-sticky>
 
             <br/>

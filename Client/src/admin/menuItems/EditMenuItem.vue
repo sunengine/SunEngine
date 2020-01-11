@@ -5,14 +5,18 @@
         </h1>
 
         <MenuItemForm v-if="menuItem" ref="form" :menuItem="menuItem"/>
+
         <LoaderWait v-else/>
 
         <div class="btn-block q-gutter-md flex">
             <q-btn icon="far fa-save" class="send-btn" no-caps :loading="loading" :label="$tl('saveBtn')" @click="save">
                 <LoaderSent slot="loading"/>
             </q-btn>
+
             <q-btn no-caps icon="fas fa-times" class="cancel-btn" @click="$router.back()" :label="$tl('cancelBtn')"/>
+
             <q-space/>
+
             <q-btn no-caps icon="far fa-times-circle" class="delete-btn" @click="deleteMenuItem"
                    :label="$tl('deleteBtn')"/>
         </div>

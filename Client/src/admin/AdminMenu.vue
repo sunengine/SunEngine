@@ -1,7 +1,6 @@
 ﻿<template>
     <nav>
         <q-list class="admin-menu sun-second-menu" no-border>
-
             <q-item exact :to="{name: 'AdminInformation'}">
                 <q-item-section avatar>
                     <q-icon name="fas fa-info-circle"/>

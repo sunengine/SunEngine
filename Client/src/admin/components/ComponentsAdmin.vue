@@ -1,29 +1,32 @@
 ﻿<template>
-  <q-page class="components-admin page-padding">
+    <q-page class="components-admin page-padding">
+        <div class="page-title-block">
+            <h1 class="page-title">
+                {{$tl("title")}}
+            </h1>
+            <q-btn icon="fas fa-plus" class="post-btn q-mr-lg" type="a" :to="{name: 'CreateComponent'}" no-caps
+                   :label="$tl('addComponentBtn')"/>
+        </div>
 
-    <div class="page-title-block">
-      <h1 class="page-title">
-        {{$tl("title")}}
-      </h1>
-      <q-btn icon="fas fa-plus" class="post-btn q-mr-lg" type="a" :to="{name: 'CreateComponent'}" no-caps
-             :label="$tl('addComponentBtn')"/>
-    </div>
+        <div class="components-admin__components" v-if="components">
+            <div v-for="component in components">
+                <q-icon name="fas fa-cube" color="grey-6" class="q-mr-sm"/>
+                {{component.name}}
 
-    <div class="components-admin__components" v-if="components">
-      <div v-for="component in components">
-        <q-icon name="fas fa-cube" color="grey-6" class="q-mr-sm"/> {{component.name}}
+                <q-btn color="info" class="components-admin__btn-edit q-ml-sm" dense size="10px" flat
+                       icon="fas fa-wrench"
+                       :to="{name: 'EditComponent', params: {name: component.name}}"/>
 
-        <q-btn color="info" class="components-admin__btn-edit q-ml-sm" dense size="10px" flat icon="fas fa-wrench"
-               :to="{name: 'EditComponent', params: {name: component.name}}"/>
+                <q-btn color="info" class="components-admin__to" dense size="10px" flat icon="fas fa-arrow-right"
+                       :to="'/'+component.name.toLowerCase()"/>
 
-        <q-btn color="info" class="components-admin__to" dense size="10px" flat icon="fas fa-arrow-right" :to="'/'+component.name.toLowerCase()"/>
+                <span class="q-ml-lg text-grey-7">[{{component.type}}]</span>
+            </div>
+        </div>
 
-        <span class="q-ml-lg text-grey-7">[{{component.type}}]</span>
-      </div>
-    </div>
-    <LoaderWait v-else/>
+        <LoaderWait v-else/>
 
-  </q-page>
+    </q-page>
 </template>
 
 <script>
@@ -60,10 +63,10 @@
 
 <style lang="scss">
 
-  .components-admin {
-    .components {
-      font-size: 1.15em;
+    .components-admin {
+        .components {
+            font-size: 1.15em;
+        }
     }
-  }
 
 </style>

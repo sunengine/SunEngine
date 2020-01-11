@@ -1,20 +1,20 @@
 ﻿<template>
-  <q-page class="cypher-secrets page-padding">
+    <q-page class="cypher-secrets page-padding">
+        <h1 class="page-title">
+            {{title}}
+        </h1>
 
-    <h1 class="page-title">
-      {{title}}
-    </h1>
+        <div class="cypher-secrets__btn-block q-gutter-md q-mt-sm">
+            <q-btn class="cypher-secrets__short-jwt" no-caps icon="fas fa-key" @click="shortJwt" color="warning"
+                   label="ShortJwt"/>
+            <q-btn class="cypher-secrets__short-long-2jwt" no-caps icon="fas fa-key" @click="long2Jwt" color="warning"
+                   label="Long2Jwt"/>
+            <q-btn class="cypher-secrets__short-email-change" no-caps icon="fas fa-key" @click="emailChange"
+                   color="warning"
+                   label="EmailChange"/>
+        </div>
 
-    <div class="cypher-secrets__btn-block q-gutter-md q-mt-sm">
-      <q-btn class="cypher-secrets__short-jwt" no-caps icon="fas fa-key" @click="shortJwt" color="warning"
-             label="ShortJwt"/>
-      <q-btn class="cypher-secrets__short-long-2jwt" no-caps icon="fas fa-key" @click="long2Jwt" color="warning"
-             label="Long2Jwt"/>
-      <q-btn class="cypher-secrets__short-email-change" no-caps icon="fas fa-key" @click="emailChange" color="warning"
-             label="EmailChange"/>
-    </div>
-
-  </q-page>
+    </q-page>
 </template>
 
 <script>

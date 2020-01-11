@@ -1,21 +1,22 @@
 ﻿<template>
-  <q-page class="create-component page-padding">
-    <h1 class="page-title">
-      {{title}}
-    </h1>
+    <q-page class="create-component page-padding">
+        <h1 class="page-title">
+            {{title}}
+        </h1>
 
-    <ComponentForm ref="form" :component="component"/>
+        <ComponentForm ref="form" :component="component"/>
 
-    <div class="create-component__btn-block q-mt-lg q-gutter-md">
-      <q-btn icon="fas fa-plus" class="send-btn" no-caps :loading="loading" :label="$tl('createBtn')" @click="save"
-             color="send">
-        <LoaderSent slot="loading"/>
-      </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="cancel-btn" @click="$router.back()" :label="$tl('cancelBtn')"
-             color="warning"/>
-    </div>
+        <div class="create-component__btn-block q-mt-lg q-gutter-md">
+            <q-btn icon="fas fa-plus" class="send-btn" no-caps :loading="loading" :label="$tl('createBtn')"
+                   @click="save"
+                   color="send">
+                <LoaderSent slot="loading"/>
+            </q-btn>
+            <q-btn no-caps icon="fas fa-times" class="cancel-btn" @click="$router.back()" :label="$tl('cancelBtn')"
+                   color="warning"/>
+        </div>
 
-  </q-page>
+    </q-page>
 </template>
 
 <script>

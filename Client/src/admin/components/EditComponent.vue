@@ -1,23 +1,24 @@
 ﻿<template>
-  <q-page class="edit-component page-padding">
-    <h1 class="page-title">
-      {{title}}
-    </h1>
+    <q-page class="edit-component page-padding">
+        <h1 class="page-title">
+            {{title}}
+        </h1>
 
-    <ComponentForm :editMode="true" v-if="component" ref="form" class="q-mb-xl" :component="component"/>
-    <LoaderWait v-else/>
+        <ComponentForm :editMode="true" v-if="component" ref="form" class="q-mb-xl" :component="component"/>
 
-    <div class="q-gutter-md">
-      <q-btn icon="far fa-save" class="send-btn" no-caps :loading="loading" :label="$tl('saveBtn')" @click="save"
-             color="send">
-        <LoaderSent slot="loading"/>
-      </q-btn>
-      <q-btn no-caps icon="fas fa-times" class="cancel-btn q-ml-sm" @click="$router.back()" :label="$tl('cancelBtn')"
-             color="warning"/>
-      <q-btn no-caps icon="far fa-times-circle" class="delete-btn q-ml-sm float-right" @click="removeComponent()"
-             :label="$tl('deleteBtn')"/>
-    </div>
-  </q-page>
+        <LoaderWait v-else/>
+
+        <div class="q-gutter-md">
+            <q-btn icon="far fa-save" class="send-btn" no-caps :loading="loading" :label="$tl('saveBtn')" @click="save"
+                   color="send">
+                <LoaderSent slot="loading"/>
+            </q-btn>
+            <q-btn no-caps icon="fas fa-times" class="cancel-btn q-ml-sm" @click="$router.back()"
+                   :label="$tl('cancelBtn')" color="warning"/>
+            <q-btn no-caps icon="far fa-times-circle" class="delete-btn q-ml-sm float-right" @click="removeComponent()"
+                   :label="$tl('deleteBtn')"/>
+        </div>
+    </q-page>
 </template>
 
 <script>

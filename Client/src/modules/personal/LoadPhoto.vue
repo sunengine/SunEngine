@@ -1,22 +1,20 @@
 ﻿<template>
-  <q-page class="load-photo flex column middle page-padding">
-    <h1 class="page-title">
-      {{title}}
-    </h1>
+    <q-page class="load-photo flex column middle page-padding">
+        <h1 class="page-title">
+            {{title}}
+        </h1>
 
-    <img class="load-photo__photo q-mb-xs" v-if="photo" width="300" :src="photo"/>
-    <q-banner dense rounded class="bg-grey-1 text-grey-9">
-      {{$tl("maxPhotoSize")}} {{photoSize}} {{$t("Global.units.megabytes")}}
-    </q-banner>
-    <br/>
-    <input ref="file" type="file" accept="image/*" class="hidden" @change="handleFile"/>
-    <q-btn no-caps class="load-photo__send-btn send-btn q-mb-xl" :loading="loading" icon="far fa-user-circle"
-           :label="$tl('uploadNewPhotoBtn')"
-           @click="upload"/>
-    <q-btn no-caps v-if="!isDefault && !loading" class="load-photo__delete-btn delete-btn" icon="fas fa-trash-alt"
-           :label="$tl('resetBtn')"
-           @click="resetAvatar"/>
-  </q-page>
+        <img class="load-photo__photo q-mb-xs" v-if="photo" width="300" :src="photo"/>
+        <q-banner dense rounded class="bg-grey-1 text-grey-9">
+            {{$tl("maxPhotoSize")}} {{photoSize}} {{$t("Global.units.megabytes")}}
+        </q-banner>
+        <br/>
+        <input ref="file" type="file" accept="image/*" class="hidden" @change="handleFile"/>
+        <q-btn no-caps class="load-photo__send-btn send-btn q-mb-xl" :loading="loading" icon="far fa-user-circle"
+               :label="$tl('uploadNewPhotoBtn')" @click="upload"/>
+        <q-btn no-caps v-if="!isDefault && !loading" class="load-photo__delete-btn delete-btn" icon="fas fa-trash-alt"
+               :label="$tl('resetBtn')" @click="resetAvatar"/>
+    </q-page>
 </template>
 
 <script>

@@ -1,18 +1,19 @@
 ﻿<template>
-  <q-page class="create-category page-padding">
-    <h1 class="page-title">
-      {{title}}
-    </h1>
+    <q-page class="create-category page-padding">
+        <h1 class="page-title">
+            {{title}}
+        </h1>
 
-    <CategoryForm ref="form" :category="category"/>
+        <CategoryForm ref="form" :category="category"/>
 
-    <div class="create-category__btn-block q-gutter-x-sm">
-      <q-btn class="send-btn" icon="fas fa-plus" no-caps :loading="loading" :label="$tl('createBtn')" @click="save">
-        <LoaderSent slot="loading"/>
-      </q-btn>
-      <q-btn class="cancel-btn" no-caps icon="fas fa-times" @click="$router.back()" :label="$tl('cancelBtn')"/>
-    </div>
-  </q-page>
+        <div class="create-category__btn-block q-gutter-x-sm">
+            <q-btn class="send-btn" icon="fas fa-plus" no-caps :loading="loading" :label="$tl('createBtn')"
+                   @click="save">
+                <LoaderSent slot="loading"/>
+            </q-btn>
+            <q-btn class="cancel-btn" no-caps icon="fas fa-times" @click="$router.back()" :label="$tl('cancelBtn')"/>
+        </div>
+    </q-page>
 </template>
 
 <script>
@@ -91,8 +92,8 @@
 
 <style lang="scss">
 
-  .create-category__btn-block {
-    margin-top: $flex-gutter-lg;
-  }
+    .create-category__btn-block {
+        margin-top: $flex-gutter-lg;
+    }
 
 </style>
