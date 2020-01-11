@@ -144,6 +144,10 @@
                 return this.category
                     && !(this.category.settingsJson?.hideTitle || this.material.settingsJson?.hideTitle);
             },
+            hideBreadcrumbs() {
+                return this.category?.settingsJson?.hideCategory || this.material?.settingsJson?.hideCategory ||
+                    this.category?.settingsJson?.hideBreadcrumbs || this.material?.settingsJson?.hideBreadcrumbs;
+            },
             showCategory() {
                 return this.category
                     && !(this.category.settingsJson?.hideCategory || this.material.settingsJson?.hideCategory);
