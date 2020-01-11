@@ -166,6 +166,17 @@ $paddings: (12px 18px 24px);
 // ——— Elements ————————————————————————————————————
 
 
+
+.captcha-block {
+    padding: 10px 10px 10px 44px;
+    border-radius: 5px;
+    background-color: #f0f4c3;
+}
+
+.user-link {
+    font-size: 18px;
+}
+
 .center-form {
     width: 400px;
     display: flex;
@@ -309,15 +320,5 @@ $paddings: (12px 18px 24px);
     img {
         max-width: 100%;
     }
-}
-
-
-// ——— Captcha ——————————————————————————————————————————
-
-
-.captcha-block {
-    padding: 10px 10px 10px 44px;
-    border-radius: 5px;
-    background-color: #f0f4c3;
 }
 

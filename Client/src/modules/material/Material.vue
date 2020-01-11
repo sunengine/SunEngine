@@ -28,7 +28,7 @@
                     <div v-if="showFooter" class="material__footer q-gutter-x-lg q-py-sm flex align-center">
 
                         <div v-if="showUser" class="material__author q-mr-md">
-                            <router-link class="link" :to="{name: 'User', params: {link: material.authorLink}}">
+                            <router-link class="link user-link" :to="{name: 'User', params: {link: material.authorLink}}">
                                 <img class="avatar material__avatar" :src="$avatarPath(material.authorAvatar)"/>{{material.authorName}}
                             </router-link>
                         </div>
