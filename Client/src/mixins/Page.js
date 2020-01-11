@@ -17,11 +17,13 @@ export default {
     watch: {
         'mounted': function () {
             this.$store.state.mounted = this.mounted;
+            this.$store.state.currentPage = this;
         }
     },
     beforeCreate() {
         this.$store.state.mounted = false;
         this.$store.state.currentCategory = null;
+        this.$store.state.currentPage = null;
     },
     meta() {
         return {

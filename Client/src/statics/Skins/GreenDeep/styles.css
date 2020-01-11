@@ -39,6 +39,12 @@
 .skin-green-deep .text-pagination {
   color: #757575;
 }
+.skin-green-deep .q-breadcrumbs__el {
+  color: #00acc1;
+}
+.skin-green-deep .q-breadcrumbs--last .q-breadcrumbs__el {
+  color: #9e9e9e;
+}
 .skin-green-deep .layout__header {
   border-bottom: 1px solid #cbcbcb;
 }
@@ -147,6 +153,11 @@
 }
 .skin-green-deep .side-panel .q-router-link--active .q-item__section--avatar {
   color: black;
+}
+.skin-green-deep .material__text, .skin-green-deep .post__text, .skin-green-deep .comment__text {
+  text-align: justify;
+  font-size: 18px;
+  font-weight: 300;
 }
 .skin-green-deep .material__text h3, .skin-green-deep .post__text h3, .skin-green-deep .comment__text h3 {
   font-size: 1.55rem;

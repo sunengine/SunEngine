@@ -1,9 +1,13 @@
 <template>
     <div class="breadcrumbs">
-        <q-breadcrumbs v-if="category" class="text-grey" active-color="purple">
-            <q-breadcrumbs-el :key="cat.id" :exact="true" v-for="cat of breadCrumbsCategories"
-                              :class="cat.route ? 'breadcrumbs--route' : 'breadcrumbs--no-route'" :to="cat.route"
-                              :label="cat.title"/>
+        <q-breadcrumbs  class="text-grey" active-color="purple">
+            <q-breadcrumbs-el  :exact="true" key="mr" :label="$tl('home')" :to="{name: 'Home'}"/>
+            <template v-if="category">
+                <q-breadcrumbs-el :key="cat.id" :exact="true" v-for="cat of breadCrumbsCategories" :to="cat.route"
+
+                                  :label="cat.title"/>
+            </template>
+            <q-breadcrumbs-el :exact="true" v-if="pageTitle && pageTitle !== ' '" key="ml"  :label="pageTitle"/>
         </q-breadcrumbs>
     </div>
 </template>
@@ -16,6 +20,10 @@
             category: {
                 type: Object,
                 required: true
+            },
+            pageTitle: {
+                type: String,
+                required: false
             }
         },
         computed: {
@@ -26,24 +34,17 @@
                 let rez = [];
                 rez.push(this.category);
                 let current = this.category.parent;
-                while (current) {
+                while (current && current.name !== 'Root') {
                     if (current.showInBreadcrumbs)
                         rez.push(current);
                     current = current.parent;
                 }
+
                 rez = rez.reverse();
 
-                if (rez[0].name === 'Root') {
-                    rez[0] = {
-                        title: this.$tl('home'),
-                        id: 0,
-                        route: {
-                            name: 'Home'
-                        }
-                    };
-                }
+                if (rez.length >= 1 && rez[rez.length - 1].title === this.pageTitle)
+                    rez.splice(rez.length - 1, 1);
 
-                rez.push({});
                 return rez;
             },
         }
@@ -53,16 +54,14 @@
 
 <style lang="scss">
 
-    .breadcrumbs--route {
+    .q-breadcrumbs__el {
         color: #00acc1;
     }
 
-    .breadcrumbs--no-route {
-        color: $grey-6;
-    }
-
-    .breadcrumbs .q-breadcrumbs .q-breadcrumbs__separator:nth-last-of-type(-n+2) {
-        display: none;
+    .q-breadcrumbs--last {
+        .q-breadcrumbs__el {
+            color: $grey-6;
+        }
     }
 
 </style>

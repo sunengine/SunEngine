@@ -58,6 +58,9 @@ $blockquote-left-line-color: #a6c59e;
 $blockquote-text-color: unset;
 $blockquote-bg-color: unset;
 
+$breadcrumbs-link: #00acc1;
+$breadcrumbs-last: $grey-6;
+
 $index-page-header-color: #00acef;
 $index-page-accent-color: #a38167;
 $sun-engine-footer-link-color: orange;
@@ -122,6 +125,17 @@ $sun-engine-footer-link-color: orange;
         color: $pagination-text;
     }
 
+    // ——— Breadcrumbs ———————————————————————————————
+
+    .q-breadcrumbs__el {
+        color: $breadcrumbs-link;
+    }
+
+    .q-breadcrumbs--last {
+        .q-breadcrumbs__el {
+            color: $breadcrumbs-last;
+        }
+    }
 
     // ——— Layout ————————————————————————————————————
 
@@ -172,7 +186,6 @@ $sun-engine-footer-link-color: orange;
         height: 32px;
         box-shadow: 0 0 4px 1.5px white;
     }
-
 
     .layout__footer {
         text-align: center;
