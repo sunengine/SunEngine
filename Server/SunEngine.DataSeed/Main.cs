@@ -68,8 +68,7 @@ namespace SunEngine.DataSeed
 
             var dataContainer = new InitialSeeder(new PathService(configuration)).Seed();
             var databaseSeeder = new DataBaseSeeder(db, dataContainer);
-
-
+            
             databaseSeeder.SeedInitial();
         }
 

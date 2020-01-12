@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
 using SunEngine.Core.Errors.Exceptions;
 using Path = System.IO.Path;
 
@@ -32,13 +33,34 @@ namespace SunEngine.Core.Services
 
     public class PathService : IPathService
     {
-        public string WwwRootDir { get; }
-        public string ApplicationDir { get; }
-        public string ConfigDir { get; }
+        public string WwwRootDir { get; private set; }
+        public string ApplicationDir { get; private set; }
+        public string ConfigDir { get; private set; }
 
         protected Dictionary<string, string> Pathes;
 
         public PathService(IConfiguration configuration)
+        {
+            Init(configuration);
+        }
+
+        public PathService(string configDir)
+        {
+            Init(MakeConfiguration(configDir));
+        }
+
+        public static IConfigurationRoot MakeConfiguration(string configDir)
+        {
+            ConfigurationBuilder cb = new ConfigurationBuilder();
+            cb.AddJsonFile(Path.Combine(configDir, "SunEngine.json"), false);
+            cb.AddInMemoryCollection(new[]
+            {
+                new KeyValuePair<string, string>("Dirs:Config", configDir)
+            });
+            return cb.Build();
+        }
+
+        private void Init(IConfiguration configuration)
         {
             Pathes = new Dictionary<string, string>();
 

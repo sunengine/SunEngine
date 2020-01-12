@@ -53,7 +53,7 @@ namespace SunEngine.Cli
             }
 
             else if (config.StartServer)
-                new ServerStartup().RunServer(config);
+                new ServerRun().RunServer(config);
             else
                 InfoPrinter.PrintNoArgumentsInfo();
 

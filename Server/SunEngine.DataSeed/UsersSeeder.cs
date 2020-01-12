@@ -1,7 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
 using Newtonsoft.Json.Linq;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Authorization;
@@ -19,6 +23,7 @@ namespace SunEngine.DataSeed
 
         private readonly DataContainer dataContainer;
         private readonly string configDir;
+        private readonly string uploadImagesDir;
         private readonly string configSeedAvatarsDir;
 
         private readonly PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
@@ -29,7 +34,9 @@ namespace SunEngine.DataSeed
         {
             this.dataContainer = dataContainer;
             this.configDir = configDir;
-            configSeedAvatarsDir = Path.Combine(configDir, "Init", "SeedAvatars");
+            configSeedAvatarsDir = Path.Combine(configDir, "Init", "Avatars");
+            PathService pathService = new PathService(configDir);
+            uploadImagesDir = pathService.GetPath(PathNames.UploadImagesDirName);
         }
 
         public void SeedUsers()
@@ -61,12 +68,6 @@ namespace SunEngine.DataSeed
             {
                 string name = ((string) usersJ["UserName"]).Replace("[n]", j.ToString());
 
-                string avatarPath = Path.Combine(this.configSeedAvatarsDir, name + ".jpg");
-                if (File.Exists(avatarPath))
-                {
-                    
-                }
-
                 User user = new User
                 {
                     Id = dataContainer.NextUserId(),
@@ -86,6 +87,32 @@ namespace SunEngine.DataSeed
                     user.Link = user.Id.ToString();
 
                 MakeNormalizedUserFields(user);
+
+                string[] exts = {".jpg", ".png", ".gif", ".svg"};
+                string avatarPath = null;
+                string avatarName = null;
+                foreach (var ext in exts)
+                {
+                    avatarName = name + ".jpg";
+                    var avatarPath1 = Path.Combine(this.configSeedAvatarsDir, avatarName);
+                    if (!File.Exists(avatarPath1))
+                        continue;
+                    avatarPath = avatarPath1;
+                    break;
+                }
+
+                if (avatarPath != null)
+                {
+                    var dir = Path.Combine(uploadImagesDir, "in");
+                    if (!Directory.Exists(dir))
+                        Directory.CreateDirectory(dir);
+                    var avatarPathRez = Path.Combine(dir, avatarName);
+                    if (File.Exists(avatarPathRez))
+                        File.Delete(avatarPathRez);
+                    File.Copy(avatarPath, avatarPathRez);
+                    user.Avatar = user.Photo = Path.Combine("in", avatarName);
+                }
+
                 dataContainer.Users.Add(user);
             }
         }

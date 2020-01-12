@@ -36,9 +36,7 @@ namespace SunEngine.DataSeed
         private string PrepareText(string text, IList<int> numbers)
         {
             if (text == null)
-            {
                 return null;
-            }
 
             return regex.Replace(text, c =>
             {

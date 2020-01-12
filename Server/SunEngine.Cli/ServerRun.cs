@@ -11,7 +11,7 @@ using SunEngine.Core.Services;
 
 namespace SunEngine.Cli
 {
-    public class ServerStartup
+    public class ServerRun
     {
         public void RunServer(StartupConfiguration startupConfiguration)
         {
@@ -25,7 +25,7 @@ namespace SunEngine.Cli
             new InfrastructurePreparer((IConfigurationRoot) conf).DoAll();
 
             Console.WriteLine();
-            
+
             webHost.Run();
         }
 
@@ -75,7 +75,7 @@ namespace SunEngine.Cli
                         config.Add(new ConfigDbSource(ConfigDbProvider.DefaultConfigDbProvider,
                             DataBaseFactory.DefaultDataBaseFactory));
 
-                        config.AddInMemoryCollection(new List<KeyValuePair<string, string>>()
+                        config.AddInMemoryCollection(new[]
                         {
                             new KeyValuePair<string, string>("Dirs:Config",
                                 Path.GetFullPath(startupConfiguration.ConfigRootDir))
@@ -87,30 +87,10 @@ namespace SunEngine.Cli
 
                     void UseStaticFiles()
                     {
-                        var sunEngineJsonDocument =
-                            JsonDocument.Parse(
-                                File.ReadAllText(Path.Combine(startupConfiguration.ConfigRootDir, "SunEngine.json")),
-                                jOptions);
-
-                        var wwwRootDir = sunEngineJsonDocument.RootElement.GetProperty("Dirs").GetProperty("WwwRoot")
-                            .GetString();
-
-                        if (sunEngineJsonDocument.RootElement.GetProperty("Global").GetProperty("FileServer")
-                            .GetBoolean())
-                        {
-                            if (wwwRootDir.StartsWith("%app%"))
-                            {
-                                var wwwRootDirTokens = wwwRootDir.Substring("%app%".Length + 1).Split('\\', '/');
-
-                                string[] tokens = new string[wwwRootDirTokens.Length + 1];
-                                tokens[0] = PathService.SearchApplicationRootDir();
-                                wwwRootDirTokens.CopyTo(tokens, 1);
-
-                                wwwRootDir = Path.Combine(tokens);
-                            }
-
-                            builder.UseWebRoot(wwwRootDir);
-                        }
+                        var configurationRoot = PathService.MakeConfiguration(startupConfiguration.ConfigRootDir);
+                        var fileServer = configurationRoot["Global:FileServer"];
+                        if (fileServer != null && bool.Parse(fileServer))
+                            builder.UseWebRoot(new PathService(startupConfiguration.ConfigRootDir).WwwRootDir);
                     }
                 });
         }
