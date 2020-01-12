@@ -25,9 +25,9 @@ namespace SunEngine.DataSeed
         private readonly string configDir;
         private readonly string uploadImagesDir;
         private readonly string configSeedAvatarsDir;
-
         private readonly PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
 
+        private string avatarsDir;
         private JArray usersJArray;
 
         public UsersSeeder(DataContainer dataContainer, string configDir)
@@ -44,6 +44,13 @@ namespace SunEngine.DataSeed
             string fileName = Path.Combine(configDir, "Init", "Users.json");
             string jsonText = File.ReadAllText(fileName);
             usersJArray = JArray.Parse(jsonText);
+
+            avatarsDir = Path.Combine(uploadImagesDir, "0");
+            if (Directory.Exists(avatarsDir))
+            {
+                Directory.Delete(avatarsDir, true);
+                Directory.CreateDirectory(avatarsDir);
+            }
 
             foreach (var userJ in usersJArray)
                 SeedUser(userJ);
@@ -76,8 +83,8 @@ namespace SunEngine.DataSeed
                         : name + "@email.email",
                     UserName = name,
                     EmailConfirmed = true,
-                    PasswordHash = passwordHasher.HashPassword(null,
-                        (string) (usersJ["Password"] ?? AllUsersDefaultPassword)),
+                    PasswordHash =
+                        passwordHasher.HashPassword(null, (string) (usersJ["Password"] ?? AllUsersDefaultPassword)),
                     SecurityStamp = string.Empty,
                     Information = ((string) usersJ["Information"])?.Replace("[n]", j.ToString()),
                     Link = ((string) usersJ["Link"])?.Replace("[n]", j.ToString()),
@@ -103,14 +110,9 @@ namespace SunEngine.DataSeed
 
                 if (avatarPath != null)
                 {
-                    var dir = Path.Combine(uploadImagesDir, "in");
-                    if (!Directory.Exists(dir))
-                        Directory.CreateDirectory(dir);
-                    var avatarPathRez = Path.Combine(dir, avatarName);
-                    if (File.Exists(avatarPathRez))
-                        File.Delete(avatarPathRez);
+                    var avatarPathRez = Path.Combine(avatarsDir, avatarName);
                     File.Copy(avatarPath, avatarPathRez);
-                    user.Avatar = user.Photo = Path.Combine("in", avatarName);
+                    user.Avatar = user.Photo = Path.Combine("0", avatarName);
                 }
 
                 dataContainer.Users.Add(user);

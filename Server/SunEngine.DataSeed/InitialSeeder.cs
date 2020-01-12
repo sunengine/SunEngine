@@ -26,14 +26,13 @@ namespace SunEngine.DataSeed
 
         private readonly UsersSeeder usersSeeder;
 
-        private readonly string configDir;
         private readonly string configInitDir;
 
         private readonly IPathService pathService;
 
         public InitialSeeder(IPathService pathService)
         {
-            configDir = pathService.ConfigDir;
+            string configDir = pathService.ConfigDir;
             configInitDir = Path.Combine(configDir, "Init");
             this.pathService = pathService;
             usersSeeder = new UsersSeeder(dataContainer, configDir);
@@ -131,10 +130,8 @@ namespace SunEngine.DataSeed
             void DetectCategoriesParents()
             {
                 foreach (var category in dataContainer.Categories)
-                {
                     if (category.ParentId.HasValue)
                         category.Parent = dataContainer.Categories.FirstOrDefault(x => x.Id == category.ParentId.Value);
-                }
             }
         }
 
@@ -142,12 +139,10 @@ namespace SunEngine.DataSeed
         {
             var fileNames = Directory.GetFiles(Path.Combine(configInitDir, CategoriesConfigDir));
 
-            CategoriesSeeder categoriesSeeder =
-                new CategoriesSeeder(dataContainer);
+            CategoriesSeeder categoriesSeeder = new CategoriesSeeder(dataContainer);
+            
             foreach (var fileName in fileNames)
-            {
                 categoriesSeeder.Seed(fileName);
-            }
         }
 
         private void SeedRoles()
@@ -157,11 +152,9 @@ namespace SunEngine.DataSeed
             string pathToUserGroupsConfig = Path.Combine(configInitDir, "Roles.json");
             string resourcesPath = pathService.GetPath(PathNames.ResourcesDirName);
             string pathToUserGroupsSchema = Path.Combine(resourcesPath, "Roles.schema.json");
-
-
+            
             JsonSchema schema = JsonSchema.FromFileAsync(pathToUserGroupsSchema).GetAwaiter().GetResult();
-
-
+            
             RolesFromJsonLoader fromJsonLoader =
                 new RolesFromJsonLoader(dataContainer.Categories.ToDictionary(x => x.Name),
                     dataContainer.OperationKeys.ToDictionary(x => x.Name), schema);
