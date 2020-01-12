@@ -46,11 +46,10 @@ namespace SunEngine.DataSeed
             usersJArray = JArray.Parse(jsonText);
 
             avatarsDir = Path.Combine(uploadImagesDir, "0");
-            if (Directory.Exists(avatarsDir))
-            {
+
+            if(Directory.Exists(avatarsDir))
                 Directory.Delete(avatarsDir, true);
-                Directory.CreateDirectory(avatarsDir);
-            }
+            Directory.CreateDirectory(avatarsDir);
 
             foreach (var userJ in usersJArray)
                 SeedUser(userJ);
