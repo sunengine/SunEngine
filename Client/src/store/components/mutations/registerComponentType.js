@@ -1,9 +1,7 @@
-import Vue from 'vue';
-
+import Vue from "vue";
 
 export default function(state, component) {
-  if (!state.componentsTypes)
-    state.componentsTypes = {};
+	if (!state.componentsTypes) state.componentsTypes = {};
 
-  Vue.set(state.componentsTypes, component.name.toLowerCase(), component);
+	Vue.set(state.componentsTypes, component.name.toLowerCase(), component);
 }

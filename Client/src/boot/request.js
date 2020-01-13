@@ -1,5 +1,5 @@
-import {request} from 'sun'
+import { request } from "sun";
 
-export default ({Vue}) => { Vue.prototype.$request = request; }
-
-
+export default ({ Vue }) => {
+	Vue.prototype.$request = request;
+};

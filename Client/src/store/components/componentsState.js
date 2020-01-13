@@ -1,4 +1,4 @@
 export default {
-  allComponents: null,
-  componentsTypes: null
-}
+	allComponents: null,
+	componentsTypes: null
+};

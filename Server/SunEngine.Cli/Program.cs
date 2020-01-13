@@ -4,71 +4,71 @@ using System.IO;
 
 namespace SunEngine.Cli
 {
-    public static class Program
-    {
-        /// <summary>
-        /// Entry point of CLI
-        /// </summary>
-        public static void Main(string[] args)
-        {
-            InfoPrinter.PrintLogoAndVersion();
-            
-            StartupConfiguration config = new StartupConfiguration(args);
+	public static class Program
+	{
+		/// <summary>
+		/// Entry point of CLI
+		/// </summary>
+		public static void Main(string[] args)
+		{
+			InfoPrinter.PrintLogoAndVersion();
 
-            if (config.PrintHelp || config.PrintVersion)
-            {
-                if (config.PrintHelp)
-                    InfoPrinter.PrintHelp();
+			StartupConfiguration config = new StartupConfiguration(args);
 
-                else if (config.PrintVersion)
-                    InfoPrinter.PrintVersion();
+			if (config.PrintHelp || config.PrintVersion)
+			{
+				if (config.PrintHelp)
+					InfoPrinter.PrintHelp();
 
-                return;
-            }
+				else if (config.PrintVersion)
+					InfoPrinter.PrintVersion();
 
-            if (config.CheckNoArguments())
-            {
-                InfoPrinter.PrintNoArgumentsInfo();
-                return;
-            }
+				return;
+			}
 
-            config.InitConfigurationDirectory();
+			if (config.CheckNoArguments())
+			{
+				InfoPrinter.PrintNoArgumentsInfo();
+				return;
+			}
 
-            if (config.CheckDatabaseAvailability)
-            {
-                if (!DataSeed().PrintDbConnectionAvailability())
-                    Environment.Exit(1);
-            }
+			config.InitConfigurationDirectory();
 
-            else if (ShouldUpdate(config))
-            {
-                if (config.Migrate)
-                    Migrations().Migrate();
+			if (config.CheckDatabaseAvailability)
+			{
+				if (!DataSeed().PrintDbConnectionAvailability())
+					Environment.Exit(1);
+			}
 
-                if (config.InitializeCoreData)
-                    DataSeed().SeedInitialize();
+			else if (ShouldUpdate(config))
+			{
+				if (config.Migrate)
+					Migrations().Migrate();
 
-                if (config.SeedWithTestData)
-                    DataSeed().SeedAddTestData(config.CategoryTokensToSeed, config.SeedWithCategoryNames);
-            }
+				if (config.InitializeCoreData)
+					DataSeed().SeedInitialize();
 
-            else if (config.StartServer)
-                new ServerRun().RunServer(config);
-            else
-                InfoPrinter.PrintNoArgumentsInfo();
+				if (config.SeedWithTestData)
+					DataSeed().SeedAddTestData(config.CategoryTokensToSeed, config.SeedWithCategoryNames);
+			}
+
+			else if (config.StartServer)
+				new ServerRun().RunServer(config);
+			else
+				InfoPrinter.PrintNoArgumentsInfo();
 
 
-            Migrations.Main Migrations() => new Migrations.Main(config.ConfigRootDir);
+			Migrations.Main Migrations() => new Migrations.Main(config.ConfigRootDir);
 
-            DataSeed.Main DataSeed() => new DataSeed.Main(config.ConfigRootDir);
-        }
+			DataSeed.Main DataSeed() => new DataSeed.Main(config.ConfigRootDir);
+		}
 
-        // Detect if there is on of the update database command
-        private static bool ShouldUpdate(StartupConfiguration startupConfiguration)
-        {
-            return startupConfiguration.Migrate ||
-                   startupConfiguration.InitializeCoreData ||
-                   startupConfiguration.SeedWithTestData;
-        }
-    }
+		// Detect if there is on of the update database command
+		private static bool ShouldUpdate(StartupConfiguration startupConfiguration)
+		{
+			return startupConfiguration.Migrate ||
+			       startupConfiguration.InitializeCoreData ||
+			       startupConfiguration.SeedWithTestData;
+		}
+	}
 }

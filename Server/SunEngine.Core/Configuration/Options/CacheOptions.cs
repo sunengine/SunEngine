@@ -3,16 +3,16 @@ using SunEngine.Core.Models;
 
 namespace SunEngine.Core.Configuration.Options
 {
-    public enum CachePolicy
-    {
-        AlwaysPolicy,
-        NeverPolicy,
-        CustomPolicy
-    }
+	public enum CachePolicy
+	{
+		AlwaysPolicy,
+		NeverPolicy,
+		CustomPolicy
+	}
 
-    public class CacheOptions
-    {
-        public CachePolicy CurrentCachePolicy { get; set; }
-        public int InvalidateCacheTime { get; set; }
-    }
+	public class CacheOptions
+	{
+		public CachePolicy CurrentCachePolicy { get; set; }
+		public int InvalidateCacheTime { get; set; }
+	}
 }

@@ -1,5 +1,5 @@
-import adminState from 'src/store/admin/adminState'
+import adminState from "src/store/admin/adminState";
 
 export default {
-  state: adminState
-}
+	state: adminState
+};

@@ -5,30 +5,30 @@ using System.Runtime.CompilerServices;
 
 namespace SunEngine.Cli
 {
-    /// <summary>
-    /// Class to print SunEngine information
-    /// </summary>
-    public static class InfoPrinter
-    {
-        /// <summary>
-        /// Print warning message if "dotnet SunEngine.dll" starts with no valid arguments.
-        /// </summary>
-        public static void PrintNoArgumentsInfo()
-        {
-            Console.WriteLine(
-                "Valid startup arguments was not provided.\nTo list available arguments run with 'help' command.\n> dotnet SunEngine.dll help\n");
-        }
+	/// <summary>
+	/// Class to print SunEngine information
+	/// </summary>
+	public static class InfoPrinter
+	{
+		/// <summary>
+		/// Print warning message if "dotnet SunEngine.dll" starts with no valid arguments.
+		/// </summary>
+		public static void PrintNoArgumentsInfo()
+		{
+			Console.WriteLine(
+				"Valid startup arguments was not provided.\nTo list available arguments run with 'help' command.\n> dotnet SunEngine.dll help\n");
+		}
 
-        /// <summary>
-        /// Print SunEngine logo 
-        /// </summary>
-        public static void PrintLogoAndVersion()
-        {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
-            string v = fileVersionInfo.ProductVersion;
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine($@"
+		/// <summary>
+		/// Print SunEngine logo 
+		/// </summary>
+		public static void PrintLogoAndVersion()
+		{
+			Assembly assembly = Assembly.GetExecutingAssembly();
+			FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+			string v = fileVersionInfo.ProductVersion;
+			Console.ForegroundColor = ConsoleColor.DarkYellow;
+			Console.WriteLine($@"
     _____                 _____
    /  ___)               |  ___)               (o)
   (  (___   _   _  ____  | |___   ____    ____  _  ____   ____ 
@@ -38,16 +38,16 @@ namespace SunEngine.Cli
                                           __| |
             Version: {v,-6}              (____/".TrimStart('\n') + "\n");
 
-            Console.ResetColor();
-        }
+			Console.ResetColor();
+		}
 
-        /// <summary>
-        /// Print help on dotnet "dotnet SunEngine.dll help"
-        /// </summary>
-        public static void PrintHelp()
-        {
-            const int padding = -36;
-            string helpText = $@"
+		/// <summary>
+		/// Print help on dotnet "dotnet SunEngine.dll help"
+		/// </summary>
+		public static void PrintHelp()
+		{
+			const int padding = -36;
+			string helpText = $@"
   Commands
      {StartupConfiguration.ServerCommand,padding} Host server api with kestrel
      {StartupConfiguration.ConfigArgumentName + ":<Path>",padding} Path to config directory, if none ""Config"" is default, "".Config"" suffix at the end of the path can be skipped
@@ -73,18 +73,18 @@ namespace SunEngine.Cli
      dotnet SunEngine.dll {StartupConfiguration.SeedCommand}:Forum:10:10
 ";
 
-            Console.WriteLine(helpText);
-        }
+			Console.WriteLine(helpText);
+		}
 
-        /// <summary>
-        /// Print SunEngine version
-        /// </summary>
-        public static void PrintVersion()
-        {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
-            string version = fileVersionInfo.ProductVersion;
-            Console.WriteLine($"SunEngine version: {version}");
-        }
-    }
+		/// <summary>
+		/// Print SunEngine version
+		/// </summary>
+		public static void PrintVersion()
+		{
+			Assembly assembly = Assembly.GetExecutingAssembly();
+			FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+			string version = fileVersionInfo.ProductVersion;
+			Console.WriteLine($"SunEngine version: {version}");
+		}
+	}
 }

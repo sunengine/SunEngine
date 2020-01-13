@@ -12,66 +12,66 @@ using SunEngine.Core.Models;
 
 namespace SunEngine.Admin.Controllers
 {
-    public class ConfigurationAdminController : BaseAdminController
-    {
-        protected readonly IConfigurationManager configurationManager;
-        protected readonly IConfigurationPresenter configurationPresenter;
-        protected readonly IConfigurationRoot configurationRoot;
-        protected readonly ConfigurationAdminService configurationAdminService;
-        protected readonly IHostingEnvironment env;
-        protected readonly IDynamicConfigCache dynamicConfigCache;
+	public class ConfigurationAdminController : BaseAdminController
+	{
+		protected readonly IConfigurationManager configurationManager;
+		protected readonly IConfigurationPresenter configurationPresenter;
+		protected readonly IConfigurationRoot configurationRoot;
+		protected readonly ConfigurationAdminService configurationAdminService;
+		protected readonly IHostingEnvironment env;
+		protected readonly IDynamicConfigCache dynamicConfigCache;
 
-        public ConfigurationAdminController(
-            IConfigurationManager configurationManager,
-            ConfigurationAdminService configurationAdminService,
-            IConfigurationPresenter configurationPresenter,
-            IConfigurationRoot configurationRoot,
-            IDynamicConfigCache dynamicConfigCache,
-            IHostingEnvironment env,
-            IServiceProvider serviceProvider) : base(serviceProvider)
-        {
-            this.env = env;
-            this.dynamicConfigCache = dynamicConfigCache;
-            this.configurationRoot = configurationRoot;
-            this.configurationManager = configurationManager;
-            this.configurationAdminService = configurationAdminService;
-            this.configurationPresenter = configurationPresenter;
-        }
+		public ConfigurationAdminController(
+			IConfigurationManager configurationManager,
+			ConfigurationAdminService configurationAdminService,
+			IConfigurationPresenter configurationPresenter,
+			IConfigurationRoot configurationRoot,
+			IDynamicConfigCache dynamicConfigCache,
+			IHostingEnvironment env,
+			IServiceProvider serviceProvider) : base(serviceProvider)
+		{
+			this.env = env;
+			this.dynamicConfigCache = dynamicConfigCache;
+			this.configurationRoot = configurationRoot;
+			this.configurationManager = configurationManager;
+			this.configurationAdminService = configurationAdminService;
+			this.configurationPresenter = configurationPresenter;
+		}
 
-        [HttpPost]
-        public IActionResult UploadConfiguration()
-        {
-            var items = Request.Form.Select(x => new ConfigurationItem
-            {
-                Name = x.Key,
-                Value = x.Value
-            }).ToList();
+		[HttpPost]
+		public IActionResult UploadConfiguration()
+		{
+			var items = Request.Form.Select(x => new ConfigurationItem
+			{
+				Name = x.Key,
+				Value = x.Value
+			}).ToList();
 
-            configurationManager.UploadConfigurationItems(items);
+			configurationManager.UploadConfigurationItems(items);
 
-            configurationRoot.Reload();
+			configurationRoot.Reload();
 
-            dynamicConfigCache.Initialize();
+			dynamicConfigCache.Initialize();
 
-            configurationAdminService.UpdateClientScripts();
+			configurationAdminService.UpdateClientScripts();
 
-            return Ok();
-        }
+			return Ok();
+		}
 
-        [HttpPost]
-        public async Task<IActionResult> LoadConfiguration()
-        {
-            var items = await configurationPresenter.LoadConfigurationAsync();
+		[HttpPost]
+		public async Task<IActionResult> LoadConfiguration()
+		{
+			var items = await configurationPresenter.LoadConfigurationAsync();
 
-            return Ok(items);
-        }
+			return Ok(items);
+		}
 
-        [HttpPost]
-        public IActionResult GetEnums()
-        {
-            var items = configurationPresenter.GetEnums();
+		[HttpPost]
+		public IActionResult GetEnums()
+		{
+			var items = configurationPresenter.GetEnums();
 
-            return Json(items);
-        }
-    }
+			return Json(items);
+		}
+	}
 }

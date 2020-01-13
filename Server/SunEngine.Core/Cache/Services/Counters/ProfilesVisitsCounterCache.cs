@@ -7,107 +7,107 @@ using SunEngine.Core.Filters;
 
 namespace SunEngine.Core.Cache.Services.Counters
 {
-    public interface IProfilesVisitsCounterService
-    {
-        /// <summary>
-        /// Add 1 and return cached value.
-        /// </summary>
-        int CountProfile(string userOrIpKey, int userId);
+	public interface IProfilesVisitsCounterService
+	{
+		/// <summary>
+		/// Add 1 and return cached value.
+		/// </summary>
+		int CountProfile(string userOrIpKey, int userId);
 
-        /// <summary>
-        /// Upload cached values to data base
-        /// </summary>
-        void UploadToDataBase();
-    }
+		/// <summary>
+		/// Upload cached values to data base
+		/// </summary>
+		void UploadToDataBase();
+	}
 
-    public class ProfilesVisitsCounterService : IProfilesVisitsCounterService
-    {
-        protected const string SpamProtectionKeyStart = "VISP";
+	public class ProfilesVisitsCounterService : IProfilesVisitsCounterService
+	{
+		protected const string SpamProtectionKeyStart = "VISP";
 
-        protected readonly TimeSpan SpamProtectionTimeInterval = TimeSpan.FromMinutes(20);
+		protected readonly TimeSpan SpamProtectionTimeInterval = TimeSpan.FromMinutes(20);
 
-        protected readonly object lockObject = new object();
+		protected readonly object lockObject = new object();
 
-        /// <summary>
-        /// Dictionary of cached visits contains only new visits.
-        /// To get full count you need to sum base value from database and this value.
-        /// </summary>
-        protected readonly ConcurrentDictionary<int, int> visits = new ConcurrentDictionary<int, int>();
+		/// <summary>
+		/// Dictionary of cached visits contains only new visits.
+		/// To get full count you need to sum base value from database and this value.
+		/// </summary>
+		protected readonly ConcurrentDictionary<int, int> visits = new ConcurrentDictionary<int, int>();
 
-        protected readonly IDataBaseFactory dbFactory;
-        protected readonly SpamProtectionCache spamProtectionCache;
+		protected readonly IDataBaseFactory dbFactory;
+		protected readonly SpamProtectionCache spamProtectionCache;
 
-        public ProfilesVisitsCounterService(
-            IDataBaseFactory dbFactory,
-            SpamProtectionCache spamProtectionCache)
-        {
-            this.dbFactory = dbFactory;
-            this.spamProtectionCache = spamProtectionCache;
-        }
-
-
-        protected static string GenerateKey(string userOrIpKey, int userId) =>
-            SpamProtectionKeyStart + "-" + userOrIpKey + "-" + userId;
-
-        public int CountProfile(string userOrIpKey, int userId)
-        {
-            var key = GenerateKey(userOrIpKey, userId);
-
-            lock (lockObject)
-            {
-                if (spamProtectionCache.HasWorkingKey(key))
-                {
-                    return visits.TryGetValue(userId, out int rez)
-                        ? rez
-                        : 0;
-                }
-
-                spamProtectionCache.AddOrUpdate(key, new RequestFree(SpamProtectionTimeInterval));
+		public ProfilesVisitsCounterService(
+			IDataBaseFactory dbFactory,
+			SpamProtectionCache spamProtectionCache)
+		{
+			this.dbFactory = dbFactory;
+			this.spamProtectionCache = spamProtectionCache;
+		}
 
 
-                if (visits.TryGetValue(userId, out int materialVisits))
-                    return visits[userId] = materialVisits + 1;
+		protected static string GenerateKey(string userOrIpKey, int userId) =>
+			SpamProtectionKeyStart + "-" + userOrIpKey + "-" + userId;
 
-                return visits[userId] = 1;
-            }
-        }
+		public int CountProfile(string userOrIpKey, int userId)
+		{
+			var key = GenerateKey(userOrIpKey, userId);
 
-        public void UploadToDataBase()
-        {
-            UploadIdVisitsToDataBase();
-        }
+			lock (lockObject)
+			{
+				if (spamProtectionCache.HasWorkingKey(key))
+				{
+					return visits.TryGetValue(userId, out int rez)
+						? rez
+						: 0;
+				}
 
-        protected void UploadIdVisitsToDataBase()
-        {
-            lock (lockObject)
-            {
-                if (visits.Count == 0)
-                    return;
+				spamProtectionCache.AddOrUpdate(key, new RequestFree(SpamProtectionTimeInterval));
 
-                using var db = dbFactory.CreateDb();
-                var vss = visits.Select(x => new VisitsById {Id = x.Key, Visits = x.Value});
 
-                db.BeginTransaction();
+				if (visits.TryGetValue(userId, out int materialVisits))
+					return visits[userId] = materialVisits + 1;
 
-                db.DropTable<VisitsById>(throwExceptionIfNotExists: false);
-                using TempTable<VisitsById> visitsByIdTempTable = new TempTable<VisitsById>(db, vss);
+				return visits[userId] = 1;
+			}
+		}
 
-                db.Users.Where(x => visitsByIdTempTable.Any(y => y.Id == x.Id))
-                    .Set(x => x.ProfileVisitsCount,
-                        x => x.ProfileVisitsCount +
-                             visitsByIdTempTable.FirstOrDefault(y => y.Id == x.Id).Visits)
-                    .Update();
+		public void UploadToDataBase()
+		{
+			UploadIdVisitsToDataBase();
+		}
 
-                visits.Clear();
+		protected void UploadIdVisitsToDataBase()
+		{
+			lock (lockObject)
+			{
+				if (visits.Count == 0)
+					return;
 
-                db.CommitTransaction();
-            }
-        }
+				using var db = dbFactory.CreateDb();
+				var vss = visits.Select(x => new VisitsById {Id = x.Key, Visits = x.Value});
 
-        protected class VisitsById
-        {
-            public int Id { get; set; }
-            public int Visits { get; set; }
-        }
-    }
+				db.BeginTransaction();
+
+				db.DropTable<VisitsById>(throwExceptionIfNotExists: false);
+				using TempTable<VisitsById> visitsByIdTempTable = new TempTable<VisitsById>(db, vss);
+
+				db.Users.Where(x => visitsByIdTempTable.Any(y => y.Id == x.Id))
+					.Set(x => x.ProfileVisitsCount,
+						x => x.ProfileVisitsCount +
+						     visitsByIdTempTable.FirstOrDefault(y => y.Id == x.Id).Visits)
+					.Update();
+
+				visits.Clear();
+
+				db.CommitTransaction();
+			}
+		}
+
+		protected class VisitsById
+		{
+			public int Id { get; set; }
+			public int Visits { get; set; }
+		}
+	}
 }

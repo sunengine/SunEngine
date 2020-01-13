@@ -1,49 +1,46 @@
 ﻿<template>
-    <q-page class="activities-page">
-        <h1 class="page-title page-padding">
-            {{title}}
-        </h1>
-        <div class="page-padding" v-if="component.settings.SubTitle">
-            <div class="page-sub-title">
-                {{component.settings.SubTitle}}
-            </div>
-        </div>
+	<q-page class="activities-page">
+		<h1 class="page-title page-padding">
+			{{ title }}
+		</h1>
+		<div class="page-padding" v-if="component.settings.SubTitle">
+			<div class="page-sub-title">
+				{{ component.settings.SubTitle }}
+			</div>
+		</div>
 
-        <ActivitiesList :componentName="componentName"/>
-    </q-page>
+		<ActivitiesList :componentName="componentName" />
+	</q-page>
 </template>
 
 <script>
-    import {Page} from 'mixins'
+import { Page } from "mixins";
 
-    export default {
-        name: 'ActivitiesPage',
-        mixins: [Page],
-        props: {
-            componentName: {
-                type: String,
-                required: true
-            }
-        },
-        computed: {
-            component() {
-                return this.$store.getters.getComponent(this.componentName);
-            }
-        },
-        beforeCreate() {
-            this.$options.centered = true;
-            this.$options.components.ActivitiesList = require('sun').ActivitiesList;
-        },
-        created() {
-            this.title = this.component.settings.Title ?? this.$tl('defaultTitle');
-        }
-    }
+export default {
+	name: "ActivitiesPage",
+	mixins: [Page],
+	props: {
+		componentName: {
+			type: String,
+			required: true
+		}
+	},
+	computed: {
+		component() {
+			return this.$store.getters.getComponent(this.componentName);
+		}
+	},
+	beforeCreate() {
+		this.$options.centered = true;
+		this.$options.components.ActivitiesList = require("sun").ActivitiesList;
+	},
+	created() {
+		this.title = this.component.settings.Title ?? this.$tl("defaultTitle");
+	}
+};
 </script>
 
 <style lang="scss">
-
-    .activities-page {
-
-    }
-
+.activities-page {
+}
 </style>

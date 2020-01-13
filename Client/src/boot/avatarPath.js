@@ -1,5 +1,5 @@
-﻿import {avatarPath} from 'sun'
+﻿import { avatarPath } from "sun";
 
 export default ({ Vue }) => {
-  Vue.prototype.$avatarPath = avatarPath;
-}
+	Vue.prototype.$avatarPath = avatarPath;
+};

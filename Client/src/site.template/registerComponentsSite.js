@@ -1,3 +1,1 @@
-export default function(store) {
-
-}
+export default function(store) {}

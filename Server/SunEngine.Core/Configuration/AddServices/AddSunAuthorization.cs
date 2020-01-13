@@ -3,21 +3,21 @@ using SunEngine.Core.Security;
 
 namespace SunEngine.Core.Configuration.AddServices
 {
-    public static class AddSunAuthorizationExtensions
-    {
-        public static IServiceCollection AddSunAuthorization(this IServiceCollection services)
-        {
-            services.AddSingleton<OperationKeysContainer>();
-            services.AddSingleton<IAuthorizationService, AuthorizationService>();
+	public static class AddSunAuthorizationExtensions
+	{
+		public static IServiceCollection AddSunAuthorization(this IServiceCollection services)
+		{
+			services.AddSingleton<OperationKeysContainer>();
+			services.AddSingleton<IAuthorizationService, AuthorizationService>();
 
-            services.AddScoped<MaterialsAuthorization>();
-            services.AddScoped<CommentsAuthorization>();
+			services.AddScoped<MaterialsAuthorization>();
+			services.AddScoped<CommentsAuthorization>();
 
-            services.AddScoped<JweService>();
+			services.AddScoped<JweService>();
 
-            services.AddSingleton<JweBlackListService>();
+			services.AddSingleton<JweBlackListService>();
 
-            return services;
-        }
-    }
+			return services;
+		}
+	}
 }

@@ -6,12 +6,12 @@ using SunEngine.Core.Security;
 
 namespace SunEngine.Admin.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = RoleNames.Admin)]
-    public abstract class BaseAdminController : BaseController
-    {
-        protected BaseAdminController(IServiceProvider serviceProvider) : base(serviceProvider)
-        {
-        }
-    }
+	[Area("Admin")]
+	[Authorize(Roles = RoleNames.Admin)]
+	public abstract class BaseAdminController : BaseController
+	{
+		protected BaseAdminController(IServiceProvider serviceProvider) : base(serviceProvider)
+		{
+		}
+	}
 }

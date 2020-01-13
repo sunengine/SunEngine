@@ -1,29 +1,27 @@
 ﻿export default function(func, ms = 500) {
+	let isThrottled = false,
+		savedArgs,
+		savedThis;
 
-  let isThrottled = false,
-    savedArgs,
-    savedThis;
+	function wrapper() {
+		if (isThrottled) {
+			savedArgs = arguments;
+			savedThis = this;
+			return;
+		}
 
-  function wrapper() {
+		func.apply(this, arguments);
 
-    if (isThrottled) {
-      savedArgs = arguments;
-      savedThis = this;
-      return;
-    }
+		isThrottled = true;
 
-    func.apply(this, arguments);
+		setTimeout(function() {
+			isThrottled = false;
+			if (savedArgs) {
+				wrapper.apply(savedThis, savedArgs);
+				savedArgs = savedThis = null;
+			}
+		}, ms);
+	}
 
-    isThrottled = true;
-
-    setTimeout(function() {
-      isThrottled = false;
-      if (savedArgs) {
-        wrapper.apply(savedThis, savedArgs);
-        savedArgs = savedThis = null;
-      }
-    }, ms);
-  }
-
-  return wrapper;
+	return wrapper;
 }

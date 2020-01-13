@@ -17,132 +17,132 @@ using SunEngine.Core.Services;
 
 namespace SunEngine.Cli
 {
-    public class Startup
-    {
-        public Startup(IConfiguration configuration, IWebHostEnvironment env)
-        {
-            Configuration = configuration;
-            CurrentEnvironment = env;
-        }
+	public class Startup
+	{
+		public Startup(IConfiguration configuration, IWebHostEnvironment env)
+		{
+			Configuration = configuration;
+			CurrentEnvironment = env;
+		}
 
-        private IConfiguration Configuration { get; }
+		private IConfiguration Configuration { get; }
 
-        private IWebHostEnvironment CurrentEnvironment { get; }
+		private IWebHostEnvironment CurrentEnvironment { get; }
 
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+		public void ConfigureServices(IServiceCollection services)
+		{
+			services.Configure<CookiePolicyOptions>(options =>
+			{
+				options.CheckConsentNeeded = context => true;
+				options.MinimumSameSitePolicy = SameSiteMode.None;
+			});
 
-            var origins = Configuration.GetValue<string>("Cors:Origins");
-            if (!string.IsNullOrEmpty(origins))
-                services.AddCors();
+			var origins = Configuration.GetValue<string>("Cors:Origins");
+			if (!string.IsNullOrEmpty(origins))
+				services.AddCors();
 
-            services.AddOptions(Configuration);
+			services.AddOptions(Configuration);
 
-            services.AddDatabase(Configuration, out var dataBaseFactory);
+			services.AddDatabase(Configuration, out var dataBaseFactory);
 
-            services.AddCaches(dataBaseFactory);
+			services.AddCaches(dataBaseFactory);
 
-            services.AddCachePolicy();
+			services.AddCachePolicy();
 
-            services.AddIdentity(dataBaseFactory);
+			services.AddIdentity(dataBaseFactory);
 
-            services.AddSunAuthentication();
+			services.AddSunAuthentication();
 
-            services.AddSunAuthorization();
+			services.AddSunAuthorization();
 
-            services.AddManagers();
+			services.AddManagers();
 
-            services.AddPresenters();
+			services.AddPresenters();
 
-            services.AddAdmin();
+			services.AddAdmin();
 
-            services.AddMemoryCache();
+			services.AddMemoryCache();
 
-            services.AddImagesServices();
+			services.AddImagesServices();
 
-            services.AddCiphers(dataBaseFactory);
+			services.AddCiphers(dataBaseFactory);
 
-            services.AddCounters();
+			services.AddCounters();
 
-            services.AddJobs();
+			services.AddJobs();
 
-            services.AddSingleton<CaptchaService>();
-            services.AddSanitizer();
+			services.AddSingleton<CaptchaService>();
+			services.AddSanitizer();
 
-            services.AddTransient<IEmailSenderService, EmailSenderService>();
+			services.AddTransient<IEmailSenderService, EmailSenderService>();
 
-            services.AddSingleton<IDynamicConfigCache, DynamicConfigCache>();
+			services.AddSingleton<IDynamicConfigCache, DynamicConfigCache>();
 
-            services.AddSingleton<IPathService, PathService>();
+			services.AddSingleton<IPathService, PathService>();
 
-            services.AddSingleton((IConfigurationRoot) Configuration);
+			services.AddSingleton((IConfigurationRoot) Configuration);
 
-            services.AddMvcCore(options =>
-                {
-                    // Add filters here
-                })
-                .AddApiExplorer()
-                .AddAuthorization()
-                .AddJsonOptions(options =>
-                    {
-                        options.JsonSerializerOptions.WriteIndented = false;
-                        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-                    }
-                );
-        }
-
-
-        public void Configure(IApplicationBuilder app, IOptionsMonitor<GlobalOptions> globalOptions)
-        {
-            if (!CurrentEnvironment.IsDevelopment())
-                app.UseHsts();
-
-            if (globalOptions.CurrentValue.FileServer)
-                app.UseStaticFiles();
-
-            app.UseCookiePolicy();
-
-            var origins = Configuration.GetValue<string>("Cors:Origins")?.Split(",");
+			services.AddMvcCore(options =>
+				{
+					// Add filters here
+				})
+				.AddApiExplorer()
+				.AddAuthorization()
+				.AddJsonOptions(options =>
+					{
+						options.JsonSerializerOptions.WriteIndented = false;
+						options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+					}
+				);
+		}
 
 
-            if (origins != null && origins.Length >= 1)
-            {
-                app.UseCors(builder =>
-                    builder.WithOrigins(origins)
-                        .AllowCredentials().AllowAnyHeader().AllowAnyMethod()
-                        .WithExposedHeaders(Headers.TokensHeaderName));
-            }
+		public void Configure(IApplicationBuilder app, IOptionsMonitor<GlobalOptions> globalOptions)
+		{
+			if (!CurrentEnvironment.IsDevelopment())
+				app.UseHsts();
+
+			if (globalOptions.CurrentValue.FileServer)
+				app.UseStaticFiles();
+
+			app.UseCookiePolicy();
+
+			var origins = Configuration.GetValue<string>("Cors:Origins")?.Split(",");
 
 
-            app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
-            app.UseMiddleware<SunExceptionMiddleware>();
-            app.UseEndpoints(endPoints =>
-            {
-                endPoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                endPoints.MapControllerRoute("default", "{controller}/{action}");
-            });
-        }
+			if (origins != null && origins.Length >= 1)
+			{
+				app.UseCors(builder =>
+					builder.WithOrigins(origins)
+						.AllowCredentials().AllowAnyHeader().AllowAnyMethod()
+						.WithExposedHeaders(Headers.TokensHeaderName));
+			}
 
-        public static void SetExceptionsMode(IWebHostEnvironment env, IConfiguration conf)
-        {
-            void ShowExceptions()
-            {
-                Console.WriteLine("Show exceptions mode: True");
-                ErrorsMode.ShowErrors = true;
-            }
 
-            if (bool.TryParse(conf["Dev:ShowExceptions"], out bool showExceptions) && showExceptions)
-                ShowExceptions();
+			app.UseRouting();
+			app.UseAuthentication();
+			app.UseAuthorization();
+			app.UseMiddleware<SunExceptionMiddleware>();
+			app.UseEndpoints(endPoints =>
+			{
+				endPoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+				endPoints.MapControllerRoute("default", "{controller}/{action}");
+			});
+		}
 
-            else if (env.IsDevelopment())
-                ShowExceptions();
-        }
-    }
+		public static void SetExceptionsMode(IWebHostEnvironment env, IConfiguration conf)
+		{
+			void ShowExceptions()
+			{
+				Console.WriteLine("Show exceptions mode: True");
+				ErrorsMode.ShowErrors = true;
+			}
+
+			if (bool.TryParse(conf["Dev:ShowExceptions"], out bool showExceptions) && showExceptions)
+				ShowExceptions();
+
+			else if (env.IsDevelopment())
+				ShowExceptions();
+		}
+	}
 }

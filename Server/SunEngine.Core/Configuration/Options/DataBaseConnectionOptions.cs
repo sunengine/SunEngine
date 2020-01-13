@@ -1,6 +1,6 @@
 namespace SunEngine.Core.Configuration.Options
 {
-    public class DataBaseConnectionOptions
-    {
-    }
+	public class DataBaseConnectionOptions
+	{
+	}
 }

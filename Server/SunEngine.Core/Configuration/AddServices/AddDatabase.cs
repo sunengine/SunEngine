@@ -4,21 +4,21 @@ using SunEngine.Core.DataBase;
 
 namespace SunEngine.Core.Configuration.AddServices
 {
-    public static class AddDatabaseExtensions
-    {
-        public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration,
-            out IDataBaseFactory dataBaseFactory)
-        {
-            LinqToDB.Common.Configuration.Linq.AllowMultipleQuery = true;
+	public static class AddDatabaseExtensions
+	{
+		public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration,
+			out IDataBaseFactory dataBaseFactory)
+		{
+			LinqToDB.Common.Configuration.Linq.AllowMultipleQuery = true;
 
-            var dbFactory = DataBaseFactory.DefaultDataBaseFactory;
+			var dbFactory = DataBaseFactory.DefaultDataBaseFactory;
 
-            services.AddSingleton<IDataBaseFactory>(dbFactory);
-            services.AddScoped(x => dbFactory.CreateDb());
+			services.AddSingleton<IDataBaseFactory>(dbFactory);
+			services.AddScoped(x => dbFactory.CreateDb());
 
-            dataBaseFactory = dbFactory;
+			dataBaseFactory = dbFactory;
 
-            return services;
-        }
-    }
+			return services;
+		}
+	}
 }

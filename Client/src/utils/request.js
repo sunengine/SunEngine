@@ -1,193 +1,190 @@
-import axios from 'axios'
-import Lock from 'js-lock'
+import axios from "axios";
+import Lock from "js-lock";
 
-import {store as store} from 'sun'
-import {router} from 'sun'
-import {app} from 'sun'
-import {removeTokens, setTokens, getTokens} from 'sun'
-import {routeCheckAccess} from 'sun'
-import {consoleTokens, consoleUserLogout, consoleRequestStart, consoleRequestUrl} from 'sun'
+import { store } from "sun";
+import { router } from "sun";
+import { app } from "sun";
+import { removeTokens, setTokens, getTokens } from "sun";
+import { routeCheckAccess } from "sun";
+import {
+	consoleTokens,
+	consoleUserLogout,
+	consoleRequestStart,
+	consoleRequestUrl
+} from "sun";
 
+const lock = new Lock("request-lock");
 
-const lock = new Lock('request-lock');
-
-
-const apiAxios = axios.create({baseURL: config.Global.SiteApi, withCredentials: process.env.DEV});
-
-
-apiAxios.interceptors.response.use(async rez => {
-    await checkTokens(rez);
-
-    return rez;
-}, async rez => {
-    if (!rez.config.blockErrorsNotifications) {
-        if (!rez.response.data || rez.response.data.type === 'System') {
-
-            if (config.Dev.ShowExceptions)
-                console.error("Exception", rez.response.data);
-
-            app.$q.notify({
-                message: app.$t('Global.apiError'),
-                timeout: 1800,
-                color: 'negative',
-                position: 'bottom-right'
-            });
-        } else {
-            app.$q.notify({
-                message: app.$t('Errors.' + rez.response.data),
-                timeout: 2200,
-                color: 'warning',
-                position: 'top-center'
-            });
-        }
-    }
-    await checkTokens(rez.response);
-    throw rez;
+const apiAxios = axios.create({
+	baseURL: config.Global.SiteApi,
+	withCredentials: process.env.DEV
 });
 
+apiAxios.interceptors.response.use(
+	async rez => {
+		await checkTokens(rez);
 
-export default async function (url, body, sendAsJson = false, skipLock = false, blockErrorsNotifications = false) {
+		return rez;
+	},
+	async rez => {
+		if (!rez.config.blockErrorsNotifications) {
+			if (!rez.response.data || rez.response.data.type === "System") {
+				if (config.Dev.ShowExceptions)
+					console.error("Exception", rez.response.data);
 
-    if (body?.sendAsJson) {
-        sendAsJson = body.sendAsJson;
-        delete body.sendAsJson;
-    }
+				app.$q.notify({
+					message: app.$t("Global.apiError"),
+					timeout: 1800,
+					color: "negative",
+					position: "bottom-right"
+				});
+			} else {
+				app.$q.notify({
+					message: app.$t("Errors." + rez.response.data),
+					timeout: 2200,
+					color: "warning",
+					position: "top-center"
+				});
+			}
+		}
+		await checkTokens(rez.response);
+		throw rez;
+	}
+);
 
-    if (body?.sendAsJson) {
-        sendAsJson = body.sendAsJson;
-        delete body.sendAsJson;
-    }
+export default async function(
+	url,
+	body,
+	sendAsJson = false,
+	skipLock = false,
+	blockErrorsNotifications = false
+) {
+	if (body?.sendAsJson) {
+		sendAsJson = body.sendAsJson;
+		delete body.sendAsJson;
+	}
 
-    if (body?.blockErrorsNotifications) {
-        blockErrorsNotifications = body.blockErrorsNotifications;
-        delete body.blockErrorsNotifications;
-    }
+	if (body?.sendAsJson) {
+		sendAsJson = body.sendAsJson;
+		delete body.sendAsJson;
+	}
 
-    if (body?.skipLock) {
-        skipLock = body.skipLock;
-        delete body.skipLock;
-    }
+	if (body?.blockErrorsNotifications) {
+		blockErrorsNotifications = body.blockErrorsNotifications;
+		delete body.blockErrorsNotifications;
+	}
 
-    if (body)
-        for (const [key, value] of Object.entries(body))
-            if (!value)
-                delete body[key];
+	if (body?.skipLock) {
+		skipLock = body.skipLock;
+		delete body.skipLock;
+	}
 
+	if (body)
+		for (const [key, value] of Object.entries(body)) if (!value) delete body[key];
 
-    if (config.Dev.LogRequests)
-        console.log(`%cRequest%c${url}`, consoleRequestStart, consoleRequestUrl, body);
+	if (config.Dev.LogRequests)
+		console.log(
+			`%cRequest%c${url}`,
+			consoleRequestStart,
+			consoleRequestUrl,
+			body
+		);
 
-    const headers = {};
+	const headers = {};
 
-    const tokens = getTokens();
+	const tokens = getTokens();
 
-    if (skipLock) {
-        if (checkLocalTokensExpire()) {
-            headers['LongToken1'] = tokens.longToken;
-        }
+	if (skipLock) {
+		if (checkLocalTokensExpire()) {
+			headers["LongToken1"] = tokens.longToken;
+		}
 
-        return makeRequest();
-    }
+		return makeRequest();
+	}
 
-    return lock.lock(() => {
-            if (checkLocalTokensExpire()) {
-                headers['LongToken1'] = tokens.longToken;
-                return makeRequest();
-            }
-        }
-    ).then(x => x ? x : makeRequest());
+	return lock
+		.lock(() => {
+			if (checkLocalTokensExpire()) {
+				headers["LongToken1"] = tokens.longToken;
+				return makeRequest();
+			}
+		})
+		.then(x => (x ? x : makeRequest()));
 
+	function checkLocalTokensExpire() {
+		if (!tokens) return false;
 
-    function checkLocalTokensExpire() {
+		const nowDate = new Date(new Date().toUTCString());
+		const exp = tokens.shortTokenExpiration;
 
-        if (!tokens)
-            return false;
+		//console.log("now - exp", nowDate, exp);
 
-        const nowDate = new Date(new Date().toUTCString());
-        const exp = tokens.shortTokenExpiration;
+		const rez = exp < nowDate;
 
-        //console.log("now - exp", nowDate, exp);
+		if (rez) console.log("%cTokens expire", consoleTokens);
 
-        const rez = exp < nowDate;
+		return rez;
+	}
 
-        if (rez)
-            console.log('%cTokens expire', consoleTokens);
+	function makeRequest() {
+		if (tokens) headers["Authorization"] = `Bearer ${tokens.shortToken}`;
 
-        return rez;
-    }
+		if (body) {
+			if (typeof body === "object") {
+				if (body instanceof FormData) {
+				} else if (sendAsJson === false) {
+					body = ConvertObjectToFormData(body);
+				} else {
+					headers["Content-Type"] = "application/json";
+					body = JSON.stringify(body);
+				}
+			} else headers["Content-Type"] = "application/x-www-form-urlencoded";
+		}
 
-    function makeRequest() {
-
-        if (tokens)
-            headers['Authorization'] = `Bearer ${tokens.shortToken}`;
-
-        if (body) {
-            if ((typeof body === 'object')) {
-                if (body instanceof FormData) {
-
-                } else if (sendAsJson === false) {
-                    body = ConvertObjectToFormData(body);
-                } else {
-                    headers['Content-Type'] = 'application/json';
-                    body = JSON.stringify(body);
-                }
-            } else
-                headers['Content-Type'] = 'application/x-www-form-urlencoded';
-        }
-
-        return apiAxios.post(url, body,
-            {
-                headers: headers,
-                blockErrorsNotifications: blockErrorsNotifications
-            });
-
-    }
+		return apiAxios.post(url, body, {
+			headers: headers,
+			blockErrorsNotifications: blockErrorsNotifications
+		});
+	}
 }
 
-
 function ConvertObjectToFormData(obj) {
-    const formData = new FormData();
+	const formData = new FormData();
 
-    for (const [key, value] of Object.entries(obj))
-        formData.append(key, value);
+	for (const [key, value] of Object.entries(obj)) formData.append(key, value);
 
-    return formData;
+	return formData;
 }
 
 async function checkTokens(rez) {
+	const tokensHeader = rez.headers.tokens;
 
-    const tokensHeader = rez.headers.tokens;
+	if (tokensHeader) {
+		if (tokensHeader === "expire") {
+			removeTokens();
+			console.info("%cLogout", consoleUserLogout);
 
-    if (tokensHeader) {
+			store.commit("clearAllUserRelatedData");
+			await store.dispatch("loadAllCategories", { skipLock: true });
+			await store.dispatch("registerAllLayouts");
+			await store.dispatch("loadAllComponents", { skipLock: true });
+			await store.dispatch("setAllRoutes");
+			await store.dispatch("loadAllMenuItems", { skipLock: true });
+			if (routeCheckAccess(router.currentRoute)) {
+				router.push(router.currentRoute);
+				app.rerender();
+				return rez;
+			}
+		} else {
+			const newTokens = JSON.parse(tokensHeader);
 
-        if (tokensHeader === 'expire') {
+			newTokens.shortTokenExpiration = new Date(newTokens.shortTokenExpiration);
 
-            removeTokens();
-            console.info('%cLogout', consoleUserLogout);
+			setTokens(newTokens);
 
-            store.commit('clearAllUserRelatedData');
-            await store.dispatch('loadAllCategories', {skipLock: true});
-            await store.dispatch('registerAllLayouts');
-            await store.dispatch('loadAllComponents', {skipLock: true});
-            await store.dispatch('setAllRoutes');
-            await store.dispatch('loadAllMenuItems', {skipLock: true});
-            if (routeCheckAccess(router.currentRoute)) {
-                router.push(router.currentRoute);
-                app.rerender();
-                return rez;
-            }
+			console.info("%cTokens refreshed", consoleTokens);
+		}
+	}
 
-        } else {
-
-            const newTokens = JSON.parse(tokensHeader);
-
-            newTokens.shortTokenExpiration = new Date(newTokens.shortTokenExpiration);
-
-            setTokens(newTokens);
-
-            console.info('%cTokens refreshed', consoleTokens);
-        }
-    }
-
-    return rez;
+	return rez;
 }

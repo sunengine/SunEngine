@@ -10,95 +10,96 @@ using SunEngine.Core.Services;
 
 namespace SunEngine.Admin.Services
 {
-    public class ConfigurationAdminService
-    {
-        protected IPathService pathService { get; }
-        protected IConfigurationRoot configurationRoot { get; }
-        protected  IOptionsMonitor<GlobalOptions> globalOptions { get; }
+	public class ConfigurationAdminService
+	{
+		protected IPathService pathService { get; }
+		protected IConfigurationRoot configurationRoot { get; }
+		protected IOptionsMonitor<GlobalOptions> globalOptions { get; }
 
-        public ConfigurationAdminService(
-            IPathService pathService,
-            IConfigurationRoot configurationRoot)
-        {
-            this.configurationRoot = configurationRoot;
-            this.pathService = pathService;
-        }
+		public ConfigurationAdminService(
+			IPathService pathService,
+			IConfigurationRoot configurationRoot)
+		{
+			this.configurationRoot = configurationRoot;
+			this.pathService = pathService;
+		}
 
-        public void ReloadConfigurationOptions()
-        {
-            configurationRoot.Reload();
-        }
+		public void ReloadConfigurationOptions()
+		{
+			configurationRoot.Reload();
+		}
 
-        public void UpdateClientScripts()
-        {
-            if(!bool.TryParse(configurationRoot.GetSection("Global")["UpdateClientScriptsOnConfigChanges"], out bool update)
-               || update == false)
-                return;
+		public void UpdateClientScripts()
+		{
+			if (!bool.TryParse(configurationRoot.GetSection("Global")["UpdateClientScriptsOnConfigChanges"],
+				    out bool update)
+			    || update == false)
+				return;
 
-            var itemsToSaveDic = new Dictionary<string, Type>()
-            {
-                ["Global:SiteName"] = typeof(string),
-                ["Global:Locale"] = typeof(string),
-                ["Global:SiteApi"] = typeof(string),
-                ["Global:SiteUrl"] = typeof(string),
-                ["Global:UploadImagesUrl"] = typeof(string),
-                ["Global:SkinsUrl"] = typeof(string),
-                ["Global:PartialSkinsUrl"] = typeof(string),
-                
-                ["Dev:LogInitExtended"] = typeof(bool),
-                ["Dev:VueDevTools"] = typeof(bool),
-                ["Dev:LogRequests"] = typeof(bool),
-                ["Dev:LogMoveTo"] = typeof(bool),
-            };
+			var itemsToSaveDic = new Dictionary<string, Type>()
+			{
+				["Global:SiteName"] = typeof(string),
+				["Global:Locale"] = typeof(string),
+				["Global:SiteApi"] = typeof(string),
+				["Global:SiteUrl"] = typeof(string),
+				["Global:UploadImagesUrl"] = typeof(string),
+				["Global:SkinsUrl"] = typeof(string),
+				["Global:PartialSkinsUrl"] = typeof(string),
 
-
-            var rez = new Dictionary<string, object>();
-            foreach (var (key, type) in itemsToSaveDic)
-            {
-                var value = configurationRoot.GetValue(type, key);
-
-                string[] tokens = key.Split(":");
-
-                Dictionary<string, object> current = rez;
-                for (int i = 0; i < tokens.Length - 1; i++)
-                {
-                    if (!current.ContainsKey(tokens[i]))
-                        current[tokens[i]] = new Dictionary<string, object>();
-
-                    current = (Dictionary<string, object>) current[tokens[i]];
-                }
-
-                current[tokens[^1]] = value;
-            }
+				["Dev:LogInitExtended"] = typeof(bool),
+				["Dev:VueDevTools"] = typeof(bool),
+				["Dev:LogRequests"] = typeof(bool),
+				["Dev:LogMoveTo"] = typeof(bool),
+			};
 
 
-            var json = JsonSerializer.Serialize(rez, new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                AllowTrailingCommas = true,
-            });
+			var rez = new Dictionary<string, object>();
+			foreach (var (key, type) in itemsToSaveDic)
+			{
+				var value = configurationRoot.GetValue(type, key);
 
-            var configJsPath = pathService.Combine(PathNames.WwwRootDirName, "statics", "config.js");
+				string[] tokens = key.Split(":");
 
-            json = json.Substring(1, json.Length - 2) + ",";
+				Dictionary<string, object> current = rez;
+				for (int i = 0; i < tokens.Length - 1; i++)
+				{
+					if (!current.ContainsKey(tokens[i]))
+						current[tokens[i]] = new Dictionary<string, object>();
 
-            var configJs = File.ReadAllText(configJsPath);
-            configJs = Regex.Replace(configJs, "//( *?)auto-start(.*?)//( *?)auto-end",
-                $"// auto-start\n{json}\n // auto-end", RegexOptions.Singleline);
-            File.WriteAllText(configJsPath, configJs);
+					current = (Dictionary<string, object>) current[tokens[i]];
+				}
 
-            UpdateScriptsVersion();
-        }
+				current[tokens[^1]] = value;
+			}
 
-        protected void UpdateScriptsVersion()
-        {
-          var ran = new Random();
 
-          var indexHtmlPath = pathService.Combine(PathNames.WwwRootDirName, "index.html");
-          string text = File.ReadAllText(indexHtmlPath);
-          Regex reg = new Regex("configver=\\d+\"");
-          text = reg.Replace(text, $"configver={ran.Next()}\"");
-          File.WriteAllText(indexHtmlPath, text);
-        }
-    }
+			var json = JsonSerializer.Serialize(rez, new JsonSerializerOptions
+			{
+				WriteIndented = true,
+				AllowTrailingCommas = true,
+			});
+
+			var configJsPath = pathService.Combine(PathNames.WwwRootDirName, "statics", "config.js");
+
+			json = json.Substring(1, json.Length - 2) + ",";
+
+			var configJs = File.ReadAllText(configJsPath);
+			configJs = Regex.Replace(configJs, "//( *?)auto-start(.*?)//( *?)auto-end",
+				$"// auto-start\n{json}\n // auto-end", RegexOptions.Singleline);
+			File.WriteAllText(configJsPath, configJs);
+
+			UpdateScriptsVersion();
+		}
+
+		protected void UpdateScriptsVersion()
+		{
+			var ran = new Random();
+
+			var indexHtmlPath = pathService.Combine(PathNames.WwwRootDirName, "index.html");
+			string text = File.ReadAllText(indexHtmlPath);
+			Regex reg = new Regex("configver=\\d+\"");
+			text = reg.Replace(text, $"configver={ran.Next()}\"");
+			File.WriteAllText(indexHtmlPath, text);
+		}
+	}
 }

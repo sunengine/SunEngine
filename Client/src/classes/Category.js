@@ -1,28 +1,23 @@
-import { extend } from 'quasar'
-
+import { extend } from "quasar";
 
 export default class Category {
-  getRoute() {
-    return this.route ?? undefined;
-  }
+	getRoute() {
+		return this.route ?? undefined;
+	}
 
-  getMaterialRoute(idOrName, hash) {
+	getMaterialRoute(idOrName, hash) {
+		const route = this.getRoute();
+		if (!route || !route.name) return undefined;
 
-    const route = this.getRoute();
-    if(!route || !route.name)
-      return undefined;
+		let rezRoute = extend(true, {}, route);
 
-    let rezRoute = extend(true, {}, route);
+		rezRoute.name += "-mat";
+		if (!rezRoute.params) rezRoute.params = {};
 
-    rezRoute.name += "-mat";
-    if(!rezRoute.params)
-      rezRoute.params = {};
+		rezRoute.params.idOrName = idOrName.toString();
 
-    rezRoute.params.idOrName = idOrName.toString();
+		if (hash) rezRoute.hash = hash;
 
-    if (hash)
-      rezRoute.hash = hash;
-
-    return rezRoute;
-  }
+		return rezRoute;
+	}
 }

@@ -4,17 +4,13 @@
  * @return {boolean}
  */
 export default function htmlTextSizeOrHasImage(el, minLength) {
+	if (!el) return true;
 
-  if (!el)
-    return true;
+	let img = el.querySelector("img");
 
-  let img = el.querySelector("img");
+	if (img != null) return true;
 
-  if (img != null)
-    return true;
+	let textLength = el.innerText.replace(/\s/g, "").length;
 
-  let textLength = el.innerText.replace(/\s/g, "").length;
-
-  return textLength >= minLength;
-
+	return textLength >= minLength;
 }

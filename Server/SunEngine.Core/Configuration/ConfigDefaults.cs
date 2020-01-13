@@ -3,72 +3,73 @@ using SunEngine.Core.Configuration.Options;
 
 namespace SunEngine.Core.Configuration
 {
-    public static class ConfigDefaults
-    {
-        public enum Locale
-        {
-            Russian,
-            English,
-        }
+	public static class ConfigDefaults
+	{
+		public enum Locale
+		{
+			Russian,
+			English,
+		}
 
-        public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>()
-        {
-            ["Global:SiteName"] = "SunEngine",
-            ["Global:Locale"] = Locale.Russian,
-            ["Global:SiteTitle"] = "SunEngine Demo",
-            ["Global:SiteSubTitle"] = "",
-            ["Global:PageTitleTemplate"] = "{pageTitle} - {siteName}",
-            ["Global:OpenExternalLinksAtNewTab"] = true,
+		public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>()
+		{
+			["Global:SiteName"] = "SunEngine",
+			["Global:Locale"] = Locale.Russian,
+			["Global:SiteTitle"] = "SunEngine Demo",
+			["Global:SiteSubTitle"] = "",
+			["Global:PageTitleTemplate"] = "{pageTitle} - {siteName}",
+			["Global:OpenExternalLinksAtNewTab"] = true,
 
-            ["Dev:LogInitExtended"] = false,
-            ["Dev:LogRequests"] = false,
-            ["Dev:LogMoveTo"] = false,
-            ["Dev:ShowExceptions"] = false,
-            ["Dev:VueDevTools"] = false,
-            ["Dev:VueAppInWindow"] = false,
-            
-            ["Cache:CurrentCachePolicy"] = CachePolicy.AlwaysPolicy,
-            ["Cache:InvalidateCacheTime"] = 15,
-            
-            ["Images:MaxImageWidth"] = 6000,
-            ["Images:MaxImageHeight"] = 4000,
-            ["Images:ResizeMaxWidthPixels"] = 1200,
-            ["Images:ResizeMaxHeightPixels"] = 800,
-            ["Images:PhotoMaxWidthPixels"] = 500,
-            ["Images:PhotoMaxHeightPixels"] = 500,
-            ["Images:AvatarSizePixels"] = 300,
-            ["Images:AllowGifUpload"] = true,
-            ["Images:AllowSvgUpload"] = true,
-            ["Images:ImageRequestSizeLimitBytes"] = 10485760,
-            
-            ["Sanitizer:AllowedTags"] =
-                (LongString)
-                "a,b,strong,i,em,blockquote,ol,li,ul,ol,p,div,br,video,audio,source,span,img,code,pre,font,h3,h4,h5,h6",
-            ["Sanitizer:AllowedAttributes"] =
-                (LongString)
-                "style,src,href,controls,autoplay,loop,alt,width,height,target,frameborder,allowfullscreen,download,controlsList,size",
-            ["Sanitizer:AllowedClasses"] =
-                (LongString)
-                "float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width",
-            ["Sanitizer:AllowedCssProperties"] =
-                (LongString)
-                "float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width",
-            ["Sanitizer:AllowedImageDomains"] = (LongString) "",
-            ["Sanitizer:AllowedVideoDomains"] =
-                (LongString)
-                "https://www.youtube.com/,http://www.youtube.com/,https://youtube.com/,http://youtube.com/,https://youtu.be/,http://youtu.be/,//youtube.com/,//youtu.be/,//www.youtube.com/,//www.youtu.be/,https://vk.com/,http://vk.com/,//vk.com/,https://player.vimeo.com,http://player.vimeo.com,//player.vimeo.com",
-            ["Sanitizer:AllowedSchemes"] = (LongString) "",
+			["Dev:LogInitExtended"] = false,
+			["Dev:LogRequests"] = false,
+			["Dev:LogMoveTo"] = false,
+			["Dev:ShowExceptions"] = false,
+			["Dev:VueDevTools"] = false,
+			["Dev:VueAppInWindow"] = false,
 
-            ["Email:Host"] = "127.0.0.1",
-            ["Email:Port"] = 1025,
-            ["Email:Login"] = "username",
-            ["Email:Password"] = "password",
-            ["Email:EmailFromName"] = "SunEngine Demo",
-            ["Email:EmailFromAddress"] = "SunEngine@demo.com",
-            ["Email:UseSSL"] = true,
+			["Cache:CurrentCachePolicy"] = CachePolicy.AlwaysPolicy,
+			["Cache:InvalidateCacheTime"] = 15,
 
-            #region EditorToolbars
-            ["Editor:MaterialToolbar"] = (JsonString) @"[
+			["Images:MaxImageWidth"] = 6000,
+			["Images:MaxImageHeight"] = 4000,
+			["Images:ResizeMaxWidthPixels"] = 1200,
+			["Images:ResizeMaxHeightPixels"] = 800,
+			["Images:PhotoMaxWidthPixels"] = 500,
+			["Images:PhotoMaxHeightPixels"] = 500,
+			["Images:AvatarSizePixels"] = 300,
+			["Images:AllowGifUpload"] = true,
+			["Images:AllowSvgUpload"] = true,
+			["Images:ImageRequestSizeLimitBytes"] = 10485760,
+
+			["Sanitizer:AllowedTags"] =
+				(LongString)
+				"a,b,strong,i,em,blockquote,ol,li,ul,ol,p,div,br,video,audio,source,span,img,code,pre,font,h3,h4,h5,h6",
+			["Sanitizer:AllowedAttributes"] =
+				(LongString)
+				"style,src,href,controls,autoplay,loop,alt,width,height,target,frameborder,allowfullscreen,download,controlsList,size",
+			["Sanitizer:AllowedClasses"] =
+				(LongString)
+				"float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width",
+			["Sanitizer:AllowedCssProperties"] =
+				(LongString)
+				"float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width",
+			["Sanitizer:AllowedImageDomains"] = (LongString) "",
+			["Sanitizer:AllowedVideoDomains"] =
+				(LongString)
+				"https://www.youtube.com/,http://www.youtube.com/,https://youtube.com/,http://youtube.com/,https://youtu.be/,http://youtu.be/,//youtube.com/,//youtu.be/,//www.youtube.com/,//www.youtu.be/,https://vk.com/,http://vk.com/,//vk.com/,https://player.vimeo.com,http://player.vimeo.com,//player.vimeo.com",
+			["Sanitizer:AllowedSchemes"] = (LongString) "",
+
+			["Email:Host"] = "127.0.0.1",
+			["Email:Port"] = 1025,
+			["Email:Login"] = "username",
+			["Email:Password"] = "password",
+			["Email:EmailFromName"] = "SunEngine Demo",
+			["Email:EmailFromAddress"] = "SunEngine@demo.com",
+			["Email:UseSSL"] = true,
+
+			#region EditorToolbars
+
+			["Editor:MaterialToolbar"] = (JsonString) @"[
 	          ['bold', 'italic', 'strike', 'underline'],
               ['token', 'link', 'addImages'],
               ['hr'],
@@ -100,7 +101,7 @@ namespace SunEngine.Core.Configuration
             ['viewsource', 'fullscreen']
             ]",
 
-            ["Editor:UserInformationToolbar"] = (JsonString) @"[
+			["Editor:UserInformationToolbar"] = (JsonString) @"[
               ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
               ['token', 'hr', 'link', 'addImages'],
               [
@@ -130,7 +131,7 @@ namespace SunEngine.Core.Configuration
               ['undo', 'redo'],
               [ 'viewsource', 'fullscreen']
             ]",
-            ["Editor:CommentToolbar"] = (JsonString) @"[
+			["Editor:CommentToolbar"] = (JsonString) @"[
               ['bold', 'italic', 'strike', 'underline'],
               ['token', 'hr', 'link', 'addImages'],
               [
@@ -154,99 +155,100 @@ namespace SunEngine.Core.Configuration
               ['undo', 'redo'],
               ['viewsource', 'fullscreen']
             ]",
-            ["Editor:SendPrivateMessageToolbar"] = (JsonString)@"[
+			["Editor:SendPrivateMessageToolbar"] = (JsonString) @"[
                 ['bold', 'italic', 'strike', 'underline'],
                 ['token', 'hr' ],
                 ['quote', 'unordered', 'ordered' ],
                 ['undo', 'redo','fullscreen']
             ]",
-            #endregion
 
-            ["Materials:SubTitleLength"] = 80,
-            ["Materials:CommentsPageSize"] = 5,
-            ["Materials:TimeToOwnEditInMinutes"] = 15,
-            ["Materials:TimeToOwnDeleteInMinutes"] = 15,
-            ["Materials:TimeToOwnMoveInMinutes"] = 15,
-            
-            ["Comments:TimeToOwnEditInMinutes"] = 15,
-            ["Comments:TimeToOwnDeleteInMinutes"] = 15,
-            
-            ["Blog:PreviewLength"] = 850,
-            ["Blog:PostsPageSize"] = 8,
-            
-            ["Articles:CategoryPageSize"] = 12,
-            
-            ["Forum:NewTopicsPageSize"] = 15,
-            ["Forum:NewTopicsMaxPages"] = 10,
-            ["Forum:ThreadMaterialsPageSize"] = 12,
+			#endregion
 
-            ["Captcha:CaptchaTimeoutSeconds"] = 180,
+			["Materials:SubTitleLength"] = 80,
+			["Materials:CommentsPageSize"] = 5,
+			["Materials:TimeToOwnEditInMinutes"] = 15,
+			["Materials:TimeToOwnDeleteInMinutes"] = 15,
+			["Materials:TimeToOwnMoveInMinutes"] = 15,
 
-            ["Scheduler:LogJobs"] = false,
-            ["Scheduler:SpamProtectionCacheClearMinutes"] = 8,
-            ["Scheduler:JwtBlackListServiceClearMinutes"] = 60,
-            ["Scheduler:LongSessionsClearDays"] = 1,
-            ["Scheduler:ExpiredRegistrationUsersClearDays"] = 1,
-            ["Scheduler:UploadVisitsToDataBaseMinutes"] = 5,
-            
-            ["Jwe:LongTokenLiveTimeDays"] = 90,
-            ["Jwe:ShortTokenLiveTimeMinutes"] = 20,
-            ["Jwe:Issuer"] = "SunEngine Demo",
-            
-            ["Skins:CurrentSkinName"] = "Default",
-            ["Skins:PartialSkinsNames"] = "Branding",
-            ["Skins:MaxArchiveSizeKb"] = 20 * 1024,
-            ["Skins:MaxExtractArchiveSizeKb"] = 60 * 1024
-        };
-    }
+			["Comments:TimeToOwnEditInMinutes"] = 15,
+			["Comments:TimeToOwnDeleteInMinutes"] = 15,
 
-    public class LongString
-    {
-        public string Value { get; set; }
+			["Blog:PreviewLength"] = 850,
+			["Blog:PostsPageSize"] = 8,
 
-        public static implicit operator LongString(string str)
-        {
-            return new LongString(str);
-        }
+			["Articles:CategoryPageSize"] = 12,
 
-        public static explicit operator string(LongString str)
-        {
-            return str.ToString();
-        }
+			["Forum:NewTopicsPageSize"] = 15,
+			["Forum:NewTopicsMaxPages"] = 10,
+			["Forum:ThreadMaterialsPageSize"] = 12,
 
-        public LongString(string value)
-        {
-            Value = value;
-        }
+			["Captcha:CaptchaTimeoutSeconds"] = 180,
 
-        public override string ToString()
-        {
-            return Value;
-        }
-    }
+			["Scheduler:LogJobs"] = false,
+			["Scheduler:SpamProtectionCacheClearMinutes"] = 8,
+			["Scheduler:JwtBlackListServiceClearMinutes"] = 60,
+			["Scheduler:LongSessionsClearDays"] = 1,
+			["Scheduler:ExpiredRegistrationUsersClearDays"] = 1,
+			["Scheduler:UploadVisitsToDataBaseMinutes"] = 5,
 
-    public class JsonString
-    {
-        public string Value { get; set; }
+			["Jwe:LongTokenLiveTimeDays"] = 90,
+			["Jwe:ShortTokenLiveTimeMinutes"] = 20,
+			["Jwe:Issuer"] = "SunEngine Demo",
 
-        public static implicit operator JsonString(string str)
-        {
-            return new JsonString(str.Replace("'", "\""));
-        }
+			["Skins:CurrentSkinName"] = "Default",
+			["Skins:PartialSkinsNames"] = "Branding",
+			["Skins:MaxArchiveSizeKb"] = 20 * 1024,
+			["Skins:MaxExtractArchiveSizeKb"] = 60 * 1024
+		};
+	}
 
-        public static explicit operator string(JsonString str)
-        {
-            return str.ToString();
-        }
+	public class LongString
+	{
+		public string Value { get; set; }
 
-        public JsonString(string value)
-        {
-            Value = value.Replace("'", "\"");
-        }
+		public static implicit operator LongString(string str)
+		{
+			return new LongString(str);
+		}
 
-        public override string ToString()
-        {
-            return Value;
-        }
-    }
+		public static explicit operator string(LongString str)
+		{
+			return str.ToString();
+		}
+
+		public LongString(string value)
+		{
+			Value = value;
+		}
+
+		public override string ToString()
+		{
+			return Value;
+		}
+	}
+
+	public class JsonString
+	{
+		public string Value { get; set; }
+
+		public static implicit operator JsonString(string str)
+		{
+			return new JsonString(str.Replace("'", "\""));
+		}
+
+		public static explicit operator string(JsonString str)
+		{
+			return str.ToString();
+		}
+
+		public JsonString(string value)
+		{
+			Value = value.Replace("'", "\"");
+		}
+
+		public override string ToString()
+		{
+			return Value;
+		}
+	}
 }

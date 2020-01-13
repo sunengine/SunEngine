@@ -1,4 +1,4 @@
 export default {
-  root: null,
-  all: null
-}
+	root: null,
+	all: null
+};

@@ -1,11 +1,10 @@
-export default function (context) {
+export default function(context) {
+	let routes = [];
 
-  let routes = [];
+	for (const component of Object.values(context.state.allComponents)) {
+		const componentType = context.getters.getComponentType(component.type);
+		routes.push(...componentType.getRoutes(component));
+	}
 
-  for (const component of Object.values(context.state.allComponents)) {
-    const componentType = context.getters.getComponentType(component.type);
-    routes.push(...componentType.getRoutes(component));
-  }
-
-  return routes;
+	return routes;
 }

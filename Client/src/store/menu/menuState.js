@@ -1,3 +1,3 @@
 export default {
-  namedMenuItems: null,
-}
+	namedMenuItems: null
+};

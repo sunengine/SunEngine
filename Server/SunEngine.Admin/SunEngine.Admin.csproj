@@ -5,13 +5,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="NJsonSchema" Version="10.1.2" />
-      <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
-      <PackageReference Include="System.Runtime.Caching" Version="4.7.0" />
+        <PackageReference Include="NJsonSchema" Version="10.1.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+        <PackageReference Include="System.Runtime.Caching" Version="4.7.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SunEngine.Core\SunEngine.Core.csproj" />
+        <ProjectReference Include="..\SunEngine.Core\SunEngine.Core.csproj" />
     </ItemGroup>
 
 </Project>

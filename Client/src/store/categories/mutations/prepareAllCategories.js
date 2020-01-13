@@ -1,72 +1,60 @@
-import {Category} from 'sun'
-import {consoleInit} from 'sun'
+import { Category } from "sun";
+import { consoleInit } from "sun";
 
 export default function prepareAllCategories(state, root) {
+	state.root = root;
+	state.all = {};
 
-  state.root = root;
-  state.all = {};
+	buildStructureRecursive(root);
 
-  buildStructureRecursive(root);
+	detectCanSomeChildrenWriteMaterial(root);
 
-  detectCanSomeChildrenWriteMaterial(root);
+	injectPrototype();
 
-  injectPrototype();
+	console.info(
+		"%cCategories prepared",
+		consoleInit,
+		config.Dev.LogInitExtended ? state.all : ""
+	);
 
-  console.info('%cCategories prepared', consoleInit, config.Dev.LogInitExtended ? state.all : '');
+	function buildStructureRecursive(category, sectionRoot = null) {
+		if (!category) return;
 
-  function buildStructureRecursive(category, sectionRoot = null) {
+		// Add to all
+		state.all[category.name.toLowerCase()] = category;
 
-    if (!category)
-      return;
+		// Make section types
+		if (category.layoutName) sectionRoot = category;
 
+		if (sectionRoot) category.sectionRoot = sectionRoot;
 
-    // Add to all
-    state.all[category.name.toLowerCase()] = category;
+		if (!category.subCategories) return;
 
-    // Make section types
-    if (category.layoutName)
-      sectionRoot = category;
+		for (const subCategory of category.subCategories) {
+			// Make parents
+			subCategory.parent = category;
 
-    if (sectionRoot)
-      category.sectionRoot = sectionRoot;
+			buildStructureRecursive(subCategory, sectionRoot);
+		}
+	}
 
+	function detectCanSomeChildrenWriteMaterial(category) {
+		if (!category) return;
 
-    if (!category.subCategories)
-      return;
+		let has = false;
+		if (category.subCategories)
+			for (const cat of category.subCategories)
+				if (detectCanSomeChildrenWriteMaterial(cat)) has = true;
 
+		if (category.categoryPersonalAccess?.MaterialWrite) has = true;
 
-    for (const subCategory of category.subCategories) {
+		category.canSomeChildrenWriteMaterial = has;
 
-      // Make parents
-      subCategory.parent = category;
+		return has;
+	}
 
-      buildStructureRecursive(subCategory, sectionRoot);
-    }
-  }
-
-  function detectCanSomeChildrenWriteMaterial(category) {
-    if (!category)
-      return;
-
-    let has = false;
-    if (category.subCategories)
-      for (const cat of category.subCategories)
-        if (detectCanSomeChildrenWriteMaterial(cat))
-          has = true;
-
-
-    if (category.categoryPersonalAccess?.MaterialWrite)
-      has = true;
-
-    category.canSomeChildrenWriteMaterial = has;
-
-    return has;
-  }
-
-  function injectPrototype() {
-    for (const category of Object.values(state.all))
-      Object.setPrototypeOf(category, Category.prototype);
-  }
+	function injectPrototype() {
+		for (const category of Object.values(state.all))
+			Object.setPrototypeOf(category, Category.prototype);
+	}
 }
-
-

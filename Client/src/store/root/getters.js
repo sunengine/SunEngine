@@ -1,10 +1,9 @@
-import {InitializeState} from 'sun'
+import { InitializeState } from "sun";
 
 export function isInitialized(state) {
-  return state.initializeState === InitializeState.Done;
+	return state.initializeState === InitializeState.Done;
 }
 
 export function initializeError(state) {
-  return state.initializeState === InitializeState.Error;
+	return state.initializeState === InitializeState.Error;
 }
-

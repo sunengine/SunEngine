@@ -10,191 +10,191 @@ using SunEngine.Core.Services;
 
 namespace SunEngine.DataSeed
 {
-    /// <summary>
-    /// Class to seed database with initial data with 2 modes
-    /// "init" (SeedInitialize) - seed roles, users, categories
-    /// "seed" (SeedAddTestData) - seed test materials and comments
-    /// </summary>
-    public class Main
-    {
-        private const string DataBaseConnectionFileName = "DataBaseConnection.json";
-        private const string SunEngineJsonFileName = "SunEngine.json";
+	/// <summary>
+	/// Class to seed database with initial data with 2 modes
+	/// "init" (SeedInitialize) - seed roles, users, categories
+	/// "seed" (SeedAddTestData) - seed test materials and comments
+	/// </summary>
+	public class Main
+	{
+		private const string DataBaseConnectionFileName = "DataBaseConnection.json";
+		private const string SunEngineJsonFileName = "SunEngine.json";
 
-        private const string SeedCommand = "seed";
-        private const string InitDir = "Init";
+		private const string SeedCommand = "seed";
+		private const string InitDir = "Init";
 
-        private const string SeedTemplates = "SeedTemplates";
-        private const string FishParagraphs = "fish-paragraphs.html";
-        private const string FishTitles = "fish-titles.html";
-
-
-        private readonly string initDirPath;
-        private readonly string providerName;
-        private readonly string connectionString;
-        private readonly string configDirectoryPath;
-
-        private readonly IConfiguration configuration;
-
-        public Main(string configDirectoryPath)
-        {
-            this.configDirectoryPath = configDirectoryPath;
-            initDirPath = Path.Combine(configDirectoryPath, InitDir);
-            string dbSettingsFile = Path.Combine(this.configDirectoryPath, DataBaseConnectionFileName);
-            string sunEngineJsonFile = Path.Combine(this.configDirectoryPath, SunEngineJsonFileName);
-
-            configuration = new ConfigurationBuilder()
-                .AddJsonFile(dbSettingsFile, false, true)
-                .AddJsonFile(sunEngineJsonFile, false, true)
-                .AddInMemoryCollection(new List<KeyValuePair<string, string>>()
-                {
-                    new KeyValuePair<string, string>("Dirs:Config", configDirectoryPath)
-                })
-                .Build();
-
-            var dataBaseConfiguration = configuration.GetSection("DataBaseConnection");
-            providerName = dataBaseConfiguration["Linq2dbProvider"];
-            connectionString = dataBaseConfiguration["ConnectionString"];
-        }
+		private const string SeedTemplates = "SeedTemplates";
+		private const string FishParagraphs = "fish-paragraphs.html";
+		private const string FishTitles = "fish-titles.html";
 
 
-        /// <summary>
-        /// Initialize database with roles, users, categories from config directory
-        /// </summary>
-        public void SeedInitialize()
-        {
-            CheckDbConnectionAndExitIfFailed();
+		private readonly string initDirPath;
+		private readonly string providerName;
+		private readonly string connectionString;
+		private readonly string configDirectoryPath;
 
-            using var db = new DataBaseConnection(providerName, connectionString);
+		private readonly IConfiguration configuration;
 
-            var dataContainer = new InitialSeeder(new PathService(configuration)).Seed();
-            var databaseSeeder = new DataBaseSeeder(db, dataContainer);
-            
-            databaseSeeder.SeedInitial();
-        }
+		public Main(string configDirectoryPath)
+		{
+			this.configDirectoryPath = configDirectoryPath;
+			initDirPath = Path.Combine(configDirectoryPath, InitDir);
+			string dbSettingsFile = Path.Combine(this.configDirectoryPath, DataBaseConnectionFileName);
+			string sunEngineJsonFile = Path.Combine(this.configDirectoryPath, SunEngineJsonFileName);
 
-        /// <summary>
-        /// Seed database with materials and comment for testing purposes
-        /// </summary>
-        public void SeedAddTestData(IList<string> catTokens, bool titleAppendCategoryName = false)
-        {
-            CheckDbConnectionAndExitIfFailed();
+			configuration = new ConfigurationBuilder()
+				.AddJsonFile(dbSettingsFile, false, true)
+				.AddJsonFile(sunEngineJsonFile, false, true)
+				.AddInMemoryCollection(new List<KeyValuePair<string, string>>()
+				{
+					new KeyValuePair<string, string>("Dirs:Config", configDirectoryPath)
+				})
+				.Build();
 
-            const string seedCommandDots = SeedCommand + ":";
-            if (catTokens.Contains(SeedCommand))
-                catTokens[catTokens.IndexOf(SeedCommand)] = seedCommandDots + Category.RootCategoryName;
-            catTokens = catTokens.Select(x => x.Substring(seedCommandDots.Length)).ToList();
-
-            SeedTestData();
-
-
-            void SeedTestData()
-            {
-                using var db = new DataBaseConnection(providerName, connectionString);
-
-                var dataContainer = new DataContainer
-                {
-                    Categories = db.Categories.ToList(),
-                    Users = db.Users.ToList(),
-                    currentMaterialId = db.Materials.Any() ? db.Materials.Max(x => x.Id) + 1 : 1,
-                    currentCommentId = db.Comments.Any() ? db.Comments.Max(x => x.Id) + 1 : 1
-                };
-
-                var titlesPath = Path.Combine(this.configDirectoryPath, InitDir, SeedTemplates, FishTitles);
-                var paragraphsPath = Path.Combine(this.configDirectoryPath, InitDir, SeedTemplates,
-                    FishParagraphs);
-                var titles = Regex.Matches(File.ReadAllText(titlesPath), "<h1>(.*?)</h1>", RegexOptions.Singleline)
-                    .Select(x => x.Groups[1].Value).ToList();
-                var paragraphs = Regex
-                    .Matches(File.ReadAllText(paragraphsPath), "<p>(.*?)</p>", RegexOptions.Singleline)
-                    .Select(x => x.Groups[1].Value).ToList();
+			var dataBaseConfiguration = configuration.GetSection("DataBaseConnection");
+			providerName = dataBaseConfiguration["Linq2dbProvider"];
+			connectionString = dataBaseConfiguration["ConnectionString"];
+		}
 
 
-                var materialsSeeder = new MaterialsSeeder(dataContainer, titles, paragraphs);
+		/// <summary>
+		/// Initialize database with roles, users, categories from config directory
+		/// </summary>
+		public void SeedInitialize()
+		{
+			CheckDbConnectionAndExitIfFailed();
 
-                foreach (var catToken in catTokens)
-                {
-                    var parts = catToken.Split(":");
-                    var categoryName = parts[0];
-                    int? materialsCount = null;
-                    if (parts.Length > 1)
-                        materialsCount = int.Parse(parts[1]);
-                    int? commentsCount = null;
-                    if (parts.Length > 2)
-                        commentsCount = int.Parse(parts[2]);
+			using var db = new DataBaseConnection(providerName, connectionString);
 
-                    if (materialsCount.HasValue)
-                        materialsSeeder.MinMaterialCount = materialsSeeder.MaxMaterialCount = materialsCount.Value;
+			var dataContainer = new InitialSeeder(new PathService(configuration)).Seed();
+			var databaseSeeder = new DataBaseSeeder(db, dataContainer);
 
-                    if (commentsCount.HasValue)
-                        materialsSeeder.CommentsCount = commentsCount.Value;
+			databaseSeeder.SeedInitial();
+		}
 
-                    materialsSeeder.TitleAppendCategoryName = titleAppendCategoryName;
+		/// <summary>
+		/// Seed database with materials and comment for testing purposes
+		/// </summary>
+		public void SeedAddTestData(IList<string> catTokens, bool titleAppendCategoryName = false)
+		{
+			CheckDbConnectionAndExitIfFailed();
 
-                    materialsSeeder.SeedCategoryAndSub(categoryName);
-                }
+			const string seedCommandDots = SeedCommand + ":";
+			if (catTokens.Contains(SeedCommand))
+				catTokens[catTokens.IndexOf(SeedCommand)] = seedCommandDots + Category.RootCategoryName;
+			catTokens = catTokens.Select(x => x.Substring(seedCommandDots.Length)).ToList();
 
-                new DataBaseSeeder(db, dataContainer).SeedMaterials().PostSeedMaterials();
-            }
-        }
-
-        protected void CheckDbConnectionAndExitIfFailed()
-        {
-            if (CheckDataBaseConnection(out Exception e))
-                return;
-
-            Console.WriteLine();
-            Console.WriteLine(e);
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Connection error.\nCheck if database exists and connection string correct.");
-            Console.ResetColor();
-            Console.WriteLine();
-            Environment.Exit(1);
-        }
-
-        public bool PrintDbConnectionAvailability()
-        {
-            if (CheckDataBaseConnection(out Exception exception))
-            {
-                Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("Database is available.");
-                Console.ResetColor();
-                Console.WriteLine();
-                return true;
-            }
-            else
-            {
-                Console.WriteLine();
-                Console.WriteLine(exception);
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Database is unavailable.");
-                Console.ResetColor();
-                Console.WriteLine();
-                return false;
-            }
-        }
+			SeedTestData();
 
 
-        protected bool CheckDataBaseConnection(out Exception exception)
-        {
-            exception = null;
-            try
-            {
-                using var db = new DataBaseConnection(providerName, connectionString);
-                using var cmd = db.CreateCommand();
-                cmd.CommandText = "SELECT 100";
-                cmd.ExecuteScalar();
+			void SeedTestData()
+			{
+				using var db = new DataBaseConnection(providerName, connectionString);
 
-                return true;
-            }
-            catch (Exception e)
-            {
-                exception = e;
-                return false;
-            }
-        }
-    }
+				var dataContainer = new DataContainer
+				{
+					Categories = db.Categories.ToList(),
+					Users = db.Users.ToList(),
+					currentMaterialId = db.Materials.Any() ? db.Materials.Max(x => x.Id) + 1 : 1,
+					currentCommentId = db.Comments.Any() ? db.Comments.Max(x => x.Id) + 1 : 1
+				};
+
+				var titlesPath = Path.Combine(this.configDirectoryPath, InitDir, SeedTemplates, FishTitles);
+				var paragraphsPath = Path.Combine(this.configDirectoryPath, InitDir, SeedTemplates,
+					FishParagraphs);
+				var titles = Regex.Matches(File.ReadAllText(titlesPath), "<h1>(.*?)</h1>", RegexOptions.Singleline)
+					.Select(x => x.Groups[1].Value).ToList();
+				var paragraphs = Regex
+					.Matches(File.ReadAllText(paragraphsPath), "<p>(.*?)</p>", RegexOptions.Singleline)
+					.Select(x => x.Groups[1].Value).ToList();
+
+
+				var materialsSeeder = new MaterialsSeeder(dataContainer, titles, paragraphs);
+
+				foreach (var catToken in catTokens)
+				{
+					var parts = catToken.Split(":");
+					var categoryName = parts[0];
+					int? materialsCount = null;
+					if (parts.Length > 1)
+						materialsCount = int.Parse(parts[1]);
+					int? commentsCount = null;
+					if (parts.Length > 2)
+						commentsCount = int.Parse(parts[2]);
+
+					if (materialsCount.HasValue)
+						materialsSeeder.MinMaterialCount = materialsSeeder.MaxMaterialCount = materialsCount.Value;
+
+					if (commentsCount.HasValue)
+						materialsSeeder.CommentsCount = commentsCount.Value;
+
+					materialsSeeder.TitleAppendCategoryName = titleAppendCategoryName;
+
+					materialsSeeder.SeedCategoryAndSub(categoryName);
+				}
+
+				new DataBaseSeeder(db, dataContainer).SeedMaterials().PostSeedMaterials();
+			}
+		}
+
+		protected void CheckDbConnectionAndExitIfFailed()
+		{
+			if (CheckDataBaseConnection(out Exception e))
+				return;
+
+			Console.WriteLine();
+			Console.WriteLine(e);
+			Console.WriteLine();
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.WriteLine("Connection error.\nCheck if database exists and connection string correct.");
+			Console.ResetColor();
+			Console.WriteLine();
+			Environment.Exit(1);
+		}
+
+		public bool PrintDbConnectionAvailability()
+		{
+			if (CheckDataBaseConnection(out Exception exception))
+			{
+				Console.WriteLine();
+				Console.ForegroundColor = ConsoleColor.DarkGreen;
+				Console.WriteLine("Database is available.");
+				Console.ResetColor();
+				Console.WriteLine();
+				return true;
+			}
+			else
+			{
+				Console.WriteLine();
+				Console.WriteLine(exception);
+				Console.WriteLine();
+				Console.WriteLine();
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine("Database is unavailable.");
+				Console.ResetColor();
+				Console.WriteLine();
+				return false;
+			}
+		}
+
+
+		protected bool CheckDataBaseConnection(out Exception exception)
+		{
+			exception = null;
+			try
+			{
+				using var db = new DataBaseConnection(providerName, connectionString);
+				using var cmd = db.CreateCommand();
+				cmd.CommandText = "SELECT 100";
+				cmd.ExecuteScalar();
+
+				return true;
+			}
+			catch (Exception e)
+			{
+				exception = e;
+				return false;
+			}
+		}
+	}
 }

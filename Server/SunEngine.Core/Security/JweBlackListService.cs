@@ -10,107 +10,107 @@ using SunEngine.Core.Models.Authorization;
 
 namespace SunEngine.Core.Security
 {
-    /// <summary>
-    /// Store for JWT black listed JWT short tokens
-    /// </summary>
-    public class JweBlackListService
-    {
-        private readonly IDataBaseFactory dataBaseFactory;
-        private readonly IOptionsMonitor<JweOptions> jweOptions;
+	/// <summary>
+	/// Store for JWT black listed JWT short tokens
+	/// </summary>
+	public class JweBlackListService
+	{
+		private readonly IDataBaseFactory dataBaseFactory;
+		private readonly IOptionsMonitor<JweOptions> jweOptions;
 
-        private ConcurrentDictionary<string, DateTime> tokens;
+		private ConcurrentDictionary<string, DateTime> tokens;
 
-        public JweBlackListService(
-            IDataBaseFactory dataBaseFactory,
-            IOptionsMonitor<JweOptions> jweOptions)
-        {
-            this.dataBaseFactory = dataBaseFactory;
-            this.jweOptions = jweOptions;
-        }
+		public JweBlackListService(
+			IDataBaseFactory dataBaseFactory,
+			IOptionsMonitor<JweOptions> jweOptions)
+		{
+			this.dataBaseFactory = dataBaseFactory;
+			this.jweOptions = jweOptions;
+		}
 
-        private int cycle = 0;
+		private int cycle = 0;
 
-        private void NextTick()
-        {
-            if (++cycle <= 500) return;
+		private void NextTick()
+		{
+			if (++cycle <= 500) return;
 
-            RemoveExpired();
-            cycle = 0;
-        }
+			RemoveExpired();
+			cycle = 0;
+		}
 
-        public bool IsTokenInBlackList(string shortJwtTokenId)
-        {
-            if (tokens == null)
-                Initialize();
+		public bool IsTokenInBlackList(string shortJwtTokenId)
+		{
+			if (tokens == null)
+				Initialize();
 
-            NextTick();
-            return tokens.ContainsKey(shortJwtTokenId);
-        }
+			NextTick();
+			return tokens.ContainsKey(shortJwtTokenId);
+		}
 
-        public async Task AddAllUserTokensToBlackListAsync(int userId)
-        {
-            using var db = dataBaseFactory.CreateDb();
-            var sessions = await db.LongSessions.Where(x => x.UserId == userId).ToListAsync();
-            DateTime exp = DateTime.UtcNow.AddMinutes(jweOptions.CurrentValue.ShortTokenLiveTimeMinutes + 5);
+		public async Task AddAllUserTokensToBlackListAsync(int userId)
+		{
+			using var db = dataBaseFactory.CreateDb();
+			var sessions = await db.LongSessions.Where(x => x.UserId == userId).ToListAsync();
+			DateTime exp = DateTime.UtcNow.AddMinutes(jweOptions.CurrentValue.ShortTokenLiveTimeMinutes + 5);
 
-            foreach (var session in sessions)
-                await AddBlackListShortTokenAsync(session.LongToken2, exp);
-        }
+			foreach (var session in sessions)
+				await AddBlackListShortTokenAsync(session.LongToken2, exp);
+		}
 
-        public async Task AddUserTokensToBlackListAsync(int userId, long[] sessions00)
-        {
-            using var db = dataBaseFactory.CreateDb();
-            var longSessions = await db.LongSessions.Where(x => x.UserId == userId && sessions00.Contains(x.Id))
-                .ToListAsync();
-            DateTime exp = DateTime.UtcNow.AddMinutes(jweOptions.CurrentValue.ShortTokenLiveTimeMinutes + 5);
+		public async Task AddUserTokensToBlackListAsync(int userId, long[] sessions00)
+		{
+			using var db = dataBaseFactory.CreateDb();
+			var longSessions = await db.LongSessions.Where(x => x.UserId == userId && sessions00.Contains(x.Id))
+				.ToListAsync();
+			DateTime exp = DateTime.UtcNow.AddMinutes(jweOptions.CurrentValue.ShortTokenLiveTimeMinutes + 5);
 
-            foreach (var session in longSessions)
-                await AddBlackListShortTokenAsync(session.LongToken2, exp);
-        }
+			foreach (var session in longSessions)
+				await AddBlackListShortTokenAsync(session.LongToken2, exp);
+		}
 
-        private async Task AddBlackListShortTokenAsync(string long2TokenId, DateTime expired)
-        {
-            using var db = dataBaseFactory.CreateDb();
-            var token = new BlackListShortToken
-            {
-                TokenId = long2TokenId,
-                Expire = expired
-            };
-            await db.InsertAsync(token);
-            tokens.TryAdd(long2TokenId, expired);
-        }
+		private async Task AddBlackListShortTokenAsync(string long2TokenId, DateTime expired)
+		{
+			using var db = dataBaseFactory.CreateDb();
+			var token = new BlackListShortToken
+			{
+				TokenId = long2TokenId,
+				Expire = expired
+			};
+			await db.InsertAsync(token);
+			tokens.TryAdd(long2TokenId, expired);
+		}
 
-        public void Initialize()
-        {
-            using var db = dataBaseFactory.CreateDb();
-            var tokensDic = db.BlackListShortTokens.ToDictionary(x => x.TokenId, x => x.Expire);
-            tokens = new ConcurrentDictionary<string, DateTime>();
+		public void Initialize()
+		{
+			using var db = dataBaseFactory.CreateDb();
+			var tokensDic = db.BlackListShortTokens.ToDictionary(x => x.TokenId, x => x.Expire);
+			tokens = new ConcurrentDictionary<string, DateTime>();
 
-            foreach (var (key, value) in tokensDic)
-                tokens.TryAdd(key, value);
-        }
+			foreach (var (key, value) in tokensDic)
+				tokens.TryAdd(key, value);
+		}
 
-        public void RemoveExpired()
-        {
-            if (tokens == null)
-                return;
+		public void RemoveExpired()
+		{
+			if (tokens == null)
+				return;
 
-            DateTime now = DateTime.UtcNow;
-            int deletedNumber = 0;
-            foreach (var (key, value) in tokens.ToArray())
-            {
-                if (value < now)
-                {
-                    tokens.TryRemove(key, out _);
-                    deletedNumber++;
-                }
-            }
+			DateTime now = DateTime.UtcNow;
+			int deletedNumber = 0;
+			foreach (var (key, value) in tokens.ToArray())
+			{
+				if (value < now)
+				{
+					tokens.TryRemove(key, out _);
+					deletedNumber++;
+				}
+			}
 
-            if (deletedNumber > 0)
-            {
-                using var db = dataBaseFactory.CreateDb();
-                db.BlackListShortTokens.Where(x => x.Expire < now).Delete();
-            }
-        }
-    }
+			if (deletedNumber > 0)
+			{
+				using var db = dataBaseFactory.CreateDb();
+				db.BlackListShortTokens.Where(x => x.Expire < now).Delete();
+			}
+		}
+	}
 }

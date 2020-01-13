@@ -1,4 +1,4 @@
 export default {
-  user: null,
-  roles: ['Unregistered']
-}
+	user: null,
+	roles: ["Unregistered"]
+};

@@ -1,3 +1,3 @@
 export default {
-  all: null
-}
+	all: null
+};

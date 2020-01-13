@@ -7,89 +7,89 @@ using SunEngine.Core.Models;
 
 namespace SunEngine.Core.Cache.Services
 {
-    public interface IMenuCache
-    {
-        IList<MenuItemCached> GetMenu(IReadOnlyDictionary<string, RoleCached> Roles);
-        MenuItemCached RootMenuItem { get; }
-        IReadOnlyList<MenuItemCached> AllMenuItems { get; }
-        void Initialize();
-    }
+	public interface IMenuCache
+	{
+		IList<MenuItemCached> GetMenu(IReadOnlyDictionary<string, RoleCached> Roles);
+		MenuItemCached RootMenuItem { get; }
+		IReadOnlyList<MenuItemCached> AllMenuItems { get; }
+		void Initialize();
+	}
 
-    public class MenuCache : IMenuCache
-    {
-        private readonly object lockObject = new object();
+	public class MenuCache : IMenuCache
+	{
+		private readonly object lockObject = new object();
 
-        protected readonly IDataBaseFactory dataBaseFactory;
-        protected readonly IRolesCache rolesCache;
+		protected readonly IDataBaseFactory dataBaseFactory;
+		protected readonly IRolesCache rolesCache;
 
-        public MenuItemCached RootMenuItem { get; protected set; }
-        public IReadOnlyList<MenuItemCached> AllMenuItems { get; protected set; }
-
-
-        public MenuCache(
-            IDataBaseFactory dataBaseFactory,
-            IRolesCache rolesCache)
-        {
-            this.dataBaseFactory = dataBaseFactory;
-            this.rolesCache = rolesCache;
-            Initialize();
-        }
+		public MenuItemCached RootMenuItem { get; protected set; }
+		public IReadOnlyList<MenuItemCached> AllMenuItems { get; protected set; }
 
 
-        public IList<MenuItemCached> GetMenu(IReadOnlyDictionary<string, RoleCached> roles)
-        {
-            var menuItems = new List<MenuItemCached> {RootMenuItem};
-
-            menuItems.AddRange(AllMenuItems.Where(menuItem =>
-                roles.Values.Any(role => menuItem.Roles.ContainsKey(role.Id))));
-
-            return menuItems;
-        }
-
-        public void Initialize()
-        {
-            using var db = dataBaseFactory.CreateDb();
-
-            var menuItems = db.MenuItems.Where(x => !x.IsHidden).ToDictionary(x => x.Id, x => x);
-            var allMenuItems = new List<MenuItemCached>(menuItems.Count);
-
-            foreach (var menuItem in menuItems.Values)
-            {
-                ImmutableDictionary<int, RoleCached> roles;
-                if (menuItem.Roles != null)
-                    roles = menuItem.Roles.Split(',')
-                        .Select(x => rolesCache.GetRole(x))
-                        .ToDictionary(x => x.Id, x => x)
-                        .ToImmutableDictionary();
-                else
-                    roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
+		public MenuCache(
+			IDataBaseFactory dataBaseFactory,
+			IRolesCache rolesCache)
+		{
+			this.dataBaseFactory = dataBaseFactory;
+			this.rolesCache = rolesCache;
+			Initialize();
+		}
 
 
-                if (CheckIsVisible(menuItem))
-                    allMenuItems.Add(new MenuItemCached(menuItem, roles));
-            }
+		public IList<MenuItemCached> GetMenu(IReadOnlyDictionary<string, RoleCached> roles)
+		{
+			var menuItems = new List<MenuItemCached> {RootMenuItem};
 
-            AllMenuItems = allMenuItems.OrderBy(x => x.SortNumber).ToImmutableList();
+			menuItems.AddRange(AllMenuItems.Where(menuItem =>
+				roles.Values.Any(role => menuItem.Roles.ContainsKey(role.Id))));
 
-            RootMenuItem = AllMenuItems.First(x => x.Id == 1);
+			return menuItems;
+		}
+
+		public void Initialize()
+		{
+			using var db = dataBaseFactory.CreateDb();
+
+			var menuItems = db.MenuItems.Where(x => !x.IsHidden).ToDictionary(x => x.Id, x => x);
+			var allMenuItems = new List<MenuItemCached>(menuItems.Count);
+
+			foreach (var menuItem in menuItems.Values)
+			{
+				ImmutableDictionary<int, RoleCached> roles;
+				if (menuItem.Roles != null)
+					roles = menuItem.Roles.Split(',')
+						.Select(x => rolesCache.GetRole(x))
+						.ToDictionary(x => x.Id, x => x)
+						.ToImmutableDictionary();
+				else
+					roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
 
 
-            bool CheckIsVisible(MenuItem menuItem)
-            {
-                while (true)
-                {
-                    if (menuItem.IsHidden)
-                        return false;
+				if (CheckIsVisible(menuItem))
+					allMenuItems.Add(new MenuItemCached(menuItem, roles));
+			}
 
-                    if (!menuItem.ParentId.HasValue)
-                        return true;
+			AllMenuItems = allMenuItems.OrderBy(x => x.SortNumber).ToImmutableList();
 
-                    if (!menuItems.ContainsKey(menuItem.ParentId.Value))
-                        return false;
+			RootMenuItem = AllMenuItems.First(x => x.Id == 1);
 
-                    menuItem = menuItems[menuItem.ParentId.Value];
-                }
-            }
-        }
-    }
+
+			bool CheckIsVisible(MenuItem menuItem)
+			{
+				while (true)
+				{
+					if (menuItem.IsHidden)
+						return false;
+
+					if (!menuItem.ParentId.HasValue)
+						return true;
+
+					if (!menuItems.ContainsKey(menuItem.ParentId.Value))
+						return false;
+
+					menuItem = menuItems[menuItem.ParentId.Value];
+				}
+			}
+		}
+	}
 }

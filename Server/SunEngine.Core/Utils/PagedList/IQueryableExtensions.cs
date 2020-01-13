@@ -6,163 +6,163 @@ using LinqToDB;
 
 namespace SunEngine.Core.Utils.PagedList
 {
-    public static class IQueryableExtensions
-    {
-        public static Task<IPagedList<TResult>> GetPagedListAsync<TResult, TEntity>(this IQueryable<TEntity> query,
-            Expression<Func<TEntity, TResult>> selector,
-            Expression<Func<TEntity, bool>> predicate = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            int pageIndex = 0,
-            int pageSize = 20) where TEntity : class
-        {
-            IQueryable<TEntity> query1 = query;
+	public static class IQueryableExtensions
+	{
+		public static Task<IPagedList<TResult>> GetPagedListAsync<TResult, TEntity>(this IQueryable<TEntity> query,
+			Expression<Func<TEntity, TResult>> selector,
+			Expression<Func<TEntity, bool>> predicate = null,
+			Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+			int pageIndex = 0,
+			int pageSize = 20) where TEntity : class
+		{
+			IQueryable<TEntity> query1 = query;
 
 
-            if (predicate != null)
-            {
-                query1 = query1.Where(predicate);
-            }
+			if (predicate != null)
+			{
+				query1 = query1.Where(predicate);
+			}
 
-            if (orderBy != null)
-            {
-                return orderBy(query1).Select(selector).ToPagedListAsync(pageIndex, pageSize, 1);
-            }
+			if (orderBy != null)
+			{
+				return orderBy(query1).Select(selector).ToPagedListAsync(pageIndex, pageSize, 1);
+			}
 
-            return query1.Select(selector).ToPagedListAsync(pageIndex, pageSize, 1);
-        }
+			return query1.Select(selector).ToPagedListAsync(pageIndex, pageSize, 1);
+		}
 
-        public static Task<IPagedList<TResult>> GetPagedListMaxAsync<TResult, TEntity>(this IQueryable<TEntity> query,
-            Expression<Func<TEntity, TResult>> selector,
-            Expression<Func<TEntity, bool>> predicate = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            int pageIndex = 0,
-            int pageSize = 20,
-            int maxPages = 0)
-            where TResult : class
-        {
-            IQueryable<TEntity> query1 = query;
-
-
-            if (predicate != null)
-            {
-                query1 = query1.Where(predicate);
-            }
-
-            if (orderBy != null)
-            {
-                query1 = orderBy(query1);
-            }
-
-            if (maxPages != 0)
-            {
-                query1 = query1.Take(maxPages * pageSize);
-            }
+		public static Task<IPagedList<TResult>> GetPagedListMaxAsync<TResult, TEntity>(this IQueryable<TEntity> query,
+			Expression<Func<TEntity, TResult>> selector,
+			Expression<Func<TEntity, bool>> predicate = null,
+			Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+			int pageIndex = 0,
+			int pageSize = 20,
+			int maxPages = 0)
+			where TResult : class
+		{
+			IQueryable<TEntity> query1 = query;
 
 
-            return query1.Select(selector).ToPagedListAsync(pageIndex, pageSize, 1);
-        }
+			if (predicate != null)
+			{
+				query1 = query1.Where(predicate);
+			}
+
+			if (orderBy != null)
+			{
+				query1 = orderBy(query1);
+			}
+
+			if (maxPages != 0)
+			{
+				query1 = query1.Take(maxPages * pageSize);
+			}
 
 
-        public static async Task<IPagedList<T>> ToPagedListAsync<T>(this IQueryable<T> source, int pageIndex,
-            int pageSize, int indexFrom = 0)
-        {
-            if (indexFrom > pageIndex)
-            {
-                throw new ArgumentException(
-                    $"indexFrom: {indexFrom} > pageIndex: {pageIndex}, must indexFrom <= pageIndex");
-            }
+			return query1.Select(selector).ToPagedListAsync(pageIndex, pageSize, 1);
+		}
 
-            var count = await source.CountAsync();
-            var items = await source.Skip((pageIndex - indexFrom) * pageSize)
-                .Take(pageSize).ToListAsync();
 
-            var pagedList = new PagedList<T>()
-            {
-                PageIndex = pageIndex,
-                PageSize = pageSize,
-                IndexFrom = indexFrom,
-                TotalCount = count,
-                Items = items,
-                TotalPages = (int) Math.Ceiling(count / (double) pageSize)
-            };
+		public static async Task<IPagedList<T>> ToPagedListAsync<T>(this IQueryable<T> source, int pageIndex,
+			int pageSize, int indexFrom = 0)
+		{
+			if (indexFrom > pageIndex)
+			{
+				throw new ArgumentException(
+					$"indexFrom: {indexFrom} > pageIndex: {pageIndex}, must indexFrom <= pageIndex");
+			}
 
-            return pagedList;
-        }
-    }
+			var count = await source.CountAsync();
+			var items = await source.Skip((pageIndex - indexFrom) * pageSize)
+				.Take(pageSize).ToListAsync();
 
-    /*public static class TableExtensions
-    {
-        public static Task<IPagedList<TResult>> GetPagedListAsync<TResult, TEntity>(this ITable<TEntity> table, Expression<Func<TEntity, TResult>> selector,
-            Expression<Func<TEntity, bool>> predicate = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            Expression<Func<TEntity,object>> loadWith = null,
-            int pageIndex = 0,
-            int pageSize = 20)  where TEntity : class
-        {
-            IQueryable<TEntity> query;
-            
-            if (loadWith != null)
-            {
-                query = table.LoadWith(loadWith);
-            }
-            else
-            {
-                query = table;
-            }
+			var pagedList = new PagedList<T>()
+			{
+				PageIndex = pageIndex,
+				PageSize = pageSize,
+				IndexFrom = indexFrom,
+				TotalCount = count,
+				Items = items,
+				TotalPages = (int) Math.Ceiling(count / (double) pageSize)
+			};
 
-            if (predicate != null)
-            {
-                query = query.Where(predicate);
-            }
+			return pagedList;
+		}
+	}
 
-            if (orderBy != null)
-            {
-                return orderBy(query).Select(selector).ToPagedListAsync(pageIndex, pageSize, 1);
-            }
-            else
-            {
-                return query.Select(selector).ToPagedListAsync(pageIndex, pageSize, 1);
-            }
-        }
-        
-        public static Task<IPagedList<TResult>> GetPagedListMaxAsync<TResult, TEntity>(this ITable<TEntity> table, 
-            Expression<Func<TEntity, TResult>> selector,
-            Expression<Func<TEntity, bool>> predicate = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            Expression<Func<TEntity,object>> loadWith = null,
-            int pageIndex = 0,
-            int pageSize = 20,
-            int maxPages = 0)
-            where TResult : class
-        {
-            
-            IQueryable<TEntity> query;
-            if (loadWith != null)
-            {
-                query = table.LoadWith(loadWith);
-            }
-            else
-            {
-                query = table;
-            }
+	/*public static class TableExtensions
+	{
+	    public static Task<IPagedList<TResult>> GetPagedListAsync<TResult, TEntity>(this ITable<TEntity> table, Expression<Func<TEntity, TResult>> selector,
+	        Expression<Func<TEntity, bool>> predicate = null,
+	        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+	        Expression<Func<TEntity,object>> loadWith = null,
+	        int pageIndex = 0,
+	        int pageSize = 20)  where TEntity : class
+	    {
+	        IQueryable<TEntity> query;
+	        
+	        if (loadWith != null)
+	        {
+	            query = table.LoadWith(loadWith);
+	        }
+	        else
+	        {
+	            query = table;
+	        }
 
-            if (predicate != null)
-            {
-                query = query.Where(predicate);
-            }
+	        if (predicate != null)
+	        {
+	            query = query.Where(predicate);
+	        }
 
-            if (orderBy != null)
-            {
-                query = orderBy(query);
-            }
+	        if (orderBy != null)
+	        {
+	            return orderBy(query).Select(selector).ToPagedListAsync(pageIndex, pageSize, 1);
+	        }
+	        else
+	        {
+	            return query.Select(selector).ToPagedListAsync(pageIndex, pageSize, 1);
+	        }
+	    }
+	    
+	    public static Task<IPagedList<TResult>> GetPagedListMaxAsync<TResult, TEntity>(this ITable<TEntity> table, 
+	        Expression<Func<TEntity, TResult>> selector,
+	        Expression<Func<TEntity, bool>> predicate = null,
+	        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+	        Expression<Func<TEntity,object>> loadWith = null,
+	        int pageIndex = 0,
+	        int pageSize = 20,
+	        int maxPages = 0)
+	        where TResult : class
+	    {
+	        
+	        IQueryable<TEntity> query;
+	        if (loadWith != null)
+	        {
+	            query = table.LoadWith(loadWith);
+	        }
+	        else
+	        {
+	            query = table;
+	        }
 
-            if (maxPages != 0)
-            {
-                query = query.Take(maxPages * pageSize);
-            }
-            
-            
-            return query.Select(selector).ToPagedListAsync(pageIndex, pageSize, 1);
-        }
-    }*/
+	        if (predicate != null)
+	        {
+	            query = query.Where(predicate);
+	        }
+
+	        if (orderBy != null)
+	        {
+	            query = orderBy(query);
+	        }
+
+	        if (maxPages != 0)
+	        {
+	            query = query.Take(maxPages * pageSize);
+	        }
+	        
+	        
+	        return query.Select(selector).ToPagedListAsync(pageIndex, pageSize, 1);
+	    }
+	}*/
 }

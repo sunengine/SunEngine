@@ -19,24 +19,24 @@
         <PackageReference Include="System.Linq" Version="4.3.0" />
         <PackageReference Include="System.Runtime.Caching" Version="4.7.0" />
     </ItemGroup>
-    
+
     <ItemGroup>
-      <ProjectReference Include="..\SunEngine.Admin\SunEngine.Admin.csproj" />
-      <ProjectReference Include="..\SunEngine.Core\SunEngine.Core.csproj" />
-      <ProjectReference Include="..\SunEngine.DataSeed\SunEngine.DataSeed.csproj" />
-      <ProjectReference Include="..\SunEngine.Migrations\SunEngine.Migrations.csproj" />
+        <ProjectReference Include="..\SunEngine.Admin\SunEngine.Admin.csproj" />
+        <ProjectReference Include="..\SunEngine.Core\SunEngine.Core.csproj" />
+        <ProjectReference Include="..\SunEngine.DataSeed\SunEngine.DataSeed.csproj" />
+        <ProjectReference Include="..\SunEngine.Migrations\SunEngine.Migrations.csproj" />
     </ItemGroup>
-   
+
     <PropertyGroup>
         <ServerGarbageCollection>false</ServerGarbageCollection>
     </PropertyGroup>
-    
+
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <OutputPath>..\..\bin\debug\</OutputPath>
+        <OutputPath>..\..\bin\debug\</OutputPath>
     </PropertyGroup>
-    
+
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <OutputPath>..\..\bin\release\</OutputPath>
+        <OutputPath>..\..\bin\release\</OutputPath>
     </PropertyGroup>
 
 </Project>

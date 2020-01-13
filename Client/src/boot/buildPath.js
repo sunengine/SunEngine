@@ -1,5 +1,5 @@
-import {buildPath} from 'sun'
+import { buildPath } from "sun";
 
 export default ({ Vue }) => {
-  Vue.prototype.$buildPath = buildPath;
-}
+	Vue.prototype.$buildPath = buildPath;
+};

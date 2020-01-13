@@ -1,3 +1,3 @@
 export default {
-  routeAliases: null,
-}
+	routeAliases: null
+};

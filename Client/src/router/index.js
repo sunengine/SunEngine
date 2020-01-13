@@ -1,12 +1,11 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-import {getTokens} from 'sun'
-import {checkTokensUpdated} from 'sun'
-import {app} from 'sun'
+import { getTokens } from "sun";
+import { checkTokensUpdated } from "sun";
+import { app } from "sun";
 
-import {consoleRequestStart, consoleGreyEnd, consoleTokens} from 'sun'
-
+import { consoleRequestStart, consoleGreyEnd, consoleTokens } from "sun";
 
 Vue.use(VueRouter);
 
@@ -17,58 +16,60 @@ Vue.use(VueRouter);
 
 let router;
 
-export default function ({store, ssrContext}) {
+export default function({ store, ssrContext }) {
+	router = new VueRouter({
+		scrollBehavior: () => ({ y: 0 }),
+		routes: [],
 
-  router = new VueRouter({
-    scrollBehavior: () => ({y: 0}),
-    routes: [],
+		// Leave these as is and change from quasar.conf.js instead!
+		// quasar.conf.js -> build -> vueRouterMode
+		// quasar.conf.js -> build -> publicPath
+		mode: process.env.VUE_ROUTER_MODE,
+		base: process.env.VUE_ROUTER_BASE
+	});
 
-    // Leave these as is and change from quasar.conf.js instead!
-    // quasar.conf.js -> build -> vueRouterMode
-    // quasar.conf.js -> build -> publicPath
-    mode: process.env.VUE_ROUTER_MODE,
-    base: process.env.VUE_ROUTER_BASE
-  });
+	router.beforeEach(async (to, from, next) => {
+		if (store.state.initializedPromise) {
+			store.state.initializedPromise.then(_ => {
+				store.state.initializedPromise = null;
+				app.$nextTick(_ => router.push(to));
+			});
+			return;
+		}
 
-  router.beforeEach(async (to, from, next) => {
+		await checkUserCredentialsAndReloadIfNew();
 
-    if (store.state.initializedPromise) {
-      store.state.initializedPromise.then(_ => {
-        store.state.initializedPromise = null;
-        app.$nextTick(_ => router.push(to));
-        }
-      );
-      return;
-    }
+		if (config.Dev.LogMoveTo)
+			console.info(
+				"%cMove to page%c" +
+					config.Global.SiteUrl.substring(config.Global.SiteSchema.length) +
+					to.path,
+				consoleRequestStart,
+				consoleGreyEnd,
+				to
+			);
 
-    await checkUserCredentialsAndReloadIfNew();
+		next();
+	});
 
-    if (config.Dev.LogMoveTo)
-      console.info("%cMove to page%c" + config.Global.SiteUrl.substring(config.Global.SiteSchema.length) + to.path, consoleRequestStart, consoleGreyEnd, to);
+	return router;
 
-    next();
-  });
+	async function checkUserCredentialsAndReloadIfNew() {
+		if (!checkTokensUpdated()) return;
 
-  return router;
+		console.info("%cReload user credentials", consoleTokens);
 
-  async function checkUserCredentialsAndReloadIfNew() {
-    if (!checkTokensUpdated())
-      return;
+		store.commit("clearAllUserRelatedData");
 
-    console.info('%cReload user credentials', consoleTokens);
+		const tokens = getTokens();
+		store.state.auth.longToken = tokens?.longToken;
 
-    store.commit('clearAllUserRelatedData');
+		if (store.state.auth.longToken) await store.dispatch("loadMyUserInfo");
 
-    const tokens = getTokens();
-    store.state.auth.longToken = tokens?.longToken;
-
-    if (store.state.auth.longToken)
-      await store.dispatch('loadMyUserInfo');
-
-    await store.dispatch('loadAllCategories');
-    await store.dispatch('loadAllMenuItems');
-    await store.dispatch('setAllRoutes');
-  }
+		await store.dispatch("loadAllCategories");
+		await store.dispatch("loadAllMenuItems");
+		await store.dispatch("setAllRoutes");
+	}
 }
 
-export {router}
+export { router };

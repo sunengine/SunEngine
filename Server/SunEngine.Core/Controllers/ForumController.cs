@@ -11,98 +11,98 @@ using SunEngine.Core.Utils.PagedList;
 
 namespace SunEngine.Core.Controllers
 {
-    /// <summary>
-    /// Get new forum topics controller
-    /// </summary>
-    public class ForumController : BaseController
-    {
-        protected readonly OperationKeysContainer OperationKeys;
-        protected readonly IOptionsMonitor<ForumOptions> forumOptions;
-        protected readonly ICategoriesCache categoriesCache;
-        protected readonly IAuthorizationService authorizationService;
-        protected readonly IForumPresenter forumPresenter;
+	/// <summary>
+	/// Get new forum topics controller
+	/// </summary>
+	public class ForumController : BaseController
+	{
+		protected readonly OperationKeysContainer OperationKeys;
+		protected readonly IOptionsMonitor<ForumOptions> forumOptions;
+		protected readonly ICategoriesCache categoriesCache;
+		protected readonly IAuthorizationService authorizationService;
+		protected readonly IForumPresenter forumPresenter;
 
 
-        public ForumController(
-            IOptionsMonitor<ForumOptions> forumOptions,
-            IAuthorizationService authorizationService,
-            ICategoriesCache categoriesCache,
-            OperationKeysContainer operationKeysContainer,
-            IForumPresenter forumPresenter,
-            IServiceProvider serviceProvider) : base(serviceProvider)
-        {
-            OperationKeys = operationKeysContainer;
+		public ForumController(
+			IOptionsMonitor<ForumOptions> forumOptions,
+			IAuthorizationService authorizationService,
+			ICategoriesCache categoriesCache,
+			OperationKeysContainer operationKeysContainer,
+			IForumPresenter forumPresenter,
+			IServiceProvider serviceProvider) : base(serviceProvider)
+		{
+			OperationKeys = operationKeysContainer;
 
-            this.forumPresenter = forumPresenter;
-            this.forumOptions = forumOptions;
-            this.authorizationService = authorizationService;
-            this.categoriesCache = categoriesCache;
-        }
+			this.forumPresenter = forumPresenter;
+			this.forumOptions = forumOptions;
+			this.authorizationService = authorizationService;
+			this.categoriesCache = categoriesCache;
+		}
 
-        [HttpPost]
-        public virtual async Task<IActionResult> GetNewTopics(string categoryName, int page = 1)
-        {
-            var categoryParent = categoriesCache.GetCategory(categoryName);
+		[HttpPost]
+		public virtual async Task<IActionResult> GetNewTopics(string categoryName, int page = 1)
+		{
+			var categoryParent = categoriesCache.GetCategory(categoryName);
 
-            if (categoryParent == null)
-                return BadRequest();
+			if (categoryParent == null)
+				return BadRequest();
 
-            var allCategories = categoryParent.AllSubCategories.Where(x => x.IsMaterialsContainer);
+			var allCategories = categoryParent.AllSubCategories.Where(x => x.IsMaterialsContainer);
 
-            var categories =
-                authorizationService.GetAllowedCategories(User.Roles, allCategories,
-                    OperationKeys.MaterialAndCommentsRead);
+			var categories =
+				authorizationService.GetAllowedCategories(User.Roles, allCategories,
+					OperationKeys.MaterialAndCommentsRead);
 
-            var categoriesIds = categories.Select(x => x.Id);
+			var categoriesIds = categories.Select(x => x.Id);
 
-            var options = new MaterialsMultiCatShowOptions
-            {
-                CategoriesIds = categoriesIds,
-                Page = page,
-                PageSize = forumOptions.CurrentValue.NewTopicsPageSize
-            };
+			var options = new MaterialsMultiCatShowOptions
+			{
+				CategoriesIds = categoriesIds,
+				Page = page,
+				PageSize = forumOptions.CurrentValue.NewTopicsPageSize
+			};
 
-            async Task<IPagedList<TopicInfoView>> LoadDataAsync()
-            {
-                return await forumPresenter.GetNewTopicsAsync(options, forumOptions.CurrentValue.NewTopicsMaxPages);
-            }
+			async Task<IPagedList<TopicInfoView>> LoadDataAsync()
+			{
+				return await forumPresenter.GetNewTopicsAsync(options, forumOptions.CurrentValue.NewTopicsMaxPages);
+			}
 
-            return await CacheContentAsync(categoryParent, categoriesIds, LoadDataAsync, page);
-        }
+			return await CacheContentAsync(categoryParent, categoriesIds, LoadDataAsync, page);
+		}
 
-        [HttpPost]
-        public virtual async Task<IActionResult> GetThread(string categoryName, int page = 1, bool showDeleted = false)
-        {
-            var category = categoriesCache.GetCategory(categoryName);
+		[HttpPost]
+		public virtual async Task<IActionResult> GetThread(string categoryName, int page = 1, bool showDeleted = false)
+		{
+			var category = categoriesCache.GetCategory(categoryName);
 
-            if (category == null)
-                return BadRequest();
+			if (category == null)
+				return BadRequest();
 
-            if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
-                return Unauthorized();
+			if (!authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialAndCommentsRead))
+				return Unauthorized();
 
-            var options = new MaterialsShowOptions
-            {
-                CategoryId = category.Id,
-                Page = page,
-                PageSize = forumOptions.CurrentValue.ThreadMaterialsPageSize
-            };
+			var options = new MaterialsShowOptions
+			{
+				CategoryId = category.Id,
+				Page = page,
+				PageSize = forumOptions.CurrentValue.ThreadMaterialsPageSize
+			};
 
-            if (authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialHide))
-                options.ShowHidden = true;
+			if (authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialHide))
+				options.ShowHidden = true;
 
-            if (showDeleted && authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialDeleteAny))
-                options.ShowDeleted = true;
+			if (showDeleted && authorizationService.HasAccess(User.Roles, category, OperationKeys.MaterialDeleteAny))
+				options.ShowDeleted = true;
 
-            async Task<IPagedList<TopicInfoView>> LoadDataAsync()
-            {
-                return await forumPresenter.GetThreadAsync(options);
-            }
+			async Task<IPagedList<TopicInfoView>> LoadDataAsync()
+			{
+				return await forumPresenter.GetThreadAsync(options);
+			}
 
-            if (showDeleted)
-                return Ok(await LoadDataAsync());
+			if (showDeleted)
+				return Ok(await LoadDataAsync());
 
-            return await CacheContentAsync(category, category.Id, LoadDataAsync, page);
-        }
-    }
+			return await CacheContentAsync(category, category.Id, LoadDataAsync, page);
+		}
+	}
 }

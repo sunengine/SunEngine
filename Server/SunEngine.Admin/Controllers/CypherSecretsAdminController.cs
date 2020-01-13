@@ -5,25 +5,25 @@ using SunEngine.Core.Services;
 
 namespace SunEngine.Admin.Controllers
 {
-    public class CypherSecretsAdminController : BaseAdminController
-    {
-        protected readonly ICryptService cryptService;
+	public class CypherSecretsAdminController : BaseAdminController
+	{
+		protected readonly ICryptService cryptService;
 
-        public CypherSecretsAdminController(
-            ICryptService cryptService,
-            IServiceProvider serviceProvider) : base(serviceProvider)
-        {
-            this.cryptService = cryptService;
-        }
+		public CypherSecretsAdminController(
+			ICryptService cryptService,
+			IServiceProvider serviceProvider) : base(serviceProvider)
+		{
+			this.cryptService = cryptService;
+		}
 
-        [HttpPost]
-        public async Task<IActionResult> ResetCypher(string name)
-        {
-            await cryptService.ResetSecret(name);
+		[HttpPost]
+		public async Task<IActionResult> ResetCypher(string name)
+		{
+			await cryptService.ResetSecret(name);
 
-            cryptService.Initialize();
+			cryptService.Initialize();
 
-            return Ok();
-        }
-    }
+			return Ok();
+		}
+	}
 }

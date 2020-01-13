@@ -9,108 +9,108 @@ using SunEngine.Core.Configuration.Options;
 
 namespace SunEngine.Core.Services
 {
-    public class Sanitizer
-    {
-        private readonly HtmlSanitizer htmlSanitizer;
-        private readonly SanitizerOptions options;
-        public static readonly IMarkupFormatter OutputFormatter = HtmlSanitizer.DefaultOutputFormatter;
+	public class Sanitizer
+	{
+		private readonly HtmlSanitizer htmlSanitizer;
+		private readonly SanitizerOptions options;
+		public static readonly IMarkupFormatter OutputFormatter = HtmlSanitizer.DefaultOutputFormatter;
 
-        public Sanitizer(SanitizerOptions options)
-        {
-            this.options = options;
-            htmlSanitizer = new HtmlSanitizer();
-            ConfigureHtmlSanitizer();
-        }
+		public Sanitizer(SanitizerOptions options)
+		{
+			this.options = options;
+			htmlSanitizer = new HtmlSanitizer();
+			ConfigureHtmlSanitizer();
+		}
 
-        public string Sanitize(string text)
-        {
-            return string.IsNullOrWhiteSpace(text) ? null : htmlSanitizer.Sanitize(text);
-        }
+		public string Sanitize(string text)
+		{
+			return string.IsNullOrWhiteSpace(text) ? null : htmlSanitizer.Sanitize(text);
+		}
 
-        public string Sanitize(IHtmlDocument doc)
-        {
-            return doc == null ? null : htmlSanitizer.SanitizeDoc(doc);
-        }
+		public string Sanitize(IHtmlDocument doc)
+		{
+			return doc == null ? null : htmlSanitizer.SanitizeDoc(doc);
+		}
 
-        private void ConfigureHtmlSanitizer()
-        {
-            htmlSanitizer.AllowedTags.Clear();
+		private void ConfigureHtmlSanitizer()
+		{
+			htmlSanitizer.AllowedTags.Clear();
 
-            foreach (string tag in options.AllowedTagsArr)
-                htmlSanitizer.AllowedTags.Add(tag);
+			foreach (string tag in options.AllowedTagsArr)
+				htmlSanitizer.AllowedTags.Add(tag);
 
-            htmlSanitizer.AllowedAttributes.Clear();
+			htmlSanitizer.AllowedAttributes.Clear();
 
-            foreach (string attribute in options.AllowedAttributesArr)
-                htmlSanitizer.AllowedAttributes.Add(attribute);
+			foreach (string attribute in options.AllowedAttributesArr)
+				htmlSanitizer.AllowedAttributes.Add(attribute);
 
-            htmlSanitizer.AllowedCssProperties.Clear();
+			htmlSanitizer.AllowedCssProperties.Clear();
 
-            foreach (string cssp in options.AllowedCssPropertiesArr)
-                htmlSanitizer.AllowedCssProperties.Add(cssp);
+			foreach (string cssp in options.AllowedCssPropertiesArr)
+				htmlSanitizer.AllowedCssProperties.Add(cssp);
 
-            foreach (string schema in options.AllowedSchemesArr)
-                htmlSanitizer.AllowedSchemes.Add(schema);
+			foreach (string schema in options.AllowedSchemesArr)
+				htmlSanitizer.AllowedSchemes.Add(schema);
 
-            htmlSanitizer.AllowedAtRules.Clear();
+			htmlSanitizer.AllowedAtRules.Clear();
 
-            htmlSanitizer.RemovingTag += OnRemovingTag;
-            htmlSanitizer.RemovingAttribute += OnRemovingAttribute;
-        }
+			htmlSanitizer.RemovingTag += OnRemovingTag;
+			htmlSanitizer.RemovingAttribute += OnRemovingAttribute;
+		}
 
-        private bool CheckAllowedDomains(string attrName, IEnumerable<string> allowedDomains, RemovingTagEventArgs e)
-        {
-            var src = e.Tag.GetAttribute(attrName).TrimStart().ToLower();
-            foreach (var allowedDomain in allowedDomains)
-                if (src.StartsWith(allowedDomain))
-                    return e.Cancel = true;
+		private bool CheckAllowedDomains(string attrName, IEnumerable<string> allowedDomains, RemovingTagEventArgs e)
+		{
+			var src = e.Tag.GetAttribute(attrName).TrimStart().ToLower();
+			foreach (var allowedDomain in allowedDomains)
+				if (src.StartsWith(allowedDomain))
+					return e.Cancel = true;
 
-            e.Cancel = false;
-            return false;
-        }
+			e.Cancel = false;
+			return false;
+		}
 
-        private bool AllowOnlyClassList(
-            string attributeName, RemovingAttributeEventArgs e,
-            string[] allowedClasses)
-        {
-            if (attributeName == "class")
-            {
-                e.Tag.ClassList.Remove(e.Tag.ClassList.Except(allowedClasses, StringComparer.OrdinalIgnoreCase)
-                    .ToArray());
-                e.Cancel = e.Tag.ClassList.Any();
-                return true;
-            }
+		private bool AllowOnlyClassList(
+			string attributeName, RemovingAttributeEventArgs e,
+			string[] allowedClasses)
+		{
+			if (attributeName == "class")
+			{
+				e.Tag.ClassList.Remove(e.Tag.ClassList.Except(allowedClasses, StringComparer.OrdinalIgnoreCase)
+					.ToArray());
+				e.Cancel = e.Tag.ClassList.Any();
+				return true;
+			}
 
-            return false;
-        }
+			return false;
+		}
 
-        private void OnRemovingAttribute(object s, RemovingAttributeEventArgs e)
-        {
-            var attributeName = e.Attribute.Name.ToLower();
-            AllowOnlyClassList(attributeName, e, options.AllowedClassesArr);
-        }
+		private void OnRemovingAttribute(object s, RemovingAttributeEventArgs e)
+		{
+			var attributeName = e.Attribute.Name.ToLower();
+			AllowOnlyClassList(attributeName, e, options.AllowedClassesArr);
+		}
 
-        private void OnRemovingTag(object sender, RemovingTagEventArgs e)
-        {
-            var checkingTags = new[]
-            {
-                new {Tag = "iframe", Attribute = "src", AllowedDomainsList = options.AllowedVideoDomainsArr},
-                new {Tag = "img", Attribute = "src", AllowedDomainsList = options.AllowedImageDomainsArr}
-            };
+		private void OnRemovingTag(object sender, RemovingTagEventArgs e)
+		{
+			var checkingTags = new[]
+			{
+				new {Tag = "iframe", Attribute = "src", AllowedDomainsList = options.AllowedVideoDomainsArr},
+				new {Tag = "img", Attribute = "src", AllowedDomainsList = options.AllowedImageDomainsArr}
+			};
 
-            var tagName = e.Tag.TagName.ToLower();
-            var tag = checkingTags.FirstOrDefault(x => x.Tag == tagName);
+			var tagName = e.Tag.TagName.ToLower();
+			var tag = checkingTags.FirstOrDefault(x => x.Tag == tagName);
 
-            if (tag != null)
-                CheckAllowedDomains(tag.Attribute, tag.AllowedDomainsList, e);
-        }
-    }
+			if (tag != null)
+				CheckAllowedDomains(tag.Attribute, tag.AllowedDomainsList, e);
+		}
+	}
 
-    public static class SanitizerExtensions
-    {
-        public static string SanitizeDoc(this HtmlSanitizer htmlSanitizer, IHtmlDocument doc)
-        {
-            return doc.Body.ChildNodes.ToHtml(Sanitizer.OutputFormatter);
-        }
-    }
+	public static class SanitizerExtensions
+	{
+		public static string SanitizeDoc(this HtmlSanitizer htmlSanitizer, IHtmlDocument doc)
+		{
+			return doc.Body.ChildNodes.ToHtml(Sanitizer.OutputFormatter);
+		}
+	}
 }

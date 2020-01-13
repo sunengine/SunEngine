@@ -12,102 +12,102 @@ using SunEngine.Core.Services;
 
 namespace SunEngine.Core.Controllers
 {
-    /// <summary>
-    /// Upload images controller
-    /// </summary>
-    [Authorize]
-    public class UploadImagesController : BaseController
-    {
-        protected readonly IImagesService imagesService;
-        protected readonly IOptionsMonitor<ImagesOptions> imagesOptions;
-        protected readonly IPersonalManager personalManager;
+	/// <summary>
+	/// Upload images controller
+	/// </summary>
+	[Authorize]
+	public class UploadImagesController : BaseController
+	{
+		protected readonly IImagesService imagesService;
+		protected readonly IOptionsMonitor<ImagesOptions> imagesOptions;
+		protected readonly IPersonalManager personalManager;
 
-        public UploadImagesController(
-            IImagesService imagesService,
-            IOptionsMonitor<ImagesOptions> imagesOptions,
-            IPersonalManager personalManager,
-            IServiceProvider serviceProvider) : base(serviceProvider)
-        {
-            this.imagesService = imagesService;
-            this.imagesOptions = imagesOptions;
-            this.personalManager = personalManager;
-        }
-
-
-        [HttpPost]
-        public virtual async Task<IActionResult> UploadImage(IFormFile file)
-        {
-            if (file.Length == 0)
-                return BadRequest();
-
-            if (!CheckAllowedMaxImageSize(file.Length))
-                return MaxImageSizeFailResult();
+		public UploadImagesController(
+			IImagesService imagesService,
+			IOptionsMonitor<ImagesOptions> imagesOptions,
+			IPersonalManager personalManager,
+			IServiceProvider serviceProvider) : base(serviceProvider)
+		{
+			this.imagesService = imagesService;
+			this.imagesOptions = imagesOptions;
+			this.personalManager = personalManager;
+		}
 
 
-            ResizeOptions ro = new ResizeOptions
-            {
-                Mode = ResizeMode.Max,
-                Size = new Size(imagesOptions.CurrentValue.ResizeMaxWidthPixels,
-                    imagesOptions.CurrentValue.ResizeMaxHeightPixels)
-            };
+		[HttpPost]
+		public virtual async Task<IActionResult> UploadImage(IFormFile file)
+		{
+			if (file.Length == 0)
+				return BadRequest();
 
-            FileAndDir fileAndDir = await imagesService.SaveImageAsync(file, ro);
-
-            if (fileAndDir == null)
-                return BadRequest();
-
-            return Ok(new {FileName = fileAndDir.Path});
-        }
+			if (!CheckAllowedMaxImageSize(file.Length))
+				return MaxImageSizeFailResult();
 
 
-        [HttpPost]
-        public virtual async Task<IActionResult> UploadUserPhoto(IFormFile file)
-        {
-            if (file.Length == 0)
-                return BadRequest();
+			ResizeOptions ro = new ResizeOptions
+			{
+				Mode = ResizeMode.Max,
+				Size = new Size(imagesOptions.CurrentValue.ResizeMaxWidthPixels,
+					imagesOptions.CurrentValue.ResizeMaxHeightPixels)
+			};
 
-            if (!CheckAllowedMaxImageSize(file.Length))
-                return MaxImageSizeFailResult();
+			FileAndDir fileAndDir = await imagesService.SaveImageAsync(file, ro);
 
-            ResizeOptions resizeOptionsPhoto = new ResizeOptions
-            {
-                Position = AnchorPositionMode.Center,
-                Mode = ResizeMode.Crop,
-                Size = new Size(imagesOptions.CurrentValue.PhotoMaxWidthPixels,
-                    imagesOptions.CurrentValue.PhotoMaxWidthPixels)
-            };
+			if (fileAndDir == null)
+				return BadRequest();
 
-            FileAndDir fileAndDirPhoto = await imagesService.SaveImageAsync(file, resizeOptionsPhoto);
-
-            if (fileAndDirPhoto == null)
-                return BadRequest();
+			return Ok(new {FileName = fileAndDir.Path});
+		}
 
 
-            ResizeOptions resizeOptionsAvatar = new ResizeOptions
-            {
-                Position = AnchorPositionMode.Center,
-                Mode = ResizeMode.Crop,
-                Size = new Size(imagesOptions.CurrentValue.AvatarSizePixels,
-                    imagesOptions.CurrentValue.AvatarSizePixels)
-            };
-            FileAndDir fileAndDirAvatar = await imagesService.SaveImageAsync(file, resizeOptionsAvatar);
-            if (fileAndDirAvatar == null)
-                return BadRequest();
+		[HttpPost]
+		public virtual async Task<IActionResult> UploadUserPhoto(IFormFile file)
+		{
+			if (file.Length == 0)
+				return BadRequest();
 
-            await personalManager.SetPhotoAndAvatarAsync(User.UserId, fileAndDirPhoto.Path, fileAndDirAvatar.Path);
+			if (!CheckAllowedMaxImageSize(file.Length))
+				return MaxImageSizeFailResult();
 
-            return Ok();
-        }
+			ResizeOptions resizeOptionsPhoto = new ResizeOptions
+			{
+				Position = AnchorPositionMode.Center,
+				Mode = ResizeMode.Crop,
+				Size = new Size(imagesOptions.CurrentValue.PhotoMaxWidthPixels,
+					imagesOptions.CurrentValue.PhotoMaxWidthPixels)
+			};
 
-        protected bool CheckAllowedMaxImageSize(long fileSize)
-        {
-            return fileSize <= imagesOptions.CurrentValue.ImageRequestSizeLimitBytes;
-        }
+			FileAndDir fileAndDirPhoto = await imagesService.SaveImageAsync(file, resizeOptionsPhoto);
 
-        protected IActionResult MaxImageSizeFailResult()
-        {
-            double sizeInMb = imagesOptions.CurrentValue.ImageRequestSizeLimitBytes / (1024d * 1024d);
-            return BadRequest($"Image size is too large. Allowed max size is: {sizeInMb:F2} MB");
-        }
-    }
+			if (fileAndDirPhoto == null)
+				return BadRequest();
+
+
+			ResizeOptions resizeOptionsAvatar = new ResizeOptions
+			{
+				Position = AnchorPositionMode.Center,
+				Mode = ResizeMode.Crop,
+				Size = new Size(imagesOptions.CurrentValue.AvatarSizePixels,
+					imagesOptions.CurrentValue.AvatarSizePixels)
+			};
+			FileAndDir fileAndDirAvatar = await imagesService.SaveImageAsync(file, resizeOptionsAvatar);
+			if (fileAndDirAvatar == null)
+				return BadRequest();
+
+			await personalManager.SetPhotoAndAvatarAsync(User.UserId, fileAndDirPhoto.Path, fileAndDirAvatar.Path);
+
+			return Ok();
+		}
+
+		protected bool CheckAllowedMaxImageSize(long fileSize)
+		{
+			return fileSize <= imagesOptions.CurrentValue.ImageRequestSizeLimitBytes;
+		}
+
+		protected IActionResult MaxImageSizeFailResult()
+		{
+			double sizeInMb = imagesOptions.CurrentValue.ImageRequestSizeLimitBytes / (1024d * 1024d);
+			return BadRequest($"Image size is too large. Allowed max size is: {sizeInMb:F2} MB");
+		}
+	}
 }

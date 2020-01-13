@@ -22,225 +22,225 @@ using UAParser;
 
 namespace SunEngine.Core.Security
 {
-    /// <summary>
-    /// Functions for generating, renewing and reading Jwt tokens.
-    /// </summary>
-    public class JweService : DbService
-    {
-        private readonly SunUserManager userManager;
-        private readonly IOptionsMonitor<JweOptions> jweOptions;
-        private readonly IOptionsMonitor<GlobalOptions> globalOptions;
-        private readonly ILogger logger;
-        private readonly ICryptService cryptService;
-        private readonly IRolesCache rolesCache;
+	/// <summary>
+	/// Functions for generating, renewing and reading Jwt tokens.
+	/// </summary>
+	public class JweService : DbService
+	{
+		private readonly SunUserManager userManager;
+		private readonly IOptionsMonitor<JweOptions> jweOptions;
+		private readonly IOptionsMonitor<GlobalOptions> globalOptions;
+		private readonly ILogger logger;
+		private readonly ICryptService cryptService;
+		private readonly IRolesCache rolesCache;
 
-        public JweService(
-            DataBaseConnection db,
-            SunUserManager userManager,
-            IRolesCache rolesCache,
-            ICryptService cryptService,
-            IOptionsMonitor<JweOptions> jweOptions,
-            IOptionsMonitor<GlobalOptions> globalOptions,
-            ILoggerFactory loggerFactory) : base(db)
-        {
-            this.userManager = userManager;
-            this.cryptService = cryptService;
-            this.globalOptions = globalOptions;
-            this.jweOptions = jweOptions;
-            logger = loggerFactory.CreateLogger<AccountController>();
-            this.rolesCache = rolesCache;
-        }
-
-
-        public async Task<SunClaimsPrincipal> RenewSecurityTokensAsync(
-            HttpContext httpContext,
-            int userId,
-            LongSession longSession = null)
-        {
-            var user = await db.Users.FirstOrDefaultAsync(x => x.Id == userId);
-            return await RenewSecurityTokensAsync(httpContext, user, longSession);
-        }
-
-        public Task<SunClaimsPrincipal> RenewSecurityTokensAsync(
-            HttpContext httpContext,
-            User user,
-            long sessionId)
-        {
-            var longSession = db.LongSessions.FirstOrDefault(x => x.Id == sessionId);
-            return RenewSecurityTokensAsync(httpContext, user, longSession);
-        }
-
-        public async Task<SunClaimsPrincipal> RenewSecurityTokensAsync(
-            HttpContext httpContext,
-            User user,
-            LongSession longSession = null)
-        {
-            void GenerateTokens(LongSession longSession1)
-            {
-                longSession1.LongToken1 = CryptoRandomizer.GetRandomString(LongSession.LongToken1Length);
-                longSession1.LongToken2 = CryptoRandomizer.GetRandomString(LongSession.LongToken2Length);
-                longSession1.ExpirationDate = DateTime.UtcNow.AddDays(jweOptions.CurrentValue.LongTokenLiveTimeDays);
-                httpContext.Request.Headers.TryGetValue("User-Agent", out var userAgent);
-                longSession1.DeviceInfo = Parser.GetDefault()?.Parse(userAgent.ToString() ?? "")?.ToString() ?? "";
-                longSession1.UpdateDate = DateTime.UtcNow;
-            }
-
-            if (longSession == null)
-            {
-                longSession = new LongSession
-                {
-                    UserId = user.Id
-                };
-
-                GenerateTokens(longSession);
-
-                longSession.Id = await db.InsertWithInt64IdentityAsync(longSession);
-            }
-            else
-            {
-                GenerateTokens(longSession);
-
-                await db.UpdateAsync(longSession);
-            }
+		public JweService(
+			DataBaseConnection db,
+			SunUserManager userManager,
+			IRolesCache rolesCache,
+			ICryptService cryptService,
+			IOptionsMonitor<JweOptions> jweOptions,
+			IOptionsMonitor<GlobalOptions> globalOptions,
+			ILoggerFactory loggerFactory) : base(db)
+		{
+			this.userManager = userManager;
+			this.cryptService = cryptService;
+			this.globalOptions = globalOptions;
+			this.jweOptions = jweOptions;
+			logger = loggerFactory.CreateLogger<AccountController>();
+			this.rolesCache = rolesCache;
+		}
 
 
-            var lat2Token = CreateLong2Token(longSession, out string lat2r);
+		public async Task<SunClaimsPrincipal> RenewSecurityTokensAsync(
+			HttpContext httpContext,
+			int userId,
+			LongSession longSession = null)
+		{
+			var user = await db.Users.FirstOrDefaultAsync(x => x.Id == userId);
+			return await RenewSecurityTokensAsync(httpContext, user, longSession);
+		}
 
-            httpContext.Response.Cookies.Append(
-                TokenClaimNames.LongToken2CoockiName,
-                lat2Token,
-                new CookieOptions
-                {
-                    Path = "/",
-                    HttpOnly = true,
-                    Secure = globalOptions.CurrentValue.IsHttps,
-                    IsEssential = true,
-                    SameSite =  SameSiteMode.Strict,
-                    Expires = longSession.ExpirationDate
-                }
-            );
+		public Task<SunClaimsPrincipal> RenewSecurityTokensAsync(
+			HttpContext httpContext,
+			User user,
+			long sessionId)
+		{
+			var longSession = db.LongSessions.FirstOrDefault(x => x.Id == sessionId);
+			return RenewSecurityTokensAsync(httpContext, user, longSession);
+		}
 
-            TokenAndClaimsPrincipal tokenAndClaimsPrincipal =
-                await CreateShortTokenAsync(user, lat2r, longSession.LongToken2, longSession.Id);
+		public async Task<SunClaimsPrincipal> RenewSecurityTokensAsync(
+			HttpContext httpContext,
+			User user,
+			LongSession longSession = null)
+		{
+			void GenerateTokens(LongSession longSession1)
+			{
+				longSession1.LongToken1 = CryptoRandomizer.GetRandomString(LongSession.LongToken1Length);
+				longSession1.LongToken2 = CryptoRandomizer.GetRandomString(LongSession.LongToken2Length);
+				longSession1.ExpirationDate = DateTime.UtcNow.AddDays(jweOptions.CurrentValue.LongTokenLiveTimeDays);
+				httpContext.Request.Headers.TryGetValue("User-Agent", out var userAgent);
+				longSession1.DeviceInfo = Parser.GetDefault()?.Parse(userAgent.ToString() ?? "")?.ToString() ?? "";
+				longSession1.UpdateDate = DateTime.UtcNow;
+			}
 
-            string json = JsonSerializer.Serialize(new
-            {
-                LongToken = longSession.LongToken1,
-                ShortToken = tokenAndClaimsPrincipal.Token,
-                ShortTokenExpiration = tokenAndClaimsPrincipal.Expiration
-            }, SunJson.DefaultJsonSerializerOptions);
+			if (longSession == null)
+			{
+				longSession = new LongSession
+				{
+					UserId = user.Id
+				};
 
-            httpContext.Response.Headers.Add(Headers.TokensHeaderName, json);
+				GenerateTokens(longSession);
 
-            return tokenAndClaimsPrincipal.ClaimsPrincipal;
-        }
+				longSession.Id = await db.InsertWithInt64IdentityAsync(longSession);
+			}
+			else
+			{
+				GenerateTokens(longSession);
 
-        private async Task<TokenAndClaimsPrincipal> CreateShortTokenAsync(
-            User user,
-            string lat2r,
-            string lat2,
-            long sessionId)
-        {
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(TokenClaimNames.LongToken2Ran, lat2r),
-                new Claim(JwtRegisteredClaimNames.Jti,
-                    CryptoRandomizer.GetRandomString(DbColumnSizes.BlackListShortToken_TokenId))
-            };
-
-            var roleNames = await userManager.GetRolesAsync(user);
-
-            foreach (var role in roleNames)
-                claims.Add(new Claim(ClaimTypes.Role, role));
-
-            var expiration = DateTime.UtcNow.AddMinutes(jweOptions.CurrentValue.ShortTokenLiveTimeMinutes);
-
-            var token = new JwtSecurityToken(
-                claims: claims.ToArray(),
-                expires: expiration);
-
-            var claimsIdentity = new ClaimsIdentity(claims, "JwtShortToken");
-            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-
-            return new TokenAndClaimsPrincipal
-            {
-                ClaimsPrincipal = new SunClaimsPrincipal(claimsPrincipal, rolesCache, sessionId, lat2),
-                Token = cryptService.Crypt(CipherSecrets.ShortJwt, token.Payload.SerializeToJson()),
-                Expiration = expiration
-            };
-        }
-
-        public ClaimsPrincipal ReadShortToken(string token)
-        {
-            var tokenDecrypted = cryptService.Decrypt(CipherSecrets.ShortJwt, token);
-
-            JwtSecurityToken jwtSecurityToken =
-                new JwtSecurityToken(new JwtHeader(), JwtPayload.Deserialize(tokenDecrypted));
-
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(jwtSecurityToken.Claims, SunJwe.Scheme);
-
-            if (jwtSecurityToken.ValidTo.Add(TokensExpiration.Delta) < DateTime.UtcNow)
-                throw new Exception("Short token expires");
-
-            return new ClaimsPrincipal(claimsIdentity);
-        }
+				await db.UpdateAsync(longSession);
+			}
 
 
-        private string CreateLong2Token(LongSession longSession, out string lat2r)
-        {
-            lat2r = CryptoRandomizer.GetRandomString(10);
+			var lat2Token = CreateLong2Token(longSession, out string lat2r);
 
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, longSession.UserId.ToString()),
-                new Claim(TokenClaimNames.LongToken2Ran, lat2r),
-                new Claim(TokenClaimNames.LongToken2Db, longSession.LongToken2),
-                new Claim(TokenClaimNames.SessionId, longSession.Id.ToString())
-            };
+			httpContext.Response.Cookies.Append(
+				TokenClaimNames.LongToken2CoockiName,
+				lat2Token,
+				new CookieOptions
+				{
+					Path = "/",
+					HttpOnly = true,
+					Secure = globalOptions.CurrentValue.IsHttps,
+					IsEssential = true,
+					SameSite = SameSiteMode.Strict,
+					Expires = longSession.ExpirationDate
+				}
+			);
 
-            var token = new JwtSecurityToken(
-                claims: claims.ToArray(),
-                expires: longSession.ExpirationDate);
+			TokenAndClaimsPrincipal tokenAndClaimsPrincipal =
+				await CreateShortTokenAsync(user, lat2r, longSession.LongToken2, longSession.Id);
 
-            return cryptService.Crypt(CipherSecrets.Long2Jwt, token.Payload.SerializeToJson());
-        }
+			string json = JsonSerializer.Serialize(new
+			{
+				LongToken = longSession.LongToken1,
+				ShortToken = tokenAndClaimsPrincipal.Token,
+				ShortTokenExpiration = tokenAndClaimsPrincipal.Expiration
+			}, SunJson.DefaultJsonSerializerOptions);
 
-        public JwtSecurityToken ReadLong2Token(string token)
-        {
-            var tokenDecrypted = cryptService.Decrypt(CipherSecrets.Long2Jwt, token);
+			httpContext.Response.Headers.Add(Headers.TokensHeaderName, json);
 
-            var jwtSecurityToken = new JwtSecurityToken(new JwtHeader(), JwtPayload.Deserialize(tokenDecrypted));
+			return tokenAndClaimsPrincipal.ClaimsPrincipal;
+		}
 
-            if (jwtSecurityToken.ValidTo.Add(TokensExpiration.Delta) < DateTime.UtcNow)
-                throw new Exception("Long2 token expires");
+		private async Task<TokenAndClaimsPrincipal> CreateShortTokenAsync(
+			User user,
+			string lat2r,
+			string lat2,
+			long sessionId)
+		{
+			List<Claim> claims = new List<Claim>
+			{
+				new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+				new Claim(TokenClaimNames.LongToken2Ran, lat2r),
+				new Claim(JwtRegisteredClaimNames.Jti,
+					CryptoRandomizer.GetRandomString(DbColumnSizes.BlackListShortToken_TokenId))
+			};
 
-            return jwtSecurityToken;
-        }
+			var roleNames = await userManager.GetRolesAsync(user);
 
-        public void MakeLogoutCookiesAndHeaders(HttpResponse response)
-        {
-            response.Headers.Clear();
+			foreach (var role in roleNames)
+				claims.Add(new Claim(ClaimTypes.Role, role));
 
-            response.Cookies.Delete(TokenClaimNames.LongToken2CoockiName,
-                new CookieOptions
-                {
-                    Path = "/",
-                    HttpOnly = true,
-                    Secure = globalOptions.CurrentValue.IsHttps,
-                    IsEssential = true,
-                    SameSite =  SameSiteMode.Strict,
-                });
+			var expiration = DateTime.UtcNow.AddMinutes(jweOptions.CurrentValue.ShortTokenLiveTimeMinutes);
 
-            response.Headers.Add(Headers.TokensHeaderName, Headers.TokensExpireValue);
-        }
+			var token = new JwtSecurityToken(
+				claims: claims.ToArray(),
+				expires: expiration);
+
+			var claimsIdentity = new ClaimsIdentity(claims, "JwtShortToken");
+			var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+			return new TokenAndClaimsPrincipal
+			{
+				ClaimsPrincipal = new SunClaimsPrincipal(claimsPrincipal, rolesCache, sessionId, lat2),
+				Token = cryptService.Crypt(CipherSecrets.ShortJwt, token.Payload.SerializeToJson()),
+				Expiration = expiration
+			};
+		}
+
+		public ClaimsPrincipal ReadShortToken(string token)
+		{
+			var tokenDecrypted = cryptService.Decrypt(CipherSecrets.ShortJwt, token);
+
+			JwtSecurityToken jwtSecurityToken =
+				new JwtSecurityToken(new JwtHeader(), JwtPayload.Deserialize(tokenDecrypted));
+
+			ClaimsIdentity claimsIdentity = new ClaimsIdentity(jwtSecurityToken.Claims, SunJwe.Scheme);
+
+			if (jwtSecurityToken.ValidTo.Add(TokensExpiration.Delta) < DateTime.UtcNow)
+				throw new Exception("Short token expires");
+
+			return new ClaimsPrincipal(claimsIdentity);
+		}
 
 
-        private class TokenAndClaimsPrincipal
-        {
-            public string Token;
-            public SunClaimsPrincipal ClaimsPrincipal;
-            public DateTime Expiration;
-        }
-    }
+		private string CreateLong2Token(LongSession longSession, out string lat2r)
+		{
+			lat2r = CryptoRandomizer.GetRandomString(10);
+
+			List<Claim> claims = new List<Claim>
+			{
+				new Claim(ClaimTypes.NameIdentifier, longSession.UserId.ToString()),
+				new Claim(TokenClaimNames.LongToken2Ran, lat2r),
+				new Claim(TokenClaimNames.LongToken2Db, longSession.LongToken2),
+				new Claim(TokenClaimNames.SessionId, longSession.Id.ToString())
+			};
+
+			var token = new JwtSecurityToken(
+				claims: claims.ToArray(),
+				expires: longSession.ExpirationDate);
+
+			return cryptService.Crypt(CipherSecrets.Long2Jwt, token.Payload.SerializeToJson());
+		}
+
+		public JwtSecurityToken ReadLong2Token(string token)
+		{
+			var tokenDecrypted = cryptService.Decrypt(CipherSecrets.Long2Jwt, token);
+
+			var jwtSecurityToken = new JwtSecurityToken(new JwtHeader(), JwtPayload.Deserialize(tokenDecrypted));
+
+			if (jwtSecurityToken.ValidTo.Add(TokensExpiration.Delta) < DateTime.UtcNow)
+				throw new Exception("Long2 token expires");
+
+			return jwtSecurityToken;
+		}
+
+		public void MakeLogoutCookiesAndHeaders(HttpResponse response)
+		{
+			response.Headers.Clear();
+
+			response.Cookies.Delete(TokenClaimNames.LongToken2CoockiName,
+				new CookieOptions
+				{
+					Path = "/",
+					HttpOnly = true,
+					Secure = globalOptions.CurrentValue.IsHttps,
+					IsEssential = true,
+					SameSite = SameSiteMode.Strict,
+				});
+
+			response.Headers.Add(Headers.TokensHeaderName, Headers.TokensExpireValue);
+		}
+
+
+		private class TokenAndClaimsPrincipal
+		{
+			public string Token;
+			public SunClaimsPrincipal ClaimsPrincipal;
+			public DateTime Expiration;
+		}
+	}
 }

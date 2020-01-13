@@ -5,30 +5,30 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SunEngine.Admin.Controllers
 {
-    public class ImagesCleanerController : BaseAdminController
-    {
-        private readonly ImageCleanerAdminService imageCleanerService;
+	public class ImagesCleanerController : BaseAdminController
+	{
+		private readonly ImageCleanerAdminService imageCleanerService;
 
-        public ImagesCleanerController(IServiceProvider serviceProvider,
-            ImageCleanerAdminService imageCleanerService) : base(serviceProvider)
-        {
-            this.imageCleanerService = imageCleanerService;
-        }
+		public ImagesCleanerController(IServiceProvider serviceProvider,
+			ImageCleanerAdminService imageCleanerService) : base(serviceProvider)
+		{
+			this.imageCleanerService = imageCleanerService;
+		}
 
-        [HttpPost]
-        public async Task<IActionResult> GetAllImages()
-        {
-            var imagesPath = await imageCleanerService.GetImageSourcesForCleanAsync();
+		[HttpPost]
+		public async Task<IActionResult> GetAllImages()
+		{
+			var imagesPath = await imageCleanerService.GetImageSourcesForCleanAsync();
 
-            return Ok(imagesPath);
-        }
+			return Ok(imagesPath);
+		}
 
-        [HttpPost]
-        public async Task<IActionResult> DeleteImages()
-        {
-            var imagesDeleted = await imageCleanerService.DeleteImagesAsync();
+		[HttpPost]
+		public async Task<IActionResult> DeleteImages()
+		{
+			var imagesDeleted = await imageCleanerService.DeleteImagesAsync();
 
-            return Ok(new {ImagesDeleted = imagesDeleted});
-        }
-    }
+			return Ok(new {ImagesDeleted = imagesDeleted});
+		}
+	}
 }
