@@ -1,9 +1,9 @@
 <template>
 	<q-page class="secret-page middle flex">
-		<h3 class="secret-page__header">
-			<q-icon name="fas fa-fingerprint" />
+		<h1 class="secret-page__header">
+			<q-icon name="fas fa-user-secret" left />
 			{{ title }}
-		</h3>
+		</h1>
 	</q-page>
 </template>
 
@@ -23,7 +23,10 @@ export default {
 .secret-page__header {
 	border-radius: 12px;
 	border: 4px dashed $amber-3;
-	padding: 14px;
+	padding: 14px 34px;
 	color: $light-blue-6;
+	font-size: 60px;
+	margin: 20px;
+	text-align: center;
 }
 </style>

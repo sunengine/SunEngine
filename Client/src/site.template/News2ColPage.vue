@@ -1,11 +1,6 @@
 <template>
 	<q-page class="news-2-col-page">
-		<h1 class="page-title page-padding ">
-			{{ title }}
-		</h1>
-		<div v-if="subTitle" class="page-sub-title page-padding">
-			{{ subTitle }}
-		</div>
+		<PageHeader class="page-padding" :title="title" :subTitle="subTitle" />
 
 		<div :class="['row', { hidden: !loaded }]">
 			<div

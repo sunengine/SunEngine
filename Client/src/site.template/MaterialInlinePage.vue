@@ -1,9 +1,7 @@
 <template>
 	<q-page class="material-inline-page ">
 		<div class="material-inline-page__pan"></div>
-		<h1 class="q-title page-padding text-center">
-			{{ title }}
-		</h1>
+		<PageHeader class="page-padding text-center" :title="title" />
 		<MaterialInline
 			@loaded="loaded"
 			ref="inline"

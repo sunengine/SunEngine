@@ -30,19 +30,26 @@
 							class="layout__toolbar__user-btn"
 						>
 							<template slot="label">
-								<img class="avatar  layout__user-avatar q-mr-sm" :src="userAvatar" />
+								<q-avatar class="avatar layout__avatar q-mr-sm">
+									<img :src="userAvatar" />
+								</q-avatar>
 								{{ userName }}
 							</template>
 							<UserMenu style="width:180px;" />
 						</q-btn-dropdown>
 
 						<q-btn v-else flat dense round>
-							<img class="avatar layout__user-avatar" :src="userAvatar" />
+							<q-avatar class="avatar layout__avatar">
+								<img :src="userAvatar" />
+							</q-avatar>
+
 							<q-menu>
 								<q-list class="sun-second-menu q-py-sm">
 									<q-item class="avatar-menu-item">
 										<q-item-section avatar>
-											<img class="avatar layout-avatar" :src="userAvatar" />
+											<q-avatar class="avatar layout__avatar">
+												<img :src="userAvatar" />
+											</q-avatar>
 										</q-item-section>
 										<q-item-section>
 											<q-item-label>
@@ -94,7 +101,7 @@
 
 		<q-page-container>
 			<q-toolbar v-if="!hideBreadcrumbs" class="page-padding">
-				<Breadcrumbs :category="category" :pageTitle="pageTitle" />
+				<Breadcrumbs :category="breadcrumbsCategory" :pageTitle="pageTitle" />
 			</q-toolbar>
 			<div :class="{ 'center-container': centered }">
 				<main>
@@ -155,8 +162,9 @@ export default {
 		hideBreadcrumbs() {
 			return this.$store.state.currentPage?.hideBreadcrumbs;
 		},
-		category() {
-			return this.$store.state.currentCategory;
+		breadcrumbsCategory() {
+			if (!this.$store.state.mounted) return null;
+			return this.$refs?.rv?.breadcrumbsCategory ?? this.$refs?.rv?.category;
 		},
 		siteSubTitle() {
 			return config.Global.SiteSubTitle;
