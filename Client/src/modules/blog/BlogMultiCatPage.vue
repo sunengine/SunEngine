@@ -1,9 +1,11 @@
 ﻿<template>
 	<q-page class="blog-multi-cat-page">
-		<div class="page-title-block page-padding">
-			<h1 class="page-title">
-				{{ title }}
-			</h1>
+		<PageHeader
+			class="page-padding"
+			:title="title"
+			:subTitle="component.settings.SubTitle"
+			:header="component.settings.Header"
+		>
 			<q-btn
 				v-if="canPost"
 				no-caps
@@ -17,7 +19,7 @@
 					})
 				"
 			/>
-		</div>
+		</PageHeader>
 
 		<div class="page-padding">
 			<div v-if="component.settings.SubTitle" class="page-sub-title">
