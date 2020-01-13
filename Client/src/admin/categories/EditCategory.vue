@@ -1,8 +1,6 @@
 ﻿<template>
 	<q-page class="edit-category page-padding">
-		<h1 class="page-title">
-			{{ $tl("title") }}
-		</h1>
+		<PageHeader :title="$tl('title')" />
 
 		<template v-if="category">
 			<CategoryForm ref="form" :category="category" />
@@ -59,6 +57,11 @@ export default {
 			category: null,
 			loading: false
 		};
+	},
+	computed: {
+	    breadcrumbsCategory() {
+           return this.$store.getters.breadcrumbsCategoriesAdmin;
+       }
 	},
 	methods: {
 		async tryDelete() {

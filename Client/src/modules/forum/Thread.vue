@@ -1,9 +1,6 @@
 ﻿<template>
 	<q-page class="thread">
-		<div class="page-title-block page-padding">
-			<h1 class="page-title">
-				{{ thisTitle }}
-			</h1>
+		<PageHeader class="page-padding" :title="showTitle" :category="category">
 			<q-btn
 				no-caps
 				class="thread__post-btn post-btn"
@@ -20,23 +17,9 @@
 				v-if="canAddTopic"
 				icon="fas fa-plus"
 			/>
-		</div>
-		<div class="page-padding" v-if="category.subTitle">
-			<div class="page-sub-title">
-				{{ category.subTitle }}
-			</div>
-		</div>
-		<div class="page-padding" v-if="category.header">
-			<div
-				v-if="category.header"
-				class="category-header"
-				v-html="category.header"
-			></div>
-		</div>
+		</PageHeader>
 
-		<LoaderWait ref="loader" v-if="!topics.items" />
-
-		<div class="q-mt-sm" v-else>
+		<div class="q-mt-sm" v-if="topics.items">
 			<div class="thread__table-header margin-back bg-grey-2 gt-xs text-grey-6 ">
 				<hr class="thread__sep" />
 
@@ -70,6 +53,7 @@
 				@input="pageChanges"
 			/>
 		</div>
+		<LoaderWait ref="loader" v-else />
 	</q-page>
 </template>
 
@@ -103,7 +87,7 @@ export default {
 		$route: "loadData"
 	},
 	computed: {
-		thisTitle() {
+		showTitle() {
 			return this.pageTitle ?? this.category.title;
 		},
 		canAddTopic() {
@@ -122,7 +106,7 @@ export default {
 	methods: {
 		loadData() {
 			this.loadTopics.call(this);
-			this.title = this.thisTitle;
+			this.title = this.showTitle;
 		}
 	},
 	created() {

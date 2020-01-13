@@ -1,9 +1,6 @@
 ﻿<template>
 	<q-page class="components-admin page-padding">
-		<div class="page-title-block">
-			<h1 class="page-title">
-				{{ $tl("title") }}
-			</h1>
+		<PageHeader :title="$tl('title')">
 			<q-btn
 				icon="fas fa-plus"
 				class="post-btn q-mr-lg"
@@ -12,7 +9,7 @@
 				no-caps
 				:label="$tl('addComponentBtn')"
 			/>
-		</div>
+		</PageHeader>
 
 		<div class="components-admin__components" v-if="components">
 			<div v-for="component in components">
@@ -57,6 +54,11 @@ export default {
 		return {
 			components: null
 		};
+	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$store.getters.breadcrumbsAdmin;
+		}
 	},
 	methods: {
 		loadData() {

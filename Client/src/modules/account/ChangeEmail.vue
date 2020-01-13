@@ -1,8 +1,6 @@
 ﻿<template>
 	<q-page class="change-email flex column page-padding">
-		<h1 class="page-title text-center">
-			{{ title }}
-		</h1>
+		<PageHeader :title="title" />
 
 		<div class="flex flex-center grow">
 			<div v-if="!done" class="center-form">

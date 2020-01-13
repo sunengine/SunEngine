@@ -1,8 +1,6 @@
 ﻿<template>
 	<q-page class="create-category page-padding">
-		<h1 class="page-title">
-			{{ title }}
-		</h1>
+		<PageHeader :title="$tl('title')" />
 
 		<CategoryForm ref="form" :category="category" />
 
@@ -65,6 +63,11 @@ export default {
 			},
 			loading: false
 		};
+	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$store.getters.breadcrumbsCategoriesAdmin;
+		}
 	},
 	methods: {
 		save() {

@@ -40,6 +40,11 @@ export default {
 			showInfo: false
 		};
 	},
+	computed: {
+       breadcrumbsCategory() {
+           return this.$store.state.admin.adminCategory;
+       }
+	},
 	methods: {
 		up(category) {
 			this.$request(this.$AdminApi.CategoriesAdmin.CategoryUp, {

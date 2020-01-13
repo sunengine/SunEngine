@@ -1,6 +1,6 @@
 ﻿<template>
 	<q-page class="images-cleaner page-padding">
-		<h1 class="page-title">{{ title }}</h1>
+		<PageHeader :title="title" />
 
 		<q-banner rounded class="bg-amber-2 q-mb-md">
 			{{ $tl("info") }}
@@ -61,6 +61,11 @@ export default {
 			images: null,
 			loading: false
 		};
+	},
+	computed: {
+		breadcrumbsCategory() {
+          return this.$store.getters.breadcrumbsAdmin;
+		}
 	},
 	methods: {
 		clear() {

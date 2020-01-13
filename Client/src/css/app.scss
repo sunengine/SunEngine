@@ -21,48 +21,6 @@ $q-field-color: #00c63b;
 	}
 }
 
-// ——— Title ————————————————————————————————————
-
-.page-title {
-	padding: 16px 0 22px 0;
-	font-size: 36px;
-	line-height: 40px;
-	font-weight: 300;
-	margin: 0;
-}
-
-.page-title-block {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	padding-top: $flex-gutter-md !important;
-	padding-bottom: $flex-gutter-md !important;
-
-	.page-title {
-		flex-grow: 1;
-		padding: 0 !important;
-		margin: 3px 0;
-	}
-
-	.q-btn {
-		flex-grow: 0;
-		margin: 3px 0;
-	}
-}
-
-.page-sub-title {
-	margin-top: -14px;
-	margin-bottom: 20px;
-	color: $grey-7;
-	font-style: italic;
-	border-left: 4px solid silver;
-	padding: 4px 0 4px 20px;
-}
-
-.category-header {
-	margin-top: -14px;
-}
-
 // ——— Buttons ————————————————————————————————————
 
 .post-btn {

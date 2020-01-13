@@ -36,7 +36,7 @@ export default {
 	props: {
 		category: {
 			type: Object,
-			required: true
+			required: false
 		},
 		pageTitle: {
 			type: String,

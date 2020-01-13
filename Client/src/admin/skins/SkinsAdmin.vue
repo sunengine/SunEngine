@@ -1,8 +1,6 @@
 ﻿<template>
 	<q-page class="skins-admin page-padding">
-		<h1 class="page-title">
-			{{ title }}
-		</h1>
+		<PageHeader :title="title" />
 
 		<q-tabs class="bg-grey-2" align="justify" inline-label>
 			<q-route-tab
@@ -37,6 +35,11 @@ export default {
 		return {
 			tab: "skins"
 		};
+	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$store.getters.breadcrumbsAdmin;
+		}
 	},
 	beforeCreate() {
 		this.$options.components.MainSkinsAdmin = require("sun").MainSkinsAdmin;

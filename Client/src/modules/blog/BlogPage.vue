@@ -1,9 +1,6 @@
 ﻿<template>
 	<q-page class="blog-page">
-		<div class="page-title-block page-padding">
-			<h1 class="page-title">
-				{{ category.title }}
-			</h1>
+		<PageHeader class="page-padding" :category="category">
 			<q-btn
 				no-caps
 				class="post-btn"
@@ -20,19 +17,7 @@
 				v-if="posts && canAddArticle"
 				icon="fas fa-plus"
 			/>
-		</div>
-		<div class="page-padding" v-if="category.subTitle">
-			<div class="page-sub-title">
-				{{ category.subTitle }}
-			</div>
-		</div>
-		<div class="page-padding" v-if="category.header">
-			<div
-				v-html="category.header"
-				v-if="category.header"
-				class="category-header"
-			></div>
-		</div>
+		</PageHeader>
 
 		<PostsList v-if="posts" :posts="posts" />
 

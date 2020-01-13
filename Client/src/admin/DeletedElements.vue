@@ -1,8 +1,6 @@
 ﻿<template>
 	<q-page class="deleted-elements page-padding">
-		<h1 class="page-title">
-			{{ title }}
-		</h1>
+		<PageHeader :title="title" />
 
 		<q-checkbox
 			class="deleted-elements__show-deleted"
@@ -40,6 +38,11 @@ export default {
 		return {
 			loading: false
 		};
+	},
+	computed: {
+		breadcrumbsCategory() {
+          return this.$store.getters.breadcrumbsAdmin;
+		}
 	},
 	beforeCreate() {
 		this.$options.components.LoaderSent = require("sun").LoaderSent;

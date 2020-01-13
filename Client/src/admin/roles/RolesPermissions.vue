@@ -1,6 +1,6 @@
 ﻿<template>
 	<q-page class="roles-permissions page-padding">
-		<h1 class="page-title">{{ title }}</h1>
+		<PageHeader :title="title" />
 
 		<div class="q-gutter-y-lg" v-if="json !== null">
 			<q-input
@@ -57,13 +57,17 @@ import { Page } from "mixins";
 export default {
 	name: "RolesPermissions",
 	mixins: [Page],
-	computed: {},
 	data() {
 		return {
 			json: null,
 			error: null,
 			loading: false
 		};
+	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$store.getters.breadcrumbsAdmin;
+		}
 	},
 	methods: {
 		async loadDataRefresh() {

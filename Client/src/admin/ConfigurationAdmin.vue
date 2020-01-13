@@ -1,9 +1,6 @@
 ﻿<template>
 	<q-page class="configuration-admin page-padding">
-		<div class="page-title-block">
-			<h1 class="page-title">
-				{{ title }}
-			</h1>
+		<PageHeader :title="title">
 			<q-input
 				dense
 				v-model="filter"
@@ -15,7 +12,7 @@
 					<q-icon name="fa fa-search" />
 				</template>
 			</q-input>
-		</div>
+		</PageHeader>
 
 		<div v-if="configurationGroups">
 			<q-markup-table wrap-cells>
@@ -153,6 +150,9 @@ export default {
 		filter: "buildTable"
 	},
 	computed: {
+		breadcrumbsCategory() {
+          return this.$store.getters.breadcrumbsAdmin;
+		},
 		filterLowerCase() {
 			return this.filter.toLowerCase();
 		}

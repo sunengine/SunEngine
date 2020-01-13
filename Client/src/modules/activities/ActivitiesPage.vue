@@ -1,13 +1,9 @@
 ﻿<template>
 	<q-page class="activities-page">
-		<h1 class="page-title page-padding">
-			{{ title }}
-		</h1>
-		<div class="page-padding" v-if="component.settings.SubTitle">
-			<div class="page-sub-title">
-				{{ component.settings.SubTitle }}
-			</div>
-		</div>
+		<PageHeader
+			:title="component.settings.Title"
+			:subTitle="component.settings.SubTitle"
+		/>
 
 		<ActivitiesList :componentName="componentName" />
 	</q-page>

@@ -1,30 +1,23 @@
 ﻿<template>
 	<q-page class="articles-multi-cat-page">
-		<div class="page-padding page-title-block">
-			<h1 class="page-title">
-				{{ title }}
-			</h1>
-			<q-btn
-				class="post-btn"
-				no-caps
-				@click="
+	 <PageHeader
+		  :title="title"
+		  :subTitle="subTitle"
+	 >
+		<q-btn
+			 class="post-btn"
+			 no-caps
+			 @click="
 					$router.push({
 						name: 'CreateMaterial',
 						params: { categoriesNames: categoriesNames }
 					})
 				"
-				:label="addButtonLabel"
-				v-if="canAddArticle"
-				icon="fas fa-plus"
-			/>
-		</div>
-
-		<div
-			v-if="caption"
-			class="page-padding q-mb-lg text-grey-9"
-			style="margin-top: -14px"
-			v-html="caption"
-		></div>
+			 :label="addButtonLabel"
+			 v-if="canAddArticle"
+			 icon="fas fa-plus"
+		/>
+		</PageHeader>
 
 		<ArticlesList v-if="articles" :articles="articles" />
 
@@ -67,7 +60,7 @@ export default {
 				return this.$tl("newArticleBtnDefault");
 			}
 		},
-		caption: {
+		subTitle: {
 			type: String,
 			required: false
 		},

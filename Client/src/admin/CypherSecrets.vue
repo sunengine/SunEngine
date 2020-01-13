@@ -1,8 +1,6 @@
 ﻿<template>
 	<q-page class="cypher-secrets page-padding">
-		<h1 class="page-title">
-			{{ title }}
-		</h1>
+		<PageHeader :title="title" />
 
 		<div class="cypher-secrets__btn-block q-gutter-md q-mt-sm">
 			<q-btn
@@ -36,6 +34,11 @@
 <script>
 export default {
 	name: "CypherSecrets",
+	computed: {
+		breadcrumbsCategory() {
+          return this.$store.getters.breadcrumbsAdmin;
+		}
+	},
 	methods: {
 		shortJwt() {
 			this.$request(this.$AdminApi.CypherSecretsAdmin.ResetCypher, {

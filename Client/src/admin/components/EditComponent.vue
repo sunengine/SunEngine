@@ -1,8 +1,6 @@
 ﻿<template>
 	<q-page class="edit-component page-padding">
-		<h1 class="page-title">
-			{{ title }}
-		</h1>
+		<PageHeader :title="title" />
 
 		<ComponentForm
 			:editMode="true"
@@ -55,6 +53,11 @@ export default {
 		name: {
 			type: String,
 			required: true
+		}
+	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$store.getters.breadcrumbsComponentsAdmin;
 		}
 	},
 	data() {

@@ -1,8 +1,6 @@
 ﻿<template>
 	<q-page class="create-component page-padding">
-		<h1 class="page-title">
-			{{ title }}
-		</h1>
+		<PageHeader :title="title" />
 
 		<ComponentForm ref="form" :component="component" />
 
@@ -48,6 +46,11 @@ export default {
 			},
 			loading: false
 		};
+	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$store.getters.breadcrumbsComponentsAdmin;
+		}
 	},
 	methods: {
 		save() {

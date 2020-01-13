@@ -1,8 +1,6 @@
 ﻿<template>
 	<q-page class="admin-page page-padding">
-		<h1 class="page-title ">
-			{{ title }}
-		</h1>
+		<PageHeader :title="title" />
 
 		<q-markup-table>
 			<tbody>
@@ -123,6 +121,9 @@ export default {
 		};
 	},
 	computed: {
+		breadcrumbsCategory() {
+			return this.$store.getters.breadcrumbsAdmin;
+		},
 		additionalData() {
 			const {
 				Name,

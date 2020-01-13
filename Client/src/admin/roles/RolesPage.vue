@@ -1,8 +1,6 @@
 ﻿<template>
 	<q-page class="roles-page page-padding">
-		<h1 class="page-title">
-			{{ title }}
-		</h1>
+		<PageHeader :title="title" />
 
 		<div class="row">
 			<div class="col-xs-12 col-sm-4">
@@ -47,6 +45,12 @@ export default {
 			currentRole: null
 		};
 	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$store.getters.breadcrumbsAdmin;
+		}
+	},
+
 	methods: {
 		loadAllRoles() {
 			this.$request(this.$AdminApi.UserRolesAdmin.GetAllRoles).then(response => {

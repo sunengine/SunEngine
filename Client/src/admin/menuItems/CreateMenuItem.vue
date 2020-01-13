@@ -1,8 +1,6 @@
 ﻿<template>
 	<q-page class="create-menu-item page-padding">
-		<h1 class="page-title">
-			{{ title }}
-		</h1>
+		<PageHeader :title="title" />
 
 		<MenuItemForm ref="form" :menuItem="menuItem" />
 
@@ -39,6 +37,11 @@ export default {
 			type: Number,
 			required: false,
 			default: 1
+		}
+	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$store.getters.breadcrumbsMenuAdmin;
 		}
 	},
 	data() {

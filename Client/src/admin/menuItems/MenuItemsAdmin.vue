@@ -1,9 +1,6 @@
 ﻿<template>
 	<q-page class="menu-items-admin page-padding">
-		<div class="page-title-block">
-			<h1 class="page-title">
-				{{ $tl("title") }}
-			</h1>
+		<PageHeader :title="$tl('title')">
 			<q-btn
 				icon="far fa-plus-square"
 				class="post-btn q-mr-lg"
@@ -12,7 +9,7 @@
 				no-caps
 				:label="$tl('addMenuItemBtn')"
 			/>
-		</div>
+		</PageHeader>
 
 		<MenuAdminItem
 			@up="up"
@@ -47,6 +44,9 @@ export default {
 	computed: {
 		lastIndex() {
 			return this.menuItems.length - 1;
+		},
+		breadcrumbsCategory() {
+			return this.$store.getters.breadcrumbsAdmin;
 		}
 	},
 	methods: {

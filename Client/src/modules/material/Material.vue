@@ -2,26 +2,8 @@
 	<q-page class="material">
 		<div v-if="material" class="page-padding ">
 			<article>
-				<header>
-					<h1 v-if="showTitle" class="page-title">
-						{{ material.title }}
-					</h1>
-					<div v-if="material.subTitle" class="page-sub-title ">
-						{{ material.subTitle }}
-					</div>
-
-					<div v-else class="page-padding-top"></div>
-
-					<div v-if="material.deletedDate" class="text-red q-mb-md">
-						<q-chip
-							icon="fas fa-trash"
-							color="red"
-							text-color="white"
-							:label="$tl('deleted')"
-						/>
-					</div>
-				</header>
-
+				<PageHeader :title="material.title" :subTitle="material.subTitle"/>
+				 
 				<div class="material__text q-mb-lg" v-html="material.text"></div>
 
 				<footer>
