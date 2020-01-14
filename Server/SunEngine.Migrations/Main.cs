@@ -3,7 +3,6 @@ using System.IO;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MySql.Data.MySqlClient;
 using Npgsql;
 using SunEngine.Migrations.Migrations;
 
@@ -94,7 +93,7 @@ namespace SunEngine.Migrations
 					}
 
 					break;
-				case DbProviderType.MySql:
+				/*case DbProviderType.MySql:
 					try
 					{
 						using var connection = new MySqlConnection(connectionString);
@@ -107,7 +106,7 @@ namespace SunEngine.Migrations
 						Error(e);
 					}
 
-					break;
+					break;*/
 			}
 
 			void Error(Exception e)
