@@ -180,6 +180,21 @@ namespace SunEngine.Admin.Services
 			configurationAdminService.UpdateClientScripts();
 		}
 
+		public string GetCustomCss()
+		{
+			var customCssPath = Path.Combine(WwwRootPath, "statics", "custom.css");
+			return !File.Exists(customCssPath) ? "" : File.ReadAllText(customCssPath);
+		}
+
+		public void UpdateCustomCss(string cssText)
+		{
+			var customCssPath = Path.Combine(WwwRootPath, "statics", "custom.css");
+			if (File.Exists(customCssPath))
+				File.Delete(customCssPath);
+
+			File.WriteAllText(customCssPath, cssText);
+		}
+
 		public List<SkinInfo> GetAllSkins(SkinType skinType)
 		{
 			var skinsPaths = Directory.GetDirectories(skinType == SkinType.Main ? SkinsPath : PartialSkinsPath);

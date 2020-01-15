@@ -497,7 +497,8 @@ export default {
 	SkinsAdmin: {
 		title: "Темы оформления",
 		mainSkins: "Основные темы",
-		partialSkins: "Дополнительные темы"
+		partialSkins: "Дополнительные темы",
+		customCss: "Произвольный CSS"
 	},
 	MainSkinsAdmin: {
 		title: "Основные темы оформления",
@@ -524,5 +525,12 @@ export default {
 		btnDeleteOk: "@:Global.dialog.yes",
 		btnDeleteCancel: "@:Global.dialog.cancel",
 		upload: "Загрузить дополнительную тему"
+	},
+	CustomCssAdmin: {
+		title: "Произвольный CSS",
+		saveBtn: "@:Global.btn.save",
+		refreshBtn: "Перегрузить с сервера",
+		reloadSuccessNotify: "Данные перезагружены с сервера",
+		successNotify: "Данные успешно сохранены"
 	}
 };

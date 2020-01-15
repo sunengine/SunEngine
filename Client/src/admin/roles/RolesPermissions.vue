@@ -4,6 +4,7 @@
 
 		<div class="q-gutter-y-lg" v-if="json !== null">
 			<q-input
+				filled
 				input-class="roles-permissions__json-input"
 				v-model="json"
 				type="textarea"

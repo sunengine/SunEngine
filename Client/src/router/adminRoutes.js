@@ -19,6 +19,7 @@ import { EditComponent } from "sun";
 import { SkinsAdmin } from "sun";
 import { MainSkinsAdmin } from "sun";
 import { PartialSkinsAdmin } from "sun";
+import {CustomCssAdmin} from "sun";
 import { ConfigurationAdmin } from "sun";
 import { AdminInformation } from "sun";
 
@@ -123,6 +124,14 @@ const routes = [
 				path: "Partial".toLowerCase(),
 				components: {
 					default: PartialSkinsAdmin,
+					navigation: AdminPanel
+				}
+			},
+			{
+				name: "CustomCssAdmin",
+				path: "Custom".toLowerCase(),
+				components: {
+					default: CustomCssAdmin,
 					navigation: AdminPanel
 				}
 			}

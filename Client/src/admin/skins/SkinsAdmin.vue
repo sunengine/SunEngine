@@ -17,6 +17,13 @@
 				icon="fas fa-puzzle-piece"
 				:label="$tl('partialSkins')"
 			/>
+			<q-route-tab
+				:to="{ name: 'CustomCssAdmin' }"
+				no-caps
+				name="custom-css"
+				icon="fab fa-css3-alt"
+				:label="$tl('customCss')"
+			/>
 		</q-tabs>
 
 		<div class="q-mb-xl"></div>
@@ -44,6 +51,7 @@ export default {
 	beforeCreate() {
 		this.$options.components.MainSkinsAdmin = require("sun").MainSkinsAdmin;
 		this.$options.components.PartialSkinsAdmin = require("sun").PartialSkinsAdmin;
+		this.$options.components.CustomCssAdmin = require("sun").CustomCssAdmin;
 	},
 	created() {
 		this.title = this.$tl("title");

@@ -458,7 +458,8 @@ export default {
 	SkinsAdmin: {
 		title: "Skins admin",
 		mainSkins: "Main skins",
-		partialSkins: "Partial skins"
+		partialSkins: "Partial skins",
+		customCss: "Custom CSS"
 	},
 	MainSkinsAdmin: {
 		title: "Skins admin",
@@ -485,5 +486,12 @@ export default {
 		btnDeleteOk: "@:Global.dialog.yes",
 		btnDeleteCancel: "@:Global.dialog.cancel",
 		upload: "Upload partial skin"
+	},
+	CustomCssAdmin: {
+		title: "Custom CSS",
+		saveBtn: "@:Global.btn.save",
+		refreshBtn: "Reload from server",
+		reloadSuccessNotify: "Css reloaded from server",
+		successNotify: "Css successfully updated"
 	}
 };

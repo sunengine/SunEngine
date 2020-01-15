@@ -125,8 +125,9 @@
 				class="skins-admin__info-link link"
 				href="https://github.com/sunengine/SunEngine.Skins"
 				target="_blank"
-				>https://github.com/sunengine/SunEngine.Skins</a
 			>
+				https://github.com/sunengine/SunEngine.Skins
+			</a>
 		</q-banner>
 	</div>
 </template>

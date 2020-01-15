@@ -87,5 +87,21 @@ namespace SunEngine.Admin.Controllers
 
 			return Json(allSkins);
 		}
+		
+		[HttpPost]
+		public IActionResult GetCustomCss()
+		{
+			var cssText = skinsAdminService.GetCustomCss();
+
+			return Ok(cssText);
+		}
+
+		[HttpPost]
+		public IActionResult UpdateCustomCss(string cssText)
+		{
+			skinsAdminService.UpdateCustomCss(cssText);
+
+			return Ok();
+		}
 	}
 }

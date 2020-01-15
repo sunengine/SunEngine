@@ -10,7 +10,8 @@ const config = {
 		SiteUrl: "http://localhost:5005",
 		UploadImagesUrl: "http://localhost:5000/UploadImages",
 		SkinsUrl: "http://localhost:5005/statics/Skins",
-		PartialSkinsUrl: "http://localhost:5005/statics/PartialSkins"
+		PartialSkinsUrl: "http://localhost:5005/statics/PartialSkins",
+		CustomCssUrl: "http://localhost:5000/statics/custom.css"
 	},
 	Dev: {
 		VueDevTools: true,
@@ -63,3 +64,6 @@ if (config.Global.SiteUrl.startsWith("http://"))
 else if (config.Global.SiteUrl.startsWith("https://"))
 	config.Global.SiteSchema = "https://";
 else throw "SiteUrl in config.js have to start with 'http://' or 'https://'.";
+
+document.writeln(`<link href="${config.Global.CustomCssUrl}" rel="stylesheet" />`);
+
