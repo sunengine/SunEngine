@@ -20,6 +20,7 @@ namespace SunEngine.DataSeed
 	public class UsersSeeder
 	{
 		private const string AllUsersDefaultPassword = "password";
+		private const string StartAvatarDirName = "000";
 
 		private readonly DataContainer dataContainer;
 		private readonly string configDir;
@@ -45,7 +46,7 @@ namespace SunEngine.DataSeed
 			string jsonText = File.ReadAllText(fileName);
 			usersJArray = JArray.Parse(jsonText);
 
-			avatarsDir = Path.Combine(uploadImagesDir, "0");
+			avatarsDir = Path.Combine(uploadImagesDir, StartAvatarDirName);
 
 			if (Directory.Exists(avatarsDir))
 				Directory.Delete(avatarsDir, true);
@@ -111,7 +112,7 @@ namespace SunEngine.DataSeed
 				{
 					var avatarPathRez = Path.Combine(avatarsDir, avatarName);
 					File.Copy(avatarPath, avatarPathRez);
-					user.Avatar = user.Photo = Path.Combine("0", avatarName);
+					user.Avatar = user.Photo = Path.Combine(StartAvatarDirName, avatarName);
 				}
 
 				dataContainer.Users.Add(user);

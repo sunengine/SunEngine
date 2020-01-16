@@ -491,6 +491,7 @@ export default {
 		title: "Custom CSS",
 		cssInput: "Custom CSS",
 		saveBtn: "@:Global.btn.save",
+		clearBtn: "Clear",
 		refreshBtn: "Reload from server",
 		reloadSuccessNotify: "Css reloaded from server",
 		successNotify: "Css successfully updated"

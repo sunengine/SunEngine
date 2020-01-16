@@ -530,6 +530,7 @@ export default {
 		title: "Произвольный CSS",
 		cssInput: "Произвольный CSS",
 		saveBtn: "@:Global.btn.save",
+		clearBtn: "Очистить",
 		refreshBtn: "Перегрузить с сервера",
 		reloadSuccessNotify: "Данные перезагружены с сервера",
 		successNotify: "Данные успешно сохранены"
