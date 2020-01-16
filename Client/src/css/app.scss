@@ -66,11 +66,13 @@ $q-field-color: #00c63b;
 
 .center-container {
 	display: flex;
-	align-items: center;
-	flex-direction: column;
-
-	* {
+	align-content: center;
+	justify-content: center;
+	
+	.inner-container {
 		max-width: 750px;
+		flex-grow: 1;
+		flex-shrink: 1;
 	}
 }
 
