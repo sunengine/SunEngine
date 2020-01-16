@@ -3,6 +3,7 @@
 		<header>
 			<div class="page-title-block">
 				<h1 class="page-title grow">
+					<q-icon v-if="icon" :name="icon" />
 					{{ showTitle }}
 				</h1>
 				<slot> </slot>
@@ -37,6 +38,10 @@ export default {
 			required: false
 		},
 		header: {
+			type: String,
+			required: false
+		},
+		icon: {
 			type: String,
 			required: false
 		}
