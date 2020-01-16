@@ -16,6 +16,8 @@ namespace SunEngine.Admin.Services
 		protected IConfigurationRoot configurationRoot { get; }
 		protected IOptionsMonitor<GlobalOptions> globalOptions { get; }
 
+		protected Random ran = new Random();
+		
 		public ConfigurationAdminService(
 			IPathService pathService,
 			IConfigurationRoot configurationRoot)
@@ -89,18 +91,27 @@ namespace SunEngine.Admin.Services
 				$"// auto-start\n{json}\n // auto-end", RegexOptions.Singleline);
 			File.WriteAllText(configJsPath, configJs);
 
-			UpdateScriptsVersion();
+			UpdateConfigVersion();
 		}
 
-		protected void UpdateScriptsVersion()
+		public void UpdateConfigVersion()
 		{
-			var ran = new Random();
-
 			var indexHtmlPath = pathService.Combine(PathNames.WwwRootDirName, "index.html");
 			string text = File.ReadAllText(indexHtmlPath);
 			Regex reg = new Regex("configver=\\d+\"");
 			text = reg.Replace(text, $"configver={ran.Next()}\"");
 			File.WriteAllText(indexHtmlPath, text);
+		}
+		
+		public void UpdateCustomCssVersion()
+		{
+			UpdateConfigVersion();
+			
+			var configJsPath =  pathService.Combine(PathNames.WwwRootDirName,"statics" ,"config.js");
+			string text = File.ReadAllText(configJsPath);
+			Regex reg = new Regex("customcssver=\\d+\"");
+			text = reg.Replace(text, $"customcssver={ran.Next()}\"");
+			File.WriteAllText(configJsPath, text);
 		}
 	}
 }

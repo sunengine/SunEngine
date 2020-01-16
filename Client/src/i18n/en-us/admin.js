@@ -489,6 +489,7 @@ export default {
 	},
 	CustomCssAdmin: {
 		title: "Custom CSS",
+		cssInput: "Custom CSS",
 		saveBtn: "@:Global.btn.save",
 		refreshBtn: "Reload from server",
 		reloadSuccessNotify: "Css reloaded from server",

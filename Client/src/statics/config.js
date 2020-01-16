@@ -65,5 +65,5 @@ else if (config.Global.SiteUrl.startsWith("https://"))
 	config.Global.SiteSchema = "https://";
 else throw "SiteUrl in config.js have to start with 'http://' or 'https://'.";
 
-document.writeln(`<link href="${config.Global.CustomCssUrl}" rel="stylesheet" />`);
+document.writeln(`<link href="${config.Global.CustomCssUrl}?customcssver=111111" rel="stylesheet" />`);
 

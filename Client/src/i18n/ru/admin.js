@@ -528,6 +528,7 @@ export default {
 	},
 	CustomCssAdmin: {
 		title: "Произвольный CSS",
+		cssInput: "Произвольный CSS",
 		saveBtn: "@:Global.btn.save",
 		refreshBtn: "Перегрузить с сервера",
 		reloadSuccessNotify: "Данные перезагружены с сервера",

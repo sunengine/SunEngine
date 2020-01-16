@@ -193,6 +193,8 @@ namespace SunEngine.Admin.Services
 				File.Delete(customCssPath);
 
 			File.WriteAllText(customCssPath, cssText);
+			
+			configurationAdminService.UpdateCustomCssVersion();
 		}
 
 		public List<SkinInfo> GetAllSkins(SkinType skinType)

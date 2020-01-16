@@ -1,12 +1,5 @@
 <template>
 	<div class="custom-css-admin q-gutter-y-md">
-		<q-input
-			filled
-			input-class="custom-css-admin__text-area"
-			type="textarea"
-			v-model="customCss"
-		/>
-		<div class="clear"></div>
 		<div class="flex">
 			<q-btn
 				no-caps
@@ -24,6 +17,13 @@
 				:label="$tl('refreshBtn')"
 			/>
 		</div>
+		<q-input
+			filled
+			:label="$tl('cssInput')"
+			input-class="custom-css-admin__text-area"
+			type="textarea"
+			v-model="customCss"
+		/>
 	</div>
 </template>
 
