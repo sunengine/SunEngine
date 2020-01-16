@@ -104,9 +104,11 @@
 				<Breadcrumbs :category="breadcrumbsCategory" :pageTitle="pageTitle" />
 			</q-toolbar>
 			<div :class="{ 'center-container': centered }">
-				<main>
-					<router-view ref="rv" />
-				</main>
+				<div class="inner-container">
+					<main>
+						<router-view ref="rv" />
+					</main>
+				</div>
 			</div>
 		</q-page-container>
 
