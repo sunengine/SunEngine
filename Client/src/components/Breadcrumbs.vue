@@ -1,33 +1,27 @@
 <template>
-	<div class="breadcrumbs">
-		<q-breadcrumbs
-			class="text-grey"
-			style="word-break: keep-all; white-space: nowrap"
-			active-color="purple"
-		>
+	<q-breadcrumbs class="breadcrumbs text-grey" active-color="purple">
+		<q-breadcrumbs-el
+			:exact="true"
+			key="mr"
+			:label="$tl('home')"
+			:to="{ name: 'Home' }"
+		/>
+		<template v-if="category">
 			<q-breadcrumbs-el
+				:key="cat.id"
 				:exact="true"
-				key="mr"
-				:label="$tl('home')"
-				:to="{ name: 'Home' }"
+				v-for="cat of breadCrumbsCategories"
+				:to="cat.route"
+				:label="cat.title"
 			/>
-			<template v-if="category">
-				<q-breadcrumbs-el
-					:key="cat.id"
-					:exact="true"
-					v-for="cat of breadCrumbsCategories"
-					:to="cat.route"
-					:label="cat.title"
-				/>
-			</template>
-			<q-breadcrumbs-el
-				:exact="true"
-				v-if="pageTitle && pageTitle !== ' '"
-				key="ml"
-				:label="pageTitle"
-			/>
-		</q-breadcrumbs>
-	</div>
+		</template>
+		<q-breadcrumbs-el
+			:exact="true"
+			v-if="pageTitle && pageTitle !== ' '"
+			key="ml"
+			:label="pageTitle"
+		/>
+	</q-breadcrumbs>
 </template>
 
 <script>
@@ -78,6 +72,9 @@ export default {
 }
 
 .breadcrumbs {
+	word-break: keep-all;
+	white-space: nowrap;
+
 	div {
 		display: inline;
 	}

@@ -45,10 +45,10 @@ namespace SunEngine.Admin.Services
 				["Global:SiteApi"] = typeof(string),
 				["Global:SiteUrl"] = typeof(string),
 				["Global:UploadImagesUrl"] = typeof(string),
-				["Global:StaticsUrl"] = typeof(string),
 				["Global:SkinsUrl"] = typeof(string),
 				["Global:PartialSkinsUrl"] = typeof(string),
-
+				["Global:CustomCssUrl"] = typeof(string),
+				
 				["Dev:LogInitExtended"] = typeof(bool),
 				["Dev:VueDevTools"] = typeof(bool),
 				["Dev:LogRequests"] = typeof(bool),

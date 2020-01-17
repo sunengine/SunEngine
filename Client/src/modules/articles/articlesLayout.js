@@ -36,7 +36,7 @@ export default {
 			},
 			{
 				name: `cat-${name}-mat`,
-				path: `/${pathBegin}/:idOrName`,
+				path: `${pathBegin}/:idOrName`,
 				components: {
 					default: Material,
 					navigation: null

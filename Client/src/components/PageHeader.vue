@@ -8,7 +8,7 @@
 				</h1>
 				<slot> </slot>
 			</div>
-			<div v-if="showSubTitle" class="page-sub-title">
+			<div test='' v-if="showSubTitle" class="page-sub-title">
 				{{ showSubTitle }}
 			</div>
 			<div
