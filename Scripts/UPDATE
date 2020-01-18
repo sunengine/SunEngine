@@ -1,6 +1,7 @@
 PROJECT_NAME="SunEngine"
-#REPOSITORY="git@github.com:sunengine/SunEngine.git"
 PROJECT_ROOT="auto"
 BUILD_SCRIPT_PATH="./build.sh"
 PUBLISH_SCRIPT_PATH="./publish.sh"
+
+#REPOSITORY="git@github.com:sunengine/SunEngine.git"
 
