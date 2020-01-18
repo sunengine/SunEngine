@@ -42,7 +42,7 @@ export default {
 	},
 	computed: {
        breadcrumbsCategory() {
-           return this.$store.state.admin.adminCategory;
+           return this.$store.getters.breadcrumbsAdmin;
        }
 	},
 	methods: {
