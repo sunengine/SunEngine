@@ -1,7 +1,6 @@
 ﻿<template>
 	<q-page class="sessions">
-		<h1 class="page-title page-padding">{{ $tl("title") }}</h1>
-
+		<PageHeader :title="$tl('title')" class="page-padding" />
 		<q-markup-table v-if="sessions">
 			<thead>
 				<tr>

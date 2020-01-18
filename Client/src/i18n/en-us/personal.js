@@ -1,8 +1,8 @@
 export default {
 	ChangeLink: {
-		title: "Edit user Link",
+		title: "Edit user profile link",
 		successNotify: "Link edited",
-		link: "Link",
+		link: "Link token",
 		linkValidationInfo:
 			"Link must consist of at least 3 characters 'a-z', 'A-Z', '-', '0-9'. And contain at least one letter.",
 		saveBtn: "@:Global.btn.save",

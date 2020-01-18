@@ -57,7 +57,8 @@
 					</div>
 				</div>
 				<div>
-					<h1 class="page-title">{{ user.name }}</h1>
+					<PageHeader :title="user.name" />
+				 
 					<div class="profile__text q-mb-lg" v-html="user.information"></div>
 
 					<div class="profile__footer-info">

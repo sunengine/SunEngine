@@ -1,8 +1,6 @@
 ﻿<template>
 	<q-page class="load-photo flex column middle page-padding">
-		<h1 class="page-title">
-			{{ title }}
-		</h1>
+		<PageHeader :title="title" />
 
 		<img
 			class="load-photo__photo q-mb-xs"

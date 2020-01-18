@@ -1,18 +1,27 @@
 ﻿<template>
 	<q-page class="change-link flex column page-padding">
-		<h1 class="page-title text-center">
-			{{ title }}
-		</h1>
-
+		<div class="flex flex-center">
+			<PageHeader :title="title" />
+		</div>
 		<div class="flex flex-center grow">
 			<div class="center-form">
 				<div class="text-grey-7 q-mb-lg text-justify">
 					{{ $tl("linkValidationInfo") }}
 				</div>
 
-				<q-input ref="link" v-model="link" :label="$tl('link')" :rules="rules">
+				<q-input
+					clearable
+					@clear="clear"
+					ref="link"
+					v-model="link"
+					:label="$tl('link')"
+					:rules="rules"
+				>
 					<template v-slot:prepend>
 						<q-icon name="fas fa-link" />
+					</template>
+					<template v-slot:hint>
+						{{ $tl("hintLink") }} &nbsp; {{ userLink }}
 					</template>
 				</q-input>
 
@@ -64,8 +73,19 @@ export default {
 			submitting: false
 		};
 	},
-	rules: null,
+	computed: {
+		userLink() {
+			const route = this.$router.resolve({
+				name: "User",
+				params: { link: this.link }
+			});
+			return config.Global.SiteUrl + route?.resolved?.fullPath;
+		}
+	},
 	methods: {
+		clear() {
+			this.link = this.$store.state.auth.user.id;
+		},
 		checkLinkInDb() {
 			this.$request(this.$Api.Personal.CheckLinkInDb, {
 				link: this.link
