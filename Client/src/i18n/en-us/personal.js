@@ -1,16 +1,17 @@
 export default {
 	ChangeLink: {
 		title: "Edit user profile link",
-		successNotify: "Link edited",
+		successNotify: "Token edited",
 		link: "Link token",
+		hintLink: "Profile link:",
 		linkValidationInfo:
-			"Link must consist of at least 3 characters 'a-z', 'A-Z', '-', '0-9'. And contain at least one letter.",
+			"Token must consist of at least 3 characters 'a-z', 'A-Z', '-', '0-9'. And contain at least one letter.",
 		saveBtn: "@:Global.btn.save",
 		validation: {
-			minLength: "Link must be at least 3 characters",
+			minLength: "Token must be at least 3 characters",
 			allowedChars: "Allowed only english letters and numbers",
-			numberNotAllow: "Link must be contain letters",
-			linkInDb: "This link already used"
+			numberNotAllow: "Token must be contain letters",
+			linkInDb: "This token already used"
 		}
 	},
 	ChangeName: {
