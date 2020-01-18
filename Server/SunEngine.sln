@@ -28,7 +28,8 @@ ProjectSection(SolutionItems) = preProject
 	..\Scripts\PUBLISH = ..\Scripts\PUBLISH
 	..\Scripts\publish.sh = ..\Scripts\publish.sh
 	..\Scripts\PUBLISH.template = ..\Scripts\PUBLISH.template
-	..\Scripts\update-version.sh = ..\Scripts\update-version.sh
+	..\Scripts\UPDATE = ..\Scripts\UPDATE
+	..\Scripts\update.sh = ..\Scripts\update.sh
 EndProjectSection
 EndProject
 Global
