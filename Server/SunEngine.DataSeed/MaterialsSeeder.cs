@@ -47,14 +47,6 @@ namespace SunEngine.DataSeed
 			this.paragraphs = paragraphs;
 		}
 
-		/*public void Seed()
-		{
-		    foreach (var category in dataContainer.Categories.Where(x => x.IsMaterialsContainer))
-		    {
-		        SeedCategoryWithMaterials(category, category.MaterialTypeTitle, TitleAppendCategoryName);
-		    }
-		}*/
-
 		public void SeedCategoryAndSub(string categoryName)
 		{
 			Console.ForegroundColor = ConsoleColor.Green;

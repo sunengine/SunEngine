@@ -19,8 +19,8 @@ namespace SunEngine.DataSeed
 	/// </summary>
 	public class UsersSeeder
 	{
-		private const string AllUsersDefaultPassword = "password";
-		private const string StartAvatarDirName = "000";
+		private const string UsersDefaultPassword = "password";
+
 
 		private readonly DataContainer dataContainer;
 		private readonly string configDir;
@@ -35,18 +35,18 @@ namespace SunEngine.DataSeed
 		{
 			this.dataContainer = dataContainer;
 			this.configDir = configDir;
-			configSeedAvatarsDir = Path.Combine(configDir, "Init", "Avatars");
+			configSeedAvatarsDir = Path.Combine(configDir, SeederPathsNames.InitDir, SeederPathsNames.AvatarsDir);
 			PathService pathService = new PathService(configDir);
 			uploadImagesDir = pathService.GetPath(PathNames.UploadImagesDirName);
 		}
 
 		public void SeedUsers()
 		{
-			string fileName = Path.Combine(configDir, "Init", "Users.json");
+			string fileName = Path.Combine(configDir, SeederPathsNames.InitDir, SeederPathsNames.UsersJsonFile);
 			string jsonText = File.ReadAllText(fileName);
 			usersJArray = JArray.Parse(jsonText);
 
-			avatarsDir = Path.Combine(uploadImagesDir, StartAvatarDirName);
+			avatarsDir = Path.Combine(uploadImagesDir, SeederPathsNames.StartAvatarsDir);
 
 			if (Directory.Exists(avatarsDir))
 				Directory.Delete(avatarsDir, true);
@@ -84,7 +84,7 @@ namespace SunEngine.DataSeed
 					UserName = name,
 					EmailConfirmed = true,
 					PasswordHash =
-						passwordHasher.HashPassword(null, (string) (usersJ["Password"] ?? AllUsersDefaultPassword)),
+						passwordHasher.HashPassword(null, (string) (usersJ["Password"] ?? UsersDefaultPassword)),
 					SecurityStamp = string.Empty,
 					Information = ((string) usersJ["Information"])?.Replace("[n]", j.ToString()),
 					Link = ((string) usersJ["Link"])?.Replace("[n]", j.ToString()),
@@ -112,7 +112,7 @@ namespace SunEngine.DataSeed
 				{
 					var avatarPathRez = Path.Combine(avatarsDir, avatarName);
 					File.Copy(avatarPath, avatarPathRez);
-					user.Avatar = user.Photo = Path.Combine(StartAvatarDirName, avatarName);
+					user.Avatar = user.Photo = Path.Combine(SeederPathsNames.StartAvatarsDir, avatarName);
 				}
 
 				dataContainer.Users.Add(user);

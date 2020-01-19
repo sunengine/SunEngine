@@ -17,16 +17,7 @@ namespace SunEngine.DataSeed
 	/// </summary>
 	public class Main
 	{
-		private const string DataBaseConnectionFileName = "DataBaseConnection.json";
-		private const string SunEngineJsonFileName = "SunEngine.json";
-
 		private const string SeedCommand = "seed";
-		private const string InitDir = "Init";
-
-		private const string SeedTemplates = "SeedTemplates";
-		private const string FishParagraphs = "fish-paragraphs.html";
-		private const string FishTitles = "fish-titles.html";
-
 
 		private readonly string initDirPath;
 		private readonly string providerName;
@@ -38,9 +29,9 @@ namespace SunEngine.DataSeed
 		public Main(string configDirectoryPath)
 		{
 			this.configDirectoryPath = configDirectoryPath;
-			initDirPath = Path.Combine(configDirectoryPath, InitDir);
-			string dbSettingsFile = Path.Combine(this.configDirectoryPath, DataBaseConnectionFileName);
-			string sunEngineJsonFile = Path.Combine(this.configDirectoryPath, SunEngineJsonFileName);
+			initDirPath = Path.Combine(configDirectoryPath, SeederPathsNames.InitDir);
+			string dbSettingsFile = Path.Combine(this.configDirectoryPath, SeederPathsNames.DataBaseConnectionFile);
+			string sunEngineJsonFile = Path.Combine(this.configDirectoryPath, SeederPathsNames.SunEngineJsonFile);
 
 			configuration = new ConfigurationBuilder()
 				.AddJsonFile(dbSettingsFile, false, true)
@@ -99,9 +90,9 @@ namespace SunEngine.DataSeed
 					currentCommentId = db.Comments.Any() ? db.Comments.Max(x => x.Id) + 1 : 1
 				};
 
-				var titlesPath = Path.Combine(this.configDirectoryPath, InitDir, SeedTemplates, FishTitles);
-				var paragraphsPath = Path.Combine(this.configDirectoryPath, InitDir, SeedTemplates,
-					FishParagraphs);
+				var titlesPath = Path.Combine(this.configDirectoryPath, SeederPathsNames.InitDir, SeederPathsNames.SeedTemplatesDir, SeederPathsNames.FishTitlesFile);
+				var paragraphsPath = Path.Combine(this.configDirectoryPath, SeederPathsNames.InitDir, SeederPathsNames.SeedTemplatesDir,
+					SeederPathsNames.FishParagraphsFile);
 				var titles = Regex.Matches(File.ReadAllText(titlesPath), "<h1>(.*?)</h1>", RegexOptions.Singleline)
 					.Select(x => x.Groups[1].Value).ToList();
 				var paragraphs = Regex

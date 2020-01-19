@@ -16,12 +16,6 @@ namespace SunEngine.DataSeed
 	/// </summary>
 	public class InitialSeeder
 	{
-		public const string CategoriesConfigDir = "Categories";
-		public const string MenusConfigDir = "Menu";
-		public const string ComponentsConfigDir = "Components";
-		public const string MaterialsConfigDir = "Materials";
-
-
 		private readonly DataContainer dataContainer = new DataContainer();
 
 		private readonly UsersSeeder usersSeeder;
@@ -33,7 +27,7 @@ namespace SunEngine.DataSeed
 		public InitialSeeder(IPathService pathService)
 		{
 			string configDir = pathService.ConfigDir;
-			configInitDir = Path.Combine(configDir, "Init");
+			configInitDir = Path.Combine(configDir, SeederPathsNames.InitDir);
 			this.pathService = pathService;
 			usersSeeder = new UsersSeeder(dataContainer, configDir);
 		}
@@ -98,7 +92,7 @@ namespace SunEngine.DataSeed
 
 		private void SeedMaterialsFromDir()
 		{
-			var path = Path.Combine(configInitDir, MaterialsConfigDir);
+			var path = Path.Combine(configInitDir, SeederPathsNames.MaterialsConfigDir);
 			MaterialsSeederFromDir seedMaterialsFromDir = new MaterialsSeederFromDir(dataContainer, path);
 			seedMaterialsFromDir.Seed();
 		}
@@ -137,7 +131,7 @@ namespace SunEngine.DataSeed
 
 		private void SeedCategoriesFromDirectory()
 		{
-			var fileNames = Directory.GetFiles(Path.Combine(configInitDir, CategoriesConfigDir));
+			var fileNames = Directory.GetFiles(Path.Combine(configInitDir, SeederPathsNames.CategoriesConfigDir));
 
 			CategoriesSeeder categoriesSeeder = new CategoriesSeeder(dataContainer);
 
@@ -149,9 +143,9 @@ namespace SunEngine.DataSeed
 		{
 			Console.WriteLine("Roles");
 
-			string pathToUserGroupsConfig = Path.Combine(configInitDir, "Roles.json");
+			string pathToUserGroupsConfig = Path.Combine(configInitDir, SeederPathsNames.RolesJsonFile);
 			string resourcesPath = pathService.GetPath(PathNames.ResourcesDirName);
-			string pathToUserGroupsSchema = Path.Combine(resourcesPath, "Roles.schema.json");
+			string pathToUserGroupsSchema = Path.Combine(resourcesPath, SeederPathsNames.RolesSchemaJsonFile);
 
 			JsonSchema schema = JsonSchema.FromFileAsync(pathToUserGroupsSchema).GetAwaiter().GetResult();
 
@@ -177,7 +171,7 @@ namespace SunEngine.DataSeed
 
 		private void SeedMenus()
 		{
-			var path = Path.Combine(configInitDir, MenusConfigDir);
+			var path = Path.Combine(configInitDir, SeederPathsNames.MenusConfigDir);
 			MenuSeeder menuSeeder = new MenuSeeder(dataContainer, path);
 			menuSeeder.Seed();
 		}
@@ -199,7 +193,7 @@ namespace SunEngine.DataSeed
 
 		private void SeedComponents()
 		{
-			var path = Path.Combine(configInitDir, ComponentsConfigDir);
+			var path = Path.Combine(configInitDir, SeederPathsNames.ComponentsConfigDir);
 			ComponentsSeeder componentsSeeder = new ComponentsSeeder(dataContainer, path);
 			componentsSeeder.Seed();
 		}
