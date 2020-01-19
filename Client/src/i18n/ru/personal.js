@@ -1,16 +1,17 @@
 export default {
 	ChangeLink: {
-		title: "Изменить link пользователя",
-		successNotify: "Link отредактирован",
-		link: "Link",
+		title: "Изменить ссылку на профиль",
+		successNotify: "Ссылка отредактирована",
+		link: "Токен ссылки",
+		hintLink: "Ссылка на профиль:",
 		linkValidationInfo:
-			"Link должен состоять не менее чем из 3 символов 'a-z', 'A-Z', '-', '0-9'. И содержать хотя бы одну букву.",
+			"Токен должен состоять не менее чем из 3 символов 'a-z', 'A-Z', '-', '0-9'. И содержать хотя бы одну букву.",
 		saveBtn: "@:Global.btn.save",
 		validation: {
-			minLength: "Длинна link должна быть не менее 3",
+			minLength: "Длинна токена должна быть не менее 3",
 			allowedChars: "Допустимы только буквы английского алфавита и цифры",
-			numberNotAllow: "Необходимо что бы в link входили буквы",
-			linkInDb: "Этот link уже занят"
+			numberNotAllow: "Необходимо что бы в токен ссылки входили буквы",
+			linkInDb: "Этот токен уже занят"
 		}
 	},
 	ChangeName: {
@@ -65,7 +66,7 @@ export default {
 		goToProfile: "Просмотреть профиль",
 		changeEmail: "Изменить email",
 		changePassword: "Изменить пароль",
-		changeLink: "Изменить link",
+		changeLink: "Изменить ссылку на профиль",
 		changeName: "Изменить имя",
 		changeYourInformation: "Изменить информацию о вас",
 		changePhoto: "Изменить фотографию",

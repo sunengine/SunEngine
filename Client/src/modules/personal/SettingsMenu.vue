@@ -21,12 +21,20 @@
 					{{ $tl("changeName") }}
 				</q-item-section>
 			</q-item>
-			<q-item :to="{ name: 'EditInformation' }">
+			<q-item :to="{ name: 'ChangeEmail' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-info-circle" />
+					<q-icon name="fas fa-envelope" />
 				</q-item-section>
 				<q-item-section>
-					{{ $tl("changeYourInformation") }}
+					{{ $tl("changeEmail") }}
+				</q-item-section>
+			</q-item>
+			<q-item :to="{ name: 'ChangePassword' }">
+				<q-item-section avatar>
+					<q-icon name="fas fa-key" />
+				</q-item-section>
+				<q-item-section>
+					{{ $tl("changePassword") }}
 				</q-item-section>
 			</q-item>
 			<q-item :to="{ name: 'ChangeLink' }">
@@ -45,20 +53,12 @@
 					{{ $tl("changePhoto") }}
 				</q-item-section>
 			</q-item>
-			<q-item :to="{ name: 'ChangeEmail' }">
+			<q-item :to="{ name: 'EditInformation' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-envelope" />
+					<q-icon name="fas fa-info-circle" />
 				</q-item-section>
 				<q-item-section>
-					{{ $tl("changeEmail") }}
-				</q-item-section>
-			</q-item>
-			<q-item :to="{ name: 'ChangePassword' }">
-				<q-item-section avatar>
-					<q-icon name="fas fa-key" />
-				</q-item-section>
-				<q-item-section>
-					{{ $tl("changePassword") }}
+					{{ $tl("changeYourInformation") }}
 				</q-item-section>
 			</q-item>
 			<q-item :to="{ name: 'Sessions' }">
@@ -87,6 +87,9 @@ import { mapState } from "vuex";
 export default {
 	name: "SettingsMenu",
 	computed: {
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("Personal");
+		},
 		...mapState({
 			user: state => state.auth.user
 		})

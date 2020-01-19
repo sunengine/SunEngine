@@ -93,6 +93,11 @@ export default {
 			submitting: false
 		};
 	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("Personal");
+		}
+	},
 	methods: {
 		checkNameInDb() {
 			if (

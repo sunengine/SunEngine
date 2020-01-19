@@ -1,5 +1,3 @@
-using System;
-
 namespace SunEngine.Core.Configuration.Options
 {
 	public class CaptchaOptions

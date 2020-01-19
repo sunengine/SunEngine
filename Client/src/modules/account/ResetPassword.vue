@@ -96,6 +96,11 @@ export default {
 			token: null
 		};
 	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("Personal");
+		}
+	},
 	methods: {
 		send() {
 			this.$refs.email.validate();

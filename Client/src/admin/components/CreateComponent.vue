@@ -48,9 +48,9 @@ export default {
 		};
 	},
 	computed: {
-		breadcrumbsCategory() {
-			return this.$store.getters.breadcrumbsComponentsAdmin;
-		}
+       breadcrumbsCategory() {
+           return this.$getBreadcrumbs("ComponentsAdmin");
+       }
 	},
 	methods: {
 		save() {

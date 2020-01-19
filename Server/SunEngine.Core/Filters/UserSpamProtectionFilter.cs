@@ -1,11 +1,6 @@
 using System;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.DependencyInjection;
-using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Controllers;
-using SunEngine.Core.Errors;
 using SunEngine.Core.Security;
 
 namespace SunEngine.Core.Filters

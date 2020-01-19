@@ -1,9 +1,6 @@
 ﻿<template>
 	<q-page class="my-ban-list page-padding">
-		<h1 class="page-title">{{ $tl("title") }}</h1>
-		<div v-if="$tle('subTitle')" class="page-sub-title">
-			{{ $tl("subTitle") }}
-		</div>
+		<PageHeader :title="$tl('title')" :subTitle="$tl('subTitle')" />
 		<div v-if="users">
 			<template v-if="users.length > 0">
 				<router-link
@@ -32,6 +29,11 @@ export default {
 		return {
 			users: null
 		};
+	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("Personal");
+		}
 	},
 	methods: {
 		loadData() {

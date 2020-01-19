@@ -26,9 +26,7 @@ namespace SunEngine.DataSeed
 
 			int i = 1;
 			foreach (var categoryJson in categoriesJson)
-			{
 				SeedCategory(dataContainer.RootCategory, categoryJson, new List<int> {i++});
-			}
 		}
 
 		private readonly Regex regex = new Regex(@"\[n+\]");

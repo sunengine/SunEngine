@@ -46,7 +46,7 @@ export default {
 			return this.menuItems.length - 1;
 		},
 		breadcrumbsCategory() {
-			return this.$store.getters.breadcrumbsAdmin;
+			return this.$getBreadcrumbs("Admin");
 		}
 	},
 	methods: {

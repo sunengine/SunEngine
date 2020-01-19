@@ -1,7 +1,5 @@
-using System;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;

@@ -1,7 +1,8 @@
 ﻿<template>
 	<q-page class="change-password flex column page-padding">
-		<PageHeader :title="title" />
-
+		<div class="flex flex-center">
+			<PageHeader :title="title" />
+		</div>
 		<div class="flex flex-center grow">
 			<div class="center-form">
 				<q-input
@@ -120,6 +121,11 @@ export default {
 			showPassword: false,
 			showPassword2: false
 		};
+	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("Personal");
+		}
 	},
 	methods: {
 		changePassword() {

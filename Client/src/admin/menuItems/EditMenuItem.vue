@@ -59,7 +59,7 @@ export default {
 	},
 	computed: {
 		breadcrumbsCategory() {
-			return this.$store.getters.breadcrumbsMenuAdmin;
+			return this.$getBreadcrumbs("MenuItemsAdmin");
 		}
 	},
 	methods: {

@@ -1,14 +1,8 @@
 ﻿<template>
 	<q-page class="edit-information page-padding">
-		<h1 class="page-title">
-			{{ title }}
-		</h1>
+		<PageHeader :title="title" :subTitle="$tl('label')" />
 
 		<template v-if="userInfo">
-			<div class="edit-information__label q-mb-lg text-grey-8">
-				{{ $tl("label") }}
-			</div>
-
 			<SunEditor
 				class="edit-information__editor q-mb-lg"
 				:toolbar="editorToolbar"
@@ -40,6 +34,11 @@ export default {
 				information: null
 			}
 		};
+	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("Personal");
+		}
 	},
 	methods: {
 		save() {

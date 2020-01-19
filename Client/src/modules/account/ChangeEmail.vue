@@ -1,6 +1,8 @@
 ﻿<template>
 	<q-page class="change-email flex column page-padding">
-		<PageHeader :title="title" />
+		<div class="flex flex-center">
+			<PageHeader :title="title" />
+		</div>
 
 		<div class="flex flex-center grow">
 			<div v-if="!done" class="center-form">
@@ -83,6 +85,11 @@ export default {
 			done: false,
 			showPassword: false
 		};
+	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("Personal");
+		}
 	},
 	methods: {
 		async save() {

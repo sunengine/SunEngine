@@ -3,6 +3,7 @@ import { consoleInit } from "sun";
 import { InitializeState } from "sun";
 import { getDynamicConfig } from "sun";
 import { app } from "sun";
+import { makeBreadcrumbs } from "sun";
 
 export default async function(context) {
 	console.info("%cStart init store", consoleInit);
@@ -32,6 +33,8 @@ export default async function(context) {
 		await context.dispatch("setAllRoutes");
 
 		await context.dispatch("loadAllMenuItems");
+
+		makeBreadcrumbs();
 
 		context.state.initializeState = InitializeState.Done;
 	} catch (error) {

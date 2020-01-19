@@ -1,22 +1,19 @@
 ﻿<template>
 	<q-page class="articles-multi-cat-page">
-	 <PageHeader
-		  :title="title"
-		  :subTitle="subTitle"
-	 >
-		<q-btn
-			 class="post-btn"
-			 no-caps
-			 @click="
+		<PageHeader class="page-padding" :title="title" :subTitle="subTitle">
+			<q-btn
+				class="post-btn"
+				no-caps
+				@click="
 					$router.push({
 						name: 'CreateMaterial',
 						params: { categoriesNames: categoriesNames }
 					})
 				"
-			 :label="addButtonLabel"
-			 v-if="canAddArticle"
-			 icon="fas fa-plus"
-		/>
+				:label="addButtonLabel"
+				v-if="canAddArticle"
+				icon="fas fa-plus"
+			/>
 		</PageHeader>
 
 		<ArticlesList v-if="articles" :articles="articles" />
