@@ -74,6 +74,9 @@ export default {
 		};
 	},
 	computed: {
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("Personal");
+		},
 		userLink() {
 			const route = this.$router.resolve({
 				name: "User",

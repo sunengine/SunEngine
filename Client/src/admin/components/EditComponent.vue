@@ -57,7 +57,7 @@ export default {
 	},
 	computed: {
 		breadcrumbsCategory() {
-			return this.$store.getters.breadcrumbsComponentsAdmin;
+			return this.$getBreadcrumbs("ComponentsAdmin");
 		}
 	},
 	data() {

@@ -64,6 +64,9 @@ export default {
 		};
 	},
 	computed: {
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("Personal");
+		},
 		all() {
 			let tr = 0;
 			let fl = 0;

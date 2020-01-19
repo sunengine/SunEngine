@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using SunEngine.Core.Errors.Exceptions;
 using Path = System.IO.Path;
 
 namespace SunEngine.Cli

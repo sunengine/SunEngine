@@ -22,7 +22,8 @@ module.exports = function (ctx) {
             'iconPicker',
             'components',
             'throttle',
-            'vueDevTools'
+            'vueDevTools',
+            'getBreadcrumbs'
         ],
         css: [
             'app.scss',

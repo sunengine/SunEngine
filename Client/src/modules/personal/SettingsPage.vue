@@ -12,6 +12,11 @@ import { Page } from "mixins";
 export default {
 	name: "SettingsPage",
 	mixins: [Page],
+	computed: {
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("Personal");
+		}
+	},
 	beforeCreate() {
 		this.$options.components.SettingsMenu = require("sun").SettingsMenu;
 		this.$options.components.PageWrapper = require("sun").PageWrapper;

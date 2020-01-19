@@ -122,6 +122,11 @@ export default {
 			showPassword2: false
 		};
 	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("Personal");
+		}
+	},
 	methods: {
 		changePassword() {
 			this.$refs.passwordOld.validate();

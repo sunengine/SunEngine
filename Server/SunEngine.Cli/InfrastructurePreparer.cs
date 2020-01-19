@@ -1,9 +1,7 @@
 ﻿using System.IO;
-using System.Linq;
 using Microsoft.Extensions.Configuration;
 using SunEngine.Admin.Services;
 using SunEngine.Core.Services;
-using SunEngine.Core.Utils;
 
 namespace SunEngine.Cli
 {

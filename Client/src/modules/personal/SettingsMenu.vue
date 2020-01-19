@@ -87,6 +87,9 @@ import { mapState } from "vuex";
 export default {
 	name: "SettingsMenu",
 	computed: {
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("Personal");
+		},
 		...mapState({
 			user: state => state.auth.user
 		})

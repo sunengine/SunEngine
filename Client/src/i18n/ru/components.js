@@ -14,5 +14,13 @@ export default {
 	},
 	Breadcrumbs: {
 		home: "Главная"
+	},
+	BreadcrumbsNames: {
+		adminPanel: "Админка",
+		adminPanelCategories: "Категории",
+		adminPanelComponents: "Компоненты",
+		adminPanelMenu: "Меню",
+		personal: "Личный кабинет",
+		user: "Пользователи"
 	}
 };

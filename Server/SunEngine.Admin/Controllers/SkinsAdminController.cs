@@ -1,11 +1,8 @@
 using System;
-using System.IO;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Services;
 using SunEngine.Core.Cache.Services;
-using SunEngine.Core.Utils;
 
 namespace SunEngine.Admin.Controllers
 {

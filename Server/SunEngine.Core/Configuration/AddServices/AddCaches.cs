@@ -6,7 +6,6 @@ using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors.Exceptions;
-using SunEngine.Core.Models;
 
 namespace SunEngine.Core.Configuration.AddServices
 {

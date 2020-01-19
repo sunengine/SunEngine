@@ -86,6 +86,11 @@ export default {
 			showPassword: false
 		};
 	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("Personal");
+		}
+	},
 	methods: {
 		async save() {
 			this.$refs.email.validate();

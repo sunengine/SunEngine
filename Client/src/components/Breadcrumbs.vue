@@ -10,6 +10,7 @@
 			<q-breadcrumbs-el
 				:key="cat.id"
 				:exact="true"
+				:class="{ 'q-breadcrumbs--grey': !cat.route }"
 				v-for="cat of breadCrumbsCategories"
 				:to="cat.route"
 				:label="cat.title"
@@ -65,8 +66,9 @@ export default {
 	color: #00acc1;
 }
 
-.q-breadcrumbs--last {
-	.q-breadcrumbs__el {
+.q-breadcrumbs {
+	.q-breadcrumbs__el.q-breadcrumbs--grey,
+	.q-breadcrumbs--last {
 		color: $grey-6;
 	}
 }

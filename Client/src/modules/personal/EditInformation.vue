@@ -1,7 +1,7 @@
 ﻿<template>
 	<q-page class="edit-information page-padding">
 		<PageHeader :title="title" :subTitle="$tl('label')" />
-	 
+
 		<template v-if="userInfo">
 			<SunEditor
 				class="edit-information__editor q-mb-lg"
@@ -34,6 +34,11 @@ export default {
 				information: null
 			}
 		};
+	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("Personal");
+		}
 	},
 	methods: {
 		save() {

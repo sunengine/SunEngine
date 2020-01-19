@@ -58,8 +58,16 @@
 				</div>
 				<div>
 					<PageHeader :title="user.name" />
-				 
-					<div class="profile__text q-mb-lg" v-html="user.information"></div>
+
+					<div v-if="self" class="profile__roles-info q-mb-lg">
+						{{ $tl("roles") }}:
+						<template v-for="role of roles">
+							<span class="profile__roles-info-role">{{ role }}</span
+							><span class="profile__roles-info-comma">, </span>
+						</template>
+					</div>
+
+					<div class="profile__information q-mb-lg" v-html="user.information"></div>
 
 					<div class="profile__footer-info">
 						<div class="profile__registered grow">
@@ -114,6 +122,19 @@ export default {
 		};
 	},
 	computed: {
+		self() {
+			if (!this.user) return false;
+			return (
+				this.$route.name === "ProfileInSettings" &&
+				this.user.id === this.$store?.state?.auth?.user?.id
+			);
+		},
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs(this.self ? "Personal" : "Users");
+		},
+		roles() {
+			return this.$store?.state?.auth?.roles;
+		},
 		canPrivateMessage() {
 			const from = this.$store?.state?.auth?.user;
 			if (!from) return false;
@@ -202,6 +223,16 @@ export default {
 .profile__bun-btn {
 	padding-left: 10px !important;
 	padding-right: 10px !important;
+}
+
+.profile__roles-info {
+	:nth-last-child(1) {
+		display: none;
+	}
+}
+
+.profile__roles-info-role {
+	font-weight: bold;
 }
 
 .profile__footer-info {

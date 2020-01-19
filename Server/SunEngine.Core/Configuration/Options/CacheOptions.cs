@@ -1,6 +1,3 @@
-using System;
-using SunEngine.Core.Models;
-
 namespace SunEngine.Core.Configuration.Options
 {
 	public enum CachePolicy

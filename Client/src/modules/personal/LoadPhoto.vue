@@ -53,6 +53,9 @@ export default {
 		};
 	},
 	computed: {
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("Personal");
+		},
 		photoSize() {
 			return Math.floor(config.Images.ImageRequestSizeLimitBytes / 1048576, 2);
 		},

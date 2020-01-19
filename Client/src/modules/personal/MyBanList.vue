@@ -30,6 +30,11 @@ export default {
 			users: null
 		};
 	},
+	computed: {
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("Personal");
+		}
+	},
 	methods: {
 		loadData() {
 			this.$request(this.$Api.Personal.GetMyBanList).then(response => {
