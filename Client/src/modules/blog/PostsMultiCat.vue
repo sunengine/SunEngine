@@ -19,12 +19,11 @@
 </template>
 
 <script>
-import { Page } from "mixins";
 import { Pagination } from "mixins";
 
 export default {
 	name: "PostsMultiCat",
-	mixins: [Page, Pagination],
+	mixins: [Pagination],
 	props: {
 		componentName: {
 			type: String,

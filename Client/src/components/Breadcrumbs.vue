@@ -43,8 +43,7 @@ export default {
 			if (!this.category) return null;
 
 			let rez = [];
-			rez.push(this.category);
-			let current = this.category.parent;
+			let current = this.category;
 			while (current && current.name !== "Root") {
 				if (current.showInBreadcrumbs) rez.push(current);
 				current = current.parent;
@@ -74,9 +73,6 @@ export default {
 }
 
 .breadcrumbs {
-	word-break: keep-all;
-	white-space: nowrap;
-
 	div {
 		display: inline;
 	}

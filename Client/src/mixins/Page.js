@@ -11,14 +11,14 @@ export default {
 			this.title = title;
 		}
 	},
+	watch: {
+		mounted() {
+			this.$store.state.mounted = this.mounted;
+			if (this.mounted) this.$store.state.currentPage = this;
+		}
+	},
 	mounted() {
 		this.mounted = true;
-	},
-	watch: {
-		mounted: function() {
-			this.$store.state.mounted = this.mounted;
-			this.$store.state.currentPage = this;
-		}
 	},
 	beforeCreate() {
 		this.$store.state.mounted = false;
