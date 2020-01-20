@@ -10,7 +10,7 @@
 			<header>
 				<q-item :to="to" class="post__header page-padding">
 					<q-item-section avatar>
-						<q-avatar class="shadow-1 post__avatar avater" size="46px">
+						<q-avatar class="avatar shadow-1 post__avatar avater" size="46px">
 							<img :src="$avatarPath(post.authorAvatar)" />
 						</q-avatar>
 					</q-item-section>

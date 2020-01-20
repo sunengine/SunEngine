@@ -26,7 +26,7 @@
 								class="link user-link"
 								:to="{ name: 'User', params: { link: material.authorLink } }"
 							>
-								<q-avatar class="material__avatar">
+								<q-avatar class="avatar material__avatar">
 									<img :src="$avatarPath(material.authorAvatar)" /> </q-avatar
 								>{{ material.authorName }}
 							</router-link>

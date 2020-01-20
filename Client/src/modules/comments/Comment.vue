@@ -2,7 +2,7 @@
 	<section>
 		<article>
 			<div :id="'comment-' + comment.id" class="comment">
-				<q-avatar class="comment__avatar">
+				<q-avatar class="avatar comment__avatar">
 					<img :src="$avatarPath(comment.authorAvatar)" />
 				</q-avatar>
 				<div class="q-my-md">

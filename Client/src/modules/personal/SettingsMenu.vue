@@ -2,7 +2,9 @@
 	<nav>
 		<q-list class="settings-menu sun-second-menu" no-border>
 			<div class="settings-menu__avatar-block flex align-center">
-				<img class="settings-menu__avatar on-left" :src="user.avatar" />
+				<q-avatar class="avatar settings-menu__avatar on-left">
+					<img :src="user.avatar" />
+				</q-avatar>
 				<span>{{ user.name }}</span>
 			</div>
 			<q-item :to="{ name: 'ProfileInSettings' }">

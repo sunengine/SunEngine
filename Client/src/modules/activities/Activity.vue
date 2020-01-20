@@ -2,7 +2,9 @@
 	<div class="activity">
 		<q-item :to="route" class="page-padding">
 			<q-item-section class="activity__icon" avatar>
-				<img class="activity__avatar" :src="$avatarPath(activity.authorAvatar)" />
+				<q-avatar class="avatar activity__avatar">
+					<img :src="$avatarPath(activity.authorAvatar)" />
+				</q-avatar>
 			</q-item-section>
 			<q-item-section class="activity__icon" avatar>
 				<q-icon
