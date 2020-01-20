@@ -65,14 +65,9 @@ $q-field-color: #00c63b;
 // ——— Page paddings ————————————————————————————————————
 
 .center-container {
-	display: flex;
-	align-content: center;
-	justify-content: center;
-	
 	.inner-container {
 		max-width: 750px;
-		flex-grow: 1;
-		flex-shrink: 1;
+		margin: 0 auto;
 	}
 }
 
@@ -280,5 +275,10 @@ $paddings: (12px 18px 24px);
 
 	img {
 		max-width: 100%;
+	}
+
+	pre {
+		max-width: 100%;
+		overflow: auto;
 	}
 }
