@@ -11,6 +11,7 @@ export default {
 		deleteBtn: "@:Global.btn.delete",
 		restoreBtn: "Restore from trash material",
 		successNotify: "Material successfully saved",
+		linkCopied: "Link to this header copied to clipboard",
 		deleted: "material deleted",
 		deleteDialogTitle: "Delete material?",
 		deleteDialogMessage: "",

@@ -28,6 +28,7 @@ export default {
 		edit: "Редактировать",
 		tags: "Метки:",
 		visitsCount: "просмотры",
+		linkCopied: "Ссылка на этот заголовок скопирована в буфер обмена",
 		deleted: "@:EditMaterial.deleted",
 		deleteDialogTitle: "@:EditMaterial.deleteDialogTitle",
 		deleteDialogMessage: "",

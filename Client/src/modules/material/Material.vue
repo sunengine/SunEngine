@@ -2,7 +2,11 @@
 	<q-page class="material">
 		<div v-if="material" class="page-padding">
 			<article>
-				<PageHeader v-if="showTitle" :title="material.title" :subTitle="material.subTitle" />
+				<PageHeader
+					v-if="showTitle"
+					:title="material.title"
+					:subTitle="material.subTitle"
+				/>
 
 				<div class="material__text q-mb-lg" v-html="material.text"></div>
 
@@ -125,16 +129,13 @@ import { canDeleteMaterial } from "sun";
 import { canRestoreMaterial } from "sun";
 import { prepareLocalLinks } from "sun";
 
-import { date } from "quasar";
+import { copyToClipboard, date } from "quasar";
 import { scroll } from "quasar";
-import LoaderWait from "../../components/LoaderWait";
-import Article from "../articles/Article";
 
 const { getScrollTarget, setScrollPosition } = scroll;
 
 export default {
 	name: "Material",
-	components: { Article, LoaderWait },
 	mixins: [Page],
 	props: {
 		idOrName: {
@@ -150,11 +151,18 @@ export default {
 		return {
 			material: null,
 			comments: null,
-			page: null
+			page: null,
+			headersPrepared: false
 		};
 	},
 	watch: {
-		$route: "loadData"
+		$route: function(old1, new1) {
+			if (old1.path !== new1.path) this.loadData();
+			else {
+				const el = document.getElementById(this.$route.hash.substring(1));
+				setScrollPosition(getScrollTarget(el), el.offsetTop, 300);
+			}
+		}
 	},
 	computed: {
 		maxCommentNumber() {
@@ -249,6 +257,39 @@ export default {
 		}
 	},
 	methods: {
+		prepareParagraphs() {
+			if (this.headersPrepared) return;
+
+			const textEl = this.$el.getElementsByClassName("material__text")[0];
+			const headers = textEl.querySelectorAll("h1,h2,h3,h4,h5,h6");
+
+			const router = this.$router;
+			const successNotify = this.$successNotify.bind(this);
+			const tl = this.$tl.bind(this);
+			for (const header of headers) {
+				const link = document.createElement("a");
+				link.classList.add("header-anchor");
+				link.classList.add("link");
+				header.id = encodeURIComponent(header.innerText);
+				link.href = window.location.href.split("#")[0] + "#" + header.id;
+				link.addEventListener("click", function(e) {
+					e.preventDefault();
+					copyToClipboard(link.href)
+						.then(() => successNotify(tl("linkCopied")))
+						.catch(() => router.replace(link.href));
+					return false;
+				});
+				link.innerText = "#";
+				header.appendChild(link);
+			}
+
+			this.headersPrepared = true;
+
+			if (this.$route.hash) {
+				const el = document.getElementById(this.$route.hash.substring(1));
+				setScrollPosition(getScrollTarget(el), el.offsetTop, 300);
+			}
+		},
 		prepareLocalLinks() {
 			prepareLocalLinks.call(this, this.$el, "material__text");
 		},
@@ -265,6 +306,7 @@ export default {
 				this.title = this.material.title;
 				this.$nextTick(() => {
 					this.prepareLocalLinks();
+					this.prepareParagraphs();
 				});
 			});
 		},
@@ -313,6 +355,7 @@ export default {
 		this.$options.centered = true;
 		this.$options.components.CommentContainer = require("sun").CommentContainer;
 		this.$options.components.CreateComment = require("sun").CreateComment;
+		this.$options.components.Article = require("sun").Article;
 	},
 	created() {
 		this.loadData();
