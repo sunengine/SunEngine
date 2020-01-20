@@ -16,7 +16,7 @@ namespace SunEngine.Admin.Controllers
 			IPathService pathService,
 			IServiceProvider serviceProvider) : base(serviceProvider)
 		{
-			ServerInfoJsonFilePath = Path.Combine(pathService.ConfigDir, "ServerInfo.json");
+			ServerInfoJsonFilePath = Path.Combine(pathService.ConfigDir, PathNames.ServerInfoJsonFileName);
 		}
 
 		[HttpPost]

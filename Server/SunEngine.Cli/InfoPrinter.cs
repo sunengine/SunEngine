@@ -1,6 +1,10 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
+using System.Text.Json;
+using Namotion.Reflection;
+using SunEngine.Core.Services;
 
 namespace SunEngine.Cli
 {
@@ -84,6 +88,26 @@ namespace SunEngine.Cli
 			FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
 			string version = fileVersionInfo.ProductVersion;
 			Console.WriteLine($"SunEngine version: {version}");
+		}
+
+		public static void PrintServerInfo(string configRootDir)
+		{
+			PathService pathService = new PathService(configRootDir);
+			var serverInfoJsonPath = pathService.Combine(PathNames.ConfigDirName, PathNames.ServerInfoJsonFileName);
+			try
+			{
+				var jsonText = File.ReadAllText(serverInfoJsonPath);
+				var serverInfo = JsonDocument.Parse(jsonText).RootElement.GetProperty("ServerInfo");
+				var serverName = serverInfo.GetProperty("Name").GetString();
+				var serverVersion = serverInfo.GetProperty("ServerVersion").GetString();
+				Console.WriteLine($"Server name: {serverName}");
+				if (serverVersion != null)
+					Console.WriteLine($"Server version: {serverVersion}");
+			}
+			catch (Exception)
+			{
+				Console.WriteLine($"No server info available at: " + serverInfoJsonPath);
+			}
 		}
 	}
 }

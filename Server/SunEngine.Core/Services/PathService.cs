@@ -31,6 +31,7 @@ namespace SunEngine.Core.Services
 		public const string StaticsDirName = "statics";
 		public const string CustomCssFileName = "custom.css";
 		public const string ConfigJsFileName = "config.js";
+		public const string ServerInfoJsonFileName = "ServerInfo.json";
 	}
 
 	public class PathService : IPathService
@@ -124,7 +125,7 @@ namespace SunEngine.Core.Services
 		public string Combine(string dirName, params string[] args)
 		{
 			var dirPath = GetPath(dirName);
-			return System.IO.Path.Combine(dirPath, System.IO.Path.Combine(args));
+			return Path.Combine(dirPath, System.IO.Path.Combine(args));
 		}
 
 		public string MakePath(string token)

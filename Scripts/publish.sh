@@ -83,7 +83,7 @@ ssh ${REMOTE_USER}@${REMOTE_HOST} << EOF
  journalctl -u nginx --lines=10 --no-pager
 
  echo  -e "\n${GREEN}${REMOTE_SYSTEMD_SERVICE_NAME} journal: ${NC}\n"
- journalctl -u ${REMOTE_SYSTEMD_SERVICE_NAME} --lines=17 --no-pager
+ journalctl -u ${REMOTE_SYSTEMD_SERVICE_NAME} --lines=20 --no-pager
 EOF
 
 

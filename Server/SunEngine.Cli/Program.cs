@@ -13,7 +13,7 @@ namespace SunEngine.Cli
 			InfoPrinter.PrintLogoAndVersion();
 
 			StartupConfiguration config = new StartupConfiguration(args);
-
+			
 			if (config.PrintHelp || config.PrintVersion)
 			{
 				if (config.PrintHelp)
@@ -32,6 +32,8 @@ namespace SunEngine.Cli
 			}
 
 			config.InitConfigurationDirectory();
+
+			InfoPrinter.PrintServerInfo(config.ConfigRootDir);
 
 			if (config.CheckDatabaseAvailability)
 			{ 
