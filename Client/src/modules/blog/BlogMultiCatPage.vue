@@ -21,18 +21,6 @@
 			/>
 		</PageHeader>
 
-		<div class="page-padding">
-			<div v-if="component.settings.SubTitle" class="page-sub-title">
-				{{ component.settings.SubTitle }}
-			</div>
-		</div>
-
-		<div
-			v-if="component.settings.Header"
-			class="q-mb-lg text-grey-9"
-			v-html="component.settings.Header"
-		></div>
-
 		<PostsMultiCat :componentName="componentName" />
 	</q-page>
 </template>

@@ -67,8 +67,8 @@ export default {
 		}
 	},
 	methods: {
-		async loadData() {
-			await this.$request(this.$Api.Blog.GetPosts, {
+		loadData() {
+			this.$request(this.$Api.Blog.GetPosts, {
 				categoryName: this.categoryName,
 				page: this.currentPage,
 				showDeleted:
@@ -89,9 +89,9 @@ export default {
 		this.$options.centered = true;
 		this.$options.components.PostsList = require("sun").PostsList;
 	},
-	async created() {
+	created() {
 		this.title = this.category.title;
-		await this.loadData();
+		this.loadData();
 	}
 };
 </script>

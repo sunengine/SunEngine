@@ -1,9 +1,9 @@
 ﻿<template>
 	<q-page class="material">
-		<div v-if="material" class="page-padding ">
+		<div v-if="material" class="page-padding">
 			<article>
-				<PageHeader :title="material.title" :subTitle="material.subTitle"/>
-				 
+				<PageHeader v-if="showTitle" :title="material.title" :subTitle="material.subTitle" />
+
 				<div class="material__text q-mb-lg" v-html="material.text"></div>
 
 				<footer>
@@ -176,19 +176,8 @@ export default {
 		},
 		hideBreadcrumbs() {
 			return (
-				this.category?.settingsJson?.hideCategory ||
-				this.material?.settingsJson?.hideCategory ||
 				this.category?.settingsJson?.hideBreadcrumbs ||
 				this.material?.settingsJson?.hideBreadcrumbs
-			);
-		},
-		showCategory() {
-			return (
-				this.category &&
-				!(
-					this.category.settingsJson?.hideCategory ||
-					this.material.settingsJson?.hideCategory
-				)
 			);
 		},
 		showDate() {

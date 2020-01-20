@@ -69,10 +69,16 @@ echo -e "\n${GREEN}Updating \"${PROJECT_NAME}\" project. ${NC}\n"
 
 cd ${PROJECT_ROOT}
 
-git pull origin master
+if  ! git pull origin master; then
+    exit 1
+fi
 
 cd $CURRENT_PATH
 
-bash ${BUILD_SCRIPT_PATH}
+if  ! bash ${BUILD_SCRIPT_PATH}; then
+    exit 1
+fi
 
-bash ${PUBLISH_SCRIPT_PATH}
+if  ! bash ${PUBLISH_SCRIPT_PATH}; then
+    exit 1
+fi
