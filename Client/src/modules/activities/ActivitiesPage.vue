@@ -1,6 +1,7 @@
 ﻿<template>
 	<q-page class="activities-page">
 		<PageHeader
+			class="page-padding"
 			:title="component.settings.Title"
 			:subTitle="component.settings.SubTitle"
 		/>
