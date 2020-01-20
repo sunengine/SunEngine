@@ -67,7 +67,7 @@
 						</template>
 					</div>
 
-					<div class="profile__information q-mb-lg" v-html="user.information"></div>
+					<div class="profile__information profile__text q-mb-lg" v-html="user.information"></div>
 
 					<div class="profile__footer-info">
 						<div class="profile__registered grow">
