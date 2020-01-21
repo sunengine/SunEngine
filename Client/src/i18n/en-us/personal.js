@@ -5,11 +5,11 @@ export default {
 		link: "Link token",
 		hintLink: "Profile link:",
 		linkValidationInfo:
-			"Token must consist of at least 3 characters 'a-z', 'A-Z', '-', '0-9'. And contain at least one letter.",
+			"Token must consist of at least 3 characters 'a-z', '-', '0-9'. And contain at least one letter.",
 		saveBtn: "@:Global.btn.save",
 		validation: {
 			minLength: "Token must be at least 3 characters",
-			allowedChars: "Allowed only english letters and numbers",
+			allowedChars: "Allowed only lower english letters and numbers",
 			numberNotAllow: "Token must be contain letters",
 			linkInDb: "This token already used"
 		}

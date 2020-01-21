@@ -6,6 +6,7 @@ using SunEngine.Core.Cache.Services;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
 using SunEngine.Core.Services;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.Core.Presenters
 {
@@ -28,13 +29,14 @@ namespace SunEngine.Core.Presenters
 
 		public virtual async Task<ProfileView> GetProfileAsync(string link, int? viewerUserId)
 		{
+			link =  Normalizer.Normalize(link);
+
 			IQueryable<User> query;
 			if (int.TryParse(link, out int id))
 				query = db.Users.Where(x => x.Id == id);
 			else
-				query = db.Users.Where(x => x.Link.ToLower() == link.ToLower());
-
-
+				query = db.Users.Where(x => x.Link == link);
+			
 			if (viewerUserId.HasValue)
 			{
 				int adminGroupId = rolesCache.AdminRole.Id;

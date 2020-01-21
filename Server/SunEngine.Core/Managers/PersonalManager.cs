@@ -67,14 +67,18 @@ namespace SunEngine.Core.Managers
 
 		public virtual Task SetMyLinkAsync(int userId, string link)
 		{
+			link = Normalizer.Normalize(link);
+
 			if (string.IsNullOrEmpty(link))
 			{
 				return db.Users.Where(x => x.Id == userId)
-					.Set(x => x.Link, x => x.Id.ToString()).UpdateAsync();
+					.Set(x => x.Link, x => x.Id.ToString())
+					.UpdateAsync();
 			}
-
+			
 			return db.Users.Where(x => x.Id == userId)
-				.Set(x => x.Link, link).UpdateAsync();
+				.Set(x => x.Link, link)
+				.UpdateAsync();
 		}
 
 		public virtual Task SetMyNameAsync(User user, string name)
@@ -87,7 +91,8 @@ namespace SunEngine.Core.Managers
 
 		public virtual Task<bool> CheckLinkInDbAsync(string link, int userId)
 		{
-			return db.Users.AnyAsync(x => x.Link.ToLower() == link.ToLower() && x.Id != userId);
+			link = Normalizer.Normalize(link);
+			return db.Users.AnyAsync(x => x.Link == link && x.Id != userId);
 		}
 
 		public virtual async Task<bool> ValidateLinkAsync(int userId, string link)
@@ -96,8 +101,8 @@ namespace SunEngine.Core.Managers
 				return true;
 
 			bool allowId = link == userId.ToString();
-			bool allowedChars = Regex.IsMatch(link, "^[a-zA-Z0-9-]+$");
-			bool needChar = Regex.IsMatch(link, "[a-zA-Z]");
+			bool allowedChars = Regex.IsMatch(link, "^[a-z0-9-]+$");
+			bool needChar = Regex.IsMatch(link, "[a-z]");
 			bool allowedLength = link.Length >= 3;
 			bool alreadyInDb = await CheckLinkInDbAsync(link, userId);
 			if (allowId)

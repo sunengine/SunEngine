@@ -54,7 +54,7 @@ function createRules() {
 			value.length >= 3 ||
 			allowMyIdOrEmpty.call(this, value) ||
 			this.$tl("validation.minLength"), // minLength or myId
-		value => /^[a-zA-Z0-9-]*$/.test(value) || this.$tl("validation.allowedChars"), // allowed chars
+		value => /^[a-z0-9-]*$/.test(value) || this.$tl("validation.allowedChars"), // allowed chars
 		value =>
 			/[a-zA-Z]/.test(value) ||
 			allowMyIdOrEmpty.call(this, value) ||

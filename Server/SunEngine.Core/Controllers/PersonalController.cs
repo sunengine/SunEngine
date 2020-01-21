@@ -8,6 +8,7 @@ using SunEngine.Core.Errors;
 using SunEngine.Core.Managers;
 using SunEngine.Core.Presenters;
 using SunEngine.Core.Security;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.Core.Controllers
 {
@@ -54,7 +55,8 @@ namespace SunEngine.Core.Controllers
 		public virtual async Task<IActionResult> SetMyLink(string link)
 		{
 			link = (link + "").Trim();
-
+			link = Normalizer.Normalize(link);
+			
 			if (!await personalManager.ValidateLinkAsync(User.UserId, link))
 				return BadRequest(new Error("LinkInvalid", "Link validation error"));
 
