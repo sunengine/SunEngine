@@ -1,0 +1,17 @@
+.partial-skin-header-anchors-hide {
+
+  .header-anchor {
+    display: none;
+  }
+
+  .material__text {
+
+    h1, h2, h3, h4, h5, h6 {
+      &:hover {
+        .header-anchor {
+          display: inline;
+        }
+      }
+    }
+  }
+}

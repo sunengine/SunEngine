@@ -1,0 +1,8 @@
+.partial-skin-header-anchors-hide .header-anchor {
+  display: none;
+}
+.partial-skin-header-anchors-hide .material__text h1:hover .header-anchor, .partial-skin-header-anchors-hide .material__text h2:hover .header-anchor, .partial-skin-header-anchors-hide .material__text h3:hover .header-anchor, .partial-skin-header-anchors-hide .material__text h4:hover .header-anchor, .partial-skin-header-anchors-hide .material__text h5:hover .header-anchor, .partial-skin-header-anchors-hide .material__text h6:hover .header-anchor {
+  display: inline;
+}
+
+/*# sourceMappingURL=styles.css.map */

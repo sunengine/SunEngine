@@ -21,7 +21,7 @@
 			ref="file"
 		/>
 
-		<q-markup-table v-if="pSkins">
+		<q-markup-table v-if="pSkins" wrap-cells>
 			<tbody>
 				<q-tr
 					:key="pSkin.name"
@@ -39,7 +39,7 @@
 							name="fas fa-check-circle"
 						/>
 					</q-td>
-					<q-td>{{ pSkin.description }}</q-td>
+					<q-td style="">{{ pSkin.description }}</q-td>
 					<q-td>
 						<q-btn
 							no-caps
