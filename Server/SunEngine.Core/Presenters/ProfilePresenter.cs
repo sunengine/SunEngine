@@ -32,7 +32,7 @@ namespace SunEngine.Core.Presenters
 			if (int.TryParse(link, out int id))
 				query = db.Users.Where(x => x.Id == id);
 			else
-				query = db.Users.Where(x => x.Link == link);
+				query = db.Users.Where(x => x.Link.ToLower() == link.ToLower());
 
 
 			if (viewerUserId.HasValue)
