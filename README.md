@@ -2,7 +2,7 @@
 <img src="https://github.com/sunengine/SunEngine/blob/master/SunEngine.svg" width="300" alt="SunEngine Logo" />
 </p>
 
-<h3 align="center">Site engine with blog, forum and article features support.</h3>
+<h3 align="center">Site building engine with blog, forum and articles features support, built on Asp.Net Core, VueJs, Quasar technologies.</h3>
 
 # SunEngine
 

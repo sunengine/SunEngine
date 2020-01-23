@@ -18,7 +18,7 @@ const glob = require('glob');
 const fs = require('fs');
 
 
-const dirs = ['api', 'admin', 'classes', 'components', 'mixins', 'modules', 'pages', 'router', 'store', 'utils'];
+const dirs = ['api', 'admin', 'classes', 'components', 'mixins', 'modules', 'pages', 'router', 'store', 'utils', 'icons'];
 const excludePaths = ['src/router/index.js'];
 
 

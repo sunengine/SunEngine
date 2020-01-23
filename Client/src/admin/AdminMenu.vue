@@ -3,7 +3,7 @@
 		<q-list class="admin-menu sun-second-menu" no-border>
 			<q-item exact :to="{ name: 'AdminInformation' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-info-circle" />
+					<q-icon :name="$iconsSet.AdminMenu.AdminInformation" />
 				</q-item-section>
 				<q-item-section>
 					<q-item-label>{{ $tl("adminInformation") }}</q-item-label>
@@ -15,7 +15,7 @@
 
 			<q-item :to="{ name: 'ConfigurationAdmin' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-sliders-h" />
+					<q-icon :name="$iconsSet.AdminMenu.ConfigurationAdmin" />
 				</q-item-section>
 				<q-item-section>
 					<q-item-label>{{ $tl("configuration") }}</q-item-label>
@@ -27,7 +27,7 @@
 
 			<q-item :to="{ name: 'MenuItemsAdmin' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-bars" />
+					<q-icon :name="$iconsSet.AdminMenu.MenuItemsAdmin" />
 				</q-item-section>
 				<q-item-section>
 					<q-item-label>{{ $tl("menuItems") }}</q-item-label>
@@ -39,7 +39,7 @@
 
 			<q-item :to="{ name: 'CategoriesAdmin' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-folder" />
+					<q-icon :name="$iconsSet.AdminMenu.CategoriesAdmin" />
 				</q-item-section>
 				<q-item-section>
 					<q-item-label>{{ $tl("categories") }}</q-item-label>
@@ -51,7 +51,7 @@
 
 			<q-item :to="{ name: 'ComponentsAdmin' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-cube" />
+					<q-icon :name="$iconsSet.AdminMenu.ComponentsAdmin" />
 				</q-item-section>
 				<q-item-section>
 					<q-item-label>{{ $tl("components") }}</q-item-label>
@@ -63,7 +63,7 @@
 
 			<q-item :to="{ name: 'SkinsAdmin' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-user-astronaut" />
+					<q-icon :name="$iconsSet.AdminMenu.SkinsAdmin" />
 				</q-item-section>
 				<q-item-section>
 					<q-item-label>{{ $tl("skins") }}</q-item-label>
@@ -73,7 +73,7 @@
 
 			<q-item :to="{ name: 'RolesPage' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-user-friends" />
+					<q-icon :name="$iconsSet.AdminMenu.RolesPage" />
 				</q-item-section>
 				<q-item-section>
 					<q-item-label>{{ $tl("rolesUsers") }}</q-item-label>
@@ -85,7 +85,7 @@
 
 			<q-item :to="{ name: 'RolesPermissions' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-user-shield" />
+					<q-icon :name="$iconsSet.AdminMenu.RolesPermissions" />
 				</q-item-section>
 				<q-item-section>
 					<q-item-label>{{ $tl("rolesPermissions") }}</q-item-label>
@@ -97,7 +97,7 @@
 
 			<q-item :to="{ name: 'DeletedElements' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-trash" />
+					<q-icon :name="$iconsSet.AdminMenu.DeletedElements" />
 				</q-item-section>
 				<q-item-section>
 					<q-item-label>{{ $tl("deletedElements") }}</q-item-label>
@@ -109,7 +109,7 @@
 
 			<q-item clickable @click="resetCache">
 				<q-item-section avatar>
-					<q-icon color="info" name="fas fa-sync-alt" />
+					<q-icon color="info" :name="$iconsSet.AdminMenu.resetCache" />
 				</q-item-section>
 				<q-item-section>
 					<q-item-label>{{ $tl("resetCache") }}</q-item-label>
@@ -123,11 +123,11 @@
 				:label="$tl('systemTools')"
 				expand-separator
 				:caption="systemToolsCaption"
-				icon="fas fa-tools"
+				:icon="$iconsSet.AdminMenu.systemTools"
 			>
 				<q-item :to="{ name: 'ImagesCleaner' }">
 					<q-item-section avatar>
-						<q-icon name="fas fa-broom" />
+						<q-icon :name="$iconsSet.AdminMenu.ImagesCleaner" />
 					</q-item-section>
 					<q-item-section>
 						<q-item-label>{{ $tl("imagesCleaner") }}</q-item-label>
@@ -139,7 +139,7 @@
 
 				<q-item :to="{ name: 'CypherSecrets' }">
 					<q-item-section avatar>
-						<q-icon name="fas fa-key" />
+						<q-icon :name="$iconsSet.AdminMenu.CypherSecrets" />
 					</q-item-section>
 					<q-item-section>
 						<q-item-label>{{ $tl("cypherSecrets") }}</q-item-label>

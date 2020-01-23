@@ -23,13 +23,15 @@ module.exports = function (ctx) {
             'components',
             'throttle',
             'vueDevTools',
-            'getBreadcrumbs'
+            'getBreadcrumbs',
+            'icons'
         ],
         css: [
             'app.scss',
         ],
         extras: [
-            'fontawesome-v5',
+             'line-awesome',
+             'fontawesome-v5',
             //'roboto-font',
             //'material-icons', // optional, you are not bound to it
             //'ionicons-v4',
@@ -53,7 +55,7 @@ module.exports = function (ctx) {
                 'bounceOutUp'
             ],
 
-            iconSet: 'fontawesome-v5',
+            iconSet: 'line-awesome',
             lang: 'ru' // Quasar language
         },
 

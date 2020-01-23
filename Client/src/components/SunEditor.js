@@ -1,6 +1,6 @@
 ﻿import { QEditor, QInnerLoading, QSpinnerGears } from "quasar";
 import ValidateMixin from "quasar/src/mixins/validate";
-
+import Vue from "vue";
 import { validateFileSize } from "sun";
 
 export default {
@@ -111,7 +111,7 @@ export default {
 			return {
 				...QEditor.options.computed.buttonDef.call(this),
 				addImages: {
-					icon: "fas fa-image",
+					icon: Vue.prototype.$iconsSet.SunEditor.addImages,
 					tip: this.$tl("uploadImages"),
 					handler: this.uploadImages
 				}

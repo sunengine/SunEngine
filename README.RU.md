@@ -2,7 +2,7 @@
 <img src="https://github.com/sunengine/SunEngine/blob/master/SunEngine.svg" width="300" alt="SunEngine Logo" />
 </p>
 
-<h3 align="center">Движок для сайтов с функциональностью форума, статей и блогов.</h3>
+<h3 align="center">Движок для создания сайтов с возможностями блога, статей и форума построенный на технологиях AspNet Core, VueJS, Quasar.</h3>
 
 # SunEngine
 

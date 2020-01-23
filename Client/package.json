@@ -3,7 +3,7 @@
     "version": "2.3.1",
     "description": "SunEngine - web engine with support of blog, forum and articles functionality",
     "productName": "SunEngine",
-    "author": "Dimitrij Polianin",
+    "author": "Dmitrij Polianin",
     "private": true,
     "scripts": {
         "dev run": "quasar dev",
@@ -13,15 +13,15 @@
         "build & publish": "cd ../Scripts && bash build.sh && bash publish.sh"
     },
     "dependencies": {
-        "@quasar/extras": "^1.4.2",
+        "@quasar/extras": "^1.5.0",
         "axios": "^0.18.1",
         "js-lock": "^0.1.1",
-        "quasar": "^1.7.4",
+        "quasar": "^1.8.2",
         "vue-i18n": "^8.15.3"
     },
     "devDependencies": {
         "@quasar/app": "^1.5.2",
-        "@quasar/quasar-app-extension-qiconpicker": "^1.0.15",
+        "@quasar/quasar-app-extension-qiconpicker": "^1.1.0",
         "babel-preset-proposals": "^0.1.0",
         "glob": "^7.1.4",
         "path": "^0.12.7",
