@@ -6,6 +6,7 @@ import { app } from "sun";
 import { makeBreadcrumbs } from "sun";
 
 import Vue from "vue";
+import { Quasar } from "quasar";
 
 export default async function(context) {
 	console.info("%cStart init store", consoleInit);
@@ -39,7 +40,12 @@ export default async function(context) {
 		makeBreadcrumbs();
 
 		const iconsSet = Vue.prototype.$iconsSets[config.Global.IconsSet];
-		if (iconsSet) Vue.prototype.$iconsSet = iconsSet;
+		if (iconsSet) {
+			Vue.prototype.$iconsSet = iconsSet;
+			Vue.prototype.$q.iconSet.set(
+				require(`quasar/icon-set/${iconsSet.name}.js`).default
+			);
+		}
 
 		context.state.initializeState = InitializeState.Done;
 	} catch (error) {

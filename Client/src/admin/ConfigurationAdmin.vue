@@ -9,7 +9,7 @@
 				clearable
 			>
 				<template v-slot:before>
-					<q-icon name="fa fa-search" />
+					<q-icon :name="$iconsSet.ConfigurationAdmin.search" />
 				</template>
 			</q-input>
 		</PageHeader>
@@ -39,7 +39,7 @@
 									<q-space />
 									<div v-if="item.localSubTitle">
 										<q-icon
-											name="far fa-question-circle"
+											:name="$iconsSet.ConfigurationAdmin.question"
 											class="text-blue"
 											size="xs"
 											right
@@ -86,7 +86,7 @@
 					class="send-btn"
 					@click="uploadConfiguration"
 					no-caps
-					icon="fas fa-save"
+					:icon="$iconsSet.ConfigurationAdmin.save"
 					:loading="loading"
 					:label="$tl('saveBtn')"
 				>
@@ -100,7 +100,7 @@
 					class="reset-btn q-mr-md"
 					@click="resetConfiguration"
 					no-caps
-					icon="fas fa-sync-alt"
+					:icon="$iconsSet.ConfigurationAdmin.reset"
 					:label="$tl('resetBtn')"
 				>
 					<q-tooltip :delay="800">
@@ -111,7 +111,7 @@
 					class="cancel-btn"
 					@click="$router.back()"
 					no-caps
-					icon="fas fa-times"
+					:icon="$iconsSet.ConfigurationAdmin.cancel"
 					:label="$tl('cancelBtn')"
 				/>
 			</q-page-sticky>

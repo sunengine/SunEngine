@@ -44,7 +44,7 @@
 								clearable
 							>
 								<template v-slot:prepend>
-									<q-icon name="fas fa-search" />
+									<q-icon :name="$q.iconSet.search" />
 								</template>
 							</q-input>
 							<q-icon-picker

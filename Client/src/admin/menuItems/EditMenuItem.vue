@@ -8,7 +8,7 @@
 
 		<div class="btn-block q-gutter-md flex">
 			<q-btn
-				icon="far fa-save"
+				:icon="$iconsSet.EditMenuItem.save"
 				class="send-btn"
 				no-caps
 				:loading="loading"
@@ -20,7 +20,7 @@
 
 			<q-btn
 				no-caps
-				icon="fas fa-times"
+				:icon="$iconsSet.EditMenuItem.cancel"
 				class="cancel-btn"
 				@click="$router.back()"
 				:label="$tl('cancelBtn')"
@@ -30,7 +30,7 @@
 
 			<q-btn
 				no-caps
-				icon="far fa-times-circle"
+				:icon="$iconsSet.EditMenuItem.delete"
 				class="delete-btn"
 				@click="deleteMenuItem"
 				:label="$tl('deleteBtn')"

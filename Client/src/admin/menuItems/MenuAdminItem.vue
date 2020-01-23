@@ -8,14 +8,13 @@
 		<span class="item-block">
 			<span class="menu-admin-item__up-down">
 				<q-btn
-					class="menu-admin-item__btn-up"
+					:icon="$iconsSet.MenuAdminItem.up"
 					:disabled="isFirst"
 					@click="$emit('up', menuItem)"
 					color="positive"
 					dense
 					size="10px"
 					flat
-					icon="fas fa-chevron-up"
 				>
 					<q-tooltip :delay="1000">
 						{{ $tl("moveUpBtnTooltip") }}
@@ -30,7 +29,7 @@
 					dense
 					size="10px"
 					flat
-					icon="fas fa-chevron-down"
+					:icon="$iconsSet.MenuAdminItem.down"
 				>
 					<q-tooltip :delay="1000">
 						{{ $tl("moveDownBtnTooltip") }}
@@ -39,7 +38,7 @@
 			</span>
 
 			<q-icon
-				:name="menuItem.icon ? menuItem.icon : 'far fa-file'"
+				:name="menuItem.icon ? menuItem.icon : $iconsSet.MenuAdminItem.blank"
 				class="q-ml-md"
 				color="grey-6"
 			/>
@@ -50,7 +49,7 @@
 			<q-btn
 				class="menu-admin-item__btn-edit"
 				@click="$emit('edit', menuItem)"
-				icon="fas fa-wrench"
+				:icon="$iconsSet.MenuAdminItem.edit"
 				color="info"
 				dense
 				size="10px"
@@ -64,7 +63,7 @@
 			<q-btn
 				class="menu-admin-item__btn-change-is-hidden"
 				@click="$emit('changeIsHidden', menuItem)"
-				:icon="!menuItem.isHidden ? 'far fa-eye' : 'far fa-eye-slash'"
+				:icon="!menuItem.isHidden ? $iconsSet.MenuAdminItem.eye : $iconsSet.MenuAdminItem.eyeSlash"
 				:color="!menuItem.isHidden ? 'info' : 'grey-5'"
 				dense
 				size="10px"
@@ -78,7 +77,7 @@
 			<q-btn
 				class="menu-admin-item__btn-add"
 				@click="$emit('add', menuItem)"
-				icon="far fa-plus-square"
+				:icon="$iconsSet.MenuAdminItem.add"
 				color="info"
 				dense
 				size="10px"
@@ -95,7 +94,7 @@
 				type="a"
 				:to="to"
 				@click="goExternal"
-				icon="fas fa-arrow-right"
+				:icon="$iconsSet.MenuAdminItem.goTo"
 				color="info"
 				dense
 				size="10px"
@@ -109,7 +108,7 @@
 			<q-btn
 				class="menu-admin-item__btn-delete"
 				@click="$emit('deleteMenuItem', menuItem)"
-				icon="far fa-times-circle"
+				:icon="$iconsSet.MenuAdminItem.delete"
 				color="warning"
 				dense
 				size="10px"

@@ -39,7 +39,7 @@
 			:rules="rules.url"
 		>
 			<template v-slot:prepend>
-				<q-icon name="fas fa-link" class="q-mr-xs" />
+				<q-icon :name="$iconsSet.MenuItemForm.link" class="q-mr-xs" />
 			</template>
 			<div slot="hint">
 				<div v-if="menuItem.routeName" class="text-positive">
@@ -70,7 +70,7 @@
 				</div>
 			</template>
 			<template v-slot:append>
-				<q-icon name="fas fa-caret-down"></q-icon>
+				<q-icon :name="$q.iconSet.expansionItem.denseIcon"></q-icon>
 			</template>
 			<q-menu fit auto-close>
 				<q-tree
@@ -120,7 +120,7 @@
 			:rules="rules.cssClass"
 		>
 			<template v-slot:prepend>
-				<q-icon name="fab fa-css3-alt" class="q-mr-xs" />
+				<q-icon :name="$iconsSet.MenuItemForm.css" class="q-mr-xs" />
 			</template>
 		</q-input>
 
@@ -129,7 +129,7 @@
 				<q-icon :name="menuItem.icon" color="positive" />
 			</template>
 			<template v-slot:append>
-				<q-icon name="fas fa-icons" class="cursor-pointer">
+				<q-icon :name="$iconsSet.MenuItemForm.icons" class="cursor-pointer">
 					<q-popup-proxy v-model="showIconPicker">
 						<div class="q-pa-sm">
 							<q-input
@@ -140,13 +140,13 @@
 								clearable
 							>
 								<template v-slot:prepend>
-									<q-icon name="fas fa-search" />
+									<q-icon :name="$iconsSet.MenuItemForm.search" />
 								</template>
 							</q-input>
 							<q-icon-picker
 								v-model="menuItem.icon"
 								:filter="iconFilter"
-								icon-set="fontawesome-v5"
+								:icon-set="$q.iconSet.name"
 								tooltips
 								:pagination.sync="pagination"
 								style="height: 300px; width: 300px; background-color: white;"

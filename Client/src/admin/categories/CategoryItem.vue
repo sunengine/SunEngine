@@ -101,7 +101,7 @@
 				v-if="showInfo && category.materialsCount"
 				class="category-item__materails-count text-grey-8 q-ml-md"
 			>
-				<q-icon color="grey-5" name="far fa-file-alt" />
+				<q-icon color="grey-5" :name="$iconsSet.CategoryItem.material" />
 				{{ category.materialsCount }}</span
 			>
 		</span>

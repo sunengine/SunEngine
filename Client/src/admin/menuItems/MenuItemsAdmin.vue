@@ -2,7 +2,7 @@
 	<q-page class="menu-items-admin page-padding">
 		<PageHeader :title="$tl('title')">
 			<q-btn
-				icon="far fa-plus-square"
+				:icon="$iconsSet.MenuItemsAdmin.add"
 				class="post-btn q-mr-lg"
 				type="a"
 				:to="{ name: 'CreateMenuItem' }"

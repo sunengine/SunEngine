@@ -7,7 +7,7 @@
 		<div class="btn-block q-gutter-md">
 			<q-btn
 				class="send-btn"
-				icon="fas fa-plus"
+				:icon="$iconsSet.CreateMenuItem.create"
 				no-caps
 				:loading="loading"
 				:label="$tl('createBtn')"
@@ -18,7 +18,7 @@
 			<q-btn
 				class="cancel-btn"
 				no-caps
-				icon="fas fa-times"
+				:icon="$iconsSet.CreateMenuItem.cancel"
 				@click="$router.back()"
 				:label="$tl('cancelBtn')"
 			/>
