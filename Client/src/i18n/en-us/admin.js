@@ -338,6 +338,7 @@ export default {
 			"Global:SiteName": "Site name",
 			"Global:SiteTitle": "Site title",
 			"Global:SiteSubTitle": "Site subtitle",
+			"Global:IconsSet": "Icon set",
 			"Dev:ShowExceptions": "Show exceptions",
 			"Images:AllowGifUpload": 'Allow "gif" images upload',
 			"Images:AllowSvgUpload": 'Allow "svg" images upload',

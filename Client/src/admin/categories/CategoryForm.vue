@@ -33,7 +33,7 @@
 				<q-icon :name="category.icon" color="positive"> </q-icon>
 			</template>
 			<template v-slot:append>
-				<q-icon name="fas fa-icons" class="cursor-pointer">
+				<q-icon :name="$iconsSet.CategoryForm.icons" class="cursor-pointer">
 					<q-popup-proxy v-model="showIconPicker">
 						<div class="q-pa-sm">
 							<q-input
@@ -50,7 +50,7 @@
 							<q-icon-picker
 								v-model="category.icon"
 								:filter="iconFilter"
-								icon-set="fontawesome-v5"
+								:icon-set="$q.iconSet.name"
 								tooltips
 								:pagination.sync="pagination"
 								style="height: 300px; width: 300px; background-color: white;"
@@ -82,10 +82,10 @@
 				</div>
 			</template>
 			<template v-slot:prepend>
-				<q-icon name="fas fa-folder" class="q-mr-xs" />
+				<q-icon :name="$iconsSet.CategoryForm.category" class="q-mr-xs" />
 			</template>
 			<template v-slot:append>
-				<q-icon name="fas fa-caret-down"></q-icon>
+				<q-icon :name="$q.iconSet.expansionItem.denseIcon"></q-icon>
 			</template>
 			<template v-slot:error>
 				{{ $tl("validation.parent.required") }}
@@ -122,7 +122,7 @@
 			v-model="category.layoutName"
 			:options="layoutOptions"
 		>
-			<q-icon slot="prepend" name="fas fa-boxes" />
+			<q-icon slot="prepend" :name="$iconsSet.CategoryForm.layout" />
 		</q-select>
 
 		<q-input

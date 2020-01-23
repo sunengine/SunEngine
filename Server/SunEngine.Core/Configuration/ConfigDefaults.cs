@@ -10,6 +10,12 @@ namespace SunEngine.Core.Configuration
 			Russian,
 			English,
 		}
+		
+		public enum IconsSet
+		{
+			LineAwesome,
+			FontAwesome,
+		}
 
 		public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>()
 		{
@@ -18,8 +24,9 @@ namespace SunEngine.Core.Configuration
 			["Global:SiteTitle"] = "SunEngine Demo",
 			["Global:SiteSubTitle"] = "",
 			["Global:PageTitleTemplate"] = "{pageTitle} - {siteName}",
+			["Global:IconsSet"] = IconsSet.LineAwesome,
 			["Global:OpenExternalLinksAtNewTab"] = true,
-
+			
 			["Dev:LogInitExtended"] = false,
 			["Dev:LogRequests"] = false,
 			["Dev:LogMoveTo"] = false,

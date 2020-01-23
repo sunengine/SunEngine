@@ -8,7 +8,7 @@
 				</h1>
 				<slot> </slot>
 			</div>
-			<div test='' v-if="showSubTitle" class="page-sub-title">
+			<div v-if="showSubTitle" class="page-sub-title">
 				{{ showSubTitle }}
 			</div>
 			<div
@@ -27,7 +27,7 @@ export default {
 		category: {
 			type: Object,
 			required: false,
-			default: {}
+			default: () => {}
 		},
 		title: {
 			type: String,

@@ -5,7 +5,7 @@
 				{{ $tl("title") }}
 			</h1>
 			<q-btn
-				icon="fas fa-folder-plus"
+				:icon="$iconsSet.CategoriesAdmin.addCategoryBtn"
 				class="post-btn q-mr-lg"
 				type="a"
 				:to="{ name: 'CreateCategory', params: { parentCategoryId: 1 } }"

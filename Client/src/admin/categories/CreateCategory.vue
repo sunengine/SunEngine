@@ -7,7 +7,7 @@
 		<div class="create-category__btn-block q-gutter-x-sm">
 			<q-btn
 				class="send-btn"
-				icon="fas fa-plus"
+				:icon="$iconsSet.CreateCategory.create"
 				no-caps
 				:loading="loading"
 				:label="$tl('createBtn')"
@@ -18,7 +18,7 @@
 			<q-btn
 				class="cancel-btn"
 				no-caps
-				icon="fas fa-times"
+				:icon="$iconsSet.CreateCategory.cancel"
 				@click="$router.back()"
 				:label="$tl('cancelBtn')"
 			/>

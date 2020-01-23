@@ -5,6 +5,8 @@ import { getDynamicConfig } from "sun";
 import { app } from "sun";
 import { makeBreadcrumbs } from "sun";
 
+import Vue from "vue";
+
 export default async function(context) {
 	console.info("%cStart init store", consoleInit);
 
@@ -35,6 +37,9 @@ export default async function(context) {
 		await context.dispatch("loadAllMenuItems");
 
 		makeBreadcrumbs();
+
+		const iconsSet = Vue.prototype.$iconsSets[config.Global.IconsSet];
+		if (iconsSet) Vue.prototype.$iconsSet = iconsSet;
 
 		context.state.initializeState = InitializeState.Done;
 	} catch (error) {

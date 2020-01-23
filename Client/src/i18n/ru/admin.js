@@ -368,6 +368,7 @@ export default {
 			"Global:SiteTitle": "Заголовок сайта",
 			"Global:SiteSubTitle": "Подзаголовок сайта",
 			"Global:OpenExternalLinksAtNewTab": "Открывать внешние ссылки в новом окне",
+			"Global:IconsSet": "Иконки",
 			"Dev:ShowExceptions": "Показывать исключения в логах",
 			"Dev:LogInitExtended": "Логировать инициализацию расширено",
 			"Dev:LogMoveTo": "Логировать перемещения по сайту",

@@ -12,7 +12,35 @@ export default {
 		resetCache: "fas fa-sync-alt",
 		systemTools: "fas fa-tools",
 		ImagesCleaner: "fas fa-broom",
-		CypherSecrets:"fas fa-key"
+		CypherSecrets: "fas fa-key"
 	},
-	SunEditor: { addImages: "fas fa-image" }
+	SunEditor: {
+		addImages: "fas fa-image"
+	},
+	CategoriesAdmin: {
+		addCategoryBtn: "fas fa-folder-plus"
+	},
+	CategoryItem: {
+		up: "fas fa-chevron-up",
+		down: "fas fa-chevron-down",
+		eye: "fas fa-eye-slash",
+		edit: "fas fa-wrench",
+		plus: "fas fa-folder-plus",
+		goTo: "fas fa-arrow-right"
+	},
+	CreateCategory: {
+		create: "fas fa-plus",
+		cancel: "fas fa-times"
+	},
+	EditCategory: {
+		save: "far fa-save",
+		cancel: "fas fa-times",
+		delete: "fas fa-trash"
+	},
+	CategoryForm: {
+		icons: "fas fa-icons",
+		category: "fas fa-folder",
+		layout: "fas fa-table",
+	}
+	
 };

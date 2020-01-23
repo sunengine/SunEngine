@@ -14,5 +14,32 @@ export default {
 		ImagesCleaner: "las la-broom",
 		CypherSecrets: "las la-key"
 	},
-	SunEditor: { addImages: "las la-image" }
+	SunEditor: {
+		addImages: "las la-image"
+	},
+	CategoriesAdmin: {
+		addCategoryBtn: "las la-plus"
+	},
+	CategoryItem: {
+		up: "la la-angle-up", //"la la-arrow-up", // "la la-caret-up", "la la-angle-up",
+		down: "la la-angle-down", //"la la-arrow-up" // "la la-caret-down", "la la-angle-down"
+		eye: "las la-eye-slash",
+		edit: "las la-wrench",
+		plus: "las la-plus",
+		goTo: "las la-arrow-right"
+	},
+	CreateCategory: {
+		create: "las la-plus",
+		cancel: "las la-times"
+	},
+	EditCategory: {
+		save: "las la-save",
+		cancel: "las la-times",
+		delete: "las la-trash"
+	},
+	CategoryForm: {
+		icons: "las la-icons",
+		category: "las la-stream",
+		layout: "las la-table"
+	}
 };

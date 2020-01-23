@@ -7,7 +7,7 @@
 
 			<div class="edit-category__btn-block q-mt-md q-gutter-md flex">
 				<q-btn
-					icon="far fa-save"
+					:icon="$iconsSet.EditCategory.save"
 					class="send-btn"
 					no-caps
 					:loading="loading"
@@ -19,7 +19,7 @@
 
 				<q-btn
 					no-caps
-					icon="fas fa-times"
+					:icon="$iconsSet.EditCategory.cancel"
 					class="cancel-btn"
 					@click="$router.back()"
 					:label="$tl('cancelBtn')"
@@ -30,7 +30,7 @@
 				<q-btn
 					no-caps
 					class="delete-btn"
-					icon="far fa-times-circle"
+					:icon="$iconsSet.EditCategory.delete"
 					@click="tryDelete"
 					:label="$tl('deleteBtn')"
 				/>
@@ -59,9 +59,9 @@ export default {
 		};
 	},
 	computed: {
-       breadcrumbsCategory() {
-           return this.$getBreadcrumbs("CategoriesAdmin");
-       }
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("CategoriesAdmin");
+		}
 	},
 	methods: {
 		async tryDelete() {

@@ -11,7 +11,7 @@
 					dense
 					size="10px"
 					flat
-					icon="fas fa-chevron-up"
+					:icon="$iconsSet.CategoryItem.up"
 				>
 					<q-tooltip :delay="1000">
 						{{ $tl("moveUpBtnTooltip") }}
@@ -24,7 +24,7 @@
 					dense
 					size="10px"
 					flat
-					icon="fas fa-chevron-down"
+					:icon="$iconsSet.CategoryItem.down"
 				>
 					<q-tooltip :delay="1000">
 						{{ $tl("moveDownBtnTooltip") }}
@@ -46,13 +46,13 @@
 			<q-icon
 				class="q-ml-sm text-grey-5"
 				v-if="category.isHidden"
-				name="fas fa-eye-slash"
+				:name="$iconsSet.CategoryItem.eye"
 			/>
 			<span class="q-ml-md">
 				<q-btn
 					class="category-item__btn-edit"
 					:to="{ name: 'EditCategory', params: { categoryId: category.id } }"
-					icon="fas fa-wrench"
+					:icon="$iconsSet.CategoryItem.edit"
 					color="info"
 					dense
 					size="10px"
@@ -65,7 +65,7 @@
 				<q-btn
 					class="category-item__btn-create"
 					:to="{ name: 'CreateCategory', params: { parentCategoryId: category.id } }"
-					icon="fas fa-folder-plus"
+					:icon="$iconsSet.CategoryItem.plus"
 					color="info"
 					dense
 					size="10px"
@@ -79,7 +79,7 @@
 					class="category-item__btn-to-route"
 					:disabled="!route"
 					:to="route"
-					icon="fas fa-arrow-right"
+					:icon="$iconsSet.CategoryItem.goTo"
 					color="info"
 					dense
 					size="10px"
