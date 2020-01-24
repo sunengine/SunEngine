@@ -15,7 +15,7 @@
 				"
 				:label="$tl('newArticleBtn')"
 				v-if="articles && canAddArticle"
-				icon="fas fa-plus"
+				:icon="$iconsSet.ArticlesPage.add"
 			/>
 		</PageHeader>
 

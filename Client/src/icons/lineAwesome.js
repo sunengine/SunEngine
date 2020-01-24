@@ -9,29 +9,31 @@ const global = {
 	eyeSlash: "la la-eye-slash",
 	upload: "la la-upload",
 	add: "la la-plus",
-	clock: "la la-clock"
+	clock: "la la-clock",
+	user: "la la-user",
+	send: "la la-arrow-circle-right"
 };
 
 export default {
 	name: "line-awesome",
 	sunName: "LineAwesome",
 	AdminMenu: {
-		AdminInformation: "las la-info-circle",
-		ConfigurationAdmin: "las la-sliders-h",
-		MenuItemsAdmin: "las la-bars",
-		CategoriesAdmin: "las la-stream",
-		ComponentsAdmin: "las la-shapes",
-		SkinsAdmin: "las la-palette",
-		RolesPage: "las la-user-friends",
-		RolesPermissions: "las la-user-lock",
-		DeletedElements: "las la-trash",
-		resetCache: "las la-sync-alt",
-		systemTools: "las la-tools",
-		ImagesCleaner: "las la-broom",
-		CypherSecrets: "las la-key"
+		AdminInformation: "la la-info-circle",
+		ConfigurationAdmin: "la la-sliders-h",
+		MenuItemsAdmin: "la la-bars",
+		CategoriesAdmin: "la la-stream",
+		ComponentsAdmin: "la la-shapes",
+		SkinsAdmin: "la la-palette",
+		RolesPage: "la la-user-friends",
+		RolesPermissions: "la la-user-lock",
+		DeletedElements: "la la-trash",
+		resetCache: "la la-sync-alt",
+		systemTools: "la la-tools",
+		ImagesCleaner: "la la-broom",
+		CypherSecrets: "la la-key"
 	},
 	SunEditor: {
-		addImages: "las la-image"
+		addImages: "la la-image"
 	},
 	CategoriesAdmin: {
 		addCategoryBtn: global.add
@@ -40,10 +42,10 @@ export default {
 		up: "la la-angle-up", //"la la-arrow-up", // "la la-caret-up", "la la-angle-up",
 		down: "la la-angle-down", //"la la-arrow-up" // "la la-caret-down", "la la-angle-down"
 		eyeSlash: global.eyeSlash,
-		edit: "las la-wrench",
+		edit: "la la-wrench",
 		plus: global.add,
-		goTo: "las la-arrow-right",
-		material: "las la-file-alt"
+		goTo: "la la-arrow-right",
+		material: "la la-file-alt"
 	},
 	CreateCategory: {
 		create: global.save,
@@ -55,13 +57,13 @@ export default {
 		delete: global.delete
 	},
 	CategoryForm: {
-		icons: "las la-icons",
-		category: "las la-stream",
-		layout: "las la-table"
+		icons: "la la-icons",
+		category: "la la-stream",
+		layout: "la la-table"
 	},
 	ConfigurationAdmin: {
 		search: global.search,
-		question: "las la-question-circle",
+		question: "la la-question-circle",
 		save: global.save,
 		reset: global.refresh,
 		cancel: global.cancel
@@ -80,8 +82,8 @@ export default {
 		down: "la la-angle-down", //"la la-arrow-up" // "la la-caret-down", "la la-angle-down"
 		eye: global.eye,
 		eyeSlash: global.eyeSlash,
-		blank: "las la-file",
-		edit: "las la-wrench",
+		blank: "la la-file",
+		edit: "la la-wrench",
 		add: global.add,
 		goTo: global.goTo,
 		delete: global.delete
@@ -90,19 +92,19 @@ export default {
 		add: global.add
 	},
 	MenuItemForm: {
-		link: "las la-link",
+		link: "la la-link",
 		css: "lab la-css3-alt",
-		icons: "las la-icons",
+		icons: "la la-icons",
 		search: global.search
 	},
 	ComponentsAdmin: {
 		add: global.save,
-		component: "las la-cube",
-		edit: "las la-wrench",
+		component: "la la-cube",
+		edit: "la la-wrench",
 		goTo: global.goTo
 	},
 	ComponentForm: {
-		component: "las la-cube"
+		component: "la la-cube"
 	},
 	CreateComponent: {
 		add: global.save,
@@ -114,16 +116,16 @@ export default {
 		delete: global.delete
 	},
 	SkinsAdmin: {
-		main: "las la-palette",
-		partial: "las la-puzzle-piece",
+		main: "la la-palette",
+		partial: "la la-puzzle-piece",
 		customCss: "lab la-css3-alt"
 	},
 	MainSkinsAdmin: {
-		upload: "las la-upload",
-		preview: "las la-search",
-		current: "las la-check",
-		set: "las la-play",
-		info: "las la-info",
+		upload: "la la-upload",
+		preview: "la la-search",
+		current: "la la-check",
+		set: "la la-play",
+		info: "la la-info",
 		delete: global.delete
 	},
 	PartialSkinsAdmin: {
@@ -133,13 +135,13 @@ export default {
 	CustomCssAdmin: {
 		save: global.save,
 		reset: global.refresh,
-		clean: "las la-broom"
+		clean: "la la-broom"
 	},
 	RolesPage: {
-		users: "las la-user-friends"
+		users: "la la-user-friends"
 	},
 	RoleUsers: {
-		user: "las la-user",
+		user: "la la-user",
 		search: global.search
 	},
 	ProfileRoles: {},
@@ -155,17 +157,36 @@ export default {
 		refresh: global.refresh
 	},
 	CypherSecrets: {
-		key: "las la-key"
+		key: "la la-key"
 	},
 
 	Material: {
 		delete: global.delete,
-		restore: "las la-trash-restore",
+		restore: "la la-trash-restore",
 		visits: global.eye,
 		publishDate: global.clock
 	},
 	Comment: {
 		delete: global.delete,
 		publishDate: global.clock
-	}
+	},
+	Article: {
+		delete: global.delete,
+		publishDate: global.clock,
+		comments: "la la-comment",
+		user: global.user
+	},
+	ArticlesPage: {
+		add: global.add
+	},
+	ArticlesMultiCatPage: {
+		add: global.add
+	},
+	CreateComment: {
+		send: global.send
+	},
+	EditComment: {
+		save: global.save,
+		cancel: global.cancel
+	},
 };

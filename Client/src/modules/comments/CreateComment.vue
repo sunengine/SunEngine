@@ -11,7 +11,7 @@
 		<div>
 			<q-btn
 				class="send-btn"
-				icon="fas fa-arrow-circle-right"
+				:icon="$iconsSet.CreateComment.send"
 				no-caps
 				@click="addComment"
 				:loading="loading"

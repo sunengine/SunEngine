@@ -11,13 +11,13 @@
 		<q-item-section>
 			<q-item-label class="material-header article__header">
 				<q-icon
-					name="fas fa-trash"
+					 :name="$iconsSet.Article.delete"
 					color="maroon"
 					class="q-mr-sm"
 					v-if="article.deletedDate"
 				/>
 				<q-icon
-					name="far fa-eye-slash"
+					 :name="$iconsSet.Article.hidden"
 					v-else-if="article.isHidden"
 					class="q-mr-sm"
 				/>
@@ -34,17 +34,17 @@
 			</q-item-label>
 			<q-item-label class="material-header-info-block" caption>
 				<span>
-					<q-icon name="far fa-user" />
+					<q-icon  :name="$iconsSet.Article.user" />
 					{{ article.authorName }}
 				</span>
 				<span>
-					<q-icon name="far fa-clock" />
+					<q-icon  :name="$iconsSet.Article.publishDate" />
 					<time :datetime="$formatToSemTime(article.publishDate)">
 						{{ $formatDate(article.publishDate) }}
 					</time>
 				</span>
 				<span v-if="article.commentsCount > 0">
-					<q-icon name="far fa-comment" />
+					<q-icon  :name="$iconsSet.Article.comments" />
 					{{ article.commentsCount }}
 				</span>
 			</q-item-label>

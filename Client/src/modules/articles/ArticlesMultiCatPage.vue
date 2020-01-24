@@ -12,7 +12,7 @@
 				"
 				:label="addButtonLabel"
 				v-if="canAddArticle"
-				icon="fas fa-plus"
+				:icon="$iconsSet.ArticlesMultiCatPage.add"
 			/>
 		</PageHeader>
 

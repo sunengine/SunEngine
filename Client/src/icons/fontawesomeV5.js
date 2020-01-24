@@ -9,7 +9,9 @@ const global = {
 	eyeSlash: "far fa-eye-slash",
 	upload: "fas fa-cloud-upload-alt",
 	add: "fas fa-plus",
-	clock: "far fa-clock"
+	clock: "far fa-clock",
+	user: "far fa-user",
+	send: "fas fa-arrow-circle-right"
 };
 
 export default {
@@ -167,5 +169,24 @@ export default {
 	Comment: {
 		delete: global.delete,
 		publishDate: global.clock
-	}
+	},
+	Article: {
+		delete: global.delete,
+		publishDate: global.clock,
+		comments: "far fa-comment",
+		user: global.user
+	},
+	ArticlesPage: {
+		add: global.add
+	},
+	ArticlesMultiCatPage: {
+		add: global.add
+	},
+	CreateComment: {
+		send: global.send
+	},
+	EditComment: {
+		save: global.save,
+		cancel: global.cancel
+	},
 };

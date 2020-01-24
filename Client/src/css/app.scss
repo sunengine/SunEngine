@@ -257,10 +257,6 @@ $paddings: (12px 18px 24px);
 
 		.q-icon {
 			margin-right: 6px;
-
-			&:before {
-				padding-top: 2px !important;
-			}
 		}
 	}
 }
@@ -287,6 +283,6 @@ $paddings: (12px 18px 24px);
 	margin-left: 8px;
 }
 
-.la:before,.las:before,.lab:before {
+.la:before,.las:before,.lab:before,.lar:before {
 	font-size: 1.25em;	
 }

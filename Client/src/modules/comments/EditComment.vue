@@ -13,7 +13,7 @@
 			<div>
 				<q-btn
 					class="send-btn"
-					icon="fas fa-arrow-circle-right"
+					:icon="$iconsSet.EditComment.save"
 					no-caps
 					@click="updateComment"
 					:loading="loading"
@@ -24,7 +24,7 @@
 				<q-btn
 					class="cancel-btn q-ml-sm"
 					no-caps
-					icon="fas fa-times"
+					:icon="$iconsSet.EditComment.cancel"
 					@click="$emit('cancel')"
 					:label="$tl('cancelBtn')"
 				/>
