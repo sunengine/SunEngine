@@ -22,11 +22,11 @@
 							</span>
 							<span v-if="canMoveToTrash">
 								<a class="link" href="#" @click.prevent="moveToTrash"
-									><q-icon name="fas fa-trash-alt"
+									><q-icon :name="$iconsSet.Comment.delete"
 								/></a>
 							</span>
 							<span class="material-footer-info-block">
-								<q-icon name="far fa-clock" class="q-mr-xs" />
+								<q-icon :name="$iconsSet.Comment.publishDate" class="q-mr-xs" />
 								<time :datetime="$formatToSemTime(comment.publishDate)">
 									{{ $formatDate(comment.publishDate) }}
 								</time>

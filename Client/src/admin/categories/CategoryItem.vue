@@ -46,7 +46,7 @@
 			<q-icon
 				class="q-ml-sm text-grey-5"
 				v-if="category.isHidden"
-				:name="$iconsSet.CategoryItem.eye"
+				:name="$iconsSet.CategoryItem.eyeSlash"
 			/>
 			<span class="q-ml-md">
 				<q-btn

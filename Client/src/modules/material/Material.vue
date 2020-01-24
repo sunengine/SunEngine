@@ -58,7 +58,7 @@
 							class="material-footer-info-block"
 						>
 							<a class="link" href="#" @click.prevent="deleteMaterial">
-								<q-icon name="fas fa-trash-alt" />
+								<q-icon :name="$iconsSet.Material.delete" />
 							</a>
 						</div>
 
@@ -67,7 +67,7 @@
 							class="material-footer-info-block"
 						>
 							<a class="link" href="#" @click.prevent="restoreMaterial">
-								<q-icon name="fas fa-trash-restore" />
+								<q-icon :name="$iconsSet.Material.restore" />
 							</a>
 						</div>
 
@@ -75,11 +75,11 @@
 							v-if="showVisitsCount"
 							class="material__visits material-footer-info-block"
 						>
-							<q-icon name="far fa-eye" class="q-mr-xs" />
+							<q-icon  :name="$iconsSet.Material.visits" class="q-mr-xs" />
 							{{ material.visitsCount }}
 						</div>
 						<div v-if="showDate" class="material__date material-footer-info-block">
-							<q-icon name="far fa-clock" class="q-mr-xs" />
+							<q-icon :name="$iconsSet.Material.publishDate" class="q-mr-xs" />
 							<time :datetime="$formatToSemTime(material.publishDate)">
 								{{ $formatDate(material.publishDate) }}
 							</time>

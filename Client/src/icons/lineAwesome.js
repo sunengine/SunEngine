@@ -1,3 +1,17 @@
+const global = {
+	delete: "la la-trash",
+	save: "la la-save",
+	cancel: "la la-times",
+	refresh: "la la-sync-alt",
+	goTo: "la la-arrow-right",
+	search: "las la-search",
+	eye: "la la-eye",
+	eyeSlash: "la la-eye-slash",
+	upload: "la la-upload",
+	add: "la la-plus",
+	clock: "la la-clock"
+};
+
 export default {
 	name: "line-awesome",
 	sunName: "LineAwesome",
@@ -20,25 +34,25 @@ export default {
 		addImages: "las la-image"
 	},
 	CategoriesAdmin: {
-		addCategoryBtn: "las la-plus"
+		addCategoryBtn: global.add
 	},
 	CategoryItem: {
 		up: "la la-angle-up", //"la la-arrow-up", // "la la-caret-up", "la la-angle-up",
 		down: "la la-angle-down", //"la la-arrow-up" // "la la-caret-down", "la la-angle-down"
-		eye: "las la-eye-slash",
+		eyeSlash: global.eyeSlash,
 		edit: "las la-wrench",
-		plus: "las la-plus",
+		plus: global.add,
 		goTo: "las la-arrow-right",
 		material: "las la-file-alt"
 	},
 	CreateCategory: {
-		create: "las la-save",
-		cancel: "las la-times"
+		create: global.save,
+		cancel: global.cancel
 	},
 	EditCategory: {
-		save: "las la-save",
-		cancel: "las la-times",
-		delete: "las la-trash"
+		save: global.save,
+		cancel: global.cancel,
+		delete: global.delete
 	},
 	CategoryForm: {
 		icons: "las la-icons",
@@ -46,58 +60,58 @@ export default {
 		layout: "las la-table"
 	},
 	ConfigurationAdmin: {
-		search: "las la-search",
+		search: global.search,
 		question: "las la-question-circle",
-		save: "las la-save",
-		reset: "las la-sync-alt",
-		cancel: "las la-times"
+		save: global.save,
+		reset: global.refresh,
+		cancel: global.cancel
 	},
 	CreateMenuItem: {
-		create: "las la-save",
-		cancel: "las la-times"
+		create: global.save,
+		cancel: global.cancel
 	},
 	EditMenuItem: {
-		save: "las la-save",
-		cancel: "las la-times",
-		delete: "las la-trash"
+		save: global.save,
+		cancel: global.cancel,
+		delete: global.delete
 	},
 	MenuAdminItem: {
 		up: "la la-angle-up", //"la la-arrow-up", // "la la-caret-up", "la la-angle-up",
 		down: "la la-angle-down", //"la la-arrow-up" // "la la-caret-down", "la la-angle-down"
-		eye: "las la-eye",
-		eyeSlash: "las la-eye-slash",
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
 		blank: "las la-file",
 		edit: "las la-wrench",
-		add: "las la-plus",
-		goTo: "las la-arrow-right",
-		delete: "las la-trash"
+		add: global.add,
+		goTo: global.goTo,
+		delete: global.delete
 	},
 	MenuItemsAdmin: {
-		add: "las la-plus"
+		add: global.add
 	},
 	MenuItemForm: {
 		link: "las la-link",
 		css: "lab la-css3-alt",
 		icons: "las la-icons",
-		search: "las la-search"
+		search: global.search
 	},
 	ComponentsAdmin: {
-		add: "las la-plus",
+		add: global.save,
 		component: "las la-cube",
 		edit: "las la-wrench",
-		goTo: "las la-arrow-right"
+		goTo: global.goTo
 	},
 	ComponentForm: {
 		component: "las la-cube"
 	},
 	CreateComponent: {
-		add: "las la-save",
-		cancel: "las la-times"
+		add: global.save,
+		cancel: global.cancel
 	},
 	EditComponent: {
-		save: "las la-save",
-		cancel: "las la-times",
-		delete: "las la-trash"
+		save: global.save,
+		cancel: global.cancel,
+		delete: global.delete
 	},
 	SkinsAdmin: {
 		main: "las la-palette",
@@ -110,15 +124,15 @@ export default {
 		current: "las la-check",
 		set: "las la-play",
 		info: "las la-info",
-		delete: "las la-trash"
+		delete: global.delete
 	},
 	PartialSkinsAdmin: {
-		upload: "las la-upload",
-		delete: "las la-trash"
+		upload: global.upload,
+		delete: global.delete
 	},
 	CustomCssAdmin: {
-		save: "las la-save",
-		reset: "las la-sync-alt",
+		save: global.save,
+		reset: global.refresh,
 		clean: "las la-broom"
 	},
 	RolesPage: {
@@ -126,21 +140,32 @@ export default {
 	},
 	RoleUsers: {
 		user: "las la-user",
-		search: "las la-search",
+		search: global.search
 	},
 	ProfileRoles: {},
 	RolesPermissions: {
-		save: "las la-save",
-		reset: "las la-sync-alt",
+		save: global.save,
+		reset: global.refresh
 	},
 	DeletedElements: {
-		trashBtn: "las la-trash"
+		trashBtn: global.delete
 	},
 	ImagesCleaner: {
-		clean: "las la-trash",
-		refresh:  "las la-sync-alt",
+		clean: global.delete,
+		refresh: global.refresh
 	},
 	CypherSecrets: {
 		key: "las la-key"
+	},
+
+	Material: {
+		delete: global.delete,
+		restore: "las la-trash-restore",
+		visits: global.eye,
+		publishDate: global.clock
+	},
+	Comment: {
+		delete: global.delete,
+		publishDate: global.clock
 	}
 };

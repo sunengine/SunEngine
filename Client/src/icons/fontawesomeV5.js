@@ -1,3 +1,17 @@
+const global = {
+	delete: "fas fa-trash-alt",
+	save: "far fa-save",
+	cancel: "fas fa-times",
+	refresh: "fas fa-sync-alt",
+	goTo: "fas fa-arrow-right",
+	search: "fas fa-search",
+	eye: "far fa-eye",
+	eyeSlash: "far fa-eye-slash",
+	upload: "fas fa-cloud-upload-alt",
+	add: "fas fa-plus",
+	clock: "far fa-clock"
+};
+
 export default {
 	name: "fontawesome-v5",
 	sunName: "FontAwesome",
@@ -11,7 +25,7 @@ export default {
 		RolesPage: "fas fa-user-friends",
 		RolesPermissions: "fas fa-user-shield",
 		DeletedElements: "fas fa-trash",
-		resetCache: "fas fa-sync-alt",
+		resetCache: global.refresh,
 		systemTools: "fas fa-tools",
 		ImagesCleaner: "fas fa-broom",
 		CypherSecrets: "fas fa-key"
@@ -20,25 +34,25 @@ export default {
 		addImages: "fas fa-image"
 	},
 	CategoriesAdmin: {
-		addCategoryBtn: "fas fa-folder-plus"
+		addCategoryBtn: global.add,
 	},
 	CategoryItem: {
 		up: "fas fa-chevron-up",
 		down: "fas fa-chevron-down",
-		eye: "fas fa-eye-slash",
+		eyeSlash: global.eyeSlash,
 		edit: "fas fa-wrench",
-		plus: "fas fa-folder-plus",
-		goTo: "fas fa-arrow-right",
+		plus: global.add,
+		goTo: global.goTo,
 		material: "far fa-file-alt"
 	},
 	CreateCategory: {
-		create: "fas fa-save",
-		cancel: "fas fa-times"
+		create: global.save,
+		cancel: global.cancel
 	},
 	EditCategory: {
-		save: "far fa-save",
-		cancel: "fas fa-times",
-		delete: "fas fa-trash-alt"
+		save: global.save,
+		cancel: global.cancel,
+		delete: global.delete
 	},
 	CategoryForm: {
 		icons: "fas fa-icons",
@@ -46,56 +60,58 @@ export default {
 		layout: "fas fa-table"
 	},
 	ConfigurationAdmin: {
-		search: "fa fa-search",
+		search: global.search,
 		question: "far fa-question-circle",
-		save: "fas fa-save",
-		reset: "fas fa-sync-alt",
-		cancel: "fas fa-times"
+		save: global.save,
+		reset: global.refresh,
+		cancel: global.cancel
 	},
 	CreateMenuItem: {
-		create: "fas fa-plus",
-		cancel: "fas fa-times"
+		create: global.add,
+		cancel: global.cancel
 	},
 	EditMenuItem: {
-		save: "fas fa-save",
-		cancel: "fas fa-times",
-		delete: "fas fa-trash-alt"
+		save: global.save,
+		cancel: global.cancel,
+		delete: global.delete
 	},
 	MenuAdminItem: {
 		up: "fa fa-angle-up", //"la la-arrow-up", // "la la-caret-up", "la la-angle-up",
 		down: "fa fa-angle-down", //"la la-arrow-up" // "la la-caret-down", "la la-angle-down"
-		eye: "fas fa-eye-slash",
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		blank: "fas fa-file",
 		edit: "fas fa-wrench",
-		add: "fas fa-plus",
-		goTo: "fas fa-arrow-right",
-		delete: "fas fa-trash-alt"
+		add: global.add,
+		goTo: global.goTo,
+		delete: global.delete
 	},
 	MenuItemsAdmin: {
-		add: "far fa-plus-square"
+		add: global.add,
 	},
 	MenuItemForm: {
 		link: "fas fa-link",
 		css: "fab fa-css3-alt",
 		icons: "fas fa-icons",
-		search: "fas fa-search"
+		search: global.search
 	},
 	ComponentsAdmin: {
-		add: "fas fa-plus",
+		add: global.add,
 		component: "fas fa-cube",
 		edit: "fas fa-wrench",
-		goTo: "fas fa-arrow-right"
+		goTo: global.goTo
 	},
 	ComponentForm: {
 		component: "fas fa-cube"
 	},
 	CreateComponent: {
-		add: "fas fa-save",
-		cancel: "fas fa-times"
+		add: global.save,
+		cancel: global.cancel
 	},
 	EditComponent: {
-		save: "fas fa-save",
-		cancel: "fas fa-times",
-		delete: "fas fa-trash"
+		save: global.save,
+		cancel: global.cancel,
+		delete: global.delete
 	},
 	SkinsAdmin: {
 		main: "fas fa-user-astronaut",
@@ -103,20 +119,20 @@ export default {
 		customCss: "fab fa-css3-alt"
 	},
 	MainSkinsAdmin: {
-		upload: "fas fa-cloud-upload-alt",
-		preview: "fas fa-search",
+		upload: global.upload,
+		preview: global.search,
 		current: "fas fa-check",
 		set: "fas fa-play",
 		info: "fas fa-info",
-		delete: "fas fa-trash"
+		delete: global.delete
 	},
 	PartialSkinsAdmin: {
-		upload: "fas fa-cloud-upload-alt",
-		delete: "fas fa-trash"
+		upload:global.upload,
+		delete: global.delete
 	},
 	CustomCssAdmin: {
-		save: "fas fa-save",
-		reset: "fas fa-sync-alt",
+		save: global.save,
+		reset: global.refresh,
 		clean: "fas fa-snowplow"
 	},
 	RolesPage: {
@@ -124,21 +140,32 @@ export default {
 	},
 	RoleUsers: {
 		user: "fas fa-user",
-		search: "fa fa-search"
+		search: global.search
 	},
 	ProfileRoles: {},
 	RolesPermissions: {
-		save: "fas fa-save",
-		reset: "fas fa-sync-alt"
+		save: global.save,
+		reset: global.refresh
 	},
 	DeletedElements: {
-		trashBtn: "fas fa-trash"
+		trashBtn: global.delete
 	},
 	ImagesCleaner: {
-		clean: "fas fa-trash",
-		refresh: "fas fa-sync-alt"
+		clean: global.delete,
+		refresh: global.refresh
 	},
 	CypherSecrets: {
 		key: "fas fa-key"
+	},
+
+	Material: {
+		delete: global.delete,
+		restore: "fas fa-trash-restore",
+		visits: global.eye,
+		publishDate: global.clock
+	},
+	Comment: {
+		delete: global.delete,
+		publishDate: global.clock
 	}
 };
