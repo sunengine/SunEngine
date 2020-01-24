@@ -1,15 +1,17 @@
 ﻿<template>
 	<q-page class="send-private-message page-padding">
-		<h1 class="page-title">
-			{{ $tl("titleStart") }}
-			<router-link
-				:to="{ name: 'User', params: { link: userLink } }"
-				class="link q-ml-sm"
-			>
-				<q-icon name="far fa-user" />
-				{{ userName }}
-			</router-link>
-		</h1>
+		<PageHeader>
+			<template slot="title">
+				{{ $tl("titleStart") }}
+				<router-link
+					:to="{ name: 'User', params: { link: userLink } }"
+					class="link q-ml-sm"
+				>
+					<!--	<q-icon name="far fa-user" />-->
+					{{ userName }}
+				</router-link>
+			</template>
+		</PageHeader>
 
 		<q-editor
 			class="send-private-message__editor q-mb-md"
@@ -21,7 +23,7 @@
 		<q-btn
 			class="send-btn q-mr-sm"
 			no-caps
-			icon="fas fa-arrow-circle-right"
+			:icon="$iconsSet.SendPrivateMessage.send"
 			@click="send"
 			:loading="loading"
 			:label="$tl('sendBtn')"
@@ -31,7 +33,7 @@
 		<q-btn
 			class="cancel-btn"
 			no-caps
-			icon="fas fa-times"
+			:icon="$iconsSet.SendPrivateMessage.cancel"
 			@click="$router.back()"
 			:label="$t('Global.btn.cancel')"
 		/>

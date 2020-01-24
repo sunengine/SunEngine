@@ -13,7 +13,9 @@ const global = {
 	user: "far fa-user",
 	send: "fas fa-arrow-circle-right",
 	comment: "far fa-comment",
-	category: "fas fa-folder"
+	category: "fas fa-folder",
+	key: "fas fa-key",
+	envelope: "far fa-envelope"
 };
 
 export default {
@@ -32,7 +34,7 @@ export default {
 		resetCache: global.refresh,
 		systemTools: "fas fa-tools",
 		ImagesCleaner: "fas fa-broom",
-		CypherSecrets: "fas fa-key"
+		CypherSecrets: global.key
 	},
 	SunEditor: {
 		addImages: "fas fa-image"
@@ -159,7 +161,7 @@ export default {
 		refresh: global.refresh
 	},
 	CypherSecrets: {
-		key: "fas fa-key"
+		key: global.key
 	},
 
 	Material: {
@@ -218,5 +220,52 @@ export default {
 	},
 	Thread: {
 		add: global.add
+	},
+	Profile: {
+		envelope: global.envelope,
+		menu: "fas fa-ellipsis-v",
+		roles: "fas fa-cog",
+		ban: "fas fa-ban",
+		unBan: "far fa-circle"
+	},
+	SendPrivateMessage: {
+		send: global.send,
+		cancel: global.cancel
+	},
+	LoaderWait: {
+		exclamation: "fas fa-exclamation-triangle"
+	},
+	ChangeEmail: {
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		key: global.key,
+		envelope: global.envelope,
+		save: global.save
+	},
+	ChangePassword: {
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		key: global.key,
+		save: global.save
+	},
+	ResetPassword: {
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		envelope: global.envelope,
+		key: global.key,
+		save: global.save,
+		input: "fas fa-hand-point-right"
+	},
+	ChangeEmailResult: {
+		success: "fas fa-check-circle",
+		failed: "fas fa-exclamation-circle"
+	},
+	ResetPasswordFailed: {
+		failed: "fas fa-exclamation-circle"
+	},
+	ResetPasswordSetNew: {
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		key: global.key
 	}
 };

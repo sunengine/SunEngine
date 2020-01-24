@@ -3,8 +3,10 @@
 		<header>
 			<div class="page-title-block">
 				<h1 class="page-title grow">
-					<q-icon v-if="icon" :name="icon" />
-					{{ showTitle }}
+					<slot name="title">
+						<q-icon v-if="icon" :name="icon" />
+						{{ showTitle }}
+					</slot>
 				</h1>
 				<slot> </slot>
 			</div>

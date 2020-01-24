@@ -14,11 +14,15 @@
 					:rules="rules.passwordOld"
 				>
 					<template v-slot:prepend>
-						<q-icon name="fas fa-key" />
+						<q-icon :name="$iconsSet.ChangePassword.key" />
 					</template>
 					<template v-slot:append>
 						<q-icon
-							:name="showPasswordOld ? 'far fa-eye' : 'far fa-eye-slash'"
+							:name="
+								showPasswordOld
+									? $iconsSet.ChangePassword.eye
+									: $iconsSet.ChangePassword.eyeSlash
+							"
 							class="cursor-pointer"
 							@click="showPasswordOld = !showPasswordOld"
 						/>
@@ -34,11 +38,15 @@
 					:rules="rules.password"
 				>
 					<template v-slot:prepend>
-						<q-icon name="fas fa-key" />
+						<q-icon :name="$iconsSet.ChangePassword.key" />
 					</template>
 					<template v-slot:append>
 						<q-icon
-							:name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
+							:name="
+								showPassword
+									? $iconsSet.ChangePassword.eye
+									: $iconsSet.ChangePassword.eyeSlash
+							"
 							class="cursor-pointer"
 							@click="showPassword = !showPassword"
 						/>
@@ -54,11 +62,15 @@
 					:rules="rules.password2"
 				>
 					<template v-slot:prepend>
-						<q-icon name="fas fa-key" />
+						<q-icon :name="$iconsSet.ChangePassword.key" />
 					</template>
 					<template v-slot:append>
 						<q-icon
-							:name="showPassword2 ? 'far fa-eye' : 'far fa-eye-slash'"
+							:name="
+								showPassword2
+									? $iconsSet.ChangePassword.eye
+									: $iconsSet.ChangePassword.eyeSlash
+							"
 							class="cursor-pointer"
 							@click="showPassword2 = !showPassword2"
 						/>
@@ -68,7 +80,7 @@
 				<q-btn
 					no-caps
 					class="send-btn q-mt-lg full-width"
-					icon="far fa-save"
+					:icon="$iconsSet.ChangePassword.save"
 					:label="$tl('changeBtn')"
 					@click="changePassword"
 					:loading="submitting"
@@ -111,7 +123,7 @@ function createRules() {
 export default {
 	name: "ChangePassword",
 	mixins: [Page],
-	data: function() {
+	data() {
 		return {
 			passwordOld: "",
 			password: "",

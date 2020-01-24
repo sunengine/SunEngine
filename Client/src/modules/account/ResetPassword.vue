@@ -10,7 +10,7 @@
 				:rules="rules.email"
 			>
 				<template v-slot:prepend>
-					<q-icon name="fas fa-envelope" />
+					<q-icon :name="$iconsSet.ResetPassword.envelope" />
 				</template>
 			</q-input>
 
@@ -21,7 +21,7 @@
 				<img
 					class="block"
 					v-else-if="token"
-					:src="$apiPath('/Captcha/CaptchaImage?token=' + token)"
+					:src="$apiPath($Api.Captcha.CaptchaImage + '?token=' + token)"
 				/>
 
 				<q-btn
@@ -30,7 +30,7 @@
 					@click="GetToken"
 					size="sm"
 					no-caps
-					icon="fas fa-sync"
+					:icon="$iconsSet.ResetPassword.refresh"
 					:label="$t('Captcha.newMessageBtn')"
 				/>
 			</div>
@@ -43,7 +43,7 @@
 				:rules="rules.captchaText"
 			>
 				<template v-slot:prepend>
-					<q-icon name="fas fa-hand-point-right" />
+					<q-icon :name="$iconsSet.ResetPassword.input" />
 				</template>
 			</q-input>
 
@@ -62,7 +62,7 @@
 			class="reset-password__banner-success bg-positive text-white"
 		>
 			<template v-slot:avatar>
-				<q-icon name="email" size="2em" />
+				<q-icon :name="$iconsSet.ResetPassword.envelope" size="2em" />
 			</template>
 			{{ $tl("success") }}
 		</q-banner>
@@ -85,7 +85,7 @@ function createRules() {
 export default {
 	name: "ResetPassword",
 	mixins: [Page],
-	data: function() {
+	data() {
 		return {
 			email: "",
 			submitting: false,

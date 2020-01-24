@@ -5,7 +5,11 @@
 			{{ $tl("loading") }}
 		</template>
 		<template v-else>
-			<q-icon name="fas fa-exclamation-triangle" size="20px" class="q-mr-xs" />
+			<q-icon
+				:name="$iconsSet.SendPrivateMessage.exclamation"
+				size="20px"
+				class="q-mr-xs"
+			/>
 			{{ $tl("loadError") }}
 		</template>
 	</div>

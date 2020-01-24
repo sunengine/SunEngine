@@ -15,11 +15,11 @@
 					:rules="rules.password"
 				>
 					<template v-slot:prepend>
-						<q-icon name="fas fa-key" />
+						<q-icon 	:name="$iconsSet.ChangeEmail.key" />
 					</template>
 					<template v-slot:append>
 						<q-icon
-							:name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
+							:name="showPassword ? $iconsSet.ChangeEmail.eye : $iconsSet.ChangeEmail.eyeSlash"
 							class="cursor-pointer"
 							@click="showPassword = !showPassword"
 						/>
@@ -35,14 +35,14 @@
 					:rules="rules.email"
 				>
 					<template v-slot:prepend>
-						<q-icon name="fas fa-envelope" />
+						<q-icon 	:name="$iconsSet.ChangeEmail.envelope" />
 					</template>
 				</q-input>
 
 				<q-btn
 					no-caps
 					class="send-btn q-mt-lg full-width"
-					icon="far fa-save"
+					:icon="$iconsSet.ChangeEmail.save"
 					:label="$tl('saveBtn')"
 					@click="save"
 					:loading="submitting"
@@ -53,7 +53,7 @@
 
 			<q-banner v-else class="change-email__success-notify bg-positive text-white">
 				<template v-slot:avatar>
-					<q-icon name="far fa-envelope" size="2em" />
+					<q-icon :name="$iconsSet.ChangeEmail.envelope"  size="2em" />
 				</template>
 				{{ $tl("successNotify") }}
 			</q-banner>
@@ -77,7 +77,7 @@ function createRules() {
 export default {
 	name: "ChangeEmail",
 	mixins: [Page],
-	data: function() {
+	data() {
 		return {
 			email: "",
 			password: "",

@@ -13,7 +13,9 @@ const global = {
 	user: "la la-user",
 	send: "la la-arrow-circle-right",
 	comment: "la la-comment-alt",
-	category: "la la-book"
+	category: "la la-book",
+	key: "la la-key",
+	envelope: "la la-envelope"
 };
 
 export default {
@@ -218,5 +220,53 @@ export default {
 	},
 	Thread: {
 		add: global.add
+	},
+	Profile: {
+		envelope: global.envelope,
+		menu: "la la-ellipsis-v",
+		visits: global.eye,
+		roles: "la la-cog",
+		ban: "la la-ban",
+		unBan: "la la-circle"
+	},
+	SendPrivateMessage: {
+		send: global.send,
+		cancel: global.cancel
+	},
+	LoaderWait: {
+		exclamation: "la la-exclamation-triangle"
+	},
+	ChangeEmail: {
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		key: global.key,
+		envelope: global.envelope,
+		save: global.save
+	},
+	ChangePassword: {
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		key: global.key,
+		save: global.save
+	},
+	ResetPassword: {
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		envelope: global.envelope,
+		key: global.key,
+		save: global.save,
+		input: "la la-hand-point-right"
+	},
+	ChangeEmailResult: {
+		success: "la la-check-circle",
+		failed: "la la-exclamation-circle"
+	},
+	ResetPasswordFailed: {
+		failed: "la la-exclamation-circle",
+	},
+	ResetPasswordSetNew: {
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		key: global.key
 	}
 };

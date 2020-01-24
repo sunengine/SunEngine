@@ -23,7 +23,7 @@
 								query: { userId: user.id, userName: user.name, userLink: user.link }
 							}"
 							dense
-							icon="far fa-envelope"
+							:icon="$iconsSet.Profile.envelope"
 							:label="$tl('sendPrivateMessageBtn')"
 						/>
 						<q-btn
@@ -31,7 +31,7 @@
 							class="profile__bun-btn shadow-1 q-ml-sm"
 							dense
 							v-if="!user.noBannable"
-							icon="fas fa-ellipsis-v"
+							:icon="$iconsSet.Profile.menu"
 						>
 							<q-menu>
 								<q-btn
@@ -40,7 +40,7 @@
 									color="negative"
 									v-if="!user.iBannedHim"
 									@click="ban"
-									icon="fas fa-ban"
+									:icon="$iconsSet.Profile.ban"
 									:label="$tl('banBtn')"
 								/>
 								<q-btn
@@ -49,7 +49,7 @@
 									color="positive"
 									v-else
 									@click="unBan"
-									icon="fas fa-smile"
+									:icon="$iconsSet.Profile.unBan"
 									:label="$tl('unBanBtn')"
 								/>
 							</q-menu>
@@ -74,7 +74,7 @@
 							{{ $tl("registered") }}: {{ $formatDateOnly(user.registeredDate) }}
 						</div>
 						<div class="profile__visits">
-							<q-icon name="far fa-eye" class="q-mr-sm" />
+							<q-icon 	:name="$iconsSet.Profile.visits" class="q-mr-sm" />
 							{{ user.profileVisitsCount }}
 						</div>
 					</div>
@@ -85,7 +85,7 @@
 					class="profile__expansion-item-roles overflow-hidden"
 					v-if="canEditRoles"
 					@show="showRolesAdmin"
-					icon="fas fa-cog"
+					:icon="$iconsSet.Profile.roles"
 					:label="$tl('roles')"
 					header-style="background-color: #e4e4e4"
 				>

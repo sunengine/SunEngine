@@ -10,11 +10,15 @@
 				:rules="rules.password"
 			>
 				<template v-slot:prepend>
-					<q-icon name="fas fa-key" />
+					<q-icon :name="$iconsSet.ResetPasswordSetNew.key" />
 				</template>
 				<template v-slot:append>
 					<q-icon
-						:name="showPassword ? 'visibility' : 'visibility_off'"
+						:name="
+							showPassword
+								? $iconsSet.ResetPasswordSetNew.eye
+								: $iconsSet.ResetPasswordSetNew.eyeSlash
+						"
 						class="cursor-pointer"
 						@click="showPassword = !showPassword"
 					/>
@@ -30,11 +34,15 @@
 				:rules="rules.password2"
 			>
 				<template v-slot:prepend>
-					<q-icon name="fas fa-key" />
+					<q-icon :name="$iconsSet.ResetPasswordSetNew.key" />
 				</template>
 				<template v-slot:append>
 					<q-icon
-						:name="showPassword2 ? 'visibility' : 'visibility_off'"
+						:name="
+							showPassword2
+								? $iconsSet.ResetPasswordSetNew.eye
+								: $iconsSet.ResetPasswordSetNew.eyeSlash
+						"
 						class="cursor-pointer"
 						@click="showPassword2 = !showPassword2"
 					/>
@@ -42,8 +50,7 @@
 			</q-input>
 
 			<q-btn
-				class="q-mt-md full-width"
-				color="send"
+				class="q-mt-md send-btn full-width"
 				:label="$tl('saveBtn')"
 				@click="changePassword"
 				:loading="submitting"
@@ -57,7 +64,7 @@
 			class="reset-password-set-new__banner-success bg-positive text-white"
 		>
 			<template v-slot:avatar>
-				<q-icon name="fas fa-key" size="2em" />
+				<q-icon :name="$iconsSet.ResetPasswordSetNew.key" size="2em" />
 			</template>
 			{{ $tl("successMessage") }}
 			<router-link :to="{ name: 'Login' }">{{ $tl("enter") }}</router-link>

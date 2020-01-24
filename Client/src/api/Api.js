@@ -51,7 +51,8 @@ export default {
 		CheckUserNameInDb: "/Auth/CheckUserNameInDb"
 	},
 	Captcha: {
-		GetCaptchaKey: "/Captcha/GetCaptchaKey"
+		GetCaptchaKey: "/Captcha/GetCaptchaKey",
+		CaptchaImage: "/Captcha/CaptchaImage"
 	},
 	Articles: {
 		GetArticles: "/Articles/GetArticles",

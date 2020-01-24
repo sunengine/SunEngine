@@ -5,7 +5,7 @@
 			class="change-email-result__success-banner bg-positive text-white"
 		>
 			<template v-slot:avatar>
-				<q-icon name="fas fa-check-circle" size="2em" />
+				<q-icon :name="$iconsSet.ChangeEmailResult.success" size="2em" />
 			</template>
 			{{ $tl("success") }}
 		</q-banner>
@@ -14,7 +14,7 @@
 			class="change-email-result__error-banner bg-negative text-white"
 		>
 			<template v-slot:avatar>
-				<q-icon name="fas fa-exclamation-circle" size="2em" />
+				<q-icon :name="$iconsSet.ChangeEmailResult.failed" size="2em" />
 			</template>
 			{{ $tl("error") }}
 		</q-banner>
