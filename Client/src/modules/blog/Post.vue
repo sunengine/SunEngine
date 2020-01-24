@@ -17,13 +17,14 @@
 					<q-item-section>
 						<div class="post__title material-header">
 							<q-icon
+								:name="$iconsSet.Post.deleted"
 								name="fas fa-trash"
 								color="maroon"
 								class="q-mr-sm"
 								v-if="post.deletedDate"
 							/>
 							<q-icon
-								name="far fa-eye-slash"
+								:name="$iconsSet.Post.hidden"
 								v-else-if="post.isHidden"
 								class="q-mr-sm"
 							/>
@@ -66,9 +67,12 @@
 						:class="{ 'post__read-more-link': true, 'page-padding-left': true }"
 						:to="to"
 					>
-						<span>
-							<q-icon name="far fa-file-alt" size="16px" left />{{ $tl("readMore") }}
-						</span>
+						<q-item-section avatar class="post__footer-btn-icon">
+							<q-icon :name="$iconsSet.Post.readMore" size="20px" />
+						</q-item-section>
+						<q-item-section>
+							{{ $tl("readMore") }}
+						</q-item-section>
 					</q-item>
 
 					<q-item
@@ -79,10 +83,12 @@
 						}"
 						:to="toComments"
 					>
-						<span :class="[{ 'text-grey-6': !post.commentsCount }]">
-							<q-icon name="far fa-comment" left />{{ post.commentsCount }}
-							{{ $tl("commentsCount") }}
-						</span>
+						<q-item-section class="post__footer-btn-icon" avatar>
+							<q-icon :name="$iconsSet.Post.comment" size="20px" />
+						</q-item-section>
+						<q-item-section :class="[{ 'text-grey-6': !post.commentsCount }]">
+							{{ post.commentsCount }} {{ $tl("commentsCount") }}
+						</q-item-section>
 					</q-item>
 				</div>
 			</footer>
@@ -137,6 +143,10 @@ export default {
 }
 
 .post__avatar {
+}
+
+.post__footer-btn-icon {
+	min-width: unset;
 }
 
 .post__title {

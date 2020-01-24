@@ -9,7 +9,11 @@
 			<q-item-section class="activity__icon" avatar>
 				<q-icon
 					color="grey-6"
-					:name="activity.commentId ? 'far fa-comment' : 'far fa-file-alt'"
+					:name="
+						activity.commentId
+							? $iconsSet.Activity.comment
+							: $iconsSet.Activity.material
+					"
 				/>
 			</q-item-section>
 			<q-item-section>
@@ -30,11 +34,11 @@
 						{{ activity.authorName }}
 					</span>
 					<span>
-						<q-icon name="far fa-folder" />
+						<q-icon :name="$iconsSet.Activity.category" />
 						{{ category.title }}
 					</span>
 					<span>
-						<q-icon name="far fa-clock" />
+						<q-icon :name="$iconsSet.Activity.publishDate" />
 						<time :datetime="$formatToSemTime(activity.publishDate)">
 							{{ $formatDate(activity.publishDate) }}
 						</time>

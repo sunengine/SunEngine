@@ -11,7 +11,9 @@ const global = {
 	add: "fas fa-plus",
 	clock: "far fa-clock",
 	user: "far fa-user",
-	send: "fas fa-arrow-circle-right"
+	send: "fas fa-arrow-circle-right",
+	comment: "far fa-comment",
+	category: "fas fa-folder"
 };
 
 export default {
@@ -36,7 +38,7 @@ export default {
 		addImages: "fas fa-image"
 	},
 	CategoriesAdmin: {
-		addCategoryBtn: global.add,
+		addCategoryBtn: global.add
 	},
 	CategoryItem: {
 		up: "fas fa-chevron-up",
@@ -58,7 +60,7 @@ export default {
 	},
 	CategoryForm: {
 		icons: "fas fa-icons",
-		category: "fas fa-folder",
+		category: global.category,
 		layout: "fas fa-table"
 	},
 	ConfigurationAdmin: {
@@ -89,7 +91,7 @@ export default {
 		delete: global.delete
 	},
 	MenuItemsAdmin: {
-		add: global.add,
+		add: global.add
 	},
 	MenuItemForm: {
 		link: "fas fa-link",
@@ -129,7 +131,7 @@ export default {
 		delete: global.delete
 	},
 	PartialSkinsAdmin: {
-		upload:global.upload,
+		upload: global.upload,
 		delete: global.delete
 	},
 	CustomCssAdmin: {
@@ -173,7 +175,7 @@ export default {
 	Article: {
 		delete: global.delete,
 		publishDate: global.clock,
-		comments: "far fa-comment",
+		comments: global.comment,
 		user: global.user
 	},
 	ArticlesPage: {
@@ -189,4 +191,32 @@ export default {
 		save: global.save,
 		cancel: global.cancel
 	},
+	Activity: {
+		comment: global.comment,
+		material: "far fa-file-alt",
+		publishDate: global.clock,
+		category: global.category
+	},
+	Post: {
+		deleted: global.delete,
+		hidden: global.eyeSlash,
+		readMore: "far fa-file-alt",
+		comment: global.comment
+	},
+	BlogMultiCatPage: {
+		add: global.add
+	},
+	BlogPage: {
+		add: global.add
+	},
+	Topic: {
+		deleted: global.delete,
+		hidden: global.eyeSlash,
+		comment: global.comment,
+		category: global.category,
+		publishDate: global.clock
+	},
+	Thread: {
+		add: global.add
+	}
 };

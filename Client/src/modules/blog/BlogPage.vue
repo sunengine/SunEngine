@@ -15,7 +15,7 @@
 				"
 				:label="$tl('newPostBtn')"
 				v-if="posts && canAddArticle"
-				icon="fas fa-plus"
+			:icon="$iconsSet.BlogPage.add"
 			/>
 		</PageHeader>
 

@@ -18,14 +18,14 @@
 				<q-item-section>
 					<q-item-label class="material-header">
 						<q-icon
-							name="fas fa-trash"
+							:name="$iconsSet.Topic.deleted"
 							color="maroon"
 							class="q-mr-xs"
 							v-if="topic.deletedDate"
 						/>
 						<q-icon
-							name="far fa-eye-slash"
-							v-else-if="topic.isHidden"
+							:name="$iconsSet.Topic.hidden"
+							v-else-if="topic.hidden"
 							class="q-mr-xs"
 						/>
 						{{ topic.title }}
@@ -46,17 +46,17 @@
 					<q-item-label class="material-header-info-block" caption>
 						<span>{{ topic.authorName }}</span>
 						<span v-if="topic.categoryTitle">
-							<q-icon name="far fa-folder" />
+							<q-icon :name="$iconsSet.Topic.category" />
 							{{ topic.categoryTitle }}
 						</span>
 						<span>
-							<q-icon name="far fa-clock" />
+							<q-icon :name="$iconsSet.Topic.publishDate" />
 							<time :datetime="$formatToSemTime(topic.publishDate)">{{
 								$formatDate(topic.publishDate)
 							}}</time>
 						</span>
 						<span v-if="topic.commentsCount > 0">
-							<q-icon name="far fa-comment" />
+							<q-icon :name="$iconsSet.Topic.comment" />
 							{{ topic.commentsCount }}
 						</span>
 					</q-item-label>
@@ -79,7 +79,7 @@
 						{{ topic.lastCommentAuthorName }}
 					</q-item-label>
 					<q-item-label caption>
-						<q-icon name="far fa-clock" />
+						<q-icon :name="$iconsSet.Topic.publishDate" />
 						{{ $formatDate(topic.lastCommentPublishDate) }}
 					</q-item-label>
 				</q-item-section>

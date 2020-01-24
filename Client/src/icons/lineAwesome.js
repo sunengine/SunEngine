@@ -11,7 +11,9 @@ const global = {
 	add: "la la-plus",
 	clock: "la la-clock",
 	user: "la la-user",
-	send: "la la-arrow-circle-right"
+	send: "la la-arrow-circle-right",
+	comment: "la la-comment-alt",
+	category: "la la-book"
 };
 
 export default {
@@ -173,7 +175,7 @@ export default {
 	Article: {
 		delete: global.delete,
 		publishDate: global.clock,
-		comments: "la la-comment",
+		comments: global.comment,
 		user: global.user
 	},
 	ArticlesPage: {
@@ -189,4 +191,32 @@ export default {
 		save: global.save,
 		cancel: global.cancel
 	},
+	Activity: {
+		comment: global.comment,
+		material: "la la-file-alt",
+		publishDate: global.clock,
+		category: global.category
+	},
+	Post: {
+		deleted: global.delete,
+		hidden: global.eyeSlash,
+		readMore: "la la-file-alt",
+		comment: global.comment
+	},
+	BlogMultiCatPage: {
+		add: global.add
+	},
+	BlogPage: {
+		add: global.add
+	},
+	Topic: {
+		deleted: global.delete,
+		hidden: global.eyeSlash,
+		comment: global.comment,
+		category: global.category,
+		publishDate: global.clock
+	},
+	Thread: {
+		add: global.add
+	}
 };

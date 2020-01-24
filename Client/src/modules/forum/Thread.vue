@@ -15,7 +15,7 @@
 				"
 				:label="$tl('newTopicBtn')"
 				v-if="canAddTopic"
-				icon="fas fa-plus"
+				:icon="$iconsSet.Thread.add"
 			/>
 		</PageHeader>
 

@@ -11,7 +11,7 @@
 				no-caps
 				class="post-btn"
 				:label="addButtonLabel"
-				icon="fas fa-plus"
+				:icon="$iconsSet.BlogPage.add"
 				@click="
 					$router.push({
 						name: 'CreateMaterial',
