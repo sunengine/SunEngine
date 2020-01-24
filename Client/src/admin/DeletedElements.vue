@@ -8,17 +8,23 @@
 			v-model="$store.state.admin.showDeletedElements"
 		>
 			{{ $tl("showDeleted") }}
-			<q-icon name="fas fa-trash" class="q-ml-sm" color="grey-6" />
 		</q-checkbox>
 
-		<div class="deleted-elements__info-box">{{ $tl("info1") }}</div>
-		<div class="deleted-elements__info-box">{{ $tl("info2") }}</div>
-		<div class="deleted-elements__info-box">{{ $tl("info3") }}</div>
+		<div class="deleted-elements__info-box">
+			{{ $tl("info1") }}
+			<br />
+			<br />
+			{{ $tl("info2") }}
+			<br />
+			<br />
+			{{ $tl("info3") }}
+		</div>
 
 		<q-btn
+			class="q-mt-md"
 			color="primary"
 			no-caps
-			icon="fas fa-trash"
+			:icon="$iconsSet.DeletedElements.trashBtn"
 			:label="$tl('btnDeleteAllMarkedComments')"
 			:loading="loading"
 			@click="deleteAllMarkedComments()"

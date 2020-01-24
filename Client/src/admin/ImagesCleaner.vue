@@ -9,7 +9,7 @@
 		<div class="images-cleaner__btn-block q-gutter-md flex q-mb-xl">
 			<q-btn
 				v-if="images"
-				icon="fas fa-trash"
+				:icon="$iconsSet.ImagesCleaner.clean"
 				class="send-btn"
 				:loading="loading"
 				@click="clear()"
@@ -25,7 +25,7 @@
 				no-caps
 				class="refresh-btn q-ml"
 				color="info"
-				icon="fas fa-sync-alt"
+				:icon="$iconsSet.ImagesCleaner.refresh"
 				@click="reloadImages()"
 				:label="$tl('refreshBtn')"
 			/>

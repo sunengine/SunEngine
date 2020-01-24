@@ -437,7 +437,7 @@ export default {
 	},
 	DeletedElements: {
 		title: "Deleted elements",
-		showDeleted: "Show deleted elements",
+		showDeleted: "Show deleted elements on pages",
 		info1: "If checked, deleted materials will shows on any single category.",
 		info2:
 			"If append '?deleted=1' to any single category URL deleted material will shows.",

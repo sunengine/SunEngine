@@ -132,5 +132,15 @@ export default {
 	RolesPermissions: {
 		save: "las la-save",
 		reset: "las la-sync-alt",
+	},
+	DeletedElements: {
+		trashBtn: "las la-trash"
+	},
+	ImagesCleaner: {
+		clean: "las la-trash",
+		refresh:  "las la-sync-alt",
+	},
+	CypherSecrets: {
+		key: "las la-key"
 	}
 };

@@ -6,7 +6,7 @@
 			<q-btn
 				class="cypher-secrets__short-jwt"
 				no-caps
-				icon="fas fa-key"
+				:icon="$iconsSet.CypherSecrets.key"
 				@click="shortJwt"
 				color="warning"
 				label="ShortJwt"
@@ -14,7 +14,7 @@
 			<q-btn
 				class="cypher-secrets__short-long-2jwt"
 				no-caps
-				icon="fas fa-key"
+				:icon="$iconsSet.CypherSecrets.key"
 				@click="long2Jwt"
 				color="warning"
 				label="Long2Jwt"
@@ -22,7 +22,7 @@
 			<q-btn
 				class="cypher-secrets__short-email-change"
 				no-caps
-				icon="fas fa-key"
+				:icon="$iconsSet.CypherSecrets.key"
 				@click="emailChange"
 				color="warning"
 				label="EmailChange"

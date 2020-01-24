@@ -130,5 +130,15 @@ export default {
 	RolesPermissions: {
 		save: "fas fa-save",
 		reset: "fas fa-sync-alt"
+	},
+	DeletedElements: {
+		trashBtn: "fas fa-trash"
+	},
+	ImagesCleaner: {
+		clean: "fas fa-trash",
+		refresh: "fas fa-sync-alt"
+	},
+	CypherSecrets: {
+		key: "fas fa-key"
 	}
 };
