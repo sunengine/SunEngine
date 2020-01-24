@@ -1,13 +1,13 @@
 <template>
 	<q-page class="error404 flex column flex-center">
 		<p>
-			<img src="/statics/sad.svg" style="width:30vw;max-width:150px;" />
+			<img class="error404__sad-img" src="/statics/sad.svg" />
 		</p>
 		<p class="text-faded">
 			{{ $tl("info") }}
 			<strong>(404)</strong>
 		</p>
-		<q-btn color="secondary" style="width:200px;" @click="$router.back()">
+		<q-btn color="secondary" class="error404__back-btn" @click="$router.back()">
 			{{ $tl("goBackBtn") }}
 		</q-btn>
 	</q-page>
@@ -24,3 +24,13 @@ export default {
 	}
 };
 </script>
+
+<style lang="scss">
+.error404__back-btn {
+	width: 200px;
+}
+.error404__sad-img {
+	width: 30vw;
+	max-width: 150px;
+}
+</style>
