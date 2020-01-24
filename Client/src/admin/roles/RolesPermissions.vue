@@ -15,7 +15,7 @@
 				<q-btn
 					no-caps
 					class="send-btn"
-					icon="far fa-save"
+				:icon="$iconsSet.RolesPermissions.save"
 					@click="send"
 					:loading="loading"
 					:label="$tl('saveToServerBtn')"
@@ -27,7 +27,7 @@
 					no-caps
 					class="refresh-btn"
 					color="info"
-					icon="fas fa-sync-alt"
+					:icon="$iconsSet.RolesPermissions.reset"
 					@click="loadDataRefresh"
 					:label="$tl('getFromServer')"
 				/>

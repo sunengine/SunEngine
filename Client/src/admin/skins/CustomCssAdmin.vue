@@ -3,7 +3,7 @@
 		<div class="flex q-gutter-md">
 			<q-btn
 				no-caps
-				icon="fas fa-save"
+				:icon="$iconsSet.CustomCssAdmin.save"
 				@click="updateCustomCss"
 				class="send-btn"
 				:label="$tl('saveBtn')"
@@ -11,7 +11,7 @@
 			<q-btn
 				@click="clearCss"
 				no-caps
-				icon="fas fa-snowplow"
+				:icon="$iconsSet.CustomCssAdmin.clean"
 				class="clear-btn"
 				color="warning"
 				:label="$tl('clearBtn')"
@@ -19,7 +19,7 @@
 			<q-space />
 			<q-btn
 				no-caps
-				icon="fas fa-sync-alt"
+				:icon="$iconsSet.CustomCssAdmin.reset"
 				@click="reloadData"
 				class="refresh-btn"
 				:label="$tl('refreshBtn')"

@@ -1,7 +1,7 @@
 ﻿<template>
 	<div class="role-users">
 		<div class="role-users__header">
-			<q-icon name="fas fa-user" class="q-mr-sm" />
+			<q-icon  :name="$iconsSet.RoleUsers.user" class="q-mr-sm" />
 			{{ $tl("users") }}
 		</div>
 
@@ -14,7 +14,7 @@
 			clearable
 		>
 			<template v-slot:prepend>
-				<q-icon name="fas fa-search" size="0.75em" />
+				<q-icon  :name="$iconsSet.RoleUsers.search" size="0.75em" />
 			</template>
 		</q-input>
 

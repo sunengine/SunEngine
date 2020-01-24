@@ -471,7 +471,7 @@ export default {
 		description: "Description: ",
 		link: "Link to source.",
 		version: "Version: ",
-		upload: "Upload skin",
+		upload: "Upload main skin",
 		uploadSuccessNotify: "Skin uploaded successfully",
 		deleteSuccessNotify: "Skin deleted successfully",
 		set: "Set",

@@ -3,7 +3,7 @@
 		<div class="flex flex-center">
 			<q-btn
 				no-caps
-				icon="fas fa-cloud-upload-alt"
+				:icon="$iconsSet.PartialSkinsAdmin.upload"
 				@click="showUploadDialog"
 				class="skins-admin__post-btn post-btn q-mb-lg"
 				:loading="loading"
@@ -32,33 +32,16 @@
 				>
 					<q-td>{{ pSkin.name }}</q-td>
 					<q-td>
-						<q-icon
-							color="positive"
-							v-if="pSkin.current"
-							size="24px"
-							name="fas fa-check-circle"
-						/>
+					 <q-toggle v-model="pSkin.current" @input="(value) => enablePartialSkin(value,pSkin)" />
 					</q-td>
 					<q-td style="">{{ pSkin.description }}</q-td>
-					<q-td>
-						<q-btn
-							no-caps
-							class="partial-skins-admin__enable-btn"
-							flat
-							dense
-							@click="enablePartialSkin(pSkin)"
-							:icon="!pSkin.current ? 'fa fa-plus' : 'fa fa-minus'"
-							:color="!pSkin.current ? 'positive' : 'negative'"
-							:label="pSkin.current ? $tl('offBtn') : $tl('onBtn')"
-						/>
-					</q-td>
 					<q-td>
 						<q-btn
 							:disable="pSkin.current"
 							flat
 							dense
 							@click="deletePartialSkin(pSkin.name)"
-							icon="fas fa-trash-alt"
+							:icon="$iconsSet.PartialSkinsAdmin.delete"
 						/>
 					</q-td>
 				</q-tr>
@@ -125,12 +108,12 @@ export default {
 					});
 				});
 		},
-		enablePartialSkin(skin) {
+		enablePartialSkin(value,skin) {
 			this.$request(this.$AdminApi.SkinsAdmin.EnablePartialSkin, {
 				name: skin.name,
-				enable: !skin.current
+				enable: value
 			}).then(_ => {
-				this.$successNotify();
+				//this.$successNotify();
 				this.getAllPartialSkins();
 			});
 		},

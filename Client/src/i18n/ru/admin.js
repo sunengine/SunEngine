@@ -510,7 +510,7 @@ export default {
 		description: "Описание: ",
 		link: "Ссылка на источник.",
 		version: "Версия: ",
-		upload: "Загрузить тему",
+		upload: "Загрузить основную тему",
 		uploadSuccessNotify: "Тема успешно загружена",
 		deleteSuccessNotify: "Тема успешно удалён",
 		set: "Установить",

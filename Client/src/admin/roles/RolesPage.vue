@@ -6,7 +6,7 @@
 			<div class="col-xs-12 col-sm-4">
 				<template v-if="roles">
 					<div class="roles-page__header q-mb-sm">
-						<q-icon name="fas fa-user-friends" class="q-mr-sm" />
+						<q-icon :name="$iconsSet.RolesPage.users" class="q-mr-sm" />
 						{{ $tl("roles") }}
 					</div>
 

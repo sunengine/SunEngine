@@ -6,7 +6,7 @@ export default {
 		ConfigurationAdmin: "fas fa-sliders-h",
 		MenuItemsAdmin: "fas fa-bars",
 		CategoriesAdmin: "fas fa-folder",
-		ComponentsAdmin:  "fas fa-shapes",
+		ComponentsAdmin: "fas fa-shapes",
 		SkinsAdmin: "fas fa-palette",
 		RolesPage: "fas fa-user-friends",
 		RolesPermissions: "fas fa-user-shield",
@@ -43,7 +43,7 @@ export default {
 	CategoryForm: {
 		icons: "fas fa-icons",
 		category: "fas fa-folder",
-		layout: "fas fa-table",
+		layout: "fas fa-table"
 	},
 	ConfigurationAdmin: {
 		search: "fa fa-search",
@@ -59,7 +59,7 @@ export default {
 	EditMenuItem: {
 		save: "fas fa-save",
 		cancel: "fas fa-times",
-		delete:  "fas fa-trash-alt"
+		delete: "fas fa-trash-alt"
 	},
 	MenuAdminItem: {
 		up: "fa fa-angle-up", //"la la-arrow-up", // "la la-caret-up", "la la-angle-up",
@@ -68,7 +68,7 @@ export default {
 		edit: "fas fa-wrench",
 		add: "fas fa-plus",
 		goTo: "fas fa-arrow-right",
-		delete:  "fas fa-trash-alt",
+		delete: "fas fa-trash-alt"
 	},
 	MenuItemsAdmin: {
 		add: "far fa-plus-square"
@@ -77,7 +77,7 @@ export default {
 		link: "fas fa-link",
 		css: "fab fa-css3-alt",
 		icons: "fas fa-icons",
-		search: "fas fa-search",
+		search: "fas fa-search"
 	},
 	ComponentsAdmin: {
 		add: "fas fa-plus",
@@ -109,5 +109,26 @@ export default {
 		set: "fas fa-play",
 		info: "fas fa-info",
 		delete: "fas fa-trash"
+	},
+	PartialSkinsAdmin: {
+		upload: "fas fa-cloud-upload-alt",
+		delete: "fas fa-trash"
+	},
+	CustomCssAdmin: {
+		save: "fas fa-save",
+		reset: "fas fa-sync-alt",
+		clean: "fas fa-snowplow"
+	},
+	RolesPage: {
+		users: "fas fa-user-friends"
+	},
+	RoleUsers: {
+		user: "fas fa-user",
+		search: "fa fa-search"
+	},
+	ProfileRoles: {},
+	RolesPermissions: {
+		save: "fas fa-save",
+		reset: "fas fa-sync-alt"
 	}
 };

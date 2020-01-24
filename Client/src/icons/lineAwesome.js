@@ -105,11 +105,32 @@ export default {
 		customCss: "lab la-css3-alt"
 	},
 	MainSkinsAdmin: {
-		upload: "las la-cloud-upload-alt",
+		upload: "las la-upload",
 		preview: "las la-search",
 		current: "las la-check",
 		set: "las la-play",
 		info: "las la-info",
 		delete: "las la-trash"
+	},
+	PartialSkinsAdmin: {
+		upload: "las la-upload",
+		delete: "las la-trash"
+	},
+	CustomCssAdmin: {
+		save: "las la-save",
+		reset: "las la-sync-alt",
+		clean: "las la-broom"
+	},
+	RolesPage: {
+		users: "las la-user-friends"
+	},
+	RoleUsers: {
+		user: "las la-user",
+		search: "las la-search",
+	},
+	ProfileRoles: {},
+	RolesPermissions: {
+		save: "las la-save",
+		reset: "las la-sync-alt",
 	}
 };
