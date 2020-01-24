@@ -6,7 +6,7 @@
 
 		<div class="create-component__btn-block q-mt-lg q-gutter-md">
 			<q-btn
-				icon="fas fa-plus"
+				:icon="$iconsSet.CreateComponent.add"
 				class="send-btn"
 				no-caps
 				:loading="loading"
@@ -18,7 +18,7 @@
 			</q-btn>
 			<q-btn
 				no-caps
-				icon="fas fa-times"
+				:icon="$iconsSet.CreateComponent.cancel"
 				class="cancel-btn"
 				@click="$router.back()"
 				:label="$tl('cancelBtn')"
@@ -48,9 +48,9 @@ export default {
 		};
 	},
 	computed: {
-       breadcrumbsCategory() {
-           return this.$getBreadcrumbs("ComponentsAdmin");
-       }
+		breadcrumbsCategory() {
+			return this.$getBreadcrumbs("ComponentsAdmin");
+		}
 	},
 	methods: {
 		save() {

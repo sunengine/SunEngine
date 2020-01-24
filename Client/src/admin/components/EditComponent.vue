@@ -14,7 +14,7 @@
 
 		<div class="q-gutter-md">
 			<q-btn
-				icon="far fa-save"
+				:icon="$iconsSet.EditComponent.save"
 				class="send-btn"
 				no-caps
 				:loading="loading"
@@ -26,7 +26,7 @@
 			</q-btn>
 			<q-btn
 				no-caps
-				icon="fas fa-times"
+				:icon="$iconsSet.EditComponent.cancel"
 				class="cancel-btn q-ml-sm"
 				@click="$router.back()"
 				:label="$tl('cancelBtn')"
@@ -34,7 +34,7 @@
 			/>
 			<q-btn
 				no-caps
-				icon="far fa-times-circle"
+				:icon="$iconsSet.EditComponent.delete"
 				class="delete-btn q-ml-sm float-right"
 				@click="removeComponent()"
 				:label="$tl('deleteBtn')"

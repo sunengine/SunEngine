@@ -78,6 +78,23 @@ export default {
 		css: "fab fa-css3-alt",
 		icons: "fas fa-icons",
 		search: "fas fa-search",
+	},
+	ComponentsAdmin: {
+		add: "fas fa-plus",
+		component: "fas fa-cube",
+		edit: "fas fa-wrench",
+		goTo: "fas fa-arrow-right"
+	},
+	ComponentForm: {
+		component: "fas fa-cube"
+	},
+	CreateComponent: {
+		add: "fas fa-save",
+		cancel: "fas fa-times"
+	},
+	EditComponent: {
+		save: "fas fa-save",
+		cancel: "fas fa-times",
+		delete: "fas fa-trash"
 	}
-	
 };

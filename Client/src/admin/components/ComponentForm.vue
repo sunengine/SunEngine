@@ -21,7 +21,7 @@
 			option-value="name"
 			option-label="title"
 		>
-			<q-icon slot="prepend" name="fas fa-cube" />
+			<q-icon slot="prepend" :name="$iconsSet.ComponentForm.component" />
 		</q-select>
 
 		<q-input

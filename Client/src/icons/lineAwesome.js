@@ -80,5 +80,23 @@ export default {
 		css: "lab la-css3-alt",
 		icons: "las la-icons",
 		search: "las la-search",
+	},
+	ComponentsAdmin: {
+		add: "las la-plus",
+		component: "las la-cube",
+		edit: "las la-wrench",
+		goTo: "las la-arrow-right"
+	},
+	ComponentForm: {
+		component: "las la-cube"
+	},
+	CreateComponent: {
+		add: "las la-save",
+		cancel: "las la-times"
+	},
+	EditComponent: {
+		save: "las la-save",
+		cancel: "las la-times",
+		delete: "las la-trash"
 	}
 };
