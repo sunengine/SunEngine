@@ -1,9 +1,9 @@
 ﻿﻿<template>
-	<div class="skins-admin">
+	<div class="main-skins-admin">
 		<div class="flex flex-center">
 			<q-btn
 				no-caps
-				icon="fas fa-cloud-upload-alt"
+				:icon="$iconsSet.MainSkinsAdmin.upload"
 				@click="showUploadDialog"
 				class="skins-admin__post-btn post-btn q-mb-lg"
 				:loading="loading"
@@ -30,7 +30,7 @@
 						class="skins-admin__skin-img"
 					>
 						<div class="skins-admin__preview-btn absolute-bottom-right">
-							<q-icon name="fas fa-search" size="20px"> </q-icon>
+							<q-icon :name="$iconsSet.MainSkinsAdmin.preview" size="20px"> </q-icon>
 							<q-tooltip anchor="center middle" self="center middle">
 								<img :src="skinImgUrl(skin.name)" width="800" />
 							</q-tooltip>
@@ -83,7 +83,7 @@
 						flat
 						no-caps
 						:label="$tl('current')"
-						icon="fas fa-check"
+						:icon="$iconsSet.MainSkinsAdmin.current"
 					/>
 
 					<q-btn
@@ -92,7 +92,7 @@
 						:loading="skin.loading"
 						no-caps
 						@click="changeSkin(skin.name)"
-						icon="fas fa-play"
+						:icon="$iconsSet.MainSkinsAdmin.set"
 						class="skins-admin__send-btn"
 						:label="$tl('set')"
 					>
@@ -104,7 +104,7 @@
 						no-caps
 						@click="showSkinInfo(skin)"
 						flat
-						icon="fas fa-info"
+						:icon="$iconsSet.MainSkinsAdmin.info"
 					/>
 					<q-btn
 						v-if="!skin.current"
@@ -112,7 +112,7 @@
 						no-caps
 						@click="deleteSkin(skin.name)"
 						flat
-						icon="fas fa-trash-alt"
+						:icon="$iconsSet.MainSkinsAdmin.delete"
 					/>
 				</q-card-actions>
 			</q-card>

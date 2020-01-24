@@ -7,21 +7,21 @@
 				:to="{ name: 'MainSkinsAdmin' }"
 				no-caps
 				name="skins"
-				icon="fas fa-user-astronaut"
+				:icon="$iconsSet.SkinsAdmin.main"
 				:label="$tl('mainSkins')"
 			/>
 			<q-route-tab
 				:to="{ name: 'PartialSkinsAdmin' }"
 				no-caps
 				name="partial-skins"
-				icon="fas fa-puzzle-piece"
+				:icon="$iconsSet.SkinsAdmin.partial"
 				:label="$tl('partialSkins')"
 			/>
 			<q-route-tab
 				:to="{ name: 'CustomCssAdmin' }"
 				no-caps
 				name="custom-css"
-				icon="fab fa-css3-alt"
+				:icon="$iconsSet.SkinsAdmin.customCss"
 				:label="$tl('customCss')"
 			/>
 		</q-tabs>

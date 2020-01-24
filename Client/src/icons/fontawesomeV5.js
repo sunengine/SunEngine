@@ -96,5 +96,18 @@ export default {
 		save: "fas fa-save",
 		cancel: "fas fa-times",
 		delete: "fas fa-trash"
+	},
+	SkinsAdmin: {
+		main: "fas fa-user-astronaut",
+		partial: "fas fa-puzzle-piece",
+		customCss: "fab fa-css3-alt"
+	},
+	MainSkinsAdmin: {
+		upload: "fas fa-cloud-upload-alt",
+		preview: "fas fa-search",
+		current: "fas fa-check",
+		set: "fas fa-play",
+		info: "fas fa-info",
+		delete: "fas fa-trash"
 	}
 };

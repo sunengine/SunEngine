@@ -59,7 +59,7 @@ export default {
 	EditMenuItem: {
 		save: "las la-save",
 		cancel: "las la-times",
-		delete:  "las la-trash"
+		delete: "las la-trash"
 	},
 	MenuAdminItem: {
 		up: "la la-angle-up", //"la la-arrow-up", // "la la-caret-up", "la la-angle-up",
@@ -70,7 +70,7 @@ export default {
 		edit: "las la-wrench",
 		add: "las la-plus",
 		goTo: "las la-arrow-right",
-		delete:  "las la-trash"
+		delete: "las la-trash"
 	},
 	MenuItemsAdmin: {
 		add: "las la-plus"
@@ -79,7 +79,7 @@ export default {
 		link: "las la-link",
 		css: "lab la-css3-alt",
 		icons: "las la-icons",
-		search: "las la-search",
+		search: "las la-search"
 	},
 	ComponentsAdmin: {
 		add: "las la-plus",
@@ -97,6 +97,19 @@ export default {
 	EditComponent: {
 		save: "las la-save",
 		cancel: "las la-times",
+		delete: "las la-trash"
+	},
+	SkinsAdmin: {
+		main: "las la-palette",
+		partial: "las la-puzzle-piece",
+		customCss: "lab la-css3-alt"
+	},
+	MainSkinsAdmin: {
+		upload: "las la-cloud-upload-alt",
+		preview: "las la-search",
+		current: "las la-check",
+		set: "las la-play",
+		info: "las la-info",
 		delete: "las la-trash"
 	}
 };

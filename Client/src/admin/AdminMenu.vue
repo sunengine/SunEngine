@@ -107,24 +107,24 @@
 				</q-item-section>
 			</q-item>
 
-			<q-item clickable @click="resetCache">
-				<q-item-section avatar>
-					<q-icon color="info" :name="$iconsSet.AdminMenu.resetCache" />
-				</q-item-section>
-				<q-item-section>
-					<q-item-label>{{ $tl("resetCache") }}</q-item-label>
-					<q-item-label v-if="deletedElementsCaption" caption>{{
-						deletedElementsCaption
-					}}</q-item-label>
-				</q-item-section>
-			</q-item>
-
 			<q-expansion-item
 				:label="$tl('systemTools')"
 				expand-separator
 				:caption="systemToolsCaption"
 				:icon="$iconsSet.AdminMenu.systemTools"
 			>
+				<q-item clickable @click="resetCache">
+					<q-item-section avatar>
+						<q-icon color="info" :name="$iconsSet.AdminMenu.resetCache" />
+					</q-item-section>
+					<q-item-section>
+						<q-item-label>{{ $tl("resetCache") }}</q-item-label>
+						<q-item-label v-if="resetCacheCaption" caption>{{
+							resetCacheCaption
+						}}</q-item-label>
+					</q-item-section>
+				</q-item>
+
 				<q-item :to="{ name: 'ImagesCleaner' }">
 					<q-item-section avatar>
 						<q-icon :name="$iconsSet.AdminMenu.ImagesCleaner" />
