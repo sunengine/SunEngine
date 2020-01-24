@@ -3,7 +3,7 @@
 		<p>
 			<img class="error404__sad-img" src="/statics/sad.svg" />
 		</p>
-		<p class="text-faded">
+		<p class="error404__info text-faded">
 			{{ $tl("info") }}
 			<strong>(404)</strong>
 		</p>
