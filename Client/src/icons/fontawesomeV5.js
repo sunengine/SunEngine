@@ -16,7 +16,8 @@ const global = {
 	comment: "far fa-comment",
 	category: "fas fa-folder",
 	key: "fas fa-key",
-	envelope: "fas fa-envelope"
+	envelope: "fas fa-envelope",
+    wrench: "fas fa-wrench"
 };
 
 export default {
@@ -76,7 +77,7 @@ export default {
 	},
 	CategoryItem: {
 		down: "fas fa-chevron-down",
-		edit: "fas fa-wrench",
+		edit: global.wrench,
 		eyeSlash: global.eyeSlash,
 		goTo: global.goTo,
 		material: "far fa-file-alt",
@@ -121,7 +122,7 @@ export default {
 	ComponentsAdmin: {
 		add: global.add,
 		component: "fas fa-cube",
-		edit: "fas fa-wrench",
+		edit: global.wrench,
 		goTo: global.goTo
 	},
 	ConfigurationAdmin: {
@@ -239,7 +240,7 @@ export default {
 		blank: "far fa-file",
 		delete: global.delete,
 		down: "fa fa-angle-down",
-		edit: "fas fa-wrench",
+		edit: global.wrench,
 		eye: global.eye,
 		eyeSlash: global.eyeSlash,
 		goTo: global.goTo,

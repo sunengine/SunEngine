@@ -15,7 +15,8 @@ const global = {
 	comment: "la la-comment-alt",
 	category: "la la-book",
 	key: "la la-key",
-	envelope: "la la-envelope"
+	envelope: "la la-envelope",
+	wrench: "la la-wrench"
 };
 
 export default {
@@ -75,7 +76,7 @@ export default {
 	},
 	CategoryItem: {
 		down: "la la-angle-down",
-		edit: "la la-wrench",
+		edit: global.wrench,
 		eyeSlash: global.eyeSlash,
 		goTo:global.goTo,
 		material: "la la-file-alt",
@@ -120,7 +121,7 @@ export default {
 	ComponentsAdmin: {
 		add: global.save,
 		component: "la la-cube",
-		edit: "la la-wrench",
+		edit: global.wrench,
 		goTo:global.goTo
 	},
 	ConfigurationAdmin: {
@@ -239,7 +240,7 @@ export default {
 		blank: "la la-file",
 		delete: global.delete,
 		down: "la la-angle-down",
-		edit: "la la-wrench",
+		edit: global.wrench,
 		eye: global.eye,
 		eyeSlash: global.eyeSlash,
 		goTo:global.goTo,
