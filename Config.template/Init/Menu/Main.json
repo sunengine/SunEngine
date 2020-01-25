@@ -1,73 +1,73 @@
 {
   "Name": "MainMenu",
   "Title": "Главное меню",
-  "Icon": "fas fa-bars",
+  "Icon": "la la-bars",
   "SubMenuItems": [
     {
       "Title": "Главная",
       "RouteName": "Home",
       "Exact": true,
-      "Icon": "fas fa-home"
+      "Icon": "la la-home"
     },
     {
       "Title": "Блог",
       "RouteName": "cat-Blog",
-      "Icon": "fas fa-blog"
+      "Icon": "la la-blog"
     },
     {
       "Title": "Статьи",
       "RouteName": "cat-Articles",
-      "Icon": "fas fa-file-alt"
+      "Icon": "la la-file-alt"
     },
     {
       "Title": "Форум",
       "RouteName": "cat-Forum1",
-      "Icon": "fas fa-comments"
+      "Icon": "la la-comments"
     },
     {
       "Title": "Лента активности",
       "RouteName": "comp-Activities",
-      "Icon": "fas fa-dot-circle"
+      "Icon": "la la-dot-circle"
     },
     {
       "Title": "Примеры страниц",
-      "Icon": "fas fa-th",
+      "Icon": "la la-th",
       "SubMenuItems": [
         {
           "Title": "Главная страница",
           "SubTitle": "Пример в две колонки",
           "RouteName": "News2ColPage",
-          "Icon": "fas fa-home"
+          "Icon": "la la-home"
         },
         {
           "Title": "Лента новостей",
           "SubTitle": "Из разных категорий",
           "RouteName": "comp-Posts",
-          "Icon": "fas fa-newspaper"
+          "Icon": "la la-newspaper"
         },
         {
           "Title": "Статьи 1",
           "SubTitle": "Статьи с подразделами",
           "RouteName": "cat-Articles1",
-          "Icon": "fas fa-file-alt"
+          "Icon": "la la-file-alt"
         },
         {
           "Title": "Форум 2",
           "SubTitle": "2 уровня вложенности",
           "RouteName": "cat-Forum2",
-          "Icon": "fas fa-comments"
+          "Icon": "la la-comments"
         },
         {
           "Title": "Встроенная статья",
           "SubTitle": "Статья внутри страницы",
           "RouteName": "MaterialInlinePage",
-          "Icon": "fas fa-leaf"
+          "Icon": "la la-leaf"
         },
         {
           "Title": "Секрет",
           "SubTitle": "Скрытая страница",
           "RouteName": "Secret",
-          "Icon": "fas fa-user-secret",
+          "Icon": "la la-user-secret",
           "Roles": "Registered"
         }
       ]
