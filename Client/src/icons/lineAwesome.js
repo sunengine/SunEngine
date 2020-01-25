@@ -255,7 +255,6 @@ export default {
 		envelope: global.envelope,
 		key: global.key,
 		save: global.save,
-		input: "la la-hand-point-right"
 	},
 	ChangeEmailResult: {
 		success: "la la-check-circle",
@@ -282,6 +281,8 @@ export default {
 		key: global.key,
 		user: global.user,
 		envelope: global.envelope,
+	},
+	Captcha: {
 		hand: "la la-hand-point-right",
 		refresh: global.refresh
 	}

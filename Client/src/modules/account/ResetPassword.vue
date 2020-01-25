@@ -14,38 +14,7 @@
 				</template>
 			</q-input>
 
-			<div class="captcha-block">
-				<span class="captcha-wait-msg" v-if="waitToken">{{
-					$t("Captcha.waitMessage")
-				}}</span>
-				<img
-					class="block"
-					v-else-if="token"
-					:src="$apiPath($Api.Captcha.CaptchaImage + '?token=' + token)"
-				/>
-
-				<q-btn
-					class="shadow-1 q-mt-sm block"
-					color="lime-6"
-					@click="GetToken"
-					size="sm"
-					no-caps
-					:icon="$iconsSet.ResetPassword.refresh"
-					:label="$t('Captcha.newMessageBtn')"
-				/>
-			</div>
-
-			<q-input
-				class="reset-password__captcha-text"
-				ref="captchaText"
-				v-model="captchaText"
-				:label="$t('Captcha.enterToken')"
-				:rules="rules.captchaText"
-			>
-				<template v-slot:prepend>
-					<q-icon :name="$iconsSet.ResetPassword.input" />
-				</template>
-			</q-input>
+			<Captcha ref="captcha" v-model="captchaText" />
 
 			<q-btn
 				class="send-btn full-width"
@@ -74,7 +43,6 @@ import { Page } from "mixins";
 
 function createRules() {
 	return {
-		captchaText: [value => !!value || this.$t("Captcha.required")],
 		email: [
 			value => !!value || this.$tl("validation.email.required"),
 			value => /.+@.+/.test(value) || this.$t("Global.validation.emailSig")
@@ -91,9 +59,7 @@ export default {
 			submitting: false,
 			start: true,
 			done: false,
-			captchaText: "",
-			waitToken: false,
-			token: null
+			captchaText: ""
 		};
 	},
 	computed: {
@@ -104,9 +70,9 @@ export default {
 	methods: {
 		send() {
 			this.$refs.email.validate();
-			this.$refs.captchaText.validate();
+			this.$refs.captcha.validate();
 
-			if (this.$refs.email.hasError || this.$refs.captchaText.hasError) return;
+			if (this.$refs.email.hasError || this.$refs.captcha.hasError) return;
 
 			this.submitting = true;
 			this.$request(this.$Api.Account.ResetPasswordSendEmail, {
@@ -123,28 +89,17 @@ export default {
 					this.submitting = false;
 
 					if (error?.response?.data?.code === "CaptchaValidationError") {
-						this.GetToken();
-					}
-				});
-		},
-		GetToken() {
-			this.$request(this.$Api.Captcha.GetCaptchaKey)
-				.then(response => {
-					this.token = response.data;
-					this.waitToken = false;
-				})
-				.catch(error => {
-					if (error?.response?.data?.code === "SpamProtection") {
-						this.waitToken = true;
+						this.$refs.captcha.GetToken();
 					}
 				});
 		}
 	},
+	beforeCreate() {
+		this.$options.components.Captcha = require("sun").Captcha;
+	},
 	created() {
 		this.title = this.$tl("title");
 		this.rules = createRules.call(this);
-
-		this.GetToken();
 	}
 };
 </script>

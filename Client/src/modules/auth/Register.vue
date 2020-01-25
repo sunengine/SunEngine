@@ -67,7 +67,7 @@
 				</template>
 			</q-input>
 
-			<Captcha v-model="captchaText" />
+			<Captcha ref="captcha" v-model="captchaText" />
 
 			<q-btn
 				style="width:100%;"
@@ -160,13 +160,13 @@ export default {
 				this.$refs.userName.validate();
 			});
 		},
-		async register() {
+		register() {
 			this.$refs.userName.validate();
 			this.$refs.email.validate();
 			this.$refs.password.validate();
 			this.$refs.password2.validate();
 			this.$refs.captcha.validate();
-
+			 
 			if (
 				this.$refs.userName.hasError ||
 				this.$refs.email.hasError ||
@@ -178,7 +178,7 @@ export default {
 
 			this.submitting = true;
 
-			await this.$request(this.$Api.Auth.Register, {
+			this.$request(this.$Api.Auth.Register, {
 				UserName: this.userName,
 				Email: this.email,
 				Password: this.password,
@@ -193,8 +193,8 @@ export default {
 					this.submitting = false;
 
 					if (error?.response?.data?.code === "CaptchaValidationError") {
-						this.GetToken();
-					}
+                   this.$refs.captcha.GetToken();
+               }
 				});
 		}
 	},

@@ -7,7 +7,7 @@
 			<img
 				class="block"
 				v-else-if="token"
-				:src="$apiPath($Api.Captcha.CaptchaImage'?token=' + token)"
+				:src="$apiPath($Api.Captcha.CaptchaImage + '?token=' + token)"
 			/>
 
 			<q-btn
@@ -22,12 +22,13 @@
 		</div>
 		<q-input
 			ref="captcha"
-			v-model="captchaText"
+			v-model="text"
+			@input="handleInput"
 			:label="$tl('enterToken')"
 			:rules="[value => !!value || this.$tl('required')]"
 		>
 			<template v-slot:prepend>
-				<q-icon :name="$iconsSet.Register.hand" />
+				<q-icon :name="$iconsSet.Captcha.hand" />
 			</template>
 		</q-input>
 	</div>
@@ -36,25 +37,45 @@
 <script>
 export default {
 	name: "Captcha",
-	 data() {
-	    return {
-           captchaText: "",
-           token: null,
-           waitToken: false,
-       }
-	 },
-	 methods: {
-        GetToken() {
-            return this.$request(this.$Api.Captcha.GetCaptchaKey)
-                .then(response => {
-                    this.token = response.data;
-                    this.waitToken = false;
-                })
-                .catch(x => {
-                    if (x.response.data.code === "SpamProtection") this.waitToken = true;
-                });
-        }
-	 }
+	props: {
+		value: {
+			type: String,
+			required: false
+		}
+	},
+	data() {
+		return {
+			text: this.value,
+			token: null,
+			waitToken: false
+		};
+	},
+	computed: {
+		hasError() {
+			return this.$refs.captcha.hasError;
+		}
+	},
+	methods: {
+		handleInput() {
+			this.$emit("input", this.text);
+		},
+		validate() {
+			this.$refs.captcha.validate();
+		},
+		GetToken() {
+			return this.$request(this.$Api.Captcha.GetCaptchaKey)
+				.then(response => {
+					this.token = response.data;
+					this.waitToken = false;
+				})
+				.catch(x => {
+					if (x.response.data.code === "SpamProtection") this.waitToken = true;
+				});
+		}
+	},
+	created() {
+		this.GetToken();
+	}
 };
 </script>
 

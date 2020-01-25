@@ -254,7 +254,6 @@ export default {
 		envelope: global.envelope,
 		key: global.key,
 		save: global.save,
-		input: "fas fa-hand-point-right"
 	},
 	ChangeEmailResult: {
 		success: "fas fa-check-circle",
@@ -281,8 +280,9 @@ export default {
 		key: global.key,
 		user: global.user,
 		envelope: global.envelope,
+	},
+	Captcha: {
 		hand: "fas fa-hand-point-right",
 		refresh: global.refresh
 	}
-	
 };
