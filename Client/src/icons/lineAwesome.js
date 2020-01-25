@@ -268,5 +268,21 @@ export default {
 		eye: global.eye,
 		eyeSlash: global.eyeSlash,
 		key: global.key
+	},
+	Login: {
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		key: global.key,
+		user: global.user,
+		question: "la la-question-circle"
+	},
+	Register: {
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		key: global.key,
+		user: global.user,
+		envelope: global.envelope,
+		hand: "la la-hand-point-right",
+		refresh: global.refresh
 	}
 };

@@ -9,7 +9,7 @@
 					:rules="[value => !!value || $tl('validation.nameOrEmail.required')]"
 				>
 					<template v-slot:prepend>
-						<q-icon name="fas fa-user" />
+						<q-icon :name="$iconsSet.Login.user" />
 					</template>
 				</q-input>
 
@@ -22,11 +22,11 @@
 					:rules="[value => !!value || $tl('validation.password.required')]"
 				>
 					<template v-slot:prepend>
-						<q-icon name="fas fa-key" />
+						<q-icon :name="$iconsSet.Login.key" />
 					</template>
 					<template v-slot:append>
 						<q-icon
-							:name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
+							:name="showPassword ? $iconsSet.Login.eye : $iconsSet.Login.eyeSlash"
 							class="cursor-pointer"
 							@click="showPassword = !showPassword"
 						/>
@@ -35,19 +35,18 @@
 
 				<q-btn
 					type="submit"
-					style="width:100%;"
-					class="send-btn"
+					class="send-btn full-width"
 					:label="$tl('enterBtn')"
 					:loading="submitting"
 				>
-					<span slot="loading">
-						<q-spinner class="on-left" /> {{ $tl("entering") }}
-					</span>
+					<LoaderSent slot="loading">
+						{{ $tl("entering") }}
+					</LoaderSent>
 				</q-btn>
 			</q-form>
 
 			<router-link class="text-center q-mt-lg" :to="{ name: 'ResetPassword' }">
-				<q-icon class="q-mr-sm" name="far fa-question-circle" />
+				<q-icon class="q-mr-sm" :name="$iconsSet.Login.question" />
 				<span>{{ $tl("forgotPassword") }}</span>
 			</router-link>
 		</div>

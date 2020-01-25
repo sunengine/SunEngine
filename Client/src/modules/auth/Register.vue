@@ -9,7 +9,7 @@
 				:rules="rules.userName"
 			>
 				<template v-slot:prepend>
-					<q-icon name="fas fa-user" />
+					<q-icon :name="$iconsSet.Register.user" />
 				</template>
 			</q-input>
 
@@ -21,7 +21,7 @@
 				:rules="rules.email"
 			>
 				<template v-slot:prepend>
-					<q-icon name="fas fa-envelope" />
+					<q-icon :name="$iconsSet.Register.envelope" />
 				</template>
 			</q-input>
 
@@ -33,11 +33,13 @@
 				:rules="rules.password"
 			>
 				<template v-slot:prepend>
-					<q-icon name="fas fa-key" />
+					<q-icon :name="$iconsSet.Register.key" />
 				</template>
 				<template v-slot:append>
 					<q-icon
-						:name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
+						:name="
+							showPassword ? $iconsSet.Register.eye : $iconsSet.Register.eyeSlash
+						"
 						class="cursor-pointer"
 						@click="showPassword = !showPassword"
 					/>
@@ -52,50 +54,20 @@
 				:rules="rules.password2"
 			>
 				<template v-slot:prepend>
-					<q-icon name="fas fa-key" />
+					<q-icon :name="$iconsSet.Register.key" />
 				</template>
 				<template v-slot:append>
 					<q-icon
-						:name="showPassword2 ? 'far fa-eye' : 'far fa-eye-slash'"
+						:name="
+							showPassword2 ? $iconsSet.Register.eye : $iconsSet.Register.eyeSlash
+						"
 						class="cursor-pointer"
 						@click="showPassword2 = !showPassword2"
 					/>
 				</template>
 			</q-input>
 
-			<div
-				style="padding: 10px 10px 10px 44px; border-radius: 5px; background-color: #f0f4c3"
-			>
-				<span class="captcha-wait-msg" v-if="waitToken">{{
-					$t("Captcha.waitMessage")
-				}}</span>
-				<img
-					class="block"
-					v-else-if="token"
-					:src="$apiPath('/Captcha/CaptchaImage?token=' + token)"
-				/>
-
-				<q-btn
-					class="shadow-1 q-mt-sm block"
-					color="lime-6"
-					@click="GetToken"
-					size="sm"
-					no-caps
-					icon="fas fa-sync"
-					:label="$t('Captcha.newMessageBtn')"
-				/>
-			</div>
-
-			<q-input
-				ref="captcha"
-				v-model="captchaText"
-				:label="$t('Captcha.enterToken')"
-				:rules="rules.captcha"
-			>
-				<template v-slot:prepend>
-					<q-icon name="fas fa-hand-point-right" />
-				</template>
-			</q-input>
+			<Captcha v-model="captchaText" />
 
 			<q-btn
 				style="width:100%;"
@@ -104,14 +76,14 @@
 				@click="register"
 				:loading="submitting"
 			>
-				<span slot="loading">
-					<q-spinner class="on-left" /> {{ $tl("registering") }}
-				</span>
+				<LoaderSent slot="loading">
+					{{ $tl("registering") }}
+				</LoaderSent>
 			</q-btn>
 		</div>
 		<q-banner v-else class="bg-positive">
 			<template v-slot:avatar>
-				<q-icon name="far fa-envelope" size="2em" />
+				<q-icon :name="$iconsSet.Register.envelope" size="2em" />
 			</template>
 			{{ $tl("emailSent") }}
 		</q-banner>
@@ -154,8 +126,7 @@ function createRules() {
 			...password,
 			value =>
 				this.password === this.password2 || this.$tl("validation.password2.equals")
-		],
-		captcha: [value => !!value || this.$t("Captcha.required")]
+		]
 	};
 }
 
@@ -168,14 +139,12 @@ export default {
 			email: "",
 			password: "",
 			password2: "",
-			captchaText: "",
 			submitting: false,
-			token: null,
-			waitToken: false,
 			done: false,
 			showPassword: false,
 			showPassword2: false,
-			userNameInDb: false
+			userNameInDb: false,
+			captchaText: ""
 		};
 	},
 	methods: {
@@ -227,24 +196,15 @@ export default {
 						this.GetToken();
 					}
 				});
-		},
-		async GetToken() {
-			await this.$request(this.$Api.Captcha.GetCaptchaKey)
-				.then(response => {
-					this.token = response.data;
-					this.waitToken = false;
-				})
-				.catch(x => {
-					if (x.response.data.code === "SpamProtection") this.waitToken = true;
-				});
 		}
 	},
-	async created() {
+	beforeCreate() {
+		this.$options.components.Captcha = require("sun").Captcha;
+	},
+	created() {
 		this.title = this.$tl("title");
 
 		this.rules = createRules.call(this);
-
-		await this.GetToken();
 	}
 };
 </script>

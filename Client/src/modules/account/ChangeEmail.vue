@@ -15,11 +15,15 @@
 					:rules="rules.password"
 				>
 					<template v-slot:prepend>
-						<q-icon 	:name="$iconsSet.ChangeEmail.key" />
+						<q-icon :name="$iconsSet.ChangeEmail.key" />
 					</template>
 					<template v-slot:append>
 						<q-icon
-							:name="showPassword ? $iconsSet.ChangeEmail.eye : $iconsSet.ChangeEmail.eyeSlash"
+							:name="
+								showPassword
+									? $iconsSet.ChangeEmail.eye
+									: $iconsSet.ChangeEmail.eyeSlash
+							"
 							class="cursor-pointer"
 							@click="showPassword = !showPassword"
 						/>
@@ -35,7 +39,7 @@
 					:rules="rules.email"
 				>
 					<template v-slot:prepend>
-						<q-icon 	:name="$iconsSet.ChangeEmail.envelope" />
+						<q-icon :name="$iconsSet.ChangeEmail.envelope" />
 					</template>
 				</q-input>
 
@@ -53,7 +57,7 @@
 
 			<q-banner v-else class="change-email__success-notify bg-positive text-white">
 				<template v-slot:avatar>
-					<q-icon :name="$iconsSet.ChangeEmail.envelope"  size="2em" />
+					<q-icon :name="$iconsSet.ChangeEmail.envelope" size="2em" />
 				</template>
 				{{ $tl("successNotify") }}
 			</q-banner>
