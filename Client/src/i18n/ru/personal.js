@@ -45,7 +45,7 @@ export default {
 		maxPhotoSize: "Максимальный размер изображения:",
 		fileSizeLimit: "Вы выбрали файл слишком большого размера",
 		resetBtn: "Сбросить фотографию",
-		uploadNewPhotoBtn: "Выбрать фотографию",
+		uploadNewPhotoBtn: "Загрузить фотографию",
 		avatarDeletedSuccessNotify: "Аватар успешно удалён",
 		avatarChangedSuccessNotify: "Аватар успешно обновлён"
 	},

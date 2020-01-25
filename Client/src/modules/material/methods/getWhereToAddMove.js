@@ -1,4 +1,6 @@
-﻿export function getWhereToMove(store) {
+﻿import Vue from "vue";
+
+export function getWhereToMove(store) {
 	const rez = goDeep(store.state.categories.root);
 	return [...rez.children];
 }
@@ -53,7 +55,7 @@ function goDeep(category) {
 	if (category.categoryPersonalAccess?.MaterialWrite) {
 		if (category.isMaterialsContainer) {
 			// writable
-			ret.icon = "fas fa-folder";
+			ret.icon = Vue.prototype.$iconsSet.global.category;
 			ret.iconColor = "green-5";
 			ret.selectable = true;
 		} else if (children) {

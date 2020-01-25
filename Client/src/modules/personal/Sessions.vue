@@ -8,11 +8,11 @@
 						<q-checkbox v-model="all" @input="e => allChecked(e)" />
 					</th>
 					<th class="text-left">
-						<q-icon left name="fas fa-desktop" />
+						<q-icon left :name="$iconsSet.Sessions.machine" />
 						{{ $tl("deviceInfo") }}
 					</th>
 					<th class="text-left">
-						<q-icon left name="far fa-clock" />
+						<q-icon left :name="$iconsSet.Sessions.clock" />
 						{{ $tl("updateDate") }}
 					</th>
 				</tr>
@@ -42,7 +42,7 @@
 		<div class="text-center">
 			<q-btn
 				class="q-mt-md delete-btn"
-				icon="fas fa-sign-out-alt"
+				:icon="$iconsSet.Sessions.signOut"
 				:label="$tl('logout')"
 				@click="deleteSessions"
 				v-if="selected.length"

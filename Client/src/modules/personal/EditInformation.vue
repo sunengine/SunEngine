@@ -12,7 +12,7 @@
 			<q-btn
 				no-caps
 				class="send-btn"
-				icon="far fa-save"
+				:icon="$iconsSet.EditInformation.save"
 				:label="$tl('save')"
 				@click="save"
 			/>

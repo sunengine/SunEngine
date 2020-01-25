@@ -1,3 +1,5 @@
+import { Glob } from "glob";
+
 const global = {
 	delete: "fas fa-trash-alt",
 	save: "far fa-save",
@@ -11,16 +13,18 @@ const global = {
 	add: "fas fa-plus",
 	clock: "far fa-clock",
 	user: "far fa-user",
+	users:  "fas fa-user",
 	send: "fas fa-arrow-circle-right",
 	comment: "far fa-comment",
 	category: "fas fa-folder",
 	key: "fas fa-key",
-	envelope: "far fa-envelope"
+	envelope: "fas fa-envelope",
 };
 
 export default {
 	name: "fontawesome-v5",
 	sunName: "FontAwesome",
+	global: global,
 	AdminMenu: {
 		AdminInformation: "fas fa-info-circle",
 		ConfigurationAdmin: "fas fa-sliders-h",
@@ -86,7 +90,7 @@ export default {
 		down: "fa fa-angle-down", //"la la-arrow-up" // "la la-caret-down", "la la-angle-down"
 		eye: global.eye,
 		eyeSlash: global.eyeSlash,
-		blank: "fas fa-file",
+		blank: "far fa-file",
 		edit: "fas fa-wrench",
 		add: global.add,
 		goTo: global.goTo,
@@ -172,6 +176,19 @@ export default {
 		restore: "fas fa-trash-restore",
 		visits: global.eye,
 		publishDate: global.clock
+	},
+	CreateMaterial: {
+		save: global.save,
+		cancel: global.cancel
+	},
+	EditMaterial: {
+		save: global.save,
+		cancel: global.cancel,
+		delete: global.delete,
+	},
+	MaterialForm: {
+		tags: "fas fa-tags",
+		category: global.category
 	},
 	Comment: {
 		delete: global.delete,
@@ -274,14 +291,14 @@ export default {
 		eye: global.eye,
 		eyeSlash: global.eyeSlash,
 		key: global.key,
-		user: global.user,
+		user: global.users,
 		question: "far fa-question-circle"
 	},
 	Register: {
 		eye: global.eye,
 		eyeSlash: global.eyeSlash,
 		key: global.key,
-		user: global.user,
+		user: global.users,
 		envelope: global.envelope
 	},
 	Captcha: {
@@ -295,7 +312,7 @@ export default {
 	UserMenu: {
 		profile: "fas fa-user-circle",
 		personal: "fas fa-address-card",
-		cog: "fas fa-cog",
+		admin: "fas fa-cog",
 		signOut: "fas fa-sign-out-alt"
 	},
 	LoginRegisterMenu: {
@@ -304,9 +321,9 @@ export default {
 	},
 	Layout: {
 		mainMenu: "la la-bars",
-		secondMenu: "far fa-clipboard",
+		secondMenu: "fa fa-clipboard-list",
 		heart: "fas fa-heart",
-		user: global.user
+		user: global.users
 	},
 	ChangeLink: {
 		link: "fas fa-link",
@@ -317,6 +334,29 @@ export default {
 		eye: global.eye,
 		eyeSlash: global.eyeSlash,
 		key: global.key,
-		user: global.user,
+		user: global.users
+	},
+	EditInformation: {
+		save: global.save
+	},
+	LoadPhoto: {
+		upload: global.upload, // "far fa-user-circle"
+		delete: global.delete
+	},
+	Sessions: {
+		signOut: "fas fa-sign-out-alt",
+		machine: "fas fa-desktop",
+		clock: global.clock
+	},
+	SettingsMenu: {
+		profile: "fas fa-address-card",
+		user: global.users,
+		key: global.key,
+		envelope: global.envelope,
+		link: "fas fa-link",
+		photo: "fas fa-portrait",
+		information: "fas fa-info-circle",
+		sessions: "fas fa-ticket-alt",
+		ban: "fas fa-ban"
 	}
 };

@@ -23,7 +23,7 @@
 			no-caps
 			class="load-photo__send-btn send-btn q-mb-xl"
 			:loading="loading"
-			icon="far fa-user-circle"
+			:icon="$iconsSet.LoadPhoto.upload"
 			:label="$tl('uploadNewPhotoBtn')"
 			@click="upload"
 		/>
@@ -31,7 +31,7 @@
 			no-caps
 			v-if="!isDefault && !loading"
 			class="load-photo__delete-btn delete-btn"
-			icon="fas fa-trash-alt"
+			:icon="$iconsSet.LoadPhoto.delete"
 			:label="$tl('resetBtn')"
 			@click="resetAvatar"
 		/>

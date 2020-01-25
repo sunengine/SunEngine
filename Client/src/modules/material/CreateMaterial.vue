@@ -9,7 +9,7 @@
 
 		<div class="create-material__btn-block q-mt-md">
 			<q-btn
-				icon="fas fa-arrow-circle-right"
+				:icon="$iconsSet.CreateMaterial.save"
 				class="send-btn"
 				no-caps
 				:loading="loading"
@@ -21,7 +21,7 @@
 			</q-btn>
 			<q-btn
 				no-caps
-				icon="fas fa-times"
+				:icon="$iconsSet.CreateMaterial.cancel"
 				class="cancel-btn q-ml-sm"
 				@click="$router.back()"
 				:label="$t('Global.btn.cancel')"

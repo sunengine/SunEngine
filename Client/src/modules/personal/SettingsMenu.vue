@@ -9,7 +9,7 @@
 			</div>
 			<q-item :to="{ name: 'ProfileInSettings' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-address-card" />
+					<q-icon :name="$iconsSet.SettingsMenu.profile"  />
 				</q-item-section>
 				<q-item-section>
 					{{ $tl("goToProfile") }}
@@ -17,7 +17,7 @@
 			</q-item>
 			<q-item :to="{ name: 'ChangeName' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-user" />
+					<q-icon :name="$iconsSet.SettingsMenu.user" />
 				</q-item-section>
 				<q-item-section>
 					{{ $tl("changeName") }}
@@ -25,7 +25,7 @@
 			</q-item>
 			<q-item :to="{ name: 'ChangeEmail' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-envelope" />
+					<q-icon :name="$iconsSet.SettingsMenu.envelope" />
 				</q-item-section>
 				<q-item-section>
 					{{ $tl("changeEmail") }}
@@ -33,7 +33,7 @@
 			</q-item>
 			<q-item :to="{ name: 'ChangePassword' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-key" />
+					<q-icon :name="$iconsSet.SettingsMenu.key" />
 				</q-item-section>
 				<q-item-section>
 					{{ $tl("changePassword") }}
@@ -41,7 +41,7 @@
 			</q-item>
 			<q-item :to="{ name: 'ChangeLink' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-link" />
+					<q-icon :name="$iconsSet.SettingsMenu.link" />
 				</q-item-section>
 				<q-item-section>
 					{{ $tl("changeLink") }}
@@ -49,7 +49,7 @@
 			</q-item>
 			<q-item :to="{ name: 'LoadPhoto' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-portrait" />
+					<q-icon :name="$iconsSet.SettingsMenu.photo"  />
 				</q-item-section>
 				<q-item-section>
 					{{ $tl("changePhoto") }}
@@ -57,7 +57,7 @@
 			</q-item>
 			<q-item :to="{ name: 'EditInformation' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-info-circle" />
+					<q-icon :name="$iconsSet.SettingsMenu.information"  />
 				</q-item-section>
 				<q-item-section>
 					{{ $tl("changeYourInformation") }}
@@ -65,7 +65,7 @@
 			</q-item>
 			<q-item :to="{ name: 'Sessions' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-ticket-alt" />
+					<q-icon :name="$iconsSet.SettingsMenu.sessions"  />
 				</q-item-section>
 				<q-item-section>
 					{{ $tl("sessions") }}
@@ -73,7 +73,7 @@
 			</q-item>
 			<q-item :to="{ name: 'MyBanList' }">
 				<q-item-section avatar>
-					<q-icon name="fas fa-ban" />
+					<q-icon :name="$iconsSet.SettingsMenu.ban"  />
 				</q-item-section>
 				<q-item-section>
 					{{ $tl("banedUsersList") }}

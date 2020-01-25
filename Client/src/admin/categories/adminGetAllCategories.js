@@ -1,5 +1,4 @@
-﻿import { store } from "sun";
-import { request } from "sun";
+﻿import { request } from "sun";
 import { AdminApi } from "sun";
 
 export default function adminGetAllCategories() {

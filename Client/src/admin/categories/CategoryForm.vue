@@ -202,6 +202,8 @@
 import { adminGetAllCategories } from "sun";
 import { isJson } from "sun";
 
+import Vue from "vue";
+
 const unset = "unset";
 
 function GoDeep(category) {
@@ -222,7 +224,7 @@ function GoDeep(category) {
 		category: category,
 		children: children,
 		selectable: true,
-		icon: "fas fa-folder",
+		icon:  Vue.prototype.$iconsSet.global.category,
 		iconColor: "green-5"
 	};
 }
@@ -303,25 +305,6 @@ export default {
 		}
 	},
 	computed: {
-		materialsSubTitleInputTypeOptions() {
-			return [
-				{
-					label: "Отсутствует",
-					name: "None",
-					value: 0
-				},
-				{
-					label: "Задавать вручную",
-					name: "Manual",
-					value: 1
-				},
-				{
-					label: "Создавать автоматически",
-					name: "Auto",
-					value: 2
-				}
-			];
-		},
 		layoutOptions() {
 			return Object.getOwnPropertyNames(this.$store.state.layouts.all)
 				.filter(x => !x.startsWith("__"))
@@ -365,7 +348,6 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.LoaderWait = require("sun").LoaderWait;
 		this.$options.components.SunEditor = require("sun").SunEditor;
 	},
 

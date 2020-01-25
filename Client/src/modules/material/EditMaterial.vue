@@ -18,7 +18,7 @@
 
 		<div class="edit-material__btn-block flex q-gutter-md q-mt-lg">
 			<q-btn
-				icon="fas fa-arrow-circle-right"
+				:icon="$iconsSet.EditMaterial.save"
 				class="send-btn"
 				no-caps
 				:loading="loading"
@@ -30,7 +30,7 @@
 
 			<q-btn
 				no-caps
-				icon="fas fa-times"
+				:icon="$iconsSet.EditMaterial.cancel"
 				class="cancel-btn"
 				@click="$router.back()"
 				:label="$tl('cancelBtn')"
@@ -41,7 +41,7 @@
 			<q-btn
 				v-if="!material.deletedDate && canDelete"
 				no-caps
-				icon="fas fa-trash"
+				:icon="$iconsSet.EditMaterial.delete"
 				class="delete-btn"
 				@click="deleteMaterial"
 				:label="$tl('deleteBtn')"

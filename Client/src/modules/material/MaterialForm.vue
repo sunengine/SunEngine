@@ -63,7 +63,7 @@
 			new-value-mode="add-unique"
 		>
 			<template v-slot:prepend>
-				<q-icon name="fas fa-tags" />
+				<q-icon :name="$iconsSet.MaterialForm.tags" />
 			</template>
 		</q-select>
 
@@ -79,10 +79,10 @@
 				</div>
 			</template>
 			<template v-slot:prepend>
-				<q-icon name="fas fa-folder" class="q-mr-xs" />
+				<q-icon :name="$iconsSet.MaterialForm.category" class="q-mr-xs" />
 			</template>
 			<template v-slot:append>
-				<q-icon name="fas fa-caret-down"></q-icon>
+				<q-icon :name="$q.iconSet.expansionItem.denseIcon"></q-icon>
 			</template>
 			<template v-slot:error>
 				{{ $tl("validation.category.required") }}

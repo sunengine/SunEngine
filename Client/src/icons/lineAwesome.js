@@ -23,6 +23,7 @@ const global = {
 export default {
 	name: "line-awesome",
 	sunName: "LineAwesome",
+	global: global,
 	AdminMenu: {
 		AdminInformation: "la la-info-circle",
 		ConfigurationAdmin: "la la-sliders-h",
@@ -172,8 +173,21 @@ export default {
 	Material: {
 		delete: global.delete,
 		restore: "la la-trash-restore",
-		visits: global.eye,
+		visits: global.eye, 
 		publishDate: global.clock
+	},
+	CreateMaterial: {
+		save: global.save,
+		cancel: global.cancel
+	},
+	EditMaterial: {
+		save: global.save,
+		cancel: global.cancel,
+		delete: global.delete,
+	},
+	MaterialForm: {
+		tags: "la la-tags",
+		category: "la la-stream"
 	},
 	Comment: {
 		delete: global.delete,
@@ -321,5 +335,28 @@ export default {
 		eyeSlash: global.eyeSlash,
 		key: global.key,
 		user: global.user,
+	},
+	EditInformation: {
+		save: global.save
+	},
+	LoadPhoto: {
+		upload: global.upload,
+		delete: global.delete
+	},
+	Sessions: {
+		signOut: "la la-sign-out-alt",
+		machine: "la la-desktop",
+		clock: global.clock
+	},
+	SettingsMenu: {
+		profile: "la fa-address-card",
+		user: global.user,
+		key: global.key,
+		envelope: global.envelope,
+		link: "la la-link",
+		photo: "la la-portrait",
+		information: "la la-info-circle",
+		sessions: "la la-ticket-alt",
+		ban: "la fa-ban"
 	}
 };
