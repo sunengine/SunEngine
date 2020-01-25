@@ -173,7 +173,7 @@ export default {
 	Material: {
 		delete: global.delete,
 		restore: "la la-trash-restore",
-		visits: global.eye, 
+		visits: global.eye,
 		publishDate: global.clock
 	},
 	CreateMaterial: {
@@ -183,7 +183,7 @@ export default {
 	EditMaterial: {
 		save: global.save,
 		cancel: global.cancel,
-		delete: global.delete,
+		delete: global.delete
 	},
 	MaterialForm: {
 		tags: "la la-tags",
@@ -246,7 +246,7 @@ export default {
 		visits: global.eye,
 		roles: "la la-cog",
 		ban: "la la-ban",
-		unBan: "la la-circle",
+		unBan: "la la-circle"
 	},
 	SendPrivateMessage: {
 		send: global.send,
@@ -334,7 +334,7 @@ export default {
 		eye: global.eye,
 		eyeSlash: global.eyeSlash,
 		key: global.key,
-		user: global.user,
+		user: global.user
 	},
 	EditInformation: {
 		save: global.save

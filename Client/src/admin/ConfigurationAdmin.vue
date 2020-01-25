@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="configuration-admin page-padding">
+	<SunPage class="configuration-admin page-padding">
 		<PageHeader :title="title">
 			<q-input
 				dense
@@ -120,7 +120,7 @@
 		</div>
 
 		<LoaderWait v-else />
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="skins-admin page-padding">
+	<SunPage class="skins-admin page-padding">
 		<PageHeader :title="title" />
 
 		<q-tabs class="bg-grey-2" align="justify" inline-label>
@@ -29,7 +29,7 @@
 		<div class="q-mb-xl"></div>
 
 		<router-view />
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

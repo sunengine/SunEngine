@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="register-email-result flex middle page-padding">
+	<SunPage class="register-email-result flex middle page-padding">
 		<q-banner v-if="success" class="bg-positive text-white">
 			<template v-slot:avatar>
 				<q-icon :name="$iconsSet.RegisterEmailResult.success" size="2em" />
@@ -24,7 +24,7 @@
 			</template>
 			{{ $tl("error") }}
 		</q-banner>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

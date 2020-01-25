@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="change-email-result flex middle page-padding">
+	<SunPage class="change-email-result flex middle page-padding">
 		<q-banner
 			v-if="success"
 			class="change-email-result__success-banner bg-positive text-white"
@@ -18,7 +18,7 @@
 			</template>
 			{{ $tl("error") }}
 		</q-banner>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

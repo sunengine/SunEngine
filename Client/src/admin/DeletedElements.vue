@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="deleted-elements page-padding">
+	<SunPage class="deleted-elements page-padding">
 		<PageHeader :title="title" />
 
 		<q-checkbox
@@ -31,7 +31,7 @@
 		>
 			<LoaderSent slot="loading" />
 		</q-btn>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

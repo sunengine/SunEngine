@@ -1,5 +1,5 @@
 <template>
-	<q-page class="material-inline-page ">
+	<SunPage class="material-inline-page ">
 		<div class="material-inline-page__pan"></div>
 		<PageHeader class="page-padding text-center" :title="title" />
 		<MaterialInline
@@ -8,7 +8,7 @@
 			class="page-padding material-inline-page__material"
 			name="inline1"
 		/>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

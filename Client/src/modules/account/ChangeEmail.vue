@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="change-email flex column page-padding">
+	<SunPage class="change-email flex column page-padding">
 		<div class="flex flex-center">
 			<PageHeader :title="title" />
 		</div>
@@ -62,7 +62,7 @@
 				{{ $tl("successNotify") }}
 			</q-banner>
 		</div>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

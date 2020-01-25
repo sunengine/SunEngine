@@ -31,13 +31,7 @@ export default {
 		loading: "Загрузка...",
 		canNotConnectApi: "Невозможно соединиться с API."
 	},
-	Captcha: {
-		newMessageBtn: "Выдать новое изображение",
-		waitMessage:
-			"Что бы сгенерировать новый токен, нужно немного подождать, попробуйте через некоторое время",
-		enterToken: "Введите текст с картинки",
-		required: "@:Captcha.enterToken"
-	},
+	
 	MyEditor: {
 		uploadImages: "Добавить изображения"
 	},

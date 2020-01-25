@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="roles-permissions page-padding">
+	<SunPage class="roles-permissions page-padding">
 		<PageHeader :title="title" />
 
 		<div class="q-gutter-y-lg" v-if="json !== null">
@@ -49,7 +49,7 @@
 		</div>
 
 		<LoaderWait v-else />
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

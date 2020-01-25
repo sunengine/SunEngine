@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="edit-information page-padding">
+	<SunPage class="edit-information page-padding">
 		<PageHeader :title="title" :subTitle="$tl('label')" />
 
 		<template v-if="userInfo">
@@ -19,7 +19,7 @@
 		</template>
 
 		<LoaderWait v-else />
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

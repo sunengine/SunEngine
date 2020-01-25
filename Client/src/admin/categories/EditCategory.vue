@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="edit-category page-padding">
+	<SunPage class="edit-category page-padding">
 		<PageHeader :title="$tl('title')" />
 
 		<template v-if="category">
@@ -37,7 +37,7 @@
 			</div>
 		</template>
 		<LoaderWait v-else />
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

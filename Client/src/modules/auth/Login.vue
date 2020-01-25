@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="login flex flex-center page-padding">
+	<SunPage class="login flex flex-center page-padding">
 		<div class="center-form">
 			<q-form @submit="login">
 				<q-input
@@ -43,14 +43,15 @@
 						{{ $tl("entering") }}
 					</LoaderSent>
 				</q-btn>
+				<div class="text-center q-mt-lg">
+					<router-link :to="{ name: 'ResetPassword' }">
+						<q-icon class="q-mr-sm" :name="$iconsSet.Login.question" />
+						<span>{{ $tl("forgotPassword") }}</span>
+					</router-link>
+				</div>
 			</q-form>
-
-			<router-link class="text-center q-mt-lg" :to="{ name: 'ResetPassword' }">
-				<q-icon class="q-mr-sm" :name="$iconsSet.Login.question" />
-				<span>{{ $tl("forgotPassword") }}</span>
-			</router-link>
 		</div>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="reset-password-set-new flex middle page-padding">
+	<SunPage class="reset-password-set-new flex middle page-padding">
 		<div class="center-form" v-if="!done">
 			<q-input
 				class="reset-password-set-new__password"
@@ -70,7 +70,7 @@
 			<router-link :to="{ name: 'Login' }">{{ $tl("enter") }}</router-link>
 			.
 		</q-banner>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

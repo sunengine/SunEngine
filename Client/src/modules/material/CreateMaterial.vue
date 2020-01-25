@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="create-material q-pa-md">
+	<SunPage class="create-material q-pa-md">
 		<MaterialForm
 			ref="form"
 			class="create-material__material-form"
@@ -28,7 +28,7 @@
 				color="warning"
 			/>
 		</div>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

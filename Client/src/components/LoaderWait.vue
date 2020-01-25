@@ -6,7 +6,7 @@
 		</template>
 		<template v-else>
 			<q-icon
-				:name="$iconsSet.SendPrivateMessage.exclamation"
+				:name="$iconsSet.LoaderWait.exclamation"
 				size="20px"
 				class="q-mr-xs"
 			/>

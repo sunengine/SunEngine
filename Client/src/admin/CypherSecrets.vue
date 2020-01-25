@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="cypher-secrets page-padding">
+	<SunPage class="cypher-secrets page-padding">
 		<PageHeader :title="title" />
 
 		<div class="cypher-secrets__btn-block q-gutter-md q-mt-sm">
@@ -28,7 +28,7 @@
 				label="EmailChange"
 			/>
 		</div>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

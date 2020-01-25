@@ -1,10 +1,10 @@
 <template>
-	<q-page class="secret-page middle flex">
+	<SunPage class="secret-page middle flex">
 		<h1 class="secret-page__header">
 			<q-icon name="fas fa-user-secret" left />
 			{{ title }}
 		</h1>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

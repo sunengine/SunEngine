@@ -1,7 +1,7 @@
 <template>
-	<q-page class="index-page middle flex flex-center">
+	<SunPage class="index-page middle flex flex-center">
 		<MaterialInline name="index-page" />
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

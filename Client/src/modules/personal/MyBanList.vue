@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="my-ban-list page-padding">
+	<SunPage class="my-ban-list page-padding">
 		<PageHeader :title="$tl('title')" :subTitle="$tl('subTitle')" />
 		<div v-if="users">
 			<template v-if="users.length > 0">
@@ -16,7 +16,7 @@
 			</q-banner>
 		</div>
 		<LoaderWait v-else />
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

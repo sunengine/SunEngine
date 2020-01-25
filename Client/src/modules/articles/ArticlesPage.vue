@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="articles-page">
+	<SunPage class="articles-page">
 		<PageHeader class="page-padding" :category="category">
 			<q-btn
 				no-caps
@@ -34,7 +34,7 @@
 			direction-links
 			@input="pageChanges"
 		/>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

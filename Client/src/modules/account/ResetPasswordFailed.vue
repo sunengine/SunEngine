@@ -1,12 +1,12 @@
 ﻿<template>
-	<q-page class="reset-password-failed flex middle page-padding">
+	<SunPage class="reset-password-failed flex middle page-padding">
 		<q-banner rounded class="bg-negative text-white">
 			<template v-slot:avatar>
 				<q-icon :name="$iconsSet.ResetPasswordFailed.failed" size="2em" />
 			</template>
 			{{ $tl("message") }}
 		</q-banner>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="roles-page page-padding">
+	<SunPage class="roles-page page-padding">
 		<PageHeader :title="title" />
 
 		<div class="row">
@@ -30,7 +30,7 @@
 				class="roles-page__router-view col-xs-12 col-sm-8"
 			></router-view>
 		</div>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

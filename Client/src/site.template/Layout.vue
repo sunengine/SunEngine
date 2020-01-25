@@ -99,7 +99,7 @@
 			<router-view name="navigation" />
 		</q-drawer>
 
-		<q-page-container>
+		<SunPage-container>
 			<q-toolbar v-if="!hideBreadcrumbs" class="page-padding">
 				<Breadcrumbs :category="breadcrumbsCategory" :pageTitle="pageTitle" />
 			</q-toolbar>

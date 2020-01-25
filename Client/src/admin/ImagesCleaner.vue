@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="images-cleaner page-padding">
+	<SunPage class="images-cleaner page-padding">
 		<PageHeader :title="title" />
 
 		<q-banner rounded class="bg-amber-2 q-mb-md">
@@ -46,7 +46,7 @@
 		<q-banner rounded class="images-cleaner__empty-result bg-grey-3" v-else>
 			{{ $tl("emptyResult") }}
 		</q-banner>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-	<q-page class="error404 flex column flex-center">
+	<SunPage class="error404 flex column flex-center">
 		<p>
 			<img class="error404__sad-img" src="/statics/sad.svg" />
 		</p>
@@ -10,7 +10,7 @@
 		<q-btn color="secondary" class="error404__back-btn" @click="$router.back()">
 			{{ $tl("goBackBtn") }}
 		</q-btn>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

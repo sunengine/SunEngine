@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="create-component page-padding">
+	<SunPage class="create-component page-padding">
 		<PageHeader :title="title" />
 
 		<ComponentForm ref="form" :component="component" />
@@ -25,7 +25,7 @@
 				color="warning"
 			/>
 		</div>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

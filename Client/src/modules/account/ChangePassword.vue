@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="change-password flex column page-padding">
+	<SunPage class="change-password flex column page-padding">
 		<div class="flex flex-center">
 			<PageHeader :title="title" />
 		</div>
@@ -89,7 +89,7 @@
 				</q-btn>
 			</div>
 		</div>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

@@ -1,8 +1,8 @@
 ﻿﻿<template>
-	<q-page class="page-wrapper page-padding">
+	<SunPage class="page-wrapper page-padding">
 		<PageHeader :title="pageTitle" :icon="icon" />
 		<component v-if="wrapComponent" :is="wrapComponent" />
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

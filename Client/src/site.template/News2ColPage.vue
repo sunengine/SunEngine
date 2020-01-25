@@ -1,5 +1,5 @@
 <template>
-	<q-page class="news-2-col-page">
+	<SunPage class="news-2-col-page">
 		<PageHeader class="page-padding" :title="title" :subTitle="subTitle" />
 
 		<div :class="['row', { hidden: !loaded }]">
@@ -27,7 +27,7 @@
 			</div>
 		</div>
 		<LoaderWait v-if="!loaded" />
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

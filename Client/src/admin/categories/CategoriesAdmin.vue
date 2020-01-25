@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="categories-admin page-padding">
+	<SunPage class="categories-admin page-padding">
 		<div class="page-title-block">
 			<h1 class="page-title">
 				{{ $tl("title") }}
@@ -25,7 +25,7 @@
 		/>
 
 		<LoaderWait v-else />
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

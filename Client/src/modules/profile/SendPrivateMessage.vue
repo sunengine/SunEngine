@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="send-private-message page-padding">
+	<SunPage class="send-private-message page-padding">
 		<PageHeader>
 			<template slot="title">
 				{{ $tl("titleStart") }}
@@ -37,7 +37,7 @@
 			@click="$router.back()"
 			:label="$t('Global.btn.cancel')"
 		/>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

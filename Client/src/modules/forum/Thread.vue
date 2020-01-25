@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="thread">
+	<SunPage class="thread">
 		<PageHeader class="page-padding" :title="showTitle" :category="category">
 			<q-btn
 				no-caps
@@ -54,7 +54,7 @@
 			/>
 		</div>
 		<LoaderWait ref="loader" v-else />
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="material">
+	<SunPage class="material">
 		<div v-if="material" class="page-padding">
 			<article>
 				<PageHeader
@@ -118,7 +118,7 @@
 				:materialId="material.id"
 			/>
 		</div>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

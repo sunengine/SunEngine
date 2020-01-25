@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="articles-multi-cat-page">
+	<SunPage class="articles-multi-cat-page">
 		<PageHeader class="page-padding" :title="title" :subTitle="subTitle">
 			<q-btn
 				class="post-btn"
@@ -31,7 +31,7 @@
 			direction-links
 			@input="pageChanges"
 		/>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

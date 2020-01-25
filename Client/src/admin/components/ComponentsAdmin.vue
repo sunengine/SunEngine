@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="components-admin page-padding">
+	<SunPage class="components-admin page-padding">
 		<PageHeader :title="$tl('title')">
 			<q-btn
 				:icon="$iconsSet.ComponentsAdmin.add"
@@ -44,7 +44,7 @@
 		</div>
 
 		<LoaderWait v-else />
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

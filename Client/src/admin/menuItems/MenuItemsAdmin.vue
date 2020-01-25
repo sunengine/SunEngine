@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="menu-items-admin page-padding">
+	<SunPage class="menu-items-admin page-padding">
 		<PageHeader :title="$tl('title')">
 			<q-btn
 				:icon="$iconsSet.MenuItemsAdmin.add"
@@ -27,7 +27,7 @@
 		/>
 
 		<LoaderWait v-else />
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

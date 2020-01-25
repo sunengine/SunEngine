@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="edit-component page-padding">
+	<SunPage class="edit-component page-padding">
 		<PageHeader :title="title" />
 
 		<ComponentForm
@@ -40,7 +40,7 @@
 				:label="$tl('deleteBtn')"
 			/>
 		</div>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

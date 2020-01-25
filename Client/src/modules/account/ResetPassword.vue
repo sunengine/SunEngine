@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="reset-password flex middle page-padding">
+	<SunPage class="reset-password flex middle page-padding">
 		<div class="center-form q-gutter-y-sm" v-if="!done">
 			<q-input
 				class="reset-password__email"
@@ -35,7 +35,7 @@
 			</template>
 			{{ $tl("success") }}
 		</q-banner>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

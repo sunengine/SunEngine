@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="load-photo flex column middle page-padding">
+	<SunPage class="load-photo flex column middle page-padding">
 		<PageHeader :title="title" />
 
 		<img
@@ -35,7 +35,7 @@
 			:label="$tl('resetBtn')"
 			@click="resetAvatar"
 		/>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

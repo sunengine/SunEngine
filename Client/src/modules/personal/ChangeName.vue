@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="change-name flex column page-padding">
+	<SunPage class="change-name flex column page-padding">
 		<h1 class="page-title text-center">
 			{{ title }}
 		</h1>
@@ -57,7 +57,7 @@
 				</q-btn>
 			</div>
 		</div>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

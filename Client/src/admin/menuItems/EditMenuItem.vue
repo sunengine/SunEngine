@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="edit-menu-item page-padding">
+	<SunPage class="edit-menu-item page-padding">
 		<PageHeader :title="title" />
 
 		<MenuItemForm v-if="menuItem" ref="form" :menuItem="menuItem" />
@@ -36,7 +36,7 @@
 				:label="$tl('deleteBtn')"
 			/>
 		</div>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

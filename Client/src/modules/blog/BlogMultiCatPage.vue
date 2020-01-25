@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="blog-multi-cat-page">
+	<SunPage class="blog-multi-cat-page">
 		<PageHeader
 			class="page-padding"
 			:title="title"
@@ -22,7 +22,7 @@
 		</PageHeader>
 
 		<PostsMultiCat :componentName="componentName" />
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

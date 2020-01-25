@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="register flex flex-center page-padding">
+	<SunPage class="register flex flex-center page-padding">
 		<div v-if="!done" class="center-form">
 			<q-input
 				ref="userName"
@@ -87,7 +87,7 @@
 			</template>
 			{{ $tl("emailSent") }}
 		</q-banner>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

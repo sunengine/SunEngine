@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="create-category page-padding">
+	<SunPage class="create-category page-padding">
 		<PageHeader :title="$tl('title')" />
 
 		<CategoryForm ref="form" :category="category" />
@@ -23,7 +23,7 @@
 				:label="$tl('cancelBtn')"
 			/>
 		</div>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

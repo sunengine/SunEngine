@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="sessions">
+	<SunPage class="sessions">
 		<PageHeader :title="$tl('title')" class="page-padding" />
 		<q-markup-table v-if="sessions">
 			<thead>
@@ -49,7 +49,7 @@
 				no-caps
 			/>
 		</div>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

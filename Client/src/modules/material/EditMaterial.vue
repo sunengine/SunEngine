@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="edit-material q-pa-md">
+	<SunPage class="edit-material q-pa-md">
 		<div v-if="material.deletedDate" class="edit-material__delete-date text-red">
 			<q-chip
 				icon="fas fa-trash"
@@ -56,7 +56,7 @@
 				:label="$tl('restoreBtn')"
 			/>
 		</div>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

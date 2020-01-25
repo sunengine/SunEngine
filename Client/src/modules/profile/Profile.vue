@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="profile page-padding page-padding-top">
+	<SunPage class="profile page-padding page-padding-top">
 		<template v-if="user">
 			<div class="profile__container">
 				<div class="profile__img-block flex column">
@@ -108,7 +108,7 @@
 				/>
 			</div>
 		</q-dialog>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

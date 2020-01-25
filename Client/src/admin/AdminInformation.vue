@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="admin-page page-padding">
+	<SunPage class="admin-page page-padding">
 		<PageHeader :title="title" />
 
 		<q-markup-table>
@@ -103,7 +103,7 @@
 				</tr>
 			</tbody>
 		</q-markup-table>
-	</q-page>
+	</SunPage>
 </template>
 
 <script>

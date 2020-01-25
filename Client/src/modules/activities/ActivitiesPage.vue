@@ -1,5 +1,5 @@
 ﻿<template>
-	<q-page class="activities-page">
+	<SunPage class="activities-page">
 		<PageHeader
 			class="page-padding"
 			:title="component.settings.Title"
@@ -7,7 +7,7 @@
 		/>
 
 		<ActivitiesList :componentName="componentName" />
-	</q-page>
+	</SunPage>
 </template>
 
 <script>
