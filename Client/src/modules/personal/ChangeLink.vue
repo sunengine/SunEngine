@@ -3,6 +3,7 @@
 		<div class="flex flex-center">
 			<PageHeader :title="title" />
 		</div>
+
 		<div class="flex flex-center grow">
 			<div class="center-form">
 				<div class="text-grey-7 q-mb-lg text-justify">
@@ -18,7 +19,7 @@
 					:rules="rules"
 				>
 					<template v-slot:prepend>
-						<q-icon name="fas fa-link" />
+						<q-icon :name="$iconsSet.ChangeLink.link" />
 					</template>
 					<template v-slot:hint>
 						{{ $tl("hintLink") }} &nbsp; {{ userLink }}
@@ -28,7 +29,7 @@
 				<q-btn
 					no-caps
 					class="q-mt-lg send-btn block full-width"
-					icon="far fa-save"
+					:icon="$iconsSet.ChangeLink.save"
 					:label="$tl('saveBtn')"
 					@click="save"
 					:loading="submitting"

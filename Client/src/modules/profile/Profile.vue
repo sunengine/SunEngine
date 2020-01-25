@@ -67,38 +67,47 @@
 						</template>
 					</div>
 
-					<div class="profile__information profile__text q-mb-lg" v-html="user.information"></div>
+					<div
+						class="profile__information profile__text q-mb-lg"
+						v-html="user.information"
+					></div>
 
 					<div class="profile__footer-info">
 						<div class="profile__registered grow">
 							{{ $tl("registered") }}: {{ $formatDateOnly(user.registeredDate) }}
 						</div>
 						<div class="profile__visits">
-							<q-icon 	:name="$iconsSet.Profile.visits" class="q-mr-sm" />
+							<q-icon :name="$iconsSet.Profile.visits" class="q-mr-sm" />
 							{{ user.profileVisitsCount }}
 						</div>
 					</div>
+
+					<div class="text-center q-mt-lg">
+						<q-btn
+							no-caps
+							:label="$tl('roles')"
+							color="info"
+							:icon="$iconsSet.Profile.roles"
+							@click="$refs.dialog.show()"
+						/>
+					</div>
 				</div>
-			</div>
-			<div class="flex content-center column">
-				<q-expansion-item
-					class="profile__expansion-item-roles overflow-hidden"
-					v-if="canEditRoles"
-					@show="showRolesAdmin"
-					:icon="$iconsSet.Profile.roles"
-					:label="$tl('roles')"
-					header-style="background-color: #e4e4e4"
-				>
-					<ProfileRoles
-						class="profile__roles q-pa-md"
-						:userId="user.id"
-						v-if="isShowRolesAdmin"
-					/>
-				</q-expansion-item>
 			</div>
 		</template>
 
 		<LoaderWait v-else />
+
+		<q-dialog ref="dialog">
+			<div class="bg-white">
+				<ProfileRoles class="profile__roles q-pa-md" :userId="user.id" />
+				<q-btn
+					color="warning"
+					class="full-width"
+					:label="$tl('closeRoles')"
+					@click="$refs.dialog.hide()"
+				/>
+			</div>
+		</q-dialog>
 	</q-page>
 </template>
 
@@ -117,8 +126,7 @@ export default {
 	},
 	data() {
 		return {
-			user: null,
-			isShowRolesAdmin: false
+			user: null
 		};
 	},
 	computed: {
@@ -157,9 +165,6 @@ export default {
 		prepareLocalLinks() {
 			prepareLocalLinks.call(this, this.$el, "profile__text");
 		},
-		showRolesAdmin() {
-			this.isShowRolesAdmin = true;
-		},
 		ban() {
 			this.$request(this.$Api.Profile.BanUser, {
 				userId: this.user.id
@@ -178,8 +183,8 @@ export default {
 				this.$successNotify(msg);
 			});
 		},
-		async loadData() {
-			await this.$request(this.$Api.Profile.GetProfile, {
+		loadData() {
+			return this.$request(this.$Api.Profile.GetProfile, {
 				link: this.link
 			}).then(response => {
 				this.user = response.data;

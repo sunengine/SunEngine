@@ -7,7 +7,8 @@ export default {
 		banBtn: "Ban",
 		unBanBtn: "Unban",
 		banNotify: "User {0} can`t now write you",
-		unBanNotify: "User {0} can now write you"
+		unBanNotify: "User {0} can now write you",
+		closeRoles: "Close"
 	},
 	SendPrivateMessage: {
 		title: "Private message",

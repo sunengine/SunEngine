@@ -20,7 +20,7 @@
 					@click="add = true"
 					no-caps
 					color="positive"
-					icon="fas fa-plus"
+					:icon="$iconsSet.ProfileRoles.plus"
 					:label="$tl('addRoleBtn')"
 				/>
 
@@ -29,16 +29,16 @@
 					@click="remove = true"
 					no-caps
 					color="negative"
-					icon="fas fa-minus"
+					:icon="$iconsSet.ProfileRoles.minus"
 					:label="$tl('removeRoleBtn')"
 				/>
 
-				<q-dialog class="profile-roles__dialog-add" v-model="add">
+				<q-dialog ref="addRole" class="profile-roles__dialog-add" v-model="add">
 					<div class="bg-white">
 						<q-list>
 							<q-toolbar class="bg-positive text-white shadow-2">
 								<q-toolbar-title>
-									<q-icon name="fas fa-plus" class="q-mr-sm" />
+									<q-icon :name="$iconsSet.ProfileRoles.plus" class="q-mr-sm" />
 									{{ $tl("addRoleBtn") }}
 								</q-toolbar-title>
 							</q-toolbar>
@@ -55,10 +55,10 @@
 								</q-item-section>
 							</q-item>
 						</q-list>
-						<div v-close-popup class="text-center q-my-md">
+						<div class="text-center q-my-md">
 							<q-btn
 								flat
-								v-close-popup
+								@click="$refs.addRole.hide()"
 								class="self-center cancel-btn"
 								:label="$t('Global.btn.cancel')"
 							/>
@@ -66,12 +66,16 @@
 					</div>
 				</q-dialog>
 
-				<q-dialog class="profile-roles__dialog-remove" v-model="remove">
+				<q-dialog
+					ref="remove"
+					class="profile-roles__dialog-remove"
+					v-model="remove"
+				>
 					<div class="bg-white">
 						<q-list>
 							<q-toolbar class="bg-negative text-white shadow-2">
 								<q-toolbar-title>
-									<q-icon name="fas fa-minus" class="q-mr-sm" />
+									<q-icon :name="$iconsSet.ProfileRoles.minus" class="q-mr-sm" />
 									{{ $tl("removeRoleBtn") }}
 								</q-toolbar-title>
 							</q-toolbar>
@@ -88,10 +92,10 @@
 								</q-item-section>
 							</q-item>
 						</q-list>
-						<div v-close-popup class="text-center q-my-md">
+						<div class="text-center q-my-md">
 							<q-btn
 								flat
-								v-close-popup
+								@click="$refs.remove.hide()"
 								class="self-center cancel-btn"
 								:label="$t('Global.btn.cancel')"
 							/>
@@ -139,8 +143,8 @@ export default {
 					ok: addRoleConfirmOkBtn,
 					cancel: cancelBtn
 				})
-				.onOk(async () => {
-					await this.addToRole(role);
+				.onOk(() => {
+					this.addToRole(role);
 				});
 		},
 		removeFromRoleConfirm(role) {

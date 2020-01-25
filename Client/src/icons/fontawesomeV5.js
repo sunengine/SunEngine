@@ -148,7 +148,10 @@ export default {
 		user: "fas fa-user",
 		search: global.search
 	},
-	ProfileRoles: {},
+	ProfileRoles: {
+		plus: "fas fa-plus",
+		minus: "fas fa-minus"
+	},
 	RolesPermissions: {
 		save: global.save,
 		reset: global.refresh
@@ -253,7 +256,7 @@ export default {
 		eyeSlash: global.eyeSlash,
 		envelope: global.envelope,
 		key: global.key,
-		save: global.save,
+		save: global.save
 	},
 	ChangeEmailResult: {
 		success: "fas fa-check-circle",
@@ -279,7 +282,7 @@ export default {
 		eyeSlash: global.eyeSlash,
 		key: global.key,
 		user: global.user,
-		envelope: global.envelope,
+		envelope: global.envelope
 	},
 	Captcha: {
 		hand: "fas fa-hand-point-right",
@@ -287,7 +290,7 @@ export default {
 	},
 	RegisterEmailResult: {
 		success: "fas fa-check-circle",
-		failed:"fas fa-exclamation-circle"
+		failed: "fas fa-exclamation-circle"
 	},
 	UserMenu: {
 		profile: "fas fa-user-circle",
@@ -298,5 +301,22 @@ export default {
 	LoginRegisterMenu: {
 		signIn: "fas fa-sign-in-alt",
 		register: "fas fa-user-plus"
+	},
+	Layout: {
+		mainMenu: "la la-bars",
+		secondMenu: "far fa-clipboard",
+		heart: "fas fa-heart",
+		user: global.user
+	},
+	ChangeLink: {
+		link: "fas fa-link",
+		save: global.save
+	},
+	ChangeName: {
+		save: global.save,
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		key: global.key,
+		user: global.user,
 	}
 };

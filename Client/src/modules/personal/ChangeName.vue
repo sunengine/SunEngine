@@ -19,11 +19,13 @@
 					:rules="rules.passwordRules"
 				>
 					<template v-slot:prepend>
-						<q-icon name="fas fa-key" />
+						<q-icon :name="$iconsSet.ChangeName.key" />
 					</template>
 					<template v-slot:append>
 						<q-icon
-							:name="showPassword ? 'far fa-eye' : 'far fa-eye-slash'"
+							:name="
+								showPassword ? $iconsSet.ChangeName.eye : $iconsSet.ChangeName.eyeSlash
+							"
 							class="cursor-pointer"
 							@click="showPassword = !showPassword"
 						/>
@@ -37,22 +39,16 @@
 					v-model="name"
 					:label="$tl('name')"
 					:rules="rules.nameRules"
-					:after="[
-						{
-							icon: 'far fa-check-circle',
-							condition: nameInDb
-						}
-					]"
 				>
 					<template v-slot:prepend>
-						<q-icon name="fas fa-user" />
+						<q-icon :name="$iconsSet.ChangeName.user" />
 					</template>
 				</q-input>
 
 				<q-btn
 					no-caps
 					class="send-btn q-mt-lg full-width"
-					icon="far fa-save"
+					:icon="$iconsSet.ChangeName.save"
 					:label="$tl('saveBtn')"
 					@click="save"
 					:loading="submitting"

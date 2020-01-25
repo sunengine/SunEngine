@@ -1,3 +1,5 @@
+import { mdiBatteryChargingLow } from "@quasar/extras/mdi-v4";
+
 const global = {
 	delete: "la la-trash",
 	save: "la la-save",
@@ -148,7 +150,10 @@ export default {
 		user: "la la-user",
 		search: global.search
 	},
-	ProfileRoles: {},
+	ProfileRoles: {
+		plus: "la la-plus",
+		minus: "la la-minus"
+	},
 	RolesPermissions: {
 		save: global.save,
 		reset: global.refresh
@@ -227,7 +232,7 @@ export default {
 		visits: global.eye,
 		roles: "la la-cog",
 		ban: "la la-ban",
-		unBan: "la la-circle"
+		unBan: "la la-circle",
 	},
 	SendPrivateMessage: {
 		send: global.send,
@@ -254,14 +259,14 @@ export default {
 		eyeSlash: global.eyeSlash,
 		envelope: global.envelope,
 		key: global.key,
-		save: global.save,
+		save: global.save
 	},
 	ChangeEmailResult: {
 		success: "la la-check-circle",
 		failed: "la la-exclamation-circle"
 	},
 	ResetPasswordFailed: {
-		failed: "la la-exclamation-circle",
+		failed: "la la-exclamation-circle"
 	},
 	ResetPasswordSetNew: {
 		eye: global.eye,
@@ -280,7 +285,7 @@ export default {
 		eyeSlash: global.eyeSlash,
 		key: global.key,
 		user: global.user,
-		envelope: global.envelope,
+		envelope: global.envelope
 	},
 	Captcha: {
 		hand: "la la-hand-point-right",
@@ -288,7 +293,7 @@ export default {
 	},
 	RegisterEmailResult: {
 		success: "la la-check-circle",
-		failed:"la la-exclamation-circle"
+		failed: "la la-exclamation-circle"
 	},
 	UserMenu: {
 		profile: "la la-user-circle",
@@ -301,6 +306,20 @@ export default {
 		register: "la la-user-plus"
 	},
 	Layout: {
-		bars: "la la-bars",
+		mainMenu: "la la-bars",
+		secondMenu: "la la-clipboard-list",
+		heart: "la la-heart",
+		user: "la la-user-alt"
+	},
+	ChangeLink: {
+		link: "la la-link",
+		save: global.save
+	},
+	ChangeName: {
+		save: global.save,
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		key: global.key,
+		user: global.user,
 	}
 };
