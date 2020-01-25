@@ -10,7 +10,10 @@
 						@click="leftDrawerOpen = !leftDrawerOpen"
 						aria-label="Menu"
 					>
-						<q-icon name="fas fa-bars" class="layout__toolbar__menu-btn" />
+						<q-icon
+							:name="$iconsSet.Layout.mainMenu"
+							class="layout__toolbar__menu-btn"
+						/>
 					</q-btn>
 
 					<q-toolbar-title class="layout__title-block">
@@ -64,14 +67,14 @@
 					</template>
 
 					<q-btn v-else flat dense round>
-						<q-icon name="fas fa-user" class="toolbar-user-btn" />
+						<q-icon :name="$iconsSet.Layout.user" class="toolbar-user-btn" />
 						<q-menu>
 							<LoginRegisterMenu v-close-popup />
 						</q-menu>
 					</q-btn>
 
 					<q-btn
-						class="q-mr-sm"
+						class="q-ml-sm"
 						flat
 						dense
 						round
@@ -79,7 +82,10 @@
 						aria-label="Menu"
 						v-if="rightDrawerIs"
 					>
-						<q-icon name="far fa-clipboard" class="layout__toolbar__menu-btn" />
+						<q-icon
+							:name="$iconsSet.Layout.secondMenu"
+							class="layout__toolbar__menu-btn"
+						/>
 					</q-btn>
 				</q-toolbar>
 			</q-header>
@@ -99,17 +105,22 @@
 			<router-view name="navigation" />
 		</q-drawer>
 
-		<SunPage-container>
-			<q-toolbar v-if="!hideBreadcrumbs" class="page-padding">
-				<Breadcrumbs :category="breadcrumbsCategory" :pageTitle="pageTitle" />
+		<q-page-container :class="{ 'center-container': centered }">
+			<q-toolbar
+				id="toolbarBreadcrumbs"
+				:class="{ 'page-padding': true, hidden: hideBreadcrumbs }"
+			>
+				<Breadcrumbs
+					v-if="!hideBreadcrumbs"
+					:category="breadcrumbsCategory"
+					:pageTitle="pageTitle"
+				/>
 			</q-toolbar>
-			<div :class="{ 'center-container': centered }">
-				<div class="inner-container">
-					<main>
-						<router-view ref="rv" />
-					</main>
-				</div>
+
+			<div class="inner-container">
+				<router-view ref="rv" />
 			</div>
+			<q-resize-observer @resize="onResize" />
 		</q-page-container>
 
 		<footer>
@@ -121,7 +132,7 @@
 					:menuItem="footerMenuItem"
 				>
 					<q-icon
-						name="fas fa-heart"
+						:name="$iconsSet.Layout.heart"
 						class="layout__footer-separator-icon"
 						size="12px"
 					/>
@@ -144,7 +155,8 @@ export default {
 		return {
 			leftDrawerOpen: this.$q.platform.is.desktop,
 			rightDrawerOpen: this.$q.platform.is.desktop,
-			centered: false
+			centered: false,
+			breadcrumbsHeight: null
 		};
 	},
 	watch: {
@@ -189,6 +201,15 @@ export default {
 		this.$options.components.MainMenu = require("sun").MainMenu;
 		this.$options.components.SunEngineFooter = require("sun").SunEngineFooter;
 		this.$options.components.LinksMenu = require("sun").LinksMenu;
+	},
+	mounted() {
+		const toolbarBreadcrumbs = document.getElementById("toolbarBreadcrumbs");
+		this.breadcrumbsHeight = parseInt(
+			window.getComputedStyle(toolbarBreadcrumbs).height
+		);
+	},
+	created() {
+	    this.$root.$layout = this;
 	}
 };
 </script>
