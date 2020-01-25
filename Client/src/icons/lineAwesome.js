@@ -1,5 +1,3 @@
-import { mdiBatteryChargingLow } from "@quasar/extras/mdi-v4";
-
 const global = {
 	delete: "la la-trash",
 	save: "la la-save",
@@ -24,205 +22,38 @@ export default {
 	name: "line-awesome",
 	sunName: "LineAwesome",
 	global: global,
+	Activity: {
+		category: global.category,
+		comment: global.comment,
+		material: "la la-file-alt",
+		publishDate: global.clock
+	},
 	AdminMenu: {
 		AdminInformation: "la la-info-circle",
-		ConfigurationAdmin: "la la-sliders-h",
-		MenuItemsAdmin: "la la-bars",
 		CategoriesAdmin: "la la-stream",
 		ComponentsAdmin: "la la-shapes",
-		SkinsAdmin: "la la-palette",
+		ConfigurationAdmin: "la la-sliders-h",
+		CypherSecrets: global.key,
+		DeletedElements: global.delete,
+		ImagesCleaner: "la la-broom",
+		MenuItemsAdmin: "la la-bars",
+		resetCache: global.refresh,
 		RolesPage: "la la-user-friends",
 		RolesPermissions: "la la-user-lock",
-		DeletedElements: "la la-trash",
-		resetCache: "la la-sync-alt",
-		systemTools: "la la-tools",
-		ImagesCleaner: "la la-broom",
-		CypherSecrets: "la la-key"
-	},
-	SunEditor: {
-		addImages: "la la-image"
-	},
-	CategoriesAdmin: {
-		addCategoryBtn: global.add
-	},
-	CategoryItem: {
-		up: "la la-angle-up", //"la la-arrow-up", // "la la-caret-up", "la la-angle-up",
-		down: "la la-angle-down", //"la la-arrow-up" // "la la-caret-down", "la la-angle-down"
-		eyeSlash: global.eyeSlash,
-		edit: "la la-wrench",
-		plus: global.add,
-		goTo: "la la-arrow-right",
-		material: "la la-file-alt"
-	},
-	CreateCategory: {
-		create: global.save,
-		cancel: global.cancel
-	},
-	EditCategory: {
-		save: global.save,
-		cancel: global.cancel,
-		delete: global.delete
-	},
-	CategoryForm: {
-		icons: "la la-icons",
-		category: "la la-stream",
-		layout: "la la-table"
-	},
-	ConfigurationAdmin: {
-		search: global.search,
-		question: "la la-question-circle",
-		save: global.save,
-		reset: global.refresh,
-		cancel: global.cancel
-	},
-	CreateMenuItem: {
-		create: global.save,
-		cancel: global.cancel
-	},
-	EditMenuItem: {
-		save: global.save,
-		cancel: global.cancel,
-		delete: global.delete
-	},
-	MenuAdminItem: {
-		up: "la la-angle-up", //"la la-arrow-up", // "la la-caret-up", "la la-angle-up",
-		down: "la la-angle-down", //"la la-arrow-up" // "la la-caret-down", "la la-angle-down"
-		eye: global.eye,
-		eyeSlash: global.eyeSlash,
-		blank: "la la-file",
-		edit: "la la-wrench",
-		add: global.add,
-		goTo: global.goTo,
-		delete: global.delete
-	},
-	MenuItemsAdmin: {
-		add: global.add
-	},
-	MenuItemForm: {
-		link: "la la-link",
-		css: "lab la-css3-alt",
-		icons: "la la-icons",
-		search: global.search
-	},
-	ComponentsAdmin: {
-		add: global.save,
-		component: "la la-cube",
-		edit: "la la-wrench",
-		goTo: global.goTo
-	},
-	ComponentForm: {
-		component: "la la-cube"
-	},
-	CreateComponent: {
-		add: global.save,
-		cancel: global.cancel
-	},
-	EditComponent: {
-		save: global.save,
-		cancel: global.cancel,
-		delete: global.delete
-	},
-	SkinsAdmin: {
-		main: "la la-palette",
-		partial: "la la-puzzle-piece",
-		customCss: "lab la-css3-alt"
-	},
-	MainSkinsAdmin: {
-		upload: "la la-upload",
-		preview: "la la-search",
-		current: "la la-check",
-		set: "la la-play",
-		info: "la la-info",
-		delete: global.delete
-	},
-	PartialSkinsAdmin: {
-		upload: global.upload,
-		delete: global.delete
-	},
-	CustomCssAdmin: {
-		save: global.save,
-		reset: global.refresh,
-		clean: "la la-broom"
-	},
-	RolesPage: {
-		users: "la la-user-friends"
-	},
-	RoleUsers: {
-		user: "la la-user",
-		search: global.search
-	},
-	ProfileRoles: {
-		plus: "la la-plus",
-		minus: "la la-minus"
-	},
-	RolesPermissions: {
-		save: global.save,
-		reset: global.refresh
-	},
-	DeletedElements: {
-		trashBtn: global.delete
-	},
-	ImagesCleaner: {
-		clean: global.delete,
-		refresh: global.refresh
-	},
-	CypherSecrets: {
-		key: "la la-key"
-	},
-
-	Material: {
-		delete: global.delete,
-		restore: "la la-trash-restore",
-		visits: global.eye,
-		publishDate: global.clock
-	},
-	CreateMaterial: {
-		save: global.save,
-		cancel: global.cancel
-	},
-	EditMaterial: {
-		save: global.save,
-		cancel: global.cancel,
-		delete: global.delete
-	},
-	MaterialForm: {
-		tags: "la la-tags",
-		category: "la la-stream"
-	},
-	Comment: {
-		delete: global.delete,
-		publishDate: global.clock
+		SkinsAdmin: "la la-palette",
+		systemTools: "la la-tools"
 	},
 	Article: {
+		comments: global.comment,
 		delete: global.delete,
 		publishDate: global.clock,
-		comments: global.comment,
 		user: global.user
-	},
-	ArticlesPage: {
-		add: global.add
 	},
 	ArticlesMultiCatPage: {
 		add: global.add
 	},
-	CreateComment: {
-		send: global.send
-	},
-	EditComment: {
-		save: global.save,
-		cancel: global.cancel
-	},
-	Activity: {
-		comment: global.comment,
-		material: "la la-file-alt",
-		publishDate: global.clock,
-		category: global.category
-	},
-	Post: {
-		deleted: global.delete,
-		hidden: global.eyeSlash,
-		readMore: "la la-file-alt",
-		comment: global.comment
+	ArticlesPage: {
+		add: global.add
 	},
 	BlogMultiCatPage: {
 		add: global.add
@@ -230,37 +61,48 @@ export default {
 	BlogPage: {
 		add: global.add
 	},
-	Topic: {
-		deleted: global.delete,
-		hidden: global.eyeSlash,
-		comment: global.comment,
-		category: global.category,
-		publishDate: global.clock
+	Captcha: {
+		hand: "la la-hand-point-right",
+		refresh: global.refresh
 	},
-	Thread: {
-		add: global.add
+	CategoriesAdmin: {
+		addCategoryBtn: global.add
 	},
-	Profile: {
-		envelope: global.envelope,
-		menu: "la la-ellipsis-v",
-		visits: global.eye,
-		roles: "la la-cog",
-		ban: "la la-ban",
-		unBan: "la la-circle"
+	CategoryForm: {
+		category: "la la-stream",
+		icons: "la la-icons",
+		layout: "la la-table"
 	},
-	SendPrivateMessage: {
-		send: global.send,
-		cancel: global.cancel
-	},
-	LoaderWait: {
-		exclamation: "la la-exclamation-triangle"
+	CategoryItem: {
+		down: "la la-angle-down",
+		edit: "la la-wrench",
+		eyeSlash: global.eyeSlash,
+		goTo:global.goTo,
+		material: "la la-file-alt",
+		plus: global.add,
+		up: "la la-angle-up"
 	},
 	ChangeEmail: {
+		envelope: global.envelope,
 		eye: global.eye,
 		eyeSlash: global.eyeSlash,
 		key: global.key,
-		envelope: global.envelope,
 		save: global.save
+	},
+	ChangeEmailResult: {
+		failed: "la la-exclamation-circle",
+		success: "la la-check-circle"
+	},
+	ChangeLink: {
+		link: "la la-link",
+		save: global.save
+	},
+	ChangeName: {
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		key: global.key,
+		save: global.save,
+		user: global.user
 	},
 	ChangePassword: {
 		eye: global.eye,
@@ -268,16 +110,189 @@ export default {
 		key: global.key,
 		save: global.save
 	},
-	ResetPassword: {
-		eye: global.eye,
-		eyeSlash: global.eyeSlash,
-		envelope: global.envelope,
-		key: global.key,
+	Comment: {
+		delete: global.delete,
+		publishDate: global.clock
+	},
+	ComponentForm: {
+		component: "la la-cube"
+	},
+	ComponentsAdmin: {
+		add: global.save,
+		component: "la la-cube",
+		edit: "la la-wrench",
+		goTo:global.goTo
+	},
+	ConfigurationAdmin: {
+		cancel: global.cancel,
+		question: "la la-question-circle",
+		reset: global.refresh,
+		save: global.save,
+		search: global.search
+	},
+	CreateCategory: {
+		cancel: global.cancel,
+		create: global.save
+	},
+	CreateComment: {
+		send: global.send
+	},
+	CreateComponent: {
+		add: global.save,
+		cancel: global.cancel
+	},
+	CreateMaterial: {
+		cancel: global.cancel,
 		save: global.save
 	},
-	ChangeEmailResult: {
-		success: "la la-check-circle",
-		failed: "la la-exclamation-circle"
+	CreateMenuItem: {
+		cancel: global.cancel,
+		create: global.save
+	},
+	CustomCssAdmin: {
+		clean: "la la-broom",
+		reset: global.refresh,
+		save: global.save
+	},
+	CypherSecrets: {
+		key: global.key
+	},
+	DeletedElements: {
+		trashBtn: global.delete
+	},
+	EditCategory: {
+		cancel: global.cancel,
+		delete: global.delete,
+		save: global.save
+	},
+	EditComment: {
+		cancel: global.cancel,
+		save: global.save
+	},
+	EditComponent: {
+		cancel: global.cancel,
+		delete: global.delete,
+		save: global.save
+	},
+	EditInformation: {
+		save: global.save
+	},
+	EditMaterial: {
+		cancel: global.cancel,
+		delete: global.delete,
+		save: global.save
+	},
+	EditMenuItem: {
+		cancel: global.cancel,
+		delete: global.delete,
+		save: global.save
+	},
+
+	ImagesCleaner: {
+		clean: global.delete,
+		refresh: global.refresh
+	},
+	Layout: {
+		heart: "la la-heart",
+		mainMenu: "la la-bars",
+		secondMenu: "la la-clipboard-list",
+		user: "la la-user-alt"
+	},
+	LoaderWait: {
+		exclamation: "la la-exclamation-triangle"
+	},
+	LoadPhoto: {
+		delete: global.delete,
+		upload: global.upload
+	},
+	Login: {
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		key: global.key,
+		question: "la la-question-circle",
+		user: global.user
+	},
+	LoginRegisterMenu: {
+		register: "la la-user-plus",
+		signIn: "la la-sign-in-alt"
+	},
+	MainSkinsAdmin: {
+		current: "la la-check",
+		delete: global.delete,
+		info: "la la-info",
+		preview: "la la-search",
+		set: "la la-play",
+		upload: global.upload
+	},
+	Material: {
+		delete: global.delete,
+		publishDate: global.clock,
+		restore: "la la-trash-restore",
+		visits: global.eye
+	},
+	MaterialForm: {
+		category: "la la-stream",
+		tags: "la la-tags"
+	},
+	MenuAdminItem: {
+		add: global.add,
+		blank: "la la-file",
+		delete: global.delete,
+		down: "la la-angle-down",
+		edit: "la la-wrench",
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		goTo:global.goTo,
+		up: "la la-angle-up"
+	},
+	MenuItemForm: {
+		css: "lab la-css3-alt",
+		icons: "la la-icons",
+		link: "la la-link",
+		search: global.search
+	},
+	MenuItemsAdmin: {
+		add: global.add
+	},
+	PartialSkinsAdmin: {
+		delete: global.delete,
+		upload: global.upload
+	},
+	Post: {
+		comment: global.comment,
+		deleted: global.delete,
+		hidden: global.eyeSlash,
+		readMore: "la la-file-alt"
+	},
+	Profile: {
+		ban: "la la-ban",
+		envelope: global.envelope,
+		menu: "la la-ellipsis-v",
+		roles: "la la-cog",
+		unBan: "la la-circle",
+		visits: global.eye
+	},
+	ProfileRoles: {
+		minus: "la la-minus",
+		plus: global.add
+	},
+	Register: {
+		envelope: global.envelope,
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		key: global.key,
+		user: global.user
+	},
+	RegisterEmailResult: {
+		failed: "la la-exclamation-circle",
+		success: "la la-check-circle"
+	},
+	ResetPassword: {
+		envelope: global.envelope,
+		eye: global.eye,
+		eyeSlash: global.eyeSlash,
+		key: global.key,
+		save: global.save
 	},
 	ResetPasswordFailed: {
 		failed: "la la-exclamation-circle"
@@ -287,76 +302,59 @@ export default {
 		eyeSlash: global.eyeSlash,
 		key: global.key
 	},
-	Login: {
-		eye: global.eye,
-		eyeSlash: global.eyeSlash,
-		key: global.key,
-		user: global.user,
-		question: "la la-question-circle"
+	RolesPage: {
+		users: "la la-user-friends"
 	},
-	Register: {
-		eye: global.eye,
-		eyeSlash: global.eyeSlash,
-		key: global.key,
-		user: global.user,
-		envelope: global.envelope
-	},
-	Captcha: {
-		hand: "la la-hand-point-right",
-		refresh: global.refresh
-	},
-	RegisterEmailResult: {
-		success: "la la-check-circle",
-		failed: "la la-exclamation-circle"
-	},
-	UserMenu: {
-		profile: "la la-user-circle",
-		personal: "la la-address-card",
-		admin: "la la-cog",
-		signOut: "la la-sign-out-alt"
-	},
-	LoginRegisterMenu: {
-		signIn: "la la-sign-in-alt",
-		register: "la la-user-plus"
-	},
-	Layout: {
-		mainMenu: "la la-bars",
-		secondMenu: "la la-clipboard-list",
-		heart: "la la-heart",
-		user: "la la-user-alt"
-	},
-	ChangeLink: {
-		link: "la la-link",
+	RolesPermissions: {
+		reset: global.refresh,
 		save: global.save
 	},
-	ChangeName: {
-		save: global.save,
-		eye: global.eye,
-		eyeSlash: global.eyeSlash,
-		key: global.key,
+	RoleUsers: {
+		search: global.search,
 		user: global.user
 	},
-	EditInformation: {
-		save: global.save
-	},
-	LoadPhoto: {
-		upload: global.upload,
-		delete: global.delete
+	SendPrivateMessage: {
+		cancel: global.cancel,
+		send: global.send
 	},
 	Sessions: {
-		signOut: "la la-sign-out-alt",
+		clock: global.clock,
 		machine: "la la-desktop",
-		clock: global.clock
+		signOut: "la la-sign-out-alt"
 	},
 	SettingsMenu: {
-		profile: "la fa-address-card",
-		user: global.user,
-		key: global.key,
+		ban: "la fa-ban",
 		envelope: global.envelope,
+		information: "la la-info-circle",
+		key: global.key,
 		link: "la la-link",
 		photo: "la la-portrait",
-		information: "la la-info-circle",
+		profile: "la fa-address-card",
 		sessions: "la la-ticket-alt",
-		ban: "la fa-ban"
+		user: global.user
+	},
+	SkinsAdmin: {
+		customCss: "lab la-css3-alt",
+		main: "la la-palette",
+		partial: "la la-puzzle-piece"
+	},
+	SunEditor: {
+		addImages: "la la-image"
+	},
+	Thread: {
+		add: global.add
+	},
+	Topic: {
+		category: global.category,
+		comment: global.comment,
+		deleted: global.delete,
+		hidden: global.eyeSlash,
+		publishDate: global.clock
+	},
+	UserMenu: {
+		admin: "la la-cog",
+		personal: "la la-address-card",
+		profile: "la la-user-circle",
+		signOut: "la la-sign-out-alt"
 	}
 };
