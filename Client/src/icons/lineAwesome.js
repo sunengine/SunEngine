@@ -285,5 +285,22 @@ export default {
 	Captcha: {
 		hand: "la la-hand-point-right",
 		refresh: global.refresh
+	},
+	RegisterEmailResult: {
+		success: "la la-check-circle",
+		failed:"la la-exclamation-circle"
+	},
+	UserMenu: {
+		profile: "la la-user-circle",
+		personal: "la la-address-card",
+		admin: "la la-cog",
+		signOut: "la la-sign-out-alt"
+	},
+	LoginRegisterMenu: {
+		signIn: "la la-sign-in-alt",
+		register: "la la-user-plus"
+	},
+	Layout: {
+		bars: "la la-bars",
 	}
 };

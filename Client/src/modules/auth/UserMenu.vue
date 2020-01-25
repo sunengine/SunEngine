@@ -2,7 +2,7 @@
 	<div class="user-menu sun-second-menu">
 		<q-item :to="{ name: 'User', params: { link: user.link } }" v-close-popup>
 			<q-item-section avatar>
-				<q-icon name="fas fa-user-circle" />
+				<q-icon :name="$iconsSet.UserMenu.profile" />
 			</q-item-section>
 			<q-item-section>
 				<q-item-label>
@@ -12,7 +12,7 @@
 		</q-item>
 		<q-item :to="{ name: 'Personal' }" v-close-popup>
 			<q-item-section avatar>
-				<q-icon name="fas fa-address-card" />
+				<q-icon :name="$iconsSet.UserMenu.personal" />
 			</q-item-section>
 			<q-item-section>
 				<q-item-label :lines="1">
@@ -22,7 +22,7 @@
 		</q-item>
 		<q-item v-if="isAdmin" :to="{ name: 'AdminInformation' }" v-close-popup>
 			<q-item-section avatar>
-				<q-icon name="fas fa-cog" />
+				<q-icon :name="$iconsSet.UserMenu.admin" />
 			</q-item-section>
 			<q-item-section>
 				<q-item-label>
@@ -32,7 +32,7 @@
 		</q-item>
 		<q-item @click.native="logout()" clickable v-close-popup>
 			<q-item-section avatar>
-				<q-icon name="fas fa-sign-out-alt" />
+				<q-icon :name="$iconsSet.UserMenu.signOut"  />
 			</q-item-section>
 			<q-item-section>
 				<q-item-label>

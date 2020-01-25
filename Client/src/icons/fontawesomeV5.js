@@ -284,5 +284,19 @@ export default {
 	Captcha: {
 		hand: "fas fa-hand-point-right",
 		refresh: global.refresh
+	},
+	RegisterEmailResult: {
+		success: "fas fa-check-circle",
+		failed:"fas fa-exclamation-circle"
+	},
+	UserMenu: {
+		profile: "fas fa-user-circle",
+		personal: "fas fa-address-card",
+		cog: "fas fa-cog",
+		signOut: "fas fa-sign-out-alt"
+	},
+	LoginRegisterMenu: {
+		signIn: "fas fa-sign-in-alt",
+		register: "fas fa-user-plus"
 	}
 };
