@@ -75,7 +75,7 @@
 							v-if="showVisitsCount"
 							class="material__visits material-footer-info-block"
 						>
-							<q-icon  :name="$iconsSet.Material.visits" class="q-mr-xs" />
+							<q-icon :name="$iconsSet.Material.visits" class="q-mr-xs" />
 							{{ material.visitsCount }}
 						</div>
 						<div v-if="showDate" class="material__date material-footer-info-block">
@@ -266,12 +266,17 @@ export default {
 			const router = this.$router;
 			const successNotify = this.$successNotify.bind(this);
 			const tl = this.$tl.bind(this);
+			const allNames = {};
 			for (const header of headers) {
 				const link = document.createElement("a");
 				link.classList.add("header-anchor");
 				link.classList.add("link");
-				header.id = encodeURIComponent(header.innerText);
-				link.href = window.location.href.split("#")[0] + "#" + header.id;
+				let id = encodeURIComponent(header.innerText);
+				while(allNames[id]) 
+                id = id + "1";
+				allNames[id] = true;
+				header.id = id;
+				link.href = window.location.href.split("#")[0] + "#" + id;
 				link.addEventListener("click", function(e) {
 					e.preventDefault();
 					copyToClipboard(link.href)

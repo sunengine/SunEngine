@@ -75,7 +75,7 @@ $q-field-color: #00c63b;
 	padding-bottom: $flex-gutter-xl !important;
 }
 
-$paddings: (12px 18px 24px);
+$paddings: (6px 12px 24px);
 
 @mixin page-paddings-block($size) {
 	.page-padding {
