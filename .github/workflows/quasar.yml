@@ -1,4 +1,4 @@
-name: Quasar CI
+name: Quasar
 
 on: [push]
 
