@@ -43,7 +43,7 @@ export default {
 		RolesPermissions: "la la-user-lock",
 		SkinsAdmin: "la la-palette",
 		systemTools: "la la-tools"
-	},
+	}, 
 	Article: {
 		comments: global.comment,
 		delete: global.delete,
