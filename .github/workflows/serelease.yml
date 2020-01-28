@@ -1,8 +1,8 @@
-name: release
+name: serelease
 
 on:
   release:
-    types: [published, created, edited]
+    types: [published]
 
 jobs:
   build:
