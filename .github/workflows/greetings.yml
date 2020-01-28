@@ -1,0 +1,65 @@
+name: PublishRelease
+
+on:
+  release:
+    types: [published, created, edited]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout SunEngine
+      uses: actions/checkout@v2
+      
+    - name: Setup .NET Core 3.1
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.100
+      
+    - name: Build with dotnet
+      run: dotnet publish --configuration Release "Server/SunEngine.Cli" --output build/Server
+      
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+          
+    - name: npm install, install quasar, quasar build
+      run: |
+        cd Client
+        cp -RT src/site.template src/site
+        npm install
+        npm -g install @quasar/cli
+        npx quasar build
+        cd ..
+        cp -RT Client/dist/spa/. build/wwwroot
+      env:
+        CI: true
+        
+    - name: Copy Config, Resources, .SunEngineRoot and move all build to root
+      run: |
+        cp -RT Config.template build/Config
+        cp -RT Resources build/Resources
+        cp -T .SunEngineRoot build/.SunEngineRoot
+        ls -a
+        echo deleting
+        echo find
+        find . -maxdepth 1 -not -name 'build'
+        echo "try delete"
+        find . -maxdepth 1 -not -name 'build' -not -name '.' -not -name '.git' -print0 | xargs -0 rm -rf
+        echo deleted
+        ls -a
+        cp -RT build .
+        rm -rf build 
+        echo "resulted files"
+        ls -a
+      
+    - name: Publish
+      uses: s0/git-publish-subdir-action@master
+      env:
+        REPO: git@github.com:SunEngine/SunEngine.Build.git
+        BRANCH: master
+        SSH_PRIVATE_KEY: ${{ secrets.AutoBuild }}
+        FOLDER: .
