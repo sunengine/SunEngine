@@ -40,7 +40,7 @@ if [ $PROJECT_ROOT == "auto" ]; then
   
   checkRoot()
   {
-    ! [ -f $PWD/.SunEngineRoot ]
+    ! [ -f $PWD/SunEngine.md ]
   }
 
 
@@ -49,7 +49,7 @@ if [ $PROJECT_ROOT == "auto" ]; then
   fi 
 
   if checkRoot; then
-    echo -e "\n${RED} Project root directory not found (detecting .SunEngineRoot file)."
+    echo -e "\n${RED} Project root directory not found (detecting SunEngine.md file)."
     exit 1
   fi
 
@@ -146,8 +146,8 @@ cp -r "$CONFIG_PATH/." "$BUILD_PATH/Config"
 echo  -e "${GREEN}Copying Data to build directory ${NC}"
 cp -r "$PROJECT_ROOT/Resources/." "$BUILD_PATH/Resources"
 
-echo  -e "${GREEN}Copying .SunEngineRoot file ${NC}"
-cp  "$PROJECT_ROOT"/.SunEngineRoot "$BUILD_PATH"/.SunEngineRoot
+echo  -e "${GREEN}Copying SunEngine.md file ${NC}"
+cp  "$PROJECT_ROOT"/SunEngine.md "$BUILD_PATH"/SunEngine.md
 
 
 echo  -e "\n${GREEN}All done! ${NC}\n"

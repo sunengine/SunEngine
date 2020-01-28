@@ -32,6 +32,10 @@ namespace SunEngine.Core.Services
 		public const string CustomCssFileName = "custom.css";
 		public const string ConfigJsFileName = "config.js";
 		public const string ServerInfoJsonFileName = "ServerInfo.json";
+		public const string SunEngineJsonFileName = "SunEngine.json";
+		public const string LogConfigJsonFileName = "LogConfig.json";
+		public const string RootDetectFileName = "SunEngine.md";
+		public const string DataBaseConnectionJsonFileName = "DataBaseConnection.json";
 	}
 
 	public class PathService : IPathService
@@ -55,7 +59,7 @@ namespace SunEngine.Core.Services
 		public static IConfigurationRoot MakeConfiguration(string configDir)
 		{
 			ConfigurationBuilder cb = new ConfigurationBuilder();
-			cb.AddJsonFile(Path.Combine(configDir, "SunEngine.json"), false);
+			cb.AddJsonFile(Path.Combine(configDir, PathNames.SunEngineJsonFileName), false);
 			cb.AddInMemoryCollection(new[]
 			{
 				new KeyValuePair<string, string>("Dirs:Config", configDir)
@@ -107,7 +111,7 @@ namespace SunEngine.Core.Services
 
 			throw new SunException("Can not find Application root directory");
 
-			bool CheckDir(string path) => File.Exists(Path.Combine(path, ".SunEngineRoot"));
+			bool CheckDir(string path) => File.Exists(Path.Combine(path, PathNames.RootDetectFileName));
 		}
 
 		private const string WwwRootDirPrefix = "%wwwroot%";
@@ -119,7 +123,7 @@ namespace SunEngine.Core.Services
 			if (Pathes.TryGetValue(dirName, out var value))
 				return value;
 
-			throw new SunException($"No directory {dirName} in SunEngine.json Dirs");
+			throw new SunException($"No directory {dirName} in " + PathNames.SunEngineJsonFileName + " Dirs");
 		}
 
 		public string Combine(string dirName, params string[] args)

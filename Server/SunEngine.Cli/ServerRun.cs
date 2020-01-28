@@ -49,11 +49,13 @@ namespace SunEngine.Cli
 					builder.ConfigureAppConfiguration((builderContext, config) =>
 					{
 						string dbSettingFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir,
-							"DataBaseConnection.json"));
+							PathNames.DataBaseConnectionJsonFileName));
 						string mainSettingsFile =
-							Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir, "SunEngine.json"));
+							Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir,
+								PathNames.SunEngineJsonFileName));
 						string logSettingsFile =
-							Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir, "LogConfig.json"));
+							Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir,
+								PathNames.LogConfigJsonFileName));
 
 						config.AddJsonFile(logSettingsFile, false, false);
 						config.AddJsonFile(dbSettingFile, false, false);

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using SunEngine.Core.Services;
 using Path = System.IO.Path;
 
 namespace SunEngine.Cli
@@ -116,7 +117,7 @@ namespace SunEngine.Cli
 				return null;
 			}
 
-			bool CheckDir(string dirPath) => File.Exists(Path.Combine(dirPath, "SunEngine.json"));
+			bool CheckDir(string dirPath) => File.Exists(Path.Combine(dirPath, PathNames.SunEngineJsonFileName));
 
 			void ConfigNotFound(string dir)
 			{

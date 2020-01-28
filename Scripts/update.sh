@@ -42,7 +42,7 @@ if [ $PROJECT_ROOT == "auto" ]; then
   
   checkRoot()
   {
-    ! [ -f $PWD/.SunEngineRoot ]
+    ! [ -f $PWD/SunEngine.md ]
   }
 
 
@@ -51,7 +51,7 @@ if [ $PROJECT_ROOT == "auto" ]; then
   fi 
 
   if checkRoot; then
-    echo -e "\n${RED} Project root directory not found (detecting .SunEngineRoot file)."
+    echo -e "\n${RED} Project root directory not found (detecting SunEngine.md file)."
     exit 1
   fi
 
