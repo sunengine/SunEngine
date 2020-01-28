@@ -17,7 +17,7 @@ Build on modern technologies: AspNet Core, VueJS, Quasar.</h3>
 <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Demo&message=demo.sunengine.site&color=yellow"></a>
 <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=success"></a>
 <a href="README.RU.md"><img src="https://img.shields.io/static/v1?label=Readme&message=Russian&color=informational"></a>
-
+  
 ## About
 ### Features
  - Ability to create blog  
