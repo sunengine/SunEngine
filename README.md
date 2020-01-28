@@ -86,5 +86,5 @@ The project based on modern front edge technologies:
  - [Road map (Russian)](https://sunengine.site/texts/roadmap).    
 
 ## Contacts
- - Dmitrij Polianin Telegram: [@Okeanij](https://t.me/Okeanij)    
- - SunEngine Telegram group: [@SunEngine](https://t.me/SunEngine)  
+ - Dmitrij Polianin telegram: [@Okeanij](https://t.me/Okeanij)    
+ - SunEngine telegram group: [@SunEngine](https://t.me/SunEngine)  

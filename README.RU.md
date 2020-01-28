@@ -89,5 +89,5 @@
  - [План развития проекта](https://sunengine.site/texts/roadmap).  
 
 ## Контакты
- - Дмитрий Полянин Telegram: [@Okeanij](https://t.me/Okeanij)  
- - Группа SunEngine в Telegram: [@SunEngine](https://t.me/SunEngine)  
+ - Дмитрий Полянин telegram: [@Okeanij](https://t.me/Okeanij)  
+ - Группа SunEngine в telegram: [@SunEngine](https://t.me/SunEngine)  
