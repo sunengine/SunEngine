@@ -1,0 +1,37 @@
+/**
+ *   %app% - Application Root path. Set to auto to make auto search in parent 4 level.
+ *   %wwwroot% - wwwroot path
+ *   %config% - config dir path
+ **/
+{
+  "Global": {
+    // "SiteName": "SunEngine Demo 11",
+    "SiteUrl": "http://localhost:5005",
+    "SiteApi": "http://localhost:5000",
+    "UploadImagesUrl": "http://localhost:5005/UploadImages",
+    "SkinsUrl": "http://localhost:5005/statics/Skins",
+    "PartialSkinsUrl": "http://localhost:5005/statics/PartialSkins",
+    "CustomCssUrl": "http://localhost:5005/statics/custom.css",
+    "FileServer": true,
+    "UpdateClientScriptsOnConfigChanges": true
+  },
+  "Dirs": {
+    "ApplicationRoot": "auto",
+    "WwwRoot": "%app%/bin/wwwroot",
+    "UploadImages": "%wwwroot%/UploadImages",
+    "MailTemplates": "%config%/MailTemplates",
+    "Skins": "%wwwroot%/statics/Skins",
+    "PartialSkins": "%wwwroot%/statics/PartialSkins",
+    "Resources": "%app%/Resources"
+  },
+  "Kestrel": {
+    "EndPoints": {
+      "Http": {
+        "Url": "http://localhost:5000"
+      }
+    }
+  },
+  "Cors": {
+    "Origins": "http://localhost:5005"
+  }
+}
