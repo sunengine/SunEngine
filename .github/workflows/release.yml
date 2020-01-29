@@ -38,16 +38,13 @@ jobs:
       env:
         CI: true
         
-    - name: Copy Config, Resources, .SunEngineRoot and move all build to root
+    - name: Copy Config, Resources, SunEngine.md and move all build to root
       run: |
         cp -RT Config.template build/Config
         cp -RT Resources build/Resources
-        cp -T .SunEngineRoot build/.SunEngineRoot
+        cp -T SunEngine.md build/SunEngine.md
         ls -a
         echo deleting
-        echo find
-        find . -maxdepth 1 -not -name 'build'
-        echo "try delete"
         find . -maxdepth 1 -not -name 'build' -not -name '.' -not -name '.git' -print0 | xargs -0 rm -rf
         echo deleted
         ls -a
