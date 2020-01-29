@@ -1,6 +1,6 @@
 name: .NET Core
 
-on: []
+on: [push]
 
 jobs:
   build:
