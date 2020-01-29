@@ -40,14 +40,10 @@ jobs:
         
     - name: Copy Config, Resources, SunEngine.md and move all build to root
       run: |
-        cp -RT Config.template build/Config
+        cp -RT Config.server.template build
         cp -RT Resources build/Resources
         cp -T SunEngine.md build/SunEngine.md
-        ls -a
-        echo deleting
         find . -maxdepth 1 -not -name 'build' -not -name '.' -not -name '.git' -print0 | xargs -0 rm -rf
-        echo deleted
-        ls -a
         cp -RT build .
         rm -rf build 
         echo "resulted files"
