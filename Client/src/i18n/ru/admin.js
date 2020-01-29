@@ -367,6 +367,10 @@ export default {
 				"Шаблон заголовка (title) страниц сайта в браузере",
 			"Global:SiteTitle": "Заголовок сайта",
 			"Global:SiteSubTitle": "Подзаголовок сайта",
+			"Global:HomePageRedirect": "Перенаправление с главной страницы",
+			"Global:DisallowRegistration": "Запретить регистрацию новых пользоваталей",
+			"Global:ReadOnlyMode" : "Режим только чтения для всего сайта",
+			"Global:RegisterConfirmText":  "Подтверждение согласия при регистрации",
 			"Global:OpenExternalLinksAtNewTab": "Открывать внешние ссылки в новом окне",
 			"Global:IconsSet": "Иконки",
 			"Dev:ShowExceptions": "Показывать исключения в логах",
@@ -451,6 +455,8 @@ export default {
 		tooltips: {
 			"Global:PageTitleTemplate":
 				"Для подстановки использовать {pageTitle} и {siteName}.",
+			"Global:HomePageRedirect": "Без домена, например /articles",
+			"Global:RegisterConfirmText":  "Этот текст показывается пользователю при регистрации. Пользователь должен принять соглашение для того что бы пройти регистрацию.",
 			"Global:OpenExternalLinksAtNewTab": "В материалах, комментариях, постах",
 			"Images:MaxImageHeight": "Проверка при заливки изображения на сервер.",
 			"Images:MaxImageWidth": "Проверка при заливки изображения на сервер.",

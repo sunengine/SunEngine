@@ -67,6 +67,47 @@
 			bottom-slots
 			class="category-form__editor"
 			ref="header"
+			:toolbar="[
+				['bold', 'italic', 'strike', 'underline'],
+				['token', 'hr', 'link', 'addImages'],
+				[
+					{
+						icon: 'fas fa-heading',
+						fixedLabel: true,
+						list: 'no-icons',
+						options: ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'code']
+					},
+					{
+						icon: 'fas fa-text-height',
+						fixedLabel: true,
+						fixedIcon: true,
+						list: 'no-icons',
+						options: [
+							'size-1',
+							'size-2',
+							'size-3',
+							'size-4',
+							'size-5',
+							'size-6',
+							'size-7'
+						]
+					},
+					'quote',
+					'removeFormat'
+				],
+				[
+					'unordered',
+					'ordered',
+					{
+						icon: 'fas fa-align-center',
+						fixedLabel: true,
+						options: ['left', 'center', 'right', 'justify']
+					}
+				],
+				['undo', 'redo'],
+				['viewsource', 'fullscreen'],
+				['clear']
+			]"
 			v-model="category.header"
 		/>
 
@@ -224,7 +265,7 @@ function GoDeep(category) {
 		category: category,
 		children: children,
 		selectable: true,
-		icon:  Vue.prototype.$iconsSet.global.category,
+		icon: Vue.prototype.$iconsSet.global.category,
 		iconColor: "green-5"
 	};
 }

@@ -29,6 +29,7 @@ namespace SunEngine.Core.Controllers
 			DataBaseConnection db,
 			JweService jweService,
 			IAuthManager authManager,
+			
 			IOptionsMonitor<GlobalOptions> globalOptions,
 			IServiceProvider serviceProvider) : base(serviceProvider)
 		{
@@ -65,6 +66,9 @@ namespace SunEngine.Core.Controllers
 		[CaptchaValidationFilter]
 		public async Task<IActionResult> Register(NewUserArgs model)
 		{
+			if (globalOptions.CurrentValue.DisallowRegistration)
+				return Unauthorized();
+			
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 
@@ -82,6 +86,9 @@ namespace SunEngine.Core.Controllers
 		[HttpGet]
 		public async Task<IActionResult> ConfirmRegister(string uid, string token)
 		{
+			if (globalOptions.CurrentValue.DisallowRegistration)
+				return Unauthorized();
+			
 			var user = await userManager.FindByIdAsync(uid);
 
 			using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))

@@ -63,6 +63,13 @@
 									:options="enums[item.enumName]"
 									v-model="item.value"
 								/>
+								<SunEditor
+									 height="5rem"
+									min-height="3rem"
+									:toolbar="sunEditorButtons"
+									v-else-if="item.type === 'HtmlString'"
+									v-model="item.value"
+								/>
 								<q-input
 									dense
 									v-else
@@ -155,6 +162,15 @@ export default {
 		},
 		filterLowerCase() {
 			return this.filter.toLowerCase();
+		},
+		sunEditorButtons() {
+			return [
+				["bold", "italic", "strike", "underline"],
+				["token", "link", "addImages"],
+				["unordered", "ordered"],
+				["undo", "redo"],
+				["removeFormat", "viewsource", "fullscreen", "clear"]
+			];
 		}
 	},
 	methods: {
@@ -336,8 +352,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.LoaderWait = require("sun").LoaderWait;
-		this.$options.components.LoaderSent = require("sun").LoaderSent;
+		this.$options.components.SunEditor = require("sun").SunEditor;
 	},
 	async created() {
 		this.filterItems = this.$throttle(this.filterItems, 1000);

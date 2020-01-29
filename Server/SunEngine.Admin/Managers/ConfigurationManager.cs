@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using LinqToDB;
 using SunEngine.Core.Configuration;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
 using SunEngine.Core.Services;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.Admin.Managers
 {
@@ -16,8 +18,13 @@ namespace SunEngine.Admin.Managers
 
 	public class ConfigurationManager : DbService, IConfigurationManager
 	{
-		public ConfigurationManager(DataBaseConnection db) : base(db)
+		protected readonly SanitizerService sanitizerService;
+
+		public ConfigurationManager(
+			SanitizerService sanitizerService, 
+			DataBaseConnection db) : base(db)
 		{
+			this.sanitizerService = sanitizerService;
 		}
 
 		public void UploadConfigurationItems(IEnumerable<ConfigurationItem> configurationItems)
@@ -69,6 +76,11 @@ namespace SunEngine.Admin.Managers
 						TryAdd();
 						break;
 					case "JsonString":
+						configurationItem.Value = configurationItem.Value.MakeJsonText();
+						TryAdd();
+						break;
+					case "HtmlString":
+						configurationItem.Value = sanitizerService.Sanitize(configurationItem.Value) ?? String.Empty;
 						TryAdd();
 						break;
 					case "String":
@@ -79,9 +91,11 @@ namespace SunEngine.Admin.Managers
 
 				void TryAdd()
 				{
-					if (!string.Equals(allItems[configurationItem.Name], configurationItem.Value,
+					if (string.Equals(allItems[configurationItem.Name], configurationItem.Value,
 						StringComparison.OrdinalIgnoreCase))
-						itemsToUpdate.Add(configurationItem);
+						return;
+
+					itemsToUpdate.Add(configurationItem);
 				}
 			}
 

@@ -20,6 +20,12 @@ export default async function(context) {
 		...routesFromComponents,
 		...pageNotFoundRoute
 	];
+	
+	if(config.Global.HomePageRedirect) {
+		const homeRoute = allRoutes.find(x => x.name === "Home");
+		if(homeRoute)
+			homeRoute.redirect = config.Global.HomePageRedirect;
+	}
 
 	const userRoutes = allRoutes.filter(x => routeHasAccess(x));
 

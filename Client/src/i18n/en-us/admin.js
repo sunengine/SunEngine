@@ -339,6 +339,14 @@ export default {
 			"Global:SiteTitle": "Site title",
 			"Global:SiteSubTitle": "Site subtitle",
 			"Global:IconsSet": "Icon set",
+			"Global:PageTitleTemplate":
+				"Site title template in browser",
+			"Global:HomePageRedirect": "Redirect from home page",
+			"Global:DisallowRegistration": "Disallow registration of new users",
+			"Global:ReadOnlyMode" : "Read only mode for all site",
+			"Global:RegisterConfirmText":  "Register confirm text",
+			"Global:OpenExternalLinksAtNewTab": "Open external links in new window",
+			
 			"Dev:ShowExceptions": "Show exceptions",
 			"Images:AllowGifUpload": 'Allow "gif" images upload',
 			"Images:AllowSvgUpload": 'Allow "svg" images upload',
@@ -414,7 +422,9 @@ export default {
 		tooltips: {
 			"Global:PageTitleTemplate":
 				"Use tokens {pageTitle} and {siteName} for replace parts.",
-			"Global:OpenExternalLinksAtNewTab": "In meterials, comments and posts.",
+			"Global:HomePageRedirect": "Without domain, example: /articles",
+			"Global:OpenExternalLinksAtNewTab": "In materials, comments and posts.",
+			"Global:RegisterConfirmText":  "This text shows on user register, and needed user confirm to allow registration.",
 			"Images:MaxImageHeight": "Check when upload to server.",
 			"Images:MaxImageWidth": "Check when upload to server.",
 			"Sanitizer:AllowedSchemes": "Example: mailto,skype",

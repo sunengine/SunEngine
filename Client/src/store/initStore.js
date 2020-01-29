@@ -6,7 +6,6 @@ import { app } from "sun";
 import { makeBreadcrumbs } from "sun";
 
 import Vue from "vue";
-import { Quasar } from "quasar";
 
 export default async function(context) {
 	console.info("%cStart init store", consoleInit);

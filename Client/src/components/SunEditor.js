@@ -27,13 +27,16 @@ export default {
 			}
 		},
 
+		clear() {
+			this.value = "";
+		},
+
 		allUploaded() {
 			this.filesNames = this.filesNames.filter(x => x);
 			this.runCmd("insertHTML", this.getImagesHtml(), true);
 			this.filesNames = [];
 			this.filesNumber = 0;
 			this.filesLoading = false;
-			this.$refs.file.value = "";
 		},
 
 		getImagesHtml() {
@@ -114,6 +117,11 @@ export default {
 					icon: Vue.prototype.$iconsSet.SunEditor.addImages,
 					tip: this.$tl("uploadImages"),
 					handler: this.uploadImages
+				},
+				clear: {
+					tip: this.$tl("clear"),
+					icon: Vue.prototype.$q.iconSet.field.clear,
+					handler: this.clear
 				}
 			};
 		}

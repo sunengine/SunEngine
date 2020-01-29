@@ -63,6 +63,7 @@ namespace SunEngine.Admin.Presenters
 	{
 		String,
 		LongString,
+		HtmlString,
 		JsonString,
 		Number,
 		Boolean,
@@ -104,6 +105,7 @@ namespace SunEngine.Admin.Presenters
 					return Enum.GetName(type, obj);
 				case TypeName.String:
 				case TypeName.LongString:
+				case TypeName.HtmlString:
 				case TypeName.JsonString:
 				case TypeName.Strange:
 				default:
@@ -129,6 +131,7 @@ namespace SunEngine.Admin.Presenters
 				{ } x when new[] {"Boolean", "bool"}.Contains(x) => TypeName.Boolean,
 				{ } x when new[] {"String", "string"}.Contains(x) => TypeName.String,
 				{ } x when x == "LongString" => TypeName.LongString,
+				{ } x when x == "HtmlString" => TypeName.HtmlString,
 				{ } x when x == "JsonString" => TypeName.JsonString,
 				{ } => TypeName.Strange
 			};

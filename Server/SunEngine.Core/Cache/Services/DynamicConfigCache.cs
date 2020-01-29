@@ -33,8 +33,12 @@ namespace SunEngine.Core.Cache.Services
 				["Global:PageTitleTemplate"] = typeof(string),
 				["Global:Locale"] = typeof(string),
 				["Global:UpdateClientScriptsOnConfigChanges"] = typeof(string),
-				["Global:OpenExternalLinksAtNewTab"] = typeof(bool),
+				["Global:HomePageRedirect"] = typeof(string),
+				["Global:DisallowRegistration"] = typeof(bool),
+				["Global:RegisterConfirmText"] = typeof(string),
+				["Global:ReadOnlyMode"] = typeof(bool),
 				["Global:IconsSet"] = typeof(string),
+				["Global:OpenExternalLinksAtNewTab"] = typeof(bool),
 
 				["Dev:ShowExceptions"] = typeof(bool),
 				["Dev:VueDevTools"] = typeof(bool),

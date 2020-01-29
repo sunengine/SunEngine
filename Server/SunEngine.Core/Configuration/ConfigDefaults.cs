@@ -24,6 +24,10 @@ namespace SunEngine.Core.Configuration
 			["Global:SiteTitle"] = "SunEngine Demo",
 			["Global:SiteSubTitle"] = "",
 			["Global:PageTitleTemplate"] = "{pageTitle} - {siteName}",
+			["Global:HomePageRedirect"] = "",
+			["Global:DisallowRegistration"] = false,
+			["Global:ReadOnlyMode"] = false,
+			["Global:RegisterConfirmText"] = (HtmlString)"",
 			["Global:IconsSet"] = IconsSet.LineAwesome,
 			["Global:OpenExternalLinksAtNewTab"] = true,
 			
@@ -224,6 +228,31 @@ namespace SunEngine.Core.Configuration
 		}
 
 		public LongString(string value)
+		{
+			Value = value;
+		}
+
+		public override string ToString()
+		{
+			return Value;
+		}
+	}
+	
+	public class HtmlString
+	{
+		public string Value { get; set; }
+
+		public static implicit operator HtmlString(string str)
+		{
+			return new HtmlString(str);
+		}
+
+		public static explicit operator string(HtmlString str)
+		{
+			return str.ToString();
+		}
+
+		public HtmlString(string value)
 		{
 			Value = value;
 		}

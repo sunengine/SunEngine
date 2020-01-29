@@ -8,7 +8,7 @@ export default {
 		adminPanelComponents: "Components",
 		adminPanelMenu: "Menu",
 		personal: "Personal area",
-		user: "Users",
+		user: "Users"
 	},
 	Captcha: {
 		newMessageBtn: "Generate new captcha",
@@ -25,10 +25,10 @@ export default {
 		loadError: "Error in loading data"
 	},
 	SunEditor: {
-		uploadImages: "Upload images"
+		uploadImages: "Upload images",
+		clear: "Clear html"
 	},
 	SunEngineFooter: {
 		start: "Made on "
-	},
-
+	}
 };

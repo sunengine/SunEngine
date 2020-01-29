@@ -1,6 +1,6 @@
 ﻿<template>
 	<SunPage class="register flex flex-center page-padding">
-		<div v-if="!done" class="center-form">
+		<div v-if="!done" class="center-form q-gutter-y-xs">
 			<q-input
 				ref="userName"
 				v-model="userName"
@@ -67,11 +67,18 @@
 				</template>
 			</q-input>
 
-			<Captcha ref="captcha" v-model="captchaText" />
+			<div v-if="registerConfirmText" class="q-my-lg">
+				<q-toggle v-model="acceptConfirm">
+					<div v-html="registerConfirmText"></div>
+				</q-toggle>
+			</div>
 
+		 	<Captcha ref="captcha" v-model="captchaText" />
+		 
 			<q-btn
+				:disable="registerConfirmText && !acceptConfirm"
 				style="width:100%;"
-				class="send-btn"
+				:class="{ 'send-btn': true, 'bg-grey': registerConfirmText && !acceptConfirm }"
 				:label="$tl('registerBtn')"
 				@click="register"
 				:loading="submitting"
@@ -144,8 +151,14 @@ export default {
 			showPassword: false,
 			showPassword2: false,
 			userNameInDb: false,
-			captchaText: ""
+			captchaText: "",
+			acceptConfirm: false
 		};
+	},
+	computed: {
+		registerConfirmText() {
+			return config.Global.RegisterConfirmText;
+		}
 	},
 	methods: {
 		checkUserNameInDb() {
@@ -166,7 +179,7 @@ export default {
 			this.$refs.password.validate();
 			this.$refs.password2.validate();
 			this.$refs.captcha.validate();
-			 
+
 			if (
 				this.$refs.userName.hasError ||
 				this.$refs.email.hasError ||
@@ -193,8 +206,8 @@ export default {
 					this.submitting = false;
 
 					if (error?.response?.data?.code === "CaptchaValidationError") {
-                   this.$refs.captcha.GetToken();
-               }
+						this.$refs.captcha.GetToken();
+					}
 				});
 		}
 	},

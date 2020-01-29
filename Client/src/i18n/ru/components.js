@@ -25,7 +25,8 @@ export default {
 		loadError: "Ошибка загрузки данных"
 	},
 	SunEditor: {
-		uploadImages: "Загрузить картинки"
+		uploadImages: "Загрузить картинки",
+		clear: "Очистить html"
 	},
 	SunEngineFooter: {
 		start: "Движок сайта"
