@@ -368,7 +368,7 @@ export default {
 			"Global:SiteTitle": "Заголовок сайта",
 			"Global:SiteSubTitle": "Подзаголовок сайта",
 			"Global:HomePageRedirect": "Перенаправление с главной страницы",
-			"Global:DisallowRegistration": "Запретить регистрацию новых пользоваталей",
+			"Global:DisallowRegistration": "Запретить регистрацию новых пользователей",
 			"Global:ReadOnlyMode" : "Режим только чтения для всего сайта",
 			"Global:RegisterConfirmText":  "Подтверждение согласия при регистрации",
 			"Global:OpenExternalLinksAtNewTab": "Открывать внешние ссылки в новом окне",
