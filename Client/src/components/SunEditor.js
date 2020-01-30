@@ -29,7 +29,7 @@ export default {
 		},
 
 		clear() {
-			this.value = "";
+			this.$emit('input',"");
 		},
 
 		allUploaded() {
