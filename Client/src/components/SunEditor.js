@@ -8,9 +8,10 @@ export default {
 	extends: QEditor,
 	mixins: [ValidateMixin],
 	props: {
-		bottomSlots: Boolean
+		bottomSlots: Boolean,
+		readOnlyModeAllowed: false,
 	},
-	data: function() {
+	data() {
 		return {
 			filesNumber: 0,
 			filesNames: [],
@@ -138,8 +139,16 @@ export default {
 		const loading = h(QInnerLoading, { props: { showing: this.filesLoading } }, [
 			h(QSpinnerGears, { props: { size: "60px" }, class: "text-grey-8" })
 		]);
+		const readOnlyMod = h(
+			QInnerLoading,
+			{
+				class: "read-only-mod",
+				props: { showing: this.readOnlyModeAllowed && config.Global.ReadOnlyMode  }
+			},
+			this.$tl("readOnlyMod")
+		);
 
-		let bottom = h(
+		const bottom = h(
 			"div",
 			{ staticClass: this.bottomSlots && "sun-editor__bottom-slots" },
 			[createError.call(this)]
@@ -149,7 +158,8 @@ export default {
 			editor,
 			bottom,
 			fileInput,
-			loading
+			loading,
+			readOnlyMod
 		]);
 
 		function createError() {

@@ -26,7 +26,8 @@ export default {
 	},
 	SunEditor: {
 		uploadImages: "Загрузить картинки",
-		clear: "Очистить html"
+		clear: "Очистить html",
+		readOnlyMod: "Сайт находится в режиме только для чтения"
 	},
 	SunEngineFooter: {
 		start: "Движок сайта"

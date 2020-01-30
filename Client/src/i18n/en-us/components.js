@@ -26,7 +26,8 @@ export default {
 	},
 	SunEditor: {
 		uploadImages: "Upload images",
-		clear: "Clear html"
+		clear: "Clear html",
+		readOnlyMod: "Site is in read only mod"
 	},
 	SunEngineFooter: {
 		start: "Made on "

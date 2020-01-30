@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Options;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Cache.Services;
+using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Security;
 
 namespace SunEngine.Core.Presenters
@@ -19,11 +21,12 @@ namespace SunEngine.Core.Presenters
 		protected readonly IAuthorizationService authorizationService;
 		protected readonly ICategoriesCache categoriesCache;
 		protected readonly IRolesCache rolesCache;
-
+		protected readonly IOptionsMonitor<GlobalOptions> globalOptions;
 
 		public CategoriesPresenter(
 			IRolesCache rolesCache,
 			ICategoriesCache categoriesCache,
+			IOptionsMonitor<GlobalOptions> globalOptions,
 			IAuthorizationService authorizationService,
 			OperationKeysContainer operationKeysContainer)
 		{
@@ -32,6 +35,7 @@ namespace SunEngine.Core.Presenters
 			this.authorizationService = authorizationService;
 			this.categoriesCache = categoriesCache;
 			this.rolesCache = rolesCache;
+			this.globalOptions = globalOptions;
 		}
 
 		public virtual CategoryInfoWithAccesses GetRootCategoryInfoWithAccesses(
@@ -96,19 +100,27 @@ namespace SunEngine.Core.Presenters
 			return categoryInfo;
 		}
 
+		protected static string[] KeysAllowedOnReadOnlyMode = {"MaterialAndCommentsRead"};
+		
 		protected Dictionary<string, bool> DetectPersonalAccesses(
 			CategoryCached category,
 			IReadOnlyDictionary<string, RoleCached> roles)
 		{
 			Dictionary<string, bool> dict = new Dictionary<string, bool>(rolesCache.AllOperationKeys.Count);
 
+			bool readOnly = globalOptions.CurrentValue.ReadOnlyMode && !roles.ContainsKey(RoleNames.Admin);
+			
 			foreach (var operationKey in rolesCache.AllOperationKeys)
 			{
 				bool allow = authorizationService.HasAccess(roles, category, operationKey.OperationKeyId);
 
-				if (allow)
+				if (!allow) 
+					continue;
+				
+				if(!readOnly || KeysAllowedOnReadOnlyMode.Contains(operationKey.Name)) 
 					dict[operationKey.Name] = true;
 			}
+			
 
 			return dict;
 		}

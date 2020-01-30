@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using LinqToDB;
+using Microsoft.AspNetCore.Http.Internal;
+using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Configuration;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
@@ -19,12 +21,14 @@ namespace SunEngine.Admin.Managers
 	public class ConfigurationManager : DbService, IConfigurationManager
 	{
 		protected readonly SanitizerService sanitizerService;
-
+		protected readonly ICategoriesCache categoriesCache;
 		public ConfigurationManager(
-			SanitizerService sanitizerService, 
+			SanitizerService sanitizerService,
+			ICategoriesCache categoriesCache,
 			DataBaseConnection db) : base(db)
 		{
 			this.sanitizerService = sanitizerService;
+			this.categoriesCache = categoriesCache;
 		}
 
 		public void UploadConfigurationItems(IEnumerable<ConfigurationItem> configurationItems)
@@ -103,6 +107,17 @@ namespace SunEngine.Admin.Managers
 			{
 				db.ConfigurationItems.Where(x => x.Name == configurationItem.Name)
 					.Set(x => x.Value, configurationItem.Value).Update();
+				ItemDo(configurationItem);
+			}
+		}
+
+		protected void ItemDo(ConfigurationItem item)
+		{
+			switch (item.Name)
+			{
+					case "Global:ReadOnlyMode":
+						categoriesCache.Initialize();
+					return;
 			}
 		}
 	}
