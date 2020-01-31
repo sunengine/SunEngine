@@ -3,7 +3,7 @@
   
 [Русская версия](LICENSE.RU.md).  
   
-Project author: Dimitrij Polianin  
+Project author: Dmitrij Polianin  
 All rights to the SunEngine project code belong to the author of the project.  
 ### Using SunEngine As-Is:
 1. SunEngine is allowed to be used without payment for commercial and non-commercial projects, if the SunEngine code keep unchanged.
