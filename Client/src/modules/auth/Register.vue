@@ -67,18 +67,22 @@
 				</template>
 			</q-input>
 
-			<div v-if="registerConfirmText" class="q-my-lg">
+			<div v-if="registerConfirmText" class="q-mb-lg q-mt-md flex align-center">
 				<q-toggle v-model="acceptConfirm">
-					<div v-html="registerConfirmText"></div>
+					
 				</q-toggle>
+			 <div id="register__confirm-text" v-html="registerConfirmText"></div>
 			</div>
 
-		 	<Captcha ref="captcha" v-model="captchaText" />
-		 
+			<Captcha ref="captcha" v-model="captchaText" />
+
 			<q-btn
 				:disable="registerConfirmText && !acceptConfirm"
 				style="width:100%;"
-				:class="{ 'send-btn': true, 'bg-grey': registerConfirmText && !acceptConfirm }"
+				:class="{
+					'send-btn': true,
+					'bg-grey': registerConfirmText && !acceptConfirm
+				}"
 				:label="$tl('registerBtn')"
 				@click="register"
 				:loading="submitting"
@@ -161,6 +165,21 @@ export default {
 		}
 	},
 	methods: {
+		addTargetBlankOnLinks() {
+			const el = document.getElementById("register__confirm-text");
+			const links = el.getElementsByTagName("a");
+
+			for (const link of links) {
+				link.classList.add("link");
+				link.setAttribute("target", "_blank");
+			/*	link.addEventListener("click", e => {
+					e.preventDefault();
+					e.stopPropagation();
+					window.open(link.href);
+					return true;
+				});*/
+			}
+		},
 		checkUserNameInDb() {
 			clearTimeout(this.timeout);
 			this.timeout = setTimeout(this.checkUserNameInDbDo, 500);
@@ -213,6 +232,9 @@ export default {
 	},
 	beforeCreate() {
 		this.$options.components.Captcha = require("sun").Captcha;
+	},
+	mounted() {
+		this.addTargetBlankOnLinks();
 	},
 	created() {
 		this.title = this.$tl("title");

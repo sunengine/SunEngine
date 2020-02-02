@@ -424,7 +424,7 @@ export default {
 				"Use tokens {pageTitle} and {siteName} for replace parts.",
 			"Global:HomePageRedirect": "Without domain, example: /articles",
 			"Global:OpenExternalLinksAtNewTab": "In materials, comments and posts.",
-			"Global:RegisterConfirmText":  "This text shows on user register, and needed user confirm to allow registration.",
+			"Global:RegisterConfirmText":  "This text shows on user register, and needed user confirm to allow registration. You can use links to confirm text page.",
 			"Images:MaxImageHeight": "Check when upload to server.",
 			"Images:MaxImageWidth": "Check when upload to server.",
 			"Sanitizer:AllowedSchemes": "Example: mailto,skype",

@@ -21,9 +21,11 @@ export default async function(context) {
 		};
 
 		app.$i18n.locale = locales[config.Global.Locale];
-
-		if (hasLongToken()) await context.dispatch("loadMyUserInfo");
-
+		
+		try {
+			if (hasLongToken()) await context.dispatch("loadMyUserInfo");
+		} catch (_) {}
+		
 		await context.dispatch("loadAllCategories");
 
 		await context.dispatch("registerAllLayouts");
