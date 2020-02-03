@@ -4,6 +4,8 @@ import { MaterialInlinePage } from "sun";
 import { SecretPage } from "sun";
 import { coreRoutes } from "sun";
 
+
+
 const siteRoutes = [
 	{
 		name: "Home",

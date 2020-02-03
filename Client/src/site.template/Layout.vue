@@ -66,7 +66,7 @@
 						</q-btn>
 					</template>
 
-					<q-btn v-else flat dense round>
+					<q-btn v-else-if="!disallowRegistration" flat dense round>
 						<q-icon :name="$iconsSet.Layout.user" class="toolbar-user-btn" />
 						<q-menu>
 							<LoginRegisterMenu v-close-popup />
@@ -120,7 +120,6 @@
 			<div class="inner-container">
 				<router-view ref="rv" />
 			</div>
-			<q-resize-observer @resize="onResize" />
 		</q-page-container>
 
 		<footer>
@@ -173,6 +172,9 @@ export default {
 		pageTitle() {
 			return this.$store.state.currentPage?.title;
 		},
+		disallowRegistration() {
+			return config.Global.DisallowRegistration;
+		},
 		hideBreadcrumbs() {
 			return this.$store.state.currentPage?.hideBreadcrumbs;
 		},
@@ -209,7 +211,7 @@ export default {
 		);
 	},
 	created() {
-	    this.$root.$layout = this;
+		this.$root.$layout = this;
 	}
 };
 </script>
