@@ -82,19 +82,26 @@ namespace SunEngine.Admin.Services
 				AllowTrailingCommas = true,
 			});
 
+			var configJsTemplatePath = pathService.Combine(PathNames.ResourcesDirName, PathNames.ConfigTemplateJsFileName);
 			var configJsPath = pathService.Combine(PathNames.WwwRootDirName, PathNames.ConfigJsFileName);
 
 			json = json.Substring(1, json.Length - 2) + ",";
 
-			var configJs = File.ReadAllText(configJsPath);
+			var configJs = File.ReadAllText(configJsTemplatePath);
 			configJs = Regex.Replace(configJs, "//( *?)auto-start(.*?)//( *?)auto-end",
 				$"// auto-start\n{json}\n // auto-end", RegexOptions.Singleline);
 			File.WriteAllText(configJsPath, configJs);
 
-			UpdateConfigVersion();
+			UpdateConfigAndCustomCssVersion();
 		}
 
-		public void UpdateConfigVersion()
+		public void UpdateConfigAndCustomCssVersion()
+		{
+			UpdateConfigVersion();
+			UpdateCustomCssVersion();
+		}
+
+		protected void UpdateConfigVersion()
 		{
 			var indexHtmlPath = pathService.Combine(PathNames.WwwRootDirName, "index.html");
 			string text = File.ReadAllText(indexHtmlPath);
@@ -103,10 +110,8 @@ namespace SunEngine.Admin.Services
 			File.WriteAllText(indexHtmlPath, text);
 		}
 		
-		public void UpdateCustomCssVersion()
+		protected void UpdateCustomCssVersion()
 		{
-			UpdateConfigVersion();
-			
 			var configJsPath =  pathService.Combine(PathNames.WwwRootDirName ,PathNames.ConfigJsFileName);
 			string text = File.ReadAllText(configJsPath);
 			Regex reg = new Regex("customcssver=\\d+\"");

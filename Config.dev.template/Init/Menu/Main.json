@@ -34,9 +34,9 @@
       "Icon": "la la-th",
       "SubMenuItems": [
         {
-          "Title": "Главная страница",
-          "SubTitle": "Пример в две колонки",
-          "RouteName": "News2ColPage",
+          "Title": "Новости",
+          "SubTitle": "В две колонки",
+          "RouteName": "PostsAndActivitiesPage",
           "Icon": "la la-home"
         },
         {

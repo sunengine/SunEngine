@@ -190,7 +190,7 @@ namespace SunEngine.Admin.Services
 
 			File.WriteAllText(customCssPath, cssText);
 			
-			configurationAdminService.UpdateCustomCssVersion();
+			configurationAdminService.UpdateConfigAndCustomCssVersion();
 		}
 
 		public List<SkinInfo> GetAllSkins(SkinType skinType)

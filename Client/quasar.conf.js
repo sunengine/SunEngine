@@ -72,17 +72,21 @@ module.exports = function(ctx) {
 					Math.random() * 1000000
 				).toString();
 
-				/*if(ctx.dev) {
-					cfg.plugins.push( new CopyWebpackPlugin([{from: 'config.js', to:'config.js'}]));
-				}*/
-
-				cfg.plugins.push(
-					new CopyWebpackPlugin([
-						{ from: "src/site/statics", to: "site/statics" },
-						{ from: "src/config.js", to: "config.js" },
-						{ from: "src/custom.css", to: "custom.css" }
-					])
-				);
+				if(ctx.dev) {
+					cfg.plugins.push(
+						new CopyWebpackPlugin([
+							{ from: "src/site/statics", to: "site/statics" },
+							{ from: "src/config.js", to: "config.js" },
+							{ from: "src/custom.css", to: "custom.css" }
+						])
+					);
+				} else {
+					cfg.plugins.push(
+						new CopyWebpackPlugin([
+							{ from: "src/site/statics", to: "site/statics" }
+						])
+					);
+				}
 			},
 
 			env: {

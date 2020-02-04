@@ -344,10 +344,11 @@ export default {
 			return this.$request(
 				this.$AdminApi.ConfigurationAdmin.UploadConfiguration,
 				data
-			).then(_ => {
+			).then(async _ => {
 				this.$successNotify();
 				this.loading = false;
-				this.loadConfiguration();
+				await this.loadConfiguration();
+				this.doFilter();
 			});
 		}
 	},

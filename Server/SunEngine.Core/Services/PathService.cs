@@ -31,6 +31,7 @@ namespace SunEngine.Core.Services
 		public const string StaticsDirName = "statics";
 		public const string CustomCssFileName = "custom.css";
 		public const string ConfigJsFileName = "config.js";
+		public const string ConfigTemplateJsFileName = "config.template.js";
 		public const string ServerInfoJsonFileName = "ServerInfo.json";
 		public const string SunEngineJsonFileName = "SunEngine.json";
 		public const string LogConfigJsonFileName = "LogConfig.json";
