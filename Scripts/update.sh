@@ -69,7 +69,7 @@ echo -e "\n${GREEN}Updating \"${PROJECT_NAME}\" project. ${NC}\n"
 
 cd ${PROJECT_ROOT}
 
-if  ! git fetch --all && git reset --hard origin/${BRUNCH}; then
+if  ! git fetch --all && git reset --hard origin/${BRUNCH} && git pull origin/${BRUNCH}; then
     exit 1
 fi
 
