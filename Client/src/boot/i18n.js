@@ -4,11 +4,13 @@ import messages from "site/i18n";
 export default async ({ app, Vue }) => {
 	Vue.use(VueI18n);
 
-	app.i18n = new VueI18n({
+	const i18n = new VueI18n({
 		locale: "ru",
 		fallbackLocale: "en-us",
 		messages
 	});
+	app.i18n = i18n;
+	Vue.prototype.i18n = i18n;
 
 	Vue.prototype.$tl = function(key, ...values) {
 		return this.$t(this.$options.name + "." + key, ...values);

@@ -2,6 +2,6 @@
   "DataBaseConnection": {
     "Linq2dbProvider": "PostgreSQL.9.5",
     "FluentMigratorProvider": "Postgres",
-    "ConnectionString": "Host=localhost;Database=SunEngine;Username=postgres;Password=password"
+    "ConnectionString": "Host=localhost;Database=<DataBaseName>;Username=<DataBaseUser>;Password=<DataBasePassword>"
   }
 }

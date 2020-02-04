@@ -1,14 +1,5 @@
 export default {
-	IndexPage: {
-		users: "Users",
-		password: "Password",
-		version: "Version"
-	},
-	Layout: {
-		madeWithLove: "Made with love"
-	},
-	MaterialInlinePage: {},
-	News2ColPage: {
+	PostsAndActivitiesPage: {
 		title: "Main page",
 		subTitle: "Example"
 	},

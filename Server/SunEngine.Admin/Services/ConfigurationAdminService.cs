@@ -82,7 +82,7 @@ namespace SunEngine.Admin.Services
 				AllowTrailingCommas = true,
 			});
 
-			var configJsPath = pathService.Combine(PathNames.WwwRootDirName, PathNames.StaticsDirName, PathNames.ConfigJsFileName);
+			var configJsPath = pathService.Combine(PathNames.WwwRootDirName, PathNames.ConfigJsFileName);
 
 			json = json.Substring(1, json.Length - 2) + ",";
 
@@ -107,7 +107,7 @@ namespace SunEngine.Admin.Services
 		{
 			UpdateConfigVersion();
 			
-			var configJsPath =  pathService.Combine(PathNames.WwwRootDirName,PathNames.StaticsDirName ,PathNames.ConfigJsFileName);
+			var configJsPath =  pathService.Combine(PathNames.WwwRootDirName ,PathNames.ConfigJsFileName);
 			string text = File.ReadAllText(configJsPath);
 			Regex reg = new Regex("customcssver=\\d+\"");
 			text = reg.Replace(text, $"customcssver={ran.Next()}\"");

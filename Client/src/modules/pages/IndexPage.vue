@@ -1,5 +1,5 @@
 <template>
-	<SunPage class="index-page middle flex flex-center">
+	<SunPage class="index-page">
 		<MaterialInline name="index-page" />
 	</SunPage>
 </template>

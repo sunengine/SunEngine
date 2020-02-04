@@ -1,8 +1,9 @@
 import { IndexPage } from "sun";
-import { News2ColPage } from "sun";
+import { PostsAndActivitiesPage } from "sun";
 import { MaterialInlinePage } from "sun";
 import { SecretPage } from "sun";
 import { coreRoutes } from "sun";
+import Vue  from "vue";
 
 
 
@@ -13,10 +14,18 @@ const siteRoutes = [
 		component: IndexPage
 	},
 	{
-		name: "News2ColPage",
-		path: "/News2ColPage".toLowerCase(),
+		name: "PostsAndActivitiesPage",
+		path: "/PostsAndActivitiesPage".toLowerCase(),
 		components: {
-			default: News2ColPage
+			default: PostsAndActivitiesPage
+		},
+		props: {
+			default: {
+				pageTitle:  () => Vue.prototype.i18n.t("PostsAndActivitiesPage.title"),
+				pageSubTitle: () => Vue.prototype.i18n.t("PostsAndActivitiesPage.subTitle"),
+				postsComponentName: "Posts",
+				activitiesComponentName: "Activities"
+			}
 		}
 	},
 	{

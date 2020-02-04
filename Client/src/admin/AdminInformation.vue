@@ -4,6 +4,10 @@
 
 		<q-markup-table>
 			<tbody>
+				<tr v-if="siteName">
+					<td>{{ $tl("siteName") }}</td>
+					<td>{{ siteName }}</td>
+				</tr>
 				<tr v-if="serverInfo && serverInfo.Name">
 					<td>{{ $tl("serverName") }}</td>
 					<td>{{ serverInfo.Name }}</td>
@@ -24,11 +28,11 @@
 					<td>{{ $tl("sunEngineVersion") }}</td>
 					<td>{{ sunEngineVersion }}</td>
 				</tr>
-				<tr v-if="clientName">
+				<tr v-if="showClientName && clientName">
 					<td>{{ $tl("clientName") }}</td>
 					<td>{{ clientName }}</td>
 				</tr>
-				<tr v-if="clientVersion">
+				<tr v-if="clientVersion !== sunEngineVersion && clientVersion">
 					<td>{{ $tl("clientVersion") }}</td>
 					<td>{{ clientVersion }}</td>
 				</tr>
@@ -124,6 +128,9 @@ export default {
 		breadcrumbsCategory() {
 			return this.$getBreadcrumbs("Admin");
 		},
+		siteName() {
+			return config.Global.SiteName;
+		},
 		additionalData() {
 			const {
 				Name,
@@ -141,6 +148,9 @@ export default {
 		},
 		clientName() {
 			return process.env.PACKAGE_JSON.name;
+		},
+		showClientName() {
+			return this.clientName !== "sunengine-client";
 		},
 		quasarVersion() {
 			return this.$q.version;

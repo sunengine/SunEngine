@@ -1,6 +1,11 @@
 <template>
-	<SunPage class="news-2-col-page">
-		<PageHeader class="page-padding" :title="title" :subTitle="subTitle" />
+	<SunPage class="posts-and-activities-page">
+		<PageHeader
+			v-if="pageTitle"
+			class="page-padding"
+			:title="pageTitle"
+			:subTitle="pageSubTitle"
+		/>
 
 		<div :class="['row', { hidden: !loaded }]">
 			<div
@@ -12,7 +17,7 @@
 					$q.screen.gt.sm ? 'hr-minus' : 'pull-right'
 				]"
 			>
-				<PostsMultiCat ref="postsList" component-name="Posts" />
+				<PostsMultiCat ref="postsList" :component-name="postsComponentName" />
 			</div>
 			<div
 				:class="[
@@ -23,7 +28,7 @@
 					{ 'pull-left': !$q.screen.gt.sm }
 				]"
 			>
-				<activities-list ref="activitiesList" componentName="Activities" />
+				<activities-list ref="activitiesList" :componentName="activitiesComponentName" />
 			</div>
 		</div>
 		<LoaderWait v-if="!loaded" />
@@ -34,8 +39,28 @@
 import { Page } from "mixins";
 
 export default {
-	name: "News2ColPage",
+	name: "PostsAndActivitiesPage",
 	mixins: [Page],
+	props: {
+		pageTitle: {
+			type: String,
+			required: false
+		},
+		pageSubTitle: {
+			type: String,
+			required: false
+		},
+		postsComponentName: {
+			type: String,
+			required: false,
+			default: "Posts"
+		},
+		activitiesComponentName: {
+			type: String,
+			required: false,
+			default: "Activities"
+		}
+	},
 	data: function() {
 		return {
 			mounted: false
@@ -61,17 +86,16 @@ export default {
 	beforeCreate() {
 		this.$options.components.ActivitiesList = require("sun").ActivitiesList;
 		this.$options.components.PostsList = require("sun").PostsList;
-		this.$options.components.LoaderWait = require("sun").LoaderWait;
 		this.$options.components.PostsMultiCat = require("sun").PostsMultiCat;
 	},
 	created() {
-		this.title = this.$tl("title");
+		this.title = this.pageTitle;
 	}
 };
 </script>
 
 <style lang="scss">
-.news-2-col-page {
+.posts-and-activities-page {
 	.hr-minus {
 		.posts-list {
 			.hr-sep {

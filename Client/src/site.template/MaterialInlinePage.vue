@@ -29,7 +29,7 @@ export default {
 
 <style lang="scss">
 .material-inline-page__pan {
-	background-image: url("/statics/svg1.svg");
+	background-image: url("/site/statics/svg1.svg");
 	height: 200px;
 	background-size: 38%;
 }

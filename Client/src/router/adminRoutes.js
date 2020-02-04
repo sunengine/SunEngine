@@ -1,5 +1,5 @@
 import { ArticlesPage, Material } from "sun";
-import { wrapInPage, wrapInPanel } from "sun";
+import { wrapInPanel } from "sun";
 import { CategoriesAdmin } from "sun";
 import { MenuItemsAdmin } from "sun";
 import { CreateCategory } from "sun";
@@ -19,7 +19,7 @@ import { EditComponent } from "sun";
 import { SkinsAdmin } from "sun";
 import { MainSkinsAdmin } from "sun";
 import { PartialSkinsAdmin } from "sun";
-import {CustomCssAdmin} from "sun";
+import { CustomCssAdmin } from "sun";
 import { ConfigurationAdmin } from "sun";
 import { AdminInformation } from "sun";
 

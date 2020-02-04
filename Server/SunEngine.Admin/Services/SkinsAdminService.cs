@@ -178,13 +178,13 @@ namespace SunEngine.Admin.Services
 
 		public string GetCustomCss()
 		{
-			var customCssPath = Path.Combine(WwwRootPath, PathNames.StaticsDirName, PathNames.CustomCssFileName);
+			var customCssPath = Path.Combine(WwwRootPath, PathNames.CustomCssFileName);
 			return !File.Exists(customCssPath) ? "" : File.ReadAllText(customCssPath);
 		}
 
 		public void UpdateCustomCss(string cssText)
 		{
-			var customCssPath = Path.Combine(WwwRootPath, PathNames.StaticsDirName, PathNames.CustomCssFileName);
+			var customCssPath = Path.Combine(WwwRootPath, PathNames.CustomCssFileName);
 			if (File.Exists(customCssPath))
 				File.Delete(customCssPath);
 

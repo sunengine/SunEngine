@@ -34,7 +34,7 @@ namespace SunEngine.Cli
 		}
 
 		/// <summary>
-		/// Update config.js on client '/wwwroot/statics/config.js' to actual config values
+		/// Update config.js on client '/wwwroot/config.js' to actual config values
 		/// </summary>
 		public void UpdateConfigJsOnClientDir()
 		{

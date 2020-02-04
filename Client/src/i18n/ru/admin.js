@@ -307,6 +307,7 @@ export default {
 	},
 	AdminInformation: {
 		title: "Информация",
+		siteName: "Имя сайта",
 		serverName: "Имя сервера",
 		serverVersion: "Версия сервера",
 		serverRepository: "Репозиторий сервера",

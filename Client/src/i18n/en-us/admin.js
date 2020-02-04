@@ -280,6 +280,7 @@ export default {
 	},
 	AdminInformation: {
 		title: "Information",
+		siteName: "Site name",
 		serverName: "Server name",
 		serverVersion: "Server version",
 		serverRepository: "Server repository",

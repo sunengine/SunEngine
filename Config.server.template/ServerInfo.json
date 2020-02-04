@@ -1,12 +1,10 @@
 {
   "ServerInfo": {
-    "Name": "SunEngine Demo",
-    "Maintainer": "Me",                 
-    "MaintainerContacts": ["contact1@site.site","https://t.me/contact1"],
+    "Name": null,
+    "Maintainer": null,                 
+    "MaintainerContacts": null,
     "ServerVersion": null,
     "ServerRepository": null,
-    "Description": "SunEngine Demo Server",
-    "SomeAdditionalData1": "Data1 test string",
-    "SomeAdditionalData2": "Data2 test string"
+    "Description": null
   }
 }
