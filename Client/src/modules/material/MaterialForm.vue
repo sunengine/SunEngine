@@ -279,7 +279,7 @@ export default {
 
 .material-form__text-editor {
 	.q-editor__content {
-		height: 18em;
+		height: 45vh;
 		resize: vertical;
 	}
 }
