@@ -52,16 +52,16 @@ namespace SunEngine.Core.Configuration
 			["Images:AllowSvgUpload"] = true,
 			["Images:ImageRequestSizeLimitBytes"] = 10485760,
 			
-			["Register:RequireUniqueEmail"] = false,
+			["Register:RequireUniqueEmail"] = true,
 			["Register:AllowedUserNameCharacters"] = "abcdefghijklmnopqrstuvwxyz0123456789 -",
 			
+			["PasswordValidation:RequiredLength"] = 6,
+			["PasswordValidation:RequiredUniqueChars"] = 2,
 			["PasswordValidation:RequireDigit"] = false,
 			["PasswordValidation:RequireLowercase"] = false,
 			["PasswordValidation:RequireNonAlphanumeric"] = false,
 			["PasswordValidation:RequireUppercase"] = false,
-			["PasswordValidation:RequiredUniqueChars"] = 2,
-			["PasswordValidation:RequiredLength"] = 6,
-
+			
 			["Sanitizer:AllowedTags"] =
 				(LongString)
 				"a,b,strong,i,em,blockquote,ol,li,ul,ol,p,div,br,video,audio,source,span,img,code,pre,font,h3,h4,h5,h6",
