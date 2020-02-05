@@ -34,18 +34,28 @@ namespace SunEngine.Core.Cache.Services
 				["Global:Locale"] = typeof(string),
 				["Global:UpdateClientScriptsOnConfigChanges"] = typeof(string),
 				["Global:HomePageRedirect"] = typeof(string),
-				["Global:DisallowRegistration"] = typeof(bool),
-				["Global:RegisterConfirmText"] = typeof(string),
 				["Global:ReadOnlyMode"] = typeof(bool),
 				["Global:IconsSet"] = typeof(string),
 				["Global:OpenExternalLinksAtNewTab"] = typeof(bool),
-
+				["Global:DisallowRegistration"] = typeof(bool),
+				
+				["Register:ConfirmText"] = typeof(string),
+				["Register:RequireUniqueEmail"] = typeof(bool),
+				["Register:AllowedUserNameCharacters"] = typeof(string),
+				
 				["Dev:ShowExceptions"] = typeof(bool),
 				["Dev:VueDevTools"] = typeof(bool),
 				["Dev:VueAppInWindow"] = typeof(bool),
 				["Dev:LogInitExtended"] = typeof(bool),
 				["Dev:LogRequests"] = typeof(bool),
 				["Dev:LogMoveTo"] = typeof(bool),
+				
+				["PasswordValidation:RequiredLength"] = typeof(int),
+				["PasswordValidation:RequiredUniqueChars"] = typeof(int),
+				["PasswordValidation:RequireDigit"] = typeof(bool),
+				["PasswordValidation:RequireLowercase"] = typeof(bool),
+				["PasswordValidation:RequireNonAlphanumeric"] = typeof(bool),
+				["PasswordValidation:RequireUppercase"] = typeof(bool),
 
 				["Comments:TimeToOwnEditInMinutes"] = typeof(int),
 				["Comments:TimeToOwnDeleteInMinutes"] = typeof(int),

@@ -161,7 +161,7 @@ export default {
 	},
 	computed: {
 		registerConfirmText() {
-			return config.Global.RegisterConfirmText;
+			return config.Register.ConfirmText;
 		}
 	},
 	methods: {
