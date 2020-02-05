@@ -49,7 +49,7 @@ namespace SunEngine.Cli
 
 			services.AddCachePolicy();
 
-			services.AddIdentity(dataBaseFactory);
+			services.AddIdentity(Configuration, dataBaseFactory);
 
 			services.AddSunAuthentication();
 

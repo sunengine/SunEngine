@@ -19,13 +19,6 @@ const config = {
 		LogRequests: true,
 		LogMoveTo: true
 	},
-
-	// auto-end
-
-	PasswordValidation: {
-		MinLength: 6,
-		MinDifferentChars: 2
-	},
 	DbColumnSizes: {
 		Categories_Name: 64,
 		Categories_Title: 256,
@@ -52,6 +45,13 @@ const config = {
 		MenuItems_Icon: 64,
 		Components_Name: 64,
 		Components_Type: 32
+	},
+
+	// auto-end
+
+	PasswordValidation: {
+		MinLength: 6,
+		MinDifferentChars: 2
 	},
 	Misc: {
 		AdminRoleUsersMaxUsersTake: 40,

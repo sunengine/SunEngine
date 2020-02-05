@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using LinqToDB.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using SunEngine.Core.Configuration.Options;
+using SunEngine.Core.DataBase;
 using SunEngine.Core.Services;
 
 namespace SunEngine.Admin.Services
@@ -75,6 +78,14 @@ namespace SunEngine.Admin.Services
 				current[tokens[^1]] = value;
 			}
 
+			var dbColumnSizes = new Dictionary<string,int>();
+			rez["DbColumnSizes"] = dbColumnSizes;
+			foreach (var field in typeof(DbColumnSizes).GetFields())
+			{
+				var value = (int)field.GetValue(typeof(DbColumnSizes));
+				dbColumnSizes[field.Name] = value == int.MaxValue ? 1000000 : value;
+			}
+
 
 			var json = JsonSerializer.Serialize(rez, new JsonSerializerOptions
 			{
@@ -85,7 +96,7 @@ namespace SunEngine.Admin.Services
 			var configJsTemplatePath = pathService.Combine(PathNames.ResourcesDirName, PathNames.ConfigTemplateJsFileName);
 			var configJsPath = pathService.Combine(PathNames.WwwRootDirName, PathNames.ConfigJsFileName);
 
-			json = json.Substring(1, json.Length - 2) + ",";
+			json = json.Substring(1, json.Length - 2).Trim() + ",";
 
 			var configJs = File.ReadAllText(configJsTemplatePath);
 			configJs = Regex.Replace(configJs, "//( *?)auto-start(.*?)//( *?)auto-end",

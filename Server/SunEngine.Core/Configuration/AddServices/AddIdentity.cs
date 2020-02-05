@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Namotion.Reflection;
+using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Managers;
 using SunEngine.Core.Models;
@@ -9,26 +12,22 @@ namespace SunEngine.Core.Configuration.AddServices
 {
 	public static class AddIdentityExtensions
 	{
-		public static void AddIdentity(this IServiceCollection services, IDataBaseFactory dataBaseFactory)
+		public static void AddIdentity(this IServiceCollection services, IConfiguration configuration, IDataBaseFactory dataBaseFactory)
 		{
+			var passwordValidationOptions = configuration.GetSection("PasswordValidation").Get<PasswordValidationOptions>();
+			var registerOptions = configuration.GetSection("Register").Get<RegisterOptions>();
+
 			services.AddIdentity<User, Role>(
 					options =>
 					{
-						options.Password.RequireDigit = false;
-						options.Password.RequireLowercase = false;
-						options.Password.RequireNonAlphanumeric = false;
-						options.Password.RequireUppercase = false;
-						options.Password.RequiredUniqueChars = 2;
-						options.Password.RequiredLength = 6;
-						options.User.RequireUniqueEmail = true;
-
-						const string engChars = "abcdefghijklmnopqrstuvwxyz";
-						const string rusChars = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
-						const string numbers = "0123456789";
-						const string other = " -";
-
-						options.User.AllowedUserNameCharacters =
-							engChars + engChars.ToUpper() + rusChars + rusChars.ToUpper() + numbers + other;
+						options.Password.RequireDigit = passwordValidationOptions.RequireDigit;
+						options.Password.RequireLowercase = passwordValidationOptions.RequireLowercase;
+						options.Password.RequireNonAlphanumeric = passwordValidationOptions.RequireNonAlphanumeric;
+						options.Password.RequireUppercase = passwordValidationOptions.RequireUppercase;
+						options.Password.RequiredUniqueChars = passwordValidationOptions.RequiredUniqueChars;
+						options.Password.RequiredLength = passwordValidationOptions.RequiredLength;
+						options.User.RequireUniqueEmail = registerOptions.RequireUniqueEmail;
+						options.User.AllowedUserNameCharacters = registerOptions.AllowedUserNameCharacters;
 					})
 				.AddLinqToDBStores<int>(dataBaseFactory)
 				.AddUserManager<SunUserManager>()
