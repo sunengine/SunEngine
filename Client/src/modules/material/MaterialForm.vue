@@ -276,4 +276,11 @@ export default {
 	margin: 0;
 	padding: 0;
 }
+
+.material-form__text-editor {
+	.q-editor__content {
+		height: 18em;
+		resize: vertical;
+	}
+}
 </style>
