@@ -99,13 +99,13 @@ import { passwordRules } from "sun";
 function createRules() {
 	return {
 		passwordOld: [
-			value => !!value || this.$tl("validation.passwordOld.required")
+			value => !!value || this.$t("Global.validation.password.passwordOld")
 		],
 		password: passwordRules,
 		password2: [
 			...passwordRules,
 			value =>
-				this.password === this.password2 || this.$tl("validation.password2.equals")
+				this.password === this.password2 || this.$t("Global.validation.password.passwordsNotEquals")
 		]
 	};
 }

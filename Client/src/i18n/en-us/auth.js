@@ -30,27 +30,6 @@ export default {
 		registering: "Sing Up...",
 		emailSent:
 			"An email has been sent to the address you supplied. Important! Please check your email for a message confirming your registration.",
-		validation: {
-			userName: {
-				required: "Enter login",
-				minLength: "Login must be at least 3 letters long",
-				maxLength: `Login must be at most not ${config.DbColumnSizes.Users_UserName} characters`,
-				nameInDb: "User name is already taken"
-			},
-			email: {
-				required: "Enter email",
-				emailSig: "@:Global.validation.emailSig",
-				maxLength: `Email must be at most not ${config.DbColumnSizes.Users_Email} characters`
-			},
-			password: {
-				required: "Enter password",
-				minLength: `Password must be at least ${config.PasswordValidation.MinLength} characters`,
-				minDifferentChars: `Password must contain at least ${config.PasswordValidation.MinDifferentChars} different characters`
-			},
-			password2: {
-				equals: "Passwords must match"
-			}
-		}
 	},
 	RegisterEmailResult: {
 		title: "Confirm Email",

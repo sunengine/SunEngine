@@ -19,14 +19,6 @@ export default {
 		passwordOld: "Старый пароль",
 		password: "Новый пароль",
 		password2: "Подтвердите новый пароль",
-		validation: {
-			passwordOld: {
-				required: "Необходимо ввести старый пароль"
-			},
-			password2: {
-				equals: "@:Register.validation.password2.equals"
-			}
-		}
 	},
 	ResetPassword: {
 		title: "Сброс пароля",

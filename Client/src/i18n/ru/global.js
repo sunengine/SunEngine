@@ -26,6 +26,7 @@ export default {
 				maxLength: "Максимальная длинна email - {maxLength}"
 			},
 			password: {
+				passwordOld: "Необходимо ввести старый пароль",
 				passwordsNotEquals: "Пароли должны совпадать",
 				required: "Необходимо ввести пароль",
 				requiredLength: "Минимальная длинна пароля - {requiredLength}",
