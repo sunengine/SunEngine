@@ -67,14 +67,12 @@
 
 <script>
 import { Page } from "mixins";
+import { emailRules } from "sun";
 
 function createRules() {
 	return {
 		password: [value => !!value || this.$tl("validation.password.required")],
-		email: [
-			value => !!value || this.$tl("validation.email.required"),
-			value => /[^@]+@[^@]+/.test(value) || this.$tl("validation.email.emailSig")
-		]
+		email: emailRules
 	};
 }
 

@@ -12,6 +12,18 @@ export default {
 			delete: "Delete"
 		},
 		validation: {
+			password: {
+				required: "Enter password",
+				requiredLength: "Minimal password length - {requiredLength}",
+				requiredUniqueChars:
+					"Password must contain minimum {requiredUniqueChars} different chars",
+				requireDigit: "Password must contain digit",
+				requireLowercase:
+					"Password must contain lowercase letter",
+				requireUppercase: "Password must contain uppercase letter",
+				requireNonAlphanumeric:
+					"Password must contain non letter and digit symbol like '@','^','+'..."
+			},
 			emailSig: "Incorrect email",
 			jsonFormatError: "Json validation error",
 			fileSizeLimit:

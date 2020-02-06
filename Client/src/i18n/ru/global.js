@@ -13,6 +13,30 @@ export default {
 			reset: "Сбросить"
 		},
 		validation: {
+			userName: {
+				required: "Необходимо ввести имя пользователя",
+				minLength: "Минимальная длинна имени пользователя - {minLength}",
+				maxLength: "Максимальная длинна имени пользователя - {maxLength}",
+				nameInDb: "Это имя уже занято",
+				allowedUserNameCharacters: "Имя пользователя может состоять только из символов '{allowedUserNameCharacters}'"
+			},
+			email: {
+				required: "Необходимо ввести email",
+				emailSig: "Введите валидный email",
+				maxLength: "Максимальная длинна email - {maxLength}"
+			},
+			password: {
+				required: "Необходимо ввести пароль",
+				requiredLength: "Минимальная длинна пароля - {requiredLength}",
+				requiredUniqueChars:
+					"Необходимо что бы пароль состоял не менее чем из {requiredUniqueChars} разных символов",
+				requireDigit: "В пароль должно входить хотя бы одно число",
+				requireLowercase:
+					"В пароль должна входить хотя бы одна строчная буква (нижний регистр)",
+				requireUppercase: "В пароль должна входить хотя бы одна заглавная буква",
+				requireNonAlphanumeric:
+					"В пароль должен входить хотя бы один не буквенный и не числовой символ, например '@','^','+'..."
+			},
 			emailSig: "Неправильная сигнатура email",
 			jsonFormatError: "Ошибка валидации Json",
 			fileSizeLimit:
@@ -31,7 +55,7 @@ export default {
 		loading: "Загрузка...",
 		canNotConnectApi: "Невозможно соединиться с API."
 	},
-	
+
 	MyEditor: {
 		uploadImages: "Добавить изображения"
 	},

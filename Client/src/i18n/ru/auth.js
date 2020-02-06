@@ -30,22 +30,6 @@ export default {
 		registering: "Регистрируемся...",
 		emailSent: "Сообщение с ссылкой для регистрации отправлено на email",
 		validation: {
-			userName: {
-				required: "Введите имя пользователя",
-				minLength: "Имя пользователя должно быть не менее чем из 3 букв",
-				maxLength: `Имя пользователя должно состоять не более чем из ${config.DbColumnSizes.Users_UserName} символов`,
-				nameInDb: "Имя занято"
-			},
-			email: {
-				required: "Введите email",
-				emailSig: "@:Global.validation.emailSig",
-				maxLength: `Email должен состоять не более чем из ${config.DbColumnSizes.Users_Email} символов`
-			},
-			password: {
-				required: "Введите пароль",
-				minLength: `Пароль должен состоять не менее чем из ${config.PasswordValidation.MinLength} символов`,
-				minDifferentChars: `В пароле должно быть не менее ${config.PasswordValidation.MinDifferentChars} разных символов`
-			},
 			password2: {
 				equals: "Пароли должны совпадать"
 			}

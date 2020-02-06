@@ -7,7 +7,7 @@
 				v-model="email"
 				type="email"
 				:label="$tl('email')"
-				:rules="rules.email"
+				:rules="rules"
 			>
 				<template v-slot:prepend>
 					<q-icon :name="$iconsSet.ResetPassword.envelope" />
@@ -40,15 +40,7 @@
 
 <script>
 import { Page } from "mixins";
-
-function createRules() {
-	return {
-		email: [
-			value => !!value || this.$tl("validation.email.required"),
-			value => /.+@.+/.test(value) || this.$t("Global.validation.emailSig")
-		]
-	};
-}
+import { emailRules } from "sun";
 
 export default {
 	name: "ResetPassword",
@@ -65,7 +57,7 @@ export default {
 	computed: {
 		breadcrumbsCategory() {
 			return this.$getBreadcrumbs("Personal");
-		}
+		},
 	},
 	methods: {
 		send() {
@@ -99,7 +91,7 @@ export default {
 	},
 	created() {
 		this.title = this.$tl("title");
-		this.rules = createRules.call(this);
+		this.rules = emailRules;
 	}
 };
 </script>

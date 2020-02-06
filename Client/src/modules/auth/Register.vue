@@ -68,10 +68,8 @@
 			</q-input>
 
 			<div v-if="registerConfirmText" class="q-mb-lg q-mt-md flex align-center">
-				<q-toggle v-model="acceptConfirm">
-					
-				</q-toggle>
-			 <div id="register__confirm-text" v-html="registerConfirmText"></div>
+				<q-toggle v-model="acceptConfirm"> </q-toggle>
+				<div id="register__confirm-text" v-html="registerConfirmText"></div>
 			</div>
 
 			<Captcha ref="captcha" v-model="captchaText" />
@@ -103,38 +101,17 @@
 
 <script>
 import { Page } from "mixins";
+import { passwordRules } from "sun";
+import { userNameRules } from "sun";
+import { emailRules } from "sun";
 
 function createRules() {
-	const password = [
-		value => !!value || this.$tl("validation.password.required"),
-		value =>
-			value.length >= config.PasswordValidation.MinLength ||
-			this.$tl("validation.password.minLength"),
-		value =>
-			[...new Set(value.split(""))].length >=
-				config.PasswordValidation.MinDifferentChars ||
-			this.$tl("validation.password.minDifferentChars")
-	];
-
 	return {
-		userName: [
-			value => !!value || this.$tl("validation.userName.required"),
-			value => value.length >= 3 || this.$tl("validation.userName.minLength"),
-			value =>
-				value.length <= config.DbColumnSizes.Users_UserName ||
-				this.$tl("validation.userName.maxLength"),
-			value => !this.userNameInDb || this.$tl("validation.userName.nameInDb") // link in db
-		],
-		email: [
-			value => !!value || this.$tl("validation.email.required"),
-			value => /.+@.+/.test(value) || this.$tl("validation.email.emailSig"),
-			value =>
-				value.length <= config.DbColumnSizes.Users_Email ||
-				this.$tl("validation.email.maxLength")
-		],
-		password: password,
+		userName: userNameRules,
+		email: emailRules,
+		password: passwordRules,
 		password2: [
-			...password,
+			...passwordRules,
 			value =>
 				this.password === this.password2 || this.$tl("validation.password2.equals")
 		]
@@ -166,13 +143,15 @@ export default {
 	},
 	methods: {
 		addTargetBlankOnLinks() {
+			if (!this.registerConfirmText) return;
+			
 			const el = document.getElementById("register__confirm-text");
 			const links = el.getElementsByTagName("a");
 
 			for (const link of links) {
 				link.classList.add("link");
 				link.setAttribute("target", "_blank");
-			/*	link.addEventListener("click", e => {
+				/*	link.addEventListener("click", e => {
 					e.preventDefault();
 					e.stopPropagation();
 					window.open(link.href);

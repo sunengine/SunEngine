@@ -94,26 +94,16 @@
 
 <script>
 import { Page } from "mixins";
+import { passwordRules } from "sun";
 
 function createRules() {
-	const password = [
-		value => !!value || this.$tl("validation.password.required"),
-		value =>
-			value.length >= config.PasswordValidation.MinLength ||
-			this.$tl("validation.password.minLength"),
-		value =>
-			[...new Set(value.split(""))].length >=
-				config.PasswordValidation.MinDifferentChars ||
-			this.$tl("validation.password.minDifferentChars")
-	];
-
 	return {
 		passwordOld: [
 			value => !!value || this.$tl("validation.passwordOld.required")
 		],
-		password: password,
+		password: passwordRules,
 		password2: [
-			...password,
+			...passwordRules,
 			value =>
 				this.password === this.password2 || this.$tl("validation.password2.equals")
 		]

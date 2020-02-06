@@ -23,7 +23,7 @@ const config = {
 		Categories_Name: 64,
 		Categories_Title: 256,
 		Categories_Token: 64,
-		Categories_CustomUrl: Number.MaxValue,
+		Categories_CustomUrl: Number.MAX_VALUE,
 		Categories_SubTitle: Number.MAX_VALUE,
 		Categories_Icon: 64,
 		Users_UserName: 64,

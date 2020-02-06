@@ -6,15 +6,6 @@ export default {
 		password: "Ваш пароль",
 		newEmail: "Новый email",
 		saveBtn: "@:Global.btn.save",
-		validation: {
-			password: {
-				required: "Необходимо ввести пароль"
-			},
-			email: {
-				required: "Необходимо ввести email",
-				emailSig: "Введите валидный email"
-			}
-		}
 	},
 	ChangeEmailResult: {
 		title: "@:RegisterEmailResult.title",
@@ -32,11 +23,6 @@ export default {
 			passwordOld: {
 				required: "Необходимо ввести старый пароль"
 			},
-			password: {
-				required: "@:Register.validation.password.required",
-				minLength: "@:Register.validation.password.minLength",
-				minDifferentChars: "@:Register.validation.password.minDifferentChars"
-			},
 			password2: {
 				equals: "@:Register.validation.password2.equals"
 			}
@@ -47,12 +33,6 @@ export default {
 		email: "Введите email",
 		resetPasswordBtn: "Сбросить пароль",
 		success: "Сообщение с ссылкой для сброса пароля отправлено на email",
-		validation: {
-			email: {
-				required: "@:ResetPassword.email",
-				emailSig: "@:Global.validation.emailSig"
-			}
-		}
 	},
 	ResetPasswordFailed: {
 		title: "Сброс пароля",
@@ -66,11 +46,6 @@ export default {
 		password: "Новый пароль",
 		password2: "Подтвердите пароль",
 		validation: {
-			password: {
-				required: "@:Register.validation.password.required",
-				minLength: "@:Register.validation.password.minLength",
-				minDifferentChars: "@:Register.validation.password.minDifferentChars"
-			},
 			password2: {
 				equals: "@:Register.validation.password2.equals"
 			}

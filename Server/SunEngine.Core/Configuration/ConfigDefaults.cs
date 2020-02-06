@@ -32,14 +32,14 @@ namespace SunEngine.Core.Configuration
 
 			["Register:ConfirmText"] = (HtmlString)"",
 			["Register:RequireUniqueEmail"] = true,
-			["Register:AllowedUserNameCharacters"] = "abcdefghijklmnopqrstuvwxyz0123456789 -",
+			["Register:AllowedUserNameCharacters"] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -",
 			
 			["PasswordValidation:RequiredLength"] = 6,
 			["PasswordValidation:RequiredUniqueChars"] = 2,
 			["PasswordValidation:RequireDigit"] = false,
 			["PasswordValidation:RequireLowercase"] = false,
-			["PasswordValidation:RequireNonAlphanumeric"] = false,
 			["PasswordValidation:RequireUppercase"] = false,
+			["PasswordValidation:RequireNonAlphanumeric"] = false,
 			
 			["Dev:LogInitExtended"] = false,
 			["Dev:LogRequests"] = false,
