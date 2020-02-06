@@ -1,5 +1,5 @@
 # SunEngine
-**Version 2.5.3**
+**Version 2.6.0**
 ***************************************************************
 Do not delete this file! This file need to detect project root.
 ***************************************************************
