@@ -3,9 +3,7 @@ import { PostsAndActivitiesPage } from "sun";
 import { MaterialInlinePage } from "sun";
 import { SecretPage } from "sun";
 import { coreRoutes } from "sun";
-import Vue  from "vue";
-
-
+import Vue from "vue";
 
 const siteRoutes = [
 	{
@@ -20,11 +18,13 @@ const siteRoutes = [
 			default: PostsAndActivitiesPage
 		},
 		props: {
-			default: {
-				pageTitle:  () => Vue.prototype.i18n.t("PostsAndActivitiesPage.title"),
-				pageSubTitle: () => Vue.prototype.i18n.t("PostsAndActivitiesPage.subTitle"),
-				postsComponentName: "Posts",
-				activitiesComponentName: "Activities"
+			default: () => {
+				return {
+					pageTitle: Vue.prototype.i18n.t("PostsAndActivitiesPage.title"),
+					pageSubTitle: Vue.prototype.i18n.t("PostsAndActivitiesPage.subTitle"),
+					postsComponentName: "Posts",
+					activitiesComponentName: "Activities"
+				};
 			}
 		}
 	},
