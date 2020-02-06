@@ -83,7 +83,7 @@ function createRules() {
 		password2: [
 			...passwordRules,
 			value =>
-				this.password === this.password2 || this.$tl("validation.password2.equals")
+				this.password === this.password2 || this.$t("Global.validation.password.passwordsNotEquals")
 		]
 	};
 }

@@ -29,11 +29,6 @@ export default {
 		registerBtn: "@:Register.title",
 		registering: "Регистрируемся...",
 		emailSent: "Сообщение с ссылкой для регистрации отправлено на email",
-		validation: {
-			password2: {
-				equals: "Пароли должны совпадать"
-			}
-		}
 	},
 	RegisterEmailResult: {
 		title: "Подтверждение почты",
