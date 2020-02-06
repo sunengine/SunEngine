@@ -17,5 +17,6 @@ namespace SunEngine.DataSeed
 		public const string RolesSchemaJsonFile = "Roles.schema.json";
 		public const string StartAvatarsDir = "000";
 		public const string AvatarsDir = "Avatars";
+		public const string ConfigJsonPath = "Config.json";
 	}
 }

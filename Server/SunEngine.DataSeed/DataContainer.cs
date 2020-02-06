@@ -40,6 +40,8 @@ namespace SunEngine.DataSeed
 		public List<OperationKey> OperationKeys = new List<OperationKey>();
 		public List<MenuItem> MenuItems = new List<MenuItem>();
 		public List<CipherSecret> CipherSecrets = new List<CipherSecret>();
+		public List<ConfigurationItem> ConfigurationItems = new List<ConfigurationItem>();
+
 
 		public Random ran = new Random();
 

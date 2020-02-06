@@ -54,6 +54,8 @@ namespace SunEngine.DataSeed
 
 			SeedCipherSecrets();
 
+			SeedConfigurationItems();
+
 			return dataContainer;
 		}
 
@@ -171,6 +173,8 @@ namespace SunEngine.DataSeed
 
 		private void SeedMenus()
 		{
+			Console.WriteLine("Menus");
+
 			var path = Path.Combine(configInitDir, SeederPathsNames.MenusConfigDir);
 			MenuSeeder menuSeeder = new MenuSeeder(dataContainer, path);
 			menuSeeder.Seed();
@@ -178,6 +182,8 @@ namespace SunEngine.DataSeed
 
 		private void SeedCipherSecrets()
 		{
+			Console.WriteLine("CipherSecrets");
+
 			var names = typeof(CipherSecrets).GetFields().Select(x => (string) x.GetValue(typeof(CipherSecrets)));
 
 			foreach (var name in names)
@@ -193,9 +199,18 @@ namespace SunEngine.DataSeed
 
 		private void SeedComponents()
 		{
+			Console.WriteLine("Components");
 			var path = Path.Combine(configInitDir, SeederPathsNames.ComponentsConfigDir);
 			ComponentsSeeder componentsSeeder = new ComponentsSeeder(dataContainer, path);
 			componentsSeeder.Seed();
+		}
+
+		private void SeedConfigurationItems()
+		{
+			Console.WriteLine("ConfigurationItems");
+			var path = Path.Combine(configInitDir, SeederPathsNames.ConfigJsonPath);
+			ConfigurationItemsSeeder configurationItemsSeeder = new ConfigurationItemsSeeder(dataContainer, path);
+			configurationItemsSeeder.Seed();
 		}
 	}
 }

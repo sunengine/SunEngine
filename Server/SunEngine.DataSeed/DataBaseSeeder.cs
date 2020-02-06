@@ -67,6 +67,9 @@ namespace SunEngine.DataSeed
 
 			Console.WriteLine("CipherSecrets");
 			db.BulkCopy(options, dataContainer.CipherSecrets);
+			
+			Console.WriteLine("ConfigurationItems");
+			db.BulkCopy(options, dataContainer.ConfigurationItems);
 
 			RunDbCpecificCode();
 
