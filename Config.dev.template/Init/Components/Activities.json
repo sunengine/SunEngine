@@ -5,7 +5,9 @@
     "Roles": "Unregistered,Registered",
     "ServerSettingsJson": {
         "MaterialsCategories": "Root",
+        "MaterialsCategoriesExclude": "SiteTexts",
         "CommentsCategories": "Root",
+        "CommentsCategoriesExclude": "SiteTexts",
         "Number": 25
     },
     "ClientSettingsJson": {

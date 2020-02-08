@@ -4,7 +4,8 @@
   "IsCacheData": false,
   "Roles": "Unregistered,Registered",
   "ServerSettingsJson": {
-    "CategoriesNames": "Root",
+    "Categories": "Root",
+    "CategoriesExclude": "SiteTexts",
     "PreviewSize": 800,
     "PageSize": 12
   },
@@ -12,7 +13,7 @@
     "Title": "Лента новостей",
     "SubTitle": "Из разных категорий",
     "Header": null,
-    "CategoriesNames": "Root",
+    "Categories": "Root",
     "RolesCanAdd": null,
     "AddButtonLabel": null
   }

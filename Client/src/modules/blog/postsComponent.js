@@ -6,8 +6,8 @@ export default {
 
 	getServerTemplate() {
 		return {
-			CategoriesNames: "Root",
-			CategoriesNamesExclude: null,
+			Categories: "Root",
+			CategoriesExclude: null,
 			PreviewSize: 800,
 			PageSize: 12
 		};
