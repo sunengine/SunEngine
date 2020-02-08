@@ -29,6 +29,9 @@ export default {
 		material: "la la-file-alt",
 		publishDate: global.clock
 	},
+	AdminInformation: {
+		support: "la la-heart"
+	},
 	AdminMenu: {
 		AdminInformation: "la la-info-circle",
 		CategoriesAdmin: "la la-stream",

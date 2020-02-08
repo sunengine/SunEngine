@@ -2,6 +2,40 @@
 	<SunPage class="admin-page page-padding">
 		<PageHeader :title="title" />
 
+		<q-expansion-item
+			class="q-mb-md shadow-1 overflow-hidden"
+			style="border-radius: 24px"
+			expand-icon-class="text-white"
+			header-class="bg-pink-11 text-white"
+			:label="$tl('support')"
+			:icon="$iconsSet.AdminInformation.support"
+		>
+			<div class="q-pa-lg">
+				{{ $tl("supportInfo") }}
+				<ul>
+					<li>
+						<a
+							href="https://my.qiwi.com/Dmytryi-P9qqHzXldd?noCache=true"
+							target="_blank"
+							class="link"
+						>
+							QIWI
+						</a>
+					</li>
+					<li>
+						<a href="https://yasobe.ru/na/SunEngine" target="_blank" class="link"
+							>Yandex.Money</a
+						>
+					</li>
+					<li>
+						<a href="https://paypal.me/dmitrijpolyanin" target="_blank" class="link">
+							PayPal
+						</a>
+					</li>
+				</ul>
+			</div>
+		</q-expansion-item>
+
 		<q-markup-table>
 			<tbody>
 				<tr v-if="siteName">

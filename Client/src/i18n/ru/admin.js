@@ -307,6 +307,8 @@ export default {
 	},
 	AdminInformation: {
 		title: "Информация",
+		support: "Поддержать проект SunEngine",
+		supportInfo: "Если вам нравится проект SunEngine, поддержите его:",
 		siteName: "Имя сайта",
 		serverName: "Имя сервера",
 		serverVersion: "Версия сервера",
