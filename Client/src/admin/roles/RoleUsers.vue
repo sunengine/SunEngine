@@ -28,7 +28,7 @@
 			</div>
 			<div v-if="users.length === 0" class="text-grey">{{ $tl("noResults") }}</div>
 			<div v-if="users.length === maxUsersTake" class="text-grey">
-				{{ $tl("filterLimitReached", maxUsersTake) }}
+				{{ $tl("filterLimitReached", { maxUsersTake: maxUsersTake }) }}
 			</div>
 		</div>
 

@@ -94,7 +94,7 @@ namespace SunEngine.Core.Cache.Services
 
 				current[tokens[^1]] = value;
 			}
-
+			
 			DynamicConfigCacheJson = JsonSerializer.Serialize(rez, new JsonSerializerOptions
 			{
 				WriteIndented = true,

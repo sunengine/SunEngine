@@ -260,7 +260,7 @@ export default {
 		users: "Пользователи",
 		filter: "Фильтр",
 		noResults: "Нет результатов",
-		filterLimitReached: "Выведены первые {0} результатов"
+		filterLimitReached: "Выведены первые {maxUsersTake} результатов"
 	},
 
 	// ——— all ————————————————————————————————————

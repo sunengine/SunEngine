@@ -242,7 +242,7 @@ export default {
 		users: "Users",
 		filter: "Filter",
 		noResults: "Not found",
-		filterLimitReached: "First {0} results are derived"
+		filterLimitReached: "Showed first {maxUsersTake} results/"
 	},
 
 	// ——— all ————————————————————————————————————
