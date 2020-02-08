@@ -30,6 +30,9 @@ export default {
 		material: "far fa-file-alt",
 		publishDate: global.clock
 	},
+	AdminInformation: {
+		support: "fas fa-heart"
+	},
 	AdminMenu: {
 		AdminInformation: "fas fa-info-circle",
 		CategoriesAdmin: global.category,
