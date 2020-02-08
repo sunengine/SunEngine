@@ -4,7 +4,6 @@ const config = {
 	// auto-start
 
 	Global: {
-		//SiteName: 'SunEngine Demo',
 		Locale: "Russian",
 		SiteApi: "http://localhost:5000",
 		SiteUrl: "http://localhost:5005",
@@ -49,12 +48,10 @@ const config = {
 
 	// auto-end
 
-	PasswordValidation: {
-		MinLength: 6,
-		MinDifferentChars: 2
+	Admin: {
+		RoleUsersMaxUsersTake: 40
 	},
 	Misc: {
-		AdminRoleUsersMaxUsersTake: 40,
 		DefaultAvatar: "default-avatar.svg"
 	}
 };
@@ -65,5 +62,6 @@ else if (config.Global.SiteUrl.startsWith("https://"))
 	config.Global.SiteSchema = "https://";
 else throw "SiteUrl in config.js have to start with 'http://' or 'https://'.";
 
-document.writeln(`<link href="${config.Global.CustomCssUrl}?customcssver=0000" rel="stylesheet" />`);
-
+document.writeln(
+	`<link href="${config.Global.CustomCssUrl}?customcssver=0000" rel="stylesheet" />`
+);
