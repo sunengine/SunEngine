@@ -7,7 +7,9 @@ export default {
 	getServerTemplate() {
 		return {
 			MaterialsCategories: "Root",
+			MaterialsCategoriesExclude: null,
 			CommentsCategories: "Root",
+			CommentsCategoriesExclude: null,
 			Number: 25
 		};
 	},

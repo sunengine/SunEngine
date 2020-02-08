@@ -91,7 +91,11 @@ namespace SunEngine.Core.Controllers
 			PostsComponentData componentData = component.Data as PostsComponentData;
 
 			var materialsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(componentData.CategoriesNames);
+			var materialsCategoriesExcludeDic = categoriesCache.GetAllCategoriesWithChildren(componentData.CategoriesNamesExclude);
 
+			foreach (var (key, _) in materialsCategoriesExcludeDic)
+				materialsCategoriesDic.Remove(key);
+			
 			IList<CategoryCached> categoriesList = authorizationService.GetAllowedCategories(User.Roles,
 				materialsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);
 
@@ -120,6 +124,7 @@ namespace SunEngine.Core.Controllers
 	public class PostsComponentData
 	{
 		public string CategoriesNames { get; set; }
+		public string CategoriesNamesExclude { get; set; }
 		public int PreviewSize { get; set; }
 		public int PageSize { get; set; }
 	}

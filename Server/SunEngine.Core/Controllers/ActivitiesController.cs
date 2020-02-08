@@ -48,13 +48,21 @@ namespace SunEngine.Core.Controllers
 
 			var materialsCategoriesDic =
 				categoriesCache.GetAllCategoriesWithChildren(componentData.MaterialsCategories);
+			var materialsCategoriesExcludeDic =
+				categoriesCache.GetAllCategoriesWithChildren(componentData.MaterialsCategoriesExclude);
 
+			foreach (var (key,_) in materialsCategoriesExcludeDic)
+				materialsCategoriesDic.Remove(key);
+			
 			IList<CategoryCached> materialsCategoriesList = authorizationService.GetAllowedCategories(User.Roles,
 				materialsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);
-
-
+			
 			var commentsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(componentData.CommentsCategories);
+			var commentsCategoriesExcludeDic = categoriesCache.GetAllCategoriesWithChildren(componentData.CommentsCategoriesExclude);
 
+			foreach (var (key,_) in commentsCategoriesExcludeDic)
+				commentsCategoriesDic.Remove(key);
+			
 			IList<CategoryCached> commentsCategoriesList = authorizationService.GetAllowedCategories(User.Roles,
 				commentsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);
 
@@ -83,7 +91,9 @@ namespace SunEngine.Core.Controllers
 	public class ActivitiesComponentData
 	{
 		public string MaterialsCategories { get; set; }
+		public string MaterialsCategoriesExclude { get; set; }
 		public string CommentsCategories { get; set; }
+		public string CommentsCategoriesExclude { get; set; }
 		public int Number { get; set; }
 	}
 }

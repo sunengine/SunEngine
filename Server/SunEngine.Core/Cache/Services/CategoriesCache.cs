@@ -50,8 +50,9 @@ namespace SunEngine.Core.Cache.Services
 
 		public CategoryCached GetCategory(string name)
 		{
-			return AllCategoriesByName[name];
+			return AllCategoriesByName.TryGetValue(name, out CategoryCached categoryCached) ? categoryCached : null;
 		}
+		
 
 		public IDictionary<string, CategoryCached> GetAllCategoriesWithChildren(string categoriesList)
 		{
@@ -64,6 +65,9 @@ namespace SunEngine.Core.Cache.Services
 			foreach (var name in categoriesNames)
 			{
 				CategoryCached category = GetCategory(name);
+				if(category == null)
+					continue;
+				
 				var allSub = category.AllSubCategories.ToDictionary(x => x.Name, x => x);
 				allSub.Add(category.Name, category);
 

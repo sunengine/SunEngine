@@ -119,7 +119,7 @@ export default {
 		component: "la la-cube"
 	},
 	ComponentsAdmin: {
-		add: global.save,
+		add: global.add,
 		component: "la la-cube",
 		edit: global.wrench,
 		goTo:global.goTo
