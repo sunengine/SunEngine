@@ -38,7 +38,6 @@ const config = {
 		Components_Type: 32
 	},
 	Misc: {
-		AdminRoleUsersMaxUsersTake: 40,
 		DefaultAvatar: "default-avatar.svg"
 	}
 };

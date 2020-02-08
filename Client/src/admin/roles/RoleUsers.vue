@@ -1,7 +1,7 @@
 ﻿<template>
 	<div class="role-users">
 		<div class="role-users__header">
-			<q-icon  :name="$iconsSet.RoleUsers.user" class="q-mr-sm" />
+			<q-icon :name="$iconsSet.RoleUsers.user" class="q-mr-sm" />
 			{{ $tl("users") }}
 		</div>
 
@@ -14,7 +14,7 @@
 			clearable
 		>
 			<template v-slot:prepend>
-				<q-icon  :name="$iconsSet.RoleUsers.search" size="0.75em" />
+				<q-icon :name="$iconsSet.RoleUsers.search" size="0.75em" />
 			</template>
 		</q-input>
 
@@ -53,7 +53,11 @@ export default {
 			filter: null
 		};
 	},
-	maxUsersTake: null,
+	computed: {
+		maxUsersTake() {
+			return config.Admin.RoleUsersMaxUsersTake;
+		}
+	},
 	methods: {
 		loadRoleUsers() {
 			this.users = null;
@@ -65,10 +69,6 @@ export default {
 				this.users = response.data;
 			});
 		}
-	},
-	beforeCreate() {
-		this.maxUsersTake = config.Misc.AdminRoleUsersMaxUsersTake;
-		this.$options.components.LoaderWait = require("sun").LoaderWait;
 	},
 	created() {
 		this.loadRoleUsers();

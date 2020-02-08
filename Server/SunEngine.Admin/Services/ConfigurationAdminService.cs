@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using LinqToDB.Extensions;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using SunEngine.Core.Configuration.Options;
+using SunEngine.Admin.Presenters;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Services;
 
@@ -17,7 +14,6 @@ namespace SunEngine.Admin.Services
 	{
 		protected IPathService pathService { get; }
 		protected IConfigurationRoot configurationRoot { get; }
-		protected IOptionsMonitor<GlobalOptions> globalOptions { get; }
 
 		protected Random ran = new Random();
 		
@@ -85,6 +81,8 @@ namespace SunEngine.Admin.Services
 				var value = (int)field.GetValue(typeof(DbColumnSizes));
 				dbColumnSizes[field.Name] = value == int.MaxValue ? 1000000 : value;
 			}
+
+			rez["Admin:RoleUsersMaxUsersTake"] = UserRolesAdminPresenter.MaxUsersTake;
 
 
 			var json = JsonSerializer.Serialize(rez, new JsonSerializerOptions

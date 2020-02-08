@@ -18,7 +18,7 @@ namespace SunEngine.Admin.Presenters
 
 	public class UserRolesAdminPresenter : DbService, IUserRolesAdminPresenter
 	{
-		private const int MaxUsersTake = 40;
+		public  const int MaxUsersTake = 40;
 
 
 		public UserRolesAdminPresenter(DataBaseConnection db) : base(db)
