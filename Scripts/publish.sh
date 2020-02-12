@@ -62,10 +62,10 @@ echo  -e "\n${GREEN}Restarting systemd service and reload nginx ${NC}\n"
 ssh ${REMOTE_USER}@${REMOTE_HOST} << EOF
 
  cd ${REMOTE_DIRECTORY}/Server
- if  dotnet SunEngine.dll test-db-con; then
+ if  dotnet SunEngine.dll test-db-con nologo; then
  {
     echo  -e "\n${GREEN}Migrating to new version ${NC}\n"
-    dotnet SunEngine.dll migrate
+    dotnet SunEngine.dll migrate nologo
  }
  fi
 
