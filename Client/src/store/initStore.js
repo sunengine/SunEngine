@@ -13,6 +13,10 @@ export default async function(context) {
 	context.state.initializeState = InitializeState.Running;
 
 	try {
+		try {
+			if (hasLongToken()) await context.dispatch("loadMyUserInfo");
+		} catch (_) {}
+
 		await getDynamicConfig();
 
 		const locales = {
@@ -21,10 +25,6 @@ export default async function(context) {
 		};
 
 		app.$i18n.locale = locales[config.Global.Locale];
-		
-		try {
-			if (hasLongToken()) await context.dispatch("loadMyUserInfo");
-		} catch (_) {}
 		
 		await context.dispatch("loadAllCategories");
 
