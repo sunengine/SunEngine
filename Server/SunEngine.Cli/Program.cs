@@ -10,9 +10,13 @@ namespace SunEngine.Cli
 		/// </summary>
 		public static void Main(string[] args)
 		{
-			InfoPrinter.PrintLogoAndVersion();
-
 			StartupConfiguration config = new StartupConfiguration(args);
+
+			if(config.NoLogo)
+				InfoPrinter.PrintVersion();
+			else
+				InfoPrinter.PrintLogoAndVersion();
+
 			
 			if (config.PrintHelp || config.PrintVersion)
 			{

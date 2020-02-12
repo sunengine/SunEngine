@@ -24,6 +24,7 @@ namespace SunEngine.Cli
 		public const string SeedCommand = "seed";
 		public const string AppendCategoriesNamesCommand = "append-cat-name";
 		public const string TestDatabaseConnection = "test-db-con";
+		public const string NoLogoCommand = "nologo";
 
 
 		public string[] Arguments { get; }
@@ -40,6 +41,9 @@ namespace SunEngine.Cli
 		public List<string> CategoryTokensToSeed { get; }
 
 		public bool CheckDatabaseAvailability { get; }
+		
+		public bool NoLogo { get; }
+
 
 
 		public StartupConfiguration(string[] arguments)
@@ -60,6 +64,8 @@ namespace SunEngine.Cli
 			CheckDatabaseAvailability = startupArguments.Contains(TestDatabaseConnection);
 
 			CategoryTokensToSeed = startupArguments.Where(x => x.StartsWith(SeedCommand)).ToList();
+			
+			NoLogo = startupArguments.Contains(NoLogoCommand);
 		}
 
 		public bool CheckNoArguments() => Arguments == null || Arguments.Length == 0;
