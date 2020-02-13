@@ -1,7 +1,6 @@
 export default {
 	initializeState: "none", // 'none', 'running', 'error', 'done'
 	initializedPromise: null,
-	currentCategory: null,
 	currentPage: null
 };
 

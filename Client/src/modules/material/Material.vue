@@ -169,9 +169,7 @@ export default {
 			return this.comments.length - 1;
 		},
 		category() {
-			return (this.$store.state.currentCategory = this.$store.getters.getCategory(
-				this.categoryName
-			));
+          return  this.$store.getters.getCategory(this.categoryName);
 		},
 		showTitle() {
 			return (

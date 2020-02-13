@@ -181,7 +181,8 @@ export default {
 		breadcrumbsCategory() {
 			if (!this.$store.state.currentPage) return null;
 			return (
-				this.$refs?.rv?.breadcrumbsCategory ?? this.$store.state.currentCategory
+				this.$refs?.rv?.breadcrumbsCategory ??
+				this.$store.state.currentPage?.category
 			);
 		},
 		siteSubTitle() {

@@ -39,8 +39,7 @@ export default function({ store, ssrContext }) {
 		}
 		
 		await checkUserCredentialsAndReloadIfNew();
-
-		store.state.currentCategory = null;
+		
 		store.state.currentPage = null;
 
 		if (config.Dev.LogMoveTo)
