@@ -170,12 +170,14 @@ export default {
 			return config.Global.SiteTitle;
 		},
 		pageTitle() {
+			if (!this.$store.state.mounted) return null;
 			return this.$store.state.currentPage?.title;
 		},
 		disallowRegistration() {
 			return config.Global.DisallowRegistration;
 		},
 		hideBreadcrumbs() {
+			if (!this.$store.state.mounted) return true;
 			return this.$store.state.currentPage?.hideBreadcrumbs;
 		},
 		breadcrumbsCategory() {
