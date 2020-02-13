@@ -1,9 +1,7 @@
 export default {
 	data() {
 		return {
-			title: " ",
-			mounted: false
-			//  centered: false
+			title: " "
 		};
 	},
 	methods: {
@@ -12,18 +10,12 @@ export default {
 		}
 	},
 	watch: {
-		mounted() {
-			this.$store.state.mounted = this.mounted;
-			if (this.mounted) this.$store.state.currentPage = this;
+		$route() {
+			this.$store.state.currentPage = this;
 		}
 	},
 	mounted() {
-		this.mounted = true;
-	},
-	beforeCreate() {
-		this.$store.state.mounted = false;
-		this.$store.state.currentCategory = null;
-		this.$store.state.currentPage = null;
+		this.$store.state.currentPage = this;
 	},
 	meta() {
 		return {

@@ -68,7 +68,8 @@ export default {
 	},
 	methods: {
 		loadData() {
-			this.$request(this.$Api.Blog.GetPosts, {
+          this.title = this.category.title;
+          this.$request(this.$Api.Blog.GetPosts, {
 				categoryName: this.categoryName,
 				page: this.currentPage,
 				showDeleted:
@@ -90,7 +91,6 @@ export default {
 		this.$options.components.PostsList = require("sun").PostsList;
 	},
 	created() {
-		this.title = this.category.title;
 		this.loadData();
 	}
 };

@@ -2,8 +2,7 @@ export default {
 	initializeState: "none", // 'none', 'running', 'error', 'done'
 	initializedPromise: null,
 	currentCategory: null,
-	currentPage: null,
-	mounted: false
+	currentPage: null
 };
 
 export const InitializeState = {

@@ -1,5 +1,9 @@
 <template>
-	<q-breadcrumbs class="breadcrumbs text-grey" active-color="purple">
+	<q-breadcrumbs
+		class="breadcrumbs text-grey"
+		active-color="purple"
+		:key="rerenderKey"
+	>
 		<q-breadcrumbs-el
 			:exact="true"
 			key="mr"
@@ -37,6 +41,11 @@ export default {
 			type: String,
 			required: false
 		}
+	},
+	data() {
+		return {
+			rerenderKey: 1
+		};
 	},
 	computed: {
 		breadCrumbsCategories() {

@@ -159,7 +159,7 @@ export default {
 		};
 	},
 	watch: {
-		$route: function() {
+		$route() {
 			this.$nextTick(() => {
 				this.centered = this.$refs?.rv?.$options?.centered;
 			});
@@ -170,19 +170,19 @@ export default {
 			return config.Global.SiteTitle;
 		},
 		pageTitle() {
-			if (!this.$store.state.mounted) return null;
 			return this.$store.state.currentPage?.title;
 		},
 		disallowRegistration() {
 			return config.Global.DisallowRegistration;
 		},
 		hideBreadcrumbs() {
-			if (!this.$store.state.mounted) return true;
 			return this.$store.state.currentPage?.hideBreadcrumbs;
 		},
 		breadcrumbsCategory() {
-			if (!this.$store.state.mounted) return null;
-			return this.$refs?.rv?.breadcrumbsCategory ?? this.$refs?.rv?.category;
+			if (!this.$store.state.currentPage) return null;
+			return (
+				this.$refs?.rv?.breadcrumbsCategory ?? this.$store.state.currentCategory
+			);
 		},
 		siteSubTitle() {
 			return config.Global.SiteSubTitle;

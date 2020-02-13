@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import { getTokens } from "sun";
 import { checkTokensUpdated } from "sun";
 import { app } from "sun";
+import { store } from "sun";
 
 import { consoleRequestStart, consoleGreyEnd, consoleTokens } from "sun";
 
@@ -36,8 +37,11 @@ export default function({ store, ssrContext }) {
 			});
 			return;
 		}
-
+		
 		await checkUserCredentialsAndReloadIfNew();
+
+		store.state.currentCategory = null;
+		store.state.currentPage = null;
 
 		if (config.Dev.LogMoveTo)
 			console.info(
