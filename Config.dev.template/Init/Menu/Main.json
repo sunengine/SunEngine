@@ -31,7 +31,7 @@
     },
     {
       "Title": "Примеры страниц",
-      "Icon": "la la-th",
+      "Icon": "la la-table",
       "SubMenuItems": [
         {
           "Title": "Новости",

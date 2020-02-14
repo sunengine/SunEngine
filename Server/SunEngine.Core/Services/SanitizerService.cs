@@ -14,6 +14,8 @@ namespace SunEngine.Core.Services
 
 		private Dictionary<string, Sanitizer> optionCategories = new Dictionary<string, Sanitizer>();
 
+		public SanitizerOptions SanitizerOptions { get; protected set; }
+
 		public SanitizerService(IConfiguration configuration)
 		{
 			this.configuration = configuration;
@@ -52,8 +54,8 @@ namespace SunEngine.Core.Services
 			var section = configuration.GetSection("Sanitizer");
 
 			var key = DefaultCategory;
-			var sanitizerOptions = section.Get<SanitizerOptions>();
-			var sanitizer = new Sanitizer(sanitizerOptions);
+			SanitizerOptions = section.Get<SanitizerOptions>();
+			var sanitizer = new Sanitizer(SanitizerOptions);
 			optionCategories.Add(key, sanitizer);
 		}
 	}

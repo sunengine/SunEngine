@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Models.Materials;
+using SunEngine.Core.Security;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
 using SunEngine.Core.Utils.TextProcess;
@@ -24,8 +26,12 @@ namespace SunEngine.Core.Managers
 		ValueTask<int?> GetCategoryIdAsync(int materialId);
 		ValueTask<int?> GetCategoryIdAsync(string materialName);
 		Task<Material> GetAsync(int id);
-		ValueTask CreateAsync(Material material, string tags, CategoryCached category);
-		ValueTask UpdateAsync(Material material, string tags, CategoryCached category);
+
+		ValueTask CreateAsync(Material material, string tags, CategoryCached category,
+			IReadOnlyDictionary<string, RoleCached> roles);
+
+		ValueTask UpdateAsync(Material material, string tags, CategoryCached category,
+			IReadOnlyDictionary<string, RoleCached> roles);
 
 		/// <summary>
 		/// Set IsDeleted = true
@@ -94,11 +100,15 @@ namespace SunEngine.Core.Managers
 			return db.Materials.FirstOrDefaultAsync(x => x.Id == id);
 		}
 
-		public virtual async ValueTask CreateAsync(Material material, string tags, CategoryCached category)
+		public virtual async ValueTask CreateAsync(
+			Material material,
+			string tags,
+			CategoryCached category,
+			IReadOnlyDictionary<string, RoleCached> roles)
 		{
-			IHtmlDocument doc = new HtmlParser().Parse(material.Text);
+			if (!(roles.ContainsKey(RoleNames.Admin) && sanitizerService.SanitizerOptions.SanitizeAdminTexts))
+				material.Text = sanitizerService.Sanitize(new HtmlParser().Parse(material.Text));
 
-			material.Text = sanitizerService.Sanitize(doc);
 			material.SettingsJson = material.SettingsJson?.MakeJsonText();
 
 			if (category.IsMaterialsSubTitleEditable)
@@ -119,11 +129,12 @@ namespace SunEngine.Core.Managers
 		public virtual async ValueTask UpdateAsync(
 			Material material,
 			string tags,
-			CategoryCached category)
+			CategoryCached category,
+			IReadOnlyDictionary<string, RoleCached> roles)
 		{
-			IHtmlDocument doc = new HtmlParser().Parse(material.Text);
+			if (!(roles.ContainsKey(RoleNames.Admin) && sanitizerService.SanitizerOptions.SanitizeAdminTexts))
+				material.Text = sanitizerService.Sanitize(new HtmlParser().Parse(material.Text));
 
-			material.Text = sanitizerService.Sanitize(doc);
 			material.SettingsJson = material.SettingsJson?.MakeJsonText();
 
 			if (category.IsMaterialsSubTitleEditable)

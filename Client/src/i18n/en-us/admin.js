@@ -379,6 +379,7 @@ export default {
 				"Width of the user's photo after px compression",
 			"Images:ResizeMaxHeightPixels": "Image height after px compression",
 			"Images:ResizeMaxWidthPixels": "Image width after px compression",
+			"Sanitizer:SanitizeAdminTexts" : "Sanitize admin texts",
 			"Sanitizer:AllowedAttributes": "Allowed html attributes",
 			"Sanitizer:AllowedClasses": "Allowed html classes",
 			"Sanitizer:AllowedCssProperties": "Allowed css properties",

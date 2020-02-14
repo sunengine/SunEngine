@@ -111,7 +111,7 @@ namespace SunEngine.Core.Controllers
 			if (materialsAuthorization.CanEditSettingsJson(User.Roles, category))
 				material.SettingsJson = materialData.SettingsJson;
 
-			await materialsManager.CreateAsync(material, materialData.Tags, category);
+			await materialsManager.CreateAsync(material, materialData.Tags, category, User.Roles);
 
 			contentCache.InvalidateCache(category.Id);
 
@@ -165,7 +165,7 @@ namespace SunEngine.Core.Controllers
 				? materialData.SettingsJson
 				: null;
 
-			await materialsManager.UpdateAsync(material, materialData.Tags, newCategory);
+			await materialsManager.UpdateAsync(material, materialData.Tags, newCategory, User.Roles);
 
 			contentCache.InvalidateCache(material.CategoryId);
 

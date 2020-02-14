@@ -405,6 +405,7 @@ export default {
 				"Ширина фотографии пользователя после сжатия px",
 			"Images:ResizeMaxHeightPixels": "Высота изображения после сжатия px",
 			"Images:ResizeMaxWidthPixels": "Ширина изображения после сжатия px",
+			"Sanitizer:SanitizeAdminTexts" : "Санитаризировать тексты админа",
 			"Sanitizer:AllowedAttributes": "Разрешённые аттрибуты html",
 			"Sanitizer:AllowedClasses": "Разрешённые классы html",
 			"Sanitizer:AllowedCssProperties": "Разрешённые свойства css",
