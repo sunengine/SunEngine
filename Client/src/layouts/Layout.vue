@@ -16,13 +16,11 @@
 						/>
 					</q-btn>
 
-					<q-toolbar-title class="layout__title-block">
-						<router-link class="layout__title-link block" :to="{ name: 'Home' }">
-							<div class="layout__title">{{ siteTitle }}</div>
-							<div class="layout__sub-title" v-if="siteSubTitle">
-								{{ siteSubTitle }}
-							</div>
-						</router-link>
+					<q-toolbar-title
+						id="layout__title-block"
+						v-html="siteTitle"
+						class="layout__title-block"
+					>
 					</q-toolbar-title>
 
 					<template v-if="userName">
@@ -147,6 +145,7 @@
 
 <script>
 import { mapState } from "vuex";
+import { prepareLocalLinks } from "sun";
 
 export default {
 	name: "Layout",
@@ -212,6 +211,7 @@ export default {
 		this.breadcrumbsHeight = parseInt(
 			window.getComputedStyle(toolbarBreadcrumbs).height
 		);
+		prepareLocalLinks.call(this, this.$el, "layout__title-block");
 	},
 	created() {
 		this.$root.$layout = this;

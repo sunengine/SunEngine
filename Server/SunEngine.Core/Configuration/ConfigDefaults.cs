@@ -21,8 +21,7 @@ namespace SunEngine.Core.Configuration
 		{
 			["Global:SiteName"] = "SunEngine",
 			["Global:Locale"] = Locale.Russian,
-			["Global:SiteTitle"] = "SunEngine Demo",
-			["Global:SiteSubTitle"] = "",
+			["Global:SiteTitle"] = (HtmlString)"SunEngine Demo",
 			["Global:PageTitleTemplate"] = "{pageTitle} - {siteName}",
 			["Global:HomePageRedirect"] = "",
 			["Global:DisallowRegistration"] = false,
