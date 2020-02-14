@@ -82,7 +82,7 @@ namespace SunEngine.Admin.Managers
 						TryAdd();
 						break;
 					case "HtmlString":
-						configurationItem.Value = sanitizerService.Sanitize(configurationItem.Value) ?? String.Empty;
+						//configurationItem.Value = sanitizerService.Sanitize(configurationItem.Value) ?? String.Empty;
 						TryAdd();
 						break;
 					case "String":
