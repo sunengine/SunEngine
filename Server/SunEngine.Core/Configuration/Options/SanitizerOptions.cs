@@ -11,7 +11,7 @@ namespace SunEngine.Core.Configuration.Options
 		public string AllowedVideoDomains { get; set; }
 		public string AllowedImageDomains { get; set; }
 		public string AllowedSchemes { get; set; }
-		public bool SanitizeAdminTexts { get; set; }
+		public bool SanitizeAdminMaterials { get; set; }
 
 		protected string[] _allowedTags;
 		protected string[] _allowedAttributes;

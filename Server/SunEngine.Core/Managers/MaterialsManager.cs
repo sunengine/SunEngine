@@ -106,7 +106,7 @@ namespace SunEngine.Core.Managers
 			CategoryCached category,
 			IReadOnlyDictionary<string, RoleCached> roles)
 		{
-			if (!(roles.ContainsKey(RoleNames.Admin) && sanitizerService.SanitizerOptions.SanitizeAdminTexts))
+			if (!roles.ContainsKey(RoleNames.Admin) || sanitizerService.SanitizerOptions.SanitizeAdminMaterials)
 				material.Text = sanitizerService.Sanitize(new HtmlParser().Parse(material.Text));
 
 			material.SettingsJson = material.SettingsJson?.MakeJsonText();
@@ -132,7 +132,7 @@ namespace SunEngine.Core.Managers
 			CategoryCached category,
 			IReadOnlyDictionary<string, RoleCached> roles)
 		{
-			if (!(roles.ContainsKey(RoleNames.Admin) && sanitizerService.SanitizerOptions.SanitizeAdminTexts))
+			if (!roles.ContainsKey(RoleNames.Admin) || sanitizerService.SanitizerOptions.SanitizeAdminMaterials)
 				material.Text = sanitizerService.Sanitize(new HtmlParser().Parse(material.Text));
 
 			material.SettingsJson = material.SettingsJson?.MakeJsonText();

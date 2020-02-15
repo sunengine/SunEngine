@@ -169,7 +169,7 @@ export default {
 			return this.comments.length - 1;
 		},
 		category() {
-          return  this.$store.getters.getCategory(this.categoryName);
+			return this.$store.getters.getCategory(this.categoryName);
 		},
 		showTitle() {
 			return (
@@ -255,6 +255,18 @@ export default {
 		}
 	},
 	methods: {
+		execScripts() {
+			const scripts = this.$el.getElementsByTagName("script");
+
+			for (const script of scripts) {
+				const script2 = document.createElement("script");
+				script2.innerHTML = script.innerText;
+				const parent = script.parentNode;
+				const next = script.nextSibling;
+				script.remove();
+				parent.insertBefore(script2, next);
+			}
+		},
 		prepareParagraphs() {
 			if (this.headersPrepared) return;
 
@@ -270,8 +282,7 @@ export default {
 				link.classList.add("header-anchor");
 				link.classList.add("link");
 				let id = encodeURIComponent(header.innerText);
-				while(allNames[id]) 
-                id = id + "1";
+				while (allNames[id]) id = id + "1";
 				allNames[id] = true;
 				header.id = id;
 				link.href = window.location.href.split("#")[0] + "#" + id;
@@ -310,6 +321,7 @@ export default {
 				this.$nextTick(() => {
 					this.prepareLocalLinks();
 					this.prepareParagraphs();
+					if (this.material.settingsJson.allowInnerJavaScript) this.execScripts();
 				});
 			});
 		},

@@ -61,7 +61,7 @@ namespace SunEngine.Core.Configuration
 			["Images:AllowSvgUpload"] = true,
 			["Images:ImageRequestSizeLimitBytes"] = 10485760,
 
-			["Sanitizer:SanitizeAdminTexts"] = true,
+			["Sanitizer:SanitizeAdminMaterials"] = true,
 			["Sanitizer:AllowedTags"] =
 				(LongString)
 				"a,b,strong,i,em,blockquote,ol,li,ul,ol,p,div,br,video,audio,source,span,img,code,pre,font,h3,h4,h5,h6",
