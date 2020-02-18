@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace SunEngine.Core.Models
 {
 	public class Component
@@ -6,14 +8,16 @@ namespace SunEngine.Core.Models
 
 		public string Name { get; set; }
 
-		public string Type { get; set; }
+		public string ComponentTypeName { get; set; }
+
+		public ComponentType ComponentType { get; set; }
 
 		public string Roles { get; set; }
 
 		public bool IsCacheData { get; set; }
 
-		public string ServerSettingsJson { get; set; }
+		public string JsonOptions { get; set; }
 
-		public string ClientSettingsJson { get; set; }
+		//public Dictionary<string, object> Options { get; set; }
 	}
 }

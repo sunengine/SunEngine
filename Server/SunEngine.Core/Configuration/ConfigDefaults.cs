@@ -5,18 +5,6 @@ namespace SunEngine.Core.Configuration
 {
 	public static class ConfigDefaults
 	{
-		public enum Locale
-		{
-			Russian,
-			English,
-		}
-		
-		public enum IconsSet
-		{
-			LineAwesome,
-			FontAwesome,
-		}
-
 		public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>()
 		{
 			["Global:SiteName"] = "SunEngine",
@@ -222,79 +210,16 @@ namespace SunEngine.Core.Configuration
 			["Skins:MaxExtractArchiveSizeKb"] = 60 * 1024
 		};
 	}
-
-	public class LongString
-	{
-		public string Value { get; set; }
-
-		public static implicit operator LongString(string str)
-		{
-			return new LongString(str);
-		}
-
-		public static explicit operator string(LongString str)
-		{
-			return str.ToString();
-		}
-
-		public LongString(string value)
-		{
-			Value = value;
-		}
-
-		public override string ToString()
-		{
-			return Value;
-		}
-	}
 	
-	public class HtmlString
+	public enum Locale
 	{
-		public string Value { get; set; }
-
-		public static implicit operator HtmlString(string str)
-		{
-			return new HtmlString(str);
-		}
-
-		public static explicit operator string(HtmlString str)
-		{
-			return str.ToString();
-		}
-
-		public HtmlString(string value)
-		{
-			Value = value;
-		}
-
-		public override string ToString()
-		{
-			return Value;
-		}
+		Russian,
+		English,
 	}
-
-	public class JsonString
+		
+	public enum IconsSet
 	{
-		public string Value { get; set; }
-
-		public static implicit operator JsonString(string str)
-		{
-			return new JsonString(str.Replace("'", "\""));
-		}
-
-		public static explicit operator string(JsonString str)
-		{
-			return str.ToString();
-		}
-
-		public JsonString(string value)
-		{
-			Value = value.Replace("'", "\"");
-		}
-
-		public override string ToString()
-		{
-			return Value;
-		}
+		LineAwesome,
+		FontAwesome,
 	}
 }
