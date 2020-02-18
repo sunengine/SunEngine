@@ -120,12 +120,4 @@ namespace SunEngine.Core.Controllers
 			return await CacheContentAsync(component, categoriesIds, LoadDataAsync, page);
 		}
 	}
-
-	public class PostsComponentData
-	{
-		public string Categories { get; set; }
-		public string CategoriesExclude { get; set; }
-		public int PreviewSize { get; set; }
-		public int PageSize { get; set; }
-	}
 }

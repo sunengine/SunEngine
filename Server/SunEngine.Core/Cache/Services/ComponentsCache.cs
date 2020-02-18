@@ -5,6 +5,7 @@ using System.Linq;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Controllers;
 using SunEngine.Core.DataBase;
+using SunEngine.Core.Models;
 
 namespace SunEngine.Core.Cache.Services
 {
@@ -21,10 +22,15 @@ namespace SunEngine.Core.Cache.Services
 		private readonly IDataBaseFactory dataBaseFactory;
 		private readonly IRolesCache rolesCache;
 
-		public Dictionary<string, Type> ComponentsDataTypes { get; } = new Dictionary<string, Type>()
+		public Dictionary<string, Type> ComponentServerTypes { get; } = new Dictionary<string, Type>()
 		{
-			["Posts"] = typeof(PostsComponentData),
-			["Activities"] = typeof(ActivitiesComponentData)
+			["Posts"] = typeof(PostsServerComponentData),
+			["Activities"] = typeof(ActivitiesServerComponentData)
+		};
+		
+		public Dictionary<string, Type> ComponentClientTypes { get; } = new Dictionary<string, Type>()
+		{
+			["Posts"] = typeof(PostsClientComponentData)
 		};
 
 		public IReadOnlyDictionary<string, ComponentServerCached> ServerComponents { get; private set; }

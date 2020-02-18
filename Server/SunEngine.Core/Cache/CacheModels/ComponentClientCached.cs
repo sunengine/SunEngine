@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Models;
 using SunEngine.Core.Utils;
@@ -17,12 +18,12 @@ namespace SunEngine.Core.Cache.CacheModels
 
 		public string Type { get; }
 
-		public JsonElement? Settings { get; }
+		public JsonElement? Options { get; }
 
-		[System.Text.Json.Serialization.JsonIgnore]
+		[JsonIgnore]
 		public IReadOnlyDictionary<int, RoleCached> Roles { get; }
 
-		public ComponentClientCached(Component component, Type type,  IRolesCache rolesCache)
+		public ComponentClientCached(Component component,  IRolesCache rolesCache, Dictionary<string, Type> clientComponentTypes)
 		{
 			Id = component.Id;
 			Name = component.Name;
@@ -35,12 +36,14 @@ namespace SunEngine.Core.Cache.CacheModels
 					.ToImmutableDictionary();
 			}
 			else
-			{
 				Roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
+
+			if (clientComponentTypes.TryGetValue(Type, out Type type))
+			{
+				object clientData = JsonSerializer.Deserialize(component.Options, type);
+				string clientJson = JsonSerializer.Serialize(clientData);
+				Options = SunJson.MakeJElement(clientJson);
 			}
-			object clientData = JsonSerializer.Deserialize(component.JsonOptions, type);
-			string clientJson = JsonSerializer.Serialize(clientData);
-			Settings = SunJson.MakeJElement(clientJson);
 		}
 	}
 }

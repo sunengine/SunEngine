@@ -33,10 +33,8 @@ namespace SunEngine.Core.Cache.CacheModels
 					.ToImmutableDictionary();
 			}
 			else
-			{
 				Roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
-			}
-			Data = JsonSerializer.Deserialize(component.JsonOptions, type);
+			Data = JsonSerializer.Deserialize<T>(component.Options);
 		}
 	}
 }
