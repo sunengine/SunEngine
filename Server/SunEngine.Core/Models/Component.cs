@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace SunEngine.Core.Models
 {
 	public class Component

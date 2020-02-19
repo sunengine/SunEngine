@@ -1,5 +1,3 @@
-using System;
-
 namespace SunEngine.Core.Configuration
 {
 	public class StringItem : ConfigItem

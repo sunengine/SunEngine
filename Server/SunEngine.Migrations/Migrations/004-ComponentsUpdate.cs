@@ -1,6 +1,5 @@
 using System;
 using FluentMigrator;
-using FluentMigrator.Expressions;
 
 namespace SunEngine.Migrations.Migrations
 {

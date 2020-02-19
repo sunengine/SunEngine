@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using AngleSharp.Dom.Html;
 using AngleSharp.Parser.Html;
 using LinqToDB;
 using Microsoft.Extensions.Options;
