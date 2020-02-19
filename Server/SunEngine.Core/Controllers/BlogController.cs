@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Cache.Services;
+using SunEngine.Core.Configuration.Sections;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Models;
 using SunEngine.Core.Presenters;
@@ -25,7 +26,7 @@ namespace SunEngine.Core.Controllers
 		protected readonly ICategoriesCache categoriesCache;
 		protected readonly IAuthorizationService authorizationService;
 		protected readonly IBlogPresenter blogPresenter;
-		protected readonly IComponentsCache componentsCache;
+		protected readonly ISectionsCache SectionsCache;
 
 		public BlogController(
 			IOptionsMonitor<BlogOptions> blogOptions,
@@ -33,7 +34,7 @@ namespace SunEngine.Core.Controllers
 			ICategoriesCache categoriesCache,
 			OperationKeysContainer operationKeysContainer,
 			IBlogPresenter blogPresenter,
-			IComponentsCache componentsCache,
+			ISectionsCache SectionsCache,
 			IServiceProvider serviceProvider) : base(serviceProvider)
 		{
 			OperationKeys = operationKeysContainer;
@@ -42,7 +43,7 @@ namespace SunEngine.Core.Controllers
 			this.authorizationService = authorizationService;
 			this.categoriesCache = categoriesCache;
 			this.blogPresenter = blogPresenter;
-			this.componentsCache = componentsCache;
+			this.SectionsCache = SectionsCache;
 		}
 
 		[HttpPost]
@@ -85,7 +86,7 @@ namespace SunEngine.Core.Controllers
 		[HttpPost]
 		public virtual async Task<IActionResult> GetPostsFromMultiCategories(string componentName, int page = 1)
 		{
-			var component = componentsCache.GetComponentServerCached(componentName, User.Roles);
+			var component = SectionsCache.GetSectionserverCached(componentName, User.Roles);
 			if (component == null)
 				return BadRequest($"No component {componentName} found in cache");
 

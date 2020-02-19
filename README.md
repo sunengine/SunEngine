@@ -51,7 +51,7 @@ Build on: AspNet Core, VueJS, Quasar.</h3>
  - Interactive editing of site menu, as well as additional menus  
  - Switch basic and additional skins  
  - User groups and changing their permissions  
- - Creating site activities components  
+ - Creating site activities Sections  
  - And other features...  
 
 ## Technical features
@@ -59,7 +59,7 @@ Build on: AspNet Core, VueJS, Quasar.</h3>
 The project based on modern front edge technologies:
  - Asp.Net Core 3.1  
  - VueJs - SPA client part  
- - Quasar Framework - Material Design VueJs components  
+ - Quasar Framework - Material Design VueJs Sections  
  - PostgreSQL - database (in the future, other SQL db engines)  
  - Linq2db ORM - database access  
  

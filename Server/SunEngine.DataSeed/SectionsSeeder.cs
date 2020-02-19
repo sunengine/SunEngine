@@ -5,12 +5,12 @@ using SunEngine.Core.Security;
 
 namespace SunEngine.DataSeed
 {
-	public class ComponentsSeeder
+	public class SectionsSeeder
 	{
 		private readonly DataContainer dataContainer;
 		private readonly string configDir;
 
-		public ComponentsSeeder(DataContainer dataContainer, string configDir)
+		public SectionsSeeder(DataContainer dataContainer, string configDir)
 		{
 			this.configDir = configDir;
 			this.dataContainer = dataContainer;
@@ -29,7 +29,7 @@ namespace SunEngine.DataSeed
 
 		protected void SeedComponent(JObject jComponent)
 		{
-			Component component = new Component
+			Section section = new Section
 			{
 				Id = dataContainer.NextComponentId(),
 				Name = (string) jComponent["Name"],
@@ -37,19 +37,19 @@ namespace SunEngine.DataSeed
 			};
 
 			if (jComponent.TryGetValue("IsCacheData", out JToken value) && (bool) value)
-				component.IsCacheData = true;
+				section.IsCacheData = true;
 
 			if (jComponent.TryGetValue("ServerSettingsJson", out JToken serverSettingsJson))
-				component.Options = serverSettingsJson.ToString();
+				section.Options = serverSettingsJson.ToString();
 			else
-				component.Options = "{}";
+				section.Options = "{}";
 
 			if (jComponent.TryGetValue("Roles", out JToken roles))
-				component.Roles = (string) roles;
+				section.Roles = (string) roles;
 			else
-				component.Roles = string.Join(',', RoleNames.Unregistered, RoleNames.Registered);
+				section.Roles = string.Join(',', RoleNames.Unregistered, RoleNames.Registered);
 			
-			dataContainer.Components.Add(component);
+			dataContainer.Sections.Add(section);
 		}
 	}
 }

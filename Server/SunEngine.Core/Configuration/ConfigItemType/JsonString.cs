@@ -1,6 +1,6 @@
 using SunEngine.Core.Utils;
 
-namespace SunEngine.Core.Configuration
+namespace SunEngine.Core.Configuration.ConfigItemType
 {
 	public class JsonString : ConfigItem
 	{

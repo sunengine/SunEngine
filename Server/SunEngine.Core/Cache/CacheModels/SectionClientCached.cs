@@ -10,7 +10,7 @@ using SunEngine.Core.Utils;
 
 namespace SunEngine.Core.Cache.CacheModels
 {
-	public class ComponentClientCached
+	public class SectionClientCached
 	{
 		public int Id { get; }
 
@@ -22,15 +22,15 @@ namespace SunEngine.Core.Cache.CacheModels
 
 		[JsonIgnore] public IReadOnlyDictionary<int, RoleCached> Roles { get; }
 
-		public ComponentClientCached(Component component, Dictionary<string, Type> clientComponentTypes,
+		public SectionClientCached(Section section, Dictionary<string, Type> clientComponentTypes,
 			IRolesCache rolesCache)
 		{
-			Id = component.Id;
-			Name = component.Name;
-			Type = component.Type;
-			if (component.Roles != null)
+			Id = section.Id;
+			Name = section.Name;
+			Type = section.Type;
+			if (section.Roles != null)
 			{
-				Roles = component.Roles.Split(',')
+				Roles = section.Roles.Split(',')
 					.Select(x => rolesCache.GetRole(x))
 					.ToDictionary(x => x.Id, x => x)
 					.ToImmutableDictionary();
@@ -40,7 +40,7 @@ namespace SunEngine.Core.Cache.CacheModels
 
 			if (clientComponentTypes.TryGetValue(Type, out Type type))
 			{
-				object clientData = JsonSerializer.Deserialize(component.Options, type);
+				object clientData = JsonSerializer.Deserialize(section.Options, type);
 				string clientJson = JsonSerializer.Serialize(clientData);
 				Options = SunJson.MakeJElement(clientJson);
 			}

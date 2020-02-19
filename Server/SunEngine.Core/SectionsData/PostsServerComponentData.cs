@@ -1,4 +1,4 @@
-namespace SunEngine.Core.Models
+namespace SunEngine.Core.Configuration.Sections
 {
 	public class PostsServerComponentData
 	{

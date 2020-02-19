@@ -124,7 +124,7 @@ namespace SunEngine.Core.Controllers
 		}
 
 		public async Task<IActionResult> CacheContentAsync<T>(
-			ComponentServerCached component,
+			SectionServerCached component,
 			IEnumerable<int> categoryIds,
 			Func<Task<T>> dataLoader,
 			int? page = null)

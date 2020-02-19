@@ -8,7 +8,7 @@ namespace SunEngine.Admin.Controllers
 {
 	public class CacheAdminController : BaseAdminController
 	{
-		protected readonly IComponentsCache componentsCache;
+		protected readonly ISectionsCache SectionsCache;
 		protected readonly ICategoriesCache categoriesCache;
 		protected readonly IMenuCache menuCache;
 		protected readonly SpamProtectionCache spamProtectionCache;
@@ -18,7 +18,7 @@ namespace SunEngine.Admin.Controllers
 		protected readonly SanitizerService sanitizerService;
 
 		public CacheAdminController(
-			IComponentsCache componentsCache,
+			ISectionsCache sectionsCache,
 			ICategoriesCache categoriesCache,
 			IMenuCache menuCache,
 			SpamProtectionCache spamProtectionCache,
@@ -28,7 +28,7 @@ namespace SunEngine.Admin.Controllers
 			SanitizerService sanitizerService,
 			IServiceProvider serviceProvider) : base(serviceProvider)
 		{
-			this.componentsCache = componentsCache;
+			this.SectionsCache = sectionsCache;
 			this.categoriesCache = categoriesCache;
 			this.menuCache = menuCache;
 			this.spamProtectionCache = spamProtectionCache;
@@ -40,7 +40,7 @@ namespace SunEngine.Admin.Controllers
 
 		public IActionResult ResetAllCache()
 		{
-			componentsCache.Initialize();
+			SectionsCache.Initialize();
 			categoriesCache.Initialize();
 			menuCache.Initialize();
 			rolesCache.Initialize();

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SunEngine.Core.Configuration.ConfigItemType;
 using SunEngine.Core.Configuration.Options;
 
 namespace SunEngine.Core.Configuration

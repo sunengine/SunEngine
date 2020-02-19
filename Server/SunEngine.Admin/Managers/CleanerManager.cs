@@ -5,7 +5,7 @@ using LinqToDB;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models.Materials;
 
-namespace SunEngine.Admin.Services
+namespace SunEngine.Admin.Managers
 {
 	public interface ICleanerManager
 	{

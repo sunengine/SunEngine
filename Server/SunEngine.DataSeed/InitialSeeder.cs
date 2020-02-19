@@ -50,7 +50,7 @@ namespace SunEngine.DataSeed
 
 			SeedMenus();
 
-			SeedComponents();
+			SeedSections();
 
 			SeedCipherSecrets();
 
@@ -197,12 +197,12 @@ namespace SunEngine.DataSeed
 			}
 		}
 
-		private void SeedComponents()
+		private void SeedSections()
 		{
-			Console.WriteLine("Components");
-			var path = Path.Combine(configInitDir, SeederPathsNames.ComponentsConfigDir);
-			ComponentsSeeder componentsSeeder = new ComponentsSeeder(dataContainer, path);
-			componentsSeeder.Seed();
+			Console.WriteLine("Sections");
+			var path = Path.Combine(configInitDir, SeederPathsNames.SectionsConfigDir);
+			SectionsSeeder SectionsSeeder = new SectionsSeeder(dataContainer, path);
+			SectionsSeeder.Seed();
 		}
 
 		private void SeedConfigurationItems()

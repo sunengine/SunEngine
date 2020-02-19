@@ -1,6 +1,6 @@
 using System;
 
-namespace SunEngine.Core.Configuration
+namespace SunEngine.Core.Configuration.ConfigItemType
 {
 	public class IntegerItem : ConfigItem
 	{

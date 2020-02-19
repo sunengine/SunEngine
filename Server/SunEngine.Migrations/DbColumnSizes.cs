@@ -32,8 +32,8 @@ namespace SunEngine.Migrations
 		public const int MenuItems_Icon = 64;
 		public const int CipherSecrets_Name = 32;
 		public const int CipherSecrets_Secret = 32;
-		public const int Components_Name = 64;
-		public const int Components_Token = 64;
-		public const int Components_Type = 32;
+		public const int Sections_Name = 64;
+		public const int Sections_Token = 64;
+		public const int Sections_Type = 32;
 	}
 }

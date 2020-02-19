@@ -1,4 +1,4 @@
-namespace SunEngine.Core.Configuration
+namespace SunEngine.Core.Configuration.ConfigItemType
 {
 	public class TokensItem : ConfigItem
 	{

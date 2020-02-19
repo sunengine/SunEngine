@@ -9,7 +9,7 @@ namespace SunEngine.Core.Cache.CachePolicy
 			return false;
 		}
 
-		public bool CanCache(ComponentServerCached component, int? page = null)
+		public bool CanCache(SectionServerCached component, int? page = null)
 		{
 			return false;
 		}

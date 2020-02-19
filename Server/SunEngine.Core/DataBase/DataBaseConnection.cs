@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Specialized;
 using System.Linq;
 using LinqToDB;
 using LinqToDB.Data;
@@ -77,7 +78,7 @@ namespace SunEngine.Core.DataBase
 
 		public ITable<CipherSecret> CipherSecrets => GetTable<CipherSecret>();
 
-		public ITable<Component> Components => GetTable<Component>();
+		public ITable<Section> Sections => GetTable<Section>();
 
 		public ITable<ConfigurationItem> ConfigurationItems => GetTable<ConfigurationItem>();
 

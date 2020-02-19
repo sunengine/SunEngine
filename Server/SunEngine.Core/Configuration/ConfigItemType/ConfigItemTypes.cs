@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 
-namespace SunEngine.Core.Configuration
+namespace SunEngine.Core.Configuration.ConfigItemType
 {
 	public static class ConfigItemTypes
 	{

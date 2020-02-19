@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Cache.Services;
+using SunEngine.Core.Configuration.Sections;
 using SunEngine.Core.Presenters;
 using SunEngine.Core.Security;
 
@@ -21,30 +22,30 @@ namespace SunEngine.Core.Controllers
 		protected readonly IAuthorizationService authorizationService;
 		protected readonly ICategoriesCache categoriesCache;
 		protected readonly IActivitiesPresenter activitiesPresenter;
-		protected readonly IComponentsCache componentsCache;
+		protected readonly ISectionsCache SectionsCache;
 
 		public ActivitiesController(
 			OperationKeysContainer operationKeysContainer,
 			ICategoriesCache categoriesCache,
 			IAuthorizationService authorizationService,
 			IActivitiesPresenter activitiesPresenter,
-			IComponentsCache componentsCache,
+			ISectionsCache SectionsCache,
 			IServiceProvider serviceProvider) : base(serviceProvider)
 		{
 			OperationKeys = operationKeysContainer;
 			this.categoriesCache = categoriesCache;
 			this.authorizationService = authorizationService;
 			this.activitiesPresenter = activitiesPresenter;
-			this.componentsCache = componentsCache;
+			this.SectionsCache = SectionsCache;
 		}
 
-		public async Task<IActionResult> GetActivities(string componentName)
+		public async Task<IActionResult> GetActivities(string sectionName)
 		{
-			var component = componentsCache.GetComponentServerCached(componentName, User.Roles);
-			if (component == null)
-				return BadRequest($"No component {componentName} found in cache");
+			var section = SectionsCache.GetSectionserverCached(sectionName, User.Roles);
+			if (section == null)
+				return BadRequest($"No component {sectionName} found in cache");
 
-			ActivitiesServerComponentData componentData = component.Data as ActivitiesServerComponentData;
+			ActivitiesServerComponentData componentData = section.Data as ActivitiesServerComponentData;
 
 			var materialsCategoriesDic =
 				categoriesCache.GetAllCategoriesWithChildren(componentData.MaterialsCategories);
@@ -82,7 +83,7 @@ namespace SunEngine.Core.Controllers
 			}
 
 			return await CacheContentAsync(
-				component,
+				section,
 				materialsCategoriesIds.Union(commentsCategoriesIds),
 				LoadDataAsync);
 		}

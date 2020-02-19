@@ -62,8 +62,8 @@ namespace SunEngine.DataSeed
 			Console.WriteLine("MenuItems");
 			db.BulkCopy(options, dataContainer.MenuItems);
 
-			Console.WriteLine("Components");
-			db.BulkCopy(options, dataContainer.Components);
+			Console.WriteLine("Sections");
+			db.BulkCopy(options, dataContainer.Sections);
 
 			Console.WriteLine("CipherSecrets");
 			db.BulkCopy(options, dataContainer.CipherSecrets);
@@ -109,7 +109,7 @@ namespace SunEngine.DataSeed
 				string[] tablesWithSequenceIds =
 				{
 					"Categories", "AspNetUsers", "Materials", "Comments", "AspNetRoles",
-					"CategoryAccesses", "Tags", "MenuItems", "Components"
+					"CategoryAccesses", "Tags", "MenuItems", "Sections"
 				};
 
 				foreach (string tableName in tablesWithSequenceIds)

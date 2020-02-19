@@ -9,7 +9,7 @@ using SunEngine.Core.Models;
 
 namespace SunEngine.Core.Cache.CacheModels
 {
-	public class ComponentServerCached
+	public class SectionServerCached
 	{
 		public int Id { get; }
 
@@ -21,14 +21,14 @@ namespace SunEngine.Core.Cache.CacheModels
 
 		public IReadOnlyDictionary<int, RoleCached> Roles { get; }
 
-		public ComponentServerCached(Component component, Dictionary<string, Type> serverTypes, IRolesCache rolesCache)
+		public SectionServerCached(Section section, Dictionary<string, Type> serverTypes, IRolesCache rolesCache)
 		{
-			Id = component.Id;
-			Name = component.Name;
-			IsCacheData = component.IsCacheData;
-			if (component.Roles != null)
+			Id = section.Id;
+			Name = section.Name;
+			IsCacheData = section.IsCacheData;
+			if (section.Roles != null)
 			{
-				Roles = component.Roles.Split(',')
+				Roles = section.Roles.Split(',')
 					.Select(x => rolesCache.GetRole(x))
 					.ToDictionary(x => x.Id, x => x)
 					.ToImmutableDictionary();
@@ -36,10 +36,10 @@ namespace SunEngine.Core.Cache.CacheModels
 			else
 				Roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
 
-			if(!serverTypes.TryGetValue(component.Type,out Type type))
-				throw new SunException("No component type found: "+component.Type);
+			if(!serverTypes.TryGetValue(section.Type,out Type type))
+				throw new SunException("No component type found: "+section.Type);
 			
-			Data = JsonSerializer.Deserialize(component.Options,type);
+			Data = JsonSerializer.Deserialize(section.Options,type);
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using SunEngine.Core.Configuration;
+using SunEngine.Core.Configuration.ConfigItemType;
 
 namespace SunEngine.Admin.Presenters
 {

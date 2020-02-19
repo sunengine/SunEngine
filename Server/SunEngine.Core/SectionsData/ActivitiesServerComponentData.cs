@@ -1,4 +1,4 @@
-namespace SunEngine.Core.Controllers
+namespace SunEngine.Core.Configuration.Sections
 {
 	public class ActivitiesServerComponentData
 	{

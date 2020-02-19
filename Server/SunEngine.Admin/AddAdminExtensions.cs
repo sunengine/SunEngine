@@ -12,13 +12,13 @@ namespace SunEngine.Admin
 			services.AddScoped<CategoriesAdminManager>();
 			services.AddScoped<IConfigurationManager, ConfigurationManager>();
 			services.AddScoped<IMenuAdminManager, MenuAdminManager>();
-			services.AddScoped<IComponentsAdminManager, ComponentsAdminManager>();
+			services.AddScoped<ISectionsAdminManager, SectionsAdminManager>();
 
 			services.AddScoped<IUserRolesAdminPresenter, UserRolesAdminPresenter>();
 			services.AddScoped<ICategoriesAdminPresenter, CategoriesAdminPresenter>();
 			services.AddScoped<IUserRolesAdminPresenter, UserRolesAdminPresenter>();
 			services.AddScoped<IMenuAdminPresenter, MenuAdminPresenter>();
-			services.AddScoped<IComponentsAdminPresenter, ComponentsAdminPresenter>();
+			services.AddScoped<ISectionsAdminPresenter, SectionsAdminPresenter>();
 			services.AddScoped<IConfigurationPresenter, ConfigurationPresenter>();
 
 			services.AddScoped<RolesPermissionsAdminService>();
