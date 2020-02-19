@@ -184,9 +184,6 @@ export default {
 				this.$store.state.currentPage?.category
 			);
 		},
-		siteSubTitle() {
-			return config.Global.SiteSubTitle;
-		},
 		rightDrawerIs: function() {
 			return !!this.$route?.matched?.[0]?.components?.navigation;
 		},

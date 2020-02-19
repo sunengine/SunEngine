@@ -26,7 +26,7 @@ namespace SunEngine.Core.Managers
 
 	public class AccountManager : DbService, IAccountManager
 	{
-		protected readonly IOptionsMonitor<UrlsOptions> urlsOptions;
+		protected readonly IOptionsMonitor<UrlPathsOptions> urlsOptions;
 		protected readonly SunUserManager userManager;
 		protected readonly ICryptService cryptService;
 		protected readonly IEmailSenderService emailSenderService;
@@ -37,7 +37,7 @@ namespace SunEngine.Core.Managers
 			IEmailSenderService emailSenderService,
 			DataBaseConnection db,
 			ICryptService cryptService,
-			IOptionsMonitor<UrlsOptions> urlsOptions) : base(db)
+			IOptionsMonitor<UrlPathsOptions> urlsOptions) : base(db)
 		{
 			this.userManager = userManager;
 			this.urlsOptions = urlsOptions;
@@ -49,7 +49,7 @@ namespace SunEngine.Core.Managers
 		{
 			var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
 
-			var resetPasswordUrl = urlsOptions.CurrentValue.SiteApi
+			var resetPasswordUrl = urlsOptions.CurrentValue.Api
 				.AppendPathSegments("Account", "ResetPasswordShowClientDialog")
 				.SetQueryParams(new {uid = user.Id, token = resetToken});
 
@@ -114,7 +114,7 @@ namespace SunEngine.Core.Managers
 		{
 			var emailToken = GenerateChangeEmailToken(user, email);
 
-			var updateEmailUrl = urlsOptions.CurrentValue.SiteApi.AppendPathSegments("Account", "ConfirmChangeEmail")
+			var updateEmailUrl = urlsOptions.CurrentValue.Api.AppendPathSegments("Account", "ConfirmChangeEmail")
 				.SetQueryParam("token", emailToken);
 
 			await emailSenderService.SendEmailByTemplateAsync(

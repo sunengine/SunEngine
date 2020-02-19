@@ -9,7 +9,7 @@ namespace SunEngine.Core.Configuration
 			return StringValue.ValidateJson();
 		}
 
-		public JsonString(string value = "{}", bool jsConfig = false) : base(jsConfig)
+		public JsonString(string value = "{}", bool configJs = false) : base(configJs)
 		{
 			StringValue = value.Replace("'", "\"");
 		}

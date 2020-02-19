@@ -6,14 +6,16 @@ namespace SunEngine.Core.Configuration
 	{
 		public Enum Enum { get; }
 
-		public EnumItem(Enum value, bool jsConfig = false) : base(jsConfig)
+		public override Type ToClientType => typeof(string);
+
+		public EnumItem(Enum value, bool configJs = false) : base(configJs)
 		{
 			Enum = value;
 			_objectValue = value;
 			_stringValue = value.ToString();
 		}
 
-		public EnumItem(Type type, string value, bool jsConfig = false) : base(jsConfig)
+		public EnumItem(Type type, string value, bool configJs = false) : base(configJs)
 		{
 			Enum = Enum.Parse(type, value, true) as Enum;
 			_objectValue = value;

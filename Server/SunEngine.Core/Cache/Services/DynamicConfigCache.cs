@@ -28,12 +28,12 @@ namespace SunEngine.Core.Cache.Services
 		public void Initialize()
 		{
 			var itemsToSaveDic = ConfigDefaults.ConfigurationItems.Where(x => x.Value.Dynamic)
-				.ToDictionary(x => x.Key, x => x.Value.GetType());
+				.ToDictionary(x => x.Key, x => x.Value);
 
 			var rez = new Dictionary<string, object>();
-			foreach (var (key, type) in itemsToSaveDic)
+			foreach (var (key, item) in itemsToSaveDic)
 			{
-				var value = configurationRoot.GetValue(type, key);
+				var value = configurationRoot.GetValue(item.ToClientType, key);
 
 				string[] tokens = key.Split(":");
 

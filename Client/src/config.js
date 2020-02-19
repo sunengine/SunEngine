@@ -5,9 +5,9 @@ const config = {
 	Global: {
 		Locale: "Russian",
 	},
-	Urls: {
+	UrlPaths: {
 		Site: "http://localhost:5005",
-		SiteApi: "http://localhost:5000",
+		Api: "http://localhost:5000",
 		UploadImages: "http://localhost:5000/UploadImages",
 		Skins: "http://localhost:5005/statics/Skins",
 		PartialSkins: "http://localhost:5005/statics/PartialSkins",
@@ -47,23 +47,22 @@ const config = {
 		Components_Name: 64,
 		Components_Type: 32
 	},
-
-	// auto-end
-
 	Admin: {
 		RoleUsersMaxUsersTake: 40
 	},
+	// auto-end
+	
 	Misc: {
 		DefaultAvatar: "default-avatar.svg"
 	}
 };
 
-if (config.Global.SiteUrl.startsWith("http://"))
-	config.Global.SiteSchema = "http://";
-else if (config.Global.SiteUrl.startsWith("https://"))
-	config.Global.SiteSchema = "https://";
+if (config.UrlPaths.Site.startsWith("http://"))
+	config.UrlPaths.SiteSchema = "http://";
+else if (config.UrlPaths.Site.startsWith("https://"))
+	config.UrlPaths.SiteSchema = "https://";
 else throw "SiteUrl in config.js have to start with 'http://' or 'https://'.";
 
 document.writeln(
-	`<link href="${config.Global.SiteApi}/custom.css?customcssver=0000" rel="stylesheet" />`
+	`<link href="${config.UrlPaths.Site}/custom.css?customcssver=0000" rel="stylesheet" />`
 );

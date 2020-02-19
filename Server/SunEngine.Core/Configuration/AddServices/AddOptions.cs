@@ -10,6 +10,8 @@ namespace SunEngine.Core.Configuration.AddServices
 		{
 			services.AddOptions();
 			services.Configure<GlobalOptions>(configuration.GetSection("Global"));
+			services.Configure<ServerOptions>(configuration.GetSection("Server"));
+			services.Configure<UrlPathsOptions>(configuration.GetSection("UrlPaths"));
 			services.Configure<EmailSenderOptions>(configuration.GetSection("Email"));
 			services.Configure<JweOptions>(configuration.GetSection("Jwe"));
 			services.Configure<BlogOptions>(configuration.GetSection("Blog"));
@@ -21,8 +23,7 @@ namespace SunEngine.Core.Configuration.AddServices
 			services.Configure<DataBaseConnectionOptions>(configuration.GetSection("DataBaseConnection"));
 			services.Configure<CaptchaOptions>(configuration.GetSection("Captcha"));
 			services.Configure<SchedulerOptions>(configuration.GetSection("Scheduler"));
-			services.Configure<GlobalOptions>(configuration.GetSection("Skins"));
-			services.Configure<SkinsOptions>(configuration.GetSection("FileLoading"));
+			services.Configure<SkinsOptions>(configuration.GetSection("Skins"));
 			services.Configure<CacheOptions>(configuration.GetSection("Cache"));
 		}
 	}

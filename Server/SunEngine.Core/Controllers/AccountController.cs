@@ -20,12 +20,12 @@ namespace SunEngine.Core.Controllers
 	/// </summary>
 	public class AccountController : BaseController
 	{
-		private readonly IOptionsMonitor<UrlsOptions> urlsOptions;
+		private readonly IOptionsMonitor<UrlPathsOptions> urlsOptions;
 		private readonly IAccountManager accountManager;
 
 		public AccountController(
 			IAccountManager accountManager,
-			IOptionsMonitor<UrlsOptions> globalOptions,
+			IOptionsMonitor<UrlPathsOptions> globalOptions,
 			IServiceProvider serviceProvider) : base(serviceProvider)
 		{
 			this.urlsOptions = urlsOptions;

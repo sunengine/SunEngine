@@ -83,7 +83,7 @@ export default {
 				name: "User",
 				params: { link: this.link }
 			});
-			return config.Global.SiteUrl + route?.resolved?.fullPath;
+			return config.UrlPaths.Site + route?.resolved?.fullPath;
 		}
 	},
 	methods: {

@@ -1,3 +1,5 @@
+using System;
+
 namespace SunEngine.Core.Configuration
 {
 	public class BooleanItem : ConfigItem
@@ -13,13 +15,15 @@ namespace SunEngine.Core.Configuration
 				_objectValue = value;
 			}
 		}
+		
+		public override Type ToClientType => typeof(bool);
 
-		public BooleanItem(bool value = false, bool jsConfig = false) : base(jsConfig)
+		public BooleanItem(bool value = false, bool configJs = false) : base(configJs)
 		{
 			Value = value;
 		}
 
-		public BooleanItem(string value, bool jsConfig = false) : base(jsConfig)
+		public BooleanItem(string value, bool configJs = false) : base(configJs)
 		{
 			Value = bool.Parse(value);
 		}

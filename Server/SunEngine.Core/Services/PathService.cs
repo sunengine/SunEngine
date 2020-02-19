@@ -35,6 +35,7 @@ namespace SunEngine.Core.Services
 		public const string SunEngineJsonFileName = "SunEngine.json";
 		public const string LogConfigJsonFileName = "LogConfig.json";
 		public const string RootDetectFileName = "SunEngine.md";
+		public const string IndexHtmlFileName = "index.html";
 		public const string DataBaseConnectionJsonFileName = "DataBaseConnection.json";
 	}
 

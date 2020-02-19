@@ -4,10 +4,10 @@ export default function(ell, className) {
 
 	for (const link of links) {
 		link.classList.add("link");
-		if (link.href.startsWith(config.Global.SiteUrl)) {
+		if (link.href.startsWith(config.UrlPaths.Site)) {
 			link.addEventListener("click", e => {
 				e.preventDefault();
-				const url = link.href.substring(config.Global.SiteUrl.length);
+				const url = link.href.substring(config.UrlPaths.Site.length);
 				this.$router.push(url);
 			});
 		} else {

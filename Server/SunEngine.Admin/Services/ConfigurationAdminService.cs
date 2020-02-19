@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
 using SunEngine.Admin.Presenters;
+using SunEngine.Core.Configuration;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Services;
 
@@ -16,7 +18,7 @@ namespace SunEngine.Admin.Services
 		protected IConfigurationRoot configurationRoot { get; }
 
 		protected Random ran = new Random();
-		
+
 		public ConfigurationAdminService(
 			IPathService pathService,
 			IConfigurationRoot configurationRoot)
@@ -32,27 +34,18 @@ namespace SunEngine.Admin.Services
 
 		public void UpdateClientScripts()
 		{
-			if (!bool.TryParse(configurationRoot.GetSection("Global")["UpdateClientScriptsOnConfigChanges"],
+			if (!bool.TryParse(configurationRoot.GetSection("Global")["UpdateConfigJsOnConfigChanges"],
 				    out bool update)
 			    || update == false)
 				return;
 
-			var itemsToSaveDic = new Dictionary<string, Type>()
-			{
-				["Global:SiteName"] = typeof(string),
-				["Global:Locale"] = typeof(string),
-				["Global:SiteApi"] = typeof(string),
-				["Global:SiteUrl"] = typeof(string),
-				["Global:UploadImagesUrl"] = typeof(string),
-				["Global:SkinsUrl"] = typeof(string),
-				["Global:PartialSkinsUrl"] = typeof(string),
-				["Global:CustomCssUrl"] = typeof(string),
-				
-				["Dev:LogInitExtended"] = typeof(bool),
-				["Dev:VueDevTools"] = typeof(bool),
-				["Dev:LogRequests"] = typeof(bool),
-				["Dev:LogMoveTo"] = typeof(bool),
-			};
+			var itemsToSaveDic = ConfigDefaults.ConfigurationItems
+				.Where(x => !x.Value.Dynamic)
+				.ToDictionary(x => x.Key, x => x.Value.GetType());
+
+			ConfigDefaults.ConfigurationItems
+				.Where(x => x.Key.StartsWith("Urls:")).ToList().ForEach(x =>
+					itemsToSaveDic.Add(x.Key, x.Value.GetType()));
 
 
 			var rez = new Dictionary<string, object>();
@@ -74,11 +67,11 @@ namespace SunEngine.Admin.Services
 				current[tokens[^1]] = value;
 			}
 
-			var dbColumnSizes = new Dictionary<string,int>();
+			var dbColumnSizes = new Dictionary<string, int>();
 			rez["DbColumnSizes"] = dbColumnSizes;
 			foreach (var field in typeof(DbColumnSizes).GetFields())
 			{
-				var value = (int)field.GetValue(typeof(DbColumnSizes));
+				var value = (int) field.GetValue(typeof(DbColumnSizes));
 				dbColumnSizes[field.Name] = value == int.MaxValue ? 1000000 : value;
 			}
 
@@ -112,16 +105,16 @@ namespace SunEngine.Admin.Services
 
 		protected void UpdateConfigVersion()
 		{
-			var indexHtmlPath = pathService.Combine(PathNames.WwwRootDirName, "index.html");
+			var indexHtmlPath = pathService.Combine(PathNames.WwwRootDirName, PathNames.IndexHtmlFileName);
 			string text = File.ReadAllText(indexHtmlPath);
 			Regex reg = new Regex("configver=\\d+\"");
 			text = reg.Replace(text, $"configver={ran.Next()}\"");
 			File.WriteAllText(indexHtmlPath, text);
 		}
-		
+
 		protected void UpdateCustomCssVersion()
 		{
-			var configJsPath =  pathService.Combine(PathNames.WwwRootDirName ,PathNames.ConfigJsFileName);
+			var configJsPath = pathService.Combine(PathNames.WwwRootDirName, PathNames.ConfigJsFileName);
 			string text = File.ReadAllText(configJsPath);
 			Regex reg = new Regex("customcssver=\\d+\"");
 			text = reg.Replace(text, $"customcssver={ran.Next()}\"");

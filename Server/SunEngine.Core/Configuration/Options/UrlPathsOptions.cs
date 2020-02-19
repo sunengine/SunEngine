@@ -2,24 +2,24 @@ using System;
 
 namespace SunEngine.Core.Configuration.Options
 {
-	public class UrlsOptions
+	public class UrlPathsOptions
 	{
 		public string Site { get; set; }
-		public string SiteApi { get; set; }
+		public string Api { get; set; }
 		public string UploadImages { get; set; }
 		public string Skins { get; set; }
 		public string PartialSkins { get; set; }
 		public bool IsHttps => GetSchemaAndHostApi().schema == "https";
 		public (string schema, string host) GetSchemaAndHostApi()
 		{
-			if (SiteApi.StartsWith("http://"))
+			if (Api.StartsWith("http://"))
 			{
-				return ("http", SiteApi.Substring(7));
+				return ("http", Api.Substring(7));
 			}
 
-			if (SiteApi.StartsWith("https://"))
+			if (Api.StartsWith("https://"))
 			{
-				return ("https", SiteApi.Substring(8));
+				return ("https", Api.Substring(8));
 			}
 
 			throw new Exception("SiteApi must starts with 'http://' or 'https://'");
@@ -39,12 +39,5 @@ namespace SunEngine.Core.Configuration.Options
 
 			throw new Exception("SiteUrl must starts with 'http://' or 'https://'");
 		}
-	}
-
-	public class GlobalOptions
-	{
-		public string SiteName { get; set; }
-		public bool DisallowRegistration { get; set; }
-		public bool ReadOnlyMode { get; set; }
 	}
 }

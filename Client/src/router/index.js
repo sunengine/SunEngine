@@ -45,7 +45,7 @@ export default function({ store, ssrContext }) {
 		if (config.Dev.LogMoveTo)
 			console.info(
 				"%cMove to page%c" +
-					config.Global.SiteUrl.substring(config.Global.SiteSchema.length) +
+					config.UrlPaths.Site.substring(config.UrlPaths.SiteSchema.length) +
 					to.path,
 				consoleRequestStart,
 				consoleGreyEnd,

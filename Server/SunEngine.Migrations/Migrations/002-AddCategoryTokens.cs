@@ -9,7 +9,7 @@ namespace SunEngine.Migrations.Migrations
 		public override void Up()
 		{
 			Create.Column("Token".s()).OnTable("Categories".s())
-				.AsString(DbColumnSizes.Categories_Token).Nullable();
+				.AsString(DbColumnSizes.Components_Token).Nullable();
 			Create.Column("AppendTokenToSubCatsPath".s()).OnTable("Categories".s())
 				.AsBoolean().NotNullable().WithDefaultValue(false);
 			Create.Column("ShowInBreadcrumbs".s()).OnTable("Categories".s())

@@ -146,7 +146,7 @@ export default {
 	},
 	methods: {
 		skinImgUrl(skinName) {
-			return this.$buildPath(config.Global.SkinsUrl, skinName, "preview.png");
+			return this.$buildPath(config.UrlPaths.Skins, skinName, "preview.png");
 		},
 		showUploadDialog() {
 			this.$refs.file.click();

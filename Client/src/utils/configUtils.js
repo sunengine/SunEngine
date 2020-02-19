@@ -34,7 +34,7 @@ export function initSkins() {
 	skinEl.setAttribute("rel", "stylesheet");
 	skinEl.setAttribute(
 		"href",
-		buildPath(config.Global.SkinsUrl, config.Skins.CurrentSkinName, "styles.css")
+		buildPath(config.UrlPaths.Skins, config.Skins.CurrentSkinName, "styles.css")
 	);
 	document.head.appendChild(skinEl);
 
@@ -47,7 +47,7 @@ export function initSkins() {
 
 		pSkinEl.setAttribute(
 			"href",
-			buildPath(config.Global.PartialSkinsUrl, pSkin, "styles.css")
+			buildPath(config.UrlPaths.PartialSkins, pSkin, "styles.css")
 		);
 		document.head.appendChild(pSkinEl);
 	}

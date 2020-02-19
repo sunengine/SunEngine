@@ -23,12 +23,12 @@ namespace SunEngine.Core.Managers
 		protected readonly IEmailSenderService emailSenderService;
 		protected readonly SanitizerService sanitizerService;
 		protected readonly IOptionsMonitor<GlobalOptions> globalOptions;
-		protected readonly IOptionsMonitor<UrlsOptions> urlsOptions;
+		protected readonly IOptionsMonitor<UrlPathsOptions> urlsOptions;
 		public ProfileManager(
 			DataBaseConnection db,
 			IEmailSenderService emailSenderService,
 			IOptionsMonitor<GlobalOptions> globalOptions,
-			IOptionsMonitor<UrlsOptions> urlsOptions,
+			IOptionsMonitor<UrlPathsOptions> urlsOptions,
 			SanitizerService sanitizerService
 		) : base(db)
 		{

@@ -23,7 +23,7 @@ namespace SunEngine.Cli
 		public void DoAll()
 		{
 			EnsureUploadImagesDirCreated();
-			UpdateConfigJsOnClientDir();
+			UpdateConfigJsAtClientDir();
 		}
 
 		public void EnsureUploadImagesDirCreated()
@@ -34,9 +34,9 @@ namespace SunEngine.Cli
 		}
 
 		/// <summary>
-		/// Update config.js on client '/wwwroot/config.js' to actual config values
+		/// Update config.js at client '/wwwroot/config.js' to actual config values
 		/// </summary>
-		public void UpdateConfigJsOnClientDir()
+		public void UpdateConfigJsAtClientDir()
 		{
 			new ConfigurationAdminService(pathService, configuration).UpdateClientScripts();
 		}

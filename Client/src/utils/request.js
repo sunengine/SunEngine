@@ -16,7 +16,7 @@ import {
 const lock = new Lock("request-lock");
 
 const apiAxios = axios.create({
-	baseURL: config.Global.SiteApi,
+	baseURL: config.UrlPaths.Api,
 	withCredentials: process.env.DEV
 });
 

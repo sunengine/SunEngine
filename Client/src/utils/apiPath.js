@@ -1,5 +1,5 @@
 import { buildPath } from "sun";
 
 export default function(token) {
-	return buildPath(config.Global.SiteApi, token);
+	return buildPath(config.UrlPaths.Api, token);
 }

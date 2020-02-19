@@ -21,7 +21,7 @@ namespace SunEngine.Core.Controllers
 	{
 		private readonly JweService jweService;
 		private readonly DataBaseConnection db;
-		private readonly IOptionsMonitor<UrlsOptions> urlsOptions;
+		private readonly IOptionsMonitor<UrlPathsOptions> urlsOptions;
 		private readonly IOptionsMonitor<GlobalOptions> globalOptions;
 		private readonly IAuthManager authManager;
 		
@@ -29,7 +29,7 @@ namespace SunEngine.Core.Controllers
 			DataBaseConnection db,
 			JweService jweService,
 			IAuthManager authManager,
-			IOptionsMonitor<UrlsOptions> urlsOptions,
+			IOptionsMonitor<UrlPathsOptions> urlsOptions,
 			IOptionsMonitor<GlobalOptions> globalOptions,
 			IServiceProvider serviceProvider) : base(serviceProvider)
 		{

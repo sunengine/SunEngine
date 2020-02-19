@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using LinqToDB.Extensions;
 
@@ -11,23 +12,20 @@ namespace SunEngine.Core.Configuration
 		protected string _stringValue;
 
 		/// <summary>
-		/// Use in Dynamic Config
-		/// </summary>
-		public bool Dynamic = true;
-
-		/// <summary>
 		/// Use in JavaScript Config
 		/// </summary>
-		public bool JsConfig = false;
+		public bool ConfigJs = false;
+		
+		/// <summary>
+		/// Use in Dynamic Config
+		/// </summary>
+		public bool Dynamic => !ConfigJs;
 
-		public ConfigItem()
+		public virtual Type ToClientType => typeof(string);
+
+		public ConfigItem(bool configJs = false)
 		{
-
-		}
-
-		public ConfigItem(bool jsConfig = false)
-		{
-			JsConfig = jsConfig;
+			ConfigJs = configJs;
 		}
 		
 		public ConfigItem ShallowCopy()

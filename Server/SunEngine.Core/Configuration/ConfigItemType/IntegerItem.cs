@@ -1,3 +1,5 @@
+using System;
+
 namespace SunEngine.Core.Configuration
 {
 	public class IntegerItem : ConfigItem
@@ -14,12 +16,14 @@ namespace SunEngine.Core.Configuration
 			}
 		}
 		
-		public IntegerItem(int value = 0, bool jsConfig = false) : base(jsConfig)
+		public override Type ToClientType => typeof(int);
+
+		public IntegerItem(int value = 0, bool configJs = false) : base(configJs)
 		{
 			Value = value;
 		}
 
-		public IntegerItem(string value, bool jsConfig = false) : base(jsConfig)
+		public IntegerItem(string value, bool configJs = false) : base(configJs)
 		{
 			Value = int.Parse(value);
 		}

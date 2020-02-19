@@ -4,7 +4,7 @@ namespace SunEngine.Core.Configuration
 {
 	public class LongString : ConfigItem
 	{
-		public LongString(string value = "", bool jsConfig = false) : base(jsConfig)
+		public LongString(string value = "", bool configJs = false) : base(configJs)
 		{
 			StringValue = value;
 		}

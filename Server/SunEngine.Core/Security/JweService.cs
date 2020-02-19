@@ -29,7 +29,7 @@ namespace SunEngine.Core.Security
 	{
 		private readonly SunUserManager userManager;
 		private readonly IOptionsMonitor<JweOptions> jweOptions;
-		private readonly IOptionsMonitor<UrlsOptions> urlsOptions;
+		private readonly IOptionsMonitor<UrlPathsOptions> urlsOptions;
 		private readonly ILogger logger;
 		private readonly ICryptService cryptService;
 		private readonly IRolesCache rolesCache;
@@ -40,7 +40,7 @@ namespace SunEngine.Core.Security
 			IRolesCache rolesCache,
 			ICryptService cryptService,
 			IOptionsMonitor<JweOptions> jweOptions,
-			IOptionsMonitor<UrlsOptions> urlsOptions,
+			IOptionsMonitor<UrlPathsOptions> urlsOptions,
 			ILoggerFactory loggerFactory) : base(db)
 		{
 			this.userManager = userManager;

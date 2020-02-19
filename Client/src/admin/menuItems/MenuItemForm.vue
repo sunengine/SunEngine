@@ -373,8 +373,8 @@ export default {
 				}
 			}.bind(this);
 
-			if (this.url.startsWith(config.Global.SiteUrl)) {
-				const lastPart = this.url.substring(config.Global.SiteUrl.length);
+			if (this.url.startsWith(config.UrlPaths.Site)) {
+				const lastPart = this.url.substring(config.UrlPaths.Site.length);
 				resolve(lastPart);
 			} else if (
 				this.url.startsWith("http://") ||
