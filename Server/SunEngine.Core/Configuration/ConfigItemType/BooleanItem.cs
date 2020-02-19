@@ -14,17 +14,12 @@ namespace SunEngine.Core.Configuration
 			}
 		}
 
-		public BooleanItem()
-		{
-			Value = false;
-		}
-		
-		public BooleanItem(bool value)
+		public BooleanItem(bool value = false, bool jsConfig = false) : base(jsConfig)
 		{
 			Value = value;
 		}
-		
-		public BooleanItem(string value)
+
+		public BooleanItem(string value, bool jsConfig = false) : base(jsConfig)
 		{
 			Value = bool.Parse(value);
 		}
@@ -33,16 +28,6 @@ namespace SunEngine.Core.Configuration
 		{
 			get => Value.ToString();
 			set => Value = bool.Parse(value);
-		}
-		
-		public static implicit operator BooleanItem(string str)
-		{
-			return new BooleanItem(bool.Parse(str));
-		}
-
-		public static explicit operator string(BooleanItem str)
-		{
-			return str.ToString();
 		}
 	}
 }

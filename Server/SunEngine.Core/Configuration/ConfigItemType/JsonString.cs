@@ -4,22 +4,12 @@ namespace SunEngine.Core.Configuration
 {
 	public class JsonString : ConfigItem
 	{
-		public static implicit operator JsonString(string str)
-		{
-			return new JsonString(str.Replace("'", "\""));
-		}
-
-		public static explicit operator string(JsonString str)
-		{
-			return str.ToString();
-		}
-
 		public override bool Validate()
 		{
 			return StringValue.ValidateJson();
 		}
 
-		public JsonString(string value)
+		public JsonString(string value = "{}", bool jsConfig = false) : base(jsConfig)
 		{
 			StringValue = value.Replace("'", "\"");
 		}

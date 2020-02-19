@@ -13,36 +13,21 @@ namespace SunEngine.Core.Configuration
 				_objectValue = value;
 			}
 		}
-
-		public IntegerItem()
-		{
-			Value = 0;
-		}
-
-		public IntegerItem(int value)
+		
+		public IntegerItem(int value = 0, bool jsConfig = false) : base(jsConfig)
 		{
 			Value = value;
 		}
 
-		public IntegerItem(string value)
+		public IntegerItem(string value, bool jsConfig = false) : base(jsConfig)
 		{
 			Value = int.Parse(value);
 		}
-
+		
 		public override string StringValue
 		{
 			get => Value.ToString();
 			set => Value = int.Parse(value);
-		}
-
-		public static implicit operator IntegerItem(string str)
-		{
-			return new IntegerItem(int.Parse(str));
-		}
-
-		public static explicit operator string(IntegerItem str)
-		{
-			return str.ToString();
 		}
 	}
 }

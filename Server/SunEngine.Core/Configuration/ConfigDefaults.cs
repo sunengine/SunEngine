@@ -1,85 +1,86 @@
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Html;
 using SunEngine.Core.Configuration.Options;
 
 namespace SunEngine.Core.Configuration
 {
 	public static class ConfigDefaults
 	{
-		public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>()
+		public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>
 		{
-			["Global:SiteName"] = "SunEngine",
-			["Global:Locale"] = Locale.Russian,
-			["Global:SiteTitle"] = (HtmlString)"SunEngine Demo",
-			["Global:PageTitleTemplate"] = "{pageTitle} - {siteName}",
-			["Global:HomePageRedirect"] = "",
-			["Global:DisallowRegistration"] = false,
-			["Global:ReadOnlyMode"] = false,
-			["Global:IconsSet"] = IconsSet.LineAwesome,
-			["Global:OpenExternalLinksAtNewTab"] = true,
+			["Global:SiteName"] = new StringItem("SunEngine", true),
+			["Global:Locale"] = new EnumItem(Locale.Russian, true),
+			["Global:SiteTitle"] = new HtmlStringItem("SunEngine Demo"),
+			["Global:PageTitleTemplate"] = new StringItem("{pageTitle} - {siteName}"),
+			["Global:HomePageRedirect"] = new StringItem(),
+			["Global:DisallowRegistration"] = new BooleanItem(),
+			["Global:ReadOnlyMode"] = new BooleanItem(),
+			["Global:IconsSet"] = new EnumItem(IconsSet.LineAwesome),
+			["Global:OpenExternalLinksAtNewTab"] = new BooleanItem(true),
 
-			["Register:ConfirmText"] = (HtmlString)"",
-			["Register:RequireUniqueEmail"] = true,
-			["Register:AllowedUserNameCharacters"] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -",
-			
-			["PasswordValidation:RequiredLength"] = 6,
-			["PasswordValidation:RequiredUniqueChars"] = 2,
-			["PasswordValidation:RequireDigit"] = false,
-			["PasswordValidation:RequireLowercase"] = false,
-			["PasswordValidation:RequireUppercase"] = false,
-			["PasswordValidation:RequireNonAlphanumeric"] = false,
-			
-			["Dev:LogInitExtended"] = false,
-			["Dev:LogRequests"] = false,
-			["Dev:LogMoveTo"] = false,
-			["Dev:ShowExceptions"] = false,
-			["Dev:VueDevTools"] = false,
-			["Dev:VueAppInWindow"] = false,
+			["Register:ConfirmText"] = new HtmlStringItem(),
+			["Register:RequireUniqueEmail"] = new BooleanItem(true),
+			["Register:AllowedUserNameCharacters"] =
+				new StringItem("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -"),
 
-			["Cache:CurrentCachePolicy"] = CachePolicy.AlwaysPolicy,
-			["Cache:InvalidateCacheTime"] = 15,
+			["PasswordValidation:RequiredLength"] = new IntegerItem(6),
+			["PasswordValidation:RequiredUniqueChars"] = new IntegerItem(2),
+			["PasswordValidation:RequireDigit"] = new BooleanItem(),
+			["PasswordValidation:RequireLowercase"] = new BooleanItem(),
+			["PasswordValidation:RequireUppercase"] = new BooleanItem(),
+			["PasswordValidation:RequireNonAlphanumeric"] = new BooleanItem(),
 
-			["Images:MaxImageWidth"] = 6000,
-			["Images:MaxImageHeight"] = 4000,
-			["Images:ResizeMaxWidthPixels"] = 1200,
-			["Images:ResizeMaxHeightPixels"] = 800,
-			["Images:PhotoMaxWidthPixels"] = 500,
-			["Images:PhotoMaxHeightPixels"] = 500,
-			["Images:AvatarSizePixels"] = 300,
-			["Images:AllowGifUpload"] = true,
-			["Images:AllowSvgUpload"] = true,
+			["Dev:LogInitExtended"] = new BooleanItem(false, true),
+			["Dev:LogRequests"] = new BooleanItem(false, true),
+			["Dev:LogMoveTo"] = new BooleanItem(false, true),
+			["Dev:ShowExceptions"] = new BooleanItem(),
+			["Dev:VueDevTools"] = new BooleanItem(false, true),
+			["Dev:VueAppInWindow"] = new BooleanItem(),
+
+			["Cache:CurrentCachePolicy"] = new EnumItem(CachePolicy.AlwaysPolicy),
+			["Cache:InvalidateCacheTime"] = new IntegerItem(15),
+
+			["Images:MaxImageWidth"] = new IntegerItem(6000),
+			["Images:MaxImageHeight"] = new IntegerItem(4000),
+			["Images:ResizeMaxWidthPixels"] = new IntegerItem(1200),
+			["Images:ResizeMaxHeightPixels"] = new IntegerItem(800),
+			["Images:PhotoMaxWidthPixels"] = new IntegerItem(500),
+			["Images:PhotoMaxHeightPixels"] = new IntegerItem(500),
+			["Images:AvatarSizePixels"] = new IntegerItem(300),
+			["Images:AllowGifUpload"] = new BooleanItem(true),
+			["Images:AllowSvgUpload"] = new BooleanItem(true),
 			["Images:ImageRequestSizeLimitBytes"] = 10485760,
 
-			["Sanitizer:SanitizeAdminMaterials"] = true,
+			#region Sanitizer
+			["Sanitizer:SanitizeAdminMaterials"] = new BooleanItem(true),
 			["Sanitizer:AllowedTags"] =
-				(LongString)
-				"a,b,strong,i,em,blockquote,ol,li,ul,ol,p,div,br,video,audio,source,span,img,code,pre,font,h3,h4,h5,h6",
+				new LongString(
+					"a,b,strong,i,em,blockquote,ol,li,ul,ol,p,div,br,video,audio,source,span,img,code,pre,font,h3,h4,h5,h6"),
 			["Sanitizer:AllowedAttributes"] =
-				(LongString)
-				"style,src,href,controls,autoplay,loop,alt,width,height,target,frameborder,allowfullscreen,download,controlsList,size",
+				new LongString(
+					"style,src,href,controls,autoplay,loop,alt,width,height,target,frameborder,allowfullscreen,download,controlsList,size"),
 			["Sanitizer:AllowedClasses"] =
-				(LongString)
-				"float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width",
+				new LongString(
+					"float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width"),
 			["Sanitizer:AllowedCssProperties"] =
-				(LongString)
-				"float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width",
-			["Sanitizer:AllowedImageDomains"] = (LongString) "",
-			["Sanitizer:AllowedVideoDomains"] =
-				(LongString)
-				"https://www.youtube.com/,http://www.youtube.com/,https://youtube.com/,http://youtube.com/,https://youtu.be/,http://youtu.be/,//youtube.com/,//youtu.be/,//www.youtube.com/,//www.youtu.be/,https://vk.com/,http://vk.com/,//vk.com/,https://player.vimeo.com,http://player.vimeo.com,//player.vimeo.com",
-			["Sanitizer:AllowedSchemes"] = (LongString) "",
-
-			["Email:Host"] = "127.0.0.1",
-			["Email:Port"] = 1025,
-			["Email:Login"] = "username",
-			["Email:Password"] = "password",
-			["Email:EmailFromName"] = "SunEngine Demo",
-			["Email:EmailFromAddress"] = "SunEngine@demo.com",
-			["Email:UseSSL"] = true,
+				new LongString(
+					"float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width"),
+			["Sanitizer:AllowedImageDomains"] = new LongString(),
+			["Sanitizer:AllowedVideoDomains"] = new LongString(
+				"https://www.youtube.com/,http://www.youtube.com/,https://youtube.com/,http://youtube.com/,https://youtu.be/,http://youtu.be/,//youtube.com/,//youtu.be/,//www.youtube.com/,//www.youtu.be/,https://vk.com/,http://vk.com/,//vk.com/,https://player.vimeo.com,http://player.vimeo.com,//player.vimeo.com"),
+			["Sanitizer:AllowedSchemes"] = new LongString(),
+			#endregion
+			
+			["Email:Host"] = new StringItem("127.0.0.1"),
+			["Email:Port"] = new IntegerItem(1025),
+			["Email:Login"] = new StringItem("username"),
+			["Email:Password"] = new StringItem("password"),
+			["Email:EmailFromName"] = new StringItem("SunEngine Demo"),
+			["Email:EmailFromAddress"] = new StringItem("SunEngine@demo.com"),
+			["Email:UseSSL"] = new BooleanItem(true),
 
 			#region EditorToolbars
 
-			["Editor:MaterialToolbar"] = (JsonString) @"[
+			["Editor:MaterialToolbar"] = new JsonString(@"[
 	          ['bold', 'italic', 'strike', 'underline'],
               ['token', 'link', 'addImages'],
               ['hr'],
@@ -109,9 +110,9 @@ namespace SunEngine.Core.Configuration
             ],
             ['undo', 'redo'],
             ['viewsource', 'fullscreen']
-            ]",
+            ]"),
 
-			["Editor:UserInformationToolbar"] = (JsonString) @"[
+			["Editor:UserInformationToolbar"] = new JsonString(@"[
               ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
               ['token', 'hr', 'link', 'addImages'],
               [
@@ -140,8 +141,8 @@ namespace SunEngine.Core.Configuration
               ],
               ['undo', 'redo'],
               [ 'viewsource', 'fullscreen']
-            ]",
-			["Editor:CommentToolbar"] = (JsonString) @"[
+            ]"),
+			["Editor:CommentToolbar"] = new JsonString(@"[
               ['bold', 'italic', 'strike', 'underline'],
               ['token', 'hr', 'link', 'addImages'],
               [
@@ -164,51 +165,51 @@ namespace SunEngine.Core.Configuration
               ['unordered', 'ordered'],
               ['undo', 'redo'],
               ['viewsource', 'fullscreen']
-            ]",
-			["Editor:SendPrivateMessageToolbar"] = (JsonString) @"[
+            ]"),
+			["Editor:SendPrivateMessageToolbar"] = new JsonString(@"[
                 ['bold', 'italic', 'strike', 'underline'],
                 ['token', 'hr' ],
                 ['quote', 'unordered', 'ordered' ],
                 ['undo', 'redo','fullscreen']
-            ]",
+            ]"),
 
 			#endregion
 
-			["Materials:SubTitleLength"] = 80,
-			["Materials:CommentsPageSize"] = 5,
-			["Materials:TimeToOwnEditInMinutes"] = 15,
-			["Materials:TimeToOwnDeleteInMinutes"] = 15,
-			["Materials:TimeToOwnMoveInMinutes"] = 15,
+			["Materials:SubTitleLength"] = new IntegerItem(80),
+			["Materials:CommentsPageSize"] = new IntegerItem(5),
+			["Materials:TimeToOwnEditInMinutes"] = new IntegerItem(15),
+			["Materials:TimeToOwnDeleteInMinutes"] = new IntegerItem(15),
+			["Materials:TimeToOwnMoveInMinutes"] = new IntegerItem(15),
 
-			["Comments:TimeToOwnEditInMinutes"] = 15,
-			["Comments:TimeToOwnDeleteInMinutes"] = 15,
+			["Comments:TimeToOwnEditInMinutes"] = new IntegerItem(15),
+			["Comments:TimeToOwnDeleteInMinutes"] = new IntegerItem(15),
 
-			["Blog:PreviewLength"] = 850,
-			["Blog:PostsPageSize"] = 8,
+			["Blog:PreviewLength"] = new IntegerItem(850),
+			["Blog:PostsPageSize"] = new IntegerItem(8),
 
-			["Articles:CategoryPageSize"] = 12,
+			["Articles:CategoryPageSize"] = new IntegerItem(12),
 
-			["Forum:NewTopicsPageSize"] = 15,
-			["Forum:NewTopicsMaxPages"] = 10,
-			["Forum:ThreadMaterialsPageSize"] = 12,
+			["Forum:NewTopicsPageSize"] = new IntegerItem(15),
+			["Forum:NewTopicsMaxPages"] = new IntegerItem(10),
+			["Forum:ThreadMaterialsPageSize"] = new IntegerItem(12),
 
-			["Captcha:CaptchaTimeoutSeconds"] = 180,
+			["Captcha:CaptchaTimeoutSeconds"] = new IntegerItem(180),
 
-			["Scheduler:LogJobs"] = false,
-			["Scheduler:SpamProtectionCacheClearMinutes"] = 8,
-			["Scheduler:JwtBlackListServiceClearMinutes"] = 60,
-			["Scheduler:LongSessionsClearDays"] = 1,
-			["Scheduler:ExpiredRegistrationUsersClearDays"] = 1,
-			["Scheduler:UploadVisitsToDataBaseMinutes"] = 5,
+			["Scheduler:LogJobs"] = new BooleanItem(),
+			["Scheduler:SpamProtectionCacheClearMinutes"] = new IntegerItem(8),
+			["Scheduler:JwtBlackListServiceClearMinutes"] = new IntegerItem(60),
+			["Scheduler:LongSessionsClearDays"] = new IntegerItem(1),
+			["Scheduler:ExpiredRegistrationUsersClearDays"] = new IntegerItem(1),
+			["Scheduler:UploadVisitsToDataBaseMinutes"] = new IntegerItem(5),
 
-			["Jwe:LongTokenLiveTimeDays"] = 90,
-			["Jwe:ShortTokenLiveTimeMinutes"] = 20,
-			["Jwe:Issuer"] = "SunEngine Demo",
+			["Jwe:LongTokenLiveTimeDays"] = new IntegerItem(90),
+			["Jwe:ShortTokenLiveTimeMinutes"] = new IntegerItem(20),
+			["Jwe:Issuer"] = new StringItem("SunEngine Demo"),
 
-			["Skins:CurrentSkinName"] = "Default",
-			["Skins:PartialSkinsNames"] = "Branding",
-			["Skins:MaxArchiveSizeKb"] = 20 * 1024,
-			["Skins:MaxExtractArchiveSizeKb"] = 60 * 1024
+			["Skins:CurrentSkinName"] = new StringItem("Default"),
+			["Skins:PartialSkinsNames"] = new TokensItem("Branding"),
+			["Skins:MaxArchiveSizeKb"] = new IntegerItem(20 * 1024),
+			["Skins:MaxExtractArchiveSizeKb"] = new IntegerItem(60 * 1024)
 		};
 	}
 }

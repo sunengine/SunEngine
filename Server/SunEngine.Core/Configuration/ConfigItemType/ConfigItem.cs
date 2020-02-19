@@ -3,7 +3,7 @@ using LinqToDB.Extensions;
 
 namespace SunEngine.Core.Configuration
 {
-	public abstract class ConfigItem
+	public abstract class ConfigItem 
 	{
 		protected object _objectValue;
 		public virtual object ObjectValue => _objectValue;
@@ -13,12 +13,22 @@ namespace SunEngine.Core.Configuration
 		/// <summary>
 		/// Use in Dynamic Config
 		/// </summary>
-		public bool Dynamic;
+		public bool Dynamic = true;
 
 		/// <summary>
 		/// Use in JavaScript Config
 		/// </summary>
-		public bool Js;
+		public bool JsConfig = false;
+
+		public ConfigItem()
+		{
+
+		}
+
+		public ConfigItem(bool jsConfig = false)
+		{
+			JsConfig = jsConfig;
+		}
 
 		public virtual string StringValue
 		{
