@@ -21,18 +21,19 @@ namespace SunEngine.Core.Controllers
 	{
 		private readonly JweService jweService;
 		private readonly DataBaseConnection db;
+		private readonly IOptionsMonitor<UrlsOptions> urlsOptions;
 		private readonly IOptionsMonitor<GlobalOptions> globalOptions;
 		private readonly IAuthManager authManager;
-
-
+		
 		public AuthController(
 			DataBaseConnection db,
 			JweService jweService,
 			IAuthManager authManager,
-			
+			IOptionsMonitor<UrlsOptions> urlsOptions,
 			IOptionsMonitor<GlobalOptions> globalOptions,
 			IServiceProvider serviceProvider) : base(serviceProvider)
 		{
+			this.urlsOptions = urlsOptions;
 			this.globalOptions = globalOptions;
 			this.db = db;
 			this.jweService = jweService;
@@ -102,7 +103,7 @@ namespace SunEngine.Core.Controllers
 
 						transaction.Complete();
 						return Redirect(Flurl.Url
-							.Combine(globalOptions.CurrentValue.SiteUrl, "Auth/RegisterEmailResult?result=ok")
+							.Combine(urlsOptions.CurrentValue.Site, "Auth/RegisterEmailResult?result=ok")
 							.ToLower());
 					}
 				}
@@ -112,7 +113,7 @@ namespace SunEngine.Core.Controllers
 				}
 			}
 
-			return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl,
+			return Redirect(Flurl.Url.Combine(urlsOptions.CurrentValue.Site,
 				"Auth/RegisterEmailResult?result=error".ToLower()));
 		}
 	}

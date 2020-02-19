@@ -23,17 +23,19 @@ namespace SunEngine.Core.Managers
 		protected readonly IEmailSenderService emailSenderService;
 		protected readonly SanitizerService sanitizerService;
 		protected readonly IOptionsMonitor<GlobalOptions> globalOptions;
-
+		protected readonly IOptionsMonitor<UrlsOptions> urlsOptions;
 		public ProfileManager(
 			DataBaseConnection db,
 			IEmailSenderService emailSenderService,
 			IOptionsMonitor<GlobalOptions> globalOptions,
+			IOptionsMonitor<UrlsOptions> urlsOptions,
 			SanitizerService sanitizerService
 		) : base(db)
 		{
 			this.emailSenderService = emailSenderService;
 			this.sanitizerService = sanitizerService;
 			this.globalOptions = globalOptions;
+			this.urlsOptions = urlsOptions;
 		}
 
 
@@ -47,7 +49,7 @@ namespace SunEngine.Core.Managers
 					{"[siteName]", globalOptions.CurrentValue.SiteName},
 					{
 						"[url]",
-						globalOptions.CurrentValue.SiteUrl.AppendPathSegment(
+						urlsOptions.CurrentValue.Site.AppendPathSegment(
 							"user/" + (from.Link ?? from.Id.ToString()))
 					},
 					{"[userName]", from.UserName},

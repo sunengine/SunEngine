@@ -28,7 +28,6 @@ namespace SunEngine.Core.Services
 		public const string PartialSkinsDirName = "PartialSkins";
 		public const string UploadImagesDirName = "UploadImages";
 		public const string MailTemplatesDirName = "MailTemplates";
-		public const string StaticsDirName = "statics";
 		public const string CustomCssFileName = "custom.css";
 		public const string ConfigJsFileName = "config.js";
 		public const string ConfigTemplateJsFileName = "config.template.js";

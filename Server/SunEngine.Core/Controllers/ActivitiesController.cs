@@ -44,7 +44,7 @@ namespace SunEngine.Core.Controllers
 			if (component == null)
 				return BadRequest($"No component {componentName} found in cache");
 
-			ActivitiesComponentData componentData = component.Data as ActivitiesComponentData;
+			ActivitiesServerComponentData componentData = component.Data as ActivitiesServerComponentData;
 
 			var materialsCategoriesDic =
 				categoriesCache.GetAllCategoriesWithChildren(componentData.MaterialsCategories);

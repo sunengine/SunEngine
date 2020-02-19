@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using LinqToDB;
+using LinqToDB.Data;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Configuration;
 using SunEngine.Core.DataBase;
@@ -20,6 +21,7 @@ namespace SunEngine.Admin.Managers
 	{
 		protected readonly SanitizerService sanitizerService;
 		protected readonly ICategoriesCache categoriesCache;
+
 		public ConfigurationManager(
 			SanitizerService sanitizerService,
 			ICategoriesCache categoriesCache,
@@ -47,74 +49,32 @@ namespace SunEngine.Admin.Managers
 			{
 				configurationItem.Value = configurationItem.Value?.Trim();
 
-				if (!ConfigDefaults.ConfigurationItems.TryGetValue(configurationItem.Name, out object value))
+				if (!ConfigDefaults.ConfigurationItems.TryGetValue(configurationItem.Name, out ConfigItem defaultConfigItem)
+				)
 					continue;
 
-				if (value.GetType().IsEnum)
-				{
-					var enumType = value.GetType();
-					if (Enum.TryParse(enumType, configurationItem.Value, out _))
-						TryAdd();
+				var configItem = defaultConfigItem.ShallowCopy();
+				configItem.StringValue = configurationItem.Value;
 
-					continue;
-				}
+				if (string.Equals(allItems[configurationItem.Name], configurationItem.Value,
+					StringComparison.OrdinalIgnoreCase))
+					return;
 
-				switch (value.GetType().Name.Split(".")[^1])
-				{
-					case "Int64":
-					case "Int32":
-					case "int":
-						if (!int.TryParse(configurationItem.Value, out _))
-							continue;
-						TryAdd();
-						break;
-					case "Boolean":
-					case "bool":
-						if (!bool.TryParse(configurationItem.Value, out _))
-							continue;
-						TryAdd();
-						break;
-					case "LongString":
-						TryAdd();
-						break;
-					case "JsonString":
-						configurationItem.Value = configurationItem.Value.MakeJsonText();
-						TryAdd();
-						break;
-					case "HtmlString":
-						//configurationItem.Value = sanitizerService.Sanitize(configurationItem.Value) ?? String.Empty;
-						TryAdd();
-						break;
-					case "String":
-					case "string":
-						TryAdd();
-						break;
-				}
-
-				void TryAdd()
-				{
-					if (string.Equals(allItems[configurationItem.Name], configurationItem.Value,
-						StringComparison.OrdinalIgnoreCase))
-						return;
-
-					itemsToUpdate.Add(configurationItem);
-				}
+				itemsToUpdate.Add(configurationItem);
 			}
 
+			db.BulkCopy( new BulkCopyOptions {BulkCopyType = BulkCopyType.MultipleRows  },itemsToUpdate);
+			
 			foreach (var configurationItem in itemsToUpdate)
-			{
-				db.ConfigurationItems.Where(x => x.Name == configurationItem.Name)
-					.Set(x => x.Value, configurationItem.Value).Update();
 				ItemDo(configurationItem);
-			}
 		}
 
 		protected void ItemDo(ConfigurationItem item)
 		{
 			switch (item.Name)
 			{
-					case "Global:ReadOnlyMode":
-						categoriesCache.Initialize();
+				case "Global:ReadOnlyMode":
+					categoriesCache.Initialize();
 					return;
 			}
 		}

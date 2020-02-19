@@ -20,15 +20,15 @@ namespace SunEngine.Core.Controllers
 	/// </summary>
 	public class AccountController : BaseController
 	{
-		private readonly IOptionsMonitor<GlobalOptions> globalOptions;
+		private readonly IOptionsMonitor<UrlsOptions> urlsOptions;
 		private readonly IAccountManager accountManager;
 
 		public AccountController(
 			IAccountManager accountManager,
-			IOptionsMonitor<GlobalOptions> globalOptions,
+			IOptionsMonitor<UrlsOptions> globalOptions,
 			IServiceProvider serviceProvider) : base(serviceProvider)
 		{
-			this.globalOptions = globalOptions;
+			this.urlsOptions = urlsOptions;
 			this.accountManager = accountManager;
 		}
 
@@ -56,17 +56,17 @@ namespace SunEngine.Core.Controllers
 		{
 			var user = await userManager.FindByIdAsync(uid);
 			if (user == null)
-				return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl,
+				return Redirect(Flurl.Url.Combine(urlsOptions.CurrentValue.Site,
 					"Account/ResetPasswordFailed".ToLower()));
 
 			if (await userManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider, "ResetPassword", token))
 			{
 				return Redirect(Flurl.Url
-					.Combine(globalOptions.CurrentValue.SiteUrl, "Account/ResetPasswordSetNew".ToLower())
+					.Combine(urlsOptions.CurrentValue.Site, "Account/ResetPasswordSetNew".ToLower())
 					.SetQueryParams(new {uid = uid, token = token}));
 			}
 
-			return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl,
+			return Redirect(Flurl.Url.Combine(urlsOptions.CurrentValue.Site,
 				"Account/ResetPasswordFailed".ToLower()));
 		}
 
@@ -123,13 +123,13 @@ namespace SunEngine.Core.Controllers
 				return Error();
 			}
 
-			return Redirect(Flurl.Url.Combine(globalOptions.CurrentValue.SiteUrl,
+			return Redirect(Flurl.Url.Combine(urlsOptions.CurrentValue.Site,
 				"Account/ChangeEmailResult?result=ok".ToLower()));
 
 			IActionResult Error()
 			{
 				return Redirect(Flurl.Url
-					.Combine(globalOptions.CurrentValue.SiteUrl, "Account/ChangeEmailResult?result=error")
+					.Combine(urlsOptions.CurrentValue.Site, "Account/ChangeEmailResult?result=error")
 					.ToLower());
 			}
 		}

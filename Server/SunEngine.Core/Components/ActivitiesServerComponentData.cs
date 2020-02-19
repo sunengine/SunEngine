@@ -1,6 +1,6 @@
 namespace SunEngine.Core.Controllers
 {
-	public class ActivitiesComponentData
+	public class ActivitiesServerComponentData
 	{
 		public string MaterialsCategories { get; set; }
 		public string MaterialsCategoriesExclude { get; set; }

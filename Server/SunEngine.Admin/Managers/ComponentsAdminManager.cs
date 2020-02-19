@@ -29,8 +29,7 @@ namespace SunEngine.Admin.Managers
 
 		public Task CreateComponentAsync(Component component)
 		{
-			component.ClientSettingsJson = component.ClientSettingsJson?.MakeJsonTextNotNull();
-			component.ServerSettingsJson = component.ServerSettingsJson?.MakeJsonTextNotNull();
+			component.Options = component.Options?.MakeJsonTextNotNull();
 			component.Roles = rolesCache.CheckAndSetRoles(component.Roles);
 
 			return db.InsertWithIdentityAsync(component);
@@ -38,8 +37,7 @@ namespace SunEngine.Admin.Managers
 
 		public Task UpdateComponentAsync(Component component)
 		{
-			component.ClientSettingsJson = component.ClientSettingsJson?.MakeJsonTextNotNull();
-			component.ServerSettingsJson = component.ServerSettingsJson?.MakeJsonTextNotNull();
+			component.Options = component.Options?.MakeJsonTextNotNull();
 			component.Roles = rolesCache.CheckAndSetRoles(component.Roles);
 
 			return db.UpdateAsync(component);

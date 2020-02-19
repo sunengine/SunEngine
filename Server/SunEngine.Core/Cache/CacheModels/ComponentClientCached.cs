@@ -20,10 +20,10 @@ namespace SunEngine.Core.Cache.CacheModels
 
 		public JsonElement? Options { get; }
 
-		[JsonIgnore]
-		public IReadOnlyDictionary<int, RoleCached> Roles { get; }
+		[JsonIgnore] public IReadOnlyDictionary<int, RoleCached> Roles { get; }
 
-		public ComponentClientCached(Component component,  IRolesCache rolesCache, Dictionary<string, Type> clientComponentTypes)
+		public ComponentClientCached(Component component, Dictionary<string, Type> clientComponentTypes,
+			IRolesCache rolesCache)
 		{
 			Id = component.Id;
 			Name = component.Name;

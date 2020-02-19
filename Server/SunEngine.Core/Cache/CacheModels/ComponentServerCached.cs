@@ -4,23 +4,24 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Text.Json;
 using SunEngine.Core.Cache.Services;
+using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Models;
 
 namespace SunEngine.Core.Cache.CacheModels
 {
-	public class ComponentServerCached<T> where T: class
+	public class ComponentServerCached
 	{
 		public int Id { get; }
 
 		public string Name { get; }
 
-		public T Data { get; }
+		public Object Data { get; }
 
 		public bool IsCacheData { get; }
 
 		public IReadOnlyDictionary<int, RoleCached> Roles { get; }
 
-		public ComponentServerCached(Component component, IRolesCache rolesCache)
+		public ComponentServerCached(Component component, Dictionary<string, Type> serverTypes, IRolesCache rolesCache)
 		{
 			Id = component.Id;
 			Name = component.Name;
@@ -34,7 +35,11 @@ namespace SunEngine.Core.Cache.CacheModels
 			}
 			else
 				Roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
-			Data = JsonSerializer.Deserialize<T>(component.Options);
+
+			if(!serverTypes.TryGetValue(component.Type,out Type type))
+				throw new SunException("No component type found: "+component.Type);
+			
+			Data = JsonSerializer.Deserialize(component.Options,type);
 		}
 	}
 }

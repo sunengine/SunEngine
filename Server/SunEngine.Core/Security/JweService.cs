@@ -29,7 +29,7 @@ namespace SunEngine.Core.Security
 	{
 		private readonly SunUserManager userManager;
 		private readonly IOptionsMonitor<JweOptions> jweOptions;
-		private readonly IOptionsMonitor<GlobalOptions> globalOptions;
+		private readonly IOptionsMonitor<UrlsOptions> urlsOptions;
 		private readonly ILogger logger;
 		private readonly ICryptService cryptService;
 		private readonly IRolesCache rolesCache;
@@ -40,12 +40,12 @@ namespace SunEngine.Core.Security
 			IRolesCache rolesCache,
 			ICryptService cryptService,
 			IOptionsMonitor<JweOptions> jweOptions,
-			IOptionsMonitor<GlobalOptions> globalOptions,
+			IOptionsMonitor<UrlsOptions> urlsOptions,
 			ILoggerFactory loggerFactory) : base(db)
 		{
 			this.userManager = userManager;
 			this.cryptService = cryptService;
-			this.globalOptions = globalOptions;
+			this.urlsOptions = urlsOptions;
 			this.jweOptions = jweOptions;
 			logger = loggerFactory.CreateLogger<AccountController>();
 			this.rolesCache = rolesCache;
@@ -113,7 +113,7 @@ namespace SunEngine.Core.Security
 				{
 					Path = "/",
 					HttpOnly = true,
-					Secure = globalOptions.CurrentValue.IsHttps,
+					Secure = urlsOptions.CurrentValue.IsHttps,
 					IsEssential = true,
 					SameSite = SameSiteMode.Strict,
 					Expires = longSession.ExpirationDate
@@ -227,7 +227,7 @@ namespace SunEngine.Core.Security
 				{
 					Path = "/",
 					HttpOnly = true,
-					Secure = globalOptions.CurrentValue.IsHttps,
+					Secure = urlsOptions.CurrentValue.IsHttps,
 					IsEssential = true,
 					SameSite = SameSiteMode.Strict,
 				});

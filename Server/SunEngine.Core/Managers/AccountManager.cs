@@ -26,9 +26,8 @@ namespace SunEngine.Core.Managers
 
 	public class AccountManager : DbService, IAccountManager
 	{
-		protected readonly IOptionsMonitor<JweOptions> jweOptions;
+		protected readonly IOptionsMonitor<UrlsOptions> urlsOptions;
 		protected readonly SunUserManager userManager;
-		protected readonly IOptionsMonitor<GlobalOptions> globalOptions;
 		protected readonly ICryptService cryptService;
 		protected readonly IEmailSenderService emailSenderService;
 
@@ -38,12 +37,10 @@ namespace SunEngine.Core.Managers
 			IEmailSenderService emailSenderService,
 			DataBaseConnection db,
 			ICryptService cryptService,
-			IOptionsMonitor<GlobalOptions> globalOptions,
-			IOptionsMonitor<JweOptions> jwtOptions) : base(db)
+			IOptionsMonitor<UrlsOptions> urlsOptions) : base(db)
 		{
-			this.jweOptions = jwtOptions;
 			this.userManager = userManager;
-			this.globalOptions = globalOptions;
+			this.urlsOptions = urlsOptions;
 			this.emailSenderService = emailSenderService;
 			this.cryptService = cryptService;
 		}
@@ -52,7 +49,7 @@ namespace SunEngine.Core.Managers
 		{
 			var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
 
-			var resetPasswordUrl = globalOptions.CurrentValue.SiteApi
+			var resetPasswordUrl = urlsOptions.CurrentValue.SiteApi
 				.AppendPathSegments("Account", "ResetPasswordShowClientDialog")
 				.SetQueryParams(new {uid = user.Id, token = resetToken});
 
@@ -117,7 +114,7 @@ namespace SunEngine.Core.Managers
 		{
 			var emailToken = GenerateChangeEmailToken(user, email);
 
-			var updateEmailUrl = globalOptions.CurrentValue.SiteApi.AppendPathSegments("Account", "ConfirmChangeEmail")
+			var updateEmailUrl = urlsOptions.CurrentValue.SiteApi.AppendPathSegments("Account", "ConfirmChangeEmail")
 				.SetQueryParam("token", emailToken);
 
 			await emailSenderService.SendEmailByTemplateAsync(

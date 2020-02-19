@@ -8,7 +8,7 @@ namespace SunEngine.Core.Configuration
 		protected object _objectValue;
 		public virtual object ObjectValue => _objectValue;
 
-		public string _stringValue;
+		protected string _stringValue;
 
 		/// <summary>
 		/// Use in Dynamic Config
@@ -28,6 +28,16 @@ namespace SunEngine.Core.Configuration
 		public ConfigItem(bool jsConfig = false)
 		{
 			JsConfig = jsConfig;
+		}
+		
+		public ConfigItem ShallowCopy()
+		{
+			return (ConfigItem)MemberwiseClone();
+		}
+
+		public string GetTypeName()
+		{
+			return _objectValue.GetType().Name.Split(".")[^1];
 		}
 
 		public virtual string StringValue

@@ -97,12 +97,12 @@ namespace SunEngine.Cli
 		}
 
 
-		public void Configure(IApplicationBuilder app, IOptionsMonitor<GlobalOptions> globalOptions)
+		public void Configure(IApplicationBuilder app, IOptionsMonitor<ServerOptions> serverOptions)
 		{
 			if (!CurrentEnvironment.IsDevelopment())
 				app.UseHsts();
 
-			if (globalOptions.CurrentValue.FileServer)
+			if (serverOptions.CurrentValue.FileServer)
 				app.UseStaticFiles();
 
 			app.UseCookiePolicy();

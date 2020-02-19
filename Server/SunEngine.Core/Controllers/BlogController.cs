@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Configuration.Options;
+using SunEngine.Core.Models;
 using SunEngine.Core.Presenters;
 using SunEngine.Core.Security;
 using SunEngine.Core.Utils.PagedList;
@@ -88,7 +89,7 @@ namespace SunEngine.Core.Controllers
 			if (component == null)
 				return BadRequest($"No component {componentName} found in cache");
 
-			PostsComponentData componentData = component.Data as PostsComponentData;
+			PostsServerComponentData componentData = component.Data as PostsServerComponentData;
 
 			var materialsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(componentData.Categories);
 			var materialsCategoriesExcludeDic = categoriesCache.GetAllCategoriesWithChildren(componentData.CategoriesExclude);

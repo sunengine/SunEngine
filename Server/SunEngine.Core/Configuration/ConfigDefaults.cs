@@ -5,7 +5,7 @@ namespace SunEngine.Core.Configuration
 {
 	public static class ConfigDefaults
 	{
-		public static readonly Dictionary<string, object> ConfigurationItems = new Dictionary<string, object>
+		public static readonly Dictionary<string, ConfigItem> ConfigurationItems = new Dictionary<string, ConfigItem>
 		{
 			["Global:SiteName"] = new StringItem("SunEngine", true),
 			["Global:Locale"] = new EnumItem(Locale.Russian, true),
@@ -32,9 +32,9 @@ namespace SunEngine.Core.Configuration
 			["Dev:LogInitExtended"] = new BooleanItem(false, true),
 			["Dev:LogRequests"] = new BooleanItem(false, true),
 			["Dev:LogMoveTo"] = new BooleanItem(false, true),
-			["Dev:ShowExceptions"] = new BooleanItem(),
+			["Dev:ShowExceptions"] = new BooleanItem(false, true),
 			["Dev:VueDevTools"] = new BooleanItem(false, true),
-			["Dev:VueAppInWindow"] = new BooleanItem(),
+			["Dev:VueAppInWindow"] = new BooleanItem(false, true),
 
 			["Cache:CurrentCachePolicy"] = new EnumItem(CachePolicy.AlwaysPolicy),
 			["Cache:InvalidateCacheTime"] = new IntegerItem(15),
@@ -48,9 +48,10 @@ namespace SunEngine.Core.Configuration
 			["Images:AvatarSizePixels"] = new IntegerItem(300),
 			["Images:AllowGifUpload"] = new BooleanItem(true),
 			["Images:AllowSvgUpload"] = new BooleanItem(true),
-			["Images:ImageRequestSizeLimitBytes"] = 10485760,
+			["Images:ImageRequestSizeLimitBytes"] = new IntegerItem(10485760),
 
 			#region Sanitizer
+
 			["Sanitizer:SanitizeAdminMaterials"] = new BooleanItem(true),
 			["Sanitizer:AllowedTags"] =
 				new LongString(
@@ -68,8 +69,9 @@ namespace SunEngine.Core.Configuration
 			["Sanitizer:AllowedVideoDomains"] = new LongString(
 				"https://www.youtube.com/,http://www.youtube.com/,https://youtube.com/,http://youtube.com/,https://youtu.be/,http://youtu.be/,//youtube.com/,//youtu.be/,//www.youtube.com/,//www.youtu.be/,https://vk.com/,http://vk.com/,//vk.com/,https://player.vimeo.com,http://player.vimeo.com,//player.vimeo.com"),
 			["Sanitizer:AllowedSchemes"] = new LongString(),
+
 			#endregion
-			
+
 			["Email:Host"] = new StringItem("127.0.0.1"),
 			["Email:Port"] = new IntegerItem(1025),
 			["Email:Login"] = new StringItem("username"),
