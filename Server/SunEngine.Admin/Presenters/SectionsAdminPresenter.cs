@@ -40,7 +40,7 @@ namespace SunEngine.Admin.Presenters
 			var section = await db.Sections.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
 			var sectionView = new SectionView(section);
 
-			var configItemViews = new List<ConfigItemView>();
+			var configItemViews = new Dictionary<string, ConfigItemView>();
 			
 			if (sectionsCache.SectionServerTypes.TryGetValue(section.Type, out Type sectionServerType))
 				AddFields(sectionServerType);
@@ -60,11 +60,11 @@ namespace SunEngine.Admin.Presenters
 					configItemView.Value = field.GetValue(serverData);
 					if (configItemView.Type == nameof(EnumItem))
 						configItemView.Enum = field.FieldType.Name.Split(".")[^1];
-					configItemViews.Add(configItemView);
+					configItemViews[field.Name] = configItemView;
 				}
 			}
 
-			sectionView.ConfigItems = configItemViews.ToArray();
+			sectionView.ConfigItems = configItemViews.Values.ToArray();
 			
 			return sectionView;
 		}
