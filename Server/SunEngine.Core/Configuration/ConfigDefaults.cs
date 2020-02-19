@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Html;
 using SunEngine.Core.Configuration.Options;
 
 namespace SunEngine.Core.Configuration
@@ -209,17 +210,5 @@ namespace SunEngine.Core.Configuration
 			["Skins:MaxArchiveSizeKb"] = 20 * 1024,
 			["Skins:MaxExtractArchiveSizeKb"] = 60 * 1024
 		};
-	}
-	
-	public enum Locale
-	{
-		Russian,
-		English,
-	}
-		
-	public enum IconsSet
-	{
-		LineAwesome,
-		FontAwesome,
 	}
 }

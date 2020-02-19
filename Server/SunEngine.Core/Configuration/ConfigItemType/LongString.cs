@@ -14,12 +14,7 @@ namespace SunEngine.Core.Configuration
 
 		public LongString(string value)
 		{
-			Value = value;
-		}
-
-		public override string ToString()
-		{
-			return Value;
+			StringValue = value;
 		}
 	}
 }

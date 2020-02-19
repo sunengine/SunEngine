@@ -57,19 +57,7 @@ namespace SunEngine.Admin.Presenters
 			return rez;
 		}
 	}
-
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum TypeName
-	{
-		String,
-		LongString,
-		HtmlString,
-		JsonString,
-		Number,
-		Boolean,
-		Enum,
-		Strange
-	}
+	
 
 	public class ConfigurationItemView
 	{
@@ -91,7 +79,7 @@ namespace SunEngine.Admin.Presenters
 			Value = GetTypeObject(Type, name, value);
 		}
 
-		protected object GetTypeObject(TypeName typeName, string name, string value)
+		protected object GetTypeObject(ConfigItem configItem, string name, string value)
 		{
 			switch (typeName)
 			{

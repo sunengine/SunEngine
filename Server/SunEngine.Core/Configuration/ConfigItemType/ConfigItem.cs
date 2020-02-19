@@ -1,20 +1,38 @@
+using System.Reflection;
+using LinqToDB.Extensions;
+
 namespace SunEngine.Core.Configuration
 {
 	public abstract class ConfigItem
 	{
-		protected string _value { get; set; }
+		protected object _objectValue;
+		public virtual object ObjectValue => _objectValue;
 
-		public string Value
+		public string _stringValue;
+
+		/// <summary>
+		/// Use in Dynamic Config
+		/// </summary>
+		public bool Dynamic;
+
+		/// <summary>
+		/// Use in JavaScript Config
+		/// </summary>
+		public bool Js;
+
+		public virtual string StringValue
 		{
-			get { return _value; }
-			set { _value = value ?? ""; }
+			get => _stringValue;
+			set {
+				_objectValue = _stringValue = value; 
+			}
 		}
 
 		public virtual bool Validate()
 		{
 			return true;
 		}
-		
+
 		public virtual void Prepare()
 		{
 		}

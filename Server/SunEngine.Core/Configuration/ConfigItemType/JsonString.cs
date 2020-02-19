@@ -16,17 +16,12 @@ namespace SunEngine.Core.Configuration
 
 		public override bool Validate()
 		{
-			return Value.ValidateJson();
+			return StringValue.ValidateJson();
 		}
 
 		public JsonString(string value)
 		{
-			Value = value.Replace("'", "\"");
-		}
-
-		public override string ToString()
-		{
-			return Value;
+			StringValue = value.Replace("'", "\"");
 		}
 	}
 }
