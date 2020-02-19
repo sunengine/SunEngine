@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
+using SunEngine.Core.Configuration;
 
 namespace SunEngine.Core.Cache.Services
 {
@@ -25,55 +27,8 @@ namespace SunEngine.Core.Cache.Services
 
 		public void Initialize()
 		{
-			var itemsToSaveDic = new Dictionary<string, Type>()
-			{
-				["Global:SiteName"] = typeof(string),
-				["Global:SiteTitle"] = typeof(string),
-				["Global:PageTitleTemplate"] = typeof(string),
-				["Global:Locale"] = typeof(string),
-				["Global:UpdateClientScriptsOnConfigChanges"] = typeof(string),
-				["Global:HomePageRedirect"] = typeof(string),
-				["Global:ReadOnlyMode"] = typeof(bool),
-				["Global:IconsSet"] = typeof(string),
-				["Global:OpenExternalLinksAtNewTab"] = typeof(bool),
-				["Global:DisallowRegistration"] = typeof(bool),
-				
-				["Register:ConfirmText"] = typeof(string),
-				["Register:RequireUniqueEmail"] = typeof(bool),
-				["Register:AllowedUserNameCharacters"] = typeof(string),
-				
-				["Dev:ShowExceptions"] = typeof(bool),
-				["Dev:VueDevTools"] = typeof(bool),
-				["Dev:VueAppInWindow"] = typeof(bool),
-				["Dev:LogInitExtended"] = typeof(bool),
-				["Dev:LogRequests"] = typeof(bool),
-				["Dev:LogMoveTo"] = typeof(bool),
-				
-				["PasswordValidation:RequiredLength"] = typeof(int),
-				["PasswordValidation:RequiredUniqueChars"] = typeof(int),
-				["PasswordValidation:RequireDigit"] = typeof(bool),
-				["PasswordValidation:RequireLowercase"] = typeof(bool),
-				["PasswordValidation:RequireNonAlphanumeric"] = typeof(bool),
-				["PasswordValidation:RequireUppercase"] = typeof(bool),
-
-				["Comments:TimeToOwnEditInMinutes"] = typeof(int),
-				["Comments:TimeToOwnDeleteInMinutes"] = typeof(int),
-
-				["Materials:CommentsPageSize"] = typeof(int),
-				["Materials:TimeToOwnEditInMinutes"] = typeof(int),
-				["Materials:TimeToOwnDeleteInMinutes"] = typeof(int),
-
-				["Skins:CurrentSkinName"] = typeof(string),
-				["Skins:PartialSkinsNames"] = typeof(string),
-
-				["Editor:MaterialToolbar"] = typeof(string),
-				["Editor:CommentToolbar"] = typeof(string),
-				["Editor:UserInformationToolbar"] = typeof(string),
-				["Editor:SendPrivateMessageToolbar"] = typeof(string),
-
-				["Images:ImageRequestSizeLimitBytes"] = typeof(int)
-			};
-
+			var itemsToSaveDic = ConfigDefaults.ConfigurationItems.Where(x => x.Value.Dynamic)
+				.ToDictionary(x => x.Key, x => x.Value.GetType());
 
 			var rez = new Dictionary<string, object>();
 			foreach (var (key, type) in itemsToSaveDic)
