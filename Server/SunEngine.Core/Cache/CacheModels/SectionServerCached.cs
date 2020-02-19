@@ -36,10 +36,10 @@ namespace SunEngine.Core.Cache.CacheModels
 			else
 				Roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
 
-			if(!serverTypes.TryGetValue(section.Type,out Type type))
-				throw new SunException("No component type found: "+section.Type);
-			
-			Data = JsonSerializer.Deserialize(section.Options,type);
+			if (!serverTypes.TryGetValue(section.Type, out Type type))
+				throw new SunException("No component type found: " + section.Type);
+
+			Data = JsonSerializer.Deserialize(section.Options, type);
 		}
 	}
 }

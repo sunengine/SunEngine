@@ -10,61 +10,61 @@ namespace SunEngine.Admin.Controllers
 {
 	public class SectionsAdminController : BaseAdminController
 	{
-		protected readonly ISectionsAdminPresenter SectionsAdminPresenter;
-		protected readonly ISectionsAdminManager SectionsAdminManager;
-		protected readonly ISectionsCache SectionsCache;
+		protected readonly ISectionsAdminPresenter sectionsAdminPresenter;
+		protected readonly ISectionsAdminManager sectionsAdminManager;
+		protected readonly ISectionsCache sectionsCache;
 
 		public SectionsAdminController(
-			ISectionsAdminPresenter SectionsAdminPresenter,
-			ISectionsAdminManager SectionsAdminManager,
-			ISectionsCache SectionsCache,
+			ISectionsAdminPresenter sectionsAdminPresenter,
+			ISectionsAdminManager sectionsAdminManager,
+			ISectionsCache sectionsCache,
 			IServiceProvider serviceProvider) : base(serviceProvider: serviceProvider)
 		{
-			this.SectionsAdminPresenter = SectionsAdminPresenter;
-			this.SectionsAdminManager = SectionsAdminManager;
-			this.SectionsCache = SectionsCache;
+			this.sectionsAdminPresenter = sectionsAdminPresenter;
+			this.sectionsAdminManager = sectionsAdminManager;
+			this.sectionsCache = sectionsCache;
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> GetAllSections()
 		{
-			var rez = await SectionsAdminPresenter.GetSectionsAsync();
+			var rez = await sectionsAdminPresenter.GetSectionsAsync();
 			return Ok(rez);
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> GetComponent(string name)
 		{
-			var component = await SectionsAdminPresenter.GetComponentAsync(name);
+			var component = await sectionsAdminPresenter.GetSectionAsync(name);
 			return Ok(component);
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> AddComponent([FromBody] Section section)
+		public async Task<IActionResult> AddSection([FromBody] Section section)
 		{
-			await SectionsAdminManager.CreateComponentAsync(section);
+			await sectionsAdminManager.CreateSectionAsync(section);
 
-			SectionsCache.Initialize();
+			sectionsCache.Initialize();
 
 			return Ok();
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> UpdateComponent([FromBody] Section section)
+		public async Task<IActionResult> UpdateSection([FromBody] Section section)
 		{
-			await SectionsAdminManager.UpdateComponentAsync(section);
+			await sectionsAdminManager.UpdateSectionAsync(section);
 
-			SectionsCache.Initialize();
+			sectionsCache.Initialize();
 
 			return Ok();
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> DeleteComponent(int componentId)
+		public async Task<IActionResult> DeleteSection(int componentId)
 		{
-			await SectionsAdminManager.DeleteComponentAsync(componentId);
+			await sectionsAdminManager.DeleteSectionAsync(componentId);
 
-			SectionsCache.Initialize();
+			sectionsCache.Initialize();
 
 			return Ok();
 		}

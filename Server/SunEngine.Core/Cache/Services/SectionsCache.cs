@@ -14,8 +14,8 @@ namespace SunEngine.Core.Cache.Services
 	{
 		SectionServerCached GetSectionserverCached(string name, IReadOnlyDictionary<string, RoleCached> roles);
 		IEnumerable<SectionClientCached> GetClientSections(IReadOnlyDictionary<string, RoleCached> roles);
-		Dictionary<string, Type> SectionserverTypes { get; }
-		Dictionary<string, Type> ComponentClientTypes { get; }
+		Dictionary<string, Type> SectionServerTypes { get; }
+		Dictionary<string, Type> SectionClientTypes { get; }
 		void Initialize();
 	}
 
@@ -24,13 +24,13 @@ namespace SunEngine.Core.Cache.Services
 		private readonly IDataBaseFactory dataBaseFactory;
 		private readonly IRolesCache rolesCache;
 
-		public Dictionary<string, Type> SectionserverTypes { get; } = new Dictionary<string, Type>()
+		public Dictionary<string, Type> SectionServerTypes { get; } = new Dictionary<string, Type>()
 		{
 			["Posts"] = typeof(PostsServerComponentData),
 			["Activities"] = typeof(ActivitiesServerComponentData)
 		};
 
-		public Dictionary<string, Type> ComponentClientTypes { get; } = new Dictionary<string, Type>()
+		public Dictionary<string, Type> SectionClientTypes { get; } = new Dictionary<string, Type>()
 		{
 			["Posts"] = typeof(PostsClientComponentData)
 		};
@@ -74,8 +74,8 @@ namespace SunEngine.Core.Cache.Services
 				try
 				{
 					serverSectionsTmp.Add(component.Name,
-						new SectionServerCached(component, SectionserverTypes, rolesCache));
-					clientSectionsTmp.Add(new SectionClientCached(component, ComponentClientTypes, rolesCache));
+						new SectionServerCached(component, SectionServerTypes, rolesCache));
+					clientSectionsTmp.Add(new SectionClientCached(component, SectionClientTypes, rolesCache));
 				}
 				catch
 				{

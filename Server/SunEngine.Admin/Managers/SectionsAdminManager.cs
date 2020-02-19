@@ -11,9 +11,9 @@ namespace SunEngine.Admin.Managers
 {
 	public interface ISectionsAdminManager
 	{
-		Task CreateComponentAsync(Section section);
-		Task UpdateComponentAsync(Section section);
-		Task DeleteComponentAsync(int componentId);
+		Task CreateSectionAsync(Section section);
+		Task UpdateSectionAsync(Section section);
+		Task DeleteSectionAsync(int componentId);
 	}
 
 	public class SectionsAdminManager : DbService, ISectionsAdminManager
@@ -27,7 +27,7 @@ namespace SunEngine.Admin.Managers
 			this.rolesCache = rolesCache;
 		}
 
-		public Task CreateComponentAsync(Section section)
+		public Task CreateSectionAsync(Section section)
 		{
 			section.Options = section.Options?.MakeJsonTextNotNull();
 			section.Roles = rolesCache.CheckAndSetRoles(section.Roles);
@@ -35,7 +35,7 @@ namespace SunEngine.Admin.Managers
 			return db.InsertWithIdentityAsync(section);
 		}
 
-		public Task UpdateComponentAsync(Section section)
+		public Task UpdateSectionAsync(Section section)
 		{
 			section.Options = section.Options?.MakeJsonTextNotNull();
 			section.Roles = rolesCache.CheckAndSetRoles(section.Roles);
@@ -43,7 +43,7 @@ namespace SunEngine.Admin.Managers
 			return db.UpdateAsync(section);
 		}
 
-		public Task DeleteComponentAsync(int sectionId)
+		public Task DeleteSectionAsync(int sectionId)
 		{
 			return db.Sections.Where(x => x.Id == sectionId).DeleteAsync();
 		}
