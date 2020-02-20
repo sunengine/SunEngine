@@ -1,41 +1,41 @@
 ﻿<template>
-	<SunPage class="components-admin page-padding">
+	<SunPage class="sections-admin page-padding">
 		<PageHeader :title="$tl('title')">
 			<q-btn
-				:icon="$iconsSet.ComponentsAdmin.add"
+				:icon="$iconsSet.SectionsAdmin.add"
 				class="post-btn q-mr-lg"
 				type="a"
-				:to="{ name: 'CreateComponent' }"
+				:to="{ name: 'CreateSection' }"
 				no-caps
-				:label="$tl('addComponentBtn')"
+				:label="$tl('addSectionBtn')"
 			/>
 		</PageHeader>
 
-		<div class="components-admin__components" v-if="components">
-			<div v-for="component in components">
+		<div class="sections-admin__sections" v-if="sections">
+			<div v-for="section in sections">
 				<q-icon
-					:name="$iconsSet.ComponentsAdmin.component"
+					:name="$iconsSet.SectionsAdmin.section"
 					color="grey-6"
 					class="q-mr-sm"
 				/>
-				{{ component.name }}
+				{{ section.name }}
 				<q-btn
 					color="info"
-					class="components-admin__btn-edit q-ml-sm"
+					class="sections-admin__btn-edit q-ml-sm"
 					dense
 					size="10px"
 					flat
-					:icon="$iconsSet.ComponentsAdmin.edit"
-					:to="{ name: 'EditComponent', params: { name: component.name } }"
+					:icon="$iconsSet.SectionsAdmin.edit"
+					:to="{ name: 'EditSection', params: { name: section.name } }"
 				/>
 
 				<q-btn
 					color="info"
-					class="components-admin__to"
+					class="sections-admin__to"
 					dense
 					size="10px"
 					flat
-					:icon="$iconsSet.ComponentsAdmin.goTo"
+					:icon="$iconsSet.SectionsAdmin.goTo"
 					:to="'/' + component.name.toLowerCase()"
 				/>
 
@@ -51,7 +51,7 @@
 import { Page } from "mixins";
 
 export default {
-	name: "ComponentsAdmin",
+	name: "SectionsAdmin",
 	mixins: [Page],
 	data() {
 		return {
@@ -65,15 +65,12 @@ export default {
 	},
 	methods: {
 		loadData() {
-			this.$request(this.$AdminApi.ComponentsAdmin.GetAllComponents).then(
+			this.$request(this.$AdminApi.SectionsAdmin.GetAllSections).then(
 				response => {
-					this.components = response.data;
+					this.sections = response.data;
 				}
 			);
 		}
-	},
-	beforeCreate() {
-		this.$options.components.LoaderWait = require("sun").LoaderWait;
 	},
 	created() {
 		this.title = this.$tl("title");

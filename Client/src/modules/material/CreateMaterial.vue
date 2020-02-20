@@ -43,6 +43,10 @@ export default {
 			type: String,
 			required: true
 		},
+		categoriesNamesExclude: {
+			type: String,
+			required: false
+		},
 		initialCategoryName: {
 			type: String,
 			required: false,

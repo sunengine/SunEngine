@@ -214,10 +214,6 @@ export default {
 			skin.showInfo = !!!skin.showInfo;
 		}
 	},
-	beforeCreate() {
-		this.$options.components.LoaderWait = require("sun").LoaderWait;
-		this.$options.components.LoaderSent = require("sun").LoaderSent;
-	},
 	created() {
 		this.title = this.$tl("title");
 		this.getAllSkins();

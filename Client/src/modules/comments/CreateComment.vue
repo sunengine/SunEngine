@@ -87,7 +87,6 @@ export default {
 	},
 	beforeCreate() {
 		this.editorToolbar = JSON.parse(config.Editor.CommentToolbar);
-		this.$options.components.SunEditor = require("sun").SunEditor;
 	}
 };
 </script>

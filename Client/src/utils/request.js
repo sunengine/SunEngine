@@ -167,7 +167,7 @@ async function checkTokens(rez) {
 			store.commit("clearAllUserRelatedData");
 			await store.dispatch("loadAllCategories", { skipLock: true });
 			await store.dispatch("registerAllLayouts");
-			await store.dispatch("loadAllComponents", { skipLock: true });
+			await store.dispatch("loadAllsections", { skipLock: true });
 			await store.dispatch("setAllRoutes");
 			await store.dispatch("loadAllMenuItems", { skipLock: true });
 			if (routeCheckAccess(router.currentRoute)) {

@@ -10,14 +10,14 @@ export default async function(context) {
 	const routesFromCategories = await context.dispatch(
 		"makeRoutesFromCategories"
 	);
-	const routesFromComponents = await context.dispatch(
-		"makeRoutesFromComponents"
+	const routesFromSections = await context.dispatch(
+		"makeRoutesFromSections"
 	);
 
 	const allRoutes = [
 		...routes,
 		...routesFromCategories,
-		...routesFromComponents,
+		...routesFromSections,
 		...pageNotFoundRoute
 	];
 	

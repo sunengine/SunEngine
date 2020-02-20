@@ -27,12 +27,12 @@ export default {
 		GetMenuItem: "/Admin/MenuAdmin/GetMenuItem",
 		GetMenuItems: "/Admin/MenuAdmin/GetMenuItems"
 	},
-	ComponentsAdmin: {
-		AddComponent: "/Admin/ComponentsAdmin/AddComponent",
-		UpdateComponent: "/Admin/ComponentsAdmin/UpdateComponent",
-		DeleteComponent: "/Admin/ComponentsAdmin/DeleteComponent",
-		GetAllComponents: "/Admin/ComponentsAdmin/GetAllComponents",
-		GetComponent: "/Admin/ComponentsAdmin/GetComponent"
+	SectionsAdmin: {
+		AddSection: "/Admin/SectionsAdmin/AddSection",
+		UpdateSection: "/Admin/SectionsAdmin/UpdateSection",
+		DeleteSection: "/Admin/SectionsAdmin/DeleteSection",
+		GetAllSections: "/Admin/SectionsAdmin/GetAllSections",
+		GetSection: "/Admin/SectionsAdmin/GetSection"
 	},
 	CategoriesAdmin: {
 		CategoryUp: "/Admin/CategoriesAdmin/CategoryUp",

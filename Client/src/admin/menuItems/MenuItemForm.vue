@@ -437,9 +437,6 @@ export default {
 			});
 		}
 	},
-	beforeCreate() {
-		this.$options.components.LoaderWait = require("sun").LoaderWait;
-	},
 	async created() {
 		this.rules = createRules.call(this);
 		await this.loadData();

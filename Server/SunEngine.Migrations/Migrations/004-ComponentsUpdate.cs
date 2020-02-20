@@ -8,7 +8,7 @@ namespace SunEngine.Migrations.Migrations
 	{
 		public override void Up()
 		{
-			Delete.Table("Sections".s());
+			Delete.Table("Components".s());
 			Create.Table("Sections".s())
 				.WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
 				.WithColumn("Name".s()).AsString(DbColumnSizes.Sections_Name).NotNullable().Unique()
@@ -16,7 +16,7 @@ namespace SunEngine.Migrations.Migrations
 				.WithColumn("Type".s()).AsString(DbColumnSizes.Sections_Type).NotNullable()
 				.WithColumn("Roles".s()).AsString().NotNullable()
 				.WithColumn("IsCacheData".s()).AsBoolean().NotNullable()
-				.WithColumn("Options".s()).AsMaxString().NotNullable();
+				.WithColumn("Options".s()).AsJson().NotNullable();
 			//Delete.Column("Token".s()).FromTable("Categories".s());
 		}
 

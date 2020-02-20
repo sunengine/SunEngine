@@ -146,7 +146,6 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.LoaderWait = require("sun").LoaderWait;
 		this.$options.components.MenuAdminItem = require("sun").MenuAdminItem;
 	},
 	created() {

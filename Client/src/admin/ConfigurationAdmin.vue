@@ -352,9 +352,6 @@ export default {
 			});
 		}
 	},
-	beforeCreate() {
-		this.$options.components.SunEditor = require("sun").SunEditor;
-	},
 	async created() {
 		this.filterItems = this.$throttle(this.filterItems, 1000);
 		this.title = this.$tl("title");

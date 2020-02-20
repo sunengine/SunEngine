@@ -3,8 +3,8 @@
 		<PageHeader
 			class="page-padding"
 			:title="title"
-			:subTitle="component.settings.SubTitle"
-			:header="component.settings.Header"
+			:subTitle="section.options.SubTitle"
+			:header="section.options.Header"
 		>
 			<q-btn
 				v-if="canPost"
@@ -15,59 +15,58 @@
 				@click="
 					$router.push({
 						name: 'CreateMaterial',
-						params: { categoriesNames: component.settings.CategoriesNames }
+						params: { categoriesNames: section.options.Categories, categoriesNamesExclude: section.options.CategoriesExclude  }
 					})
 				"
 			/>
 		</PageHeader>
 
-		<PostsMultiCat :componentName="componentName" />
+		<PostsMultiCat :sectionName="sectionName" />
 	</SunPage>
 </template>
 
 <script>
 import { Page } from "mixins";
+import { canWriteCats } from "sun";
 
 export default {
 	name: "BlogMultiCatPage",
 	mixins: [Page],
 	props: {
-		componentName: {
+		sectionName: {
 			type: String,
 			required: true
 		}
 	},
 	watch: {
-		componentName: "loadData",
+		sectionName: "loadData",
 		$route: "loadData"
 	},
 	computed: {
 		canPost() {
-			if (!this.component.settings.CategoriesNames) return false;
+			if (!this.section.options.Categories) return false;
 
-			if (this.component.settings.RolesCanAdd) {
-				const rolesCanAdd = this.component.settings.RolesCanAdd.split(",");
+			if (this.section.options.RolesCanAdd) {
+				const rolesCanAdd = this.section.options.RolesCanAdd.split(",");
 				if (!this.$store.state.auth.roles.some(x => rolesCanAdd.some(y => y === x)))
 					return false;
 			}
 
-			let categories = this.component.settings.CategoriesNames.split(",").map(x =>
-				x.trim()
+			const cats = canWriteCats(
+				this.section.options.Categories,
+				this.section.options.CategoriesExclude
 			);
-			for (let catName of categories) {
-				let cat = this.$store.getters.getCategory(catName);
-				if (cat?.canSomeChildrenWriteMaterial) return true;
-			}
-			return false;
+
+			return cats && cats.length > 0;
 		},
 		addButtonLabel() {
-			return this.component.settings.AddButtonLabel ?? this.$tl("addButtonLabel");
+			return this.section.options.AddButtonLabel ?? this.$tl("addButtonLabel");
 		},
 		currentPage() {
 			return this.$route.query?.page ?? 1;
 		},
-		component() {
-			return this.$store.getters.getComponent(this.componentName);
+		section() {
+			return this.$store.getters.getSection(this.sectionName);
 		}
 	},
 	methods: {
@@ -85,7 +84,7 @@ export default {
 		this.$options.components.PostsMultiCat = require("sun").PostsMultiCat;
 	},
 	created() {
-		this.title = this.component.settings.Title;
+		this.title = this.section.options.Title;
 	}
 };
 </script>

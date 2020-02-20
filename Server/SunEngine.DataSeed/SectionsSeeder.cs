@@ -36,10 +36,13 @@ namespace SunEngine.DataSeed
 				Type = (string) jComponent["Type"]
 			};
 
-			if (jComponent.TryGetValue("IsCacheData", out JToken value) && (bool) value)
+			if (jComponent.TryGetValue("IsCacheData", out JToken isCacheData) && (bool) isCacheData)
 				section.IsCacheData = true;
 
-			if (jComponent.TryGetValue("ServerSettingsJson", out JToken serverSettingsJson))
+			if (jComponent.TryGetValue("Token", out JToken token))
+				section.Token = (string) token;
+
+			if (jComponent.TryGetValue("Options", out JToken serverSettingsJson))
 				section.Options = serverSettingsJson.ToString();
 			else
 				section.Options = "{}";
@@ -48,7 +51,7 @@ namespace SunEngine.DataSeed
 				section.Roles = (string) roles;
 			else
 				section.Roles = string.Join(',', RoleNames.Unregistered, RoleNames.Registered);
-			
+
 			dataContainer.Sections.Add(section);
 		}
 	}

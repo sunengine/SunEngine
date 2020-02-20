@@ -266,7 +266,6 @@ export default {
 	beforeCreate() {
 		this.rules = createRules.call(this);
 		this.editorToolbar = JSON.parse(config.Editor.MaterialToolbar);
-		this.$options.components.SunEditor = require("sun").SunEditor;
 	}
 };
 </script>

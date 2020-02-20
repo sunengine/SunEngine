@@ -101,9 +101,6 @@ export default {
 				: this.$successNotify(this.$tl("emptyResult"));
 		}
 	},
-	beforeCreate() {
-		this.$options.components.LoaderSent = require("sun").LoaderSent;
-	},
 	created() {
 		this.title = this.$tl("title");
 		this.loadImages();

@@ -49,14 +49,14 @@
 				</q-item-section>
 			</q-item>
 
-			<q-item :to="{ name: 'ComponentsAdmin' }">
+			<q-item :to="{ name: 'SectionsAdmin' }">
 				<q-item-section avatar>
-					<q-icon :name="$iconsSet.AdminMenu.ComponentsAdmin" />
+					<q-icon :name="$iconsSet.AdminMenu.SectionsAdmin" />
 				</q-item-section>
 				<q-item-section>
-					<q-item-label>{{ $tl("components") }}</q-item-label>
-					<q-item-label v-if="componentsCaption" caption>{{
-						componentsCaption
+					<q-item-label>{{ $tl("sections") }}</q-item-label>
+					<q-item-label v-if="sectionsCaption" caption>{{
+						sectionsCaption
 					}}</q-item-label>
 				</q-item-section>
 			</q-item>
@@ -166,7 +166,7 @@ export default {
 		categoriesCaption() {
 			return this.$tl("categoriesCaption") ?? null;
 		},
-		componentsCaption() {
+		sectionsCaption() {
 			return this.$tl("cypherSecretsCaption") ?? null;
 		},
 		skinsCaption() {

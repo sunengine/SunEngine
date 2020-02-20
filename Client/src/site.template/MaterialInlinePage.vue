@@ -18,11 +18,13 @@ import { Page } from "mixins";
 export default {
 	name: "MaterialInlinePage",
 	mixins: [Page],
-	components: { MaterialInline },
 	methods: {
 		loaded() {
 			this.title = this.$refs.inline.material.title;
 		}
+	},
+	beforeCreate() {
+		this.$options.components.MaterialInline = require("sun").MaterialInline;
 	}
 };
 </script>

@@ -10,6 +10,12 @@ namespace SunEngine.Migrations
 		{
 			return createTableColumnAsTypeSyntax.AsString(Int32.MaxValue);
 		}
+		
+		public static ICreateTableColumnOptionOrWithColumnSyntax AsJson(
+			this ICreateTableColumnAsTypeSyntax createTableColumnAsTypeSyntax)
+		{
+			return createTableColumnAsTypeSyntax.AsCustom("Json");
+		}
 	}
 
 	public static class StringExtension

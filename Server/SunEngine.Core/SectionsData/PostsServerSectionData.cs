@@ -1,8 +1,8 @@
 using SunEngine.Core.Configuration.ConfigItemType;
 
-namespace SunEngine.Core.Configuration.Sections
+namespace SunEngine.Core.SectionsData
 {
-	public class PostsServerComponentData
+	public class PostsServerSectionData
 	{
 		[ConfigItem(typeof(CategoriesItem))]
 		public string Categories { get; set; }

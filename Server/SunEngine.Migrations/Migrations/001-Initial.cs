@@ -217,7 +217,7 @@ namespace SunEngine.Migrations.Migrations
 				.WithColumn("IsHidden".s()).AsBoolean().NotNullable();
 
 
-			Create.Table("Sections".s())
+			Create.Table("Components".s())
 				.WithColumn("Id".s()).AsInt32().PrimaryKey().Identity().NotNullable()
 				.WithColumn("Name".s()).AsString(DbColumnSizes.Sections_Name).NotNullable().Unique()
 				.WithColumn("Type".s()).AsString(DbColumnSizes.Sections_Type).NotNullable()

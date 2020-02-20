@@ -95,9 +95,9 @@ export default {
 		successNotify: "Категория обновлена."
 	},
 
-	// ——— components ———————————————————————————————————
+	// ——— sections ———————————————————————————————————
 
-	ComponentForm: {
+	SectionForm: {
 		name: "Имя (eng)",
 		type: "Тип",
 		isCacheData: "Кешировать",
@@ -110,7 +110,7 @@ export default {
 				minLength: "Длинна должна быть не меньше 3 символов",
 				maxLength:
 					"Максимальная длинна должна быть не более " +
-					config.DbColumnSizes.Components_Name,
+					config.DbColumnSizes.Sections_Name,
 				allowedChars:
 					"Имя (eng) должно состоять из символов `a-z`, `A-Z`, `0-9`, `-`, `_`"
 			},
@@ -120,16 +120,16 @@ export default {
 			jsonFormatError: "@:Global.validation.validation"
 		}
 	},
-	ComponentsAdmin: {
+	SectionsAdmin: {
 		title: "Админка компонентов",
-		addComponentBtn: "Добавить компонент"
+		addSectionBtn: "Добавить компонент"
 	},
-	CreateComponent: {
+	CreateSection: {
 		title: "Задать компонент",
 		createBtn: "@:Global.btn.create",
 		cancelBtn: "@:Global.btn.cancel"
 	},
-	EditComponent: {
+	EditSection: {
 		title: "Изменить компонент",
 		saveBtn: "@:Global.btn.save",
 		cancelBtn: "@:Global.btn.cancel",
@@ -275,8 +275,8 @@ export default {
 		categories: "Категории",
 		categoriesCaption: "",
 		//categoriesCaption: "Редактирование разделов сайта",
-		components: "Компоненты",
-		componentsCaption: "",
+		sections: "Разделы",
+		sectionsCaption: "",
 		skins: "Темы оформления",
 		skinsCaption: "",
 		//skinsCaption: "Добавление, установка, удаление",

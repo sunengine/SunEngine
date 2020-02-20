@@ -25,7 +25,7 @@ export default {
 	name: "PostsMultiCat",
 	mixins: [Pagination],
 	props: {
-		componentName: {
+		sectionName: {
 			type: String,
 			required: true
 		}
@@ -36,18 +36,18 @@ export default {
 		};
 	},
 	watch: {
-		componentName: "loadData",
+		sectionName: "loadData",
 		$route: "loadData"
 	},
 	computed: {
 		component() {
-			return this.$store.getters.getComponent(this.componentName);
+			return this.$store.getters.getComponent(this.sectionName);
 		}
 	},
 	methods: {
 		loadData() {
 			this.$request(this.$Api.Blog.GetPostsFromMultiCategories, {
-				componentName: this.componentName,
+				sectionName: this.sectionName,
 				page: this.currentPage
 			})
 				.then(response => {

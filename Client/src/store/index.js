@@ -3,7 +3,7 @@ import Vuex from "vuex";
 
 import { authModule as auth } from "sun";
 import { categoriesModule as categories } from "sun";
-import { componentsModule as components } from "sun";
+import { sectionsModule as sections } from "sun";
 import { menuModule as menu } from "sun";
 import { adminModule as admin } from "sun";
 import { layoutsModule as layouts } from "sun";
@@ -26,7 +26,7 @@ export default function(/* { ssrContext } */) {
 			admin,
 			auth,
 			categories,
-			components,
+			sections,
 			layouts,
 			menu
 		}

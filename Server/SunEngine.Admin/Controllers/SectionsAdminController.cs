@@ -33,10 +33,10 @@ namespace SunEngine.Admin.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> GetComponent(string name)
+		public async Task<IActionResult> GetSection(string name)
 		{
-			var component = await sectionsAdminPresenter.GetSectionAsync(name);
-			return Ok(component);
+			var section = await sectionsAdminPresenter.GetSectionAsync(name);
+			return Ok(section);
 		}
 
 		[HttpPost]
@@ -60,9 +60,9 @@ namespace SunEngine.Admin.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> DeleteSection(int componentId)
+		public async Task<IActionResult> DeleteSection(int sectionId)
 		{
-			await sectionsAdminManager.DeleteSectionAsync(componentId);
+			await sectionsAdminManager.DeleteSectionAsync(sectionId);
 
 			sectionsCache.Initialize();
 

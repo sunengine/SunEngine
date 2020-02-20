@@ -1,12 +1,12 @@
 ﻿<template>
-	<SunPage class="create-component page-padding">
+	<SunPage class="create-section page-padding">
 		<PageHeader :title="title" />
 
-		<ComponentForm ref="form" :component="component" />
+		<SectionForm ref="form" :section="section" />
 
-		<div class="create-component__btn-block q-mt-lg q-gutter-md">
+		<div class="create-section__btn-block q-mt-lg q-gutter-md">
 			<q-btn
-				:icon="$iconsSet.CreateComponent.add"
+				:icon="$iconsSet.CreateSection.add"
 				class="send-btn"
 				no-caps
 				:loading="loading"
@@ -18,7 +18,7 @@
 			</q-btn>
 			<q-btn
 				no-caps
-				:icon="$iconsSet.CreateComponent.cancel"
+				:icon="$iconsSet.CreateSection.cancel"
 				class="cancel-btn"
 				@click="$router.back()"
 				:label="$tl('cancelBtn')"
@@ -32,11 +32,11 @@
 import { Page } from "mixins";
 
 export default {
-	name: "CreateComponent",
+	name: "CreateSection",
 	mixins: [Page],
 	data() {
 		return {
-			component: {
+			section: {
 				name: "",
 				type: "",
 				roles: "Unregistered,Registered",
@@ -49,7 +49,7 @@ export default {
 	},
 	computed: {
 		breadcrumbsCategory() {
-			return this.$getBreadcrumbs("ComponentsAdmin");
+			return this.$getBreadcrumbs("SectionsAdmin");
 		}
 	},
 	methods: {
@@ -61,15 +61,15 @@ export default {
 			this.loading = true;
 
 			this.$request(
-				this.$AdminApi.ComponentsAdmin.AddComponent,
-				this.component,
+				this.$AdminApi.SectionsAdmin.AddSection,
+				this.section,
 				true
 			)
 				.then(async () => {
 					this.$successNotify();
-					await this.$store.dispatch("loadAllComponents");
+					await this.$store.dispatch("loadAllSections");
 					await this.$store.dispatch("setAllRoutes");
-					this.$router.push({ name: "ComponentsAdmin" });
+					this.$router.push({ name: "SectionsAdmin" });
 				})
 				.catch(error => {
 					this.$errorNotify(error);
@@ -78,8 +78,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.LoaderSent = require("sun").LoaderSent;
-		this.$options.components.ComponentForm = require("sun").ComponentForm;
+		this.$options.components.SectionForm = require("sun").SectionForm;
 	},
 	created() {
 		this.title = this.$tl("title");

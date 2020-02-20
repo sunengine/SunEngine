@@ -30,9 +30,9 @@ export default async function(context) {
 
 		await context.dispatch("registerAllLayouts");
 
-		await context.dispatch("registerAllComponentsTypes");
+		await context.dispatch("registerAllSectionsTypes");
 
-		await context.dispatch("loadAllComponents");
+		await context.dispatch("loadAllSections");
 
 		await context.dispatch("setAllRoutes");
 

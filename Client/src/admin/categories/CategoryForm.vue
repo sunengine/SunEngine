@@ -388,10 +388,6 @@ export default {
 			});
 		}
 	},
-	beforeCreate() {
-		this.$options.components.SunEditor = require("sun").SunEditor;
-	},
-
 	async created() {
 		this.rules = createRules.call(this);
 		this.getAllCategories();

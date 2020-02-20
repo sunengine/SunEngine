@@ -70,8 +70,8 @@ export default {
 	Menu: {
 		GetAllMenuItems: "/Menu/GetAllMenuItems"
 	},
-	Components: {
-		GetAllComponents: "/Components/GetAllComponents"
+	Sections: {
+		GetAllSections: "/Sections/GetAllSections"
 	},
 	Categories: {
 		GetAllCategoriesAndAccesses: "/Categories/GetAllCategoriesAndAccesses"

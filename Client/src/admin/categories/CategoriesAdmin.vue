@@ -85,7 +85,6 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.LoaderWait = require("sun").LoaderWait;
 		this.$options.components.CategoryItem = require("sun").CategoryItem;
 	},
 	created() {

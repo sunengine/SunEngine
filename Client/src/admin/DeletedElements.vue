@@ -50,9 +50,6 @@ export default {
 			return this.$getBreadcrumbs("Admin");
 		}
 	},
-	beforeCreate() {
-		this.$options.components.LoaderSent = require("sun").LoaderSent;
-	},
 	created() {
 		this.title = this.$tl("title");
 	},

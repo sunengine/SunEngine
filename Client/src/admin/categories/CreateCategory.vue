@@ -95,7 +95,6 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.LoaderSent = require("sun").LoaderSent;
 		this.$options.components.CategoryForm = require("sun").CategoryForm;
 	},
 	async created() {

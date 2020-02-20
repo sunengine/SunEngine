@@ -15,7 +15,7 @@
 export default {
 	name: "ActivitiesList",
 	props: {
-		componentName: {
+       sectionName: {
 			type: String,
 			required: true
 		}
@@ -27,13 +27,13 @@ export default {
 	},
 	computed: {
 		component() {
-			return this.$store.getters.getComponent(this.componentName);
+			return this.$store.getters.getSection(this.sectionName);
 		}
 	},
 	methods: {
 		loadData() {
 			this.$request(this.$Api.Activities.GetActivities, {
-				componentName: this.componentName
+				sectionName: this.sectionName
 			})
 				.then(response => {
 					this.activities = response.data;

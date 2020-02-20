@@ -13,14 +13,14 @@
         "build & publish": "cd ../Scripts && bash build.sh && bash publish.sh"
     },
     "dependencies": {
-        "@quasar/extras": "^1.5.1",
+        "@quasar/extras": "^1.5.2",
         "axios": "^0.18.1",
         "js-lock": "^0.1.1",
-        "quasar": "^1.9.2",
+        "quasar": "^1.9.3",
         "vue-i18n": "^8.15.3"
     },
     "devDependencies": {
-        "@quasar/app": "^1.5.6",
+        "@quasar/app": "^1.5.8",
         "@quasar/quasar-app-extension-qiconpicker": "^1.1.1",
         "babel-preset-proposals": "^0.1.0",
         "glob": "^7.1.4",

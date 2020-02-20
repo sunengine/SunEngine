@@ -22,8 +22,8 @@ const siteRoutes = [
 				return {
 					pageTitle: Vue.prototype.i18n.t("PostsAndActivitiesPage.title"),
 					pageSubTitle: Vue.prototype.i18n.t("PostsAndActivitiesPage.subTitle"),
-					postsComponentName: "Posts",
-					activitiesComponentName: "Activities"
+					postsSectionName: "Posts",
+					activitiesSectionName: "Activities"
 				};
 			}
 		}

@@ -1,20 +1,20 @@
 ﻿<template>
-	<SunPage class="edit-component page-padding">
+	<SunPage class="edit-section page-padding">
 		<PageHeader :title="title" />
 
-		<ComponentForm
+		<SectionForm
 			:editMode="true"
-			v-if="component"
+			v-if="section"
 			ref="form"
 			class="q-mb-xl"
-			:component="component"
+			:section="section"
 		/>
 
 		<LoaderWait v-else />
 
 		<div class="q-gutter-md">
 			<q-btn
-				:icon="$iconsSet.EditComponent.save"
+				:icon="$iconsSet.EditSection.save"
 				class="send-btn"
 				no-caps
 				:loading="loading"
@@ -26,7 +26,7 @@
 			</q-btn>
 			<q-btn
 				no-caps
-				:icon="$iconsSet.EditComponent.cancel"
+				:icon="$iconsSet.EditSection.cancel"
 				class="cancel-btn q-ml-sm"
 				@click="$router.back()"
 				:label="$tl('cancelBtn')"
@@ -34,9 +34,9 @@
 			/>
 			<q-btn
 				no-caps
-				:icon="$iconsSet.EditComponent.delete"
+				:icon="$iconsSet.EditSection.delete"
 				class="delete-btn q-ml-sm float-right"
-				@click="removeComponent()"
+				@click="removeSection()"
 				:label="$tl('deleteBtn')"
 			/>
 		</div>
@@ -47,7 +47,7 @@
 import { Page } from "mixins";
 
 export default {
-	name: "EditComponent",
+	name: "EditSection",
 	mixins: [Page],
 	props: {
 		name: {
@@ -57,12 +57,12 @@ export default {
 	},
 	computed: {
 		breadcrumbsCategory() {
-			return this.$getBreadcrumbs("ComponentsAdmin");
+			return this.$getBreadcrumbs("SectionsAdmin");
 		}
 	},
 	data() {
 		return {
-			component: null,
+			section: null,
 			loading: false
 		};
 	},
@@ -75,22 +75,22 @@ export default {
 			this.loading = true;
 
 			this.$request(
-				this.$AdminApi.ComponentsAdmin.UpdateComponent,
-				this.component,
+				this.$AdminApi.SectionsAdmin.UpdateSection,
+				this.section,
 				true
 			)
 				.then(async () => {
 					this.$successNotify();
-					await this.$store.dispatch("loadAllComponents");
+					await this.$store.dispatch("loadAllSections");
 					await this.$store.dispatch("setAllRoutes");
-					this.$router.push({ name: "ComponentsAdmin" });
+					this.$router.push({ name: "SectionsAdmin" });
 				})
 				.catch(error => {
 					this.$errorNotify(error);
 					this.loading = false;
 				});
 		},
-		removeComponent() {
+		removeSection() {
 			const deleteMsg = this.$tl("deleteMsg");
 			const btnDeleteOk = this.$tl("btnDeleteOk");
 			const btnDeleteCancel = this.$tl("btnDeleteCancel");
@@ -102,12 +102,12 @@ export default {
 					cancel: btnDeleteCancel
 				})
 				.onOk(() =>
-					this.$request(this.$AdminApi.ComponentsAdmin.DeleteComponent, {
-						componentId: this.component.id
+					this.$request(this.$AdminApi.SectionsAdmin.DeleteSection, {
+						sectionId: this.section.id
 					})
 						.then(() => {
 							this.$successNotify(null, "warning");
-							this.$router.push({ name: "ComponentsAdmin" });
+							this.$router.push({ name: "SectionsAdmin" });
 						})
 						.catch(error => {
 							this.$errorNotify(error);
@@ -116,17 +116,15 @@ export default {
 				);
 		},
 		loadData() {
-			this.$request(this.$AdminApi.ComponentsAdmin.GetComponent, {
+			this.$request(this.$AdminApi.SectionsAdmin.GetSection, {
 				name: this.name
 			}).then(response => {
-				this.component = response.data;
+				this.section = response.data;
 			});
 		}
 	},
 	beforeCreate() {
-		this.$options.components.LoaderSent = require("sun").LoaderSent;
-		this.$options.components.LoaderWait = require("sun").LoaderWait;
-		this.$options.components.ComponentForm = require("sun").ComponentForm;
+		this.$options.components.SectionForm = require("sun").SectionForm;
 	},
 	created() {
 		this.title = this.$tl("title");

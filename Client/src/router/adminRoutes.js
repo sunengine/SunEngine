@@ -13,9 +13,9 @@ import { EditMenuItem } from "sun";
 import { CypherSecrets } from "sun";
 import { DeletedElements } from "sun";
 import { AdminMenu } from "sun";
-import { ComponentsAdmin } from "sun";
-import { CreateComponent } from "sun";
-import { EditComponent } from "sun";
+import { SectionsAdmin } from "sun";
+import { CreateSection } from "sun";
+import { EditSection } from "sun";
 import { SkinsAdmin } from "sun";
 import { MainSkinsAdmin } from "sun";
 import { PartialSkinsAdmin } from "sun";
@@ -178,26 +178,26 @@ const routes = [
 		]
 	},
 	{
-		name: "ComponentsAdmin",
-		path: "/admin/components".toLowerCase(),
+		name: "SectionsAdmin",
+		path: "/admin/Sections".toLowerCase(),
 		components: {
-			default: ComponentsAdmin,
+			default: SectionsAdmin,
 			navigation: AdminPanel
 		}
 	},
 	{
-		name: "CreateComponent",
-		path: "/admin/components/CreateComponent".toLowerCase(),
+		name: "CreateSection",
+		path: "/admin/Sections/CreateSection".toLowerCase(),
 		components: {
-			default: CreateComponent,
+			default: CreateSection,
 			navigation: AdminPanel
 		}
 	},
 	{
-		name: "EditComponent",
-		path: "/admin/components/EditComponent/:name".toLowerCase(),
+		name: "EditSection",
+		path: "/admin/Sections/EditSection/:name".toLowerCase(),
 		components: {
-			default: EditComponent,
+			default: EditSection,
 			navigation: AdminPanel
 		},
 		props: {

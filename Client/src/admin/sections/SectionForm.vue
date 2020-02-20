@@ -1,53 +1,37 @@
 ﻿<template>
-	<div class="component-form q-gutter-xs">
+	<div class="section-form q-gutter-xs">
 		<q-input
-			class="component-form__name"
+			class="section-form__name"
 			ref="name"
-			v-model="component.name"
+			v-model="section.name"
 			:label="$tl('name')"
 			:rules="rules.name"
 		/>
 
 		<q-select
-			class="component-form__type"
+			class="section-form__type"
 			ref="type"
 			:disable="editMode"
 			emit-value
 			map-options
 			:label="$tl('type')"
 			:rules="rules.type"
-			v-model="component.type"
-			:options="componentTypes"
+			v-model="section.type"
+			:options="sectionTypes"
 			option-value="name"
 			option-label="title"
 		>
-			<q-icon slot="prepend" :name="$iconsSet.ComponentForm.component" />
+			<q-icon slot="prepend" :name="$iconsSet.SectionForm.section" />
 		</q-select>
 
-		<q-input
-			class="component-form__server-settings-json"
-			ref="serverSettingsJson"
-			type="textarea"
-			v-model="component.serverSettingsJson"
-			autogrow
-			:label="$tl('serverSettingsJson')"
-			:rules="rules.serverSettingsJson"
-		/>
-
-		<q-input
-			class="component-form__client-settings-json"
-			ref="clientSettingsJson"
-			type="textarea"
-			v-model="component.clientSettingsJson"
-			autogrow
-			:label="$tl('clientSettingsJson')"
-			:rules="rules.clientSettingsJson"
-		/>
+		<template v-if="section.configItems && section.configItems.length > 0">
+			<ConfigItem :item="configItem" v-for="configItem of section.configItems" />
+		</template>
 
 		<q-select
 			bottom-slots
 			v-if="allRoles"
-			class="component-form__title"
+			class="section-form__title"
 			v-model="roles"
 			:options="allRoles"
 			multiple
@@ -61,9 +45,9 @@
 		<LoaderWait v-else />
 
 		<q-checkbox
-			class="component-form__is-cache-data"
+			class="section-form__is-cache-data"
 			ref="isCacheData"
-			v-model="component.isCacheData"
+			v-model="section.isCacheData"
 			:label="$tl('isCacheData')"
 		/>
 	</div>
@@ -96,9 +80,9 @@ function createRules() {
 }
 
 export default {
-	name: "ComponentForm",
+	name: "SectionForm",
 	props: {
-		component: {
+		section: {
 			type: Object,
 			required: true
 		},
@@ -116,7 +100,7 @@ export default {
 	},
 	watch: {
 		roles: "rolesUpdated",
-		"component.type": "typeChanges"
+		"section.type": "typeChanges"
 	},
 	computed: {
 		hasError() {
@@ -127,26 +111,26 @@ export default {
 				this.$refs.clientSettingsJson.hasError
 			);
 		},
-		componentTypes() {
-			return Object.values(this.$store.state.components.componentsTypes);
+		sectionTypes() {
+			return Object.values(this.$store.state.sections.sectionsTypes);
 		}
 	},
 	methods: {
 		typeChanges() {
-			const type = this.$store.getters.getComponentType(this.component.type);
-			this.component.serverSettingsJson = JSON.stringify(
+			const type = this.$store.getters.getSectionType(this.section.type);
+			this.section.serverSettingsJson = JSON.stringify(
 				type.getServerTemplate(),
 				null,
 				2
 			);
-			this.component.clientSettingsJson = JSON.stringify(
+			this.section.clientSettingsJson = JSON.stringify(
 				type.getClientTemplate(),
 				null,
 				2
 			);
 		},
 		rolesUpdated() {
-			this.component.roles = this.roles.map(x => x.name).join(",");
+			this.section.roles = this.roles.map(x => x.name).join(",");
 		},
 		validate() {
 			this.$refs.name.validate();
@@ -161,15 +145,15 @@ export default {
 					name: "Unregistered",
 					title: "Гость"
 				});
-				const componentRoles = this.component.roles.split(",");
+				const sectionRoles = this.section.roles.split(",");
 				this.roles = this.allRoles.filter(x =>
-					componentRoles.some(y => y === x.name)
+					sectionRoles.some(y => y === x.name)
 				);
 			});
 		}
 	},
 	beforeCreate() {
-		this.$options.components.LoaderWait = require("sun").LoaderWait;
+		this.$options.components.ConfigItem = require("sun").ConfigItem;
 	},
 	created() {
 		this.rules = createRules.call(this);
@@ -179,6 +163,6 @@ export default {
 </script>
 
 <style lang="scss">
-.component-form {
+.section-form {
 }
 </style>

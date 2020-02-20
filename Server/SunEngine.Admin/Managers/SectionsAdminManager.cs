@@ -13,7 +13,7 @@ namespace SunEngine.Admin.Managers
 	{
 		Task CreateSectionAsync(Section section);
 		Task UpdateSectionAsync(Section section);
-		Task DeleteSectionAsync(int componentId);
+		Task DeleteSectionAsync(int sectionId);
 	}
 
 	public class SectionsAdminManager : DbService, ISectionsAdminManager

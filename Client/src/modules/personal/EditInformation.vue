@@ -56,7 +56,6 @@ export default {
 	},
 	beforeCreate() {
 		this.editorToolbar = JSON.parse(config.Editor.UserInformationToolbar);
-		this.$options.components.SunEditor = require("sun").SunEditor;
 	},
 	created() {
 		this.title = this.$tl("title");

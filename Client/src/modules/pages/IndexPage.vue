@@ -6,15 +6,14 @@
 
 <script>
 import { Page } from "mixins";
-import { MaterialInline } from "sun";
 
 export default {
 	name: "IndexPage",
 	mixins: [Page],
-	components: { MaterialInline }
+	beforeCreate() {
+		this.$options.components.MaterialInline = require("sun").MaterialInline;
+	}
 };
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

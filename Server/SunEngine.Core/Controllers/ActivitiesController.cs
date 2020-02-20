@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Cache.Services;
-using SunEngine.Core.Configuration.Sections;
 using SunEngine.Core.Presenters;
+using SunEngine.Core.SectionsData;
 using SunEngine.Core.Security;
 
 namespace SunEngine.Core.Controllers
@@ -45,12 +45,12 @@ namespace SunEngine.Core.Controllers
 			if (section == null)
 				return BadRequest($"No component {sectionName} found in cache");
 
-			ActivitiesServerComponentData componentData = section.Data as ActivitiesServerComponentData;
+			ActivitiesServerSectionData sectionData = section.Data as ActivitiesServerSectionData;
 
 			var materialsCategoriesDic =
-				categoriesCache.GetAllCategoriesWithChildren(componentData.MaterialsCategories);
+				categoriesCache.GetAllCategoriesWithChildren(sectionData.MaterialsCategories);
 			var materialsCategoriesExcludeDic =
-				categoriesCache.GetAllCategoriesWithChildren(componentData.MaterialsCategoriesExclude);
+				categoriesCache.GetAllCategoriesWithChildren(sectionData.MaterialsCategoriesExclude);
 
 			foreach (var (key,_) in materialsCategoriesExcludeDic)
 				materialsCategoriesDic.Remove(key);
@@ -58,8 +58,8 @@ namespace SunEngine.Core.Controllers
 			IList<CategoryCached> materialsCategoriesList = authorizationService.GetAllowedCategories(User.Roles,
 				materialsCategoriesDic.Values, OperationKeys.MaterialAndCommentsRead);
 			
-			var commentsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(componentData.CommentsCategories);
-			var commentsCategoriesExcludeDic = categoriesCache.GetAllCategoriesWithChildren(componentData.CommentsCategoriesExclude);
+			var commentsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(sectionData.CommentsCategories);
+			var commentsCategoriesExcludeDic = categoriesCache.GetAllCategoriesWithChildren(sectionData.CommentsCategoriesExclude);
 
 			foreach (var (key,_) in commentsCategoriesExcludeDic)
 				commentsCategoriesDic.Remove(key);
@@ -71,7 +71,7 @@ namespace SunEngine.Core.Controllers
 			int[] materialsCategoriesIds = materialsCategoriesList.Select(x => x.Id).ToArray();
 			int[] commentsCategoriesIds = commentsCategoriesList.Select(x => x.Id).ToArray();
 
-			int number = componentData.Number;
+			int number = sectionData.Number;
 
 			if (number > MaxActivitiesInQuery)
 				number = MaxActivitiesInQuery;

@@ -2,11 +2,11 @@
 	<SunPage class="activities-page">
 		<PageHeader
 			class="page-padding"
-			:title="component.settings.Title"
-			:subTitle="component.settings.SubTitle"
+			:title="section.options.Title"
+			:subTitle="section.options.SubTitle"
 		/>
 
-		<ActivitiesList :componentName="componentName" />
+		<ActivitiesList :sectionName="sectionName" />
 	</SunPage>
 </template>
 
@@ -17,14 +17,14 @@ export default {
 	name: "ActivitiesPage",
 	mixins: [Page],
 	props: {
-		componentName: {
+		sectionName: {
 			type: String,
 			required: true
 		}
 	},
 	computed: {
-		component() {
-			return this.$store.getters.getComponent(this.componentName);
+		section() {
+			return this.$store.getters.getSection(this.sectionName);
 		}
 	},
 	beforeCreate() {
@@ -32,7 +32,7 @@ export default {
 		this.$options.components.ActivitiesList = require("sun").ActivitiesList;
 	},
 	created() {
-		this.title = this.component.settings.Title ?? this.$tl("defaultTitle");
+		this.title = this.section.options.Title ?? this.$tl("defaultTitle");
 	}
 };
 </script>

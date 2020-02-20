@@ -84,9 +84,9 @@ export default {
 		successNotify: "Category was updated."
 	},
 
-	// ——— components ———————————————————————————————————
+	// ——— sections ———————————————————————————————————
 
-	ComponentForm: {
+	SectionForm: {
 		name: "Name (eng)",
 		type: "Type",
 		isCacheData: "Cache data",
@@ -96,10 +96,10 @@ export default {
 		validation: {
 			name: {
 				required: "Enter name (eng)",
-				minLength: "Minimum component name length is 3",
+				minLength: "Minimum section name length is 3",
 				maxLength:
-					"Maximum component name length is " +
-					config.DbColumnSizes.Components_Name +
+					"Maximum section name length is " +
+					config.DbColumnSizes.Sections_Name +
 					" chars",
 				allowedChars:
 					"The name (eng) must consist of the characters `a-z`, `A-Z`, `0-9`, `-`, `_`"
@@ -110,21 +110,21 @@ export default {
 			jsonFormatError: "@:Global.validation.validation"
 		}
 	},
-	ComponentsAdmin: {
-		title: "Components admin",
-		addComponentBtn: "Add component"
+	SectionsAdmin: {
+		title: "Sections admin",
+		addSectionBtn: "Add section"
 	},
-	CreateComponent: {
-		title: "Create component",
+	CreateSection: {
+		title: "Create section",
 		createBtn: "@:Global.btn.create",
 		cancelBtn: "@:Global.btn.cancel"
 	},
-	EditComponent: {
-		title: "Update component",
+	EditSection: {
+		title: "Update section",
 		saveBtn: "@:Global.btn.save",
 		cancelBtn: "@:Global.btn.cancel",
 		deleteBtn: "@:Global.btn.delete",
-		deleteMsg: "Remove component?",
+		deleteMsg: "Remove section?",
 		btnDeleteOk: "@:Global.dialog.ok",
 		btnDeleteCancel: "@:Global.dialog.cancel"
 	},
@@ -254,8 +254,8 @@ export default {
 		menuItemsCaption: "",
 		categories: "Categories",
 		categoriesCaption: "",
-		components: "Components",
-		componentsCaption: "",
+		sections: "Sections",
+		sectionsCaption: "",
 		skins: "Skins",
 		skinsCaption: "",
 		rolesUsers: "Groups",

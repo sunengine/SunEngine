@@ -17,7 +17,7 @@
 					$q.screen.gt.sm ? 'hr-minus' : 'pull-right'
 				]"
 			>
-				<PostsMultiCat ref="postsList" :component-name="postsComponentName" />
+				<PostsMultiCat ref="postsList" :section-name="postsSectionName" />
 			</div>
 			<div
 				:class="[
@@ -28,7 +28,7 @@
 					{ 'pull-left': !$q.screen.gt.sm }
 				]"
 			>
-				<activities-list ref="activitiesList" :componentName="activitiesComponentName" />
+				<activities-list ref="activitiesList" :sectionName="activitiesSectionName" />
 			</div>
 		</div>
 		<LoaderWait v-if="!loaded" />
@@ -50,12 +50,12 @@ export default {
 			type: String,
 			required: false
 		},
-		postsComponentName: {
+		postsSectionName: {
 			type: String,
 			required: false,
 			default: "Posts"
 		},
-		activitiesComponentName: {
+		activitiesSectionName: {
 			type: String,
 			required: false,
 			default: "Activities"

@@ -21,8 +21,8 @@ export default {
 		};
 	},
 
-	getRoutes(component) {
-		const name = component.name;
+	getRoutes(section) {
+		const name = section.name;
 		const nameLower = name.toLowerCase();
 
 		return [
@@ -35,11 +35,11 @@ export default {
 				},
 				props: {
 					default: {
-						componentName: nameLower
+						sectionName: nameLower
 					}
 				},
 				meta: {
-					component: component
+					section: section
 				}
 			}
 		];

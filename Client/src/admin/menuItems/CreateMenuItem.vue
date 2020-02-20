@@ -89,7 +89,6 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.LoaderSent = require("sun").LoaderSent;
 		this.$options.components.MenuItemForm = require("sun").MenuItemForm;
 	},
 	async created() {

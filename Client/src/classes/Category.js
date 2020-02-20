@@ -7,6 +7,7 @@ export default class Category {
 
 	getMaterialRoute(idOrName, hash) {
 		const route = this.getRoute();
+
 		if (!route || !route.name) return undefined;
 
 		let rezRoute = extend(true, {}, route);
@@ -19,5 +20,19 @@ export default class Category {
 		if (hash) rezRoute.hash = hash;
 
 		return rezRoute;
+	}
+
+	getAllSubCanWriteMaterial() {
+		const rez = [];
+
+		if (this.categoryPersonalAccess.MaterialWrite) rez.push(this);
+
+		if (this.subCategories)
+			for (const sub of this.subCategories) {
+				const subs = sub.getAllSubCanWriteMaterial();
+				if (subs) subs.forEach(x => rez.push(x));
+			}
+
+		return rez.length > 0 ? rez : null;
 	}
 }

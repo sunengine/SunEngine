@@ -131,8 +131,6 @@ export default {
 	},
 	beforeCreate() {
 		this.$options.components.CategoryForm = require("sun").CategoryForm;
-		this.$options.components.LoaderWait = require("sun").LoaderWait;
-		this.$options.components.LoaderSent = require("sun").LoaderSent;
 	},
 	async created() {
 		await this.loadData();

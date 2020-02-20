@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using SunEngine.Core.Cache.CacheModels;
-using SunEngine.Core.Configuration.Sections;
 using SunEngine.Core.Controllers;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
+using SunEngine.Core.SectionsData;
 
 namespace SunEngine.Core.Cache.Services
 {
@@ -26,13 +26,14 @@ namespace SunEngine.Core.Cache.Services
 
 		public Dictionary<string, Type> SectionServerTypes { get; } = new Dictionary<string, Type>()
 		{
-			["Posts"] = typeof(PostsServerComponentData),
-			["Activities"] = typeof(ActivitiesServerComponentData)
+			["Posts"] = typeof(PostsServerSectionData),
+			["Activities"] = typeof(ActivitiesServerSectionData)
 		};
 
 		public Dictionary<string, Type> SectionClientTypes { get; } = new Dictionary<string, Type>()
 		{
-			["Posts"] = typeof(PostsClientComponentData)
+			["Posts"] = typeof(PostsClientSectionData),
+			["Activities"] = typeof(ActivitiesClientSectionData)
 		};
 
 		public IReadOnlyDictionary<string, SectionServerCached> ServerSections { get; private set; }

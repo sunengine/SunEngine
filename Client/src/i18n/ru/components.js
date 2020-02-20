@@ -5,7 +5,7 @@ export default {
 	BreadcrumbsNames: {
 		adminPanel: "Админка",
 		adminPanelCategories: "Категории",
-		adminPanelComponents: "Компоненты",
+		adminPanelSections: "Компоненты",
 		adminPanelMenu: "Меню",
 		personal: "Личный кабинет",
 		user: "Пользователи"

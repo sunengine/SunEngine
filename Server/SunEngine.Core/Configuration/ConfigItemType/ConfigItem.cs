@@ -52,5 +52,10 @@ namespace SunEngine.Core.Configuration.ConfigItemType
 		public virtual void Prepare()
 		{
 		}
+
+		public override string ToString()
+		{
+			return _stringValue;
+		}
 	}
 }
