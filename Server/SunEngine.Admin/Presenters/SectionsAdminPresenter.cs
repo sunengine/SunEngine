@@ -63,7 +63,7 @@ namespace SunEngine.Admin.Presenters
 					};
 					
 					object value = propertyInfo.GetValue(dataObject);
-					Type t = value.GetType();
+					Type t = propertyInfo.PropertyType;
 
 					IConfigItem configItem;
 					if (configItemView.Type == "Enum")

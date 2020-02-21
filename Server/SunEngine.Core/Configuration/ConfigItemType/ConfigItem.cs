@@ -18,11 +18,8 @@ namespace SunEngine.Core.Configuration.ConfigItemType
 
 		object ToClientObject();
 
-		IConfigItem ShallowCopy()
-		{
-			return (IConfigItem)MemberwiseClone();
-		}
-
+		IConfigItem ShallowCopy();
+	
 		void FromString(string value); 
 		
 		//public abstract string GetTypeName();
@@ -59,10 +56,22 @@ namespace SunEngine.Core.Configuration.ConfigItemType
 			ConfigJs = configJs;
 		}
 		
-		public ConfigItem(T value, bool configJs = false)
+		public ConfigItem(T value)
+		{
+			Value = value;
+			ConfigJs = false;
+		}
+		
+		public ConfigItem(T value, bool configJs)
 		{
 			Value = value;
 			ConfigJs = configJs;
+		}
+		
+		
+		public IConfigItem ShallowCopy()
+		{
+			return (IConfigItem)MemberwiseClone();
 		}
 	}
 }

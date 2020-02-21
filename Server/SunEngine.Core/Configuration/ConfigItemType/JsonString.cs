@@ -8,9 +8,13 @@ namespace SunEngine.Core.Configuration.ConfigItemType
 		{
 			return StringValue.ValidateJson();
 		}*/
+		public JsonString(string value = "{}")
+			: base(value.Replace("'", "\""))
+		{
+		}
 
-		public JsonString(string value = "{}", bool configJs = false) 
-			: base(value.Replace("'", "\""), configJs)
+		public JsonString(string value, bool configJs)
+			: base(value?.Replace("'", "\"") ?? "{}", configJs)
 		{
 		}
 	}

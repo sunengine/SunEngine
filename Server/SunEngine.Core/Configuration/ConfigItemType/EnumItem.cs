@@ -8,11 +8,22 @@ namespace SunEngine.Core.Configuration.ConfigItemType
 		public override Type ToClientType() => typeof(string);
 		public override object ToClientObject() => Value.ToString();
 		
-		public EnumItem(Enum value, bool configJs = false) : base(value, configJs)
+		public EnumItem(Enum value) : base(value)
 		{
+			Type = value.GetType();
 		}
 
-		public EnumItem(Type type, string value, bool configJs = false) : base((Enum) Enum.Parse(type, value, true),
+		public EnumItem(Type type, string value) : base((Enum) Enum.Parse(type, value, true))
+		{
+			Type = type;
+		}
+		
+		public EnumItem(Enum value, bool configJs) : base(value, configJs)
+		{
+			Type = value.GetType();
+		}
+
+		public EnumItem(Type type, string value, bool configJs) : base((Enum) Enum.Parse(type, value, true),
 			configJs)
 		{
 			Type = type;
