@@ -11,7 +11,7 @@ namespace SunEngine.Admin.Presenters
 		public string Type { get; set; }
 		public string Roles { get; set; }
 		public bool IsCacheData { get; set; }
-		public ConfigItemView[] ConfigItems { get; set; }
+		public ConfigItemView[] Options { get; set; }
 
 		public Dictionary<string, string[]> Enums { get; set; }
 

@@ -4,9 +4,10 @@ import { LoaderSent } from "sun";
 import { LoaderWait } from "sun";
 import { PageHeader } from "sun";
 import { SunPage } from "sun";
+import { SunEditor } from "sun";
 
 Vue.component("SunPage", SunPage);
 Vue.component("LoaderSent", LoaderSent);
 Vue.component("LoaderWait", LoaderWait);
 Vue.component("PageHeader", PageHeader);
-
+Vue.component("SunEditor", SunEditor);

@@ -85,7 +85,7 @@ namespace SunEngine.Admin.Presenters
 				}
 			}
 
-			sectionView.ConfigItems = configItemViews.Values.ToArray();
+			sectionView.Options = configItemViews.Values.ToArray();
 			return sectionView;
 		}
 	}

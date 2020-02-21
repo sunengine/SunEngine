@@ -1,3 +1,6 @@
+using LinqToDB;
+using LinqToDB.Mapping;
+
 namespace SunEngine.Core.Models
 {
 	public class Section
@@ -8,6 +11,7 @@ namespace SunEngine.Core.Models
 		public string Type { get; set; }
 		public string Roles { get; set; }
 		public bool IsCacheData { get; set; }
+		[Column(DataType = DataType.Json)]
 		public string Options { get; set; }
 	}
 }

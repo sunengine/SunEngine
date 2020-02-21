@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
+using Microsoft.AspNetCore.Mvc;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
@@ -39,7 +40,7 @@ namespace SunEngine.Admin.Managers
 		{
 			section.Options = section.Options?.MakeJsonTextNotNull();
 			section.Roles = rolesCache.CheckAndSetRoles(section.Roles);
-
+			
 			return db.UpdateAsync(section);
 		}
 

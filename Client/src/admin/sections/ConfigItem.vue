@@ -1,13 +1,19 @@
 <template>
 	<div>
-		<q-checkbox dense v-if="item.type === 'Boolean'" v-model="item.value" />
+		<q-checkbox
+			dense
+			v-if="item.type === 'Boolean'"
+			v-model="item.value"
+		/>
 		<q-input
+			ref="input"
 			dense
 			v-else-if="item.type === 'Integer'"
 			type="number"
 			v-model="item.value"
 		/>
 		<q-input
+			ref="input"
 			dense
 			v-else-if="item.type === 'String'"
 			type="text"
@@ -20,19 +26,21 @@
 			v-model="item.value"
 		/>
 		<SunEditor
+			ref="input"
 			height="5rem"
 			min-height="3rem"
 			v-else-if="item.type === 'HtmlString'"
 			v-model="item.value"
 		/>
 		<q-input
+			ref="input"
 			dense
 			v-else-if="item.type === 'JsonString'"
 			type="text"
 			:rules="jsonRules"
 			v-model="item.value"
 		/>
-		<q-input dense type="text" v-else v-model="item.value" />
+		<q-input ref="input" dense v-else type="text" v-model="item.value" />
 	</div>
 </template>
 
@@ -54,6 +62,14 @@ export default {
 	computed: {
 		jsonRules() {
 			return jsonRules();
+		},
+		hasError() {
+			this.$refs?.input?.hasError;
+		}
+	},
+	methods: {
+		validate() {
+			this.$refs?.input?.validate();
 		}
 	}
 };

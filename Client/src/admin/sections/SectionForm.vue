@@ -26,11 +26,13 @@
 
 		<q-markup-table
 			wrap-cells
-			v-if="section.configItems && section.configItems.length > 0"
+			v-if="section.options && section.options.length > 0"
 		>
-			<tr :key="configItem.name" v-for="configItem of section.configItems">
+			<tr :key="configItem.name" v-for="configItem of section.options">
 				<td>{{ configItem.name }}</td>
-				<td><ConfigItem :item="configItem" :enums="section.enums" /></td>
+				<td>
+					<ConfigItem ref="configItem" :item="configItem" :enums="section.enums" />
+				</td>
 			</tr>
 		</q-markup-table>
 
@@ -60,8 +62,6 @@
 </template>
 
 <script>
-import { isJson } from "sun";
-
 function createRules() {
 	return {
 		name: [
@@ -75,13 +75,7 @@ function createRules() {
 			value =>
 				/^[a-zA-Z0-9_-]*$/.test(value) || this.$tl("validation.name.allowedChars")
 		],
-		type: [value => !!value || this.$tl("validation.type.required")],
-		serverSettingsJson: [
-			value => !value || isJson(value) || this.$tl("validation.jsonFormatError")
-		],
-		clientSettingsJson: [
-			value => !value || isJson(value) || this.$tl("validation.jsonFormatError")
-		]
+		type: [value => !!value || this.$tl("validation.type.required")]
 	};
 }
 
@@ -113,8 +107,7 @@ export default {
 			return (
 				this.$refs.name.hasError ||
 				this.$refs.type.hasError ||
-				this.$refs.serverSettingsJson.hasError ||
-				this.$refs.clientSettingsJson.hasError
+				this.$refs["configItem"].some(x =>x.hasError)
 			);
 		},
 		sectionTypes() {
@@ -124,16 +117,6 @@ export default {
 	methods: {
 		typeChanges() {
 			const type = this.$store.getters.getSectionType(this.section.type);
-			this.section.serverSettingsJson = JSON.stringify(
-				type.getServerTemplate(),
-				null,
-				2
-			);
-			this.section.clientSettingsJson = JSON.stringify(
-				type.getClientTemplate(),
-				null,
-				2
-			);
 		},
 		rolesUpdated() {
 			this.section.roles = this.roles.map(x => x.name).join(",");
@@ -141,8 +124,7 @@ export default {
 		validate() {
 			this.$refs.name.validate();
 			this.$refs.type.validate();
-			this.$refs.serverSettingsJson.validate();
-			this.$refs.clientSettingsJson.validate();
+			this.$refs["configItem"].forEach(x => x.validate());
 		},
 		loadRoles() {
 			this.$request(this.$AdminApi.UserRolesAdmin.GetAllRoles).then(response => {

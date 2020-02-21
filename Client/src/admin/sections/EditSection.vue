@@ -45,6 +45,7 @@
 
 <script>
 import { Page } from "mixins";
+import { extend } from "quasar";
 
 export default {
 	name: "EditSection",
@@ -74,11 +75,17 @@ export default {
 
 			this.loading = true;
 
-			this.$request(
-				this.$AdminApi.SectionsAdmin.UpdateSection,
-				this.section,
-				true
-			)
+			const data = JSON.parse(JSON.stringify(this.section));
+			delete data.enums;
+			data.options = {};
+			for (const option of this.section.options)
+				data.options[option.name] = option.value;
+
+			data.options = JSON.stringify(data.options);
+
+			console.log(data);
+
+			this.$request(this.$AdminApi.SectionsAdmin.UpdateSection, data, true)
 				.then(async () => {
 					this.$successNotify();
 					await this.$store.dispatch("loadAllSections");
