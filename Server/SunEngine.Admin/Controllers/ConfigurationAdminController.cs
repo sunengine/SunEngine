@@ -15,7 +15,7 @@ namespace SunEngine.Admin.Controllers
 	public class ConfigurationAdminController : BaseAdminController
 	{
 		protected readonly IConfigurationManager configurationManager;
-		protected readonly IConfigurationPresenter configurationPresenter;
+		protected readonly IConfigurationAdminPresenter ConfigurationAdminPresenter;
 		protected readonly IConfigurationRoot configurationRoot;
 		protected readonly ConfigurationAdminService configurationAdminService;
 		protected readonly IHostingEnvironment env;
@@ -24,7 +24,7 @@ namespace SunEngine.Admin.Controllers
 		public ConfigurationAdminController(
 			IConfigurationManager configurationManager,
 			ConfigurationAdminService configurationAdminService,
-			IConfigurationPresenter configurationPresenter,
+			IConfigurationAdminPresenter configurationAdminPresenter,
 			IConfigurationRoot configurationRoot,
 			IDynamicConfigCache dynamicConfigCache,
 			IHostingEnvironment env,
@@ -35,7 +35,7 @@ namespace SunEngine.Admin.Controllers
 			this.configurationRoot = configurationRoot;
 			this.configurationManager = configurationManager;
 			this.configurationAdminService = configurationAdminService;
-			this.configurationPresenter = configurationPresenter;
+			this.ConfigurationAdminPresenter = configurationAdminPresenter;
 		}
 
 		[HttpPost]
@@ -61,17 +61,10 @@ namespace SunEngine.Admin.Controllers
 		[HttpPost]
 		public async Task<IActionResult> LoadConfiguration()
 		{
-			var items = await configurationPresenter.LoadConfigurationAsync();
+			var configurationView = await ConfigurationAdminPresenter.LoadConfigurationAsync();
 
-			return Ok(items);
+			return Ok(configurationView);
 		}
-
-		[HttpPost]
-		public IActionResult GetEnums()
-		{
-			var items = configurationPresenter.GetEnums();
-
-			return Json(items);
-		}
+		
 	}
 }

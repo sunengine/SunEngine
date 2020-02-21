@@ -2,36 +2,19 @@ using System;
 
 namespace SunEngine.Core.Configuration.ConfigItemType
 {
-	public class BooleanItem : ConfigItem
+	public class BooleanItem : ConfigItem<bool>
 	{
-		protected bool _value;
-
-		public bool Value
+		public BooleanItem(bool value = false, bool configJs = false) : base(value, configJs)
 		{
-			get => _value;
-			set
-			{
-				_stringValue = value.ToString();
-				_objectValue = value;
-			}
-		}
-		
-		public override Type ToClientType => typeof(bool);
-
-		public BooleanItem(bool value = false, bool configJs = false) : base(configJs)
-		{
-			Value = value;
 		}
 
-		public BooleanItem(string value, bool configJs = false) : base(configJs)
+		public BooleanItem(string value, bool configJs = false) : base(bool.Parse(value), configJs)
+		{
+		}
+
+		public override void FromString(string value)
 		{
 			Value = bool.Parse(value);
-		}
-
-		public override string StringValue
-		{
-			get => Value.ToString();
-			set => Value = bool.Parse(value);
 		}
 	}
 }

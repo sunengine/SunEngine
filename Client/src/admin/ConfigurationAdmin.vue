@@ -56,27 +56,7 @@
 								</div>
 							</td>
 							<td class="configuration-admin__value-column">
-								<q-checkbox dense v-if="item.type === 'Boolean'" v-model="item.value" />
-								<q-select
-									dense
-									v-else-if="item.type === 'Enum'"
-									:options="enums[item.enumName]"
-									v-model="item.value"
-								/>
-								<SunEditor
-									 height="5rem"
-									min-height="3rem"
-									:toolbar="sunEditorButtons"
-									v-else-if="item.type === 'HtmlString'"
-									v-model="item.value"
-								/>
-								<q-input
-									dense
-									v-else
-									:type="getTypeType(item.type)"
-									:rules="item.type === 'JsonString' ? rules : null"
-									v-model="item.value"
-								/>
+								<ConfigItem :enums="enums" :item="item" />
 							</td>
 						</tr>
 					</template>
@@ -132,13 +112,6 @@
 
 <script>
 import { Page } from "mixins";
-import { isJson } from "sun";
-
-function createRules() {
-	return [
-		value => isJson(value) || this.$t("Global.validation.jsonFormatError")
-	];
-}
 
 export default {
 	name: "ConfigurationAdmin",
@@ -219,28 +192,6 @@ export default {
 					'<a href="$1" target="_blank">$1</a>'
 				);
 			else return null;
-		},
-		getTypeType(type) {
-			switch (type) {
-				case "String":
-					return "text";
-				case "LongString":
-					return "textarea";
-				case "JsonString":
-					return "textarea";
-				case "Number":
-					return "number";
-			}
-		},
-		getEnum(name) {
-			return this.enums[name];
-		},
-		getEnums() {
-			return this.$request(this.$AdminApi.ConfigurationAdmin.GetEnums).then(
-				response => {
-					this.enums = response.data;
-				}
-			);
 		},
 		resetConfiguration() {
 			return this.loadConfiguration().then(_ => {
@@ -330,7 +281,8 @@ export default {
 			return this.$request(
 				this.$AdminApi.ConfigurationAdmin.LoadConfiguration
 			).then(response => {
-				this.buildTable(response.data);
+				this.enums = response.data.enums;
+				this.buildTable(response.data.configItems);
 			});
 		},
 		uploadConfiguration() {
@@ -352,11 +304,12 @@ export default {
 			});
 		}
 	},
+    beforeCreate() {
+        this.$options.components.ConfigItem = require("sun").ConfigItem;
+    },
 	async created() {
 		this.filterItems = this.$throttle(this.filterItems, 1000);
 		this.title = this.$tl("title");
-		this.rules = createRules.call(this);
-		await this.getEnums();
 		await this.loadConfiguration();
 		this.doFilter();
 	}

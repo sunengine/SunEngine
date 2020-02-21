@@ -2,60 +2,67 @@ using System;
 
 namespace SunEngine.Core.Configuration.ConfigItemType
 {
-	public abstract class ConfigItem 
+	public interface IConfigItem 
 	{
-		protected object _objectValue;
-		public virtual object ObjectValue => _objectValue;
-
-		protected string _stringValue;
-
 		/// <summary>
 		/// Use in JavaScript Config
 		/// </summary>
-		public bool ConfigJs = false;
-		
+		bool ConfigJs { get; }
+
 		/// <summary>
 		/// Use in Dynamic Config
 		/// </summary>
-		public bool Dynamic => !ConfigJs;
+		bool Dynamic => !ConfigJs;
 
-		public virtual Type ToClientType => typeof(string);
+		Type ToClientType();
+
+		object ToClientObject();
+
+		IConfigItem ShallowCopy()
+		{
+			return (IConfigItem)MemberwiseClone();
+		}
+
+		void FromString(string value); 
+		
+		//public abstract string GetTypeName();
+
+		public bool Validate()
+		{
+			return true;
+		}
+
+		public void Prepare()
+		{
+		}
+	}
+
+	public abstract class ConfigItem<T> : IConfigItem
+	{
+		public T Value { get; set; }
+		public bool ConfigJs  { get; set; }
+		
+		public virtual Type ToClientType()
+		{
+			return typeof(T);
+		}
+
+		public virtual object ToClientObject()
+		{
+			return Value;
+		}
+
+		public abstract void FromString(string value);
 
 		public ConfigItem(bool configJs = false)
 		{
 			ConfigJs = configJs;
 		}
 		
-		public ConfigItem ShallowCopy()
+		public ConfigItem(T value, bool configJs = false)
 		{
-			return (ConfigItem)MemberwiseClone();
-		}
-
-		public string GetTypeName()
-		{
-			return _objectValue.GetType().Name.Split(".")[^1];
-		}
-
-		public virtual string StringValue
-		{
-			get => _stringValue;
-			set {
-				_objectValue = _stringValue = value; 
-			}
-		}
-
-		public virtual bool Validate()
-		{
-			return true;
-		}
-
-		public virtual void Prepare()
-		{
-		}
-
-		public override string ToString()
-		{
-			return _stringValue;
+			Value = value;
+			ConfigJs = configJs;
 		}
 	}
 }

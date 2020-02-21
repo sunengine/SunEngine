@@ -25,15 +25,13 @@
 		</q-select>
 
 		<q-markup-table
-			wrap-cells 
+			wrap-cells
 			v-if="section.configItems && section.configItems.length > 0"
 		>
-			<ConfigItem
-				:key="configItem.name"
-				:item="configItem"
-				:enums="section.enums"
-				v-for="configItem of section.configItems"
-			/>
+			<tr :key="configItem.name" v-for="configItem of section.configItems">
+				<td>{{ configItem.name }}</td>
+				<td><ConfigItem :item="configItem" :enums="section.enums" /></td>
+			</tr>
 		</q-markup-table>
 
 		<q-select

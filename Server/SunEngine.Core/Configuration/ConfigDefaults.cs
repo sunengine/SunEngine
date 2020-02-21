@@ -6,7 +6,7 @@ namespace SunEngine.Core.Configuration
 {
 	public static class ConfigDefaults
 	{
-		public static readonly Dictionary<string, ConfigItem> ConfigurationItems = new Dictionary<string, ConfigItem>
+		public static readonly Dictionary<string, IConfigItem> ConfigurationItems = new Dictionary<string, IConfigItem>
 		{
 			["Global:SiteName"] = new StringItem("SunEngine", true),
 			["Global:Locale"] = new EnumItem(Locale.Russian, true),

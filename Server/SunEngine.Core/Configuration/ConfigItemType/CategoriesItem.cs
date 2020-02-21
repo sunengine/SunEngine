@@ -1,10 +1,10 @@
 namespace SunEngine.Core.Configuration.ConfigItemType
 {
-	public class CategoriesItem : ConfigItem
+	public class CategoriesItem : StringItem
 	{
-		public CategoriesItem(string value = "", bool configJs = false) : base(configJs)
+		public CategoriesItem(string value = "", bool configJs = false) : base(value, configJs)
 		{
-			_objectValue = _stringValue = value;
+			
 		}
 	}
 }

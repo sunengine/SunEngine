@@ -16,7 +16,7 @@ namespace SunEngine.Core.Configuration.ConfigItemType
 			foreach (var domainAssembly in AppDomain.CurrentDomain.GetAssemblies())
 			{
 				foreach (var type in domainAssembly.GetTypes()
-					.Where(type => type.IsAssignableFrom(typeof(ConfigItem)) && !type.IsAbstract))
+					.Where(type => type.IsAssignableFrom(typeof(IConfigItem)) && !type.IsAbstract))
 				{
 					types.Add(type.Name.Split(".")[^1], type);
 				}

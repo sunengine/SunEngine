@@ -61,8 +61,7 @@ export default {
 	},
 	ConfigurationAdmin: {
 		UploadConfiguration: "/Admin/ConfigurationAdmin/UploadConfiguration",
-		LoadConfiguration: "/Admin/ConfigurationAdmin/LoadConfiguration",
-		GetEnums: "/Admin/ConfigurationAdmin/GetEnums"
+		LoadConfiguration: "/Admin/ConfigurationAdmin/LoadConfiguration"
 	},
 	ServerInfoAdmin: {
 		Version: "/Admin/ServerInfoAdmin/Version",

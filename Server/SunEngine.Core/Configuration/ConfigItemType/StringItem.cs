@@ -1,10 +1,14 @@
 namespace SunEngine.Core.Configuration.ConfigItemType
 {
-	public class StringItem : ConfigItem
+	public class StringItem : ConfigItem<string>
 	{
-		public StringItem(string value = "", bool configJs = false) : base(configJs)
+		public StringItem(string value = "", bool configJs = false) : base(value, configJs)
 		{
-			_objectValue = _stringValue = value;
+		}
+
+		public override void FromString(string value)
+		{
+			value = value;
 		}
 	}
 }

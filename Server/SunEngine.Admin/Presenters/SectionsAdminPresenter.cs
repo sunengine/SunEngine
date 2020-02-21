@@ -56,16 +56,30 @@ namespace SunEngine.Admin.Presenters
 				foreach (var propertyInfo in properties)
 				{
 					ConfigItemAttribute configItemAttribute = propertyInfo.GetCustomAttribute<ConfigItemAttribute>();
-					var configItemView = new ConfigItemView();
-					configItemView.Name = propertyInfo.Name;
-					configItemView.Type = configItemAttribute.ConfigItemType.Name.Split(".")[^1].Replace("Item", "");
-					configItemView.Value = propertyInfo.GetValue(dataObject);
+					var configItemView = new ConfigItemView
+					{
+						Name = propertyInfo.Name,
+						Type = configItemAttribute.ConfigItemType.Name.Split(".")[^1].Replace("Item", "")
+					};
+					
+					object value = propertyInfo.GetValue(dataObject);
+					Type t = value.GetType();
+
+					IConfigItem configItem;
 					if (configItemView.Type == "Enum")
 					{
+						configItem = new EnumItem((Enum)value);
+						configItemView.Value = configItem.ToClientObject();
+						
 						configItemView.Enum = propertyInfo.PropertyType.Name.Split(".")[^1];
 						if (!sectionView.Enums.ContainsKey(configItemView.Enum))
 							sectionView.Enums.Add(configItemView.Enum, propertyInfo.PropertyType.GetEnumNames());
 					}
+					else
+						configItem = (IConfigItem) configItemAttribute.ConfigItemType.GetConstructor(new[] {t})
+							.Invoke(new [] {value});
+					
+					configItemView.Value = configItem.ToClientObject();
 
 					configItemViews[propertyInfo.Name] = configItemView;
 				}
@@ -74,36 +88,5 @@ namespace SunEngine.Admin.Presenters
 			sectionView.ConfigItems = configItemViews.Values.ToArray();
 			return sectionView;
 		}
-	}
-
-	public class SectionView
-	{
-		public int Id { get; set; }
-		public string Name { get; set; }
-		public string Token { get; set; }
-		public string Type { get; set; }
-		public string Roles { get; set; }
-		public bool IsCacheData { get; set; }
-		public ConfigItemView[] ConfigItems { get; set; }
-
-		public Dictionary<string, string[]> Enums { get; set; }
-
-		public SectionView(Section section)
-		{
-			Id = section.Id;
-			Name = section.Name;
-			Token = section.Token;
-			Type = section.Type;
-			Roles = section.Roles;
-			IsCacheData = section.IsCacheData;
-		}
-	}
-
-	public class ConfigItemView
-	{
-		public string Name { get; set; }
-		public object Value { get; set; }
-		public string Type { get; set; }
-		public string Enum { get; set; }
 	}
 }

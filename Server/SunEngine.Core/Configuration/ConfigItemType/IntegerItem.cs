@@ -2,36 +2,19 @@ using System;
 
 namespace SunEngine.Core.Configuration.ConfigItemType
 {
-	public class IntegerItem : ConfigItem
+	public class IntegerItem : ConfigItem<int>
 	{
-		protected int _value;
-
-		public int Value
+		public IntegerItem(int value = 0, bool configJs = false) : base(value, configJs)
 		{
-			get => _value;
-			set
-			{
-				_stringValue = value.ToString();
-				_objectValue = value;
-			}
+		}
+
+		public IntegerItem(string value, bool configJs = false) : base(int.Parse(value), configJs)
+		{
 		}
 		
-		public override Type ToClientType => typeof(int);
-
-		public IntegerItem(int value = 0, bool configJs = false) : base(configJs)
-		{
-			Value = value;
-		}
-
-		public IntegerItem(string value, bool configJs = false) : base(configJs)
+		public override void FromString(string value)
 		{
 			Value = int.Parse(value);
-		}
-		
-		public override string StringValue
-		{
-			get => Value.ToString();
-			set => Value = int.Parse(value);
 		}
 	}
 }

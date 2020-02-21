@@ -48,12 +48,12 @@ namespace SunEngine.Admin.Managers
 			{
 				configurationItem.Value = configurationItem.Value?.Trim();
 
-				if (!ConfigDefaults.ConfigurationItems.TryGetValue(configurationItem.Name, out ConfigItem defaultConfigItem)
+				if (!ConfigDefaults.ConfigurationItems.TryGetValue(configurationItem.Name, out IConfigItem defaultConfigItem)
 				)
 					continue;
 
 				var configItem = defaultConfigItem.ShallowCopy();
-				configItem.StringValue = configurationItem.Value;
+				configItem.FromString(configurationItem.Value);
 
 				if (string.Equals(allItems[configurationItem.Name], configurationItem.Value,
 					StringComparison.OrdinalIgnoreCase))

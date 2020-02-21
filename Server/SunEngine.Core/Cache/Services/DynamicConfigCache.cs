@@ -32,7 +32,7 @@ namespace SunEngine.Core.Cache.Services
 			var rez = new Dictionary<string, object>();
 			foreach (var (key, item) in itemsToSaveDic)
 			{
-				var value = configurationRoot.GetValue(item.ToClientType, key);
+				var value = configurationRoot.GetValue(item.ToClientType(), key);
 
 				string[] tokens = key.Split(":");
 
