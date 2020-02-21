@@ -1,5 +1,5 @@
 ﻿<template>
-	<div class="section-form q-gutter-xs">
+	<div class="section-form q-gutter-sm">
 		<q-input
 			class="section-form__name"
 			ref="name"
@@ -24,9 +24,17 @@
 			<q-icon slot="prepend" :name="$iconsSet.SectionForm.section" />
 		</q-select>
 
-		<template v-if="section.configItems && section.configItems.length > 0">
-			<ConfigItem :item="configItem" v-for="configItem of section.configItems" />
-		</template>
+		<q-markup-table
+			wrap-cells 
+			v-if="section.configItems && section.configItems.length > 0"
+		>
+			<ConfigItem
+				:key="configItem.name"
+				:item="configItem"
+				:enums="section.enums"
+				v-for="configItem of section.configItems"
+			/>
+		</q-markup-table>
 
 		<q-select
 			bottom-slots

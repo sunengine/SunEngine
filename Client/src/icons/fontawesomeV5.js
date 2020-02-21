@@ -35,8 +35,8 @@ export default {
 	},
 	AdminMenu: {
 		AdminInformation: "fas fa-info-circle",
-		CategoriesAdmin: global.category,
-		ComponentsAdmin: "fas fa-shapes",
+		CategoriesAdmin: "fas fa-boxes",
+		SectionsAdmin: "fas fa-stream",
 		ConfigurationAdmin: "fas fa-sliders-h",
 		CypherSecrets: global.key,
 		DeletedElements: "fas fa-trash",
@@ -119,10 +119,10 @@ export default {
 		delete: global.delete,
 		publishDate: global.clock
 	},
-	ComponentForm: {
+	SectionForm: {
 		component: "fas fa-cube"
 	},
-	ComponentsAdmin: {
+	SectionsAdmin: {
 		add: global.add,
 		component: "fas fa-cube",
 		edit: global.wrench,
@@ -142,7 +142,7 @@ export default {
 	CreateComment: {
 		send: global.send
 	},
-	CreateComponent: {
+	CreateSection: {
 		add: global.save,
 		cancel: global.cancel
 	},
@@ -174,7 +174,7 @@ export default {
 		cancel: global.cancel,
 		save: global.save
 	},
-	EditComponent: {
+	EditSection: {
 		cancel: global.cancel,
 		delete: global.delete,
 		save: global.save

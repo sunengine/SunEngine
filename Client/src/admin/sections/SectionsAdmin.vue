@@ -36,10 +36,10 @@
 					size="10px"
 					flat
 					:icon="$iconsSet.SectionsAdmin.goTo"
-					:to="'/' + component.name.toLowerCase()"
+					:to="'/' + section.name.toLowerCase()"
 				/>
 
-				<span class="q-ml-lg text-grey-7">[{{ component.type }}]</span>
+				<span class="q-ml-lg text-grey-7">[{{ section.type }}]</span>
 			</div>
 		</div>
 
@@ -55,7 +55,7 @@ export default {
 	mixins: [Page],
 	data() {
 		return {
-			components: null
+			sections: null
 		};
 	},
 	computed: {
@@ -65,11 +65,9 @@ export default {
 	},
 	methods: {
 		loadData() {
-			this.$request(this.$AdminApi.SectionsAdmin.GetAllSections).then(
-				response => {
-					this.sections = response.data;
-				}
-			);
+			this.$request(this.$AdminApi.SectionsAdmin.GetAllSections).then(response => {
+				this.sections = response.data;
+			});
 		}
 	},
 	created() {

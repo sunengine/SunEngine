@@ -41,7 +41,9 @@ namespace SunEngine.Admin.Presenters
 			var sectionView = new SectionView(section);
 
 			var configItemViews = new Dictionary<string, ConfigItemView>();
-			
+
+			sectionView.Enums = new Dictionary<string, string[]>();
+
 			if (sectionsCache.SectionServerTypes.TryGetValue(section.Type, out Type sectionServerType))
 				AddFields(sectionServerType);
 			if (sectionsCache.SectionClientTypes.TryGetValue(section.Type, out Type sectionClientType))
@@ -49,23 +51,27 @@ namespace SunEngine.Admin.Presenters
 
 			void AddFields(Type type)
 			{
-				var serverData = JsonSerializer.Deserialize(section.Options, type);
-				var fields = type.GetFields();
-				foreach (var field in fields)
+				var dataObject = JsonSerializer.Deserialize(section.Options, type);
+				var properties = type.GetProperties();
+				foreach (var propertyInfo in properties)
 				{
-					ConfigItemAttribute configItemAttribute = field.GetCustomAttribute<ConfigItemAttribute>();
+					ConfigItemAttribute configItemAttribute = propertyInfo.GetCustomAttribute<ConfigItemAttribute>();
 					var configItemView = new ConfigItemView();
-					configItemView.Name = field.Name;
-					configItemView.Type = configItemAttribute.ConfigItemType.Name.Split(".")[^1];
-					configItemView.Value = field.GetValue(serverData);
-					if (configItemView.Type == nameof(EnumItem))
-						configItemView.Enum = field.FieldType.Name.Split(".")[^1];
-					configItemViews[field.Name] = configItemView;
+					configItemView.Name = propertyInfo.Name;
+					configItemView.Type = configItemAttribute.ConfigItemType.Name.Split(".")[^1].Replace("Item", "");
+					configItemView.Value = propertyInfo.GetValue(dataObject);
+					if (configItemView.Type == "Enum")
+					{
+						configItemView.Enum = propertyInfo.PropertyType.Name.Split(".")[^1];
+						if (!sectionView.Enums.ContainsKey(configItemView.Enum))
+							sectionView.Enums.Add(configItemView.Enum, propertyInfo.PropertyType.GetEnumNames());
+					}
+
+					configItemViews[propertyInfo.Name] = configItemView;
 				}
 			}
 
 			sectionView.ConfigItems = configItemViews.Values.ToArray();
-			
 			return sectionView;
 		}
 	}
@@ -79,6 +85,8 @@ namespace SunEngine.Admin.Presenters
 		public string Roles { get; set; }
 		public bool IsCacheData { get; set; }
 		public ConfigItemView[] ConfigItems { get; set; }
+
+		public Dictionary<string, string[]> Enums { get; set; }
 
 		public SectionView(Section section)
 		{

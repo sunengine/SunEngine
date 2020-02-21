@@ -34,8 +34,8 @@ export default {
 	},
 	AdminMenu: {
 		AdminInformation: "la la-info-circle",
-		CategoriesAdmin: "la la-stream",
-		ComponentsAdmin: "la la-shapes",
+		CategoriesAdmin: "la la-boxes",
+		SectionsAdmin: "la la-stream",
 		ConfigurationAdmin: "la la-sliders-h",
 		CypherSecrets: global.key,
 		DeletedElements: global.delete,
@@ -118,10 +118,10 @@ export default {
 		delete: global.delete,
 		publishDate: global.clock
 	},
-	ComponentForm: {
+	SectionForm: {
 		component: "la la-cube"
 	},
-	ComponentsAdmin: {
+	SectionsAdmin: {
 		add: global.add,
 		component: "la la-cube",
 		edit: global.wrench,
@@ -141,7 +141,7 @@ export default {
 	CreateComment: {
 		send: global.send
 	},
-	CreateComponent: {
+	CreateSection: {
 		add: global.save,
 		cancel: global.cancel
 	},
@@ -173,7 +173,7 @@ export default {
 		cancel: global.cancel,
 		save: global.save
 	},
-	EditComponent: {
+	EditSection: {
 		cancel: global.cancel,
 		delete: global.delete,
 		save: global.save

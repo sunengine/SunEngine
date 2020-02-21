@@ -20,5 +20,14 @@ namespace SunEngine.Core.SectionsData
 		public string CommentsCategoriesExclude { get; set; }
 		[ConfigItem(typeof(IntegerItem))]
 		public int Number { get; set; }
+		[ConfigItem(typeof(EnumItem))]
+		public Test1 Test { get; set; }
+	}
+
+	public enum Test1
+	{
+		Te,
+		Te2,
+		Hi
 	}
 }

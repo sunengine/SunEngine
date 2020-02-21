@@ -46,13 +46,13 @@ export function makeBreadcrumbs() {
 		parent: breadcrumbs.Admin
 	};
 
-	breadcrumbs.ComponentsAdmin = {
-		title: app.$t("BreadcrumbsNames.adminPanelComponents"),
+	breadcrumbs.SectionsAdmin = {
+		title: app.$t("BreadcrumbsNames.adminPanelSections"),
 		route: {
-			name: "ComponentsAdmin"
+			name: "SectionsAdmin"
 		},
 		showInBreadcrumbs: true,
-		id: "ComponentsAdmin",
+		id: "SectionsAdmin",
 		parent: breadcrumbs.Admin
 	};
 

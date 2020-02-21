@@ -34,9 +34,9 @@ namespace SunEngine.Admin.Services
 
 		public void UpdateClientScripts()
 		{
-			if (!bool.TryParse(configurationRoot.GetSection("Global")["UpdateConfigJsOnConfigChanges"],
+			if (!bool.TryParse(configurationRoot.GetSection("Server")["UpdateConfigJsOnConfigChanges"],
 				    out bool update)
-			    || update == false)
+			    || !update)
 				return;
 
 			var itemsToSaveDic = ConfigDefaults.ConfigurationItems
