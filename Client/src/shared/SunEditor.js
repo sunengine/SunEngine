@@ -9,7 +9,7 @@ export default {
 	mixins: [ValidateMixin],
 	props: {
 		bottomSlots: Boolean,
-		readOnlyModeAllowed: false,
+		readOnlyModeAllowed: false
 	},
 	data() {
 		return {
@@ -29,7 +29,7 @@ export default {
 		},
 
 		clear() {
-			this.$emit('input',"");
+			this.$emit("input", "");
 		},
 
 		allUploaded() {
@@ -143,7 +143,7 @@ export default {
 			QInnerLoading,
 			{
 				class: "read-only-mod",
-				props: { showing: this.readOnlyModeAllowed && config.Global.ReadOnlyMode  }
+				props: { showing: this.readOnlyModeAllowed && config.Global.ReadOnlyMode }
 			},
 			this.$tl("readOnlyMod")
 		);

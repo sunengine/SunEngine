@@ -17,7 +17,7 @@ const global = {
 	category: "fas fa-folder",
 	key: "fas fa-key",
 	envelope: "fas fa-envelope",
-    wrench: "fas fa-wrench"
+	wrench: "fas fa-wrench"
 };
 
 export default {

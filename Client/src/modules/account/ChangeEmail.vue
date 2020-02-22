@@ -71,7 +71,9 @@ import { emailRules } from "sun";
 
 function createRules() {
 	return {
-		password: [value => !!value || this.$t("Global.validation.password.required")],
+		password: [
+			value => !!value || this.$t("Global.validation.password.required")
+		],
 		email: emailRules
 	};
 }

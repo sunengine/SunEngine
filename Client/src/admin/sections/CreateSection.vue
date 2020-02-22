@@ -34,16 +34,15 @@ import { Page } from "mixins";
 export default {
 	name: "CreateSection",
 	mixins: [Page],
+	props: {
+		templateName: {
+			type: String,
+			required: true
+		}
+	},
 	data() {
 		return {
-			section: {
-				name: "",
-				type: "",
-				roles: "Unregistered,Registered",
-				isCacheData: false,
-				clientSettingsJson: "{}",
-				serverSettingsJson: "{}"
-			},
+			section: null,
 			loading: false
 		};
 	},
@@ -53,6 +52,14 @@ export default {
 		}
 	},
 	methods: {
+		getSectionTemplate() {
+			this.$request(
+				this.$AdminApi.SectionsAdmin.GetSectionTemplate,
+				this.templateName
+			).then(async () => {
+				this.section = response.data;
+			});
+		},
 		save() {
 			const form = this.$refs.form;
 			form.validate();
@@ -60,11 +67,7 @@ export default {
 
 			this.loading = true;
 
-			this.$request(
-				this.$AdminApi.SectionsAdmin.AddSection,
-				this.section,
-				true
-			)
+			this.$request(this.$AdminApi.SectionsAdmin.AddSection, this.section, true)
 				.then(async () => {
 					this.$successNotify();
 					await this.$store.dispatch("loadAllSections");
@@ -82,6 +85,7 @@ export default {
 	},
 	created() {
 		this.title = this.$tl("title");
+		this.getSectionTemplate();
 	}
 };
 </script>

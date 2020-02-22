@@ -63,7 +63,11 @@
 			<q-btn
 				class="menu-admin-item__btn-change-is-hidden"
 				@click="$emit('changeIsHidden', menuItem)"
-				:icon="!menuItem.isHidden ? $iconsSet.MenuAdminItem.eye : $iconsSet.MenuAdminItem.eyeSlash"
+				:icon="
+					!menuItem.isHidden
+						? $iconsSet.MenuAdminItem.eye
+						: $iconsSet.MenuAdminItem.eyeSlash
+				"
 				:color="!menuItem.isHidden ? 'info' : 'grey-5'"
 				dense
 				size="10px"

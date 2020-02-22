@@ -46,7 +46,7 @@ export default {
 		RolesPermissions: "la la-user-lock",
 		SkinsAdmin: "la la-palette",
 		systemTools: "la la-tools"
-	}, 
+	},
 	Article: {
 		comments: global.comment,
 		delete: global.delete,
@@ -81,7 +81,7 @@ export default {
 		down: "la la-angle-down",
 		edit: global.wrench,
 		eyeSlash: global.eyeSlash,
-		goTo:global.goTo,
+		goTo: global.goTo,
 		material: "la la-file-alt",
 		plus: global.add,
 		up: "la la-angle-up"
@@ -125,7 +125,7 @@ export default {
 		add: global.add,
 		component: "la la-cube",
 		edit: global.wrench,
-		goTo:global.goTo
+		goTo: global.goTo
 	},
 	ConfigurationAdmin: {
 		cancel: global.cancel,
@@ -246,7 +246,7 @@ export default {
 		edit: global.wrench,
 		eye: global.eye,
 		eyeSlash: global.eyeSlash,
-		goTo:global.goTo,
+		goTo: global.goTo,
 		up: "la la-angle-up"
 	},
 	MenuItemForm: {

@@ -32,7 +32,7 @@
 		</q-item>
 		<q-item @click.native="logout()" clickable v-close-popup>
 			<q-item-section avatar>
-				<q-icon :name="$iconsSet.UserMenu.signOut"  />
+				<q-icon :name="$iconsSet.UserMenu.signOut" />
 			</q-item-section>
 			<q-item-section>
 				<q-item-label>

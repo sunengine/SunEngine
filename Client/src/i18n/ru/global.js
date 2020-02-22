@@ -18,7 +18,8 @@ export default {
 				minLength: "Минимальная длинна имени пользователя - {minLength}",
 				maxLength: "Максимальная длинна имени пользователя - {maxLength}",
 				nameInDb: "Это имя уже занято",
-				allowedUserNameCharacters: "Имя пользователя может состоять только из символов '{allowedUserNameCharacters}'"
+				allowedUserNameCharacters:
+					"Имя пользователя может состоять только из символов '{allowedUserNameCharacters}'"
 			},
 			email: {
 				required: "Необходимо ввести email",

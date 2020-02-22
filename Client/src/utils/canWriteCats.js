@@ -1,7 +1,9 @@
-import {store} from "sun";
+import { store } from "sun";
 
 export default function(categories, exclude) {
-	const categoriesList = categories.split(",").map(x => store.getters.getCategory(x));
+	const categoriesList = categories
+		.split(",")
+		.map(x => store.getters.getCategory(x));
 	const excludeList = exclude.split(",").map(x => store.getters.getCategory(x));
 
 	const allow = {};
@@ -17,5 +19,5 @@ export default function(categories, exclude) {
 	}
 
 	const values = Object.values(allow);
-	return (values && values.length > 0) ?  values : null;
+	return values && values.length > 0 ? values : null;
 }

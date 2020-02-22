@@ -1,10 +1,6 @@
 <template>
 	<div>
-		<q-checkbox
-			dense
-			v-if="item.type === 'Boolean'"
-			v-model="item.value"
-		/>
+		<q-checkbox dense v-if="item.type === 'Boolean'" v-model="item.value" />
 		<q-input
 			ref="input"
 			dense

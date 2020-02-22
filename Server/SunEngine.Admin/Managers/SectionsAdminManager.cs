@@ -45,14 +45,6 @@ namespace SunEngine.Admin.Managers
 			return db.InsertWithIdentityAsync(section);
 		}
 
-		/*public Task UpdateSectionAsync(Section section)
-		{
-			section.Options = section.Options?.MakeJsonTextNotNull();
-			section.Roles = rolesCache.CheckAndSetRoles(section.Roles);
-			
-			return db.UpdateAsync(section);
-		}*/
-
 		public Task UpdateSectionAsync(Section section)
 		{
 			section.Options = section.Options?.MakeJsonTextNotNull();

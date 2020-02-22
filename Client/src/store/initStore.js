@@ -25,7 +25,7 @@ export default async function(context) {
 		};
 
 		app.$i18n.locale = locales[config.Global.Locale];
-		
+
 		await context.dispatch("loadAllCategories");
 
 		await context.dispatch("registerAllLayouts");

@@ -187,10 +187,13 @@ const routes = [
 	},
 	{
 		name: "CreateSection",
-		path: "/admin/Sections/CreateSection".toLowerCase(),
+		path: "/admin/Sections/CreateSection/:templateName".toLowerCase(),
 		components: {
 			default: CreateSection,
 			navigation: AdminPanel
+		},
+		props: {
+			default: true,
 		}
 	},
 	{

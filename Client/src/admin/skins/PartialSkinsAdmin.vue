@@ -32,7 +32,10 @@
 				>
 					<q-td>{{ pSkin.name }}</q-td>
 					<q-td>
-					 <q-toggle v-model="pSkin.current" @input="(value) => enablePartialSkin(value,pSkin)" />
+						<q-toggle
+							v-model="pSkin.current"
+							@input="value => enablePartialSkin(value, pSkin)"
+						/>
 					</q-td>
 					<q-td style="">{{ pSkin.description }}</q-td>
 					<q-td>
@@ -108,7 +111,7 @@ export default {
 					});
 				});
 		},
-		enablePartialSkin(value,skin) {
+		enablePartialSkin(value, skin) {
 			this.$request(this.$AdminApi.SkinsAdmin.EnablePartialSkin, {
 				name: skin.name,
 				enable: value

@@ -28,7 +28,7 @@ export default {
 		password2: "Подтвердите пароль",
 		registerBtn: "@:Register.title",
 		registering: "Регистрируемся...",
-		emailSent: "Сообщение с ссылкой для регистрации отправлено на email",
+		emailSent: "Сообщение с ссылкой для регистрации отправлено на email"
 	},
 	RegisterEmailResult: {
 		title: "Подтверждение почты",

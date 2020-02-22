@@ -1,14 +1,25 @@
 ﻿<template>
 	<SunPage class="sections-admin page-padding">
 		<PageHeader :title="$tl('title')">
-			<q-btn
+			<q-btn-dropdown
 				:icon="$iconsSet.SectionsAdmin.add"
 				class="post-btn q-mr-lg"
 				type="a"
-				:to="{ name: 'CreateSection' }"
-				no-caps
 				:label="$tl('addSectionBtn')"
-			/>
+			>
+				<q-list>
+					<q-item
+						v-for="templateName in templatesNames"
+						v-close-popup
+						:to="{ name: 'CreateSection' }"
+						no-caps
+					>
+						<q-item-section>
+							<q-item-label>{{ templateName }}</q-item-label>
+						</q-item-section>
+					</q-item>
+				</q-list>
+			</q-btn-dropdown>
 		</PageHeader>
 
 		<div class="sections-admin__sections" v-if="sections">
@@ -61,6 +72,9 @@ export default {
 	computed: {
 		breadcrumbsCategory() {
 			return this.$getBreadcrumbs("Admin");
+		},
+		templatesNames() {
+		   return Object.entries(this.$store.state.sections.sectionsTypes).map(x => x.name);
 		}
 	},
 	methods: {

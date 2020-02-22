@@ -60,7 +60,7 @@ export default {
 	},
 	computed: {
 		category() {
-			return  this.$store.getters.getCategory(this.categoryName);
+			return this.$store.getters.getCategory(this.categoryName);
 		},
 		canAddArticle() {
 			return this.category?.categoryPersonalAccess?.MaterialWrite;

@@ -37,9 +37,9 @@ export default function({ store, ssrContext }) {
 			});
 			return;
 		}
-		
+
 		await checkUserCredentialsAndReloadIfNew();
-		
+
 		store.state.currentPage = null;
 
 		if (config.Dev.LogMoveTo)

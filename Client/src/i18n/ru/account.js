@@ -5,7 +5,7 @@ export default {
 			"Сообщение с ссылкой для подтверждения email отправлено по почте",
 		password: "Ваш пароль",
 		newEmail: "Новый email",
-		saveBtn: "@:Global.btn.save",
+		saveBtn: "@:Global.btn.save"
 	},
 	ChangeEmailResult: {
 		title: "@:RegisterEmailResult.title",
@@ -18,13 +18,13 @@ export default {
 		changeBtn: "Изменить пароль",
 		passwordOld: "Старый пароль",
 		password: "Новый пароль",
-		password2: "Подтвердите новый пароль",
+		password2: "Подтвердите новый пароль"
 	},
 	ResetPassword: {
 		title: "Сброс пароля",
 		email: "Введите email",
 		resetPasswordBtn: "Сбросить пароль",
-		success: "Сообщение с ссылкой для сброса пароля отправлено на email",
+		success: "Сообщение с ссылкой для сброса пароля отправлено на email"
 	},
 	ResetPasswordFailed: {
 		title: "Сброс пароля",

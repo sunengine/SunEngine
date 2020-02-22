@@ -3,14 +3,14 @@
 const config = {
 	// auto-start
 	Global: {
-		Locale: "Russian",
+		Locale: "Russian"
 	},
 	UrlPaths: {
 		Site: "http://localhost:5005",
 		Api: "http://localhost:5000",
 		UploadImages: "http://localhost:5000/UploadImages",
 		Skins: "http://localhost:5005/statics/Skins",
-		PartialSkins: "http://localhost:5005/statics/PartialSkins",
+		PartialSkins: "http://localhost:5005/statics/PartialSkins"
 	},
 	Dev: {
 		VueDevTools: true,
@@ -51,7 +51,7 @@ const config = {
 		RoleUsersMaxUsersTake: 40
 	},
 	// auto-end
-	
+
 	Misc: {
 		DefaultAvatar: "default-avatar.svg"
 	}

@@ -1,6 +1,8 @@
 ﻿<template>
 	<div class="section-form q-gutter-sm">
-		<q-markup-table flat bordered
+		<q-markup-table
+			flat
+			bordered
 			wrap-cells
 			v-if="section.options && section.options.length > 0"
 		>
@@ -35,7 +37,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="config-item__name-column">{{$tl('roles')}}</td>
+				<td class="config-item__name-column">{{ $tl("roles") }}</td>
 				<td>
 					<q-select
 						bottom-slots
@@ -53,7 +55,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="config-item__name-column">{{$tl('isCacheData')}}</td>
+				<td class="config-item__name-column">{{ $tl("isCacheData") }}</td>
 				<td>
 					<q-checkbox
 						class="section-form__is-cache-data"

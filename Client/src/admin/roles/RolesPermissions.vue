@@ -15,7 +15,7 @@
 				<q-btn
 					no-caps
 					class="send-btn"
-				:icon="$iconsSet.RolesPermissions.save"
+					:icon="$iconsSet.RolesPermissions.save"
 					@click="send"
 					:loading="loading"
 					:label="$tl('saveToServerBtn')"

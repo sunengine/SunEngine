@@ -15,7 +15,10 @@
 				@click="
 					$router.push({
 						name: 'CreateMaterial',
-						params: { categoriesNames: section.options.Categories, categoriesNamesExclude: section.options.CategoriesExclude  }
+						params: {
+							categoriesNames: section.options.Categories,
+							categoriesNamesExclude: section.options.CategoriesExclude
+						}
 					})
 				"
 			/>

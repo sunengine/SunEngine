@@ -9,7 +9,7 @@
 			</div>
 			<q-item :to="{ name: 'ProfileInSettings' }">
 				<q-item-section avatar>
-					<q-icon :name="$iconsSet.SettingsMenu.profile"  />
+					<q-icon :name="$iconsSet.SettingsMenu.profile" />
 				</q-item-section>
 				<q-item-section>
 					{{ $tl("goToProfile") }}
@@ -49,7 +49,7 @@
 			</q-item>
 			<q-item :to="{ name: 'LoadPhoto' }">
 				<q-item-section avatar>
-					<q-icon :name="$iconsSet.SettingsMenu.photo"  />
+					<q-icon :name="$iconsSet.SettingsMenu.photo" />
 				</q-item-section>
 				<q-item-section>
 					{{ $tl("changePhoto") }}
@@ -57,7 +57,7 @@
 			</q-item>
 			<q-item :to="{ name: 'EditInformation' }">
 				<q-item-section avatar>
-					<q-icon :name="$iconsSet.SettingsMenu.information"  />
+					<q-icon :name="$iconsSet.SettingsMenu.information" />
 				</q-item-section>
 				<q-item-section>
 					{{ $tl("changeYourInformation") }}
@@ -65,7 +65,7 @@
 			</q-item>
 			<q-item :to="{ name: 'Sessions' }">
 				<q-item-section avatar>
-					<q-icon :name="$iconsSet.SettingsMenu.sessions"  />
+					<q-icon :name="$iconsSet.SettingsMenu.sessions" />
 				</q-item-section>
 				<q-item-section>
 					{{ $tl("sessions") }}
@@ -73,7 +73,7 @@
 			</q-item>
 			<q-item :to="{ name: 'MyBanList' }">
 				<q-item-section avatar>
-					<q-icon :name="$iconsSet.SettingsMenu.ban"  />
+					<q-icon :name="$iconsSet.SettingsMenu.ban" />
 				</q-item-section>
 				<q-item-section>
 					{{ $tl("banedUsersList") }}

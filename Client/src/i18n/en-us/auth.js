@@ -29,7 +29,7 @@ export default {
 		registerBtn: "@:Register.title",
 		registering: "Sing Up...",
 		emailSent:
-			"An email has been sent to the address you supplied. Important! Please check your email for a message confirming your registration.",
+			"An email has been sent to the address you supplied. Important! Please check your email for a message confirming your registration."
 	},
 	RegisterEmailResult: {
 		title: "Confirm Email",

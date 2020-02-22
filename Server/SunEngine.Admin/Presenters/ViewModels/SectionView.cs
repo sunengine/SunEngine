@@ -12,9 +12,12 @@ namespace SunEngine.Admin.Presenters
 		public string Roles { get; set; }
 		public bool IsCacheData { get; set; }
 		public ConfigItemView[] Options { get; set; }
-
 		public Dictionary<string, string[]> Enums { get; set; }
 
+		public SectionView()
+		{
+		}
+		
 		public SectionView(Section section)
 		{
 			Id = section.Id;

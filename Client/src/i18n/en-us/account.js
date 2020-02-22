@@ -1,11 +1,10 @@
 export default {
 	ChangeEmail: {
 		title: "Edit user email",
-		successNotify:
-			"Message with verification link successfully sent by email",
+		successNotify: "Message with verification link successfully sent by email",
 		password: "Current password",
 		newEmail: "New email",
-		saveBtn: "@:Global.btn.save",
+		saveBtn: "@:Global.btn.save"
 	},
 	ChangeEmailResult: {
 		title: "@:RegisterEmailResult.title",
@@ -18,13 +17,13 @@ export default {
 		changeBtn: "Change password",
 		passwordOld: "Current password",
 		password: "New password",
-		password2: "Repeat new password",
+		password2: "Repeat new password"
 	},
 	ResetPassword: {
 		title: "Reset password",
 		email: "Enter email",
 		resetPasswordBtn: "Reset password",
-		success: "Message with a link to reset password sent to your Email.",
+		success: "Message with a link to reset password sent to your Email."
 	},
 	ResetPasswordFailed: {
 		title: "Reset password",
@@ -36,6 +35,6 @@ export default {
 		enter: "Sign In",
 		saveBtn: "Change password",
 		password: "New password",
-		password2: "Repeat password",
+		password2: "Repeat password"
 	}
 };

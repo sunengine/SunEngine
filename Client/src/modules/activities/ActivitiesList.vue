@@ -15,7 +15,7 @@
 export default {
 	name: "ActivitiesList",
 	props: {
-       sectionName: {
+		sectionName: {
 			type: String,
 			required: true
 		}

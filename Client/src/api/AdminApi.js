@@ -32,7 +32,8 @@ export default {
 		UpdateSection: "/Admin/SectionsAdmin/UpdateSection",
 		DeleteSection: "/Admin/SectionsAdmin/DeleteSection",
 		GetAllSections: "/Admin/SectionsAdmin/GetAllSections",
-		GetSection: "/Admin/SectionsAdmin/GetSection"
+		GetSection: "/Admin/SectionsAdmin/GetSection",
+		GetSectionTemplate: "/Admin/SectionsAdmin/GetSectionTemplate"
 	},
 	CategoriesAdmin: {
 		CategoryUp: "/Admin/CategoriesAdmin/CategoryUp",
@@ -69,6 +70,7 @@ export default {
 		GetServerInfo: "/Admin/ServerInfoAdmin/GetServerInfo"
 	},
 	DeletedElements: {
-		DeleteAllMarkedComments: "/Admin/DeletedElementsAdmin/DeleteAllMarkedMaterials"
+		DeleteAllMarkedComments:
+			"/Admin/DeletedElementsAdmin/DeleteAllMarkedMaterials"
 	}
 };

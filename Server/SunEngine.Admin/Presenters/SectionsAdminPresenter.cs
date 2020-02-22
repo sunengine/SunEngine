@@ -17,6 +17,7 @@ namespace SunEngine.Admin.Presenters
 	{
 		Task<Section[]> GetSectionsAsync();
 		Task<SectionView> GetSectionAsync(string name);
+		SectionView GetSectionTemplate(string templateName);
 	}
 
 	public class SectionsAdminPresenter : DbService, ISectionsAdminPresenter
@@ -52,8 +53,8 @@ namespace SunEngine.Admin.Presenters
 			void AddFields(Type sectionType)
 			{
 				var dataObject = JsonSerializer.Deserialize(section.Options, sectionType);
-				var properties = sectionType.GetProperties();
-				foreach (var propertyInfo in properties)
+
+				foreach (var propertyInfo in sectionType.GetProperties())
 				{
 					ConfigItemAttribute configItemAttribute = propertyInfo.GetCustomAttribute<ConfigItemAttribute>();
 					var configItemView = new ConfigItemView
@@ -61,25 +62,67 @@ namespace SunEngine.Admin.Presenters
 						Name = propertyInfo.Name,
 						Type = configItemAttribute.ConfigItemType.Name.Split(".")[^1].Replace("Item", "")
 					};
-					
+
 					object value = propertyInfo.GetValue(dataObject);
 					Type type = propertyInfo.PropertyType;
 
 					IConfigItem configItem;
 					if (configItemView.Type == "Enum")
 					{
-						configItem = new EnumItem((Enum)value);
+						configItem = new EnumItem((Enum) value);
 						configItemView.Enum = propertyInfo.PropertyType.Name.Split(".")[^1];
 						if (!sectionView.Enums.ContainsKey(configItemView.Enum))
 							sectionView.Enums.Add(configItemView.Enum, propertyInfo.PropertyType.GetEnumNames());
 					}
 					else
 						configItem = (IConfigItem) configItemAttribute.ConfigItemType.GetConstructor(new[] {type})
-							.Invoke(new [] {value});
-					
+							.Invoke(new[] {value});
+
 					configItemView.Value = configItem.ToClientObject();
 
 					configItemViews[propertyInfo.Name] = configItemView;
+				}
+			}
+
+			sectionView.Options = configItemViews.Values.ToArray();
+			return sectionView;
+		}
+
+		public SectionView GetSectionTemplate(string templateName)
+		{
+			var sectionView = new SectionView();
+
+			var configItemViews = new Dictionary<string, ConfigItemView>();
+
+			sectionView.Enums = new Dictionary<string, string[]>();
+
+			if (sectionsCache.SectionServerTypes.TryGetValue(templateName, out Type sectionServerType))
+				AddFields(sectionServerType);
+			if (sectionsCache.SectionClientTypes.TryGetValue(templateName, out Type sectionClientType))
+				AddFields(sectionClientType);
+
+
+			void AddFields(Type sectionType)
+			{
+				var section = sectionType.GetConstructor(new Type[0]).Invoke(new object[0]);
+
+				foreach (var propertyInfo in sectionType.GetProperties())
+				{
+					ConfigItemAttribute configItemAttribute = propertyInfo.GetCustomAttribute<ConfigItemAttribute>();
+					ConfigItemView configItemView = new ConfigItemView()
+					{
+						Name = propertyInfo.Name,
+						Value = propertyInfo.GetValue(section),
+						Type = configItemAttribute.ConfigItemType.Name.Split(".")[^1].Replace("Item", "")
+					};
+					if (configItemView.Type == "Enum")
+					{
+						configItemView.Enum = propertyInfo.PropertyType.Name.Split(".")[^1];
+						if (!sectionView.Enums.ContainsKey(configItemView.Enum))
+							sectionView.Enums.Add(configItemView.Enum, propertyInfo.PropertyType.GetEnumNames());
+					}
+					
+					configItemViews[configItemView.Name] = configItemView;
 				}
 			}
 

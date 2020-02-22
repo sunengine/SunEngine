@@ -57,7 +57,7 @@ export default {
 	computed: {
 		breadcrumbsCategory() {
 			return this.$getBreadcrumbs("Personal");
-		},
+		}
 	},
 	methods: {
 		send() {

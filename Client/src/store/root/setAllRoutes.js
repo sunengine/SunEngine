@@ -10,9 +10,7 @@ export default async function(context) {
 	const routesFromCategories = await context.dispatch(
 		"makeRoutesFromCategories"
 	);
-	const routesFromSections = await context.dispatch(
-		"makeRoutesFromSections"
-	);
+	const routesFromSections = await context.dispatch("makeRoutesFromSections");
 
 	const allRoutes = [
 		...routes,
@@ -20,11 +18,10 @@ export default async function(context) {
 		...routesFromSections,
 		...pageNotFoundRoute
 	];
-	
-	if(config.Global.HomePageRedirect) {
+
+	if (config.Global.HomePageRedirect) {
 		const homeRoute = allRoutes.find(x => x.name === "Home");
-		if(homeRoute)
-			homeRoute.redirect = config.Global.HomePageRedirect;
+		if (homeRoute) homeRoute.redirect = config.Global.HomePageRedirect;
 	}
 
 	const userRoutes = allRoutes.filter(x => routeHasAccess(x));

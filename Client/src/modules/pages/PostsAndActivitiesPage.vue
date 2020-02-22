@@ -28,7 +28,10 @@
 					{ 'pull-left': !$q.screen.gt.sm }
 				]"
 			>
-				<activities-list ref="activitiesList" :sectionName="activitiesSectionName" />
+				<activities-list
+					ref="activitiesList"
+					:sectionName="activitiesSectionName"
+				/>
 			</div>
 		</div>
 		<LoaderWait v-if="!loaded" />

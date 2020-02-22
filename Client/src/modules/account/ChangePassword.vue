@@ -105,7 +105,8 @@ function createRules() {
 		password2: [
 			...passwordRules,
 			value =>
-				this.password === this.password2 || this.$t("Global.validation.password.passwordsNotEquals")
+				this.password === this.password2 ||
+				this.$t("Global.validation.password.passwordsNotEquals")
 		]
 	};
 }

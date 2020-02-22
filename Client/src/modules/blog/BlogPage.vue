@@ -15,7 +15,7 @@
 				"
 				:label="$tl('newPostBtn')"
 				v-if="posts && canAddArticle"
-			:icon="$iconsSet.BlogPage.add"
+				:icon="$iconsSet.BlogPage.add"
 			/>
 		</PageHeader>
 
@@ -58,7 +58,7 @@ export default {
 	},
 	computed: {
 		category() {
-          return  this.$store.getters.getCategory(this.categoryName);
+			return this.$store.getters.getCategory(this.categoryName);
 		},
 		canAddArticle() {
 			return this.category?.categoryPersonalAccess?.MaterialWrite;
@@ -66,8 +66,8 @@ export default {
 	},
 	methods: {
 		loadData() {
-          this.title = this.category.title;
-          this.$request(this.$Api.Blog.GetPosts, {
+			this.title = this.category.title;
+			this.$request(this.$Api.Blog.GetPosts, {
 				categoryName: this.categoryName,
 				page: this.currentPage,
 				showDeleted:

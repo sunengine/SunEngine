@@ -21,7 +21,7 @@ export default {
 	beforeCreate() {
 		this.$options.components.Post = require("sun").Post;
 	}
-}
+};
 </script>
 
 <style lang="scss">

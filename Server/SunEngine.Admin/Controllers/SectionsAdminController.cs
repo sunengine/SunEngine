@@ -38,6 +38,13 @@ namespace SunEngine.Admin.Controllers
 			var section = await sectionsAdminPresenter.GetSectionAsync(name);
 			return Ok(section);
 		}
+		
+		[HttpPost]
+		public IActionResult GetSectionTemplate(string templateName)
+		{
+			var section = sectionsAdminPresenter.GetSectionTemplate(templateName);
+			return Ok(section);
+		}
 
 		[HttpPost]
 		public async Task<IActionResult> AddSection([FromBody] Section section)
