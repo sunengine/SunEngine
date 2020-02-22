@@ -97,6 +97,9 @@ export default {
 
 	// ——— sections ———————————————————————————————————
 
+	ConfigItem: {
+		pretty: "Привести в порядок"
+	},
 	SectionForm: {
 		name: "Имя (eng)",
 		type: "Тип",

@@ -63,7 +63,20 @@
 			hide-bottom-space
 			:rules="jsonRules"
 			v-model="item.value"
-		/>
+		>
+			<q-menu context-menu v-close-popup>
+				<q-item dense v-close-popup clickable no-caps @click="prepareJson">
+					<q-item-section avatar>
+						<q-icon :name="$iconsSet.ConfigItem.pretty" />
+					</q-item-section>
+					<q-item-section>
+						<q-item-label>
+							{{ $tl("pretty") }}
+						</q-item-label>
+					</q-item-section>
+				</q-item>
+			</q-menu>
+		</q-input>
 		<q-input
 			clearable
 			ref="input"
@@ -80,12 +93,12 @@ import { jsonRules } from "sun";
 
 export default {
 	name: "ConfigItem",
-    filters: {
-        removeWhiteSpace(value) {
-          return value.filter(x=>x)
-        }
-    },
-    props: {
+	filters: {
+		removeWhiteSpace(value) {
+			return value.filter(x => x);
+		}
+	},
+	props: {
 		item: {
 			type: Object,
 			required: true
@@ -104,6 +117,9 @@ export default {
 		}
 	},
 	methods: {
+		prepareJson() {
+			this.item.value = JSON.stringify(JSON.parse(this.item.value), null, 4);
+		},
 		validate() {
 			this.$refs?.input?.validate();
 		}

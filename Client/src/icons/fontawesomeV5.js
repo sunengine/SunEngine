@@ -128,6 +128,9 @@ export default {
 		edit: global.wrench,
 		goTo: global.goTo
 	},
+	ConfigItem: {
+		pretty: "fas fa-broom"
+	},
 	ConfigurationAdmin: {
 		cancel: global.cancel,
 		question: "far fa-question-circle",
