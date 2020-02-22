@@ -49,10 +49,10 @@ namespace SunEngine.Admin.Presenters
 			if (sectionsCache.SectionClientTypes.TryGetValue(section.Type, out Type sectionClientType))
 				AddFields(sectionClientType);
 
-			void AddFields(Type type)
+			void AddFields(Type sectionType)
 			{
-				var dataObject = JsonSerializer.Deserialize(section.Options, type);
-				var properties = type.GetProperties();
+				var dataObject = JsonSerializer.Deserialize(section.Options, sectionType);
+				var properties = sectionType.GetProperties();
 				foreach (var propertyInfo in properties)
 				{
 					ConfigItemAttribute configItemAttribute = propertyInfo.GetCustomAttribute<ConfigItemAttribute>();
@@ -63,20 +63,18 @@ namespace SunEngine.Admin.Presenters
 					};
 					
 					object value = propertyInfo.GetValue(dataObject);
-					Type t = propertyInfo.PropertyType;
+					Type type = propertyInfo.PropertyType;
 
 					IConfigItem configItem;
 					if (configItemView.Type == "Enum")
 					{
 						configItem = new EnumItem((Enum)value);
-						configItemView.Value = configItem.ToClientObject();
-						
 						configItemView.Enum = propertyInfo.PropertyType.Name.Split(".")[^1];
 						if (!sectionView.Enums.ContainsKey(configItemView.Enum))
 							sectionView.Enums.Add(configItemView.Enum, propertyInfo.PropertyType.GetEnumNames());
 					}
 					else
-						configItem = (IConfigItem) configItemAttribute.ConfigItemType.GetConstructor(new[] {t})
+						configItem = (IConfigItem) configItemAttribute.ConfigItemType.GetConstructor(new[] {type})
 							.Invoke(new [] {value});
 					
 					configItemView.Value = configItem.ToClientObject();

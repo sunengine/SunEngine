@@ -15,7 +15,7 @@
 		</PageHeader>
 
 		<div v-if="configurationGroups">
-			<q-markup-table wrap-cells>
+			<q-markup-table wrap-cells flat bordered>
 				<tbody v-if="configurationGroupsFiltered">
 					<template v-for="group of configurationGroupsFiltered">
 						<tr class="configuration-admin__group-header-tr">

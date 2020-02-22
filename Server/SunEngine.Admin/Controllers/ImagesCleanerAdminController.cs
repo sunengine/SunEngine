@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SunEngine.Admin.Controllers
 {
-	public class ImagesCleanerController : BaseAdminController
+	public class ImagesCleanerAdminController : BaseAdminController
 	{
 		private readonly ImageCleanerAdminService imageCleanerService;
 
-		public ImagesCleanerController(IServiceProvider serviceProvider,
+		public ImagesCleanerAdminController(IServiceProvider serviceProvider,
 			ImageCleanerAdminService imageCleanerService) : base(serviceProvider)
 		{
 			this.imageCleanerService = imageCleanerService;

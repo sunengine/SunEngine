@@ -119,7 +119,7 @@ export default {
 		publishDate: global.clock
 	},
 	SectionForm: {
-		component: "la la-cube"
+		section: "la la-stream"
 	},
 	SectionsAdmin: {
 		add: global.add,

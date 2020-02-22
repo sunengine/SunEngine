@@ -14,7 +14,7 @@ namespace SunEngine.Admin.Controllers
 {
 	public class ConfigurationAdminController : BaseAdminController
 	{
-		protected readonly IConfigurationManager configurationManager;
+		protected readonly IConfigurationAdminManager ConfigurationAdminManager;
 		protected readonly IConfigurationAdminPresenter ConfigurationAdminPresenter;
 		protected readonly IConfigurationRoot configurationRoot;
 		protected readonly ConfigurationAdminService configurationAdminService;
@@ -22,7 +22,7 @@ namespace SunEngine.Admin.Controllers
 		protected readonly IDynamicConfigCache dynamicConfigCache;
 
 		public ConfigurationAdminController(
-			IConfigurationManager configurationManager,
+			IConfigurationAdminManager configurationAdminManager,
 			ConfigurationAdminService configurationAdminService,
 			IConfigurationAdminPresenter configurationAdminPresenter,
 			IConfigurationRoot configurationRoot,
@@ -33,7 +33,7 @@ namespace SunEngine.Admin.Controllers
 			this.env = env;
 			this.dynamicConfigCache = dynamicConfigCache;
 			this.configurationRoot = configurationRoot;
-			this.configurationManager = configurationManager;
+			this.ConfigurationAdminManager = configurationAdminManager;
 			this.configurationAdminService = configurationAdminService;
 			this.ConfigurationAdminPresenter = configurationAdminPresenter;
 		}
@@ -47,7 +47,7 @@ namespace SunEngine.Admin.Controllers
 				Value = x.Value
 			}).ToList();
 
-			configurationManager.UploadConfigurationItems(items);
+			ConfigurationAdminManager.UploadConfigurationItems(items);
 
 			configurationRoot.Reload();
 

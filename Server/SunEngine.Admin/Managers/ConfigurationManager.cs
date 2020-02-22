@@ -11,17 +11,17 @@ using SunEngine.Core.Services;
 
 namespace SunEngine.Admin.Managers
 {
-	public interface IConfigurationManager
+	public interface IConfigurationAdminManager
 	{
 		void UploadConfigurationItems(IEnumerable<ConfigurationItem> configurationItems);
 	}
 
-	public class ConfigurationManager : DbService, IConfigurationManager
+	public class ConfigurationAdminManager : DbService, IConfigurationAdminManager
 	{
 		protected readonly SanitizerService sanitizerService;
 		protected readonly ICategoriesCache categoriesCache;
 
-		public ConfigurationManager(
+		public ConfigurationAdminManager(
 			SanitizerService sanitizerService,
 			ICategoriesCache categoriesCache,
 			DataBaseConnection db) : base(db)

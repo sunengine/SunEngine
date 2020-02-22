@@ -10,7 +10,7 @@ namespace SunEngine.Admin
 		public static void AddAdmin(this IServiceCollection services)
 		{
 			services.AddScoped<CategoriesAdminManager>();
-			services.AddScoped<IConfigurationManager, ConfigurationManager>();
+			services.AddScoped<IConfigurationAdminManager, ConfigurationAdminManager>();
 			services.AddScoped<IMenuAdminManager, MenuAdminManager>();
 			services.AddScoped<ISectionsAdminManager, SectionsAdminManager>();
 
@@ -25,7 +25,7 @@ namespace SunEngine.Admin
 			services.AddScoped<ImageCleanerAdminService>();
 			services.AddScoped<SkinsAdminService>();
 			services.AddScoped<ConfigurationAdminService>();
-			services.AddScoped<ICleanerManager, CleanerManager>();
+			services.AddScoped<ICleanerAdminManager, CleanerAdminManager>();
 		}
 	}
 }

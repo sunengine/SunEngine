@@ -120,7 +120,7 @@ export default {
 		publishDate: global.clock
 	},
 	SectionForm: {
-		component: "fas fa-cube"
+		section: "fas fa-stream"
 	},
 	SectionsAdmin: {
 		add: global.add,

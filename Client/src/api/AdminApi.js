@@ -1,7 +1,7 @@
 export default {
 	ImagesCleaner: {
-		GetAllImages: "/Admin/ImagesCleaner/GetAllImages",
-		DeleteImages: "/Admin/ImagesCleaner/DeleteImages"
+		GetAllImages: "/Admin/ImagesCleanerAdmin/GetAllImages",
+		DeleteImages: "/Admin/ImagesCleanerAdmin/DeleteImages"
 	},
 	CypherSecretsAdmin: {
 		ResetCypher: "/Admin/CypherSecretsAdmin/ResetCypher"
@@ -69,6 +69,6 @@ export default {
 		GetServerInfo: "/Admin/ServerInfoAdmin/GetServerInfo"
 	},
 	DeletedElements: {
-		DeleteAllMarkedComments: "/Admin/DeletedElements/DeleteAllMarkedMaterials"
+		DeleteAllMarkedComments: "/Admin/DeletedElementsAdmin/DeleteAllMarkedMaterials"
 	}
 };

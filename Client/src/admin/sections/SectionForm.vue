@@ -1,33 +1,67 @@
 ﻿<template>
 	<div class="section-form q-gutter-sm">
-		<q-input
-			class="section-form__name"
-			ref="name"
-			v-model="section.name"
-			:label="$tl('name')"
-			:rules="rules.name"
-		/>
-
-		<q-select
-			class="section-form__type"
-			ref="type"
-			:disable="editMode"
-			emit-value
-			map-options
-			:label="$tl('type')"
-			:rules="rules.type"
-			v-model="section.type"
-			:options="sectionTypes"
-			option-value="name"
-			option-label="title"
-		>
-			<q-icon slot="prepend" :name="$iconsSet.SectionForm.section" />
-		</q-select>
-
-		<q-markup-table
+		<q-markup-table flat bordered
 			wrap-cells
 			v-if="section.options && section.options.length > 0"
 		>
+			<tr>
+				<td class="config-item__name-column">{{ $tl("name") }}</td>
+				<td>
+					<q-input
+						class="section-form__name"
+						ref="name"
+						v-model="section.name"
+						:rules="rules.name"
+					/>
+				</td>
+			</tr>
+			<tr>
+				<td class="config-item__name-column">{{ $tl("type") }}</td>
+				<td>
+					<q-select
+						class="section-form__type"
+						ref="type"
+						:disable="editMode"
+						emit-value
+						map-options
+						:rules="rules.type"
+						v-model="section.type"
+						:options="sectionTypes"
+						option-value="name"
+						option-label="title"
+					>
+						<q-icon slot="prepend" :name="$iconsSet.SectionForm.section" />
+					</q-select>
+				</td>
+			</tr>
+			<tr>
+				<td class="config-item__name-column">{{$tl('roles')}}</td>
+				<td>
+					<q-select
+						bottom-slots
+						v-if="allRoles"
+						class="section-form__title"
+						v-model="roles"
+						:options="allRoles"
+						multiple
+						use-chips
+						stack-label
+						option-value="name"
+						option-label="title"
+					/>
+					<LoaderWait v-else />
+				</td>
+			</tr>
+			<tr>
+				<td class="config-item__name-column">{{$tl('isCacheData')}}</td>
+				<td>
+					<q-checkbox
+						class="section-form__is-cache-data"
+						ref="isCacheData"
+						v-model="section.isCacheData"
+					/>
+				</td>
+			</tr>
 			<tr :key="configItem.name" v-for="configItem of section.options">
 				<td>{{ configItem.name }}</td>
 				<td>
@@ -35,29 +69,6 @@
 				</td>
 			</tr>
 		</q-markup-table>
-
-		<q-select
-			bottom-slots
-			v-if="allRoles"
-			class="section-form__title"
-			v-model="roles"
-			:options="allRoles"
-			multiple
-			use-chips
-			stack-label
-			option-value="name"
-			option-label="title"
-			:label="$tl('roles')"
-		/>
-
-		<LoaderWait v-else />
-
-		<q-checkbox
-			class="section-form__is-cache-data"
-			ref="isCacheData"
-			v-model="section.isCacheData"
-			:label="$tl('isCacheData')"
-		/>
 	</div>
 </template>
 
@@ -107,7 +118,7 @@ export default {
 			return (
 				this.$refs.name.hasError ||
 				this.$refs.type.hasError ||
-				this.$refs["configItem"].some(x =>x.hasError)
+				this.$refs["configItem"].some(x => x.hasError)
 			);
 		},
 		sectionTypes() {

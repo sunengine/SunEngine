@@ -7,7 +7,7 @@ using SunEngine.Core.Models.Materials;
 
 namespace SunEngine.Admin.Managers
 {
-	public interface ICleanerManager
+	public interface ICleanerAdminManager
 	{
 		Task DeleteMaterial(Material material);
 
@@ -16,11 +16,11 @@ namespace SunEngine.Admin.Managers
 		Task<DeletedCleanerCount> DeleteAllMarkedMaterials();
 	}
 
-	public class CleanerManager : ICleanerManager
+	public class CleanerAdminManager : ICleanerAdminManager
 	{
 		private readonly DataBaseConnection db;
 
-		public CleanerManager(
+		public CleanerAdminManager(
 			DataBaseConnection dataBaseConnection)
 		{
 			db = dataBaseConnection;
