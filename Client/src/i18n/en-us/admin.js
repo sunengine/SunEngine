@@ -88,10 +88,9 @@ export default {
 
 	SectionForm: {
 		name: "Name (eng)",
+		token: "Url token",
 		type: "Type",
 		isCacheData: "Cache data",
-		serverSettingsJson: "Server settings JSON",
-		clientSettingsJson: "Client settings JSON",
 		roles: "Roles to access",
 		validation: {
 			name: {
@@ -525,5 +524,35 @@ export default {
 		refreshBtn: "Reload from server",
 		reloadSuccessNotify: "Css reloaded from server",
 		successNotify: "Css successfully updated"
+	},
+
+	// ——— SectionsEditor ————————————————————————————————————
+
+	SectionsEditor: {
+		Activities: {
+			name: "Activities",
+			Title: "Title",
+			SubTitle: "Sub title",
+			Header: "Header",
+			MaterialsCategories: "Materials categories",
+			MaterialsCategoriesExclude: "Categories exclude",
+			CommentsCategories: "Comments categories",
+			CommentsCategoriesExclude:  "Categories exclude",
+			Number: "Activities number"
+		},
+		Posts: {
+			name: "Posts",
+			Title: "Title",
+			SubTitle: "Sub title",
+			Header: "Header",
+			Categories: "Categories",
+			CategoriesExclude:  "Categories exclude",
+			PreviewSize: "Preview length in chars",
+			PageSize: "Page size",
+			ShowAuthor: "Show author",
+			ShowPublishDate: "Show publish date",
+			ShowReadNext:"Show ReadNext button",
+			ShowComments: "Show comments"
+		}
 	}
 };

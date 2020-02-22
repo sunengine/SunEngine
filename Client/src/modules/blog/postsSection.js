@@ -2,7 +2,6 @@
 
 export default {
 	name: "Posts",
-	title: "Posts",
 
 	getRoutes(section) {
 		const name = section.name;

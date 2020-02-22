@@ -55,21 +55,21 @@ namespace SunEngine.Core.Configuration
 
 			["Sanitizer:SanitizeAdminMaterials"] = new BooleanItem(true),
 			["Sanitizer:AllowedTags"] =
-				new LongString(
+				new TokensItem(
 					"a,b,strong,i,em,blockquote,ol,li,ul,ol,p,div,br,video,audio,source,span,img,code,pre,font,h3,h4,h5,h6"),
 			["Sanitizer:AllowedAttributes"] =
-				new LongString(
+				new TokensItem(
 					"style,src,href,controls,autoplay,loop,alt,width,height,target,frameborder,allowfullscreen,download,controlsList,size"),
 			["Sanitizer:AllowedClasses"] =
-				new LongString(
+				new TokensItem(
 					"float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width"),
 			["Sanitizer:AllowedCssProperties"] =
-				new LongString(
+				new TokensItem(
 					"float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width"),
-			["Sanitizer:AllowedImageDomains"] = new LongString(),
-			["Sanitizer:AllowedVideoDomains"] = new LongString(
+			["Sanitizer:AllowedImageDomains"] = new TokensItem(),
+			["Sanitizer:AllowedVideoDomains"] = new TokensItem(
 				"https://www.youtube.com/,http://www.youtube.com/,https://youtube.com/,http://youtube.com/,https://youtu.be/,http://youtu.be/,//youtube.com/,//youtu.be/,//www.youtube.com/,//www.youtu.be/,https://vk.com/,http://vk.com/,//vk.com/,https://player.vimeo.com,http://player.vimeo.com,//player.vimeo.com"),
-			["Sanitizer:AllowedSchemes"] = new LongString(),
+			["Sanitizer:AllowedSchemes"] = new TokensItem(),
 
 			#endregion
 

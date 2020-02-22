@@ -100,10 +100,9 @@ export default {
 	SectionForm: {
 		name: "Имя (eng)",
 		type: "Тип",
+		token: "Токен URL",
 		isCacheData: "Кешировать",
-		serverSettingsJson: "Серверные настройки JSON",
-		clientSettingsJson: "Клиентские настройки JSON",
-		roles: "Роли которым доступен компонент",
+		roles: "Доступ для ролей",
 		validation: {
 			name: {
 				required: "Введите имя (eng)",
@@ -121,16 +120,16 @@ export default {
 		}
 	},
 	SectionsAdmin: {
-		title: "Админка компонентов",
-		addSectionBtn: "Добавить компонент"
+		title: "Админка разделов",
+		addSectionBtn: "Добавить раздел"
 	},
 	CreateSection: {
-		title: "Задать компонент",
+		title: "Создать раздел",
 		createBtn: "@:Global.btn.create",
 		cancelBtn: "@:Global.btn.cancel"
 	},
 	EditSection: {
-		title: "Изменить компонент",
+		title: "Изменить раздел",
 		saveBtn: "@:Global.btn.save",
 		cancelBtn: "@:Global.btn.cancel",
 		deleteBtn: "Удалить компонент",
@@ -558,5 +557,35 @@ export default {
 		refreshBtn: "Перегрузить с сервера",
 		reloadSuccessNotify: "Данные перезагружены с сервера",
 		successNotify: "Данные успешно сохранены"
+	},
+
+	// ——— SectionsEditor ————————————————————————————————————
+
+	SectionsEditor: {
+		Activities: {
+			name: "Активности",
+			Title: "Заголовок",
+			SubTitle: "Подзаголовок",
+			Header: "Шапка",
+			MaterialsCategories: "Категории материалов",
+			MaterialsCategoriesExclude: "Исключить категории",
+			CommentsCategories: "Категории комментариев",
+			CommentsCategoriesExclude: "Исключить категории",
+			Number: "Количество результатов"
+		},
+		Posts: {
+			name: "Новости",
+			Title: "Заголовок",
+			SubTitle: "Подзаголовок",
+			Header: "Шапка",
+			Categories: "Категории",
+			CategoriesExclude: "Исключить категории",
+			PreviewSize: "Символов в превью",
+			PageSize: "Размер страницы",
+			ShowAuthor: "Показать автора",
+			ShowPublishDate: "Показать дату публикации",
+			ShowReadNext:"Показать кнопку далее",
+			ShowComments: "Показать комментарии"
+		}
 	}
 };

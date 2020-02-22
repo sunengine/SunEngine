@@ -2,7 +2,13 @@
 	<SunPage class="create-section page-padding">
 		<PageHeader :title="title" />
 
-		<SectionForm ref="form" :section="section" />
+		<SectionForm
+			:editMode="false"
+			v-if="section"
+			ref="form"
+			class="q-mb-xl"
+			:section="section"
+		/>
 
 		<div class="create-section__btn-block q-mt-lg q-gutter-md">
 			<q-btn
@@ -53,10 +59,9 @@ export default {
 	},
 	methods: {
 		getSectionTemplate() {
-			this.$request(
-				this.$AdminApi.SectionsAdmin.GetSectionTemplate,
-				this.templateName
-			).then(async () => {
+			this.$request(this.$AdminApi.SectionsAdmin.GetSectionTemplate, {
+				templateName: this.templateName
+			}).then(response => {
 				this.section = response.data;
 			});
 		},
@@ -67,7 +72,15 @@ export default {
 
 			this.loading = true;
 
-			this.$request(this.$AdminApi.SectionsAdmin.AddSection, this.section, true)
+			const data = JSON.parse(JSON.stringify(this.section));
+			delete data.enums;
+			data.options = {};
+			for (const option of this.section.options)
+				data.options[option.name] = option.value;
+
+			data.options = JSON.stringify(data.options);
+
+			this.$request(this.$AdminApi.SectionsAdmin.AddSection, data, true)
 				.then(async () => {
 					this.$successNotify();
 					await this.$store.dispatch("loadAllSections");

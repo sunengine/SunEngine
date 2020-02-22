@@ -340,7 +340,7 @@ export default {
 }
 
 .configuration-admin__name-column {
-	width: 150px !important;
+	width: 200px !important;
 }
 
 .configuration-admin__value-column {

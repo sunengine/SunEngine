@@ -11,8 +11,17 @@
 		<q-input
 			ref="input"
 			dense
+			clearable
 			v-else-if="item.type === 'String'"
 			type="text"
+			v-model="item.value"
+		/>
+		<q-input
+			ref="input"
+			dense
+			clearable
+			v-else-if="item.type === 'LongString'"
+			type="textarea"
 			v-model="item.value"
 		/>
 		<q-select
@@ -20,6 +29,22 @@
 			v-else-if="enums && item.type === 'Enum'"
 			:options="enums[item.enum]"
 			v-model="item.value"
+		/>
+		<q-select
+			dense
+			v-else-if="item.type === 'Tokens'"
+			:value="item.value.split(',') | removeWhiteSpace"
+			@input="
+				v => {
+					item.value = v.join(',');
+				}
+			"
+			hide-dropdown-icon
+			input-debounce="0"
+			new-value-mode="add"
+			use-input
+			multiple
+			use-chips
 		/>
 		<SunEditor
 			ref="input"
@@ -29,14 +54,24 @@
 			v-model="item.value"
 		/>
 		<q-input
+			input-style="height:7rem"
 			ref="input"
 			dense
 			v-else-if="item.type === 'JsonString'"
-			type="text"
+			type="textarea"
+			hide-hint
+			hide-bottom-space
 			:rules="jsonRules"
 			v-model="item.value"
 		/>
-		<q-input ref="input" dense v-else type="text" v-model="item.value" />
+		<q-input
+			clearable
+			ref="input"
+			dense
+			v-else
+			type="text"
+			v-model="item.value"
+		/>
 	</div>
 </template>
 
@@ -45,7 +80,12 @@ import { jsonRules } from "sun";
 
 export default {
 	name: "ConfigItem",
-	props: {
+    filters: {
+        removeWhiteSpace(value) {
+          return value.filter(x=>x)
+        }
+    },
+    props: {
 		item: {
 			type: Object,
 			required: true
@@ -73,7 +113,7 @@ export default {
 
 <style lang="scss">
 .config-item__name-column {
-	width: 150px !important;
+	width: 200px !important;
 	padding: 15px !important;
 }
 </style>

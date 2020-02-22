@@ -7,9 +7,18 @@
 			v-if="section.options && section.options.length > 0"
 		>
 			<tr>
+				<td class="config-item__name-column">{{ $tl("type") }}</td>
+				<td>
+					{{ $t(`SectionsEditor.${section.type}.name`) }}
+				</td>
+			</tr>
+			<tr>
 				<td class="config-item__name-column">{{ $tl("name") }}</td>
 				<td>
 					<q-input
+						dense
+						hide-bottom-space
+						hide-hint
 						class="section-form__name"
 						ref="name"
 						v-model="section.name"
@@ -18,29 +27,10 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="config-item__name-column">{{ $tl("type") }}</td>
-				<td>
-					<q-select
-						class="section-form__type"
-						ref="type"
-						:disable="editMode"
-						emit-value
-						map-options
-						:rules="rules.type"
-						v-model="section.type"
-						:options="sectionTypes"
-						option-value="name"
-						option-label="title"
-					>
-						<q-icon slot="prepend" :name="$iconsSet.SectionForm.section" />
-					</q-select>
-				</td>
-			</tr>
-			<tr>
 				<td class="config-item__name-column">{{ $tl("roles") }}</td>
 				<td>
 					<q-select
-						bottom-slots
+						dense
 						v-if="allRoles"
 						class="section-form__title"
 						v-model="roles"
@@ -58,6 +48,7 @@
 				<td class="config-item__name-column">{{ $tl("isCacheData") }}</td>
 				<td>
 					<q-checkbox
+						dense
 						class="section-form__is-cache-data"
 						ref="isCacheData"
 						v-model="section.isCacheData"
@@ -65,7 +56,7 @@
 				</td>
 			</tr>
 			<tr :key="configItem.name" v-for="configItem of section.options">
-				<td>{{ configItem.name }}</td>
+				<td>{{ $t(`SectionsEditor.${section.type}.${configItem.name}`) }}</td>
 				<td>
 					<ConfigItem ref="configItem" :item="configItem" :enums="section.enums" />
 				</td>
@@ -118,25 +109,16 @@ export default {
 	computed: {
 		hasError() {
 			return (
-				this.$refs.name.hasError ||
-				this.$refs.type.hasError ||
-				this.$refs["configItem"].some(x => x.hasError)
+				this.$refs.name.hasError || this.$refs["configItem"].some(x => x.hasError)
 			);
-		},
-		sectionTypes() {
-			return Object.values(this.$store.state.sections.sectionsTypes);
 		}
 	},
 	methods: {
-		typeChanges() {
-			const type = this.$store.getters.getSectionType(this.section.type);
-		},
 		rolesUpdated() {
 			this.section.roles = this.roles.map(x => x.name).join(",");
 		},
 		validate() {
 			this.$refs.name.validate();
-			this.$refs.type.validate();
 			this.$refs["configItem"].forEach(x => x.validate());
 		},
 		loadRoles() {

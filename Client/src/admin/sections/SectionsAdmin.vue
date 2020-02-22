@@ -9,13 +9,14 @@
 			>
 				<q-list>
 					<q-item
+						:key="templateName"
 						v-for="templateName in templatesNames"
 						v-close-popup
-						:to="{ name: 'CreateSection' }"
 						no-caps
+						:to="{ name: 'CreateSection', params: { templateName: templateName } }"
 					>
 						<q-item-section>
-							<q-item-label>{{ templateName }}</q-item-label>
+							<q-item-label>{{ $t(`SectionsEditor.${templateName}.name`) }}</q-item-label>
 						</q-item-section>
 					</q-item>
 				</q-list>
@@ -74,7 +75,10 @@ export default {
 			return this.$getBreadcrumbs("Admin");
 		},
 		templatesNames() {
-		   return Object.entries(this.$store.state.sections.sectionsTypes).map(x => x.name);
+			const rez = Object.values(this.$store.state.sections.sectionsTypes).map(
+				x => x.name
+			);
+			return rez;
 		}
 	},
 	methods: {

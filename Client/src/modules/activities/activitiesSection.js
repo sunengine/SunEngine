@@ -2,7 +2,6 @@
 
 export default {
 	name: "Activities",
-	title: "Activities",
 
 	getRoutes(section) {
 		const name = section.name;

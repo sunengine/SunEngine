@@ -9,6 +9,7 @@ using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Configuration.ConfigItemType;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
+using SunEngine.Core.Security;
 using SunEngine.Core.Services;
 
 namespace SunEngine.Admin.Presenters
@@ -94,6 +95,8 @@ namespace SunEngine.Admin.Presenters
 
 			var configItemViews = new Dictionary<string, ConfigItemView>();
 
+			sectionView.Type = templateName;
+			sectionView.Roles = string.Join(",", RoleNames.Unregistered, RoleNames.Registered);
 			sectionView.Enums = new Dictionary<string, string[]>();
 
 			if (sectionsCache.SectionServerTypes.TryGetValue(templateName, out Type sectionServerType))
@@ -121,7 +124,7 @@ namespace SunEngine.Admin.Presenters
 						if (!sectionView.Enums.ContainsKey(configItemView.Enum))
 							sectionView.Enums.Add(configItemView.Enum, propertyInfo.PropertyType.GetEnumNames());
 					}
-					
+
 					configItemViews[configItemView.Name] = configItemView;
 				}
 			}

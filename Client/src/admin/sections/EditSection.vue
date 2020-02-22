@@ -83,8 +83,6 @@ export default {
 
 			data.options = JSON.stringify(data.options);
 
-			console.log(data);
-
 			this.$request(this.$AdminApi.SectionsAdmin.UpdateSection, data, true)
 				.then(async () => {
 					this.$successNotify();
