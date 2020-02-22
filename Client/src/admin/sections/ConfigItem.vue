@@ -54,6 +54,8 @@
 			v-model="item.value"
 		/>
 		<q-input
+			class="jj"
+			style="position: relative"
 			input-style="height:7rem"
 			ref="input"
 			dense
@@ -64,18 +66,17 @@
 			:rules="jsonRules"
 			v-model="item.value"
 		>
-			<q-menu context-menu v-close-popup>
-				<q-item dense v-close-popup clickable no-caps @click="prepareJson">
-					<q-item-section avatar>
-						<q-icon :name="$iconsSet.ConfigItem.pretty" />
-					</q-item-section>
-					<q-item-section>
-						<q-item-label>
-							{{ $tl("pretty") }}
-						</q-item-label>
-					</q-item-section>
-				</q-item>
-			</q-menu>
+			<q-btn
+				round
+				dense
+				class="config-item__pretty-btn"
+				size="12px"
+				@click="prepareJson"
+				style="position: absolute; top:5px; right:24px; display: none"
+				:icon="$iconsSet.ConfigItem.pretty"
+			>
+				<q-tooltip>{{ $tl("pretty") }}</q-tooltip>
+			</q-btn>
 		</q-input>
 		<q-input
 			clearable
@@ -131,5 +132,9 @@ export default {
 .config-item__name-column {
 	width: 200px !important;
 	padding: 15px !important;
+}
+
+.q-field--focused .config-item__pretty-btn {
+	display: block !important;
 }
 </style>
