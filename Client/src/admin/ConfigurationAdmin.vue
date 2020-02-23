@@ -122,6 +122,7 @@ export default {
 			configurationGroups: null,
 			configurationGroupsFiltered: null,
 			tokens: null,
+			allRoles: null,
 			enums: null,
 			loading: false
 		};
@@ -147,6 +148,15 @@ export default {
 		}
 	},
 	methods: {
+		loadRoles() {
+			this.$request(this.$AdminApi.UserRolesAdmin.GetAllRoles).then(response => {
+				this.allRoles = response.data;
+				this.allRoles.push({
+					name: "Unregistered",
+					title: "Unregistered"
+				});
+			});
+		},
 		filterItems() {
 			if (!this.filter)
 				this.configurationGroupsFiltered = this.configurationGroups;
@@ -310,6 +320,7 @@ export default {
 	async created() {
 		this.filterItems = this.$throttle(this.filterItems, 1000);
 		this.title = this.$tl("title");
+		await this.loadRoles();
 		await this.loadConfiguration();
 		this.doFilter();
 	}

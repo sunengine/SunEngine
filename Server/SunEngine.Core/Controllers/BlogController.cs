@@ -88,7 +88,7 @@ namespace SunEngine.Core.Controllers
 			if (section == null)
 				return BadRequest($"No component {sectionName} found in cache");
 
-			PostsServerSectionData sectionData = section.Data as PostsServerSectionData;
+			PostsServerSectionData sectionData = (PostsServerSectionData)section.Data;
 
 			var materialsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(sectionData.Categories);
 			var materialsCategoriesExcludeDic =

@@ -116,6 +116,13 @@ export default {
 				allowedChars:
 					"Имя (eng) должно состоять из символов `a-z`, `A-Z`, `0-9`, `-`, `_`"
 			},
+			token: {
+				maxLength:
+					"Максимальная длинна должна быть не более " +
+					config.DbColumnSizes.Sections_Token,
+				allowedChars:
+					"Токен должен состоять из символов `a-z`, `A-Z`, `0-9`, `-`"
+			},
 			type: {
 				required: "Выберите тип"
 			},
@@ -588,7 +595,9 @@ export default {
 			ShowAuthor: "Показать автора",
 			ShowPublishDate: "Показать дату публикации",
 			ShowReadNext:"Показать кнопку далее",
-			ShowComments: "Показать комментарии"
+			ShowComments: "Показать комментарии",
+			AddButtonLabel: "Текст кнопки добавления материала",
+			RolesCanAdd: "Роли кнопки"
 		}
 	}
 };

@@ -103,6 +103,13 @@ export default {
 				allowedChars:
 					"The name (eng) must consist of the characters `a-z`, `A-Z`, `0-9`, `-`, `_`"
 			},
+			token: {
+				maxLength:
+					"Maximum section name length is " +
+					config.DbColumnSizes.Sections_Token,
+				allowedChars:
+					"Token must consist of the characters `a-z`, `A-Z`, `0-9`, `-`"
+			},
 			type: {
 				required: "Select type"
 			},
@@ -552,7 +559,9 @@ export default {
 			ShowAuthor: "Show author",
 			ShowPublishDate: "Show publish date",
 			ShowReadNext:"Show ReadNext button",
-			ShowComments: "Show comments"
+			ShowComments: "Show comments",
+			AddButtonLabel: "Button add material text",
+			RolesCanAdd: "Button roles"
 		}
 	}
 };

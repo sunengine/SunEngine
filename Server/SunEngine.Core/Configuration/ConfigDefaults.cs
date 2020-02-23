@@ -10,7 +10,7 @@ namespace SunEngine.Core.Configuration
 		{
 			["Global:SiteName"] = new StringItem("SunEngine", true),
 			["Global:Locale"] = new EnumItem(Locale.Russian, true),
-			["Global:SiteTitle"] = new HtmlStringItem("SunEngine Demo"),
+			["Global:SiteTitle"] = new HtmlItem("SunEngine Demo"),
 			["Global:PageTitleTemplate"] = new StringItem("{pageTitle} - {siteName}"),
 			["Global:HomePageRedirect"] = new StringItem(),
 			["Global:DisallowRegistration"] = new BooleanItem(),
@@ -18,7 +18,7 @@ namespace SunEngine.Core.Configuration
 			["Global:IconsSet"] = new EnumItem(IconsSet.LineAwesome),
 			["Global:OpenExternalLinksAtNewTab"] = new BooleanItem(true),
 
-			["Register:ConfirmText"] = new HtmlStringItem(),
+			["Register:ConfirmText"] = new HtmlItem(),
 			["Register:RequireUniqueEmail"] = new BooleanItem(true),
 			["Register:AllowedUserNameCharacters"] =
 				new StringItem("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -"),
@@ -83,7 +83,7 @@ namespace SunEngine.Core.Configuration
 
 			#region EditorToolbars
 
-			["Editor:MaterialToolbar"] = new JsonString(@"[
+			["Editor:MaterialToolbar"] = new JsonItem(@"[
 	          ['bold', 'italic', 'strike', 'underline'],
               ['token', 'link', 'addImages'],
               ['hr'],
@@ -115,7 +115,7 @@ namespace SunEngine.Core.Configuration
             ['viewsource', 'fullscreen']
             ]"),
 
-			["Editor:UserInformationToolbar"] = new JsonString(@"[
+			["Editor:UserInformationToolbar"] = new JsonItem(@"[
               ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
               ['token', 'hr', 'link', 'addImages'],
               [
@@ -145,7 +145,7 @@ namespace SunEngine.Core.Configuration
               ['undo', 'redo'],
               [ 'viewsource', 'fullscreen']
             ]"),
-			["Editor:CommentToolbar"] = new JsonString(@"[
+			["Editor:CommentToolbar"] = new JsonItem(@"[
               ['bold', 'italic', 'strike', 'underline'],
               ['token', 'hr', 'link', 'addImages'],
               [
@@ -169,7 +169,7 @@ namespace SunEngine.Core.Configuration
               ['undo', 'redo'],
               ['viewsource', 'fullscreen']
             ]"),
-			["Editor:SendPrivateMessageToolbar"] = new JsonString(@"[
+			["Editor:SendPrivateMessageToolbar"] = new JsonItem(@"[
                 ['bold', 'italic', 'strike', 'underline'],
                 ['token', 'hr' ],
                 ['quote', 'unordered', 'ordered' ],

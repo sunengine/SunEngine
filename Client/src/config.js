@@ -45,7 +45,8 @@ const config = {
 		MenuItems_CssClass: 64,
 		MenuItems_Icon: 64,
 		Components_Name: 64,
-		Components_Type: 32
+		Components_Type: 32,
+		Sections_Token: 64
 	},
 	Admin: {
 		RoleUsersMaxUsersTake: 40

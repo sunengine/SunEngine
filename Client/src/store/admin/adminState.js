@@ -1,3 +1,3 @@
 export default {
-	showDeletedElements: false
+	showDeletedElements: false,
 };

@@ -4,7 +4,7 @@
 			flat
 			bordered
 			wrap-cells
-			v-if="section.options && section.options.length > 0"
+			v-if="section.options && section.options.length > 0 && allRoles"
 		>
 			<tr>
 				<td class="config-item__name-column">{{ $tl("type") }}</td>
@@ -23,6 +23,20 @@
 						ref="name"
 						v-model="section.name"
 						:rules="rules.name"
+					/>
+				</td>
+			</tr>
+			<tr>
+				<td class="config-item__name-column">{{ $tl("token") }}</td>
+				<td>
+					<q-input
+						dense
+						hide-bottom-space
+						hide-hint
+						class="section-form__name"
+						ref="token"
+						v-model="section.token"
+						:rules="rules.token"
 					/>
 				</td>
 			</tr>
@@ -58,7 +72,7 @@
 			<tr :key="configItem.name" v-for="configItem of section.options">
 				<td>{{ $t(`SectionsEditor.${section.type}.${configItem.name}`) }}</td>
 				<td>
-					<ConfigItem ref="configItem" :item="configItem" :enums="section.enums" />
+					<ConfigItem ref="configItem" :allRoles="allRoles" :item="configItem" :enums="section.enums" />
 				</td>
 			</tr>
 		</q-markup-table>
@@ -78,6 +92,14 @@ function createRules() {
 				this.$tl("validation.name.maxLength"),
 			value =>
 				/^[a-zA-Z0-9_-]*$/.test(value) || this.$tl("validation.name.allowedChars")
+		],
+		token: [
+			value =>
+				!value ||
+				value.length <= config.DbColumnSizes.Sections_Token ||
+				this.$tl("validation.token.maxLength"),
+			value =>
+				/^[a-zA-Z0-9-]*$/.test(value) || this.$tl("validation.token.allowedChars")
 		],
 		type: [value => !!value || this.$tl("validation.type.required")]
 	};
@@ -126,7 +148,7 @@ export default {
 				this.allRoles = response.data;
 				this.allRoles.push({
 					name: "Unregistered",
-					title: "Гость"
+					title: "Unregistered"
 				});
 				const sectionRoles = this.section.roles.split(",");
 				this.roles = this.allRoles.filter(x =>

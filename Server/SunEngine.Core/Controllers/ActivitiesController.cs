@@ -45,7 +45,7 @@ namespace SunEngine.Core.Controllers
 			if (section == null)
 				return BadRequest($"No component {sectionName} found in cache");
 
-			ActivitiesServerSectionData sectionData = section.Data as ActivitiesServerSectionData;
+			ActivitiesServerSectionData sectionData = (ActivitiesServerSectionData)section.Data;
 
 			var materialsCategoriesDic =
 				categoriesCache.GetAllCategoriesWithChildren(sectionData.MaterialsCategories);
