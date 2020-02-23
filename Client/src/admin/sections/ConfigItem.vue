@@ -84,7 +84,7 @@
 			</q-btn>
 		</q-input>
 		<q-select
-			 @loadstart="prepareRoles"
+			@loadstart="prepareRoles"
 			dense
 			v-else-if="item.type === 'Roles'"
 			v-model="roles"
@@ -94,6 +94,10 @@
 			stack-label
 			option-value="name"
 			option-label="title"
+		/>
+		<CategoriesInput
+			v-else-if="item.type === 'Categories'"
+			v-model="item.value"
 		/>
 		<q-input
 			clearable
@@ -141,10 +145,11 @@ export default {
 	},
 	methods: {
 		rolesUpdated() {
-			this.item.value = this.roles
-				?.map(x => x.name)
-				?.filter(x => x)
-				?.join(",") ?? "";
+			this.item.value =
+				this.roles
+					?.map(x => x.name)
+					?.filter(x => x)
+					?.join(",") ?? "";
 		},
 		prepareRoles() {
 			const selectedRoles = this.item.value?.split(",") ?? [];
@@ -158,6 +163,9 @@ export default {
 		validate() {
 			this.$refs?.input?.validate();
 		}
+	},
+	beforeCreate() {
+		this.$options.components.CategoriesInput = require("sun").CategoriesInput;
 	},
 	created() {
 		switch (this.item.type) {

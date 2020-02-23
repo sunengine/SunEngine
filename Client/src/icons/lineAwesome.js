@@ -13,7 +13,8 @@ const global = {
 	user: "la la-user",
 	send: "la la-arrow-circle-right",
 	comment: "la la-comment-alt",
-	category: "la la-book",
+	category: "la la-box",
+	categories: "la la-boxes",
 	key: "la la-key",
 	envelope: "la la-envelope",
 	wrench: "la la-wrench"
@@ -73,7 +74,7 @@ export default {
 		addCategoryBtn: global.add
 	},
 	CategoryForm: {
-		category: "la la-stream",
+		category: global.category,
 		icons: "la la-icons",
 		layout: "la la-table"
 	},
@@ -85,6 +86,10 @@ export default {
 		material: "la la-file-alt",
 		plus: global.add,
 		up: "la la-angle-up"
+	},
+	CategoriesInput: {
+		category: global.category,
+		categories: global.categories
 	},
 	ChangeEmail: {
 		envelope: global.envelope,
