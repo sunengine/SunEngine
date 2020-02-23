@@ -100,6 +100,11 @@ export default {
 		value: {
 			type: String,
 			required: true
+		},
+		getAllCategoriesFunction: {
+			type: Function,
+			required: false,
+			default: getWhereToAddMultiCat
 		}
 	},
 	data() {
@@ -117,7 +122,7 @@ export default {
 			return this.names.map(x => this.$store.getters.getCategory(x));
 		},
 		categoriesNodes() {
-			return getWhereToAddMultiCat(this.$store, this.categoriesNames);
+			return getWhereToAddMultiCat(this.categoriesNames);
 		}
 	}
 };

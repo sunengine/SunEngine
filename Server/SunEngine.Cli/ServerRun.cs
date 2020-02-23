@@ -90,7 +90,7 @@ namespace SunEngine.Cli
 					void UseStaticFiles()
 					{
 						var configurationRoot = PathService.MakeConfiguration(startupConfiguration.ConfigRootDir);
-						var fileServer = configurationRoot["Global:FileServer"];
+						var fileServer = configurationRoot["Server:FileServer"];
 						if (fileServer != null && bool.Parse(fileServer))
 							builder.UseWebRoot(new PathService(startupConfiguration.ConfigRootDir).WwwRootDir);
 					}

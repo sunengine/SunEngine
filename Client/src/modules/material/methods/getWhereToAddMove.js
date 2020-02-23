@@ -1,17 +1,18 @@
 ﻿import Vue from "vue";
+import { store } from "sun";
 
-export function getWhereToMove(store) {
+export function getWhereToMove() {
 	const rez = goDeep(store.state.categories.root);
 	return [...rez.children];
 }
 
-export function getWhereToAdd(store, categoriesNames) {
+export function getWhereToAdd(categoriesNames) {
 	if (categoriesNames.includes(","))
-		return getWhereToAddMultiCat(store, categoriesNames);
-	else return getWhereToAddOneCat(store, categoriesNames);
+		return getWhereToAddMultiCat(categoriesNames);
+	else return getWhereToAddOneCat(categoriesNames);
 }
 
-export function getWhereToAddOneCat(store, categoryName) {
+export function getWhereToAddOneCat(categoryName) {
 	let rez = goDeep(store.getters.getCategory(categoryName));
 	if (rez.selectable) rez = [rez];
 	else rez = [...rez.children];
@@ -19,7 +20,7 @@ export function getWhereToAddOneCat(store, categoryName) {
 	return rez;
 }
 
-export function getWhereToAddMultiCat(store, categoriesNames) {
+export function getWhereToAddMultiCat(categoriesNames) {
 	const categories = categoriesNames.split(",").map(x => x.trim());
 	const nodes = [];
 	for (let categoryName of categories) {
