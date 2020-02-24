@@ -5,7 +5,7 @@
   },
   "UrlPaths": {
     "Site": "http://<domain>",
-    "Api": "http://<domain>",
+    "Api": "http://<domain>/api",
     "UploadImages": "http://<domain>/UploadImages",
     "Skins": "http://<domain>/statics/Skins",
     "PartialSkins": "http://<domain>/statics/PartialSkins"
