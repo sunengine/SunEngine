@@ -1,13 +1,14 @@
 <template>
 	<q-field
-		class="material-form__category cursor-pointer"
+		class="categories-input cursor-pointer"
 		:label="label"
 		:stack-label="stackLabel"
 	>
 		<template v-slot:control>
-			<div tabindex="0" class="no-outline full-width">
+			<div tabindex="0" class="categories-input__chips no-outline full-width">
 				<template v-if="multiple">
 					<q-chip
+						class="categories-input__chip"
 						dense
 						:key="cat.name"
 						v-for="cat in categories"
@@ -20,9 +21,12 @@
 						"
 					/>
 				</template>
-				<template v-else>
-					{{ category ? category.title : "select category" }}
-				</template>
+				<div v-else-if="category" class="categories-input__selected-category">
+					{{ category.title }}
+				</div>
+				<div v-else class="categories-input__select-category text-grey-6">
+					{{ $tl("selectCategory") }}
+				</div>
 			</div>
 		</template>
 		<template v-if="showIcon" v-slot:prepend>
@@ -32,7 +36,7 @@
 						? $iconsSet.CategoriesInput.categories
 						: $iconsSet.CategoriesInput.category
 				"
-				class="q-mr-xs"
+				class="categories-input__categories-icon q-mr-xs"
 			/>
 		</template>
 		<template v-slot:append>
@@ -58,7 +62,7 @@
 						<q-icon
 							v-if="showIcons && prop.node.selectable"
 							:name="$iconsSet.CategoriesInput.category"
-							class="q-mr-xs"
+							class="categories-input__category-icon q-mr-xs"
 							color="green"
 						/>
 						<span class="q-ml-sm">{{ prop.node.title }}</span>
@@ -102,10 +106,6 @@ export default {
 			required: false,
 			default: false
 		},
-		/*	categoryName: {
-			type: String,
-			required: false
-		},*/
 		categoriesNames: {
 			type: String,
 			required: false
@@ -156,7 +156,6 @@ export default {
 
 			while (current) {
 				if (showCats.some(x => x === current.name)) return true;
-
 				current = current.parent;
 			}
 			return false;

@@ -17,6 +17,9 @@ export default {
 		enterToken: "Enter text from image",
 		required: "@:Captcha.enterToken"
 	},
+	CategoriesInput: {
+		selectCategory: "Select category"
+	},
 	LoaderSent: {
 		sending: "Sending..."
 	},
