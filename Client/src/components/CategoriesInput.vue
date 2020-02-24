@@ -6,18 +6,21 @@
 	>
 		<template v-slot:control>
 			<div tabindex="0" class="no-outline full-width">
-				<q-chip
-					dense
-					:key="cat.name"
-					v-for="cat in categories"
-					:label="cat.title"
-					removable
-					@remove="
-						v => {
-							names = names.filter(x => x !== cat.name);
-						}
-					"
-				/>
+				<template v-if="multiple">
+					<q-chip
+						dense
+						:key="cat.name"
+						v-for="cat in categories"
+						:label="cat.title"
+						removable
+						@remove="
+							v => {
+								names = names.filter(x => x !== cat.name);
+							}
+						"
+					/>
+				</template>
+				<template v-else> {{ category.title }} </template>
 			</div>
 		</template>
 		<template v-if="showIcon" v-slot:prepend>
@@ -40,10 +43,13 @@
 			<q-tree
 				:nodes="categoriesNodes"
 				default-expand-all
+				:selected.sync="name"
 				:ticked.sync="names"
-				tick-strategy="strict"
+				:tick-strategy="multiple ? 'strict' : undefined"
 				node-key="name"
 				label-key="title"
+				filter="Раздел"
+				:filter-method="filter"
 			>
 				<template v-slot:default-header="prop">
 					<div class="material-form__menu-item">
@@ -63,8 +69,6 @@
 </template>
 
 <script>
-import { getWhereToAddMultiCat } from "sun";
-
 export default {
 	name: "CategoriesInput",
 	props: {
@@ -85,44 +89,54 @@ export default {
 		multiple: {
 			type: Boolean,
 			required: false,
-			default: false
+			default: true
+		},
+		categoryName: {
+			type: String,
+			required: false
 		},
 		categoriesNames: {
 			type: String,
-			required: false,
-			default: "Root"
+			required: false
 		},
 		categoriesNamesExclude: {
 			type: String,
-			required: false,
-			default: null
+			required: false
 		},
 		value: {
 			type: String,
 			required: true
-		},
-		getAllCategoriesFunction: {
-			type: Function,
-			required: false,
-			default: getWhereToAddMultiCat
 		}
 	},
 	data() {
 		return {
-			names: this.value.split(",")
+			names: this.multiple ? this.value.split(",") : null,
+			name: this.multiple ? null : this.value
 		};
 	},
 	watch: {
 		names() {
-			this.$emit("input", this.names.join(","));
+			if (this.multiple) this.$emit("input", this.names.join(","));
+		},
+		name() {
+			if (!this.multiple) this.$emit("input", this.name);
 		}
 	},
 	computed: {
+		category() {
+			if (!this.multiple) return this.$store.getters.getCategory(this.name);
+		},
 		categories() {
-			return this.names.map(x => this.$store.getters.getCategory(x));
+			if (this.multiple)
+				return this.names.map(x => this.$store.getters.getCategory(x));
 		},
 		categoriesNodes() {
-			return getWhereToAddMultiCat(this.categoriesNames);
+			return [this.$store.getters.getCategory("Root")];
+		}
+	},
+	methods: {
+		filter(cat, filter) {
+			return cat.title.includes(filter);
 		}
 	}
 };

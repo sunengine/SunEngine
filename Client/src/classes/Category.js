@@ -1,6 +1,14 @@
 import { extend } from "quasar";
 
 export default class Category {
+	get children() {
+		return this.subCategories;
+	}
+
+	get selectable() {
+		return true;
+	}
+	
 	getRoute() {
 		return this.route ?? undefined;
 	}
