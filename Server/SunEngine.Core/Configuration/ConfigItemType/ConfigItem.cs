@@ -73,5 +73,10 @@ namespace SunEngine.Core.Configuration.ConfigItemType
 		{
 			return (IConfigItem)MemberwiseClone();
 		}
+
+		public override string ToString()
+		{
+			return Value.ToString();
+		}
 	}
 }
