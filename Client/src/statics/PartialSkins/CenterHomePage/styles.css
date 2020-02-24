@@ -1,9 +1,9 @@
 .partial-skin-center-home-page .index-page {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	justify-items: center;
-	justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=styles.css.map */
