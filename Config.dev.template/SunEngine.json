@@ -1,18 +1,14 @@
-/**
- *   %app% - Application Root path. Set to auto to make auto search in parent 4 level.
- *   %wwwroot% - wwwroot path
- *   %config% - config dir path
- **/
 {
-  "Global": {
-    "SiteUrl": "http://localhost:5005",
-    "SiteApi": "http://localhost:5000",
-    "UploadImagesUrl": "http://localhost:5005/UploadImages",
-    "SkinsUrl": "http://localhost:5005/statics/Skins",
-    "PartialSkinsUrl": "http://localhost:5005/statics/PartialSkins",
-    "CustomCssUrl": "http://localhost:5005/custom.css",
+  "Server": {
     "FileServer": true,
-    "UpdateClientScriptsOnConfigChanges": true
+    "UpdateConfigJsOnConfigChanges": false
+  },
+  "UrlPaths": {
+    "Site": "http://localhost:5005",
+    "Api": "http://localhost:5000",
+    "UploadImages": "http://localhost:5005/UploadImages",
+    "Skins": "http://localhost:5005/statics/Skins",
+    "PartialSkins": "http://localhost:5005/statics/PartialSkins"
   },
   "Dirs": {
     "ApplicationRoot": "auto",

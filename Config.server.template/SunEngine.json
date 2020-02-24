@@ -1,18 +1,14 @@
-/**
- *   %app% - Application Root path. Set to auto to make auto search in parent 4 level.
- *   %wwwroot% - wwwroot path
- *   %config% - config dir path
- **/
 {
-  "Global": {
-    "SiteUrl": "http://<domain>",
-    "SiteApi": "http://<domain>",
-    "UploadImagesUrl": "http://<domain>/UploadImages",
-    "SkinsUrl": "http://<domain>/statics/Skins",
-    "PartialSkinsUrl": "http://<domain>/statics/PartialSkins",
-    "CustomCssUrl": "http://<domain>/statics/custom.css",
+  "Server": {
     "FileServer": true,
-    "UpdateClientScriptsOnConfigChanges": true
+    "UpdateConfigJsOnConfigChanges": true
+  },
+  "UrlPaths": {
+    "Site": "http://<domain>",
+    "Api": "http://<domain>",
+    "UploadImages": "http://<domain>/UploadImages",
+    "Skins": "http://<domain>/statics/Skins",
+    "PartialSkins": "http://<domain>/statics/PartialSkins"
   },
   "Dirs": {
     "ApplicationRoot": "auto",
