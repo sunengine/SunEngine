@@ -17,7 +17,6 @@ namespace SunEngine.Migrations.Migrations
 				.WithColumn("Roles".s()).AsString().NotNullable()
 				.WithColumn("IsCacheData".s()).AsBoolean().NotNullable()
 				.WithColumn("Options".s()).AsJson().NotNullable();
-			//Delete.Column("Token".s()).FromTable("Categories".s());
 		}
 
 		public override void Down()
