@@ -46,7 +46,7 @@ export default {
 		title: "Заголовок",
 		subTitle: "Подзаголовок",
 		tags: "Теги",
-		selectCategory: "Раздел",
+		selectCategory: "Категория",
 		category: "Раздел: {0}",
 		hide: "Спрятать",
 		blockComments: "Запретить комментарии",

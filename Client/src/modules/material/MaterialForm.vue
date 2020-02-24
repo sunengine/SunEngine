@@ -72,6 +72,7 @@
 			v-model="material.categoryName"
 			showIcon
 			showIcons
+			:label="$tl('selectCategory')"
 		/>
 
 		<q-input
