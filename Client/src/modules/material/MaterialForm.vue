@@ -71,6 +71,7 @@
 			:categoriesNames="categoriesNames"
 			v-model="material.categoryName"
 			showIcon
+			showIcons
 		/>
 
 		<q-input

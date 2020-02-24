@@ -56,11 +56,10 @@
 				<template v-slot:default-header="prop">
 					<div class="material-form__menu-item">
 						<q-icon
-							v-if="prop.node.icon"
-							:name="prop.node.icon"
-							class="q-ml-sm"
-							:color="prop.node.iconColor"
-							size="16px"
+							v-if="showIcons && prop.node.selectable"
+							:name="$iconsSet.CategoriesInput.category"
+							class="q-mr-xs"
+							color="green"
 						/>
 						<span class="q-ml-sm">{{ prop.node.title }}</span>
 					</div>
@@ -75,6 +74,11 @@ export default {
 	name: "CategoriesInput",
 	props: {
 		showIcon: {
+			type: Boolean,
+			required: false,
+			default: false
+		},
+		showIcons: {
 			type: Boolean,
 			required: false,
 			default: false
@@ -138,11 +142,8 @@ export default {
 				return this.names.map(x => this.$store.getters.getCategory(x));
 		},
 		categoriesNodes() {
-			if (this.showRoot) {
-				return [this.$store.getters.getCategory("Root")];
-			} else {
-				return [...this.$store.getters.getCategory("Root").children];
-			}
+			if (this.showRoot) return [this.$store.getters.getCategory("Root")];
+			else return this.$store.getters.getCategory("Root").children;
 		},
 		namesArray() {
 			if (this.multiple) return this.names.split(",");
