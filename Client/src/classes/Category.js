@@ -6,7 +6,7 @@ export default class Category {
 	}
 
 	get selectable() {
-		return true;
+		return this.categoryPersonalAccess?.MaterialWrite && this.isMaterialsContainer;
 	}
 	
 	getRoute() {

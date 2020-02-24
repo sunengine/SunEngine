@@ -98,6 +98,9 @@
 		<CategoriesInput
 			v-else-if="item.type === 'Categories'"
 			v-model="item.value"
+			categoriesNames="Root"
+			multiple
+			showRoot
 		/>
 		<q-input
 			clearable

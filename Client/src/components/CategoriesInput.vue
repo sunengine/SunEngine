@@ -20,7 +20,9 @@
 						"
 					/>
 				</template>
-				<template v-else> {{ category.title }} </template>
+				<template v-else>
+					{{ category ? category.title : "select category" }}
+				</template>
 			</div>
 		</template>
 		<template v-if="showIcon" v-slot:prepend>
@@ -48,8 +50,8 @@
 				:tick-strategy="multiple ? 'strict' : undefined"
 				node-key="name"
 				label-key="title"
-				filter="Раздел"
-				:filter-method="filter"
+				filter="all"
+				:filter-method="showCats"
 			>
 				<template v-slot:default-header="prop">
 					<div class="material-form__menu-item">
@@ -89,12 +91,17 @@ export default {
 		multiple: {
 			type: Boolean,
 			required: false,
-			default: true
+			default: false
 		},
-		categoryName: {
+		showRoot: {
+			type: Boolean,
+			required: false,
+			default: false
+		},
+		/*	categoryName: {
 			type: String,
 			required: false
-		},
+		},*/
 		categoriesNames: {
 			type: String,
 			required: false
@@ -131,12 +138,27 @@ export default {
 				return this.names.map(x => this.$store.getters.getCategory(x));
 		},
 		categoriesNodes() {
-			return [this.$store.getters.getCategory("Root")];
+			if (this.showRoot) {
+				return [this.$store.getters.getCategory("Root")];
+			} else {
+				return [...this.$store.getters.getCategory("Root").children];
+			}
+		},
+		namesArray() {
+			if (this.multiple) return this.names.split(",");
 		}
 	},
 	methods: {
-		filter(cat, filter) {
-			return cat.title.includes(filter);
+		showCats(cat, filter) {
+			const showCats = this.categoriesNames.split(",").map(x => x.trim());
+			let current = cat;
+
+			while (current) {
+				if (showCats.some(x => x === current.name)) return true;
+
+				current = current.parent;
+			}
+			return false;
 		}
 	}
 };

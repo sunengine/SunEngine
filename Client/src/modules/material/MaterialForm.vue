@@ -67,49 +67,11 @@
 			</template>
 		</q-select>
 
-		<q-field
-			class="material-form__category cursor-pointer"
-			:error="!material.categoryName && !start"
-			:label="$tl('selectCategory')"
-			:stack-label="!!material.categoryName"
-		>
-			<template v-slot:control>
-				<div tabindex="0" class="no-outline full-width">
-					{{ categoryTitle }}
-				</div>
-			</template>
-			<template v-slot:prepend>
-				<q-icon :name="$iconsSet.MaterialForm.category" class="q-mr-xs" />
-			</template>
-			<template v-slot:append>
-				<q-icon :name="$q.iconSet.expansionItem.denseIcon"></q-icon>
-			</template>
-			<template v-slot:error>
-				{{ $tl("validation.category.required") }}
-			</template>
-			<q-menu fit auto-close>
-				<q-tree
-					:nodes="categoriesNodes"
-					default-expand-all
-					:selected.sync="material.categoryName"
-					node-key="name"
-					label-key="title"
-				>
-					<template v-slot:default-header="prop">
-						<div class="material-form__menu-item">
-							<q-icon
-								v-if="prop.node.icon"
-								:name="prop.node.icon"
-								class="q-ml-sm"
-								:color="prop.node.iconColor"
-								size="16px"
-							/>
-							<span class="q-ml-sm">{{ prop.node.title }}</span>
-						</div>
-					</template>
-				</q-tree>
-			</q-menu>
-		</q-field>
+		<CategoriesInput
+			:categoriesNames="categoriesNames"
+			v-model="material.categoryName"
+			showIcon
+		/>
 
 		<q-input
 			class="material-form__settings-json"
@@ -202,8 +164,8 @@ export default {
 			type: Object,
 			required: true
 		},
-		categoriesNodes: {
-			type: Array,
+		categoriesNames: {
+			type: String,
 			required: true
 		}
 	},
@@ -211,13 +173,6 @@ export default {
 		return {
 			start: true
 		};
-	},
-	watch: {
-		"material.categoryName": function(newVal, oldVal) {
-			if (!newVal) {
-				this.material.categoryName = oldVal;
-			}
-		}
 	},
 	computed: {
 		hasError() {
@@ -266,6 +221,7 @@ export default {
 	beforeCreate() {
 		this.rules = createRules.call(this);
 		this.editorToolbar = JSON.parse(config.Editor.MaterialToolbar);
+		this.$options.components.CategoriesInput = require("sun").CategoriesInput;
 	}
 };
 </script>

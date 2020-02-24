@@ -4,7 +4,7 @@
 			ref="form"
 			class="create-material__material-form"
 			:material="material"
-			:categories-nodes="categoryNodes"
+			:categoriesNames="categoriesNames"
 		/>
 
 		<div class="create-material__btn-block q-mt-md">
@@ -81,11 +81,6 @@ export default {
 			},
 			loading: false
 		};
-	},
-	computed: {
-		categoryNodes() {
-			return getWhereToAdd(this.$store, this.categoriesNames);
-		}
 	},
 	methods: {
 		send() {
