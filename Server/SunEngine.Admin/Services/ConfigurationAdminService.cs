@@ -44,7 +44,7 @@ namespace SunEngine.Admin.Services
 				.ToDictionary(x => x.Key, x => x.Value.GetType());
 
 			ConfigDefaults.ConfigurationItems
-				.Where(x => x.Key.StartsWith("Urls:")).ToList().ForEach(x =>
+				.Where(x => x.Key.StartsWith("UrlPaths:")).ToList().ForEach(x =>
 					itemsToSaveDic.Add(x.Key, x.Value.GetType()));
 
 
