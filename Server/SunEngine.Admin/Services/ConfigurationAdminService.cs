@@ -43,9 +43,12 @@ namespace SunEngine.Admin.Services
 				.Where(x => !x.Value.Dynamic)
 				.ToDictionary(x => x.Key, x => x.Value.GetType());
 
+			var keys = new List<string> {"UrlPaths:", "Dev:", "Global:Locale"};
+			
 			ConfigDefaults.ConfigurationItems
-				.Where(x => x.Key.StartsWith("UrlPaths:") || x.Key.StartsWith("Dev:")).ToList().ForEach(x =>
+				.Where(x => keys.Any(k=>x.Key.StartsWith(k))).ToList().ForEach(x =>
 					itemsToSaveDic.Add(x.Key, x.Value.GetType()));
+
 
 
 			var rez = new Dictionary<string, object>();
