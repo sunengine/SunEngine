@@ -41,14 +41,19 @@ namespace SunEngine.Admin.Services
 
 			var itemsToSaveDic = ConfigDefaults.ConfigurationItems
 				.Where(x => !x.Value.Dynamic)
-				.ToDictionary(x => x.Key, x => x.Value.GetType());
+				.ToDictionary(x => x.Key, x => x.Value.ToClientType());
 
-			var keys = new List<string> {"UrlPaths:", "Dev:", "Global:Locale"};
-			
-			ConfigDefaults.ConfigurationItems
-				.Where(x => keys.Any(k=>x.Key.StartsWith(k))).ToList().ForEach(x =>
-					itemsToSaveDic.Add(x.Key, x.Value.GetType()));
+			var fromConfigJs = new Dictionary<string, Type>
+			{
+				["UrlPaths:Site"] = typeof(string),
+				["UrlPaths:Api"] = typeof(string),
+				["UrlPaths:UploadImages"] = typeof(string),
+				["UrlPaths:Skins"] = typeof(string),
+				["UrlPaths:PartialSkins"] = typeof(string),
+			};
 
+			foreach (var (key, value) in fromConfigJs)
+				itemsToSaveDic.Add(key, value);
 
 
 			var rez = new Dictionary<string, object>();

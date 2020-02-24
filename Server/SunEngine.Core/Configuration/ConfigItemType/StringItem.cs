@@ -12,7 +12,7 @@ namespace SunEngine.Core.Configuration.ConfigItemType
 
 		public override void FromString(string value)
 		{
-			value = value;
+			this.Value = value;
 		}
 	}
 }
