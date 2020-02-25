@@ -26,14 +26,14 @@ namespace SunEngine.Admin.Managers
 	public class SectionsAdminManager : DbService, ISectionsAdminManager
 	{
 		protected readonly IRolesCache rolesCache;
-		protected readonly ISectionsCache sectionsCache;
+		protected readonly SectionTypes sectionTypes;
 
 		public SectionsAdminManager(
 			IRolesCache rolesCache,
-			ISectionsCache sectionsCache,
+			SectionTypes sectionTypes,
 			DataBaseConnection db) : base(db)
 		{
-			this.sectionsCache = sectionsCache;
+			this.sectionTypes = sectionTypes;
 			this.rolesCache = rolesCache;
 		}
 
@@ -56,37 +56,39 @@ namespace SunEngine.Admin.Managers
 
 			var options = new Dictionary<string, object>();
 
-			if (sectionsCache.SectionServerTypes.TryGetValue(section.Type, out Type sectionServerType))
+			if (sectionTypes.SectionServerTypes.TryGetValue(section.Type, out Type sectionServerType))
 				AddFields(section.Options, sectionServerType, options);
-			if (sectionsCache.SectionClientTypes.TryGetValue(section.Type, out Type sectionClientType))
+			if (sectionTypes.SectionClientTypes.TryGetValue(section.Type, out Type sectionClientType))
 				AddFields(section.Options, sectionClientType, options);
 
 			section.Options = JsonSerializer.Serialize(options);
-		}
-
-		protected void  AddFields(string optionsJson, Type sectionType, Dictionary<string, object> options)
-		{
-			var dataObject = JsonSerializer.Deserialize(optionsJson, sectionType);
-			var properties = sectionType.GetProperties();
-			foreach (var propertyInfo in properties)
+			
+			void  AddFields(string optionsJson, Type sectionType, Dictionary<string, object> optionsToAdd)
 			{
-				ConfigItemAttribute configItemAttribute = propertyInfo.GetCustomAttribute<ConfigItemAttribute>();
+				var dataObject = JsonSerializer.Deserialize(optionsJson, sectionType);
+				var properties = sectionType.GetProperties();
+				foreach (var propertyInfo in properties)
+				{
+					ConfigItemAttribute configItemAttribute = propertyInfo.GetCustomAttribute<ConfigItemAttribute>();
 
-				string name = propertyInfo.Name;
-				string typeName = configItemAttribute.ConfigItemType.Name.Split(".")[^1].Replace("Item", "");
-				object value = propertyInfo.GetValue(dataObject);
-				Type type = propertyInfo.PropertyType;
+					string name = propertyInfo.Name;
+					string typeName = configItemAttribute.ConfigItemType.Name.Split(".")[^1].Replace("Item", "");
+					object value = propertyInfo.GetValue(dataObject);
+					Type type = propertyInfo.PropertyType;
 
-				IConfigItem configItem;
-				if (typeName == "Enum")
-					configItem = new EnumItem((Enum) value);
-				else
-					configItem = (IConfigItem) configItemAttribute.ConfigItemType.GetConstructor(new[] {type})
-						.Invoke(new[] {value});
+					IConfigItem configItem;
+					if (typeName == "Enum")
+						configItem = new EnumItem((Enum) value);
+					else
+						configItem = (IConfigItem) configItemAttribute.ConfigItemType.GetConstructor(new[] {type})
+							.Invoke(new[] {value});
 
-				options[name] = configItem.ToClientObject();
+					optionsToAdd[name] = configItem.ToClientObject();
+				}
 			}
 		}
+
+		
 
 		public Task DeleteSectionAsync(int sectionId)
 		{

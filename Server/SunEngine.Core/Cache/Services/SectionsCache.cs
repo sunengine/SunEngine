@@ -6,7 +6,6 @@ using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Controllers;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
-using SunEngine.Core.SectionsData;
 
 namespace SunEngine.Core.Cache.Services
 {
@@ -14,8 +13,6 @@ namespace SunEngine.Core.Cache.Services
 	{
 		SectionServerCached GetSectionserverCached(string name, IReadOnlyDictionary<string, RoleCached> roles);
 		IEnumerable<SectionClientCached> GetClientSections(IReadOnlyDictionary<string, RoleCached> roles);
-		Dictionary<string, Type> SectionServerTypes { get; }
-		Dictionary<string, Type> SectionClientTypes { get; }
 		void Initialize();
 	}
 
@@ -23,26 +20,19 @@ namespace SunEngine.Core.Cache.Services
 	{
 		private readonly IDataBaseFactory dataBaseFactory;
 		private readonly IRolesCache rolesCache;
-
-		public Dictionary<string, Type> SectionServerTypes { get; } = new Dictionary<string, Type>()
-		{
-			["Posts"] = typeof(PostsServerSectionData),
-			["Activities"] = typeof(ActivitiesServerSectionData)
-		};
-
-		public Dictionary<string, Type> SectionClientTypes { get; } = new Dictionary<string, Type>()
-		{
-			["Posts"] = typeof(PostsClientSectionData),
-			["Activities"] = typeof(ActivitiesClientSectionData)
-		};
+		private readonly SectionTypes sectionTypes;
 
 		public IReadOnlyDictionary<string, SectionServerCached> ServerSections { get; private set; }
 		public IReadOnlyList<SectionClientCached> ClientSections { get; private set; }
 
-		public SectionsCache(IDataBaseFactory dataBaseFactory, IRolesCache rolesCache)
+		public SectionsCache(
+			IDataBaseFactory dataBaseFactory,
+			IRolesCache rolesCache,
+			SectionTypes sectionTypes)
 		{
 			this.rolesCache = rolesCache;
 			this.dataBaseFactory = dataBaseFactory;
+			this.sectionTypes = sectionTypes;
 			Initialize();
 		}
 
@@ -75,8 +65,8 @@ namespace SunEngine.Core.Cache.Services
 				try
 				{
 					serverSectionsTmp.Add(component.Name,
-						new SectionServerCached(component, SectionServerTypes, rolesCache));
-					clientSectionsTmp.Add(new SectionClientCached(component, SectionClientTypes, rolesCache));
+						new SectionServerCached(component, sectionTypes.SectionServerTypes, rolesCache));
+					clientSectionsTmp.Add(new SectionClientCached(component, sectionTypes.SectionClientTypes, rolesCache));
 				}
 				catch
 				{

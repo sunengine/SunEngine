@@ -23,13 +23,13 @@ namespace SunEngine.Admin.Presenters
 
 	public class SectionsAdminPresenter : DbService, ISectionsAdminPresenter
 	{
-		protected ISectionsCache sectionsCache;
+		protected SectionTypes sectionTypes;
 
 		public SectionsAdminPresenter(
-			ISectionsCache sectionsCache,
+			SectionTypes sectionTypes,
 			DataBaseConnection db) : base(db)
 		{
-			this.sectionsCache = sectionsCache;
+			this.sectionTypes = sectionTypes;
 		}
 
 		public Task<Section[]> GetSectionsAsync()
@@ -46,9 +46,9 @@ namespace SunEngine.Admin.Presenters
 
 			sectionView.Enums = new Dictionary<string, string[]>();
 
-			if (sectionsCache.SectionServerTypes.TryGetValue(section.Type, out Type sectionServerType))
+			if (sectionTypes.SectionServerTypes.TryGetValue(section.Type, out Type sectionServerType))
 				AddFields(sectionServerType);
-			if (sectionsCache.SectionClientTypes.TryGetValue(section.Type, out Type sectionClientType))
+			if (sectionTypes.SectionClientTypes.TryGetValue(section.Type, out Type sectionClientType))
 				AddFields(sectionClientType);
 
 			void AddFields(Type sectionType)
@@ -99,9 +99,9 @@ namespace SunEngine.Admin.Presenters
 			sectionView.Roles = string.Join(",", RoleNames.Unregistered, RoleNames.Registered);
 			sectionView.Enums = new Dictionary<string, string[]>();
 
-			if (sectionsCache.SectionServerTypes.TryGetValue(templateName, out Type sectionServerType))
+			if (sectionTypes.SectionServerTypes.TryGetValue(templateName, out Type sectionServerType))
 				AddFields(sectionServerType);
-			if (sectionsCache.SectionClientTypes.TryGetValue(templateName, out Type sectionClientType))
+			if (sectionTypes.SectionClientTypes.TryGetValue(templateName, out Type sectionClientType))
 				AddFields(sectionClientType);
 
 

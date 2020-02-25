@@ -72,6 +72,9 @@ namespace SunEngine.Cli
 			services.AddJobs();
 
 			services.AddSingleton<CaptchaService>();
+			
+			services.AddSingleton<SectionTypes>();
+
 			services.AddSanitizer();
 
 			services.AddTransient<IEmailSenderService, EmailSenderService>();
@@ -81,6 +84,8 @@ namespace SunEngine.Cli
 			services.AddSingleton<IPathService, PathService>();
 
 			services.AddSingleton((IConfigurationRoot) Configuration);
+			
+			
 
 			services.AddMvcCore(options =>
 				{
