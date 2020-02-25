@@ -1,7 +1,9 @@
 using System.IO;
 using Newtonsoft.Json.Linq;
+using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Models;
 using SunEngine.Core.Security;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.DataSeed
 {
@@ -9,11 +11,13 @@ namespace SunEngine.DataSeed
 	{
 		private readonly DataContainer dataContainer;
 		private readonly string configDir;
+		protected readonly SectionTypes sectionTypes;
 
 		public SectionsSeeder(DataContainer dataContainer, string configDir)
 		{
 			this.configDir = configDir;
 			this.dataContainer = dataContainer;
+			sectionTypes = new SectionTypes();
 		}
 
 		public void Seed()
@@ -51,8 +55,8 @@ namespace SunEngine.DataSeed
 				section.Roles = (string) roles;
 			else
 				section.Roles = string.Join(',', RoleNames.Unregistered, RoleNames.Registered);
-			
-			
+
+			SectionsUtils.SectionProcess(section, sectionTypes, null);
 
 			dataContainer.Sections.Add(section);
 		}

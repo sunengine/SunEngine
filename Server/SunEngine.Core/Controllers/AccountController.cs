@@ -25,7 +25,7 @@ namespace SunEngine.Core.Controllers
 
 		public AccountController(
 			IAccountManager accountManager,
-			IOptionsMonitor<UrlPathsOptions> globalOptions,
+			IOptionsMonitor<UrlPathsOptions> urlsOptions,
 			IServiceProvider serviceProvider) : base(serviceProvider)
 		{
 			this.urlsOptions = urlsOptions;

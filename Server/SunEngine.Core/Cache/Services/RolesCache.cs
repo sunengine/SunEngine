@@ -7,14 +7,18 @@ using SunEngine.Core.Security;
 
 namespace SunEngine.Core.Cache.Services
 {
-	public interface IRolesCache
+	public interface IRolesCache : ICheckRoles
 	{
 		IImmutableList<OperationKeyCached> AllOperationKeys { get; }
 		RoleCached GetRole(string name);
 		IImmutableDictionary<string, RoleCached> AllRoles { get; }
 		RoleCached AdminRole { get; }
-		string CheckAndSetRoles(string roles);
 		void Initialize();
+	}
+
+	public interface ICheckRoles
+	{
+		string CheckAndSetRoles(string roles);
 	}
 
 	/// <summary>
