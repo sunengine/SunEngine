@@ -37,7 +37,7 @@ namespace SunEngine.Cli
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 
-			var origins = Configuration.GetValue<string>("Cors:Origins");
+			var origins = Configuration.GetValue<string>("Server:Cors:Origins");
 			if (!string.IsNullOrEmpty(origins))
 				services.AddCors();
 
@@ -112,7 +112,7 @@ namespace SunEngine.Cli
 
 			app.UseCookiePolicy();
 
-			var origins = Configuration.GetValue<string>("Cors:Origins")?.Split(",");
+			var origins = Configuration.GetValue<string>("Server:Cors:Origins")?.Split(",");
 
 
 			if (origins != null && origins.Length >= 1)
@@ -122,8 +122,7 @@ namespace SunEngine.Cli
 						.AllowCredentials().AllowAnyHeader().AllowAnyMethod()
 						.WithExposedHeaders(Headers.TokensHeaderName));
 			}
-
-
+			
 			app.UseRouting();
 			app.UseAuthentication();
 			app.UseAuthorization();

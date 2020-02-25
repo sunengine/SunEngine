@@ -1,7 +1,10 @@
 {
   "Server": {
     "FileServer": true,
-    "UpdateConfigJsOnConfigChanges": false
+    "UpdateConfigJsOnConfigChanges": false,
+    "Cors": {
+      "Origins": "http://localhost:5005"
+    }
   },
   "UrlPaths": {
     "Site": "http://localhost:5005",
@@ -25,8 +28,5 @@
         "Url": "http://localhost:5000"
       }
     }
-  },
-  "Cors": {
-    "Origins": "http://localhost:5005"
   }
 }
