@@ -92,11 +92,27 @@ namespace SunEngine.Admin.Controllers
 
 			return Ok(cssText);
 		}
+		
+		[HttpPost]
+		public IActionResult GetCustomJavaScript()
+		{
+			var javaScriptText = skinsAdminService.GetCustomJavaScript();
+
+			return Ok(javaScriptText);
+		}
 
 		[HttpPost]
 		public IActionResult UpdateCustomCss(string cssText)
 		{
 			skinsAdminService.UpdateCustomCss(cssText);
+
+			return Ok();
+		}
+		
+		[HttpPost]
+		public IActionResult UpdateCustomJavaScript(string javaScriptText)
+		{
+			skinsAdminService.UpdateCustomJavaScript(javaScriptText);
 
 			return Ok();
 		}

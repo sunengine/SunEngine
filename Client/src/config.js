@@ -10,7 +10,9 @@ const config = {
 		Api: "http://localhost:5000",
 		UploadImages: "http://localhost:5000/UploadImages",
 		Skins: "http://localhost:5005/statics/Skins",
-		PartialSkins: "http://localhost:5005/statics/PartialSkins"
+		PartialSkins: "http://localhost:5005/statics/PartialSkins",
+		CustomCss: "http://localhost:5000/custom.css",
+		CustomJavaScript: "http://localhost:5000/custom.js",
 	},
 	Dev: {
 		VueDevTools: true,
@@ -64,6 +66,5 @@ else if (config.UrlPaths.Site.startsWith("https://"))
 	config.UrlPaths.SiteSchema = "https://";
 else throw "SiteUrl in config.js have to start with 'http://' or 'https://'.";
 
-document.writeln(
-	`<link href="${config.UrlPaths.Site}/custom.css?customcssver=0000" rel="stylesheet" />`
-);
+document.writeln(`<link href="${config.UrlPaths.Api}/custom.css?customcssver=0000" rel="stylesheet" />
+<script	type="text/javascript" src="${config.UrlPaths.Api}/custom.js?customjsver=0000"></script>`);

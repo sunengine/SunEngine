@@ -1,30 +1,11 @@
 ﻿[
   {
-    "Email": "admin@email.me",
-    "UserName": "Admin",
-    "Password": "password",
+    "Email": "<admin-email>",
+    "UserName": "<admin-user-name>",
+    "Password": "<admin-password>",
     "Information": "",
     "Roles": [
       "Admin",
-      "Registered"
-    ]
-  },
-  {
-    "Email": "moderator@email.me",
-    "UserName": "Moderator",
-    "Password": "password",
-    "Information": "",
-    "Roles": [
-      "Moderator",
-      "Registered"
-    ]
-  },
-  {
-    "Email": "test1@email.me",
-    "UserName": "Test1",
-    "Password": "password",
-    "Information": "Информация о пользователе Test1",
-    "Roles": [
       "Registered"
     ]
   }

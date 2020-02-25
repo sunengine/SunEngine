@@ -58,7 +58,9 @@ export default {
 		DeletePartialSkin: "/Admin/SkinsAdmin/DeletePartialSkin",
 		EnablePartialSkin: "/Admin/SkinsAdmin/EnablePartialSkin",
 		GetCustomCss: "/Admin/SkinsAdmin/GetCustomCss",
-		UpdateCustomCss: "/Admin/SkinsAdmin/UpdateCustomCss"
+		GetCustomJavaScript: "/Admin/SkinsAdmin/GetCustomJavaScript",
+		UpdateCustomCss: "/Admin/SkinsAdmin/UpdateCustomCss",
+		UpdateCustomJavaScript: "/Admin/SkinsAdmin/UpdateCustomJavaScript"
 	},
 	ConfigurationAdmin: {
 		UploadConfiguration: "/Admin/ConfigurationAdmin/UploadConfiguration",

@@ -29,6 +29,7 @@ namespace SunEngine.Core.Services
 		public const string UploadImagesDirName = "UploadImages";
 		public const string MailTemplatesDirName = "MailTemplates";
 		public const string CustomCssFileName = "custom.css";
+		public const string CustomJavaScriptFileName = "custom.js";
 		public const string ConfigJsFileName = "config.js";
 		public const string ConfigTemplateJsFileName = "config.template.js";
 		public const string ServerInfoJsonFileName = "ServerInfo.json";

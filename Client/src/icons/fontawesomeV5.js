@@ -162,6 +162,10 @@ export default {
 		reset: global.refresh,
 		save: global.save
 	},
+	CustomJavaScriptAdmin: {
+		reset: global.refresh,
+		save: global.save
+	},
 	CypherSecrets: {
 		key: global.key
 	},
@@ -341,6 +345,7 @@ export default {
 	},
 	SkinsAdmin: {
 		customCss: "fab fa-css3-alt",
+		customJavaScript: "fab fa-js-square",
 		main: "fas fa-user-astronaut",
 		partial: "fas fa-puzzle-piece"
 	},

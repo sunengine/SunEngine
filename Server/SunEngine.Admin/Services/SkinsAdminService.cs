@@ -181,6 +181,12 @@ namespace SunEngine.Admin.Services
 			var customCssPath = Path.Combine(WwwRootPath, PathNames.CustomCssFileName);
 			return !File.Exists(customCssPath) ? "" : File.ReadAllText(customCssPath);
 		}
+		
+		public string GetCustomJavaScript()
+		{
+			var customJavaScriptPath = Path.Combine(WwwRootPath, PathNames.CustomJavaScriptFileName);
+			return !File.Exists(customJavaScriptPath) ? "" : File.ReadAllText(customJavaScriptPath);
+		}
 
 		public void UpdateCustomCss(string cssText)
 		{
@@ -191,6 +197,17 @@ namespace SunEngine.Admin.Services
 			File.WriteAllText(customCssPath, cssText);
 			
 			configurationAdminService.UpdateConfigAndCustomCssVersion();
+		}
+		
+		public void UpdateCustomJavaScript(string javaScriptText)
+		{
+			var customJavaScriptPath = Path.Combine(WwwRootPath, PathNames.CustomJavaScriptFileName);
+			if (File.Exists(customJavaScriptPath))
+				File.Delete(customJavaScriptPath);
+
+			File.WriteAllText(customJavaScriptPath, javaScriptText);
+			
+			configurationAdminService.UpdateConfigAndCustomJavaScriptVersion();
 		}
 
 		public List<SkinInfo> GetAllSkins(SkinType skinType)

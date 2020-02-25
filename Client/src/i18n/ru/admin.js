@@ -529,9 +529,10 @@ export default {
 	},
 	SkinsAdmin: {
 		title: "Темы оформления",
-		mainSkins: "Основные темы",
-		partialSkins: "Дополнительные темы",
-		customCss: "Произвольный CSS"
+		mainSkins: "Основные",
+		partialSkins: "Дополнительные",
+		customCss: "CSS",
+		customJavaScript: "JavaScript"
 	},
 	MainSkinsAdmin: {
 		title: "Основные темы оформления",
@@ -568,7 +569,15 @@ export default {
 		reloadSuccessNotify: "Данные перезагружены с сервера",
 		successNotify: "Данные успешно сохранены"
 	},
-
+	CustomJavaScriptAdmin: {
+		title: "Произвольный JavaScript",
+		javaScriptInput: "Произвольный JavaScript",
+		saveBtn: "@:Global.btn.save",
+		refreshBtn: "Перегрузить с сервера",
+		reloadSuccessNotify: "Данные перезагружены с сервера",
+		successNotify: "Данные успешно сохранены"
+	},
+	
 	// ——— SectionsEditor ————————————————————————————————————
 
 	SectionsEditor: {

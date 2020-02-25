@@ -493,9 +493,10 @@ export default {
 	},
 	SkinsAdmin: {
 		title: "Skins admin",
-		mainSkins: "Main skins",
-		partialSkins: "Partial skins",
-		customCss: "Custom CSS"
+		mainSkins: "Main",
+		partialSkins: "Partial",
+		customCss: "CSS",
+		customJavaScript: "JavaScript"
 	},
 	MainSkinsAdmin: {
 		title: "Skins admin",
@@ -531,6 +532,14 @@ export default {
 		refreshBtn: "Reload from server",
 		reloadSuccessNotify: "Css reloaded from server",
 		successNotify: "Css successfully updated"
+	},
+	CustomJavaScriptAdmin: {
+		title: "Custom JavaScript",
+		javaScriptInput: "Custom JavaScript",
+		saveBtn: "@:Global.btn.save",
+		refreshBtn:  "Reload from server",
+		reloadSuccessNotify: "JavaScript text reloaded from server",
+		successNotify: "JavaScript successfully updated"
 	},
 
 	// ——— SectionsEditor ————————————————————————————————————

@@ -50,6 +50,8 @@ namespace SunEngine.Admin.Services
 				["UrlPaths:UploadImages"] = typeof(string),
 				["UrlPaths:Skins"] = typeof(string),
 				["UrlPaths:PartialSkins"] = typeof(string),
+				["UrlPaths:CustomCss"] = typeof(string),
+				["UrlPaths:CustomJavaScript"] = typeof(string)
 			};
 
 			foreach (var (key, value) in fromConfigJs)
@@ -110,6 +112,12 @@ namespace SunEngine.Admin.Services
 			UpdateConfigVersion();
 			UpdateCustomCssVersion();
 		}
+		
+		public void UpdateConfigAndCustomJavaScriptVersion()
+		{
+			UpdateConfigVersion();
+			UpdateCustomJavaScriptVersion();
+		}
 
 		protected void UpdateConfigVersion()
 		{
@@ -126,6 +134,15 @@ namespace SunEngine.Admin.Services
 			string text = File.ReadAllText(configJsPath);
 			Regex reg = new Regex("customcssver=\\d+\"");
 			text = reg.Replace(text, $"customcssver={ran.Next()}\"");
+			File.WriteAllText(configJsPath, text);
+		}
+		
+		protected void UpdateCustomJavaScriptVersion()
+		{
+			var configJsPath = pathService.Combine(PathNames.WwwRootDirName, PathNames.ConfigJsFileName);
+			string text = File.ReadAllText(configJsPath);
+			Regex reg = new Regex("customjsver=\\d+\"");
+			text = reg.Replace(text, $"customjsver={ran.Next()}\"");
 			File.WriteAllText(configJsPath, text);
 		}
 	}

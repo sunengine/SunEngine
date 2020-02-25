@@ -24,6 +24,13 @@
 				:icon="$iconsSet.SkinsAdmin.customCss"
 				:label="$tl('customCss')"
 			/>
+		 	<q-route-tab
+				 :to="{ name: 'CustomJavaScriptAdmin' }"
+				 no-caps
+				 name="custom-java-script"
+				 :icon="$iconsSet.SkinsAdmin.customJavaScript"
+				 :label="$tl('customJavaScript')"
+			/>
 		</q-tabs>
 
 		<div class="q-mb-xl"></div>

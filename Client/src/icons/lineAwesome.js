@@ -166,6 +166,10 @@ export default {
 		reset: global.refresh,
 		save: global.save
 	},
+	CustomJavaScriptAdmin: {
+		reset: global.refresh,
+		save: global.save
+	},
 	CypherSecrets: {
 		key: global.key
 	},
@@ -348,7 +352,8 @@ export default {
 	SkinsAdmin: {
 		customCss: "lab la-css3-alt",
 		main: "la la-palette",
-		partial: "la la-puzzle-piece"
+		partial: "la la-puzzle-piece",
+		customJavaScript: "lab la-js-square"
 	},
 	SunEditor: {
 		addImages: "la la-image"

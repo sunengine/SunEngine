@@ -77,7 +77,8 @@ module.exports = function(ctx) {
 						new CopyWebpackPlugin([
 							{ from: "src/site/statics", to: "site/statics" },
 							{ from: "src/config.js", to: "config.js" },
-							{ from: "src/custom.css", to: "custom.css" }
+							{ from: "src/custom.css", to: "custom.css" },
+							{ from: "src/custom.js", to: "custom.js" }
 						])
 					);
 				} else {
