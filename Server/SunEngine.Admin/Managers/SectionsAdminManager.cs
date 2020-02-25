@@ -39,53 +39,54 @@ namespace SunEngine.Admin.Managers
 
 		public Task CreateSectionAsync(Section section)
 		{
-			section.Options = section.Options?.MakeJsonTextNotNull();
-			section.Roles = rolesCache.CheckAndSetRoles(section.Roles);
-
+			MakeSection(section);
 			return db.InsertWithIdentityAsync(section);
 		}
 
 		public Task UpdateSectionAsync(Section section)
 		{
+			MakeSection(section);
+			return db.UpdateAsync(section);
+		}
+
+		protected void MakeSection(Section section)
+		{
 			section.Options = section.Options?.MakeJsonTextNotNull();
 			section.Roles = rolesCache.CheckAndSetRoles(section.Roles);
 
 			var options = new Dictionary<string, object>();
-			
+
 			if (sectionsCache.SectionServerTypes.TryGetValue(section.Type, out Type sectionServerType))
-				AddFields(sectionServerType);
+				AddFields(section.Options, sectionServerType, options);
 			if (sectionsCache.SectionClientTypes.TryGetValue(section.Type, out Type sectionClientType))
-				AddFields(sectionClientType);
+				AddFields(section.Options, sectionClientType, options);
 
 			section.Options = JsonSerializer.Serialize(options);
-			
-			return db.UpdateAsync(section);
-			
-			void AddFields(Type sectionType)
-			{
-				var dataObject = JsonSerializer.Deserialize(section.Options, sectionType);
-				var properties = sectionType.GetProperties();
-				foreach (var propertyInfo in properties)
-				{
-					ConfigItemAttribute configItemAttribute = propertyInfo.GetCustomAttribute<ConfigItemAttribute>();
-
-					string name = propertyInfo.Name;
-					string typeName = configItemAttribute.ConfigItemType.Name.Split(".")[^1].Replace("Item", "");
-					object value = propertyInfo.GetValue(dataObject);
-					Type type = propertyInfo.PropertyType;
-
-					IConfigItem configItem;
-					if (typeName == "Enum")
-						configItem = new EnumItem((Enum) value);
-					else
-						configItem = (IConfigItem) configItemAttribute.ConfigItemType.GetConstructor(new[] {type})
-							.Invoke(new[] {value});
-					
-					options[name] = configItem.ToClientObject();
-				}
-			}
 		}
 
+		protected void  AddFields(string optionsJson, Type sectionType, Dictionary<string, object> options)
+		{
+			var dataObject = JsonSerializer.Deserialize(optionsJson, sectionType);
+			var properties = sectionType.GetProperties();
+			foreach (var propertyInfo in properties)
+			{
+				ConfigItemAttribute configItemAttribute = propertyInfo.GetCustomAttribute<ConfigItemAttribute>();
+
+				string name = propertyInfo.Name;
+				string typeName = configItemAttribute.ConfigItemType.Name.Split(".")[^1].Replace("Item", "");
+				object value = propertyInfo.GetValue(dataObject);
+				Type type = propertyInfo.PropertyType;
+
+				IConfigItem configItem;
+				if (typeName == "Enum")
+					configItem = new EnumItem((Enum) value);
+				else
+					configItem = (IConfigItem) configItemAttribute.ConfigItemType.GetConstructor(new[] {type})
+						.Invoke(new[] {value});
+
+				options[name] = configItem.ToClientObject();
+			}
+		}
 
 		public Task DeleteSectionAsync(int sectionId)
 		{

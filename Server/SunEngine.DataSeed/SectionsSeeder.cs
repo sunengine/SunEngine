@@ -51,6 +51,8 @@ namespace SunEngine.DataSeed
 				section.Roles = (string) roles;
 			else
 				section.Roles = string.Join(',', RoleNames.Unregistered, RoleNames.Registered);
+			
+			
 
 			dataContainer.Sections.Add(section);
 		}
