@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using LinqToDB;
 using LinqToDB.Data;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Configuration;
@@ -39,25 +40,29 @@ namespace SunEngine.Admin.Managers
 			{
 				configurationItem.Value = configurationItem.Value?.Trim();
 
-				if (!ConfigDefaults.ConfigurationItems.TryGetValue(configurationItem.Name, out IConfigItem defaultConfigItem)
-				)
+				if (!ConfigDefaults.ConfigurationItems.TryGetValue(configurationItem.Name,
+					out IConfigItem defaultConfigItem))
 					continue;
 
 				var configItem = defaultConfigItem.ShallowCopy();
 				configItem.FromString(configurationItem.Value);
+				configurationItem.Value = configItem.ToString();
 
-				if (string.Equals(allItems[configurationItem.Name], configurationItem.Value,
-					StringComparison.OrdinalIgnoreCase))
-					break;
+				if (string.Equals(allItems[configurationItem.Name], configurationItem.Value))
+					continue;
 
 				itemsToUpdate.Add(configurationItem);
 			}
 
-			db.BulkCopy( new BulkCopyOptions {BulkCopyType = BulkCopyType.MultipleRows  },itemsToUpdate);
-			
+			//db.BulkCopy( new BulkCopyOptions {BulkCopyType = BulkCopyType.MultipleRows },itemsToUpdate);
+
 			foreach (var configurationItem in itemsToUpdate)
+			{
+				db.Update(configurationItem);
 				ItemDo(configurationItem);
+			}
 		}
+
 
 		protected void ItemDo(ConfigurationItem item)
 		{

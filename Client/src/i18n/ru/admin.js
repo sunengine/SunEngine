@@ -358,6 +358,7 @@ export default {
 			Images: "Изображения",
 			Sanitizer: "Очистка HTML",
 			Email: "Почта",
+			Admin: "Администрирование",
 			Scheduler: "Расписание вызова функций",
 			Materials: "Материалы",
 			Comments: "Комментарии",
@@ -431,6 +432,7 @@ export default {
 			"Email:Password": "Пароль",
 			"Email:Port": "Порт",
 			"Email:UseSSL": "Использовать SSL",
+			"Admin:AllowCustomJavaScript" :"Разрешить изменять произвольный JavaScript",
 			"Captcha:CaptchaTimeoutSeconds": "Интервал между пробами в секундах",
 			"Editor:MaterialToolbar": "Тулбар написания материала",
 			"Editor:CommentToolbar": "Тулбар написания комментария",
@@ -486,6 +488,7 @@ export default {
 			"Global:OpenExternalLinksAtNewTab": "В материалах, комментариях, постах",
 			"Images:MaxImageHeight": "Проверка при заливки изображения на сервер.",
 			"Images:MaxImageWidth": "Проверка при заливки изображения на сервер.",
+			"Admin:AllowCustomJavaScript" :"Вкладка произвольного JavaScript появится в админке тем оформления",
 			"Sanitizer:AllowedSchemes": "Например: mailto,skype",
 			"Cache:InvalidateCacheTime":
 				"Этот параметр используется не всеми политиками. Значения ниже 0 интерпретируются как необходимость постоянного хранения записей.",

@@ -24,12 +24,13 @@
 				:icon="$iconsSet.SkinsAdmin.customCss"
 				:label="$tl('customCss')"
 			/>
-		 	<q-route-tab
-				 :to="{ name: 'CustomJavaScriptAdmin' }"
-				 no-caps
-				 name="custom-java-script"
-				 :icon="$iconsSet.SkinsAdmin.customJavaScript"
-				 :label="$tl('customJavaScript')"
+			<q-route-tab
+				v-if="allowCustomJavaScript"
+				:to="{ name: 'CustomJavaScriptAdmin' }"
+				no-caps
+				name="custom-java-script"
+				:icon="$iconsSet.SkinsAdmin.customJavaScript"
+				:label="$tl('customJavaScript')"
 			/>
 		</q-tabs>
 
@@ -53,6 +54,9 @@ export default {
 	computed: {
 		breadcrumbsCategory() {
 			return this.$getBreadcrumbs("Admin");
+		},
+		allowCustomJavaScript() {
+			return config.Admin.AllowCustomJavaScript;
 		}
 	},
 	beforeCreate() {

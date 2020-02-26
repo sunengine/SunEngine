@@ -112,7 +112,7 @@ namespace SunEngine.Admin.Services
 			UpdateConfigVersion();
 			UpdateCustomCssVersion();
 		}
-		
+
 		public void UpdateConfigAndCustomJavaScriptVersion()
 		{
 			UpdateConfigVersion();
@@ -122,6 +122,12 @@ namespace SunEngine.Admin.Services
 		protected void UpdateConfigVersion()
 		{
 			var indexHtmlPath = pathService.Combine(PathNames.WwwRootDirName, PathNames.IndexHtmlFileName);
+			if (!File.Exists(indexHtmlPath))
+			{
+				Console.WriteLine("Can not write to file " + indexHtmlPath);
+				return;
+			}
+
 			string text = File.ReadAllText(indexHtmlPath);
 			Regex reg = new Regex("configver=\\d+\"");
 			text = reg.Replace(text, $"configver={ran.Next()}\"");
@@ -136,7 +142,7 @@ namespace SunEngine.Admin.Services
 			text = reg.Replace(text, $"customcssver={ran.Next()}\"");
 			File.WriteAllText(configJsPath, text);
 		}
-		
+
 		protected void UpdateCustomJavaScriptVersion()
 		{
 			var configJsPath = pathService.Combine(PathNames.WwwRootDirName, PathNames.ConfigJsFileName);

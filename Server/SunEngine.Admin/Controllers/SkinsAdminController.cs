@@ -1,8 +1,10 @@
 using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using SunEngine.Admin.Services;
 using SunEngine.Core.Cache.Services;
+using SunEngine.Core.Configuration.Options;
 
 namespace SunEngine.Admin.Controllers
 {
@@ -10,14 +12,17 @@ namespace SunEngine.Admin.Controllers
 	{
 		private readonly SkinsAdminService skinsAdminService;
 		private readonly IDynamicConfigCache dynamicConfigCache;
+		private readonly IOptionsMonitor<AdminOptions> adminOptions;
 
 		public SkinsAdminController(
 			SkinsAdminService skinsAdminService,
 			IDynamicConfigCache dynamicConfigCache,
+			IOptionsMonitor<AdminOptions> adminOptions,
 			IServiceProvider serviceProvider) : base(serviceProvider)
 		{
 			this.dynamicConfigCache = dynamicConfigCache;
 			this.skinsAdminService = skinsAdminService;
+			this.adminOptions = adminOptions;
 		}
 
 		[HttpPost]
@@ -92,14 +97,6 @@ namespace SunEngine.Admin.Controllers
 
 			return Ok(cssText);
 		}
-		
-		[HttpPost]
-		public IActionResult GetCustomJavaScript()
-		{
-			var javaScriptText = skinsAdminService.GetCustomJavaScript();
-
-			return Ok(javaScriptText);
-		}
 
 		[HttpPost]
 		public IActionResult UpdateCustomCss(string cssText)
@@ -110,8 +107,22 @@ namespace SunEngine.Admin.Controllers
 		}
 		
 		[HttpPost]
+		public IActionResult GetCustomJavaScript()
+		{
+			if (!adminOptions.CurrentValue.AllowCustomJavaScript)
+				return BadRequest();
+			
+			var javaScriptText = skinsAdminService.GetCustomJavaScript();
+
+			return Ok(javaScriptText);
+		}
+		
+		[HttpPost]
 		public IActionResult UpdateCustomJavaScript(string javaScriptText)
 		{
+			if (!adminOptions.CurrentValue.AllowCustomJavaScript)
+				return BadRequest();
+			
 			skinsAdminService.UpdateCustomJavaScript(javaScriptText);
 
 			return Ok();

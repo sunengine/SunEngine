@@ -81,6 +81,8 @@ namespace SunEngine.Core.Configuration
 			["Email:EmailFromAddress"] = new StringItem("SunEngine@demo.com"),
 			["Email:UseSSL"] = new BooleanItem(true),
 
+			["Admin:AllowCustomJavaScript"] = new BooleanItem(),
+
 			#region EditorToolbars
 
 			["Editor:MaterialToolbar"] = new JsonItem(@"[
