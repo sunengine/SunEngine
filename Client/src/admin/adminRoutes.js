@@ -1,30 +1,31 @@
 import { ArticlesPage, Material } from "sun";
 import { wrapInPanel } from "sun";
-import { CategoriesAdmin } from "sun";
-import { MenuItemsAdmin } from "sun";
-import { CreateCategory } from "sun";
-import { EditCategory } from "sun";
-import { ImagesCleaner } from "sun";
-import { RolesPermissions } from "sun";
-import { RoleUsers } from "sun";
-import { RolesPage } from "sun";
-import { CreateMenuItem } from "sun";
-import { EditMenuItem } from "sun";
-import { CypherSecrets } from "sun";
-import { DeletedElements } from "sun";
-import { AdminMenu } from "sun";
-import { SectionsAdmin } from "sun";
-import { CreateSection } from "sun";
-import { EditSection } from "sun";
-import { SkinsAdmin } from "sun";
-import { MainSkinsAdmin } from "sun";
-import { PartialSkinsAdmin } from "sun";
-import { CustomCssAdmin } from "sun";
-import { CustomJavaScriptAdmin } from "sun";
-import { ConfigurationAdmin } from "sun";
-import { AdminInformation } from "sun";
 
-const AdminPanel = wrapInPanel("AdminPanel", AdminMenu);
+import { CategoriesAdmin } from "admin";
+import { MenuItemsAdmin } from "admin";
+import { CreateCategory } from "admin";
+import { EditCategory } from "admin";
+import { ImagesCleaner } from "admin";
+import { RolesPermissions } from "admin";
+import { RoleUsers } from "admin";
+import { RolesPage } from "admin";
+import { CreateMenuItem } from "admin";
+import { EditMenuItem } from "admin";
+import { CypherSecrets } from "admin";
+import { DeletedElements } from "admin";
+import { AdminMenu } from "admin";
+import { SectionsAdmin } from "admin";
+import { CreateSection } from "admin";
+import { EditSection } from "admin";
+import { SkinsAdmin } from "admin";
+import { MainSkinsAdmin } from "admin";
+import { PartialSkinsAdmin } from "admin";
+import { CustomCssAdmin } from "admin";
+import { CustomJavaScriptAdmin } from "admin";
+import { ConfigurationAdmin } from "admin";
+import { AdminInformation } from "admin";
+
+const AdminPanel = AdminMenu;// wrapInPanel("AdminPanel", AdminMenu);
 
 const routes = [
 	{
@@ -52,7 +53,7 @@ const routes = [
 		},
 		props: {
 			default: true,
-			navigation: null
+			navigation: AdminPanel
 		}
 	},
 	{
@@ -64,7 +65,7 @@ const routes = [
 		},
 		props: {
 			default: true,
-			navigation: null
+			navigation: AdminPanel
 		}
 	},
 	{
@@ -84,7 +85,7 @@ const routes = [
 		},
 		props: {
 			default: true,
-			navigation: null
+			navigation: AdminPanel
 		}
 	},
 	{
@@ -100,7 +101,7 @@ const routes = [
 					categoryId: +route.params.categoryId
 				};
 			},
-			navigation: null
+			navigation: AdminPanel
 		}
 	},
 	{

@@ -240,7 +240,7 @@
 </template>
 
 <script>
-import { adminGetAllCategories } from "sun";
+import { adminGetAllCategories } from "admin";
 import { isJson } from "sun";
 
 import Vue from "vue";

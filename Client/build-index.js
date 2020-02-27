@@ -17,7 +17,6 @@ const fs = require("fs");
 
 const dirs = [
 	"api",
-	"admin",
 	"classes",
 	"components",
 	"mixins",
@@ -29,34 +28,49 @@ const dirs = [
 	"utils",
 	"icons"
 ];
+const adminDirs = ["admin"];
 const excludePaths = ["src/router/index.js"];
 
 const patternAll = "src/**/*.@(js|vue)";
+const patternAdmin = "src/admin/**/*.@(js|vue)";
 const patternSite = "src/site/**/*.@(js|vue)";
 
 const ind = indexDic();
+const indAdmin = indexDic();
 
-proccess(glob.sync(patternAll), dirs, excludePaths);
+proccess(glob.sync(patternAll), dirs, excludePaths, ind);
 proccess(
 	glob.sync(patternSite),
 	["site"],
-	["src/site/i18n", "src/site/routes.js"]
+	["src/site/i18n", "src/site/routes.js", "src/admin/adminRoutes.js"],
+	ind
 );
+proccess(glob.sync(patternAdmin), adminDirs, excludePaths, indAdmin);
 
+ind.addLine("Api", "export Api from 'src/Api.js'");
 ind.addLine("routes", "export routes from 'src/site/routes.js'");
 ind.addLine("store-index", "export * from 'src/store/index'");
 ind.addLine("router", "export {router} from 'src/router/index.js'");
 ind.addLine("App", "export {app} from 'src/App'");
 
+indAdmin.addLine("adminRoutes", "export adminRoutes from 'src/admin/adminRoutes.js'");
+
+
 fs.writeFile("./src/sun.js", ind.makeText(), function(err) {
 	if (err) return console.log(err);
-
 	console.log(
 		'\n\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/sun.js"   \x1b[33m☼☼☼\x1b[0m\n'
 	);
 });
 
-function proccess(arr, dirs, excludePaths) {
+fs.writeFile("./src/admin.js", indAdmin.makeText(), function(err) {
+	if (err) return console.log(err);
+	console.log(
+		'\n\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/admin.js"   \x1b[33m☼☼☼\x1b[0m\n'
+	);
+});
+
+function proccess(arr, dirs, excludePaths, index) {
 	for (const path of arr) {
 		const name = filePathToComponentName(path, dirs, excludePaths);
 		if (!name) continue;
@@ -64,9 +78,9 @@ function proccess(arr, dirs, excludePaths) {
 		const fileText = fs.readFileSync(path, "utf8");
 
 		if (/export( )+default/.test(fileText))
-			ind.addLine(`${name}`, `export ${name} from '${path}'`);
+			index.addLine(`${name}`, `export ${name} from '${path}'`);
 		if (/export( )+(?!default)/.test(fileText))
-			ind.addLine(`${name}-star`, `export * from '${path}'`);
+			index.addLine(`${name}-star`, `export * from '${path}'`);
 	}
 }
 

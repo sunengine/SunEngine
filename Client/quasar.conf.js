@@ -61,6 +61,8 @@ module.exports = function(ctx) {
 			// extractCSS: false,
 			extendWebpack(cfg) {
 				cfg.resolve.alias.sun = path.resolve("./src/sun.js");
+				cfg.resolve.alias.admin = path.resolve("./src/admin.js");
+				cfg.resolve.alias.admin0 = path.resolve("./src/admin.js");
 				cfg.resolve.alias.mixins = path.resolve("./src/mixins/mixins.js");
 
 				cfg.resolve.modules.push(path.resolve("./src"));

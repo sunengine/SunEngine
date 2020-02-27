@@ -2,13 +2,13 @@
 	<SunPage class="deleted-elements page-padding">
 		<PageHeader :title="title" />
 
-		<q-checkbox
+	<!--	<q-checkbox
 			class="deleted-elements__show-deleted"
 			:toggle-indeterminate="false"
 			v-model="$store.state.admin.showDeletedElements"
 		>
 			{{ $tl("showDeleted") }}
-		</q-checkbox>
+		</q-checkbox>-->
 
 		<div class="deleted-elements__info-box">
 			{{ $tl("info1") }}
@@ -51,7 +51,7 @@ export default {
 		}
 	},
 	created() {
-		this.title = this.$tl("title");
+	//	this.title = this.$tl("title");
 	},
 	methods: {
 		deleteAllMarkedComments() {
