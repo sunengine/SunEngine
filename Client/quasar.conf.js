@@ -1,5 +1,7 @@
 // Configuration for your app
 
+require("./build-index");
+
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
@@ -19,7 +21,6 @@ module.exports = function(ctx) {
 			"errorNotify",
 			"request",
 			"api",
-			"iconPicker",
 			"components",
 			"throttle",
 			"vueDevTools",
