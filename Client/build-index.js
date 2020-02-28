@@ -95,7 +95,7 @@ function proccess(arr, dirs, excludePaths, index) {
 
 		const fileText = fs.readFileSync(path, "utf8");
 
-		if (/export( )+default/.test(fileVText))
+		if (/export( )+default/.test(fileText))
 			index.addLine(`${name}`, `export ${name} from '${path}'`);
 		if (/export( )+(?!default)/.test(fileText))
 			index.addLine(`${name}-star`, `export * from '${path}'`);
