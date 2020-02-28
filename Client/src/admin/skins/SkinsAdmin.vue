@@ -59,11 +59,6 @@ export default {
 			return config.Admin.AllowCustomJavaScript;
 		}
 	},
-	beforeCreate() {
-		this.$options.components.MainSkinsAdmin = require("sun").MainSkinsAdmin;
-		this.$options.components.PartialSkinsAdmin = require("sun").PartialSkinsAdmin;
-		this.$options.components.CustomCssAdmin = require("sun").CustomCssAdmin;
-	},
 	created() {
 		this.title = this.$tl("title");
 	}

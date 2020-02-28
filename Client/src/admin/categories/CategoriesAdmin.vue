@@ -85,7 +85,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.CategoryItem = require("sun").CategoryItem;
+		this.$options.components.CategoryItem = require("admin").CategoryItem;
 	},
 	created() {
 		this.title = this.$tl("title");

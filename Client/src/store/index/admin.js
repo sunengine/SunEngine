@@ -1,4 +1,4 @@
-import adminState from "src/admin/store/adminState";
+import adminState from "store/admin/adminState";
 
 export default {
 	state: adminState

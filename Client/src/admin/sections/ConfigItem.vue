@@ -168,7 +168,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.CategoriesInput = require("sun").CategoriesInput;
+		this.$options.components.CategoriesInput = require("admin").CategoriesInput;
 	},
 	created() {
 		switch (this.item.type) {

@@ -73,7 +73,7 @@ proccess(glob.sync(patternAll), dirs, excludePaths, indSun);
 proccess(
     glob.sync(patternSite),
     ["site"],
-    ["src/site/i18n", "src/site/routes.js", "src/admin/adminRoutes.js"],
+    ["src/site/i18n", "src/site/routes.js"],
     indSun
 );
 proccess(glob.sync(patternAdmin), adminDirs, excludePaths, indAdmin);
@@ -83,9 +83,6 @@ indSun.addLine("routes", "export routes from 'src/site/routes.js'");
 indSun.addLine("store-index", "export * from 'src/store/index'");
 indSun.addLine("router", "export {router} from 'src/router/index.js'");
 indSun.addLine("App", "export {app} from 'src/App'");
-
-indAdmin.addLine("adminRoutes", "export adminRoutes from 'src/admin/adminRoutes.js'");
-
 
 fs.writeFile("./src/sun.js", indSun.makeText(), function (err) {
     if (err) return console.log(err);

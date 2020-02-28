@@ -1,38 +1,25 @@
-import { ArticlesPage, Material } from "sun";
-import { wrapInPanel } from "sun";
+import {wrapInPanel} from "sun"
+import {Material} from "sun"
+import {ArticlesPage} from "sun"
 
-import { CategoriesAdmin } from "admin";
-import { MenuItemsAdmin } from "admin";
-import { CreateCategory } from "admin";
-import { EditCategory } from "admin";
-import { ImagesCleaner } from "admin";
-import { RolesPermissions } from "admin";
-import { RoleUsers } from "admin";
-import { RolesPage } from "admin";
-import { CreateMenuItem } from "admin";
-import { EditMenuItem } from "admin";
-import { CypherSecrets } from "admin";
-import { DeletedElements } from "admin";
-import { AdminMenu } from "admin";
-import { SectionsAdmin } from "admin";
-import { CreateSection } from "admin";
-import { EditSection } from "admin";
-import { SkinsAdmin } from "admin";
-import { MainSkinsAdmin } from "admin";
-import { PartialSkinsAdmin } from "admin";
-import { CustomCssAdmin } from "admin";
-import { CustomJavaScriptAdmin } from "admin";
-import { ConfigurationAdmin } from "admin";
-import { AdminInformation } from "admin";
 
-const AdminPanel = AdminMenu;// wrapInPanel("AdminPanel", AdminMenu);
+const AdminPanel = async () => {
+	const adm = await import("admin");
+	return wrapInPanel("AdminPanel", adm.AdminMenu);
+};
+
+const dImport = name => async () => {
+	const adm = await import("admin");
+	return adm[name];
+};
+
 
 const routes = [
 	{
 		name: "AdminInformation",
 		path: "/admin",
 		components: {
-			default: AdminInformation,
+			default: dImport("AdminInformation"),
 			navigation: AdminPanel
 		}
 	},
@@ -40,7 +27,7 @@ const routes = [
 		name: "MenuItemsAdmin",
 		path: "/admin/MenuItems".toLowerCase(),
 		components: {
-			default: MenuItemsAdmin,
+			default: dImport("MenuItemsAdmin"),
 			navigation: AdminPanel
 		}
 	},
@@ -48,31 +35,29 @@ const routes = [
 		name: "CreateMenuItem",
 		path: "/admin/MenuItems/Create/".toLowerCase() + ":parentMenuItemId?",
 		components: {
-			default: CreateMenuItem,
+			default: dImport("CreateMenuItem"),
 			navigation: AdminPanel
 		},
 		props: {
-			default: true,
-			navigation: AdminPanel
+			default: true
 		}
 	},
 	{
 		name: "EditMenuItem",
 		path: "/admin/MenuItems/Edit/".toLowerCase() + ":menuItemId",
 		components: {
-			default: EditMenuItem,
+			default: dImport("EditMenuItem"),
 			navigation: AdminPanel
 		},
 		props: {
-			default: true,
-			navigation: AdminPanel
+			default: true
 		}
 	},
 	{
 		name: "CategoriesAdmin",
 		path: "/admin/Categories".toLowerCase(),
 		components: {
-			default: CategoriesAdmin,
+			default: dImport("CategoriesAdmin"),
 			navigation: AdminPanel
 		}
 	},
@@ -80,19 +65,18 @@ const routes = [
 		name: "CreateCategory",
 		path: "/admin/Categories/Create/".toLowerCase() + ":parentCategoryId?",
 		components: {
-			default: CreateCategory,
+			default: dImport("CreateCategory"),
 			navigation: AdminPanel
 		},
 		props: {
-			default: true,
-			navigation: AdminPanel
+			default: true
 		}
 	},
 	{
 		name: "EditCategory",
 		path: "/admin/Categories/Edit/".toLowerCase() + ":categoryId",
 		components: {
-			default: EditCategory,
+			default: dImport("EditCategory"),
 			navigation: AdminPanel
 		},
 		props: {
@@ -100,15 +84,14 @@ const routes = [
 				return {
 					categoryId: +route.params.categoryId
 				};
-			},
-			navigation: AdminPanel
+			}
 		}
 	},
 	{
 		name: "SkinsAdmin",
 		path: "/admin/Skins".toLowerCase(),
 		components: {
-			default: SkinsAdmin,
+			default: dImport("SkinsAdmin"),
 			navigation: AdminPanel
 		},
 		redirect: { name: "MainSkinsAdmin" },
@@ -117,7 +100,7 @@ const routes = [
 				name: "MainSkinsAdmin",
 				path: "Main".toLowerCase(),
 				components: {
-					default: MainSkinsAdmin,
+					default: dImport("MainSkinsAdmin"),
 					navigation: AdminPanel
 				}
 			},
@@ -125,7 +108,7 @@ const routes = [
 				name: "PartialSkinsAdmin",
 				path: "Partial".toLowerCase(),
 				components: {
-					default: PartialSkinsAdmin,
+					default: dImport("PartialSkinsAdmin"),
 					navigation: AdminPanel
 				}
 			},
@@ -133,7 +116,7 @@ const routes = [
 				name: "CustomCssAdmin",
 				path: "CustomCss".toLowerCase(),
 				components: {
-					default: CustomCssAdmin,
+					default: dImport("CustomCssAdmin"),
 					navigation: AdminPanel
 				}
 			},
@@ -141,7 +124,7 @@ const routes = [
 				name: "CustomJavaScriptAdmin",
 				path: "CustomJavaScript".toLowerCase(),
 				components: {
-					default: CustomJavaScriptAdmin,
+					default: dImport("CustomJavaScriptAdmin"),
 					navigation: AdminPanel
 				}
 			}
@@ -151,7 +134,7 @@ const routes = [
 		name: "CypherSecrets",
 		path: "/admin/CypherSecrets".toLowerCase(),
 		components: {
-			default: CypherSecrets,
+			default: dImport("CypherSecrets"),
 			navigation: AdminPanel
 		}
 	},
@@ -159,7 +142,7 @@ const routes = [
 		name: "ImagesCleaner",
 		path: "/admin/ImagesCleaner".toLowerCase(),
 		components: {
-			default: ImagesCleaner,
+			default: dImport("ImagesCleaner"),
 			navigation: AdminPanel
 		}
 	},
@@ -167,7 +150,7 @@ const routes = [
 		name: "RolesPermissions",
 		path: "/admin/RolesPermissions".toLowerCase(),
 		components: {
-			default: RolesPermissions,
+			default: dImport("RolesPermissions"),
 			navigation: AdminPanel
 		}
 	},
@@ -175,14 +158,14 @@ const routes = [
 		name: "RolesPage",
 		path: "/admin/RolesPage".toLowerCase(),
 		components: {
-			default: RolesPage,
+			default: dImport("RolesPage"),
 			navigation: AdminPanel
 		},
 		children: [
 			{
 				name: "RoleUsers",
 				path: ":roleName",
-				component: RoleUsers,
+				component: dImport("RoleUsers"),
 				props: true
 			}
 		]
@@ -191,38 +174,37 @@ const routes = [
 		name: "SectionsAdmin",
 		path: "/admin/Sections".toLowerCase(),
 		components: {
-			default: SectionsAdmin,
+			default: dImport("SectionsAdmin"),
 			navigation: AdminPanel
 		}
 	},
 	{
 		name: "CreateSection",
-		path: "/admin/Sections/CreateSection/".toLowerCase()+":templateName",
+		path: "/admin/Sections/CreateSection/".toLowerCase() + ":templateName",
 		components: {
-			default: CreateSection,
+			default: dImport("CreateSection"),
 			navigation: AdminPanel
 		},
 		props: {
-			default: true,
+			default: true
 		}
 	},
 	{
 		name: "EditSection",
 		path: "/admin/Sections/EditSection/:name".toLowerCase(),
 		components: {
-			default: EditSection,
+			default: dImport("EditSection"),
 			navigation: AdminPanel
 		},
 		props: {
-			default: true,
-			navigation: null
+			default: true
 		}
 	},
 	{
 		name: "DeletedElements",
 		path: "/admin/DeletedElements".toLowerCase(),
 		components: {
-			default: DeletedElements,
+			default: dImport("DeletedElements"),
 			navigation: AdminPanel
 		}
 	},
@@ -230,7 +212,7 @@ const routes = [
 		name: "ConfigurationAdmin",
 		path: "/admin/Configuration".toLowerCase(),
 		components: {
-			default: ConfigurationAdmin,
+			default: dImport("ConfigurationAdmin"),
 			navigation: AdminPanel
 		}
 	},

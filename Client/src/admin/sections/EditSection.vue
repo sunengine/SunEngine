@@ -129,7 +129,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.SectionForm = require("sun").SectionForm;
+		this.$options.components.SectionForm = require("admin").SectionForm;
 	},
 	created() {
 		this.title = this.$tl("title");

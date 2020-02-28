@@ -1,7 +1,5 @@
 import { Api } from "sun";
-import { AdminApi } from "admin";
 
-export default ({ Vue }) => {
+export default async ({ Vue }) => {
 	Vue.prototype.$Api = Api;
-	Vue.prototype.$AdminApi = AdminApi;
 };

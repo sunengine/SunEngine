@@ -95,18 +95,6 @@
 				</q-item-section>
 			</q-item>
 
-			<q-item :to="{ name: 'DeletedElements' }">
-				<q-item-section avatar>
-					<q-icon :name="$iconsSet.AdminMenu.DeletedElements" />
-				</q-item-section>
-				<q-item-section>
-					<q-item-label>{{ $tl("deletedElements") }}</q-item-label>
-					<q-item-label v-if="deletedElementsCaption" caption>{{
-						deletedElementsCaption
-					}}</q-item-label>
-				</q-item-section>
-			</q-item>
-
 			<q-expansion-item
 				:label="$tl('systemTools')"
 				expand-separator
@@ -121,6 +109,18 @@
 						<q-item-label>{{ $tl("resetCache") }}</q-item-label>
 						<q-item-label v-if="resetCacheCaption" caption>{{
 							resetCacheCaption
+						}}</q-item-label>
+					</q-item-section>
+				</q-item>
+
+				<q-item :to="{ name: 'DeletedElements' }">
+					<q-item-section avatar>
+						<q-icon :name="$iconsSet.AdminMenu.DeletedElements" />
+					</q-item-section>
+					<q-item-section>
+						<q-item-label>{{ $tl("deletedElements") }}</q-item-label>
+						<q-item-label v-if="deletedElementsCaption" caption>{{
+							deletedElementsCaption
 						}}</q-item-label>
 					</q-item-section>
 				</q-item>

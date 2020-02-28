@@ -62,7 +62,6 @@ module.exports = function(ctx) {
 			extendWebpack(cfg) {
 				cfg.resolve.alias.sun = path.resolve("./src/sun.js");
 				cfg.resolve.alias.admin = path.resolve("./src/admin.js");
-				cfg.resolve.alias.admin0 = path.resolve("./src/admin.js");
 				cfg.resolve.alias.mixins = path.resolve("./src/mixins/mixins.js");
 
 				cfg.resolve.modules.push(path.resolve("./src"));
@@ -89,6 +88,15 @@ module.exports = function(ctx) {
 							{ from: "src/site/statics", to: "site/statics" }
 						])
 					);
+				}
+
+				cfg.optimization.splitChunks.cacheGroups.admin = {
+					name: "admin",
+					test: /[\\/]src[\\/]admin[\\/]/,
+					minChunks: 1,
+					priority: -30,
+					chunks: "all",
+					reuseExistingChunk: true
 				}
 			},
 

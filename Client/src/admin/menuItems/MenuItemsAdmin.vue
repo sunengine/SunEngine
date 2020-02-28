@@ -146,7 +146,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.MenuAdminItem = require("sun").MenuAdminItem;
+		this.$options.components.MenuAdminItem = require("admin").MenuAdminItem;
 	},
 	created() {
 		this.title = this.$tl("title");
