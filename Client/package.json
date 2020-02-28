@@ -21,7 +21,6 @@
     },
     "devDependencies": {
         "@quasar/app": "^1.5.8",
-        "@quasar/quasar-app-extension-qiconpicker": "^1.1.1",
         "babel-preset-proposals": "^0.1.0",
         "glob": "^7.1.4",
         "path": "^0.12.7",

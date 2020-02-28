@@ -47,14 +47,6 @@
 									<q-icon :name="$q.iconSet.search" />
 								</template>
 							</q-input>
-							<q-icon-picker
-								v-model="category.icon"
-								:filter="iconFilter"
-								:icon-set="$q.iconSet.name"
-								tooltips
-								:pagination.sync="pagination"
-								style="height: 300px; width: 300px; background-color: white;"
-							/>
 						</div>
 					</q-popup-proxy>
 				</q-icon>
