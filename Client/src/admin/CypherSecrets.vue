@@ -32,8 +32,11 @@
 </template>
 
 <script>
+import { Page } from "mixins";
+
 export default {
 	name: "CypherSecrets",
+	mixins: [Page],
 	computed: {
 		breadcrumbsCategory() {
 			return this.$getBreadcrumbs("Admin");

@@ -23,6 +23,7 @@ const global = {
 export default {
 	name: "fontawesome-v5",
 	sunName: "FontAwesome",
+	pickUrl: "https://fontawesome.com/icons?d=gallery&m=free",
 	global: global,
 	Activity: {
 		category: global.category,
@@ -76,6 +77,7 @@ export default {
 	CategoryForm: {
 		category: global.category,
 		icons: "fas fa-icons",
+		noIcon: "fas fa-vector-square",
 		layout: "fas fa-table"
 	},
 	CategoryItem: {
@@ -259,6 +261,7 @@ export default {
 	MenuItemForm: {
 		css: "fab fa-css3-alt",
 		icons: "fas fa-icons",
+		noIcon: "fas fa-vector-square",
 		link: "fas fa-link",
 		search: global.search
 	},

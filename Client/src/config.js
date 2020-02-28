@@ -3,6 +3,7 @@
 const config = {
 	// auto-start
 	Global: {
+		SiteName: "SunEngine Demo",
 		Locale: "Russian"
 	},
 	UrlPaths: {

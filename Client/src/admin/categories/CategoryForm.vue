@@ -28,31 +28,6 @@
 			:rules="rules.subTitle"
 		/>
 
-		<q-input v-model="category.icon" label="Icon" clearable>
-			<template v-slot:prepend v-if="category.icon">
-				<q-icon :name="category.icon" color="positive"> </q-icon>
-			</template>
-			<template v-slot:append>
-				<q-icon :name="$iconsSet.CategoryForm.icons" class="cursor-pointer">
-					<q-popup-proxy v-model="showIconPicker">
-						<div class="q-pa-sm">
-							<q-input
-								dense
-								class="q-mb-md"
-								v-model="iconFilter"
-								placeholder="Filter"
-								clearable
-							>
-								<template v-slot:prepend>
-									<q-icon :name="$q.iconSet.search" />
-								</template>
-							</q-input>
-						</div>
-					</q-popup-proxy>
-				</q-icon>
-			</template>
-		</q-input>
-
 		<div class="category-form__ header text-grey-6">{{ $tl("header") }}</div>
 
 		<SunEditor
@@ -157,6 +132,24 @@
 		>
 			<q-icon slot="prepend" :name="$iconsSet.CategoryForm.layout" />
 		</q-select>
+
+		<q-input
+			class="category-form__icon"
+			clearable
+			bottom-slots
+			ref="icon"
+			v-model="category.icon"
+			:label="$tl('icon')"
+		>
+			<template v-slot:prepend>
+				<q-icon v-if="category.icon" :name="category.icon" color="positive" />
+				<q-icon v-else :name="$iconsSet.CategoryForm.noIcon" color="gray" />
+			</template>
+			<template v-slot:hint>
+				{{ $tl("seeAllIcons") }}
+				<a :href="$iconsSet.pickUrl" target="_blank">{{ $iconsSet.sunName }}</a>
+			</template>
+		</q-input>
 
 		<q-input
 			clearable

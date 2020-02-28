@@ -124,28 +124,21 @@
 			</template>
 		</q-input>
 
-		<q-input ref="icon" v-model="menuItem.icon" label="Icon" clearable>
-			<template v-slot:prepend v-if="menuItem.icon">
-				<q-icon :name="menuItem.icon" color="positive" />
+		<q-input
+			class="category-form__icon"
+			clearable
+			bottom-slots
+			ref="icon"
+			v-model="menuItem.icon"
+			:label="$tl('icon')"
+		>
+			<template v-slot:prepend>
+				<q-icon v-if="menuItem.icon" :name="menuItem.icon" color="positive" />
+				<q-icon v-else :name="$iconsSet.MenuItemForm.noIcon" color="gray" />
 			</template>
-			<template v-slot:append>
-				<q-icon :name="$iconsSet.MenuItemForm.icons" class="cursor-pointer">
-					<q-popup-proxy v-model="showIconPicker">
-						<div class="q-pa-sm">
-							<q-input
-								dense
-								class="q-mb-md"
-								v-model="iconFilter"
-								placeholder="Filter"
-								clearable
-							>
-								<template v-slot:prepend>
-									<q-icon :name="$iconsSet.MenuItemForm.search" />
-								</template>
-							</q-input>
-						</div>
-					</q-popup-proxy>
-				</q-icon>
+			<template v-slot:hint>
+				{{ $tl("seeAllIcons") }}
+				<a :href="$iconsSet.pickUrl" target="_blank">{{ $iconsSet.sunName }}</a>
 			</template>
 		</q-input>
 

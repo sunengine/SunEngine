@@ -321,7 +321,7 @@ export default {
 				this.$nextTick(() => {
 					this.prepareLocalLinks();
 					this.prepareParagraphs();
-					if (this.material.settingsJson.allowInnerJavaScript) this.execScripts();
+					if (this.material.settingsJson?.allowInnerJavaScript) this.execScripts();
 				});
 			});
 		},

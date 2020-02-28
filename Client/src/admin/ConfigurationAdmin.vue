@@ -56,7 +56,7 @@
 								</div>
 							</td>
 							<td class="configuration-admin__value-column">
-								<ConfigItem :enums="enums" :item="item" />
+								<ConfigItem :enums="enums" :allRoles="allRoles" :item="item" />
 							</td>
 						</tr>
 					</template>

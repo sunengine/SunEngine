@@ -108,7 +108,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.sections.ArticlesList = require("sun").ArticlesList;
+		this.$options.components.ArticlesList = require("sun").ArticlesList;
 	},
 	created() {
 		this.title = this.pageTitle;

@@ -98,7 +98,7 @@
 		<LoaderWait v-else />
 
 		<q-dialog ref="dialog">
-			<div class="bg-white">
+			<div class="bg-white" v-if="user">
 				<ProfileRoles class="profile__roles q-pa-md" :userId="user.id" />
 				<q-btn
 					color="warning"

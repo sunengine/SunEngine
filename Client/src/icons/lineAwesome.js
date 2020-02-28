@@ -23,6 +23,7 @@ const global = {
 export default {
 	name: "line-awesome",
 	sunName: "LineAwesome",
+	pickUrl: "https://icons8.com/line-awesome",
 	global: global,
 	Activity: {
 		category: global.category,
@@ -76,6 +77,7 @@ export default {
 	CategoryForm: {
 		category: global.category,
 		icons: "la la-icons",
+		noIcon: "la la-stop",
 		layout: "la la-table"
 	},
 	CategoryItem: {
@@ -264,6 +266,7 @@ export default {
 	MenuItemForm: {
 		css: "lab la-css3-alt",
 		icons: "la la-icons",
+		noIcon: "la la-stop",
 		link: "la la-link",
 		search: global.search
 	},

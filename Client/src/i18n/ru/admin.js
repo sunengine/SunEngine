@@ -14,6 +14,7 @@ export default {
 		showInBreadcrumbs: "Показать в строке пути (breadcrumbs)",
 		subTitle: "Подзаголовок",
 		icon: "Иконка",
+		seeAllIcons: "Все иконки",
 		header: "Шапка",
 		selectParent: "Родительская категория",
 		deleteConfirm:
@@ -186,6 +187,7 @@ export default {
 		roles: "Роли которые могут видеть пункт меню",
 		cssClass: "Css class",
 		icon: "Иконка",
+		seeAllIcons: "Все иконки",
 		settingsJson: "Кастомные настройки (Json)",
 		isHidden: "Спрятать",
 		local: "Локальная ссылка",

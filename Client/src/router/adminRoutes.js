@@ -1,18 +1,16 @@
-import {wrapInPanel} from "sun"
-import {Material} from "sun"
-import {ArticlesPage} from "sun"
-
+import { wrapInPanel } from "sun";
+import { Material } from "sun";
+import { ArticlesPage } from "sun";
 
 const AdminPanel = async () => {
 	const adm = await import("admin");
-	return wrapInPanel("AdminPanel", adm.AdminMenu);
+	return wrapInPanel("AdminPanel", adm["AdminMenu"]);
 };
 
 const dImport = name => async () => {
 	const adm = await import("admin");
 	return adm[name];
 };
-
 
 const routes = [
 	{
