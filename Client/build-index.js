@@ -26,7 +26,7 @@ const dirs = [
 	"icons"
 ];
 const adminDirs = ["admin"];
-const excludePaths = ["src/router/index.js"];
+const excludePaths = [];
 
 const patternAll = "src/**/*.@(js|vue)";
 const patternAdmin = "src/admin/**/*.@(js|vue)";
@@ -66,11 +66,11 @@ const indAdmin = new IndexDic();
 const glob = require("glob");
 const fs = require("fs");
 
-proccess(glob.sync(patternAll), dirs, excludePaths, indSun);
+proccess(glob.sync(patternAll), dirs, indSun);
 proccess(
 	glob.sync(patternSite),
 	["site"],
-	["src/site/i18n", "src/site/routes.js"],
+	[],
 	indSun
 );
 proccess(glob.sync(patternAdmin), adminDirs, excludePaths, indAdmin);
