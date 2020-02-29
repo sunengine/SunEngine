@@ -3,6 +3,7 @@
 require("./build-index");
 
 const path = require("path");
+const webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = function(ctx) {
@@ -75,6 +76,9 @@ module.exports = function(ctx) {
 					Math.random() * 1000000
 				).toString();
 
+				cfg.plugins.push(	new webpack.ProvidePlugin("sunImport", "sunRequire"));
+				
+				
 				if(ctx.dev) {
 					cfg.plugins.push(
 						new CopyWebpackPlugin([
@@ -91,6 +95,7 @@ module.exports = function(ctx) {
 						])
 					);
 				}
+				
 
 				cfg.optimization.splitChunks.cacheGroups.admin = {
 					name: "admin",

@@ -1,5 +1,3 @@
-﻿import { throttle } from "sun";
-
-export default ({ Vue }) => {
-	Vue.prototype.$throttle = throttle;
+﻿export default ({ Vue }) => {
+	Vue.prototype.$throttle = sunRequire("throttle");
 };

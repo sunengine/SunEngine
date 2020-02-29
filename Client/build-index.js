@@ -66,13 +66,8 @@ const indAdmin = new IndexDic();
 const glob = require("glob");
 const fs = require("fs");
 
-proccess(glob.sync(patternAll), dirs, indSun);
-proccess(
-	glob.sync(patternSite),
-	["site"],
-	[],
-	indSun
-);
+proccess(glob.sync(patternAll), dirs, excludePaths, indSun);
+proccess(glob.sync(patternSite), ["site"], excludePaths, indSun);
 proccess(glob.sync(patternAdmin), adminDirs, excludePaths, indAdmin);
 
 fs.writeFileSync("./src/sun.js", indSun.makeText());
