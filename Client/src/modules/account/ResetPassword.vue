@@ -87,7 +87,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.Captcha = require("sun").Captcha;
+		this.$options.components.Captcha = sunRequire("Captcha");
 	},
 	created() {
 		this.title = this.$tl("title");

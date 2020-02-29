@@ -87,9 +87,9 @@ export default {
 		this.mounted = true;
 	},
 	beforeCreate() {
-		this.$options.components.ActivitiesList = require("sun").ActivitiesList;
-		this.$options.components.PostsList = require("sun").PostsList;
-		this.$options.components.PostsMultiCat = require("sun").PostsMultiCat;
+		this.$options.components.ActivitiesList = sunRequire("ActivitiesList");
+		this.$options.components.PostsList = sunRequire("PostsList");
+		this.$options.components.PostsMultiCat = sunRequire("PostsMultiCat");
 	},
 	created() {
 		this.title = this.pageTitle;

@@ -44,7 +44,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.Activity = require("sun").Activity;
+		this.$options.components.Activity = sunRequire("Activity");
 	},
 	async created() {
 		await this.loadData();

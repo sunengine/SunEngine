@@ -184,7 +184,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.MenuAdminItem = require("admin").MenuAdminItem;
+		this.$options.components.MenuAdminItem = sunRequire("MenuAdminItem","admin");
 	}
 };
 </script>

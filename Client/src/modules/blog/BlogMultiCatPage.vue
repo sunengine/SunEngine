@@ -84,7 +84,7 @@ export default {
 	},
 	beforeCreate() {
 		this.$options.centered = true;
-		this.$options.components.PostsMultiCat = require("sun").PostsMultiCat;
+		this.$options.components.PostsMultiCat = sunRequire("PostsMultiCat");
 	},
 	created() {
 		this.title = this.section.options.Title;

@@ -113,7 +113,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.MenuItemForm = require("admin").MenuItemForm;
+		this.$options.components.MenuItemForm = sunRequire("MenuItemForm","admin");
 	},
 	created() {
 		this.title = this.$tl("title");

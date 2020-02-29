@@ -114,7 +114,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.MaterialForm = require("sun").MaterialForm;
+		this.$options.components.MaterialForm = sunRequire("MaterialForm");
 	},
 	created() {
 		this.title = this.$tl("title");

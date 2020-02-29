@@ -11,7 +11,7 @@ export default {
 	name: "IndexPage",
 	mixins: [Page],
 	beforeCreate() {
-		this.$options.components.MaterialInline = require("sun").MaterialInline;
+		this.$options.components.MaterialInline = sunRequire("MaterialInline");
 	}
 };
 </script>

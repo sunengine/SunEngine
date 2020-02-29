@@ -211,7 +211,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.Captcha = require("sun").Captcha;
+		this.$options.components.Captcha = sunRequire("Captcha");
 	},
 	mounted() {
 		this.addTargetBlankOnLinks();

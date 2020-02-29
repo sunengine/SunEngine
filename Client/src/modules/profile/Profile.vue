@@ -196,7 +196,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.ProfileRoles = require("sun").ProfileRoles;
+		this.$options.components.ProfileRoles = sunRequire("ProfileRoles");
 	},
 	created() {
 		this.loadData();

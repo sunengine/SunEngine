@@ -158,7 +158,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.ConfigItem = require("admin").ConfigItem;
+		this.$options.components.ConfigItem = sunRequire("ConfigItem","admin");
 	},
 	created() {
 		this.rules = createRules.call(this);

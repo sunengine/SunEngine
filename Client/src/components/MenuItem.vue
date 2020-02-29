@@ -111,7 +111,7 @@ export default {
 		this.$nextTick(() => this.checkOpen());
 	},
 	beforeCreate() {
-		this.$options.components.MenuItem = require("sun").MenuItem;
+		this.$options.components.MenuItem = sunRequire("MenuItem");
 	}
 };
 </script>

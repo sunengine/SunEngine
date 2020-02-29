@@ -315,7 +315,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.ConfigItem = require("admin").ConfigItem;
+		this.$options.components.ConfigItem = sunRequire("ConfigItem","admin");
 	},
 	async created() {
 		this.filterItems = this.$throttle(this.filterItems, 1000);

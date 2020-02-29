@@ -29,7 +29,7 @@ export default {
 	},
 	beforeCreate() {
 		this.$options.centered = true;
-		this.$options.components.ActivitiesList = require("sun").ActivitiesList;
+		this.$options.components.ActivitiesList = sunRequire("ActivitiesList");
 	},
 	created() {
 		this.title = this.section.options.Title ?? this.$tl("defaultTitle");

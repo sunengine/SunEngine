@@ -196,12 +196,12 @@ export default {
 		})
 	},
 	beforeCreate() {
-		this.$options.components.Breadcrumbs = require("sun").Breadcrumbs;
-		this.$options.components.UserMenu = require("sun").UserMenu;
-		this.$options.components.LoginRegisterMenu = require("sun").LoginRegisterMenu;
-		this.$options.components.MainMenu = require("sun").MainMenu;
-		this.$options.components.SunEngineFooter = require("sun").SunEngineFooter;
-		this.$options.components.LinksMenu = require("sun").LinksMenu;
+		this.$options.components.Breadcrumbs = sunRequire("Breadcrumbs");
+		this.$options.components.UserMenu = sunRequire("UserMenu");
+		this.$options.components.LoginRegisterMenu = sunRequire("LoginRegisterMenu");
+		this.$options.components.MainMenu = sunRequire("MainMenu");
+		this.$options.components.SunEngineFooter = sunRequire("SunEngineFooter");
+		this.$options.components.LinksMenu = sunRequire("LinksMenu");
 	},
 	mounted() {
 		const toolbarBreadcrumbs = document.getElementById("toolbarBreadcrumbs");

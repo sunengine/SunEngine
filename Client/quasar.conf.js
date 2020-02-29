@@ -26,8 +26,7 @@ module.exports = function(ctx) {
 			"throttle",
 			"vueDevTools",
 			"getBreadcrumbs",
-			"icons",
-			"sunImport"
+			"icons"
 		],
 		css: ["app.scss"],
 		extras: [
@@ -76,10 +75,13 @@ module.exports = function(ctx) {
 					Math.random() * 1000000
 				).toString();
 
-				cfg.plugins.push(	new webpack.ProvidePlugin("sunImport", "sunRequire"));
-				
-				
-				if(ctx.dev) {
+				cfg.plugins.push(
+					new webpack.ProvidePlugin({
+						identifier: ['sunImport', 'sunRequire']
+					})
+				);
+
+				if (ctx.dev) {
 					cfg.plugins.push(
 						new CopyWebpackPlugin([
 							{ from: "src/site/statics", to: "site/statics" },
@@ -90,12 +92,9 @@ module.exports = function(ctx) {
 					);
 				} else {
 					cfg.plugins.push(
-						new CopyWebpackPlugin([
-							{ from: "src/site/statics", to: "site/statics" }
-						])
+						new CopyWebpackPlugin([{ from: "src/site/statics", to: "site/statics" }])
 					);
 				}
-				
 
 				cfg.optimization.splitChunks.cacheGroups.admin = {
 					name: "admin",
@@ -104,7 +103,7 @@ module.exports = function(ctx) {
 					priority: -30,
 					chunks: "all",
 					reuseExistingChunk: true
-				}
+				};
 			},
 
 			env: {

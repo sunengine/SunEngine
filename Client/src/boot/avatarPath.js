@@ -1,5 +1,3 @@
-﻿import { avatarPath } from "sun";
-
-export default ({ Vue }) => {
-	Vue.prototype.$avatarPath = avatarPath;
+﻿export default ({ Vue }) => {
+	Vue.prototype.$avatarPath = sunRequire("avatarPath");
 };

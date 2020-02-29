@@ -59,7 +59,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.PostsList = require("sun").PostsList;
+		this.$options.components.PostsList = sunRequire("PostsList");
 	},
 	created() {
 		this.loadData();

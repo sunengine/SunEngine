@@ -1,23 +1,15 @@
-import sun from "sun"
+import sun from "./sun";
+import admin from "./admin";
 
-export async function sunImport(componentName,moduleName = "sun") {
-    const component = sun[componentName];
-    if(component.def) {
-        const module = await import(component.value);
-        return module;
-    } else {
-        const module = await import(component.value);
-        return module.componentName;
-    }
+export async function sunImport(componentName, moduleName = "sun") {
+	const component =
+		moduleName === "sun" ? sun[componentName] : admin[componentName];
+	if (component.def) {
+		const module = await import(component.value);
+		return module;
+	} else {
+		const module = await import(component.value);
+		return module.componentName;
+	}
 }
 
-export function sunRequire(componentName,moduleName = "sun") {
-    const component = sun[componentName];
-    if(component.def) {
-        const module = require(component.value);
-        return module;
-    } else {
-        const module = require(component.value);
-        return module.componentName;
-    }
-}

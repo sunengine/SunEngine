@@ -18,8 +18,8 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.SettingsMenu = require("sun").SettingsMenu;
-		this.$options.components.PageWrapper = require("sun").PageWrapper;
+		this.$options.components.SettingsMenu = sunRequire("SettingsMenu");
+		this.$options.components.PageWrapper = sunRequire("PageWrapper");
 	},
 	created() {
 		this.title = this.$tl("title") + " " + this.$store.state.auth.user.name;

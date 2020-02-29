@@ -27,13 +27,12 @@
 <script>
 import { mapGetters } from "vuex";
 import Vue from "vue";
-import { Layout } from "sun";
+import { sunRequire } from "./sunImport";
 
 var app;
 
 export default {
 	name: "App",
-	components: { Layout },
 	data() {
 		return {
 			rerenderKey: 1
@@ -62,6 +61,7 @@ export default {
 		}
 	},
 	beforeCreate() {
+		this.$options.components.Layout = sunRequire("Layout");
 		app = this;
 	}
 };
