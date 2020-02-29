@@ -25,7 +25,8 @@ module.exports = function(ctx) {
 			"throttle",
 			"vueDevTools",
 			"getBreadcrumbs",
-			"icons"
+			"icons",
+			"sunImport"
 		],
 		css: ["app.scss"],
 		extras: [

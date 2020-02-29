@@ -149,7 +149,7 @@ export default {
 	},
 	methods: {
 		loadRoles() {
-			this.$request(this.$AdminApi.UserRolesAdmin.GetAllRoles).then(response => {
+			return this.$request(this.$AdminApi.UserRolesAdmin.GetAllRoles).then(response => {
 				this.allRoles = response.data;
 				this.allRoles.push({
 					name: "Unregistered",

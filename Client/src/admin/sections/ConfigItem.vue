@@ -167,8 +167,9 @@ export default {
 			this.$refs?.input?.validate();
 		}
 	},
-	beforeCreate() {
-		this.$options.components.CategoriesInput = require("admin").CategoriesInput;
+	async beforeCreate() {
+		const sun = await import("sun");
+		this.$options.components.CategoriesInput = sun.CategoriesInput;
 	},
 	created() {
 		switch (this.item.type) {

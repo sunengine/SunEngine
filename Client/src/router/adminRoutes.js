@@ -1,14 +1,16 @@
-import { wrapInPanel } from "sun";
-import { Material } from "sun";
-import { ArticlesPage } from "sun";
-
 const AdminPanel = async () => {
 	const adm = await import("admin");
-	return wrapInPanel("AdminPanel", adm["AdminMenu"]);
+	const sun = require("sun");
+	return sun.wrapInPanel("AdminPanel", adm.AdminMenu);
 };
 
 const dImport = name => async () => {
 	const adm = await import("admin");
+	return adm[name];
+};
+
+const dImportSun = name => async () => {
+	const adm = require("sun");
 	return adm[name];
 };
 
@@ -218,7 +220,7 @@ const routes = [
 		name: "CatView",
 		path: "/admin/Categories/View/".toLowerCase() + ":categoryName",
 		components: {
-			default: ArticlesPage,
+			default: dImportSun("ArticlesPage"),
 			navigation: AdminPanel
 		},
 		props: {
@@ -229,7 +231,7 @@ const routes = [
 		name: "CatView-mat",
 		path: "/admin/Categories/View/".toLowerCase() + ":categoryName/:idOrName",
 		components: {
-			default: Material,
+			default: dImportSun("Material"),
 			navigation: AdminPanel
 		},
 		props: {

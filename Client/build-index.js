@@ -52,7 +52,9 @@ class IndexDic {
 
 		arr = arr.sort((a, b) => a.number - b.number);
 
-		for (const obj of arr) text += obj.line + "\n";
+		for (const obj of arr) text += obj.line + ",\n";
+
+		text = "export default {\n" + text + "};\n";
 
 		return text;
 	}
@@ -73,19 +75,13 @@ proccess(
 );
 proccess(glob.sync(patternAdmin), adminDirs, excludePaths, indAdmin);
 
-indSun.addLine("Api", "export Api from 'src/Api.js'");
-indSun.addLine("routes", "export routes from 'src/site/routes.js'");
-indSun.addLine("store-index", "export * from 'src/store/index'");
-indSun.addLine("router", "export {router} from 'src/router/index.js'");
-indSun.addLine("App", "export {app} from 'src/App'");
-
 fs.writeFileSync("./src/sun.js", indSun.makeText());
 
 fs.writeFileSync("./src/admin.js", indAdmin.makeText());
 
 console.log(
 	'\n\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/sun.js"   \x1b[33m☼☼☼\x1b[0m\n' +
-	'\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/admin.js"   \x1b[33m☼☼☼\x1b[0m\n'
+		'\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/admin.js"   \x1b[33m☼☼☼\x1b[0m\n'
 );
 
 function proccess(arr, dirs, excludePaths, index) {
@@ -95,10 +91,23 @@ function proccess(arr, dirs, excludePaths, index) {
 
 		const fileText = fs.readFileSync(path, "utf8");
 
-		if (/export( )+default/.test(fileText))
-			index.addLine(`${name}`, `export ${name} from '${path}'`);
-		if (/export( )+(?!default)/.test(fileText))
-			index.addLine(`${name}-star`, `export * from '${path}'`);
+		if (/export( )+default/.test(fileText)) {
+			addLine(index, name, path, true);
+		}
+		const matches = fileText.matchAll(
+			/export(?: )+(?:function|const|var|let)(?: )+([a-zA-Z0-9_]+?)[( =]/gi
+		);
+
+		for (const match of matches) {
+			addLine(index, match[1], path, false);
+		}
+	}
+
+	function addLine(index, name, path, isDefault) {
+		index.addLine(
+			`${name}`,
+			`"${name}": {"def": ${isDefault}, "value": "${path}"}`
+		);
 	}
 }
 

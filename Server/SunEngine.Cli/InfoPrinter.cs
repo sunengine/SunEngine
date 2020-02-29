@@ -38,7 +38,7 @@ namespace SunEngine.Cli
    ____)  )| |_| || | | || |____ | | | |( (_| || || | | || |__)
   (______/ |_____/|_| |_||______)|_| |_| \__  ||_||_| |_||____)
                                           __| |
-            Version: {v,-6}              (____/".TrimStart('\n') + "\n");
+            Version: {v,-6}              (____/          ".TrimStart('\n') + "\n");
 
 			Console.ResetColor();
 		}
@@ -57,6 +57,7 @@ namespace SunEngine.Cli
      {StartupConfiguration.InitCommand,padding} Initialize users, roles and categories tables from config directory
      {StartupConfiguration.TestDatabaseConnection,padding} Check is data base connection is working                     
      {StartupConfiguration.VersionCommand,padding} Print SunEngine version
+     {StartupConfiguration.NoLogoCommand,padding} Do not show logo image on start   
      {StartupConfiguration.HelpCommand,padding} Show this help   
     
   Seed test data commands    
