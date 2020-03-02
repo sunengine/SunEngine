@@ -26,8 +26,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Vue from "vue";
-import { sunRequire } from "./sunImport";
 
 var app;
 
