@@ -70,8 +70,9 @@ proccess(glob.sync(patternAll), dirs, excludePaths, indSun);
 proccess(glob.sync(patternSite), ["site"], excludePaths, indSun);
 proccess(glob.sync(patternAdmin), adminDirs, excludePaths, indAdmin);
 
-fs.writeFileSync("./src/sun.js", indSun.makeText());
+indSun.addLine("app", '"app": {"def": false, "value": "src/App.vue"}');
 
+fs.writeFileSync("./src/sun.js", indSun.makeText());
 fs.writeFileSync("./src/admin.js", indAdmin.makeText());
 
 console.log(

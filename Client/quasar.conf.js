@@ -62,8 +62,8 @@ module.exports = function(ctx) {
 			// analyze: true,
 			// extractCSS: false,
 			extendWebpack(cfg) {
-				cfg.resolve.alias.sun = path.resolve("./src/sun.js");
-				cfg.resolve.alias.admin = path.resolve("./src/admin.js");
+			/*	cfg.resolve.alias.sun = path.resolve("./src/sun.js");
+				cfg.resolve.alias.admin = path.resolve("./src/admin.js");*/
 				cfg.resolve.alias.mixins = path.resolve("./src/mixins/mixins.js");
 
 				cfg.resolve.modules.push(path.resolve("./src"));
@@ -77,9 +77,9 @@ module.exports = function(ctx) {
 
 				cfg.plugins.push(
 					new webpack.ProvidePlugin({
-						identifier: ['sunImport', 'sunRequire']
-					})
-				);
+						sunImport: ['sunImport', 'default'],
+						sunRequire: ['sunRequire', 'default']
+					}));
 
 				if (ctx.dev) {
 					cfg.plugins.push(

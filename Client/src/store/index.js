@@ -24,10 +24,12 @@ export default function(/* { ssrContext } */) {
 			menu: require("store/index/menu")
 		}
 	});
+/*
 	const initLongTokenFromLocalStorage = sunRequire(
 		"initLongTokenFromLocalStorage"
 	);
 	initLongTokenFromLocalStorage(store);
+*/
 
 	store.state.initializedPromise = store.dispatch("initStore");
 

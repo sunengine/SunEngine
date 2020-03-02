@@ -188,4 +188,5 @@ export default {
 "registerSectionsSite": {"def": true, "value": "src/site/registerSectionsSite.js"},
 "routes": {"def": true, "value": "src/site/routes.js"},
 "SecretPage": {"def": true, "value": "src/site/SecretPage.vue"},
+"app": {"def": false, "value": "src/App.vue"},
 };

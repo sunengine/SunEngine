@@ -4,7 +4,6 @@ import VueRouter from "vue-router";
 
 
 
-
 Vue.use(VueRouter);
 
 /*
@@ -26,6 +25,9 @@ export default function({ store, ssrContext }) {
 		base: process.env.VUE_ROUTER_BASE
 	});
 
+	
+	console.log("sunRequire",sunRequire);
+	
 	const app = sunRequire("app");
 	const checkTokensUpdated = sunRequire("checkTokensUpdated");
 	const getTokens = sunRequire("getTokens");
