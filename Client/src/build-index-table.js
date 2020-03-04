@@ -60,7 +60,7 @@ class IndexDic {
 	}
 }
 
-const indSunzz = new IndexDic();
+const indSun = new IndexDic();
 const indAdmin = new IndexDic();
 
 const glob = require("glob");
@@ -72,12 +72,12 @@ proccess(glob.sync(patternAdmin), adminDirs, excludePaths, indAdmin);
 
 indSun.addLine("app", '"app": {"def": false, "value": "src/App.vue"}');
 
-fs.writeFileSync("./src/sun.js", indSun.makeText());
-fs.writeFileSync("./src/admin.js", indAdmin.makeText());
+fs.writeFileSync("./src/index/sunTable.js", indSun.makeText());
+fs.writeFileSync("./src/index/adminTable.js", indAdmin.makeText());
 
 console.log(
-	'\n\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/sun.js"   \x1b[33m☼☼☼\x1b[0m\n' +
-		'\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/admin.js"   \x1b[33m☼☼☼\x1b[0m\n'
+	'\n\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/index/sunTable.js"   \x1b[33m☼☼☼\x1b[0m\n' +
+	'\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/index/adminTable.js"   \x1b[33m☼☼☼\x1b[0m\n'
 );
 
 function proccess(arr, dirs, excludePaths, index) {
