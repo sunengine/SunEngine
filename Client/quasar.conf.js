@@ -1,6 +1,7 @@
 // Configuration for your app
 
-require("./build-index");
+require("./build-index-table");
+require("./build-index-export");
 
 const path = require("path");
 const webpack = require("webpack");

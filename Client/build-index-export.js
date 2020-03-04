@@ -84,14 +84,14 @@ indSun.addLine("store-index", "export * from 'src/store/index'");
 indSun.addLine("router", "export {router} from 'src/router/index.js'");
 indSun.addLine("App", "export {app} from 'src/App'");
 
-fs.writeFileSync("./src/sun.js", indSun.makeText());
-fs.writeFileSync("./src/admin.js", indAdmin.makeText());
+fs.writeFileSync("./src/index/sun.js", indSun.makeText());
+fs.writeFileSync("./src/index/admin.js", indAdmin.makeText());
 
 console.log(
-    '\n\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/sun.js"   \x1b[33m☼☼☼\x1b[0m\n'
+    '\n\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/sun.js"   \x1b[33m☼☼☼\x1b[0m'
 );
 console.log(
-    '\n\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/admin.js"   \x1b[33m☼☼☼\x1b[0m\n'
+    '\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/admin.js"   \x1b[33m☼☼☼\x1b[0m\n'
 );
 
 function proccess(arr, dirs, excludePaths, index) {
