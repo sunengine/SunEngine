@@ -1,5 +1,3 @@
-import { request } from "sun";
-import { Api } from "sun";
 import { consoleInit } from "sun";
 
 export default function(context, data) {

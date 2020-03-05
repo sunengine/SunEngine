@@ -1,5 +1,4 @@
-import { consoleTokens, removeTokens, request } from "sun";
-import { Api } from "sun";
+import { consoleTokens, removeTokens } from "sun";
 
 export default function(context, data) {
 	return request(Api.Personal.GetMyUserInfo, {

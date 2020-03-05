@@ -1,6 +1,4 @@
 import { consoleInit } from "sun";
-import { request } from "sun";
-import { Api } from "sun";
 
 export default function(context, data) {
 	return request(Api.Menu.GetAllMenuItems, {

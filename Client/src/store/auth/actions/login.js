@@ -1,8 +1,4 @@
-import { request } from "sun";
-import { router } from "sun";
-import { Api } from "sun";
 import { routeHasAccess } from "sun";
-import { app } from "sun";
 
 export default function(context, userData) {
 	return request(Api.Auth.Login, {
