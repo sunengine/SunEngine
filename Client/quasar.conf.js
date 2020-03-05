@@ -6,6 +6,7 @@ require("./build-index-export");
 const path = require("path");
 const webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default;
 
 module.exports = function(ctx) {
 	return {
@@ -78,8 +79,7 @@ module.exports = function(ctx) {
 
 				cfg.plugins.push(
 					new webpack.ProvidePlugin({
-						sunImport: ['sunImport', 'default'],
-						sunRequire: ['sunRequire', 'default']
+						sunImport: ['src/utils/sunImport', 'default']
 					}));
 
 				if (ctx.dev) {
@@ -96,6 +96,8 @@ module.exports = function(ctx) {
 						new CopyWebpackPlugin([{ from: "src/site/statics", to: "site/statics" }])
 					);
 				}
+
+				cfg.plugins.push(new WebpackDeepScopeAnalysisPlugin());
 
 				cfg.optimization.splitChunks.cacheGroups.admin = {
 					test: /[\\/]src[\\/]admin[\\/]/,
@@ -131,16 +133,6 @@ module.exports = function(ctx) {
 							return "sun";
 					}
 				};
-
-				/*test: /[\\/]node_modules[\\/]/,
-					name(module) {
-					// get the name. E.g. node_modules/packageName/not/this/part.js
-					// or node_modules/packageName
-					const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
-
-					// npm package names are URL-safe, but some servers don't like @ symbols
-					return `npm.${packageName.replace('@', '')}`;
-				},*/
 			},
 
 			env: {

@@ -671,6 +671,10 @@ export default {
     "def": true,
     "value": "src/utils/routeHasAccess.js"
   },
+  "sunImport": {
+    "def": true,
+    "value": "src/utils/sunImport.js"
+  },
   "throttle": {
     "def": true,
     "value": "src/utils/throttle.js"

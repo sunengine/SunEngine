@@ -1,7 +1,7 @@
-import sun from "index/sunTable";
-import admin from "index/adminTable";
+import sun from "src/index/sunTable";
+import admin from "src/index/adminTable";
 
-export async function sunImport(componentName, moduleName = "sun") {
+export default async function sunImport(componentName, moduleName = "sun") {
 	const component =
 		moduleName === "sun" ? sun[componentName] : admin[componentName];
 	if (component.def) {
