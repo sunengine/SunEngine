@@ -1,7 +1,3 @@
-import { Profile } from "sun";
-import { CreateMaterial } from "sun";
-import { EditMaterial } from "sun";
-import { SendPrivateMessage } from "sun";
 
 const routes = [
 	{
@@ -9,8 +5,7 @@ const routes = [
 		path:
 			"/CreateMaterial/".toLowerCase() + ":categoriesNames/:initialCategoryName?",
 		components: {
-			default: CreateMaterial,
-			navigation: null
+			default: sunImport.CreateMaterial
 		},
 		props: {
 			default: true
@@ -23,8 +18,7 @@ const routes = [
 		name: "EditMaterial",
 		path: "/EditMaterial/".toLowerCase() + ":id",
 		components: {
-			default: EditMaterial,
-			navigation: null
+			default: sunImport.EditMaterial
 		},
 		props: {
 			default: route => {
@@ -42,8 +36,7 @@ const routes = [
 		name: "SendPrivateMessage",
 		path: "/SendPrivateMessage".toLowerCase(),
 		components: {
-			default: SendPrivateMessage,
-			navigation: null
+			default: sunImport.SendPrivateMessage
 		},
 		props: {
 			default: route => {
@@ -59,8 +52,7 @@ const routes = [
 		name: "User",
 		path: "/user/:link",
 		components: {
-			default: Profile,
-			navigation: null
+			default: sunImport.Profile
 		},
 		props: {
 			default: true

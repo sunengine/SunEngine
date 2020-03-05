@@ -1,6 +1,4 @@
-﻿import { ArticlesPage } from "sun";
-import { Material } from "sun";
-
+﻿
 export default {
 	name: "Articles",
 	title: "Articles",
@@ -22,8 +20,7 @@ export default {
 				name: `cat-${name}`,
 				path: pathBegin,
 				components: {
-					default: ArticlesPage,
-					navigation: null
+					default: sunImport.ArticlesPage
 				},
 				props: {
 					default: {
@@ -38,8 +35,7 @@ export default {
 				name: `cat-${name}-mat`,
 				path: `${pathBegin}/:idOrName`,
 				components: {
-					default: Material,
-					navigation: null
+					default: sunImport.Material
 				},
 				props: {
 					default: route => {

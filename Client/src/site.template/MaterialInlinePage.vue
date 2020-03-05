@@ -12,19 +12,16 @@
 </template>
 
 <script>
-import { MaterialInline } from "sun";
-import { Page } from "mixins";
-
 export default {
 	name: "MaterialInlinePage",
 	mixins: [Page],
+	components: {
+		MaterialInline: sunImport.MaterialInline
+	},
 	methods: {
 		loaded() {
 			this.title = this.$refs.inline.material.title;
 		}
-	},
-	beforeCreate() {
-		this.$options.components.MaterialInline = require("sun").MaterialInline;;
 	}
 };
 </script>

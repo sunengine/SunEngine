@@ -1,10 +1,4 @@
-﻿import { ArticlesPanel, store } from "sun";
-import { ArticlesMultiCatPage } from "sun";
-import { Categories1 } from "sun";
-import { Material } from "sun";
-import { ArticlesPage } from "sun";
-
-export default {
+﻿export default {
 	name: "Articles1",
 	title: "Articles with 1 level subcategories",
 
@@ -33,12 +27,12 @@ export default {
 				name: `cat-${name}`,
 				path: "/" + nameLower,
 				components: {
-					default: ArticlesMultiCatPage,
-					navigation: ArticlesPanel
+					default: sunImport.ArticlesMultiCatPage,
+					navigation: sunImport.ArticlesPanel
 				},
 				props: {
 					default: { categoriesNames: nameLower, pageTitle: category.title },
-					navigation: { categories: Categories1, categoryName: name }
+					navigation: { categories: sunImport.Categories1, categoryName: name }
 				},
 				meta: {
 					category: category
@@ -48,12 +42,12 @@ export default {
 				name: `cat-${name}-cat`,
 				path: `/${nameLower}/:categoryName`,
 				components: {
-					default: ArticlesPage,
-					navigation: ArticlesPanel
+					default: sunImport.ArticlesPage,
+					navigation: sunImport.ArticlesPanel
 				},
 				props: {
 					default: true,
-					navigation: { categories: Categories1, categoryName: name }
+					navigation: { categories: sunImport.Categories1, categoryName: name }
 				},
 				meta: {
 					category: category
@@ -63,8 +57,8 @@ export default {
 				name: `cat-${name}-cat-mat`,
 				path: `/${nameLower}/:categoryName/:idOrName`,
 				components: {
-					default: Material,
-					navigation: ArticlesPanel
+					default: sunImport.Material,
+					navigation: sunImport.ArticlesPanel
 				},
 				props: {
 					default: route => {
@@ -73,7 +67,7 @@ export default {
 							idOrName: route.params.idOrName
 						};
 					},
-					navigation: { categories: Categories1, categoryName: name }
+					navigation: { categories: sunImport.Categories1, categoryName: name }
 				},
 				meta: {
 					category: category

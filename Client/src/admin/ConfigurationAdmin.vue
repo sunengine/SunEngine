@@ -116,6 +116,9 @@ import { Page } from "mixins";
 export default {
 	name: "ConfigurationAdmin",
 	mixins: [Page],
+	components: {
+		ConfigItem: adminImport.ConfigItem
+	},
 	data() {
 		return {
 			filter: "",
@@ -149,13 +152,15 @@ export default {
 	},
 	methods: {
 		loadRoles() {
-			return this.$request(this.$AdminApi.UserRolesAdmin.GetAllRoles).then(response => {
-				this.allRoles = response.data;
-				this.allRoles.push({
-					name: "Unregistered",
-					title: "Unregistered"
-				});
-			});
+			return this.$request(this.$AdminApi.UserRolesAdmin.GetAllRoles).then(
+				response => {
+					this.allRoles = response.data;
+					this.allRoles.push({
+						name: "Unregistered",
+						title: "Unregistered"
+					});
+				}
+			);
 		},
 		filterItems() {
 			if (!this.filter)
@@ -314,9 +319,9 @@ export default {
 			});
 		}
 	},
-	beforeCreate() {
-		this.$options.components.ConfigItem = require("admin").ConfigItem;
-	},
+	/*	beforeCreate() {
+		this.$options.components.ConfigItem = adminImport.ConfigItem;
+	},*/
 	async created() {
 		this.filterItems = this.$throttle(this.filterItems, 1000);
 		this.title = this.$tl("title");

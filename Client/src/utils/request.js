@@ -1,9 +1,6 @@
 import axios from "axios";
 import Lock from "js-lock";
 
-import { store } from "sun";
-import { router } from "sun";
-import { app } from "sun";
 import { removeTokens, setTokens, getTokens } from "sun";
 import { routeCheckAccess } from "sun";
 import {

@@ -1,4 +1,3 @@
-import { Error404Page } from "sun";
 
 let routes = [];
 
@@ -6,7 +5,7 @@ let routes = [];
 if (process.env.MODE !== "ssr") {
 	routes.push({
 		path: "*",
-		component: Error404Page
+		component: sunImport.Error404Page
 	});
 }
 

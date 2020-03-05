@@ -1,16 +1,9 @@
-import { ResetPassword } from "sun";
-import { ResetPasswordSetNew } from "sun";
-import { ResetPasswordFailed } from "sun";
-import { ChangePassword } from "sun";
-import { ChangeEmail } from "sun";
-import { ChangeEmailResult } from "sun";
-import { SettingsPanel } from "sun";
 
 const routes = [
 	{
 		name: "ResetPassword",
 		path: "/account/ResetPassword".toLowerCase(),
-		component: ResetPassword,
+		component: sunImport.ResetPassword,
 		meta: {
 			roles: ["Unregistered"]
 		}
@@ -18,7 +11,7 @@ const routes = [
 	{
 		name: "ResetPasswordSetNew",
 		path: "/account/ResetPasswordSetNew".toLowerCase(),
-		component: ResetPasswordSetNew,
+		component: sunImport.ResetPasswordSetNew,
 		meta: {
 			roles: ["Unregistered"]
 		}
@@ -26,7 +19,7 @@ const routes = [
 	{
 		name: "ResetPasswordFailed",
 		path: "/account/ResetPasswordFailed".toLowerCase(),
-		component: ResetPasswordFailed,
+		component: sunImport.ResetPasswordFailed,
 		meta: {
 			roles: ["Unregistered"]
 		}
@@ -35,8 +28,8 @@ const routes = [
 		name: "ChangePassword",
 		path: "/account/ChangePassword".toLowerCase(),
 		components: {
-			default: ChangePassword,
-			navigation: SettingsPanel
+			default: sunImport.ChangePassword,
+			navigation: sunImport.SettingsPanel
 		},
 		meta: {
 			roles: ["Registered"]
@@ -46,8 +39,8 @@ const routes = [
 		name: "ChangeEmail",
 		path: "/account/ChangeEmail".toLowerCase(),
 		components: {
-			default: ChangeEmail,
-			navigation: SettingsPanel
+			default: sunImport.ChangeEmail,
+			navigation: sunImport.SettingsPanel
 		},
 		meta: {
 			roles: ["Registered"]
@@ -57,8 +50,8 @@ const routes = [
 		name: "ChangeEmailResult",
 		path: "/account/ChangeEmailResult".toLowerCase(),
 		components: {
-			default: ChangeEmailResult,
-			navigation: SettingsPanel
+			default: sunImport.ChangeEmailResult,
+			navigation: sunImport.SettingsPanel
 		}
 	}
 ];

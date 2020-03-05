@@ -1,5 +1,4 @@
 ﻿import Vue from "vue";
-import { store } from "sun";
 
 export function getWhereToMove() {
 	const rez = goDeep(store.state.categories.root);

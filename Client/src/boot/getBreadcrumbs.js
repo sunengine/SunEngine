@@ -1,3 +1,5 @@
+import { getBreadcrumbs } from "sun";
+
 export default ({ Vue }) => {
-	Vue.prototype.$getBreadcrumbs = require("sun").getBreadcrumbs;;
+	Vue.prototype.$getBreadcrumbs = getBreadcrumbs;
 };

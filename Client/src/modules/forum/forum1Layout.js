@@ -1,7 +1,4 @@
-﻿import { ForumPanel, Thread } from "sun";
-import { Categories1 } from "sun";
-import { Material } from "sun";
-import { getThreadTopics } from "sun";
+﻿import { getThreadTopics } from "sun";
 import { getNewTopics } from "sun";
 import { app } from "sun";
 
@@ -34,8 +31,8 @@ export default {
 				name: `cat-${name}`,
 				path: "/" + nameLower,
 				components: {
-					default: Thread,
-					navigation: ForumPanel
+					default: sunImport.Thread,
+					navigation: sunImport.ForumPanel
 				},
 				props: {
 					default: {
@@ -43,7 +40,7 @@ export default {
 						loadTopics: getNewTopics,
 						pageTitle: category.title + app.$t("Thread.titlePartNewTopics")
 					},
-					navigation: { categories: Categories1, categoryName: name }
+					navigation:  { categories: sunImport.Categories1, categoryName: name }
 				},
 				meta: {
 					category: category
@@ -53,8 +50,8 @@ export default {
 				name: `cat-${name}-cat`,
 				path: `/${nameLower}/:categoryName`,
 				components: {
-					default: Thread,
-					navigation: ForumPanel
+					default: sunImport.Thread,
+					navigation: sunImport.ForumPanel
 				},
 				props: {
 					default: route => {
@@ -63,7 +60,7 @@ export default {
 							loadTopics: getThreadTopics
 						};
 					},
-					navigation: { categories: Categories1, categoryName: name }
+					navigation:  { categories: sunImport.Categories1, categoryName: name }
 				},
 				meta: {
 					category: category
@@ -73,8 +70,8 @@ export default {
 				name: `cat-${name}-cat-mat`,
 				path: `/${nameLower}/:categoryName/:idOrName`,
 				components: {
-					default: Material,
-					navigation: ForumPanel
+					default: sunImport.Material,
+					navigation: sunImport.ForumPanel
 				},
 				props: {
 					default: route => {
@@ -83,7 +80,7 @@ export default {
 							idOrName: route.params.idOrName
 						};
 					},
-					navigation: { categories: Categories1, categoryName: name }
+					navigation:  { categories: sunImport.Categories1, categoryName: name }
 				},
 				meta: {
 					category: category

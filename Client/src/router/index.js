@@ -4,7 +4,6 @@ import VueRouter from "vue-router";
 import { getTokens } from "sun";
 import { checkTokensUpdated } from "sun";
 import { app } from "sun";
-import { store } from "sun";
 
 import { consoleRequestStart, consoleGreyEnd, consoleTokens } from "sun";
 

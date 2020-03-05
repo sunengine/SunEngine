@@ -1,5 +1,4 @@
-﻿import { ActivitiesPage } from "sun";
-
+﻿
 export default {
 	name: "Activities",
 
@@ -12,7 +11,7 @@ export default {
 				name: `comp-${name}`,
 				path: "/" + nameLower,
 				components: {
-					default: ActivitiesPage,
+					default: sunImport.ActivitiesPage,
 					navigation: null
 				},
 				props: {

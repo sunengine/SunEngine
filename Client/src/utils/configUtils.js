@@ -1,6 +1,4 @@
-﻿import { request } from "sun";
-import { Api } from "sun";
-import { buildPath } from "sun";
+﻿import { buildPath } from "sun";
 
 export function getDynamicConfig() {
 	return request(Api.Configuration.GetDynamicConfig).then(response => {

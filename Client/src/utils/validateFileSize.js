@@ -1,4 +1,3 @@
-import { app } from "sun";
 
 export default function(file) {
 	if (file.size > config.Images.ImageRequestSizeLimitBytes) {

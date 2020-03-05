@@ -1,23 +1,20 @@
-import { Login } from "sun";
-import { Register } from "sun";
-import { RegisterEmailResult } from "sun";
 
 const routes = [
 	{
 		name: "Login",
 		path: "/auth/login/:ret?",
-		component: Login,
+		component: sunImport.Login,
 		props: true
 	},
 	{
 		name: "Register",
 		path: "/auth/register",
-		component: Register
+		component: sunImport.Register
 	},
 	{
 		name: "RegisterEmailResult",
 		path: "/auth/RegisterEmailResult".toLowerCase(),
-		component: RegisterEmailResult
+		component: sunImport.RegisterEmailResult
 	}
 ];
 

@@ -1,10 +1,4 @@
-﻿import { ArticlesPanel, store } from "sun";
-import { ArticlesMultiCatPage } from "sun";
-import { Categories2 } from "sun";
-import { Material } from "sun";
-import { ArticlesPage } from "sun";
-
-export default {
+﻿export default {
 	name: "Articles2",
 	title: "Articles with 2 level subcategories",
 
@@ -36,12 +30,12 @@ export default {
 				path: "/" + nameLower,
 				category: category,
 				components: {
-					default: ArticlesMultiCatPage,
-					navigation: ArticlesPanel
+					default: sunImport.ArticlesMultiCatPage,
+					navigation: sunImport.ArticlesPanel
 				},
 				props: {
 					default: { categoriesNames: nameLower, pageTitle: category.title },
-					navigation: { categories: Categories2, categoryName: name }
+					navigation:  { categories: sunImport.Categories1, categoryName: name }
 				}
 			},
 			{
@@ -49,12 +43,12 @@ export default {
 				path: `/${nameLower}/:categoryName`,
 				category: category,
 				components: {
-					default: ArticlesPage,
-					navigation: ArticlesPanel
+					default: sunImport.ArticlesPage,
+					navigation: sunImport.ArticlesPanel
 				},
 				props: {
 					default: true,
-					navigation: { categories: Categories2, categoryName: name }
+					navigation:  { categories: sunImport.Categories2, categoryName: name }
 				}
 			},
 			{
@@ -62,8 +56,8 @@ export default {
 				path: `/${nameLower}/:categoryName/:idOrName`,
 				category: category,
 				components: {
-					default: Material,
-					navigation: ArticlesPanel
+					default: sunImport.Material,
+					navigation: sunImport.ArticlesPanel
 				},
 				props: {
 					default: route => {
@@ -72,7 +66,7 @@ export default {
 							idOrName: route.params.idOrName
 						};
 					},
-					navigation: { categories: Categories2, categoryName: name }
+					navigation:  { categories: sunImport.Categories2, categoryName: name }
 				}
 			}
 		];

@@ -1,5 +1,5 @@
-﻿import { getThreadTopics, Thread } from "sun";
-import { Material } from "sun";
+﻿import { getThreadTopics } from "sun";
+
 
 export default {
 	name: "Forum0",
@@ -21,8 +21,7 @@ export default {
 				name: `cat-${name}`,
 				path: "/" + nameLower,
 				components: {
-					default: Thread,
-					navigation: null
+					default: sunImport.Thread
 				},
 				props: {
 					default: {
@@ -38,7 +37,7 @@ export default {
 				name: `cat-${name}-mat`,
 				path: `/${nameLower}/:idOrName`,
 				components: {
-					default: Material,
+					default: sunImport.Material,
 					navigation: null
 				},
 				props: {

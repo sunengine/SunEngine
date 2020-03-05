@@ -1,10 +1,9 @@
-import { app } from "sun";
 
 const breadcrumbs = {};
 
 export function makeBreadcrumbs() {
 	breadcrumbs.Personal = {
-		title: app.$t("BreadcrumbsNames.personal"),
+		title: Vue.prototype.i18n.t("BreadcrumbsNames.personal"),
 		route: {
 			name: "ProfileInSettings"
 		},
@@ -13,7 +12,7 @@ export function makeBreadcrumbs() {
 	};
 
 	breadcrumbs.Users = {
-		title: app.$t("BreadcrumbsNames.user"),
+		title: Vue.prototype.i18n.t("BreadcrumbsNames.user"),
 		route: null,
 		showInBreadcrumbs: true,
 		id: "Users"
@@ -28,7 +27,7 @@ export function makeBreadcrumbs() {
 	};*/
 
 	breadcrumbs.Admin = {
-		title: app.$t("BreadcrumbsNames.adminPanel"),
+		title: Vue.prototype.i18n.t("BreadcrumbsNames.adminPanel"),
 		route: {
 			name: "AdminInformation"
 		},
@@ -37,7 +36,7 @@ export function makeBreadcrumbs() {
 	};
 
 	breadcrumbs.CategoriesAdmin = {
-		title: app.$t("BreadcrumbsNames.adminPanelCategories"),
+		title: Vue.prototype.i18n.t("BreadcrumbsNames.adminPanelCategories"),
 		route: {
 			name: "CategoriesAdmin"
 		},
@@ -47,7 +46,7 @@ export function makeBreadcrumbs() {
 	};
 
 	breadcrumbs.SectionsAdmin = {
-		title: app.$t("BreadcrumbsNames.adminPanelSections"),
+		title: Vue.prototype.i18n.t("BreadcrumbsNames.adminPanelSections"),
 		route: {
 			name: "SectionsAdmin"
 		},
@@ -57,7 +56,7 @@ export function makeBreadcrumbs() {
 	};
 
 	breadcrumbs.MenuItemsAdmin = {
-		title: app.$t("BreadcrumbsNames.adminPanelMenu"),
+		title: Vue.prototype.i18n.t("BreadcrumbsNames.adminPanelMenu"),
 		route: {
 			name: "MenuItemsAdmin"
 		},

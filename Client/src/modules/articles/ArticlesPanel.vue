@@ -18,14 +18,15 @@
 </template>
 
 <script>
-import { Categories1 } from "sun";
-
 export default {
 	name: "ArticlesPanel",
+	components: {
+		PanelWrapper: sunImport.PanelWrapper
+	},
 	props: {
 		categories: {
-			type: Object,
-			default: Categories1
+			type: [Object, Function],
+			required: true
 		},
 		categoryName: {
 			type: String,
@@ -39,9 +40,6 @@ export default {
 		newArticlesRoute() {
 			return this.category.getRoute();
 		}
-	},
-	beforeCreate() {
-		this.$options.components.PanelWrapper = require("sun").PanelWrapper;;
 	}
 };
 </script>

@@ -1,7 +1,3 @@
-import { IndexPage } from "sun";
-import { PostsAndActivitiesPage } from "sun";
-import { MaterialInlinePage } from "sun";
-import { SecretPage } from "sun";
 import { coreRoutes } from "sun";
 import Vue from "vue";
 
@@ -9,13 +5,13 @@ const siteRoutes = [
 	{
 		name: "Home",
 		path: "/",
-		component: IndexPage
+		component: sunImport.IndexPage
 	},
 	{
 		name: "PostsAndActivitiesPage",
 		path: "/PostsAndActivitiesPage".toLowerCase(),
 		components: {
-			default: PostsAndActivitiesPage
+			default: sunImport.PostsAndActivitiesPage
 		},
 		props: {
 			default: () => {
@@ -32,14 +28,14 @@ const siteRoutes = [
 		name: "MaterialInlinePage",
 		path: "/MaterialInlinePage".toLowerCase(),
 		components: {
-			default: MaterialInlinePage
+			default: sunImport.MaterialInlinePage
 		}
 	},
 	{
 		name: "Secret",
 		path: "/secret",
 		components: {
-			default: SecretPage,
+			default: sunImport.SecretPage,
 			navigation: null
 		},
 		meta: {

@@ -1,7 +1,6 @@
 // Configuration for your app
 
-require("./build-index-dynamic-imports");
-require("./build-index-export");
+require("./build-index-import");
 
 const path = require("path");
 const webpack = require("webpack");
@@ -81,11 +80,18 @@ module.exports = function(ctx) {
 
 				cfg.plugins.push(
 					new webpack.ProvidePlugin({
+						Vue: ['vue', 'default'],
 						sunImport: ['src/index/sunImport', 'default'],
 						adminImport: ['src/index/adminImport', 'default'],
-						store: ['src/store/index', 'default'],
-						router: ['src/router/index', 'default'],
+						sunRequire: ['src/index/sunRequire', 'default'],
+						adminRequire: ['src/index/adminRequire', 'default'],
+						router: ['src/router/index.js', 'router'],
+						request: ['src/utils/request', 'default'],
+						Api: ['src/api/Api', 'default'],
+						AdminApi: ['src/api/AdminApi', 'default'],
 						Page: ['src/mixins/Page', 'default'],
+						store: ['src/store', 'store'],
+						app: ['src/App', 'app']
 					}));
 
 				if (ctx.dev) {

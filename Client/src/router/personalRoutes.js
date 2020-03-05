@@ -1,30 +1,18 @@
-import { SettingsPanel } from "sun";
-import { SettingsPage } from "sun";
-import { LoadPhoto } from "sun";
-import { EditInformation } from "sun";
-import { ChangeLink } from "sun";
-import { ChangeName } from "sun";
-import { MyBanList } from "sun";
-import { Profile } from "sun";
-import { Sessions } from "sun";
-
-import { store } from "sun";
-
 const routes = [
 	{
 		name: "ChangeLink",
 		path: "/personal/ChangeLink".toLowerCase(),
 		components: {
-			default: ChangeLink,
-			navigation: SettingsPanel
+			default: sunImport.ChangeLink,
+			navigation: sunImport.SettingsPanel
 		}
 	},
 	{
 		name: "ChangeName",
 		path: "/personal/ChangeName".toLowerCase(),
 		components: {
-			default: ChangeName,
-			navigation: SettingsPanel
+			default: sunImport.ChangeName,
+			navigation: sunImport.SettingsPanel
 		}
 	},
 	{
@@ -34,48 +22,47 @@ const routes = [
 			name: "ProfileInSettings"
 		},
 		components: {
-			default: SettingsPage,
-			navigation: null
+			default: sunImport.SettingsPage
 		}
 	},
 	{
 		name: "LoadPhoto",
 		path: "/personal/LoadPhoto".toLowerCase(),
 		components: {
-			default: LoadPhoto,
-			navigation: SettingsPanel
+			default: sunImport.LoadPhoto,
+			navigation: sunImport.SettingsPanel
 		}
 	},
 	{
 		name: "EditInformation",
 		path: "/personal/EditInformation".toLowerCase(),
 		components: {
-			default: EditInformation,
-			navigation: SettingsPanel
+			default: sunImport.EditInformation,
+			navigation: sunImport.SettingsPanel
 		}
 	},
 	{
 		name: "Sessions",
 		path: "/personal/Sessions".toLowerCase(),
 		components: {
-			default: Sessions,
-			navigation: SettingsPanel
+			default: sunImport.Sessions,
+			navigation: sunImport.SettingsPanel
 		}
 	},
 	{
 		name: "MyBanList",
 		path: "/personal/MyBanList".toLowerCase(),
 		components: {
-			default: MyBanList,
-			navigation: SettingsPanel
+			default: sunImport.MyBanList,
+			navigation: sunImport.SettingsPanel
 		}
 	},
 	{
 		name: "ProfileInSettings",
 		path: "/personal/Profile".toLowerCase(),
 		components: {
-			default: Profile,
-			navigation: SettingsPanel
+			default: sunImport.Profile,
+			navigation: sunImport.SettingsPanel
 		},
 		props: {
 			default: () => {

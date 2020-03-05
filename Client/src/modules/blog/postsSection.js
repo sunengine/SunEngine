@@ -1,5 +1,4 @@
-﻿import { BlogMultiCatPage } from "sun";
-
+﻿
 export default {
 	name: "Posts",
 
@@ -12,7 +11,7 @@ export default {
 				name: `comp-${name}`,
 				path: "/" + nameLower,
 				components: {
-					default: BlogMultiCatPage,
+					default: sunImport.BlogMultiCatPage,
 					navigation: null
 				},
 				props: {
