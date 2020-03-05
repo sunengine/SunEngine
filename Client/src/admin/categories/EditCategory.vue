@@ -130,7 +130,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.CategoryForm = sunRequire("CategoryForm","admin");
+		this.$options.components.CategoryForm = require("admin").CategoryForm;
 	},
 	async created() {
 		await this.loadData();

@@ -368,9 +368,9 @@ export default {
 	},
 	beforeCreate() {
 		this.$options.centered = true;
-		this.$options.components.CommentContainer = sunRequire("CommentContainer");
-		this.$options.components.CreateComment = sunRequire("CreateComment");
-		this.$options.components.Article = sunRequire("Article");
+		this.$options.components.CommentContainer = require("sun").CommentContainer;;
+		this.$options.components.CreateComment = require("sun").CreateComment;;
+		this.$options.components.Article = require("sun").Article;;
 	},
 	created() {
 		this.loadData();

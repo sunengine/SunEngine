@@ -1,3 +1,3 @@
 ﻿export default ({ Vue }) => {
-	Vue.prototype.$throttle = sunRequire("throttle");
+	Vue.prototype.$throttle = require("sun").throttle;;
 };

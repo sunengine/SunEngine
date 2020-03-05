@@ -63,8 +63,8 @@ module.exports = function(ctx) {
 			// analyze: true,
 			// extractCSS: false,
 			extendWebpack(cfg) {
-			/*	cfg.resolve.alias.sun = path.resolve("./src/sun.js");
-				cfg.resolve.alias.admin = path.resolve("./src/admin.js");*/
+				cfg.resolve.alias.sun = path.resolve("./src/index/sun.js");
+				cfg.resolve.alias.admin = path.resolve("./src/index/admin.js");
 				cfg.resolve.alias.mixins = path.resolve("./src/mixins/mixins.js");
 
 				cfg.resolve.modules.push(path.resolve("./src"));
@@ -98,13 +98,49 @@ module.exports = function(ctx) {
 				}
 
 				cfg.optimization.splitChunks.cacheGroups.admin = {
-					name: "admin",
 					test: /[\\/]src[\\/]admin[\\/]/,
 					minChunks: 1,
 					priority: -30,
 					chunks: "all",
-					reuseExistingChunk: true
+					reuseExistingChunk: true,
+					name(module) {
+						const match = module.context.match(/[\\/]src[\\/]admin[\\/](.*?)([\\/]|$)/);
+						if(match && match.length >= 1)
+							return `admin-${match[1]}`;
+						else
+							return "admin";
+					}
 				};
+
+				cfg.optimization.splitChunks.cacheGroups.sun = {
+					//test: /[\\/]src[\\/]admin[\\/]/,
+					minChunks: 1,
+					priority: -30,
+					chunks: "all",
+					reuseExistingChunk: true,
+					name(module) {
+						const match = module.context.match(/[\\/]src[\\/](.*?)([\\/]|$)/);
+						if(match && match.length >= 1) {
+							if (match[1] === "modules") {
+								const match = module.context.match(/[\\/]src[\\/]modules[\\/](.*?)([\\/]|$)/);
+								return `sun-${match[1]}`;
+							}
+							return `sun-${match[1]}`;
+						}
+						else
+							return "sun";
+					}
+				};
+
+				/*test: /[\\/]node_modules[\\/]/,
+					name(module) {
+					// get the name. E.g. node_modules/packageName/not/this/part.js
+					// or node_modules/packageName
+					const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+
+					// npm package names are URL-safe, but some servers don't like @ symbols
+					return `npm.${packageName.replace('@', '')}`;
+				},*/
 			},
 
 			env: {

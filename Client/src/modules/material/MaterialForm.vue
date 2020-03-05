@@ -223,7 +223,7 @@ export default {
 	beforeCreate() {
 		this.rules = createRules.call(this);
 		this.editorToolbar = JSON.parse(config.Editor.MaterialToolbar);
-		this.$options.components.CategoriesInput = sunRequire("CategoriesInput");
+		this.$options.components.CategoriesInput = require("sun").CategoriesInput;;
 	}
 };
 </script>

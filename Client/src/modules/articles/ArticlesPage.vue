@@ -88,7 +88,7 @@ export default {
 	},
 	beforeCreate() {
 		this.$options.centered = true;
-		this.$options.components.ArticlesList = sunRequire("ArticlesList");
+		this.$options.components.ArticlesList = require("sun").ArticlesList;;
 	},
 	created() {
 		this.loadData();

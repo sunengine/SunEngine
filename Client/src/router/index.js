@@ -1,8 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+import { getTokens } from "sun";
+import { checkTokensUpdated } from "sun";
+import { app } from "sun";
+import { store } from "sun";
 
-
+import { consoleRequestStart, consoleGreyEnd, consoleTokens } from "sun";
 
 Vue.use(VueRouter);
 
@@ -25,16 +29,6 @@ export default function({ store, ssrContext }) {
 		base: process.env.VUE_ROUTER_BASE
 	});
 
-	
-	console.log("sunRequire",sunRequire);
-	
-	const app = sunRequire("app");
-	const checkTokensUpdated = sunRequire("checkTokensUpdated");
-	const getTokens = sunRequire("getTokens");
-	const consoleRequestStart = sunRequire("consoleRequestStart");
-	const consoleGreyEnd = sunRequire("consoleGreyEnd");
-	const consoleTokens = sunRequire("consoleTokens");
-	
 	router.beforeEach(async (to, from, next) => {
 		if (store.state.initializedPromise) {
 			store.state.initializedPromise.then(_ => {

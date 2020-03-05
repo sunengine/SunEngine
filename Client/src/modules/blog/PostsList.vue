@@ -19,7 +19,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.Post = sunRequire("Post");
+		this.$options.components.Post = require("sun").Post;;
 	}
 };
 </script>

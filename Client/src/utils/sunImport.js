@@ -1,5 +1,5 @@
-import sun from "./sun";
-import admin from "./admin";
+import sun from "index/sunTable";
+import admin from "index/adminTable";
 
 export async function sunImport(componentName, moduleName = "sun") {
 	const component =

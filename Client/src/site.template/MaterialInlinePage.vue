@@ -24,7 +24,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.MaterialInline = sunRequire("MaterialInline");
+		this.$options.components.MaterialInline = require("sun").MaterialInline;;
 	}
 };
 </script>

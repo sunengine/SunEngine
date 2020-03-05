@@ -37,7 +37,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.PanelWrapper = sunRequire("PanelWrapper");
+		this.$options.components.PanelWrapper = require("sun").PanelWrapper;;
 	}
 };
 </script>

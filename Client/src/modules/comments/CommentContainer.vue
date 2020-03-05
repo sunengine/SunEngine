@@ -110,9 +110,9 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.Comment = sunRequire("Comment");
-		this.$options.components.EditComment = sunRequire("EditComment");
-		this.$options.components.DeletedComment = sunRequire("DeletedComment");
+		this.$options.components.Comment = require("sun").Comment;;
+		this.$options.components.EditComment = require("sun").EditComment;;
+		this.$options.components.DeletedComment = require("sun").DeletedComment;;
 	}
 };
 </script>

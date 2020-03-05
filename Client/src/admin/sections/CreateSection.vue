@@ -94,7 +94,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.SectionForm = sunRequire("SectionForm","admin");
+		this.$options.components.SectionForm = require("admin").SectionForm;
 	},
 	created() {
 		this.title = this.$tl("title");

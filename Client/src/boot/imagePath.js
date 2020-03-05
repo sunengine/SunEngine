@@ -1,3 +1,3 @@
 export default ({ Vue }) => {
-	Vue.prototype.$imagePath = sunRequire("imagePath");
+	Vue.prototype.$imagePath = require("sun").imagePath;;
 };

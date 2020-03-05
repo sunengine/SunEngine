@@ -1,3 +1,3 @@
 export default ({ Vue }) => {
-	Vue.prototype.$buildPath = sunRequire("buildPath");
+	Vue.prototype.$buildPath = require("sun").buildPath;;
 };

@@ -1,6 +1,6 @@
 export default ({ Vue }) => {
-	const lineAwesome = sunRequire("lineAwesome");
-	const fontawesomeV5 = sunRequire("fontawesomeV5");
+	const lineAwesome = require("sun").lineAwesome;;
+	const fontawesomeV5 = require("sun").fontawesomeV5;;
 	
 	Vue.prototype.$iconsSets = {
 		LineAwesome: lineAwesome,

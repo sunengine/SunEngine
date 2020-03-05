@@ -1,3 +1,3 @@
 export default async ({ Vue }) => {
-	Vue.prototype.$Api = sunRequire("Api");
+	Vue.prototype.$Api = require("sun").Api;;
 };

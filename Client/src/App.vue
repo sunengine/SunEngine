@@ -59,7 +59,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.Layout = sunRequire("Layout");
+		this.$options.components.Layout = require("sun").Layout;;
 		app = this;
 	}
 };

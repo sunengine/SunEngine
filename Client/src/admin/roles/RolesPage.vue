@@ -50,7 +50,6 @@ export default {
 			return this.$getBreadcrumbs("Admin");
 		}
 	},
-
 	methods: {
 		loadAllRoles() {
 			this.$request(this.$AdminApi.UserRolesAdmin.GetAllRoles).then(response => {

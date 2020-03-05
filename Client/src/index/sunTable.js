@@ -671,10 +671,6 @@ export default {
     "def": true,
     "value": "src/utils/routeHasAccess.js"
   },
-  "sunRequire": {
-    "def": true,
-    "value": "src/utils/sunRequire.js"
-  },
   "throttle": {
     "def": true,
     "value": "src/utils/throttle.js"

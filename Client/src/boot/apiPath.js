@@ -1,3 +1,3 @@
 export default ({ Vue }) => {
-	Vue.prototype.$apiPath = sunRequire("apiPath");
+	Vue.prototype.$apiPath = require("sun").apiPath;;
 };

@@ -28,7 +28,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.MenuItem = sunRequire("MenuItem");
+		this.$options.components.MenuItem = require("sun").MenuItem;;
 	}
 };
 </script>

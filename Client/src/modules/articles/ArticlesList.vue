@@ -20,7 +20,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.Article = sunRequire("Article");
+		this.$options.components.Article = require("sun").Article;;
 	}
 };
 </script>

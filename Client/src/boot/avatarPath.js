@@ -1,3 +1,3 @@
 ﻿export default ({ Vue }) => {
-	Vue.prototype.$avatarPath = sunRequire("avatarPath");
+	Vue.prototype.$avatarPath = require("sun").avatarPath;;
 };
