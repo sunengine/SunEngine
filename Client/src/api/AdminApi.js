@@ -1,6 +1,4 @@
-import Vue from "vue";
-
-const AdminApi = {
+export default {
 	ImagesCleaner: {
 		GetAllImages: "/Admin/ImagesCleanerAdmin/GetAllImages",
 		DeleteImages: "/Admin/ImagesCleanerAdmin/DeleteImages"
@@ -79,6 +77,3 @@ const AdminApi = {
 	}
 };
 
-Vue.prototype.$AdminApi = AdminApi;
-
-export default AdminApi;

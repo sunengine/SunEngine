@@ -1,4 +1,3 @@
-export AdminApi from 'src/admin/AdminApi.js'
 export AdminInformation from 'src/admin/AdminInformation.vue'
 export AdminMenu from 'src/admin/AdminMenu.vue'
 export adminGetAllCategories from 'src/admin/categories/adminGetAllCategories.js'

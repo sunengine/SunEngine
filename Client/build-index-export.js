@@ -78,7 +78,6 @@ proccess(
 );
 proccess(glob.sync(patternAdmin), adminDirs, excludePaths, indAdmin);
 
-indSun.addLine("Api", "export Api from 'src/Api.js'");
 indSun.addLine("routes", "export routes from 'src/site/routes.js'");
 indSun.addLine("store-index", "export * from 'src/store/index'");
 indSun.addLine("router", "export {router} from 'src/router/index.js'");

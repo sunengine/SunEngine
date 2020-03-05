@@ -1,5 +1,5 @@
 ﻿import { request } from "sun";
-import { AdminApi } from "admin";
+import { AdminApi } from "sun";
 
 export default function adminGetAllCategories() {
 	return request(AdminApi.CategoriesAdmin.GetAllCategories).then(response => {

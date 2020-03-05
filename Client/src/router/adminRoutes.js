@@ -1,8 +1,8 @@
 
 const AdminPanel = async () => {
-	const adm = await import("admin");
 	const sun = await import("sun");
-	return sun.wrapInPanel("AdminPanel", adm.AdminMenu);
+	const adminMenu = await adminImport.AdminMenu();
+	return sun.wrapInPanel("AdminPanel", adminMenu);
 };
 
 const routes = [

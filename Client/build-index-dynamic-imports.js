@@ -105,8 +105,9 @@ function proccess(arr, dirs, excludePaths, index) {
 		if(isDefault) {
 			index.addLine(
 				`${name}`,
-				`"${name}": function() {
-					return import("${path}");
+				`"${name}": async function() {
+					const module = await import("${path}");
+					return module.default;
 				}`
 			);
 		}

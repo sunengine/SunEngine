@@ -133,8 +133,6 @@
 </template>
 
 <script>
-import { Page } from "mixins";
-
 export default {
 	name: "MainSkinsAdmin",
 	mixins: [Page],

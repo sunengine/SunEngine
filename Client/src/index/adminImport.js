@@ -1,98 +1,126 @@
 export default  {
-"AdminApi": function() {
-					return import("src/admin/AdminApi.js");
+"AdminInformation": async function() {
+					const module = await import("src/admin/AdminInformation.vue");
+					return module.default;
 				},
-"AdminInformation": function() {
-					return import("src/admin/AdminInformation.vue");
+"AdminMenu": async function() {
+					const module = await import("src/admin/AdminMenu.vue");
+					return module.default;
 				},
-"AdminMenu": function() {
-					return import("src/admin/AdminMenu.vue");
+"adminGetAllCategories": async function() {
+					const module = await import("src/admin/categories/adminGetAllCategories.js");
+					return module.default;
 				},
-"adminGetAllCategories": function() {
-					return import("src/admin/categories/adminGetAllCategories.js");
+"CategoriesAdmin": async function() {
+					const module = await import("src/admin/categories/CategoriesAdmin.vue");
+					return module.default;
 				},
-"CategoriesAdmin": function() {
-					return import("src/admin/categories/CategoriesAdmin.vue");
+"CategoryForm": async function() {
+					const module = await import("src/admin/categories/CategoryForm.vue");
+					return module.default;
 				},
-"CategoryForm": function() {
-					return import("src/admin/categories/CategoryForm.vue");
+"CategoryItem": async function() {
+					const module = await import("src/admin/categories/CategoryItem.vue");
+					return module.default;
 				},
-"CategoryItem": function() {
-					return import("src/admin/categories/CategoryItem.vue");
+"CreateCategory": async function() {
+					const module = await import("src/admin/categories/CreateCategory.vue");
+					return module.default;
 				},
-"CreateCategory": function() {
-					return import("src/admin/categories/CreateCategory.vue");
+"EditCategory": async function() {
+					const module = await import("src/admin/categories/EditCategory.vue");
+					return module.default;
 				},
-"EditCategory": function() {
-					return import("src/admin/categories/EditCategory.vue");
+"ConfigurationAdmin": async function() {
+					const module = await import("src/admin/ConfigurationAdmin.vue");
+					return module.default;
 				},
-"ConfigurationAdmin": function() {
-					return import("src/admin/ConfigurationAdmin.vue");
+"CypherSecrets": async function() {
+					const module = await import("src/admin/CypherSecrets.vue");
+					return module.default;
 				},
-"CypherSecrets": function() {
-					return import("src/admin/CypherSecrets.vue");
+"DeletedElements": async function() {
+					const module = await import("src/admin/DeletedElements.vue");
+					return module.default;
 				},
-"DeletedElements": function() {
-					return import("src/admin/DeletedElements.vue");
+"ImagesCleaner": async function() {
+					const module = await import("src/admin/ImagesCleaner.vue");
+					return module.default;
 				},
-"ImagesCleaner": function() {
-					return import("src/admin/ImagesCleaner.vue");
+"CreateMenuItem": async function() {
+					const module = await import("src/admin/menuItems/CreateMenuItem.vue");
+					return module.default;
 				},
-"CreateMenuItem": function() {
-					return import("src/admin/menuItems/CreateMenuItem.vue");
+"EditMenuItem": async function() {
+					const module = await import("src/admin/menuItems/EditMenuItem.vue");
+					return module.default;
 				},
-"EditMenuItem": function() {
-					return import("src/admin/menuItems/EditMenuItem.vue");
+"MenuAdminItem": async function() {
+					const module = await import("src/admin/menuItems/MenuAdminItem.vue");
+					return module.default;
 				},
-"MenuAdminItem": function() {
-					return import("src/admin/menuItems/MenuAdminItem.vue");
+"MenuItemForm": async function() {
+					const module = await import("src/admin/menuItems/MenuItemForm.vue");
+					return module.default;
 				},
-"MenuItemForm": function() {
-					return import("src/admin/menuItems/MenuItemForm.vue");
+"MenuItemsAdmin": async function() {
+					const module = await import("src/admin/menuItems/MenuItemsAdmin.vue");
+					return module.default;
 				},
-"MenuItemsAdmin": function() {
-					return import("src/admin/menuItems/MenuItemsAdmin.vue");
+"ProfileRoles": async function() {
+					const module = await import("src/admin/roles/ProfileRoles.vue");
+					return module.default;
 				},
-"ProfileRoles": function() {
-					return import("src/admin/roles/ProfileRoles.vue");
+"RolesPage": async function() {
+					const module = await import("src/admin/roles/RolesPage.vue");
+					return module.default;
 				},
-"RolesPage": function() {
-					return import("src/admin/roles/RolesPage.vue");
+"RolesPermissions": async function() {
+					const module = await import("src/admin/roles/RolesPermissions.vue");
+					return module.default;
 				},
-"RolesPermissions": function() {
-					return import("src/admin/roles/RolesPermissions.vue");
+"RoleUsers": async function() {
+					const module = await import("src/admin/roles/RoleUsers.vue");
+					return module.default;
 				},
-"RoleUsers": function() {
-					return import("src/admin/roles/RoleUsers.vue");
+"ConfigItem": async function() {
+					const module = await import("src/admin/sections/ConfigItem.vue");
+					return module.default;
 				},
-"ConfigItem": function() {
-					return import("src/admin/sections/ConfigItem.vue");
+"CreateSection": async function() {
+					const module = await import("src/admin/sections/CreateSection.vue");
+					return module.default;
 				},
-"CreateSection": function() {
-					return import("src/admin/sections/CreateSection.vue");
+"EditSection": async function() {
+					const module = await import("src/admin/sections/EditSection.vue");
+					return module.default;
 				},
-"EditSection": function() {
-					return import("src/admin/sections/EditSection.vue");
+"SectionForm": async function() {
+					const module = await import("src/admin/sections/SectionForm.vue");
+					return module.default;
 				},
-"SectionForm": function() {
-					return import("src/admin/sections/SectionForm.vue");
+"SectionsAdmin": async function() {
+					const module = await import("src/admin/sections/SectionsAdmin.vue");
+					return module.default;
 				},
-"SectionsAdmin": function() {
-					return import("src/admin/sections/SectionsAdmin.vue");
+"CustomCssAdmin": async function() {
+					const module = await import("src/admin/skins/CustomCssAdmin.vue");
+					return module.default;
 				},
-"CustomCssAdmin": function() {
-					return import("src/admin/skins/CustomCssAdmin.vue");
+"CustomJavaScriptAdmin": async function() {
+					const module = await import("src/admin/skins/CustomJavaScriptAdmin.vue");
+					return module.default;
 				},
-"CustomJavaScriptAdmin": function() {
-					return import("src/admin/skins/CustomJavaScriptAdmin.vue");
+"MainSkinsAdmin": async function() {
+					const module = await import("src/admin/skins/MainSkinsAdmin.vue");
+					return module.default;
 				},
-"MainSkinsAdmin": function() {
-					return import("src/admin/skins/MainSkinsAdmin.vue");
+"PartialSkinsAdmin": async function() {
+					const module = await import("src/admin/skins/PartialSkinsAdmin.vue");
+					return module.default;
 				},
-"PartialSkinsAdmin": function() {
-					return import("src/admin/skins/PartialSkinsAdmin.vue");
-				},
-"SkinsAdmin": function() {
-					return import("src/admin/skins/SkinsAdmin.vue");
+"SkinsAdmin": async function() {
+					const module = await import("src/admin/skins/SkinsAdmin.vue");
+					return module.default;
 				}
 };

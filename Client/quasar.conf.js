@@ -82,7 +82,10 @@ module.exports = function(ctx) {
 				cfg.plugins.push(
 					new webpack.ProvidePlugin({
 						sunImport: ['src/index/sunImport', 'default'],
-						adminImport: ['src/index/adminImport', 'default']
+						adminImport: ['src/index/adminImport', 'default'],
+						store: ['src/store/index', 'default'],
+						router: ['src/router/index', 'default'],
+						Page: ['src/mixins/Page', 'default'],
 					}));
 
 				if (ctx.dev) {
