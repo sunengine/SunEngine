@@ -102,7 +102,7 @@ module.exports = function(ctx) {
 				cfg.optimization.splitChunks.cacheGroups.admin = {
 					test: /[\\/]src[\\/]admin[\\/]/,
 					minChunks: 1,
-					priority: -30,
+					priority: -40,
 					chunks: "all",
 					reuseExistingChunk: true,
 					name(module) {
