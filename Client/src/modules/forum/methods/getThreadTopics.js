@@ -1,5 +1,5 @@
 ﻿export default function() {
-	this.$request(this.$Api.Forum.GetThread, {
+	request(Api.Forum.GetThread, {
 		categoryName: this.categoryName,
 		page: this.currentPage,
 		showDeleted:

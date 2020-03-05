@@ -44,11 +44,13 @@
 </template>
 
 <script>
-import { Page } from "mixins";
 import { extend } from "quasar";
 
 export default {
 	name: "EditSection",
+	components: {
+		SectionForm: adminImport.SectionForm
+	},
 	mixins: [Page],
 	props: {
 		name: {
@@ -127,9 +129,6 @@ export default {
 				this.section = response.data;
 			});
 		}
-	},
-	beforeCreate() {
-		this.$options.components.SectionForm = require("admin").SectionForm;
 	},
 	created() {
 		this.title = this.$tl("title");

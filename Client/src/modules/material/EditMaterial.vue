@@ -65,11 +65,13 @@ import { deleteMaterial } from "sun";
 import { restoreMaterial } from "sun";
 import { canDeleteMaterial } from "sun";
 import { canRestoreMaterial } from "sun";
-import { Page } from "mixins";
 
 export default {
 	name: "EditMaterial",
 	mixins: [Page],
+	components: {
+		MaterialForm: sunImport.MaterialForm
+	},
 	props: {
 		id: {
 			type: Number,
@@ -156,9 +158,6 @@ export default {
 				this.comments = response.data;
 			});
 		}
-	},
-	beforeCreate() {
-		this.$options.components.MaterialForm = require("sun").MaterialForm;;
 	},
 	created() {
 		this.title = this.$tl("title");

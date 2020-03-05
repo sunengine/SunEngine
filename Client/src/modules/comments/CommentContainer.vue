@@ -26,6 +26,11 @@ import { date } from "quasar";
 
 export default {
 	name: "CommentContainer",
+	components: {
+		Comment: sunImport.Comment,
+		EditComment: sunImport.EditComment,
+		DeletedComment: sunImport.DeletedComment
+	},
 	props: {
 		comment: Object,
 		categoryPersonalAccess: Object,
@@ -108,11 +113,6 @@ export default {
 
 			return false;
 		}
-	},
-	beforeCreate() {
-		this.$options.components.Comment = require("sun").Comment;;
-		this.$options.components.EditComment = require("sun").EditComment;;
-		this.$options.components.DeletedComment = require("sun").DeletedComment;;
 	}
 };
 </script>

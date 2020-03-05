@@ -72,7 +72,12 @@
 			<tr :key="configItem.name" v-for="configItem of section.options">
 				<td>{{ $t(`SectionsEditor.${section.type}.${configItem.name}`) }}</td>
 				<td>
-					<ConfigItem ref="configItem" :allRoles="allRoles" :item="configItem" :enums="section.enums" />
+					<ConfigItem
+						ref="configItem"
+						:allRoles="allRoles"
+						:item="configItem"
+						:enums="section.enums"
+					/>
 				</td>
 			</tr>
 		</q-markup-table>
@@ -80,6 +85,8 @@
 </template>
 
 <script>
+import adminImport from "../../index/adminImport";
+
 function createRules() {
 	return {
 		name: [
@@ -107,6 +114,9 @@ function createRules() {
 
 export default {
 	name: "SectionForm",
+	components: {
+		ConfigItem: adminImport.ConfigItem
+	},
 	props: {
 		section: {
 			type: Object,
@@ -156,9 +166,6 @@ export default {
 				);
 			});
 		}
-	},
-	beforeCreate() {
-		this.$options.components.ConfigItem = require("admin").ConfigItem;
 	},
 	created() {
 		this.rules = createRules.call(this);

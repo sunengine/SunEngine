@@ -29,11 +29,13 @@
 </template>
 
 <script>
-import { Page } from "mixins";
 import { canWriteCats } from "sun";
 
 export default {
 	name: "BlogMultiCatPage",
+	components: {
+		PostsMultiCat: sunImport.PostsMultiCat
+	},
 	mixins: [Page],
 	props: {
 		sectionName: {
@@ -84,7 +86,6 @@ export default {
 	},
 	beforeCreate() {
 		this.$options.centered = true;
-		this.$options.components.PostsMultiCat = require("sun").PostsMultiCat;;
 	},
 	created() {
 		this.title = this.section.options.Title;

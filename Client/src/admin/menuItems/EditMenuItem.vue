@@ -40,10 +40,11 @@
 </template>
 
 <script>
-import { Page } from "mixins";
-
 export default {
 	name: "EditMenuItem",
+	components: {
+		MenuItemForm: adminImport.MenuItemForm
+	},
 	mixins: [Page],
 	props: {
 		menuItemId: {
@@ -111,9 +112,6 @@ export default {
 				this.menuItem = response.data;
 			});
 		}
-	},
-	beforeCreate() {
-		this.$options.components.MenuItemForm = require("admin").MenuItemForm;
 	},
 	created() {
 		this.title = this.$tl("title");

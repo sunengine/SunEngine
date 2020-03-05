@@ -100,7 +100,6 @@
 </template>
 
 <script>
-import { Page } from "mixins";
 import { passwordRules } from "sun";
 import { userNameRules } from "sun";
 import { emailRules } from "sun";
@@ -121,6 +120,9 @@ function createRules() {
 
 export default {
 	name: "Register",
+	components: {
+		Captcha: sunImport.Captcha
+	},
 	mixins: [Page],
 	data() {
 		return {
@@ -209,9 +211,6 @@ export default {
 					}
 				});
 		}
-	},
-	beforeCreate() {
-		this.$options.components.Captcha = require("sun").Captcha;;
 	},
 	mounted() {
 		this.addTargetBlankOnLinks();

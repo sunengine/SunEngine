@@ -33,10 +33,12 @@
 
 <script>
 import { getWhereToAdd } from "sun";
-import { Page } from "mixins";
 
 export default {
 	name: "CreateMaterial",
+	 components: {
+        MaterialForm: sunImport.MaterialForm 
+	 },
 	mixins: [Page],
 	props: {
 		categoriesNames: {
@@ -112,9 +114,6 @@ export default {
 					this.loading = false;
 				});
 		}
-	},
-	beforeCreate() {
-		this.$options.components.MaterialForm = require("sun").MaterialForm;;
 	},
 	created() {
 		this.title = this.$tl("title");

@@ -13,14 +13,14 @@
 <script>
 export default {
 	name: "ArticlesList",
+	components: {
+		Article: sunImport.Article
+	},
 	props: {
 		articles: {
 			type: Object,
 			required: true
 		}
-	},
-	beforeCreate() {
-		this.$options.components.Article = require("sun").Article;;
 	}
 };
 </script>

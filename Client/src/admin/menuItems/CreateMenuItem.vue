@@ -27,10 +27,11 @@
 </template>
 
 <script>
-import { Page } from "mixins";
-
 export default {
 	name: "CreateMenuItem",
+	components: {
+		MenuItemForm: adminImport.MenuItemForm
+	},
 	mixins: [Page],
 	props: {
 		parentMenuItemId: {
@@ -87,9 +88,6 @@ export default {
 					this.loading = false;
 				});
 		}
-	},
-	beforeCreate() {
-		this.$options.components.MenuItemForm = require("admin").MenuItemForm;
 	},
 	async created() {
 		this.title = this.$tl("title");

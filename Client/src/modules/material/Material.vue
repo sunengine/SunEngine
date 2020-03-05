@@ -122,7 +122,6 @@
 </template>
 
 <script>
-import { Page } from "mixins";
 import { deleteMaterial } from "sun";
 import { restoreMaterial } from "sun";
 import { canDeleteMaterial } from "sun";
@@ -136,6 +135,11 @@ const { getScrollTarget, setScrollPosition } = scroll;
 
 export default {
 	name: "Material",
+	components: {
+		CommentContainer: sunImport.CommentContainer,
+		CreateComment: sunImport.CreateComment,
+		Article: sunImport.Article
+	},
 	mixins: [Page],
 	props: {
 		idOrName: {
@@ -368,9 +372,6 @@ export default {
 	},
 	beforeCreate() {
 		this.$options.centered = true;
-		this.$options.components.CommentContainer = require("sun").CommentContainer;;
-		this.$options.components.CreateComment = require("sun").CreateComment;;
-		this.$options.components.Article = require("sun").Article;;
 	},
 	created() {
 		this.loadData();

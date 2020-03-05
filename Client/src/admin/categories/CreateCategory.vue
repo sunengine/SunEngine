@@ -27,10 +27,11 @@
 </template>
 
 <script>
-import { Page } from "mixins";
-
 export default {
 	name: "CreateCategory",
+	components: {
+		CategoryForm: adminImport.CategoryForm
+	},
 	mixins: [Page],
 	props: {
 		parentCategoryId: {
@@ -93,9 +94,6 @@ export default {
 					this.loading = false;
 				});
 		}
-	},
-	beforeCreate() {
-		this.$options.components.CategoryForm = require("admin").CategoryForm;
 	},
 	async created() {
 		this.title = this.$tl("title");

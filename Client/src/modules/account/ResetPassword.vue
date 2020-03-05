@@ -39,11 +39,14 @@
 </template>
 
 <script>
-import { Page } from "mixins";
 import { emailRules } from "sun";
+import sunImport from "../../index/sunImport";
 
 export default {
 	name: "ResetPassword",
+	components: {
+		Captcha: sunImport.Captcha
+	},
 	mixins: [Page],
 	data() {
 		return {
@@ -85,9 +88,6 @@ export default {
 					}
 				});
 		}
-	},
-	beforeCreate() {
-		this.$options.components.Captcha = require("sun").Captcha;;
 	},
 	created() {
 		this.title = this.$tl("title");

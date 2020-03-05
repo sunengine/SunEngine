@@ -31,10 +31,11 @@
 </template>
 
 <script>
-import { Page } from "mixins";
-
 export default {
 	name: "MenuItemsAdmin",
+	components: {
+		MenuAdminItem: adminImport.MenuAdminItem
+	},
 	mixins: [Page],
 	data() {
 		return {
@@ -144,9 +145,6 @@ export default {
 					this.$errorNotify(error);
 				});
 		}
-	},
-	beforeCreate() {
-		this.$options.components.MenuAdminItem = require("admin").MenuAdminItem;
 	},
 	created() {
 		this.title = this.$tl("title");

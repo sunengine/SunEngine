@@ -30,9 +30,13 @@
 
 <script>
 import { Page } from "mixins";
+import adminImport from "../../index/adminImport";
 
 export default {
 	name: "CategoriesAdmin",
+	 components: {
+        CategoryItem: adminImport.CategoryItem 
+	 },
 	mixins: [Page],
 	data() {
 		return {
@@ -83,9 +87,6 @@ export default {
 					this.$errorNotify(error);
 				});
 		}
-	},
-	beforeCreate() {
-		this.$options.components.CategoryItem = require("admin").CategoryItem;
 	},
 	created() {
 		this.title = this.$tl("title");

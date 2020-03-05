@@ -42,9 +42,13 @@
 
 <script>
 import { Page } from "mixins";
+import adminImport from "../../index/adminImport";
 
 export default {
 	name: "EditCategory",
+	components: {
+		CategoryForm: adminImport.CategoryForm
+	},
 	mixins: [Page],
 	props: {
 		categoryId: {
@@ -128,9 +132,6 @@ export default {
 					this.loading = false;
 				});
 		}
-	},
-	beforeCreate() {
-		this.$options.components.CategoryForm = require("admin").CategoryForm;
 	},
 	async created() {
 		await this.loadData();

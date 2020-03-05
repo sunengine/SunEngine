@@ -1,3 +1,4 @@
+import { store } from "sun";
 
 export default function(categories, exclude) {
 	const categoriesList = categories

@@ -5,14 +5,12 @@
 </template>
 
 <script>
-import { Page } from "mixins";
-
 export default {
 	name: "IndexPage",
-	mixins: [Page],
-	beforeCreate() {
-		this.$options.components.MaterialInline = require("sun").MaterialInline;;
-	}
+	components: {
+		MaterialInline: sunImport.MaterialInline
+	},
+	mixins: [Page]
 };
 </script>
 

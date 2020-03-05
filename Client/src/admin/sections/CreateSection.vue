@@ -35,10 +35,11 @@
 </template>
 
 <script>
-import { Page } from "mixins";
-
 export default {
 	name: "CreateSection",
+	components: {
+		SectionForm: adminImport.SectionForm
+	},
 	mixins: [Page],
 	props: {
 		templateName: {
@@ -92,9 +93,6 @@ export default {
 					this.loading = false;
 				});
 		}
-	},
-	beforeCreate() {
-		this.$options.components.SectionForm = require("admin").SectionForm;
 	},
 	created() {
 		this.title = this.$tl("title");

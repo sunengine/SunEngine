@@ -1,11 +1,9 @@
-import { postsSection } from "sun";
-import { activitiesSection } from "sun";
 import { registerSectionsSite } from "sun";
 import { consoleInit } from "sun";
 
-export default function(context) {
-	context.commit("registerSectionType", postsSection);
-	context.commit("registerSectionType", activitiesSection);
+export default async function(context) {
+	context.commit("registerSectionType", await sunImport.postsSection());
+	context.commit("registerSectionType", await sunImport.activitiesSection());
 
 	registerSectionsSite(context);
 

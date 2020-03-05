@@ -1,3 +1,5 @@
+import {imagePath} from "sun"
+
 export default ({ Vue }) => {
-	Vue.prototype.$imagePath = require("sun").imagePath;;
+	Vue.prototype.$imagePath = imagePath;
 };

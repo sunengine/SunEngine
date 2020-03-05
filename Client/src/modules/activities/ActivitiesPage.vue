@@ -11,10 +11,11 @@
 </template>
 
 <script>
-import { Page } from "mixins";
-
 export default {
 	name: "ActivitiesPage",
+	components: {
+		ActivitiesList: sunImport.ActivitiesList
+	},
 	mixins: [Page],
 	props: {
 		sectionName: {
@@ -29,7 +30,6 @@ export default {
 	},
 	beforeCreate() {
 		this.$options.centered = true;
-		this.$options.components.ActivitiesList = require("sun").ActivitiesList;;
 	},
 	created() {
 		this.title = this.section.options.Title ?? this.$tl("defaultTitle");

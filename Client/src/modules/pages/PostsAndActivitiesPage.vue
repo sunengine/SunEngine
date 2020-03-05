@@ -39,10 +39,13 @@
 </template>
 
 <script>
-import { Page } from "mixins";
-
 export default {
 	name: "PostsAndActivitiesPage",
+	components: {
+		ActivitiesList: sunImport.ActivitiesList,
+		PostsList: sunImport.PostsList,
+		PostsMultiCat: sunImport.PostsMultiCat
+	},
 	mixins: [Page],
 	props: {
 		pageTitle: {
@@ -85,11 +88,6 @@ export default {
 	},
 	mounted() {
 		this.mounted = true;
-	},
-	beforeCreate() {
-		this.$options.components.ActivitiesList = require("sun").ActivitiesList;;
-		this.$options.components.PostsList = require("sun").PostsList;;
-		this.$options.components.PostsMultiCat = require("sun").PostsMultiCat;;
 	},
 	created() {
 		this.title = this.pageTitle;

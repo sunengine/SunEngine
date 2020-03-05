@@ -142,8 +142,13 @@
 </template>
 
 <script>
+import adminImport from "../../index/adminImport";
+
 export default {
 	name: "MenuAdminItem",
+	components: {
+		MenuAdminItem: adminImport.MenuAdminItem
+	},
 	props: {
 		menuItem: {
 			type: Object,
@@ -182,9 +187,6 @@ export default {
 		goExternal() {
 			if (this.menuItem.externalUrl) window.open(this.menuItem.externalUrl);
 		}
-	},
-	beforeCreate() {
-		this.$options.components.MenuAdminItem = require("admin").MenuAdminItem;
 	}
 };
 </script>

@@ -225,9 +225,7 @@
 </template>
 
 <script>
-import { adminGetAllCategories } from "admin";
 import { isJson } from "sun";
-
 import Vue from "vue";
 
 const unset = "unset";
@@ -366,7 +364,8 @@ export default {
 			this.$refs.token.validate();
 			this.$refs.title.validate();
 		},
-		getAllCategories() {
+		async getAllCategories() {
+		   const getAllCategories = await adminImport.getAllCategories;
 			adminGetAllCategories().then(data => {
 				this.root = data.root;
 				this.all = data.all;

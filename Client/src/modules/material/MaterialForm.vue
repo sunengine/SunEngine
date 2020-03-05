@@ -161,6 +161,9 @@ function createRules() {
 
 export default {
 	name: "MaterialForm",
+	components: {
+		CategoriesInput: sunImport.CategoriesInput
+	},
 	props: {
 		material: {
 			type: Object,
@@ -223,7 +226,6 @@ export default {
 	beforeCreate() {
 		this.rules = createRules.call(this);
 		this.editorToolbar = JSON.parse(config.Editor.MaterialToolbar);
-		this.$options.components.CategoriesInput = require("sun").CategoriesInput;;
 	}
 };
 </script>

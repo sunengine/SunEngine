@@ -58,11 +58,13 @@
 </template>
 
 <script>
-import { Page } from "mixins";
 import { Pagination } from "mixins";
 
 export default {
 	name: "Thread",
+	components: {
+		Topic: sunImport.Topic
+	},
 	mixins: [Page, Pagination],
 	props: {
 		categoryName: {
@@ -99,7 +101,6 @@ export default {
 	},
 	beforeCreate() {
 		this.$options.centered = true;
-		this.$options.components.Topic = require("sun").Topic;;
 	},
 	methods: {
 		loadData() {

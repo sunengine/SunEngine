@@ -14,6 +14,9 @@
 <script>
 export default {
 	name: "ActivitiesList",
+	components: {
+		Activity: sunImport.Activity
+	},
 	props: {
 		sectionName: {
 			type: String,
@@ -42,9 +45,6 @@ export default {
 					this.$refs.loader.fail();
 				});
 		}
-	},
-	beforeCreate() {
-		this.$options.components.Activity = require("sun").Activity;;
 	},
 	async created() {
 		await this.loadData();

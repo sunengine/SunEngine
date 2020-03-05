@@ -1,5 +1,5 @@
 ﻿export default function() {
-	this.$request(this.$Api.Forum.GetNewTopics, {
+	request(Api.Forum.GetNewTopics, {
 		categoryName: this.categoryName,
 		page: this.currentPage
 	})
