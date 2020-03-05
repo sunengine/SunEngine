@@ -1,6 +1,6 @@
 // Configuration for your app
 
-require("./build-index-table");
+require("./build-index-dynamic-imports");
 require("./build-index-export");
 
 const path = require("path");
@@ -66,6 +66,8 @@ module.exports = function(ctx) {
 			extendWebpack(cfg) {
 				cfg.resolve.alias.sun = path.resolve("./src/index/sun.js");
 				cfg.resolve.alias.admin = path.resolve("./src/index/admin.js");
+				cfg.resolve.alias.sunImport = path.resolve("./src/index/sunImport.js");
+				cfg.resolve.alias.adminImport = path.resolve("./src/index/adminImport.js");
 				cfg.resolve.alias.mixins = path.resolve("./src/mixins/mixins.js");
 
 				cfg.resolve.modules.push(path.resolve("./src"));
@@ -79,7 +81,8 @@ module.exports = function(ctx) {
 
 				cfg.plugins.push(
 					new webpack.ProvidePlugin({
-						sunImport: ['src/utils/sunImport', 'default']
+						sunImport: ['src/index/sunImport', 'default'],
+						adminImport: ['src/index/adminImport', 'default']
 					}));
 
 				if (ctx.dev) {
@@ -99,28 +102,13 @@ module.exports = function(ctx) {
 
 				cfg.plugins.push(new WebpackDeepScopeAnalysisPlugin());
 
-				cfg.optimization.splitChunks.cacheGroups.admin = {
-					test: /[\\/]src[\\/]admin[\\/]/,
-					minChunks: 1,
-					priority: -40,
-					chunks: "all",
-					reuseExistingChunk: true,
-					name(module) {
-						const match = module.context.match(/[\\/]src[\\/]admin[\\/](.*?)([\\/]|$)/);
-						if(match && match.length >= 1)
-							return `admin-${match[1]}`;
-						else
-							return "admin";
-					}
-				};
-
 				cfg.optimization.splitChunks.cacheGroups.sun = {
-					//test: /[\\/]src[\\/]admin[\\/]/,
+					test: /[\\/]src[\\/]/,
 					minChunks: 1,
-					priority: -30,
+					priority: -13,
 					chunks: "all",
 					reuseExistingChunk: true,
-					name(module) {
+					name: function(module) {
 						const match = module.context.match(/[\\/]src[\\/](.*?)([\\/]|$)/);
 						if(match && match.length >= 1) {
 							if (match[1] === "modules") {
@@ -130,9 +118,27 @@ module.exports = function(ctx) {
 							return `sun-${match[1]}`;
 						}
 						else
-							return "sun";
+							return "sun-main";
 					}
 				};
+
+				cfg.optimization.splitChunks.cacheGroups.admin = {
+					test: /[\\/]src[\\/]admin[\\/]/,
+					minChunks: 1,
+					priority: -12,
+					chunks: "all",
+					reuseExistingChunk: true,
+					name: function(module) {
+						const match = module.context.match(/[\\/]src[\\/]admin[\\/](.*?)([\\/]|$)/);
+						if(match && match.length >= 1)
+							return `admin-${match[1]}`;
+						else
+							return "admin-main";
+					}
+				};
+
+				delete cfg.optimization.splitChunks.cacheGroups.app;
+				delete cfg.optimization.splitChunks.cacheGroups.common;
 			},
 
 			env: {

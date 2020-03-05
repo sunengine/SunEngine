@@ -58,10 +58,7 @@ class IndexDic {
 				text += ",\n";
 		}
 
-		text = "{\n" + text + "}\n";
-
-		text = JSON.stringify(JSON.parse(text),null,2);
-		text = "export default " + text + ";\n";
+		text = "export default  {\n" + text + "\n};\n";
 
 		return text;
 	}
@@ -77,14 +74,12 @@ proccess(glob.sync(patternAll), dirs, excludePaths, indSun);
 proccess(glob.sync(patternSite), ["site"], excludePaths, indSun);
 proccess(glob.sync(patternAdmin), adminDirs, excludePaths, indAdmin);
 
-indSun.addLine("app", '"app": {"def": false, "value": "src/App.vue"}');
-
-fs.writeFileSync("./src/index/sunTable.js", indSun.makeText());
-fs.writeFileSync("./src/index/adminTable.js", indAdmin.makeText());
+fs.writeFileSync("./src/index/sunImport.js", indSun.makeText());
+fs.writeFileSync("./src/index/adminImport.js", indAdmin.makeText());
 
 console.log(
-	'\n\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/index/sunTable.js"   \x1b[33m☼☼☼\x1b[0m\n' +
-	'\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/index/adminTable.js"   \x1b[33m☼☼☼\x1b[0m\n'
+	'\n\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/index/sunImport.js"   \x1b[33m☼☼☼\x1b[0m\n' +
+	'\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/index/adminImport.js"   \x1b[33m☼☼☼\x1b[0m\n'
 );
 
 function proccess(arr, dirs, excludePaths, index) {
@@ -107,10 +102,23 @@ function proccess(arr, dirs, excludePaths, index) {
 	}
 
 	function addLine(index, name, path, isDefault) {
-		index.addLine(
-			`${name}`,
-			`"${name}": {"def": ${isDefault}, "value": "${path}"}`
-		);
+		if(isDefault) {
+			index.addLine(
+				`${name}`,
+				`"${name}": function() {
+					return import("${path}");
+				}`
+			);
+		}
+		else {
+			index.addLine(
+				`${name}`,
+				`"${name}": async function() {
+					const module = await import("${path}");
+					return module.${name};
+				}`
+			);
+		}
 	}
 }
 
