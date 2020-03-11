@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AngleSharp.Extensions;
-using AngleSharp.Parser.Html;
+using AngleSharp;
+using AngleSharp.Html.Parser;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
@@ -204,7 +204,7 @@ namespace SunEngine.DataSeed
 				sb.Append("</p>\n");
 			}
 
-			return new HtmlParser().Parse(sb.ToString()).Body.ChildNodes.ToHtml(Sanitizer.OutputFormatter);
+			return new HtmlParser().ParseDocument(sb.ToString()).Body.ChildNodes.ToHtml(Sanitizer.OutputFormatter);
 		}
 	}
 

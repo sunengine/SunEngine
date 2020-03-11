@@ -1,4 +1,4 @@
-using AngleSharp.Dom.Html;
+using AngleSharp.Html.Dom;
 
 namespace SunEngine.Core.Utils.TextProcess
 {
@@ -6,10 +6,10 @@ namespace SunEngine.Core.Utils.TextProcess
 	{
 		public static string Do(IHtmlDocument doc, int subTitleLength)
 		{
-			if (doc.Body.InnerText.Length < subTitleLength)
-				return doc.Body.InnerText;
+			if (doc.Body.TextContent.Length < subTitleLength)
+				return doc.Body.TextContent;
 			else
-				return doc.Body.InnerText.Substring(0, subTitleLength) + "...";
+				return doc.Body.TextContent.Substring(0, subTitleLength) + "...";
 		}
 	}
 }

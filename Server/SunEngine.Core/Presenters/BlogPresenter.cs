@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using AngleSharp.Parser.Html;
+using AngleSharp.Html.Parser;
 using Microsoft.Extensions.Options;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
@@ -65,7 +65,7 @@ namespace SunEngine.Core.Presenters
 			{
 				var textLength = postView.Preview.Length;
 				postView.Preview =
-					MakePreview.HtmlFirstImage(new HtmlParser().Parse(postView.Preview),
+					MakePreview.HtmlFirstImage(new HtmlParser().ParseDocument(postView.Preview),
 						blogOptions.CurrentValue.PreviewLength);
 				postView.HasMoreText = postView.Preview.Length != textLength;
 			}
@@ -100,7 +100,7 @@ namespace SunEngine.Core.Presenters
 			{
 				var textLength = postView.Preview.Length;
 				postView.Preview =
-					MakePreview.HtmlFirstImage(new HtmlParser().Parse(postView.Preview), options.PreviewSize);
+					MakePreview.HtmlFirstImage(new HtmlParser().ParseDocument(postView.Preview), options.PreviewSize);
 				postView.HasMoreText = postView.Preview.Length != textLength;
 			}
 

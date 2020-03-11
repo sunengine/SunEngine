@@ -1,8 +1,8 @@
 using System;
 using System.IO;
 using System.Linq;
-using AngleSharp.Extensions;
-using AngleSharp.Parser.Html;
+using AngleSharp;
+using AngleSharp.Html.Parser;
 using Newtonsoft.Json.Linq;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Materials;
@@ -55,7 +55,7 @@ namespace SunEngine.DataSeed
 				String.Equals(x.Name, categoryName, StringComparison.OrdinalIgnoreCase));
 			material.CategoryId = category.Id;
 
-			material.Text = new HtmlParser().Parse(html).Body.ChildNodes.ToHtml(Sanitizer.OutputFormatter);
+			material.Text = new HtmlParser().ParseDocument(html).Body.ChildNodes.ToHtml(Sanitizer.OutputFormatter);
 
 			material.PublishDate = DateTime.UtcNow;
 			material.SortNumber = material.Id;

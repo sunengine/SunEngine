@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AngleSharp.Html.Parser;
 using LinqToDB;
 using SunEngine.Core.DataBase;
-using AngleSharp.Parser.Html;
 using SunEngine.Core.Services;
 
 namespace SunEngine.Admin.Services
@@ -66,7 +66,7 @@ namespace SunEngine.Admin.Services
 		{
 			var imageTags = dataBaseConnection.Comments
 				.Where(msg => msg.Text.Contains("<img", StringComparison.OrdinalIgnoreCase)).AsEnumerable()
-				.Select(x => htmlParser.ParseAsync(x.Text)).ToArray();
+				.Select(x => htmlParser.ParseDocumentAsync(x.Text)).ToArray();
 
 			if (imageTags.Length > 0)
 				return Task.Factory.ContinueWhenAll(imageTags, tasks =>
@@ -80,7 +80,7 @@ namespace SunEngine.Admin.Services
 		{
 			var imageTags = dataBaseConnection.Materials
 				.Where(msg => msg.Text.Contains("<img", StringComparison.OrdinalIgnoreCase)).AsEnumerable()
-				.Select(x => htmlParser.ParseAsync(x.Text)).ToArray();
+				.Select(x => htmlParser.ParseDocumentAsync(x.Text)).ToArray();
 
 			if (imageTags.Length > 0)
 				return Task.Factory.ContinueWhenAll(imageTags, tasks =>

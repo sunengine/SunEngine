@@ -1,7 +1,7 @@
 using System.Linq;
+using AngleSharp;
 using AngleSharp.Dom;
-using AngleSharp.Dom.Html;
-using AngleSharp.Extensions;
+using AngleSharp.Html.Dom;
 using SunEngine.Core.Services;
 
 namespace SunEngine.Core.Utils.TextProcess
@@ -28,10 +28,10 @@ namespace SunEngine.Core.Utils.TextProcess
 
 		public static string PlainText(IHtmlDocument doc, int previewLength)
 		{
-			if (doc.Body.InnerText.Length < previewLength)
-				return doc.Body.InnerText;
+			if (doc.Body.TextContent.Length < previewLength)
+				return doc.Body.TextContent;
 
-			return doc.Body.InnerText.Substring(0, previewLength) + "...";
+			return doc.Body.TextContent.Substring(0, previewLength) + "...";
 		}
 
 		public static string HtmlNoImages(IHtmlDocument doc, int previewLength)

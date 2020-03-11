@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using AngleSharp.Parser.Html;
+using AngleSharp.Html.Parser;
 using LinqToDB;
 using Microsoft.Extensions.Options;
 using SunEngine.Core.Cache.CacheModels;
@@ -106,7 +106,7 @@ namespace SunEngine.Core.Managers
 			IReadOnlyDictionary<string, RoleCached> roles)
 		{
 			if (!roles.ContainsKey(RoleNames.Admin) || sanitizerService.SanitizerOptions.SanitizeAdminMaterials)
-				material.Text = sanitizerService.Sanitize(new HtmlParser().Parse(material.Text));
+				material.Text = sanitizerService.Sanitize(new HtmlParser().ParseDocument(material.Text));
 
 			material.SettingsJson = material.SettingsJson?.MakeJsonText();
 
@@ -132,7 +132,7 @@ namespace SunEngine.Core.Managers
 			IReadOnlyDictionary<string, RoleCached> roles)
 		{
 			if (!roles.ContainsKey(RoleNames.Admin) || sanitizerService.SanitizerOptions.SanitizeAdminMaterials)
-				material.Text = sanitizerService.Sanitize(new HtmlParser().Parse(material.Text));
+				material.Text = sanitizerService.Sanitize(new HtmlParser().ParseDocument(material.Text));
 
 			material.SettingsJson = material.SettingsJson?.MakeJsonText();
 

@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AngleSharp;
-using AngleSharp.Dom.Html;
-using AngleSharp.Extensions;
+using AngleSharp.Html.Dom;
 using Ganss.XSS;
 using SunEngine.Core.Configuration.Options;
 

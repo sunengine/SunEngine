@@ -1,6 +1,6 @@
 using AngleSharp.Dom;
-using AngleSharp.Dom.Html;
-using AngleSharp.Parser.Html;
+using AngleSharp.Html.Dom;
+using AngleSharp.Html.Parser;
 
 namespace SunEngine.Core.Utils.TextProcess
 {
@@ -16,7 +16,7 @@ namespace SunEngine.Core.Utils.TextProcess
 			(string preview, string subTitle) rez;
 
 			HtmlParser parser = new HtmlParser();
-			var doc = parser.Parse(html);
+			var doc = parser.ParseDocument(html);
 			int currentSize = 0;
 			var endText = (IText) FindTextNodePlus(doc.Body, ref currentSize, previewLength);
 			if (endText != null)
