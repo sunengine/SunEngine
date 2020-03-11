@@ -1,11 +1,11 @@
 [Unit]
-Description=<SiteName>
+Description=<host>
 
 [Service]
-WorkingDirectory=<SiteDir>
-ExecStart=/usr/bin/dotnet <SiteDir>Server/SunEngine.dll server
-SyslogIdentifier=<SiteName>
-User=<SiteUser>
+WorkingDirectory=<dir>
+ExecStart=/usr/bin/dotnet "<dir>/Server/SunEngine.dll" server
+SyslogIdentifier=<host>
+User=<user>
 Restart=always
 RestartSec=10
 KillSignal=SIGINT
