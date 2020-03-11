@@ -13,15 +13,15 @@
         "axios": "^0.18.1",
         "js-lock": "^0.1.1",
         "quasar": "^1.9.9",
-        "vue-i18n": "^8.15.3",
-        "webpack-deep-scope-plugin": "^1.6.2"
+        "vue-i18n": "^8.15.3"
     },
     "devDependencies": {
         "@quasar/app": "^1.5.8",
         "babel-preset-proposals": "^0.1.0",
         "glob": "^7.1.4",
         "path": "^0.12.7",
-        "quasar-app-extension-ide-helper": "^1.0.0-alpha.3"
+        "quasar-app-extension-ide-helper": "^1.0.0-alpha.3",
+        "webpack-deep-scope-plugin": "^1.6.2"
     },
     "engines": {
         "node": ">= 8.9.0",
