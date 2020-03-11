@@ -122,11 +122,11 @@
 </template>
 
 <script>
-import { deleteMaterial } from "sun";
-import { restoreMaterial } from "sun";
-import { canDeleteMaterial } from "sun";
-import { canRestoreMaterial } from "sun";
-import { prepareLocalLinks } from "sun";
+import  deleteMaterial  from "./methods/deleteMaterial";
+import  restoreMaterial  from "./methods/restoreMaterial";
+import  canDeleteMaterial  from "./methods/canDeleteMaterial";
+import  canRestoreMaterial  from "./methods/canRestoreMaterial";
+import  prepareLocalLinks  from "src/utils/prepareLocalLinks";
 
 import { copyToClipboard, date } from "quasar";
 import { scroll } from "quasar";

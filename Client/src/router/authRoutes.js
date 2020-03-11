@@ -18,7 +18,7 @@ const routes = [
 	}
 ];
 
-for (let rote of routes) {
+for (const rote of routes) {
 	if (!rote.meta) {
 		rote.meta = {
 			roles: ["Unregistered"]

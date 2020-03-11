@@ -28,9 +28,9 @@ const dirs = [
 const adminDirs = ["admin"];
 const excludePaths = [];
 
-const patternAll = "src/**/*.@(js|vue)";
-const patternAdmin = "src/admin/**/*.@(js|vue)";
-const patternSite = "src/site/**/*.@(js|vue)";
+const patternAll = "src/**/*.@(vue|js)";
+const patternAdmin = "src/admin/**/*.@(vue|js)";
+const patternSite = "src/site/**/*.@(vue|js)";
 
 class IndexDic {
 	constructor() {

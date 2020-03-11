@@ -31,6 +31,8 @@ ProjectSection(SolutionItems) = preProject
 	..\Scripts\PUBLISH.template = ..\Scripts\PUBLISH.template
 	..\Scripts\UPDATE = ..\Scripts\UPDATE
 	..\Scripts\update.sh = ..\Scripts\update.sh
+	..\Scripts\nginx.template = ..\Scripts\nginx.template
+	..\Scripts\systemd.template = ..\Scripts\systemd.template
 EndProjectSection
 EndProject
 Global

@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { prepareLocalLinks } from "sun";
+import prepareLocalLinks from "src/utils/prepareLocalLinks"
 import { copyToClipboard } from "quasar";
 
 export default {

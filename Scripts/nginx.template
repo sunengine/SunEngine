@@ -1,0 +1,60 @@
+server {
+	listen 443 http2;
+	listen [::]:443 http2;
+
+    ssl on; 
+	ssl_certificate /etc/letsencrypt/live/demo.sunengine.site/fullchain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/demo.sunengine.site/privkey.pem;
+	ssl_session_cache shared:SSL:11m;
+    ssl_protocols TLSv1.2 TLSv1.3;
+	#ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM';
+    ssl_ciphers 'TLS-CHACHA20-POLY1305-SHA256:TLS-AES-256-GCM-SHA384:TLS-AES-128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256';    
+	ssl_prefer_server_ciphers on;
+
+	gzip on;
+	gzip_buffers 16 8k;
+	gzip_comp_level 6;
+	gzip_http_version 1.1;
+	gzip_min_length 256;
+	gzip_proxied any;
+	gzip_vary on;
+  	gzip_types text/xml application/atom+xml application/rss+xml application/xhtml+xml text/javascript application/javascript application/x-javascript text/x-json application/json application/x-web-app-manifest+json text/css text/plain text/html font/opentype application/x-font-ttf image/x-icon image/svg+xml; 
+  	gzip_disable "msie6";
+
+	add_header X-Frame-Options "SAMEORIGIN";
+	add_header X-XSS-Protection "1; mode=block";
+	add_header X-Content-Type-Options "nosniff";
+    add_header Content-Security-Policy "default-src 'self' 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; frame-src 'self' https://www.youtube.com; script-src 'self' 'unsafe-inline'";
+
+	server_name demo.sunengine.site;	
+	
+	charset utf-8;
+
+	location / {
+		root /site/demo.sunengine.site/wwwroot;
+		try_files $uri $uri/ /index.html;
+
+		open_file_cache max=1000 inactive=20s;
+		open_file_cache_valid 30s;
+		open_file_cache_min_uses 2;
+		open_file_cache_errors on;
+
+		location ~ \.(js|json|css|svg|svgz|eot|otf|woff|woff2|ttf|rss|atom|ico|jpg|jpeg|gif|png)$ {
+			expires 14d;
+		}
+	}
+
+	location /api/ {
+		proxy_pass http://localhost:5020/;
+
+		client_max_body_size 11M;
+	}
+}
+
+server {
+	listen 80;
+	listen [::]:80;
+	server_name demo.sunengine.site;
+	return 301 https://$host$request_uri;
+}
+

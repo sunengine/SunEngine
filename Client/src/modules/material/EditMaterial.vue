@@ -60,11 +60,11 @@
 </template>
 
 <script>
-import { getWhereToMove } from "sun";
-import { deleteMaterial } from "sun";
-import { restoreMaterial } from "sun";
-import { canDeleteMaterial } from "sun";
-import { canRestoreMaterial } from "sun";
+import { getWhereToMove } from  "./methods/getWhereToAddMove";
+import  deleteMaterial  from "./methods/deleteMaterial";
+import  restoreMaterial  from "./methods/restoreMaterial";
+import  canDeleteMaterial  from "./methods/canDeleteMaterial";
+import  canRestoreMaterial  from "./methods/canRestoreMaterial";
 
 export default {
 	name: "EditMaterial",

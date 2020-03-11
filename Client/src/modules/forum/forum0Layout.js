@@ -1,4 +1,4 @@
-﻿import { getThreadTopics } from "sun";
+﻿import getThreadTopics from "./methods/getThreadTopics";
 
 
 export default {

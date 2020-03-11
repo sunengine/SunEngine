@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import { prepareLocalLinks } from "sun";
+import prepareLocalLinks from "src/utils/prepareLocalLinks"
 
 export default {
 	name: "Post",

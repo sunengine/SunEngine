@@ -145,10 +145,18 @@
 
 <script>
 import { mapState } from "vuex";
-import { prepareLocalLinks } from "sun";
+import prepareLocalLinks from "src/utils/prepareLocalLinks"
 
 export default {
 	name: "Layout",
+	components: {
+		Breadcrumbs: sunImport.Breadcrumbs,
+		UserMenu: sunImport.UserMenu,
+		LoginRegisterMenu: sunImport.LoginRegisterMenu,
+		MainMenu: sunImport.MainMenu,
+		SunEngineFooter: sunImport.SunEngineFooter,
+		LinksMenu: sunImport.LinksMenu
+	},
 	data() {
 		return {
 			leftDrawerOpen: this.$q.platform.is.desktop,
@@ -194,14 +202,6 @@ export default {
 			userName: state => state.auth.user?.name,
 			userAvatar: state => state.auth.user?.avatar
 		})
-	},
-	beforeCreate() {
-		this.$options.components.Breadcrumbs = require("sun").Breadcrumbs;;
-		this.$options.components.UserMenu = require("sun").UserMenu;;
-		this.$options.components.LoginRegisterMenu = require("sun").LoginRegisterMenu;;
-		this.$options.components.MainMenu = require("sun").MainMenu;;
-		this.$options.components.SunEngineFooter = require("sun").SunEngineFooter;;
-		this.$options.components.LinksMenu = require("sun").LinksMenu;;
 	},
 	mounted() {
 		const toolbarBreadcrumbs = document.getElementById("toolbarBreadcrumbs");

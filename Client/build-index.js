@@ -35,6 +35,7 @@ const patternSite = "src/site/**/*.@(js|vue)";
 const ind = indexDic();
 
 proccess(glob.sync(patternAll), dirs, excludePaths);
+
 proccess(
     glob.sync(patternSite),
     ["site"],

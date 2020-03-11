@@ -1,4 +1,5 @@
-﻿import { getNewTopics, getThreadTopics } from "sun";
+﻿import getThreadTopics from "./methods/getThreadTopics";
+import getNewTopics from "./methods/getNewTopics";
 import { app } from "sun";
 
 export default {
@@ -41,7 +42,7 @@ export default {
 						loadTopics: getNewTopics,
 						pageTitle: category.title + app.$t("Thread.titlePartNewTopics")
 					},
-					navigation:  { categories: sunImport.Categories2, categoryName: name }
+					navigation: { categories: sunImport.Categories2, categoryName: name }
 				},
 				meta: {
 					category: category
@@ -61,7 +62,7 @@ export default {
 							loadTopics: getThreadTopics
 						};
 					},
-					navigation:  { categories: sunImport.Categories2, categoryName: name }
+					navigation: { categories: sunImport.Categories2, categoryName: name }
 				},
 				meta: {
 					category: category
@@ -81,7 +82,7 @@ export default {
 							idOrName: route.params.idOrName
 						};
 					},
-					navigation:  { categories: sunImport.Categories2, categoryName: name }
+					navigation: { categories: sunImport.Categories2, categoryName: name }
 				},
 				meta: {
 					category: category
