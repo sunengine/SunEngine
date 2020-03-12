@@ -1,7 +1,6 @@
 // Configuration for your app
 
 require("./build-index");
-require("./build-index-import");
 
 const path = require("path");
 const webpack = require("webpack");

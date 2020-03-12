@@ -12,100 +12,133 @@
  *                                                                                      *
  ****************************************************************************************/
 
+const dirs = [
+	"admin",
+	"api",
+	"classes",
+	"components",
+	"mixins",
+	"shared",
+	"modules",
+	"layouts",
+	"router",
+	"store",
+	"utils",
+	"icons"
+];
+const excludePaths = [];
+
+const patternAll = "src/**/*.@(vue|js)";
+const patternSite = "src/site/**/*.@(vue|js)";
+
+class IndexDic {
+	constructor() {
+		this.dic = {};
+		this.number = 1;
+	}
+
+	addLine(compName, line) {
+		this.dic[compName] = {
+			line: line,
+			number: this.number++
+		};
+	}
+
+	makeText() {
+		let text = "";
+		let arr = [];
+		for (const key in this.dic) arr.push(this.dic[key]);
+
+		arr = arr.sort((a, b) => a.number - b.number);
+
+		for (let i = 0; i < arr.length; i++) {
+			text += arr[i].line;
+			if (i !== arr.length - 1) text += ";\n";
+		}
+
+		return text;
+	}
+}
+
+const indexes = {};
+
 const glob = require("glob");
 const fs = require("fs");
 
-const dirs = [
-    "api",
-    "classes",
-    "components",
-    "mixins",
-    "shared",
-    "layouts",
-    "router",
-    "store",
-    "utils",
-    "icons"
-];
-const excludePaths = ["src/router/index.js"];
+process(glob.sync(patternAll), dirs, excludePaths, indexes, addLine);
+process(glob.sync(patternSite), ["site"], excludePaths, indexes, addLine);
 
-const patternAll = "src/**/*.@(js|vue)";
-const patternSite = "src/site/**/*.@(js|vue)";
+for (const [name, index] of Object.entries(indexes)) {
+	fs.writeFileSync(`./src/index/${name}.js`, index.makeText());
+}
 
-const ind = indexDic();
+makeSunImport();
 
-proccess(glob.sync(patternAll), dirs, excludePaths);
+function makeSunImport() {
+	let imports = `export default async function sunImport(module, component)  {
+	const mod = await moduleTable[module]();
+	return mod[component];
+}
 
-proccess(
-    glob.sync(patternSite),
-    ["site"],
-    ["src/site/i18n", "src/site/routes.js"]
+export const moduleTable = {\n`;
+	for (const name of Object.keys(indexes)) {
+		imports += `"${name}": async function() {
+		const module = await import("src/index/${name}.js");
+		return module.default;
+	},\n`;
+	}
+	imports += "};";
+
+	fs.writeFileSync(`./src/index/sunImport.js`, imports);
+}
+
+console.log(
+	'\n\x1b[33m☼☼☼   \x1b[32mIndex files generated successfully!\x1b[0m  \x1b[34m"/src/index"   \x1b[33m☼☼☼\x1b[0m\n'
 );
 
-ind.addLine("routes", "export routes from 'src/site/routes.js'");
-ind.addLine("store-index", "export * from 'src/store/index'");
-ind.addLine("router", "export {router} from 'src/router/index.js'");
-ind.addLine("app", "export {app} from 'src/App'");
+function process(arr, dirs, excludePaths, indexes, addLine) {
+	for (const path of arr) {
+		const [dir, name] = getDirAndComponentName(path, dirs, excludePaths);
+		if (!name) continue;
 
-fs.writeFile("./src/index/sun.js", ind.makeText(), function(err) {
-    if (err) return console.log(err);
+		if (!indexes[dir]) indexes[dir] = new IndexDic();
 
-    console.log(
-        '\n\x1b[33m☼☼☼   \x1b[32mIndex file generated successfully!\x1b[0m  \x1b[34m"/src/index/sun.js"   \x1b[33m☼☼☼\x1b[0m\n'
-    );
-});
+		const index = indexes[dir];
 
-function proccess(arr, dirs, excludePaths) {
-    for (const path of arr) {
-        const name = filePathToComponentName(path, dirs, excludePaths);
-        if (!name) continue;
+		const fileText = fs.readFileSync(path, "utf8");
 
-        const fileText = fs.readFileSync(path, "utf8");
+		if (/export( )+default/.test(fileText)) addLine(index, name, path, true);
 
-        if (/export( )+default/.test(fileText))
-            ind.addLine(`${name}`, `export ${name} from '${path}'`);
-        if (/export( )+(?!default)/.test(fileText))
-            ind.addLine(`${name}-star`, `export * from '${path}'`);
-    }
+		const matches = fileText.matchAll(
+			/export(?: )+(?:function|const|var|let)(?: )+([a-zA-Z0-9_]+?)[( =]/gi
+		);
+
+		for (const match of matches) addLine(index, match[1], path, false);
+	}
 }
 
-function filePathToComponentName(name, dirs, excludePaths) {
-    if (excludePaths.some(x => name.startsWith(x))) return;
-
-    let arr = name.replace("\\", "/").split("/");
-    if (arr.length <= 1) return;
-    if (!dirs.includes(arr[1])) return;
-
-    const fileName = arr[arr.length - 1];
-
-    arr = fileName.split(".");
-    arr.pop();
-
-    return arr.join(".");
+function addLine(index, name, path, isDefault) {
+	if (isDefault) {
+		index.addLine(`${name}`, `export ${name} from '${path}'`);
+	} else {
+		index.addLine(`${path}-star`, `export * from '${path}'`);
+	}
 }
 
-function indexDic() {
-    return {
-        dic: {},
-        number: 1,
+function getDirAndComponentName(name, dirs, excludePaths) {
+	if (excludePaths.some(x => name.startsWith(x))) return [];
 
-        addLine(compName, line) {
-            this.dic[compName] = {
-                line: line,
-                number: this.number++
-            };
-        },
+	let arr = name.replace("\\", "/").split("/");
+	if (arr.length <= 2) return [];
+	if (!dirs.includes(arr[1])) return [];
 
-        makeText() {
-            let text = "";
-            let arr = [];
-            for (const key in this.dic) arr.push(this.dic[key]);
+	const fileName = arr[arr.length - 1];
+	let dirName = arr[arr.length - 2];
+	if(dirName === "methods")
+		dirName = arr[arr.length - 3];
 
-            arr = arr.sort((a, b) => a.number - b.number);
+	arr = fileName.split(".");
+	arr.pop();
 
-            for (const obj of arr) text += obj.line + "\n";
-
-            return text;
-        }
-    };
+	return [dirName, arr.join(".")];
 }
