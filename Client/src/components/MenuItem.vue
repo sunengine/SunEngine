@@ -47,6 +47,9 @@
 <script>
 export default {
 	name: "MenuItem",
+	components: {
+		MenuItem: sunImport("components", "MenuItem")
+	},
 	props: {
 		menuItem: {
 			type: Object,
@@ -109,9 +112,6 @@ export default {
 			for (const smi of this.$refs["cim"]) smi.parentMenuItem = this;
 
 		this.$nextTick(() => this.checkOpen());
-	},
-	beforeCreate() {
-		this.$options.components.MenuItem = require("sun").MenuItem;;
 	}
 };
 </script>

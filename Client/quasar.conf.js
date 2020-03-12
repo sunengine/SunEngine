@@ -63,8 +63,7 @@ module.exports = function(ctx) {
 			// analyze: true,
 			// extractCSS: false,
 			extendWebpack(cfg) {
-				cfg.resolve.alias.sunImport = path.resolve("./src/index/sunImport.js");
-				cfg.resolve.alias.mixins = path.resolve("./src/index/mixins.js");
+				//cfg.resolve.alias.sunImport = path.resolve("./src/index/sunImport.js");
  
 				cfg.resolve.modules.push(path.resolve("./src"));
 				cfg.resolve.modules.push(path.resolve("./src/index"));

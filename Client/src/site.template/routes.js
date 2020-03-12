@@ -1,4 +1,4 @@
-import { coreRoutes } from "sun";
+import { coreRoutes } from "site";
 import Vue from "vue";
 
 const siteRoutes = [

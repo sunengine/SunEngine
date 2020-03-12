@@ -1,7 +1,7 @@
+import { lineAwesome } from "icons";
+import { fontawesomeV5 } from "icons";
+
 export default ({ Vue }) => {
-	const lineAwesome = require("sun").lineAwesome;;
-	const fontawesomeV5 = require("sun").fontawesomeV5;;
-	
 	Vue.prototype.$iconsSets = {
 		LineAwesome: lineAwesome,
 		"line-awesome": lineAwesome,

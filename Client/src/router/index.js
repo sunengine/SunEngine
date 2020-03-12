@@ -1,11 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import { getTokens } from "sun";
-import { checkTokensUpdated } from "sun";
-import { app } from "sun";
+import { getTokens } from "utils";
+import { checkTokensUpdated } from "utils";
+import app from "App";
 
-import { consoleRequestStart, consoleGreyEnd, consoleTokens } from "sun";
+import { consoleRequestStart, consoleGreyEnd, consoleTokens } from "utils";
 
 Vue.use(VueRouter);
 

@@ -1,5 +1,5 @@
-import { Category } from "sun";
-import { consoleInit } from "sun";
+import { Category } from "classes";
+import { consoleInit } from "utils";
 
 export default function prepareAllCategories(state, root) {
 	state.root = root;

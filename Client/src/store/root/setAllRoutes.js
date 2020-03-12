@@ -1,9 +1,9 @@
 import VueRouter from "vue-router";
 
-import { consoleInit, router } from "sun";
-import { routes } from "sun";
-import { pageNotFoundRoute } from "sun";
-import { routeHasAccess } from "sun";
+import { consoleInit } from "utils";
+import { routes } from "router";
+import { pageNotFoundRoute } from "router";
+import { routeHasAccess } from "utils";
 
 // Action
 export default async function(context) {

@@ -51,7 +51,7 @@ const routes = [
 		name: "User",
 		path: "/user/:link",
 		components: {
-			default: sunImport("sun", "Profile")
+			default: sunImport("profile", "Profile")
 		},
 		props: {
 			default: true

@@ -1,5 +1,5 @@
 import { registerSectionsSite } from "sun";
-import { consoleInit } from "sun";
+import { consoleInit } from "utils";
 
 export default async function(context) {
 	context.commit("registerSectionType", await sunImport.postsSection());

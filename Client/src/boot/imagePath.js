@@ -1,4 +1,4 @@
-import {imagePath} from "utils"
+import { imagePath } from "utils";
 
 export default ({ Vue }) => {
 	Vue.prototype.$imagePath = imagePath;

@@ -1,4 +1,4 @@
-import { consoleInit } from "sun";
+import { consoleInit } from "utils";
 
 export default function(context, data) {
 	return request(Api.Categories.GetAllCategoriesAndAccesses, {

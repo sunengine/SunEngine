@@ -1,5 +1,4 @@
-﻿import getThreadTopics from "./methods/getThreadTopics";
-
+﻿import { getThreadTopics } from "forum";
 
 export default {
 	name: "Forum0",

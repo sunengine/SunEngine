@@ -1,6 +1,6 @@
-﻿import getThreadTopics from "./methods/getThreadTopics";
-import getNewTopics from "./methods/getNewTopics";
-import { app } from "sun";
+﻿import { getThreadTopics } from "forum";
+import { getNewTopics } from "forum";
+import app  from "App";
 
 export default {
 	name: "Forum1",

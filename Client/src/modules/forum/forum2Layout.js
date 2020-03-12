@@ -1,6 +1,6 @@
-﻿import getThreadTopics from "./methods/getThreadTopics";
-import getNewTopics from "./methods/getNewTopics";
-import { app } from "sun";
+﻿import { getThreadTopics } from "forum";
+import { getNewTopics } from "forum";
+import app from "App";
 
 export default {
 	name: "Forum2",
@@ -34,7 +34,7 @@ export default {
 				path: "/" + nameLower,
 				components: {
 					default: sunImport.Thread,
-					navigation: sunImport("forum","ForumPanel"),
+					navigation: sunImport("forum", "ForumPanel")
 				},
 				props: {
 					default: {
@@ -53,7 +53,7 @@ export default {
 				path: `/${nameLower}/:categoryName`,
 				components: {
 					default: sunImport.Thread,
-					navigation: sunImport("forum","ForumPanel"),
+					navigation: sunImport("forum", "ForumPanel")
 				},
 				props: {
 					default: route => {
@@ -73,7 +73,7 @@ export default {
 				path: `/${nameLower}/:categoryName/:idOrName`,
 				components: {
 					default: sunImport.Material,
-					navigation: sunImport("forum","ForumPanel"),
+					navigation: sunImport("forum", "ForumPanel")
 				},
 				props: {
 					default: route => {

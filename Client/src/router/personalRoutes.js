@@ -1,4 +1,4 @@
-const SettingsPanel = sunImport("sun", "SettingsPanel");
+const SettingsPanel = sunImport("personal", "SettingsPanel");
 
 const routes = [
 	{

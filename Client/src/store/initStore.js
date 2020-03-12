@@ -1,9 +1,8 @@
-import { hasLongToken } from "sun";
-import { consoleInit } from "sun";
+import { hasLongToken } from "utils";
+import { consoleInit } from "utils";
 import { InitializeState } from "sun";
 import { getDynamicConfig } from "sun";
-import { app } from "sun";
-import { makeBreadcrumbs } from "sun";
+import { makeBreadcrumbs } from "components";
 
 import Vue from "vue";
 

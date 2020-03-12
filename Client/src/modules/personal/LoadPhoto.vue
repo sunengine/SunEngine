@@ -40,7 +40,7 @@
 
 <script>
 import { Page } from "mixins";
-import { validateFileSize } from "sun";
+import { validateFileSize } from "utils";
 
 const defaultAvatar = config.Misc.DefaultAvatar;
 

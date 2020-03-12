@@ -1,6 +1,6 @@
 import Vue from "vue";
 
-import { avatarPath } from "sun";
+import { avatarPath } from "utils";
 
 export default function(state, data) {
 	data.photo = avatarPath(data.photo);

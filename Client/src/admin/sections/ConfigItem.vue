@@ -118,6 +118,9 @@ import { jsonRules } from "utils";
 
 export default {
 	name: "ConfigItem",
+	components: {
+		CategoriesInput: sunImport("components", "CategoriesInput")
+	},
 	props: {
 		item: {
 			type: Object,
@@ -166,10 +169,6 @@ export default {
 		validate() {
 			this.$refs?.input?.validate();
 		}
-	},
-	async beforeCreate() {
-		const sun = await import("sun");
-		this.$options.components.CategoriesInput = sun.CategoriesInput;
 	},
 	created() {
 		switch (this.item.type) {

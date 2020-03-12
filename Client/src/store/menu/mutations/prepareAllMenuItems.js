@@ -1,5 +1,4 @@
-import { consoleInit } from "sun";
-import { router } from "sun";
+import { consoleInit } from "utils";
 
 export default function prepareAllMenuItems(state, allMenuItems) {
 	let menuItemsById = {};

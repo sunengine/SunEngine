@@ -1,4 +1,4 @@
-import { routeHasAccess } from "sun";
+import { routeHasAccess } from "utils";
 
 export default function(route) {
 	if (!routeHasAccess(route)) {

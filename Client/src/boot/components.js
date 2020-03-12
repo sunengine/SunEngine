@@ -1,5 +1,3 @@
-import Vue from "vue";
-
 import {LoaderSent} from "shared";
 import {LoaderWait}  from "shared";
 import {PageHeader}  from "shared";

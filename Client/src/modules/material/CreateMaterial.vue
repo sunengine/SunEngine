@@ -32,13 +32,12 @@
 </template>
 
 <script>
-import { getWhereToAdd } from "sun";
 
 export default {
 	name: "CreateMaterial",
-	 components: {
-        MaterialForm: sunImport("material","MaterialForm"), 
-	 },
+	components: {
+		MaterialForm: sunImport("material", "MaterialForm")
+	},
 	mixins: [Page],
 	props: {
 		categoriesNames: {

@@ -1,5 +1,3 @@
-import { store } from "sun";
-
 export default function(route) {
 	return (
 		!route.meta?.roles ||

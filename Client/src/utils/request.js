@@ -1,14 +1,14 @@
 import axios from "axios";
 import Lock from "js-lock";
 
-import { removeTokens, setTokens, getTokens } from "sun";
-import { routeCheckAccess } from "sun";
+import { removeTokens, setTokens, getTokens } from "utils";
+import { routeCheckAccess } from "utils";
 import {
 	consoleTokens,
 	consoleUserLogout,
 	consoleRequestStart,
 	consoleRequestUrl
-} from "sun";
+} from "utils";
 
 const lock = new Lock("request-lock");
 

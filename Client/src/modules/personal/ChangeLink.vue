@@ -42,9 +42,6 @@
 </template>
 
 <script>
-import { Page } from "mixins";
-import { store } from "sun";
-
 function allowMyIdOrEmpty(id) {
 	return !id || store.state.auth.user.id == id;
 }

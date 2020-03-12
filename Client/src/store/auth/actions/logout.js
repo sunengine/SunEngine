@@ -1,4 +1,4 @@
-import { removeTokens } from "sun";
+import { removeTokens } from "utils";
 
 export default function() {
 	request(Api.Auth.Logout, undefined, undefined, undefined, true).finally(() => {

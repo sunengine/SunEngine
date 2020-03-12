@@ -1,8 +1,8 @@
-import { authRoutes } from "sun";
-import { accountRoutes } from "sun";
-import { miscRoutes } from "sun";
-import { personalRoutes } from "sun";
-import { adminRoutes } from "sun";
+import { authRoutes } from "router";
+import { accountRoutes } from "router";
+import { miscRoutes } from "router";
+import { personalRoutes } from "router";
+import { adminRoutes } from "router";
 
 export default [
 	...authRoutes,
