@@ -76,10 +76,13 @@ namespace SunEngine.Core.Services
 			var dirsSection = configuration.GetSection("Dirs");
 			var dic = dirsSection.GetChildren().ToDictionary(x => x.Key, x => x.Value);
 
+			if (!dic.TryGetValue(PathNames.ConfigDirName, out string configToken))
+				throw new SunException($"No {PathNames.ConfigDirName} in config Global section");
+
 			if (!dic.TryGetValue(PathNames.ApplicationRootName, out string applicationRootToken))
 				throw new SunException($"No {PathNames.ApplicationRootName} in config Global section");
 			if (applicationRootToken == "auto")
-				ApplicationDir = SearchApplicationRootDir();
+				ApplicationDir = SearchApplicationRootDir(configToken);
 			else
 				ApplicationDir = applicationRootToken;
 
@@ -87,28 +90,30 @@ namespace SunEngine.Core.Services
 				throw new SunException($"No {PathNames.WwwRootDirName} in config Global section");
 			WwwRootDir = MakePath(wwwRootDirToken);
 
-			if (!dic.TryGetValue(PathNames.ConfigDirName, out string configToken))
-				throw new SunException($"No {PathNames.ConfigDirName} in config Global section");
 			ConfigDir = MakePath(configToken);
 
 			foreach (var (key, value) in dic)
 				Pathes.Add(key, MakePath(value));
 		}
 
-		public static string SearchApplicationRootDir()
+		public static string SearchApplicationRootDir(string configPath)
 		{
-			List<string> dirTokens = Directory.GetCurrentDirectory()
-				.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).ToList();
-			for (int i = 0; i < 5; i++)
-			{
-				var currentPath = string.Join(Path.DirectorySeparatorChar, dirTokens);
-				if (CheckDir(currentPath))
-					return currentPath;
+			string[] dirsToSearch = {Directory.GetCurrentDirectory(), configPath};
 
-				if (dirTokens.Count >= 2)
-					dirTokens.RemoveAt(dirTokens.Count - 1);
-				else
-					break;
+			foreach (string dir in dirsToSearch)
+			{
+				var dirTokens = dir.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).ToList();
+				for (int i = 0; i < 5; i++)
+				{
+					var currentPath = string.Join(Path.DirectorySeparatorChar, dirTokens);
+					if (CheckDir(currentPath))
+						return currentPath;
+
+					if (dirTokens.Count >= 2)
+						dirTokens.RemoveAt(dirTokens.Count - 1);
+					else
+						break;
+				}
 			}
 
 			throw new SunException("Can not find Application root directory");
