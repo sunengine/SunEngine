@@ -69,7 +69,7 @@ module.exports = function(ctx) {
 				cfg.resolve.alias.sunImport = path.resolve("./src/index/sunImport.js");
 				cfg.resolve.alias.adminImport = path.resolve("./src/index/adminImport.js");
 				cfg.resolve.alias.mixins = path.resolve("./src/mixins/mixins.js");
-
+ 
 				cfg.resolve.modules.push(path.resolve("./src"));
 
 				const htmlWebpackPlugin = cfg.plugins.find(
@@ -84,8 +84,6 @@ module.exports = function(ctx) {
 						Vue: ['vue', 'default'],
 						sunImport: ['src/index/sunImport', 'default'],
 						adminImport: ['src/index/adminImport', 'default'],
-						sunRequire: ['src/index/sunRequire', 'default'],
-						adminRequire: ['src/index/adminRequire', 'default'],
 						router: ['src/router/index.js', 'router'],
 						request: ['src/utils/request', 'default'],
 						Api: ['src/api/Api', 'default'],
