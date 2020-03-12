@@ -114,7 +114,7 @@
 </template>
 
 <script>
-import { jsonRules } from "sun";
+import { jsonRules } from "utils";
 
 export default {
 	name: "ConfigItem",

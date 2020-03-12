@@ -32,7 +32,7 @@ var app;
 export default {
 	name: "App",
 	components: {
-		Layout: sunImport.Layout
+		Layout: sunImport("layouts","Layout"),
 	},
 	data() {
 		return {

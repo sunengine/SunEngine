@@ -29,7 +29,7 @@ export default {
 	components: {
 		Comment: sunImport.Comment,
 		EditComment: sunImport.EditComment,
-		DeletedComment: sunImport.DeletedComment
+		DeletedComment: sunImport("comments","DeletedComment"),
 	},
 	props: {
 		comment: Object,

@@ -26,7 +26,7 @@ const dirs = [
 	"utils",
 	"icons"
 ];
-const excludePaths = [];
+const excludePaths = ["src/site/i18n"];
 
 const patternAll = "src/**/*.@(vue|js)";
 const patternSite = "src/site/**/*.@(vue|js)";

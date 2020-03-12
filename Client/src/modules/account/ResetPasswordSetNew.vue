@@ -75,7 +75,7 @@
 
 <script>
 import { Page } from "mixins";
-import { passwordRules } from "sun";
+import { passwordRules } from "utils";
 
 function createRules() {
 	return {

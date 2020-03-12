@@ -63,13 +63,11 @@ module.exports = function(ctx) {
 			// analyze: true,
 			// extractCSS: false,
 			extendWebpack(cfg) {
-				cfg.resolve.alias.sun = path.resolve("./src/index/sun.js");
-				cfg.resolve.alias.admin = path.resolve("./src/index/admin.js");
 				cfg.resolve.alias.sunImport = path.resolve("./src/index/sunImport.js");
-				cfg.resolve.alias.adminImport = path.resolve("./src/index/adminImport.js");
-				cfg.resolve.alias.mixins = path.resolve("./src/mixins/mixins.js");
+				cfg.resolve.alias.mixins = path.resolve("./src/index/mixins.js");
  
 				cfg.resolve.modules.push(path.resolve("./src"));
+				cfg.resolve.modules.push(path.resolve("./src/index"));
 
 				const htmlWebpackPlugin = cfg.plugins.find(
 					x => x.constructor.name === "HtmlWebpackPlugin"
@@ -82,7 +80,6 @@ module.exports = function(ctx) {
 					new webpack.ProvidePlugin({
 						Vue: ['vue', 'default'],
 						sunImport: ['src/index/sunImport', 'default'],
-						adminImport: ['src/index/adminImport', 'default'],
 						router: ['src/router/index.js', 'router'],
 						request: ['src/utils/request', 'default'],
 						Api: ['src/api/Api', 'default'],

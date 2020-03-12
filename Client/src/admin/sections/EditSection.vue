@@ -49,7 +49,7 @@ import { extend } from "quasar";
 export default {
 	name: "EditSection",
 	components: {
-		SectionForm: adminImport.SectionForm
+		SectionForm: sunImport("sections","SectionForm"),
 	},
 	mixins: [Page],
 	props: {

@@ -13,7 +13,7 @@
 export default {
 	name: "PostsList",
 	 components: {
-        Post: sunImport.Post
+        Post: sunImport("blog","Post"),
 	 },
 	props: {
 		posts: {

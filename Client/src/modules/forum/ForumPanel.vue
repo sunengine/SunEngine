@@ -17,7 +17,7 @@
 export default {
 	name: "ForumPanel",
 	components: {
-		PanelWrapper: sunImport.PanelWrapper
+		PanelWrapper: sunImport("components","PanelWrapper"),
 	},
 	props: {
 		categories: {

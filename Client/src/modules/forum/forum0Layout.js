@@ -21,7 +21,7 @@ export default {
 				name: `cat-${name}`,
 				path: "/" + nameLower,
 				components: {
-					default: sunImport.Thread
+					default: sunImport("forum","Thread"),
 				},
 				props: {
 					default: {

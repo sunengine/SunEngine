@@ -38,7 +38,7 @@
 export default {
 	name: "CreateSection",
 	components: {
-		SectionForm: adminImport.SectionForm
+		SectionForm: sunImport("sections","SectionForm"),
 	},
 	mixins: [Page],
 	props: {

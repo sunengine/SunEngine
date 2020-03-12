@@ -155,7 +155,7 @@ export default {
 		LoginRegisterMenu: sunImport.LoginRegisterMenu,
 		MainMenu: sunImport.MainMenu,
 		SunEngineFooter: sunImport.SunEngineFooter,
-		LinksMenu: sunImport.LinksMenu
+		LinksMenu: sunImport("components","LinksMenu"),
 	},
 	data() {
 		return {

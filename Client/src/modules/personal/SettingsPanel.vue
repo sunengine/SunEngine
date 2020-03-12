@@ -11,7 +11,7 @@ export default {
 	name: "SettingsPanel",
 	components: {
 		PanelWrapper: sunImport.PanelWrapper,
-		SettingsMenu: sunImport.SettingsMenu
+		SettingsMenu: sunImport("personal","SettingsMenu"),
 	}
 };
 </script>

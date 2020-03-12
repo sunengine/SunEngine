@@ -24,7 +24,7 @@ import { Pagination } from "mixins";
 export default {
 	name: "PostsMultiCat",
 	components: {
-		PostsList: sunImport.PostsList
+		PostsList: sunImport("blog","PostsList"),
 	},
 	mixins: [Pagination],
 	props: {

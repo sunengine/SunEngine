@@ -1,5 +1,5 @@
-﻿import { PanelWrapper } from "sun";
-import { PageWrapper } from "sun";
+﻿import { PanelWrapper } from "components";
+import { PageWrapper } from "components";
 import { Page } from "mixins";
 import { extend } from "quasar";
 

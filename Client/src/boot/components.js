@@ -1,10 +1,10 @@
 import Vue from "vue";
 
-import {LoaderSent} from "sun";
-import {LoaderWait}  from "sun";
-import {PageHeader}  from "sun";
-import {SunPage}  from "sun";
-import {SunEditor}  from "sun";
+import {LoaderSent} from "shared";
+import {LoaderWait}  from "shared";
+import {PageHeader}  from "shared";
+import {SunPage}  from "shared";
+import {SunEditor}  from "shared";
 
 Vue.component("SunPage", SunPage);
 Vue.component("LoaderSent", LoaderSent);

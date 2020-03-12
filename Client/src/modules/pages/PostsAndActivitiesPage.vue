@@ -44,7 +44,7 @@ export default {
 	components: {
 		ActivitiesList: sunImport.ActivitiesList,
 		PostsList: sunImport.PostsList,
-		PostsMultiCat: sunImport.PostsMultiCat
+		PostsMultiCat: sunImport("blog","PostsMultiCat"),
 	},
 	mixins: [Page],
 	props: {

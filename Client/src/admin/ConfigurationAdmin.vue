@@ -117,7 +117,7 @@ export default {
 	name: "ConfigurationAdmin",
 	mixins: [Page],
 	components: {
-		ConfigItem: adminImport.ConfigItem
+		ConfigItem: sunImport("","ConfigItem")
 	},
 	data() {
 		return {

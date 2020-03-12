@@ -34,7 +34,7 @@
 export default {
 	name: "MenuItemsAdmin",
 	components: {
-		MenuAdminItem: adminImport.MenuAdminItem
+		MenuAdminItem: sunImport("menuItems","MenuAdminItem"),
 	},
 	mixins: [Page],
 	data() {

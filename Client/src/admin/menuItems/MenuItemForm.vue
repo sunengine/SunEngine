@@ -172,7 +172,7 @@
 </template>
 
 <script>
-import { isJson } from "sun";
+import { isJson } from "utils";
 
 function createRules() {
 	return {

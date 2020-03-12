@@ -43,7 +43,7 @@
 export default {
 	name: "EditMenuItem",
 	components: {
-		MenuItemForm: adminImport.MenuItemForm
+		MenuItemForm: sunImport("menuItems","MenuItemForm"),
 	},
 	mixins: [Page],
 	props: {

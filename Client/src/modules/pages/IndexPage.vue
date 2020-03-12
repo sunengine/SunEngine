@@ -8,7 +8,7 @@
 export default {
 	name: "IndexPage",
 	components: {
-		MaterialInline: sunImport.MaterialInline
+		MaterialInline: sunImport("material","MaterialInline"),
 	},
 	mixins: [Page]
 };

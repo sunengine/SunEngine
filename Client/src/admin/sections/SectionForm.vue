@@ -85,7 +85,6 @@
 </template>
 
 <script>
-import adminImport from "../../index/adminImport";
 
 function createRules() {
 	return {
@@ -115,7 +114,7 @@ function createRules() {
 export default {
 	name: "SectionForm",
 	components: {
-		ConfigItem: adminImport.ConfigItem
+		ConfigItem: sunImport("sections","ConfigItem"),
 	},
 	props: {
 		section: {

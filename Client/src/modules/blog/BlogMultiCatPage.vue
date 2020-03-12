@@ -29,12 +29,12 @@
 </template>
 
 <script>
-import { canWriteCats } from "sun";
+import { canWriteCats } from "utils";
 
 export default {
 	name: "BlogMultiCatPage",
 	components: {
-		PostsMultiCat: sunImport.PostsMultiCat
+		PostsMultiCat: sunImport("blog","PostsMultiCat"),
 	},
 	mixins: [Page],
 	props: {

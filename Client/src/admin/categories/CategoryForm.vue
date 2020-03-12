@@ -225,7 +225,7 @@
 </template>
 
 <script>
-import { isJson } from "sun";
+import { isJson } from "utils";
 import Vue from "vue";
 
 const unset = "unset";

@@ -100,9 +100,9 @@
 </template>
 
 <script>
-import { passwordRules } from "sun";
-import { userNameRules } from "sun";
-import { emailRules } from "sun";
+import { passwordRules } from "utils";
+import { userNameRules } from "utils";
+import { emailRules } from "utils";
 
 function createRules() {
 	return {
@@ -121,7 +121,7 @@ function createRules() {
 export default {
 	name: "Register",
 	components: {
-		Captcha: sunImport.Captcha
+		Captcha: sunImport("components","Captcha"),
 	},
 	mixins: [Page],
 	data() {

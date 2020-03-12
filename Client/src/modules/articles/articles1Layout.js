@@ -28,7 +28,7 @@
 				path: "/" + nameLower,
 				components: {
 					default: sunImport.ArticlesMultiCatPage,
-					navigation: sunImport.ArticlesPanel
+					navigation: sunImport("articles","ArticlesPanel"),
 				},
 				props: {
 					default: { categoriesNames: nameLower, pageTitle: category.title },
@@ -43,7 +43,7 @@
 				path: `/${nameLower}/:categoryName`,
 				components: {
 					default: sunImport.ArticlesPage,
-					navigation: sunImport.ArticlesPanel
+					navigation: sunImport("articles","ArticlesPanel"),
 				},
 				props: {
 					default: true,
@@ -58,7 +58,7 @@
 				path: `/${nameLower}/:categoryName/:idOrName`,
 				components: {
 					default: sunImport.Material,
-					navigation: sunImport.ArticlesPanel
+					navigation: sunImport("articles","ArticlesPanel"),
 				},
 				props: {
 					default: route => {

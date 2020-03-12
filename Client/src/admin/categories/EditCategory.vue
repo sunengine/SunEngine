@@ -42,12 +42,11 @@
 
 <script>
 import { Page } from "mixins";
-import adminImport from "../../index/adminImport";
 
 export default {
 	name: "EditCategory",
 	components: {
-		CategoryForm: adminImport.CategoryForm
+		CategoryForm: sunImport("categories","CategoryForm"),
 	},
 	mixins: [Page],
 	props: {

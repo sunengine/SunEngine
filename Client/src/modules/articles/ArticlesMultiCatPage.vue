@@ -40,7 +40,7 @@ import { Pagination } from "mixins";
 export default {
 	name: "ArticlesMultiCatPage",
 	components: {
-		ArticlesList: sunImport.ArticlesList
+		ArticlesList: sunImport("articles","ArticlesList"),
 	},
 	mixins: [Page, Pagination],
 	props: {

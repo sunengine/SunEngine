@@ -16,7 +16,7 @@ export default {
 	name: "MaterialInlinePage",
 	mixins: [Page],
 	components: {
-		MaterialInline: sunImport.MaterialInline
+		MaterialInline: sunImport("material","MaterialInline"),
 	},
 	methods: {
 		loaded() {

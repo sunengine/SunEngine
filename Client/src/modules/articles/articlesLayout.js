@@ -20,7 +20,7 @@ export default {
 				name: `cat-${name}`,
 				path: pathBegin,
 				components: {
-					default: sunImport.ArticlesPage
+					default: sunImport("articles","ArticlesPage"),
 				},
 				props: {
 					default: {
@@ -35,7 +35,7 @@ export default {
 				name: `cat-${name}-mat`,
 				path: `${pathBegin}/:idOrName`,
 				components: {
-					default: sunImport.Material
+					default: sunImport("material","Material"),
 				},
 				props: {
 					default: route => {

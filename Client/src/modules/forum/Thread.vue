@@ -63,7 +63,7 @@ import { Pagination } from "mixins";
 export default {
 	name: "Thread",
 	components: {
-		Topic: sunImport.Topic
+		Topic: sunImport("forum","Topic"),
 	},
 	mixins: [Page, Pagination],
 	props: {

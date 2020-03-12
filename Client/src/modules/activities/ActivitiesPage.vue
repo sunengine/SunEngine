@@ -14,7 +14,7 @@
 export default {
 	name: "ActivitiesPage",
 	components: {
-		ActivitiesList: sunImport.ActivitiesList
+		ActivitiesList: sunImport("activities","ActivitiesList"),
 	},
 	mixins: [Page],
 	props: {

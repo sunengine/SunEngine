@@ -43,7 +43,7 @@ import { Pagination } from "mixins";
 export default {
 	name: "BlogPage",
 	components: {
-		PostsList: sunImport.PostsList
+		PostsList: sunImport("blog","PostsList"),
 	},
 	mixins: [Page, Pagination],
 	props: {

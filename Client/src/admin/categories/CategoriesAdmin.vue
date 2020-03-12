@@ -30,12 +30,11 @@
 
 <script>
 import { Page } from "mixins";
-import adminImport from "../../index/adminImport";
 
 export default {
 	name: "CategoriesAdmin",
 	 components: {
-        CategoryItem: adminImport.CategoryItem 
+        CategoryItem: sunImport("categories","CategoryItem"), 
 	 },
 	mixins: [Page],
 	data() {

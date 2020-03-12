@@ -117,7 +117,7 @@ import  prepareLocalLinks  from "src/utils/prepareLocalLinks"
 export default {
 	name: "Profile",
 	components: {
-		ProfileRoles: sunImport.ProfileRoles
+		ProfileRoles: sunImport("roles","ProfileRoles"),
 	},
 	mixins: [Page],
 	props: {

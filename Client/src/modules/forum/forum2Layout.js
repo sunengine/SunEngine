@@ -34,7 +34,7 @@ export default {
 				path: "/" + nameLower,
 				components: {
 					default: sunImport.Thread,
-					navigation: sunImport.ForumPanel
+					navigation: sunImport("forum","ForumPanel"),
 				},
 				props: {
 					default: {
@@ -53,7 +53,7 @@ export default {
 				path: `/${nameLower}/:categoryName`,
 				components: {
 					default: sunImport.Thread,
-					navigation: sunImport.ForumPanel
+					navigation: sunImport("forum","ForumPanel"),
 				},
 				props: {
 					default: route => {
@@ -73,7 +73,7 @@ export default {
 				path: `/${nameLower}/:categoryName/:idOrName`,
 				components: {
 					default: sunImport.Material,
-					navigation: sunImport.ForumPanel
+					navigation: sunImport("forum","ForumPanel"),
 				},
 				props: {
 					default: route => {

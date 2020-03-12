@@ -110,8 +110,8 @@
 </template>
 
 <script>
-import { htmlTextSizeOrHasImage } from "sun";
-import { isJson } from "sun";
+import { htmlTextSizeOrHasImage } from "utils";
+import { isJson } from "utils";
 
 function createRules() {
 	return {
@@ -162,7 +162,7 @@ function createRules() {
 export default {
 	name: "MaterialForm",
 	components: {
-		CategoriesInput: sunImport.CategoriesInput
+		CategoriesInput: sunImport("material","CategoriesInput"),
 	},
 	props: {
 		material: {

@@ -30,7 +30,7 @@
 export default {
 	name: "CreateCategory",
 	components: {
-		CategoryForm: adminImport.CategoryForm
+		CategoryForm: sunImport("categories","CategoryForm"),
 	},
 	mixins: [Page],
 	props: {

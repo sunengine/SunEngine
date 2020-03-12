@@ -67,7 +67,7 @@
 
 <script>
 import { Page } from "mixins";
-import { emailRules } from "sun";
+import { emailRules } from "utils";
 
 function createRules() {
 	return {

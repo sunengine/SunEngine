@@ -11,7 +11,7 @@ export default {
 	name: "SettingsPage",
 	components: {
 		SettingsMenu: sunImport.SettingsMenu,
-		PageWrapper: sunImport.PageWrapper
+		PageWrapper: sunImport("components","PageWrapper"),
 	},
 	mixins: [Page],
 	computed: {

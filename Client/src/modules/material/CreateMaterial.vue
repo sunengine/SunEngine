@@ -37,7 +37,7 @@ import { getWhereToAdd } from "sun";
 export default {
 	name: "CreateMaterial",
 	 components: {
-        MaterialForm: sunImport.MaterialForm 
+        MaterialForm: sunImport("material","MaterialForm"), 
 	 },
 	mixins: [Page],
 	props: {

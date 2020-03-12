@@ -142,12 +142,11 @@
 </template>
 
 <script>
-import adminImport from "../../index/adminImport";
 
 export default {
 	name: "MenuAdminItem",
 	components: {
-		MenuAdminItem: adminImport.MenuAdminItem
+		MenuAdminItem: sunImport("menuItems","MenuAdminItem"),
 	},
 	props: {
 		menuItem: {

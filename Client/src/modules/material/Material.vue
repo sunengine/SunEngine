@@ -138,7 +138,7 @@ export default {
 	components: {
 		CommentContainer: sunImport.CommentContainer,
 		CreateComment: sunImport.CreateComment,
-		Article: sunImport.Article
+		Article: sunImport("articles","Article"),
 	},
 	mixins: [Page],
 	props: {

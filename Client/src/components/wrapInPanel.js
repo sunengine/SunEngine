@@ -1,5 +1,5 @@
 ﻿import { extend } from "quasar";
-import { PanelWrapper } from "sun";
+import { PanelWrapper } from "components";
 
 export default function(name, wrapComponent, title, titleLink, icon) {
 	const panelWrapper = extend(true, {}, PanelWrapper);

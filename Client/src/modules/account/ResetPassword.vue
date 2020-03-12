@@ -39,13 +39,12 @@
 </template>
 
 <script>
-import { emailRules } from "sun";
-import sunImport from "../../index/sunImport";
+import { emailRules } from "utils";
 
 export default {
 	name: "ResetPassword",
 	components: {
-		Captcha: sunImport.Captcha
+		Captcha: sunImport("components","Captcha"),
 	},
 	mixins: [Page],
 	data() {

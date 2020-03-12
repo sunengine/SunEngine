@@ -1,18 +1,20 @@
+const SettingsPanel = sunImport("sun", "SettingsPanel");
+
 const routes = [
 	{
 		name: "ChangeLink",
 		path: "/personal/ChangeLink".toLowerCase(),
 		components: {
-			default: sunImport.ChangeLink,
-			navigation: sunImport.SettingsPanel
+			default: sunImport("personal","ChangeLink"),
+			navigation: SettingsPanel
 		}
 	},
 	{
 		name: "ChangeName",
 		path: "/personal/ChangeName".toLowerCase(),
 		components: {
-			default: sunImport.ChangeName,
-			navigation: sunImport.SettingsPanel
+			default: sunImport("personal","ChangeName"),
+			navigation: SettingsPanel
 		}
 	},
 	{
@@ -22,47 +24,47 @@ const routes = [
 			name: "ProfileInSettings"
 		},
 		components: {
-			default: sunImport.SettingsPage
+			default: sunImport("personal", "SettingsPage")
 		}
 	},
 	{
 		name: "LoadPhoto",
 		path: "/personal/LoadPhoto".toLowerCase(),
 		components: {
-			default: sunImport.LoadPhoto,
-			navigation: sunImport.SettingsPanel
+			default: sunImport("personal","LoadPhoto"),
+			navigation: SettingsPanel
 		}
 	},
 	{
 		name: "EditInformation",
 		path: "/personal/EditInformation".toLowerCase(),
 		components: {
-			default: sunImport.EditInformation,
-			navigation: sunImport.SettingsPanel
+			default: sunImport("personal","EditInformation"),
+			navigation: SettingsPanel
 		}
 	},
 	{
 		name: "Sessions",
 		path: "/personal/Sessions".toLowerCase(),
 		components: {
-			default: sunImport.Sessions,
-			navigation: sunImport.SettingsPanel
+			default: sunImport("personal","Sessions"),
+			navigation: SettingsPanel
 		}
 	},
 	{
 		name: "MyBanList",
 		path: "/personal/MyBanList".toLowerCase(),
 		components: {
-			default: sunImport.MyBanList,
-			navigation: sunImport.SettingsPanel
+			default: sunImport("personal","MyBanList"),
+			navigation: SettingsPanel
 		}
 	},
 	{
 		name: "ProfileInSettings",
 		path: "/personal/Profile".toLowerCase(),
 		components: {
-			default: sunImport.Profile,
-			navigation: sunImport.SettingsPanel
+			default: sunImport("profile","Profile"),
+			navigation: SettingsPanel
 		},
 		props: {
 			default: () => {

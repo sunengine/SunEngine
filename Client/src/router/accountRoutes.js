@@ -1,9 +1,10 @@
+const SettingsPanel = sunImport("sun", "SettingsPanel");
 
 const routes = [
 	{
 		name: "ResetPassword",
 		path: "/account/ResetPassword".toLowerCase(),
-		component: sunImport.ResetPassword,
+		component: sunImport("account", "ResetPassword"),
 		meta: {
 			roles: ["Unregistered"]
 		}
@@ -11,7 +12,7 @@ const routes = [
 	{
 		name: "ResetPasswordSetNew",
 		path: "/account/ResetPasswordSetNew".toLowerCase(),
-		component: sunImport.ResetPasswordSetNew,
+		component: sunImport("account", "ResetPasswordSetNew"),
 		meta: {
 			roles: ["Unregistered"]
 		}
@@ -19,7 +20,7 @@ const routes = [
 	{
 		name: "ResetPasswordFailed",
 		path: "/account/ResetPasswordFailed".toLowerCase(),
-		component: sunImport.ResetPasswordFailed,
+		component: sunImport("account", "ResetPasswordFailed"),
 		meta: {
 			roles: ["Unregistered"]
 		}
@@ -28,8 +29,8 @@ const routes = [
 		name: "ChangePassword",
 		path: "/account/ChangePassword".toLowerCase(),
 		components: {
-			default: sunImport.ChangePassword,
-			navigation: sunImport.SettingsPanel
+			default: sunImport("account", "ChangePassword"),
+			navigation: SettingsPanel
 		},
 		meta: {
 			roles: ["Registered"]
@@ -39,8 +40,8 @@ const routes = [
 		name: "ChangeEmail",
 		path: "/account/ChangeEmail".toLowerCase(),
 		components: {
-			default: sunImport.ChangeEmail,
-			navigation: sunImport.SettingsPanel
+			default: sunImport("account", "ChangeEmail"),
+			navigation: SettingsPanel
 		},
 		meta: {
 			roles: ["Registered"]
@@ -50,8 +51,8 @@ const routes = [
 		name: "ChangeEmailResult",
 		path: "/account/ChangeEmailResult".toLowerCase(),
 		components: {
-			default: sunImport.ChangeEmailResult,
-			navigation: sunImport.SettingsPanel
+			default: sunImport("account", "ChangeEmailResult"),
+			navigation: SettingsPanel
 		}
 	}
 ];

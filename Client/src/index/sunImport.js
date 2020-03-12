@@ -148,8 +148,4 @@ export const moduleTable = {
 		const module = await import("src/index/site.js");
 		return module.default;
 	},
-"i18n": async function() {
-		const module = await import("src/index/i18n.js");
-		return module.default;
-	},
 };

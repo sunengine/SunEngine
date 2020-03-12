@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { htmlTextSizeOrHasImage } from "sun";
+import { htmlTextSizeOrHasImage } from "utils";
 
 export default {
 	name: "CreateComment",

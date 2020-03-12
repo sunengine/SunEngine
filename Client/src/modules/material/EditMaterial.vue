@@ -70,7 +70,7 @@ export default {
 	name: "EditMaterial",
 	mixins: [Page],
 	components: {
-		MaterialForm: sunImport.MaterialForm
+		MaterialForm: sunImport("material","MaterialForm"),
 	},
 	props: {
 		id: {

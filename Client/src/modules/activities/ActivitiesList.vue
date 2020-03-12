@@ -15,7 +15,7 @@
 export default {
 	name: "ActivitiesList",
 	components: {
-		Activity: sunImport.Activity
+		Activity: sunImport("activities","Activity"),
 	},
 	props: {
 		sectionName: {

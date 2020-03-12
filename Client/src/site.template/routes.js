@@ -5,13 +5,13 @@ const siteRoutes = [
 	{
 		name: "Home",
 		path: "/",
-		component: sunImport.IndexPage
+		component: sunImport("pages","IndexPage"),
 	},
 	{
 		name: "PostsAndActivitiesPage",
 		path: "/PostsAndActivitiesPage".toLowerCase(),
 		components: {
-			default: sunImport.PostsAndActivitiesPage
+			default: sunImport("pages","PostsAndActivitiesPage"),
 		},
 		props: {
 			default: () => {
@@ -28,7 +28,7 @@ const siteRoutes = [
 		name: "MaterialInlinePage",
 		path: "/MaterialInlinePage".toLowerCase(),
 		components: {
-			default: sunImport.MaterialInlinePage
+			default: sunImport("material","MaterialInlinePage"),
 		}
 	},
 	{
