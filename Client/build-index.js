@@ -16,7 +16,7 @@ const dirs = [
 	"admin",
 	"api",
 	"classes",
-	"components",
+	"comp",
 	"mixins",
 	"shared",
 	"modules",
@@ -53,7 +53,7 @@ class IndexDic {
 
 		for (let i = 0; i < arr.length; i++) {
 			text += arr[i].line;
-			if (i !== arr.length - 1) text += ";\n";
+			text += ";\n";
 		}
 
 		return text;
@@ -75,21 +75,16 @@ for (const [name, index] of Object.entries(indexes)) {
 makeSunImport();
 
 function makeSunImport() {
-	let imports = `export default async function sunImport(module, component)  {
-	const mod = await moduleTable[module]();
-	return mod[component];
-}
-
-export const moduleTable = {\n`;
+	let imports = `export default {\n`;
 	for (const name of Object.keys(indexes)) {
 		imports += `"${name}": async function() {
 		const module = await import("src/index/${name}.js");
 		return module.default;
 	},\n`;
 	}
-	imports += "};";
+	imports += "}";
 
-	fs.writeFileSync(`./src/index/sunImport.js`, imports);
+	fs.writeFileSync(`./src/index/sunTable.js`, imports);
 }
 
 console.log(

@@ -121,7 +121,7 @@ function createRules() {
 export default {
 	name: "Register",
 	components: {
-		Captcha: sunImport("components","Captcha"),
+		Captcha: sunImport("comp","Captcha"),
 	},
 	mixins: [Page],
 	data() {

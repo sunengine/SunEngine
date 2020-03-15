@@ -9,7 +9,7 @@ export default async ({ app, Vue }) => {
 		fallbackLocale: "en-us",
 		messages
 	});
-	app.i18n = i18n;
+	app.$i18n = app.i18n = i18n;
 	Vue.prototype.i18n = i18n;
 
 	Vue.prototype.$tl = function(key, ...values) {

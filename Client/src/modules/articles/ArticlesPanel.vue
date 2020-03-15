@@ -21,7 +21,7 @@
 export default {
 	name: "ArticlesPanel",
 	components: {
-		PanelWrapper: sunImport("components","PanelWrapper"),
+		PanelWrapper: sunImport("comp","PanelWrapper"),
 	},
 	props: {
 		categories: {

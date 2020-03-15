@@ -1,1 +1,1 @@
-export menuState from 'src/store/menu/menuState.js'
+export menuState from 'src/store/menu/menuState.js';

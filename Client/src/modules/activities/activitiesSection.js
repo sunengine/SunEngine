@@ -11,7 +11,7 @@ export default {
 				name: `comp-${name}`,
 				path: "/" + nameLower,
 				components: {
-					default: sunImport.ActivitiesPage,
+					default: sunImport("activities","ActivitiesPage"),
 					navigation: null
 				},
 				props: {

@@ -1,6 +1,5 @@
-﻿import { PanelWrapper } from "components";
-import { PageWrapper } from "components";
-import { Page } from "mixins";
+﻿import { PanelWrapper } from "comp";
+import { PageWrapper } from "comp";
 import { extend } from "quasar";
 
 export default function wrapInPage(name, wrapComponent, title, icon) {

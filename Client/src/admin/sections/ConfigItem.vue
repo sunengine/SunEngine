@@ -119,7 +119,7 @@ import { jsonRules } from "utils";
 export default {
 	name: "ConfigItem",
 	components: {
-		CategoriesInput: sunImport("components", "CategoriesInput")
+		CategoriesInput: sunImport("comp", "CategoriesInput")
 	},
 	props: {
 		item: {

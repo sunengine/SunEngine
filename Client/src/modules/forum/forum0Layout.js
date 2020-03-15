@@ -20,7 +20,7 @@ export default {
 				name: `cat-${name}`,
 				path: "/" + nameLower,
 				components: {
-					default: sunImport("forum","Thread"),
+					default: sunImport("forum", "Thread")
 				},
 				props: {
 					default: {
@@ -36,7 +36,7 @@ export default {
 				name: `cat-${name}-mat`,
 				path: `/${nameLower}/:idOrName`,
 				components: {
-					default: sunImport.Material,
+					default: sunImport("material", "Material"),
 					navigation: null
 				},
 				props: {

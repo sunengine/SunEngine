@@ -7,4 +7,4 @@ export registerAllLayouts from 'src/store/layouts/actions/registerAllLayouts.js'
 export loadAllMenuItems from 'src/store/menu/actions/loadAllMenuItems.js';
 export loadAllSections from 'src/store/sections/actions/loadAllSections.js';
 export makeRoutesFromSections from 'src/store/sections/actions/makeRoutesFromSections.js';
-export registerAllSectionsTypes from 'src/store/sections/actions/registerAllSectionsTypes.js'
+export registerAllSectionsTypes from 'src/store/sections/actions/registerAllSectionsTypes.js';

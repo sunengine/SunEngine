@@ -1,4 +1,5 @@
 ﻿import { buildPath } from "utils";
+import { request } from "utils";
 
 export function getDynamicConfig() {
 	return request(Api.Configuration.GetDynamicConfig).then(response => {

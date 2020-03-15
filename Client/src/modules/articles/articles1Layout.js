@@ -27,12 +27,12 @@
 				name: `cat-${name}`,
 				path: "/" + nameLower,
 				components: {
-					default: sunImport.ArticlesMultiCatPage,
+					default: sunImport("articles","ArticlesMultiCatPage"),
 					navigation: sunImport("articles","ArticlesPanel"),
 				},
 				props: {
 					default: { categoriesNames: nameLower, pageTitle: category.title },
-					navigation: { categories: sunImport.Categories1, categoryName: name }
+					navigation: { categories: sunImport("categories","Categories1"), categoryName: name }
 				},
 				meta: {
 					category: category
@@ -42,12 +42,12 @@
 				name: `cat-${name}-cat`,
 				path: `/${nameLower}/:categoryName`,
 				components: {
-					default: sunImport.ArticlesPage,
+					default: sunImport("articles","ArticlesPage"),
 					navigation: sunImport("articles","ArticlesPanel"),
 				},
 				props: {
 					default: true,
-					navigation: { categories: sunImport.Categories1, categoryName: name }
+					navigation: { categories: sunImport("categories","Categories1"), categoryName: name }
 				},
 				meta: {
 					category: category
@@ -57,7 +57,7 @@
 				name: `cat-${name}-cat-mat`,
 				path: `/${nameLower}/:categoryName/:idOrName`,
 				components: {
-					default: sunImport.Material,
+					default: sunImport("material","Material"),
 					navigation: sunImport("articles","ArticlesPanel"),
 				},
 				props: {
@@ -67,7 +67,7 @@
 							idOrName: route.params.idOrName
 						};
 					},
-					navigation: { categories: sunImport.Categories1, categoryName: name }
+					navigation: { categories: sunImport("categories","Categories1"), categoryName: name }
 				},
 				meta: {
 					category: category

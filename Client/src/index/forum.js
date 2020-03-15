@@ -5,4 +5,4 @@ export ForumPanel from 'src/modules/forum/ForumPanel.vue';
 export getNewTopics from 'src/modules/forum/methods/getNewTopics.js';
 export getThreadTopics from 'src/modules/forum/methods/getThreadTopics.js';
 export Thread from 'src/modules/forum/Thread.vue';
-export Topic from 'src/modules/forum/Topic.vue'
+export Topic from 'src/modules/forum/Topic.vue';

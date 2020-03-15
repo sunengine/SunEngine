@@ -7,4 +7,4 @@ export canDeleteMaterial from 'src/modules/material/methods/canDeleteMaterial.js
 export canRestoreMaterial from 'src/modules/material/methods/canRestoreMaterial.js';
 export deleteMaterial from 'src/modules/material/methods/deleteMaterial.js';
 export * from 'src/modules/material/methods/getWhereToAddMove.js';
-export restoreMaterial from 'src/modules/material/methods/restoreMaterial.js'
+export restoreMaterial from 'src/modules/material/methods/restoreMaterial.js';

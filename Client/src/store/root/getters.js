@@ -1,4 +1,4 @@
-import { InitializeState } from "sun";
+import { InitializeState } from "storeInd";
 
 export function isInitialized(state) {
 	return state.initializeState === InitializeState.Done;

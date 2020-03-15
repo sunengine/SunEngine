@@ -4,4 +4,4 @@ export categories from 'src/store/index/categories.js';
 export layouts from 'src/store/index/layouts.js';
 export menu from 'src/store/index/menu.js';
 export root from 'src/store/index/root.js';
-export sections from 'src/store/index/sections.js'
+export sections from 'src/store/index/sections.js';

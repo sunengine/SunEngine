@@ -1,8 +1,9 @@
 import { hasLongToken } from "utils";
 import { consoleInit } from "utils";
-import { InitializeState } from "sun";
-import { getDynamicConfig } from "sun";
-import { makeBreadcrumbs } from "components";
+import { InitializeState } from "storeInd";
+import { getDynamicConfig } from "utils";
+import { makeBreadcrumbs } from "comp";
+import { app } from "App";
 
 import Vue from "vue";
 

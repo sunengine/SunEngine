@@ -6,4 +6,4 @@ export MyBanList from 'src/modules/personal/MyBanList.vue';
 export Sessions from 'src/modules/personal/Sessions.vue';
 export SettingsMenu from 'src/modules/personal/SettingsMenu.vue';
 export SettingsPage from 'src/modules/personal/SettingsPage.vue';
-export SettingsPanel from 'src/modules/personal/SettingsPanel.vue'
+export SettingsPanel from 'src/modules/personal/SettingsPanel.vue';

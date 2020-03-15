@@ -33,7 +33,7 @@ export default {
 				name: `cat-${name}`,
 				path: "/" + nameLower,
 				components: {
-					default: sunImport.Thread,
+					default: sunImport("forum", "Thread"),
 					navigation: sunImport("forum", "ForumPanel")
 				},
 				props: {
@@ -42,7 +42,10 @@ export default {
 						loadTopics: getNewTopics,
 						pageTitle: category.title + app.$t("Thread.titlePartNewTopics")
 					},
-					navigation: { categories: sunImport.Categories2, categoryName: name }
+					navigation: {
+						categories: sunImport("categories", "Categories1"),
+						categoryName: name
+					}
 				},
 				meta: {
 					category: category
@@ -52,7 +55,7 @@ export default {
 				name: `cat-${name}-cat`,
 				path: `/${nameLower}/:categoryName`,
 				components: {
-					default: sunImport.Thread,
+					default: sunImport("forum", "Thread"),
 					navigation: sunImport("forum", "ForumPanel")
 				},
 				props: {
@@ -62,7 +65,10 @@ export default {
 							loadTopics: getThreadTopics
 						};
 					},
-					navigation: { categories: sunImport.Categories2, categoryName: name }
+					navigation: {
+						categories: sunImport("categories", "Categories1"),
+						categoryName: name
+					}
 				},
 				meta: {
 					category: category
@@ -72,7 +78,7 @@ export default {
 				name: `cat-${name}-cat-mat`,
 				path: `/${nameLower}/:categoryName/:idOrName`,
 				components: {
-					default: sunImport.Material,
+					default: sunImport("material", "Material"),
 					navigation: sunImport("forum", "ForumPanel")
 				},
 				props: {
@@ -82,7 +88,10 @@ export default {
 							idOrName: route.params.idOrName
 						};
 					},
-					navigation: { categories: sunImport.Categories2, categoryName: name }
+					navigation: {
+						categories: sunImport("categories", "Categories1"),
+						categoryName: name
+					}
 				},
 				meta: {
 					category: category

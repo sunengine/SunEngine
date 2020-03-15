@@ -5,4 +5,5 @@ export sectionsModule from "./sections";
 export layoutsModule from "./layouts";
 export menuModule from "./menu";
 export rootModule from "./root";
-export * from "store";
+export * from "./root";
+export * from "src/store/index";

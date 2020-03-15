@@ -5,4 +5,4 @@ export articlesLayout from 'src/modules/articles/articlesLayout.js';
 export ArticlesList from 'src/modules/articles/ArticlesList.vue';
 export ArticlesMultiCatPage from 'src/modules/articles/ArticlesMultiCatPage.vue';
 export ArticlesPage from 'src/modules/articles/ArticlesPage.vue';
-export ArticlesPanel from 'src/modules/articles/ArticlesPanel.vue'
+export ArticlesPanel from 'src/modules/articles/ArticlesPanel.vue';

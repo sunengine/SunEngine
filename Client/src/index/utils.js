@@ -15,7 +15,8 @@ export prepareLocalLinks from 'src/utils/prepareLocalLinks.js';
 export request from 'src/utils/request.js';
 export routeCheckAccess from 'src/utils/routeCheckAccess.js';
 export routeHasAccess from 'src/utils/routeHasAccess.js';
+export sunImport from 'src/utils/sunImport.js';
 export throttle from 'src/utils/throttle.js';
 export * from 'src/utils/tokens.js';
 export * from 'src/utils/userValidationRules.js';
-export validateFileSize from 'src/utils/validateFileSize.js'
+export validateFileSize from 'src/utils/validateFileSize.js';

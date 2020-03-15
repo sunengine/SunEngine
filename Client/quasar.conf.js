@@ -63,7 +63,7 @@ module.exports = function(ctx) {
 			// analyze: true,
 			// extractCSS: false,
 			extendWebpack(cfg) {
-				//cfg.resolve.alias.sunImport = path.resolve("./src/index/sunImport.js");
+				cfg.resolve.alias.storeInd = path.resolve("./src/store/index/index.js");
  
 				cfg.resolve.modules.push(path.resolve("./src"));
 				cfg.resolve.modules.push(path.resolve("./src/index"));
@@ -78,7 +78,7 @@ module.exports = function(ctx) {
 				cfg.plugins.push(
 					new webpack.ProvidePlugin({
 						Vue: ['vue', 'default'],
-						sunImport: ['src/index/sunImport', 'default'],
+						sunImport: ['src/utils/sunImport', 'default'],
 						router: ['src/router/index.js', 'router'],
 						request: ['src/utils/request', 'default'],
 						Api: ['src/api/Api', 'default'],

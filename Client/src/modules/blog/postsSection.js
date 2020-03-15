@@ -11,7 +11,7 @@ export default {
 				name: `comp-${name}`,
 				path: "/" + nameLower,
 				components: {
-					default: sunImport.BlogMultiCatPage,
+					default: sunImport("blog","BlogMultiCatPage"),
 					navigation: null
 				},
 				props: {

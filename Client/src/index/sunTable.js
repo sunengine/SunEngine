@@ -1,9 +1,4 @@
-export default async function sunImport(module, component)  {
-	const mod = await moduleTable[module]();
-	return mod[component];
-}
-
-export const moduleTable = {
+export default {
 "admin": async function() {
 		const module = await import("src/index/admin.js");
 		return module.default;
@@ -36,8 +31,8 @@ export const moduleTable = {
 		const module = await import("src/index/classes.js");
 		return module.default;
 	},
-"components": async function() {
-		const module = await import("src/index/components.js");
+"comp": async function() {
+		const module = await import("src/index/comp.js");
 		return module.default;
 	},
 "icons": async function() {
@@ -148,4 +143,4 @@ export const moduleTable = {
 		const module = await import("src/index/site.js");
 		return module.default;
 	},
-};
+}

@@ -48,7 +48,7 @@
 export default {
 	name: "MenuItem",
 	components: {
-		MenuItem: sunImport("components", "MenuItem")
+		MenuItem: sunImport("comp", "MenuItem")
 	},
 	props: {
 		menuItem: {

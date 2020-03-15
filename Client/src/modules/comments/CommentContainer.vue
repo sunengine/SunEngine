@@ -27,9 +27,9 @@ import { date } from "quasar";
 export default {
 	name: "CommentContainer",
 	components: {
-		Comment: sunImport.Comment,
-		EditComment: sunImport.EditComment,
-		DeletedComment: sunImport("comments","DeletedComment"),
+		Comment: sunImport("comments","Comment"),
+		EditComment: sunImport("comments","EditComment"),
+		DeletedComment: sunImport("comments","DeletedComment")
 	},
 	props: {
 		comment: Object,

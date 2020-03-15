@@ -1,14 +1,13 @@
-import Vue from "vue";
 import Vuex from "vuex";
 
-import { authModule as auth } from "sun";
-import { categoriesModule as categories } from "sun";
-import { sectionsModule as sections } from "sun";
-import { menuModule as menu } from "sun";
-import { adminModule as admin } from "sun";
-import { layoutsModule as layouts } from "sun";
-import { rootModule } from "sun";
-import { initLongTokenFromLocalStorage } from "sun";
+import { authModule as auth } from "storeInd";
+import { categoriesModule as categories } from "storeInd";
+import { sectionsModule as sections } from "storeInd";
+import { menuModule as menu } from "storeInd";
+import { adminModule as admin } from "storeInd";
+import { layoutsModule as layouts } from "storeInd";
+import { rootModule } from "storeInd";
+import { initLongTokenFromLocalStorage } from "utils";
 
 Vue.use(Vuex);
 

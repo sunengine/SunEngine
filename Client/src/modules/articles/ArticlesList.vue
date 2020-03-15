@@ -14,7 +14,7 @@
 export default {
 	name: "ArticlesList",
 	components: {
-		Article: sunImport("articles","Article"),
+		Article: sunImport("articles", "Article")
 	},
 	props: {
 		articles: {

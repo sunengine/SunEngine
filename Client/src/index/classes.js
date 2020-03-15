@@ -1,1 +1,1 @@
-export Category from 'src/classes/Category.js'
+export Category from 'src/classes/Category.js';

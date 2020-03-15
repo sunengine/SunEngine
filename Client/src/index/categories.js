@@ -6,4 +6,4 @@ export CreateCategory from 'src/admin/categories/CreateCategory.vue';
 export EditCategory from 'src/admin/categories/EditCategory.vue';
 export Categories1 from 'src/modules/categories/Categories1.vue';
 export Categories2 from 'src/modules/categories/Categories2.vue';
-export categoriesState from 'src/store/categories/categoriesState.js'
+export categoriesState from 'src/store/categories/categoriesState.js';

@@ -23,7 +23,7 @@
 export default {
 	name: "MainMenu",
 	components: {
-		MenuItem: sunImport("components", "MenuItem")
+		MenuItem: sunImport("comp", "MenuItem")
 	},
 	computed: {
 		menu() {

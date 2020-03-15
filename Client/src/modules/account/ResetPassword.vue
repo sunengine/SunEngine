@@ -44,7 +44,7 @@ import { emailRules } from "utils";
 export default {
 	name: "ResetPassword",
 	components: {
-		Captcha: sunImport("components","Captcha"),
+		Captcha: sunImport("comp","Captcha"),
 	},
 	mixins: [Page],
 	data() {

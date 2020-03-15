@@ -145,17 +145,17 @@
 
 <script>
 import { mapState } from "vuex";
-import prepareLocalLinks from "src/utils/prepareLocalLinks"
+import { prepareLocalLinks } from "utils";
 
 export default {
 	name: "Layout",
 	components: {
-		Breadcrumbs: sunImport.Breadcrumbs,
-		UserMenu: sunImport.UserMenu,
-		LoginRegisterMenu: sunImport.LoginRegisterMenu,
-		MainMenu: sunImport.MainMenu,
-		SunEngineFooter: sunImport.SunEngineFooter,
-		LinksMenu: sunImport("components","LinksMenu"),
+		Breadcrumbs: sunImport("comp","Breadcrumbs"),
+		UserMenu: sunImport("auth","UserMenu"),
+		LoginRegisterMenu: sunImport("auth","LoginRegisterMenu"),
+		MainMenu: sunImport("comp","MainMenu"),
+		SunEngineFooter: sunImport("layouts","SunEngineFooter"),
+		LinksMenu: sunImport("comp","LinksMenu"),
 	},
 	data() {
 		return {
