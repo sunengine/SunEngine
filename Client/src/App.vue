@@ -31,9 +31,6 @@ var app;
 
 export default {
 	name: "App",
-	components: {
-		Layout: sunImport("layouts","Layout"),
-	},
 	data() {
 		return {
 			rerenderKey: 1
@@ -63,6 +60,7 @@ export default {
 	},
 	beforeCreate() {
 		app = this;
+		this.$options.components.Layout = sunImport("layouts","Layout");
 	}
 };
 

@@ -13,9 +13,6 @@
 <script>
 export default {
 	name: "ActivitiesPage",
-	components: {
-		ActivitiesList: sunImport("activities","ActivitiesList"),
-	},
 	mixins: [Page],
 	props: {
 		sectionName: {
@@ -30,7 +27,8 @@ export default {
 	},
 	beforeCreate() {
 		this.$options.centered = true;
-	},
+		this.$options.components.ActivitiesList = sunImport("activities","ActivitiesList");
+   },
 	created() {
 		this.title = this.section.options.Title ?? this.$tl("defaultTitle");
 	}

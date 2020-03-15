@@ -39,9 +39,6 @@ import { Pagination } from "mixins";
 
 export default {
 	name: "ArticlesMultiCatPage",
-	components: {
-		ArticlesList: sunImport("articles","ArticlesList"),
-	},
 	mixins: [Page, Pagination],
 	props: {
 		pageTitle: {
@@ -108,6 +105,9 @@ export default {
 					this.$refs.loader.fail();
 				});
 		}
+	},
+	beforeCreate() {
+		this.$options.ArticlesList = sunImport("articles", "ArticlesList");
 	},
 	created() {
 		this.title = this.pageTitle;

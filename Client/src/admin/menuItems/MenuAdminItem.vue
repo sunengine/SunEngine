@@ -145,9 +145,6 @@
 
 export default {
 	name: "MenuAdminItem",
-	components: {
-		MenuAdminItem: sunImport("menuItems","MenuAdminItem"),
-	},
 	props: {
 		menuItem: {
 			type: Object,
@@ -186,7 +183,10 @@ export default {
 		goExternal() {
 			if (this.menuItem.externalUrl) window.open(this.menuItem.externalUrl);
 		}
-	}
+	},
+	 beforeCreate() {
+	    this.$options.MenuAdminItem = sunImport("menuItems","MenuAdminItem");
+    }
 };
 </script>
 

@@ -42,9 +42,6 @@
 <script>
 export default {
 	name: "EditMenuItem",
-	components: {
-		MenuItemForm: sunImport("menuItems","MenuItemForm"),
-	},
 	mixins: [Page],
 	props: {
 		menuItemId: {
@@ -112,6 +109,12 @@ export default {
 				this.menuItem = response.data;
 			});
 		}
+	},
+	beforeCreate() {
+		this.$options.components.MenuItemForm = sunImport(
+			"menuItems",
+			"MenuItemForm"
+		);
 	},
 	created() {
 		this.title = this.$tl("title");

@@ -116,9 +116,6 @@ import { Page } from "mixins";
 export default {
 	name: "ConfigurationAdmin",
 	mixins: [Page],
-	components: {
-		ConfigItem: sunImport("","ConfigItem")
-	},
 	data() {
 		return {
 			filter: "",
@@ -319,9 +316,9 @@ export default {
 			});
 		}
 	},
-	/*	beforeCreate() {
-		this.$options.components.ConfigItem = adminImport.ConfigItem;
-	},*/
+	beforeCreate() {
+		this.$options.components.ConfigItem = sunImport("sections", "ConfigItem");
+	},
 	async created() {
 		this.filterItems = this.$throttle(this.filterItems, 1000);
 		this.title = this.$tl("title");

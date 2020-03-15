@@ -20,9 +20,6 @@
 <script>
 export default {
 	name: "ArticlesPanel",
-	components: {
-		PanelWrapper: sunImport("comp","PanelWrapper"),
-	},
 	props: {
 		categories: {
 			type: [Object, Function],
@@ -40,6 +37,9 @@ export default {
 		newArticlesRoute() {
 			return this.category.getRoute();
 		}
+	},
+	beforeCreate() {
+		this.$options.components.PanelWrapper = sunImport("comp", "PanelWrapper");
 	}
 };
 </script>

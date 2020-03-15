@@ -29,9 +29,6 @@
 <script>
 export default {
 	name: "CreateCategory",
-	components: {
-		CategoryForm: sunImport("categories","CategoryForm"),
-	},
 	mixins: [Page],
 	props: {
 		parentCategoryId: {
@@ -94,6 +91,12 @@ export default {
 					this.loading = false;
 				});
 		}
+	},
+	beforeCreate() {
+		this.$options.components.CategoryForm = sunImport(
+			"categories",
+			"CategoryForm"
+		);
 	},
 	async created() {
 		this.title = this.$tl("title");

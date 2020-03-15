@@ -33,9 +33,6 @@ import { canWriteCats } from "utils";
 
 export default {
 	name: "BlogMultiCatPage",
-	components: {
-		PostsMultiCat: sunImport("blog","PostsMultiCat"),
-	},
 	mixins: [Page],
 	props: {
 		sectionName: {
@@ -86,7 +83,8 @@ export default {
 	},
 	beforeCreate() {
 		this.$options.centered = true;
-	},
+		this.$options.components.PostsMultiCat = sunImport("blog","PostsMultiCat");
+   },
 	created() {
 		this.title = this.section.options.Title;
 	}

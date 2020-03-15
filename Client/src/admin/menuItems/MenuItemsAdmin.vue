@@ -33,9 +33,6 @@
 <script>
 export default {
 	name: "MenuItemsAdmin",
-	components: {
-		MenuAdminItem: sunImport("menuItems","MenuAdminItem"),
-	},
 	mixins: [Page],
 	data() {
 		return {
@@ -146,7 +143,10 @@ export default {
 				});
 		}
 	},
-	created() {
+	 beforeCreate() {
+	    this.$options.MenuAdminItem = sunImport("menuItems","MenuAdminItem");
+    },
+    created() {
 		this.title = this.$tl("title");
 		this.loadData();
 	}

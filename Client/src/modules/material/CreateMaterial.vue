@@ -35,9 +35,6 @@
 
 export default {
 	name: "CreateMaterial",
-	components: {
-		MaterialForm: sunImport("material", "MaterialForm")
-	},
 	mixins: [Page],
 	props: {
 		categoriesNames: {
@@ -114,7 +111,10 @@ export default {
 				});
 		}
 	},
-	created() {
+	 beforeCreate() {
+        this.$options.components.MaterialForm = sunImport("material", "MaterialForm");
+    },
+    created() {
 		this.title = this.$tl("title");
 	}
 };
