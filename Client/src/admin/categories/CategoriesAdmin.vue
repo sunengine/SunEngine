@@ -33,9 +33,6 @@ import { Page } from "mixins";
 
 export default {
 	name: "CategoriesAdmin",
-	 components: {
-        CategoryItem: sunImport("categories","CategoryItem"), 
-	 },
 	mixins: [Page],
 	data() {
 		return {
@@ -86,6 +83,9 @@ export default {
 					this.$errorNotify(error);
 				});
 		}
+	},
+	beforeCreate() {
+		this.$options.components.CategoryItem = require("categories").CategoryItem;
 	},
 	created() {
 		this.title = this.$tl("title");

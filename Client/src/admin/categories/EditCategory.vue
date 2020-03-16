@@ -45,9 +45,6 @@ import { Page } from "mixins";
 
 export default {
 	name: "EditCategory",
-	components: {
-		CategoryForm: sunImport("categories","CategoryForm"),
-	},
 	mixins: [Page],
 	props: {
 		categoryId: {
@@ -131,6 +128,9 @@ export default {
 					this.loading = false;
 				});
 		}
+	},
+	beforeCreate() {
+		this.$options.components.CategoryForm = require("categories").CategoryForm;
 	},
 	async created() {
 		await this.loadData();

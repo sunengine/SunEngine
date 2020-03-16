@@ -39,7 +39,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.PanelWrapper = sunImport("comp", "PanelWrapper");
+		this.$options.components.PanelWrapper = require("comp").PanelWrapper;
 	}
 };
 </script>

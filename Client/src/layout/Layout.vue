@@ -205,10 +205,11 @@ export default {
 	beforeCreate() {
 		this.$options.components.Breadcrumbs = require("comp").Breadcrumbs;
 		this.$options.components.LoginRegisterMenu = require("auth").LoginRegisterMenu;
+		this.$options.components.UserMenu = require("auth").UserMenu;
 		this.$options.components.SunEngineFooter = require("layout").SunEngineFooter;
 		this.$options.components.LinksMenu = require("comp").LinksMenu;
 		this.$options.components.MainMenu = require("layout").MainMenu;
-   },
+	},
 	created() {
 		this.$root.$layout = this;
 	}

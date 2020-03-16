@@ -29,9 +29,6 @@
 <script>
 export default {
 	name: "CreateMenuItem",
-	components: {
-		MenuItemForm: sunImport("menuItems","MenuItemForm"),
-	},
 	mixins: [Page],
 	props: {
 		parentMenuItemId: {
@@ -89,7 +86,10 @@ export default {
 				});
 		}
 	},
-	async created() {
+	beforeCreate() {
+		this.$options.components.MenuItemForm = require("menuItems").MenuItemForm;
+	},
+	created() {
 		this.title = this.$tl("title");
 	}
 };

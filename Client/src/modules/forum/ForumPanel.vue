@@ -16,9 +16,6 @@
 <script>
 export default {
 	name: "ForumPanel",
-	components: {
-		PanelWrapper: sunImport("comp","PanelWrapper"),
-	},
 	props: {
 		categories: {
 			type: [Object, Function],
@@ -36,6 +33,9 @@ export default {
 		newTopicsRoute() {
 			return this.category?.getRoute();
 		}
+	},
+	beforeCreate() {
+		this.$options.components.PanelWrapper = require("comp").PanelWrapper;
 	}
 };
 </script>

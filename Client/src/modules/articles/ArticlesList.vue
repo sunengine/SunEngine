@@ -20,7 +20,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.Article = sunImport("articles", "Article");
+		this.$options.components.Article = require("articles").Article;
 	}
 };
 </script>

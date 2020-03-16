@@ -122,11 +122,11 @@
 </template>
 
 <script>
-import  deleteMaterial  from "./methods/deleteMaterial";
-import  restoreMaterial  from "./methods/restoreMaterial";
-import  canDeleteMaterial  from "./methods/canDeleteMaterial";
-import  canRestoreMaterial  from "./methods/canRestoreMaterial";
-import  prepareLocalLinks  from "src/utils/prepareLocalLinks";
+import deleteMaterial from "./methods/deleteMaterial";
+import restoreMaterial from "./methods/restoreMaterial";
+import canDeleteMaterial from "./methods/canDeleteMaterial";
+import canRestoreMaterial from "./methods/canRestoreMaterial";
+import prepareLocalLinks from "src/utils/prepareLocalLinks";
 
 import { copyToClipboard, date } from "quasar";
 import { scroll } from "quasar";
@@ -135,11 +135,6 @@ const { getScrollTarget, setScrollPosition } = scroll;
 
 export default {
 	name: "Material",
-	components: {
-		CommentContainer: sunImport.CommentContainer,
-		CreateComment: sunImport.CreateComment,
-		Article: sunImport("articles","Article"),
-	},
 	mixins: [Page],
 	props: {
 		idOrName: {
@@ -372,6 +367,9 @@ export default {
 	},
 	beforeCreate() {
 		this.$options.centered = true;
+		this.$options.components.CommentContainer = require("comments").CommentContainer;
+		this.$options.components.CreateComment = require("comments").CreateComment;
+		this.$options.components.Article = require("articles").Article;
 	},
 	created() {
 		this.loadData();

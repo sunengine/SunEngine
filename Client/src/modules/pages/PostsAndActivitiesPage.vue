@@ -41,11 +41,6 @@
 <script>
 export default {
 	name: "PostsAndActivitiesPage",
-	components: {
-		ActivitiesList: sunImport.ActivitiesList,
-		PostsList: sunImport.PostsList,
-		PostsMultiCat: sunImport("blog","PostsMultiCat"),
-	},
 	mixins: [Page],
 	props: {
 		pageTitle: {
@@ -89,7 +84,13 @@ export default {
 	mounted() {
 		this.mounted = true;
 	},
-	created() {
+	 beforeCreate() {
+this.$options.
+        ActivitiesList: sunImport.ActivitiesList,
+            PostsList: sunImport.PostsList,
+            PostsMultiCat: sunImport("blog","PostsMultiCat"),
+    },
+    created() {
 		this.title = this.pageTitle;
 	}
 };
