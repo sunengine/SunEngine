@@ -84,13 +84,12 @@ export default {
 	mounted() {
 		this.mounted = true;
 	},
-	 beforeCreate() {
-this.$options.
-        ActivitiesList: sunImport.ActivitiesList,
-            PostsList: sunImport.PostsList,
-            PostsMultiCat: sunImport("blog","PostsMultiCat"),
-    },
-    created() {
+	beforeCreate() {
+		this.$options.components.ActivitiesList = require("activities").ActivitiesList;
+		this.$options.components.PostsList = require("blog").PostsList;
+		this.$options.components.PostsMultiCat = require("blog").PostsMultiCat;
+	},
+	created() {
 		this.title = this.pageTitle;
 	}
 };

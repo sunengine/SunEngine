@@ -85,7 +85,6 @@
 </template>
 
 <script>
-
 function createRules() {
 	return {
 		name: [
@@ -113,9 +112,6 @@ function createRules() {
 
 export default {
 	name: "SectionForm",
-	components: {
-		ConfigItem: sunImport("sections","ConfigItem"),
-	},
 	props: {
 		section: {
 			type: Object,
@@ -165,6 +161,9 @@ export default {
 				);
 			});
 		}
+	},
+	beforeCreate() {
+		this.$options.components.ConfigItem = require("sections").ConfigItem;
 	},
 	created() {
 		this.rules = createRules.call(this);

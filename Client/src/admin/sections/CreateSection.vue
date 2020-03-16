@@ -37,9 +37,6 @@
 <script>
 export default {
 	name: "CreateSection",
-	components: {
-		SectionForm: sunImport("sections","SectionForm"),
-	},
 	mixins: [Page],
 	props: {
 		templateName: {
@@ -93,6 +90,9 @@ export default {
 					this.loading = false;
 				});
 		}
+	},
+	beforeCreate() {
+		this.$options.components.SectionForm = require("sections").SectionForm;
 	},
 	created() {
 		this.title = this.$tl("title");

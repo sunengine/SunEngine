@@ -9,10 +9,10 @@
 <script>
 export default {
 	name: "SettingsPanel",
-	components: {
-		PanelWrapper: sunImport.PanelWrapper,
-		SettingsMenu: sunImport("personal","SettingsMenu"),
-	}
+	beforeCreate() {
+	    this.$options.components.PanelWrapper = require("comp").PanelWrapper;
+       this.$options.components.SettingsMenu = require("personal").SettingsMenu;
+   }
 };
 </script>
 

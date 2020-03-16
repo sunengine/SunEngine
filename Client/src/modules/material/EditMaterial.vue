@@ -60,18 +60,15 @@
 </template>
 
 <script>
-import { getWhereToMove } from  "./methods/getWhereToAddMove";
-import  deleteMaterial  from "./methods/deleteMaterial";
-import  restoreMaterial  from "./methods/restoreMaterial";
-import  canDeleteMaterial  from "./methods/canDeleteMaterial";
-import  canRestoreMaterial  from "./methods/canRestoreMaterial";
+import { getWhereToMove } from  "material";
+import  deleteMaterial  from "material";
+import  restoreMaterial  from "material";
+import  canDeleteMaterial  from "material";
+import  canRestoreMaterial  from "material";
 
 export default {
 	name: "EditMaterial",
 	mixins: [Page],
-	components: {
-		MaterialForm: sunImport("material","MaterialForm"),
-	},
 	props: {
 		id: {
 			type: Number,
@@ -159,7 +156,10 @@ export default {
 			});
 		}
 	},
-	created() {
+	 beforeCreate() {
+	    this.$options.components.MaterialForm = require("material").MaterialForm;
+    },
+    created() {
 		this.title = this.$tl("title");
 		this.loadData();
 	}

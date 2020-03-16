@@ -9,10 +9,6 @@
 <script>
 export default {
 	name: "SettingsPage",
-	components: {
-		SettingsMenu: sunImport.SettingsMenu,
-		PageWrapper: sunImport("comp","PageWrapper"),
-	},
 	mixins: [Page],
 	computed: {
 		breadcrumbsCategory() {
@@ -21,6 +17,10 @@ export default {
 	},
 	created() {
 		this.title = this.$tl("title") + " " + this.$store.state.auth.user.name;
+	},
+	beforeCreate() {
+		this.$options.components.SettingsMenu = require("personal").SettingsMenu;
+		this.$options.components.PageWrapper = require("comp").PageWrapper;
 	}
 };
 </script>

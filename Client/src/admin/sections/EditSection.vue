@@ -48,9 +48,6 @@ import { extend } from "quasar";
 
 export default {
 	name: "EditSection",
-	components: {
-		SectionForm: sunImport("sections","SectionForm"),
-	},
 	mixins: [Page],
 	props: {
 		name: {
@@ -129,6 +126,9 @@ export default {
 				this.section = response.data;
 			});
 		}
+	},
+	beforeCreate() {
+		this.$options.components.SectionForm = require("sections").SectionForm;
 	},
 	created() {
 		this.title = this.$tl("title");

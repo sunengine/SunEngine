@@ -43,9 +43,6 @@ import { emailRules } from "utils";
 
 export default {
 	name: "ResetPassword",
-	components: {
-		Captcha: sunImport("comp","Captcha"),
-	},
 	mixins: [Page],
 	data() {
 		return {
@@ -88,7 +85,10 @@ export default {
 				});
 		}
 	},
-	created() {
+	 beforeCreate() {
+	    this.$config.components.Captcha = require("comp").Captcha;
+    },
+    created() {
 		this.title = this.$tl("title");
 		this.rules = emailRules;
 	}

@@ -112,13 +112,10 @@
 </template>
 
 <script>
-import  prepareLocalLinks  from "src/utils/prepareLocalLinks"
+import prepareLocalLinks from "src/utils/prepareLocalLinks";
 
 export default {
 	name: "Profile",
-	components: {
-		ProfileRoles: sunImport("roles","ProfileRoles"),
-	},
 	mixins: [Page],
 	props: {
 		link: {
@@ -196,6 +193,9 @@ export default {
 				});
 			});
 		}
+	},
+	beforeCreate() {
+		this.$options.components.ProfileRoles = require("roles").ProfileRoles;
 	},
 	created() {
 		this.loadData();
