@@ -22,13 +22,13 @@
 <script>
 export default {
 	name: "MainMenu",
-	components: {
-		MenuItem: sunImport("comp", "MenuItem")
-	},
 	computed: {
 		menu() {
 			return this.$store.getters.getMenu("MainMenu")?.subMenuItems;
 		}
+	},
+	beforeCreate() {
+		this.$options.components.MenuItem = sunImport("comp", "MenuItem");
 	}
 };
 </script>

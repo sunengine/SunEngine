@@ -144,7 +144,7 @@ export default {
 		}
 	},
 	 beforeCreate() {
-	    this.$options.MenuAdminItem = sunImport("menuItems","MenuAdminItem");
+	    this.$options.components.MenuAdminItem = sunImport("menuItems","MenuAdminItem");
     },
     created() {
 		this.title = this.$tl("title");

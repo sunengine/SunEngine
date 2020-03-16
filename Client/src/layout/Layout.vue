@@ -149,14 +149,6 @@ import { prepareLocalLinks } from "utils";
 
 export default {
 	name: "Layout",
-	components: {
-		Breadcrumbs: sunImport("comp","Breadcrumbs"),
-		UserMenu: sunImport("auth","UserMenu"),
-		LoginRegisterMenu: sunImport("auth","LoginRegisterMenu"),
-		MainMenu: sunImport("comp","MainMenu"),
-		SunEngineFooter: sunImport("layouts","SunEngineFooter"),
-		LinksMenu: sunImport("comp","LinksMenu"),
-	},
 	data() {
 		return {
 			leftDrawerOpen: this.$q.platform.is.desktop,
@@ -209,6 +201,19 @@ export default {
 			window.getComputedStyle(toolbarBreadcrumbs).height
 		);
 		prepareLocalLinks.call(this, this.$el, "layout__title-block");
+	},
+	beforeCreate() {
+		this.$options.components.Breadcrumbs = sunImport("comp", "Breadcrumbs");
+		this.$options.components.LoginRegisterMenu = sunImport(
+			"auth",
+			"LoginRegisterMenu"
+		);
+		this.$options.components.MainMenu = sunImport("comp", "MainMenu");
+		this.$options.components.SunEngineFooter = sunImport(
+			"layouts",
+			"SunEngineFooter"
+		);
+		this.$options.components.LinksMenu = sunImport("comp", "LinksMenu");
 	},
 	created() {
 		this.$root.$layout = this;

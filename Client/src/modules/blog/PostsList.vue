@@ -12,14 +12,14 @@
 <script>
 export default {
 	name: "PostsList",
-	 components: {
-        Post: sunImport("blog","Post"),
-	 },
 	props: {
 		posts: {
 			type: Object,
 			required: true
 		}
+	},
+	beforeCreate() {
+		this.$options.components.Post = sunImport("blog", "Post");
 	}
 };
 </script>

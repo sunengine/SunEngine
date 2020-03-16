@@ -62,9 +62,6 @@ import { Pagination } from "mixins";
 
 export default {
 	name: "Thread",
-	components: {
-		Topic: sunImport("forum","Topic"),
-	},
 	mixins: [Page, Pagination],
 	props: {
 		categoryName: {
@@ -101,6 +98,7 @@ export default {
 	},
 	beforeCreate() {
 		this.$options.centered = true;
+		this.$options.components.Topic = sunImport("forum","Topic");
 	},
 	methods: {
 		loadData() {

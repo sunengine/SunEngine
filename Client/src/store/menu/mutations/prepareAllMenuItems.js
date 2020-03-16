@@ -1,4 +1,5 @@
 import { consoleInit } from "utils";
+import { router } from "src/router/index";
 
 export default function prepareAllMenuItems(state, allMenuItems) {
 	let menuItemsById = {};

@@ -2,7 +2,7 @@ import { hasLongToken } from "utils";
 import { consoleInit } from "utils";
 import { InitializeState } from "storeInd";
 import { getDynamicConfig } from "utils";
-import { makeBreadcrumbs } from "comp";
+import { makeBreadcrumbs } from "utils";
 import { app } from "App";
 
 import Vue from "vue";

@@ -1,6 +1,5 @@
 ﻿import { getThreadTopics } from "forum";
 import { getNewTopics } from "forum";
-import app from "App";
 
 export default {
 	name: "Forum1",
@@ -38,7 +37,7 @@ export default {
 					default: {
 						categoryName: name,
 						loadTopics: getNewTopics,
-						pageTitle: category.title + app.$t("Thread.titlePartNewTopics")
+						pageTitle: category.title + Vue.prototype.i18n.t("Thread.titlePartNewTopics")
 					},
 					navigation: {
 						categories: sunImport("categories", "Categories1"),

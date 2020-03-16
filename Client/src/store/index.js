@@ -16,7 +16,7 @@ Vue.use(Vuex);
  * directly export the Store instantiation
  */
 
-let store;
+var store;
 
 export default function(/* { ssrContext } */) {
 	store = new Vuex.Store({

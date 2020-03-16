@@ -20,7 +20,7 @@ const dirs = [
 	"mixins",
 	"shared",
 	"modules",
-	"layouts",
+	"layout",
 	"router",
 	"store",
 	"utils",
@@ -78,8 +78,8 @@ function makeSunImport() {
 	let imports = `export default {\n`;
 	for (const name of Object.keys(indexes)) {
 		imports += `"${name}": async function() {
-		const module = await import("src/index/${name}.js");
-		return module.default;
+		const mod = await import("src/index/${name}.js");
+		return mod.default;
 	},\n`;
 	}
 	imports += "}";

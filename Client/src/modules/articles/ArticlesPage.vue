@@ -42,9 +42,6 @@ import { Pagination } from "mixins";
 
 export default {
 	name: "ArticlesPage",
-	components: {
-		ArticlesList: sunImport("articles","ArticlesList"),
-	},
 	mixins: [Page, Pagination],
 	props: {
 		categoryName: {
@@ -90,6 +87,7 @@ export default {
 	},
 	beforeCreate() {
 		this.$options.centered = true;
+		this.$options.components = sunImport("articles","ArticlesList");
 	},
 	created() {
 		this.loadData();

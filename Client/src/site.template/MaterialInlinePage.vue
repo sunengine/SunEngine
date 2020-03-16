@@ -15,13 +15,16 @@
 export default {
 	name: "MaterialInlinePage",
 	mixins: [Page],
-	components: {
-		MaterialInline: sunImport("material","MaterialInline"),
-	},
 	methods: {
 		loaded() {
 			this.title = this.$refs.inline.material.title;
 		}
+	},
+	beforeCreate() {
+		this.$options.components.MaterialInline = sunImport(
+			"material",
+			"MaterialInline"
+		);
 	}
 };
 </script>

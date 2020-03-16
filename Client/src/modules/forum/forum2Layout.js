@@ -40,7 +40,7 @@ export default {
 					default: {
 						categoryName: name,
 						loadTopics: getNewTopics,
-						pageTitle: category.title + app.$t("Thread.titlePartNewTopics")
+						pageTitle: category.title +  Vue.prototype.i18n.t("Thread.titlePartNewTopics")
 					},
 					navigation: {
 						categories: sunImport("categories", "Categories1"),

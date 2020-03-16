@@ -79,13 +79,13 @@ module.exports = function(ctx) {
 					new webpack.ProvidePlugin({
 						Vue: ['vue', 'default'],
 						sunImport: ['src/utils/sunImport', 'default'],
-						router: ['src/router/index.js', 'router'],
+						router: ['src/router/index', 'router'],
 						request: ['src/utils/request', 'default'],
 						Api: ['src/api/Api', 'default'],
 						AdminApi: ['src/api/AdminApi', 'default'],
 						Page: ['src/mixins/Page', 'default'],
-						store: ['src/store', 'store'],
-						app: ['src/App', 'app']
+						store: ['src/store/index', 'store'],
+						app: ['src/App', 'default']
 					}));
 
 				if (ctx.dev) {

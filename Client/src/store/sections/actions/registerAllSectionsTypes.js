@@ -1,4 +1,4 @@
-import { registerSectionsSite } from "storeInd";
+import { registerSectionsSite } from "site";
 import { consoleInit } from "utils";
 import { postsSection } from "blog";
 import { activitiesSection } from "activities";

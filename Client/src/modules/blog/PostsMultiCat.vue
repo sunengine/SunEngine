@@ -23,9 +23,6 @@ import { Pagination } from "mixins";
 
 export default {
 	name: "PostsMultiCat",
-	components: {
-		PostsList: sunImport("blog","PostsList"),
-	},
 	mixins: [Pagination],
 	props: {
 		sectionName: {
@@ -60,6 +57,9 @@ export default {
 					this.$refs.loader.fail();
 				});
 		}
+	},
+	beforeCreate() {
+		this.$options.components.PostsList = sunImport("blog", "PostsList");
 	},
 	created() {
 		this.loadData();

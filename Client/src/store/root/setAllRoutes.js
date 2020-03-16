@@ -1,16 +1,18 @@
 import VueRouter from "vue-router";
 
 import { consoleInit } from "utils";
-import { pageNotFoundRoute } from "router";
+
 import { routeHasAccess } from "utils";
 
-import { authRoutes } from "router";
-import { accountRoutes } from "router";
-import { miscRoutes } from "router";
-import { personalRoutes } from "router";
-import { adminRoutes } from "router";
+import { authRoutes } from "src/index/router";
+import { accountRoutes } from "src/index/router";
+import { miscRoutes } from "src/index/router";
+import { personalRoutes } from "src/index/router";
+import { adminRoutes } from "src/index/router";
 import { siteRoutes } from "site";
+import { pageNotFoundRoute } from "src/index/router";
 
+import { router } from "src/router/index.js";
 
 // Action
 export default async function(context) {
@@ -18,6 +20,18 @@ export default async function(context) {
 		"makeRoutesFromCategories"
 	);
 	const routesFromSections = await context.dispatch("makeRoutesFromSections");
+
+	console.log(
+		authRoutes,
+		accountRoutes,
+		miscRoutes,
+		personalRoutes,
+		adminRoutes,
+		siteRoutes,
+		routesFromCategories,
+		routesFromSections,
+		pageNotFoundRoute
+	);
 
 	const allRoutes = [
 		...authRoutes,

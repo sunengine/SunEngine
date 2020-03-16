@@ -1,12 +1,17 @@
 import sunTable from "sunTable";
 
-console.log(sunTable);
-
-export default async function sunImport(moduleFrom, component) {
-	const mod = await sunTable[moduleFrom]();
-	if (!mod)
-		console.error(`sunImport("${moduleFrom}", "${component}") Module not found.`);
-	if(!mod[component])
-		console.error(`sunImport("${moduleFrom}", "${component}") Component not found.`);
-	return mod[component];
+export default function(moduleFrom, component) {
+	return async function() {
+		const mod = await sunTable[moduleFrom]();
+		if (!mod) {
+			console.log("sunTable", sunTable, "module", sunTable[moduleFrom]);
+			console.error(`sunImport("${moduleFrom}", "${component}") Module not found.`);
+			console.log(mod);
+		}
+		if (!mod[component])
+			console.error(
+				`sunImport("${moduleFrom}", "${component}") Component not found.`
+			);
+		return mod[component];
+	}
 }

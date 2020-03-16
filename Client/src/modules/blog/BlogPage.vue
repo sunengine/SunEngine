@@ -42,9 +42,6 @@ import { Pagination } from "mixins";
 
 export default {
 	name: "BlogPage",
-	components: {
-		PostsList: sunImport("blog","PostsList"),
-	},
 	mixins: [Page, Pagination],
 	props: {
 		categoryName: String,
@@ -89,6 +86,7 @@ export default {
 	},
 	beforeCreate() {
 		this.$options.centered = true;
+		this.$options.components = sunImport("blog","PostsList");
 	},
 	created() {
 		this.loadData();
