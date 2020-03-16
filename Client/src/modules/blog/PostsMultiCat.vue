@@ -59,7 +59,7 @@ export default {
 		}
 	},
 	beforeCreate() {
-		this.$options.components.PostsList = sunImport("blog", "PostsList");
+		this.$options.components.PostsList = require("blog").PostsList;
 	},
 	created() {
 		this.loadData();

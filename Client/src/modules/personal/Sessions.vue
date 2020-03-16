@@ -45,7 +45,7 @@
 				:icon="$iconsSet.Sessions.signOut"
 				:label="$tl('logout')"
 				@click="deleteSessions"
-				v-if="selected.length"
+				v-if="selected && selected.length"
 				no-caps
 			/>
 		</div>
@@ -79,7 +79,7 @@ export default {
 			else return false;
 		},
 		selected() {
-			return this.sessions.filter(x => x.selected);
+			return this.sessions?.filter(x => x.selected);
 		}
 	},
 	methods: {
@@ -95,8 +95,8 @@ export default {
 			}
 		},
 		deleteSessions() {
-			let sessions = this.selected.filter(x => !x.isCurrent);
-			if (sessions.length === 0) return;
+			let sessions = this.selected?.filter(x => !x.isCurrent);
+			if (!sessions || sessions.length === 0) return;
 
 			this.$request(this.$Api.Personal.RemoveMySessions, {
 				sessions: sessions.map(x => x.id).join(",")

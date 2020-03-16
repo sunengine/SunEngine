@@ -13,7 +13,6 @@
 			class="edit-material__material-form"
 			ref="form"
 			:material="material"
-			:categories-nodes="categoryNodes"
 		/>
 
 		<div class="edit-material__btn-block flex q-gutter-md q-mt-lg">

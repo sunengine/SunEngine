@@ -1,3 +1,5 @@
+import { store } from "storeInd";
+
 export default function(categories, exclude) {
 	const categoriesList = categories
 		.split(",")

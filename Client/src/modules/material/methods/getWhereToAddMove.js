@@ -1,4 +1,5 @@
 ﻿import Vue from "vue";
+import { store } from "storeInd";
 
 export function getWhereToMove() {
 	const rez = goDeep(store.state.categories.root);

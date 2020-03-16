@@ -1,9 +1,8 @@
 import { wrapInPanel } from "comp";
+import { AdminMenu } from "admin";
 
-const AdminPanel = async () => {
-	const adminMenu = await sunImport("admin", "AdminMenu");
-	return wrapInPanel("AdminPanel", adminMenu);
-};
+
+const AdminPanel = wrapInPanel("AdminPanel", AdminMenu);
 
 const routes = [
 	{

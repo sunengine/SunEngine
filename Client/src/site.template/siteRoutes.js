@@ -2,13 +2,13 @@ export default [
 	{
 		name: "Home",
 		path: "/",
-		component: sunImport("pages","IndexPage"),
+		component: sunImport("pages", "IndexPage")
 	},
 	{
 		name: "PostsAndActivitiesPage",
 		path: "/PostsAndActivitiesPage".toLowerCase(),
 		components: {
-			default: sunImport("pages","PostsAndActivitiesPage"),
+			default: sunImport("pages", "PostsAndActivitiesPage")
 		},
 		props: {
 			default: () => {
@@ -25,18 +25,18 @@ export default [
 		name: "MaterialInlinePage",
 		path: "/MaterialInlinePage".toLowerCase(),
 		components: {
-			default: sunImport("material","MaterialInlinePage"),
+			default: sunImport("site", "MaterialInlinePage")
 		}
 	},
 	{
 		name: "Secret",
 		path: "/secret",
 		components: {
-			default: sunImport("site","SecretPage"),
+			default: sunImport("site", "SecretPage"),
 			navigation: null
 		},
 		meta: {
 			roles: ["Registered"]
 		}
 	}
-]
+];

@@ -168,7 +168,8 @@ export default {
 		},
 		categoriesNames: {
 			type: String,
-			required: true
+			required: false,
+			default: "Root"
 		}
 	},
 	data() {

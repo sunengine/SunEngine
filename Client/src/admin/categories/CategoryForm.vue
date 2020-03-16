@@ -226,6 +226,8 @@
 
 <script>
 import { isJson } from "utils";
+import { adminGetAllCategories } from "categories";
+
 import Vue from "vue";
 
 const unset = "unset";
@@ -308,7 +310,7 @@ export default {
 			required: true
 		}
 	},
-	data: function() {
+	data() {
 		return {
 			root: null,
 			all: null,
@@ -364,15 +366,14 @@ export default {
 			this.$refs.token.validate();
 			this.$refs.title.validate();
 		},
-		async getAllCategories() {
-		   const getAllCategories = await adminImport.getAllCategories;
+		 getAllCategories() {
 			adminGetAllCategories().then(data => {
 				this.root = data.root;
 				this.all = data.all;
 			});
 		}
 	},
-	async created() {
+	created() {
 		this.rules = createRules.call(this);
 		this.getAllCategories();
 	}

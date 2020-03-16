@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import { Page } from "mixins";
-
 export default {
 	name: "SecretPage",
 	mixins: [Page],
