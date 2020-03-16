@@ -60,11 +60,11 @@
 </template>
 
 <script>
-import { getWhereToMove } from  "material";
-import  deleteMaterial  from "material";
-import  restoreMaterial  from "material";
-import  canDeleteMaterial  from "material";
-import  canRestoreMaterial  from "material";
+import { getWhereToMove } from "material";
+import { deleteMaterial } from "material";
+import { restoreMaterial } from "material";
+import { canDeleteMaterial } from "material";
+import { canRestoreMaterial } from "material";
 
 export default {
 	name: "EditMaterial",
@@ -156,10 +156,10 @@ export default {
 			});
 		}
 	},
-	 beforeCreate() {
-	    this.$options.components.MaterialForm = require("material").MaterialForm;
-    },
-    created() {
+	beforeCreate() {
+		this.$options.components.MaterialForm = require("material").MaterialForm;
+	},
+	created() {
 		this.title = this.$tl("title");
 		this.loadData();
 	}

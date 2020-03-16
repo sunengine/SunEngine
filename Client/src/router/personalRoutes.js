@@ -1,11 +1,13 @@
-const SettingsPanel = sunImport("personal", "SettingsPanel");
+import { store } from "store";
+
+const SettingsPanel = require("personal").SettingsPanel;
 
 const routes = [
 	{
 		name: "ChangeLink",
 		path: "/personal/ChangeLink".toLowerCase(),
 		components: {
-			default: sunImport("personal","ChangeLink"),
+			default: sunImport("personal", "ChangeLink"),
 			navigation: SettingsPanel
 		}
 	},
@@ -13,7 +15,7 @@ const routes = [
 		name: "ChangeName",
 		path: "/personal/ChangeName".toLowerCase(),
 		components: {
-			default: sunImport("personal","ChangeName"),
+			default: sunImport("personal", "ChangeName"),
 			navigation: SettingsPanel
 		}
 	},
@@ -31,7 +33,7 @@ const routes = [
 		name: "LoadPhoto",
 		path: "/personal/LoadPhoto".toLowerCase(),
 		components: {
-			default: sunImport("personal","LoadPhoto"),
+			default: sunImport("personal", "LoadPhoto"),
 			navigation: SettingsPanel
 		}
 	},
@@ -39,7 +41,7 @@ const routes = [
 		name: "EditInformation",
 		path: "/personal/EditInformation".toLowerCase(),
 		components: {
-			default: sunImport("personal","EditInformation"),
+			default: sunImport("personal", "EditInformation"),
 			navigation: SettingsPanel
 		}
 	},
@@ -47,7 +49,7 @@ const routes = [
 		name: "Sessions",
 		path: "/personal/Sessions".toLowerCase(),
 		components: {
-			default: sunImport("personal","Sessions"),
+			default: sunImport("personal", "Sessions"),
 			navigation: SettingsPanel
 		}
 	},
@@ -55,7 +57,7 @@ const routes = [
 		name: "MyBanList",
 		path: "/personal/MyBanList".toLowerCase(),
 		components: {
-			default: sunImport("personal","MyBanList"),
+			default: sunImport("personal", "MyBanList"),
 			navigation: SettingsPanel
 		}
 	},
@@ -63,7 +65,7 @@ const routes = [
 		name: "ProfileInSettings",
 		path: "/personal/Profile".toLowerCase(),
 		components: {
-			default: sunImport("profile","Profile"),
+			default: sunImport("profile", "Profile"),
 			navigation: SettingsPanel
 		},
 		props: {

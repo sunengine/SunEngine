@@ -9,6 +9,7 @@ import {
 	consoleRequestStart,
 	consoleRequestUrl
 } from "utils";
+import { store } from "storeInd";
 
 const lock = new Lock("request-lock");
 
@@ -79,13 +80,14 @@ export default async function(
 	if (body)
 		for (const [key, value] of Object.entries(body)) if (!value) delete body[key];
 
-	if (config.Dev.LogRequests)
+	if (config.Dev.LogRequests) {
 		console.log(
 			`%cRequest%c${url}`,
 			consoleRequestStart,
 			consoleRequestUrl,
-			body
+			body && Object.entries(body).length > 0 ? body : ""
 		);
+	}
 
 	const headers = {};
 

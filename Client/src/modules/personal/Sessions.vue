@@ -53,8 +53,6 @@
 </template>
 
 <script>
-import { Page } from "mixins";
-
 export default {
 	name: "Sessions",
 	mixins: [Page],

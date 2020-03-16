@@ -61,6 +61,8 @@ export default {
 					category.categoryPersonalAccess?.MaterialWrite
 				)
 					return this.initialCategoryName;
+				else
+				    return null;
 			}
 			return null;
 		};

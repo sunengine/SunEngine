@@ -21,18 +21,6 @@ export default async function(context) {
 	);
 	const routesFromSections = await context.dispatch("makeRoutesFromSections");
 
-	console.log(
-		authRoutes,
-		accountRoutes,
-		miscRoutes,
-		personalRoutes,
-		adminRoutes,
-		siteRoutes,
-		routesFromCategories,
-		routesFromSections,
-		pageNotFoundRoute
-	);
-
 	const allRoutes = [
 		...authRoutes,
 		...accountRoutes,

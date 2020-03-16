@@ -15,6 +15,7 @@ const global = {
 	send: "fas fa-arrow-circle-right",
 	comment: "far fa-comment",
 	category: "fas fa-folder",
+	categories: "la la-folder",
 	key: "fas fa-key",
 	envelope: "fas fa-envelope",
 	wrench: "fas fa-wrench"
@@ -88,6 +89,10 @@ export default {
 		material: "far fa-file-alt",
 		plus: global.add,
 		up: "fas fa-chevron-up"
+	},
+	CategoriesInput: {
+		category: global.category,
+		categories: global.categories
 	},
 	ChangeEmail: {
 		envelope: global.envelope,
