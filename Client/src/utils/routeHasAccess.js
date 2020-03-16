@@ -1,4 +1,4 @@
-import { store } from "src/store/index";
+import { store } from "storeInd";
 
 export default function(route) {
 	return (

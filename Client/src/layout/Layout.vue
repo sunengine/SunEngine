@@ -203,18 +203,12 @@ export default {
 		prepareLocalLinks.call(this, this.$el, "layout__title-block");
 	},
 	beforeCreate() {
-		this.$options.components.Breadcrumbs = sunImport("comp", "Breadcrumbs");
-		this.$options.components.LoginRegisterMenu = sunImport(
-			"auth",
-			"LoginRegisterMenu"
-		);
-		this.$options.components.MainMenu = sunImport("comp", "MainMenu");
-		this.$options.components.SunEngineFooter = sunImport(
-			"layouts",
-			"SunEngineFooter"
-		);
-		this.$options.components.LinksMenu = sunImport("comp", "LinksMenu");
-	},
+		this.$options.components.Breadcrumbs = require("comp").Breadcrumbs;
+		this.$options.components.LoginRegisterMenu = require("auth").LoginRegisterMenu;
+		this.$options.components.SunEngineFooter = require("layout").SunEngineFooter;
+		this.$options.components.LinksMenu = require("comp").LinksMenu;
+		this.$options.components.MainMenu = require("layout").MainMenu;
+   },
 	created() {
 		this.$root.$layout = this;
 	}

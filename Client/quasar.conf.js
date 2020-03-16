@@ -64,7 +64,9 @@ module.exports = function(ctx) {
 			// extractCSS: false,
 			extendWebpack(cfg) {
 				cfg.resolve.alias.storeInd = path.resolve("./src/store/index/index.js");
- 
+				cfg.resolve.alias.router = path.resolve("./src/router/index.js");
+				cfg.resolve.alias.App = path.resolve("./src/App.vue");
+
 				cfg.resolve.modules.push(path.resolve("./src"));
 				cfg.resolve.modules.push(path.resolve("./src/index"));
 
@@ -79,13 +81,10 @@ module.exports = function(ctx) {
 					new webpack.ProvidePlugin({
 						Vue: ['vue', 'default'],
 						sunImport: ['src/utils/sunImport', 'default'],
-						router: ['src/router/index', 'router'],
 						request: ['src/utils/request', 'default'],
 						Api: ['src/api/Api', 'default'],
 						AdminApi: ['src/api/AdminApi', 'default'],
-						Page: ['src/mixins/Page', 'default'],
-						store: ['src/store/index', 'store'],
-						app: ['src/App', 'default']
+						Page: ['src/mixins/Page', 'default']
 					}));
 
 				if (ctx.dev) {

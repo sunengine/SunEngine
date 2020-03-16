@@ -79,7 +79,7 @@ function makeSunImport() {
 	for (const name of Object.keys(indexes)) {
 		imports += `"${name}": async function() {
 		const mod = await import("src/index/${name}.js");
-		return mod.default;
+		return mod;
 	},\n`;
 	}
 	imports += "}";

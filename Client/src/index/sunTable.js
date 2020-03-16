@@ -1,150 +1,150 @@
 export default {
 "admin": async function() {
 		const mod = await import("src/index/admin.js");
-		return mod.default;
+		return mod;
 	},
 "categories": async function() {
 		const mod = await import("src/index/categories.js");
-		return mod.default;
+		return mod;
 	},
 "menuItems": async function() {
 		const mod = await import("src/index/menuItems.js");
-		return mod.default;
+		return mod;
 	},
 "roles": async function() {
 		const mod = await import("src/index/roles.js");
-		return mod.default;
+		return mod;
 	},
 "sections": async function() {
 		const mod = await import("src/index/sections.js");
-		return mod.default;
+		return mod;
 	},
 "skins": async function() {
 		const mod = await import("src/index/skins.js");
-		return mod.default;
+		return mod;
 	},
 "api": async function() {
 		const mod = await import("src/index/api.js");
-		return mod.default;
+		return mod;
 	},
 "classes": async function() {
 		const mod = await import("src/index/classes.js");
-		return mod.default;
+		return mod;
 	},
 "comp": async function() {
 		const mod = await import("src/index/comp.js");
-		return mod.default;
+		return mod;
 	},
 "icons": async function() {
 		const mod = await import("src/index/icons.js");
-		return mod.default;
+		return mod;
 	},
 "layout": async function() {
 		const mod = await import("src/index/layout.js");
-		return mod.default;
+		return mod;
 	},
 "mixins": async function() {
 		const mod = await import("src/index/mixins.js");
-		return mod.default;
+		return mod;
 	},
 "account": async function() {
 		const mod = await import("src/index/account.js");
-		return mod.default;
+		return mod;
 	},
 "activities": async function() {
 		const mod = await import("src/index/activities.js");
-		return mod.default;
+		return mod;
 	},
 "articles": async function() {
 		const mod = await import("src/index/articles.js");
-		return mod.default;
+		return mod;
 	},
 "auth": async function() {
 		const mod = await import("src/index/auth.js");
-		return mod.default;
+		return mod;
 	},
 "blog": async function() {
 		const mod = await import("src/index/blog.js");
-		return mod.default;
+		return mod;
 	},
 "comments": async function() {
 		const mod = await import("src/index/comments.js");
-		return mod.default;
+		return mod;
 	},
 "erorrs": async function() {
 		const mod = await import("src/index/erorrs.js");
-		return mod.default;
+		return mod;
 	},
 "forum": async function() {
 		const mod = await import("src/index/forum.js");
-		return mod.default;
+		return mod;
 	},
 "material": async function() {
 		const mod = await import("src/index/material.js");
-		return mod.default;
+		return mod;
 	},
 "pages": async function() {
 		const mod = await import("src/index/pages.js");
-		return mod.default;
+		return mod;
 	},
 "personal": async function() {
 		const mod = await import("src/index/personal.js");
-		return mod.default;
+		return mod;
 	},
 "profile": async function() {
 		const mod = await import("src/index/profile.js");
-		return mod.default;
+		return mod;
 	},
 "router": async function() {
 		const mod = await import("src/index/router.js");
-		return mod.default;
+		return mod;
 	},
 "shared": async function() {
 		const mod = await import("src/index/shared.js");
-		return mod.default;
+		return mod;
 	},
 "actions": async function() {
 		const mod = await import("src/index/actions.js");
-		return mod.default;
+		return mod;
 	},
 "getters": async function() {
 		const mod = await import("src/index/getters.js");
-		return mod.default;
+		return mod;
 	},
 "mutations": async function() {
 		const mod = await import("src/index/mutations.js");
-		return mod.default;
+		return mod;
 	},
 "store": async function() {
 		const mod = await import("src/index/store.js");
-		return mod.default;
+		return mod;
 	},
 "index": async function() {
 		const mod = await import("src/index/index.js");
-		return mod.default;
+		return mod;
 	},
 "layouts": async function() {
 		const mod = await import("src/index/layouts.js");
-		return mod.default;
+		return mod;
 	},
 "menu": async function() {
 		const mod = await import("src/index/menu.js");
-		return mod.default;
+		return mod;
 	},
 "root": async function() {
 		const mod = await import("src/index/root.js");
-		return mod.default;
+		return mod;
 	},
 "routes": async function() {
 		const mod = await import("src/index/routes.js");
-		return mod.default;
+		return mod;
 	},
 "utils": async function() {
 		const mod = await import("src/index/utils.js");
-		return mod.default;
+		return mod;
 	},
 "site": async function() {
 		const mod = await import("src/index/site.js");
-		return mod.default;
+		return mod;
 	},
 }

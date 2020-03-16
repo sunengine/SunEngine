@@ -60,7 +60,7 @@ export default {
 	},
 	beforeCreate() {
 		app = this;
-		this.$options.components.Layout = sunImport("layout", "Layout");
+		this.$options.components.Layout = sunImport("layout","Layout");
 	}
 };
 

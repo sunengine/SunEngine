@@ -3,7 +3,6 @@ import { consoleInit } from "utils";
 import { InitializeState } from "storeInd";
 import { getDynamicConfig } from "utils";
 import { makeBreadcrumbs } from "utils";
-import { app } from "App";
 
 import Vue from "vue";
 
@@ -24,7 +23,7 @@ export default async function(context) {
 			English: "en-us"
 		};
 
-		app.$i18n.locale = locales[config.Global.Locale];
+		Vue.prototype.i18n.locale = locales[config.Global.Locale];
 
 		await context.dispatch("loadAllCategories");
 

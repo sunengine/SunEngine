@@ -7,10 +7,10 @@
 <script>
 export default {
 	name: "IndexPage",
-	components: {
-		MaterialInline: sunImport("material","MaterialInline"),
-	},
-	mixins: [Page]
+	mixins: [Page],
+	beforeCreate() {
+		this.$options.components.MaterialInline = require("material").MaterialInline;
+	}
 };
 </script>
 
