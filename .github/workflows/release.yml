@@ -43,16 +43,20 @@ jobs:
         cp -RT Config.server.template build/Config.server.template
         cp -RT Resources build/Resources
         cp -T SunEngine.md build/SunEngine.md
-        find . -maxdepth 1 -not -name 'build' -not -name '.' -not -name '.git' -print0 | xargs -0 rm -rf
-        cp -RT build .
-        rm -rf build 
-        echo "resulted files"
-        ls -a
-      
-    - name: Publish
-      uses: s0/git-publish-subdir-action@master
+        #find . -maxdepth 1 -not -name 'build' -not -name '.' -not -name '.git' -print0 | xargs -0 rm -rf
+        #cp -RT build .
+        #rm -rf build 
+        #echo "resulted files"
+        #ls -a
+
+    - uses: EndBug/add-and-commit@v4
+      with:
+        add: 'build'
+        author_name: Build bot
+        author_email: build@build.run
+        force: true
+        message: 'Auto build'
       env:
-        REPO: git@github.com:SunEngine/SunEngine.Build.git
-        BRANCH: master
-        SSH_PRIVATE_KEY: ${{ secrets.AutoBuild }}
-        FOLDER: .
+
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+
