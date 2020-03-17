@@ -54,7 +54,7 @@ jobs:
         #echo "resulted files"
         ls -a
         rm -rf ./BuildRepo/*
-        cp -RT ./build/* ./BuildRepo
+        cp -RT build/* BuildRepo
       
     - name: Commit to SunEngine.Build
       uses: EndBug/add-and-commit@v4
