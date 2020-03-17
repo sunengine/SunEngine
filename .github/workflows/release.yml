@@ -12,7 +12,7 @@ jobs:
     - name: Checkout SunEngine
       uses: actions/checkout@v2
       
-    - name: Checkout SunEngine
+    - name: Checkout SunEngine.Build
       uses: actions/checkout@v2
         with:
           repository: sunengine/SunEngine.Build
@@ -54,7 +54,8 @@ jobs:
         #echo "resulted files"
         #ls -a
       
-    - uses: EndBug/add-and-commit@v4
+    - name: Commit to SunEngine.Build
+      uses: EndBug/add-and-commit@v4
       with:
         add: 'build'
         cwd: './BuildRepo'
