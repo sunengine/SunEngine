@@ -51,15 +51,18 @@ jobs:
         #find . -maxdepth 1 -not -name 'build' -not -name '.' -not -name '.git' -print0 | xargs -0 rm -rf
         #cp -RT build .
         #rm -rf build 
-        #echo "resulted files"
+        echo "resulted files"
         ls -a
         rm -rf ./BuildRepo/*
         cp -RT build BuildRepo
+        cd ./BuildRepo
+        echo "BuildRepo files"
+        ls -a
       
     - name: Commit to SunEngine.Build
       uses: EndBug/add-and-commit@v4
       with:
-        #add: './build'
+        #add: '.'
         cwd: './BuildRepo'
         author_name: Build bot
         author_email: build@build.run
