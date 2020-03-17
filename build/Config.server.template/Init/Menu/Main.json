@@ -1,0 +1,23 @@
+{
+  "Name": "MainMenu",
+  "Title": "Главное меню",
+  "Icon": "la la-bars",
+  "SubMenuItems": [
+    {
+      "Title": "Главная",
+      "RouteName": "Home",
+      "Exact": true,
+      "Icon": "la la-home"
+    },
+    {
+      "Title": "Статьи",
+      "RouteName": "cat-Articles",
+      "Icon": "la la-file-alt"
+    },
+    {
+      "Title": "Лента активности",
+      "RouteName": "comp-Activities",
+      "Icon": "la la-dot-circle"
+    }
+  ]
+}

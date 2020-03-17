@@ -1,0 +1,12 @@
+﻿[
+  {
+    "Email": "<admin-email>",
+    "UserName": "<admin-user-name>",
+    "Password": "<admin-password>",
+    "Information": "",
+    "Roles": [
+      "Admin",
+      "Registered"
+    ]
+  }
+]

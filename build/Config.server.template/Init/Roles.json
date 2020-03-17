@@ -1,0 +1,49 @@
+﻿{
+  "Banned": {
+    "Title": "Бан"
+  },
+  "Unregistered": {
+    "Title": "Гость",
+    "Categories": [
+      {
+        "Category": "Root",
+        "OperationKeys": {
+          "MaterialAndCommentsRead": true
+        }
+      }
+    ]
+  },
+  "Registered": {
+    "Title": "Пользователь",
+    "Categories": [
+      {
+        "Category": "Root",
+        "OperationKeys": {
+          "MaterialAndCommentsRead": true,
+          "CommentWrite": true
+        }
+      }
+    ]
+  },
+  "Moderator": {
+    "Title": "Модератор",
+    "IsSuper": true,
+    "Categories": [
+      {
+        "Category": "Root",
+        "OperationKeys": {
+          "MaterialWrite": true,
+          "CommentWrite": true,
+          "MaterialEditAny": true,
+          "CommentEditAny": true,
+          "MaterialDeleteAny": true,
+          "CommentDeleteAny": true
+        }
+      }
+    ]
+  },
+  "Admin": {
+    "Title": "Администратор",
+    "IsSuper": true
+  }
+}

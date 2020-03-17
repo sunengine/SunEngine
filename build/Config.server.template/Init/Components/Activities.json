@@ -1,0 +1,15 @@
+{
+    "Name": "Activities",
+    "Type": "Activities",
+    "IsCacheData": false,
+    "Roles": "Unregistered,Registered",
+    "ServerSettingsJson": {
+        "MaterialsCategories": "Root",
+        "CommentsCategories": "Root",
+        "Number": 25
+    },
+    "ClientSettingsJson": {
+        "Title": "Лента активности на сайте",
+        "SubTitle": null
+    }
+}
