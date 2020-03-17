@@ -48,9 +48,14 @@ jobs:
         #echo "resulted files"
         #ls -a
 
+    - name: Checkout SunEngine
+      uses: actions/checkout@v2
+      path: './BuildRepo'
+      
     - uses: EndBug/add-and-commit@v4
       with:
         add: 'build'
+        cwd: './BuildRepo'
         author_name: Build bot
         author_email: build@build.run
         force: true
