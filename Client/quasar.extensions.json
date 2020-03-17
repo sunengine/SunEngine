@@ -2,7 +2,7 @@
   "ide-helper": {
     "addToGitIgnore": true,
     "__internal": {
-      "lastQuasarVersion": "1.9.9",
+      "lastQuasarVersion": "1.9.10",
       "lastIdeHelperVersion": "1.0.0-alpha.3"
     }
   }

@@ -64,8 +64,8 @@ jobs:
     - name: Commit to SunEngine.Build
       uses: EndBug/add-and-commit@v4
       with:
-        add: '.'
-        cwd: './BuildRepo'
+        add: "*.*"
+        cwd: "./BuildRepo/"
         author_name: Build bot
         author_email: build@build.run
         force: true
