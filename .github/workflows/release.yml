@@ -12,13 +12,7 @@ jobs:
     steps:
     - name: Checkout SunEngine
       uses: actions/checkout@v2
-      
-#    - name: Checkout SunEngine.Build
-#      uses: actions/checkout@v2
-#      with:
-#        repository: sunengine/SunEngine.Build
-#        path: BuildRepo
-      
+           
     - name: Setup .NET Core 3.1
       uses: actions/setup-dotnet@v1
       with:
@@ -49,30 +43,6 @@ jobs:
         cp -RT Config.server.template build/Config.server.template
         cp -RT Resources build/Resources
         cp -T SunEngine.md build/SunEngine.md
-#        find . -maxdepth 1 -not -name 'build' -not -name '.' -not -name '.git' -print0 | xargs -0 rm -rf
-#        cp -RT build .
-#        rm -rf build 
-#        echo "resulted files"
-#        ls -a
-#        rm -rf ./BuildRepo/*
-#        cp -RT ./build ./BuildRepo
-#        echo "Resulted files"
-#        ls -a
-#        cd ./BuildRepo
-#        echo "Resulted BuildRepo files"
-#        ls -a
-      
-#    - name: Commit to SunEngine.Build
-#      uses: EndBug/add-and-commit@v4
-#      with:
-#        add: "."
-#        cwd: "./BuildRepo/"
-#        author_name: Build bot
-#        author_email: build@build.run
-#        force: true
-#        message: 'Auto build'
-#      env:
-#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
     - name: Publish to SunEngine.Build
       uses: s0/git-publish-subdir-action@master
