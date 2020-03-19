@@ -1,6 +1,6 @@
 name: Quasar
 
-#on: [push]
+on: [push]
 
 jobs:
   build:

@@ -35,6 +35,13 @@ ProjectSection(SolutionItems) = preProject
 	..\Scripts\systemd.template = ..\Scripts\systemd.template
 EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workwlows", "workwlows", "{86FF27AD-99D1-46E5-8808-C8D8C5EACBEE}"
+ProjectSection(SolutionItems) = preProject
+	..\.github\workflows\dotnetcore.yml = ..\.github\workflows\dotnetcore.yml
+	..\.github\workflows\quasar.yml = ..\.github\workflows\quasar.yml
+	..\.github\workflows\release.yml = ..\.github\workflows\release.yml
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,5 +71,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{55FB3255-F4FF-40F3-862F-DD89574ABB9A} = {CCB81843-5C70-458F-A65A-B60BA3AEBF7E}
+		{86FF27AD-99D1-46E5-8808-C8D8C5EACBEE} = {CCB81843-5C70-458F-A65A-B60BA3AEBF7E}
 	EndGlobalSection
 EndGlobal
