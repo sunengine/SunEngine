@@ -1,4 +1,5 @@
 import { routeHasAccess } from "utils";
+import { router } from "router";
 
 export default function(context, userData) {
 	return request(Api.Auth.Login, {
@@ -18,7 +19,5 @@ export default function(context, userData) {
 			if (resolved && routeHasAccess(resolved.route))
 				router.replace(resolved.route);
 		}
-
-		router.replace({ name: "Home" });
 	});
 }

@@ -10,6 +10,7 @@ import {
 	consoleRequestUrl
 } from "utils";
 import { store } from "storeInd";
+import { router } from "router";
 
 const lock = new Lock("request-lock");
 
@@ -166,14 +167,14 @@ async function checkTokens(rez) {
 			store.commit("clearAllUserRelatedData");
 			await store.dispatch("loadAllCategories", { skipLock: true });
 			await store.dispatch("registerAllLayouts");
-			await store.dispatch("loadAllsections", { skipLock: true });
+			await store.dispatch("loadAllSections");
 			await store.dispatch("setAllRoutes");
 			await store.dispatch("loadAllMenuItems", { skipLock: true });
-			if (routeCheckAccess(router.currentRoute)) {
+			/*if (routeCheckAccess(router.currentRoute)) {
 				router.push(router.currentRoute);
 				app.rerender();
 				return rez;
-			}
+			}*/
 		} else {
 			const newTokens = JSON.parse(tokensHeader);
 

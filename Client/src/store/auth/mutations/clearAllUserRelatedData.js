@@ -1,3 +1,4 @@
+import { store } from "storeInd";
 
 export default function clearAllUserRelatedData(state) {
 	state.user = null;

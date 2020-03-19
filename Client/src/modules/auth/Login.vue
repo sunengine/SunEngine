@@ -88,6 +88,9 @@ export default {
 					nameOrEmail: this.nameOrEmail,
 					password: this.password
 				})
+				.then(_ => {
+					this.$router.replace(this.ret);
+				})
 				.catch(error => {
 					this.submitting = false;
 					this.$errorNotify(error);
