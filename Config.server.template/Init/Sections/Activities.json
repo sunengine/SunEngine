@@ -3,14 +3,13 @@
     "Type": "Activities",
     "IsCacheData": false,
     "Roles": "Unregistered,Registered",
-    "Options": {
-        "Title": "Лента активности на сайте",
-        "SubTitle": null,
-        "Header": null,
+    "ServerSettingsJson": {
         "MaterialsCategories": "Root",
-        "MaterialsCategoriesExclude": "SiteTexts",
         "CommentsCategories": "Root",
-        "CommentsCategoriesExclude": "SiteTexts",
         "Number": 25
+    },
+    "ClientSettingsJson": {
+        "Title": "Лента активности на сайте",
+        "SubTitle": null
     }
 }
