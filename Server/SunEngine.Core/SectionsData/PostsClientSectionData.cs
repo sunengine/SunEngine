@@ -2,11 +2,8 @@ using SunEngine.Core.Configuration.ConfigItemType;
 
 namespace SunEngine.Core.SectionsData
 {
-	public class PostsClientSectionData
+	public class PostsClientSectionData : ClientSectionData
 	{
-		[ConfigItem(typeof(StringItem))] public string Title { get; set; } = "Posts";
-		[ConfigItem(typeof(StringItem))] public string SubTitle { get; set; }
-		[ConfigItem(typeof(StringItem))] public string Header { get; set; }
 		[ConfigItem(typeof(CategoriesItem))] public string Categories { get; set; } = "Root";
 		[ConfigItem(typeof(CategoriesItem))] public string CategoriesExclude { get; set; }
 		[ConfigItem(typeof(StringItem))] public string AddButtonLabel { get; set; } = "Add";

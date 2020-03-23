@@ -85,7 +85,7 @@ export default {
 				.then(() => {
 					const msg = this.$tl("deletedNotify");
 					this.$successNotify(msg, "warning", 5000);
-					this.$router.push({ name: "CategoriesAdmin" });
+					this.$router.replace({ name: "CategoriesAdmin" });
 					this.loading = false;
 				})
 				.catch(error => {

@@ -83,7 +83,7 @@ export default {
 					this.$successNotify();
 					await this.$store.dispatch("loadAllSections");
 					await this.$store.dispatch("setAllRoutes");
-					this.$router.push({ name: "SectionsAdmin" });
+					this.$router.replace({ name: "SectionsAdmin" });
 				})
 				.catch(error => {
 					this.$errorNotify(error);

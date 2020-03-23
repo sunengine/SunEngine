@@ -1,4 +1,4 @@
-namespace SunEngine.Admin.Presenters
+namespace SunEngine.Admin.Presenters.ViewModels
 {
 	public class ConfigItemView
 	{

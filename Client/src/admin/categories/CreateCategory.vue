@@ -84,7 +84,7 @@ export default {
 					this.$successNotify();
 					await this.$store.dispatch("loadAllCategories");
 					await this.$store.dispatch("setAllRoutes");
-					this.$router.push({ name: "CategoriesAdmin" });
+					this.$router.replace({ name: "CategoriesAdmin" });
 				})
 				.catch(error => {
 					this.$errorNotify(error);

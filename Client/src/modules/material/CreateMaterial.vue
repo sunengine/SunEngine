@@ -105,7 +105,7 @@ export default {
 			this.$request(this.$Api.Materials.Create, data)
 				.then(() => {
 					this.$successNotify();
-					this.$router.push(this.$refs.form.category.getRoute());
+					this.$router.replace(this.$refs.form.category.getRoute());
 				})
 				.catch(error => {
 					this.$errorNotify(error);

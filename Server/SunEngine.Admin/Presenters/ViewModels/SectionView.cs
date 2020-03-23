@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using SunEngine.Core.Models;
 
-namespace SunEngine.Admin.Presenters
+namespace SunEngine.Admin.Presenters.ViewModels
 {
 	public class SectionView
 	{

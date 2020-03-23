@@ -78,7 +78,7 @@ export default {
 				.then(() => {
 					this.$successNotify();
 					this.$store.dispatch("loadAllMenuItems");
-					this.$router.push({ name: "MenuItemsAdmin" });
+					this.$router.replace({ name: "MenuItemsAdmin" });
 				})
 				.catch(error => {
 					this.$errorNotify(error);

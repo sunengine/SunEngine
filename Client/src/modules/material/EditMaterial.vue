@@ -135,7 +135,7 @@ export default {
 			await this.$request(this.$Api.Materials.Update, data)
 				.then(() => {
 					this.$successNotify();
-					this.$router.push(this.category.getRoute());
+					this.$router.replace(this.category.getRoute());
 				})
 				.catch(error => {
 					this.$errorNotify(error);
