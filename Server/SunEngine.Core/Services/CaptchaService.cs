@@ -57,6 +57,7 @@ namespace SunEngine.Core.Services
 				return false;
 
 			var answer = captchaCacheService.GetCaptchaAnswer(token);
+      
 			if (string.IsNullOrEmpty(answer))
 				return false;
 

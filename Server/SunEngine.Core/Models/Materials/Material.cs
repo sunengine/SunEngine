@@ -70,5 +70,5 @@ namespace SunEngine.Core.Models.Materials
 		public string SettingsJson { get; set; }
 
 		public int VisitsCount { get; set; }
-	}
+  }
 }

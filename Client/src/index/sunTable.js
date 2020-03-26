@@ -143,8 +143,4 @@ export default {
 		const mod = await import("src/index/utils.js");
 		return mod;
 	},
-"site": async function() {
-		const mod = await import("src/index/site.js");
-		return mod;
-	},
 }

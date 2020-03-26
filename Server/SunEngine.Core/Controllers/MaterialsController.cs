@@ -117,8 +117,7 @@ namespace SunEngine.Core.Controllers
 
 			return Ok();
 		}
-
-
+    
 		[HttpPost]
 		public virtual async Task<IActionResult> Update(MaterialRequestModel materialData)
 		{
@@ -273,7 +272,7 @@ namespace SunEngine.Core.Controllers
 
 			return Ok();
 		}
-	}
+  }
 
 	public class MaterialRequestModel
 	{
