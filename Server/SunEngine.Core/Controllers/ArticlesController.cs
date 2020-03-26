@@ -91,6 +91,17 @@ namespace SunEngine.Core.Controllers
 		}
 
 		[HttpPost]
+		public virtual async Task<IActionResult> GetArticlesBySection(
+			string sectionName, string sort, int page = 1, bool showDeleted = false)
+		{
+			// "PublishDate asc"
+		
+		}
+
+		
+
+
+		[HttpPost]
 		public virtual async Task<IActionResult> GetArticlesFromMultiCategories(string categoriesNames, int page = 1)
 		{
 			var materialsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(categoriesNames);

@@ -44,6 +44,7 @@ namespace SunEngine.Core.Presenters
 			if (!options.ShowDeleted)
 				query = query.Where(x => x.DeletedDate == null);
 
+			query = options.Sort(query);
 
 			return query.GetPagedListAsync(
 				x => new ArticleInfoView

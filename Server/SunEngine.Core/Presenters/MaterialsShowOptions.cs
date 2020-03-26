@@ -1,7 +1,16 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using SunEngine.Core.Models.Materials;
 
 namespace SunEngine.Core.Presenters
 {
+	interface IMaterialsSort
+	{
+		IQueryable<Material> SortAsc(IQueryable<Material> query);
+		IQueryable<Material> SortDesc(IQueryable<Material> query);
+	}
+	
 	public class MaterialsShowOptions
 	{
 		public int CategoryId;
@@ -10,6 +19,7 @@ namespace SunEngine.Core.Presenters
 		public int PageSize;
 		public bool ShowHidden;
 		public bool ShowDeleted;
+		public Func<IQueryable<Material>,IQueryable<Material>> Sort;
 	}
 
 	public class MaterialsMultiCatShowOptions
