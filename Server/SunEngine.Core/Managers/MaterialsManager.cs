@@ -124,7 +124,7 @@ namespace SunEngine.Core.Managers
 				db.CommitTransaction();
 			}
 		}
-    
+
 		public virtual async ValueTask UpdateAsync(
 			Material material,
 			string tags,
@@ -136,7 +136,7 @@ namespace SunEngine.Core.Managers
 
 			material.SettingsJson = material.SettingsJson?.MakeJsonText();
 
-      if (category.IsMaterialsSubTitleEditable)
+			if (category.IsMaterialsSubTitleEditable)
 				material.SubTitle = SimpleHtmlToText.ClearTags(sanitizerService.Sanitize(material.SubTitle));
 
 
@@ -165,7 +165,7 @@ namespace SunEngine.Core.Managers
 		{
 			return db.Materials.AnyAsync(x => x.Name.ToLower() == name.ToLower());
 		}
-    
+
 		public async ValueTask UpAsync(int id, int countMoves = 1)
 		{
 			var material = await db.Materials.Where(x => x.DeletedDate == null)
@@ -173,35 +173,35 @@ namespace SunEngine.Core.Managers
 			if (material == null)
 				throw new SunEntityNotFoundException(nameof(Material), id);
 
-      Material material2;
+			Material material2;
 
-      if (countMoves == 1)
-        material2 = await db.Materials
-          .Where(x =>
-            x.DeletedDate == null && x.CategoryId == material.CategoryId &&
-            x.SortNumber > material.SortNumber)
-          .OrderBy(x => x.SortNumber).FirstOrDefaultAsync();
-      else
-        material2 = await db.Materials.Where(x => x.DeletedDate == null &&
-                                                  x.CategoryId == material.CategoryId &&
-                                                  x.SortNumber > material.SortNumber + countMoves)
-                                       .FirstOrDefaultAsync();
+			if (countMoves == 1)
+				material2 = await db.Materials
+					.Where(x =>
+						x.DeletedDate == null && x.CategoryId == material.CategoryId &&
+						x.SortNumber > material.SortNumber)
+					.OrderBy(x => x.SortNumber).FirstOrDefaultAsync();
+			else
+				material2 = await db.Materials.Where(x => x.DeletedDate == null &&
+				                                          x.CategoryId == material.CategoryId &&
+				                                          x.SortNumber > material.SortNumber + countMoves)
+					.FirstOrDefaultAsync();
 			if (material2 == null)
 				throw new SunEntityNotFoundException(nameof(Material), "Previous material not found");
-      
+
 			db.BeginTransaction();
-      
-      long maxId = await db.Materials.MaxAsync(x => x.SortNumber) + 1;
-      
-      await db.Materials.Where(x => x.Id == material.Id)
-        .Set(x => x.SortNumber, maxId).UpdateAsync();
 
-      await db.Materials.Where(x => x.Id == material2.Id)
-        .Set(x => x.SortNumber, material.SortNumber).UpdateAsync();
+			long maxId = await db.Materials.MaxAsync(x => x.SortNumber) + 1;
 
-      await db.Materials.Where(x => x.Id == material.Id)
-        .Set(x => x.SortNumber, material2.SortNumber).UpdateAsync();
-      
+			await db.Materials.Where(x => x.Id == material.Id)
+				.Set(x => x.SortNumber, maxId).UpdateAsync();
+
+			await db.Materials.Where(x => x.Id == material2.Id)
+				.Set(x => x.SortNumber, material.SortNumber).UpdateAsync();
+
+			await db.Materials.Where(x => x.Id == material.Id)
+				.Set(x => x.SortNumber, material2.SortNumber).UpdateAsync();
+
 			db.CommitTransaction();
 		}
 
@@ -212,37 +212,37 @@ namespace SunEngine.Core.Managers
 			if (material == null)
 				throw new SunEntityNotFoundException(nameof(Material), id);
 
-      Material material2;
+			Material material2;
 
-      if (countMoves == 1)
-        material2 = await db.Materials
-          .Where(x =>
-            x.DeletedDate == null && x.CategoryId == material.CategoryId &&
-            x.SortNumber < material.SortNumber)
-          .OrderByDescending(x => x.SortNumber).FirstOrDefaultAsync();
-      else
-        material2 = await db.Materials.Where(x => x.DeletedDate == null
-                                                  && x.CategoryId == material.CategoryId
-                                                  && x.SortNumber == material.SortNumber + countMoves)
-                                      .FirstOrDefaultAsync();
-      
+			if (countMoves == 1)
+				material2 = await db.Materials
+					.Where(x =>
+						x.DeletedDate == null && x.CategoryId == material.CategoryId &&
+						x.SortNumber < material.SortNumber)
+					.OrderByDescending(x => x.SortNumber).FirstOrDefaultAsync();
+			else
+				material2 = await db.Materials.Where(x => x.DeletedDate == null
+				                                          && x.CategoryId == material.CategoryId
+				                                          && x.SortNumber == material.SortNumber + countMoves)
+					.FirstOrDefaultAsync();
+
 			if (material2 == null)
 				throw new SunEntityNotFoundException(nameof(Material), "Next material not found");
 
 			db.BeginTransaction();
-      
-      long maxId = await db.Materials.MaxAsync(x => x.SortNumber) + 1;
-      
-      await db.Materials.Where(x => x.Id == material.Id)
-        .Set(x => x.SortNumber, maxId).UpdateAsync();
 
-      await db.Materials.Where(x => x.Id == material2.Id)
-        .Set(x => x.SortNumber, material.SortNumber).UpdateAsync();
+			long maxId = await db.Materials.MaxAsync(x => x.SortNumber) + 1;
 
-      await db.Materials.Where(x => x.Id == material.Id)
-        .Set(x => x.SortNumber, material2.SortNumber).UpdateAsync();
-      
-      db.CommitTransaction();
+			await db.Materials.Where(x => x.Id == material.Id)
+				.Set(x => x.SortNumber, maxId).UpdateAsync();
+
+			await db.Materials.Where(x => x.Id == material2.Id)
+				.Set(x => x.SortNumber, material.SortNumber).UpdateAsync();
+
+			await db.Materials.Where(x => x.Id == material.Id)
+				.Set(x => x.SortNumber, material2.SortNumber).UpdateAsync();
+
+			db.CommitTransaction();
 		}
 
 		public virtual Task DetectAndSetLastCommentAndCountAsync(int materialId)

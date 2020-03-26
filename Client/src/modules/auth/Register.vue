@@ -106,7 +106,7 @@ import { emailRules } from "utils";
 
 function createRules() {
 	return {
-		userName: userNameRules,
+		userName: userNameRules.call(this),
 		email: emailRules,
 		password: passwordRules,
 		password2: [
@@ -141,7 +141,7 @@ export default {
 	},
 	computed: {
 		registerConfirmText() {
-			return config.Register.ConfirmText;
+			return !!config.Register.ConfirmText;
 		}
 	},
 	methods: {
