@@ -56,6 +56,9 @@ export default {
 	computed: {
 		breadcrumbsCategory() {
 			return this.$getBreadcrumbs("Personal");
+		},
+		rules() {
+			return emailRules.call(this);
 		}
 	},
 	methods: {
@@ -85,12 +88,11 @@ export default {
 				});
 		}
 	},
-	 beforeCreate() {
-	    this.$config.components.Captcha = require("comp").Captcha;
-    },
-    created() {
+	beforeCreate() {
+		this.$config.components.Captcha = require("comp").Captcha;
+	},
+	created() {
 		this.title = this.$tl("title");
-		this.rules = emailRules;
 	}
 };
 </script>

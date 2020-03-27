@@ -77,22 +77,10 @@
 import { Page } from "mixins";
 import { passwordRules } from "utils";
 
-function createRules() {
-	return {
-		password: passwordRules,
-		password2: [
-			...passwordRules,
-			value =>
-				this.password === this.password2 ||
-				this.$t("Global.validation.password.passwordsNotEquals")
-		]
-	};
-}
-
 export default {
 	name: "ResetPasswordSetNew",
 	mixins: [Page],
-	data: function() {
+	data() {
 		return {
 			password: "",
 			password2: "",
@@ -101,6 +89,20 @@ export default {
 			showPassword: false,
 			showPassword2: false
 		};
+	},
+	computed: {
+		rules() {
+			const passwordRulesInst = passwordRules.call(this);
+			return {
+				password: passwordRulesInst,
+				password2: [
+					...passwordRulesInst,
+					value =>
+						this.password === this.password2 ||
+						this.$t("Global.validation.password.passwordsNotEquals")
+				]
+			};
+		}
 	},
 	methods: {
 		changePassword() {
@@ -127,7 +129,6 @@ export default {
 	},
 	created() {
 		this.title = this.$tl("title");
-		this.rules = createRules.call(this);
 	}
 };
 </script>

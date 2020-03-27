@@ -104,24 +104,10 @@ import { passwordRules } from "utils";
 import { userNameRules } from "utils";
 import { emailRules } from "utils";
 
-function createRules() {
-	return {
-		userName: userNameRules.call(this),
-		email: emailRules,
-		password: passwordRules,
-		password2: [
-			...passwordRules,
-			value =>
-				this.password === this.password2 ||
-				this.$t("Global.validation.password.passwordsNotEquals")
-		]
-	};
-}
-
 export default {
 	name: "Register",
 	components: {
-		Captcha: sunImport("comp","Captcha"),
+		Captcha: sunImport("comp", "Captcha")
 	},
 	mixins: [Page],
 	data() {
@@ -142,7 +128,21 @@ export default {
 	computed: {
 		registerConfirmText() {
 			return !!config.Register.ConfirmText;
-		}
+		},
+       rules() {
+           const passwordRulesInst = passwordRules.call(this);
+           return {
+               userName: userNameRules.call(this),
+               email: emailRules.call(this),
+               password: passwordRulesInst,
+               password2: [
+                   ...passwordRulesInst,
+                   value =>
+                       this.password === this.password2 ||
+                       this.$t("Global.validation.password.passwordsNotEquals")
+               ]
+           };
+       }
 	},
 	methods: {
 		addTargetBlankOnLinks() {
@@ -217,8 +217,6 @@ export default {
 	},
 	created() {
 		this.title = this.$tl("title");
-
-		this.rules = createRules.call(this);
 	}
 };
 </script>

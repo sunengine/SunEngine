@@ -62,20 +62,7 @@
 
 <script>
 import { Page } from "mixins";
-
-function createRules() {
-	return {
-		passwordRules: [value => !!value || this.$tl("validation.password.required")],
-		nameRules: [
-			value => !!value || this.$tl("validation.name.required"),
-			value => value.length >= 3 || this.$tl("validation.name.minLength"),
-			value =>
-				/^[ a-zA-Zа-яА-ЯёЁ0-9-]*$/.test(value) ||
-				this.$tl("validation.name.allowedChars"),
-			value => !this.nameInDb || this.$tl("validation.name.nameInDb")
-		]
-	};
-}
+import { userNameRules } from "utils";
 
 export default {
 	name: "ChangeName",
@@ -92,6 +79,14 @@ export default {
 	computed: {
 		breadcrumbsCategory() {
 			return this.$getBreadcrumbs("Personal");
+		},
+		rules() {
+			return {
+				passwordRules: [
+					value => !!value || this.$tl("validation.password.required")
+				],
+				nameRules: userNameRules.call(this)
+			};
 		}
 	},
 	methods: {
@@ -132,7 +127,6 @@ export default {
 	},
 	created() {
 		this.title = this.$tl("title");
-		this.rules = createRules.call(this);
 		this.checkNameInDb = this.$throttle(this.checkNameInDb);
 		this.$watch("name", this.checkNameInDb);
 	}

@@ -1,4 +1,5 @@
 import { store } from "store";
+import { app } from "App";
 
 const SettingsPanel = require("personal").SettingsPanel;
 
@@ -24,9 +25,6 @@ const routes = [
 		path: "/personal",
 		redirect: {
 			name: "ProfileInSettings"
-		},
-		components: {
-			default: sunImport("personal", "SettingsPage")
 		}
 	},
 	{
@@ -72,6 +70,10 @@ const routes = [
 			default: () => {
 				return { link: store.state.auth.user?.link ?? store.state.auth.user.id };
 			}
+		},
+		beforeEnter: function(to, from, next) {
+			app.$layout.rightDrawerOpen = true;
+			next();
 		}
 	}
 ];
