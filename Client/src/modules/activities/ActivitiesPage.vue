@@ -4,6 +4,7 @@
 			class="page-padding"
 			:title="section.options.Title"
 			:subTitle="section.options.SubTitle"
+			:header="section.options.Header"
 		/>
 
 		<ActivitiesList :sectionName="sectionName" />

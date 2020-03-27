@@ -90,17 +90,6 @@ namespace SunEngine.Core.Controllers
 			return await CacheContentAsync(category, category.Id, LoadDataAsync, page);
 		}
 
-		/*[HttpPost]
-		public virtual async Task<IActionResult> GetArticlesBySection(
-			string sectionName, string sort, int page = 1, bool showDeleted = false)
-		{
-			// "PublishDate asc"
-		
-		}*/
-
-		
-
-
 		[HttpPost]
 		public virtual async Task<IActionResult> GetArticlesFromMultiCategories(string categoriesNames, int page = 1)
 		{

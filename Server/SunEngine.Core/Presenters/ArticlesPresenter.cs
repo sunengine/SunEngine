@@ -31,11 +31,11 @@ namespace SunEngine.Core.Presenters
 		public virtual Task<IPagedList<ArticleInfoView>> GetArticlesAsync(MaterialsShowOptions options)
 		{
 			Func<IQueryable<Material>, IOrderedQueryable<Material>> orderBy;
-			if (options.orderType == OrderType.PublishDate)
-				orderBy = x => x.OrderByDescending(y => y.PublishDate);
+			if (options.Sort != null)
+				orderBy = options.Sort;
 			else
-				orderBy = x => x.OrderByDescending(y => y.SortNumber);
-
+				orderBy = x => x.OrderByDescending(y => y.PublishDate);
+			
 			IQueryable<Material> query = db.Materials;
 
 			if (!options.ShowHidden)
@@ -44,7 +44,6 @@ namespace SunEngine.Core.Presenters
 			if (!options.ShowDeleted)
 				query = query.Where(x => x.DeletedDate == null);
 
-			query = options.Sort(query);
 
 			return query.GetPagedListAsync(
 				x => new ArticleInfoView

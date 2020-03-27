@@ -19,13 +19,13 @@ namespace SunEngine.Core.Presenters
 		public int PageSize;
 		public bool ShowHidden;
 		public bool ShowDeleted;
-		public Func<IQueryable<Material>,IQueryable<Material>> Sort;
+		public Func<IQueryable<Material>,IOrderedQueryable<Material>> Sort;
 	}
 
 	public class MaterialsMultiCatShowOptions
 	{
 		public IEnumerable<int> CategoriesIds;
-		public OrderType orderType;
+		//public OrderType orderType;
 		public int Page;
 		public int PageSize;
 		public int PreviewSize;

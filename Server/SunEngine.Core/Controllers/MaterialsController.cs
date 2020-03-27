@@ -253,6 +253,25 @@ namespace SunEngine.Core.Controllers
 			return Ok();
 		}
 
+		[HttpPost]
+		public virtual async Task<IActionResult> GetMaterialsFromSection(string sectionName, string sortType = null, int page = 1, bool showDeleted = false)
+		{
+			// извлекаем MaterialSectionType -> получаем нужный Presenter
+			// ForumPresenter, ArticlesPresenter, BlogPresenter - сделать общий интерфейс
+			
+			// MaterialsSectionsPresentersService - словарь всех необходимых Presenterов добавить
+			// SortTypesService - добавить
+			
+			// Articles, Forum, Blog
+			
+			// Синтаксис параметра string sortType  "PublishDate asc, SortNumber asc, LastCommentDate asc" 
+			
+			// GetArticlesAsync - подготовленный Presenter
+			
+			// Делаем прямой вывод без кеширования
+		}
+
+
 		/// <summary>
 		/// Move material down in sort order inside category
 		/// </summary>
