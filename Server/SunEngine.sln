@@ -32,7 +32,8 @@ ProjectSection(SolutionItems) = preProject
 	..\Scripts\UPDATE = ..\Scripts\UPDATE
 	..\Scripts\update.sh = ..\Scripts\update.sh
 	..\Scripts\start-dev.sh = ..\Scripts\start-dev.sh
-	..\Scripts\before-commit.sh = ..\Scripts\before-commit.sh
+	..\Scripts\copy-client-to-template.sh = ..\Scripts\copy-client-to-template.sh
+	..\Scripts\copy-config-to-template.sh = ..\Scripts\copy-config-to-template.sh
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workwlows", "workwlows", "{86FF27AD-99D1-46E5-8808-C8D8C5EACBEE}"
