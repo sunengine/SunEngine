@@ -269,7 +269,9 @@ namespace SunEngine.Core.Controllers
 			// GetArticlesAsync - подготовленный Presenter
 			
 			// Делаем прямой вывод без кеширования
-		}
+
+      return Ok();
+    }
 
 
 		/// <summary>
