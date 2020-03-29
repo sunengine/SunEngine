@@ -1,0 +1,42 @@
+﻿[
+  {
+    "Email": "admin@email.me",
+    "UserName": "Admin",
+    "Password": "password",
+    "Information": "Информация о пользователе Admin",
+    "Roles": [
+      "Admin",
+      "Registered"
+    ]
+  },
+  {
+    "Email": "moderator@email.me",
+    "UserName": "Moderator",
+    "Password": "password",
+    "Information": "Информация о пользователе Moderator",
+    "Roles": [
+      "Moderator",
+      "Registered"
+    ]
+  },
+  {
+    "Email": "user[n]@email.me",
+    "UserName": "User[n]",
+    "Password": "password",
+    "Information": "Информация о пользователе User[n]",
+    "Roles": [
+      "Registered"
+    ],
+    "Repeat": 3
+  },
+  {
+    "Email": "testuser1@email.me",
+    "UserName": "TestUser1",
+    "Password": "password",
+    "Information": "Информация о пользователе TestUser1",
+    "Roles": [
+      "Registered",
+      "TestGroup1"
+    ]
+  }
+]

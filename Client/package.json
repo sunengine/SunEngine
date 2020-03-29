@@ -1,6 +1,6 @@
 {
     "name": "sunengine-client",
-    "version": "2.9.14",
+    "version": "2.9.15",
     "description": "SunEngine - web engine with support of blog, forum and articles functionality",
     "productName": "SunEngine",
     "author": "Dmitrij Polianin",
@@ -20,7 +20,7 @@
         "babel-preset-proposals": "^0.1.0",
         "glob": "^7.1.4",
         "path": "^0.12.7",
-        "quasar-app-extension-ide-helper": "^1.0.0-alpha.3",
+        "quasar-app-extension-ide-helper": "^1.0.0",
         "webpack-deep-scope-plugin": "^1.6.2"
     },
     "engines": {

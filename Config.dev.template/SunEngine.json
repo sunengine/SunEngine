@@ -1,0 +1,34 @@
+{
+  "Server": {
+    "FileServer": true,
+    "UpdateConfigJsOnConfigChanges": false,
+    "Cors": {
+      "Origins": "http://localhost:5005"
+    }
+  },
+  "UrlPaths": {
+    "Site": "http://localhost:5005",
+    "Api": "http://localhost:5000",
+    "UploadImages": "http://localhost:5005/UploadImages",
+    "Skins": "http://localhost:5005/statics/Skins",
+    "PartialSkins": "http://localhost:5005/statics/PartialSkins",
+    "CustomCss": "http://localhost:5000/custom.css",
+    "CustomJavaScript": "http://localhost:5000/custom.js"
+  },
+  "Dirs": {
+    "ApplicationRoot": "auto",
+    "WwwRoot": "%app%/bin/wwwroot",
+    "UploadImages": "%wwwroot%/UploadImages",
+    "MailTemplates": "%config%/MailTemplates",
+    "Skins": "%wwwroot%/statics/Skins",
+    "PartialSkins": "%wwwroot%/statics/PartialSkins",
+    "Resources": "%app%/Resources"
+  },
+  "Kestrel": {
+    "EndPoints": {
+      "Http": {
+        "Url": "http://localhost:5000"
+      }
+    }
+  }
+}

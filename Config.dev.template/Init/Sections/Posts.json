@@ -1,0 +1,17 @@
+{
+  "Name": "Posts",
+  "Type": "Posts",
+  "IsCacheData": false,
+  "Roles": "Unregistered,Registered",
+  "Options": {
+    "Title": "Лента новостей",
+    "SubTitle": "Из разных категорий",
+    "Header": null,
+    "Categories": "Root",
+    "CategoriesExclude": "SiteTexts",
+    "RolesCanAdd": null,
+    "AddButtonLabel": null,
+    "PreviewSize": 800,
+    "PageSize": 12
+  }
+}

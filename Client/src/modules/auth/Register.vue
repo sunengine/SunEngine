@@ -72,7 +72,11 @@
 				<div id="register__confirm-text" v-html="registerConfirmText"></div>
 			</div>
 
-			<Captcha ref="captcha" v-model="captchaText" />
+			<Captcha
+				ref="captcha"
+				v-model="captchaText"
+				@getToken="value => (captchaToken = value)"
+			/>
 
 			<q-btn
 				:disable="registerConfirmText && !acceptConfirm"
@@ -122,6 +126,7 @@ export default {
 			showPassword2: false,
 			userNameInDb: false,
 			captchaText: "",
+			captchaToken: null,
 			acceptConfirm: false
 		};
 	},
@@ -129,20 +134,20 @@ export default {
 		registerConfirmText() {
 			return !!config.Register.ConfirmText;
 		},
-       rules() {
-           const passwordRulesInst = passwordRules.call(this);
-           return {
-               userName: userNameRules.call(this),
-               email: emailRules.call(this),
-               password: passwordRulesInst,
-               password2: [
-                   ...passwordRulesInst,
-                   value =>
-                       this.password === this.password2 ||
-                       this.$t("Global.validation.password.passwordsNotEquals")
-               ]
-           };
-       }
+		rules() {
+			const passwordRulesInst = passwordRules.call(this);
+			return {
+				userName: userNameRules.call(this),
+				email: emailRules.call(this),
+				password: passwordRulesInst,
+				password2: [
+					...passwordRulesInst,
+					value =>
+						this.password === this.password2 ||
+						this.$t("Global.validation.password.passwordsNotEquals")
+				]
+			};
+		}
 	},
 	methods: {
 		addTargetBlankOnLinks() {
@@ -196,7 +201,7 @@ export default {
 				UserName: this.userName,
 				Email: this.email,
 				Password: this.password,
-				CaptchaToken: this.token,
+				CaptchaToken: this.captchaToken,
 				CaptchaText: this.captchaText
 			})
 				.then(() => {
