@@ -33,6 +33,7 @@ ProjectSection(SolutionItems) = preProject
 	..\Scripts\update.sh = ..\Scripts\update.sh
 	..\Scripts\nginx.template = ..\Scripts\nginx.template
 	..\Scripts\systemd.template = ..\Scripts\systemd.template
+	..\Scripts\prepare-for-dev.sh = ..\Scripts\prepare-for-dev.sh
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workwlows", "workwlows", "{86FF27AD-99D1-46E5-8808-C8D8C5EACBEE}"
