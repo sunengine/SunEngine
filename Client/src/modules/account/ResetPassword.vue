@@ -14,7 +14,11 @@
 				</template>
 			</q-input>
 
-			<Captcha ref="captcha" v-model="captchaText" />
+			<Captcha
+				ref="captcha"
+				v-model="captchaText"
+				@getToken="value => (captchaToken = value)"
+			/>
 
 			<q-btn
 				class="send-btn full-width"
@@ -50,7 +54,8 @@ export default {
 			submitting: false,
 			start: true,
 			done: false,
-			captchaText: ""
+			captchaText: "",
+			captchaToken: null
 		};
 	},
 	computed: {
@@ -71,7 +76,7 @@ export default {
 			this.submitting = true;
 			this.$request(this.$Api.Account.ResetPasswordSendEmail, {
 				Email: this.email,
-				CaptchaToken: this.token,
+				CaptchaToken: this.captchaToken,
 				CaptchaText: this.captchaText
 			})
 				.then(() => {
