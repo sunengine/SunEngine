@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SixLabors.ImageSharp.Processing.Processors.Quantization;
 using SunEngine.Core.Models.Materials;
 
 namespace SunEngine.Core.Presenters
 {
 	interface IMaterialsSort
-	{
+  {
 		IQueryable<Material> SortAsc(IQueryable<Material> query);
 		IQueryable<Material> SortDesc(IQueryable<Material> query);
-	}
+  }
+
 	
 	public class MaterialsShowOptions
 	{

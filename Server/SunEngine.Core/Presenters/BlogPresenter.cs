@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AngleSharp.Html.Parser;
+using LinqToDB;
 using Microsoft.Extensions.Options;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
@@ -19,7 +21,7 @@ namespace SunEngine.Core.Presenters
 		Task<IPagedList<PostView>> GetPostsFromMultiCategoriesAsync(MaterialsMultiCatShowOptions options);
 	}
 
-	public class BlogPresenter : DbService, IBlogPresenter
+	public class BlogPresenter : DbService, IBlogPresenter, IMaterialsQueryPresenter
 	{
 		protected readonly IOptionsMonitor<BlogOptions> blogOptions;
 
@@ -106,7 +108,40 @@ namespace SunEngine.Core.Presenters
 
 			return rez;
 		}
-	}
+
+    public async Task<IList<object>> GetMaterialsByCategoryAsync(MaterialsShowOptions options)
+    {
+      Func<IQueryable<Material>, IOrderedQueryable<Material>> orderBy;
+
+      if (options.Sort != null)
+        orderBy = options.Sort;
+      else
+        orderBy = x => x.OrderByDescending(x => x.PublishDate);
+      
+        var result = await db.MaterialsVisible.GetPagedListAsync(x => new PostView
+        {
+          Id = x.Id,
+          Title = x.Title,
+          Preview = x.Text,
+          CommentsCount = x.CommentsCount,
+          AuthorName = x.Author.UserName,
+          AuthorLink = x.Author.Link,
+          AuthorAvatar = x.Author.Avatar,
+          PublishDate = x.PublishDate,
+          CategoryName = x.Category.Name,
+          CategoryTitle = x.Category.Title,
+          IsCommentsBlocked = x.IsCommentsBlocked
+        },
+        x => x.CategoryId == options.CategoryId,
+        orderBy,
+        options.Page,
+        options.PageSize
+        );
+        
+        
+      return (IList<object>)result.Items;
+    }
+  }
 
 	public class PostView
 	{

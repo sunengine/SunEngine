@@ -4,14 +4,14 @@ using SunEngine.Core.Presenters;
 
 namespace SunEngine.Core.Services
 {
-  public class MaterialsSectionsPresenterService
+  public static class MaterialsSectionsPresenterService
   {
-    public Dictionary<string, Type> MaterialsSectionsPresenters => new Dictionary<string, Type>()
+    public static Dictionary<string, Type> MaterialsSectionsPresenters => new Dictionary<string, Type>()
     {
-      ["materialPresenter"] = typeof(MaterialsPresenter),
-      ["forumPresenter"] = typeof(ForumPresenter),
-      ["articlePresenter"] = typeof(ArticlesPresenter),
-      ["blogPresenter"] = typeof(BlogPresenter)
+      [nameof(MaterialsPresenter)] = typeof(MaterialsPresenter),
+      [nameof(ForumPresenter)] = typeof(ForumPresenter),
+      [nameof(ArticlesPresenter)] = typeof(ArticlesPresenter),
+      [nameof(BlogPresenter)] = typeof(BlogPresenter)
     }; 
   }
 }
