@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
+using Microsoft.Extensions.ObjectPool;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Materials;
@@ -121,9 +122,36 @@ namespace SunEngine.Core.Presenters
       return result.Items as IList<object>;
     }
 
-    public async Task<IList<object>> GetMaterialsFromMultiCategoryAsync()
+    public async Task<IList<object>> GetMaterialsFromMultiCategory(MaterialsMultiCatShowOptions options)
     {
-      return null;
+      Func<IQueryable<Material>, IOrderedQueryable<Material>> order;
+      if (options.SortType != null)
+        order = options.SortType;
+      else
+        order = MaterialsDefaultSortService.DefaultSortOptions.GetValueOrDefault(nameof(ArticlesPresenter));
+
+      var result = await db.MaterialsVisible.GetPagedListAsync(x => new TopicInfoView()
+        {
+          Id = x.Id,
+          Title = x.Title,
+          SubTitle = x.SubTitle,
+          CommentsCount = x.CommentsCount,
+          AuthorName = x.Author.UserName,
+          AuthorAvatar = x.Author.Avatar,
+          PublishDate = x.PublishDate,
+          LastCommentId = x.LastCommentId,
+          LastCommentPublishDate = x.LastCommentId.HasValue ? (DateTime?) x.LastComment.PublishDate : null,
+          CategoryName = x.Category.Name,
+          CategoryTitle = x.Category.Title,
+          LastCommentAuthorName = x.LastComment.Author.UserName,
+          LastCommentAuthorAvatar = x.LastComment.Author.Avatar,
+          IsCommentsBlocked = x.IsCommentsBlocked
+        }, x => options.CategoriesIds.Contains(x.CategoryId),
+        order,
+        options.Page,
+        options.PageSize);
+
+      return result.Items as IList<Object>;
     }
   }
 

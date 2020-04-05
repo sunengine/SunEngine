@@ -120,6 +120,36 @@ namespace SunEngine.Core.Presenters
         options.PageSize);
       return result.Items as IList<object>;
     }
+
+    public async Task<IList<object>> GetMaterialsFromMultiCategory(MaterialsMultiCatShowOptions options)
+    {
+      Func<IQueryable<Material>, IOrderedQueryable<Material>> order;
+
+      if (options.SortType != null)
+        order = options.SortType;
+      else
+        order = MaterialsDefaultSortService.DefaultSortOptions.GetValueOrDefault(nameof(ArticlesPresenter));
+      
+      var result = await db.MaterialsVisible.GetPagedListAsync(x => new ArticleInfoView
+      {
+        Id = x.Id,
+        Name = x.Name,
+        Title = x.Title,
+        Description = x.SubTitle,
+        CommentsCount = x.CommentsCount,
+        AuthorName = x.Author.UserName,
+        PublishDate = x.PublishDate,
+        CategoryName = x.Category.Name,
+        CategoryTitle = x.Category.Title,
+        IsCommentsBlocked = x.IsCommentsBlocked
+      },
+        x => options.CategoriesIds.Contains(x.CategoryId),
+        order,
+        options.Page,
+        options.PageSize);
+
+      return result as IList<object>;
+    }
   }
 
 

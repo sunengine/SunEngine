@@ -311,13 +311,20 @@ namespace SunEngine.Core.Controllers
 
 
     [HttpPost]
-    public virtual async Task<IActionResult> GetMaterialsFromMultiCategories(string sectionName, int page = 1)
+    public virtual async Task<IActionResult> GetMaterialsFromMultiCategories(string sectionName, string sortType = null, int page = 1)
     {
       var section = sectionsCache.GetSectionserverCached(sectionName, User.Roles);
       if (section == null)
         return BadRequest($"No component {sectionName} found in cache");
 
       var materialCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(section.Name);
+
+      var sectionData = (MaterialsServerSectionData) section.Data;
+
+      MaterialsSectionsPresenterService.MaterialsSectionsPresenters.TryGetValue(sectionData.CategoryName,
+        out Type presenterType);
+
+      IMaterialsQueryPresenter materialQueryPresenter = (IMaterialsQueryPresenter)serviceProvider.GetRequiredService(presenterType);
       
       IList<CategoryCached> categoryCacheds = authorizationService.GetAllowedCategories(User.Roles,
         materialCategoriesDic.Values, operationKeysContainer.MaterialAndCommentsRead);
@@ -327,15 +334,20 @@ namespace SunEngine.Core.Controllers
 
       IEnumerable<int> categoriesIds = categoryCacheds.Select(x => x.Id);
       
+      MaterialsSortOptionsService.MaterialsSortOptions.TryGetValue(sortType,
+        out Func<IQueryable<Material>, IOrderedQueryable<Material>> sort);
+
       var options = new MaterialsMultiCatShowOptions()
       {
         CategoriesIds = categoriesIds,
-        Page = page
+        Page = page,
+        PageSize = sectionData.PageSize,
+        SortType = sort
       };
-
-      async Task<IList<Material>> LoadDataAsync()
+      
+      async Task<IList<object>> LoadDataAsync()
       {
-        return await materialsPresenter.GetMaterialsFromMultiCategory(categoriesIds);
+        return await materialQueryPresenter.GetMaterialsFromMultiCategory(options);
       }
 
       return await CacheContentAsync(section, categoriesIds, LoadDataAsync, page);

@@ -31,5 +31,6 @@ namespace SunEngine.Core.Presenters
 		public int Page;
 		public int PageSize;
 		public int PreviewSize;
-	}
+    public Func<IQueryable<Material>, IOrderedQueryable<Material>> SortType;
+  }
 }
