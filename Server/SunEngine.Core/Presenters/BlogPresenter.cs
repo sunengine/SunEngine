@@ -139,7 +139,7 @@ namespace SunEngine.Core.Presenters
         );
         
         
-      return (IList<object>)result.Items;
+      return result.Items as IList<object>;
     }
   }
 

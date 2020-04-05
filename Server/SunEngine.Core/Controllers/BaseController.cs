@@ -108,7 +108,38 @@ namespace SunEngine.Core.Controllers
 			return await CacheContentAsync(category, key, dataLoader, page);
 		}
 
+    public async Task<IActionResult> CacheContentAsync<T>(
+      CategoryCached category,
+      int categoryId,
+      Func<Task<T>> dataLoader,
+      RequestOptions options)
+    {
+      string key;
+      if (options.Sort == null)
+        key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, options.PageNumber, categoryId);
+      else
+        key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, options.PageNumber, categoryId, options.Sort);
+      return await CacheContentAsync(category, key, dataLoader, options);
+    }
 
+
+    protected async Task<IActionResult> CacheContentAsync<T>(
+      CategoryCached category,
+      string key,
+      Func<Task<T>> dataLoader,
+      RequestOptions options)
+    {
+      if (!cachePolicy.CanCache(category, options))
+        return Json(await dataLoader());
+      string json;
+
+      if (!string.IsNullOrEmpty(json = contentCache.GetContent(key)))
+        return JsonString(json);
+      var content = await dataLoader();
+      contentCache.CacheContent(key, json);
+      return JsonString(json);
+    }
+    
     public async Task<IActionResult> CacheContentAsync<T>(
       CategoryCached category,
       int categoryId,
@@ -116,10 +147,11 @@ namespace SunEngine.Core.Controllers
       string sortType,
       int? page = null)
     {
-      var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryId,sortType);
+      var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryId, sortType);
       return await CacheContentAsync(category, key, dataLoader, sortType, page);
     }
 
+    
     protected async Task<IActionResult> CacheContentAsync<T>(
       CategoryCached category,
       string key,
@@ -127,7 +159,7 @@ namespace SunEngine.Core.Controllers
       string sortType,
       int? page)
     {
-      if (!cachePolicy.CanCache(category, page))
+      if (!cachePolicy.CanCache(category, new RequestOptions(){PageNumber = page, Sort = sortType}))
         return Json(await dataLoader());
       string json;
 
@@ -144,7 +176,7 @@ namespace SunEngine.Core.Controllers
 			Func<Task<T>> dataLoader,
       int? page)
 		{
-			if (!cachePolicy.CanCache(category, page))
+			if (!cachePolicy.CanCache(category, new RequestOptions(){PageNumber = page}))
 				return Json(await dataLoader());
     
 			string json;
@@ -164,7 +196,7 @@ namespace SunEngine.Core.Controllers
 			Func<Task<T>> dataLoader,
 			int? page = null)
 		{
-			if (!cachePolicy.CanCache(component, page))
+			if (!cachePolicy.CanCache(component, new RequestOptions(){PageNumber = page}))
 				return Json(await dataLoader());
 
 			var key = keyGenerator.ContentGenerateKey(component.Name, categoryIds, page);

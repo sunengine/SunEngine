@@ -12,10 +12,10 @@ namespace SunEngine.Core.Services
     public static Dictionary<string, Func<IQueryable<Material>, IOrderedQueryable<Material>>> DefaultSortOptions => 
       new Dictionary<string, Func<IQueryable<Material>, IOrderedQueryable<Material>>>()
       {
-        [nameof(ArticlesPresenter)] = x => x.OrderByDescending(x => x.LastActivity),
-        [nameof(MaterialsPresenter)] = x => x.OrderByDescending(x => x.PublishDate),
-        [nameof(BlogPresenter)] = x => x.OrderByDescending(x => x.LastActivity),
-        [nameof(ForumPresenter)] = x => x.OrderByDescending(x => x.LastActivity)
+        [nameof(ArticlesPresenter)] = x => x.OrderByDescending(y => y.LastActivity),
+        [nameof(MaterialsPresenter)] = x => x.OrderByDescending(y => y.PublishDate),
+        [nameof(BlogPresenter)] = x => x.OrderByDescending(y => y.LastActivity),
+        [nameof(ForumPresenter)] = x => x.OrderByDescending(y => y.LastActivity)
       };
   }
 }

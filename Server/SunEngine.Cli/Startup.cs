@@ -56,7 +56,7 @@ namespace SunEngine.Cli
 			services.AddSunAuthorization();
 
 			services.AddManagers();
-
+      
 			services.AddPresenters();
 
 			services.AddAdmin();

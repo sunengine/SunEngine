@@ -20,6 +20,7 @@ namespace SunEngine.Core.Presenters
 	{
 		Task<MaterialView> GetAsync(int id);
 		Task<MaterialView> GetAsync(string name);
+    Task<IList<Material>> GetMaterialsFromMultiCategory(IEnumerable<int> categoryNames);
   }
 
 	public class MaterialsPresenter : DbService, IMaterialsPresenter, IMaterialsQueryPresenter
@@ -39,7 +40,12 @@ namespace SunEngine.Core.Presenters
 			var query = db.Materials.Where(x => x.Name == name);
 			return GetAsync(query);
 		}
-    
+
+    public Task<IList<Material>> GetMaterialsFromMultiCategory(IEnumerable<int> categoryNames)
+    {
+      throw new NotImplementedException();
+    }
+
 
     protected virtual Task<MaterialView> GetAsync(IQueryable<Material> query)
 		{
@@ -79,7 +85,7 @@ namespace SunEngine.Core.Presenters
         orderBy = MaterialsDefaultSortService.DefaultSortOptions.GetValueOrDefault(nameof(MaterialsPresenter));
       
       IQueryable<Material> materials = db.Materials;
-      var res = (IList<object>) await (from material in materials
+      var res = await (from material in materials
         join category in db.GetTable<Category>() on material.CategoryId equals category.Id
         orderby orderBy
         where category.Id == materialsShowOptions.CategoryId
@@ -105,7 +111,7 @@ namespace SunEngine.Core.Presenters
           VisitsCount = material.VisitsCount,
           SettingsJson = material.SettingsJson
         }).ToListAsync();
-      return res;
+      return res as IList<object>;
     }
   }
 

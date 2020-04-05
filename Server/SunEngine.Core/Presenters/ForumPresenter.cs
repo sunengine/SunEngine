@@ -118,7 +118,7 @@ namespace SunEngine.Core.Presenters
         options.Page,
         options.PageSize);
 
-      return (IList<object>) result.Items;
+      return result.Items as IList<object>;
     }
 
     public async Task<IList<object>> GetMaterialsFromMultiCategoryAsync()

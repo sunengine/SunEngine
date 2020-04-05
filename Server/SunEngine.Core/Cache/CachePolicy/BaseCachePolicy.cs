@@ -4,14 +4,14 @@ namespace SunEngine.Core.Cache.CachePolicy
 {
   public class BaseCachePolicy : ICachePolicy
   {
-    public bool CanCache(CategoryCached category, int? page = null)
+    public bool CanCache(CategoryCached category, RequestOptions options)
     {
-      return page.HasValue && page == 1;
+      return options.PageNumber.HasValue && options.PageNumber == 1;
     }
 
-    public bool CanCache(SectionServerCached component, int? page = null)
+    public bool CanCache(SectionServerCached component, RequestOptions options)
     {
-      return page.HasValue && page == 1;
+      return options.PageNumber.HasValue && options.PageNumber == 1;
     }
   }
 }

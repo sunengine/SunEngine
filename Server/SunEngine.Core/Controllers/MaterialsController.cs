@@ -302,24 +302,43 @@ namespace SunEngine.Core.Controllers
         return await materialsQueryPresenter.GetMaterialsByCategoryAsync(options);
       }
         
-      return await CacheContentAsync(categoryCached, categoryCachedId, LoadDataAsync, sortType);
+      return await CacheContentAsync(categoryCached, categoryCachedId, LoadDataAsync, new RequestOptions()
+      {
+        Sort = sortType,
+        PageNumber = page
+      });
     }
 
 
     [HttpPost]
-    public virtual async Task<IActionResult> GetMaterialsFromMultiCategories(string categoriesNames, int page = 1, bool showDeleted = false)
+    public virtual async Task<IActionResult> GetMaterialsFromMultiCategories(string sectionName, int page = 1)
     {
-      var materialCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(categoriesNames);
+      var section = sectionsCache.GetSectionserverCached(sectionName, User.Roles);
+      if (section == null)
+        return BadRequest($"No component {sectionName} found in cache");
+
+      var materialCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(section.Name);
       
       IList<CategoryCached> categoryCacheds = authorizationService.GetAllowedCategories(User.Roles,
         materialCategoriesDic.Values, operationKeysContainer.MaterialAndCommentsRead);
 
       if (categoryCacheds.Count == 0)
         return BadRequest("No categories to show");
-      
-      
 
-      return Ok();
+      IEnumerable<int> categoriesIds = categoryCacheds.Select(x => x.Id);
+      
+      var options = new MaterialsMultiCatShowOptions()
+      {
+        CategoriesIds = categoriesIds,
+        Page = page
+      };
+
+      async Task<IList<Material>> LoadDataAsync()
+      {
+        return await materialsPresenter.GetMaterialsFromMultiCategory(categoriesIds);
+      }
+
+      return await CacheContentAsync(section, categoriesIds, LoadDataAsync, page);
     }
     
     [HttpPost]

@@ -118,7 +118,7 @@ namespace SunEngine.Core.Presenters
         order,
         options.Page,
         options.PageSize);
-      return (IList<object>) result.Items;
+      return result.Items as IList<object>;
     }
   }
 
