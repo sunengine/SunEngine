@@ -76,7 +76,7 @@ namespace SunEngine.Core.Presenters
       if (materialsShowOptions.Sort != null)
         orderBy = materialsShowOptions.Sort;
       else
-        orderBy = x => x.OrderByDescending(x => x.PublishDate);
+        orderBy = MaterialsDefaultSortService.DefaultSortOptions.GetValueOrDefault(nameof(MaterialsPresenter));
       
       IQueryable<Material> materials = db.Materials;
       var res = (IList<object>) await (from material in materials

@@ -98,7 +98,7 @@ namespace SunEngine.Core.Security
 
 				return AuthenticateResult.Success(new AuthenticationTicket(sunClaimsPrincipal, SunJwe.Scheme));
 
-
+    
 				async Task<string> CompareLongTokens()
 				{
 					int userId = int.Parse(jwtLongToken2.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);

@@ -116,7 +116,7 @@ namespace SunEngine.Core.Presenters
       if (options.Sort != null)
         orderBy = options.Sort;
       else
-        orderBy = x => x.OrderByDescending(x => x.PublishDate);
+        orderBy = MaterialsDefaultSortService.DefaultSortOptions.GetValueOrDefault(nameof(BlogPresenter));
       
         var result = await db.MaterialsVisible.GetPagedListAsync(x => new PostView
         {

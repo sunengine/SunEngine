@@ -5,13 +5,13 @@ namespace SunEngine.Core.Cache.CachePolicy
 	public class AlwaysCachePolicy : ICachePolicy
 	{
 		public bool CanCache(CategoryCached category, int? page = null)
-		{
-			return !page.HasValue || page == 1;
-		}
+    {
+      return true;
+    }
 
 		public bool CanCache(SectionServerCached component, int? page = null)
-		{
-			return !page.HasValue || page == 1;
-		}
+    {
+      return true;
+    }
 	}
 }

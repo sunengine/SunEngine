@@ -20,6 +20,11 @@ namespace SunEngine.Core.Cache.Services
 			return $"{controllerName}-{actionName}-{page}:,{id},";
 		}
 
+    public string ContentGenerateKey(string controllerName, string actionName, int? page, int id, string sortType)
+    {
+      return $"{controllerName}-{actionName}-{page}:,{id},{sortType},";
+    }
+
 		public string ContentGenerateKey(string componentName, int? page)
 		{
 			return $"{componentName}-{page}";

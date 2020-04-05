@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +11,9 @@ using SunEngine.Core.Cache.CachePolicy;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Managers;
 using SunEngine.Core.Models;
+using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Security;
+using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
 
 namespace SunEngine.Core.Controllers
@@ -104,25 +108,56 @@ namespace SunEngine.Core.Controllers
 			return await CacheContentAsync(category, key, dataLoader, page);
 		}
 
+
+    public async Task<IActionResult> CacheContentAsync<T>(
+      CategoryCached category,
+      int categoryId,
+      Func<Task<T>> dataLoader,
+      string sortType,
+      int? page = null)
+    {
+      var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryId,sortType);
+      return await CacheContentAsync(category, key, dataLoader, sortType, page);
+    }
+
+    protected async Task<IActionResult> CacheContentAsync<T>(
+      CategoryCached category,
+      string key,
+      Func<Task<T>> dataLoader,
+      string sortType,
+      int? page)
+    {
+      if (!cachePolicy.CanCache(category, page))
+        return Json(await dataLoader());
+      string json;
+
+      if (!string.IsNullOrEmpty(json = contentCache.GetContent(key)))
+        return JsonString(json);
+      var content = await dataLoader();
+      contentCache.CacheContent(key, json);
+      return JsonString(json);
+    }
+    
 		protected async Task<IActionResult> CacheContentAsync<T>(
 			CategoryCached category,
 			string key,
 			Func<Task<T>> dataLoader,
-			int? page)
+      int? page)
 		{
 			if (!cachePolicy.CanCache(category, page))
 				return Json(await dataLoader());
-
+    
 			string json;
 			if (!string.IsNullOrEmpty(json = contentCache.GetContent(key)))
 				return JsonString(json);
+      
+      var content = await dataLoader();
 
-			var content = await dataLoader();
-			json = SunJson.Serialize(content);
+      json = SunJson.Serialize(content);
 			contentCache.CacheContent(key, json);
 			return JsonString(json);
 		}
-
+    
 		public async Task<IActionResult> CacheContentAsync<T>(
 			SectionServerCached component,
 			IEnumerable<int> categoryIds,
@@ -143,7 +178,7 @@ namespace SunEngine.Core.Controllers
 			contentCache.CacheContent(key, json);
 			return JsonString(json);
 		}
-
+    
 		protected override void Dispose(bool disposing)
 		{
 			userManager.Dispose();

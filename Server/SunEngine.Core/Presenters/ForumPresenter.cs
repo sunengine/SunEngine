@@ -95,7 +95,7 @@ namespace SunEngine.Core.Presenters
       if (options.Sort != null)
         orderBy = options.Sort;
       else
-        orderBy = x => x.OrderByDescending(x => x.LastActivity);
+        orderBy = MaterialsDefaultSortService.DefaultSortOptions.GetValueOrDefault(nameof(ForumPresenter));
       
       var result = await db.MaterialsVisible.GetPagedListMaxAsync(x => new TopicInfoView()
         {
@@ -119,6 +119,11 @@ namespace SunEngine.Core.Presenters
         options.PageSize);
 
       return (IList<object>) result.Items;
+    }
+
+    public async Task<IList<object>> GetMaterialsFromMultiCategoryAsync()
+    {
+      return null;
     }
   }
 

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Cache.Services.Counters;
 using SunEngine.Core.DataBase;
@@ -11,6 +13,7 @@ using SunEngine.Core.Errors;
 using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Filters;
 using SunEngine.Core.Managers;
+using SunEngine.Core.Models.Authorization;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Presenters;
 using SunEngine.Core.SectionsData;
@@ -32,7 +35,8 @@ namespace SunEngine.Core.Controllers
     protected readonly IMaterialsVisitsCounterCache materialsVisitsCounterCache;
     protected readonly ISectionsCache sectionsCache;
     protected readonly IServiceProvider serviceProvider;
-
+    protected readonly OperationKeysContainer operationKeysContainer;
+    protected readonly IAuthorizationService authorizationService;
     public MaterialsController(
       MaterialsAuthorization materialsAuthorization,
       ICategoriesCache categoriesCache,
@@ -40,7 +44,9 @@ namespace SunEngine.Core.Controllers
       IMaterialsPresenter materialsPresenter,
       IMaterialsVisitsCounterCache materialsVisitsCounterCache,
       ISectionsCache sectionsCache,
-      IServiceProvider serviceProvider) : base(serviceProvider)
+      IServiceProvider serviceProvider,
+      OperationKeysContainer operationKeysContainer,
+      IAuthorizationService authorizationService) : base(serviceProvider)
     {
       this.materialsAuthorization = materialsAuthorization;
       this.categoriesCache = categoriesCache;
@@ -49,6 +55,8 @@ namespace SunEngine.Core.Controllers
       this.materialsVisitsCounterCache = materialsVisitsCounterCache;
       this.sectionsCache = sectionsCache;
       this.serviceProvider = serviceProvider;
+      this.operationKeysContainer = operationKeysContainer;
+      this.authorizationService = authorizationService;
     }
 
     [HttpPost]
@@ -269,7 +277,8 @@ namespace SunEngine.Core.Controllers
       MaterialsSectionsPresenterService.MaterialsSectionsPresenters.TryGetValue(section.CategoryName,
         out Type presenterType);
 
-      int categoryId = categoriesCache.GetCategory(sectionName).Id;
+      var categoryCached = categoriesCache.GetCategory(sectionName);
+      int categoryCachedId = categoryCached.Id;
 
       using var scope = serviceProvider.CreateScope();
 
@@ -281,16 +290,38 @@ namespace SunEngine.Core.Controllers
       MaterialsShowOptions options = new MaterialsShowOptions()
       {
         ShowDeleted = showDeleted,
-        CategoryId = categoryId,
+        CategoryId = categoryCachedId,
         Page = page,
         Sort = sort
       };
       
       IMaterialsQueryPresenter materialsQueryPresenter = (IMaterialsQueryPresenter) scope.ServiceProvider.GetRequiredService(presenterType);
 
-      return Json(await materialsQueryPresenter.GetMaterialsByCategoryAsync(options));
+      async Task<IList<object>> LoadDataAsync()
+      {
+        return await materialsQueryPresenter.GetMaterialsByCategoryAsync(options);
+      }
+        
+      return await CacheContentAsync(categoryCached, categoryCachedId, LoadDataAsync, sortType);
     }
 
+
+    [HttpPost]
+    public virtual async Task<IActionResult> GetMaterialsFromMultiCategories(string categoriesNames, int page = 1, bool showDeleted = false)
+    {
+      var materialCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(categoriesNames);
+      
+      IList<CategoryCached> categoryCacheds = authorizationService.GetAllowedCategories(User.Roles,
+        materialCategoriesDic.Values, operationKeysContainer.MaterialAndCommentsRead);
+
+      if (categoryCacheds.Count == 0)
+        return BadRequest("No categories to show");
+      
+      
+
+      return Ok();
+    }
+    
     [HttpPost]
     public async Task<IActionResult> Down(int id, int countMove = 1)
     {

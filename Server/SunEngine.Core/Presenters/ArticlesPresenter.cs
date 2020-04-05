@@ -99,7 +99,7 @@ namespace SunEngine.Core.Presenters
       if (options.Sort != null)
         order = options.Sort;
       else
-        order = x => x.OrderByDescending(x => x.PublishDate);
+        order = MaterialsDefaultSortService.DefaultSortOptions.GetValueOrDefault(nameof(ArticlesPresenter));
 
       var result= await db.MaterialsVisible.GetPagedListAsync(x => new ArticleInfoView
         {
