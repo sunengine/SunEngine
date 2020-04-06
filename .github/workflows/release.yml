@@ -44,10 +44,10 @@ jobs:
         cp -RT Resources build/Resources
         cp -T SunEngine.md build/SunEngine.md
 
-    - name: Publish to SunEngine.Build
+    - name: Publish to Build
       uses: s0/git-publish-subdir-action@master
       env:
-        REPO: git@github.com:SunEngine/SunEngine.Build.git
+        REPO: git@github.com:SunEngine/Build.git
         BRANCH: master
         SSH_PRIVATE_KEY: ${{ secrets.AutoBuild }}
         FOLDER: build
