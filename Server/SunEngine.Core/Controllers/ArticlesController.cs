@@ -138,8 +138,7 @@ namespace SunEngine.Core.Controllers
 				else
 					return Forbid();
 			}
-
-			return BadRequest("Invalid article ID");
+      return BadRequest("Invalid article ID");
 		}
 
 		public async Task<IActionResult> Up(int id, int countMove = 1)

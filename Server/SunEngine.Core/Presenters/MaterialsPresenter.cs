@@ -1,20 +1,29 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using SunEngine.Core.DataBase;
+using SunEngine.Core.Models;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
 
 namespace SunEngine.Core.Presenters
 {
+
+  public interface IMaterialsQueryPresenter
+  {
+    Task<IList<Object>> GetMaterialsByCategoryAsync(MaterialsShowOptions options);
+    Task<IList<Object>> GetMaterialsFromMultiCategory(MaterialsMultiCatShowOptions options);
+  }
+  
 	public interface IMaterialsPresenter
 	{
 		Task<MaterialView> GetAsync(int id);
 		Task<MaterialView> GetAsync(string name);
-	}
+  }
 
-	public class MaterialsPresenter : DbService, IMaterialsPresenter
+	public class MaterialsPresenter : DbService, IMaterialsPresenter, IMaterialsQueryPresenter
 	{
 		public MaterialsPresenter(DataBaseConnection db) : base(db)
 		{
@@ -32,7 +41,13 @@ namespace SunEngine.Core.Presenters
 			return GetAsync(query);
 		}
 
-		protected virtual Task<MaterialView> GetAsync(IQueryable<Material> query)
+    public Task<IList<Material>> GetMaterialsFromMultiCategory(IEnumerable<int> categoryNames)
+    {
+      throw new NotImplementedException();
+    }
+
+
+    protected virtual Task<MaterialView> GetAsync(IQueryable<Material> query)
 		{
 			return query.Select(x =>
 				new MaterialView
@@ -59,7 +74,87 @@ namespace SunEngine.Core.Presenters
 				}
 			).FirstOrDefaultAsync();
 		}
-	}
+    
+    public async Task<IList<Object>> GetMaterialsByCategoryAsync(MaterialsShowOptions materialsShowOptions)
+    {
+      Func<IQueryable<Material>, IOrderedQueryable<Material>> orderBy;
+
+      if (materialsShowOptions.Sort != null)
+        orderBy = materialsShowOptions.Sort;
+      else
+        orderBy = MaterialsDefaultSortService.DefaultSortOptions.GetValueOrDefault(nameof(MaterialsPresenter));
+      
+      IQueryable<Material> materials = db.Materials;
+      var res = await (from material in materials
+        join category in db.GetTable<Category>() on material.CategoryId equals category.Id
+        orderby orderBy
+        where category.Id == materialsShowOptions.CategoryId
+        select new MaterialView()
+        {
+          Id = material.Id,
+          Name = material.Name,
+          Title = material.Title,
+          SubTitle = material.SubTitle,
+          AuthorLink = material.Author.Link,
+          AuthorName = material.Author.UserName,
+          AuthorAvatar = material.Author.Avatar,
+          AuthorId = material.Author.Id,
+          PublishDate = material.PublishDate,
+          EditDate = material.EditDate,
+          CommentsCount = material.CommentsCount,
+          Text = material.Text,
+          CategoryName = material.Category.Name,
+          IsHidden = material.IsHidden,
+          IsCommentsBlocked = material.IsCommentsBlocked,
+          DeletedDate = material.DeletedDate,
+          Tags = material.TagMaterials.OrderBy(y => y.Tag.Name).Select(y => y.Tag.Name).ToArray(),
+          VisitsCount = material.VisitsCount,
+          SettingsJson = material.SettingsJson
+        }).ToListAsync();
+      return res as IList<object>;
+    }
+
+    public async Task<IList<object>> GetMaterialsFromMultiCategory(MaterialsMultiCatShowOptions options)
+    {
+      Func<IQueryable<Material>, IOrderedQueryable<Material>> orderBy;
+
+      if (options.SortType != null)
+        orderBy = options.SortType;
+      else
+        orderBy = MaterialsDefaultSortService.DefaultSortOptions.GetValueOrDefault(nameof(MaterialsPresenter));
+      
+      IQueryable<Material> materials = db.Materials;
+
+      var res = await (from material in materials
+        join category in db.GetTable<Category>() on material.CategoryId equals category.Id
+        orderby orderBy
+        where options.CategoriesIds.Contains(material.CategoryId)
+        select new MaterialView()
+        {
+          Id = material.Id,
+          Name = material.Name,
+          Title = material.Title,
+          SubTitle = material.SubTitle,
+          AuthorLink = material.Author.Link,
+          AuthorName = material.Author.UserName,
+          AuthorAvatar = material.Author.Avatar,
+          AuthorId = material.Author.Id,
+          PublishDate = material.PublishDate,
+          EditDate = material.EditDate,
+          CommentsCount = material.CommentsCount,
+          Text = material.Text,
+          CategoryName = material.Category.Name,
+          IsHidden = material.IsHidden,
+          IsCommentsBlocked = material.IsCommentsBlocked,
+          DeletedDate = material.DeletedDate,
+          Tags = material.TagMaterials.OrderBy(y => y.Tag.Name).Select(y => y.Tag.Name).ToArray(),
+          VisitsCount = material.VisitsCount,
+          SettingsJson = material.SettingsJson
+        }).ToListAsync();
+
+      return res as IList<object>;
+    }
+  }
 
 	public class MaterialView
 	{

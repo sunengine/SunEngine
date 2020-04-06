@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SixLabors.ImageSharp.Processing.Processors.Quantization;
 using SunEngine.Core.Models.Materials;
 
 namespace SunEngine.Core.Presenters
 {
 	interface IMaterialsSort
-	{
+  {
 		IQueryable<Material> SortAsc(IQueryable<Material> query);
 		IQueryable<Material> SortDesc(IQueryable<Material> query);
-	}
+  }
+
 	
 	public class MaterialsShowOptions
 	{
@@ -29,5 +31,6 @@ namespace SunEngine.Core.Presenters
 		public int Page;
 		public int PageSize;
 		public int PreviewSize;
-	}
+    public Func<IQueryable<Material>, IOrderedQueryable<Material>> SortType;
+  }
 }

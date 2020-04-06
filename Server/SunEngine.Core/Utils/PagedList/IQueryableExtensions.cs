@@ -88,7 +88,7 @@ namespace SunEngine.Core.Utils.PagedList
 
 			return pagedList;
 		}
-	}
+  }
 
 	/*public static class TableExtensions
 	{

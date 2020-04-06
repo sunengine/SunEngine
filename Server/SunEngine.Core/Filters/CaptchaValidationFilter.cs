@@ -22,7 +22,7 @@ namespace SunEngine.Core.Filters
 				var parameters = descriptor.MethodInfo.GetParameters();
 
 				var modelParameter = parameters.FirstOrDefault(x => x.ParameterType.IsSubclassOf(typeof(CaptchaArgs)));
-
+        
 				var model = (CaptchaArgs) context.ActionArguments[modelParameter.Name];
 
 				if (!captchaService.VerifyToken(model.CaptchaToken, model.CaptchaText))
