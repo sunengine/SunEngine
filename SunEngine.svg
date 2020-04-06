@@ -2,33 +2,6 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg id="svgLogo" version="1.1" viewBox="-113 -113 226 226" width="400" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none">
         <style>
-            #svgLogo:hover .spin {
-                animation-play-state: running;
-            }
-
-            #svgLogo:hover .backSpin {
-                animation-play-state: running;
-            }
-
-
-            .spin {
-                animation-duration: 24s;
-                animation-name: rot1;
-                animation-fill-mode: forwards;
-                animation-timing-function: linear;
-                animation-iteration-count: infinite;
-                animation-play-state: paused;
-            }
-
-            .backSpin {
-                animation-duration: 24s;
-                animation-name: rot2;
-                animation-fill-mode: forwards;
-                animation-timing-function: linear;
-                animation-iteration-count: infinite;
-                animation-play-state: paused;
-            }
-
             .runePositionFix {
                 transform: translate(-7.0px, -7.0px);
             }
@@ -42,19 +15,6 @@
                 stroke-width: 2px;
                 stroke-linecap: round;
                 stroke-linejoin: round
-            }
-
-
-            @keyframes rot1 {
-                to {
-                    transform: rotate(1turn)
-                }
-            }
-
-            @keyframes rot2 {
-                to {
-                    transform: rotate(-1turn)
-                }
             }
         </style>
         <defs>
