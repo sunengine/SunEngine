@@ -97,6 +97,7 @@
 			v-if="rightDrawerIs"
 			bordered
 			side="right"
+			ref="rightDrawer"
 			v-model="rightDrawerOpen"
 			content-class="side-menu-drawer"
 		>
@@ -146,6 +147,7 @@
 <script>
 import { mapState } from "vuex";
 import { prepareLocalLinks } from "utils";
+import { app } from "App";
 
 export default {
 	name: "Layout",
@@ -184,7 +186,7 @@ export default {
 				this.$store.state.currentPage?.category
 			);
 		},
-		rightDrawerIs: function() {
+		rightDrawerIs() {
 			return !!this.$route?.matched?.[0]?.components?.navigation;
 		},
 		footerMenuItem() {
@@ -212,6 +214,7 @@ export default {
 	},
 	created() {
 		this.$root.$layout = this;
+		app.$layout = this;
 	}
 };
 </script>

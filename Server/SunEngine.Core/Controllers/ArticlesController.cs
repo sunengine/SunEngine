@@ -7,6 +7,8 @@ using Microsoft.Extensions.Options;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Configuration.Options;
+using SunEngine.Core.Managers;
+using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Presenters;
 using SunEngine.Core.Security;
 using SunEngine.Core.Utils.PagedList;
@@ -26,6 +28,8 @@ namespace SunEngine.Core.Controllers
 
 		protected readonly IArticlesPresenter articlesPresenter;
 
+		protected readonly IMaterialsManager materialManager;
+		protected readonly MaterialsAuthorization materialsAuthorization;
 
 		public ArticlesController(
 			IOptionsMonitor<ArticlesOptions> articlesOptions,
@@ -33,6 +37,8 @@ namespace SunEngine.Core.Controllers
 			ICategoriesCache categoriesCache,
 			OperationKeysContainer operationKeysContainer,
 			IArticlesPresenter articlesPresenter,
+			IMaterialsManager materialManager,
+			MaterialsAuthorization materialsAuthorization,
 			IServiceProvider serviceProvider) : base(serviceProvider)
 		{
 			OperationKeys = operationKeysContainer;
@@ -41,7 +47,10 @@ namespace SunEngine.Core.Controllers
 			this.authorizationService = authorizationService;
 			this.categoriesCache = categoriesCache;
 			this.articlesPresenter = articlesPresenter;
+			this.materialManager = materialManager;
+			this.materialsAuthorization = materialsAuthorization;
 		}
+
 
 		[HttpPost]
 		public virtual async Task<IActionResult> GetArticles(
@@ -102,6 +111,59 @@ namespace SunEngine.Core.Controllers
 			IPagedList<ArticleInfoView> articles = await articlesPresenter.GetArticlesFromMultiCategoriesAsync(options);
 
 			return Json(articles);
+		}
+
+		/// <summary>
+		/// Move article down in sort order 
+		/// </summary>
+		[HttpPost]
+		public async Task<IActionResult> Down(int id, int countMove = 1)
+		{
+			Material material = await materialManager.GetAsync(id);
+			if (material != null)
+			{
+				if (countMove <= 0 || material.SortNumber - countMove < 1)
+					return BadRequest("Incorrect count move");
+				if (await materialsAuthorization.CanUpdateAsync(User, material))
+				{
+					try
+					{
+						await materialManager.DownAsync(id);
+						return Ok();
+					}
+					catch
+					{
+					}
+				}
+				else
+					return Forbid();
+			}
+      return BadRequest("Invalid article ID");
+		}
+
+		public async Task<IActionResult> Up(int id, int countMove = 1)
+		{
+			if (countMove < 1)
+				return BadRequest("Incorrect count move");
+			Material material = await materialManager.GetAsync(id);
+			if (material != null)
+			{
+				if (await materialsAuthorization.CanUpdateAsync(User, material))
+				{
+					try
+					{
+						await materialManager.UpAsync(id, countMove);
+						return Ok();
+					}
+					catch
+					{
+					}
+				}
+				else
+					return Forbid();
+			}
+
+			return BadRequest("Invalid article ID");
 		}
 	}
 }

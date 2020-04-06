@@ -6,5 +6,6 @@ namespace SunEngine.Core.SectionsData
 	{
 		[ConfigItem(typeof(CategoryItem))] public string CategoryName { get; set; }
 		[ConfigItem(typeof(IntegerItem))] public int MaterialsNumber { get; set; }
+		[ConfigItem(typeof(EnumItem))] public string MaterialSectionType { get; set; }
 	}
 }

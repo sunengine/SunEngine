@@ -5,6 +5,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Namotion.Reflection;
 using SunEngine.Core.Configuration;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Services;
@@ -24,6 +25,10 @@ namespace SunEngine.Cli
 
 			new InfrastructurePreparer((IConfigurationRoot) conf).DoAll();
 
+			string endPoint = conf["Kestrel:EndPoints:Http:Url"];
+			if(endPoint != null)
+				Console.WriteLine("Server API run at: " + endPoint);
+			
 			Console.WriteLine();
 
 			webHost.Run();

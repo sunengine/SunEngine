@@ -67,6 +67,7 @@ export default {
 				.then(response => {
 					this.token = response.data;
 					this.waitToken = false;
+					this.$emit("getToken", this.token);
 				})
 				.catch(x => {
 					if (x.response.data.code === "SpamProtection") this.waitToken = true;

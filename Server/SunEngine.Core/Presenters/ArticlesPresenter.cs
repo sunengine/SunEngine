@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.ObjectPool;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
@@ -8,7 +10,7 @@ using SunEngine.Core.Utils.PagedList;
 
 namespace SunEngine.Core.Presenters
 {
-	public interface IArticlesPresenter
+	public interface IArticlesPresenter 
 	{
 		Task<IPagedList<ArticleInfoView>> GetArticlesAsync(MaterialsShowOptions options);
 
@@ -22,7 +24,7 @@ namespace SunEngine.Core.Presenters
 		SortNumber = 1
 	}
 
-	public class ArticlesPresenter : DbService, IArticlesPresenter
+	public class ArticlesPresenter : DbService, IArticlesPresenter, IMaterialsQueryPresenter
 	{
 		public ArticlesPresenter(DataBaseConnection db) : base(db)
 		{
@@ -31,11 +33,11 @@ namespace SunEngine.Core.Presenters
 		public virtual Task<IPagedList<ArticleInfoView>> GetArticlesAsync(MaterialsShowOptions options)
 		{
 			Func<IQueryable<Material>, IOrderedQueryable<Material>> orderBy;
-			if (options.orderType == OrderType.PublishDate)
-				orderBy = x => x.OrderByDescending(y => y.PublishDate);
+			if (options.Sort != null)
+				orderBy = options.Sort;
 			else
-				orderBy = x => x.OrderByDescending(y => y.SortNumber);
-
+				orderBy = x => x.OrderByDescending(y => y.PublishDate);
+			
 			IQueryable<Material> query = db.Materials;
 
 			if (!options.ShowHidden)
@@ -70,7 +72,7 @@ namespace SunEngine.Core.Presenters
 		public virtual Task<IPagedList<ArticleInfoView>> GetArticlesFromMultiCategoriesAsync(
 			MaterialsMultiCatShowOptions options)
 		{
-			return db.Materials.Where(x => x.DeletedDate == null && !x.IsHidden).GetPagedListAsync(
+      return db.Materials.Where(x => x.DeletedDate == null && !x.IsHidden).GetPagedListAsync(
 				x => new ArticleInfoView
 				{
 					Id = x.Id,
@@ -89,7 +91,66 @@ namespace SunEngine.Core.Presenters
 				options.Page,
 				options.PageSize);
 		}
-	}
+
+    public async Task<IList<object>> GetMaterialsByCategoryAsync(MaterialsShowOptions options)
+    {
+      Func<IQueryable<Material>, IOrderedQueryable<Material>> order;
+
+      if (options.Sort != null)
+        order = options.Sort;
+      else
+        order = MaterialsDefaultSortService.DefaultSortOptions.GetValueOrDefault(nameof(ArticlesPresenter));
+
+      var result= await db.MaterialsVisible.GetPagedListAsync(x => new ArticleInfoView
+        {
+          Id = x.Id,
+          Name = x.Name,
+          Title = x.Title,
+          Description = x.SubTitle,
+          CommentsCount = x.CommentsCount,
+          AuthorName = x.Author.UserName,
+          PublishDate = x.PublishDate,
+          CategoryName = x.Category.Name,
+          CategoryTitle = x.Category.Title,
+          IsCommentsBlocked = x.IsCommentsBlocked
+        }, 
+        x => x.CategoryId == options.CategoryId,
+        order,
+        options.Page,
+        options.PageSize);
+      return result.Items as IList<object>;
+    }
+
+    public async Task<IList<object>> GetMaterialsFromMultiCategory(MaterialsMultiCatShowOptions options)
+    {
+      Func<IQueryable<Material>, IOrderedQueryable<Material>> order;
+
+      if (options.SortType != null)
+        order = options.SortType;
+      else
+        order = MaterialsDefaultSortService.DefaultSortOptions.GetValueOrDefault(nameof(ArticlesPresenter));
+      
+      var result = await db.MaterialsVisible.GetPagedListAsync(x => new ArticleInfoView
+      {
+        Id = x.Id,
+        Name = x.Name,
+        Title = x.Title,
+        Description = x.SubTitle,
+        CommentsCount = x.CommentsCount,
+        AuthorName = x.Author.UserName,
+        PublishDate = x.PublishDate,
+        CategoryName = x.Category.Name,
+        CategoryTitle = x.Category.Title,
+        IsCommentsBlocked = x.IsCommentsBlocked
+      },
+        x => options.CategoriesIds.Contains(x.CategoryId),
+        order,
+        options.Page,
+        options.PageSize);
+
+      return result as IList<object>;
+    }
+  }
 
 
 	public class ArticleInfoView

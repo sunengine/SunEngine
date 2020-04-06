@@ -42,25 +42,6 @@
 </template>
 
 <script>
-function allowMyIdOrEmpty(id) {
-	return !id || store.state.auth.user.id == id;
-}
-
-function createRules() {
-	return [
-		value =>
-			value.length >= 3 ||
-			allowMyIdOrEmpty.call(this, value) ||
-			this.$tl("validation.minLength"), // minLength or myId
-		value => /^[a-z0-9-]*$/.test(value) || this.$tl("validation.allowedChars"), // allowed chars
-		value =>
-			/[a-zA-Z]/.test(value) ||
-			allowMyIdOrEmpty.call(this, value) ||
-			this.$tl("validation.numberNotAllow"), // need char or myId
-		value => !this.linkInDb || this.$tl("validation.linkInDb") // link in db
-	];
-}
-
 export default {
 	name: "ChangeLink",
 	mixins: [Page],
@@ -81,6 +62,24 @@ export default {
 				params: { link: this.link }
 			});
 			return config.UrlPaths.Site + route?.resolved?.fullPath;
+		},
+		rules() {
+			return [
+				value =>
+					value.length >= 3 ||
+					allowMyIdOrEmpty(value) ||
+					this.$tl("validation.minLength"), // minLength or myId
+				value => /^[a-z0-9-]*$/.test(value) || this.$tl("validation.allowedChars"), // allowed chars
+				value =>
+					/[a-zA-Z]/.test(value) ||
+					allowMyIdOrEmpty(value) ||
+					this.$tl("validation.numberNotAllow"), // need char or myId
+				value => !this.linkInDb || this.$tl("validation.linkInDb") // link in db
+			];
+
+			function allowMyIdOrEmpty(id) {
+				return !id || this.$store.state.auth.user.id == id;
+			}
 		}
 	},
 	methods: {
@@ -121,8 +120,6 @@ export default {
 	},
 	created() {
 		this.title = this.$tl("title");
-
-		this.rules = createRules.call(this);
 
 		this.checkLinkInDb = this.$throttle(this.checkLinkInDb);
 

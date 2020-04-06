@@ -69,15 +69,6 @@
 import { Page } from "mixins";
 import { emailRules } from "utils";
 
-function createRules() {
-	return {
-		password: [
-			value => !!value || this.$t("Global.validation.password.required")
-		],
-		email: emailRules
-	};
-}
-
 export default {
 	name: "ChangeEmail",
 	mixins: [Page],
@@ -93,6 +84,14 @@ export default {
 	computed: {
 		breadcrumbsCategory() {
 			return this.$getBreadcrumbs("Personal");
+		},
+		rules() {
+			return {
+				password: [
+					value => !!value || this.$t("Global.validation.password.required")
+				],
+				email: emailRules.call(this)
+			};
 		}
 	},
 	methods: {
@@ -119,7 +118,6 @@ export default {
 	},
 	async created() {
 		this.title = this.$tl("title");
-		this.rules = createRules.call(this);
 	}
 };
 </script>

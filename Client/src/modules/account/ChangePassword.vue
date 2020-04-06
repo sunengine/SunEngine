@@ -96,21 +96,6 @@
 import { Page } from "mixins";
 import { passwordRules } from "utils";
 
-function createRules() {
-	return {
-		passwordOld: [
-			value => !!value || this.$t("Global.validation.password.passwordOld")
-		],
-		password: passwordRules,
-		password2: [
-			...passwordRules,
-			value =>
-				this.password === this.password2 ||
-				this.$t("Global.validation.password.passwordsNotEquals")
-		]
-	};
-}
-
 export default {
 	name: "ChangePassword",
 	mixins: [Page],
@@ -128,6 +113,21 @@ export default {
 	computed: {
 		breadcrumbsCategory() {
 			return this.$getBreadcrumbs("Personal");
+		},
+		rules() {
+			const passwordRulesInst = passwordRules.call(this);
+			return {
+				passwordOld: [
+					value => !!value || this.$t("Global.validation.password.passwordOld")
+				],
+				password: passwordRulesInst,
+				password2: [
+					...passwordRulesInst,
+					value =>
+						this.password === this.password2 ||
+						this.$t("Global.validation.password.passwordsNotEquals")
+				]
+			};
 		}
 	},
 	methods: {
@@ -162,7 +162,6 @@ export default {
 	},
 	created() {
 		this.title = this.$tl("title");
-		this.rules = createRules.call(this);
 	}
 };
 </script>

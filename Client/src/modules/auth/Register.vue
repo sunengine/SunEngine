@@ -72,7 +72,11 @@
 				<div id="register__confirm-text" v-html="registerConfirmText"></div>
 			</div>
 
-			<Captcha ref="captcha" v-model="captchaText" />
+			<Captcha
+				ref="captcha"
+				v-model="captchaText"
+				@getToken="value => (captchaToken = value)"
+			/>
 
 			<q-btn
 				:disable="registerConfirmText && !acceptConfirm"
@@ -104,24 +108,10 @@ import { passwordRules } from "utils";
 import { userNameRules } from "utils";
 import { emailRules } from "utils";
 
-function createRules() {
-	return {
-		userName: userNameRules,
-		email: emailRules,
-		password: passwordRules,
-		password2: [
-			...passwordRules,
-			value =>
-				this.password === this.password2 ||
-				this.$t("Global.validation.password.passwordsNotEquals")
-		]
-	};
-}
-
 export default {
 	name: "Register",
 	components: {
-		Captcha: sunImport("comp","Captcha"),
+		Captcha: sunImport("comp", "Captcha")
 	},
 	mixins: [Page],
 	data() {
@@ -136,12 +126,27 @@ export default {
 			showPassword2: false,
 			userNameInDb: false,
 			captchaText: "",
+			captchaToken: null,
 			acceptConfirm: false
 		};
 	},
 	computed: {
 		registerConfirmText() {
-			return config.Register.ConfirmText;
+			return !!config.Register.ConfirmText;
+		},
+		rules() {
+			const passwordRulesInst = passwordRules.call(this);
+			return {
+				userName: userNameRules.call(this),
+				email: emailRules.call(this),
+				password: passwordRulesInst,
+				password2: [
+					...passwordRulesInst,
+					value =>
+						this.password === this.password2 ||
+						this.$t("Global.validation.password.passwordsNotEquals")
+				]
+			};
 		}
 	},
 	methods: {
@@ -196,7 +201,7 @@ export default {
 				UserName: this.userName,
 				Email: this.email,
 				Password: this.password,
-				CaptchaToken: this.token,
+				CaptchaToken: this.captchaToken,
 				CaptchaText: this.captchaText
 			})
 				.then(() => {
@@ -217,8 +222,6 @@ export default {
 	},
 	created() {
 		this.title = this.$tl("title");
-
-		this.rules = createRules.call(this);
 	}
 };
 </script>

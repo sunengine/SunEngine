@@ -10,14 +10,14 @@ namespace SunEngine.Core.Services
 		{
 			["Posts"] = typeof(PostsServerSectionData),
 			["Activities"] = typeof(ActivitiesServerSectionData),
-			["Articles"] = typeof(ArticlesServerSectionData)
+			["Articles"] = typeof(MaterialsServerSectionData)
 		};
 
 		public Dictionary<string, Type> SectionClientTypes { get; } = new Dictionary<string, Type>
 		{
 			["Posts"] = typeof(PostsClientSectionData),
 			["Activities"] = typeof(ActivitiesClientSectionData),
-			["Articles"] = typeof(ArticlesClientSectionData)
+			["Articles"] = typeof(MaterialsClientSectionData)
 		};
 	}
 }

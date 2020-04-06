@@ -23,7 +23,7 @@ namespace SunEngine.Core.Cache.Services
 		private readonly IRolesCache rolesCache;
 		private readonly SectionTypes sectionTypes;
 
-		public IReadOnlyDictionary<string, SectionServerCached> ServerSections { get; private set; }
+		public IReadOnlyDictionary<string, SectionServerCached> ServerSections { get; private set; } 
 		public IReadOnlyList<SectionClientCached> ClientSections { get; private set; }
 
 		public SectionsCache(

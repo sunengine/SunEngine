@@ -50,12 +50,12 @@ namespace SunEngine.Core.Managers
 		/// <summary>
 		/// Move up in sort order (SortNumber field)
 		/// </summary>
-		ValueTask UpAsync(int id);
+		ValueTask UpAsync(int id, int countMoves = 1);
 
 		/// <summary>
 		/// Move down in sort order (SortNumber field)
 		/// </summary>
-		ValueTask DownAsync(int id);
+		ValueTask DownAsync(int id, int countMoves = 1);
 	}
 
 	public class MaterialsManager : DbService, IMaterialsManager
@@ -166,55 +166,82 @@ namespace SunEngine.Core.Managers
 			return db.Materials.AnyAsync(x => x.Name.ToLower() == name.ToLower());
 		}
 
-		public async ValueTask UpAsync(int id)
+		public async ValueTask UpAsync(int id, int countMoves = 1)
 		{
 			var material = await db.Materials.Where(x => x.DeletedDate == null)
 				.FirstOrDefaultAsync(x => x.Id == id);
 			if (material == null)
 				throw new SunEntityNotFoundException(nameof(Material), id);
 
-			var material2 = await db.Materials
-				.Where(x =>
-					x.DeletedDate == null && x.CategoryId == material.CategoryId &&
-					x.SortNumber > material.SortNumber)
-				.OrderBy(x => x.SortNumber).FirstOrDefaultAsync();
+			Material material2;
 
+			if (countMoves == 1)
+				material2 = await db.Materials
+					.Where(x =>
+						x.DeletedDate == null && x.CategoryId == material.CategoryId &&
+						x.SortNumber > material.SortNumber)
+					.OrderBy(x => x.SortNumber).FirstOrDefaultAsync();
+			else
+				material2 = await db.Materials.Where(x => x.DeletedDate == null &&
+				                                          x.CategoryId == material.CategoryId &&
+				                                          x.SortNumber > material.SortNumber + countMoves)
+					.FirstOrDefaultAsync();
 			if (material2 == null)
 				throw new SunEntityNotFoundException(nameof(Material), "Previous material not found");
 
 			db.BeginTransaction();
+
+			long maxId = await db.Materials.MaxAsync(x => x.SortNumber) + 1;
+
 			await db.Materials.Where(x => x.Id == material.Id)
-				.Set(x => x.SortNumber, material2.SortNumber)
-				.UpdateAsync();
+				.Set(x => x.SortNumber, maxId).UpdateAsync();
+
 			await db.Materials.Where(x => x.Id == material2.Id)
-				.Set(x => x.SortNumber, material.SortNumber)
-				.UpdateAsync();
+				.Set(x => x.SortNumber, material.SortNumber).UpdateAsync();
+
+			await db.Materials.Where(x => x.Id == material.Id)
+				.Set(x => x.SortNumber, material2.SortNumber).UpdateAsync();
+
 			db.CommitTransaction();
 		}
 
-		public async ValueTask DownAsync(int id)
+		public async ValueTask DownAsync(int id, int countMoves = 1)
 		{
 			var material = await db.Materials.Where(x => x.DeletedDate == null)
 				.FirstOrDefaultAsync(x => x.Id == id);
 			if (material == null)
 				throw new SunEntityNotFoundException(nameof(Material), id);
 
-			var material2 = await db.Materials
-				.Where(x =>
-					x.DeletedDate == null && x.CategoryId == material.CategoryId &&
-					x.SortNumber < material.SortNumber)
-				.OrderByDescending(x => x.SortNumber).FirstOrDefaultAsync();
+			Material material2;
+
+			if (countMoves == 1)
+				material2 = await db.Materials
+					.Where(x =>
+						x.DeletedDate == null && x.CategoryId == material.CategoryId &&
+						x.SortNumber < material.SortNumber)
+					.OrderByDescending(x => x.SortNumber).FirstOrDefaultAsync();
+			else
+				material2 = await db.Materials.Where(x => x.DeletedDate == null
+				                                          && x.CategoryId == material.CategoryId
+				                                          && x.SortNumber == material.SortNumber + countMoves)
+					.FirstOrDefaultAsync();
 
 			if (material2 == null)
 				throw new SunEntityNotFoundException(nameof(Material), "Next material not found");
 
 			db.BeginTransaction();
+
+			long maxId = await db.Materials.MaxAsync(x => x.SortNumber) + 1;
+
 			await db.Materials.Where(x => x.Id == material.Id)
-				.Set(x => x.SortNumber, material2.SortNumber)
-				.UpdateAsync();
+				.Set(x => x.SortNumber, maxId).UpdateAsync();
+
 			await db.Materials.Where(x => x.Id == material2.Id)
-				.Set(x => x.SortNumber, material.SortNumber)
-				.UpdateAsync();
+				.Set(x => x.SortNumber, material.SortNumber).UpdateAsync();
+
+			await db.Materials.Where(x => x.Id == material.Id)
+				.Set(x => x.SortNumber, material2.SortNumber).UpdateAsync();
+
 			db.CommitTransaction();
 		}
 

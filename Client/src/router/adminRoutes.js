@@ -1,5 +1,6 @@
 import { wrapInPanel } from "comp";
 import { AdminMenu } from "admin";
+import { app } from "App";
 
 
 const AdminPanel = wrapInPanel("AdminPanel", AdminMenu);
@@ -11,6 +12,10 @@ const routes = [
 		components: {
 			default: sunImport("admin", "AdminInformation"),
 			navigation: AdminPanel
+		},
+		beforeEnter: function(to, from, next) {
+			app.$layout.rightDrawerOpen = true;
+			next();
 		}
 	},
 	{
