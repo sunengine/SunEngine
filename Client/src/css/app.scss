@@ -62,6 +62,17 @@ $q-field-color: #00c63b;
 	}
 }
 
+.menu-ext::after {
+	content: url("/statics/external-link-alt-solid.svg");
+	position: absolute;
+	right: 17px;
+	top: calc(50% - 10px);
+	width: 20px;
+	height: 20px;
+	filter: opacity(50%);
+	color: grey;
+}
+
 // ——— Page paddings ————————————————————————————————————
 
 .center-container {

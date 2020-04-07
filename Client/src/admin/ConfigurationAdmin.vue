@@ -295,6 +295,7 @@ export default {
 			).then(response => {
 				this.enums = response.data.enums;
 				this.buildTable(response.data.configItems);
+             this.doFilter();
 			});
 		},
 		uploadConfiguration() {

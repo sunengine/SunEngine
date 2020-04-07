@@ -118,10 +118,10 @@ export default {
 	},
 	data() {
 		if (this.multiple) {
-			if (this.value) return { names: this.value.split(",") };
-			else return { names: [] };
+			if (this.value) return { names: this.value.split(","), name: null };
+			else return { names: [], name: null };
 		} else {
-			return { name: this.value };
+			return { names: null, name: this.value };
 		}
 	},
 	watch: {
@@ -130,6 +130,14 @@ export default {
 		},
 		name() {
 			if (!this.multiple) this.$emit("input", this.name);
+		},
+		value() {
+			if (this.multiple) {
+				if (this.value) this.names = this.value.split(",");
+				else this.names = [];
+			} else {
+				this.name = this.value;
+			}
 		}
 	},
 	computed: {
@@ -138,7 +146,7 @@ export default {
 		},
 		categories() {
 			if (this.multiple)
-				return this.names.map(x => this.$store.getters.getCategory(x));
+				return this.names?.map(x => this.$store.getters.getCategory(x)) ?? [];
 		},
 		categoriesNodes() {
 			if (this.showRoot) return [this.$store.getters.getCategory("Root")];
@@ -150,7 +158,7 @@ export default {
 	},
 	methods: {
 		showCats(cat, filter) {
-			const showCats = this.categoriesNames.split(",").map(x => x.trim());
+			const showCats = this.categoriesNames?.split(",").map(x => x.trim()) ?? [];
 			let current = cat;
 
 			while (current) {

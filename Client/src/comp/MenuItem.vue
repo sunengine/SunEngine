@@ -1,8 +1,9 @@
 ﻿<template>
-	<div :class="['menu-item', menuItem.cssClass ? menuItem.cssClass : undefined]">
+	<div :class="['menu-item', 'relative-position', menuItem.cssClass ? menuItem.cssClass : undefined]">
 		<q-item
 			v-if="(menuItem.to || menuItem.externalUrl) && !menuItem.subMenuItems"
 			:to="to"
+			:class="{ 'menu-ext'  : menuItem.externalUrl }"
 			:clickable="true"
 			@click.native="goExternal()"
 			:exact="menuItem.exact"

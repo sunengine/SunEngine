@@ -1,6 +1,6 @@
 <template>
 	<div class="custom-css-admin q-gutter-y-md">
-		<div class="flex q-gutter-md">
+		<div class="flex q-gutter-md flex-center">
 			<q-btn
 				no-caps
 				:icon="$iconsSet.CustomCssAdmin.save"
@@ -16,6 +16,7 @@
 				color="warning"
 				:label="$tl('clearBtn')"
 			/>
+			<a class="" href="https://beautifier.io/" target="_blank">CSS Beautifier</a>
 			<q-space />
 			<q-btn
 				no-caps
@@ -32,7 +33,11 @@
 			type="textarea"
 			v-model="customCss"
 		/>
-		<iframe id="testFrame" class="hidden" sandbox="allow-same-origin"></iframe>
+		<iframe
+			id="testFrame"
+			class="hidden"
+			sandbox="allow-same-origin allow-scripts"
+		></iframe>
 	</div>
 </template>
 
