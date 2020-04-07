@@ -67,7 +67,7 @@
 				</template>
 			</q-input>
 
-			<div v-if="registerConfirmText" class="q-mb-lg q-mt-md flex align-center">
+			<div v-if="!!registerConfirmText" class="q-mb-lg q-mt-md flex align-center">
 				<q-toggle v-model="acceptConfirm"> </q-toggle>
 				<div id="register__confirm-text" v-html="registerConfirmText"></div>
 			</div>
@@ -79,11 +79,11 @@
 			/>
 
 			<q-btn
-				:disable="registerConfirmText && !acceptConfirm"
+				:disable="!!registerConfirmText && !acceptConfirm"
 				style="width:100%;"
 				:class="{
 					'send-btn': true,
-					'bg-grey': registerConfirmText && !acceptConfirm
+					'bg-grey': !!registerConfirmText && !acceptConfirm
 				}"
 				:label="$tl('registerBtn')"
 				@click="register"
@@ -132,7 +132,7 @@ export default {
 	},
 	computed: {
 		registerConfirmText() {
-			return !!config.Register.ConfirmText;
+			return config.Register.ConfirmText;
 		},
 		rules() {
 			const passwordRulesInst = passwordRules.call(this);

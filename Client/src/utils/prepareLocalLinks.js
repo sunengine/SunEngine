@@ -1,3 +1,5 @@
+import { router } from "router";
+
 export default function(ell, className) {
 	const el = ell.getElementsByClassName(className)[0];
 	const links = el.getElementsByTagName("a");
@@ -8,7 +10,7 @@ export default function(ell, className) {
 			link.addEventListener("click", e => {
 				e.preventDefault();
 				const url = link.href.substring(config.UrlPaths.Site.length);
-				this.$router.push(url);
+				router.push(url);
 			});
 		} else {
 			if (config.Global.OpenExternalLinksAtNewTab)

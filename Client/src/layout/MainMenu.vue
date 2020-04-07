@@ -1,12 +1,12 @@
 <template>
 	<nav>
 		<q-list class="main-menu">
-			<div class="main-menu__logo-block text-center">
-				<div class="inline-block main-menu__logo-div">
-					<router-link :to="{ name: 'Home' }">
-						<div class="main-menu__logo-img"></div>
-					</router-link>
-				</div>
+			<div class="main-menu__logo-container">
+					<div
+						class="main-menu__logo"
+						v-if="menuLogoHtml"
+						v-html="menuLogoHtml"
+					></div>
 			</div>
 			<MenuItem
 				v-if="menu"
@@ -20,15 +20,25 @@
 </template>
 
 <script>
+import { prepareLocalLinks } from "utils";
+
 export default {
 	name: "MainMenu",
 	computed: {
 		menu() {
 			return this.$store.getters.getMenu("MainMenu")?.subMenuItems;
+		},
+		menuLogoHtml() {
+			if (!config.Parts.MenuLogo) return null;
+
+			return config.Parts.MenuLogo;
 		}
 	},
 	beforeCreate() {
 		this.$options.components.MenuItem = require("comp").MenuItem;
+	},
+	mounted() {
+		prepareLocalLinks(this.$el, "main-menu__logo");
 	}
 };
 </script>

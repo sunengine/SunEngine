@@ -46,7 +46,7 @@ namespace SunEngine.Core.Services
 
 			if (ext == ".svg" && file.Length >= MaxSvgSizeBytes)
 				throw new SunException($"Svg max size is {MaxSvgSizeBytes / 1024} kb");
-			else
+			else if (ext != ".svg")
 			{
 				await using var stream = file.OpenReadStream();
 				if (!IsAllowedImageFormat(Image.DetectFormat(stream).Name))

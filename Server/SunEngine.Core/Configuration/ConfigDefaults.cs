@@ -17,6 +17,9 @@ namespace SunEngine.Core.Configuration
 			["Global:ReadOnlyMode"] = new BooleanItem(),
 			["Global:IconsSet"] = new EnumItem(IconsSet.LineAwesome),
 			["Global:OpenExternalLinksAtNewTab"] = new BooleanItem(true),
+			
+			["Parts:HeaderBackground"] = new HtmlItem(),
+			["Parts:MenuLogo"] = new HtmlItem(),
 
 			["Register:ConfirmText"] = new HtmlItem(),
 			["Register:RequireUniqueEmail"] = new BooleanItem(true),

@@ -1,7 +1,12 @@
 <template>
 	<q-layout class="layout" view="lHh LpR lfr">
 		<header>
-			<q-header class="layout__header">
+			<q-header class="layout__header relative-position">
+				<div
+					v-if="headerBackgroundHtml"
+					v-html="headerBackgroundHtml"
+					class="absolute-full"
+				></div>
 				<q-toolbar class="layout__toolbar">
 					<q-btn
 						flat
@@ -191,6 +196,9 @@ export default {
 		},
 		footerMenuItem() {
 			return this.$store.getters.getMenu("FooterMenu");
+		},
+		headerBackgroundHtml() {
+			return config.Parts.HeaderBackground;
 		},
 		...mapState({
 			userName: state => state.auth.user?.name,
