@@ -117,10 +117,12 @@ export default {
 		}
 	},
 	data() {
-		return {
-			names: this.multiple ? this.value.split(",") : null,
-			name: this.multiple ? null : this.value
-		};
+		if (this.multiple) {
+			if (this.value) return { names: this.value.split(",") };
+			else return { names: [] };
+		} else {
+			return { name: this.value };
+		}
 	},
 	watch: {
 		names() {
