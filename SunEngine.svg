@@ -9,36 +9,8 @@
   preserveAspectRatio="none"
    version="1.1"
    id="svgLogo"
->
-
         <style>
-            #svgLogo:hover .spin {
-                animation-play-state: running;
-            }
-
-            #svgLogo:hover .backSpin {
-                animation-play-state: running;
-            }
-
-
-            .spin {
-                animation-duration: 24s;
-                animation-name: rot1;
-                animation-fill-mode: forwards;
-                animation-timing-function: linear;
-                animation-iteration-count: infinite;
-                animation-play-state: paused;
-            }
-
-            .backSpin {
-                animation-duration: 24s;
-                animation-name: rot2;
-                animation-fill-mode: forwards;
-                animation-timing-function: linear;
-                animation-iteration-count: infinite;
-                animation-play-state: paused;
-            }
-
+        
             .runePositionFix {
                 transform: translate(-7.0px, -7.0px);
             }
@@ -59,18 +31,6 @@
                 stroke-width: 2px;
             }
 
-
-            @keyframes rot1 {
-                to {
-                    transform: rotate(1turn)
-                }
-            }
-
-            @keyframes rot2 {
-                to {
-                    transform: rotate(-1turn)
-                }
-            }
         </style>
         <defs>
             <g class="symbs">
