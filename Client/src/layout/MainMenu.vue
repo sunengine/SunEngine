@@ -4,7 +4,6 @@
 			<div class="main-menu__logo-container">
 					<div
 						class="main-menu__logo"
-						v-if="menuLogoHtml"
 						v-html="menuLogoHtml"
 					></div>
 			</div>

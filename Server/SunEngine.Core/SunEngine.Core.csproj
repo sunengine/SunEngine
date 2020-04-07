@@ -8,7 +8,7 @@
 
     <ItemGroup>
         <PackageReference Include="Flurl" Version="2.8.2" />
-        <PackageReference Include="HtmlSanitizer" Version="5.0.298" />
+        <PackageReference Include="HtmlSanitizer" Version="5.0.304" />
         <PackageReference Include="linq2db" Version="2.9.7" />
         <PackageReference Include="linq2db.Identity" Version="2.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />

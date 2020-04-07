@@ -1,0 +1,10 @@
+# Variables to publish script
+
+PROJECT_NAME="sunengine.site"
+LOCAL_BUILD_PATH="C:\Documents\SunEngine\SunEngine\build"
+REMOTE_USER="root" 
+REMOTE_HOST="95.216.139.72"
+REMOTE_DIRECTORY="/site/sunengine.site"
+REMOTE_DIRECTORY_OWNER="www-data"
+REMOTE_DIRECTORY_GROUP="www-data"
+REMOTE_SYSTEMD_SERVICE_NAME="sunengine.site"
