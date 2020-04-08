@@ -1,5 +1,5 @@
 <template>
-	<SunPage class="index-page">
+	<SunPage class="index-page full-height">
 		<MaterialInline name="index-page" />
 	</SunPage>
 </template>

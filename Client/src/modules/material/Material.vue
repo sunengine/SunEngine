@@ -127,6 +127,7 @@ import restoreMaterial from "./methods/restoreMaterial";
 import canDeleteMaterial from "./methods/canDeleteMaterial";
 import canRestoreMaterial from "./methods/canRestoreMaterial";
 import prepareLocalLinks from "src/utils/prepareLocalLinks";
+import execScripts from "./methods/execScripts";
 
 import { copyToClipboard, date } from "quasar";
 import { scroll } from "quasar";
@@ -254,18 +255,6 @@ export default {
 		}
 	},
 	methods: {
-		execScripts() {
-			const scripts = this.$el.getElementsByTagName("script");
-
-			for (const script of scripts) {
-				const script2 = document.createElement("script");
-				script2.innerHTML = script.innerText;
-				const parent = script.parentNode;
-				const next = script.nextSibling;
-				script.remove();
-				parent.insertBefore(script2, next);
-			}
-		},
 		prepareParagraphs() {
 			if (this.headersPrepared) return;
 
@@ -277,6 +266,7 @@ export default {
 			const tl = this.$tl.bind(this);
 			const allNames = {};
 			for (const header of headers) {
+				if (header.classList.contains("no-anchor")) continue;
 				const link = document.createElement("a");
 				link.classList.add("header-anchor");
 				link.classList.add("link");
@@ -320,7 +310,8 @@ export default {
 				this.$nextTick(() => {
 					this.prepareLocalLinks();
 					this.prepareParagraphs();
-					if (this.material.settingsJson?.allowInnerJavaScript) this.execScripts();
+					if (this.material.settingsJson?.allowInnerJavaScript)
+						execScripts(this.$el);
 				});
 			});
 		},

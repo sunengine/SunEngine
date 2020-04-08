@@ -2,11 +2,12 @@ using System;
 
 namespace SunEngine.Core.DataBase
 {
+	/// <summary>
+	/// If you change this file, also change SunEngine.Migrations.DbColumnSizes
+	/// </summary>
 	public static class DbColumnSizes
 	{
 		public const int Categories_Name = 64;
-		public const int Categories_Token = 64;
-		public const int Categories_CustomUrl = Int32.MaxValue;
 		public const int Categories_Title = 256;
 		public const int Categories_SubTitle = Int32.MaxValue;
 		public const int Categories_LayoutName = 32;
@@ -35,6 +36,7 @@ namespace SunEngine.Core.DataBase
 		public const int CipherSecrets_Name = 32;
 		public const int CipherSecrets_Secret = 32;
 		public const int Sections_Name = 64;
+		public const int Sections_Token = 64;
 		public const int Sections_Type = 32;
 	}
 }

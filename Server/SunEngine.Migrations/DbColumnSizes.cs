@@ -2,6 +2,9 @@ using System;
 
 namespace SunEngine.Migrations
 {
+	/// <summary>
+	/// If you change this file, also change SunEngine.Core.DataBase.DbColumnSizes
+	/// </summary>
 	internal static class DbColumnSizes
 	{
 		public const int Categories_Name = 64;

@@ -6,5 +6,6 @@ export MaterialInline from 'src/modules/material/MaterialInline.vue';
 export canDeleteMaterial from 'src/modules/material/methods/canDeleteMaterial.js';
 export canRestoreMaterial from 'src/modules/material/methods/canRestoreMaterial.js';
 export deleteMaterial from 'src/modules/material/methods/deleteMaterial.js';
+export execScripts from 'src/modules/material/methods/execScripts.js';
 export * from 'src/modules/material/methods/getWhereToAddMove.js';
 export restoreMaterial from 'src/modules/material/methods/restoreMaterial.js';

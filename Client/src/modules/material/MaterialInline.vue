@@ -1,10 +1,12 @@
 ﻿<template>
-	<div class="material-inline" v-if="material">
-		<div class="material-inline__text" v-html="material.text"></div>
+	<div class="material-inline full-height" v-if="material">
+		<div class="material-inline__text full-height" v-html="material.text"></div>
 	</div>
 </template>
 
 <script>
+import execScripts from "./methods/execScripts";
+
 export default {
 	name: "MaterialInline",
 	props: {
@@ -26,6 +28,9 @@ export default {
 				.then(response => {
 					this.material = response.data;
 					this.$emit("loaded");
+					this.$nextTick(_ => {
+						execScripts(this.$el);
+					});
 				})
 				.catch(x => {
 					console.log("error", x);
