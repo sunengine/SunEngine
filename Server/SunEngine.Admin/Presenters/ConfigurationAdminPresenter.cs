@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
+using AngleSharp.Common;
 using LinqToDB;
 using SunEngine.Admin.Presenters.ViewModels;
 using SunEngine.Core.Configuration;
@@ -17,10 +20,13 @@ namespace SunEngine.Admin.Presenters
 	}
 	
 	public class ConfigurationAdminPresenter : DbService, IConfigurationAdminPresenter
-	{
-		public ConfigurationAdminPresenter(DataBaseConnection db) : base(db)
-		{
-		}
+  {
+    private readonly IPathService pathService;
+		public ConfigurationAdminPresenter(DataBaseConnection db,
+      IPathService pathService) : base(db)
+    {
+      this.pathService = pathService;
+    }
 
 		public async Task<ConfigurationView> LoadConfigurationAsync()
 		{
@@ -52,7 +58,18 @@ namespace SunEngine.Admin.Presenters
 					rez.ConfigItems.Add(configItemView);
 				}
 
-			
+      using FileStream fs = new FileStream(Path.GetFullPath(pathService.Combine(PathNames.ConfigDirName, PathNames.CustomConfigJsonFileName)), FileMode.Open);
+      Dictionary<string, string> customConfigs = await JsonSerializer.DeserializeAsync<Dictionary<string, string>>(fs);
+      
+      foreach (KeyValuePair<string, string> valuePair in customConfigs)
+      {
+        rez.ConfigItems.Add(new ConfigItemView()
+        {
+          Name = valuePair.Key,
+          Value = valuePair.Value
+        });
+      }
+      
 			return rez;
 		}
 	}

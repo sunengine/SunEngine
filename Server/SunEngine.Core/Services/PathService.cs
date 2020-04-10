@@ -38,7 +38,8 @@ namespace SunEngine.Core.Services
 		public const string RootDetectFileName = "SunEngine.md";
 		public const string IndexHtmlFileName = "index.html";
 		public const string DataBaseConnectionJsonFileName = "DataBaseConnection.json";
-	}
+    public const string CustomConfigJsonFileName = "CustomConfig.json";
+  }
 
 	public class PathService : IPathService
 	{

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Namotion.Reflection;
 using SunEngine.Core.Configuration;
+using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Services;
 
@@ -61,12 +62,14 @@ namespace SunEngine.Cli
 						string logSettingsFile =
 							Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir,
 								PathNames.LogConfigJsonFileName));
+            string customConfigFile = Path.GetFullPath(Path.Combine(startupConfiguration.ConfigRootDir,
+              PathNames.CustomConfigJsonFileName));
 
 						config.AddJsonFile(logSettingsFile, false, false);
 						config.AddJsonFile(dbSettingFile, false, false);
 						config.AddJsonFile(mainSettingsFile, false, false);
-
-
+            config.AddJsonFile(customConfigFile, false, false);
+            
 						var dataBaseConnectionObject = JsonDocument.Parse(File.ReadAllText(dbSettingFile), jOptions);
 						var dataBaseConnectionVars =
 							dataBaseConnectionObject.RootElement.GetProperty("DataBaseConnection");
@@ -78,10 +81,10 @@ namespace SunEngine.Cli
 
 						ConfigDbProvider.DefaultConfigDbProvider =
 							new ConfigDbProvider(DataBaseFactory.DefaultDataBaseFactory);
-
+          
 						config.Add(new ConfigDbSource(ConfigDbProvider.DefaultConfigDbProvider,
 							DataBaseFactory.DefaultDataBaseFactory));
-
+            
 						config.AddInMemoryCollection(new[]
 						{
 							new KeyValuePair<string, string>("Dirs:Config",

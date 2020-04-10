@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using SunEngine.Core.Configuration;
+using SunEngine.Core.Configuration.ConfigItemType;
+using SunEngine.Core.Services;
 
 namespace SunEngine.Core.Cache.Services
 {
@@ -15,12 +18,14 @@ namespace SunEngine.Core.Cache.Services
 	public class DynamicConfigCache : IDynamicConfigCache
 	{
 		protected IConfigurationRoot configurationRoot { get; }
+    private readonly IPathService pathService;
+    public string DynamicConfigCacheJson { get; private set; }
 
-		public string DynamicConfigCacheJson { get; private set; }
-
-		public DynamicConfigCache(IConfigurationRoot configurationRoot)
+		public DynamicConfigCache(IConfigurationRoot configurationRoot,
+      IPathService pathService)
 		{
 			this.configurationRoot = configurationRoot;
+      this.pathService = pathService;
 			Initialize();
 		}
 
@@ -32,7 +37,7 @@ namespace SunEngine.Core.Cache.Services
 			var rez = new Dictionary<string, object>();
 			foreach (var (key, item) in itemsToSaveDic)
 			{
-				var value = configurationRoot.GetValue(item.ToClientType(), key);
+        var value = configurationRoot.GetValue(item.ToClientType(), key);
 
 				string[] tokens = key.Split(":");
 
@@ -44,11 +49,16 @@ namespace SunEngine.Core.Cache.Services
 
 					current = (Dictionary<string, object>) current[tokens[i]];
 				}
-
-				current[tokens[^1]] = value;
+        current[tokens[^1]] = value;
 			}
-			
-			DynamicConfigCacheJson = JsonSerializer.Serialize(rez, new JsonSerializerOptions
+      
+      Dictionary<string, string> customConfigs =  JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(Path.GetFullPath(
+        pathService.Combine(PathNames.ConfigDirName,  PathNames.CustomConfigJsonFileName))));
+      
+      foreach (var pair in customConfigs)
+        rez.Add(pair.Key, pair.Value);
+      
+      DynamicConfigCacheJson = JsonSerializer.Serialize(rez, new JsonSerializerOptions
 			{
 				WriteIndented = true,
 				AllowTrailingCommas = true,
