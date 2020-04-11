@@ -89,12 +89,16 @@ export default {
 					password: this.password
 				})
 				.then(_ => {
-					if (this.ret && !this.$route.path.startsWith(this.ret))
-						this.$router.replace(this.ret);
-					else this.$router.replace({ name: "Home" });
+					try {
+						if (this.ret && this.$route.name !== "Home")
+							this.$router.replace(this.ret);
+						else this.$router.replace({ name: "Home" });
+					} catch (_) {
+						this.$router.replace({ name: "Home" });
+					}
 				})
 				.catch(error => {
-				    console.log(error);
+					console.log(error);
 					this.submitting = false;
 					this.$errorNotify(error);
 				});
