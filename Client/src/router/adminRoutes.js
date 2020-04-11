@@ -2,7 +2,6 @@ import { wrapInPanel } from "comp";
 import { AdminMenu } from "admin";
 import { app } from "App";
 
-
 const AdminPanel = wrapInPanel("AdminPanel", AdminMenu);
 
 const routes = [
@@ -14,8 +13,8 @@ const routes = [
 			navigation: AdminPanel
 		},
 		beforeEnter: function(to, from, next) {
-			app.$layout.rightDrawerOpen = true;
 			next();
+			app.$nextTick(x => (app.$layout.rightDrawerOpen = true));
 		}
 	},
 	{

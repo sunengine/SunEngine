@@ -41,7 +41,7 @@
 								</q-avatar>
 								{{ userName }}
 							</template>
-							<UserMenu style="width:180px;" />
+							<UserMenu />
 						</q-btn-dropdown>
 
 						<q-btn v-else flat dense round>
@@ -63,7 +63,7 @@
 											</q-item-label>
 										</q-item-section>
 									</q-item>
-									<UserMenu style="width:180px;" />
+									<UserMenu />
 								</q-list>
 							</q-menu>
 						</q-btn>

@@ -72,8 +72,8 @@ const routes = [
 			}
 		},
 		beforeEnter: function(to, from, next) {
-			app.$layout.rightDrawerOpen = true;
 			next();
+			app.$nextTick(x=> app.$layout.rightDrawerOpen = true);
 		}
 	}
 ];
