@@ -1,5 +1,6 @@
 import { routeHasAccess } from "utils";
 import { router } from "router";
+import { app } from "App";
 
 export default function(context, userData) {
 	return request(Api.Auth.Login, {

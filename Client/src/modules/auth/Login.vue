@@ -94,6 +94,7 @@ export default {
 					else this.$router.replace({ name: "Home" });
 				})
 				.catch(error => {
+				    console.log(error);
 					this.submitting = false;
 					this.$errorNotify(error);
 				});

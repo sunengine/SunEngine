@@ -31,7 +31,7 @@ export default function({ store, ssrContext }) {
 
 	router.beforeEach(async (to, from, next) => {
 		if (store.state.initializedPromise) {
-			store.state.initializedPromise.then(_ => {
+			await store.state.initializedPromise.then(_ => {
 				store.state.initializedPromise = null;
 				app.$nextTick(_ => router.push(to));
 			});
