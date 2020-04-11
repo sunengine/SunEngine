@@ -17,8 +17,7 @@ Build on: AspNet Core, VueJS, Quasar.</h3>
 <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=success"></a>
 <a href="README.RU.md"><img src="https://img.shields.io/static/v1?label=Readme&message=Russian&color=informational"></a>
   
-## About
-### Features
+## Features
  - Ability to create blog  
  - Create a forum with sections   
  - Create articles and articles sections  
@@ -28,21 +27,20 @@ Build on: AspNet Core, VueJS, Quasar.</h3>
  - Administration through the admin panel  
  - Ability to create and modify skins for the site, a choice of [already done skins](https://github.com/sunengine/SunEngine.Skins).  
 
-### Thoughtful and friendly interface
+## Thoughtful and friendly interface
  - A one-page application with a modern and beautiful interface.  
  - Works on personal computers, tablets, mobile phones.  
  - In the future, possibility to compile as a native application of Android, iOS, Windows and Linux.  
 
-## Key Features
-### Quick and fast
+## Quick and fast
  - A one-page application loads only what you need, without unnecessary requests (SPA).      
  - Quick access to data based on linq2db.   
  - Efficient and custom caching.  
 
-### Flexible role settings
+## Flexible role settings
  - The ability to flexibly configure the rights of user groups for each section of the site.  
 
-### Functional Admin
+## Functional Admin
  - Ability to create  
    - Blogs  
    - Forums  
@@ -54,8 +52,7 @@ Build on: AspNet Core, VueJS, Quasar.</h3>
  - Creating site activities Sections  
  - And other features...  
 
-## Technical features
-### Technologies used
+## Technologies
 The project based on modern front edge technologies:
  - Asp.Net Core 3.1  
  - VueJs - SPA client part  
@@ -63,7 +60,7 @@ The project based on modern front edge technologies:
  - PostgreSQL - database (in the future, other SQL db engines)  
  - Linq2db ORM - database access  
  
-### Security
+## Security
  - Developed using latest technologies of privacy and security.  
  - An innovative authorization system based on three tokens to protect against interception of authorization data, from XSS and CSRF attacks.  
  - AES encryption to protect authorization tokens.  
@@ -74,7 +71,7 @@ The project based on modern front edge technologies:
    - Captcha on critical areas.  
  - Defense mechanisms against many malicious attack types.  
 
-### Hosting
+## Hosting
  - Linux or Windows server  
  - Bash scripts to build, deploy and update  
  - [Installation Guide for Ubuntu 18.04 Server (Russian)](https://sunengine.site/install/14)    
