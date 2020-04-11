@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <LangVersion>latest</LangVersion>
-        <Version>2.10.4</Version>
+        <Version>2.10.5</Version>
         <Title>SunEngine</Title>
         <Authors>Dmitrij Polianin</Authors>
         <Description>Site engine with blog, forum and articles functionalities on Asp.Net Core and Vue.Js.</Description>
