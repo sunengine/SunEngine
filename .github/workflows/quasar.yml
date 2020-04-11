@@ -1,7 +1,9 @@
 name: Quasar
 
 on: [push]
-
+  branches:
+    - master
+    - dev
 jobs:
   build:
 
