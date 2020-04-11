@@ -82,7 +82,7 @@
 						</div>
 					</div>
 
-					<div class="text-center q-mt-lg">
+					<div v-if="canEditRoles" class="text-center q-mt-lg">
 						<q-btn
 							no-caps
 							:label="$tl('roles')"
