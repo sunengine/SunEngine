@@ -90,7 +90,7 @@ export default {
 				})
 				.then(_ => {
 					try {
-						if (this.ret && this.$route.name !== "Home")
+						if (this.ret && this.$route.name !== "Login")
 							this.$router.replace(this.ret);
 						else this.$router.replace({ name: "Home" });
 					} catch (_) {
