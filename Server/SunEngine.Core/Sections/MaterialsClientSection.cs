@@ -1,8 +1,8 @@
 using SunEngine.Core.Configuration.ConfigItemType;
 
-namespace SunEngine.Core.SectionsData
+namespace SunEngine.Core.Sections
 {
-	public class MaterialsClientSectionData : ClientSectionData
+	public class MaterialsClientSection : ClientSection
 	{
 		[ConfigItem(typeof(CategoriesItem))] public string CategoriesNames { get; set; }
 		[ConfigItem(typeof(IntegerItem))] public int DeepLevel { get; set; } = 0;

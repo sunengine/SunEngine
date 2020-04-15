@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Presenters;
-using SunEngine.Core.SectionsData;
+using SunEngine.Core.Sections;
 using SunEngine.Core.Security;
 
 namespace SunEngine.Core.Controllers
@@ -41,11 +41,11 @@ namespace SunEngine.Core.Controllers
 
 		public async Task<IActionResult> GetActivities(string sectionName)
 		{
-			var section = SectionsCache.GetSectionserverCached(sectionName, User.Roles);
+			var section = SectionsCache.GetSectionServerCached(sectionName, User.Roles);
 			if (section == null)
 				return BadRequest($"No component {sectionName} found in cache");
 
-			ActivitiesServerSectionData sectionData = (ActivitiesServerSectionData)section.Data;
+			ActivitiesServerSection sectionData = section.GetData<ActivitiesServerSection>();
 
 			var materialsCategoriesDic =
 				categoriesCache.GetAllCategoriesWithChildren(sectionData.MaterialsCategories);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SunEngine.Core.Models.Materials;
 
-namespace SunEngine.Core.Presenters
+namespace SunEngine.Core.Services
 {
   public static class MaterialsSortOptionsService
   {

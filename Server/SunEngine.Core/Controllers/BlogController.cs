@@ -9,7 +9,7 @@ using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Models;
 using SunEngine.Core.Presenters;
-using SunEngine.Core.SectionsData;
+using SunEngine.Core.Sections;
 using SunEngine.Core.Security;
 using SunEngine.Core.Utils.PagedList;
 
@@ -84,11 +84,11 @@ namespace SunEngine.Core.Controllers
 		[HttpPost]
 		public virtual async Task<IActionResult> GetPostsFromMultiCategories(string sectionName, int page = 1)
 		{
-			var section = sectionsCache.GetSectionserverCached(sectionName, User.Roles);
+			var section = sectionsCache.GetSectionServerCached(sectionName, User.Roles);
 			if (section == null)
 				return BadRequest($"No component {sectionName} found in cache");
 
-			PostsServerSectionData sectionData = (PostsServerSectionData)section.Data;
+			PostsServerSection sectionData = section.GetData<PostsServerSection>();
 
 			var materialsCategoriesDic = categoriesCache.GetAllCategoriesWithChildren(sectionData.Categories);
 			var materialsCategoriesExcludeDic =
@@ -112,11 +112,9 @@ namespace SunEngine.Core.Controllers
 				PageSize = sectionData.PageSize,
 				PreviewSize = sectionData.PreviewSize
 			};
-			
-			return await CacheContentAsync(section, categoriesIds, LoadDataAsync, page);
 
-			async Task<IPagedList<PostView>> LoadDataAsync() =>
-				await blogPresenter.GetPostsFromMultiCategoriesAsync(options);
+			return await CacheContentAsync(section, categoriesIds,
+				() => blogPresenter.GetPostsFromMultiCategoriesAsync(options), page);
 		}
 	}
 }
