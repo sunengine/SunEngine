@@ -94,7 +94,7 @@ namespace SunEngine.Core.Controllers
 		[HttpPost]
 		public virtual async Task<IActionResult> GetMaterials(GetMaterialsRequest materialsRequest)
 		{
-			var section = (CategoryServerSectionData) sectionsCache.GetSectionserverCached(materialsRequest.SectionName, User.Roles).Data;
+			var section = (MaterialsServerSectionData) sectionsCache.GetSectionserverCached(materialsRequest.SectionName, User.Roles).Data;
 			if(section == null)
 				return BadRequest($"Can not find {materialsRequest.SectionName} section");
 
