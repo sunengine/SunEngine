@@ -143,7 +143,7 @@ namespace SunEngine.Core.Presenters
       return result.Items as IList<object>;
     }
 
-    public async Task<IList<object>> GetMaterialsFromMultiCategory(MaterialsMultiCatShowOptions options)
+    public async Task<IList<object>> GetMaterialsFromMultiCategoryAsync(MaterialsMultiCatShowOptions options)
     {
       Func<IQueryable<Material>, IOrderedQueryable<Material>> orderBy;
 

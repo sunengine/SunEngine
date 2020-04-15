@@ -14,7 +14,7 @@ namespace SunEngine.Core.Presenters
   public interface IMaterialsQueryPresenter
   {
     Task<IList<Object>> GetMaterialsByCategoryAsync(MaterialsShowOptions options);
-    Task<IList<Object>> GetMaterialsFromMultiCategory(MaterialsMultiCatShowOptions options);
+    Task<IList<Object>> GetMaterialsFromMultiCategoryAsync(MaterialsMultiCatShowOptions options);
   }
   
 	public interface IMaterialsPresenter
@@ -114,7 +114,7 @@ namespace SunEngine.Core.Presenters
       return res as IList<object>;
     }
 
-    public async Task<IList<object>> GetMaterialsFromMultiCategory(MaterialsMultiCatShowOptions options)
+    public async Task<IList<object>> GetMaterialsFromMultiCategoryAsync(MaterialsMultiCatShowOptions options)
     {
       Func<IQueryable<Material>, IOrderedQueryable<Material>> orderBy;
 

@@ -54,7 +54,7 @@ namespace SunEngine.Core.Controllers
 
 		[HttpPost]
 		public virtual async Task<IActionResult> GetArticles(
-			string categoryName, OrderType sort = OrderType.PublishDate, int page = 1, bool showDeleted = false)
+			string categoryName, int page = 1, bool showDeleted = false)
 		{
 			CategoryCached category = categoriesCache.GetCategory(categoryName);
 
@@ -67,7 +67,6 @@ namespace SunEngine.Core.Controllers
 			var options = new MaterialsShowOptions
 			{
 				CategoryId = category.Id,
-				orderType = sort,
 				Page = page,
 				PageSize = articlesOptions.CurrentValue.CategoryPageSize
 			};
