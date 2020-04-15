@@ -1,8 +1,8 @@
 using SunEngine.Core.Configuration.ConfigItemType;
 
-namespace SunEngine.Core.SectionsData
+namespace SunEngine.Core.Sections
 {
-	public class PostsClientSectionData : ClientSectionData
+	public class PostsClientSection : ClientSection
 	{
 		[ConfigItem(typeof(CategoriesItem))] public string Categories { get; set; } = "Root";
 		[ConfigItem(typeof(CategoriesItem))] public string CategoriesExclude { get; set; }

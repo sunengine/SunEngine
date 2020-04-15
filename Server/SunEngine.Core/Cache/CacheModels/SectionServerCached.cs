@@ -17,6 +17,11 @@ namespace SunEngine.Core.Cache.CacheModels
 
 		public Object Data { get; }
 
+		public T GetData<T>() where T : class
+		{
+			return Data as T;
+		}
+
 		public bool IsCacheData { get; }
 
 		public IReadOnlyDictionary<int, RoleCached> Roles { get; }

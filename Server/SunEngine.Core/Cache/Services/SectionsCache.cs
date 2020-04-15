@@ -12,7 +12,8 @@ namespace SunEngine.Core.Cache.Services
 {
 	public interface ISectionsCache
 	{
-		SectionServerCached GetSectionserverCached(string name, IReadOnlyDictionary<string, RoleCached> roles);
+		SectionServerCached GetSectionServerCached(string name, IReadOnlyDictionary<string, RoleCached> roles);
+		T GetServerSectionData<T>(string name, IReadOnlyDictionary<string, RoleCached> roles) where T : class;
 		IEnumerable<SectionClientCached> GetClientSections(IReadOnlyDictionary<string, RoleCached> roles);
 		void Initialize();
 	}
@@ -37,7 +38,7 @@ namespace SunEngine.Core.Cache.Services
 			Initialize();
 		}
 
-		public SectionServerCached GetSectionserverCached(
+		public SectionServerCached GetSectionServerCached(
 			string name, IReadOnlyDictionary<string, RoleCached> roles)
 		{
 			if (ServerSections.TryGetValue(name, out SectionServerCached SectionServerCached))
@@ -46,6 +47,12 @@ namespace SunEngine.Core.Cache.Services
 					return SectionServerCached;
 
 			return null;
+		}
+
+		public T GetServerSectionData<T>(string name, IReadOnlyDictionary<string, RoleCached> roles) where T: class
+		{
+			var section = GetSectionServerCached(name, roles);
+			return section?.Data as T;
 		}
 
 		public IEnumerable<SectionClientCached> GetClientSections(IReadOnlyDictionary<string, RoleCached> roles)

@@ -16,7 +16,7 @@ using SunEngine.Core.Managers;
 using SunEngine.Core.Models.Authorization;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Presenters;
-using SunEngine.Core.SectionsData;
+using SunEngine.Core.Sections;
 using SunEngine.Core.Security;
 using SunEngine.Core.Services;
 
@@ -94,8 +94,8 @@ namespace SunEngine.Core.Controllers
 		[HttpPost]
 		public virtual async Task<IActionResult> GetMaterials(GetMaterialsRequest materialsRequest)
 		{
-			MaterialsServerSectionData section =
-				(MaterialsServerSectionData) sectionsCache.GetSectionserverCached(materialsRequest.SectionName, User.Roles)
+			MaterialsServerSection section =
+				(MaterialsServerSection) sectionsCache.GetSectionServerCached(materialsRequest.SectionName, User.Roles)
 					.Data;
 			if (section == null)
 				return BadRequest($"Can not find {materialsRequest.SectionName} section");
@@ -143,15 +143,15 @@ namespace SunEngine.Core.Controllers
 		[HttpPost]
 		public virtual async Task<IActionResult> GetMaterialsFromMultiCategories(GetMaterialsRequest materialsRequest)
 		{
-			SectionServerCached section = sectionsCache.GetSectionserverCached(materialsRequest.SectionName, User.Roles);
+			SectionServerCached section = sectionsCache.GetSectionServerCached(materialsRequest.SectionName, User.Roles);
 			if (section == null)
 				return BadRequest($"No component {materialsRequest.SectionName} found in cache");
 
-			MaterialsServerSectionData sectionData = (MaterialsServerSectionData) section.Data;
+			MaterialsServerSection sectionData = section.GetData<MaterialsServerSection>();
 
 			var сategories = categoriesCache.GetAllCategoriesWithChildren(sectionData.CategoriesNames);
 
-			string sectionTypeName = section.GetType().Name;
+			string sectionTypeName = sectionData.GetType().Name;
 			string presenterName =
 				sectionTypeName.Substring(0, materialsRequest.SectionName.Length - "ServerSectionData".Length) +
 				"Presenter";
