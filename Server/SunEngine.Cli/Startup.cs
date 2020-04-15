@@ -85,8 +85,6 @@ namespace SunEngine.Cli
 
 			services.AddSingleton((IConfigurationRoot) Configuration);
 			
-			
-
 			services.AddMvcCore(options =>
 				{
 					// Add filters here
