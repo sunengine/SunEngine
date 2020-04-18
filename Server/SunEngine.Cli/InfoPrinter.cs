@@ -51,20 +51,22 @@ namespace SunEngine.Cli
 			const int padding = -36;
 			string helpText = $@"
   Commands
-     {StartupConfiguration.ServerCommand,padding} Host server api with kestrel
-     {StartupConfiguration.ConfigArgumentName + ":<Path>",padding} Path to config directory, if none ""Config"" is default, "".Config"" suffix at the end of the path can be skipped
-     {StartupConfiguration.MigrateCommand,padding} Make initial database table structure and migrations in existing database
-     {StartupConfiguration.InitCommand,padding} Initialize users, roles and categories tables from config directory
-     {StartupConfiguration.TestDatabaseConnection,padding} Check is data base connection is working                     
-     {StartupConfiguration.VersionCommand,padding} Print SunEngine version
-     {StartupConfiguration.NoLogoCommand,padding} Do not show logo image on start   
-     {StartupConfiguration.HelpCommand,padding} Show this help   
+     {StartupConfiguration.ServerCommand,padding} host server api with kestrel
+     {StartupConfiguration.ConfigArgumentName + ":<path>",padding} path to config directory, if none ""Config"" is default, "".Config"" suffix at the end of the path can be skipped
+     {StartupConfiguration.MigrateCommand,padding} make initial database table structure and migrations in existing database
+     {StartupConfiguration.InitCommand,padding} initialize users, roles and categories tables from config directory
+     {StartupConfiguration.TestDatabaseConnection,padding} check is data base connection is working                     
+     {StartupConfiguration.VersionCommand,padding} print SunEngine version
+     {StartupConfiguration.NoLogoCommand,padding} do not show logo image on start   
+     {StartupConfiguration.HelpCommand,padding} show this help   
     
   Seed test data commands    
-     {StartupConfiguration.SeedCommand}:<CategoryName>:<MaterialsCount>:<CommentsCount>      
-     {"",padding} Seed category and all subcategories with materials and comments
-     {"",padding} MaterialsCount and CommentsCount - default if skipped
-     {"",padding} Example - seed:SomeCategory:20:10
+     {StartupConfiguration.SeedCommand}:<category>:<materials>:<comments>      
+     {"",padding} seed category and all subcategories with materials and comments
+     {"",padding} <category> - category name
+     {"",padding} <materials> - materials count, default if skipped
+     {"",padding} <comments> - comments count, default if skipped
+     {"",padding} example - seed:SomeCategory:20:10
                                 
      {StartupConfiguration.AppendCategoriesNamesCommand,padding} Add category name to material titles on ""{StartupConfiguration.SeedCommand}""
 
