@@ -9,7 +9,7 @@ using SunEngine.Core.DataBase;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils.TextProcess;
 
-namespace SunEngine.Core.Presenters
+namespace SunEngine.Materials.Presenters
 {
 	public interface IActivitiesPresenter
 	{

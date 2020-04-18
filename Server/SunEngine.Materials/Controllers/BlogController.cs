@@ -1,19 +1,17 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Configuration.Options;
-using SunEngine.Core.Models;
-using SunEngine.Core.Presenters;
+using SunEngine.Core.Controllers;
 using SunEngine.Core.Sections;
 using SunEngine.Core.Security;
 using SunEngine.Core.Utils.PagedList;
+using SunEngine.Materials.Presenters;
 
-namespace SunEngine.Core.Controllers
+namespace SunEngine.Materials.Controllers
 {
 	/// <summary>
 	/// Get blog posts controller
@@ -105,7 +103,7 @@ namespace SunEngine.Core.Controllers
 
 			var categoriesIds = categoriesList.Select(x => x.Id);
 
-			var options = new MaterialsMultiCatShowOptions
+			var options = new MaterialsShowOptions 
 			{
 				CategoriesIds = categoriesList.Select(x => x.Id),
 				Page = page,

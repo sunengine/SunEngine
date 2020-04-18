@@ -14,6 +14,7 @@ using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Errors;
 using SunEngine.Core.Security;
 using SunEngine.Core.Services;
+using SunEngine.Materials;
 
 namespace SunEngine.Cli
 {
@@ -59,8 +60,10 @@ namespace SunEngine.Cli
       
 			services.AddPresenters();
 
+			services.AddMaterials();
+			
 			services.AddAdmin();
-
+			
 			services.AddMemoryCache();
 
 			services.AddImagesServices();

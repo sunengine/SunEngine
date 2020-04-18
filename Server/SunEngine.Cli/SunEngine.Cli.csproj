@@ -24,6 +24,7 @@
         <ProjectReference Include="..\SunEngine.Admin\SunEngine.Admin.csproj" />
         <ProjectReference Include="..\SunEngine.Core\SunEngine.Core.csproj" />
         <ProjectReference Include="..\SunEngine.DataSeed\SunEngine.DataSeed.csproj" />
+        <ProjectReference Include="..\SunEngine.Materials\SunEngine.Materials.csproj" />
         <ProjectReference Include="..\SunEngine.Migrations\SunEngine.Migrations.csproj" />
     </ItemGroup>
 

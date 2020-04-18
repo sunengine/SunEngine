@@ -8,19 +8,20 @@ using Microsoft.Extensions.DependencyInjection;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Cache.Services.Counters;
+using SunEngine.Core.Controllers;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Errors;
 using SunEngine.Core.Errors.Exceptions;
 using SunEngine.Core.Filters;
 using SunEngine.Core.Managers;
-using SunEngine.Core.Models.Authorization;
 using SunEngine.Core.Models.Materials;
-using SunEngine.Core.Presenters;
 using SunEngine.Core.Sections;
 using SunEngine.Core.Security;
 using SunEngine.Core.Services;
+using SunEngine.Materials.Presenters;
+using SunEngine.Materials.Services;
 
-namespace SunEngine.Core.Controllers
+namespace SunEngine.Materials.Controllers
 {
 	/// <summary>
 	/// Materials CRUD controller.
@@ -94,13 +95,13 @@ namespace SunEngine.Core.Controllers
 		[HttpPost]
 		public virtual async Task<IActionResult> GetMaterials(GetMaterialsRequest materialsRequest)
 		{
-			MaterialsServerSection section =
-				(MaterialsServerSection) sectionsCache.GetSectionServerCached(materialsRequest.SectionName, User.Roles)
-					.Data;
+			SectionServerCached section = sectionsCache.GetSectionServerCached(materialsRequest.SectionName, User.Roles);
 			if (section == null)
-				return BadRequest($"Can not find {materialsRequest.SectionName} section");
+				return BadRequest($"No component {materialsRequest.SectionName} found in cache");
 
-			if (!("," + section.CategoriesNames + ",").Contains("," + materialsRequest.CategoryName + ","))
+			MaterialsServerSection sectionData = section.GetData<MaterialsServerSection>();
+
+			if (!("," + sectionData.CategoriesNames + ",").Contains("," + materialsRequest.CategoryName + ","))
 				return BadRequest(
 					$"Can not show {materialsRequest.CategoryName} in {materialsRequest.SectionName} section");
 
@@ -108,36 +109,25 @@ namespace SunEngine.Core.Controllers
 			if (category == null)
 				return BadRequest($"Can not find {materialsRequest.CategoryName} category");
 
-			string sectionTypeName = section.GetType().Name;
-			string presenterName =
-				sectionTypeName.Substring(0, materialsRequest.SectionName.Length - "ServerSectionData".Length) +
-				"Presenter";
-
-			MaterialsSectionsPresenterService.MaterialsSectionsPresenters.TryGetValue(presenterName,
-				out Type presenterType);
-
-			using var scope = serviceProvider.CreateScope();
-
-			Func<IQueryable<Material>, IOrderedQueryable<Material>> sort = null;
-
-			MaterialsSortOptionsService.MaterialsSortOptions.TryGetValue(materialsRequest.Sort,
-				out sort);
-
-			MaterialsShowOptions options = new MaterialsShowOptions()
+			
+			MaterialsShowOptions options = new MaterialsShowOptions
 			{
 				ShowDeleted = materialsRequest.ShowDeleted,
 				CategoryId = category.Id,
 				Page = materialsRequest.Page,
-				Sort = sort
+				Sort = MaterialsSortOptionsService.MaterialsSortOptions[materialsRequest.Sort]
 			};
-
-			IMaterialsQueryPresenter materialsQueryPresenter = (IMaterialsQueryPresenter) scope.ServiceProvider.GetRequiredService(presenterType);
 			
-			return await CacheContentAsync(category, category.Id, () => materialsQueryPresenter.GetMaterialsByCategoryAsync(options), new RequestOptions()
-			{
-				Sort = materialsRequest.Sort,
-				PageNumber = materialsRequest.Page
-			});
+			using var scope = serviceProvider.CreateScope();
+			IMaterialsQueryPresenter materialsQueryPresenter =
+				(IMaterialsQueryPresenter) scope.ServiceProvider.GetRequiredService(MaterialsPresenterTypes.GetBySection(section));
+
+			return await CacheContentAsync(category, category.Id,
+				() => materialsQueryPresenter.GetMaterialsByCategoryAsync(options), new RequestOptions()
+				{
+					Sort = materialsRequest.Sort,
+					PageNumber = materialsRequest.Page
+				});
 		}
 
 		[HttpPost]
@@ -150,18 +140,7 @@ namespace SunEngine.Core.Controllers
 			MaterialsServerSection sectionData = section.GetData<MaterialsServerSection>();
 
 			var сategories = categoriesCache.GetAllCategoriesWithChildren(sectionData.CategoriesNames);
-
-			string sectionTypeName = sectionData.GetType().Name;
-			string presenterName =
-				sectionTypeName.Substring(0, materialsRequest.SectionName.Length - "ServerSectionData".Length) +
-				"Presenter";
-
-			MaterialsSectionsPresenterService.MaterialsSectionsPresenters.TryGetValue(presenterName,
-				out Type presenterType);
-
-			IMaterialsQueryPresenter materialQueryPresenter =
-				(IMaterialsQueryPresenter) serviceProvider.GetRequiredService(presenterType);
-
+			
 			IList<CategoryCached> categories = authorizationService.GetAllowedCategories(User.Roles,
 				сategories.Values, operationKeysContainer.MaterialAndCommentsRead);
 
@@ -173,15 +152,20 @@ namespace SunEngine.Core.Controllers
 			MaterialsSortOptionsService.MaterialsSortOptions.TryGetValue(materialsRequest.Sort,
 				out Func<IQueryable<Material>, IOrderedQueryable<Material>> sort);
 
-			var options = new MaterialsMultiCatShowOptions
+			var options = new MaterialsShowOptions
 			{
 				CategoriesIds = categoriesIds,
 				Page = materialsRequest.Page,
 				PageSize = sectionData.PageSize,
-				SortType = sort
+				Sort = sort
 			};
- 
-			return await CacheContentAsync(section, categoriesIds, () => materialQueryPresenter.GetMaterialsFromMultiCategoryAsync(options), materialsRequest.Page);
+
+			using var scope = serviceProvider.CreateScope();
+			IMaterialsQueryPresenter materialsQueryPresenter =
+				(IMaterialsQueryPresenter) scope.ServiceProvider.GetRequiredService(MaterialsPresenterTypes.GetBySection(section));
+
+			return await CacheContentAsync(section, categoriesIds,
+				() => materialsQueryPresenter.GetMaterialsFromMultiCategoryAsync(options), materialsRequest.Page);
 		}
 
 		[HttpPost]

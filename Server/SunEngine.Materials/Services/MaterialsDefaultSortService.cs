@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SunEngine.Core.Models.Materials;
-using SunEngine.Core.Presenters;
+using SunEngine.Materials.Presenters;
 
-namespace SunEngine.Core.Services
+namespace SunEngine.Materials.Services
 {
   public static class MaterialsDefaultSortService
   {

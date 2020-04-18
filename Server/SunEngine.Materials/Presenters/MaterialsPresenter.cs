@@ -7,14 +7,15 @@ using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
+using SunEngine.Materials.Services;
 
-namespace SunEngine.Core.Presenters
+namespace SunEngine.Materials.Presenters
 {
 
   public interface IMaterialsQueryPresenter
   {
     Task<IList<Object>> GetMaterialsByCategoryAsync(MaterialsShowOptions options);
-    Task<IList<Object>> GetMaterialsFromMultiCategoryAsync(MaterialsMultiCatShowOptions options);
+    Task<IList<Object>> GetMaterialsFromMultiCategoryAsync(MaterialsShowOptions options);
   }
   
 	public interface IMaterialsPresenter
@@ -75,12 +76,12 @@ namespace SunEngine.Core.Presenters
 			).FirstOrDefaultAsync();
 		}
     
-    public async Task<IList<Object>> GetMaterialsByCategoryAsync(MaterialsShowOptions materialsShowOptions)
+    public async Task<IList<Object>> GetMaterialsByCategoryAsync(MaterialsShowOptions materialsesShowOptions)
     {
       Func<IQueryable<Material>, IOrderedQueryable<Material>> orderBy;
 
-      if (materialsShowOptions.Sort != null)
-        orderBy = materialsShowOptions.Sort;
+      if (materialsesShowOptions.Sort != null)
+        orderBy = materialsesShowOptions.Sort;
       else
         orderBy = MaterialsDefaultSortService.DefaultSortOptions.GetValueOrDefault(nameof(MaterialsPresenter));
       
@@ -88,7 +89,7 @@ namespace SunEngine.Core.Presenters
       var res = await (from material in materials
         join category in db.GetTable<Category>() on material.CategoryId equals category.Id
         orderby orderBy
-        where category.Id == materialsShowOptions.CategoryId
+        where category.Id == materialsesShowOptions.CategoryId
         select new MaterialView()
         {
           Id = material.Id,
@@ -114,12 +115,12 @@ namespace SunEngine.Core.Presenters
       return res as IList<object>;
     }
 
-    public async Task<IList<object>> GetMaterialsFromMultiCategoryAsync(MaterialsMultiCatShowOptions options)
+    public async Task<IList<object>> GetMaterialsFromMultiCategoryAsync(MaterialsShowOptions options)
     {
       Func<IQueryable<Material>, IOrderedQueryable<Material>> orderBy;
 
-      if (options.SortType != null)
-        orderBy = options.SortType;
+      if (options.Sort != null)
+        orderBy = options.Sort;
       else
         orderBy = MaterialsDefaultSortService.DefaultSortOptions.GetValueOrDefault(nameof(MaterialsPresenter));
       

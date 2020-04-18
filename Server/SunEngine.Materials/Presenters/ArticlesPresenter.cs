@@ -2,19 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.ObjectPool;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils.PagedList;
+using SunEngine.Materials.Services;
 
-namespace SunEngine.Core.Presenters
+namespace SunEngine.Materials.Presenters
 {
 	public interface IArticlesPresenter 
 	{
 		Task<IPagedList<ArticleInfoView>> GetArticlesAsync(MaterialsShowOptions options);
 
-		Task<IPagedList<ArticleInfoView>> GetArticlesFromMultiCategoriesAsync(MaterialsMultiCatShowOptions options);
+		Task<IPagedList<ArticleInfoView>> GetArticlesFromMultiCategoriesAsync(MaterialsShowOptions options);
 	}
 
 
@@ -70,7 +70,7 @@ namespace SunEngine.Core.Presenters
 		}
 
 		public virtual Task<IPagedList<ArticleInfoView>> GetArticlesFromMultiCategoriesAsync(
-			MaterialsMultiCatShowOptions options)
+			MaterialsShowOptions options)
 		{
       return db.Materials.Where(x => x.DeletedDate == null && !x.IsHidden).GetPagedListAsync(
 				x => new ArticleInfoView
@@ -121,12 +121,12 @@ namespace SunEngine.Core.Presenters
       return result.Items as IList<object>;
     }
 
-    public async Task<IList<object>> GetMaterialsFromMultiCategoryAsync(MaterialsMultiCatShowOptions options)
+    public async Task<IList<object>> GetMaterialsFromMultiCategoryAsync(MaterialsShowOptions options)
     {
       Func<IQueryable<Material>, IOrderedQueryable<Material>> order;
 
-      if (options.SortType != null)
-        order = options.SortType;
+      if (options.Sort != null)
+        order = options.Sort;
       else
         order = MaterialsDefaultSortService.DefaultSortOptions.GetValueOrDefault(nameof(ArticlesPresenter));
       

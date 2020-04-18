@@ -27,13 +27,13 @@ ProjectSection(SolutionItems) = preProject
 	..\Scripts\BUILD = ..\Scripts\BUILD
 	..\Scripts\build.sh = ..\Scripts\build.sh
 	..\Scripts\PUBLISH = ..\Scripts\PUBLISH
-	..\Scripts\publish.sh = ..\Scripts\publish.sh
 	..\Scripts\PUBLISH.template = ..\Scripts\PUBLISH.template
 	..\Scripts\UPDATE = ..\Scripts\UPDATE
 	..\Scripts\update.sh = ..\Scripts\update.sh
 	..\Scripts\start-dev.sh = ..\Scripts\start-dev.sh
 	..\Scripts\copy-client-to-template.sh = ..\Scripts\copy-client-to-template.sh
 	..\Scripts\copy-config-to-template.sh = ..\Scripts\copy-config-to-template.sh
+	..\Scripts\publi.sh = ..\Scripts\publi.sh
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workwlows", "workwlows", "{86FF27AD-99D1-46E5-8808-C8D8C5EACBEE}"
@@ -42,6 +42,8 @@ ProjectSection(SolutionItems) = preProject
 	..\.github\workflows\quasar.yml = ..\.github\workflows\quasar.yml
 	..\.github\workflows\release.yml = ..\.github\workflows\release.yml
 EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunEngine.Materials", "SunEngine.Materials\SunEngine.Materials.csproj", "{7F026390-3B3B-4735-8151-90E7DCEB88AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{07C6B121-79B4-4830-9164-25F414F9BC79}.Release|Any CPU.Build.0 = Release|Any CPU
 		{07C6B121-79B4-4830-9164-25F414F9BC79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{07C6B121-79B4-4830-9164-25F414F9BC79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F026390-3B3B-4735-8151-90E7DCEB88AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F026390-3B3B-4735-8151-90E7DCEB88AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F026390-3B3B-4735-8151-90E7DCEB88AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F026390-3B3B-4735-8151-90E7DCEB88AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{55FB3255-F4FF-40F3-862F-DD89574ABB9A} = {CCB81843-5C70-458F-A65A-B60BA3AEBF7E}

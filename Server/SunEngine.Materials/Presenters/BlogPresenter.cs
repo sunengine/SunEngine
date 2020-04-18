@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AngleSharp.Html.Parser;
-using LinqToDB;
-using Microsoft.Extensions.ObjectPool;
 using Microsoft.Extensions.Options;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.DataBase;
@@ -12,14 +10,15 @@ using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils.PagedList;
 using SunEngine.Core.Utils.TextProcess;
+using SunEngine.Materials.Services;
 
-namespace SunEngine.Core.Presenters
+namespace SunEngine.Materials.Presenters
 {
 	public interface IBlogPresenter
 	{
 		Task<IPagedList<PostView>> GetPostsAsync(MaterialsShowOptions options);
 
-		Task<IPagedList<PostView>> GetPostsFromMultiCategoriesAsync(MaterialsMultiCatShowOptions options);
+		Task<IPagedList<PostView>> GetPostsFromMultiCategoriesAsync(MaterialsShowOptions options);
 	}
 
 	public class BlogPresenter : DbService, IBlogPresenter, IMaterialsQueryPresenter
@@ -77,7 +76,7 @@ namespace SunEngine.Core.Presenters
 		}
 
 		public virtual async Task<IPagedList<PostView>> GetPostsFromMultiCategoriesAsync(
-			MaterialsMultiCatShowOptions options)
+			MaterialsShowOptions options)
 		{
 			var rez = await db.MaterialsVisible.GetPagedListAsync(
 				x => new PostView
@@ -143,12 +142,12 @@ namespace SunEngine.Core.Presenters
       return result.Items as IList<object>;
     }
 
-    public async Task<IList<object>> GetMaterialsFromMultiCategoryAsync(MaterialsMultiCatShowOptions options)
+    public async Task<IList<object>> GetMaterialsFromMultiCategoryAsync(MaterialsShowOptions options)
     {
       Func<IQueryable<Material>, IOrderedQueryable<Material>> orderBy;
 
-      if (options.SortType != null)
-        orderBy = options.SortType;
+      if (options.Sort != null)
+        orderBy = options.Sort;
       else
         orderBy = MaterialsDefaultSortService.DefaultSortOptions.GetValueOrDefault(nameof(BlogPresenter));
       

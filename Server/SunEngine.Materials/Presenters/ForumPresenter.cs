@@ -2,20 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LinqToDB;
-using Microsoft.Extensions.ObjectPool;
 using SunEngine.Core.DataBase;
-using SunEngine.Core.Models;
 using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Services;
 using SunEngine.Core.Utils.PagedList;
+using SunEngine.Materials.Services;
 
-namespace SunEngine.Core.Presenters
+namespace SunEngine.Materials.Presenters
 {
 	public interface IForumPresenter
 	{
 		Task<IPagedList<TopicInfoView>> GetThreadAsync(MaterialsShowOptions options);
-		Task<IPagedList<TopicInfoView>> GetNewTopicsAsync(MaterialsMultiCatShowOptions options, int maxPages);
+		Task<IPagedList<TopicInfoView>> GetNewTopicsAsync(MaterialsShowOptions options, int maxPages);
 	}
 
 	public class ForumPresenter : DbService, IForumPresenter, IMaterialsQueryPresenter
@@ -61,7 +59,7 @@ namespace SunEngine.Core.Presenters
 		}
 
 
-		public virtual Task<IPagedList<TopicInfoView>> GetNewTopicsAsync(MaterialsMultiCatShowOptions options,
+		public virtual Task<IPagedList<TopicInfoView>> GetNewTopicsAsync(MaterialsShowOptions options,
 			int maxPages)
 		{
 			return db.MaterialsVisible.GetPagedListMaxAsync(
@@ -122,11 +120,11 @@ namespace SunEngine.Core.Presenters
       return result.Items as IList<object>;
     }
 
-    public async Task<IList<object>> GetMaterialsFromMultiCategoryAsync(MaterialsMultiCatShowOptions options)
+    public async Task<IList<object>> GetMaterialsFromMultiCategoryAsync(MaterialsShowOptions options)
     {
       Func<IQueryable<Material>, IOrderedQueryable<Material>> order;
-      if (options.SortType != null)
-        order = options.SortType;
+      if (options.Sort != null)
+        order = options.Sort;
       else
         order = MaterialsDefaultSortService.DefaultSortOptions.GetValueOrDefault(nameof(ArticlesPresenter));
 

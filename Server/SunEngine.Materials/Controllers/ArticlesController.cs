@@ -7,13 +7,14 @@ using Microsoft.Extensions.Options;
 using SunEngine.Core.Cache.CacheModels;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Configuration.Options;
+using SunEngine.Core.Controllers;
 using SunEngine.Core.Managers;
 using SunEngine.Core.Models.Materials;
-using SunEngine.Core.Presenters;
 using SunEngine.Core.Security;
 using SunEngine.Core.Utils.PagedList;
+using SunEngine.Materials.Presenters;
 
-namespace SunEngine.Core.Controllers
+namespace SunEngine.Materials.Controllers
 {
 	/// <summary>
 	/// Get article materials controller
@@ -100,7 +101,7 @@ namespace SunEngine.Core.Controllers
 			if (categoriesList.Count == 0)
 				return BadRequest("No categories to show");
 
-			var options = new MaterialsMultiCatShowOptions
+			var options = new MaterialsShowOptions
 			{
 				CategoriesIds = categoriesList.Select(x => x.Id),
 				Page = page,
