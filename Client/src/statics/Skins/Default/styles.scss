@@ -273,7 +273,14 @@ $sun-engine-footer-link-color: orange;
 	}
 
 	// ——— Material styles ———————————————————————————
-
+	.mobile {
+		.material__text,
+		.post__text,
+		.comment__text {
+			text-align: unset !important;
+		}
+	}
+	 
 	.material__text,
 	.post__text,
 	.comment__text {
@@ -322,15 +329,5 @@ $sun-engine-footer-link-color: orange;
 			color: $blockquote-text-color;
 			margin: 0 0 16px 0;
 		}
-	}
-
-	// ——— Index Page ———————————————————————————
-
-	.index-page__header {
-		color: $index-page-header-color;
-	}
-
-	.index-page__info-block-accent {
-		color: $index-page-accent-color;
 	}
 }

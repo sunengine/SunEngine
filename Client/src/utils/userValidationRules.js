@@ -1,33 +1,55 @@
 import Vue from "vue";
 
 export function passwordRules() {
-	return [
+	const rez = [
 		value =>
 			!!value || Vue.prototype.i18n.t("Global.validation.password.required"),
 		value =>
 			value.length >= config.PasswordValidation.RequiredLength ||
 			Vue.prototype.i18n.t("Global.validation.password.requiredLength", {
 				requiredLength: config.PasswordValidation.RequiredLength
-			}),
-		value =>
-			[...new Set(value.split(""))].length >=
-			config.PasswordValidation.RequiredUniqueChars ||
-			Vue.prototype.i18n.t("Global.validation.password.requiredUniqueChars", {
-				requiredUniqueChars: config.PasswordValidation.RequiredUniqueChars
-			}),
-		value =>
-			/\d/.test(value) ||
-			Vue.prototype.i18n.t("Global.validation.password.requireDigit"),
-		value =>
-			/[a-z]/.test(value) ||
-			Vue.prototype.i18n.t("Global.validation.password.requireLowercase"),
-		value =>
-			/[A-Z]/.test(value) ||
-			Vue.prototype.i18n.t("Global.validation.password.requireUppercase"),
-		value =>
-			/[^a-zA-Z0-9]/.test(value) ||
-			Vue.prototype.i18n.t("Global.validation.password.requireNonAlphanumeric")
-	]
+			})
+	];
+debugger;
+	if (config.PasswordValidation.RequiredUniqueChars)
+		rez.push(
+			value =>
+				[...new Set(value.split(""))].length >=
+					config.PasswordValidation.RequiredUniqueChars ||
+				Vue.prototype.i18n.t("Global.validation.password.requiredUniqueChars", {
+					requiredUniqueChars: config.PasswordValidation.RequiredUniqueChars
+				})
+		);
+	
+	if (config.PasswordValidation.RequireDigit)
+		rez.push(
+			value =>
+				/\d/.test(value) ||
+				Vue.prototype.i18n.t("Global.validation.password.requireDigit")
+		);
+
+	if (config.PasswordValidation.RequireLowercase)
+		rez.push(
+			value =>
+				/[a-z]/.test(value) ||
+				Vue.prototype.i18n.t("Global.validation.password.requireLowercase")
+		);
+
+	if (config.PasswordValidation.RequireUppercase)
+		rez.push(
+			value =>
+				/[A-Z]/.test(value) ||
+				Vue.prototype.i18n.t("Global.validation.password.requireUppercase")
+		);
+
+	if (config.PasswordValidation.RequireNonAlphanumeric)
+		rez.push(
+			value =>
+				/[^a-zA-Z0-9]/.test(value) ||
+				Vue.prototype.i18n.t("Global.validation.password.requireNonAlphanumeric")
+		);
+
+	return rez;
 }
 
 export function userNameRules() {
@@ -48,13 +70,16 @@ export function userNameRules() {
 			new RegExp("^[" + config.Register.AllowedUserNameCharacters + "]+$").test(
 				value
 			) ||
-			Vue.prototype.i18n.t("Global.validation.userName.allowedUserNameCharacters", {
-				allowedUserNameCharacters: config.Register.AllowedUserNameCharacters
-			}),
+			Vue.prototype.i18n.t(
+				"Global.validation.userName.allowedUserNameCharacters",
+				{
+					allowedUserNameCharacters: config.Register.AllowedUserNameCharacters
+				}
+			),
 		value =>
 			!this.userNameInDb ||
 			Vue.prototype.i18n.t("Global.validation.userName.nameInDb")
-	]
+	];
 }
 
 export function emailRules() {
@@ -68,5 +93,5 @@ export function emailRules() {
 			Vue.prototype.i18n.t("Global.validation.email.maxLength", {
 				maxLength: config.DbColumnSizes.Users_Email
 			})
-	]
+	];
 }

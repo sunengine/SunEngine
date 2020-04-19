@@ -296,8 +296,8 @@ export default {
 		prepareLocalLinks() {
 			prepareLocalLinks.call(this, this.$el, "material__text");
 		},
-		async loadDataMaterial() {
-			await this.$request(this.$Api.Materials.Get, {
+		loadDataMaterial() {
+			return this.$request(this.$Api.Materials.Get, {
 				idOrName: this.idOrName
 			}).then(response => {
 				this.material = response.data;
@@ -352,6 +352,7 @@ export default {
 			await this.loadData();
 		},
 		async loadData() {
+			this.headersPrepared = false;
 			await this.loadDataMaterial();
 			await this.loadDataComments();
 		}

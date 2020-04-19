@@ -267,7 +267,15 @@ $sun-engine-footer-link-color: #7e73a5;
 	}
 
 	// ——— Material styles ———————————————————————————
-
+	
+	.mobile {
+		.material__text,
+		.post__text,
+		.comment__text {
+			text-align: unset !important;
+		}
+	}
+	
 	.material__text,
 	.post__text,
 	.comment__text {

@@ -68,7 +68,8 @@
 				</tbody>
 			</q-markup-table>
 
-			<q-page-sticky position="bottom-left" :offset="[34, 12]">
+			<q-page-sticky position="bottom"  :offset="[0, 12]">
+			 <div class="q-gutter-x-md">
 				<q-btn
 					class="send-btn"
 					@click="uploadConfiguration"
@@ -81,27 +82,27 @@
 						<LoaderSent />
 					</template>
 				</q-btn>
-			</q-page-sticky>
-			<q-page-sticky position="bottom-right" :offset="[34, 12]">
-				<q-btn
-					class="reset-btn q-mr-md"
-					@click="resetConfiguration"
-					no-caps
-					:icon="$iconsSet.ConfigurationAdmin.reset"
-					:label="$tl('resetBtn')"
+			 	<q-btn
+					 class="reset-btn"
+					 @click="resetConfiguration"
+					 no-caps
+					 :icon="$iconsSet.ConfigurationAdmin.reset"
+					 :label="$tl('resetBtn')"
 				>
 					<q-tooltip :delay="800">
 						{{ $tl("resetBtnTooltip") }}
 					</q-tooltip>
 				</q-btn>
 				<q-btn
-					class="cancel-btn"
-					@click="$router.back()"
-					no-caps
-					:icon="$iconsSet.ConfigurationAdmin.cancel"
-					:label="$tl('cancelBtn')"
+					 class="cancel-btn"
+					 @click="$router.back()"
+					 no-caps
+					 :icon="$iconsSet.ConfigurationAdmin.cancel"
+					 :label="$tl('cancelBtn')"
 				/>
+			  </div>
 			</q-page-sticky>
+			
 
 			<br />
 		</div>

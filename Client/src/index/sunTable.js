@@ -59,6 +59,10 @@ export default {
 		const mod = await import("src/index/articles.js");
 		return mod;
 	},
+"arts": async function() {
+		const mod = await import("src/index/arts.js");
+		return mod;
+	},
 "auth": async function() {
 		const mod = await import("src/index/auth.js");
 		return mod;
