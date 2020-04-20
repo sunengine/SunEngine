@@ -10,7 +10,7 @@
 DIRECTORY=""
 PGPASS="postgre"
 PGPORT="5432"
-PGUSERPASS=$(head /dev/random | tr -dc A-Za-z0-9 | head -c 16)
+PGUSERPASS=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16)
 USER=""
 PGUSERPASSFLAG=true
 HOST="localhost"
@@ -274,7 +274,7 @@ fi
 DIR=$(echo "$DIRECTORY/SunEngine.Build" | tr -s '/')
 
 # качаем файлы SunEngine
-su - $USER -c "git clone \"https://github.com/sunengine/SunEngine.Build\" \"$DIR\" > /dev/null"
+su - $USER -c "git clone \"https://github.com/sunengine/Build\" \"$DIR\" > /dev/null"
 exitstatus=$?
 if [ $exitstatus != 0 ]
 then
@@ -294,7 +294,7 @@ su - $USER -c "sed -i \"s!auto!$DIR!g\" \"$DIR/Config.server.template/SunEngine.
 
 ADMINUSERNAME="admin"
 ADMINPASSWORD="nimda"
-ADMINEMAIL="admin@email"
+ADMINEMAIL="admin@email."
 
 # DataBaseConnection.json
 su - $USER -c "sed -i \"s/<admin-email>/$ADMINEMAIL/g\" \"$DIR/Config.server.template/Init/Users.json\""
@@ -312,7 +312,7 @@ su - $USER -c "cp -r \"$DIR/Config.server.template\" \"$DIR/Config\""
 # systemd
 echo "настраиваю systemd демон $HOST.service"
 su - $USER -c "sed -i \"s/<host>/$HOST/g\" \"$DIR/Resources/systemd.template\""
-su - $USER -c "sed -i \"s/<dir>/$DIR/g\" \"$DIR/Resources/systemd.template\""
+su - $USER -c "sed -i \"s!<dir>!$DIR!g\" \"$DIR/Resources/systemd.template\""
 su - $USER -c "sed -i \"s/<user>/$USER/g\" \"$DIR/Resources/systemd.template\""
 cp "/etc/systemd/system/$HOST.service" "$DIR/Resources/systemd.template"
 
