@@ -77,7 +77,7 @@ The project based on modern front edge technologies:
  - Bash scripts to build, deploy and update  
  - [Installation Guide for Ubuntu 18.04 Server (Russian)](https://sunengine.site/install/14)    
 
-### High quality
+### High Quality
  - Made with love ❤  
  - Quality code and architecture.  
 
