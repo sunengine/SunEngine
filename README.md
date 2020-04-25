@@ -12,7 +12,7 @@ Build on: AspNet Core, VueJS, Quasar.</h3>
 <a href="#"><img src="https://github.com/sunengine/SunEngine/workflows/.NET%20Core/badge.svg" ></a>
 <a href="#"><img src="https://github.com/sunengine/SunEngine/workflows/Quasar/badge.svg" ></a>
 <br/>
-<a href="https://sunengine.github.io"><img src="https://img.shields.io/static/v1?label=Site%20(Ru)&message=sunengine.site&color=yellow"></a>
+<a href="https://sunengine.github.io/src/ru"><img src="https://img.shields.io/static/v1?label=Documentation&message=sunengine.github.io&color=informational"></a>
 <a href="https://sunengine.site"><img src="https://img.shields.io/static/v1?label=Site%20(Ru)&message=sunengine.site&color=yellow"></a>
 <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Demo&message=demo.sunengine.site&color=yellow"></a>
 <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=success"></a>
@@ -77,7 +77,7 @@ The project based on modern front edge technologies:
  - Bash scripts to build, deploy and update  
  - [Installation Guide for Ubuntu 18.04 Server (Russian)](https://sunengine.site/install/14)    
 
-### High quakity
+### High quality
  - Made with love ❤  
  - Quality code and architecture.  
 
