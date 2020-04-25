@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<svg id="svgLogo" width="400" height="400" version="1.1" viewBox="-113 -113 226 226" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg">
+        <style>
+            #svgLogo:hover .spin {
+                animation-play-state: running;
+            }
+
+            #svgLogo:hover .backSpin {
+                animation-play-state: running;
+            }
+
+
+            .spin {
+                animation-duration: 24s;
+                animation-name: rot1;
+                animation-fill-mode: forwards;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+                animation-play-state: paused;
+            }
+
+            .backSpin {
+                animation-duration: 24s;
+                animation-name: rot2;
+                animation-fill-mode: forwards;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+                animation-play-state: paused;
+            }
+
+            /*.runePositionFix {
+                transform: translate(-7.0px, -7.0px);
+            }*/
+
+            .rune-circle {
+                fill: white;
+            }
+
+            .runa {
+                stroke: #ffa950;
+                stroke-width: 2px;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            .border line {
+                stroke: #bb4c00;
+                stroke-width: 2px;
+            }
+
+
+            @keyframes rot1 {
+                to {
+                    transform: rotate(1turn)
+                }
+            }
+
+            @keyframes rot2 {
+                to {
+                    transform: rotate(-1turn)
+                }
+            }
+        </style>
+        <defs>
+            <g class="symbs">
+                <symbol id="mir" class="runa" viewBox="0 0 10 14" refX="center" refY="center">
+                    <g>
+                        <line x1="1" y1="2" x2="5" y2="5"></line>
+                        <line x1="5" y1="5" x2="9" y2="2"></line>
+                        <line x1="5" y1="1" x2="5" y2="12"></line>
+                    </g>
+                </symbol>
+                <symbol id="perun" class="runa" viewBox="0 0 10 14">
+                    <g transform="scale(1 0.9) translate(0 1.4)">
+                        <line x1="2" y1="1" x2="2" y2="12"></line>
+                        <line x1="2" y1="1" x2="8" y2="1"></line>
+                        <line x1="8" y1="1" x2="8" y2="12"></line>
+                    </g>
+                </symbol>
+                <symbol id="veter" class="runa" viewBox="0 0 10 14">
+                    <g>
+                        <line x1="3" y1="2" x2="3" y2="12"></line>
+                        <line x1="1" y1="3" x2="5" y2="1"></line>
+                        <line x1="5" y1="1" x2="9" y2="3"></line>
+                        <line x1="7" y1="2" x2="7" y2="12"></line>
+                    </g>
+                </symbol>
+                <symbol id="dazd-bogh" class="runa" viewBox="0 0 10 14">
+                    <g transform="translate(1 0.4) scale(1.03)">
+                        <line x1="2" y1="1" x2="2" y2="12"></line>
+                        <line x1="2" y1="3" x2="8" y2="6"></line>
+                        <line x1="8" y1="6" x2="2" y2="10"></line>
+                    </g>
+                </symbol>
+                <symbol id="istok" class="runa" viewBox="0 0 10 14">
+                    <g transform="scale(1.02)">
+                        <line x1="5" y1="1" x2="5" y2="12"></line>
+                    </g>
+                </symbol>
+                <symbol id="sila" class="runa" viewBox="0 0 10 14">
+                    <g>
+                        <line x1="2" y1="1" x2="2" y2="9"></line>
+                        <line x1="2" y1="9" x2="8" y2="4"></line>
+                        <line x1="8" y1="4" x2="8" y2="12"></line>
+                    </g>
+                </symbol>
+                <symbol id="bereginya" class="runa" viewBox="0 0 10 14">
+                    <g transform="translate(1.2 0.2)">
+                        <line x1="2" y1="1" x2="2" y2="12"></line>
+                        <line x1="2" y1="8" x2="7" y2="5"></line>
+                        <line x1="2" y1="12" x2="7" y2="9"></line>
+                    </g>
+                </symbol>
+                <symbol id="raduga" class="runa" viewBox="0 0 10 14">
+                    <g transform="scale(1 0.95) translate(1 0.7)">
+                        <line x1="2" y1="1" x2="2" y2="12"></line>
+                        <line x1="2" y1="1" x2="7" y2="4"></line>
+                        <line x1="7" y1="4" x2="2" y2="7"></line>
+                        <line x1="2" y1="7" x2="7" y2="12"></line>
+                    </g>
+                </symbol>
+            </g>
+        </defs>
+
+        <circle r="112" fill="yellow" stroke-width="2px" stroke="#bb4c00"></circle>
+
+        <g id="circles"><circle fill="hsl(60, 100%, 80%)" r="100"></circle><circle fill="hsl(90, 100%, 80%)" r="72.6"></circle><circle fill="hsl(120, 100%, 80%)" r="50"></circle><circle fill="hsl(150, 100%, 80%)" r="36.3"></circle><circle fill="hsl(180, 100%, 80%)" r="25"></circle><circle fill="hsl(210, 100%, 80%)" r="18.15"></circle><circle fill="hsl(240, 100%, 80%)" r="12.5"></circle><circle fill="hsl(270, 100%, 80%)" r="9.075"></circle><circle fill="hsl(300, 100%, 80%)" r="6.25"></circle><circle fill="hsl(330, 100%, 80%)" r="4.5375"></circle></g>
+        <g class="spin">
+            <g id="runes"><g transform="translate(0, -86.3)"><g class="backSpin"><circle class="rune-circle" r="10"></circle><use id="r-mir" xlink:href="#mir" href="#mir" fill="red" transform="translate(-7.0, -7.0)" width="14" height="14"></use></g></g><g transform="translate(61.023, -61.023)"><g class="backSpin"><circle class="rune-circle" r="10"></circle><use id="r-perun" xlink:href="#perun" href="#perun" fill="red" transform="translate(-7.0, -7.0)" width="14" height="14"></use></g></g><g transform="translate(86.3, 0)"><g class="backSpin"><circle class="rune-circle" r="10"></circle><use id="r-veter" xlink:href="#veter" href="#veter" fill="red" transform="translate(-7.0, -7.0)" width="14" height="14"></use></g></g><g transform="translate(61.023, 61.023)"><g class="backSpin"><circle class="rune-circle" r="10"></circle><use id="r-dazd-bogh" xlink:href="#dazd-bogh" href="#dazd-bogh" fill="red" transform="translate(-7.0, -7.0)" width="14" height="14"></use></g></g><g transform="translate(0, 86.3)"><g class="backSpin"><circle class="rune-circle" r="10"></circle><use id="r-istok" xlink:href="#istok" href="#istok" fill="red" transform="translate(-7.0, -7.0)" width="14" height="14"></use></g></g><g transform="translate(-61.023, 61.023)"><g class="backSpin"><circle class="rune-circle" r="10"></circle><use id="r-sila" xlink:href="#sila" href="#sila" fill="red" transform="translate(-7.0, -7.0)" width="14" height="14"></use></g></g><g transform="translate(-86.3, 0)"><g class="backSpin"><circle class="rune-circle" r="10"></circle><use id="r-bereginya" xlink:href="#bereginya" href="#bereginya" fill="red" transform="translate(-7.0, -7.0)" width="14" height="14"></use></g></g><g transform="translate(-61.023, -61.023)"><g class="backSpin"><circle class="rune-circle" r="10"></circle><use id="r-raduga" xlink:href="#raduga" href="#raduga" fill="red" transform="translate(-7.0, -7.0)" width="14" height="14"></use></g></g></g>
+            <g id="alatir" class="border"><line x1="0" y1="-50" x2="38.268" y2="-92.388"></line><line x1="38.268" y1="-92.388" x2="35.355" y2="-35.355"></line><line x1="35.355" y1="-35.355" x2="92.388" y2="-38.268"></line><line x1="92.388" y1="-38.268" x2="50" y2="0"></line><line x1="50" y1="0" x2="92.388" y2="38.268"></line><line x1="92.388" y1="38.268" x2="35.355" y2="35.355"></line><line x1="35.355" y1="35.355" x2="38.268" y2="92.388"></line><line x1="38.268" y1="92.388" x2="0" y2="50"></line><line x1="0" y1="50" x2="-38.268" y2="92.388"></line><line x1="-38.268" y1="92.388" x2="-35.355" y2="35.355"></line><line x1="-35.355" y1="35.355" x2="-92.388" y2="38.268"></line><line x1="-92.388" y1="38.268" x2="-50" y2="0"></line><line x1="-50" y1="0" x2="-92.388" y2="-38.268"></line><line x1="-92.388" y1="-38.268" x2="-35.355" y2="-35.355"></line><line x1="-35.355" y1="-35.355" x2="-38.268" y2="-92.388"></line><line x1="-38.268" y1="-92.388" x2="0" y2="-50"></line><line x1="0" y1="-50" x2="38.268" y2="-92.388"></line><line x1="38.268" y1="-92.388" x2="35.355" y2="-35.355"></line><line x1="35.355" y1="-35.355" x2="92.388" y2="-38.268"></line><line x1="92.388" y1="-38.268" x2="50" y2="0"></line><line x1="50" y1="0" x2="92.388" y2="38.268"></line><line x1="92.388" y1="38.268" x2="35.355" y2="35.355"></line><line x1="35.355" y1="35.355" x2="38.268" y2="92.388"></line><line x1="38.268" y1="92.388" x2="0" y2="50"></line><line x1="0" y1="50" x2="-38.268" y2="92.388"></line><line x1="-38.268" y1="92.388" x2="-35.355" y2="35.355"></line><line x1="-35.355" y1="35.355" x2="-92.388" y2="38.268"></line><line x1="-92.388" y1="38.268" x2="-50" y2="0"></line><line x1="-50" y1="0" x2="-92.388" y2="-38.268"></line><line x1="-92.388" y1="-38.268" x2="-35.355" y2="-35.355"></line><line x1="-35.355" y1="-35.355" x2="-38.268" y2="-92.388"></line><line x1="-38.268" y1="-92.388" x2="0" y2="-50"></line><line x1="0" y1="-50" x2="9.567" y2="-23.097"></line><line x1="9.567" y1="-23.097" x2="35.355" y2="-35.355"></line><line x1="35.355" y1="-35.355" x2="23.097" y2="-9.567"></line><line x1="23.097" y1="-9.567" x2="50" y2="0"></line><line x1="50" y1="0" x2="23.097" y2="9.567"></line><line x1="23.097" y1="9.567" x2="35.355" y2="35.355"></line><line x1="35.355" y1="35.355" x2="9.567" y2="23.097"></line><line x1="9.567" y1="23.097" x2="0" y2="50"></line><line x1="0" y1="50" x2="-9.567" y2="23.097"></line><line x1="-9.567" y1="23.097" x2="-35.355" y2="35.355"></line><line x1="-35.355" y1="35.355" x2="-23.097" y2="9.567"></line><line x1="-23.097" y1="9.567" x2="-50" y2="0"></line><line x1="-50" y1="0" x2="-23.097" y2="-9.567"></line><line x1="-23.097" y1="-9.567" x2="-35.355" y2="-35.355"></line><line x1="-35.355" y1="-35.355" x2="-9.567" y2="-23.097"></line><line x1="-9.567" y1="-23.097" x2="0" y2="-50"></line><line x1="0" y1="-50" x2="9.567" y2="-23.097"></line><line x1="9.567" y1="-23.097" x2="35.355" y2="-35.355"></line><line x1="35.355" y1="-35.355" x2="23.097" y2="-9.567"></line><line x1="23.097" y1="-9.567" x2="50" y2="0"></line><line x1="50" y1="0" x2="23.097" y2="9.567"></line><line x1="23.097" y1="9.567" x2="35.355" y2="35.355"></line><line x1="35.355" y1="35.355" x2="9.567" y2="23.097"></line><line x1="9.567" y1="23.097" x2="0" y2="50"></line><line x1="0" y1="50" x2="-9.567" y2="23.097"></line><line x1="-9.567" y1="23.097" x2="-35.355" y2="35.355"></line><line x1="-35.355" y1="35.355" x2="-23.097" y2="9.567"></line><line x1="-23.097" y1="9.567" x2="-50" y2="0"></line><line x1="-50" y1="0" x2="-23.097" y2="-9.567"></line><line x1="-23.097" y1="-9.567" x2="-35.355" y2="-35.355"></line><line x1="-35.355" y1="-35.355" x2="-9.567" y2="-23.097"></line><line x1="-9.567" y1="-23.097" x2="0" y2="-50"></line><line x1="0" y1="-50" x2="9.567" y2="-23.097"></line><line x1="9.567" y1="-23.097" x2="0" y2="-12.5"></line><line x1="0" y1="-12.5" x2="9.567" y2="-23.097"></line><line x1="9.567" y1="-23.097" x2="8.839" y2="-8.839"></line><line x1="8.839" y1="-8.839" x2="23.097" y2="-9.567"></line><line x1="23.097" y1="-9.567" x2="12.5" y2="0"></line><line x1="12.5" y1="0" x2="23.097" y2="9.567"></line><line x1="23.097" y1="9.567" x2="8.839" y2="8.839"></line><line x1="8.839" y1="8.839" x2="9.567" y2="23.097"></line><line x1="9.567" y1="23.097" x2="0" y2="12.5"></line><line x1="0" y1="12.5" x2="-9.567" y2="23.097"></line><line x1="-9.567" y1="23.097" x2="-8.839" y2="8.839"></line><line x1="-8.839" y1="8.839" x2="-23.097" y2="9.567"></line><line x1="-23.097" y1="9.567" x2="-12.5" y2="0"></line><line x1="-12.5" y1="0" x2="-23.097" y2="-9.567"></line><line x1="-23.097" y1="-9.567" x2="-8.839" y2="-8.839"></line><line x1="-8.839" y1="-8.839" x2="-9.567" y2="-23.097"></line><line x1="-9.567" y1="-23.097" x2="0" y2="-12.5"></line><line x1="0" y1="-12.5" x2="9.567" y2="-23.097"></line><line x1="9.567" y1="-23.097" x2="8.839" y2="-8.839"></line><line x1="8.839" y1="-8.839" x2="23.097" y2="-9.567"></line><line x1="23.097" y1="-9.567" x2="12.5" y2="0"></line><line x1="12.5" y1="0" x2="23.097" y2="9.567"></line><line x1="23.097" y1="9.567" x2="8.839" y2="8.839"></line><line x1="8.839" y1="8.839" x2="9.567" y2="23.097"></line><line x1="9.567" y1="23.097" x2="0" y2="12.5"></line><line x1="0" y1="12.5" x2="-9.567" y2="23.097"></line><line x1="-9.567" y1="23.097" x2="-8.839" y2="8.839"></line><line x1="-8.839" y1="8.839" x2="-23.097" y2="9.567"></line><line x1="-23.097" y1="9.567" x2="-12.5" y2="0"></line><line x1="-12.5" y1="0" x2="-23.097" y2="-9.567"></line><line x1="-23.097" y1="-9.567" x2="-8.839" y2="-8.839"></line><line x1="-8.839" y1="-8.839" x2="-9.567" y2="-23.097"></line><line x1="-9.567" y1="-23.097" x2="0" y2="-12.5"></line><line x1="0" y1="-12.5" x2="2.392" y2="-5.774"></line><line x1="2.392" y1="-5.774" x2="8.839" y2="-8.839"></line><line x1="8.839" y1="-8.839" x2="5.774" y2="-2.392"></line><line x1="5.774" y1="-2.392" x2="12.5" y2="0"></line><line x1="12.5" y1="0" x2="5.774" y2="2.392"></line><line x1="5.774" y1="2.392" x2="8.839" y2="8.839"></line><line x1="8.839" y1="8.839" x2="2.392" y2="5.774"></line><line x1="2.392" y1="5.774" x2="0" y2="12.5"></line><line x1="0" y1="12.5" x2="-2.392" y2="5.774"></line><line x1="-2.392" y1="5.774" x2="-8.839" y2="8.839"></line><line x1="-8.839" y1="8.839" x2="-5.774" y2="2.392"></line><line x1="-5.774" y1="2.392" x2="-12.5" y2="0"></line><line x1="-12.5" y1="0" x2="-5.774" y2="-2.392"></line><line x1="-5.774" y1="-2.392" x2="-8.839" y2="-8.839"></line><line x1="-8.839" y1="-8.839" x2="-2.392" y2="-5.774"></line><line x1="-2.392" y1="-5.774" x2="0" y2="-12.5"></line><line x1="0" y1="-12.5" x2="2.392" y2="-5.774"></line><line x1="2.392" y1="-5.774" x2="8.839" y2="-8.839"></line><line x1="8.839" y1="-8.839" x2="5.774" y2="-2.392"></line><line x1="5.774" y1="-2.392" x2="12.5" y2="0"></line><line x1="12.5" y1="0" x2="5.774" y2="2.392"></line><line x1="5.774" y1="2.392" x2="8.839" y2="8.839"></line><line x1="8.839" y1="8.839" x2="2.392" y2="5.774"></line><line x1="2.392" y1="5.774" x2="0" y2="12.5"></line><line x1="0" y1="12.5" x2="-2.392" y2="5.774"></line><line x1="-2.392" y1="5.774" x2="-8.839" y2="8.839"></line><line x1="-8.839" y1="8.839" x2="-5.774" y2="2.392"></line><line x1="-5.774" y1="2.392" x2="-12.5" y2="0"></line><line x1="-12.5" y1="0" x2="-5.774" y2="-2.392"></line><line x1="-5.774" y1="-2.392" x2="-8.839" y2="-8.839"></line><line x1="-8.839" y1="-8.839" x2="-2.392" y2="-5.774"></line><line x1="-2.392" y1="-5.774" x2="0" y2="-12.5"></line><line x1="0" y1="-12.5" x2="2.392" y2="-5.774"></line><line x1="2.392" y1="-5.774" x2="0" y2="-3.125"></line><line x1="0" y1="-3.125" x2="2.392" y2="-5.774"></line><line x1="2.392" y1="-5.774" x2="2.21" y2="-2.21"></line><line x1="2.21" y1="-2.21" x2="5.774" y2="-2.392"></line><line x1="5.774" y1="-2.392" x2="3.125" y2="0"></line><line x1="3.125" y1="0" x2="5.774" y2="2.392"></line><line x1="5.774" y1="2.392" x2="2.21" y2="2.21"></line><line x1="2.21" y1="2.21" x2="2.392" y2="5.774"></line><line x1="2.392" y1="5.774" x2="0" y2="3.125"></line><line x1="0" y1="3.125" x2="-2.392" y2="5.774"></line><line x1="-2.392" y1="5.774" x2="-2.21" y2="2.21"></line><line x1="-2.21" y1="2.21" x2="-5.774" y2="2.392"></line><line x1="-5.774" y1="2.392" x2="-3.125" y2="0"></line><line x1="-3.125" y1="0" x2="-5.774" y2="-2.392"></line><line x1="-5.774" y1="-2.392" x2="-2.21" y2="-2.21"></line><line x1="-2.21" y1="-2.21" x2="-2.392" y2="-5.774"></line><line x1="-2.392" y1="-5.774" x2="0" y2="-3.125"></line><line x1="0" y1="-3.125" x2="2.392" y2="-5.774"></line><line x1="2.392" y1="-5.774" x2="2.21" y2="-2.21"></line><line x1="2.21" y1="-2.21" x2="5.774" y2="-2.392"></line><line x1="5.774" y1="-2.392" x2="3.125" y2="0"></line><line x1="3.125" y1="0" x2="5.774" y2="2.392"></line><line x1="5.774" y1="2.392" x2="2.21" y2="2.21"></line><line x1="2.21" y1="2.21" x2="2.392" y2="5.774"></line><line x1="2.392" y1="5.774" x2="0" y2="3.125"></line><line x1="0" y1="3.125" x2="-2.392" y2="5.774"></line><line x1="-2.392" y1="5.774" x2="-2.21" y2="2.21"></line><line x1="-2.21" y1="2.21" x2="-5.774" y2="2.392"></line><line x1="-5.774" y1="2.392" x2="-3.125" y2="0"></line><line x1="-3.125" y1="0" x2="-5.774" y2="-2.392"></line><line x1="-5.774" y1="-2.392" x2="-2.21" y2="-2.21"></line><line x1="-2.21" y1="-2.21" x2="-2.392" y2="-5.774"></line><line x1="-2.392" y1="-5.774" x2="0" y2="-3.125"></line></g>
+        </g>
+
+        <circle r="2" class="center" fill="violet"></circle>
+    </svg>

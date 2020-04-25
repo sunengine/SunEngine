@@ -13,6 +13,7 @@
 <a href="#"><img src="https://github.com/sunengine/SunEngine/workflows/.NET%20Core/badge.svg" ></a>
 <a href="#"><img src="https://github.com/sunengine/SunEngine/workflows/Quasar/badge.svg" ></a>
 <br/>
+<a href="https://sunengine.github.io/src/ru"><img src="https://img.shields.io/static/v1?label=%D0%94%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F&message=sunengine.github.io&color=informational"></a>
 <a href="https://sunengine.site"><img src="https://img.shields.io/static/v1?label=%D0%A1%D0%B0%D0%B9%D1%82&message=sunengine.site&color=yellow"></a> 
 <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=%D0%94%D0%B5%D0%BC%D0%BE&message=demo.sunengine.site&color=yellow"></a>
 <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=success"></a>
@@ -28,7 +29,7 @@
  - Создание профиля пользователя на сайте  
  - Личный кабинет пользователя с возможностью редактирования информации о пользователе и персональных данных  
  - Администрирование портала через панель администратора  
- - Возможность создания и изменения тем оформления сайта, выбор из [готовых тем](https://github.com/sunengine/SunEngine.Skins).  
+ - Возможность создания и изменения тем оформления сайта, выбор из [готовых тем](https://github.com/sunengine/Skins).  
 
 ### Продуманный и дружественный интерфейс
 - Одностраничное приложение c современным и красивым интерфейсом.  
@@ -82,7 +83,13 @@
 ### Дополнительно
  - Сделано с любовью ❤  
  - Качественный код и архитектура.  
- - [План развития проекта](https://sunengine.site/texts/roadmap).  
+ - [План развития проекта](https://sunengine.site/texts/roadmap). 
+
+ ### Ссылки
+- Документация - https://sunengine.github.io/src/ru
+- GitHub - https://github.com/sunengine/SunEngine
+- Сайт - https://sunengine.site
+- Демо сайт - https://demo.sunengine.site 
 
 ### Контакты
  - Дмитрий Полянин telegram: [@Okeanij](https://t.me/Okeanij)  

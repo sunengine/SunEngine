@@ -12,6 +12,7 @@ Build on: AspNet Core, VueJS, Quasar.</h3>
 <a href="#"><img src="https://github.com/sunengine/SunEngine/workflows/.NET%20Core/badge.svg" ></a>
 <a href="#"><img src="https://github.com/sunengine/SunEngine/workflows/Quasar/badge.svg" ></a>
 <br/>
+<a href="https://sunengine.github.io"><img src="https://img.shields.io/static/v1?label=Site%20(Ru)&message=sunengine.site&color=yellow"></a>
 <a href="https://sunengine.site"><img src="https://img.shields.io/static/v1?label=Site%20(Ru)&message=sunengine.site&color=yellow"></a>
 <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Demo&message=demo.sunengine.site&color=yellow"></a>
 <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=success"></a>
@@ -25,7 +26,7 @@ Build on: AspNet Core, VueJS, Quasar.</h3>
  - Creating a user profile on the site  
  - User’s personal account with the ability to edit user information and personal data  
  - Administration through the admin panel  
- - Ability to create and modify skins for the site, a choice of [already done skins](https://github.com/sunengine/SunEngine.Skins).  
+ - Ability to create and modify skins for the site, a choice of [already done skins](https://github.com/sunengine/Skins).  
 
 ### Thoughtful and friendly interface
  - A one-page application with a modern and beautiful interface.  
@@ -76,10 +77,15 @@ The project based on modern front edge technologies:
  - Bash scripts to build, deploy and update  
  - [Installation Guide for Ubuntu 18.04 Server (Russian)](https://sunengine.site/install/14)    
 
-### Additionally
+### High quakity
  - Made with love ❤  
  - Quality code and architecture.  
- - [Road map (Russian)](https://sunengine.site/texts/roadmap).    
+
+### Links
+- Documentation - https://sunengine.github.io
+- GitHub - https://github.com/sunengine/SunEngine
+- Russian Site - https://sunengine.site
+- Demo site - https://demo.sunengine.site
 
 ### Contacts
  - Dmitrij Polianin telegram: [@Okeanij](https://t.me/Okeanij)    
