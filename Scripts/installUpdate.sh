@@ -357,7 +357,7 @@ su - $USER -c "sed -i \"s/<port>/$PORT/g\" \"$DIR/Resources/nginx.template\""
 # настраиваем проксирование сайта через nginx
 cp "$DIR/Resources/nginx.template" "/etc/nginx/sites-available/$HOST"
 # включаем сайт?
-ln -s "/etc/nginx/sites-enabled/$HOST" "/etc/nginx/sites-available/$HOST"
+ln -s "/etc/nginx/sites-available/$HOST" "/etc/nginx/sites-enabled/$HOST"
 
 # Заполняем БД данными
 su - $USER -c "dotnet \"$DIR/Server/SunEngine.dll\" config:\"$DIR/Config\" init migrate"
