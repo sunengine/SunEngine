@@ -131,7 +131,7 @@ addDotnetRepo() {
         "debian" )
             if [ "$version" != "10" ] && [ "$version" != "9" ]
             then
-                noSupportError "dotnet" "dotnet не поддерживает $distr $version а значит SunEngin запустить не получится"
+                Error "dotnet" "dotnet не поддерживает $distr $version а значит SunEngin запустить не получится"
             fi
             # добавляем репозиторий
             if ($SILENT || whiptail --title "dotnet" --yesno "Для установки dotnet нужны репозитории от Microsoft.\n\nДобавить репозитории?" 11 60) then
@@ -148,7 +148,7 @@ addDotnetRepo() {
         "ubuntu" )
             if [ "$version" != "16.04" ] && [ "$version" != "18.04" ] && [ "$version" != "19.04" ] && [ "$version" != "19.10" ]
             then
-                noSupportError "dotnet" "dotnet не поддерживает $distr $version а значит SunEngin запустить не получится"
+                Error "dotnet" "dotnet не поддерживает $distr $version а значит SunEngin запустить не получится"
             fi
             if ($SILENT || whiptail --title "dotnet" --yesno "Для установки dotnet нужны репозитории от Microsoft.\n\nДобавить репозитории?" 11 60) then
                 wget -q https://packages.microsoft.com/config/ubuntu/$version/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
@@ -162,7 +162,7 @@ addDotnetRepo() {
             fi
         ;;
         * )
-            noSupportError "dotnet" "dotnet не поддерживает $distr $version а значит SunEngin запустить не получится"
+            Error "dotnet" "dotnet не поддерживает $distr $version а значит SunEngin запустить не получится"
         ;;
     esac
     echo "добавлены репозитории Microsoft в /etc/apt/sources.list.d/microsoft-prod.list"
@@ -210,7 +210,7 @@ addPgSQLRepo() {
             fi
         ;;
         * )
-            noSupportError "PostgreSQL" "скрипт не поддерживает $distr $version_codename а значит SunEngin запустить не получится"
+            Error "PostgreSQL" "скрипт не поддерживает $distr $version_codename а значит SunEngin запустить не получится"
         ;;
     esac
     echo "добавлены репозитории PostgreSQL в /etc/apt/sources.list.d/pgdg.list"
