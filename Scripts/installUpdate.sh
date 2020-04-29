@@ -146,7 +146,7 @@ addDotnetRepo() {
             fi
         ;;
         "ubuntu" )
-            if [ "$version" != "16.04" ] && [ "$version" != "18.04" ] && [ "$version" != "19.04" ] && [ "$version" != "19.10" ]
+            if [ "$version" != "16.04" ] && [ "$version" != "18.04" ] && [ "$version" != "19.04" ] && [ "$version" != "19.10" ] && [ "$version" != "20.04"]
             then
                 Error "dotnet" "dotnet не поддерживает $distr $version а значит SunEngin запустить не получится"
             fi
