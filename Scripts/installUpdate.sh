@@ -3,14 +3,14 @@
 #   ***************************************
 #   *                                     *
 #   *    install and update SunEngine     *
-#   *        Script version: 0.5          *
+#   *        Script version: 0.55         *
 #   *                                     *
 #   ***************************************
 
 DIRECTORY=""
 PGPASS="postgre"
 PGPORT="5432"
-PGUSERPASS=$(head /dev/random | tr -dc A-Za-z0-9 | head -c 16)
+PGUSERPASS=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16)
 USER=""
 PGUSERPASSFLAG=true
 HOST="localhost"
@@ -103,6 +103,7 @@ fi
 distr=$(grep ^ID /etc/*-release | cut -f2 -d'=')
 # версия дистрибутива
 version=$(grep ^VERSION_ID /etc/*-release | cut -f2 -d'=' | sed -e 's/^"//' -e 's/"$//')
+version_codename=$(grep ^VERSION_CODENAME /etc/*-release | cut -f2 -d'=')
 
 # ставим "зависимости" скрипта
 $SILENTINSTALL apt-get update
@@ -130,7 +131,7 @@ addDotnetRepo() {
         "debian" )
             if [ "$version" != "10" ] && [ "$version" != "9" ]
             then
-                noSupportError "dotnet" "dotnet не поддерживает $distr $version а значит SunEngin запустить не получится"
+                Error "dotnet" "dotnet не поддерживает $distr $version а значит SunEngin запустить не получится"
             fi
             # добавляем репозиторий
             if ($SILENT || whiptail --title "dotnet" --yesno "Для установки dotnet нужны репозитории от Microsoft.\n\nДобавить репозитории?" 11 60) then
@@ -145,9 +146,9 @@ addDotnetRepo() {
             fi
         ;;
         "ubuntu" )
-            if [ "$version" != "16.04" ] && [ "$version" != "18.04" ] && [ "$version" != "19.04" ] && [ "$version" != "19.10" ]
+            if [ "$version" != "16.04" ] && [ "$version" != "18.04" ] && [ "$version" != "19.04" ] && [ "$version" != "19.10" ] && [ "$version" != "20.04"]
             then
-                noSupportError "dotnet" "dotnet не поддерживает $distr $version а значит SunEngin запустить не получится"
+                Error "dotnet" "dotnet не поддерживает $distr $version а значит SunEngin запустить не получится"
             fi
             if ($SILENT || whiptail --title "dotnet" --yesno "Для установки dotnet нужны репозитории от Microsoft.\n\nДобавить репозитории?" 11 60) then
                 wget -q https://packages.microsoft.com/config/ubuntu/$version/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
@@ -161,7 +162,7 @@ addDotnetRepo() {
             fi
         ;;
         * )
-            noSupportError "dotnet" "dotnet не поддерживает $distr $version а значит SunEngin запустить не получится"
+            Error "dotnet" "dotnet не поддерживает $distr $version а значит SunEngin запустить не получится"
         ;;
     esac
     echo "добавлены репозитории Microsoft в /etc/apt/sources.list.d/microsoft-prod.list"
@@ -193,17 +194,42 @@ checkDotnetVersion
 
 #endregion
 
+
+# Добавление репозиториев PostgreSQL
+addPgSQLRepo() {
+    case $distr in
+        debian | ubuntu )
+            # добавляем репозиторий
+            if ($SILENT || whiptail --title "PostgreSQL" --yesno "Для установки PostgreSQL нужны репозитории от apt.postgresql.org.\n\nДобавить репозитории?" 11 60) then
+                echo -e "deb http://apt.postgresql.org/pub/repos/apt/ $version_codename-pgdg main" > pgdg.list
+                mv pgdg.list /etc/apt/sources.list.d/pgdg.list
+                chown root:root /etc/apt/sources.list.d/pgdg.list
+                wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - > /dev/null
+            else
+                exit 0
+            fi
+        ;;
+        * )
+            Error "PostgreSQL" "скрипт не поддерживает $distr $version_codename а значит SunEngin запустить не получится"
+        ;;
+    esac
+    echo "добавлены репозитории PostgreSQL в /etc/apt/sources.list.d/pgdg.list"
+    $SILENTINSTALL apt-get update
+}
+
+addPgSQLRepo
+
 checkPostgreSQLVersion() {
-    if ((! echo $(whereis psql) | grep "/usr/bin/psql" > /dev/null)
-    && (! echo $(psql --version) | grep "(PostgreSQL) 11" > /dev/null))
+    if ([[ "$(whereis psql)" != *"/usr/bin/psql"* ]] ||
+    (! echo $(psql --version) | grep "(PostgreSQL) 11" > /dev/null))
     then
-        
         if ($SILENT || whiptail --title "PostgreSQL" --yesno "postgresql-11 не установлен, установить?" 11 60)
         then
             $SILENTINSTALL apt-get -y install postgresql-11
         fi
+    else
+        echo "postgresql-11 установлен"
     fi
-    echo "postgresql-11 установлен"
 }
 
 checkPostgreSQLVersion
@@ -274,7 +300,7 @@ fi
 DIR=$(echo "$DIRECTORY/SunEngine.Build" | tr -s '/')
 
 # качаем файлы SunEngine
-su - $USER -c "git clone \"https://github.com/sunengine/SunEngine.Build\" \"$DIR\" > /dev/null"
+su - $USER -c "git clone \"https://github.com/sunengine/Build\" \"$DIR\" > /dev/null"
 exitstatus=$?
 if [ $exitstatus != 0 ]
 then
@@ -294,7 +320,7 @@ su - $USER -c "sed -i \"s!auto!$DIR!g\" \"$DIR/Config.server.template/SunEngine.
 
 ADMINUSERNAME="admin"
 ADMINPASSWORD="nimda"
-ADMINEMAIL="admin@email"
+ADMINEMAIL="admin@email."
 
 # DataBaseConnection.json
 su - $USER -c "sed -i \"s/<admin-email>/$ADMINEMAIL/g\" \"$DIR/Config.server.template/Init/Users.json\""
@@ -312,13 +338,13 @@ su - $USER -c "cp -r \"$DIR/Config.server.template\" \"$DIR/Config\""
 # systemd
 echo "настраиваю systemd демон $HOST.service"
 su - $USER -c "sed -i \"s/<host>/$HOST/g\" \"$DIR/Resources/systemd.template\""
-su - $USER -c "sed -i \"s/<dir>/$DIR/g\" \"$DIR/Resources/systemd.template\""
+su - $USER -c "sed -i \"s!<dir>!$DIR!g\" \"$DIR/Resources/systemd.template\""
 su - $USER -c "sed -i \"s/<user>/$USER/g\" \"$DIR/Resources/systemd.template\""
-cp "/etc/systemd/system/$HOST.service" "$DIR/Resources/systemd.template"
+cp "$DIR/Resources/systemd.template" "/etc/systemd/system/$HOST.service"
 
 # добавляем сервис в автозагрузку
 systemctl enable $HOST
-# запускаем сервис 
+# запускаем сервис
 systemctl start $HOST
 
 echo "ставим вебсервер nginx"
@@ -329,9 +355,9 @@ su - $USER -c "sed -i \"s/<host>/$HOST/g\" \"$DIR/Resources/nginx.template\""
 su - $USER -c "sed -i \"s!<wwwroot>!$DIR/wwwroot!g\" \"$DIR/Resources/nginx.template\""
 su - $USER -c "sed -i \"s/<port>/$PORT/g\" \"$DIR/Resources/nginx.template\""
 # настраиваем проксирование сайта через nginx
-cp "/etc/nginx/sites-available/$HOST" "$DIR/Resources/nginx.template"
+cp "$DIR/Resources/nginx.template" "/etc/nginx/sites-available/$HOST"
 # включаем сайт?
-ln -s "/etc/nginx/sites-enabled/$HOST" "/etc/nginx/sites-available/$HOST"
+ln -s "/etc/nginx/sites-available/$HOST" "/etc/nginx/sites-enabled/$HOST"
 
 # Заполняем БД данными
 su - $USER -c "dotnet \"$DIR/Server/SunEngine.dll\" config:\"$DIR/Config\" init migrate"
