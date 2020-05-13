@@ -87,10 +87,9 @@
 
  ### Ссылки
 - Документация - https://sunengine.github.io/src/ru
-- GitHub - https://github.com/sunengine/SunEngine
 - Сайт - https://sunengine.site
 - Демо сайт - https://demo.sunengine.site 
 
 ### Контакты
- - Дмитрий Полянин telegram: [@Okeanij](https://t.me/Okeanij)  
- - Группа SunEngine в telegram: [@SunEngine](https://t.me/SunEngine)  
+ - Дмитрий Полянин Telegram: [@Okeanij](https://t.me/Okeanij)  
+ - Telegram группа SunEngine: [@SunEngine](https://t.me/SunEngine)  

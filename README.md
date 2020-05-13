@@ -83,10 +83,9 @@ The project based on modern front edge technologies:
 
 ### Links
 - Documentation - https://sunengine.github.io
-- GitHub - https://github.com/sunengine/SunEngine
 - Russian Site - https://sunengine.site
 - Demo site - https://demo.sunengine.site
 
 ### Contacts
- - Dmitrij Polianin telegram: [@Okeanij](https://t.me/Okeanij)    
- - SunEngine telegram group: [@SunEngine](https://t.me/SunEngine)  
+ - Dmitrij Polianin Telegram: [@Okeanij](https://t.me/Okeanij)    
+ - SunEngine Telegram group: [@SunEngine](https://t.me/SunEngine)  
