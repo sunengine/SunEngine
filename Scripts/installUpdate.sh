@@ -3,7 +3,7 @@
 #   ***************************************
 #   *                                     *
 #   *    install and update SunEngine     *
-#   *        Script version: 0.4          *
+#   *        Script version: 0.5          *
 #   *                                     *
 #   ***************************************
 
