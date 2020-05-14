@@ -1,7 +1,7 @@
-﻿﻿using System;
+﻿using System;
 using System.Text.Json;
- using LinqToDB.Common;
- using Microsoft.AspNetCore.Builder;
+using LinqToDB.Common;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -39,8 +39,7 @@ namespace SunEngine.Cli
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 
-			var origins = Configuration.GetValue<string>("Server:Cors:Origins");
-			if (!string.IsNullOrEmpty(origins))
+			if (Configuration.GetSection("Server:Cors") != null)
 				services.AddCors();
 
 			services.AddOptions(Configuration);
@@ -58,13 +57,13 @@ namespace SunEngine.Cli
 			services.AddSunAuthorization();
 
 			services.AddManagers();
-      
+
 			services.AddPresenters();
 
 			services.AddMaterials();
-			
+
 			services.AddAdmin();
-			
+
 			services.AddMemoryCache();
 
 			services.AddImagesServices();
@@ -76,7 +75,7 @@ namespace SunEngine.Cli
 			services.AddJobs();
 
 			services.AddSingleton<CaptchaService>();
-			
+
 			services.AddSingleton<SectionTypes>();
 
 			services.AddSanitizer();
@@ -88,7 +87,7 @@ namespace SunEngine.Cli
 			services.AddSingleton<IPathService, PathService>();
 
 			services.AddSingleton((IConfigurationRoot) Configuration);
-			
+
 			services.AddMvcCore(options =>
 				{
 					// Add filters here
@@ -114,21 +113,31 @@ namespace SunEngine.Cli
 
 			app.UseCookiePolicy();
 
-			var origins = Configuration.GetValue<string>("Server:Cors:Origins");
 
-			if (!origins.IsNullOrEmpty())
+			if (Configuration.GetSection("Server:Cors") != null)
 			{
 				app.UseCors(builder =>
 				{
-					if (origins == "*" || origins.Equals("all", StringComparison.InvariantCultureIgnoreCase))
+					if (Configuration.GetValue<bool>("Server:Cors:AllowAnyOrigin"))
 						builder.AllowAnyOrigin();
-					else
-						builder.WithOrigins( origins.Split(","));
+
+					var origins = Configuration.GetValue<string>("Server:Cors:Origins");
+					if (!string.IsNullOrEmpty(origins))
+						builder.WithOrigins(origins.Split(","));
+
+					if (Configuration.GetValue<bool>("Server:Cors:AllowCredentials"))
+						builder.AllowCredentials();
+
+					if (Configuration.GetValue<bool>("Server:Cors:AllowAnyHeader"))
+						builder.AllowAnyHeader();
+
+					if (Configuration.GetValue<bool>("Server:Cors:AllowAnyMethod"))
+						builder.AllowAnyMethod();
 					
-					builder.AllowCredentials().AllowAnyHeader().AllowAnyMethod().WithExposedHeaders(Headers.TokensHeaderName);
+					builder.WithExposedHeaders(Headers.TokensHeaderName);
 				});
 			}
-			
+
 			app.UseRouting();
 			app.UseAuthentication();
 			app.UseAuthorization();

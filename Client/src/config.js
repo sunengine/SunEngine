@@ -57,7 +57,10 @@ const config = {
 	// auto-end
 
 	Misc: {
-		DefaultAvatar: "default-avatar.svg"
+		DefaultAvatar: "default-avatar.svg",
+	},
+	Cors: {
+		WithCredentials: true
 	}
 };
 
