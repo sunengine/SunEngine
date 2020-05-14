@@ -36,6 +36,7 @@ namespace SunEngine.Migrations
 		public const int CipherSecrets_Name = 32;
 		public const int CipherSecrets_Secret = 32;
 		public const int Sections_Name = 64;
+		public const int Sections_GroupName = 48;
 		public const int Sections_Token = 64;
 		public const int Sections_Type = 32;
 	}
