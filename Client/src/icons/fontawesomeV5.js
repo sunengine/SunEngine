@@ -18,7 +18,8 @@ const global = {
 	categories: "la la-folder",
 	key: "fas fa-key",
 	envelope: "fas fa-envelope",
-	wrench: "fas fa-wrench"
+	wrench: "fas fa-wrench",
+	tooltip: "far fa-question-circle",
 };
 
 export default {
@@ -140,7 +141,7 @@ export default {
 	},
 	ConfigurationAdmin: {
 		cancel: global.cancel,
-		question: "far fa-question-circle",
+		question: global.tooltip,
 		reset: global.refresh,
 		save: global.save,
 		search: global.search

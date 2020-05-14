@@ -23,7 +23,7 @@ module.exports = function(ctx) {
 			"errorNotify",
 			"request",
 			"api",
-			"components",
+			"shared",
 			"throttle",
 			"vueDevTools",
 			"getBreadcrumbs",

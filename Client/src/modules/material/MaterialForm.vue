@@ -8,6 +8,13 @@
 			:label="$tl('name')"
 			:rules="rules.name"
 		>
+			<template v-slot:append>
+				<q-icon color="info" :name="$iconsSet.global.tooltip" >
+					<q-tooltip>
+						{{ $tl("tooltips.name") }}
+					</q-tooltip>
+				</q-icon>
+			</template>
 			<!--  <template v-slot:prepend>
           <q-icon name="fas fa-signature"/>
         </template>-->

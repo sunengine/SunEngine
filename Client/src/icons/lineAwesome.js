@@ -17,7 +17,8 @@ const global = {
 	categories: "la la-boxes",
 	key: "la la-key",
 	envelope: "la la-envelope",
-	wrench: "la la-wrench"
+	wrench: "la la-wrench",
+	tooltip: "la la-question-circle",
 };
 
 export default {
@@ -139,7 +140,7 @@ export default {
 	},
 	ConfigurationAdmin: {
 		cancel: global.cancel,
-		question: "la la-question-circle",
+		question: global.tooltip,
 		reset: global.refresh,
 		save: global.save,
 		search: global.search

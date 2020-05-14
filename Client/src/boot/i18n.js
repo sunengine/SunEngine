@@ -13,10 +13,10 @@ export default async ({ app, Vue }) => {
 	Vue.prototype.i18n = i18n;
 
 	Vue.prototype.$tl = function(key, ...values) {
-		return this.$t(this.$options.name + "." + key, ...values);
+		return i18n.t(this.$options.name + "." + key, ...values);
 	};
 
 	Vue.prototype.$tle = function(key, ...values) {
-		return this.$te(this.$options.name + "." + key, ...values);
+		return i18n.te(this.$options.name + "." + key, ...values);
 	};
 };

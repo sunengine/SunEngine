@@ -12,7 +12,7 @@ namespace SunEngine.Core.Models
 		public string Token { get; set; }
 		public string Type { get; set; }
 		
-		public string GroupName { get; set; }
+		//public string GroupName { get; set; }
 		public string Roles { get; set; }
 		public bool IsCacheData { get; set; }
 		[Column(DataType = DataType.Json)]

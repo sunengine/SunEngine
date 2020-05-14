@@ -51,6 +51,10 @@ export default {
 		hide: "Спрятать",
 		blockComments: "Запретить комментарии",
 		settingsJson: "Json настройки",
+		tooltips: {
+			name: "Для фиксированного URL и для ссылки в MaterialInline",
+			title: ""
+		},
 		validation: {
 			name: {
 				allowedChars:

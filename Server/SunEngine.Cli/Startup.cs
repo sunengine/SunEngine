@@ -1,6 +1,7 @@
 ﻿﻿using System;
 using System.Text.Json;
-using Microsoft.AspNetCore.Builder;
+ using LinqToDB.Common;
+ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -113,15 +114,19 @@ namespace SunEngine.Cli
 
 			app.UseCookiePolicy();
 
-			var origins = Configuration.GetValue<string>("Server:Cors:Origins")?.Split(",");
+			var origins = Configuration.GetValue<string>("Server:Cors:Origins");
 
-
-			if (origins != null && origins.Length >= 1)
+			if (!origins.IsNullOrEmpty())
 			{
 				app.UseCors(builder =>
-					builder.WithOrigins(origins)
-						.AllowCredentials().AllowAnyHeader().AllowAnyMethod()
-						.WithExposedHeaders(Headers.TokensHeaderName));
+				{
+					if (origins == "*" || origins.Equals("all", StringComparison.InvariantCultureIgnoreCase))
+						builder.AllowAnyOrigin();
+					else
+						builder.WithOrigins( origins.Split(","));
+					
+					builder.AllowCredentials().AllowAnyHeader().AllowAnyMethod().WithExposedHeaders(Headers.TokensHeaderName);
+				});
 			}
 			
 			app.UseRouting();

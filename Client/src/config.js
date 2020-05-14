@@ -8,7 +8,7 @@ const config = {
 	},
 	UrlPaths: {
 		Site: "http://localhost:5005",
-		Api: "http://localhost:5000",
+		Api: "https://demo.sunengine.site/api",
 		UploadImages: "http://localhost:5000/UploadImages",
 		Skins: "http://localhost:5005/statics/Skins",
 		PartialSkins: "http://localhost:5005/statics/PartialSkins",
