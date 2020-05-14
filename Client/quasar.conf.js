@@ -3,6 +3,7 @@
 require("./build-index");
 
 const path = require("path");
+const fs = require("fs");
 const webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default;
@@ -88,10 +89,14 @@ module.exports = function(ctx) {
 					}));
 
 				if (ctx.dev) {
+					let configPath = "src/config.js";
+					if (fs.existsSync(path.resolve('./src/l.config.js'))) 
+						configPath = "src/l.config.js";
+					
 					cfg.plugins.push(
 						new CopyWebpackPlugin([
 							{ from: "src/site/statics", to: "site/statics" },
-							{ from: "src/config.js", to: "config.js" },
+							{ from: configPath, to: "config.js" },
 							{ from: "src/custom.css", to: "custom.css" },
 							{ from: "src/custom.js", to: "custom.js" }
 						])
