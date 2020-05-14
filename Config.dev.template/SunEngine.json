@@ -3,7 +3,11 @@
     "FileServer": true,
     "UpdateConfigJsOnConfigChanges": false,
     "Cors": {
-      "Origins": "http://localhost:5005"
+      "Origins": "http://localhost:5005",
+      "AllowAnyOrigin": false,
+      "AllowCredentials": true,
+      "AllowAnyHeader": true,
+      "AllowAnyMethod": true
     }
   },
   "UrlPaths": {
