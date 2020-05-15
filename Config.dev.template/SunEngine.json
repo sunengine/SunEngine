@@ -34,5 +34,8 @@
     "AllowCredentials": true,
     "AllowAnyHeader": true,
     "AllowAnyMethod": true
+  },
+  "Security": {
+    "CookieLongToken2SameSiteMode": "Strict" // One of the: "None" "Strict", "Lax"
   }
 }

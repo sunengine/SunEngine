@@ -13,7 +13,7 @@ namespace SunEngine.Core.Configuration.AddServices
 			services.Configure<ServerOptions>(configuration.GetSection("Server"));
 			services.Configure<UrlPathsOptions>(configuration.GetSection("UrlPaths"));
 			services.Configure<EmailSenderOptions>(configuration.GetSection("Email"));
-			services.Configure<JweOptions>(configuration.GetSection("Jwe"));
+			services.Configure<SecurityOptions>(configuration.GetSection("Security"));
 			services.Configure<BlogOptions>(configuration.GetSection("Blog"));
 			services.Configure<ArticlesOptions>(configuration.GetSection("Articles"));
 			services.Configure<ForumOptions>(configuration.GetSection("Forum"));

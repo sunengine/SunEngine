@@ -28,7 +28,7 @@ namespace SunEngine.Core.Security
 	public class JweService : DbService
 	{
 		private readonly SunUserManager userManager;
-		private readonly IOptionsMonitor<JweOptions> jweOptions;
+		private readonly IOptionsMonitor<SecurityOptions> securityOptions;
 		private readonly IOptionsMonitor<UrlPathsOptions> urlsOptions;
 		private readonly ILogger logger;
 		private readonly ICryptService cryptService;
@@ -39,14 +39,14 @@ namespace SunEngine.Core.Security
 			SunUserManager userManager,
 			IRolesCache rolesCache,
 			ICryptService cryptService,
-			IOptionsMonitor<JweOptions> jweOptions,
+			IOptionsMonitor<SecurityOptions> securityOptions,
 			IOptionsMonitor<UrlPathsOptions> urlsOptions,
 			ILoggerFactory loggerFactory) : base(db)
 		{
 			this.userManager = userManager;
 			this.cryptService = cryptService;
 			this.urlsOptions = urlsOptions;
-			this.jweOptions = jweOptions;
+			this.securityOptions = securityOptions;
 			logger = loggerFactory.CreateLogger<AccountController>();
 			this.rolesCache = rolesCache;
 		}
@@ -79,7 +79,7 @@ namespace SunEngine.Core.Security
 			{
 				longSession1.LongToken1 = CryptoRandomizer.GetRandomString(LongSession.LongToken1Length);
 				longSession1.LongToken2 = CryptoRandomizer.GetRandomString(LongSession.LongToken2Length);
-				longSession1.ExpirationDate = DateTime.UtcNow.AddDays(jweOptions.CurrentValue.LongTokenLiveTimeDays);
+				longSession1.ExpirationDate = DateTime.UtcNow.AddDays(securityOptions.CurrentValue.JweLongTokenLiveTimeDays);
 				httpContext.Request.Headers.TryGetValue("User-Agent", out var userAgent);
 				longSession1.DeviceInfo = Parser.GetDefault()?.Parse(userAgent.ToString() ?? "")?.ToString() ?? "";
 				longSession1.UpdateDate = DateTime.UtcNow;
@@ -115,7 +115,7 @@ namespace SunEngine.Core.Security
 					HttpOnly = true,
 					Secure = urlsOptions.CurrentValue.IsHttps,
 					IsEssential = true,
-					SameSite = SameSiteMode.Strict,
+					SameSite = securityOptions.CurrentValue.CookieLongToken2SameSiteModeValue,
 					Expires = longSession.ExpirationDate
 				}
 			);
@@ -154,7 +154,7 @@ namespace SunEngine.Core.Security
 			foreach (var role in roleNames)
 				claims.Add(new Claim(ClaimTypes.Role, role));
 
-			var expiration = DateTime.UtcNow.AddMinutes(jweOptions.CurrentValue.ShortTokenLiveTimeMinutes);
+			var expiration = DateTime.UtcNow.AddMinutes(securityOptions.CurrentValue.JweShortTokenLiveTimeMinutes);
 
 			var token = new JwtSecurityToken(
 				claims: claims.ToArray(),
@@ -229,7 +229,7 @@ namespace SunEngine.Core.Security
 					HttpOnly = true,
 					Secure = urlsOptions.CurrentValue.IsHttps,
 					IsEssential = true,
-					SameSite = SameSiteMode.Strict,
+					SameSite = securityOptions.CurrentValue.CookieLongToken2SameSiteModeValue,
 				});
 
 			response.Headers.Add(Headers.TokensHeaderName, Headers.TokensExpireValue);

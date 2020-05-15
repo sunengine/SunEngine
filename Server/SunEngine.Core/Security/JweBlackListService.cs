@@ -16,13 +16,13 @@ namespace SunEngine.Core.Security
 	public class JweBlackListService
 	{
 		private readonly IDataBaseFactory dataBaseFactory;
-		private readonly IOptionsMonitor<JweOptions> jweOptions;
+		private readonly IOptionsMonitor<SecurityOptions> jweOptions;
 
 		private ConcurrentDictionary<string, DateTime> tokens;
 
 		public JweBlackListService(
 			IDataBaseFactory dataBaseFactory,
-			IOptionsMonitor<JweOptions> jweOptions)
+			IOptionsMonitor<SecurityOptions> jweOptions)
 		{
 			this.dataBaseFactory = dataBaseFactory;
 			this.jweOptions = jweOptions;
@@ -51,7 +51,7 @@ namespace SunEngine.Core.Security
 		{
 			using var db = dataBaseFactory.CreateDb();
 			var sessions = await db.LongSessions.Where(x => x.UserId == userId).ToListAsync();
-			DateTime exp = DateTime.UtcNow.AddMinutes(jweOptions.CurrentValue.ShortTokenLiveTimeMinutes + 5);
+			DateTime exp = DateTime.UtcNow.AddMinutes(jweOptions.CurrentValue.JweShortTokenLiveTimeMinutes + 5);
 
 			foreach (var session in sessions)
 				await AddBlackListShortTokenAsync(session.LongToken2, exp);
@@ -62,7 +62,7 @@ namespace SunEngine.Core.Security
 			using var db = dataBaseFactory.CreateDb();
 			var longSessions = await db.LongSessions.Where(x => x.UserId == userId && sessions00.Contains(x.Id))
 				.ToListAsync();
-			DateTime exp = DateTime.UtcNow.AddMinutes(jweOptions.CurrentValue.ShortTokenLiveTimeMinutes + 5);
+			DateTime exp = DateTime.UtcNow.AddMinutes(jweOptions.CurrentValue.JweShortTokenLiveTimeMinutes + 5);
 
 			foreach (var session in longSessions)
 				await AddBlackListShortTokenAsync(session.LongToken2, exp);

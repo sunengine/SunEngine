@@ -93,8 +93,7 @@ module.exports = function (ctx) {
                 if (ctx.dev) {
                     let configPath = "src/config.js";
                     let args = minimist(process.argv.slice(2));
-
-                    console.log("args: ", args,args.config);
+                    
                     if (args.config) {
                         let cpath = path.resolve(args.config)
                         if (fs.existsSync(cpath))

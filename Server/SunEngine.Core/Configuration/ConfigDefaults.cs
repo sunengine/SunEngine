@@ -210,9 +210,9 @@ namespace SunEngine.Core.Configuration
 			["Scheduler:ExpiredRegistrationUsersClearDays"] = new IntegerItem(1),
 			["Scheduler:UploadVisitsToDataBaseMinutes"] = new IntegerItem(5),
 
-			["Jwe:LongTokenLiveTimeDays"] = new IntegerItem(90),
-			["Jwe:ShortTokenLiveTimeMinutes"] = new IntegerItem(20),
-			["Jwe:Issuer"] = new StringItem("SunEngine Demo"),
+			["Security:JweLongTokenLiveTimeDays"] = new IntegerItem(90),
+			["Security:JweShortTokenLiveTimeMinutes"] = new IntegerItem(20),
+			["Security:JweIssuer"] = new StringItem("SunEngine Demo"),
 
 			["Skins:CurrentSkinName"] = new StringItem("Default"),
 			["Skins:PartialSkinsNames"] = new TokensItem("Branding"),

@@ -10,7 +10,7 @@ export function passwordRules() {
 				requiredLength: config.PasswordValidation.RequiredLength
 			})
 	];
-debugger;
+
 	if (config.PasswordValidation.RequiredUniqueChars)
 		rez.push(
 			value =>
