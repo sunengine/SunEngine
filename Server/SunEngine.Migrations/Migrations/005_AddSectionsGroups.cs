@@ -3,7 +3,7 @@ using FluentMigrator;
 
 namespace SunEngine.Migrations.Migrations
 {
-	[Migration(20200514000000)]
+	/*[Migration(20200514000000)]
 	public class AddSectionsGroups : Migration
 	{
 		public override void Up()
@@ -18,5 +18,5 @@ namespace SunEngine.Migrations.Migrations
 		{
 			throw new NotImplementedException();
 		}
-	}
+	}*/
 }
