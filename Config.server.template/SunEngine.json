@@ -27,5 +27,8 @@
         "Url": "http://localhost:<port>"
       }
     }
+  },
+  "Security": {
+    "CookieLongToken2SameSiteMode": "Strict"
   }
 }
