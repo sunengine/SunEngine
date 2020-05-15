@@ -16,7 +16,7 @@ const lock = new Lock("request-lock");
 
 const apiAxios = axios.create({
 	baseURL: config.UrlPaths.Api,
-	withCredentials: config.Cors.WithCredentials
+	withCredentials: config.Cors.AllowCredentials
 });
 
 apiAxios.interceptors.response.use(

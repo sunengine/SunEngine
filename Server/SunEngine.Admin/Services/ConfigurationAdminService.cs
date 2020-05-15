@@ -51,7 +51,8 @@ namespace SunEngine.Admin.Services
 				["UrlPaths:Skins"] = typeof(string),
 				["UrlPaths:PartialSkins"] = typeof(string),
 				["UrlPaths:CustomCss"] = typeof(string),
-				["UrlPaths:CustomJavaScript"] = typeof(string)
+				["UrlPaths:CustomJavaScript"] = typeof(string),
+				["Cors:AllowCredentials"] = typeof(bool)
 			};
 
 			foreach (var (key, value) in fromConfigJs)
