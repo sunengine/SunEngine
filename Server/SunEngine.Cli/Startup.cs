@@ -39,7 +39,7 @@ namespace SunEngine.Cli
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 
-			if (Configuration.GetSection("Server:Cors") != null)
+			if (Configuration.GetSection("Cors") != null)
 				services.AddCors();
 
 			services.AddOptions(Configuration);
@@ -114,24 +114,24 @@ namespace SunEngine.Cli
 			app.UseCookiePolicy();
 
 
-			if (Configuration.GetSection("Server:Cors") != null)
+			if (Configuration.GetSection("Cors") != null)
 			{
 				app.UseCors(builder =>
 				{
-					if (Configuration.GetValue<bool>("Server:Cors:AllowAnyOrigin"))
+					if (Configuration.GetValue<bool>("Cors:AllowAnyOrigin"))
 						builder.AllowAnyOrigin();
 
-					var origins = Configuration.GetValue<string>("Server:Cors:Origins");
+					var origins = Configuration.GetValue<string>("Cors:Origins");
 					if (!string.IsNullOrEmpty(origins))
 						builder.WithOrigins(origins.Split(","));
 
-					if (Configuration.GetValue<bool>("Server:Cors:AllowCredentials"))
+					if (Configuration.GetValue<bool>("Cors:AllowCredentials"))
 						builder.AllowCredentials();
 
-					if (Configuration.GetValue<bool>("Server:Cors:AllowAnyHeader"))
+					if (Configuration.GetValue<bool>("Cors:AllowAnyHeader"))
 						builder.AllowAnyHeader();
 
-					if (Configuration.GetValue<bool>("Server:Cors:AllowAnyMethod"))
+					if (Configuration.GetValue<bool>("Cors:AllowAnyMethod"))
 						builder.AllowAnyMethod();
 					
 					builder.WithExposedHeaders(Headers.TokensHeaderName);
