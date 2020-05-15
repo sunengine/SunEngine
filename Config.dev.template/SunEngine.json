@@ -1,14 +1,7 @@
 {
   "Server": {
     "FileServer": true,
-    "UpdateConfigJsOnConfigChanges": false,
-    "Cors": {
-      "Origins": "http://localhost:5005",
-      "AllowAnyOrigin": false,
-      "AllowCredentials": true,
-      "AllowAnyHeader": true,
-      "AllowAnyMethod": true
-    }
+    "UpdateConfigJsOnConfigChanges": false
   },
   "UrlPaths": {
     "Site": "http://localhost:5005",
@@ -34,5 +27,12 @@
         "Url": "http://localhost:5000"
       }
     }
+  },
+  "Cors": {
+    "Origins": "http://localhost:5005",
+    "AllowAnyOrigin": false,
+    "AllowCredentials": true,
+    "AllowAnyHeader": true,
+    "AllowAnyMethod": true
   }
 }
