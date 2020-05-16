@@ -22,7 +22,7 @@ namespace SunEngine.Core.Cache.CacheModels
 
 		[JsonIgnore] public IReadOnlyDictionary<int, RoleCached> Roles { get; }
 
-		public SectionClientCached(Section section, Dictionary<string, Type> clientComponentTypes,
+		public SectionClientCached(Section section, Type clientSectionType,
 			IRolesCache rolesCache)
 		{
 			Id = section.Id;
@@ -38,12 +38,9 @@ namespace SunEngine.Core.Cache.CacheModels
 			else
 				Roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
 
-			if (clientComponentTypes.TryGetValue(Type, out Type type))
-			{
-				object clientData = JsonSerializer.Deserialize(section.Options, type);
-				string clientJson = JsonSerializer.Serialize(clientData);
-				Options = SunJson.MakeJElement(clientJson);
-			}
+			object clientData = JsonSerializer.Deserialize(section.Options, clientSectionType);
+			string clientJson = JsonSerializer.Serialize(clientData);
+			Options = SunJson.MakeJElement(clientJson);
 		}
 	}
 }

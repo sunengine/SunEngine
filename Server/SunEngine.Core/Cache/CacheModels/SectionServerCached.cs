@@ -26,7 +26,7 @@ namespace SunEngine.Core.Cache.CacheModels
 
 		public IReadOnlyDictionary<int, RoleCached> Roles { get; }
 
-		public SectionServerCached(Section section, Dictionary<string, Type> serverTypes, IRolesCache rolesCache)
+		public SectionServerCached(Section section, Type serverSectionType, IRolesCache rolesCache)
 		{
 			Id = section.Id;
 			Name = section.Name;
@@ -41,10 +41,7 @@ namespace SunEngine.Core.Cache.CacheModels
 			else
 				Roles = new Dictionary<int, RoleCached>().ToImmutableDictionary();
 
-			if (!serverTypes.TryGetValue(section.Type, out Type type))
-				throw new SunException("No component type found: " + section.Type);
-
-			Data = JsonSerializer.Deserialize(section.Options, type);
+			Data = JsonSerializer.Deserialize(section.Options, serverSectionType);
 		}
 	}
 }

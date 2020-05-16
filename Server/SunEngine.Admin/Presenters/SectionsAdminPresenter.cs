@@ -10,6 +10,7 @@ using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Configuration.ConfigItemType;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
+using SunEngine.Core.Sections;
 using SunEngine.Core.Security;
 using SunEngine.Core.Services;
 
@@ -47,11 +48,16 @@ namespace SunEngine.Admin.Presenters
 
 			sectionView.Enums = new Dictionary<string, string[]>();
 
-			if (sectionTypes.SectionServerTypes.TryGetValue(section.Type, out Type sectionServerType))
-				AddFields(sectionServerType);
-			if (sectionTypes.SectionClientTypes.TryGetValue(section.Type, out Type sectionClientType))
-				AddFields(sectionClientType);
-
+			if (sectionTypes.Sections.TryGetValue(section.Type, out SectionDescriptor sectionDescriptor))
+			{
+				sectionView.GroupName = sectionDescriptor.SectionGroup;
+				AddFields(sectionDescriptor.ClientSectionType);
+				AddFields(sectionDescriptor.ServerSectionType);
+			}
+			
+			sectionView.Options = configItemViews.Values.ToArray();
+			return sectionView;
+			
 			void AddFields(Type sectionType)
 			{
 				var dataObject = JsonSerializer.Deserialize(section.Options, sectionType);
@@ -85,9 +91,6 @@ namespace SunEngine.Admin.Presenters
 					configItemViews[propertyInfo.Name] = configItemView;
 				}
 			}
-
-			sectionView.Options = configItemViews.Values.ToArray();
-			return sectionView;
 		}
 
 		public SectionView GetSectionTemplate(string templateName)
@@ -99,13 +102,17 @@ namespace SunEngine.Admin.Presenters
 			sectionView.Type = templateName;
 			sectionView.Roles = string.Join(",", RoleNames.Unregistered, RoleNames.Registered);
 			sectionView.Enums = new Dictionary<string, string[]>();
-
-			if (sectionTypes.SectionServerTypes.TryGetValue(templateName, out Type sectionServerType))
-				AddFields(sectionServerType);
-			if (sectionTypes.SectionClientTypes.TryGetValue(templateName, out Type sectionClientType))
-				AddFields(sectionClientType);
-
-
+			
+			if (sectionTypes.Sections.TryGetValue(templateName, out SectionDescriptor sectionDescriptor))
+			{
+				AddFields(sectionDescriptor.ServerSectionType);
+				AddFields(sectionDescriptor.ClientSectionType);
+				sectionView.GroupName = sectionDescriptor.SectionGroup;
+			}
+			
+			sectionView.Options = configItemViews.Values.ToArray();
+			return sectionView;
+			
 			void AddFields(Type sectionType)
 			{
 				var section = sectionType.GetConstructor(new Type[0]).Invoke(new object[0]);
@@ -130,8 +137,7 @@ namespace SunEngine.Admin.Presenters
 				}
 			}
 
-			sectionView.Options = configItemViews.Values.ToArray();
-			return sectionView;
+			
 		}
 	}
 }

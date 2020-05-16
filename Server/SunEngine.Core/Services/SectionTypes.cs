@@ -1,23 +1,37 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using SunEngine.Core.Models;
 using SunEngine.Core.Sections;
 
 namespace SunEngine.Core.Services
 {
 	public class SectionTypes
 	{
-		public Dictionary<string, Type> SectionServerTypes { get; } = new Dictionary<string, Type>
+		public readonly Dictionary<string, SectionDescriptor> Sections = new List<SectionDescriptor>
 		{
-			["Posts"] = typeof(PostsServerSection),
-			["Activities"] = typeof(ActivitiesServerSection),
-			["Articles"] = typeof(MaterialsServerSection)
-		};
+			new SectionDescriptor("Posts", typeof(PostsServerSection), typeof(PostsClientSection),
+				SectionsGroupsNames.Pages),
+			new SectionDescriptor("Activities", typeof(ActivitiesServerSection),
+				typeof(ActivitiesClientSection), SectionsGroupsNames.Pages),
+			new SectionDescriptor("Articles", typeof(MaterialsServerSection),
+				typeof(MaterialsClientSection), SectionsGroupsNames.Pages),
+		}.ToDictionary(x => x.Name, x => x);
+	}
 
-		public Dictionary<string, Type> SectionClientTypes { get; } = new Dictionary<string, Type>
+	public class SectionDescriptor
+	{
+		public string Name { get; }
+		public Type ClientSectionType { get; }
+		public Type ServerSectionType { get; }
+		public string SectionGroup { get; }
+
+		public SectionDescriptor(string name, Type serverSectionType, Type clientSectionType, string sectionGroup)
 		{
-			["Posts"] = typeof(PostsClientSection),
-			["Activities"] = typeof(ActivitiesClientSection),
-			["Articles"] = typeof(MaterialsClientSection)
-		};
+			Name = name;
+			ClientSectionType = clientSectionType;
+			ServerSectionType = serverSectionType;
+			SectionGroup = sectionGroup;
+		}
 	}
 }

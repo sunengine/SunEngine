@@ -63,18 +63,18 @@ namespace SunEngine.Core.Cache.Services
 		public void Initialize()
 		{
 			using var db = dataBaseFactory.CreateDb();
-			var Sections = db.Sections.ToList();
+			var sections = db.Sections.ToList();
 
-			var serverSectionsTmp = new Dictionary<string, SectionServerCached>(Sections.Count);
+			var serverSectionsTmp = new Dictionary<string, SectionServerCached>(sections.Count);
 
 			var clientSectionsTmp = new List<SectionClientCached>();
 
-			foreach (var component in Sections)
+			foreach (var section in sections)
 				try
 				{
-					serverSectionsTmp.Add(component.Name,
-						new SectionServerCached(component, sectionTypes.SectionServerTypes, rolesCache));
-					clientSectionsTmp.Add(new SectionClientCached(component, sectionTypes.SectionClientTypes, rolesCache));
+					serverSectionsTmp.Add(section.Name,
+						new SectionServerCached(section, sectionTypes.Sections[section.Name].ServerSectionType, rolesCache));
+					clientSectionsTmp.Add(new SectionClientCached(section, sectionTypes.Sections[section.Name].ClientSectionType, rolesCache));
 				}
 				catch
 				{

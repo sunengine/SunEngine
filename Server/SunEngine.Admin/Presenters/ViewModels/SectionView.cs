@@ -9,6 +9,7 @@ namespace SunEngine.Admin.Presenters.ViewModels
 		public string Name { get; set; }
 		public string Token { get; set; }
 		public string Type { get; set; }
+		public string GroupName { get; set; }
 		public string Roles { get; set; }
 		public bool IsCacheData { get; set; }
 		public ConfigItemView[] Options { get; set; }

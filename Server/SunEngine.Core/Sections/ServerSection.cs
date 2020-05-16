@@ -1,7 +1,6 @@
 namespace SunEngine.Core.Sections
 {
-	public class ServerSection
+	public abstract class ServerSection
 	{
-		
 	}
 }

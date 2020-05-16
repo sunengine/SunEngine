@@ -20,11 +20,12 @@ namespace SunEngine.Core.Utils
 
 			var options = new Dictionary<string, object>();
 
-			if (sectionTypes.SectionServerTypes.TryGetValue(section.Type, out Type sectionServerType))
-				AddFields(section.Options, sectionServerType, options);
-			if (sectionTypes.SectionClientTypes.TryGetValue(section.Type, out Type sectionClientType))
-				AddFields(section.Options, sectionClientType, options);
-
+			if (sectionTypes.Sections.TryGetValue(section.Type, out SectionDescriptor sectionDescriptor))
+			{
+				AddFields(section.Options, sectionDescriptor.ClientSectionType, options);
+				AddFields(section.Options, sectionDescriptor.ServerSectionType, options);
+			}
+			
 			section.Options = JsonSerializer.Serialize(options);
 
 			void AddFields(string optionsJson, Type sectionType, Dictionary<string, object> optionsToAdd)
@@ -50,8 +51,6 @@ namespace SunEngine.Core.Utils
 					optionsToAdd[name] = configItem.ToClientObject();
 				}
 			}
-
-			section.Options = JsonSerializer.Serialize(options);
 		}
 	}
 }
