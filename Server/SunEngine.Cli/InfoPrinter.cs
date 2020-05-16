@@ -38,7 +38,7 @@ namespace SunEngine.Cli
    ____)  )| |_| || | | || |____ | | | |( (_| || || | | || |__)
   (______/ |_____/|_| |_||______)|_| |_| \__  ||_||_| |_||____)
                                           __| |
-            Version: {v,-6}              (____/          ".TrimStart('\n') + "\n");
+            Version: {v,-008}            (____/          ".TrimStart('\n') + "\n");
 
 			Console.ResetColor();
 		}
