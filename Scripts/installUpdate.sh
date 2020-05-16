@@ -355,7 +355,7 @@ su - $USER -c "sed -i \"s/<host>/$HOST/g\" \"$DIR/Resources/nginx.template\""
 su - $USER -c "sed -i \"s!<wwwroot>!$DIR/wwwroot!g\" \"$DIR/Resources/nginx.template\""
 su - $USER -c "sed -i \"s/<port>/$PORT/g\" \"$DIR/Resources/nginx.template\""
 # настраиваем проксирование сайта через nginx
-cp "$DIR/Resources/nginx.template" "/etc/nginx/sites-available/$HOST"
+cp "$DIR/Resources/nginx.template" "/etc/nginx/sites-available/$HOST.conf"
 # включаем сайт?
 ln -s "/etc/nginx/sites-available/$HOST.conf" "/etc/nginx/sites-enabled/$HOST.conf"
 
