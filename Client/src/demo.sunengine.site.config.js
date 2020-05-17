@@ -9,11 +9,11 @@ const config = {
 	UrlPaths: {
 		Site: "http://localhost:5005",
 		Api:  "https://demo.sunengine.site/api",
-		UploadImages: "http://localhost:5000/UploadImages",
+		UploadImages: "https://demo.sunengine.site/UploadImages",
 		Skins: "http://localhost:5005/statics/Skins",
 		PartialSkins: "http://localhost:5005/statics/PartialSkins",
-		CustomCss: "http://localhost:5000/custom.css",
-		CustomJavaScript: "http://localhost:5000/custom.js",
+		CustomCss: "http://localhost:5005/custom.css",
+		CustomJavaScript: "http://localhost:5005/custom.js",
 	},
 	Dev: {
 		VueDevTools: true,
