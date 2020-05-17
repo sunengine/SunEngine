@@ -100,10 +100,10 @@ fi
 
 # Узнаем данные о системе на которой нас запустили
 # имя дисрибутива
-distr=$(grep ^ID /etc/*-release | cut -f2 -d'=')
+distr=$(grep ^ID= /etc/*-release | cut -f2 -d'=')
 # версия дистрибутива
-version=$(grep ^VERSION_ID /etc/*-release | cut -f2 -d'=' | sed -e 's/^"//' -e 's/"$//')
-version_codename=$(grep ^VERSION_CODENAME /etc/*-release | cut -f2 -d'=')
+version=$(grep ^VERSION_ID= /etc/*-release | cut -f2 -d'=' | sed -e 's/^"//' -e 's/"$//')
+version_codename=$(grep ^VERSION_CODENAME= /etc/*-release | cut -f2 -d'=')
 
 # ставим "зависимости" скрипта
 $SILENTINSTALL apt-get update
@@ -355,9 +355,9 @@ su - $USER -c "sed -i \"s/<host>/$HOST/g\" \"$DIR/Resources/nginx.template\""
 su - $USER -c "sed -i \"s!<wwwroot>!$DIR/wwwroot!g\" \"$DIR/Resources/nginx.template\""
 su - $USER -c "sed -i \"s/<port>/$PORT/g\" \"$DIR/Resources/nginx.template\""
 # настраиваем проксирование сайта через nginx
-cp "$DIR/Resources/nginx.template" "/etc/nginx/sites-available/$HOST"
+cp "$DIR/Resources/nginx.template" "/etc/nginx/sites-available/$HOST.conf"
 # включаем сайт?
-ln -s "/etc/nginx/sites-available/$HOST" "/etc/nginx/sites-enabled/$HOST"
+ln -s "/etc/nginx/sites-available/$HOST.conf" "/etc/nginx/sites-enabled/$HOST.conf"
 
 # Заполняем БД данными
 su - $USER -c "dotnet \"$DIR/Server/SunEngine.dll\" config:\"$DIR/Config\" init migrate"
