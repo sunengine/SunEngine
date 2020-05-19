@@ -109,6 +109,11 @@ version_codename=$(grep ^VERSION_CODENAME= /etc/*-release | cut -f2 -d'=')
 $SILENTINSTALL apt-get update
 $SILENTINSTALL apt-get -y install wget apt-transport-https dpkg git
 
+if [ "$distr" == "ubuntu" ]
+then
+    $SILENTINSTALL apt-get -y install gnupg2
+fi
+
 # Окно ошибки
 Error() {
     if [[ $SILENT ]]
@@ -194,7 +199,6 @@ checkDotnetVersion
 
 #endregion
 
-
 # Добавление репозиториев PostgreSQL
 addPgSQLRepo() {
     case $distr in
@@ -204,7 +208,7 @@ addPgSQLRepo() {
                 echo -e "deb http://apt.postgresql.org/pub/repos/apt/ $version_codename-pgdg main" > pgdg.list
                 mv pgdg.list /etc/apt/sources.list.d/pgdg.list
                 chown root:root /etc/apt/sources.list.d/pgdg.list
-                wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - > /dev/null
+                wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
             else
                 exit 0
             fi
@@ -217,7 +221,11 @@ addPgSQLRepo() {
     $SILENTINSTALL apt-get update
 }
 
-addPgSQLRepo
+# репы мелкософта добавлены?
+if [ ! -f "/etc/apt/sources.list.d/pgdg.list" ]
+then
+    addPgSQLRepo
+fi
 
 checkPostgreSQLVersion() {
     if ([[ "$(whereis psql)" != *"/usr/bin/psql"* ]] ||
@@ -233,6 +241,9 @@ checkPostgreSQLVersion() {
 }
 
 checkPostgreSQLVersion
+
+echo "готово"
+exit
 
 # Проверяем пользователя от бд, ведь для безопасности для всего должны быть свои пользователи верно?
 ddd=$(su - postgres -c "psql -c \"CREATE USER \\\"$HOST\\\" WITH PASSWORD '$PGUSERPASS';\"" 2>&1)
