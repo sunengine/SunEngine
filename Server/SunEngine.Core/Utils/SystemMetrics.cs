@@ -14,7 +14,7 @@ namespace SunEngine.Core.Utils
       get
       {
         var uptime = TimeSpan.FromMilliseconds(Environment.TickCount64);
-        return new DateTime() + uptime;
+        return DateTime.UtcNow.Subtract(uptime);
       }
     }
 
@@ -22,8 +22,14 @@ namespace SunEngine.Core.Utils
     {
       get
       {
-        var uptime = DateTime.Now - Process.GetCurrentProcess().StartTime;
-        return new DateTime() + uptime;
+        try
+        {
+          return Process.GetCurrentProcess().StartTime.ToUniversalTime();
+        }
+        catch (NotSupportedException)
+        {
+          return new DateTime();
+        }
       }
     }
 
@@ -47,5 +53,7 @@ namespace SunEngine.Core.Utils
     }
 
     public static string KernelVersion => RuntimeInformation.OSDescription;
+
+    public static double[] LoadAverage => !RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? throw new NotSupportedException("Operation system not is not unix") : File.ReadAllText("/proc/loadavg").Split().Take(3).Select(x => Convert.ToDouble(x)).ToArray();
   }
 }
