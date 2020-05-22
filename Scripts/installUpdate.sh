@@ -3,7 +3,7 @@
 #   ***************************************
 #   *                                     *
 #   *    install and update SunEngine     *
-#   *        Script version: 0.55         *
+#   *        Script version: 0.6          *
 #   *                                     *
 #   ***************************************
 
@@ -105,9 +105,14 @@ distr=$(grep ^ID= /etc/*-release | cut -f2 -d'=')
 version=$(grep ^VERSION_ID= /etc/*-release | cut -f2 -d'=' | sed -e 's/^"//' -e 's/"$//')
 version_codename=$(grep ^VERSION_CODENAME= /etc/*-release | cut -f2 -d'=')
 
-# ставим "зависимости" скрипта
+# ставим "зависимости" скрипта и nginx
 $SILENTINSTALL apt-get update
-$SILENTINSTALL apt-get -y install wget apt-transport-https dpkg git
+$SILENTINSTALL apt-get -y install wget apt-transport-https dpkg git nginx
+
+if [ "$distr" == "ubuntu" ]
+then
+    $SILENTINSTALL apt-get -y install gnupg2
+fi
 
 # Окно ошибки
 Error() {
@@ -127,6 +132,7 @@ dotnetVersionName="Microsoft.AspNetCore.App 3.1"
 
 # Добавление репозиториев Microsoft для dotnet
 addDotnetRepo() {
+    echo "Добавляю репозитории Microsoft в /etc/apt/sources.list.d/microsoft-prod.list"
     case "$distr" in
         "debian" )
             if [ "$version" != "10" ] && [ "$version" != "9" ]
@@ -165,7 +171,6 @@ addDotnetRepo() {
             Error "dotnet" "dotnet не поддерживает $distr $version а значит SunEngin запустить не получится"
         ;;
     esac
-    echo "добавлены репозитории Microsoft в /etc/apt/sources.list.d/microsoft-prod.list"
     $SILENTINSTALL apt-get update
 }
 
@@ -194,9 +199,9 @@ checkDotnetVersion
 
 #endregion
 
-
 # Добавление репозиториев PostgreSQL
 addPgSQLRepo() {
+    echo "добавляю репозитории PostgreSQL в /etc/apt/sources.list.d/pgdg.list"
     case $distr in
         debian | ubuntu )
             # добавляем репозиторий
@@ -204,7 +209,7 @@ addPgSQLRepo() {
                 echo -e "deb http://apt.postgresql.org/pub/repos/apt/ $version_codename-pgdg main" > pgdg.list
                 mv pgdg.list /etc/apt/sources.list.d/pgdg.list
                 chown root:root /etc/apt/sources.list.d/pgdg.list
-                wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - > /dev/null
+                wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
             else
                 exit 0
             fi
@@ -213,11 +218,14 @@ addPgSQLRepo() {
             Error "PostgreSQL" "скрипт не поддерживает $distr $version_codename а значит SunEngin запустить не получится"
         ;;
     esac
-    echo "добавлены репозитории PostgreSQL в /etc/apt/sources.list.d/pgdg.list"
     $SILENTINSTALL apt-get update
 }
 
-addPgSQLRepo
+# репы мелкософта добавлены?
+if [ ! -f "/etc/apt/sources.list.d/pgdg.list" ]
+then
+    addPgSQLRepo
+fi
 
 checkPostgreSQLVersion() {
     if ([[ "$(whereis psql)" != *"/usr/bin/psql"* ]] ||
@@ -335,6 +343,9 @@ su - $USER -c "sed -i \"s/<admin-user-name>/$ADMINUSERNAME/g\" \"$DIR/Config.ser
 # копируем настройки с темплейта
 su - $USER -c "cp -r \"$DIR/Config.server.template\" \"$DIR/Config\""
 
+# Заполняем БД данными
+su - $USER -c "dotnet \"$DIR/Server/SunEngine.dll\" config:\"$DIR/Config\" init migrate"
+
 # systemd
 echo "настраиваю systemd демон $HOST.service"
 su - $USER -c "sed -i \"s/<host>/$HOST/g\" \"$DIR/Resources/systemd.template\""
@@ -347,24 +358,22 @@ systemctl enable $HOST
 # запускаем сервис
 systemctl start $HOST
 
-echo "ставим вебсервер nginx"
-$SILENTINSTALL apt-get -y install nginx
-
-# nginx
+# nginx стартовый конфиг
 su - $USER -c "sed -i \"s/<host>/$HOST/g\" \"$DIR/Resources/nginx.template\""
 su - $USER -c "sed -i \"s!<wwwroot>!$DIR/wwwroot!g\" \"$DIR/Resources/nginx.template\""
-su - $USER -c "sed -i \"s/<port>/$PORT/g\" \"$DIR/Resources/nginx.template\""
-# настраиваем проксирование сайта через nginx
 cp "$DIR/Resources/nginx.template" "/etc/nginx/sites-available/$HOST.conf"
-# включаем сайт?
 ln -s "/etc/nginx/sites-available/$HOST.conf" "/etc/nginx/sites-enabled/$HOST.conf"
-
-# Заполняем БД данными
-su - $USER -c "dotnet \"$DIR/Server/SunEngine.dll\" config:\"$DIR/Config\" init migrate"
+nginx -s reload
 
 echo "настраиваем сертификат для https"
 $SILENTINSTALL apt-get -y install certbot
 
-certbot certonly --webroot -w "$DIR" -d $HOST
+certbot certonly --webroot -w "$DIR/wwwroot" -d $HOST -n
+
+# nginx рабочий конфиг
+su - $USER -c "sed -i \"s/<host>/$HOST/g\" \"$DIR/Resources/nginxssl.template\""
+su - $USER -c "sed -i \"s!<wwwroot>!$DIR/wwwroot!g\" \"$DIR/Resources/nginxssl.template\""
+su - $USER -c "sed -i \"s/<port>/$PORT/g\" \"$DIR/Resources/nginxssl.template\""
+cp "$DIR/Resources/nginxssl.template" "/etc/nginx/sites-available/$HOST.conf"
 
 nginx -s reload
