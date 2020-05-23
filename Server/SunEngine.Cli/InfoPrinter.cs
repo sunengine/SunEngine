@@ -57,6 +57,7 @@ namespace SunEngine.Cli
      {StartupConfiguration.InitCommand,padding} initialize users, roles and categories tables from config directory
      {StartupConfiguration.TestDatabaseConnection,padding} check is data base connection is working                     
      {StartupConfiguration.VersionCommand,padding} print SunEngine version
+     {StartupConfiguration.SetUserPassword + ":<user>:<password>",padding} set user password  
      {StartupConfiguration.NoLogoCommand,padding} do not show logo image on start   
      {StartupConfiguration.HelpCommand,padding} show this help   
     
