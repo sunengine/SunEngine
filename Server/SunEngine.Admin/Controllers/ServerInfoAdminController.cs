@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Core.Services;
+using Metrics = SunEngine.Core.Utils.SystemMetrics;
 
 namespace SunEngine.Admin.Controllers
 {
@@ -41,5 +42,39 @@ namespace SunEngine.Admin.Controllers
 		{
 			return new FileStreamResult(System.IO.File.OpenRead(ServerInfoJsonFilePath), "application/json");
 		}
+
+		[HttpPost]
+		public IActionResult AppUptime()
+		{
+      return Ok(Metrics.AppUptime);
+		}
+
+    [HttpPost]
+    public IActionResult SystemUptime()
+    {
+      return Ok(Metrics.SystemUptime);
+    }
+
+    [HttpPost]
+    public IActionResult OSVersion()
+    {
+      return Ok(Metrics.OSVersion);
+    }
+
+    public IActionResult LoadAverage()
+    {
+      return Metrics.IsLinux ? Ok(Metrics.LoadAverage) : StatusCode(500, "This supported only on unix system");
+    }
+
+    public IActionResult AllMetrics()
+    {
+      return Ok(new
+      {
+        Metrics.AppUptime,
+        Metrics.SystemUptime,
+        Metrics.OSVersion,
+        Metrics.LoadAverage
+      });
+    }
 	}
 }

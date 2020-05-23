@@ -335,7 +335,13 @@ export default {
 		description: "Описание",
 		sunEngineRepository: "Репозиторий SunEngine",
 		sunEngineSkinsRepository: "Репозиторий тем оформления",
-		additionalData: "Дополнительная информация"
+		additionalData: "Дополнительная информация",
+		
+		AppUptime: "Время старта SunEngine",
+		SystemUptime: "Время старта ОС",
+		OperationSystem: "ОС установленная на сервере",
+		LoadAverage: "Load Average"
+
 	},
 	AdminPanel: {
 		title: "Админка"

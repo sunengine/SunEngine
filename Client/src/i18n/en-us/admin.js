@@ -305,7 +305,11 @@ export default {
 		description: "Description",
 		sunEngineRepository: "SunEngine repository",
 		sunEngineSkinsRepository: "SunEngine skins repository",
-		additionalData: "Additional data"
+		additionalData: "Additional data",
+		AppUptime: "Time start SunEngine",
+		SystemUptime: "Time start operation system",
+		OperationSystem: "Operation system install on server",
+		LoadAverage: "Load Average"
 	},
 	AdminPanel: {
 		title: "Admin panel"

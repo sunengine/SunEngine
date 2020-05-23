@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace SunEngine.Core.Utils
 {
-  static class SystemMetrics
+  public static class SystemMetrics
   {
     public static DateTime SystemUptime
     {
@@ -54,6 +54,8 @@ namespace SunEngine.Core.Utils
 
     public static string KernelVersion => RuntimeInformation.OSDescription;
 
-    public static double[] LoadAverage => !RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? throw new NotSupportedException("Operation system not is not unix") : File.ReadAllText("/proc/loadavg").Split().Take(3).Select(x => Convert.ToDouble(x)).ToArray();
+    public static double[] LoadAverage => IsLinux ? File.ReadAllText("/proc/loadavg").Split().Take(3).Select(x => Convert.ToDouble(x)).ToArray() : null;
+
+    public static bool IsLinux => RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
   }
 }

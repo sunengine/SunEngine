@@ -69,7 +69,8 @@ export default {
 	ServerInfoAdmin: {
 		Version: "/Admin/ServerInfoAdmin/Version",
 		DotnetVersion: "/Admin/ServerInfoAdmin/DotnetVersion",
-		GetServerInfo: "/Admin/ServerInfoAdmin/GetServerInfo"
+		GetServerInfo: "/Admin/ServerInfoAdmin/GetServerInfo",
+		Metrics: "/Admin/ServerInfoAdmin/AllMetrics"
 	},
 	DeletedElements: {
 		DeleteAllMarkedComments:

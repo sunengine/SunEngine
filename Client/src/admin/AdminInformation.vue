@@ -139,6 +139,36 @@
 						>
 					</td>
 				</tr>
+				<tr>
+					<td>{{ $tl("AppUptime") }}</td>
+					<td>
+						<time>
+						{{ $formatDate(appUptime) }}
+						</time>
+					</td>
+				</tr>
+				<tr>
+					<td>{{ $tl("SystemUptime") }}</td>
+					<td>
+						<time>
+						{{ $formatDate(systemUptime) }}
+						</time>
+					</td>
+				</tr>
+				<tr>
+					<td>{{ $tl("OperationSystem") }}</td>
+					<td>{{ operationSystem }}</td>
+				</tr>
+				<!-- Fix layout of table -->
+				<tr v-if="loadAverage">
+					<td rowspan="2">{{ $tl("LoadAverage") }}</td>
+					<td class="text-center">1 minutes</td>
+					<td class="text-center">5 minutes</td>
+					<td class="text-center">15 minutes</td>
+				</tr>
+				<tr v-if="loadAverage">
+					<td v-for="load of loadAverage" class="text-center">{{ load }}</td>
+				</tr>
 			</tbody>
 		</q-markup-table>
 	</SunPage>
@@ -155,7 +185,11 @@ export default {
 		return {
 			serverInfo: null,
 			sunEngineVersion: null,
-			dotNetVersion: null
+			dotNetVersion: null,
+			appUptime: null,
+			systemUptime: null,
+			operationSystem: null,
+			loadAverage: null
 		};
 	},
 	computed: {
@@ -191,6 +225,9 @@ export default {
 		},
 		vueJsVersion() {
 			return Vue.version;
+		},
+		loadAverage() {
+			return !(this.loadAverage) == null ? this.loadAverage : true;
 		}
 	},
 	methods: {
@@ -214,6 +251,16 @@ export default {
 					this.sunEngineVersion = response.data.version;
 				}
 			);
+		},
+		getMetrics() {
+			return this.$request(this.$AdminApi.ServerInfoAdmin.Metrics).then(
+				response => {
+					this.appUptime = response.data.appUptime;
+					this.systemUptime = response.data.systemUptime;
+					this.operationSystem = response.data.osVersion;
+					this.loadAverage = response.data.loadAverage;
+				}
+			)
 		}
 	},
 	async created() {
@@ -221,6 +268,7 @@ export default {
 		await this.getServerInfo();
 		await this.getSunEngineVersion();
 		await this.getDotNetVersion();
+		await this.getMetrics();
 	}
 };
 </script>
