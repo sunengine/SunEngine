@@ -3,7 +3,7 @@
 #   ***************************************
 #   *                                     *
 #   *    install and update SunEngine     *
-#   *        Script version: 0.6          *
+#   *        Script version: 0.7          *
 #   *                                     *
 #   ***************************************
 
@@ -243,7 +243,8 @@ checkPostgreSQLVersion() {
 checkPostgreSQLVersion
 
 # Проверяем пользователя от бд, ведь для безопасности для всего должны быть свои пользователи верно?
-ddd=$(su - postgres -c "psql -c \"CREATE USER \\\"$HOST\\\" WITH PASSWORD '$PGUSERPASS';\"" 2>&1)
+ddd=$(su - postgres -c "PGPASSWORD=$PGPASS psql -c \"CREATE USER \\\"$HOST\\\" WITH PASSWORD '$PGUSERPASS';\"")
+
 if [ "$ddd" != "CREATE ROLE" ]
 then
     if $PGUSERPASSFLAG
@@ -254,7 +255,7 @@ then
             exit 0
         fi
         
-        PGUSERPASS=$(whiptail --title "Пароль $HOST" --inputbox "Введите пароль от PostgreSQL пользователя \"$HOST\"" 10 60 3>&1 1>&2 2>&3)
+        PGUSERPASS=$(whiptail --title "Пароль $HOST" --inputbox "Введите пароль от PostgreSQL пользователя \"$HOST\"" 10 60 $PGUSERPASS  3>&1 1>&2 2>&3)
         # Обработка кнопки "Отмена"
         exitstatus=$?
         if [[ $exitstatus != 0 ]]
@@ -268,16 +269,16 @@ fi
 
 createDb()
 {
-    su - postgres -c "psql -c \"CREATE DATABASE \\\"$HOST\\\" OWNER \\\"$HOST\\\";\""
+    su - postgres -c "PGPASSWORD=$PGPASS psql -c \"CREATE DATABASE \\\"$HOST\\\" OWNER \\\"$HOST\\\";\""
     echo "БД $HOST создана"
 }
 
 # проверяем существование БД
-if (su - postgres -c "psql -l -At" | grep "^$HOST|" > /dev/null)
+if (su - postgres -c "PGPASSWORD=$PGPASS psql -l -At" | grep "^$HOST|" > /dev/null)
 then
     if ($SILENT || whiptail --title "PostgreSQL" --yesno "Обнаружена БД скорее всего она осталась от предыдущей установки, удалить?" 11 60)
     then
-        su - postgres -c "dropdb \"$HOST\""
+        su - postgres -c "PGPASSWORD=$PGPASS dropdb \"$HOST\""
         createDb
     else
         echo "БД уже есть, возможно вы хотели запустить обновление а не установку?"
@@ -305,10 +306,12 @@ then
     echo "Пользователь $USER создан"
 fi
 
-DIR=$(echo "$DIRECTORY/SunEngine.Build" | tr -s '/')
+DIRGIT=$(echo "$DIRECTORY/SunEngine.Build" | tr -s '/')
+DIR=$(echo "$DIRECTORY" | tr -s '/')
 
 # качаем файлы SunEngine
-su - $USER -c "git clone \"https://github.com/sunengine/Build\" \"$DIR\" > /dev/null"
+
+git clone "https://github.com/sunengine/Build" "$DIRGIT" > /dev/null
 exitstatus=$?
 if [ $exitstatus != 0 ]
 then
@@ -316,42 +319,47 @@ then
     exit 0;
 fi
 
+mv $DIRGIT/* $DIR
+
 # DataBaseConnection.json
-su - $USER -c "sed -i \"s/<DataBaseName>/$HOST/g\" \"$DIR/Config.server.template/DataBaseConnection.json\""
-su - $USER -c "sed -i \"s/<DataBaseUser>/$HOST/g\" \"$DIR/Config.server.template/DataBaseConnection.json\""
-su - $USER -c "sed -i \"s/<DataBasePassword>/$PGUSERPASS/g\" \"$DIR/Config.server.template/DataBaseConnection.json\""
+sed -i "s/<DataBaseName>/$HOST/g" "${DIR}Config.server.template/DataBaseConnection.json"
+sed -i "s/<DataBaseUser>/$HOST/g" "${DIR}Config.server.template/DataBaseConnection.json"
+sed -i "s/<DataBasePassword>/$PGUSERPASS/g" "${DIR}Config.server.template/DataBaseConnection.json"
 
 # SunEngine.json
-su - $USER -c "sed -i \"s/<domain>/$HOST/g\" \"$DIR/Config.server.template/SunEngine.json\""
-su - $USER -c "sed -i \"s/<port>/$PORT/g\" \"$DIR/Config.server.template/SunEngine.json\""
-su - $USER -c "sed -i \"s!auto!$DIR!g\" \"$DIR/Config.server.template/SunEngine.json\""
+sed -i "s/<domain>/$HOST/g" "${DIR}Config.server.template/SunEngine.json"
+sed -i "s/<port>/$PORT/g" "${DIR}Config.server.template/SunEngine.json"
+sed -i "s!auto!$DIR!g" "${DIR}Config.server.template/SunEngine.json"
 
 ADMINUSERNAME="admin"
 ADMINPASSWORD="nimda"
 ADMINEMAIL="admin@email."
 
 # DataBaseConnection.json
-su - $USER -c "sed -i \"s/<admin-email>/$ADMINEMAIL/g\" \"$DIR/Config.server.template/Init/Users.json\""
-su - $USER -c "sed -i \"s/<admin-user-name>/$ADMINUSERNAME/g\" \"$DIR/Config.server.template/Init/Users.json\""
-su - $USER -c "sed -i \"s/<admin-password>/$ADMINPASSWORD/g\" \"$DIR/Config.server.template/Init/Users.json\""
+sed -i "s/<admin-email>/$ADMINEMAIL/g" "${DIR}Config.server.template/Init/Users.json"
+sed -i "s/<admin-user-name>/$ADMINUSERNAME/g" "${DIR}Config.server.template/Init/Users.json"
+sed -i "s/<admin-password>/$ADMINPASSWORD/g" "${DIR}Config.server.template/Init/Users.json"
 
 echo -e "Создан пользователь администратор\nимя пользователя: $ADMINUSERNAME\nпароль: $ADMINPASSWORD\nemail: $ADMINEMAIL"
 
 # index-page.json
-su - $USER -c "sed -i \"s/<admin-user-name>/$ADMINUSERNAME/g\" \"$DIR/Config.server.template/Init/Materials/index-page.json\""
+sed -i "s/<admin-user-name>/$ADMINUSERNAME/g" "${DIR}Config.server.template/Init/Materials/index-page.json"
 
 # копируем настройки с темплейта
-su - $USER -c "cp -r \"$DIR/Config.server.template\" \"$DIR/Config\""
+cp -r "${DIR}Config.server.template" "${DIR}Config"
+
+# меняем владельца папки
+chown ${USER}:${USER} -R *
 
 # Заполняем БД данными
-su - $USER -c "dotnet \"$DIR/Server/SunEngine.dll\" config:\"$DIR/Config\" init migrate"
+dotnet "${DIR}Server/SunEngine.dll" config:"${DIR}Config" init migrate
 
 # systemd
 echo "настраиваю systemd демон $HOST.service"
-su - $USER -c "sed -i \"s/<host>/$HOST/g\" \"$DIR/Resources/systemd.template\""
-su - $USER -c "sed -i \"s!<dir>!$DIR!g\" \"$DIR/Resources/systemd.template\""
-su - $USER -c "sed -i \"s/<user>/$USER/g\" \"$DIR/Resources/systemd.template\""
-cp "$DIR/Resources/systemd.template" "/etc/systemd/system/$HOST.service"
+sed -i "s/<host>/$HOST/g" "${DIR}Resources/systemd.template"
+sed -i "s!<dir>!$DIR!g" "${DIR}Resources/systemd.template"
+sed -i "s/<user>/$USER/g" "${DIR}Resources/systemd.template"
+cp "${DIR}Resources/systemd.template" "/etc/systemd/system/$HOST.service"
 
 # добавляем сервис в автозагрузку
 systemctl enable $HOST
@@ -359,21 +367,21 @@ systemctl enable $HOST
 systemctl start $HOST
 
 # nginx стартовый конфиг
-su - $USER -c "sed -i \"s/<host>/$HOST/g\" \"$DIR/Resources/nginx.template\""
-su - $USER -c "sed -i \"s!<wwwroot>!$DIR/wwwroot!g\" \"$DIR/Resources/nginx.template\""
-cp "$DIR/Resources/nginx.template" "/etc/nginx/sites-available/$HOST.conf"
+sed -i "s/<host>/$HOST/g" "${DIR}Resources/nginx.template"
+sed -i "s!<wwwroot>!${DIR}wwwroot!g" "${DIR}Resources/nginx.template"
+cp "${DIR}Resources/nginx.template" "/etc/nginx/sites-available/$HOST.conf"
 ln -s "/etc/nginx/sites-available/$HOST.conf" "/etc/nginx/sites-enabled/$HOST.conf"
 nginx -s reload
 
 echo "настраиваем сертификат для https"
 $SILENTINSTALL apt-get -y install certbot
 
-certbot certonly --webroot -w "$DIR/wwwroot" -d $HOST -n
+certbot certonly --webroot -w "${DIR}wwwroot" -d $HOST -n
 
 # nginx рабочий конфиг
-su - $USER -c "sed -i \"s/<host>/$HOST/g\" \"$DIR/Resources/nginxssl.template\""
-su - $USER -c "sed -i \"s!<wwwroot>!$DIR/wwwroot!g\" \"$DIR/Resources/nginxssl.template\""
-su - $USER -c "sed -i \"s/<port>/$PORT/g\" \"$DIR/Resources/nginxssl.template\""
-cp "$DIR/Resources/nginxssl.template" "/etc/nginx/sites-available/$HOST.conf"
+sed -i "s/<host>/$HOST/g" "${DIR}Resources/nginxssl.template"
+sed -i "s!<wwwroot>!${DIR}wwwroot!g" "${DIR}Resources/nginxssl.template"
+sed -i "s/<port>/$PORT/g" "${DIR}Resources/nginxssl.template"
+cp "${DIR}Resources/nginxssl.template" "/etc/nginx/sites-available/$HOST.conf"
 
 nginx -s reload
