@@ -4,13 +4,13 @@
     "UpdateConfigJsOnConfigChanges": true
   },
   "UrlPaths": {
-    "Site": "http://<domain>",
-    "Api": "http://<domain>/api",
-    "UploadImages": "http://<domain>/UploadImages",
-    "Skins": "http://<domain>/statics/Skins",
-    "PartialSkins": "http://<domain>/statics/PartialSkins",
-    "CustomCss": "http://<domain>/custom.css",
-    "CustomJavaScript": "http://<domain>/custom.js"
+    "Site": "https://<domain>",
+    "Api": "https://<domain>/api",
+    "UploadImages": "https://<domain>/UploadImages",
+    "Skins": "https://<domain>/statics/Skins",
+    "PartialSkins": "https://<domain>/statics/PartialSkins",
+    "CustomCss": "https://<domain>/custom.css",
+    "CustomJavaScript": "https://<domain>/custom.js"
   },
   "Dirs": {
     "ApplicationRoot": "auto",
