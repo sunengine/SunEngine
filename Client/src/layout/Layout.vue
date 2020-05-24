@@ -1,5 +1,5 @@
 <template>
-	<q-layout class="layout" view="lHh LpR lfr">
+	<q-layout class="layout" view="lHh LpR lff">
 		<header>
 			<q-header class="layout__header relative-position">
 				<div

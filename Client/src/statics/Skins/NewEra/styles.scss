@@ -1,0 +1,339 @@
+@import "../quasar.variables";
+@import "../quasar.site.variables";
+
+$rot: 250;
+$sun-primary:  darken(adjust_hue(#ffff99,$rot), 5); // #6dd6ff; // #6dafff;
+$sun-secondary: #bfff63;
+$sun-accent: #9c27b0;
+
+$text-color: #06000d;
+$link-color: #3498db;
+$link-hover-color: #2472b3;
+
+$header-bg-color: $sun-primary;
+$header-title-text-color: white;
+$header-border-color: #cbcbcb;
+$header-menu-icon-color: white;
+$header-user-color: white;
+
+$main-menu-bg-color: unset;
+$main-menu-icon-color: $sun-primary;
+$main-menu-link-color: $text-color;
+$main-menu-active-link-text-color: $text-color;
+$main-menu-active-link-bg-color: adjust_hue(lighten($sun-primary, 17), -20);
+$main-menu-hover-link-bg-color: white;
+$main-menu-active-link-icon-color: $sun-primary;
+
+$side-panel-header-bg-color: white;
+$side-panel-header-text-color: #666666;
+$side-panel-header-link-color: #666666;
+$side-panel-header-icon-color: unset;
+$side-panel-menu-bg-color: unset;
+$side-panel-menu-link-color: black;
+$side-panel-menu-icon-color: $link-color;
+$side-panel-menu-active-link-text-color: $link-color;
+$side-panel-menu-active-link-icon-color: black;
+$side-panel-menu-active-link-bg-color: adjust_hue(lighten($sun-primary, 17), -20);;
+
+$footer-background-color: white;
+$footer-text-color: $grey-9;
+$footer-link-color: $link-color;
+$footer-separator-icon-color: orange;
+$footer-border-color: silver;
+$sun-engine-footer-link-color: orange;
+
+$post-btn-bg-color: lighten( adjust_hue($sun-primary, 90), 0); // adjust_hue($sun-primary,180);
+$post-btn-text-color: $grey-8;
+$send-btn-bg-color: #54e288;
+$send-btn-text-color: white;
+$cancel-btn-bg-color: $warning;
+$cancel-btn-text-color: white;
+$refresh-btn-bg-color: $info;
+$refresh-btn-text-color: white;
+$reset-btn-bg-color: $info;
+$reset-btn-text-color: white;
+$delete-btn-bg-color: $negative;
+$delete-btn-text-color: white;
+
+$pagination-bg: lighten($header-bg-color,10);
+$pagination-text: $link-color;
+
+$material-h-underline-color: #c1dfee;
+$blockquote-left-line-color: #a6c59e;
+$blockquote-text-color: unset;
+$blockquote-bg-color: unset;
+
+$breadcrumbs-link: #00acc1;
+$breadcrumbs-last: $grey-6;
+
+$index-page-header-color: #00acef;
+$index-page-accent-color: #a38167;
+
+
+.skin-new-era {
+	// ——— Main ——————————————————————————————————————
+
+	html {
+		color: $text-color;
+	}
+
+	.link {
+		text-decoration: none;
+		color: $link-color;
+
+		&:hover {
+			color: $link-hover-color;
+			text-decoration: underline;
+		}
+	}
+   
+	// ——— Buttons and Breadcrumbs ————————————————————————————————————
+
+	.send-btn {
+		background-color: $send-btn-bg-color;
+		color: $send-btn-text-color;
+	}
+
+	.post-btn {
+		background-color: $post-btn-bg-color;
+		color: $post-btn-text-color;
+	}
+
+	.cancel-btn {
+		background-color: $cancel-btn-bg-color;
+		color: $cancel-btn-text-color;
+	}
+
+	.refresh-btn {
+		background-color: $refresh-btn-bg-color;
+		color: $refresh-btn-text-color;
+	}
+
+	.reset-btn {
+		background-color: $reset-btn-bg-color;
+		color: $reset-btn-text-color;
+	}
+
+	.delete-btn {
+		background-color: $delete-btn-bg-color;
+		color: $delete-btn-text-color;
+	}
+
+	.bg-pagination {
+		background-color: $pagination-bg;
+	}
+
+	.text-pagination {
+		color: $pagination-text;
+	}
+
+	.q-breadcrumbs__el {
+		color: $breadcrumbs-link;
+	}
+
+	.q-breadcrumbs--last {
+		.q-breadcrumbs__el {
+			color: $breadcrumbs-last;
+		}
+	}
+
+	// ——— Layout ————————————————————————————————————
+	
+	.layout {
+		&__header {
+			border-bottom: 1px solid $header-border-color;
+			background-color: $header-bg-color;
+		}
+
+		&__title-block {
+			letter-spacing: 1.4px;
+			font-size: 1.6rem;
+			font-weight: bold;
+			color: $header-title-text-color;
+		}
+
+		&__toolbar__menu-btn {
+			color: $header-menu-icon-color;
+		}
+
+		&__toolbar__user-btn {
+			color: $header-user-color;
+		}
+
+		&__avatar {
+			width: 32px;
+			height: 32px;
+			box-shadow: 0 0 4px 1.5px white;
+		}
+
+		&__footer {
+			text-align: center;
+			color: $footer-text-color;
+			font-weight: bold;
+			letter-spacing: 1px;
+			background-color: $footer-background-color;
+			padding: 18px 0;
+			border-top: 1px solid $footer-border-color;
+		}
+
+		&__footer-link {
+			color: $footer-link-color;
+		}
+
+		&__footer-line {
+			margin: 12px 0;
+		}
+
+		&__footer-separator-icon {
+			margin: 0 16px;
+			color: $footer-separator-icon-color;
+		}
+	}
+	
+	.sun-engine-footer__link {
+		color: $sun-engine-footer-link-color;
+	}
+
+	// ——— Menus ——————————————————————————————————
+	
+	.main-menu-drawer {
+		background-color: $main-menu-bg-color;
+	}
+	
+	.main-menu {
+		.q-item:hover{
+			background-color: $main-menu-hover-link-bg-color;;
+		}
+
+		.q-router-link--active {
+			background-color: $main-menu-active-link-bg-color;
+			
+			.q-item__section--main {
+				color: $main-menu-active-link-text-color;
+			}
+
+			.q-item__section--avatar {
+				color: $main-menu-active-link-icon-color;
+			}
+
+		
+		}
+
+		.q-item__section--avatar {
+			margin: 0;
+			padding: 0;
+			width: 60px;
+			color: $main-menu-icon-color;
+			justify-items: center;
+			align-items: center;
+		}
+
+		.q-item__section--main {
+			font-size: 1.2em;
+			color: $main-menu-link-color;
+		}
+
+		.q-item__label--caption {
+			font-size: 0.8em;
+		}
+	}
+
+	.side-menu-drawer {
+		background-color: $side-panel-menu-bg-color;
+	}
+
+	.side-panel {
+		&__header {
+			text-align: center;
+			margin: 0;
+			padding: 7px 0 4px 0;
+			text-transform: uppercase;
+			font-size: 0.9rem;
+			font-weight: bolder;
+			background-color: $side-panel-header-bg-color;
+			border-bottom: 1px solid #f1f1f1;
+			color: $side-panel-header-text-color;
+		}
+
+		&__header-link {
+			color: $side-panel-header-link-color;
+		}
+
+		&__header-icon {
+			color: $side-panel-header-icon-color;
+		}
+		
+		
+		.q-router-link--active {
+			background-color: $side-panel-menu-active-link-bg-color;
+
+			.q-item__section--main {
+				color: $side-panel-menu-active-link-text-color;
+			}
+
+			.q-item__section--avatar {
+				color: $side-panel-menu-active-link-icon-color;
+			}
+		}
+	}
+
+	// ——— Material styles ———————————————————————————
+	
+	.mobile {
+		.material__text,
+		.post__text,
+		.comment__text {
+			text-align: unset !important;
+		}
+	}
+	 
+	.material__text,
+	.post__text,
+	.comment__text {
+		text-align: justify;
+		font-size: 18px;
+		font-weight: 300;
+
+		h3 {
+			font-size: 1.55rem;
+			font-weight: 500;
+			line-height: 1.7rem;
+			margin: 35px 0 14px 0;
+			border-bottom: 2px dashed $material-h-underline-color;
+			padding: 0 0 8px 0;
+		}
+
+		h4 {
+			font-size: 1.35rem;
+			font-weight: 500;
+			line-height: 1.4rem;
+			margin: 24px 0 10px 0;
+			border-bottom: 1px dashed $material-h-underline-color;
+			padding: 0 0 6px 0;
+		}
+
+		h5 {
+			font-size: 1.2rem;
+			font-weight: 500;
+			line-height: 1.3rem;
+			margin: 16px 0 8px 0;
+			padding: 0;
+		}
+
+		h6 {
+			font-size: 1.05rem;
+			font-weight: 500;
+			line-height: 1.1rem;
+			margin: 10px 0 6px 0;
+			padding: 0;
+		}
+
+		blockquote {
+			border-left: 3px solid $blockquote-left-line-color;
+			padding: 6px 0 6px 15px;
+			background-color: $blockquote-bg-color;
+			color: $blockquote-text-color;
+			margin: 0 0 16px 0;
+		}
+	}
+}
