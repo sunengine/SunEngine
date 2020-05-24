@@ -1,6 +1,6 @@
 {
     "name": "sunengine-client",
-    "version": "2.11.6",
+    "version": "2.11.7",
     "description": "SunEngine - web engine with support of blog, forum and articles functionality",
     "productName": "SunEngine",
     "author": "Dmitrij Polianin",
@@ -10,19 +10,19 @@
     },
     "dependencies": {
         "@quasar/extras": "^1.8.1",
-        "axios": "^0.18.1",
+        "axios": "^0.19.2",
         "js-lock": "^0.1.1",
-        "quasar": "^1.11.1",
-        "vue-i18n": "^8.15.3"
+        "quasar": "^1.11.3",
+        "vue-i18n": "^8.17.7"
     },
     "devDependencies": {
         "@quasar/app": "^1.8.6",
-        "babel-preset-proposals": "^0.1.0",
-        "glob": "^7.1.4",
+        "babel-preset-proposals": "^0.3.0",
+        "glob": "^7.1.6",
+        "minimist": "^1.2.5",
         "path": "^0.12.7",
         "quasar-app-extension-ide-helper": "^1.0.0",
-        "webpack-deep-scope-plugin": "^1.6.2",
-        "minimist": "^1.2.5"
+        "webpack-deep-scope-plugin": "^1.6.2"
     },
     "engines": {
         "node": ">= 8.9.0",
