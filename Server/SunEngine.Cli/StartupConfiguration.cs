@@ -25,6 +25,7 @@ namespace SunEngine.Cli
 		public const string AppendCategoriesNamesCommand = "append-cat-name";
 		public const string TestDatabaseConnection = "test-db-con";
 		public const string NoLogoCommand = "nologo";
+		public const string SetUserPassword = "set-user-pass";
 
 
 		public string[] Arguments { get; }
@@ -39,6 +40,7 @@ namespace SunEngine.Cli
 		public bool SeedWithTestData { get; }
 		public bool SeedWithCategoryNames { get; }
 		public List<string> CategoryTokensToSeed { get; }
+		public List<string> UsersPasswords { get; }
 
 		public bool CheckDatabaseAvailability { get; }
 		
@@ -64,6 +66,8 @@ namespace SunEngine.Cli
 			CheckDatabaseAvailability = startupArguments.Contains(TestDatabaseConnection);
 
 			CategoryTokensToSeed = startupArguments.Where(x => x.StartsWith(SeedCommand)).ToList();
+			
+			UsersPasswords =startupArguments.Where(x => x.StartsWith(SetUserPassword)).Select(x=>x.Substring(SetUserPassword.Length + 1)).ToList();
 			
 			NoLogo = startupArguments.Contains(NoLogoCommand);
 		}

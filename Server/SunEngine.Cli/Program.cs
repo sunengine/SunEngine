@@ -12,12 +12,12 @@ namespace SunEngine.Cli
 		{
 			StartupConfiguration config = new StartupConfiguration(args);
 
-			if(config.NoLogo)
+			if (config.NoLogo)
 				InfoPrinter.PrintVersion();
 			else
 				InfoPrinter.PrintLogoAndVersion();
 
-			
+
 			if (config.PrintHelp || config.PrintVersion)
 			{
 				if (config.PrintHelp)
@@ -40,10 +40,13 @@ namespace SunEngine.Cli
 			InfoPrinter.PrintServerInfo(config.ConfigRootDir);
 
 			if (config.CheckDatabaseAvailability)
-			{ 
+			{
 				if (!DataSeed().PrintDbConnectionAvailability())
-					Environment.Exit(1); 
+					Environment.Exit(1);
 			}
+
+			else if (config.UsersPasswords.Count > 0)
+				DataSeed().SetUsersPasswords(config.UsersPasswords);
 
 			else if (ShouldUpdate(config))
 			{

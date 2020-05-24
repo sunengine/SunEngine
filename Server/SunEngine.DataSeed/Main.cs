@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using LinqToDB;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using SunEngine.Core.DataBase;
 using SunEngine.Core.Models;
 using SunEngine.Core.Services;
+using SunEngine.Core.Utils;
 
 namespace SunEngine.DataSeed
 {
@@ -47,6 +50,29 @@ namespace SunEngine.DataSeed
 			connectionString = dataBaseConfiguration["ConnectionString"];
 		}
 
+		public int SetUsersPasswords(IList<string> usersPasswords)
+		{
+			CheckDbConnectionAndExitIfFailed();
+
+			using var db = new DataBaseConnection(providerName, connectionString);
+
+			PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
+			int updated = 0;
+			
+			foreach (var usersPassword in usersPasswords)
+			{
+				var arr = usersPassword.Split(":");
+				var user = Normalizer.Normalize(arr[0]);
+				var password = arr[1];
+				string PasswordHash = passwordHasher.HashPassword(null, password);
+				updated += db.Users.Where(x => x.NormalizedUserName == user).Set(x => x.PasswordHash, PasswordHash)
+					.Update();
+			}
+
+			Console.WriteLine($"{updated} user passwords updated");
+			
+			return updated;
+		}
 
 		/// <summary>
 		/// Initialize database with roles, users, categories from config directory
@@ -90,8 +116,10 @@ namespace SunEngine.DataSeed
 					currentCommentId = db.Comments.Any() ? db.Comments.Max(x => x.Id) + 1 : 1
 				};
 
-				var titlesPath = Path.Combine(this.configDirectoryPath, SeederPathsNames.InitDir, SeederPathsNames.SeedTemplatesDir, SeederPathsNames.FishTitlesFile);
-				var paragraphsPath = Path.Combine(this.configDirectoryPath, SeederPathsNames.InitDir, SeederPathsNames.SeedTemplatesDir,
+				var titlesPath = Path.Combine(this.configDirectoryPath, SeederPathsNames.InitDir,
+					SeederPathsNames.SeedTemplatesDir, SeederPathsNames.FishTitlesFile);
+				var paragraphsPath = Path.Combine(this.configDirectoryPath, SeederPathsNames.InitDir,
+					SeederPathsNames.SeedTemplatesDir,
 					SeederPathsNames.FishParagraphsFile);
 				var titles = Regex.Matches(File.ReadAllText(titlesPath), "<h1>(.*?)</h1>", RegexOptions.Singleline)
 					.Select(x => x.Groups[1].Value).ToList();

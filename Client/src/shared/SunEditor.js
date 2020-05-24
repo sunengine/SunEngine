@@ -1,4 +1,4 @@
-﻿﻿import { QEditor, QInnerLoading, QSpinnerGears } from "quasar";
+﻿﻿﻿import { QEditor, QInnerLoading, QSpinnerGears } from "quasar";
 import ValidateMixin from "quasar/src/mixins/validate";
 import Vue from "vue";
 import { validateFileSize } from "utils";
