@@ -37,6 +37,11 @@
 		</q-expansion-item>
 
 		<q-markup-table>
+			<thead>
+				<tr class="admin-information__thead">
+					<td colspan="2">{{ $tl("sunEngineInfo") }}</td>
+				</tr>
+			</thead>
 			<tbody>
 				<tr v-if="siteName">
 					<td>{{ $tl("siteName") }}</td>
@@ -69,18 +74,6 @@
 				<tr v-if="clientVersion !== sunEngineVersion && clientVersion">
 					<td>{{ $tl("clientVersion") }}</td>
 					<td>{{ clientVersion }}</td>
-				</tr>
-				<tr v-if="dotNetVersion">
-					<td>{{ $tl("dotNetVersion") }}</td>
-					<td>{{ dotNetVersion }}</td>
-				</tr>
-				<tr v-if="quasarVersion">
-					<td>{{ $tl("quasarVersion") }}</td>
-					<td>{{ quasarVersion }}</td>
-				</tr>
-				<tr v-if="vueJsVersion">
-					<td>{{ $tl("vueJsVersion") }}</td>
-					<td>{{ vueJsVersion }}</td>
 				</tr>
 				<tr v-if="serverInfo && serverInfo.Maintainer">
 					<td>{{ $tl("maintainer") }}</td>
@@ -117,6 +110,62 @@
 						<td>{{ value }}</td>
 					</tr>
 				</template>
+			</tbody>
+			<thead>
+				<tr class="admin-information__thead">
+					<td colspan="2">{{ $tl("systemInfo") }}</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-if="dotNetVersion">
+					<td>{{ $tl("dotNetVersion") }}</td>
+					<td>{{ dotNetVersion }}</td>
+				</tr>
+				<tr v-if="quasarVersion">
+					<td>{{ $tl("quasarVersion") }}</td>
+					<td>{{ quasarVersion }}</td>
+				</tr>
+				<tr v-if="vueJsVersion">
+					<td>{{ $tl("vueJsVersion") }}</td>
+					<td>{{ vueJsVersion }}</td>
+				</tr>
+				<tr>
+					<td>{{ $tl("appUptime") }}</td>
+					<td>
+						<time>
+							{{ $formatDate(appUptime) }}
+						</time>
+					</td>
+				</tr>
+				<tr>
+					<td>{{ $tl("systemUptime") }}</td>
+					<td>
+						<time>
+							{{ $formatDate(systemUptime) }}
+						</time>
+					</td>
+				</tr>
+				<tr>
+					<td>{{ $tl("operationSystem") }}</td>
+					<td>{{ operationSystem }}</td>
+				</tr>
+				<!-- Fix layout of table -->
+				<tr v-if="loadAverage">
+					<td rowspan="2">{{ $tl("loadAverage") }}</td>
+					<td class="text-center">1 minutes</td>
+					<td class="text-center">5 minutes</td>
+					<td class="text-center">15 minutes</td>
+				</tr>
+				<tr v-if="loadAverage">
+					<td v-for="load of loadAverage" class="text-center">{{ load }}</td>
+				</tr>
+			</tbody>
+			<thead>
+				<tr class="admin-information__thead">
+					<td colspan="2">{{ $tl("links") }}</td>
+				</tr>
+			</thead>
+			<tbody>
 				<tr>
 					<td>{{ $tl("sunEngineRepository") }}</td>
 					<td>
@@ -139,36 +188,6 @@
 						>
 					</td>
 				</tr>
-				<tr>
-					<td>{{ $tl("AppUptime") }}</td>
-					<td>
-						<time>
-						{{ $formatDate(appUptime) }}
-						</time>
-					</td>
-				</tr>
-				<tr>
-					<td>{{ $tl("SystemUptime") }}</td>
-					<td>
-						<time>
-						{{ $formatDate(systemUptime) }}
-						</time>
-					</td>
-				</tr>
-				<tr>
-					<td>{{ $tl("OperationSystem") }}</td>
-					<td>{{ operationSystem }}</td>
-				</tr>
-				<!-- Fix layout of table -->
-				<tr v-if="loadAverage">
-					<td rowspan="2">{{ $tl("LoadAverage") }}</td>
-					<td class="text-center">1 minutes</td>
-					<td class="text-center">5 minutes</td>
-					<td class="text-center">15 minutes</td>
-				</tr>
-				<tr v-if="loadAverage">
-					<td v-for="load of loadAverage" class="text-center">{{ load }}</td>
-				</tr>
 			</tbody>
 		</q-markup-table>
 	</SunPage>
@@ -177,9 +196,11 @@
 <script>
 import { Page } from "mixins";
 import Vue from "vue";
+import Thread from "../modules/forum/Thread";
 
 export default {
 	name: "AdminInformation",
+	components: { Thread },
 	mixins: [Page],
 	data() {
 		return {
@@ -227,7 +248,7 @@ export default {
 			return Vue.version;
 		},
 		loadAverage() {
-			return !(this.loadAverage) == null ? this.loadAverage : true;
+			return !this.loadAverage == null ? this.loadAverage : true;
 		}
 	},
 	methods: {
@@ -260,7 +281,7 @@ export default {
 					this.operationSystem = response.data.osVersion;
 					this.loadAverage = response.data.loadAverage;
 				}
-			)
+			);
 		}
 	},
 	async created() {
@@ -273,4 +294,10 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+ .admin-information__thead {
+  text-align: center;
+  font-size: 1.1em;
+  background-color: $lime-2;
+ }
+</style>

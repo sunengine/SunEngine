@@ -336,12 +336,13 @@ export default {
 		sunEngineRepository: "Репозиторий SunEngine",
 		sunEngineSkinsRepository: "Репозиторий тем оформления",
 		additionalData: "Дополнительная информация",
-		
-		AppUptime: "Время старта SunEngine",
-		SystemUptime: "Время старта ОС",
-		OperationSystem: "ОС установленная на сервере",
-		LoadAverage: "Load Average"
-
+		sunEngineInfo: "SunEngine",
+		systemInfo: "Система",
+		links: "Ссылки",
+		appUptime: "Время старта SunEngine",
+		systemUptime: "Время старта ОС",
+		operationSystem: "ОС установленная на сервере",
+		loadAverage: "Load Average"
 	},
 	AdminPanel: {
 		title: "Админка"

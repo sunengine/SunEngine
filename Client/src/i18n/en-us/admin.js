@@ -306,10 +306,13 @@ export default {
 		sunEngineRepository: "SunEngine repository",
 		sunEngineSkinsRepository: "SunEngine skins repository",
 		additionalData: "Additional data",
-		AppUptime: "Time start SunEngine",
-		SystemUptime: "Time start operation system",
-		OperationSystem: "Operation system install on server",
-		LoadAverage: "Load Average"
+		sunEngineInfo: "SunEngine",
+		systemInfo: "System",
+		links: "Links",
+		appUptime: "Time start SunEngine",
+		systemUptime: "Time start operation system",
+		operationSystem: "Operation system install on server",
+		loadAverage: "Load Average"
 	},
 	AdminPanel: {
 		title: "Admin panel"
