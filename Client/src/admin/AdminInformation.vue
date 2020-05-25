@@ -1,4 +1,4 @@
-﻿<template>
+<template>
 	<SunPage class="admin-page page-padding">
 		<PageHeader :title="title" />
 
@@ -149,15 +149,20 @@
 					<td>{{ $tl("operationSystem") }}</td>
 					<td>{{ operationSystem }}</td>
 				</tr>
-				<!-- Fix layout of table -->
 				<tr v-if="loadAverage">
 					<td rowspan="2">{{ $tl("loadAverage") }}</td>
-					<td class="text-center">1 minutes</td>
-					<td class="text-center">5 minutes</td>
-					<td class="text-center">15 minutes</td>
+					<td class="admin-information__load-average">
+						<div>1 minute</div>
+						<div>5 minute</div>
+						<div>15 minutes</div>
+					</td>
 				</tr>
 				<tr v-if="loadAverage">
-					<td v-for="load of loadAverage" class="text-center">{{ load }}</td>
+					<td class="admin-information__load-average">
+						<div>{{ loadAverage[0] }}</div>
+						<div>{{ loadAverage[1] }}</div>
+						<div>{{ loadAverage[2] }}</div>
+					</td>
 				</tr>
 			</tbody>
 			<thead>
@@ -299,5 +304,11 @@ export default {
   text-align: center;
   font-size: 1.1em;
   background-color: $lime-2;
+ }
+
+ .admin-information__load-average {
+	 display: flex;
+	 flex-direction: row;
+	 justify-content: space-around;
  }
 </style>
