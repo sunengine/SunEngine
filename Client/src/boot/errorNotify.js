@@ -3,9 +3,8 @@ export default async ({ Vue }) => {
 		let errors = error?.response?.data?.errors;
 		if (!errors) errors = [error?.response?.data];
 		if (!errors) return;
-		console.log("errors",errors);
+
 		for (const error of errors) {
-			console.log("error",error);
 			
 			const token = "Errors." + error.code;
 
