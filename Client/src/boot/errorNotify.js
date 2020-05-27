@@ -1,10 +1,12 @@
-export default async ({ app, Vue }) => {
+export default async ({ Vue }) => {
 	Vue.prototype.$errorNotify = function(error, ...values) {
 		let errors = error?.response?.data?.errors;
 		if (!errors) errors = [error?.response?.data];
 		if (!errors) return;
-
+		console.log("errors",errors);
 		for (const error of errors) {
+			console.log("error",error);
+			
 			const token = "Errors." + error.code;
 
 			let localizeDescription;
@@ -21,7 +23,7 @@ export default async ({ app, Vue }) => {
 
 			const color = error.type.toLowerCase() === "soft" ? "warning" : "negative";
 
-			this.$q.notify({
+			Vue.prototype.$q.notify({
 				message: localizeDescription,
 				timeout: 2800,
 				color: color,

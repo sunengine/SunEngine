@@ -11,6 +11,7 @@ import {
 } from "utils";
 import { store } from "storeInd";
 import { router } from "router";
+import { Vue } from "vue";
 
 const lock = new Lock("request-lock");
 
@@ -31,15 +32,15 @@ apiAxios.interceptors.response.use(
 				if (config.Dev.ShowExceptions)
 					console.error("Exception", rez.response.data);
 
-				app.$q.notify({
-					message: app.$t("Global.apiError"),
+				Vue.prototype.$q.notify({
+					message: Vue.prototype.i18n.t("Global.apiError"),
 					timeout: 1800,
 					color: "negative",
 					position: "bottom-right"
 				});
 			} else {
-				app.$q.notify({
-					message: app.$t("Errors." + rez.response.data),
+				Vue.prototype.$q.notify({
+					message: Vue.prototype.i18n.t("Errors." + rez.response.data),
 					timeout: 2200,
 					color: "warning",
 					position: "top-center"

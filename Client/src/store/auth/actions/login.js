@@ -1,6 +1,6 @@
 import { routeHasAccess } from "utils";
 import { router } from "router";
-import { app } from "App";
+import Vue from "vue";
 
 export default function(context, userData) {
 	return request(Api.Auth.Login, {
@@ -12,8 +12,8 @@ export default function(context, userData) {
 		await context.dispatch("loadAllCategories");
 		await context.dispatch("setAllRoutes");
 		await context.dispatch("loadAllMenuItems");
-
-		app.$successNotify(app.$t("Login.successNotify"));
+		const successNotifyMsg = Vue.prototype.i18n.t("Login.successNotify");
+		Vue.prototype.$successNotify(successNotifyMsg);
 
 		if (userData.ret) {
 			const resolved = router.resolve(userData.ret);
