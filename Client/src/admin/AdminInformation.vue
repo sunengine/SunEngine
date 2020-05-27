@@ -152,16 +152,16 @@
 				<tr v-if="loadAverage">
 					<td rowspan="2">{{ $tl("loadAverage") }}</td>
 					<td class="admin-information__load-average">
-						<div>1 minute</div>
-						<div>5 minute</div>
-						<div>15 minutes</div>
-					</td>
-				</tr>
-				<tr v-if="loadAverage">
-					<td class="admin-information__load-average">
-						<div>{{ loadAverage[0] }}</div>
-						<div>{{ loadAverage[1] }}</div>
-						<div>{{ loadAverage[2] }}</div>
+						<div class="row text-grey-8 q-mb-xs">
+							<div class="col-4">1 minute</div>
+							<div class="col-4">5 minute</div>
+							<div class="col-4">15 minutes</div>
+						</div>
+						<div class="row">
+							<div class="col-4">{{ loadAverage[0] }}</div>
+							<div class="col-4">{{ loadAverage[1] }}</div>
+							<div class="col-4">{{ loadAverage[2] }}</div>
+						</div>
 					</td>
 				</tr>
 			</tbody>
@@ -300,15 +300,12 @@ export default {
 </script>
 
 <style lang="scss">
- .admin-information__thead {
-  text-align: center;
-  font-size: 1.1em;
-  background-color: $lime-2;
- }
+.admin-information__thead {
+	text-align: center;
+	font-size: 1.1em;
+	background-color: $lime-2;
+}
 
- .admin-information__load-average {
-	 display: flex;
-	 flex-direction: row;
-	 justify-content: space-around;
- }
+.admin-information__load-average {
+}
 </style>

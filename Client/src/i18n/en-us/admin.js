@@ -345,7 +345,7 @@ export default {
 			Articles: "Articles",
 			Captcha: "Captcha. Check if real user.",
 			Blog: "Blog",
-			Jwe: "Jwe security",
+			Security: "Security",
 			Skins: "Skins"
 		},
 		groupSubTitles: {
@@ -444,10 +444,10 @@ export default {
 			"Articles:CategoryPageSize": "Number of articles on page",
 			"Forum:NewTopicsMaxPages": "Maximum number of pages in the new topics tab",
 			"Forum:NewTopicsPageSize": "The number of topics in the new topics tab",
-			"Jwe:Issuer": "",
-			"Jwe:LongTokenLiveTimeDays":
+			"Security:JweIssuer": "",
+			"Security:JweLongTokenLiveTimeDays":
 				"Duration of the session in days refresh token life",
-			"Jwe:ShortTokenLiveTimeMinutes": "Access token lifetime",
+			"Security:JweShortTokenLiveTimeMinutes": "Access token lifetime",
 			"Skins:CurrentSkinName": "Main theme",
 			"Skins:PartialSkinsNames": "Additional themes",
 			"Skins:MaxArchiveSizeKb": "Check: maximum archive size in kb",

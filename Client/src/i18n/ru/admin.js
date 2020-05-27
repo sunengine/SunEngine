@@ -376,7 +376,7 @@ export default {
 			Articles: "Статьи",
 			Captcha: "Капча. Проверка что пользователь.",
 			Blog: "Блог",
-			Jwe: "Безопасность токенов Jwe",
+			Security: "Безопасность",
 			Skins: "Темы оформления"
 		},
 		groupSubTitles: {
@@ -479,9 +479,9 @@ export default {
 				"Максимальное количетсво страниц на вкладке новых тем",
 			"Forum:NewTopicsPageSize": "Количество тем на вкладке новых тем",
 			"Forum:ThreadMaterialsPageSize": "Количество тем на вкладке раздела",
-			"Jwe:Issuer": "Эмитент (Issuer)",
-			"Jwe:LongTokenLiveTimeDays": "Длительность сессии в днях",
-			"Jwe:ShortTokenLiveTimeMinutes":
+			"Security:JweIssuer": "Эмитент (Issuer)",
+			"Security:JweLongTokenLiveTimeDays": "Длительность сессии в днях",
+			"Security:JweShortTokenLiveTimeMinutes":
 				"Длительность жизни access токена в минутах",
 			"Skins:CurrentSkinName": "Основная тема",
 			"Skins:PartialSkinsNames": "Дополнительные темы",

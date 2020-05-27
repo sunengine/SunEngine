@@ -8,7 +8,7 @@ export default async ({ app, Vue }) => {
 			const token = "Errors." + error.code;
 
 			let localizeDescription;
-			if (app.i18n.te(token)) localizeDescription = app.i18n.t(token, values);
+			if (Vue.prototype.i18n.te(token)) localizeDescription = Vue.prototype.i18n.t(token, values);
 			else localizeDescription = error.description;
 
 			let errorText = `Error code: ${error.code}\n`;
