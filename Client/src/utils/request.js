@@ -11,7 +11,7 @@ import {
 } from "utils";
 import { store } from "storeInd";
 import { router } from "router";
-import { Vue } from "vue";
+import Vue from "vue";
 
 const lock = new Lock("request-lock");
 
