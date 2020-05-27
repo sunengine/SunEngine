@@ -228,7 +228,7 @@ export default {
 					config.DbColumnSizes.MenuItems_Icon
 			},
 			settingsJson: {
-				jsonFormatError: "@:Global.validation.validation"
+				jsonFormatError: "@:Global.validation.jsonFormatError"
 			}
 		}
 	},
@@ -360,6 +360,7 @@ export default {
 		groupTitles: {
 			Editor: "Редактор",
 			Global: "Основной",
+			Parts: "Элементы дизайна",
 			Dev: "Отладка",
 			Cache: "Кеш",
 			PasswordValidation: "Проверка пароля",
@@ -396,6 +397,8 @@ export default {
 			"Global:ReadOnlyMode": "Режим только чтения для всего сайта",
 			"Global:OpenExternalLinksAtNewTab": "Открывать внешние ссылки в новом окне",
 			"Global:IconsSet": "Иконки",
+			"Parts:HeaderBackground": "Фон шапки",
+			"Parts:MenuLogo" :"Логотип в меню",
 			"Dev:ShowExceptions": "Показывать исключения в логах",
 			"Dev:LogInitExtended": "Логировать инициализацию расширено",
 			"Dev:LogMoveTo": "Логировать перемещения по сайту",
@@ -557,7 +560,7 @@ export default {
 		version: "Версия: ",
 		upload: "Загрузить основную тему",
 		uploadSuccessNotify: "Тема успешно загружена",
-		deleteSuccessNotify: "Тема успешно удалён",
+		deleteSuccessNotify: "Тема успешно удалена",
 		set: "Установить",
 		deleteMsg: "Удалить тему?",
 		btnDeleteOk: "@:Global.dialog.yes",
@@ -570,7 +573,9 @@ export default {
 		deleteMsg: "Удалить тему?",
 		btnDeleteOk: "@:Global.dialog.yes",
 		btnDeleteCancel: "@:Global.dialog.cancel",
-		upload: "Загрузить дополнительную тему"
+		upload: "Загрузить дополнительную тему",
+		uploadSuccessNotify: "Дополнительная тема успешно загружена",
+		deleteSuccessNotify: "Дополнительная тема успешно удалена"
 	},
 	CustomCssAdmin: {
 		title: "Произвольный CSS",

@@ -81,9 +81,12 @@ export default {
 			const file = this.$refs.file.files[0];
 			const formData = new FormData();
 			formData.append("file", file);
+          
+			const successNotifyMsg = this.$tl("uploadSuccessNotify");
+			
 			this.$request(this.$AdminApi.SkinsAdmin.UploadPartialSkin, formData)
 				.then(response => {
-					this.$successNotify(this.$tl("uploadSuccessNotify"));
+					this.$successNotify(successNotifyMsg);
 					this.$refs.file.value = "";
 					this.getAllPartialSkins();
 				})
@@ -95,7 +98,8 @@ export default {
 			const deleteMsg = this.$tl("deleteMsg");
 			const btnDeleteOk = this.$tl("btnDeleteOk");
 			const btnDeleteCancel = this.$tl("btnDeleteCancel");
-
+			const deleteSuccessNotifyMsg = this.$tl("deleteSuccessNotify");
+			
 			this.$q
 				.dialog({
 					message: deleteMsg,
@@ -106,7 +110,7 @@ export default {
 					this.$request(this.$AdminApi.SkinsAdmin.DeletePartialSkin, {
 						name: name
 					}).then(_ => {
-						this.$successNotify(this.$tl("deleteSuccessNotify"));
+						this.$successNotify(deleteSuccessNotifyMsg);
 						this.getAllPartialSkins();
 					});
 				});

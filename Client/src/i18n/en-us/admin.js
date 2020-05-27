@@ -106,8 +106,7 @@ export default {
 			},
 			token: {
 				maxLength:
-					"Maximum section name length is " +
-					config.DbColumnSizes.Sections_Token,
+					"Maximum section name length is " + config.DbColumnSizes.Sections_Token,
 				allowedChars:
 					"Token must consist of the characters `a-z`, `A-Z`, `0-9`, `-`"
 			},
@@ -330,6 +329,7 @@ export default {
 		groupTitles: {
 			Editor: "Editor",
 			Global: "Global",
+			Parts: "Design elements",
 			Dev: "Development",
 			PasswordValidation: "Password validation",
 			Register: "User register",
@@ -365,6 +365,8 @@ export default {
 			"Global:DisallowRegistration": "Disallow registration of new users",
 			"Global:ReadOnlyMode": "Read only mode for all site",
 			"Global:OpenExternalLinksAtNewTab": "Open external links in new window",
+			"Parts:HeaderBackground": "Header line background",
+			"Parts:MenuLogo": "Menu logo",
 			"Dev:ShowExceptions": "Show exceptions",
 			"Dev:LogInitExtended": "Extended site initialize log",
 			"Dev:LogMoveTo": "Loge site move to",
@@ -395,7 +397,7 @@ export default {
 				"Width of the user's photo after px compression",
 			"Images:ResizeMaxHeightPixels": "Image height after px compression",
 			"Images:ResizeMaxWidthPixels": "Image width after px compression",
-			"Admin:AllowCustomJavaScript" :"Allow edit custom JavaScript",
+			"Admin:AllowCustomJavaScript": "Allow edit custom JavaScript",
 			"Sanitizer:SanitizeAdminMaterials": "Sanitize admin written materials",
 			"Sanitizer:AllowedAttributes": "Allowed html attributes",
 			"Sanitizer:AllowedClasses": "Allowed html classes",
@@ -463,7 +465,8 @@ export default {
 				"This text shows on user register, and needed user confirm to allow registration. You can use links to confirm text page.",
 			"Images:MaxImageHeight": "Check when upload to server.",
 			"Images:MaxImageWidth": "Check when upload to server.",
-			"Admin:AllowCustomJavaScript" :"Custom JavaScript tab will appear on Skins Admin",
+			"Admin:AllowCustomJavaScript":
+				"Custom JavaScript tab will appear on Skins Admin",
 			"Sanitizer:AllowedSchemes": "Example: mailto,skype",
 			"Dev:LogInitExtended": "In browser console",
 			"Dev:LogMoveTo": "In browser console",
@@ -534,7 +537,9 @@ export default {
 		deleteMsg: "Delete partial skin?",
 		btnDeleteOk: "@:Global.dialog.yes",
 		btnDeleteCancel: "@:Global.dialog.cancel",
-		upload: "Upload partial skin"
+		upload: "Upload partial skin",
+		uploadSuccessNotify: "Partial skin uploaded successfully",
+		deleteSuccessNotify: "Partial skin deleted successfully"
 	},
 	CustomCssAdmin: {
 		title: "Custom CSS",
@@ -549,7 +554,7 @@ export default {
 		title: "Custom JavaScript",
 		javaScriptInput: "Custom JavaScript",
 		saveBtn: "@:Global.btn.save",
-		refreshBtn:  "Reload from server",
+		refreshBtn: "Reload from server",
 		reloadSuccessNotify: "JavaScript text reloaded from server",
 		successNotify: "JavaScript successfully updated"
 	},
@@ -565,7 +570,7 @@ export default {
 			MaterialsCategories: "Materials categories",
 			MaterialsCategoriesExclude: "Categories exclude",
 			CommentsCategories: "Comments categories",
-			CommentsCategoriesExclude:  "Categories exclude",
+			CommentsCategoriesExclude: "Categories exclude",
 			Number: "Activities number"
 		},
 		Posts: {
@@ -574,12 +579,12 @@ export default {
 			SubTitle: "Sub title",
 			Header: "Header",
 			Categories: "Categories",
-			CategoriesExclude:  "Categories exclude",
+			CategoriesExclude: "Categories exclude",
 			PreviewSize: "Preview length in chars",
 			PageSize: "Page size",
 			ShowAuthor: "Show author",
 			ShowPublishDate: "Show publish date",
-			ShowReadNext:"Show ReadNext button",
+			ShowReadNext: "Show ReadNext button",
 			ShowComments: "Show comments",
 			AddButtonLabel: "Button add material text",
 			RolesCanAdd: "Button roles"
