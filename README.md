@@ -3,8 +3,8 @@
 </p>
  
 <h3 align="center">
-Site engine with blog, forum and articles sections features support.<br/>
-Build on: AspNet Core, VueJS, Quasar.</h3>
+Site engine with blog, forum and articles sections.<br/>
+Build on AspNet Core, VueJS, Quasar.</h3>
 
 # SunEngine
 
