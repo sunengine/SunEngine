@@ -1,5 +1,3 @@
-using System;
-
 namespace SunEngine.Core.Configuration.ConfigItemType
 {
 	public class BooleanItem : ConfigItem<bool>

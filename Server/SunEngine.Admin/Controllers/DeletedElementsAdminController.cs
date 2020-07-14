@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SunEngine.Admin.Managers;
-using SunEngine.Admin.Services;
 
 namespace SunEngine.Admin.Controllers
 {

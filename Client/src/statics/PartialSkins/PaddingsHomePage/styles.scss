@@ -1,0 +1,23 @@
+.partial-skin-paddings-home-page {
+
+  $paddings: (6px 12px 24px);
+ 
+  @mixin page-paddings-ip($size) {
+    padding-right: $size !important;
+    padding-left: $size !important;
+  }
+  
+  .index-page {
+    @media (max-width: 599px) {
+      @include page-paddings-ip(nth($paddings, 1));
+    }
+
+    @media (min-width: 600px) and (max-width: 1023px) {
+      @include page-paddings-ip(nth($paddings, 2));
+    }
+
+    @media (min-width: 1024px) {
+      @include page-paddings-ip(nth($paddings, 3));
+    }
+  }
+}

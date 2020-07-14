@@ -1,5 +1,3 @@
-using SunEngine.Core.Utils;
-
 namespace SunEngine.Core.Configuration.ConfigItemType
 {
 	public class JsonItem : StringItem

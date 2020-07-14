@@ -74,8 +74,7 @@ namespace SunEngine.Materials.Controllers
 				return Ok(await LoadDataAsync());
 
 			return await CacheContentAsync(category, category.Id, LoadDataAsync, page);
-
-
+			
 			async Task<IPagedList<PostView>> LoadDataAsync() => await blogPresenter.GetPostsAsync(options);
 		}
 

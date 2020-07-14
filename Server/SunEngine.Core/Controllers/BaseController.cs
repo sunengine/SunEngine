@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +9,7 @@ using SunEngine.Core.Cache.CachePolicy;
 using SunEngine.Core.Cache.Services;
 using SunEngine.Core.Managers;
 using SunEngine.Core.Models;
-using SunEngine.Core.Models.Materials;
 using SunEngine.Core.Security;
-using SunEngine.Core.Services;
 using SunEngine.Core.Utils;
 
 namespace SunEngine.Core.Controllers
@@ -108,95 +104,96 @@ namespace SunEngine.Core.Controllers
 			return await CacheContentAsync(category, key, dataLoader, page);
 		}
 
-    public async Task<IActionResult> CacheContentAsync<T>(
-      CategoryCached category,
-      int categoryId,
-      Func<Task<T>> dataLoader,
-      RequestOptions options)
-    {
-      string key;
-      if (options.Sort == null)
-        key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, options.PageNumber, categoryId);
-      else
-        key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, options.PageNumber, categoryId, options.Sort);
-      return await CacheContentAsync(category, key, dataLoader, options);
-    }
+		public async Task<IActionResult> CacheContentAsync<T>(
+			CategoryCached category,
+			int categoryId,
+			Func<Task<T>> dataLoader,
+			RequestOptions options)
+		{
+			string key;
+			if (options.Sort == null)
+				key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, options.PageNumber, categoryId);
+			else
+				key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, options.PageNumber, categoryId,
+					options.Sort);
+			return await CacheContentAsync(category, key, dataLoader, options);
+		}
 
 
-    protected async Task<IActionResult> CacheContentAsync<T>(
-      CategoryCached category,
-      string key,
-      Func<Task<T>> dataLoader,
-      RequestOptions options)
-    {
-      if (!cachePolicy.CanCache(category, options))
-        return Json(await dataLoader());
-      string json;
-
-      if (!string.IsNullOrEmpty(json = contentCache.GetContent(key)))
-        return JsonString(json);
-      var content = await dataLoader();
-      contentCache.CacheContent(key, json);
-      return JsonString(json);
-    }
-    
-    public async Task<IActionResult> CacheContentAsync<T>(
-      CategoryCached category,
-      int categoryId,
-      Func<Task<T>> dataLoader,
-      string sortType,
-      int? page = null)
-    {
-      var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryId, sortType);
-      return await CacheContentAsync(category, key, dataLoader, sortType, page);
-    }
-
-    
-    protected async Task<IActionResult> CacheContentAsync<T>(
-      CategoryCached category,
-      string key,
-      Func<Task<T>> dataLoader,
-      string sortType,
-      int? page)
-    {
-      if (!cachePolicy.CanCache(category, new RequestOptions(){PageNumber = page, Sort = sortType}))
-        return Json(await dataLoader());
-      string json;
-
-      if (!string.IsNullOrEmpty(json = contentCache.GetContent(key)))
-        return JsonString(json);
-      var content = await dataLoader();
-      contentCache.CacheContent(key, json);
-      return JsonString(json);
-    }
-    
 		protected async Task<IActionResult> CacheContentAsync<T>(
 			CategoryCached category,
 			string key,
 			Func<Task<T>> dataLoader,
-      int? page)
+			RequestOptions options)
 		{
-			if (!cachePolicy.CanCache(category, new RequestOptions(){PageNumber = page}))
+			if (!cachePolicy.CanCache(category, options))
 				return Json(await dataLoader());
-    
 			string json;
+
 			if (!string.IsNullOrEmpty(json = contentCache.GetContent(key)))
 				return JsonString(json);
-      
-      var content = await dataLoader();
-
-      json = SunJson.Serialize(content);
+			var content = await dataLoader();
 			contentCache.CacheContent(key, json);
 			return JsonString(json);
 		}
-    
+
+		public async Task<IActionResult> CacheContentAsync<T>(
+			CategoryCached category,
+			int categoryId,
+			Func<Task<T>> dataLoader,
+			string sortType,
+			int? page = null)
+		{
+			var key = keyGenerator.ContentGenerateKey(ControllerName, ActionName, page, categoryId, sortType);
+			return await CacheContentAsync(category, key, dataLoader, sortType, page);
+		}
+
+
+		protected async Task<IActionResult> CacheContentAsync<T>(
+			CategoryCached category,
+			string key,
+			Func<Task<T>> dataLoader,
+			string sortType,
+			int? page)
+		{
+			if (!cachePolicy.CanCache(category, new RequestOptions() {PageNumber = page, Sort = sortType}))
+				return Json(await dataLoader());
+			string json;
+
+			if (!string.IsNullOrEmpty(json = contentCache.GetContent(key)))
+				return JsonString(json);
+			var content = await dataLoader();
+			contentCache.CacheContent(key, json);
+			return JsonString(json);
+		}
+
+		protected async Task<IActionResult> CacheContentAsync<T>(
+			CategoryCached category,
+			string key,
+			Func<Task<T>> dataLoader,
+			int? page)
+		{
+			if (!cachePolicy.CanCache(category, new RequestOptions() {PageNumber = page}))
+				return Json(await dataLoader());
+
+			string json;
+			if (!string.IsNullOrEmpty(json = contentCache.GetContent(key)))
+				return JsonString(json);
+
+			var content = await dataLoader();
+
+			json = SunJson.Serialize(content);
+			contentCache.CacheContent(key, json);
+			return JsonString(json);
+		}
+
 		public async Task<IActionResult> CacheContentAsync<T>(
 			SectionServerCached component,
 			IEnumerable<int> categoryIds,
 			Func<Task<T>> dataLoader,
 			int? page = null)
 		{
-			if (!cachePolicy.CanCache(component, new RequestOptions(){PageNumber = page}))
+			if (!cachePolicy.CanCache(component, new RequestOptions() {PageNumber = page}))
 				return Json(await dataLoader());
 
 			var key = keyGenerator.ContentGenerateKey(component.Name, categoryIds, page);
@@ -210,7 +207,7 @@ namespace SunEngine.Core.Controllers
 			contentCache.CacheContent(key, json);
 			return JsonString(json);
 		}
-    
+
 		protected override void Dispose(bool disposing)
 		{
 			userManager.Dispose();
