@@ -6,7 +6,7 @@ export default ({app, Vue}) => {
 
 	for (const script of scriptsToStart) {
      try {
-         window[script]();
+         window[script](app, Vue);
      } catch (e) {
          console.error(e);
      }

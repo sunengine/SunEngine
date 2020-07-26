@@ -86,7 +86,7 @@ namespace SunEngine.Core.Configuration
             ["Email:UseSSL"] = new BooleanItem(true),
 
             ["Admin:AllowCustomJavaScript"] = new BooleanItem(),
-            ["Admin:StartUpScripts"] = new TokensItem("", true),
+            ["Admin:StartUpScripts"] = new TokensItem(""),
 
             #region EditorToolbars
 

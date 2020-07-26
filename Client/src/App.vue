@@ -25,7 +25,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+    import Vue from "vue";
+    import { mapGetters } from "vuex";
 
 var app;
 
@@ -45,7 +46,10 @@ export default {
 				window.app = this;
 				window.pulseException = () => this.$request(this.$Api.Pulse.PulseException);
 			}
-		}
+
+			// Will run on boot
+            // this.startUpCustomJsScripts();
+        }
 	},
 	methods: {
 		rerender() {
@@ -56,7 +60,21 @@ export default {
 			this.$store.state.initializedPromise.then(_ =>
 				this.$router.push(this.$router.currentRoute)
 			);
-		}
+		},
+        startUpCustomJsScripts() {
+                if (!config.Admin.StartUpScripts || !config.Admin.AllowCustomJavaScript)
+                    return;
+
+                const scriptsToStart = config.Admin.StartUpScripts.split(",");
+
+                for (const script of scriptsToStart) {
+                    try {
+                        window[script](this, Vue);
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+        }
 	},
 	beforeCreate() {
 		app = this;
