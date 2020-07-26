@@ -30,7 +30,8 @@ module.exports = function (ctx) {
             "throttle",
             "vueDevTools",
             "getBreadcrumbs",
-            "icons"
+            "icons",
+            "customJsBoot"
         ],
         css: ["app.scss"],
         extras: [
@@ -93,7 +94,7 @@ module.exports = function (ctx) {
                 if (ctx.dev) {
                     let configPath = "src/config.js";
                     let args = minimist(process.argv.slice(2));
-                    
+
                     if (args.config) {
                         let cpath = path.resolve(args.config)
                         if (fs.existsSync(cpath))
@@ -103,7 +104,7 @@ module.exports = function (ctx) {
                         configPath = "src/l.config.js";
 
                     console.log("Using config: " + configPath);
-                    
+
                     cfg.plugins.push(
                         new CopyWebpackPlugin([
                             {from: "src/site/statics", to: "site/statics"},

@@ -2,7 +2,7 @@ server {
  	listen 443 http2;
 	listen [::]:443 http2;
   
-  ssl on; 
+  #ssl on; 
   ssl_certificate /etc/letsencrypt/live/<host>/fullchain.pem;
   ssl_certificate_key /etc/letsencrypt/live/<host>/privkey.pem;
   ssl_session_cache shared:SSL:11m;
