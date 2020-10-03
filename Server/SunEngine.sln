@@ -30,11 +30,8 @@ ProjectSection(SolutionItems) = preProject
 	..\Scripts\PUBLISH.template = ..\Scripts\PUBLISH.template
 	..\Scripts\UPDATE = ..\Scripts\UPDATE
 	..\Scripts\update.sh = ..\Scripts\update.sh
-	..\Scripts\start-dev.sh = ..\Scripts\start-dev.sh
-	..\Scripts\copy-client-to-template.sh = ..\Scripts\copy-client-to-template.sh
-	..\Scripts\copy-config-to-template.sh = ..\Scripts\copy-config-to-template.sh
-	..\Scripts\publi.sh = ..\Scripts\publi.sh
-	..\Scripts\installUpdate.sh = ..\Scripts\installUpdate.sh
+	..\Scripts\install.sh = ..\Scripts\install.sh
+	..\Scripts\publish.sh = ..\Scripts\publish.sh
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workwlows", "workwlows", "{86FF27AD-99D1-46E5-8808-C8D8C5EACBEE}"
