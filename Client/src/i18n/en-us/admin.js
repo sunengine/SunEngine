@@ -365,7 +365,8 @@ export default {
 			"Global:DisallowRegistration": "Disallow registration of new users",
 			"Global:ReadOnlyMode": "Read only mode for all site",
 			"Global:OpenExternalLinksAtNewTab": "Open external links in new window",
-			"Parts:HeaderBackground": "Header line background",
+            "Global:IndexMaterial": "Index page",
+            "Parts:HeaderBackground": "Header line background",
 			"Parts:MenuLogo": "Menu logo",
 			"Dev:ShowExceptions": "Show exceptions",
 			"Dev:LogInitExtended": "Extended site initialize log",
@@ -463,7 +464,8 @@ export default {
 			"Global:OpenExternalLinksAtNewTab": "In materials, comments and posts.",
 			"Global:RegisterConfirmText":
 				"This text shows on user register, and needed user confirm to allow registration. You can use links to confirm text page.",
-			"Images:MaxImageHeight": "Check when upload to server.",
+            "Global:IndexMaterial": "Name of main page material",
+            "Images:MaxImageHeight": "Check when upload to server.",
 			"Images:MaxImageWidth": "Check when upload to server.",
 			"Admin:AllowCustomJavaScript":
 				"Custom JavaScript tab will appear on Skins Admin",

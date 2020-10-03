@@ -397,6 +397,7 @@ export default {
 			"Global:ReadOnlyMode": "Режим только чтения для всего сайта",
 			"Global:OpenExternalLinksAtNewTab": "Открывать внешние ссылки в новом окне",
 			"Global:IconsSet": "Иконки",
+            "Global:IndexMaterial": "Главная страница",
 			"Parts:HeaderBackground": "Фон шапки",
 			"Parts:MenuLogo" :"Логотип в меню",
 			"Dev:ShowExceptions": "Показывать исключения в логах",
@@ -498,6 +499,7 @@ export default {
 			"Global:RegisterConfirmText":
 				"Этот текст показывается пользователю при регистрации. Пользователь должен принять соглашение для того что бы пройти регистрацию. В тексте можно использовать ссылки на страницу соглашения.",
 			"Global:OpenExternalLinksAtNewTab": "В материалах, комментариях, постах",
+            "Global:IndexMaterial": "Имя (eng) материала главной страницы",
 			"Images:MaxImageHeight": "Проверка при заливки изображения на сервер.",
 			"Images:MaxImageWidth": "Проверка при заливки изображения на сервер.",
 			"Admin:AllowCustomJavaScript" :"Вкладка произвольного JavaScript появится в админке тем оформления",
@@ -594,7 +596,7 @@ export default {
 		reloadSuccessNotify: "Данные перезагружены с сервера",
 		successNotify: "Данные успешно сохранены"
 	},
-	
+
 	// ——— SectionsEditor ————————————————————————————————————
 
 	SectionsEditor: {

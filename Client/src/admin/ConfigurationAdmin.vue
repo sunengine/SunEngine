@@ -102,7 +102,7 @@
 				/>
 			  </div>
 			</q-page-sticky>
-			
+
 
 			<br />
 		</div>
@@ -300,10 +300,11 @@ export default {
 			});
 		},
 		uploadConfiguration() {
-			const data = new FormData();
+            const data = new FormData();
 
-			for (const group of this.configurationGroups)
-				for (const ci of group.items) data.append(ci.name, ci.value);
+            for (const group of this.configurationGroups)
+                for (const ci of group.items)
+                    data.append(ci.name, ci.value ?? "");
 
 			this.loading = true;
 

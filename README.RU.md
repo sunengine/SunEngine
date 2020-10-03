@@ -78,7 +78,7 @@
 ### Хостинг
  - Linux или Windows сервер  
  - Bash скрипты для сборки, установки и обновления  
- - [Руководство по установке на Ubuntu 18.04 сервер](https://sunengine.site/install/14).    
+ - [Руководство по установке на Ubuntu 18.04 сервер](https://sunengine.github.io/src/ru/manual-install_ru/step_by_step_server_installation_ru.html).    
 
 ### Дополнительно
  - Сделано с любовью ❤  

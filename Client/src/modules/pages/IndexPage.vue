@@ -10,7 +10,10 @@ export default {
 	mixins: [Page],
     computed: {
 	  indexPageName() {
-          return config.Global.IndexMaterial ?? "index-page";
+          const rez = config.Global.IndexMaterial;
+          if(rez)
+              return rez
+          return "index";
       }
     },
 	beforeCreate() {

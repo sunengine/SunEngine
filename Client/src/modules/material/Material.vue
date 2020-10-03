@@ -256,12 +256,6 @@ export default {
 		}
 	},
 	methods: {
-		prepareParagraphs() {
-            prepareParagraphs.call(this);
-		},
-		prepareLocalLinks() {
-			prepareLocalLinks.call(this, this.$el, "material__text");
-		},
 		loadDataMaterial() {
 			return this.$request(this.$Api.Materials.Get, {
 				idOrName: this.idOrName
@@ -274,8 +268,8 @@ export default {
 				}
 				this.title = this.material.title;
 				this.$nextTick(() => {
-					this.prepareLocalLinks();
-					this.prepareParagraphs();
+                    prepareLocalLinks.call(this, this.$el, "material__text");
+                    prepareParagraphs.call(this, this.$el, "material__text");
 					if (this.material.settingsJson?.allowInnerJavaScript)
 						execScripts(this.$el);
 				});

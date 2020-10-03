@@ -1,16 +1,17 @@
 import { copyToClipboard, date } from "quasar";
 import { scroll } from "quasar";
+import Vue from "vue";
+
 const { getScrollTarget, setScrollPosition } = scroll;
 
-export default function prepareParagraphs() {
+export default function prepareParagraphs(ell,className) {
     if (this.headersPrepared) return;
 
-    const textEl = this.$el.getElementsByClassName("material__text")[0];
+    const textEl = ell.getElementsByClassName(className)[0];
     const headers = textEl.querySelectorAll("h1,h2,h3,h4,h5,h6");
 
     const router = this.$router;
     const successNotify = this.$successNotify.bind(this);
-    const tl = this.$tl.bind(this);
     const allNames = {};
     for (const header of headers) {
         if (header.classList.contains("no-anchor")) continue;
@@ -25,7 +26,7 @@ export default function prepareParagraphs() {
         link.addEventListener("click", function(e) {
             e.preventDefault();
             copyToClipboard(link.href)
-                .then(() => successNotify(tl("linkCopied")))
+                .then(() => successNotify(Vue.prototype.i18n.t("Material.linkCopied")))
                 .catch(() => router.replace(link.href));
             return false;
         });

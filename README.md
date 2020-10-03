@@ -75,7 +75,7 @@ The project based on modern front edge technologies:
 ### Hosting
  - Linux or Windows server  
  - Bash scripts to build, deploy and update  
- - [Installation Guide for Ubuntu 18.04 Server (Russian)](https://sunengine.site/install/14)    
+ - [Installation Guide for Ubuntu 18.04 Server](https://sunengine.github.io/src/en/manual-install_en/step_by_step_server_installation_en.html)    
 
 ### High Quality
  - Made with love ❤  
