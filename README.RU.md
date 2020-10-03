@@ -9,7 +9,7 @@
 
 # SunEngine
 
-<a href="#"><img src="https://img.shields.io/static/v1?label=%D0%92%D0%B5%D1%80%D1%81%D0%B8%D1%8F&message=v2.11.12&color=green"></a>
+<a href="#"><img src="https://img.shields.io/static/v1?label=%D0%92%D0%B5%D1%80%D1%81%D0%B8%D1%8F&message=v2.11.13&color=green"></a>
 <a href="#"><img src="https://github.com/sunengine/SunEngine/workflows/.NET%20Core/badge.svg" ></a>
 <a href="#"><img src="https://github.com/sunengine/SunEngine/workflows/Quasar/badge.svg" ></a>
 <br/>

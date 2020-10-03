@@ -12,6 +12,7 @@ export imagePath from 'src/utils/imagePath.js';
 export isJson from 'src/utils/isJson.js';
 export * from 'src/utils/isJson.js';
 export prepareLocalLinks from 'src/utils/prepareLocalLinks.js';
+export prepareParagraphs from 'src/utils/prepareParagraphs.js';
 export request from 'src/utils/request.js';
 export routeCheckAccess from 'src/utils/routeCheckAccess.js';
 export routeHasAccess from 'src/utils/routeHasAccess.js';

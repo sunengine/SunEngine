@@ -44,8 +44,8 @@ namespace SunEngine.Core.Controllers
 		[HttpPost]
 		[IpSpamProtectionFilter(TimeoutSeconds = 5, AllowedRequestCount = 4, RestrictSeconds = 30)]
 		public async Task<IActionResult> Login(string nameOrEmail, string password)
-		{
-			var user = await authManager.LoginAsync(nameOrEmail, password);
+        {
+            var user = await authManager.LoginAsync(nameOrEmail?.Trim(), password);
 
 			await jweService.RenewSecurityTokensAsync(HttpContext, user);
 

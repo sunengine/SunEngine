@@ -81,7 +81,7 @@ namespace SunEngine.Core.Managers
 		{
 			var user = new User
 			{
-				UserName = model.UserName,
+				UserName = model.UserName?.Trim(),
 				Email = model.Email,
 				RegisteredDate = DateTime.UtcNow
 			};

@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <Version>2.11.12</Version>
+        <Version>2.11.13</Version>
         <LangVersion>default</LangVersion>
     </PropertyGroup>
 
@@ -20,9 +20,9 @@
         <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.7.1" />
         <PackageReference Include="NJsonSchema" Version="10.2.1" />
         <PackageReference Include="Npgsql" Version="4.1.5" />
-        <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta0009" />
+        <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta0013" />
         <PackageReference Include="SixLabors.ImageSharp" Version="1.0.1" />
-        <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0007" />
+        <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0010" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.7.1" />
         <PackageReference Include="System.Runtime.Caching" Version="4.7.0" />
         <PackageReference Include="UAParser" Version="3.1.44" />
