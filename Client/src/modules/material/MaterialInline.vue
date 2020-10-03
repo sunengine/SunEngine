@@ -6,6 +6,9 @@
 
 <script>
 import execScripts from "./methods/execScripts";
+import prepareLocalLinks from "src/utils/prepareLocalLinks";
+import prepareParagraphs from "src/utils/prepareParagraphs";
+
 
 export default {
 	name: "MaterialInline",
@@ -27,7 +30,9 @@ export default {
 			})
 				.then(response => {
 					this.material = response.data;
-					this.$emit("loaded");
+                    prepareParagraphs.call(this);
+                    prepareLocalLinks.call(this, this.$el, "material__text");
+                    this.$emit("loaded");
 					this.$nextTick(_ => {
 						execScripts(this.$el);
 					});

@@ -4,7 +4,8 @@ const config = {
 	// auto-start
 	Global: {
 		SiteName: "SunEngine Demo",
-		Locale: "Russian"
+		Locale: "Russian",
+        Index: "index-page"
 	},
 	UrlPaths: {
 		Site: "http://localhost:5005",

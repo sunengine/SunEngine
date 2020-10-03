@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SixLabors.ImageSharp.Processing;
-using SixLabors.Primitives;
 using SunEngine.Core.Configuration.Options;
 using SunEngine.Core.Managers;
 using SunEngine.Core.Services;
+using Size = SixLabors.ImageSharp.Size;
 
 namespace SunEngine.Core.Controllers
 {
@@ -47,7 +47,8 @@ namespace SunEngine.Core.Controllers
 			ResizeOptions ro = new ResizeOptions
 			{
 				Mode = ResizeMode.Max,
-				Size = new Size(imagesOptions.CurrentValue.ResizeMaxWidthPixels,
+				Size = new Size(
+                    imagesOptions.CurrentValue.ResizeMaxWidthPixels,
 					imagesOptions.CurrentValue.ResizeMaxHeightPixels)
 			};
 

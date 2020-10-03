@@ -10,6 +10,7 @@ namespace SunEngine.Core.Configuration
         {
             ["Global:SiteName"] = new StringItem("SunEngine", true),
             ["Global:Locale"] = new EnumItem(Locale.Russian, true),
+            ["Global:IndexMaterial"] = new StringItem("index-page"),
             ["Global:SiteTitle"] = new HtmlItem("SunEngine Demo"),
             ["Global:PageTitleTemplate"] = new StringItem("{pageTitle} - {siteName}"),
             ["Global:HomePageRedirect"] = new StringItem(),

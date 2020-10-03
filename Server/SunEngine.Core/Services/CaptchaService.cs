@@ -87,10 +87,10 @@ namespace SunEngine.Core.Services
 
 				PointF[] points = {new PointF(2, img.Height / 2), new PointF(img.Width - 2, img.Height / 2)};
 
-				img.Mutate(ctx => ctx
-					.Fill(Rgba32.FromHex("f0f4c3")) // white background image
-					.DrawLines(Rgba32.Black, 3, points)
-					.DrawText(textGraphicsOptions, text, font, Rgba32.Black, new PointF(0, img.Height / 2)));
+                img.Mutate<Rgba32>(ctx => ctx
+					.Fill(Rgba32.ParseHex("f0f4c3")) // white background image
+					.DrawLines(Color.Black, 3, points)
+					.DrawText(textGraphicsOptions, text, font, Color.Black, new PointF(0, img.Height / 2)));
 
 				ms = new MemoryStream();
 
