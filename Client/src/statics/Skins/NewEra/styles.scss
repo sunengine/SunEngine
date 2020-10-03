@@ -83,7 +83,7 @@ $breadcrumbs-last: $grey-6;
 			text-decoration: underline;
 		}
 	}
-   
+
 	// ——— Buttons and Breadcrumbs ————————————————————————————————————
 
 	.send-btn {
@@ -135,7 +135,7 @@ $breadcrumbs-last: $grey-6;
 	}
 
 	// ——— Layout ————————————————————————————————————
-	
+
 	.layout {
 		&__header {
 			border-bottom: 1px solid $header-border-color;
@@ -186,17 +186,17 @@ $breadcrumbs-last: $grey-6;
 			color: $footer-separator-icon-color;
 		}
 	}
-	
+
 	.sun-engine-footer__link {
 		color: $sun-engine-footer-link-color;
 	}
 
 	// ——— Menus ——————————————————————————————————
-	
+
 	.main-menu-drawer {
 		background-color: $main-menu-bg-color;
 	}
-	
+
 	.main-menu {
 		.q-item:hover{
 			background-color: $main-menu-hover-link-bg-color;;
@@ -204,7 +204,7 @@ $breadcrumbs-last: $grey-6;
 
 		.q-router-link--active {
 			background-color: $main-menu-active-link-bg-color;
-			
+
 			.q-item__section--main {
 				color: $main-menu-active-link-text-color;
 			}
@@ -213,7 +213,7 @@ $breadcrumbs-last: $grey-6;
 				color: $main-menu-active-link-icon-color;
 			}
 
-		
+
 		}
 
 		.q-item__section--avatar {
@@ -259,8 +259,8 @@ $breadcrumbs-last: $grey-6;
 		&__header-icon {
 			color: $side-panel-header-icon-color;
 		}
-		
-		
+
+
 		.q-router-link--active {
 			background-color: $side-panel-menu-active-link-bg-color;
 
@@ -275,7 +275,7 @@ $breadcrumbs-last: $grey-6;
 	}
 
 	// ——— Material styles ———————————————————————————
-	
+
 	.mobile {
 		.material__text,
 		.post__text,
@@ -283,11 +283,10 @@ $breadcrumbs-last: $grey-6;
 			text-align: unset !important;
 		}
 	}
-	 
+
 	.material__text,
 	.post__text,
 	.comment__text {
-		text-align: justify;
 		font-size: 18px;
 		font-weight: 300;
 

@@ -80,7 +80,7 @@ $sun-engine-footer-link-color: orange;
 			text-decoration: underline;
 		}
 	}
-   
+
 	// ——— Buttons and Breadcrumbs ————————————————————————————————————
 
 	.send-btn {
@@ -132,7 +132,7 @@ $sun-engine-footer-link-color: orange;
 	}
 
 	// ——— Layout ————————————————————————————————————
-	
+
 	.layout {
 		&__header {
 			border-bottom: 1px solid $header-border-color;
@@ -183,17 +183,17 @@ $sun-engine-footer-link-color: orange;
 			color: $footer-separator-icon-color;
 		}
 	}
-	
+
 	.sun-engine-footer__link {
 		color: $sun-engine-footer-link-color;
 	}
 
 	// ——— Menus ——————————————————————————————————
-	
+
 	.main-menu-drawer {
 		background-color: $main-menu-bg-color;
 	}
-	
+
 	.main-menu {
 		.q-router-link--active {
 			background-color: $main-menu-active-link-bg-color;
@@ -250,8 +250,8 @@ $sun-engine-footer-link-color: orange;
 		&__header-icon {
 			color: $side-panel-header-icon-color;
 		}
-		
-		
+
+
 		.q-router-link--active {
 			background-color: $side-panel-menu-active-link-bg-color;
 
@@ -266,7 +266,7 @@ $sun-engine-footer-link-color: orange;
 	}
 
 	// ——— Material styles ———————————————————————————
-	
+
 	.mobile {
 		.material__text,
 		.post__text,
@@ -274,11 +274,10 @@ $sun-engine-footer-link-color: orange;
 			text-align: unset !important;
 		}
 	}
-	 
+
 	.material__text,
 	.post__text,
 	.comment__text {
-		text-align: justify;
 		font-size: 18px;
 		font-weight: 300;
 

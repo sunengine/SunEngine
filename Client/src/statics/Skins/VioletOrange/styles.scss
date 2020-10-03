@@ -267,7 +267,7 @@ $sun-engine-footer-link-color: #7e73a5;
 	}
 
 	// ——— Material styles ———————————————————————————
-	
+
 	.mobile {
 		.material__text,
 		.post__text,
@@ -275,11 +275,10 @@ $sun-engine-footer-link-color: #7e73a5;
 			text-align: unset !important;
 		}
 	}
-	
+
 	.material__text,
 	.post__text,
 	.comment__text {
-		text-align: justify;
 		font-size: 18px;
 		font-weight: 300;
 

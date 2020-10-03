@@ -64,7 +64,7 @@ namespace SunEngine.Core.Cache.Services
 			lock (syncObject)
 			{
 				memoryCache.Set(key, content, options);
-				recordsKeys.TryAdd(key, true);
+				recordsKeys[key] = true;
 			}
 
 			return true;

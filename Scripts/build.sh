@@ -35,6 +35,24 @@ case "${unameOut}" in
     *)          machine="UNKNOWN:${unameOut}"
 esac
 
+dotnetcom="dotnet"
+
+TO_DOTNET_PATH() {
+if [ $machine == "Cygwin" ]; then
+    echo  "$(cygpath -w $1)"
+  elif [ $machine == "Wsl" ]; then
+    echo "$(wslpath -w $1)"
+  else
+    echo $1
+  fi
+}
+  
+
+if [[ $(grep [Mm]icrosoft /proc/version) ]]; then
+  machine=Wsl;
+  dotnetcom="dotnet.exe"
+fi
+
 if [ $PROJECT_ROOT == "auto" ]; then
   {
   
@@ -53,13 +71,7 @@ if [ $PROJECT_ROOT == "auto" ]; then
     exit 1
   fi
 
-  if [ $machine == "Cygwin" ]; then
-    PROJECT_ROOT="$(cygpath -w $PWD)"
-  else
-    PROJECT_ROOT="${PWD}"
-  fi
-
-
+  PROJECT_ROOT="${PWD}"
   SERVER_PATH="${SERVER_PATH/auto/$PROJECT_ROOT}"
   CLIENT_PATH="${CLIENT_PATH/auto/$PROJECT_ROOT}"
   CONFIG_PATH="${CONFIG_PATH/auto/$PROJECT_ROOT}"
@@ -96,7 +108,9 @@ mkdir "$BUILD_PATH"
 if [ dotnet > /dev/null ]; then
 {
     echo -e "\n${GREEN}Building server ${NC}\n"
-    if ! dotnet publish --configuration Release "$SERVER_PATH/SunEngine.Cli" --output "$BUILD_PATH/Server"; then
+    p1=$(TO_DOTNET_PATH "$SERVER_PATH/SunEngine.Cli")
+    p2=$(TO_DOTNET_PATH "$BUILD_PATH")"/Server"
+    if ! $dotnetcom publish --configuration Release ${p1} --output ${p2}; then
     exit 1
     fi
 }

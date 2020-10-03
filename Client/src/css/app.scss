@@ -86,7 +86,7 @@ $q-field-color: #00c63b;
 	padding-bottom: $flex-gutter-xl !important;
 }
 
-$paddings: (6px 12px 24px);
+$paddings: (8px 16px 24px);
 
 @mixin page-paddings-block($size) {
 	.page-padding {
@@ -112,15 +112,15 @@ $paddings: (6px 12px 24px);
 	}
 }
 
-@media (max-width: 599px) {
-	@include page-paddings-block(nth($paddings, 1));
+@media (max-width: $breakpoint-xs-max){
+    @include page-paddings-block(nth($paddings, 1));
 }
 
-@media (min-width: 600px) and (max-width: 1023px) {
+@media (min-width: $breakpoint-sm-min) and (max-width: $breakpoint-md-max) {
 	@include page-paddings-block(nth($paddings, 2));
 }
 
-@media (min-width: 1024px) {
+@media (min-width: $breakpoint-lg-min) {
 	@include page-paddings-block(nth($paddings, 3));
 }
 
@@ -281,7 +281,6 @@ $paddings: (6px 12px 24px);
 .post__text,
 .comment__text,
 .profile__text {
-	text-align: justify;
 	font-size: 18px;
 	font-weight: 300;
 
