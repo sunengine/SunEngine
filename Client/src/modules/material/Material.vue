@@ -111,7 +111,7 @@
 
 		<LoaderWait v-if="!material || !comments" />
 
-		<div class="material__write-comment q-mt-md" v-if="canCommentWrite">
+		<div class="material__write-comment q-mt-md" v-if="material && comments && canCommentWrite">
 			<CreateComment
 				class="page-padding"
 				@done="commentAdded"
@@ -157,7 +157,7 @@ export default {
 		};
 	},
 	watch: {
-		$route: function(old1, new1) {
+		$route(old1, new1) {
 			if (old1.path !== new1.path) this.loadData();
 			else {
 				const el = document.getElementById(this.$route.hash.substring(1));
