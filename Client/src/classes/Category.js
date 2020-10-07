@@ -1,3 +1,4 @@
+import { store } from "store";
 import { extend } from "quasar";
 
 export default class Category {
@@ -8,7 +9,7 @@ export default class Category {
 	get selectable() {
 		return this.categoryPersonalAccess?.MaterialWrite && this.isMaterialsContainer;
 	}
-	
+
 	getRoute() {
 		return this.route ?? undefined;
 	}
@@ -16,7 +17,22 @@ export default class Category {
 	getMaterialRoute(idOrName, hash) {
 		const route = this.getRoute();
 
-		if (!route || !route.name) return undefined;
+		if (!route || !route.name)
+        {
+            if(store.getters.isAdmin) {
+                return  {
+                    name: "CatView-mat",
+                    params: {
+                        categoryName: this.name,
+                        idOrName: idOrName.toString(),
+                        hash: hash ?? undefined
+                    }
+                }
+            }
+            else
+                return undefined;
+
+        }
 
 		let rezRoute = extend(true, {}, route);
 

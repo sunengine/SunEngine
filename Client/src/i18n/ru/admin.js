@@ -33,6 +33,7 @@ export default {
 		cachingPageCount: "Кэшировать N страниц",
 		noTypeLabel: "Без типа",
 		layout: "Шаблон",
+        noLayout: "Без шаблона",
 		validation: {
 			name: {
 				required: "Введите имя (eng) категории",

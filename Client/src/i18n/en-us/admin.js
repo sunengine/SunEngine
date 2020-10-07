@@ -31,7 +31,8 @@ export default {
 		cachingPageCount: "Cache N pages",
 		noTypeLabel: "Without type",
 		layout: "Layout",
-		validation: {
+        noLayout: "No layout",
+        validation: {
 			name: {
 				required: "Enter category name (eng)",
 				minLength: "Name (eng) must be at least 2 letters",

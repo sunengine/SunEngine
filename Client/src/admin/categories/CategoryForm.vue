@@ -332,7 +332,10 @@ export default {
 	},
 	computed: {
 		layoutOptions() {
-			return Object.getOwnPropertyNames(this.$store.state.layouts.all)
+			return [{
+			    label: this.$tl("noLayout"),
+                value: null
+            },...Object.getOwnPropertyNames(this.$store.state.layouts.all)
 				.filter(x => !x.startsWith("__"))
 				.map(x => this.$store.state.layouts.all[x])
 				.map(x => {
@@ -340,7 +343,7 @@ export default {
 						label: this.$t(`LayoutNames.${x.name}`),
 						value: x.name
 					};
-				});
+				})];
 		},
 		parentCategoryTitle() {
 			return this?.all?.[this.category.parentId]?.title;

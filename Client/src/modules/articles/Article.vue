@@ -67,7 +67,9 @@ export default {
 			return this.$store.getters.getCategory(this.article.categoryName);
 		},
 		to() {
-			return this.category.getMaterialRoute(this.article.name ?? this.article.id);
+			let rez = this.category.getMaterialRoute(this.article.name ?? this.article.id);
+
+			return rez;
 		}
 	}
 };
