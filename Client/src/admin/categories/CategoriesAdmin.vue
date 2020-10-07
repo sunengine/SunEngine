@@ -61,7 +61,7 @@ export default {
 				});
 		},
 		down(category) {
-			this.$request(this.$AdminApi.CategoriesAdmin.CategoryUp, {
+			this.$request(this.$AdminApi.CategoriesAdmin.CategoryDown, {
 				name: category.name
 			})
 				.then(async () => {
