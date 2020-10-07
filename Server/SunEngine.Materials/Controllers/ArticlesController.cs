@@ -84,7 +84,7 @@ namespace SunEngine.Materials.Controllers
 				return await articlesPresenter.GetArticlesAsync(options);
 			}
 
-			if (showDeleted)
+			if (showDeleted || options.ShowHidden)
 				return Ok(await LoadDataAsync());
 
 			return await CacheContentAsync(category, category.Id, LoadDataAsync, page);

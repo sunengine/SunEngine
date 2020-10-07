@@ -199,7 +199,7 @@ namespace SunEngine.Materials.Controllers
 			if (materialData.IsHidden && materialsAuthorization.CanHide(User.Roles, category))
 				material.IsHidden = true;
 
-			if (materialData.IsHidden && materialsAuthorization.CanBlockComments(User.Roles, category))
+			if (materialData.IsCommentsBlocked && materialsAuthorization.CanBlockComments(User.Roles, category))
 				material.IsCommentsBlocked = true;
 
 			if (materialsAuthorization.CanEditSettingsJson(User.Roles, category))
