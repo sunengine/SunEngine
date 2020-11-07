@@ -93,3 +93,8 @@
 ### Контакты
  - Дмитрий Полянин Telegram: [@Okeanij](https://t.me/Okeanij)  
  - Telegram группа SunEngine: [@SunEngine](https://t.me/SunEngine)  
+
+### Школа разработчика Дмитрия Полянина
+ - Сайт: https://okeanij.ru
+ - Telegram: [@developer_school](https://t.me/developer_school)
+ - Instagram: [@developer_school](https://instagram.com/developer_school)

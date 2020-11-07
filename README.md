@@ -89,3 +89,9 @@ The project based on modern front edge technologies:
 ### Contacts
  - Dmitrij Polianin Telegram: [@Okeanij](https://t.me/Okeanij)    
  - SunEngine Telegram group: [@SunEngine](https://t.me/SunEngine)  
+
+ ### Developer School
+ #### Dmitrij Polianin Developer school on Russian
+ - Site: https://okeanij.ru
+ - Telegram: [@developer_school](https://t.me/developer_school)
+ - Instagram: [@developer_school](https://instagram.com/developer_school)
