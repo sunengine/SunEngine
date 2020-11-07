@@ -16,6 +16,9 @@ Build on AspNet Core, VueJS, Quasar.</h3>
 <a href="https://sunengine.site"><img src="https://img.shields.io/static/v1?label=Site%20(Ru)&message=sunengine.site&color=yellow"></a>
 <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Demo&message=demo.sunengine.site&color=yellow"></a>
 <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=success"></a>
+<a href="https://t.me/developer_school"><img src="https://img.shields.io/static/v1?label=Telegram&message=Developer School (RU)&color=success"></a>
+
+
 <a href="README.RU.md"><img src="https://img.shields.io/static/v1?label=Readme&message=Russian&color=informational"></a>
   
 ### Features
