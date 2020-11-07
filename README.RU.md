@@ -17,7 +17,7 @@
 <a href="https://sunengine.site"><img src="https://img.shields.io/static/v1?label=%D0%A1%D0%B0%D0%B9%D1%82&message=sunengine.site&color=yellow"></a> 
 <a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=%D0%94%D0%B5%D0%BC%D0%BE&message=demo.sunengine.site&color=yellow"></a>
 <a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=success"></a>
-<a href="https://t.me/developer_school"><img src="https://img.shields.io/static/v1?label=Telegram&message=Школа%20разработчика&color=success"></a>
+<a href="https://t.me/developer_school"><img src="https://img.shields.io/static/v1?label=Telegram&message=%D0%A8%D0%BA%D0%BE%D0%BB%D0%B0%20%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA%D0%B0&color=success"></a>
 <a href="README.md"><img src="https://img.shields.io/static/v1?label=Readme&message=English&color=informational"></a>
 
 
