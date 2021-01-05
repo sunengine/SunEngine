@@ -8,7 +8,7 @@
 					$router.push({
 						name: 'CreateMaterial',
 						params: {
-							categoriesNames: category.name,
+							categoriesNames: category.sectionRoot.name,
 							initialCategoryName: category.name
 						}
 					})

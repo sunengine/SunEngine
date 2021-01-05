@@ -13,6 +13,11 @@
 			<div class="q-pa-lg">
 				{{ $tl("supportInfo") }}
 				<ul>
+                    <li>
+                        <a href="https://yasobe.ru/na/SunEngine" target="_blank" class="link"
+                        >Yandex.Money</a
+                        >
+                    </li>
 					<li>
 						<a
 							href="https://my.qiwi.com/Dmytryi-P9qqHzXldd?noCache=true"
@@ -22,16 +27,15 @@
 							QIWI
 						</a>
 					</li>
-					<li>
-						<a href="https://yasobe.ru/na/SunEngine" target="_blank" class="link"
-							>Yandex.Money</a
-						>
-					</li>
+
 					<li>
 						<a href="https://paypal.me/dmitrijpolyanin" target="_blank" class="link">
 							PayPal
 						</a>
 					</li>
+                    <li>
+                        {{ $tl("supportSber") }}: &nbsp; 4817 7603 3516 7056  &nbsp;  &nbsp; ({{ $tl("supportSberAuthorName") }})
+                    </li>
 				</ul>
 			</div>
 		</q-expansion-item>

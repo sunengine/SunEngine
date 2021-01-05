@@ -108,7 +108,6 @@ export default {
 				.then(() => {
 					this.$successNotify();
 					let x = this.$refs.form.category.getRoute();
-					debugger;
 					this.$router.replace(this.$refs.form.category.getRoute());
 				})
 				.catch(error => {

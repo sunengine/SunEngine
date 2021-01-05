@@ -289,7 +289,9 @@ export default {
 	AdminInformation: {
 		title: "Information",
 		support: "Donate SunEngine project",
-		supportInfo: "If you love SunEngine support it:",
+        supportSber: "Sber bank",
+        supportSberAuthorName: "recipientor: Dmitrij Polyanin",
+        supportInfo: "If you love SunEngine support it:",
 		siteName: "Site name",
 		serverName: "Server name",
 		serverVersion: "Server version",

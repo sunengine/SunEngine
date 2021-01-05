@@ -152,17 +152,17 @@ export default {
 			if (this.showRoot) return [this.$store.getters.getCategory("Root")];
 			else return this.$store.getters.getCategory("Root").children;
 		},
-		namesArray() {
-			if (this.multiple) return this.names.split(",");
+		namesArrayLower() {
+            return this.categoriesNames?.split(",").map(x => x.trim().toLowerCase()) ?? [];
 		}
 	},
 	methods: {
 		showCats(cat, filter) {
-			const showCats = this.categoriesNames?.split(",").map(x => x.trim()) ?? [];
+		    const showCats = this.namesArrayLower;
 			let current = cat;
 
 			while (current) {
-				if (showCats.some(x => x === current.name)) return true;
+				if (showCats.some(x => x === current.name.toLowerCase())) return true;
 				current = current.parent;
 			}
 			return false;

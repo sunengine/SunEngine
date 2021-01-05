@@ -43,7 +43,7 @@ export default {
 						pageTitle: category.title +  Vue.prototype.i18n.t("Thread.titlePartNewTopics")
 					},
 					navigation: {
-						categories: sunImport("categories", "Categories1"),
+                        categories: sunImport("categories","Categories2"),
 						categoryName: name
 					}
 				},
@@ -66,7 +66,7 @@ export default {
 						};
 					},
 					navigation: {
-						categories: sunImport("categories", "Categories1"),
+                        categories: sunImport("categories", "Categories2"),
 						categoryName: name
 					}
 				},
@@ -89,7 +89,7 @@ export default {
 						};
 					},
 					navigation: {
-						categories: sunImport("categories", "Categories1"),
+					    categories: sunImport("categories","Categories2"),
 						categoryName: name
 					}
 				},

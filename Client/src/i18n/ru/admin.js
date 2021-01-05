@@ -320,6 +320,8 @@ export default {
 	AdminInformation: {
 		title: "Информация",
 		support: "Поддержать проект SunEngine",
+        supportSber: "Сбер банк",
+        supportSberAuthorName: "получатель: Дмитрий Полянин",
 		supportInfo: "Если вам нравится проект SunEngine, поддержите его:",
 		siteName: "Имя сайта",
 		serverName: "Имя сервера",
