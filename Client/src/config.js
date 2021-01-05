@@ -10,9 +10,9 @@ const config = {
 	UrlPaths: {
 		Site: "http://localhost:5005",
 		Api:  "http://localhost:5000",
-		UploadImages: "http://localhost:5000/UploadImages",
-		Skins: "http://localhost:5005/statics/Skins",
-		PartialSkins: "http://localhost:5005/statics/PartialSkins",
+		UploadImages: "http://localhost:5000/upload-images",
+		Skins: "http://localhost:5005/skins",
+		PartialSkins: "http://localhost:5005/partial-skins",
 		CustomCss: "http://localhost:5000/custom.css",
 		CustomJavaScript: "http://localhost:5000/custom.js",
 	},
