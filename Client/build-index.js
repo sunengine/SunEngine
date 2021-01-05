@@ -65,14 +65,24 @@ const indexes = {};
 const glob = require("glob");
 const fs = require("fs");
 
-process(glob.sync(patternAll), dirs, excludePaths, indexes, addLine);
-process(glob.sync(patternSite), ["site"], excludePaths, indexes, addLine);
 
-for (const [name, index] of Object.entries(indexes)) {
-	fs.writeFileSync(`./src/index/${name}.js`, index.makeText());
+
+function makeIndex() {
+    process(glob.sync(patternAll), dirs, excludePaths, indexes, addLine);
+    process(glob.sync(patternSite), ["site"], excludePaths, indexes, addLine);
+
+    for (const [name, index] of Object.entries(indexes)) {
+        fs.writeFileSync(`./src/index/${name}.js`, index.makeText());
+    }
+
+    makeSunImport();
+
+    console.log(
+        '\n\x1b[33m☼☼☼   \x1b[32mIndex files generated successfully!\x1b[0m  \x1b[34m"/src/index"   \x1b[33m☼☼☼\x1b[0m\n'
+    );
 }
 
-makeSunImport();
+
 
 function makeSunImport() {
 	let imports = `export default {\n`;
@@ -87,9 +97,6 @@ function makeSunImport() {
 	fs.writeFileSync(`./src/index/sunTable.js`, imports);
 }
 
-console.log(
-	'\n\x1b[33m☼☼☼   \x1b[32mIndex files generated successfully!\x1b[0m  \x1b[34m"/src/index"   \x1b[33m☼☼☼\x1b[0m\n'
-);
 
 function process(arr, dirs, excludePaths, indexes, addLine) {
 	for (const path of arr) {
@@ -137,3 +144,5 @@ function getDirAndComponentName(name, dirs, excludePaths) {
 
 	return [dirName, arr.join(".")];
 }
+
+module.exports = makeIndex;

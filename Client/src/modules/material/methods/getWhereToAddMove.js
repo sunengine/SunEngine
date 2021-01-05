@@ -7,14 +7,12 @@ export function getWhereToMove() {
 }
 
 export function getWhereToAdd(categoriesNames) {
-    debugger;
 	if (categoriesNames.includes(","))
 		return getWhereToAddMultiCat(categoriesNames);
 	else return getWhereToAddOneCat(categoriesNames);
 }
 
 export function getWhereToAddOneCat(categoryName) {
-    debugger;
 	let rez = goDeep(store.getters.getCategory(categoryName));
 	if (rez.selectable) rez = [rez];
 	else rez = [...rez.children];
@@ -23,7 +21,6 @@ export function getWhereToAddOneCat(categoryName) {
 }
 
 export function getWhereToAddMultiCat(categoriesNames) {
-    debugger;
 	const categories = categoriesNames.split(",").map(x => x.trim());
 	const nodes = [];
 	for (let categoryName of categories) {

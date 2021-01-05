@@ -1,6 +1,7 @@
 // Configuration for your app
 
-require("./build-index");
+const makeIndex = require("./build-index");
+makeIndex();
 
 const path = require("path");
 const fs = require("fs");
@@ -108,7 +109,7 @@ module.exports = function (ctx) {
                         new CopyWebpackPlugin(
                             {
                                 patterns: [
-                                    {from: "site-public", to: "site/public"},
+                                    {from: "site\-public/**/*"},
                                     {from: configPath, to: "config.js"},
                                     {from: "src/custom.css", to: "custom.css"},
                                     {from: "src/custom.js", to: "custom.js"}
@@ -119,7 +120,7 @@ module.exports = function (ctx) {
                     cfg.plugins.push(
                         new CopyWebpackPlugin(
                             {
-                                patterns: [ {from: "site-public", to: "site/public"} ]
+                                patterns: [ {from: "site\-public/**/*"} ]
                             })
                     );
                 }

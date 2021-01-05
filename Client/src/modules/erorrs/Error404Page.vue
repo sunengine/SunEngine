@@ -1,7 +1,7 @@
 <template>
 	<SunPage class="error404 flex column flex-center">
 		<p>
-			<img class="error404__sad-img" src="/statics/sad.svg" />
+			<img class="error404__sad-img" src="sad.svg" />
 		</p>
 		<p class="error404__info text-faded">
 			{{ $tl("info") }}
