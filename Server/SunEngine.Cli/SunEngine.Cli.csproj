@@ -15,7 +15,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Flurl" Version="3.0.0" />
+        <PackageReference Include="Flurl" Version="3.0.1" />
         <PackageReference Include="System.Linq" Version="4.3.0" />
         <PackageReference Include="System.Runtime.Caching" Version="5.0.0" />
     </ItemGroup>
