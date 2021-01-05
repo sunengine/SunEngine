@@ -45,7 +45,7 @@ module.exports = function (ctx) {
         ],
 
         framework: {
-            all: "auto",
+            importStrategy: "auto",
 
             // Quasar plugins
             plugins: ["Notify", "Meta", "Dialog", "LocalStorage"],
@@ -57,7 +57,6 @@ module.exports = function (ctx) {
         },
 
         preFetch: false,
-        supportIE: false,
 
         build: {
             scopeHoisting: true,
@@ -106,16 +105,22 @@ module.exports = function (ctx) {
                     console.log("Using config: " + configPath);
 
                     cfg.plugins.push(
-                        new CopyWebpackPlugin([
-                            {from: "src/site/statics", to: "site/statics"},
-                            {from: configPath, to: "config.js"},
-                            {from: "src/custom.css", to: "custom.css"},
-                            {from: "src/custom.js", to: "custom.js"}
-                        ])
+                        new CopyWebpackPlugin(
+                            {
+                                patterns: [
+                                    {from: "site-public", to: "site/public"},
+                                    {from: configPath, to: "config.js"},
+                                    {from: "src/custom.css", to: "custom.css"},
+                                    {from: "src/custom.js", to: "custom.js"}
+                                ]}
+                           )
                     );
                 } else {
                     cfg.plugins.push(
-                        new CopyWebpackPlugin([{from: "src/site/statics", to: "site/statics"}])
+                        new CopyWebpackPlugin(
+                            {
+                                patterns: [ {from: "site-public", to: "site/public"} ]
+                            })
                     );
                 }
 
@@ -159,8 +164,11 @@ module.exports = function (ctx) {
                 delete cfg.optimization.splitChunks.cacheGroups.common;
             },
 
-            env: {
+            /*env: {
                 PACKAGE_JSON: JSON.stringify(require("./package"))
+            }*/
+            env: {
+                PACKAGE_JSON: require("./package")
             }
         },
 
