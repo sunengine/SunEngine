@@ -94,7 +94,9 @@ export default {
 				categoryName: this.material.categoryName,
 				title: this.material.title,
 				text: this.material.text,
-				tags: this.material.tags.join(",")
+				tags: this.material.tags.join(","),
+                isHidden: this.material.isHidden,
+                isCommentsBlocked: this.material.isCommentsBlocked
 			};
 
 			if (this.material.name) data.name = this.material.name;
@@ -105,6 +107,8 @@ export default {
 			this.$request(this.$Api.Materials.Create, data)
 				.then(() => {
 					this.$successNotify();
+					let x = this.$refs.form.category.getRoute();
+					debugger;
 					this.$router.replace(this.$refs.form.category.getRoute());
 				})
 				.catch(error => {
@@ -113,7 +117,7 @@ export default {
 				});
 		}
 	},
-	 beforeCreate() {
+    beforeCreate() {
         this.$options.components.MaterialForm = sunImport("material", "MaterialForm");
     },
     created() {

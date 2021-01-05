@@ -9,10 +9,10 @@
         "dev run": "quasar dev"
     },
     "dependencies": {
-        "@quasar/extras": "^1.9.0",
+        "@quasar/extras": "^1.9.10",
         "axios": "^0.19.2",
         "js-lock": "^0.1.1",
-        "quasar": "^1.12.13",
+        "quasar": "^1.14.3",
         "vue-i18n": "^8.19.0"
     },
     "devDependencies": {

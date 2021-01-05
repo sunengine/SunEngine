@@ -95,8 +95,85 @@ then
     echo "PostgreSQL пользователь $1 уже существует, введите пароль от этого пользователя"
   }
 else
-  echo "eng"
-  exit 1;
+ then
+  # --help english text (autotranslate from russian)
+  TEXT_HELP = (
+    "-h, --help Command information"
+    "-d, --directory full path to the installation folder, by default / var / www / (- host)"
+    "-H, --host domain or ip (along with the database name and database username)"
+    "--port Internal port used by the Kestrel server before proxying through Nginx (should only be set if the default port 5050 is busy)"
+    "-u --user User from whose name the service will run and who will own all site files"
+    "-p, --pgpass PostgreSQL password from the postgres user (needed to create a new database)"
+    "(which is currently installed or which one to install when installing PostgreSQL)"
+    "-P, --pguserpass PostgreSQL password from the user from whose name the database is created (the value of the --host key)"
+    "(default value 16 random characters, set manually only when the user is already created)"
+    "-s, --silent Installation without user intervention (answer yes to all queries)"
+  )
+  TEXT_APTROOTERROR = "Since the script uses apt, you need administrator rights"
+  TEXT_INSTALLED = "installed"
+  TEXT_DBDETECTED = "The database was found. Most likely it was left from a previous installation, should you delete it?"
+  TEXT_GITDETECTED = "Engine files found, most likely they are left over from a previous installation, delete?"
+  TEXT_DBALREADYEXISTS = "There is already a database, maybe you wanted to run an update rather than an installation?"
+  TEXT_GITALREADYEXISTS = "Installation aborted to avoid damaging existing configs, save important information and retry installation after deleting the folder with engine files"
+  TEXT_DOWNLOADERROR = "Failed to download engine files"
+  TEXT_HTTPSCONFIG = "configuring the certificate for https"
+  TEXT_CREATEADMINACCOUNTTITLE = "create site administrator account"
+  TEXT_CREATEADMINACCOUNTUSERNAME = "You need to create a site administrator account, enter the username of the new account"
+  TEXT_CREATEADMINACCOUNTPASS = "Please enter your new account password"
+  TEXT_CREATEADMINACCOUNTEMAIL = "Please enter your new account email"
+  TEXT_INSTALL_ERROR = "Installation aborted."
+  TEXT_INPUT_HOST_TITLE = "HOST"
+  TEXT_INPUT_HOST_INPUTBOX = "host to which the site should respond (example.com, localhost, 127.0.0.1:8008)"
+  TEXT_INPUT_HOST_SILENTERROR = "the host must be specified for a successful installation"
+  TEXT_INPUT_USER_TITLE = "USER"
+  TEXT_INPUT_USER_INPUTBOX = "The user on whose behalf the service will run and who will own all the site files"
+  TEXT_INPUT_DIRECTORY_TITLE = "DIRECTORY"
+  TEXT_INPUT_DIRECTORY_INPUTBOX = "Full path to installation folder"
+  TEXT_INPUT_PGUSERPASS_TITLE = "USER"
+  TEXT_FUNC_INPUT_HOST_SILENTERROR = "PostgreSQL user $ 1 already exists, you need a password, pass it with a key"
+  TEXT_INPUT_PORT_TITLE = "Kestrel port"
+  TEXT_INPUT_PORT_INPUTBOX = "The internal port used by the Kestrel server before proxying through Nginx, you should only set it if the standard port 5050 is busy or you do not want to use this port for some reason"
+  TEXT_FUNC_SYSTEMDCONFIG () {
+    # setup the systemd daemon sunengine.site.service
+    echo "setting up systemd daemon $ 1.service"
+  }
+  TEXT_FUNC_USERADMINCREATED () {
+    # Administrator user created
+    # username: $ ADMINUSERNAME
+    # password: $ ADMINPASSWORD
+    # email: $ ADMINEMAIL "
+    echo -e "Created user admin \ nusername: $ 1 \ npassword: $ 2 \ nemail: $ 3"
+  }
+  TEXT_FUNC_USERCREATED () {
+    # User "sunenginesite" has been created
+    echo "User \" $ 1 \ "created"
+  }
+  TEXT_FUNC_ADDREPO () {
+    # To install PostgreSQL you need repositories from apt.postgresql.org \ n \ nAdd repositories?
+    # To install dotnet you need repositories from packages.microsoft.com \ n \ nAdd repositories?
+    echo "To install $ 1 you need repositories from $ 2 \ n \ nAdd repositories?"
+  }
+  TEXT_FUNC_ADDREPO () {
+    # Add packages.microsoft.com repositories to /etc/apt/sources.list.d/microsoft-prod.list
+    # Add repositories apt.postgresql.org to /etc/apt/sources.list.d/pgdg.list
+    echo "Adding repositories $ 1 to $ 2"
+  }
+  TEXT_FUNC_NOTSUPPORTED () {
+    # PostgreSQL does not support Debian Buster and therefore SunEngin cannot be started
+    # dotnet does not support Debian Buster, which means SunEngin will not run
+    echo "$ 1 does not support $ 2 $ 3 so SunEngin will not run"
+  }
+  TEXT_FUNC_PGUSERCREATED () {
+    # Created PostgreSQL user "sunengine.site" with password "qwerty"
+    echo "Created PostgreSQL user \" $ 1 \ "with password \" $ 2 \ ""
+  }
+  TEXT_FUNC_PGDBCREATED () {
+    # DB "sunengine.site" is created
+    echo "DB \" $ 1 \ "created"
+  }
+  TEXT_FUNC_INPUT_PGUSERPASS_INPUTBOX () {
+    echo "PostgreSQL user $ 1 already exists, please enter password for this user"
+  }
 fi
 
 # версия dotnet требуемая для работы
