@@ -11,6 +11,9 @@ const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').defa
 const minimist = require('minimist');
 
 
+
+
+
 module.exports = function (ctx) {
     return {
         // app boot file (/src/boot)
@@ -105,11 +108,12 @@ module.exports = function (ctx) {
 
                     console.log("Using config: " + configPath);
 
+
                     cfg.plugins.push(
                         new CopyWebpackPlugin(
                             {
                                 patterns: [
-                                    {from: "site\-public/**/*"},
+                                    {from: "**/*", context: path.resolve(__dirname, "site-public"),  force: true, },
                                     {from: configPath, to: "config.js"},
                                     {from: "src/custom.css", to: "custom.css"},
                                     {from: "src/custom.js", to: "custom.js"}
@@ -120,7 +124,7 @@ module.exports = function (ctx) {
                     cfg.plugins.push(
                         new CopyWebpackPlugin(
                             {
-                                patterns: [ {from: "site\-public/**/*"} ]
+                                patterns: [ {from: "**/*",context: path.resolve(__dirname, "site-public"),  force: true, } ]
                             })
                     );
                 }
