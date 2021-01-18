@@ -71,8 +71,8 @@ namespace SunEngine.Core.Cache.Services
 				try
 				{
 					serverSectionsTmp.Add(section.Name,
-						new SectionServerCached(section, sectionTypes.Sections[section.Name].ServerSectionType, rolesCache));
-					clientSectionsTmp.Add(new SectionClientCached(section, sectionTypes.Sections[section.Name].ClientSectionType, rolesCache));
+						new SectionServerCached(section, sectionTypes.Sections[section.Type].ServerSectionType, rolesCache));
+					clientSectionsTmp.Add(new SectionClientCached(section, sectionTypes.Sections[section.Type].ClientSectionType, rolesCache));
 				}
 				catch
 				{
