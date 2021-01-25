@@ -18,7 +18,7 @@ namespace SunEngine.Core.Configuration
             ["Global:ReadOnlyMode"] = new BooleanItem(),
             ["Global:IconsSet"] = new EnumItem(IconsSet.LineAwesome),
             ["Global:OpenExternalLinksAtNewTab"] = new BooleanItem(true),
-
+            ["Global:layoutOptions"] = new StringItem("lHh LpR lff"),
 
             ["Parts:HeaderBackground"] = new HtmlItem(),
             ["Parts:MenuLogo"] = new HtmlItem(),

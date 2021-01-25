@@ -128,7 +128,7 @@ import canDeleteMaterial from "./methods/canDeleteMaterial";
 import canRestoreMaterial from "./methods/canRestoreMaterial";
 import prepareLocalLinks from "src/utils/prepareLocalLinks";
 import prepareParagraphs from "src/utils/prepareParagraphs";
-import execScripts from "./methods/execScripts";
+import execScripts from "src/utils/execScripts";
 
 import { copyToClipboard, date } from "quasar";
 import { scroll } from "quasar";

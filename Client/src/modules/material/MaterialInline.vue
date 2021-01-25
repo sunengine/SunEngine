@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import execScripts from "./methods/execScripts";
+import execScripts from "src/utils/execScripts";
 import prepareLocalLinks from "src/utils/prepareLocalLinks";
 import prepareParagraphs from "src/utils/prepareParagraphs";
 

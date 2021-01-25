@@ -5,6 +5,7 @@ export canWriteCats from 'src/utils/canWriteCats.js';
 export * from 'src/utils/categoriesTree.js';
 export * from 'src/utils/configUtils.js';
 export * from 'src/utils/consoleStyles.js';
+export execScripts from 'src/utils/execScripts.js';
 export getBreadcrumbs from 'src/utils/getBreadcrumbs.js';
 export * from 'src/utils/getBreadcrumbs.js';
 export htmlTextSizeOrHasImage from 'src/utils/htmlTextSizeOrHasImage.js';
