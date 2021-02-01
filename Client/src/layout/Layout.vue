@@ -214,8 +214,8 @@ export default {
 			window.getComputedStyle(toolbarBreadcrumbs).height
 		);
 		prepareLocalLinks.call(this, this.$el, "layout__title-block");
-		if(layoutMounted) // hook for customJsScript
-            layoutMounted(this);
+		if(window.layoutMounted) // hook for customJsScript
+            window.layoutMounted(this);
 	},
 	beforeCreate() {
 		this.$options.components.Breadcrumbs = require("comp").Breadcrumbs;
