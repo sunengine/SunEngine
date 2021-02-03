@@ -164,7 +164,7 @@ catch {
 # copy dirs and files
 Write-FormattedOutput -Object "Copying Client to wwwroot directory" -ForegroundColor Green
 New-Item -Path (Join-Path -Path $build_path -ChildPath "wwwroot") -ItemType Directory | Out-Null
-Copy-Item -Path (Join-Path -Path $client_path -ChildPath "dist\spa\") -Destination (Join-Path -Path $build_path -ChildPath "wwwroot") -Recurse
+Copy-Item -Path (Join-Path -Path $client_path -ChildPath "dist\spa\*.*") -Destination (Join-Path -Path $build_path -ChildPath "wwwroot") -Recurse
 
 Write-FormattedOutput -Object "Clearing dist directory" -ForegroundColor Green
 Remove-Item -Path (Join-Path -Path $client_path -ChildPath "dist") -Recurse | Out-Null
@@ -183,4 +183,5 @@ Copy-Item -Path (Join-Path -Path $project_root -ChildPath "SunEngine.md") -Desti
 Set-Location -Path (Join-Path -Path $project_root -ChildPath "Scripts")
 Write-FormattedOutput -Object "All Done!" -ForegroundColor Blue
 [System.Media.SystemSounds]::Beep.Play()
-[System.Windows.MessageBox]::Show("All Done!")
+Add-Type -AssemblyName System.Windows.Forms
+[System.Windows.Forms.MessageBox]::Show("All Done!")
