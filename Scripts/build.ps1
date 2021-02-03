@@ -164,14 +164,14 @@ catch {
 # copy dirs and files
 Write-FormattedOutput -Object "Copying Client to wwwroot directory" -ForegroundColor Green
 New-Item -Path (Join-Path -Path $build_path -ChildPath "wwwroot") -ItemType Directory | Out-Null
-Copy-Item -Path (Join-Path -Path $client_path -ChildPath "dist\spa\*.*") -Destination (Join-Path -Path $build_path -ChildPath "wwwroot") -Recurse
+Copy-Item -Path (Join-Path -Path $client_path -ChildPath "dist\spa\*") -Destination (Join-Path -Path $build_path -ChildPath "wwwroot") -Recurse
 
 Write-FormattedOutput -Object "Clearing dist directory" -ForegroundColor Green
 Remove-Item -Path (Join-Path -Path $client_path -ChildPath "dist") -Recurse | Out-Null
 
 Write-FormattedOutput -Object "Copying Config to build directory" -ForegroundColor Green
-New-Item -Path (Join-Path -Path $build_path -ChildPath "config") -ItemType Directory | Out-Null
-Copy-Item -Path $config_path -Destination (Join-Path -Path $build_path -ChildPath "config\") -Recurse
+New-Item -Path (Join-Path -Path $build_path -ChildPath "Сonfig") -ItemType Directory | Out-Null
+Copy-Item -Path $config_path -Destination (Join-Path -Path $build_path -ChildPath "Сonfig\") -Recurse
 
 Write-FormattedOutput -Object "Copying Data to build directory" -ForegroundColor Green
 New-Item -Path (Join-Path -Path $build_path -ChildPath "Resources") -ItemType Directory | Out-Null
