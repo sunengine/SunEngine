@@ -8,7 +8,14 @@
 			params: {}
 		};
 
+        if(!category.subCategories)
+            return;
+
 		for (const cat0 of category.subCategories) {
+
+		    if(!cat0.subCategories)
+                continue;
+
 			for (const cat1 of cat0.subCategories) {
 				cat1.route = {
 					name: `cat-${category.name}-cat`,
