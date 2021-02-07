@@ -1,5 +1,5 @@
 <template>
-	<q-layout class="layout" view="lHh LpR lff">
+	<q-layout class="layout" :view="layoutOptions">
 		<header>
 			<q-header class="layout__header relative-position">
 				<div
@@ -175,6 +175,9 @@ export default {
 		siteTitle() {
 			return config.Global.SiteTitle;
 		},
+        layoutOptions() {
+		    return config.Global.layoutOptions;
+        },
 		pageTitle() {
 			return this.$store.state.currentPage?.title;
 		},
@@ -211,6 +214,8 @@ export default {
 			window.getComputedStyle(toolbarBreadcrumbs).height
 		);
 		prepareLocalLinks.call(this, this.$el, "layout__title-block");
+		if(window.layoutMounted) // hook for customJsScript
+            window.layoutMounted(this);
 	},
 	beforeCreate() {
 		this.$options.components.Breadcrumbs = require("comp").Breadcrumbs;

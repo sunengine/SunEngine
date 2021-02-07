@@ -5,11 +5,11 @@
 				v-if="menuItem.subMenuItems"
 				v-for="(subItem, index) of menuItem.subMenuItems"
 			>
-				<router-link :class="classes" v-if="subItem.to" :to="subItem.to">{{
+				<router-link :class="classes + ' ' + subItem.cssClass" v-if="subItem.to" :to="subItem.to">{{
 					subItem.title
 				}}</router-link>
 				<a
-					:class="classes"
+					:class="classes  + ' ' + subItem.cssClass"
 					:href="subItem.externalUrl"
 					target="_blank"
 					v-else-if="subItem.externalUrl"
@@ -40,7 +40,8 @@ export default {
 	computed: {
 		classes() {
 			let rez = "links-menu__link";
-			if (this.linkClasses) return (rez += " " + this.linkClasses);
+			if (this.linkClasses)
+			    return rez + " " + this.linkClasses;
 			return rez;
 		}
 	},

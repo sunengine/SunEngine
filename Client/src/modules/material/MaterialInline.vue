@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import execScripts from "./methods/execScripts";
+import execScripts from "src/utils/execScripts";
 import prepareLocalLinks from "src/utils/prepareLocalLinks";
 import prepareParagraphs from "src/utils/prepareParagraphs";
 
@@ -30,6 +30,11 @@ export default {
             })
                 .then(response => {
                     this.material = response.data;
+                    if (this.material.settingsJson) {
+                        try {
+                            this.material.settingsJson = JSON.parse(this.material.settingsJson);
+                        } catch (e) {}
+                    }
                     this.$emit("loaded");
                     this.$nextTick(_ => {
                         prepareParagraphs.call(this, this.$el, "material-inline__text");

@@ -290,6 +290,7 @@ export default {
 		title: "Information",
 		support: "Donate SunEngine project",
         supportSber: "Sber bank",
+        andPaidCards: "or Visa card",
         supportSberAuthorName: "recipientor: Dmitrij Polyanin",
         supportInfo: "If you love SunEngine support it:",
 		siteName: "Site name",
@@ -369,6 +370,7 @@ export default {
 			"Global:ReadOnlyMode": "Read only mode for all site",
 			"Global:OpenExternalLinksAtNewTab": "Open external links in new window",
             "Global:IndexMaterial": "Index page",
+            "Global:layoutOptions": "Layout options https://quasar.dev/layout/layout#QLayout-API",
             "Parts:HeaderBackground": "Header line background",
 			"Parts:MenuLogo": "Menu logo",
 			"Dev:ShowExceptions": "Show exceptions",
@@ -468,6 +470,7 @@ export default {
 			"Global:RegisterConfirmText":
 				"This text shows on user register, and needed user confirm to allow registration. You can use links to confirm text page.",
             "Global:IndexMaterial": "Name of main page material",
+            "Global:layoutOptions": "Options how to place layout panels, see link how it can be.",
             "Images:MaxImageHeight": "Check when upload to server.",
 			"Images:MaxImageWidth": "Check when upload to server.",
 			"Admin:AllowCustomJavaScript":

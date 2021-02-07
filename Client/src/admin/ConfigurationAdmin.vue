@@ -15,7 +15,7 @@
 		</PageHeader>
 
 		<div v-if="configurationGroups">
-			<q-markup-table wrap-cells flat bordered>
+			<q-markup-table  wrap-cells flat bordered>
 				<tbody v-if="configurationGroupsFiltered">
 					<template v-for="group of configurationGroupsFiltered">
 						<tr class="configuration-admin__group-header-tr">
@@ -35,7 +35,7 @@
 						<tr v-for="item of group.items">
 							<td class="configuration-admin__name-column">
 								<div class="flex no-wrap align-center">
-									<div>{{ item.localTitle }}</div>
+									<div v-html="item.localTitle"></div>
 									<q-space />
 									<div v-if="item.localSubTitle">
 										<q-icon
@@ -184,9 +184,11 @@ export default {
 		},
 		getItemTitle(item) {
 			const key = this.$options.name + ".items." + item.name;
-			if (this.$te(key) && this.$t(key)) return this.$t(key);
+			if (this.$te(key) && this.$t(key))
+                return this.makeLink(this.$t(key));
 			else return item.name;
 		},
+
 		getItemSubTitle(item) {
 			const key = this.$options.name + ".tooltips." + item.name;
 			if (this.$te(key) && this.$t(key)) return this.$t(key);
@@ -200,10 +202,7 @@ export default {
 		getGroupSubTitle(group) {
 			const key = this.$options.name + ".groupSubTitles." + group.name;
 			if (this.$te(key) && this.$t(key))
-				return this.$t(key).replace(
-					/((http:\/\/|https:\/\/)[^\s]+?)(\s|$)/gi,
-					'<a href="$1" target="_blank">$1</a>'
-				);
+				return this.makeLink(this.$t(key));
 			else return null;
 		},
 		resetConfiguration() {
@@ -299,6 +298,12 @@ export default {
              this.doFilter();
 			});
 		},
+        makeLink(text) {
+            const linkWord = this.$t("Global.link");
+            return text.replace(
+                    /((http:\/\/|https:\/\/)[^\s]+?)(\s|$)/gi,
+                    `<a href="$1" target="_blank">${linkWord}</a>`);
+        },
 		uploadConfiguration() {
             const data = new FormData();
 
@@ -345,6 +350,8 @@ export default {
 	text-align: center;
 	background-color: $grey-3 !important;
 }
+
+
 
 .configuration-admin__group-title {
 	font-size: 1.15em;

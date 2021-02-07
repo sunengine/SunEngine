@@ -11,6 +11,9 @@ export default {
 			params: {}
 		};
 
+        if(!category.subCategories)
+            return;
+
 		for (const cat of category.subCategories) {
 			cat.route = {
 				name: `cat-${category.name}-cat`,

@@ -1,24 +1,24 @@
 {
   "Server": {
-    "FileServer": true,
+    "FileServer": false,
     "UpdateConfigJsOnConfigChanges": true
   },
   "UrlPaths": {
     "Site": "https://<domain>",
     "Api": "https://<domain>/api",
-    "UploadImages": "https://<domain>/UploadImages",
-    "Skins": "https://<domain>/statics/Skins",
-    "PartialSkins": "https://<domain>/statics/PartialSkins",
+    "UploadImages": "https://<domain>/upload-images",
+    "Skins": "https://<domain>/skins",
+    "PartialSkins": "https://<domain>/partial-skins",
     "CustomCss": "https://<domain>/custom.css",
     "CustomJavaScript": "https://<domain>/custom.js"
   },
   "Dirs": {
     "ApplicationRoot": "auto",
     "WwwRoot": "%app%/wwwroot",
-    "UploadImages": "%wwwroot%/UploadImages",
+    "UploadImages": "%wwwroot%/upload-images",
     "MailTemplates": "%config%/MailTemplates",
-    "Skins": "%wwwroot%/statics/Skins",
-    "PartialSkins": "%wwwroot%/statics/PartialSkins",
+    "Skins": "%wwwroot%/skins",
+    "PartialSkins": "%wwwroot%/partial-skins",
     "Resources": "%app%/Resources"
   },
   "Kestrel": {

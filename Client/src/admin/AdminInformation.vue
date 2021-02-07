@@ -16,7 +16,7 @@
                     <li>
                         <a href="https://yasobe.ru/na/SunEngine" target="_blank" class="link"
                         >Yandex.Money</a
-                        >
+                        > {{ $tl("andPaidCards") }}
                     </li>
 					<li>
 						<a
@@ -33,9 +33,6 @@
 							PayPal
 						</a>
 					</li>
-                    <li>
-                        {{ $tl("supportSber") }}: &nbsp; 4817 7603 3516 7056  &nbsp;  &nbsp; ({{ $tl("supportSberAuthorName") }})
-                    </li>
 				</ul>
 			</div>
 		</q-expansion-item>

@@ -1,6 +1,7 @@
 export default {
 	Global: {
-		dialog: {
+        link : "ссылка",
+        dialog: {
 			cancel: "Отмена",
 			yes: "Да",
 			ok: "Да"
