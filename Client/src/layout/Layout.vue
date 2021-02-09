@@ -134,11 +134,13 @@
 					linkClasses="layout__footer-link"
 					:menuItem="footerMenuItem"
 				>
-					<q-icon
-						:name="$iconsSet.Layout.heart"
-						class="layout__footer-separator-icon"
-						size="12px"
-					/>
+                        <q-icon v-if="footerSeparatorClassName"
+                                :name="footerSeparatorClassName"
+                                class="layout__footer-separator-icon"
+                                size="12px"
+                        />
+                        <span v-else class="layout__footer-separator-icon">
+                        </span>
 				</LinksMenu>
 
 				<!-- Do not remove this component from the layout. -->
@@ -172,6 +174,11 @@ export default {
 		}
 	},
 	computed: {
+        footerSeparatorClassName() {
+            if(config.Global.FooterSeparatorClassName === "-")
+                return null;
+            return config.Global.FooterSeparatorClassName ??  this.$iconsSet.Layout.heart;
+        },
 		siteTitle() {
 			return config.Global.SiteTitle;
 		},

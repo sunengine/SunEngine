@@ -47,7 +47,7 @@ export default {
 	},
 	methods: {
 		removeEdgeDelimeters() {
-			const spans = this.$el.childNodes;
+			const spans = this.$el.getElementsByClassName("links-menu")[0].childNodes;
 
 			spans.forEach(span => {
 				if (span.classList.contains("hidden")) span.classList.remove("hidden");
@@ -64,7 +64,8 @@ export default {
 				if (!spans[i + 1] || !spans[i - 1]) return;
 
 				if (
-					currentSpanL > spans[i + 1].getBoundingClientRect().left ||
+                    spans[i + 1].classList.contains("newline") ||
+                    currentSpanL > spans[i + 1].getBoundingClientRect().left ||
 					currentSpanR < spans[i - 1].getBoundingClientRect().right
 				) {
 					span.classList.add("hidden");

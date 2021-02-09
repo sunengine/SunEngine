@@ -10,7 +10,7 @@
         <PackageReference Include="linq2db.Identity" Version="3.2.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
         <PackageReference Include="NJsonSchema" Version="10.3.3" />
-        <PackageReference Include="Npgsql" Version="5.0.1.1" />
+        <PackageReference Include="Npgsql" Version="5.0.3" />
     </ItemGroup>
 
     <ItemGroup>

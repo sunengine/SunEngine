@@ -11,7 +11,6 @@ namespace SunEngine.Core.Configuration
             ["Global:SiteName"] = new StringItem("SunEngine", true),
             ["Global:Locale"] = new EnumItem(Locale.Russian, true),
             ["Global:IndexMaterial"] = new StringItem("index"),
-            ["Global:SiteTitle"] = new HtmlItem("SunEngine Demo"),
             ["Global:PageTitleTemplate"] = new StringItem("{pageTitle} - {siteName}"),
             ["Global:HomePageRedirect"] = new StringItem(),
             ["Global:DisallowRegistration"] = new BooleanItem(),
@@ -20,6 +19,8 @@ namespace SunEngine.Core.Configuration
             ["Global:OpenExternalLinksAtNewTab"] = new BooleanItem(true),
             ["Global:layoutOptions"] = new StringItem("lHh LpR lff"),
 
+            ["Parts:FooterSeparatorClassName"] = new StringItem(),
+            ["Parts:SiteTitle"] = new HtmlItem("SunEngine Demo"),
             ["Parts:HeaderBackground"] = new HtmlItem(),
             ["Parts:MenuLogo"] = new HtmlItem(),
 
@@ -64,7 +65,7 @@ namespace SunEngine.Core.Configuration
                     "a,b,strong,i,em,blockquote,ol,li,ul,ol,p,div,br,video,audio,source,span,img,code,pre,font,h3,h4,h5,h6"),
             ["Sanitizer:AllowedAttributes"] =
                 new TokensItem(
-                    "style,src,href,controls,autoplay,loop,alt,width,height,target,frameborder,allowfullscreen,download,controlsList,size"),
+                    "style,src,href,controls,autoplay,loop,alt,width,height,target,frameborder,allowfullscreen,download,controlsList,size,carousel"),
             ["Sanitizer:AllowedClasses"] =
                 new TokensItem(
                     "float,margin,indent,padding,color,text-align,text-decoration,font-size,width,height,max-width"),

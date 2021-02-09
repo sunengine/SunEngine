@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-        <Version>2.12.4</Version>
+        <Version>2.13.0</Version>
         <LangVersion>default</LangVersion>
     </PropertyGroup>
 
@@ -19,7 +19,7 @@
         <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
         <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.8.0" />
         <PackageReference Include="NJsonSchema" Version="10.3.3" />
-        <PackageReference Include="Npgsql" Version="5.0.1.1" />
+        <PackageReference Include="Npgsql" Version="5.0.3" />
         <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta0013" />
         <PackageReference Include="SixLabors.ImageSharp" Version="1.0.2" />
         <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0010" />
