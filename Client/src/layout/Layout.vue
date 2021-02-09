@@ -180,7 +180,7 @@ export default {
             return config.Global.FooterSeparatorClassName ??  this.$iconsSet.Layout.heart;
         },
 		siteTitle() {
-			return config.Global.SiteTitle;
+			return config.Parts.SiteTitle;
 		},
         layoutOptions() {
 		    return config.Global.layoutOptions;
