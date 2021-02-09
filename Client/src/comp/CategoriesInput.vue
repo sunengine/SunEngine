@@ -2,6 +2,7 @@
 	<q-field
 		class="categories-input cursor-pointer"
 		:label="label"
+        :error="!valid && start"
 		:stack-label="!!category || stackLabel"
 	>
 		<template v-slot:control>
@@ -40,7 +41,7 @@
 			<q-icon :name="$q.iconSet.expansionItem.denseIcon"></q-icon>
 		</template>
 		<template v-slot:error>
-			{{ $tl("validation.category.required") }}
+			{{ $tl("selectCategory") }}
 		</template>
 		<q-menu fit auto-close>
 			<q-tree
@@ -74,6 +75,11 @@
 export default {
 	name: "CategoriesInput",
 	props: {
+	    allowNull: {
+	        type: Boolean,
+            required: false,
+            default: true
+        },
 		showIcon: {
 			type: Boolean,
 			required: false,
@@ -118,10 +124,10 @@ export default {
 	},
 	data() {
 		if (this.multiple) {
-			if (this.value) return { names: this.value.split(","), name: null };
+			if (this.value) return { names: this.value.split(","), name: null, start: false };
 			else return { names: [], name: null };
 		} else {
-			return { names: null, name: this.value };
+			return { names: null, name: this.value, start: false };
 		}
 	},
 	watch: {
@@ -154,9 +160,22 @@ export default {
 		},
 		namesArrayLower() {
             return this.categoriesNames?.split(",").map(x => x.trim().toLowerCase()) ?? [];
-		}
+		},
+        valid() {
+		    if(this.allowNull)
+		        return true;
+
+            if(this.multiple)
+                return this.names.length > 1;
+
+            return !!this.name;
+        }
 	},
 	methods: {
+	    validate() {
+            this.start = true;
+            return this.valid;
+        },
 		showCats(cat, filter) {
 		    const showCats = this.namesArrayLower;
 			let current = cat;

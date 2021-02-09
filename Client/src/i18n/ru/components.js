@@ -18,7 +18,7 @@ export default {
 		required: "@:Captcha.enterToken"
 	},
 	CategoriesInput: {
-		selectCategory: "Выберите категорию"	
+		selectCategory: "Выберите категорию",
 	},
 	LoaderSent: {
 		sending: "Отправка..."
