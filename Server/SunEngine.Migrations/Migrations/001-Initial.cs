@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using FluentMigrator;
 
@@ -235,10 +235,6 @@ namespace SunEngine.Migrations.Migrations
 			Create.Table("ConfigurationItems".s())
 				.WithColumn("Name".s()).AsMaxString().PrimaryKey().NotNullable()
 				.WithColumn("Value".s()).AsMaxString().NotNullable();
-
-
-			IfDatabase("MySql5", "MySql", "MariaDB")
-				.Execute.Sql("ALTER TABLE `Materials` ADD FULLTEXT INDEX `TFS` (`Title`, `Text`);");
 		}
 
 
