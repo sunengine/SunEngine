@@ -8,6 +8,23 @@
 					:subTitle="material.subTitle"
 				/>
 
+                <q-carousel    transition-prev="jump-right"
+                               transition-next="jump-left"
+                               swipeable
+                               animated
+                               control-color="carousel"
+                               navigation
+                               infinite
+                               padding
+                               arrows
+                               v-model="carouselCurrent" v-if="carouselImages" >
+                    <q-carousel-slide :name="img" v-for="img in carouselImages" :key="img" class="column no-wrap flex-center">
+                       <img :src="img" class="material__carousel--img" />
+                    </q-carousel-slide>
+                </q-carousel>
+
+
+
 				<div class="material__text q-mb-lg" v-html="material.text"></div>
 
 				<footer>
@@ -153,7 +170,9 @@ export default {
 			material: null,
 			comments: null,
 			page: null,
-			headersPrepared: false
+			headersPrepared: false,
+            carouselImages: null,
+            carouselCurrent: null
 		};
 	},
 	watch: {
@@ -256,6 +275,7 @@ export default {
 		}
 	},
 	methods: {
+
 		loadDataMaterial() {
 			return this.$request(this.$Api.Materials.Get, {
 				idOrName: this.idOrName
@@ -268,6 +288,7 @@ export default {
 				}
 				this.title = this.material.title;
 				this.$nextTick(() => {
+                    this.preapairCarousel();
                     prepareLocalLinks.call(this, this.$el, "material__text");
                     prepareParagraphs.call(this, this.$el, "material__text");
 					if (this.material.settingsJson?.allowInnerJavaScript)
@@ -275,6 +296,15 @@ export default {
 				});
 			});
 		},
+        preapairCarousel() {
+            const imgs = Array.from(this.$el.getElementsByTagName("img"));
+            const carImgs = imgs.filter(x=>x.hasAttribute("carousel"));
+            if(!carImgs || carImgs.length === 0)
+                return;
+            this.carouselImages = carImgs.map(x=>x.getAttribute("src"));
+            this.carouselCurrent = this.carouselImages[0];
+            carImgs.forEach(x=>x.remove());
+            },
 		async loadDataComments() {
 			await this.$request(this.$Api.Comments.GetMaterialComments, {
 				materialId: this.material.id
@@ -354,5 +384,9 @@ export default {
 
 .material__tags {
 	text-align: center;
+}
+
+.material__carousel--img {
+    height: 100%;
 }
 </style>

@@ -361,7 +361,6 @@ export default {
 		items: {
 			"Global:Locale": "Interface language",
 			"Global:SiteName": "Site name",
-			"Global:SiteTitle": "Site title",
 			"Global:SiteSubTitle": "Site subtitle",
 			"Global:IconsSet": "Icon set",
 			"Global:PageTitleTemplate": "Site title template in browser",
@@ -371,6 +370,8 @@ export default {
 			"Global:OpenExternalLinksAtNewTab": "Open external links in new window",
             "Global:IndexMaterial": "Index page",
             "Global:layoutOptions": "Layout options https://quasar.dev/layout/layout#QLayout-API",
+            "Parts:SiteTitle": "Site title",
+            "Parts:FooterSeparatorClassName": "Footer separator css class name",
             "Parts:HeaderBackground": "Header line background",
 			"Parts:MenuLogo": "Menu logo",
 			"Dev:ShowExceptions": "Show exceptions",

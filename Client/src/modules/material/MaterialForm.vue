@@ -78,7 +78,9 @@
 			:categoriesNames="categoriesNames"
 			v-model="material.categoryName"
 			showIcon
+            :allowNull="false"
 			showIcons
+            ref="categoryName"
 			:label="$tl('selectCategory')"
 		/>
 
@@ -226,6 +228,7 @@ export default {
 			this.$refs.subTitle?.validate();
 			this.$refs.htmlEditor.validate();
 			this.$refs.settingsJson?.validate();
+            this.$refs.categoryName?.validate();
 		}
 	},
 	beforeCreate() {

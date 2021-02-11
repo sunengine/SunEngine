@@ -394,7 +394,6 @@ export default {
 			"Global:SiteName": "Имя сайта",
 			"Global:PageTitleTemplate":
 				"Шаблон заголовка (title) страниц сайта в браузере",
-			"Global:SiteTitle": "Заголовок сайта",
 			"Global:SiteSubTitle": "Подзаголовок сайта",
 			"Global:HomePageRedirect": "Перенаправление с главной страницы",
 			"Global:DisallowRegistration": "Запретить регистрацию новых пользователей",
@@ -403,6 +402,8 @@ export default {
 			"Global:IconsSet": "Иконки",
             "Global:IndexMaterial": "Главная страница",
             "Global:layoutOptions": "Настройки шаблона https://quasar.dev/layout/layout#QLayout-API",
+            "Parts:SiteTitle": "Заголовок сайта",
+            "Parts:FooterSeparatorClassName": "Имя класса css иконки разделителя в подвале",
 			"Parts:HeaderBackground": "Фон шапки",
 			"Parts:MenuLogo" :"Логотип в меню",
 			"Dev:ShowExceptions": "Показывать исключения в логах",
