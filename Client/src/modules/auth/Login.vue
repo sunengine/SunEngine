@@ -3,6 +3,7 @@
 		<div class="center-form">
 			<q-form @submit="login">
 				<q-input
+                    class="login__q-input"
 					ref="nameOrEmail"
 					v-model="nameOrEmail"
 					:label="$tl('nameOrEmail')"
@@ -27,7 +28,7 @@
 					<template v-slot:append>
 						<q-icon
 							:name="showPassword ? $iconsSet.Login.eye : $iconsSet.Login.eyeSlash"
-							class="cursor-pointer"
+							class="cursor-pointer login__icon-eye"
 							@click="showPassword = !showPassword"
 						/>
 					</template>
@@ -35,7 +36,7 @@
 
 				<q-btn
 					type="submit"
-					class="send-btn full-width"
+					class="send-btn full-width login__q-input"
 					:label="$tl('enterBtn')"
 					:loading="submitting"
 				>
@@ -110,4 +111,16 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.login__q-input, .login__q-btn {
+    margin: 20px 0;
+}
+
+.login__q-btn {
+    margin-top: 20px;
+}
+
+.login__icon-eye {
+    padding-right: 5px;
+}
+</style>

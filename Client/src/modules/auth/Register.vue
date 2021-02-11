@@ -2,6 +2,7 @@
 	<SunPage class="register flex flex-center page-padding">
 		<div v-if="!done" class="center-form q-gutter-y-xs">
 			<q-input
+                class="register__q-input"
 				ref="userName"
 				v-model="userName"
 				:label="$tl('userName')"
@@ -14,6 +15,7 @@
 			</q-input>
 
 			<q-input
+                class="register__q-input"
 				ref="email"
 				v-model="email"
 				type="email"
@@ -26,6 +28,7 @@
 			</q-input>
 
 			<q-input
+                class="register__q-input"
 				ref="password"
 				v-model="password"
 				:type="showPassword ? 'text' : 'password'"
@@ -40,13 +43,14 @@
 						:name="
 							showPassword ? $iconsSet.Register.eye : $iconsSet.Register.eyeSlash
 						"
-						class="cursor-pointer"
+						class="cursor-pointer register__icon-eye"
 						@click="showPassword = !showPassword"
 					/>
 				</template>
 			</q-input>
 
 			<q-input
+                class="register__q-input"
 				ref="password2"
 				v-model="password2"
 				:type="showPassword2 ? 'text' : 'password'"
@@ -61,7 +65,7 @@
 						:name="
 							showPassword2 ? $iconsSet.Register.eye : $iconsSet.Register.eyeSlash
 						"
-						class="cursor-pointer"
+						class="cursor-pointer register__icon-eye"
 						@click="showPassword2 = !showPassword2"
 					/>
 				</template>
@@ -73,12 +77,14 @@
 			</div>
 
 			<Captcha
+                class="register__q-input"
 				ref="captcha"
 				v-model="captchaText"
 				@getToken="value => (captchaToken = value)"
 			/>
 
 			<q-btn
+            class="register__q-btn"
 				:disable="!!registerConfirmText && !acceptConfirm"
 				style="width:100%;"
 				:class="{
@@ -226,4 +232,16 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.register__icon-eye {
+    padding-right: 5px;
+}
+
+.register__q-input, .register__q-btn {
+    margin: 20px 0;
+}
+
+.register__q-btn {
+    margin-top: 20px;
+}
+</style>
