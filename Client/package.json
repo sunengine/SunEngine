@@ -6,7 +6,7 @@
     "author": "Dmitrij Polianin",
     "private": true,
     "scripts": {
-        "dev run": "quasar dev",
+        "dev": "quasar dev",
 		"build" : "quasar build"
     },
     "dependencies": {
