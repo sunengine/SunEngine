@@ -176,7 +176,9 @@ export default {
         footerSeparatorClassName() {
             if(config.Parts.FooterSeparatorClassName === "-")
                 return null;
-            return config.Parts.FooterSeparatorClassName ??  this.$iconsSet.Layout.heart;
+            if(!config.Parts.FooterSeparatorClassName)
+                return this.$iconsSet.Layout.heart;
+            return config.Parts.FooterSeparatorClassName;
         },
 		siteTitle() {
 			return config.Parts.SiteTitle;
