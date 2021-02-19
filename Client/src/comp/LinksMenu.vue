@@ -31,10 +31,6 @@ export default {
 		menuItem: {
 			type: Object,
 			required: true
-		},
-		linkClasses: {
-			type: String,
-			required: false
 		}
 	},
 	computed: {
