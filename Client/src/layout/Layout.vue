@@ -131,7 +131,6 @@
 				<LinksMenu
 					v-if="footerMenuItem"
 					class="layout__footer-line"
-					linkClasses="layout__footer-link"
 					:menuItem="footerMenuItem"
 				>
                         <q-icon v-if="footerSeparatorClassName"
@@ -175,9 +174,9 @@ export default {
 	},
 	computed: {
         footerSeparatorClassName() {
-            if(config.Global.FooterSeparatorClassName === "-")
+            if(config.Parts.FooterSeparatorClassName === "-")
                 return null;
-            return config.Global.FooterSeparatorClassName ??  this.$iconsSet.Layout.heart;
+            return config.Parts.FooterSeparatorClassName ??  this.$iconsSet.Layout.heart;
         },
 		siteTitle() {
 			return config.Parts.SiteTitle;

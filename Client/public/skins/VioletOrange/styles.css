@@ -80,9 +80,8 @@
   background-color: #ffd89e;
   padding: 18px 0;
   border-top: 1px solid #cbcbcb; }
-
-.skin-violet-orange .layout__footer-link {
-  color: #3498db; }
+  .skin-violet-orange .layout__footer .links-menu__link, .skin-violet-orange .layout__footer .links-menu__ext-link {
+    color: #3498db; }
 
 .skin-violet-orange .layout__footer-line {
   margin: 12px 0; }

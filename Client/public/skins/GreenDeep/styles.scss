@@ -182,10 +182,10 @@ $sun-engine-footer-link-color: orange;
 		background-color: $footer-background-color;
 		padding: 18px 0;
 		border-top: 1px solid $footer-border-color;
-	}
 
-	.layout__footer-link {
-		color: $footer-link-color;
+        .links-menu__link,.links-menu__ext-link {
+            color: $footer-link-color;
+        }
 	}
 
 	.layout__footer-line {

@@ -78,9 +78,8 @@
   background-color: #f5f5f5;
   padding: 18px 0;
   border-top: 1px solid #cbcbcb; }
-
-.skin-green-deep .layout__footer-link {
-  color: #3498db; }
+  .skin-green-deep .layout__footer .links-menu__link, .skin-green-deep .layout__footer .links-menu__ext-link {
+    color: #3498db; }
 
 .skin-green-deep .layout__footer-line {
   margin: 12px 0; }

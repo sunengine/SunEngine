@@ -5,17 +5,17 @@
 				v-if="menuItem.subMenuItems"
 				v-for="(subItem, index) of menuItem.subMenuItems"
 			>
-				<router-link :class="classes + ' ' + subItem.cssClass" v-if="subItem.to" :to="subItem.to">{{
+				<router-link :class="'links-menu__link ' + (subItem.cssClass ? subItem.cssClass : '')" v-if="subItem.to" :to="subItem.to">{{
 					subItem.title
 				}}</router-link>
 				<a
-					:class="classes  + ' ' + subItem.cssClass"
+                    :class="'links-menu__ext-link ' + (subItem.cssClass ? subItem.cssClass : '') "
 					:href="subItem.externalUrl"
 					target="_blank"
 					v-else-if="subItem.externalUrl"
 					>{{ subItem.title }}</a
 				>
-				<span :class="subItem.cssClass" v-else>{{ subItem.title }}</span>
+				<span :class="'links-menu__text ' + (subItem.cssClass ? subItem.cssClass : '')" v-else>{{ subItem.title }}</span>
 				<span class="links-menu__separator mi1">
 					<slot v-if="index !== menuItem.subMenuItems.length - 1"> </slot>
 				</span>
@@ -31,14 +31,6 @@ export default {
 		menuItem: {
 			type: Object,
 			required: true
-		}
-	},
-	computed: {
-		classes() {
-			let rez = "links-menu__link";
-			if (this.linkClasses)
-			    return rez + " " + this.linkClasses;
-			return rez;
 		}
 	},
 	methods: {
