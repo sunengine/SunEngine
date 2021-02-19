@@ -15,7 +15,7 @@
 					v-else-if="subItem.externalUrl"
 					>{{ subItem.title }}</a
 				>
-				<span v-else>{{ subItem.title }}</span>
+				<span :class="subItem.cssClass" v-else>{{ subItem.title }}</span>
 				<span class="links-menu__separator mi1">
 					<slot v-if="index !== menuItem.subMenuItems.length - 1"> </slot>
 				</span>

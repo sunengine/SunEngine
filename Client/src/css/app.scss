@@ -204,6 +204,11 @@ $paddings: (8px 16px 24px);
 	flex-grow: 1;
 }
 
+.new-line:before {
+    content: '\a';
+    white-space: pre;
+}
+
 // ——— Fixes ————————————————————————————————————
 
 .q-expansion-item--standard.q-expansion-item--expanded
