@@ -9,8 +9,6 @@ namespace SunEngine.Core.Configuration.AddServices
 		public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration,
 			out IDataBaseFactory dataBaseFactory)
 		{
-			LinqToDB.Common.Configuration.Linq.AllowMultipleQuery = true;
-
 			var dbFactory = DataBaseFactory.DefaultDataBaseFactory;
 
 			services.AddSingleton<IDataBaseFactory>(dbFactory);
