@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import prepareLocalLinks from "src/utils/prepareLocalLinks";
+
 export default {
 	name: "PageHeader",
 	props: {
@@ -58,7 +60,13 @@ export default {
 		showHeader() {
 			return this.header ?? this.category?.header;
 		}
-	}
+	},
+    methods: {
+	    mounted() {
+            if(this.showHeader)
+                prepareLocalLinks.call(this, this.$el, "page-category-header");
+        }
+    }
 };
 </script>
 
