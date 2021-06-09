@@ -19,6 +19,8 @@ const global = {
 	envelope: "la la-envelope",
 	wrench: "la la-wrench",
 	tooltip: "la la-question-circle",
+    fullscreen:  'las la-compress',
+    fullscreenExit:  'las la-arrows-alt'
 };
 
 export default {
@@ -247,7 +249,9 @@ export default {
 		delete: global.delete,
 		publishDate: global.clock,
 		restore: "la la-trash-restore",
-		visits: global.eye
+		visits: global.eye,
+        fullscreen: global.fullscreen,
+        fullscreenExit: global.fullscreenExit
 	},
 	MaterialForm: {
 		category: "la la-stream",

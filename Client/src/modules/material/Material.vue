@@ -8,16 +8,29 @@
 					:subTitle="material.subTitle"
 				/>
 
-                <q-carousel    transition-prev="jump-right"
+                <q-carousel class="material__carousel"   transition-prev="jump-right"
                                transition-next="jump-left"
                                swipeable
                                animated
                                control-color="carousel"
                                navigation
                                infinite
+                               :fullscreen.sync="isFullscreenCarousel"
                                padding
                                arrows
                                v-model="carouselCurrent" v-if="carouselImages" >
+                    <template v-slot:control>
+                        <q-carousel-control
+                            position="bottom-right"
+                            :offset="[12, 75]"
+                        >
+                            <q-btn
+                                push round dense color="white" text-color="primary"
+                                :icon="isFullscreenCarousel ? $iconsSet.Material.fullscreen : $iconsSet.Material.fullscreenExit"
+                                @click="isFullscreenCarousel = !isFullscreenCarousel"
+                            />
+                        </q-carousel-control>
+                    </template>
                     <q-carousel-slide :name="img" v-for="img in carouselImages" :key="img" class="column no-wrap flex-center">
                        <img :src="img" class="material__carousel--img" />
                     </q-carousel-slide>
@@ -172,7 +185,8 @@ export default {
 			page: null,
 			headersPrepared: false,
             carouselImages: null,
-            carouselCurrent: null
+            carouselCurrent: null,
+            isFullscreenCarousel: false
 		};
 	},
 	watch: {
@@ -388,5 +402,9 @@ export default {
 
 .material__carousel--img {
     height: 100%;
+}
+
+.material__carousel {
+    height: 500px;
 }
 </style>

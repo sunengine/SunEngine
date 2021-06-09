@@ -20,6 +20,8 @@ const global = {
 	envelope: "fas fa-envelope",
 	wrench: "fas fa-wrench",
 	tooltip: "far fa-question-circle",
+    fullscreen:  'fas la-compress',
+    fullscreenExit:  'fas la-arrows-alt'
 };
 
 export default {
@@ -247,7 +249,9 @@ export default {
 		delete: global.delete,
 		publishDate: global.clock,
 		restore: "fas fa-trash-restore",
-		visits: global.eye
+		visits: global.eye,
+        fullscreen: global.fullscreen,
+        fullscreenExit: global.fullscreenExit
 	},
 	MaterialForm: {
 		category: global.category,
