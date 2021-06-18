@@ -370,6 +370,7 @@ export default {
 			"Global:OpenExternalLinksAtNewTab": "Open external links in new window",
             "Global:IndexMaterial": "Index page",
             "Global:layoutOptions": "Layout options https://quasar.dev/layout/layout#QLayout-API",
+            "Global:SiteDescription": "Meta tag description",
             "Parts:SiteTitle": "Site title",
             "Parts:FooterSeparatorClassName": "Footer separator css class name",
             "Parts:HeaderBackground": "Header line background",

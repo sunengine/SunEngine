@@ -106,7 +106,8 @@ namespace SunEngine.Admin.Services
 			File.WriteAllText(configJsPath, configJs);
 
 			UpdateConfigAndCustomCssVersion();
-		}
+            UpdateDescription();
+        }
 
 		public void UpdateConfigAndCustomCssVersion()
 		{
@@ -152,5 +153,24 @@ namespace SunEngine.Admin.Services
 			text = reg.Replace(text, $"customjsver={ran.Next()}\"");
 			File.WriteAllText(configJsPath, text);
 		}
+        
+        public void UpdateDescription()
+        {
+            string description = configurationRoot.GetValue(typeof(String), "Global:SiteDescription").ToString();
+
+            description = new Regex("[<>\"\'/`]").Replace(description,"");
+
+            var indexHtmlPath = pathService.Combine(PathNames.WwwRootDirName, PathNames.IndexHtmlFileName);
+            if (!File.Exists(indexHtmlPath))
+            {
+                Console.WriteLine("Can not write to file " + indexHtmlPath);
+                return;
+            }
+
+            string text = File.ReadAllText(indexHtmlPath);
+            Regex reg = new Regex("<meta name=\"{0,1}description\"{0,1} content=\"(.*?)\"");
+            text = reg.Replace(text, $"<meta name=\"description\" content=\"{description}\"");
+            File.WriteAllText(indexHtmlPath, text);
+        }
 	}
 }

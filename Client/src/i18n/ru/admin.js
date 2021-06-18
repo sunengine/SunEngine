@@ -402,6 +402,7 @@ export default {
 			"Global:IconsSet": "Иконки",
             "Global:IndexMaterial": "Главная страница",
             "Global:layoutOptions": "Настройки шаблона https://quasar.dev/layout/layout#QLayout-API",
+            "Global:SiteDescription": "Описание сайта (meta description)",
             "Parts:SiteTitle": "Заголовок сайта",
             "Parts:FooterSeparatorClassName": "Имя класса css иконки разделителя в подвале",
 			"Parts:HeaderBackground": "Фон шапки",

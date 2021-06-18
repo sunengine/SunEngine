@@ -18,6 +18,7 @@ namespace SunEngine.Core.Configuration
             ["Global:IconsSet"] = new EnumItem(IconsSet.LineAwesome),
             ["Global:OpenExternalLinksAtNewTab"] = new BooleanItem(true),
             ["Global:layoutOptions"] = new StringItem("lHh LpR lff"),
+            ["Global:SiteDescription"] = new StringItem("SunEngine", true),
 
             ["Parts:FooterSeparatorClassName"] = new StringItem(),
             ["Parts:SiteTitle"] = new HtmlItem("SunEngine Demo"),

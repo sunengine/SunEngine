@@ -207,7 +207,7 @@ namespace SunEngine.Admin.Services
 
 			File.WriteAllText(customJavaScriptPath, javaScriptText);
 			
-			configurationAdminService.UpdateConfigAndCustomJavaScriptVersion();
+			configurationAdminService.UpdateConfigAndCustomCssVersion();
 		}
 
 		public List<SkinInfo> GetAllSkins(SkinType skinType)
