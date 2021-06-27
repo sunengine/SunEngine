@@ -9,8 +9,8 @@ Build on AspNet Core, VueJS, Quasar.</h3>
 # SunEngine
 
 <a href="#"><img src="https://img.shields.io/static/v1?label=Version&message=v2.13.4&color=green"></a>
-<a href="#"><img src="https://github.com/sunengine/SunEngine/workflows/.NET%20Core/badge.svg" ></a>
-<a href="#"><img src="https://github.com/sunengine/SunEngine/workflows/Quasar/badge.svg" ></a>
+<a href="#"><img src="https://github.com/sunengine/SunEngine/actions/workflows/dotnetcore.yml/badge.svg" ></a>
+<a href="#"><img src="https://github.com/sunengine/SunEngine/actions/workflows/quasar.yml/badge.svg" ></a>
 <br/>
 <a href="https://sunengine.github.io"><img src="https://img.shields.io/static/v1?label=Documentation&message=sunengine.github.io&color=informational"></a>
 <a href="https://sunengine.site"><img src="https://img.shields.io/static/v1?label=Site%20(Ru)&message=sunengine.site&color=yellow"></a>

@@ -10,8 +10,8 @@
 # SunEngine
 
 <a href="#"><img src="https://img.shields.io/static/v1?label=%D0%92%D0%B5%D1%80%D1%81%D0%B8%D1%8F&message=v2.13.4&color=green"></a>
-<a href="#"><img src="https://github.com/sunengine/SunEngine/workflows/.NET%20Core/badge.svg" ></a>
-<a href="#"><img src="https://github.com/sunengine/SunEngine/workflows/Quasar/badge.svg" ></a>
+<a href="#"><img src="https://github.com/sunengine/SunEngine/actions/workflows/dotnetcore.yml/badge.svg" ></a>
+<a href="#"><img src="https://github.com/sunengine/SunEngine/actions/workflows/quasar.yml/badge.svg" ></a>
 <br/>
 <a href="https://sunengine.github.io/src/ru"><img src="https://img.shields.io/static/v1?label=%D0%94%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F&message=sunengine.github.io&color=informational"></a>
 <a href="https://sunengine.site"><img src="https://img.shields.io/static/v1?label=%D0%A1%D0%B0%D0%B9%D1%82&message=sunengine.site&color=yellow"></a> 
