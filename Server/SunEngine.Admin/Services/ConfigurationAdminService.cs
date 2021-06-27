@@ -107,7 +107,7 @@ namespace SunEngine.Admin.Services
 
 			UpdateConfigAndCustomCssVersion();
             UpdateTitleAndDescription();
-        }
+        } 
 
 		public void UpdateConfigAndCustomCssVersion()
 		{
