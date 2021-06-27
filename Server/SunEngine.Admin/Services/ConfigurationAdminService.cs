@@ -106,7 +106,7 @@ namespace SunEngine.Admin.Services
 			File.WriteAllText(configJsPath, configJs);
 
 			UpdateConfigAndCustomCssVersion();
-            UpdateDescription();
+            UpdateTitleAndDescription();
         }
 
 		public void UpdateConfigAndCustomCssVersion()
@@ -154,22 +154,27 @@ namespace SunEngine.Admin.Services
 			File.WriteAllText(configJsPath, text);
 		}
         
-        public void UpdateDescription()
+        public void UpdateTitleAndDescription()
         {
-            string description = configurationRoot.GetValue(typeof(String), "Global:SiteDescription").ToString();
-
-            description = new Regex("[<>\"\'/`]").Replace(description,"");
-
             var indexHtmlPath = pathService.Combine(PathNames.WwwRootDirName, PathNames.IndexHtmlFileName);
             if (!File.Exists(indexHtmlPath))
             {
                 Console.WriteLine("Can not write to file " + indexHtmlPath);
                 return;
             }
-
             string text = File.ReadAllText(indexHtmlPath);
-            Regex reg = new Regex("<meta name=\"{0,1}description\"{0,1} content=\"(.*?)\"");
+
+            string title = configurationRoot.GetValue(typeof(String), "Global:SiteName").ToString();
+            title = new Regex("[<>\"\'/`]").Replace(title,"");
+            Regex reg = new Regex("<title>(.*?)</title>");
+            text = reg.Replace(text, $"<title>{title}</title>");
+            
+            string description = configurationRoot.GetValue(typeof(String), "Global:SiteDescription").ToString();
+            description = new Regex("[<>\"\'/`]").Replace(description,"");
+            reg = new Regex("<meta name=\"{0,1}description\"{0,1} content=\"(.*?)\"");
             text = reg.Replace(text, $"<meta name=\"description\" content=\"{description}\"");
+            
+            
             File.WriteAllText(indexHtmlPath, text);
         }
 	}
