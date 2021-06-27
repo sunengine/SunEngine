@@ -18,9 +18,13 @@ export default function prepareParagraphs(ell,className) {
         const link = document.createElement("a");
         link.classList.add("header-anchor");
         link.classList.add("link");
-        let id = encodeURIComponent(header.innerText);
-        while (allNames[id]) id = id + "1";
-        allNames[id] = true;
+        let id = header.id;
+        if(!id) {
+            id = encodeURIComponent(header.innerText);
+            while (allNames[id]) id = id + "1";
+            allNames[id] = true;
+        }
+
         header.id = id;
         link.href = window.location.href.split("#")[0] + "#" + id;
         link.addEventListener("click", function(e) {
