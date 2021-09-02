@@ -18,7 +18,7 @@
                                :fullscreen.sync="isFullscreenCarousel"
                                padding
                                arrows
-                               v-model="carouselCurrent" v-if="carouselImages" >
+                               v-model="carouselCurrent" v-if="carouselTags" >
                     <template v-slot:control>
                         <q-carousel-control
                             position="bottom-right"
@@ -31,12 +31,10 @@
                             />
                         </q-carousel-control>
                     </template>
-                    <q-carousel-slide :name="img" v-for="img in carouselImages" :key="img" class="column no-wrap flex-center">
-                       <img :src="img" class="material__carousel--img" />
+                    <q-carousel-slide :name="'carousel-key'+i" v-for="(tag,i) in carouselTags" :key="'carousel-key'+i" class="column no-wrap flex-center">
+                       <div class="material__carousel-div" v-html="tag"></div>
                     </q-carousel-slide>
                 </q-carousel>
-
-
 
 				<div class="material__text q-mb-lg" v-html="material.text"></div>
 
@@ -184,8 +182,8 @@ export default {
 			comments: null,
 			page: null,
 			headersPrepared: false,
-            carouselImages: null,
-            carouselCurrent: null,
+            carouselTags: null,
+            carouselCurrent:null,
             isFullscreenCarousel: false
 		};
 	},
@@ -311,13 +309,12 @@ export default {
 			});
 		},
         preapairCarousel() {
-            const imgs = Array.from(this.$el.getElementsByTagName("img"));
-            const carImgs = imgs.filter(x=>x.hasAttribute("carousel"));
-            if(!carImgs || carImgs.length === 0)
+            const els = Array.from(this.$el.querySelectorAll("[carousel]"));
+            if(!els || els.length === 0)
                 return;
-            this.carouselImages = carImgs.map(x=>x.getAttribute("src"));
-            this.carouselCurrent = this.carouselImages[0];
-            carImgs.forEach(x=>x.remove());
+            this.carouselTags = els.map(x=>x.outerHTML);
+            this.carouselCurrent = "carousel-key"+0;
+            els.forEach(x=>x.remove());
             },
 		async loadDataComments() {
 			await this.$request(this.$Api.Comments.GetMaterialComments, {
@@ -400,7 +397,13 @@ export default {
 	text-align: center;
 }
 
-.material__carousel--img {
+.material__carousel-div {
+    resize: none !important;
+    height: 100%;
+}
+
+.material__carousel-div > * {
+    resize: none !important;
     height: 100%;
 }
 
