@@ -1,3 +1,8 @@
+$${\color{red}The \space project \space is \space no \space longer \space being \space developed!}$$
+
+> [!important]  
+> The project is no longer being developed!
+
 <p align="center">
 <img src="https://github.com/sunengine/SunEngine/blob/master/SunEngine.svg" width="300" alt="SunEngine Logo" />
 </p>
@@ -9,14 +14,8 @@ Build on AspNet Core, VueJS, Quasar.</h3>
 # SunEngine
 
 <a href="#"><img src="https://img.shields.io/static/v1?label=Version&message=v2.13.4&color=green"></a>
-<a href="#"><img src="https://github.com/sunengine/SunEngine/actions/workflows/dotnetcore.yml/badge.svg" ></a>
-<a href="#"><img src="https://github.com/sunengine/SunEngine/actions/workflows/quasar.yml/badge.svg" ></a>
-<br/>
+
 <a href="https://sunengine.github.io"><img src="https://img.shields.io/static/v1?label=Documentation&message=sunengine.github.io&color=informational"></a>
-<a href="https://sunengine.site"><img src="https://img.shields.io/static/v1?label=Site%20(Ru)&message=sunengine.site&color=yellow"></a>
-<a href="https://demo.sunengine.site"><img src="https://img.shields.io/static/v1?label=Demo&message=demo.sunengine.site&color=yellow"></a>
-<a href="https://t.me/SunEngine"><img src="https://img.shields.io/static/v1?label=Telegram&message=@SunEngine&color=success"></a>
-<a href="https://t.me/developer_school"><img src="https://img.shields.io/static/v1?label=Telegram&message=Developer%20School%20(RU)&color=success"></a>  
 
 <a href="README.RU.md"><img src="https://img.shields.io/static/v1?label=Readme&message=Russian&color=informational"></a>
   
@@ -85,15 +84,8 @@ The project based on modern front edge technologies:
 
 ### Links
 - Documentation - https://sunengine.github.io
-- Russian Site - https://sunengine.site
-- Demo site - https://demo.sunengine.site
 
 ### Contacts
  - Dmitrij Polianin Telegram: [@Okeanij](https://t.me/Okeanij)    
- - SunEngine Telegram group: [@SunEngine](https://t.me/SunEngine)  
 
- ### Developer School
- #### Dmitrij Polianin Developer school on Russian
- - Site: https://okeanij.ru
- - Telegram: [@developer_school](https://t.me/developer_school)
- - Instagram: [@developer_school](https://instagram.com/developer_school)
+
