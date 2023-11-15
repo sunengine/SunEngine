@@ -1,5 +1,3 @@
-$${\color{red}The \space project \space is \space no \space longer \space being \space developed!}$$
-
 > [!important]  
 > The project is no longer being developed!
 
